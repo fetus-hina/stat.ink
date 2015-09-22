@@ -1,0 +1,1 @@
+../../vendor/yiisoft/yii2-smarty/LICENSE.md

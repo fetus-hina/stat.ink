@@ -1,0 +1,185 @@
+@charset "UTF-8";
+
+body {
+    // body 上部にはナビバーが居るので適当に
+    padding-top: 70px;
+}
+
+.rate-graph {
+    height: 500px;
+}
+
+// トップページ
+#fest-list {
+    td {
+        // 「みる」ボタン
+        &:nth-child(1) {
+            width: 100px;
+            text-align: center;
+        }
+
+        // 第n回
+        &:nth-child(2) {
+            width: 4em;
+
+            // スマホでは表示しない
+            @media (max-width: 767px) {
+                display: none;
+            }
+        }
+
+        // 開催期間
+        &:nth-child(4) {
+            width: 24em;
+
+            // スマホでは開催期間を開始日だけにするので
+            // 小さくて良い
+            @media (max-width: 767px) {
+                width: 8em;
+
+                // 開催期間の表示調整
+                .fest-term-time, .fest-term-range, .fest-term-end {
+                    display: none;
+                }
+            }
+        }
+    }
+}
+
+// フッター
+footer {
+    font-size: .618em;
+    width: 100%;
+    background-color: #f5f5f5;
+    margin: .618em 0 0 0;
+    padding: 1.618em 0;
+
+    .footer-nav, .footer-notice, .footer-powered {
+        margin-top: 0.618em;
+    }
+}
+
+.dropdown-submenu {
+    position: relative;
+
+    & > .dropdown-menu {
+        top: 0;
+        left: 100%;
+        margin-top: -6px;
+        margin-left: -1px;
+        -webkit-border-radius: 0 6px 6px 6px;
+        -moz-border-radius: 0 6px 6px;
+        border-radius: 0 6px 6px 6px;
+    }
+
+    &:hover > .dropdown-menu {
+        display: block;
+    }
+
+    & > a:after {
+        display: block;
+        content: " ";
+        float: right;
+        width: 0;
+        height: 0;
+        border-color: transparent;
+        border-style: solid;
+        border-width: 5px 0 5px 5px;
+        border-left-color: #ccc;
+        margin-top: 5px;
+        margin-right: -10px;
+    }
+
+    &:hover > a:after {
+        border-left-color: #fff;
+    }
+
+    &.pull-left {
+        float: none;
+    }
+
+    &.pull-left > .dropdown-menu {
+        left: -100%;
+        margin-left: 10px;
+        -webkit-border-radius: 6px 0 6px 6px;
+        -moz-border-radius: 6px 0 6px 6px;
+        border-radius: 6px 0 6px 6px;
+    }
+}
+
+#social {
+    height: 22px;
+    margin-bottom: 20px;
+}
+
+.license-body {
+    margin-left: 10%;
+    margin-right: 5%;
+}
+
+#official-result {
+    display: none;
+}
+
+#official-result-container {
+    position: relative;
+    width: 480px;
+    max-width: 100%;
+    margin: 0 auto;
+    background-color: #ccc;
+    color: #fff;
+    text-shadow: 2px 2px 1px rgba(0, 0, 0, .5);
+    text-align: center;
+
+    .official-result-label {
+        position: absolute;
+        left: 0;
+        width: 100%;
+        background-color: rgba(0, 0, 0, .8);
+        display: table-cell;
+        vertical-align: middle;
+    }
+    
+    .official-result-team {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 50%;
+        height: 100%;
+
+        &[data-team="bravo"] {
+            left: 50%;
+        }
+    }
+
+    .official-result-team-bg {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 50%;
+        height: 100%;
+        background: #d9435f;
+
+        &[data-team="bravo"] {
+            left: 50%;
+            background: #5cb85c;
+        }
+    }
+
+    .result-data {
+        letter-spacing: 0.2ex;
+    }
+
+    .result-percent {
+        font-size: 0.5em;
+        margin-left: .25ex;
+    }
+
+    .result-multiply {
+        font-size: 0.4em;
+        margin-left: .25ex;
+        letter-spacing: 0;
+        color: rgba(255, 255, 255, .75);
+    }
+        
+}

@@ -1,0 +1,17 @@
+.DS_Store
+.buildpath
+.idea
+.project
+.settings
+/config/cookie-secret.php
+/config/favicon.license.txt
+/config/google-analytics.php
+/config/twitter.php
+/node_modules
+/phpunit.xml
+/resources/.compiled
+/vendor
+Thumbs.db
+composer.phar
+nbproject
+phpunit.phar

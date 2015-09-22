@@ -1,0 +1,1 @@
+../../vendor/bower/typeahead.js/LICENSE

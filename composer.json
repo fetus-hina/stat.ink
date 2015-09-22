@@ -1,0 +1,41 @@
+{
+    "name": "jp3cki/inkfest",
+    "description": "https://fest.ink/",
+    "homepage": "https://fest.ink/",
+    "type": "project",
+    "license": "MIT",
+    "minimum-stability": "stable",
+    "require": {
+        "php": ">= 5.5.0",
+        "ext-curl": "*",
+        "ext-intl": "*",
+        "ext-mbstring": "*",
+        "ext-mcrypt": "*",
+        "ext-pcre": "*",
+        "abraham/twitteroauth": "^0.6.0",
+        "bower-asset/flot": "^0.8.3",
+        "bower-asset/fontawesome": "^4.4",
+        "bower-asset/github-fork-ribbon-css": "^0.1.1",
+        "bower-asset/jquery": "^2.1",
+        "bower-asset/timezone-js": "^0.4.13",
+        "cybercog/yii2-google-analytics": "^0.3.1",
+        "paragonie/random_compat": "^1.0",
+        "php-curl-class/php-curl-class": "^4.6",
+        "yiisoft/yii2": "^2.0.6",
+        "yiisoft/yii2-bootstrap": "2.0.*",
+        "yiisoft/yii2-smarty": "2.0.*",
+        "zendframework/zend-crypt": "^2.5"
+    },
+    "require-dev": {
+        "phpcq/author-validation": "^1.1",
+        "squizlabs/php_codesniffer": "^2.3",
+        "symfony/yaml": "^2.7",
+        "yiisoft/yii2-gii": "2.0.*"
+    },
+    "extra": {
+        "asset-installer-paths": {
+            "bower-asset-library": "vendor/bower",
+            "npm-asset-library": "vendor/npm"
+        }
+    }
+}
