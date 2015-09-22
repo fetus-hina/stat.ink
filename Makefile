@@ -12,8 +12,9 @@ all: \
 	config/google-analytics.php \
 	config/twitter.php \
 	config/cookie-secret.php \
+	config/db.php \
 	resource \
-	db/fest.sqlite
+	migrate-db
 
 resource: $(RESOURCE_TARGETS)
 
@@ -53,16 +54,16 @@ resources/.compiled/fest.ink/fest.css.gz: node_modules resources/fest.ink/fest.l
 resources/.compiled/gh-fork-ribbon/gh-fork-ribbon.js.gz: node_modules resources/gh-fork-ribbon/gh-fork-ribbon.js
 	./node_modules/.bin/gulp gh-fork
 
-db/fest.sqlite: vendor FORCE
+migrate-db: vendor config/db.php
 	./yii migrate/up --interactive=0
-	sqlite3 db/fest.sqlite VACUUM
 
 config/cookie-secret.php: vendor
 	test -f config/cookie-secret.php || ./yii secret/cookie
 	touch config/cookie-secret.php
 
-config/twitter.php:
-	cp config/twitter.php.sample config/twitter.php
+config/db.php: vendor
+	test -f config/db.php || ./yii secret/db
+	touch config/db.php
 
 config/google-analytics.php:
 	echo '<?php' > config/google-analytics.php

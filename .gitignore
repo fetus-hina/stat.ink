@@ -4,9 +4,8 @@
 .project
 .settings
 /config/cookie-secret.php
-/config/favicon.license.txt
+/config/db.php
 /config/google-analytics.php
-/config/twitter.php
 /node_modules
 /phpunit.xml
 /resources/.compiled

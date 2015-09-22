@@ -1,7 +1,7 @@
 <?php
 /**
  * @copyright Copyright (C) 2015 AIZAWA Hina
- * @license https://github.com/fetus-hina/fest.ink/blob/master/LICENSE MIT
+ * @license https://github.com/fetus-hina/IkaLogLog/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  */
 
@@ -24,5 +24,45 @@ class SecretController extends Controller
             sprintf("<?php\nreturn '%s';\n", $key)
         );
         $this->stdout("Done.\n", Console::FG_GREEN);
+    }
+
+    public function actionDb()
+    {
+        $this->stdout("Creating \"config/db.php\"... ", Console::FG_YELLOW);
+        $passwordBits = 128;
+        $length = (int)ceil($passwordBits / 8);
+        $binary = random_bytes($length); // PHP 7 native random_bytes() or compat-lib's one
+        $password = substr(strtr(base64_encode($binary), '+/=', '_-.'), 0, $length);
+
+        $dsnOptions = [
+            'host' => 'localhost',
+            'port' => '5432',
+            'dbname' => 'ikaloglog',
+        ];
+
+        $options = [
+            'class'     => \yii\db\Connection::className(),
+            'dsn'       => $this->makeDsn('pgsql', $dsnOptions),
+            'username'  => 'ikaloglog',
+            'password'  => $password,
+            'charset'   => 'UTF-8',
+        ];
+
+        $file  = "<?php\n";
+        $file .= "return [\n";
+        foreach ($options as $k => $v) {
+            $file .= "    '{$k}' => '" . addslashes($v) . "',\n";
+        }
+        $file .= "];\n";
+        file_put_contents(
+            __DIR__ . '/../config/db.php',
+            $file
+        );
+        $this->stdout("Done.\n", Console::FG_GREEN);
+    }
+
+    private function makeDsn($driver, array $options)
+    {
+        return $driver . ':' . http_build_query($options, '', ';');
     }
 }
