@@ -1,7 +1,6 @@
 {{strip}}
 {{\app\assets\AppAsset::register($this)|@void}}
-{{\app\assets\FaviconAsset::register($this)|@void}}
-{{\app\assets\AppleStartupAsset::register($this)|@void}}
+{{\app\assets\GithubForkRibbonJsAsset::register($this)|@void}}
 {{$this->beginPage()|@void}}
   <!DOCTYPE html>
   <html lang="ja">
@@ -11,9 +10,8 @@
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <meta name="apple-mobile-web-app-capable" content="yes">
       <meta name="format-detection" content="telephone=no,email=no,address=no">
-      <meta name="timezone" content="{{$app->timeZone|escape}}">
       {{\yii\helpers\Html::csrfMetaTags()}}
-      <title>{{$this->title|default:$app->name|default:'イカフェスレート'|escape}}</title>
+      <title>{{$this->title|default:$app->name|default:'IkaLogLog'|escape}}</title>
       {{$this->head()}}
     </head>
     <body>

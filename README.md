@@ -1,3 +1,10 @@
+IkaLogLog
+=========
+
+この README はまだ fest.ink 用のものから書き直していません。
+
+----
+
 fest.ink
 ========
 

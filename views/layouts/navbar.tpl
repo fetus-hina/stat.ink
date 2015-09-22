@@ -9,12 +9,12 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand ikamodoki" href="/">イカフェスレート</a>
+        <a class="navbar-brand" href="/">{{$app->name|escape}}</a>
       </div>
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
           <li class="dropdown">
-            <a href="javascript:;" class="dropdown-toggle ikamodoki" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+            <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
               フェス <span class="caret"></span>
             </a>
             <ul class="dropdown-menu">
@@ -33,7 +33,7 @@
             </ul>
           </li>
           <li class="dropdown">
-            <a href="javascript:;" class="dropdown-toggle ikamodoki" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+            <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
               リンク <span class="caret"></span>
             </a>
             <ul class="dropdown-menu">
@@ -51,6 +51,9 @@
               </li>
               <li class="divider"></li>
               <li>
+                <a href="https://fest.ink/">イカフェスレート</a>
+              </li>
+              <li>
                 <a href="https://ikadenwa.ink/" class="auto-tooltip" title="フレンドマッチ中の通話に便利なサイトです">イカデンワ</a>
               </li>
               <li>
@@ -62,17 +65,6 @@
               <li>
                 <a href="http://ika.akaihako.com/unislot" class="auto-tooltip" title="サザエガチャのシミュレータです">ウニスロット</a>
               </li>
-              <li class="divider"></li>
-              <li>
-                <a href="http://aramugi.com/?page_id=807" class="ikamodoki auto-tooltip" title="イカしたフォントです">フリーフォント イカモドキ</a>
-              </li>
-            </ul>
-          </li>
-          <li class="dropdown">
-            <a href="javascript:;" class="dropdown-toggle ikamodoki" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-              タイムゾーン <span class="caret"></span>
-            </a>
-            <ul class="dropdown-menu" id="timezone-list">
             </ul>
           </li>
         </ul>

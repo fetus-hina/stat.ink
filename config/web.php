@@ -1,9 +1,9 @@
 <?php
 $params = require(__DIR__ . '/params.php');
 $config = [
-    'name' => 'イカフェスレート',
-    'version' => '2.0.0-dev',
-    'id' => 'basic',
+    'name' => 'IkaLogLog',
+    'version' => '0.1.0-dev',
+    'id' => 'ikaloglog',
     'language' => 'ja-jp',
     'timeZone' => 'Asia/Tokyo',
     'basePath' => dirname(__DIR__),
