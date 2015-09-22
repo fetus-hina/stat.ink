@@ -32,14 +32,8 @@ $config = [
             'showScriptName' => false,
             'enableStrictParsing' => true,
             'rules' => [
-                '<id:\d+>'      => 'fest/view',
-                '<id:\d+>.json' => 'fest/view-json',
-                'timezone.json' => 'timezone/json',
-                'timezone/set'  => 'timezone/set',
                 '<action:\w+>'  => 'site/<action>',
-                'flash.json'    => 'fest/emulate-official-json',
-                'index.json'    => 'fest/index-json',
-                ''              => 'fest/index',
+                ''              => 'site/index',
             ],
         ],
         'request' => [

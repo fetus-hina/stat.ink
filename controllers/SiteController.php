@@ -19,9 +19,13 @@ class SiteController extends Controller
                 'class' => 'yii\web\ErrorAction',
                 'view' => 'error.tpl',
             ],
-            'api' => [
-                'class' => 'app\actions\site\ApiDocAction',
+            'index' => [
+                'class' => 'app\actions\site\SimpleAction',
+                'view' => 'index.tpl',
             ],
+            // 'api' => [
+            //     'class' => 'app\actions\site\ApiDocAction',
+            // ],
             'license' => [
                 'class' => 'app\actions\site\LicenseAction',
             ],

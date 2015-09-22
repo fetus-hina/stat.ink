@@ -15,6 +15,7 @@
         "bower-asset/github-fork-ribbon-css": "^0.1.1",
         "bower-asset/jquery": "^2.1",
         "cybercog/yii2-google-analytics": "^0.3.1",
+        "ircmaxell/password-compat": "^1.0",
         "paragonie/random_compat": "^1.0",
         "php-curl-class/php-curl-class": "^4.6",
         "yiisoft/yii2": "^2.0.6",

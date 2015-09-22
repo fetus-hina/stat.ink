@@ -10,7 +10,6 @@ all: \
 	vendor \
 	node_modules \
 	config/google-analytics.php \
-	config/twitter.php \
 	config/cookie-secret.php \
 	config/db.php \
 	resource \
@@ -69,4 +68,4 @@ config/google-analytics.php:
 	echo '<?php' > config/google-analytics.php
 	echo 'return "";' >> config/google-analytics.php
 
-.PHONY: all resource check-style fix-style clean clean-resource FORCE
+.PHONY: all resource check-style fix-style clean clean-resource migrate-db FORCE

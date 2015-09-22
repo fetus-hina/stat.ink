@@ -7,7 +7,7 @@
         $('<div>').addClass('github-fork-ribbon').css('background-color', '#f80').append(
           $('<a>')
             .attr(
-                'href', 'https://github.com/fetus-hina/fest.ink'
+                'href', 'https://github.com/fetus-hina/IkaLogLog'
             ).append(
               'Fork me on '
             ).append(

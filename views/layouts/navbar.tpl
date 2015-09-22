@@ -15,25 +15,6 @@
         <ul class="nav navbar-nav">
           <li class="dropdown">
             <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-              フェス <span class="caret"></span>
-            </a>
-            <ul class="dropdown-menu">
-              {{$_allFest = \app\models\Fest::find()->orderBy("id DESC")->all()}}
-              {{foreach $_allFest as $_fest}}
-                <li>
-                  <a href="{{path route="/fest/view" id=$_fest->id}}">
-                    {{if $_fest->id === 1}}
-                      <del class="auto-tooltip" title="データの取得を行っていないため何も表示されません">#{{$_fest->id|escape}}: {{$_fest->name|escape}}</del>
-                    {{else}}
-                      #{{$_fest->id|escape}}: {{$_fest->name|escape}}
-                    {{/if}}
-                  </a>
-                </li>
-              {{/foreach}}
-            </ul>
-          </li>
-          <li class="dropdown">
-            <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
               リンク <span class="caret"></span>
             </a>
             <ul class="dropdown-menu">
