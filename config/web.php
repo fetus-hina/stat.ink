@@ -34,6 +34,7 @@ $config = [
             'rules' => [
                 'login'         => 'user/login',
                 'logout'        => 'user/logout',
+                'profile'       => 'user/profile',
                 'register'      => 'user/register',
                 '<action:\w+>'  => 'site/<action>',
                 ''              => 'site/index',

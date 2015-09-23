@@ -34,6 +34,10 @@
               </a>
               <ul class="dropdown-menu">
                 <li>
+                  <a href="{{path route="user/profile"}}">ユーザ情報</a>
+                </li>
+                <li class="divider"></li>
+                <li>
                   <a href="{{path route="user/logout"}}">ログアウト</a>
                 </li>
               </ul>

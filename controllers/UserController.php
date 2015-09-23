@@ -28,7 +28,7 @@ class UserController extends Controller
                         'allow' => true,
                     ],
                     [
-                        'actions' => [ 'logout' ],
+                        'actions' => [ 'logout', 'profile' ],
                         'roles' => ['@'],
                         'allow' => true,
                     ],
@@ -52,6 +52,7 @@ class UserController extends Controller
             'login'     => [ 'class' => $prefix . '\LoginAction' ],
             'logout'    => [ 'class' => $prefix . '\LogoutAction' ],
             'register'  => [ 'class' => $prefix . '\RegisterAction' ],
+            'profile'   => [ 'class' => $prefix . '\ProfileAction' ],
         ];
     }
 }
