@@ -1,7 +1,0 @@
-<?php
-return [
-    'consumerKey' => 'FILL ME IN',
-    'consumerSecret' => 'FILL ME IN',
-    'userToken' => '',
-    'userSecret' => '',
-];

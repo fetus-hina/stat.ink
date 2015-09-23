@@ -33,6 +33,7 @@ $config = [
             'enableStrictParsing' => true,
             'rules' => [
                 'login'         => 'user/login',
+                'logout'        => 'user/logout',
                 'register'      => 'user/register',
                 '<action:\w+>'  => 'site/<action>',
                 ''              => 'site/index',
@@ -75,6 +76,11 @@ $config = [
             ],
         ],
         'db' => require(__DIR__ . '/db.php'),
+        'user' => [
+            'identityClass' => 'app\models\User',
+            'enableAutoLogin' => false,
+            'loginUrl' => ['user/login'],
+        ],
     ],
     'params' => $params,
 ];

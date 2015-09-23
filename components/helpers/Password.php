@@ -18,7 +18,7 @@ class Password
 
     public static function needsRehash($hash)
     {
-        return password_needs_rehash($hash);
+        return password_needs_rehash($hash, PASSWORD_DEFAULT);
     }
 
     private static function preprocess($password, $algo = PASSWORD_DEFAULT)

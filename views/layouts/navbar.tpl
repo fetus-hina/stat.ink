@@ -14,6 +14,32 @@
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
           <li class="dropdown">
+            {{$user = $app->user}}
+            {{if $user->isGuest}}
+              <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                <span class="fa fa-user"></span> ゲスト <span class="caret"></span>
+              </a>
+              <ul class="dropdown-menu">
+                <li>
+                  <a href="{{path route="user/login"}}">ログイン</a>
+                </li>
+                <li>
+                  <a href="{{path route="user/register"}}">ユーザ登録</a>
+                </li>
+              </ul>
+            {{else}}
+              {{$ident = $user->identity}}
+              <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                <span class="fa fa-user"></span> {{$ident->name|escape}} さん <span class="caret"></span>
+              </a>
+              <ul class="dropdown-menu">
+                <li>
+                  <a href="{{path route="user/logout"}}">ログアウト</a>
+                </li>
+              </ul>
+            {{/if}}
+          </li>
+          <li class="dropdown">
             <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
               リンク <span class="caret"></span>
             </a>

@@ -3,6 +3,8 @@ namespace app\models;
 
 use Yii;
 use yii\db\ActiveRecord;
+use yii\web\IdentityInterface;
+use app\components\helpers\Password;
 
 /**
  * This is the model class for table "user".
@@ -14,7 +16,7 @@ use yii\db\ActiveRecord;
  * @property string $api_key
  * @property string $join_at
  */
-class User extends ActiveRecord
+class User extends ActiveRecord implements IdentityInterface
 {
     /**
      * @inheritdoc
@@ -78,5 +80,49 @@ class User extends ActiveRecord
                 return $key;
             }
         }
+    }
+
+    // IdentityInterface
+    public static function findIdentity($id)
+    {
+        return static::findOne(['id' => (string)$id]);
+    }
+
+    // IdentityInterface
+    public static function findIdentityByAccessToken($token, $type = null)
+    {
+        return static::findOne(['api_key' => (string)$token]);
+    }
+
+    // IdentityInterface
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    // IdentityInterface
+    public function getAuthKey()
+    {
+        return null;
+    }
+
+    // IdentityInterface
+    public function validateAuthKey($authKey)
+    {
+        return false;
+    }
+
+    public function validatePassword($password)
+    {
+        return Password::verify($password, $this->password);
+    }
+
+    public function rehashPasswordIfNeeded($password)
+    {
+        if (!Password::needsRehash($this->password)) {
+            return false;
+        }
+        $this->password = Password::hash($password);
+        return true;
     }
 }

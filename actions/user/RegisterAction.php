@@ -9,7 +9,7 @@ namespace app\actions\user;
 
 use Yii;
 use yii\web\ViewAction as BaseAction;
-use yii\web\NotFoundHttpException;
+use app\models\LoginForm;
 use app\models\RegisterForm;
 use app\models\User;
 
@@ -26,9 +26,13 @@ class RegisterAction extends BaseAction
             if ($form->validate()) {
                 $user = $form->toUserModel();
                 if ($user->save()) {
-                    echo "ok. saved.\n";
-                    echo $user->id . "\n";
-                    exit;
+                    // ログインの動きを統一するためにログインフォームで認証かける
+                    $login = new LoginForm();
+                    $login->screen_name = $form->screen_name;
+                    $login->password = $form->password;
+                    if ($login->login()) {
+                        return $this->controller->redirect(Yii::$app->user->getReturnUrl());
+                    }
                 }
             }
         }
