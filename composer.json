@@ -20,7 +20,9 @@
         "php-curl-class/php-curl-class": "^4.6",
         "yiisoft/yii2": "^2.0.6",
         "yiisoft/yii2-bootstrap": "2.0.*",
-        "yiisoft/yii2-smarty": "2.0.*"
+        "yiisoft/yii2-smarty": "2.0.*",
+        "himiklab/yii2-recaptcha-widget": "^1.0",
+        "bower-asset/zxcvbn": "^3.5"
     },
     "require-dev": {
         "phpcq/author-validation": "^1.1",

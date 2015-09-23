@@ -1,8 +1,8 @@
 STYLE_TARGETS=actions assets commands components controllers models
-JS_SRCS=$(shell ls -1 resources/fest.ink/fest.js/*.js)
+JS_SRCS=$(shell ls -1 resources/ikaloglog/main.js/*.js)
 
-RESOURCE_TARGETS=resources/.compiled/fest.ink/fest.css.gz \
-	resources/.compiled/fest.ink/fest.js.gz \
+RESOURCE_TARGETS=resources/.compiled/ikaloglog/main.css.gz \
+	resources/.compiled/ikaloglog/main.js.gz \
 	resources/.compiled/gh-fork-ribbon/gh-fork-ribbon.js.gz
 
 all: \
@@ -10,6 +10,7 @@ all: \
 	vendor \
 	node_modules \
 	config/google-analytics.php \
+	config/google-recaptcha.php \
 	config/cookie-secret.php \
 	config/db.php \
 	resource \
@@ -44,11 +45,11 @@ clean-resource:
 composer.phar:
 	curl -sS https://getcomposer.org/installer | php
 
-resources/.compiled/fest.ink/fest.js.gz: node_modules $(JS_SRCS)
-	./node_modules/.bin/gulp fest-ink-js
+resources/.compiled/ikaloglog/main.js.gz: node_modules $(JS_SRCS)
+	./node_modules/.bin/gulp main-js
 
-resources/.compiled/fest.ink/fest.css.gz: node_modules resources/fest.ink/fest.less
-	./node_modules/.bin/gulp fest-ink-css
+resources/.compiled/ikaloglog/main.css.gz: node_modules resources/ikaloglog/main.less
+	./node_modules/.bin/gulp main-css
 
 resources/.compiled/gh-fork-ribbon/gh-fork-ribbon.js.gz: node_modules resources/gh-fork-ribbon/gh-fork-ribbon.js
 	./node_modules/.bin/gulp gh-fork
@@ -67,5 +68,12 @@ config/db.php: vendor
 config/google-analytics.php:
 	echo '<?php' > config/google-analytics.php
 	echo 'return "";' >> config/google-analytics.php
+
+config/google-recaptcha.php:
+	echo '<?php'                >  config/google-recaptcha.php
+	echo 'return ['             >> config/google-recaptcha.php
+	echo "    'siteKey' => ''," >> config/google-recaptcha.php
+	echo "    'secret'  => ''," >> config/google-recaptcha.php
+	echo '];'                   >> config/google-recaptcha.php
 
 .PHONY: all resource check-style fix-style clean clean-resource migrate-db FORCE

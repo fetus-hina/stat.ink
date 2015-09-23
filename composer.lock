@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "764a491497f5528932b8e7eb000e58ed",
-    "content-hash": "144dead74d6bec31bcdf57d27ee38dfb",
+    "hash": "4cbdc578758fdcccae61dd4dd7d780c1",
+    "content-hash": "adafc048c5a5bf5408fbed48da45be98",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -290,6 +290,54 @@
             ]
         },
         {
+            "name": "bower-asset/zxcvbn",
+            "version": "3.5.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dropbox/zxcvbn.git",
+                "reference": "b87994fd10bd65034bd456666aa32e9636df1f27"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dropbox/zxcvbn/zipball/b87994fd10bd65034bd456666aa32e9636df1f27",
+                "reference": "b87994fd10bd65034bd456666aa32e9636df1f27",
+                "shasum": ""
+            },
+            "type": "bower-asset-library",
+            "extra": {
+                "bower-asset-main": "dist/zxcvbn.js",
+                "bower-asset-ignore": [
+                    "/.*",
+                    "*.json",
+                    "node_modules",
+                    "data",
+                    "data-scripts",
+                    "demo",
+                    "lib",
+                    "src",
+                    "test"
+                ]
+            },
+            "description": "realistic password strength estimation",
+            "keywords": [
+                "authentication",
+                "bruteforce",
+                "cracking",
+                "entropy",
+                "estimate",
+                "estimation",
+                "matcher",
+                "meter",
+                "passphrase",
+                "password",
+                "pattern",
+                "quality",
+                "scoring",
+                "security",
+                "strength"
+            ]
+        },
+        {
             "name": "cebe/markdown",
             "version": "1.1.0",
             "source": {
@@ -433,6 +481,49 @@
                 "html"
             ],
             "time": "2013-11-30 08:25:19"
+        },
+        {
+            "name": "himiklab/yii2-recaptcha-widget",
+            "version": "1.0.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/himiklab/yii2-recaptcha-widget.git",
+                "reference": "eee29a367c352d0110d4d5310613798af59bc4fe"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/himiklab/yii2-recaptcha-widget/zipball/eee29a367c352d0110d4d5310613798af59bc4fe",
+                "reference": "eee29a367c352d0110d4d5310613798af59bc4fe",
+                "shasum": ""
+            },
+            "require": {
+                "yiisoft/yii2": "*"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "himiklab\\yii2\\recaptcha\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "HimikLab",
+                    "homepage": "https://github.com/himiklab/"
+                }
+            ],
+            "description": "Yii2 Google reCAPTCHA widget",
+            "keywords": [
+                "captcha",
+                "google",
+                "recaptcha",
+                "widget",
+                "yii2"
+            ],
+            "time": "2015-02-15 15:55:23"
         },
         {
             "name": "ircmaxell/password-compat",

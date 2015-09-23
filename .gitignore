@@ -6,6 +6,7 @@
 /config/cookie-secret.php
 /config/db.php
 /config/google-analytics.php
+/config/google-recaptcha.php
 /node_modules
 /phpunit.xml
 /resources/.compiled

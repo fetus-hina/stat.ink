@@ -12,16 +12,10 @@ use yii\db\ActiveRecord;
  * @property string $screen_name
  * @property string $password
  * @property string $api_key
- * @property boolean $enabled
  * @property string $join_at
  */
 class User extends ActiveRecord
 {
-    public static function find()
-    {
-        return parent::find()->andWhere(['[[enabled]]' => true]);
-    }
-
     /**
      * @inheritdoc
      */
@@ -47,8 +41,7 @@ class User extends ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'screen_name', 'password', 'api_key', 'enabled', 'join_at'], 'required'],
-            [['enabled'], 'boolean'],
+            [['name', 'screen_name', 'password', 'api_key', 'join_at'], 'required'],
             [['join_at'], 'safe'],
             [['name'], 'string', 'max' => 10],
             [['screen_name'], 'string', 'max' => 15],
@@ -67,12 +60,11 @@ class User extends ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
-            'screen_name' => 'Screen Name',
-            'password' => 'Password',
-            'api_key' => 'Api Key',
-            'enabled' => 'Enabled',
-            'join_at' => 'Join At',
+            'name' => '名前',
+            'screen_name' => 'ログイン名',
+            'password' => 'パスワード',
+            'api_key' => 'APIキー',
+            'join_at' => 'join at',
         ];
     }
 

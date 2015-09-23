@@ -11,17 +11,16 @@ use yii\web\AssetBundle;
 
 class AppAsset extends AssetBundle
 {
-    public $sourcePath = '@app/resources/.compiled/fest.ink';
+    public $sourcePath = '@app/resources/.compiled/ikaloglog';
     public $css = [
-        'fest.css',
+        'main.css',
     ];
     public $js = [
-        'fest.js',
+        'main.js',
     ];
     public $depends = [
         'yii\web\JqueryAsset',
         'yii\bootstrap\BootstrapAsset',
-        'yii\bootstrap\BootstrapThemeAsset',
         'yii\bootstrap\BootstrapPluginAsset',
         'app\assets\FontAwesomeAsset',
     ];

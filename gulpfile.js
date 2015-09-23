@@ -14,17 +14,17 @@ gulp.task('gh-fork', function() {
     .pipe(gulp.dest('resources/.compiled/gh-fork-ribbon'));
 });
 
-gulp.task('fest-ink-css', function() {
-  gulp.src('resources/fest.ink/*.less')
+gulp.task('main-css', function() {
+  gulp.src('resources/ikaloglog/*.less')
     .pipe($.less())
     .pipe($.minifyCss({keepBreaks:true}))
     .pipe($.gzip({gzipOptions:{level:9}}))
-    .pipe(gulp.dest('resources/.compiled/fest.ink'))
+    .pipe(gulp.dest('resources/.compiled/ikaloglog'))
 });
 
-gulp.task('fest-ink-js', function() {
-  gulp.src('resources/fest.ink/fest.js/*.js')
-    .pipe($.concat('fest.js', {newLine:';'}))
+gulp.task('main-js', function() {
+  gulp.src('resources/ikaloglog/main.js/*.js')
+    .pipe($.concat('main.js', {newLine:';'}))
     .pipe(uglify({
       preserveComments: 'some',
       output: {
@@ -32,11 +32,11 @@ gulp.task('fest-ink-js', function() {
       },
     }))
     .pipe($.gzip({gzipOptions:{level:9}}))
-    .pipe(gulp.dest('resources/.compiled/fest.ink'));
+    .pipe(gulp.dest('resources/.compiled/ikaloglog'));
 });
 
 gulp.task('default', [
-  'fest-ink-css',
-  'fest-ink-js',
   'gh-fork',
+  'main-css',
+  'main-js',
 ]);

@@ -32,6 +32,8 @@ $config = [
             'showScriptName' => false,
             'enableStrictParsing' => true,
             'rules' => [
+                'login'         => 'user/login',
+                'register'      => 'user/register',
                 '<action:\w+>'  => 'site/<action>',
                 ''              => 'site/index',
             ],
