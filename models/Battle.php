@@ -25,6 +25,7 @@ use Yii;
  * @property User $user
  * @property Weapon $weapon
  * @property BattleGachi $battleGachi
+ * @property BattleImage[] $battleImages
  * @property BattleNawabari $battleNawabari
  */
 class Battle extends \yii\db\ActiveRecord
@@ -116,6 +117,14 @@ class Battle extends \yii\db\ActiveRecord
     public function getBattleGachi()
     {
         return $this->hasOne(BattleGachi::className(), ['id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getBattleImages()
+    {
+        return $this->hasMany(BattleImage::className(), ['battle_id' => 'id']);
     }
 
     /**
