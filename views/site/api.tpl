@@ -1,7 +1,6 @@
 {{strip}}
 {{set layout="main.tpl"}}
-{{set title="イカフェスレート | API"}}
-{{\app\assets\HeadingIkamodokiAsset::register($this)|@void}}
+{{set title="{{$app->name}} | API"}}
 <div class="container">
   {{$content}}
 </div>
