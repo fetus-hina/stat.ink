@@ -12,6 +12,7 @@ use Yii;
  * @property string $key
  * @property string $name
  *
+ * @property Battle[] $battles
  * @property WeaponType $type
  */
 class Weapon extends \yii\db\ActiveRecord
@@ -50,6 +51,14 @@ class Weapon extends \yii\db\ActiveRecord
             'key' => 'Key',
             'name' => 'Name',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getBattles()
+    {
+        return $this->hasMany(Battle::className(), ['weapon_id' => 'id']);
     }
 
     /**

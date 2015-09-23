@@ -10,6 +10,8 @@ use Yii;
  * @property integer $id
  * @property string $key
  * @property string $name
+ *
+ * @property Battle[] $battles
  */
 class Rule extends \yii\db\ActiveRecord
 {
@@ -45,5 +47,13 @@ class Rule extends \yii\db\ActiveRecord
             'key' => 'Key',
             'name' => 'Name',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getBattles()
+    {
+        return $this->hasMany(Battle::className(), ['rule_id' => 'id']);
     }
 }

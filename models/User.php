@@ -15,6 +15,8 @@ use app\components\helpers\Password;
  * @property string $password
  * @property string $api_key
  * @property string $join_at
+ *
+ * @property Battle[] $battles
  */
 class User extends ActiveRecord implements IdentityInterface
 {
@@ -68,6 +70,14 @@ class User extends ActiveRecord implements IdentityInterface
             'api_key' => 'APIキー',
             'join_at' => 'join at',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getBattles()
+    {
+        return $this->hasMany(Battle::className(), ['user_id' => 'id']);
     }
 
     public static function generateNewApiKey()
