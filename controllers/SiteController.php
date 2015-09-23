@@ -23,9 +23,9 @@ class SiteController extends Controller
                 'class' => 'app\actions\site\SimpleAction',
                 'view' => 'index.tpl',
             ],
-            // 'api' => [
-            //     'class' => 'app\actions\site\ApiDocAction',
-            // ],
+            'api' => [
+                'class' => 'app\actions\site\ApiDocAction',
+            ],
             'license' => [
                 'class' => 'app\actions\site\LicenseAction',
             ],
