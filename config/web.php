@@ -36,12 +36,17 @@ $config = [
                 'logout'        => 'user/logout',
                 'profile'       => 'user/profile',
                 'register'      => 'user/register',
+                'api/v1/<action:\w+>' => 'api-v1/<action>',
                 '<action:\w+>'  => 'site/<action>',
                 ''              => 'site/index',
             ],
         ],
         'request' => [
             'cookieValidationKey' => include(__DIR__ . '/cookie-secret.php'),
+            'parsers' => [
+                'application/json' => 'yii\web\JsonParser',
+                'application/x-msgpack' => 'app\components\web\MessagePackParser',
+            ],
         ],
         'response' => [
             'class' => 'app\components\web\Response',

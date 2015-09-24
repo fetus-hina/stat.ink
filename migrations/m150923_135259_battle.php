@@ -30,6 +30,8 @@ class m150923_135259_battle extends Migration
             'my_point'  => $this->integer(),
             'my_team_final_point'   => $this->integer(),
             'his_team_final_point'  => $this->integer(),
+            'my_team_final_percent'  => $this->decimal(4, 1),
+            'his_team_final_percent' => $this->decimal(4, 1),
         ]);
         $this->addPrimaryKey('pk_battle_nawabari', 'battle_nawabari', 'id');
         $this->addForeignKey('fk_battle_nawabari_1', 'battle_nawabari', 'id', 'battle', 'id', 'RESTRICT');
