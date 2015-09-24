@@ -5,9 +5,9 @@
         {{$_ver = \app\components\Version::getVersion()}}
         {{$_revL = \app\components\Version::getRevision()}}
         {{$_revS = \app\components\Version::getShortRevision()}}
-        {{$app->name|escape}} Version <a href="https://github.com/fetus-hina/IkaLogLog/releases/tag/v{{$_ver|escape:url|escape}}">{{$_ver|escape}}</a>
+        {{$app->name|escape}} Version <a href="https://github.com/fetus-hina/stat.ink/releases/tag/v{{$_ver|escape:url|escape}}">{{$_ver|escape}}</a>
         {{if $_revL && $_revS}}
-          , Revision <a href="https://github.com/fetus-hina/IkaLogLog/commit/{{$_revL|escape:url|escape}}">{{$_revS|escape}}</a>
+          , Revision <a href="https://github.com/fetus-hina/stat.ink/commit/{{$_revL|escape:url|escape}}">{{$_revS|escape}}</a>
         {{/if}}
       </div>
       <div class="footer-author">
@@ -27,9 +27,9 @@
       </div>
       <div class="footer-notice">
         このサイトは非公式(unofficial)サービスです。任天堂株式会社とは一切関係ありません。<br>
-        このサイトのソースコードは<a href="https://github.com/fetus-hina/IkaLogLog">オープンソース(MIT License)です</a>。（※イラストを除く）<br>
+        このサイトのソースコードは<a href="https://github.com/fetus-hina/stat.ink">オープンソース(MIT License)です</a>。<br>
         バグの報告・改善の提案などがありましたら、
-          <a href="https://github.com/fetus-hina/IkaLogLog"><span class="fa fa-github"></span> GitHubのプロジェクト</a>に報告・提案するか、
+          <a href="https://github.com/fetus-hina/stat.ink"><span class="fa fa-github"></span> GitHubのプロジェクト</a>に報告・提案するか、
           <a href="https://twitter.com/fetus_hina"><span class="fa fa-twitter"></span> @fetus_hina</a>にご連絡ください。
       </div>
       <div class="footer-powered">

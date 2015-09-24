@@ -1,8 +1,8 @@
 STYLE_TARGETS=actions assets commands components controllers models
-JS_SRCS=$(shell ls -1 resources/ikaloglog/main.js/*.js)
+JS_SRCS=$(shell ls -1 resources/stat.ink/main.js/*.js)
 
-RESOURCE_TARGETS=resources/.compiled/ikaloglog/main.css.gz \
-	resources/.compiled/ikaloglog/main.js.gz \
+RESOURCE_TARGETS=resources/.compiled/stat.ink/main.css.gz \
+	resources/.compiled/stat.ink/main.js.gz \
 	resources/.compiled/gh-fork-ribbon/gh-fork-ribbon.js.gz
 
 all: \
@@ -45,10 +45,10 @@ clean-resource:
 composer.phar:
 	curl -sS https://getcomposer.org/installer | php
 
-resources/.compiled/ikaloglog/main.js.gz: node_modules $(JS_SRCS)
+resources/.compiled/stat.ink/main.js.gz: node_modules $(JS_SRCS)
 	./node_modules/.bin/gulp main-js
 
-resources/.compiled/ikaloglog/main.css.gz: node_modules resources/ikaloglog/main.less
+resources/.compiled/stat.ink/main.css.gz: node_modules resources/stat.ink/main.less
 	./node_modules/.bin/gulp main-css
 
 resources/.compiled/gh-fork-ribbon/gh-fork-ribbon.js.gz: node_modules resources/gh-fork-ribbon/gh-fork-ribbon.js

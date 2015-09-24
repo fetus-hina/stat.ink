@@ -1,7 +1,7 @@
 <?php
 /**
  * @copyright Copyright (C) 2015 AIZAWA Hina
- * @license https://github.com/fetus-hina/IkaLogLog/blob/master/LICENSE MIT
+ * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  */
 
@@ -37,13 +37,13 @@ class SecretController extends Controller
         $dsnOptions = [
             'host' => 'localhost',
             'port' => '5432',
-            'dbname' => 'ikaloglog',
+            'dbname' => 'statink',
         ];
 
         $options = [
             'class'     => \yii\db\Connection::className(),
             'dsn'       => $this->makeDsn('pgsql', $dsnOptions),
-            'username'  => 'ikaloglog',
+            'username'  => 'statink',
             'password'  => $password,
             'charset'   => 'UTF-8',
         ];

@@ -15,15 +15,15 @@ gulp.task('gh-fork', function() {
 });
 
 gulp.task('main-css', function() {
-  gulp.src('resources/ikaloglog/*.less')
+  gulp.src('resources/stat.ink/*.less')
     .pipe($.less())
     .pipe($.minifyCss({keepBreaks:true}))
     .pipe($.gzip({gzipOptions:{level:9}}))
-    .pipe(gulp.dest('resources/.compiled/ikaloglog'))
+    .pipe(gulp.dest('resources/.compiled/stat.ink'))
 });
 
 gulp.task('main-js', function() {
-  gulp.src('resources/ikaloglog/main.js/*.js')
+  gulp.src('resources/stat.ink/main.js/*.js')
     .pipe($.concat('main.js', {newLine:';'}))
     .pipe(uglify({
       preserveComments: 'some',
@@ -32,7 +32,7 @@ gulp.task('main-js', function() {
       },
     }))
     .pipe($.gzip({gzipOptions:{level:9}}))
-    .pipe(gulp.dest('resources/.compiled/ikaloglog'));
+    .pipe(gulp.dest('resources/.compiled/stat.ink'));
 });
 
 gulp.task('default', [

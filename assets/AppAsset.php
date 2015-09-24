@@ -11,7 +11,7 @@ use yii\web\AssetBundle;
 
 class AppAsset extends AssetBundle
 {
-    public $sourcePath = '@app/resources/.compiled/ikaloglog';
+    public $sourcePath = '@app/resources/.compiled/stat.ink';
     public $css = [
         'main.css',
     ];

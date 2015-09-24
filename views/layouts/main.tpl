@@ -11,7 +11,7 @@
       <meta name="apple-mobile-web-app-capable" content="yes">
       <meta name="format-detection" content="telephone=no,email=no,address=no">
       {{\yii\helpers\Html::csrfMetaTags()}}
-      <title>{{$this->title|default:$app->name|default:'IkaLogLog'|escape}}</title>
+      <title>{{$this->title|default:$app->name|default:'stat.ink'|escape}}</title>
       {{$this->head()}}
     </head>
     <body>

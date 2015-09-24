@@ -1,5 +1,5 @@
-IkaLogLog
-=========
+stat.ink
+========
 
 この README はまだ fest.ink 用のものから書き直していません。
 
