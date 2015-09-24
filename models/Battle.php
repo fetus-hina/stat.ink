@@ -46,7 +46,8 @@ class Battle extends \yii\db\ActiveRecord
     {
         return [
             [['user_id', 'at'], 'required'],
-            [['user_id', 'rule_id', 'map_id', 'weapon_id', 'level', 'rank_id', 'rank_in_team', 'kill', 'death'], 'integer'],
+            [['user_id', 'rule_id', 'map_id', 'weapon_id', 'level', 'rank_id'], 'integer'],
+            [['rank_in_team', 'kill', 'death'], 'integer'],
             [['is_win'], 'boolean'],
             [['at'], 'safe']
         ];
