@@ -60,4 +60,21 @@ class BattleNawabari extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Battle::className(), ['id' => 'id']);
     }
+
+    public function getIsMeaningful()
+    {
+        $props = [
+            'my_point',
+            'my_team_final_point',
+            'his_team_final_point',
+            'my_team_final_percent',
+            'his_team_final_percent',
+        ];
+        foreach ($props as $prop) {
+            if ($this->$prop !== null) {
+                return true;
+            }
+        }
+        return true;
+    }
 }

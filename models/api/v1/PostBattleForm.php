@@ -3,6 +3,10 @@ namespace app\models\api\v1;
 
 use Yii;
 use yii\base\Model;
+use app\components\helpers\db\Now;
+use app\models\Battle;
+use app\models\BattleNawabari;
+use app\models\BattleGachi;
 use app\models\Map;
 use app\models\Rank;
 use app\models\Rule;
@@ -126,5 +130,48 @@ class PostBattleForm extends Model
     public function getUser()
     {
         return User::findOne(['api_key' => $this->apikey]);
+    }
+
+    public function toBattle()
+    {
+        $o = new Battle();
+        $o->user_id         = $this->getUser()->id;
+        $o->rule_id         = $this->rule ? Rule::findOne(['key' => $this->rule])->id : null;
+        $o->map_id          = $this->map ? Map::findOne(['key' => $this->map])->id : null;
+        $o->weapon_id       = $this->weapon ? Weapon::findOne(['key' => $this->weapon])->id : null;
+        $o->level           = $this->level ? (int)$this->level : null;
+        $o->rank_id         = $this->rank ? Rank::findOne(['key' => $this->rank])->id : null;
+        $o->is_win          = $this->result === 'win' ? true : ($this->result === 'lose' ? false : null);
+        $o->rank_in_team    = $this->rank_in_team ? (int)$this->rank_in_team : null;
+        $o->kill            = $this->kill != '' ? (int)$this->kill : null;
+        $o->death           = $this->death != '' ? (int)$this->death : null;
+        $o->at              = new Now();
+        return $o;
+    }
+
+    public function toBattleNawabari(Battle $battle)
+    {
+        $o = new BattleNawabari();
+        $o->id                      = $battle->id;
+        $o->my_point                = $this->my_point != '' ? (int)$this->my_point : null;
+        $o->my_team_final_point     = $this->my_team_final_point != '' ? (int)$this->my_team_final_point : null;
+        $o->his_team_final_point    = $this->his_team_final_point != '' ? (int)$this->his_team_final_point : null;
+        $o->my_team_final_percent   = $this->my_team_final_percent != ''
+            ? sprintf('%.1f', (float)$this->my_team_final_percent)
+            : null;
+        $o->his_team_final_percent   = $this->his_team_final_percent != ''
+            ? sprintf('%.1f', (float)$this->his_team_final_percent)
+            : null;
+        return $o;
+    }
+
+    public function toBattleGachi(Battle $battle)
+    {
+        $o = new BattleGachi();
+        $o->id              = $battle->id;
+        $o->is_knock_out    = $this->knock_out === 'win' ? true : ($this->knock_out === 'lose' ? false : null);
+        $o->my_team_count   = $this->my_team_count != '' ? (int)$this->my_team_count : null;
+        $o->his_team_count  = $this->his_team_count != '' ? (int)$this->his_team_count : null;
+        return $o;
     }
 }

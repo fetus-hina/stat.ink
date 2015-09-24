@@ -15,6 +15,8 @@ use Yii;
  */
 class Map extends \yii\db\ActiveRecord
 {
+    use SafeFindOneTrait;
+
     /**
      * @inheritdoc
      */

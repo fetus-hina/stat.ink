@@ -56,4 +56,19 @@ class BattleGachi extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Battle::className(), ['id' => 'id']);
     }
+
+    public function getIsMeaningful()
+    {
+        $props = [
+            'is_knock_out',
+            'my_team_count',
+            'his_team_count',
+        ];
+        foreach ($props as $prop) {
+            if ($this->$prop !== null) {
+                return true;
+            }
+        }
+        return true;
+    }
 }

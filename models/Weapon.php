@@ -17,6 +17,8 @@ use Yii;
  */
 class Weapon extends \yii\db\ActiveRecord
 {
+    use SafeFindOneTrait;
+
     /**
      * @inheritdoc
      */

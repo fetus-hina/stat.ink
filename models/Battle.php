@@ -137,4 +137,42 @@ class Battle extends \yii\db\ActiveRecord
     {
         return $this->hasOne(BattleNawabari::className(), ['id' => 'id']);
     }
+
+    public function getIsNawabari()
+    {
+        return $this->getIsThisRule(function ($rule) {
+            return $rule === 'nawabari';
+        });
+    }
+
+    public function getIsGachi()
+    {
+        return $this->getIsThisRule(function ($rule) {
+            return $rule !== 'nawabari';
+        });
+    }
+
+    private function getIsThisRule($func)
+    {
+        if ($this->rule_id === null) {
+            return false;
+        }
+        if (!$rule = $this->getRule()->one()) {
+            return false;
+        }
+        return $func($rule->key);
+    }
+
+    public function getIsMeaningful()
+    {
+        $props = [
+            'rule_id', 'map_id', 'weapon_id', 'is_win', 'rank_in_team', 'kill', 'death',
+        ];
+        foreach ($props as $prop) {
+            if ($this->$prop !== null) {
+                return true;
+            }
+        }
+        return true;
+    }
 }

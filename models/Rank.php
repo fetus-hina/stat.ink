@@ -15,6 +15,8 @@ use Yii;
  */
 class Rank extends \yii\db\ActiveRecord
 {
+    use SafeFindOneTrait;
+
     /**
      * @inheritdoc
      */

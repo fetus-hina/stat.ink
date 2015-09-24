@@ -15,6 +15,8 @@ use Yii;
  */
 class Rule extends \yii\db\ActiveRecord
 {
+    use SafeFindOneTrait;
+
     /**
      * @inheritdoc
      */
