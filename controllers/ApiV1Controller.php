@@ -22,6 +22,7 @@ class ApiV1Controller extends Controller
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'battle' => [ 'post' ],
+                    '*' => [ 'get' ],
                 ],
             ],
         ];
@@ -31,6 +32,9 @@ class ApiV1Controller extends Controller
     {
         $prefix = 'app\actions\api\v1';
         return [
+            'rule'      => [ 'class' => $prefix . '\RuleAction' ],
+            'map'       => [ 'class' => $prefix . '\MapAction' ],
+            'weapon'    => [ 'class' => $prefix . '\WeaponAction' ],
             'battle'    => [ 'class' => $prefix . '\BattleAction' ],
         ];
     }

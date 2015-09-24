@@ -200,3 +200,117 @@ POST /api/v1/battle
 * `my_team_count` : 自チームのカウント数
 
 * `his_team_count` : 相手チームのカウント数
+
+----
+
+GET /api/v1/rule
+----------------
+
+ルールの一覧をJSON形式で返します。 `key` が他のAPIで利用するときの値です。
+
+```js
+[
+    {
+        "key": "nawabari",
+        "name": {
+            "ja-JP": "ナワバリバトル"
+        }
+    },
+    {
+        "key": "area",
+        "name": {
+            "ja-JP": "ガチエリア"
+        }
+    },
+    {
+        "key": "yagura",
+        "name": {
+            "ja-JP": "ガチヤグラ"
+        }
+    },
+    {
+        "key": "hoko",
+        "name": {
+            "ja-JP": "ガチホコ"
+        }
+    }
+]
+```
+
+----
+
+GET /api/v1/map
+----------------
+
+マップの一覧をJSON形式で返します。 `key` が他のAPIで利用するときの値です。
+
+```js
+[
+    {
+        "key": "arowana",
+        "name": {
+            "ja-JP": "アロワナモール"
+        }
+    },
+    {
+        "key": "bbass",
+        "name": {
+            "ja-JP": "Bバスパーク"
+        }
+    },
+    {
+        "key": "shionome",
+        "name": {
+            "ja-JP": "シオノメ油田"
+        }
+    }
+]
+```
+
+----
+
+GET /api/v1/weapon
+----------------
+
+ブキの一覧をJSON形式で返します。 `key` が他のAPIで利用するときの値です。
+
+```js
+[
+    {
+        "key": "52gal",
+        "name": {
+            "ja-JP": ".52ガロン"
+        },
+        "type": {
+            "key": "shooter",
+            "name": {
+                "ja-JP": "シューター"
+            }
+        }
+    },
+    {
+        "key": "52gal-deco",
+        "name": {
+            "ja-JP": ".52ガロンデコ"
+        },
+        "type": {
+            "key": "shooter",
+            "name": {
+                "ja-JP": "シューター"
+            }
+        }
+    },
+    {
+        "key": "96gal",
+        "name": {
+            "ja-JP": ".96ガロン"
+        },
+        "type": {
+            "key": "shooter",
+            "name": {
+                "ja-JP": "シューター"
+            }
+        }
+    }
+]
+```
