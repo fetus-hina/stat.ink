@@ -18,6 +18,7 @@ use Yii;
  * @property integer $rank_in_team
  * @property integer $kill
  * @property integer $death
+ * @property string $at
  *
  * @property Map $map
  * @property Rank $rank
@@ -44,10 +45,10 @@ class Battle extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id'], 'required'],
-            [['user_id', 'rule_id', 'map_id', 'weapon_id', 'level', 'rank_id'], 'integer'],
-            [['rank_in_team', 'kill', 'death'], 'integer'],
-            [['is_win'], 'boolean']
+            [['user_id', 'at'], 'required'],
+            [['user_id', 'rule_id', 'map_id', 'weapon_id', 'level', 'rank_id', 'rank_in_team', 'kill', 'death'], 'integer'],
+            [['is_win'], 'boolean'],
+            [['at'], 'safe']
         ];
     }
 
@@ -68,6 +69,7 @@ class Battle extends \yii\db\ActiveRecord
             'rank_in_team' => 'Rank In Team',
             'kill' => 'Kill',
             'death' => 'Death',
+            'at' => 'At',
         ];
     }
 

@@ -17,6 +17,7 @@ class m150923_135259_battle extends Migration
             'rank_in_team' => $this->integer(),
             'kill'      => $this->integer(),
             'death'     => $this->integer(),
+            'at'        => 'TIMESTAMP(0) WITH TIME ZONE NOT NULL',
         ]);
         $this->addForeignKey('fk_battle_1', 'battle', 'user_id', 'user', 'id', 'RESTRICT');
         $this->addForeignKey('fk_battle_2', 'battle', 'rule_id', 'rule', 'id', 'RESTRICT');
