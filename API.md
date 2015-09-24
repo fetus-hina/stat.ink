@@ -4,7 +4,7 @@ IkaLogLog API
 POST /api/v1/battle
 -------------------
 
-`POST https://ikaloglog.ink/api/v1/battle`
+`POST https://stat.ink/api/v1/battle`
 
 バトル結果を投稿します。利用にはユーザ毎に発行されるAPIキーが必要です。
 （ユーザのプロフィールページから取得できます。アプリケーションはユーザにこれを指定させてください。）
@@ -30,7 +30,7 @@ POST /api/v1/battle
 
     ```
     POST /api/v1/battle HTTP/1.1
-    Host: ikaloglog.ink
+    Host: stat.ink
     Content-Type: application/json
     Content-Length: ***
 
@@ -50,7 +50,7 @@ POST /api/v1/battle
 
     ```
     POST /api/v1/battle HTTP/1.1
-    Host: ikaloglog.ink
+    Host: stat.ink
     Content-Type: application/x-msgpack
     Content-Length: ***
 
