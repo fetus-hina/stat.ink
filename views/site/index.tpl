@@ -7,5 +7,14 @@
     <p>
       さくせいかいし
     </p>
+    <ul>
+      {{foreach \app\models\User::find()->all() as $user}}
+        <li>
+          <a href="{{url route='show/user' screen_name=$user->screen_name}}">
+            {{$user->name|escape}}
+          </a>
+        </li>
+      {{/foreach}}
+    </ul>
   </div>
 {{/strip}}
