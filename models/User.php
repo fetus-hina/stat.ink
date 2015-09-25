@@ -1,9 +1,11 @@
 <?php
 namespace app\models;
 
+use DateTimeZone;
 use Yii;
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
+use app\components\helpers\DateTimeFormatter;
 use app\components\helpers\Password;
 
 /**
@@ -134,5 +136,18 @@ class User extends ActiveRecord implements IdentityInterface
         }
         $this->password = Password::hash($password);
         return true;
+    }
+
+    public function toJsonArray()
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'screen_name' => $this->screen_name,
+            'join_at' => DateTimeFormatter::unixTimeToJsonArray(
+                strtotime($this->join_at),
+                new DateTimeZone('Etc/UTC')
+            ),
+        ];
     }
 }

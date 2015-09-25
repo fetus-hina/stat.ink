@@ -7,16 +7,14 @@
 
 namespace app\actions\api\v1;
 
+use DateTimeZone;
 use Yii;
 use yii\web\MethodNotAllowedHttpException;
 use yii\web\UploadedFile;
 use yii\web\ViewAction as BaseAction;
 use app\models\api\v1\PostBattleForm;
 use app\models\Battle;
-use app\models\Map;
-use app\models\Rank;
-use app\models\Rule;
-use app\models\Weapon;
+use app\components\helpers\DateTimeFormatter;
 
 class BattleAction extends BaseAction
 {
@@ -91,6 +89,10 @@ class BattleAction extends BaseAction
             }
             // TODO: 画像
             $transaction->commit();
+            
+            // 保存時間の読み込みのために再読込する
+            $battle = Battle::findOne(['id' => $battle->id]);
+
             return $this->runGetImpl($battle);
         } catch(\Exception $e) {
             $transaction->rollback();
@@ -101,16 +103,28 @@ class BattleAction extends BaseAction
     private function runGetImpl(Battle $battle)
     {
         $ret = [
-            'id'        => $battle->id,
-            'rule'      => Rule::safeFindById($battle->rule_id)->key,
-            'map'       => Map::safeFindById($battle->map_id)->key,
-            'weapon'    => Weapon::safeFindById($battle->weapon_id)->key,
-            'rank'      => Rank::safeFindById($battle->rank_id)->key,
-            'level'     => $battle->level,
-            'result'    => $battle->is_win === true ? 'win' : ($battle->is_win === false ? 'lose' : null),
+            'id' => $battle->id,
+            'user' => $battle->user ? $battle->user->toJsonArray() : null,
+            'rule' => $battle->rule ? $battle->rule->toJsonArray() : null,
+            'map' => $battle->map ? $battle->map->toJsonArray() : null,
+            'weapon' => $battle->weapon ? $battle->weapon->toJsonArray() : null,
+            'rank' => $battle->rank ? $battle->rank->toJsonArray() : null,
+            'level' => $battle->level,
+            'result' => $battle->is_win === true ? 'win' : ($battle->is_win === false ? 'lose' : null),
             'rank_in_team' => $battle->rank_in_team,
-            'kill'      => $battle->kill,
-            'death'     => $battle->death,
+            'kill' => $battle->kill,
+            'death' => $battle->death,
+            'agent' => [
+                'name' => $battle->agent,
+                'version' => $battle->agent_version,
+            ],
+            'start_at' => $battle->start_at == ''
+                ? DateTimeFormatter::unixTimeToJsonArray(strtotime($battle->start_at))
+                : null,
+            'end_at' => $battle->end_at == ''
+                ? DateTimeFormatter::unixTimeToJsonArra(strtotime($battle->end_at))
+                : null,
+            'register_at' => DateTimeFormatter::unixTimeToJsonArray(strtotime($battle->at)),
         ];
         // TODO: 画像
         // TODO: ナワバリ

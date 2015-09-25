@@ -70,4 +70,20 @@ class Weapon extends \yii\db\ActiveRecord
     {
         return $this->hasOne(WeaponType::className(), ['id' => 'type_id']);
     }
+
+    public function toJsonArray()
+    {
+        return [
+            'key' => $this->key,
+            'name' => [
+                'ja_JP' => $this->name,
+            ],
+            'type' => [
+                'key' => $this->type->key,
+                'name' => [
+                    'ja_JP' => $this->type->name,
+                ]
+            ],
+        ];
+    }
 }

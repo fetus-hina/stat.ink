@@ -19,18 +19,7 @@ class WeaponAction extends BaseAction
         $response->format = 'json';
         return array_map(
             function ($weapon) {
-                return [
-                    'key' => $weapon->key,
-                    'name' => [
-                        'ja_JP' => $weapon->name,
-                    ],
-                    'type' => [
-                        'key' => $weapon->type->key,
-                        'name' => [
-                            'ja_JP' => $weapon->type->name,
-                        ]
-                    ],
-                ];
+                return $weapon->toJsonArray();
             },
             Weapon::find()->with('type')->all()
         );

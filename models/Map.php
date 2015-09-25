@@ -57,4 +57,14 @@ class Map extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Battle::className(), ['map_id' => 'id']);
     }
+
+    public function toJsonArray()
+    {
+        return [
+            'key' => $this->key,
+            'name' => [
+                'ja_JP' => $this->name,
+            ],
+        ];
+    }
 }

@@ -70,4 +70,20 @@ class Rule extends \yii\db\ActiveRecord
     {
         return $this->hasOne(GameMode::className(), ['id' => 'mode_id']);
     }
+
+    public function toJsonArray()
+    {
+        return [
+            'key' => $this->key,
+            'mode' => [
+                'key' => $this->mode->key,
+                'name' => [
+                    'ja_JP' => $this->mode->name,
+                ],
+            ],
+            'name' => [
+                'ja_JP' => $this->name,
+            ],
+        ];
+    }
 }

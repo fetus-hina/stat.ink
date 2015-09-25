@@ -19,12 +19,7 @@ class MapAction extends BaseAction
         $response->format = 'json';
         return array_map(
             function ($map) {
-                return [
-                    'key' => $map->key,
-                    'name' => [
-                        'ja_JP' => $map->name,
-                    ],
-                ];
+                return $map->toJsonArray();
             },
             Map::find()->all()
         );

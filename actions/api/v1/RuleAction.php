@@ -19,18 +19,7 @@ class RuleAction extends BaseAction
         $response->format = 'json';
         return array_map(
             function ($rule) {
-                return [
-                    'key' => $rule->key,
-                    'mode' => [
-                        'key' => $rule->mode->key,
-                        'name' => [
-                            'ja_JP' => $rule->mode->name,
-                        ],
-                    ],
-                    'name' => [
-                        'ja_JP' => $rule->name,
-                    ],
-                ];
+                return $rule->toJsonArray();
             },
             Rule::find()->with('mode')->all()
         );

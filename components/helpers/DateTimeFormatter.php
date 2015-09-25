@@ -17,10 +17,18 @@ class DateTimeFormatter
     {
         $isFloat = is_float($unixtime);
         $datetime = self::createDateTimeFromFloatedUnixtime((float)$unixtime);
-        $datetime->setTimeZone($tz === null ? self::getDefaultTimeZone() : $tz);
+        $datetime->setTimeZone($tz === null ? static::getDefaultTimeZone() : $tz);
         return $datetime->format(
             $isFloat ? 'Y-m-d\TH:i:s.uP' : 'Y-m-d\TH:i:sP'
         );
+    }
+
+    public static function unixTimeToJsonArray($unixtime, DateTimeZone $tz = null)
+    {
+        return [
+            'time' => (int)$unixtime,
+            'iso8601' => static::unixTimeToString((int)$unixtime, $tz),
+        ];
     }
 
     private static function createDateTimeFromFloatedUnixtime($time)
@@ -35,6 +43,7 @@ class DateTimeFormatter
 
     private static function getDefaultTimeZone()
     {
-        return new DateTimeZone(Yii::$app->timeZone);
+        //return new DateTimeZone(Yii::$app->timeZone);
+        return new DateTimeZone('Etc/UTC');
     }
 }
