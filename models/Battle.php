@@ -49,7 +49,7 @@ class Battle extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'start_at', 'end_at', 'at'], 'required'],
+            [['user_id', 'at'], 'required'],
             [['user_id', 'rule_id', 'map_id', 'weapon_id', 'level', 'rank_id', 'rank_in_team', 'kill', 'death'], 'integer'],
             [['is_win'], 'boolean'],
             [['start_at', 'end_at', 'at'], 'safe'],
