@@ -212,24 +212,28 @@ GET /api/v1/rule
 [
     {
         "key": "nawabari",
+        "mode": "nawabari",
         "name": {
             "ja-JP": "ナワバリバトル"
         }
     },
     {
         "key": "area",
+        "mode": "gachi",
         "name": {
             "ja-JP": "ガチエリア"
         }
     },
     {
         "key": "yagura",
+        "mode": "gachi",
         "name": {
             "ja-JP": "ガチヤグラ"
         }
     },
     {
         "key": "hoko",
+        "mode": "gachi",
         "name": {
             "ja-JP": "ガチホコ"
         }

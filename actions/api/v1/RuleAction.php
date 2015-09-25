@@ -21,6 +21,7 @@ class RuleAction extends BaseAction
             function ($rule) {
                 return [
                     'key' => $rule->key,
+                    'mode' => $rule->key === 'nawabari' ? 'nawabari' : 'gachi',
                     'name' => [
                         'ja-JP' => $rule->name,
                     ],
