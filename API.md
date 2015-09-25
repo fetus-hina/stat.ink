@@ -150,6 +150,7 @@ POST /api/v1/battle
         - `squiclean-b` : スクイックリンβ
     - スロッシャー
         - `bucketslosher` : バケットスロッシャー
+        - `hissen` : ヒッセン
     - スピナー
         - `barrelspinner` : バレルスピナー
         - `splatspinner` : スプラスピナー
