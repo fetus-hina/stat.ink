@@ -118,11 +118,11 @@ class BattleAction extends BaseAction
                 'name' => $battle->agent,
                 'version' => $battle->agent_version,
             ],
-            'start_at' => $battle->start_at == ''
+            'start_at' => $battle->start_at != ''
                 ? DateTimeFormatter::unixTimeToJsonArray(strtotime($battle->start_at))
                 : null,
-            'end_at' => $battle->end_at == ''
-                ? DateTimeFormatter::unixTimeToJsonArra(strtotime($battle->end_at))
+            'end_at' => $battle->end_at != ''
+                ? DateTimeFormatter::unixTimeToJsonArray(strtotime($battle->end_at))
                 : null,
             'register_at' => DateTimeFormatter::unixTimeToJsonArray(strtotime($battle->at)),
         ];
