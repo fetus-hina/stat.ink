@@ -1,25 +1,42 @@
 <?php
 use yii\db\Migration;
+use app\models\GameMode;
 
 class m150923_120331_rule extends Migration
 {
     public function up()
     {
-        $this->createTable('rule', [
-            'id'    => $this->primarykey(),
+        $this->createTable('game_mode', [
+            'id'    => $this->primaryKey(),
             'key'   => $this->string(16)->notNull()->unique(),
             'name'  => $this->string(32)->notNull()->unique(),
         ]);
-        $this->batchInsert('rule', ['key', 'name'], [
-            [ 'nawabari',   'ナワバリバトル' ], // Turf War
-            [ 'area',       'ガチエリア' ],     // Splat Zones
-            [ 'yagura',     'ガチヤグラ' ],     // Tower Control
-            [ 'hoko',       'ガチホコ'],        // Rainmaker
+        $this->createTable('rule', [
+            'id'        => $this->primarykey(),
+            'mode_id'   => $this->integer()->notNull(),
+            'key'       => $this->string(16)->notNull()->unique(),
+            'name'      => $this->string(32)->notNull()->unique(),
+        ]);
+        $this->addForeignKey('fk_rule_1', 'rule', 'mode_id', 'game_mode', 'id');
+
+        $this->batchInsert('game_mode', ['key', 'name'], [
+            [ 'regular', 'レギュラーマッチ' ],
+            [ 'gachi', 'ガチマッチ' ],
+        ]);
+
+        $modeRegular = GameMode::findOne(['key' => 'regular'])->id;
+        $modeGachi   = GameMode::findOne(['key' => 'gachi'])->id;
+        $this->batchInsert('rule', ['key', 'mode_id', 'name'], [
+            [ 'nawabari',   $modeRegular,   'ナワバリバトル' ], // Turf War
+            [ 'area',       $modeGachi,     'ガチエリア' ],     // Splat Zones
+            [ 'yagura',     $modeGachi,     'ガチヤグラ' ],     // Tower Control
+            [ 'hoko',       $modeGachi,     'ガチホコ'],        // Rainmaker
         ]);
     }
 
     public function down()
     {
         $this->dropTable('rule');
+        $this->dropTable('game_mode');
     }
 }

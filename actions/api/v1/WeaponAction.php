@@ -22,12 +22,12 @@ class WeaponAction extends BaseAction
                 return [
                     'key' => $weapon->key,
                     'name' => [
-                        'ja-JP' => $weapon->name,
+                        'ja_JP' => $weapon->name,
                     ],
                     'type' => [
                         'key' => $weapon->type->key,
                         'name' => [
-                            'ja-JP' => $weapon->type->name,
+                            'ja_JP' => $weapon->type->name,
                         ]
                     ],
                 ];

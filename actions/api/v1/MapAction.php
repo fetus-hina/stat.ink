@@ -22,7 +22,7 @@ class MapAction extends BaseAction
                 return [
                     'key' => $map->key,
                     'name' => [
-                        'ja-JP' => $map->name,
+                        'ja_JP' => $map->name,
                     ],
                 ];
             },

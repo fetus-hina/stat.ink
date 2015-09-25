@@ -21,13 +21,18 @@ class RuleAction extends BaseAction
             function ($rule) {
                 return [
                     'key' => $rule->key,
-                    'mode' => $rule->key === 'nawabari' ? 'nawabari' : 'gachi',
+                    'mode' => [
+                        'key' => $rule->mode->key,
+                        'name' => [
+                            'ja_JP' => $rule->mode->name,
+                        ],
+                    ],
                     'name' => [
-                        'ja-JP' => $rule->name,
+                        'ja_JP' => $rule->name,
                     ],
                 ];
             },
-            Rule::find()->all()
+            Rule::find()->with('mode')->all()
         );
     }
 }

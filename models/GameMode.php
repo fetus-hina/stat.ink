@@ -1,21 +1,18 @@
 <?php
-
 namespace app\models;
 
 use Yii;
 
 /**
- * This is the model class for table "rule".
+ * This is the model class for table "game_mode".
  *
  * @property integer $id
- * @property integer $mode_id
  * @property string $key
  * @property string $name
  *
- * @property Battle[] $battles
- * @property GameMode $mode
+ * @property Rule[] $rules
  */
-class Rule extends \yii\db\ActiveRecord
+class GameMode extends \yii\db\ActiveRecord
 {
     use SafeFindOneTrait;
 
@@ -24,7 +21,7 @@ class Rule extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'rule';
+        return 'game_mode';
     }
 
     /**
@@ -33,8 +30,7 @@ class Rule extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['mode_id', 'key', 'name'], 'required'],
-            [['mode_id'], 'integer'],
+            [['key', 'name'], 'required'],
             [['key'], 'string', 'max' => 16],
             [['name'], 'string', 'max' => 32],
             [['key'], 'unique'],
@@ -49,7 +45,6 @@ class Rule extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'mode_id' => 'Mode ID',
             'key' => 'Key',
             'name' => 'Name',
         ];
@@ -58,16 +53,8 @@ class Rule extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getBattles()
+    public function getRules()
     {
-        return $this->hasMany(Battle::className(), ['rule_id' => 'id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getMode()
-    {
-        return $this->hasOne(GameMode::className(), ['id' => 'mode_id']);
+        return $this->hasMany(Rule::className(), ['mode_id' => 'id']);
     }
 }
