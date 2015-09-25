@@ -97,66 +97,66 @@ POST /api/v1/battle
 
 * `weapon` : 自分のブキを次のいずれかの値で指定します。
     - シューター
-        _ `52gal` : .52ガロン
-        _ `52gal_deco` : .52ガロンデコ
-        _ `96gal` : .96ガロン
-        _ `96gal_deco` : .96ガロンデコ
-        _ `bold` : ボールドマーカー
-        _ `dualsweeper` : デュアルスイーパー
-        _ `dualsweeper_custom` : デュアルスイーパーカスタム
-        _ `h3reelgun` : H3リールガン
-        _ `heroshooter_replica` : ヒーローシューターレプリカ
-        _ `hotblaster` : ホットブラスター
-        _ `hotblaster_custom` : ホットブラスターカスタム
-        _ `jetsweeper` : ジェットスイーパー
-        _ `jetsweeper_custom` : ジェットスイーパーカスタム
-        _ `l3reelgun` : L3リールガン
-        _ `l3reelgun_d` : L3リールガンD
-        _ `longblaster` : ロングブラスター
-        _ `momiji` : もみじシューター
-        _ `nova` : ノヴァブラスター
-        _ `nzap85` : N_ZAP 85
-        _ `nzap89` : N_ZAP 89
-        _ `octoshooter_replica` : オクタシューターレプリカ
-        _ `prime` : プライムシューター
-        _ `prime_collabo` : プライムシューターコラボ
-        _ `promodeler_mg` : プロモデラーMG
-        _ `promodeler_rg` : プロモデラーRG
-        _ `rapid` : ラピッドブラスター
-        _ `rapid_deco` : ラピッドブラスターデコ
-        _ `sharp` : シャープマーカー
-        _ `sharp_neo` : シャープマーカーネオ
-        _ `sshooter` : スプラシューター
-        _ `sshooter_collabo` : スプラシューターコラボ
-        _ `wakaba` : わかばシューター
-    _ ローラー
-        _ `carbon` : カーボンローラー
-        _ `dynamo` : ダイナモローラー
-        _ `dynamo_tesla` : ダイナモローラーテスラ
-        _ `heroroller_replica` : ヒーローローラーレプリカ
-        _ `hokusai` : ホクサイ
-        _ `pablo` : パブロ
-        _ `pablo_hue` : パブロ・ヒュー
-        _ `splatroller` : スプラローラー
-        _ `splatroller_collabo` : スプラローラーコラボ
-    _ チャージャー
-        _ `bamboo14mk1` : 14式竹筒銃・甲
-        _ `herocharger_replica` : ヒーローチャージャーレプリカ
-        _ `liter3k` : リッター3K
-        _ `liter3k_custom` : リッター3Kカスタム
-        _ `liter3k_scope` : 3Kスコープ
-        _ `splatcharger` : スプラチャージャー
-        _ `splatcharger_wakame` : スプラチャージャーワカメ
-        _ `splatscope` : スプラスコープ
-        _ `splatscope_wakame` : スプラスコープワカメ
-        _ `squiclean_a` : スクイックリンα
-        _ `squiclean_b` : スクイックリンβ
-    _ スロッシャー
-        _ `bucketslosher` : バケットスロッシャー
-        _ `hissen` : ヒッセン
-    _ スピナー
-        _ `barrelspinner` : バレルスピナー
-        _ `splatspinner` : スプラスピナー
+        - `52gal` : .52ガロン
+        - `52gal_deco` : .52ガロンデコ
+        - `96gal` : .96ガロン
+        - `96gal_deco` : .96ガロンデコ
+        - `bold` : ボールドマーカー
+        - `dualsweeper` : デュアルスイーパー
+        - `dualsweeper_custom` : デュアルスイーパーカスタム
+        - `h3reelgun` : H3リールガン
+        - `heroshooter_replica` : ヒーローシューターレプリカ
+        - `hotblaster` : ホットブラスター
+        - `hotblaster_custom` : ホットブラスターカスタム
+        - `jetsweeper` : ジェットスイーパー
+        - `jetsweeper_custom` : ジェットスイーパーカスタム
+        - `l3reelgun` : L3リールガン
+        - `l3reelgun_d` : L3リールガンD
+        - `longblaster` : ロングブラスター
+        - `momiji` : もみじシューター
+        - `nova` : ノヴァブラスター
+        - `nzap85` : N_ZAP 85
+        - `nzap89` : N_ZAP 89
+        - `octoshooter_replica` : オクタシューターレプリカ
+        - `prime` : プライムシューター
+        - `prime_collabo` : プライムシューターコラボ
+        - `promodeler_mg` : プロモデラーMG
+        - `promodeler_rg` : プロモデラーRG
+        - `rapid` : ラピッドブラスター
+        - `rapid_deco` : ラピッドブラスターデコ
+        - `sharp` : シャープマーカー
+        - `sharp_neo` : シャープマーカーネオ
+        - `sshooter` : スプラシューター
+        - `sshooter_collabo` : スプラシューターコラボ
+        - `wakaba` : わかばシューター
+    - ローラー
+        - `carbon` : カーボンローラー
+        - `dynamo` : ダイナモローラー
+        - `dynamo_tesla` : ダイナモローラーテスラ
+        - `heroroller_replica` : ヒーローローラーレプリカ
+        - `hokusai` : ホクサイ
+        - `pablo` : パブロ
+        - `pablo_hue` : パブロ・ヒュー
+        - `splatroller` : スプラローラー
+        - `splatroller_collabo` : スプラローラーコラボ
+    - チャージャー
+        - `bamboo14mk1` : 14式竹筒銃・甲
+        - `herocharger_replica` : ヒーローチャージャーレプリカ
+        - `liter3k` : リッター3K
+        - `liter3k_custom` : リッター3Kカスタム
+        - `liter3k_scope` : 3Kスコープ
+        - `splatcharger` : スプラチャージャー
+        - `splatcharger_wakame` : スプラチャージャーワカメ
+        - `splatscope` : スプラスコープ
+        - `splatscope_wakame` : スプラスコープワカメ
+        - `squiclean_a` : スクイックリンα
+        - `squiclean_b` : スクイックリンβ
+    - スロッシャー
+        - `bucketslosher` : バケットスロッシャー
+        - `hissen` : ヒッセン
+    - スピナー
+        - `barrelspinner` : バレルスピナー
+        - `splatspinner` : スプラスピナー
 
 * `rank` : バトル開始時のウデマエを次のいずれかの値で指定します。
     - `c-`
