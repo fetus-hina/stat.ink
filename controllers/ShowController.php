@@ -33,6 +33,7 @@ class ShowController extends Controller
         $prefix = 'app\actions\show';
         return [
             'user' => [ 'class' => $prefix . '\UserAction' ],
+            'battle' => [ 'class' => $prefix . '\BattleAction' ],
         ];
     }
 }

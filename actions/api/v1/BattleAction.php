@@ -12,6 +12,7 @@ use Yii;
 use yii\web\MethodNotAllowedHttpException;
 use yii\web\UploadedFile;
 use yii\web\ViewAction as BaseAction;
+use yii\helpers\Url;
 use app\models\api\v1\PostBattleForm;
 use app\models\Battle;
 use app\components\helpers\DateTimeFormatter;
@@ -104,6 +105,10 @@ class BattleAction extends BaseAction
     {
         $ret = [
             'id' => $battle->id,
+            'url' => Url::to(['show/battle',
+                'screen_name' => $battle->user->screen_name,
+                'battle' => $battle->id,
+            ], true),
             'user' => $battle->user ? $battle->user->toJsonArray() : null,
             'rule' => $battle->rule ? $battle->rule->toJsonArray() : null,
             'map' => $battle->map ? $battle->map->toJsonArray() : null,

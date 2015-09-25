@@ -36,6 +36,7 @@ $config = [
                 'logout'        => 'user/logout',
                 'profile'       => 'user/profile',
                 'register'      => 'user/register',
+                'u/<screen_name:\w+>/<battle:\d+>' => 'show/battle',
                 'u/<screen_name:\w+>' => 'show/user',
                 'api/v1/<action:\w+>' => 'api-v1/<action>',
                 '<action:\w+>'  => 'site/<action>',
