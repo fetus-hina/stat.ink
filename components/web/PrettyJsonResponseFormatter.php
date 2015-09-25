@@ -21,7 +21,7 @@ class PrettyJsonResponseFormatter extends JsonResponseFormatter
             ->set('Content-Type', 'application/json; charset=UTF-8')
             ->set('Access-Control-Allow-Origin', '*');
         if ($response->data !== null) {
-            $response->content = Json::encode($response->data, JSON_PRETTY_PRINT);
+            $response->content = Json::encode($response->data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
         }
     }
 }
