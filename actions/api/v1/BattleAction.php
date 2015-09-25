@@ -62,7 +62,7 @@ class BattleAction extends BaseAction
                 return $this->formatError([
                     'system' => [ '保存失敗 : battle' ],
                     'system_' => $battle->getErrors(),
-                ]);
+                ], 500);
             }
             if ($battle->isNawabari) {
                 $nawabari = $form->toBattleNawabari($battle);
@@ -72,7 +72,7 @@ class BattleAction extends BaseAction
                         return $this->formatError([
                             'system' => [ '保存失敗 : battle_nawabari' ],
                             'system_' => $nawabari->getErrors(),
-                        ]);
+                        ], 500);
                     }
                 }
             } elseif ($battle->isGachi) {
@@ -83,7 +83,7 @@ class BattleAction extends BaseAction
                         return $this->formatError([
                             'system' => [ '保存失敗 : battle_gachi' ],
                             'system_' => $gachi->getErrors(),
-                        ]);
+                        ], 500);
                     }
                 }
             }
