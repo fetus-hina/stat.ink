@@ -29,6 +29,10 @@ class PostBattleForm extends Model
     public $death;
     public $image_judge;
     public $image_result;
+    public $start_at;
+    public $end_at;
+    public $agent;
+    public $agent_version;
     // nawabari
     public $my_point;
     public $my_team_final_point;
@@ -76,6 +80,8 @@ class PostBattleForm extends Model
                 'when' => function ($model, $attr) {
                     return is_string($model->$attr);
                 }],
+            [['start_at', 'end_at'], 'integer'],
+            [['agent', 'agent_version'], 'string', 'max' => 16],
             [['my_point'], 'integer', 'min' => 0],
             [['my_team_final_point', 'his_team_final_point'], 'integer', 'min' => 0],
             [['my_team_final_percent', 'his_team_final_percent'], 'number',
@@ -145,6 +151,14 @@ class PostBattleForm extends Model
         $o->rank_in_team    = $this->rank_in_team ? (int)$this->rank_in_team : null;
         $o->kill            = $this->kill != '' ? (int)$this->kill : null;
         $o->death           = $this->death != '' ? (int)$this->death : null;
+        $o->start_at        = $this->start_at != ''
+            ? gmdate('Y-m-d H:i:sP', (int)$this->start_at)
+            : null;
+        $o->end_at          = $this->end_at != ''
+            ? gmdate('Y-m-d H:i:sP', (int)$this->end_at)
+            : null;
+        $o->agent           = $this->agent != '' ? $this->agent : null;
+        $o->agent_version   = $this->agent_version != '' ? $this->agent_version : null;
         $o->at              = new Now();
         return $o;
     }

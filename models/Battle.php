@@ -18,6 +18,10 @@ use Yii;
  * @property integer $rank_in_team
  * @property integer $kill
  * @property integer $death
+ * @property string $start_at
+ * @property string $end_at
+ * @property string $agent
+ * @property string $agent_version
  * @property string $at
  *
  * @property Map $map
@@ -45,11 +49,11 @@ class Battle extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'at'], 'required'],
-            [['user_id', 'rule_id', 'map_id', 'weapon_id', 'level', 'rank_id'], 'integer'],
-            [['rank_in_team', 'kill', 'death'], 'integer'],
+            [['user_id', 'start_at', 'end_at', 'at'], 'required'],
+            [['user_id', 'rule_id', 'map_id', 'weapon_id', 'level', 'rank_id', 'rank_in_team', 'kill', 'death'], 'integer'],
             [['is_win'], 'boolean'],
-            [['at'], 'safe']
+            [['start_at', 'end_at', 'at'], 'safe'],
+            [['agent', 'agent_version'], 'string', 'max' => 16]
         ];
     }
 
@@ -70,6 +74,10 @@ class Battle extends \yii\db\ActiveRecord
             'rank_in_team' => 'Rank In Team',
             'kill' => 'Kill',
             'death' => 'Death',
+            'start_at' => 'Start At',
+            'end_at' => 'End At',
+            'agent' => 'Agent',
+            'agent_version' => 'Agent Version',
             'at' => 'At',
         ];
     }
@@ -140,27 +148,23 @@ class Battle extends \yii\db\ActiveRecord
 
     public function getIsNawabari()
     {
-        return $this->getIsThisRule(function ($rule) {
-            return $rule === 'nawabari';
-        });
+        return $this->getIsThisGameMode('regular');
     }
 
     public function getIsGachi()
     {
-        return $this->getIsThisRule(function ($rule) {
-            return $rule !== 'nawabari';
-        });
+        return $this->getIsThisGameMode('gachi');
     }
 
-    private function getIsThisRule($func)
+    private function getIsThisGameMode($key)
     {
         if ($this->rule_id === null) {
             return false;
         }
-        if (!$rule = $this->getRule()->one()) {
+        if (!$rule = $this->getRule()->with('mode')->one()) {
             return false;
         }
-        return $func($rule->key);
+        return $rule->mode && $rule->mode->key === $key;
     }
 
     public function getIsMeaningful()
