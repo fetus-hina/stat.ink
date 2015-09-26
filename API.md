@@ -1,5 +1,5 @@
-IkaLogLog API
-=============
+stat.ink API
+============
 
 POST /api/v1/battle
 -------------------
