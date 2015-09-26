@@ -20,17 +20,17 @@ class m150923_120331_rule extends Migration
         $this->addForeignKey('fk_rule_1', 'rule', 'mode_id', 'game_mode', 'id');
 
         $this->batchInsert('game_mode', ['key', 'name'], [
-            [ 'regular', 'レギュラーマッチ' ],
-            [ 'gachi', 'ガチマッチ' ],
+            [ 'regular', 'Regular Battle' ],
+            [ 'gachi', 'Ranked Battle' ],
         ]);
 
         $modeRegular = GameMode::findOne(['key' => 'regular'])->id;
         $modeGachi   = GameMode::findOne(['key' => 'gachi'])->id;
         $this->batchInsert('rule', ['key', 'mode_id', 'name'], [
-            [ 'nawabari',   $modeRegular,   'ナワバリバトル' ], // Turf War
-            [ 'area',       $modeGachi,     'ガチエリア' ],     // Splat Zones
-            [ 'yagura',     $modeGachi,     'ガチヤグラ' ],     // Tower Control
-            [ 'hoko',       $modeGachi,     'ガチホコ'],        // Rainmaker
+            [ 'nawabari',   $modeRegular,   'Turf War' ],
+            [ 'area',       $modeGachi,     'Splat Zones' ],
+            [ 'yagura',     $modeGachi,     'Tower Control' ],
+            [ 'hoko',       $modeGachi,     'Rainmaker'],
         ]);
     }
 

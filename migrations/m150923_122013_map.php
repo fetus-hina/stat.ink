@@ -8,21 +8,21 @@ class m150923_122013_map extends Migration
         $this->createTable('map', [
             'id'    => $this->primaryKey(),
             'key'   => $this->string(16)->notNull()->unique(),
-            'name'  => $this->string(16)->notNull()->unique(),
+            'name'  => $this->string(32)->notNull()->unique(),
         ]);
         $this->batchInsert('map', [ 'key', 'name' ], [
-            [ 'arowana',    'アロワナモール' ],
-            [ 'bbass',      'Bバスパーク' ],
-            [ 'shionome',   'シオノメ油田' ],
-            [ 'dekaline',   'デカライン高架下' ],
-            [ 'hakofugu',   'ハコフグ倉庫' ],
-            [ 'hokke',      'ホッケふ頭' ],
-            [ 'mozuku',     'モズク農園' ],
-            [ 'negitoro',   'ネギトロ炭鉱' ],
-            [ 'tachiuo',    'タチウオパーキング' ],
-            [ 'mongara',    'モンガラキャンプ場' ],
-            [ 'hirame',     'ヒラメが丘団地' ],
-            [ 'masaba',     'マサバ海峡大橋' ],
+            [ 'arowana',    'Arowana Mall' ],
+            [ 'bbass',      'Blackbelly Skatepark' ],
+            [ 'shionome',   'Saltspray Rig' ],
+            [ 'dekaline',   'Urchin Underpass' ],
+            [ 'hakofugu',   'Walleye Warehouse' ],
+            [ 'hokke',      'Port Mackerel' ],
+            [ 'mozuku',     'Kelp Dome' ],
+            [ 'negitoro',   'Bluefin Depot' ],
+            [ 'tachiuo',    'Moray Towers' ],
+            [ 'mongara',    'Camp Triggerfish' ],
+            [ 'hirame',     'Flounder Heights' ],
+            [ 'masaba',     'Hammerhead Bridge' ],
         ]);
     }
 

@@ -44,57 +44,66 @@ class UserAction extends BaseAction
 
     private function makeRulesList()
     {
-        $ret = ['' => '全てのルール'];
+        $ret = [
+            '' => Yii::t('app-rule', 'Any Rule'),
+        ];
         $gameModes = GameMode::find()->orderBy('[[id]] ASC')->all();
         foreach ($gameModes as $gameMode) {
+            $gameModeText = Yii::t('app-rule', $gameMode->name); // "ナワバリバトル"
             $rules = Rule::find()
                 ->andWhere(['mode_id' => $gameMode->id])
                 ->orderBy('[[id]] ASC')
                 ->all();
             $mode = [];
             if (count($rules) > 1) {
-                $mode['@' . $gameMode->key] = '全ての' . $gameMode->name;
+                $mode['@' . $gameMode->key] = Yii::t('app-rule', 'All of {0}', $gameModeText);
             }
             foreach ($rules as $rule) {
-                $mode[$rule->key] = $rule->name;
+                $mode[$rule->key] = Yii::t('app-rule', $rule->name);
             }
-            $ret[$gameMode->name] = $mode;
+            $ret[$gameModeText] = $mode;
         }
         return $ret;
     }
 
     private function makeMapsList()
     {
-        $ret = ['' => '全てのマップ'];
-        $maps = Map::find()->orderBy('[[name]] ASC')->all();
-        usort($maps, function ($a, $b) {
-            return strnatcasecmp($a->name, $b->name);
-        });
-        foreach ($maps as $map) {
-            $ret[$map->key] = $map->name;
+        $ret = [];
+        foreach (Map::find()->all() as $map) {
+            $ret[$map->key] = Yii::t('app-map', $map->name);
         }
-        return $ret;
+        asort($ret);
+        return array_merge(
+            ['' => Yii::t('app-map', 'Any Map')],
+            $ret
+        );
     }
 
     private function makeWeaponsList()
     {
-        $ret = ['' => '全てのブキ'];
+        $ret = [];
         $types = WeaponType::find()->orderBy('[[id]] ASC')->all();
         foreach ($types as $type) {
-            $weapons = Weapon::find()->andWhere(['type_id' => $type->id])->all();
-            usort($weapons, function ($a, $b) {
-                return strnatcasecmp($a->name, $b->name);
-            });
+            $typeName = Yii::t('app-weapon', $type->name);
 
             $tmp = [];
-            if (count($weapons) > 1) {
-                $tmp['@' . $type->key] = '全ての' . $type->name;
-            }
+            $weapons = Weapon::find()->andWhere(['type_id' => $type->id])->all();
             foreach ($weapons as $weapon) {
-                $tmp[$weapon->key] = $weapon->name;
+                $tmp[$weapon->key] = Yii::t('app-weapon', $weapon->name);
             }
-            $ret[$type->name] = $tmp;
+            asort($tmp);
+            if (count($tmp) > 1) {
+                $ret[$typeName] = array_merge(
+                    ['@' . $type->key => Yii::t('app-weapon', 'All of {0}', $typeName)],
+                    $tmp
+                );
+            } else {
+                $ret[$typeName] = $tmp;
+            }
         }
-        return $ret;
+        return array_merge(
+            [ '' => Yii::t('app-weapon', 'Any Weapon') ],
+            $ret
+        );
     }
 }

@@ -11,11 +11,11 @@ class m150923_123420_weapon_type extends Migration
             'name'  => $this->string(16)->notNull()->unique(),
         ]);
         $this->batchInsert('weapon_type', [ 'key', 'name' ], [
-            [ 'shooter',    'シューター' ],
-            [ 'roller',     'ローラー' ],
-            [ 'charger',    'チャージャー' ],
-            [ 'slosher',    'スロッシャー' ],
-            [ 'splatling',  'スピナー' ],
+            [ 'shooter',   'Shooters' ], 
+            [ 'roller',    'Rollers' ], 
+            [ 'charger',   'Chargers' ], 
+            [ 'slosher',   'Sloshers' ], 
+            [ 'splatling', 'Splatlings' ], 
         ]);
     }
 

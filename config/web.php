@@ -4,7 +4,7 @@ $config = [
     'name' => 'stat.ink',
     'version' => '0.1.0-dev',
     'id' => 'statink',
-    'language' => 'ja-jp',
+    'language' => 'ja-JP',
     'timeZone' => 'Asia/Tokyo',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
@@ -88,6 +88,18 @@ $config = [
             'identityClass' => 'app\models\User',
             'enableAutoLogin' => false,
             'loginUrl' => ['user/login'],
+        ],
+        'i18n' => [
+            'translations' => [
+                'app*' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    'fileMap' => [
+                        'app-map' => 'map.php',
+                        'app-rule' => 'rule.php',
+                        'app-weapon' => 'weapon.php',
+                    ],
+                ],
+            ],
         ],
     ],
     'params' => $params,

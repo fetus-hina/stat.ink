@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use app\components\helpers\Translator;
 
 /**
  * This is the model class for table "rule".
@@ -77,13 +78,9 @@ class Rule extends \yii\db\ActiveRecord
             'key' => $this->key,
             'mode' => [
                 'key' => $this->mode->key,
-                'name' => [
-                    'ja_JP' => $this->mode->name,
-                ],
+                'name' => Translator::translateToAll('app-rule', $this->mode->name),
             ],
-            'name' => [
-                'ja_JP' => $this->name,
-            ],
+            'name' => Translator::translateToAll('app-rule', $this->name),
         ];
     }
 }
