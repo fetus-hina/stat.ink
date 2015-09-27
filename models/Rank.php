@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use app\components\helpers\Translator;
 
 /**
  * This is the model class for table "rank".
@@ -62,9 +63,7 @@ class Rank extends \yii\db\ActiveRecord
     {
         return [
             'key' => $this->key,
-            'name' => [
-                'ja_JP' => $this->name,
-            ],
+            'name' => Translator::translateToAll('app-rank', $this->name),
         ];
     }
 }
