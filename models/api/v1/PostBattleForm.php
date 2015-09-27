@@ -160,7 +160,7 @@ class PostBattleForm extends Model
             : null;
         $o->end_at          = $this->end_at != ''
             ? gmdate('Y-m-d H:i:sP', (int)$this->end_at)
-            : null;
+            : new Now();
         $o->agent           = $this->agent != '' ? $this->agent : null;
         $o->agent_version   = $this->agent_version != '' ? $this->agent_version : null;
         $o->at              = new Now();
