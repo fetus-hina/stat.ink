@@ -5,8 +5,59 @@
   <div class="container">
     <h1>{{$user->name|escape}}さんのバトル</h1>
 
-    <p>TODO</p>
+    <p>近いうちにまともな表示になりますたぶん</p>
 
-    <pre><code>{{$json|escape}}</code></pre>
+    <table class="table table-striped">
+      <tbody>
+        <tr>
+          <th>{{'Rule'|translate:'app'|escape}}</th>
+          <td>{{$battle->rule->name|default:'?'|translate:'app-rule'|escape}}</td>
+        </tr>
+        <tr>
+          <th>{{'Map'|translate:'app'|escape}}</th>
+          <td>{{$battle->map->name|default:'?'|translate:'app-map'|escape}}</td>
+        </tr>
+        <tr>
+          <th>{{'Weapon'|translate:'app'|escape}}</th>
+          <td>{{$battle->weapon->name|default:'?'|translate:'app-weapon'|escape}}</td>
+        </tr>
+        <tr>
+          <th>{{'Rank'|translate:'app'|escape}}</th>
+          <td>{{$battle->rank->name|default:'?'|translate:'app-rank'|escape}}</td>
+        </tr>
+        <tr>
+          <th>{{'Level'|translate:'app'|escape}}</th>
+          <td>{{$battle->level|default:'?'|escape}}</th>
+        </tr>
+        <tr>
+          <th>{{'Result'|translate:'app'|escape}}</th>
+          <td>
+            {{if $battle->is_win === true}}
+              {{'WON'|translate:'app'|escape}}
+            {{elseif $battle->is_win === false}}
+              {{'LOST'|translate:'app'|escape}}
+            {{else}}
+              {{'?'|translate:'app'|escape}}
+            {{/if}}
+          </td>
+        </tr>
+        <tr>
+          <th>{{'Rank in Team'|translate:'app'|escape}}</th>
+          <td>{{$battle->rank_in_team|default:'?'|escape}}</td>
+        </tr>
+        <tr>
+          <th>{{'Killed/Dead'|translate:'app'|escape}}</th>
+          <td>{{$battle->kill|default:'?'|escape}} / {{$battle->death|default:'?'|escape}}</td>
+        </tr>
+        <tr>
+          <th>{{'Battle Start'|translate:'app'|escape}}</th>
+          <td>{{$battle->start_at|strtotime|escape}}</td>
+        </tr>
+        <tr>
+          <th>{{'Battle End'|translate:'app'|escape}}</th>
+          <td>{{$battle->end_at|strtotime|escape}}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 {{/strip}}

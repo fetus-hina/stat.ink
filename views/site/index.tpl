@@ -5,6 +5,9 @@
     <h1>
       {{$app->name|escape}}
     </h1>
+    <p>
+      まだ作り始めたばかりなので、機能も見た目もショボいです。
+    </p>
     {{$battles = Battle::find()->with('user')->limit(50)->all()}}
     <ul class="battles">
       {{foreach $battles as $battle}}

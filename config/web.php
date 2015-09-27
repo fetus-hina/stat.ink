@@ -65,6 +65,9 @@ $config = [
                         'left_delimiter' => '{{',
                         'right_delimiter' => '}}',
                     ],
+                    'pluginDirs' => [
+                        '//smarty/',
+                    ],
                 ],
             ],
         ],
