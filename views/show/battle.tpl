@@ -61,11 +61,11 @@
         </tr>
         <tr>
           <th>{{'Battle Start'|translate:'app'|escape}}</th>
-          <td>{{$battle->start_at|strtotime|escape}}</td>
+          <td>{{$battle->start_at|date_format:'%F %T %Z'|escape}}</td>
         </tr>
         <tr>
           <th>{{'Battle End'|translate:'app'|escape}}</th>
-          <td>{{$battle->end_at|strtotime|escape}}</td>
+          <td>{{$battle->end_at|date_format:'%F %T %Z'|escape}}</td>
         </tr>
       </tbody>
     </table>
