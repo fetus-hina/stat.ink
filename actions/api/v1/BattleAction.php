@@ -191,8 +191,24 @@ class BattleAction extends BaseAction
                 : null,
             'register_at' => DateTimeFormatter::unixTimeToJsonArray(strtotime($battle->at)),
         ];
-        // TODO: ナワバリ
-        // TODO: ガチ
+        if ($battle->isNawabari) {
+            $nawabari = $battle->battleNawabari;
+            $ret = array_merge($ret, [
+                'my_point' => $nawabari ? (int)$nawabari->my_point : null,
+                'my_team_final_point' => $nawabari ? $nawabari->my_team_final_point : null,
+                'his_team_final_point' => $nawabari ? $nawabari->his_team_final_point : null,
+                'my_team_final_percent' => $nawabari ? $nawabari->my_team_final_percent : null,
+                'his_team_final_percent' => $nawabari ? $nawabari->his_team_final_percent : null,
+            ]);
+        }
+        if ($battle->isGachi) {
+            $gachi = $battle->battleGachi;
+            $ret = array_merge($ret, [
+                'knock_out' => $gachi ? $gachi->is_knock_out : null,
+                'my_team_count' => $gachi ? $gachi->my_team_count : null,
+                'his_team_count' => $gachi ? $gachi->his_team_count : null,
+            ]);
+        }
         $resp = Yii::$app->getResponse();
         $resp->format = 'json';
         return $ret;
