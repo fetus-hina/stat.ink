@@ -153,8 +153,8 @@ class PostBattleForm extends Model
         $o->rank_id         = $this->rank ? Rank::findOne(['key' => $this->rank])->id : null;
         $o->is_win          = $this->result === 'win' ? true : ($this->result === 'lose' ? false : null);
         $o->rank_in_team    = $this->rank_in_team ? (int)$this->rank_in_team : null;
-        $o->kill            = $this->kill != '' ? (int)$this->kill : null;
-        $o->death           = $this->death != '' ? (int)$this->death : null;
+        $o->kill            = (string)$this->kill != '' ? (int)$this->kill : null;
+        $o->death           = (string)$this->death != '' ? (int)$this->death : null;
         $o->start_at        = $this->start_at != ''
             ? gmdate('Y-m-d H:i:sP', (int)$this->start_at)
             : null;
@@ -171,13 +171,17 @@ class PostBattleForm extends Model
     {
         $o = new BattleNawabari();
         $o->id                      = $battle->id;
-        $o->my_point                = $this->my_point != '' ? (int)$this->my_point : null;
-        $o->my_team_final_point     = $this->my_team_final_point != '' ? (int)$this->my_team_final_point : null;
-        $o->his_team_final_point    = $this->his_team_final_point != '' ? (int)$this->his_team_final_point : null;
-        $o->my_team_final_percent   = $this->my_team_final_percent != ''
+        $o->my_point                = (string)$this->my_point != '' ? (int)$this->my_point : null;
+        $o->my_team_final_point     = (string)$this->my_team_final_point != ''
+            ? (int)$this->my_team_final_point
+            : null;
+        $o->his_team_final_point    = (string)$this->his_team_final_point != ''
+            ? (int)$this->his_team_final_point
+            : null;
+        $o->my_team_final_percent   = (string)$this->my_team_final_percent != ''
             ? sprintf('%.1f', (float)$this->my_team_final_percent)
             : null;
-        $o->his_team_final_percent   = $this->his_team_final_percent != ''
+        $o->his_team_final_percent   = (string)$this->his_team_final_percent != ''
             ? sprintf('%.1f', (float)$this->his_team_final_percent)
             : null;
         return $o;
@@ -188,8 +192,8 @@ class PostBattleForm extends Model
         $o = new BattleGachi();
         $o->id              = $battle->id;
         $o->is_knock_out    = $this->knock_out === 'win' ? true : ($this->knock_out === 'lose' ? false : null);
-        $o->my_team_count   = $this->my_team_count != '' ? (int)$this->my_team_count : null;
-        $o->his_team_count  = $this->his_team_count != '' ? (int)$this->his_team_count : null;
+        $o->my_team_count   = (string)$this->my_team_count != '' ? (int)$this->my_team_count : null;
+        $o->his_team_count  = (string)$this->his_team_count != '' ? (int)$this->his_team_count : null;
         return $o;
     }
 
