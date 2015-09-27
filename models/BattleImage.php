@@ -1,8 +1,8 @@
 <?php
-
 namespace app\models;
 
 use Yii;
+use app\components\helpers\RandomFilename;
 
 /**
  * This is the model class for table "battle_image".
@@ -25,6 +25,17 @@ class BattleImage extends \yii\db\ActiveRecord
         return 'battle_image';
     }
 
+    public static function generateFilename()
+    {
+        while (true) {
+            $name = RandomFilename::generate('jpg');
+            $path = substr($name, 0, 2) . '/' . $name;
+            if (!BattleImage::findOne(['filename' => $path])) {
+                return $path;
+            }
+        }
+    }
+
     /**
      * @inheritdoc
      */
@@ -33,7 +44,7 @@ class BattleImage extends \yii\db\ActiveRecord
         return [
             [['battle_id', 'type_id', 'filename'], 'required'],
             [['battle_id', 'type_id'], 'integer'],
-            [['filename'], 'string', 'max' => 32]
+            [['filename'], 'string', 'max' => 64]
         ];
     }
 

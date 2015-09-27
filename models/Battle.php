@@ -138,6 +138,18 @@ class Battle extends \yii\db\ActiveRecord
         return $this->hasMany(BattleImage::className(), ['battle_id' => 'id']);
     }
 
+    public function getBattleImageJudge()
+    {
+        return $this->hasOne(BattleImage::className(), ['battle_id' => 'id'])
+            ->andWhere(['type_id' => BattleImageType::ID_JUDGE]);
+    }
+
+    public function getBattleImageResult()
+    {
+        return $this->hasOne(BattleImage::className(), ['battle_id' => 'id'])
+            ->andWhere(['type_id' => BattleImageType::ID_RESULT]);
+    }
+
     /**
      * @return \yii\db\ActiveQuery
      */

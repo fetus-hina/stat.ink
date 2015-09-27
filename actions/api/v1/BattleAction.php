@@ -16,6 +16,7 @@ use yii\helpers\Url;
 use app\models\api\v1\PostBattleForm;
 use app\models\Battle;
 use app\components\helpers\DateTimeFormatter;
+use app\components\helpers\ImageConverter;
 
 class BattleAction extends BaseAction
 {
@@ -44,7 +45,7 @@ class BattleAction extends BaseAction
         $form->attributes = $request->getBodyParams();
         foreach (['image_judge', 'image_result'] as $key) {
             if ($form->$key == '') {
-                $form->$key = UploadedFile::getInstance($form, $key);
+                $form->$key = UploadedFile::getInstanceByName($key);
             }
         }
         if (!$form->validate()) {
@@ -52,6 +53,7 @@ class BattleAction extends BaseAction
         }
 
         $transaction = Yii::$app->db->beginTransaction();
+        $tmpFiles = [];
         try {
             $battle = $form->toBattle();
             if (!$battle->isMeaningful) {
@@ -88,7 +90,59 @@ class BattleAction extends BaseAction
                     }
                 }
             }
-            // TODO: 画像
+
+            $imageOutputDir = Yii::getAlias('@webroot/images');
+            if ($image = $form->toImageJudge($battle)) {
+                $binary = is_string($form->image_judge)
+                    ? $form->image_judge
+                    : file_get_contents($form->image_judge->tempName, false);
+                if (!ImageConverter::convert(
+                    $binary,
+                    $imageOutputDir . '/' . $image->filename,
+                    $imageOutputDir . '/' . str_replace('.jpg', '.webp', $image->filename)
+                )) {
+                    $transaction->rollback();
+                    return $this->formatError([
+                        'system' => [
+                            Yii::t('app', 'Could not convert "{0}" image.', 'judge'),
+                        ]
+                    ], 500);
+                }
+                if (!$image->save()) {
+                    $transaction->rollback();
+                    return $this->formatError([
+                        'system' => [
+                            Yii::t('app', 'Could not save {0}', 'battle_image(judge)'),
+                        ]
+                    ], 500);
+                }
+            }
+            if ($image = $form->toImageResult($battle)) {
+                $binary = is_string($form->image_result)
+                    ? $form->image_result
+                    : file_get_contents($form->image_result->tempName, false);
+                if (!ImageConverter::convert(
+                    $binary,
+                    $imageOutputDir . '/' . $image->filename,
+                    $imageOutputDir . '/' . str_replace('.jpg', '.webp', $image->filename)
+                )) {
+                    $transaction->rollback();
+                    return $this->formatError([
+                        'system' => [
+                            Yii::t('app', 'Could not convert "{0}" image.', 'result'),
+                        ]
+                    ], 500);
+                }
+                if (!$image->save()) {
+                    $transaction->rollback();
+                    return $this->formatError([
+                        'system' => [
+                            Yii::t('app', 'Could not save {0}', 'battle_image(result)'),
+                        ]
+                    ], 500);
+                }
+            }
+
             $transaction->commit();
             
             // 保存時間の読み込みのために再読込する
@@ -119,6 +173,12 @@ class BattleAction extends BaseAction
             'rank_in_team' => $battle->rank_in_team,
             'kill' => $battle->kill,
             'death' => $battle->death,
+            'image_judge' => $battle->battleImageJudge
+                ? Url::to(Yii::getAlias('@web/images') . '/' . $battle->battleImageJudge->filename, true)
+                : null,
+            'image_result' => $battle->battleImageResult
+                ? Url::to(Yii::getAlias('@web/images') . '/' . $battle->battleImageResult->filename, true)
+                : null,
             'agent' => [
                 'name' => $battle->agent,
                 'version' => $battle->agent_version,
@@ -131,7 +191,6 @@ class BattleAction extends BaseAction
                 : null,
             'register_at' => DateTimeFormatter::unixTimeToJsonArray(strtotime($battle->at)),
         ];
-        // TODO: 画像
         // TODO: ナワバリ
         // TODO: ガチ
         $resp = Yii::$app->getResponse();

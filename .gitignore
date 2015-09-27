@@ -11,6 +11,7 @@
 /phpunit.xml
 /resources/.compiled
 /vendor
+/web/images
 Thumbs.db
 composer.phar
 nbproject

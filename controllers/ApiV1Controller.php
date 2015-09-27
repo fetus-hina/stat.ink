@@ -15,6 +15,12 @@ class ApiV1Controller extends Controller
 {
     public $enableCsrfValidation = false;
 
+    public function init()
+    {
+        //Yii::$app->language = Yii::$app->sourceLanguage;
+        parent::init();
+    }
+
     public function behaviors()
     {
         return [

@@ -22,7 +22,8 @@
         "yiisoft/yii2-bootstrap": "2.0.*",
         "yiisoft/yii2-smarty": "2.0.*",
         "himiklab/yii2-recaptcha-widget": "^1.0",
-        "bower-asset/zxcvbn": "^3.5"
+        "bower-asset/zxcvbn": "^3.5",
+        "christian-riesen/base32": "^1.2"
     },
     "require-dev": {
         "phpcq/author-validation": "^1.1",

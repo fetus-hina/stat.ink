@@ -3,10 +3,13 @@ namespace app\models\api\v1;
 
 use Yii;
 use yii\base\Model;
+use yii\web\UploadedFile;
 use app\components\helpers\db\Now;
 use app\models\Battle;
-use app\models\BattleNawabari;
 use app\models\BattleGachi;
+use app\models\BattleImage;
+use app\models\BattleImageType;
+use app\models\BattleNawabari;
 use app\models\Map;
 use app\models\Rank;
 use app\models\Rule;
@@ -67,6 +70,7 @@ class PostBattleForm extends Model
             [['result'], 'boolean', 'trueValue' => 'win', 'falseValue' => 'lose'],
             [['rank_in_team'], 'integer', 'min' => 1, 'max' => 4],
             [['kill', 'death'], 'integer', 'min' => 0],
+            [['image_judge', 'image_result'], 'safe'],
             [['image_judge', 'image_result'], 'file',
                 'maxSize' => 3 * 1024 * 1024,
                 'when' => function ($model, $attr) {
@@ -186,6 +190,28 @@ class PostBattleForm extends Model
         $o->is_knock_out    = $this->knock_out === 'win' ? true : ($this->knock_out === 'lose' ? false : null);
         $o->my_team_count   = $this->my_team_count != '' ? (int)$this->my_team_count : null;
         $o->his_team_count  = $this->his_team_count != '' ? (int)$this->his_team_count : null;
+        return $o;
+    }
+
+    public function toImageJudge(Battle $battle)
+    {
+        return $this->toImage($battle, BattleImageType::ID_JUDGE, 'image_judge');
+    }
+
+    public function toImageResult(Battle $battle)
+    {
+        return $this->toImage($battle, BattleImageType::ID_RESULT, 'image_result');
+    }
+
+    protected function toImage(Battle $battle, $imageTypeId, $attr)
+    {
+        if ($this->$attr == '' && !$this->$attr instanceof UploadedFile) {
+            return null;
+        }
+        $o = new BattleImage();
+        $o->battle_id = $battle->id;
+        $o->type_id = $imageTypeId;
+        $o->filename = BattleImage::generateFilename();
         return $o;
     }
 }

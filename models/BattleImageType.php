@@ -14,6 +14,9 @@ use Yii;
  */
 class BattleImageType extends \yii\db\ActiveRecord
 {
+    const ID_JUDGE = 1;
+    const ID_RESULT = 2;
+
     /**
      * @inheritdoc
      */
