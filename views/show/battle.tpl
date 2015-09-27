@@ -59,6 +59,18 @@
           <th>{{'Killed/Dead'|translate:'app'|escape}}</th>
           <td>{{$battle->kill|default:'?'|escape}} / {{$battle->death|default:'?'|escape}}</td>
         </tr>
+        {{if $battle->isNawabari}}
+          {{$nawabari = $battle->battleNawabari}}
+          {{if $nawabari}}
+            <tr>
+              <th>{{'Turf Inked'|translate:'app'|escape}}</th>
+              <td>{{$nawabari->my_point|default:'?'|escape}}</td>
+            </tr>
+          {{/if}}
+        {{/if}}
+        {{if $battle->isGachi}}
+          {{$gachi = $battle->battleGachi}}
+        {{/if}}
         <tr>
           <th>{{'Battle Start'|translate:'app'|escape}}</th>
           <td>{{$battle->start_at|date_format:'%F %T %Z'|escape}}</td>

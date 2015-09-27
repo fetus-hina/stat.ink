@@ -10,6 +10,8 @@ return [
     'Rank' => 'ウデマエ',
     'Result' => '結果',
     'Rule' => 'ルール',
+    'Turf Inked' => '塗った面積',
     'WON' => '勝利',
     'Weapon' => 'ブキ',
 ];
+
