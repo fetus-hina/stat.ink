@@ -7,6 +7,16 @@
 
     <p>近いうちにまともな表示になりますたぶん</p>
 
+    {{$image = null}}
+    {{if $battle->battleImageJudge}}
+      {{$image = $battle->battleImageJudge}}
+    {{elseif $battle->battleImageResult}}
+      {{$image = $battle->battleImageResult}}
+    {{/if}}
+    {{if $image}}
+      <img src="{{$image->url|escape}}" style="max-width:100%;height:auto">
+    {{/if}}
+
     <table class="table table-striped">
       <tbody>
         <tr>
