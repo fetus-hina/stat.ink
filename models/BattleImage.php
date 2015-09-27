@@ -2,6 +2,7 @@
 namespace app\models;
 
 use Yii;
+use yii\helpers\Url;
 use app\components\helpers\RandomFilename;
 
 /**
@@ -75,5 +76,11 @@ class BattleImage extends \yii\db\ActiveRecord
     public function getType()
     {
         return $this->hasOne(BattleImageType::className(), ['id' => 'type_id']);
+    }
+
+    public function getUrl()
+    {
+        $path = Yii::getAlias('@web/images') . '/' . $this->filename;
+        return Url::to($path, true);
     }
 }

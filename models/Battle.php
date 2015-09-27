@@ -35,6 +35,11 @@ use Yii;
  */
 class Battle extends \yii\db\ActiveRecord
 {
+    public static function find()
+    {
+        return parent::find()->orderBy('[[id]] DESC');
+    }
+
     /**
      * @inheritdoc
      */

@@ -1,5 +1,20 @@
 @charset "UTF-8";
 
+.cf() {
+    &:before, &:after {
+        content: " ";
+        display: table;
+    }
+
+    &:after {
+        clear: both;
+    }
+
+    & {
+        *zoom: 1;
+    }
+}
+
 body {
     // body 上部にはナビバーが居るので適当に
     padding-top: 70px;
@@ -26,4 +41,32 @@ footer {
 .license-body {
     margin-left: 10%;
     margin-right: 5%;
+}
+
+ul.battles {
+    .cf;
+    display: block;
+    list-style-type: none;
+    width: 100%;
+    margin: 15px 0;
+    padding: 0;
+    box-sizing: border-box;
+    
+    li {
+        display: block;
+        list-style-type: none;
+        width: 260px;
+        float: left;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin: 0 10px 10px 0;
+        padding: 10px;
+
+        .battle-image img {
+            //width: 100%;
+            //height: auto;
+            width: 240px;
+            height: (240px * 9 / 16);
+        }
+    }
 }
