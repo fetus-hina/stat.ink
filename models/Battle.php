@@ -20,10 +20,10 @@ use Yii;
  * @property integer $death
  * @property string $start_at
  * @property string $end_at
- * @property string $agent
- * @property string $agent_version
  * @property string $at
+ * @property integer $agent_id
  *
+ * @property Agent $agent
  * @property Map $map
  * @property Rank $rank
  * @property Rule $rule
@@ -55,10 +55,10 @@ class Battle extends \yii\db\ActiveRecord
     {
         return [
             [['user_id', 'at'], 'required'],
-            [['user_id', 'rule_id', 'map_id', 'weapon_id', 'level', 'rank_id', 'rank_in_team', 'kill', 'death'], 'integer'],
+            [['user_id', 'rule_id', 'map_id', 'weapon_id', 'level', 'rank_id'], 'integer'],
+            [['rank_in_team', 'kill', 'death', 'agent_id'], 'integer'],
             [['is_win'], 'boolean'],
             [['start_at', 'end_at', 'at'], 'safe'],
-            [['agent', 'agent_version'], 'string', 'max' => 16]
         ];
     }
 
@@ -81,10 +81,17 @@ class Battle extends \yii\db\ActiveRecord
             'death' => 'Death',
             'start_at' => 'Start At',
             'end_at' => 'End At',
-            'agent' => 'Agent',
-            'agent_version' => 'Agent Version',
             'at' => 'At',
+            'agent_id' => 'Agent ID',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getAgent()
+    {
+        return $this->hasOne(Agent::className(), ['id' => 'agent_id']);
     }
 
     /**

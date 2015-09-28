@@ -85,7 +85,12 @@ class PostBattleForm extends Model
                     return is_string($model->$attr);
                 }],
             [['start_at', 'end_at'], 'integer'],
-            [['agent', 'agent_version'], 'string', 'max' => 16],
+            [['agent'], 'string', 'max' => 64],
+            [['agent_version'], 'string', 'max' => 255],
+            [['agent', 'agent_version'], 'required',
+                'when' => function ($model, $attr) {
+                    return (string)$this->agent !== '' || (string)$this->agent_version !== '';
+                }],
             [['my_point'], 'integer', 'min' => 0],
             [['my_team_final_point', 'his_team_final_point'], 'integer', 'min' => 0],
             [['my_team_final_percent', 'his_team_final_percent'], 'number',
@@ -161,8 +166,7 @@ class PostBattleForm extends Model
         $o->end_at          = $this->end_at != ''
             ? gmdate('Y-m-d H:i:sP', (int)$this->end_at)
             : new Now();
-        $o->agent           = $this->agent != '' ? $this->agent : null;
-        $o->agent_version   = $this->agent_version != '' ? $this->agent_version : null;
+        $o->agent_id        = null;
         $o->at              = new Now();
         return $o;
     }

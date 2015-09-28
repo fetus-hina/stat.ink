@@ -17,7 +17,7 @@ class ApiV1Controller extends Controller
 
     public function init()
     {
-        //Yii::$app->language = Yii::$app->sourceLanguage;
+        Yii::$app->language = 'en-us';
         parent::init();
     }
 

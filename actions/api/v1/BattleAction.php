@@ -13,10 +13,11 @@ use yii\web\MethodNotAllowedHttpException;
 use yii\web\UploadedFile;
 use yii\web\ViewAction as BaseAction;
 use yii\helpers\Url;
-use app\models\api\v1\PostBattleForm;
-use app\models\Battle;
 use app\components\helpers\DateTimeFormatter;
 use app\components\helpers\ImageConverter;
+use app\models\Agent;
+use app\models\Battle;
+use app\models\api\v1\PostBattleForm;
 
 class BattleAction extends BaseAction
 {
@@ -58,12 +59,29 @@ class BattleAction extends BaseAction
             $battle = $form->toBattle();
             if (!$battle->isMeaningful) {
                 $transaction->rollback();
-                return $this->formatError(['system' => [ 'データの送信量が足りません' ]], 400);
+                return $this->formatError([
+                    'system' => [ Yii::t('app', 'Please send meaningful data.') ],
+                ], 400);
+            }
+            if ($form->agent != '' || $form->agent_version != '') {
+                $agent = Agent::findOne(['name' => (string)$form->agent, 'version' => (string)$form->agent_version]);
+                if (!$agent) {
+                    $agent = new Agent();
+                    $agent->name = (string)$form->agent;
+                    $agent->version = (string)$form->agent_version;
+                    if (!$agent->save()) {
+                        return $this->formatError([
+                            'system' => [ Yii::t('app', 'Could not save to database: {0}', 'agent') ],
+                            'system_' => $battle->getErrors(),
+                        ], 500);
+                    }
+                }
+                $battle->agent_id = $agent->id;
             }
             if (!$battle->save()) {
                 $transaction->rollback();
                 return $this->formatError([
-                    'system' => [ '保存失敗 : battle' ],
+                    'system' => [ Yii::t('app', 'Could not save to database: {0}', 'battle') ],
                     'system_' => $battle->getErrors(),
                 ], 500);
             }
@@ -73,7 +91,7 @@ class BattleAction extends BaseAction
                     if (!$nawabari->save()) {
                         $transaction->rollback();
                         return $this->formatError([
-                            'system' => [ '保存失敗 : battle_nawabari' ],
+                            'system' => [ Yii::t('app', 'Could not save to database: {0}', 'battle_nawabari') ],
                             'system_' => $nawabari->getErrors(),
                         ], 500);
                     }
@@ -84,7 +102,7 @@ class BattleAction extends BaseAction
                     if (!$gachi->save()) {
                         $transaction->rollback();
                         return $this->formatError([
-                            'system' => [ '保存失敗 : battle_gachi' ],
+                            'system' => [ Yii::t('app', 'Could not save to database: {0}', 'battle_ggachi') ],
                             'system_' => $gachi->getErrors(),
                         ], 500);
                     }
@@ -180,8 +198,8 @@ class BattleAction extends BaseAction
                 ? Url::to(Yii::getAlias('@web/images') . '/' . $battle->battleImageResult->filename, true)
                 : null,
             'agent' => [
-                'name' => $battle->agent,
-                'version' => $battle->agent_version,
+                'name' => $battle->agent ? $battle->agent->name : null,
+                'version' => $battle->agent ? $battle->agent->version : null,
             ],
             'start_at' => $battle->start_at != ''
                 ? DateTimeFormatter::unixTimeToJsonArray(strtotime($battle->start_at))
