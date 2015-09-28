@@ -32,36 +32,9 @@ class BattleAction extends BaseAction
             throw new NotFoundHttpExcpetion('指定されたバトルが見つかりません');
         }
 
-        $test = [
-            'id' => $battle->id,
-            'user' => $battle->user ? $battle->user->toJsonArray() : null,
-            'rule' => $battle->rule ? $battle->rule->toJsonArray() : null,
-            'map' => $battle->map ? $battle->map->toJsonArray() : null,
-            'weapon' => $battle->weapon ? $battle->weapon->toJsonArray() : null,
-            'rank' => $battle->rank ? $battle->rank->toJsonArray() : null,
-            'level' => $battle->level,
-            'result' => $battle->is_win === true ? 'win' : ($battle->is_win === false ? 'lose' : null),
-            'rank_in_team' => $battle->rank_in_team,
-            'kill' => $battle->kill,
-            'death' => $battle->death,
-            'agent' => [
-                'name' => $battle->agent,
-                'version' => $battle->agent_version,
-            ],
-            'start_at' => $battle->start_at != ''
-                ? DateTimeFormatter::unixTimeToJsonArray(strtotime($battle->start_at))
-                : null,
-            'end_at' => $battle->end_at != ''
-                ? DateTimeFormatter::unixTimeToJsonArray(strtotime($battle->end_at))
-                : null,
-            'register_at' => DateTimeFormatter::unixTimeToJsonArray(strtotime($battle->at)),
-        ];
-        $json = json_encode($test, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
-
         return $this->controller->render('battle.tpl', [
             'user' => $user,
             'battle' => $battle,
-            'json' => $json,
         ]);
     }
 }
