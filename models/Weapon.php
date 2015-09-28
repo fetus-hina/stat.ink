@@ -14,6 +14,7 @@ use app\components\helpers\Translator;
  * @property string $name
  *
  * @property Battle[] $battles
+ * @property Subweapon $subweapon
  * @property WeaponType $type
  */
 class Weapon extends \yii\db\ActiveRecord
@@ -67,6 +68,14 @@ class Weapon extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
+    public function getSubweapon()
+    {
+        return $this->hasOne(Subweapon::className(), ['id' => 'subweapon_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getType()
     {
         return $this->hasOne(WeaponType::className(), ['id' => 'type_id']);
@@ -81,6 +90,7 @@ class Weapon extends \yii\db\ActiveRecord
                 'name' => Translator::translateToAll('app-weapon', $this->type->name),
             ],
             'name' => Translator::translateToAll('app-weapon', $this->name),
+            'sub' => $this->subweapon->toJsonArray(),
         ];
     }
 }

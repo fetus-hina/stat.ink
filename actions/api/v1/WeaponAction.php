@@ -21,7 +21,7 @@ class WeaponAction extends BaseAction
             function ($weapon) {
                 return $weapon->toJsonArray();
             },
-            Weapon::find()->with('type')->all()
+            Weapon::find()->with(['type', 'subweapon'])->all()
         );
     }
 }

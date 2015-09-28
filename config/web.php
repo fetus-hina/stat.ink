@@ -100,6 +100,7 @@ $config = [
                         'app-map' => 'map.php',
                         'app-rank' => 'rank.php',
                         'app-rule' => 'rule.php',
+                        'app-subweapon' => 'subweapon.php',
                         'app-weapon' => 'weapon.php',
                     ],
                 ],
