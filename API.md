@@ -1,15 +1,10 @@
 stat.ink API
 ============
 
-POST /api/v1/battle
--------------------
+Overview: POST
+--------------
 
-`POST https://stat.ink/api/v1/battle`
-
-バトル結果を投稿します。利用にはユーザ毎に発行されるAPIキーが必要です。
-（ユーザのプロフィールページから取得できます。アプリケーションはユーザにこれを指定させてください。）
-
-次のいずれかの形式で送信してください。
+投稿系の API では次の形式で送信してください。
 
 * `Content-Type: multipart/form-data` および妥当なリクエストボディ
 
@@ -62,6 +57,52 @@ POST /api/v1/battle
     ※forkして作成したサイトの場合で MessagePack 取り扱いのための拡張が入っていない場合、
     この形式は利用できません。
 
+Overview: GET
+-------------
+
+取得系の API、または投稿系の API の戻り値は原則として JSON 形式で返ります。
+
+* インデント
+
+    - インデント等の整形については特に規定しません。現状は項目ごとに改行し、4スペースでインデントされていますがある日突然変更されるかもしれません。
+
+* array
+
+    - その並びに特に意味がないとき、項目の出現順は特に規定しません。例えばブキ一覧を取得したとき、わかばシューターが何番目に現れるかはわかりません。
+
+* object
+
+    - 要素の出現順は特に規定しません。ランダムに返るかもしれません。（実装上は固定されるはずですが保障しません）
+
+* 文字列型
+
+    - 文字列型の表現は JSON として許容されるいずれの形式にもなり得ます。
+    
+* 日時表現
+
+    - 日時型の表現は `{"time": 1443175797, "iso8601": "2015-09-25T10:09:57+00:00"}` のような表現としています。
+    
+    - `"time"` は UNIX 時間で秒単位です。
+
+    - `"iso8601"` は ISO 8601 の拡張形式の文字列で表した日時です。タイムゾーンは現在 UTC で表現されますが、保障しません。（「ISO 8601 をパースできるものに通せば正しく解釈される」程度を保障します）
+
+* 国際化された名前
+
+    - 一部の名前は `{"en_US": "Turf War", "ja_JP": "ナワバリバトル"}` のように国際化に対応した形で返されます。
+
+    - 現在は、英語（米国）・日本語で返されますが、今後増えるかもしれません（たぶん増えません）。
+
+
+POST /api/v1/battle
+-------------------
+
+`POST https://stat.ink/api/v1/battle`
+
+バトル結果を投稿します。利用にはユーザ毎に発行されるAPIキーが必要です。
+（ユーザのプロフィールページから取得できます。アプリケーションはユーザにこれを指定させてください。）
+
+投稿に成功した場合は `GET /api/v1/battle` と同じ結果が返ります。
+失敗した場合はエラー情報が HTTP ステータス and/or JSON で返ります。
 
 ### パラメータ ###
 
@@ -75,13 +116,13 @@ POST /api/v1/battle
 
 * `apikey` : (必須) ユーザを特定するための API キーを指定します。（例: `ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopq` ）
 
-* `rule` : ルールを次のうちいずれかの値で指定します。
+* `rule` : ルールを次のうちいずれかの値で指定します。完全なリストはルール取得 API から取得してください。
     - `nawabari` : ナワバリバトル
     - `area` : ガチバトル／ガチエリア
     - `yagura` : ガチバトル／ガチヤグラ
     - `hoko` : ガチバトル／ガチホコ
 
-* `map` : マップを次のうちいずれかの値で指定します。
+* `map` : マップを次のうちいずれかの値で指定します。完全なリストはマップ取得 API から取得してください。
     - `arowana` : アロワナモール
     - `bbass` : Bバスパーク
     - `dekaline` : デカライン高架下（ver 2）
@@ -95,7 +136,7 @@ POST /api/v1/battle
     - `shionome` : シオノメ油田
     - `tachiuo` : タチウオパーキング
 
-* `weapon` : 自分のブキを次のいずれかの値で指定します。
+* `weapon` : 自分のブキを次のいずれかの値で指定します。完全なリストはブキ取得 API から取得してください。
     - シューター
         - `52gal` : .52ガロン
         - `52gal_deco` : .52ガロンデコ
@@ -215,61 +256,133 @@ POST /api/v1/battle
 
 ----
 
+GET /api/v1/battle
+------------------
+
+指定したバトルについて記録されている情報が返ります。
+
+おおむね `POST /api/v1/battle` の送信パラメータと対応したキーになりますが、
+
+* `apikey` が含まれず `user` が含まれる
+
+* 日時やキーを指定した箇所が展開されて含まれる
+
+などの違いがあります。
+
+```js
+{
+    "id": 79,
+    "url": "https:\/\/stat.ink\/u\/fetus_hina\/79",
+    "user": {
+        "id": 1,
+        "name": "ひな",
+        "screen_name": "fetus_hina",
+        "join_at": {
+            "time": 1443175797,
+            "iso8601": "2015-09-25T10:09:57+00:00"
+        }
+    },
+    "rule": {
+        "key": "nawabari",
+        "mode": {
+            "key": "regular",
+            "name": {
+                "en_US": "Regular Battle",
+                "ja_JP": "レギュラーマッチ"
+            }
+        },
+        "name": {
+            "en_US": "Turf War",
+            "ja_JP": "ナワバリバトル"
+        }
+    },
+    "map": {
+        "key": "hakofugu",
+        "name": {
+            "en_US": "Walleye Warehouse",
+            "ja_JP": "ハコフグ倉庫"
+        }
+    },
+    "weapon": null,
+    "rank": null,
+    "level": 22,
+    "result": "win",
+    "rank_in_team": 1,
+    "kill": 8,
+    "death": 2,
+    "image_judge": null,
+    "image_result": "https:\/\/stat.ink\/images\/vk\/vk45tcekjzca3lyc3zfurxmwoq.jpg",
+    "agent": {
+        "name": "IkaLog",
+        "version": "0.01"
+    },
+    "start_at": {
+        "time": 1443381832,
+        "iso8601": "2015-09-27T19:23:52+00:00"
+    },
+    "end_at": {
+        "time": 1443382015,
+        "iso8601": "2015-09-27T19:26:55+00:00"
+    },
+    "register_at": {
+        "time": 1443382039,
+        "iso8601": "2015-09-27T19:27:19+00:00"
+    },
+    "my_point": 1302,
+    "my_team_final_point": null,
+    "his_team_final_point": null,
+    "my_team_final_percent": null,
+    "his_team_final_percent": null
+}
+```
+
+----
+
 GET /api/v1/rule
 ----------------
 
 ルールの一覧をJSON形式で返します。 `key` が他のAPIで利用するときの値です。
 
+ルールの出現順や構造の中の順番は特に決まっていません。（必要であれば利用者側で並び替えてください。ナワバリが真ん中に出現する可能性もあります）
+
 ```js
 [
     {
+        // この値が battle API に送信する値です
         "key": "nawabari",
+
+        // ゲームモードの情報を示す構造です
         "mode": {
+            // レギュラーマッチの場合はこの key が "regular" と一致します
             "key": "regular",
             "name": {
+                "en_US": "Regular Battle",
                 "ja_JP": "レギュラーマッチ"
             }
         },
+
+        // ルールの名前 
         "name": {
+            "en_US": "Turf War",
             "ja_JP": "ナワバリバトル"
         }
     },
     {
         "key": "area",
         "mode": {
+            // ガチバトルの場合はこの key が "gachi" と一致します
             "key": "gachi",
             "name": {
+                "en_US": "Ranked Battle",
                 "ja_JP": "ガチマッチ"
             }
         },
         "name": {
+            "en_US": "Splat Zones",
             "ja_JP": "ガチエリア"
         }
     },
-    {
-        "key": "yagura",
-        "mode": {
-            "key": "gachi",
-            "name": {
-                "ja_JP": "ガチマッチ"
-            }
-        },
-        "name": {
-            "ja_JP": "ガチヤグラ"
-        }
-    },
-    {
-        "key": "hoko",
-        "mode": {
-            "key": "gachi",
-            "name": {
-                "ja_JP": "ガチマッチ"
-            }
-        },
-        "name": {
-            "ja_JP": "ガチホコ"
-        }
-    }
+    // ...
 ]
 ```
 
@@ -280,26 +393,21 @@ GET /api/v1/map
 
 マップの一覧をJSON形式で返します。 `key` が他のAPIで利用するときの値です。
 
+マップの出現順や構造の中の順番は特に決まっていません。（必要であれば利用者側で並び替えてください）
+
 ```js
 [
     {
+        // この値が battle API に送信する値です
         "key": "arowana",
+
+        // マップの名前
         "name": {
+            "en_US": "Arowana Mall",
             "ja_JP": "アロワナモール"
         }
     },
-    {
-        "key": "bbass",
-        "name": {
-            "ja_JP": "Bバスパーク"
-        }
-    },
-    {
-        "key": "shionome",
-        "name": {
-            "ja_JP": "シオノメ油田"
-        }
-    }
+    // ...
 ]
 ```
 
@@ -310,43 +418,40 @@ GET /api/v1/weapon
 
 ブキの一覧をJSON形式で返します。 `key` が他のAPIで利用するときの値です。
 
+ブキの出現順やブキ構造の中の順番は特に決まっていません。（必要であれば利用者側で並び替えてください）
+
 ```js
 [
     {
-        "key": "52gal",
-        "name": {
-            "ja_JP": ".52ガロン"
-        },
+        // この値が battle API に送信する値です
+        "key": "wakaba",
+
+        // ブキの種別とその名前
         "type": {
             "key": "shooter",
             "name": {
+                "en_US": "Shooters",
                 "ja_JP": "シューター"
             }
+        },
+
+        // ブキの名前
+        "name": {
+            "en_US": "Splattershot Jr.",
+            "ja_JP": "わかばシューター"
+        },
+
+        // サブウェポンの種類と名前
+        "sub": {
+            "key": "splashbomb",
+            "name": {
+                "en_US": "Splat Bomb",
+                "ja_JP": "スプラッシュボム"
+            }
         }
+
+        // まだスペシャルの種類と名前のデータはありません
     },
-    {
-        "key": "52gal_deco",
-        "name": {
-            "ja_JP": ".52ガロンデコ"
-        },
-        "type": {
-            "key": "shooter",
-            "name": {
-                "ja_JP": "シューター"
-            }
-        }
-    },
-    {
-        "key": "96gal",
-        "name": {
-            "ja_JP": ".96ガロン"
-        },
-        "type": {
-            "key": "shooter",
-            "name": {
-                "ja_JP": "シューター"
-            }
-        }
-    }
+    // ...
 ]
 ```
