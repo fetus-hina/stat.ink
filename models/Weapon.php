@@ -1,5 +1,4 @@
 <?php
-
 namespace app\models;
 
 use Yii;
@@ -12,8 +11,11 @@ use app\components\helpers\Translator;
  * @property integer $type_id
  * @property string $key
  * @property string $name
+ * @property integer $subweapon_id
+ * @property integer $special_id
  *
  * @property Battle[] $battles
+ * @property Special $special
  * @property Subweapon $subweapon
  * @property WeaponType $type
  */
@@ -35,10 +37,9 @@ class Weapon extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['type_id', 'key', 'name'], 'required'],
-            [['type_id'], 'integer'],
-            [['key'], 'string', 'max' => 32],
-            [['name'], 'string', 'max' => 16],
+            [['type_id', 'key', 'name', 'subweapon_id', 'special_id'], 'required'],
+            [['type_id', 'subweapon_id', 'special_id'], 'integer'],
+            [['key', 'name'], 'string', 'max' => 32],
             [['key'], 'unique'],
             [['name'], 'unique']
         ];
@@ -54,6 +55,8 @@ class Weapon extends \yii\db\ActiveRecord
             'type_id' => 'Type ID',
             'key' => 'Key',
             'name' => 'Name',
+            'subweapon_id' => 'Subweapon ID',
+            'special_id' => 'Special ID',
         ];
     }
 
@@ -63,6 +66,14 @@ class Weapon extends \yii\db\ActiveRecord
     public function getBattles()
     {
         return $this->hasMany(Battle::className(), ['weapon_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getSpecial()
+    {
+        return $this->hasOne(Special::className(), ['id' => 'special_id']);
     }
 
     /**
@@ -91,6 +102,7 @@ class Weapon extends \yii\db\ActiveRecord
             ],
             'name' => Translator::translateToAll('app-weapon', $this->name),
             'sub' => $this->subweapon->toJsonArray(),
+            'special' => $this->special->toJsonArray(),
         ];
     }
 }

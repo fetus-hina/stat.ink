@@ -452,9 +452,16 @@ GET /api/v1/weapon
                 "en_US": "Splat Bomb",
                 "ja_JP": "スプラッシュボム"
             }
-        }
+        },
 
-        // まだスペシャルの種類と名前のデータはありません
+        // スペシャルの種類と名前
+        "special": {
+            "key": "barrier",
+            "name": {
+                "en_US": "Bubbler",
+                "ja_JP": "バリア"
+            }
+        }
     },
     // ...
 ]
