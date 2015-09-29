@@ -37,7 +37,9 @@ class Battle extends \yii\db\ActiveRecord
 {
     public static function find()
     {
-        return parent::find()->orderBy('[[id]] DESC');
+        $query = new query\BattleQuery(get_called_class());
+        $query->orderBy('{{battle}}.[[id]] DESC');
+        return $query;
     }
 
     /**

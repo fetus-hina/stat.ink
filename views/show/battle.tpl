@@ -3,7 +3,9 @@
   {{set title="{{$app->name}} | {{$user->name|escape}}さんのバトル"}}
   {{use class="yii\bootstrap\ActiveForm" type="block"}}
   <div class="container">
-    <h1>{{$user->name|escape}}さんのバトル</h1>
+    <h1>
+      <a href="{{url route='show/user' screen_name=$user->screen_name}}">{{$user->name|escape}}さん</a>のバトル
+    </h1>
 
     <p>近いうちにまともな表示になりますたぶん</p>
 

@@ -10,6 +10,7 @@ namespace app\actions\show;
 use Yii;
 use yii\web\NotFoundHttpException;
 use yii\web\ViewAction as BaseAction;
+use yii\data\ActiveDataProvider;
 use app\models\BattleFilterForm;
 use app\models\GameMode;
 use app\models\Map;
@@ -25,20 +26,30 @@ class UserAction extends BaseAction
         $request = Yii::$app->getRequest();
         $user = User::findOne(['screen_name' => $request->get('screen_name')]);
         if (!$user) {
-            throw new NotFoundHttpException('指定されたユーザが見つかりません');
+            throw new NotFoundHttpException(Yii::t('app', 'Could not find user'));
         }
+
+        $battle = $user->getBattles()
+            ->with(['rule', 'map', 'weapon', 'weapon.subweapon', 'weapon.special']);
 
         $filter = new BattleFilterForm();
         $filter->load($_GET);
         $filter->screen_name = $user->screen_name;
-        $filter->validate();
+        if ($filter->validate()) {
+            $battle->filter($filter);
+        }
 
+        $isPjax = $request->isPjax;
         return $this->controller->render('user.tpl', [
-            'user' => $user,
-            'filter' => $filter,
-            'rules' => $this->makeRulesList(),
-            'maps' => $this->makeMapsList(),
-            'weapons' => $this->makeWeaponsList(),
+            'user'      => $user,
+            'battleDataProvider' => new ActiveDataProvider([
+                'query' => $battle,
+                'pagination' => ['pageSize' => 50 ]
+            ]),
+            'filter'    => $filter,
+            'rules'     => $isPjax ? [] : $this->makeRulesList(),
+            'maps'      => $isPjax ? [] : $this->makeMapsList(),
+            'weapons'   => $isPjax ? [] : $this->makeWeaponsList(),
         ]);
     }
 
