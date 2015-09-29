@@ -21,24 +21,37 @@
               </a>
               <ul class="dropdown-menu">
                 <li>
-                  <a href="{{path route="user/login"}}">ログイン</a>
+                  <a href="{{path route="user/login"}}">
+                    <span class="fa fa-sign-in"></span> ログイン
+                  </a>
                 </li>
                 <li>
-                  <a href="{{path route="user/register"}}">ユーザ登録</a>
+                  <a href="{{path route="user/register"}}">
+                    <span class="fa fa-plus"></span> ユーザ登録
+                  </a>
                 </li>
               </ul>
             {{else}}
               {{$ident = $user->identity}}
               <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                <span class="fa fa-user"></span> {{$ident->name|escape}} さん <span class="caret"></span>
+                <span class="fa fa-user"></span> {{$ident->name|escape}} <span class="caret"></span>
               </a>
               <ul class="dropdown-menu">
                 <li>
-                  <a href="{{path route="user/profile"}}">ユーザ情報</a>
+                  <a href="{{path route="show/user" screen_name=$ident->screen_name}}">
+                    <span class="fa fa-user"></span> 自分のページを表示
+                  </a>
+                </li>
+                <li>
+                  <a href="{{path route="user/profile"}}">
+                    <span class="fa fa-gear"></span> ユーザ情報
+                  </a>
                 </li>
                 <li class="divider"></li>
                 <li>
-                  <a href="{{path route="user/logout"}}">ログアウト</a>
+                  <a href="{{path route="user/logout"}}">
+                    <span class="fa fa-sign-out"></span> ログアウト
+                  </a>
                 </li>
               </ul>
             {{/if}}
