@@ -44,7 +44,7 @@ class UserAction extends BaseAction
             'user'      => $user,
             'battleDataProvider' => new ActiveDataProvider([
                 'query' => $battle,
-                'pagination' => ['pageSize' => 50 ]
+                'pagination' => ['pageSize' => 100 ]
             ]),
             'filter'    => $filter,
             'rules'     => $isPjax ? [] : $this->makeRulesList(),
