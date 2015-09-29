@@ -42,11 +42,26 @@ class BattleQuery extends ActiveQuery
 
     public function filterByMap($value)
     {
-        return $this;
+        $value = trim((string)$value);
+        if ($value === '') {
+            return $this;
+        }
+        return $this->innerJoinWith('map')->andWhere(['{{map}}.[[key]]' => $value]);
     }
 
     public function filterByWeapon($value)
     {
+        $value = trim((string)$value);
+        if ($value === '') {
+            return $this;
+        }
+        $this->innerJoinWith('weapon');
+        if (substr($value, 0, 1) === '@') {
+            $this->innerJoinWith('weapon.type');
+            $this->andWhere(['{{weapon_type}}.[[key]]' => substr($value, 1)]);
+        } else {
+            $this->andWhere(['{{weapon}}.[[key]]' => $value]);
+        }
         return $this;
     }
 }
