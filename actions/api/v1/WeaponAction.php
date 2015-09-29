@@ -10,6 +10,7 @@ namespace app\actions\api\v1;
 use Yii;
 use yii\web\ViewAction as BaseAction;
 use app\models\Weapon;
+use app\models\api\v1\WeaponGetForm;
 
 class WeaponAction extends BaseAction
 {
@@ -17,14 +18,26 @@ class WeaponAction extends BaseAction
     {
         $response = Yii::$app->getResponse();
         $response->format = 'json';
+
+        $form = new WeaponGetForm();
+        $form->attributes = Yii::$app->getRequest()->get();
+        if (!$form->validate()) {
+            $response->statusCode = 400;
+            return [
+                'error' => $form->getErrors(),
+            ];
+        }
+
+        $query = Weapon::find()
+            ->with(['type', 'subweapon', 'special'])
+            ->orderBy('[[id]]');
+        $form->filterQuery($query);
+
         return array_map(
             function ($weapon) {
                 return $weapon->toJsonArray();
             },
-            Weapon::find()
-                ->with(['type', 'subweapon', 'special'])
-                ->orderBy('[[id]]')
-                ->all()
+            $query->all()
         );
     }
 }
