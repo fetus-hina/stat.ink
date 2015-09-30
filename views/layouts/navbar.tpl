@@ -1,4 +1,6 @@
 {{strip}}
+  {{use class="app\models\Timezone"}}
+  {{use class="app\models\Language"}}
 <nav class="navbar navbar-inverse navbar-fixed-top">
   <div class="container-fluid">
     <div class="container">
@@ -55,6 +57,36 @@
                 </li>
               </ul>
             {{/if}}
+          </li>
+          <li class="dropdown">
+            <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+              Language <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+              {{foreach Language::find()->orderBy('name ASC')->all() as $lang}}
+                <li>
+                  <a href="javascript:;" data-lang="{{$lang->lang|escape}}" class="language-change">
+                    <span class="fa fa-check" style="{{if $app->language !== $lang->lang}}color:transparent{{/if}}"></span>&#32;
+                    {{$lang->name|escape}} / {{$lang->name_en|escape}}
+                  </a>
+                </li>
+              {{/foreach}}
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+              {{'Time Zone'|translate:'app'|escape}} <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+              {{foreach Timezone::find()->all() as $tz}}
+                <li>
+                  <a href="javascript:;" data-tz="{{$tz->identifier|escape}}" class="timezone-change">
+                    <span class="fa fa-check" style="{{if $app->timeZone !== $tz->identifier}}color:transparent{{/if}}"></span>&#32;
+                    {{$tz->name|translate:'app'|escape}}
+                  </a>
+                </li>
+              {{/foreach}}
+            </ul>
           </li>
           <li class="dropdown">
             <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">

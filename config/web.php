@@ -40,6 +40,7 @@ $config = [
                 'u/<screen_name:\w+>' => 'show/user',
                 'api/v1/<action:\w+>' => 'api-v1/<action>',
                 '<action:\w+>'  => 'site/<action>',
+                '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
                 ''              => 'site/index',
             ],
         ],
