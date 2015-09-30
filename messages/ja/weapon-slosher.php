@@ -1,5 +1,5 @@
 <?php
 return [
-    'Slosher' => 'バケツスロッシャー',
+    'Slosher' => 'バケットスロッシャー',
     'Tri-Slosher' => 'ヒッセン',
 ];

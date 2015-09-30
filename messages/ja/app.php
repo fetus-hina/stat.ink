@@ -52,7 +52,7 @@ return [
     'Search' => '検索',
     'Settings' => '設定',
     'Show your API Token' => 'APIキーを表示します',
-    'Special' => 'スペシェル',
+    'Special' => 'スペシャル',
     'Special:' => 'スペシャル:',
     'Splatoon Official Website (Japan)' => 'スプラトゥーン公式サイト（日本）',
     'Splatoon Official Website (UK)' => 'スプラトゥーン公式サイト（英国）',
