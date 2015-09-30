@@ -22,16 +22,19 @@ class RegisterForm extends Model
             [['screen_name'], 'string', 'max' => 15],
             [['screen_name'], 'match',
                 'pattern' => '/^[a-zA-Z0-9_]{1,15}$/',
-                'message' => 'ログイン名は英数とアンダーバーの15文字以内で決めてください',
+                'message' => '{attribute} must be less then or equal to 15 alphanumeric or underscore characters.',
             ],
             [['screen_name'], 'unique',
                 'targetClass' => User::className(),
-                'message' => 'このログイン名は既に使用されています',
+                'message' => Yii::t('app', 'This {attribute} is already in use.'),
             ],
             [['name'], 'string', 'max' => 15],
         ];
         if (Yii::$app->params['googleRecaptcha']['siteKey'] != '') {
-            $rules[] = [['recaptcha_token', 'recaptcha_response'], 'required', 'message' => 'reCAPTCHAの確認をしてください'];
+            $rules[] = [
+                ['recaptcha_token', 'recaptcha_response'], 'required',
+                    'message' => Yii::t('app', 'Please check the reCAPTCHA.')
+            ];
             $rules[] = [[], ReCaptchaValidator::className(),
                 'secret' => Yii::$app->params['googleRecaptcha']['secret'],
             ];
@@ -45,9 +48,9 @@ class RegisterForm extends Model
     public function attributeLabels()
     {
         return [
-            'screen_name'       => 'ログイン名',
-            'password'          => 'パスワード',
-            'name'              => '名前（表示用）',
+            'screen_name'       => Yii::t('app', 'Screen Name (Login Name)'),
+            'password'          => Yii::t('app', 'Password'),
+            'name'              => Yii::t('app', 'Name (for Display)'),
         ];
     }
 

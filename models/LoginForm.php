@@ -17,7 +17,7 @@ class LoginForm extends Model
             [['screen_name'], 'string', 'max' => 15],
             [['screen_name'], 'match',
                 'pattern' => '/^[a-zA-Z0-9_]{1,15}$/',
-                'message' => 'ログイン名は英数とアンダーバーの15文字以内で入力してください。',
+                'message' => Yii::t('app', '{attribute} must be less then or equal to 15 alphanumeric or underscore characters.'),
             ],
             [['password'], 'validatePassword'],
         ];
@@ -30,8 +30,8 @@ class LoginForm extends Model
     public function attributeLabels()
     {
         return [
-            'screen_name'       => 'ログイン名',
-            'password'          => 'パスワード',
+            'screen_name'       => Yii::t('app', 'Screen Name (Login Name)'),
+            'password'          => Yii::t('app', 'Password'),
         ];
     }
 
@@ -42,7 +42,13 @@ class LoginForm extends Model
         }
         $user = $this->getUser();
         if (!$user || !$user->validatePassword($this->password)) {
-            $this->addError($attribute, 'ログイン名またはパスワードが違います。');
+            $this->addError(
+                $attribute,
+                Yii::t('app', 'Invalid {0} or {1}.', [
+                    $this->getAttributeLabel('screen_name'),
+                    $this->getAttributeLabel('password'),
+                ])
+            );
         }
     }
 

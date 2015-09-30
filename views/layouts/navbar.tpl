@@ -17,17 +17,17 @@
             {{$user = $app->user}}
             {{if $user->isGuest}}
               <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                <span class="fa fa-user"></span> ゲスト <span class="caret"></span>
+                <span class="fa fa-user"></span> {{'Guest'|translate:'app'|escape}} <span class="caret"></span>
               </a>
               <ul class="dropdown-menu">
                 <li>
                   <a href="{{path route="user/login"}}">
-                    <span class="fa fa-sign-in"></span> ログイン
+                    <span class="fa fa-sign-in"></span> {{'Log In'|translate:'app'|escape}}
                   </a>
                 </li>
                 <li>
                   <a href="{{path route="user/register"}}">
-                    <span class="fa fa-plus"></span> ユーザ登録
+                    <span class="fa fa-plus"></span> {{'Register'|translate:'app'|escape}}
                   </a>
                 </li>
               </ul>
@@ -39,18 +39,18 @@
               <ul class="dropdown-menu">
                 <li>
                   <a href="{{path route="show/user" screen_name=$ident->screen_name}}">
-                    <span class="fa fa-user"></span> 自分のページを表示
+                    <span class="fa fa-user"></span> {{'Your Battles'|translate:'app'|escape}}
                   </a>
                 </li>
                 <li>
                   <a href="{{path route="user/profile"}}">
-                    <span class="fa fa-gear"></span> ユーザ情報
+                    <span class="fa fa-gear"></span> {{'Settings'|translate:'app'|escape}}
                   </a>
                 </li>
                 <li class="divider"></li>
                 <li>
                   <a href="{{path route="user/logout"}}">
-                    <span class="fa fa-sign-out"></span> ログアウト
+                    <span class="fa fa-sign-out"></span> {{'Log Out'|translate:'app'|escape}}
                   </a>
                 </li>
               </ul>
@@ -58,36 +58,41 @@
           </li>
           <li class="dropdown">
             <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-              リンク <span class="caret"></span>
+              {{'Link'|translate:'app'|escape}} <span class="caret"></span>
             </a>
             <ul class="dropdown-menu">
               <li>
-                <a href="http://www.nintendo.co.jp/wiiu/agmj/">スプラトゥーン 公式サイト</a>
+                <a href="http://www.nintendo.co.jp/wiiu/agmj/">{{'Splatoon Official Website (Japan)'|translate:'app'|escape}}</a>
               </li>
               <li>
-                <a href="https://twitter.com/splatoonjp">
-                  <span class="fa fa-twitter"></span> スプラトゥーン 公式ツイッター
-                </a>
+                <a href="http://splatoon.nintendo.com/">{{'Splatoon Official Website (US/Canada)'|translate:'app'|escape}}</a>
+              </li>
+              <li>
+                <a href="https://www.nintendo.co.uk/Games/Wii-U/Splatoon-892510.html">{{'Splatoon Official Website (UK)'|translate:'app'|escape}}</a>
               </li>
               <li class="divider"></li>
               <li>
-                <a href="https://splatoon.nintendo.net/">イカリング</a>
+                <a href="https://twitter.com/splatoonjp"><span class="fa fa-twitter"></span> {{'Official Twitter (Japan)'|translate:'app'|escape}}</a>
+              </li>
+              <li class="divider"></li>
+              <li>
+                <a href="https://splatoon.nintendo.net/">{{'IKA-RING'|translate:'app'|escape}}</a>
               </li>
               <li class="divider"></li>
               <li>
                 <a href="https://fest.ink/">イカフェスレート</a>
               </li>
               <li>
-                <a href="https://ikadenwa.ink/" class="auto-tooltip" title="フレンドマッチ中の通話に便利なサイトです">イカデンワ</a>
+                <a href="https://ikadenwa.ink/">イカデンワ</a>
               </li>
               <li>
-                <a href="http://ikazok.net/" class="auto-tooltip" title="チームの結成や管理、交流に便利なサイトです">イカナカマ</a>
+                <a href="http://ikazok.net/">イカナカマ</a>
               </li>
               <li>
-                <a href="http://siome.ink/" class="auto-tooltip" title="TwitterアカウントとニンテンドーネットワークIDを登録して告知できるサイトです">siome</a>
+                <a href="http://siome.ink/">siome</a>
               </li>
               <li>
-                <a href="http://ika.akaihako.com/unislot" class="auto-tooltip" title="サザエガチャのシミュレータです">ウニスロット</a>
+                <a href="http://ika.akaihako.com/unislot">ウニスロット</a>
               </li>
             </ul>
           </li>

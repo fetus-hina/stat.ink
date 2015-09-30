@@ -1,15 +1,18 @@
 {{strip}}
   {{set layout="main.tpl"}}
-  {{set title="{{$app->name}} | {{$user->name|escape}}さんのイカログ"}}
+  {{set title="{{$app->name}} | {{'{0}-san\'s Log'|translate:'app':$user->name}}"}}
   {{use class="yii\bootstrap\ActiveForm" type="block"}}
   {{use class="yii\widgets\ListView"}}
   <div class="container">
     <h1>
-      {{'{0}-san'|translate:'app':$user->name|escape}}
+      {{'{0}-san\'s Log'|translate:'app':$user->name|escape}}
     </h1>
     <h2>
       {{'Recent Results'|translate:'app'|escape}}
     </h2>
+    <p>
+      Comming soon
+    </p>
 
     <h2>
       {{'Battles'|translate:'app'|escape}}

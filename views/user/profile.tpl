@@ -1,33 +1,32 @@
 {{strip}}
   {{\app\assets\ZxcvbnAsset::register($this)|@void}}
   {{set layout="main.tpl"}}
-  {{set title="{{$app->name}} | ユーザ情報"}}
+  {{set title="{{$app->name}} | {{'Profile and Settings'|translate:'app'}}"}}
   <div class="container">
-    <h1>ユーザ情報</h1>
-    <p>まだ編集機能は作っていません</p>
-    <p>APIキーは他人に知られないようご注意ください。</p>
+    <h1>{{'Profile and Settings'|translate:'app'|escape}}</h1>
+
     <table class="table table-striped">
       <tbody>
         <tr>
-          <th>内部ID</th>
+          <th>{{'Internal ID'|translate:'app'|escape}}</th>
           <td>#{{$user->id|escape}}</td>
         </tr>
         <tr>
-          <th>ユーザ名</th>
+          <th>{{'User Name'|translate:'app'|escape}}</th>
           <td>{{$user->name|escape}}</td>
         </tr>
         <tr>
-          <th>ログイン名</th>
+          <th>{{'Screen Name'|translate:'app'|escape}}</th>
           <td><code>{{$user->screen_name|escape}}</code></td>
         </tr>
         <tr>
-          <th>パスワード</th>
+          <th>{{'Password'|translate:'app'|escape}}</th>
           <td>********</td>
         </tr>
         <tr>
-          <th>APIキー</th>
+          <th>{{'API Token'|translate:'app'|escape}}</th>
           <td>
-            <button class="btn btn-default" id="apikey-button">
+            <button class="btn btn-default auto-tooltip" title="{{'Show your API Token'|translate:'app'|escape}}" id="apikey-button">
               <span class="fa fa-eye"></span>
             </button>
             <code id="apikey" style="display:none">{{$user->api_key|escape}}</code>

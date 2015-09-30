@@ -1,9 +1,9 @@
 {{strip}}
   {{set layout="main.tpl"}}
-  {{set title="{{$app->name}} | プライバシーポリシー"}}
+  {{set title="{{$app->name}} | {{'Privacy Policy'|translate:'app'}}"}}
   <div class="container">
     <h1>
-      プライバシーポリシー
+      {{'Privacy Policy'|translate:'app'}}
     </h1>
     <p>弊サイト（{{$app->name|escape}}）では次の情報をアクセスログとして収集・蓄積しています。</p>
     <ul>

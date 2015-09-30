@@ -19,22 +19,22 @@
         </a><br>
       </div>
       <div class="footer-nav">
-        <a href="{{path route="/site/api"}}">API</a>
+        <a href="{{path route="/site/api"}}">{{'API'|translate:'app'|escape}}</a>
         &#32;|&#32;
-        <a href="{{path route="/site/privacy"}}">プライバシーポリシー</a>
+        <a href="{{path route="/site/privacy"}}">{{'Privacy Policy'|translate:'app'|escape}}</a>
         &#32;|&#32;
-        <a href="{{path route="/site/license"}}">オープンソースライセンス</a>
+        <a href="{{path route="/site/license"}}">{{'Open Source Licenses'|translate:'app'|escape}}</a>
       </div>
       <div class="footer-notice">
-        このサイトは非公式(unofficial)サービスです。任天堂株式会社とは一切関係ありません。<br>
-        このサイトのソースコードは<a href="https://github.com/fetus-hina/stat.ink">オープンソース(MIT License)です</a>。<br>
-        バグの報告・改善の提案などがありましたら、
-          <a href="https://github.com/fetus-hina/stat.ink"><span class="fa fa-github"></span> GitHubのプロジェクト</a>に報告・提案するか、
-          <a href="https://twitter.com/fetus_hina"><span class="fa fa-twitter"></span> @fetus_hina</a>にご連絡ください。
+        {{'This website is UNOFFICIAL SERVICE. There is no related to the Splatoon development team or Nintendo.'|translate:'app'|escape}}<br>
+        {{'This website is an open source project. The license is MIT and source code hosted on GitHub.'|translate:'app'|escape}} <a href="https://github.com/fetus-hina/stat.ink"><span class="fa fa-github"></span></a><br>
+        {{'Feedback or propose is very welcome. Contact to GitHub project or my Twitter.'|translate:'app'|escape}}&#32;
+          <a href="https://github.com/fetus-hina/stat.ink"><span class="fa fa-github"></span><a>&#32;
+          <a href="https://twitter.com/fetus_hina"><span class="fa fa-twitter"></span></a>
       </div>
       <div class="footer-powered">
         {{$_phpv = phpversion()}}{{* PHP コード開始タグと解釈される問題があるので一回変数に入れる *}}
-        Powered by&#32;
+        {{'Powered by'|translate:'app'|escape}}&#32;
         <a href="http://www.yiiframework.com/">Yii Framework {{\Yii::getVersion()|escape}}</a>,&#32;
         <a href="http://php.net/">PHP {{$_phpv|escape}}</a>
       </div>
