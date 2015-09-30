@@ -56,11 +56,25 @@ class BattleQuery extends ActiveQuery
             return $this;
         }
         $this->innerJoinWith('weapon');
-        if (substr($value, 0, 1) === '@') {
-            $this->innerJoinWith('weapon.type');
-            $this->andWhere(['{{weapon_type}}.[[key]]' => substr($value, 1)]);
-        } else {
-            $this->andWhere(['{{weapon}}.[[key]]' => $value]);
+        switch (substr($value, 0, 1)) {
+            default:
+                $this->andWhere(['{{weapon}}.[[key]]' => $value]);
+                break;
+
+            case '@':
+                $this->innerJoinWith('weapon.type');
+                $this->andWhere(['{{weapon_type}}.[[key]]' => substr($value, 1)]);
+                break;
+
+            case '+':
+                $this->innerJoinWith('weapon.subweapon');
+                $this->andWhere(['{{subweapon}}.[[key]]' => substr($value, 1)]);
+                break;
+
+            case '*':
+                $this->innerJoinWith('weapon.special');
+                $this->andWhere(['{{special}}.[[key]]' => substr($value, 1)]);
+                break;
         }
         return $this;
     }

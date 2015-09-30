@@ -8,13 +8,15 @@
 namespace app\actions\show;
 
 use Yii;
+use yii\data\ActiveDataProvider;
 use yii\web\NotFoundHttpException;
 use yii\web\ViewAction as BaseAction;
-use yii\data\ActiveDataProvider;
 use app\models\BattleFilterForm;
 use app\models\GameMode;
 use app\models\Map;
 use app\models\Rule;
+use app\models\Special;
+use app\models\Subweapon;
 use app\models\User;
 use app\models\Weapon;
 use app\models\WeaponType;
@@ -92,6 +94,15 @@ class UserAction extends BaseAction
 
     private function makeWeaponsList()
     {
+        return array_merge(
+            $this->makeWeaponsListWeaponsAndTypes(),
+            $this->makeWeaponsListSubweapons(),
+            $this->makeWeaponsListSpecials()
+        );
+    }
+
+    private function makeWeaponsListWeaponsAndTypes()
+    {
         $ret = [];
         $types = WeaponType::find()->orderBy('[[id]] ASC')->all();
         foreach ($types as $type) {
@@ -116,5 +127,29 @@ class UserAction extends BaseAction
             [ '' => Yii::t('app-weapon', 'Any Weapon') ],
             $ret
         );
+    }
+
+    private function makeWeaponsListSubweapons()
+    {
+        $ret = [];
+        foreach (Subweapon::find()->all() as $item) {
+            $ret['+' . $item->key] = Yii::t('app-subweapon', $item->name);
+        }
+        asort($ret);
+        return [
+            Yii::t('app', 'Sub Weapon') => $ret
+        ];
+    }
+
+    private function makeWeaponsListSpecials()
+    {
+        $ret = [];
+        foreach (Special::find()->all() as $item) {
+            $ret['*' . $item->key] = Yii::t('app-special', $item->name);
+        }
+        asort($ret);
+        return [
+            Yii::t('app', 'Special') => $ret
+        ];
     }
 }
