@@ -6,7 +6,7 @@
       {{$app->name|escape}}
     </h1>
     <p>
-      {{'Enjoy Splatoon!'|translate:'app'|escape}}<br>
+      {{'Staaaay Fresh!'|translate:'app'|escape}}<br>
       {{if $app->user->isGuest}}
         <a href="{{url route="user/register"}}">{{'Join us'|translate:'app'|escape}}</a>
       {{else}}
