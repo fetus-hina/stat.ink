@@ -3,7 +3,7 @@
 {{\app\assets\GithubForkRibbonJsAsset::register($this)|@void}}
 {{$this->beginPage()|@void}}
   <!DOCTYPE html>
-  <html lang="ja">
+  <html lang="{{$app->language|escape}}">
     <head>
       <meta charset="UTF-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
