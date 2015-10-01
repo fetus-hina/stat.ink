@@ -18,8 +18,16 @@
           <img src="{{$battle->battleImageResult->url|escape}}" style="max-width:100%;height:auto">
         {{/if}}
       </div>
-
     </div>
+
+    {{$nawabari = null}}
+    {{$gachi = null}}
+    {{if $battle->isNawabari}}
+      {{$nawabari = $battle->battleNawabari}}
+    {{/if}}
+    {{if $battle->isGachi}}
+      {{$gachi = $battle->battleGachi}}
+    {{/if}}
 
     <div class="row">
       <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
@@ -69,6 +77,12 @@
             <tr>
               <th>{{'Result'|translate:'app'|escape}}</th>
               <td>
+                {{if $gachi && $gachi->is_knock_out === yes}}
+                  <span class="label label-info">
+                    {{'KNOCK OUT'|translate:'app'|escape}}
+                  </span>
+                  &#32;
+                {{/if}}
                 {{if $battle->is_win === true}}
                   <span class="label label-success">
                     {{'WON'|translate:'app'|escape}}
@@ -108,17 +122,45 @@
                 {{/if}}
               </td>
             </tr>
-            {{if $battle->isNawabari}}
-              {{$nawabari = $battle->battleNawabari}}
-              {{if $nawabari}}
-                <tr>
-                  <th>{{'Turf Inked + Bonus'|translate:'app'|escape}}</th>
-                  <td>{{$nawabari->my_point|default:'?'|escape}} P</td>
-                </tr>
-              {{/if}}
+            {{if $nawabari}}
+              <tr>
+                <th>{{'Turf Inked + Bonus'|translate:'app'|escape}}</th>
+                <td>{{$nawabari->my_point|default:'?'|escape}} P</td>
+              </tr>
+              <tr>
+                <th>{{'My Team Score'|translate:'app'|escape}}</th>
+                <td>
+                  {{$nawabari->my_team_final_point|default:'?'|escape}} P (
+                  {{if $nawabari->my_team_final_percent === null}}
+                    ?
+                  {{else}}
+                    {{$nawabari->my_team_final_percent|string_format:'%.1f'|escape}}
+                  {{/if}}
+                  %)
+                </td>
+              </tr>
+              <tr>
+                <th>{{'His Team Score'|translate:'app'|escape}}</th>
+                <td>
+                  {{$nawabari->his_team_final_point|default:'?'|escape}} P (
+                  {{if $nawabari->his_team_final_percent === null}}
+                    ?
+                  {{else}}
+                    {{$nawabari->his_team_final_percent|string_format:'%.1f'|escape}}
+                  {{/if}}
+                  %)
+                </td>
+              </tr>
             {{/if}}
-            {{if $battle->isGachi}}
-              {{$gachi = $battle->battleGachi}}
+            {{if $gachi}}
+              <tr>
+                <th>{{'My Team Count'|translate:'app'|escape}}</th>
+                <td>{{$gachi->my_team_count|default:'?'|escape}}</td>
+              </tr>
+              <tr>
+                <th>{{'His Team Count'|translate:'app'|escape}}</th>
+                <td>{{$gachi->my_team_count|default:'?'|escape}}</td>
+              </tr>
             {{/if}}
             <tr>
               <th>{{'Battle Start'|translate:'app'|escape}}</th>
@@ -127,6 +169,10 @@
             <tr>
               <th>{{'Battle End'|translate:'app'|escape}}</th>
               <td>{{$battle->end_at|date_format:'%F %T %Z'|escape}}</td>
+            </tr>
+            <tr>
+              <th>{{'Data Sent'|translate:'app'|escape}}</th>
+              <td>{{$battle->at|date_format:'%F %T %Z'|escape}}</td>
             </tr>
           </tbody>
         </table>
