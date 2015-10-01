@@ -52,6 +52,11 @@ class UserAction extends BaseAction
             'rules'     => $isPjax ? [] : $this->makeRulesList(),
             'maps'      => $isPjax ? [] : $this->makeMapsList(),
             'weapons'   => $isPjax ? [] : $this->makeWeaponsList(),
+            'results'   => [
+                ''      => Yii::t('app', 'Won / Lost'),
+                'win'   => Yii::t('app', 'Won'),
+                'lose'  => Yii::t('app', 'Lost'),
+            ],
         ]);
     }
 

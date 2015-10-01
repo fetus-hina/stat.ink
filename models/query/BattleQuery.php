@@ -12,7 +12,8 @@ class BattleQuery extends ActiveQuery
             ->filterByScreenName($filter->screen_name)
             ->filterByRule($filter->rule)
             ->filterByMap($filter->map)
-            ->filterByWeapon($filter->weapon);
+            ->filterByWeapon($filter->weapon)
+            ->filterByResult($filter->result);
     }
 
     public function filterByScreenName($value)
@@ -75,6 +76,16 @@ class BattleQuery extends ActiveQuery
                 $this->innerJoinWith('weapon.special');
                 $this->andWhere(['{{special}}.[[key]]' => substr($value, 1)]);
                 break;
+        }
+        return $this;
+    }
+
+    public function filterByResult($result)
+    {
+        if ($result === 'win' || $result === true) {
+            $this->andWhere(['{{battle}}.[[is_win]]' => true]);
+        } elseif ($result === 'lose' || $result === false) {
+            $this->andWhere(['{{battle}}.[[is_win]]' => false]);
         }
         return $this;
     }

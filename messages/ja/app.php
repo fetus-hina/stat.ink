@@ -84,4 +84,7 @@ return [
     '{0}-san' => '{0}さん',
     '{0}\'s Log' => '{0}のイカログ',
     '{attribute} must be less then or equal to 15 alphanumeric or underscore characters.' => '{attribute}は半角英数とアンダースコア15文字以内で入力してください。',
+    'Won / Lost' => '勝敗を気にしない',
+    'Won' => '勝利',
+    'Lost' => '敗北',
 ];

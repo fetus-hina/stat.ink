@@ -23,6 +23,7 @@ class BattleFilterForm extends Model
     public $rule;
     public $map;
     public $weapon;
+    public $result;
 
     public function formName()
     {
@@ -75,6 +76,7 @@ class BattleFilterForm extends Model
                 'when' => function () {
                     return substr($this->weapon, 0, 1) === '*';
                 }],
+            [['result'], 'boolean', 'trueValue' => 'win', 'falseValue' => 'lose'],
         ];
     }
 
@@ -85,6 +87,7 @@ class BattleFilterForm extends Model
             'rule'          => Yii::t('app', 'Rule'),
             'map'           => Yii::t('app', 'Map'),
             'weapon'        => Yii::t('app', 'Weapon'),
+            'result'        => Yii::t('app', 'Result'),
         ];
     }
 
