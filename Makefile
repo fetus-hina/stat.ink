@@ -3,6 +3,7 @@ JS_SRCS=$(shell ls -1 resources/stat.ink/main.js/*.js)
 
 RESOURCE_TARGETS=resources/.compiled/stat.ink/main.css.gz \
 	resources/.compiled/stat.ink/main.js.gz \
+	resources/.compiled/stat.ink/no-image.png \
 	resources/.compiled/gh-fork-ribbon/gh-fork-ribbon.js.gz
 
 all: \
@@ -53,6 +54,10 @@ resources/.compiled/stat.ink/main.css.gz: node_modules resources/stat.ink/main.l
 
 resources/.compiled/gh-fork-ribbon/gh-fork-ribbon.js.gz: node_modules resources/gh-fork-ribbon/gh-fork-ribbon.js
 	./node_modules/.bin/gulp gh-fork
+
+resources/.compiled/stat.ink/no-image.png: resources/stat.ink/no-image.png
+	mkdir -p resources/.compiled/stat.ink || /bin/true
+	pngcrush -rem allb -l 9 resources/stat.ink/no-image.png resources/.compiled/stat.ink/no-image.png
 
 migrate-db: vendor config/db.php
 	./yii migrate/up --interactive=0
