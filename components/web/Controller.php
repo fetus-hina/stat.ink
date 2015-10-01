@@ -23,13 +23,33 @@ class Controller extends Base
 
     private function setLanguage()
     {
-        $cookie = Yii::$app->request->cookies->get('language');
+        $request = Yii::$app->request;
+        $cookie = $request->cookies->get('language');
         if ($cookie) {
             $lang = Language::findOne(['lang' => $cookie->value]);
             if ($lang) {
                 Yii::$app->language = $lang->lang;
+                return;
             }
         }
+        if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
+            $accepts = $request->parseAcceptHeader($_SERVER['HTTP_ACCEPT_LANGUAGE']);
+            foreach ($accepts as $lang => $options) {
+                //FIXME: DBと整合をとってちゃんとやる
+                switch (strtolower($lang)) {
+                    case 'ja':
+                    case 'ja-jp':
+                        Yii::$app->language = 'ja-JP';
+                        return;
+
+                    case 'en':
+                    case 'en-US':
+                        Yii::$app->language = 'en-US';
+                        return;
+                }
+            }
+        }
+        Yii::$app->language = 'en-US';
     }
 
     private function setTimezone()
@@ -39,7 +59,20 @@ class Controller extends Base
             $tz = Timezone::findOne(['identifier' => $cookie->value]);
             if ($tz) {
                 Yii::$app->setTimeZone($tz->identifier);
+                return;
             }
         }
+        switch (strtolower(Yii::$app->language)) {
+            case 'ja':
+            case 'ja-jp':
+                Yii::$app->setTimeZone('Asia/Tokyo');
+                return;
+
+            case 'en':
+            case 'en-us':
+                Yii::$app->setTimeZone('America/New_York');
+                return;
+        }
+        Yii::$app->setTimeZone('Etc/UTC');
     }
 }
