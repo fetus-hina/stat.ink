@@ -33,6 +33,10 @@ class SiteController extends Controller
                 'class' => 'app\actions\site\SimpleAction',
                 'view' => 'privacy.tpl',
             ],
+            'start' => [
+                'class' => 'app\actions\site\SimpleAction',
+                'view' => 'start.tpl',
+            ],
         ];
     }
 }

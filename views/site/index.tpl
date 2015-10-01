@@ -6,9 +6,15 @@
       {{$app->name|escape}}
     </h1>
     <p>
-      まだ作り始めたばかりなので、機能も見た目もショボいです。
+      {{'Enjoy Splatoon!'|translate:'app'|escape}}<br>
+      {{if $app->user->isGuest}}
+        <a href="{{url route="user/register"}}">{{'Join us'|translate:'app'|escape}}</a>
+      {{else}}
+        {{$ident = $app->user->identity}}
+        <a href="{{url route="show/user" screen_name=$ident->screen_name}}">{{'Your Battles'|translate:'app'|escape}}</a>
+      {{/if}} | <a href="{{url route="site/start"}}">{{"What's this?"|translate:'app'|escape}}</a>
     </p>
-    {{$battles = Battle::find()->with('user')->limit(50)->all()}}
+    {{$battles = Battle::find()->with('user')->limit(100)->all()}}
     <ul class="battles">
       {{foreach $battles as $battle}}
         <li>
