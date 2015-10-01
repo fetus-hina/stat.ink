@@ -164,12 +164,12 @@ class User extends ActiveRecord implements IdentityInterface
             ->select([
                 'totalBattleCount' => 'COUNT(*)',
                 'totalWinRate' => sprintf(
-                    '(%s / NULLIF(%s, 0)) * 100', 
+                    '(%s * 100.0 / NULLIF(%s, 0))',
                     'SUM(CASE WHEN battle.is_win = TRUE THEN 1 ELSE 0 END)',
                     'SUM(CASE WHEN battle.is_win IS NULL THEN 0 ELSE 1 END)'
                 ),
                 'oneDayWinRate' => sprintf(
-                    '(%s / NULLIF(%s, 0)) * 100',
+                    '(%s * 100.0 / NULLIF(%s, 0))',
                     "SUM(CASE WHEN {$oneDayThresholdCondition} AND battle.is_win = TRUE THEN 1 ELSE 0 END)",
                     "SUM(CASE WHEN {$oneDayThresholdCondition} AND battle.is_win IS NOT NULL THEN 1 ELSE 0 END)"
                 ),
