@@ -150,4 +150,32 @@ class User extends ActiveRecord implements IdentityInterface
             ),
         ];
     }
+
+    public function getSimpleStatics()
+    {
+        $now = isset($_SERVER['REQUEST_TIME']) ? $_SERVER['REQUEST_TIME'] : time();
+        $oneDayThresholdCondition = sprintf(
+            '((battle.end_at IS NOT NULL) AND (battle.end_at BETWEEN %s AND %s))',
+            Yii::$app->db->quoteValue(gmdate('Y-m-d H:i:sO', $now - 86400 + 1)),
+            Yii::$app->db->quoteValue(gmdate('Y-m-d H:i:sO', $now))
+        );
+
+        $query = (new \yii\db\Query())
+            ->select([
+                'totalBattleCount' => 'COUNT(*)',
+                'totalWinRate' => sprintf(
+                    '(%s / NULLIF(%s, 0)) * 100', 
+                    'SUM(CASE WHEN battle.is_win = TRUE THEN 1 ELSE 0 END)',
+                    'SUM(CASE WHEN battle.is_win IS NULL THEN 0 ELSE 1 END)'
+                ),
+                'oneDayWinRate' => sprintf(
+                    '(%s / NULLIF(%s, 0)) * 100',
+                    "SUM(CASE WHEN {$oneDayThresholdCondition} AND battle.is_win = TRUE THEN 1 ELSE 0 END)",
+                    "SUM(CASE WHEN {$oneDayThresholdCondition} AND battle.is_win IS NOT NULL THEN 1 ELSE 0 END)"
+                ),
+            ])
+            ->from(Battle::tableName())
+            ->where(['{{battle}}.[[user_id]]' => $this->id]);
+        return (object)$query->createCommand()->queryOne();
+    }
 }

@@ -1,11 +1,13 @@
 {{strip}}
   {{set layout="main.tpl"}}
-  {{set title="{{$app->name}} | {{'{0}-san\'s Log'|translate:'app':$user->name}}"}}
   {{use class="yii\bootstrap\ActiveForm" type="block"}}
   {{use class="yii\widgets\ListView"}}
   <div class="container">
     <h1>
-      {{'{0}-san\'s Log'|translate:'app':$user->name|escape}}
+      {{$name = '{0}-san'|translate:'app':$user->name}}
+      {{$title = "{0}'s Log"|translate:'app':$name}}
+      {{$title|escape}}
+      {{set title="{{$app->name}} | {{$title}}"}}
     </h1>
     <h2>
       {{'Recent Results'|translate:'app'|escape}}
