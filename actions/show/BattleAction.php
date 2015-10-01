@@ -29,7 +29,7 @@ class BattleAction extends BaseAction
             'id' => $request->get('battle'),
         ]);
         if (!$battle) {
-            throw new NotFoundHttpExcpetion('指定されたバトルが見つかりません');
+            throw new NotFoundHttpException('指定されたバトルが見つかりません');
         }
 
         return $this->controller->render('battle.tpl', [
