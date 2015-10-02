@@ -172,6 +172,7 @@ POST /api/v1/battle
         - `wakaba` : わかばシューター
     - ローラー
         - `carbon` : カーボンローラー
+        - `carbon_deco` : カーボンローラーデコ
         - `dynamo` : ダイナモローラー
         - `dynamo_tesla` : ダイナモローラーテスラ
         - `heroroller_replica` : ヒーローローラーレプリカ

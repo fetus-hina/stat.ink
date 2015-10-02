@@ -1,5 +1,6 @@
 <?php
 return [
+    'Carbon Roller Deco' => 'カーボンローラーデコ',
     'Carbon Roller' => 'カーボンローラー',
     'Dynamo Roller' => 'ダイナモローラー',
     'Gold Dynamo Roller' => 'ダイナモローラーテスラ',
