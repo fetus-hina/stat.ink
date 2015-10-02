@@ -39,6 +39,7 @@ $config = [
                 'u/<screen_name:\w+>/<battle:\d+>' => 'show/battle',
                 'u/<screen_name:\w+>' => 'show/user',
                 'api/v1/<action:\w+>' => 'api-v1/<action>',
+                'api/internal/<action:[\w-]+>' => 'api-internal/<action>',
                 '<action:\w+>'  => 'site/<action>',
                 '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
                 ''              => 'site/index',
@@ -74,6 +75,16 @@ $config = [
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
+            'serializer' => extension_loaded('msgpack')
+                ? [
+                    function ($value) {
+                        return @gzencode(msgpack_pack($value), 1, FORCE_GZIP);
+                    },
+                    function ($value) {
+                        return @msgpack_unpack(gzdecode($value));
+                    },
+                ]
+                : null,
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',
