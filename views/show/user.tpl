@@ -13,7 +13,7 @@
       {{'Recent Results'|translate:'app'|escape}}
     </h2>
     <p>
-      Comming soon
+      Coming soon
     </p>
 
     <h2>
