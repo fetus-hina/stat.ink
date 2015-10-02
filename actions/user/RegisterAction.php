@@ -31,14 +31,13 @@ class RegisterAction extends BaseAction
                     $login->screen_name = $form->screen_name;
                     $login->password = $form->password;
                     if ($login->login()) {
-                        return $this->controller->redirect(Yii::$app->user->getReturnUrl());
+                        return $this->controller->redirect(['user/profile']);
                     }
                 }
             }
         }
 
-        return $this->controller->render('login.tpl', [
-            'login' => new RegisterForm(),
+        return $this->controller->render('register.tpl', [
             'register' => $form,
         ]);
     }
