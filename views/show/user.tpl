@@ -36,6 +36,12 @@
         </div>
       </div>
       <div class="col-xs-12 col-sm-8 col-md-8 col-lg-9" id="battles">
+        {{ListView::widget([
+            'dataProvider' => $battleDataProvider,
+            'itemView' => 'battle.tablerow.tpl',
+            'itemOptions' => [ 'tag' => false ],
+            'layout' => '{summary}{pager}'
+          ])}}
         <table class="table table-striped">
           <thead>
             <tr>
@@ -52,7 +58,9 @@
           <tbody>
             {{ListView::widget([
               'dataProvider' => $battleDataProvider,
-              'itemView' => 'battle.tablerow.tpl'
+              'itemView' => 'battle.tablerow.tpl',
+              'itemOptions' => [ 'tag' => false ],
+              'layout' => '{items}'
             ])}}
           </tbody>
         </table>
