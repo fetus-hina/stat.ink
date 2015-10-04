@@ -34,7 +34,12 @@
         <table class="table table-striped" style="margin-top:15px">
           <tbody>
             <tr>
-              <th>{{'Rule'|translate:'app'|escape}}</th>
+              <th>
+                {{'Rule'|translate:'app'|escape}}&#32;
+                <a href="{{url route="show/user-stat-by-rule" screen_name=$user->screen_name}}">
+                  <span class="fa fa-pie-chart"></span>
+                </a>
+              </th>
               <td>
                 {{if $battle->rule}}
                   <a href="{{url route="show/user" screen_name=$user->screen_name}}?filter[rule]={{$battle->rule->key|escape:url}}">

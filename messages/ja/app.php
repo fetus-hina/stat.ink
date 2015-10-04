@@ -73,6 +73,7 @@ return [
     'Splatoon Official Website (UK)' => 'スプラトゥーン公式サイト（英国）',
     'Splatoon Official Website (US/Canada)' => 'スプラトゥーン公式サイト（北米）',
     'Staaaay Fresh!' => 'イカ、よろしく～～～～',
+    'Stat (by Rule)' => '統計（ルール別）',
     'Sub Weapon' => 'サブウェポン',
     'Sub:' => 'サブ:',
     'The password will be encrypted.' => 'パスワードは暗号化されて保存されます。',
