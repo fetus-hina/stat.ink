@@ -32,6 +32,7 @@ class ApiInternalController extends Controller
         $prefix = 'app\actions\api\internal';
         return [
             'recent-battles' => [ 'class' => $prefix . '\RecentBattlesAction' ],
+            'stat-by-map' => [ 'class' => $prefix . '\StatByMapAction' ],
             'stat-by-rule' => [ 'class' => $prefix . '\StatByRuleAction' ],
         ];
     }

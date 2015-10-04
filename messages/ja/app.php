@@ -78,6 +78,7 @@ return [
     'Splatoon Official Website (UK)' => 'スプラトゥーン公式サイト（英国）',
     'Splatoon Official Website (US/Canada)' => 'スプラトゥーン公式サイト（北米）',
     'Staaaay Fresh!' => 'イカ、よろしく～～～～',
+    'Stat (by Map)' => '統計（マップ別）',
     'Stat (by Rule)' => '統計（ルール別）',
     'Sub Weapon' => 'サブウェポン',
     'Sub:' => 'サブ:',
@@ -99,7 +100,8 @@ return [
     'd' => '死',
     'k' => '殺',
     '{0}-san' => '{0}さん',
-    '{0}\'s Battle Stat (by Rule)' => '{0}の統計（ルール）',
+    '{0}\'s Battle Stat (by Map)' => '{0}の統計（マップ別）',
+    '{0}\'s Battle Stat (by Rule)' => '{0}の統計（ルール別）',
     '{0}\'s Log' => '{0}のイカログ',
     '{attribute} must be less then or equal to 15 alphanumeric or underscore characters.' => '{attribute}は半角英数とアンダースコア15文字以内で入力してください。',
 ];

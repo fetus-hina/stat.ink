@@ -47,6 +47,10 @@
         <a href="{{url route="show/user-stat-by-rule" screen_name=$user->screen_name}}">
           <span class="fa fa-pie-chart"></span>&#32;
           {{'Stat (by Rule)'|translate:'app'|escape}}
+        </a><br>
+        <a href="{{url route="show/user-stat-by-map" screen_name=$user->screen_name}}">
+          <span class="fa fa-pie-chart"></span>&#32;
+          {{'Stat (by Map)'|translate:'app'|escape}}
         </a>
       </p>
     </div>

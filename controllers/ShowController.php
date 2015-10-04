@@ -34,6 +34,7 @@ class ShowController extends Controller
         return [
             'battle' => [ 'class' => $prefix . '\BattleAction' ],
             'user' => [ 'class' => $prefix . '\UserAction' ],
+            'user-stat-by-map' => [ 'class' => $prefix . '\UserStatByMapAction' ],
             'user-stat-by-rule' => [ 'class' => $prefix . '\UserStatByRuleAction' ],
         ];
     }
