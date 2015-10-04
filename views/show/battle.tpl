@@ -55,7 +55,12 @@
               </td>
             </tr>
             <tr>
-              <th>{{'Map'|translate:'app'|escape}}</th>
+              <th>
+                {{'Map'|translate:'app'|escape}}&#32;
+                <a href="{{url route="show/user-stat-by-map" screen_name=$user->screen_name}}">
+                  <span class="fa fa-pie-chart"></span>
+                </a>
+              </th>
               <td>
                 {{if $battle->map}}
                   <a href="{{url route="show/user" screen_name=$user->screen_name}}?filter[map]={{$battle->map->key|escape:url}}">
