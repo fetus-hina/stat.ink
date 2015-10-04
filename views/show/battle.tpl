@@ -9,6 +9,11 @@
       {{set title="{{$app->name}} | {{$title}}"}}
     </h1>
 
+    <div id="sns">
+      {{\app\assets\TwitterWidgetAsset::register($this)|@void}}
+      <a class="twitter-share-button" href="https://twitter.com/intent/tweet" data-count="none"><span class="fa fa-twitter"></span></a>
+    </div>
+
     <div class="row">
       <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         {{if $battle->battleImageJudge}}
