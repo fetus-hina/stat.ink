@@ -32,8 +32,9 @@ class ShowController extends Controller
     {
         $prefix = 'app\actions\show';
         return [
-            'user' => [ 'class' => $prefix . '\UserAction' ],
             'battle' => [ 'class' => $prefix . '\BattleAction' ],
+            'user' => [ 'class' => $prefix . '\UserAction' ],
+            'user-stat-by-rule' => [ 'class' => $prefix . '\UserStatByRuleAction' ],
         ];
     }
 }

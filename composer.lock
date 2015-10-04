@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "62517abbe3994a39124015305d95b593",
-    "content-hash": "79ab592e9500229b6e09cf13811544b4",
+    "hash": "55da527dbbfab59fcd70ef57def22e7f",
+    "content-hash": "4e9ff76d1a6f4ab02243dc829af09fe0",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -55,6 +55,22 @@
                 "responsive",
                 "web"
             ]
+        },
+        {
+            "name": "bower-asset/flot",
+            "version": "v0.8.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/flot/flot.git",
+                "reference": "453b017cc5acfd75e252b93e8635f57f4196d45d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/flot/flot/zipball/453b017cc5acfd75e252b93e8635f57f4196d45d",
+                "reference": "453b017cc5acfd75e252b93e8635f57f4196d45d",
+                "shasum": ""
+            },
+            "type": "bower-asset-library"
         },
         {
             "name": "bower-asset/fontawesome",
