@@ -9,55 +9,16 @@ namespace app\actions\api\internal;
 
 use DateTimeZone;
 use Yii;
-use yii\web\ViewAction as BaseAction;
 use app\models\Battle;
 use app\models\User;
 
-class RecentBattlesAction extends BaseAction
+class RecentBattlesAction extends BaseStatAction
 {
-    const FORMAT_VERSION = 1;
-    const CACHE_EXPIRES = 600;
-
-    public function run()
+    protected function makeData()
     {
-        $resp = Yii::$app->getResponse();
-        $resp->format = 'json';
-        $request = Yii::$app->getRequest();
-        $screenName = $request->get('screen_name');
-        if (!is_scalar($screenName)) {
-            return ['error'=>['screen_name'=>['not found']]];
-        }
-        if (!$user = User::findOne(['screen_name' => $screenName])) {
-            return ['error'=>['screen_name'=>['not found']]];
-        }
-        return $this->makeDataOrLoadCache($user);
-    }
-
-    private function makeDataOrLoadCache(User $user)
-    {
-        $cache = Yii::$app->cache;
-        if (!$cache) {
-            return $this->makeData($user);
-        }
-        $key = hash_hmac(
-            'sha256',
-            http_build_query(['user_id' => $user->id, 'format' => self::FORMAT_VERSION], '', '&'),
-            __METHOD__
-        );
-        $data = $cache->get($key);
-        if (is_array($data)) {
-            return $data;
-        }
-        $data = $this->makeData($user);
-        $cache->set($key, $data, self::CACHE_EXPIRES);
-        return $data;
-    }
-
-    private function makeData(User $user)
-    {
-        $timeNow = (int)$_SERVER['REQUEST_TIME'];
-        $timeStart = $timeNow - 30 * 86400;
-        $query = $user->getBattles()
+        $timeNow    = isset($_SERVER['REQUEST_TIME']) ? (int)$_SERVER['REQUEST_TIME'] : time();
+        $timeStart  = $timeNow - 30 * 86400;
+        $query = $this->user->getBattles()
             ->orderBy('{{battle}}.[[end_at]] ASC')
             ->andWhere(['>', '{{battle}}.[[end_at]]', gmdate('Y-m-d H:i:sO', $timeStart)])
             ->andWhere(['<=', '{{battle}}.[[end_at]]', gmdate('Y-m-d H:i:sO', $timeNow)])

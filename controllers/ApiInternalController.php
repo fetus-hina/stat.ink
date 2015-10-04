@@ -15,12 +15,6 @@ class ApiInternalController extends Controller
 {
     public $enableCsrfValidation = false;
 
-    public function init()
-    {
-        Yii::$app->language = 'en-us';
-        parent::init();
-    }
-
     public function behaviors()
     {
         return [
@@ -38,6 +32,7 @@ class ApiInternalController extends Controller
         $prefix = 'app\actions\api\internal';
         return [
             'recent-battles' => [ 'class' => $prefix . '\RecentBattlesAction' ],
+            'stat-by-rule' => [ 'class' => $prefix . '\StatByRuleAction' ],
         ];
     }
 }
