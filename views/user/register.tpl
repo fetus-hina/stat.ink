@@ -43,6 +43,9 @@
         </div>
       </div>
       <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6" style="padding:0 5%">
+        {{registerJsFile url="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" async="async"}}
+        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-0704984061430053" data-ad-slot="5800809033" data-ad-format="auto"></ins>
+        {{registerJs}}(adsbygoogle = window.adsbygoogle || []).push({});{{/registerJs}}
       </div>
     </div>
   </div>
