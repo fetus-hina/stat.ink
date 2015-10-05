@@ -32,10 +32,10 @@
             <div class="battle-image">
               <a href="{{url route="show/battle" screen_name=$battle->user->screen_name battle=$battle->id}}">
                 {{$image = null}}
-                {{if $battle->battleImageJudge}}
-                  {{$image = $battle->battleImageJudge}}
-                {{elseif $battle->battleImageResult}}
+                {{if $battle->battleImageResult}}
                   {{$image = $battle->battleImageResult}}
+                {{elseif $battle->battleImageJudge}}
+                  {{$image = $battle->battleImageJudge}}
                 {{/if}}
                 <img src="{{$imagePlaceholder|escape}}" class="lazyload" data-src="{{$image->url|default:''|escape}}">
               </a>

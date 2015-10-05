@@ -14,16 +14,20 @@
       <a class="twitter-share-button" href="https://twitter.com/intent/tweet" data-count="none"><span class="fa fa-twitter"></span></a>
     </div>
 
-    <div class="row">
-      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    {{if $battle->battleImageJudge || $battle->battleImageResult}}
+      <div class="row">
         {{if $battle->battleImageJudge}}
-          <img src="{{$battle->battleImageJudge->url|escape}}" style="max-width:100%;height:auto">
+          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+            <img src="{{$battle->battleImageJudge->url|escape}}" style="max-width:100%;height:auto">
+          </div>
         {{/if}}
         {{if $battle->battleImageResult}}
-          <img src="{{$battle->battleImageResult->url|escape}}" style="max-width:100%;height:auto">
+          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+            <img src="{{$battle->battleImageResult->url|escape}}" style="max-width:100%;height:auto">
+          </div>
         {{/if}}
       </div>
-    </div>
+    {{/if}}
 
     {{$nawabari = null}}
     {{$gachi = null}}
