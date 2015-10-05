@@ -83,7 +83,7 @@ window.statByRule = function () {
   var onResize = function () {
     var $elem = $('.pie-flot-container');
     if ($elem.length) {
-      $elem.height($elem.width());
+      $elem.height(Math.min($elem.width(), 200));
     }
   };
   window.setTimeout(onResize, 1);
