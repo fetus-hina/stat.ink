@@ -205,4 +205,19 @@ class Battle extends \yii\db\ActiveRecord
         }
         return true;
     }
+
+    public function getPeriodId()
+    {
+        // 開始時間があれば開始時間から5秒(適当)引いた値を使うを使う。
+        // 終了時間があれば終了時間から3分15秒(適当)引いた値を仕方ないので使う。
+        // どっちもなければ登録時間から3分30秒(適当)引いた値を仕方ないので使う。
+        if ($this->start_at) {
+            $time = strtotime($this->start_at) - 5;
+        } elseif ($this->end_at) {
+            $time = strtotime($this->end_at) - (180 + 15);
+        } else {
+            $time = strtotime($this->at) - (180 + 30);
+        }
+        return \app\components\helpers\Battle::calcPeriod($time);
+    }
 }

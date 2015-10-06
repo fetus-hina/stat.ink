@@ -84,3 +84,19 @@
     </div>
   </div>
 {{/strip}}
+{{registerJs}}{{literal}}
+(function(){
+  "use strict";
+  var lastPeriodId = null;
+  $('.battle-row').each(function(){
+    var $row = $(this);
+    if ($row.attr('data-period') === lastPeriodId) {
+      return;
+    }
+    if (lastPeriodId !== null) {
+      $row.css('border-top', '2px solid grey');
+    }
+    lastPeriodId = $row.attr('data-period');
+  });
+})();
+{{/literal}}{{/registerJs}}
