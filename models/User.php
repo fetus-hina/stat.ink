@@ -17,6 +17,9 @@ use app\components\helpers\Password;
  * @property string $password
  * @property string $api_key
  * @property string $join_at
+ * @property string $nnid
+ * @property string $twitter
+ * @property integer $ikanakama
  *
  * @property Battle[] $battles
  */
@@ -49,13 +52,15 @@ class User extends ActiveRecord implements IdentityInterface
         return [
             [['name', 'screen_name', 'password', 'api_key', 'join_at'], 'required'],
             [['join_at'], 'safe'],
-            [['name'], 'string', 'max' => 10],
-            [['screen_name'], 'string', 'max' => 15],
+            [['ikanakama'], 'integer'],
+            [['name', 'screen_name', 'twitter'], 'string', 'max' => 15],
             [['password'], 'string', 'max' => 255],
             [['api_key'], 'string', 'max' => 43],
+            [['nnid'], 'string', 'min' => 6, 'max' => 16],
+            [['nnid'], 'match', 'pattern' => '/^[a-zA-Z0-9_-]{6,16}$/'],
             [['api_key'], 'unique'],
             [['screen_name'], 'unique'],
-            [['screen_name'], 'match', 'pattern' => '/^[a-zA-Z0-9_]{1,15}$/'],
+            [['screen_name', 'twitter'], 'match', 'pattern' => '/^[a-zA-Z0-9_]{1,15}$/'],
         ];
     }
 
@@ -65,12 +70,15 @@ class User extends ActiveRecord implements IdentityInterface
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'name' => '名前',
-            'screen_name' => 'ログイン名',
-            'password' => 'パスワード',
-            'api_key' => 'APIキー',
-            'join_at' => 'join at',
+            'id'            => Yii::t('app', 'ID'),
+            'name'          => Yii::t('app', 'Name'),
+            'screen_name'   => Yii::t('app', 'Login Name'),
+            'password'      => Yii::t('app', 'Password'),
+            'api_key'       => Yii::t('app', 'API Key'),
+            'join_at'       => Yii::t('app', 'Join At'),
+            'nnid'          => Yii::t('app', 'Nintendo Network ID'),
+            'twitter'       => Yii::t('app', 'Twitter @name'),
+            'ikanakama'     => Yii::t('app', 'IKANAKAMA User ID'),
         ];
     }
 

@@ -53,6 +53,32 @@
           {{'Stat (by Map)'|translate:'app'|escape}}
         </a>
       </p>
+      <div style="margin:15px 0 0">
+        <div>
+          NNID:&#32;
+          {{if $user->nnid == ''}}
+            ?
+          {{else}}
+            <a href="https://miiverse.nintendo.net/users/{{$user->nnid|escape:url}}" rel="nofollow" target="_blank">
+              {{$user->nnid|escape}}
+            </a>
+          {{/if}}
+        </div>
+        {{if $user->twitter != ''}}
+          <div>
+            <a href="https://twitter.com/{{$user->twitter|escape:url}}" rel="nofollow" target="_blank">
+              <span class="fa fa-twitter"></span> {{$user->twitter|escape}}
+            </a>
+          </div>
+        {{/if}}
+        {{if $user->ikanakama != ''}}
+          <div>
+            <a href="http://ikazok.net/users/{{$user->ikanakama|escape:url}}" rel="nofollow" target="_blank">
+              イカナカマ
+            </a>
+          </div>
+        {{/if}}
+      </div>
     </div>
   </div>
 {{/strip}}

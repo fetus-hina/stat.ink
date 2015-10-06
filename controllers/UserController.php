@@ -22,19 +22,27 @@ class UserController extends Controller
             'access' => [
                 'class' => AccessControl::className(),
                 'only' => [
+                    'edit-profile',
                     'login',
                     'logout',
                     'profile',
-                    'register'
+                    'register',
                 ],
                 'rules' => [
                     [
-                        'actions' => [ 'login', 'register' ],
+                        'actions' => [
+                            'login',
+                            'register',
+                        ],
                         'roles' => ['?'],
                         'allow' => true,
                     ],
                     [
-                        'actions' => [ 'logout', 'profile' ],
+                        'actions' => [
+                            'edit-profile',
+                            'logout',
+                            'profile',
+                        ],
                         'roles' => ['@'],
                         'allow' => true,
                     ],
@@ -43,11 +51,12 @@ class UserController extends Controller
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'language' => [ 'post', 'get' ],
-                    'login' => [ 'get', 'post' ],
-                    'register' => [ 'get', 'post' ],
-                    'timezone' => [ 'post' ],
-                    '*' => [ 'get' ],
+                    'edit-profile'  => [ 'get', 'post' ],
+                    'language'      => [ 'post' ],
+                    'login'         => [ 'get', 'post' ],
+                    'register'      => [ 'get', 'post' ],
+                    'timezone'      => [ 'post' ],
+                    '*'             => [ 'get' ],
                 ],
             ],
         ];
@@ -57,12 +66,13 @@ class UserController extends Controller
     {
         $prefix = 'app\actions\user';
         return [
-            'language'  => [ 'class' => $prefix . '\LanguageAction' ],
-            'login'     => [ 'class' => $prefix . '\LoginAction' ],
-            'logout'    => [ 'class' => $prefix . '\LogoutAction' ],
-            'profile'   => [ 'class' => $prefix . '\ProfileAction' ],
-            'register'  => [ 'class' => $prefix . '\RegisterAction' ],
-            'timezone'  => [ 'class' => $prefix . '\TimezoneAction' ],
+            'edit-profile'  => [ 'class' => $prefix . '\EditProfileAction' ],
+            'language'      => [ 'class' => $prefix . '\LanguageAction' ],
+            'login'         => [ 'class' => $prefix . '\LoginAction' ],
+            'logout'        => [ 'class' => $prefix . '\LogoutAction' ],
+            'profile'       => [ 'class' => $prefix . '\ProfileAction' ],
+            'register'      => [ 'class' => $prefix . '\RegisterAction' ],
+            'timezone'      => [ 'class' => $prefix . '\TimezoneAction' ],
         ];
     }
 }
