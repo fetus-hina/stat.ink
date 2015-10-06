@@ -24,7 +24,8 @@
         "php-curl-class/php-curl-class": "^4.6",
         "yiisoft/yii2": "^2.0.6",
         "yiisoft/yii2-bootstrap": "2.0.*",
-        "yiisoft/yii2-smarty": "2.0.*"
+        "yiisoft/yii2-smarty": "2.0.*",
+        "bower-asset/tinycolor": "^1.2"
     },
     "require-dev": {
         "phpcq/author-validation": "^1.1",

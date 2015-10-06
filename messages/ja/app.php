@@ -33,6 +33,7 @@ return [
     'KNOCK OUT' => 'ノックアウト',
     'Killed' => 'Kill',
     'Killed/Dead' => 'Kill / Death',
+    'Kill Ratio' => 'キルレシオ',
     'LOST' => '敗北',
     'Level' => 'ランク',
     'Link' => 'リンク',

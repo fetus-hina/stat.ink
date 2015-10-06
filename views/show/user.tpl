@@ -2,6 +2,7 @@
   {{set layout="main.tpl"}}
   {{use class="yii\bootstrap\ActiveForm" type="block"}}
   {{use class="yii\widgets\ListView"}}
+  {{\app\assets\TinyColorAsset::register($this)|@void}}
   <div class="container">
     <h1>
       {{$name = '{0}-san'|translate:'app':$user->name}}
@@ -58,8 +59,8 @@
               <th>{{'Map'|translate:'app'|escape}}</th>
               <th>{{'Weapon'|translate:'app'|escape}}</th>
               <th>{{'Result'|translate:'app'|escape}}</th>
-              <th>{{'k'|translate:'app'|escape}}</th>
-              <th>{{'d'|translate:'app'|escape}}</th>
+              <th>{{'k'|translate:'app'|escape}}/{{'d'|translate:'app'|escape}}</th>
+              <th class="visible-lg">{{'Kill Ratio'|translate:'app'|escape}}</th>
               <th>{{'Date Time'|translate:'app'|escape}}</th>
             </tr>
           </thead>
@@ -98,5 +99,42 @@
     }
     lastPeriodId = $row.attr('data-period');
   });
+
+  var hsv2rgb = function (h, s, v) {
+    while (h < 0) {
+      h += 360;
+    }
+    h = h % 360;
+    return tinycolor.fromRatio({h: h / 360.0, s: s, v: v}).toHexString();
+  };
+
+  var calcColor = function (ratio) {
+    var redH = 0, greenH = 120, defaultH = 60;
+    var S = 0.40, V = 0.90;
+    var H = Math.round((function () {
+      if (ratio == 1.0) {
+        return defaultH;
+      } else if (ratio >= 3.0) {
+        return greenH;
+      } else if (ratio <= 1/3) {
+        return redH;
+      } else if (ratio > 1.0) {
+        var pos = (ratio - 1.0) / 2.0;
+        return defaultH + (greenH - defaultH) * pos;
+      } else {
+        var pos = (ratio - 1/3) * (3/2);
+        return redH + (defaultH - redH) * pos;
+      }
+    })());
+    console.log(H);
+    return hsv2rgb(H, S, V);
+  };
+
+  $('.kill-ratio').each(function() {
+    var $this = $(this);
+    $this.css('background-color', calcColor(parseFloat($this.attr('data-kill-ratio'))));
+  });
 })();
-{{/literal}}{{/registerJs}}
+{{/literal}}{{/registerJs}}{{registerCss}}{{literal}}
+.nobr{white-space:nowrap}
+{{/literal}}{{/registerCss}}

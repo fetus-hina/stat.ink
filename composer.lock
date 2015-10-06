@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "55da527dbbfab59fcd70ef57def22e7f",
-    "content-hash": "4e9ff76d1a6f4ab02243dc829af09fe0",
+    "hash": "a24c241d48cc3ce4cd39bda2427fcad5",
+    "content-hash": "25878d106233a3f7c5561e90d3ef327b",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -271,6 +271,31 @@
                     "package.json"
                 ]
             }
+        },
+        {
+            "name": "bower-asset/tinycolor",
+            "version": "1.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/bgrins/TinyColor.git",
+                "reference": "8d832ffe66657844ab5549335f3c538172455223"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/bgrins/TinyColor/zipball/8d832ffe66657844ab5549335f3c538172455223",
+                "reference": "8d832ffe66657844ab5549335f3c538172455223",
+                "shasum": ""
+            },
+            "type": "bower-asset-library",
+            "extra": {
+                "bower-asset-main": "tinycolor.js",
+                "bower-asset-ignore": [
+                    "test"
+                ]
+            },
+            "license": [
+                "MIT"
+            ]
         },
         {
             "name": "bower-asset/yii2-pjax",
