@@ -108,7 +108,7 @@
               </li>
               <li class="divider"></li>
               <li>
-                <a href="https://splatoon.nintendo.net/">{{'IKA-RING'|translate:'app'|escape}}</a>
+                <a href="https://splatoon.nintendo.net/">{{'SplatNet'|translate:'app'|escape}}</a>
               </li>
               <li class="divider"></li>
               <li>
