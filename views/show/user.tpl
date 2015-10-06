@@ -14,13 +14,15 @@
       {{\app\assets\TwitterWidgetAsset::register($this)|@void}}
       <a class="twitter-share-button" href="https://twitter.com/intent/tweet" data-count="none"><span class="fa fa-twitter"></span></a>
     </div>
-      
+
+{{*
     <h2>
       {{'Recent Results'|translate:'app'|escape}}
     </h2>
     <p>
       Coming soon
     </p>
+*}}
 
     <h2>
       {{'Battles'|translate:'app'|escape}}
