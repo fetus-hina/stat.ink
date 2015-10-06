@@ -17,12 +17,12 @@
     {{if $battle->battleImageJudge || $battle->battleImageResult}}
       <div class="row">
         {{if $battle->battleImageJudge}}
-          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 image-container">
             <img src="{{$battle->battleImageJudge->url|escape}}" style="max-width:100%;height:auto">
           </div>
         {{/if}}
         {{if $battle->battleImageResult}}
-          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 image-container">
             <img src="{{$battle->battleImageResult->url|escape}}" style="max-width:100%;height:auto">
           </div>
         {{/if}}
@@ -40,7 +40,7 @@
 
     <div class="row">
       <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
-        <table class="table table-striped" style="margin-top:15px">
+        <table class="table table-striped">
           <tbody>
             <tr>
               <th>
@@ -212,4 +212,5 @@
 {{registerCss}}{{literal}}
 th{width:15em}
 @media(max-width:30em){th{width:auto}}
+.image-container{margin-bottom:15px}
 {{/literal}}{{/registerCss}}
