@@ -20,7 +20,10 @@
       <a class="twitter-share-button" href="https://twitter.com/intent/tweet" data-count="none"><span class="fa fa-twitter"></span></a>
     </div>
 
-    {{$battles = Battle::find()->with('user')->limit(100)->all()}}
+    {{$battles = Battle::find()
+        ->with(['user', 'rule', 'map'])
+        ->limit(100)
+        ->all()}}
     <ul class="battles">
       {{$imagePlaceholder = $app->assetManager->getAssetUrl(
           $app->assetManager->getBundle('app\assets\AppAsset'),
@@ -30,6 +33,16 @@
         <li>
           <div class="battle">
             <div class="battle-image">
+              {{$rule = $battle->rule->name|default:'?'|translate:'app-rule'}}
+              {{$map = $battle->map->name|default:'?'|translate:'app-map'}}
+              {{if $battle->is_win === null}}
+                {{$result = '?'}}
+              {{elseif $battle->is_win}}
+                {{$result = 'WON'|translate:'app'}}
+              {{else}}
+                {{$result = 'LOST'|translate:'app'}}
+              {{/if}}
+              {{$description = "%s / %s / %s"|sprintf:$rule:$map:$result}}
               <a href="{{url route="show/battle" screen_name=$battle->user->screen_name battle=$battle->id}}">
                 {{$image = null}}
                 {{if $battle->battleImageResult}}
@@ -37,7 +50,7 @@
                 {{elseif $battle->battleImageJudge}}
                   {{$image = $battle->battleImageJudge}}
                 {{/if}}
-                <img src="{{$imagePlaceholder|escape}}" class="lazyload" data-src="{{$image->url|default:''|escape}}">
+                <img src="{{$imagePlaceholder|escape}}" class="lazyload auto-tooltip" data-src="{{$image->url|default:''|escape}}" title="{{$description|escape}}">
               </a>
             </div>
             <div class="battle-data row">
