@@ -40,8 +40,18 @@
                 <img src="{{$imagePlaceholder|escape}}" class="lazyload" data-src="{{$image->url|default:''|escape}}">
               </a>
             </div>
-            <div class="battle-data">
-              <a href="{{url route="show/user" screen_name=$battle->user->screen_name}}">{{$battle->user->name|escape}}</a>
+            <div class="battle-data row">
+              <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                <a href="{{url route="show/user" screen_name=$battle->user->screen_name}}">{{$battle->user->name|escape}}</a>
+              </div>
+              <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 time">
+                {{if $battle->end_at}}
+                  {{$t = $battle->end_at|date_format:'%Y-%m-%d %H:%M %Z'}}
+                  <a href="{{url route="show/battle" screen_name=$battle->user->screen_name battle=$battle->id}}" title="{{$t|escape}}" class="auto-tooltip">
+                    {{$battle->end_at|relative_time|escape}}
+                  </a>
+                {{/if}}
+              </div>
             </div>
           </div>
         </li>
