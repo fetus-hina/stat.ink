@@ -34,6 +34,18 @@
           {{'LOST'|translate:'app'|escape}}
         </span>
       {{/if}}
+      {{if $model->battleGachi && $model->battleGachi->is_knock_out !== null}}
+        &#32;
+        {{if $model->battleGachi->is_knock_out}}
+          <span class="label label-info auto-tooltip" title="{{'KNOCK OUT'|translate:'app'|escape}}">
+            {{'K.O.'|translate:'app'|escape}}
+          </span>
+        {{else}}
+          <span class="label label-warning auto-tooltip" title="{{'TIME IS UP'|translate:'app'|escape}}">
+            {{'TIME'|translate:'app'|escape}}
+          </span>
+        {{/if}}
+      {{/if}}
     </td>
     <td class="nobr">
       <span class="kill">

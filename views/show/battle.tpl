@@ -42,143 +42,218 @@
       <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
         <table class="table table-striped">
           <tbody>
-            <tr>
-              <th>
-                {{'Rule'|translate:'app'|escape}}&#32;
-                <a href="{{url route="show/user-stat-by-rule" screen_name=$user->screen_name}}">
-                  <span class="fa fa-pie-chart"></span>
-                </a>
-              </th>
-              <td>
-                {{if $battle->rule}}
+            {{if $battle->rule}}
+              <tr>
+                <th>
+                  {{'Rule'|translate:'app'|escape}}&#32;
+                  <a href="{{url route="show/user-stat-by-rule" screen_name=$user->screen_name}}">
+                    <span class="fa fa-pie-chart"></span>
+                  </a>
+                </th>
+                <td>
                   <a href="{{url route="show/user" screen_name=$user->screen_name}}?filter[rule]={{$battle->rule->key|escape:url}}">
                     <span class="fa fa-search"></span>
                   </a>&#32;
-                {{/if}}
-                {{$battle->rule->name|default:'?'|translate:'app-rule'|escape}}
-              </td>
-            </tr>
-            <tr>
-              <th>
-                {{'Map'|translate:'app'|escape}}&#32;
-                <a href="{{url route="show/user-stat-by-map" screen_name=$user->screen_name}}">
-                  <span class="fa fa-pie-chart"></span>
-                </a>
-              </th>
-              <td>
-                {{if $battle->map}}
-                  <a href="{{url route="show/user" screen_name=$user->screen_name}}?filter[map]={{$battle->map->key|escape:url}}">
-                    <span class="fa fa-search"></span>
-                  </a>&#32;
-                {{/if}}
-                {{$battle->map->name|default:'?'|translate:'app-map'|escape}}
-              </td>
-            </tr>
-            <tr>
-              <th>{{'Weapon'|translate:'app'|escape}}</th>
-              <td>
-                {{if $battle->weapon}}
-                  <a href="{{url route="show/user" screen_name=$user->screen_name}}?filter[weapon]={{$battle->weapon->key|escape:url}}">
-                    <span class="fa fa-search"></span>
-                  </a>&#32;
-                {{/if}}
-                {{$battle->weapon->name|default:'?'|translate:'app-weapon'|escape}}
-              </td>
-            </tr>
-            <tr>
-              <th>{{'Rank'|translate:'app'|escape}}</th>
-              <td>{{$battle->rank->name|default:'?'|translate:'app-rank'|escape}}</td>
-            </tr>
-            <tr>
-              <th>{{'Level'|translate:'app'|escape}}</th>
-              <td>{{$battle->level|default:'?'|escape}}</th>
-            </tr>
-            <tr>
-              <th>{{'Result'|translate:'app'|escape}}</th>
-              <td>
-                {{if $gachi && $gachi->is_knock_out === yes}}
-                  <span class="label label-info">
-                    {{'KNOCK OUT'|translate:'app'|escape}}
-                  </span>
-                  &#32;
-                {{/if}}
-                {{if $battle->is_win === true}}
-                  <span class="label label-success">
-                    {{'WON'|translate:'app'|escape}}
-                  </span>
-                {{elseif $battle->is_win === false}}
-                  <span class="label label-danger">
-                    {{'LOST'|translate:'app'|escape}}
-                  </span>
-                {{else}}
-                  {{'?'|translate:'app'|escape}}
-                {{/if}}
-              </td>
-            </tr>
-            <tr>
-              <th>{{'Rank in Team'|translate:'app'|escape}}</th>
-              <td>{{$battle->rank_in_team|default:'?'|escape}}</td>
-            </tr>
-            <tr>
-              <th>{{'Killed/Dead'|translate:'app'|escape}}</th>
-              <td>
-                {{if $battle->kill === null}}?{{else}}{{$battle->kill|escape}}{{/if}} / {{if $battle->death === null}}?{{else}}{{$battle->death|escape}}{{/if}}
-                {{if $battle->kill !== null && $battle->death !== null}}
-                  &#32;
-                  {{if $battle->kill > $battle->death}}
-                    <span class="label label-success">
-                      &gt;
-                    </span>
-                  {{elseif $battle->kill < $battle->death}}
-                    <span class="label label-danger">
-                      &lt;
-                    </span>
-                  {{else}}
-                    <span class="label label-default">
-                      =
-                    </span>
-                  {{/if}}
-                {{/if}}
-              </td>
-            </tr>
-            {{if $nawabari}}
-              <tr>
-                <th>{{'Turf Inked + Bonus'|translate:'app'|escape}}</th>
-                <td>{{$nawabari->my_point|default:'?'|escape}} P</td>
-              </tr>
-              <tr>
-                <th>{{'My Team Score'|translate:'app'|escape}}</th>
-                <td>
-                  {{$nawabari->my_team_final_point|default:'?'|escape}} P (
-                  {{if $nawabari->my_team_final_percent === null}}
-                    ?
-                  {{else}}
-                    {{$nawabari->my_team_final_percent|string_format:'%.1f'|escape}}
-                  {{/if}}
-                  %)
-                </td>
-              </tr>
-              <tr>
-                <th>{{'His Team Score'|translate:'app'|escape}}</th>
-                <td>
-                  {{$nawabari->his_team_final_point|default:'?'|escape}} P (
-                  {{if $nawabari->his_team_final_percent === null}}
-                    ?
-                  {{else}}
-                    {{$nawabari->his_team_final_percent|string_format:'%.1f'|escape}}
-                  {{/if}}
-                  %)
+                  {{$battle->rule->name|translate:'app-rule'|escape}}
                 </td>
               </tr>
             {{/if}}
-            {{if $gachi}}
+            {{if $battle->map}}
               <tr>
-                <th>{{'My Team Count'|translate:'app'|escape}}</th>
-                <td>{{$gachi->my_team_count|default:'?'|escape}}</td>
+                <th>
+                  {{'Map'|translate:'app'|escape}}&#32;
+                  <a href="{{url route="show/user-stat-by-map" screen_name=$user->screen_name}}">
+                    <span class="fa fa-pie-chart"></span>
+                  </a>
+                </th>
+                <td>
+                  <a href="{{url route="show/user" screen_name=$user->screen_name}}?filter[map]={{$battle->map->key|escape:url}}">
+                    <span class="fa fa-search"></span>
+                  </a>&#32;
+                  {{$battle->map->name|translate:'app-map'|escape}}
+                </td>
               </tr>
+            {{/if}}
+            {{if $battle->weapon}}
               <tr>
-                <th>{{'His Team Count'|translate:'app'|escape}}</th>
-                <td>{{$gachi->my_team_count|default:'?'|escape}}</td>
+                <th>{{'Weapon'|translate:'app'|escape}}</th>
+                <td>
+                  {{if $battle->weapon}}
+                    <a href="{{url route="show/user" screen_name=$user->screen_name}}?filter[weapon]={{$battle->weapon->key|escape:url}}">
+                      <span class="fa fa-search"></span>
+                    </a>&#32;
+                  {{/if}}
+                  {{$battle->weapon->name|translate:'app-weapon'|escape}}
+                </td>
+              </tr>
+            {{/if}}
+            {{if $battle->rank || $battle->rankAfter}}
+              <tr>
+                <th>{{'Rank'|translate:'app'|escape}}</th>
+                <td>
+                  {{if $battle->rank}}
+                    {{$battle->rank->name|translate:'app-rank'|escape}}
+                    {{if $battle->rank_exp !== null}}
+                      &#32;{{$battle->rank_exp|escape}}
+                    {{/if}}
+                  {{else}}
+                    ?
+                  {{/if}}
+                  {{if $battle->rankAfter}}
+                    &#32;→ {{$battle->rankAfter->name|translate:'app-rank'|escape}}
+                    {{if $battle->rank_exp_after !== null}}
+                      &#32;{{$battle->rank_exp_after|escape}}
+                    {{/if}}
+                  {{/if}}
+                </td>
+              </tr>
+            {{/if}}
+            {{if $battle->level || $battle->level_after}}
+              <tr>
+                <th>{{'Level'|translate:'app'|escape}}</th>
+                <td>
+                  {{$battle->level|default:'?'|escape}}
+                  {{if $battle->level_after}}
+                    &#32;→ {{$battle->level_after|escape}}
+                  {{/if}}
+                </td>
+              </tr>
+            {{/if}}
+            {{if $battle->is_win !== null}}
+              <tr>
+                <th>{{'Result'|translate:'app'|escape}}</th>
+                <td>
+                  {{if $gachi && $gachi->is_knock_out !== null}}
+                    {{if $gachi->is_knock_out}}
+                      <span class="label label-info">
+                        {{'KNOCK OUT'|translate:'app'|escape}}
+                      </span>
+                    {{else}}
+                      <span class="label label-warning">
+                        {{'TIME IS UP'|translate:'app'|escape}}
+                      </span>
+                    {{/if}}
+                    &#32;
+                  {{/if}}
+                  {{if $battle->is_win === true}}
+                    <span class="label label-success">
+                      {{'WON'|translate:'app'|escape}}
+                    </span>
+                  {{elseif $battle->is_win === false}}
+                    <span class="label label-danger">
+                      {{'LOST'|translate:'app'|escape}}
+                    </span>
+                  {{else}}
+                    {{'?'|translate:'app'|escape}}
+                  {{/if}}
+                </td>
+              </tr>
+            {{/if}}
+            {{if $battle->rank_in_team}}
+              <tr>
+                <th>{{'Rank in Team'|translate:'app'|escape}}</th>
+                <td>{{$battle->rank_in_team|escape}}</td>
+              </tr>
+            {{/if}}
+            {{if $battle->kill !== null || $battle->death !== null}}
+              <tr>
+                <th>{{'Killed/Dead'|translate:'app'|escape}}</th>
+                <td>
+                  {{if $battle->kill === null}}?{{else}}{{$battle->kill|escape}}{{/if}} / {{if $battle->death === null}}?{{else}}{{$battle->death|escape}}{{/if}}
+                  {{if $battle->kill !== null && $battle->death !== null}}
+                    &#32;
+                    {{if $battle->kill > $battle->death}}
+                      <span class="label label-success">
+                        &gt;
+                      </span>
+                    {{elseif $battle->kill < $battle->death}}
+                      <span class="label label-danger">
+                        &lt;
+                      </span>
+                    {{else}}
+                      <span class="label label-default">
+                        =
+                      </span>
+                    {{/if}}
+                  {{/if}}
+                </td>
+              </tr>
+            {{/if}}
+            {{if $battle->kill !== null && $battle->death !== null}}
+              <tr>
+                <th>{{'Kill Ratio'|translate:'app'|escape}}</th>
+                <td>
+                  {{if $battle->death === 0}}
+                    {{if $battle->kill === 0}}
+                      1.00
+                    {{else}}
+                      99.99
+                    {{/if}}
+                  {{else}}
+                    {{($battle->kill / $battle->death)|string_format:'%.2f'|escape}}
+                  {{/if}}
+                </td>
+              </tr>
+            {{/if}}
+            {{if $nawabari}}
+              {{if $nawabari->my_point}}
+                <tr>
+                  <th>{{'Turf Inked + Bonus'|translate:'app'|escape}}</th>
+                  <td>{{$nawabari->my_point|escape}} P</td>
+                </tr>
+              {{/if}}
+              {{if $nawabari->my_team_final_point || $nawabari->his_team_final_point}}
+                <tr>
+                  <th>{{'My Team Score'|translate:'app'|escape}}</th>
+                  <td>
+                    {{$nawabari->my_team_final_point|default:'?'|escape}} P (
+                    {{if $nawabari->my_team_final_percent === null}}
+                      ?
+                    {{else}}
+                      {{$nawabari->my_team_final_percent|string_format:'%.1f'|escape}}
+                    {{/if}}
+                    %)
+                  </td>
+                </tr>
+                <tr>
+                  <th>{{'His Team Score'|translate:'app'|escape}}</th>
+                  <td>
+                    {{$nawabari->his_team_final_point|default:'?'|escape}} P (
+                    {{if $nawabari->his_team_final_percent === null}}
+                      ?
+                    {{else}}
+                      {{$nawabari->his_team_final_percent|string_format:'%.1f'|escape}}
+                    {{/if}}
+                    %)
+                  </td>
+                </tr>
+              {{/if}}
+            {{/if}}
+            {{if $gachi}}
+              {{if $gachi->my_team_count || $gachi->his_team_count}}
+                <tr>
+                  <th>{{'My Team Count'|translate:'app'|escape}}</th>
+                  <td>{{$gachi->my_team_count|default:'?'|escape}}</td>
+                </tr>
+                <tr>
+                  <th>{{'His Team Count'|translate:'app'|escape}}</th>
+                  <td>{{$gachi->his_team_count|default:'?'|escape}}</td>
+                </tr>
+              {{/if}}
+            {{/if}}
+            {{if $battle->cash || $battle->cash_after}}
+              <tr>
+                <th>{{'Cash'|translate:'app'|escape}}</th>
+                <td>
+                  {{if $battle->cash === null}}
+                    ?
+                  {{else}}
+                    {{$battle->cash|number_format|escape}}
+                  {{/if}}
+                  {{if $battle->cash_after !== null}}
+                    &#32;→ {{$battle->cash_after|number_format|escape}}
+                  {{/if}}
+                </td>
               </tr>
             {{/if}}
             <tr>
