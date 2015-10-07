@@ -6,11 +6,11 @@ Overview: POST
 
 投稿系の API では次の形式で送信してください。
 
-* `Content-Type: multipart/form-data` および妥当なリクエストボディ
+* `Content-Type: application/x-www-form-urlencoded` および妥当なリクエストボディ
 
     ファイルの送信はできません（厳密には送信する方法もありますが行わないでください）
 
-* `Content-Type: application/x-www-form-urlencoded` および妥当なリクエストボディ
+* `Content-Type: multipart/form-data` および妥当なリクエストボディ
 
     ファイルの送信が行えます。
     ウェブブラウザが行うのと同じ形式で行ってください。
