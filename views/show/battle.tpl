@@ -268,6 +268,24 @@
               <th>{{'Data Sent'|translate:'app'|escape}}</th>
               <td>{{$battle->at|date_format:'%F %T %Z'|escape}}</td>
             </tr>
+            {{if $battle->agent}}
+              <tr>
+                <th>{{'User Agent'|translate:'app'|escape}}</th>
+                <td>
+                  {{$link = null}}
+                  {{if $battle->agent->name === 'IkaLog'}}
+                    {{$link = 'https://github.com/hasegaw/IkaLog/blob/master/doc/IkaUI.md'}}
+                  {{/if}}
+                
+                  {{if $link}}
+                    <a href="{{$link|escape}}" target="_blank" rel="nofollow">
+                  {{/if}}
+                  {{$battle->agent->name|escape}}
+                  {{if $link}}
+                    </a>
+                  {{/if}} / {{$battle->agent->version|escape}}
+                </td>
+            {{/if}}
           </tbody>
         </table>
         <p>
