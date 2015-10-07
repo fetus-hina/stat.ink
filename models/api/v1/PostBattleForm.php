@@ -25,7 +25,13 @@ class PostBattleForm extends Model
     public $map;
     public $weapon;
     public $rank;
+    public $rank_after;
+    public $rank_exp;
+    public $rank_exp_after;
     public $level;
+    public $level_after;
+    public $cash;
+    public $cash_after;
     public $result;
     public $rank_in_team;
     public $kill;
@@ -63,11 +69,13 @@ class PostBattleForm extends Model
             [['weapon'], 'exist',
                 'targetClass' =>  Weapon::className(),
                 'targetAttribute' => 'key'],
-            [['rank'], 'exist',
+            [['rank', 'rank_after'], 'exist',
                 'targetClass' => Rank::className(),
                 'targetAttribute' => 'key'],
-            [['level'], 'integer', 'min' => 1, 'max' => 50],
+            [['rank_exp', 'rank_exp_after'], 'integer', 'min' => 0, 'max' => 99],
+            [['level', 'level_after'], 'integer', 'min' => 1, 'max' => 50],
             [['result'], 'boolean', 'trueValue' => 'win', 'falseValue' => 'lose'],
+            [['cash', 'cash_after'], 'integer', 'min' => 0, 'max' => 9999999],
             [['rank_in_team'], 'integer', 'min' => 1, 'max' => 4],
             [['kill', 'death'], 'integer', 'min' => 0],
             [['image_judge', 'image_result'], 'safe'],
@@ -155,7 +163,13 @@ class PostBattleForm extends Model
         $o->map_id          = $this->map ? Map::findOne(['key' => $this->map])->id : null;
         $o->weapon_id       = $this->weapon ? Weapon::findOne(['key' => $this->weapon])->id : null;
         $o->level           = $this->level ? (int)$this->level : null;
+        $o->level_after     = $this->level_after ? (int)$this->level_after : null;
         $o->rank_id         = $this->rank ? Rank::findOne(['key' => $this->rank])->id : null;
+        $o->rank_after_id   = $this->rank_after ? Rank::findOne(['key' => $this->rank_after])->id : null;
+        $o->rank_exp        = (string)$this->rank_exp != '' ? (int)$this->rank_exp : null;
+        $o->rank_exp_after  = (string)$this->rank_exp_after != '' ? (int)$this->rank_exp_after : null;
+        $o->cash            = (string)$this->cash != '' ? (int)$this->cash : null;
+        $o->cash_after      = (string)$this->cash_after != '' ? (int)$this->cash_after : null;
         $o->is_win          = $this->result === 'win' ? true : ($this->result === 'lose' ? false : null);
         $o->rank_in_team    = $this->rank_in_team ? (int)$this->rank_in_team : null;
         $o->kill            = (string)$this->kill != '' ? (int)$this->kill : null;
@@ -195,7 +209,7 @@ class PostBattleForm extends Model
     {
         $o = new BattleGachi();
         $o->id              = $battle->id;
-        $o->is_knock_out    = $this->knock_out === 'win' ? true : ($this->knock_out === 'lose' ? false : null);
+        $o->is_knock_out    = $this->knock_out === 'yes' ? true : ($this->knock_out === 'no' ? false : null);
         $o->my_team_count   = (string)$this->my_team_count != '' ? (int)$this->my_team_count : null;
         $o->his_team_count  = (string)$this->his_team_count != '' ? (int)$this->his_team_count : null;
         return $o;

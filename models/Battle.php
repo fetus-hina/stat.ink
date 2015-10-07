@@ -22,10 +22,17 @@ use Yii;
  * @property string $end_at
  * @property string $at
  * @property integer $agent_id
+ * @property integer $level_after
+ * @property integer $rank_after_id
+ * @property integer $rank_exp
+ * @property integer $rank_exp_after
+ * @property integer $cash
+ * @property integer $cash_after
  *
  * @property Agent $agent
  * @property Map $map
  * @property Rank $rank
+ * @property Rank $rankAfter
  * @property Rule $rule
  * @property User $user
  * @property Weapon $weapon
@@ -59,6 +66,7 @@ class Battle extends \yii\db\ActiveRecord
             [['user_id', 'at'], 'required'],
             [['user_id', 'rule_id', 'map_id', 'weapon_id', 'level', 'rank_id'], 'integer'],
             [['rank_in_team', 'kill', 'death', 'agent_id'], 'integer'],
+            [['level_after', 'rank_after_id', 'rank_exp', 'rank_exp_after', 'cash', 'cash_after'], 'integer'],
             [['is_win'], 'boolean'],
             [['start_at', 'end_at', 'at'], 'safe'],
         ];
@@ -85,6 +93,12 @@ class Battle extends \yii\db\ActiveRecord
             'end_at' => 'End At',
             'at' => 'At',
             'agent_id' => 'Agent ID',
+            'level_after' => 'Level After',
+            'rank_after_id' => 'Rank After ID',
+            'rank_exp' => 'Rank Exp',
+            'rank_exp_after' => 'Rank Exp After',
+            'cash' => 'Cash',
+            'cash_after' => 'Cash After',
         ];
     }
 
@@ -110,6 +124,14 @@ class Battle extends \yii\db\ActiveRecord
     public function getRank()
     {
         return $this->hasOne(Rank::className(), ['id' => 'rank_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRankAfter()
+    {
+        return $this->hasOne(Rank::className(), ['id' => 'rank_after_id']);
     }
 
     /**
