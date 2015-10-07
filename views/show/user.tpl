@@ -126,7 +126,6 @@
         return redH + (defaultH - redH) * pos;
       }
     })());
-    console.log(H);
     return hsv2rgb(H, S, V);
   };
 
