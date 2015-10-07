@@ -36,7 +36,6 @@ window.statByMap = function () {
     $('.pie-flot-container').each(function () {
       var $container = $(this);
       var data = JSON.parse($container.attr('data-flot'));
-      console.log(data);
       $.plot($container, data, {
         series: {
           pie: {
@@ -46,7 +45,6 @@ window.statByMap = function () {
               show: "auto",
               radius: .618,
               formatter: function(label, slice) {
-                  console.log(slice);
                 return $('<div>').append(
                   $('<div>').css({
                     'fontSize': '1em',
