@@ -43,9 +43,30 @@ window.statByMap = function () {
             show: true,
             radius: 1,
             label: {
-              show: false,
-            }
-          }
+              show: "auto",
+              radius: .618,
+              formatter: function(label, slice) {
+                  console.log(slice);
+                return $('<div>').append(
+                  $('<div>').css({
+                    'fontSize': '1em',
+                    'lineHeight': '1.1em',
+                    'textAlign': 'center',
+                    'padding': '2px',
+                    'color': '#fff',
+                    'textShadow': '0px 0px 3px #000',
+                  }).append(
+                    slice.data[0][1] + ' / ' +
+                    Math.round(slice.data[0][1] / (slice.percent / 100)) // FIXME
+                  ).append(
+                    $('<br>')
+                  ).append(
+                    slice.percent.toFixed(1) + '%'
+                  )
+                ).html();
+              },
+            },
+          },
         },
         legend: {
           show: false
