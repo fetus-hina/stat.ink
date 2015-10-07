@@ -78,12 +78,14 @@
               <tr>
                 <th>{{'Weapon'|translate:'app'|escape}}</th>
                 <td>
-                  {{if $battle->weapon}}
-                    <a href="{{url route="show/user" screen_name=$user->screen_name}}?filter[weapon]={{$battle->weapon->key|escape:url}}">
-                      <span class="fa fa-search"></span>
-                    </a>&#32;
-                  {{/if}}
+                  <a href="{{url route="show/user" screen_name=$user->screen_name}}?filter[weapon]={{$battle->weapon->key|escape:url}}">
+                    <span class="fa fa-search"></span>
+                  </a>&#32;
                   {{$battle->weapon->name|translate:'app-weapon'|escape}}
+                  &#32;(
+                  {{$battle->weapon->subweapon->name|default:'?'|translate:'app-subweapon'|escape}} /&#32;
+                  {{$battle->weapon->special->name|default:'?'|translate:'app-special'|escape}}
+                  )
                 </td>
               </tr>
             {{/if}}
