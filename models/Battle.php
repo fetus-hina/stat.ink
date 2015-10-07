@@ -36,6 +36,8 @@ use Yii;
  * @property Rule $rule
  * @property User $user
  * @property Weapon $weapon
+ * @property BattleDeathReason[] $battleDeathReasons
+ * @property DeathReason[] $reasons
  * @property BattleGachi $battleGachi
  * @property BattleImage[] $battleImages
  * @property BattleNawabari $battleNawabari
@@ -156,6 +158,22 @@ class Battle extends \yii\db\ActiveRecord
     public function getWeapon()
     {
         return $this->hasOne(Weapon::className(), ['id' => 'weapon_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getBattleDeathReasons()
+    {
+        return $this->hasMany(BattleDeathReason::className(), ['battle_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getReasons()
+    {
+        return $this->hasMany(DeathReason::className(), ['id' => 'reason_id'])->viaTable('battle_death_reason', ['battle_id' => 'id']);
     }
 
     /**
