@@ -102,10 +102,20 @@ class BattleAction extends BaseAction
                     if (!$gachi->save()) {
                         $transaction->rollback();
                         return $this->formatError([
-                            'system' => [ Yii::t('app', 'Could not save to database: {0}', 'battle_ggachi') ],
+                            'system' => [ Yii::t('app', 'Could not save to database: {0}', 'battle_gachi') ],
                             'system_' => $gachi->getErrors(),
                         ], 500);
                     }
+                }
+            }
+
+            foreach($form->toDeathReasons($battle) as $reason) {
+                if ($reason && !$reason->save()) {
+                    $transaction->rollback();
+                    return $this->formatError([
+                        'system' => [ Yii::t('app', 'Could not save to database: {0}', 'battle_death_reason') ],
+                        'system_' => $reason->getErrors(),
+                    ], 500);
                 }
             }
 
@@ -162,15 +172,16 @@ class BattleAction extends BaseAction
             }
 
             $transaction->commit();
-            
-            // 保存時間の読み込みのために再読込する
-            $battle = Battle::findOne(['id' => $battle->id]);
-
-            return $this->runGetImpl($battle);
         } catch(\Exception $e) {
             $transaction->rollback();
-            return $this->formatError(['system' => [ $e->getMessage() ]], 500);
+            return $this->formatError([
+                'system' => [ $e->getMessage() ],
+            ], 500);
         }
+
+        // 保存時間の読み込みのために再読込する
+        $battle = Battle::findOne(['id' => $battle->id]);
+        return $this->runGetImpl($battle);
     }
 
     private function runGetImpl(Battle $battle)
@@ -197,6 +208,12 @@ class BattleAction extends BaseAction
             'rank_in_team' => $battle->rank_in_team,
             'kill' => $battle->kill,
             'death' => $battle->death,
+            'death_reasons' => array_map(
+                function ($model) {
+                    return $model->toJsonArray();
+                },
+                $battle->getBattleDeathReasons()->with(['reason', 'reason.type'])->all()
+            ),
             'image_judge' => $battle->battleImageJudge
                 ? Url::to(Yii::getAlias('@web/images') . '/' . $battle->battleImageJudge->filename, true)
                 : null,

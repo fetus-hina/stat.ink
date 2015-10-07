@@ -6,10 +6,12 @@ use yii\base\Model;
 use yii\web\UploadedFile;
 use app\components\helpers\db\Now;
 use app\models\Battle;
+use app\models\BattleDeathReason;
 use app\models\BattleGachi;
 use app\models\BattleImage;
 use app\models\BattleImageType;
 use app\models\BattleNawabari;
+use app\models\DeathReason;
 use app\models\Map;
 use app\models\Rank;
 use app\models\Rule;
@@ -36,6 +38,7 @@ class PostBattleForm extends Model
     public $rank_in_team;
     public $kill;
     public $death;
+    public $death_reasons;
     public $image_judge;
     public $image_result;
     public $start_at;
@@ -78,6 +81,7 @@ class PostBattleForm extends Model
             [['cash', 'cash_after'], 'integer', 'min' => 0, 'max' => 9999999],
             [['rank_in_team'], 'integer', 'min' => 1, 'max' => 4],
             [['kill', 'death'], 'integer', 'min' => 0],
+            [['death_reasons'], 'validateDeathReasons'],
             [['image_judge', 'image_result'], 'safe'],
             [['image_judge', 'image_result'], 'file',
                 'maxSize' => 3 * 1024 * 1024,
@@ -117,9 +121,31 @@ class PostBattleForm extends Model
         ];
     }
 
+    public function validateDeathReasons($attribute, $params)
+    {
+        if ($this->hasErrors($attribute)) {
+            return;
+        }
+        $value = $this->$attribute;
+        if ($value == '') {
+            $this->$attribute = [];
+            return;
+        }
+        if (!is_array($value)) {
+            $this->addError($attribute, "{$attribute} should be a map.");
+            return;
+        }
+        foreach ($value as $k => $v) {
+            $tmp = filter_var($v, FILTER_VALIDATE_INT);
+            if ($tmp === false || $tmp < 1 || $tmp > 99) {
+                $this->addError($attribute, "Value of {$attribute}[{$k}] (= {$v}) looks broken.");
+            }
+        }
+    }
+
     public function validateImageFile($attribute, $params)
     {
-        if ($this->hasError($attribute)) {
+        if ($this->hasErrors($attribute)) {
             return;
         }
         if (!($this->$attr instanceof UploadedFile)) {
@@ -213,6 +239,35 @@ class PostBattleForm extends Model
         $o->my_team_count   = (string)$this->my_team_count != '' ? (int)$this->my_team_count : null;
         $o->his_team_count  = (string)$this->his_team_count != '' ? (int)$this->his_team_count : null;
         return $o;
+    }
+
+    public function toDeathReasons(Battle $battle)
+    {
+        if (is_array($this->death_reasons) && !empty($this->death_reasons)) {
+            $unknownCount = 0;
+            foreach ($this->death_reasons as $key => $count) {
+                $reason = DeathReason::findOne(['key' => $key]);
+                if ($key === 'unknown' || !$reason) {
+                    $unknownCount += (int)$count;
+                } else {
+                    $o = new BattleDeathReason();
+                    $o->battle_id = $battle->id;
+                    $o->reason_id = $reason->id;
+                    $o->count = (int)$count;
+                    yield $o;
+                }
+            }
+            if ($unknownCount > 0) {
+                $reason = DeathReason::findOne(['key' => 'unknown']);
+                if ($reason) {
+                    $o = new BattleDeathReason();
+                    $o->battle_id = $battle->id;
+                    $o->reason_id = $reason->id;
+                    $o->count = (int)$unknownCount;
+                    yield $o;
+                }
+            }
+        }
     }
 
     public function toImageJudge(Battle $battle)

@@ -110,6 +110,7 @@ $config = [
                 'app*' => [
                     'class' => 'yii\i18n\PhpMessageSource',
                     'fileMap' => [
+                        'app-death' => 'death.php',
                         'app-map' => 'map.php',
                         'app-rank' => 'rank.php',
                         'app-rule' => 'rule.php',
