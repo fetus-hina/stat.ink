@@ -131,7 +131,7 @@ class PostBattleForm extends Model
             $this->$attribute = [];
             return;
         }
-        if (!is_array($value)) {
+        if (!is_array($value) && !$value instanceof \stdClass) {
             $this->addError($attribute, "{$attribute} should be a map.");
             return;
         }
@@ -243,7 +243,7 @@ class PostBattleForm extends Model
 
     public function toDeathReasons(Battle $battle)
     {
-        if (is_array($this->death_reasons) && !empty($this->death_reasons)) {
+        if (is_array($this->death_reasons) || $this->death_reasons instanceof \stdClass) {
             $unknownCount = 0;
             foreach ($this->death_reasons as $key => $count) {
                 $reason = DeathReason::findOne(['key' => $key]);
