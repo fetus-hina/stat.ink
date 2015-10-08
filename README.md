@@ -57,14 +57,40 @@ CentOS 7 の標準 PHP は 5.4.16 です。このバージョンでは動作し�
     cd stat.ink
     ```
 
-2. `make` します
+2. `make` します。なお、初回はデータベースの準備ができていないため途中でエラー停止します。
 
     ```sh
     make
     ```
 
-3. ウェブサーバとかを良い感じにセットアップするときっと動きます。
+3. 初回の `make` で `config/db.php` が作成されています。 `config/db.php` をお好きな設定に変更するかそのままにするかは自由ですが、その設定で繋がるようにデータベースを設定します。
 
+    ```sh
+    su - postgres
+    createuser -DEPRS statink
+    # パスワードの入力を求められます。
+    # config/db.php の自動生成パスワードを入力するか、
+    # パスワードを任意に決めた上で config/db.php を書き換えてください。
+    createdb --encoding=UTF-8 --owner=statink --template=template0 statink
+    exit
+    ```
+
+4. もう一度 `make` します。今回は成功するはずです。
+
+5. ウェブサーバとかを良い感じにセットアップするときっと動きます。
+
+
+### UPDATE ###
+
+こういうことをやればよさそうな気がします。何をやっているか確認したあと実行してください。
+
+```sh
+git fetch --all && \
+  git merge --ff-only origin/master && \
+  ./composer.phar install && \
+  make && \
+  rm -rfv web/assets/* runtime/Smarty/compile/*
+```
 
 API
 ---
