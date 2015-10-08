@@ -15,6 +15,8 @@
         "bower-asset/fontawesome": "^4.4",
         "bower-asset/github-fork-ribbon-css": "^0.1.1",
         "bower-asset/jquery": "^2.1",
+        "bower-asset/jquery.lazyload": "^1.9",
+        "bower-asset/tinycolor": "^1.2",
         "bower-asset/zxcvbn": "^3.5",
         "christian-riesen/base32": "^1.2",
         "cybercog/yii2-google-analytics": "^0.3.1",
@@ -24,8 +26,7 @@
         "php-curl-class/php-curl-class": "^4.6",
         "yiisoft/yii2": "^2.0.6",
         "yiisoft/yii2-bootstrap": "2.0.*",
-        "yiisoft/yii2-smarty": "2.0.*",
-        "bower-asset/tinycolor": "^1.2"
+        "yiisoft/yii2-smarty": "2.0.*"
     },
     "require-dev": {
         "phpcq/author-validation": "^1.1",

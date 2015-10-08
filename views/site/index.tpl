@@ -30,6 +30,7 @@
           $app->assetManager->getBundle('app\assets\AppAsset'),
           'no-image.png'
         )}}
+      {{\app\assets\JqueryLazyloadAsset::register($this)|@void}}
       {{foreach $battles as $battle}}
         <li>
           <div class="battle">
@@ -45,7 +46,8 @@
               {{/if}}
               {{$description = "%s / %s / %s"|sprintf:$rule:$map:$result}}
               <a href="{{url route="show/battle" screen_name=$battle->user->screen_name battle=$battle->id}}">
-                <img src="{{$imagePlaceholder|escape}}" class="lazyload auto-tooltip" data-src="{{$battle->battleImageResult->url|default:''|escape}}" title="{{$description|escape}}">
+                <img src="{{$imagePlaceholder|escape}}" class="lazyload auto-tooltip" data-original="{{$battle->battleImageResult->url|default:''|escape}}" title="{{$description|escape}}">
+                {{registerJs}}jQuery('img.lazyload').lazyload();{{/registerJs}}
               </a>
             </div>
             <div class="battle-data row">

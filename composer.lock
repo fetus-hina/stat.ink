@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "a24c241d48cc3ce4cd39bda2427fcad5",
-    "content-hash": "25878d106233a3f7c5561e90d3ef327b",
+    "hash": "665ba8353e80f27202dbdcb739229176",
+    "content-hash": "8508ec070f9bdcbee8aec4d1f0c110c4",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -243,6 +243,45 @@
                 "mask",
                 "plugins"
             ]
+        },
+        {
+            "name": "bower-asset/jquery.lazyload",
+            "version": "1.9.7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tuupola/jquery_lazyload.git",
+                "reference": "218e50eb4999fe59ac94b939a65c8c988d1d420b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tuupola/jquery_lazyload/zipball/218e50eb4999fe59ac94b939a65c8c988d1d420b",
+                "reference": "218e50eb4999fe59ac94b939a65c8c988d1d420b",
+                "shasum": ""
+            },
+            "type": "bower-asset-library",
+            "extra": {
+                "bower-asset-main": [
+                    "jquery.lazyload.js",
+                    "jquery.scrollstop.js"
+                ],
+                "bower-asset-ignore": [
+                    "**/.*",
+                    "**/*.min.js",
+                    "**/*.html",
+                    "**/*.textile",
+                    "Gruntfile.js",
+                    "lazyload.jquery.json",
+                    "package.json",
+                    "node_modules",
+                    "bower_components",
+                    "test",
+                    "img"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "jQuery plugin for lazy loading images"
         },
         {
             "name": "bower-asset/punycode",
