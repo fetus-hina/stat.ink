@@ -28,8 +28,10 @@ use Yii;
  * @property integer $rank_exp_after
  * @property integer $cash
  * @property integer $cash_after
+ * @property integer $lobby_id
  *
  * @property Agent $agent
+ * @property Lobby $lobby
  * @property Map $map
  * @property Rank $rank
  * @property Rank $rankAfter
@@ -69,6 +71,7 @@ class Battle extends \yii\db\ActiveRecord
             [['user_id', 'rule_id', 'map_id', 'weapon_id', 'level', 'rank_id'], 'integer'],
             [['rank_in_team', 'kill', 'death', 'agent_id'], 'integer'],
             [['level_after', 'rank_after_id', 'rank_exp', 'rank_exp_after', 'cash', 'cash_after'], 'integer'],
+            [['lobby_id'], 'integer'],
             [['is_win'], 'boolean'],
             [['start_at', 'end_at', 'at'], 'safe'],
         ];
@@ -101,6 +104,7 @@ class Battle extends \yii\db\ActiveRecord
             'rank_exp_after' => 'Rank Exp After',
             'cash' => 'Cash',
             'cash_after' => 'Cash After',
+            'lobby_id' => 'Lobby ID',
         ];
     }
 
@@ -110,6 +114,14 @@ class Battle extends \yii\db\ActiveRecord
     public function getAgent()
     {
         return $this->hasOne(Agent::className(), ['id' => 'agent_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getLobby()
+    {
+        return $this->hasOne(Lobby::className(), ['id' => 'lobby_id']);
     }
 
     /**

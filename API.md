@@ -116,6 +116,14 @@ POST /api/v1/battle
 
 * `apikey` : (必須) ユーザを特定するための API キーを指定します。（例: `ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopq` ）
 
+* `lobby` : ゲームモードを次のうちいずれかの値で指定します。
+    - `standard` : 通常モード（いわゆる「野良」またはレギュラーフレンド合流）
+    - `squad_2` : タッグマッチ（2人タッグ）
+    - `squad_3` : タッグマッチ（3人タッグ）
+    - `squad_4` : タッグマッチ（4人タッグ）
+    - `private` : プライベートマッチ
+    - `fest` : フェス(similar to `standard`)
+
 * `rule` : ルールを次のうちいずれかの値で指定します。完全なリストはルール取得 API から取得してください。
     - `nawabari` : ナワバリバトル
     - `area` : ガチバトル／ガチエリア

@@ -12,6 +12,7 @@ use app\models\BattleImage;
 use app\models\BattleImageType;
 use app\models\BattleNawabari;
 use app\models\DeathReason;
+use app\models\Lobby;
 use app\models\Map;
 use app\models\Rank;
 use app\models\Rule;
@@ -23,6 +24,7 @@ class PostBattleForm extends Model
     // API
     public $apikey;
     // common
+    public $lobby;
     public $rule;
     public $map;
     public $weapon;
@@ -63,6 +65,9 @@ class PostBattleForm extends Model
             [['apikey'], 'exist',
                 'targetClass' => User::className(),
                 'targetAttribute' => 'api_key'],
+            [['lobby'], 'exist',
+                'targetClass' => Lobby::className(),
+                'targetAttribute' => 'key'],
             [['rule'], 'exist',
                 'targetClass' => Rule::className(),
                 'targetAttribute' => 'key'],
@@ -185,6 +190,7 @@ class PostBattleForm extends Model
     {
         $o = new Battle();
         $o->user_id         = $this->getUser()->id;
+        $o->lobby_id        = $this->lobby ? Lobby::findOne(['key' => $this->lobby])->id : null;
         $o->rule_id         = $this->rule ? Rule::findOne(['key' => $this->rule])->id : null;
         $o->map_id          = $this->map ? Map::findOne(['key' => $this->map])->id : null;
         $o->weapon_id       = $this->weapon ? Weapon::findOne(['key' => $this->weapon])->id : null;

@@ -193,6 +193,7 @@ class BattleAction extends BaseAction
                 'battle' => $battle->id,
             ], true),
             'user' => $battle->user ? $battle->user->toJsonArray() : null,
+            'lobby' => $battle->lobby ? $battle->lobby->toJsonArray() : null,
             'rule' => $battle->rule ? $battle->rule->toJsonArray() : null,
             'map' => $battle->map ? $battle->map->toJsonArray() : null,
             'weapon' => $battle->weapon ? $battle->weapon->toJsonArray() : null,
