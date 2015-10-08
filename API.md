@@ -241,6 +241,8 @@ POST /api/v1/battle
 
 * `death` : バトルのデス数（敵イカにやられた数と水死・転落死の合計）を整数値で指定します（例: `3` ）
 
+* `death_reasons` : 死因と死亡回数を設定します。詳細は後述します。
+
 * `image_judge` : ジャッジ君による勝敗判定画像（PNG/JPEG、3MiB以下）
 
 * `image_result` : 個人成績の一覧画面の画像（PNG/JPEG、3MiB以下）
@@ -274,6 +276,68 @@ POST /api/v1/battle
 * `my_team_count` : 自チームのカウント数
 
 * `his_team_count` : 相手チームのカウント数
+
+----
+
+### `death_reasons` ###
+
+JSON または MessagePack で送信する場合、 object(JSON), map(MessagePack) を使用し、次のような形式になります(JSONで表記):
+
+```js
+{
+    "death_reasons": {
+        "wakaba": 1,
+        "daioika": 2
+    }
+}
+```
+
+フォーム送信形式で送信する場合、次のような形式になります。
+
+```
+...&death_reasons[wakaba]=1&death_reasons[daioika]=2&...
+```
+
+それぞれの形式において、この例の場合は「わかばシューターで1回殺された」「ダイオウイカで2回殺された」ことを示します。
+
+ブキ等のキーは次の値になります。
+
+* メインウェポン
+
+    - `weapon` と同じです
+
+* サブウェポン
+
+    - `chasebomb` : チェイスボム
+    - `kyubanbomb` : キューバンボム
+    - `quickbomb` : クイックボム
+    - `splashbomb` : スプラッシュボム
+    - `splashshield` : スプラッシュシールド
+    - `sprinkler` : スプリンクラー
+    - `trap` : トラップ
+
+* スペシャル
+
+    - `daioika` : ダイオウイカ
+    - `megaphone` : メガホンレーザー
+    - `supershot` : スーパーショット
+    - `tornado` : トルネード
+
+* ガチホコバトル（定義値は仮）
+
+    - `hoko_shot` : ガチホコショット
+    - `hoko_barrier` : ガチホコバリアの爆発
+    - `hoko_inksplode` : ガチホコ時間切れ爆発
+
+* 場外
+
+    - `oob` : 場外（水死または転落死）
+    - `drown` : 水死
+    - `fall` : 転落死
+
+* その他
+
+    - `unknown` : 死因不明
 
 ----
 
