@@ -23,9 +23,6 @@ class SiteController extends Controller
                 'class' => 'app\actions\site\SimpleAction',
                 'view' => 'index.tpl',
             ],
-            'api' => [
-                'class' => 'app\actions\site\ApiDocAction',
-            ],
             'license' => [
                 'class' => 'app\actions\site\LicenseAction',
             ],
@@ -38,5 +35,10 @@ class SiteController extends Controller
                 'view' => 'start.tpl',
             ],
         ];
+    }
+
+    public function actionApi()
+    {
+        $this->redirect('https://github.com/fetus-hina/stat.ink/blob/master/API.md');
     }
 }
