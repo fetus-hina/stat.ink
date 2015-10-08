@@ -1,8 +1,8 @@
 <?php
-
 namespace app\models;
 
 use Yii;
+use app\components\helpers\Translator;
 
 /**
  * This is the model class for table "death_reason".
@@ -76,5 +76,36 @@ class DeathReason extends \yii\db\ActiveRecord
     public function getType()
     {
         return $this->hasOne(DeathReasonType::className(), ['id' => 'type_id']);
+    }
+
+    public function toJsonArray()
+    {
+        return [
+            'key' => $this->key,
+            'name' => $this->getTranslatedNameList(),
+            'type' => $this->type
+                ? $this->type->toJsonArray()
+                : [
+                    'key' => null,
+                    'name' => Translator::translateToAll('app-death', 'Unknown'),
+                ],
+        ];
+    }
+
+    private function getTranslatedNameList()
+    {
+        if ($this->type) {
+            switch ($this->type->key) {
+                case 'main':
+                    return Translator::translateToAll('app-weapon', $this->name);
+
+                case 'sub':
+                    return Translator::translateToAll('app-subweapon', $this->name);
+
+                case 'special':
+                    return Translator::translateToAll('app-special', $this->name);
+            }
+        }
+        return Translator::translateToAll('app-death', $this->name);
     }
 }
