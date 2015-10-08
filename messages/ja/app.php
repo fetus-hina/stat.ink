@@ -13,6 +13,7 @@ return [
     'Battle Start' => 'バトル開始',
     'Battles' => 'バトル',
     'Cash' => 'おカネ',
+    'Cause of Death' => '死因',
     'Data Sent' => 'データ送信',
     'Date Time' => '日時',
     'Dead' => 'Death',
