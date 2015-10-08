@@ -42,6 +42,16 @@
       <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
         <table class="table table-striped">
           <tbody>
+            {{if $battle->lobby}}
+              <tr>
+                <th>
+                  {{'Game Mode'|translate:'app'|escape}}
+                </th>
+                <td>
+                  {{$battle->lobby->name|translate:'app-rule'|escape}}
+                </td>
+              </tr>
+            {{/if}}
             {{if $battle->rule}}
               <tr>
                 <th>

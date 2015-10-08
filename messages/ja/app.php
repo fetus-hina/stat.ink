@@ -22,6 +22,7 @@ return [
     'European Time (East)' => 'ヨーロッパ時間（東部）',
     'European Time (West)' => 'ヨーロッパ時間（西部）',
     'Feedback or propose is very welcome. Contact to GitHub project or my Twitter.' => 'バグの報告・改善の提案などがありましたら、 GitHubのプロジェクトに報告・提案するか、ツイッターアカウントへご連絡ください。',
+    'Game Mode' => 'ゲームモード',
     'Guest' => 'ゲスト',
     'Hawaii Time' => 'ハワイ時間',
     'His Team Count' => '相手チームカウント',
