@@ -114,4 +114,5 @@ return [
     '{0}\'s Battle Stat (by Rule)' => '{0}の統計（ルール別）',
     '{0}\'s Log' => '{0}のイカログ',
     '{attribute} must be less then or equal to 15 alphanumeric or underscore characters.' => '{attribute}は半角英数とアンダースコア15文字以内で入力してください。',
+    '{nFormatted} {n, plural, =1{time} other{times}}' => '{nFormatted} 回',
 ];

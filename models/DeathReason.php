@@ -92,7 +92,7 @@ class DeathReason extends \yii\db\ActiveRecord
         ];
     }
 
-    private function getTranslatedNameList()
+    public function getTranslatedNameList()
     {
         if ($this->type) {
             switch ($this->type->key) {
@@ -107,5 +107,22 @@ class DeathReason extends \yii\db\ActiveRecord
             }
         }
         return Translator::translateToAll('app-death', $this->name);
+    }
+
+    public function getTranslatedName()
+    {
+        if ($this->type) {
+            switch ($this->type->key) {
+                case 'main':
+                    return Yii::t('app-weapon', $this->name);
+
+                case 'sub':
+                    return Yii::t('app-subweapon', $this->name);
+
+                case 'special':
+                    return Yii::t('app-special', $this->name);
+            }
+        }
+        return Yii::t('app-death', $this->name);
     }
 }

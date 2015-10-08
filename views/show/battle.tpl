@@ -197,6 +197,31 @@
                 </td>
               </tr>
             {{/if}}
+            {{$deathReasons = $battle->getBattleDeathReasons()
+                ->with(['reason'])
+                ->orderBy('{{battle_death_reason}}.[[count]] DESC')
+                ->all()}}
+            {{if $deathReasons}}
+              <tr>
+                <th>{{'Cause of Death'|translate:'app'|escape}}</th>
+                <td>
+                  <table>
+                    <tbody>
+                      {{foreach $deathReasons as $deathReason}}
+                        <tr>
+                          <td>{{$deathReason->reason->translatedName|default:'?'|escape}}</td>
+                          <td style="padding:0 10px">:</td>
+                          <td>
+                            {{$params = ['n' => $deathReason->count, 'nFormatted' => $app->formatter->asDecimal($deathReason->count)]}}
+                            {{"{nFormatted} {n, plural, =1{time} other{times}}"|translate:'app':$params|escape}}
+                          </td>
+                        </tr>
+                      {{/foreach}}
+                    </tbody>
+                  </table>
+                </td>
+              </tr>
+            {{/if}}
             {{if $nawabari}}
               {{if $nawabari->my_point}}
                 <tr>
