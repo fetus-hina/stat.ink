@@ -3,9 +3,19 @@ namespace app\models\query;
 
 use yii\db\ActiveQuery;
 use app\models\BattleFilterForm;
+use app\models\BattleImageType;
 
 class BattleQuery extends ActiveQuery
 {
+    public function hasResultImage()
+    {
+        return $this->innerJoinWith([
+            'battleImages' => function ($query) {
+                $query->onCondition(['{{battle_image}}.[[type_id]]' => BattleImageType::ID_RESULT]);
+            },
+        ], false);
+    }
+
     public function filter(BattleFilterForm $filter)
     {
         return $this

@@ -22,6 +22,7 @@
 
     {{$battles = Battle::find()
         ->with(['user', 'rule', 'map'])
+        ->hasResultImage()
         ->limit(100)
         ->all()}}
     <ul class="battles">
@@ -44,13 +45,7 @@
               {{/if}}
               {{$description = "%s / %s / %s"|sprintf:$rule:$map:$result}}
               <a href="{{url route="show/battle" screen_name=$battle->user->screen_name battle=$battle->id}}">
-                {{$image = null}}
-                {{if $battle->battleImageResult}}
-                  {{$image = $battle->battleImageResult}}
-                {{elseif $battle->battleImageJudge}}
-                  {{$image = $battle->battleImageJudge}}
-                {{/if}}
-                <img src="{{$imagePlaceholder|escape}}" class="lazyload auto-tooltip" data-src="{{$image->url|default:''|escape}}" title="{{$description|escape}}">
+                <img src="{{$imagePlaceholder|escape}}" class="lazyload auto-tooltip" data-src="{{$battle->battleImageResult->url|default:''|escape}}" title="{{$description|escape}}">
               </a>
             </div>
             <div class="battle-data row">
