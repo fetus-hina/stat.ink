@@ -29,6 +29,7 @@ use Yii;
  * @property integer $cash
  * @property integer $cash_after
  * @property integer $lobby_id
+ * @property string $kill_ratio
  *
  * @property Agent $agent
  * @property Lobby $lobby
@@ -61,6 +62,13 @@ class Battle extends \yii\db\ActiveRecord
         return 'battle';
     }
 
+    public function init()
+    {
+        parent::init();
+        $this->on(\yii\db\ActiveRecord::EVENT_BEFORE_INSERT, [$this, 'setKillRatio']);
+        $this->on(\yii\db\ActiveRecord::EVENT_BEFORE_UPDATE, [$this, 'setKillRatio']);
+    }
+
     /**
      * @inheritdoc
      */
@@ -74,6 +82,7 @@ class Battle extends \yii\db\ActiveRecord
             [['lobby_id'], 'integer'],
             [['is_win'], 'boolean'],
             [['start_at', 'end_at', 'at'], 'safe'],
+            [['kill_ratio'], 'number'],
         ];
     }
 
@@ -105,6 +114,7 @@ class Battle extends \yii\db\ActiveRecord
             'cash' => 'Cash',
             'cash_after' => 'Cash After',
             'lobby_id' => 'Lobby ID',
+            'kill_ratio' => 'Kill Ratio',
         ];
     }
 
@@ -271,5 +281,18 @@ class Battle extends \yii\db\ActiveRecord
             $time = strtotime($this->at) - (180 + 30);
         }
         return \app\components\helpers\Battle::calcPeriod($time);
+    }
+
+    public function setKillRatio()
+    {
+        if ($this->kill === null || $this->death === null) {
+            $this->kill_ratio = null;
+            return;
+        }
+        if ($this->death == 0) {
+            $this->kill_ratio = ($this->kill == 0) ? 1.00 : 99.99;
+            return;
+        }
+        $this->kill_ratio = sprintf('%.2f', $this->kill / $this->death);
     }
 }

@@ -91,25 +91,9 @@
         {{/if}}
       {{/if}}
     </td>
-    {{if $model->kill !== null && $model->death !== null}}
-      {{if $model->death == 0}}
-        {{if $model->kill == 0}}
-          {{$ratio = 1.00}}
-        {{else}}
-          {{$ratio = 99.99}}
-        {{/if}}
-      {{else}}
-        {{$ratio = $model->kill / $model->death}}
-      {{/if}}
-
-      {{* 画面上99までしか出ないのでこの処理は本来不要なはず *}}
-      {{if $ratio > 99.99}}
-        {{$ratio = 99.99}}
-      {{elseif $ratio < -99.99}}
-        {{$ratio = -99.99}}
-      {{/if}}
-      <td class="right kill-ratio cell-kill-ratio" data-kill-ratio="{{$ratio|escape}}">
-        {{$ratio|string_format:'%.2f'|escape}}
+    {{if $model->kill_ratio !== null}}
+      <td class="right kill-ratio cell-kill-ratio" data-kill-ratio="{{$model->kill_ratio|escape}}">
+        {{$model->kill_ratio|string_format:'%.2f'|escape}}
       </td>
     {{else}}
       <td class="cell-kill-ratio"></td>

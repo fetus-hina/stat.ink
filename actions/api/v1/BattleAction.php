@@ -209,6 +209,7 @@ class BattleAction extends BaseAction
             'rank_in_team' => $battle->rank_in_team,
             'kill' => $battle->kill,
             'death' => $battle->death,
+            'kill_ratio' => isset($battle->kill_ratio) ? (float)$battle->kill_ratio : null,
             'death_reasons' => array_map(
                 function ($model) {
                     return $model->toJsonArray();

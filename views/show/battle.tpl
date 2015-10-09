@@ -195,14 +195,10 @@
               <tr>
                 <th>{{'Kill Ratio'|translate:'app'|escape}}</th>
                 <td>
-                  {{if $battle->death === 0}}
-                    {{if $battle->kill === 0}}
-                      1.00
-                    {{else}}
-                      99.99
-                    {{/if}}
+                  {{if $battle->kill_ratio === null}}
+                    {{'N/A'|translate:'app'|escape}}
                   {{else}}
-                    {{($battle->kill / $battle->death)|string_format:'%.2f'|escape}}
+                    {{$battle->kill_ratio|string_format:'%.2f'|escape}}
                   {{/if}}
                 </td>
               </tr>
