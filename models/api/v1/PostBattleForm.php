@@ -125,6 +125,8 @@ class PostBattleForm extends Model
                 'min' => 0.0, 'max' => 100.0],
             [['knock_out'], 'boolean', 'trueValue' => 'yes', 'falseValue' => 'no'],
             [['my_team_count', 'his_team_count'], 'integer', 'min' => 0, 'max' => 100],
+
+            [['lobby'], 'fixLobby'],
         ];
     }
 
@@ -335,5 +337,23 @@ class PostBattleForm extends Model
         $o->type_id = $imageTypeId;
         $o->filename = BattleImage::generateFilename();
         return $o;
+    }
+
+    // 特定のバージョンの IkaLog が
+    // 通常マッチングをフェスだと誤認して送信してくるので
+    // とりあえず直るまでの間
+    // gender, fest_rank が無くて fest だと言っている時は standard 扱いする
+    public function fixLobby()
+    {
+        if ($this->hasErrors()) {
+            return;
+        }
+        if (($this->agent === 'IkaLog' || $this->agent === 'TakoLog') &&
+                $this->lobby === 'fest' &&
+                !$this->fest_gender &&
+                !$this->fest_rank
+        ) {
+            $this->lobby = 'standard';
+        }
     }
 }
