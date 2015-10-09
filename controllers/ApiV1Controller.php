@@ -38,10 +38,11 @@ class ApiV1Controller extends Controller
     {
         $prefix = 'app\actions\api\v1';
         return [
-            'rule'      => [ 'class' => $prefix . '\RuleAction' ],
-            'map'       => [ 'class' => $prefix . '\MapAction' ],
-            'weapon'    => [ 'class' => $prefix . '\WeaponAction' ],
-            'battle'    => [ 'class' => $prefix . '\BattleAction' ],
+            'battle'        => [ 'class' => $prefix . '\BattleAction' ],
+            'death-reason'  => [ 'class' => $prefix . '\DeathReasonAction' ],
+            'map'           => [ 'class' => $prefix . '\MapAction' ],
+            'rule'          => [ 'class' => $prefix . '\RuleAction' ],
+            'weapon'        => [ 'class' => $prefix . '\WeaponAction' ],
         ];
     }
 }
