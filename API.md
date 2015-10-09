@@ -162,6 +162,7 @@ POST /api/v1/battle
         - `l3reelgun` : L3リールガン
         - `l3reelgun_d` : L3リールガンD
         - `longblaster` : ロングブラスター
+        - `longblaster_custom` : ロングブラスターカスタム
         - `momiji` : もみじシューター
         - `nova` : ノヴァブラスター
         - `nzap85` : N_ZAP 85
@@ -195,6 +196,7 @@ POST /api/v1/battle
         - `liter3k` : リッター3K
         - `liter3k_custom` : リッター3Kカスタム
         - `liter3k_scope` : 3Kスコープ
+        - `liter3k_scope_custom` : 3Kスコープカスタム
         - `splatcharger` : スプラチャージャー
         - `splatcharger_wakame` : スプラチャージャーワカメ
         - `splatscope` : スプラスコープ

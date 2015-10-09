@@ -12,6 +12,7 @@ return [
     'Custom Blaster' => 'ホットブラスターカスタム',
     'Custom Dual Squelcher' => 'デュアルスイーパーカスタム',
     'Custom Jet Squelcher' => 'ジェットスイーパーカスタム',
+    'Custom Range Blaster' => 'ロングブラスターカスタム',
     'Custom Splattershot Jr.' => 'もみじシューター',
     'Dual Squelcher' => 'デュアルスイーパー',
     'Forge Splattershot Pro' => 'プライムシューターコラボ',
