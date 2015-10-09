@@ -131,6 +131,19 @@
                 </td>
               </tr>
             {{/if}}
+            {{if $battle->gender && $battle->festTitle}}
+              <tr>
+                <th>{{'Splatfest Title'|translate:'app'|escape}}</th>
+                <td>
+                  {{if $battle->my_team_color_rgb}}
+                    <span style="color:#{{$battle->my_team_color_rgb|escape}}">
+                      ■
+                    </span>&#32;
+                  {{/if}}
+                  {{$battle->festTitle->getName($battle->gender)|translate:'app':['***','***']|escape}}
+                </td>
+              </tr>
+            {{/if}}
             {{if $battle->is_win !== null}}
               <tr>
                 <th>{{'Result'|translate:'app'|escape}}</th>

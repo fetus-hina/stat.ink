@@ -30,8 +30,16 @@ use Yii;
  * @property integer $cash_after
  * @property integer $lobby_id
  * @property string $kill_ratio
+ * @property integer $gender_id
+ * @property integer $fest_title_id
+ * @property integer $my_team_color_hue
+ * @property integer $his_team_color_hue
+ * @property string $my_team_color_rgb
+ * @property string $his_team_color_rgb
  *
  * @property Agent $agent
+ * @property FestTitle $festTitle
+ * @property Gender $gender
  * @property Lobby $lobby
  * @property Map $map
  * @property Rank $rank
@@ -83,10 +91,11 @@ class Battle extends \yii\db\ActiveRecord
             [['user_id', 'rule_id', 'map_id', 'weapon_id', 'level', 'rank_id'], 'integer'],
             [['rank_in_team', 'kill', 'death', 'agent_id'], 'integer'],
             [['level_after', 'rank_after_id', 'rank_exp', 'rank_exp_after', 'cash', 'cash_after'], 'integer'],
-            [['lobby_id'], 'integer'],
+            [['lobby_id', 'gender_id', 'fest_title_id', 'my_team_color_hue', 'his_team_color_hue'], 'integer'],
             [['is_win'], 'boolean'],
             [['start_at', 'end_at', 'at'], 'safe'],
             [['kill_ratio'], 'number'],
+            [['my_team_color_rgb', 'his_team_color_rgb'], 'string', 'min' => 6, 'max' => 6],
         ];
     }
 
@@ -119,6 +128,12 @@ class Battle extends \yii\db\ActiveRecord
             'cash_after' => 'Cash After',
             'lobby_id' => 'Lobby ID',
             'kill_ratio' => 'Kill Ratio',
+            'gender_id' => 'Gender ID',
+            'fest_title_id' => 'Fest Title ID',
+            'my_team_color_hue' => 'My Team Color Hue',
+            'his_team_color_hue' => 'His Team Color Hue',
+            'my_team_color_rgb' => 'My Team Color Rgb',
+            'his_team_color_rgb' => 'His Team Color Rgb',
         ];
     }
 
@@ -128,6 +143,22 @@ class Battle extends \yii\db\ActiveRecord
     public function getAgent()
     {
         return $this->hasOne(Agent::className(), ['id' => 'agent_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getFestTitle()
+    {
+        return $this->hasOne(FestTitle::className(), ['id' => 'fest_title_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getGender()
+    {
+        return $this->hasOne(Gender::className(), ['id' => 'gender_id']);
     }
 
     /**

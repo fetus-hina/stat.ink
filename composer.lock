@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "665ba8353e80f27202dbdcb739229176",
-    "content-hash": "8508ec070f9bdcbee8aec4d1f0c110c4",
+    "hash": "e1f9e2cc322630d390e8470312afe963",
+    "content-hash": "d3f00f559a485379838e3399aa2a236f",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -617,6 +617,45 @@
             "time": "2013-11-30 08:25:19"
         },
         {
+            "name": "hasbridge/php-color",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/matthewbaggett/php-color.git",
+                "reference": "d576bd3e0d3d429930d795b03b22d3dd088dad29"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/matthewbaggett/php-color/zipball/d576bd3e0d3d429930d795b03b22d3dd088dad29",
+                "reference": "d576bd3e0d3d429930d795b03b22d3dd088dad29",
+                "shasum": ""
+            },
+            "require": {
+                "php": "~5.3"
+            },
+            "require-dev": {
+                "codeclimate/php-test-reporter": "dev-master",
+                "phpunit/phpunit": "*"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.1-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Color": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Color utility class for PHP 5.3 that allows for easy conversion between RGB, HSV, XYZ, and Lab colorspaces, as well as color comparison",
+            "time": "2015-02-09 14:06:09"
+        },
+        {
             "name": "himiklab/yii2-recaptcha-widget",
             "version": "1.0.4",
             "source": {
@@ -703,16 +742,16 @@
         },
         {
             "name": "paragonie/random_compat",
-            "version": "1.0.4",
+            "version": "1.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/paragonie/random_compat.git",
-                "reference": "456d84c8823207a18fb146c29f8b9e3aa0a9a31c"
+                "reference": "f667aa2000a192adfa53332335a2ae0c1cb9ea6e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/paragonie/random_compat/zipball/456d84c8823207a18fb146c29f8b9e3aa0a9a31c",
-                "reference": "456d84c8823207a18fb146c29f8b9e3aa0a9a31c",
+                "url": "https://api.github.com/repos/paragonie/random_compat/zipball/f667aa2000a192adfa53332335a2ae0c1cb9ea6e",
+                "reference": "f667aa2000a192adfa53332335a2ae0c1cb9ea6e",
                 "shasum": ""
             },
             "require": {
@@ -741,7 +780,7 @@
                 "pseudorandom",
                 "random"
             ],
-            "time": "2015-10-02 22:19:38"
+            "time": "2015-10-08 12:57:25"
         },
         {
             "name": "php-curl-class/php-curl-class",
@@ -1673,7 +1712,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "hasbridge/php-color": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

@@ -216,6 +216,16 @@ class BattleAction extends BaseAction
                 },
                 $battle->getBattleDeathReasons()->with(['reason', 'reason.type'])->all()
             ),
+            'gender' => $battle->gender ? $battle->gender->toJsonArray() : null,
+            'fest_title' => $battle->gender && $battle->festTitle ? $battle->festTitle->toJsonArray($battle->gender) : null,
+            'my_team_color' => [
+                'hue' => $battle->my_team_color_hue,
+                'rgb' => $battle->my_team_color_rgb,
+            ],
+            'his_team_color' => [
+                'hue' => $battle->his_team_color_hue,
+                'rgb' => $battle->his_team_color_rgb,
+            ],
             'image_judge' => $battle->battleImageJudge
                 ? Url::to(Yii::getAlias('@web/images') . '/' . $battle->battleImageJudge->filename, true)
                 : null,

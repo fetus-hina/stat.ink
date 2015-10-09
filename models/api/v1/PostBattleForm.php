@@ -12,6 +12,7 @@ use app\models\BattleImage;
 use app\models\BattleImageType;
 use app\models\BattleNawabari;
 use app\models\DeathReason;
+use app\models\FestTitle;
 use app\models\Lobby;
 use app\models\Map;
 use app\models\Rank;
@@ -41,6 +42,10 @@ class PostBattleForm extends Model
     public $kill;
     public $death;
     public $death_reasons;
+    public $fest_gender;
+    public $fest_rank;
+    public $my_team_color;
+    public $his_team_color;
     public $image_judge;
     public $image_result;
     public $start_at;
@@ -87,6 +92,12 @@ class PostBattleForm extends Model
             [['rank_in_team'], 'integer', 'min' => 1, 'max' => 4],
             [['kill', 'death'], 'integer', 'min' => 0],
             [['death_reasons'], 'validateDeathReasons'],
+            [['fest_gender'], 'in', 'range' => [ 'boy', 'girl']],
+            [['fest_rank'], 'filter', 'filter' => 'strtolower'],
+            [['fest_rank'], 'exist',
+                'targetClass' => FestTitle::className(),
+                'targetAttribute' => 'key'],
+            [['my_team_color', 'his_team_color'], 'validateTeamColor'],
             [['image_judge', 'image_result'], 'safe'],
             [['image_judge', 'image_result'], 'file',
                 'maxSize' => 3 * 1024 * 1024,
@@ -148,6 +159,28 @@ class PostBattleForm extends Model
         }
     }
 
+    public function validateTeamColor($attribute, $params)
+    {
+        if ($this->hasErrors($attribute)) {
+            return;
+        }
+        if (!is_array($this->$attribute)) {
+            $this->addError($attribute, "{$attribute} must be a map.");
+            return;
+        }
+        $subForm = new TeamColorForm();
+        $subForm->attributes = $this->$attribute;
+        if (!$subForm->validate()) {
+            foreach ($subForm->getErrors() as $k => $v) {
+                foreach ($v as $v2) {
+                    $this->addError($attribute, "{$k}: {$v2}");
+                }
+            }
+            return;
+        }
+        $this->$attribute = $subForm->attributes;
+    }
+
     public function validateImageFile($attribute, $params)
     {
         if ($this->hasErrors($attribute)) {
@@ -206,6 +239,12 @@ class PostBattleForm extends Model
         $o->rank_in_team    = $this->rank_in_team ? (int)$this->rank_in_team : null;
         $o->kill            = (string)$this->kill != '' ? (int)$this->kill : null;
         $o->death           = (string)$this->death != '' ? (int)$this->death : null;
+        $o->gender_id       = $this->fest_gender === 'boy' ? 1 : ($this->fest_gender === 'girl' ? 2 : null);
+        $o->fest_title_id   = $this->fest_rank ? FestTitle::findOne(['key' => $this->fest_rank])->id : null;
+        $o->my_team_color_hue = $this->my_team_color ? $this->my_team_color['hue'] : null;
+        $o->my_team_color_rgb = $this->my_team_color ? vsprintf('%02x%02x%02x', $this->my_team_color['rgb']) : null;
+        $o->his_team_color_hue = $this->his_team_color ? $this->his_team_color['hue'] : null;
+        $o->his_team_color_rgb = $this->his_team_color ? vsprintf('%02x%02x%02x', $this->his_team_color['rgb']) : null;
         $o->start_at        = $this->start_at != ''
             ? gmdate('Y-m-d H:i:sP', (int)$this->start_at)
             : null;
