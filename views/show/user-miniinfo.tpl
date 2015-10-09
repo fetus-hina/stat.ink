@@ -1,4 +1,5 @@
 {{strip}}
+  {{$stat = $user->userStat}}
   <div id="user-miniinfo">
     <div style="border:1px solid #ccc;border-radius:5px;padding:15px">
       <h2 style="margin-top:0;margin-bottom:10px">
@@ -6,98 +7,172 @@
           {{'{0}-san'|translate:'app':$user->name|escape}}
         </a>
       </h2>
-      <div class="row">
-        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-          {{$stat = $user->simpleStatics}}
-          <div class="user-label">
-            {{'Battles'|translate:'app'|escape}}
+      {{if $stat}}
+        <div class="row">
+          <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+            <div class="user-label">
+              {{'Battles'|translate:'app'|escape}}
+            </div>
+            <div class="user-number">
+              <a href="{{url route="show/user" screen_name=$user->screen_name}}">
+                {{$stat->battle_count|number_format|escape}}
+              </a>
+            </div>
           </div>
-          <div class="user-number">
-            <a href="{{url route="show/user" screen_name=$user->screen_name}}">
-              {{$stat->totalBattleCount|number_format|escape}}
-            </a>
+          <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+            <div class="user-label">
+              {{'WP'|translate:'app'|escape}}
+            </div>
+            <div class="user-number">
+              {{if $stat->wp === null}}
+                {{'N/A'|translate:'app'|escape}}
+              {{else}}
+                {{$stat->wp|string_format:'%.1f%%'|escape}}
+              {{/if}}
+            </div>
           </div>
-        </div>
-        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-          <div class="user-label">
-            {{'WP'|translate:'app'|escape}}
-          </div>
-          <div class="user-number">
-            {{if $stat->totalWinRate === null}}
-              {{'N/A'|translate:'app'|escape}}
-            {{else}}
-              {{$stat->totalWinRate|string_format:'%.1f%%'|escape}}
-            {{/if}}
-          </div>
-        </div>
-        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-          <div class="user-label">
-            {{'24H WP'|translate:'app'|escape}}
-          </div>
-          <div class="user-number">
-            {{if $stat->oneDayWinRate === null}}
-              {{'N/A'|translate:'app'|escape}}
-            {{else}}
-              {{$stat->oneDayWinRate|string_format:'%.1f%%'|escape}}
-            {{/if}}
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-          {{$stat = $user->simpleStatics}}
-          <div class="user-label">
-            {{'Killed'|translate:'app'|escape}}
-          </div>
-          <div class="user-number">
-            {{if $stat->killDeathAvailable < 1}}
-              {{'N/A'|translate:'app'|escape}}
-            {{else}}
-              {{$stat->totalKilled|number_format|escape}}
-            {{/if}}
+          <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+            <div class="user-label">
+              {{'24H WP'|translate:'app'|escape}}
+            </div>
+            <div class="user-number">
+              {{if $stat->wp_short === null}}
+                {{'N/A'|translate:'app'|escape}}
+              {{else}}
+                {{$stat->wp_short|string_format:'%.1f%%'|escape}}
+              {{/if}}
+            </div>
           </div>
         </div>
-        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-          <div class="user-label">
-            {{'Dead'|translate:'app'|escape}}
+        <div class="row">
+          <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+            <div class="user-label">
+              {{'Killed'|translate:'app'|escape}}
+            </div>
+            <div class="user-number">
+              {{$stat->total_kill|number_format|escape}}
+            </div>
           </div>
-          <div class="user-number">
-            {{if $stat->killDeathAvailable < 1}}
-              {{'N/A'|translate:'app'|escape}}
-            {{else}}
-              {{$stat->totalDead|number_format|escape}}
-            {{/if}}
+          <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+            <div class="user-label">
+              {{'Dead'|translate:'app'|escape}}
+            </div>
+            <div class="user-number">
+              {{$stat->total_death|number_format|escape}}
+            </div>
+          </div>
+          <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+            <div class="user-label">
+              <span class="auto-tooltip" title="{{'Kill Ratio'|translate:'app'|escape}}">
+                {{'KR'|translate:'app'|escape}}
+              </span>
+            </div>
+            <div class="user-number">
+              {{if $stat->total_kill == 0 && $stat->total_death == 0}}
+                -
+              {{elseif $stat->total_death == 0}}
+                ∞
+              {{else}}
+                {{($stat->total_kill/$stat->total_death)|string_format:'%.2f'|escape}}
+              {{/if}}
+            </div>
           </div>
         </div>
-        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-          <div class="user-label">
-            <span class="auto-tooltip" title="{{'Kill Ratio'|translate:'app'|escape}}">
-              {{'KR'|translate:'app'|escape}}
-            </span>
+
+        {{* ナワバリ *}}
+        <div class="row">
+          <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+            <div class="user-label">
+              {{'Turf War'|translate:'app-rule'|escape}}
+            </div>
+            <div class="user-number">
+              <a href="{{url route="show/user" screen_name=$user->screen_name filter=["rule" => "nawabari"]}}">
+                {{$stat->nawabari_count|number_format|escape}}
+              </a>
+            </div>
           </div>
-          <div class="user-number">
-            {{if $stat->killDeathAvailable < 1}}
-              {{'N/A'|translate:'app'|escape}}
-            {{elseif $stat->totalKilled == 0 && $stat->totalDead == 0}}
-              -
-            {{elseif $stat->totalDead == 0}}
-              ∞
-            {{else}}
-              {{($stat->totalKilled/$stat->totalDead)|string_format:'%.2f'|escape}}
-            {{/if}}
+          <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+            <div class="user-label">
+              {{'WP'|translate:'app'|escape}}
+            </div>
+            <div class="user-number">
+              {{if $stat->nawabari_wp === null}}
+                {{'N/A'|translate:'app'|escape}}
+              {{else}}
+                {{$stat->nawabari_wp|string_format:'%.1f%%'|escape}}
+              {{/if}}
+            </div>
+          </div>
+          <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+            <div class="user-label">
+              <span class="auto-tooltip" title="{{'Kill Ratio'|translate:'app'|escape}}">
+                {{'KR'|translate:'app'|escape}}
+              </span>
+            </div>
+            <div class="user-number">
+              {{if $stat->nawabari_kill == 0 && $stat->nawabari_death == 0}}
+                -
+              {{elseif $stat->nawabari_death == 0}}
+                ∞
+              {{else}}
+                {{($stat->nawabari_kill/$stat->nawabari_death)|string_format:'%.2f'|escape}}
+              {{/if}}
+            </div>
           </div>
         </div>
-      </div>
-      <p style="margin:15px 0 0">
-        <a href="{{url route="show/user-stat-by-rule" screen_name=$user->screen_name}}">
-          <span class="fa fa-pie-chart"></span>&#32;
-          {{'Stat (by Rule)'|translate:'app'|escape}}
-        </a><br>
-        <a href="{{url route="show/user-stat-by-map" screen_name=$user->screen_name}}">
-          <span class="fa fa-pie-chart"></span>&#32;
-          {{'Stat (by Map)'|translate:'app'|escape}}
-        </a>
-      </p>
+
+        {{* ナワバリ *}}
+        <div class="row">
+          <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+            <div class="user-label">
+              {{'Ranked Battle'|translate:'app-rule'|escape}}
+            </div>
+            <div class="user-number">
+              <a href="{{url route="show/user" screen_name=$user->screen_name filter=["rule" => "@gachi"]}}">
+                {{$stat->gachi_count|number_format|escape}}
+              </a>
+            </div>
+          </div>
+          <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+            <div class="user-label">
+              {{'WP'|translate:'app'|escape}}
+            </div>
+            <div class="user-number">
+              {{if $stat->gachi_wp === null}}
+                {{'N/A'|translate:'app'|escape}}
+              {{else}}
+                {{$stat->gachi_wp|string_format:'%.1f%%'|escape}}
+              {{/if}}
+            </div>
+          </div>
+          <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+            <div class="user-label">
+              <span class="auto-tooltip" title="{{'Kill Ratio'|translate:'app'|escape}}">
+                {{'KR'|translate:'app'|escape}}
+              </span>
+            </div>
+            <div class="user-number">
+              {{if $stat->gachi_kill == 0 && $stat->gachi_death == 0}}
+                -
+              {{elseif $stat->gachi_death == 0}}
+                ∞
+              {{else}}
+                {{($stat->gachi_kill/$stat->gachi_death)|string_format:'%.2f'|escape}}
+              {{/if}}
+            </div>
+          </div>
+        </div>
+        <p style="margin:15px 0 0">
+          <a href="{{url route="show/user-stat-by-rule" screen_name=$user->screen_name}}">
+            <span class="fa fa-pie-chart"></span>&#32;
+            {{'Stat (by Rule)'|translate:'app'|escape}}
+          </a><br>
+          <a href="{{url route="show/user-stat-by-map" screen_name=$user->screen_name}}">
+            <span class="fa fa-pie-chart"></span>&#32;
+            {{'Stat (by Map)'|translate:'app'|escape}}
+          </a>
+        </p>
+      {{/if}}
       <div style="margin:15px 0 0">
         <div>
           NNID:&#32;
@@ -127,3 +202,4 @@
     </div>
   </div>
 {{/strip}}
+{{registerCss}}.user-label{text-overflow:ellipsis;white-space:nowrap;overflow:hidden}{{/registerCss}}

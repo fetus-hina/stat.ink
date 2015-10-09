@@ -67,6 +67,10 @@ class Battle extends \yii\db\ActiveRecord
         parent::init();
         $this->on(\yii\db\ActiveRecord::EVENT_BEFORE_INSERT, [$this, 'setKillRatio']);
         $this->on(\yii\db\ActiveRecord::EVENT_BEFORE_UPDATE, [$this, 'setKillRatio']);
+
+        $this->on(\yii\db\ActiveRecord::EVENT_AFTER_INSERT, [$this, 'updateUserStat']);
+        $this->on(\yii\db\ActiveRecord::EVENT_AFTER_UPDATE, [$this, 'updateUserStat']);
+        $this->on(\yii\db\ActiveRecord::EVENT_AFTER_DELETE, [$this, 'updateUserStat']);
     }
 
     /**
@@ -294,5 +298,15 @@ class Battle extends \yii\db\ActiveRecord
             return;
         }
         $this->kill_ratio = sprintf('%.2f', $this->kill / $this->death);
+    }
+
+    public function updateUserStat()
+    {
+        if (!$stat = UserStat::findOne(['user_id' => $this->user_id])) {
+            $stat = new UserStat();
+            $stat->user_id = $this->user_id;
+        }
+        $stat->createCurrentData();
+        $stat->save();
     }
 }
