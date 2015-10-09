@@ -44,7 +44,7 @@
           {{/ActiveForm}}
         </div>
       </div>
-      <div class="col-xs-12 col-sm-8 col-md-8 col-lg-9" id="battles">
+      <div class="col-xs-12 col-sm-8 col-md-8 col-lg-9 table-responsive" id="battles">
         {{ListView::widget([
             'dataProvider' => $battleDataProvider,
             'itemView' => 'battle.tablerow.tpl',
@@ -55,13 +55,20 @@
           <thead>
             <tr>
               <th></th>
-              <th>{{'Rule'|translate:'app'|escape}}</th>
-              <th>{{'Map'|translate:'app'|escape}}</th>
-              <th>{{'Weapon'|translate:'app'|escape}}</th>
-              <th>{{'Result'|translate:'app'|escape}}</th>
-              <th>{{'k'|translate:'app'|escape}}/{{'d'|translate:'app'|escape}}</th>
-              <th class="visible-lg">{{'Kill Ratio'|translate:'app'|escape}}</th>
-              <th>{{'Date Time'|translate:'app'|escape}}</th>
+              <th class="cell-lobby">{{'Game Mode'|translate:'app'|escape}}</th>
+              <th class="cell-rule">{{'Rule'|translate:'app'|escape}}</th>
+              <th class="cell-map">{{'Map'|translate:'app'|escape}}</th>
+              <th class="cell-main-weapon">{{'Weapon'|translate:'app'|escape}}</th>
+              <th class="cell-sub-weapon">{{'Sub Weapon'|translate:'app'|escape}}</th>
+              <th class="cell-special">{{'Special'|translate:'app'|escape}}</th>
+              <th class="cell-rank">{{'Rank'|translate:'app'|escape}}</th>
+              <th class="cell-level">{{'Level'|translate:'app'|escape}}</th>
+              <th class="cell-result">{{'Result'|translate:'app'|escape}}</th>
+              <th class="cell-kd">{{'k'|translate:'app'|escape}}/{{'d'|translate:'app'|escape}}</th>
+              <th class="cell-kill-ratio">{{'Kill Ratio'|translate:'app'|escape}}</th>
+              <th class="cell-point">{{'Turf Inked'|translate:'app'|escape}}</th>
+              <th class="cell-datetime">{{'Date Time'|translate:'app'|escape}}</th>
+              <th class="cell-reltime">{{'Relative Time'|translate:'app'|escape}}</th>
             </tr>
           </thead>
           <tbody>
@@ -136,4 +143,5 @@
 })();
 {{/literal}}{{/registerJs}}{{registerCss}}{{literal}}
 .nobr{white-space:nowrap}
+.cell-lobby,.cell-sub-weapon,.cell-special,.cell-rank,.cell-level,.cell-point,.cell-reltime{display:none}
 {{/literal}}{{/registerCss}}

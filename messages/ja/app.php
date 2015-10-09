@@ -34,6 +34,7 @@ return [
     'Join us' => '利用してみる',
     'Just a moment, please.' => 'しばらくおまちください。',
     'KNOCK OUT' => 'ノックアウト',
+    'KR' => 'KR',
     'Kill Ratio' => 'キルレシオ',
     'Killed' => 'Kill',
     'Killed/Dead' => 'Kill / Death',
@@ -117,4 +118,5 @@ return [
     '{0}\'s Log' => '{0}のイカログ',
     '{attribute} must be less then or equal to 15 alphanumeric or underscore characters.' => '{attribute}は半角英数とアンダースコア15文字以内で入力してください。',
     '{nFormatted} {n, plural, =1{time} other{times}}' => '{nFormatted} 回',
+    'Relative Time' => '相対時間',
 ];

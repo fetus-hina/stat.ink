@@ -181,6 +181,9 @@ class User extends ActiveRecord implements IdentityInterface
                     "SUM(CASE WHEN {$oneDayThresholdCondition} AND battle.is_win = TRUE THEN 1 ELSE 0 END)",
                     "SUM(CASE WHEN {$oneDayThresholdCondition} AND battle.is_win IS NOT NULL THEN 1 ELSE 0 END)"
                 ),
+                'totalKilled' => 'SUM(CASE WHEN battle.kill IS NOT NULL AND battle.death IS NOT NULL THEN battle.kill ELSE 0 END)',
+                'totalDead'   => 'SUM(CASE WHEN battle.kill IS NOT NULL AND battle.death IS NOT NULL THEN battle.death ELSE 0 END)',
+                'killDeathAvailable' => 'SUM(CASE WHEN battle.kill IS NOT NULL AND battle.death IS NOT NULL THEN 1 ELSE 0 END)',
             ])
             ->from(Battle::tableName())
             ->where(['{{battle}}.[[user_id]]' => $this->id]);

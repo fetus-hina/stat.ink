@@ -5,13 +5,16 @@
         {{'Detail'|translate:'app'|escape}}
       </a>
     </td>
-    <td>
+    <td class="cell-lobby">
+      {{$model->lobby->name|default:'?'|translate:'app-rule'|escape}}
+    </td>
+    <td class="cell-rule">
       {{$model->rule->name|default:'?'|translate:'app-rule'|escape}}
     </td>
-    <td>
+    <td class="cell-map">
       {{$model->map->name|default:'?'|translate:'app-map'|escape}}
     </td>
-    <td>
+    <td class="cell-main-weapon">
       {{if $model->weapon}}
         <span title="{{*
             *}}{{'Sub:'|translate:'app'|escape}}{{$model->weapon->subweapon->name|default:'?'|translate:'app-subweapon'|escape}} / {{*
@@ -22,7 +25,19 @@
         ?
       {{/if}}
     </td>
-    <td>
+    <td class="cell-sub-weapon">
+      {{$model->weapon->subweapon->name|default:'?'|translate:'app-subweapon'|escape}}
+    </td>
+    <td class="cell-special">
+      {{$model->weapon->special->name|default:'?'|translate:'app-special'|escape}}
+    </td>
+    <td class="cell-rank">
+      {{$model->rank->name|default:'?'|translate:'app-rank'|escape}}
+    </td>
+    <td class="cell-level">
+      {{$model->level|default:'?'|escape}}
+    </td>
+    <td class="cell-result">
       {{if $model->is_win === null}}
         ?
       {{elseif $model->is_win}}
@@ -47,7 +62,7 @@
         {{/if}}
       {{/if}}
     </td>
-    <td class="nobr">
+    <td class="cell-kd nobr">
       <span class="kill">
         {{if $model->kill === null}}
           ?
@@ -93,17 +108,31 @@
       {{elseif $ratio < -99.99}}
         {{$ratio = -99.99}}
       {{/if}}
-      <td class="right visible-lg kill-ratio" data-kill-ratio="{{$ratio|escape}}">
+      <td class="right kill-ratio cell-kill-ratio" data-kill-ratio="{{$ratio|escape}}">
         {{$ratio|string_format:'%.2f'|escape}}
       </td>
     {{else}}
-      <td class="visible-lg"></td>
+      <td class="cell-kill-ratio"></td>
     {{/if}}
-    <td>
+    <td class="cell-point">
+      {{$model->battleNawabari->my_point|default:'?'|escape}}
+    </td>
+    </td>
+    <td class="cell-datetime">
       {{if $model->end_at === null}}
-        N/A
+        {{'N/A'|translate:'app'|escape}}
       {{else}}
         {{$model->end_at|date_format:'%Y-%m-%d %H:%M'|escape}}
+      {{/if}}
+    </td>
+    <td class="cell-reltime">
+      {{if $model->end_at === null}}
+        {{'N/A'|translate:'app'|escape}}
+      {{else}}
+        {{$t = $model->end_at|strtotime}}
+        <span class="auto-tooltip" title="{{$model->end_at|date_format:'%Y-%m-%d %H:%M %Z'|escape}}">
+          {{$app->formatter->asRelativeTime($t)|escape}}
+        </span>
       {{/if}}
     </td>
   </tr>

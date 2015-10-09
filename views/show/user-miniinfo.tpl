@@ -43,6 +43,51 @@
           </div>
         </div>
       </div>
+      <div class="row">
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+          {{$stat = $user->simpleStatics}}
+          <div class="user-label">
+            {{'Killed'|translate:'app'|escape}}
+          </div>
+          <div class="user-number">
+            {{if $stat->killDeathAvailable < 1}}
+              {{'N/A'|translate:'app'|escape}}
+            {{else}}
+              {{$stat->totalKilled|number_format|escape}}
+            {{/if}}
+          </div>
+        </div>
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+          <div class="user-label">
+            {{'Dead'|translate:'app'|escape}}
+          </div>
+          <div class="user-number">
+            {{if $stat->killDeathAvailable < 1}}
+              {{'N/A'|translate:'app'|escape}}
+            {{else}}
+              {{$stat->totalDead|number_format|escape}}
+            {{/if}}
+          </div>
+        </div>
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+          <div class="user-label">
+            <span class="auto-tooltip" title="{{'Kill Ratio'|translate:'app'|escape}}">
+              {{'KR'|translate:'app'|escape}}
+            </span>
+          </div>
+          <div class="user-number">
+            {{if $stat->killDeathAvailable < 1}}
+              {{'N/A'|translate:'app'|escape}}
+            {{elseif $stat->totalKilled == 0 && $stat->totalDead == 0}}
+              -
+            {{elseif $stat->totalDead == 0}}
+              ∞
+            {{else}}
+              {{($stat->totalKilled/$stat->totalDead)|string_format:'%.2f'|escape}}
+            {{/if}}
+          </div>
+        </div>
+      </div>
       <p style="margin:15px 0 0">
         <a href="{{url route="show/user-stat-by-rule" screen_name=$user->screen_name}}">
           <span class="fa fa-pie-chart"></span>&#32;
