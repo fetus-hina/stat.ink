@@ -80,9 +80,10 @@
         </div>
 
         {{* ナワバリ *}}
+        <hr>
         <div class="row">
           <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-            <div class="user-label">
+            <div class="user-label auto-tooltip" title="{{'Turf War'|translate:'app-rule'|escape}}">
               {{'Turf War'|translate:'app-rule'|escape}}
             </div>
             <div class="user-number">
@@ -120,11 +121,11 @@
             </div>
           </div>
         </div>
-
-        {{* ナワバリ *}}
+        <hr>
+        {{* ガチ *}}
         <div class="row">
           <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-            <div class="user-label">
+            <div class="user-label auto-tooltip" title="{{'Ranked Battle'|translate:'app-rule'|escape}}">
               {{'Ranked Battle'|translate:'app-rule'|escape}}
             </div>
             <div class="user-number">
@@ -162,7 +163,8 @@
             </div>
           </div>
         </div>
-        <p style="margin:15px 0 0">
+        <hr>
+        <p style="margin:10px 0 0">
           <a href="{{url route="show/user-stat-by-rule" screen_name=$user->screen_name}}">
             <span class="fa fa-pie-chart"></span>&#32;
             {{'Stat (by Rule)'|translate:'app'|escape}}
@@ -202,4 +204,7 @@
     </div>
   </div>
 {{/strip}}
-{{registerCss}}.user-label{text-overflow:ellipsis;white-space:nowrap;overflow:hidden}{{/registerCss}}
+{{registerCss}}
+#user-miniinfo .user-label{text-overflow:ellipsis;white-space:nowrap;overflow:hidden}
+#user-miniinfo hr{margin-top:5px;margin-bottom:5px}
+{{/registerCss}}
