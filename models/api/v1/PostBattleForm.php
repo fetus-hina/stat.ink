@@ -339,21 +339,20 @@ class PostBattleForm extends Model
         return $o;
     }
 
-    // 特定のバージョンの IkaLog が
-    // 通常マッチングをフェスだと誤認して送信してくるので
-    // とりあえず直るまでの間
-    // gender, fest_rank が無くて fest だと言っている時は standard 扱いする
+    // 特定のバージョンの IkaLog が lobby を誤るのでわかる範囲で書き換える
     public function fixLobby()
     {
         if ($this->hasErrors()) {
             return;
         }
-        if (($this->agent === 'IkaLog' || $this->agent === 'TakoLog') &&
-                $this->lobby === 'fest' &&
-                !$this->fest_gender &&
-                !$this->fest_rank
-        ) {
+        if ($this->agent !== 'IkaLog' && $this->agent !== 'TakoLog') {
+            return;
+        }
+        if ($this->lobby === 'fest' && !$this->fest_gender && !$this->fest_rank) {
             $this->lobby = 'standard';
+        }
+        if ($this->lobby === 'standard' && $this->fest_gender && $this->fest_rank) {
+            $this->lobby = 'fest';
         }
     }
 }
