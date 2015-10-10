@@ -172,6 +172,10 @@
           <a href="{{url route="show/user-stat-by-map" screen_name=$user->screen_name}}">
             <span class="fa fa-pie-chart"></span>&#32;
             {{'Stat (by Map)'|translate:'app'|escape}}
+          </a><br>
+          <a href="{{url route="show/user-stat-cause-of-death" screen_name=$user->screen_name}}">
+            <span class="fa fa-pie-chart"></span>&#32;
+            {{'Stat (Cause of Death)'|translate:'app'|escape}}
           </a>
         </p>
       {{/if}}

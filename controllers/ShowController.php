@@ -36,6 +36,7 @@ class ShowController extends Controller
             'user' => [ 'class' => $prefix . '\UserAction' ],
             'user-stat-by-map' => [ 'class' => $prefix . '\UserStatByMapAction' ],
             'user-stat-by-rule' => [ 'class' => $prefix . '\UserStatByRuleAction' ],
+            'user-stat-cause-of-death' => [ 'class' => $prefix . '\UserStatCauseOfDeathAction' ],
         ];
     }
 }
