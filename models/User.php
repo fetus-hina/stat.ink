@@ -111,7 +111,8 @@ class User extends ActiveRecord implements IdentityInterface
                 );
                 $query->orderBy('{{battle}}.[[id]] DESC');
                 $query->limit(1);
-            });
+            })
+            ->andWhere(['battle_image.type_id' => BattleImageType::ID_RESULT]);
     }
 
     public static function generateNewApiKey()
