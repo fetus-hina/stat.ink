@@ -5,6 +5,7 @@ return [
     'API Token' => 'APIキー',
     'API' => 'API',
     'Active Players' => 'アクティブプレーヤー',
+    'Always enable horizontal scroll' => '常にテーブルの横スクロールを有効にする',
     'Australia (Central)' => 'オーストラリア（中央）',
     'Australia (Central, DST)' => 'オーストラリア（中央・夏時間あり）',
     'Australia (East)' => 'オーストラリア（東部）',

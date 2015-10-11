@@ -91,58 +91,47 @@
         {{registerJs}}(adsbygoogle = window.adsbygoogle || []).push({});{{/registerJs}}
       </div>
     </div>
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" id="table-config">
+        <div>
+          <label>
+            <input type="checkbox" id="table-hscroll" value="1"> {{'Always enable horizontal scroll'|translate:'app'|escape}}
+          <label>
+        </div>
+        <div class="row">
+          <div class="col-xs-6 col-sm-4 col-md-4 col-lg-3">
+            <label><input type="checkbox" class="table-config-chk" data-klass="cell-lobby"> {{'Game Mode'|translate:'app'|escape}}</label>
+          </div><div class="col-xs-6 col-sm-4 col-md-4 col-lg-3">
+            <label><input type="checkbox" class="table-config-chk" data-klass="cell-rule"> {{'Rule'|translate:'app'|escape}}</label>
+          </div><div class="col-xs-6 col-sm-4 col-md-4 col-lg-3">
+            <label><input type="checkbox" class="table-config-chk" data-klass="cell-map"> {{'Map'|translate:'app'|escape}}</label>
+          </div><div class="col-xs-6 col-sm-4 col-md-4 col-lg-3">
+            <label><input type="checkbox" class="table-config-chk" data-klass="cell-main-weapon"> {{'Weapon'|translate:'app'|escape}}</label>
+          </div><div class="col-xs-6 col-sm-4 col-md-4 col-lg-3">
+            <label><input type="checkbox" class="table-config-chk" data-klass="cell-sub-weapon"> {{'Sub Weapon'|translate:'app'|escape}}</label>
+          </div><div class="col-xs-6 col-sm-4 col-md-4 col-lg-3">
+            <label><input type="checkbox" class="table-config-chk" data-klass="cell-special"> {{'Special'|translate:'app'|escape}}</label>
+          </div><div class="col-xs-6 col-sm-4 col-md-4 col-lg-3">
+            <label><input type="checkbox" class="table-config-chk" data-klass="cell-rank"> {{'Rank'|translate:'app'|escape}}</label>
+          </div><div class="col-xs-6 col-sm-4 col-md-4 col-lg-3">
+            <label><input type="checkbox" class="table-config-chk" data-klass="cell-level"> {{'Level'|translate:'app'|escape}}</label>
+          </div><div class="col-xs-6 col-sm-4 col-md-4 col-lg-3">
+            <label><input type="checkbox" class="table-config-chk" data-klass="cell-result"> {{'Result'|translate:'app'|escape}}</label>
+          </div><div class="col-xs-6 col-sm-4 col-md-4 col-lg-3">
+            <label><input type="checkbox" class="table-config-chk" data-klass="cell-kd"> {{'k'|translate:'app'|escape}}/{{'d'|translate:'app'|escape}}</label>
+          </div><div class="col-xs-6 col-sm-4 col-md-4 col-lg-3">
+            <label><input type="checkbox" class="table-config-chk" data-klass="cell-kill-ratio"> {{'Kill Ratio'|translate:'app'|escape}}</label>
+          </div><div class="col-xs-6 col-sm-4 col-md-4 col-lg-3">
+            <label><input type="checkbox" class="table-config-chk" data-klass="cell-point"> {{'Turf Inked'|translate:'app'|escape}}</label>
+          </div><div class="col-xs-6 col-sm-4 col-md-4 col-lg-3">
+            <label><input type="checkbox" class="table-config-chk" data-klass="cell-datetime"> {{'Date Time'|translate:'app'|escape}}</label>
+          </div><div class="col-xs-6 col-sm-4 col-md-4 col-lg-3">
+            <label><input type="checkbox" class="table-config-chk" data-klass="cell-reltime"> {{'Relative Time'|translate:'app'|escape}}</label>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 {{/strip}}
-{{registerJs}}{{literal}}
-(function(){
-  "use strict";
-  var lastPeriodId = null;
-  $('.battle-row').each(function(){
-    var $row = $(this);
-    if ($row.attr('data-period') === lastPeriodId) {
-      return;
-    }
-    if (lastPeriodId !== null) {
-      $row.css('border-top', '2px solid grey');
-    }
-    lastPeriodId = $row.attr('data-period');
-  });
-
-  var hsv2rgb = function (h, s, v) {
-    while (h < 0) {
-      h += 360;
-    }
-    h = h % 360;
-    return tinycolor.fromRatio({h: h / 360.0, s: s, v: v}).toHexString();
-  };
-
-  var calcColor = function (ratio) {
-    var redH = 0, greenH = 120, defaultH = 60;
-    var S = 0.40, V = 0.90;
-    var H = Math.round((function () {
-      if (ratio == 1.0) {
-        return defaultH;
-      } else if (ratio >= 3.0) {
-        return greenH;
-      } else if (ratio <= 1/3) {
-        return redH;
-      } else if (ratio > 1.0) {
-        var pos = (ratio - 1.0) / 2.0;
-        return defaultH + (greenH - defaultH) * pos;
-      } else {
-        var pos = (ratio - 1/3) * (3/2);
-        return redH + (defaultH - redH) * pos;
-      }
-    })());
-    return hsv2rgb(H, S, V);
-  };
-
-  $('.kill-ratio').each(function() {
-    var $this = $(this);
-    $this.css('background-color', calcColor(parseFloat($this.attr('data-kill-ratio'))));
-  });
-})();
-{{/literal}}{{/registerJs}}{{registerCss}}{{literal}}
-.nobr{white-space:nowrap}
-.cell-lobby,.cell-sub-weapon,.cell-special,.cell-rank,.cell-level,.cell-point,.cell-reltime{display:none}
-{{/literal}}{{/registerCss}}
+{{registerJs}}window.battleList();{{/registerJs}}
+{{registerJs}}window.battleListConfig();{{/registerJs}}
