@@ -70,7 +70,9 @@ class Gender extends \yii\db\ActiveRecord
      */
     public function getTitles()
     {
-        return $this->hasMany(FestTitle::className(), ['id' => 'title_id'])->viaTable('fest_title_gender', ['gender_id' => 'id']);
+        return $this
+            ->hasMany(FestTitle::className(), ['id' => 'title_id'])
+            ->viaTable('fest_title_gender', ['gender_id' => 'id']);
     }
 
     public function toJsonArray()

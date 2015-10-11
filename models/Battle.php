@@ -230,7 +230,9 @@ class Battle extends \yii\db\ActiveRecord
      */
     public function getReasons()
     {
-        return $this->hasMany(DeathReason::className(), ['id' => 'reason_id'])->viaTable('battle_death_reason', ['battle_id' => 'id']);
+        return $this
+            ->hasMany(DeathReason::className(), ['id' => 'reason_id'])
+            ->viaTable('battle_death_reason', ['battle_id' => 'id']);
     }
 
     /**

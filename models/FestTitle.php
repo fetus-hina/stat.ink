@@ -70,7 +70,9 @@ class FestTitle extends \yii\db\ActiveRecord
      */
     public function getGenders()
     {
-        return $this->hasMany(Gender::className(), ['id' => 'gender_id'])->viaTable('fest_title_gender', ['title_id' => 'id']);
+        return $this
+            ->hasMany(Gender::className(), ['id' => 'gender_id'])
+            ->viaTable('fest_title_gender', ['title_id' => 'id']);
     }
 
     public function getName(Gender $gender)

@@ -34,7 +34,7 @@ class IndexAction extends BaseAction
             ->innerJoin(
                 'battle_image',
                 '{{battle}}.[[id]] = {{battle_image}}.[[battle_id]] AND ' .
-                    '{{battle_image}}.[[type_id]] = :image_type_result',
+                '{{battle_image}}.[[type_id]] = :image_type_result',
                 [':image_type_result' => BattleImageType::ID_RESULT]
             )
             ->andWhere(['>=', '{{battle}}.[[at]]', gmdate('Y-m-d H:i:sO', time() - 7 * 86400)])

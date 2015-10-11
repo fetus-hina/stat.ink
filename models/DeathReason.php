@@ -67,7 +67,9 @@ class DeathReason extends \yii\db\ActiveRecord
      */
     public function getBattles()
     {
-        return $this->hasMany(Battle::className(), ['id' => 'battle_id'])->viaTable('battle_death_reason', ['reason_id' => 'id']);
+        return $this
+            ->hasMany(Battle::className(), ['id' => 'battle_id'])
+            ->viaTable('battle_death_reason', ['reason_id' => 'id']);
     }
 
     /**

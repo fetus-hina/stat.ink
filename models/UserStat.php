@@ -107,54 +107,56 @@ class UserStat extends \yii\db\ActiveRecord
         $column_total_kill = sprintf(
             "SUM(%s)",
             "CASE WHEN " .
-                "{{battle}}.[[kill]] IS NOT NULL AND {{battle}}.[[death]] IS NOT NULL " .
-                "THEN {{battle}}.[[kill]] " .
+            "{{battle}}.[[kill]] IS NOT NULL AND {{battle}}.[[death]] IS NOT NULL " .
+            "THEN {{battle}}.[[kill]] " .
             "ELSE 0 END"
         );
         $column_total_death = sprintf(
             "SUM(%s)",
             "CASE WHEN {{battle}}.[[kill]] IS NOT NULL AND {{battle}}.[[death]] IS NOT NULL " .
-                "THEN {{battle}}.[[death]] " .
+            "THEN {{battle}}.[[death]] " .
             "ELSE 0 END"
         );
         $column_nawabari_count = "SUM(CASE WHEN {{battle}}.[[rule_id]] = {$nawabari} THEN 1 ELSE 0 END)";
         $column_nawabari_wp = sprintf(
             "(%s * 100.0 / NULLIF(%s, 0))",
             "SUM(CASE WHEN {{battle}}.[[rule_id]] = {$nawabari} AND {{battle}}.[[is_win]] = TRUE THEN 1 ELSE 0 END)",
-            "SUM(CASE WHEN {{battle}}.[[rule_id]] = {$nawabari} AND {{battle}}.[[is_win]] IS NOT NULL THEN 1 ELSE 0 END)"
+            "SUM(CASE WHEN {{battle}}.[[rule_id]] = {$nawabari} AND {{battle}}.[[is_win]] IS NOT NULL " .
+            "THEN 1 ELSE 0 END)"
         );
         $column_nawabari_kill = sprintf(
             "SUM(%s)",
             "CASE WHEN {{battle}}.[[rule_id]] = {$nawabari} AND " .
-                    "{{battle}}.[[kill]] IS NOT NULL AND {{battle}}.[[death]] IS NOT NULL " .
-                "THEN {{battle}}.[[kill]] " .
+            "{{battle}}.[[kill]] IS NOT NULL AND {{battle}}.[[death]] IS NOT NULL " .
+            "THEN {{battle}}.[[kill]] " .
             "ELSE 0 END"
         );
         $column_nawabari_death = sprintf(
             "SUM(%s)",
             "CASE WHEN {{battle}}.[[rule_id]] = {$nawabari} AND " .
-                    "{{battle}}.[[kill]] IS NOT NULL AND {{battle}}.[[death]] IS NOT NULL " .
-                "THEN {{battle}}.[[death]] " .
+            "{{battle}}.[[kill]] IS NOT NULL AND {{battle}}.[[death]] IS NOT NULL " .
+            "THEN {{battle}}.[[death]] " .
             "ELSE 0 END"
         );
         $column_gachi_count = "SUM(CASE WHEN {{battle}}.[[rule_id]] <> {$nawabari} THEN 1 ELSE 0 END)";
         $column_gachi_wp = sprintf(
             "(%s * 100.0 / NULLIF(%s, 0))",
             "SUM(CASE WHEN {{battle}}.[[rule_id]] <> {$nawabari} AND {{battle}}.[[is_win]] = TRUE THEN 1 ELSE 0 END)",
-            "SUM(CASE WHEN {{battle}}.[[rule_id]] <> {$nawabari} AND {{battle}}.[[is_win]] IS NOT NULL THEN 1 ELSE 0 END)"
+            "SUM(CASE WHEN {{battle}}.[[rule_id]] <> {$nawabari} AND {{battle}}.[[is_win]] IS NOT NULL " .
+            "THEN 1 ELSE 0 END)"
         );
         $column_gachi_kill = sprintf(
             "SUM(%s)",
             "CASE WHEN {{battle}}.[[rule_id]] <> {$nawabari} AND " .
-                    "{{battle}}.[[kill]] IS NOT NULL AND {{battle}}.[[death]] IS NOT NULL " .
-                "THEN {{battle}}.[[kill]] " .
+            "{{battle}}.[[kill]] IS NOT NULL AND {{battle}}.[[death]] IS NOT NULL " .
+            "THEN {{battle}}.[[kill]] " .
             "ELSE 0 END"
         );
         $column_gachi_death = sprintf(
             "SUM(%s)",
             "CASE WHEN {{battle}}.[[rule_id]] <> {$nawabari} AND " .
-                    "{{battle}}.[[kill]] IS NOT NULL AND {{battle}}.[[death]] IS NOT NULL " .
-                "THEN {{battle}}.[[death]] " .
+            "{{battle}}.[[kill]] IS NOT NULL AND {{battle}}.[[death]] IS NOT NULL " .
+            "THEN {{battle}}.[[death]] " .
             "ELSE 0 END"
         );
 

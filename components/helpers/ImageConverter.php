@@ -54,16 +54,21 @@ class ImageConverter
             imagefill($out->get(), 0, 0, 0xffffff);
             imagealphablending($out->get(), true);
             imagecopyresampled(
-                $out->get(), $in->get(), 
-                $cpX, $cpY,
-                0, 0,
-                $cpW, $cpH,
-                $inW, $inH
+                $out->get(),
+                $in->get(),
+                $cpX,
+                $cpY,
+                0,
+                0,
+                $cpW,
+                $cpH,
+                $inW,
+                $inH
             );
             $tmpName = new Resource(tempnam(sys_get_temp_dir(), 'statink-'), 'unlink');
             imagepng($out->get(), $tmpName->get(), 9, PNG_ALL_FILTERS);
             return $tmpName;
-        } catch(Exception $e) {
+        } catch (Exception $e) {
         }
         return false;
     }

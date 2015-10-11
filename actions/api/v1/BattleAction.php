@@ -109,7 +109,7 @@ class BattleAction extends BaseAction
                 }
             }
 
-            foreach($form->toDeathReasons($battle) as $reason) {
+            foreach ($form->toDeathReasons($battle) as $reason) {
                 if ($reason && !$reason->save()) {
                     $transaction->rollback();
                     return $this->formatError([
@@ -172,7 +172,7 @@ class BattleAction extends BaseAction
             }
 
             $transaction->commit();
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
             $transaction->rollback();
             return $this->formatError([
                 'system' => [ $e->getMessage() ],
@@ -217,7 +217,9 @@ class BattleAction extends BaseAction
                 $battle->getBattleDeathReasons()->with(['reason', 'reason.type'])->all()
             ),
             'gender' => $battle->gender ? $battle->gender->toJsonArray() : null,
-            'fest_title' => $battle->gender && $battle->festTitle ? $battle->festTitle->toJsonArray($battle->gender) : null,
+            'fest_title' => $battle->gender && $battle->festTitle
+                ? $battle->festTitle->toJsonArray($battle->gender)
+                : null,
             'my_team_color' => [
                 'hue' => $battle->my_team_color_hue,
                 'rgb' => $battle->my_team_color_rgb,
