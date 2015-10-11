@@ -20,6 +20,7 @@ class BattleQuery extends ActiveQuery
     {
         return $this
             ->filterByScreenName($filter->screen_name)
+            ->filterByLobby($filter->lobby)
             ->filterByRule($filter->rule)
             ->filterByMap($filter->map)
             ->filterByWeapon($filter->weapon)
@@ -33,6 +34,17 @@ class BattleQuery extends ActiveQuery
             return $this;
         }
         return $this->innerJoinWith('user')->andWhere(['{{user}}.[[screen_name]]' => $value]);
+    }
+
+    public function filterByLobby($value)
+    {
+        $value = trim((string)$value);
+        if ($value === '') {
+            return $this;
+        }
+        $this->innerJoinWith('lobby');
+        $this->andWhere(['{{lobby}}.[[key]]' => $value]);
+        return $this;
     }
 
     public function filterByRule($value)

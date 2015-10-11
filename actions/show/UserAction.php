@@ -13,6 +13,7 @@ use yii\web\NotFoundHttpException;
 use yii\web\ViewAction as BaseAction;
 use app\models\BattleFilterForm;
 use app\models\GameMode;
+use app\models\Lobby;
 use app\models\Map;
 use app\models\Rule;
 use app\models\Special;
@@ -49,6 +50,7 @@ class UserAction extends BaseAction
                 'pagination' => ['pageSize' => 100 ]
             ]),
             'filter'    => $filter,
+            'lobbies'   => $isPjax ? [] : $this->makeLobbiesList(),
             'rules'     => $isPjax ? [] : $this->makeRulesList(),
             'maps'      => $isPjax ? [] : $this->makeMapsList(),
             'weapons'   => $isPjax ? [] : $this->makeWeaponsList(),
@@ -58,6 +60,18 @@ class UserAction extends BaseAction
                 'lose'  => Yii::t('app', 'Lost'),
             ],
         ]);
+    }
+
+    private function makeLobbiesList()
+    {
+        $ret = [
+            '' => Yii::t('app-rule', 'Any Game Mode'),
+        ];
+        $tmpList = Lobby::find()->orderBy('[[id]] ASC')->all();
+        foreach ($tmpList as $lobby) {
+            $ret[$lobby->key] = Yii::t('app-rule', $lobby->name);
+        }
+        return $ret;
     }
 
     private function makeRulesList()

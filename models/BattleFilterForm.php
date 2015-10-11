@@ -8,6 +8,7 @@ use app\models\Battle;
 use app\models\BattleGachi;
 use app\models\BattleNawabari;
 use app\models\GameMode;
+use app\models\Lobby;
 use app\models\Map;
 use app\models\Rank;
 use app\models\Rule;
@@ -20,6 +21,7 @@ class BattleFilterForm extends Model
 {
     public $screen_name;
 
+    public $lobby;
     public $rule;
     public $map;
     public $weapon;
@@ -36,6 +38,9 @@ class BattleFilterForm extends Model
             [['screen_name'], 'exist',
                 'targetClass' => User::className(),
                 'targetAttribute' => 'screen_name'],
+            [['lobby'], 'exist',
+                'targetClass' => Lobby::className(),
+                'targetAttribute' => 'key'],
             [['rule'], 'exist',
                 'targetClass' => Rule::className(),
                 'targetAttribute' => 'key',
@@ -84,6 +89,7 @@ class BattleFilterForm extends Model
     {
         return [
             'screen_name'   => Yii::t('app', 'Screen Name'),
+            'lobby'         => Yii::t('app', 'Game Mode'),
             'rule'          => Yii::t('app', 'Rule'),
             'map'           => Yii::t('app', 'Map'),
             'weapon'        => Yii::t('app', 'Weapon'),

@@ -32,6 +32,7 @@
       <div class="col-xs-12 col-sm-4 col-md-4 col-lg-3 pull-right" style="padding:15px">
         <div style="border:1px solid #ccc;border-radius:5px;padding:15px">
           {{ActiveForm assign="_" id="filter-form" action=['show/user', 'screen_name' => $user->screen_name] method="get"}}
+            {{$_->field($filter, 'lobby')->dropDownList($lobbies)->label(false)}}
             {{$_->field($filter, 'rule')->dropDownList($rules)->label(false)}}
             {{$_->field($filter, 'map')->dropDownList($maps)->label(false)}}
             {{$_->field($filter, 'weapon')->dropDownList($weapons)->label(false)}}

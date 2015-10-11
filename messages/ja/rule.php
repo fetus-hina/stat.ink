@@ -1,6 +1,7 @@
 <?php
 return [
     'All of {0}' => 'すべての{0}',
+    'Any Game Mode' => 'すべてのゲームモード',
     'Any Rule' => 'すべてのルール',
     'Private Battle' => 'プライベートマッチ',
     'Rainmaker' => 'ガチホコ',
