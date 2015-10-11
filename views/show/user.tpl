@@ -1,14 +1,28 @@
 {{strip}}
   {{set layout="main.tpl"}}
   {{use class="yii\bootstrap\ActiveForm" type="block"}}
+  {{use class="yii\helpers\Url"}}
   {{use class="yii\widgets\ListView"}}
   {{\app\assets\TinyColorAsset::register($this)|@void}}
+  {{$canonicalUrl = Url::to(['show/user', 'screen_name' => $user->screen_name], true)}}
+  {{$name = '{0}-san'|translate:'app':$user->name}}
+  {{$title = "{0}'s Log"|translate:'app':$name}}
+  {{set title="{{$app->name}} | {{$title}}"}}
+  {{$this->registerLinkTag(['rel' => 'canonical', 'href' => $canonicalUrl])|@void}}
+  {{$this->registerMetaTag(['name' => 'twitter:card', 'content' => 'photo'])|@void}}
+  {{$this->registerMetaTag(['name' => 'twitter:title', 'content' => $title])|@void}}
+  {{$this->registerMetaTag(['name' => 'twitter:url', 'content' => $canonicalUrl])|@void}}
+  {{$this->registerMetaTag(['name' => 'twitter:site', 'content' => '@fetus_hina'])|@void}}
+  {{if $user->twitter != ''}}
+    {{$this->registerMetaTag(['name' => 'twitter:creator', 'content' => '@'|cat:$user->twitter])|@void}}
+  {{/if}}
+  {{if $user->latestBattleResultImage}}
+    {{$this->registerMetaTag(['name' => 'twitter:image', 'content' => Url::to($user->latestBattleResultImage->url, true)])|@void}}
+  {{/if}}
+
   <div class="container">
     <h1>
-      {{$name = '{0}-san'|translate:'app':$user->name}}
-      {{$title = "{0}'s Log"|translate:'app':$name}}
       {{$title|escape}}
-      {{set title="{{$app->name}} | {{$title}}"}}
     </h1>
     
     <div id="sns">

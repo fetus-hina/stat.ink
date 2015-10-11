@@ -99,6 +99,21 @@ class User extends ActiveRecord implements IdentityInterface
         return $this->hasOne(UserStat::className(), ['user_id' => 'id']);
     }
 
+    public function getLatestBattleResultImage()
+    {
+        return $this
+            ->hasOne(BattleImage::className(), ['battle_id' => 'id'])
+            ->viaTable('battle', ['user_id' => 'id'], function ($query) {
+                $query->innerJoin(
+                    'battle_image',
+                    'battle.id = battle_image.battle_id AND battle_image.type_id = :type',
+                    [':type' => BattleImageType::ID_RESULT]
+                );
+                $query->orderBy('{{battle}}.[[id]] DESC');
+                $query->limit(1);
+            });
+    }
+
     public static function generateNewApiKey()
     {
         while (true) {
