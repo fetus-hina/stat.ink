@@ -32,24 +32,6 @@ class Controller extends Base
                 return;
             }
         }
-        if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
-            $accepts = $request->parseAcceptHeader($_SERVER['HTTP_ACCEPT_LANGUAGE']);
-            foreach ($accepts as $lang => $options) {
-                //FIXME: DBと整合をとってちゃんとやる
-                switch (strtolower($lang)) {
-                    case 'ja':
-                    case 'ja-jp':
-                        Yii::$app->language = 'ja-JP';
-                        return;
-
-                    case 'en':
-                    case 'en-US':
-                        Yii::$app->language = 'en-US';
-                        return;
-                }
-            }
-        }
-        Yii::$app->language = 'en-US';
     }
 
     private function setTimezone()
