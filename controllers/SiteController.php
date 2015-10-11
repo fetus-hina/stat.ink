@@ -20,8 +20,7 @@ class SiteController extends Controller
                 'view' => 'error.tpl',
             ],
             'index' => [
-                'class' => 'app\actions\site\SimpleAction',
-                'view' => 'index.tpl',
+                'class' => 'app\actions\site\IndexAction',
             ],
             'license' => [
                 'class' => 'app\actions\site\LicenseAction',

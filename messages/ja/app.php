@@ -1,8 +1,10 @@
 <?php
 return [
+    "{0}'s Battle Stat (Cause of Death)" => '{0}の統計（死因）',
     '24H WP' => '24H勝率',
     'API Token' => 'APIキー',
     'API' => 'API',
+    'Active Players' => 'アクティブプレーヤー',
     'Australia (Central)' => 'オーストラリア（中央）',
     'Australia (Central, DST)' => 'オーストラリア（中央・夏時間あり）',
     'Australia (East)' => 'オーストラリア（東部）',
@@ -71,6 +73,7 @@ return [
     'Profile and Settings' => 'プロフィールと設定',
     'Rank in Team' => 'チーム内順位',
     'Rank' => 'ウデマエ',
+    'Recent Battles' => '最近のバトル',
     'Recent Results' => '最近の成績',
     'Register' => 'ユーザ登録',
     'Relative Time' => '相対時間',
@@ -123,7 +126,6 @@ return [
     '{0} Friend' => 'まことの{0}ボーイ',
     '{0} King' => 'えいえんの{0}ボーイ',
     '{0}-san' => '{0}さん',
-    "{0}'s Battle Stat (Cause of Death)" => '{0}の統計（死因）',
     '{0}\'s Battle Stat (by Map)' => '{0}の統計（マップ別）',
     '{0}\'s Battle Stat (by Rule)' => '{0}の統計（ルール別）',
     '{0}\'s Log' => '{0}のイカログ',
