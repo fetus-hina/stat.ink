@@ -50,7 +50,7 @@
         </span>
       {{/if}}
       {{if $model->battleGachi && $model->battleGachi->is_knock_out !== null}}
-        &#32;
+        &nbsp;
         {{if $model->battleGachi->is_knock_out}}
           <span class="label label-info auto-tooltip" title="{{'KNOCK OUT'|translate:'app'|escape}}">
             {{'K.O.'|translate:'app'|escape}}
