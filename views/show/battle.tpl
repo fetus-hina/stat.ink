@@ -339,7 +339,7 @@
         </p>
       </div>
       <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-        {{include "user-miniinfo.tpl" user=$user}}
+        {{include file="@app/views/includes/user-miniinfo.tpl" user=$user}}
       </div>
       <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4" style="margin-top:15px">
         {{registerJsFile url="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" async="async"}}

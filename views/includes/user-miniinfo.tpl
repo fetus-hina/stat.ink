@@ -82,9 +82,14 @@
         {{* ナワバリ *}}
         <hr>
         <div class="row">
-          <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-            <div class="user-label auto-tooltip" title="{{'Turf War'|translate:'app-rule'|escape}}">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="user-label">
               {{'Turf War'|translate:'app-rule'|escape}}
+            </div>
+          </div>
+          <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+            <div class="user-label">
+              {{'Battles'|translate:'app'|escape}}
             </div>
             <div class="user-number">
               <a href="{{url route="show/user" screen_name=$user->screen_name filter=["rule" => "nawabari"]}}">
@@ -124,9 +129,14 @@
         <hr>
         {{* ガチ *}}
         <div class="row">
-          <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-            <div class="user-label auto-tooltip" title="{{'Ranked Battle'|translate:'app-rule'|escape}}">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="user-label">
               {{'Ranked Battle'|translate:'app-rule'|escape}}
+            </div>
+          </div>
+          <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+            <div class="user-label">
+              {{'Battles'|translate:'app'|escape}}
             </div>
             <div class="user-number">
               <a href="{{url route="show/user" screen_name=$user->screen_name filter=["rule" => "@gachi"]}}">
