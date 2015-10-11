@@ -21,8 +21,13 @@
     </div>
 
     <h2>
-        {{'Active Players'|translate:'app'|escape}}
+      {{'Active Players'|translate:'app'|escape}}
     </h2>
+    <p class="right" style="margin:0">
+      <a href="{{url route="site/users"}}">
+        {{'Display Everyone'|translate:'app'|escape}}
+      </a>
+    </p>
     {{include file="@app/views/includes/battle_thumb_list.tpl" battles=$active}}
 
     <h2>
