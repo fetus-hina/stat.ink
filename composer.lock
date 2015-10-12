@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "e1f9e2cc322630d390e8470312afe963",
-    "content-hash": "d3f00f559a485379838e3399aa2a236f",
+    "hash": "665ba8353e80f27202dbdcb739229176",
+    "content-hash": "8508ec070f9bdcbee8aec4d1f0c110c4",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -615,45 +615,6 @@
                 "html"
             ],
             "time": "2013-11-30 08:25:19"
-        },
-        {
-            "name": "hasbridge/php-color",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/matthewbaggett/php-color.git",
-                "reference": "d576bd3e0d3d429930d795b03b22d3dd088dad29"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/matthewbaggett/php-color/zipball/d576bd3e0d3d429930d795b03b22d3dd088dad29",
-                "reference": "d576bd3e0d3d429930d795b03b22d3dd088dad29",
-                "shasum": ""
-            },
-            "require": {
-                "php": "~5.3"
-            },
-            "require-dev": {
-                "codeclimate/php-test-reporter": "dev-master",
-                "phpunit/phpunit": "*"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "0.1-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "Color": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "Color utility class for PHP 5.3 that allows for easy conversion between RGB, HSV, XYZ, and Lab colorspaces, as well as color comparison",
-            "time": "2015-02-09 14:06:09"
         },
         {
             "name": "himiklab/yii2-recaptcha-widget",
@@ -1712,9 +1673,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "hasbridge/php-color": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

@@ -20,7 +20,6 @@
         "bower-asset/zxcvbn": "^3.5",
         "christian-riesen/base32": "^1.2",
         "cybercog/yii2-google-analytics": "^0.3.1",
-        "hasbridge/php-color": "*@dev",
         "himiklab/yii2-recaptcha-widget": "^1.0",
         "ircmaxell/password-compat": "^1.0",
         "paragonie/random_compat": "^1.0",

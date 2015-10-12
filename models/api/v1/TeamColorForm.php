@@ -3,6 +3,7 @@ namespace app\models\api\v1;
 
 use Yii;
 use yii\base\Model;
+use app\components\helpers\Color;
 
 class TeamColorForm extends Model
 {
@@ -64,9 +65,6 @@ class TeamColorForm extends Model
             return;
         }
         list ($r, $g, $b) = $this->rgb;
-        $color = new \Color();
-        $color->fromRgbInt($r, $g, $b);
-        $hsv = $color->toHsvFloat();
-        $this->hue = (int)round($hsv['hue']);
+        $this->hue = (int)Color::getHueFromRGB($r, $g, $b);
     }
 }
