@@ -118,6 +118,7 @@ return [
     'WP' => '勝率',
     'Weapon' => 'ブキ',
     'What\'s this?' => 'このサイトについて',
+    'Winning Percentage based on Killed/Dead' => 'K/Dに基づく勝率分布',
     'Won / Lost' => '勝敗を気にしない',
     'Won' => '勝利',
     'Your Battles' => '自分のページを表示',
