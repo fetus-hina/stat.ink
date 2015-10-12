@@ -99,6 +99,7 @@ return [
     'Stat (Cause of Death)' => '統計（死因）',
     'Stat (by Map)' => '統計（マップ別）',
     'Stat (by Rule)' => '統計（ルール別）',
+    'Stat: K/D vs WP' => '統計: KDと勝率',
     'Sub Weapon' => 'サブウェポン',
     'Sub:' => 'サブ:',
     'TIME IS UP' => 'タイムアップ',
