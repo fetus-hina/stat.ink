@@ -66,7 +66,7 @@
             'itemOptions' => [ 'tag' => false ],
             'layout' => '{summary}{pager}'
           ])}}
-        <table class="table table-striped">
+        <table class="table table-striped table-condensed">
           <thead>
             <tr>
               <th></th>
