@@ -18,10 +18,10 @@
       </a>
     </div>
     <div class="battle-data row">
-      <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+      <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 omit">
         <a href="{{url route="show/user" screen_name=$battle->user->screen_name}}">{{$battle->user->name|escape}}</a>
       </div>
-      <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 time">
+      <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 time omit">
         {{if $battle->end_at}}
           {{$t = $battle->end_at|date_format:'%Y-%m-%d %H:%M %Z'}}
           <a href="{{url route="show/battle" screen_name=$battle->user->screen_name battle=$battle->id}}" title="{{$t|escape}}" class="auto-tooltip">
