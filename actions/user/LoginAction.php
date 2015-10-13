@@ -21,10 +21,8 @@ class LoginAction extends BaseAction
         if ($request->isPost) {
             $form->attributes = $request->post('LoginForm');
             if ($form->login()) {
-                return $this->controller->redirect(
-                    ['show/user',
-                        'screen_name' => Yii::$app->user->identity->screen_name,
-                    ]
+                return $this->controller->goBack(
+                    ['show/user', 'screen_name' => Yii::$app->user->identity->screen_name ]
                 );
             }
         }

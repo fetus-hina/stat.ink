@@ -37,6 +37,7 @@ $config = [
                 'profile'       => 'user/profile',
                 'register'      => 'user/register',
                 'u/<screen_name:\w+>/<battle:\d+>' => 'show/battle',
+                'u/<screen_name:\w+>/<battle:\d+>/edit' => 'show/edit-battle',
                 'u/<screen_name:\w+>/stat/<by:[\w-]+>' => 'show/user-stat-<by>',
                 'u/<screen_name:\w+>' => 'show/user',
                 'api/v1/<action:[\w-]+>' => 'api-v1/<action>',

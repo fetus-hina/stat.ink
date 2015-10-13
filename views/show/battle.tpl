@@ -364,6 +364,13 @@
             {{/if}}
           </tbody>
         </table>
+        {{if !$app->user->isGuest && $app->user->identity->id == $user->id}}
+          <p class="right">
+            <a href="{{url route="show/edit-battle" screen_name=$user->screen_name battle=$battle->id}}" class="btn btn-default">
+              {{'Edit'|translate:'app'|escape}}
+            </a>
+          </p>
+        {{/if}}
         <p>
           {{'Note: You can change time zone. Look at navbar.'|translate:'app'|escape}}
         </p>

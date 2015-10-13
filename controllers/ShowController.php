@@ -9,6 +9,7 @@ namespace app\controllers;
 
 use Yii;
 use yii\filters\AccessControl;
+use yii\filters\AccessRule;
 use yii\filters\VerbFilter;
 use app\components\web\Controller;
 
@@ -22,7 +23,25 @@ class ShowController extends Controller
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
+                    'edit-battle' => [ 'get', 'post' ],
                     '*' => [ 'get' ],
+                ],
+            ],
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => [ 'edit-battle' ],
+                'rules' => [
+                    [
+                        'actions' => [ 'edit-battle' ],
+                        'roles' => ['@'],
+                        'allow' => true,
+                    ],
+                ],
+                'ruleConfig' => [
+                    'class' => AccessRule::className(),
+                    'matchCallback' => function ($rule, $action) {
+                        return $action->isEditable;
+                    },
                 ],
             ],
         ];
@@ -33,6 +52,7 @@ class ShowController extends Controller
         $prefix = 'app\actions\show';
         return [
             'battle' => [ 'class' => $prefix . '\BattleAction' ],
+            'edit-battle' => [ 'class' => $prefix . '\EditBattleAction' ],
             'user' => [ 'class' => $prefix . '\UserAction' ],
             'user-stat-by-map' => [ 'class' => $prefix . '\UserStatByMapAction' ],
             'user-stat-by-rule' => [ 'class' => $prefix . '\UserStatByRuleAction' ],
