@@ -8,6 +8,7 @@ RESOURCE_TARGETS=resources/.compiled/stat.ink/main.css.gz \
 
 all: \
 	composer.phar \
+	composer-plugin \
 	vendor \
 	node_modules \
 	config/google-analytics.php \
@@ -18,6 +19,9 @@ all: \
 	migrate-db
 
 resource: $(RESOURCE_TARGETS)
+
+composer-plugin: composer.phar
+	grep '"fxp/composer-asset-plugin"' ~/.composer/composer.json >/dev/null || ./composer.phar global require 'fxp/composer-asset-plugin:^1.0'
 
 vendor: composer.phar
 	php composer.phar install
@@ -81,4 +85,4 @@ config/google-recaptcha.php:
 	echo "    'secret'  => ''," >> config/google-recaptcha.php
 	echo '];'                   >> config/google-recaptcha.php
 
-.PHONY: all resource check-style fix-style clean clean-resource migrate-db FORCE
+.PHONY: all resource check-style fix-style clean clean-resource migrate-db composer-plugin FORCE
