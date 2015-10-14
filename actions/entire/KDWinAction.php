@@ -41,9 +41,9 @@ class KDWinAction extends BaseAction
     private function makeData(Rule $rule)
     {
         $ret = [];
-        foreach (range(0, 11) as $i) {
+        foreach (range(0, 16) as $i) {
             $tmp = [];
-            foreach (range(0, 11) as $j) {
+            foreach (range(0, 16) as $j) {
                 $tmp[] = (object)[
                     'battle' => 0,
                     'win' => 0,
@@ -54,8 +54,8 @@ class KDWinAction extends BaseAction
 
         $maxBattle = 0;
         foreach ($this->query($rule) as $row) {
-            $i = $row['kill'] > 10 ? 11 : $row['kill'];
-            $j = $row['death'] > 10 ? 11 : $row['death'];
+            $i = $row['kill'] > 15 ? 16 : $row['kill'];
+            $j = $row['death'] > 15 ? 16 : $row['death'];
             $ret[$i][$j]->battle += $row['count'];
             $ret[$i][$j]->win += $row['win'];
         }
@@ -73,6 +73,11 @@ class KDWinAction extends BaseAction
                 'win' => 'SUM(CASE WHEN {{battle}}.[[is_win]] = TRUE THEN 1 ELSE 0 END)',
             ])
             ->from('battle')
+            ->leftJoin('lobby', '{{battle}}.[[lobby_id]] = {{lobby}}.[[id]]')
+            ->andWhere(['or', 
+                ['{{battle}}.[[lobby_id]]' => null],
+                ['<>', '{{lobby}}.[[key]]', 'private'],
+            ])
             ->andWhere('{{battle}}.[[is_win]] IS NOT NULL')
             ->andWhere('{{battle}}.[[kill]] IS NOT NULL')
             ->andWhere('{{battle}}.[[death]] IS NOT NULL')

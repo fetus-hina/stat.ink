@@ -23,23 +23,23 @@
                   <th class="center kdcell">
                     {{'d'|translate:'app'|escape}}＼{{'k'|translate:'app'|escape}}
                   </th>
-                  {{foreach range(0, 10) as $k}}
+                  {{foreach range(0, 15) as $k}}
                     <th class="center kdcell">{{$k|escape}}</th>
                   {{/foreach}}
-                  <th class="center kdcell">11+</th>
+                  <th class="center kdcell">16+</th>
                 </tr>
               </thead>
               <tbody>
-                {{foreach range(0, 11) as $d}}
+                {{foreach range(0, 16) as $d}}
                   <tr>
                     <th class="center kdcell">
-                      {{if $d === 11}}
-                        11+
+                      {{if $d === 16}}
+                        16+
                       {{else}}
                         {{$d|escape}}
                       {{/if}}
                     </th>
-                    {{foreach range(0, 11) as $k}}
+                    {{foreach range(0, 16) as $k}}
                       {{$data = $rule->data[$k][$d]}}
                       {{$percent = null}}
                       {{if $data->battle > 0}}
@@ -72,7 +72,7 @@
   </div>
 {{/strip}}
 {{registerCss}}
-.kdcell{width:{{(100/13)}}%!important}
+.kdcell{width:{{(100/(16+2))}}%!important}
 .center{text-align:center!important}
 {{/registerCss}}
 {{registerJs}}{{literal}}
@@ -93,7 +93,7 @@
       if (battle < 1) {
         return;
       }
-      var battleCountCoefficient = Math.min(1.0, battle / (maxBattle * 0.75));
+      var battleCountCoefficient = Math.min(1.0, battle / (maxBattle * 0.5));
       var percent = parseFloat($cell.attr('data-percent'));
       var h = 120 * (percent / 100); // 0%: 0, 100%: 120
       var s = 0.85;
