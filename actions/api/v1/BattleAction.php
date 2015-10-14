@@ -120,6 +120,9 @@ class BattleAction extends BaseAction
             }
 
             $imageOutputDir = Yii::getAlias('@webroot/images');
+            $imageArchiveOutputDir = Yii::$app->params['amazonS3'] && Yii::$app->params['amazonS3']['bucket'] != ''
+                ? Yii::getAlias('@app/runtime/image-archive-tmp')
+                : null;
             if ($image = $form->toImageJudge($battle)) {
                 $binary = is_string($form->image_judge)
                     ? $form->image_judge
@@ -127,7 +130,10 @@ class BattleAction extends BaseAction
                 if (!ImageConverter::convert(
                     $binary,
                     $imageOutputDir . '/' . $image->filename,
-                    $imageOutputDir . '/' . str_replace('.jpg', '.webp', $image->filename)
+                    $imageOutputDir . '/' . str_replace('.jpg', '.webp', $image->filename),
+                    $imageArchiveOutputDir 
+                        ? ($imageArchiveOutputDir . '/' . sprintf('%d-judge.png', $battle->id))
+                        : null
                 )) {
                     $transaction->rollback();
                     return $this->formatError([
@@ -152,7 +158,10 @@ class BattleAction extends BaseAction
                 if (!ImageConverter::convert(
                     $binary,
                     $imageOutputDir . '/' . $image->filename,
-                    $imageOutputDir . '/' . str_replace('.jpg', '.webp', $image->filename)
+                    $imageOutputDir . '/' . str_replace('.jpg', '.webp', $image->filename),
+                    $imageArchiveOutputDir 
+                        ? ($imageArchiveOutputDir . '/' . sprintf('%d-result.png', $battle->id))
+                        : null
                 )) {
                     $transaction->rollback();
                     return $this->formatError([

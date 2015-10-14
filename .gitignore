@@ -3,6 +3,7 @@
 .idea
 .project
 .settings
+/config/amazon-s3.php
 /config/cookie-secret.php
 /config/db.php
 /config/google-analytics.php

@@ -11,7 +11,7 @@ class ImageConverter
     const JPEG_QUALITY = 90;
     const WEBP_QUALITY = 90;
 
-    public static function convert($binary, $outPathJpeg, $outPathWebp)
+    public static function convert($binary, $outPathJpeg, $outPathWebp, $outPathArchivePng = null)
     {
         if (!$tmpName = self::convertImpl($binary)) {
             return false;
@@ -25,6 +25,13 @@ class ImageConverter
             @unlink($outPathJpeg);
             @unlink($outPathWebp);
             return false;
+        }
+        if ($outPathArchivePng !== null) {
+            $in = new Resource(@imagecreatefromstring($binary), 'imagedestroy');
+            if ($in->get()) {
+                self::mkdir(dirname($outPathArchivePng));
+                imagepng($in->get(), $outPathArchivePng, 3, PNG_NO_FILTER);
+            }
         }
         return true;
     }

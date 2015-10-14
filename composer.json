@@ -11,6 +11,7 @@
         "ext-mbstring": "*",
         "ext-mcrypt": "*",
         "ext-pcre": "*",
+        "aws/aws-sdk-php": "^3.8",
         "bower-asset/flot": "^0.8.3",
         "bower-asset/fontawesome": "^4.4",
         "bower-asset/github-fork-ribbon-css": "^0.1.1",

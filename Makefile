@@ -15,6 +15,7 @@ init: \
 	node_modules \
 	config/google-analytics.php \
 	config/google-recaptcha.php \
+	config/amazon-s3.php \
 	config/cookie-secret.php \
 	config/db.php \
 	resource
@@ -85,5 +86,14 @@ config/google-recaptcha.php:
 	echo "    'siteKey' => ''," >> config/google-recaptcha.php
 	echo "    'secret'  => ''," >> config/google-recaptcha.php
 	echo '];'                   >> config/google-recaptcha.php
+
+config/amazon-s3.php:
+	echo '<?php'                  >  config/amazon-s3.php
+	echo 'return ['               >> config/amazon-s3.php
+	echo "    'accessKey' => ''," >> config/amazon-s3.php
+	echo "    'secret'    => ''," >> config/amazon-s3.php
+	echo "    'bucket'    => ''," >> config/amazon-s3.php
+	echo "    'region'    => ''," >> config/amazon-s3.php
+	echo '];'                     >> config/amazon-s3.php
 
 .PHONY: all init resource check-style fix-style clean clean-resource migrate-db composer-plugin FORCE
