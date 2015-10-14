@@ -6,7 +6,9 @@ RESOURCE_TARGETS=resources/.compiled/stat.ink/main.css.gz \
 	resources/.compiled/stat.ink/no-image.png \
 	resources/.compiled/gh-fork-ribbon/gh-fork-ribbon.js.gz
 
-all: \
+all: init migrate-db
+
+init: \
 	composer.phar \
 	composer-plugin \
 	vendor \
@@ -15,8 +17,7 @@ all: \
 	config/google-recaptcha.php \
 	config/cookie-secret.php \
 	config/db.php \
-	resource \
-	migrate-db
+	resource
 
 resource: $(RESOURCE_TARGETS)
 
@@ -85,4 +86,4 @@ config/google-recaptcha.php:
 	echo "    'secret'  => ''," >> config/google-recaptcha.php
 	echo '];'                   >> config/google-recaptcha.php
 
-.PHONY: all resource check-style fix-style clean clean-resource migrate-db composer-plugin FORCE
+.PHONY: all init resource check-style fix-style clean clean-resource migrate-db composer-plugin FORCE
