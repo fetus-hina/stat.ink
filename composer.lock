@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "19398d582b130600d9b6672bbe53501a",
-    "content-hash": "faf2a7baed9a6d87d11c69ec206f1e07",
+    "hash": "bdb0076137640d022ce6c3515b9137a1",
+    "content-hash": "10546c655b6bf0a254f8fcaeb91c5b11",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
@@ -947,6 +947,54 @@
                 "password"
             ],
             "time": "2014-11-20 16:49:30"
+        },
+        {
+            "name": "jp3cki/yii2-googleadsense",
+            "version": "v2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/fetus-hina/yii2-googleadsense.git",
+                "reference": "85c32faa1125d1f76f92bd490ce9f696c070d0a9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/fetus-hina/yii2-googleadsense/zipball/85c32faa1125d1f76f92bd490ce9f696c070d0a9",
+                "reference": "85c32faa1125d1f76f92bd490ce9f696c070d0a9",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0",
+                "yiisoft/yii2": "2.0.*"
+            },
+            "require-dev": {
+                "squizlabs/php_codesniffer": "~2.3"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "\\jp3cki\\yii2\\googleadsense\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Simon Smith",
+                    "email": "simon@simonsmith.ca"
+                },
+                {
+                    "name": "AIZAWA Hina",
+                    "email": "hina@bouhime.com"
+                }
+            ],
+            "description": "An extension for displaying Google AdSense ads.",
+            "keywords": [
+                "extension",
+                "yii2"
+            ],
+            "time": "2015-10-15 13:09:18"
         },
         {
             "name": "mtdowling/jmespath.php",

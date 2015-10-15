@@ -23,6 +23,7 @@
         "cybercog/yii2-google-analytics": "^0.3.1",
         "himiklab/yii2-recaptcha-widget": "^1.0",
         "ircmaxell/password-compat": "^1.0",
+        "jp3cki/yii2-googleadsense": "^2.0",
         "paragonie/random_compat": "^1.0",
         "php-curl-class/php-curl-class": "^4.6",
         "yiisoft/yii2": "^2.0.6",

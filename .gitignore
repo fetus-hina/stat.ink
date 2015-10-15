@@ -6,6 +6,7 @@
 /config/amazon-s3.php
 /config/cookie-secret.php
 /config/db.php
+/config/google-adsense.php
 /config/google-analytics.php
 /config/google-recaptcha.php
 /node_modules

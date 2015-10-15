@@ -15,6 +15,7 @@ init: \
 	node_modules \
 	config/google-analytics.php \
 	config/google-recaptcha.php \
+	config/google-adsense.php \
 	config/amazon-s3.php \
 	config/cookie-secret.php \
 	config/db.php \
@@ -86,6 +87,13 @@ config/google-recaptcha.php:
 	echo "    'siteKey' => ''," >> config/google-recaptcha.php
 	echo "    'secret'  => ''," >> config/google-recaptcha.php
 	echo '];'                   >> config/google-recaptcha.php
+
+config/google-adsense.php:
+	echo '<?php'                >  config/google-adsense.php
+	echo 'return ['             >> config/google-adsense.php
+	echo "    'client' => '',"  >> config/google-adsense.php
+	echo "    'slot'   => '',"  >> config/google-adsense.php
+	echo '];'                   >> config/google-adsense.php
 
 config/amazon-s3.php:
 	echo '<?php'                  >  config/amazon-s3.php
