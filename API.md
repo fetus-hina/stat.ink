@@ -174,6 +174,7 @@ POST /api/v1/battle
         - `promodeler_rg` : プロモデラーRG
         - `rapid` : ラピッドブラスター
         - `rapid_deco` : ラピッドブラスターデコ
+        - `rapid_elite` : Rブラスターエリート
         - `sharp` : シャープマーカー
         - `sharp_neo` : シャープマーカーネオ
         - `sshooter` : スプラシューター
