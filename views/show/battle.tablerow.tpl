@@ -49,9 +49,9 @@
           {{'LOST'|translate:'app'|escape}}
         </span>
       {{/if}}
-      {{if $model->battleGachi && $model->battleGachi->is_knock_out !== null}}
+      {{if $model->isGachi && $model->is_knock_out !== null}}
         &nbsp;
-        {{if $model->battleGachi->is_knock_out}}
+        {{if $model->is_knock_out}}
           <span class="label label-info auto-tooltip" title="{{'KNOCK OUT'|translate:'app'|escape}}">
             {{'K.O.'|translate:'app'|escape}}
           </span>
@@ -99,7 +99,7 @@
       <td class="cell-kill-ratio"></td>
     {{/if}}
     <td class="cell-point">
-      {{$model->battleNawabari->my_point|default:'?'|escape}}
+      {{$model->my_point|default:'?'|escape}}
     </td>
     </td>
     <td class="cell-datetime">

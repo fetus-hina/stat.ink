@@ -5,8 +5,6 @@ use Yii;
 use yii\base\Model;
 use app\components\helpers\db\Now;
 use app\models\Battle;
-use app\models\BattleGachi;
-use app\models\BattleNawabari;
 use app\models\GameMode;
 use app\models\Lobby;
 use app\models\Map;

@@ -36,6 +36,14 @@ use Yii;
  * @property integer $his_team_color_hue
  * @property string $my_team_color_rgb
  * @property string $his_team_color_rgb
+ * @property integer $my_point
+ * @property integer $my_team_final_point
+ * @property integer $his_team_final_point
+ * @property string $my_team_final_percent
+ * @property string $his_team_final_percent
+ * @property boolean $is_knock_out
+ * @property integer $my_team_count
+ * @property integer $his_team_count
  *
  * @property Agent $agent
  * @property FestTitle $festTitle
@@ -49,9 +57,7 @@ use Yii;
  * @property Weapon $weapon
  * @property BattleDeathReason[] $battleDeathReasons
  * @property DeathReason[] $reasons
- * @property BattleGachi $battleGachi
  * @property BattleImage[] $battleImages
- * @property BattleNawabari $battleNawabari
  */
 class Battle extends \yii\db\ActiveRecord
 {
@@ -92,9 +98,10 @@ class Battle extends \yii\db\ActiveRecord
             [['rank_in_team', 'kill', 'death', 'agent_id'], 'integer'],
             [['level_after', 'rank_after_id', 'rank_exp', 'rank_exp_after', 'cash', 'cash_after'], 'integer'],
             [['lobby_id', 'gender_id', 'fest_title_id', 'my_team_color_hue', 'his_team_color_hue'], 'integer'],
-            [['is_win'], 'boolean'],
+            [['my_point', 'my_team_final_point', 'his_team_final_point', 'my_team_count', 'his_team_count'], 'integer'],
+            [['is_win', 'is_knock_out'], 'boolean'],
             [['start_at', 'end_at', 'at'], 'safe'],
-            [['kill_ratio'], 'number'],
+            [['kill_ratio', 'my_team_final_percent', 'his_team_final_percent'], 'number'],
             [['my_team_color_rgb', 'his_team_color_rgb'], 'string', 'min' => 6, 'max' => 6],
         ];
     }
@@ -134,6 +141,14 @@ class Battle extends \yii\db\ActiveRecord
             'his_team_color_hue' => 'His Team Color Hue',
             'my_team_color_rgb' => 'My Team Color Rgb',
             'his_team_color_rgb' => 'His Team Color Rgb',
+            'my_point' => 'My Point',
+            'my_team_final_point' => 'My Team Final Point',
+            'his_team_final_point' => 'His Team Final Point',
+            'my_team_final_percent' => 'My Team Final Percent',
+            'his_team_final_percent' => 'His Team Final Percent',
+            'is_knock_out' => 'Is Knock Out',
+            'my_team_count' => 'My Team Count',
+            'his_team_count' => 'His Team Count',
         ];
     }
 
@@ -238,14 +253,6 @@ class Battle extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getBattleGachi()
-    {
-        return $this->hasOne(BattleGachi::className(), ['id' => 'id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getBattleImages()
     {
         return $this->hasMany(BattleImage::className(), ['battle_id' => 'id']);
@@ -261,14 +268,6 @@ class Battle extends \yii\db\ActiveRecord
     {
         return $this->hasOne(BattleImage::className(), ['battle_id' => 'id'])
             ->andWhere(['type_id' => BattleImageType::ID_RESULT]);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getBattleNawabari()
-    {
-        return $this->hasOne(BattleNawabari::className(), ['id' => 'id']);
     }
 
     public function getIsNawabari()

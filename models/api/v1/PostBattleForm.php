@@ -7,10 +7,8 @@ use yii\web\UploadedFile;
 use app\components\helpers\db\Now;
 use app\models\Battle;
 use app\models\BattleDeathReason;
-use app\models\BattleGachi;
 use app\models\BattleImage;
 use app\models\BattleImageType;
-use app\models\BattleNawabari;
 use app\models\DeathReason;
 use app\models\FestTitle;
 use app\models\Lobby;
@@ -52,13 +50,11 @@ class PostBattleForm extends Model
     public $end_at;
     public $agent;
     public $agent_version;
-    // nawabari
     public $my_point;
     public $my_team_final_point;
     public $his_team_final_point;
     public $my_team_final_percent;
     public $his_team_final_percent;
-    // gachi
     public $knock_out;
     public $my_team_count;
     public $his_team_count;
@@ -255,13 +251,7 @@ class PostBattleForm extends Model
             : new Now();
         $o->agent_id        = null;
         $o->at              = new Now();
-        return $o;
-    }
 
-    public function toBattleNawabari(Battle $battle)
-    {
-        $o = new BattleNawabari();
-        $o->id                      = $battle->id;
         $o->my_point                = (string)$this->my_point != '' ? (int)$this->my_point : null;
         $o->my_team_final_point     = (string)$this->my_team_final_point != ''
             ? (int)$this->my_team_final_point
@@ -275,16 +265,10 @@ class PostBattleForm extends Model
         $o->his_team_final_percent   = (string)$this->his_team_final_percent != ''
             ? sprintf('%.1f', (float)$this->his_team_final_percent)
             : null;
-        return $o;
-    }
-
-    public function toBattleGachi(Battle $battle)
-    {
-        $o = new BattleGachi();
-        $o->id              = $battle->id;
         $o->is_knock_out    = $this->knock_out === 'yes' ? true : ($this->knock_out === 'no' ? false : null);
         $o->my_team_count   = (string)$this->my_team_count != '' ? (int)$this->my_team_count : null;
         $o->his_team_count  = (string)$this->his_team_count != '' ? (int)$this->his_team_count : null;
+
         return $o;
     }
 

@@ -85,30 +85,6 @@ class BattleAction extends BaseAction
                     'system_' => $battle->getErrors(),
                 ], 500);
             }
-            if ($battle->isNawabari) {
-                $nawabari = $form->toBattleNawabari($battle);
-                if ($nawabari->isMeaningful) {
-                    if (!$nawabari->save()) {
-                        $transaction->rollback();
-                        return $this->formatError([
-                            'system' => [ Yii::t('app', 'Could not save to database: {0}', 'battle_nawabari') ],
-                            'system_' => $nawabari->getErrors(),
-                        ], 500);
-                    }
-                }
-            } elseif ($battle->isGachi) {
-                $gachi = $form->toBattleGachi($battle);
-                if ($gachi->isMeaningful) {
-                    if (!$gachi->save()) {
-                        $transaction->rollback();
-                        return $this->formatError([
-                            'system' => [ Yii::t('app', 'Could not save to database: {0}', 'battle_gachi') ],
-                            'system_' => $gachi->getErrors(),
-                        ], 500);
-                    }
-                }
-            }
-
             foreach ($form->toDeathReasons($battle) as $reason) {
                 if ($reason && !$reason->save()) {
                     $transaction->rollback();
@@ -229,6 +205,14 @@ class BattleAction extends BaseAction
             'fest_title' => $battle->gender && $battle->festTitle
                 ? $battle->festTitle->toJsonArray($battle->gender)
                 : null,
+            'my_point' => $battle->my_point,
+            'my_team_final_point' => $battle->my_team_final_point,
+            'his_team_final_point' => $battle->his_team_final_point,
+            'my_team_final_percent' => $battle->my_team_final_percent,
+            'his_team_final_percent' => $battle->his_team_final_percent,
+            'knock_out' => $battle->is_knock_out,
+            'my_team_count' => $battle->my_team_count,
+            'his_team_count' => $battle->his_team_count,
             'my_team_color' => [
                 'hue' => $battle->my_team_color_hue,
                 'rgb' => $battle->my_team_color_rgb,
@@ -255,24 +239,6 @@ class BattleAction extends BaseAction
                 : null,
             'register_at' => DateTimeFormatter::unixTimeToJsonArray(strtotime($battle->at)),
         ];
-        if ($battle->isNawabari) {
-            $nawabari = $battle->battleNawabari;
-            $ret = array_merge($ret, [
-                'my_point' => $nawabari ? (int)$nawabari->my_point : null,
-                'my_team_final_point' => $nawabari ? $nawabari->my_team_final_point : null,
-                'his_team_final_point' => $nawabari ? $nawabari->his_team_final_point : null,
-                'my_team_final_percent' => $nawabari ? $nawabari->my_team_final_percent : null,
-                'his_team_final_percent' => $nawabari ? $nawabari->his_team_final_percent : null,
-            ]);
-        }
-        if ($battle->isGachi) {
-            $gachi = $battle->battleGachi;
-            $ret = array_merge($ret, [
-                'knock_out' => $gachi ? $gachi->is_knock_out : null,
-                'my_team_count' => $gachi ? $gachi->my_team_count : null,
-                'his_team_count' => $gachi ? $gachi->his_team_count : null,
-            ]);
-        }
         $resp = Yii::$app->getResponse();
         $resp->format = 'json';
         return $ret;

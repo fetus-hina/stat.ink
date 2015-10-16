@@ -59,15 +59,6 @@
       </div>
     {{/if}}
 
-    {{$nawabari = null}}
-    {{$gachi = null}}
-    {{if $battle->isNawabari}}
-      {{$nawabari = $battle->battleNawabari}}
-    {{/if}}
-    {{if $battle->isGachi}}
-      {{$gachi = $battle->battleGachi}}
-    {{/if}}
-
     <div class="row">
       <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
         <table class="table table-striped">
@@ -178,8 +169,8 @@
               <tr>
                 <th>{{'Result'|translate:'app'|escape}}</th>
                 <td>
-                  {{if $gachi && $gachi->is_knock_out !== null}}
-                    {{if $gachi->is_knock_out}}
+                  {{if $battle->isGachi && $battle->is_knock_out !== null}}
+                    {{if $battle->is_knock_out}}
                       <span class="label label-info">
                         {{'KNOCK OUT'|translate:'app'|escape}}
                       </span>
@@ -271,51 +262,47 @@
                 </td>
               </tr>
             {{/if}}
-            {{if $nawabari}}
-              {{if $nawabari->my_point}}
-                <tr>
-                  <th>{{'Turf Inked + Bonus'|translate:'app'|escape}}</th>
-                  <td>{{$nawabari->my_point|escape}} P</td>
-                </tr>
-              {{/if}}
-              {{if $nawabari->my_team_final_point || $nawabari->his_team_final_point}}
-                <tr>
-                  <th>{{'My Team Score'|translate:'app'|escape}}</th>
-                  <td>
-                    {{$nawabari->my_team_final_point|default:'?'|escape}} P (
-                    {{if $nawabari->my_team_final_percent === null}}
-                      ?
-                    {{else}}
-                      {{$nawabari->my_team_final_percent|string_format:'%.1f'|escape}}
-                    {{/if}}
-                    %)
-                  </td>
-                </tr>
-                <tr>
-                  <th>{{'His Team Score'|translate:'app'|escape}}</th>
-                  <td>
-                    {{$nawabari->his_team_final_point|default:'?'|escape}} P (
-                    {{if $nawabari->his_team_final_percent === null}}
-                      ?
-                    {{else}}
-                      {{$nawabari->his_team_final_percent|string_format:'%.1f'|escape}}
-                    {{/if}}
-                    %)
-                  </td>
-                </tr>
-              {{/if}}
+            {{if $battle->my_point}}
+              <tr>
+                <th>{{'Turf Inked + Bonus'|translate:'app'|escape}}</th>
+                <td>{{$battle->my_point|escape}} P</td>
+              </tr>
             {{/if}}
-            {{if $gachi}}
-              {{if $gachi->my_team_count || $gachi->his_team_count}}
-                <tr>
-                  <th>{{'My Team Count'|translate:'app'|escape}}</th>
-                  <td>{{$gachi->my_team_count|default:'?'|escape}}</td>
-                </tr>
-                <tr>
-                  <th>{{'His Team Count'|translate:'app'|escape}}</th>
-                  <td>{{$gachi->his_team_count|default:'?'|escape}}</td>
-                </tr>
-              {{/if}}
+            {{if $battle->my_team_final_point || $battle->his_team_final_point}}
+              <tr>
+                <th>{{'My Team Score'|translate:'app'|escape}}</th>
+                <td>
+                  {{$battle->my_team_final_point|default:'?'|escape}} P (
+                  {{if $battle->my_team_final_percent === null}}
+                    ?
+                  {{else}}
+                    {{$battle->my_team_final_percent|string_format:'%.1f'|escape}}
+                  {{/if}}
+                  %)
+                </td>
+              </tr>
+              <tr>
+                <th>{{'His Team Score'|translate:'app'|escape}}</th>
+                <td>
+                  {{$battle->his_team_final_point|default:'?'|escape}} P (
+                  {{if $battle->his_team_final_percent === null}}
+                    ?
+                  {{else}}
+                    {{$battle->his_team_final_percent|string_format:'%.1f'|escape}}
+                  {{/if}}
+                  %)
+                </td>
+              </tr>
+            {{/if}}
+            {{if $battle->my_team_count || $battle->his_team_count}}
+              <tr>
+                <th>{{'My Team Count'|translate:'app'|escape}}</th>
+                <td>{{$battle->my_team_count|default:'?'|escape}}</td>
+              </tr>
+              <tr>
+                <th>{{'His Team Count'|translate:'app'|escape}}</th>
+                <td>{{$battle->his_team_count|default:'?'|escape}}</td>
+              </tr>
             {{/if}}
             {{if $battle->cash || $battle->cash_after}}
               <tr>
