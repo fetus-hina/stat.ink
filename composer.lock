@@ -1053,16 +1053,16 @@
         },
         {
             "name": "paragonie/random_compat",
-            "version": "1.0.6",
+            "version": "1.0.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/paragonie/random_compat.git",
-                "reference": "9a0ce69360aa22413a96f2bf93f61235e2c18486"
+                "reference": "7fe2420f8ad46aa08d5b317c92a148611d366d88"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/paragonie/random_compat/zipball/9a0ce69360aa22413a96f2bf93f61235e2c18486",
-                "reference": "9a0ce69360aa22413a96f2bf93f61235e2c18486",
+                "url": "https://api.github.com/repos/paragonie/random_compat/zipball/7fe2420f8ad46aa08d5b317c92a148611d366d88",
+                "reference": "7fe2420f8ad46aa08d5b317c92a148611d366d88",
                 "shasum": ""
             },
             "require": {
@@ -1094,20 +1094,20 @@
                 "pseudorandom",
                 "random"
             ],
-            "time": "2015-10-16 03:43:13"
+            "time": "2015-10-18 21:39:26"
         },
         {
             "name": "php-curl-class/php-curl-class",
-            "version": "4.6.9",
+            "version": "4.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-curl-class/php-curl-class.git",
-                "reference": "ae15ff9ab12c82bdd93a1acd7a7564fbb007b9c5"
+                "reference": "d49186ae308fe6e871ae2efbeb9f070ef57debb6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-curl-class/php-curl-class/zipball/ae15ff9ab12c82bdd93a1acd7a7564fbb007b9c5",
-                "reference": "ae15ff9ab12c82bdd93a1acd7a7564fbb007b9c5",
+                "url": "https://api.github.com/repos/php-curl-class/php-curl-class/zipball/d49186ae308fe6e871ae2efbeb9f070ef57debb6",
+                "reference": "d49186ae308fe6e871ae2efbeb9f070ef57debb6",
                 "shasum": ""
             },
             "require": {
@@ -1119,9 +1119,9 @@
             },
             "type": "library",
             "autoload": {
-                "classmap": [
-                    "src/"
-                ]
+                "psr-4": {
+                    "Curl\\": "src/Curl/"
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -1150,7 +1150,7 @@
                 "web service",
                 "xml"
             ],
-            "time": "2015-08-21 22:48:09"
+            "time": "2015-10-15 17:07:14"
         },
         {
             "name": "psr/http-message",
