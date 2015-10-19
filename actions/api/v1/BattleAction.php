@@ -53,109 +53,45 @@ class BattleAction extends BaseAction
             return $this->formatError($form->getErrors(), 400);
         }
 
-        $transaction = Yii::$app->db->beginTransaction();
-        $tmpFiles = [];
-        try {
+        // テストモード用
+        if ($form->isTest) {
+            // validate のみなら既に validate は完了しているので適当なレスポンスボディを返して終わり
+            if ($form->test === 'validate') {
+                $resp = Yii::$app->getResponse();
+                $resp->format = 'json';
+                $resp->statusCode = 200;
+                return [
+                    'validate' => true,
+                ];
+            }
+
+    
+            // dry_run
+            // 整形用のダミーデータを準備
             $battle = $form->toBattle();
-            if (!$battle->isMeaningful) {
-                $transaction->rollback();
-                return $this->formatError([
-                    'system' => [ Yii::t('app', 'Please send meaningful data.') ],
-                ], 400);
-            }
-            if ($form->agent != '' || $form->agent_version != '') {
-                $agent = Agent::findOne(['name' => (string)$form->agent, 'version' => (string)$form->agent_version]);
-                if (!$agent) {
-                    $agent = new Agent();
-                    $agent->name = (string)$form->agent;
-                    $agent->version = (string)$form->agent_version;
-                    if (!$agent->save()) {
-                        return $this->formatError([
-                            'system' => [ Yii::t('app', 'Could not save to database: {0}', 'agent') ],
-                            'system_' => $battle->getErrors(),
-                        ], 500);
-                    }
-                }
-                $battle->agent_id = $agent->id;
-            }
-            if (!$battle->save()) {
-                $transaction->rollback();
-                return $this->formatError([
-                    'system' => [ Yii::t('app', 'Could not save to database: {0}', 'battle') ],
-                    'system_' => $battle->getErrors(),
-                ], 500);
-            }
+            $deathReasons = [];
             foreach ($form->toDeathReasons($battle) as $reason) {
-                if ($reason && !$reason->save()) {
-                    $transaction->rollback();
-                    return $this->formatError([
-                        'system' => [ Yii::t('app', 'Could not save to database: {0}', 'battle_death_reason') ],
-                        'system_' => $reason->getErrors(),
-                    ], 500);
+                if ($reason) {
+                    $deathReasons[] = $reason;
                 }
             }
+            $agent = null;
+            if ($form->agent != '' || $form->agent_version != '') {
+                $agent = new Agent();
+                $agent->name = (string)$form->agent;
+                $agent->version = (string)$form->agent_version;
+            }
+            return $this->runGetImpl2(
+                $battle, $deathReasons, $agent
+            );
+        }
 
-            $imageOutputDir = Yii::getAlias('@webroot/images');
-            $imageArchiveOutputDir = Yii::$app->params['amazonS3'] && Yii::$app->params['amazonS3']['bucket'] != ''
-                ? Yii::getAlias('@app/runtime/image-archive-tmp')
-                : null;
-            if ($image = $form->toImageJudge($battle)) {
-                $binary = is_string($form->image_judge)
-                    ? $form->image_judge
-                    : file_get_contents($form->image_judge->tempName, false);
-                if (!ImageConverter::convert(
-                    $binary,
-                    $imageOutputDir . '/' . $image->filename,
-                    $imageOutputDir . '/' . str_replace('.jpg', '.webp', $image->filename),
-                    $imageArchiveOutputDir 
-                        ? ($imageArchiveOutputDir . '/' . sprintf('%d-judge.png', $battle->id))
-                        : null
-                )) {
-                    $transaction->rollback();
-                    return $this->formatError([
-                        'system' => [
-                            Yii::t('app', 'Could not convert "{0}" image.', 'judge'),
-                        ]
-                    ], 500);
-                }
-                if (!$image->save()) {
-                    $transaction->rollback();
-                    return $this->formatError([
-                        'system' => [
-                            Yii::t('app', 'Could not save {0}', 'battle_image(judge)'),
-                        ]
-                    ], 500);
-                }
+        $transaction = Yii::$app->db->beginTransaction();
+        try {
+            $battle = $this->saveData($form);
+            if (!$battle instanceof Battle) {
+                return $battle;
             }
-            if ($image = $form->toImageResult($battle)) {
-                $binary = is_string($form->image_result)
-                    ? $form->image_result
-                    : file_get_contents($form->image_result->tempName, false);
-                if (!ImageConverter::convert(
-                    $binary,
-                    $imageOutputDir . '/' . $image->filename,
-                    $imageOutputDir . '/' . str_replace('.jpg', '.webp', $image->filename),
-                    $imageArchiveOutputDir 
-                        ? ($imageArchiveOutputDir . '/' . sprintf('%d-result.png', $battle->id))
-                        : null
-                )) {
-                    $transaction->rollback();
-                    return $this->formatError([
-                        'system' => [
-                            Yii::t('app', 'Could not convert "{0}" image.', 'result'),
-                        ]
-                    ], 500);
-                }
-                if (!$image->save()) {
-                    $transaction->rollback();
-                    return $this->formatError([
-                        'system' => [
-                            Yii::t('app', 'Could not save {0}', 'battle_image(result)'),
-                        ]
-                    ], 500);
-                }
-            }
-
             $transaction->commit();
         } catch (\Exception $e) {
             $transaction->rollback();
@@ -169,7 +105,114 @@ class BattleAction extends BaseAction
         return $this->runGetImpl($battle);
     }
 
+    private function saveData(PostBattleForm $form)
+    {
+        $battle = $form->toBattle();
+        if (!$battle->isMeaningful) {
+            return $this->formatError([
+                'system' => [ Yii::t('app', 'Please send meaningful data.') ],
+            ], 400);
+        }
+        if ($form->agent != '' || $form->agent_version != '') {
+            $agent = Agent::findOne(['name' => (string)$form->agent, 'version' => (string)$form->agent_version]);
+            if (!$agent) {
+                $agent = new Agent();
+                $agent->name = (string)$form->agent;
+                $agent->version = (string)$form->agent_version;
+                if (!$agent->save()) {
+                    return $this->formatError([
+                        'system' => [ Yii::t('app', 'Could not save to database: {0}', 'agent') ],
+                        'system_' => $battle->getErrors(),
+                    ], 500);
+                }
+            }
+            $battle->agent_id = $agent->id;
+        }
+        if (!$battle->save()) {
+            return $this->formatError([
+                'system' => [ Yii::t('app', 'Could not save to database: {0}', 'battle') ],
+                'system_' => $battle->getErrors(),
+            ], 500);
+        }
+        foreach ($form->toDeathReasons($battle) as $reason) {
+            if ($reason && !$reason->save()) {
+                return $this->formatError([
+                    'system' => [ Yii::t('app', 'Could not save to database: {0}', 'battle_death_reason') ],
+                    'system_' => $reason->getErrors(),
+                ], 500);
+            }
+        }
+
+        $imageOutputDir = Yii::getAlias('@webroot/images');
+        $imageArchiveOutputDir = Yii::$app->params['amazonS3'] && Yii::$app->params['amazonS3']['bucket'] != ''
+            ? Yii::getAlias('@app/runtime/image-archive-tmp')
+            : null;
+        if ($image = $form->toImageJudge($battle)) {
+            $binary = is_string($form->image_judge)
+                ? $form->image_judge
+                : file_get_contents($form->image_judge->tempName, false);
+            if (!ImageConverter::convert(
+                $binary,
+                $imageOutputDir . '/' . $image->filename,
+                $imageOutputDir . '/' . str_replace('.jpg', '.webp', $image->filename),
+                $imageArchiveOutputDir 
+                    ? ($imageArchiveOutputDir . '/' . sprintf('%d-judge.png', $battle->id))
+                    : null
+            )) {
+                return $this->formatError([
+                    'system' => [
+                        Yii::t('app', 'Could not convert "{0}" image.', 'judge'),
+                    ]
+                ], 500);
+            }
+            if (!$image->save()) {
+                return $this->formatError([
+                    'system' => [
+                        Yii::t('app', 'Could not save {0}', 'battle_image(judge)'),
+                    ]
+                ], 500);
+            }
+        }
+        if ($image = $form->toImageResult($battle)) {
+            $binary = is_string($form->image_result)
+                ? $form->image_result
+                : file_get_contents($form->image_result->tempName, false);
+            if (!ImageConverter::convert(
+                $binary,
+                $imageOutputDir . '/' . $image->filename,
+                $imageOutputDir . '/' . str_replace('.jpg', '.webp', $image->filename),
+                $imageArchiveOutputDir 
+                    ? ($imageArchiveOutputDir . '/' . sprintf('%d-result.png', $battle->id))
+                    : null
+            )) {
+                return $this->formatError([
+                    'system' => [
+                        Yii::t('app', 'Could not convert "{0}" image.', 'result'),
+                    ]
+                ], 500);
+            }
+            if (!$image->save()) {
+                return $this->formatError([
+                    'system' => [
+                        Yii::t('app', 'Could not save {0}', 'battle_image(result)'),
+                    ]
+                ], 500);
+            }
+        }
+
+        return $battle;
+    }
+
     private function runGetImpl(Battle $battle)
+    {
+        return $this->runGetImpl2(
+            $battle,
+            $battle->getBattleDeathReasons()->with(['reason', 'reason.type'])->all(),
+            $battle->agent
+        );
+    }
+
+    private function runGetImpl2(Battle $battle, array $deathReasons, Agent $agent = null)
     {
         $ret = [
             'id' => $battle->id,
@@ -199,7 +242,7 @@ class BattleAction extends BaseAction
                 function ($model) {
                     return $model->toJsonArray();
                 },
-                $battle->getBattleDeathReasons()->with(['reason', 'reason.type'])->all()
+                $deathReasons
             ),
             'gender' => $battle->gender ? $battle->gender->toJsonArray() : null,
             'fest_title' => $battle->gender && $battle->festTitle
@@ -228,8 +271,8 @@ class BattleAction extends BaseAction
                 ? Url::to(Yii::getAlias('@web/images') . '/' . $battle->battleImageResult->filename, true)
                 : null,
             'agent' => [
-                'name' => $battle->agent ? $battle->agent->name : null,
-                'version' => $battle->agent ? $battle->agent->version : null,
+                'name' => $agent ? $agent->name : null,
+                'version' => $agent ? $agent->version : null,
             ],
             'start_at' => $battle->start_at != ''
                 ? DateTimeFormatter::unixTimeToJsonArray(strtotime($battle->start_at))

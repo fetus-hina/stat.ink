@@ -22,6 +22,7 @@ class PostBattleForm extends Model
 {
     // API
     public $apikey;
+    public $test;
     // common
     public $lobby;
     public $rule;
@@ -66,6 +67,7 @@ class PostBattleForm extends Model
             [['apikey'], 'exist',
                 'targetClass' => User::className(),
                 'targetAttribute' => 'api_key'],
+            [['test'], 'in', 'range' => ['validate', 'dry_run']],
             [['lobby'], 'exist',
                 'targetClass' => Lobby::className(),
                 'targetAttribute' => 'key'],
@@ -217,6 +219,11 @@ class PostBattleForm extends Model
         return User::findOne(['api_key' => $this->apikey]);
     }
 
+    public function getIsTest()
+    {
+        return $this->test != '';
+    }
+
     public function toBattle()
     {
         $o = new Battle();
@@ -269,6 +276,16 @@ class PostBattleForm extends Model
         $o->my_team_count   = (string)$this->my_team_count != '' ? (int)$this->my_team_count : null;
         $o->his_team_count  = (string)$this->his_team_count != '' ? (int)$this->his_team_count : null;
 
+        if ($this->isTest) {
+            $now = isset($_SERVER['REQUEST_TIME']) ? $_SERVER['REQUEST_TIME'] : time();
+            $o->id = 0;
+            foreach ($o->attributes as $k => $v) {
+                if ($v instanceof Now) {
+                    $o->$k = gmdate('Y-m-d H:i:sP', $now);
+                }
+            }
+        }
+
         return $o;
     }
 
@@ -313,6 +330,9 @@ class PostBattleForm extends Model
 
     protected function toImage(Battle $battle, $imageTypeId, $attr)
     {
+        if ($this->isTest) {
+            return null;
+        }
         if ($this->$attr == '' && !$this->$attr instanceof UploadedFile) {
             return null;
         }
