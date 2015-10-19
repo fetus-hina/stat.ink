@@ -341,4 +341,20 @@ class Battle extends \yii\db\ActiveRecord
         $stat->createCurrentData();
         $stat->save();
     }
+
+    public function beforeDelete()
+    {
+        if (!parent::beforeDelete()) {
+            return false;
+        }
+        foreach ($this->battleImages as $img) {
+            if (!$img->delete()) {
+                return false;
+            }
+        }
+        BattleDeathReason::deleteAll([
+            'battle_id' => $this->id,
+        ]);
+        return true;
+    }
 }

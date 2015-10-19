@@ -2,6 +2,7 @@
 namespace app\models;
 
 use Yii;
+use yii\db\ActiveRecord;
 use yii\helpers\Url;
 use app\components\helpers\RandomFilename;
 
@@ -16,7 +17,7 @@ use app\components\helpers\RandomFilename;
  * @property Battle $battle
  * @property BattleImageType $type
  */
-class BattleImage extends \yii\db\ActiveRecord
+class BattleImage extends ActiveRecord
 {
     /**
      * @inheritdoc
@@ -82,5 +83,29 @@ class BattleImage extends \yii\db\ActiveRecord
     {
         $path = Yii::getAlias('@web/images') . '/' . $this->filename;
         return Url::to($path, true);
+    }
+
+    private $_deleteFilename;
+    public function beforeDelete()
+    {
+        if (!parent::beforeDelete()) {
+            return false;
+        }
+        $this->_deleteFilename = $this->filename;
+        return true;
+    }
+
+    public function afterDelete()
+    {
+        if ($this->_deleteFilename) {
+            $path = Yii::getAlias('@app/web/images') . '/' . $this->_deleteFilename;
+            foreach (['.jpg', '.webp'] as $ext) {
+                $path2 = preg_replace('/\.jpg$/', $ext, $path);
+                if (file_exists($path2) && is_file($path2)) {
+                    unlink($path2);
+                }
+            }
+        }
+        return parent::afterDelete();
     }
 }
