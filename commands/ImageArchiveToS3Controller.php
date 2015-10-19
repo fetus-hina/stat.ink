@@ -25,6 +25,9 @@ class ImageArchiveToS3Controller extends Controller
             $this->stdError("stat.ink for Amazon S3 is not configured.\n");
             return 1;
         }
+        if (!$lock = $this->getLock()) {
+            return 0;
+        }
         $dirPath = Yii::getAlias('@app/runtime/image-archive-tmp');
         if (!file_exists($dirPath)) {
             return 0;
@@ -109,5 +112,24 @@ class ImageArchiveToS3Controller extends Controller
     {
         $params = Yii::$app->params['amazonS3'];
         return new Credentials($params['accessKey'], $params['secret']);
+    }
+
+    protected function getLock()
+    {
+        $lockPath = Yii::getAlias('@app/runtime/.s3lock');
+        if (!$fh = fopen($lockPath, 'c')) {
+            return false;
+        }
+        if (!flock($fh, LOCK_EX | LOCK_NB)) {
+            fclose($fh);
+            return false;
+        }
+        return new Resource(
+            $fh,
+            function ($fh) {
+                flock($fh, LOCK_UN);
+                fclose($fh);
+            }
+        );
     }
 }
