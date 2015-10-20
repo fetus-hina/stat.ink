@@ -12,11 +12,9 @@
       {{else}}
         {{$ident = $app->user->identity}}
         <a href="{{url route="show/user" screen_name=$ident->screen_name}}">{{'Your Battles'|translate:'app'|escape}}</a>
-      {{/if}} | <a href="{{url route="site/start"}}">{{"What's this?"|translate:'app'|escape}}</a> |
-      &#32;<a href="{{url route="entire/kd-win"}}">{{"Stat: K/D vs WP"|translate:'app'|escape}}</a>
-    </p>
-    <p>
-      2015-10-20 04:15 JST: stat.ink のサーバを移転しました。IkaLog が投稿しようとしているにもかかわらず stat.ink への投稿に失敗する場合は、IkaLog を再起動してみてください。
+      {{/if}} | <a href="{{url route="site/start"}}">{{"What's this?"|translate:'app'|escape}}</a><br>
+      <a href="{{url route="entire/kd-win"}}">{{"Stat: K/D vs WP"|translate:'app'|escape}}</a> |
+      &#32;<a href="{{url route="entire/users"}}">{{"Stat: Battles and Users"|translate:'app'|escape}}</a>
     </p>
 
     <div id="sns">
