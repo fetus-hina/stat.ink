@@ -7,6 +7,7 @@ RUN yum update -y && \
         curl nginx scl-utils \
         http://ftp.tsukuba.wide.ad.jp/Linux/fedora/epel/7/x86_64/e/epel-release-7-5.noarch.rpm \
         https://www.softwarecollections.org/en/scls/remi/php56more/epel-7-x86_64/download/remi-php56more-epel-7-x86_64.noarch.rpm \
+        https://www.softwarecollections.org/en/scls/rhscl/git19/epel-7-x86_64/download/rhscl-git19-epel-7-x86_64.noarch.rpm \
         https://www.softwarecollections.org/en/scls/rhscl/nodejs010/epel-7-x86_64/download/rhscl-nodejs010-epel-7-x86_64.noarch.rpm \
         https://www.softwarecollections.org/en/scls/rhscl/rh-php56/epel-7-x86_64/download/rhscl-rh-php56-epel-7-x86_64.noarch.rpm \
         https://www.softwarecollections.org/en/scls/rhscl/rh-postgresql94/epel-7-x86_64/download/rhscl-rh-postgresql94-epel-7-x86_64.noarch.rpm \
@@ -14,6 +15,7 @@ RUN yum update -y && \
             && \
     yum install -y \
         ImageMagick \
+        git19-git \
         jpegoptim \
         libwebp-tools \
         more-php56-php-mcrypt \
@@ -34,7 +36,6 @@ RUN yum update -y && \
         rh-postgresql94-postgresql \
         rh-postgresql94-postgresql-server \
         supervisor \
-        telnet \
             && \
     yum clean all && \
     ln -s /var/opt/rh/rh-postgresql94/lib/pgsql /var/lib/pgsql/rh-postgresql94 && \

@@ -24,14 +24,13 @@ init: \
 docker: all
 	sudo docker build -t jp3cki/statink .
 
-
 resource: $(RESOURCE_TARGETS)
 
 composer-plugin: composer.phar
 	grep '"fxp/composer-asset-plugin"' ~/.composer/composer.json >/dev/null || ./composer.phar global require 'fxp/composer-asset-plugin:^1.0'
 
 vendor: composer.phar
-	php composer.phar install
+	php composer.phar install --prefer-dist
 
 node_modules:
 	npm install
