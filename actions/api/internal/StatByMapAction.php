@@ -23,8 +23,13 @@ class StatByMapAction extends BaseStatAction
             ])
             ->from('battle')
             ->innerJoin('map', '{{battle}}.[[map_id]] = {{map}}.[[id]]')
+            ->leftJoin('lobby', '{{battle}}.[[lobby_id]] = {{lobby}}.[[id]]')
             ->andWhere(['{{battle}}.[[user_id]]' => $this->user->id])
             ->andWhere(['in', '{{battle}}.[[is_win]]', [ true, false ]])
+            ->andWhere(['or',
+                ['{{battle}}.[[lobby_id]]' => null],
+                ['<>', '{{lobby}}.[[key]]', 'private'],
+            ])
             ->groupBy(['{{battle}}.[[map_id]]', '{{battle}}.[[is_win]]']);
         $maps = [];
         foreach ($query->createCommand()->queryAll() as $row) {

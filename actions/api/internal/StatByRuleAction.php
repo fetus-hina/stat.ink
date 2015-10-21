@@ -26,8 +26,13 @@ class StatByRuleAction extends BaseStatAction
             ->from('battle')
             ->innerJoin('rule', '{{battle}}.[[rule_id]] = {{rule}}.[[id]]')
             ->innerJoin('game_mode', '{{rule}}.[[mode_id]] = {{game_mode}}.[[id]]')
+            ->leftJoin('lobby', '{{battle}}.[[lobby_id]] = {{lobby}}.[[id]]')
             ->andWhere(['{{battle}}.[[user_id]]' => $this->user->id])
             ->andWhere(['in', '{{battle}}.[[is_win]]', [ true, false ]])
+            ->andWhere(['or',
+                ['{{battle}}.[[lobby_id]]' => null],
+                ['<>', '{{lobby}}.[[key]]', 'private'],
+            ])
             ->groupBy(['{{battle}}.[[rule_id]]', '{{battle}}.[[is_win]]']);
         $modes = [];
         foreach ($query->createCommand()->queryAll() as $row) {
