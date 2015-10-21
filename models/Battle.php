@@ -371,22 +371,24 @@ class Battle extends ActiveRecord
                 }
             }
         }
-        $new = UserWeapon::findOne([
-            'user_id' => $this->user_id,
-            'weapon_id' => $this->weapon_id,
-        ]);
-        if ($new) {
-            $new->count++;
-        } else {
-            $new = new UserWeapon();
-            $new->attributes = [
+        if ($this->weapon_id) {
+            $new = UserWeapon::findOne([
                 'user_id' => $this->user_id,
                 'weapon_id' => $this->weapon_id,
-                'count' => 1,
-            ];
-        }
-        if (!$new->save()) {
-            return false;
+            ]);
+            if ($new) {
+                $new->count++;
+            } else {
+                $new = new UserWeapon();
+                $new->attributes = [
+                    'user_id' => $this->user_id,
+                    'weapon_id' => $this->weapon_id,
+                    'count' => 1,
+                ];
+            }
+            if (!$new->save()) {
+                return false;
+            }
         }
     }
 
