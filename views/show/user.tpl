@@ -67,6 +67,11 @@
         </div>
         <div style="margin-bottom:15px">
           <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+              <div class="user-label">
+                {{'Summary: Based on the current filter'|translate:'app'|escape}}
+              </div>
+            </div>
             <div class="col-xs-4 col-sm-4 col-md-2 col-lg-2">
               <div class="user-label">{{'Battles'|translate:'app'|escape}}</div>
               <div class="user-number">{{$summary->battle_count|number_format|escape}}</div>
@@ -77,7 +82,7 @@
                 {{if $summary->wp === null}}
                   {{'N/A'|translate:'app'|escape}}
                 {{else}}
-                  {{$summary->wp|string_format:'%.2f%%'|escape}}
+                  {{$summary->wp|string_format:'%.1f%%'|escape}}
                 {{/if}}
               </div>
             </div>
@@ -87,7 +92,7 @@
                 {{if $summary->wp_short === null}}
                   {{'N/A'|translate:'app'|escape}}
                 {{else}}
-                  {{$summary->wp_short|string_format:'%.2f%%'|escape}}
+                  {{$summary->wp_short|string_format:'%.1f%%'|escape}}
                 {{/if}}
               </div>
             </div>

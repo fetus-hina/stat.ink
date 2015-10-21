@@ -108,6 +108,7 @@ return [
     'Stat: K/D vs WP' => '統計: KDと勝率',
     'Sub Weapon' => 'サブウェポン',
     'Sub:' => 'サブ:',
+    'Summary: Based on the current filter' => '現在のフィルタに基づくサマリ',
     'TIME IS UP' => 'タイムアップ',
     'TIME' => '時間',
     'The password will be encrypted.' => 'パスワードは暗号化されて保存されます。',
