@@ -1,8 +1,8 @@
 <?php
-
 namespace app\models;
 
 use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "battle".
@@ -59,7 +59,7 @@ use Yii;
  * @property DeathReason[] $reasons
  * @property BattleImage[] $battleImages
  */
-class Battle extends \yii\db\ActiveRecord
+class Battle extends ActiveRecord
 {
     public static function find()
     {
@@ -79,12 +79,15 @@ class Battle extends \yii\db\ActiveRecord
     public function init()
     {
         parent::init();
-        $this->on(\yii\db\ActiveRecord::EVENT_BEFORE_INSERT, [$this, 'setKillRatio']);
-        $this->on(\yii\db\ActiveRecord::EVENT_BEFORE_UPDATE, [$this, 'setKillRatio']);
+        $this->on(ActiveRecord::EVENT_BEFORE_INSERT, [$this, 'setKillRatio']);
+        $this->on(ActiveRecord::EVENT_BEFORE_UPDATE, [$this, 'setKillRatio']);
 
-        $this->on(\yii\db\ActiveRecord::EVENT_AFTER_INSERT, [$this, 'updateUserStat']);
-        $this->on(\yii\db\ActiveRecord::EVENT_AFTER_UPDATE, [$this, 'updateUserStat']);
-        $this->on(\yii\db\ActiveRecord::EVENT_AFTER_DELETE, [$this, 'updateUserStat']);
+        $this->on(ActiveRecord::EVENT_BEFORE_INSERT, [$this, 'updateUserWeapon']);
+        $this->on(ActiveRecord::EVENT_BEFORE_UPDATE, [$this, 'updateUserWeapon']);
+
+        $this->on(ActiveRecord::EVENT_AFTER_INSERT, [$this, 'updateUserStat']);
+        $this->on(ActiveRecord::EVENT_AFTER_UPDATE, [$this, 'updateUserStat']);
+        $this->on(ActiveRecord::EVENT_AFTER_DELETE, [$this, 'updateUserStat']);
     }
 
     /**
@@ -342,6 +345,51 @@ class Battle extends \yii\db\ActiveRecord
         $stat->save();
     }
 
+    public function updateUserWeapon()
+    {
+        $dirty = $this->getDirtyAttributes();
+        if (!isset($dirty['weapon_id'])) {
+            return;
+        }
+        if (!$this->getIsNewRecord()) {
+            if ($oldWeaponId = $this->oldAttributes['weapon_id']) {
+                $old = UserWeapon::findOne([
+                    'user_id' => $this->user_id,
+                    'weapon_id' => $oldWeaponId,
+                ]);
+                if ($old) {
+                    if ($old->count <= 1) {
+                        if (!$old->delete()) {
+                            return false;
+                        }
+                    } else {
+                        $old->count--;
+                        if (!$old->save()) {
+                            return false;
+                        }
+                    }
+                }
+            }
+        }
+        $new = UserWeapon::findOne([
+            'user_id' => $this->user_id,
+            'weapon_id' => $this->weapon_id,
+        ]);
+        if ($new) {
+            $new->count++;
+        } else {
+            $new = new UserWeapon();
+            $new->attributes = [
+                'user_id' => $this->user_id,
+                'weapon_id' => $this->weapon_id,
+                'count' => 1,
+            ];
+        }
+        if (!$new->save()) {
+            return false;
+        }
+    }
+
     public function beforeDelete()
     {
         if (!parent::beforeDelete()) {
@@ -355,6 +403,24 @@ class Battle extends \yii\db\ActiveRecord
         BattleDeathReason::deleteAll([
             'battle_id' => $this->id,
         ]);
+        if ($this->weapon_id) {
+            $userWeapon = UserWeapon::findOne([
+                'user_id' => $this->user_id,
+                'weapon_id' => $this->weapon_id,
+            ]);
+            if ($userWeapon) {
+                if ($userWeapon->count <= 1) {
+                    if (!$userWeapon->delete()) {
+                        return false;
+                    }
+                } else {
+                    $userWeapon->count--;
+                    if (!$userWeapon->save()) {
+                        return false;
+                    }
+                }
+            }
+        }
         return true;
     }
 }

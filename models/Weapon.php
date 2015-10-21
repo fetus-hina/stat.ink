@@ -15,6 +15,8 @@ use app\components\helpers\Translator;
  * @property integer $special_id
  *
  * @property Battle[] $battles
+ * @property UserWeapon[] $userWeapons
+ * @property User[] $users
  * @property Special $special
  * @property Subweapon $subweapon
  * @property WeaponType $type
@@ -90,6 +92,22 @@ class Weapon extends \yii\db\ActiveRecord
     public function getType()
     {
         return $this->hasOne(WeaponType::className(), ['id' => 'type_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUserWeapons()
+    {
+        return $this->hasMany(UserWeapon::className(), ['weapon_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUsers()
+    {
+        return $this->hasMany(User::className(), ['id' => 'user_id'])->viaTable('user_weapon', ['weapon_id' => 'id']);
     }
 
     public function toJsonArray()

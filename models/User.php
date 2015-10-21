@@ -23,6 +23,8 @@ use app\components\helpers\Password;
  *
  * @property Battle[] $battles
  * @property UserStat $userStat
+ * @property UserWeapon[] $userWeapons
+ * @property Weapon[] $weapons
  */
 class User extends ActiveRecord implements IdentityInterface
 {
@@ -97,6 +99,22 @@ class User extends ActiveRecord implements IdentityInterface
     public function getUserStat()
     {
         return $this->hasOne(UserStat::className(), ['user_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUserWeapons()
+    {
+        return $this->hasMany(UserWeapon::className(), ['user_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getWeapons()
+    {
+        return $this->hasMany(Weapon::className(), ['id' => 'weapon_id'])->viaTable('user_weapon', ['user_id' => 'id']);
     }
 
     public function getLatestBattleResultImage()
