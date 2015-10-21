@@ -111,4 +111,9 @@ class BattleQuery extends ActiveQuery
         }
         return $this;
     }
+
+    public function getSummary()
+    {
+        return \app\components\helpers\BattleSummarizer::getSummary($this);
+    }
 }

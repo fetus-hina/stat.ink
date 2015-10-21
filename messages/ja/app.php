@@ -12,6 +12,8 @@ return [
     'Australia (East)' => 'オーストラリア（東部）',
     'Australia (East, DST)' => 'オーストラリア（東部・夏時間あり）',
     'Australia (West)' => 'オーストラリア（西部）',
+    'Avg Dead' => '平均Death',
+    'Avg Killed' => '平均Kill',
     'Back' => '戻る',
     'Battle Count' => 'バトル数',
     'Battle End' => 'バトル終了',

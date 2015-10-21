@@ -39,9 +39,6 @@
     </p>
 *}}
 
-    <h2>
-      {{'Battles'|translate:'app'|escape}}
-    </h2>
     <div class="row">
       <div class="col-xs-12 col-sm-4 col-md-4 col-lg-3 pull-right" style="padding:15px">
         <div style="border:1px solid #ccc;border-radius:5px;padding:15px">
@@ -59,42 +56,120 @@
           {{/ActiveForm}}
         </div>
       </div>
-      <div class="col-xs-12 col-sm-8 col-md-8 col-lg-9 table-responsive" id="battles">
-        {{ListView::widget([
-            'dataProvider' => $battleDataProvider,
-            'itemView' => 'battle.tablerow.tpl',
-            'itemOptions' => [ 'tag' => false ],
-            'layout' => '{summary}{pager}'
-          ])}}
-        <table class="table table-striped table-condensed">
-          <thead>
-            <tr>
-              <th></th>
-              <th class="cell-lobby">{{'Game Mode'|translate:'app'|escape}}</th>
-              <th class="cell-rule">{{'Rule'|translate:'app'|escape}}</th>
-              <th class="cell-map">{{'Map'|translate:'app'|escape}}</th>
-              <th class="cell-main-weapon">{{'Weapon'|translate:'app'|escape}}</th>
-              <th class="cell-sub-weapon">{{'Sub Weapon'|translate:'app'|escape}}</th>
-              <th class="cell-special">{{'Special'|translate:'app'|escape}}</th>
-              <th class="cell-rank">{{'Rank'|translate:'app'|escape}}</th>
-              <th class="cell-level">{{'Level'|translate:'app'|escape}}</th>
-              <th class="cell-result">{{'Result'|translate:'app'|escape}}</th>
-              <th class="cell-kd">{{'k'|translate:'app'|escape}}/{{'d'|translate:'app'|escape}}</th>
-              <th class="cell-kill-ratio">{{'Kill Ratio'|translate:'app'|escape}}</th>
-              <th class="cell-point">{{'Turf Inked'|translate:'app'|escape}}</th>
-              <th class="cell-datetime">{{'Date Time'|translate:'app'|escape}}</th>
-              <th class="cell-reltime">{{'Relative Time'|translate:'app'|escape}}</th>
-            </tr>
-          </thead>
-          <tbody>
-            {{ListView::widget([
+      <div class="col-xs-12 col-sm-8 col-md-8 col-lg-9">
+        <div class="text-right">
+          {{ListView::widget([
               'dataProvider' => $battleDataProvider,
               'itemView' => 'battle.tablerow.tpl',
               'itemOptions' => [ 'tag' => false ],
-              'layout' => '{items}'
+              'layout' => '{pager}'
             ])}}
-          </tbody>
-        </table>
+        </div>
+        <div style="margin-bottom:15px">
+          <div class="row">
+            <div class="col-xs-4 col-sm-4 col-md-2 col-lg-2">
+              <div class="user-label">{{'Battles'|translate:'app'|escape}}</div>
+              <div class="user-number">{{$summary->battle_count|number_format|escape}}</div>
+            </div>
+            <div class="col-xs-4 col-sm-4 col-md-2 col-lg-2">
+              <div class="user-label">{{'WP'|translate:'app'|escape}}</div>
+              <div class="user-number">
+                {{if $summary->wp === null}}
+                  {{'N/A'|translate:'app'|escape}}
+                {{else}}
+                  {{$summary->wp|string_format:'%.2f%%'|escape}}
+                {{/if}}
+              </div>
+            </div>
+            <div class="col-xs-4 col-sm-4 col-md-2 col-lg-2">
+              <div class="user-label">{{'24H WP'|translate:'app'|escape}}</div>
+              <div class="user-number">
+                {{if $summary->wp_short === null}}
+                  {{'N/A'|translate:'app'|escape}}
+                {{else}}
+                  {{$summary->wp_short|string_format:'%.2f%%'|escape}}
+                {{/if}}
+              </div>
+            </div>
+            <div class="col-xs-4 col-sm-4 col-md-2 col-lg-2">
+              <div class="user-label">{{'Avg Killed'|translate:'app'|escape}}</div>
+              <div class="user-number">
+                {{if $summary->kd_present > 0}}
+                  {{($summary->total_kill/$summary->kd_present)|string_format:'%.2f'|escape}}
+                {{else}}
+                  -
+                {{/if}}
+              </div>
+            </div>
+            <div class="col-xs-4 col-sm-4 col-md-2 col-lg-2">
+              <div class="user-label">{{'Avg Dead'|translate:'app'|escape}}</div>
+              <div class="user-number">
+                {{if $summary->kd_present > 0}}
+                  {{($summary->total_death/$summary->kd_present)|string_format:'%.2f'|escape}}
+                {{else}}
+                  -
+                {{/if}}
+              </div>
+            </div>
+            <div class="col-xs-4 col-sm-4 col-md-2 col-lg-2">
+              <div class="user-label">{{'Kill Ratio'|translate:'app'|escape}}</div>
+              <div class="user-number">
+                {{if $summary->kd_present > 0}}
+                  {{if $summary->total_death == 0}}
+                    {{if $summary->total_kill}}
+                      {{'N/A'|translate:'app'|escape}}
+                    {{else}}
+                      ∞
+                    {{/if}}
+                  {{else}}
+                    {{($summary->total_kill/$summary->total_death)|string_format:'%.2f'|escape}}
+                  {{/if}}
+                {{else}}
+                  -
+                {{/if}}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="table-responsive" id="battles">
+          <table class="table table-striped table-condensed">
+            <thead>
+              <tr>
+                <th></th>
+                <th class="cell-lobby">{{'Game Mode'|translate:'app'|escape}}</th>
+                <th class="cell-rule">{{'Rule'|translate:'app'|escape}}</th>
+                <th class="cell-map">{{'Map'|translate:'app'|escape}}</th>
+                <th class="cell-main-weapon">{{'Weapon'|translate:'app'|escape}}</th>
+                <th class="cell-sub-weapon">{{'Sub Weapon'|translate:'app'|escape}}</th>
+                <th class="cell-special">{{'Special'|translate:'app'|escape}}</th>
+                <th class="cell-rank">{{'Rank'|translate:'app'|escape}}</th>
+                <th class="cell-level">{{'Level'|translate:'app'|escape}}</th>
+                <th class="cell-result">{{'Result'|translate:'app'|escape}}</th>
+                <th class="cell-kd">{{'k'|translate:'app'|escape}}/{{'d'|translate:'app'|escape}}</th>
+                <th class="cell-kill-ratio">{{'Kill Ratio'|translate:'app'|escape}}</th>
+                <th class="cell-point">{{'Turf Inked'|translate:'app'|escape}}</th>
+                <th class="cell-datetime">{{'Date Time'|translate:'app'|escape}}</th>
+                <th class="cell-reltime">{{'Relative Time'|translate:'app'|escape}}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {{ListView::widget([
+                'dataProvider' => $battleDataProvider,
+                'itemView' => 'battle.tablerow.tpl',
+                'itemOptions' => [ 'tag' => false ],
+                'layout' => '{items}'
+              ])}}
+            </tbody>
+          </table>
+        </div>
+        <div class="text-right">
+          {{ListView::widget([
+              'dataProvider' => $battleDataProvider,
+              'itemView' => 'battle.tablerow.tpl',
+              'itemOptions' => [ 'tag' => false ],
+              'layout' => '{pager}'
+            ])}}
+        </div>
       </div>
       <div class="col-xs-12 col-sm-4 col-md-4 col-lg-3 pull-right">
         {{include file="@app/views/includes/user-miniinfo.tpl" user=$user}}

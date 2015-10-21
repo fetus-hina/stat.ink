@@ -41,6 +41,7 @@ class UserAction extends BaseAction
         if ($filter->validate()) {
             $battle->filter($filter);
         }
+        $summary = $battle->summary;
 
         $isPjax = $request->isPjax;
         return $this->controller->render('user.tpl', [
@@ -49,6 +50,7 @@ class UserAction extends BaseAction
                 'query' => $battle,
                 'pagination' => ['pageSize' => 100 ]
             ]),
+            'summary'   => $summary,
             'filter'    => $filter,
             'lobbies'   => $isPjax ? [] : $this->makeLobbiesList(),
             'rules'     => $isPjax ? [] : $this->makeRulesList(),
@@ -211,5 +213,9 @@ class UserAction extends BaseAction
             },
             $user->userWeapons
         );
+    }
+
+    private function getSummary($filter)
+    {
     }
 }

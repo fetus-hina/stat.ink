@@ -219,6 +219,4 @@
   </div>
 {{/strip}}
 {{registerCss}}
-#user-miniinfo .user-label{text-overflow:ellipsis;white-space:nowrap;overflow:hidden}
-#user-miniinfo hr{margin-top:5px;margin-bottom:5px}
 {{/registerCss}}
