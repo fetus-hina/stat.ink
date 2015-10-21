@@ -81,83 +81,170 @@ class UserStat extends \yii\db\ActiveRecord
 
     public function createCurrentData()
     {
+        $db = Yii::$app->db;
         static $nawabari = null;
         if ($nawabari === null) {
             $nawabari = Rule::findOne(['key' => 'nawabari'])->id;
         }
+        $condIsNawabari = sprintf('({{battle}}.[[rule_id]] = %s)', $db->quoteValue($nawabari));
+        $condIsGachi = sprintf('({{battle}}.[[rule_id]] <> %s)', $db->quoteValue($nawabari));
+
+        static $private = null;
+        if ($private === null) {
+            $private = Lobby::findOne(['key' => 'private'])->id;
+        }
+        $condIsNotPrivate = sprintf(
+            '({{battle}}.[[lobby_id]] IS NULL OR {{battle}}.[[lobby_id]] <> %s)',
+            $db->quoteValue($private)
+        );
 
         $now = isset($_SERVER['REQUEST_TIME']) ? $_SERVER['REQUEST_TIME'] : time();
-        $shortCondition = sprintf(
+        $cond24Hours = sprintf(
             '(({{battle}}.[[end_at]] IS NOT NULL) AND ({{battle}}.[[end_at]] BETWEEN %s AND %s))',
-            Yii::$app->db->quoteValue(gmdate('Y-m-d H:i:sO', $now - 86400 + 1)),
-            Yii::$app->db->quoteValue(gmdate('Y-m-d H:i:sO', $now))
+            $db->quoteValue(gmdate('Y-m-d H:i:sO', $now - 86400 + 1)),
+            $db->quoteValue(gmdate('Y-m-d H:i:sO', $now))
         );
+
+        $condKDPresent = sprintf('(%s)', implode(' AND ', [
+            '{{battle}}.[[kill]] IS NOT NULL',
+            '{{battle}}.[[death]] IS NOT NULL',
+        ]));
 
         $column_battle_count = "COUNT(*)";
         $column_wp = sprintf(
-            "(%s * 100.0 / NULLIF(%s, 0))",
-            "SUM(CASE WHEN {{battle}}.[[is_win]] = TRUE THEN 1 ELSE 0 END)",
-            "SUM(CASE WHEN {{battle}}.[[is_win]] IS NULL THEN 0 ELSE 1 END)"
+            '(%s * 100.0 / NULLIF(%s, 0))',
+            sprintf(
+                'SUM(CASE WHEN (%s) THEN 1 ELSE 0 END)',
+                implode(' AND ', [
+                    $condIsNotPrivate,
+                    '{{battle}}.[[is_win]] = TRUE',
+                ])
+            ),
+            sprintf(
+                'SUM(CASE WHEN (%s) THEN 1 ELSE 0 END)',
+                implode(' AND ', [
+                    $condIsNotPrivate,
+                    '{{battle}}.[[is_win]] IS NOT NULL',
+                ])
+            )
         );
         $column_wp_short = sprintf(
             "(%s * 100.0 / NULLIF(%s, 0))",
-            "SUM(CASE WHEN {$shortCondition} AND {{battle}}.[[is_win]] = TRUE THEN 1 ELSE 0 END)",
-            "SUM(CASE WHEN {$shortCondition} AND {{battle}}.[[is_win]] IS NOT NULL THEN 1 ELSE 0 END)"
+            sprintf(
+                'SUM(CASE WHEN (%s) THEN 1 ELSE 0 END)',
+                implode(' AND ', [
+                    $condIsNotPrivate,
+                    $cond24Hours,
+                    '{{battle}}.[[is_win]] = TRUE',
+                ])
+            ),
+            sprintf(
+                'SUM(CASE WHEN (%s) THEN 1 ELSE 0 END)',
+                implode(' AND ', [
+                    $condIsNotPrivate,
+                    $cond24Hours,
+                    '{{battle}}.[[is_win]] IS NOT NULL',
+                ])
+            )
         );
         $column_total_kill = sprintf(
-            "SUM(%s)",
-            "CASE WHEN " .
-            "{{battle}}.[[kill]] IS NOT NULL AND {{battle}}.[[death]] IS NOT NULL " .
-            "THEN {{battle}}.[[kill]] " .
-            "ELSE 0 END"
+            'SUM(CASE WHEN (%s) THEN {{battle}}.[[kill]] ELSE 0 END)',
+            implode(' AND ', [
+                $condIsNotPrivate,
+                $condKDPresent,
+            ])
         );
         $column_total_death = sprintf(
-            "SUM(%s)",
-            "CASE WHEN {{battle}}.[[kill]] IS NOT NULL AND {{battle}}.[[death]] IS NOT NULL " .
-            "THEN {{battle}}.[[death]] " .
-            "ELSE 0 END"
+            'SUM(CASE WHEN (%s) THEN {{battle}}.[[death]] ELSE 0 END)',
+            implode(' AND ', [
+                $condIsNotPrivate,
+                $condKDPresent,
+            ])
         );
-        $column_nawabari_count = "SUM(CASE WHEN {{battle}}.[[rule_id]] = {$nawabari} THEN 1 ELSE 0 END)";
+        $column_nawabari_count = sprintf(
+            'SUM(CASE WHEN (%s) THEN 1 ELSE 0 END)',
+            implode(' AND ', [
+                $condIsNotPrivate,
+                $condIsNawabari,
+            ])
+        );
         $column_nawabari_wp = sprintf(
-            "(%s * 100.0 / NULLIF(%s, 0))",
-            "SUM(CASE WHEN {{battle}}.[[rule_id]] = {$nawabari} AND {{battle}}.[[is_win]] = TRUE THEN 1 ELSE 0 END)",
-            "SUM(CASE WHEN {{battle}}.[[rule_id]] = {$nawabari} AND {{battle}}.[[is_win]] IS NOT NULL " .
-            "THEN 1 ELSE 0 END)"
+            '(%s * 100.0 / NULLIF(%s, 0))',
+            sprintf(
+                'SUM(CASE WHEN (%s) THEN 1 ELSE 0 END)',
+                implode(' AND ', [
+                    $condIsNotPrivate,
+                    $condIsNawabari,
+                    '{{battle}}.[[is_win]] = TRUE',
+                ])
+            ),
+            sprintf(
+                'SUM(CASE WHEN (%s) THEN 1 ELSE 0 END)',
+                implode(' AND ', [
+                    $condIsNotPrivate,
+                    $condIsNawabari,
+                    '{{battle}}.[[is_win]] IS NOT NULL',
+                ])
+            )
         );
         $column_nawabari_kill = sprintf(
-            "SUM(%s)",
-            "CASE WHEN {{battle}}.[[rule_id]] = {$nawabari} AND " .
-            "{{battle}}.[[kill]] IS NOT NULL AND {{battle}}.[[death]] IS NOT NULL " .
-            "THEN {{battle}}.[[kill]] " .
-            "ELSE 0 END"
+            'SUM(CASE WHEN (%s) THEN {{battle}}.[[kill]] ELSE 0 END)',
+            implode(' AND ', [
+                $condIsNotPrivate,
+                $condIsNawabari,
+                $condKDPresent,
+            ])
         );
         $column_nawabari_death = sprintf(
-            "SUM(%s)",
-            "CASE WHEN {{battle}}.[[rule_id]] = {$nawabari} AND " .
-            "{{battle}}.[[kill]] IS NOT NULL AND {{battle}}.[[death]] IS NOT NULL " .
-            "THEN {{battle}}.[[death]] " .
-            "ELSE 0 END"
+            'SUM(CASE WHEN (%s) THEN {{battle}}.[[death]] ELSE 0 END)',
+            implode(' AND ', [
+                $condIsNotPrivate,
+                $condIsNawabari,
+                $condKDPresent,
+            ])
         );
-        $column_gachi_count = "SUM(CASE WHEN {{battle}}.[[rule_id]] <> {$nawabari} THEN 1 ELSE 0 END)";
+
+        $column_gachi_count = sprintf(
+            'SUM(CASE WHEN (%s) THEN 1 ELSE 0 END)',
+            implode(' AND ', [
+                $condIsNotPrivate,
+                $condIsGachi,
+            ])
+        );
         $column_gachi_wp = sprintf(
-            "(%s * 100.0 / NULLIF(%s, 0))",
-            "SUM(CASE WHEN {{battle}}.[[rule_id]] <> {$nawabari} AND {{battle}}.[[is_win]] = TRUE THEN 1 ELSE 0 END)",
-            "SUM(CASE WHEN {{battle}}.[[rule_id]] <> {$nawabari} AND {{battle}}.[[is_win]] IS NOT NULL " .
-            "THEN 1 ELSE 0 END)"
+            '(%s * 100.0 / NULLIF(%s, 0))',
+            sprintf(
+                'SUM(CASE WHEN (%s) THEN 1 ELSE 0 END)',
+                implode(' AND ', [
+                    $condIsNotPrivate,
+                    $condIsGachi,
+                    '{{battle}}.[[is_win]] = TRUE',
+                ])
+            ),
+            sprintf(
+                'SUM(CASE WHEN (%s) THEN 1 ELSE 0 END)',
+                implode(' AND ', [
+                    $condIsNotPrivate,
+                    $condIsGachi,
+                    '{{battle}}.[[is_win]] IS NOT NULL',
+                ])
+            )
         );
         $column_gachi_kill = sprintf(
-            "SUM(%s)",
-            "CASE WHEN {{battle}}.[[rule_id]] <> {$nawabari} AND " .
-            "{{battle}}.[[kill]] IS NOT NULL AND {{battle}}.[[death]] IS NOT NULL " .
-            "THEN {{battle}}.[[kill]] " .
-            "ELSE 0 END"
+            'SUM(CASE WHEN (%s) THEN {{battle}}.[[kill]] ELSE 0 END)',
+            implode(' AND ', [
+                $condIsNotPrivate,
+                $condIsGachi,
+                $condKDPresent,
+            ])
         );
         $column_gachi_death = sprintf(
-            "SUM(%s)",
-            "CASE WHEN {{battle}}.[[rule_id]] <> {$nawabari} AND " .
-            "{{battle}}.[[kill]] IS NOT NULL AND {{battle}}.[[death]] IS NOT NULL " .
-            "THEN {{battle}}.[[death]] " .
-            "ELSE 0 END"
+            'SUM(CASE WHEN (%s) THEN {{battle}}.[[death]] ELSE 0 END)',
+            implode(' AND ', [
+                $condIsNotPrivate,
+                $condIsGachi,
+                $condKDPresent,
+            ])
         );
 
         $query = (new \yii\db\Query())
@@ -178,6 +265,7 @@ class UserStat extends \yii\db\ActiveRecord
             ])
             ->from('battle')
             ->andWhere(['{{battle}}.[[user_id]]' => $this->user_id]);
+
         $this->attributes =  $query->createCommand()->queryOne();
         
         $keys = [
@@ -188,5 +276,7 @@ class UserStat extends \yii\db\ActiveRecord
         foreach ($keys as $key) {
             $this->$key = (int)$this->$key;
         }
+
+        return $this;
     }
 }
