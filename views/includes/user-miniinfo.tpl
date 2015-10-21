@@ -189,6 +189,12 @@
           </a>
         </p>
       {{/if}}
+      {{if $user->mainWeapon}}
+        <div style="margin:15px 0 0">
+          {{'Favorite Weapon'|translate:'app'|escape}}:&#32;
+          {{$user->mainWeapon->name|translate:'app-weapon'|escape}}
+        </div>
+      {{/if}}
       <div style="margin:15px 0 0">
         <div>
           NNID:&#32;

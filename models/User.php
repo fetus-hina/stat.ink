@@ -117,6 +117,14 @@ class User extends ActiveRecord implements IdentityInterface
         return $this->hasMany(Weapon::className(), ['id' => 'weapon_id'])->viaTable('user_weapon', ['user_id' => 'id']);
     }
 
+    public function getMainWeapon()
+    {
+        return $this->hasOne(Weapon::className(), ['id' => 'weapon_id'])
+            ->viaTable('user_weapon', ['user_id' => 'id'], function ($query) {
+                $query->orderBy('{{user_weapon}}.[[count]] DESC')->limit(1);
+            });
+    }
+
     public function getLatestBattleResultImage()
     {
         return $this

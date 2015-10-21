@@ -32,6 +32,7 @@ return [
     'European Time (Central)' => 'ヨーロッパ時間（中央）',
     'European Time (East)' => 'ヨーロッパ時間（東部）',
     'European Time (West)' => 'ヨーロッパ時間（西部）',
+    'Favorite Weapon' => 'お気にのブキ',
     'Feedback or propose is very welcome. Contact to GitHub project or my Twitter.' => 'バグの報告・改善の提案などがありましたら、 GitHubのプロジェクトに報告・提案するか、ツイッターアカウントへご連絡ください。',
     'Game Mode' => 'ゲームモード',
     'Girl' => 'ガール',
