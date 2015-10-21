@@ -55,11 +55,27 @@ class Version
 
     private static function getGitLog($format)
     {
-        $cmdline = sprintf(
-            '/usr/bin/env %s log -n 1 --format=%s',
-            escapeshellarg('git'),
+        $gitCommand = sprintf(
+            'git log -n 1 --format=%s',
             escapeshellarg($format)
         );
+
+        // FIXME: scl git19 があればそれを、無ければpathの通ったgitを使うひどい場当たりhack
+        if (file_exists('/usr/bin/scl') &&
+                is_executable('/usr/bin/scl') && 
+                file_exists('/opt/rh/git19/enable')
+        ) {
+            $cmdline = sprintf(
+                '/usr/bin/scl enable git19 %s',
+                escapeshellarg($gitCommand)
+            );
+        } else {
+            $cmdline = sprintf(
+                '/bin/bash -c %s',
+                escapeshellarg($gitCommand)
+            );
+        }
+
         $lines = $status = null;
         $line = exec($cmdline, $lines, $status);
         if ($status !== 0) {
