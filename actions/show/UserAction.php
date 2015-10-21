@@ -53,7 +53,7 @@ class UserAction extends BaseAction
             'lobbies'   => $isPjax ? [] : $this->makeLobbiesList(),
             'rules'     => $isPjax ? [] : $this->makeRulesList(),
             'maps'      => $isPjax ? [] : $this->makeMapsList(),
-            'weapons'   => $isPjax ? [] : $this->makeWeaponsList(),
+            'weapons'   => $isPjax ? [] : $this->makeWeaponsList($user),
             'results'   => [
                 ''      => Yii::t('app', 'Won / Lost'),
                 'win'   => Yii::t('app', 'Won'),
@@ -111,24 +111,29 @@ class UserAction extends BaseAction
         );
     }
 
-    private function makeWeaponsList()
+    private function makeWeaponsList(User $user)
     {
         return array_merge(
-            $this->makeWeaponsListWeaponsAndTypes(),
-            $this->makeWeaponsListSubweapons(),
-            $this->makeWeaponsListSpecials()
+            $this->makeWeaponsListWeaponsAndTypes($user),
+            $this->makeWeaponsListSubweapons($user),
+            $this->makeWeaponsListSpecials($user)
         );
     }
 
-    private function makeWeaponsListWeaponsAndTypes()
+    private function makeWeaponsListWeaponsAndTypes(User $user)
     {
+        $userUsedWeapons = $this->getUsedWeaponIdList($user);
+
         $ret = [];
         $types = WeaponType::find()->orderBy('[[id]] ASC')->all();
         foreach ($types as $type) {
             $typeName = Yii::t('app-weapon', $type->name);
 
             $tmp = [];
-            $weapons = Weapon::find()->andWhere(['type_id' => $type->id])->all();
+            $weapons = Weapon::find()
+                ->andWhere(['{{weapon}}.[[type_id]]' => $type->id])
+                ->andWhere(['in', '{{weapon}}.[[id]]', $userUsedWeapons])
+                ->all();
             foreach ($weapons as $weapon) {
                 $tmp[$weapon->key] = Yii::t('app-weapon', $weapon->name);
             }
@@ -138,7 +143,7 @@ class UserAction extends BaseAction
                     ['@' . $type->key => Yii::t('app-weapon', 'All of {0}', $typeName)],
                     $tmp
                 );
-            } else {
+            } elseif (count($tmp) === 1) {
                 $ret[$typeName] = $tmp;
             }
         }
@@ -148,11 +153,24 @@ class UserAction extends BaseAction
         );
     }
 
-    private function makeWeaponsListSubweapons()
+    private function makeWeaponsListSubweapons(User $user)
     {
+        $query = Subweapon::find()
+            ->andWhere(['in', 'id',
+                array_map(
+                    function ($model) {
+                        return $model->subweapon_id;
+                    },
+                    Weapon::findAll($this->getUsedWeaponIdList($user))
+                )
+            ]);
+
         $ret = [];
-        foreach (Subweapon::find()->all() as $item) {
+        foreach ($query->all() as $item) {
             $ret['+' . $item->key] = Yii::t('app-subweapon', $item->name);
+        }
+        if (count($ret) < 2) {
+            return [];
         }
         asort($ret);
         return [
@@ -160,15 +178,38 @@ class UserAction extends BaseAction
         ];
     }
 
-    private function makeWeaponsListSpecials()
+    private function makeWeaponsListSpecials(User $user)
     {
+        $query = Special::find()
+            ->andWhere(['in', 'id',
+                array_map(
+                    function ($model) {
+                        return $model->special_id;
+                    },
+                    Weapon::findAll($this->getUsedWeaponIdList($user))
+                )
+            ]);
+
         $ret = [];
-        foreach (Special::find()->all() as $item) {
+        foreach ($query->all() as $item) {
             $ret['*' . $item->key] = Yii::t('app-special', $item->name);
+        }
+        if (count($ret) < 2) {
+            return [];
         }
         asort($ret);
         return [
             Yii::t('app', 'Special') => $ret
         ];
+    }
+
+    private function getUsedWeaponIdList(User $user)
+    {
+        return array_map(
+            function ($model) {
+                return (int)$model->weapon_id;
+            },
+            $user->userWeapons
+        );
     }
 }
