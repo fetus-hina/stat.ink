@@ -1,0 +1,30 @@
+diff -ur rh-php56.o/php-fpm.d/www.conf rh-php56/php-fpm.d/www.conf
+--- rh-php56.o/php-fpm.d/www.conf       2015-10-14 19:08:56.645457712 +0000
++++ rh-php56/php-fpm.d/www.conf 2015-10-14 19:25:03.065407480 +0000
+@@ -20,7 +20,7 @@
+ ; Note: The user is mandatory. If the group is not set, the default user's group
+ ;       will be used.
+ ; RPM: apache Choosed to be able to access some dir as httpd
+-user = apache
++user = statink
+ ; RPM: Keep a group allowed to write in log dir.
+ group = apache
+
+@@ -416,3 +416,5 @@
+ php_value[session.save_path]    = /var/opt/rh/rh-php56/lib/php/session
+ php_value[soap.wsdl_cache_dir]  = /var/opt/rh/rh-php56/lib/php/wsdlcache
+
++php_admin_value[upload_max_filesize] = 10M
++php_admin_value[post_max_size] = 11M
+diff -ur rh-php56.o/php.ini rh-php56/php.ini
+--- rh-php56.o/php.ini  2015-10-14 19:08:56.641457712 +0000
++++ rh-php56/php.ini    2015-10-14 19:19:01.126426292 +0000
+@@ -363,7 +363,7 @@
+ ; threat in any way, but it makes it possible to determine whether you use PHP
+ ; on your server or not.
+ ; http://php.net/expose-php
+-expose_php = On
++expose_php = Off
+
+ ;;;;;;;;;;;;;;;;;;;
+ ; Resource Limits ;

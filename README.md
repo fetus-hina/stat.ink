@@ -16,10 +16,11 @@ https://stat.ink/ のソースコードです。
 
 * PHP 5.5+
 * PostgreSQL 9.x
+* ImageMagick (`convert`)
 * Node.js (`npm`)
-* pngcrush
-* jpegoptim
 * cwebp
+* jpegoptim
+* pngcrush
 
 https://stat.ink/ は現在次の構成で動作しています。
 
@@ -96,6 +97,20 @@ git fetch --all && \
   make && \
   rm -rfv web/assets/* runtime/Smarty/compile/*
 ```
+
+
+### DOCKER ###
+
+テスト環境構築用の `Dockerfile` が同梱されています。あるいは、Docker Hub の [`jp3cki/statink`](https://hub.docker.com/r/jp3cki/statink/) でビルド済みのイメージが取得できます。
+
+主要なソフトウェアのバージョンが合わせてあるため、本番環境とほぼ同じ環境ができあがるはずです。
+
+データの永続化に関する配慮は一切ありません。つまり、コンテナを起動する度にユーザやバトルは全部消えます。
+
+現在の作業ディレクトリの中身が `/home/statink/stat.ink` にデプロイされます。その際 `vendor` などは一度消され、再構成されます。
+
+コンテナを起動すると 80/TCP で Nginx が待ち受けています。ここへ接続して使用します。必要であれば `docker run` する時に `-p 8080:80` のように任意のポートにマップしてください。
+
 
 API
 ---

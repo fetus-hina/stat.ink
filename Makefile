@@ -21,6 +21,10 @@ init: \
 	config/db.php \
 	resource
 
+docker: all
+	sudo docker build -t jp3cki/statink .
+
+
 resource: $(RESOURCE_TARGETS)
 
 composer-plugin: composer.phar
