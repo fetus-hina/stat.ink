@@ -1,7 +1,7 @@
 <?php
 /**
  * @copyright Copyright (C) 2015 AIZAWA Hina
- * @license https://github.com/fetus-hina/fest.ink/blob/master/LICENSE MIT
+ * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  *
  * @link http://www.yiiframework.com/
