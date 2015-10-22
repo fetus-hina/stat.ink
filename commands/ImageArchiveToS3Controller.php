@@ -40,8 +40,8 @@ class ImageArchiveToS3Controller extends Controller
             if (preg_match('/^(\d+-\w+)\.png$/', $entry->getBasename(), $match)) {
                 $tmpFile = new Resource(tempnam('s3up-', sys_get_temp_dir()), 'unlink');
                 if ($this->convertToWebP($entry->getPathname(), $tmpFile->get()) &&
-                        $this->upload($tmpFile->get(), $match[1] . '.webp'))
-                {
+                        $this->upload($tmpFile->get(), $match[1] . '.webp')
+                ) {
                     unlink($entry->getPathname());
                 }
             }

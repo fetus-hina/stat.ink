@@ -62,7 +62,7 @@ class Version
 
         // FIXME: scl git19 があればそれを、無ければpathの通ったgitを使うひどい場当たりhack
         if (file_exists('/usr/bin/scl') &&
-                is_executable('/usr/bin/scl') && 
+                is_executable('/usr/bin/scl') &&
                 file_exists('/opt/rh/git19/enable')
         ) {
             $cmdline = sprintf(

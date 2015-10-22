@@ -85,20 +85,20 @@ class BattleImage extends ActiveRecord
         return Url::to($path, true);
     }
 
-    private $_deleteFilename;
+    private $deleteFilename;
     public function beforeDelete()
     {
         if (!parent::beforeDelete()) {
             return false;
         }
-        $this->_deleteFilename = $this->filename;
+        $this->deleteFilename = $this->filename;
         return true;
     }
 
     public function afterDelete()
     {
-        if ($this->_deleteFilename) {
-            $path = Yii::getAlias('@app/web/images') . '/' . $this->_deleteFilename;
+        if ($this->deleteFilename) {
+            $path = Yii::getAlias('@app/web/images') . '/' . $this->deleteFilename;
             foreach (['.jpg', '.webp'] as $ext) {
                 $path2 = preg_replace('/\.jpg$/', $ext, $path);
                 if (file_exists($path2) && is_file($path2)) {

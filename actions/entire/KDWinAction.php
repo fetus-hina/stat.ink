@@ -74,7 +74,7 @@ class KDWinAction extends BaseAction
             ])
             ->from('battle')
             ->leftJoin('lobby', '{{battle}}.[[lobby_id]] = {{lobby}}.[[id]]')
-            ->andWhere(['or', 
+            ->andWhere(['or',
                 ['{{battle}}.[[lobby_id]]' => null],
                 ['<>', '{{lobby}}.[[key]]', 'private'],
             ])

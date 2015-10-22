@@ -42,8 +42,12 @@ class UsersAction extends BaseAction
     {
         $t2 = isset($_SERVER['REQUEST_TIME']) ? $_SERVER['REQUEST_TIME'] : time();
         $t1 = gmmktime(
-            gmdate('H', $t2), gmdate('i', $t2), gmdate('s', $t2) + 1,
-            gmdate('n', $t2), gmdate('j', $t2) - 1, gmdate('Y', $t2)
+            gmdate('H', $t2),
+            gmdate('i', $t2),
+            gmdate('s', $t2) + 1,
+            gmdate('n', $t2),
+            gmdate('j', $t2) - 1,
+            gmdate('Y', $t2)
         );
         $query = (new \yii\db\Query())
             ->select([
@@ -54,7 +58,7 @@ class UsersAction extends BaseAction
             ])
             ->from('battle')
             ->innerJoin('agent', '{{battle}}.[[agent_id]] = {{agent}}.[[id]]')
-            ->andWhere(['between', '{{battle}}.[[at]]', 
+            ->andWhere(['between', '{{battle}}.[[at]]',
                 gmdate('Y-m-d\TH:i:sP', $t1),
                 gmdate('Y-m-d\TH:i:sP', $t2)])
             ->groupBy('{{battle}}.[[agent_id]]')

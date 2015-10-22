@@ -82,7 +82,9 @@ class BattleAction extends BaseAction
                 $agent->version = (string)$form->agent_version;
             }
             return $this->runGetImpl2(
-                $battle, $deathReasons, $agent
+                $battle,
+                $deathReasons,
+                $agent
             );
         }
 
@@ -155,9 +157,9 @@ class BattleAction extends BaseAction
                 $binary,
                 $imageOutputDir . '/' . $image->filename,
                 $imageOutputDir . '/' . str_replace('.jpg', '.webp', $image->filename),
-                $imageArchiveOutputDir 
+                ($imageArchiveOutputDir
                     ? ($imageArchiveOutputDir . '/' . sprintf('%d-judge.png', $battle->id))
-                    : null
+                    : null)
             )) {
                 return $this->formatError([
                     'system' => [
@@ -181,9 +183,9 @@ class BattleAction extends BaseAction
                 $binary,
                 $imageOutputDir . '/' . $image->filename,
                 $imageOutputDir . '/' . str_replace('.jpg', '.webp', $image->filename),
-                $imageArchiveOutputDir 
-                    ? ($imageArchiveOutputDir . '/' . sprintf('%d-result.png', $battle->id))
-                    : null
+                $imageArchiveOutputDir
+                ? ($imageArchiveOutputDir . '/' . sprintf('%d-result.png', $battle->id))
+                : null
             )) {
                 return $this->formatError([
                     'system' => [

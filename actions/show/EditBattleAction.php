@@ -105,7 +105,7 @@ class EditBattleAction extends BaseAction
             $ret[$map->id] = Yii::t('app-map', $map->name);
         }
         asort($ret);
-        return static::array_merge(
+        return static::arrayMerge(
             ['' => Yii::t('app', 'Unknown')],
             $ret
         );
@@ -126,13 +126,13 @@ class EditBattleAction extends BaseAction
             asort($tmp);
             $ret[$typeName] = $tmp;
         }
-        return static::array_merge(
+        return static::arrayMerge(
             ['' => Yii::t('app', 'Unknown')],
             $ret
         );
     }
 
-    private static function array_merge()
+    private static function arrayMerge()
     {
         $ret = [];
         foreach (func_get_args() as $arg) {

@@ -57,7 +57,8 @@ class WeaponsAction extends BaseAction
         }, $list);
     }
 
-    public function getWeapons(array $weaponIdList) {
+    public function getWeapons(array $weaponIdList)
+    {
         $list = Weapon::find()
             ->andWhere(['in', '{{weapon}}.[[id]]', $weaponIdList])
             ->all();
