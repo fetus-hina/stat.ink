@@ -114,6 +114,7 @@ $config = [
                         'app-death' => 'death.php',
                         'app-map' => 'map.php',
                         'app-rank' => 'rank.php',
+                        'app-reltime' => 'reltime.php',
                         'app-rule' => 'rule.php',
                         'app-special' => 'special.php',
                         'app-subweapon' => 'subweapon.php',
