@@ -41,8 +41,8 @@ class PostBattleForm extends Model
     public $kill;
     public $death;
     public $death_reasons;
-    public $fest_gender;
-    public $fest_rank;
+    public $gender;
+    public $fest_title;
     public $my_team_color;
     public $his_team_color;
     public $image_judge;
@@ -90,9 +90,9 @@ class PostBattleForm extends Model
             [['rank_in_team'], 'integer', 'min' => 1, 'max' => 4],
             [['kill', 'death'], 'integer', 'min' => 0],
             [['death_reasons'], 'validateDeathReasons'],
-            [['fest_gender'], 'in', 'range' => [ 'boy', 'girl']],
-            [['fest_rank'], 'filter', 'filter' => 'strtolower'],
-            [['fest_rank'], 'exist',
+            [['gender'], 'in', 'range' => [ 'boy', 'girl']],
+            [['fest_title'], 'filter', 'filter' => 'strtolower'],
+            [['fest_title'], 'exist',
                 'targetClass' => FestTitle::className(),
                 'targetAttribute' => 'key'],
             [['my_team_color', 'his_team_color'], 'validateTeamColor'],
@@ -244,8 +244,8 @@ class PostBattleForm extends Model
         $o->rank_in_team    = $this->rank_in_team ? (int)$this->rank_in_team : null;
         $o->kill            = (string)$this->kill != '' ? (int)$this->kill : null;
         $o->death           = (string)$this->death != '' ? (int)$this->death : null;
-        $o->gender_id       = $this->fest_gender === 'boy' ? 1 : ($this->fest_gender === 'girl' ? 2 : null);
-        $o->fest_title_id   = $this->fest_rank ? FestTitle::findOne(['key' => $this->fest_rank])->id : null;
+        $o->gender_id       = $this->gender === 'boy' ? 1 : ($this->gender === 'girl' ? 2 : null);
+        $o->fest_title_id   = $this->fest_title ? FestTitle::findOne(['key' => $this->fest_title])->id : null;
         $o->my_team_color_hue = $this->my_team_color ? $this->my_team_color['hue'] : null;
         $o->my_team_color_rgb = $this->my_team_color ? vsprintf('%02x%02x%02x', $this->my_team_color['rgb']) : null;
         $o->his_team_color_hue = $this->his_team_color ? $this->his_team_color['hue'] : null;
@@ -352,10 +352,10 @@ class PostBattleForm extends Model
         if ($this->agent !== 'IkaLog' && $this->agent !== 'TakoLog') {
             return;
         }
-        if ($this->lobby === 'fest' && !$this->fest_gender && !$this->fest_rank) {
+        if ($this->lobby === 'fest' && !$this->gender && !$this->fest_title) {
             $this->lobby = 'standard';
         }
-        if ($this->lobby === 'standard' && $this->fest_gender && $this->fest_rank) {
+        if ($this->lobby === 'standard' && $this->gender && $this->fest_title) {
             $this->lobby = 'fest';
         }
     }
