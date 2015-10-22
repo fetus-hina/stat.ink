@@ -34,6 +34,7 @@ class EntireController extends Controller
         return [
             'kd-win' => [ 'class' => $prefix . '\KDWinAction' ],
             'users' => [ 'class' => $prefix . '\UsersAction' ],
+            'weapons' => [ 'class' => $prefix . '\WeaponsAction' ],
         ];
     }
 }
