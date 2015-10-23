@@ -9,14 +9,16 @@ namespace app\actions\api\v1;
 
 use DateTimeZone;
 use Yii;
+use yii\base\DynamicModel;
+use yii\helpers\Url;
 use yii\web\MethodNotAllowedHttpException;
 use yii\web\UploadedFile;
 use yii\web\ViewAction as BaseAction;
-use yii\helpers\Url;
 use app\components\helpers\DateTimeFormatter;
 use app\components\helpers\ImageConverter;
 use app\models\Agent;
 use app\models\Battle;
+use app\models\User;
 use app\models\api\v1\PostBattleForm;
 
 class BattleAction extends BaseAction
@@ -26,17 +28,83 @@ class BattleAction extends BaseAction
         $request = Yii::$app->getRequest();
         if ($request->isPost) {
             return $this->runPost();
+        } else {
+            return $this->runGet();
         }
-        
-        $id = $request->get('id');
-        if (is_scalar($id) && filter_var($id, FILTER_VALIDATE_INT) !== false) {
-            if ($battle = Battle::findOne(['id' => $id])) {
-                return $this->runGetImpl($battle);
-            } else {
-                return $this->formatError(['id' => [ 'not found']], 404);
-            }
+    }
+
+    private function runGet()
+    {
+        $request = Yii::$app->getRequest();
+        $model = DynamicModel::validateData(
+            [
+                'id' => $request->get('id'),
+                'screen_name' => $request->get('screen_name'),
+                'count' => $request->get('count'),
+                'newer_than' => $request->get('newer_than'),
+                'older_than' => $request->get('older_than'),
+            ],
+            [
+                [['id'], 'exist',
+                    'targetClass' => Battle::className(),
+                    'targetAttribute' => 'id',
+                ],
+                [['screen_name'], 'exist',
+                    'targetClass' => User::className(),
+                    'targetAttribute' => 'screen_name' ],
+                [['newer_than', 'older_than'], 'integer'],
+                [['count'], 'default', 'value' => 10],
+                [['count'], 'integer', 'min' => 1, 'max' => 100],
+            ]
+        );
+        if (!$model->validate()) {
+            return $this->formatError($model->getErrors(), 400);
         }
-        return $this->formatError(['id' => [ 'bad request' ]], 400);
+
+        $query = Battle::find()
+            ->innerJoinWith('user')
+            ->with([
+                'user',
+                'user.userStat',
+                'lobby',
+                'rule',
+                'map',
+                'weapon',
+                'weapon.subweapon',
+                'weapon.special',
+                'rank',
+                'battleImageResult',
+                'battleImageJudge',
+            ])
+            ->orderBy('{{battle}}.[[id]] DESC')
+            ->limit((int)$model->count);
+
+        if ($model->id != '') {
+            $query->andWhere(['{{battle}}.[[id]]' => $model->id]);
+        }
+        if ($model->screen_name != '') {
+            $query->andWhere(['{{user}}.[[screen_name]]' => $model->screen_name]);
+        }
+        if ($model->newer_than > 0) {
+            $query->andWhere(['>', '{{battle}}.[[id]]', $model->newer_than]);
+        }
+        if ($model->older_than > 0) {
+            $query->andWhere(['<', '{{battle}}.[[id]]', $model->older_than]);
+        }
+
+        $list = $query->all();
+        if ($model->id != '') {
+            return empty($list) ? null : $this->runGetImpl(array_shift($list));
+        }
+
+        $resp = Yii::$app->getResponse();
+        $resp->format = 'json';
+        return array_map(
+            function ($model) {
+                return $model->toJsonArray();
+            },
+            $list
+        );
     }
 
     private function runPost()
@@ -216,74 +284,16 @@ class BattleAction extends BaseAction
 
     private function runGetImpl2(Battle $battle, array $deathReasons, Agent $agent = null)
     {
-        $ret = [
-            'id' => $battle->id,
-            'url' => Url::to(['show/battle',
-                'screen_name' => $battle->user->screen_name,
-                'battle' => $battle->id,
-            ], true),
-            'user' => $battle->user ? $battle->user->toJsonArray() : null,
-            'lobby' => $battle->lobby ? $battle->lobby->toJsonArray() : null,
-            'rule' => $battle->rule ? $battle->rule->toJsonArray() : null,
-            'map' => $battle->map ? $battle->map->toJsonArray() : null,
-            'weapon' => $battle->weapon ? $battle->weapon->toJsonArray() : null,
-            'rank' => $battle->rank ? $battle->rank->toJsonArray() : null,
-            'rank_exp' => $battle->rank_exp,
-            'rank_after' => $battle->rankAfter ? $battle->rankAfter->toJsonArray() : null,
-            'rank_exp_after' => $battle->rank_exp_after,
-            'level' => $battle->level,
-            'level_after' => $battle->level_after,
-            'cash' => $battle->cash,
-            'cash_after' => $battle->cash_after,
-            'result' => $battle->is_win === true ? 'win' : ($battle->is_win === false ? 'lose' : null),
-            'rank_in_team' => $battle->rank_in_team,
-            'kill' => $battle->kill,
-            'death' => $battle->death,
-            'kill_ratio' => isset($battle->kill_ratio) ? (float)$battle->kill_ratio : null,
-            'death_reasons' => array_map(
-                function ($model) {
-                    return $model->toJsonArray();
-                },
-                $deathReasons
-            ),
-            'gender' => $battle->gender ? $battle->gender->toJsonArray() : null,
-            'fest_title' => $battle->gender && $battle->festTitle
-                ? $battle->festTitle->toJsonArray($battle->gender)
-                : null,
-            'my_point' => $battle->my_point,
-            'my_team_final_point' => $battle->my_team_final_point,
-            'his_team_final_point' => $battle->his_team_final_point,
-            'my_team_final_percent' => $battle->my_team_final_percent,
-            'his_team_final_percent' => $battle->his_team_final_percent,
-            'knock_out' => $battle->is_knock_out,
-            'my_team_count' => $battle->my_team_count,
-            'his_team_count' => $battle->his_team_count,
-            'my_team_color' => [
-                'hue' => $battle->my_team_color_hue,
-                'rgb' => $battle->my_team_color_rgb,
-            ],
-            'his_team_color' => [
-                'hue' => $battle->his_team_color_hue,
-                'rgb' => $battle->his_team_color_rgb,
-            ],
-            'image_judge' => $battle->battleImageJudge
-                ? Url::to(Yii::getAlias('@web/images') . '/' . $battle->battleImageJudge->filename, true)
-                : null,
-            'image_result' => $battle->battleImageResult
-                ? Url::to(Yii::getAlias('@web/images') . '/' . $battle->battleImageResult->filename, true)
-                : null,
-            'agent' => [
-                'name' => $agent ? $agent->name : null,
-                'version' => $agent ? $agent->version : null,
-            ],
-            'start_at' => $battle->start_at != ''
-                ? DateTimeFormatter::unixTimeToJsonArray(strtotime($battle->start_at))
-                : null,
-            'end_at' => $battle->end_at != ''
-                ? DateTimeFormatter::unixTimeToJsonArray(strtotime($battle->end_at))
-                : null,
-            'register_at' => DateTimeFormatter::unixTimeToJsonArray(strtotime($battle->at)),
-        ];
+        $ret = $battle->toJsonArray();
+        $ret['death_reasons'] = array_map(
+            function ($model) {
+                return $model->toJsonArray();
+            },
+            $deathReasons
+        );
+        $ret['agent']['name'] = $agent ? $agent->name : null;
+        $ret['agent']['version'] = $agent ? $agent->version : null;
+
         $resp = Yii::$app->getResponse();
         $resp->format = 'json';
         return $ret;
