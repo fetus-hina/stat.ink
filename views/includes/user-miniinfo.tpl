@@ -47,18 +47,34 @@
         <div class="row">
           <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
             <div class="user-label">
-              {{'Killed'|translate:'app'|escape}}
+              {{'Avg Killed'|translate:'app'|escape}}
             </div>
             <div class="user-number">
-              {{$stat->total_kill|number_format|escape}}
+              {{if $stat->total_kd_battle_count > 0}}
+                {{$p = ['number' => $stat->total_kill, 'battle' => $stat->total_kd_battle_count]}}
+                {{$s = '{number} killed in {battle, plural, =1{1 battle} other{# battles}}'|translate:'app':$p}}
+                <span class="auto-tooltip" title="{{$s|escape}}">
+                  {{($stat->total_kill/$stat->total_kd_battle_count)|string_format:'%.2f'|escape}}
+                </span>
+              {{else}}
+                {{'N/A'|translate:'app'|escape}}
+              {{/if}}
             </div>
           </div>
           <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
             <div class="user-label">
-              {{'Dead'|translate:'app'|escape}}
+              {{'Avg Dead'|translate:'app'|escape}}
             </div>
             <div class="user-number">
-              {{$stat->total_death|number_format|escape}}
+              {{if $stat->total_kd_battle_count > 0}}
+                {{$p = ['number' => $stat->total_death, 'battle' => $stat->total_kd_battle_count]}}
+                {{$s = '{number} dead in {battle, plural, =1{1 battle} other{# battles}}'|translate:'app':$p}}
+                <span class="auto-tooltip" title="{{$s|escape}}">
+                  {{($stat->total_death/$stat->total_kd_battle_count)|string_format:'%.2f'|escape}}
+                </span>
+              {{else}}
+                {{'N/A'|translate:'app'|escape}}
+              {{/if}}
             </div>
           </div>
           <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">

@@ -155,4 +155,6 @@ return [
     '{1} Queen' => 'えいえんの{1}ガール',
     '{attribute} must be less then or equal to 15 alphanumeric or underscore characters.' => '{attribute}は半角英数とアンダースコア15文字以内で入力してください。',
     '{nFormatted} {n, plural, =1{time} other{times}}' => '{nFormatted} 回',
+    '{number} dead in {battle, plural, =1{1 battle} other{# battles}}' => '{number}回 / {battle}戦',
+    '{number} killed in {battle, plural, =1{1 battle} other{# battles}}' => '{number}回 / {battle}戦',
 ];

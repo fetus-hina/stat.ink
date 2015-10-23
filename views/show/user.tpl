@@ -100,9 +100,13 @@
               <div class="user-label">{{'Avg Killed'|translate:'app'|escape}}</div>
               <div class="user-number">
                 {{if $summary->kd_present > 0}}
-                  {{($summary->total_kill/$summary->kd_present)|string_format:'%.2f'|escape}}
+                  {{$p = ['number' => $summary->total_kill, 'battle' => $summary->kd_present]}}
+                  {{$t = '{number} killed in {battle, plural, =1{1 battle} other{# battles}}'|translate:'app':$p}}
+                  <span class="auto-tooltip" title="{{$t|escape}}">
+                    {{($summary->total_kill/$summary->kd_present)|string_format:'%.2f'|escape}}
+                  </span>
                 {{else}}
-                  -
+                  {{'N/A'|translate:'app'|escape}}
                 {{/if}}
               </div>
             </div>
@@ -110,9 +114,13 @@
               <div class="user-label">{{'Avg Dead'|translate:'app'|escape}}</div>
               <div class="user-number">
                 {{if $summary->kd_present > 0}}
-                  {{($summary->total_death/$summary->kd_present)|string_format:'%.2f'|escape}}
+                  {{$p = ['number' => $summary->total_death, 'battle' => $summary->kd_present]}}
+                  {{$t = '{number} dead in {battle, plural, =1{1 battle} other{# battles}}'|translate:'app':$p}}
+                  <span class="auto-tooltip" title="{{$t|escape}}">
+                    {{($summary->total_death/$summary->kd_present)|string_format:'%.2f'|escape}}
+                  </span>
                 {{else}}
-                  -
+                  {{'N/A'|translate:'app'|escape}}
                 {{/if}}
               </div>
             </div>
