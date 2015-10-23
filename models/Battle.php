@@ -9,6 +9,8 @@ namespace app\models;
 
 use Yii;
 use yii\db\ActiveRecord;
+use yii\helpers\Url;
+use app\components\helpers\DateTimeFormatter;
 
 /**
  * This is the model class for table "battle".
@@ -430,5 +432,76 @@ class Battle extends ActiveRecord
             }
         }
         return true;
+    }
+
+    public function toJsonArray(array $skips = [])
+    {
+        return [
+            'id' => $this->id,
+            'url' => Url::to(['show/battle', 'screen_name' => $this->user->screen_name, 'battle' => $this->id], true),
+            'user' => !in_array('user', $skips, true) && $this->user ? $this->user->toJsonArray() : null,
+            'lobby' => $this->lobby ? $this->lobby->toJsonArray() : null,
+            'rule' => $this->rule ? $this->rule->toJsonArray() : null,
+            'map' => $this->map ? $this->map->toJsonArray() : null,
+            'weapon' => $this->weapon ? $this->weapon->toJsonArray() : null,
+            'rank' => $this->rank ? $this->rank->toJsonArray() : null,
+            'rank_exp' => $this->rank_exp,
+            'rank_after' => $this->rankAfter ? $this->rankAfter->toJsonArray() : null,
+            'rank_exp_after' => $this->rank_exp_after,
+            'level' => $this->level,
+            'level_after' => $this->level_after,
+            'cash' => $this->cash,
+            'cash_after' => $this->cash_after,
+            'result' => $this->is_win === true ? 'win' : ($this->is_win === false ? 'lose' : null),
+            'rank_in_team' => $this->rank_in_team,
+            'kill' => $this->kill,
+            'death' => $this->death,
+            'kill_ratio' => isset($this->kill_ratio) ? (float)$this->kill_ratio : null,
+            'death_reasons' => in_array('death_reasons', $skips, true)
+                ? null
+                : array_map(
+                    function ($model) {
+                        return $model->toJsonArray();
+                    },
+                    $this->battleDeathReasons
+                ),
+            'gender' => $this->gender ? $this->gender->toJsonArray() : null,
+            'fest_title' => $this->gender && $this->festTitle
+                ? $this->festTitle->toJsonArray($this->gender)
+                : null,
+            'my_point' => $this->my_point,
+            'my_team_final_point' => $this->my_team_final_point,
+            'his_team_final_point' => $this->his_team_final_point,
+            'my_team_final_percent' => $this->my_team_final_percent,
+            'his_team_final_percent' => $this->his_team_final_percent,
+            'knock_out' => $this->is_knock_out,
+            'my_team_count' => $this->my_team_count,
+            'his_team_count' => $this->his_team_count,
+            'my_team_color' => [
+                'hue' => $this->my_team_color_hue,
+                'rgb' => $this->my_team_color_rgb,
+            ],
+            'his_team_color' => [
+                'hue' => $this->his_team_color_hue,
+                'rgb' => $this->his_team_color_rgb,
+            ],
+            'image_judge' => $this->battleImageJudge
+                ? Url::to(Yii::getAlias('@web/images') . '/' . $this->battleImageJudge->filename, true)
+                : null,
+            'image_result' => $this->battleImageResult
+                ? Url::to(Yii::getAlias('@web/images') . '/' . $this->battleImageResult->filename, true)
+                : null,
+            'agent' => [
+                'name' => $this->agent ? $this->agent->name : null,
+                'version' => $this->agent ? $this->agent->version : null,
+            ],
+            'start_at' => $this->start_at != ''
+                ? DateTimeFormatter::unixTimeToJsonArray(strtotime($this->start_at))
+                : null,
+            'end_at' => $this->end_at != ''
+                ? DateTimeFormatter::unixTimeToJsonArray(strtotime($this->end_at))
+                : null,
+            'register_at' => DateTimeFormatter::unixTimeToJsonArray(strtotime($this->at)),
+        ];
     }
 }

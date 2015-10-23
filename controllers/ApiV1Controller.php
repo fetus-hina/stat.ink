@@ -43,6 +43,7 @@ class ApiV1Controller extends Controller
             'map'           => [ 'class' => $prefix . '\MapAction' ],
             'rule'          => [ 'class' => $prefix . '\RuleAction' ],
             'weapon'        => [ 'class' => $prefix . '\WeaponAction' ],
+            'user'          => [ 'class' => $prefix . '\UserAction' ],
         ];
     }
 }

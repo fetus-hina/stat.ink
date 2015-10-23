@@ -294,4 +294,30 @@ class UserStat extends \yii\db\ActiveRecord
 
         return $this;
     }
+
+    public function toJsonArray()
+    {
+        return [
+            'entire' => [
+                'battle_count'  => $this->battle_count,
+                'wp'            => $this->wp === null ? null : (float)$this->wp,
+                'wp_24h'        => $this->wp_short === null ? null : (float)$this->wp_short,
+                'kill'          => $this->total_kill,
+                'death'         => $this->total_death,
+                'kd_available_battle' => $this->total_kd_battle_count,
+            ],
+            'nawabari' => [
+                'battle_count'  => $this->nawabari_count,
+                'wp'            => $this->nawabari_wp === null ? null : (float)$this->nawabari_wp,
+                'kill'          => $this->nawabari_kill,
+                'death'         => $this->nawabari_death,
+            ],
+            'gachi' => [
+                'battle_count'  => $this->gachi_count,
+                'wp'            => $this->gachi_wp === null ? null : (float)$this->gachi_wp,
+                'kill'          => $this->gachi_kill,
+                'death'         => $this->gachi_death,
+            ],
+        ];
+    }
 }

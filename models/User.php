@@ -10,6 +10,7 @@ namespace app\models;
 use DateTimeZone;
 use Yii;
 use yii\db\ActiveRecord;
+use yii\helpers\Url;
 use yii\web\IdentityInterface;
 use app\components\helpers\DateTimeFormatter;
 use app\components\helpers\Password;
@@ -209,10 +210,12 @@ class User extends ActiveRecord implements IdentityInterface
             'id' => $this->id,
             'name' => $this->name,
             'screen_name' => $this->screen_name,
+            'url' => Url::to(['show/user', 'screen_name' => $this->screen_name], true),
             'join_at' => DateTimeFormatter::unixTimeToJsonArray(
                 strtotime($this->join_at),
                 new DateTimeZone('Etc/UTC')
             ),
+            'stat' => $this->userStat ? $this->userStat->toJsonArray() : null,
         ];
     }
 }
