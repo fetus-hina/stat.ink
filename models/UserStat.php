@@ -26,6 +26,7 @@ use Yii;
  * @property string $gachi_wp
  * @property integer $gachi_kill
  * @property integer $gachi_death
+ * @property integer $total_kd_battle_count
  *
  * @property User $user
  */
@@ -46,7 +47,7 @@ class UserStat extends \yii\db\ActiveRecord
     {
         return [
             [['user_id'], 'required'],
-            [['user_id', 'battle_count', 'total_kill', 'total_death'], 'integer'],
+            [['user_id', 'battle_count', 'total_kill', 'total_death', 'total_kd_battle_count'], 'integer'],
             [['nawabari_count', 'nawabari_kill', 'nawabari_death'], 'integer'],
             [['gachi_count', 'gachi_kill', 'gachi_death'], 'integer'],
             [['wp', 'wp_short', 'nawabari_wp', 'gachi_wp'], 'number']
@@ -73,6 +74,7 @@ class UserStat extends \yii\db\ActiveRecord
             'gachi_wp' => 'Gachi Wp',
             'gachi_kill' => 'Gachi Kill',
             'gachi_death' => 'Gachi Death',
+            'total_kd_battle_count' => 'Total KD Battle Count',
         ];
     }
 
@@ -151,6 +153,13 @@ class UserStat extends \yii\db\ActiveRecord
                     '{{battle}}.[[is_win]] IS NOT NULL',
                 ])
             )
+        );
+        $column_total_kd_battle_count = sprintf(
+            'SUM(CASE WHEN (%s) THEN 1 ELSE 0 END)',
+            implode(' AND ', [
+                $condIsNotPrivate,
+                $condKDPresent,
+            ])
         );
         $column_total_kill = sprintf(
             'SUM(CASE WHEN (%s) THEN {{battle}}.[[kill]] ELSE 0 END)',
@@ -259,6 +268,7 @@ class UserStat extends \yii\db\ActiveRecord
                 'wp_short'          => $column_wp_short,
                 'total_kill'        => $column_total_kill,
                 'total_death'       => $column_total_death,
+                'total_kd_battle_count' => $column_total_kd_battle_count,
                 'nawabari_count'    => $column_nawabari_count,
                 'nawabari_wp'       => $column_nawabari_wp,
                 'nawabari_kill'     => $column_nawabari_kill,
@@ -274,7 +284,7 @@ class UserStat extends \yii\db\ActiveRecord
         $this->attributes =  $query->createCommand()->queryOne();
         
         $keys = [
-            'battle_count', 'total_kill', 'total_death',
+            'battle_count', 'total_kill', 'total_death', 'total_kd_battle_count',
             'nawabari_count', 'nawabari_kill', 'nawabari_death',
             'gachi_count', 'gachi_kill', 'gachi_death',
         ];
