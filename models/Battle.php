@@ -52,6 +52,7 @@ use app\components\helpers\DateTimeFormatter;
  * @property boolean $is_knock_out
  * @property integer $my_team_count
  * @property integer $his_team_count
+ * @property integer $period
  *
  * @property Agent $agent
  * @property FestTitle $festTitle
@@ -90,6 +91,8 @@ class Battle extends ActiveRecord
         $this->on(ActiveRecord::EVENT_BEFORE_INSERT, [$this, 'setKillRatio']);
         $this->on(ActiveRecord::EVENT_BEFORE_UPDATE, [$this, 'setKillRatio']);
 
+        $this->on(ActiveRecord::EVENT_BEFORE_VALIDATE, [$this, 'setPeriod']);
+
         $this->on(ActiveRecord::EVENT_BEFORE_INSERT, [$this, 'updateUserWeapon']);
         $this->on(ActiveRecord::EVENT_BEFORE_UPDATE, [$this, 'updateUserWeapon']);
 
@@ -104,8 +107,8 @@ class Battle extends ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'at'], 'required'],
-            [['user_id', 'rule_id', 'map_id', 'weapon_id', 'level', 'rank_id'], 'integer'],
+            [['user_id', 'at', 'period'], 'required'],
+            [['user_id', 'rule_id', 'map_id', 'weapon_id', 'level', 'rank_id', 'period'], 'integer'],
             [['rank_in_team', 'kill', 'death', 'agent_id'], 'integer'],
             [['level_after', 'rank_after_id', 'rank_exp', 'rank_exp_after', 'cash', 'cash_after'], 'integer'],
             [['lobby_id', 'gender_id', 'fest_title_id', 'my_team_color_hue', 'his_team_color_hue'], 'integer'],
@@ -160,6 +163,7 @@ class Battle extends ActiveRecord
             'is_knock_out' => 'Is Knock Out',
             'my_team_count' => 'My Team Count',
             'his_team_count' => 'His Team Count',
+            'period' => 'Period',
         ];
     }
 
@@ -315,8 +319,13 @@ class Battle extends ActiveRecord
         return true;
     }
 
+    // compat
     public function getPeriodId()
     {
+        return $this->period;
+    }
+
+    public function setPeriod() {
         // 開始時間があれば開始時間から5秒(適当)引いた値を使うを使う。
         // 終了時間があれば終了時間から3分15秒(適当)引いた値を仕方ないので使う。
         // どっちもなければ登録時間から3分30秒(適当)引いた値を仕方ないので使う。
@@ -327,7 +336,7 @@ class Battle extends ActiveRecord
         } else {
             $time = strtotime($this->at) - (180 + 30);
         }
-        return \app\components\helpers\Battle::calcPeriod($time);
+        $this->period = \app\components\helpers\Battle::calcPeriod($time);
     }
 
     public function setKillRatio()
@@ -502,6 +511,7 @@ class Battle extends ActiveRecord
                 ? DateTimeFormatter::unixTimeToJsonArray(strtotime($this->end_at))
                 : null,
             'register_at' => DateTimeFormatter::unixTimeToJsonArray(strtotime($this->at)),
+            'period' => $this->period,
         ];
     }
 }

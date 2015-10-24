@@ -1,5 +1,5 @@
 {{strip}}
-  <tr class="battle-row" data-period="{{$model->periodId|escape}}">
+  <tr class="battle-row" data-period="{{$model->period|escape}}">
     <td>
       <a href="{{url route='show/battle' screen_name=$model->user->screen_name battle=$model->id}}" class="btn btn-primary btn-xs">
         {{'Detail'|translate:'app'|escape}}
