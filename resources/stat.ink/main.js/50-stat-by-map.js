@@ -77,14 +77,9 @@ window.statByMap = function () {
     });
   };
 
-  $.getJSON(
-    '/api/internal/stat-by-map?screen_name=' + encodeURIComponent($stat.attr('data-screen-name')),
-    function (json) {
-      $stat.empty().append(make(json));
-      window.setTimeout(function () { redrawFlot(); }, 1);
-      $('#loading').hide();
-    }
-  );
+  var json = JSON.parse($stat.attr('data-json'));
+  $stat.empty().append(make(json));
+  window.setTimeout(function () { redrawFlot(); }, 1);
 
   var timerId = null;
   var onResize = function () {

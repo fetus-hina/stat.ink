@@ -11,9 +11,13 @@ use Yii;
 use yii\web\NotFoundHttpException;
 use yii\web\ViewAction as BaseAction;
 use app\models\User;
+use app\models\BattleFilterForm;
 
 class UserStatByMapAction extends BaseAction
 {
+    use FilterFormTrait;
+    use UserStatFilterTrait;
+
     public function run()
     {
         $request = Yii::$app->getRequest();
@@ -22,8 +26,61 @@ class UserStatByMapAction extends BaseAction
             throw new NotFoundHttpException(Yii::t('app', 'Could not find user'));
         }
 
-        return $this->controller->render('user-stat-by-map.tpl', [
-            'user' => $user,
-        ]);
+        $filter = new BattleFilterForm();
+        $filter->load($_GET);
+        $filter->screen_name = $user->screen_name;
+        if ($filter->validate()) {
+            //$battle->filter($filter);
+        }
+
+        return $this->controller->render('user-stat-by-map.tpl', array_merge(
+            [
+                'user' => $user,
+                'filter' => $filter,
+                'data' => $this->getData($user, $filter),
+            ],
+            $this->makeFilterFormData($user)
+        ));
+    }
+
+    private function getData(User $user, BattleFilterForm $filter)
+    {
+        $query = (new \yii\db\Query())
+            ->select([
+                'map_key'  => 'MAX({{map}}.[[key]])',
+                'map_name' => 'MAX({{map}}.[[name]])',
+                'result'    => '(CASE WHEN {{battle}}.[[is_win]] = TRUE THEN \'win\' ELSE \'lose\' END)',
+                'count'     => 'COUNT(*)',
+            ])
+            ->from('battle')
+            ->innerJoin('map', '{{battle}}.[[map_id]] = {{map}}.[[id]]')
+            ->leftJoin('lobby', '{{battle}}.[[lobby_id]] = {{lobby}}.[[id]]')
+            ->leftJoin('rule', '{{battle}}.[[rule_id]] = {{rule}}.[[id]]')
+            ->leftJoin('game_mode', '{{rule}}.[[mode_id]] = {{game_mode}}.[[id]]')
+            ->leftJoin('weapon', '{{battle}}.[[weapon_id]] = {{weapon}}.[[id]]')
+            ->leftJoin('weapon_type', '{{weapon}}.[[type_id]] = {{weapon_type}}.[[id]]')
+            ->leftJoin('subweapon', '{{weapon}}.[[subweapon_id]] = {{subweapon}}.[[id]]')
+            ->leftJoin('special', '{{weapon}}.[[special_id]] = {{special}}.[[id]]')
+            ->andWhere(['{{battle}}.[[user_id]]' => $user->id])
+            ->andWhere(['in', '{{battle}}.[[is_win]]', [ true, false ]])
+            ->groupBy(['{{battle}}.[[map_id]]', '{{battle}}.[[is_win]]']);
+        
+        if ($filter && !$filter->hasErrors()) {
+            $this->filter($query, $filter);
+        }
+
+        $maps = [];
+        foreach ($query->createCommand()->queryAll() as $row) {
+            $row = (object)$row;
+            if (!isset($maps[$row->map_key])) {
+                $maps[$row->map_key] = [
+                    'name' => Yii::t('app-map', $row->map_name),
+                    'win' => 0,
+                    'lose' => 0,
+                ];
+            }
+            $maps[$row->map_key][$row->result] = (int)$row->count;
+        }
+        return $maps;
     }
 }

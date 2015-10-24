@@ -77,26 +77,23 @@ window.statByRule = function () {
     });
   };
 
-  $.getJSON(
-    '/api/internal/stat-by-rule?screen_name=' + encodeURIComponent($stat.attr('data-screen-name')),
-    function (json) {
-      $stat.empty();
-      if (json.regular) {
-        $stat.append(make(json.regular));
-      }
-      if (json.gachi) {
-        $stat.append(make(json.gachi));
-      }
-      if (!json.regular && !json.gachi) {
-        $stat.append(
-          $('<p>').text($stat.attr('data-no-data'))
-        );
-      } else {
-        window.setTimeout(function () { redrawFlot(); }, 1);
-      }
-      $('#loading').hide();
+  (function () {
+    var json = JSON.parse($stat.attr('data-json'));
+    $stat.empty();
+    if (json.regular) {
+      $stat.append(make(json.regular));
     }
-  );
+    if (json.gachi) {
+      $stat.append(make(json.gachi));
+    }
+    if (!json.regular && !json.gachi) {
+      $stat.append(
+        $('<p>').text($stat.attr('data-no-data'))
+      );
+    } else {
+      window.setTimeout(function () { redrawFlot(); }, 1);
+    }
+  })();
 
   var timerId = null;
   var onResize = function () {

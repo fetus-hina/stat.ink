@@ -1,6 +1,6 @@
 {{strip}}
   {{$stat = $user->userStat}}
-  <div id="user-miniinfo">
+  <div id="user-miniinfo" style="margin-bottom:15px">
     <div style="border:1px solid #ccc;border-radius:5px;padding:15px">
       <h2 style="margin-top:0;margin-bottom:10px">
         <a href="{{url route="show/user" screen_name=$user->screen_name}}">
