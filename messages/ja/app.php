@@ -157,4 +157,13 @@ return [
     '{nFormatted} {n, plural, =1{time} other{times}}' => '{nFormatted} 回',
     '{number} dead in {battle, plural, =1{1 battle} other{# battles}}' => '{number}回 / {battle}戦',
     '{number} killed in {battle, plural, =1{1 battle} other{# battles}}' => '{number}回 / {battle}戦',
+    'Today' => '今日',
+    'Yesterday' => '昨日',
+    'Last 24 Hours' => '最近24時間',
+    'Any Time' => 'すべての期間',
+    'Current Period' => '現在のステージ',
+    'Previous Period' => '一つ前のステージ',
+    'Specify Period' => '期間を指定する',
+    '<div class="input-group"><span class="input-group-addon">From:</span>{input}</div>' => '<div class="input-group">{input}<span class="input-group-addon">から</span></div>',
+    '<div class="input-group"><span class="input-group-addon">To:</span>{input}</div>' => '<div class="input-group">{input}<span class="input-group-addon">まで</span></div>',
 ];

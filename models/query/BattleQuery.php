@@ -30,7 +30,11 @@ class BattleQuery extends ActiveQuery
             ->filterByRule($filter->rule)
             ->filterByMap($filter->map)
             ->filterByWeapon($filter->weapon)
-            ->filterByResult($filter->result);
+            ->filterByResult($filter->result)
+            ->filterByTerm($filter->term, [
+                'from' => $filter->term_from,
+                'to' => $filter->term_to,
+            ]);
     }
 
     public function filterByScreenName($value)
@@ -114,6 +118,54 @@ class BattleQuery extends ActiveQuery
             $this->andWhere(['{{battle}}.[[is_win]]' => true]);
         } elseif ($result === 'lose' || $result === false) {
             $this->andWhere(['{{battle}}.[[is_win]]' => false]);
+        }
+        return $this;
+    }
+
+    public function filterByTerm($value, array $options = [])
+    {
+        $now = @$_SERVER['REQUEST_TIME'] ?: time();
+        $currentPeriod = \app\components\helpers\Battle::calcPeriod($now);
+
+        switch ($value) {
+            case 'this-period':
+                $this->andWhere(['{{battle}}.[[period]]' => $currentPeriod]);
+                break;
+                
+            case 'last-period':
+                $this->andWhere(['{{battle}}.[[period]]' => $currentPeriod - 1]);
+                break;
+                
+            case '24h':
+                $this->andWhere(['>=', '{{battle}}.[[at]]', gmdate('Y-m-d\TH:i:sP', $now - 86400)]);
+                break;
+
+            case 'today':
+                $t = mktime(0, 0, 0, date('n', $now), date('j', $now), date('Y', $now));
+                $this->andWhere(['>=', '{{battle}}.[[at]]', gmdate('Y-m-d\TH:i:sP', $t)]);
+                break;
+
+            case 'yesterday':
+                // 昨日の 00:00:00
+                $t1 = mktime(0, 0, 0, date('n', $now), date('j', $now) - 1, date('Y', $now));
+                // 今日の 00:00:00
+                $t2 = mktime(0, 0, 0, date('n', $now), date('j', $now), date('Y', $now));
+                $this->andWhere(['>=', '{{battle}}.[[at]]', gmdate('Y-m-d\TH:i:sP', $t1)]);
+                $this->andWhere(['<', '{{battle}}.[[at]]', gmdate('Y-m-d\TH:i:sP', $t2)]);
+                break;
+
+            case 'term':
+                if (isset($options['from']) && $options['from'] != '') {
+                    if ($t = @strtotime($options['from'])) {
+                        $this->andWhere(['>=', '{{battle}}.[[at]]', gmdate('Y-m-d\TH:i:sP', $t)]);
+                    }
+                }
+                if (isset($options['to']) && $options['to'] != '') {
+                    if ($t = @strtotime($options['to'])) {
+                        $this->andWhere(['<=', '{{battle}}.[[at]]', gmdate('Y-m-d\TH:i:sP', $t)]);
+                    }
+                }
+                break;
         }
         return $this;
     }

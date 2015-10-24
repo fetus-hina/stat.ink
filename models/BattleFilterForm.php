@@ -30,6 +30,9 @@ class BattleFilterForm extends Model
     public $map;
     public $weapon;
     public $result;
+    public $term;
+    public $term_from;
+    public $term_to;
 
     public function formName()
     {
@@ -86,6 +89,15 @@ class BattleFilterForm extends Model
                     return substr($this->weapon, 0, 1) === '*';
                 }],
             [['result'], 'boolean', 'trueValue' => 'win', 'falseValue' => 'lose'],
+            [['term'], 'in', 'range' => [
+                'this-period',
+                'last-period',
+                '24h',
+                'today',
+                'yesterday',
+                'term',
+            ]],
+            [['term_from', 'term_to'], 'date', 'format' => 'yyyy-M-d H:m:s'],
         ];
     }
 
@@ -98,6 +110,9 @@ class BattleFilterForm extends Model
             'map'           => Yii::t('app', 'Map'),
             'weapon'        => Yii::t('app', 'Weapon'),
             'result'        => Yii::t('app', 'Result'),
+            'term'          => Yii::t('app', 'Term'),
+            'term_from'     => Yii::t('app', 'Period From'),
+            'term_to'       => Yii::t('app', 'Period To'),
         ];
     }
 
