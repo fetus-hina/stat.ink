@@ -55,6 +55,7 @@ class ShowController extends Controller
             'edit-battle' => [ 'class' => $prefix . '\EditBattleAction' ],
             'user' => [ 'class' => $prefix . '\UserAction' ],
             'user-stat-by-map' => [ 'class' => $prefix . '\UserStatByMapAction' ],
+            'user-stat-by-map-rule' => [ 'class' => $prefix . '\UserStatByMapRuleAction' ],
             'user-stat-by-rule' => [ 'class' => $prefix . '\UserStatByRuleAction' ],
             'user-stat-cause-of-death' => [ 'class' => $prefix . '\UserStatCauseOfDeathAction' ],
         ];
