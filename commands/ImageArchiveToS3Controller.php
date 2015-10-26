@@ -141,7 +141,7 @@ class ImageArchiveToS3Controller extends Controller
                 return false;
             }
             S3::setAuth($accessKey, $secret);
-            S3::setSSL(true);
+            S3::setSSL(true, strpos($endpoint, 'amazonaws') !== false);
             S3::setEndpoint($endpoint);
             $ret = S3::putObject(
                 $file,
