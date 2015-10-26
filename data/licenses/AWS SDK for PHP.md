@@ -1,1 +1,0 @@
-../../vendor/aws/aws-sdk-php/LICENSE.md

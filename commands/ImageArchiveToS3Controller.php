@@ -7,12 +7,10 @@
 
 namespace app\commands;
 
+use S3;
 use Yii;
 use yii\console\Controller;
 use yii\helpers\Console;
-use Aws\S3\S3Client;
-use Aws\Credentials\Credentials;
-use Aws\Credentials\CredentialProvider;
 use app\components\helpers\Resource;
 
 class ImageArchiveToS3Controller extends Controller
@@ -38,19 +36,57 @@ class ImageArchiveToS3Controller extends Controller
                 continue;
             }
             if (preg_match('/^(\d+-\w+)\.png$/', $entry->getBasename(), $match)) {
-                $tmpFile = new Resource(tempnam('s3up-', sys_get_temp_dir()), 'unlink');
-                if ($this->convertToWebP($entry->getPathname(), $tmpFile->get()) &&
-                        $this->upload($tmpFile->get(), $match[1] . '.webp')
+                $tmpPng  = new Resource(tempnam('s3up-', sys_get_temp_dir()), 'unlink');
+                $tmpWebP = new Resource(tempnam('s3up-', sys_get_temp_dir()), 'unlink');
+                if ($this->convertToOptimizedPNG($entry->getPathname(), $tmpPng->get()) &&
+                        $this->convertToWebP($entry->getPathname(), $tmpWebP->get())
                 ) {
-                    unlink($entry->getPathname());
+                    // ok. let's upload.
+                    $conf = [
+                        'png' => [
+                            'localPath' => $tmpPng->get(),
+                            'uploadKey' => $match[1] . '.png',
+                        ],
+                        'webp' => [
+                            'localPath' => $tmpWebP->get(),
+                            'uploadKey' => $match[1] . '.webp',
+                        ],
+                    ];
+                    if ($this->upload($conf)) {
+                        unlink($entry->getPathname());
+                    }
                 }
             }
         }
     }
 
+    protected function convertToOptimizedPNG($in, $out)
+    {
+        $this->stdOut(sprintf("%s: Optimizing\n", basename($in)), Console::FG_YELLOW);
+        $cmdline = sprintf(
+            '/usr/bin/env %s -rem allb -l 9 %s %s >/dev/null 2>&1',
+            escapeshellarg('pngcrush'),
+            escapeshellarg($in),
+            escapeshellarg($out)
+        );
+        $lines = $status = null;
+        @exec($cmdline, $lines, $status);
+        if ($status != 0) {
+            return false;
+        }
+        $this->stdOut(sprintf(
+                "  Optimized. %s => %s\n", 
+                number_format(filesize($in)),
+                number_format(filesize($out))
+            ),
+            Console::FG_GREEN
+        );
+        return true;
+    }
+
     protected function convertToWebP($png, $webp)
     {
-        $this->stdOut(sprintf("%s: converting to webp\n", basename($png)));
+        $this->stdOut(sprintf("%s: Converting to WebP\n", basename($png)), Console::FG_YELLOW);
         $cmdline = sprintf(
             '/usr/bin/env %s -lossless -o %s %s >/dev/null 2>&1',
             escapeshellarg('cwebp'),
@@ -59,59 +95,85 @@ class ImageArchiveToS3Controller extends Controller
         );
         $lines = $status = null;
         @exec($cmdline, $lines, $status);
-        return $status == 0;
+        if ($status != 0) {
+            return false;
+        }
+        $this->stdOut(sprintf(
+                "  Converted. %s bytes.\n",
+                number_format(filesize($webp))
+            ),
+            Console::FG_GREEN
+        );
+        return true;
     }
 
-    protected function upload($filePath, $key)
+    protected function upload($config)
     {
-        $this->stdOut(sprintf("Uploading as %s\n", $key));
+        foreach (Yii::$app->params['amazonS3'] as $param) {
+            if (!$param['accessKey'] || !$param['secret'] || !$param['bucket']) {
+                return false;
+            }
+            $type = @$param['type'] ?: 'webp';
+            $endpoint = @$param['endpoint'] ?: 's3.amazonaws.com';
+
+            if (!$this->doUpload(
+                    @$param['name'],
+                    $param['accessKey'],
+                    $param['secret'],
+                    $endpoint,
+                    $config[$type]['localPath'],
+                    $param['bucket'],
+                    $config[$type]['uploadKey']
+                )
+            ) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    protected function doUpload($name, $accessKey, $secret, $endpoint, $localPath, $bucket, $key)
+    {
+        $this->stdOut(sprintf("[%s] Uploading as %s\n", $name, $key), Console::FG_YELLOW);
         try {
-            $client = $this->s3Client;
-            $ret = $client->upload(
-                Yii::$app->params['amazonS3']['bucket'],
+            S3::setExceptions();
+            if (!$file = S3::inputFile($localPath)) {
+                return false;
+            }
+            S3::setAuth($accessKey, $secret);
+            S3::setSSL(true);
+            S3::setEndpoint($endpoint);
+            $ret = S3::putObject(
+                $file,
+                $bucket,
                 $key,
-                file_get_contents($filePath, false, null),
-                'public-read',
-                [
-                    'params' => [
-                        'StorageClass' => 'REDUCED_REDUNDANCY',
-                    ]
-                ]
+                S3::ACL_PRIVATE,
+                [],
+                [],
+                S3::STORAGE_CLASS_RRS,
+                S3::SSE_NONE
             );
-            if ($ret->hasKey('ObjectURL') && $ret->get('ObjectURL') != '') {
+            if ($ret) {
+                $this->stdOut("  Upload successful.\n", Console::FG_GREEN);
                 return true;
             }
         } catch (\Exception $e) {
+            $this->stdOut("  Caught Exception: " . $e->getMessage() . "\n", Console::FG_RED);
+            var_dump($e);
         }
+        $this->stdOut("  Upload failed.\n", Console::FG_RED);
         return false;
     }
 
     protected function getIsConfigured()
     {
         $params = Yii::$app->params['amazonS3'];
-        return $params['accessKey'] && $params['secret'] && $params['bucket'];
-    }
-
-    protected function getS3Client()
-    {
-        return new S3Client([
-            'credentials' => $this->awsCredentialProvider,
-            'version' => '2006-03-01',
-            'region' => Yii::$app->params['amazonS3']['region'],
-        ]);
-    }
-
-    protected function getAwsCredentialProvider()
-    {
-        return CredentialProvider::fromCredentials(
-            $this->awsCredentials
-        );
-    }
-
-    protected function getAwsCredentials()
-    {
-        $params = Yii::$app->params['amazonS3'];
-        return new Credentials($params['accessKey'], $params['secret']);
+        foreach ($params as $param) {
+            if ($param['accessKey'] && $param['secret'] && $param['bucket']) {
+                return true;
+            }
+        }
+        return false;
     }
 
     protected function getLock()

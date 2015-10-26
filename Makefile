@@ -99,12 +99,16 @@ config/google-adsense.php:
 	echo '];'                   >> config/google-adsense.php
 
 config/amazon-s3.php:
-	echo '<?php'                  >  config/amazon-s3.php
-	echo 'return ['               >> config/amazon-s3.php
-	echo "    'accessKey' => ''," >> config/amazon-s3.php
-	echo "    'secret'    => ''," >> config/amazon-s3.php
-	echo "    'bucket'    => ''," >> config/amazon-s3.php
-	echo "    'region'    => ''," >> config/amazon-s3.php
-	echo '];'                     >> config/amazon-s3.php
+	echo '<?php'                               >  config/amazon-s3.php
+	echo 'return ['                            >> config/amazon-s3.php
+	echo '    ['                               >> config/amazon-s3.php
+	echo "        'name'      => 'Amazon S3'," >> config/amazon-s3.php
+	echo "        'type'      => 'webp',"      >> config/amazon-s3.php 
+	echo "        'endpoint'  => 's3-ap-northeast-1.amazonaws.com'," >> config/amazon-s3.php
+	echo "        'accessKey' => '',"          >> config/amazon-s3.php
+	echo "        'secret'    => '',"          >> config/amazon-s3.php
+	echo "        'bucket'    => '',"          >> config/amazon-s3.php
+	echo '    ],'                 	           >> config/amazon-s3.php
+	echo '];'                     	           >> config/amazon-s3.php
 
 .PHONY: all init resource check-style fix-style clean clean-resource migrate-db composer-plugin FORCE
