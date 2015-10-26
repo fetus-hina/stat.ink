@@ -214,7 +214,7 @@ class BattleAction extends BaseAction
         }
 
         $imageOutputDir = Yii::getAlias('@webroot/images');
-        $imageArchiveOutputDir = Yii::$app->params['amazonS3'] && Yii::$app->params['amazonS3']['bucket'] != ''
+        $imageArchiveOutputDir = Yii::$app->params['amazonS3'] && Yii::$app->params['amazonS3'][0]['bucket'] != ''
             ? Yii::getAlias('@app/runtime/image-archive-tmp')
             : null;
         if ($image = $form->toImageJudge($battle)) {
