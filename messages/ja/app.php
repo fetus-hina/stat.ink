@@ -47,6 +47,7 @@ return [
     'His Team Score' => '相手チームのスコア',
     'IKANAKAMA User ID' => 'イカナカマユーザID',
     'If already have an account, please click here.' => 'すでにアカウントをお持ちであればこちらをクリックしてログインしてください。',
+    'Image Sharing' => '画像の共有',
     'Internal ID' => '内部ID',
     'Japan Time' => '日本時間',
     'Join us' => '利用してみる',
