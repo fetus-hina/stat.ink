@@ -91,6 +91,7 @@
         </div>
         {{include file="@app/views/includes/user-miniinfo.tpl" user=$user}}
         {{include file="@app/views/includes/ad.tpl"}}
+      </div>
     </div>
   </div>
 {{/strip}}
