@@ -339,6 +339,22 @@ class Battle extends ActiveRecord
         return $this->period;
     }
 
+    public function getPreviousBattle()
+    {
+        return $this->hasOne(static::className(), ['user_id' => 'user_id'])
+            ->andWhere(['<', '{{battle}}.[[id]]', $this->id])
+            ->orderBy('{{battle}}.[[id]] DESC')
+            ->limit(1);
+    }
+
+    public function getNextBattle()
+    {
+        return $this->hasOne(static::className(), ['user_id' => 'user_id'])
+            ->andWhere(['>', '{{battle}}.[[id]]', $this->id])
+            ->orderBy('{{battle}}.[[id]] ASC')
+            ->limit(1);
+    }
+
     public function setPeriod() {
         // 開始時間があれば開始時間から5秒(適当)引いた値を使うを使う。
         // 終了時間があれば終了時間から3分15秒(適当)引いた値を仕方ないので使う。

@@ -34,6 +34,15 @@
   {{$summary = $summary|rtrim:'| '}}
   {{$this->registerMetaTag(['name' => 'twitter:description', 'content' => $summary])|@void}}
 
+  {{if $battle->previousBattle}}
+    {{$_url = Url::to(['show/battle', 'screen_name' => $user->screen_name, 'battle' => $battle->previousBattle->id], true)}}
+    {{$this->registerLinkTag(['rel' => 'prev', 'href' => $_url])|@void}}
+  {{/if}}
+  {{if $battle->nextBattle}}
+    {{$_url = Url::to(['show/battle', 'screen_name' => $user->screen_name, 'battle' => $battle->nextBattle->id], true)}}
+    {{$this->registerLinkTag(['rel' => 'next', 'href' => $_url])|@void}}
+  {{/if}}
+
   <div class="container">
     <h1>
       {{$title|escape}}
@@ -62,6 +71,25 @@
 
     <div class="row">
       <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
+        {{if $battle->previousBattle || $battle->nextBattle}}
+          <div class="row" style="margin-bottom:15px">
+            {{if $battle->previousBattle}}
+              <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                <a href="{{url route="show/battle" screen_name=$user->screen_name battle=$battle->previousBattle->id}}" class="btn btn-default">
+                  <span class="fa fa-angle-double-left"></span> {{'Prev Battle'|translate:'app'|escape}}
+                </a>
+              </div>
+            {{/if}}
+            {{if $battle->nextBattle}}
+              <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 pull-right text-right">
+                <a href="{{url route="show/battle" screen_name=$user->screen_name battle=$battle->nextBattle->id}}" class="btn btn-default">
+                  {{'Next Battle'|translate:'app'|escape}} <span class="fa fa-angle-double-right"></span>
+                </a>
+              </div>
+            {{/if}}
+          </div>
+        {{/if}}
+
         <table class="table table-striped">
           <tbody>
             {{if $battle->lobby}}
