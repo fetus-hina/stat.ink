@@ -53,6 +53,7 @@ use app\components\helpers\DateTimeFormatter;
  * @property integer $my_team_count
  * @property integer $his_team_count
  * @property integer $period
+ * @property string $ua_custom
  *
  * @property Agent $agent
  * @property FestTitle $festTitle
@@ -117,6 +118,7 @@ class Battle extends ActiveRecord
             [['start_at', 'end_at', 'at'], 'safe'],
             [['kill_ratio', 'my_team_final_percent', 'his_team_final_percent'], 'number'],
             [['my_team_color_rgb', 'his_team_color_rgb'], 'string', 'min' => 6, 'max' => 6],
+            [['ua_custom'], 'string'],
         ];
     }
 
@@ -164,6 +166,7 @@ class Battle extends ActiveRecord
             'my_team_count' => 'My Team Count',
             'his_team_count' => 'His Team Count',
             'period' => 'Period',
+            'ua_custom' => 'UA Custom',
         ];
     }
 
@@ -503,6 +506,7 @@ class Battle extends ActiveRecord
             'agent' => [
                 'name' => $this->agent ? $this->agent->name : null,
                 'version' => $this->agent ? $this->agent->version : null,
+                'custom' => $this->ua_custom,
             ],
             'start_at' => $this->start_at != ''
                 ? DateTimeFormatter::unixTimeToJsonArray(strtotime($this->start_at))

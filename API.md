@@ -291,6 +291,8 @@ POST /api/v1/battle
 
 * `agent_version` : 送信クライアントのバージョンを255文字以内で指定します。（例: `1.2.3` ） `agent_version` を指定するときは `agent` も指定する必要があります。
 
+* `agent_custom` : 送信クライアント定義の文字列を指定することができます。valid な UTF-8 の文字列である必要がありますが、中身については関知しません。長さはこのパラメータ以外も含めて POST データ全体が 10MiB 以内に収まる必要があります。
+
 ----
 
 ### `death_reasons` ###
@@ -472,7 +474,8 @@ GET /api/v1/battle
     "image_result": "https:\/\/stat.ink\/images\/vk\/vk45tcekjzca3lyc3zfurxmwoq.jpg",
     "agent": {
         "name": "IkaLog",
-        "version": "0.01"
+        "version": "0.01",
+        "custom": null
     },
     "start_at": {
         "time": 1443381832,
