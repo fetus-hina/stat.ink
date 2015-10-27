@@ -19,21 +19,25 @@ class BattleAction extends BaseAction
     public function run()
     {
         $request = Yii::$app->getRequest();
-        $user = User::findOne(['screen_name' => $request->get('screen_name')]);
-        if (!$user) {
-            throw new NotFoundHttpException('指定されたユーザが見つかりません');
-        }
 
         $battle = Battle::findOne([
-            'user_id' => $user->id,
             'id' => $request->get('battle'),
         ]);
-        if (!$battle) {
-            throw new NotFoundHttpException('指定されたバトルが見つかりません');
+        if (!$battle || !$battle->user) {
+            throw new NotFoundHttpException(
+                Yii::t('app', 'Could not find specified battle.')
+            );
+        }
+
+        if ($battle->user->screen_name !== $request->get('screen_name')) {
+            return $this->controller->redirect([
+                'show/battle',
+                'screen_name' => $battle->user->screen_name,
+                'battle' => $battle->id,
+            ]);
         }
 
         return $this->controller->render('battle.tpl', [
-            'user' => $user,
             'battle' => $battle,
         ]);
     }

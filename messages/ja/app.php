@@ -26,6 +26,7 @@ return [
     'Boy' => 'ボーイ',
     'Cash' => 'おカネ',
     'Cause of Death' => '死因',
+    'Could not find specified battle.' => '指定されたバトルが見つかりませんでした。',
     'Current Period' => '現在のステージ',
     'Data Sent' => 'データ送信',
     'Date Time' => '日時',

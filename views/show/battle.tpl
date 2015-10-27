@@ -1,6 +1,7 @@
 {{strip}}
   {{set layout="main.tpl"}}
   {{use class="yii\helpers\Url"}}
+  {{$user = $battle->user}}
   {{$canonicalUrl = Url::to(['show/battle', 'screen_name' => $user->screen_name, 'battle' => $battle->id], true)}}
   {{$name = '{0}-san'|translate:'app':$user->name}}
   {{$title = "Result of {0}'s Battle"|translate:'app':$name}}
