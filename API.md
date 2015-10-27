@@ -440,6 +440,34 @@ GET /api/v1/battle
         "join_at": {
             "time": 1443175797,
             "iso8601": "2015-09-25T10:09:57+00:00"
+        },
+        "profile": {
+            "nnid": "fetus_hina",
+            "twitter": "fetus_hina",
+            "ikanakama": null,
+            "eneironment": "ほげ\nふが\n\nぴよ\nfoo\nbar\nbaz"
+        },
+        "stat": {
+            "entire": {
+                "battle_count": 16,
+                "wp": 100,
+                "wp_24h": 100,
+                "kill": 48,
+                "death": 32,
+                "kd_available_battle": 16
+            },
+            "nawabari": {
+                "battle_count": 16,
+                "wp": 100,
+                "kill": 48,
+                "death": 32
+            },
+            "gachi": {
+                "battle_count": 0,
+                "wp": null,
+                "kill": 0,
+                "death": 0
+            }
         }
     },
     "rule": {
@@ -477,6 +505,7 @@ GET /api/v1/battle
         "version": "0.01",
         "custom": null
     },
+    "environment": "ほげ\nふが\n\nぴよ",
     "start_at": {
         "time": 1443381832,
         "iso8601": "2015-09-27T19:23:52+00:00"

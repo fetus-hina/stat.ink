@@ -54,8 +54,10 @@ use app\components\helpers\DateTimeFormatter;
  * @property integer $his_team_count
  * @property integer $period
  * @property string $ua_custom
+ * @property integer $env_id
  *
  * @property Agent $agent
+ * @property Environment $env
  * @property FestTitle $festTitle
  * @property Gender $gender
  * @property Lobby $lobby
@@ -110,7 +112,7 @@ class Battle extends ActiveRecord
         return [
             [['user_id', 'at', 'period'], 'required'],
             [['user_id', 'rule_id', 'map_id', 'weapon_id', 'level', 'rank_id', 'period'], 'integer'],
-            [['rank_in_team', 'kill', 'death', 'agent_id'], 'integer'],
+            [['rank_in_team', 'kill', 'death', 'agent_id', 'env_id'], 'integer'],
             [['level_after', 'rank_after_id', 'rank_exp', 'rank_exp_after', 'cash', 'cash_after'], 'integer'],
             [['lobby_id', 'gender_id', 'fest_title_id', 'my_team_color_hue', 'his_team_color_hue'], 'integer'],
             [['my_point', 'my_team_final_point', 'his_team_final_point', 'my_team_count', 'his_team_count'], 'integer'],
@@ -167,6 +169,7 @@ class Battle extends ActiveRecord
             'his_team_count' => 'His Team Count',
             'period' => 'Period',
             'ua_custom' => 'UA Custom',
+            'env_id' => 'Env ID',
         ];
     }
 
@@ -176,6 +179,14 @@ class Battle extends ActiveRecord
     public function getAgent()
     {
         return $this->hasOne(Agent::className(), ['id' => 'agent_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getEnv()
+    {
+        return $this->hasOne(Environment::className(), ['id' => 'env_id']);
     }
 
     /**
@@ -503,11 +514,13 @@ class Battle extends ActiveRecord
             'image_result' => $this->battleImageResult
                 ? Url::to(Yii::getAlias('@web/images') . '/' . $this->battleImageResult->filename, true)
                 : null,
+            'period' => $this->period,
             'agent' => [
                 'name' => $this->agent ? $this->agent->name : null,
                 'version' => $this->agent ? $this->agent->version : null,
                 'custom' => $this->ua_custom,
             ],
+            'environment' => $this->env ? $this->env->text : null,
             'start_at' => $this->start_at != ''
                 ? DateTimeFormatter::unixTimeToJsonArray(strtotime($this->start_at))
                 : null,
@@ -515,7 +528,6 @@ class Battle extends ActiveRecord
                 ? DateTimeFormatter::unixTimeToJsonArray(strtotime($this->end_at))
                 : null,
             'register_at' => DateTimeFormatter::unixTimeToJsonArray(strtotime($this->at)),
-            'period' => $this->period,
         ];
     }
 }

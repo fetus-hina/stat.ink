@@ -27,8 +27,10 @@ use app\components\helpers\Password;
  * @property string $nnid
  * @property string $twitter
  * @property integer $ikanakama
+ * @property integer $env_id
  *
  * @property Battle[] $battles
+ * @property Environment $env
  * @property UserStat $userStat
  * @property UserWeapon[] $userWeapons
  * @property Weapon[] $weapons
@@ -62,7 +64,7 @@ class User extends ActiveRecord implements IdentityInterface
         return [
             [['name', 'screen_name', 'password', 'api_key', 'join_at'], 'required'],
             [['join_at'], 'safe'],
-            [['ikanakama'], 'integer'],
+            [['ikanakama', 'env_id'], 'integer'],
             [['name', 'screen_name', 'twitter'], 'string', 'max' => 15],
             [['password'], 'string', 'max' => 255],
             [['api_key'], 'string', 'max' => 43],
@@ -89,6 +91,7 @@ class User extends ActiveRecord implements IdentityInterface
             'nnid'          => Yii::t('app', 'Nintendo Network ID'),
             'twitter'       => Yii::t('app', 'Twitter @name'),
             'ikanakama'     => Yii::t('app', 'IKANAKAMA User ID'),
+            'env_id'        => Yii::t('app', 'Capture Environment'),
         ];
     }
 
@@ -98,6 +101,14 @@ class User extends ActiveRecord implements IdentityInterface
     public function getBattles()
     {
         return $this->hasMany(Battle::className(), ['user_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getEnv()
+    {
+        return $this->hasOne(Environment::className(), ['id' => 'env_id']);
     }
 
     /**
@@ -215,6 +226,12 @@ class User extends ActiveRecord implements IdentityInterface
                 strtotime($this->join_at),
                 new DateTimeZone('Etc/UTC')
             ),
+            'profile' => [
+                'nnid'          => (string)$this->nnid != '' ? $this->nnid : null,
+                'twitter'       => (string)$this->twitter != '' ? $this->twitter : null,
+                'ikanakama'     => (string)$this->ikanakama ? sprintf('http://ikazok.net/users/%d', $this->ikanakama) : null,
+                'environment'   => $this->env ? $this->env->text : null,
+            ],
             'stat' => $this->userStat ? $this->userStat->toJsonArray() : null,
         ];
     }

@@ -21,6 +21,12 @@
           'inputTemplate' => '<div class="input-group"><span class="input-group-addon">http://ikazok.net/users/</span>{input}</div>'
         ])}}
 
+      {{$_->field($form, 'env')->textArea([
+          'style' => 'height:10em'
+        ])->hint(
+          Yii::t('app', 'Please tell us about your capture environment between Wii U and User Agent. This information will be public.')
+        )}}
+
       {{Html::submitButton(
           Yii::t('app', 'Update'),
           ['class' => 'btn btn-lg btn-primary btn-block']

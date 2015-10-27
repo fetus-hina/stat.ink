@@ -248,8 +248,11 @@ class PostBattleForm extends Model
 
     public function toBattle()
     {
+        $user = $this->getUser();
+
         $o = new Battle();
-        $o->user_id         = $this->getUser()->id;
+        $o->user_id         = $user->id;
+        $o->env_id          = $user->env_id;
         $o->lobby_id        = $this->lobby ? Lobby::findOne(['key' => $this->lobby])->id : null;
         $o->rule_id         = $this->rule ? Rule::findOne(['key' => $this->rule])->id : null;
         $o->map_id          = $this->map ? Map::findOne(['key' => $this->map])->id : null;

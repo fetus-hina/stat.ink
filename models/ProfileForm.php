@@ -16,6 +16,7 @@ class ProfileForm extends Model
     public $nnid;
     public $twitter;
     public $ikanakama;
+    public $env;
 
     public function rules()
     {
@@ -27,6 +28,7 @@ class ProfileForm extends Model
             [['twitter'], 'string', 'max' => 15],
             [['twitter'], 'match', 'pattern' => '/^[a-zA-Z0-9_]+$/'],
             [['ikanakama'], 'integer', 'min' => 1],
+            [['env'], 'string'],
         ];
     }
 
@@ -41,6 +43,7 @@ class ProfileForm extends Model
             'nnid'              => Yii::t('app', 'Nintendo Network ID'),
             'twitter'           => Yii::t('app', 'Twitter @name'),
             'ikanakama'         => Yii::t('app', 'IKANAKAMA User ID'),
+            'env'               => Yii::t('app', 'Capture Environment'),
         ];
     }
 }

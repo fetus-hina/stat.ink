@@ -70,6 +70,16 @@
             {{/if}}
           </td>
         </tr>
+        <tr>
+          <th>{{'Capture Environment'|translate:'app'|escape}}</th>
+          <td>
+            {{if $user->env}}
+              {{$user->env->text|escape|nl2br}}
+            {{else}}
+              -
+            {{/if}}
+          </td>
+        </tr>
       </tbody>
     </table>
   </div>
