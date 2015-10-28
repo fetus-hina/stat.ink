@@ -31,7 +31,7 @@ class EditProfileAction extends BaseAction
                         $this->controller->redirect(['user/profile']);
                         return;
                     }
-                } catch(\Exception $e) {
+                } catch (\Exception $e) {
                 }
                 $transaction->rollback();
             }

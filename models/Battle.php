@@ -355,7 +355,8 @@ class Battle extends ActiveRecord
             ->limit(1);
     }
 
-    public function setPeriod() {
+    public function setPeriod()
+    {
         // 開始時間があれば開始時間から5秒(適当)引いた値を使うを使う。
         // 終了時間があれば終了時間から3分15秒(適当)引いた値を仕方ないので使う。
         // どっちもなければ登録時間から3分30秒(適当)引いた値を仕方ないので使う。
