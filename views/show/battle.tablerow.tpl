@@ -32,11 +32,23 @@
       {{$model->weapon->special->name|default:'?'|translate:'app-special'|escape}}
     </td>
     <td class="cell-rank">
-      {{$model->rank->name|default:'?'|translate:'app-rank'|escape}}
+      {{if $model->rank}}
+        {{$model->rank->name|translate:'app-rank'|escape}} {{$model->rank_exp|escape}}
+      {{/if}}
+    </td>
+    <td class="cell-rank-after">
+      {{if $model->rankAfter}}
+        {{$model->rankAfter->name|translate:'app-rank'|escape}} {{$model->rank_exp_after|escape}}
+      {{/if}}
     </td>
     <td class="cell-level">
-      {{$model->level|default:'?'|escape}}
+      {{$model->level|default:''|escape}}
     </td>
+{{*
+    <td class="cell-level-after">
+      {{$model->level_after|default:''|escape}}
+    </td>
+*}}
     <td class="cell-result">
       {{if $model->is_win === null}}
         ?

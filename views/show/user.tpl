@@ -190,7 +190,9 @@
                 <th class="cell-sub-weapon">{{'Sub Weapon'|translate:'app'|escape}}</th>
                 <th class="cell-special">{{'Special'|translate:'app'|escape}}</th>
                 <th class="cell-rank">{{'Rank'|translate:'app'|escape}}</th>
+                <th class="cell-rank-after">{{'Rank(After)'|translate:'app'|escape}}</th>
                 <th class="cell-level">{{'Level'|translate:'app'|escape}}</th>
+                {{* <th class="cell-level-after">{{'Level(After)'|translate:'app'|escape}}</th> *}}
                 <th class="cell-result">{{'Result'|translate:'app'|escape}}</th>
                 <th class="cell-kd">{{'k'|translate:'app'|escape}}/{{'d'|translate:'app'|escape}}</th>
                 <th class="cell-kill-ratio">{{'Kill Ratio'|translate:'app'|escape}}</th>
@@ -248,8 +250,14 @@
           </div><div class="col-xs-6 col-sm-4 col-md-4 col-lg-3">
             <label><input type="checkbox" class="table-config-chk" data-klass="cell-rank"> {{'Rank'|translate:'app'|escape}}</label>
           </div><div class="col-xs-6 col-sm-4 col-md-4 col-lg-3">
+            <label><input type="checkbox" class="table-config-chk" data-klass="cell-rank-after"> {{'Rank(After)'|translate:'app'|escape}}</label>
+          </div><div class="col-xs-6 col-sm-4 col-md-4 col-lg-3">
             <label><input type="checkbox" class="table-config-chk" data-klass="cell-level"> {{'Level'|translate:'app'|escape}}</label>
           </div><div class="col-xs-6 col-sm-4 col-md-4 col-lg-3">
+        {{*
+            <label><input type="checkbox" class="table-config-chk" data-klass="cell-level-after"> {{'Level(After)'|translate:'app'|escape}}</label>
+          </div><div class="col-xs-6 col-sm-4 col-md-4 col-lg-3">
+        *}}
             <label><input type="checkbox" class="table-config-chk" data-klass="cell-result"> {{'Result'|translate:'app'|escape}}</label>
           </div><div class="col-xs-6 col-sm-4 col-md-4 col-lg-3">
             <label><input type="checkbox" class="table-config-chk" data-klass="cell-kd"> {{'k'|translate:'app'|escape}}/{{'d'|translate:'app'|escape}}</label>
