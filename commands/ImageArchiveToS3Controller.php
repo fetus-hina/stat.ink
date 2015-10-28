@@ -37,19 +37,12 @@ class ImageArchiveToS3Controller extends Controller
             }
             if (preg_match('/^(\d+-\w+)\.png$/', $entry->getBasename(), $match)) {
                 $tmpPng  = new Resource(tempnam('s3up-', sys_get_temp_dir()), 'unlink');
-                $tmpWebP = new Resource(tempnam('s3up-', sys_get_temp_dir()), 'unlink');
-                if ($this->convertToOptimizedPNG($entry->getPathname(), $tmpPng->get()) &&
-                        $this->convertToWebP($entry->getPathname(), $tmpWebP->get())
-                ) {
+                if ($this->convertToOptimizedPNG($entry->getPathname(), $tmpPng->get())) {
                     // ok. let's upload.
                     $conf = [
                         'png' => [
                             'localPath' => $tmpPng->get(),
                             'uploadKey' => $match[1] . '.png',
-                        ],
-                        'webp' => [
-                            'localPath' => $tmpWebP->get(),
-                            'uploadKey' => $match[1] . '.webp',
                         ],
                     ];
                     if ($this->upload($conf)) {
@@ -84,36 +77,13 @@ class ImageArchiveToS3Controller extends Controller
         return true;
     }
 
-    protected function convertToWebP($png, $webp)
-    {
-        $this->stdOut(sprintf("%s: Converting to WebP\n", basename($png)), Console::FG_YELLOW);
-        $cmdline = sprintf(
-            '/usr/bin/env %s -lossless -o %s %s >/dev/null 2>&1',
-            escapeshellarg('cwebp'),
-            escapeshellarg($webp),
-            escapeshellarg($png)
-        );
-        $lines = $status = null;
-        @exec($cmdline, $lines, $status);
-        if ($status != 0) {
-            return false;
-        }
-        $this->stdOut(sprintf(
-                "  Converted. %s bytes.\n",
-                number_format(filesize($webp))
-            ),
-            Console::FG_GREEN
-        );
-        return true;
-    }
-
     protected function upload($config)
     {
         foreach (Yii::$app->params['amazonS3'] as $param) {
             if (!$param['accessKey'] || !$param['secret'] || !$param['bucket']) {
                 return false;
             }
-            $type = @$param['type'] ?: 'webp';
+            $type = 'png';
             $endpoint = @$param['endpoint'] ?: 's3.amazonaws.com';
 
             if (!$this->doUpload(
