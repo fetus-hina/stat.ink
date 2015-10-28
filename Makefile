@@ -18,6 +18,7 @@ init: \
 	config/google-adsense.php \
 	config/amazon-s3.php \
 	config/cookie-secret.php \
+	config/backup-secret.php \
 	config/db.php \
 	resource
 
@@ -75,6 +76,10 @@ migrate-db: vendor config/db.php
 config/cookie-secret.php: vendor
 	test -f config/cookie-secret.php || ./yii secret/cookie
 	touch config/cookie-secret.php
+
+config/backup-secret.php: vendor
+	test -f config/backup-secret.php || ./yii secret/backup
+	touch config/backup-secret.php
 
 config/db.php: vendor
 	test -f config/db.php || ./yii secret/db

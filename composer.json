@@ -29,7 +29,8 @@
         "tpyo/amazon-s3-php-class": "^0.5.1",
         "yiisoft/yii2": "^2.0.6",
         "yiisoft/yii2-bootstrap": "2.0.*",
-        "yiisoft/yii2-smarty": "2.0.*"
+        "yiisoft/yii2-smarty": "2.0.*",
+        "zendframework/zend-crypt": "^2.4"
     },
     "require-dev": {
         "phpcq/author-validation": "^1.1",

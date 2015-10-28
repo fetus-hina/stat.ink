@@ -65,4 +65,19 @@ class SecretController extends Controller
     {
         return $driver . ':' . http_build_query($options, '', ';');
     }
+
+    public function actionBackup()
+    {
+        $this->stdout("Creating secret key file \"config/backup-secret.php\"... ", Console::FG_YELLOW);
+        $length = 32;
+        $binLength = (int)ceil($length * 3 / 4);
+        $binary = random_bytes($binLength); // PHP 7 native random_bytes() or compat-lib's one
+        $key = substr(strtr(base64_encode($binary), '+/=', '_-.'), 0, $length);
+        file_put_contents(
+            __DIR__ . '/../config/backup-secret.php',
+            sprintf("<?php\nreturn '%s';\n", $key)
+        );
+        $this->stdout("Done.\n", Console::FG_GREEN);
+    }
+
 }
