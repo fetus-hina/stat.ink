@@ -229,7 +229,9 @@ class User extends ActiveRecord implements IdentityInterface
             'profile' => [
                 'nnid'          => (string)$this->nnid != '' ? $this->nnid : null,
                 'twitter'       => (string)$this->twitter != '' ? $this->twitter : null,
-                'ikanakama'     => (string)$this->ikanakama ? sprintf('http://ikazok.net/users/%d', $this->ikanakama) : null,
+                'ikanakama'     => (string)$this->ikanakama
+                    ? sprintf('http://ikazok.net/users/%d', $this->ikanakama)
+                    : null,
                 'environment'   => $this->env ? $this->env->text : null,
             ],
             'stat' => $this->userStat ? $this->userStat->toJsonArray() : null,
