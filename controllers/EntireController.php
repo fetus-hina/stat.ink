@@ -32,9 +32,10 @@ class EntireController extends Controller
     {
         $prefix = 'app\actions\entire';
         return [
-            'kd-win' => [ 'class' => $prefix . '\KDWinAction' ],
-            'users' => [ 'class' => $prefix . '\UsersAction' ],
-            'weapons' => [ 'class' => $prefix . '\WeaponsAction' ],
+            'kd-win'    => [ 'class' => $prefix . '\KDWinAction' ],
+            'knockout'  => [ 'class' => $prefix . '\KnockoutAction' ],
+            'users'     => [ 'class' => $prefix . '\UsersAction' ],
+            'weapons'   => [ 'class' => $prefix . '\WeaponsAction' ],
         ];
     }
 }
