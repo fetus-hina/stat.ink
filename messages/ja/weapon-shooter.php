@@ -1,6 +1,4 @@
 <?php
-// 'N-ZAP \'85'
-// 'N-ZAP \'89'
 return [
     '.52 Gal Deco' => '.52ガロンデコ',
     '.52 Gal' => '.52ガロン',
@@ -24,6 +22,8 @@ return [
     'L-3 Nozzlenose' => 'L3リールガン',
     'Luna Blaster Neo' => 'ノヴァブラスターネオ',
     'Luna Blaster' => 'ノヴァブラスター',
+    'N-ZAP \'85' => 'N-ZAP85',
+    'N-ZAP \'89' => 'N-ZAP89',
     'Neo Splash-o-matic' => 'シャープマーカーネオ',
     'Octoshot Replica' => 'オクタシューターレプリカ',
     'Range Blaster' => 'ロングブラスター', 
