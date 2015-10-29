@@ -18,6 +18,15 @@
       <a class="twitter-share-button" href="https://twitter.com/intent/tweet" data-count="none"><span class="fa fa-twitter"></span></a>
     </div>
 
+    {{use class="yii\bootstrap\ActiveForm" type="block"}}
+    {{ActiveForm assign="_" id="filter-form" action=['entire/kd-win'] method="get" layout="inline"}}
+      {{$_->field($filter, 'map')->dropDownList($maps)->label(false)}}
+      &#32;
+      {{$_->field($filter, 'weapon')->dropDownList($weapons)->label(false)}}
+      &#32;
+      <input type="submit" value="{{'Summarize'|translate:'app'|escape}}" class="btn btn-primary">
+    {{/ActiveForm}}
+
     {{foreach $rules as $rule}}
       <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">

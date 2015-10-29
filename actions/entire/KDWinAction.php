@@ -9,13 +9,20 @@ namespace app\actions\entire;
 
 use Yii;
 use yii\web\ViewAction as BaseAction;
-use app\models\Rule;
 use app\models\GameMode;
+use app\models\Map;
+use app\models\Rule;
+use app\models\WeaponType;
+use app\models\BattleFilterForm;
 
 class KDWinAction extends BaseAction
 {
     public function run()
     {
+        $filter = new BattleFilterForm();
+        $filter->load($_GET);
+        $filter->validate();
+
         $data = [];
         $modes = GameMode::find()->orderBy('id')->all();
         foreach ($modes as $mode) {
@@ -24,7 +31,7 @@ class KDWinAction extends BaseAction
                 $tmpData[] = (object)[
                     'key' => $rule->key,
                     'name' => Yii::t('app-rule', $rule->name),
-                    'data' => $this->makeData($rule),
+                    'data' => $this->makeData($rule, $filter),
                 ];
             }
             usort($tmpData, function ($a, $b) {
@@ -35,10 +42,13 @@ class KDWinAction extends BaseAction
 
         return $this->controller->render('kd-win.tpl', [
             'rules' => $data,
+            'maps' => $this->maps,
+            'weapons' => $this->weapons,
+            'filter' => $filter,
         ]);
     }
 
-    private function makeData(Rule $rule)
+    private function makeData(Rule $rule, BattleFilterForm $filter)
     {
         $ret = [];
         foreach (range(0, 16) as $i) {
@@ -53,7 +63,7 @@ class KDWinAction extends BaseAction
         }
 
         $maxBattle = 0;
-        foreach ($this->query($rule) as $row) {
+        foreach ($this->query($rule, $filter) as $row) {
             $i = $row['kill'] > 15 ? 16 : $row['kill'];
             $j = $row['death'] > 15 ? 16 : $row['death'];
             $ret[$i][$j]->battle += $row['count'];
@@ -63,7 +73,7 @@ class KDWinAction extends BaseAction
         return $ret;
     }
 
-    private function query(Rule $rule)
+    private function query(Rule $rule, BattleFilterForm $filter)
     {
         $query = (new \yii\db\Query())
             ->select([
@@ -83,6 +93,61 @@ class KDWinAction extends BaseAction
             ->andWhere('{{battle}}.[[death]] IS NOT NULL')
             ->andWhere(['{{battle}}.[[rule_id]]' => $rule->id])
             ->groupBy(['{{battle}}.[[kill]]', '{{battle}}.[[death]]']);
+
+        if (!$filter->hasErrors()) {
+            if ($filter->map != '') {
+                $query->innerJoin('map', '{{battle}}.[[map_id]] = {{map}}.[[id]]');
+                $query->andWhere(['{{map}}.[[key]]' => $filter->map]);
+            }
+            if ($filter->weapon != '') {
+                $query->innerJoin('weapon', '{{battle}}.[[weapon_id]] = {{weapon}}.[[id]]');
+                switch (substr($filter->weapon, 0, 1)) {
+                    default:
+                        $query->andWhere(['{{weapon}}.[[key]]' => $filter->weapon]);
+                        break;
+
+                    case '@':
+                        $query->innerJoin('weapon_type', '{{weapon}}.[[type_id]] = {{weapon_type}}.[[id]]');
+                        $query->andWhere(['{{weapon_type}}.[[key]]' => substr($filter->weapon, 1)]);
+                        break;
+
+                    case '+':
+                        $query->innerJoin('subweapon', '{{weapon}}.[[subweapon_id]] = {{subweapon}}.[[id]]');
+                        $query->andWhere(['{{subweapon}}.[[key]]' => substr($filter->weapon, 1)]);
+                        break;
+
+                    case '*':
+                        $query->innerJoin('special', '{{weapon}}.[[special_id]] = {{special}}.[[id]]');
+                        $query->andWhere(['{{special}}.[[key]]' => substr($filter->weapon, 1)]);
+                        break;
+                }
+            }
+        }
+
         return $query->createCommand()->queryAll();
+    }
+
+    public function getMaps()
+    {
+        $ret = [];
+        foreach (Map::find()->all() as $map) {
+            $ret[$map->key] = Yii::t('app-map', $map->name);
+        }
+        asort($ret);
+        return array_merge(
+            [ '' => Yii::t('app-map', 'Any Map') ],
+            $ret
+        );
+    }
+
+    public function getWeapons()
+    {
+        $ret = [
+            '' => Yii::t('app-weapon', 'Any Weapon'),
+        ];
+        foreach (WeaponType::find()->orderBy('id ASC')->all() as $type) {
+            $ret['@' . $type->key] = Yii::t('app-weapon', $type->name);
+        }
+        return $ret;
     }
 }
