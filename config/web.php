@@ -44,6 +44,7 @@ $config = [
                 'api/internal/<action:[\w-]+>' => 'api-internal/<action>',
                 '<action:[\w-]+>'  => 'site/<action>',
                 '<controller:[\w-]+>/<action:[\w-]+>' => '<controller>/<action>',
+                'robots.txt'    => 'site/robots',
                 ''              => 'site/index',
             ],
         ],

@@ -43,4 +43,25 @@ class SiteController extends Controller
     {
         $this->redirect('https://github.com/fetus-hina/stat.ink/blob/master/API.md');
     }
+
+    public function actionRobots()
+    {
+        $resp = Yii::$app->response;
+        $resp->format = 'raw';
+        $resp->headers->set('Content-Type', 'text/plain; charset=UTF-8');
+        if (!YII_ENV_DEV) {
+            $resp->content = implode("\n", [
+                'User-agent: *',
+                'Disallow: /'
+            ]);
+        } else {
+            $resp->content = implode("\n", [
+                'User-agent: *',
+                'Disallow:',
+                '',
+                'User-agent: Baiduspider',
+                'Disallow: /',
+            ]);
+        }
+    }
 }
