@@ -20,7 +20,7 @@ class BackupController extends Controller
     public function actionSave()
     {
         $outPath = sprintf(
-            '%s/statink-%s.dump.xz.aes', 
+            '%s/statink-%s.dump.xz.aes',
             Yii::getAlias('@app/runtime/backup'),
             date('YmdHis', time())
         );
@@ -40,7 +40,7 @@ class BackupController extends Controller
         ];
         $pipes = [];
         $proc = @proc_open(
-            $execinfo['cmdline'], 
+            $execinfo['cmdline'],
             $descriptorspec,
             $pipes,
             getcwd(),
@@ -81,7 +81,7 @@ class BackupController extends Controller
         $dsn = $this->parseDsn($config['dsn']);
         $cmdline = sprintf(
             '/usr/bin/env %s -F c -Z 0 %s %s -U %s %s | xz -6 > %s',
-            escapeshellarg('pg_dump'), 
+            escapeshellarg('pg_dump'),
             @$dsn['host'] ? '-h ' . escapeshellarg($dsn['host']) : '',
             @$dsn['port'] ? '-p ' . escapeshellarg($dsn['port']) : '',
             escapeshellarg($config['username']),

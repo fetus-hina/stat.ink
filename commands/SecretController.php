@@ -79,5 +79,4 @@ class SecretController extends Controller
         );
         $this->stdout("Done.\n", Console::FG_GREEN);
     }
-
 }
