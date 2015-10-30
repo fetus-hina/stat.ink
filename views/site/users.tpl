@@ -6,6 +6,10 @@
       {{'All Players'|translate:'app':$app->name|escape}}
     </h1>
 
+    <div style="margin-bottom:15px">
+      {{include file="@app/views/includes/ad.tpl"}}
+    </div>
+
     <div id="sns">
       {{\app\assets\TwitterWidgetAsset::register($this)|@void}}
       <a class="twitter-share-button" href="https://twitter.com/intent/tweet" data-count="none"><span class="fa fa-twitter"></span></a>

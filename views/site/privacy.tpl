@@ -5,6 +5,11 @@
     <h1>
       {{'Privacy Policy'|translate:'app'}}
     </h1>
+
+    <div style="margin-bottom:15px">
+      {{include file="@app/views/includes/ad.tpl"}}
+    </div>
+
     <p>弊サイト（{{$app->name|escape}}）では次の情報をアクセスログとして収集・蓄積しています。</p>
     <ul>
       <li>

@@ -36,6 +36,10 @@ class SiteController extends Controller
             'users' => [
                 'class' => 'app\actions\site\UsersAction',
             ],
+            'faq' => [
+                'class' => 'app\actions\site\SimpleAction',
+                'view' => 'faq.tpl',
+            ],
         ];
     }
 
