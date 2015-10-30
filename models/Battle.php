@@ -357,15 +357,30 @@ class Battle extends ActiveRecord
 
     public function setPeriod()
     {
-        // 開始時間があれば開始時間から5秒(適当)引いた値を使うを使う。
-        // 終了時間があれば終了時間から3分15秒(適当)引いた値を仕方ないので使う。
-        // どっちもなければ登録時間から3分30秒(適当)引いた値を仕方ないので使う。
-        if ($this->start_at) {
-            $time = strtotime($this->start_at) - 5;
-        } elseif ($this->end_at) {
-            $time = strtotime($this->end_at) - (180 + 15);
-        } else {
-            $time = strtotime($this->at) - (180 + 30);
+        // 開始時間があれば開始時間から15秒(適当)引いた値を使うを使う。
+        // 終了時間があれば終了時間から3分30秒(適当)引いた値を仕方ないので使う。
+        // どっちもなければ登録時間から3分45秒(適当)引いた値を仕方ないので使う。
+        $onSale = strtotime('2015-05-28 00:00:00+09:00');
+        $now = (int)(@$_SERVER['REQUEST_TIME'] ?: time());
+
+        $time = false;
+        if ($time === false && is_string($this->start_at) && trim($this->start_at) !== '') {
+            if (($t = strtotime($this->start_at)) !== false && $t >= $onSale && $t <= $now) {
+                $time = $t - 15;
+            }
+        }
+        if ($time === false && is_string($this->end_at) && trim($this->end_at) !== '') {
+            if (($t = strtotime($this->end_at)) !== false && $t >= $onSale && $t <= $now) {
+                $time = $t - (180 + 30);
+            }
+        }
+        if ($time === false && is_string($this->at) && trim($this->at) !== '') {
+            if (($t = strtotime($this->at)) !== false && $t >= $onSale && $t <= $now) {
+                $time = $t - (180 + 45);
+            }
+        }
+        if ($time === false) {
+            $time = $now;
         }
         $this->period = \app\components\helpers\Battle::calcPeriod($time);
     }

@@ -137,6 +137,10 @@ class BattleAction extends BaseAction
             // dry_run
             // 整形用のダミーデータを準備
             $battle = $form->toBattle();
+            $battle->validate();
+            //$battle->at = gmdate('Y-m-d H:i:sP', @$_['REQUEST_TIME'] ?: time());
+            //$battle->setPeriod();
+
             $deathReasons = [];
             foreach ($form->toDeathReasons($battle) as $reason) {
                 if ($reason) {
