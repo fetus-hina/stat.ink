@@ -8,7 +8,7 @@ stat.ink
 
 https://stat.ink/ のソースコードです。
 
-[IkaLog](https://github.com/hasegaw/IkaLog) 等の対応ソフトウェア、または自作のソフトウェアと連携することで Splatoon の戦績を保存し、統計を取ります（予定）。
+[IkaLog](https://github.com/hasegaw/IkaLog) 等の対応ソフトウェア、または自作のソフトウェアと連携することで Splatoon の戦績を保存し、統計を取ります。
 
 
 動作環境
@@ -18,16 +18,14 @@ https://stat.ink/ のソースコードです。
 * PostgreSQL 9.x
 * ImageMagick (`convert`)
 * Node.js (`npm`)
-* cwebp
-* jpegoptim
-* pngcrush
+* `cwebp`
+* `jpegoptim`
+* `pngcrush`
 
-https://stat.ink/ は現在次の構成で動作しています。
+https://stat.ink/ は現在次の構成で動作しています。（Docker で用意しているものとほぼ同じです）
 
 * CentOS 7.1.1503 (x86_64)
 * Nginx 1.9.x (mainline)
-* PostgreSQL 9.4.x (PGDG)
-* Node.js 0.10.316 ([EPEL](https://fedoraproject.org/wiki/EPEL))
 * [SCL](https://www.softwarecollections.org/)
     - [rh-php56](https://www.softwarecollections.org/en/scls/rhscl/rh-php56/)
         - PHP 5.6.*
@@ -42,6 +40,17 @@ https://stat.ink/ は現在次の構成で動作しています。
         - Mcrypt
             - `more-php56-php-mcrypt`
             - `more-php56-php-pecl-msgpack`
+    - [rh-postgresql94](https://www.softwarecollections.org/en/scls/rhscl/rh-postgresql94/)
+        - PostgreSQL 9.4.*
+            - `rh-postgresql94-postgresql`
+            - `rh-postgresql94-postgresql-server`
+    - [v8314](https://www.softwarecollections.org/en/scls/rhscl/v8314/)
+        - V8 3.14.* (Used by Node.js)
+    - [nodejs010](https://www.softwarecollections.org/en/scls/rhscl/nodejs010/)
+        - Node.js 0.10.*
+            - `nodejs010-nodejs`
+            - `nodejs010-npm`
+
 
 CentOS 7 の標準 PHP は 5.4.16 です。このバージョンでは動作しません。
 
