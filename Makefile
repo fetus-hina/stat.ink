@@ -118,14 +118,12 @@ config/amazon-s3.php:
 	echo '];'                     	           >> config/amazon-s3.php
 
 config/backup-s3.php:
-	echo '<?php'                               >  config/backup-s3.php
-	echo 'return ['                            >> config/backup-s3.php
-	echo '    ['                               >> config/backup-s3.php
-	echo "        'endpoint'  => 's3-ap-northeast-1.amazonaws.com'," >> config/backup-s3.php
-	echo "        'accessKey' => '',"          >> config/backup-s3.php
-	echo "        'secret'    => '',"          >> config/backup-s3.php
-	echo "        'bucket'    => '',"          >> config/backup-s3.php
-	echo '    ],'                 	           >> config/backup-s3.php
-	echo '];'                     	           >> config/backup-s3.php
+	echo '<?php'                           >  config/backup-s3.php
+	echo 'return ['                        >> config/backup-s3.php
+	echo "    'endpoint'  => 's3-ap-northeast-1.amazonaws.com'," >> config/backup-s3.php
+	echo "    'accessKey' => '',"          >> config/backup-s3.php
+	echo "    'secret'    => '',"          >> config/backup-s3.php
+	echo "    'bucket'    => '',"          >> config/backup-s3.php
+	echo '];'                 	           >> config/backup-s3.php
 
 .PHONY: all init resource check-style fix-style clean clean-resource migrate-db composer-plugin FORCE
