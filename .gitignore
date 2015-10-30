@@ -4,6 +4,7 @@
 .project
 .settings
 /config/amazon-s3.php
+/config/backup-s3.php
 /config/backup-secret.php
 /config/cookie-secret.php
 /config/db.php
