@@ -2,6 +2,9 @@
   {{set layout="main.tpl"}}
   {{set title="{{$app->name}} | {{'FAQ'|translate:'app'}}"}}
 
+  {{\app\assets\AboutAsset::register($this)|@void}}
+  {{$aboutAsset = $app->assetManager->getBundle('app\assets\AboutAsset')}}
+
   <div class="container">
     <h1>
       {{'FAQ'|translate:'app'|escape}}
@@ -23,6 +26,7 @@
     <p>
       実際には IkaLog とは重要なパートナー関係にありますが、それでも別の開発者が別々に開発する別々のプロダクトです。
     </p>
+    <img src="{{$app->assetmanager->getAssetUrl($aboutAsset, 'ecosystem.png')|escape}}" alt="" title="" style="width:100%;max-width:530px">
 
     <h2>
       Q: キャプチャデバイスがないと使えないのですか
@@ -34,7 +38,7 @@
       現時点で、一般に広く公開されている対応ソフトウェアは IkaLog だけですので、現実的にはキャプチャデバイスが必要となります。
     </p>
     <p>
-      stat.ink 自体の設計ポリシーとしては IkaLog 専用という事実はなく、対応するソフトウェアが用意されれば（作るのはあなたかもしれません）利用いただけます。
+      stat.ink 自体の設計ポリシーとしては IkaLog 専用という事実はなく、対応するソフトウェアが用意されれば（作るのはあなたかもしれません）キャプチャ環境がなくても利用いただけるようになるでしょう。
     </p>
 
     <h2>
@@ -69,21 +73,11 @@
     <p>
       IkaLog に限れば、入力が 720p でない場合に問題が発生しやすいようです。Wii U 本体の出力設定が 720p になっていることを確認してください。
     </p>
+    <p>
+      <img src="{{$app->assetmanager->getAssetUrl($aboutAsset, 'ikalog-function.png')|escape}}" alt="" title="" style="width:100%;max-width:530px">
+    </p>
+    <iframe src="//www.slideshare.net/slideshow/embed_code/key/Hd6gpSfTEfh5dM" width="425" height="355" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="//www.slideshare.net/TakeshiHasegawa1/20151016ssmjpikalog" title="「スプラトゥーン」リアルタイム画像解析ツール 「IkaLog」の裏側" target="_blank">「スプラトゥーン」リアルタイム画像解析ツール 「IkaLog」の裏側</a> </strong> from <strong><a href="//www.slideshare.net/TakeshiHasegawa1" target="_blank">Takeshi HASEGAWA</a></strong> </div>
     
-    <h2>
-      Q: バトルを削除したい
-    </h2>
-    <p>
-      A: 現時点では削除する手段を提供していません。
-    </p>
-    <p>
-      これは、全体の統計を意図的に狂わせる可能性を考慮したものです。<a href="https://twitter.com/fetus_hina/status/660102834549972992">関連ツイート</a>。
-      誤検出であることが明らかな場合は手動で削除を行いますのでご連絡ください。
-    </p>
-    <p>
-      また、今後何らかの手段を提供する予定です。
-    </p>
-
     <h2>
       Q: もっと細かくデータを分析したい
     </h2>
