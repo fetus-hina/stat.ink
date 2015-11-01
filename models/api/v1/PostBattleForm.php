@@ -195,7 +195,7 @@ class PostBattleForm extends Model
         if ($this->hasErrors($attribute)) {
             return;
         }
-        if (!($this->$attr instanceof UploadedFile)) {
+        if (!($this->$attribute instanceof UploadedFile)) {
             // 先に file バリデータを通すのでここは絶対通らないはず
             $this->addError($attribute, 'ファイルをアップロードしてください / [BUG?] $attributes is not an instance of UploadedFile');
             return;
