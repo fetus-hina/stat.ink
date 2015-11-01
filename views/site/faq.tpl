@@ -42,6 +42,14 @@
     </p>
 
     <h2>
+      Q. キャプチャデバイスを IkaLog が認識できません
+    </h2>
+    <p>
+      A: IkaLog 側の問題（あるいは仕様）なので stat.ink で関知する範囲ではありませんが、スクリーンキャプチャ経由で動作したりするようですので、キャプチャデバイスの公式アプリで表示したものを取り込んだりできるかもしれません。
+    </p>
+    <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/SAdkOp9vMUE?rel=0" frameborder="0" allowfullscreen></iframe>
+
+    <h2>
       Q: キャプチャデバイスなしで利用できるサイトはありませんか
     </h2>
     <p>
