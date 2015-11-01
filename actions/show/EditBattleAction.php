@@ -11,6 +11,7 @@ use Yii;
 use yii\web\NotFoundHttpException;
 use yii\web\ViewAction as BaseAction;
 use app\models\Battle;
+use app\models\BattleDeleteForm;
 use app\models\BattleForm;
 use app\models\GameMode;
 use app\models\Lobby;
@@ -43,16 +44,35 @@ class EditBattleAction extends BaseAction
     public function run()
     {
         $form = new BattleForm();
+        $del = new BattleDeleteForm();
         if (Yii::$app->request->isPost) {
-            if ($form->load($_POST) && $form->validate()) {
-                $this->battle->attributes = $form->attributes;
-                if ($this->battle->save()) {
-                    $this->controller->redirect([
-                        'show/battle',
-                        'screen_name' => $this->battle->user->screen_name,
-                        'battle' => $this->battle->id,
-                    ]);
-                    return;
+            $form->load($_POST);
+            $del->load($_POST);
+
+            if (Yii::$app->request->post('_action') === 'delete') {
+                if ($del->validate()) {
+                    $transaction = Yii::$app->db->beginTransaction();
+                    if ($this->battle->delete()) {
+                        $transaction->commit();
+                        $this->controller->redirect([
+                            'show/user',
+                            'screen_name' => $this->battle->user->screen_name,
+                        ]);
+                        return;
+                    }
+                    $transaction->rollback();
+                }
+            } else {
+                if ($form->validate()) {
+                    $this->battle->attributes = $form->attributes;
+                    if ($this->battle->save()) {
+                        $this->controller->redirect([
+                            'show/battle',
+                            'screen_name' => $this->battle->user->screen_name,
+                            'battle' => $this->battle->id,
+                        ]);
+                        return;
+                    }
                 }
             }
         } else {
@@ -62,6 +82,7 @@ class EditBattleAction extends BaseAction
             'user' => $this->battle->user,
             'battle' => $this->battle,
             'form' => $form,
+            'delete' => $del,
             'lobbies' => $this->makeLobbies(),
             'rules' => $this->makeRules(),
             'maps' => $this->makeMaps(),

@@ -75,6 +75,40 @@
           ['class' => 'btn btn-lg btn-default btn-block']
         )}}
     </div>
+
+    <hr>
+
+    <div style="margin-top:7.5em;border:1px solid #ccc;border-radius:5px;padding:15px">
+      <h2 style="color:#c9302c">
+        {{'Danger Zone'|translate:'app'|escape}}
+      </h2>
+      <p>
+        {{'You can delete this battle.'|translate:'app'|escape}}
+      </p>
+      <ul>
+        <li>
+          {{'Once you delete this battle, there is no going back.'|translate:'app'|escape}}
+        </li>
+        <li>
+          <strong style="color:#c9302c">
+            {{'Please do not achieved the destruction of evidence.'|translate:'app'|escape}}
+          </strong>
+          &#32;
+          {{'This action is provided for delete a false recognized battle.'|translate:'app'|escape}}
+        </li>
+        <li>
+          {{'If you misuse this feature, you will be kicked out.'|translate:'app'|escape}}
+        </li>
+      </ul>
+      {{ActiveForm assign="_" id="delete-form" action=['show/edit-battle', 'screen_name' => $user->screen_name, 'battle' => $battle->id]}}
+        {{Html::hiddenInput('_action', 'delete')}}
+        {{$_->field($delete, 'agree')->label('文章を理解し、同意の上削除します')->checkbox(['value' => 'yes', 'uncheck' => null])}}
+        {{Html::submitButton(
+            Yii::t('app', 'Delete'),
+            ['class' => 'btn btn-lg btn-danger btn-block']
+          )}}
+      {{/ActiveForm}}
+    </div>
   </div>
 {{/strip}}
 {{registerCss}}{{literal}}
