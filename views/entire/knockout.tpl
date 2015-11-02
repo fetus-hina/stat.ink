@@ -7,9 +7,8 @@
       {{$title|escape}}
       {{set title="{{$app->name}} | {{$title}}"}}
     </h1>
-    <div style="margin-bottom:15px">
-      {{include file="@app/views/includes/ad.tpl"}}
-    </div>
+
+    {{include file="@app/views/includes/ad.tpl"}}
 
     <div id="sns">
       {{\app\assets\TwitterWidgetAsset::register($this)|@void}}
