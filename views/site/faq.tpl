@@ -26,7 +26,7 @@
     <p>
       実際には IkaLog とは重要なパートナー関係にありますが、それでも別の開発者が別々に開発する別々のプロダクトです。
     </p>
-    <img src="{{$app->assetmanager->getAssetUrl($aboutAsset, 'ecosystem.png')|escape}}" alt="" title="" style="width:100%;max-width:530px">
+    <img src="{{$app->assetmanager->getAssetUrl($aboutAsset, 'ecosystem.png')|escape}}" alt="" title="">
 
     <h2>
       Q: キャプチャデバイスがないと使えないのですか
@@ -47,7 +47,14 @@
     <p>
       A: IkaLog 側の問題（あるいは仕様）なので stat.ink で関知する範囲ではありませんが、スクリーンキャプチャ経由で動作したりするようですので、キャプチャデバイスの公式アプリで表示したものを取り込んだりできるかもしれません。
     </p>
-    <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/SAdkOp9vMUE?rel=0" frameborder="0" allowfullscreen></iframe>
+    <div class="hidden-xs">
+      <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/SAdkOp9vMUE?rel=0" frameborder="0" allowfullscreen></iframe>
+    </div>
+    <div class="visible-xs-block">
+      <p>
+        <a href="https://www.youtube.com/watch?v=SAdkOp9vMUE">IkaLog で ScreenCapture を使う (YouTube)</a>
+      </p>
+    </div>
 
     <h2>
       Q: キャプチャデバイスなしで利用できるサイトはありませんか
@@ -82,7 +89,7 @@
       IkaLog に限れば、入力が 720p でない場合に問題が発生しやすいようです。Wii U 本体の出力設定が 720p になっていることを確認してください。
     </p>
     <p>
-      <img src="{{$app->assetmanager->getAssetUrl($aboutAsset, 'ikalog-function.png')|escape}}" alt="" title="" style="width:100%;max-width:530px">
+      <img src="{{$app->assetmanager->getAssetUrl($aboutAsset, 'ikalog-function.png')|escape}}" alt="" title="">
     </p>
     <iframe src="//www.slideshare.net/slideshow/embed_code/key/Hd6gpSfTEfh5dM" width="425" height="355" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="//www.slideshare.net/TakeshiHasegawa1/20151016ssmjpikalog" title="「スプラトゥーン」リアルタイム画像解析ツール 「IkaLog」の裏側" target="_blank">「スプラトゥーン」リアルタイム画像解析ツール 「IkaLog」の裏側</a> </strong> from <strong><a href="//www.slideshare.net/TakeshiHasegawa1" target="_blank">Takeshi HASEGAWA</a></strong> </div>
     
@@ -94,3 +101,10 @@
     </p>
   </div>
 {{/strip}}
+{{registerCss}}
+  .container img {
+    width:100%;
+    max-width:530px;
+    height: auto;
+  }
+{{/registerCss}}
