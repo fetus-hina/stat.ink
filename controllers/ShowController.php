@@ -23,8 +23,8 @@ class ShowController extends Controller
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'edit-battle' => [ 'get', 'post' ],
-                    '*' => [ 'get' ],
+                    'edit-battle' => [ 'head', 'get', 'post' ],
+                    '*' => [ 'head', 'get' ],
                 ],
             ],
             'access' => [

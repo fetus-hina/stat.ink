@@ -22,7 +22,7 @@ class EntireController extends Controller
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    '*' => [ 'get' ],
+                    '*' => [ 'head', 'get' ],
                 ],
             ],
         ];

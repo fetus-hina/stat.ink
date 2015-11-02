@@ -27,8 +27,8 @@ class ApiV1Controller extends Controller
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'battle' => [ 'get', 'post' ],
-                    '*' => [ 'get' ],
+                    'battle' => [ 'head', 'get', 'post' ],
+                    '*' => [ 'head', 'get' ],
                 ],
             ],
         ];
