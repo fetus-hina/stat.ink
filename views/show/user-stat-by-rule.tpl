@@ -7,6 +7,7 @@
 
   {{$this->registerMetaTag(['name' => 'twitter:card', 'content' => 'summary'])|@void}}
   {{$this->registerMetaTag(['name' => 'twitter:title', 'content' => $title])|@void}}
+  {{$this->registerMetaTag(['name' => 'twitter:description', 'content' => $title])|@void}}
   {{$this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink'])|@void}}
   {{if $user->twitter != ''}}
     {{$this->registerMetaTag(['name' => 'twitter:creator', 'content' => '@'|cat:$user->twitter])|@void}}
