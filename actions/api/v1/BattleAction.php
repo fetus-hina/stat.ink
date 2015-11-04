@@ -138,8 +138,6 @@ class BattleAction extends BaseAction
             // 整形用のダミーデータを準備
             $battle = $form->toBattle();
             $battle->validate();
-            //$battle->at = gmdate('Y-m-d H:i:sP', @$_['REQUEST_TIME'] ?: time());
-            //$battle->setPeriod();
 
             $deathReasons = [];
             foreach ($form->toDeathReasons($battle) as $reason) {
@@ -219,7 +217,7 @@ class BattleAction extends BaseAction
 
         $imageOutputDir = Yii::getAlias('@webroot/images');
         $imageArchiveOutputDir = Yii::$app->params['amazonS3'] && Yii::$app->params['amazonS3'][0]['bucket'] != ''
-            ? Yii::getAlias('@app/runtime/image-archive-tmp')
+            ? (Yii::getAlias('@app/runtime/image-archive/queue') . '/' . gmdate('Ymd', time() + 9 * 3600)) // JST
             : null;
         if ($image = $form->toImageJudge($battle)) {
             $binary = is_string($form->image_judge)
