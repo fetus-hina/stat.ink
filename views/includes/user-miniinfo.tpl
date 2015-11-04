@@ -212,7 +212,10 @@
       {{if $user->mainWeapon}}
         <div style="margin:15px 0 0">
           {{'Favorite Weapon'|translate:'app'|escape}}:&#32;
-          {{$user->mainWeapon->name|translate:'app-weapon'|escape}}
+          {{$user->mainWeapon->name|translate:'app-weapon'|escape}}<br>
+          <a href="{{url route="show/user-stat-weapon" screen_name=$user->screen_name}}">
+            {{'List'|translate:'app'|escape}}
+          </a>
         </div>
       {{/if}}
       <div style="margin:15px 0 0">

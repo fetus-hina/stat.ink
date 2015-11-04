@@ -124,7 +124,8 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function getUserWeapons()
     {
-        return $this->hasMany(UserWeapon::className(), ['user_id' => 'id']);
+        return $this->hasMany(UserWeapon::className(), ['user_id' => 'id'])
+            ->with(['weapon']);
     }
 
     /**

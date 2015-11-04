@@ -1,6 +1,5 @@
 <?php
 return [
-    "{0}'s Battle Stat (Cause of Death)" => '{0}の統計（死因）',
     '24H WP' => '24H勝率',
     '<div class="input-group"><span class="input-group-addon">From:</span>{input}</div>' => '<div class="input-group">{input}<span class="input-group-addon">から</span></div>',
     '<div class="input-group"><span class="input-group-addon">To:</span>{input}</div>' => '<div class="input-group">{input}<span class="input-group-addon">まで</span></div>',
@@ -69,6 +68,7 @@ return [
     'Level' => 'ランク',
     'Level(After)' => 'ランク(後)',
     'Link' => 'リンク',
+    'List' => '一覧',
     'Loading...' => '読み込み中',
     'Log In' => 'ログイン',
     'Log Out' => 'ログアウト',
@@ -176,9 +176,11 @@ return [
     '{0} Friend' => 'まことの{0}ボーイ',
     '{0} King' => 'えいえんの{0}ボーイ',
     '{0}-san' => '{0}さん',
+    '{0}\'s Battle Stat (Cause of Death)' => '{0}の統計（死因）',
     '{0}\'s Battle Stat (by Map and Rule)' => '{0}の統計（マップとルール）',
     '{0}\'s Battle Stat (by Map)' => '{0}の統計（マップ別）',
     '{0}\'s Battle Stat (by Rule)' => '{0}の統計（ルール別）',
+    '{0}\'s Favorite Weapon' => '{0}のよく使うブキ',
     '{0}\'s Log' => '{0}のイカログ',
     '{1} Champion' => 'カリスマ{1}ガール',
     '{1} Defender' => 'スーパー{1}ガール',
