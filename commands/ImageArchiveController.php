@@ -423,6 +423,179 @@ class ImageArchiveController extends Controller
     }
     // }}}
 
+    // upload {{{
+    public function actionUpload()
+    {
+        $inDir = Yii::getAlias('@archive/archive');
+
+        if (!file_exists($inDir)) {
+            $this->stderr("Input directory not found. {$inDir}\n", Console::FG_RED);
+            return 1;
+        }
+
+        if (!$lock = $this->getLock(__METHOD__)) {
+            $this->stderr("Another process is running.\n");
+            return 0;
+        }
+
+        if (!$files = $this->getUploadFileList($inDir)) {
+            $this->stderr("[upload] no archive file exists\n", Console::FG_RED);
+            return 0;
+        }
+
+        $targets = Yii::$app->params['amazonS3'];
+        $error = false;
+        foreach ($files as $file) {
+            $this->stdout(sprintf("[upload] Uploading %s ...\n", basename($file->path)));
+            foreach ($targets as $target_) {
+                $target = (object)$target_;
+                $this->stdout('    ... to ');
+                $this->stdout($target->name, Console::FG_PURPLE);
+                $this->stdout(' ... ');
+                $ret = $this->executeUpload($target, $file);
+                if ($ret === null) {
+                    $this->stdout("SKIP\n", Console::FG_YELLOW);
+                } elseif (!$ret) {
+                    $error = true;
+                    $this->stdout("FAILED\n", Console::FG_RED);
+                } else {
+                    $this->stdout("SUCCESS\n", Console::FG_GREEN);
+                }
+            }
+        }
+        return $error ? 1 : 0;
+    }
+
+    private function getUploadFileList($dir)
+    {
+        $this->stdout("[upload] Finding target files...\n");
+        $ret = [];
+        foreach (new DirectoryIterator($dir) as $entry) {
+            if ($entry->isFile() && preg_match('/^\d{8}-\d{2}-\w+\.tar$/', $entry->getBasename())) {
+                $tmp = (object)[
+                    'path' => $entry->getPathname(),
+                    'size' => $entry->getSize(),
+                    'sha256sum' => base64_encode(hash_file('sha256', $entry->getPathname(), true)),
+                ];
+                $this->stdout(
+                    sprintf(
+                        "    %s : %.1fMB, %s\n",
+                        basename($tmp->path),
+                        $tmp->size / (1024 * 1024),
+                        $tmp->sha256sum
+                    )
+                );
+
+                $ret[] = $tmp;
+            }
+        }
+        usort(
+            $ret,
+            function ($a, $b) {
+                return strnatcmp($a->path, $b->path);
+            }
+        );
+        return array_values($ret);
+    }
+
+    private function executeUpload(\stdClass $target, \stdClass $file)
+    {
+        $fileName = basename($file->path);
+        $upInfo = $this->loadUploadedInfo($target);
+        if (isset($upInfo[$fileName]) &&
+                $upInfo[$fileName]['size'] == $file->size &&
+                $upInfo[$fileName]['sha256sum'] === $file->sha256sum
+        ) {
+            // already uploaded
+            return null;
+        }
+
+        if (!$this->executeUploadImpl($target, $file, $fileName)) {
+            return false;
+        }
+
+        $upInfo[$fileName] = [
+            'size' => $file->size,
+            'sha256sum' => $file->sha256sum,
+        ];
+        $this->saveUploadedInfo($target, $upInfo);
+        return true;
+    }
+
+    private function executeUploadImpl(\stdClass $target, \stdClass $file, $fileName)
+    {
+        try {
+            S3::setExceptions();
+            if (!$file = S3::inputFile($file->path)) {
+                return false;
+            }
+            S3::setAuth($target->accessKey, $target->secret);
+            S3::setSSL(true, strpos($target->endpoint, 'amazonaws') !== false);
+            S3::setEndpoint($target->endpoint);
+            $ret = S3::putObject(
+                $file,
+                $target->bucket,
+                $fileName,
+                S3::ACL_PRIVATE,
+                [],
+                [],
+                S3::STORAGE_CLASS_RRS,
+                S3::SSE_NONE
+            );
+            if ($ret) {
+                return true;
+            }
+        } catch (\Exception $e) {
+            $this->stderr("  Caught Exception: " . $e->getMessage() . "\n", Console::FG_RED);
+        }
+        return false;
+    }
+
+    private function loadUploadedInfo(\stdClass $target)
+    {
+        $filePath = $this->getUploadedInfoPath($target);
+        if (!file_exists($filePath)) {
+            return [];
+        }
+        return json_decode(file_get_contents($filePath, false, null), true);
+    }
+
+    private function saveUploadedInfo(\stdClass $target, array $data)
+    {
+        $filePath = $this->getUploadedInfoPath($target);
+        if (!file_exists(dirname($filePath))) {
+            mkdir(dirname($filePath), 0755, true);
+        }
+        file_put_contents($filePath, json_encode($data, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE));
+    }
+
+    private function getUploadedInfoPath(\stdClass $target)
+    {
+        $safestr = function ($str) {
+            return preg_replace('/[^a-zA-Z0-9]+/', '-', $str);
+        };
+        $filename = sprintf(
+            '%s.%s.%s.%s.json',
+            substr($safestr($target->name), 0, 8),
+            substr($safestr($target->bucket), 0, 8),
+            substr($safestr($target->endpoint), 0, 8),
+            hash(
+                'crc32b',
+                http_build_query(
+                    [
+                        'name' => $target->name,
+                        'bucket' => $target->bucket,
+                        'endpoint' => $target->endpoint,
+                    ],
+                    '',
+                    '&'
+                )
+            )
+        );
+        return Yii::getAlias('@archive/upload') . '/' . $filename;
+    }
+    // }}}
+
     protected function getLock($ident)
     {
         $lockPath = Yii::getAlias('@archive') . '/.lock-' . hash('crc32b', $ident);
@@ -436,6 +609,12 @@ class ImageArchiveController extends Controller
             fclose($fh);
             return false;
         }
+        fprintf($fh, implode("\n", [
+            'ident:' . $ident,
+            'at:   ' . gmdate('Y-m-d H:i:sP', time()),
+            'pid:  ' . getmypid(),
+            '',
+        ]));
         return new Resource(
             $fh,
             function ($fh) {
