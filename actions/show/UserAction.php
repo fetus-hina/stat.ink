@@ -9,6 +9,7 @@ namespace app\actions\show;
 
 use Yii;
 use yii\data\ActiveDataProvider;
+use yii\helpers\Url;
 use yii\web\NotFoundHttpException;
 use yii\web\ViewAction as BaseAction;
 use app\models\BattleFilterForm;
@@ -37,6 +38,16 @@ class UserAction extends BaseAction
         }
         $summary = $battle->summary;
 
+        $permLink = Url::to(
+            array_merge(
+                ['show/user', 'screen_name' => $user->screen_name],
+                $filter->hasErrors()
+                    ? []
+                    : $filter->toPermLink()
+            ),
+            true
+        );
+
         $isPjax = $request->isPjax;
         return $this->controller->render('user.tpl', array_merge(
             [
@@ -47,6 +58,7 @@ class UserAction extends BaseAction
                 ]),
                 'summary'   => $summary,
                 'filter'    => $filter,
+                'permLink'  => $permLink
             ],
             $this->makeFilterFormData($user)
         ));

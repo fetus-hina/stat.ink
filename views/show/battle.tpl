@@ -10,7 +10,7 @@
   {{$this->registerMetaTag(['name' => 'twitter:card', 'content' => 'photo'])|@void}}
   {{$this->registerMetaTag(['name' => 'twitter:title', 'content' => $title])|@void}}
   {{$this->registerMetaTag(['name' => 'twitter:url', 'content' => $canonicalUrl])|@void}}
-  {{$this->registerMetaTag(['name' => 'twitter:site', 'content' => '@fetus_hina'])|@void}}
+  {{$this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink'])|@void}}
   {{if $user->twitter != ''}}
     {{$this->registerMetaTag(['name' => 'twitter:creator', 'content' => '@'|cat:$user->twitter])|@void}}
   {{/if}}

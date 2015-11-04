@@ -15,4 +15,11 @@ class Battle
         // 4 * 3600: 4時間ごとにステージ変更
         return (int)floor(($unixTime - 2 * 3600) / (4 * 3600));
     }
+
+    public static function periodToRange($period, $offset = 0)
+    {
+        $from = $period * (4 * 3600) + (2 * 3600) + $offset;
+        $to = $from + 4 * 3600;
+        return [$from, $to];
+    }
 }

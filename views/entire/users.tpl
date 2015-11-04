@@ -1,10 +1,17 @@
 {{strip}}
   {{set layout="main.tpl"}}
+
+  {{$title = 'Battles and Users'|translate:'app'}}
+  {{set title="{{$app->name}} | {{$title}}"}}
+
+  {{$this->registerMetaTag(['name' => 'twitter:card', 'content' => 'summary'])|@void}}
+  {{$this->registerMetaTag(['name' => 'twitter:title', 'content' => $title])|@void}}
+  {{$this->registerMetaTag(['name' => 'twitter:description', 'content' => $title])|@void}}
+  {{$this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink'])|@void}}
+
   <div class="container">
     <h1>
-      {{$title = 'Battles and Users'|translate:'app'}}
       {{$title|escape}}
-      {{set title="{{$app->name}} | {{$title}}"}}
     </h1>
 
     <div id="sns">

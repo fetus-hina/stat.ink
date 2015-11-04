@@ -4,20 +4,17 @@
   {{use class="yii\helpers\Url"}}
   {{use class="yii\widgets\ListView"}}
   {{\app\assets\TinyColorAsset::register($this)|@void}}
-  {{$canonicalUrl = Url::to(['show/user', 'screen_name' => $user->screen_name], true)}}
   {{$name = '{0}-san'|translate:'app':$user->name}}
   {{$title = "{0}'s Log"|translate:'app':$name}}
   {{set title="{{$app->name}} | {{$title}}"}}
-  {{$this->registerLinkTag(['rel' => 'canonical', 'href' => $canonicalUrl])|@void}}
-  {{$this->registerMetaTag(['name' => 'twitter:card', 'content' => 'photo'])|@void}}
+
+  {{$this->registerLinkTag(['rel' => 'canonical', 'href' => $permLink])|@void}}
+  {{$this->registerMetaTag(['name' => 'twitter:card', 'content' => 'summary'])|@void}}
   {{$this->registerMetaTag(['name' => 'twitter:title', 'content' => $title])|@void}}
-  {{$this->registerMetaTag(['name' => 'twitter:url', 'content' => $canonicalUrl])|@void}}
-  {{$this->registerMetaTag(['name' => 'twitter:site', 'content' => '@fetus_hina'])|@void}}
+  {{$this->registerMetaTag(['name' => 'twitter:url', 'content' => $permLink])|@void}}
+  {{$this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink'])|@void}}
   {{if $user->twitter != ''}}
     {{$this->registerMetaTag(['name' => 'twitter:creator', 'content' => '@'|cat:$user->twitter])|@void}}
-  {{/if}}
-  {{if $user->latestBattleResultImage}}
-    {{$this->registerMetaTag(['name' => 'twitter:image', 'content' => Url::to($user->latestBattleResultImage->url, true)])|@void}}
   {{/if}}
 
   <div class="container">
@@ -29,15 +26,6 @@
       {{\app\assets\TwitterWidgetAsset::register($this)|@void}}
       <a class="twitter-share-button" href="https://twitter.com/intent/tweet" data-count="none"><span class="fa fa-twitter"></span></a>
     </div>
-
-{{*
-    <h2>
-      {{'Recent Results'|translate:'app'|escape}}
-    </h2>
-    <p>
-      Coming soon
-    </p>
-*}}
 
     <div class="row">
       <div class="col-xs-12 col-sm-8 col-md-8 col-lg-9">

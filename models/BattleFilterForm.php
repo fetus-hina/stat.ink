@@ -10,6 +10,7 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 use app\components\helpers\db\Now;
+use app\components\helpers\Battle as BattleHelper;
 use app\models\Battle;
 use app\models\GameMode;
 use app\models\Lobby;
@@ -143,5 +144,71 @@ class BattleFilterForm extends Model
                 ])
             );
         }
+    }
+
+    public function toPermLink($formName = false)
+    {
+        if ($formName === false) {
+            $formName = $this->formName();
+        }
+
+        $ret = [];
+        $push = function ($key, $value) use ($formName, &$ret) {
+            if ($formName != '') {
+                $key = sprintf('%s[%s]', $formName, $key);
+            }
+            $ret[$key] = $value;
+        };
+
+        foreach (['lobby', 'rule', 'map', 'weapon', 'result'] as $key) {
+            $value = $this->$key;
+            if ((string)$value !== '') {
+                $push($key, $value);
+            }
+        }
+
+        $now = @$_SERVER['REQUEST_TIME'] ?: time();
+        switch ($this->term) {
+            case 'this-period':
+                $t = BattleHelper::periodToRange(BattleHelper::calcPeriod($now), 180);
+                $push('term', 'term');
+                $push('term_from', date('Y-m-d H:i:s', $t[0]));
+                $push('term_to', date('Y-m-d H:i:s', $t[1] - 1));
+                break;
+
+            case 'last-period':
+                $t = BattleHelper::periodToRange(BattleHelper::calcPeriod($now - 14400), 180);
+                $push('term', 'term');
+                $push('term_from', date('Y-m-d H:i:s', $t[0]));
+                $push('term_to', date('Y-m-d H:i:s', $t[1] - 1));
+                break;
+
+            case '24h':
+                $push('term', 'term');
+                $push('term_from', date('Y-m-d H:i:s', $now - 86400));
+                $push('term_to', date('Y-m-d H:i:s', $now));
+                break;
+
+            case 'today':
+                $push('term', 'term');
+                $push('term_from', date('Y-m-d 00:00:00', $now));
+                $push('term_to', date('Y-m-d 23:59:59', $now));
+                break;
+
+            case 'yesterday':
+                $t = mktime(12, 0, 0, date('n', $now), date('j', $now) - 1, date('Y', $now));
+                $push('term', 'term');
+                $push('term_from', date('Y-m-d 00:00:00', $t));
+                $push('term_to', date('Y-m-d 23:59:59', $t));
+                break;
+
+            case 'term':
+                $push('term', 'term');
+                $push('term_from', date('Y-m-d H:i:s', strtotime($this->term_from)));
+                $push('term_to', date('Y-m-d H:i:s', strtotime($this->term_to)));
+                break;
+        }
+
+        return $ret;
     }
 }

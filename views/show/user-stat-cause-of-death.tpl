@@ -1,16 +1,22 @@
 {{strip}}
   {{set layout="main.tpl"}}
+
+  {{$name = '{0}-san'|translate:'app':$user->name}}
+  {{$title = "{0}'s Battle Stat (Cause of Death)"|translate:'app':$name}}
+  {{set title="{{$app->name}} | {{$title}}"}}
+
+  {{$this->registerMetaTag(['name' => 'twitter:card', 'content' => 'summary'])|@void}}
+  {{$this->registerMetaTag(['name' => 'twitter:title', 'content' => $title])|@void}}
+  {{$this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink'])|@void}}
+  {{if $user->twitter != ''}}
+    {{$this->registerMetaTag(['name' => 'twitter:creator', 'content' => '@'|cat:$user->twitter])|@void}}
+  {{/if}}
+
   {{\app\assets\FlotPieAsset::register($this)|@void}}
   <div class="container">
     <h1>
-      {{$name = '{0}-san'|translate:'app':$user->name}}
-      {{$title = "{0}'s Battle Stat (Cause of Death)"|translate:'app':$name}}
       {{$title|escape}}
-      {{set title="{{$app->name}} | {{$title}}"}}
     </h1>
-    <p>
-      ルール別などの詳細な表示は、ほかの統計とともに作成中です
-    </p>
 
     <div id="sns">
       {{\app\assets\TwitterWidgetAsset::register($this)|@void}}
@@ -60,71 +66,57 @@
         </table>
       </div>
       <div class="col-xs-12 col-sm-4 col-md-4 col-lg-3">
+        <div style="border:1px solid #ccc;border-radius:5px;padding:15px;margin-bottom:15px">
+          {{$terms = [
+            ''            => 'Any Time'|translate:'app',
+            'this-period' => 'Current Period'|translate:'app',
+            'last-period' => 'Previous Period'|translate:'app',
+            '24h'         => 'Last 24 Hours'|translate:'app',
+            'today'       => 'Today'|translate:'app',
+            'yesterday'   => 'Yesterday'|translate:'app',
+            'term'        => 'Specify Period'|translate:'app'
+          ]}}
+          {{use class="yii\bootstrap\ActiveForm" type="block"}}
+          {{ActiveForm assign="_" id="filter-form" action=['show/user-stat-cause-of-death', 'screen_name' => $user->screen_name] method="get"}}
+            {{$_->field($filter, 'lobby')->dropDownList($lobbies)->label(false)}}
+            {{$_->field($filter, 'rule')->dropDownList($rules)->label(false)}}
+            {{$_->field($filter, 'map')->dropDownList($maps)->label(false)}}
+            {{$_->field($filter, 'weapon')->dropDownList($weapons)->label(false)}}
+            {{$_->field($filter, 'result')->dropDownList($results)->label(false)}}
+            {{$_->field($filter, 'term')->dropDownList($terms)->label(false)}}
+            <div id="filter-term-group">
+              {{$_->field($filter, 'term_from', [
+                  'inputTemplate' => '<div class="input-group"><span class="input-group-addon">From:</span>{input}</div>'|translate:'app'
+                ])->input('text', ['placeholder' => 'YYYY-MM-DD hh:mm:ss'])->label(false)}}
+              {{$_->field($filter, 'term_to', [
+                  'inputTemplate' => '<div class="input-group"><span class="input-group-addon">To:</span>{input}</div>'|translate:'app'
+                ])->input('text', ['placeholder' => 'YYYY-MM-DD hh:mm:ss'])->label(false)}}
+
+              {{\app\assets\BootstrapDateTimePickerAsset::register($this)|@void}}
+              {{registerCss}}#filter-term-group{margin-left:5%}{{/registerCss}}
+              {{registerJs}}{{literal}}
+                (function($) {
+                  $('#filter-term-group input').datetimepicker({
+                    format: "YYYY-MM-DD HH:mm:ss"
+                  });
+                  $('#filter-term').change(function() {
+                    if ($(this).val() === 'term') {
+                      $('#filter-term-group').show();
+                    } else {
+                      $('#filter-term-group').hide();
+                    }
+                  }).change();
+                })(jQuery);
+              {{/literal}}
+              {{/registerJs}}
+            </div>
+            <input type="submit" value="{{'Summarize'|translate:'app'|escape}}" class="btn btn-primary">
+          {{/ActiveForm}}
+        </div>
+
         {{include file="@app/views/includes/user-miniinfo.tpl" user=$user}}
-      </div>
-      <div class="col-xs-12 col-sm-4 col-md-4 col-lg-3 pull-right" style="margin-top:15px">
         {{include file="@app/views/includes/ad.tpl"}}
       </div>
     </div>
   </div>
 {{/strip}}
-{{registerJs}}{{literal}}
-(function($){
-  "use strict";
-  var data = [];
-  var total_count = 0;
-  var others = 0;
-  $('tr.cause-of-death').each(function() {
-    total_count += ~~$(this).attr('data-count');
-  }
-  $('tr.cause-of-death').each(function() {
-    var $this = $(this);
-    data.push({
-      'label': $this.attr('data-name'),
-      'data': ~~$this.attr('data-count')
-    });
-  });
-
-  $('.pie-flot-container').each(function () {
-    var $container = $(this);
-    $.plot($container, data, {
-      series: {
-        pie: {
-          show: true,
-          radius: 1,
-          label: {
-            show: false,
-            radius: .618,
-            formatter: function(label, slice) {
-              return $('<div>').append(
-                $('<div>').css({
-                  'fontSize': '1em',
-                  'lineHeight': '1.1em',
-                  'textAlign': 'center',
-                  'padding': '2px',
-                  'color': '#fff',
-                  'textShadow': '0px 0px 3px #000',
-                }).append(
-                  label
-                ).append( 
-                  $('<br>')
-                ).append(
-                  slice.data[0][1] + ' / ' +
-                  Math.round(slice.data[0][1] / (slice.percent / 100)) // FIXME
-                ).append(
-                  $('<br>')
-                ).append(
-                  slice.percent.toFixed(1) + '%'
-                )
-              ).html();
-            },
-          },
-        },
-      },
-      legend: {
-        show: false
-      }
-    });
-  });
-})(jQuery);
-{{/literal}}{{/registerJs}}
