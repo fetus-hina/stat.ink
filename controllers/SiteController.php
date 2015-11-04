@@ -53,7 +53,7 @@ class SiteController extends Controller
         $resp = Yii::$app->response;
         $resp->format = 'raw';
         $resp->headers->set('Content-Type', 'text/plain; charset=UTF-8');
-        if (!YII_ENV_DEV) {
+        if (YII_ENV_DEV) {
             $resp->content = implode("\n", [
                 'User-agent: *',
                 'Disallow: /'
