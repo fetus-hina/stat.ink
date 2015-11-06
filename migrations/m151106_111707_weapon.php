@@ -1,0 +1,32 @@
+<?php
+use yii\db\Migration;
+use app\models\Special;
+use app\models\Subweapon;
+use app\models\WeaponType;
+use app\models\DeathReasonType;
+
+class m151106_111707_weapon extends Migration
+{
+    public function safeUp()
+    {
+        $this->insert('weapon', [
+            'type_id' => WeaponType::findOne(['key' => 'splatling'])->id,
+            'key' => 'barrelspinner_deco',
+            'name' => 'Heavy Splatling Deco',
+            'subweapon_id' => Subweapon::findOne(['key' => 'pointsensor'])->id,
+            'special_id' => Special::findOne(['key' => 'daioika'])->id,
+        ]);
+
+        $this->insert('death_reason', [
+            'type_id' => DeathReasonType::findOne(['key' => 'main'])->id,
+            'key' => 'barrelspinner_deco',
+            'name' => 'Heavy Splatling Deco',
+        ]);
+    }
+
+    public function safeDown()
+    {
+        $this->delete('death_reason', ['key' => 'barrelspinner_deco']);
+        $this->delete('weapon', ['key' => 'barrelspinner_deco']);
+    }
+}
