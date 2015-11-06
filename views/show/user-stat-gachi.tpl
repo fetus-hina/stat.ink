@@ -32,7 +32,16 @@
         <p>
           {{'Excluded: Private Battles and Squad Battles(when Rank S, S+)'|translate:'app'|escape}}
         </p>
-        <div class="graph" id="stat-rank" data-json="{{$recentRank|json_encode|escape}}">
+        <script>
+          window._rankData = {{$recentRank|json_encode}};
+        </script>
+        <div id="stat-rank-legend"></div>
+        <div class="graph stat-rank"></div>
+        <div class="graph stat-rank" data-limit="200"></div>
+        <div class="text-right">
+          <label>
+            <input type="checkbox" id="show-rank-moving-avg" value="1" checked> {{'Show moving averages'|translate:'app'|escape}}
+          </label>
         </div>
 
         <hr>
@@ -59,52 +68,100 @@
 (function($) {
   var $graphs = $('.graph');
   
-  function drawRankGraph() {
-    var $graph = $graphs.filter('#stat-rank');
-    var json = JSON.parse($graph.attr('data-json'));
+  function drawRankGraph(json) {
+    var $graph_ = $graphs.filter('.stat-rank');
+
+    var rules = (function(json) {
+      var ret = {
+        area: [],
+        yagura: [],
+        hoko: []
+      };
+      var prevIndex = null;
+      var prevRule = null;
+      var prevValue = null;
+      for (var i = 0; i < json.length; ++i) {
+        var data = json[i];
+        if (prevRule !== data.rule && prevRule !== null) {
+          ret[prevRule].push([data.index, null]);
+          ret[data.rule].push([prevIndex, prevValue]);
+        }
+        ret[data.rule].push([data.index, data.exp]);
+        prevIndex = data.index;
+        prevRule = data.rule;
+        prevValue = data.exp;
+      }
+      return ret;
+    })(json);
+
     var data = [
       {
-        label: "{{'Rank'|translate:'app'|escape:'javascript'}}",
-        data: json.map(
-          function(v) {
-            return [v.index, v.exp];
-          },
-          json
-        )
+        label: "{{'Rank'|translate:'app'|escape:'javascript'}} ({{'Splat Zones'|translate:'app-rule'|escape:'javascript'}})",
+        data: rules.area,
+        color: '#edc240'
       },
       {
-        label: "{{'Moving Avg. ({0} Battles)'|translate:'app':10|escape}}",
-        data: json.map(
-          function(v) {
-            return [v.index, v.movingAvg];
-          },
-          json
-        )
+        label: "{{'Rank'|translate:'app'|escape:'javascript'}} ({{'Tower Control'|translate:'app-rule'|escape:'javascript'}})",
+        data: rules.yagura,
+        color: '#40a2ed'
+      },
+      {
+        label: "{{'Rank'|translate:'app'|escape:'javascript'}} ({{'Rainmaker'|translate:'app-rule'|escape:'javascript'}})",
+        data: rules.hoko,
+        color: '#ed4040'
       }
     ];
-    $.plot($graph, data, {
-      xaxis: {
-        minTickSize: 1,
-        tickFormatter: function (v) {
-          return ~~v;
-        }
-      },
-      yaxis: {
-        minTickSize: 10,
-        tickFormatter: function (v) {
-          if (v >= 1100) {
-            return v >= 1150 ? '' : 'S+ 99';
-          }
 
-          var rank = Math.floor(v / 100);
-          var exp = v % 100;
-          var ranks = ['C-', 'C', 'C+', 'B-', 'B', 'B+', 'A-', 'A', 'A+', 'S', 'S+'];
-          return ranks[rank] + " " + exp;
-        }
-      },
-      legend: {
-        position: "nw"
+    if ($('#show-rank-moving-avg').prop('checked')) {
+      data.push({
+        label: "{{'Moving Avg. ({0} Battles)'|translate:'app':10|escape}}",
+        data: json.map(function(v) {
+          return [v.index, v.movingAvg];
+        }),
+        color: 'rgba(64,237,64,.5)'
+      });
+      data.push({
+        label: "{{'Moving Avg. ({0} Battles)'|translate:'app':50|escape}}",
+        data: json.map(function(v) {
+          return [v.index, v.movingAvg50];
+        }),
+        color: 'rgba(148,64,237,.5)'
+      });
+    }
+
+    $graph_.each(function() {
+      var $graph = $(this);
+      var limit = ~~$graph.attr('data-limit');
+      if (limit > 0 && data[0].data.length <= limit) {
+        $graph.hide();
+        return;
       }
+
+      $.plot($graph, data, {
+        xaxis: {
+          minTickSize: 1,
+          min: limit > 0 ? -limit : null,
+          tickFormatter: function (v) {
+            return ~~v;
+          }
+        },
+        yaxis: {
+          minTickSize: 10,
+          tickFormatter: function (v) {
+            if (v >= 1100) {
+              return v >= 1150 ? '' : 'S+ 99';
+            }
+
+            var rank = Math.floor(v / 100);
+            var exp = v % 100;
+            var ranks = ['C-', 'C', 'C+', 'B-', 'B', 'B+', 'A-', 'A', 'A+', 'S', 'S+'];
+            return ranks[rank] + " " + exp;
+          }
+        },
+        legend: {
+          container: $('#stat-rank-legend')
+        }
+      });
     });
   }
 
@@ -155,9 +212,13 @@
     }
     timerId = window.setTimeout(function() {
       $graphs.height($graphs.width() * 9 / 16);
-      drawRankGraph();
+      drawRankGraph(window._rankData);
       drawWPGraph();
     }, 33);
   }).resize();
+
+  $('#show-rank-moving-avg').click(function () {
+    $(window).resize();
+  });
 })(jQuery);
 {{/registerJs}}

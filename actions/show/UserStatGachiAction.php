@@ -58,33 +58,38 @@ class UserStatGachiAction extends BaseAction
                     ],
                 ],
             ])
-            ->orderBy('{{battle}}.[[id]] DESC')
-            ->limit(200);
+            ->orderBy('{{battle}}.[[id]] DESC');
 
         $index = 0;
-        $ret = array_reverse(
-            array_map(
-                function ($model) use (&$index) {
-                    return (object)[
-                        'index'     => $index--,
-                        'battle'    => $model->id,
-                        'exp'       => $this->calcGraphExp($model->rankAfter->key, $model->rank_exp_after),
-                        'movingAvg' => null,
-                    ];
-                },
-                $query->all()
-            )
-        );
+        $ret = [];
+        foreach ($query->each() as $model) {
+            $ret[] = (object)[
+                'index'         => $index--,
+                'rule'          => $model->rule->key,
+                'exp'           => $this->calcGraphExp($model->rankAfter->key, $model->rank_exp_after),
+                'movingAvg'     => null,
+                'movingAvg50'   => null,
+            ];
+        }
+        $ret = array_reverse($ret);
 
         // 移動平均の計算
         $moving = [];
+        $moving50 = [];
         foreach ($ret as $data) {
             $moving[] = $data->exp;
+            $moving50[] = $data->exp;
             while (count($moving) > 10) {
                 array_shift($moving);
             }
             if (count($moving) === 10) {
                 $data->movingAvg = array_sum($moving) / 10;
+            }
+            while (count($moving50) > 50) {
+                array_shift($moving50);
+            }
+            if (count($moving50) === 50) {
+                $data->movingAvg50 = array_sum($moving50) / 50;
             }
         }
 

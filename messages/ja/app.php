@@ -118,6 +118,7 @@ return [
     'Screen Name' => 'ログイン名',
     'Search' => '検索',
     'Settings' => '設定',
+    'Show moving averages' => '移動平均線を表示',
     'Show your API Token' => 'APIキーを表示します',
     'Special' => 'スペシャル',
     'Special:' => 'スペシャル:',
