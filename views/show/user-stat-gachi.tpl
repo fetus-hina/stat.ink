@@ -37,6 +37,7 @@
                 {{$userRankStat->rank|escape}} {{$userRankStat->rankExp}}
               </div>
             </div>
+{{*
             <div class="col-xs-4 col-sm-4 col-md-2 col-lg-2">
               <div class="user-label">{{'Deviation'|translate:'app'|escape}}</div>
               <div class="user-number">
@@ -50,6 +51,7 @@
                 {{/if}}
               </div>
             </div>
+*}}
           </div>
         </div>
         <p>
