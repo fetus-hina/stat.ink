@@ -29,6 +29,29 @@
         <h2 id="exp">
           {{'Rank'|translate:'app'|escape}}
         </h2>
+        <div style="margin-bottom:15px">
+          <div class="row">
+            <div class="col-xs-4 col-sm-4 col-md-2 col-lg-2">
+              <div class="user-label">{{'Current'|translate:'app'|escape}}</div>
+              <div class="user-number">
+                {{$userRankStat->rank|escape}} {{$userRankStat->rankExp}}
+              </div>
+            </div>
+            <div class="col-xs-4 col-sm-4 col-md-2 col-lg-2">
+              <div class="user-label">{{'Deviation'|translate:'app'|escape}}</div>
+              <div class="user-number">
+                {{if $userRankStat->deviation !== null}}
+                  <span class="auto-tooltip" title="
+                        {{'Average'|translate:'app'|escape}}: {{$userRankStat->avgRank|escape}} {{$userRankStat->avgRankExp|escape}} /&#32
+                        {{'Standard Deviation'|translate:'app'|escape}}: {{$userRankStat->standardDeviation|string_format:'%.1f'|escape}}
+                      ">
+                    {{$userRankStat->deviation|string_format:'%.1f'|escape}}
+                  </span>
+                {{/if}}
+              </div>
+            </div>
+          </div>
+        </div>
         <p>
           {{'Excluded: Private Battles and Squad Battles(when Rank S, S+)'|translate:'app'|escape}}
         </p>

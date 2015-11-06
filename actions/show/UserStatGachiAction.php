@@ -27,6 +27,7 @@ class UserStatGachiAction extends BaseAction
 
         return $this->controller->render('user-stat-gachi.tpl', [
             'user' => $this->user,
+            'userRankStat' => $this->userRankStat,
             'recentRank' => $this->recentRankData,
             'recentWP' => $this->recentWPData,
         ]);
@@ -181,6 +182,45 @@ class UserStatGachiAction extends BaseAction
         return $ret;
     }
 
+    public function getUserRankStat()
+    {
+        $subQuery = (new \yii\db\Query())
+            ->select(['id' => 'MAX({{battle}}.[[id]])'])
+            ->from('battle')
+            ->andWhere(['not', ['{{battle}}.[[rank_after_id]]' => null]])
+            ->andWhere(['not', ['{{battle}}.[[rank_exp_after]]' => null]])
+            ->andWhere(['{{battle}}.[[user_id]]' => $this->user->id]);
+        
+        if (!$battle = Battle::findOne(['id' => $subQuery])) {
+            return null;
+        }
+
+        $deviation = null;
+        $avgRank = null;
+        $avgRankExp = null;
+        $standardDeviation = null;
+        if ($entire = $this->getEntireRankStat()) {
+            $exp = $this->calcGraphExp($battle->rankAfter->key, $battle->rank_exp_after);
+            $deviation = ($exp - $entire->average) / $entire->standardDeviation * 10 + 50;
+
+            $ranks = [ 'C-', 'C', 'C+', 'B-', 'B', 'B+', 'A-', 'A', 'A+', 'S', 'S+' ];
+            $avgExp = (int)round($entire->average);
+            $avgRank = Yii::t('app-rank', $ranks[floor($avgExp / 100)]);
+            $avgRankExp = $avgExp % 100;
+            $standardDeviation = $entire->standardDeviation;
+        }
+
+
+        return (object)[
+            'rank'      => Yii::t('app-rank', $battle->rankAfter->name),
+            'rankExp'   => (int)$battle->rank_exp_after,
+            'deviation' => $deviation,
+            'avgRank'   => $avgRank,
+            'avgRankExp' => $avgRankExp,
+            'standardDeviation' => $standardDeviation,
+        ];
+    }
+
     private function calcGraphExp($key, $exp)
     {
         $exp = (int)$exp;
@@ -220,5 +260,51 @@ class UserStatGachiAction extends BaseAction
                 break;
         }
         return $exp;
+    }
+
+    private function getEntireRankStat()
+    {
+        $subQuery = (new \yii\db\Query())
+            ->select(['id' => 'MAX({{battle}}.[[id]])'])
+            ->from('battle')
+            ->andWhere(['not', ['{{battle}}.[[rank_after_id]]' => null]])
+            ->andWhere(['not', ['{{battle}}.[[rank_exp_after]]' => null]])
+            ->groupBy('{{battle}}.[[user_id]]');
+
+        $query = (new \yii\db\Query())
+            ->select([
+                'rank_key' => '{{rank}}.[[key]]',
+                'rank_exp' => '{{battle}}.[[rank_exp_after]]',
+            ])
+            ->from('battle')
+            ->innerJoin('rank', '{{battle}}.[[rank_after_id]] = {{rank}}.[[id]]')
+            ->andWhere(['{{battle}}.[[id]]' => $subQuery]);
+
+        $exps = [];
+        foreach ($query->createCommand()->query() as $row) {
+            $exps[] = $this->calcGraphExp($row['rank_key'], $row['rank_exp']);
+        }
+        if (count($exps) < 1) {
+            return false;
+        }
+
+        $avgExp = array_sum($exps) / count($exps);
+    
+        // 標準偏差
+        $standardDeviation = sqrt(
+            array_sum(
+                array_map(
+                    function ($exp) use ($avgExp) {
+                        return pow($exp - $avgExp, 2);
+                    },
+                    $exps
+                )
+            ) / count($exps)
+        );
+
+        return (object)[
+            'average' => $avgExp,
+            'standardDeviation' => $standardDeviation,
+        ];
     }
 }
