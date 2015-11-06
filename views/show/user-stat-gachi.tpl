@@ -132,7 +132,7 @@
     $graph_.each(function() {
       var $graph = $(this);
       var limit = ~~$graph.attr('data-limit');
-      if (limit > 0 && data[0].data.length <= limit) {
+      if (limit > 0 && json.length <= limit) {
         $graph.hide();
         return;
       }
