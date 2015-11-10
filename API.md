@@ -153,6 +153,7 @@ POST /api/v1/battle
         - `96gal` : .96ガロン
         - `96gal_deco` : .96ガロンデコ
         - `bold` : ボールドマーカー
+        - `bold_neo` : ボールドマーカーネオ
         - `dualsweeper` : デュアルスイーパー
         - `dualsweeper_custom` : デュアルスイーパーカスタム
         - `h3reelgun` : H3リールガン
@@ -211,6 +212,7 @@ POST /api/v1/battle
         - `hissen` : ヒッセン
     - スピナー
         - `barrelspinner` : バレルスピナー
+        - `barrelspinner_deco` : バレルスピナーデコ
         - `splatspinner` : スプラスピナー
 
 * `rank` : バトル開始時のウデマエを次のいずれかの値で指定します。

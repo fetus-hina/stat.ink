@@ -25,6 +25,7 @@ return [
     'N-ZAP \'85' => 'N-ZAP85',
     'N-ZAP \'89' => 'N-ZAP89',
     'Neo Splash-o-matic' => 'シャープマーカーネオ',
+    'Neo Sploosh-o-matic' => 'ボールドマーカーネオ',
     'Octoshot Replica' => 'オクタシューターレプリカ',
     'Range Blaster' => 'ロングブラスター', 
     'Rapid Blaster Deco' => 'ラピッドブラスターデコ',

@@ -1,0 +1,32 @@
+<?php
+use yii\db\Migration;
+use app\models\Special;
+use app\models\Subweapon;
+use app\models\WeaponType;
+use app\models\DeathReasonType;
+
+class m151110_100826_weapon extends Migration
+{
+    public function safeUp()
+    {
+        $this->insert('weapon', [
+            'type_id' => WeaponType::findOne(['key' => 'shooter'])->id,
+            'key' => 'bold_neo',
+            'name' => 'Neo Sploosh-o-matic',
+            'subweapon_id' => Subweapon::findOne(['key' => 'pointsensor'])->id,
+            'special_id' => Special::findOne(['key' => 'daioika'])->id,
+        ]);
+
+        $this->insert('death_reason', [
+            'type_id' => DeathReasonType::findOne(['key' => 'main'])->id,
+            'key' => 'bold_neo',
+            'name' => 'Neo Sploosh-o-matic',
+        ]);
+    }
+
+    public function safeDown()
+    {
+        $this->delete('death_reason', ['key' => 'bold_neo']);
+        $this->delete('weapon', ['key' => 'bold_neo']);
+    }
+}
