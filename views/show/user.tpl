@@ -35,7 +35,10 @@
               'dataProvider' => $battleDataProvider,
               'itemView' => 'battle.tablerow.tpl',
               'itemOptions' => [ 'tag' => false ],
-              'layout' => '{pager}'
+              'layout' => '{pager}',
+              'pager' => [
+                'maxButtonCount' => 5
+              ]
             ])}}
         </div>
         <div style="margin-bottom:15px">
@@ -155,7 +158,10 @@
               'dataProvider' => $battleDataProvider,
               'itemView' => 'battle.tablerow.tpl',
               'itemOptions' => [ 'tag' => false ],
-              'layout' => '{pager}'
+              'layout' => '{pager}',
+              'pager' => [
+                'maxButtonCount' => 5
+              ]
             ])}}
         </div>
       </div>
