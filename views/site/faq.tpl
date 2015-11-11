@@ -15,7 +15,7 @@
     </div>
 
     <h2>
-      Q: IkaLog との関係は
+      Q: <a href="https://github.com/hasegaw/IkaLog/blob/master/doc/IkaUI.md">IkaLog</a> との関係は
     </h2>
     <p>
       A: stat.ink へのデータ送信対応ソフトの一つが IkaLog です。
@@ -77,7 +77,7 @@
     </p>
 
     <h2>
-      Q: 私は○○のブキを使っているのに違うブキに認識されます
+      Q: 私は○○のブキを使っているのに違うブキに認識されます（その他誤認識関係）
     </h2>
     <p>
       A: 認識ソフト側の問題です。大体の場合はお使いの環境に依存した問題です。
@@ -89,6 +89,9 @@
       IkaLog に限れば、入力が 720p でない場合に問題が発生しやすいようです。Wii U 本体の出力設定が 720p になっていることを確認してください。
     </p>
     <p>
+      キャプチャデバイスによっては本来の入力から数ピクセルずれるなどの問題もあるようです。 IkaLog はある程度頑張って処理するようですが、本来の入力が与えられた場合に比べるとやはり劣るようです。
+    </p>
+    <p>
       <img src="{{$app->assetmanager->getAssetUrl($aboutAsset, 'ikalog-function.png')|escape}}" alt="" title="">
     </p>
     <iframe src="//www.slideshare.net/slideshow/embed_code/key/Hd6gpSfTEfh5dM" width="425" height="355" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="//www.slideshare.net/TakeshiHasegawa1/20151016ssmjpikalog" title="「スプラトゥーン」リアルタイム画像解析ツール 「IkaLog」の裏側" target="_blank">「スプラトゥーン」リアルタイム画像解析ツール 「IkaLog」の裏側</a> </strong> from <strong><a href="//www.slideshare.net/TakeshiHasegawa1" target="_blank">Takeshi HASEGAWA</a></strong> </div>
@@ -98,6 +101,22 @@
     </h2>
     <p>
       A: stat.ink への機能追加にご協力ください。または、IkaLog から Fluentd に出力する、JSON 出力する等して分析してください。
+    </p>
+
+    <h2>
+      Q: 作者に還元したい
+    </h2>
+    <p>
+      A: IkaLog 作者 hasegaw さんへ還元したい場合は <a href="http://d.ballade.jp/2015/10/IkaLogStore.html">IkaLog Store</a> 経由で何か購入してください（リンクを踏んだあと別の商品を購入してもアフィリエイトは反映されます。
+    </p>
+    <p>
+      stat.ink の作者へ還元したい場合は <a href="http://www.amazon.co.jp/registry/wishlist/328GZTLVNILB3">何かください</a>。
+    </p>
+    <p>
+      商品購入以外の方法として、バグを修正するとか、みんなに役立つ機能を実装するとかもあります。
+    </p>
+    <p>
+      ※どちらのプロダクトも、商品を購入したからといって、バグを直してもらえる権利を得るとかそういうことはありません。ご理解の上でご購入ください。
     </p>
   </div>
 {{/strip}}

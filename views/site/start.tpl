@@ -59,7 +59,13 @@
       IkaLog を使用される場合、<a href="https://github.com/hasegaw/IkaLog/wiki/CaptureDevices">IkaLog Wiki</a> の動作報告をご覧ください。
     </p>
     <p>
+      <a href="http://d.ballade.jp/2015/10/IkaLogStore.html">IkaLog Store</a>（IkaLog 作者 hasegaw さんのアフィリエイト付きストア）（※このサイトの開発者とは別です）
+    </p>
+    <p>
       ※ここに記載があるデバイスでも動作するとは限りません。また、動作確認済みとされているものでも設定等によってブキの誤認識をする場合があります。
+    </p>
+    <p>
+      ※IkaLog Storeで購入しても機能追加等が行われるわけではありません。
     </p>
 
     <h2>

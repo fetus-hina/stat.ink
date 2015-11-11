@@ -112,6 +112,10 @@
               </li>
               <li class="divider"></li>
               <li>
+                <a href="https://github.com/hasegaw/IkaLog/blob/master/doc/IkaUI.md">IkaLog</a>
+              </li>
+              <li class="divider"></li>
+              <li>
                 <a href="https://fest.ink/">イカフェスレート</a>
               </li>
               <li>
