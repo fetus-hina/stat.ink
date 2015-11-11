@@ -1,0 +1,112 @@
+<?php
+
+namespace app\models;
+
+use Yii;
+
+/**
+ * This is the model class for table "battle_player".
+ *
+ * @property integer $id
+ * @property integer $battle_id
+ * @property boolean $is_my_team
+ * @property boolean $is_me
+ * @property integer $weapon_id
+ * @property integer $rank_id
+ * @property integer $level
+ * @property integer $rank_in_team
+ * @property integer $kill
+ * @property integer $death
+ * @property integer $point
+ *
+ * @property Battle $battle
+ * @property Rank $rank
+ * @property Weapon $weapon
+ */
+class BattlePlayer extends \yii\db\ActiveRecord
+{
+    public static function find()
+    {
+        return parent::find()
+            ->with(['rank', 'weapon']);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public static function tableName()
+    {
+        return 'battle_player';
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function rules()
+    {
+        return [
+            [['battle_id', 'is_my_team', 'is_me'], 'required'],
+            [['battle_id', 'weapon_id', 'rank_id', 'level', 'rank_in_team', 'kill', 'death', 'point'], 'integer'],
+            [['is_my_team', 'is_me'], 'boolean']
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'id' => 'ID',
+            'battle_id' => 'Battle ID',
+            'is_my_team' => 'Is My Team',
+            'is_me' => 'Is Me',
+            'weapon_id' => 'Weapon ID',
+            'rank_id' => 'Rank ID',
+            'level' => 'Level',
+            'rank_in_team' => 'Rank In Team',
+            'kill' => 'Kill',
+            'death' => 'Death',
+            'point' => 'Point',
+        ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getBattle()
+    {
+        return $this->hasOne(Battle::className(), ['id' => 'battle_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRank()
+    {
+        return $this->hasOne(Rank::className(), ['id' => 'rank_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getWeapon()
+    {
+        return $this->hasOne(Weapon::className(), ['id' => 'weapon_id']);
+    }
+
+    public function toJsonArray()
+    {
+        return [
+            'team'          => $this->is_my_team ? 'my' : 'his',
+            'is_me'         => !!$this->is_me,
+            'weapon'        => $this->weapon ? $this->weapon->toJsonArray() : null,
+            'rank'          => $this->rank ? $this->rank->toJsonArray() : null,
+            'level'         => (string)$this->level === '' ? null : (int)$this->level,
+            'rank_in_team'  => (string)$this->rank_in_team === '' ? null : (int)$this->rank_in_team,
+            'kill'          => (string)$this->kill === '' ? null : (int)$this->kill,
+            'death'         => (string)$this->death === '' ? null : (int)$this->death,
+            'point'         => (string)$this->point === '' ? null : (int)$this->point,
+        ];
+    }
+}

@@ -132,7 +132,6 @@ class BattleAction extends BaseAction
                     'validate' => true,
                 ];
             }
-
     
             // dry_run
             // 整形用のダミーデータを準備
@@ -145,6 +144,12 @@ class BattleAction extends BaseAction
                     $deathReasons[] = $reason;
                 }
             }
+            $players = [];
+            foreach ($form->toPlayers($battle) as $player) {
+                if ($player) {
+                    $players[] = $player;
+                }
+            }
             $agent = null;
             if ($form->agent != '' || $form->agent_version != '') {
                 $agent = new Agent();
@@ -154,6 +159,7 @@ class BattleAction extends BaseAction
             return $this->runGetImpl2(
                 $battle,
                 $deathReasons,
+                $players,
                 $agent
             );
         }
@@ -214,7 +220,14 @@ class BattleAction extends BaseAction
                 ], 500);
             }
         }
-
+        foreach ($form->toPlayers($battle) as $player) {
+            if ($player && !$player->save()) {
+                return $this->formatError([
+                    'system' => [ 'Could not save to database: battle_player' ],
+                    'system_' => $player->getErrors(),
+                ], 500);
+            }
+        }
         $imageOutputDir = Yii::getAlias('@webroot/images');
         $imageArchiveOutputDir = Yii::$app->params['amazonS3'] && Yii::$app->params['amazonS3'][0]['bucket'] != ''
             ? (Yii::getAlias('@app/runtime/image-archive/queue') . '/' . gmdate('Ymd', time() + 9 * 3600)) // JST
@@ -280,11 +293,12 @@ class BattleAction extends BaseAction
         return $this->runGetImpl2(
             $battle,
             $battle->getBattleDeathReasons()->with(['reason', 'reason.type'])->all(),
+            $battle->battlePlayers,
             $battle->agent
         );
     }
 
-    private function runGetImpl2(Battle $battle, array $deathReasons, Agent $agent = null)
+    private function runGetImpl2(Battle $battle, array $deathReasons, array $players = null, Agent $agent = null)
     {
         $ret = $battle->toJsonArray();
         $ret['death_reasons'] = array_map(
@@ -293,6 +307,14 @@ class BattleAction extends BaseAction
             },
             $deathReasons
         );
+        $ret['players'] = is_array($players) && !empty($players)
+            ? array_map(
+                function ($model) {
+                    return $model->toJsonArray();
+                },
+                $players
+            )
+            : null;
         $ret['agent']['name'] = $agent ? $agent->name : null;
         $ret['agent']['version'] = $agent ? $agent->version : null;
 

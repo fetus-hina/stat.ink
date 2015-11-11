@@ -15,6 +15,7 @@ use app\models\Battle;
 use app\models\BattleDeathReason;
 use app\models\BattleImage;
 use app\models\BattleImageType;
+use app\models\BattlePlayer;
 use app\models\DeathReason;
 use app\models\FestTitle;
 use app\models\Lobby;
@@ -63,6 +64,7 @@ class PostBattleForm extends Model
     public $knock_out;
     public $my_team_count;
     public $his_team_count;
+    public $players;
     public $agent;
     public $agent_version;
     public $agent_custom;
@@ -132,6 +134,7 @@ class PostBattleForm extends Model
                 'min' => 0.0, 'max' => 100.0],
             [['knock_out'], 'boolean', 'trueValue' => 'yes', 'falseValue' => 'no'],
             [['my_team_count', 'his_team_count'], 'integer', 'min' => 0, 'max' => 100],
+            [['players'], 'validatePlayers'],
 
             [['lobby'], 'fixLobby'],
         ];
@@ -168,6 +171,38 @@ class PostBattleForm extends Model
         }
     }
 
+    public function validatePlayers($attribute, $params)
+    {
+        if ($this->hasErrors($attribute)) {
+            return;
+        }
+
+        if (!is_array($this->$attribute)) {
+            $this->addError($attribute, "{$attribute} must be an array.");
+            return;
+        }
+
+        if (count($this->$attribute) === 0) {
+            return;
+        }
+
+        if (count($this->$attribute) < 2 || count($this->$attribute) > 8) {
+            $this->addError($attribute, "{$attribute} must be contain 2-8 elements.");
+            return;
+        }
+
+        $newValues = [];
+        foreach ($this->$attribute as $i => $oldValue) {
+            $newValue = new PostBattlePlayerForm();
+            $newValue->attributes = $oldValue;
+            if (!$newValue->validate()) {
+                $this->addError("{$attribute}.{$i}", $newValue->getErrors());
+            }
+            $newValues[] = $newValue;
+        }
+        $this->$attribute = $newValues;
+    }
+
     public function validateTeamColor($attribute, $params)
     {
         if ($this->hasErrors($attribute)) {
@@ -197,7 +232,7 @@ class PostBattleForm extends Model
         }
         if (!($this->$attribute instanceof UploadedFile)) {
             // 先に file バリデータを通すのでここは絶対通らないはず
-            $this->addError($attribute, 'ファイルをアップロードしてください / [BUG?] $attributes is not an instance of UploadedFile');
+            $this->addError($attribute, '[BUG?] $attributes is not an instance of UploadedFile');
             return;
         }
         return $this->validateImageStringImpl(
@@ -217,7 +252,7 @@ class PostBattleForm extends Model
             return;
         }
         if (!$gd = @imagecreatefromstring($binary)) {
-            $this->addError($attribute, '画像が読み込めません');
+            $this->addError($attribute, 'Could not decode binary that contained an image data.');
             return;
         }
         imagedestroy($gd);
@@ -340,6 +375,40 @@ class PostBattleForm extends Model
                     $o->count = (int)$unknownCount;
                     yield $o;
                 }
+            }
+        }
+    }
+
+    public function toPlayers(Battle $battle)
+    {
+        if (is_array($this->players) && !empty($this->players)) {
+            foreach ($this->players as $form) {
+                if (!$form instanceof PostBattlePlayerForm) {
+                    throw new \Exception('Logic error: assert: instanceof PostBattlePlayerForm');
+                }
+
+                $weapon = ($form->weapon == '')
+                    ? null
+                    : Weapon::findOne(['key' => $form->weapon]);
+
+                $rank = ($form->rank == '')
+                    ? null
+                    : Rank::findOne(['key' => $form->rank]);
+
+                $player = new BattlePlayer();
+                $player->attributes = [
+                    'battle_id'     => $battle->id,
+                    'is_my_team'    => $form->team === 'my',
+                    'is_me'         => $form->is_me === 'yes',
+                    'weapon_id'     => $weapon ? $weapon->id : null,
+                    'rank_id'       => $rank ? $rank->id : null,
+                    'level'         => (string)$form->level === '' ? null : (int)$form->level,
+                    'rank_in_team'  => (string)$form->rank_in_team === '' ? null : (int)$form->rank_in_team,
+                    'kill'          => (string)$form->kill === '' ? null : (int)$form->kill,
+                    'death'         => (string)$form->death === '' ? null : (int)$form->death,
+                    'point'         => (string)$form->point === '' ? null : (int)$form->point,
+                ];
+                yield $player;
             }
         }
     }

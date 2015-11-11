@@ -90,7 +90,7 @@
           </div>
         {{/if}}
 
-        <table class="table table-striped">
+        <table class="table table-striped" id="battle">
           <tbody>
             {{if $battle->lobby}}
               <tr>
@@ -380,6 +380,130 @@
             {{/if}}
           </tbody>
         </table>
+        {{if $battle->myTeamPlayers && $battle->hisTeamPlayers}}
+          {{if $battle->my_team_color_rgb && $battle->his_team_color_rgb}}
+            {{registerCss}}
+              #players .bg-my {
+                background: #{{$battle->my_team_color_rgb|escape}};
+                color: #fff;
+                text-shadow: 1px 1px 0 rgba(0,0,0,.8);
+              }
+
+              #players .bg-his {
+                background: #{{$battle->his_team_color_rgb|escape}};
+                color: #fff;
+                text-shadow: 1px 1px 0 rgba(0,0,0,.8);
+              }
+            {{/registerCss}}
+          {{/if}}
+          {{registerCss}}
+            #players .its-me {
+              background: #ffffcc;
+            }
+
+            #players .col-rank, #players .col-point {
+              display: none;
+            }
+
+            {{if !$battle->rule || $battle->rule->key !== 'nawabari'}}
+              #players .col-rank {
+                display: table-cell;
+              }
+            {{/if}}
+
+            {{if !$battle->rule || ($battle->rule->key === 'nawabari' && (!$battle->lobby || $battle->lobby->key !== 'fest'))}}
+              #players .col-point {
+                display: table-cell;
+              }
+            {{/if}}
+          {{/registerCss}}
+          <table class="table table-bordered" id="players">
+            <thead>
+              <tr>
+                <th style="width:1em"></th>
+                <th class="col-weapon">{{'Weapon'|translate:'app'|escape}}</th>
+                <th class="col-level">{{'Level'|translate:'app'|escape}}</th>
+                <th class="col-rank">{{'Rank'|translate:'app'|escape}}</th>
+                <th class="col-point">{{'Point'|translate:'app'|escape}}</th>
+                <th class="col-kd">{{'k'|translate:'app'|escape}}/{{'d'|translate:'app'|escape}}</th>
+                <th class="col-kr">{{'KR'|translate:'app'|escape}}</th>
+            </thead>
+            <tbody>
+              {{if $battle->is_win === false}}
+                {{$teams = ['his', 'my']}}
+              {{else}}
+                {{$teams = ['my', 'his']}}
+              {{/if}}
+              {{foreach $teams as $teamKey}}
+                <tr>
+                  <th colspan="7" class="bg-{{$teamKey|escape}}">
+                    {{if $teamKey === 'my'}}
+                      {{'Good Guys'|translate:'app'|escape}}
+                    {{else}}
+                      {{'Bad Guys'|translate:'app'|escape}}
+                    {{/if}}
+                  </th>
+                </tr>
+                {{$attr = $teamKey|cat:'TeamPlayers'}}
+                {{foreach $battle->$attr as $player}}
+                  <tr class="{{if $player->is_me}}its-me{{/if}}">
+                    <td class="bg-{{$teamKey|escape}}"></td>
+                    <td class="col-weapon">
+                      {{if $player->weapon}}
+                        <span title="{{*
+                            *}}{{'Sub:'|translate:'app'|escape}}{{$player->weapon->subweapon->name|default:'?'|translate:'app-subweapon'|escape}} / {{*
+                            *}}{{'Special:'|translate:'app'|escape}}{{$player->weapon->special->name|default:'?'|translate:'app-special'|escape}}" class="auto-tooltip">
+                          {{$player->weapon->name|default:''|translate:'app-weapon'|escape}}
+                        </span>
+                      {{/if}}
+                    </td>
+                    <td class="col-level">
+                      {{$player->level|escape}}
+                    </td>
+                    <td class="col-rank">
+                      {{$player->rank->name|default:''|translate:'app-rank'|escape}}
+                    </td>
+                    <td class="col-point">
+                      {{$player->point|escape}}
+                    </td>
+                    <td class="col-kd">
+                      {{if $player->kill === null}}
+                        ?
+                      {{else}}
+                        {{$player->kill|escape}}
+                      {{/if}} / {{if $player->death === null}}
+                        ?
+                      {{else}}
+                        {{$player->death|escape}}
+                      {{/if}} {{if $player->kill !== null && $player->death !== null}}
+                        {{if $player->kill > $player->death}}
+                          <span class="label label-success">&gt;</span>
+                        {{elseif $player->kill < $player->death}}
+                          <span class="label label-danger">&lt;</span>
+                        {{else}}
+                          <span class="label label-default">=</span>
+                        {{/if}}
+                      {{/if}}
+                    </td>
+                    <td class="col-kr">
+                      {{if $player->kill !== null && $player->death !== null}}
+                        {{if $player->death === 0}}
+                          {{if $player->kill === 0}}
+                            1.00
+                          {{else}}
+                            99.99
+                          {{/if}}
+                        {{else}}
+                          {{($player->kill/$player->death)|string_format:'%.2f'|escape}}
+                        {{/if}}
+                      {{/if}}
+                    </td>
+                  </tr>
+                {{/foreach}}
+              {{/foreach}}
+            </tbody>
+          </table>
+        {{/if}}
         {{if !$app->user->isGuest && $app->user->identity->id == $user->id}}
           <p class="right">
             <a href="{{url route="show/edit-battle" screen_name=$user->screen_name battle=$battle->id}}" class="btn btn-default">
@@ -401,7 +525,7 @@
   </div>
 {{/strip}}
 {{registerCss}}{{literal}}
-th{width:15em}
-@media(max-width:30em){th{width:auto}}
+#battle th{width:15em}
+@media(max-width:30em){#battle th{width:auto}}
 .image-container{margin-bottom:15px}
 {{/literal}}{{/registerCss}}

@@ -135,7 +135,7 @@
                 <th class="cell-result">{{'Result'|translate:'app'|escape}}</th>
                 <th class="cell-kd">{{'k'|translate:'app'|escape}}/{{'d'|translate:'app'|escape}}</th>
                 <th class="cell-kill-ratio">{{'Kill Ratio'|translate:'app'|escape}}</th>
-                <th class="cell-point">{{'Turf Inked'|translate:'app'|escape}}</th>
+                <th class="cell-point">{{'Point'|translate:'app'|escape}}</th>
                 <th class="cell-datetime">{{'Date Time'|translate:'app'|escape}}</th>
                 <th class="cell-reltime">{{'Relative Time'|translate:'app'|escape}}</th>
               </tr>

@@ -70,6 +70,7 @@ use app\components\helpers\DateTimeFormatter;
  * @property BattleDeathReason[] $battleDeathReasons
  * @property DeathReason[] $reasons
  * @property BattleImage[] $battleImages
+ * @property BattlePlayer[] $battlePlayers
  */
 class Battle extends ActiveRecord
 {
@@ -282,6 +283,28 @@ class Battle extends ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
+    public function getBattlePlayers()
+    {
+        return $this->hasMany(BattlePlayer::className(), ['battle_id' => 'id'])
+            ->with(['weapon', 'weapon.type', 'weapon.subweapon', 'weapon.special', 'rank'])
+            ->orderBy('{{battle_player}}.[[id]] ASC');
+    }
+
+    public function getMyTeamPlayers()
+    {
+        return $this->getBattlePlayers()
+            ->andWhere(['{{battle_player}}.[[is_my_team]]' => true]);
+    }
+
+    public function getHisTeamPlayers()
+    {
+        return $this->getBattlePlayers()
+            ->andWhere(['{{battle_player}}.[[is_my_team]]' => false]);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getBattleImages()
     {
         return $this->hasMany(BattleImage::className(), ['battle_id' => 'id']);
@@ -468,6 +491,9 @@ class Battle extends ActiveRecord
         BattleDeathReason::deleteAll([
             'battle_id' => $this->id,
         ]);
+        BattlePlayer::deleteAll([
+            'battle_id' => $this->id,
+        ]);
         if ($this->weapon_id) {
             $userWeapon = UserWeapon::findOne([
                 'user_id' => $this->user_id,
@@ -547,6 +573,14 @@ class Battle extends ActiveRecord
                 ? Url::to(Yii::getAlias('@web/images') . '/' . $this->battleImageResult->filename, true)
                 : null,
             'period' => $this->period,
+            'players' => (in_array('players', $skips, true) || count($this->battlePlayers) === 0)
+                ? null
+                : array_map(
+                    function ($model) {
+                        return $model->toJsonArray();
+                    },
+                    $this->battlePlayers
+                ),
             'agent' => [
                 'name' => $this->agent ? $this->agent->name : null,
                 'version' => $this->agent ? $this->agent->version : null,
