@@ -136,7 +136,9 @@ class UserStatGachiAction extends BaseAction
             }
 
             $tmp = array_slice($battles, $currentIndex + 1 - $range, $range);
-            $win = count(array_filter($tmp, function ($a) { return $a->is_win; }));
+            $win = count(array_filter($tmp, function ($a) {
+                return $a->is_win;
+            }));
             return $win * 100 / $range;
         };
         $totalWin = 0;

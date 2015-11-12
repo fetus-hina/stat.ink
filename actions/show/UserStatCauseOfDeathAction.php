@@ -32,7 +32,8 @@ class UserStatCauseOfDeathAction extends BaseAction
         $filter->screen_name = $user->screen_name;
         $filter->validate();
 
-        return $this->controller->render('user-stat-cause-of-death.tpl', array_merge([
+        return $this->controller->render('user-stat-cause-of-death.tpl', array_merge(
+            [
                 'user' => $user,
                 'list' => $this->getList($user, $filter),
                 'filter' => $filter,

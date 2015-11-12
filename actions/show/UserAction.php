@@ -41,9 +41,7 @@ class UserAction extends BaseAction
         $permLink = Url::to(
             array_merge(
                 ['show/user', 'screen_name' => $user->screen_name],
-                $filter->hasErrors()
-                    ? []
-                    : $filter->toPermLink()
+                $filter->hasErrors() ? [] : $filter->toPermLink()
             ),
             true
         );
