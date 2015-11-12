@@ -440,7 +440,7 @@
                 {{$hasNull = false}}
                 {{foreach $battle->$attr as $player}}
                   {{if $player->kill === null || $player->death === null}}
-                    $hasNull = true;
+                    {{$hasNull = true}}
                   {{else}}
                     {{$totalKill = $totalKill + $player->kill}}
                     {{$totalDeath = $totalDeath + $player->death}}
