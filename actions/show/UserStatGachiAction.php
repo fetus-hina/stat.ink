@@ -99,7 +99,8 @@ class UserStatGachiAction extends BaseAction
 
     public function getRecentWPData()
     {
-        $battles = Battle::find()
+        $query = Battle::find()
+            ->with(['rule'])
             ->innerJoinWith(['rule', 'rule.mode'])
             ->joinWith(['lobby'])
             ->andWhere([
@@ -111,75 +112,46 @@ class UserStatGachiAction extends BaseAction
                 ['{{battle}}.[[lobby_id]]' => null],
                 ['<>', '{{lobby}}.[[key]]', 'private'],
             ])
-            ->orderBy('{{battle}}.[[id]] DESC')
-            ->limit(200)
-            ->all();
+            ->orderBy('{{battle}}.[[id]] DESC');
+
+        $battles = [];
+        foreach ($query->each() as $battle) {
+            $battles[] = (object)[
+                'index' => -1 * count($battles),
+                'is_win' => $battle->is_win,
+                'rule' => $battle->rule->key,
+                'totalWP' => null,
+                'movingWP' => null,
+                'movingWP50' => null,
+            ];
+        }
         if (empty($battles)) {
             return [];
         }
 
-        // 取得してきた中で最も古いバトルID
-        $oldestId = min(
-            array_map(
-                function ($model) {
-                    return $model->id;
-                },
-                $battles
-            )
-        );
+        $battles = array_reverse($battles);
+        $fMoving = function ($range, $currentIndex) use (&$battles) {
+            if ($currentIndex + 1 < $range) {
+                return null;
+            }
 
-        // 過去の情報を取得
-        $query = Battle::find()
-            ->innerJoinWith(['rule', 'rule.mode'])
-            ->joinWith(['lobby'])
-            ->andWhere([
-                '{{battle}}.[[user_id]]' => $this->user->id,
-                '{{game_mode}}.[[key]]' => 'gachi',
-            ])
-            ->andWhere(['not', ['{{battle}}.[[is_win]]' => null]])
-            ->andWhere(['<', '{{battle}}.[[id]]', $oldestId])
-            ->andWhere(['or',
-                ['{{battle}}.[[lobby_id]]' => null],
-                ['<>', '{{lobby}}.[[key]]', 'private'],
-            ])
-            ->select([
-                'win' => 'SUM(CASE WHEN {{battle}}.[[is_win]] = TRUE THEN 1 ELSE 0 END)',
-                'lose' => 'SUM(CASE WHEN {{battle}}.[[is_win]] = FALSE THEN 1 ELSE 0 END)',
-            ])
-            ->orderBy(null);
-        $total = (object)$query->createCommand()->queryOne();
+            $tmp = array_slice($battles, $currentIndex + 1 - $range, $range);
+            $win = count(array_filter($tmp, function ($a) { return $a->is_win; }));
+            return $win * 100 / $range;
+        };
+        $totalWin = 0;
+        $totalCount = 0;
+        foreach ($battles as $i => $battle) {
+            ++$totalCount;
+            if ($battle->is_win) {
+                ++$totalWin;
+            }
+            $battle->totalWP = $totalWin * 100 / $totalCount;
+            $battle->movingWP = $fMoving(20, $i);
+            $battle->movingWP50 = $fMoving(50, $i);
+        }
 
-        $index = -1 * (count($battles) - 1);
-        $moving = [];
-        $ret = array_map(
-            function ($model) use (&$index, $total, &$moving) {
-                if ($model->is_win) {
-                    $total->win++;
-                } else {
-                    $total->lose++;
-                }
-                $totalWP = $total->win * 100 / ($total->win + $total->lose);
-                $movingWP = null;
-                $moving[] = $model->is_win;
-                while (count($moving) > 20) {
-                    array_shift($moving);
-                }
-                if (count($moving) === 20) {
-                    $movingWin = count(array_filter($moving, function ($v) {
-                        return $v === true;
-                    }));
-                    $movingWP = $movingWin * 100 / 20;
-                }
-                return (object)[
-                    'index' => $index++,
-                    'totalWP' => $totalWP,
-                    'movingWP' => $movingWP,
-                ];
-            },
-            array_reverse($battles)
-        );
-
-        return $ret;
+        return $battles;
     }
 
     public function getUserRankStat()

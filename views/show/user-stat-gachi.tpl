@@ -77,12 +77,20 @@
         <p>
           {{'Excluded: Private Battles'|translate:'app'|escape}}
         </p>
-        <div class="graph" id="stat-wp" data-json="{{$recentWP|json_encode|escape}}">
-        </div>
+        <script>
+          window._wpData = {{$recentWP|json_encode}};
+        </script>
+        <div id="stat-wp-legend"></div>
+        <div class="graph stat-wp"></div>
+        <div class="graph stat-wp" data-limit="200"></div>
+        <p>
+          特定ルールだけの勝率遷移はもう少しまってください。
+        </p>
       </div>
       <div class="col-xs-12 col-sm-4 col-md-4 col-lg-3">
         {{include file="@app/views/includes/user-miniinfo.tpl" user=$user}}
         {{include file="@app/views/includes/ad.tpl"}}
+      </div>
     </div>
   </div>
 {{/strip}}
@@ -90,6 +98,7 @@
   .stat-rank{height:300px}
 {{/registerCss}}
 {{registerJs}}
+//<script>
 (function($) {
   var $graphs = $('.graph');
   
@@ -190,43 +199,88 @@
     });
   }
 
-  function drawWPGraph() {
-    var $graph = $graphs.filter('#stat-wp');
-    var json = JSON.parse($graph.attr('data-json'));
+  function drawWPGraph(json) {
+    var $graph_ = $graphs.filter('.stat-wp');
+
+    var rules = (function(json) {
+      var ret = {
+        area: [],
+        yagura: [],
+        hoko: []
+      };
+      var prevIndex = null;
+      var prevRule = null;
+      var prevValue = null;
+      for (var i = 0; i < json.length; ++i) {
+        var data = json[i];
+        if (prevRule !== data.rule && prevRule !== null) {
+          ret[prevRule].push([data.index, null]);
+          ret[data.rule].push([prevIndex, prevValue]);
+        }
+        ret[data.rule].push([data.index, data.totalWP]);
+        prevIndex = data.index;
+        prevRule = data.rule;
+        prevValue = data.totalWP;
+      }
+      return ret;
+    })(json);
+
     var data = [
       {
-        label: "{{'WP (Totally)'|translate:'app'|escape:'javascript'}}",
-        data: json.map(
-          function(v) {
-            return [v.index, v.totalWP];
-          },
-          json
-        )
+        label: "{{'Winning Percentage'|translate:'app'|escape:'javascript'}} ({{'Splat Zones'|translate:'app-rule'|escape:'javascript'}})",
+        data: rules.area,
+        color: '#edc240'
       },
       {
-        label: "{{'WP ({0} Battles)'|translate:'app':20|escape}}",
-        data: json.map(
-          function(v) {
-            return [v.index, v.movingWP];
-          },
-          json
-        )
+        label: "{{'Winning Percentage'|translate:'app'|escape:'javascript'}} ({{'Tower Control'|translate:'app-rule'|escape:'javascript'}})",
+        data: rules.yagura,
+        color: '#40a2ed'
+      },
+      {
+        label: "{{'Winning Percentage'|translate:'app'|escape:'javascript'}} ({{'Rainmaker'|translate:'app-rule'|escape:'javascript'}})",
+        data: rules.hoko,
+        color: '#ed4040'
+      },
+      {
+        label: "{{'WP ({0} Battles)'|translate:'app':10|escape}}",
+        data: json.map(function(v) {
+          return [v.index, v.movingWP];
+        }),
+        color: 'rgba(64,237,64,.5)'
+      },
+      {
+        label: "{{'WP ({0} Battles)'|translate:'app':50|escape}}",
+        data: json.map(function(v) {
+          return [v.index, v.movingWP50];
+        }),
+        color: 'rgba(148,64,237,.5)'
       }
     ];
-    $.plot($graph, data, {
-      xaxis: {
-        minTickSize: 1,
-        tickFormatter: function (v) {
-          return ~~v;
-        }
-      },
-      yaxis: {
-        min: 0,
-        max: 100,
-      },
-      legend: {
-        position: "nw"
+
+    $graph_.each(function() {
+      var $graph = $(this);
+      var limit = ~~$graph.attr('data-limit');
+      if (limit > 0 && json.length <= limit) {
+        $graph.hide();
+        return;
       }
+
+      $.plot($graph, data, {
+        xaxis: {
+          min: limit > 0 ? -limit : null,
+          minTickSize: 1,
+          tickFormatter: function (v) {
+            return ~~v;
+          }
+        },
+        yaxis: {
+          min: 0,
+          max: 100,
+        },
+        legend: {
+          container: $('#stat-wp-legend')
+        }
+      });
     });
   }
 
@@ -238,7 +292,7 @@
     timerId = window.setTimeout(function() {
       $graphs.height($graphs.width() * 9 / 16);
       drawRankGraph(window._rankData);
-      drawWPGraph();
+      drawWPGraph(window._wpData);
     }, 33);
   }).resize();
 
