@@ -13,7 +13,7 @@
     {{$this->registerMetaTag(['name' => 'twitter:creator', 'content' => '@'|cat:$user->twitter])|@void}}
   {{/if}}
 
-  {{\app\assets\FlotPieAsset::register($this)|@void}}
+  {{\app\assets\FlotAsset::register($this)|@void}}
   <div class="container">
     <h1>
       {{$title|escape}}
@@ -37,21 +37,6 @@
                 {{$userRankStat->rank|escape}} {{$userRankStat->rankExp}}
               </div>
             </div>
-{{*
-            <div class="col-xs-4 col-sm-4 col-md-2 col-lg-2">
-              <div class="user-label">{{'Deviation'|translate:'app'|escape}}</div>
-              <div class="user-number">
-                {{if $userRankStat->deviation !== null}}
-                  <span class="auto-tooltip" title="
-                        {{'Average'|translate:'app'|escape}}: {{$userRankStat->avgRank|escape}} {{$userRankStat->avgRankExp|escape}} /&#32
-                        {{'Standard Deviation'|translate:'app'|escape}}: {{$userRankStat->standardDeviation|string_format:'%.1f'|escape}}
-                      ">
-                    {{$userRankStat->deviation|string_format:'%.1f'|escape}}
-                  </span>
-                {{/if}}
-              </div>
-            </div>
-*}}
           </div>
         </div>
         <p>
@@ -242,7 +227,7 @@
         color: '#ed4040'
       },
       {
-        label: "{{'WP ({0} Battles)'|translate:'app':10|escape}}",
+        label: "{{'WP ({0} Battles)'|translate:'app':20|escape}}",
         data: json.map(function(v) {
           return [v.index, v.movingWP];
         }),
