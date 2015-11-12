@@ -400,31 +400,30 @@
             #players .its-me {
               background: #ffffcc;
             }
-
-            #players .col-rank, #players .col-point {
-              display: none;
-            }
-
-            {{if !$battle->rule || $battle->rule->key !== 'nawabari'}}
-              #players .col-rank {
-                display: table-cell;
-              }
-            {{/if}}
-
-            {{if !$battle->rule || ($battle->rule->key === 'nawabari' && (!$battle->lobby || $battle->lobby->key !== 'fest'))}}
-              #players .col-point {
-                display: table-cell;
-              }
-            {{/if}}
           {{/registerCss}}
+          {{$hideRank = true}}
+          {{$hidePoint = true}}
+          {{if !$battle->rule || $battle->rule->key !== 'nawabari'}}
+            {{$hideRank = false}}
+          {{/if}}
+          {{if !$battle->rule || ($battle->rule->key === 'nawabari' && (!$battle->lobby || $battle->lobby->key !== 'fest'))}}
+            {{$hidePoint = false}}
+          {{/if}}
           <table class="table table-bordered" id="players">
             <thead>
               <tr>
+                {{$colCount = 7}}
                 <th style="width:1em"></th>
                 <th class="col-weapon">{{'Weapon'|translate:'app'|escape}}</th>
                 <th class="col-level">{{'Level'|translate:'app'|escape}}</th>
-                <th class="col-rank">{{'Rank'|translate:'app'|escape}}</th>
-                <th class="col-point">{{'Point'|translate:'app'|escape}}</th>
+                {{if !$hideRank}}
+                  <th class="col-rank">{{'Rank'|translate:'app'|escape}}</th>
+                  {{$colCount = $colCount - 1}}
+                {{/if}}
+                {{if !$hidePoint}}
+                  <th class="col-point">{{'Point'|translate:'app'|escape}}</th>
+                  {{$colCount = $colCount - 1}}
+                {{/if}}
                 <th class="col-kd">{{'k'|translate:'app'|escape}}/{{'d'|translate:'app'|escape}}</th>
                 <th class="col-kr">{{'KR'|translate:'app'|escape}}</th>
             </thead>
@@ -435,16 +434,43 @@
                 {{$teams = ['my', 'his']}}
               {{/if}}
               {{foreach $teams as $teamKey}}
-                <tr>
-                  <th colspan="7" class="bg-{{$teamKey|escape}}">
+                {{$attr = $teamKey|cat:'TeamPlayers'}}
+                {{$totalKill = 0}}
+                {{$totalDeath = 0}}
+                {{$hasNull = false}}
+                {{foreach $battle->$attr as $player}}
+                  {{if $player->kill === null || $player->death === null}}
+                    $hasNull = true;
+                  {{else}}
+                    {{$totalKill = $totalKill + $player->kill}}
+                    {{$totalDeath = $totalDeath + $player->death}}
+                  {{/if}}
+                {{/foreach}}
+                <tr class="bg-{{$teamKey|escape}}">
+                  <th colspan="{{($colCount - 2)|escape}}">
                     {{if $teamKey === 'my'}}
                       {{'Good Guys'|translate:'app'|escape}}
                     {{else}}
                       {{'Bad Guys'|translate:'app'|escape}}
                     {{/if}}
                   </th>
+                  <td>
+                    {{if !$hasNull}}
+                      {{$totalKill|escape}} / {{$totalDeath|escape}}
+                    {{/if}}
+                  </td>
+                  <td>
+                    {{if !$hasNull}}
+                      {{if $totalDeath == 0}}
+                        {{if $totalKill != 0}}
+                          99.99
+                        {{/if}}
+                      {{else}}
+                        {{($totalKill/$totalDeath)|string_format:'%.2f'|escape}}
+                      {{/if}}
+                    {{/if}}
+                  </td>
                 </tr>
-                {{$attr = $teamKey|cat:'TeamPlayers'}}
                 {{foreach $battle->$attr as $player}}
                   <tr class="{{if $player->is_me}}its-me{{/if}}">
                     <td class="bg-{{$teamKey|escape}}"></td>
@@ -460,12 +486,16 @@
                     <td class="col-level">
                       {{$player->level|escape}}
                     </td>
-                    <td class="col-rank">
-                      {{$player->rank->name|default:''|translate:'app-rank'|escape}}
-                    </td>
-                    <td class="col-point">
-                      {{$player->point|escape}}
-                    </td>
+                    {{if !$hideRank}}
+                      <td class="col-rank">
+                        {{$player->rank->name|default:''|translate:'app-rank'|escape}}
+                      </td>
+                    {{/if}}
+                    {{if !$hidePoint}}
+                      <td class="col-point">
+                        {{$player->point|escape}}
+                      </td>
+                    {{/if}}
                     <td class="col-kd">
                       {{if $player->kill === null}}
                         ?
@@ -488,9 +518,7 @@
                     <td class="col-kr">
                       {{if $player->kill !== null && $player->death !== null}}
                         {{if $player->death === 0}}
-                          {{if $player->kill === 0}}
-                            1.00
-                          {{else}}
+                          {{if $player->kill !== 0}}
                             99.99
                           {{/if}}
                         {{else}}
