@@ -16,6 +16,7 @@ use app\components\helpers\Translator;
  * @property integer $id
  * @property string $key
  * @property string $name
+ * @property integer $area
  *
  * @property Battle[] $battles
  */
@@ -39,6 +40,7 @@ class Map extends \yii\db\ActiveRecord
         return [
             [['key', 'name'], 'required'],
             [['key', 'name'], 'string', 'max' => 16],
+            [['area'], 'integer', 'min' => 1],
             [['key'], 'unique'],
             [['name'], 'unique']
         ];
@@ -53,6 +55,7 @@ class Map extends \yii\db\ActiveRecord
             'id' => 'ID',
             'key' => 'Key',
             'name' => 'Name',
+            'area' => 'Area',
         ];
     }
 
@@ -69,6 +72,7 @@ class Map extends \yii\db\ActiveRecord
         return [
             'key' => $this->key,
             'name' => Translator::translateToAll('app-map', $this->name),
+            'area' => $this->area,
         ];
     }
 }

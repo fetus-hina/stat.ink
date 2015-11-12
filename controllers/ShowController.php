@@ -58,8 +58,9 @@ class ShowController extends Controller
             'user-stat-by-map-rule' => [ 'class' => $prefix . '\UserStatByMapRuleAction' ],
             'user-stat-by-rule' => [ 'class' => $prefix . '\UserStatByRuleAction' ],
             'user-stat-cause-of-death' => [ 'class' => $prefix . '\UserStatCauseOfDeathAction' ],
-            'user-stat-weapon' => [ 'class' => $prefix . '\UserStatWeaponAction' ],
             'user-stat-gachi' => [ 'class' => $prefix . '\UserStatGachiAction' ],
+            'user-stat-nawabari' => [ 'class' => $prefix . '\UserStatNawabariAction' ],
+            'user-stat-weapon' => [ 'class' => $prefix . '\UserStatWeaponAction' ],
         ];
     }
 }

@@ -191,6 +191,10 @@
         </div>
         <hr>
         <p style="margin:10px 0 0">
+          <a href="{{url route="show/user-stat-nawabari" screen_name=$user->screen_name}}">
+            <span class="fa fa-pie-chart"></span>&#32;
+            {{'Stat (Turf War)'|translate:'app'|escape}}
+          </a><br>
           <a href="{{url route="show/user-stat-gachi" screen_name=$user->screen_name}}">
             <span class="fa fa-pie-chart"></span>&#32;
             {{'Stat (Ranked Battle)'|translate:'app'|escape}}
