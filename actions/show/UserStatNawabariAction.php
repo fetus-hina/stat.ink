@@ -83,6 +83,10 @@ class UserStatNawabariAction extends BaseAction
             }
         }
 
+        usort($maps, function ($a, $b) {
+            return strnatcasecmp($a->name, $b->name);
+        });
+
         return $maps;
     }
 
