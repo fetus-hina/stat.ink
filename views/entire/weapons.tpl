@@ -25,32 +25,44 @@
     <p>
       {{'Excluded: Posted Player, All Players(when Private Battle), Posted Player\'s Team Member(when Squad Battle)'|translate:'app'|escape}}
     </p>
+    <p>
+      ※できる限り重複カウントしないように除外設定を行っていますが、連戦やナワバリフレンド合流の影響により重複カウントしやすい状況が発生します。
+    </p>
+    {{\app\assets\JqueryStupidTableAsset::register($this)|@void}}
+    {{foreach $entire as $rule}}
+      {{if !$rule@first}} | {{/if}}
+      <a href="#weapon-{{$rule->key|escape}}">{{$rule->name|escape}}</a>
+    {{/foreach}}
     {{foreach $entire as $rule}}
       {{if $rule->data->battle_count > 0}}
-        <h3>
+        <h3 id="weapon-{{$rule->key|escape}}">
           {{$rule->name|escape}} 
         </h3>
         <p>
-          n={{$rule->data->battle_count|number_format|escape}}
+          {{'Battles:'|translate:'app'|escape}} {{$rule->data->battle_count|number_format|escape}},&#32;
+          {{'Players:'|translate:'app'|escape}} {{$rule->data->player_count|number_format|escape}}
         </p>
-        <table class="table table-striped table-condensed">
+        <table class="table table-striped table-condensed table-sortable">
           <thead>
             <tr>
-              <th>{{'Weapon'|translate:'app'|escape}}</th>
-              <th>{{'Count'|translate:'app'|escape}}</th>
-              <th>{{'Avg Killed'|translate:'app'|escape}}</th>
-              <th>{{'Avg Dead'|translate:'app'|escape}}</th>
-              <th>{{'Avg KR'|translate:'app'|escape}}</th>
-              <th>{{'WP'|translate:'app'|escape}}</th>
+              <th data-sort="string">{{'Weapon'|translate:'app'|escape}}</th>
+              <th data-sort="int">{{'Players'|translate:'app'|escape}} <span class="arrow fa fa-angle-down"></span></th>
+              <th data-sort="float">{{'Avg Killed'|translate:'app'|escape}}</th>
+              <th data-sort="float">{{'Avg Dead'|translate:'app'|escape}}</th>
+              <th data-sort="float">{{'Avg KR'|translate:'app'|escape}}</th>
+              {{if $rule->key === 'nawabari'}}
+                <th data-sort="float">{{'Avg Inked'|translate:'app'|escape}}</th>
+              {{/if}}
+              <th data-sort="float">{{'WP'|translate:'app'|escape}}</th>
             </tr>
           </thead>
           <tbody>
             {{foreach $rule->data->weapons as $weapon}}
               <tr>
-                <th>{{$weapon->name|escape}}</th>
-                <td>{{$weapon->count|number_format|escape}}</td>
-                <td>{{$weapon->avg_kill|string_format:'%.1f'|escape}}</td>
-                <td>{{$weapon->avg_death|string_format:'%.1f'|escape}}</td>
+                <td>{{$weapon->name|escape}}</td>
+                <td data-sort-value="{{$weapon->count|escape}}">{{$weapon->count|number_format|escape}}</td>
+                <td data-sort-value="{{$weapon->avg_kill|escape}}">{{$weapon->avg_kill|string_format:'%.2f'|escape}}</td>
+                <td data-sort-value="{{$weapon->avg_death|escape}}">{{$weapon->avg_death|string_format:'%.2f'|escape}}</td>
                 <td>
                   {{if $weapon->avg_death == 0}}
                     {{if $weapon->avg_kill > 0}}
@@ -60,6 +72,11 @@
                     {{($weapon->avg_kill/$weapon->avg_death)|string_format:'%.2f'|escape}}
                   {{/if}}
                 </td>
+                {{if $rule->key === 'nawabari'}}
+                  <td data-sort-value="{{if $weapon->avg_inked === null}}-1{{else}}{{$weapon->avg_inked|escape}}{{/if}}">
+                    {{$weapon->avg_inked|string_format:'%.1f'|escape}}
+                  </td>
+                {{/if}}
                 <td>{{$weapon->wp|string_format:'%.2f%%'|escape}}</td>
               </tr>
             {{/foreach}}
@@ -67,9 +84,26 @@
         </table>
       {{/if}}
     {{/foreach}}
+    {{registerJs}}
+      (function(){
+        $('.table-sortable')
+          .stupidtable()
+          .on("aftertablesort",function(event,data){
+            var th = $(this).find("th");
+            th.find(".arrow").remove();
+            var dir = $.fn.stupidtable.dir;
+            var arrow = data.direction === dir.ASC ? "fa-angle-up" : "fa-angle-down";
+            th.eq(data.column)
+              .append(' ')
+              .append(
+                $('<span/>').addClass('arrow fa').addClass(arrow)
+              );
+          });
+      })();
+    {{/registerJs}}
 
     <h2>
-      {{'Favorite Weapons'|translate:'app'|escape}}
+      {{'Favorite Weapons of This Site Member'|translate:'app'|escape}}
     </h2>
     <table class="table table-striped table-condensed">
       <tbody>

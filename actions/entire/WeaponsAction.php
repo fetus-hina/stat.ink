@@ -74,6 +74,7 @@ class WeaponsAction extends BaseAction
         }
 
         $query->select([
+            'key' => 'MAX({{weapon}}.[[key]])',
             'name' => 'MAX({{weapon}}.[[name]])',
             'count' => 'COUNT(*)',
             'total_kill' => 'SUM({{battle_player}}.[[kill]])',
@@ -86,15 +87,36 @@ class WeaponsAction extends BaseAction
                     'ELSE 0'
                 ])
             ),
+            'total_point' => $rule->key !== 'nawabari'
+                ? '(0)'
+                : sprintf(
+                    'SUM(CASE %s END)',
+                    implode(' ', [
+                        'WHEN battle_player.point IS NULL THEN 0',
+                        'WHEN battle.is_win = battle_player.is_my_team THEN battle_player.point - 300',
+                        'ELSE battle_player.point',
+                    ])
+                ),
+            'point_available' => $rule->key !== 'nawabari'
+                ? '(0)'
+                : sprintf(
+                    'SUM(CASE %s END)',
+                    implode(' ', [
+                        'WHEN battle_player.point IS NULL THEN 0',
+                        'ELSE 1',
+                    ])
+                ),
         ]);
 
         $list = array_map(function ($row) {
             return (object)[
+                'key'       => $row['key'],
                 'name'      => Yii::t('app-weapon', $row['name']),
                 'count'     => (int)$row['count'],
                 'avg_kill'  => $row['count'] > 0 ? ($row['total_kill'] / $row['count']) : null,
                 'avg_death' => $row['count'] > 0 ? ($row['total_death'] / $row['count']) : null,
                 'wp'        => $row['count'] > 0 ? ($row['win_count'] * 100 / $row['count']) : null,
+                'avg_inked' => $row['point_available'] > 0 ? ($row['total_point'] / $row['point_available']) : null,
             ];
         }, $query->createCommand()->queryAll());
 
@@ -116,6 +138,14 @@ class WeaponsAction extends BaseAction
 
         return (object)[
             'battle_count' => $battleCount,
+            'player_count' => array_sum(
+                array_map(
+                    function ($a) {
+                        return $a->count;
+                    },
+                    $list
+                )
+            ),
             'weapons' => $list,
         ];
     }

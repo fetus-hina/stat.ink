@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "70e8a31882d6731da9ff006e847b5a86",
-    "content-hash": "62464504ad6d815c462eff375e37b2a4",
+    "hash": "2f1b307e4cc0b1d7a070a5e702a3d4e8",
+    "content-hash": "40470085314cf804b3f07acb44e76808",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -238,6 +238,48 @@
                 "jquery",
                 "library"
             ]
+        },
+        {
+            "name": "bower-asset/jquery-stupid-table",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/joequery/Stupid-Table-Plugin.git",
+                "reference": "dd20279ae24f29ea07cba8c035be685b6e9dcf50"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/joequery/Stupid-Table-Plugin/zipball/dd20279ae24f29ea07cba8c035be685b6e9dcf50",
+                "reference": "dd20279ae24f29ea07cba8c035be685b6e9dcf50",
+                "shasum": ""
+            },
+            "require": {
+                "bower-asset/jquery": ">=1.7.0"
+            },
+            "type": "bower-asset-library",
+            "extra": {
+                "bower-asset-main": "stupidtable.min.js",
+                "bower-asset-ignore": [
+                    "**/.*",
+                    "node_modules",
+                    "bower_components",
+                    "test",
+                    "tests"
+                ],
+                "branch-alias": {
+                    "dev-master": "1.0.1-dev"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "A stupidly small and simple jQuery table sorter plugin",
+            "keywords": [
+                "jquery",
+                "sort",
+                "table"
+            ],
+            "time": "2015-06-06 20:06:07"
         },
         {
             "name": "bower-asset/jquery.inputmask",
@@ -2166,7 +2208,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "bower-asset/jquery-stupid-table": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
