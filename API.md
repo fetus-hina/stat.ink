@@ -139,6 +139,8 @@ POST /api/v1/battle
     - `hakofugu` : ハコフグ倉庫
     - `hirame` : ヒラメが丘団地
     - `hokke` : ホッケふ頭
+    - `kinmedai` : キンメダイ美術館
+    - `mahimahi` : マヒマヒリゾート&スパ
     - `masaba` : マサバ海峡大橋
     - `mongara` : モンガラキャンプ場
     - `mozuku` : モズク農園

@@ -110,6 +110,7 @@
           }
         },
         yaxis: {
+          minTickSize: 100,
           min: 0,
           max: (function() {
             if (json.area === null) {
