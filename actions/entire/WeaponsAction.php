@@ -9,6 +9,9 @@ namespace app\actions\entire;
 
 use Yii;
 use yii\web\ViewAction as BaseAction;
+use app\models\BattlePlayer;
+use app\models\GameMode;
+use app\models\Rule;
 use app\models\Weapon;
 
 class WeaponsAction extends BaseAction
@@ -16,11 +19,108 @@ class WeaponsAction extends BaseAction
     public function run()
     {
         return $this->controller->render('weapons.tpl', [
-            'weapons' => $this->weaponStats,
+            'entire' => $this->entireWeapons,
+            'users' => $this->userWeapons,
         ]);
     }
 
-    public function getWeaponStats()
+    public function getEntireWeapons()
+    {
+        $rules = [];
+        foreach (GameMode::find()->orderBy('id ASC')->all() as $mode) {
+            $tmp = [];
+            foreach ($mode->rules as $rule) {
+                $tmp[] = (object)[
+                    'key' => $rule->key,
+                    'name' => Yii::t('app-rule', $rule->name),
+                    'data' => $this->getEntireWeaponsByRule($rule),
+                ];
+            }
+            usort($tmp, function ($a, $b) {
+                return strnatcasecmp($a->name, $b->name);
+            });
+            while (!empty($tmp)) {
+                $rules[] = array_shift($tmp);
+            }
+        }
+        return $rules;
+    }
+
+    private function getEntireWeaponsByRule(Rule $rule)
+    {
+        $query = BattlePlayer::find()
+            ->innerJoinWith([
+                'battle' => function ($q) {
+                    return $q->orderBy(null);
+                },
+                'battle.lobby',
+                'weapon'
+            ])
+            ->andWhere(['{{battle}}.[[rule_id]]' => $rule->id])
+            // プライベートバトルを除外
+            ->andWhere(['<>', '{{lobby}}.[[key]]', 'private'])
+            // 不完全っぽいデータを除外
+            ->andWhere(['not', ['{{battle}}.[[is_win]]' => null]])
+            ->andWhere(['not', ['{{battle_player}}.[[weapon_id]]' => null]])
+            ->andWhere(['not', ['{{battle_player}}.[[kill]]' => null]])
+            ->andWhere(['not', ['{{battle_player}}.[[death]]' => null]])
+            // 自分は集計対象外（重複しまくる）
+            ->andWhere(['{{battle_player}}.[[is_me]]' => false])
+            ->groupBy('{{battle_player}}.[[weapon_id]]');
+
+        // タッグバトルなら味方全部除外（連戦で無意味な重複の可能性が高い）
+        if (substr($rule->key, 0, 6) === 'squad_') {
+            $query->andWhere(['{{battle_player}}.[[is_my_team]]' => false]);
+        }
+
+        $query->select([
+            'name' => 'MAX({{weapon}}.[[name]])',
+            'count' => 'COUNT(*)',
+            'total_kill' => 'SUM({{battle_player}}.[[kill]])',
+            'total_death' => 'SUM({{battle_player}}.[[death]])',
+            'win_count' => sprintf(
+                'SUM(CASE %s END)',
+                implode(' ', [
+                    'WHEN {{battle}}.[[is_win]] = TRUE AND {{battle_player}}.[[is_my_team]] = TRUE THEN 1',
+                    'WHEN {{battle}}.[[is_win]] = FALSE AND {{battle_player}}.[[is_my_team]] = FALSE THEN 1',
+                    'ELSE 0'
+                ])
+            ),
+        ]);
+
+        $list = array_map(function ($row) {
+            return (object)[
+                'name'      => Yii::t('app-weapon', $row['name']),
+                'count'     => (int)$row['count'],
+                'avg_kill'  => $row['count'] > 0 ? ($row['total_kill'] / $row['count']) : null,
+                'avg_death' => $row['count'] > 0 ? ($row['total_death'] / $row['count']) : null,
+                'wp'        => $row['count'] > 0 ? ($row['win_count'] * 100 / $row['count']) : null,
+            ];
+        }, $query->createCommand()->queryAll());
+
+        usort($list, function ($a, $b) {
+            foreach (['count', 'wp', 'avg_kill', 'avg_death'] as $key) {
+                $tmp = $b->$key - $a->$key;
+                if ($tmp != 0) {
+                    return $tmp;
+                }
+            }
+            return strnatcasecmp($a->name, $b->name);
+        });
+
+        $battleCount = $query
+            ->select(['c' => 'COUNT(DISTINCT battle_id)'])
+            ->groupBy(null)
+            ->createCommand()
+            ->queryScalar();
+
+        return (object)[
+            'battle_count' => $battleCount,
+            'weapons' => $list,
+        ];
+    }
+
+    public function getUserWeapons()
     {
         $favWeaponQuery = (new \yii\db\Query())
             ->select('*')

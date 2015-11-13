@@ -17,9 +17,8 @@
       &#32;<a href="{{url route="entire/users"}}">{{"Stat: User Activity"|translate:'app'|escape}}</a><br>
 
       <a href="{{url route="entire/kd-win"}}">{{"Stat: K/D vs WP"|translate:'app'|escape}}</a> |
-      &#32;<a href="{{url route="entire/knockout"}}">{{"Stat: Knockout Rate"|translate:'app'|escape}}</a><br>
-
-      &#32;<a href="{{url route="entire/weapons"}}">{{"Stat: Favorite Weapons"|translate:'app'|escape}}</a>
+      &#32;<a href="{{url route="entire/knockout"}}">{{"Stat: Knockout Rate"|translate:'app'|escape}}</a> |
+      &#32;<a href="{{url route="entire/weapons"}}">{{"Stat: Weapons"|translate:'app'|escape}}</a>
     </p>
     <p>
       <a href="{{url route="site/privacy"}}#image">IkaLogへの画像提供について</a>
