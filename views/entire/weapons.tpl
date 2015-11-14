@@ -63,13 +63,18 @@
                 <td data-sort-value="{{$weapon->count|escape}}">{{$weapon->count|number_format|escape}}</td>
                 <td data-sort-value="{{$weapon->avg_kill|escape}}">{{$weapon->avg_kill|string_format:'%.2f'|escape}}</td>
                 <td data-sort-value="{{$weapon->avg_death|escape}}">{{$weapon->avg_death|string_format:'%.2f'|escape}}</td>
-                <td>
-                  {{if $weapon->avg_death == 0}}
-                    {{if $weapon->avg_kill > 0}}
-                      99.99
-                    {{/if}}
+                {{if $weapon->avg_death == 0}}
+                  {{if $weapon->avg_kill > 0}}
+                    {{$kr = 99.99}}
                   {{else}}
-                    {{($weapon->avg_kill/$weapon->avg_death)|string_format:'%.2f'|escape}}
+                    {{$kr = null}}
+                  {{/if}}
+                {{else}}
+                  {{$kr = $weapon->avg_kill / $weapon->avg_death}}
+                {{/if}}
+                <td data-sort-value="{{$kr|escape}}">
+                  {{if $kr !== null}}
+                    {{$kr|string_format:'%.2f'|escape}}
                   {{/if}}
                 </td>
                 {{if $rule->key === 'nawabari'}}
@@ -77,7 +82,9 @@
                     {{$weapon->avg_inked|string_format:'%.1f'|escape}}
                   </td>
                 {{/if}}
-                <td>{{$weapon->wp|string_format:'%.2f%%'|escape}}</td>
+                <td data-sort-value="{{$weapon->wp|escape}}">
+                  {{$weapon->wp|string_format:'%.2f%%'|escape}}
+                </td>
               </tr>
             {{/foreach}}
           </tbody>
