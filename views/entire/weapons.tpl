@@ -20,10 +20,10 @@
     </div>
 
     <h2>
-      Weapons
+      {{'Weapons'|translate:'app'|escape}}
     </h2>
     <p>
-      {{'Excluded: Posted Player, All Players(when Private Battle), Posted Player\'s Team Member(when Squad Battle)'|translate:'app'|escape}}
+      {{'Excluded: Posted Player, All Players(when Private Battle), Posted Player\'s Team Member(when Squad Battle or Splatfest Battle)'|translate:'app'|escape}}
     </p>
     <p>
       ※できる限り重複カウントしないように除外設定を行っていますが、連戦やナワバリフレンド合流の影響により重複カウントしやすい状況が発生します。

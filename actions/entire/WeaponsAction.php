@@ -68,6 +68,19 @@ class WeaponsAction extends BaseAction
             ->andWhere(['{{battle_player}}.[[is_me]]' => false])
             ->groupBy('{{battle_player}}.[[weapon_id]]');
 
+        // フェスマッチなら味方全部除外（連戦で無意味な重複の可能性が高い）
+        if ($rule->key === 'nawabari') {
+            $query->andWhere(['or',
+                [
+                    '{{lobby}}.[[key]]' => 'standard',
+                ],
+                [
+                    '{{lobby}}.[[key]]' => 'fest',
+                    '{{battle_player}}.[[is_my_team]]' => false,
+                ],
+            ]);
+        }
+
         // タッグバトルなら味方全部除外（連戦で無意味な重複の可能性が高い）
         if (substr($rule->key, 0, 6) === 'squad_') {
             $query->andWhere(['{{battle_player}}.[[is_my_team]]' => false]);

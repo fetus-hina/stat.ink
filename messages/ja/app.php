@@ -47,7 +47,7 @@ return [
     'European Time (Central)' => 'ヨーロッパ時間（中央）',
     'European Time (East)' => 'ヨーロッパ時間（東部）',
     'European Time (West)' => 'ヨーロッパ時間（西部）',
-    'Excluded: Posted Player, All Players(when Private Battle), Posted Player\'s Team Member(when Squad Battle)' => '集計除外: プライベートマッチと、投稿ユーザ、タッグマッチ時の投稿者のチームメンバー',
+    'Excluded: Posted Player, All Players(when Private Battle), Posted Player\'s Team Member(when Squad Battle or Splatfest Battle)' => '集計除外: プライベートマッチと、投稿ユーザ、タッグマッチ・フェスマッチ時の投稿者のチームメンバー',
     'Excluded: Private Battles and Squad Battles(when Rank S, S+)' => '集計除外: プライベートマッチと S, S+ 時のタッグマッチ',
     'Excluded: Private Battles' => '集計除外: プライベートマッチ',
     'Favorite Weapon' => 'よく使うブキ',
