@@ -69,6 +69,8 @@ class WeaponsAction extends BaseAction
             ->groupBy('{{battle_player}}.[[weapon_id]]');
 
         // フェスマッチなら味方全部除外（連戦で無意味な重複の可能性が高い）
+        // ナワバリは回線落ち判定ができるので回線落ちしたものは除外する
+        // 厳密には全く塗らなかった人も除外されるが明らかに外れ値なので気にしない
         if ($rule->key === 'nawabari') {
             $query->andWhere(['or',
                 [
@@ -78,6 +80,24 @@ class WeaponsAction extends BaseAction
                     '{{lobby}}.[[key]]' => 'fest',
                     '{{battle_player}}.[[is_my_team]]' => false,
                 ],
+            ]);
+            $query->andWhere(['not', ['{{battle_player}}.[[point]]' => null]]);
+            $query->andWhere(['or',
+                [
+                    // 勝ったチームは 300p より大きい
+                    'and',
+                    // 自分win && 自チーム
+                    // 自分lose && 相手チーム
+                    // このどちらかなら勝ってるので、結果的に is_win と is_my_team を比較すればいい
+                    ['=', '{{battle}}.[[is_win]]', new \yii\db\Expression('battle_player.is_my_team')],
+                    ['>', '{{battle_player}}.[[point]]', 300],
+                ],
+                [
+                    // 負けたチームは 0p より大きい
+                    'and',
+                    ['<>', '{{battle}}.[[is_win]]', new \yii\db\Expression('battle_player.is_my_team')],
+                    ['>', '{{battle_player}}.[[point]]', 0],
+                ]
             ]);
         }
 
