@@ -58,11 +58,15 @@
           </thead>
           <tbody>
             {{foreach $rule->data->weapons as $weapon}}
-              <tr>
-                <td>{{$weapon->name|escape}}</td>
-                <td data-sort-value="{{$weapon->count|escape}}">{{$weapon->count|number_format|escape}}</td>
-                <td data-sort-value="{{$weapon->avg_kill|escape}}">{{$weapon->avg_kill|string_format:'%.2f'|escape}}</td>
-                <td data-sort-value="{{$weapon->avg_death|escape}}">{{$weapon->avg_death|string_format:'%.2f'|escape}}</td>
+              <tr class="weapon">
+                <td>
+                  <span title="{{'Sub:'|translate:'app'|escape}}{{$weapon->subweapon->name|escape}} / {{'Special:'|translate:'app'|escape}}{{$weapon->special->name|escape}}" class="auto-tooltip">
+                    {{$weapon->name|escape}}
+                  </span>
+                </td>
+                <td class="players" data-sort-value="{{$weapon->count|escape}}">{{$weapon->count|number_format|escape}}</td>
+                <td class="kill" data-sort-value="{{$weapon->avg_kill|escape}}">{{$weapon->avg_kill|string_format:'%.2f'|escape}}</td>
+                <td class="death" data-sort-value="{{$weapon->avg_death|escape}}">{{$weapon->avg_death|string_format:'%.2f'|escape}}</td>
                 {{if $weapon->avg_death == 0}}
                   {{if $weapon->avg_kill > 0}}
                     {{$kr = 99.99}}

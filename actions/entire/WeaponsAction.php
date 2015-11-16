@@ -54,7 +54,9 @@ class WeaponsAction extends BaseAction
                     return $q->orderBy(null);
                 },
                 'battle.lobby',
-                'weapon'
+                'weapon',
+                'weapon.subweapon',
+                'weapon.special',
             ])
             ->andWhere(['{{battle}}.[[rule_id]]' => $rule->id])
             // プライベートバトルを除外
@@ -107,11 +109,15 @@ class WeaponsAction extends BaseAction
         }
 
         $query->select([
-            'key' => 'MAX({{weapon}}.[[key]])',
-            'name' => 'MAX({{weapon}}.[[name]])',
-            'count' => 'COUNT(*)',
-            'total_kill' => 'SUM({{battle_player}}.[[kill]])',
-            'total_death' => 'SUM({{battle_player}}.[[death]])',
+            'key'           => 'MAX({{weapon}}.[[key]])',
+            'name'          => 'MAX({{weapon}}.[[name]])',
+            'sub_key'       => 'MAX({{subweapon}}.[[key]])',
+            'sub'           => 'MAX({{subweapon}}.[[name]])',
+            'special_key'   => 'MAX({{special}}.[[key]])',
+            'special'       => 'MAX({{special}}.[[name]])',
+            'count'         => 'COUNT(*)',
+            'total_kill'    => 'SUM({{battle_player}}.[[kill]])',
+            'total_death'   => 'SUM({{battle_player}}.[[death]])',
             'win_count' => sprintf(
                 'SUM(CASE %s END)',
                 implode(' ', [
@@ -145,6 +151,14 @@ class WeaponsAction extends BaseAction
             return (object)[
                 'key'       => $row['key'],
                 'name'      => Yii::t('app-weapon', $row['name']),
+                'subweapon' => (object)[
+                    'key'   => $row['sub_key'],
+                    'name'  => Yii::t('app-subweapon', $row['sub']),
+                ],
+                'special'   => (object)[
+                    'key'   => $row['special_key'],
+                    'name'  => Yii::t('app-special', $row['special']),
+                ],
                 'count'     => (int)$row['count'],
                 'avg_kill'  => $row['count'] > 0 ? ($row['total_kill'] / $row['count']) : null,
                 'avg_death' => $row['count'] > 0 ? ($row['total_death'] / $row['count']) : null,
