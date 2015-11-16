@@ -64,7 +64,15 @@
                     {{$weapon->name|escape}}
                   </span>
                 </td>
-                <td class="players" data-sort-value="{{$weapon->count|escape}}">{{$weapon->count|number_format|escape}}</td>
+                <td class="players" title="{{if $rule->data->player_count > 0}}{{($rule->data->player_count*100/$weapon->count)|string_format:'%.2f%%'|escape}}{{/if}}" data-sort-value="{{$weapon->count|escape}}">
+                  {{if $rule->data->player_count > 0}}
+                    <span class="auto-tooltip" title="{{($weapon->count*100/$rule->data->player_count)|string_format:'%.2f%%'|escape}}">
+                      {{$weapon->count|number_format|escape}}
+                    </span>
+                  {{else}}
+                    0
+                  {{/if}}
+                </td>
                 <td class="kill" data-sort-value="{{$weapon->avg_kill|escape}}">{{$weapon->avg_kill|string_format:'%.2f'|escape}}</td>
                 <td class="death" data-sort-value="{{$weapon->avg_death|escape}}">{{$weapon->avg_death|string_format:'%.2f'|escape}}</td>
                 {{if $weapon->avg_death == 0}}
@@ -88,6 +96,114 @@
                 {{/if}}
                 <td data-sort-value="{{$weapon->wp|escape}}">
                   {{$weapon->wp|string_format:'%.2f%%'|escape}}
+                </td>
+              </tr>
+            {{/foreach}}
+          </tbody>
+        </table>
+
+        <table class="table table-striped table-condensed table-sortable" id="sub-{{$rule->key|escape}}">
+          <thead>
+            <tr>
+              <th data-sort="string">{{'Sub Weapon'|translate:'app'|escape}}</th>
+              <th data-sort="int">{{'Players'|translate:'app'|escape}} <span class="arrow fa fa-angle-down"></span></th>
+              <th data-sort="float">{{'Avg Killed'|translate:'app'|escape}}</th>
+              <th data-sort="float">{{'Avg Dead'|translate:'app'|escape}}</th>
+              <th data-sort="float">{{'Avg KR'|translate:'app'|escape}}</th>
+              <th data-sort="float">{{'WP'|translate:'app'|escape}}</th>
+              <th data-sort="float">{{'Encounter Rate'|translate:'app'|escape}}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{foreach $rule->sub as $weapon}}
+              <tr class="weapon">
+                <td>
+                  {{$weapon->name|escape}}
+                </td>
+                <td class="players" title="{{if $rule->data->player_count > 0}}{{($rule->data->player_count*100/$weapon->count)|string_format:'%.2f%%'|escape}}{{/if}}" data-sort-value="{{$weapon->count|escape}}">
+                  {{if $rule->data->player_count > 0}}
+                    <span class="auto-tooltip" title="{{($weapon->count*100/$rule->data->player_count)|string_format:'%.2f%%'|escape}}">
+                      {{$weapon->count|number_format|escape}}
+                    </span>
+                  {{else}}
+                    0
+                  {{/if}}
+                </td>
+                <td class="kill" data-sort-value="{{$weapon->avg_kill|escape}}">{{$weapon->avg_kill|string_format:'%.2f'|escape}}</td>
+                <td class="death" data-sort-value="{{$weapon->avg_death|escape}}">{{$weapon->avg_death|string_format:'%.2f'|escape}}</td>
+                {{if $weapon->avg_death == 0}}
+                  {{if $weapon->avg_kill > 0}}
+                    {{$kr = 99.99}}
+                  {{else}}
+                    {{$kr = null}}
+                  {{/if}}
+                {{else}}
+                  {{$kr = $weapon->avg_kill / $weapon->avg_death}}
+                {{/if}}
+                <td data-sort-value="{{$kr|escape}}">
+                  {{if $kr !== null}}
+                    {{$kr|string_format:'%.2f'|escape}}
+                  {{/if}}
+                </td>
+                <td data-sort-value="{{$weapon->wp|escape}}">
+                  {{$weapon->wp|string_format:'%.2f%%'|escape}}
+                </td>
+                <td data-sort-value="{{$weapon->encounter_4|escape}}">
+                  {{$weapon->encounter_4|string_format:'%.2f%%'|escape}}
+                </td>
+              </tr>
+            {{/foreach}}
+          </tbody>
+        </table>
+
+        <table class="table table-striped table-condensed table-sortable" id="special-{{$rule->key|escape}}">
+          <thead>
+            <tr>
+              <th data-sort="string">{{'Special'|translate:'app'|escape}}</th>
+              <th data-sort="int">{{'Players'|translate:'app'|escape}} <span class="arrow fa fa-angle-down"></span></th>
+              <th data-sort="float">{{'Avg Killed'|translate:'app'|escape}}</th>
+              <th data-sort="float">{{'Avg Dead'|translate:'app'|escape}}</th>
+              <th data-sort="float">{{'Avg KR'|translate:'app'|escape}}</th>
+              <th data-sort="float">{{'WP'|translate:'app'|escape}}</th>
+              <th data-sort="float">{{'Encounter Rate'|translate:'app'|escape}}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{foreach $rule->special as $weapon}}
+              <tr class="weapon">
+                <td>
+                  {{$weapon->name|escape}}
+                </td>
+                <td class="players" title="{{if $rule->data->player_count > 0}}{{($rule->data->player_count*100/$weapon->count)|string_format:'%.2f%%'|escape}}{{/if}}" data-sort-value="{{$weapon->count|escape}}">
+                  {{if $rule->data->player_count > 0}}
+                    <span class="auto-tooltip" title="{{($weapon->count*100/$rule->data->player_count)|string_format:'%.2f%%'|escape}}">
+                      {{$weapon->count|number_format|escape}}
+                    </span>
+                  {{else}}
+                    0
+                  {{/if}}
+                </td>
+                <td class="kill" data-sort-value="{{$weapon->avg_kill|escape}}">{{$weapon->avg_kill|string_format:'%.2f'|escape}}</td>
+                <td class="death" data-sort-value="{{$weapon->avg_death|escape}}">{{$weapon->avg_death|string_format:'%.2f'|escape}}</td>
+                {{if $weapon->avg_death == 0}}
+                  {{if $weapon->avg_kill > 0}}
+                    {{$kr = 99.99}}
+                  {{else}}
+                    {{$kr = null}}
+                  {{/if}}
+                {{else}}
+                  {{$kr = $weapon->avg_kill / $weapon->avg_death}}
+                {{/if}}
+                <td data-sort-value="{{$kr|escape}}">
+                  {{if $kr !== null}}
+                    {{$kr|string_format:'%.2f'|escape}}
+                  {{/if}}
+                </td>
+                <td data-sort-value="{{$weapon->wp|escape}}">
+                  {{$weapon->wp|string_format:'%.2f%%'|escape}}
+                </td>
+                <td data-sort-value="{{$weapon->encounter_4|escape}}">
+                  {{$weapon->encounter_4|string_format:'%.2f%%'|escape}}
                 </td>
               </tr>
             {{/foreach}}

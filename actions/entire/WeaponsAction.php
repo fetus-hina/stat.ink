@@ -13,6 +13,8 @@ use app\models\BattlePlayer;
 use app\models\GameMode;
 use app\models\Rule;
 use app\models\Weapon;
+use app\models\Subweapon;
+use app\models\Special;
 
 class WeaponsAction extends BaseAction
 {
@@ -30,10 +32,13 @@ class WeaponsAction extends BaseAction
         foreach (GameMode::find()->orderBy('id ASC')->all() as $mode) {
             $tmp = [];
             foreach ($mode->rules as $rule) {
+                $weapons = $this->getEntireWeaponsByRule($rule);
                 $tmp[] = (object)[
                     'key' => $rule->key,
                     'name' => Yii::t('app-rule', $rule->name),
-                    'data' => $this->getEntireWeaponsByRule($rule),
+                    'data' => $weapons,
+                    'sub' => $this->convertWeapons2Sub($weapons),
+                    'special' => $this->convertWeapons2Special($weapons),
                 ];
             }
             usort($tmp, function ($a, $b) {
@@ -161,8 +166,11 @@ class WeaponsAction extends BaseAction
                 ],
                 'count'     => (int)$row['count'],
                 'avg_kill'  => $row['count'] > 0 ? ($row['total_kill'] / $row['count']) : null,
+                'sum_kill'  => $row['total_kill'],
                 'avg_death' => $row['count'] > 0 ? ($row['total_death'] / $row['count']) : null,
+                'sum_death' => $row['total_death'],
                 'wp'        => $row['count'] > 0 ? ($row['win_count'] * 100 / $row['count']) : null,
+                'win_count' => $row['win_count'],
                 'avg_inked' => $row['point_available'] > 0 ? ($row['total_point'] / $row['point_available']) : null,
             ];
         }, $query->createCommand()->queryAll());
@@ -243,6 +251,101 @@ class WeaponsAction extends BaseAction
         foreach ($list as $weapon) {
             $ret[$weapon->id] = $weapon;
         }
+        return $ret;
+    }
+
+    private function convertWeapons2Sub($in)
+    {
+        $ret = [];
+        foreach (Subweapon::find()->all() as $sub) {
+            $ret[$sub->key] = (object)[
+                'name'      => Yii::t('app-subweapon', $sub->name),
+                'count'     => 0,
+                'sum_kill'  => 0,
+                'sum_death' => 0,
+                'win_count' => 0,
+                'avg_kill'  => null,
+                'avg_death' => null,
+                'wp'        => null,
+                'encounter_3' => null,
+                'encounter_4' => null,
+            ];
+        }
+        foreach ($in->weapons as $weapon) {
+            $o = $ret[$weapon->subweapon->key];
+            $o->count     += $weapon->count;
+            $o->sum_kill  += $weapon->sum_kill;
+            $o->sum_death += $weapon->sum_death;
+            $o->win_count += $weapon->win_count;
+        }
+        foreach ($ret as $o) {
+            if ($o->count > 0) {
+                $o->avg_kill  = $o->sum_kill / $o->count;
+                $o->avg_death = $o->sum_death / $o->count;
+                $o->wp = $o->win_count * 100 / $o->count;
+                $encounterRate = $o->count / $in->player_count;
+                $o->encounter_3 = 100 * (1 - pow(1 - $encounterRate, 3));
+                $o->encounter_4 = 100 * (1 - pow(1 - $encounterRate, 4));
+            }
+        }
+
+        usort($ret, function ($a, $b) {
+            foreach (['count', 'wp', 'avg_kill', 'avg_death'] as $key) {
+                $tmp = $b->$key - $a->$key;
+                if ($tmp != 0) {
+                    return $tmp;
+                }
+            }
+            return strnatcasecmp($a->name, $b->name);
+        });
+        return $ret;
+    }
+
+    private function convertWeapons2Special($in)
+    {
+        $ret = [];
+        foreach (Special::find()->all() as $spe) {
+            $ret[$spe->key] = (object)[
+                'name'      => Yii::t('app-special', $spe->name),
+                'count'     => 0,
+                'sum_kill'  => 0,
+                'sum_death' => 0,
+                'win_count' => 0,
+                'avg_kill'  => null,
+                'avg_death' => null,
+                'wp'        => null,
+                'encounter_3' => null,
+                'encounter_4' => null,
+            ];
+        }
+        foreach ($in->weapons as $weapon) {
+            $o = $ret[$weapon->special->key];
+            $o->count     += $weapon->count;
+            $o->sum_kill  += $weapon->sum_kill;
+            $o->sum_death += $weapon->sum_death;
+            $o->win_count += $weapon->win_count;
+        }
+        foreach ($ret as $o) {
+            if ($o->count > 0) {
+                $o->avg_kill  = $o->sum_kill / $o->count;
+                $o->avg_death = $o->sum_death / $o->count;
+                $o->wp = $o->win_count * 100 / $o->count;
+                $encounterRate = $o->count / $in->player_count;
+                $o->encounter_3 = 100 * (1 - pow(1 - $encounterRate, 3));
+                $o->encounter_4 = 100 * (1 - pow(1 - $encounterRate, 4));
+                $o->encounter_r = $encounterRate * 100;
+            }
+        }
+
+        usort($ret, function ($a, $b) {
+            foreach (['count', 'wp', 'avg_kill', 'avg_death'] as $key) {
+                $tmp = $b->$key - $a->$key;
+                if ($tmp != 0) {
+                    return $tmp;
+                }
+            }
+            return strnatcasecmp($a->name, $b->name);
+        });
         return $ret;
     }
 }

@@ -44,6 +44,7 @@ return [
     'Display Everyone' => '全員を表示',
     'Edit Your Battle: #{0}' => 'バトル詳細を編集: #{0}',
     'Edit' => '編集',
+    'Encounter Rate' => '敵遭遇率',
     'European Time (Central)' => 'ヨーロッパ時間（中央）',
     'European Time (East)' => 'ヨーロッパ時間（東部）',
     'European Time (West)' => 'ヨーロッパ時間（西部）',
