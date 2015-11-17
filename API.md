@@ -198,6 +198,7 @@ POST /api/v1/battle
         - `splatroller_collabo` : スプラローラーコラボ
     - チャージャー
         - `bamboo14mk1` : 14式竹筒銃・甲
+        - `bamboo14mk2` : 14式竹筒銃・乙
         - `herocharger_replica` : ヒーローチャージャーレプリカ
         - `liter3k` : リッター3K
         - `liter3k_custom` : リッター3Kカスタム
