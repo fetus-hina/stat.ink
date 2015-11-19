@@ -412,17 +412,14 @@
           <table class="table table-bordered" id="players">
             <thead>
               <tr>
-                {{$colCount = 7}}
                 <th style="width:1em"></th>
                 <th class="col-weapon">{{'Weapon'|translate:'app'|escape}}</th>
                 <th class="col-level">{{'Level'|translate:'app'|escape}}</th>
                 {{if !$hideRank}}
                   <th class="col-rank">{{'Rank'|translate:'app'|escape}}</th>
-                  {{$colCount = $colCount - 1}}
                 {{/if}}
                 {{if !$hidePoint}}
                   <th class="col-point">{{'Point'|translate:'app'|escape}}</th>
-                  {{$colCount = $colCount - 1}}
                 {{/if}}
                 <th class="col-kd">{{'k'|translate:'app'|escape}}/{{'d'|translate:'app'|escape}}</th>
                 <th class="col-kr">{{'KR'|translate:'app'|escape}}</th>
@@ -437,6 +434,7 @@
                 {{$attr = $teamKey|cat:'TeamPlayers'}}
                 {{$totalKill = 0}}
                 {{$totalDeath = 0}}
+                {{$totalPoint = 0}}
                 {{$hasNull = false}}
                 {{foreach $battle->$attr as $player}}
                   {{if $player->kill === null || $player->death === null}}
@@ -445,21 +443,37 @@
                     {{$totalKill = $totalKill + $player->kill}}
                     {{$totalDeath = $totalDeath + $player->death}}
                   {{/if}}
+                  {{if $totalPoint !== null && $player->point !== null}}
+                    {{$totalPoint = $totalPoint + $player->point}}
+                  {{else}}
+                    {{$totalPoint = null}}
+                  {{/if}}
                 {{/foreach}}
                 <tr class="bg-{{$teamKey|escape}}">
-                  <th colspan="{{($colCount - 2)|escape}}">
+                  <th colspan="2">
                     {{if $teamKey === 'my'}}
                       {{'Good Guys'|translate:'app'|escape}}
                     {{else}}
                       {{'Bad Guys'|translate:'app'|escape}}
                     {{/if}}
                   </th>
-                  <td>
+                  <td></td>
+                  {{if !$hideRank}}
+                    <td></td>
+                  {{/if}}
+                  {{if !$hidePoint}}
+                    <td class="text-right">
+                      {{if $totalPoint !== null}}
+                        {{$totalPoint|number_format|escape}}
+                      {{/if}}
+                    </td>
+                  {{/if}}
+                  <td class="text-center">
                     {{if !$hasNull}}
                       {{$totalKill|escape}} / {{$totalDeath|escape}}
                     {{/if}}
                   </td>
-                  <td>
+                  <td class="text-right">
                     {{if !$hasNull}}
                       {{if $totalDeath == 0}}
                         {{if $totalKill != 0}}
@@ -483,20 +497,20 @@
                         </span>
                       {{/if}}
                     </td>
-                    <td class="col-level">
+                    <td class="col-level text-right">
                       {{$player->level|escape}}
                     </td>
                     {{if !$hideRank}}
-                      <td class="col-rank">
+                      <td class="col-rank text-center">
                         {{$player->rank->name|default:''|translate:'app-rank'|escape}}
                       </td>
                     {{/if}}
                     {{if !$hidePoint}}
-                      <td class="col-point">
-                        {{$player->point|escape}}
+                      <td class="col-point text-right">
+                        {{$player->point|number_format|escape}}
                       </td>
                     {{/if}}
-                    <td class="col-kd">
+                    <td class="col-kd text-center">
                       {{if $player->kill === null}}
                         ?
                       {{else}}
@@ -515,7 +529,7 @@
                         {{/if}}
                       {{/if}}
                     </td>
-                    <td class="col-kr">
+                    <td class="col-kr text-right">
                       {{if $player->kill !== null && $player->death !== null}}
                         {{if $player->death === 0}}
                           {{if $player->kill !== 0}}
