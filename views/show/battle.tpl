@@ -568,9 +568,12 @@
                 function drawTimelineGraph() {
                   var $graph_ = $graphs.filter('#timeline');
                   var inkedData = window.battleEvents.filter(function(v){
-                    return v.type === "score";
+                    return v.type === "score" || v.type === "point"
                   }).map(function(v){
-                    return [v.at, v.score];
+                    return [
+                      v.at,
+                      v.type === "score" ? v.score : v.point
+                    ];
                   });
 
                   $graph_.each(function () {
