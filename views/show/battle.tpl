@@ -576,6 +576,10 @@
                     ];
                   });
 
+                  if (inkedData.length > 0) {
+                    inkedData.unshift([0, null]);
+                  }
+
                   $graph_.each(function () {
                     var $graph = $(this);
                     if (inkedData.length < 1) {
@@ -591,9 +595,10 @@
               
                     $.plot($graph, data, {
                       xaxis: {
-                        minTickSize: 10,
+                        min: 0,
+                        minTickSize: 30,
                         tickFormatter: function (v) {
-                          v = ~~v;
+                          v = Math.floor(v);
                           var m = Math.floor(v / 60);
                           var s = Math.floor(v % 60);
                           return m + ":" + (s < 10 ? "0" + s : s);
