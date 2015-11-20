@@ -65,6 +65,7 @@ class PostBattleForm extends Model
     public $my_team_count;
     public $his_team_count;
     public $players;
+    public $events;
     public $agent;
     public $agent_version;
     public $agent_custom;
@@ -135,6 +136,7 @@ class PostBattleForm extends Model
             [['knock_out'], 'boolean', 'trueValue' => 'yes', 'falseValue' => 'no'],
             [['my_team_count', 'his_team_count'], 'integer', 'min' => 0, 'max' => 100],
             [['players'], 'validatePlayers'],
+            [['events'], 'validateEvents'],
 
             [['lobby'], 'fixLobby'],
         ];
@@ -201,6 +203,41 @@ class PostBattleForm extends Model
             $newValues[] = $newValue;
         }
         $this->$attribute = $newValues;
+    }
+
+    public function validateEvents($attribute, $params)
+    {
+        if ($this->hasErrors($attribute)) {
+            return;
+        }
+
+        if (!is_array($this->$attribute)) {
+            $this->addError($attribute, "{$attribute} must be an array.");
+            return;
+        }
+
+        if (count($this->$attribute) === 0) {
+            return;
+        }
+
+        $newValues = [];
+        foreach ($this->$attribute as $value) {
+            if (is_array($value)) {
+                $value = (object)$value;
+            }
+            if (!isset($value->at) || !isset($value->type)) {
+                continue;
+            }
+            $value->at = filter_var($value->at, FILTER_VALIDATE_FLOAT);
+            if ($value->at === false) {
+                continue;
+            }
+            $newValues[] = $value;
+        }
+        usort($newValues, function ($a, $b) {
+            return $a->at - $b->at;
+        });
+        $this->$attribute= $newValues;
     }
 
     public function validateTeamColor($attribute, $params)
@@ -336,6 +373,11 @@ class PostBattleForm extends Model
         $o->is_knock_out    = $this->knock_out === 'yes' ? true : ($this->knock_out === 'no' ? false : null);
         $o->my_team_count   = (string)$this->my_team_count != '' ? (int)$this->my_team_count : null;
         $o->his_team_count  = (string)$this->his_team_count != '' ? (int)$this->his_team_count : null;
+
+        $o->events = null;
+        if ($this->events) {
+            $o->events = json_encode($this->events, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+        }
 
         if ($this->isTest) {
             $now = isset($_SERVER['REQUEST_TIME']) ? $_SERVER['REQUEST_TIME'] : time();

@@ -15,7 +15,7 @@ https://stat.ink/ のソースコードです。
 --------
 
 * PHP 5.5+
-* PostgreSQL 9.x
+* PostgreSQL 9.4+
 * ImageMagick (`convert`)
 * Node.js (`npm`)
 * `cwebp`
@@ -53,6 +53,8 @@ https://stat.ink/ は現在次の構成で動作しています。（Docker で�
 
 
 CentOS 7 の標準 PHP は 5.4.16 です。このバージョンでは動作しません。
+
+CentOS 7 の標準 PostgreSQL のバージョンは 9.2.14 です。このバージョンでは動作しません。
 
 
 使い方

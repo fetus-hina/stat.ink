@@ -55,6 +55,7 @@ use app\components\helpers\DateTimeFormatter;
  * @property integer $period
  * @property string $ua_custom
  * @property integer $env_id
+ * @property string $events
  *
  * @property Agent $agent
  * @property Environment $env
@@ -122,6 +123,7 @@ class Battle extends ActiveRecord
             [['kill_ratio', 'my_team_final_percent', 'his_team_final_percent'], 'number'],
             [['my_team_color_rgb', 'his_team_color_rgb'], 'string', 'min' => 6, 'max' => 6],
             [['ua_custom'], 'string'],
+            [['events'], 'safe'],
         ];
     }
 
@@ -171,6 +173,7 @@ class Battle extends ActiveRecord
             'period' => 'Period',
             'ua_custom' => 'UA Custom',
             'env_id' => 'Env ID',
+            'events' => 'Events',
         ];
     }
 
