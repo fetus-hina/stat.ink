@@ -636,8 +636,8 @@ class Battle extends ActiveRecord
             date('d', $t),
             date('H', $t),
             date('i', $t),
-            $this->map ? Yii::t('app-map', $this->map->name) : '不明',
-            $this->rule ? Yii::t('app-rule', $this->rule->name) : '不明',
+            $this->map ? Yii::t('app-map', $this->map->name) : '?',
+            $this->rule ? Yii::t('app-rule', $this->rule->name) : '?',
             $this->is_win === true
                 ? '勝ち'
                 : ($this->is_win === false ? '負け' : '不明'),
