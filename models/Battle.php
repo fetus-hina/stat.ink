@@ -596,4 +596,27 @@ class Battle extends ActiveRecord
             'register_at' => DateTimeFormatter::unixTimeToJsonArray(strtotime($this->at)),
         ];
     }
+
+    public function toIkaLogCsv()
+    {
+        // https://github.com/hasegaw/IkaLog/blob/b2e3f3f1315719ad42837ffdb2362680ae09a5dc/ikalog/outputs/csv.py#L130
+        // t_unix, t_str, map, rule, won
+
+        // t_str = t.strftime("%Y,%m,%d,%H,%M")
+        // t_str を埋め込むときはそれぞれ別フィールドになるようにする（"" でくくって一つにしたりしない）
+        $t = strtotime($this->end_at ?: $this->at);
+        return [
+            (string)$t,
+            date('Y', $t),
+            date('m', $t),
+            date('d', $t),
+            date('H', $t),
+            date('i', $t),
+            $this->map ? Yii::t('app-map', $this->map->name) : '不明',
+            $this->rule ? Yii::t('app-rule', $this->rule->name) : '不明',
+            $this->is_win === true
+                ? '勝ち'
+                : ($this->is_win === false ? '負け' : '不明'),
+        ];
+    }
 }

@@ -2,7 +2,7 @@
 $params = require(__DIR__ . '/params.php');
 $config = [
     'name' => 'stat.ink',
-    'version' => '1.4.12',
+    'version' => '1.5.0-dev',
     'id' => 'statink',
     'language' => 'ja-JP',
     'timeZone' => 'Asia/Tokyo',
@@ -58,6 +58,7 @@ $config = [
         'response' => [
             'class' => 'app\components\web\Response',
             'formatters' => [
+                'csv' => 'app\components\web\CsvResponseFormatter',
                 'json' => 'app\components\web\PrettyJsonResponseFormatter',
             ],
         ],

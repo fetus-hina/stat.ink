@@ -66,6 +66,7 @@ class UserController extends Controller
     {
         $prefix = 'app\actions\user';
         return [
+            'download'      => [ 'class' => $prefix . '\DownloadAction' ],
             'edit-profile'  => [ 'class' => $prefix . '\EditProfileAction' ],
             'language'      => [ 'class' => $prefix . '\LanguageAction' ],
             'login'         => [ 'class' => $prefix . '\LoginAction' ],

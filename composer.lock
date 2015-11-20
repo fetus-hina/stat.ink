@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "2f1b307e4cc0b1d7a070a5e702a3d4e8",
-    "content-hash": "40470085314cf804b3f07acb44e76808",
+    "hash": "ea7adf524065ccae8e70341bb27082b0",
+    "content-hash": "297c8b45a9952eb4519df006a83791af",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -886,6 +886,48 @@
                 "password"
             ],
             "time": "2014-11-20 16:49:30"
+        },
+        {
+            "name": "jp3cki/mb_str_replace",
+            "version": "4.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/fetus-hina/mb_str_replace.git",
+                "reference": "37438ecf00e326fae7d7eca8e509234083188d18"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/fetus-hina/mb_str_replace/zipball/37438ecf00e326fae7d7eca8e509234083188d18",
+                "reference": "37438ecf00e326fae7d7eca8e509234083188d18",
+                "shasum": ""
+            },
+            "require": {
+                "ext-mbstring": "*",
+                "php": ">=5.1"
+            },
+            "require-dev": {
+                "phpmd/phpmd": "~2.2",
+                "phpunit/phpunit": "4.*",
+                "squizlabs/php_codesniffer": "2.*"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/mb_str_replace.function.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "AIZAWA Hina",
+                    "email": "hina@bouhime.com"
+                }
+            ],
+            "description": "The mb_str_replace() implementation.",
+            "time": "2015-03-12 09:26:01"
         },
         {
             "name": "jp3cki/yii2-googleadsense",
