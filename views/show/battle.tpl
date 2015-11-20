@@ -546,6 +546,86 @@
             </tbody>
           </table>
         {{/if}}
+        {{if $battle->events}}
+          {{$events = $battle->events|@json_decode:false}}
+          {{if $events}}
+            <script>
+              window.battleEvents = {{$events|json_encode}}
+            </script>
+            <div class="graph" id="timeline">
+            </div>
+            {{\app\assets\FlotAsset::register($this)|@void}}
+            {{registerCss}}
+              .graph{height:300px}
+            {{/registerCss}}
+            {{registerJs}}
+              (function($) {
+                var $graphs = $('.graph');
+                window.battleEvents.sort(function(a,b){
+                  return a.at - b.at;
+                });
+              
+                function drawTimelineGraph() {
+                  var $graph_ = $graphs.filter('#timeline');
+                  var inkedData = window.battleEvents.filter(function(v){
+                    return v.type === "score";
+                  }).map(function(v){
+                    return [v.at, v.score];
+                  });
+
+                  $graph_.each(function () {
+                    var $graph = $(this);
+                    if (inkedData.length < 1) {
+                      $graph.hide();
+                    }
+                    var data = [
+                      {
+                        label: "{{'Turf Inked'|translate:'app'|escape:'javascript'}}",
+                        data: inkedData,
+                        color: '#edc240'
+                      }
+                    ];
+              
+                    $.plot($graph, data, {
+                      xaxis: {
+                        minTickSize: 10,
+                        tickFormatter: function (v) {
+                          v = ~~v;
+                          var m = Math.floor(v / 60);
+                          var s = Math.floor(v % 60);
+                          return m + ":" + (s < 10 ? "0" + s : s);
+                        }
+                      },
+                      yaxis: {
+                        minTickSize: 100,
+                        min: 0
+                      },
+                      legend: {
+                        position: 'nw'
+                      },
+                      series: {
+                        lines: {
+                          show: true, fill: true
+                        }
+                      }
+                    });
+                  });
+                }
+              
+                var timerId = null;
+                $(window).resize(function() {
+                  if (timerId !== null) {
+                    window.clearTimeout(timerId);
+                  }
+                  timerId = window.setTimeout(function() {
+                    $graphs.height($graphs.width() * 9 / 16);
+                    drawTimelineGraph();
+                  }, 33);
+                }).resize();
+              })(jQuery);
+            {{/registerJs}}
+          {{/if}}
+        {{/if}}
         {{if !$app->user->isGuest && $app->user->identity->id == $user->id}}
           <p class="right">
             <a href="{{url route="show/edit-battle" screen_name=$user->screen_name battle=$battle->id}}" class="btn btn-default">
