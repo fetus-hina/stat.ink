@@ -40,6 +40,9 @@ use app\components\helpers\DateTimeFormatter;
  * @property string $kill_ratio
  * @property integer $gender_id
  * @property integer $fest_title_id
+ * @property integer $fest_title_after_id
+ * @property integer $fest_exp
+ * @property integer $fest_exp_after
  * @property integer $my_team_color_hue
  * @property integer $his_team_color_hue
  * @property string $my_team_color_rgb
@@ -60,6 +63,7 @@ use app\components\helpers\DateTimeFormatter;
  * @property Agent $agent
  * @property Environment $env
  * @property FestTitle $festTitle
+ * @property FestTitle $festTitleAfter
  * @property Gender $gender
  * @property Lobby $lobby
  * @property Map $map
@@ -118,6 +122,7 @@ class Battle extends ActiveRecord
             [['level_after', 'rank_after_id', 'rank_exp', 'rank_exp_after', 'cash', 'cash_after'], 'integer'],
             [['lobby_id', 'gender_id', 'fest_title_id', 'my_team_color_hue', 'his_team_color_hue'], 'integer'],
             [['my_point', 'my_team_final_point', 'his_team_final_point', 'my_team_count', 'his_team_count'], 'integer'],
+            [['fest_title_after_id', 'fest_exp', 'fest_exp_after'], 'integer'],
             [['is_win', 'is_knock_out'], 'boolean'],
             [['start_at', 'end_at', 'at'], 'safe'],
             [['kill_ratio', 'my_team_final_percent', 'his_team_final_percent'], 'number'],
@@ -158,6 +163,9 @@ class Battle extends ActiveRecord
             'kill_ratio' => 'Kill Ratio',
             'gender_id' => 'Gender ID',
             'fest_title_id' => 'Fest Title ID',
+            'fest_title_after_id' => 'Fest Title After ID',
+            'fest_exp' => 'Fest Exp',
+            'fest_exp_after' => 'Fest Exp After',
             'my_team_color_hue' => 'My Team Color Hue',
             'his_team_color_hue' => 'His Team Color Hue',
             'my_team_color_rgb' => 'My Team Color Rgb',
@@ -199,6 +207,14 @@ class Battle extends ActiveRecord
     public function getFestTitle()
     {
         return $this->hasOne(FestTitle::className(), ['id' => 'fest_title_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getFestTitleAfter()
+    {
+        return $this->hasOne(FestTitle::className(), ['id' => 'fest_title_after_id']);
     }
 
     /**
@@ -553,6 +569,11 @@ class Battle extends ActiveRecord
             'fest_title' => $this->gender && $this->festTitle
                 ? $this->festTitle->toJsonArray($this->gender)
                 : null,
+            'fest_exp' => $this->fest_exp,
+            'fest_title_after' => $this->gender && $this->festTitleAfter
+                ? $this->festTitleAfter->toJsonArray($this->gender)
+                : null,
+            'fest_exp_after' => $this->fest_exp_after,
             'my_point' => $this->my_point,
             'my_team_final_point' => $this->my_team_final_point,
             'his_team_final_point' => $this->his_team_final_point,

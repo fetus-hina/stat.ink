@@ -50,6 +50,9 @@ class PostBattleForm extends Model
     public $death_reasons;
     public $gender;
     public $fest_title;
+    public $fest_title_after;
+    public $fest_exp;
+    public $fest_exp_after;
     public $my_team_color;
     public $his_team_color;
     public $image_judge;
@@ -101,10 +104,11 @@ class PostBattleForm extends Model
             [['kill', 'death'], 'integer', 'min' => 0],
             [['death_reasons'], 'validateDeathReasons'],
             [['gender'], 'in', 'range' => [ 'boy', 'girl']],
-            [['fest_title'], 'filter', 'filter' => 'strtolower'],
-            [['fest_title'], 'exist',
+            [['fest_title', 'fest_title_after'], 'filter', 'filter' => 'strtolower'],
+            [['fest_title', 'fest_title_after'], 'exist',
                 'targetClass' => FestTitle::className(),
                 'targetAttribute' => 'key'],
+            [['fest_exp', 'fest_exp_after'], 'integer', 'min' => 0, 'max' => 99],
             [['my_team_color', 'his_team_color'], 'validateTeamColor'],
             [['image_judge', 'image_result'], 'safe'],
             [['image_judge', 'image_result'], 'file',
@@ -342,7 +346,12 @@ class PostBattleForm extends Model
         $o->kill            = (string)$this->kill != '' ? (int)$this->kill : null;
         $o->death           = (string)$this->death != '' ? (int)$this->death : null;
         $o->gender_id       = $this->gender === 'boy' ? 1 : ($this->gender === 'girl' ? 2 : null);
-        $o->fest_title_id   = $this->fest_title ? FestTitle::findOne(['key' => $this->fest_title])->id : null;
+        $o->fest_title_id = $this->fest_title ? FestTitle::findOne(['key' => $this->fest_title])->id : null;
+        $o->fest_title_after_id = $this->fest_title_after
+            ? FestTitle::findOne(['key' => $this->fest_title_after])->id
+            : null;
+        $o->fest_exp        = (string)$this->fest_exp != '' ? (int)$this->fest_exp : null;
+        $o->fest_exp_after  = (string)$this->fest_exp_after != '' ? (int)$this->fest_exp_after : null;
         $o->my_team_color_hue = $this->my_team_color ? $this->my_team_color['hue'] : null;
         $o->my_team_color_rgb = $this->my_team_color ? vsprintf('%02x%02x%02x', $this->my_team_color['rgb']) : null;
         $o->his_team_color_hue = $this->his_team_color ? $this->his_team_color['hue'] : null;
