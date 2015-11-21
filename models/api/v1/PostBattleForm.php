@@ -105,6 +105,11 @@ class PostBattleForm extends Model
             [['death_reasons'], 'validateDeathReasons'],
             [['gender'], 'in', 'range' => [ 'boy', 'girl']],
             [['fest_title', 'fest_title_after'], 'filter', 'filter' => 'strtolower'],
+            // Workaround for https://github.com/hasegaw/IkaLog/commit/c9500c3b54ffe70ba97d49b4167e19c95fee1194
+            [['fest_title', 'fest_title_after'], 'filter',
+                'filter' => function ($a) {
+                    return $a === 'campion' ? 'champion' : $a;
+                }],
             [['fest_title', 'fest_title_after'], 'exist',
                 'targetClass' => FestTitle::className(),
                 'targetAttribute' => 'key'],
