@@ -643,4 +643,85 @@ class Battle extends ActiveRecord
                 : ($this->is_win === false ? '負け' : '不明'),
         ];
     }
+
+    public function toIkaLogJson()
+    {
+        $ret = [
+            'time' => strtotime($this->end_at ?: $this->at),
+            'event' => 'GameResult',
+            'map' => $this->map ? Yii::t('app-map', $this->map->name) : '?',
+            'rule' => $this->rule ? Yii::t('app-rule', $this->rule->name) : '?',
+            'result' => $this->is_win === null
+                ? 'unknown'
+                : ($this->is_win ? 'win' : 'lose'),
+        ];
+        if ($this->rank) {
+            $ret['udemae_pre'] = Yii::t('app-rank', $this->rank->name);
+            if ($this->rank_exp !== null) {
+                $ret['udemae_exp_pre'] = (int)$this->rank_exp;
+            }
+        }
+        if ($this->rankAfter) {
+            $ret['udemae_after'] = Yii::t('app-rank', $this->rankAfter->name);
+            if ($this->rank_exp_after !== null) {
+                $ret['udemae_exp_after'] = (int)$this->rank_exp_after;
+            }
+        }
+        if ($this->cash_after !== null) {
+            $ret['cash_after'] = (int)$this->cash_after;
+        }
+        if ($this->is_win !== null) {
+            $ret['team'] = $this->is_win ? 1 : 2;
+        }
+        if ($this->kill !== null) {
+            $ret['kills'] = (int)$this->kill;
+        }
+        if ($this->death !== null) {
+            $ret['deaths'] = (int)$this->death;
+        }
+        if ($this->my_point !== null) {
+            $ret['score'] = (int)$this->my_point;
+        }
+        if ($this->weapon) {
+            $ret['weapon'] = Yii::t('app-weapon', $this->weapon->name);
+        }
+        if ($this->rank_in_team !== null) {
+            $ret['rank_in_team'] = (int)$this->rank_in_team;
+        }
+
+        if ($this->battlePlayers) {
+            $ret['players'] = array_map(
+                function ($p) {
+                    $ret = [];
+                    if ($this->is_win !== null) {
+                        $ret['team'] = ($this->is_win === $p->is_my_team) ? 1 : 2;
+                    }
+                    if ($p->kill !== null) {
+                        $ret['kills'] = (int)$p->kill;
+                    }
+                    if ($p->death !== null) {
+                        $ret['deaths'] = (int)$p->death;
+                    }
+                    if ($p->point !== null) {
+                        $ret['score'] = (int)$p->point;
+                    }
+                    if ($p->rank) {
+                        $ret['udemae_pre'] = Yii::t('app-rank', $p->rank->name);
+                    }
+                    if ($p->weapon) {
+                        $ret['weapon'] = Yii::t('app-weapon', $p->weapon->name);
+                    }
+                    if ($p->rank_in_team !== null) {
+                        $ret['rank_in_team'] = (int)$p->rank_in_team;
+                    }
+                    if (empty($ret)) {
+                        return new \stdClass();
+                    }
+                    return $ret;
+                },
+                $this->battlePlayers
+            );
+        }
+        return $ret;
+    }
 }

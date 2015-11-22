@@ -25,6 +25,8 @@ class DownloadAction extends BaseAction
             switch ((string)$type) {
                 case 'ikalog-csv':
                     return $this->runIkaLogCsv();
+                case 'ikalog-json':
+                    return $this->runIkaLogJson();
             }
         }
         throw new BadRequestHttpException(
@@ -53,6 +55,28 @@ class DownloadAction extends BaseAction
         return [
             'inputCharset' => 'UTF-8',
             'outputCharset' => 'CP932',
+            'rows' => $generator(),
+        ];
+    }
+
+    private function runIkaLogJson()
+    {
+        $resp = Yii::$app->response;
+        $resp->setDownloadHeaders('statink-ikalog.json', 'application/octet-stream', false, null);
+        $resp->format = 'ikalog-json';
+        $battles = $this->_user->getBattles()
+            ->with([
+                'rule', 'map', 'weapon', 'rank', 'rankAfter',
+                'battlePlayers', 'battlePlayers.rank', 'battlePlayers.weapon',
+            ])
+            ->orderBy('{{battle}}.[[id]] ASC');
+        $generator =  function () use ($battles) {
+            foreach ($battles->each() as $battle) {
+                yield $battle->toIkaLogJson();
+            }
+        };
+
+        return [
             'rows' => $generator(),
         ];
     }

@@ -91,6 +91,9 @@
           <a href="{{url route="/user/download" type="ikalog-csv"}}" class="btn btn-default btn-block">
             <span class="fa fa-file-excel-o"></span> CSV (IkaLog互換)
           </a>
+          <a href="{{url route="/user/download" type="ikalog-json"}}" class="btn btn-default btn-block">
+            <span class="fa fa-file-code-o"></span> JSON (IkaLog互換)
+          </a>
         </p>
       </div>
     </div>
