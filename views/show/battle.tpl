@@ -568,9 +568,26 @@
             <div class="graph" id="timeline">
             </div>
             {{\app\assets\FlotAsset::register($this)|@void}}
+            {{\app\assets\FlotImageAsset::register($this)|@void}}
+            {{\app\assets\GraphIconAsset::register($this)|@void}}
+            {{$iconAsset = $app->assetManager->getBundle('app\assets\GraphIconAsset')}}
             {{registerCss}}
               .graph{height:300px}
             {{/registerCss}}
+            {{registerJs position="POS_BEGIN"}}
+              window.graphIcon = {
+                dead: (function(){
+                  var i = new Image;
+                  i.src = "{{$app->assetmanager->getAssetUrl($iconAsset, 'dead.png')|escape:javascript}}";
+                  return i;
+                })(),
+                killed: (function(){
+                  var i = new Image;
+                  i.src = "{{$app->assetmanager->getAssetUrl($iconAsset, 'killed.png')|escape:javascript}}";
+                  return i;
+                })()
+              };
+            {{/registerJs}}
             {{registerJs}}
               (function($) {
                 var $graphs = $('.graph');
@@ -581,11 +598,27 @@
                 function drawTimelineGraph() {
                   var $graph_ = $graphs.filter('#timeline');
                   var inkedData = window.battleEvents.filter(function(v){
-                    return v.type === "score" || v.type === "point"
+                    return (v.type === "score" && v.score) || (v.type === "point" && v.point);
                   }).map(function(v){
                     return [
                       v.at,
                       v.type === "score" ? v.score : v.point
+                    ];
+                  });
+
+                  var y = 10;
+                  var x = 0;
+                  var iconData = window.battleEvents.filter(function(v){
+                    return v.type === "dead" || v.type === "killed";
+                  }).map(function(v){
+                    if (v.at - x < 6) {
+                      y += 52;
+                    } else {
+                      y = 10;
+                    }
+                    x = v.at;
+                    return [
+                      window.graphIcon[v.type], x - 4, y + 50, x + 1, y
                     ];
                   });
 
@@ -603,6 +636,13 @@
                         label: "{{'Turf Inked'|translate:'app'|escape:'javascript'}}",
                         data: inkedData,
                         color: '#edc240'
+                      },
+                      {
+                        data: iconData,
+                        images: {
+                          show: true,
+                          /*anchor: "center"*/
+                        }
                       }
                     ];
               
