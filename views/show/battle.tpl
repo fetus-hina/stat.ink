@@ -640,23 +640,23 @@
 
                   $graph_.each(function () {
                     var $graph = $(this);
-                    if (inkedData.length < 1) {
+                    if (inkedData.length < 1 && iconData.length < 1) {
                       $graph.hide();
                     }
-                    var data = [
-                      {
+                    var data = [];
+                    if (inkedData.length > 0) {
+                      data.push({
                         label: "{{'Turf Inked'|translate:'app'|escape:'javascript'}}",
                         data: inkedData,
                         color: '#edc240'
-                      },
-                      {
-                        data: iconData,
-                        images: {
-                          show: true,
-                          /*anchor: "center"*/
-                        }
+                      });
+                    }
+                    data.push({
+                      data: iconData,
+                      images: {
+                        show: true
                       }
-                    ];
+                    });
               
                     $.plot($graph, data, {
                       xaxis: {
@@ -671,7 +671,9 @@
                       },
                       yaxis: {
                         minTickSize: 100,
-                        min: 0
+                        min: 0,
+                        max: (inkedData.length > 0) ? null : 800,
+                        show: (inkedData.length > 0)
                       },
                       legend: {
                         position: 'nw'
