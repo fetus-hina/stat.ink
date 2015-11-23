@@ -618,8 +618,20 @@
                     }
                     x = v.at;
                     return [
-                      window.graphIcon[v.type], x - 4, y + 50, x + 1, y
+                      window.graphIcon[v.type], x - 3, y + 50, x + 3, y
                     ];
+                  });
+
+                  var markings = window.battleEvents.filter(function(v){
+                    return v.type === "dead";
+                  }).map(function(v){
+                    return {
+                      xaxis: {
+                        from: v.at,
+                        to: v.at + 8.5
+                      },
+                      color: "rgba(255,200,200,0.6)"
+                    };
                   });
 
                   if (inkedData.length > 0) {
@@ -668,6 +680,9 @@
                         lines: {
                           show: true, fill: true
                         }
+                      },
+                      grid: {
+                        markings: markings
                       }
                     });
                   });
