@@ -212,6 +212,7 @@ POST /api/v1/battle
         - `squiclean_b` : スクイックリンβ
     - スロッシャー
         - `bucketslosher` : バケットスロッシャー
+        - `bucketslosher_deco` : バケットスロッシャーデコ
         - `hissen` : ヒッセン
     - スピナー
         - `barrelspinner` : バレルスピナー

@@ -1,0 +1,32 @@
+<?php
+use yii\db\Migration;
+use app\models\Special;
+use app\models\Subweapon;
+use app\models\WeaponType;
+use app\models\DeathReasonType;
+
+class m151124_085332_weapon extends Migration
+{
+    public function safeUp()
+    {
+        $this->insert('weapon', [
+            'type_id' => WeaponType::findOne(['key' => 'slosher'])->id,
+            'key' => 'bucketslosher_deco',
+            'name' => 'Slosher Deco',
+            'subweapon_id' => Subweapon::findOne(['key' => 'splashshield'])->id,
+            'special_id' => Special::findOne(['key' => 'daioika'])->id,
+        ]);
+
+        $this->insert('death_reason', [
+            'type_id' => DeathReasonType::findOne(['key' => 'main'])->id,
+            'key' => 'bucketslosher_deco',
+            'name' => 'Slosher Deco',
+        ]);
+    }
+
+    public function safeDown()
+    {
+        $this->delete('death_reason', ['key' => 'bucketslosher_deco']);
+        $this->delete('weapon', ['key' => 'bucketslosher_deco']);
+    }
+}
