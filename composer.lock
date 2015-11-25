@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "ea7adf524065ccae8e70341bb27082b0",
-    "content-hash": "297c8b45a9952eb4519df006a83791af",
+    "hash": "0669a4134c5c6e0dd84b36ae3f2cfff5",
+    "content-hash": "a42f60efab49bfc5cbcc326b5ef48a21",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -121,16 +121,16 @@
         },
         {
             "name": "bower-asset/fontawesome",
-            "version": "v4.4.0",
+            "version": "v4.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/FortAwesome/Font-Awesome.git",
-                "reference": "e554555d73a44e0a7d11b0361ad7a5325a5f551c"
+                "reference": "dbc8d1b9b67daaab357bcc41dbf549c3684cf5f1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FortAwesome/Font-Awesome/zipball/e554555d73a44e0a7d11b0361ad7a5325a5f551c",
-                "reference": "e554555d73a44e0a7d11b0361ad7a5325a5f551c",
+                "url": "https://api.github.com/repos/FortAwesome/Font-Awesome/zipball/dbc8d1b9b67daaab357bcc41dbf549c3684cf5f1",
+                "reference": "dbc8d1b9b67daaab357bcc41dbf549c3684cf5f1",
                 "shasum": ""
             },
             "type": "bower-asset-library",
@@ -1411,20 +1411,20 @@
         },
         {
             "name": "zendframework/zend-crypt",
-            "version": "2.5.1",
+            "version": "2.5.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/zend-crypt.git",
-                "reference": "15537e8e438a98923f05c40c45c162342ea8235a"
+                "reference": "b7a5f99f530e7f77762e3eb4011ed1029ffc062f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zend-crypt/zipball/15537e8e438a98923f05c40c45c162342ea8235a",
-                "reference": "15537e8e438a98923f05c40c45c162342ea8235a",
+                "url": "https://api.github.com/repos/zendframework/zend-crypt/zipball/b7a5f99f530e7f77762e3eb4011ed1029ffc062f",
+                "reference": "b7a5f99f530e7f77762e3eb4011ed1029ffc062f",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.23",
+                "php": ">=5.5",
                 "zendframework/zend-math": "~2.5",
                 "zendframework/zend-servicemanager": "~2.5",
                 "zendframework/zend-stdlib": "~2.5"
@@ -1458,7 +1458,7 @@
                 "crypt",
                 "zf2"
             ],
-            "time": "2015-06-03 15:32:00"
+            "time": "2015-11-23 16:35:19"
         },
         {
             "name": "zendframework/zend-hydrator",
@@ -1785,9 +1785,9 @@
                 "bower-asset/jquery": ">=1.7"
             },
             "require-dev": {
-                "bower-asset/jasmine-ajax": ">=1.3.1,<1.4",
-                "bower-asset/jasmine-jquery": ">=1.5.2,<1.6",
-                "bower-asset/jquery": ">=1.7,<1.8"
+                "bower-asset/jasmine-ajax": "~1.3.1",
+                "bower-asset/jasmine-jquery": "~1.5.2",
+                "bower-asset/jquery": "~1.7"
             },
             "type": "bower-asset-library",
             "extra": {
@@ -1928,16 +1928,16 @@
         },
         {
             "name": "squizlabs/php_codesniffer",
-            "version": "2.3.4",
+            "version": "2.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/squizlabs/PHP_CodeSniffer.git",
-                "reference": "11a2545c44a5915f883e2e5ec12e14ed345e3ab2"
+                "reference": "32a879f4f35019d78d568db2885d7779ca084a33"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/11a2545c44a5915f883e2e5ec12e14ed345e3ab2",
-                "reference": "11a2545c44a5915f883e2e5ec12e14ed345e3ab2",
+                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/32a879f4f35019d78d568db2885d7779ca084a33",
+                "reference": "32a879f4f35019d78d568db2885d7779ca084a33",
                 "shasum": ""
             },
             "require": {
@@ -1998,20 +1998,20 @@
                 "phpcs",
                 "standards"
             ],
-            "time": "2015-09-09 00:18:50"
+            "time": "2015-11-23 21:30:59"
         },
         {
             "name": "symfony/console",
-            "version": "v2.7.6",
+            "version": "v2.7.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "5efd632294c8320ea52492db22292ff853a43766"
+                "reference": "16bb1cb86df43c90931df65f529e7ebd79636750"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/5efd632294c8320ea52492db22292ff853a43766",
-                "reference": "5efd632294c8320ea52492db22292ff853a43766",
+                "url": "https://api.github.com/repos/symfony/console/zipball/16bb1cb86df43c90931df65f529e7ebd79636750",
+                "reference": "16bb1cb86df43c90931df65f529e7ebd79636750",
                 "shasum": ""
             },
             "require": {
@@ -2036,7 +2036,10 @@
             "autoload": {
                 "psr-4": {
                     "Symfony\\Component\\Console\\": ""
-                }
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -2054,20 +2057,20 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2015-10-20 14:38:46"
+            "time": "2015-11-18 09:54:26"
         },
         {
             "name": "symfony/finder",
-            "version": "v2.7.6",
+            "version": "v2.7.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/finder.git",
-                "reference": "2ffb4e9598db3c48eb6d0ae73b04bbf09280c59d"
+                "reference": "a06a0c0ff7db3736a50d530c908cca547bf13da9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/finder/zipball/2ffb4e9598db3c48eb6d0ae73b04bbf09280c59d",
-                "reference": "2ffb4e9598db3c48eb6d0ae73b04bbf09280c59d",
+                "url": "https://api.github.com/repos/symfony/finder/zipball/a06a0c0ff7db3736a50d530c908cca547bf13da9",
+                "reference": "a06a0c0ff7db3736a50d530c908cca547bf13da9",
                 "shasum": ""
             },
             "require": {
@@ -2082,7 +2085,10 @@
             "autoload": {
                 "psr-4": {
                     "Symfony\\Component\\Finder\\": ""
-                }
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -2100,20 +2106,20 @@
             ],
             "description": "Symfony Finder Component",
             "homepage": "https://symfony.com",
-            "time": "2015-10-11 09:39:48"
+            "time": "2015-10-30 20:10:21"
         },
         {
             "name": "symfony/process",
-            "version": "v2.7.6",
+            "version": "v2.7.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/process.git",
-                "reference": "4a959dd4e19c2c5d7512689413921e0a74386ec7"
+                "reference": "f6290983c8725d0afa29bdc3e5295879de3e58f5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/process/zipball/4a959dd4e19c2c5d7512689413921e0a74386ec7",
-                "reference": "4a959dd4e19c2c5d7512689413921e0a74386ec7",
+                "url": "https://api.github.com/repos/symfony/process/zipball/f6290983c8725d0afa29bdc3e5295879de3e58f5",
+                "reference": "f6290983c8725d0afa29bdc3e5295879de3e58f5",
                 "shasum": ""
             },
             "require": {
@@ -2128,7 +2134,10 @@
             "autoload": {
                 "psr-4": {
                     "Symfony\\Component\\Process\\": ""
-                }
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -2146,20 +2155,20 @@
             ],
             "description": "Symfony Process Component",
             "homepage": "https://symfony.com",
-            "time": "2015-10-23 14:47:27"
+            "time": "2015-11-19 16:11:24"
         },
         {
             "name": "symfony/yaml",
-            "version": "v2.7.6",
+            "version": "v2.7.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "eca9019c88fbe250164affd107bc8057771f3f4d"
+                "reference": "4cfcd7a9fceba662b3c036b7d9a91f6197af046c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/eca9019c88fbe250164affd107bc8057771f3f4d",
-                "reference": "eca9019c88fbe250164affd107bc8057771f3f4d",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/4cfcd7a9fceba662b3c036b7d9a91f6197af046c",
+                "reference": "4cfcd7a9fceba662b3c036b7d9a91f6197af046c",
                 "shasum": ""
             },
             "require": {
@@ -2174,7 +2183,10 @@
             "autoload": {
                 "psr-4": {
                     "Symfony\\Component\\Yaml\\": ""
-                }
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -2192,7 +2204,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2015-10-11 09:39:48"
+            "time": "2015-11-18 13:41:01"
         },
         {
             "name": "yiisoft/yii2-gii",
@@ -2258,11 +2270,20 @@
     "platform": {
         "php": ">= 5.5.0",
         "ext-curl": "*",
+        "ext-date": "*",
+        "ext-filter": "*",
         "ext-gd": "*",
+        "ext-hash": "*",
         "ext-intl": "*",
+        "ext-json": "*",
         "ext-mbstring": "*",
         "ext-mcrypt": "*",
-        "ext-pcre": "*"
+        "ext-openssl": "*",
+        "ext-pcre": "*",
+        "ext-pdo": "*",
+        "ext-pdo_pgsql": "*",
+        "ext-session": "*",
+        "ext-zlib": "*"
     },
     "platform-dev": []
 }
