@@ -590,6 +590,14 @@
             {{/registerJs}}
             {{registerJs}}
               (function($) {
+                {{if $battle->rule}}
+                  var isNawabari = {{if $battle->rule->key === 'nawabari'}}true{{else}}false{{/if}};
+                  var isGachi = !isNawabari;
+                {{else}}
+                  var isNawabari = false;
+                  var isGachi = false;
+                {{/if}}
+
                 var $graphs = $('.graph');
                 window.battleEvents.sort(function(a,b){
                   return a.at - b.at;
@@ -597,14 +605,27 @@
               
                 function drawTimelineGraph() {
                   var $graph_ = $graphs.filter('#timeline');
-                  var inkedData = window.battleEvents.filter(function(v){
-                    return (v.type === "score" && v.score) || (v.type === "point" && v.point);
-                  }).map(function(v){
-                    return [
-                      v.at,
-                      v.type === "score" ? v.score : v.point
-                    ];
-                  });
+                  var inkedData = isNawabari
+                    ? window.battleEvents.filter(function(v){
+                        return (v.type === "score" && v.score) || (v.type === "point" && v.point);
+                      }).map(function(v){
+                        return [
+                          v.at,
+                          v.type === "score" ? v.score : v.point
+                        ];
+                      })
+                    : [];
+
+                  var objectiveData = isGachi
+                    ? window.battleEvents.filter(function(v){
+                        return v.type === "objective";
+                      }).map(function(v){
+                        return [
+                          v.at,
+                          v.position
+                        ];
+                      })
+                    : [];
 
                   var iconData = window.battleEvents.filter(function(v){
                     return v.type === "dead" || v.type === "killed";
@@ -630,6 +651,9 @@
                   if (inkedData.length > 0) {
                     inkedData.unshift([0, null]);
                   }
+                  if (objectiveData.length > 0) {
+                    objectiveData.unshift([0, 0]);
+                  }
 
                   $graph_.each(function () {
                     var $graph = $(this);
@@ -644,12 +668,17 @@
                         color: '#edc240'
                       });
                     }
-                    data.push({
-                      data: iconData,
-                      images: {
-                        show: true
-                      }
-                    });
+                    if (objectiveData.length > 0) {
+                      data.push({
+                        label: "{{'Position'|translate:'app'|escape:'javascript'}}",
+                        data: objectiveData,
+                        color: '#edc240',
+                        lines: {
+                          show: true,
+                          fill: false
+                        }
+                      });
+                    }
                     data.push({
                       data: iconData,
                       icons: {
@@ -669,10 +698,9 @@
                         }
                       },
                       yaxis: {
-                        minTickSize: 100,
-                        min: 0,
-                        max: (inkedData.length > 0) ? null : 800,
-                        show: (inkedData.length > 0)
+                        minTickSize: isNawabari ? 100 : 10,
+                        min: isNawabari ? 0 : -100,
+                        max: isNawabari ? null : 100
                       },
                       legend: {
                         position: 'nw'
