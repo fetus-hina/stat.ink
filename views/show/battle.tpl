@@ -568,7 +568,7 @@
             <div class="graph" id="timeline">
             </div>
             {{\app\assets\FlotAsset::register($this)|@void}}
-            {{\app\assets\FlotImageAsset::register($this)|@void}}
+            {{\app\assets\FlotIconAsset::register($this)|@void}}
             {{\app\assets\GraphIconAsset::register($this)|@void}}
             {{$iconAsset = $app->assetManager->getBundle('app\assets\GraphIconAsset')}}
             {{registerCss}}
@@ -606,19 +606,12 @@
                     ];
                   });
 
-                  var y = 10;
-                  var x = 0;
                   var iconData = window.battleEvents.filter(function(v){
                     return v.type === "dead" || v.type === "killed";
                   }).map(function(v){
-                    if (v.at - x < 6) {
-                      y += 52;
-                    } else {
-                      y = 10;
-                    }
-                    x = v.at;
+                    var size = Math.ceil($graph_.height() * 0.05);
                     return [
-                      window.graphIcon[v.type], x - 3, y + 50, x + 3, y
+                      window.graphIcon[v.type].src, v.at, size, size
                     ];
                   });
 
@@ -654,6 +647,12 @@
                     data.push({
                       data: iconData,
                       images: {
+                        show: true
+                      }
+                    });
+                    data.push({
+                      data: iconData,
+                      icons: {
                         show: true
                       }
                     });

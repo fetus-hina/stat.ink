@@ -14,6 +14,18 @@ gulp.task('gh-fork', function() {
     .pipe(gulp.dest('resources/.compiled/gh-fork-ribbon'));
 });
 
+gulp.task('flot-icon', function() {
+  gulp.src('resources/flot-graph-icon/jquery.flot.icon.js')
+    .pipe(uglify({
+      preserveComments: 'some',
+      output: {
+        ascii_only: true,
+      },
+    }))
+    .pipe($.gzip({gzipOptions:{level:9}}))
+    .pipe(gulp.dest('resources/.compiled/flot-graph-icon'));
+});
+
 gulp.task('main-css', function() {
   gulp.src('resources/stat.ink/*.less')
     .pipe($.less())
@@ -37,6 +49,7 @@ gulp.task('main-js', function() {
 
 gulp.task('default', [
   'gh-fork',
+  'flot-icon',
   'main-css',
   'main-js',
 ]);
