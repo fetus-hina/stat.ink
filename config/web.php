@@ -49,6 +49,7 @@ $config = [
             ],
         ],
         'request' => [
+            'class' => 'app\components\web\Request',
             'cookieValidationKey' => include(__DIR__ . '/cookie-secret.php'),
             'parsers' => [
                 'application/json' => 'yii\web\JsonParser',

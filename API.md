@@ -6,56 +6,68 @@ Overview: POST
 
 投稿系の API では次の形式で送信してください。
 
-* `Content-Type: application/x-www-form-urlencoded` および妥当なリクエストボディ
+* `Content-Type`
+    * `Content-Type: application/x-www-form-urlencoded` および妥当なリクエストボディ
+    
+        ファイルの送信はできません（厳密には送信する方法もありますが行わないでください）
+    
+    * `Content-Type: multipart/form-data` および妥当なリクエストボディ
+    
+        ファイルの送信が行えます。
+        ウェブブラウザが行うのと同じ形式で行ってください。
+    
+    * `Content-Type: application/json` および妥当なリクエストボディ
+    
+        ファイルの送信はできません。
+    
+        パラメータに「整数」と書いてある部分を文字列として送信しても何ら問題はありません。
+    
+        booleanに見える部分も文字列として送信してください。
+    
+        ```
+        POST /api/v1/battle HTTP/1.1
+        Host: stat.ink
+        Content-Type: application/json
+        Content-Length: ***
+    
+        {"apikey":"...", "rule":"nawabari", ...}
+        ```
+    
+    * `Content-Type: application/x-msgpack` および妥当なリクエストボディ
+    
+        ファイルの送信が行えます。
+        ファイルは該当するパラメータの値としてファイル本体をそのまま入れてください。
+    
+        電文はJSONの場合と同様、全体をMapで包んでください。
+    
+        パラメータに「整数」と書いてある部分を文字列として送信しても何ら問題はありません。
+    
+        booleanに見える部分も文字列として送信してください。
+    
+        ```
+        POST /api/v1/battle HTTP/1.1
+        Host: stat.ink
+        Content-Type: application/x-msgpack
+        Content-Length: ***
+    
+        8e a6 61 70 69 6b 65 79 a6 41 50 49 4b 45 59 a4 72 75 6c 65 a8 ...
+        ```
+    
+        （このサンプルは HEX で記載していますが実際にはただのバイナリです）
+    
+        ※forkして作成したサイトの場合で MessagePack 取り扱いのための拡張が入っていない場合、
+        この形式は利用できません。
 
-    ファイルの送信はできません（厳密には送信する方法もありますが行わないでください）
+* `Content-Encoding`:
+    * `Content-Encoding` 省略または `Content-Encoding: identity`
 
-* `Content-Type: multipart/form-data` および妥当なリクエストボディ
+        通常はこれになります。「普通のリクエスト」で特に何もありません。
 
-    ファイルの送信が行えます。
-    ウェブブラウザが行うのと同じ形式で行ってください。
+    * `Content-Encoding: gzip`
+        
+        リクエストボディ全体を gzip で圧縮して送信できます。
 
-* `Content-Type: application/json` および妥当なリクエストボディ
-
-    ファイルの送信はできません。
-
-    パラメータに「整数」と書いてある部分を文字列として送信しても何ら問題はありません。
-
-    booleanに見える部分も文字列として送信してください。
-
-    ```
-    POST /api/v1/battle HTTP/1.1
-    Host: stat.ink
-    Content-Type: application/json
-    Content-Length: ***
-
-    {"apikey":"...", "rule":"nawabari", ...}
-    ```
-
-* `Content-Type: application/x-msgpack` および妥当なリクエストボディ
-
-    ファイルの送信が行えます。
-    ファイルは該当するパラメータの値としてファイル本体をそのまま入れてください。
-
-    電文はJSONの場合と同様、全体をMapで包んでください。
-
-    パラメータに「整数」と書いてある部分を文字列として送信しても何ら問題はありません。
-
-    booleanに見える部分も文字列として送信してください。
-
-    ```
-    POST /api/v1/battle HTTP/1.1
-    Host: stat.ink
-    Content-Type: application/x-msgpack
-    Content-Length: ***
-
-    8e a6 61 70 69 6b 65 79 a6 41 50 49 4b 45 59 a4 72 75 6c 65 a8 ...
-    ```
-
-    （このサンプルは HEX で記載していますが実際にはただのバイナリです）
-
-    ※forkして作成したサイトの場合で MessagePack 取り扱いのための拡張が入っていない場合、
-    この形式は利用できません。
+        JSON 形式で POST する際に圧縮効果が期待できますが、MessagePack で画像付きの場合などは圧縮できない画像が大部分を占めるため期待したほどの圧縮効果は得られない可能性があります。 
 
 Overview: GET
 -------------
