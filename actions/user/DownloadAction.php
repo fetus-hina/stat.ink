@@ -14,11 +14,11 @@ use app\models\Battle;
 
 class DownloadAction extends BaseAction
 {
-    private $_user;
+    private $user;
 
     public function run()
     {
-        $this->_user = Yii::$app->user->getIdentity();
+        $this->user = Yii::$app->user->getIdentity();
 
         $type = Yii::$app->request->get('type');
         if (is_scalar($type)) {
@@ -31,7 +31,7 @@ class DownloadAction extends BaseAction
         }
         throw new BadRequestHttpException(
             Yii::t(
-                'yii', 
+                'yii',
                 'Invalid data received for parameter "{param}".',
                 [ 'param' => 'type' ]
             )
@@ -43,7 +43,7 @@ class DownloadAction extends BaseAction
         $resp = Yii::$app->response;
         $resp->setDownloadHeaders('statink-ikalog.csv', 'text/cvs; charset=Shift_JIS', false, null);
         $resp->format = 'csv';
-        $battles = $this->_user->getBattles()
+        $battles = $this->user->getBattles()
             ->with(['rule', 'map'])
             ->orderBy('{{battle}}.[[id]] ASC');
         $generator =  function () use ($battles) {
@@ -64,7 +64,7 @@ class DownloadAction extends BaseAction
         $resp = Yii::$app->response;
         $resp->setDownloadHeaders('statink-ikalog.json', 'application/octet-stream', false, null);
         $resp->format = 'ikalog-json';
-        $battles = $this->_user->getBattles()
+        $battles = $this->user->getBattles()
             ->with([
                 'rule', 'map', 'weapon', 'rank', 'rankAfter',
                 'battlePlayers', 'battlePlayers.rank', 'battlePlayers.weapon',
