@@ -750,7 +750,7 @@
                   var iconData = window.battleEvents.filter(function(v){
                     return v.type === "dead" || v.type === "killed";
                   }).map(function(v){
-                    var size = Math.ceil($graph_.height() * 0.05);
+                    var size = Math.max(18, Math.ceil($graph_.height() * 0.075));
                     return [
                       window.graphIcon[v.type].src, v.at, size, size
                     ];

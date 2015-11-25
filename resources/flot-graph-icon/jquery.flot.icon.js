@@ -63,7 +63,7 @@
                                     if (posLeft - lastPosRight < series.icons.marginX) {
                                         return lastPosTop - (itemHeight + series.icons.marginY);
                                     } else {
-                                        return pos.top - (itemHeight + series.icons.marginY);
+                                        return ($target.height() - plotOffset.bottom) - (itemHeight + series.icons.marginY);
                                     }
                             })();
                             lastPosRight = posLeft + itemWidth;
