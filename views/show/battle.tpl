@@ -627,6 +627,126 @@
                       })
                     : [];
 
+                  {{* window.battleEvents からヤグラ・ホコ時の対象位置→ポイント変換 *}}
+                  {{* isPositive: 自分のチームを対象にするとき true, 相手チームの時 false *}}
+                  var createObjectPositionPoint = function (isPositive) {
+                    var coeffient = isPositive ? 1 : -1;
+
+                    {{* 対象チームを正とした、objective イベントだけのリストを作成 *}}
+                    var list = window.battleEvents.filter(function (v) {
+                      return v.type === "objective";
+                    }).map(function (v) {
+                      v.position = v.position * coeffient;
+                      return v;
+                    });
+
+                    {{* ポイント更新したタイミングのリストを作成 *}}
+                    var max = 0;
+                    var lastEventAt = null; {{* ret に積まれている最後の時間と等しい場合は null *}}
+                    var ret = [[0, 0]];
+                    $.each(list, function () {
+                      var v = this;
+                      if (v.position > max) {
+                        {{* 勾配を正しく描画するために直前のイベントの時間とスコアを与える *}}
+                        if (lastEventAt !== null) {
+                          ret.push([v.at, coeffient * max]);
+                        }
+
+                        {{* スコア更新おめ *}}
+                        max = v.position;
+                        ret.push([v.at, coeffient * v.position]);
+                        lastEventAt = null;
+                      } else {
+                        lastEventAt = v.at;
+                      }
+                    });
+
+                    {{* 最後まで描画するために最後のイベントの時間のデータを作る *}}
+                    lastEventAt = Math.max.apply(null, window.battleEvents.map(function (v) {
+                      return v.at;
+                    }));
+                    ret.push([lastEventAt, coeffient * max]);
+
+                    return ret;
+                  };
+
+                  var hsv2rgb = function (h, s, v) {
+                    var r, g, b;
+                    while (h < 0) {
+                      h += 360;
+                    }
+                    h = (~~h) % 360;
+                    v = v * 255;
+                    if (s == 0) {
+                      r = g = b = v;
+                    } else {
+                      var i = Math.floor(h / 60) % 6,
+                          f = (h / 60) - i,
+                          p = v * (1 - s),
+                          q = v * (1 - f * s),
+                          t = v * (1 - (1 - f) * s);
+
+                      switch (i) {
+                        case 0:
+                          r = v;
+                          g = t;
+                          b = p;
+                          break;
+
+                        case 1:
+                          r = q;
+                          g = v;
+                          b = p;
+                          break;
+
+                        case 2:
+                          r = p;
+                          g = v;
+                          b = t;
+                          break;
+
+                        case 3:
+                          r = p;
+                          g = q;
+                          b = v;
+                          break;
+
+                        case 4:
+                          r = t;
+                          g = p;
+                          b = v;
+                          break;
+
+                        case 5:
+                          r = v;
+                          g = p;
+                          b = q;
+                          break;
+                      }
+                    }
+                    return [
+                      Math.round(r),
+                      Math.round(g),
+                      Math.round(b)
+                    ];
+                  };
+
+                  var pointColorFromHue = function (h) {
+                    var rgb = hsv2rgb(h, 0.48, 0.97);
+                    var alpha = 0.7;
+                    return 'rgba(' + rgb[0] + ',' + rgb[1] + ',' + rgb[2] + ',' + alpha + ')';
+                  };
+
+                  var objectPositionColorFromHues = function (team1, team2) {
+                    var hue = Math.round((team1 + team2) / 2); + 180;
+                    while (hue < 0) {
+                      hue += 360;
+                    }
+                    hue = hue % 360;
+                    var rgb = hsv2rgb(hue, 0.8, 0.7);
+                    return 'rgb(' + rgb[0] + ',' + rgb[1] + ',' + rgb[2] + ')';
+                  };
+
                   var iconData = window.battleEvents.filter(function(v){
                     return v.type === "dead" || v.type === "killed";
                   }).map(function(v){
@@ -650,6 +770,13 @@
 
                   if (inkedData.length > 0) {
                     inkedData.unshift([0, null]);
+                    (function () {
+                      var lastEventAt = Math.max.apply(null, window.battleEvents.map(function (v) {
+                        return v.at;
+                      }));
+                      var lastScore = inkedData.slice(-1)[0][1];
+                      inkedData.push([lastEventAt, lastScore]);
+                    })();
                   }
                   if (objectiveData.length > 0) {
                     objectiveData.unshift([0, 0]);
@@ -670,13 +797,40 @@
                     }
                     if (objectiveData.length > 0) {
                       data.push({
+                        label: "{{'Point (Good Guys)'|translate:'app'|escape:'javascript'}}",
+                        data: createObjectPositionPoint(true),
+                        color: {{if $battle->my_team_color_hue !== null}}pointColorFromHue({{$battle->my_team_color_hue|intval}}){{else}}null{{/if}},
+                        lines: {
+                          show: true,
+                          fill: true,
+                          lineWidth: 1
+                        },
+                        shadowSize: 0
+                      });
+                      data.push({
+                        label: "{{'Point (Bad Guys)'|translate:'app'|escape:'javascript'}}",
+                        data: createObjectPositionPoint(false),
+                        color: {{if $battle->his_team_color_hue !== null}}pointColorFromHue({{$battle->his_team_color_hue|intval}}){{else}}null{{/if}},
+                        lines: {
+                          show: true,
+                          fill: true,
+                          lineWidth: 1
+                        },
+                        shadowSize: 0
+                      });
+                      data.push({
                         label: "{{'Position'|translate:'app'|escape:'javascript'}}",
                         data: objectiveData,
-                        color: '#edc240',
+                        color: {{if $battle->my_team_color_hue && $battle->his_team_color_hue !== null}}
+                          objectPositionColorFromHues({{$battle->my_team_color_hue|intval}}, {{$battle->his_team_color_hue|intval}})
+                        {{else}}
+                          '#edc240'
+                        {{/if}},
                         lines: {
                           show: true,
                           fill: false
-                        }
+                        },
+                        shadowSize: 0
                       });
                     }
                     data.push({
