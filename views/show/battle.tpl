@@ -836,7 +836,15 @@
                     data.push({
                       data: iconData,
                       icons: {
-                        show: true
+                        show: true,
+                        tooltip: function (x, $this) {
+                          var t = Math.floor(x);
+                          var m = Math.floor(t / 60);
+                          var s = t % 60;
+                          var value = m + ':' + (s < 10 ? '0' + s : s);
+                          $this.attr('title', value)
+                            .tooltip({'container': 'body'});
+                        },
                       }
                     });
               

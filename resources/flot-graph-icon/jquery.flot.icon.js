@@ -6,6 +6,7 @@
                 show: false,
                 marginX: 5,
                 marginY: 5,
+                tooltip: false,
             }
         }
     };
@@ -30,8 +31,7 @@
 
             plot.hooks.draw.push(function (plot, canvasctx) {
                 var $target = $(plot.getCanvas()).parent();
-                var lastPosRight = -2147483648;
-                var lastPosTop;
+                var iconSlots = [];
                 var plotOffset = plot.getPlotOffset();
                 $.each(
                     plot.getData().filter(
@@ -58,16 +58,20 @@
                             var itemHeight = convertToImageDimension(item[3]);
 
                             var pos = plot.p2c({x:item[1], y:0});
-                            var posLeft = pos.left - itemWidth / 2;
+                            var posLeft = plotOffset.left + (pos.left - itemWidth / 2);
+                            var posRight = posLeft + itemWidth + series.icons.marginX;
                             var posTop = (function() {
-                                    if (posLeft - lastPosRight < series.icons.marginX) {
-                                        return lastPosTop - (itemHeight + series.icons.marginY);
-                                    } else {
-                                        return ($target.height() - plotOffset.bottom) - (itemHeight + series.icons.marginY / 2);
+                                for (var slot = 0; ; ++slot) {
+                                    while (iconSlots.length <= slot) {
+                                        iconSlots.push(-2147483648);
                                     }
+                                    if (iconSlots[slot] <= posLeft) {
+                                        iconSlots[slot] = posRight;
+                                        var posFromBottom = (itemHeight + series.icons.marginY) * (slot + 1) - (series.icons.marginY / 2);
+                                        return ($target.height() - plotOffset.bottom) - posFromBottom;
+                                    }
+                                }
                             })();
-                            lastPosRight = posLeft + itemWidth;
-                            lastPosTop = posTop;
                             var $img = (function() {
                                 switch(typeof item[0]) {
                                     case 'function':
@@ -80,10 +84,23 @@
                                 .height(itemHeight)
                                 .css({
                                     'position': 'absolute',
-                                    'left': (plotOffset.left + posLeft) + 'px',
-                                    'top': (posTop) + 'px',
+                                    'left': posLeft + 'px',
+                                    'top': posTop + 'px',
                                     'z-index': 1000
                                 });
+                            if (series.icons.tooltip !== false) {
+                                var x = item[1];
+                                if (typeof series.icons.tooltip === 'function') {
+                                    (function () {
+                                        var v = series.icons.tooltip(x, $img);
+                                        if (v !== undefined) {
+                                            $img.attr('title', v);
+                                        }
+                                    })();
+                                } else {
+                                    $img.attr('title', x);
+                                }
+                            }
                             $target.append($img);
                         }
                     }
