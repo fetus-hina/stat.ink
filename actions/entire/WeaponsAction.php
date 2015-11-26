@@ -53,6 +53,22 @@ class WeaponsAction extends BaseAction
 
     private function getEntireWeaponsByRule(Rule $rule)
     {
+        $useCache = true;
+        if ($useCache) {
+            $cacheKey = hash('sha256', sprintf('%s(%s)', __METHOD__, $rule->key));
+            if ($cache = Yii::$app->cache) {
+                if (!$data = $cache->get($cacheKey)) {
+                    $data = $this->getEntireWeaponsByRuleImpl($rule);
+                    $cache->set($cacheKey, $data, 7200);
+                }
+                return $data;
+            }
+        }
+        return $this->getEntireWeaponsByRuleImpl($rule);
+    }
+
+    private function getEntireWeaponsByRuleImpl(Rule $rule)
+    {
         $query = BattlePlayer::find()
             ->innerJoinWith([
                 'battle' => function ($q) {
