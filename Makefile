@@ -77,6 +77,7 @@ resources/.compiled/stat.ink/no-image.png: resources/stat.ink/no-image.png
 
 migrate-db: vendor config/db.php
 	./yii migrate/up --interactive=0
+	./yii cache/flush-schema --interactive=0
 
 config/cookie-secret.php: vendor
 	test -f config/cookie-secret.php || ./yii secret/cookie

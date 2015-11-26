@@ -92,6 +92,10 @@ $config = [
                 ]
                 : null,
         ],
+        'schemaCache' => [
+            'class' => 'yii\caching\FileCache',
+            'cachePath' => '@runtime/schema-cache',
+        ],
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],

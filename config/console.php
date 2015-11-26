@@ -5,8 +5,8 @@ $params = require(__DIR__ . '/params.php');
 $db = file_exists(__DIR__ . '/db.php') ? require(__DIR__ . '/db.php') : [ 'class' => 'yii\db\Connection' ];
 
 return [
-    'name' => 'イカフェスレート',
-    'id' => 'basic-console',
+    'name' => 'stat.ink',
+    'id' => 'statink-console',
     'timeZone' => 'Asia/Tokyo',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log', 'gii'],
@@ -17,6 +17,10 @@ return [
     'components' => [
         'cache' => [
             'class' => 'yii\caching\FileCache',
+        ],
+        'schemaCache' => [
+            'class' => 'yii\caching\FileCache',
+            'cachePath' => '@runtime/schema-cache',
         ],
         'log' => [
             'targets' => [

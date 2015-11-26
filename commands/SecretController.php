@@ -46,12 +46,18 @@ class SecretController extends Controller
             'username'  => 'statink',
             'password'  => $password,
             'charset'   => 'UTF-8',
+            'enableSchemaCache' => true,
+            'schemaCache' => 'schemaCache',
         ];
 
         $file  = "<?php\n";
         $file .= "return [\n";
         foreach ($options as $k => $v) {
-            $file .= "    '{$k}' => '" . addslashes($v) . "',\n";
+            if (is_bool($v)) {
+                $file .= "    '{$k}' => " . ($v ? "true" : "false") . ",\n";
+            } else {
+                $file .= "    '{$k}' => '" . addslashes($v) . "',\n";
+            }
         }
         $file .= "];\n";
         file_put_contents(
