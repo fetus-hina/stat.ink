@@ -67,15 +67,27 @@ class UserStatCauseOfDeathAction extends BaseAction
             $this->filter($query, $filter);
         }
 
+        $list = $query->createCommand()->queryAll();
+
+        // 必要な死因名の一覧を作る
+        $deathReasons = [];
+        array_map(
+            function ($o) use (&$deathReasons) {
+                $deathReasons[$o->id] = $o->getTranslatedName();
+            },
+            DeathReason::findAll(['id' => array_map(function ($row) {
+                return $row['reason_id'];
+            }, $list)])
+        );
+
         $ret = array_map(
-            function ($row) {
-                $o = DeathReason::findOne(['id' => $row['reason_id']]);
+            function ($row) use ($deathReasons) {
                 return (object)[
-                    'name' => $o->getTranslatedName(),
+                    'name' => @$deathReasons[$row['reason_id']] ?: '?',
                     'count' => (int)$row['count'],
                 ];
             },
-            $query->createCommand()->queryAll()
+            $list
         );
         usort($ret, function ($a, $b) {
             if ($a->count !== $b->count) {

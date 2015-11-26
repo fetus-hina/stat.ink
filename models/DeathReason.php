@@ -24,6 +24,11 @@ use app\components\helpers\Translator;
  */
 class DeathReason extends \yii\db\ActiveRecord
 {
+    public static function find()
+    {
+        return parent::find()->with('type');
+    }
+
     /**
      * @inheritdoc
      */
