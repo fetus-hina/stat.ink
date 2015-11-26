@@ -353,13 +353,10 @@ class Battle extends ActiveRecord
 
     private function getIsThisGameMode($key)
     {
-        if ($this->rule_id === null) {
-            return false;
+        if ($this->rule && $this->rule->mode) {
+            return $this->rule->mode->key === $key;
         }
-        if (!$rule = $this->getRule()->with('mode')->one()) {
-            return false;
-        }
-        return $rule->mode && $rule->mode->key === $key;
+        return false;
     }
 
     public function getIsMeaningful()

@@ -13,6 +13,7 @@ use yii\helpers\Url;
 use yii\web\NotFoundHttpException;
 use yii\web\ViewAction as BaseAction;
 use app\models\BattleFilterForm;
+use app\models\Battle;
 use app\models\User;
 
 class UserAction extends BaseAction
@@ -27,8 +28,18 @@ class UserAction extends BaseAction
             throw new NotFoundHttpException(Yii::t('app', 'Could not find user'));
         }
 
-        $battle = $user->getBattles()
-            ->with(['rule', 'map', 'weapon', 'weapon.subweapon', 'weapon.special']);
+        $battle = Battle::find()
+            ->with([
+                'lobby',
+                'rule',
+                'rule.mode',
+                'map',
+                'weapon',
+                'weapon.subweapon',
+                'weapon.special',
+                'rank',
+                'rankAfter',
+            ]);
 
         $filter = new BattleFilterForm();
         $filter->load($_GET);
