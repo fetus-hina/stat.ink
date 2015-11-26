@@ -14,6 +14,7 @@ init: \
 	composer-plugin \
 	vendor \
 	node_modules \
+	config/debug-ips.php \
 	config/google-analytics.php \
 	config/google-recaptcha.php \
 	config/google-adsense.php \
@@ -130,5 +131,12 @@ config/backup-s3.php:
 	echo "    'secret'    => '',"          >> config/backup-s3.php
 	echo "    'bucket'    => '',"          >> config/backup-s3.php
 	echo '];'                 	           >> config/backup-s3.php
+
+config/debug-ips.php:
+	echo '<?php'                >  config/debug-ips.php
+	echo 'return ['             >> config/debug-ips.php
+	echo "    '127.0.0.1',"     >> config/debug-ips.php
+	echo "    '::1',"           >> config/debug-ips.php
+	echo '];'                   >> config/debug-ips.php
 
 .PHONY: all init resource check-style fix-style clean clean-resource migrate-db composer-plugin FORCE

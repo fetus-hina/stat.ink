@@ -47,6 +47,7 @@
         "phpcq/author-validation": "^1.1",
         "squizlabs/php_codesniffer": "^2.3",
         "symfony/yaml": "^2.7",
+        "yiisoft/yii2-debug": "2.0.*",
         "yiisoft/yii2-gii": "2.0.*"
     },
     "extra": {
