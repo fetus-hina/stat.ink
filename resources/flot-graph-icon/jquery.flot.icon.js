@@ -63,7 +63,7 @@
                                     if (posLeft - lastPosRight < series.icons.marginX) {
                                         return lastPosTop - (itemHeight + series.icons.marginY);
                                     } else {
-                                        return ($target.height() - plotOffset.bottom) - (itemHeight + series.icons.marginY);
+                                        return ($target.height() - plotOffset.bottom) - (itemHeight + series.icons.marginY / 2);
                                     }
                             })();
                             lastPosRight = posLeft + itemWidth;
@@ -81,7 +81,7 @@
                                 .css({
                                     'position': 'absolute',
                                     'left': (plotOffset.left + posLeft) + 'px',
-                                    'top': (plotOffset.top + posTop) + 'px',
+                                    'top': (posTop) + 'px',
                                     'z-index': 1000
                                 });
                             $target.append($img);
