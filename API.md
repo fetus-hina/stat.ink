@@ -226,6 +226,7 @@ POST /api/v1/battle
         - `bucketslosher` : バケットスロッシャー
         - `bucketslosher_deco` : バケットスロッシャーデコ
         - `hissen` : ヒッセン
+        - `screwslosher` : スクリュースロッシャー
     - スピナー
         - `barrelspinner` : バレルスピナー
         - `barrelspinner_deco` : バレルスピナーデコ
