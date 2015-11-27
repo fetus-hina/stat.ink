@@ -9,12 +9,13 @@ namespace app\actions\entire;
 
 use Yii;
 use yii\web\ViewAction as BaseAction;
-use app\models\BattlePlayer;
 use app\models\GameMode;
 use app\models\Rule;
 use app\models\Weapon;
 use app\models\Subweapon;
 use app\models\Special;
+use app\models\StatWeapon;
+use app\models\StatWeaponBattleCount;
 
 class WeaponsAction extends BaseAction
 {
@@ -53,143 +54,41 @@ class WeaponsAction extends BaseAction
 
     private function getEntireWeaponsByRule(Rule $rule)
     {
-        $useCache = true;
-        if ($useCache) {
-            $cacheKey = hash('sha256', sprintf('%s(%s)', __METHOD__, $rule->key));
-            if ($cache = Yii::$app->cache) {
-                if (!$data = $cache->get($cacheKey)) {
-                    $data = $this->getEntireWeaponsByRuleImpl($rule);
-                    $cache->set($cacheKey, $data, 7200);
-                }
-                return $data;
-            }
-        }
-        return $this->getEntireWeaponsByRuleImpl($rule);
-    }
-
-    private function getEntireWeaponsByRuleImpl(Rule $rule)
-    {
-        $query = BattlePlayer::find()
-            ->innerJoinWith([
-                'battle' => function ($q) {
-                    return $q->orderBy(null);
-                },
-                'battle.lobby',
+        $query = StatWeapon::find()
+            ->with([
                 'weapon',
                 'weapon.subweapon',
                 'weapon.special',
             ])
-            ->andWhere(['{{battle}}.[[rule_id]]' => $rule->id])
-            // プライベートバトルを除外
-            ->andWhere(['<>', '{{lobby}}.[[key]]', 'private'])
-            // 不完全っぽいデータを除外
-            ->andWhere(['not', ['{{battle}}.[[is_win]]' => null]])
-            ->andWhere(['not', ['{{battle_player}}.[[weapon_id]]' => null]])
-            ->andWhere(['not', ['{{battle_player}}.[[kill]]' => null]])
-            ->andWhere(['not', ['{{battle_player}}.[[death]]' => null]])
-            // 自分は集計対象外（重複しまくる）
-            ->andWhere(['{{battle_player}}.[[is_me]]' => false])
-            ->groupBy('{{battle_player}}.[[weapon_id]]');
+            ->andWhere(['{{stat_weapon}}.[[rule_id]]' => $rule->id]);
 
-        // フェスマッチなら味方全部除外（連戦で無意味な重複の可能性が高い）
-        // ナワバリは回線落ち判定ができるので回線落ちしたものは除外する
-        // 厳密には全く塗らなかった人も除外されるが明らかに外れ値なので気にしない
-        if ($rule->key === 'nawabari') {
-            $query->andWhere(['or',
-                [
-                    '{{lobby}}.[[key]]' => 'standard',
-                ],
-                [
-                    '{{lobby}}.[[key]]' => 'fest',
-                    '{{battle_player}}.[[is_my_team]]' => false,
-                ],
-            ]);
-            $query->andWhere(['not', ['{{battle_player}}.[[point]]' => null]]);
-            $query->andWhere(['or',
-                [
-                    // 勝ったチームは 300p より大きい
-                    'and',
-                    // 自分win && 自チーム
-                    // 自分lose && 相手チーム
-                    // このどちらかなら勝ってるので、結果的に is_win と is_my_team を比較すればいい
-                    ['=', '{{battle}}.[[is_win]]', new \yii\db\Expression('battle_player.is_my_team')],
-                    ['>', '{{battle_player}}.[[point]]', 300],
-                ],
-                [
-                    // 負けたチームは 0p より大きい
-                    'and',
-                    ['<>', '{{battle}}.[[is_win]]', new \yii\db\Expression('battle_player.is_my_team')],
-                    ['>', '{{battle_player}}.[[point]]', 0],
-                ]
-            ]);
-        }
-
-        // タッグバトルなら味方全部除外（連戦で無意味な重複の可能性が高い）
-        if (substr($rule->key, 0, 6) === 'squad_') {
-            $query->andWhere(['{{battle_player}}.[[is_my_team]]' => false]);
-        }
-
-        $query->select([
-            'key'           => 'MAX({{weapon}}.[[key]])',
-            'name'          => 'MAX({{weapon}}.[[name]])',
-            'sub_key'       => 'MAX({{subweapon}}.[[key]])',
-            'sub'           => 'MAX({{subweapon}}.[[name]])',
-            'special_key'   => 'MAX({{special}}.[[key]])',
-            'special'       => 'MAX({{special}}.[[name]])',
-            'count'         => 'COUNT(*)',
-            'total_kill'    => 'SUM({{battle_player}}.[[kill]])',
-            'total_death'   => 'SUM({{battle_player}}.[[death]])',
-            'win_count' => sprintf(
-                'SUM(CASE %s END)',
-                implode(' ', [
-                    'WHEN {{battle}}.[[is_win]] = TRUE AND {{battle_player}}.[[is_my_team]] = TRUE THEN 1',
-                    'WHEN {{battle}}.[[is_win]] = FALSE AND {{battle_player}}.[[is_my_team]] = FALSE THEN 1',
-                    'ELSE 0'
-                ])
-            ),
-            'total_point' => $rule->key !== 'nawabari'
-                ? '(0)'
-                : sprintf(
-                    'SUM(CASE %s END)',
-                    implode(' ', [
-                        'WHEN battle_player.point IS NULL THEN 0',
-                        'WHEN battle.is_win = battle_player.is_my_team THEN battle_player.point - 300',
-                        'ELSE battle_player.point',
-                    ])
-                ),
-            'point_available' => $rule->key !== 'nawabari'
-                ? '(0)'
-                : sprintf(
-                    'SUM(CASE %s END)',
-                    implode(' ', [
-                        'WHEN battle_player.point IS NULL THEN 0',
-                        'ELSE 1',
-                    ])
-                ),
-        ]);
-
-        $list = array_map(function ($row) {
-            return (object)[
-                'key'       => $row['key'],
-                'name'      => Yii::t('app-weapon', $row['name']),
-                'subweapon' => (object)[
-                    'key'   => $row['sub_key'],
-                    'name'  => Yii::t('app-subweapon', $row['sub']),
-                ],
-                'special'   => (object)[
-                    'key'   => $row['special_key'],
-                    'name'  => Yii::t('app-special', $row['special']),
-                ],
-                'count'     => (int)$row['count'],
-                'avg_kill'  => $row['count'] > 0 ? ($row['total_kill'] / $row['count']) : null,
-                'sum_kill'  => $row['total_kill'],
-                'avg_death' => $row['count'] > 0 ? ($row['total_death'] / $row['count']) : null,
-                'sum_death' => $row['total_death'],
-                'wp'        => $row['count'] > 0 ? ($row['win_count'] * 100 / $row['count']) : null,
-                'win_count' => $row['win_count'],
-                'avg_inked' => $row['point_available'] > 0 ? ($row['total_point'] / $row['point_available']) : null,
-            ];
-        }, $query->createCommand()->queryAll());
+        $totalPlayers = 0;
+        $list = array_map(
+            function ($model) use (&$totalPlayers) {
+                $totalPlayers += $model->players;
+                return (object)[
+                    'key'       => $model->weapon->key,
+                    'name'      => Yii::t('app-weapon', $model->weapon->name),
+                    'subweapon' => (object)[
+                        'key'   => $model->weapon->subweapon->key,
+                        'name'  => Yii::t('app-subweapon', $model->weapon->subweapon->name),
+                    ],
+                    'special'   => (object)[
+                        'key'   => $model->weapon->special->key,
+                        'name'  => Yii::t('app-special', $model->weapon->special->name),
+                    ],
+                    'count'     => (int)$model->players,
+                    'avg_kill'  => $model->players > 0 ? ($model->total_kill / $model->players) : null,
+                    'sum_kill'  => $model->total_kill,
+                    'avg_death' => $model->players > 0 ? ($model->total_death / $model->players) : null,
+                    'sum_death' => $model->total_death,
+                    'wp'        => $model->players > 0 ? ($model->win_count * 100 / $model->players) : null,
+                    'win_count' => $model->win_count,
+                    'avg_inked' => $model->point_available > 0 ? ($model->total_point / $model->point_available) : null,
+                ];
+            },
+            $query->all()
+        );
 
         usort($list, function ($a, $b) {
             foreach (['count', 'wp', 'avg_kill', 'avg_death'] as $key) {
@@ -201,22 +100,11 @@ class WeaponsAction extends BaseAction
             return strnatcasecmp($a->name, $b->name);
         });
 
-        $battleCount = $query
-            ->select(['c' => 'COUNT(DISTINCT battle_id)'])
-            ->groupBy(null)
-            ->createCommand()
-            ->queryScalar();
+        $battleCount = StatWeaponBattleCount::findOne(['rule_id' => $rule->id]);
 
         return (object)[
-            'battle_count' => $battleCount,
-            'player_count' => array_sum(
-                array_map(
-                    function ($a) {
-                        return $a->count;
-                    },
-                    $list
-                )
-            ),
+            'battle_count' => $battleCount ? $battleCount->count : 0,
+            'player_count' => $totalPlayers,
             'weapons' => $list,
         ];
     }

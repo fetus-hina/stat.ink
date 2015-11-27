@@ -20,6 +20,9 @@ use app\components\helpers\Translator;
  *
  * @property Battle[] $battles
  * @property GameMode $mode
+ * @property StatWeapon[] $statWeapons
+ * @property Weapon[] $weapons
+ * @property StatWeaponBattleCount $statWeaponBattleCount
  */
 class Rule extends \yii\db\ActiveRecord
 {
@@ -75,6 +78,30 @@ class Rule extends \yii\db\ActiveRecord
     public function getMode()
     {
         return $this->hasOne(GameMode::className(), ['id' => 'mode_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getStatWeapons()
+    {
+        return $this->hasMany(StatWeapon::className(), ['rule_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getWeapons()
+    {
+        return $this->hasMany(Weapon::className(), ['id' => 'weapon_id'])->viaTable('stat_weapon', ['rule_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getStatWeaponBattleCount()
+    {
+        return $this->hasOne(StatWeaponBattleCount::className(), ['rule_id' => 'id']);
     }
 
     public function toJsonArray()
