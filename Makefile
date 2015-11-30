@@ -28,6 +28,11 @@ init: \
 docker: all
 	sudo docker build -t jp3cki/statink .
 
+ikalog: all runtime/ikalog runtime/ikalog/repo runtime/ikalog/winikalog.html
+	cd runtime/ikalog/repo && git fetch --all --prune && git rebase origin/master
+	./yii ikalog/update-ikalog
+	./yii ikalog/update-winikalog
+
 resource: $(RESOURCE_TARGETS)
 
 composer-plugin: composer.phar
@@ -50,6 +55,7 @@ clean: clean-resource
 	rm -rf \
 		composer.phar \
 		node_modules \
+		runtime/ikalog \
 		vendor
 
 clean-resource:
@@ -139,4 +145,13 @@ config/debug-ips.php:
 	echo "    '::1',"           >> config/debug-ips.php
 	echo '];'                   >> config/debug-ips.php
 
-.PHONY: all init resource check-style fix-style clean clean-resource migrate-db composer-plugin FORCE
+runtime/ikalog:
+	mkdir -p runtime/ikalog
+
+runtime/ikalog/repo:
+	git clone --recursive -o origin https://github.com/hasegaw/IkaLog.git $@
+
+runtime/ikalog/winikalog.html: FORCE
+	curl -o $@ 'https://dl.dropboxusercontent.com/u/14421778/IkaLog/download.html'
+
+.PHONY: all init resource check-style fix-style clean clean-resource migrate-db composer-plugin ikalog FORCE

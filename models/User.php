@@ -144,6 +144,13 @@ class User extends ActiveRecord implements IdentityInterface
             });
     }
 
+    public function getLatestBattle()
+    {
+        return $this->hasOne(Battle::className(), ['user_id' => 'id'])
+            ->orderBy('{{battle}}.[[id]] DESC')
+            ->limit(1);
+    }
+
     public function getLatestBattleResultImage()
     {
         return $this

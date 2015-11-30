@@ -48,6 +48,20 @@
       {{$title|escape}}
     </h1>
 
+    {{if $battle->agent && $battle->agent->isIkaLog}}
+      {{if $battle->agent->getIsOldIkalogAsAtTheTime($battle->at)}}
+        {{registerCss}}
+          .old-ikalog {
+            font-weight: bold;
+            color: #f00;
+          }
+        {{/registerCss}}
+        <p class="old-ikalog">
+          {{'This battle was recorded with too-old IkaLog. Please upgrade to latest version.'|translate:'app'|escape}}
+        </p>
+      {{/if}}
+    {{/if}}
+
     <div id="sns">
       {{\app\assets\TwitterWidgetAsset::register($this)|@void}}
       <a class="twitter-share-button" href="https://twitter.com/intent/tweet" data-count="none"><span class="fa fa-twitter"></span></a>
