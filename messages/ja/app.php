@@ -212,6 +212,7 @@ return [
     '{0}\'s Battle Stat (by Map and Rule)' => '{0}の統計（マップとルール）',
     '{0}\'s Battle Stat (by Map)' => '{0}の統計（マップ別）',
     '{0}\'s Battle Stat (by Rule)' => '{0}の統計（ルール別）',
+    '{0}\'s Battle' => '{0}のバトル',
     '{0}\'s Favorite Weapon' => '{0}のよく使うブキ',
     '{0}\'s Log' => '{0}のイカログ',
     '{1} Champion' => 'カリスマ{1}ガール',

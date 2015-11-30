@@ -8,6 +8,7 @@
     <p>
       {{'Staaaay Fresh!'|translate:'app'|escape}}<br>
       {{if $app->user->isGuest}}
+        {{$ident = null}}
         <a href="{{url route="user/register"}}">{{'Join us'|translate:'app'|escape}}</a>
       {{else}}
         {{$ident = $app->user->identity}}
@@ -28,6 +29,23 @@
       {{\app\assets\TwitterWidgetAsset::register($this)|@void}}
       <a class="twitter-share-button" href="https://twitter.com/intent/tweet" data-count="none"><span class="fa fa-twitter"></span></a>
     </div>
+
+    {{if $ident}}
+      {{$battles = $ident->getBattles()
+        ->with(['user', 'rule', 'map', 'battleImageResult'])
+        ->limit(12)
+        ->all()}}
+      {{if $battles}}
+        {{$name = '{0}-san'|translate:'app':$ident->name}}
+        {{$title = "{0}'s Battle"|translate:'app':$name}}
+        <h2>
+          <a href="{{url route="show/user" screen_name=$ident->screen_name}}">
+            {{$title|escape}}
+          </a>
+        </h2>
+        {{include file="@app/views/includes/battle_thumb_list.tpl" battles=$battles}}
+      {{/if}}
+    {{/if}}
 
     <h2>
       {{'Active Players'|translate:'app'|escape}}
