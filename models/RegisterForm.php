@@ -17,6 +17,7 @@ class RegisterForm extends Model
 {
     public $screen_name;
     public $password;
+    public $password_repeat;
     public $name;
     public $recaptcha_token;
     public $recaptcha_response;
@@ -24,7 +25,7 @@ class RegisterForm extends Model
     public function rules()
     {
         $rules = [
-            [['screen_name', 'password'], 'required'],
+            [['screen_name', 'password', 'password_repeat'], 'required'],
             [['screen_name'], 'string', 'max' => 15],
             [['screen_name'], 'match',
                 'pattern' => '/^[a-zA-Z0-9_]{1,15}$/',
@@ -35,6 +36,9 @@ class RegisterForm extends Model
                 'message' => Yii::t('app', 'This {attribute} is already in use.'),
             ],
             [['name'], 'string', 'max' => 15],
+            [['password_repeat'], 'compare',
+                'compareAttribute' => 'password',
+                'operator' => '==='],
         ];
         if (Yii::$app->params['googleRecaptcha']['siteKey'] != '') {
             $rules[] = [
@@ -56,6 +60,7 @@ class RegisterForm extends Model
         return [
             'screen_name'       => Yii::t('app', 'Screen Name (Login Name)'),
             'password'          => Yii::t('app', 'Password'),
+            'password_repeat'   => Yii::t('app', 'Password (Again)'),
             'name'              => Yii::t('app', 'Name (for Display)'),
         ];
     }

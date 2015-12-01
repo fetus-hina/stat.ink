@@ -19,6 +19,7 @@
           {{$_->field($register, 'name')}}
           {{$_->field($register, 'screen_name')}}
           {{$_->field($register, 'password')->passwordInput()}}
+          {{$_->field($register, 'password_repeat')->passwordInput()}}
           <div id="password-strength"></div>
           {{if $app->params.googleRecaptcha.siteKey != ''}}
             <div class="form-group">

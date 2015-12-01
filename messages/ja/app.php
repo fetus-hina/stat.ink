@@ -109,6 +109,7 @@ return [
     'Official Twitter (Japan)' => '公式ツイッター（日本）',
     'Once you delete this battle, there is no going back.' => 'この操作を元に戻すことはできません。',
     'Open Source Licenses' => 'オープンソースライセンス',
+    'Password (Again)' => 'パスワード（確認用）',
     'Password' => 'パスワード',
     'Players' => 'プレーヤー',
     'Players:' => 'プレーヤー:',
