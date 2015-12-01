@@ -111,7 +111,12 @@ class Agent extends \yii\db\ActiveRecord
             ->limit(1)
             ->one();
 
-        $diff = strtotime($latestWinIkaLog->build_at) - strtotime($thisWinIkaLog->build_at);
+        if ($latestWinIkaLog->id === $thisWinIkaLog->id) {
+            // これより新しいバージョンは存在しない
+            return false;
+        }
+
+        $diff = $t - strtotime($thisWinIkaLog->build_at);
         return ($diff >= 21 * 86400);
     }
 
@@ -138,8 +143,12 @@ class Agent extends \yii\db\ActiveRecord
             ->orderBy('{{ikalog_version}}.[[at]] DESC')
             ->limit(1)
             ->one();
+        if ($latest->id === $ikalog->id) {
+            // これより新しいバージョンは存在しない
+            return false;
+        }
 
-        $diff = strtotime($latest->at) - strtotime($ikalog->at);
+        $diff = $t - strtotime($ikalog->at);
         return ($diff >= 21 * 86400);
     }
 }
