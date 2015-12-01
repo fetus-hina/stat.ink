@@ -28,7 +28,7 @@ class StatController extends Controller
         echo "INSERT stat_weapon...\n";
         $select = $this->createSelectQueryForUpdateEntireWeapons();
         $sql = sprintf(
-            'INSERT INTO %s (%s) %s', 
+            'INSERT INTO %s (%s) %s',
             $db->quoteTableName(StatWeapon::tableName()),
             implode(', ', array_map(
                 function ($k) use ($db) {
@@ -43,7 +43,7 @@ class StatController extends Controller
         echo "INSERT stat_weapon_battle_count..\n";
         $select = $this->createSelectQueryForUpdateEntireWeaponsBattleCount();
         $sql = sprintf(
-            'INSERT INTO %s (%s) %s', 
+            'INSERT INTO %s (%s) %s',
             $db->quoteTableName(StatWeaponBattleCount::tableName()),
             implode(', ', array_map(
                 function ($k) use ($db) {
@@ -89,7 +89,7 @@ class StatController extends Controller
             ['and',
                 ['{{battle}}.[[rule_id]]' => $ruleNawabari],
                 ['not', ['{{battle_player}}.[[point]]' => null]],
-                ['or', 
+                ['or',
                     [
                         '{{lobby}}.[[key]]' => 'standard',
                     ],
