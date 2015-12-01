@@ -86,6 +86,7 @@ class Agent extends \yii\db\ActiveRecord
             : $this->getIsOldCliIkalogAsAtTheTime($t);
     }
 
+    static private $latestWinIkaLog;
     private function getIsOldWinIkalogAsAtTheTime($t)
     {
         if (!preg_match('/^([0-9a-f]{7,})_/', $this->version, $match)) {
@@ -105,13 +106,15 @@ class Agent extends \yii\db\ActiveRecord
         }
         $thisWinIkaLog = $ikalog->winikalogVersions[0];
 
-        $latestWinIkaLog = WinikalogVersion::find()
-            ->andWhere(['<=', '{{winikalog_version}}.[[build_at]]', date('Y-m-d H:i:sP', $t)])
-            ->orderBy('{{winikalog_version}}.[[build_at]] DESC')
-            ->limit(1)
-            ->one();
+        if (static::$latestWinIkaLog === null) {
+            static::$latestWinIkaLog = WinikalogVersion::find()
+                ->andWhere(['<=', '{{winikalog_version}}.[[build_at]]', date('Y-m-d H:i:sP', $t)])
+                ->orderBy('{{winikalog_version}}.[[build_at]] DESC')
+                ->limit(1)
+                ->one();
+        }
 
-        if ($latestWinIkaLog->id === $thisWinIkaLog->id) {
+        if (static::$latestWinIkaLog->id === $thisWinIkaLog->id) {
             // これより新しいバージョンは存在しない
             return false;
         }
@@ -136,14 +139,17 @@ class Agent extends \yii\db\ActiveRecord
         return $this->getIsOldCliIkalogAsAtTheTimeImpl($ikalog, $t);
     }
 
+    static private $latestIkaLog;
     private function getIsOldCliIkalogAsAtTheTimeImpl(IkalogVersion $ikalog, $t)
     {
-        $latest = IkalogVersion::find()
-            ->andWhere(['<=', '{{ikalog_version}}.[[at]]', date('Y-m-d H:i:sP', $t)])
-            ->orderBy('{{ikalog_version}}.[[at]] DESC')
-            ->limit(1)
-            ->one();
-        if ($latest->id === $ikalog->id) {
+        if (static::$latestIkaLog === null) {
+            static::$latestIkaLog = IkalogVersion::find()
+                ->andWhere(['<=', '{{ikalog_version}}.[[at]]', date('Y-m-d H:i:sP', $t)])
+                ->orderBy('{{ikalog_version}}.[[at]] DESC')
+                ->limit(1)
+                ->one();
+        }
+        if (static::$latestIkaLog->id === $ikalog->id) {
             // これより新しいバージョンは存在しない
             return false;
         }

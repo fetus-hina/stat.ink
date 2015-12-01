@@ -9,6 +9,7 @@ namespace app\actions\entire;
 
 use Yii;
 use yii\web\ViewAction as BaseAction;
+use app\models\Agent;
 
 class UsersAction extends BaseAction
 {
@@ -40,6 +41,26 @@ class UsersAction extends BaseAction
 
     public function getAgentStats()
     {
+        $list = $this->queryAgentStats();
+        $agents = $this->queryAgentDetails(array_map(
+            function($a) {
+                return $a['agent_id'];
+            },
+            $list
+        ));
+        $t = @$_SERVER['REQUEST_TIME'] ?: time();
+        foreach ($list as &$row) {
+            $agent = @$agents[$row['agent_id']] ?: null;
+            $row['agent_name'] = $agent ? $agent->name : '';
+            $row['agent_version'] = $agent ? $agent->version : '';
+            $row['agent_is_old'] = $agent ? $agent->getIsOldIkalogAsAtTheTime($t) : false;
+            unset($row);
+        }
+        return $list;
+    }
+
+    private function queryAgentStats()
+    {
         $t2 = isset($_SERVER['REQUEST_TIME']) ? $_SERVER['REQUEST_TIME'] : time();
         $t1 = gmmktime(
             gmdate('H', $t2),
@@ -51,8 +72,7 @@ class UsersAction extends BaseAction
         );
         $query = (new \yii\db\Query())
             ->select([
-                'agent_name' => 'MAX({{agent}}.[[name]])',
-                'agent_version' => 'MAX({{agent}}.[[version]])',
+                'agent_id',
                 'battle' => 'COUNT(*)',
                 'user' => 'COUNT(DISTINCT {{battle}}.[[user_id]])',
             ])
@@ -65,9 +85,17 @@ class UsersAction extends BaseAction
             ->orderBy(implode(', ', [
                 '[[battle]] DESC',
                 '[[user]] DESC',
-                '[[agent_name]] ASC',
-                '[[agent_version]] ASC',
+                '[[agent_id]] DESC',
             ]));
         return $query->createCommand()->queryAll();
+    }
+
+    private function queryAgentDetails(array $idList)
+    {
+        $ret = [];
+        foreach (Agent::findAll(['id' => $idList]) as $agent) {
+            $ret[$agent->id] = $agent;
+        }
+        return $ret;
     }
 }

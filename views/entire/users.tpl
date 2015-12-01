@@ -46,7 +46,18 @@
           <tr>
             <td class="text-right">{{$agent.battle|number_format|escape}}</td>
             <td class="text-right">{{$agent.user|number_format|escape}}</td>
-            <td>{{$agent.agent_name|escape}} / {{$agent.agent_version|escape}}</td>
+            <td>
+              {{$agent.agent_name|escape}} / {{$agent.agent_version|escape}}
+              {{if $agent.agent_is_old}}
+                &#32;<span class="old-ikalog">[OLD]</span>
+                {{registerCss}}
+                  .old-ikalog {
+                    color: #f00;
+                    font-weight: bold;
+                  }
+                {{/registerCss}}
+              {{/if}}
+            </td>
           </tr>
         {{/foreach}}
       </tbody>
