@@ -17,7 +17,6 @@ RUN yum update -y && \
         ImageMagick \
         git19-git \
         jpegoptim \
-        libwebp-tools \
         more-php56-php-mcrypt \
         more-php56-php-pecl-msgpack \
         nodejs010-npm \

@@ -121,7 +121,6 @@ config/amazon-s3.php:
 	echo 'return ['                            >> config/amazon-s3.php
 	echo '    ['                               >> config/amazon-s3.php
 	echo "        'name'      => 'Amazon S3'," >> config/amazon-s3.php
-	echo "        'type'      => 'webp',"      >> config/amazon-s3.php 
 	echo "        'endpoint'  => 's3-ap-northeast-1.amazonaws.com'," >> config/amazon-s3.php
 	echo "        'accessKey' => '',"          >> config/amazon-s3.php
 	echo "        'secret'    => '',"          >> config/amazon-s3.php

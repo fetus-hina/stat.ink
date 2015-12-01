@@ -105,7 +105,7 @@ class BattleImage extends ActiveRecord
     {
         if ($this->deleteFilename) {
             $path = Yii::getAlias('@app/web/images') . '/' . $this->deleteFilename;
-            foreach (['.jpg', '.webp'] as $ext) {
+            foreach (['.jpg'] as $ext) {
                 $path2 = preg_replace('/\.jpg$/', $ext, $path);
                 if (file_exists($path2) && is_file($path2)) {
                     unlink($path2);

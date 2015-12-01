@@ -18,7 +18,6 @@ https://stat.ink/ のソースコードです。
 * PostgreSQL 9.4+
 * ImageMagick (`convert`)
 * Node.js (`npm`)
-* `cwebp`
 * `jpegoptim`
 * `pngcrush`
 

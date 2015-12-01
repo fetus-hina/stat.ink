@@ -15,21 +15,14 @@ class ImageConverter
     const OUT_HEIGHT = 360;
 
     const JPEG_QUALITY = 90;
-    const WEBP_QUALITY = 90;
 
-    public static function convert($binary, $outPathJpeg, $outPathWebp, $outPathArchivePng = null)
+    public static function convert($binary, $outPathJpeg, $unused1 = false, $outPathArchivePng = null)
     {
         if (!$tmpName = self::convertImpl($binary)) {
             return false;
         }
         if (!self::copyJpeg($tmpName->get(), $outPathJpeg)) {
             @unlink($outPathJpeg);
-            @unlink($outPathWebp);
-            return false;
-        }
-        if (!self::copyWebp($tmpName->get(), $outPathWebp)) {
-            @unlink($outPathJpeg);
-            @unlink($outPathWebp);
             return false;
         }
         if ($outPathArchivePng !== null) {
@@ -100,30 +93,6 @@ class ImageConverter
             sprintf(
                 '/usr/bin/env %s --quiet --strip-all %s',
                 escapeshellarg('jpegoptim'),
-                escapeshellarg($outPath)
-            ),
-        ];
-        foreach ($cmdlines as $cmdline) {
-            $lines = [];
-            $status = -1;
-            @exec($cmdline, $lines, $status);
-            if ($status != 0) {
-                @unlink($outPath);
-                return false;
-            }
-        }
-        return true;
-    }
-
-    protected static function copyWebp($inPath, $outPath)
-    {
-        self::mkdir(dirname($outPath));
-        $cmdlines = [
-            sprintf(
-                '/usr/bin/env %s -q %d -m 6 -quiet %s -o %s',
-                escapeshellarg('cwebp'),
-                self::WEBP_QUALITY,
-                escapeshellarg($inPath),
                 escapeshellarg($outPath)
             ),
         ];

@@ -239,7 +239,7 @@ class BattleAction extends BaseAction
             if (!ImageConverter::convert(
                 $binary,
                 $imageOutputDir . '/' . $image->filename,
-                $imageOutputDir . '/' . str_replace('.jpg', '.webp', $image->filename),
+                null, // unused
                 ($imageArchiveOutputDir
                     ? ($imageArchiveOutputDir . '/' . sprintf('%d-judge.png', $battle->id))
                     : null)
@@ -265,7 +265,7 @@ class BattleAction extends BaseAction
             if (!ImageConverter::convert(
                 $binary,
                 $imageOutputDir . '/' . $image->filename,
-                $imageOutputDir . '/' . str_replace('.jpg', '.webp', $image->filename),
+                null, // unused
                 $imageArchiveOutputDir
                 ? ($imageArchiveOutputDir . '/' . sprintf('%d-result.png', $battle->id))
                 : null
