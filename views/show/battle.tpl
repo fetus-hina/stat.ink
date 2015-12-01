@@ -607,9 +607,11 @@
                 {{if $battle->rule}}
                   var isNawabari = {{if $battle->rule->key === 'nawabari'}}true{{else}}false{{/if}};
                   var isGachi = !isNawabari;
+                  var ruleKey = '{{$battle->rule->key|escape:javascript}}';
                 {{else}}
                   var isNawabari = false;
                   var isGachi = false;
+                  var ruleKey = null;
                 {{/if}}
 
                 var $graphs = $('.graph');
@@ -630,7 +632,27 @@
                       })
                     : [];
 
-                  var objectiveData = isGachi
+                  {{* ガチエリアのカウントデータ *}}
+                  {{* ペナルティデータは未実装 *}}
+                  var myAreaData = [];
+                  var hisAreaData = [];
+                  if (isGachi && ruleKey === 'area') {
+                    $.each(
+                      window.battleEvents.filter(function(v){
+                        return v.type === "splatzone";
+                      }),
+                      function(){
+                        myAreaData.push([this.at, 100 - this.my_team_count]);
+                        hisAreaData.push([this.at, 100 - this.his_team_count]);
+                      }
+                    );
+                    if (myAreaData.length > 0 || hisAreaData.length > 0) {
+                      myAreaData.unshift([0, 0]);
+                      hisAreaData.unshift([0, 0]);
+                    }
+                  }
+
+                  var objectiveData = (isGachi && ruleKey !== 'area')
                     ? window.battleEvents.filter(function(v){
                         return v.type === "objective";
                       }).map(function(v){
@@ -809,9 +831,32 @@
                         color: '#edc240'
                       });
                     }
+                    if (myAreaData.length > 0 || hisAreaData.length > 0) {
+                      console.log(myAreaData, hisAreaData);
+                      data.push({
+                        label: "{{'Count (Good Guys)'|translate:'app'|escape:'javascript'}}",
+                        data: myAreaData,
+                        color: {{if $battle->my_team_color_hue !== null}}pointColorFromHue({{$battle->my_team_color_hue|intval}}){{else}}null{{/if}},
+                        lines: {
+                          show: true,
+                          fill: true,
+                        },
+                        shadowSize: 0
+                      });
+                      data.push({
+                        label: "{{'Count (Bad Guys)'|translate:'app'|escape:'javascript'}}",
+                        data: hisAreaData,
+                        color: {{if $battle->his_team_color_hue !== null}}pointColorFromHue({{$battle->his_team_color_hue|intval}}){{else}}null{{/if}},
+                        lines: {
+                          show: true,
+                          fill: true,
+                        },
+                        shadowSize: 0
+                      });
+                    }
                     if (objectiveData.length > 0) {
                       data.push({
-                        label: "{{'Point (Good Guys)'|translate:'app'|escape:'javascript'}}",
+                        label: "{{'Count (Good Guys)'|translate:'app'|escape:'javascript'}}",
                         data: createObjectPositionPoint(true),
                         color: {{if $battle->my_team_color_hue !== null}}pointColorFromHue({{$battle->my_team_color_hue|intval}}){{else}}null{{/if}},
                         lines: {
@@ -822,7 +867,7 @@
                         shadowSize: 0
                       });
                       data.push({
-                        label: "{{'Point (Bad Guys)'|translate:'app'|escape:'javascript'}}",
+                        label: "{{'Count (Bad Guys)'|translate:'app'|escape:'javascript'}}",
                         data: createObjectPositionPoint(false),
                         color: {{if $battle->his_team_color_hue !== null}}pointColorFromHue({{$battle->his_team_color_hue|intval}}){{else}}null{{/if}},
                         lines: {
@@ -875,7 +920,7 @@
                       },
                       yaxis: {
                         minTickSize: isNawabari ? 100 : 10,
-                        min: isNawabari ? 0 : -100,
+                        min: isNawabari || ruleKey === 'area' ? 0 : -100,
                         max: isNawabari ? null : 100
                       },
                       legend: {
