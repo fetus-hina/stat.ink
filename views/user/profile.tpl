@@ -24,6 +24,12 @@
               <td><code>{{$user->screen_name|escape}}</code></td>
             </tr>
             <tr>
+              <th>{{'Password'|translate:'app'|escape}}</th>
+              <td>
+                <code>**********</code> <a href="{{url route="user/edit-password"}}" class="btn btn-default">パスワードの変更</a>
+              </td>
+            </tr>
+            <tr>
               <th>{{'API Token'|translate:'app'|escape}}</th>
               <td>
                 <button class="btn btn-default auto-tooltip" title="{{'Show your API Token'|translate:'app'|escape}}" id="apikey-button">

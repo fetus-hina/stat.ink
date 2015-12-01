@@ -22,6 +22,7 @@ class UserController extends Controller
             'access' => [
                 'class' => AccessControl::className(),
                 'only' => [
+                    'edit-password',
                     'edit-profile',
                     'login',
                     'logout',
@@ -39,6 +40,7 @@ class UserController extends Controller
                     ],
                     [
                         'actions' => [
+                            'edit-password',
                             'edit-profile',
                             'logout',
                             'profile',
@@ -51,6 +53,7 @@ class UserController extends Controller
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
+                    'edit-password' => [ 'get', 'post' ],
                     'edit-profile'  => [ 'get', 'post' ],
                     'language'      => [ 'post' ],
                     'login'         => [ 'get', 'post' ],
@@ -67,6 +70,7 @@ class UserController extends Controller
         $prefix = 'app\actions\user';
         return [
             'download'      => [ 'class' => $prefix . '\DownloadAction' ],
+            'edit-password' => [ 'class' => $prefix . '\EditPasswordAction' ],
             'edit-profile'  => [ 'class' => $prefix . '\EditProfileAction' ],
             'language'      => [ 'class' => $prefix . '\LanguageAction' ],
             'login'         => [ 'class' => $prefix . '\LoginAction' ],
