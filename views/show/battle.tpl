@@ -671,9 +671,10 @@
                     {{* 対象チームを正とした、objective イベントだけのリストを作成 *}}
                     var list = window.battleEvents.filter(function (v) {
                       return v.type === "objective";
-                    }).map(function (v) {
-                      v.position = v.position * coeffient;
-                      return v;
+                    }).map(function(v) {
+                      var o = $.extend(true, {}, v);
+                      o.position = o.position * coeffient;
+                      return o;
                     });
 
                     {{* ポイント更新したタイミングのリストを作成 *}}
