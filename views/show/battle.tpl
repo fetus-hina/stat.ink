@@ -45,7 +45,10 @@
 
   <div class="container">
     <h1>
-      {{$title|escape}}
+      {{$_url = Url::to(['show/user', 'screen_name' => $user->screen_name])}}
+      {{$name = $name|escape}}
+      {{$name = '<a href="%s">%s</a>'|sprintf:$_url:$name}}
+      {{"Result of {0}'s Battle"|translate:'app':$name}}
     </h1>
 
     {{if $battle->agent && $battle->agent->isIkaLog}}
