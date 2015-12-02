@@ -49,7 +49,9 @@
             <td>
               {{$agent.agent_name|escape}} / {{$agent.agent_version|escape}}
               {{if $agent.agent_is_old}}
-                &#32;<span class="old-ikalog">[OLD]</span>
+                &#32;<span class="old-ikalog">
+                  {{'[Outdated]'|translate:'app'|escape}}
+                </span>
                 {{registerCss}}
                   .old-ikalog {
                     color: #f00;

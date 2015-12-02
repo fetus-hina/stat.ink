@@ -60,7 +60,7 @@
           }
         {{/registerCss}}
         <p class="old-ikalog">
-          {{'This battle was recorded with too-old IkaLog. Please upgrade to latest version.'|translate:'app'|escape}}
+          {{'This battle was recorded with outdated IkaLog. Please upgrade to latest version.'|translate:'app'|escape}}
         </p>
       {{/if}}
     {{/if}}
