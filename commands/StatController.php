@@ -12,6 +12,7 @@ use yii\console\Controller;
 use yii\helpers\Console;
 use app\models\BattlePlayer;
 use app\models\Rule;
+use app\models\StatEntireUser;
 use app\models\StatWeapon;
 use app\models\StatWeaponBattleCount;
 
@@ -175,5 +176,46 @@ class StatController extends Controller
             ])
             ->groupBy('{{battle}}.[[rule_id]]');
         return $query;
+    }
+
+    public function actionUpdateEntireUser()
+    {
+        // 集計対象期間を計算する
+        $today = (new \DateTime(sprintf('@%d', @$_SERVER['REQUEST_TIME'] ?: time()), null))
+            ->setTimeZone(new \DateTimeZone('Etc/GMT-6'))
+            ->setTime(0, 0, 0); // 今日の 00:00:00+06 に設定する
+        // これで $today より前を抽出すれば前日までのサマリにできる
+
+        $db = Yii::$app->db;
+        $db->createCommand("SET timezone TO 'UTC-6'")->execute();
+        $transaction = $db->beginTransaction();
+        StatEntireUser::deleteAll();
+        $db->createCommand()
+            ->batchInsert(
+                StatEntireUser::tableName(),
+                [ 'date', 'battle_count', 'user_count' ],
+                array_map(
+                    function ($row) {
+                        return [
+                            $row['date'],
+                            $row['battle_count'],
+                            $row['user_count']
+                        ];
+                    },
+                    (new \yii\db\Query())
+                        ->select([
+                            'date'          => '{{battle}}.[[at]]::date',
+                            'battle_count'  => 'COUNT({{battle}}.*)',
+                            'user_count'    => 'COUNT(DISTINCT {{battle}}.[[user_id]])',
+                        ])
+                        ->from('battle')
+                        ->andWhere(['<', '{{battle}}.[[at]]', $today->format(\DateTime::ISO8601)])
+                        ->groupBy('{{battle}}.[[at]]::date')
+                        ->createCommand()
+                        ->queryAll()
+                )
+            )
+            ->execute();
+        $transaction->commit();
     }
 }

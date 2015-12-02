@@ -10,6 +10,7 @@ namespace app\actions\entire;
 use Yii;
 use yii\web\ViewAction as BaseAction;
 use app\models\Agent;
+use app\models\StatEntireUser;
 
 class UsersAction extends BaseAction
 {
@@ -27,23 +28,54 @@ class UsersAction extends BaseAction
 
     public function getPostStats()
     {
+        $lastSummariedDate = null;
+        if ($stats = $this->getPostStatsSummarized()) {
+            $lastSummariedDate = $stats[count($stats) - 1]->date;
+        } else {
+            $stats = [];
+        }
+
         $query = (new \yii\db\Query())
             ->select([
-                'date'      => '{{battle}}.[[at]]::date',
-                'battle'    => 'COUNT({{battle}}.*)',
-                'user'      => 'COUNT(DISTINCT {{battle}}.[[user_id]])',
+                'date'          => '{{battle}}.[[at]]::date',
+                'battle_count'  => 'COUNT({{battle}}.*)',
+                'user_count'    => 'COUNT(DISTINCT {{battle}}.[[user_id]])',
             ])
             ->from('battle')
             ->groupBy('{{battle}}.[[at]]::date')
             ->orderBy('{{battle}}.[[at]]::date ASC');
-        return $query->createCommand()->queryAll();
+        if ($lastSummariedDate !== null) {
+            $query->andWhere(['>', '{{battle}}.[[at]]', $lastSummariedDate . ' 23:59:59']);
+        }
+
+        foreach ($query->createCommand()->queryAll() as $row) {
+            $stats[] = (object)$row;
+        }
+
+        return array_map(
+            function ($a) {
+                return [
+                    'date' => $a->date,
+                    'battle' => $a->battle_count,
+                    'user' => $a->user_count,
+                ];
+            },
+            $stats
+        );
+    }
+
+    private function getPostStatsSummarized()
+    {
+        return StatEntireUser::find()
+            ->orderBy('{{stat_entire_user}}.[[date]] ASC')
+            ->all();
     }
 
     public function getAgentStats()
     {
         $list = $this->queryAgentStats();
         $agents = $this->queryAgentDetails(array_map(
-            function($a) {
+            function ($a) {
                 return $a['agent_id'];
             },
             $list
