@@ -37,6 +37,7 @@ return [
     'Count (Good Guys)' => 'カウント（自分のチーム）',
     'Current Password' => '現在のパスワード',
     'Current Period' => '現在のステージ',
+    'Current Stage' => '現在のステージ',
     'Current' => '現在',
     'Data Sent' => 'データ送信',
     'Date Time' => '日時',

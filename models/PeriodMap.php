@@ -22,6 +22,32 @@ use Yii;
  */
 class PeriodMap extends \yii\db\ActiveRecord
 {
+    public static function findCurrentRegular()
+    {
+        $period = \app\components\helpers\Battle::calcPeriod(
+            @$_SERVER['REQUEST_TIME'] ?: time()
+        );
+        return static::find()
+            ->innerJoinWith(['rule', 'rule.mode'])
+            ->with(['rule', 'rule.mode', 'map'])
+            ->andWhere(['{{game_mode}}.[[key]]' => 'regular'])
+            ->andWhere(['{{period_map}}.[[period]]' => $period])
+            ->orderBy('{{period_map}}.[[id]]');
+    }
+
+    public static function findCurrentGachi()
+    {
+        $period = \app\components\helpers\Battle::calcPeriod(
+            @$_SERVER['REQUEST_TIME'] ?: time()
+        );
+        return static::find()
+            ->innerJoinWith(['rule', 'rule.mode'])
+            ->with(['rule', 'rule.mode', 'map'])
+            ->andWhere(['{{game_mode}}.[[key]]' => 'gachi'])
+            ->andWhere(['{{period_map}}.[[period]]' => $period])
+            ->orderBy('{{period_map}}.[[id]]');
+    }
+
     /**
      * @inheritdoc
      */

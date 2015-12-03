@@ -30,6 +30,82 @@
       <a class="twitter-share-button" href="https://twitter.com/intent/tweet" data-count="none"><span class="fa fa-twitter"></span></a>
     </div>
 
+    {{use class="app\models\PeriodMap"}}
+    {{$currentRegular = PeriodMap::findCurrentRegular()->all()}}
+    {{$currentGachi = PeriodMap::findCurrentGachi()->all()}}
+    {{if $currentRegular || $currentGachi}}
+      {{\app\assets\JqueryLazyloadAsset::register($this)|@void}}
+      {{registerJs}}jQuery('img.lazyload').lazyload();{{/registerJs}}
+      {{$imagePlaceholder = $app->assetManager->getAssetUrl(
+          $app->assetManager->getBundle('app\assets\AppAsset'),
+          'no-image.png'
+        )}}
+      <h2>
+        {{'Current Stage'|translate:'app'|escape}}
+      </h2>
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
+          <h3>
+            {{$currentRegular.0->rule->name|translate:'app-rule'|escape}}
+          </h3>
+          <ul class="battles maps">
+            {{foreach $currentRegular as $_}}
+              <li>
+                <div class="battle">
+                  <div class="battle-image">
+                    {{\app\assets\MapImageAsset::register($this)|@void}}
+                    {{$mapFile = 'daytime/'|cat:$_->map->key:'.jpg'}}
+                    <img src="{{$imagePlaceholder|escape}}" class="lazyload" data-original="{{$app
+                        ->assetManager->getAssetUrl(
+                          $app->assetManager->getBundle('app\assets\MapImageAsset'),
+                          $mapFile)
+                      }}">
+                  </div>
+                  <div class="battle-data row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 omit">
+                      {{$_->map->name|translate:'app-map'|escape}}
+                    </div>
+                  </div>
+                </div>
+              </li>
+            {{/foreach}}
+          </ul>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
+          <h3>
+            {{$currentGachi.0->rule->name|translate:'app-rule'|escape}}
+          </h3>
+          <ul class="battles maps">
+            {{foreach $currentGachi as $_}}
+              <li>
+                <div class="battle">
+                  <div class="battle-image">
+                    {{\app\assets\MapImageAsset::register($this)|@void}}
+                    {{$mapFile = 'daytime/'|cat:$_->map->key:'.jpg'}}
+                    <img src="{{$imagePlaceholder|escape}}" class="lazyload" data-original="{{$app
+                        ->assetManager->getAssetUrl(
+                          $app->assetManager->getBundle('app\assets\MapImageAsset'),
+                          $mapFile)
+                      }}">
+                  </div>
+                  <div class="battle-data row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 omit">
+                      {{$_->map->name|translate:'app-map'|escape}}
+                    </div>
+                  </div>
+                </div>
+              </li>
+            {{/foreach}}
+          </ul>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-right" style="font-size:0.333em;line-height:1.1">
+          Powered by <a href="http://splapi.retrorocket.biz/" target="_blank" rel="nofollow">
+            スプラトゥーンのステージじょうほうがとれるやつ
+          </a>
+        </div>
+      </div>
+    {{/if}}
+
     {{if $ident}}
       {{$battles = $ident->getBattles()
         ->with(['user', 'rule', 'map', 'battleImageResult'])

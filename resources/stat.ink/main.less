@@ -60,7 +60,7 @@ ul.battles {
     margin: 15px 0;
     padding: 0;
     box-sizing: border-box;
-    
+
     li {
         display: block;
         list-style-type: none;
@@ -79,6 +79,14 @@ ul.battles {
         }
         @media (min-width: @screen-lg-min) {
             width: 25%;
+        }
+    }
+
+    &.maps {
+        li {
+            @media (min-width: @screen-lg-min) {
+                width: 50%;
+            }
         }
     }
 
