@@ -19,6 +19,7 @@ use app\components\helpers\Translator;
  * @property integer $area
  *
  * @property Battle[] $battles
+ * @property SplapiMap[] $splapiMaps
  */
 class Map extends \yii\db\ActiveRecord
 {
@@ -65,6 +66,14 @@ class Map extends \yii\db\ActiveRecord
     public function getBattles()
     {
         return $this->hasMany(Battle::className(), ['map_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getSplapiMaps()
+    {
+        return $this->hasMany(SplapiMap::className(), ['map_id' => 'id']);
     }
 
     public function toJsonArray()

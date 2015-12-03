@@ -20,6 +20,7 @@ use app\components\helpers\Translator;
  *
  * @property Battle[] $battles
  * @property GameMode $mode
+ * @property SplapiRule[] $splapiRules
  * @property StatWeapon[] $statWeapons
  * @property Weapon[] $weapons
  * @property StatWeaponBattleCount $statWeaponBattleCount
@@ -78,6 +79,14 @@ class Rule extends \yii\db\ActiveRecord
     public function getMode()
     {
         return $this->hasOne(GameMode::className(), ['id' => 'mode_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getSplapiRules()
+    {
+        return $this->hasMany(SplapiRule::className(), ['rule_id' => 'id']);
     }
 
     /**
