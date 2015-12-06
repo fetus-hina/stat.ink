@@ -45,10 +45,9 @@
 
     <div class="row">
       <div class="col-xs-12 col-sm-8 col-md-8 col-lg-9">
-        <div class="text-right">
+        <div class="text-center">
           {{ListView::widget([
               'dataProvider' => $battleDataProvider,
-              'itemView' => 'battle.tablerow.tpl',
               'itemOptions' => [ 'tag' => false ],
               'layout' => '{pager}',
               'pager' => [
@@ -139,48 +138,30 @@
           <a href="#filter-form" class="visible-xs-inline btn btn-info">
             <span class="fa fa-search"></span> {{'Search'|translate:'app'|escape}}
           </a>&#32;
-          <a href="#table-config" class="btn btn-default">
-            <span class="fa fa-cogs"></span> {{'View Settings'|translate:'app'|escape}}
-          </a>&#32;
-          {{$params = array_merge($filter->toQueryParams(), ['v' => 'simple', '0' => 'show/user'])}}
+          {{$params = array_merge($filter->toQueryParams(), ['v' => 'standard', '0' => 'show/user'])}}
           <a href="{{Url::to($params)|escape}}" class="btn btn-default" rel="nofollow">
-            <span class="fa fa-list"></span> {{'Simplified List'|translate:'app'|escape}}
+            <span class="fa fa-list"></span> {{'Detailed List'|translate:'app'|escape}}
           </a>
         </div>
-        <div class="table-responsive" id="battles">
-          <table class="table table-striped table-condensed">
-            <thead>
-              <tr>
-                <th></th>
-                <th class="cell-lobby">{{'Game Mode'|translate:'app'|escape}}</th>
-                <th class="cell-rule">{{'Rule'|translate:'app'|escape}}</th>
-                <th class="cell-map">{{'Map'|translate:'app'|escape}}</th>
-                <th class="cell-main-weapon">{{'Weapon'|translate:'app'|escape}}</th>
-                <th class="cell-sub-weapon">{{'Sub Weapon'|translate:'app'|escape}}</th>
-                <th class="cell-special">{{'Special'|translate:'app'|escape}}</th>
-                <th class="cell-rank">{{'Rank'|translate:'app'|escape}}</th>
-                <th class="cell-rank-after">{{'Rank(After)'|translate:'app'|escape}}</th>
-                <th class="cell-level">{{'Level'|translate:'app'|escape}}</th>
-                {{* <th class="cell-level-after">{{'Level(After)'|translate:'app'|escape}}</th> *}}
-                <th class="cell-result">{{'Result'|translate:'app'|escape}}</th>
-                <th class="cell-kd">{{'k'|translate:'app'|escape}}/{{'d'|translate:'app'|escape}}</th>
-                <th class="cell-kill-ratio">{{'Kill Ratio'|translate:'app'|escape}}</th>
-                <th class="cell-point">{{'Point'|translate:'app'|escape}}</th>
-                <th class="cell-datetime">{{'Date Time'|translate:'app'|escape}}</th>
-                <th class="cell-reltime">{{'Relative Time'|translate:'app'|escape}}</th>
-              </tr>
-            </thead>
-            <tbody>
-              {{ListView::widget([
-                'dataProvider' => $battleDataProvider,
-                'itemView' => 'battle.tablerow.tpl',
-                'itemOptions' => [ 'tag' => false ],
-                'layout' => '{items}'
-              ])}}
-            </tbody>
-          </table>
+        <div id="battles">
+          <ul class="simple-battle-list">
+            {{ListView::widget([
+              'dataProvider' => $battleDataProvider,
+              'itemView' => 'battle.simple.tablerow.tpl',
+              'itemOptions' => [ 'tag' => false ],
+              'layout' => '{items}'
+            ])}}
+          </ul>
+          {{registerCss}}
+            .simple-battle-list{
+              display:block;
+              list-style:type:0;
+              margin:0;
+              padding:0;
+            }
+          {{/registerCss}}
         </div>
-        <div class="text-right">
+        <div class="text-center">
           {{ListView::widget([
               'dataProvider' => $battleDataProvider,
               'itemView' => 'battle.tablerow.tpl',
@@ -249,53 +230,5 @@
         </div>
       </div>
     </div>
-    <div class="row">
-      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" id="table-config">
-        <div>
-          <label>
-            <input type="checkbox" id="table-hscroll" value="1"> {{'Always enable horizontal scroll'|translate:'app'|escape}}
-          <label>
-        </div>
-        <div class="row">
-          <div class="col-xs-6 col-sm-4 col-md-4 col-lg-3">
-            <label><input type="checkbox" class="table-config-chk" data-klass="cell-lobby"> {{'Game Mode'|translate:'app'|escape}}</label>
-          </div><div class="col-xs-6 col-sm-4 col-md-4 col-lg-3">
-            <label><input type="checkbox" class="table-config-chk" data-klass="cell-rule"> {{'Rule'|translate:'app'|escape}}</label>
-          </div><div class="col-xs-6 col-sm-4 col-md-4 col-lg-3">
-            <label><input type="checkbox" class="table-config-chk" data-klass="cell-map"> {{'Map'|translate:'app'|escape}}</label>
-          </div><div class="col-xs-6 col-sm-4 col-md-4 col-lg-3">
-            <label><input type="checkbox" class="table-config-chk" data-klass="cell-main-weapon"> {{'Weapon'|translate:'app'|escape}}</label>
-          </div><div class="col-xs-6 col-sm-4 col-md-4 col-lg-3">
-            <label><input type="checkbox" class="table-config-chk" data-klass="cell-sub-weapon"> {{'Sub Weapon'|translate:'app'|escape}}</label>
-          </div><div class="col-xs-6 col-sm-4 col-md-4 col-lg-3">
-            <label><input type="checkbox" class="table-config-chk" data-klass="cell-special"> {{'Special'|translate:'app'|escape}}</label>
-          </div><div class="col-xs-6 col-sm-4 col-md-4 col-lg-3">
-            <label><input type="checkbox" class="table-config-chk" data-klass="cell-rank"> {{'Rank'|translate:'app'|escape}}</label>
-          </div><div class="col-xs-6 col-sm-4 col-md-4 col-lg-3">
-            <label><input type="checkbox" class="table-config-chk" data-klass="cell-rank-after"> {{'Rank(After)'|translate:'app'|escape}}</label>
-          </div><div class="col-xs-6 col-sm-4 col-md-4 col-lg-3">
-            <label><input type="checkbox" class="table-config-chk" data-klass="cell-level"> {{'Level'|translate:'app'|escape}}</label>
-          </div><div class="col-xs-6 col-sm-4 col-md-4 col-lg-3">
-        {{*
-            <label><input type="checkbox" class="table-config-chk" data-klass="cell-level-after"> {{'Level(After)'|translate:'app'|escape}}</label>
-          </div><div class="col-xs-6 col-sm-4 col-md-4 col-lg-3">
-        *}}
-            <label><input type="checkbox" class="table-config-chk" data-klass="cell-result"> {{'Result'|translate:'app'|escape}}</label>
-          </div><div class="col-xs-6 col-sm-4 col-md-4 col-lg-3">
-            <label><input type="checkbox" class="table-config-chk" data-klass="cell-kd"> {{'k'|translate:'app'|escape}}/{{'d'|translate:'app'|escape}}</label>
-          </div><div class="col-xs-6 col-sm-4 col-md-4 col-lg-3">
-            <label><input type="checkbox" class="table-config-chk" data-klass="cell-kill-ratio"> {{'Kill Ratio'|translate:'app'|escape}}</label>
-          </div><div class="col-xs-6 col-sm-4 col-md-4 col-lg-3">
-            <label><input type="checkbox" class="table-config-chk" data-klass="cell-point"> {{'Turf Inked'|translate:'app'|escape}}</label>
-          </div><div class="col-xs-6 col-sm-4 col-md-4 col-lg-3">
-            <label><input type="checkbox" class="table-config-chk" data-klass="cell-datetime"> {{'Date Time'|translate:'app'|escape}}</label>
-          </div><div class="col-xs-6 col-sm-4 col-md-4 col-lg-3">
-            <label><input type="checkbox" class="table-config-chk" data-klass="cell-reltime"> {{'Relative Time'|translate:'app'|escape}}</label>
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
 {{/strip}}
-{{registerJs}}window.battleList();{{/registerJs}}
-{{registerJs}}window.battleListConfig();{{/registerJs}}

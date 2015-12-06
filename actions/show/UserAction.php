@@ -10,6 +10,7 @@ namespace app\actions\show;
 use Yii;
 use yii\data\ActiveDataProvider;
 use yii\helpers\Url;
+use yii\web\Cookie;
 use yii\web\NotFoundHttpException;
 use yii\web\ViewAction as BaseAction;
 use app\models\BattleFilterForm;
@@ -26,6 +27,26 @@ class UserAction extends BaseAction
         $user = User::findOne(['screen_name' => $request->get('screen_name')]);
         if (!$user) {
             throw new NotFoundHttpException(Yii::t('app', 'Could not find user'));
+        }
+
+        // リスト表示モード切替
+        if ($request->get('v') != '') {
+            $view = $request->get('v');
+            if ($view === 'simple' || $view === 'standard') {
+                Yii::$app->response->cookies->add(
+                    new Cookie([
+                        'name' => 'battle-list',
+                        'value' => $view,
+                        'expire' => time() + 86400 * 366,
+                    ])
+                );
+            }
+
+            $next = $_GET;
+            unset($next['v']);
+            $next[0] = 'show/user';
+            $this->controller->redirect(Url::to($next));
+            return;
         }
 
         $battle = Battle::find()
@@ -58,7 +79,8 @@ class UserAction extends BaseAction
         );
 
         $isPjax = $request->isPjax;
-        return $this->controller->render('user.tpl', array_merge(
+        $template = $this->viewMode === 'simple' ? 'user.simple.tpl' : 'user.tpl';
+        return $this->controller->render($template, array_merge(
             [
                 'user'      => $user,
                 'battleDataProvider' => new ActiveDataProvider([
@@ -71,5 +93,28 @@ class UserAction extends BaseAction
             ],
             $this->makeFilterFormData($user)
         ));
+    }
+
+    public function getViewMode()
+    {
+        $request = Yii::$app->request;
+        $mode = null;
+        if ($cookie = $request->cookies->get('battle-list')) {
+            $mode = $cookie->value;
+        }
+        if ($mode === 'simple' || $mode === 'standard') {
+            return $mode;
+        }
+        $ua = $request->userAgent;
+        if (strpos($ua, 'iPod') !== false || strpos($ua, 'iPhone') !== false) {
+            return 'simple';
+        }
+        if (strpos($ua, 'Android') !== false) {
+            return 'simple';
+        }
+        if (strpos($ua, 'Windows Phone') !== false) {
+            return 'simple';
+        }
+        return 'standard';
     }
 }

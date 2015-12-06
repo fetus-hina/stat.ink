@@ -211,4 +211,27 @@ class BattleFilterForm extends Model
 
         return $ret;
     }
+
+    public function toQueryParams($formName = false)
+    {
+        if ($formName === false) {
+            $formName = $this->formName();
+        }
+
+        $ret = [];
+        $push = function ($key, $value) use ($formName, &$ret) {
+            if ($formName != '' && $key !== 'screen_name') {
+                $key = sprintf('%s[%s]', $formName, $key);
+            }
+            $ret[$key] = $value;
+        };
+
+        foreach ($this->attributes as $key => $value) {
+            if ((string)$value !== '') {
+                $push($key, $value);
+            }
+        }
+
+        return $ret;
+    }
 }
