@@ -24,28 +24,80 @@ class PeriodMap extends \yii\db\ActiveRecord
 {
     public static function findCurrentRegular()
     {
-        $period = \app\components\helpers\Battle::calcPeriod(
-            @$_SERVER['REQUEST_TIME'] ?: time()
+        return static::findByModeAndPeriod(
+            'regular',
+            \app\components\helpers\Battle::calcPeriod(
+                @$_SERVER['REQUEST_TIME'] ?: time()
+            )
         );
-        return static::find()
-            ->innerJoinWith(['rule', 'rule.mode'])
-            ->with(['rule', 'rule.mode', 'map'])
-            ->andWhere(['{{game_mode}}.[[key]]' => 'regular'])
-            ->andWhere(['{{period_map}}.[[period]]' => $period])
-            ->orderBy('{{period_map}}.[[id]]');
     }
 
     public static function findCurrentGachi()
     {
-        $period = \app\components\helpers\Battle::calcPeriod(
-            @$_SERVER['REQUEST_TIME'] ?: time()
+        return static::findByModeAndPeriod(
+            'gachi',
+            \app\components\helpers\Battle::calcPeriod(
+                @$_SERVER['REQUEST_TIME'] ?: time()
+            )
         );
+    }
+
+    public static function findNextRegular()
+    {
+        return static::findByModeAndPeriod(
+            'regular',
+            \app\components\helpers\Battle::calcPeriod(
+                @$_SERVER['REQUEST_TIME'] ?: time()
+            )
+        );
+    }
+
+    public static function findNextGachi()
+    {
+        return static::findByModeAndPeriod(
+            'gachi',
+            \app\components\helpers\Battle::calcPeriod(
+                @$_SERVER['REQUEST_TIME'] ?: time()
+            )
+        );
+    }
+
+    public static function findByModeAndPeriod($mode, $period)
+    {
         return static::find()
             ->innerJoinWith(['rule', 'rule.mode'])
             ->with(['rule', 'rule.mode', 'map'])
-            ->andWhere(['{{game_mode}}.[[key]]' => 'gachi'])
+            ->andWhere(['{{game_mode}}.[[key]]' => $mode])
             ->andWhere(['{{period_map}}.[[period]]' => $period])
             ->orderBy('{{period_map}}.[[id]]');
+    }
+
+    public static function getSchedule()
+    {
+        $currentPeriod = \app\components\helpers\Battle::calcPeriod(
+            @$_SERVER['REQUEST_TIME'] ?: time()
+        );
+        $ret = (object)[
+            'current' => (object)[
+                't' => \app\components\helpers\Battle::periodToRange($currentPeriod),
+                'regular' => [],
+                'gachi' => [],
+            ],
+            'next' => (object)[
+                't' => \app\components\helpers\Battle::periodToRange($currentPeriod + 1),
+                'regular' => [],
+                'gachi' => [],
+            ],
+        ];
+        $list = static::findByModeAndPeriod(
+            [ 'regular', 'gachi' ],
+            [ $currentPeriod, $currentPeriod + 1 ]
+        )->all();
+        foreach ($list as $o) {
+            $key = ($o->period == $currentPeriod) ? 'current' : 'next';
+            $ret->$key->{$o->rule->mode->key}[] = $o;
+        }
+        return $ret;
     }
 
     /**

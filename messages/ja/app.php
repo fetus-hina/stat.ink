@@ -101,6 +101,7 @@ return [
     'New Password (Again)' => '新しいパスワード（確認用）',
     'New Password' => '新しいパスワード',
     'Next Battle' => '次のバトル',
+    'Next Stage' => '次のステージ',
     'Nintendo Network ID' => 'ニンテンドーネットワークID',
     'No Data' => 'データがありません',
     'North America (AT)' => '北米時間（大西洋）',
