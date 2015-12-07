@@ -16,7 +16,6 @@ class IndexAction extends BaseAction
     public function run()
     {
         $active = Battle::find()
-            ->hasResultImage()
             ->andWhere(['in', '{{battle}}.[[id]]', $this->getActiveUserBattleIdList()])
             ->with(['user', 'rule', 'map', 'battleImageResult'])
             ->all();
@@ -31,13 +30,17 @@ class IndexAction extends BaseAction
         $query = (new \yii\db\Query())
             ->select(['id' => 'MAX({{battle}}.[[id]])'])
             ->from('battle')
-            ->innerJoin(
+            ->leftJoin(
                 'battle_image',
                 '{{battle}}.[[id]] = {{battle_image}}.[[battle_id]] AND ' .
                 '{{battle_image}}.[[type_id]] = :image_type_result',
                 [':image_type_result' => BattleImageType::ID_RESULT]
             )
             ->andWhere(['>=', '{{battle}}.[[at]]', gmdate('Y-m-d H:i:sO', time() - 7 * 86400)])
+            ->andWhere(['or',
+                ['not', ['{{battle_image}}.[[id]]' => null]],
+                ['not', ['{{battle}}.[[map_id]]' => null]],
+            ])
             ->groupBy('{{battle}}.[[user_id]]')
             ->orderBy('MAX({{battle}}.[[id]]) DESC')
             ->limit(12);
