@@ -199,7 +199,6 @@
     </h2>
     {{$battles = Battle::find()
         ->with(['user', 'rule', 'map', 'battleImageResult'])
-        ->hasResultImage()
         ->limit(100)
         ->all()}}
     {{include file="@app/views/includes/battle_thumb_list.tpl" battles=$battles}}
