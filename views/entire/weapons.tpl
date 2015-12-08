@@ -70,7 +70,7 @@
                     {{$weapon->name|escape}}
                   </span>
                 </td>
-                <td class="players" title="{{if $rule->data->player_count > 0}}{{($rule->data->player_count*100/$weapon->count)|string_format:'%.2f%%'|escape}}{{/if}}" data-sort-value="{{$weapon->count|escape}}">
+                <td class="players" title="{{if $weapon->count > 0}}{{($rule->data->player_count*100/$weapon->count)|string_format:'%.2f%%'|escape}}{{/if}}" data-sort-value="{{$weapon->count|escape}}">
                   {{if $rule->data->player_count > 0}}
                     <span class="auto-tooltip" title="{{($weapon->count*100/$rule->data->player_count)|string_format:'%.2f%%'|escape}}">
                       {{$weapon->count|number_format|escape}}
@@ -126,7 +126,7 @@
                 <td>
                   {{$weapon->name|escape}}
                 </td>
-                <td class="players" title="{{if $rule->data->player_count > 0}}{{($rule->data->player_count*100/$weapon->count)|string_format:'%.2f%%'|escape}}{{/if}}" data-sort-value="{{$weapon->count|escape}}">
+                <td class="players" title="{{if $weapon->count > 0}}{{($rule->data->player_count*100/$weapon->count)|string_format:'%.2f%%'|escape}}{{/if}}" data-sort-value="{{$weapon->count|escape}}">
                   {{if $rule->data->player_count > 0}}
                     <span class="auto-tooltip" title="{{($weapon->count*100/$rule->data->player_count)|string_format:'%.2f%%'|escape}}">
                       {{$weapon->count|number_format|escape}}
@@ -180,7 +180,7 @@
                 <td>
                   {{$weapon->name|escape}}
                 </td>
-                <td class="players" title="{{if $rule->data->player_count > 0}}{{($rule->data->player_count*100/$weapon->count)|string_format:'%.2f%%'|escape}}{{/if}}" data-sort-value="{{$weapon->count|escape}}">
+                <td class="players" title="{{if $weapon->count > 0}}{{($rule->data->player_count*100/$weapon->count)|string_format:'%.2f%%'|escape}}{{/if}}" data-sort-value="{{$weapon->count|escape}}">
                   {{if $rule->data->player_count > 0}}
                     <span class="auto-tooltip" title="{{($weapon->count*100/$rule->data->player_count)|string_format:'%.2f%%'|escape}}">
                       {{$weapon->count|number_format|escape}}
