@@ -91,7 +91,10 @@ class KDWinAction extends BaseAction
             ->andWhere('{{battle}}.[[is_win]] IS NOT NULL')
             ->andWhere('{{battle}}.[[kill]] IS NOT NULL')
             ->andWhere('{{battle}}.[[death]] IS NOT NULL')
-            ->andWhere(['{{battle}}.[[rule_id]]' => $rule->id])
+            ->andWhere([
+                '{{battle}}.[[rule_id]]' => $rule->id,
+                '{{battle}}.[[is_automated]]' => true,
+            ])
             ->groupBy(['{{battle}}.[[kill]]', '{{battle}}.[[death]]']);
 
         if (!$filter->hasErrors()) {

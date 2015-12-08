@@ -72,6 +72,7 @@ class StatController extends Controller
                 'battle.lobby',
                 'weapon',
             ])
+            ->andWhere(['{{battle}}.[[is_automated]]' => true])
             // プライベートバトルを除外
             ->andWhere(['<>', '{{lobby}}.[[key]]', 'private'])
             // 不完全っぽいデータを除外
@@ -210,6 +211,7 @@ class StatController extends Controller
                         ])
                         ->from('battle')
                         ->andWhere(['<', '{{battle}}.[[at]]', $today->format(\DateTime::ISO8601)])
+                        ->andWhere(['{{battle}}.[[is_automated]]' => true])
                         ->groupBy('{{battle}}.[[at]]::date')
                         ->createCommand()
                         ->queryAll()

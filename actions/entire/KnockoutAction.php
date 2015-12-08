@@ -76,7 +76,10 @@ class KnockoutAction extends BaseAction
             ->andWhere('{{battle}}.[[map_id]] IS NOT NULL')
             ->andWhere('{{battle}}.[[is_win]] IS NOT NULL')
             ->andWhere('{{battle}}.[[is_knock_out]] IS NOT NULL')
-            ->andWhere(['{{game_mode}}.[[key]]' => 'gachi'])
+            ->andWhere([
+                '{{game_mode}}.[[key]]' => 'gachi',
+                '{{battle}}.[[is_automated]]' => true,
+            ])
             ->groupBy(['{{battle}}.[[rule_id]]', '{{battle}}.[[map_id]]']);
         return $query->createCommand()->queryAll();
     }
