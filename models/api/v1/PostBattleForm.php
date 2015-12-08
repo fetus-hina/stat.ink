@@ -11,6 +11,7 @@ use Yii;
 use yii\base\Model;
 use yii\web\UploadedFile;
 use app\components\helpers\db\Now;
+use app\models\AgentAttribute;
 use app\models\Battle;
 use app\models\BattleDeathReason;
 use app\models\BattleImage;
@@ -69,6 +70,7 @@ class PostBattleForm extends Model
     public $his_team_count;
     public $players;
     public $events;
+    public $automated;
     public $agent;
     public $agent_version;
     public $agent_custom;
@@ -138,6 +140,8 @@ class PostBattleForm extends Model
                 }],
             [['agent_custom'], 'string'],
             [['agent', 'agent_version', 'agent_custom'], 'validateStrictUTF8'],
+            [['automated'], 'boolean', 'trueValue' => 'yes', 'falseValue' => 'no'],
+            [['automated'], 'estimateAutomatedAgent', 'skipOnEmpty' => false],
             [['my_point'], 'integer', 'min' => 0],
             [['my_team_final_point', 'his_team_final_point'], 'integer', 'min' => 0],
             [['my_team_final_percent', 'his_team_final_percent'], 'number',
@@ -370,6 +374,7 @@ class PostBattleForm extends Model
         $o->agent_id        = null;
         $o->ua_custom       = (string)$this->agent_custom == '' ? null : (string)$this->agent_custom;
         $o->at              = new Now();
+        $o->is_automated    = ($this->automated === 'yes');
 
         $o->my_point                = (string)$this->my_point != '' ? (int)$this->my_point : null;
         $o->my_team_final_point     = (string)$this->my_team_final_point != ''
@@ -492,6 +497,24 @@ class PostBattleForm extends Model
         $o->type_id = $imageTypeId;
         $o->filename = BattleImage::generateFilename();
         return $o;
+    }
+
+    public function estimateAutomatedAgent()
+    {
+        if ($this->hasErrors()) {
+            return;
+        }
+        if ($this->automated === 'yes' || $this->automated === 'no') {
+            return;
+        }
+
+        $this->automated = 'no';
+        if ($this->agent != '') {
+            $attr = AgentAttribute::findOne(['name' => (string)$this->agent]);
+            if ($attr && $attr->is_automated) {
+                $this->automated = 'yes';
+            }
+        }
     }
 
     // 特定のバージョンの IkaLog が lobby を誤るのでわかる範囲で書き換える

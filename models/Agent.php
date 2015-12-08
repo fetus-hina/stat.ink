@@ -63,6 +63,15 @@ class Agent extends \yii\db\ActiveRecord
         return $this->hasMany(Battle::className(), ['agent_id' => 'id']);
     }
 
+    public function getIsAutomatedByDefault()
+    {
+        $attr = AgentAttribute::findOne(['name' => (string)$this->name]);
+        if ($attr && $attr->is_automated) {
+            return true;
+        }
+        return false;
+    }
+
     public function getIsIkalog()
     {
         return $this->name === 'IkaLog' || $this->name === 'TakoLog';

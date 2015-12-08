@@ -59,6 +59,7 @@ use app\components\helpers\DateTimeFormatter;
  * @property string $ua_custom
  * @property integer $env_id
  * @property string $events
+ * @property boolean $is_automated
  *
  * @property Agent $agent
  * @property Environment $env
@@ -123,7 +124,7 @@ class Battle extends ActiveRecord
             [['lobby_id', 'gender_id', 'fest_title_id', 'my_team_color_hue', 'his_team_color_hue'], 'integer'],
             [['my_point', 'my_team_final_point', 'his_team_final_point', 'my_team_count', 'his_team_count'], 'integer'],
             [['fest_title_after_id', 'fest_exp', 'fest_exp_after'], 'integer'],
-            [['is_win', 'is_knock_out'], 'boolean'],
+            [['is_win', 'is_knock_out', 'is_automated'], 'boolean'],
             [['start_at', 'end_at', 'at'], 'safe'],
             [['kill_ratio', 'my_team_final_percent', 'his_team_final_percent'], 'number'],
             [['my_team_color_rgb', 'his_team_color_rgb'], 'string', 'min' => 6, 'max' => 6],
@@ -607,6 +608,7 @@ class Battle extends ActiveRecord
                 'version' => $this->agent ? $this->agent->version : null,
                 'custom' => $this->ua_custom,
             ],
+            'automated' => !!$this->is_automated,
             'environment' => $this->env ? $this->env->text : null,
             'start_at' => $this->start_at != ''
                 ? DateTimeFormatter::unixTimeToJsonArray(strtotime($this->start_at))
