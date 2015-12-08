@@ -96,6 +96,7 @@
     .simple-battle-data{
       display:table-cell;
       vertical-align:middle;
+      max-width:1px;
     }
 
     .simple-battle-result{
