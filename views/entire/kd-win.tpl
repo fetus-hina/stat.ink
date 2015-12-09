@@ -34,6 +34,77 @@
       <input type="submit" value="{{'Summarize'|translate:'app'|escape}}" class="btn btn-primary">
     {{/ActiveForm}}
 
+    <h3>{{'Legend'|translate:'app'|escape}}</h3>
+    <div class="table-responsive" style="max-width:8em;margin-right:2em;float:left">
+      <table class="table table-bordered table-condensed rule-table">
+        <tbody>
+          <tr>
+            <td class="center kdcell percent-cell" data-battle="1" data-percent="90">
+            <td class="center kdcell">90%</td>
+          </tr>
+          <tr>
+            <td class="center kdcell percent-cell" data-battle="1" data-percent="{{(10+(90-10)*5/6)}}">
+            <td class="center kdcell">:</td>
+          </tr>
+          <tr>
+            <td class="center kdcell percent-cell" data-battle="1" data-percent="{{(10+(90-10)*4/6)}}">
+            <td class="center kdcell">:</td>
+          </tr>
+          <tr>
+            <td class="center kdcell percent-cell" data-battle="1" data-percent="{{(10+(90-10)*3/6)}}">
+            <td class="center kdcell">50%</td>
+          </tr>
+          <tr>
+            <td class="center kdcell percent-cell" data-battle="1" data-percent="{{(10+(90-10)*2/6)}}">
+            <td class="center kdcell">:</td>
+          </tr>
+          <tr>
+            <td class="center kdcell percent-cell" data-battle="1" data-percent="{{(10+(90-10)*1/6)}}">
+            <td class="center kdcell">:</td>
+          </tr>
+          <tr>
+            <td class="center kdcell percent-cell" data-battle="1" data-percent="10">
+            <td class="center kdcell">10%</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="table-responsive" style="max-width:8em;margin-right:2em;float:left">
+      <table class="table table-bordered table-condensed rule-table">
+        <tbody>
+          <tr>
+            <td class="center kdcell percent-cell" data-battle="100" data-percent="100">
+            <td class="center kdcell">{{'Many'|translate:'app'|escape}}</td>
+          </tr>
+          <tr>
+            <td class="center kdcell percent-cell" data-battle="42" data-percent="100">
+            <td class="center kdcell">:</td>
+          </tr>
+          <tr>
+            <td class="center kdcell percent-cell" data-battle="33" data-percent="100">
+            <td class="center kdcell">:</td>
+          </tr>
+          <tr>
+            <td class="center kdcell percent-cell" data-battle="25" data-percent="100">
+            <td class="center kdcell">:</td>
+          </tr>
+          <tr>
+            <td class="center kdcell percent-cell" data-battle="17" data-percent="100">
+            <td class="center kdcell">:</td>
+          </tr>
+          <tr>
+            <td class="center kdcell percent-cell" data-battle="8" data-percent="100">
+            <td class="center kdcell">:</td>
+          </tr>
+          <tr>
+            <td class="center kdcell percent-cell" data-battle="0" data-percent="100">
+            <td class="center kdcell">{{'Few'|translate:'app'|escape}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="clear:left"></div>
+
     {{foreach $rules as $rule}}
       <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -92,6 +163,12 @@
 {{/registerCss}}
 {{registerJs}}{{literal}}
 (function($){
+  /*
+    var colorHigh = $.Color("#3e8ffa"); // H:214, S:75, V:98 / S:95, L:61
+    var colorMid  = $.Color("#888888"); // H:  0, S: 0, V:53 / S: 0, L:53
+    var colorLow  = $.Color("#fa833e"); // H: 22, S:75, V:98 / S:95, L:61
+  */
+
   $('.rule-table').each(function() {
     var $table = $(this);
     var $cells = $('.percent-cell', $table);
@@ -108,13 +185,38 @@
       if (battle < 1) {
         return;
       }
-      var battleCountCoefficient = Math.min(1.0, battle / (maxBattle * 0.5));
+      var battleCountCoefficient = Math.min(1.0, (battle * 2) / maxBattle);
       var percent = parseFloat($cell.attr('data-percent'));
-      var h = 120 * (percent / 100); // 0%: 0, 100%: 120
-      var s = 0.85;
-      var l = 1.0 - 0.5 * battleCountCoefficient; // 0:1.0 max:0.5
-      var hsl = 'hsl(' + h + ', ' + (s * 100) + '%' + ', ' + (l * 100) + '%)';
-      $cell.css('background-color', hsl);
+
+      /* 10%-90% scale to 0%-100% */
+      var ratio = Math.min(100, Math.max(0, (percent - 10) * (100 / 80)));
+
+      /* calc background color */
+      if (ratio >= 50) {
+        $cell.css(
+          'background-color',
+          $.Color({
+            hue: 214,
+            saturation: 0.95 * ((ratio - 50) * 2 / 100),
+            lightness: 0.53 + 0.08 * ((ratio - 50) * 2 / 100),
+          })
+          .alpha(battleCountCoefficient)
+          .blend($.Color("#ffffff"))
+          .toRgbaString()
+        );
+      } else {
+        $cell.css(
+          'background-color',
+          $.Color({
+            hue: 22,
+            saturation: 0.95 * ((50 - ratio) * 2 / 100),
+            lightness: 0.53 + 0.08 * ((50 - ratio) * 2 / 100)
+          })
+          .alpha(battleCountCoefficient)
+          .blend($.Color("#ffffff"))
+          .toRgbaString()
+        );
+      }
     });
   });
 })(jQuery);

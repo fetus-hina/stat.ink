@@ -93,14 +93,16 @@
         bars:{
           show:true,
           align: "center",
-          barWidth: 86400*900,
+          barWidth: 86400*1000*.8,
           lineWidth:1
-        }
+        },
+        color:window.colorScheme.graph1
       },
       {
         label:$graph.attr('data-label-user'),
         data:json.map(function(v){return[dateToUnixTime(v.date),v.user]}),
-        yaxis:2
+        yaxis:2,
+        color:window.colorScheme.graph2
       }
     ];
     $.plot($graph, data, {

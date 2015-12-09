@@ -70,8 +70,8 @@ window.statByRule = function () {
           show: false
         },
         colors: [
-          '#5cb85c',
-          '#d9534f',
+          window.colorScheme.win,
+          window.colorScheme.lose,
         ]
       });
     });

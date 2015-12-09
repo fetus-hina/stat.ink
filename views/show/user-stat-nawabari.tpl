@@ -94,7 +94,7 @@
           data: json.battles.map(function (v) {
             return [v.index, v.inked];
           }),
-          color: '#edc240'
+          color: window.colorScheme.graph1
         }
       ];
 
@@ -149,21 +149,21 @@
         data: json.map(function(v) {
           return [v.index, v.totalWP];
         }),
-        color: '#edc240'
+        color: window.colorScheme.graph1
       },
       {
         label: "{{'WP ({0} Battles)'|translate:'app':20|escape}}",
         data: json.map(function(v) {
           return [v.index, v.movingWP];
         }),
-        color: 'rgba(64,237,64,.5)'
+        color: window.colorScheme.moving1
       },
       {
         label: "{{'WP ({0} Battles)'|translate:'app':50|escape}}",
         data: json.map(function(v) {
           return [v.index, v.movingWP50];
         }),
-        color: 'rgba(148,64,237,.5)'
+        color: window.colorScheme.moving2
       }
     ];
 

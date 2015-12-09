@@ -23,5 +23,6 @@ class AppAsset extends AssetBundle
         'yii\bootstrap\BootstrapAsset',
         'yii\bootstrap\BootstrapPluginAsset',
         'app\assets\FontAwesomeAsset',
+        'app\assets\JqueryColorAsset',
     ];
 }

@@ -39,15 +39,20 @@
             <th>
               <div style="display:inline-block;border:2px solid #ddd;padding:2px 5px">
                 <div style="display:inline-block">
-                  <span style="display:inline-block;background-color:#5bc0de;width:1.618em;height:1em;line-height:1px"></span>
+                  <span style="display:inline-block;width:1.618em;height:1em;line-height:1px" class="legend-bg" data-color="ko"></span>
                   &#32;
                   {{'Knock out'|translate:'app'|escape}}
                 </div><br>
                 <div style="display:inline-block">
-                  <span style="display:inline-block;background-color:#f0ad4e;width:1.618em;height:1em;line-height:1px"></span>
+                  <span style="display:inline-block;width:1.618em;height:1em;line-height:1px" class="legend-bg" data-color="time"></span>
                   &#32;
                   {{'Time is up'|translate:'app'|escape}}
                 </div>
+                {{registerJs}}
+                  $('.legend-bg').each(function(){
+                    $(this).css('background-color', window.colorScheme[$(this).attr('data-color')]);
+                  });
+                {{/registerJs}}
               </div>
             </th>
             {{foreach $rules as $ruleKey => $ruleName}}
@@ -129,8 +134,8 @@
             show: false
           },
           colors: [
-            '#5bc0de',
-            '#f0ad4e',
+            window.colorScheme.ko,
+            window.colorScheme.time
           ]
         });
       }

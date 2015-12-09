@@ -117,17 +117,17 @@
       {
         label: "{{'Rank'|translate:'app'|escape:'javascript'}} ({{'Splat Zones'|translate:'app-rule'|escape:'javascript'}})",
         data: rules.area,
-        color: '#edc240'
+        color: window.colorScheme.area
       },
       {
         label: "{{'Rank'|translate:'app'|escape:'javascript'}} ({{'Tower Control'|translate:'app-rule'|escape:'javascript'}})",
         data: rules.yagura,
-        color: '#40a2ed'
+        color: window.colorScheme.yagura
       },
       {
         label: "{{'Rank'|translate:'app'|escape:'javascript'}} ({{'Rainmaker'|translate:'app-rule'|escape:'javascript'}})",
         data: rules.hoko,
-        color: '#ed4040'
+        color: window.colorScheme.hoko
       }
     ];
 
@@ -137,14 +137,14 @@
         data: json.map(function(v) {
           return [v.index, v.movingAvg];
         }),
-        color: 'rgba(64,237,64,.5)'
+        color: window.colorScheme.moving1
       });
       data.push({
         label: "{{'Moving Avg. ({0} Battles)'|translate:'app':50|escape}}",
         data: json.map(function(v) {
           return [v.index, v.movingAvg50];
         }),
-        color: 'rgba(148,64,237,.5)'
+        color: window.colorScheme.moving2
       });
     }
 
@@ -214,31 +214,31 @@
       {
         label: "{{'Winning Percentage'|translate:'app'|escape:'javascript'}} ({{'Splat Zones'|translate:'app-rule'|escape:'javascript'}})",
         data: rules.area,
-        color: '#edc240'
+        color: window.colorScheme.area
       },
       {
         label: "{{'Winning Percentage'|translate:'app'|escape:'javascript'}} ({{'Tower Control'|translate:'app-rule'|escape:'javascript'}})",
         data: rules.yagura,
-        color: '#40a2ed'
+        color: window.colorScheme.yagura
       },
       {
         label: "{{'Winning Percentage'|translate:'app'|escape:'javascript'}} ({{'Rainmaker'|translate:'app-rule'|escape:'javascript'}})",
         data: rules.hoko,
-        color: '#ed4040'
+        color: window.colorScheme.hoko
       },
       {
         label: "{{'WP ({0} Battles)'|translate:'app':20|escape}}",
         data: json.map(function(v) {
           return [v.index, v.movingWP];
         }),
-        color: 'rgba(64,237,64,.5)'
+        color: window.colorScheme.moving1
       },
       {
         label: "{{'WP ({0} Battles)'|translate:'app':50|escape}}",
         data: json.map(function(v) {
           return [v.index, v.movingWP50];
         }),
-        color: 'rgba(148,64,237,.5)'
+        color: window.colorScheme.moving2
       }
     ];
 

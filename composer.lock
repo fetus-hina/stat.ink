@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "e636f830e5af2bbd1b1f16fca10284c6",
-    "content-hash": "e0ae0235d5cc70cae719306d733016be",
+    "hash": "9153715ec89b7b9b80b6e3c607627bc4",
+    "content-hash": "99d956306af412a0ffb315676a5475f2",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -125,12 +125,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FortAwesome/Font-Awesome.git",
-                "reference": "dbc8d1b9b67daaab357bcc41dbf549c3684cf5f1"
+                "reference": "fddd2c240452e6c8990c4ef75e0265b455aa7968"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FortAwesome/Font-Awesome/zipball/dbc8d1b9b67daaab357bcc41dbf549c3684cf5f1",
-                "reference": "dbc8d1b9b67daaab357bcc41dbf549c3684cf5f1",
+                "url": "https://api.github.com/repos/FortAwesome/Font-Awesome/zipball/fddd2c240452e6c8990c4ef75e0265b455aa7968",
+                "reference": "fddd2c240452e6c8990c4ef75e0265b455aa7968",
                 "shasum": ""
             },
             "type": "bower-asset-library",
@@ -238,6 +238,22 @@
                 "jquery",
                 "library"
             ]
+        },
+        {
+            "name": "bower-asset/jquery-color",
+            "version": "2.1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jquery/jquery-color.git",
+                "reference": "9e5e04c1c4ee66427fbe04cfce8155b76748ca64"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jquery/jquery-color/zipball/9e5e04c1c4ee66427fbe04cfce8155b76748ca64",
+                "reference": "9e5e04c1c4ee66427fbe04cfce8155b76748ca64",
+                "shasum": ""
+            },
+            "type": "bower-asset-library"
         },
         {
             "name": "bower-asset/jquery-stupid-table",
