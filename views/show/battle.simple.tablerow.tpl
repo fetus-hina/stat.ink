@@ -111,11 +111,11 @@
     }
 
     .simple-battle-result-won{
-      color:#53a653;
+      color:#3169b3;
     }
 
     .simple-battle-result-lost{
-      color:#a63349;
+      color:#ec6110;
     }
 
     .simple-battle-rule-map{

@@ -1,6 +1,11 @@
 @charset "UTF-8";
 @import (reference) "../../vendor/bower/bootstrap/less/variables.less";
 
+@colorWin:  #3169b3;
+@colorLose: #ec6110;
+@colorKO:   #68c8f2;
+@colorTime: #f5a101;
+
 .cf() {
     &:before, &:after {
         content: " ";
@@ -201,4 +206,20 @@ ul.battles {
       }
     }
   }
+}
+
+.label-success {
+    background-color: @colorWin;
+}
+
+.label-danger {
+    background-color: @colorLose;
+}
+
+.label-info {
+    background-color: @colorKO;
+}
+
+.label-warning {
+    background-color: @colorTime;
 }
