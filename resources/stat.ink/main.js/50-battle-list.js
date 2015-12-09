@@ -21,28 +21,45 @@ window.battleList = function () {
   };
 
   var calcColor = function (ratio) {
-    var redH = 0, greenH = 120, defaultH = 60;
-    var S = 0.40, V = 0.90;
-    var H = Math.round((function () {
-      if (ratio == 1.0) {
-        return defaultH;
-      } else if (ratio >= 3.0) {
-        return greenH;
-      } else if (ratio <= 1/3) {
-        return redH;
-      } else if (ratio > 1.0) {
-        var pos = (ratio - 1.0) / 2.0;
-        return defaultH + (greenH - defaultH) * pos;
-      } else {
-        var pos = (ratio - 1/3) * (3/2);
-        return redH + (defaultH - redH) * pos;
-      }
-    })());
-    return hsv2rgb(H, S, V);
+    /*
+      var colorHigh = $.Color("#3e8ffa"); // H:214, S:75, V:98 / S:95, L:61
+      var colorMid  = $.Color("#888888"); // H:  0, S: 0, V:53 / S: 0, L:53
+      var colorLow  = $.Color("#fa833e"); // H: 22, S:75, V:98 / S:95, L:61
+    */
+    var ratio2 = (function() {
+        if (ratio >= 4.0) {
+            return 1.0;
+        } else if (ratio <= 0.25) {
+            return 0.0;
+        } else if (ratio >= 1.0) {
+            return (ratio - 1.0) / 3.0 * 0.5 + 0.5;
+        } else {
+            return (ratio - 0.25) / 0.75 * 0.5;
+        }
+    })() * 100;
+
+    if (ratio2 >= 50) {
+      return $.Color({
+        hue: 214,
+        saturation: 0.95 * ((ratio2 - 50) * 2 / 100),
+        lightness: 0.53 + 0.08 * ((ratio2 - 50) * 2 / 100),
+      })
+      .toRgbaString();
+    } else {
+      return $.Color({
+        hue: 22,
+        saturation: 0.95 * ((50 - ratio2) * 2 / 100),
+        lightness: 0.53 + 0.08 * ((50 - ratio2) * 2 / 100)
+      }).toRgbaString();
+    }
   };
 
   $('.kill-ratio').each(function() {
     var $this = $(this);
-    $this.css('background-color', calcColor(parseFloat($this.attr('data-kill-ratio'))));
+    var kr = parseFloat($this.attr('data-kill-ratio'));
+    $this.css('background-color', calcColor(kr));
+    if (kr >= 1.00) {
+        $this.css('color', '#fff');
+    }
   });
 };

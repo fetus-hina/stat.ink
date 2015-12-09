@@ -78,7 +78,7 @@ return [
     'Join us' => '利用してみる',
     'Just a moment, please.' => 'しばらくおまちください。',
     'KNOCK OUT' => 'ノックアウト',
-    'KR' => 'KR',
+    'KR' => 'キルレ',
     'Kill Ratio' => 'キルレシオ',
     'Killed' => 'Kill',
     'Killed/Dead' => 'Kill / Death',
