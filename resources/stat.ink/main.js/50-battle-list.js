@@ -57,9 +57,7 @@ window.battleList = function () {
   $('.kill-ratio').each(function() {
     var $this = $(this);
     var kr = parseFloat($this.attr('data-kill-ratio'));
-    $this.css('background-color', calcColor(kr));
-    if (kr >= 1.00) {
-        $this.css('color', '#fff');
-    }
+    $this.css('background-color', calcColor(kr))
+      .css('color', '#fff');
   });
 };
