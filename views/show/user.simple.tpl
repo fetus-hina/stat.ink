@@ -3,7 +3,6 @@
   {{use class="yii\bootstrap\ActiveForm" type="block"}}
   {{use class="yii\helpers\Url"}}
   {{use class="yii\widgets\ListView"}}
-  {{\app\assets\TinyColorAsset::register($this)|@void}}
   {{$name = '{0}-san'|translate:'app':$user->name}}
   {{$title = "{0}'s Log"|translate:'app':$name}}
   {{set title="{{$app->name}} | {{$title}}"}}
