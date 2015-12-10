@@ -217,6 +217,10 @@
           .toRgbaString()
         );
       }
+
+      var c = $.Color($cell.css('background-color'));
+      var y = Math.round(c.red() * 0.299 + c.green() * 0.587 + c.blue() * 0.114);
+      $cell.css('color', (y > 153) ? '#000' : '#fff');
     });
   });
 })(jQuery);
