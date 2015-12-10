@@ -50,7 +50,7 @@
 
         graph1:     accentColors.orange,
         graph2:     accentColors.blue,
-        moving1:    bgColors.green,
+        moving1:    "#7fffbb",
         moving2:    "#fff57f",
     };
 })(window, jQuery);
