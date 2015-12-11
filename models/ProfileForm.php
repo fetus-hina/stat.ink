@@ -17,6 +17,7 @@ class ProfileForm extends Model
     public $twitter;
     public $ikanakama;
     public $env;
+    public $is_black_out_others;
 
     public function rules()
     {
@@ -29,6 +30,7 @@ class ProfileForm extends Model
             [['twitter'], 'match', 'pattern' => '/^[a-zA-Z0-9_]+$/'],
             [['ikanakama'], 'integer', 'min' => 1],
             [['env'], 'string'],
+            [['is_black_out_others'], 'integer'],
         ];
     }
 
@@ -44,6 +46,7 @@ class ProfileForm extends Model
             'twitter'           => Yii::t('app', 'Twitter @name'),
             'ikanakama'         => Yii::t('app', 'IKANAKAMA User ID'),
             'env'               => Yii::t('app', 'Capture Environment'),
+            'is_black_out_others' => Yii::t('app', 'Black out other players from the result image'),
         ];
     }
 }

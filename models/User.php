@@ -28,6 +28,7 @@ use app\components\helpers\Password;
  * @property string $twitter
  * @property integer $ikanakama
  * @property integer $env_id
+ * @property boolean $is_black_out_others
  *
  * @property Battle[] $battles
  * @property Environment $env
@@ -62,7 +63,7 @@ class User extends ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            [['name', 'screen_name', 'password', 'api_key', 'join_at'], 'required'],
+            [['name', 'screen_name', 'password', 'api_key', 'join_at', 'is_black_out_others'], 'required'],
             [['join_at'], 'safe'],
             [['ikanakama', 'env_id'], 'integer'],
             [['name', 'screen_name', 'twitter'], 'string', 'max' => 15],
@@ -73,6 +74,7 @@ class User extends ActiveRecord implements IdentityInterface
             [['api_key'], 'unique'],
             [['screen_name'], 'unique'],
             [['screen_name', 'twitter'], 'match', 'pattern' => '/^[a-zA-Z0-9_]{1,15}$/'],
+            [['is_black_out_others'], 'boolean'],
         ];
     }
 
@@ -92,6 +94,7 @@ class User extends ActiveRecord implements IdentityInterface
             'twitter'       => Yii::t('app', 'Twitter @name'),
             'ikanakama'     => Yii::t('app', 'IKANAKAMA User ID'),
             'env_id'        => Yii::t('app', 'Capture Environment'),
+            'is_black_out_others' => Yii::t('app', 'Black out other players from the result image'),
         ];
     }
 

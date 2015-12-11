@@ -11,6 +11,9 @@
     {{ActiveForm assign="_" id="update-form" action=['user/edit-profile']}}
       {{$_->field($form, 'name')}}
 
+      <label for="profileform-is_black_out_others">{{'Black out other players from the result image'|translate:'app'|escape}}</label>
+      {{$_->field($form, 'is_black_out_others')->checkbox()}}
+
       {{$_->field($form, 'nnid')}}
 
       {{$_->field($form, 'twitter', [

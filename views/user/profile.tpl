@@ -43,6 +43,16 @@
               <td>{{$user->name|escape}}</td>
             </tr>
             <tr>
+              <th>{{'Black out other players'|translate:'app'|escape}}</th>
+              <td>
+                {{if $user->is_black_out_others}}
+                  {{'Yes'|translate:'app'|escape}}
+                {{else}}
+                  {{'No'|translate:'app'|escape}}
+                {{/if}}
+              </td>
+            </tr>
+            <tr>
               <th>{{'Nintendo Network ID'|translate:'app'|escape}}</th>
               <td>
                 {{if $user->nnid != ''}}

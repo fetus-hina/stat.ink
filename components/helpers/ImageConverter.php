@@ -16,9 +16,9 @@ class ImageConverter
 
     const JPEG_QUALITY = 90;
 
-    public static function convert($binary, $outPathJpeg, $unused1 = false, $outPathArchivePng = null)
+    public static function convert($binary, $outPathJpeg, $myPositionIfFill = false, $outPathArchivePng = null)
     {
-        if (!$tmpName = self::convertImpl($binary)) {
+        if (!$tmpName = self::convertImpl($binary, $myPositionIfFill)) {
             return false;
         }
         if (!self::copyJpeg($tmpName->get(), $outPathJpeg)) {
@@ -35,7 +35,7 @@ class ImageConverter
         return true;
     }
 
-    protected static function convertImpl($binary)
+    protected static function convertImpl($binary, $myPositionIfFill)
     {
         try {
             $in = new Resource(@imagecreatefromstring($binary), 'imagedestroy');
@@ -71,6 +71,24 @@ class ImageConverter
                 $inW,
                 $inH
             );
+            if (is_int($myPositionIfFill)) {
+                for ($i = 0; $i < 8; ++$i) {
+                    // 自分自身はスキップ
+                    if ($myPositionIfFill - 1 == $i) {
+                        continue;
+                    }
+
+                    $y = ($i < 4 ? 50 : 215) + (($i % 4) * 33);
+                    imagefilledrectangle(
+                        $out->get(),
+                        406, //x1
+                        $y,
+                        406 + 86,
+                        $y + 19,
+                        0x000000
+                    );
+                }
+            }
             $tmpName = new Resource(tempnam(sys_get_temp_dir(), 'statink-'), 'unlink');
             imagepng($out->get(), $tmpName->get(), 9, PNG_ALL_FILTERS);
             return $tmpName;
