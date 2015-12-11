@@ -32,6 +32,7 @@ return [
     'Capture Environment' => 'キャプチャ環境',
     'Cash' => 'おカネ',
     'Cause of Death' => '死因',
+    'Color-Blind Support' => '色覚サポート',
     'Could not find specified battle.' => '指定されたバトルが見つかりませんでした。',
     'Count (Bad Guys)' => 'カウント（相手のチーム）',
     'Count (Good Guys)' => 'カウント（自分のチーム）',

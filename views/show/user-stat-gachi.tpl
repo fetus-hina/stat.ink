@@ -83,9 +83,16 @@
   .stat-rank{height:300px}
 {{/registerCss}}
 {{registerJs}}
-//<script>
 (function($) {
   var $graphs = $('.graph');
+  var colorLock = window.colorLock;
+  var colorScheme = {
+    area:     colorLock ? window.colorScheme.area:    '#edc240',
+    yagura:   colorLock ? window.colorScheme.yagura:  '#40a2ed',
+    hoko:     colorLock ? window.colorScheme.hoko:    '#ed4040',
+    moving1:  colorLock ? window.colorScheme.moving1: 'rgba(64,237,64,.5)',
+    moving2:  colorLock ? window.colorScheme.moving2: 'rgba(148,64,237,.5)'
+  };
   
   function drawRankGraph(json) {
     var $graph_ = $graphs.filter('.stat-rank');
@@ -117,17 +124,17 @@
       {
         label: "{{'Rank'|translate:'app'|escape:'javascript'}} ({{'Splat Zones'|translate:'app-rule'|escape:'javascript'}})",
         data: rules.area,
-        color: window.colorScheme.area
+        color: colorScheme.area
       },
       {
         label: "{{'Rank'|translate:'app'|escape:'javascript'}} ({{'Tower Control'|translate:'app-rule'|escape:'javascript'}})",
         data: rules.yagura,
-        color: window.colorScheme.yagura
+        color: colorScheme.yagura
       },
       {
         label: "{{'Rank'|translate:'app'|escape:'javascript'}} ({{'Rainmaker'|translate:'app-rule'|escape:'javascript'}})",
         data: rules.hoko,
-        color: window.colorScheme.hoko
+        color: colorScheme.hoko
       }
     ];
 
@@ -137,14 +144,14 @@
         data: json.map(function(v) {
           return [v.index, v.movingAvg];
         }),
-        color: window.colorScheme.moving1
+        color: colorScheme.moving1
       });
       data.push({
         label: "{{'Moving Avg. ({0} Battles)'|translate:'app':50|escape}}",
         data: json.map(function(v) {
           return [v.index, v.movingAvg50];
         }),
-        color: window.colorScheme.moving2
+        color: colorScheme.moving2
       });
     }
 
@@ -214,31 +221,31 @@
       {
         label: "{{'Winning Percentage'|translate:'app'|escape:'javascript'}} ({{'Splat Zones'|translate:'app-rule'|escape:'javascript'}})",
         data: rules.area,
-        color: window.colorScheme.area
+        color: colorScheme.area
       },
       {
         label: "{{'Winning Percentage'|translate:'app'|escape:'javascript'}} ({{'Tower Control'|translate:'app-rule'|escape:'javascript'}})",
         data: rules.yagura,
-        color: window.colorScheme.yagura
+        color: colorScheme.yagura
       },
       {
         label: "{{'Winning Percentage'|translate:'app'|escape:'javascript'}} ({{'Rainmaker'|translate:'app-rule'|escape:'javascript'}})",
         data: rules.hoko,
-        color: window.colorScheme.hoko
+        color: colorScheme.hoko
       },
       {
         label: "{{'WP ({0} Battles)'|translate:'app':20|escape}}",
         data: json.map(function(v) {
           return [v.index, v.movingWP];
         }),
-        color: window.colorScheme.moving1
+        color: colorScheme.moving1
       },
       {
         label: "{{'WP ({0} Battles)'|translate:'app':50|escape}}",
         data: json.map(function(v) {
           return [v.index, v.movingWP50];
         }),
-        color: window.colorScheme.moving2
+        color: colorScheme.moving2
       }
     ];
 

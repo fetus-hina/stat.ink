@@ -79,6 +79,12 @@
 //<script>
 (function($) {
   var $graphs = $('.graph');
+  var colorLock = window.colorLock;
+  var colorScheme = {
+    graph1:   colorLock ? window.colorScheme.graph1 :  window.colorScheme._accent.orange,
+    moving1:  colorLock ? window.colorScheme.moving1 : 'rgba(64,237,64,.5)',
+    moving2:  colorLock ? window.colorScheme.moving2 : 'rgba(148,64,237,.5)'
+  };
   
   function drawInkedGraph(json_) {
     var $graph_ = $graphs.filter('.stat-inked');
@@ -94,7 +100,7 @@
           data: json.battles.map(function (v) {
             return [v.index, v.inked];
           }),
-          color: window.colorScheme.graph1
+          color: colorScheme.graph1
         }
       ];
 
@@ -149,21 +155,21 @@
         data: json.map(function(v) {
           return [v.index, v.totalWP];
         }),
-        color: window.colorScheme.graph1
+        color: colorScheme.graph1
       },
       {
         label: "{{'WP ({0} Battles)'|translate:'app':20|escape}}",
         data: json.map(function(v) {
           return [v.index, v.movingWP];
         }),
-        color: window.colorScheme.moving1
+        color: colorScheme.moving1
       },
       {
         label: "{{'WP ({0} Battles)'|translate:'app':50|escape}}",
         data: json.map(function(v) {
           return [v.index, v.movingWP50];
         }),
-        color: window.colorScheme.moving2
+        color: colorScheme.moving2
       }
     ];
 

@@ -32,6 +32,12 @@
                     <span class="fa fa-plus"></span> {{'Register'|translate:'app'|escape}}
                   </a>
                 </li>
+                <li class="divider"></li>
+                <li>
+                  <a href="javascript:;" id="toggle-color-lock">
+                    <span class="fa fa-check"></span> {{'Color-Blind Support'|translate:'app'|escape}}
+                  </a>
+                </li>
               </ul>
             {{else}}
               {{$ident = $user->identity}}
@@ -53,6 +59,12 @@
                 <li>
                   <a href="{{path route="user/logout"}}">
                     <span class="fa fa-sign-out"></span> {{'Log Out'|translate:'app'|escape}}
+                  </a>
+                </li>
+                <li class="divider"></li>
+                <li>
+                  <a href="javascript:;" id="toggle-color-lock">
+                    <span class="fa fa-check"></span> {{'Color-Blind Support'|translate:'app'|escape}}
                   </a>
                 </li>
               </ul>

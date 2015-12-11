@@ -40,6 +40,10 @@ class SiteController extends Controller
                 'class' => 'app\actions\site\SimpleAction',
                 'view' => 'faq.tpl',
             ],
+            'color' => [
+                'class' => 'app\actions\site\SimpleAction',
+                'view' => 'color.tpl',
+            ],
         ];
     }
 

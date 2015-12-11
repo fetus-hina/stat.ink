@@ -832,7 +832,7 @@
                       data.push({
                         label: "{{'Turf Inked'|translate:'app'|escape:'javascript'}}",
                         data: inkedData,
-                        color: window.colorScheme.graph2
+                        color: window.colorScheme.graph1
                       });
                     }
                     if (myAreaData.length > 0 || hisAreaData.length > 0) {

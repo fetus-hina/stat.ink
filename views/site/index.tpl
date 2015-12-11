@@ -22,7 +22,8 @@
       &#32;<a href="{{url route="entire/weapons"}}">{{"Stat: Weapons"|translate:'app'|escape}}</a>
     </p>
     <p>
-      <a href="{{url route="site/privacy"}}#image">IkaLogへの画像提供について</a>
+      <a href="{{url route="site/color"}}">{{'Color-Blind Support'|translate:'app'|escape}}</a> |
+      &#32;<a href="{{url route="site/privacy"}}#image">IkaLogへの画像提供について</a>
     </p>
 
     <div id="sns">
