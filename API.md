@@ -232,6 +232,7 @@ POST /api/v1/battle
         - `barrelspinner_deco` : バレルスピナーデコ
         - `hydra` : ハイドラント
         - `splatspinner` : スプラスピナー
+        - `splatspinner_collabo` : スプラスピナーコラボ
 
 * `rank` : バトル開始時のウデマエを次のいずれかの値で指定します。
     - `c-`

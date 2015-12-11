@@ -4,4 +4,5 @@ return [
     'Heavy Splatling' => 'バレルスピナー',
     'Hydra Splatling' => 'ハイドラント',
     'Mini Splatling' => 'スプラスピナー',
+    'Zink Mini Splatling' => 'スプラスピナーコラボ',
 ];

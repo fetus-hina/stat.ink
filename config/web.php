@@ -2,7 +2,7 @@
 $params = require(__DIR__ . '/params.php');
 $config = [
     'name' => 'stat.ink',
-    'version' => '1.12.2',
+    'version' => '1.12.3',
     'id' => 'statink',
     'language' => 'ja-JP',
     'timeZone' => 'Asia/Tokyo',

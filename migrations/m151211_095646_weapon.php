@@ -1,0 +1,32 @@
+<?php
+use yii\db\Migration;
+use app\models\Special;
+use app\models\Subweapon;
+use app\models\WeaponType;
+use app\models\DeathReasonType;
+
+class m151211_095646_weapon extends Migration
+{
+    public function safeUp()
+    {
+        $this->insert('weapon', [
+            'type_id' => WeaponType::findOne(['key' => 'splatling'])->id,
+            'key' => 'splatspinner_collabo',
+            'name' => 'Zink Mini Splatling',
+            'subweapon_id' => Subweapon::findOne(['key' => 'poison'])->id,
+            'special_id' => Special::findOne(['key' => 'barrier'])->id,
+        ]);
+
+        $this->insert('death_reason', [
+            'type_id' => DeathReasonType::findOne(['key' => 'main'])->id,
+            'key' => 'splatspinner_collabo',
+            'name' => 'Zink Mini Splatling',
+        ]);
+    }
+
+    public function safeDown()
+    {
+        $this->delete('death_reason', ['key' => 'splatspinner_collabo']);
+        $this->delete('weapon', ['key' => 'splatspinner_collabo']);
+    }
+}
