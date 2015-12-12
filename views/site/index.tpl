@@ -161,7 +161,7 @@
           </div>
         </div>
       {{/if}}
-      <p class="text-right" style="font-size:0.333rem;line-height:1.1">
+      <p class="text-right" style="font-size:10px;line-height:1.1">
         Powered by <a href="http://splapi.retrorocket.biz/" target="_blank" rel="nofollow">
           スプラトゥーンのステージじょうほうがとれるやつ
         </a>
