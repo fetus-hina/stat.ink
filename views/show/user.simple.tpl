@@ -66,7 +66,7 @@
               <div class="user-number">{{$summary->battle_count|number_format|escape}}</div>
             </div>
             <div class="col-xs-4 col-sm-4 col-md-2 col-lg-2">
-              <div class="user-label">{{'WP'|translate:'app'|escape}}</div>
+              <div class="user-label">{{'Win%'|translate:'app'|escape}}</div>
               <div class="user-number">
                 {{if $summary->wp === null}}
                   {{'N/A'|translate:'app'|escape}}
@@ -76,7 +76,7 @@
               </div>
             </div>
             <div class="col-xs-4 col-sm-4 col-md-2 col-lg-2">
-              <div class="user-label">{{'24H WP'|translate:'app'|escape}}</div>
+              <div class="user-label">{{'24H Win%'|translate:'app'|escape}}</div>
               <div class="user-number">
                 {{if $summary->wp_short === null}}
                   {{'N/A'|translate:'app'|escape}}

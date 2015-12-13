@@ -1,6 +1,6 @@
 {{strip}}
   {{set layout="main.tpl"}}
-  {{$title = 'Knockout Rate'|translate:'app'}}
+  {{$title = 'Knockout Ratio'|translate:'app'}}
   {{set title="{{$app->name}} | {{$title}}"}}
 
   {{$this->registerMetaTag(['name' => 'twitter:card', 'content' => 'summary'])|@void}}

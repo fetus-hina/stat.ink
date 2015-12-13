@@ -234,14 +234,14 @@
         color: colorScheme.hoko
       },
       {
-        label: "{{'WP ({0} Battles)'|translate:'app':20|escape}}",
+        label: "{{'Win% ({0} Battles)'|translate:'app':20|escape}}",
         data: json.map(function(v) {
           return [v.index, v.movingWP];
         }),
         color: colorScheme.moving1
       },
       {
-        label: "{{'WP ({0} Battles)'|translate:'app':50|escape}}",
+        label: "{{'Win% ({0} Battles)'|translate:'app':50|escape}}",
         data: json.map(function(v) {
           return [v.index, v.movingWP50];
         }),

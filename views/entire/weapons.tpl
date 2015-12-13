@@ -59,7 +59,7 @@
               {{if $rule->key === 'nawabari'}}
                 <th data-sort="float">{{'Avg Inked'|translate:'app'|escape}}</th>
               {{/if}}
-              <th data-sort="float">{{'WP'|translate:'app'|escape}}</th>
+              <th data-sort="float">{{'Win%'|translate:'app'|escape}}</th>
             </tr>
           </thead>
           <tbody>
@@ -116,8 +116,8 @@
               <th data-sort="float">{{'Avg Killed'|translate:'app'|escape}}</th>
               <th data-sort="float">{{'Avg Dead'|translate:'app'|escape}}</th>
               <th data-sort="float">{{'Avg KR'|translate:'app'|escape}}</th>
-              <th data-sort="float">{{'WP'|translate:'app'|escape}}</th>
-              <th data-sort="float">{{'Encounter Rate'|translate:'app'|escape}}</th>
+              <th data-sort="float">{{'Win%'|translate:'app'|escape}}</th>
+              <th data-sort="float">{{'Encounter Ratio'|translate:'app'|escape}}</th>
             </tr>
           </thead>
           <tbody>
@@ -170,8 +170,8 @@
               <th data-sort="float">{{'Avg Killed'|translate:'app'|escape}}</th>
               <th data-sort="float">{{'Avg Dead'|translate:'app'|escape}}</th>
               <th data-sort="float">{{'Avg KR'|translate:'app'|escape}}</th>
-              <th data-sort="float">{{'WP'|translate:'app'|escape}}</th>
-              <th data-sort="float">{{'Encounter Rate'|translate:'app'|escape}}</th>
+              <th data-sort="float">{{'Win%'|translate:'app'|escape}}</th>
+              <th data-sort="float">{{'Encounter Ratio'|translate:'app'|escape}}</th>
             </tr>
           </thead>
           <tbody>

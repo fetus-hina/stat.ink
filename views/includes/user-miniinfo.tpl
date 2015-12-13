@@ -21,7 +21,7 @@
           </div>
           <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
             <div class="user-label">
-              {{'WP'|translate:'app'|escape}}
+              {{'Win%'|translate:'app'|escape}}
             </div>
             <div class="user-number">
               {{if $stat->wp === null}}
@@ -33,7 +33,7 @@
           </div>
           <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
             <div class="user-label">
-              {{'24H WP'|translate:'app'|escape}}
+              {{'24H Win%'|translate:'app'|escape}}
             </div>
             <div class="user-number">
               {{if $stat->wp_short === null}}
@@ -115,7 +115,7 @@
           </div>
           <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
             <div class="user-label">
-              {{'WP'|translate:'app'|escape}}
+              {{'Win%'|translate:'app'|escape}}
             </div>
             <div class="user-number">
               {{if $stat->nawabari_wp === null}}
@@ -162,7 +162,7 @@
           </div>
           <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
             <div class="user-label">
-              {{'WP'|translate:'app'|escape}}
+              {{'Win%'|translate:'app'|escape}}
             </div>
             <div class="user-number">
               {{if $stat->gachi_wp === null}}

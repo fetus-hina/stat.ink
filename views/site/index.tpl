@@ -17,8 +17,8 @@
       &#32;<a href="{{url route="site/faq"}}">{{"FAQ"|translate:'app'|escape}}</a> |
       &#32;<a href="{{url route="entire/users"}}">{{"Stat: User Activity"|translate:'app'|escape}}</a><br>
 
-      <a href="{{url route="entire/kd-win"}}">{{"Stat: K/D vs WP"|translate:'app'|escape}}</a> |
-      &#32;<a href="{{url route="entire/knockout"}}">{{"Stat: Knockout Rate"|translate:'app'|escape}}</a> |
+      <a href="{{url route="entire/kd-win"}}">{{"Stat: K/D vs Win%"|translate:'app'|escape}}</a> |
+      &#32;<a href="{{url route="entire/knockout"}}">{{"Stat: Knockout Ratio"|translate:'app'|escape}}</a> |
       &#32;<a href="{{url route="entire/weapons"}}">{{"Stat: Weapons"|translate:'app'|escape}}</a>
     </p>
     <p>
@@ -222,7 +222,7 @@
     </h2>
     <p class="right" style="margin:0">
       <a href="{{url route="site/users"}}">
-        {{'Display Everyone'|translate:'app'|escape}}
+        {{'Show All Players'|translate:'app'|escape}}
       </a>
     </p>
     {{include file="@app/views/includes/battle_thumb_list.tpl" battles=$active}}

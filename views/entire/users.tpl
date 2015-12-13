@@ -27,17 +27,17 @@
 
     {{\app\assets\FlotAsset::register($this)|@void}}
     {{\app\assets\FlotTimeAsset::register($this)|@void}}
-    <div id="graph" data-data="{{$posts|json_encode|escape}}" data-label-battle="{{'Battle Count'|translate:'app'|escape}}" data-label-user="{{'User Count'|translate:'app'|escape}}">
+    <div id="graph" data-data="{{$posts|json_encode|escape}}" data-label-battle="{{'Battles'|translate:'app'|escape}}" data-label-user="{{'Users'|translate:'app'|escape}}">
     </div>
 
     <h2>
-      {{'User Agents in 24H'|translate:'app'|escape}}
+      {{'User Agents in last 24 hours'|translate:'app'|escape}}
     </h2>
     <table class="table table-striped">
       <thead>
         <tr>
-          <th>{{'Battle Count'|translate:'app'|escape}}</th>
-          <th>{{'User Count'|translate:'app'|escape}}</th>
+          <th>{{'Battles'|translate:'app'|escape}}</th>
+          <th>{{'Users'|translate:'app'|escape}}</th>
           <th>{{'User Agent'|translate:'app'|escape}}</th>
         </tr>
       </thead>
