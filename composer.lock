@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "9dc39ed07b08acb20716885c366161a0",
-    "content-hash": "b8398a2a05befc16070cf8b40a06c4ab",
+    "hash": "e27cd9c2d5c1aa4bcc7f76d42e6acb80",
+    "content-hash": "1398cce04656d4df67e4489b1da83684",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -254,6 +254,41 @@
                 "shasum": ""
             },
             "type": "bower-asset-library"
+        },
+        {
+            "name": "bower-asset/jquery-smooth-scroll",
+            "version": "1.5.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kswedberg/jquery-smooth-scroll.git",
+                "reference": "6478c4367926bf17cc9ac4e86fb22374659eb30f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kswedberg/jquery-smooth-scroll/zipball/6478c4367926bf17cc9ac4e86fb22374659eb30f",
+                "reference": "6478c4367926bf17cc9ac4e86fb22374659eb30f",
+                "shasum": ""
+            },
+            "require": {
+                "bower-asset/jquery": ">=1.3"
+            },
+            "type": "bower-asset-library",
+            "extra": {
+                "bower-asset-main": "jquery.smooth-scroll.js",
+                "bower-asset-ignore": [
+                    "demo/",
+                    "lib/",
+                    "src/",
+                    "Gruntfile.js",
+                    "package.json",
+                    "smooth-scroll.jquery.json"
+                ]
+            },
+            "keywords": [
+                "animation",
+                "jquery-plugin",
+                "scroll"
+            ]
         },
         {
             "name": "bower-asset/jquery-stupid-table",
@@ -970,16 +1005,16 @@
         },
         {
             "name": "paragonie/random_compat",
-            "version": "1.1.1",
+            "version": "1.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/paragonie/random_compat.git",
-                "reference": "a208865a5aeffc2dbbef2a5b3409887272d93f32"
+                "reference": "d762ee5b099a29044603cd4649851e81aa66cb47"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/paragonie/random_compat/zipball/a208865a5aeffc2dbbef2a5b3409887272d93f32",
-                "reference": "a208865a5aeffc2dbbef2a5b3409887272d93f32",
+                "url": "https://api.github.com/repos/paragonie/random_compat/zipball/d762ee5b099a29044603cd4649851e81aa66cb47",
+                "reference": "d762ee5b099a29044603cd4649851e81aa66cb47",
                 "shasum": ""
             },
             "require": {
@@ -1014,7 +1049,7 @@
                 "pseudorandom",
                 "random"
             ],
-            "time": "2015-12-01 02:52:15"
+            "time": "2015-12-10 14:48:13"
         },
         {
             "name": "php-curl-class/php-curl-class",
@@ -1919,22 +1954,25 @@
         },
         {
             "name": "squizlabs/php_codesniffer",
-            "version": "2.4.0",
+            "version": "2.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/squizlabs/PHP_CodeSniffer.git",
-                "reference": "32a879f4f35019d78d568db2885d7779ca084a33"
+                "reference": "e4fb41d5d0387d556e2c25534d630b3cce90ea67"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/32a879f4f35019d78d568db2885d7779ca084a33",
-                "reference": "32a879f4f35019d78d568db2885d7779ca084a33",
+                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/e4fb41d5d0387d556e2c25534d630b3cce90ea67",
+                "reference": "e4fb41d5d0387d556e2c25534d630b3cce90ea67",
                 "shasum": ""
             },
             "require": {
                 "ext-tokenizer": "*",
                 "ext-xmlwriter": "*",
                 "php": ">=5.1.2"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.0"
             },
             "bin": [
                 "scripts/phpcs",
@@ -1989,7 +2027,7 @@
                 "phpcs",
                 "standards"
             ],
-            "time": "2015-11-23 21:30:59"
+            "time": "2015-12-11 00:12:46"
         },
         {
             "name": "symfony/console",

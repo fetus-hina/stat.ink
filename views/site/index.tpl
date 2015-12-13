@@ -58,8 +58,17 @@
           </button>
           {{registerJs}}
             $('#show-next-stage').click(function(){
-              $('#next-stage').show('fast');
-              $(this).hide();
+              var $this = $(this);
+              var $next = $('#next-stage');
+              $.smoothScroll({
+                offset: -60,
+                scrollTarget: $next,
+                beforeScroll: function () {
+                  $next.show('fast');
+                  $this.hide();
+                }
+              });
+              return false;
             });
           {{/registerJs}}
         {{/if}}
