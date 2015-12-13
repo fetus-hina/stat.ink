@@ -72,9 +72,23 @@
               </td>
             {{/foreach}}
           </tr>
+          {{\app\assets\MapImageAsset::register($this)|@void}}
+          {{registerCss}}
+            img.map-image {
+              max-width: 15em;
+              height: auto;
+            }
+          {{/registerCss}}
           {{foreach $maps as $mapKey => $mapName}}
             <tr>
-              <th>{{$mapName|escape}}</th>
+              <th>
+                {{$mapName.1|escape}}<br>
+                {{$mapFile = 'daytime/'|cat:$mapName.0:'.jpg'}}
+                <img src="{{$app->assetManager->getAssetUrl(
+                    $app->assetManager->getBundle('app\assets\MapImageAsset'),
+                    $mapFile
+                  )}}" class="map-image">
+              </th>
               {{foreach $rules as $ruleKey => $ruleName}}
                 <td>
                   {{$_ = $data[$mapKey][$ruleKey]}}

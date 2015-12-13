@@ -27,9 +27,14 @@ class KnockoutAction extends BaseAction
 
         $maps = [];
         foreach (Map::find()->all() as $map) {
-            $maps[$map->id] = Yii::t('app-map', $map->name);
+            $maps[$map->id] = [
+                $map->key,
+                Yii::t('app-map', $map->name)
+            ];
         }
-        asort($maps);
+        uasort($maps, function ($a, $b) {
+            return strnatcasecmp($a[1], $b[1]);
+        });
 
         // init data
         $data = [];
