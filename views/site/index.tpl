@@ -35,10 +35,27 @@
     {{$stageInfo = PeriodMap::getSchedule()}}
     {{if $stageInfo->current->regular || $stageInfo->current->gachi}}
       {{\app\assets\MapImageAsset::register($this)|@void}}
+      {{$timeFormat = '%H:%M'}}
+      {{if $app->language|substr:0:2 == 'en'}}
+        {{$timeFormat = '%l:%M %p'}}
+      {{/if}}
       <h2>
-        {{'Current Stage'|translate:'app'|escape}}
+        <span class="hidden-xs">{{'Current Stage'|translate:'app'|escape}}</span>
+        {{if $stageInfo->current->t}}
+          {{$t = $stageInfo->current->t}}
+          <span class="hidden-xs">&#32;[</span>
+          {{$t.0|date_format:$timeFormat|escape}}-{{$t.1|date_format:$timeFormat|escape}}
+          <span class="hidden-xs">]</span>
+        {{/if}}
         {{if $stageInfo->next->regular || $stageInfo->next->gachi}}
-          &#32;<button id="show-next-stage" type="button" class="btn btn-default">{{'Next Stage'|translate:'app'|escape}}</button>
+          &#32;<button id="show-next-stage" type="button" class="btn btn-default">
+            {{if $stageInfo->next->t}}
+              {{$t = $stageInfo->next->t}}
+              {{$t.0|date_format:$timeFormat|escape}}-{{$t.1|date_format:$timeFormat|escape}}
+            {{else}}
+              {{'Next Stage'|translate:'app'|escape}}
+            {{/if}}
+          </button>
           {{registerJs}}
             $('#show-next-stage').click(function(){
               $('#next-stage').show('fast');
@@ -105,7 +122,13 @@
         {{/registerCss}}
         <div id="next-stage">
           <h2>
-            {{'Next Stage'|translate:'app'|escape}}
+            <span class="hidden-xs">{{'Next Stage'|translate:'app'|escape}}</span>
+            {{if $stageInfo->next->t}}
+              {{$t = $stageInfo->next->t}}
+              <span class="hidden-xs">&#32;[</span>
+              {{$t.0|date_format:$timeFormat|escape}}-{{$t.1|date_format:$timeFormat|escape}}
+              <span class="hidden-xs">]</span>
+            {{/if}}
           </h2>
           <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
