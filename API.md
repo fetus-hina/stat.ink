@@ -815,3 +815,10 @@ GET /api/v1/death-reason
 値が `key` として妥当でない場合はエラーが返ります。
 
 * `type` : 死因の type の `key` を指定します。該当する種類の死因がフィルタリングされて返ります。例: `/api/v1/death-reason?type=hoko`
+
+----
+
+DELETE /api/v1/battle
+---------------------
+
+[バトルの削除についてはこちらを参照してください](doc/api-1/delete-battle.md)

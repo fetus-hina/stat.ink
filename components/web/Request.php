@@ -14,6 +14,23 @@ use yii\web\UnsupportedMediaTypeHttpException;
 
 class Request extends Base
 {
+    public function getMethod()
+    {
+        $method = @$_SERVER['REQUEST_METHOD'] ?: '?';
+        if (strtoupper($method) === 'POST') {
+            $type = $this->headers->get('Content-Type', '');
+            if (stripos($type, 'application/json') !== false ||
+                    stripos($type, 'application/x-msgpack') !== false)
+            {
+                $params = $this->getBodyParams();
+                if (@isset($params[$this->methodParam])) {
+                    return strtoupper($params[$this->methodParam]);
+                }
+            }
+        }
+        return parent::getMethod();
+    }
+
     public function getRawBody()
     {
         $rawBody = parent::getRawBody();

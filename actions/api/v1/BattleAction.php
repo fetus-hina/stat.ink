@@ -20,21 +20,27 @@ use app\models\Agent;
 use app\models\Battle;
 use app\models\User;
 use app\models\api\v1\PostBattleForm;
+use app\models\api\v1\DeleteBattleForm;
 
 class BattleAction extends BaseAction
 {
     public function run()
     {
         $request = Yii::$app->getRequest();
-        if ($request->isPost) {
+        if ($request->isDelete) {
+            return $this->runDelete();
+        } elseif ($request->isPost) {
             return $this->runPost();
-        } else {
+        } elseif ($request->isGet || $request->isHead) {
             return $this->runGet();
+        } else {
+            throw new MethodNotAllowedHttpException();
         }
     }
 
     private function runGet()
     {
+        // {{{
         $request = Yii::$app->getRequest();
         $model = DynamicModel::validateData(
             [
@@ -118,10 +124,12 @@ class BattleAction extends BaseAction
             },
             $list
         );
+        // }}}
     }
 
     private function runPost()
     {
+        // {{{
         $request = Yii::$app->getRequest();
         $form = new PostBattleForm();
         $form->attributes = $request->getBodyParams();
@@ -201,10 +209,12 @@ class BattleAction extends BaseAction
         // 保存時間の読み込みのために再読込する
         $battle = Battle::findOne(['id' => $battle->id]);
         return $this->runGetImpl($battle);
+        // }}}
     }
 
     private function saveData(PostBattleForm $form)
     {
+        // {{{
         $battle = $form->toBattle();
         if (!$battle->isMeaningful) {
             $this->logError([
@@ -351,6 +361,40 @@ class BattleAction extends BaseAction
         }
 
         return $battle;
+        // }}}
+    }
+
+    private function runDelete()
+    {
+        $request = Yii::$app->getRequest();
+        $form = new DeleteBattleForm();
+        $form->attributes = $request->getBodyParams();
+        if (!$form->validate()) {
+            return $this->formatError($form->getErrors(), 400);
+        }
+
+        // テストモード用
+        // validate のみなら既に validate は完了しているので適当なレスポンスボディを返して終わり
+        if ($form->test === 'validate') {
+            $resp = Yii::$app->getResponse();
+            $resp->format = 'json';
+            $resp->statusCode = 200;
+            return [
+                'validate' => true,
+            ];
+        }
+
+        if (!$form->save()) {
+            return $this->formatError($form->getErrors(), 400);
+        }
+
+        $resp = Yii::$app->getResponse();
+        $resp->format = 'json';
+        $resp->statusCode = 200;
+        return [
+            'deleted'       => $form->deletedIdList,
+            'not-deleted'   => $form->errorIdList,
+        ];
     }
 
     private function runGetImpl(Battle $battle)
