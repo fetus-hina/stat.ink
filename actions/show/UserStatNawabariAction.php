@@ -54,6 +54,7 @@ class UserStatNawabariAction extends BaseAction
         $maps = [];
         foreach (Map::find()->all() as $map) {
             $maps[$map->key] = (object)[
+                'key' => $map->key,
                 'name' => Yii::t('app-map', $map->name),
                 'area' => $map->area,
                 'battles' => [],
@@ -83,7 +84,7 @@ class UserStatNawabariAction extends BaseAction
             }
         }
 
-        usort($maps, function ($a, $b) {
+        uasort($maps, function ($a, $b) {
             return strnatcasecmp($a->name, $b->name);
         });
 

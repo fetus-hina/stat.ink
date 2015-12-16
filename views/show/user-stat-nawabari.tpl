@@ -32,12 +32,28 @@
         <p>
           {{'Excluded: Private Battles'|translate:'app'|escape}}
         </p>
+        <p>
+          {{foreach $inked as $map}}
+            {{if !$map@first}}
+              &#32;|&#32;
+            {{/if}}
+            <a href="#inked-{{$map->key|escape}}">
+              {{$map->name|escape}}
+            </a>
+          {{/foreach}}
+        </p>
         <script>
           window._inked = {{$inked|json_encode}};
         </script>
-        {{foreach $inked as $key => $map}}
-          <h3 id="inked-{{$key|escape}}">
-            {{$map->name|escape}} {{if $map->area}}({{$map->area|number_format|escape}}p){{/if}}
+        {{foreach $inked as $map}}
+          <h3 id="inked-{{$map->key|escape}}">
+            {{$filter = [
+                'rule' => 'nawabari',
+                'map' => $map->key
+              ]}}
+            <a href="{{url route="show/user" screen_name=$user->screen_name filter=$filter}}">
+              {{$map->name|escape}}
+            </a> {{if $map->area}}({{$map->area|number_format|escape}}p){{/if}}
           </h3>
           {{if $map->avgInked !== null}}
             <p>
@@ -47,7 +63,7 @@
               {{/if}}
             </p>
           {{/if}}
-          <div class="graph stat-inked" data-map="{{$key|escape}}"></div>
+          <div class="graph stat-inked" data-map="{{$map->key|escape}}"></div>
         {{/foreach}}
 
         <hr>
