@@ -11,6 +11,7 @@ use Yii;
 use yii\web\NotFoundHttpException;
 use yii\web\ViewAction as BaseAction;
 use app\models\Battle;
+use app\models\Map;
 use app\models\User;
 
 class UserStatGachiAction extends BaseAction
@@ -30,13 +31,14 @@ class UserStatGachiAction extends BaseAction
             'userRankStat' => $this->userRankStat,
             'recentRank' => $this->recentRankData,
             'recentWP' => $this->recentWPData,
+            'maps' => $this->maps,
         ]);
     }
 
     public function getRecentRankData()
     {
         $query = Battle::find()
-            ->with(['rankAfter']) // eager loading
+            ->with(['rankAfter', 'rule', 'lobby']) // eager loading
             ->innerJoinWith(['rule', 'rule.mode',
                 'rankAfter' => function ($q) {
                     return $q->from('rank rank_after');
@@ -63,7 +65,7 @@ class UserStatGachiAction extends BaseAction
 
         $index = 0;
         $ret = [];
-        foreach ($query->each() as $model) {
+        foreach ($query->each(200) as $model) {
             $ret[] = (object)[
                 'index'         => $index--,
                 'rule'          => $model->rule->key,
@@ -100,7 +102,7 @@ class UserStatGachiAction extends BaseAction
     public function getRecentWPData()
     {
         $query = Battle::find()
-            ->with(['rule'])
+            ->with(['rule', 'map', 'lobby'])
             ->innerJoinWith(['rule', 'rule.mode'])
             ->joinWith(['lobby'])
             ->andWhere([
@@ -115,11 +117,12 @@ class UserStatGachiAction extends BaseAction
             ->orderBy('{{battle}}.[[id]] DESC');
 
         $battles = [];
-        foreach ($query->each() as $battle) {
+        foreach ($query->each(200) as $battle) {
             $battles[] = (object)[
                 'index' => -1 * count($battles),
                 'is_win' => $battle->is_win,
                 'rule' => $battle->rule->key,
+                'map' => $battle->map ? $battle->map->key : null,
                 'totalWP' => null,
                 'movingWP' => null,
                 'movingWP50' => null,
@@ -183,7 +186,6 @@ class UserStatGachiAction extends BaseAction
             $avgRankExp = $avgExp % 100;
             $standardDeviation = $entire->standardDeviation;
         }
-
 
         return (object)[
             'rank'      => Yii::t('app-rank', $battle->rankAfter->name),
@@ -280,5 +282,15 @@ class UserStatGachiAction extends BaseAction
             'average' => $avgExp,
             'standardDeviation' => $standardDeviation,
         ];
+    }
+
+    public function getMaps()
+    {
+        $ret = [];
+        foreach (Map::find()->all() as $map) {
+            $ret[$map->key] = Yii::t('app-map', $map->name);
+        }
+        uasort($ret, 'strnatcasecmp');
+        return $ret;
     }
 }

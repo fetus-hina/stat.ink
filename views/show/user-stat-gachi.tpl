@@ -62,15 +62,38 @@
         <p>
           {{'Excluded: Private Battles'|translate:'app'|escape}}
         </p>
+        <p>
+          {{foreach $maps as $mapKey => $mapName}}
+            {{if !$mapName@first}}
+              &#32;|&#32;
+            {{/if}}
+            <a href="#wp-{{$mapKey|escape}}">
+              {{$mapName|escape}}
+            </a>
+          {{/foreach}}
+        </p>
         <script>
+          window._maps = {{$maps|array_keys|json_encode}};
           window._wpData = {{$recentWP|json_encode}};
         </script>
         <div id="stat-wp-legend"></div>
         <div class="graph stat-wp"></div>
         <div class="graph stat-wp" data-limit="200"></div>
-        <p>
-          特定ルールだけの勝率遷移はもう少しまってください。
-        </p>
+
+        {{foreach $maps as $mapKey => $mapName}}
+          <h3 id="wp-{{$mapKey|escape}}">
+            {{$filter = [
+                'rule' => '@gachi',
+                'map' => $mapKey
+              ]}}
+            <span class="hidden-xs">{{'Winning Percentage'|translate:'app'|escape}} - </span>
+            <a href="{{url route="show/user" screen_name=$user->screen_name filter=$filter}}">
+              {{$mapName|escape}}
+            </a>
+          </h3>
+          <div class="graph stat-map-wp" data-map="{{$mapKey|escape}}"></div>
+          <div class="graph stat-map-wp" data-map="{{$mapKey|escape}}" data-limit="200"></div>
+        {{/foreach}}
       </div>
       <div class="col-xs-12 col-sm-4 col-md-4 col-lg-3">
         {{include file="@app/views/includes/user-miniinfo.tpl" user=$user}}
@@ -276,6 +299,123 @@
     });
   }
 
+  function drawMapWPGraph(mapKey, json) {
+    var $graph_ = $graphs.filter('.stat-map-wp').filter(function() {
+      return $(this).attr('data-map') == mapKey;
+    });
+
+    {{* そのマップだけのデータに絞込 *}}
+    json = json.filter(function(row) {
+      return row.map == mapKey;
+    });
+
+    {{* データの付け替え *}}
+    var count = json.length;
+    var winCount = 0;
+    var results = [];
+    $.each(json, function(index) {
+      var row = this;
+      row.index = (index + 1) - count;
+      if (row.is_win) {
+        ++winCount;
+      }
+      row.totalWP = winCount * 100 / (index + 1);
+
+      row.movingWP = null;
+      row.movingWP50 = null;
+      if (results.unshift(row.is_win) > 50) {
+        results.pop();
+      }
+      if (results.length >= 20) {
+        row.movingWP = results.slice(0, 20).filter(function(a){return a}).length * 100 / 20;
+        if (results.length >= 50) {
+          row.movingWP50 = results.slice(0, 50).filter(function(a){return a}).length * 100 / 50;
+        }
+      }
+    });
+
+    var rules = (function(json) {
+      var ret = {
+        area: [],
+        yagura: [],
+        hoko: []
+      };
+      var prevIndex = null;
+      var prevRule = null;
+      var prevValue = null;
+      for (var i = 0; i < json.length; ++i) {
+        var data = json[i];
+        if (prevRule !== data.rule && prevRule !== null) {
+          ret[prevRule].push([data.index, null]);
+          ret[data.rule].push([prevIndex, prevValue]);
+        }
+        ret[data.rule].push([data.index, data.totalWP]);
+        prevIndex = data.index;
+        prevRule = data.rule;
+        prevValue = data.totalWP;
+      }
+      return ret;
+    })(json);
+
+    var data = [
+      {
+        label: "{{'Winning Percentage'|translate:'app'|escape:'javascript'}} ({{'Splat Zones'|translate:'app-rule'|escape:'javascript'}})",
+        data: rules.area,
+        color: colorScheme.area
+      },
+      {
+        label: "{{'Winning Percentage'|translate:'app'|escape:'javascript'}} ({{'Tower Control'|translate:'app-rule'|escape:'javascript'}})",
+        data: rules.yagura,
+        color: colorScheme.yagura
+      },
+      {
+        label: "{{'Winning Percentage'|translate:'app'|escape:'javascript'}} ({{'Rainmaker'|translate:'app-rule'|escape:'javascript'}})",
+        data: rules.hoko,
+        color: colorScheme.hoko
+      },
+      {
+        label: "{{'Win% ({0} Battles)'|translate:'app':20|escape}}",
+        data: json.map(function(v) {
+          return [v.index, v.movingWP];
+        }),
+        color: colorScheme.moving1
+      },
+      {
+        label: "{{'Win% ({0} Battles)'|translate:'app':50|escape}}",
+        data: json.map(function(v) {
+          return [v.index, v.movingWP50];
+        }),
+        color: colorScheme.moving2
+      }
+    ];
+
+    $graph_.each(function() {
+      var $graph = $(this);
+      var limit = ~~$graph.attr('data-limit');
+      if (limit > 0 && json.length <= limit) {
+        $graph.hide();
+        return;
+      }
+
+      $.plot($graph, data, {
+        xaxis: {
+          min: limit > 0 ? -limit : null,
+          minTickSize: 1,
+          tickFormatter: function (v) {
+            return ~~v;
+          }
+        },
+        yaxis: {
+          min: 0,
+          max: 100,
+        },
+        legend: {
+          container: $('#stat-wp-legend')
+        }
+      });
+    });
+  }
+
   var timerId = null;
   $(window).resize(function() {
     if (timerId !== null) {
@@ -285,6 +425,9 @@
       $graphs.height($graphs.width() * 9 / 16);
       drawRankGraph(window._rankData);
       drawWPGraph(window._wpData);
+      $.each(window._maps, function () {
+        drawMapWPGraph(this, window._wpData);
+      });
     }, 33);
   }).resize();
 
