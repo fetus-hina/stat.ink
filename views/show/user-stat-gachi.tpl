@@ -305,9 +305,9 @@
     });
 
     {{* そのマップだけのデータに絞込 *}}
-    json = json.filter(function(row) {
+    json = $.extend(true, [], json.filter(function(row) {
       return row.map == mapKey;
-    });
+    }));
 
     {{* データの付け替え *}}
     var count = json.length;
