@@ -34,7 +34,11 @@
             <div class="col-xs-4 col-sm-4 col-md-2 col-lg-2">
               <div class="user-label">{{'Current'|translate:'app'|escape}}</div>
               <div class="user-number">
-                {{$userRankStat->rank|escape}} {{$userRankStat->rankExp}}
+                {{if $userRankStat}}
+                  {{$userRankStat->rank|escape}} {{$userRankStat->rankExp}}
+                {{else}}
+                  ?
+                {{/if}}
               </div>
             </div>
           </div>
@@ -198,7 +202,9 @@
           minTickSize: 10,
           tickFormatter: function (v) {
             if (v >= 1100) {
-              return v >= 1150 ? '' : 'S+ 99';
+              return v > 1100 ? '' : 'S+ 99';
+            } else if (v < 0) {
+              return '';
             }
 
             var rank = Math.floor(v / 100);
