@@ -124,7 +124,7 @@ POST /api/v1/battle
 
 省略する際は空の値を送信するか、項目自体を省略してください。
 
-* `apikey` : (必須) ユーザを特定するための API キーを指定します。（例: `ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopq` ）
+* `apikey` : (必須) ユーザを特定するための API キーを指定します。[構成文字・文字数等の情報](doc/api-1/struct/apikey.md)
 
 * `test` : 通常は送信しません。API テスト時に指定すると実際の反映を行わずに動作試験が行えます。
     - `validate` : 送信内容のバリデーションのみを行います。エラーもしくは簡素なレスポンス `{"validate": true}` が返ります。
