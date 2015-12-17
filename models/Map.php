@@ -7,7 +7,9 @@
 
 namespace app\models;
 
+use DateTimeZone;
 use Yii;
+use app\components\helpers\DateTimeFormatter;
 use app\components\helpers\Translator;
 
 /**
@@ -17,8 +19,10 @@ use app\components\helpers\Translator;
  * @property string $key
  * @property string $name
  * @property integer $area
+ * @property string $release_at
  *
  * @property Battle[] $battles
+ * @property PeriodMap[] $periodMaps
  * @property SplapiMap[] $splapiMaps
  */
 class Map extends \yii\db\ActiveRecord
@@ -40,8 +44,10 @@ class Map extends \yii\db\ActiveRecord
     {
         return [
             [['key', 'name'], 'required'],
-            [['key', 'name'], 'string', 'max' => 16],
-            [['area'], 'integer', 'min' => 1],
+            [['area'], 'integer'],
+            [['release_at'], 'safe'],
+            [['key'], 'string', 'max' => 16],
+            [['name'], 'string', 'max' => 32],
             [['key'], 'unique'],
             [['name'], 'unique']
         ];
@@ -57,6 +63,7 @@ class Map extends \yii\db\ActiveRecord
             'key' => 'Key',
             'name' => 'Name',
             'area' => 'Area',
+            'release_at' => 'Release At',
         ];
     }
 
@@ -71,6 +78,14 @@ class Map extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
+    public function getPeriodMaps()
+    {
+        return $this->hasMany(PeriodMap::className(), ['map_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getSplapiMaps()
     {
         return $this->hasMany(SplapiMap::className(), ['map_id' => 'id']);
@@ -78,10 +93,17 @@ class Map extends \yii\db\ActiveRecord
 
     public function toJsonArray()
     {
+        $t = $this->release_at ? strtotime($this->release_at) : null;
         return [
             'key' => $this->key,
             'name' => Translator::translateToAll('app-map', $this->name),
             'area' => $this->area,
+            'release_at' => $t
+                ? DateTimeFormatter::unixTimeToJsonArray(
+                    $t,
+                    new DateTimeZone('Etc/UTC')
+                )
+                : null,
         ];
     }
 }

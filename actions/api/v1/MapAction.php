@@ -21,7 +21,7 @@ class MapAction extends BaseAction
             function ($map) {
                 return $map->toJsonArray();
             },
-            Map::find()->all()
+            Map::find()->orderBy('{{map}}.[[id]] ASC')->all()
         );
     }
 }
