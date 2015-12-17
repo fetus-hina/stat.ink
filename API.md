@@ -145,6 +145,7 @@ POST /api/v1/battle
     - `hoko` : ガチバトル／ガチホコ
 
 * `map` : マップを次のうちいずれかの値で指定します。完全なリストはマップ取得 API から取得してください。
+    - `anchovy` : アンチョビットゲームズ
     - `arowana` : アロワナモール
     - `bbass` : Bバスパーク
     - `dekaline` : デカライン高架下（ver 2）
@@ -158,6 +159,7 @@ POST /api/v1/battle
     - `mozuku` : モズク農園
     - `negitoro` : ネギトロ炭鉱
     - `shionome` : シオノメ油田
+    - `shottsuru` : ショッツル鉱山
     - `tachiuo` : タチウオパーキング
 
 * `weapon` : 自分のブキを次のいずれかの値で指定します。完全なリストはブキ取得 API から取得してください。

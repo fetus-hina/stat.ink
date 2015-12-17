@@ -1,6 +1,8 @@
 <?php
 return [
     'Any Map' => 'すべてのマップ',
+
+    'Ancho-V Games' => 'アンチョビットゲームズ',
     'Arowana Mall'  => 'アロワナモール',
     'Blackbelly Skatepark' => 'Bバスパーク',
     'Bluefin Depot' => 'ネギトロ炭鉱',
@@ -11,6 +13,7 @@ return [
     'Mahi-Mahi Resort' => 'マヒマヒリゾート&スパ',
     'Moray Towers' => 'タチウオパーキング',
     'Museum d\'Alfonsino' => 'キンメダイ美術館',
+    'Piranha Pit' => 'ショッツル鉱山',
     'Port Mackerel' => 'ホッケふ頭',
     'Saltspray Rig' => 'シオノメ油田',
     'Urchin Underpass' => 'デカライン高架下',
