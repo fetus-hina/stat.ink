@@ -29,6 +29,7 @@ return [
     'Octoshot Replica' => 'オクタシューターレプリカ',
     'Range Blaster' => 'ロングブラスター', 
     'Rapid Blaster Deco' => 'ラピッドブラスターデコ',
+    'Rapid Blaster Pro Deco' => 'Rブラスターエリートデコ',
     'Rapid Blaster Pro' => 'Rブラスターエリート',
     'Rapid Blaster' => 'ラピッドブラスター',
     'Splash-o-matic' => 'シャープマーカー',

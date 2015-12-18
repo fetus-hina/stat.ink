@@ -1,0 +1,50 @@
+<?php
+use yii\db\Migration;
+use app\models\Special;
+use app\models\Subweapon;
+use app\models\WeaponType;
+use app\models\DeathReasonType;
+
+class m151218_080954_weapon extends Migration
+{
+    public function safeUp()
+    {
+        $this->insert('weapon', [
+            'type_id' => WeaponType::findOne(['key' => 'slosher'])->id,
+            'key' => 'hissen_hue',
+            'name' => 'Tri-Slosher Nouveau',
+            'subweapon_id' => Subweapon::findOne(['key' => 'chasebomb'])->id,
+            'special_id' => Special::findOne(['key' => 'supersensor'])->id,
+        ]);
+
+        $this->insert('death_reason', [
+            'type_id' => DeathReasonType::findOne(['key' => 'main'])->id,
+            'key' => 'hissen_hue',
+            'name' => 'Tri-Slosher Nouveau',
+        ]);
+
+        $this->insert('weapon', [
+            'type_id' => WeaponType::findOne(['key' => 'shooter'])->id,
+            'key' => 'rapid_elite_deco',
+            'name' => 'Rapid Blaster Pro Deco',
+            'subweapon_id' => Subweapon::findOne(['key' => 'poison'])->id,
+            'special_id' => Special::findOne(['key' => 'megaphone'])->id,
+        ]);
+
+        $this->insert('death_reason', [
+            'type_id' => DeathReasonType::findOne(['key' => 'main'])->id,
+            'key' => 'rapid_elite_deco',
+            'name' => 'Rapid Blaster Pro Deco',
+        ]);
+    }
+
+    public function safeDown()
+    {
+        $keys = [
+            'hissen_hue',
+            'rapid_elite_deco',
+        ];
+        $this->delete('death_reason', ['key' => $keys]);
+        $this->delete('weapon', ['key' => $keys]);
+    }
+}

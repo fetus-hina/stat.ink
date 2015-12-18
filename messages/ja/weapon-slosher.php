@@ -4,4 +4,5 @@ return [
     'Slosher Deco' => 'バケットスロッシャーデコ',
     'Sloshing Machine' => 'スクリュースロッシャー',
     'Tri-Slosher' => 'ヒッセン',
+    'Tri-Slosher Nouveau' => 'ヒッセン・ヒュー',
 ];

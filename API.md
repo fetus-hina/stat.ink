@@ -194,6 +194,7 @@ POST /api/v1/battle
         - `rapid` : ラピッドブラスター
         - `rapid_deco` : ラピッドブラスターデコ
         - `rapid_elite` : Rブラスターエリート
+        - `rapid_elite_deco` : Rブラスターエリートデコ
         - `sharp` : シャープマーカー
         - `sharp_neo` : シャープマーカーネオ
         - `sshooter` : スプラシューター
@@ -228,6 +229,7 @@ POST /api/v1/battle
         - `bucketslosher` : バケットスロッシャー
         - `bucketslosher_deco` : バケットスロッシャーデコ
         - `hissen` : ヒッセン
+        - `hissen_hue` : ヒッセン・ヒュー
         - `screwslosher` : スクリュースロッシャー
     - スピナー
         - `barrelspinner` : バレルスピナー
