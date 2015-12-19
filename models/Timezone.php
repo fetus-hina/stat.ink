@@ -16,6 +16,9 @@ use Yii;
  * @property string $identifier
  * @property string $name
  * @property integer $order
+ * @property integer $region_id
+ *
+ * @property Region $region
  */
 class Timezone extends \yii\db\ActiveRecord
 {
@@ -38,8 +41,8 @@ class Timezone extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['identifier', 'name'], 'required'],
-            [['order'], 'integer'],
+            [['identifier', 'name', 'region_id'], 'required'],
+            [['order', 'region_id'], 'integer'],
             [['identifier', 'name'], 'string', 'max' => 32],
             [['identifier'], 'unique'],
             [['name'], 'unique'],
@@ -57,6 +60,15 @@ class Timezone extends \yii\db\ActiveRecord
             'identifier' => 'Identifier',
             'name' => 'Name',
             'order' => 'Order',
+            'region_id' => 'Region ID',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRegion()
+    {
+        return $this->hasOne(Region::className(), ['id' => 'region_id']);
     }
 }
