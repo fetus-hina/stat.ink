@@ -23,6 +23,18 @@ use Yii;
  */
 class Splatfest extends \yii\db\ActiveRecord
 {
+    public static function findCurrentFest()
+    {
+        $t = gmdate('Y-m-d\TH:i:sP', (int)(@$_SERVER['REQUEST_TIME'] ?: time()));
+        //$t = gmdate('Y-m-d\TH:i:sP', strtotime('2015-11-22 00:00:00+09'));
+        return static::find()
+            ->innerJoinWith('region', false)
+            ->andWhere(['and',
+                ['<=', '{{splatfest}}.[[start_at]]', $t],
+                ['>',  '{{splatfest}}.[[end_at]]', $t],
+            ]);
+    }
+
     /**
      * @inheritdoc
      */

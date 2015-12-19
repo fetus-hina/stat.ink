@@ -31,173 +31,222 @@
       <a class="twitter-share-button" href="https://twitter.com/intent/tweet" data-count="none"><span class="fa fa-twitter"></span></a>
     </div>
 
-    {{use class="app\models\PeriodMap"}}
-    {{$stageInfo = PeriodMap::getSchedule()}}
-    {{if $stageInfo->current->regular || $stageInfo->current->gachi}}
+
+    {{use class="app\models\Splatfest"}}
+    {{$fest = Splatfest::findCurrentFest()
+        ->joinWith('splatfestMaps.map')
+        ->andWhere(['region_id' => $app->splatoonRegion])
+        ->one()}}
+    {{if $fest}}
       {{\app\assets\MapImageAsset::register($this)|@void}}
-      {{$timeFormat = '%H:%M'}}
-      {{if $app->language|substr:0:2 == 'en'}}
-        {{$timeFormat = '%l:%M %p'}}
-      {{/if}}
       <h2>
-        <span class="hidden-xs">{{'Current Stage'|translate:'app'|escape}}</span>
-        {{if $stageInfo->current->t}}
-          {{$t = $stageInfo->current->t}}
-          <span class="hidden-xs">&#32;[</span>
-          {{$t.0|date_format:$timeFormat|escape}}-{{$t.1|date_format:$timeFormat|escape}}
-          <span class="hidden-xs">]</span>
-        {{/if}}
-        {{if $stageInfo->next->regular || $stageInfo->next->gachi}}
-          &#32;<button id="show-next-stage" type="button" class="btn btn-default">
-            {{if $stageInfo->next->t}}
-              {{$t = $stageInfo->next->t}}
-              {{$t.0|date_format:$timeFormat|escape}}-{{$t.1|date_format:$timeFormat|escape}}
-            {{else}}
-              {{'Next Stage'|translate:'app'|escape}}
-            {{/if}}
-          </button>
-          {{registerJs}}
-            $('#show-next-stage').click(function(){
-              var $this = $(this);
-              var $next = $('#next-stage');
-              $.smoothScroll({
-                offset: -60,
-                scrollTarget: $next,
-                beforeScroll: function () {
-                  $next.show('fast');
-                  $this.hide();
-                }
-              });
-              return false;
-            });
-          {{/registerJs}}
-        {{/if}}
+        {{'Splatfest'|translate:'app'|escape}}
       </h2>
       <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
           <h3>
-            {{$stageInfo->current->regular.0->rule->name|translate:'app-rule'|escape}}
+            {{'Turf War'|translate:'app-rule'|escape}}
           </h3>
-          <ul class="battles maps">
-            {{foreach $stageInfo->current->regular as $_}}
-              <li>
-                <div class="battle">
-                  <div class="battle-image">
-                    {{$mapFile = 'daytime/'|cat:$_->map->key:'.jpg'}}
-                    <img src="{{$app->assetManager->getAssetUrl(
-                        $app->assetManager->getBundle('app\assets\MapImageAsset'),
-                        $mapFile
-                      )}}">
-                  </div>
-                  <div class="battle-data row">
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 omit">
-                      {{$_->map->name|translate:'app-map'|escape}}
+          <ul class="battles fest-maps">
+            {{foreach $fest->splatfestMaps as $_}}
+              {{if $_ && $_->map}}
+                <li>
+                  <div class="battle">
+                    <div class="battle-image">
+                      {{* ここ本当は night/ *}}
+                      {{$mapFile = 'daytime/'|cat:$_->map->key:'.jpg'}}
+                      <img src="{{$app->assetManager->getAssetUrl(
+                          $app->assetManager->getBundle('app\assets\MapImageAsset'),
+                          $mapFile
+                        )}}">
+                    </div>
+                    <div class="battle-data row">
+                      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 omit">
+                        {{$_->map->name|translate:'app-map'|escape}}
+                      </div>
                     </div>
                   </div>
-                </div>
-              </li>
-            {{/foreach}}
-          </ul>
-        </div>
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
-          <h3>
-            {{$stageInfo->current->gachi.0->rule->name|translate:'app-rule'|escape}}
-          </h3>
-          <ul class="battles maps">
-            {{foreach $stageInfo->current->gachi as $_}}
-              <li>
-                <div class="battle">
-                  <div class="battle-image">
-                    {{$mapFile = 'daytime/'|cat:$_->map->key:'.jpg'}}
-                    <img src="{{$app->assetManager->getAssetUrl(
-                        $app->assetManager->getBundle('app\assets\MapImageAsset'),
-                        $mapFile
-                      )}}">
-                  </div>
-                  <div class="battle-data row">
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 omit">
-                      {{$_->map->name|translate:'app-map'|escape}}
-                    </div>
-                  </div>
-                </div>
-              </li>
+                </li>
+              {{/if}}
             {{/foreach}}
           </ul>
         </div>
       </div>
-      {{if $stageInfo->next->regular && $stageInfo->next->gachi}}
-        {{registerCss}}
-          #next-stage{display:none}
-        {{/registerCss}}
-        <div id="next-stage">
-          <h2>
-            <span class="hidden-xs">{{'Next Stage'|translate:'app'|escape}}</span>
-            {{if $stageInfo->next->t}}
-              {{$t = $stageInfo->next->t}}
-              <span class="hidden-xs">&#32;[</span>
-              {{$t.0|date_format:$timeFormat|escape}}-{{$t.1|date_format:$timeFormat|escape}}
-              <span class="hidden-xs">]</span>
-            {{/if}}
-          </h2>
-          <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
-              <h3>
-                {{$stageInfo->next->regular.0->rule->name|translate:'app-rule'|escape}}
-              </h3>
-              <ul class="battles maps">
-                {{foreach $stageInfo->next->regular as $_}}
-                  <li>
-                    <div class="battle">
-                      <div class="battle-image">
-                        {{$mapFile = 'daytime/'|cat:$_->map->key:'.jpg'}}
-                        <img src="{{$app->assetManager->getAssetUrl(
-                            $app->assetManager->getBundle('app\assets\MapImageAsset'),
-                            $mapFile
-                          )}}">
-                      </div>
-                      <div class="battle-data row">
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 omit">
-                          {{$_->map->name|translate:'app-map'|escape}}
-                        </div>
-                      </div>
-                    </div>
-                  </li>
-                {{/foreach}}
-              </ul>
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
-              <h3>
-                {{$stageInfo->next->gachi.0->rule->name|translate:'app-rule'|escape}}
-              </h3>
-              <ul class="battles maps">
-                {{foreach $stageInfo->next->gachi as $_}}
-                  <li>
-                    <div class="battle">
-                      <div class="battle-image">
-                        {{$mapFile = 'daytime/'|cat:$_->map->key:'.jpg'}}
-                        <img src="{{$app->assetManager->getAssetUrl(
-                            $app->assetManager->getBundle('app\assets\MapImageAsset'),
-                            $mapFile
-                          )}}">
-                      </div>
-                      <div class="battle-data row">
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 omit">
-                          {{$_->map->name|translate:'app-map'|escape}}
-                        </div>
-                      </div>
-                    </div>
-                  </li>
-                {{/foreach}}
-              </ul>
-            </div>
-          </div>
-        </div>
-      {{/if}}
+      {{* FIXME: 日本語版以外だとこれだと正しくないのでちゃんとリージョン判定して変える必要がある *}}
       <p class="text-right" style="font-size:10px;line-height:1.1">
         Powered by <a href="http://splapi.retrorocket.biz/" target="_blank" rel="nofollow">
           スプラトゥーンのステージじょうほうがとれるやつ
         </a>
       </p>
+    {{else}}
+      {{use class="app\models\PeriodMap"}}
+      {{$stageInfo = PeriodMap::getSchedule()}}
+      {{if $stageInfo->current->regular || $stageInfo->current->gachi}}
+        {{\app\assets\MapImageAsset::register($this)|@void}}
+        {{$timeFormat = '%H:%M'}}
+        {{if $app->language|substr:0:2 == 'en'}}
+          {{$timeFormat = '%l:%M %p'}}
+        {{/if}}
+        <h2>
+          <span class="hidden-xs">{{'Current Stage'|translate:'app'|escape}}</span>
+          {{if $stageInfo->current->t}}
+            {{$t = $stageInfo->current->t}}
+            <span class="hidden-xs">&#32;[</span>
+            {{$t.0|date_format:$timeFormat|escape}}-{{$t.1|date_format:$timeFormat|escape}}
+            <span class="hidden-xs">]</span>
+          {{/if}}
+          {{if $stageInfo->next->regular || $stageInfo->next->gachi}}
+            &#32;<button id="show-next-stage" type="button" class="btn btn-default">
+              {{if $stageInfo->next->t}}
+                {{$t = $stageInfo->next->t}}
+                {{$t.0|date_format:$timeFormat|escape}}-{{$t.1|date_format:$timeFormat|escape}}
+              {{else}}
+                {{'Next Stage'|translate:'app'|escape}}
+              {{/if}}
+            </button>
+            {{registerJs}}
+              $('#show-next-stage').click(function(){
+                var $this = $(this);
+                var $next = $('#next-stage');
+                $.smoothScroll({
+                  offset: -60,
+                  scrollTarget: $next,
+                  beforeScroll: function () {
+                    $next.show('fast');
+                    $this.hide();
+                  }
+                });
+                return false;
+              });
+            {{/registerJs}}
+          {{/if}}
+        </h2>
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
+            <h3>
+              {{$stageInfo->current->regular.0->rule->name|translate:'app-rule'|escape}}
+            </h3>
+            <ul class="battles maps">
+              {{foreach $stageInfo->current->regular as $_}}
+                <li>
+                  <div class="battle">
+                    <div class="battle-image">
+                      {{$mapFile = 'daytime/'|cat:$_->map->key:'.jpg'}}
+                      <img src="{{$app->assetManager->getAssetUrl(
+                          $app->assetManager->getBundle('app\assets\MapImageAsset'),
+                          $mapFile
+                        )}}">
+                    </div>
+                    <div class="battle-data row">
+                      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 omit">
+                        {{$_->map->name|translate:'app-map'|escape}}
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              {{/foreach}}
+            </ul>
+          </div>
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
+            <h3>
+              {{$stageInfo->current->gachi.0->rule->name|translate:'app-rule'|escape}}
+            </h3>
+            <ul class="battles maps">
+              {{foreach $stageInfo->current->gachi as $_}}
+                <li>
+                  <div class="battle">
+                    <div class="battle-image">
+                      {{$mapFile = 'daytime/'|cat:$_->map->key:'.jpg'}}
+                      <img src="{{$app->assetManager->getAssetUrl(
+                          $app->assetManager->getBundle('app\assets\MapImageAsset'),
+                          $mapFile
+                        )}}">
+                    </div>
+                    <div class="battle-data row">
+                      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 omit">
+                        {{$_->map->name|translate:'app-map'|escape}}
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              {{/foreach}}
+            </ul>
+          </div>
+        </div>
+        {{if $stageInfo->next->regular && $stageInfo->next->gachi}}
+          {{registerCss}}
+            #next-stage{display:none}
+          {{/registerCss}}
+          <div id="next-stage">
+            <h2>
+              <span class="hidden-xs">{{'Next Stage'|translate:'app'|escape}}</span>
+              {{if $stageInfo->next->t}}
+                {{$t = $stageInfo->next->t}}
+                <span class="hidden-xs">&#32;[</span>
+                {{$t.0|date_format:$timeFormat|escape}}-{{$t.1|date_format:$timeFormat|escape}}
+                <span class="hidden-xs">]</span>
+              {{/if}}
+            </h2>
+            <div class="row">
+              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
+                <h3>
+                  {{$stageInfo->next->regular.0->rule->name|translate:'app-rule'|escape}}
+                </h3>
+                <ul class="battles maps">
+                  {{foreach $stageInfo->next->regular as $_}}
+                    <li>
+                      <div class="battle">
+                        <div class="battle-image">
+                          {{$mapFile = 'daytime/'|cat:$_->map->key:'.jpg'}}
+                          <img src="{{$app->assetManager->getAssetUrl(
+                              $app->assetManager->getBundle('app\assets\MapImageAsset'),
+                              $mapFile
+                            )}}">
+                        </div>
+                        <div class="battle-data row">
+                          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 omit">
+                            {{$_->map->name|translate:'app-map'|escape}}
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                  {{/foreach}}
+                </ul>
+              </div>
+              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
+                <h3>
+                  {{$stageInfo->next->gachi.0->rule->name|translate:'app-rule'|escape}}
+                </h3>
+                <ul class="battles maps">
+                  {{foreach $stageInfo->next->gachi as $_}}
+                    <li>
+                      <div class="battle">
+                        <div class="battle-image">
+                          {{$mapFile = 'daytime/'|cat:$_->map->key:'.jpg'}}
+                          <img src="{{$app->assetManager->getAssetUrl(
+                              $app->assetManager->getBundle('app\assets\MapImageAsset'),
+                              $mapFile
+                            )}}">
+                        </div>
+                        <div class="battle-data row">
+                          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 omit">
+                            {{$_->map->name|translate:'app-map'|escape}}
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                  {{/foreach}}
+                </ul>
+              </div>
+            </div>
+          </div>
+        {{/if}}
+        <p class="text-right" style="font-size:10px;line-height:1.1">
+          Powered by <a href="http://splapi.retrorocket.biz/" target="_blank" rel="nofollow">
+            スプラトゥーンのステージじょうほうがとれるやつ
+          </a>
+        </p>
+      {{/if}}
     {{/if}}
 
     {{if $ident}}

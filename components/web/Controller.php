@@ -41,20 +41,23 @@ class Controller extends Base
             $tz = Timezone::findOne(['identifier' => $cookie->value]);
             if ($tz) {
                 Yii::$app->setTimeZone($tz->identifier);
+                Yii::$app->setSplatoonRegion($tz->region_id);
                 return;
             }
         }
         switch (strtolower(Yii::$app->language)) {
-            case 'ja':
-            case 'ja-jp':
-                Yii::$app->setTimeZone('Asia/Tokyo');
-                return;
-
             case 'en':
             case 'en-us':
-                Yii::$app->setTimeZone('America/New_York');
+                $tz = Timezone::findOne(['identifier' => 'America/New_York']);
+                Yii::$app->setTimeZone($tz->identifier);
+                Yii::$app->setSplatoonRegion($tz->region_id);
+                return;
+
+            default:
+                $tz = Timezone::findOne(['identifier' => 'Asia/Tokyo']);
+                Yii::$app->setTimeZone($tz->identifier);
+                Yii::$app->setSplatoonRegion($tz->region_id);
                 return;
         }
-        Yii::$app->setTimeZone('Etc/UTC');
     }
 }

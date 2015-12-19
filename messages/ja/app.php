@@ -162,6 +162,7 @@ return [
     'Specify Period' => '期間を指定する',
     'SplatNet' => 'イカリング',
     'Splatfest Title' => 'フェス称号',
+    'Splatfest' => 'フェス',
     'Splatoon Official Website (Japan)' => 'スプラトゥーン公式サイト（日本）',
     'Splatoon Official Website (UK)' => 'スプラトゥーン公式サイト（英国）',
     'Splatoon Official Website (US/Canada)' => 'スプラトゥーン公式サイト（北米）',
