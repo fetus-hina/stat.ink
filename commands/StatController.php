@@ -210,8 +210,7 @@ class StatController extends Controller
                             'user_count'    => 'COUNT(DISTINCT {{battle}}.[[user_id]])',
                         ])
                         ->from('battle')
-                        ->andWhere(['<', '{{battle}}.[[at]]', $today->format(\DateTime::ISO8601)])
-                        ->andWhere(['{{battle}}.[[is_automated]]' => true])
+                        ->andWhere(['<', '{{battle}}.[[at]]', $today->format(\DateTime::ATOM)])
                         ->groupBy('{{battle}}.[[at]]::date')
                         ->createCommand()
                         ->queryAll()
