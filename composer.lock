@@ -257,38 +257,19 @@
         },
         {
             "name": "bower-asset/jquery-smooth-scroll",
-            "version": "1.5.6",
+            "version": "1.5.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kswedberg/jquery-smooth-scroll.git",
-                "reference": "6478c4367926bf17cc9ac4e86fb22374659eb30f"
+                "reference": "e3819408685c6ca3c9d295a21f79f85466bcb8a3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kswedberg/jquery-smooth-scroll/zipball/6478c4367926bf17cc9ac4e86fb22374659eb30f",
-                "reference": "6478c4367926bf17cc9ac4e86fb22374659eb30f",
+                "url": "https://api.github.com/repos/kswedberg/jquery-smooth-scroll/zipball/e3819408685c6ca3c9d295a21f79f85466bcb8a3",
+                "reference": "e3819408685c6ca3c9d295a21f79f85466bcb8a3",
                 "shasum": ""
             },
-            "require": {
-                "bower-asset/jquery": ">=1.3"
-            },
-            "type": "bower-asset-library",
-            "extra": {
-                "bower-asset-main": "jquery.smooth-scroll.js",
-                "bower-asset-ignore": [
-                    "demo/",
-                    "lib/",
-                    "src/",
-                    "Gruntfile.js",
-                    "package.json",
-                    "smooth-scroll.jquery.json"
-                ]
-            },
-            "keywords": [
-                "animation",
-                "jquery-plugin",
-                "scroll"
-            ]
+            "type": "bower-asset-library"
         },
         {
             "name": "bower-asset/jquery-stupid-table",
@@ -1544,20 +1525,20 @@
         },
         {
             "name": "zendframework/zend-math",
-            "version": "2.5.1",
+            "version": "2.5.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/zend-math.git",
-                "reference": "9f02a1ac4d3374d3332c80f9215deec9c71558fc"
+                "reference": "2648ee3cce39aa3876788c837e3b58f198dc8a78"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zend-math/zipball/9f02a1ac4d3374d3332c80f9215deec9c71558fc",
-                "reference": "9f02a1ac4d3374d3332c80f9215deec9c71558fc",
+                "url": "https://api.github.com/repos/zendframework/zend-math/zipball/2648ee3cce39aa3876788c837e3b58f198dc8a78",
+                "reference": "2648ee3cce39aa3876788c837e3b58f198dc8a78",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.23"
+                "php": ">=5.5"
             },
             "require-dev": {
                 "fabpot/php-cs-fixer": "1.7.*",
@@ -1592,7 +1573,7 @@
                 "math",
                 "zf2"
             ],
-            "time": "2015-06-03 15:32:02"
+            "time": "2015-12-17 15:31:58"
         },
         {
             "name": "zendframework/zend-servicemanager",
