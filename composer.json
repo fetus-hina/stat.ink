@@ -38,6 +38,7 @@
         "jp3cki/yii2-googleadsense": "^2.0",
         "paragonie/random_compat": "^1.0",
         "php-curl-class/php-curl-class": "^4.6",
+        "smarty/smarty": "<3.1.28",
         "tpyo/amazon-s3-php-class": "^0.5.1",
         "yiisoft/yii2": "^2.0.6",
         "yiisoft/yii2-bootstrap": "2.0.*",
