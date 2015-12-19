@@ -19,6 +19,7 @@ use Yii;
  * @property string $end_at
  *
  * @property Region $region
+ * @property SplatfestMap[] $splatfestMaps
  */
 class Splatfest extends \yii\db\ActiveRecord
 {
@@ -63,5 +64,13 @@ class Splatfest extends \yii\db\ActiveRecord
     public function getRegion()
     {
         return $this->hasOne(Region::className(), ['id' => 'region_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getSplatfestMaps()
+    {
+        return $this->hasMany(SplatfestMap::className(), ['splatfest_id' => 'id']);
     }
 }

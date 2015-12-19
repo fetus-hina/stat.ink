@@ -17,6 +17,8 @@ use app\models\PeriodMap;
 use app\models\Rule;
 use app\models\SplapiMap;
 use app\models\SplapiRule;
+use app\models\Splatfest;
+use app\models\SplatfestMap;
 
 class SplapiController extends Controller
 {
@@ -29,8 +31,20 @@ class SplapiController extends Controller
     {
         $transaction = Yii::$app->db->beginTransaction();
         PeriodMap::deleteAll();
+        SplatfestMap::deleteAll([
+            'splatfest_id' => array_map(
+                function (Splatfest $fest) {
+                    return $fest->id;
+                },
+                Splatfest::find()
+                    ->innerJoinWith(['region'])
+                    ->andWhere(['{{region}}.[[key]]' => 'jp'])
+                    ->all()
+            ),
+        ]);
         $this->mapUpdateRegular();
         $this->mapUpdateGachi();
+        $this->mapUpdateSplatfest();
         $transaction->commit();
     }
 
@@ -39,6 +53,14 @@ class SplapiController extends Controller
         $transaction = Yii::$app->db->beginTransaction();
         $this->mapUpdateRegular();
         $this->mapUpdateGachi();
+        $this->mapUpdateSplatfest();
+        $transaction->commit();
+    }
+
+    public function actionMapUpdateSplatfest()
+    {
+        $transaction = Yii::$app->db->beginTransaction();
+        $this->mapUpdateSplatfest();
         $transaction->commit();
     }
 
@@ -190,10 +212,98 @@ class SplapiController extends Controller
         return $o ? $o->period : 0;
     }
 
+    private function mapUpdateSplatfest()
+    {
+        if (!$this->needUpdateSplatfest()) {
+            return;
+        }
+
+        echo "splatfest...\n";
+
+        $json = $this->queryJson('http://splapi.retrorocket.biz/fes');
+        $json = Json::decode($json, false);
+        foreach ($json->result as $data) {
+            $start_at = strtotime($data->start);
+            $end_at = strtotime($data->end);
+            $t = gmdate('Y-m-d\TH:i:sP', (int)(($start_at + $end_at) / 2));
+            $fest = Splatfest::find()
+                ->innerJoinWith('region', false)
+                ->andWhere(['and',
+                    ['{{region}}.[[key]]' => 'jp'],
+                    ['<=', '{{splatfest}}.[[start_at]]', $t],
+                    ['>',  '{{splatfest}}.[[end_at]]', $t],
+                ])
+                ->one();
+            if (!$fest) {
+                continue;
+            }
+            if ($fest->getSplatfestMaps()->count() > 0) {
+                continue;
+            }
+            echo "new data for [" . $fest->name . "]\n";
+            if (!$maps = SplapiMap::findAll(['name' => $data->maps])) {
+                echo "  no map data available...\n";
+                continue;
+            }
+            foreach ($maps as $map) {
+                $o = new SplatfestMap();
+                $o->attributes = [
+                    'splatfest_id' => $fest->id,
+                    'map_id' => $map->map_id,
+                ];
+                if (!$o->save()) {
+                    throw new \Exception('Save failed');
+                }
+            }
+        }
+    }
+
+    private function needUpdateSplatfest()
+    {
+        // データが何もなければ取得が必要
+        $count = SplatfestMap::find()
+            ->innerJoinWith(['splatfest', 'splatfest.region'])
+            ->andWhere(['{{region}}.[[key]]' => 'jp'])
+            ->count();
+        if ($count < 1) {
+            return true;
+        }
+
+        // 今がフェス中でなければ不要
+        $now = gmdate(
+            'Y-m-d\TH:i:sP',
+            (int)(@$_SERVER['REQUEST_TIME'] ?: time())
+        );
+        $fest = Splatfest::find()
+            ->innerJoinWith('region', false)
+            ->andWhere(['and',
+                ['{{region}}.[[key]]' => 'jp'],
+                ['<=', '{{splatfest}}.[[start_at]]', $now],
+                ['>',  '{{splatfest}}.[[end_at]]', $now],
+            ])
+            ->one();
+        if (!$fest) {
+            return false;
+        }
+
+        // マップ情報をもっていれば不要
+        $count = SplatfestMap::find()
+            ->andWhere(['{{splatfest_map}}.[[splatfest_id]]' => $fest->id])
+            ->count();
+        return $count < 1;
+    }
+
+
     private function queryJson($url, $data = [])
     {
         echo "Querying {$url} ...\n";
         $curl = new Curl();
+        $curl->setUserAgent(sprintf(
+            '%s/%s (+%s)',
+            'stat.ink',
+            Yii::$app->version,
+            'https://github.com/fetus-hina/stat.ink'
+        ));
         $curl->get($url, $data);
         if ($curl->error) {
             throw new \Exception("Request failed: url={$url}, code={$curl->errorCode}, msg={$curl->errorMessage}");
