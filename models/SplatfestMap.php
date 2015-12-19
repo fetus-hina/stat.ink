@@ -10,23 +10,23 @@ namespace app\models;
 use Yii;
 
 /**
- * This is the model class for table "region".
+ * This is the model class for table "splatfest_map".
  *
  * @property integer $id
- * @property string $key
- * @property string $name
+ * @property integer $splatfest_id
+ * @property integer $map_id
  *
- * @property Splatfest[] $splatfests
- * @property Timezone[] $timezones
+ * @property Map $map
+ * @property Splatfest $splatfest
  */
-class Region extends \yii\db\ActiveRecord
+class SplatfestMap extends \yii\db\ActiveRecord
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return 'region';
+        return 'splatfest_map';
     }
 
     /**
@@ -35,10 +35,8 @@ class Region extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['key', 'name'], 'required'],
-            [['key'], 'string', 'max' => 2],
-            [['name'], 'string', 'max' => 64],
-            [['key'], 'unique']
+            [['splatfest_id', 'map_id'], 'required'],
+            [['splatfest_id', 'map_id'], 'integer']
         ];
     }
 
@@ -49,24 +47,24 @@ class Region extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'key' => 'Key',
-            'name' => 'Name',
+            'splatfest_id' => 'Splatfest ID',
+            'map_id' => 'Map ID',
         ];
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getSplatfests()
+    public function getMap()
     {
-        return $this->hasMany(Splatfest::className(), ['region_id' => 'id']);
+        return $this->hasOne(Map::className(), ['id' => 'map_id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getTimezones()
+    public function getSplatfest()
     {
-        return $this->hasMany(Timezone::className(), ['region_id' => 'id']);
+        return $this->hasOne(Splatfest::className(), ['id' => 'splatfest_id']);
     }
 }
