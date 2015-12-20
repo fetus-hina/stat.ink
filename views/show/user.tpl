@@ -165,6 +165,7 @@
                 <th class="cell-kd">{{'k'|translate:'app'|escape}}/{{'d'|translate:'app'|escape}}</th>
                 <th class="cell-kill-ratio">{{'KR'|translate:'app'|escape}}</th>
                 <th class="cell-point">{{'Point'|translate:'app'|escape}}</th>
+                <th class="cell-rank-in-team">{{'Rank in Team'|translate:'app'|escape}}</th>
                 <th class="cell-datetime">{{'Date Time'|translate:'app'|escape}}</th>
                 <th class="cell-reltime">{{'Relative Time'|translate:'app'|escape}}</th>
               </tr>
@@ -286,6 +287,8 @@
             <label><input type="checkbox" class="table-config-chk" data-klass="cell-kill-ratio"> {{'Kill Ratio'|translate:'app'|escape}}</label>
           </div><div class="col-xs-6 col-sm-4 col-md-4 col-lg-3">
             <label><input type="checkbox" class="table-config-chk" data-klass="cell-point"> {{'Turf Inked'|translate:'app'|escape}}</label>
+          </div><div class="col-xs-6 col-sm-4 col-md-4 col-lg-3">
+            <label><input type="checkbox" class="table-config-chk" data-klass="cell-rank-in-team"> {{'Rank in Team'|translate:'app'|escape}}</label>
           </div><div class="col-xs-6 col-sm-4 col-md-4 col-lg-3">
             <label><input type="checkbox" class="table-config-chk" data-klass="cell-datetime"> {{'Date Time'|translate:'app'|escape}}</label>
           </div><div class="col-xs-6 col-sm-4 col-md-4 col-lg-3">

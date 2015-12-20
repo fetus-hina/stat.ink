@@ -22,6 +22,7 @@ window.battleListConfig = function() {
             "cell-kd": true,
             "cell-kill-ratio": true,
             "cell-point": false,
+            "cell-rank-in-team": false,
             "cell-datetime": true,
             "cell-reltime": false
         };

@@ -113,6 +113,8 @@
     <td class="cell-point">
       {{$model->my_point|default:'?'|escape}}
     </td>
+    <td class="cell-rank-in-team">
+      {{$model->rank_in_team|default:'?'|escape}}
     </td>
     <td class="cell-datetime">
       {{if $model->end_at === null}}
