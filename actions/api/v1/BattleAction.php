@@ -118,6 +118,7 @@ class BattleAction extends BaseAction
             }
         }
         if (!$form->validate()) {
+            $this->logError($form->getErrors());
             return $this->formatError($form->getErrors(), 400);
         }
 
@@ -173,6 +174,9 @@ class BattleAction extends BaseAction
             $transaction->commit();
         } catch (\Exception $e) {
             $transaction->rollback();
+            $this->logError([
+                'system' => [ $e->getMessage() ],
+            ]);
             return $this->formatError([
                 'system' => [ $e->getMessage() ],
             ], 500);
@@ -187,6 +191,9 @@ class BattleAction extends BaseAction
     {
         $battle = $form->toBattle();
         if (!$battle->isMeaningful) {
+            $this->logError([
+                'system' => [ Yii::t('app', 'Please send meaningful data.') ],
+            ]);
             return $this->formatError([
                 'system' => [ Yii::t('app', 'Please send meaningful data.') ],
             ], 400);
@@ -198,6 +205,10 @@ class BattleAction extends BaseAction
                 $agent->name = (string)$form->agent;
                 $agent->version = (string)$form->agent_version;
                 if (!$agent->save()) {
+                    $this->logError([
+                        'system' => [ Yii::t('app', 'Could not save to database: {0}', 'agent') ],
+                        'system_' => $battle->getErrors(),
+                    ]);
                     return $this->formatError([
                         'system' => [ Yii::t('app', 'Could not save to database: {0}', 'agent') ],
                         'system_' => $battle->getErrors(),
@@ -207,6 +218,10 @@ class BattleAction extends BaseAction
             $battle->agent_id = $agent->id;
         }
         if (!$battle->save()) {
+            $this->logError([
+                'system' => [ Yii::t('app', 'Could not save to database: {0}', 'battle') ],
+                'system_' => $battle->getErrors(),
+            ]);
             return $this->formatError([
                 'system' => [ Yii::t('app', 'Could not save to database: {0}', 'battle') ],
                 'system_' => $battle->getErrors(),
@@ -214,6 +229,10 @@ class BattleAction extends BaseAction
         }
         foreach ($form->toDeathReasons($battle) as $reason) {
             if ($reason && !$reason->save()) {
+                $this->logError([
+                    'system' => [ Yii::t('app', 'Could not save to database: {0}', 'battle_death_reason') ],
+                    'system_' => $reason->getErrors(),
+                ]);
                 return $this->formatError([
                     'system' => [ Yii::t('app', 'Could not save to database: {0}', 'battle_death_reason') ],
                     'system_' => $reason->getErrors(),
@@ -222,6 +241,10 @@ class BattleAction extends BaseAction
         }
         foreach ($form->toPlayers($battle) as $player) {
             if ($player && !$player->save()) {
+                $this->logError([
+                    'system' => [ 'Could not save to database: battle_player' ],
+                    'system_' => $player->getErrors(),
+                ]);
                 return $this->formatError([
                     'system' => [ 'Could not save to database: battle_player' ],
                     'system_' => $player->getErrors(),
@@ -244,6 +267,11 @@ class BattleAction extends BaseAction
                     ? ($imageArchiveOutputDir . '/' . sprintf('%d-judge.png', $battle->id))
                     : null)
             )) {
+                $this->logError([
+                    'system' => [
+                        Yii::t('app', 'Could not convert "{0}" image.', 'judge'),
+                    ]
+                ]);
                 return $this->formatError([
                     'system' => [
                         Yii::t('app', 'Could not convert "{0}" image.', 'judge'),
@@ -251,6 +279,11 @@ class BattleAction extends BaseAction
                 ], 500);
             }
             if (!$image->save()) {
+                $this->logError([
+                    'system' => [
+                        Yii::t('app', 'Could not save {0}', 'battle_image(judge)'),
+                    ]
+                ]);
                 return $this->formatError([
                     'system' => [
                         Yii::t('app', 'Could not save {0}', 'battle_image(judge)'),
@@ -276,6 +309,11 @@ class BattleAction extends BaseAction
                 ? ($imageArchiveOutputDir . '/' . sprintf('%d-result.png', $battle->id))
                 : null
             )) {
+                $this->logError([
+                    'system' => [
+                        Yii::t('app', 'Could not convert "{0}" image.', 'result'),
+                    ]
+                ]);
                 return $this->formatError([
                     'system' => [
                         Yii::t('app', 'Could not convert "{0}" image.', 'result'),
@@ -283,6 +321,11 @@ class BattleAction extends BaseAction
                 ], 500);
             }
             if (!$image->save()) {
+                $this->logError([
+                    'system' => [
+                        Yii::t('app', 'Could not save {0}', 'battle_image(result)'),
+                    ]
+                ]);
                 return $this->formatError([
                     'system' => [
                         Yii::t('app', 'Could not save {0}', 'battle_image(result)'),
@@ -337,5 +380,23 @@ class BattleAction extends BaseAction
         return [
             'error' => $errors,
         ];
+    }
+
+    private function logError(array $errors)
+    {
+        $output = json_encode(
+            [ 'error' => $errors ],
+            JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE
+        );
+        $text = sprintf(
+            'API/Battle Error: RemoteAddr=[%s], Data=%s',
+            $_SERVER['REMOTE_ADDR'],
+            $output
+        );
+        if (isset($errors['system'])) {
+            Yii::error($text);
+        } else {
+            Yii::warning($text);
+        }
     }
 }
