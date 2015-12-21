@@ -118,7 +118,13 @@ class BattleAction extends BaseAction
             }
         }
         if (!$form->validate()) {
-            $this->logError($form->getErrors());
+            $tmp = $form->attributes;
+            unset($tmp['image_judge']);
+            unset($tmp['image_result']);
+            $this->logError(array_merge(
+                $form->getErrors(),
+                ['req' => $tmp]
+            ));
             return $this->formatError($form->getErrors(), 400);
         }
 
