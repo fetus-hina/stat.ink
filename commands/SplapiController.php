@@ -221,7 +221,6 @@ class SplapiController extends Controller
         echo "splatfest...\n";
 
         $json = $this->queryJson('http://splapi.retrorocket.biz/fes');
-        $json = Json::decode($json, false);
         foreach ($json->result as $data) {
             $start_at = strtotime($data->start);
             $end_at = strtotime($data->end);
