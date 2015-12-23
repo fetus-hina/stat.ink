@@ -257,16 +257,16 @@
         },
         {
             "name": "bower-asset/jquery-smooth-scroll",
-            "version": "1.5.7",
+            "version": "1.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kswedberg/jquery-smooth-scroll.git",
-                "reference": "e3819408685c6ca3c9d295a21f79f85466bcb8a3"
+                "reference": "dfe6c9e8864768170c3511d138a6d2b0646cb80e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kswedberg/jquery-smooth-scroll/zipball/e3819408685c6ca3c9d295a21f79f85466bcb8a3",
-                "reference": "e3819408685c6ca3c9d295a21f79f85466bcb8a3",
+                "url": "https://api.github.com/repos/kswedberg/jquery-smooth-scroll/zipball/dfe6c9e8864768170c3511d138a6d2b0646cb80e",
+                "reference": "dfe6c9e8864768170c3511d138a6d2b0646cb80e",
                 "shasum": ""
             },
             "type": "bower-asset-library"
