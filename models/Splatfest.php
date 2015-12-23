@@ -21,6 +21,8 @@ use Yii;
  *
  * @property Region $region
  * @property SplatfestMap[] $splatfestMaps
+ * @property SplatfestTeam[] $splatfestTeams
+ * @property Team[] $teams
  */
 class Splatfest extends \yii\db\ActiveRecord
 {
@@ -54,8 +56,7 @@ class Splatfest extends \yii\db\ActiveRecord
             [['start_at', 'end_at'], 'safe'],
             [['name'], 'string', 'max' => 64],
             [['region_id', '"order"'], 'unique', 'targetAttribute' => ['region_id', '"order"'],
-                'message' => 'The combination of Region ID and Order has already been taken.'
-            ]
+                'message' => 'The combination of  and Region ID has already been taken.']
         ];
     }
 
@@ -88,5 +89,21 @@ class Splatfest extends \yii\db\ActiveRecord
     public function getSplatfestMaps()
     {
         return $this->hasMany(SplatfestMap::className(), ['splatfest_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getSplatfestTeams()
+    {
+        return $this->hasMany(SplatfestTeam::className(), ['fest_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTeams()
+    {
+        return $this->hasMany(Team::className(), ['id' => 'team_id'])->viaTable('splatfest_team', ['fest_id' => 'id']);
     }
 }
