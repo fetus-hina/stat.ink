@@ -17,6 +17,7 @@ use Yii;
  * @property string $name
  * @property string $start_at
  * @property string $end_at
+ * @property integer $order
  *
  * @property Region $region
  * @property SplatfestMap[] $splatfestMaps
@@ -26,7 +27,6 @@ class Splatfest extends \yii\db\ActiveRecord
     public static function findCurrentFest()
     {
         $t = gmdate('Y-m-d\TH:i:sP', (int)(@$_SERVER['REQUEST_TIME'] ?: time()));
-        //$t = gmdate('Y-m-d\TH:i:sP', strtotime('2015-11-22 00:00:00+09'));
         return static::find()
             ->innerJoinWith('region', false)
             ->andWhere(['and',
@@ -49,10 +49,13 @@ class Splatfest extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['region_id', 'name', 'start_at', 'end_at'], 'required'],
-            [['region_id'], 'integer'],
+            [['region_id', 'name', 'start_at', 'end_at', 'order'], 'required'],
+            [['region_id', 'order'], 'integer'],
             [['start_at', 'end_at'], 'safe'],
-            [['name'], 'string', 'max' => 64]
+            [['name'], 'string', 'max' => 64],
+            [['region_id', '"order"'], 'unique', 'targetAttribute' => ['region_id', '"order"'],
+                'message' => 'The combination of Region ID and Order has already been taken.'
+            ]
         ];
     }
 
@@ -67,6 +70,7 @@ class Splatfest extends \yii\db\ActiveRecord
             'name' => 'Name',
             'start_at' => 'Start At',
             'end_at' => 'End At',
+            'order' => 'Order',
         ];
     }
 
