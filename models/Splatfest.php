@@ -20,6 +20,7 @@ use Yii;
  * @property integer $order
  *
  * @property Region $region
+ * @property SplatfestBattleSummary[] $splatfestBattleSummaries
  * @property SplatfestMap[] $splatfestMaps
  * @property SplatfestTeam[] $splatfestTeams
  * @property Team[] $teams
@@ -81,6 +82,14 @@ class Splatfest extends \yii\db\ActiveRecord
     public function getRegion()
     {
         return $this->hasOne(Region::className(), ['id' => 'region_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getSplatfestBattleSummaries()
+    {
+        return $this->hasMany(SplatfestBattleSummary::className(), ['fest_id' => 'id']);
     }
 
     /**

@@ -40,6 +40,7 @@ $config = [
                 'u/<screen_name:\w+>/<battle:\d+>/edit' => 'show/edit-battle',
                 'u/<screen_name:\w+>/stat/<by:[\w-]+>' => 'show/user-stat-<by>',
                 'u/<screen_name:\w+>' => 'show/user',
+                'fest/<region:\w+>/<order:\d+>' => 'fest/view',
                 'api/v1/<action:[\w-]+>' => 'api-v1/<action>',
                 'api/internal/<action:[\w-]+>' => 'api-internal/<action>',
                 '<action:[\w-]+>'  => 'site/<action>',
