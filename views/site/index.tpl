@@ -72,11 +72,19 @@
           </ul>
         </div>
       </div>
-      {{* FIXME: 日本語版以外だとこれだと正しくないのでちゃんとリージョン判定して変える必要がある *}}
+      {{if $fest->region->key == 'jp'}}
+        <p class="text-right" style="font-size:10px;line-height:1.1">
+          Powered by <a href="http://splapi.retrorocket.biz/" target="_blank" rel="nofollow">
+            スプラトゥーンのステージじょうほうがとれるやつ
+          </a>
+        </p>
+      {{/if}}
       <p class="text-right" style="font-size:10px;line-height:1.1">
-        Powered by <a href="http://splapi.retrorocket.biz/" target="_blank" rel="nofollow">
-          スプラトゥーンのステージじょうほうがとれるやつ
-        </a>
+        勝率推計：
+        <a href="{{url route="fest/view" region=$fest->region->key order=$fest->order}}">{{$app->name|escape}}の投稿情報</a>
+        {{if $fest->region->key == 'jp'}}
+          , <a href="https://fest.ink/{{$fest->order|escape:url}}">イカフェスレート</a>
+        {{/if}}
       </p>
     {{else}}
       {{use class="app\models\PeriodMap"}}
