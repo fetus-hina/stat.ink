@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "d05a0e7b0eedf95bc04f27a0cdeb399d",
-    "content-hash": "ff17400f9d1d156a8eca55a03e93f1c3",
+    "hash": "c131e85141c89df37b8b94e6c3ed6176",
+    "content-hash": "ae85488572b6b31425401f1dcf457086",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -537,16 +537,16 @@
         },
         {
             "name": "bower-asset/zxcvbn",
-            "version": "3.5.0",
+            "version": "4.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dropbox/zxcvbn.git",
-                "reference": "b87994fd10bd65034bd456666aa32e9636df1f27"
+                "reference": "e164fdfa3af53c499d3552969a6cd34129667030"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dropbox/zxcvbn/zipball/b87994fd10bd65034bd456666aa32e9636df1f27",
-                "reference": "b87994fd10bd65034bd456666aa32e9636df1f27",
+                "url": "https://api.github.com/repos/dropbox/zxcvbn/zipball/e164fdfa3af53c499d3552969a6cd34129667030",
+                "reference": "e164fdfa3af53c499d3552969a6cd34129667030",
                 "shasum": ""
             },
             "type": "bower-asset-library",
@@ -1020,6 +1020,46 @@
                 "yii2"
             ],
             "time": "2015-10-15 13:09:18"
+        },
+        {
+            "name": "jp3cki/yii2-zxcvbn",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/fetus-hina/yii2-zxcvbn.git",
+                "reference": "c6d7865b1ca6c97e1566258a439cdb3dee8f8b8f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/fetus-hina/yii2-zxcvbn/zipball/c6d7865b1ca6c97e1566258a439cdb3dee8f8b8f",
+                "reference": "c6d7865b1ca6c97e1566258a439cdb3dee8f8b8f",
+                "shasum": ""
+            },
+            "require": {
+                "bower-asset/zxcvbn": "^4.2",
+                "yiisoft/yii2": "*"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "jp3cki\\yii2\\zxcvbn\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "AIZAWA Hina",
+                    "email": "hina@bouhime.com"
+                }
+            ],
+            "description": "Zxcvbn Assets for Yii Framework 2.",
+            "support": {
+                "source": "https://github.com/fetus-hina/yii2-zxcvbn/tree/v1.0.0",
+                "issues": "https://github.com/fetus-hina/yii2-zxcvbn/issues"
+            },
+            "time": "2015-12-25 14:01:09"
         },
         {
             "name": "paragonie/random_compat",

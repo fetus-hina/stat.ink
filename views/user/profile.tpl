@@ -1,5 +1,4 @@
 {{strip}}
-  {{\app\assets\ZxcvbnAsset::register($this)|@void}}
   {{set layout="main.tpl"}}
   {{set title="{{$app->name}} | {{'Profile and Settings'|translate:'app'}}"}}
   <div class="container">

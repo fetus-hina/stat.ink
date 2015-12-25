@@ -14,7 +14,7 @@
           {{$_->field($form, 'password')->passwordInput()}}
           {{$_->field($form, 'new_password')->passwordInput()}}
           {{$_->field($form, 'new_password_repeat')->passwordInput()}}
-          {{\app\assets\ZxcvbnAsset::register($this)|@void}}
+          {{\jp3cki\yii2\zxcvbn\ZxcvbnAsset::register($this)|@void}}
           <div id="password-strength"></div>
 
           {{Html::submitButton(

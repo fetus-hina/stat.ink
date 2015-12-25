@@ -1,5 +1,5 @@
 {{strip}}
-  {{\app\assets\ZxcvbnAsset::register($this)|@void}}
+  {{\jp3cki\yii2\zxcvbn\ZxcvbnAsset::register($this)|@void}}
   {{set layout="main.tpl"}}
   {{set title="{{$app->name}} | {{'Register'|translate:'app'|escape}}"}}
   {{use class="yii\helpers\Html"}}
