@@ -8,7 +8,7 @@
   {{$this->registerMetaTag(['name' => 'twitter:description', 'content' => $title])|@void}}
   {{$this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink'])|@void}}
 
-  {{\app\assets\FlotPieAsset::register($this)|@void}}
+  {{\jp3cki\yii2\flot\FlotPieAsset::register($this)|@void}}
   <div class="container">
     <h1>
       {{$title|escape}}

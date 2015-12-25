@@ -584,7 +584,7 @@
             </script>
             <div class="graph" id="timeline">
             </div>
-            {{\app\assets\FlotAsset::register($this)|@void}}
+            {{\jp3cki\yii2\flot\FlotAsset::register($this)|@void}}
             {{\app\assets\FlotIconAsset::register($this)|@void}}
             {{\app\assets\GraphIconAsset::register($this)|@void}}
             {{$iconAsset = $app->assetManager->getBundle('app\assets\GraphIconAsset')}}

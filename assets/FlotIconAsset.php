@@ -16,6 +16,6 @@ class FlotIconAsset extends AssetBundle
         'jquery.flot.icon.js',
     ];
     public $depends = [
-        'app\assets\FlotAsset',
+        'jp3cki\yii2\flot\FlotAsset',
     ];
 }

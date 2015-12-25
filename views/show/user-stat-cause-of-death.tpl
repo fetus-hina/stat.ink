@@ -13,7 +13,7 @@
     {{$this->registerMetaTag(['name' => 'twitter:creator', 'content' => '@'|cat:$user->twitter])|@void}}
   {{/if}}
 
-  {{\app\assets\FlotPieAsset::register($this)|@void}}
+  {{\jp3cki\yii2\flot\FlotPieAsset::register($this)|@void}}
   <div class="container">
     <h1>
       {{$title|escape}}

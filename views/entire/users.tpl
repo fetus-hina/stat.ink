@@ -25,8 +25,8 @@
       <a class="twitter-share-button" href="https://twitter.com/intent/tweet" data-count="none"><span class="fa fa-twitter"></span></a>
     </div>
 
-    {{\app\assets\FlotAsset::register($this)|@void}}
-    {{\app\assets\FlotTimeAsset::register($this)|@void}}
+    {{\jp3cki\yii2\flot\FlotAsset::register($this)|@void}}
+    {{\jp3cki\yii2\flot\FlotTimeAsset::register($this)|@void}}
     <div id="graph" data-data="{{$posts|json_encode|escape}}" data-label-battle="{{'Battles'|translate:'app'|escape}}" data-label-user="{{'Users'|translate:'app'|escape}}">
     </div>
 
