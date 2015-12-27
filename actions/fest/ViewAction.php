@@ -55,7 +55,7 @@ class ViewAction extends BaseAction
     {
         $req = Yii::$app->request;
         $model = DynamicModel::validateData(
-            [   
+            [
                 'region' => $req->get('region'),
                 'order' => $req->get('order'),
             ],

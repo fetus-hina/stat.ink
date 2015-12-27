@@ -60,11 +60,17 @@ use app\components\helpers\DateTimeFormatter;
  * @property integer $env_id
  * @property string $events
  * @property boolean $is_automated
+ * @property integer $headgear_id
+ * @property integer $clothing_id
+ * @property integer $shoes_id
  *
  * @property Agent $agent
  * @property Environment $env
  * @property FestTitle $festTitle
  * @property FestTitle $festTitleAfter
+ * @property GearConfiguration $headgear
+ * @property GearConfiguration $clothing
+ * @property GearConfiguration $shoes
  * @property Gender $gender
  * @property Lobby $lobby
  * @property Map $map
@@ -124,6 +130,7 @@ class Battle extends ActiveRecord
             [['lobby_id', 'gender_id', 'fest_title_id', 'my_team_color_hue', 'his_team_color_hue'], 'integer'],
             [['my_point', 'my_team_final_point', 'his_team_final_point', 'my_team_count', 'his_team_count'], 'integer'],
             [['fest_title_after_id', 'fest_exp', 'fest_exp_after'], 'integer'],
+            [['headgear_id', 'clothing_id', 'shoes_id'], 'integer'],
             [['is_win', 'is_knock_out', 'is_automated'], 'boolean'],
             [['start_at', 'end_at', 'at'], 'safe'],
             [['kill_ratio', 'my_team_final_percent', 'his_team_final_percent'], 'number'],
@@ -164,9 +171,6 @@ class Battle extends ActiveRecord
             'kill_ratio' => 'Kill Ratio',
             'gender_id' => 'Gender ID',
             'fest_title_id' => 'Fest Title ID',
-            'fest_title_after_id' => 'Fest Title After ID',
-            'fest_exp' => 'Fest Exp',
-            'fest_exp_after' => 'Fest Exp After',
             'my_team_color_hue' => 'My Team Color Hue',
             'his_team_color_hue' => 'His Team Color Hue',
             'my_team_color_rgb' => 'My Team Color Rgb',
@@ -180,9 +184,16 @@ class Battle extends ActiveRecord
             'my_team_count' => 'My Team Count',
             'his_team_count' => 'His Team Count',
             'period' => 'Period',
-            'ua_custom' => 'UA Custom',
+            'ua_custom' => 'Ua Custom',
             'env_id' => 'Env ID',
             'events' => 'Events',
+            'fest_title_after_id' => 'Fest Title After ID',
+            'fest_exp' => 'Fest Exp',
+            'fest_exp_after' => 'Fest Exp After',
+            'is_automated' => 'Is Automated',
+            'headgear_id' => 'Headgear ID',
+            'clothing_id' => 'Clothing ID',
+            'shoes_id' => 'Shoes ID',
         ];
     }
 
@@ -216,6 +227,30 @@ class Battle extends ActiveRecord
     public function getFestTitleAfter()
     {
         return $this->hasOne(FestTitle::className(), ['id' => 'fest_title_after_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getHeadgear()
+    {
+        return $this->hasOne(GearConfiguration::className(), ['id' => 'headgear_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getClothing()
+    {
+        return $this->hasOne(GearConfiguration::className(), ['id' => 'clothing_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getShoes()
+    {
+        return $this->hasOne(GearConfiguration::className(), ['id' => 'shoes_id']);
     }
 
     /**
@@ -594,6 +629,13 @@ class Battle extends ActiveRecord
             'image_result' => $this->battleImageResult
                 ? Url::to(Yii::getAlias('@web/images') . '/' . $this->battleImageResult->filename, true)
                 : null,
+            'gears' => in_array('gears', $skips, true)
+                ? null
+                : [
+                    'headgear' => $this->headgear ? $this->headgear->toJsonArray() : null,
+                    'clothing' => $this->clothing ? $this->clothing->toJsonArray() : null,
+                    'shoes'    => $this->shoes ? $this->shoes->toJsonArray() : null,
+                ],
             'period' => $this->period,
             'players' => (in_array('players', $skips, true) || count($this->battlePlayers) === 0)
                 ? null

@@ -66,6 +66,7 @@ class Team extends \yii\db\ActiveRecord
      */
     public function getFests()
     {
-        return $this->hasMany(Splatfest::className(), ['id' => 'fest_id'])->viaTable('splatfest_team', ['team_id' => 'id']);
+        return $this->hasMany(Splatfest::className(), ['id' => 'fest_id'])
+            ->viaTable('splatfest_team', ['team_id' => 'id']);
     }
 }

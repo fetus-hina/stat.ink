@@ -11,6 +11,7 @@ use Yii;
 use yii\base\Model;
 use yii\web\UploadedFile;
 use app\components\helpers\db\Now;
+use app\models\Ability;
 use app\models\AgentAttribute;
 use app\models\Battle;
 use app\models\BattleDeathReason;
@@ -19,6 +20,8 @@ use app\models\BattleImageType;
 use app\models\BattlePlayer;
 use app\models\DeathReason;
 use app\models\FestTitle;
+use app\models\GearConfiguration;
+use app\models\GearConfigurationSecondary;
 use app\models\Lobby;
 use app\models\Map;
 use app\models\Rank;
@@ -69,6 +72,7 @@ class PostBattleForm extends Model
     public $my_team_count;
     public $his_team_count;
     public $players;
+    public $gears;
     public $events;
     public $automated;
     public $agent;
@@ -149,6 +153,7 @@ class PostBattleForm extends Model
             [['knock_out'], 'boolean', 'trueValue' => 'yes', 'falseValue' => 'no'],
             [['my_team_count', 'his_team_count'], 'integer', 'min' => 0, 'max' => 100],
             [['players'], 'validatePlayers'],
+            [['gears'], 'validateGears'],
             [['events'], 'validateEvents'],
 
             [['lobby'], 'fixLobby'],
@@ -216,6 +221,25 @@ class PostBattleForm extends Model
             $newValues[] = $newValue;
         }
         $this->$attribute = $newValues;
+    }
+
+    public function validateGears($attribute, $params)
+    {
+        if ($this->hasErrors($attribute)) {
+            return;
+        }
+
+        $form = new PostGearsForm();
+        $form->attributes = $this->$attribute;
+        if (!$form->validate()) {
+            foreach ($form->getErrors() as $key => $values) {
+                foreach ($values as $value) {
+                    $this->addError($attribute, "{$key}::{$value}");
+                }
+            }
+            return;
+        }
+        $this->$attribute = $form;
     }
 
     public function validateEvents($attribute, $params)
@@ -398,6 +422,12 @@ class PostBattleForm extends Model
             $o->events = json_encode($this->events, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
         }
 
+        if ($this->gears) {
+            $o->headgear_id = $this->processGear('headgear');
+            $o->clothing_id = $this->processGear('clothing');
+            $o->shoes_id    = $this->processGear('shoes');
+        }
+
         if ($this->isTest) {
             $now = isset($_SERVER['REQUEST_TIME']) ? $_SERVER['REQUEST_TIME'] : time();
             $o->id = 0;
@@ -474,6 +504,7 @@ class PostBattleForm extends Model
         }
     }
 
+
     public function toImageJudge(Battle $battle)
     {
         return $this->toImage($battle, BattleImageType::ID_JUDGE, 'image_judge');
@@ -532,5 +563,61 @@ class PostBattleForm extends Model
         if ($this->lobby === 'standard' && $this->gender && $this->fest_title) {
             $this->lobby = 'fest';
         }
+    }
+
+    protected function processGear($key)
+    {
+        if ($this->isTest || !($this->gears instanceof PostGearsForm)) {
+            return null;
+        }
+
+        $gearForm = $this->gears->$key;
+        if (!($gearForm instanceof BaseGearForm)) {
+            return null;
+        }
+
+        $gearModel = $gearForm->getGearModel(); // may null
+        $primaryAbility = $gearForm->primary_ability
+            ? Ability::findOne(['key' => $gearForm->primary_ability])
+            : null;
+        $secondaryAbilityIdList = [];
+        if (is_array($gearForm->secondary_abilities)) {
+            foreach ($gearForm->secondary_abilities as $aKey) {
+                if ($aKey == '') {
+                    $secondaryAbilityIdList[] = null;
+                } else {
+                    if ($a = Ability::findOne(['key' => $aKey])) {
+                        $secondaryAbilityIdList[] = $a->id;
+                    }
+                }
+            }
+        }
+        $fingerPrint = GearConfiguration::generateFingerPrint(
+            $gearModel ? $gearModel->id : null,
+            $primaryAbility ? $primaryAbility->id : null,
+            $secondaryAbilityIdList
+        );
+
+        $config = GearConfiguration::findOne(['finger_print' => $fingerPrint]);
+        if (!$config) {
+            $config = new GearConfiguration();
+            $config->finger_print = $fingerPrint;
+            $config->gear_id = $gearModel ? $gearModel->id : null;
+            $config->primary_ability_id = $primaryAbility ? $primaryAbility->id : null;
+            if (!$config->save()) {
+                throw new \Exception('Could not save gear_counfiguration');
+            }
+
+            foreach ($secondaryAbilityIdList as $aId) {
+                $sub = new GearConfigurationSecondary();
+                $sub->config_id = $config->id;
+                $sub->ability_id = $aId;
+                if (!$sub->save()) {
+                    throw new \Exception('Could not save gear_configuration_secondary');
+                }
+            }
+        }
+
+        return $config->id;
     }
 }

@@ -79,6 +79,19 @@ class BattleAction extends BaseAction
             ->orderBy('{{battle}}.[[id]] DESC')
             ->limit((int)$model->count);
 
+        foreach (['headgear', 'clothing', 'shoes'] as $gearKey) {
+            $query->with([
+                "{$gearKey}",
+                "{$gearKey}.primaryAbility",
+                "{$gearKey}.gear",
+                "{$gearKey}.gear.brand",
+                "{$gearKey}.gear.brand.strength",
+                "{$gearKey}.gear.brand.weakness",
+                "{$gearKey}.secondaries",
+                "{$gearKey}.secondaries.ability",
+            ]);
+        }
+
         if ($model->id != '') {
             $query->andWhere(['{{battle}}.[[id]]' => $model->id]);
         }
@@ -300,8 +313,8 @@ class BattleAction extends BaseAction
                 : file_get_contents($form->image_result->tempName, false);
             $myPosition = false;
             if ((1 <= $form->rank_in_team && $form->rank_in_team <= 4) &&
-                    ($form->result === 'win' || $form->result === 'lose'))
-            {
+                    ($form->result === 'win' || $form->result === 'lose')
+            ) {
                 $myPosition = (($form->result === 'win') ? 0 : 4) + $form->rank_in_team;
             }
             if (!ImageConverter::convert(
