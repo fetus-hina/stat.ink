@@ -1,2 +1,2 @@
 <?php
-return '1.18.2';
+return '1.19.0-dev';
