@@ -1,6 +1,6 @@
 {{strip}}
-  {{use class="app\models\Timezone"}}
-  {{use class="app\models\Language"}}
+{{use class="app\models\Timezone"}}
+{{use class="app\models\Language"}}
 <nav class="navbar navbar-inverse navbar-fixed-top">
   <div class="container-fluid">
     <div class="container">
@@ -116,7 +116,10 @@
               </li>
               <li class="divider"></li>
               <li>
-                <a href="https://twitter.com/splatoonjp"><span class="fa fa-twitter"></span> {{'Official Twitter (Japan)'|translate:'app'|escape}}</a>
+                <a href="https://twitter.com/splatoonjp">
+                  <span class="fa fa-twitter"></span>
+                  {{'Official Twitter (Japan)'|translate:'app'|escape}}
+                </a>
               </li>
               <li class="divider"></li>
               <li>
@@ -124,23 +127,32 @@
               </li>
               <li class="divider"></li>
               <li>
-                <a href="https://github.com/hasegaw/IkaLog/blob/master/doc/IkaUI.md">IkaLog</a>
+                <a href="https://github.com/hasegaw/IkaLog/blob/master/doc/IkaUI.md">
+                  {{'IkaLog'|translate:'app'|escape}}
+                  （<span class="fa fa-windows"></span>
+                  <span class="fa fa-apple"></span>
+                  <span class="fa fa-linux"></span>）
+                </a>
+              </li>
+              <li>
+                <a href="https://dl.dropboxusercontent.com/u/14421778/IkaLog/download.html">
+                  └ {{'IkaLog Download Page'|translate:'app'|escape}}（<span class="fa fa-windows"></span>）
+                </a>
+              </li>
+              <li>
+                <a href="https://play.google.com/store/apps/details?id=com.syanari.merluza.ikarec">
+                  {{'IkaRec'|translate:'app'|escape}}（<span class="fa fa-android"></span>）
+                </a>
               </li>
               <li class="divider"></li>
               <li>
-                <a href="https://fest.ink/">イカフェスレート</a>
+                <a href="https://fest.ink/">{{'fest.ink'|translate:'app'|escape}}</a>
               </li>
               <li>
-                <a href="https://ikadenwa.ink/">イカデンワ</a>
+                <a href="https://ikadenwa.ink/">{{'Ika-Denwa'|translate:'app'|escape}}</a>
               </li>
               <li>
-                <a href="http://ikazok.net/">イカナカマ</a>
-              </li>
-              <li>
-                <a href="http://siome.ink/">siome</a>
-              </li>
-              <li>
-                <a href="http://ika.akaihako.com/unislot">ウニスロット</a>
+                <a href="http://ikazok.net/">{{'Ika-Nakama'|translate:'app'|escape}}</a>
               </li>
             </ul>
           </li>
