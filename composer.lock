@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "e20f6f74cbb6df06faef24460486b837",
-    "content-hash": "d86393a812a321a874d064444a26bc2c",
+    "hash": "1ed9ea0073a3e9eccc6167aa33dc86a0",
+    "content-hash": "3604e762b6576b235676637f487189b0",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -1058,6 +1058,45 @@
             ],
             "description": "Moment.js Assets for Yii Framework 2.",
             "time": "2015-12-28 12:11:22"
+        },
+        {
+            "name": "jp3cki/yii2-twitter-widget",
+            "version": "v0.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/fetus-hina/yii2-twitter-widget.git",
+                "reference": "51936dfbb7748729efc7074477e37cd1d03f1934"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/fetus-hina/yii2-twitter-widget/zipball/51936dfbb7748729efc7074477e37cd1d03f1934",
+                "reference": "51936dfbb7748729efc7074477e37cd1d03f1934",
+                "shasum": ""
+            },
+            "require": {
+                "yiisoft/yii2": "*"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "jp3cki\\yii2\\twitter\\widget\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "AIZAWA Hina",
+                    "email": "hina@bouhime.com"
+                }
+            ],
+            "description": "Twitter Widget Assets for Yii Framework 2.",
+            "support": {
+                "source": "https://github.com/fetus-hina/yii2-twitter-widget/tree/v0.1.1",
+                "issues": "https://github.com/fetus-hina/yii2-twitter-widget/issues"
+            },
+            "time": "2015-12-28 13:12:50"
         },
         {
             "name": "jp3cki/yii2-zxcvbn",

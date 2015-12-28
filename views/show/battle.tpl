@@ -66,8 +66,7 @@
     {{/if}}
 
     <div id="sns">
-      {{\app\assets\TwitterWidgetAsset::register($this)|@void}}
-      <a class="twitter-share-button" href="https://twitter.com/intent/tweet" data-count="none"><span class="fa fa-twitter"></span></a>
+      {{TweetButton}}
     </div>
 
     {{if $battle->battleImageJudge || $battle->battleImageResult}}

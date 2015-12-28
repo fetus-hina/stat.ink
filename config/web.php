@@ -77,6 +77,11 @@ $config = [
                     'pluginDirs' => [
                         '//smarty/',
                     ],
+                    'widgets' => [
+                        'functions' => [
+                            'TweetButton' => '\jp3cki\yii2\twitter\widget\TweetButton',
+                        ]
+                    ],
                 ],
             ],
         ],
