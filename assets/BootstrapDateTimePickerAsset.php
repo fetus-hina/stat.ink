@@ -22,7 +22,7 @@ class BootstrapDateTimePickerAsset extends AssetBundle
         'yii\web\JqueryAsset',
         'yii\bootstrap\BootstrapAsset',
         'yii\bootstrap\BootstrapPluginAsset',
-        'app\assets\MomentJsAsset',
-        'app\assets\MomentJsLocaleAsset',
+        'jp3cki\yii2\momentjs\MomentJsAsset',
+        'jp3cki\yii2\momentjs\MomentJsLocaleAsset',
     ];
 }

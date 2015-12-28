@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "5f2f5974c8966d64bf7292e9d8da59f2",
-    "content-hash": "ffaf059081415afccae1cd73cd33c7fb",
+    "hash": "e20f6f74cbb6df06faef24460486b837",
+    "content-hash": "d86393a812a321a874d064444a26bc2c",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -1020,6 +1020,44 @@
                 "yii2"
             ],
             "time": "2015-10-15 13:09:18"
+        },
+        {
+            "name": "jp3cki/yii2-momentjs",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/fetus-hina/yii2-momentjs.git",
+                "reference": "6add34cd6b3a8bbd04af9f638f4b526be0df0e8c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/fetus-hina/yii2-momentjs/zipball/6add34cd6b3a8bbd04af9f638f4b526be0df0e8c",
+                "reference": "6add34cd6b3a8bbd04af9f638f4b526be0df0e8c",
+                "shasum": ""
+            },
+            "require": {
+                "bower-asset/moment": "~2.10",
+                "bower-asset/moment-timezone": "~0.4.0",
+                "yiisoft/yii2": "*"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "jp3cki\\yii2\\momentjs\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "AIZAWA Hina",
+                    "email": "hina@bouhime.com"
+                }
+            ],
+            "description": "Moment.js Assets for Yii Framework 2.",
+            "time": "2015-12-28 12:11:22"
         },
         {
             "name": "jp3cki/yii2-zxcvbn",
