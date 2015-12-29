@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "250fed489b6e1a8cadb575318ef2688e",
-    "content-hash": "08d4c52160f90d7a9c4186698a8a5d95",
+    "hash": "58ba8685ca255b7ab13ffd51a13b63e2",
+    "content-hash": "ad32c16a7477bfc5208529745212f591",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -1059,6 +1059,43 @@
                 "yii2"
             ],
             "time": "2015-10-15 13:09:18"
+        },
+        {
+            "name": "jp3cki/yii2-jquery-color",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/fetus-hina/yii2-jquery-color.git",
+                "reference": "893d60a434fba90b6d852e6c851b7a1590cb1747"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/fetus-hina/yii2-jquery-color/zipball/893d60a434fba90b6d852e6c851b7a1590cb1747",
+                "reference": "893d60a434fba90b6d852e6c851b7a1590cb1747",
+                "shasum": ""
+            },
+            "require": {
+                "bower-asset/jquery-color": "^2.1",
+                "yiisoft/yii2": "*"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "jp3cki\\yii2\\jqueryColor\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "AIZAWA Hina",
+                    "email": "hina@bouhime.com"
+                }
+            ],
+            "description": "jQuery Color Assets for Yii Framework 2.",
+            "time": "2015-12-29 11:49:02"
         },
         {
             "name": "jp3cki/yii2-momentjs",

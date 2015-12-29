@@ -22,8 +22,8 @@ class AppAsset extends AssetBundle
         'yii\web\JqueryAsset',
         'yii\bootstrap\BootstrapAsset',
         'yii\bootstrap\BootstrapPluginAsset',
+        'jp3cki\yii2\jqueryColor\JqueryColorAsset',
         'rmrevin\yii\fontawesome\AssetBundle',
-        'app\assets\JqueryColorAsset',
         'app\assets\JquerySmoothScrollAsset',
     ];
 }
