@@ -20,7 +20,6 @@
         "ext-pdo_pgsql": "*",
         "ext-session": "*",
         "ext-zlib": "*",
-        "bower-asset/eonasdan-bootstrap-datetimepicker": "^4.17",
         "bower-asset/github-fork-ribbon-css": "^0.1.1",
         "bower-asset/jquery": "^2.1",
         "bower-asset/jquery-color": "^2.1",
@@ -32,6 +31,7 @@
         "himiklab/yii2-recaptcha-widget": "^1.0",
         "ircmaxell/password-compat": "^1.0",
         "jp3cki/mb_str_replace": "^4.0",
+        "jp3cki/yii2-bs-datetimepicker": "^1.0",
         "jp3cki/yii2-flot": "^1.0",
         "jp3cki/yii2-googleadsense": "^2.0",
         "jp3cki/yii2-momentjs": "^1.0",
@@ -59,5 +59,7 @@
             "bower-asset-library": "vendor/bower",
             "npm-asset-library": "vendor/npm"
         }
-    }
+    },
+    "repositories": [
+    ]
 }

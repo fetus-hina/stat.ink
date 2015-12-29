@@ -92,7 +92,7 @@
                   'inputTemplate' => '<div class="input-group"><span class="input-group-addon">To:</span>{input}</div>'|translate:'app'
                 ])->input('text', ['placeholder' => 'YYYY-MM-DD hh:mm:ss'])->label(false)}}
 
-              {{\app\assets\BootstrapDateTimePickerAsset::register($this)|@void}}
+              {{\jp3cki\yii2\datetimepicker\BootstrapDateTimePickerAsset::register($this)|@void}}
               {{registerCss}}#filter-term-group{margin-left:5%}{{/registerCss}}
               {{registerJs}}{{literal}}
                 (function($) {

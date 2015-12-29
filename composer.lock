@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "1669b41f2d516dde90dde4633787f5d4",
-    "content-hash": "1f65c340d0eb8b6f00f9afde9c98b2cf",
+    "hash": "250fed489b6e1a8cadb575318ef2688e",
+    "content-hash": "08d4c52160f90d7a9c4186698a8a5d95",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -443,16 +443,16 @@
         },
         {
             "name": "bower-asset/moment-timezone",
-            "version": "0.4.1",
+            "version": "0.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/moment/moment-timezone.git",
-                "reference": "d8ecdd0d5048a666b9e2940e2e52aceb23619a79"
+                "reference": "44ce91b03aa528ceb3832d13dbcee041f09c577a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/moment/moment-timezone/zipball/d8ecdd0d5048a666b9e2940e2e52aceb23619a79",
-                "reference": "d8ecdd0d5048a666b9e2940e2e52aceb23619a79",
+                "url": "https://api.github.com/repos/moment/moment-timezone/zipball/44ce91b03aa528ceb3832d13dbcee041f09c577a",
+                "reference": "44ce91b03aa528ceb3832d13dbcee041f09c577a",
                 "shasum": ""
             },
             "require": {
@@ -937,6 +937,45 @@
             "time": "2015-03-12 09:26:01"
         },
         {
+            "name": "jp3cki/yii2-bs-datetimepicker",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/fetus-hina/yii2-bs-datetimepicker.git",
+                "reference": "c0628b943375b4340bc6c45777a0a6a264eb3522"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/fetus-hina/yii2-bs-datetimepicker/zipball/c0628b943375b4340bc6c45777a0a6a264eb3522",
+                "reference": "c0628b943375b4340bc6c45777a0a6a264eb3522",
+                "shasum": ""
+            },
+            "require": {
+                "bower-asset/eonasdan-bootstrap-datetimepicker": "^4.17",
+                "jp3cki/yii2-momentjs": "^1.0",
+                "yiisoft/yii2": "*",
+                "yiisoft/yii2-bootstrap": "*"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "jp3cki\\yii2\\datetimepicker\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "AIZAWA Hina",
+                    "email": "hina@bouhime.com"
+                }
+            ],
+            "description": "Eonasdan's Bootstrap-Datetimepicker Assets for Yii Framework 2.",
+            "time": "2015-12-29 11:26:44"
+        },
+        {
             "name": "jp3cki/yii2-flot",
             "version": "v1.0.0",
             "source": {
@@ -1023,21 +1062,21 @@
         },
         {
             "name": "jp3cki/yii2-momentjs",
-            "version": "v1.0.0",
+            "version": "v1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fetus-hina/yii2-momentjs.git",
-                "reference": "6add34cd6b3a8bbd04af9f638f4b526be0df0e8c"
+                "reference": "14d13ba28093821d72ca942eeed7f3d99ea92070"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fetus-hina/yii2-momentjs/zipball/6add34cd6b3a8bbd04af9f638f4b526be0df0e8c",
-                "reference": "6add34cd6b3a8bbd04af9f638f4b526be0df0e8c",
+                "url": "https://api.github.com/repos/fetus-hina/yii2-momentjs/zipball/14d13ba28093821d72ca942eeed7f3d99ea92070",
+                "reference": "14d13ba28093821d72ca942eeed7f3d99ea92070",
                 "shasum": ""
             },
             "require": {
                 "bower-asset/moment": "~2.10",
-                "bower-asset/moment-timezone": "~0.4.0",
+                "bower-asset/moment-timezone": "~0.5.0",
                 "yiisoft/yii2": "*"
             },
             "type": "yii2-extension",
@@ -1057,7 +1096,7 @@
                 }
             ],
             "description": "Moment.js Assets for Yii Framework 2.",
-            "time": "2015-12-28 12:11:22"
+            "time": "2015-12-29 11:12:12"
         },
         {
             "name": "jp3cki/yii2-twitter-widget",
