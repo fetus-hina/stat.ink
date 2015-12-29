@@ -9,6 +9,7 @@ namespace app\models;
 
 use Yii;
 use yii\db\ActiveRecord;
+use yii\helpers\Json;
 use yii\helpers\Url;
 use app\components\helpers\DateTimeFormatter;
 
@@ -569,6 +570,13 @@ class Battle extends ActiveRecord
 
     public function toJsonArray(array $skips = [])
     {
+        $events = null;
+        if ($this->events && !in_array('events', $skips, true)) {
+            $events = Json::decode($this->events, false);
+            usort($events, function ($a, $b) {
+                return $a->at - $b->at;
+            });
+        }
         return [
             'id' => $this->id,
             'url' => Url::to(['show/battle', 'screen_name' => $this->user->screen_name, 'battle' => $this->id], true),
@@ -645,6 +653,7 @@ class Battle extends ActiveRecord
                     },
                     $this->battlePlayers
                 ),
+            'events' => $events,
             'agent' => [
                 'name' => $this->agent ? $this->agent->name : null,
                 'version' => $this->agent ? $this->agent->version : null,
