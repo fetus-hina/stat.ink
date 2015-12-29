@@ -583,6 +583,13 @@
             </script>
             <div class="graph" id="timeline">
             </div>
+            {{if !$battle->rule || $battle->rule->key !== 'nawabari'}}
+              <div class="text-right">
+                <label>
+                  <input type="checkbox" id="draw-gachi" value="1"> {{'Draw Ranked Battle Event (EXPRERIMENTAL)'|translate:'app'|escape}}
+                </label>
+              </div>
+            {{/if}}
             {{\jp3cki\yii2\flot\FlotAsset::register($this)|@void}}
             {{\app\assets\FlotIconAsset::register($this)|@void}}
             {{\app\assets\GraphIconAsset::register($this)|@void}}
@@ -591,18 +598,60 @@
               .graph{height:300px}
             {{/registerCss}}
             {{registerJs position="POS_BEGIN"}}
-              window.graphIcon = {
-                dead: (function(){
-                  var i = new Image;
-                  i.src = "{{$app->assetmanager->getAssetUrl($iconAsset, 'dead.png')|escape:javascript}}";
-                  return i;
-                })(),
-                killed: (function(){
-                  var i = new Image;
-                  i.src = "{{$app->assetmanager->getAssetUrl($iconAsset, 'killed.png')|escape:javascript}}";
-                  return i;
-                })()
-              };
+              (function(){
+                {{if $battle->my_team_color_hue === null || $battle->his_team_color_hue === null}}
+                  {{$myHue = null}}
+                  {{$hisHue = null}}
+                {{else}}
+                  {{$myHue = (round($battle->my_team_color_hue / 2) * 2)}}
+                  {{$hisHue = (round($battle->his_team_color_hue / 2) * 2)}}
+                {{/if}}
+                window.graphIcon = {
+                  dead: (function(){
+                    var i = new Image;
+                    i.src = "{{$app->assetmanager->getAssetUrl($iconAsset, 'dead.png/default.png')|escape:javascript}}";
+                    return i;
+                  })(),
+                  killed: (function(){
+                    var i = new Image;
+                    i.src = "{{$app->assetmanager->getAssetUrl($iconAsset, 'killed.png/default.png')|escape:javascript}}";
+                    return i;
+                  })(),
+                  {{if $myHue !== null && $hisHue !== null}}
+                    weGot: (function(){
+                      {{$tmp = 'gachi.png/'|cat:$myHue:'.png'}}
+                      var i = new Image;
+                      i.src = "{{$app->assetmanager->getAssetUrl($iconAsset, $tmp)|escape:javascript}}";
+                      return i;
+                    })(),
+                    theyGot: (function(){
+                      {{$tmp = 'gachi.png/'|cat:$hisHue:'.png'}}
+                      var i = new Image;
+                      i.src = "{{$app->assetmanager->getAssetUrl($iconAsset, $tmp)|escape:javascript}}";
+                      return i;
+                    })(),
+                    weLost: (function(){
+                      {{$tmp = 'gachi.png/default.png'}}
+                      var i = new Image;
+                      i.src = "{{$app->assetmanager->getAssetUrl($iconAsset, $tmp)|escape:javascript}}";
+                      return i;
+                    })(),
+                    theyLost: (function(){
+                      {{$tmp = 'gachi.png/default.png'}}
+                      var i = new Image;
+                      i.src = "{{$app->assetmanager->getAssetUrl($iconAsset, $tmp)|escape:javascript}}";
+                      return i;
+                    })(),
+                  {{else}}
+                    weGot: null,
+                    theyGot: null,
+                    weLost: null,
+                    theyLost: null,
+                  {{/if}}
+                  weLead: null,
+                  theyLead: null
+                };
+              })();
             {{/registerJs}}
             {{registerJs}}
               (function($) {
@@ -620,9 +669,10 @@
                 window.battleEvents.sort(function(a,b){
                   return a.at - b.at;
                 });
-              
+
                 function drawTimelineGraph() {
                   var $graph_ = $graphs.filter('#timeline');
+                  var drawRankedBattleEvents = $('#draw-gachi').prop('checked');
                   var inkedData = isNawabari
                     ? window.battleEvents.filter(function(v){
                         return (v.type === "score" && v.score) || (v.type === "point" && v.point);
@@ -787,12 +837,43 @@
                   };
 
                   var iconData = window.battleEvents.filter(function(v){
-                    return v.type === "dead" || v.type === "killed";
+                    if (!v.at) {
+                      return false;
+                    }
+                    if (v.type === "killed" || v.type === "dead") {
+                      return true;
+                    }
+                    if (v.type === "ranked_battle_event" && window.graphIcon.weGot && drawRankedBattleEvents) {
+                      switch (v.value) {
+                        case "we_got":
+                        case "we_lost":
+                        case "they_got":
+                        case "they_lost":
+                          return true;
+
+                        default:
+                          return false;
+                      }
+                    }
+                    return false;
                   }).map(function(v){
                     var size = Math.max(18, Math.ceil($graph_.height() * 0.075));
-                    return [
-                      window.graphIcon[v.type].src, v.at, size, size
-                    ];
+                    if (v.type === "ranked_battle_event") {
+                      return [
+                        window.graphIcon[(function(type) {
+                          switch (type) {
+                            case "we_got": return "weGot";
+                            case "we_lost": return "weLost";
+                            case "they_got": return "theyGot";
+                            case "they_lost": return "theyLost";
+                          }
+                        })(v.value)].src, v.at, size, size
+                      ];
+                    } else {
+                      return [
+                        window.graphIcon[v.type].src, v.at, size, size
+                      ];
+                    }
                   });
 
                   var markings = window.battleEvents.filter(function(v){
@@ -940,6 +1021,10 @@
                     });
                   });
                 }
+
+                $('#draw-gachi').click(function(){
+                  $(window).resize();
+                });
               
                 var timerId = null;
                 $(window).resize(function() {

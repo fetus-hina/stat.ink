@@ -49,6 +49,7 @@
     },
     "require-dev": {
         "phpcq/author-validation": "^1.1",
+        "primal/color": "^1.0@dev",
         "squizlabs/php_codesniffer": "^2.3",
         "symfony/yaml": "^2.7",
         "yiisoft/yii2-debug": "2.0.*",

@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "58ba8685ca255b7ab13ffd51a13b63e2",
-    "content-hash": "ad32c16a7477bfc5208529745212f591",
+    "hash": "9a65130a3d803d90bf4d063d4a0dd74e",
+    "content-hash": "750fdaf8b0d986984c26def70852443f",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -2178,6 +2178,55 @@
             "time": "2013-11-01 13:02:21"
         },
         {
+            "name": "primal/color",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/PrimalPHP/Color.git",
+                "reference": "877e2f7bbf1d27214e8c71ca4b70fdbe19ce4552"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/PrimalPHP/Color/zipball/877e2f7bbf1d27214e8c71ca4b70fdbe19ce4552",
+                "reference": "877e2f7bbf1d27214e8c71ca4b70fdbe19ce4552",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Primal\\Color": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jarvis Badgley",
+                    "email": "primal@chipersoft.com",
+                    "homepage": "http://chipersoft.com"
+                }
+            ],
+            "description": "Collection of classes for converting and manipulating colors",
+            "homepage": "http://github.com/PrimalPHP/Color",
+            "keywords": [
+                "color"
+            ],
+            "time": "2015-12-02 00:07:11"
+        },
+        {
             "name": "psr/log",
             "version": "1.0.0",
             "source": {
@@ -2662,7 +2711,8 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "bower-asset/jquery-stupid-table": 20
+        "bower-asset/jquery-stupid-table": 20,
+        "primal/color": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
