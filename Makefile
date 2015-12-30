@@ -97,22 +97,22 @@ resources/.compiled/graph-icon/gachi.png:
 resources/.compiled/graph-icon/killed.png:
 	mkdir -p resources/.compiled/graph-icon/killed.png
 
-resources/.compiled/graph-icon/dead.png/default.png: resources/graph-icon/dead.png resources/graph-icon/dead.png
+resources/.compiled/graph-icon/dead.png/default.png: resources/.compiled/graph-icon/dead.png resources/graph-icon/dead.png
 	pngcrush -rem allb -l 9 resources/graph-icon/dead.png resources/.compiled/graph-icon/dead.png/default.png
 
-resources/.compiled/graph-icon/gachi.png/default.png: resources/graph-icon/gachi.png resources/graph-icon/gachi.png
+resources/.compiled/graph-icon/gachi.png/default.png: resources/.compiled/graph-icon/gachi.png resources/graph-icon/gachi.png
 	pngcrush -rem allb -l 9 resources/graph-icon/gachi.png resources/.compiled/graph-icon/gachi.png/default.png
 
-resources/.compiled/graph-icon/killed.png/default.png: resources/graph-icon/killed.png resources/graph-icon/killed.png
+resources/.compiled/graph-icon/killed.png/default.png: resources/.compiled/graph-icon/killed.png resources/graph-icon/killed.png
 	pngcrush -rem allb -l 9 resources/graph-icon/killed.png resources/.compiled/graph-icon/killed.png/default.png
 
-resources/.compiled/graph-icon/dead.png/358.png: vendor resources/graph-icon/dead.png resources/.compiled/graph-icon/dead.png
+resources/.compiled/graph-icon/dead.png/358.png: vendor resources/.compiled/graph-icon/dead.png resources/.compiled/graph-icon/dead.png
 	./yii graph-icon/generate resources/graph-icon/dead.png resources/.compiled/graph-icon/dead.png
 
-resources/.compiled/graph-icon/gachi.png/358.png: vendor resources/graph-icon/gachi.png resources/.compiled/graph-icon/gachi.png
+resources/.compiled/graph-icon/gachi.png/358.png: vendor resources/.compiled/graph-icon/gachi.png resources/.compiled/graph-icon/gachi.png
 	./yii graph-icon/generate resources/graph-icon/gachi.png resources/.compiled/graph-icon/gachi.png
 
-resources/.compiled/graph-icon/killed.png/358.png: vendor resources/graph-icon/killed.png resources/.compiled/graph-icon/killed.png
+resources/.compiled/graph-icon/killed.png/358.png: vendor resources/.compiled/graph-icon/killed.png resources/.compiled/graph-icon/killed.png
 	./yii graph-icon/generate resources/graph-icon/killed.png resources/.compiled/graph-icon/killed.png
 
 migrate-db: vendor config/db.php
