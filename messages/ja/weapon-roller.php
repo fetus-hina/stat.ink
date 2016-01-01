@@ -8,6 +8,7 @@ return [
     'Inkbrush Nouveau' => 'パブロ・ヒュー',
     'Inkbrush' => 'パブロ',
     'Krak-On Splat Roller' => 'スプラローラーコラボ',
+    'Octobrush Nouveau' => 'ホクサイ・ヒュー',
     'Octobrush' => 'ホクサイ',
     'Splat Roller' => 'スプラローラー',
 ];

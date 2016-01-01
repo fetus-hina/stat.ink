@@ -207,6 +207,7 @@ POST /api/v1/battle
         - `dynamo_tesla` : ダイナモローラーテスラ
         - `heroroller_replica` : ヒーローローラーレプリカ
         - `hokusai` : ホクサイ
+        - `hokusai_hue` : ホクサイ・ヒュー
         - `pablo` : パブロ
         - `pablo_hue` : パブロ・ヒュー
         - `splatroller` : スプラローラー
