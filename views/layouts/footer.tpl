@@ -11,7 +11,7 @@
         {{/if}}
       </div>
       <div class="footer-author">
-        Copyright &copy; 2015 AIZAWA Hina.&#32;
+        Copyright &copy; 2015-2016 AIZAWA Hina.&#32;
         <a href="https://twitter.com/fetus_hina" title="Twitter: fetus_hina" class="auto-tooltip">
           <span class="fa fa-twitter"></span>
         </a>&#32;<a href="https://github.com/fetus-hina" title="GitHub: fetus-hina" class="auto-tooltip">
