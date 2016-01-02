@@ -20,9 +20,7 @@
       </div>
     </div>
 
-    <div id="sns">
-      {{TweetButton}}
-    </div>
+    {{SnsWidget}}
 
     {{\jp3cki\yii2\flot\FlotAsset::register($this)|@void}}
     {{\jp3cki\yii2\flot\FlotTimeAsset::register($this)|@void}}

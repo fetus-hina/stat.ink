@@ -16,9 +16,7 @@
 
     {{include file="@app/views/includes/ad.tpl"}}
 
-    <div id="sns">
-      {{TweetButton}}
-    </div>
+    {{SnsWidget}}
 
     <div class="table-responsive table-responsive-force">
       <table class="table table-condensed graph-container">

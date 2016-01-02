@@ -19,12 +19,8 @@
 
     {{include file="@app/views/includes/ad.tpl"}}
 
-    <div id="sns">
-      {{TweetButton}}
-    </div>
+    {{SnsWidget}}
 
-    <h2>
-    </h2>
     <p>
       {{$app->name|escape}}へ投稿されたデータからチームを推測し、勝率を計算したデータです。利用者の偏りから正確な勝率を表していません。
     </p>

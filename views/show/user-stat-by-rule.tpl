@@ -19,9 +19,7 @@
       {{$title|escape}}
     </h1>
 
-    <div id="sns">
-      {{TweetButton}}
-    </div>
+    {{SnsWidget}}
 
     <div class="row">
       <div class="col-xs-12 col-sm-8 col-md-8 col-lg-9">

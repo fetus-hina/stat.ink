@@ -20,9 +20,7 @@
       </div>
     </div>
 
-    <div id="sns">
-      {{TweetButton}}
-    </div>
+    {{SnsWidget}}
 
     {{use class="yii\bootstrap\ActiveForm" type="block"}}
     {{ActiveForm assign="_" id="filter-form" action=['entire/kd-win'] method="get" layout="inline"}}

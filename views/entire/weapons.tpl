@@ -20,9 +20,7 @@
       </div>
     </div>
 
-    <div id="sns">
-      {{TweetButton}}
-    </div>
+    {{SnsWidget}}
 
     <h2>
       {{'Weapons'|translate:'app'|escape}}

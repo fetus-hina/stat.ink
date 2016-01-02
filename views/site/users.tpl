@@ -10,9 +10,7 @@
       {{include file="@app/views/includes/ad.tpl"}}
     </div>
 
-    <div id="sns">
-      {{TweetButton}}
-    </div>
+    {{SnsWidget}}
 
     {{include file="@app/views/includes/battle_thumb_list.tpl" battles=$battles}}
 {{/strip}}

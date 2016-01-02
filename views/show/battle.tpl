@@ -65,9 +65,7 @@
       {{/if}}
     {{/if}}
 
-    <div id="sns">
-      {{TweetButton}}
-    </div>
+    {{SnsWidget}}
 
     {{if $battle->battleImageJudge || $battle->battleImageResult}}
       <div class="row">

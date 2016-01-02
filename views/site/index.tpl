@@ -26,10 +26,7 @@
       &#32;<a href="{{url route="site/privacy"}}#image">IkaLogへの画像提供について</a>
     </p>
 
-    <div id="sns">
-      {{TweetButton}}
-    </div>
-
+    {{SnsWidget}}
 
     {{use class="app\models\Splatfest"}}
     {{$fest = Splatfest::findCurrentFest()
