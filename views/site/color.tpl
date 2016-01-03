@@ -6,9 +6,8 @@
       {{'Color-Blind Support'|translate:'app'|escape}}
     </h1>
 
-    <div style="margin-bottom:15px">
-      {{include file="@app/views/includes/ad.tpl"}}
-    </div>
+    {{AdWidget}}
+    {{SnsWidget}}
 
     <p>
       {{$app->name|escape}}では、色覚サポートを実装しています。

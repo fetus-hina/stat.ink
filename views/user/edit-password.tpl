@@ -32,7 +32,7 @@
         </div>
       </div>
       <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6" style="padding:0 5%">
-        {{include file="@app/views/includes/ad.tpl"}}
+        {{AdWidget}}
       </div>
     </div>
   </div>

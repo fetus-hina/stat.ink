@@ -6,10 +6,7 @@
       {{'All Players'|translate:'app':$app->name|escape}}
     </h1>
 
-    <div style="margin-bottom:15px">
-      {{include file="@app/views/includes/ad.tpl"}}
-    </div>
-
+    {{AdWidget}}
     {{SnsWidget}}
 
     {{include file="@app/views/includes/battle_thumb_list.tpl" battles=$battles}}

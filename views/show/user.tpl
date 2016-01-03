@@ -238,12 +238,8 @@
             <input type="submit" value="{{'Search'|translate:'app'|escape}}" class="btn btn-primary">
           {{/ActiveForm}}
         </div>
-        <div>
-          {{include file="@app/views/includes/user-miniinfo.tpl" user=$user}}
-        </div>
-        <div>
-          {{include file="@app/views/includes/ad.tpl"}}
-        </div>
+        {{include file="@app/views/includes/user-miniinfo.tpl" user=$user}}
+        {{AdWidget}}
       </div>
     </div>
     <div class="row">

@@ -113,7 +113,7 @@
         </div>
 
         {{include file="@app/views/includes/user-miniinfo.tpl" user=$user}}
-        {{include file="@app/views/includes/ad.tpl"}}
+        {{AdWidget}}
       </div>
     </div>
   </div>

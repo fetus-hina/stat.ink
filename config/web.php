@@ -79,8 +79,8 @@ $config = [
                     ],
                     'widgets' => [
                         'functions' => [
+                            'AdWidget' => 'app\components\widgets\AdWidget',
                             'SnsWidget' => 'app\components\widgets\SnsWidget',
-                            'TweetButton' => '\jp3cki\yii2\twitter\widget\TweetButton',
                         ]
                     ],
                 ],

@@ -14,8 +14,7 @@
       {{$title|escape}}
     </h1>
 
-    {{include file="@app/views/includes/ad.tpl"}}
-
+    {{AdWidget}}
     {{SnsWidget}}
 
     <div class="table-responsive table-responsive-force">

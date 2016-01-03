@@ -10,9 +10,8 @@
       {{'FAQ'|translate:'app'|escape}}
     </h1>
 
-    <div style="margin-bottom:15px">
-      {{include file="@app/views/includes/ad.tpl"}}
-    </div>
+    {{AdWidget}}
+    {{SnsWidget}}
 
     <p>
       IkaLogの動作や認識に関する問題は<a href="https://github.com/hasegaw/IkaLog/wiki/faq">IkaLog FAQ</a>をご覧ください。

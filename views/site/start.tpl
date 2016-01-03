@@ -13,9 +13,8 @@
       このサイトは、スプラトゥーンの勝敗データを自動的に収集して統計として後で解析できるように蓄積するサイトです。
     </p>
 
-    <div style="margin-bottom:15px">
-      {{include file="@app/views/includes/ad.tpl"}}
-    </div>
+    {{AdWidget}}
+    {{SnsWidget}}
 
     <h2>
       概要

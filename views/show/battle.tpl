@@ -1051,9 +1051,7 @@
       </div>
       <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
         {{include file="@app/views/includes/user-miniinfo.tpl" user=$user}}
-      </div>
-      <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4" style="margin-top:15px">
-        {{include file="@app/views/includes/ad.tpl"}}
+        {{AdWidget}}
       </div>
     </div>
   </div>

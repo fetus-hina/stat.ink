@@ -17,8 +17,7 @@
       {{$title|escape}}
     </h1>
 
-    {{include file="@app/views/includes/ad.tpl"}}
-
+    {{AdWidget}}
     {{SnsWidget}}
 
     <p>
