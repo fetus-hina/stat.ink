@@ -13,6 +13,9 @@
     <h1>
       {{$title|escape}}
     </h1>
+    <p>
+      {{'This website has implemented support for color-blindness. Please check "Color-Blind Support" at "User Name/Guest" menu of the navbar to enable it.'|translate:'app'|escape}}
+    </p>
 
     {{AdWidget}}
     {{SnsWidget}}
@@ -184,25 +187,39 @@
       var ratio = Math.min(100, Math.max(0, (percent - 10) * (100 / 80)));
 
       /* calc background color */
-      if (ratio >= 50) {
-        $cell.css(
-          'background-color',
-          $.Color({
-            hue: 214,
-            saturation: 0.95 * ((ratio - 50) * 2 / 100),
-            lightness: 0.53 + 0.08 * ((ratio - 50) * 2 / 100),
-          })
-          .alpha(battleCountCoefficient)
-          .blend($.Color("#ffffff"))
-          .toRgbaString()
-        );
+      if (window.colorLock) {
+        if (ratio >= 50) {
+          $cell.css(
+            'background-color',
+            $.Color({
+              hue: 214,
+              saturation: 0.95 * ((ratio - 50) * 2 / 100),
+              lightness: 0.53 + 0.08 * ((ratio - 50) * 2 / 100),
+            })
+            .alpha(battleCountCoefficient)
+            .blend($.Color("#ffffff"))
+            .toRgbaString()
+          );
+        } else {
+          $cell.css(
+            'background-color',
+            $.Color({
+              hue: 22,
+              saturation: 0.95 * ((50 - ratio) * 2 / 100),
+              lightness: 0.53 + 0.08 * ((50 - ratio) * 2 / 100)
+            })
+            .alpha(battleCountCoefficient)
+            .blend($.Color("#ffffff"))
+            .toRgbaString()
+          );
+        }
       } else {
         $cell.css(
           'background-color',
           $.Color({
-            hue: 22,
-            saturation: 0.95 * ((50 - ratio) * 2 / 100),
-            lightness: 0.53 + 0.08 * ((50 - ratio) * 2 / 100)
+            hue: 120 * ratio / 100,
+            saturation: 0.95,
+            lightness: 0.53
           })
           .alpha(battleCountCoefficient)
           .blend($.Color("#ffffff"))
