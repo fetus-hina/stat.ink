@@ -5,9 +5,9 @@
         {{$_ver = \app\components\Version::getVersion()}}
         {{$_revL = \app\components\Version::getRevision()}}
         {{$_revS = \app\components\Version::getShortRevision()}}
-        {{$app->name|escape}} Version <a href="https://github.com/fetus-hina/stat.ink/releases/tag/v{{$_ver|escape:url|escape}}">{{$_ver|escape}}</a>
+        {{$app->name|escape}} Version {{$_ver|escape}}
         {{if $_revL && $_revS}}
-          , Revision <a href="https://github.com/fetus-hina/stat.ink/commit/{{$_revL|escape:url|escape}}">{{$_revS|escape}}</a>
+          , Revision <a href="https://github.com/fetus-hina/stat.ink/tree/{{$_revL|escape:url|escape}}">{{$_revS|escape}}</a>
         {{/if}}
       </div>
       <div class="footer-author">
