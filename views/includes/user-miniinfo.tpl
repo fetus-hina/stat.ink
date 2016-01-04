@@ -192,27 +192,27 @@
         <hr>
         <p style="margin:10px 0 0">
           <a href="{{url route="show/user-stat-nawabari" screen_name=$user->screen_name}}">
-            <span class="fa fa-pie-chart"></span>&#32;
+            <span class="fa fa-pie-chart left"></span>
             {{'Stat (Turf War)'|translate:'app'|escape}}
           </a><br>
           <a href="{{url route="show/user-stat-gachi" screen_name=$user->screen_name}}">
-            <span class="fa fa-pie-chart"></span>&#32;
+            <span class="fa fa-pie-chart left"></span>
             {{'Stat (Ranked Battle)'|translate:'app'|escape}}
           </a><br>
           <a href="{{url route="show/user-stat-by-rule" screen_name=$user->screen_name}}">
-            <span class="fa fa-pie-chart"></span>&#32;
+            <span class="fa fa-pie-chart left"></span>
             {{'Stat (by Rule)'|translate:'app'|escape}}
           </a><br>
           <a href="{{url route="show/user-stat-by-map" screen_name=$user->screen_name}}">
-            <span class="fa fa-pie-chart"></span>&#32;
+            <span class="fa fa-pie-chart left"></span>
             {{'Stat (by Map)'|translate:'app'|escape}}
           </a><br>
           <a href="{{url route="show/user-stat-by-map-rule" screen_name=$user->screen_name}}">
-            <span class="fa fa-pie-chart"></span>&#32;
+            <span class="fa fa-pie-chart left"></span>
             {{'Stat (by Map and Rule)'|translate:'app'|escape}}
           </a><br>
           <a href="{{url route="show/user-stat-cause-of-death" screen_name=$user->screen_name}}">
-            <span class="fa fa-pie-chart"></span>&#32;
+            <span class="fa fa-pie-chart left"></span>
             {{'Stat (Cause of Death)'|translate:'app'|escape}}
           </a>
         </p>
@@ -240,7 +240,7 @@
         {{if $user->twitter != ''}}
           <div>
             <a href="https://twitter.com/{{$user->twitter|escape:url}}" rel="nofollow" target="_blank">
-              <span class="fa fa-twitter"></span> {{$user->twitter|escape}}
+              <span class="fa fa-twitter left"></span>{{$user->twitter|escape}}
             </a>
           </div>
         {{/if}}

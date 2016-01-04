@@ -68,7 +68,7 @@
               <td>
                 {{if $user->twitter != ''}}
                   <a href="https://twitter.com/{{$user->twitter|escape:url}}">
-                    <span class="fa fa-twitter"></span> @{{$user->twitter|escape}}
+                    <span class="fa fa-twitter left"></span>@{{$user->twitter|escape}}
                   </a>
                 {{else}}
                   -
@@ -104,10 +104,10 @@
         <h2>ダウンロード</h2>
         <p>
           <a href="{{url route="/user/download" type="ikalog-csv"}}" class="btn btn-default btn-block">
-            <span class="fa fa-file-excel-o"></span> CSV (IkaLog互換)
+            <span class="fa fa-file-excel-o left"></span>CSV (IkaLog互換)
           </a>
           <a href="{{url route="/user/download" type="ikalog-json"}}" class="btn btn-default btn-block">
-            <span class="fa fa-file-code-o"></span> JSON (IkaLog互換)
+            <span class="fa fa-file-code-o left"></span>JSON (IkaLog互換)
           </a>
         </p>
       </div>

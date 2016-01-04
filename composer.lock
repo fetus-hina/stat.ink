@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "f36a303a44c0bec09f53570810163bef",
-    "content-hash": "6e3095b2c8b7e4891aecbcfde7d0154b",
+    "hash": "2b82c0798153056b71e0e73d00d84fac",
+    "content-hash": "81f98e319f0e47ae4e322a36d72d283a",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -1372,16 +1372,16 @@
         },
         {
             "name": "smarty/smarty",
-            "version": "v3.1.27",
+            "version": "v3.1.29",
             "source": {
                 "type": "git",
                 "url": "https://github.com/smarty-php/smarty.git",
-                "reference": "4537d8aae6c4a26f5439bc3a05d3437d25c2c4d2"
+                "reference": "35480f10e7ce9b0fdaf23d3799d7b79463919b1e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/smarty-php/smarty/zipball/4537d8aae6c4a26f5439bc3a05d3437d25c2c4d2",
-                "reference": "4537d8aae6c4a26f5439bc3a05d3437d25c2c4d2",
+                "url": "https://api.github.com/repos/smarty-php/smarty/zipball/35480f10e7ce9b0fdaf23d3799d7b79463919b1e",
+                "reference": "35480f10e7ce9b0fdaf23d3799d7b79463919b1e",
                 "shasum": ""
             },
             "require": {
@@ -1423,7 +1423,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2015-06-18 00:55:59"
+            "time": "2015-12-21 01:57:06"
         },
         {
             "name": "tpyo/amazon-s3-php-class",

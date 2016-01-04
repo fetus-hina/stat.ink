@@ -104,7 +104,7 @@
       {{/if}}
     </td>
     {{if $model->kill_ratio !== null}}
-      <td class="right kill-ratio cell-kill-ratio" data-kill-ratio="{{$model->kill_ratio|escape}}">
+      <td class="text-right kill-ratio cell-kill-ratio" data-kill-ratio="{{$model->kill_ratio|escape}}">
         {{$model->kill_ratio|string_format:'%.2f'|escape}}
       </td>
     {{else}}

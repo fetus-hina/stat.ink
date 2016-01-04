@@ -19,52 +19,52 @@
             {{$user = $app->user}}
             {{if $user->isGuest}}
               <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                <span class="fa fa-user"></span> {{'Guest'|translate:'app'|escape}} <span class="caret"></span>
+                <span class="fa fa-user left"></span>{{'Guest'|translate:'app'|escape}}&#32;<span class="caret"></span>
               </a>
               <ul class="dropdown-menu">
                 <li>
                   <a href="{{path route="user/login"}}">
-                    <span class="fa fa-sign-in"></span> {{'Log In'|translate:'app'|escape}}
+                    <span class="fa fa-sign-in left"></span>{{'Log In'|translate:'app'|escape}}
                   </a>
                 </li>
                 <li>
                   <a href="{{path route="user/register"}}">
-                    <span class="fa fa-plus"></span> {{'Register'|translate:'app'|escape}}
+                    <span class="fa fa-plus left"></span>{{'Register'|translate:'app'|escape}}
                   </a>
                 </li>
                 <li class="divider"></li>
                 <li>
                   <a href="javascript:;" id="toggle-color-lock">
-                    <span class="fa fa-check"></span> {{'Color-Blind Support'|translate:'app'|escape}}
+                    <span class="fa fa-check left"></span>{{'Color-Blind Support'|translate:'app'|escape}}
                   </a>
                 </li>
               </ul>
             {{else}}
               {{$ident = $user->identity}}
               <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                <span class="fa fa-user"></span> {{$ident->name|escape}} <span class="caret"></span>
+                <span class="fa fa-user left"></span>{{$ident->name|escape}}&#32;<span class="caret"></span>
               </a>
               <ul class="dropdown-menu">
                 <li>
                   <a href="{{path route="show/user" screen_name=$ident->screen_name}}">
-                    <span class="fa fa-user"></span> {{'Your Battles'|translate:'app'|escape}}
+                    <span class="fa fa-user left"></span>{{'Your Battles'|translate:'app'|escape}}
                   </a>
                 </li>
                 <li>
                   <a href="{{path route="user/profile"}}">
-                    <span class="fa fa-gear"></span> {{'Settings'|translate:'app'|escape}}
+                    <span class="fa fa-gear left"></span>{{'Settings'|translate:'app'|escape}}
                   </a>
                 </li>
                 <li class="divider"></li>
                 <li>
                   <a href="{{path route="user/logout"}}">
-                    <span class="fa fa-sign-out"></span> {{'Log Out'|translate:'app'|escape}}
+                    <span class="fa fa-sign-out left"></span>{{'Log Out'|translate:'app'|escape}}
                   </a>
                 </li>
                 <li class="divider"></li>
                 <li>
                   <a href="javascript:;" id="toggle-color-lock">
-                    <span class="fa fa-check"></span> {{'Color-Blind Support'|translate:'app'|escape}}
+                    <span class="fa fa-check left"></span>{{'Color-Blind Support'|translate:'app'|escape}}
                   </a>
                 </li>
               </ul>
@@ -78,7 +78,7 @@
               {{foreach Language::find()->orderBy('name ASC')->all() as $lang}}
                 <li>
                   <a href="javascript:;" data-lang="{{$lang->lang|escape}}" class="language-change">
-                    <span class="fa fa-check" style="{{if $app->language !== $lang->lang}}color:transparent{{/if}}"></span>&#32;
+                    <span class="fa fa-check left" style="{{if $app->language !== $lang->lang}}color:transparent{{/if}}"></span>
                     {{$lang->name|escape}} / {{$lang->name_en|escape}}
                   </a>
                 </li>
@@ -87,13 +87,13 @@
           </li>
           <li class="dropdown">
             <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-              {{'Time Zone'|translate:'app'|escape}} <span class="caret"></span>
+              {{'Time Zone'|translate:'app'|escape}}&#32;<span class="caret"></span>
             </a>
             <ul class="dropdown-menu">
               {{foreach Timezone::find()->all() as $tz}}
                 <li>
                   <a href="javascript:;" data-tz="{{$tz->identifier|escape}}" class="timezone-change">
-                    <span class="fa fa-check" style="{{if $app->timeZone !== $tz->identifier}}color:transparent{{/if}}"></span>&#32;
+                    <span class="fa fa-check left" style="{{if $app->timeZone !== $tz->identifier}}color:transparent{{/if}}"></span>
                     {{$tz->name|translate:'app'|escape}}
                   </a>
                 </li>
@@ -117,7 +117,7 @@
               <li class="divider"></li>
               <li>
                 <a href="https://twitter.com/splatoonjp">
-                  <span class="fa fa-twitter"></span>
+                  <span class="fa fa-twitter left"></span>
                   {{'Official Twitter (Japan)'|translate:'app'|escape}}
                 </a>
               </li>
@@ -129,8 +129,8 @@
               <li>
                 <a href="https://github.com/hasegaw/IkaLog/blob/master/doc/IkaUI.md">
                   {{'IkaLog'|translate:'app'|escape}}
-                  （<span class="fa fa-windows"></span>
-                  <span class="fa fa-apple"></span>
+                  （<span class="fa fa-windows left"></span>
+                  <span class="fa fa-apple left"></span>
                   <span class="fa fa-linux"></span>）
                 </a>
               </li>

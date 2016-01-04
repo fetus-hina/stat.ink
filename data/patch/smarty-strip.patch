@@ -1,0 +1,18 @@
+From a8f8efd4b48b2aa687d4849a1cca7c3ec6d5d922 Mon Sep 17 00:00:00 2001
+From: uwetews <uwe.tews@googlemail.com>
+Date: Mon, 21 Dec 2015 23:35:52 +0100
+Subject: [PATCH] - bugfix {strip} must remove all blanks between html tags
+
+diff --git a/libs/sysplugins/smarty_internal_templatecompilerbase.php b/libs/sysplugins/smarty_internal_templatecompilerbase.php
+index 6c3ea5f..35ca0a4 100644
+--- a/libs/sysplugins/smarty_internal_templatecompilerbase.php
++++ b/libs/sysplugins/smarty_internal_templatecompilerbase.php
+@@ -807,7 +807,7 @@ public function processText($text)
+ 
+                     $expressions = array(// replace multiple spaces between tags by a single space
+                                          // can't remove them entirely, becaue that might break poorly implemented CSS display:inline-block elements
+-                                         '#(:SMARTY@!@|>)\s+(?=@!@SMARTY:|<)#s'                                    => '\1 \2',
++                                         '#(:SMARTY@!@|>)\s+(?=@!@SMARTY:|<)#s'                                    => '\1\2',
+                                          // remove spaces between attributes (but not in attribute values!)
+                                          '#(([a-z0-9]\s*=\s*("[^"]*?")|(\'[^\']*?\'))|<[a-z0-9_]+)\s+([a-z/>])#is' => '\1 \5',
+                                          '#^\s+<#Ss'                                                               => '<',

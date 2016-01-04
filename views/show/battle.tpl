@@ -90,14 +90,14 @@
             {{if $battle->previousBattle}}
               <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                 <a href="{{url route="show/battle" screen_name=$user->screen_name battle=$battle->previousBattle->id}}" class="btn btn-default">
-                  <span class="fa fa-angle-double-left"></span> {{'Prev Battle'|translate:'app'|escape}}
+                  <span class="fa fa-angle-double-left left"></span>{{'Prev Battle'|translate:'app'|escape}}
                 </a>
               </div>
             {{/if}}
             {{if $battle->nextBattle}}
               <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 pull-right text-right">
                 <a href="{{url route="show/battle" screen_name=$user->screen_name battle=$battle->nextBattle->id}}" class="btn btn-default">
-                  {{'Next Battle'|translate:'app'|escape}} <span class="fa fa-angle-double-right"></span>
+                  {{'Next Battle'|translate:'app'|escape}}<span class="fa fa-angle-double-right right"></span>
                 </a>
               </div>
             {{/if}}
@@ -1039,7 +1039,7 @@
           {{/if}}
         {{/if}}
         {{if !$app->user->isGuest && $app->user->identity->id == $user->id}}
-          <p class="right">
+          <p class="text-right">
             <a href="{{url route="show/edit-battle" screen_name=$user->screen_name battle=$battle->id}}" class="btn btn-default">
               {{'Edit'|translate:'app'|escape}}
             </a>

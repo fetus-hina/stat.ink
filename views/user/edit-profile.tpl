@@ -17,7 +17,7 @@
       {{$_->field($form, 'nnid')}}
 
       {{$_->field($form, 'twitter', [
-          'inputTemplate' => '<div class="input-group"><span class="input-group-addon"><span class="fa fa-twitter"></span> @</span>{input}</div>'
+          'inputTemplate' => '<div class="input-group"><span class="input-group-addon"><span class="fa fa-twitter left"></span>@</span>{input}</div>'
         ])}}
 
       {{$_->field($form, 'ikanakama', [

@@ -273,7 +273,7 @@
     <h2>
       {{'Active Players'|translate:'app'|escape}}
     </h2>
-    <p class="right" style="margin:0">
+    <p class="text-right" style="margin:0">
       <a href="{{url route="site/users"}}">
         {{'Show All Players'|translate:'app'|escape}}
       </a>

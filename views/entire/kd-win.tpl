@@ -34,32 +34,32 @@
       <table class="table table-bordered table-condensed rule-table">
         <tbody>
           <tr>
-            <td class="center kdcell percent-cell" data-battle="1" data-percent="90">
-            <td class="center kdcell">90%</td>
+            <td class="text-center kdcell percent-cell" data-battle="1" data-percent="90">
+            <td class="text-center kdcell">90%</td>
           </tr>
           <tr>
-            <td class="center kdcell percent-cell" data-battle="1" data-percent="{{(10+(90-10)*5/6)}}">
-            <td class="center kdcell">:</td>
+            <td class="text-center kdcell percent-cell" data-battle="1" data-percent="{{(10+(90-10)*5/6)}}">
+            <td class="text-center kdcell">:</td>
           </tr>
           <tr>
-            <td class="center kdcell percent-cell" data-battle="1" data-percent="{{(10+(90-10)*4/6)}}">
-            <td class="center kdcell">:</td>
+            <td class="text-center kdcell percent-cell" data-battle="1" data-percent="{{(10+(90-10)*4/6)}}">
+            <td class="text-center kdcell">:</td>
           </tr>
           <tr>
-            <td class="center kdcell percent-cell" data-battle="1" data-percent="{{(10+(90-10)*3/6)}}">
-            <td class="center kdcell">50%</td>
+            <td class="text-center kdcell percent-cell" data-battle="1" data-percent="{{(10+(90-10)*3/6)}}">
+            <td class="text-center kdcell">50%</td>
           </tr>
           <tr>
-            <td class="center kdcell percent-cell" data-battle="1" data-percent="{{(10+(90-10)*2/6)}}">
-            <td class="center kdcell">:</td>
+            <td class="text-center kdcell percent-cell" data-battle="1" data-percent="{{(10+(90-10)*2/6)}}">
+            <td class="text-center kdcell">:</td>
           </tr>
           <tr>
-            <td class="center kdcell percent-cell" data-battle="1" data-percent="{{(10+(90-10)*1/6)}}">
-            <td class="center kdcell">:</td>
+            <td class="text-center kdcell percent-cell" data-battle="1" data-percent="{{(10+(90-10)*1/6)}}">
+            <td class="text-center kdcell">:</td>
           </tr>
           <tr>
-            <td class="center kdcell percent-cell" data-battle="1" data-percent="10">
-            <td class="center kdcell">10%</td>
+            <td class="text-center kdcell percent-cell" data-battle="1" data-percent="10">
+            <td class="text-center kdcell">10%</td>
           </tr>
         </tbody>
       </table>
@@ -68,32 +68,32 @@
       <table class="table table-bordered table-condensed rule-table">
         <tbody>
           <tr>
-            <td class="center kdcell percent-cell" data-battle="100" data-percent="100">
-            <td class="center kdcell">{{'Many'|translate:'app'|escape}}</td>
+            <td class="text-center kdcell percent-cell" data-battle="100" data-percent="100">
+            <td class="text-center kdcell">{{'Many'|translate:'app'|escape}}</td>
           </tr>
           <tr>
-            <td class="center kdcell percent-cell" data-battle="42" data-percent="100">
-            <td class="center kdcell">:</td>
+            <td class="text-center kdcell percent-cell" data-battle="42" data-percent="100">
+            <td class="text-center kdcell">:</td>
           </tr>
           <tr>
-            <td class="center kdcell percent-cell" data-battle="33" data-percent="100">
-            <td class="center kdcell">:</td>
+            <td class="text-center kdcell percent-cell" data-battle="33" data-percent="100">
+            <td class="text-center kdcell">:</td>
           </tr>
           <tr>
-            <td class="center kdcell percent-cell" data-battle="25" data-percent="100">
-            <td class="center kdcell">:</td>
+            <td class="text-center kdcell percent-cell" data-battle="25" data-percent="100">
+            <td class="text-center kdcell">:</td>
           </tr>
           <tr>
-            <td class="center kdcell percent-cell" data-battle="17" data-percent="100">
-            <td class="center kdcell">:</td>
+            <td class="text-center kdcell percent-cell" data-battle="17" data-percent="100">
+            <td class="text-center kdcell">:</td>
           </tr>
           <tr>
-            <td class="center kdcell percent-cell" data-battle="8" data-percent="100">
-            <td class="center kdcell">:</td>
+            <td class="text-center kdcell percent-cell" data-battle="8" data-percent="100">
+            <td class="text-center kdcell">:</td>
           </tr>
           <tr>
-            <td class="center kdcell percent-cell" data-battle="0" data-percent="100">
-            <td class="center kdcell">{{'Few'|translate:'app'|escape}}</td>
+            <td class="text-center kdcell percent-cell" data-battle="0" data-percent="100">
+            <td class="text-center kdcell">{{'Few'|translate:'app'|escape}}</td>
           </tr>
         </tbody>
       </table>
@@ -108,19 +108,19 @@
             <table class="table table-bordered table-condensed rule-table">
               <thead>
                 <tr>
-                  <th class="center kdcell">
+                  <th class="text-center kdcell">
                     {{'d'|translate:'app'|escape}}＼{{'k'|translate:'app'|escape}}
                   </th>
                   {{foreach range(0, 15) as $k}}
-                    <th class="center kdcell">{{$k|escape}}</th>
+                    <th class="text-center kdcell">{{$k|escape}}</th>
                   {{/foreach}}
-                  <th class="center kdcell">16+</th>
+                  <th class="text-center kdcell">16+</th>
                 </tr>
               </thead>
               <tbody>
                 {{foreach range(0, 16) as $d}}
                   <tr>
-                    <th class="center kdcell">
+                    <th class="text-center kdcell">
                       {{if $d === 16}}
                         16+
                       {{else}}
@@ -133,7 +133,7 @@
                       {{if $data->battle > 0}}
                         {{$percent = $data->win * 100 / $data->battle}}
                       {{/if}}
-                      <td class="center kdcell percent-cell" data-battle="{{$data->battle|escape}}" data-percent="{{$percent|escape}}">
+                      <td class="text-center kdcell percent-cell" data-battle="{{$data->battle|escape}}" data-percent="{{$percent|escape}}">
                         {{$data->win|escape}} / {{$data->battle|escape}}<br>
                         {{if $percent === null}}
                           -

@@ -34,7 +34,7 @@
             {{$last = null}}
             {{foreach $list as $i => $row}}
               <tr class="cause-of-death" data-name="{{$row->name|escape}}" data-count="{{$row->count|escape}}">
-                <td class="right">
+                <td class="text-right">
                   {{if $last !== $row->count}}
                     {{$rank = $i + 1}}
                     {{$last = $row->count}}
@@ -44,14 +44,14 @@
                 <td>
                   {{$row->name|escape}}
                 </td>
-                <td class="right">
+                <td class="text-right">
                   {{$params = [
                       'nFormatted' => $row->count|number_format,
                       'n' => $row->count
                     ]}}
                   {{'{nFormatted} {n, plural, =1{time} other{times}}'|translate:'app':$params}}
                 </td>
-                <td class="right">
+                <td class="text-right">
                   {{($row->count*100/$total)|string_format:'%.2f%%'|escape}}
                 </td>
               </tr>

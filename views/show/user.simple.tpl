@@ -132,11 +132,11 @@
         </div>
         <div>
           <a href="#filter-form" class="visible-xs-inline btn btn-info">
-            <span class="fa fa-search"></span> {{'Search'|translate:'app'|escape}}
+            <span class="fa fa-search left"></span>{{'Search'|translate:'app'|escape}}
           </a>&#32;
           {{$params = array_merge($filter->toQueryParams(), ['v' => 'standard', '0' => 'show/user'])}}
           <a href="{{Url::to($params)|escape}}" class="btn btn-default" rel="nofollow">
-            <span class="fa fa-list"></span> {{'Detailed List'|translate:'app'|escape}}
+            <span class="fa fa-list left"></span>{{'Detailed List'|translate:'app'|escape}}
           </a>
         </div>
         <div id="battles">

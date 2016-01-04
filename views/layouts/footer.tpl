@@ -29,7 +29,7 @@
         {{'This website is UNOFFICIAL SERVICE. There is no related to the Splatoon development team or Nintendo.'|translate:'app'|escape}}<br>
         {{'This website is an open source project. The license is MIT and source code hosted on GitHub.'|translate:'app'|escape}} <a href="https://github.com/fetus-hina/stat.ink"><span class="fa fa-github"></span></a><br>
         {{'Feedback or propose is very welcome. Contact to GitHub project or my Twitter.'|translate:'app'|escape}}&#32;
-          <a href="https://github.com/fetus-hina/stat.ink"><span class="fa fa-github"></span><a>&#32;
+          <a href="https://github.com/fetus-hina/stat.ink"><span class="fa fa-github"></span></a>&#32;
           <a href="https://twitter.com/fetus_hina"><span class="fa fa-twitter"></span></a>
       </div>
       <div class="footer-powered">
