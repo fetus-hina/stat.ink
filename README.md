@@ -14,7 +14,7 @@ https://stat.ink/ のソースコードです。
 動作環境
 --------
 
-* PHP 5.5+
+* PHP 7.0
 * PostgreSQL 9.4+
 * ImageMagick (`convert`)
 * Node.js (`npm`)
@@ -26,19 +26,6 @@ https://stat.ink/ は現在次の構成で動作しています。（Docker で�
 * CentOS 7.2.1511 (x86_64)
 * Nginx 1.9.x (mainline)
 * [SCL](https://www.softwarecollections.org/)
-    - [rh-php56](https://www.softwarecollections.org/en/scls/rhscl/rh-php56/)
-        - PHP 5.6.*
-            - `rh-php56-php-cli`
-            - `rh-php56-php-gd`
-            - `rh-php56-php-intl`
-            - `rh-php56-php-mbstring`
-            - `rh-php56-php-pdo`
-        - PHP-FPM
-            - `rh-php56-php-fpm`
-    - [php56more](https://www.softwarecollections.org/en/scls/remi/php56more/)
-        - Mcrypt
-            - `more-php56-php-mcrypt`
-            - `more-php56-php-pecl-msgpack`
     - [rh-postgresql94](https://www.softwarecollections.org/en/scls/rhscl/rh-postgresql94/)
         - PostgreSQL 9.4.*
             - `rh-postgresql94-postgresql`
@@ -49,11 +36,22 @@ https://stat.ink/ は現在次の構成で動作しています。（Docker で�
         - Node.js 0.10.*
             - `nodejs010-nodejs`
             - `nodejs010-npm`
+* [Remi's RPM repository](http://rpms.famillecollet.com/)
+    - `remi-safe` repository, use SCL mechanism
+        - PHP 7.0.*
+            - `php70-php-cli`
+            - `php70-php-fpm`
+            - `php70-php-gd`
+            - `php70-php-intl`
+            - `php70-php-mbstring`
+            - `php70-php-mcrypt`
+            - `php70-php-pdo`
+            - `php70-php-pecl-msgpack`
+            - `php70-php-pgsql`
 
+CentOS 7 の標準 PHP は 5.4.16 です。このバージョンでは動作しません。（PHP 5.5 や 7.0 で追加された機能を使用しています）
 
-CentOS 7 の標準 PHP は 5.4.16 です。このバージョンでは動作しません。
-
-CentOS 7 の標準 PostgreSQL のバージョンは 9.2.14 です。このバージョンでは動作しません。
+CentOS 7 の標準 PostgreSQL のバージョンは 9.2.14 です。このバージョンでは動作しません。（PgSQL 9.4 で追加された機能を使用しています）
 
 
 使い方
