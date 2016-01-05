@@ -72,7 +72,7 @@
           </li>
           <li class="dropdown">
             <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-              Language <span class="caret"></span>
+              <span class="fa fa-language left"></span>Language&#32;<span class="caret"></span>
             </a>
             <ul class="dropdown-menu">
               {{foreach Language::find()->orderBy('name ASC')->all() as $lang}}
@@ -87,6 +87,7 @@
           </li>
           <li class="dropdown">
             <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+              <span class="fa fa-clock-o left"></span>
               {{'Time Zone'|translate:'app'|escape}}&#32;<span class="caret"></span>
             </a>
             <ul class="dropdown-menu">
@@ -102,7 +103,8 @@
           </li>
           <li class="dropdown">
             <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-              {{'Link'|translate:'app'|escape}} <span class="caret"></span>
+              <span class="fa fa-link left"></span>
+              {{'Link'|translate:'app'|escape}}&#32;<span class="caret"></span>
             </a>
             <ul class="dropdown-menu">
               <li>
