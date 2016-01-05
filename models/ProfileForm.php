@@ -25,7 +25,7 @@ class ProfileForm extends Model
             [['name'], 'required'],
             [['name'], 'string', 'max' => 15],
             [['nnid'], 'string', 'min' => 6, 'max' => 16],
-            [['nnid'], 'match', 'pattern' => '/^[a-zA-Z0-9_-]+$/'],
+            [['nnid'], 'match', 'pattern' => '/^[a-zA-Z0-9._-]+$/'],
             [['twitter'], 'string', 'max' => 15],
             [['twitter'], 'match', 'pattern' => '/^[a-zA-Z0-9_]+$/'],
             [['ikanakama'], 'integer', 'min' => 1],

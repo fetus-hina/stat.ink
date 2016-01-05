@@ -70,7 +70,7 @@ class User extends ActiveRecord implements IdentityInterface
             [['password'], 'string', 'max' => 255],
             [['api_key'], 'string', 'max' => 43],
             [['nnid'], 'string', 'min' => 6, 'max' => 16],
-            [['nnid'], 'match', 'pattern' => '/^[a-zA-Z0-9_-]{6,16}$/'],
+            [['nnid'], 'match', 'pattern' => '/^[a-zA-Z0-9._-]{6,16}$/'],
             [['api_key'], 'unique'],
             [['screen_name'], 'unique'],
             [['screen_name', 'twitter'], 'match', 'pattern' => '/^[a-zA-Z0-9_]{1,15}$/'],
