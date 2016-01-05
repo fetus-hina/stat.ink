@@ -36,8 +36,33 @@
         </p>
       {{/if}}
     {{/if}}
-    
-    {{SnsWidget}}
+
+    {{$_btl = $summary->battle_count}}
+    {{if $summary->wp === null}}
+      {{$_wp = '-'}}
+    {{else}}
+      {{$_wp = $summary->wp|string_format:'%.1f%%'}}
+    {{/if}}
+    {{if $summary->kd_present > 0}}
+      {{$_kill = ($summary->total_kill/$summary->kd_present)|string_format:'%.2f'}}
+      {{$_death = ($summary->total_death/$summary->kd_present)|string_format:'%.2f'}}
+      {{if $summary->total_death == 0}}
+        {{if $summary->total_kill == 0}}
+          {{$_kr = '-'}}
+        {{else}}
+          {{$_kr = '∞'}}
+        {{/if}}
+      {{else}}
+        {{$_kr = ($summary->total_kill/$summary->total_death)|string_format:'%.2f'}}
+      {{/if}}
+    {{else}}
+      {{$_kill = '-'}}
+      {{$_death = '-'}}
+      {{$_kr = '-'}}
+    {{/if}}
+    {{$_formatted = 'Battles:{0} / Win%:{1} / Avg Killed:{2} / Avg Dead:{3} / Kill Ratio:{4}'|translate:'app':[$_btl,$_wp,$_kill,$_death,$_kr]}}
+    {{$_tweet = $title|cat:' [ ':$_formatted:' ]'}}
+    {{SnsWidget tweetText=$_tweet}}
 
     <div class="row">
       <div class="col-xs-12 col-sm-8 col-md-8 col-lg-9">

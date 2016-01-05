@@ -21,8 +21,17 @@ class SnsWidget extends Widget
 
     public $tweetButton;
 
+    private $initialized = false;
+
     public function init()
     {
+        if ($this->initialized) {
+            return;
+        }
+        $this->initialized = true;
+
+        parent::init();
+
         // <div id="{id}" class="sns">{tweet} {permalink}</div>
         $this->template = Html::tag('div', '{tweet} {permalink}', [
             'id' => '{id}',
@@ -33,7 +42,17 @@ class SnsWidget extends Widget
         $this->tweetButton = Yii::createObject([
             'class' => TweetButton::class
         ]);
-        return parent::init();
+    }
+
+    public function __set($key, $value)
+    {
+        $this->init();
+        if (preg_match('/^tweet(.+)$/', $key, $match)) {
+            $attr = lcfirst($match[1]);
+            $this->tweetButton->$attr = $value;
+        } else {
+            parent::__set($key, $value);
+        }
     }
 
     public function run()

@@ -28,6 +28,7 @@ return [
     'Battles and Users' => 'バトルとユーザ',
     'Battles' => 'バトル',
     'Battles:' => 'バトル:',
+    'Battles:{0} / Win%:{1} / Avg Killed:{2} / Avg Dead:{3} / Kill Ratio:{4}' => 'バトル数:{0}　勝率:{1}　平均キル:{2}　平均デス:{3}　キルレ:{4}',
     'Black out other players from the result image' => '結果画面の他のプレーヤを黒塗りして隠す',
     'Black out other players' => '他のプレーヤを黒塗りする',
     'Boy' => 'ボーイ',
