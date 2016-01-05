@@ -135,6 +135,7 @@ $config = [
                         'app-reltime' => 'reltime.php',
                         'app-rule' => 'rule.php',
                         'app-special' => 'special.php',
+                        'app-start' => 'start.php',
                         'app-subweapon' => 'subweapon.php',
                         'app-weapon' => 'weapon.php',
                     ],
