@@ -83,6 +83,12 @@
                   </a>
                 </li>
               {{/foreach}}
+              <li class="divider"></li>
+              <li>
+                <a href="{{url route="site/translate"}}">
+                  <span class="fa fa-question-circle left"></span>About Translation
+                </a>
+              </li>
             </ul>
           </li>
           <li class="dropdown">
