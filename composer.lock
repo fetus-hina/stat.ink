@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "2f056d85bf67bc02a0d87b89639533fb",
-    "content-hash": "efc343a6b4de6ad93a9da2572f208e78",
+    "hash": "f4cc268780d1843ce272705c7709b888",
+    "content-hash": "fcd14856a6809bd66247b611ed3667a8",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -54,6 +54,44 @@
                 "mobile-first",
                 "responsive",
                 "web"
+            ]
+        },
+        {
+            "name": "bower-asset/clipboard",
+            "version": "v1.5.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/zenorocha/clipboard.js.git",
+                "reference": "3188ffbce3ba6404c8ae0584d028ff1a26a42ebc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/zenorocha/clipboard.js/zipball/3188ffbce3ba6404c8ae0584d028ff1a26a42ebc",
+                "reference": "3188ffbce3ba6404c8ae0584d028ff1a26a42ebc",
+                "shasum": ""
+            },
+            "type": "bower-asset-library",
+            "extra": {
+                "bower-asset-main": "dist/clipboard.js",
+                "bower-asset-ignore": [
+                    "/.*/",
+                    "/demo/",
+                    "/test/",
+                    "/.*",
+                    "/bower.json",
+                    "/karma.conf.js",
+                    "/src",
+                    "/lib"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "Modern copy to clipboard. No Flash. Just 2kb",
+            "keywords": [
+                "clipboard",
+                "copy",
+                "cut"
             ]
         },
         {
