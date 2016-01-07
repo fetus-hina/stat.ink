@@ -112,9 +112,17 @@ class PostBattleForm extends Model
             [['gender'], 'in', 'range' => [ 'boy', 'girl']],
             [['fest_title', 'fest_title_after'], 'filter', 'filter' => 'strtolower'],
             // Workaround for https://github.com/hasegaw/IkaLog/commit/c9500c3b54ffe70ba97d49b4167e19c95fee1194
+            // And compatibility for https://github.com/fetus-hina/stat.ink/issues/44
             [['fest_title', 'fest_title_after'], 'filter',
                 'filter' => function ($a) {
-                    return $a === 'campion' ? 'champion' : $a;
+                    switch ($a) {
+                        case 'campion':
+                            return 'champion';
+                        case 'friend':
+                            return 'fiend';
+                        default;
+                            return $a;
+                    }
                 }],
             [['fest_title', 'fest_title_after'], 'exist',
                 'targetClass' => FestTitle::className(),
