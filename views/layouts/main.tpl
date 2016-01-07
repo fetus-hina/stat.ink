@@ -12,6 +12,7 @@
       <meta name="format-detection" content="telephone=no,email=no,address=no">
       {{\yii\helpers\Html::csrfMetaTags()}}
       <title>{{$this->title|default:$app->name|default:'stat.ink'|escape}}</title>
+      {{\app\components\helpers\I18n::languageLinkTags()}}
       {{$this->head()}}
     </head>
     <body>

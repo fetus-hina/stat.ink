@@ -8,6 +8,8 @@
 namespace app\components\web;
 
 use Yii;
+use yii\base\Event;
+use yii\base\View;
 use yii\web\Controller as Base;
 use yii\web\Cookie;
 use app\models\Language;
