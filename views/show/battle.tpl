@@ -195,7 +195,7 @@
                 </td>
               </tr>
             {{/if}}
-            {{if $battle->gender && ($battle->festTitle || $battle->festTitleAfter)}}
+            {{if $battle->festTitle || $battle->festTitleAfter}}
               <tr>
                 <th>{{'Splatfest Title'|translate:'app'|escape}}</th>
                 <td>
@@ -205,7 +205,7 @@
                     </span>&#32;
                   {{/if}}
                   {{if $battle->festTitle}}
-                    {{$battle->festTitle->getName($battle->gender)|translate:'app':['***','***']|escape}}
+                    {{$battle->festTitle->getName($battle->gender)|translate:'app-fest':['***','***']|escape}}
                     {{if $battle->fest_exp !== null}}
                       &#32;{{$battle->fest_exp|escape}}
                     {{/if}}
@@ -213,7 +213,7 @@
                     ?
                   {{/if}}
                   {{if $battle->festTitleAfter}}
-                    &#32;→ {{$battle->festTitleAfter->getName($battle->gender)|translate:'app':['***','***']|escape}}
+                    &#32;→ {{$battle->festTitleAfter->getName($battle->gender)|translate:'app-fest':['***','***']|escape}}
                     {{if $battle->fest_exp_after !== null}}
                       &#32;{{$battle->fest_exp_after|escape}}
                     {{/if}}

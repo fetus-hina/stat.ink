@@ -15,6 +15,7 @@ use app\components\helpers\Translator;
  *
  * @property integer $id
  * @property string $key
+ * @property string $name
  *
  * @property Battle[] $battles
  * @property FestTitleGender[] $festTitleGenders
@@ -36,10 +37,11 @@ class FestTitle extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'key'], 'required'],
+            [['id', 'key', 'name'], 'required'],
             [['id'], 'integer'],
             [['key'], 'string', 'max' => 16],
-            [['key'], 'unique']
+            [['key'], 'unique'],
+            [['name'], 'string', 'max' => 32],
         ];
     }
 
@@ -51,6 +53,7 @@ class FestTitle extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'key' => 'Key',
+            'name' => 'Name',
         ];
     }
 
@@ -80,20 +83,26 @@ class FestTitle extends \yii\db\ActiveRecord
             ->viaTable('fest_title_gender', ['title_id' => 'id']);
     }
 
-    public function getName(Gender $gender)
+    public function getName(Gender $gender = null)
     {
+        // 性別不明なとき
+        if ($gender === null) {
+            return $this->name;
+        }
         return $this->getFestTitleGenders()->andWhere(['gender_id' => $gender->id])->one()->name;
     }
 
-    public function toJsonArray(Gender $gender)
+    public function toJsonArray(Gender $gender = null)
     {
         return [
             'key' => $this->key,
-            'name' => Translator::translateToAll(
-                'app',
-                $this->getFestTitleGenders()->andWhere(['gender_id' => $gender->id])->one()->name,
-                [ '***', '***' ]
-            ),
+            'name' => (($gender === null)
+                ? Translator::translateToAll('app-fest', $this->name)
+                : Translator::translateToAll(
+                    'app-fest',
+                    $this->getFestTitleGenders()->andWhere(['gender_id' => $gender->id])->one()->name,
+                    [ '***', '***' ]
+                )),
         ];
     }
 }

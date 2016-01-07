@@ -163,8 +163,6 @@ class PostBattleForm extends Model
             [['players'], 'validatePlayers'],
             [['gears'], 'validateGears'],
             [['events'], 'validateEvents'],
-
-            [['lobby'], 'fixLobby'],
         ];
     }
 
@@ -553,23 +551,6 @@ class PostBattleForm extends Model
             if ($attr && $attr->is_automated) {
                 $this->automated = 'yes';
             }
-        }
-    }
-
-    // 特定のバージョンの IkaLog が lobby を誤るのでわかる範囲で書き換える
-    public function fixLobby()
-    {
-        if ($this->hasErrors()) {
-            return;
-        }
-        if ($this->agent !== 'IkaLog' && $this->agent !== 'TakoLog') {
-            return;
-        }
-        if ($this->lobby === 'fest' && !$this->gender && !$this->fest_title) {
-            $this->lobby = 'standard';
-        }
-        if ($this->lobby === 'standard' && $this->gender && $this->fest_title) {
-            $this->lobby = 'fest';
         }
     }
 

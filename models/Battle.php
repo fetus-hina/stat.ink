@@ -607,11 +607,11 @@ class Battle extends ActiveRecord
                     $this->battleDeathReasons
                 ),
             'gender' => $this->gender ? $this->gender->toJsonArray() : null,
-            'fest_title' => $this->gender && $this->festTitle
+            'fest_title' => $this->festTitle
                 ? $this->festTitle->toJsonArray($this->gender)
                 : null,
             'fest_exp' => $this->fest_exp,
-            'fest_title_after' => $this->gender && $this->festTitleAfter
+            'fest_title_after' => $this->festTitleAfter
                 ? $this->festTitleAfter->toJsonArray($this->gender)
                 : null,
             'fest_exp_after' => $this->fest_exp_after,
