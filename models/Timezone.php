@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2015 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2016 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  */
@@ -19,6 +19,8 @@ use Yii;
  * @property integer $region_id
  *
  * @property Region $region
+ * @property TimezoneCountry[] $timezoneCountries
+ * @property Country[] $countries
  */
 class Timezone extends \yii\db\ActiveRecord
 {
@@ -70,5 +72,23 @@ class Timezone extends \yii\db\ActiveRecord
     public function getRegion()
     {
         return $this->hasOne(Region::className(), ['id' => 'region_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTimezoneCountries()
+    {
+        return $this->hasMany(TimezoneCountry::className(), ['timezone_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCountries()
+    {
+        return $this->hasMany(Country::className(), ['id' => 'country_id'])
+            ->viaTable('timezone_country', ['timezone_id' => 'id'])
+            ->orderBy('{{country}}.[[key]]');
     }
 }

@@ -138,6 +138,7 @@ $config = [
                         'app-special'   => 'special.php',
                         'app-start'     => 'start.php',
                         'app-subweapon' => 'subweapon.php',
+                        'app-tz'        => 'tz.php',
                         'app-weapon'    => 'weapon.php',
                     ],
                 ],

@@ -29,6 +29,7 @@
         "christian-riesen/base32": "^1.2",
         "cybercog/yii2-google-analytics": "^0.3.1",
         "himiklab/yii2-recaptcha-widget": "^1.0",
+        "hiqdev/yii2-asset-flag-icon-css": "^1.0@dev",
         "jp3cki/mb_str_replace": "^4.0",
         "jp3cki/yii2-bs-datetimepicker": "^1.0",
         "jp3cki/yii2-flot": "^1.0",
@@ -61,5 +62,9 @@
         }
     },
     "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/fetus-hina/yii2-asset-flag-icon-css.git"
+        }
     ]
 }

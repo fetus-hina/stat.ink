@@ -1,6 +1,7 @@
 {{strip}}
 {{use class="app\models\Timezone"}}
 {{use class="app\models\Language"}}
+{{\hiqdev\assets\flagiconcss\FlagIconCssAsset::register($this)|@void}}
 <nav class="navbar navbar-inverse navbar-fixed-top">
   <div class="container-fluid">
     <div class="container">
@@ -79,6 +80,7 @@
                 <li>
                   <a href="javascript:;" data-lang="{{$lang->lang|escape}}" class="language-change">
                     <span class="fa fa-check left" style="{{if $app->language !== $lang->lang}}color:transparent{{/if}}"></span>
+                    <span class="flag-icon flag-icon-{{$lang->lang|substr:3:2|strtolower|escape}}"></span>&#32;
                     {{$lang->name|escape}} / {{$lang->name_en|escape}}
                   </a>
                 </li>
@@ -97,11 +99,16 @@
               {{'Time Zone'|translate:'app'|escape}}&#32;<span class="caret"></span>
             </a>
             <ul class="dropdown-menu">
-              {{foreach Timezone::find()->all() as $tz}}
+              {{foreach Timezone::find()->with('countries')->all() as $tz}}
                 <li>
                   <a href="javascript:;" data-tz="{{$tz->identifier|escape}}" class="timezone-change">
                     <span class="fa fa-check left" style="{{if $app->timeZone !== $tz->identifier}}color:transparent{{/if}}"></span>
-                    {{$tz->name|translate:'app'|escape}}
+                    {{if $tz->countries}}
+                      {{foreach $tz->countries as $cc}}
+                        <span class="flag-icon flag-icon-{{$cc->key|escape}}"></span>&#32;
+                      {{/foreach}}
+                    {{/if}}
+                    {{$tz->name|translate:'app-tz'|escape}}
                   </a>
                 </li>
               {{/foreach}}
