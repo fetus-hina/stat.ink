@@ -41,8 +41,8 @@ class BattleForm extends Model
     public function attributeLabels()
     {
         return [
-            'lobby_id' => Yii::t('app', 'Game Mode'),
-            'rule_id' => Yii::t('app', 'Rule'),
+            'lobby_id' => Yii::t('app', 'Lobby'),
+            'rule_id' => Yii::t('app', 'Mode'),
             'map_id' => Yii::t('app', 'Map'),
             'weapon_id' => Yii::t('app', 'Weapon'),
         ];

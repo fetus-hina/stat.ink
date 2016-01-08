@@ -109,7 +109,7 @@
             {{if $battle->lobby}}
               <tr>
                 <th>
-                  {{'Game Mode'|translate:'app'|escape}}
+                  {{'Lobby'|translate:'app'|escape}}
                 </th>
                 <td>
                   {{$battle->lobby->name|translate:'app-rule'|escape}}
@@ -119,7 +119,7 @@
             {{if $battle->rule}}
               <tr>
                 <th>
-                  {{'Rule'|translate:'app'|escape}}&#32;
+                  {{'Mode'|translate:'app'|escape}}&#32;
                   <a href="{{url route="show/user-stat-by-rule" screen_name=$user->screen_name}}">
                     <span class="fa fa-pie-chart"></span>
                   </a>

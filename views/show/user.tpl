@@ -173,8 +173,8 @@
             <thead>
               <tr>
                 <th></th>
-                <th class="cell-lobby">{{'Game Mode'|translate:'app'|escape}}</th>
-                <th class="cell-rule">{{'Rule'|translate:'app'|escape}}</th>
+                <th class="cell-lobby">{{'Lobby'|translate:'app'|escape}}</th>
+                <th class="cell-rule">{{'Mode'|translate:'app'|escape}}</th>
                 <th class="cell-map">{{'Map'|translate:'app'|escape}}</th>
                 <th class="cell-main-weapon">{{'Weapon'|translate:'app'|escape}}</th>
                 <th class="cell-sub-weapon">{{'Sub Weapon'|translate:'app'|escape}}</th>
@@ -276,9 +276,9 @@
         </div>
         <div class="row">
           <div class="col-xs-6 col-sm-4 col-md-4 col-lg-3">
-            <label><input type="checkbox" class="table-config-chk" data-klass="cell-lobby"> {{'Game Mode'|translate:'app'|escape}}</label>
+            <label><input type="checkbox" class="table-config-chk" data-klass="cell-lobby"> {{'Lobby'|translate:'app'|escape}}</label>
           </div><div class="col-xs-6 col-sm-4 col-md-4 col-lg-3">
-            <label><input type="checkbox" class="table-config-chk" data-klass="cell-rule"> {{'Rule'|translate:'app'|escape}}</label>
+            <label><input type="checkbox" class="table-config-chk" data-klass="cell-rule"> {{'Mode'|translate:'app'|escape}}</label>
           </div><div class="col-xs-6 col-sm-4 col-md-4 col-lg-3">
             <label><input type="checkbox" class="table-config-chk" data-klass="cell-map"> {{'Map'|translate:'app'|escape}}</label>
           </div><div class="col-xs-6 col-sm-4 col-md-4 col-lg-3">

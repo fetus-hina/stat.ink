@@ -39,7 +39,7 @@
           </tr>
           <tr>
             <th>
-              {{'Rule'|translate:'app'|escape}}
+              {{'Mode'|translate:'app'|escape}}
             </th>
             <td>
               {{$_->field($form, 'rule_id')->label(false)->dropDownList($rules)}}

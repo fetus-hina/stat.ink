@@ -38,7 +38,7 @@ trait FilterFormTrait
     private function makeLobbiesList()
     {
         $ret = [
-            '' => Yii::t('app-rule', 'Any Game Mode'),
+            '' => Yii::t('app-rule', 'Any Lobby'),
         ];
         $tmpList = Lobby::find()->orderBy('[[id]] ASC')->all();
         foreach ($tmpList as $lobby) {
@@ -50,7 +50,7 @@ trait FilterFormTrait
     private function makeRulesList()
     {
         $ret = [
-            '' => Yii::t('app-rule', 'Any Rule'),
+            '' => Yii::t('app-rule', 'Any Mode'),
         ];
         $gameModes = GameMode::find()->orderBy('[[id]] ASC')->all();
         foreach ($gameModes as $gameMode) {
