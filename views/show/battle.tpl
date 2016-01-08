@@ -584,7 +584,7 @@
             {{if !$battle->rule || $battle->rule->key !== 'nawabari'}}
               <div class="text-right">
                 <label>
-                  <input type="checkbox" id="draw-gachi" value="1"> {{'Draw Ranked Battle Event (EXPRERIMENTAL)'|translate:'app'|escape}}
+                  <input type="checkbox" id="draw-gachi" value="1"> {{'Draw Ranked Battle Event (EXPERIMENTAL)'|translate:'app'|escape}}
                 </label>
               </div>
             {{/if}}

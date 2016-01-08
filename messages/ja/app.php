@@ -52,7 +52,7 @@ return [
     'Detail' => '詳細',
     'Detailed List' => '詳細なリストで表示',
     'Deviation' => '偏差値',
-    'Draw Ranked Battle Event (EXPRERIMENTAL)' => 'ガチマッチで起きたことを表示（実験的）',
+    'Draw Ranked Battle Event (EXPERIMENTAL)' => 'ガチマッチで起きたことを表示（実験的）',
     'Edit Your Battle: #{0}' => 'バトル詳細を編集: #{0}',
     'Edit' => '編集',
     'Encounter Ratio' => '敵遭遇率',
