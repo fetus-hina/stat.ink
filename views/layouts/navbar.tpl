@@ -2,7 +2,7 @@
 {{use class="app\models\Timezone"}}
 {{use class="app\models\Language"}}
 {{\hiqdev\assets\flagiconcss\FlagIconCssAsset::register($this)|@void}}
-<nav class="navbar navbar-inverse navbar-fixed-top">
+<nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="container">
       <div class="navbar-header">

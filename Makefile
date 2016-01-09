@@ -6,6 +6,7 @@ RESOURCE_TARGETS=resources/.compiled/stat.ink/main.css.gz \
 	resources/.compiled/stat.ink/no-image.png \
 	resources/.compiled/flot-graph-icon/jquery.flot.icon.js.gz \
 	resources/.compiled/gh-fork-ribbon/gh-fork-ribbon.js.gz \
+	resources/.compiled/gh-fork-ribbon/gh-fork-ribbon.css.gz \
 	resources/.compiled/graph-icon/dead.png/default.png  \
 	resources/.compiled/graph-icon/gachi.png/default.png \
 	resources/.compiled/graph-icon/killed.png/default.png \
@@ -81,6 +82,9 @@ resources/.compiled/stat.ink/main.css.gz: node_modules resources/stat.ink/main.l
 
 resources/.compiled/gh-fork-ribbon/gh-fork-ribbon.js.gz: node_modules resources/gh-fork-ribbon/gh-fork-ribbon.js
 	./node_modules/.bin/gulp gh-fork
+
+resources/.compiled/gh-fork-ribbon/gh-fork-ribbon.css.gz: node_modules resources/gh-fork-ribbon/gh-fork-ribbon.css
+	./node_modules/.bin/gulp gh-fork-css
 
 resources/.compiled/flot-graph-icon/jquery.flot.icon.js.gz: node_modules resources/flot-graph-icon/jquery.flot.icon.js
 	./node_modules/.bin/gulp flot-icon

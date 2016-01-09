@@ -3,7 +3,7 @@
   var $ = window.jQuery;
   $(window.document).ready(function () {
     $(document.body).append(
-      $('<div>').addClass('github-fork-ribbon-wrapper right fixed hidden-xs').append(
+      $('<div>').addClass('github-fork-ribbon-wrapper right').append(
         $('<div>').addClass('github-fork-ribbon').css('background-color', '#f80').append(
           $('<a>')
             .attr(

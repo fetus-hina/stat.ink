@@ -14,6 +14,13 @@ gulp.task('gh-fork', function() {
     .pipe(gulp.dest('resources/.compiled/gh-fork-ribbon'));
 });
 
+gulp.task('gh-fork-css', function() {
+  gulp.src('resources/gh-fork-ribbon/gh-fork-ribbon.css')
+    .pipe($.minifyCss({keepBreaks:true}))
+    .pipe($.gzip({gzipOptions:{level:9}}))
+    .pipe(gulp.dest('resources/.compiled/gh-fork-ribbon'));
+});
+
 gulp.task('flot-icon', function() {
   gulp.src('resources/flot-graph-icon/jquery.flot.icon.js')
     .pipe(uglify({
@@ -49,6 +56,7 @@ gulp.task('main-js', function() {
 
 gulp.task('default', [
   'gh-fork',
+  'gh-fork-css',
   'flot-icon',
   'main-css',
   'main-js',
