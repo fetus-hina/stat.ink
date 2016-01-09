@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2015 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2016 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  */
@@ -11,5 +11,5 @@ use yii\web\AssetBundle;
 
 class GraphIconAsset extends AssetBundle
 {
-    public $sourcePath = '@app/resources/.compiled/graph-icon';
+    public $sourcePath = '@app/resources/graph-icon/generated';
 }

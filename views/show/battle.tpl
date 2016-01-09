@@ -607,35 +607,35 @@
                 window.graphIcon = {
                   dead: (function(){
                     var i = new Image;
-                    i.src = "{{$app->assetmanager->getAssetUrl($iconAsset, 'dead.png/default.png')|escape:javascript}}";
+                    i.src = "{{$app->assetmanager->getAssetUrl($iconAsset, 'dead/default.png')|escape:javascript}}";
                     return i;
                   })(),
                   killed: (function(){
                     var i = new Image;
-                    i.src = "{{$app->assetmanager->getAssetUrl($iconAsset, 'killed.png/default.png')|escape:javascript}}";
+                    i.src = "{{$app->assetmanager->getAssetUrl($iconAsset, 'killed/default.png')|escape:javascript}}";
                     return i;
                   })(),
                   {{if $myHue !== null && $hisHue !== null}}
                     weGot: (function(){
-                      {{$tmp = 'gachi.png/'|cat:$myHue:'.png'}}
+                      {{$tmp = 'gachi/'|cat:$myHue:'.png'}}
                       var i = new Image;
                       i.src = "{{$app->assetmanager->getAssetUrl($iconAsset, $tmp)|escape:javascript}}";
                       return i;
                     })(),
                     theyGot: (function(){
-                      {{$tmp = 'gachi.png/'|cat:$hisHue:'.png'}}
+                      {{$tmp = 'gachi/'|cat:$hisHue:'.png'}}
                       var i = new Image;
                       i.src = "{{$app->assetmanager->getAssetUrl($iconAsset, $tmp)|escape:javascript}}";
                       return i;
                     })(),
                     weLost: (function(){
-                      {{$tmp = 'gachi.png/default.png'}}
+                      {{$tmp = 'gachi/default.png'}}
                       var i = new Image;
                       i.src = "{{$app->assetmanager->getAssetUrl($iconAsset, $tmp)|escape:javascript}}";
                       return i;
                     })(),
                     theyLost: (function(){
-                      {{$tmp = 'gachi.png/default.png'}}
+                      {{$tmp = 'gachi/default.png'}}
                       var i = new Image;
                       i.src = "{{$app->assetmanager->getAssetUrl($iconAsset, $tmp)|escape:javascript}}";
                       return i;
