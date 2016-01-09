@@ -38,7 +38,8 @@
     //      12: echolocator
     window.getSpecialDuration = function (defaultTime, mainCount, subCount) {
         var x = mainCount * 10 + subCount * 3;
-        return (1 + x) * defaultTime;
+        var y = ((0.99 * x) - Math.pow(0.09 * x, 2)) / 75;
+        return (1 + y) * defaultTime;
     };
 
     // frame:
