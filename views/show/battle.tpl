@@ -1366,7 +1366,29 @@
               </tr>
               <tr>
                 <th>{{'Jump'|translate:'app-gearstat'|escape}}</th>
-                <td>{{'Not implemented yet'|translate:'app-gearstat'|escape}}</td>
+                <td>
+                  <span id="gearstat-jump" data-format="{{':sec second (:pct%)'|translate:'app-gearstat'|escape}}"></span>
+                  {{registerJs}}
+                    (function($){
+                      var baseTime = window.getJumpTime(0, 0);
+                      var time = (window.gearAbilities.quick_super_jump)
+                        ? window.getJumpTime(window.gearAbilities.quick_super_jump.count.main, window.gearAbilities.quick_super_jump.count.sub)
+                        : baseTime;
+                      var $e = $('#gearstat-jump');
+                      $e.text(
+                        $e.attr('data-format').replace(/:\w+/g, function(match) {
+                          switch (match) {
+                            case ':sec':
+                              return time.toFixed(2);
+
+                            case ':pct':
+                              return (time * 100 / baseTime).toFixed(1);
+                          }
+                        })
+                      );
+                    })(jQuery);
+                  {{/registerJs}}
+                </td>
               </tr>
               <tr>
                 <th>{{'Bomb Throw'|translate:'app-gearstat'|escape}}</th>

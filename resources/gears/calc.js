@@ -50,4 +50,14 @@
         var f = window.getSpecialDuration(6, mainCount, subCount) * 60;
         return Math.ceil(f / frame);
     };
+
+    window.getJumpTime = function (mainCount, subCount) {
+        var x = mainCount * 10 + subCount * 3;
+        var y = ((0.99 * x) - Math.pow(0.09 * x, 2)) / 60;
+
+        var a = 60 * (1 - y);
+        var b = 120 * (1 - y);
+        var f = a + b + 40 + 10;
+        return f / 60;
+    };
 })(window);
