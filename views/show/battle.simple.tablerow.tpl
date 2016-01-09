@@ -26,13 +26,10 @@
         <div class="simple-battle-data">
           <div class="simple-battle-rule-map omit">
             {{$model->map->name|default:'?'|translate:'app-map'|escape}}
-            {{if $model->rule}}
-              &#32;<span class="simple-battle-rule">
-                / {{$model->rule->name|translate:'app-rule'|escape}}
-              </span>
-            {{/if}}
           </div>
           <div class="simple-battle-weapon omit">
+            {{$model->rule->name|default:'?'|translate:'app-rule'|escape}}
+            &#32;/&#32;
             {{$model->weapon->name|default:'?'|translate:'app-weapon'|escape}}
           </div>
           <div class="simple-battle-kill-death omit">
