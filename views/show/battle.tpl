@@ -1163,11 +1163,37 @@
               </tr>
               <tr>
                 <th>{{'Ink Usage(Main)'|translate:'app-gearstat'|escape}}</th>
-                <td>{{'Not implemented yet'|translate:'app-gearstat'|escape}}</td>
+                <td>
+                  <span id="gearstat-ink-save-main"></span>
+                  {{registerJs}}
+                    (function($){
+                      var base = window.getInkSaverMain(0, 0);
+                      var value = window.gearAbilities.ink_saver_main
+                        ? window.getInkSaverMain(window.gearAbilities.ink_saver_main.count.main, window.gearAbilities.ink_saver_main.count.sub)
+                        : base;
+                      $('#gearstat-ink-save-main').text(
+                        (value * 100).toFixed(1) + '%'
+                      );
+                    })(jQuery);
+                  {{/registerJs}}
+                </td>
               </tr>
               <tr>
                 <th>{{'Ink Usage(Sub)'|translate:'app-gearstat'|escape}}</th>
-                <td>{{'Not implemented yet'|translate:'app-gearstat'|escape}}</td>
+                <td>
+                  <span id="gearstat-ink-save-sub"></span>
+                  {{registerJs}}
+                    (function($){
+                      var base = window.getInkSaverSub(0, 0);
+                      var value = window.gearAbilities.ink_saver_sub
+                        ? window.getInkSaverSub(window.gearAbilities.ink_saver_sub.count.sub, window.gearAbilities.ink_saver_sub.count.sub)
+                        : base;
+                      $('#gearstat-ink-save-sub').text(
+                        (value * 100).toFixed(1) + '%'
+                      );
+                    })(jQuery);
+                  {{/registerJs}}
+                </td>
               </tr>
               <tr>
                 <th>{{'Ink Recovery'|translate:'app-gearstat'|escape}}</th>
@@ -1536,7 +1562,7 @@
                     (function($){
                       var enable = window.gearAbilities.cold_blooded && window.gearAbilities.cold_blooded.count.main > 0;
                       $('#gearstat-echo').text(
-                        enable ? '25%' : '100%'
+                        enable ? '25.0%' : '100.0%'
                       );
                     })(jQuery);
                   {{/registerJs}}

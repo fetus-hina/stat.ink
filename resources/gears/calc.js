@@ -96,4 +96,14 @@
         var y = 0.5 - ((0.99 * x) - Math.pow(0.09 * x, 2)) / 60;
         return Math.max(0, y);
     };
+
+    window.getInkSaverMain = function (mainCount, subCount) {
+        var x = mainCount * 10 + subCount * 3;
+        return 1 - ((0.99 * x) - Math.pow(0.09 * x, 2)) / 75;
+    };
+
+    window.getInkSaverSub = function (mainCount, subCount) {
+        var x = mainCount * 10 + subCount * 3;
+        return 1 - ((0.99 * x) - Math.pow(0.09 * x, 2)) / 120;
+    };
 })(window);
