@@ -1418,7 +1418,20 @@
               </tr>
               <tr>
                 <th>{{'Bomb Throw'|translate:'app-gearstat'|escape}}</th>
-                <td>{{'Not implemented yet'|translate:'app-gearstat'|escape}}</td>
+                <td>
+                  <span id="gearstat-bomb-throw"></span>
+                  {{registerJs}}
+                    (function($){
+                      var baseRange = window.getBombThrow(0, 0);
+                      var range = (window.gearAbilities.bomb_range_up)
+                        ? window.getBombThrow(window.gearAbilities.bomb_range_up.count.main, window.gearAbilities.bomb_range_up.count.sub)
+                        : baseRange;
+                      $('#gearstat-bomb-throw').text(
+                        (range * 100 / baseRange).toFixed(1) + '%'
+                      );
+                    })(jQuery);
+                  {{/registerJs}}
+                </td>
               </tr>
               <tr>
                 <th>{{'Echolocator'|translate:'app-gearstat'|escape}}</th>

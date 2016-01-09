@@ -72,4 +72,11 @@
         var y = ((0.99 * x) - Math.pow(0.09 * x, 2)) / 120;
         return 1.92 * (1 + y);
     };
+
+    window.getBombThrow = function (mainCount, subCount) {
+        var x = mainCount * 10 + subCount * 3;
+        var y = ((0.99 * x) - Math.pow(0.09 * x, 2)) / 60;
+        var z = 5.6 * (1 + y);
+        return 28 * z;
+    };
 })(window);
