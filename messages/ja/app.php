@@ -5,6 +5,7 @@ return [
     '<div class="input-group"><span class="input-group-addon">To:</span>{input}</div>' => '<div class="input-group">{input}<span class="input-group-addon">まで</span></div>',
     'API Token' => 'APIキー',
     'API' => 'API',
+    'Ability Effect' => 'ギアパワー効果',
     'Active Players' => 'アクティブプレーヤー',
     'All Players' => 'すべてのプレーヤー',
     'Always enable horizontal scroll' => '常にテーブルの横スクロールを有効にする',

@@ -446,6 +446,11 @@
                       </tr>
                     </tbody>
                   </table>
+                  <p class="text-right">
+                    <a href="#effect">
+                      {{'Ability Effect'|translate:'app'|escape}}
+                    </a>
+                  </p>
                 </td>
               </tr>
             {{/if}}
@@ -481,6 +486,9 @@
             {{/if}}
           </tbody>
         </table>
+        <p>
+          {{'Note: You can change time zone. Look at navbar.'|translate:'app'|escape}}
+        </p>
         {{if $battle->myTeamPlayers && $battle->hisTeamPlayers}}
           {{if $battle->my_team_color_rgb && $battle->his_team_color_rgb}}
             {{registerCss}}
@@ -1148,8 +1156,8 @@
           </p>
         {{/if}}
         {{if $battle->headgear && $battle->clothing && $battle->shoes}}
-          <h2 id="gear">
-            {{'Gear Abilities'|translate:'app-gearstat'|escape}}
+          <h2 id="effect">
+            {{'Ability Effect'|translate:'app'|escape}}
           </h2>
           <table class="table table-striped">
             <tbody>
@@ -1597,9 +1605,6 @@
             </tbody>
           </table>
         {{/if}}
-        <p>
-          {{'Note: You can change time zone. Look at navbar.'|translate:'app'|escape}}
-        </p>
       </div>
       <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
         {{include file="@app/views/includes/user-miniinfo.tpl" user=$user}}
