@@ -43,6 +43,9 @@
     {{$_url = Url::to(['show/battle', 'screen_name' => $user->screen_name, 'battle' => $battle->nextBattle->id], true)}}
     {{$this->registerLinkTag(['rel' => 'next', 'href' => $_url])|@void}}
   {{/if}}
+  {{registerJs position="POS_BEGIN"}}
+    window.gearAbilities = {{$battle->gearAbilities|json_encode}};
+  {{/registerJs}}
 
   <div class="container">
     <h1>
@@ -732,7 +735,6 @@
                   weLead: null,
                   theyLead: null
                 };
-                window.gearAbilities = {{$battle->gearAbilities|json_encode}};
               })();
             {{/registerJs}}
             {{registerJs}}
