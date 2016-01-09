@@ -60,4 +60,16 @@
         var f = a + b + 40 + 10;
         return f / 60;
     };
+
+    window.getRunSpeed = function (mainCount, subCount) {
+        var x = mainCount * 10 + subCount * 3;
+        var y = ((0.99 * x) - Math.pow(0.09 * x, 2)) / 60;
+        return 0.96 * (1 + y);
+    };
+
+    window.getSwimSpeed = function (mainCount, subCount) {
+        var x = mainCount * 10 + subCount * 3;
+        var y = ((0.99 * x) - Math.pow(0.09 * x, 2)) / 120;
+        return 1.92 * (1 + y);
+    };
 })(window);

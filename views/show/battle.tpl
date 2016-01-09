@@ -1197,11 +1197,37 @@
               </tr>
               <tr>
                 <th>{{'Run Speed'|translate:'app-gearstat'|escape}}</th>
-                <td>{{'Not implemented yet'|translate:'app-gearstat'|escape}}</td>
+                <td>
+                  <span id="gearstat-run"></span>
+                  {{registerJs}}
+                    (function($){
+                      var baseSpeed = window.getRunSpeed(0, 0);
+                      var speed = (window.gearAbilities.run_speed_up)
+                        ? window.getRunSpeed(window.gearAbilities.run_speed_up.count.main, window.gearAbilities.run_speed_up.count.sub)
+                        : baseSpeed;
+                      $('#gearstat-run').text(
+                        (speed * 100 / baseSpeed).toFixed(1) + '%'
+                      );
+                    })(jQuery);
+                  {{/registerJs}}
+                </td>
               </tr>
               <tr>
                 <th>{{'Swim Speed'|translate:'app-gearstat'|escape}}</th>
-                <td>{{'Not implemented yet'|translate:'app-gearstat'|escape}}</td>
+                <td>
+                  <span id="gearstat-swim"></span>
+                  {{registerJs}}
+                    (function($){
+                      var baseSpeed = window.getSwimSpeed(0, 0);
+                      var speed = (window.gearAbilities.swim_speed_up)
+                        ? window.getSwimSpeed(window.gearAbilities.swim_speed_up.count.main, window.gearAbilities.swim_speed_up.count.sub)
+                        : baseSpeed;
+                      $('#gearstat-swim').text(
+                        (speed * 100 / baseSpeed).toFixed(1) + '%'
+                      );
+                    })(jQuery);
+                  {{/registerJs}}
+                </td>
               </tr>
               <tr>
                 <th>{{'Special Charge'|translate:'app-gearstat'|escape}}</th>
