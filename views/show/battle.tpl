@@ -1,4 +1,5 @@
 {{strip}}
+  {{\app\assets\GearCalcAsset::register($this)|@void}}
   {{set layout="main.tpl"}}
   {{use class="yii\helpers\Url"}}
   {{$user = $battle->user}}
@@ -956,7 +957,6 @@
                     }
                   });
 
-                  {{\app\assets\gears\RespawnAsset::register($this)|@void}}
                   var markings = window.battleEvents.filter(function(v){
                     return v.type === "dead";
                   }).map(function(v){
@@ -1171,7 +1171,29 @@
               </tr>
               <tr>
                 <th>{{'Ink Recovery'|translate:'app-gearstat'|escape}}</th>
-                <td>{{'Not implemented yet'|translate:'app-gearstat'|escape}}</td>
+                <td>
+                  <span id="gearstat-ink-recovery" data-format="{{':sec second (:pct%)'|translate:'app-gearstat'|escape}}"></span>
+                  {{registerJs}}
+                    (function($){
+                      var baseTime = window.getInkRecoveryTime(0, 0);
+                      var time = (window.gearAbilities.ink_recovery_up)
+                        ? window.getInkRecoveryTime(window.gearAbilities.ink_recovery_up.count.main, window.gearAbilities.ink_recovery_up.count.sub)
+                        : baseTime;
+                      var $e = $('#gearstat-ink-recovery');
+                      $e.text(
+                        $e.attr('data-format').replace(/:\w+/g, function(match) {
+                          switch (match) {
+                            case ':sec':
+                              return time.toFixed(2);
+
+                            case ':pct':
+                              return (time * 100 / baseTime).toFixed(1);
+                          }
+                        })
+                      );
+                    })(jQuery);
+                  {{/registerJs}}
+                </td>
               </tr>
               <tr>
                 <th>{{'Run Speed'|translate:'app-gearstat'|escape}}</th>
@@ -1197,7 +1219,6 @@
                 <th>{{'Respawn'|translate:'app-gearstat'|escape}}</th>
                 <td>
                   <span id="gearstat-respawn" data-format="{{':sec second (:pct%)'|translate:'app-gearstat'|escape}}"></span>
-                  {{\app\assets\gears\RespawnAsset::register($this)|@void}}
                   {{registerJs}}
                     (function($){
                       var baseTime = window.getRespawnTime('wakaba', 0, 0);

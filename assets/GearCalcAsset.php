@@ -5,14 +5,14 @@
  * @author AIZAWA Hina <hina@bouhime.com>
  */
 
-namespace app\assets\gears;
+namespace app\assets;
 
 use yii\web\AssetBundle;
 
-class RespawnAsset extends AssetBundle
+class GearCalcAsset extends AssetBundle
 {
     public $sourcePath = '@app/resources/gears';
     public $js = [
-        'respawn.js',
+        'calc.js',
     ];
 }
