@@ -2,11 +2,25 @@
   {{set layout="main.tpl"}}
   {{use class="app\models\Battle"}}
   <div class="container">
+    <p class="text-right" style="margin-bottom:0;font-size:0.618rem">
+      Switch Language:&#32;
+      {{use class="app\models\Language"}}
+      {{foreach Language::find()->orderBy('name ASC')->asArray()->all() as $lang}}
+        {{if !$lang@first}}
+          &#32;/&#32;
+        {{/if}}
+        <a href="javascript:;" data-lang="{{$lang.lang|escape}}" class="language-change auto-tooltip" style="white-space:nowrap" title="Switch to {{$lang.name_en|escape}}">
+          <span class="flag-icon flag-icon-{{$lang.lang|substr:3:2|strtolower|escape}}"></span>&#32;{{$lang.name|escape}}
+        </a>
+      {{/foreach}}
+    </p>
     <h1>
       {{$app->name|escape}}
     </h1>
     <p>
-      {{'Staaaay Fresh!'|translate:'app'|escape}}<br>
+      {{'Staaaay Fresh!'|translate:'app'|escape}}
+    </p>
+    <p>
       {{if $app->user->isGuest}}
         {{$ident = null}}
         <a href="{{url route="user/register"}}">{{'Join us'|translate:'app'|escape}}</a>
