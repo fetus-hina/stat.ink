@@ -1209,7 +1209,130 @@
               </tr>
               <tr>
                 <th>{{'Special Duration'|translate:'app-gearstat'|escape}}</th>
-                <td>{{'Not implemented yet'|translate:'app-gearstat'|escape}}</td>
+                <td>
+                  <table>
+                    <tbody>
+                      <tr>
+                        <td>
+                          {{'Bubbler'|translate:'app-special'|escape}}
+                        </td>
+                        <td style="padding:0 10px">:</td>
+                        <td>
+                          <span class="gearstat-special-duration-time" data-base="5" data-format="{{':sec second (:pct%)'|translate:'app-gearstat'|escape}}"></span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          {{'Kraken'|translate:'app-special'|escape}}
+                        </td>
+                        <td style="padding:0 10px">:</td>
+                        <td>
+                          <span class="gearstat-special-duration-time" data-base="6" data-format="{{':sec second (:pct%)'|translate:'app-gearstat'|escape}}"></span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          {{'Echolocator'|translate:'app-special'|escape}}
+                        </td>
+                        <td style="padding:0 10px">:</td>
+                        <td>
+                          <span class="gearstat-special-duration-time" data-base="12" data-format="{{':sec second (:pct%)'|translate:'app-gearstat'|escape}}"></span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          {{'Burst Bomb'|translate:'app-subweapon'|escape}}
+                        </td>
+                        <td style="padding:0 10px">:</td>
+                        <td>
+                          <span class="gearstat-special-duration-count" data-base="6" data-frame="22" data-format="{{':sec second (:pct%), :count times'|translate:'app-gearstat'|escape}}"></span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          {{'Splat Bomb'|translate:'app-subweapon'|escape}}
+                        </td>
+                        <td style="padding:0 10px">:</td>
+                        <td>
+                          <span class="gearstat-special-duration-count" data-base="6" data-frame="33" data-format="{{':sec second (:pct%), :count times'|translate:'app-gearstat'|escape}}"></span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          {{'Suction Bomb'|translate:'app-subweapon'|escape}}
+                        </td>
+                        <td style="padding:0 10px">:</td>
+                        <td>
+                          <span class="gearstat-special-duration-count" data-base="6" data-frame="33" data-format="{{':sec second (:pct%), :count times'|translate:'app-gearstat'|escape}}"></span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          {{'Seeker'|translate:'app-subweapon'|escape}}
+                        </td>
+                        <td style="padding:0 10px">:</td>
+                        <td>
+                          <span class="gearstat-special-duration-count" data-base="6" data-frame="38" data-format="{{':sec second (:pct%), :count times'|translate:'app-gearstat'|escape}}"></span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          {{'Inkzooka'|translate:'app-special'|escape}}
+                        </td>
+                        <td style="padding:0 10px">:</td>
+                        <td>
+                          <span class="gearstat-special-duration-count" data-base="6" data-frame="64" data-format="{{':sec second (:pct%), :count times'|translate:'app-gearstat'|escape}}"></span>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  {{registerJs}}
+                    (function($){
+                      var main = 0;
+                      var sub = 0;
+                      if (window.gearAbilities.special_duration_up) {
+                        main = window.gearAbilities.special_duration_up.count.main;
+                        sub = window.gearAbilities.special_duration_up.count.sub;
+                      }
+                      $('.gearstat-special-duration-time').each(function() {
+                        var $e = $(this);
+                        var baseTime = window.getSpecialDuration(~~$e.attr('data-base'), 0, 0);
+                        var time = window.getSpecialDuration(~~$e.attr('data-base'), main, sub);
+                        $e.text(
+                          $e.attr('data-format').replace(/:\w+/g, function(match) {
+                            switch (match) {
+                              case ':sec':
+                                return time.toFixed(2);
+
+                              case ':pct':
+                                return (time * 100 / baseTime).toFixed(1);
+                            }
+                          })
+                        );
+                      });
+                      $('.gearstat-special-duration-count').each(function() {
+                        var $e = $(this);
+                        var baseTime = window.getSpecialDuration(~~$e.attr('data-base'), 0, 0);
+                        var time = window.getSpecialDuration(~~$e.attr('data-base'), main, sub);
+                        var count = window.getSpecialCount(~~$e.attr('data-frame'), main, sub);
+                        $e.text(
+                          $e.attr('data-format').replace(/:\w+/g, function(match) {
+                            switch (match) {
+                              case ':sec':
+                                return time.toFixed(2);
+
+                              case ':pct':
+                                return (time * 100 / baseTime).toFixed(1);
+
+                              case ':count':
+                                return count;
+                            }
+                          })
+                        );
+                      });
+                    })(jQuery);
+                  {{/registerJs}}
+                </td>
               </tr>
               <tr>
                 <th>{{'Special Save'|translate:'app-gearstat'|escape}}</th>

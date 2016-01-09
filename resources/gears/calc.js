@@ -31,4 +31,23 @@
         var f = Math.ceil(100 / z);
         return f / 60;
     };
+
+    // defaultTime
+    //      5: bubbler
+    //      6: kraken
+    //      12: echolocator
+    window.getSpecialDuration = function (defaultTime, mainCount, subCount) {
+        var x = mainCount * 10 + subCount * 3;
+        return (1 + x) * defaultTime;
+    };
+
+    // frame:
+    //      22: burst bomb
+    //      33: splat & suction bomb
+    //      38: seeker
+    //      64: inkzooka
+    window.getSpecialCount = function (frame, mainCount, subCount) {
+        var f = window.getSpecialDuration(6, mainCount, subCount) * 60;
+        return Math.ceil(f / frame);
+    };
 })(window);
