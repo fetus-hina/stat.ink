@@ -253,7 +253,7 @@ return [
     '{0}\'s Battle Stat (by Mode)' => '{0}の統計（ルール別）',
     '{0}\'s Battle' => '{0}のバトル',
     '{0}\'s Favorite Weapon' => '{0}のよく使うブキ',
-    '{0}\'s Log' => '{0}のイカログ',
+    '{0}\'s SplatLog' => '{0}のイカログ',
     '{attribute} must be less then or equal to 15 alphanumeric or underscore characters.' => '{attribute}は半角英数とアンダースコア15文字以内で入力してください。',
     '{nFormatted} {n, plural, =1{time} other{times}}' => '{nFormatted} 回',
     '{number} dead in {battle, plural, =1{1 battle} other{# battles}}' => '{number}回 / {battle}戦',
