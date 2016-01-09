@@ -1231,7 +1231,83 @@
               </tr>
               <tr>
                 <th>{{'Special Charge'|translate:'app-gearstat'|escape}}</th>
-                <td>{{'Not implemented yet'|translate:'app-gearstat'|escape}}</td>
+                <td>
+                  <table>
+                    <tbody>
+                      <tr>
+                        <td>
+                          {{'Inkzooka'|translate:'app-special'|escape}}
+                        </td>
+                        <td style="padding:0 10px">:</td>
+                        <td>
+                          <span class="gearstat-special-point" data-base="220" data-format="{{':p p (:pct%)'|translate:'app-gearstat'|escape}}"></span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          {{'Kraken'|translate:'app-special'|escape}}
+                        </td>
+                        <td style="padding:0 10px">:</td>
+                        <td>
+                          <span class="gearstat-special-point" data-base="200" data-format="{{':p p (:pct%)'|translate:'app-gearstat'|escape}}"></span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          {{'Echolocator'|translate:'app-special'|escape}}
+                        </td>
+                        <td style="padding:0 10px">:</td>
+                        <td>
+                          <span class="gearstat-special-point" data-base="200" data-format="{{':p p (:pct%)'|translate:'app-gearstat'|escape}}"></span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          {{'Killer Wail'|translate:'app-special'|escape}}
+                        </td>
+                        <td style="padding:0 10px">:</td>
+                        <td>
+                          <span class="gearstat-special-point" data-base="160" data-format="{{':p p (:pct%)'|translate:'app-gearstat'|escape}}"></span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          {{'Others'|translate:'app'|escape}}
+                        </td>
+                        <td style="padding:0 10px">:</td>
+                        <td>
+                          <span class="gearstat-special-point" data-base="180" data-format="{{':p p (:pct%)'|translate:'app-gearstat'|escape}}"></span>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  {{registerJs}}
+                    (function($){
+                      var main = 0;
+                      var sub = 0;
+                      if (window.gearAbilities.special_charge_up) {
+                        main = window.gearAbilities.special_charge_up.count.main;
+                        sub = window.gearAbilities.special_charge_up.count.sub;
+                      }
+                      $('.gearstat-special-point').each(function() {
+                        var $e = $(this);
+                        var basePoint = window.getSpecialPoint(~~$e.attr('data-base'), 0, 0);
+                        var point = window.getSpecialPoint(~~$e.attr('data-base'), main, sub);
+                        $e.text(
+                          $e.attr('data-format').replace(/:\w+/g, function(match) {
+                            switch (match) {
+                              case ':p':
+                                return point;
+
+                              case ':pct':
+                                return (point * 100 / basePoint).toFixed(1);
+                            }
+                          })
+                        );
+                      });
+                    })(jQuery);
+                  {{/registerJs}}
+                </td>
               </tr>
               <tr>
                 <th>{{'Special Duration'|translate:'app-gearstat'|escape}}</th>

@@ -79,4 +79,15 @@
         var z = 5.6 * (1 + y);
         return 28 * z;
     };
+
+    // defaultPoint:
+    //      Inkzooka: 220
+    //      Echolocator/Kraken: 200
+    //      Killer Wail: 160
+    //      Others: 180
+    window.getSpecialPoint = function (defaultPoint, mainCount, subCount) {
+        var x = mainCount * 10 + subCount * 3;
+        var y = ((0.99 * x) - Math.pow(0.09 * x, 2)) / 100;
+        return Math.round(defaultPoint / (1 + y));
+    };
 })(window);

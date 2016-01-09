@@ -1,5 +1,6 @@
 <?php
 return [
+    ':p p (:pct%)' => ':p P (:pct%)',
     ':sec second (:pct%)' => ':sec秒 (:pct%)',
     ':sec second (:pct%), :count times' => ':sec秒 (:pct%), 最大:count回',
     'Bomb Throw' => 'ボム飛距離',
