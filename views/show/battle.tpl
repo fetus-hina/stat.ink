@@ -1147,6 +1147,94 @@
             </a>
           </p>
         {{/if}}
+        {{if $battle->headgear && $battle->clothing && $battle->shoes}}
+          <h2 id="gear">
+            {{'Gear Abilities'|translate:'app-gearstat'|escape}}
+          </h2>
+          <table class="table table-striped">
+            <tbody>
+              <tr>
+                <th>{{'Damage'|translate:'app-gearstat'|escape}}</th>
+                <td>{{'Not implemented yet'|translate:'app-gearstat'|escape}}</td>
+              </tr>
+              <tr>
+                <th>{{'Defense'|translate:'app-gearstat'|escape}}</th>
+                <td>{{'Not implemented yet'|translate:'app-gearstat'|escape}}</td>
+              </tr>
+              <tr>
+                <th>{{'Ink Usage(Main)'|translate:'app-gearstat'|escape}}</th>
+                <td>{{'Not implemented yet'|translate:'app-gearstat'|escape}}</td>
+              </tr>
+              <tr>
+                <th>{{'Ink Usage(Sub)'|translate:'app-gearstat'|escape}}</th>
+                <td>{{'Not implemented yet'|translate:'app-gearstat'|escape}}</td>
+              </tr>
+              <tr>
+                <th>{{'Ink Recovery'|translate:'app-gearstat'|escape}}</th>
+                <td>{{'Not implemented yet'|translate:'app-gearstat'|escape}}</td>
+              </tr>
+              <tr>
+                <th>{{'Run Speed'|translate:'app-gearstat'|escape}}</th>
+                <td>{{'Not implemented yet'|translate:'app-gearstat'|escape}}</td>
+              </tr>
+              <tr>
+                <th>{{'Swim Speed'|translate:'app-gearstat'|escape}}</th>
+                <td>{{'Not implemented yet'|translate:'app-gearstat'|escape}}</td>
+              </tr>
+              <tr>
+                <th>{{'Special Charge'|translate:'app-gearstat'|escape}}</th>
+                <td>{{'Not implemented yet'|translate:'app-gearstat'|escape}}</td>
+              </tr>
+              <tr>
+                <th>{{'Special Duration'|translate:'app-gearstat'|escape}}</th>
+                <td>{{'Not implemented yet'|translate:'app-gearstat'|escape}}</td>
+              </tr>
+              <tr>
+                <th>{{'Special Save'|translate:'app-gearstat'|escape}}</th>
+                <td>{{'Not implemented yet'|translate:'app-gearstat'|escape}}</td>
+              </tr>
+              <tr>
+                <th>{{'Respawn'|translate:'app-gearstat'|escape}}</th>
+                <td>
+                  <span id="gearstat-respawn" data-format="{{':sec second (:pct%)'|translate:'app-gearstat'|escape}}"></span>
+                  {{\app\assets\gears\RespawnAsset::register($this)|@void}}
+                  {{registerJs}}
+                    (function($){
+                      var baseTime = window.getRespawnTime('wakaba', 0, 0);
+                      var time = (window.gearAbilities.quick_respawn)
+                        ? window.getRespawnTime('wakaba', window.gearAbilities.quick_respawn.count.main, window.gearAbilities.quick_respawn.count.sub)
+                        : baseTime;
+                      var $e = $('#gearstat-respawn');
+                      $e.text(
+                        $e.attr('data-format').replace(/:\w+/g, function(match) {
+                          switch (match) {
+                            case ':sec':
+                              return time.toFixed(2);
+
+                            case ':pct':
+                              return (time * 100 / baseTime).toFixed(1);
+                          }
+                        })
+                      );
+                    })(jQuery);
+                  {{/registerJs}}
+                </td>
+              </tr>
+              <tr>
+                <th>{{'Jump'|translate:'app-gearstat'|escape}}</th>
+                <td>{{'Not implemented yet'|translate:'app-gearstat'|escape}}</td>
+              </tr>
+              <tr>
+                <th>{{'Bomb Throw'|translate:'app-gearstat'|escape}}</th>
+                <td>{{'Not implemented yet'|translate:'app-gearstat'|escape}}</td>
+              </tr>
+              <tr>
+                <th>{{'Echolocator'|translate:'app-gearstat'|escape}}</th>
+                <td>{{'Not implemented yet'|translate:'app-gearstat'|escape}}</td>
+              </tr>
+            </tbody>
+          </table>
+        {{/if}}
         <p>
           {{'Note: You can change time zone. Look at navbar.'|translate:'app'|escape}}
         </p>

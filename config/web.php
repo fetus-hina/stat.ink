@@ -131,6 +131,7 @@ $config = [
                         'app-death'     => 'death.php',
                         'app-fest'      => 'fest.php',
                         'app-gear'      => 'gear.php',
+                        'app-gearstat'  => 'gearstat.php',
                         'app-map'       => 'map.php',
                         'app-rank'      => 'rank.php',
                         'app-reltime'   => 'reltime.php',
