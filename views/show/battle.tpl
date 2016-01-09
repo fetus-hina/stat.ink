@@ -375,6 +375,79 @@
                 </td>
               </tr>
             {{/if}}
+            {{if $battle->headgear || $battle->clothing || $battle->shoes}}
+              <tr>
+                <th>{{'Gear'|translate:'app'|escape}}</th>
+                <td>
+                  <table class="table table-bordered table-condensed" style="margin-bottom:0">
+                    <thead>
+                      <tr>
+                        <th></th>
+                        <th>{{'Headgear'|translate:'app-gear'|escape}}</th>
+                        <th>{{'Clothing'|translate:'app-gear'|escape}}</th>
+                        <th>{{'Shoes'|translate:'app-gear'|escape}}</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {{if $battle->headgear->gear_id || $battle->clothing->gear_id || $battle->shoes->gear_id}}
+                        <tr>
+                          <th>{{'Gear'|translate:'app'|escape}}</th>
+                          <td>{{$battle->headgear->gear->name|default:'?'|translate:'app-gear'|escape}}</td>
+                          <td>{{$battle->clothing->gear->name|default:'?'|translate:'app-gear'|escape}}</td>
+                          <td>{{$battle->shoes->gear->name|default:'?'|translate:'app-gear'|escape}}</td>
+                        </tr>
+                      {{/if}}
+                      <tr>
+                        <th>{{'Primary Ability'|translate:'app'|escape}}</th>
+                        <td>{{$battle->headgear->primaryAbility->name|default:'?'|translate:'app-ability'|escape}}</td>
+                        <td>{{$battle->clothing->primaryAbility->name|default:'?'|translate:'app-ability'|escape}}</td>
+                        <td>{{$battle->shoes->primaryAbility->name|default:'?'|translate:'app-ability'|escape}}</td>
+                      </tr>
+                      <tr>
+                        <th rowspan="3">{{'Secondary Abilities'|translate:'app'|escape}}</th>
+                        <td>{{$battle->headgear->secondaries.0->ability->name|default:'(Locked)'|translate:'app-ability'|escape}}</td>
+                        <td>{{$battle->clothing->secondaries.0->ability->name|default:'(Locked)'|translate:'app-ability'|escape}}</td>
+                        <td>{{$battle->shoes->secondaries.0->ability->name|default:'(Locked)'|translate:'app-ability'|escape}}</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          {{if $battle->headgear->secondaries|@count > 1}}
+                            {{$battle->headgear->secondaries.1->ability->name|default:'(Locked)'|translate:'app-ability'|escape}}
+                          {{/if}}
+                        </td>
+                        <td>
+                          {{if $battle->clothing->secondaries|@count > 1}}
+                            {{$battle->clothing->secondaries.1->ability->name|default:'(Locked)'|translate:'app-ability'|escape}}
+                          {{/if}}
+                        </td>
+                        <td>
+                          {{if $battle->shoes->secondaries|@count > 1}}
+                            {{$battle->shoes->secondaries.1->ability->name|default:'(Locked)'|translate:'app-ability'|escape}}
+                          {{/if}}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          {{if $battle->headgear->secondaries|@count > 2}}
+                            {{$battle->headgear->secondaries.2->ability->name|default:'(Locked)'|translate:'app-ability'|escape}}
+                          {{/if}}
+                        </td>
+                        <td>
+                          {{if $battle->clothing->secondaries|@count > 2}}
+                            {{$battle->clothing->secondaries.2->ability->name|default:'(Locked)'|translate:'app-ability'|escape}}
+                          {{/if}}
+                        </td>
+                        <td>
+                          {{if $battle->shoes->secondaries|@count > 2}}
+                            {{$battle->shoes->secondaries.2->ability->name|default:'(Locked)'|translate:'app-ability'|escape}}
+                          {{/if}}
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </td>
+              </tr>
+            {{/if}}
             <tr>
               <th>{{'Battle Start'|translate:'app'|escape}}</th>
               <td>{{$battle->start_at|date_format:'%F %T %Z'|escape}}</td>

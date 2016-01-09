@@ -1,5 +1,6 @@
 <?php
 return [
+    '(Locked)'              => '(未開放)',
     'Bomb Range Up'         => 'ボム飛距離アップ',
     'Bomb Sniffer'          => 'ボムサーチ',
     'Cold-Blooded'          => 'マーキングガード',
