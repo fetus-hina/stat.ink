@@ -1438,7 +1438,26 @@
               </tr>
               <tr>
                 <th>{{'Special Save'|translate:'app-gearstat'|escape}}</th>
-                <td>{{'Not implemented yet'|translate:'app-gearstat'|escape}}</td>
+                <td>
+                  <span id="gearstat-special-save" data-format="{{':pct% loss'|translate:'app-gearstat'|escape}}"></span>
+                  {{registerJs}}
+                    (function($){
+                      var baseLoss = window.getSpecialSave(0, 0);
+                      var loss = (window.gearAbilities.special_saver)
+                        ? window.getSpecialSave(window.gearAbilities.special_saver.count.main, window.gearAbilities.special_saver.count.sub)
+                        : baseLoss;
+                      var $e = $('#gearstat-special-save');
+                      $e.text(
+                        $e.attr('data-format').replace(/:\w+/g, function(match) {
+                          switch (match) {
+                            case ':pct':
+                              return (loss * 100).toFixed(1);
+                          }
+                        })
+                      );
+                    })(jQuery);
+                  {{/registerJs}}
+                </td>
               </tr>
               <tr>
                 <th>{{'Respawn'|translate:'app-gearstat'|escape}}</th>

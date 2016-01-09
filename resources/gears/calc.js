@@ -90,4 +90,10 @@
         var y = ((0.99 * x) - Math.pow(0.09 * x, 2)) / 100;
         return Math.round(defaultPoint / (1 + y));
     };
+
+    window.getSpecialSave = function (mainCount, subCount) {
+        var x = mainCount * 10 + subCount * 3;
+        var y = 0.5 - ((0.99 * x) - Math.pow(0.09 * x, 2)) / 60;
+        return Math.max(0, y);
+    };
 })(window);
