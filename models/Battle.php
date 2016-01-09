@@ -235,7 +235,8 @@ class Battle extends ActiveRecord
      */
     public function getHeadgear()
     {
-        return $this->hasOne(GearConfiguration::className(), ['id' => 'headgear_id']);
+        return $this->hasOne(GearConfiguration::className(), ['id' => 'headgear_id'])
+            ->with(['primaryAbility', 'secondaries.ability']);
     }
 
     /**
@@ -243,7 +244,8 @@ class Battle extends ActiveRecord
      */
     public function getClothing()
     {
-        return $this->hasOne(GearConfiguration::className(), ['id' => 'clothing_id']);
+        return $this->hasOne(GearConfiguration::className(), ['id' => 'clothing_id'])
+            ->with(['primaryAbility', 'secondaries.ability']);
     }
 
     /**
@@ -251,7 +253,8 @@ class Battle extends ActiveRecord
      */
     public function getShoes()
     {
-        return $this->hasOne(GearConfiguration::className(), ['id' => 'shoes_id']);
+        return $this->hasOne(GearConfiguration::className(), ['id' => 'shoes_id'])
+            ->with(['primaryAbility', 'secondaries.ability']);
     }
 
     /**
@@ -812,5 +815,63 @@ class Battle extends ActiveRecord
         } catch (\Exception $e) {
             return [];
         }
+    }
+
+    public function getGearAbilities()
+    {
+        $queryGear = function ($attr) {
+            if ($this->{"{$attr}_id"} === null) {
+                return null;
+            }
+            $q = "get{$attr}";
+            return $this->{$q}()
+                ->with(['primaryAbility', 'secondaries.ability'])
+                ->one();
+        };
+
+        $gears = [
+            $this->headgear,
+            $this->clothing,
+            $this->shoes
+        ];
+
+        $init = function ($ability) {
+            return (object)[
+                'name' => Yii::t('app-ability', $ability->name),
+                'count' => (object)[
+                    'main' => 0,
+                    'sub' => 0,
+                ],
+            ];
+        };
+
+        $ret = [];
+        foreach ($gears as $gear) {
+            if (!$gear) {
+                continue;
+            }
+            if ($gear->primaryAbility) {
+                if ($key = $gear->primaryAbility->key) {
+                    if (!isset($ret[$key])) {
+                        $ret[$key] = $init($gear->primaryAbility);
+                    }
+                    ++$ret[$key]->count->main;
+                }
+            }
+            if ($gear->secondaries) {
+                foreach($gear->secondaries as $secondary) {
+                    if ($secondary->ability) {
+                        if ($key = $secondary->ability->key) {
+                            if (!isset($ret[$key])) {
+                                $ret[$key] = $init($secondary->ability);
+                            }
+                            ++$ret[$key]->count->sub;
+                        }
+                    }
+                }
+            }
+        }
+
+        return (object)$ret;
     }
 }

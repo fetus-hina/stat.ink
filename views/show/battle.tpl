@@ -650,6 +650,7 @@
                   weLead: null,
                   theyLead: null
                 };
+                window.gearAbilities = {{$battle->gearAbilities|json_encode}};
               })();
             {{/registerJs}}
             {{registerJs}}
@@ -882,13 +883,31 @@
                     }
                   });
 
+                  {{\app\assets\gears\RespawnAsset::register($this)|@void}}
                   var markings = window.battleEvents.filter(function(v){
                     return v.type === "dead";
                   }).map(function(v){
+                    var mainQR = window.gearAbilities.quick_respawn ? window.gearAbilities.quick_respawn.count.main : 0;
+                    var subQR = window.gearAbilities.quick_respawn ? window.gearAbilities.quick_respawn.count.sub : 0;
+                    var respawnTime = window.getRespawnTime(v.reason ? v.reason : 'unknown', mainQR, subQR);
+
+                    if (console && console.log) {
+                      (function() {
+                        var reason = v.reason ? v.reason : 'unknown';
+                        var reasonName = window.deathReasons[reason] ? window.deathReasons[reason] : '?';
+                        console.log(
+                          "Dead event: at " + v.at.toFixed(3) + ", " +
+                          "splatted by " + reason + "[" + reasonName + "], " +
+                          "respawn in " + respawnTime.toFixed(2) + " sec, " +
+                          "quick respawn " + mainQR + " + " + subQR
+                        );
+                      })();
+                    }
+
                     return {
                       xaxis: {
                         from: v.at,
-                        to: v.at + 8.5
+                        to: v.at + respawnTime
                       },
                       color: "rgba(255,200,200,0.6)"
                     };
