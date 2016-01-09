@@ -774,4 +774,43 @@ class Battle extends ActiveRecord
         }
         return $ret;
     }
+
+    public function getDeathReasonNamesFromEvents()
+    {
+        try {
+            if ($this->events === null || $this->events === '') {
+                return [];
+            }
+            $events = Json::decode($this->events, false);
+            if (!is_array($events) || empty($events)) {
+                return [];
+            }
+
+            // ["key" => null] のデータを一回構築する
+            // 後でこの key を取得して理由名取得に回す
+            $ret = [];
+            foreach ($events as $event) {
+                if (is_array($event)) {
+                    $event = (object)$event;
+                }
+                if (is_object($event) && isset($event->type) && isset($event->reason) && $event->type === 'dead') {
+                    $ret[$event->reason] = null;
+                }
+            }
+            if (empty($ret)) {
+                return [];
+            }
+
+            // null だった理由名を埋める
+            $reasons = namespace\DeathReason::find()
+                ->andWhere(['key' => array_keys($ret)])
+                ->all();
+            foreach ($reasons as $reason) {
+                $ret[$reason->key] = $reason->getTranslatedName();
+            }
+            return $ret;
+        } catch (\Exception $e) {
+            return [];
+        }
+    }
 }

@@ -56,6 +56,7 @@
                             var item = series.data[i];
                             var itemWidth = convertToImageDimension(item[2]);
                             var itemHeight = convertToImageDimension(item[3]);
+                            var userData = item.length >= 5 ? item[4] : undefined;
 
                             var pos = plot.p2c({x:item[1], y:0});
                             var posLeft = plotOffset.left + (pos.left - itemWidth / 2);
@@ -92,7 +93,7 @@
                                 var x = item[1];
                                 if (typeof series.icons.tooltip === 'function') {
                                     (function () {
-                                        var v = series.icons.tooltip(x, $img);
+                                        var v = series.icons.tooltip(x, $img, userData);
                                         if (v !== undefined) {
                                             $img.attr('title', v);
                                         }

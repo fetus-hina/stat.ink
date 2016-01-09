@@ -577,7 +577,8 @@
           {{$events = $battle->events|@json_decode:false}}
           {{if $events}}
             <script>
-              window.battleEvents = {{$events|json_encode}}
+              window.battleEvents = {{$events|json_encode}};
+              window.deathReasons = {{$battle->getDeathReasonNamesFromEvents()|json_encode}};
             </script>
             <div class="graph" id="timeline">
             </div>
@@ -867,6 +868,13 @@
                           }
                         })(v.value)].src, v.at, size, size
                       ];
+                    } else if (v.type === "dead") {
+                      var reason = (v.reason && window.deathReasons[v.reason])
+                        ? window.deathReasons[v.reason]
+                        : null;
+                      return [
+                        window.graphIcon[v.type].src, v.at, size, size, reason
+                      ];
                     } else {
                       return [
                         window.graphIcon[v.type].src, v.at, size, size
@@ -914,7 +922,6 @@
                       });
                     }
                     if (myAreaData.length > 0 || hisAreaData.length > 0) {
-                      console.log(myAreaData, hisAreaData);
                       data.push({
                         label: "{{'Count (Good Guys)'|translate:'app'|escape:'javascript'}}",
                         data: myAreaData,
@@ -978,11 +985,14 @@
                       data: iconData,
                       icons: {
                         show: true,
-                        tooltip: function (x, $this) {
+                        tooltip: function (x, $this, userData) {
                           var t = Math.floor(x);
                           var m = Math.floor(t / 60);
                           var s = t % 60;
                           var value = m + ':' + (s < 10 ? '0' + s : s);
+                          if (typeof userData === 'string') {
+                            value += ' / ' + userData;
+                          }
                           $this.attr('title', value)
                             .tooltip({'container': 'body'});
                         },
