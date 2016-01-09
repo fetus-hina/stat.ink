@@ -106,4 +106,12 @@
         var x = mainCount * 10 + subCount * 3;
         return 1 - ((0.99 * x) - Math.pow(0.09 * x, 2)) / 120;
     };
+
+    window.getAttackRatio = function (mainCount, subCount) {
+        var x = mainCount * 10 + subCount * 3;
+        var y = ((0.99 * x) - Math.pow(0.09 * x, 2)) / 100;
+        return 1 + y;
+    };
+
+    window.getDefenseRatio = window.getAttackRatio;
 })(window);

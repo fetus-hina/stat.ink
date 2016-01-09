@@ -13,7 +13,6 @@ return [
     'Ink Usage(Main)' => 'インク消費（メイン）',
     'Ink Usage(Sub)' => 'インク消費（サブ）',
     'Jump' => 'スーパージャンプ',
-    'Not implemented yet' => '未実装',
     'Respawn' => '復活時間',
     'Run Speed' => 'ヒト移動速度',
     'Special Charge' => 'スペシャル増加',

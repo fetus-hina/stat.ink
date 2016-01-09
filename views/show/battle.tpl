@@ -1155,11 +1155,37 @@
             <tbody>
               <tr>
                 <th>{{'Damage'|translate:'app-gearstat'|escape}}</th>
-                <td>{{'Not implemented yet'|translate:'app-gearstat'|escape}}</td>
+                <td>
+                  <span id="gearstat-damage"></span>
+                  {{registerJs}}
+                    (function($){
+                      var base = window.getAttackRatio(0, 0);
+                      var value = window.gearAbilities.damage_up
+                        ? window.getAttackRatio(window.gearAbilities.damage_up.count.main, window.gearAbilities.damage_up.count.sub)
+                        : base;
+                      $('#gearstat-damage').text(
+                        (value * 100).toFixed(1) + '%'
+                      );
+                    })(jQuery);
+                  {{/registerJs}}
+                </td>
               </tr>
               <tr>
                 <th>{{'Defense'|translate:'app-gearstat'|escape}}</th>
-                <td>{{'Not implemented yet'|translate:'app-gearstat'|escape}}</td>
+                <td>
+                  <span id="gearstat-defense"></span>
+                  {{registerJs}}
+                    (function($){
+                      var base = window.getDefenseRatio(0, 0);
+                      var value = window.gearAbilities.defense_up
+                        ? window.getDefenseRatio(window.gearAbilities.defense_up.count.main, window.gearAbilities.defense_up.count.sub)
+                        : base;
+                      $('#gearstat-defense').text(
+                        (value * 100).toFixed(1) + '%'
+                      );
+                    })(jQuery);
+                  {{/registerJs}}
+                </td>
               </tr>
               <tr>
                 <th>{{'Ink Usage(Main)'|translate:'app-gearstat'|escape}}</th>
