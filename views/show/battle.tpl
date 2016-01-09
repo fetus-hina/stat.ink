@@ -1396,7 +1396,17 @@
               </tr>
               <tr>
                 <th>{{'Echolocator'|translate:'app-gearstat'|escape}}</th>
-                <td>{{'Not implemented yet'|translate:'app-gearstat'|escape}}</td>
+                <td>
+                  <span id="gearstat-echo"></span>
+                  {{registerJs}}
+                    (function($){
+                      var enable = window.gearAbilities.cold_blooded && window.gearAbilities.cold_blooded.count.main > 0;
+                      $('#gearstat-echo').text(
+                        enable ? '25%' : '100%'
+                      );
+                    })(jQuery);
+                  {{/registerJs}}
+                </td>
               </tr>
             </tbody>
           </table>
