@@ -32,7 +32,7 @@
           }
         {{/registerCss}}
         <p class="old-ikalog">
-          {{'These battles were recorded with outdated IkaLog. Please upgrade to latest version.'|translate:'app'|escape}}
+          {{'These battles were recorded with an outdated version of IkaLog. Please upgrade to the latest version.'|translate:'app'|escape}}
         </p>
       {{/if}}
     {{/if}}
@@ -60,7 +60,7 @@
       {{$_death = '-'}}
       {{$_kr = '-'}}
     {{/if}}
-    {{$_formatted = 'Battles:{0} / Win%:{1} / Avg Killed:{2} / Avg Dead:{3} / Kill Ratio:{4}'|translate:'app':[$_btl,$_wp,$_kill,$_death,$_kr]}}
+    {{$_formatted = 'Battles:{0} / Win %:{1} / Avg Killed:{2} / Avg Dead:{3} / Kill Ratio:{4}'|translate:'app':[$_btl,$_wp,$_kill,$_death,$_kr]}}
     {{$_tweet = $title|cat:' [ ':$_formatted:' ]'}}
     {{SnsWidget tweetText=$_tweet}}
 
@@ -89,7 +89,7 @@
               <div class="user-number">{{$summary->battle_count|number_format|escape}}</div>
             </div>
             <div class="col-xs-4 col-sm-4 col-md-2 col-lg-2">
-              <div class="user-label">{{'Win%'|translate:'app'|escape}}</div>
+              <div class="user-label">{{'Win %'|translate:'app'|escape}}</div>
               <div class="user-number">
                 {{if $summary->wp === null}}
                   {{'N/A'|translate:'app'|escape}}
@@ -99,7 +99,7 @@
               </div>
             </div>
             <div class="col-xs-4 col-sm-4 col-md-2 col-lg-2">
-              <div class="user-label">{{'24H Win%'|translate:'app'|escape}}</div>
+              <div class="user-label">{{'24H Win %'|translate:'app'|escape}}</div>
               <div class="user-number">
                 {{if $summary->wp_short === null}}
                   {{'N/A'|translate:'app'|escape}}
@@ -180,9 +180,9 @@
                 <th class="cell-sub-weapon">{{'Sub Weapon'|translate:'app'|escape}}</th>
                 <th class="cell-special">{{'Special'|translate:'app'|escape}}</th>
                 <th class="cell-rank">{{'Rank'|translate:'app'|escape}}</th>
-                <th class="cell-rank-after">{{'Rank(After)'|translate:'app'|escape}}</th>
+                <th class="cell-rank-after">{{'Rank (After)'|translate:'app'|escape}}</th>
                 <th class="cell-level">{{'Level'|translate:'app'|escape}}</th>
-                {{* <th class="cell-level-after">{{'Level(After)'|translate:'app'|escape}}</th> *}}
+                {{* <th class="cell-level-after">{{'Level (After)'|translate:'app'|escape}}</th> *}}
                 <th class="cell-result">{{'Result'|translate:'app'|escape}}</th>
                 <th class="cell-kd">{{'k'|translate:'app'|escape}}/{{'d'|translate:'app'|escape}}</th>
                 <th class="cell-kill-ratio">{{'KR'|translate:'app'|escape}}</th>
@@ -290,12 +290,12 @@
           </div><div class="col-xs-6 col-sm-4 col-md-4 col-lg-3">
             <label><input type="checkbox" class="table-config-chk" data-klass="cell-rank"> {{'Rank'|translate:'app'|escape}}</label>
           </div><div class="col-xs-6 col-sm-4 col-md-4 col-lg-3">
-            <label><input type="checkbox" class="table-config-chk" data-klass="cell-rank-after"> {{'Rank(After)'|translate:'app'|escape}}</label>
+            <label><input type="checkbox" class="table-config-chk" data-klass="cell-rank-after"> {{'Rank (After)'|translate:'app'|escape}}</label>
           </div><div class="col-xs-6 col-sm-4 col-md-4 col-lg-3">
             <label><input type="checkbox" class="table-config-chk" data-klass="cell-level"> {{'Level'|translate:'app'|escape}}</label>
           </div><div class="col-xs-6 col-sm-4 col-md-4 col-lg-3">
         {{*
-            <label><input type="checkbox" class="table-config-chk" data-klass="cell-level-after"> {{'Level(After)'|translate:'app'|escape}}</label>
+            <label><input type="checkbox" class="table-config-chk" data-klass="cell-level-after"> {{'Level (After)'|translate:'app'|escape}}</label>
           </div><div class="col-xs-6 col-sm-4 col-md-4 col-lg-3">
         *}}
             <label><input type="checkbox" class="table-config-chk" data-klass="cell-result"> {{'Result'|translate:'app'|escape}}</label>

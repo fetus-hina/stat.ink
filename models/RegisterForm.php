@@ -29,7 +29,7 @@ class RegisterForm extends Model
             [['screen_name'], 'string', 'max' => 15],
             [['screen_name'], 'match',
                 'pattern' => '/^[a-zA-Z0-9_]{1,15}$/',
-                'message' => '{attribute} must be less then or equal to 15 alphanumeric or underscore characters.',
+                'message' => '{attribute} must be at most 15 alphanumeric or underscore characters.',
             ],
             [['screen_name'], 'unique',
                 'targetClass' => User::className(),
@@ -60,8 +60,8 @@ class RegisterForm extends Model
         return [
             'screen_name'       => Yii::t('app', 'Screen Name (Login Name)'),
             'password'          => Yii::t('app', 'Password'),
-            'password_repeat'   => Yii::t('app', 'Password (Again)'),
-            'name'              => Yii::t('app', 'Name (for Display)'),
+            'password_repeat'   => Yii::t('app', 'Password (again)'),
+            'name'              => Yii::t('app', 'Name (for display)'),
         ];
     }
 

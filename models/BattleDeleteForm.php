@@ -16,7 +16,7 @@ class BattleDeleteForm extends Model
 
     public function rules()
     {
-        $agreeErrorMessage = Yii::t('app', 'You must agree to the oath to delete this battle.');
+        $agreeErrorMessage = Yii::t('app', 'You must agree to the above to delete this battle.');
         return [
             [['agree'], 'required',
                 'message' => $agreeErrorMessage],

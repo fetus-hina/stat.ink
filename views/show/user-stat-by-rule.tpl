@@ -2,7 +2,7 @@
   {{set layout="main.tpl"}}
 
   {{$name = '{0}-san'|translate:'app':$user->name}}
-  {{$title = "{0}'s Battle Stat (by Mode)"|translate:'app':$name}}
+  {{$title = "{0}'s Battle Stats (by Mode)"|translate:'app':$name}}
   {{set title="{{$app->name}} | {{$title}}"}}
 
   {{$this->registerMetaTag(['name' => 'twitter:card', 'content' => 'summary'])|@void}}

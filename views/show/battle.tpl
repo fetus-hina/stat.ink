@@ -64,7 +64,7 @@
           }
         {{/registerCss}}
         <p class="old-ikalog">
-          {{'This battle was recorded with outdated IkaLog. Please upgrade to latest version.'|translate:'app'|escape}}
+          {{'This battle was recorded with an outdated version of IkaLog. Please upgrade to the latest version.'|translate:'app'|escape}}
         </p>
       {{/if}}
     {{/if}}
@@ -94,7 +94,7 @@
             {{if $battle->previousBattle}}
               <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                 <a href="{{url route="show/battle" screen_name=$user->screen_name battle=$battle->previousBattle->id}}" class="btn btn-default">
-                  <span class="fa fa-angle-double-left left"></span>{{'Prev Battle'|translate:'app'|escape}}
+                  <span class="fa fa-angle-double-left left"></span>{{'Prev. Battle'|translate:'app'|escape}}
                 </a>
               </div>
             {{/if}}
@@ -232,7 +232,7 @@
                   {{if $battle->isGachi && $battle->is_knock_out !== null}}
                     {{if $battle->is_knock_out}}
                       <span class="label label-info">
-                        {{'KNOCK OUT'|translate:'app'|escape}}
+                        {{'KNOCKOUT'|translate:'app'|escape}}
                       </span>
                     {{else}}
                       <span class="label label-warning">
@@ -342,7 +342,7 @@
                 </td>
               </tr>
               <tr>
-                <th>{{'His Team Score'|translate:'app'|escape}}</th>
+                <th>{{'Their Team Score'|translate:'app'|escape}}</th>
                 <td>
                   {{$battle->his_team_final_point|default:'?'|escape}} P (
                   {{if $battle->his_team_final_percent === null}}
@@ -360,7 +360,7 @@
                 <td>{{$battle->my_team_count|default:'?'|escape}}</td>
               </tr>
               <tr>
-                <th>{{'His Team Count'|translate:'app'|escape}}</th>
+                <th>{{'Their Team Count'|translate:'app'|escape}}</th>
                 <td>{{$battle->his_team_count|default:'?'|escape}}</td>
               </tr>
             {{/if}}
@@ -490,7 +490,7 @@
           </tbody>
         </table>
         <p>
-          {{'Note: You can change time zone. Look at navbar.'|translate:'app'|escape}}
+          {{'Note: You can change the time zone via the navbar.'|translate:'app'|escape}}
         </p>
         {{if $battle->myTeamPlayers && $battle->hisTeamPlayers}}
           {{if $battle->my_team_color_rgb && $battle->his_team_color_rgb}}
@@ -670,7 +670,7 @@
             {{if !$battle->rule || $battle->rule->key !== 'nawabari'}}
               <div class="text-right">
                 <label>
-                  <input type="checkbox" id="draw-gachi" value="1"> {{'Draw Ranked Battle Event (EXPERIMENTAL)'|translate:'app'|escape}}
+                  <input type="checkbox" id="draw-gachi" value="1"> {{'Draw Ranked Battle Events (EXPERIMENTAL)'|translate:'app'|escape}}
                 </label>
               </div>
             {{/if}}

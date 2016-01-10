@@ -25,7 +25,7 @@
               <ul class="dropdown-menu">
                 <li>
                   <a href="{{path route="user/login"}}">
-                    <span class="fa fa-sign-in left"></span>{{'Log In'|translate:'app'|escape}}
+                    <span class="fa fa-sign-in left"></span>{{'Login'|translate:'app'|escape}}
                   </a>
                 </li>
                 <li>
@@ -59,7 +59,7 @@
                 <li class="divider"></li>
                 <li>
                   <a href="{{path route="user/logout"}}">
-                    <span class="fa fa-sign-out left"></span>{{'Log Out'|translate:'app'|escape}}
+                    <span class="fa fa-sign-out left"></span>{{'Logout'|translate:'app'|escape}}
                   </a>
                 </li>
                 <li class="divider"></li>
@@ -117,7 +117,7 @@
           <li class="dropdown">
             <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
               <span class="fa fa-link left"></span>
-              {{'Link'|translate:'app'|escape}}&#32;<span class="caret"></span>
+              {{'Links'|translate:'app'|escape}}&#32;<span class="caret"></span>
             </a>
             <ul class="dropdown-menu">
               <li>

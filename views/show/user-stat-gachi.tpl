@@ -2,7 +2,7 @@
   {{set layout="main.tpl"}}
 
   {{$name = '{0}-san'|translate:'app':$user->name}}
-  {{$title = "{0}'s Battle Stat (Ranked Battle)"|translate:'app':$name}}
+  {{$title = "{0}'s Battle Stats (Ranked Battle)"|translate:'app':$name}}
   {{set title="{{$app->name}} | {{$title}}"}}
 
   {{$this->registerMetaTag(['name' => 'twitter:card', 'content' => 'summary'])|@void}}
@@ -260,14 +260,14 @@
         color: colorScheme.hoko
       },
       {
-        label: "{{'Win% ({0} Battles)'|translate:'app':20|escape}}",
+        label: "{{'Win % ({0} Battles)'|translate:'app':20|escape}}",
         data: json.map(function(v) {
           return [v.index, v.movingWP];
         }),
         color: colorScheme.moving1
       },
       {
-        label: "{{'Win% ({0} Battles)'|translate:'app':50|escape}}",
+        label: "{{'Win % ({0} Battles)'|translate:'app':50|escape}}",
         data: json.map(function(v) {
           return [v.index, v.movingWP50];
         }),
@@ -377,14 +377,14 @@
         color: colorScheme.hoko
       },
       {
-        label: "{{'Win% ({0} Battles)'|translate:'app':20|escape}}",
+        label: "{{'Win % ({0} Battles)'|translate:'app':20|escape}}",
         data: json.map(function(v) {
           return [v.index, v.movingWP];
         }),
         color: colorScheme.moving1
       },
       {
-        label: "{{'Win% ({0} Battles)'|translate:'app':50|escape}}",
+        label: "{{'Win % ({0} Battles)'|translate:'app':50|escape}}",
         data: json.map(function(v) {
           return [v.index, v.movingWP50];
         }),

@@ -41,7 +41,7 @@ class ProfileForm extends Model
     {
         return [
             'screen_name'       => Yii::t('app', 'Screen Name (Login Name)'),
-            'name'              => Yii::t('app', 'Name (for Display)'),
+            'name'              => Yii::t('app', 'Name (for display)'),
             'nnid'              => Yii::t('app', 'Nintendo Network ID'),
             'twitter'           => Yii::t('app', 'Twitter @name'),
             'ikanakama'         => Yii::t('app', 'IKANAKAMA User ID'),

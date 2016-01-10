@@ -31,7 +31,7 @@
         <tbody>
           <tr>
             <th>
-              {{'Game Mode'|translate:'app'|escape}}
+              {{'Lobby'|translate:'app'|escape}}
             </th>
             <td>
               {{$_->field($form, 'lobby_id')->label(false)->dropDownList($lobbies)}}
@@ -87,22 +87,24 @@
       </p>
       <ul>
         <li>
-          {{'Once you delete this battle, there is no going back.'|translate:'app'|escape}}
+          {{'If you delete this battle, it will be gone forever.'|translate:'app'|escape}}
         </li>
         <li>
           <strong style="color:#c9302c">
-            {{'Please do not achieved the destruction of evidence.'|translate:'app'|escape}}
+            {{'Please do not use this feature to destroy evidence.'|translate:'app'|escape}}
           </strong>
           &#32;
-          {{'This action is provided for delete a false recognized battle.'|translate:'app'|escape}}
+          {{'This action is provided for deleting a falsely-recognized battle.'|translate:'app'|escape}}
         </li>
         <li>
-          {{'If you misuse this feature, you will be kicked out.'|translate:'app'|escape}}
+          {{'If you misuse this feature, you will be banned.'|translate:'app'|escape}}
         </li>
       </ul>
       {{ActiveForm assign="_" id="delete-form" action=['show/edit-battle', 'screen_name' => $user->screen_name, 'battle' => $battle->id]}}
         {{Html::hiddenInput('_action', 'delete')}}
-        {{$_->field($delete, 'agree')->label('文章を理解し、同意の上削除します')->checkbox(['value' => 'yes', 'uncheck' => null])}}
+        {{$_->field($delete, 'agree')
+            ->label(Yii::t('app', 'I agree. Delete this battle.'))
+            ->checkbox(['value' => 'yes', 'uncheck' => null])}}
         {{Html::submitButton(
             Yii::t('app', 'Delete'),
             ['class' => 'btn btn-lg btn-danger btn-block']

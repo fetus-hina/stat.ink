@@ -37,7 +37,7 @@
                 <div style="display:inline-block">
                   <span style="display:inline-block;width:1.618em;height:1em;line-height:1px" class="legend-bg" data-color="ko"></span>
                   &#32;
-                  {{'Knock out'|translate:'app'|escape}}
+                  {{'Knockout'|translate:'app'|escape}}
                 </div><br>
                 <div style="display:inline-block">
                   <span style="display:inline-block;width:1.618em;height:1em;line-height:1px" class="legend-bg" data-color="time"></span>

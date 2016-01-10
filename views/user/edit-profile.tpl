@@ -27,7 +27,7 @@
       {{$_->field($form, 'env')->textArea([
           'style' => 'height:10em'
         ])->hint(
-          Yii::t('app', 'Please tell us about your capture environment between Wii U and User Agent. This information will be public.')
+          Yii::t('app', 'Please tell us about your capture environment and communication between your Wii U and User Agent (e.g. IkaLog). This information will be public.')
         )}}
 
       {{Html::submitButton(

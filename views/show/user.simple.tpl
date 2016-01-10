@@ -32,7 +32,7 @@
           }
         {{/registerCss}}
         <p class="old-ikalog">
-          {{'These battles were recorded with outdated IkaLog. Please upgrade to latest version.'|translate:'app'|escape}}
+          {{'These battles were recorded with an outdated version of IkaLog. Please upgrade to the latest version.'|translate:'app'|escape}}
         </p>
       {{/if}}
     {{/if}}
@@ -60,7 +60,7 @@
       {{$_death = '-'}}
       {{$_kr = '-'}}
     {{/if}}
-    {{$_formatted = 'Battles:{0} / Win%:{1} / Avg Killed:{2} / Avg Dead:{3} / Kill Ratio:{4}'|translate:'app':[$_btl,$_wp,$_kill,$_death,$_kr]}}
+    {{$_formatted = 'Battles:{0} / Win %:{1} / Avg Killed:{2} / Avg Dead:{3} / Kill Ratio:{4}'|translate:'app':[$_btl,$_wp,$_kill,$_death,$_kr]}}
     {{$_tweet = $title|cat:' [ ':$_formatted:' ]'}}
     {{SnsWidget tweetText=$_tweet}}
 
@@ -88,7 +88,7 @@
               <div class="user-number">{{$summary->battle_count|number_format|escape}}</div>
             </div>
             <div class="col-xs-4 col-sm-4 col-md-2 col-lg-2">
-              <div class="user-label">{{'Win%'|translate:'app'|escape}}</div>
+              <div class="user-label">{{'Win %'|translate:'app'|escape}}</div>
               <div class="user-number">
                 {{if $summary->wp === null}}
                   {{'N/A'|translate:'app'|escape}}
@@ -98,7 +98,7 @@
               </div>
             </div>
             <div class="col-xs-4 col-sm-4 col-md-2 col-lg-2">
-              <div class="user-label">{{'24H Win%'|translate:'app'|escape}}</div>
+              <div class="user-label">{{'24H Win %'|translate:'app'|escape}}</div>
               <div class="user-number">
                 {{if $summary->wp_short === null}}
                   {{'N/A'|translate:'app'|escape}}

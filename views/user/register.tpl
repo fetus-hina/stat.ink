@@ -10,7 +10,7 @@
       <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6" style="padding:0 5%">
         <h1>{{'Register'|translate:'app'|escape}}</h1>
         {{Html::a(
-            Yii::t('app', 'If already have an account, please click here.'),
+            Yii::t('app', 'If you already have an account, please click here.'),
             ['user/login'],
             []
           )}}
@@ -37,7 +37,7 @@
         {{/ActiveForm}}
         <div style="margin-top:15px">
           {{Html::a(
-              Yii::t('app', 'Log In'),
+              Yii::t('app', 'Login'),
               ['user/login'],
               ['class' => 'btn btn-lg btn-default btn-block']
             )}}

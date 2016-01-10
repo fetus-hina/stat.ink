@@ -21,7 +21,7 @@
           </div>
           <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
             <div class="user-label">
-              {{'Win%'|translate:'app'|escape}}
+              {{'Win %'|translate:'app'|escape}}
             </div>
             <div class="user-number">
               {{if $stat->wp === null}}
@@ -33,7 +33,7 @@
           </div>
           <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
             <div class="user-label">
-              {{'24H Win%'|translate:'app'|escape}}
+              {{'24H Win %'|translate:'app'|escape}}
             </div>
             <div class="user-number">
               {{if $stat->wp_short === null}}
@@ -115,7 +115,7 @@
           </div>
           <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
             <div class="user-label">
-              {{'Win%'|translate:'app'|escape}}
+              {{'Win %'|translate:'app'|escape}}
             </div>
             <div class="user-number">
               {{if $stat->nawabari_wp === null}}
@@ -162,7 +162,7 @@
           </div>
           <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
             <div class="user-label">
-              {{'Win%'|translate:'app'|escape}}
+              {{'Win %'|translate:'app'|escape}}
             </div>
             <div class="user-number">
               {{if $stat->gachi_wp === null}}
@@ -193,27 +193,27 @@
         <p style="margin:10px 0 0">
           <a href="{{url route="show/user-stat-nawabari" screen_name=$user->screen_name}}">
             <span class="fa fa-pie-chart left"></span>
-            {{'Stat (Turf War)'|translate:'app'|escape}}
+            {{'Stats (Turf War)'|translate:'app'|escape}}
           </a><br>
           <a href="{{url route="show/user-stat-gachi" screen_name=$user->screen_name}}">
             <span class="fa fa-pie-chart left"></span>
-            {{'Stat (Ranked Battle)'|translate:'app'|escape}}
+            {{'Stats (Ranked Battle)'|translate:'app'|escape}}
           </a><br>
           <a href="{{url route="show/user-stat-by-rule" screen_name=$user->screen_name}}">
             <span class="fa fa-pie-chart left"></span>
-            {{'Stat (by Mode)'|translate:'app'|escape}}
+            {{'Stats (by Mode)'|translate:'app'|escape}}
           </a><br>
           <a href="{{url route="show/user-stat-by-map" screen_name=$user->screen_name}}">
             <span class="fa fa-pie-chart left"></span>
-            {{'Stat (by Map)'|translate:'app'|escape}}
+            {{'Stats (by Map)'|translate:'app'|escape}}
           </a><br>
           <a href="{{url route="show/user-stat-by-map-rule" screen_name=$user->screen_name}}">
             <span class="fa fa-pie-chart left"></span>
-            {{'Stat (by Mode and Map)'|translate:'app'|escape}}
+            {{'Stats (by Mode and Map)'|translate:'app'|escape}}
           </a><br>
           <a href="{{url route="show/user-stat-cause-of-death" screen_name=$user->screen_name}}">
             <span class="fa fa-pie-chart left"></span>
-            {{'Stat (Cause of Death)'|translate:'app'|escape}}
+            {{'Stats (Cause of Death)'|translate:'app'|escape}}
           </a>
         </p>
       {{/if}}
@@ -247,7 +247,7 @@
         {{if $user->ikanakama != ''}}
           <div>
             <a href="http://ikazok.net/users/{{$user->ikanakama|escape:url}}" rel="nofollow" target="_blank">
-              イカナカマ
+              {{'Ika-Nakama'|translate:'app'|escape}}
             </a>
           </div>
         {{/if}}
@@ -255,5 +255,3 @@
     </div>
   </div>
 {{/strip}}
-{{registerCss}}
-{{/registerCss}}

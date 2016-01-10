@@ -1,7 +1,7 @@
 {{strip}}
   {{set layout="main.tpl"}}
 
-  {{$title = 'Winning Percentage based on Killed/Dead'|translate:'app'}}
+  {{$title = 'Winning Percentage based on K/D'|translate:'app'}}
   {{set title="{{$app->name}} | {{$title}}"}}
 
   {{$this->registerMetaTag(['name' => 'twitter:card', 'content' => 'summary'])|@void}}
@@ -14,7 +14,7 @@
       {{$title|escape}}
     </h1>
     <p>
-      {{'This website has implemented support for color-blindness. Please check "Color-Blind Support" at "User Name/Guest" menu of the navbar to enable it.'|translate:'app'|escape}}
+      {{'This website has implemented support for color-blindness. Please check "Color-Blind Support" in the "User Name/Guest" menu of the navbar to enable it.'|translate:'app'|escape}}
     </p>
 
     {{AdWidget}}

@@ -40,7 +40,7 @@ class PasswordForm extends Model
             'screen_name'           => Yii::t('app', 'Screen Name (Login Name)'),
             'password'              => Yii::t('app', 'Current Password'),
             'new_password'          => Yii::t('app', 'New Password'),
-            'new_password_repeat'   => Yii::t('app', 'New Password (Again)'),
+            'new_password_repeat'   => Yii::t('app', 'New Password (again)'),
         ];
     }
 

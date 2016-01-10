@@ -21,7 +21,7 @@
       {{'Weapons'|translate:'app'|escape}}
     </h2>
     <p>
-      {{'Excluded: Posted Player, All Players(when Private Battle), Posted Player\'s Team Member(when Squad Battle or Splatfest Battle)'|translate:'app'|escape}}
+      {{'Excluded: The uploader, All players (Private Battle), Uploader\'s teammates (Squad Battle or Splatfest Battle)'|translate:'app'|escape}}
     </p>
     <p>
       ※できる限り重複カウントしないように除外設定を行っていますが、連戦やナワバリフレンド合流の影響により重複カウントしやすい状況が発生します。
@@ -51,7 +51,7 @@
               {{if $rule->key === 'nawabari'}}
                 <th data-sort="float">{{'Avg Inked'|translate:'app'|escape}}</th>
               {{/if}}
-              <th data-sort="float">{{'Win%'|translate:'app'|escape}}</th>
+              <th data-sort="float">{{'Win %'|translate:'app'|escape}}</th>
             </tr>
           </thead>
           <tbody>
@@ -108,7 +108,7 @@
               <th data-sort="float">{{'Avg Killed'|translate:'app'|escape}}</th>
               <th data-sort="float">{{'Avg Dead'|translate:'app'|escape}}</th>
               <th data-sort="float">{{'Avg KR'|translate:'app'|escape}}</th>
-              <th data-sort="float">{{'Win%'|translate:'app'|escape}}</th>
+              <th data-sort="float">{{'Win %'|translate:'app'|escape}}</th>
               <th data-sort="float">{{'Encounter Ratio'|translate:'app'|escape}}</th>
             </tr>
           </thead>
@@ -162,7 +162,7 @@
               <th data-sort="float">{{'Avg Killed'|translate:'app'|escape}}</th>
               <th data-sort="float">{{'Avg Dead'|translate:'app'|escape}}</th>
               <th data-sort="float">{{'Avg KR'|translate:'app'|escape}}</th>
-              <th data-sort="float">{{'Win%'|translate:'app'|escape}}</th>
+              <th data-sort="float">{{'Win %'|translate:'app'|escape}}</th>
               <th data-sort="float">{{'Encounter Ratio'|translate:'app'|escape}}</th>
             </tr>
           </thead>

@@ -29,11 +29,11 @@
         <a href="{{url route="show/user" screen_name=$ident->screen_name}}">{{'Your Battles'|translate:'app'|escape}}</a>
       {{/if}} | <a href="{{url route="site/start"}}">{{"What's this?"|translate:'app'|escape}}</a> |
       &#32;<a href="{{url route="site/faq"}}">{{"FAQ"|translate:'app'|escape}}</a> |
-      &#32;<a href="{{url route="entire/users"}}">{{"Stat: User Activity"|translate:'app'|escape}}</a><br>
+      &#32;<a href="{{url route="entire/users"}}">{{"Stats: User Activity"|translate:'app'|escape}}</a><br>
 
-      <a href="{{url route="entire/kd-win"}}">{{"Stat: K/D vs Win%"|translate:'app'|escape}}</a> |
-      &#32;<a href="{{url route="entire/knockout"}}">{{"Stat: Knockout Ratio"|translate:'app'|escape}}</a> |
-      &#32;<a href="{{url route="entire/weapons"}}">{{"Stat: Weapons"|translate:'app'|escape}}</a>
+      <a href="{{url route="entire/kd-win"}}">{{"Stats: K/D vs Win %"|translate:'app'|escape}}</a> |
+      &#32;<a href="{{url route="entire/knockout"}}">{{"Stats: Knockout Ratio"|translate:'app'|escape}}</a> |
+      &#32;<a href="{{url route="entire/weapons"}}">{{"Stats: Weapons"|translate:'app'|escape}}</a>
     </p>
     <p>
       <a href="{{url route="site/color"}}">{{'Color-Blind Support'|translate:'app'|escape}}</a> |

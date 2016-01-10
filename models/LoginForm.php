@@ -25,7 +25,7 @@ class LoginForm extends Model
                 'pattern' => '/^[a-zA-Z0-9_]{1,15}$/',
                 'message' => Yii::t(
                     'app',
-                    '{attribute} must be less then or equal to 15 alphanumeric or underscore characters.'
+                    '{attribute} must be at most 15 alphanumeric or underscore characters.'
                 ),
             ],
             [['password'], 'validatePassword'],

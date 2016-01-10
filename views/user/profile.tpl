@@ -25,7 +25,7 @@
             <tr>
               <th>{{'Password'|translate:'app'|escape}}</th>
               <td>
-                <code>**********</code> <a href="{{url route="user/edit-password"}}" class="btn btn-default">パスワードの変更</a>
+                <code>**********</code> <a href="{{url route="user/edit-password"}}" class="btn btn-default">{{'Change Password'|translate:'app'|escape}}</a>
               </td>
             </tr>
             <tr>
@@ -101,13 +101,15 @@
         </table>
       </div>
       <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
-        <h2>ダウンロード</h2>
+        <h2>{{'Export'|translate:'app'|escape}}</h2>
         <p>
           <a href="{{url route="/user/download" type="ikalog-csv"}}" class="btn btn-default btn-block">
-            <span class="fa fa-file-excel-o left"></span>CSV (IkaLog互換)
+            <span class="fa fa-file-excel-o left"></span>
+            {{'CSV (IkaLog compat.)'|translate:'app'|escape}}
           </a>
           <a href="{{url route="/user/download" type="ikalog-json"}}" class="btn btn-default btn-block">
-            <span class="fa fa-file-code-o left"></span>JSON (IkaLog互換)
+            <span class="fa fa-file-code-o left"></span>
+            {{'JSON (IkaLog compat.)'|translate:'app'|escape}}
           </a>
         </p>
       </div>

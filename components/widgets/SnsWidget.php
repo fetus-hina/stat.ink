@@ -108,7 +108,7 @@ class SnsWidget extends Widget
                 sprintf(
                     '%s %s',
                     FontAwesome::icon('anchor')->tag('span')->render(),
-                    Html::encode(Yii::t('app', 'PermaLink'))
+                    Html::encode(Yii::t('app', 'Permalink'))
                 ),
                 [
                     'id' => $id,
@@ -118,7 +118,7 @@ class SnsWidget extends Widget
                         'label-permalink',
                         'auto-tooltip',
                     ],
-                    'title' => Yii::t('app', 'Click to Copy'),
+                    'title' => Yii::t('app', 'Click to copy'),
                 ]
             );
         } else {
