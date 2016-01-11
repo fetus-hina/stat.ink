@@ -41,7 +41,7 @@
           </div>
         </div>
         <p>
-          {{'Excluded: Private Battles and Squad Battles(when Rank S, S+)'|translate:'app'|escape}}
+          {{'Excluded: Private Battles and Squad Battles (when Rank S, S+)'|translate:'app'|escape}}
         </p>
         <script>
           window._rankData = {{$recentRank|json_encode}};
@@ -117,7 +117,7 @@
     moving1:  colorLock ? window.colorScheme.moving1: 'rgba(64,237,64,.5)',
     moving2:  colorLock ? window.colorScheme.moving2: 'rgba(148,64,237,.5)'
   };
-  
+
   function drawRankGraph(json) {
     var $graph_ = $graphs.filter('.stat-rank');
 
