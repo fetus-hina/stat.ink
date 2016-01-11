@@ -41,7 +41,7 @@
           </div>
         </div>
         <p>
-          {{'Excluded: Private Battles and Squad Battles (when Rank S, S+)'|translate:'app'|escape}}
+          {{'Excluded: Private Battles and Squad Battles (when Rank S or S+)'|translate:'app'|escape}}
         </p>
         <script>
           window._rankData = {{$recentRank|json_encode}};
