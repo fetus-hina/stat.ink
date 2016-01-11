@@ -1,5 +1,6 @@
 <?php
 return [
+    '* This exclusion is in to attempt to minimize overcounting in weapon usage statistics.' => '※できる限り重複カウントしないように除外設定を行っていますが、連戦やナワバリフレンド合流の影響により重複カウントしやすい状況が発生します。',
     '24H Win %' => '24H勝率',
     '<div class="input-group"><span class="input-group-addon">From:</span>{input}</div>' => '<div class="input-group">{input}<span class="input-group-addon">から</span></div>',
     '<div class="input-group"><span class="input-group-addon">To:</span>{input}</div>' => '<div class="input-group">{input}<span class="input-group-addon">まで</span></div>',

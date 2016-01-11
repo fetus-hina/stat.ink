@@ -24,7 +24,7 @@
       {{'Excluded: The uploader, All players (Private Battle), Uploader\'s teammates (Squad Battle or Splatfest Battle)'|translate:'app'|escape}}
     </p>
     <p>
-      ※できる限り重複カウントしないように除外設定を行っていますが、連戦やナワバリフレンド合流の影響により重複カウントしやすい状況が発生します。
+      {{'* This exclusion is in to attempt to minimize overcounting in weapon usage statistics.'|translate:'app'|escape}}
     </p>
     {{\app\assets\JqueryStupidTableAsset::register($this)|@void}}
     {{foreach $entire as $rule}}
