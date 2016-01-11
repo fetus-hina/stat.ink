@@ -24,7 +24,7 @@
       {{'Excluded: The uploader, All players (Private Battle), Uploader\'s teammates (Squad Battle or Splatfest Battle)'|translate:'app'|escape}}
     </p>
     <p>
-      {{'* This exclusion is in to attempt to minimize overcounting in weapon usage statistics.'|translate:'app'|escape}}
+      {{'* This exclusion is in attempt to minimize overcounting in weapon usage statistics.'|translate:'app'|escape}}
     </p>
     {{\app\assets\JqueryStupidTableAsset::register($this)|@void}}
     {{foreach $entire as $rule}}
@@ -34,7 +34,7 @@
     {{foreach $entire as $rule}}
       {{if $rule->data->battle_count > 0}}
         <h3 id="weapon-{{$rule->key|escape}}">
-          {{$rule->name|escape}} 
+          {{$rule->name|escape}}
         </h3>
         <p>
           {{'Battles:'|translate:'app'|escape}} {{$rule->data->battle_count|number_format|escape}},&#32;
