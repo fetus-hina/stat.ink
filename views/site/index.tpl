@@ -2,7 +2,7 @@
   {{set layout="main.tpl"}}
   {{use class="app\models\Battle"}}
   <div class="container">
-    <p class="text-right" style="margin-bottom:0;font-size:0.618rem">
+    <p class="text-right" style="margin-bottom:0">
       Switch Language:&#32;
       {{use class="app\models\Language"}}
       {{foreach Language::find()->orderBy('name ASC')->asArray()->all() as $lang}}
