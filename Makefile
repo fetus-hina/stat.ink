@@ -46,8 +46,9 @@ resource: $(RESOURCE_TARGETS)
 composer-plugin: composer.phar
 	grep '"fxp/composer-asset-plugin"' ~/.composer/composer.json >/dev/null || ./composer.phar global require 'fxp/composer-asset-plugin:^1.0'
 
-vendor: composer.phar
+vendor: composer.phar composer.lock
 	php composer.phar install --prefer-dist
+	touch -r composer.lock vendor
 
 node_modules:
 	npm install
