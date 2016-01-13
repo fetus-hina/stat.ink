@@ -120,7 +120,7 @@ class PostBattleForm extends Model
                             return 'champion';
                         case 'friend':
                             return 'fiend';
-                        default;
+                        default:
                             return $a;
                     }
                 }],

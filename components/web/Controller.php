@@ -111,7 +111,7 @@ class Controller extends Base
 
     private function setTimezone()
     {
-        $tz = (function() {
+        $tz = (function () {
             $cookie = Yii::$app->request->cookies->get('timezone');
             if ($cookie) {
                 $tz = Timezone::findOne(['identifier' => $cookie->value]);

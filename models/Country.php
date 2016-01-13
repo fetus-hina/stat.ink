@@ -67,6 +67,7 @@ class Country extends \yii\db\ActiveRecord
      */
     public function getTimezones()
     {
-        return $this->hasMany(Timezone::className(), ['id' => 'timezone_id'])->viaTable('timezone_country', ['country_id' => 'id']);
+        return $this->hasMany(Timezone::className(), ['id' => 'timezone_id'])
+            ->viaTable('timezone_country', ['country_id' => 'id']);
     }
 }

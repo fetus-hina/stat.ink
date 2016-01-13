@@ -14,7 +14,7 @@ use app\models\Language;
 
 class I18n
 {
-    static public function languageLinkTags()
+    public static function languageLinkTags()
     {
         $controller = Yii::$app->controller;
         $request = Yii::$app->request;

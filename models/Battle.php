@@ -805,7 +805,7 @@ class Battle extends ActiveRecord
             }
 
             // null だった理由名を埋める
-            $reasons = namespace\DeathReason::find()
+            $reasons = DeathReason::find()
                 ->andWhere(['key' => array_keys($ret)])
                 ->all();
             foreach ($reasons as $reason) {
@@ -859,7 +859,7 @@ class Battle extends ActiveRecord
                 }
             }
             if ($gear->secondaries) {
-                foreach($gear->secondaries as $secondary) {
+                foreach ($gear->secondaries as $secondary) {
                     if ($secondary->ability) {
                         if ($key = $secondary->ability->key) {
                             if (!isset($ret[$key])) {
