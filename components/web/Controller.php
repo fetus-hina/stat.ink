@@ -93,13 +93,16 @@ class Controller extends Base
         }
 
         //FIXME
-        $firstLang = strtolower(substr(array_shift($acceptLangs), 0, 2));
-        switch ($firstLang) {
+        $firstLang = strtolower(array_shift($acceptLangs));
+        $firstLangShort = substr($firstLang, 0, 2);
+        switch ($firstLangShort) {
             case 'ja':
                 return 'ja-JP';
 
             case 'en':
-                return 'en-US';
+                return ($firstLang === 'en-gb' || $firstLang === 'en-au')
+                    ? 'en-GB'
+                    : 'en-US';
 
             default:
                 return false;
@@ -121,6 +124,12 @@ class Controller extends Base
             case 'en':
             case 'en-us':
                 $tz = Timezone::findOne(['identifier' => 'America/New_York']);
+                Yii::$app->setTimeZone($tz->identifier);
+                Yii::$app->setSplatoonRegion($tz->region_id);
+                return;
+
+            case 'en-gb':
+                $tz = Timezone::findOne(['identifier' => 'Europe/London']);
                 Yii::$app->setTimeZone($tz->identifier);
                 Yii::$app->setSplatoonRegion($tz->region_id);
                 return;
