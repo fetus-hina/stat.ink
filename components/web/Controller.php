@@ -111,34 +111,29 @@ class Controller extends Base
 
     private function setTimezone()
     {
-        $cookie = Yii::$app->request->cookies->get('timezone');
-        if ($cookie) {
-            $tz = Timezone::findOne(['identifier' => $cookie->value]);
-            if ($tz) {
-                Yii::$app->setTimeZone($tz->identifier);
-                Yii::$app->setSplatoonRegion($tz->region_id);
-                return;
+        $tz = (function() {
+            $cookie = Yii::$app->request->cookies->get('timezone');
+            if ($cookie) {
+                $tz = Timezone::findOne(['identifier' => $cookie->value]);
+                if ($tz) {
+                    return $tz;
+                }
             }
-        }
-        switch (strtolower(Yii::$app->language)) {
-            case 'en':
-            case 'en-us':
-                $tz = Timezone::findOne(['identifier' => 'America/New_York']);
-                Yii::$app->setTimeZone($tz->identifier);
-                Yii::$app->setSplatoonRegion($tz->region_id);
-                return;
+            switch (strtolower(Yii::$app->language)) {
+                case 'en':
+                case 'en-us':
+                    return Timezone::findOne(['identifier' => 'America/Los_Angeles']);
 
-            case 'en-gb':
-                $tz = Timezone::findOne(['identifier' => 'Europe/London']);
-                Yii::$app->setTimeZone($tz->identifier);
-                Yii::$app->setSplatoonRegion($tz->region_id);
-                return;
+                case 'en-gb':
+                    return Timezone::findOne(['identifier' => 'Europe/London']);
 
-            default:
-                $tz = Timezone::findOne(['identifier' => 'Asia/Tokyo']);
-                Yii::$app->setTimeZone($tz->identifier);
-                Yii::$app->setSplatoonRegion($tz->region_id);
-                return;
+                default:
+                    return Timezone::findOne(['identifier' => 'Asia/Tokyo']);
+            }
+        })();
+        if ($tz) {
+            Yii::$app->setTimeZone($tz->identifier);
+            Yii::$app->setSplatoonRegion($tz->region_id);
         }
     }
 }
