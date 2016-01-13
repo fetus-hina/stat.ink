@@ -9,47 +9,48 @@
     {{AdWidget}}
     {{SnsWidget}}
 
-    <p>弊サイト（{{$app->name|escape}}）では次の情報をアクセスログとして収集・蓄積しています。</p>
+    <p>
+      {{'This website ({0}) collects your access data below:'|translate:'app':$app->name|escape}}
+    </p>
     <ul>
       <li>
-        アクセス日時
+        {{'Access time'|translate:'app'|escape}}
       </li>
       <li>
-        IPアドレス
+        {{'Your IP address'|translate:'app'|escape}}
       </li>
       <li>
-        訪問元サイトURLに関する自己申告情報（<code>Referrer</code>）
+        {{'The address of the webpage that linked to our page being requested (aka "Referer")'|translate:'app'|escape}}
       </li>
       <li>
-        訪問者の利用しているブラウザやOSに関する自己申告情報（<code>User-Agent</code>）
+        {{'The OS and browser name/version that you used (aka "User-Agent")'|translate:'app'|escape}}
       </li>
     </ul>
     <p>
-      弊サイトでは Cookie を利用しています。
+      {{'We use Cookies.'|translate:'app'|escape}}
     </p>
     <p>
-      弊サイトでは Google Analytics を利用してアクセス解析を行っています。収集内容等については Google Analytics の仕様に準じます。
+      {{'We use the Google Analytics for analyzing users\' information.'|translate:'app'|escape}}
     </p>
     <p>
-      弊サイトで収集した情報のうち、個人の特定が可能であるなどセンシティブな情報（例えばIPアドレス）に関しては一切の公開等行いません。
-      その他の情報、例えば一般的なアクセス元やOS、ブラウザの種類などは統計情報として取り扱います。
+      {{'We don\'t exhibit your information that we collected (e.g. your IP address).'|translate:'app'|escape}}
+      {{'However, statistics information will be opened.'|translate:'app'|escape}}
     </p>
     <p>
-      ただし、警察等の捜査機関からの正式な依頼があった場合、または、弊サイトへのいわゆるサイバー攻撃等があり必要があった場合には、
-      上の規定に関わらず然るべき機関への情報開示を行います。
+      {{'When there was a charge from investigating authority, your information would be elucidated.'|translate:'app'|escape}}
     </p>
 
     <h2 id="image">
-      {{'Image Sharing'|translate:'app'|escape}}
+      {{'About image sharing with the IkaLog team'|translate:'app'|escape}}
     </h2>
     <p>
-      {{$app->name|escape}} に投稿されたデータや画像およびそれらの修正履歴は、 IkaLog の画像認識精度向上のために IkaLog の開発者（協力者を含む）と共有されます。
+      {{'Your uploaded data (battle data, images and modification histories) will share with the IkaLog development team.'|translate:'app'|escape}}
     </p>
     <p>
-      共有は自動的に行われ、バトル削除を行っても削除されません。
+      {{'It\'s doing automatically and will not be deleted even after the deletion of the battle.'|translate:'app'|escape}}
     </p>
     <p>
-      この供給は、2015-10-27 (JST) に開始されました。
+      {{'This behaviour was started at 27 Oct 2015.'|translate:'app'|escape}}
     </p>
   </div>
 {{/strip}}
