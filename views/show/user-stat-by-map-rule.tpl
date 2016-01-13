@@ -26,7 +26,9 @@
         <table class="table table-condensed graph-container">
           <thead>
             <tr>
-              <th></th>
+              <th>
+                {{WinLoseLegend}}
+              </th>
               {{foreach $ruleNames as $ruleKey => $ruleName}}
                 <th>
                   {{$ruleName|escape}}

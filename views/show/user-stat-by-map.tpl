@@ -23,6 +23,7 @@
 
     <div class="row">
       <div class="col-xs-12 col-sm-8 col-md-8 col-lg-9">
+        {{WinLoseLegend}}
         <div id="stat" data-screen-name="{{$user->screen_name|escape}}" data-json="{{$data|json_encode|escape}}" data-no-data="{{'No Data'|translate:'app'|escape}}">
         </div>
       </div>

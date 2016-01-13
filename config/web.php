@@ -81,6 +81,7 @@ $config = [
                         'functions' => [
                             'AdWidget' => 'app\components\widgets\AdWidget',
                             'SnsWidget' => 'app\components\widgets\SnsWidget',
+                            'WinLoseLegend' => 'app\components\widgets\WinLoseLegend',
                         ]
                     ],
                 ],
