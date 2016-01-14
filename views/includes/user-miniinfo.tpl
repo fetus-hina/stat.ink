@@ -205,11 +205,11 @@
           </a><br>
           <a href="{{url route="show/user-stat-by-map" screen_name=$user->screen_name}}">
             <span class="fa fa-pie-chart left"></span>
-            {{'Stats (by Map)'|translate:'app'|escape}}
+            {{'Stats (by Stage)'|translate:'app'|escape}}
           </a><br>
           <a href="{{url route="show/user-stat-by-map-rule" screen_name=$user->screen_name}}">
             <span class="fa fa-pie-chart left"></span>
-            {{'Stats (by Mode and Map)'|translate:'app'|escape}}
+            {{'Stats (by Mode and Stage)'|translate:'app'|escape}}
           </a><br>
           <a href="{{url route="show/user-stat-cause-of-death" screen_name=$user->screen_name}}">
             <span class="fa fa-pie-chart left"></span>

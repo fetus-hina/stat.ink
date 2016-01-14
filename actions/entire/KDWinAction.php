@@ -138,7 +138,7 @@ class KDWinAction extends BaseAction
         }
         asort($ret);
         return array_merge(
-            [ '' => Yii::t('app-map', 'Any Map') ],
+            [ '' => Yii::t('app-map', 'Any Stage') ],
             $ret
         );
     }

@@ -1,6 +1,6 @@
 <?php
 return [
-    'Any Map' => 'すべてのマップ',
+    'Any Stage' => 'すべてのマップ',
 
     'Ancho-V Games' => 'アンチョビットゲームズ',
     'Arowana Mall'  => 'アロワナモール',

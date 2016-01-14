@@ -108,7 +108,7 @@ class BattleFilterForm extends Model
             'screen_name'   => Yii::t('app', 'Screen Name'),
             'lobby'         => Yii::t('app', 'Lobby'),
             'rule'          => Yii::t('app', 'Mode'),
-            'map'           => Yii::t('app', 'Map'),
+            'map'           => Yii::t('app', 'Stage'),
             'weapon'        => Yii::t('app', 'Weapon'),
             'result'        => Yii::t('app', 'Result'),
             'term'          => Yii::t('app', 'Term'),

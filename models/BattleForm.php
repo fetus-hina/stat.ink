@@ -43,7 +43,7 @@ class BattleForm extends Model
         return [
             'lobby_id' => Yii::t('app', 'Lobby'),
             'rule_id' => Yii::t('app', 'Mode'),
-            'map_id' => Yii::t('app', 'Map'),
+            'map_id' => Yii::t('app', 'Stage'),
             'weapon_id' => Yii::t('app', 'Weapon'),
         ];
     }

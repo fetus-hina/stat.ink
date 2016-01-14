@@ -139,7 +139,7 @@
             {{if $battle->map}}
               <tr>
                 <th>
-                  {{'Map'|translate:'app'|escape}}&#32;
+                  {{'Stage'|translate:'app'|escape}}&#32;
                   <a href="{{url route="show/user-stat-by-map" screen_name=$user->screen_name}}">
                     <span class="fa fa-pie-chart"></span>
                   </a>

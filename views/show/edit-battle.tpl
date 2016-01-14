@@ -47,7 +47,7 @@
           </tr>
           <tr>
             <th>
-              {{'Map'|translate:'app'|escape}}
+              {{'Stage'|translate:'app'|escape}}
             </th>
             <td>
               {{$_->field($form, 'map_id')->label(false)->dropDownList($maps)}}
