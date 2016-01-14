@@ -531,7 +531,7 @@
                   <th class="col-rank">{{'Rank'|translate:'app'|escape}}</th>
                 {{/if}}
                 {{if !$hidePoint}}
-                  <th class="col-point">{{'Point'|translate:'app'|escape}}</th>
+                  <th class="col-point">{{'Points'|translate:'app'|escape}}</th>
                 {{/if}}
                 <th class="col-kd">{{'k'|translate:'app'|escape}}/{{'d'|translate:'app'|escape}}</th>
                 <th class="col-kr">{{'KR'|translate:'app'|escape}}</th>
@@ -557,6 +557,10 @@
                   {{/if}}
                   {{if $totalPoint !== null && $player->point !== null}}
                     {{$totalPoint = $totalPoint + $player->point}}
+                    {{if $teamKey@first}}
+                      {{* 勝利チーム側の合計からは勝利ボーナスを消す *}}
+                      {{$totalPoint = $totalPoint - 300}}
+                    {{/if}}
                   {{else}}
                     {{$totalPoint = null}}
                   {{/if}}
