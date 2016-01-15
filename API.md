@@ -236,6 +236,7 @@ POST /api/v1/battle
         - `barrelspinner` : バレルスピナー
         - `barrelspinner_deco` : バレルスピナーデコ
         - `hydra` : ハイドラント
+        - `hydra_custom` : ハイドラントカスタム
         - `splatspinner` : スプラスピナー
         - `splatspinner_collabo` : スプラスピナーコラボ
 
