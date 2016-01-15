@@ -17,22 +17,15 @@
     {{AdWidget}}
     {{SnsWidget}}
 
+    <p>
+      {{'Excluded: Private Battles'|translate:'app'|escape}}
+    </p>
     <div class="table-responsive table-responsive-force">
       <table class="table table-condensed graph-container">
         <thead>
           <tr>
             {{$width = 100 / ($rules|count + 1)}}
-            <th style="width:{{$width|escape}}%;min-width:200px"></th>
-            {{foreach $rules as $ruleKey => $ruleName}}
-              <th style="width:{{$width|escape}}%;min-width:200px">
-                {{$ruleName|escape}}
-              </th>
-            {{/foreach}}
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th>
+            <th style="width:{{$width|escape}}%;min-width:200px">
               <div style="display:inline-block;border:2px solid #ddd;padding:2px 5px">
                 <div style="display:inline-block">
                   <span style="display:inline-block;width:1.618em;height:1em;line-height:1px" class="legend-bg" data-color="ko"></span>
@@ -52,12 +45,25 @@
               </div>
             </th>
             {{foreach $rules as $ruleKey => $ruleName}}
+              <th style="width:{{$width|escape}}%;min-width:200px">
+                {{$ruleName|escape}}
+              </th>
+            {{/foreach}}
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th>
+            </th>
+            {{foreach $rules as $ruleKey => $ruleName}}
               {{$totalBattleCount = 0}}
               {{$totalKOCount = 0}}
-              {{foreach $maps as $mapKey => $mapName}}
-                {{$_ = $data[$mapKey][$ruleKey]}}
-                {{$totalBattleCount = $totalBattleCount + $_->battle_count|default:0}}
-                {{$totalKOCount = $totalKOCount + $_->ko_count|default:0}}
+              {{foreach $data as $map}}
+                {{$_ = $map->rules->$ruleKey}}
+                {{if $_}}
+                  {{$totalBattleCount = $totalBattleCount + $_->battles}}
+                  {{$totalKOCount = $totalKOCount + $_->knockouts}}
+                {{/if}}
               {{/foreach}}
               <td>
                 {{if $totalBattleCount > 0}}
@@ -75,11 +81,12 @@
               height: auto;
             }
           {{/registerCss}}
-          {{foreach $maps as $mapKey => $mapName}}
+          {{foreach $data as $_}}
+            {{$map = $_->map}}
             <tr>
               <th>
-                {{$mapName.1|escape}}<br>
-                {{$mapFile = 'daytime/'|cat:$mapName.0:'.jpg'}}
+                {{$map->name|escape}}<br>
+                {{$mapFile = 'daytime/'|cat:$map->key:'.jpg'}}
                 <img src="{{$app->assetManager->getAssetUrl(
                     $app->assetManager->getBundle('app\assets\MapImageAsset'),
                     $mapFile
@@ -87,9 +94,9 @@
               </th>
               {{foreach $rules as $ruleKey => $ruleName}}
                 <td>
-                  {{$_ = $data[$mapKey][$ruleKey]}}
-                  {{if $_->battle_count|default:0 > 0}}
-                    {{$tmp = ['battle' => $_->battle_count, 'ko' => $_->ko_count]}}
+                  {{$a = $_->rules->$ruleKey}}
+                  {{if $a && $a->battles > 0}}
+                    {{$tmp = ['battle' => $a->battles, 'ko' => $a->knockouts]}}
                     <div class="pie-flot-container" data-json="{{$tmp|json_encode|escape}}">
                     </div>
                   {{/if}}

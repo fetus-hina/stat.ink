@@ -11,6 +11,7 @@ use Yii;
 use yii\console\Controller;
 use yii\helpers\Console;
 use app\models\BattlePlayer;
+use app\models\Knockout;
 use app\models\Rule;
 use app\models\StatEntireUser;
 use app\models\StatWeapon;
@@ -18,6 +19,11 @@ use app\models\StatWeaponBattleCount;
 
 class StatController extends Controller
 {
+    /**
+     * 全体統計 - ブキ統計を更新します
+     *
+     * これを実行しないとブキ統計は表示されません。
+     */
     public function actionUpdateEntireWeapons()
     {
         $db = Yii::$app->db;
@@ -179,6 +185,11 @@ class StatController extends Controller
         return $query;
     }
 
+    /**
+     * 全体統計 - 利用者数を更新します。
+     *
+     * これを実行しなくてもリアルタイム集計しますが数が増えると死にます。
+     */
     public function actionUpdateEntireUser()
     {
         // 集計対象期間を計算する
@@ -212,6 +223,57 @@ class StatController extends Controller
                         ->from('battle')
                         ->andWhere(['<', '{{battle}}.[[at]]', $today->format(\DateTime::ATOM)])
                         ->groupBy('{{battle}}.[[at]]::date')
+                        ->createCommand()
+                        ->queryAll()
+                )
+            )
+            ->execute();
+        $transaction->commit();
+    }
+
+    /**
+     * 全体統計 - ノックアウト率統計を更新します
+     *
+     * これを実行しないとブキ統計は表示されません。
+     */
+    public function actionUpdateKnockout()
+    {
+        $db = Yii::$app->db;
+        $transaction = $db->beginTransaction();
+        Knockout::deleteAll();
+        $db->createCommand()
+            ->batchInsert(
+                Knockout::tableName(),
+                [ 'map_id', 'rule_id', 'battles', 'knockouts' ],
+                array_map(
+                    function ($row) {
+                        return [
+                            $row['map_id'],
+                            $row['rule_id'],
+                            $row['battles'],
+                            $row['knockouts'],
+                        ];
+                    },
+                    (new \yii\db\Query())
+                        ->select([
+                            'map_id'        => '{{battle}}.[[map_id]]',
+                            'rule_id'       => '{{battle}}.[[rule_id]]',
+                            'battles'       => 'COUNT({{battle}}.*)',
+                            'knockouts'     => 'SUM(CASE WHEN {{battle}}.[[is_knock_out]] THEN 1 ELSE 0 END)',
+                        ])
+                        ->from('battle')
+                        ->innerJoin('rule', '{{battle}}.[[rule_id]] = {{rule}}.[[id]]')
+                        ->innerJoin('game_mode', '{{rule}}.[[mode_id]] = {{game_mode}}.[[id]]')
+                        ->innerJoin('lobby', '{{battle}}.[[lobby_id]] = {{lobby}}.[[id]]')
+                        ->innerJoin('map', '{{battle}}.[[map_id]] = {{map}}.[[id]]')
+                        ->andWhere(['and',
+                            ['not', ['{{battle}}.[[is_win]]' => null]],
+                            ['not', ['{{battle}}.[[is_knock_out]]' => null]],
+                            ['not', ['{{lobby}}.[[key]]' => 'private']],
+                            ['{{game_mode}}.[[key]]' => 'gachi'],
+                            ['{{battle}}.[[is_automated]]' => true],
+                        ])
+                        ->groupBy(['{{battle}}.[[map_id]]', '{{battle}}.[[rule_id]]'])
                         ->createCommand()
                         ->queryAll()
                 )
