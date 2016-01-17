@@ -58,9 +58,11 @@
             {{foreach $rule->data->weapons as $weapon}}
               <tr class="weapon">
                 <td>
-                  <span title="{{'Sub:'|translate:'app'|escape}}{{$weapon->subweapon->name|escape}} / {{'Special:'|translate:'app'|escape}}{{$weapon->special->name|escape}}" class="auto-tooltip">
-                    {{$weapon->name|escape}}
-                  </span>
+                  <a href="{{url route="entire/weapon" weapon=$weapon->key}}">
+                    <span title="{{'Sub:'|translate:'app'|escape}}{{$weapon->subweapon->name|escape}} / {{'Special:'|translate:'app'|escape}}{{$weapon->special->name|escape}}" class="auto-tooltip">
+                      {{$weapon->name|escape}}
+                    </span>
+                  </a>
                 </td>
                 <td class="players" title="{{if $weapon->count > 0}}{{($rule->data->player_count*100/$weapon->count)|string_format:'%.2f%%'|escape}}{{/if}}" data-sort-value="{{$weapon->count|escape}}">
                   {{if $rule->data->player_count > 0}}
