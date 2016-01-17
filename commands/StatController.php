@@ -16,6 +16,7 @@ use app\models\Rule;
 use app\models\StatEntireUser;
 use app\models\StatWeapon;
 use app\models\StatWeaponBattleCount;
+use app\models\StatWeaponKillDeath;
 
 class StatController extends Controller
 {
@@ -31,6 +32,7 @@ class StatController extends Controller
         echo "Delete old data...\n";
         StatWeapon::deleteAll();
         StatWeaponBattleCount::deleteAll();
+        StatWeaponKillDeath::deleteAll();
 
         echo "INSERT stat_weapon...\n";
         $select = $this->createSelectQueryForUpdateEntireWeapons();
@@ -47,7 +49,7 @@ class StatController extends Controller
         );
         $db->createCommand($sql)->execute();
 
-        echo "INSERT stat_weapon_battle_count..\n";
+        echo "INSERT stat_weapon_battle_count...\n";
         $select = $this->createSelectQueryForUpdateEntireWeaponsBattleCount();
         $sql = sprintf(
             'INSERT INTO %s (%s) %s',
@@ -62,6 +64,20 @@ class StatController extends Controller
         );
         $db->createCommand($sql)->execute();
 
+        echo "INSERT stat_weapon_kill_death...\n";
+        $select = $this->createSelectQueryForUpdateEntireWeaponsKillDeath();
+        $sql = sprintf(
+            'INSERT INTO %s ( %s) %s',
+            $db->quoteTableName(StatWeaponKillDeath::tableName()),
+            implode(', ', array_map(
+                function ($k) use ($db) {
+                    return $db->quoteColumnName($k);
+                },
+                array_keys($select->select)
+            )),
+            $select->createCommand()->rawSql
+        );
+        $db->createCommand($sql)->execute();
         echo "done.\n";
         $transaction->commit();
     }
@@ -182,6 +198,44 @@ class StatController extends Controller
                 'count' => 'COUNT(DISTINCT {{battle_player}}.[[battle_id]])',
             ])
             ->groupBy('{{battle}}.[[rule_id]]');
+        return $query;
+    }
+
+    private function createSelectQueryForUpdateEntireWeaponsKillDeath()
+    {
+        $query = (new \yii\db\Query())
+            ->select([
+                'weapon_id' => '{{p}}.[[weapon_id]]',
+                'rule_id'   => '{{b}}.[[rule_id]]',
+                'kill'      => '{{p}}.[[kill]]',
+                'death'     => '{{p}}.[[death]]',
+                'battle'    => 'COUNT(*)',
+                'win'       => sprintf(
+                    'SUM(CASE %s END)',
+                    implode(' ', [
+                        'WHEN {{b}}.[[is_win]] = TRUE AND {{p}}.[[is_my_team]] = TRUE THEN 1',
+                        'WHEN {{b}}.[[is_win]] = FALSE AND {{p}}.[[is_my_team]] = FALSE THEN 1',
+                        'ELSE 0'
+                    ])
+                ),
+            ])
+            ->from('{{battle_player}} {{p}}')
+            ->innerJoin('{{battle}} {{b}}', '{{p}}.[[battle_id]] = {{b}}.[[id]]')
+            ->innerJoin('{{lobby}}', '{{b}}.[[lobby_id]] = {{lobby}}.[[id]]')
+            ->innerJoin('{{rule}}', '{{b}}.[[rule_id]] = {{rule}}.[[id]]')
+            ->innerJoin('{{weapon}}', '{{p}}.[[weapon_id]] = {{weapon}}.[[id]]')
+            ->andWhere(['and',
+                ['{{b}}.[[is_automated]]' => true],
+                ['<>', '{{lobby}}.[[key]]', 'private'],
+                ['not', ['{{p}}.[[kill]]' => null]],
+                ['not', ['{{p}}.[[death]]' => null]],
+            ])
+            ->groupBy([
+                '{{p}}.[[weapon_id]]',
+                '{{b}}.[[rule_id]]',
+                '{{p}}.[[kill]]',
+                '{{p}}.[[death]]',
+            ]);
         return $query;
     }
 
