@@ -102,7 +102,7 @@
       {{if $stageInfo->current->regular || $stageInfo->current->gachi}}
         {{\app\assets\MapImageAsset::register($this)|@void}}
         {{$timeFormat = '%H:%M'}}
-        {{if $app->language|substr:0:2 == 'en'}}
+        {{if $app->language == 'en-US'}}
           {{$timeFormat = '%l:%M %p'}}
         {{/if}}
         <h2>
