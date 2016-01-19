@@ -19,8 +19,6 @@ use app\models\User;
 
 class UserAction extends BaseAction
 {
-    use FilterFormTrait;
-
     public function run()
     {
         $request = Yii::$app->getRequest();
@@ -80,19 +78,16 @@ class UserAction extends BaseAction
 
         $isPjax = $request->isPjax;
         $template = $this->viewMode === 'simple' ? 'user.simple.tpl' : 'user.tpl';
-        return $this->controller->render($template, array_merge(
-            [
-                'user'      => $user,
-                'battleDataProvider' => new ActiveDataProvider([
-                    'query' => $battle,
-                    'pagination' => ['pageSize' => 100 ]
-                ]),
-                'summary'   => $summary,
-                'filter'    => $filter,
-                'permLink'  => $permLink
-            ],
-            $this->makeFilterFormData($user)
-        ));
+        return $this->controller->render($template, [
+            'user'      => $user,
+            'battleDataProvider' => new ActiveDataProvider([
+                'query' => $battle,
+                'pagination' => ['pageSize' => 100 ]
+            ]),
+            'summary'   => $summary,
+            'filter'    => $filter,
+            'permLink'  => $permLink,
+        ]);
     }
 
     public function getViewMode()

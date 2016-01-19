@@ -15,7 +15,6 @@ use app\models\BattleFilterForm;
 
 class UserStatByRuleAction extends BaseAction
 {
-    use FilterFormTrait;
     use UserStatFilterTrait;
 
     public function run()
@@ -31,14 +30,11 @@ class UserStatByRuleAction extends BaseAction
         $filter->screen_name = $user->screen_name;
         $filter->validate();
 
-        return $this->controller->render('user-stat-by-rule.tpl', array_merge(
-            [
-                'user' => $user,
-                'filter' => $filter,
-                'data' => $this->getData($user, $filter),
-            ],
-            $this->makeFilterFormData($user)
-        ));
+        return $this->controller->render('user-stat-by-rule.tpl', [
+            'user' => $user,
+            'filter' => $filter,
+            'data' => $this->getData($user, $filter),
+        ]);
     }
 
     private function getData(User $user, BattleFilterForm $filter)

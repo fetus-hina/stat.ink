@@ -16,6 +16,8 @@ use app\components\helpers\Translator;
  * @property integer $id
  * @property string $key
  * @property string $name
+ *
+ * @property Weapon[] $weapons
  */
 class Special extends \yii\db\ActiveRecord
 {
@@ -50,6 +52,14 @@ class Special extends \yii\db\ActiveRecord
             'key' => 'Key',
             'name' => 'Name',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getWeapons()
+    {
+        return $this->hasMany(Weapon::className(), ['special_id' => 'id']);
     }
 
     public function toJsonArray()

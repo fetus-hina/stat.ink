@@ -17,7 +17,6 @@ use app\models\User;
 
 class UserStatByMapRuleAction extends BaseAction
 {
-    use FilterFormTrait;
     use UserStatFilterTrait;
 
     public function run()
@@ -38,8 +37,7 @@ class UserStatByMapRuleAction extends BaseAction
                 'user' => $user,
                 'filter' => $filter,
             ],
-            $this->getData($user, $filter),
-            $this->makeFilterFormData($user)
+            $this->getData($user, $filter)
         ));
     }
 

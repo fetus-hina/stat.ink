@@ -16,7 +16,6 @@ use app\models\User;
 
 class UserStatCauseOfDeathAction extends BaseAction
 {
-    use FilterFormTrait;
     use UserStatFilterTrait;
 
     public function run()
@@ -32,14 +31,11 @@ class UserStatCauseOfDeathAction extends BaseAction
         $filter->screen_name = $user->screen_name;
         $filter->validate();
 
-        return $this->controller->render('user-stat-cause-of-death.tpl', array_merge(
-            [
-                'user' => $user,
-                'list' => $this->getList($user, $filter),
-                'filter' => $filter,
-            ],
-            $this->makeFilterFormData($user)
-        ));
+        return $this->controller->render('user-stat-cause-of-death.tpl', [
+            'user' => $user,
+            'list' => $this->getList($user, $filter),
+            'filter' => $filter,
+        ]);
     }
 
     public function getList(User $user, BattleFilterForm $filter)

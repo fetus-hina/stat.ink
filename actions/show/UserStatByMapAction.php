@@ -15,7 +15,6 @@ use app\models\BattleFilterForm;
 
 class UserStatByMapAction extends BaseAction
 {
-    use FilterFormTrait;
     use UserStatFilterTrait;
 
     public function run()
@@ -33,14 +32,11 @@ class UserStatByMapAction extends BaseAction
             //$battle->filter($filter);
         }
 
-        return $this->controller->render('user-stat-by-map.tpl', array_merge(
-            [
-                'user' => $user,
-                'filter' => $filter,
-                'data' => $this->getData($user, $filter),
-            ],
-            $this->makeFilterFormData($user)
-        ));
+        return $this->controller->render('user-stat-by-map.tpl', [
+           'user' => $user,
+           'filter' => $filter,
+           'data' => $this->getData($user, $filter),
+        ]);
     }
 
     private function getData(User $user, BattleFilterForm $filter)
