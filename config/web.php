@@ -71,7 +71,7 @@ $config = [
                 'tpl' => [
                     'class' => 'yii\smarty\ViewRenderer',
                     'options' => [
-                        'force_compile' => defined('YII_DEBUG') && YII_DEBUG,
+                        'force_compile' => false, //defined('YII_DEBUG') && YII_DEBUG,
                         'left_delimiter' => '{{',
                         'right_delimiter' => '}}',
                     ],
