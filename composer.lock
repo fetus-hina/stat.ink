@@ -322,19 +322,44 @@
         },
         {
             "name": "bower-asset/jquery-smooth-scroll",
-            "version": "1.6.2",
+            "version": "1.7.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kswedberg/jquery-smooth-scroll.git",
-                "reference": "bf6705fa967601181a0fa80b5baddf352b041721"
+                "reference": "b192367d731a75b041621977e97218172d8f3a17"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kswedberg/jquery-smooth-scroll/zipball/bf6705fa967601181a0fa80b5baddf352b041721",
-                "reference": "bf6705fa967601181a0fa80b5baddf352b041721",
+                "url": "https://api.github.com/repos/kswedberg/jquery-smooth-scroll/zipball/b192367d731a75b041621977e97218172d8f3a17",
+                "reference": "b192367d731a75b041621977e97218172d8f3a17",
                 "shasum": ""
             },
-            "type": "bower-asset-library"
+            "require": {
+                "bower-asset/jquery": ">=1.4.2"
+            },
+            "type": "bower-asset-library",
+            "extra": {
+                "bower-asset-main": "jquery.smooth-scroll.js",
+                "bower-asset-ignore": [
+                    "demo/",
+                    "lib/",
+                    "src/",
+                    "test/",
+                    "**/.*",
+                    "Gruntfile.js",
+                    "package.json"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "Easy implementation of smooth scrolling for same-page links",
+            "keywords": [
+                "animation",
+                "jQuery",
+                "jquery-plugin",
+                "scroll"
+            ]
         },
         {
             "name": "bower-asset/jquery-stupid-table",
