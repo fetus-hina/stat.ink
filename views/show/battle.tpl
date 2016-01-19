@@ -1226,7 +1226,7 @@
                     (function($){
                       var base = window.getInkSaverSub(0, 0);
                       var value = window.gearAbilities.ink_saver_sub
-                        ? window.getInkSaverSub(window.gearAbilities.ink_saver_sub.count.sub, window.gearAbilities.ink_saver_sub.count.sub)
+                        ? window.getInkSaverSub(window.gearAbilities.ink_saver_sub.count.main, window.gearAbilities.ink_saver_sub.count.sub)
                         : base;
                       $('#gearstat-ink-save-sub').text(
                         (value * 100).toFixed(1) + '%'
