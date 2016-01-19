@@ -8,8 +8,10 @@
 namespace app\models\query;
 
 use yii\db\ActiveQuery;
+use app\components\helpers\Resource;
 use app\models\BattleFilterForm;
 use app\models\BattleImageType;
+use app\models\Timezone;
 
 class BattleQuery extends ActiveQuery
 {
@@ -34,6 +36,7 @@ class BattleQuery extends ActiveQuery
             ->filterByTerm($filter->term, [
                 'from' => $filter->term_from,
                 'to' => $filter->term_to,
+                'tz' => $filter->timezone,
             ]);
     }
 
@@ -126,6 +129,20 @@ class BattleQuery extends ActiveQuery
     {
         $now = @$_SERVER['REQUEST_TIME'] ?: time();
         $currentPeriod = \app\components\helpers\Battle::calcPeriod($now);
+
+        // 指定されたタイムゾーンで処理する
+        // この関数を抜けると元のタイムゾーンに戻る
+        $tzIdent = @$options['tz'] ?? Yii::$app->timeZone;
+        if (!is_scalar($tzIdent) || !$tzModel = Timezone::findOne(['identifier' => $tzIdent])) {
+            $tzModel = Timezone::findOne(['identifier' => Yii::$app->timeZone]);
+        }
+        if ($tzModel) {
+            $oldTz = date_default_timezone_get();
+            $raii = new Resource(true, function () use ($oldTz) {
+                date_default_timezone_set($oldTz);
+            });
+            date_default_timezone_set($tzModel->identifier);
+        }
 
         switch ($value) {
             case 'this-period':

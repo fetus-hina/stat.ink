@@ -81,6 +81,10 @@ class BattleFilterWidget extends Widget
         }
         if ($this->term) {
             $ret[] = $this->drawTerm($form);
+            $ret[] = Html::hiddenInput(
+                sprintf('%s[%s]', $this->filter->formName(), 'timezone'),
+                Yii::$app->timeZone
+            );
         }
         switch ($this->action) {
             case 'summarize':

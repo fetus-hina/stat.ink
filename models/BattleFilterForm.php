@@ -11,16 +11,19 @@ use Yii;
 use yii\base\Model;
 use app\components\helpers\db\Now;
 use app\components\helpers\Battle as BattleHelper;
-use app\models\Battle;
-use app\models\GameMode;
-use app\models\Lobby;
-use app\models\Map;
-use app\models\Rank;
-use app\models\Rule;
-use app\models\Special;
-use app\models\Subweapon;
-use app\models\User;
-use app\models\Weapon;
+use app\models\{
+    Battle,
+    GameMode,
+    Lobby,
+    Map,
+    Rank,
+    Rule,
+    Special,
+    Subweapon,
+    Timezone,
+    User,
+    Weapon
+};
 
 class BattleFilterForm extends Model
 {
@@ -34,6 +37,7 @@ class BattleFilterForm extends Model
     public $term;
     public $term_from;
     public $term_to;
+    public $timezone;
 
     public function formName()
     {
@@ -44,13 +48,13 @@ class BattleFilterForm extends Model
     {
         return [
             [['screen_name'], 'exist',
-                'targetClass' => User::className(),
+                'targetClass' => User::class,
                 'targetAttribute' => 'screen_name'],
             [['lobby'], 'exist',
-                'targetClass' => Lobby::className(),
+                'targetClass' => Lobby::class,
                 'targetAttribute' => 'key'],
             [['rule'], 'exist',
-                'targetClass' => Rule::className(),
+                'targetClass' => Rule::class,
                 'targetAttribute' => 'key',
                 'when' => function () {
                     return substr($this->rule, 0, 1) !== '@';
@@ -60,31 +64,31 @@ class BattleFilterForm extends Model
                     return substr($this->rule, 0, 1) === '@';
                 }],
             [['map'], 'exist',
-                'targetClass' => Map::className(),
+                'targetClass' => Map::class,
                 'targetAttribute' => 'key'],
             [['weapon'], 'exist',
-                'targetClass' => Weapon::className(),
+                'targetClass' => Weapon::class,
                 'targetAttribute' => 'key',
                 'when' => function () {
                     return !in_array(substr($this->weapon, 0, 1), ['@', '+', '*'], true);
                 }],
             [['weapon'], 'validateWeapon',
                 'params' => [
-                    'modelClass' => WeaponType::className(),
+                    'modelClass' => WeaponType::class,
                 ],
                 'when' => function () {
                     return substr($this->weapon, 0, 1) === '@';
                 }],
             [['weapon'], 'validateWeapon',
                 'params' => [
-                    'modelClass' => Subweapon::className(),
+                    'modelClass' => Subweapon::class,
                 ],
                 'when' => function () {
                     return substr($this->weapon, 0, 1) === '+';
                 }],
             [['weapon'], 'validateWeapon',
                 'params' => [
-                    'modelClass' => Special::className(),
+                    'modelClass' => Special::class,
                 ],
                 'when' => function () {
                     return substr($this->weapon, 0, 1) === '*';
@@ -99,6 +103,7 @@ class BattleFilterForm extends Model
                 'term',
             ]],
             [['term_from', 'term_to'], 'date', 'format' => 'yyyy-M-d H:m:s'],
+            [['timezone'], 'validateTimezone', 'skipOnEmpty' => false],
         ];
     }
 
@@ -146,6 +151,18 @@ class BattleFilterForm extends Model
         }
     }
 
+    public function validateTimezone($attr, $params)
+    {
+        $value = $this->$attr;
+        if (is_scalar($value) && $value != '') {
+            $c = Timezone::find()->where(['identifier' => $value])->orderBy(null)->count();
+            if ($c == 1) {
+                return;
+            }
+        }
+        $this->$attr = Yii::$app->timeZone;
+    }
+
     public function toPermLink($formName = false)
     {
         if ($formName === false) {
@@ -168,12 +185,14 @@ class BattleFilterForm extends Model
         }
 
         $now = @$_SERVER['REQUEST_TIME'] ?: time();
+        $tz = Yii::$app->timeZone;
         switch ($this->term) {
             case 'this-period':
                 $t = BattleHelper::periodToRange(BattleHelper::calcPeriod($now), 180);
                 $push('term', 'term');
                 $push('term_from', date('Y-m-d H:i:s', $t[0]));
                 $push('term_to', date('Y-m-d H:i:s', $t[1] - 1));
+                $push('timezone', $tz);
                 break;
 
             case 'last-period':
@@ -181,18 +200,21 @@ class BattleFilterForm extends Model
                 $push('term', 'term');
                 $push('term_from', date('Y-m-d H:i:s', $t[0]));
                 $push('term_to', date('Y-m-d H:i:s', $t[1] - 1));
+                $push('timezone', $tz);
                 break;
 
             case '24h':
                 $push('term', 'term');
                 $push('term_from', date('Y-m-d H:i:s', $now - 86400));
                 $push('term_to', date('Y-m-d H:i:s', $now));
+                $push('timezone', $tz);
                 break;
 
             case 'today':
                 $push('term', 'term');
                 $push('term_from', date('Y-m-d 00:00:00', $now));
                 $push('term_to', date('Y-m-d 23:59:59', $now));
+                $push('timezone', $tz);
                 break;
 
             case 'yesterday':
@@ -200,12 +222,14 @@ class BattleFilterForm extends Model
                 $push('term', 'term');
                 $push('term_from', date('Y-m-d 00:00:00', $t));
                 $push('term_to', date('Y-m-d 23:59:59', $t));
+                $push('timezone', $tz);
                 break;
 
             case 'term':
                 $push('term', 'term');
                 $push('term_from', date('Y-m-d H:i:s', strtotime($this->term_from)));
                 $push('term_to', date('Y-m-d H:i:s', strtotime($this->term_to)));
+                $push('timezone', $tz);
                 break;
         }
 
