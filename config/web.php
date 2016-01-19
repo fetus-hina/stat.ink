@@ -7,7 +7,7 @@ $config = [
     'language' => 'ja-JP',
     'timeZone' => 'Asia/Tokyo',
     'basePath' => dirname(__DIR__),
-    'bootstrap' => ['log'],
+    'bootstrap' => ['log', 'autoAlias'],
     'components' => [
         'assetManager' => [
             'class' => 'app\components\web\AssetManager',
@@ -146,6 +146,16 @@ $config = [
                         'app-weapon'    => 'weapon.php',
                     ],
                 ],
+            ],
+        ],
+        'autoAlias' => [
+            'class' => 'app\components\AutoAlias',
+            'aliases' => [
+                '@imageurl' => function () {
+                    return (\Yii::$app->request->hostInfo === 'https://stat.ink')
+                        ? 'https://img.stat.ink'
+                        : '@web/images';
+                },
             ],
         ],
     ],

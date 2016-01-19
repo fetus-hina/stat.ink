@@ -87,7 +87,7 @@ class BattleImage extends ActiveRecord
 
     public function getUrl()
     {
-        $path = Yii::getAlias('@web/images') . '/' . $this->filename;
+        $path = Yii::getAlias('@imageurl') . '/' . $this->filename;
         return Url::to($path, true);
     }
 
