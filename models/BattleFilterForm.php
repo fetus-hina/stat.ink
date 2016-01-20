@@ -250,9 +250,21 @@ class BattleFilterForm extends Model
             $ret[$key] = $value;
         };
 
+        $termSubParams = ['term_from', 'term_to', 'timezone'];
         foreach ($this->attributes as $key => $value) {
+            if (in_array($key, $termSubParams, true)) {
+                continue;
+            }
             if ((string)$value !== '') {
                 $push($key, $value);
+                if ($key === 'term') {
+                    foreach ($termSubParams as $key2) {
+                        $value2 = (string)$this->attributes[$key2];
+                        if ($value2 !== '') {
+                            $push($key2, $value2);
+                        }
+                    }
+                }
             }
         }
 
