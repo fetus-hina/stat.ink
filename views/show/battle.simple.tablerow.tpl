@@ -101,6 +101,7 @@
       font-weight:bold;
       text-align:center;
       width:5em;
+      max-width:initial;
     }
     
     .simple-battle-result-unk{
