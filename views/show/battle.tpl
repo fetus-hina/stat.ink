@@ -922,6 +922,12 @@
                     return 'rgba(' + rgb[0] + ',' + rgb[1] + ',' + rgb[2] + ',' + alpha + ')';
                   };
 
+                  var inklingColorFromHue = function (h) {
+                    var rgb = hsv2rgb(h, 0.95, 0.50);
+                    var alpha = 0.5;
+                    return 'rgba(' + rgb[0] + ',' + rgb[1] + ',' + rgb[2] + ',' + alpha + ')';
+                  };
+
                   var objectPositionColorFromHues = function (team1, team2) {
                     var hue = Math.round((team1 + team2) / 2); + 180;
                     while (hue < 0) {
@@ -1153,7 +1159,7 @@
                           yaxis: 2,
                           lines: {
                             fill: false,
-                            lineWidth:7 
+                            lineWidth:7
                           },
                           shadowSize: 0
                         });
@@ -1175,10 +1181,66 @@
                           yaxis: 2,
                           lines: {
                             fill: false,
-                            lineWidth:7 
+                            lineWidth:7
                           },
                           shadowSize: 0
                         });
+                      })();
+
+                      {{* Inklings Track Events *}}
+                      (function() {
+                        var events = window.battleEvents.filter(
+                          function (v) {
+                            return v.type === 'alive_inklings';
+                          }
+                        );
+                        if (events.length > 0) {
+                          var members = [[], [], [], [], [], [], [], []];
+                          var alives = [false, false, false, false, false, false, false, false];
+                          $.each(events, function() {
+                            var d = this;
+                            for (var i = 0; i < d.my_team.length; ++i) {
+                              if (!d.my_team[i] && alives[i]) {
+                                members[i].push([d.at - 0.001, 8 - i]);
+                                members[i].push([d.at, null]);
+                              }
+                              if (d.my_team[i]) {
+                                members[i].push([d.at, 8 - i]);
+                              }
+                              alives[i] = d.my_team[i];
+
+                              if (!d.his_team[i] && alives[i]) {
+                                members[i + 4].push([d.at - 0.001, 4 - i]);
+                                members[i + 4].push([d.at, null]);
+                              }
+                              if (d.his_team[i]) {
+                                members[i + 4].push([d.at, 4 - i]);
+                              }
+                              alives[i + 4] = d.his_team[i];
+                            }
+                          });
+                          for (var i = 0; i < 8; ++i) {
+                            data.push({
+                              label: (i % 4 === 0)
+                                ? ((i === 0)
+                                  ? '{{"Good Guys"|translate:"app"|escape:javascript}}'
+                                  : '{{"Bad Guys"|translate:"app"|escape:javascript}}')
+                                : null,
+                              data: members[i],
+                              color: inklingColorFromHue(
+                                i < 4
+                                  ? {{$battle->my_team_color_hue|intval}}
+                                  : {{$battle->his_team_color_hue|intval}}
+                              ),
+                              yaxis: 2,
+                              lines: {
+                                fill: false,
+                                lineWidth: 3
+                              },
+                              shadowSize: 0
+                            });
+                          }
+                        }
                       })();
                     {{/if}}
                     data.push({
@@ -1216,7 +1278,7 @@
                         max: isNawabari ? null : 100
                       },
                       y2axis: {
-                        min: -10,
+                        min: -13,
                         max: 10,
                         show: false
                       },
