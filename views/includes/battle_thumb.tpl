@@ -14,37 +14,24 @@
       {{/if}}
       {{$description = "%s / %s / %s"|sprintf:$rule:$map:$result}}
       {{$imageUrl = ''}}
-      {{$imageClass = ''}}
-      {{if $battle->battleImageResult}}
-        {{$imageUrl = $battle->battleImageResult->url}}
-      {{elseif $battle->map}}
+      {{$defaultUrl = ''}}
+      {{if $battle->map && $battle->is_win !== null}}
         {{\app\assets\MapImageAsset::register($this)|@void}}
-        {{$mapFile = 'daytime/'|cat:$battle->map->key:'.jpg'}}
-        {{$imageUrl = $app->assetManager->getAssetUrl(
+        {{if $battle->is_win}}
+          {{$mapFile = 'daytime-blur/'|cat:$battle->map->key:'.jpg'}}
+        {{else}}
+          {{$mapFile = 'gray-blur/'|cat:$battle->map->key:'.jpg'}}
+        {{/if}}
+        {{$defaultUrl = $app->assetManager->getAssetUrl(
             $app->assetManager->getBundle('app\assets\MapImageAsset'),
             $mapFile
           )}}
-        {{if $battle->is_win}}
-          {{$imageClass = 'image-alt'}}
-        {{else}}
-          {{$imageClass = 'image-alt-monochrome'}}
-        {{/if}}
-        {{registerCss}}
-          .image-alt {
-            -webkit-filter: blur(2px);
-            filter: blur(2px);
-          }
-
-          .image-alt-monochrome {
-            -webkit-filter: blur(2px) grayscale(100%);
-            filter: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'grayscale\'><feColorMatrix type=\'matrix\' values=\'0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0\'/></filter></svg>#grayscale");
-            filter: blur(2px) grayscale(100%);
-            filter: blur(2px) gray;
-          }
-        {{/registerCss}}
+      {{/if}}
+      {{if $battle->battleImageResult}}
+        {{$imageUrl = $battle->battleImageResult->url}}
       {{/if}}
       <a href="{{url route="show/battle" screen_name=$battle->user->screen_name battle=$battle->id}}">
-        <img src="{{$placeholder|escape}}" class="lazyload auto-tooltip {{$imageClass|escape}}" data-original="{{$imageUrl|escape}}" title="{{$description|escape}}">
+        <img src="{{$defaultUrl|default:$placeholder|escape}}" class="lazyload auto-tooltip" data-original="{{$imageUrl|escape}}" title="{{$description|escape}}">
       </a>
     </div>
     <div class="battle-data row">
