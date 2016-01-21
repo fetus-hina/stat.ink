@@ -56,7 +56,7 @@ class Splatfest extends \yii\db\ActiveRecord
             [['region_id', 'order'], 'integer'],
             [['start_at', 'end_at'], 'safe'],
             [['name'], 'string', 'max' => 64],
-            [['region_id', '"order"'], 'unique', 'targetAttribute' => ['region_id', '"order"'],
+            [['region_id', 'order'], 'unique', 'targetAttribute' => ['region_id', 'order'],
                 'message' => 'The combination of  and Region ID has already been taken.']
         ];
     }
