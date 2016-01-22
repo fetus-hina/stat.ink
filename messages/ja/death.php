@@ -2,6 +2,8 @@
 return [
     'Drowning' => '水死',
     'Fall' => '転落死',
+    'Gadget' => 'ガジェット',
+    'Ink from a propeller' => 'プロペラからのインク',
     'Main Weapon' => 'メインウェポン',
     'Out of Bounds' => '場外',
     'Rainmaker Inksplode' => 'ガチホコ爆発',
