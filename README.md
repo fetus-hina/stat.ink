@@ -24,7 +24,7 @@ https://stat.ink/ のソースコードです。
 https://stat.ink/ は現在次の構成で動作しています。（Docker で用意しているものとほぼ同じです）
 
 * CentOS 7.2.1511 (x86_64)
-* Nginx 1.9.x (mainline)
+* [H2O](https://h2o.examp1e.net/)
 * [SCL](https://www.softwarecollections.org/)
     - [rh-postgresql94](https://www.softwarecollections.org/en/scls/rhscl/rh-postgresql94/)
         - PostgreSQL 9.4.*
