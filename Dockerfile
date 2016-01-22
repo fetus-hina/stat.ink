@@ -1,7 +1,6 @@
 FROM centos:centos7
 MAINTAINER AIZAWA Hina <hina@bouhime.com>
 
-ADD docker/nginx/nginx.repo /etc/yum.repos.d/
 ADD docker/rpm-gpg/ /etc/pki/rpm-gpg/
 
 RUN rpm --import \
@@ -11,9 +10,10 @@ RUN rpm --import \
             && \
     yum update -y && \
     yum install -y \
-        curl nginx scl-utils \
+        curl scl-utils \
         http://ftp.tsukuba.wide.ad.jp/Linux/fedora/epel/7/x86_64/e/epel-release-7-5.noarch.rpm \
         http://rpms.famillecollet.com/enterprise/7/safe/x86_64/remi-release-7.1-3.el7.remi.noarch.rpm \
+        https://rpm.fetus.jp/el7/x86_64/h2o/h2o-1.6.2-1.el7.x86_64.rpm \
         https://www.softwarecollections.org/en/scls/rhscl/git19/epel-7-x86_64/download/rhscl-git19-epel-7-x86_64.noarch.rpm \
         https://www.softwarecollections.org/en/scls/rhscl/nodejs010/epel-7-x86_64/download/rhscl-nodejs010-epel-7-x86_64.noarch.rpm \
         https://www.softwarecollections.org/en/scls/rhscl/rh-postgresql94/epel-7-x86_64/download/rhscl-rh-postgresql94-epel-7-x86_64.noarch.rpm \
@@ -79,7 +79,7 @@ RUN cd ~statink/stat.ink && \
 ADD docker/php/php-config.diff /tmp/
 RUN patch -p1 -d /etc/opt/remi/php70 < /tmp/php-config.diff && rm /tmp/php-config.diff
 
-ADD docker/nginx/default.conf /etc/nginx/conf.d/
+ADD docker/h2o/h2o.conf /etc/h2o/h2o.conf
 
 CMD /usr/bin/supervisord
 EXPOSE 80
