@@ -2,10 +2,12 @@ FROM centos:centos7
 MAINTAINER AIZAWA Hina <hina@bouhime.com>
 
 ADD docker/rpm-gpg/ /etc/pki/rpm-gpg/
+ADD docker/h2o/h2o.repo /etc/yum.repos.d/
 
 RUN rpm --import \
         /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7 \
         /etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7 \
+        /etc/pki/rpm-gpg/RPM-GPG-KEY-JP3CKI \
         /etc/pki/rpm-gpg/RPM-GPG-KEY-remi \
             && \
     yum update -y && \
@@ -13,7 +15,6 @@ RUN rpm --import \
         curl scl-utils \
         http://ftp.tsukuba.wide.ad.jp/Linux/fedora/epel/7/x86_64/e/epel-release-7-5.noarch.rpm \
         http://rpms.famillecollet.com/enterprise/7/safe/x86_64/remi-release-7.1-3.el7.remi.noarch.rpm \
-        https://rpm.fetus.jp/el7/x86_64/h2o/h2o-1.6.2-1.el7.x86_64.rpm \
         https://www.softwarecollections.org/en/scls/rhscl/git19/epel-7-x86_64/download/rhscl-git19-epel-7-x86_64.noarch.rpm \
         https://www.softwarecollections.org/en/scls/rhscl/nodejs010/epel-7-x86_64/download/rhscl-nodejs010-epel-7-x86_64.noarch.rpm \
         https://www.softwarecollections.org/en/scls/rhscl/rh-postgresql94/epel-7-x86_64/download/rhscl-rh-postgresql94-epel-7-x86_64.noarch.rpm \
@@ -22,6 +23,7 @@ RUN rpm --import \
     yum install -y \
         ImageMagick \
         git19-git \
+        h2o \
         jpegoptim \
         nodejs010-npm \
         patch \

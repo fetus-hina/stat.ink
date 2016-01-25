@@ -1,0 +1,5 @@
+[jp3cki]
+name=jp3cki repo
+baseurl=https://rpm.fetus.jp/el$releasever/$basearch/
+gpgcheck=1
+enabled=1
