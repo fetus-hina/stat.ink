@@ -10,13 +10,16 @@ namespace app\commands;
 use Yii;
 use yii\console\Controller;
 use yii\helpers\Console;
-use app\models\BattlePlayer;
-use app\models\Knockout;
-use app\models\Rule;
-use app\models\StatEntireUser;
-use app\models\StatWeapon;
-use app\models\StatWeaponBattleCount;
-use app\models\StatWeaponKillDeath;
+use app\models\{
+    BattlePlayer,
+    Knockout,
+    Rule,
+    StatEntireUser,
+    StatWeapon,
+    StatWeaponBattleCount,
+    StatWeaponKDWinRate,
+    StatWeaponKillDeath
+};
 
 class StatController extends Controller
 {
@@ -334,5 +337,66 @@ class StatController extends Controller
             )
             ->execute();
         $transaction->commit();
+    }
+
+    /**
+     * 全体統計 - KD/勝率データを更新します
+     *
+     * これを実行しないと当該統計は表示されません。
+     */
+    public function actionUpdateKDWinRate()
+    {
+        $db = Yii::$app->db;
+        $transaction = $db->beginTransaction();
+
+        StatWeaponKDWinRate::deleteAll();
+
+        $select = (new \yii\db\Query())
+            ->select([
+                'rule_id'       => '{{battle}}.[[rule_id]]',
+                'map_id'        => '{{battle}}.[[map_id]]',
+                'weapon_id'     => '{{battle}}.[[weapon_id]]',
+                'kill'          => '{{battle}}.[[kill]]',
+                'death'         => '{{battle}}.[[death]]',
+                'battle_count'  => 'COUNT(*)',
+                'win_count'     => 'SUM(CASE WHEN {{battle}}.[[is_win]] = TRUE THEN 1 ELSE 0 END)',
+            ])
+            ->from('battle')
+            ->leftJoin('lobby', '{{battle}}.[[lobby_id]] = {{lobby}}.[[id]]')
+            ->andWhere(['and',
+                ['not', ['{{battle}}.[[rule_id]]' => null]],
+                ['not', ['{{battle}}.[[map_id]]' => null]],
+                ['not', ['{{battle}}.[[weapon_id]]' => null]],
+                ['not', ['{{battle}}.[[is_win]]' => null]],
+                ['not', ['{{battle}}.[[kill]]' => null]],
+                ['not', ['{{battle}}.[[death]]' => null]],
+                ['{{battle}}.[[is_automated]]' => true],
+                ['or',
+                    ['{{battle}}.[[lobby_id]]' => null],
+                    ['<>', '{{lobby}}.[[key]]', 'private'],
+                ],
+            ])
+            ->groupBy([
+                '{{battle}}.[[rule_id]]',
+                '{{battle}}.[[map_id]]',
+                '{{battle}}.[[weapon_id]]',
+                '{{battle}}.[[kill]]',
+                '{{battle}}.[[death]]',
+            ]);
+
+        $sql = sprintf(
+            'INSERT INTO {{%s}} ( %s ) %s',
+            StatWeaponKDWinRate::tableName(),
+            implode(', ', array_map(
+                function ($col) {
+                    return "[[{$col}]]";
+                },
+                array_keys($select->select)
+            )),
+            $select->createCommand()->rawsql
+        );
+        $db->createCommand($sql)->execute();
+        $transaction->commit();
+        $db->createCommand(sprintf('VACUUM ANALYZE {{%s}}', StatWeaponKDWinRate::tableName()))->execute();
     }
 }

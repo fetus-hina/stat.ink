@@ -9,14 +9,19 @@ namespace app\actions\entire;
 
 use Yii;
 use yii\web\ViewAction as BaseAction;
-use app\models\GameMode;
-use app\models\Map;
-use app\models\Rule;
-use app\models\WeaponType;
-use app\models\BattleFilterForm;
+use app\models\{
+    BattleFilterForm,
+    GameMode,
+    Map,
+    Rule,
+    StatWeaponKDWinRate,
+    WeaponType
+};
 
 class KDWinAction extends BaseAction
 {
+    const KD_LIMIT = 16;
+
     public function run()
     {
         $filter = new BattleFilterForm();
@@ -51,9 +56,9 @@ class KDWinAction extends BaseAction
     private function makeData(Rule $rule, BattleFilterForm $filter)
     {
         $ret = [];
-        foreach (range(0, 16) as $i) {
+        foreach (range(0, static::KD_LIMIT) as $i) {
             $tmp = [];
-            foreach (range(0, 16) as $j) {
+            foreach (range(0, static::KD_LIMIT) as $j) {
                 $tmp[] = (object)[
                     'battle' => 0,
                     'win' => 0,
@@ -64,8 +69,8 @@ class KDWinAction extends BaseAction
 
         $maxBattle = 0;
         foreach ($this->query($rule, $filter) as $row) {
-            $i = $row['kill'] > 15 ? 16 : $row['kill'];
-            $j = $row['death'] > 15 ? 16 : $row['death'];
+            $i = $row['kill'] > static::KD_LIMIT ? static::KD_LIMIT : (int)$row['kill'];
+            $j = $row['death'] > static::KD_LIMIT ? static::KD_LIMIT : (int)$row['death'];
             $ret[$i][$j]->battle += $row['count'];
             $ret[$i][$j]->win += $row['win'];
         }
@@ -75,59 +80,48 @@ class KDWinAction extends BaseAction
 
     private function query(Rule $rule, BattleFilterForm $filter)
     {
+        $t = StatWeaponKDWinRate::tableName();
         $query = (new \yii\db\Query())
             ->select([
-                'kill' => '{{battle}}.[[kill]]',
-                'death' => '{{battle}}.[[death]]',
-                'count' => 'COUNT(*)',
-                'win' => 'SUM(CASE WHEN {{battle}}.[[is_win]] = TRUE THEN 1 ELSE 0 END)',
+                'kill'  => "{{{$t}}}.[[kill]]",
+                'death' => "{{{$t}}}.[[death]]",
+                'count' => "SUM({{{$t}}}.[[battle_count]])",
+                'win'   => "SUM({{{$t}}}.[[win_count]])",
             ])
-            ->from('battle')
-            ->leftJoin('lobby', '{{battle}}.[[lobby_id]] = {{lobby}}.[[id]]')
-            ->andWhere(['or',
-                ['{{battle}}.[[lobby_id]]' => null],
-                ['<>', '{{lobby}}.[[key]]', 'private'],
-            ])
-            ->andWhere('{{battle}}.[[is_win]] IS NOT NULL')
-            ->andWhere('{{battle}}.[[kill]] IS NOT NULL')
-            ->andWhere('{{battle}}.[[death]] IS NOT NULL')
-            ->andWhere([
-                '{{battle}}.[[rule_id]]' => $rule->id,
-                '{{battle}}.[[is_automated]]' => true,
-            ])
-            ->groupBy(['{{battle}}.[[kill]]', '{{battle}}.[[death]]']);
+            ->from($t)
+            ->andWhere(["{{{$t}}}.[[rule_id]]" => $rule->id])
+            ->groupBy(["{{{$t}}}.[[kill]]", "{{{$t}}}.[[death]]"]);
 
         if (!$filter->hasErrors()) {
             if ($filter->map != '') {
-                $query->innerJoin('map', '{{battle}}.[[map_id]] = {{map}}.[[id]]');
-                $query->andWhere(['{{map}}.[[key]]' => $filter->map]);
+                $query->innerJoin('map', "{{{$t}}}.[[map_id]] = {{map}}.[[id]]")
+                    ->andWhere(['{{map}}.[[key]]' => $filter->map]);
             }
             if ($filter->weapon != '') {
-                $query->innerJoin('weapon', '{{battle}}.[[weapon_id]] = {{weapon}}.[[id]]');
+                $query->innerJoin('weapon', "{{{$t}}}.[[weapon_id]] = {{weapon}}.[[id]]");
                 switch (substr($filter->weapon, 0, 1)) {
                     default:
                         $query->andWhere(['{{weapon}}.[[key]]' => $filter->weapon]);
                         break;
 
                     case '@':
-                        $query->innerJoin('weapon_type', '{{weapon}}.[[type_id]] = {{weapon_type}}.[[id]]');
-                        $query->andWhere(['{{weapon_type}}.[[key]]' => substr($filter->weapon, 1)]);
+                        $query->innerJoin('weapon_type', '{{weapon}}.[[type_id]] = {{weapon_type}}.[[id]]')
+                            ->andWhere(['{{weapon_type}}.[[key]]' => substr($filter->weapon, 1)]);
                         break;
 
                     case '+':
-                        $query->innerJoin('subweapon', '{{weapon}}.[[subweapon_id]] = {{subweapon}}.[[id]]');
-                        $query->andWhere(['{{subweapon}}.[[key]]' => substr($filter->weapon, 1)]);
+                        $query->innerJoin('subweapon', '{{weapon}}.[[subweapon_id]] = {{subweapon}}.[[id]]')
+                            ->andWhere(['{{subweapon}}.[[key]]' => substr($filter->weapon, 1)]);
                         break;
 
                     case '*':
-                        $query->innerJoin('special', '{{weapon}}.[[special_id]] = {{special}}.[[id]]');
-                        $query->andWhere(['{{special}}.[[key]]' => substr($filter->weapon, 1)]);
+                        $query->innerJoin('special', '{{weapon}}.[[special_id]] = {{special}}.[[id]]')
+                            ->andWhere(['{{special}}.[[key]]' => substr($filter->weapon, 1)]);
                         break;
                 }
             }
         }
-
-        return $query->createCommand()->queryAll();
+        return $query->all();
     }
 
     public function getMaps()
