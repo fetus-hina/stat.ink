@@ -54,7 +54,7 @@ node_modules:
 	npm install
 
 check-style: vendor
-	vendor/bin/phpcs --standard=PSR2 --encoding=UTF-8 $(STYLE_TARGETS)
+	vendor/bin/phpcs --standard=PSR2 --encoding=UTF-8 --runtime-set ignore_warnings_on_exit 1 $(STYLE_TARGETS)
 	vendor/bin/check-author.php --php-files $(STYLE_TARGETS)
 
 fix-style: vendor
