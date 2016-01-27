@@ -48,15 +48,6 @@ class UserAction extends BaseAction
             ->with([
                 'user',
                 'user.userStat',
-                'lobby',
-                'rule',
-                'map',
-                'weapon',
-                'weapon.subweapon',
-                'weapon.special',
-                'rank',
-                'battleImageResult',
-                'battleImageJudge',
             ])
             ->limit(500)
             ->orderBy('{{battle}}.[[id]] DESC');
@@ -64,7 +55,7 @@ class UserAction extends BaseAction
         $ret = [];
         foreach ($battles->each() as $model) {
             $json = $model->user->toJsonArray();
-            $json['latest_battle'] = $model->toJsonArray(['user', 'death_reasons']);
+            $json['latest_battle'] = null;
             $ret[] = $json;
         };
 
