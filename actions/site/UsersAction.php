@@ -7,6 +7,7 @@
 
 namespace app\actions\site;
 
+use yii\data\ActiveDataProvider;
 use yii\web\ViewAction as BaseAction;
 use app\models\Battle;
 
@@ -17,17 +18,19 @@ class UsersAction extends BaseAction
         $subQuery = (new \yii\db\Query())
             ->select(['id' => 'MAX({{battle}}.[[id]])'])
             ->from('battle')
-            ->andWhere(['>=', '{{battle}}.[[at]]', gmdate('Y-m-d H:i:sO', time() - 60 * 86400)])
             ->groupBy('{{battle}}.[[user_id]]');
 
         $battles = Battle::find()
             ->andWhere(['in', '{{battle}}.[[id]]', $subQuery])
-            ->with(['user', 'rule', 'map', 'battleImageResult'])
-            ->limit(500)
-            ->each();
+            ->with(['user', 'rule', 'map', 'battleImageResult']);
 
         return $this->controller->render('users.tpl', [
-            'battles' => $battles,
+            'battles' => new ActiveDataProvider([
+                'query' => $battles,
+                'pagination' => [
+                    'pageSize' => 240,
+                ],
+            ]),
         ]);
     }
 }
