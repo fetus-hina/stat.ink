@@ -11,19 +11,17 @@ use Yii;
 use yii\base\Model;
 use app\components\helpers\db\Now;
 use app\components\helpers\Battle as BattleHelper;
-use app\models\{
-    Battle,
-    GameMode,
-    Lobby,
-    Map,
-    Rank,
-    Rule,
-    Special,
-    Subweapon,
-    Timezone,
-    User,
-    Weapon
-};
+use app\models\Battle;
+use app\models\GameMode;
+use app\models\Lobby;
+use app\models\Map;
+use app\models\Rank;
+use app\models\Rule;
+use app\models\Special;
+use app\models\Subweapon;
+use app\models\Timezone;
+use app\models\User;
+use app\models\Weapon;
 
 class BattleFilterForm extends Model
 {

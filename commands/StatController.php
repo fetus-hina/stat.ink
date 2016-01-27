@@ -10,16 +10,14 @@ namespace app\commands;
 use Yii;
 use yii\console\Controller;
 use yii\helpers\Console;
-use app\models\{
-    BattlePlayer,
-    Knockout,
-    Rule,
-    StatEntireUser,
-    StatWeapon,
-    StatWeaponBattleCount,
-    StatWeaponKDWinRate,
-    StatWeaponKillDeath
-};
+use app\models\BattlePlayer;
+use app\models\Knockout;
+use app\models\Rule;
+use app\models\StatEntireUser;
+use app\models\StatWeapon;
+use app\models\StatWeaponBattleCount;
+use app\models\StatWeaponKDWinRate;
+use app\models\StatWeaponKillDeath;
 
 class StatController extends Controller
 {

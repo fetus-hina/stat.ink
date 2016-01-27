@@ -14,7 +14,7 @@ class AutoAlias extends Component
 {
     public $aliases;
 
-    public function init() 
+    public function init()
     {
         parent::init();
         if (is_array($this->aliases)) {

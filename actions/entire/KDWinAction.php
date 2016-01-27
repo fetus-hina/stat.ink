@@ -9,14 +9,12 @@ namespace app\actions\entire;
 
 use Yii;
 use yii\web\ViewAction as BaseAction;
-use app\models\{
-    BattleFilterForm,
-    GameMode,
-    Map,
-    Rule,
-    StatWeaponKDWinRate,
-    WeaponType
-};
+use app\models\BattleFilterForm;
+use app\models\GameMode;
+use app\models\Map;
+use app\models\Rule;
+use app\models\StatWeaponKDWinRate;
+use app\models\WeaponType;
 
 class KDWinAction extends BaseAction
 {

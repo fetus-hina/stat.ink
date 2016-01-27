@@ -14,17 +14,15 @@ use yii\base\Widget;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 use app\components\helpers\Resource;
-use app\models\{
-    GameMode,
-    Lobby,
-    Map,
-    Rule,
-    Special,
-    Subweapon,
-    User,
-    Weapon,
-    WeaponType
-};
+use app\models\GameMode;
+use app\models\Lobby;
+use app\models\Map;
+use app\models\Rule;
+use app\models\Special;
+use app\models\Subweapon;
+use app\models\User;
+use app\models\Weapon;
+use app\models\WeaponType;
 
 class BattleFilterWidget extends Widget
 {
@@ -44,7 +42,7 @@ class BattleFilterWidget extends Widget
     public function run()
     {
         ob_start();
-        $cleaner = new Resource(true, function() {
+        $cleaner = new Resource(true, function () {
             ob_end_clean();
         });
         $divId = $this->getId();
