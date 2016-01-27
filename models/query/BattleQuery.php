@@ -8,7 +8,9 @@
 namespace app\models\query;
 
 use yii\db\ActiveQuery;
+use app\components\helpers\Battle as BattleHelper;
 use app\components\helpers\Resource;
+use app\models\Battle;
 use app\models\BattleFilterForm;
 use app\models\BattleImageType;
 use app\models\Timezone;
@@ -34,6 +36,7 @@ class BattleQuery extends ActiveQuery
             ->filterByWeapon($filter->weapon)
             ->filterByResult($filter->result)
             ->filterByTerm($filter->term, [
+                'filter' => $filter,
                 'from' => $filter->term_from,
                 'to' => $filter->term_to,
                 'tz' => $filter->timezone,
@@ -128,7 +131,7 @@ class BattleQuery extends ActiveQuery
     public function filterByTerm($value, array $options = [])
     {
         $now = @$_SERVER['REQUEST_TIME'] ?: time();
-        $currentPeriod = \app\components\helpers\Battle::calcPeriod($now);
+        $currentPeriod = BattleHelper::calcPeriod($now);
 
         // 指定されたタイムゾーンで処理する
         // この関数を抜けると元のタイムゾーンに戻る
@@ -180,6 +183,17 @@ class BattleQuery extends ActiveQuery
                 if (isset($options['to']) && $options['to'] != '') {
                     if ($t = @strtotime($options['to'])) {
                         $this->andWhere(['<=', '{{battle}}.[[at]]', gmdate('Y-m-d\TH:i:sP', $t)]);
+                    }
+                }
+                break;
+
+            default:
+                if (isset($options['filter']) && preg_match('/^last-(\d+)-battles$/', $value, $match)) {
+                    $range = BattleHelper::getNBattlesRange($options['filter'], (int)$match[1]);
+                    if (!$range || $range['min_id'] < 1 || $range['max_id'] < 1) {
+                        $this->andWhere('1 <> 1'); // Always false
+                    } else {
+                        $this->andWhere(['between', '{{battle}}.[[id]]', $range['min_id'], $range['max_id']]);
                     }
                 }
                 break;

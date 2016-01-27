@@ -119,6 +119,7 @@ return [
     'Knockout' => 'ノックアウト',
     'LOST' => '敗北',
     'Last 24 Hours' => '最近24時間',
+    'Last {n} Battles' => '最近{n}バトル',
     'Legend' => '凡例',
     'Level (After)' => 'ランク(後)',
     'Level' => 'ランク',

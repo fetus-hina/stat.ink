@@ -98,6 +98,11 @@ class BattleFilterForm extends Model
                 '24h',
                 'today',
                 'yesterday',
+                'last-10-battles',
+                'last-20-battles',
+                'last-50-battles',
+                'last-100-battles',
+                'last-200-battles',
                 'term',
             ]],
             [['term_from', 'term_to'], 'date', 'format' => 'yyyy-M-d H:m:s'],
@@ -228,6 +233,19 @@ class BattleFilterForm extends Model
                 $push('term_from', date('Y-m-d H:i:s', strtotime($this->term_from)));
                 $push('term_to', date('Y-m-d H:i:s', strtotime($this->term_to)));
                 $push('timezone', $tz);
+                break;
+
+            default:
+                if (preg_match('/^last-(\d+)-battles/', $this->term, $match)) {
+                    $range = BattleHelper::getNBattlesRange($this, (int)$match[1]);
+                    if (!$range || $range['min_id'] < 1 || $range['max_id'] < 1) {
+                        break;
+                    }
+                    $push('term', 'term');
+                    $push('term_from', date('Y-m-d H:i:s', strtotime($range['min_at'])));
+                    $push('term_to', date('Y-m-d H:i:s', strtotime($range['max_at'])));
+                    $push('timezone', $tz);
+                }
                 break;
         }
 

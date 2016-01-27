@@ -284,13 +284,18 @@ class BattleFilterWidget extends Widget
     protected function drawTermMain(ActiveForm $form)
     {
         $list = [
-            ''              => Yii::t('app', 'Any Time'),
-            'this-period'   => Yii::t('app', 'Current Period'),
-            'last-period'   => Yii::t('app', 'Previous Period'),
-            '24h'           => Yii::t('app', 'Last 24 Hours'),
-            'today'         => Yii::t('app', 'Today'),
-            'yesterday'     => Yii::t('app', 'Yesterday'),
-            'term'          => Yii::t('app', 'Specify Period'),
+            ''                  => Yii::t('app', 'Any Time'),
+            'this-period'       => Yii::t('app', 'Current Period'),
+            'last-period'       => Yii::t('app', 'Previous Period'),
+            '24h'               => Yii::t('app', 'Last 24 Hours'),
+            'today'             => Yii::t('app', 'Today'),
+            'yesterday'         => Yii::t('app', 'Yesterday'),
+            'last-10-battles'   => Yii::t('app', 'Last {n} Battles', ['n' =>  10]),
+            'last-20-battles'   => Yii::t('app', 'Last {n} Battles', ['n' =>  20]),
+            'last-50-battles'   => Yii::t('app', 'Last {n} Battles', ['n' =>  50]),
+            'last-100-battles'  => Yii::t('app', 'Last {n} Battles', ['n' => 100]),
+            'last-200-battles'  => Yii::t('app', 'Last {n} Battles', ['n' => 200]),
+            'term'              => Yii::t('app', 'Specify Period'),
         ];
         return $form->field($this->filter, 'term')->dropDownList($list)->label(false);
     }
