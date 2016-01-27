@@ -198,6 +198,7 @@ class BattleFilterWidget extends Widget
 
     protected function createMainWeaponList(array $weaponIdList)
     {
+        $ret = [];
         $types = WeaponType::find()->orderBy('[[id]] ASC')->asArray()->all();
         foreach ($types as $type) {
             $typeName = Yii::t('app-weapon', $type['name']);
@@ -265,7 +266,6 @@ class BattleFilterWidget extends Widget
                 return $ret;
             })(),
         ];
-        return [];
     }
 
     protected function drawResult(ActiveForm $form)
