@@ -322,16 +322,16 @@
         },
         {
             "name": "bower-asset/jquery-smooth-scroll",
-            "version": "1.7.1",
+            "version": "1.7.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kswedberg/jquery-smooth-scroll.git",
-                "reference": "b192367d731a75b041621977e97218172d8f3a17"
+                "reference": "7c327265673e06234f7ae740cbcf3aaf984ffed3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kswedberg/jquery-smooth-scroll/zipball/b192367d731a75b041621977e97218172d8f3a17",
-                "reference": "b192367d731a75b041621977e97218172d8f3a17",
+                "url": "https://api.github.com/repos/kswedberg/jquery-smooth-scroll/zipball/7c327265673e06234f7ae740cbcf3aaf984ffed3",
+                "reference": "7c327265673e06234f7ae740cbcf3aaf984ffed3",
                 "shasum": ""
             },
             "require": {
@@ -1334,16 +1334,16 @@
         },
         {
             "name": "php-curl-class/php-curl-class",
-            "version": "4.8.2",
+            "version": "4.9.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-curl-class/php-curl-class.git",
-                "reference": "91f937bb9e57fd1e1a550baab9f03f5a6e4203af"
+                "reference": "266bc12345ebfad375cf464ef16c09008caa3fea"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-curl-class/php-curl-class/zipball/91f937bb9e57fd1e1a550baab9f03f5a6e4203af",
-                "reference": "91f937bb9e57fd1e1a550baab9f03f5a6e4203af",
+                "url": "https://api.github.com/repos/php-curl-class/php-curl-class/zipball/266bc12345ebfad375cf464ef16c09008caa3fea",
+                "reference": "266bc12345ebfad375cf464ef16c09008caa3fea",
                 "shasum": ""
             },
             "require": {
@@ -1386,7 +1386,7 @@
                 "web service",
                 "xml"
             ],
-            "time": "2015-10-31 18:25:18"
+            "time": "2016-01-25 02:43:03"
         },
         {
             "name": "rmrevin/yii2-fontawesome",
@@ -2523,16 +2523,16 @@
         },
         {
             "name": "symfony/polyfill-mbstring",
-            "version": "v1.0.1",
+            "version": "v1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-mbstring.git",
-                "reference": "49ff736bd5d41f45240cec77b44967d76e0c3d25"
+                "reference": "1289d16209491b584839022f29257ad859b8532d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/49ff736bd5d41f45240cec77b44967d76e0c3d25",
-                "reference": "49ff736bd5d41f45240cec77b44967d76e0c3d25",
+                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/1289d16209491b584839022f29257ad859b8532d",
+                "reference": "1289d16209491b584839022f29257ad859b8532d",
                 "shasum": ""
             },
             "require": {
@@ -2544,7 +2544,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.0-dev"
+                    "dev-master": "1.1-dev"
                 }
             },
             "autoload": {
@@ -2578,7 +2578,7 @@
                 "portable",
                 "shim"
             ],
-            "time": "2015-11-20 09:19:13"
+            "time": "2016-01-20 09:13:37"
         },
         {
             "name": "symfony/process",
