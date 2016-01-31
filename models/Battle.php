@@ -64,6 +64,7 @@ use app\components\helpers\DateTimeFormatter;
  * @property integer $headgear_id
  * @property integer $clothing_id
  * @property integer $shoes_id
+ * @property string $link_url
  *
  * @property Agent $agent
  * @property Environment $env
@@ -138,6 +139,7 @@ class Battle extends ActiveRecord
             [['my_team_color_rgb', 'his_team_color_rgb'], 'string', 'min' => 6, 'max' => 6],
             [['ua_custom'], 'string'],
             [['events'], 'safe'],
+            [['link_url'], 'url'],
         ];
     }
 
@@ -195,6 +197,7 @@ class Battle extends ActiveRecord
             'headgear_id' => 'Headgear ID',
             'clothing_id' => 'Clothing ID',
             'shoes_id' => 'Shoes ID',
+            'link_url' => 'Link URL',
         ];
     }
 
@@ -203,7 +206,7 @@ class Battle extends ActiveRecord
      */
     public function getAgent()
     {
-        return $this->hasOne(Agent::className(), ['id' => 'agent_id']);
+        return $this->hasOne(Agent::class, ['id' => 'agent_id']);
     }
 
     /**
@@ -211,7 +214,7 @@ class Battle extends ActiveRecord
      */
     public function getEnv()
     {
-        return $this->hasOne(Environment::className(), ['id' => 'env_id']);
+        return $this->hasOne(Environment::class, ['id' => 'env_id']);
     }
 
     /**
@@ -219,7 +222,7 @@ class Battle extends ActiveRecord
      */
     public function getFestTitle()
     {
-        return $this->hasOne(FestTitle::className(), ['id' => 'fest_title_id']);
+        return $this->hasOne(FestTitle::class, ['id' => 'fest_title_id']);
     }
 
     /**
@@ -227,7 +230,7 @@ class Battle extends ActiveRecord
      */
     public function getFestTitleAfter()
     {
-        return $this->hasOne(FestTitle::className(), ['id' => 'fest_title_after_id']);
+        return $this->hasOne(FestTitle::class, ['id' => 'fest_title_after_id']);
     }
 
     /**
@@ -235,7 +238,7 @@ class Battle extends ActiveRecord
      */
     public function getHeadgear()
     {
-        return $this->hasOne(GearConfiguration::className(), ['id' => 'headgear_id'])
+        return $this->hasOne(GearConfiguration::class, ['id' => 'headgear_id'])
             ->with(['primaryAbility', 'secondaries.ability']);
     }
 
@@ -244,7 +247,7 @@ class Battle extends ActiveRecord
      */
     public function getClothing()
     {
-        return $this->hasOne(GearConfiguration::className(), ['id' => 'clothing_id'])
+        return $this->hasOne(GearConfiguration::class, ['id' => 'clothing_id'])
             ->with(['primaryAbility', 'secondaries.ability']);
     }
 
@@ -253,7 +256,7 @@ class Battle extends ActiveRecord
      */
     public function getShoes()
     {
-        return $this->hasOne(GearConfiguration::className(), ['id' => 'shoes_id'])
+        return $this->hasOne(GearConfiguration::class, ['id' => 'shoes_id'])
             ->with(['primaryAbility', 'secondaries.ability']);
     }
 
@@ -262,7 +265,7 @@ class Battle extends ActiveRecord
      */
     public function getGender()
     {
-        return $this->hasOne(Gender::className(), ['id' => 'gender_id']);
+        return $this->hasOne(Gender::class, ['id' => 'gender_id']);
     }
 
     /**
@@ -270,7 +273,7 @@ class Battle extends ActiveRecord
      */
     public function getLobby()
     {
-        return $this->hasOne(Lobby::className(), ['id' => 'lobby_id']);
+        return $this->hasOne(Lobby::class, ['id' => 'lobby_id']);
     }
 
     /**
@@ -278,7 +281,7 @@ class Battle extends ActiveRecord
      */
     public function getMap()
     {
-        return $this->hasOne(Map::className(), ['id' => 'map_id']);
+        return $this->hasOne(Map::class, ['id' => 'map_id']);
     }
 
     /**
@@ -286,7 +289,7 @@ class Battle extends ActiveRecord
      */
     public function getRank()
     {
-        return $this->hasOne(Rank::className(), ['id' => 'rank_id']);
+        return $this->hasOne(Rank::class, ['id' => 'rank_id']);
     }
 
     /**
@@ -294,7 +297,7 @@ class Battle extends ActiveRecord
      */
     public function getRankAfter()
     {
-        return $this->hasOne(Rank::className(), ['id' => 'rank_after_id']);
+        return $this->hasOne(Rank::class, ['id' => 'rank_after_id']);
     }
 
     /**
@@ -302,7 +305,7 @@ class Battle extends ActiveRecord
      */
     public function getRule()
     {
-        return $this->hasOne(Rule::className(), ['id' => 'rule_id']);
+        return $this->hasOne(Rule::class, ['id' => 'rule_id']);
     }
 
     /**
@@ -310,7 +313,7 @@ class Battle extends ActiveRecord
      */
     public function getUser()
     {
-        return $this->hasOne(User::className(), ['id' => 'user_id']);
+        return $this->hasOne(User::class, ['id' => 'user_id']);
     }
 
     /**
@@ -318,7 +321,7 @@ class Battle extends ActiveRecord
      */
     public function getWeapon()
     {
-        return $this->hasOne(Weapon::className(), ['id' => 'weapon_id']);
+        return $this->hasOne(Weapon::class, ['id' => 'weapon_id']);
     }
 
     /**
@@ -326,7 +329,7 @@ class Battle extends ActiveRecord
      */
     public function getBattleDeathReasons()
     {
-        return $this->hasMany(BattleDeathReason::className(), ['battle_id' => 'id']);
+        return $this->hasMany(BattleDeathReason::class, ['battle_id' => 'id']);
     }
 
     /**
@@ -335,7 +338,7 @@ class Battle extends ActiveRecord
     public function getReasons()
     {
         return $this
-            ->hasMany(DeathReason::className(), ['id' => 'reason_id'])
+            ->hasMany(DeathReason::class, ['id' => 'reason_id'])
             ->viaTable('battle_death_reason', ['battle_id' => 'id']);
     }
 
@@ -344,7 +347,7 @@ class Battle extends ActiveRecord
      */
     public function getBattlePlayers()
     {
-        return $this->hasMany(BattlePlayer::className(), ['battle_id' => 'id'])
+        return $this->hasMany(BattlePlayer::class, ['battle_id' => 'id'])
             ->with(['weapon', 'weapon.type', 'weapon.subweapon', 'weapon.special', 'rank'])
             ->orderBy('{{battle_player}}.[[id]] ASC');
     }
@@ -366,18 +369,18 @@ class Battle extends ActiveRecord
      */
     public function getBattleImages()
     {
-        return $this->hasMany(BattleImage::className(), ['battle_id' => 'id']);
+        return $this->hasMany(BattleImage::class, ['battle_id' => 'id']);
     }
 
     public function getBattleImageJudge()
     {
-        return $this->hasOne(BattleImage::className(), ['battle_id' => 'id'])
+        return $this->hasOne(BattleImage::class, ['battle_id' => 'id'])
             ->andWhere(['type_id' => BattleImageType::ID_JUDGE]);
     }
 
     public function getBattleImageResult()
     {
-        return $this->hasOne(BattleImage::className(), ['battle_id' => 'id'])
+        return $this->hasOne(BattleImage::class, ['battle_id' => 'id'])
             ->andWhere(['type_id' => BattleImageType::ID_RESULT]);
     }
 
@@ -420,7 +423,7 @@ class Battle extends ActiveRecord
 
     public function getPreviousBattle()
     {
-        return $this->hasOne(static::className(), ['user_id' => 'user_id'])
+        return $this->hasOne(static::class, ['user_id' => 'user_id'])
             ->andWhere(['<', '{{battle}}.[[id]]', $this->id])
             ->orderBy('{{battle}}.[[id]] DESC')
             ->limit(1);
@@ -428,7 +431,7 @@ class Battle extends ActiveRecord
 
     public function getNextBattle()
     {
-        return $this->hasOne(static::className(), ['user_id' => 'user_id'])
+        return $this->hasOne(static::class, ['user_id' => 'user_id'])
             ->andWhere(['>', '{{battle}}.[[id]]', $this->id])
             ->orderBy('{{battle}}.[[id]] ASC')
             ->limit(1);
@@ -664,6 +667,7 @@ class Battle extends ActiveRecord
             ],
             'automated' => !!$this->is_automated,
             'environment' => $this->env ? $this->env->text : null,
+            'link_url' => ((string)$this->link_url === '') ? $this->link_url : null,
             'start_at' => $this->start_at != ''
                 ? DateTimeFormatter::unixTimeToJsonArray(strtotime($this->start_at))
                 : null,

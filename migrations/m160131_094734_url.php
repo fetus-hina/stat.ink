@@ -1,0 +1,15 @@
+<?php
+use yii\db\Migration;
+
+class m160131_094734_url extends Migration
+{
+    public function up()
+    {
+        $this->execute('ALTER TABLE {{battle}} ADD COLUMN [[link_url]] TEXT NULL');
+    }
+
+    public function down()
+    {
+        $this->execute('ALTER TABLE {{battle}} DROP COLUMN [[link_url]]');
+    }
+}

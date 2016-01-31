@@ -61,6 +61,19 @@
               {{$_->field($form, 'weapon_id')->label(false)->dropDownList($weapons)}}
             </td>
           </tr>
+          <tr>
+            <th>
+              {{'URL related to this battle'|translate:'app'|escape}}
+            </th>
+            <td>
+              {{$hint = 'e.g. YouTube video, like "{0}"'|translate:'app':'https://www.youtube.com/watch?v=TjLbFFPF904'|escape}}
+              {{$_->field($form, 'link_url')
+                  ->label(false)
+                  ->input('url', ['placeholder' => 'https://example.com/'])
+                  ->hint($hint)
+                }}
+            </td>
+          </tr>
         </tbody>
       </table>
       {{Html::submitButton(

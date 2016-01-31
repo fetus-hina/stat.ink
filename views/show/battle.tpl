@@ -108,6 +108,14 @@
           </div>
         {{/if}}
 
+        {{if $battle->link_url}}
+          {{use class="app\components\widgets\EmbedVideo"}}
+          {{if EmbedVideo::isSupported($battle->link_url)}}
+            {{EmbedVideo::widget(['url' => $battle->link_url])}}
+            {{registerCss}}.video{margin-bottom:15px}{{/registerCss}}
+          {{/if}}
+        {{/if}}
+
         <table class="table table-striped" id="battle">
           <tbody>
             {{if $battle->lobby}}
@@ -454,6 +462,16 @@
                       {{'Ability Effect'|translate:'app'|escape}}
                     </a>
                   </p>
+                </td>
+              </tr>
+            {{/if}}
+            {{if $battle->link_url != ''}}
+              <tr>
+                <th>{{'Link'|translate:'app'|escape}}</th>
+                <td>
+                  <a href="{{$battle->link_url|escape}}" rel="nofollow">
+                    {{$battle->link_url|decode_idn|escape}}
+                  </a>
                 </td>
               </tr>
             {{/if}}
