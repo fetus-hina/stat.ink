@@ -18,6 +18,8 @@ class BattleForm extends Model
     public $map_id;
     public $weapon_id;
     public $link_url;
+    public $note;
+    public $private_note;
 
     public function rules()
     {
@@ -36,6 +38,14 @@ class BattleForm extends Model
                 'targetAttribute' => 'id'],
             [['link_url'], 'url', 'enableIDN' => true],
             [['link_url'], IdnToPunycodeFilterValidator::class],
+            [['note', 'private_note'], 'string'],
+            [['link_url', 'note', 'private_note'], 'filter', 'filter' => function ($value) {
+                $value = (string)$value;
+                $value = preg_replace('/\x0d\x0a|\x0d|\x0a/', "\n", $value);
+                $value = preg_replace('/(?:\x0d\x0a|\x0d|\x0a){3,}/', "\n\n", $value);
+                $value = trim($value);
+                return $value === '' ? null : $value;
+            }],
         ];
     }
 
@@ -50,6 +60,8 @@ class BattleForm extends Model
             'map_id'    => Yii::t('app', 'Stage'),
             'weapon_id' => Yii::t('app', 'Weapon'),
             'link_url'  => Yii::t('app', 'URL related to this battle'),
+            'note'      => Yii::t('app', 'Note (public)'),
+            'private_note' => Yii::t('app', 'Note (private)'),
         ];
     }
 }

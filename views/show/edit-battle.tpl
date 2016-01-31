@@ -74,6 +74,26 @@
                 }}
             </td>
           </tr>
+          <tr>
+            <th>
+              {{'Note (public)'|translate:'app'|escape}}
+            </th>
+            <td>
+              {{$_->field($form, 'note')
+                ->label(false)
+                ->textArea(['rows' => 7])}}
+            </td>
+          </tr>
+          <tr>
+            <th>
+              {{'Note (private)'|translate:'app'|escape}}
+            </th>
+            <td>
+              {{$_->field($form, 'private_note')
+                ->label(false)
+                ->textArea(['rows' => 7])}}
+            </td>
+          </tr>
         </tbody>
       </table>
       {{Html::submitButton(

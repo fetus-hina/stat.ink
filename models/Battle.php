@@ -65,6 +65,8 @@ use app\components\helpers\DateTimeFormatter;
  * @property integer $clothing_id
  * @property integer $shoes_id
  * @property string $link_url
+ * @property string $note
+ * @property string $private_note
  *
  * @property Agent $agent
  * @property Environment $env
@@ -140,6 +142,7 @@ class Battle extends ActiveRecord
             [['ua_custom'], 'string'],
             [['events'], 'safe'],
             [['link_url'], 'url'],
+            [['note', 'private_note'], 'string'],
         ];
     }
 
@@ -198,6 +201,8 @@ class Battle extends ActiveRecord
             'clothing_id' => 'Clothing ID',
             'shoes_id' => 'Shoes ID',
             'link_url' => 'Link URL',
+            'note' => 'Note',
+            'private_note' => 'Note (Private)',
         ];
     }
 
@@ -667,7 +672,8 @@ class Battle extends ActiveRecord
             ],
             'automated' => !!$this->is_automated,
             'environment' => $this->env ? $this->env->text : null,
-            'link_url' => ((string)$this->link_url === '') ? $this->link_url : null,
+            'link_url' => ((string)$this->link_url !== '') ? $this->link_url : null,
+            'note' => ((string)$this->note !== '') ? $this->note : null,
             'start_at' => $this->start_at != ''
                 ? DateTimeFormatter::unixTimeToJsonArray(strtotime($this->start_at))
                 : null,

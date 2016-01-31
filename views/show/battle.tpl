@@ -505,11 +505,61 @@
                   {{/if}} / {{$battle->agent->version|escape}}
                 </td>
             {{/if}}
+            {{if $battle->note != ''}}
+              <tr>
+                <th>{{'Note'|translate:'app'|escape}}</th>
+                <td>
+                  {{$battle->note|escape|nl2br}}
+                </td>
+              </tr>
+            {{/if}}
+            {{if $battle->private_note != ''}}
+              {{if !$app->user->isGuest && $app->user->identity->id == $user->id}}
+                <tr>
+                  <th>{{'Note (private)'|translate:'app'|escape}}</th>
+                  <td>
+                    <button class="btn btn-default" id="private-note-show">
+                      <span class="fa fa-lock fa-fw"></span>
+                    </button>
+                    <div id="private-note">{{$battle->private_note|escape|nl2br}}</div>
+                    {{registerCss}}
+                      #private-note{display:none}
+                    {{/registerCss}}
+                    {{registerJs}}
+                      (function($){
+                        "use strict";
+                        var $btn = $('#private-note-show');
+                        var $txt = $('#private-note');
+                        var $i = $('.fa', $btn);
+                        $btn.hover(
+                          function() {
+                            $i.removeClass('fa-lock').addClass('fa-unlock-alt');
+                          },
+                          function() {
+                            $i.removeClass('fa-unlock-alt').addClass('fa-lock');
+                          }
+                        ).click(function () {
+                          $btn.hide();
+                          $txt.show();
+                        });
+                      })(jQuery);
+                    {{/registerJs}}
+                  </td>
+                </tr>
+              {{/if}}
+            {{/if}}
           </tbody>
         </table>
         <p>
           {{'Note: You can change the time zone via the navbar.'|translate:'app'|escape}}
         </p>
+        {{if !$app->user->isGuest && $app->user->identity->id == $user->id}}
+          <p class="text-right">
+            <a href="{{url route="show/edit-battle" screen_name=$user->screen_name battle=$battle->id}}" class="btn btn-default">
+              {{'Edit'|translate:'app'|escape}}
+            </a>
+          </p>
+        {{/if}}
         {{if $battle->myTeamPlayers && $battle->hisTeamPlayers}}
           {{if $battle->my_team_color_rgb && $battle->his_team_color_rgb}}
             {{registerCss}}
