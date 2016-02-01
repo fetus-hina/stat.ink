@@ -75,6 +75,9 @@ class PostBattleForm extends Model
     public $gears;
     public $events;
     public $automated;
+    public $link_url;
+    public $note;
+    public $private_note;
     public $agent;
     public $agent_version;
     public $agent_custom;
@@ -160,6 +163,15 @@ class PostBattleForm extends Model
                 'min' => 0.0, 'max' => 100.0],
             [['knock_out'], 'boolean', 'trueValue' => 'yes', 'falseValue' => 'no'],
             [['my_team_count', 'his_team_count'], 'integer', 'min' => 0, 'max' => 100],
+            [['link_url'], 'url'],
+            [['note', 'private_note'], 'string'],
+            [['note', 'private_note'], 'filter', 'filter' => function ($value) {
+                $value = (string)$value;
+                $value = preg_replace('/\x0d\x0a|\x0d|\x0a/', "\n", $value);
+                $value = preg_replace('/(?:\x0d\x0a|\x0d|\x0a){3,}/', "\n\n", $value);
+                $value = trim($value);
+                return $value === '' ? null : $value;
+            }],
             [['players'], 'validatePlayers'],
             [['gears'], 'validateGears'],
             [['events'], 'validateEvents'],
@@ -405,6 +417,9 @@ class PostBattleForm extends Model
         $o->ua_custom       = (string)$this->agent_custom == '' ? null : (string)$this->agent_custom;
         $o->at              = new Now();
         $o->is_automated    = ($this->automated === 'yes');
+        $o->link_url        = (string)$this->link_url == '' ? null : (string)$this->link_url;
+        $o->note            = $this->note;
+        $o->private_note    = $this->private_note;
 
         $o->my_point                = (string)$this->my_point != '' ? (int)$this->my_point : null;
         $o->my_team_final_point     = (string)$this->my_team_final_point != ''
