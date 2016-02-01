@@ -37,10 +37,30 @@
     </p>
     <p>
       <a href="{{url route="site/color"}}">{{'About support for color-blindness'|translate:'app'|escape}}</a> |
-      &#32;<a href="{{url route="site/privacy"}}#image">{{'About image sharing with the IkaLog team'|translate:'app'|escape}}
+      &#32;<a href="{{url route="site/privacy"}}#image">{{'About image sharing with the IkaLog team'|translate:'app'|escape}}</a>
     </p>
 
     {{SnsWidget}}
+
+    {{use class="app\models\BlogEntry"}}
+    {{$blogEntries = BlogEntry::find()
+        ->orderBy('[[at]] DESC')
+        ->limit(3)
+        ->asArray()
+        ->all()}}
+    {{if $blogEntries}}
+      <p class="bg-success" style="padding:15px;border-radius:10px">
+        {{foreach $blogEntries as $entry}}
+          {{if !$entry@first}} | {{/if}}
+          <span style="white-space:nowrap">
+            <a href="{{$entry.url|escape}}">
+              {{$entry.title|escape}}
+            </a>&#32;
+            ({{$entry.at|relative_time|escape}})
+          </span>
+        {{/foreach}}
+      </p>
+    {{/if}}
 
     {{use class="app\models\Splatfest"}}
     {{$fest = Splatfest::findCurrentFest()
