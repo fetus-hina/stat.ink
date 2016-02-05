@@ -47,6 +47,9 @@
     window.gearAbilities = {{$battle->gearAbilities|json_encode}};
   {{/registerJs}}
 
+  {{use class="app\models\Special"}}
+  {{$specials = Special::find()->asArray()->all()}}
+
   <div class="container">
     <h1>
       {{$_url = Url::to(['show/user', 'screen_name' => $user->screen_name])}}
@@ -807,7 +810,17 @@
                     theyLost: null,
                   {{/if}}
                   weLead: null,
-                  theyLead: null
+                  theyLead: null,
+                  specials: {
+                    {{foreach $specials as $special}}
+                      {{$special.key|escape:javascript}}: (function() {
+                        {{$tmp = 'specials/'|cat:$special.key:'.png'}}
+                        var i = new Image;
+                        i.src = "{{$app->assetManager->getAssetUrl($iconAsset, $tmp)|escape:javascript}}";
+                        return i;
+                      })(),
+                    {{/foreach}}
+                  },
                 };
               })();
             {{/registerJs}}
@@ -1025,6 +1038,12 @@
                           return false;
                       }
                     }
+                    if (v.type === "special_weapon") {
+                      switch (v.special_weapon) {
+                        {{foreach $specials as $special}}case "{{$special.key|escape:javascript}}":{{/foreach}}return true;
+                        default:return false;
+                      }
+                    }
                     return false;
                   }).map(function(v){
                     var size = Math.max(18, Math.ceil($graph_.height() * 0.075));
@@ -1045,6 +1064,15 @@
                         : null;
                       return [
                         window.graphIcon[v.type].src, v.at, size, size, reason
+                      ];
+                    } else if (v.type === "special_weapon") {
+                      var names = {
+                        {{foreach $specials as $special}}
+                          "{{$special.key|escape:javascript}}": "{{$special.name|translate:'app-special'|escape:javascript}}",
+                        {{/foreach}}
+                      };
+                      return [
+                        window.graphIcon.specials[v.special_weapon].src, v.at, size, size, names[v.special_weapon]
                       ];
                     } else {
                       return [

@@ -11,5 +11,5 @@ use yii\web\AssetBundle;
 
 class GraphIconAsset extends AssetBundle
 {
-    public $sourcePath = '@app/resources/graph-icon/generated';
+    public $sourcePath = '@app/resources/graph-icon';
 }
