@@ -767,42 +767,29 @@
                   {{$myHue = (round($battle->my_team_color_hue / 2) * 2)}}
                   {{$hisHue = (round($battle->his_team_color_hue / 2) * 2)}}
                 {{/if}}
+                var imgLoad = function (src) {
+                  var img = new Image;
+                  img.src = src;
+                  return img;
+                };
                 window.graphIcon = {
-                  dead: (function(){
-                    var i = new Image;
-                    i.src = "{{$app->assetmanager->getAssetUrl($iconAsset, 'dead/default.png')|escape:javascript}}";
-                    return i;
-                  })(),
-                  killed: (function(){
-                    var i = new Image;
-                    i.src = "{{$app->assetmanager->getAssetUrl($iconAsset, 'killed/default.png')|escape:javascript}}";
-                    return i;
-                  })(),
+                  dead: imgLoad("{{$app->assetmanager->getAssetUrl($iconAsset, 'dead/default.png')|escape:javascript}}"),
+                  killed: imgLoad("{{$app->assetmanager->getAssetUrl($iconAsset, 'killed/default.png')|escape:javascript}}"),
                   {{if $myHue !== null && $hisHue !== null}}
-                    weGot: (function(){
+                    weGot: imgLoad(
                       {{$tmp = 'gachi/'|cat:$myHue:'.png'}}
-                      var i = new Image;
-                      i.src = "{{$app->assetmanager->getAssetUrl($iconAsset, $tmp)|escape:javascript}}";
-                      return i;
-                    })(),
-                    theyGot: (function(){
+                      "{{$app->assetmanager->getAssetUrl($iconAsset, $tmp)|escape:javascript}}"
+                    ),
+                    theyGot: imgLoad(
                       {{$tmp = 'gachi/'|cat:$hisHue:'.png'}}
-                      var i = new Image;
-                      i.src = "{{$app->assetmanager->getAssetUrl($iconAsset, $tmp)|escape:javascript}}";
-                      return i;
-                    })(),
-                    weLost: (function(){
-                      {{$tmp = 'gachi/default.png'}}
-                      var i = new Image;
-                      i.src = "{{$app->assetmanager->getAssetUrl($iconAsset, $tmp)|escape:javascript}}";
-                      return i;
-                    })(),
-                    theyLost: (function(){
-                      {{$tmp = 'gachi/default.png'}}
-                      var i = new Image;
-                      i.src = "{{$app->assetmanager->getAssetUrl($iconAsset, $tmp)|escape:javascript}}";
-                      return i;
-                    })(),
+                      "{{$app->assetmanager->getAssetUrl($iconAsset, $tmp)|escape:javascript}}"
+                    ),
+                    weLost: imgLoad(
+                      "{{$app->assetmanager->getAssetUrl($iconAsset, 'gachi/default.png')|escape:javascript}}"
+                    ),
+                    theyLost: imgLoad(
+                      "{{$app->assetmanager->getAssetUrl($iconAsset, 'gachi/default.png')|escape:javascript}}"
+                    ),
                   {{else}}
                     weGot: null,
                     theyGot: null,
@@ -813,14 +800,15 @@
                   theyLead: null,
                   specials: {
                     {{foreach $specials as $special}}
-                      {{$special.key|escape:javascript}}: (function() {
+                      {{$special.key|escape:javascript}}: imgLoad(
                         {{$tmp = 'specials/'|cat:$special.key:'.png'}}
-                        var i = new Image;
-                        i.src = "{{$app->assetManager->getAssetUrl($iconAsset, $tmp)|escape:javascript}}";
-                        return i;
-                      })(),
+                        "{{$app->assetManager->getAssetUrl($iconAsset, $tmp)|escape:javascript}}"
+                      ),
                     {{/foreach}}
                   },
+                  specialCharged: imgLoad(
+                    "{{$app->assetManager->getAssetUrl($iconAsset, 'special_charged.png')|escape:javascript}}"
+                  ),
                 };
               })();
             {{/registerJs}}
@@ -1023,7 +1011,7 @@
                     if (!v.at) {
                       return false;
                     }
-                    if (v.type === "killed" || v.type === "dead") {
+                    if (v.type === "killed" || v.type === "dead" || v.type === "special_charged") {
                       return true;
                     }
                     if (v.type === "ranked_battle_event" && window.graphIcon.weGot && drawRankedBattleEvents) {
@@ -1073,6 +1061,10 @@
                       };
                       return [
                         window.graphIcon.specials[v.special_weapon].src, v.at, size, size, names[v.special_weapon]
+                      ];
+                    } else if (v.type === "special_charged") {
+                      return [
+                        window.graphIcon.specialCharged.src, v.at, size, size, "{{'Special Charged'|translate:'app'|escape:javascript}}"
                       ];
                     } else {
                       return [
