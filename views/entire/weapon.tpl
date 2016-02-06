@@ -40,9 +40,7 @@
       </h3>
       <p>
         {{'Kills (average):'|translate:'app'|escape}}&#32;<span class="kd-summary" data-rule="{{$rule->key|escape}}" data-type="kill-avg"></span><br>
-        {{'Deaths (average):'|translate:'app'|escape}}&#32;<span class="kd-summary" data-rule="{{$rule->key|escape}}" data-type="death-avg"></span><br>
-        {{'Kills (median):'|translate:'app'|escape}}&#32;<span class="kd-summary" data-rule="{{$rule->key|escape}}" data-type="kill-mid"></span><br>
-        {{'Deaths (median):'|translate:'app'|escape}}&#32;<span class="kd-summary" data-rule="{{$rule->key|escape}}" data-type="death-mid"></span>
+        {{'Deaths (average):'|translate:'app'|escape}}&#32;<span class="kd-summary" data-rule="{{$rule->key|escape}}" data-type="death-avg"></span>
       </p>
       {{registerJs}}
         (function($){
@@ -116,12 +114,8 @@
               var $graph = $(this);
               var ruleKey = $graph.attr('data-rule');
               var json = window.kddata[ruleKey];
-              var maxKD = Math.min(
-                30,
-                json.reduce(function(prev, cur) {
-                  return Math.max(prev, cur.kill, cur.death);
-                }, 0)
-              );
+              var maxKD = 30;
+              var total = 0;
               var kills = [];
               var deaths = [];
               (function() {
@@ -131,6 +125,7 @@
                 }
               })();
               $.each(json, function() {
+                total += this.battle;
                 kills[this.kill] += this.battle;
                 deaths[this.death] += this.battle;
               });
@@ -138,14 +133,14 @@
                 {
                   label: "{{'Kills'|translate:'app'|escape:'javascript'}}",
                   data: kills.map(function(v, i) {
-                    return [i, v];
+                    return [i, v * 100 / total];
                   }),
                   color: window.colorScheme.win
                 },
                 {
                   label: "{{'Deaths'|translate:'app'|escape:'javascript'}}",
                   data: deaths.map(function(v, i) {
-                    return [i, v];
+                    return [i, v * 100 / total];
                   }),
                   color: window.colorScheme.lose
                 }
@@ -156,12 +151,14 @@
                   max: maxKD,
                   minTickSize: 1,
                   tickFormatter: function (v) {
-                    return ~~v;
+                    return v;
                   }
                 },
                 yaxis: {
                   min: 0,
-                  minTickSize: 1
+                  tickFormatter: function (v) {
+                    return v.toFixed(1) + "%";
+                  }
                 },
               });
             });
