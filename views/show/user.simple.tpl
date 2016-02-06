@@ -17,6 +17,24 @@
     {{$this->registerMetaTag(['name' => 'twitter:creator', 'content' => '@'|cat:$user->twitter])|@void}}
   {{/if}}
 
+  {{use class="app\models\Language"}}
+  {{foreach Language::find()->asArray()->all() as $lang}}
+    {{$this->registerLinkTag([
+      'rel'       => 'alternate',
+      'type'      => 'application/rss+xml',
+      'title'     => $title|cat:' - RSS Feed (':$lang['name']:')',
+      'href'      => Url::to(['feed/user', 'screen_name' => $user->screen_name, 'type' => 'rss', 'lang' => $lang['lang']], true),
+      'hreflang'  => $lang['lang']
+    ])|@void}}
+    {{$this->registerLinkTag([
+      'rel'       => 'alternate',
+      'type'      => 'application/atom+xml',
+      'title'     => $title|cat:' - Atom Feed (':$lang['name']:')',
+      'href'      => Url::to(['feed/user', 'screen_name' => $user->screen_name, 'type' => 'atom', 'lang' => $lang['lang']], true),
+      'hreflang'  => $lang['lang']
+    ])|@void}}
+  {{/foreach}}
+
   <div class="container">
     <h1>
       {{$title|escape}}
@@ -62,7 +80,8 @@
     {{/if}}
     {{$_formatted = 'Battles:{0} / Win %:{1} / Avg Killed:{2} / Avg Dead:{3} / Kill Ratio:{4}'|translate:'app':[$_btl,$_wp,$_kill,$_death,$_kr]}}
     {{$_tweet = $title|cat:' [ ':$_formatted:' ]'}}
-    {{SnsWidget tweetText=$_tweet}}
+    {{$_feed = Url::to(['feed/user', 'screen_name' => $user->screen_name, 'type' => 'rss', 'lang' => $app->language], true)}}
+    {{SnsWidget tweetText=$_tweet feedUrl=$_feed}}
 
     <div class="row">
       <div class="col-xs-12 col-sm-8 col-md-8 col-lg-9">

@@ -20,6 +20,7 @@ class SnsWidget extends Widget
     public $template;
 
     public $tweetButton;
+    public $feedUrl;
 
     private $initialized = false;
 
@@ -33,7 +34,7 @@ class SnsWidget extends Widget
         parent::init();
 
         // <div id="{id}" class="sns">{tweet} {permalink}</div>
-        $this->template = Html::tag('div', '{tweet} {permalink}', [
+        $this->template = Html::tag('div', '{tweet} {permalink} {feed}', [
             'id' => '{id}',
             'class' => [
                 'sns',
@@ -64,6 +65,9 @@ class SnsWidget extends Widget
             },
             'permalink' => function () {
                 return $this->procPermaLink();
+            },
+            'feed' => function () {
+                return $this->procFeed();
             },
         ];
         return preg_replace_callback(
@@ -147,6 +151,44 @@ class SnsWidget extends Widget
                 ]
             );
         }
+    }
+
+    protected function procFeed()
+    {
+        $id = $this->id . '-feed';
+        if (!$this->feedUrl) {
+            return null;
+        }
+        $this->view->registerCss(sprintf(
+            '.label-feed{%s}.label-feed[href]:hover{%s}',
+            Html::cssStyleFromArray([
+                'cursor'            => 'pointer',
+                'display'           => 'inline-block',
+                'font-size'         => '11px',
+                'font-weight'       => '500',
+                'height'            => '20px',
+                'padding'           => '5px 6px 1px',
+                'vertical-align'    => 'top',
+                'background-color'  => '#ff7010',
+            ]),
+            Html::cssStyleFromArray([
+                'background-color'  => '#dc5800',
+            ])
+        ));
+        return Html::tag(
+            'a',
+            FontAwesome::icon('rss')->tag('span')->render(),
+            [
+                'id' => $id,
+                'class' => [
+                    'label',
+                    'label-warning',
+                    'label-feed',
+                    'auto-tooltip',
+                ],
+                'href' => $this->feedUrl,
+            ]
+        );
     }
 
     public function getLooksClipboardWorks()
