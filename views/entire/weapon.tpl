@@ -126,32 +126,37 @@
               })();
               $.each(json, function() {
                 total += this.battle;
-                kills[this.kill] += this.battle;
-                deaths[this.death] += this.battle;
+                if (maxKD >= this.kill) {
+                  kills[this.kill] += this.battle;
+                }
+                if (maxKD >= this.death) {
+                  deaths[this.death] += this.battle;
+                }
               });
               var data = [
                 {
-                  label: "{{'Kills'|translate:'app'|escape:'javascript'}}",
+                  label: "{{'Battles'|translate:'app'|escape:'javascript'}} ({{'Kill'|translate:'app'|escape:'javascript'}})",
                   data: kills.map(function(v, i) {
-                    return [i, v * 100 / total];
+                    return [i - 0.5, v * 100 / total];
                   }),
-                  color: window.colorScheme.win
+                  color: window.colorScheme.win,
+                  bars: {show: true},
                 },
                 {
-                  label: "{{'Deaths'|translate:'app'|escape:'javascript'}}",
+                  label: "{{'Battles'|translate:'app'|escape:'javascript'}} ({{'Death'|translate:'app'|escape:'javascript'}})",
                   data: deaths.map(function(v, i) {
-                    return [i, v * 100 / total];
+                    return [i - 0.5, v * 100 / total];
                   }),
-                  color: window.colorScheme.lose
+                  color: window.colorScheme.lose,
+                  bars: {show: true},
                 }
               ];
               $.plot($graph, data, {
                 xaxis: {
-                  min: 0,
-                  max: maxKD,
+                  min: -0.5,
                   minTickSize: 1,
                   tickFormatter: function (v) {
-                    return v;
+                    return v + ' K, D';
                   }
                 },
                 yaxis: {
