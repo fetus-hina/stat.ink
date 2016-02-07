@@ -9,6 +9,7 @@ namespace app\actions\show;
 
 use yii\db\Query;
 use app\models\BattleFilterForm;
+use app\models\Weapon;
 
 trait UserStatFilterTrait
 {
@@ -81,6 +82,14 @@ trait UserStatFilterTrait
 
             case '*':
                 $query->andWhere(['{{special}}.[[key]]' => substr($value, 1)]);
+                break;
+
+            case '~':
+                if (!$main = Weapon::findOne(['key' => substr($value, 1)])) {
+                    $query->andWhere('1 = 0');
+                } else {
+                    $query->andWhere(['{{weapon}}.[[main_group_id]]' => $main->id]);
+                }
                 break;
         }
         return $this;

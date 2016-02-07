@@ -14,6 +14,7 @@ use app\models\Battle;
 use app\models\BattleFilterForm;
 use app\models\BattleImageType;
 use app\models\Timezone;
+use app\models\Weapon;
 
 class BattleQuery extends ActiveQuery
 {
@@ -113,6 +114,14 @@ class BattleQuery extends ActiveQuery
             case '*':
                 $this->innerJoinWith('weapon.special');
                 $this->andWhere(['{{special}}.[[key]]' => substr($value, 1)]);
+                break;
+
+            case '~':
+                if (!$main = Weapon::findOne(['key' => substr($value, 1)])) {
+                    $this->andWhere('1 = 0');
+                } else {
+                    $this->andWhere(['{{weapon}}.[[main_group_id]]' => $main->id]);
+                }
                 break;
         }
         return $this;

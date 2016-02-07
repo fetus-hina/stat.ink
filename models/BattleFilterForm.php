@@ -68,7 +68,7 @@ class BattleFilterForm extends Model
                 'targetClass' => Weapon::class,
                 'targetAttribute' => 'key',
                 'when' => function () {
-                    return !in_array(substr($this->weapon, 0, 1), ['@', '+', '*'], true);
+                    return !in_array(substr($this->weapon, 0, 1), ['@', '+', '*', '~'], true);
                 }],
             [['weapon'], 'validateWeapon',
                 'params' => [
@@ -90,6 +90,10 @@ class BattleFilterForm extends Model
                 ],
                 'when' => function () {
                     return substr($this->weapon, 0, 1) === '*';
+                }],
+            [['weapon'], 'validateRepresentativeWeapon',
+                'when' => function () {
+                    return substr($this->weapon, 0, 1) === '~';
                 }],
             [['result'], 'boolean', 'trueValue' => 'win', 'falseValue' => 'lose'],
             [['term'], 'in', 'range' => [
@@ -145,6 +149,23 @@ class BattleFilterForm extends Model
         $method = [$params['modelClass'], 'findOne'];
         $isExist = !!call_user_func($method, ['key' => $value]);
         if (!$isExist) {
+            $this->addError(
+                $attr,
+                Yii::t('yii', '{attribute} is invalid.', [
+                    'attribute' => $this->getAttributeLabel($attr),
+                ])
+            );
+        }
+    }
+
+    public function validateRepresentativeWeapon($attr, $params)
+    {
+        $value = substr($this->$attr, 1);
+        $count = Weapon::find()
+            ->andWhere("{{weapon}}.[[id]] = {{weapon}}.[[main_group_id]]")
+            ->andWhere(['key' => $value])
+            ->count();
+        if ($count < 1) {
             $this->addError(
                 $attr,
                 Yii::t('yii', '{attribute} is invalid.', [

@@ -175,6 +175,7 @@ class BattleFilterWidget extends Widget
         $weaponIdList = $this->getUsedWeaponIdList($user);
         $list = array_merge(
             $this->createMainWeaponList($weaponIdList),
+            $this->createGroupedMainWeaponList($weaponIdList),
             $this->createSubWeaponList($weaponIdList),
             $this->createSpecialWeaponList($weaponIdList)
         );
@@ -226,6 +227,28 @@ class BattleFilterWidget extends Widget
             [ '' => Yii::t('app-weapon', 'Any Weapon') ],
             $ret
         );
+    }
+
+    protected function createGroupedMainWeaponList(array $weaponIdList)
+    {
+        return [
+            Yii::t('app', 'Main Weapon') => (function () use ($weaponIdList) {
+                $ret = [];
+                $subQuery = (new \yii\db\Query())
+                    ->select(['id' => '{{weapon}}.[[main_group_id]]'])
+                    ->from('weapon')
+                    ->andWhere(['in', '{{weapon}}.[[id]]', $weaponIdList]);
+                $list = Weapon::find()
+                    ->andWhere(['{{weapon}}.[[id]]' => $subQuery])
+                    ->asArray()
+                    ->all();
+                foreach ($list as $item) {
+                    $ret['~' . $item['key']] = Yii::t('app', '{0} etc.', Yii::t('app-weapon', $item['name']));
+                }
+                uasort($ret, 'strnatcasecmp');
+                return $ret;
+            })(),
+        ];
     }
 
     protected function createSubWeaponList(array $weaponIdList)
