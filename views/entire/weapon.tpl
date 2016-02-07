@@ -140,7 +140,6 @@
                     return [i - 0.5, v * 100 / total];
                   }),
                   color: window.colorScheme.win,
-                  bars: {show: true},
                 },
                 {
                   label: "{{'Battles'|translate:'app'|escape:'javascript'}} ({{'Death'|translate:'app'|escape:'javascript'}})",
@@ -148,7 +147,6 @@
                     return [i - 0.5, v * 100 / total];
                   }),
                   color: window.colorScheme.lose,
-                  bars: {show: true},
                 }
               ];
               $.plot($graph, data, {
@@ -164,6 +162,138 @@
                   tickFormatter: function (v) {
                     return v.toFixed(1) + "%";
                   }
+                },
+                series: {
+                  lines: {
+                    show: true,
+                    fill: true,
+                    steps: true,
+                  },
+                },
+              });
+            });
+          }
+          var timerId = null;
+          $(window).resize(function() {
+            if (timerId !== null) {
+              window.clearTimeout(timerId);
+            }
+            timerId = window.setTimeout(function() {
+              update();
+            }, 33);
+          });
+        })(jQuery);
+      {{/registerJs}}
+      <h3>
+        {{'Based on kills'|translate:'app'|escape}}
+      </h3>
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-6 col-xl-6">
+          <div class="graph stat-wp" data-base="kill" data-rule="{{$rule->key|escape}}" data-scale="no">
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-6 col-xl-6">
+          <div class="graph stat-wp" data-base="kill" data-rule="{{$rule->key|escape}}" data-scale="yes">
+          </div>
+        </div>
+      </div>
+      <h3>
+        {{'Based on deaths'|translate:'app'|escape}}
+      </h3>
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-6 col-xl-6">
+          <div class="graph stat-wp" data-base="death" data-rule="{{$rule->key|escape}}" data-scale="no">
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-6 col-xl-6">
+          <div class="graph stat-wp" data-base="death" data-rule="{{$rule->key|escape}}" data-scale="yes">
+          </div>
+        </div>
+      </div>
+      {{\jp3cki\yii2\flot\FlotStackAsset::register($this)|@void}}
+      {{registerJs}}
+        (function($){
+          "use strict";
+          function update() {
+            var $graphs = $('.graph.stat-wp');
+            $graphs.height($graphs.width() * 9 / 16);
+            $graphs.each(function(){
+              var $graph = $(this);
+              var ruleKey = $graph.attr('data-rule');
+              var kdKey = $graph.attr('data-base');
+              var scale = $graph.attr('data-scale') === 'yes';
+              var json = window.kddata[ruleKey];
+              var maxKD = 30;
+              var win = [];
+              var lose = [];
+              (function() {
+                for(var i = 0; i <= maxKD; ++i) {
+                  win.push(0);
+                  lose.push(0);
+                }
+              })();
+              $.each(json, function() {
+                if (maxKD >= this[kdKey]) {
+                  win[this[kdKey]] += this.win;
+                  lose[this[kdKey]] += this.battle - this.win;
+                }
+              });
+              if (scale) {
+                (function() {
+                  for (var i = 0; i <= maxKD; ++i) {
+                    var t = win[i] + lose[i];
+                    if (t > 0) {
+                      win[i] = win[i] * 100 / t;
+                      lose[i] = lose[i] * 100 / t;
+                    } else {
+                      win[i] = lose[i] = 0;
+                    }
+                  }
+                })();
+              }
+              var data = [
+                {
+                  label: scale
+                    ? "{{'Win %'|translate:'app'|escape:'javascript'}} ({{'Win'|translate:'app'|escape:'javascript'}})"
+                    : "{{'Battles'|translate:'app'|escape:'javascript'}} ({{'Win'|translate:'app'|escape:'javascript'}})",
+                  data: win.map(function(v, i) {
+                    return [i - 0.5, v];
+                  }),
+                  color: window.colorScheme.win,
+                },
+                {
+                  label: scale
+                    ? "{{'Win %'|translate:'app'|escape:'javascript'}} ({{'Lose'|translate:'app'|escape:'javascript'}})"
+                    : "{{'Battles'|translate:'app'|escape:'javascript'}} ({{'Lose'|translate:'app'|escape:'javascript'}})",
+                  data: lose.map(function(v, i) {
+                    return [i - 0.5, v];
+                  }),
+                  color: window.colorScheme.lose,
+                }
+              ];
+              $.plot($graph, data, {
+                xaxis: {
+                  min: -0.5,
+                  minTickSize: 1,
+                  tickFormatter: function (v) {
+                    return v + (kdKey === 'kill' ? ' K' : ' D');
+                  },
+                },
+                yaxis: {
+                  min: 0,
+                  max: scale ? 100 : undefined,
+                  tickFormatter: function (v) {
+                    return v.toFixed(1) + "%";
+                  },
+                  show: scale,
+                },
+                series: {
+                  stack: !!scale,
+                  lines: {
+                    show: true,
+                    fill: true,
+                    steps: true,
+                  },
                 },
               });
             });
