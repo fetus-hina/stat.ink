@@ -176,6 +176,7 @@ POST /api/v1/battle
         - `dualsweeper` : デュアルスイーパー
         - `dualsweeper_custom` : デュアルスイーパーカスタム
         - `h3reelgun` : H3リールガン
+        - `h3reelgun_d` : H3リールガンD
         - `heroshooter_replica` : ヒーローシューターレプリカ
         - `hotblaster` : ホットブラスター
         - `hotblaster_custom` : ホットブラスターカスタム
@@ -187,6 +188,7 @@ POST /api/v1/battle
         - `longblaster_custom` : ロングブラスターカスタム
         - `momiji` : もみじシューター
         - `nova` : ノヴァブラスター
+        - `nova_neo` : ノヴァブラスターネオ
         - `nzap85` : N_ZAP 85
         - `nzap89` : N_ZAP 89
         - `octoshooter_replica` : オクタシューターレプリカ
@@ -235,6 +237,7 @@ POST /api/v1/battle
         - `hissen` : ヒッセン
         - `hissen_hue` : ヒッセン・ヒュー
         - `screwslosher` : スクリュースロッシャー
+        - `screwslosher_neo` : スクリュースロッシャーネオ
     - スピナー
         - `barrelspinner` : バレルスピナー
         - `barrelspinner_deco` : バレルスピナーデコ
