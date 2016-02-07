@@ -175,16 +175,13 @@ class UserStatGachiAction extends BaseAction
         $deviation = null;
         $avgRank = null;
         $avgRankExp = null;
-        $standardDeviation = null;
         if ($entire = $this->getEntireRankStat()) {
             $exp = $this->calcGraphExp($battle->rankAfter->key, $battle->rank_exp_after);
-            $deviation = ($exp - $entire->average) / $entire->standardDeviation * 10 + 50;
 
             $ranks = [ 'C-', 'C', 'C+', 'B-', 'B', 'B+', 'A-', 'A', 'A+', 'S', 'S+' ];
             $avgExp = (int)round($entire->average);
             $avgRank = Yii::t('app-rank', $ranks[floor($avgExp / 100)]);
             $avgRankExp = $avgExp % 100;
-            $standardDeviation = $entire->standardDeviation;
         }
 
         return (object)[
@@ -193,7 +190,6 @@ class UserStatGachiAction extends BaseAction
             'deviation' => $deviation,
             'avgRank'   => $avgRank,
             'avgRankExp' => $avgRankExp,
-            'standardDeviation' => $standardDeviation,
         ];
     }
 
@@ -266,21 +262,8 @@ class UserStatGachiAction extends BaseAction
 
         $avgExp = array_sum($exps) / count($exps);
     
-        // 標準偏差
-        $standardDeviation = sqrt(
-            array_sum(
-                array_map(
-                    function ($exp) use ($avgExp) {
-                        return pow($exp - $avgExp, 2);
-                    },
-                    $exps
-                )
-            ) / count($exps)
-        );
-
         return (object)[
             'average' => $avgExp,
-            'standardDeviation' => $standardDeviation,
         ];
     }
 
