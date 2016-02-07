@@ -18,6 +18,28 @@
     {{AdWidget}}
     {{SnsWidget}}
 
+    <p class="form-inline">
+      <select id="change-weapon" class="form-control">
+        {{use class="yii\helpers\Html"}}
+        {{Html::renderSelectOptions($weapon->key, $weapons)}}
+      </select>
+      {{registerJs}}
+        (function($) {
+          var baseUrl = "{{url route="entire/weapon" weapon="WEAPON_KEY"}}";
+          $('#change-weapon').change(function() {
+            var $select = $(this);
+            var url = baseUrl.replace(
+              'WEAPON_KEY',
+              function () {
+                return encodeURIComponent($select.val());
+              }
+            );
+            window.location.href = url;
+          });
+        })(jQuery);
+      {{/registerJs}}
+    </p>
+
     <p>
       {{foreach $rules as $rule}}
         {{if !$rule@first}} | {{/if}}

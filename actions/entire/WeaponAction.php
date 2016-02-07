@@ -12,6 +12,7 @@ use yii\web\ViewAction as BaseAction;
 use yii\web\NotFoundHttpException;
 use app\models\Rule;
 use app\models\Weapon;
+use app\models\WeaponType;
 use app\models\StatWeaponKillDeath;
 
 class WeaponAction extends BaseAction
@@ -35,6 +36,7 @@ class WeaponAction extends BaseAction
     public function run()
     {
         return $this->controller->render('weapon.tpl', [
+            'weapons' => $this->weapons,
             'weapon' => $this->weapon,
             'rules' => $this->rules,
             'killDeath' => $this->killDeath,
@@ -76,6 +78,22 @@ class WeaponAction extends BaseAction
                     'win'    => (int)$a['win'],
                 ];
             }, $tmp);
+        }
+        return $ret;
+    }
+
+    public function getWeapons()
+    {
+        $ret = [];
+        foreach (WeaponType::find()->orderBy('id')->all() as $weaponType) {
+            $ret[Yii::t('app-weapon', $weaponType->name)] = (function(array $weapons) {
+                $ret = [];
+                foreach ($weapons as $weapon) {
+                    $ret[$weapon['key']] = Yii::t('app-weapon', $weapon['name']);
+                }
+                uasort($ret, 'strnatcasecmp');
+                return $ret; 
+            })($weaponType->getWeapons()->asArray()->all());
         }
         return $ret;
     }
