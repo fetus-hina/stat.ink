@@ -211,11 +211,12 @@ class UserAction extends BaseAction
             $feed->addEntry($entry);
         }
 
+        $contentType = [
+            'atom'  => 'application/atom+xml; charset=UTF-8',
+            'rss' => 'application/rss+xml; charset=UTF-8',
+        ];
         $resp->format = 'raw';
-        $resp->headers->set(
-            'Content-Type',
-            ['atom' => 'application/atom+xml', 'rss' => 'application/rss+xml'][$model->type] ?? 'application/xml'
-        );
+        $resp->headers->set('Content-Type', $contentType[$model->type] ?? 'text/xml; charset=UTF-8');
         return $feed->export($model->type);
     }
 
@@ -247,7 +248,7 @@ class UserAction extends BaseAction
             $__('Lobby', $battle->lobby->name, 'app-rule');
         }
         if ($battle->rule) {
-            $__('Rule', $battle->rule->name, 'app-rule');
+            $__('Mode', $battle->rule->name, 'app-rule');
         }
         if ($battle->map) {
             $__('Stage', $battle->map->name, 'app-map');
