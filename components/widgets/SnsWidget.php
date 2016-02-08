@@ -129,6 +129,7 @@ class SnsWidget extends Widget
             $this->view->registerCss(sprintf(
                 '.label-permalink{%s}',
                 Html::cssStyleFromArray([
+                    'background-color' => '#ccc',
                     'cursor' => 'not-allowed',
                 ])
             ));
@@ -137,7 +138,7 @@ class SnsWidget extends Widget
                 sprintf(
                     '%s %s',
                     FontAwesome::icon('anchor')->tag('span')->render(),
-                    Html::encode(Yii::t('app', 'PermaLink'))
+                    Html::encode(Yii::t('app', 'Permalink'))
                 ),
                 [
                     'id' => $id,
