@@ -1,7 +1,7 @@
 <?php
 return [
     'All of {0}' => 'すべての{0}',
-    'Any Lobby' => 'すべてのゲームモード',
+    'Any Lobby' => 'すべてのロビー',
     'Any Mode' => 'すべてのルール',
     'Private Battle' => 'プライベートマッチ',
     'Rainmaker' => 'ガチホコ',

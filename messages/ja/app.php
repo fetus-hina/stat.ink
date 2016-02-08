@@ -129,7 +129,7 @@ return [
     'Links' => 'リンク',
     'List' => '一覧',
     'Loading...' => '読み込み中',
-    'Lobby' => 'ゲームモード',
+    'Lobby' => 'ロビー',
     'Login' => 'ログイン',
     'Logout' => 'ログアウト',
     'Lose' => '敗北',
