@@ -21,6 +21,33 @@
 
     {{SnsWidget}}
 
+    <p>
+      {{$_groups = [
+          ''            => 'ブキをまとめない',
+          'canonical'   => '同じブキをまとめる',
+          'main-weapon' => 'メインの性能でまとめる',
+          'type'        => '種類でまとめる'
+        ]}}
+      {{if $group->hasErrors()}}
+        {{$_selected = ''}}
+      {{else}}
+        {{$_selected = $group->level}}
+      {{/if}}
+      {{foreach $_groups as $_k => $_v}}
+        {{if !$_v@first}}
+          &#32;|&#32;
+        {{/if}}
+        {{if $_k != $_selected}}
+          {{$_param_group = ['level' => $_k]}}
+          <a href="{{url route='show/user-stat-cause-of-death' screen_name=$user->screen_name filter=$filter->attributes group=$_param_group}}">
+            {{$_v|escape}}
+          </a>
+        {{else}}
+          {{$_v|escape}}
+        {{/if}}
+      {{/foreach}}
+    </p>
+
     <div class="row">
       <div class="col-xs-12 col-sm-8 col-md-8 col-lg-9">
         <table class="table table-striped">

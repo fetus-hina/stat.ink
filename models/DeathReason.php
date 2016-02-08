@@ -17,10 +17,12 @@ use app\components\helpers\Translator;
  * @property integer $type_id
  * @property string $key
  * @property string $name
+ * @property string $weapon_id
  *
  * @property BattleDeathReason[] $battleDeathReasons
  * @property Battle[] $battles
  * @property DeathReasonType $type
+ * @property Weapon $weapon
  */
 class DeathReason extends \yii\db\ActiveRecord
 {
@@ -43,7 +45,7 @@ class DeathReason extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['type_id'], 'integer'],
+            [['type_id', 'weapon_id'], 'integer'],
             [['key', 'name'], 'required'],
             [['key'], 'string', 'max' => 32],
             [['name'], 'string', 'max' => 64],
@@ -70,7 +72,7 @@ class DeathReason extends \yii\db\ActiveRecord
      */
     public function getBattleDeathReasons()
     {
-        return $this->hasMany(BattleDeathReason::className(), ['reason_id' => 'id']);
+        return $this->hasMany(BattleDeathReason::class, ['reason_id' => 'id']);
     }
 
     /**
@@ -79,7 +81,7 @@ class DeathReason extends \yii\db\ActiveRecord
     public function getBattles()
     {
         return $this
-            ->hasMany(Battle::className(), ['id' => 'battle_id'])
+            ->hasMany(Battle::class, ['id' => 'battle_id'])
             ->viaTable('battle_death_reason', ['reason_id' => 'id']);
     }
 
@@ -88,7 +90,15 @@ class DeathReason extends \yii\db\ActiveRecord
      */
     public function getType()
     {
-        return $this->hasOne(DeathReasonType::className(), ['id' => 'type_id']);
+        return $this->hasOne(DeathReasonType::class, ['id' => 'type_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getWeapon()
+    {
+        return $this->hasOne(Weapon::class, ['id' => 'type_id']);
     }
 
     public function toJsonArray()

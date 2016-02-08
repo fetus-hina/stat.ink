@@ -8,11 +8,14 @@
 namespace app\actions\show;
 
 use Yii;
+use yii\db\Query;
 use yii\web\NotFoundHttpException;
 use yii\web\ViewAction as BaseAction;
 use app\models\BattleFilterForm;
+use app\models\CauseOfDeathGroupForm;
 use app\models\DeathReason;
 use app\models\User;
+use app\models\Weapon;
 
 class UserStatCauseOfDeathAction extends BaseAction
 {
@@ -31,20 +34,21 @@ class UserStatCauseOfDeathAction extends BaseAction
         $filter->screen_name = $user->screen_name;
         $filter->validate();
 
+        $group = new CauseOfDeathGroupForm();
+        $group->load($_GET);
+        $group->validate();
+
         return $this->controller->render('user-stat-cause-of-death.tpl', [
             'user' => $user,
-            'list' => $this->getList($user, $filter),
+            'list' => $this->getList($user, $filter, $group),
             'filter' => $filter,
+            'group' => $group,
         ]);
     }
 
-    public function getList(User $user, BattleFilterForm $filter)
+    public function getList(User $user, BattleFilterForm $filter, CauseOfDeathGroupForm $group)
     {
-        $query = (new \yii\db\Query())
-            ->select([
-                'reason_id' => '{{death_reason}}.[[id]]',
-                'count' => 'SUM({{battle_death_reason}}.[[count]])',
-            ])
+        $query = (new Query())
             ->from('battle')
             ->innerJoin('battle_death_reason', '{{battle}}.[[id]] = {{battle_death_reason}}.[[battle_id]]')
             ->innerJoin('death_reason', '{{battle_death_reason}}.[[reason_id]] = {{death_reason}}.[[id]]')
@@ -56,12 +60,34 @@ class UserStatCauseOfDeathAction extends BaseAction
             ->leftJoin('weapon_type', '{{weapon}}.[[type_id]] = {{weapon_type}}.[[id]]')
             ->leftJoin('subweapon', '{{weapon}}.[[subweapon_id]] = {{subweapon}}.[[id]]')
             ->leftJoin('special', '{{weapon}}.[[special_id]] = {{special}}.[[id]]')
-            ->andWhere(['{{battle}}.[[user_id]]' => $user->id])
-            ->groupBy('{{death_reason}}.[[id]]');
-
+            ->andWhere(['{{battle}}.[[user_id]]' => $user->id]);
         if ($filter && !$filter->hasErrors()) {
             $this->filter($query, $filter);
         }
+
+        switch ($group->hasErrors() ? null : $group->level) {
+            default:
+                return $this->getListAsIs($query);
+
+            case 'canonical':
+                return $this->getListCanonical($query);
+            
+            case 'main-weapon':
+                return $this->getListMainWeapon($query);
+
+            case 'type':
+                return $this->getListType($query);
+        }
+    }
+
+    protected function getListAsIs(Query $query)
+    {
+        $query
+            ->select([
+                'reason_id' => '{{death_reason}}.[[id]]',
+                'count' => 'SUM({{battle_death_reason}}.[[count]])',
+            ])
+            ->groupBy('{{death_reason}}.[[id]]');
 
         $list = $query->createCommand()->queryAll();
 
@@ -79,17 +105,115 @@ class UserStatCauseOfDeathAction extends BaseAction
         $ret = array_map(
             function ($row) use ($deathReasons) {
                 return (object)[
-                    'name' => @$deathReasons[$row['reason_id']] ?: '?',
+                    'name' => $deathReasons[$row['reason_id']] ?? '?',
                     'count' => (int)$row['count'],
                 ];
             },
             $list
         );
         usort($ret, function ($a, $b) {
-            if ($a->count !== $b->count) {
-                return $b->count - $a->count;
+            return $b->count <=> $a->count ?: strcasecmp($a->name, $b->name);
+        });
+        return $ret;
+    }
+
+    protected function getListCanonical(Query $query)
+    {
+        return $this->getListMainWeaponImpl($query, 'canonical_id');
+    }
+
+    protected function getListMainWeapon(Query $query)
+    {
+        return $this->getListMainWeaponImpl($query, 'main_group_id');
+    }
+
+    private function getListMainWeaponImpl(Query $query, $column)
+    {
+        $query
+            ->select([
+                'reason_id'     => '{{death_reason}}.[[id]]',
+                'canonical_id'  => 'MAX({{deadly_weapon}}.[[canonical_id]])',
+                'main_group_id' => 'MAX({{deadly_weapon}}.[[main_group_id]])',
+                'count'         => 'SUM({{battle_death_reason}}.[[count]])',
+            ])
+            ->leftJoin('{{weapon}} {{deadly_weapon}}', '{{death_reason}}.[[weapon_id]] = {{deadly_weapon}}.[[id]]')
+            ->groupBy('{{death_reason}}.[[id]]');
+
+        $list = $query->createCommand()->queryAll();
+
+        // 必要な死因名の一覧を作る
+        $deathReasons = [];
+        $tmp = DeathReason::findAll(['id' => array_map(function ($row) {
+            return $row['reason_id'];
+        }, $list)]);
+        foreach ($tmp as $o) {
+            $deathReasons[$o->id] = $o->getTranslatedName();
+        }
+
+        // 必要なブキ名の一覧を作る
+        $weapons = [];
+        $tmp = Weapon::findAll(['id' => array_map(function ($row) use ($column) {
+            return $row[$column];
+        }, $list)]);
+        foreach ($tmp as $o) {
+            if ($column === 'canonical_id') {
+                $weapons[$o->id] = Yii::t('app-weapon', $o->name);
+            } else {
+                $weapons[$o->id] = Yii::t('app', '{0} etc.', Yii::t('app-weapon', $o->name));
             }
-            return strcasecmp($a->name, $b->name);
+        }
+
+        $retWeapons = [];
+        $retOthers = [];
+        foreach ($list as $row) {
+            if ($row[$column] === null) {
+                $retOthers[] = (object)[
+                    'name' => $deathReasons[$row['reason_id']] ?? '?',
+                    'count' => (int)$row['count'],
+                ];
+            } else {
+                if (!isset($retWeapons[$row[$column]])) {
+                    $retWeapons[$row[$column]] = (object)[
+                        'name' => $weapons[$row[$column]] ?? '?',
+                        'count' => (int)$row['count'],
+                    ];
+                } else {
+                    $retWeapons[$row[$column]]->count += (int)$row['count'];
+                }
+            }
+        }
+        $ret = array_merge(
+            array_values($retWeapons),
+            array_values($retOthers)
+        );
+        usort($ret, function ($a, $b) {
+            return $b->count <=> $a->count ?: strcasecmp($a->name, $b->name);
+        });
+        return $ret;
+    }
+
+    protected function getListType(Query $query)
+    {
+        $query
+            ->select([
+                'id'    => '{{death_reason_type}}.[[id]]',
+                'name'  => 'MAX({{death_reason_type}}.[[name]])',
+                'count' => 'SUM({{battle_death_reason}}.[[count]])',
+            ])
+            ->leftJoin('{{death_reason_type}}', '{{death_reason}}.[[type_id]] = {{death_reason_type}}.[[id]]')
+            ->groupBy('{{death_reason_type}}.[[id]]');
+
+        $ret = array_map(
+            function ($row) {
+                return (object)[
+                    'name' => Yii::t('app-death', ($row['id'] === null) ? 'Unknown' : $row['name']),
+                    'count' => (int)$row['count'],
+                ];
+            },
+            $query->createCommand()->queryAll()
+        );
+        usort($ret, function ($a, $b) {
+            return $b->count <=> $a->count ?: strcasecmp($a->name, $b->name);
         });
         return $ret;
     }
