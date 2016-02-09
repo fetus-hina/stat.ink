@@ -1212,7 +1212,7 @@
                           return;
                         }
                         var dt = {
-                          'neutral': [[0, 9]],
+                          'neutral': [[0, 380]],
                           'we': [],
                           'they': []
                         };
@@ -1228,17 +1228,17 @@
                             }
                           })(cur.value);
                           if (prevState !== curState) {
-                            dt[prevState].push([cur.at, 9]);
+                            dt[prevState].push([cur.at, 380]);
                             dt[prevState].push([cur.at + 0.0001, null]);
                           }
-                          dt[curState].push([cur.at, 9]);
+                          dt[curState].push([cur.at, 380]);
                           prevState = curState;
                           prevTime = cur.at;
                         });
                         {{* 最後まで描くために最後のイベントの時間までのデータを作る *}}
                         dt[prevState].push([
                           window.battleEvents[window.battleEvents.length - 1].at,
-                          9
+                          380 
                         ]);
                         data.push({
                           label: "{{'No one in control'|translate:'app'|escape:'javascript'}}",
@@ -1289,20 +1289,20 @@
                             var d = this;
                             for (var i = 0; i < d.my_team.length; ++i) {
                               if (!d.my_team[i] && alives[i]) {
-                                members[i].push([d.at - 0.001, 8 - i]);
+                                members[i].push([d.at - 0.001, 363 - i * 17]);
                                 members[i].push([d.at, null]);
                               }
                               if (d.my_team[i]) {
-                                members[i].push([d.at, 8 - i]);
+                                members[i].push([d.at, 363 - i * 17]);
                               }
                               alives[i] = d.my_team[i];
 
                               if (!d.his_team[i] && alives[i]) {
-                                members[i + 4].push([d.at - 0.001, 4 - i]);
+                                members[i + 4].push([d.at - 0.001, 295 - i * 17]);
                                 members[i + 4].push([d.at, null]);
                               }
                               if (d.his_team[i]) {
-                                members[i + 4].push([d.at, 4 - i]);
+                                members[i + 4].push([d.at, 295 - i * 17]);
                               }
                               alives[i + 4] = d.his_team[i];
                             }
@@ -1331,6 +1331,36 @@
                         }
                       })();
                     {{/if}}
+
+                    {{* Special % *}}
+                    (function() {
+                      var events = window.battleEvents.filter(
+                        function (v) {
+                          return v.at !== undefined &&
+                            v.type === 'special%' &&
+                            v.point !== undefined;
+                        }
+                      );
+                      if (events.length > 0) {
+                        data.push({
+                          label: "{{'Special %'|translate:'app'|escape:javascript}}",
+                          data: (function(){
+                            var tmp = events.map(function(a){return[a.at,a.point]});
+                            tmp.push([0, 0]);
+                            tmp.sort(function(a,b){return a[0]-b[0]});
+                            return tmp;
+                          })(),
+                          color: '#888',
+                          yaxis: 2,
+                          lines: {
+                            fill: false,
+                            lineWidth: 1,
+                          },
+                          shadowSize: 1 
+                        });
+                      }
+                    })();
+
                     data.push({
                       data: iconData,
                       icons: {
@@ -1363,11 +1393,12 @@
                       yaxis: {
                         minTickSize: isNawabari ? 100 : 10,
                         min: isNawabari || ruleKey === 'area' ? 0 : -100,
-                        max: isNawabari ? null : 100
+                        max: isNawabari ? null : 100,
+                        show: true,
                       },
                       y2axis: {
-                        min: -13,
-                        max: 10,
+                        min: 0,
+                        max: 400,
                         show: false
                       },
                       legend: {
