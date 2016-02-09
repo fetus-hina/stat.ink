@@ -10,10 +10,12 @@ namespace app\actions\entire;
 use Yii;
 use yii\web\ViewAction as BaseAction;
 use yii\web\NotFoundHttpException;
+use app\models\Map;
 use app\models\Rule;
+use app\models\StatWeaponKDWinRate;
+use app\models\StatWeaponKillDeath;
 use app\models\Weapon;
 use app\models\WeaponType;
-use app\models\StatWeaponKillDeath;
 
 class WeaponAction extends BaseAction
 {
@@ -39,7 +41,9 @@ class WeaponAction extends BaseAction
             'weapons' => $this->weapons,
             'weapon' => $this->weapon,
             'rules' => $this->rules,
+            'maps' => $this->maps,
             'killDeath' => $this->killDeath,
+            'mapWP' => $this->mapWinPercentage,
         ]);
     }
 
@@ -94,6 +98,56 @@ class WeaponAction extends BaseAction
                 uasort($ret, 'strnatcasecmp');
                 return $ret; 
             })($weaponType->getWeapons()->asArray()->all());
+        }
+        return $ret;
+    }
+
+    public function getMaps()
+    {
+        $ret = array_map(
+            function ($row) {
+                return [
+                    'key' => $row['key'],
+                    'name' => Yii::t('app-map', $row['name']),
+                ];
+            },
+            Map::find()->asArray()->all()
+        );
+        usort($ret, function ($a, $b) {
+            return strnatcasecmp($a['name'], $b['name']);
+        });
+        return $ret;
+    }
+
+    public function getMapWinPercentage()
+    {
+        $ret = [];
+        $table = StatWeaponKDWinRate::tableName();
+        $map = Map::tableName();
+        foreach (Rule::find()->asArray()->all() as $rule) {
+            $query = (new \yii\db\Query())
+                ->select([
+                    'map'       => "MAX({{{$map}}}.[[key]])",
+                    'battle'    => "SUM({{{$table}}}.[[battle_count]])",
+                    'win'       => "SUM({{{$table}}}.[[win_count]])",
+                ])
+                ->from($table)
+                ->innerJoin($map, "{{{$table}}}.[[map_id]] = {{{$map}}}.[[id]]")
+                ->andWhere([
+                    "{{{$table}}}.[[rule_id]]" => $rule['id'],
+                    "{{{$table}}}.[[weapon_id]]" => $this->weapon->id,
+                ])
+                ->groupBy("{{{$table}}}.[[map_id]]");
+            $ret[$rule['key']] = (function ($rows){
+                $tmp = [];
+                foreach ($rows as $row) {
+                    $tmp[$row['map']] = [
+                        'battle' => (int)$row['battle'],
+                        'win' => (int)$row['win'],
+                    ];
+                }
+                return $tmp;
+            })($query->createCommand()->queryAll());
         }
         return $ret;
     }

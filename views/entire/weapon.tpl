@@ -51,6 +51,7 @@
     
     <script>
       window.kddata = {{$killDeath|json_encode}};
+      window.mapdata = {{$mapWP|json_encode}};
     </script>
 
     {{foreach $rules as $rule}}
@@ -317,6 +318,95 @@
                     steps: true,
                   },
                 },
+              });
+            });
+          }
+          var timerId = null;
+          $(window).resize(function() {
+            if (timerId !== null) {
+              window.clearTimeout(timerId);
+            }
+            timerId = window.setTimeout(function() {
+              update();
+            }, 33);
+          });
+        })(jQuery);
+      {{/registerJs}}
+      <h3>
+        {{'Stage'|translate:'app'|escape}}
+      </h3>
+      {{use class="app\components\widgets\WinLoseLegend"}}
+      {{WinLoseLegend::widget()}}
+      <div class="row">
+        {{foreach $maps as $map}}
+          <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+            <h4>{{$map.name}}</h4>
+            <div class="graph stat-map-wp" data-rule="{{$rule->key|escape}}" data-map="{{$map.key|escape}}">
+            </div>
+          </div>
+        {{/foreach}}
+      </div>
+      {{\jp3cki\yii2\flot\FlotPieAsset::register($this)|@void}}
+      {{registerJs}}
+        (function($){
+          "use strict";
+          function update() {
+            var $graphs = $('.graph.stat-map-wp');
+            $graphs.height($graphs.width());
+            $graphs.each(function(){
+              var $graph = $(this);
+              var ruleKey = $graph.attr('data-rule');
+              var mapKey = $graph.attr('data-map');
+              var jsonData = window.mapdata[ruleKey][mapKey];
+              if (!jsonData) {
+                return;
+              }
+              var data = [
+                {
+                  label: "Won",
+                  data: jsonData.win
+                },
+                {
+                  label: "Lost",
+                  data: jsonData.battle - jsonData.win
+                }
+              ];
+              $.plot($graph, data, {
+                series: {
+                  pie: {
+                    show: true,
+                    radius: 1,
+                    label: {
+                      show: "auto",
+                      radius: .618,
+                      formatter: function(label, slice) {
+                        return $('<div>').append(
+                          $('<div>').css({
+                            'fontSize': '1em',
+                            'lineHeight': '1.1em',
+                            'textAlign': 'center',
+                            'padding': '2px',
+                            'color': '#fff',
+                            'textShadow': '0px 0px 3px #000',
+                          }).append(
+                            slice.data[0][1] + ' / ' + Math.round(slice.data[0][1] / (slice.percent / 100))
+                          ).append(
+                            $('<br>')
+                          ).append(
+                            slice.percent.toFixed(1) + '%'
+                          )
+                        ).html();
+                      },
+                    },
+                  },
+                },
+                legend: {
+                  show: false
+                },
+                colors: [
+                  window.colorScheme.win,
+                  window.colorScheme.lose,
+                ]
               });
             });
           }
