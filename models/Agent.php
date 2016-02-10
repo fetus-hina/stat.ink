@@ -60,7 +60,7 @@ class Agent extends \yii\db\ActiveRecord
      */
     public function getBattles()
     {
-        return $this->hasMany(Battle::className(), ['agent_id' => 'id']);
+        return $this->hasMany(Battle::class, ['agent_id' => 'id']);
     }
 
     public function getIsAutomatedByDefault()
@@ -80,14 +80,16 @@ class Agent extends \yii\db\ActiveRecord
     public function getIsOldIkalogAsAtTheTime($t = null)
     {
         if ($t === null) {
-            $t = @$_SERVER['REQUEST_TIME'] ?: time();
+            $t = $_SERVER['REQUEST_TIME'] ?? time();
         } elseif (is_string($t)) {
             $t = strtotime($t);
+        } else {
+            $t = (int)$t;
         }
         if (!$this->getIsIkalog()) {
             return false;
         }
-        if ($this->version === 'unknown') {
+        if (preg_match('/^unknown\b/', $this->version)) {
             return false;
         }
         return preg_match('/_Win(?:Ika|Tako)Log$/', $this->version)
@@ -134,12 +136,12 @@ class Agent extends \yii\db\ActiveRecord
 
     private function getIsOldCliIkalogAsAtTheTime($t)
     {
-        if (!preg_match('/^[0-9a-f]{7,}$/', $this->version)) {
+        if (!preg_match('/^[0-9a-f]{7,}/', $this->version, $match)) {
             // なんかおかしい
             return false;
         }
 
-        $ikalog = IkalogVersion::findOneByRevision($this->version);
+        $ikalog = IkalogVersion::findOneByRevision($match[0]);
         if (!$ikalog) {
             // 知らない IkaLog だった
             return false;
