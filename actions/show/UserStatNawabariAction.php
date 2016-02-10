@@ -35,7 +35,18 @@ class UserStatNawabariAction extends BaseAction
 
     public function getInkedData()
     {
+        // SELECT 対象から events を除く
+        $attributes = [];
+        $tmp = array_filter(
+            array_keys((new Battle())->attributes),
+            function ($a) { return $a !== 'events'; }
+        );
+        foreach ($tmp as $key) {
+            $attributes[$key] = "{{battle}}.[[{$key}]]";
+        }
+
         $query = Battle::find()
+            ->select($attributes)
             ->with(['rule', 'map'])
             ->innerJoinWith(['rule', 'map'])
             ->joinWith(['lobby'])
@@ -52,21 +63,21 @@ class UserStatNawabariAction extends BaseAction
             ->orderBy('{{battle}}.[[id]] DESC');
 
         $maps = [];
-        foreach (Map::find()->all() as $map) {
-            $maps[$map->key] = (object)[
-                'key' => $map->key,
-                'name' => Yii::t('app-map', $map->name),
-                'area' => $map->area,
+        foreach (Map::find()->asArray()->all() as $map) {
+            $maps[$map['key']] = (object)[
+                'key' => $map['key'],
+                'name' => Yii::t('app-map', $map['name']),
+                'area' => $map['area'],
                 'battles' => [],
                 'avgInked' => null,
             ];
         }
 
-        foreach ($query->each() as $battle) {
-            $tmp = $maps[$battle->map->key];
+        foreach ($query->asArray()->each(200) as $battle) {
+            $tmp = $maps[$battle['map']['key']];
             $tmp->battles[] = (object)[
                 'index' => -1 * count($tmp->battles),
-                'inked' => max(0, $battle->my_point - ($battle->is_win ? 300 : 0)),
+                'inked' => max(0, $battle['my_point'] - ($battle['is_win'] ? 300 : 0)),
             ];
         }
 
@@ -93,7 +104,18 @@ class UserStatNawabariAction extends BaseAction
 
     public function getWPData()
     {
+        // SELECT 対象から events を除く
+        $attributes = [];
+        $tmp = array_filter(
+            array_keys((new Battle())->attributes),
+            function ($a) { return $a !== 'events'; }
+        );
+        foreach ($tmp as $key) {
+            $attributes[$key] = "{{battle}}.[[{$key}]]";
+        }
+
         $query = Battle::find()
+            ->select($attributes)
             ->with(['rule'])
             ->innerJoinWith(['rule'])
             ->joinWith(['lobby'])
@@ -109,11 +131,11 @@ class UserStatNawabariAction extends BaseAction
             ->orderBy('{{battle}}.[[id]] DESC');
 
         $battles = [];
-        foreach ($query->each() as $battle) {
+        foreach ($query->asArray()->each(200) as $battle) {
             $battles[] = (object)[
                 'index' => -1 * count($battles),
-                'is_win' => $battle->is_win,
-                'rule' => $battle->rule->key,
+                'is_win' => $battle['is_win'],
+                'rule' => $battle['rule']['key'],
                 'totalWP' => null,
                 'movingWP' => null,
                 'movingWP50' => null,
