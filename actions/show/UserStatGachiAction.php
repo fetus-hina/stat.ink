@@ -37,7 +37,18 @@ class UserStatGachiAction extends BaseAction
 
     public function getRecentRankData()
     {
+        // SELECT 対象から events を除く
+        $attributes = [];
+        $tmp = array_filter(
+            array_keys((new Battle())->attributes),
+            function ($a) { return $a !== 'events'; }
+        );
+        foreach ($tmp as $key) {
+            $attributes[$key] = "{{battle}}.[[{$key}]]";
+        }
+
         $query = Battle::find()
+            ->select($attributes)
             ->with(['rankAfter', 'rule', 'lobby']) // eager loading
             ->innerJoinWith(['rule', 'rule.mode',
                 'rankAfter' => function ($q) {
@@ -65,11 +76,11 @@ class UserStatGachiAction extends BaseAction
 
         $index = 0;
         $ret = [];
-        foreach ($query->each(200) as $model) {
+        foreach ($query->asArray()->each(200) as $model) {
             $ret[] = (object)[
                 'index'         => $index--,
-                'rule'          => $model->rule->key,
-                'exp'           => $this->calcGraphExp($model->rankAfter->key, $model->rank_exp_after),
+                'rule'          => $model['rule']['key'],
+                'exp'           => $this->calcGraphExp($model['rankAfter']['key'], $model['rank_exp_after']),
                 'movingAvg'     => null,
                 'movingAvg50'   => null,
             ];
@@ -101,7 +112,18 @@ class UserStatGachiAction extends BaseAction
 
     public function getRecentWPData()
     {
+        // SELECT 対象から events を除く
+        $attributes = [];
+        $tmp = array_filter(
+            array_keys((new Battle())->attributes),
+            function ($a) { return $a !== 'events'; }
+        );
+        foreach ($tmp as $key) {
+            $attributes[$key] = "{{battle}}.[[{$key}]]";
+        }
+
         $query = Battle::find()
+            ->select($attributes)
             ->with(['rule', 'map', 'lobby'])
             ->innerJoinWith(['rule', 'rule.mode'])
             ->joinWith(['lobby'])
@@ -117,15 +139,15 @@ class UserStatGachiAction extends BaseAction
             ->orderBy('{{battle}}.[[id]] DESC');
 
         $battles = [];
-        foreach ($query->each(200) as $battle) {
+        foreach ($query->asArray()->each(200) as $battle) {
             $battles[] = (object)[
-                'index' => -1 * count($battles),
-                'is_win' => $battle->is_win,
-                'rule' => $battle->rule->key,
-                'map' => $battle->map ? $battle->map->key : null,
-                'totalWP' => null,
-                'movingWP' => null,
-                'movingWP50' => null,
+                'index'         => -1 * count($battles),
+                'is_win'        => $battle['is_win'],
+                'rule'          => $battle['rule']['key'],
+                'map'           => $battle['map']['key'] ?? null,
+                'totalWP'       => null,
+                'movingWP'      => null,
+                'movingWP50'    => null,
             ];
         }
         if (empty($battles)) {
