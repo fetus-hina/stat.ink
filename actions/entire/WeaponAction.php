@@ -90,13 +90,13 @@ class WeaponAction extends BaseAction
     {
         $ret = [];
         foreach (WeaponType::find()->orderBy('id')->all() as $weaponType) {
-            $ret[Yii::t('app-weapon', $weaponType->name)] = (function(array $weapons) {
+            $ret[Yii::t('app-weapon', $weaponType->name)] = (function (array $weapons) {
                 $ret = [];
                 foreach ($weapons as $weapon) {
                     $ret[$weapon['key']] = Yii::t('app-weapon', $weapon['name']);
                 }
                 uasort($ret, 'strnatcasecmp');
-                return $ret; 
+                return $ret;
             })($weaponType->getWeapons()->asArray()->all());
         }
         return $ret;
@@ -138,7 +138,7 @@ class WeaponAction extends BaseAction
                     "{{{$table}}}.[[weapon_id]]" => $this->weapon->id,
                 ])
                 ->groupBy("{{{$table}}}.[[map_id]]");
-            $ret[$rule['key']] = (function ($rows){
+            $ret[$rule['key']] = (function ($rows) {
                 $tmp = [];
                 foreach ($rows as $row) {
                     $tmp[$row['map']] = [
