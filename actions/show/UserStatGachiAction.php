@@ -38,7 +38,6 @@ class UserStatGachiAction extends BaseAction
     public function getRecentRankData()
     {
         $query = Battle::find()
-            ->select($attributes)
             ->with(['rankAfter', 'rule', 'lobby']) // eager loading
             ->innerJoinWith(['rule', 'rule.mode',
                 'rankAfter' => function ($q) {
@@ -103,7 +102,6 @@ class UserStatGachiAction extends BaseAction
     public function getRecentWPData()
     {
         $query = Battle::find()
-            ->select($attributes)
             ->with(['rule', 'map', 'lobby'])
             ->innerJoinWith(['rule', 'rule.mode'])
             ->joinWith(['lobby'])
