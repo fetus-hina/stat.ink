@@ -59,7 +59,6 @@ use app\components\helpers\DateTimeFormatter;
  * @property integer $period
  * @property string $ua_custom
  * @property integer $env_id
- * @property string $events
  * @property boolean $is_automated
  * @property integer $headgear_id
  * @property integer $clothing_id
@@ -140,7 +139,6 @@ class Battle extends ActiveRecord
             [['kill_ratio', 'my_team_final_percent', 'his_team_final_percent'], 'number'],
             [['my_team_color_rgb', 'his_team_color_rgb'], 'string', 'min' => 6, 'max' => 6],
             [['ua_custom'], 'string'],
-            [['events'], 'safe'],
             [['link_url'], 'url'],
             [['note', 'private_note'], 'string'],
         ];
@@ -192,7 +190,6 @@ class Battle extends ActiveRecord
             'period' => 'Period',
             'ua_custom' => 'Ua Custom',
             'env_id' => 'Env ID',
-            'events' => 'Events',
             'fest_title_after_id' => 'Fest Title After ID',
             'fest_exp' => 'Fest Exp',
             'fest_exp_after' => 'Fest Exp After',
@@ -387,6 +384,17 @@ class Battle extends ActiveRecord
     {
         return $this->hasOne(BattleImage::class, ['battle_id' => 'id'])
             ->andWhere(['type_id' => BattleImageType::ID_RESULT]);
+    }
+
+    public function getBattleEvents()
+    {
+        return $this->hasOne(BattleEvents::class, ['id' => 'id']);
+    }
+
+    public function getEvents()
+    {
+        $model = $this->battleEvents;
+        return $model ? $model->events : null;
     }
 
     public function getIsNawabari()
@@ -585,7 +593,7 @@ class Battle extends ActiveRecord
         if ($this->events && !in_array('events', $skips, true)) {
             $events = Json::decode($this->events, false);
             usort($events, function ($a, $b) {
-                return $a->at - $b->at;
+                return $a->at <=> $b->at;
             });
         }
         return [

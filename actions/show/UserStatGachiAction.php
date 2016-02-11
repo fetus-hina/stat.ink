@@ -37,16 +37,6 @@ class UserStatGachiAction extends BaseAction
 
     public function getRecentRankData()
     {
-        // SELECT 対象から events を除く
-        $attributes = [];
-        $tmp = array_filter(
-            array_keys((new Battle())->attributes),
-            function ($a) { return $a !== 'events'; }
-        );
-        foreach ($tmp as $key) {
-            $attributes[$key] = "{{battle}}.[[{$key}]]";
-        }
-
         $query = Battle::find()
             ->select($attributes)
             ->with(['rankAfter', 'rule', 'lobby']) // eager loading
@@ -112,16 +102,6 @@ class UserStatGachiAction extends BaseAction
 
     public function getRecentWPData()
     {
-        // SELECT 対象から events を除く
-        $attributes = [];
-        $tmp = array_filter(
-            array_keys((new Battle())->attributes),
-            function ($a) { return $a !== 'events'; }
-        );
-        foreach ($tmp as $key) {
-            $attributes[$key] = "{{battle}}.[[{$key}]]";
-        }
-
         $query = Battle::find()
             ->select($attributes)
             ->with(['rule', 'map', 'lobby'])

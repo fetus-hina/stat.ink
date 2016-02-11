@@ -35,18 +35,7 @@ class UserStatNawabariAction extends BaseAction
 
     public function getInkedData()
     {
-        // SELECT 対象から events を除く
-        $attributes = [];
-        $tmp = array_filter(
-            array_keys((new Battle())->attributes),
-            function ($a) { return $a !== 'events'; }
-        );
-        foreach ($tmp as $key) {
-            $attributes[$key] = "{{battle}}.[[{$key}]]";
-        }
-
         $query = Battle::find()
-            ->select($attributes)
             ->with(['rule', 'map'])
             ->innerJoinWith(['rule', 'map'])
             ->joinWith(['lobby'])
@@ -104,18 +93,7 @@ class UserStatNawabariAction extends BaseAction
 
     public function getWPData()
     {
-        // SELECT 対象から events を除く
-        $attributes = [];
-        $tmp = array_filter(
-            array_keys((new Battle())->attributes),
-            function ($a) { return $a !== 'events'; }
-        );
-        foreach ($tmp as $key) {
-            $attributes[$key] = "{{battle}}.[[{$key}]]";
-        }
-
         $query = Battle::find()
-            ->select($attributes)
             ->with(['rule'])
             ->innerJoinWith(['rule'])
             ->joinWith(['lobby'])

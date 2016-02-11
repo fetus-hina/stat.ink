@@ -81,6 +81,7 @@ class BattleAction extends BaseAction
                 'rank',
                 'battleImageResult',
                 'battleImageJudge',
+                'battleEvents',
             ])
             ->orderBy('{{battle}}.[[id]] DESC')
             ->limit((int)$model->count);
@@ -252,6 +253,18 @@ class BattleAction extends BaseAction
                 'system' => [ Yii::t('app', 'Could not save to database: {0}', 'battle') ],
                 'system_' => $battle->getErrors(),
             ], 500);
+        }
+        if ($events = $form->toEvents($battle)) {
+            if (!$events->save()) {
+                $this->logError([
+                    'system' => [ Yii::t('app', 'Could not save to database: {0}', 'battle_events') ],
+                    'system_' => $battle->getErrors(),
+                ]);
+                return $this->formatError([
+                    'system' => [ Yii::t('app', 'Could not save to database: {0}', 'battle_events') ],
+                    'system_' => $battle->getErrors(),
+                ], 500);
+            }
         }
         foreach ($form->toDeathReasons($battle) as $reason) {
             if ($reason && !$reason->save()) {

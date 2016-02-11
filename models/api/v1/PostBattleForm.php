@@ -15,6 +15,7 @@ use app\models\Ability;
 use app\models\AgentAttribute;
 use app\models\Battle;
 use app\models\BattleDeathReason;
+use app\models\BattleEvents;
 use app\models\BattleImage;
 use app\models\BattleImageType;
 use app\models\BattlePlayer;
@@ -438,11 +439,6 @@ class PostBattleForm extends Model
         $o->my_team_count   = (string)$this->my_team_count != '' ? (int)$this->my_team_count : null;
         $o->his_team_count  = (string)$this->his_team_count != '' ? (int)$this->his_team_count : null;
 
-        $o->events = null;
-        if ($this->events) {
-            $o->events = json_encode($this->events, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
-        }
-
         if ($this->gears) {
             $o->headgear_id = $this->processGear('headgear');
             $o->clothing_id = $this->processGear('clothing');
@@ -459,6 +455,17 @@ class PostBattleForm extends Model
             }
         }
 
+        return $o;
+    }
+
+    public function toEvents(Battle $battle)
+    {
+        if (!$this->events) {
+            return null;
+        }
+        $o = new BattleEvents();
+        $o->id = $battle->id;
+        $o->events = json_encode($this->events, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
         return $o;
     }
 
