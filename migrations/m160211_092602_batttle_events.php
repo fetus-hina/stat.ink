@@ -28,8 +28,8 @@ class m160211_092602_batttle_events extends Migration
         $this->execute(
             'UPDATE {{battle}} ' .
             'SET {{battle}}.[[events]] = {{ev}}.[[events]] ' .
-            'FROM {{battle_events}} {{ev}} '
-            'WHERE {{battle}}.[[id]] = {{ev}}.[[id]] '
+            'FROM {{battle_events}} {{ev}} ' .
+            'WHERE {{battle}}.[[id]] = {{ev}}.[[id]] ' .
             'AND {{ev}}.[[events]] LIKE :json',
             [':json' => '[{%']
         );
