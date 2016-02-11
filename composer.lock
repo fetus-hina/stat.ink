@@ -2482,16 +2482,16 @@
         },
         {
             "name": "phpcq/author-validation",
-            "version": "1.1.1",
+            "version": "1.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpcq/author-validation.git",
-                "reference": "c0847ed86df5b86a04be4494f785f691039c64e2"
+                "reference": "378749eae10d8ce1f7ccd608022e56d75cd810e7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpcq/author-validation/zipball/c0847ed86df5b86a04be4494f785f691039c64e2",
-                "reference": "c0847ed86df5b86a04be4494f785f691039c64e2",
+                "url": "https://api.github.com/repos/phpcq/author-validation/zipball/378749eae10d8ce1f7ccd608022e56d75cd810e7",
+                "reference": "378749eae10d8ce1f7ccd608022e56d75cd810e7",
                 "shasum": ""
             },
             "require": {
@@ -2502,8 +2502,8 @@
                 "symfony/finder": "~2.3"
             },
             "require-dev": {
-                "phpcq/all-tasks": "~1.0",
-                "phpcq/coding-standard": "~1.0"
+                "phpcq/all-tasks": "~1.1",
+                "phpcq/coding-standard": "~2.0"
             },
             "bin": [
                 "bin/check-author.php"
@@ -2538,7 +2538,7 @@
                 }
             ],
             "description": "Check if all authors of a particular file are mentioned in the copyright header.",
-            "time": "2015-08-01 01:09:23"
+            "time": "2016-02-10 23:47:16"
         },
         {
             "name": "phpspec/php-diff",
