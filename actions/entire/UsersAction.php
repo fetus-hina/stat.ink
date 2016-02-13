@@ -10,6 +10,7 @@ namespace app\actions\entire;
 use Yii;
 use yii\web\ViewAction as BaseAction;
 use app\models\Agent;
+use app\models\StatAgentUser;
 use app\models\StatEntireUser;
 
 class UsersAction extends BaseAction
@@ -23,6 +24,7 @@ class UsersAction extends BaseAction
         return $this->controller->render('users.tpl', [
             'posts' => $this->postStats,
             'agents' => $this->agentStats,
+            'agentNames' => $this->agentNames,
         ]);
     }
 
@@ -129,5 +131,21 @@ class UsersAction extends BaseAction
             $ret[$agent->id] = $agent;
         }
         return $ret;
+    }
+
+    public function getAgentNames()
+    {
+        $query = (new \yii\db\Query())
+            ->select(['agent'])
+            ->from(StatAgentUser::tableName())
+            ->groupBy('agent');
+        $list = array_map(
+            function ($a) {
+                return $a['agent'];
+            },
+            $query->createCommand()->queryAll()
+        );
+        usort($list, 'strnatcasecmp');
+        return $list;
     }
 }

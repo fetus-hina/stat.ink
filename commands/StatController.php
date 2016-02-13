@@ -13,6 +13,7 @@ use yii\helpers\Console;
 use app\models\BattlePlayer;
 use app\models\Knockout;
 use app\models\Rule;
+use app\models\StatAgentUser;
 use app\models\StatEntireUser;
 use app\models\StatWeapon;
 use app\models\StatWeaponBattleCount;
@@ -281,6 +282,64 @@ class StatController extends Controller
                         ->createCommand()
                         ->queryAll()
                 )
+            )
+            ->execute();
+        $transaction->commit();
+    }
+
+    /**
+     * 全体統計 - エージェント別利用者を更新します。
+     */
+    public function actionUpdateAgentUser()
+    {
+        // 集計対象期間を計算する
+        $today = (new \DateTime(sprintf('@%d', @$_SERVER['REQUEST_TIME'] ?: time()), null))
+            ->setTimeZone(new \DateTimeZone('Etc/GMT-6'))
+            ->setTime(0, 0, 0); // 今日の 00:00:00+06 に設定する
+        // これで $today より前を抽出すれば前日までのサマリにできる
+
+        $db = Yii::$app->db;
+        $db->createCommand("SET timezone TO 'UTC-6'")->execute();
+        $transaction = $db->beginTransaction();
+        $startDate = (new \DateTime(
+                StatAgentUser::find()->max('date') ?? '2015-01-01',
+                new \DateTimeZone('Etc/GMT-6')))
+            ->setTime(0, 0, 0)
+            ->add(new \DateInterval('P1D')); // +1 day
+
+        $insertList = array_map(
+            function ($row) {
+                return [
+                    $row['agent'],
+                    $row['date'],
+                    $row['battle_count'],
+                    $row['user_count']
+                ];
+            },
+            (new \yii\db\Query())
+                ->select([
+                    'agent'         => '{{agent}}.[[name]]',
+                    'date'          => '{{battle}}.[[at]]::date',
+                    'battle_count'  => 'COUNT({{battle}}.*)',
+                    'user_count'    => 'COUNT(DISTINCT {{battle}}.[[user_id]])',
+                ])
+                ->from('battle')
+                ->innerJoin('agent', '{{battle}}.[[agent_id]] = {{agent}}.[[id]]')
+                ->andWhere(['>=', '{{battle}}.[[at]]', $startDate->format(\DateTime::ATOM)])
+                ->andWhere(['<', '{{battle}}.[[at]]', $today->format(\DateTime::ATOM)])
+                ->andWhere(['<>', '{{agent}}.[[name]]', ''])
+                ->groupBy('{{agent}}.[[name]], {{battle}}.[[at]]::date')
+                ->createCommand()
+                ->queryAll()
+        );
+        if (!$insertList) {
+            return;
+        }
+        $db->createCommand()
+            ->batchInsert(
+                StatAgentUser::tableName(),
+                [ 'agent', 'date', 'battle_count', 'user_count' ],
+                $insertList
             )
             ->execute();
         $transaction->commit();

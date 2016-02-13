@@ -43,6 +43,7 @@ $config = [
                 'u/<screen_name:\w+>.<lang:[\w-]+>.<type:rss|atom>' => 'feed/user',
                 'fest/<region:\w+>/<order:\d+>' => 'fest/view',
                 'entire/weapons/<weapon:\w+>' => 'entire/weapon',
+                'entire/users/<b32name:[A-Za-z2-7]+>' => 'entire/agent',
                 'api/v1/<action:[\w-]+>' => 'api-v1/<action>',
                 'api/internal/<action:[\w-]+>' => 'api-internal/<action>',
                 '<action:[\w-]+>'  => 'site/<action>',

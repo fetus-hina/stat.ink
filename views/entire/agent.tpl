@@ -1,7 +1,7 @@
 {{strip}}
   {{set layout="main.tpl"}}
 
-  {{$title = 'Battles and Users'|translate:'app'}}
+  {{$title = 'Battles and Users'|translate:'app'|cat:' - ':$name}}
   {{set title="{{$app->name}} | {{$title}}"}}
 
   {{$this->registerMetaTag(['name' => 'twitter:card', 'content' => 'summary'])|@void}}
@@ -17,56 +17,17 @@
     {{AdWidget}}
     {{SnsWidget}}
 
+    <p>
+      <a href="{{url route="entire/users"}}" class="btn btn-default">
+        <span class="fa fa-angle-double-left left"></span>
+        {{'Back'|translate:'app'|escape}}
+      </a>
+    </p>
+
     {{\jp3cki\yii2\flot\FlotAsset::register($this)|@void}}
     {{\jp3cki\yii2\flot\FlotTimeAsset::register($this)|@void}}
     <div id="graph" data-data="{{$posts|json_encode|escape}}" data-label-battle="{{'Battles'|translate:'app'|escape}}" data-label-user="{{'Users'|translate:'app'|escape}}">
     </div>
-    {{if $agentNames}}
-      <p>
-        {{foreach $agentNames as $name}}
-          {{if !$name@first}} | {{/if}}
-          {{$b32 = $name|base32_encode:false|strtolower}}
-          <a href="{{url route="entire/agent" b32name=$b32}}">
-            {{$name|mb_strimwidth:0:20:'…':'UTF-8'|escape}}
-          </a>
-        {{/foreach}}
-      </p>
-    {{/if}}
-
-    <h2>
-      {{'User Agents in last 24 hours'|translate:'app'|escape}}
-    </h2>
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>{{'Battles'|translate:'app'|escape}}</th>
-          <th>{{'Users'|translate:'app'|escape}}</th>
-          <th>{{'User Agent'|translate:'app'|escape}}</th>
-        </tr>
-      </thead>
-      <tbody>
-        {{foreach $agents as $agent}}
-          <tr>
-            <td class="text-right">{{$agent.battle|number_format|escape}}</td>
-            <td class="text-right">{{$agent.user|number_format|escape}}</td>
-            <td>
-              {{$agent.agent_name|escape}} / {{$agent.agent_version|escape}}
-              {{if $agent.agent_is_old}}
-                &#32;<span class="old-ikalog">
-                  {{'[Outdated]'|translate:'app'|escape}}
-                </span>
-                {{registerCss}}
-                  .old-ikalog {
-                    color: #f00;
-                    font-weight: bold;
-                  }
-                {{/registerCss}}
-              {{/if}}
-            </td>
-          </tr>
-        {{/foreach}}
-      </tbody>
-    </table>
   </div>
 {{/strip}}
 {{registerCss}}
