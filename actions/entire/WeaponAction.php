@@ -8,6 +8,7 @@
 namespace app\actions\entire;
 
 use Yii;
+use yii\helpers\Url;
 use yii\web\ViewAction as BaseAction;
 use yii\web\NotFoundHttpException;
 use app\models\Map;
@@ -20,6 +21,7 @@ use app\models\WeaponType;
 class WeaponAction extends BaseAction
 {
     public $weapon;
+    public $rule;
 
     public function init()
     {
@@ -33,6 +35,22 @@ class WeaponAction extends BaseAction
                 Yii::t('yii', 'Page not found.')
             );
         }
+
+        $key = Yii::$app->request->get('rule');
+        if ($key === '' || $key === null) {
+            $this->controller->redirect(
+                Url::to(['entire/weapon', 'weapon' => $this->weapon->key, 'rule' => 'nawabari'], 301)
+            );
+            return;
+        }
+        if (is_scalar($key)) {
+            $this->rule = Rule::findOne(['key' => $key]);
+        }
+        if (!$this->rule) {
+            throw new NotFoundHttpException(
+                Yii::t('yii', 'Page not found.')
+            );
+        }
     }
 
     public function run()
@@ -41,6 +59,7 @@ class WeaponAction extends BaseAction
             'weapons' => $this->weapons,
             'weapon' => $this->weapon,
             'rules' => $this->rules,
+            'rule' => $this->rule,
             'maps' => $this->maps,
             'killDeath' => $this->killDeath,
             'mapWP' => $this->mapWinPercentage,
@@ -64,26 +83,22 @@ class WeaponAction extends BaseAction
 
     public function getKillDeath()
     {
-        $ret = [];
-        foreach (Rule::find()->asArray()->all() as $rule) {
-            $tmp = StatWeaponKillDeath::find()
-                ->andWhere([
-                    'weapon_id' => $this->weapon->id,
-                    'rule_id' => $rule['id'],
-                ])
-                ->orderBy('kill, death')
-                ->asArray()
-                ->all();
-            $ret[$rule['key']] = array_map(function ($a) {
-                return [
-                    'kill'   => (int)$a['kill'],
-                    'death'  => (int)$a['death'],
-                    'battle' => (int)$a['battle'],
-                    'win'    => (int)$a['win'],
-                ];
-            }, $tmp);
-        }
-        return $ret;
+        $tmp = StatWeaponKillDeath::find()
+            ->andWhere([
+                'weapon_id' => $this->weapon->id,
+                'rule_id' => $this->rule->id,
+            ])
+            ->orderBy('kill, death')
+            ->asArray()
+            ->all();
+        return array_map(function ($a) {
+            return [
+                'kill'   => (int)$a['kill'],
+                'death'  => (int)$a['death'],
+                'battle' => (int)$a['battle'],
+                'win'    => (int)$a['win'],
+            ];
+        }, $tmp);
     }
 
     public function getWeapons()
@@ -121,34 +136,30 @@ class WeaponAction extends BaseAction
 
     public function getMapWinPercentage()
     {
-        $ret = [];
         $table = StatWeaponKDWinRate::tableName();
         $map = Map::tableName();
-        foreach (Rule::find()->asArray()->all() as $rule) {
-            $query = (new \yii\db\Query())
-                ->select([
-                    'map'       => "MAX({{{$map}}}.[[key]])",
-                    'battle'    => "SUM({{{$table}}}.[[battle_count]])",
-                    'win'       => "SUM({{{$table}}}.[[win_count]])",
-                ])
-                ->from($table)
-                ->innerJoin($map, "{{{$table}}}.[[map_id]] = {{{$map}}}.[[id]]")
-                ->andWhere([
-                    "{{{$table}}}.[[rule_id]]" => $rule['id'],
-                    "{{{$table}}}.[[weapon_id]]" => $this->weapon->id,
-                ])
-                ->groupBy("{{{$table}}}.[[map_id]]");
-            $ret[$rule['key']] = (function ($rows) {
-                $tmp = [];
-                foreach ($rows as $row) {
-                    $tmp[$row['map']] = [
-                        'battle' => (int)$row['battle'],
-                        'win' => (int)$row['win'],
-                    ];
-                }
-                return $tmp;
-            })($query->createCommand()->queryAll());
-        }
-        return $ret;
+        $query = (new \yii\db\Query())
+            ->select([
+                'map'       => "MAX({{{$map}}}.[[key]])",
+                'battle'    => "SUM({{{$table}}}.[[battle_count]])",
+                'win'       => "SUM({{{$table}}}.[[win_count]])",
+            ])
+            ->from($table)
+            ->innerJoin($map, "{{{$table}}}.[[map_id]] = {{{$map}}}.[[id]]")
+            ->andWhere([
+                "{{{$table}}}.[[rule_id]]" => $this->rule->id,
+                "{{{$table}}}.[[weapon_id]]" => $this->weapon->id,
+            ])
+            ->groupBy("{{{$table}}}.[[map_id]]");
+        return (function ($rows) {
+            $tmp = [];
+            foreach ($rows as $row) {
+                $tmp[$row['map']] = [
+                    'battle' => (int)$row['battle'],
+                    'win' => (int)$row['win'],
+                ];
+            }
+            return $tmp;
+        })($query->createCommand()->queryAll());
     }
 }

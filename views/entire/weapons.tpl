@@ -58,7 +58,7 @@
             {{foreach $rule->data->weapons as $weapon}}
               <tr class="weapon">
                 <td>
-                  <a href="{{url route="entire/weapon" weapon=$weapon->key}}">
+                  <a href="{{url route="entire/weapon" weapon=$weapon->key rule=$rule->key}}">
                     <span title="{{'Sub:'|translate:'app'|escape}}{{$weapon->subweapon->name|escape}} / {{'Special:'|translate:'app'|escape}}{{$weapon->special->name|escape}}" class="auto-tooltip">
                       {{$weapon->name|escape}}
                     </span>
