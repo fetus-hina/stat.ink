@@ -26,4 +26,16 @@ class AppAsset extends AssetBundle
         'rmrevin\yii\fontawesome\AssetBundle',
         'app\assets\JquerySmoothScrollAsset',
     ];
+
+    public function registerAssetFiles($view)
+    {
+        parent::registerAssetFiles($view);
+
+        $manager = $view->getAssetManager();
+        $view->registerLinkTag([
+            'rel' => 'icon',
+            'type' => 'image/png',
+            'href' => $manager->getAssetUrl($this, 'favicon.png'),
+        ]);
+    }
 }
