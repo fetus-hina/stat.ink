@@ -79,6 +79,8 @@ class Agent extends \yii\db\ActiveRecord
 
     public function getIsOldIkalogAsAtTheTime($t = null)
     {
+        return false;
+
         if ($t === null) {
             $t = $_SERVER['REQUEST_TIME'] ?? time();
         } elseif (is_string($t)) {
