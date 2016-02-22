@@ -77,7 +77,19 @@
           return formatDate(new Date(v));
         }
       },
+      yaxis: {
+        min:0,
+        minTickSize:1,
+        tickFormatter: function(v) {
+          return ~~v;
+        },
+      },
       y2axis: {
+        min:0,
+        minTickSize:1,
+        tickFormatter: function(v) {
+          return ~~v;
+        },
         position:'right'
       },
       legend: {
