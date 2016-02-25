@@ -60,6 +60,7 @@ class ShowController extends Controller
             'user-stat-cause-of-death' => [ 'class' => $prefix . '\UserStatCauseOfDeathAction' ],
             'user-stat-gachi' => [ 'class' => $prefix . '\UserStatGachiAction' ],
             'user-stat-nawabari' => [ 'class' => $prefix . '\UserStatNawabariAction' ],
+            'user-stat-report' => [ 'class' => $prefix . '\UserStatReportAction' ],
             'user-stat-weapon' => [ 'class' => $prefix . '\UserStatWeaponAction' ],
         ];
     }
