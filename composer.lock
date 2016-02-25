@@ -608,16 +608,16 @@
         },
         {
             "name": "bower-asset/zxcvbn",
-            "version": "4.2.0",
+            "version": "4.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dropbox/zxcvbn.git",
-                "reference": "e164fdfa3af53c499d3552969a6cd34129667030"
+                "reference": "5b74446d77bbbff02b068595cdc91f8d2886e015"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dropbox/zxcvbn/zipball/e164fdfa3af53c499d3552969a6cd34129667030",
-                "reference": "e164fdfa3af53c499d3552969a6cd34129667030",
+                "url": "https://api.github.com/repos/dropbox/zxcvbn/zipball/5b74446d77bbbff02b068595cdc91f8d2886e015",
+                "reference": "5b74446d77bbbff02b068595cdc91f8d2886e015",
                 "shasum": ""
             },
             "type": "bower-asset-library",
