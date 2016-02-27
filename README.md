@@ -20,11 +20,14 @@ https://stat.ink/ のソースコードです。
 * Node.js (`npm`)
 * `jpegoptim`
 * `pngcrush`
+* Brotli (`bro`)
 
 https://stat.ink/ は現在次の構成で動作しています。（Docker で用意しているものとほぼ同じです）
 
 * CentOS 7.2.1511 (x86_64)
-* [H2O](https://h2o.examp1e.net/)
+* [JP3CKI Repository](https://rpm.fetus.jp/)
+    - [H2O](https://h2o.examp1e.net/)
+    - [Brotli](https://github.com/google/brotli)
 * [SCL](https://www.softwarecollections.org/)
     - [rh-postgresql94](https://www.softwarecollections.org/en/scls/rhscl/rh-postgresql94/)
         - PostgreSQL 9.4.*
@@ -52,7 +55,6 @@ https://stat.ink/ は現在次の構成で動作しています。（Docker で�
 CentOS 7 の標準 PHP は 5.4.16 です。このバージョンでは動作しません。（PHP 5.5 や 7.0 で追加された機能を使用しています）
 
 CentOS 7 の標準 PostgreSQL のバージョンは 9.2.14 です。このバージョンでは動作しません。（PgSQL 9.4 で追加された機能を使用しています）
-
 
 使い方
 ------

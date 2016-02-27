@@ -22,7 +22,9 @@ RUN rpm --import \
             && \
     yum install -y \
         ImageMagick \
+        brotli \
         git19-git \
+        gzip \
         h2o \
         jpegoptim \
         nodejs010-npm \

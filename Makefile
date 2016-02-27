@@ -2,12 +2,18 @@ STYLE_TARGETS=actions assets commands components controllers models
 JS_SRCS=$(shell ls -1 resources/stat.ink/main.js/*.js)
 
 RESOURCE_TARGETS= \
+	resources/.compiled/activity/activity.js.br \
 	resources/.compiled/activity/activity.js.gz \
+	resources/.compiled/flot-graph-icon/jquery.flot.icon.js.br \
 	resources/.compiled/flot-graph-icon/jquery.flot.icon.js.gz \
+	resources/.compiled/gh-fork-ribbon/gh-fork-ribbon.css.br \
 	resources/.compiled/gh-fork-ribbon/gh-fork-ribbon.css.gz \
+	resources/.compiled/gh-fork-ribbon/gh-fork-ribbon.js.br \
 	resources/.compiled/gh-fork-ribbon/gh-fork-ribbon.js.gz \
 	resources/.compiled/stat.ink/favicon.png \
+	resources/.compiled/stat.ink/main.css.br \
 	resources/.compiled/stat.ink/main.css.gz \
+	resources/.compiled/stat.ink/main.js.br \
 	resources/.compiled/stat.ink/main.js.gz \
 	resources/.compiled/stat.ink/no-image.png
 
@@ -71,6 +77,9 @@ clean-resource:
 
 composer.phar:
 	curl -sS https://getcomposer.org/installer | php
+
+%.br: %.gz
+	zcat $< | bro --quality 11 --output $@
 
 resources/.compiled/stat.ink/main.js.gz: node_modules $(JS_SRCS)
 	./node_modules/.bin/gulp main-js
