@@ -1,13 +1,15 @@
 STYLE_TARGETS=actions assets commands components controllers models
 JS_SRCS=$(shell ls -1 resources/stat.ink/main.js/*.js)
 
-RESOURCE_TARGETS=resources/.compiled/stat.ink/main.css.gz \
-	resources/.compiled/stat.ink/main.js.gz \
-	resources/.compiled/stat.ink/favicon.png \
-	resources/.compiled/stat.ink/no-image.png \
+RESOURCE_TARGETS= \
+	resources/.compiled/activity/activity.js.gz \
 	resources/.compiled/flot-graph-icon/jquery.flot.icon.js.gz \
+	resources/.compiled/gh-fork-ribbon/gh-fork-ribbon.css.gz \
 	resources/.compiled/gh-fork-ribbon/gh-fork-ribbon.js.gz \
-	resources/.compiled/gh-fork-ribbon/gh-fork-ribbon.css.gz
+	resources/.compiled/stat.ink/favicon.png \
+	resources/.compiled/stat.ink/main.css.gz \
+	resources/.compiled/stat.ink/main.js.gz \
+	resources/.compiled/stat.ink/no-image.png
 
 all: init migrate-db
 
@@ -84,6 +86,9 @@ resources/.compiled/gh-fork-ribbon/gh-fork-ribbon.css.gz: node_modules resources
 
 resources/.compiled/flot-graph-icon/jquery.flot.icon.js.gz: node_modules resources/flot-graph-icon/jquery.flot.icon.js
 	./node_modules/.bin/gulp flot-icon
+
+resources/.compiled/activity/activity.js.gz: node_modules resources/activity/activity.js
+	./node_modules/.bin/gulp activity
 
 resources/.compiled/stat.ink/no-image.png: resources/stat.ink/no-image.png
 	mkdir -p resources/.compiled/stat.ink || /bin/true

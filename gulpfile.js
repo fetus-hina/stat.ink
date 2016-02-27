@@ -54,7 +54,20 @@ gulp.task('main-js', function() {
     .pipe(gulp.dest('resources/.compiled/stat.ink'));
 });
 
+gulp.task('activity', function() {
+  gulp.src('resources/activity/activity.js')
+    .pipe(uglify({
+      preserveComments: 'some',
+      output: {
+        ascii_only: true,
+      },
+    }))
+    .pipe($.gzip({gzipOptions:{level:9}}))
+    .pipe(gulp.dest('resources/.compiled/activity'));
+});
+
 gulp.task('default', [
+  'activity',
   'gh-fork',
   'gh-fork-css',
   'flot-icon',
