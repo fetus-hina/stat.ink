@@ -1,32 +1,21 @@
 <?php
 use yii\db\Migration;
-use app\models\{
-    DeathReason,
-    DeathReasonType
-};
+use app\models\DeathReasonType;
 
 class m160122_062721_propeller extends Migration
 {
     public function safeUp()
     {
-        $type = new DeathReasonType();
-        $type->attributes = [
+        $this->insert('death_reason_type', [
             'key' => 'gadget',
             'name' => 'Gadget',
-        ];
-        if (!$type->save()) {
-            return false;
-        }
+        ]);
 
-        $reason = new DeathReason();
-        $reason->attributes = [
-            'type_id'   => $type->id,
-            'key'       => 'propeller',
-            'name'      => 'Ink from a propeller',
-        ];
-        if (!$reason->save()) {
-            return false;
-        }
+        $this->insert('death_reason', [
+            'type_id' => DeathReasonType::findOne(['key' => 'gadget'])->id,
+            'key' => 'propeller',
+            'name' => 'Ink from a propeller',
+        ]);
     }
 
     public function safeDown()
