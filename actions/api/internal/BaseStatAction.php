@@ -42,7 +42,7 @@ abstract class BaseStatAction extends BaseAction
     public function run()
     {
         $response = Yii::$app->getResponse();
-        $response->format = 'json';
+        $response->format = 'compact-json';
 
         $request = Yii::$app->getRequest();
         $screenName = $request->get('screen_name');
