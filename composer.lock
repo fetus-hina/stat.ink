@@ -58,16 +58,16 @@
         },
         {
             "name": "bower-asset/clipboard",
-            "version": "v1.5.8",
+            "version": "v1.5.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zenorocha/clipboard.js.git",
-                "reference": "7e37c9512116134dccf01620289888a252b3016f"
+                "reference": "ff3cd2c722b744fa21d0fc621a08ad88b7a38189"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zenorocha/clipboard.js/zipball/7e37c9512116134dccf01620289888a252b3016f",
-                "reference": "7e37c9512116134dccf01620289888a252b3016f",
+                "url": "https://api.github.com/repos/zenorocha/clipboard.js/zipball/ff3cd2c722b744fa21d0fc621a08ad88b7a38189",
+                "reference": "ff3cd2c722b744fa21d0fc621a08ad88b7a38189",
                 "shasum": ""
             },
             "type": "bower-asset-library",
