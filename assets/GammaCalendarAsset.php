@@ -8,6 +8,7 @@
 namespace app\assets;
 
 use yii\web\AssetBundle;
+use yii\web\JqueryAsset;
 
 class GammaCalendarAsset extends AssetBundle
 {
@@ -17,5 +18,8 @@ class GammaCalendarAsset extends AssetBundle
     ];
     public $css = [
         'gammacalendar-v0.0.1.min.css',
+    ];
+    public $depends = [
+        JqueryAsset::class,
     ];
 }
