@@ -20,6 +20,7 @@
         "ext-pdo_pgsql": "*",
         "ext-session": "*",
         "ext-zlib": "*",
+        "bower-asset/cal-heatmap": "^3.3",
         "bower-asset/clipboard": "^1.5",
         "bower-asset/gammacalendar": "@dev",
         "bower-asset/github-fork-ribbon-css": "^0.1.1",

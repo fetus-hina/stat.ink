@@ -22,6 +22,12 @@ $config = [
                 'yii\bootstrap\BootstrapPluginAsset' => [
                     'js' => [ 'js/bootstrap.min.js' ],
                 ],
+                'app\assets\D3Asset' => [
+                    'js' => [ 'd3.min.js' ],
+                ],
+                'app\assets\CalHeatmapAsset' => [
+                    'js' => [ 'cal-heatmap.min.js' ],
+                ],
             ],
             'converter' => [
                 'class' => 'app\components\web\AssetConverter',

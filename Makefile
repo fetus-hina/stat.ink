@@ -79,6 +79,7 @@ composer.phar:
 	curl -sS https://getcomposer.org/installer | php
 
 %.br: %.gz
+	rm -f $@
 	zcat $< | bro --quality 11 --output $@
 
 resources/.compiled/stat.ink/main.js.gz: node_modules $(JS_SRCS)

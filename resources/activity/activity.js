@@ -1,49 +1,101 @@
 (function(window, $) {
     "use strict";
-    var messages = {
-        en: {
-            daysOfWeek: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-            months: ['Jan', 'Fev', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-        },
-        ja: {
-            daysOfWeek: ['月', '火', '水', '木', '金', '土', '日'],
-            months: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
-        },
-    };
+
+    var months = 4;
+
+    var i18n = (function() {
+        return {
+            "ja-JP": {
+                "months": [ "1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月" ],
+                "itemName": [ "バトル", "バトル" ],
+            },
+            "en-US": {
+                "months": [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ],
+                "itemName": [ "battle", "battles" ],
+            },
+            "en-GB": {
+                "moths": [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ],
+                "itemName": [ "battle", "battles" ],
+            },
+        }[$('html').attr('lang')];
+    })();
+
+    // 今日
+    var today = (function() {
+        var d = new Date();
+        return new Date(d.getFullYear(), d.getMonth(), d.getDate());
+    })();
+
+    // カレンダーの表示開始日
+    var start = new Date(
+        today.getFullYear(),
+        today.getMonth() - months + 1,
+        1
+    );
+
     $('.activity').each(function () {
         var $elem = $(this);
-        var screen_name = $elem.attr('data-screen-name');
-        if ((screen_name + "").length > 0) {
-            $.get('/api/internal/activity', {'screen_name': screen_name}, function (json) {
-                var data = [];
+        var cal = new CalHeatMap();
+        cal.init({
+            itemSelector: $elem[0],
+            domain: 'month',
+            subDomain: 'day',
+            range: months,
+            start: start,
+            weekStartOnMonday: false,
+            cellSize: 8,
+            cellPadding: 1,
+            callRadius: 0,
+            domainDynamicDimension: true,
+            displayLegend: false,
+            legendColors: ['#ededed', '#23527c'],
+            domainLabelFormat: function (date) {
+                return i18n.months[date.getMonth()];
+            },
+            itemName: i18n.itemName,
+            subDomainDateFormat: "%Y-%m-%d",
+            subDomainTitleFormat: {
+                "empty": "{date}",
+                "filled": "{date} : {count} {name}",
+            },
+            data: '/api/internal/activity?screen_name=' + encodeURIComponent($elem.attr('data-screen-name')),
+            dataType: 'json',
+            afterLoadData: function (json) {
+                var ret = {};
                 $.each(json, function () {
-                    var day = this;
-                    var match = (day.date + "").match(/^(\d+)-(\d+)-(\d+)$/);
-                    if (match) {
-                        data.push({
-                            'date': new Date(
-                                ~~(match[1]),
-                                ~~(match[2]) - 1,
-                                ~~(match[3])
-                            ),
-                            'value': ~~day.battles,
-                        });
-                    }
+                    var timeStamp = Math.floor((new Date(this.date)).getTime() / 1000);
+                    ret[timeStamp + ""] = this.battles;
                 });
-                $elem.gammacalendar(data, {
-                    weeks: Math.min(53, Math.ceil(((new Date()) - (new Date(2015, 9 - 1, 27))) / (7 * 86400 * 1000))),
-                    i18n: messages[
-                        ($('html').attr('lang').match(/^([a-z]+)-/))[1].toLowerCase()
-                    ],
-                    startOnSunday: true,
-                    highlightToday: false,
-                    baseColor: {
-                        r: 0x1e,
-                        g: 0x68,
-                        b: 0x23
-                    }
-                });
-            });
-        }
+                return ret;
+            },
+            onClick: function (date, value) {
+                var start = new Date();
+                start.setUTCFullYear(date.getFullYear(), date.getMonth(), date.getDate());
+                start.setUTCHours(2, 0, 0);
+
+                var end = new Date();
+                end.setUTCFullYear(start.getUTCFullYear(), start.getUTCMonth(), start.getUTCDate() + 1);
+                end.setUTCHours(start.getUTCHours(), start.getUTCMinutes(), start.getUTCSeconds() - 1);
+
+                var timeFormat = function (d) {
+                    var zero = function (v) {
+                        return v < 10 ? '0' + v : v;
+                    };
+                    return d.getUTCFullYear() + '-' +
+                        zero(d.getUTCMonth() + 1) + '-' +
+                        zero(d.getUTCDate()) + ' ' +
+                        zero(d.getUTCHours()) + ':' +
+                        zero(d.getUTCMinutes()) + ':' +
+                        zero(d.getUTCSeconds());
+                };
+
+                window.location.href =
+                    '/u/' + encodeURIComponent($elem.attr('data-screen-name')) + '?' +
+                    'filter[term]=term&' +
+                    'filter[term_from]=' + encodeURIComponent(timeFormat(start)) + '&' +
+                    'filter[term_to]=' + encodeURIComponent(timeFormat(end)) + '&' +
+                    'filter[timezone]=Etc/UTC';
+            },
+        });
     });
 })(window, window.jQuery);

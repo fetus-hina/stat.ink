@@ -7,6 +7,7 @@
           {{'{0}-san'|translate:'app':$user->name|escape}}
         </a>
       </h2>
+
       {{if $stat}}
         <div class="row">
           <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
@@ -188,6 +189,22 @@
               {{/if}}
             </div>
           </div>
+        </div>
+        <hr>
+        <div style="margin:10px 0 0">
+          <p class="user-label">
+            {{'Activity'|translate:'app'|escape}}
+          </p>
+          {{\app\assets\ActivityAsset::register($this)|@void}}
+          <div class="text-center">
+            <div class="activity" data-screen-name="{{$user->screen_name|escape}}">
+            </div>
+          </div>
+          {{registerCss}}
+            .activity {
+              display:inline-block!important;
+            }
+          {{/registerCss}}
         </div>
         <hr>
         <p style="margin:10px 0 0">

@@ -83,9 +83,6 @@
     {{$_feed = Url::to(['feed/user', 'screen_name' => $user->screen_name, 'type' => 'rss', 'lang' => $app->language], true)}}
     {{SnsWidget tweetText=$_tweet feedUrl=$_feed}}
 
-    {{\app\assets\ActivityAsset::register($this)|@void}}
-    <div class="activity" data-screen-name="{{$user->screen_name|escape}}"></div>
-
     <div class="row">
       <div class="col-xs-12 col-sm-8 col-md-8 col-lg-9">
         <div class="text-right">

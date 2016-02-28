@@ -8,16 +8,17 @@
 namespace app\assets;
 
 use yii\web\AssetBundle;
-use yii\web\JqueryAsset;
 
-class ActivityAsset extends AssetBundle
+class CalHeatmapAsset extends AssetBundle
 {
-    public $sourcePath = '@app/resources/.compiled/activity';
+    public $sourcePath = '@bower/cal-heatmap';
     public $js = [
-        'activity.js',
+        'cal-heatmap.js',
+    ];
+    public $css = [
+        'cal-heatmap.css',
     ];
     public $depends = [
-        CalHeatmapAsset::class,
-        JqueryAsset::class, 
+        D3Asset::class,
     ];
 }

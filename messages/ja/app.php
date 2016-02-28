@@ -11,6 +11,7 @@ return [
     'About support for color-blindness' => '色覚サポートについて',
     'Access time' => 'アクセス日時',
     'Active Players' => 'アクティブプレーヤー',
+    'Activity' => 'アクティビティー',
     'All Players' => 'すべてのプレーヤー',
     'Always enable horizontal scroll' => '常にテーブルの横スクロールを有効にする',
     'Any Time' => 'すべての期間',
