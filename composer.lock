@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "eaf98b9ac9f182e68ef82d3ec13ca85e",
-    "content-hash": "116501a4ec9e05986f88ff6367cff6ba",
+    "hash": "45ae928d58e048a543cb02d5a6fe422d",
+    "content-hash": "3cd249fa3847f33bd2fd747bf510c7bc",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -283,23 +283,6 @@
                 "CC-BY-3.0"
             ],
             "description": "Font Awesome"
-        },
-        {
-            "name": "bower-asset/gammacalendar",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/gammasoft/calendar.git",
-                "reference": "0c64d363a6a42dd3ed70522ce7b7126ec3f5eba3"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/gammasoft/calendar/zipball/0c64d363a6a42dd3ed70522ce7b7126ec3f5eba3",
-                "reference": "0c64d363a6a42dd3ed70522ce7b7126ec3f5eba3",
-                "shasum": ""
-            },
-            "type": "bower-asset-library",
-            "time": "2014-04-02 21:59:47"
         },
         {
             "name": "bower-asset/github-fork-ribbon-css",
@@ -3108,7 +3091,6 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "bower-asset/gammacalendar": 20,
         "bower-asset/jquery-stupid-table": 20,
         "primal/color": 20
     },
