@@ -36,7 +36,7 @@ class IndexAction extends BaseAction
                 '{{battle_image}}.[[type_id]] = :image_type_result',
                 [':image_type_result' => BattleImageType::ID_RESULT]
             )
-            ->andWhere(['>=', '{{battle}}.[[at]]', gmdate('Y-m-d H:i:sO', time() - 7 * 86400)])
+            ->andWhere(['>=', '{{battle}}.[[at]]', gmdate('Y-m-d H:i:sO', time() - 6 * 3600)])
             ->andWhere(['or',
                 ['not', ['{{battle_image}}.[[id]]' => null]],
                 ['not', ['{{battle}}.[[map_id]]' => null]],
