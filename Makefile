@@ -1,5 +1,6 @@
 STYLE_TARGETS=actions assets commands components controllers models
 JS_SRCS=$(shell ls -1 resources/stat.ink/main.js/*.js)
+COMPOSER_VERSION=1.0.0-alpha11
 
 RESOURCE_TARGETS= \
 	resources/.compiled/activity/activity.js.br \
@@ -76,7 +77,7 @@ clean-resource:
 		web/assets/*
 
 composer.phar:
-	curl -sS https://getcomposer.org/installer | php
+	curl -sS https://getcomposer.org/installer | php -- --version=$(COMPOSER_VERSION)
 
 %.br: %.gz
 	rm -f $@
