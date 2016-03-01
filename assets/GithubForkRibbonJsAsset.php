@@ -15,9 +15,6 @@ class GithubForkRibbonJsAsset extends AssetBundle
     public $js = [
         'gh-fork-ribbon.js',
     ];
-    public $css = [
-        'gh-fork-ribbon.css',
-    ];
     public $depends = [
         'yii\web\JqueryAsset',
         'rmrevin\yii\fontawesome\AssetBundle',
