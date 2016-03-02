@@ -91,7 +91,7 @@
     {{/if}}
 
     <div class="row">
-      <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
+      <div class="col-xs-12 col-sm-8 col-md-8 col-lg-9">
         {{if $battle->previousBattle || $battle->nextBattle}}
           <div class="row" style="margin-bottom:15px">
             {{if $battle->previousBattle}}
@@ -1893,7 +1893,7 @@
           </table>
         {{/if}}
       </div>
-      <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+      <div class="col-xs-12 col-sm-4 col-md-4 col-lg-3">
         {{include file="@app/views/includes/user-miniinfo.tpl" user=$user}}
         {{AdWidget}}
       </div>
