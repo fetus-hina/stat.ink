@@ -66,6 +66,9 @@ use app\components\helpers\DateTimeFormatter;
  * @property string $link_url
  * @property string $note
  * @property string $private_note
+ * @property integer $my_team_power
+ * @property integer $his_team_power
+ * @property integer $fest_power
  *
  * @property Agent $agent
  * @property Environment $env
@@ -141,6 +144,7 @@ class Battle extends ActiveRecord
             [['ua_custom'], 'string'],
             [['link_url'], 'url'],
             [['note', 'private_note'], 'string'],
+            [['my_team_power', 'his_team_power', 'fest_power'], 'integer'],
         ];
     }
 
@@ -200,6 +204,8 @@ class Battle extends ActiveRecord
             'link_url' => 'Link URL',
             'note' => 'Note',
             'private_note' => 'Note (Private)',
+            'my_team_power' => 'My Team Power',
+            'his_team_power' => 'His Team Power',
         ];
     }
 
@@ -634,6 +640,9 @@ class Battle extends ActiveRecord
                 ? $this->festTitleAfter->toJsonArray($this->gender)
                 : null,
             'fest_exp_after' => $this->fest_exp_after,
+            'fest_power' => $this->fest_power,
+            'my_team_power' => $this->my_team_power,
+            'his_team_power' => $this->his_team_power,
             'my_point' => $this->my_point,
             'my_team_final_point' => $this->my_team_final_point,
             'his_team_final_point' => $this->his_team_final_point,

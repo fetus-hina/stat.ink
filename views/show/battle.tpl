@@ -236,6 +236,22 @@
                 </td>
               </tr>
             {{/if}}
+            {{if $battle->fest_power}}
+              <tr>
+                <th>{{'Splatfest Power'|translate:'app'|escape}}</th>
+                <td>{{$battle->fest_power|escape}}</td>
+              </tr>
+            {{/if}}
+            {{if $battle->my_team_power || $battle->his_team_power}}
+              <tr>
+                <th>{{'My Team Splatfest Power'|translate:'app'|escape}}</th>
+                <td>{{$battle->my_team_power|default:'?'|escape}}</td>
+              </tr>
+              <tr>
+                <th>{{'Their Team Splatfest Power'|translate:'app'|escape}}</th>
+                <td>{{$battle->his_team_power|default:'?'|escape}}</td>
+              </tr>
+            {{/if}}
             {{if $battle->is_win !== null}}
               <tr>
                 <th>{{'Result'|translate:'app'|escape}}</th>

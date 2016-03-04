@@ -58,6 +58,9 @@ class PostBattleForm extends Model
     public $fest_title_after;
     public $fest_exp;
     public $fest_exp_after;
+    public $fest_power;
+    public $my_team_power;
+    public $his_team_power;
     public $my_team_color;
     public $his_team_color;
     public $image_judge;
@@ -132,6 +135,7 @@ class PostBattleForm extends Model
                 'targetClass' => FestTitle::className(),
                 'targetAttribute' => 'key'],
             [['fest_exp', 'fest_exp_after'], 'integer', 'min' => 0, 'max' => 99],
+            [['my_team_power', 'his_team_power', 'fest_power'], 'integer'],
             [['my_team_color', 'his_team_color'], 'validateTeamColor'],
             [['image_judge', 'image_result'], 'safe'],
             [['image_judge', 'image_result'], 'file',
@@ -404,6 +408,9 @@ class PostBattleForm extends Model
             : null;
         $o->fest_exp        = (string)$this->fest_exp != '' ? (int)$this->fest_exp : null;
         $o->fest_exp_after  = (string)$this->fest_exp_after != '' ? (int)$this->fest_exp_after : null;
+        $o->fest_power      = (string)$this->fest_power != '' ? (int)$this->fest_power : null;
+        $o->my_team_power   = (string)$this->my_team_power != '' ? (int)$this->my_team_power : null;
+        $o->his_team_power  = (string)$this->his_team_power != '' ? (int)$this->his_team_power : null;
         $o->my_team_color_hue = $this->my_team_color ? $this->my_team_color['hue'] : null;
         $o->my_team_color_rgb = $this->my_team_color ? vsprintf('%02x%02x%02x', $this->my_team_color['rgb']) : null;
         $o->his_team_color_hue = $this->his_team_color ? $this->his_team_color['hue'] : null;
