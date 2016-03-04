@@ -6,6 +6,7 @@ return [
     '.96 Gal' => '.96ガロン',
     'Aerospray MG' => 'プロモデラーMG',
     'Aerospray RG' => 'プロモデラーRG',
+    'Berry Splattershot Pro' => 'プライムシューターベリー',
     'Blaster' => 'ホットブラスター',
     'Custom Blaster' => 'ホットブラスターカスタム',
     'Custom Dual Squelcher' => 'デュアルスイーパーカスタム',
@@ -38,4 +39,5 @@ return [
     'Splattershot' => 'スプラシューター',
     'Sploosh-o-matic' => 'ボールドマーカー',
     'Tentatek Splattershot' => 'スプラシューターコラボ',
+    'Wasabi Splattershot' => 'スプラシューターワサビ',
 ];

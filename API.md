@@ -165,86 +165,7 @@ POST /api/v1/battle
     - `shottsuru` : ショッツル鉱山
     - `tachiuo` : タチウオパーキング
 
-* `weapon` : 自分のブキを次のいずれかの値で指定します。完全なリストはブキ取得 API から取得してください。
-    - シューター
-        - `52gal` : .52ガロン
-        - `52gal_deco` : .52ガロンデコ
-        - `96gal` : .96ガロン
-        - `96gal_deco` : .96ガロンデコ
-        - `bold` : ボールドマーカー
-        - `bold_neo` : ボールドマーカーネオ
-        - `dualsweeper` : デュアルスイーパー
-        - `dualsweeper_custom` : デュアルスイーパーカスタム
-        - `h3reelgun` : H3リールガン
-        - `h3reelgun_d` : H3リールガンD
-        - `heroshooter_replica` : ヒーローシューターレプリカ
-        - `hotblaster` : ホットブラスター
-        - `hotblaster_custom` : ホットブラスターカスタム
-        - `jetsweeper` : ジェットスイーパー
-        - `jetsweeper_custom` : ジェットスイーパーカスタム
-        - `l3reelgun` : L3リールガン
-        - `l3reelgun_d` : L3リールガンD
-        - `longblaster` : ロングブラスター
-        - `longblaster_custom` : ロングブラスターカスタム
-        - `momiji` : もみじシューター
-        - `nova` : ノヴァブラスター
-        - `nova_neo` : ノヴァブラスターネオ
-        - `nzap85` : N_ZAP 85
-        - `nzap89` : N_ZAP 89
-        - `octoshooter_replica` : オクタシューターレプリカ
-        - `prime` : プライムシューター
-        - `prime_collabo` : プライムシューターコラボ
-        - `promodeler_mg` : プロモデラーMG
-        - `promodeler_rg` : プロモデラーRG
-        - `rapid` : ラピッドブラスター
-        - `rapid_deco` : ラピッドブラスターデコ
-        - `rapid_elite` : Rブラスターエリート
-        - `rapid_elite_deco` : Rブラスターエリートデコ
-        - `sharp` : シャープマーカー
-        - `sharp_neo` : シャープマーカーネオ
-        - `sshooter` : スプラシューター
-        - `sshooter_collabo` : スプラシューターコラボ
-        - `wakaba` : わかばシューター
-    - ローラー
-        - `carbon` : カーボンローラー
-        - `carbon_deco` : カーボンローラーデコ
-        - `dynamo` : ダイナモローラー
-        - `dynamo_tesla` : ダイナモローラーテスラ
-        - `heroroller_replica` : ヒーローローラーレプリカ
-        - `hokusai` : ホクサイ
-        - `hokusai_hue` : ホクサイ・ヒュー
-        - `pablo` : パブロ
-        - `pablo_hue` : パブロ・ヒュー
-        - `splatroller` : スプラローラー
-        - `splatroller_collabo` : スプラローラーコラボ
-    - チャージャー
-        - `bamboo14mk1` : 14式竹筒銃・甲
-        - `bamboo14mk2` : 14式竹筒銃・乙
-        - `herocharger_replica` : ヒーローチャージャーレプリカ
-        - `liter3k` : リッター3K
-        - `liter3k_custom` : リッター3Kカスタム
-        - `liter3k_scope` : 3Kスコープ
-        - `liter3k_scope_custom` : 3Kスコープカスタム
-        - `splatcharger` : スプラチャージャー
-        - `splatcharger_wakame` : スプラチャージャーワカメ
-        - `splatscope` : スプラスコープ
-        - `splatscope_wakame` : スプラスコープワカメ
-        - `squiclean_a` : スクイックリンα
-        - `squiclean_b` : スクイックリンβ
-    - スロッシャー
-        - `bucketslosher` : バケットスロッシャー
-        - `bucketslosher_deco` : バケットスロッシャーデコ
-        - `hissen` : ヒッセン
-        - `hissen_hue` : ヒッセン・ヒュー
-        - `screwslosher` : スクリュースロッシャー
-        - `screwslosher_neo` : スクリュースロッシャーネオ
-    - スピナー
-        - `barrelspinner` : バレルスピナー
-        - `barrelspinner_deco` : バレルスピナーデコ
-        - `hydra` : ハイドラント
-        - `hydra_custom` : ハイドラントカスタム
-        - `splatspinner` : スプラスピナー
-        - `splatspinner_collabo` : スプラスピナーコラボ
+* `weapon` : 自分のブキを `wakaba` `momiji` 等のあらかじめ定義された値で指定します。指定する値は[一覧ページ](https://stat.ink/api-info/weapon)かブキ取得APIから取得してください。
 
 * `rank` : バトル開始時のウデマエを次のいずれかの値で指定します。
     - `c-`
@@ -375,7 +296,7 @@ JSON または MessagePack で送信する場合、 object(JSON), map(MessagePac
 
 * メインウェポン
 
-    - `weapon` と同じです
+    - `weapon` と同じです。[指定する値の一覧ページ](https://stat.ink/api-info/weapon)
 
 * サブウェポン
 
