@@ -66,11 +66,24 @@ gulp.task('activity', function() {
     .pipe(gulp.dest('resources/.compiled/activity'));
 });
 
+gulp.task('gear-calc', function() {
+  gulp.src('resources/gears/calc.js')
+    .pipe(uglify({
+      preserveComments: 'some',
+      output: {
+        ascii_only: true,
+      },
+    }))
+    .pipe($.gzip({gzipOptions:{level:9}}))
+    .pipe(gulp.dest('resources/.compiled/gears'));
+});
+
 gulp.task('default', [
   'activity',
+  'flot-icon',
+  'gear-calc',
   'gh-fork',
   'gh-fork-css',
-  'flot-icon',
   'main-css',
   'main-js',
 ]);

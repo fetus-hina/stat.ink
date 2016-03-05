@@ -11,7 +11,7 @@ use yii\web\AssetBundle;
 
 class GearCalcAsset extends AssetBundle
 {
-    public $sourcePath = '@app/resources/gears';
+    public $sourcePath = '@app/resources/.compiled/gears';
     public $js = [
         'calc.js',
     ];

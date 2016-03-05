@@ -7,6 +7,8 @@ RESOURCE_TARGETS= \
 	resources/.compiled/activity/activity.js.gz \
 	resources/.compiled/flot-graph-icon/jquery.flot.icon.js.br \
 	resources/.compiled/flot-graph-icon/jquery.flot.icon.js.gz \
+	resources/.compiled/gears/calc.js.br \
+	resources/.compiled/gears/calc.js.gz \
 	resources/.compiled/gh-fork-ribbon/gh-fork-ribbon.css.br \
 	resources/.compiled/gh-fork-ribbon/gh-fork-ribbon.css.gz \
 	resources/.compiled/gh-fork-ribbon/gh-fork-ribbon.js.br \
@@ -100,6 +102,9 @@ resources/.compiled/flot-graph-icon/jquery.flot.icon.js.gz: node_modules resourc
 
 resources/.compiled/activity/activity.js.gz: node_modules resources/activity/activity.js
 	./node_modules/.bin/gulp activity
+
+resources/.compiled/gears/calc.js.gz: node_modules resources/gears/calc.js
+	./node_modules/.bin/gulp gear-calc
 
 resources/.compiled/stat.ink/no-image.png: resources/stat.ink/no-image.png
 	mkdir -p resources/.compiled/stat.ink || /bin/true

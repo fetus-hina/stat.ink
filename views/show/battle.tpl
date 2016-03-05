@@ -1545,7 +1545,7 @@
               <tr>
                 <th>{{'Ink Recovery'|translate:'app-gearstat'|escape}}</th>
                 <td>
-                  <span id="gearstat-ink-recovery" data-format="{{':sec second (:pct%)'|translate:'app-gearstat'|escape}}"></span>
+                  <span id="gearstat-ink-recovery" data-format="{{':sec seconds (:pct%)'|translate:'app-gearstat'|escape}}"></span>
                   {{registerJs}}
                     (function($){
                       var baseTime = window.getInkRecoveryTime(0, 0);
@@ -1693,7 +1693,7 @@
                         </td>
                         <td style="padding:0 10px">:</td>
                         <td>
-                          <span class="gearstat-special-duration-time" data-base="5" data-format="{{':sec second (:pct%)'|translate:'app-gearstat'|escape}}"></span>
+                          <span class="gearstat-special-duration-time" data-base="5" data-format="{{':sec seconds (:pct%)'|translate:'app-gearstat'|escape}}"></span>
                         </td>
                       </tr>
                       <tr>
@@ -1702,7 +1702,7 @@
                         </td>
                         <td style="padding:0 10px">:</td>
                         <td>
-                          <span class="gearstat-special-duration-time" data-base="6" data-format="{{':sec second (:pct%)'|translate:'app-gearstat'|escape}}"></span>
+                          <span class="gearstat-special-duration-time" data-base="6" data-format="{{':sec seconds (:pct%)'|translate:'app-gearstat'|escape}}"></span>
                         </td>
                       </tr>
                       <tr>
@@ -1711,7 +1711,7 @@
                         </td>
                         <td style="padding:0 10px">:</td>
                         <td>
-                          <span class="gearstat-special-duration-time" data-base="12" data-format="{{':sec second (:pct%)'|translate:'app-gearstat'|escape}}"></span>
+                          <span class="gearstat-special-duration-time" data-base="12" data-format="{{':sec seconds (:pct%)'|translate:'app-gearstat'|escape}}"></span>
                         </td>
                       </tr>
                       <tr>
@@ -1720,7 +1720,7 @@
                         </td>
                         <td style="padding:0 10px">:</td>
                         <td>
-                          <span class="gearstat-special-duration-count" data-base="6" data-frame="22" data-format="{{':sec second (:pct%), :count times'|translate:'app-gearstat'|escape}}"></span>
+                          <span class="gearstat-special-duration-count" data-base="6" data-frame="22" data-format="{{':sec seconds (:pct%), :count times'|translate:'app-gearstat'|escape}}"></span>
                         </td>
                       </tr>
                       <tr>
@@ -1729,7 +1729,7 @@
                         </td>
                         <td style="padding:0 10px">:</td>
                         <td>
-                          <span class="gearstat-special-duration-count" data-base="6" data-frame="33" data-format="{{':sec second (:pct%), :count times'|translate:'app-gearstat'|escape}}"></span>
+                          <span class="gearstat-special-duration-count" data-base="6" data-frame="33" data-format="{{':sec seconds (:pct%), :count times'|translate:'app-gearstat'|escape}}"></span>
                         </td>
                       </tr>
                       <tr>
@@ -1738,7 +1738,7 @@
                         </td>
                         <td style="padding:0 10px">:</td>
                         <td>
-                          <span class="gearstat-special-duration-count" data-base="6" data-frame="33" data-format="{{':sec second (:pct%), :count times'|translate:'app-gearstat'|escape}}"></span>
+                          <span class="gearstat-special-duration-count" data-base="6" data-frame="33" data-format="{{':sec seconds (:pct%), :count times'|translate:'app-gearstat'|escape}}"></span>
                         </td>
                       </tr>
                       <tr>
@@ -1747,7 +1747,7 @@
                         </td>
                         <td style="padding:0 10px">:</td>
                         <td>
-                          <span class="gearstat-special-duration-count" data-base="6" data-frame="38" data-format="{{':sec second (:pct%), :count times'|translate:'app-gearstat'|escape}}"></span>
+                          <span class="gearstat-special-duration-count" data-base="6" data-frame="38" data-format="{{':sec seconds (:pct%), :count times'|translate:'app-gearstat'|escape}}"></span>
                         </td>
                       </tr>
                       <tr>
@@ -1756,7 +1756,7 @@
                         </td>
                         <td style="padding:0 10px">:</td>
                         <td>
-                          <span class="gearstat-special-duration-count" data-base="6" data-frame="64" data-format="{{':sec second (:pct%), :count times'|translate:'app-gearstat'|escape}}"></span>
+                          <span class="gearstat-special-duration-count" data-base="6" data-frame="64" data-format="{{':sec seconds (:pct%), :count times'|translate:'app-gearstat'|escape}}"></span>
                         </td>
                       </tr>
                     </tbody>
@@ -1835,7 +1835,7 @@
               <tr>
                 <th>{{'Respawn'|translate:'app-gearstat'|escape}}</th>
                 <td>
-                  <span id="gearstat-respawn" data-format="{{':sec second (:pct%)'|translate:'app-gearstat'|escape}}"></span>
+                  <span id="gearstat-respawn" data-format="{{':sec seconds (:pct%)'|translate:'app-gearstat'|escape}}"></span>
                   {{registerJs}}
                     (function($){
                       var baseTime = window.getRespawnTime('wakaba', 0, 0);
@@ -1861,25 +1861,45 @@
               <tr>
                 <th>{{'Jump'|translate:'app-gearstat'|escape}}</th>
                 <td>
-                  <span id="gearstat-jump" data-format="{{':sec second (:pct%)'|translate:'app-gearstat'|escape}}"></span>
+                  <span id="gearstat-jump" data-format="{{':sec seconds'|translate:'app-gearstat'|escape}}"></span>
                   {{registerJs}}
                     (function($){
                       var baseTime = window.getJumpTime(0, 0);
-                      var time = (window.gearAbilities.quick_super_jump)
-                        ? window.getJumpTime(window.gearAbilities.quick_super_jump.count.main, window.gearAbilities.quick_super_jump.count.sub)
-                        : baseTime;
+                      var mainCount = window.gearAbilities.quick_super_jump ? window.gearAbilities.quick_super_jump.count.main : 0;
+                      var subCount = window.gearAbilities.quick_super_jump ? window.gearAbilities.quick_super_jump.count.sub : 0;
+                      var timePrepare = window.getJumpPrepareTime(mainCount, subCount);
+                      var timeAscent = window.getJumpPullUpTime(mainCount, subCount);
+                      var timeDescent = window.getJumpPullDownTime(mainCount, subCount);
+                      var timeStiffen = window.getJumpRigidTime(mainCount, subCount);
+                      var timeTotal = timePrepare + timeAscent + timeDescent + timeStiffen;
                       var $e = $('#gearstat-jump');
-                      $e.text(
-                        $e.attr('data-format').replace(/:\w+/g, function(match) {
+                      var format = function (sec) {
+                        return $e.attr('data-format').replace(/:\w+/g, function (match) {
                           switch (match) {
                             case ':sec':
-                              return time.toFixed(2);
-
-                            case ':pct':
-                              return (time * 100 / baseTime).toFixed(1);
+                              return sec.toFixed(2);
                           }
-                        })
-                      );
+                        });
+                      };
+                      $e.empty().append(
+                        $('<span>', {title: '{{"Prepare"|translate:"app-gearstat"|escape:javascript}}'})
+                          .addClass('auto-tooltip')
+                          .text(format(timePrepare))
+                      ).append(' + ').append(
+                        $('<span>', {title: '{{"Ascent"|translate:"app-gearstat"|escape:javascript}}'})
+                          .addClass('auto-tooltip')
+                          .text(format(timeAscent))
+                      ).append(' + ').append(
+                        $('<span>', {title: '{{"Descent"|translate:"app-gearstat"|escape:javascript}}'})
+                          .addClass('auto-tooltip')
+                          .text(format(timeDescent))
+                      ).append(' + ').append(
+                        $('<span>', {title: '{{"Stiffen"|translate:"app-gearstat"|escape:javascript}}'})
+                          .addClass('auto-tooltip')
+                          .text(format(timeStiffen))
+                      ).append(' = ').append(format(timeTotal)).append(' (' + (timeTotal * 100 / baseTime).toFixed(1) + '%)');
+
+                      $('.auto-tooltip', $e).tooltip({'container': 'body'});
                     })(jQuery);
                   {{/registerJs}}
                 </td>
@@ -1917,6 +1937,9 @@
               </tr>
             </tbody>
           </table>
+          <p class="text-right" style="font-size:10px;line-height:1.1">
+            Powered by <a href="http://wikiwiki.jp/splatoon2ch/?%A5%AE%A5%A2%A5%D1%A5%EF%A1%BC%B8%A1%BE%DA">ギアパワー検証 - スプラトゥーン(Splatoon) for 2ch Wiki*</a>
+          </p>
         {{/if}}
       </div>
       <div class="col-xs-12 col-sm-4 col-md-4 col-lg-3">
