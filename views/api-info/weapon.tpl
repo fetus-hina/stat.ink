@@ -34,42 +34,44 @@
           });
       })();
     {{/registerJs}}
-    <table class="table table-striped table-condensed table-responsive table-responsive-force table-sortable">
-      <thead>
-        <tr>
-          <th data-sort="int">
-            {{'Category'|translate:'app'|escape}}
-          </th>
-          <th data-sort="string">
-            <code>key</code>
-          </th>
-          {{foreach $langs as $lang}}
-            <th data-sort="string">
-              {{$lang.name|escape}}
+    <div class="table-responsive table-responsive-force">
+      <table class="table table-striped table-condensed table-sortable">
+        <thead>
+          <tr>
+            <th data-sort="int">
+              {{'Category'|translate:'app'|escape}}
             </th>
-          {{/foreach}}
-        </tr>
-      </thead>
-      <tbody>
-        {{foreach $types as $type}}
-          {{foreach $type.weapons as $weapon}}
-            <tr>  
-              <td data-sort-value="{{$type@index|escape}}">
-                {{$type.name|escape}}
-              </td>
-              <td data-sort-value="{{$weapon.key|escape}}">
-                <code>{{$weapon.key|escape}}</code>
-              </td>
-              {{foreach $langs as $lang}}
-                <td>
-                  {{$langKey = $lang.lang|replace:'-':'_'}}
-                  {{$weapon.names[$langKey]|escape}}
+            <th data-sort="string">
+              <code>key</code>
+            </th>
+            {{foreach $langs as $lang}}
+              <th data-sort="string">
+                {{$lang.name|escape}}
+              </th>
+            {{/foreach}}
+          </tr>
+        </thead>
+        <tbody>
+          {{foreach $types as $type}}
+            {{foreach $type.weapons as $weapon}}
+              <tr>  
+                <td data-sort-value="{{$type@index|escape}}">
+                  {{$type.name|escape}}
                 </td>
-              {{/foreach}}
-            </tr>
+                <td data-sort-value="{{$weapon.key|escape}}">
+                  <code>{{$weapon.key|escape}}</code>
+                </td>
+                {{foreach $langs as $lang}}
+                  <td>
+                    {{$langKey = $lang.lang|replace:'-':'_'}}
+                    {{$weapon.names[$langKey]|escape}}
+                  </td>
+                {{/foreach}}
+              </tr>
+            {{/foreach}}
           {{/foreach}}
-        {{/foreach}}
-      </tbody>
-    </table>
+        </tbody>
+      </table>
+    </div>
   </div>
 {{/strip}}
