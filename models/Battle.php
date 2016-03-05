@@ -69,6 +69,7 @@ use app\components\helpers\DateTimeFormatter;
  * @property integer $my_team_power
  * @property integer $his_team_power
  * @property integer $fest_power
+ * @property integer $version_id
  *
  * @property Agent $agent
  * @property Environment $env
@@ -89,6 +90,7 @@ use app\components\helpers\DateTimeFormatter;
  * @property DeathReason[] $reasons
  * @property BattleImage[] $battleImages
  * @property BattlePlayer[] $battlePlayers
+ * @property SplatoonVersion $splatoonVersion
  */
 class Battle extends ActiveRecord
 {
@@ -145,6 +147,7 @@ class Battle extends ActiveRecord
             [['link_url'], 'url'],
             [['note', 'private_note'], 'string'],
             [['my_team_power', 'his_team_power', 'fest_power'], 'integer'],
+            [['version_id'], 'integer'],
         ];
     }
 
@@ -206,6 +209,7 @@ class Battle extends ActiveRecord
             'private_note' => 'Note (Private)',
             'my_team_power' => 'My Team Power',
             'his_team_power' => 'His Team Power',
+            'version_id' => 'Splatoon Version ID',
         ];
     }
 
@@ -401,6 +405,11 @@ class Battle extends ActiveRecord
     {
         $model = $this->battleEvents;
         return $model ? $model->events : null;
+    }
+
+    public function getSplatoonVersion()
+    {
+        return $this->hasOne(SplatoonVersion::class, ['id' => 'version_id']);
     }
 
     public function getIsNawabari()
@@ -691,6 +700,7 @@ class Battle extends ActiveRecord
             'environment' => $this->env ? $this->env->text : null,
             'link_url' => ((string)$this->link_url !== '') ? $this->link_url : null,
             'note' => ((string)$this->note !== '') ? $this->note : null,
+            'game_version' => $this->splatoonVersion ? $this->splatoonVersion->name : null,
             'start_at' => $this->start_at != ''
                 ? DateTimeFormatter::unixTimeToJsonArray(strtotime($this->start_at))
                 : null,
