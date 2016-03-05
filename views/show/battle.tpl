@@ -567,6 +567,16 @@
                 </tr>
               {{/if}}
             {{/if}}
+            <tr>
+              <th>{{'Game Version'|translate:'app'|escape}}</th>
+              <td>
+                {{if $battle->splatoonVersion}}
+                  {{$battle->splatoonVersion->name|escape}}
+                {{else}}
+                  {{'Unknown'|translate:'app'|escape}}
+                {{/if}}
+              </td>
+            </tr>
           </tbody>
         </table>
         <p>
