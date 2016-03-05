@@ -48,86 +48,88 @@
         {{/if}}
       </div>
     {{/if}}
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th></th>
-          <th>{{'Lobby'|translate:'app'|escape}}</th>
-          <th>{{'Mode'|translate:'app'|escape}}</th>
-          <th>{{'Stage'|translate:'app'|escape}}</th>
-          <th>{{'Weapon'|translate:'app'|escape}}</th>
-          <th>{{'Battles'|translate:'app'|escape}}</th>
-          <th>{{'Win %'|translate:'app'|escape}}</th>
-          <th>{{'k/d'|translate:'app'|escape}}</th>
-          <th>{{'KR'|translate:'app'|escape}}</th>
-        </tr>
-      <tbody>
-        {{$_last_date = null}}
-        {{foreach $list as $row}}
-          {{if $_last_date !== $row['date']}}
-            {{$_last_date = $row['date']}}
-            <tr class="row-date">
-              <th id="date-{{$row.date|escape}}" colspan="9">
-                {{$row.date|as_date:'full'|escape}}
-              </th>
+    <div class="table-responsive">
+      <table class="table table-striped table-condensed">
+        <thead>
+          <tr>
+            <th></th>
+            <th>{{'Lobby'|translate:'app'|escape}}</th>
+            <th>{{'Mode'|translate:'app'|escape}}</th>
+            <th>{{'Stage'|translate:'app'|escape}}</th>
+            <th>{{'Weapon'|translate:'app'|escape}}</th>
+            <th>{{'Battles'|translate:'app'|escape}}</th>
+            <th>{{'Win %'|translate:'app'|escape}}</th>
+            <th>{{'k/d'|translate:'app'|escape}}</th>
+            <th>{{'KR'|translate:'app'|escape}}</th>
+          </tr>
+        <tbody>
+          {{$_last_date = null}}
+          {{foreach $list as $row}}
+            {{if $_last_date !== $row['date']}}
+              {{$_last_date = $row['date']}}
+              <tr class="row-date">
+                <th id="date-{{$row.date|escape}}" colspan="9">
+                  {{$row.date|as_date:'full'|escape}}
+                </th>
+              </tr>
+              {{registerCss}}
+                .row-date {
+                  background-color: #444!important;
+                  color: #ddd!important;
+                }
+              {{/registerCss}}
+            {{/if}}
+            <tr>
+              <td>
+                {{$_filter = [
+                  'lobby' => $row.lobby_key,
+                  'rule' => $row.rule_key,
+                  'map' => $row.map_key,
+                  'weapon' => $row.weapon_key,
+                  'term' => 'term',
+                  'term_from' => $row.date|cat:' 00:00:00',
+                  'term_to' => $row.date|cat:' 23:59:59'
+                ]}}
+                <a href="{{url route="show/user" screen_name=$user->screen_name filter=$_filter}}">
+                  <span class="fa fa-search"></span>
+                </a>
+              </td>
+              <td>{{$row.lobby_name|escape}}</td>
+              <td>{{$row.rule_name|escape}}</td>
+              <td>{{$row.map_name|escape}}</td>
+              <td>{{$row.weapon_name|escape}}</td>
+              <td class="text-right">{{$row.battles|number_format|escape}}</td>
+              <td class="text-right">
+                {{if $row.battles > 0}}{{* 絶対真になるはず *}}
+                  {{($row.wins*100/$row.battles)|string_format:'%.1f%%'|escape}}
+                {{/if}}
+              </td>
+              <td class="text-center">
+                {{if $row.battles > 0}}{{* 絶対真になるはず *}}
+                  {{($row.kill/$row.battles)|string_format:'%.1f'|escape}}
+                  &#32;/&#32;
+                  {{($row.death/$row.battles)|string_format:'%.1f'|escape}}
+                {{/if}}
+              </td>
+              <td class="text-center">
+                {{if $row.death > 0}}
+                  {{($row.kill/$row.death)|string_format:'%.2f'|escape}}
+                {{elseif $row.kill > 0}}
+                  99.99
+                {{else}}
+                  -
+                {{/if}}
+              </td>
             </tr>
-            {{registerCss}}
-              .row-date {
-                background-color: #444!important;
-                color: #ddd!important;
-              }
-            {{/registerCss}}
-          {{/if}}
-          <tr>
-            <td>
-              {{$_filter = [
-                'lobby' => $row.lobby_key,
-                'rule' => $row.rule_key,
-                'map' => $row.map_key,
-                'weapon' => $row.weapon_key,
-                'term' => 'term',
-                'term_from' => $row.date|cat:' 00:00:00',
-                'term_to' => $row.date|cat:' 23:59:59'
-              ]}}
-              <a href="{{url route="show/user" screen_name=$user->screen_name filter=$_filter}}">
-                <span class="fa fa-search"></span>
-              </a>
-            </td>
-            <td>{{$row.lobby_name|escape}}</td>
-            <td>{{$row.rule_name|escape}}</td>
-            <td>{{$row.map_name|escape}}</td>
-            <td>{{$row.weapon_name|escape}}</td>
-            <td class="text-right">{{$row.battles|number_format|escape}}</td>
-            <td class="text-right">
-              {{if $row.battles > 0}}{{* 絶対真になるはず *}}
-                {{($row.wins*100/$row.battles)|string_format:'%.1f%%'|escape}}
-              {{/if}}
-            </td>
-            <td class="text-center">
-              {{if $row.battles > 0}}{{* 絶対真になるはず *}}
-                {{($row.kill/$row.battles)|string_format:'%.1f'|escape}}
-                &#32;/&#32;
-                {{($row.death/$row.battles)|string_format:'%.1f'|escape}}
-              {{/if}}
-            </td>
-            <td class="text-center">
-              {{if $row.death > 0}}
-                {{($row.kill/$row.death)|string_format:'%.2f'|escape}}
-              {{elseif $row.kill > 0}}
-                99.99
-              {{else}}
-                -
-              {{/if}}
-            </td>
-          </tr>
-        {{foreachelse}}
-          <tr>
-            <td colspan="9">
-              {{'There are no data.'|translate:'app'|escape}}
-            </td>
-          </tr>
-        {{/foreach}}
-      </tbody>
-    </table>
+          {{foreachelse}}
+            <tr>
+              <td colspan="9">
+                {{'There are no data.'|translate:'app'|escape}}
+              </td>
+            </tr>
+          {{/foreach}}
+        </tbody>
+      </table>
+    </div>
   </div>
 {{/strip}}
