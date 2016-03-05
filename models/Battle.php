@@ -69,6 +69,7 @@ use app\components\helpers\DateTimeFormatter;
  * @property integer $my_team_power
  * @property integer $his_team_power
  * @property integer $fest_power
+ * @property integer $version_id
  *
  * @property Agent $agent
  * @property Environment $env
@@ -89,6 +90,7 @@ use app\components\helpers\DateTimeFormatter;
  * @property DeathReason[] $reasons
  * @property BattleImage[] $battleImages
  * @property BattlePlayer[] $battlePlayers
+ * @property SplatoonVersion $splatoonVersion
  */
 class Battle extends ActiveRecord
 {
@@ -114,6 +116,8 @@ class Battle extends ActiveRecord
         $this->on(ActiveRecord::EVENT_BEFORE_UPDATE, [$this, 'setKillRatio']);
 
         $this->on(ActiveRecord::EVENT_BEFORE_VALIDATE, [$this, 'setPeriod']);
+
+        $this->on(ActiveRecord::EVENT_BEFORE_INSERT, [$this, 'setSplatoonVersion']);
 
         $this->on(ActiveRecord::EVENT_BEFORE_INSERT, [$this, 'updateUserWeapon']);
         $this->on(ActiveRecord::EVENT_BEFORE_UPDATE, [$this, 'updateUserWeapon']);
@@ -145,6 +149,7 @@ class Battle extends ActiveRecord
             [['link_url'], 'url'],
             [['note', 'private_note'], 'string'],
             [['my_team_power', 'his_team_power', 'fest_power'], 'integer'],
+            [['version_id'], 'integer'],
         ];
     }
 
@@ -206,6 +211,7 @@ class Battle extends ActiveRecord
             'private_note' => 'Note (Private)',
             'my_team_power' => 'My Team Power',
             'his_team_power' => 'His Team Power',
+            'version_id' => 'Splatoon Version ID',
         ];
     }
 
@@ -403,6 +409,11 @@ class Battle extends ActiveRecord
         return $model ? $model->events : null;
     }
 
+    public function getSplatoonVersion()
+    {
+        return $this->hasOne(SplatoonVersion::class, ['id' => 'version_id']);
+    }
+
     public function getIsNawabari()
     {
         return $this->getIsThisGameMode('regular');
@@ -497,6 +508,27 @@ class Battle extends ActiveRecord
             return;
         }
         $this->kill_ratio = sprintf('%.2f', $this->kill / $this->death);
+    }
+
+    public function setSplatoonVersion()
+    {
+        if ($this->version_id) {
+            return;
+        }
+        $time = (function () {
+            if (is_string($this->end_at) && trim($this->end_at) !== '') {
+                return strtotime($this->end_at);
+            }
+            if (is_string($this->at) && trim($this->at) !== '') {
+                return strtotime($this->at);
+            }
+            return false;
+        })();
+        if (!is_int($time)) {
+            $time = (int)($_SERVER['REQUEST_TIME'] ?? time());
+        }
+        $version = SplatoonVersion::findCurrentVersion($time);
+        $this->version_id = $version ? $version->id : null;
     }
 
     public function updateUserStat()
@@ -691,6 +723,7 @@ class Battle extends ActiveRecord
             'environment' => $this->env ? $this->env->text : null,
             'link_url' => ((string)$this->link_url !== '') ? $this->link_url : null,
             'note' => ((string)$this->note !== '') ? $this->note : null,
+            'game_version' => $this->splatoonVersion ? $this->splatoonVersion->name : null,
             'start_at' => $this->start_at != ''
                 ? DateTimeFormatter::unixTimeToJsonArray(strtotime($this->start_at))
                 : null,

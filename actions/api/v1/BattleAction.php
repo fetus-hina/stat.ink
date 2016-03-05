@@ -82,6 +82,7 @@ class BattleAction extends BaseAction
                 'battleImageResult',
                 'battleImageJudge',
                 'battleEvents',
+                'splatoonVersion',
             ])
             ->orderBy('{{battle}}.[[id]] DESC')
             ->limit((int)$model->count);
