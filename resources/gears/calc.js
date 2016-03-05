@@ -52,14 +52,31 @@
         return Math.ceil(f / frame);
     };
 
-    window.getJumpTime = function (mainCount, subCount) {
+    window.getJumpPrepareTime = function (mainCount, subCount) {
         var x = mainCount * 10 + subCount * 3;
         var y = ((0.99 * x) - Math.pow(0.09 * x, 2)) / 60;
+        return 60 * (1 - y) / 60;
+    };
 
-        var a = 60 * (1 - y);
-        var b = 120 * (1 - y);
-        var f = a + b + 40 + 10;
-        return f / 60;
+    window.getJumpPullUpTime = function (mainCount, subCount) {
+        var x = mainCount * 10 + subCount * 3;
+        var y = ((0.99 * x) - Math.pow(0.09 * x, 2)) / 60;
+        return 120 * (1 - y) / 60;
+    };
+
+    window.getJumpPullDownTime = function (mainCount, subCount) {
+        return 40 / 60;
+    };
+
+    window.getJumpRigidTime = function (mainCount, subCount) {
+        return 10 / 60;
+    };
+
+    window.getJumpTime = function (mainCount, subCount) {
+        return window.getJumpPrepareTime(mainCount, subCount) +
+            window.getJumpPullUpTime(mainCount, subCount) +
+            window.getJumpPullDownTime(mainCount, subCount) +
+            window.getJumpRigidTime(mainCount, subCount);
     };
 
     window.getRunSpeed = function (mainCount, subCount) {
