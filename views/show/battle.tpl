@@ -770,13 +770,6 @@
             </div>
             <div class="graph" id="timeline">
             </div>
-            {{if !$battle->rule || $battle->rule->key !== 'nawabari'}}
-              <div class="text-right">
-                <label>
-                  <input type="checkbox" id="draw-gachi" value="1"> {{'Draw Ranked Battle Events (EXPERIMENTAL)'|translate:'app'|escape}}
-                </label>
-              </div>
-            {{/if}}
             {{\jp3cki\yii2\flot\FlotAsset::register($this)|@void}}
             {{\app\assets\FlotIconAsset::register($this)|@void}}
             {{\app\assets\GraphIconAsset::register($this)|@void}}
@@ -857,7 +850,6 @@
 
                 function drawTimelineGraph() {
                   var $graph_ = $graphs.filter('#timeline');
-                  var drawRankedBattleEvents = $('#draw-gachi').prop('checked');
                   var inkedData = isNawabari
                     ? window.battleEvents.filter(function(v){
                         return (v.type === "score" && v.score) || (v.type === "point" && v.point);
@@ -1039,18 +1031,6 @@
                     }
                     if (v.type === "killed" || v.type === "dead" || v.type === "special_charged") {
                       return true;
-                    }
-                    if (v.type === "ranked_battle_event" && window.graphIcon.weGot && drawRankedBattleEvents) {
-                      switch (v.value) {
-                        case "we_got":
-                        case "we_lost":
-                        case "they_got":
-                        case "they_lost":
-                          return true;
-
-                        default:
-                          return false;
-                      }
                     }
                     if (v.type === "special_weapon") {
                       switch (v.special_weapon) {
@@ -1443,10 +1423,6 @@
                   });
                 }
 
-                $('#draw-gachi').click(function(){
-                  $(window).resize();
-                });
-              
                 var timerId = null;
                 $(window).resize(function() {
                   if (timerId !== null) {
