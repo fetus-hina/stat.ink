@@ -540,16 +540,16 @@
         },
         {
             "name": "bower-asset/moment",
-            "version": "2.11.2",
+            "version": "2.12.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/moment/moment.git",
-                "reference": "dd9cff0104c0dc3f114f54107397c59920e764cc"
+                "reference": "b135bf1a6d58ff94287f0a21455bfa6a1ddc7226"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/moment/moment/zipball/dd9cff0104c0dc3f114f54107397c59920e764cc",
-                "reference": "dd9cff0104c0dc3f114f54107397c59920e764cc",
+                "url": "https://api.github.com/repos/moment/moment/zipball/b135bf1a6d58ff94287f0a21455bfa6a1ddc7226",
+                "reference": "b135bf1a6d58ff94287f0a21455bfa6a1ddc7226",
                 "shasum": ""
             },
             "type": "bower-asset-library",
