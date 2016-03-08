@@ -191,6 +191,11 @@ class BattleAction extends BaseAction
             );
         }
 
+        // 重複登録チェックして重複していれば前のレコードを返す
+        if ($battle = $form->getSameBattle()) {
+            return $this->runGetImpl($battle);
+        }
+
         $transaction = Yii::$app->db->beginTransaction();
         try {
             $battle = $this->saveData($form);

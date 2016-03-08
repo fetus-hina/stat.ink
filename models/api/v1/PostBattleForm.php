@@ -32,6 +32,8 @@ use app\models\Weapon;
 
 class PostBattleForm extends Model
 {
+    const SAME_BATTLE_THRESHOLD_TIME = 86400;
+
     // API
     public $apikey;
     public $test;
@@ -85,6 +87,7 @@ class PostBattleForm extends Model
     public $agent;
     public $agent_version;
     public $agent_custom;
+    public $uuid;
 
     public function rules()
     {
@@ -160,6 +163,7 @@ class PostBattleForm extends Model
                 }],
             [['agent_custom'], 'string'],
             [['agent', 'agent_version', 'agent_custom'], 'validateStrictUTF8'],
+            [['uuid'], 'string', 'max' => 64],
             [['automated'], 'boolean', 'trueValue' => 'yes', 'falseValue' => 'no'],
             [['automated'], 'estimateAutomatedAgent', 'skipOnEmpty' => false],
             [['my_point'], 'integer', 'min' => 0],
@@ -190,6 +194,27 @@ class PostBattleForm extends Model
     {
         return [
         ];
+    }
+
+    public function getSameBattle()
+    {
+        if (trim($this->uuid) === '') {
+            return null;
+        }
+        if (!$user = $this->getUser()) {
+            return null;
+        }
+        $t = (int)($_SERVER['REQUEST_TIME'] ?? time());
+        return Battle::find()
+            ->where(['and',
+                [
+                    'user_id' => $user->id,
+                    'client_uuid' => $this->uuid,
+                ],
+                ['>=', 'at', gmdate('Y-m-d H:i:sP', $t - static::SAME_BATTLE_THRESHOLD_TIME)],
+            ])
+            ->limit(1)
+            ->one();
     }
 
     public function validateDeathReasons($attribute, $params)
@@ -423,6 +448,7 @@ class PostBattleForm extends Model
             : new Now();
         $o->agent_id        = null;
         $o->ua_custom       = (string)$this->agent_custom == '' ? null : (string)$this->agent_custom;
+        $o->client_uuid     = (string)$this->uuid == '' ? null : (string)$this->uuid;
         $o->at              = new Now();
         $o->is_automated    = ($this->automated === 'yes');
         $o->link_url        = (string)$this->link_url == '' ? null : (string)$this->link_url;

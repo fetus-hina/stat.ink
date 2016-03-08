@@ -70,6 +70,7 @@ use app\components\helpers\DateTimeFormatter;
  * @property integer $his_team_power
  * @property integer $fest_power
  * @property integer $version_id
+ * @property string $client_uuid
  *
  * @property Agent $agent
  * @property Environment $env
@@ -150,6 +151,7 @@ class Battle extends ActiveRecord
             [['note', 'private_note'], 'string'],
             [['my_team_power', 'his_team_power', 'fest_power'], 'integer'],
             [['version_id'], 'integer'],
+            [['client_uuid'], 'string', 'max' => 64],
         ];
     }
 
@@ -212,6 +214,7 @@ class Battle extends ActiveRecord
             'my_team_power' => 'My Team Power',
             'his_team_power' => 'His Team Power',
             'version_id' => 'Splatoon Version ID',
+            'client_uuid' => 'Client-side UUID',
         ];
     }
 
