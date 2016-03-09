@@ -1378,16 +1378,16 @@
         },
         {
             "name": "php-curl-class/php-curl-class",
-            "version": "4.10.0",
+            "version": "4.11.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-curl-class/php-curl-class.git",
-                "reference": "dce9acb7a27f98b5040cfa9b3aa36da4a7ff3004"
+                "reference": "f85d7aebe750c1ac21b40c7d433d5a615ffdc5f1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-curl-class/php-curl-class/zipball/dce9acb7a27f98b5040cfa9b3aa36da4a7ff3004",
-                "reference": "dce9acb7a27f98b5040cfa9b3aa36da4a7ff3004",
+                "url": "https://api.github.com/repos/php-curl-class/php-curl-class/zipball/f85d7aebe750c1ac21b40c7d433d5a615ffdc5f1",
+                "reference": "f85d7aebe750c1ac21b40c7d433d5a615ffdc5f1",
                 "shasum": ""
             },
             "require": {
@@ -1430,7 +1430,7 @@
                 "web service",
                 "xml"
             ],
-            "time": "2016-01-31 12:32:31"
+            "time": "2016-03-09 00:50:07"
         },
         {
             "name": "ramsey/uuid",
