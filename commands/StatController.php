@@ -145,7 +145,13 @@ class StatController extends Controller
             // タッグバトルなら味方全部除外（連戦で無意味な重複の可能性が高い）
             ['and',
                 ['<>', '{{battle}}.[[rule_id]]', $ruleNawabari],
-                ['not like', '{{lobby}}.[[key]]', 'squad_%', false],
+                ['or',
+                    ['not like', '{{lobby}}.[[key]]', 'squad_%', false],
+                    ['and',
+                        ['like', '{{lobby}}.[[key]]', 'squad_%', false],
+                        ['{{battle_player}}.[[is_my_team]]' => false],
+                    ],
+                ],
             ]
         ]);
 
@@ -410,36 +416,84 @@ class StatController extends Controller
 
         $select = (new \yii\db\Query())
             ->select([
-                'rule_id'       => '{{battle}}.[[rule_id]]',
-                'map_id'        => '{{battle}}.[[map_id]]',
-                'weapon_id'     => '{{battle}}.[[weapon_id]]',
-                'kill'          => '{{battle}}.[[kill]]',
-                'death'         => '{{battle}}.[[death]]',
+                'rule_id'       => '{{b}}.[[rule_id]]',
+                'map_id'        => '{{b}}.[[map_id]]',
+                'weapon_id'     => '{{p}}.[[weapon_id]]',
+                'kill'          => '{{p}}.[[kill]]',
+                'death'         => '{{p}}.[[death]]',
                 'battle_count'  => 'COUNT(*)',
-                'win_count'     => 'SUM(CASE WHEN {{battle}}.[[is_win]] = TRUE THEN 1 ELSE 0 END)',
+                'win_count'     => 'SUM(CASE WHEN {{b}}.[[is_win]] = {{p}}.[[is_my_team]] THEN 1 ELSE 0 END)',
             ])
-            ->from('battle')
-            ->leftJoin('lobby', '{{battle}}.[[lobby_id]] = {{lobby}}.[[id]]')
-            ->andWhere(['and',
-                ['not', ['{{battle}}.[[rule_id]]' => null]],
-                ['not', ['{{battle}}.[[map_id]]' => null]],
-                ['not', ['{{battle}}.[[weapon_id]]' => null]],
-                ['not', ['{{battle}}.[[is_win]]' => null]],
-                ['not', ['{{battle}}.[[kill]]' => null]],
-                ['not', ['{{battle}}.[[death]]' => null]],
-                ['{{battle}}.[[is_automated]]' => true],
-                ['or',
-                    ['{{battle}}.[[lobby_id]]' => null],
-                    ['<>', '{{lobby}}.[[key]]', 'private'],
-                ],
+            ->from('battle b')
+            ->innerJoin('battle_player p', '{{b}}.[[id]] = {{p}}.[[battle_id]]')
+            ->innerJoin('lobby', '{{b}}.[[lobby_id]] = {{lobby}}.[[id]]')
+            ->innerJoin('rule', '{{b}}.[[rule_id]] = {{rule}}.[[id]]')
+            ->where(['and',
+                ['not', ['{{b}}.[[map_id]]' => null]],
+                ['not', ['{{b}}.[[weapon_id]]' => null]],
+                ['not', ['{{b}}.[[is_win]]' => null]],
+                ['not', ['{{b}}.[[kill]]' => null]],
+                ['not', ['{{b}}.[[death]]' => null]],
+                ['not', ['{{p}}.[[weapon_id]]' => null]],
+                ['not', ['{{p}}.[[kill]]' => null]],
+                ['not', ['{{p}}.[[death]]' => null]],
+                ['=', '{{b}}.[[is_automated]]', true],
+                ['=', '{{p}}.[[is_me]]', false], // 自分を除外
+                ['<>', '{{lobby}}.[[key]]', 'private'], // プライベートマッチを除外
             ])
             ->groupBy([
-                '{{battle}}.[[rule_id]]',
-                '{{battle}}.[[map_id]]',
-                '{{battle}}.[[weapon_id]]',
-                '{{battle}}.[[kill]]',
-                '{{battle}}.[[death]]',
+                '{{b}}.[[rule_id]]',
+                '{{b}}.[[map_id]]',
+                '{{p}}.[[weapon_id]]',
+                '{{p}}.[[kill]]',
+                '{{p}}.[[death]]',
             ]);
+        $select->andWhere(['or',
+            // フェスマッチなら味方全部除外（連戦で無意味な重複の可能性が高い）
+            // ナワバリは回線落ち判定ができるので回線落ちしたものは除外する
+            // 厳密には全く塗らなかった人も除外されるが明らかに外れ値なので気にしない
+            ['and',
+                ['=', '{{rule}}.[[key]]', 'nawabari'],
+                ['not', ['{{p}}.[[point]]' => null]],
+                ['or',
+                    [
+                        '{{lobby}}.[[key]]' => 'standard',
+                    ],
+                    [
+                        '{{lobby}}.[[key]]' => 'fest',
+                        '{{p}}.[[is_my_team]]' => false,
+                    ],
+                ],
+                ['or',
+                    [
+                        // 勝ったチームは 300p より大きい
+                        'and',
+                        // 自分win && 自チーム
+                        // 自分lose && 相手チーム
+                        // このどちらかなら勝ってるので、結果的に is_win と is_my_team を比較すればいい
+                        ['=', '{{b}}.[[is_win]]', new \yii\db\Expression('p.is_my_team')],
+                        ['>', '{{p}}.[[point]]', 300],
+                    ],
+                    [
+                        // 負けたチームは 0p より大きい
+                        'and',
+                        ['<>', '{{b}}.[[is_win]]', new \yii\db\Expression('p.is_my_team')],
+                        ['>', '{{p}}.[[point]]', 0],
+                    ]
+                ],
+            ],
+            // タッグバトルなら味方全部除外（連戦で無意味な重複の可能性が高い）
+            ['and',
+                ['<>', '{{rule}}.[[key]]', 'nawabari'],
+                ['or',
+                    ['not like', '{{lobby}}.[[key]]', 'squad_%', false],
+                    ['and',
+                        ['like', '{{lobby}}.[[key]]', 'squad_%', false],
+                        ['{{p}}.[[is_my_team]]' => false],
+                    ],
+                ],
+            ]
+        ]);
 
         $sql = sprintf(
             'INSERT INTO {{%s}} ( %s ) %s',
