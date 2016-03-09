@@ -35,7 +35,7 @@ init: \
 	config/amazon-s3.php \
 	config/backup-s3.php \
 	config/cookie-secret.php \
-	config/backup-secret.php \
+	config/backup-gpg.php \
 	config/db.php \
 	resource
 
@@ -122,10 +122,6 @@ config/cookie-secret.php: vendor
 	test -f config/cookie-secret.php || ./yii secret/cookie
 	touch config/cookie-secret.php
 
-config/backup-secret.php: vendor
-	test -f config/backup-secret.php || ./yii secret/backup
-	touch config/backup-secret.php
-
 config/db.php: vendor
 	test -f config/db.php || ./yii secret/db
 	touch config/db.php
@@ -168,6 +164,12 @@ config/backup-s3.php:
 	echo "    'secret'    => '',"          >> config/backup-s3.php
 	echo "    'bucket'    => '',"          >> config/backup-s3.php
 	echo '];'                 	           >> config/backup-s3.php
+
+config/backup-gpg.php:
+	echo '<?php'                            >  $@
+	echo 'return ['                         >> $@
+	echo "    'userId' => '0xBC77B5B8',"    >> $@
+	echo '];'                               >> $@
 
 config/debug-ips.php:
 	echo '<?php'                >  config/debug-ips.php
