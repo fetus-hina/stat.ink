@@ -8,7 +8,6 @@
 namespace app\commands;
 
 use S3;
-use Zend\Crypt\FileCipher;
 use Yii;
 use yii\console\Controller;
 use yii\helpers\Console;
@@ -21,20 +20,17 @@ class BackupController extends Controller
     public function actionSave()
     {
         $outPath = sprintf(
-            '%s/statink-%s.dump.xz.aes',
+            '%s/statink-%s.dump.xz.gpg',
             Yii::getAlias('@app/runtime/backup'),
             date('YmdHis', time())
         );
         if (!file_exists(dirname($outPath))) {
             mkdir(dirname($outPath), 0755, true);
         }
-        $tmpPath = new Resource(
-            tempnam('backup-', sys_get_temp_dir()),
-            'unlink'
-        );
 
         $this->stdout("Dumping database... ", Console::FG_YELLOW);
-        $execinfo = $this->createDumpCommandLine($tmpPath->get());
+        $execinfo = $this->createDumpCommandLine($outPath);
+        $this->stdout("\n" . $execinfo['cmdline'] . "\n");
         $descriptorspec = [
             ['pipe', 'r'],
             ['pipe', 'w'],
@@ -61,18 +57,6 @@ class BackupController extends Controller
         }
         $this->stdout("SUCCESS\n", Console::FG_GREEN);
 
-        $this->stdout("Encrypting dump file... ", Console::FG_YELLOW);
-        $crypt = new FileCipher();
-        $crypt->setKey(
-            include(
-                Yii::getAlias('@app/config/backup-secret.php')
-            )
-        );
-        if (!$crypt->encrypt($tmpPath->get(), $outPath)) {
-            $this->stdout("ERROR\n", Console::FG_RED);
-            return 1;
-        }
-        $this->stdout("SUCCESS\n", Console::FG_GREEN);
         return 0;
     }
 
@@ -90,7 +74,7 @@ class BackupController extends Controller
             if ($entry->isDot() || !$entry->isFile()) {
                 continue;
             }
-            if (!preg_match('/^statink-\d+\.dump\.xz\.aes$/', $entry->getBasename())) {
+            if (!preg_match('/^statink-\d+\.dump\.xz\.(?:aes|gpg)$/', $entry->getBasename())) {
                 continue;
             }
             $files[] = $entry->getPathname();
@@ -106,7 +90,7 @@ class BackupController extends Controller
         S3::setSSL(true, true);
         S3::setExceptions(true);
         foreach ($files as $i => $path) {
-            if (preg_match('/^statink-(\d{4}\d{2})(\d{2})\d+\.dump\.xz\.aes$/', basename($path), $match)) {
+            if (preg_match('/^statink-(\d{4}\d{2})(\d{2})\d+\.dump\.xz\.(?:aes|gpg)$/', basename($path), $match)) {
                 $objName = sprintf('%1$s/%1$s%2$s/%3$s', $match[1], $match[2], basename($path));
             } else {
                 $objName = basename($path);
@@ -136,14 +120,20 @@ class BackupController extends Controller
     private function createDumpCommandLine($outPath)
     {
         $config = include(__DIR__ . '/../config/db.php');
+        $gpg = include(__DIR__ . '/../config/backup-gpg.php');
         $dsn = $this->parseDsn($config['dsn']);
         $cmdline = sprintf(
-            '/usr/bin/env %s -F c -Z 0 %s %s -U %s %s | xz -6 > %s',
+            '/usr/bin/env %s -F c -Z 0 %s %s -U %s %s | %s -6 | %s -e -r %s --compress-algo %s --cipher-algo %s -o %s',
             escapeshellarg('pg_dump'),
             @$dsn['host'] ? '-h ' . escapeshellarg($dsn['host']) : '',
             @$dsn['port'] ? '-p ' . escapeshellarg($dsn['port']) : '',
             escapeshellarg($config['username']),
             escapeshellarg($dsn['dbname']),
+            escapeshellarg('xz'),
+            escapeshellarg('gpg2'),
+            escapeshellarg($gpg['userId']), // recipient (gpg)
+            escapeshellarg('none'),         // compress algo (gpg)
+            escapeshellarg('AES256'),       // cipher algo (gpg)
             escapeshellarg($outPath)
         );
         $env = [
