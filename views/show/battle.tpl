@@ -589,6 +589,7 @@
             </a>
           </p>
         {{/if}}
+        {{$hasExtendedData = false}}
         {{if $battle->myTeamPlayers && $battle->hisTeamPlayers}}
           {{if $battle->my_team_color_rgb && $battle->his_team_color_rgb}}
             {{registerCss}}
@@ -618,6 +619,7 @@
           {{if !$battle->rule || ($battle->rule->key === 'nawabari' && (!$battle->lobby || $battle->lobby->key !== 'fest'))}}
             {{$hidePoint = false}}
           {{/if}}
+          {{$hasExtendedData = true}}
           <table class="table table-bordered" id="players">
             <thead>
               <tr>
@@ -762,6 +764,7 @@
         {{if $battle->events}}
           {{$events = $battle->events|@json_decode:false}}
           {{if $events}}
+            {{$hasExtendedData = true}}
             <script>
               window.battleEvents = {{$events|json_encode}};
               window.deathReasons = {{$battle->getDeathReasonNamesFromEvents()|json_encode}};
@@ -1437,14 +1440,8 @@
             {{/registerJs}}
           {{/if}}
         {{/if}}
-        {{if !$app->user->isGuest && $app->user->identity->id == $user->id}}
-          <p class="text-right">
-            <a href="{{url route="show/edit-battle" screen_name=$user->screen_name battle=$battle->id}}" class="btn btn-default">
-              {{'Edit'|translate:'app'|escape}}
-            </a>
-          </p>
-        {{/if}}
         {{if $battle->headgear && $battle->clothing && $battle->shoes}}
+          {{$hasExtendedData = true}}
           <h2 id="effect">
             {{'Ability Effect'|translate:'app'|escape}}
           </h2>
@@ -1915,6 +1912,13 @@
           </table>
           <p class="text-right" style="font-size:10px;line-height:1.1">
             Powered by <a href="http://wikiwiki.jp/splatoon2ch/?%A5%AE%A5%A2%A5%D1%A5%EF%A1%BC%B8%A1%BE%DA">ギアパワー検証 - スプラトゥーン(Splatoon) for 2ch Wiki*</a>
+          </p>
+        {{/if}}
+        {{if !$app->user->isGuest && $app->user->identity->id == $user->id && $hasExtendedData}}
+          <p class="text-right">
+            <a href="{{url route="show/edit-battle" screen_name=$user->screen_name battle=$battle->id}}" class="btn btn-default">
+              {{'Edit'|translate:'app'|escape}}
+            </a>
           </p>
         {{/if}}
       </div>
