@@ -145,7 +145,13 @@ class StatController extends Controller
             // タッグバトルなら味方全部除外（連戦で無意味な重複の可能性が高い）
             ['and',
                 ['<>', '{{battle}}.[[rule_id]]', $ruleNawabari],
-                ['not like', '{{lobby}}.[[key]]', 'squad_%', false],
+                ['or',
+                    ['not like', '{{lobby}}.[[key]]', 'squad_%', false],
+                    ['and',
+                        ['like', '{{lobby}}.[[key]]', 'squad_%', false],
+                        ['{{battle_player}}.[[is_my_team]]' => false],
+                    ],
+                ],
             ]
         ]);
 
