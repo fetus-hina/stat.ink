@@ -72,6 +72,7 @@ window.statByMapRule = function () {
     var $elem = $('.pie-flot-container');
     if ($elem.length) {
       $elem.height(Math.min($elem.width(), 200));
+      redrawFlot();
     }
   };
   window.setTimeout(onResize, 1);
