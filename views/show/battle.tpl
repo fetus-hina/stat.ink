@@ -1028,6 +1028,12 @@
                     return 'rgb(' + rgb[0] + ',' + rgb[1] + ',' + rgb[2] + ')';
                   };
 
+                  var isIdentifiedWhoseSpecial = (function () {
+                    return window.battleEvents.filter(function (v) {
+                      return v.at && v.type === "special_weapon" && v.me;
+                    }).length > 0;
+                  })();
+
                   var iconData = window.battleEvents.filter(function(v){
                     if (!v.at) {
                       return false;
@@ -1036,10 +1042,14 @@
                       return true;
                     }
                     if (v.type === "special_weapon") {
-                      switch (v.special_weapon) {
-                        {{foreach $specials as $special}}case "{{$special.key|escape:javascript}}":{{/foreach}}return true;
-                        default:return false;
-                      }
+                      return (
+                        {{foreach $specials as $special}}
+                          {{if !$special@first}}
+                            ||
+                          {{/if}}
+                          (v.special_weapon === "{{$special.key|escape:javascript}}")
+                        {{/foreach}}
+                      );
                     }
                     return false;
                   }).map(function(v){
@@ -1069,7 +1079,19 @@
                         {{/foreach}}
                       };
                       return [
-                        window.graphIcon.specials[v.special_weapon].src, v.at, size, size, names[v.special_weapon]
+                        window.graphIcon.specials[v.special_weapon].src,
+                        v.at,
+                        size,
+                        size,
+                        names[v.special_weapon],
+                        function ($img) {
+                          var data = this;
+                          if (isIdentifiedWhoseSpecial) {
+                            $img.css({
+                              opacity: v.me ? 1.0 : 0.4,
+                            });
+                          }
+                        }
                       ];
                     } else if (v.type === "special_charged") {
                       return [
