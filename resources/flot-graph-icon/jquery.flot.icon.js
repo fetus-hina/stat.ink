@@ -57,6 +57,7 @@
                             var itemWidth = convertToImageDimension(item[2]);
                             var itemHeight = convertToImageDimension(item[3]);
                             var userData = item.length >= 5 ? item[4] : undefined;
+                            var decorator = item.length >= 6 ? item[5] : undefined;
 
                             var pos = plot.p2c({x:item[1], y:0});
                             var posLeft = plotOffset.left + (pos.left - itemWidth / 2);
@@ -101,6 +102,9 @@
                                 } else {
                                     $img.attr('title', x);
                                 }
+                            }
+                            if (typeof decorator === 'function') {
+                                decorator.call(item, $img);
                             }
                             $target.append($img);
                         }
