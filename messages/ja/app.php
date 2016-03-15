@@ -207,6 +207,7 @@ return [
     'Show moving averages' => '移動平均線を表示',
     'Show your API Token' => 'APIキーを表示します',
     'Simplified List' => 'シンプルなリストで表示',
+    'Special %' => 'スペシャルゲージ',
     'Special Charged' => 'スペシャル満タン',
     'Special' => 'スペシャル',
     'Special:' => 'スペシャル:',
