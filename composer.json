@@ -37,7 +37,7 @@
         "jp3cki/yii2-googleadsense": "^2.0",
         "jp3cki/yii2-jquery-color": "^1.0",
         "jp3cki/yii2-momentjs": "^1.0",
-        "jp3cki/yii2-twitter-widget": "^0.1.1",
+        "jp3cki/yii2-twitter-widget": "^1.0",
         "jp3cki/yii2-zxcvbn": "^1.0",
         "php-curl-class/php-curl-class": "^4.6",
         "ramsey/uuid": "^3.1",

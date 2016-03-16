@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "8378cc5eb7cbec82458c7bda4cc8b5d4",
-    "content-hash": "f6080d733c03aa913a5cec9a52fde96c",
+    "hash": "c94032502f0e150fea948ec1a7b0fa21",
+    "content-hash": "ec7fee8b3cb6beea3c722fdedd65f315",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -577,16 +577,16 @@
         },
         {
             "name": "bower-asset/moment-timezone",
-            "version": "0.5.1",
+            "version": "0.5.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/moment/moment-timezone.git",
-                "reference": "58651e6dadb1f7bb8d7adc5a6ef3df6341560bd2"
+                "reference": "031ac0fd2a3a10790b6eae14df664f008e143cc3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/moment/moment-timezone/zipball/58651e6dadb1f7bb8d7adc5a6ef3df6341560bd2",
-                "reference": "58651e6dadb1f7bb8d7adc5a6ef3df6341560bd2",
+                "url": "https://api.github.com/repos/moment/moment-timezone/zipball/031ac0fd2a3a10790b6eae14df664f008e143cc3",
+                "reference": "031ac0fd2a3a10790b6eae14df664f008e143cc3",
                 "shasum": ""
             },
             "require": {
@@ -1299,16 +1299,16 @@
         },
         {
             "name": "jp3cki/yii2-twitter-widget",
-            "version": "v0.1.1",
+            "version": "v1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fetus-hina/yii2-twitter-widget.git",
-                "reference": "51936dfbb7748729efc7074477e37cd1d03f1934"
+                "reference": "766879b200ef2ba85d4e4b1a06b473a244db753f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fetus-hina/yii2-twitter-widget/zipball/51936dfbb7748729efc7074477e37cd1d03f1934",
-                "reference": "51936dfbb7748729efc7074477e37cd1d03f1934",
+                "url": "https://api.github.com/repos/fetus-hina/yii2-twitter-widget/zipball/766879b200ef2ba85d4e4b1a06b473a244db753f",
+                "reference": "766879b200ef2ba85d4e4b1a06b473a244db753f",
                 "shasum": ""
             },
             "require": {
@@ -1320,6 +1320,7 @@
                     "jp3cki\\yii2\\twitter\\widget\\": "src/"
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -1330,11 +1331,7 @@
                 }
             ],
             "description": "Twitter Widget Assets for Yii Framework 2.",
-            "support": {
-                "source": "https://github.com/fetus-hina/yii2-twitter-widget/tree/v0.1.1",
-                "issues": "https://github.com/fetus-hina/yii2-twitter-widget/issues"
-            },
-            "time": "2015-12-28 13:12:50"
+            "time": "2016-03-16 16:56:39"
         },
         {
             "name": "jp3cki/yii2-zxcvbn",
