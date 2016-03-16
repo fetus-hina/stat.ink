@@ -2,23 +2,23 @@ STYLE_TARGETS=actions assets commands components controllers models
 JS_SRCS=$(shell ls -1 resources/stat.ink/main.js/*.js)
 COMPOSER_VERSION=1.0.0-alpha11
 
-RESOURCE_TARGETS= \
-	resources/.compiled/activity/activity.js.br \
-	resources/.compiled/activity/activity.js.gz \
-	resources/.compiled/flot-graph-icon/jquery.flot.icon.js.br \
-	resources/.compiled/flot-graph-icon/jquery.flot.icon.js.gz \
-	resources/.compiled/gears/calc.js.br \
-	resources/.compiled/gears/calc.js.gz \
-	resources/.compiled/gh-fork-ribbon/gh-fork-ribbon.css.br \
-	resources/.compiled/gh-fork-ribbon/gh-fork-ribbon.css.gz \
-	resources/.compiled/gh-fork-ribbon/gh-fork-ribbon.js.br \
-	resources/.compiled/gh-fork-ribbon/gh-fork-ribbon.js.gz \
+RESOURCE_TARGETS_MAIN=\
+	resources/.compiled/activity/activity.js \
+	resources/.compiled/flot-graph-icon/jquery.flot.icon.js \
+	resources/.compiled/gears/calc.js \
+	resources/.compiled/gh-fork-ribbon/gh-fork-ribbon.css \
+	resources/.compiled/gh-fork-ribbon/gh-fork-ribbon.js \
 	resources/.compiled/stat.ink/favicon.png \
-	resources/.compiled/stat.ink/main.css.br \
-	resources/.compiled/stat.ink/main.css.gz \
-	resources/.compiled/stat.ink/main.js.br \
-	resources/.compiled/stat.ink/main.js.gz \
+	resources/.compiled/stat.ink/main.css \
+	resources/.compiled/stat.ink/main.js \
 	resources/.compiled/stat.ink/no-image.png
+
+RESOURCE_TARGETS=\
+	$(RESOURCE_TARGETS_MAIN) \
+	$(RESOURCE_TARGETS_MAIN:.css=.css.br) \
+	$(RESOURCE_TARGETS_MAIN:.css=.css.gz) \
+	$(RESOURCE_TARGETS_MAIN:.js=.js.br) \
+	$(RESOURCE_TARGETS_MAIN:.js=.js.gz) \
 
 all: init migrate-db
 
@@ -56,7 +56,7 @@ vendor: composer.phar composer.lock
 	php composer.phar install --prefer-dist
 	touch -r composer.lock vendor
 
-node_modules:
+node_modules: package.json
 	npm install
 
 check-style: vendor
@@ -85,25 +85,31 @@ composer.phar:
 	rm -f $@
 	zcat $< | bro --quality 11 --output $@
 
-resources/.compiled/stat.ink/main.js.gz: node_modules $(JS_SRCS)
+%.css.gz: %.css
+	gzip -9c $< > $@
+
+%.js.gz: %.js
+	gzip -9c $< > $@
+
+resources/.compiled/stat.ink/main.js: node_modules gulpfile.js $(JS_SRCS)
 	./node_modules/.bin/gulp main-js
 
-resources/.compiled/stat.ink/main.css.gz: node_modules resources/stat.ink/main.less
+resources/.compiled/stat.ink/main.css: node_modules gulpfile.js resources/stat.ink/main.less
 	./node_modules/.bin/gulp main-css
 
-resources/.compiled/gh-fork-ribbon/gh-fork-ribbon.js.gz: node_modules resources/gh-fork-ribbon/gh-fork-ribbon.js
+resources/.compiled/gh-fork-ribbon/gh-fork-ribbon.js: node_modules gulpfile.js resources/gh-fork-ribbon/gh-fork-ribbon.js
 	./node_modules/.bin/gulp gh-fork
 
-resources/.compiled/gh-fork-ribbon/gh-fork-ribbon.css.gz: node_modules resources/gh-fork-ribbon/gh-fork-ribbon.css
+resources/.compiled/gh-fork-ribbon/gh-fork-ribbon.css: node_modules gulpfile.js resources/gh-fork-ribbon/gh-fork-ribbon.css
 	./node_modules/.bin/gulp gh-fork-css
 
-resources/.compiled/flot-graph-icon/jquery.flot.icon.js.gz: node_modules resources/flot-graph-icon/jquery.flot.icon.js
+resources/.compiled/flot-graph-icon/jquery.flot.icon.js: node_modules gulpfile.js resources/flot-graph-icon/jquery.flot.icon.js
 	./node_modules/.bin/gulp flot-icon
 
-resources/.compiled/activity/activity.js.gz: node_modules resources/activity/activity.js
+resources/.compiled/activity/activity.js: node_modules gulpfile.js resources/activity/activity.js
 	./node_modules/.bin/gulp activity
 
-resources/.compiled/gears/calc.js.gz: node_modules resources/gears/calc.js
+resources/.compiled/gears/calc.js: node_modules gulpfile.js resources/gears/calc.js
 	./node_modules/.bin/gulp gear-calc
 
 resources/.compiled/stat.ink/no-image.png: resources/stat.ink/no-image.png
