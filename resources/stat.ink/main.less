@@ -1,6 +1,13 @@
 @charset "UTF-8";
 @import (reference) "../../vendor/bower/bootstrap/less/variables.less";
 
+/*!
+stat.ink:  Copyright (C) 2015-2016 AIZAWA Hina | MIT License
+Bootstrap: Copyright (c) 2011-2015 Twitter, Inc | MIT License
+*/
+
+@goldenRatio: 1.61803398875;
+
 @colorWin:  #3169b3;
 @colorLose: #ec6110;
 @colorKO:   #68c8f2;
@@ -27,14 +34,14 @@
 
 // フッター
 footer {
-    font-size: .618em;
+    font-size: unit(@goldenRatio - 1, em);
     width: 100%;
     background-color: #f5f5f5;
-    margin: .618em 0 0 0;
-    padding: 1.618em 0;
+    margin: unit(@goldenRatio - 1, em) 0 0 0;
+    padding: unit(@goldenRatio, em) 0;
 
     .footer-nav, .footer-notice, .footer-powered {
-        margin-top: 0.618em;
+        margin-top: unit(@goldenRatio - 1, em);
     }
 }
 

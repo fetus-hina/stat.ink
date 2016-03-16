@@ -1,6 +1,6 @@
-(function (window) {
+/*! Copyright (C) 2015 AIZAWA Hina | MIT License */
+(function (window, $) {
   "use strict";
-  var $ = window.jQuery;
   $(window.document).ready(function () {
     $(document.body).append(
       $('<div>').addClass('github-fork-ribbon-wrapper right').append(
@@ -19,4 +19,4 @@
       )
     );
   });
-})(window);
+})(window, jQuery);
