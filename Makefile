@@ -1,6 +1,7 @@
 STYLE_TARGETS=actions assets commands components controllers models
 JS_SRCS=$(shell ls -1 resources/stat.ink/main.js/*.js)
 COMPOSER_VERSION=1.0.0-alpha11
+GULP=./node_modules/.bin/gulp
 
 RESOURCE_TARGETS_MAIN=\
 	resources/.compiled/activity/activity.js \
@@ -91,26 +92,29 @@ composer.phar:
 %.js.gz: %.js
 	gzip -9c $< > $@
 
-resources/.compiled/stat.ink/main.js: node_modules gulpfile.js $(JS_SRCS)
-	./node_modules/.bin/gulp main-js
+$(GULP): node_modules
+	touch $(GULP)
 
-resources/.compiled/stat.ink/main.css: node_modules gulpfile.js resources/stat.ink/main.less
-	./node_modules/.bin/gulp main-css
+resources/.compiled/stat.ink/main.js: $(JS_SRCS) $(GULP)
+	$(GULP) js --in 'resources/stat.ink/main.js/*.js' --out $@
 
-resources/.compiled/gh-fork-ribbon/gh-fork-ribbon.js: node_modules gulpfile.js resources/gh-fork-ribbon/gh-fork-ribbon.js
-	./node_modules/.bin/gulp gh-fork
+resources/.compiled/stat.ink/main.css: resources/stat.ink/main.less $(GULP)
+	$(GULP) less --in $< --out $@
 
-resources/.compiled/gh-fork-ribbon/gh-fork-ribbon.css: node_modules gulpfile.js resources/gh-fork-ribbon/gh-fork-ribbon.css
-	./node_modules/.bin/gulp gh-fork-css
+resources/.compiled/gh-fork-ribbon/gh-fork-ribbon.js: resources/gh-fork-ribbon/gh-fork-ribbon.js $(GULP)
+	$(GULP) js --in $< --out $@
 
-resources/.compiled/flot-graph-icon/jquery.flot.icon.js: node_modules gulpfile.js resources/flot-graph-icon/jquery.flot.icon.js
-	./node_modules/.bin/gulp flot-icon
+resources/.compiled/gh-fork-ribbon/gh-fork-ribbon.css: resources/gh-fork-ribbon/gh-fork-ribbon.css $(GULP)
+	$(GULP) css --in $< --out $@
 
-resources/.compiled/activity/activity.js: node_modules gulpfile.js resources/activity/activity.js
-	./node_modules/.bin/gulp activity
+resources/.compiled/flot-graph-icon/jquery.flot.icon.js: resources/flot-graph-icon/jquery.flot.icon.js $(GULP)
+	$(GULP) js --in $< --out $@
 
-resources/.compiled/gears/calc.js: node_modules gulpfile.js resources/gears/calc.js
-	./node_modules/.bin/gulp gear-calc
+resources/.compiled/activity/activity.js: resources/activity/activity.js $(GULP)
+	$(GULP) js --in $< --out $@
+
+resources/.compiled/gears/calc.js: resources/gears/calc.js $(GULP)
+	$(GULP) js --in $< --out $@
 
 resources/.compiled/stat.ink/no-image.png: resources/stat.ink/no-image.png
 	mkdir -p resources/.compiled/stat.ink || /bin/true
