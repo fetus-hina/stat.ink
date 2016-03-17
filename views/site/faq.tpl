@@ -14,7 +14,7 @@
     {{SnsWidget}}
 
     <p>
-      IkaLogの動作や認識に関する問題は<a href="https://github.com/hasegaw/IkaLog/wiki/faq">IkaLog FAQ</a>をご覧ください。
+      IkaLogの動作や認識に関する問題は<a href="https://github.com/hasegaw/IkaLog/wiki/ja_FAQ">IkaLog FAQ</a>をご覧ください。
     </p>
 
     <h2>
@@ -74,6 +74,72 @@
     </p>
 
     <h2>
+      Q: いろんな名前が出てきて混乱します
+    </h2>
+    <p>
+      A: 複数のアプリが連携して動作しているので混乱してしまうのだと思います。簡単に整理します。冒頭の概念図も参照してください（概念図のブロックひとつひとつが別のアプリです）。
+    </p>
+    <dl>
+      <dt>
+        IkaLog
+      </dt>
+      <dd>
+        スプラトゥーンの画像を解析するソフト（アプリケーション）の名前です。<br>
+        今となっては「stat.inkと強い関連がある」といっても過言ではないと思いますが、あくまで別のアプリケーションです。<br>
+        stat.inkと連携しなくても使えます。<br>
+        <br>
+        ※現在stat.inkとIkaLogは構造上（というかエコシステム上）お互いに割と強く依存していますが、それでも別のアプリケーションです。<br>
+        <a href="https://github.com/hasegaw/IkaLog/wiki/ja_FAQ#ikalog-%E3%81%A8-statink-%E3%81%AE%E9%96%A2%E4%BF%82%E3%81%AF">IkaLog FAQの「IkaLog と stat.ink の関係は？」</a>も参照してください。</a>
+
+      </dd>
+
+      <dt>
+        WinIkaLog
+      </dt>
+      <dd>
+        IkaLogをWindowsでそこそこ簡単に<sup>[要出典]</sup>扱えるようにしたIkaLogの配布形態とそのアプリです。<br>
+        IkaLogの全機能を使えるわけではありませんが、黒い画面と戦う時間は減ります。<br>
+        <a href="https://github.com/hasegaw/IkaLog/wiki/ja_FAQ#ikalog-%E3%81%A8-winikalog-%E3%81%AF%E4%BD%95%E3%81%8C%E9%81%95%E3%81%84%E3%81%BE%E3%81%99%E3%81%8B">IkaLog FAQ の「IkaLog と WinIkaLog は何が違いますか？」</a>も参照してください。
+      </dd>
+
+      <dt>
+        イカログ
+      </dt>
+      <dd>
+        この言葉はとても曖昧です。<br>
+        1. IkaLogのこと。<br>
+        2. stat.inkのことを指してこう呼ばれていることが稀によくあります。（stat.inkがバトルの記録をこう呼んでいる箇所があることに加え、IkaLogとstat.inkの区別がついていない人もいるようです）<br>
+        3. その他（イラスト方面？）。「イカログ民」という言葉をよく見かけますがよくわかりません。
+      </dd>
+
+      <dt>
+        イカレコ
+      </dt>
+      <dd>
+        Android用のアプリの名前です(iPhoneでは使えません)。自分のキル・デス等を手動で入力して利用します。<br>
+        イカレコはそれ単体である程度の統計機能を備えていて、「stat.inkとの連携<strong>も</strong>できる」という立ち位置です。<br>
+        もっとも、統計機能に関してはこんな考え方みたいです(<a href="https://twitter.com/ika_rec/status/676901615949991936">1</a>, <a href="https://twitter.com/ika_rec/status/676908380120858624">2</a>)。<br>
+        単体で使えます。<br>
+        stat.inkとの連携方法については<a href="http://ikarec.hatenablog.jp/entry/2015/12/18/010159">イカレコ開発ブログ</a>を参照してください。
+      </dd>
+
+      <dt>
+        IkaRec
+      </dt>
+      <dd>
+        イカレコのことです。
+      </dd>
+
+      <dt>
+        イカキロク
+      </dt>
+      <dd>
+        iPhone用のアプリの名前です(Androidでは使えません）。イカレコとよく似ています（実際の経緯はイカキロクが先）。
+        <strong>stat.ink連携機能はありません</strong>。
+      </dd>
+    </dl>
+
+    <h2>
       Q: 私は○○のブキを使っているのに違うブキに認識されます（その他誤認識関係）
     </h2>
     <p>
@@ -93,7 +159,7 @@
     </p>
     <iframe src="//www.slideshare.net/slideshow/embed_code/key/GZsPURQDtXaD9j" width="595" height="485" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="//www.slideshare.net/TakeshiHasegawa1/ikalog-presentation-v13" title="IkaLog Presentation v1.3" target="_blank">IkaLog Presentation v1.3</a> </strong> from <strong><a href="//www.slideshare.net/TakeshiHasegawa1" target="_blank">Takeshi HASEGAWA</a></strong> </div>
     <p>
-      IkaLogの動作や認識に関する問題は<a href="https://github.com/hasegaw/IkaLog/wiki/faq">IkaLog FAQ</a>をご覧ください。
+      IkaLogの動作や認識に関する問題は<a href="https://github.com/hasegaw/IkaLog/wiki/ja_FAQ">IkaLog FAQ</a>をご覧ください。
     </p>
     
     <h2>
@@ -205,6 +271,22 @@
     </p>
     <p>
       ※どちらのプロダクトも、商品を購入したからといって、バグを直してもらえる権利を得るとかそういうことはありません。ご理解の上でご購入ください。
+    </p>
+
+    <h2>
+      Q: なんでこんなの作ったの
+    </h2>
+    <p>
+      A: 自分で記録とるのめんどくさいじゃないですか。
+    </p>
+    <p>
+      <a href="http://gigazine.net/news/20150804-splatoon-result-raspberry-pi-opencv/">ラズパイとカメラでキャプチャして勝敗を記録するツールについての記事</a>をまず見ていて、「これは導入できそうにないなあ」と思っていたところ、IkaLogを知って「このデータを活用すれば統計情報とか出せるね」となり、「でもIkaLogにはそういう部分ないのね」ってことで「じゃあ作りますか」と。
+    </p>
+    <p>
+      「作るのは面倒じゃないのか」と言われると「プログラマは楽をするために全力を尽くす生き物」です。
+      少なくとも私には全部手入力とかExcelで管理とか無理です。
+      stat.inkについてる機能もいくつか「面倒でこんなの誰も使わないって」と思いながらつけたものがあります。
+      実際にはそこそこ使われてたりして「マメだなあ」とか思ってます。
     </p>
   </div>
 {{/strip}}
