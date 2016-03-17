@@ -1740,16 +1740,16 @@
         },
         {
             "name": "yiisoft/yii2-bootstrap",
-            "version": "2.0.5",
+            "version": "2.0.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-bootstrap.git",
-                "reference": "1464f93834b1d5edb1f5625f7ffd6c3723fa4923"
+                "reference": "3fd2b8c950cce79d60e9702d6bcb24eb3c80f6c5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-bootstrap/zipball/1464f93834b1d5edb1f5625f7ffd6c3723fa4923",
-                "reference": "1464f93834b1d5edb1f5625f7ffd6c3723fa4923",
+                "url": "https://api.github.com/repos/yiisoft/yii2-bootstrap/zipball/3fd2b8c950cce79d60e9702d6bcb24eb3c80f6c5",
+                "reference": "3fd2b8c950cce79d60e9702d6bcb24eb3c80f6c5",
                 "shasum": ""
             },
             "require": {
@@ -1786,7 +1786,7 @@
                 "bootstrap",
                 "yii2"
             ],
-            "time": "2015-09-23 17:48:24"
+            "time": "2016-03-17 03:29:28"
         },
         {
             "name": "yiisoft/yii2-composer",
@@ -1837,16 +1837,16 @@
         },
         {
             "name": "yiisoft/yii2-smarty",
-            "version": "2.0.4",
+            "version": "2.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-smarty.git",
-                "reference": "d911f6474cd2b27c0ffb279baf66d0e033a69dd0"
+                "reference": "450572fb9904a0c4b9ce6b10de0f7b691060d32e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-smarty/zipball/d911f6474cd2b27c0ffb279baf66d0e033a69dd0",
-                "reference": "d911f6474cd2b27c0ffb279baf66d0e033a69dd0",
+                "url": "https://api.github.com/repos/yiisoft/yii2-smarty/zipball/450572fb9904a0c4b9ce6b10de0f7b691060d32e",
+                "reference": "450572fb9904a0c4b9ce6b10de0f7b691060d32e",
                 "shasum": ""
             },
             "require": {
@@ -1884,7 +1884,7 @@
                 "smarty",
                 "yii2"
             ],
-            "time": "2015-05-25 20:59:03"
+            "time": "2016-03-17 04:00:36"
         },
         {
             "name": "zendframework/zend-escaper",
@@ -2838,16 +2838,16 @@
         },
         {
             "name": "yiisoft/yii2-debug",
-            "version": "2.0.5",
+            "version": "2.0.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-debug.git",
-                "reference": "1b302e67521d46feb2413d9d96ca94ed82b39b0e"
+                "reference": "55ed2e853ed8050a34415f63a4da84f88a56f895"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-debug/zipball/1b302e67521d46feb2413d9d96ca94ed82b39b0e",
-                "reference": "1b302e67521d46feb2413d9d96ca94ed82b39b0e",
+                "url": "https://api.github.com/repos/yiisoft/yii2-debug/zipball/55ed2e853ed8050a34415f63a4da84f88a56f895",
+                "reference": "55ed2e853ed8050a34415f63a4da84f88a56f895",
                 "shasum": ""
             },
             "require": {
@@ -2881,7 +2881,7 @@
                 "debugger",
                 "yii2"
             ],
-            "time": "2015-08-06 16:14:06"
+            "time": "2016-03-17 03:50:19"
         },
         {
             "name": "yiisoft/yii2-gii",
