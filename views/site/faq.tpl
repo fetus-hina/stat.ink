@@ -14,7 +14,7 @@
     {{SnsWidget}}
 
     <p>
-      IkaLogの動作や認識に関する問題は<a href="https://github.com/hasegaw/IkaLog/wiki/faq">IkaLog FAQ</a>をご覧ください。
+      IkaLogの動作や認識に関する問題は<a href="https://github.com/hasegaw/IkaLog/wiki/ja_FAQ">IkaLog FAQ</a>をご覧ください。
     </p>
 
     <h2>
@@ -74,6 +74,143 @@
     </p>
 
     <h2>
+      Q: いろんな名前が出てきて混乱します
+    </h2>
+    <p>
+      A: わかりました。整理しましょう。
+    </p>
+    <p>
+      まずはよく混同されるあたりの関係図です。
+    </p>
+    <p>
+      <img src="{{$app->assetmanager->getAssetUrl($aboutAsset, 'rel.png')|escape}}" alt="" title="">
+    </p>
+    <p>
+      緑のブロックは、一般の利用者が自分のPCやスマホで取り扱うアプリです。<br>
+      青のブロックは、ウェブサービスです。インターネット上のどこかにあるサーバにあります。<br>
+      紫のブロックは、イカとは関係のないウェブサービスです。<br>
+      茶色の矢印は、類似・ライバル・<ruby>強敵<rp>(<rt>とも<rp>)</ruby>、そんな関係です。ここに出てくる範囲のアプリ間では特にバトルは繰り広げていないと思います。<br>
+      水色の矢印は、対応関係を示します。「IkaLog→stat.ink」は「IkaLogはstat.inkへのデータ送信に対応している」と読みます。
+    </p>
+    {{registerCss}}
+      .faq-indent {
+        margin-left: 1.618em;
+      }
+    {{/registerCss}}
+    <ol>
+      <li>
+        <strong><a href="https://github.com/hasegaw/IkaLog/blob/master/doc/IkaUI.md">IkaLog</a></strong>:
+        <div class="faq-indent">
+          <p>
+            スプラトゥーンの画像を解析するソフト（アプリケーション）です。<br>
+            スプラトゥーンの画像を解析することで戦績データを作成して、stat.ink<strong>を含む</strong>外部サイト・ファイルにデータを渡します。<br>
+            よく、IkaLogとstat.inkを同じ人が作っている、もしくはひとつのアプリケーションと誤解されているような表現を見かけますが、作者も違い、機能についても基本的には独立して開発している別のソフトです。<br>
+            stat.inkと連携しても、しなくても使えます。
+          </p>
+          <p>
+            ※現在stat.inkとIkaLogは構造上（というかエコシステム上）お互いに割と強く依存していますが、それでも別のアプリケーションです。<br>
+            <a href="https://github.com/hasegaw/IkaLog/wiki/ja_FAQ#ikalog-%E3%81%A8-statink-%E3%81%AE%E9%96%A2%E4%BF%82%E3%81%AF">IkaLog FAQの「IkaLog と stat.ink の関係は？」</a>も参照してください。</a>
+          </p>
+        </div>
+      </li>
+      <li>
+        <strong>WinIkaLog</strong>, <strong>IkaUI</strong> （図にはありませんが、IkaLogと同じと思えば大丈夫です）
+        <div class="faq-indent">
+          <p>
+            IkaLogを容易<sup>[要出典]</sup>に実行することができるようにIkaLogをWindows用の実行ファイルにしたものとその周辺ファイルのことを指します。<br>
+            IkaLogの全機能を使えるわけではありませんが、黒い画面と戦う時間は減ります。<br>
+            <a href="https://github.com/hasegaw/IkaLog/wiki/ja_FAQ#ikalog-%E3%81%A8-winikalog-%E3%81%AF%E4%BD%95%E3%81%8C%E9%81%95%E3%81%84%E3%81%BE%E3%81%99%E3%81%8B">IkaLog FAQ の「IkaLog と WinIkaLog は何が違いますか？」</a>も参照してください。
+          </p>
+        </div>
+      </li>
+      <li>
+        <strong><a href="https://play.google.com/store/apps/details?id=com.syanari.merluza.ikarec">イカレコ</a></strong>, <strong>IkaRec</strong>:
+        <div class="faq-indent">
+          <p>
+            Android用の、手入力で戦績を管理するアプリです。<br>
+            Android用のアプリですので、iPhone(iOS)では使えません。<br>
+            イカレコはそれ単体である程度の統計機能を備えていて、「stat.inkとの連携<strong>も</strong>できる」という立ち位置です。<br>
+            もっとも、統計機能に関してはこんな考え方みたいです(<a href="https://twitter.com/ika_rec/status/676901615949991936">1</a>, <a href="https://twitter.com/ika_rec/status/676908380120858624">2</a>)。
+          </p>
+          <p>
+            stat.inkとの連携方法については<a href="http://ikarec.hatenablog.jp/entry/2015/12/18/010159">イカレコ開発ブログ</a>を参照してください。
+          </p>
+          <p>
+            <a href="https://play.google.com/store/apps/details?id=com.syanari.merluza.ikarec">
+              <img src="{{$app->assetmanager->getAssetUrl($aboutAsset, 'ikarec_qr.png')|escape}}" alt="" title="" id="ikarec-qr">
+            </a>
+          </p>
+        </div>
+      </li>
+      <li>
+        <strong><a href="https://itunes.apple.com/jp/app/ikakiroku-zhan-ji-ji-lu-fen/id1050484090">イカキロク</a></strong>:
+        <div class="faq-indent">
+          <p>
+            iOS(iPhone, iPad)用の、手入力で戦績を管理するアプリです。<br>
+            iOS用のアプリですので、Androidでは使えません。<br>
+            全体的にはイカレコと似た機能を備えていますが（実際の経緯的には逆で、イカキロクの真似をしたアプリがイカレコです）、<strong style="color:#d33">stat.inkへの情報送信には対応していません</strong>。
+          </p>
+          <p>
+            せっかくなのでQRコードは貼っておきます。繰り返しますが、stat.inkとの連携はできません。
+          </p>
+          <p>
+            <a href="https://itunes.apple.com/jp/app/ikakiroku-zhan-ji-ji-lu-fen/id1050484090">
+              <img src="{{$app->assetmanager->getAssetUrl($aboutAsset, 'ikakiroku_qr.png')|escape}}" alt="" title="" id="ikakiroku-qr">
+            </a>
+          </p>
+        </div>
+      </li>
+      <li>
+        <strong><a href="http://ika.lealog.net/">ウデマエアーカイブ</a></strong>:
+        <div class="faq-indent">
+          <p>
+            stat.inkに類似したサービスのうちのひとつです（ほかにも何個かあります）。<br>
+            図では「類似したサービスの例」として挙げています。
+          </p>
+          <p>
+            作者さんの書いた紹介記事がありますので、興味がある方は<a href="http://lealog.hateblo.jp/entry/2015/12/02/152605">#ウデマエアーカイブ と ジェッカス と 私 - console.lealog();</a>をご覧ください。
+          </p>
+        </div>
+      </li>
+      <li>
+        「<strong>イカログ</strong>」:
+        <div class="faq-indent">
+          <p>
+            「イカログ」という言葉は、人と文脈によっていくつかの使われ方があるようです。
+          </p>
+          <ul>
+            <li>
+              <strong>IkaLog</strong>/<strong>WinIkaLog</strong>のこととして:
+              <div class="faq-indent">
+                <p>
+                  これはIkaLogをカタカナで表記しただけですからわかりやすいと思います。
+                </p>
+              </div>
+            </li>
+            <li>
+              <strong>stat.ink</strong>または<strong>stat.inkに蓄積された情報</strong>のこととして:
+              <div class="faq-indent">
+                <p>
+                  まず、IkaLogと混同していると思われるケースがあります。<br>
+                  また、stat.inkが単に「イカのログ」という意味として「ひなさんのイカログ」のように表示する箇所があるためそのように呼ばれるのだと思います。<br>
+                  ※後者は英語表示のとき「SplatLog」になっています。
+                </p>
+              </div>
+            </li>
+            <li>
+              <strong>「イカログ民」</strong>:
+              <div class="faq-indent">
+                <p>
+                  たぶんIkaLogとは全く違う層の言葉で、観測する限りではイラスト界隈の話のような気がします。
+                </p>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </li>
+    </ol>
+
+    <h2>
       Q: 私は○○のブキを使っているのに違うブキに認識されます（その他誤認識関係）
     </h2>
     <p>
@@ -93,7 +230,7 @@
     </p>
     <iframe src="//www.slideshare.net/slideshow/embed_code/key/GZsPURQDtXaD9j" width="595" height="485" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="//www.slideshare.net/TakeshiHasegawa1/ikalog-presentation-v13" title="IkaLog Presentation v1.3" target="_blank">IkaLog Presentation v1.3</a> </strong> from <strong><a href="//www.slideshare.net/TakeshiHasegawa1" target="_blank">Takeshi HASEGAWA</a></strong> </div>
     <p>
-      IkaLogの動作や認識に関する問題は<a href="https://github.com/hasegaw/IkaLog/wiki/faq">IkaLog FAQ</a>をご覧ください。
+      IkaLogの動作や認識に関する問題は<a href="https://github.com/hasegaw/IkaLog/wiki/ja_FAQ">IkaLog FAQ</a>をご覧ください。
     </p>
     
     <h2>
@@ -206,6 +343,22 @@
     <p>
       ※どちらのプロダクトも、商品を購入したからといって、バグを直してもらえる権利を得るとかそういうことはありません。ご理解の上でご購入ください。
     </p>
+
+    <h2>
+      Q: なんでこんなの作ったの
+    </h2>
+    <p>
+      A: 自分で記録とるのめんどくさいじゃないですか。
+    </p>
+    <p>
+      <a href="http://gigazine.net/news/20150804-splatoon-result-raspberry-pi-opencv/">ラズパイとカメラでキャプチャして勝敗を記録するツールについての記事</a>をまず見ていて、「これは導入できそうにないなあ」と思っていたところ、IkaLogを知って「このデータを活用すれば統計情報とか出せるね」となり、「でもIkaLogにはそういう部分ないのね」ってことで「じゃあ作りますか」と。
+    </p>
+    <p>
+      「作るのは面倒じゃないのか」と言われると「プログラマは楽をするために全力を尽くす生き物」です。
+      少なくとも私には全部手入力とかExcelで管理とか無理です。
+      stat.inkについてる機能もいくつか「面倒でこんなの誰も使わないって」と思いながらつけたものがあります。
+      実際にはそこそこ使われてたりして「マメだなあ」とか思ってます。
+    </p>
   </div>
 {{/strip}}
 {{registerCss}}
@@ -213,5 +366,9 @@
     width:100%;
     max-width:530px;
     height: auto;
+  }
+
+  .container img#ikarec-qr, .container img#ikakiroku-qr {
+    width:171px;
   }
 {{/registerCss}}
