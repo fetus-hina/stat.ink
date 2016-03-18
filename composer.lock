@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c94032502f0e150fea948ec1a7b0fa21",
-    "content-hash": "ec7fee8b3cb6beea3c722fdedd65f315",
+    "hash": "6d8b98637d326b47304ac5b766abb4d9",
+    "content-hash": "3a12200e0dd94196dbdeb3409ecbf2b4",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -131,6 +131,43 @@
                 "clipboard",
                 "copy",
                 "cut"
+            ]
+        },
+        {
+            "name": "bower-asset/compare-versions",
+            "version": "v2.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/omichelsen/compare-versions.git",
+                "reference": "c1c2411d536a580540d0cefc0442b8cf05ae0ba8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/omichelsen/compare-versions/zipball/c1c2411d536a580540d0cefc0442b8cf05ae0ba8",
+                "reference": "c1c2411d536a580540d0cefc0442b8cf05ae0ba8",
+                "shasum": ""
+            },
+            "type": "bower-asset-library",
+            "extra": {
+                "bower-asset-main": "index.js",
+                "bower-asset-ignore": [
+                    "**/.*",
+                    "node_modules",
+                    "bower_components",
+                    "test",
+                    "tests"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "Compare semver version strings to find greater, equal or lesser.",
+            "keywords": [
+                "browser",
+                "compare",
+                "node",
+                "semver",
+                "version"
             ]
         },
         {
