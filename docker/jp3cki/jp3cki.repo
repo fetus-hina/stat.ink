@@ -1,0 +1,13 @@
+[jp3cki]
+name=jp3cki repo
+baseurl=https://rpm.fetus.jp/el$releasever/$basearch/
+gpgcheck=1
+enabled=1
+gpgkey=https://rpm.fetus.jp/RPM-GPG-KEY-JP3CKI
+
+[jp3cki-h2o-2.0]
+name=jp3cki repo (H2O 2.0)
+baseurl=https://rpm.fetus.jp/h2o-2.0/el$releasever/$basearch/
+gpgcheck=1
+enabled=1
+gpgkey=https://rpm.fetus.jp/RPM-GPG-KEY-JP3CKI

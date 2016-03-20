@@ -2,7 +2,7 @@ FROM centos:centos7
 MAINTAINER AIZAWA Hina <hina@bouhime.com>
 
 ADD docker/rpm-gpg/ /etc/pki/rpm-gpg/
-ADD docker/h2o/h2o.repo /etc/yum.repos.d/
+ADD docker/jp3cki/jp3cki.repo /etc/yum.repos.d/
 
 RUN rpm --import \
         /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7 \
@@ -12,13 +12,11 @@ RUN rpm --import \
             && \
     yum update -y && \
     yum install -y \
-        curl scl-utils \
+        centos-release-scl-rh \
+        curl \
+        scl-utils \
         http://ftp.tsukuba.wide.ad.jp/Linux/fedora/epel/7/x86_64/e/epel-release-7-5.noarch.rpm \
         http://rpms.famillecollet.com/enterprise/7/safe/x86_64/remi-release-7.1-3.el7.remi.noarch.rpm \
-        https://www.softwarecollections.org/en/scls/rhscl/git19/epel-7-x86_64/download/rhscl-git19-epel-7-x86_64.noarch.rpm \
-        https://www.softwarecollections.org/en/scls/rhscl/nodejs010/epel-7-x86_64/download/rhscl-nodejs010-epel-7-x86_64.noarch.rpm \
-        https://www.softwarecollections.org/en/scls/rhscl/rh-postgresql94/epel-7-x86_64/download/rhscl-rh-postgresql94-epel-7-x86_64.noarch.rpm \
-        https://www.softwarecollections.org/en/scls/rhscl/v8314/epel-7-x86_64/download/rhscl-v8314-epel-7-x86_64.noarch.rpm \
             && \
     yum install -y \
         ImageMagick \
