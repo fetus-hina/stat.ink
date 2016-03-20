@@ -1467,6 +1467,9 @@
           <h2 id="effect">
             {{'Ability Effect'|translate:'app'|escape}}
           </h2>
+          <p style="font-size:10px;line-height:1.1">
+            現在、バージョン2.5.0の計算式で計算しています。2.6.0対応アップデートはしばらくお待ちください。
+          </p>
           <table class="table table-striped">
             <tbody>
               <tr>
