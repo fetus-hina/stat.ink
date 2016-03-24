@@ -51,10 +51,11 @@ ikalog: all runtime/ikalog runtime/ikalog/repo runtime/ikalog/winikalog.html
 resource: $(RESOURCE_TARGETS)
 
 composer-plugin: composer.phar
-	grep '"fxp/composer-asset-plugin"' ~/.composer/composer.json >/dev/null || ./composer.phar global require 'fxp/composer-asset-plugin:^1.0'
+	grep '"fxp/composer-asset-plugin"' ~/.composer/composer.json >/dev/null || ./composer.phar global require 'fxp/composer-asset-plugin:^1.1'
+	grep '"hirak/prestissimo"' ~/.composer/composer.json >/dev/null || ./composer.phar global require 'hirak/prestissimo:^0.1'
 
 vendor: composer.phar composer.lock
-	php composer.phar install --prefer-dist
+	php composer.phar install --prefer-dist --profile
 	touch -r composer.lock vendor
 
 node_modules: package.json
