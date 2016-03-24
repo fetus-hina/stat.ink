@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c94032502f0e150fea948ec1a7b0fa21",
-    "content-hash": "ec7fee8b3cb6beea3c722fdedd65f315",
+    "hash": "f35bc2428976f69a0eba80e459982506",
+    "content-hash": "6c39b99c39c011252b9bacf64fbbde17",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -206,16 +206,16 @@
         },
         {
             "name": "bower-asset/flag-icon-css",
-            "version": "1.0.0",
+            "version": "1.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lipis/flag-icon-css.git",
-                "reference": "14afe4126a8df88950ce6621dcb95b9ac4ccaddd"
+                "reference": "f13b77e0323a674e6a56ac4284128ff73a39e115"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lipis/flag-icon-css/zipball/14afe4126a8df88950ce6621dcb95b9ac4ccaddd",
-                "reference": "14afe4126a8df88950ce6621dcb95b9ac4ccaddd",
+                "url": "https://api.github.com/repos/lipis/flag-icon-css/zipball/f13b77e0323a674e6a56ac4284128ff73a39e115",
+                "reference": "f13b77e0323a674e6a56ac4284128ff73a39e115",
                 "shasum": ""
             },
             "type": "bower-asset-library",
@@ -989,20 +989,20 @@
         },
         {
             "name": "hiqdev/yii2-asset-flag-icon-css",
-            "version": "1.0.0",
+            "version": "1.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/hiqdev/yii2-asset-flag-icon-css.git",
-                "reference": "8c36259e5cdb8c0e643b99e7ac8c90f7e77fd579"
+                "reference": "61ad5307130283bc746b98f1814029a18635181a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hiqdev/yii2-asset-flag-icon-css/zipball/8c36259e5cdb8c0e643b99e7ac8c90f7e77fd579",
-                "reference": "8c36259e5cdb8c0e643b99e7ac8c90f7e77fd579",
+                "url": "https://api.github.com/repos/hiqdev/yii2-asset-flag-icon-css/zipball/61ad5307130283bc746b98f1814029a18635181a",
+                "reference": "61ad5307130283bc746b98f1814029a18635181a",
                 "shasum": ""
             },
             "require": {
-                "bower-asset/flag-icon-css": "~1.0.0",
+                "bower-asset/flag-icon-css": "~1.4.0",
                 "yiisoft/yii2": "~2.0"
             },
             "type": "yii2-extension",
@@ -1047,7 +1047,7 @@
                     "role": "QA Lead"
                 }
             ],
-            "description": "Yii 2 asset for bower flag-icon-css",
+            "description": "Yii2 asset for bower flag-icon-css",
             "homepage": "https://github.com/hiqdev/yii2-asset-flag-icon-css",
             "keywords": [
                 "asset",
@@ -1055,7 +1055,7 @@
                 "flag-icon-css",
                 "yii2"
             ],
-            "time": "2016-01-08 14:17:49"
+            "time": "2016-03-22 21:31:30"
         },
         {
             "name": "jp3cki/mb_str_replace",

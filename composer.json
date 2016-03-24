@@ -40,7 +40,7 @@
         "jp3cki/yii2-twitter-widget": "^1.0",
         "jp3cki/yii2-zxcvbn": "^1.0",
         "php-curl-class/php-curl-class": "^4.6",
-        "ramsey/uuid": "^3.1",
+        "ramsey/uuid": "3.2.*",
         "rmrevin/yii2-fontawesome": "^2.13",
         "smarty/smarty": "~3.1",
         "tpyo/amazon-s3-php-class": "^0.5.1",
