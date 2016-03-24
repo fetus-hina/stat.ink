@@ -83,6 +83,9 @@ clean-resource:
 composer.phar:
 	curl -sS https://getcomposer.org/installer | php -- --version=$(COMPOSER_VERSION)
 
+composer.lock: composer.json composer.phar
+	./composer.phar update -vvv
+
 %.br: %.gz
 	rm -f $@
 	zcat $< | bro --quality 11 --output $@
