@@ -577,16 +577,16 @@
         },
         {
             "name": "bower-asset/moment-timezone",
-            "version": "0.5.2",
+            "version": "0.5.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/moment/moment-timezone.git",
-                "reference": "031ac0fd2a3a10790b6eae14df664f008e143cc3"
+                "reference": "a35db0367651d7bafcc750114a124343d349b8f5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/moment/moment-timezone/zipball/031ac0fd2a3a10790b6eae14df664f008e143cc3",
-                "reference": "031ac0fd2a3a10790b6eae14df664f008e143cc3",
+                "url": "https://api.github.com/repos/moment/moment-timezone/zipball/a35db0367651d7bafcc750114a124343d349b8f5",
+                "reference": "a35db0367651d7bafcc750114a124343d349b8f5",
                 "shasum": ""
             },
             "require": {
