@@ -1,6 +1,6 @@
 STYLE_TARGETS=actions assets commands components controllers models
 JS_SRCS=$(shell ls -1 resources/stat.ink/main.js/*.js)
-COMPOSER_VERSION=1.0.0-alpha11
+COMPOSER_VERSION=1.0.0-beta1
 GULP=./node_modules/.bin/gulp
 
 RESOURCE_TARGETS_MAIN=\
@@ -25,6 +25,7 @@ all: init migrate-db
 
 init: \
 	composer.phar \
+	composer-update \
 	composer-plugin \
 	vendor \
 	vendor/smarty/smarty/libs/sysplugins/smarty_internal_templatecompilerbase.php \
@@ -49,6 +50,9 @@ ikalog: all runtime/ikalog runtime/ikalog/repo runtime/ikalog/winikalog.html
 	./yii ikalog/update-winikalog
 
 resource: $(RESOURCE_TARGETS)
+
+composer-update: composer.phar
+	(./composer.phar --version | grep "Composer version $(COMPOSER_VERSION) " >/dev/null) || ./composer.phar self-update -- $(COMPOSER_VERSION)
 
 composer-plugin: composer.phar
 	grep '"fxp/composer-asset-plugin"' ~/.composer/composer.json >/dev/null || ./composer.phar global require 'fxp/composer-asset-plugin:^1.1'
@@ -205,4 +209,4 @@ vendor/smarty/smarty/libs/sysplugins/smarty_internal_templatecompilerbase.php: v
 	head -n 815 vendor/smarty/smarty/libs/sysplugins/smarty_internal_templatecompilerbase.php | tail -n 10 | grep '\\1 \\2' > /dev/null && \
 		patch -d vendor/smarty/smarty -p1 -Nst < data/patch/smarty-strip.patch || /bin/true
 
-.PHONY: all init resource check-style fix-style clean clean-resource migrate-db composer-plugin ikalog FORCE
+.PHONY: FORCE all check-style clean clean-resource composer-plugin composer-update fix-style ikalog init migrate-db resource
