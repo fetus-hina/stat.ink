@@ -7,10 +7,11 @@
 
 namespace app\commands;
 
-use Ramsey\Uuid\Uuid;
 use Yii;
 use Zend\Feed\Reader\Reader as FeedReader;
 use Zend\Validator\Uri as UriValidator;
+use jp3cki\uuid\NS as UuidNS;
+use jp3cki\uuid\Uuid;
 use yii\console\Controller;
 use app\models\BlogEntry;
 
@@ -50,8 +51,10 @@ class BlogFeedController extends Controller
         if (!$id) {
             return;
         }
-        $uuid = Uuid::uuid5(
-            (new UriValidator())->isValid($id) ? Uuid::NAMESPACE_URL : 'd0ec81fc-c8e6-11e5-a890-9ca3ba01e1f8',
+        $uuid = Uuid::v5(
+            (new UriValidator())->isValid($id)
+                ? UuidNs::url()
+                : 'd0ec81fc-c8e6-11e5-a890-9ca3ba01e1f8',
             $id
         )->__toString();
         $link = $entry->getLink();

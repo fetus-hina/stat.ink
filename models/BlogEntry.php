@@ -7,8 +7,8 @@
 
 namespace app\models;
 
-use Ramsey\Uuid\Uuid;
 use Yii;
+use jp3cki\uuid\Uuid;
 
 /**
  * This is the model class for table "blog_entry".
@@ -43,15 +43,13 @@ class BlogEntry extends \yii\db\ActiveRecord
                 if ($this->hasErrors($attribute)) {
                     return;
                 }
-                if (!Uuid::isValid($this->$attribute)) {
+                // error check and normalize
+                try {
+                    $this->$attribute = (new Uuid($this->$attribute))->__toString();
+                } catch (\Exception $e) {
                     $this->addErrors($attribute, 'invalid uuid given');
                     return;
                 }
-                // normalize
-                $this->$attribute = strtolower(
-                    Uuid::fromString($this->$attribute)
-                        ->toString()
-                );
             }],
             [['uuid'], 'unique'],
         ];

@@ -7,9 +7,10 @@
 
 namespace app\actions\feed;
 
-use Ramsey\Uuid\Uuid;
 use Yii;
 use Zend\Feed\Writer\Feed as FeedWriter;
+use jp3cki\uuid\NS as UuidNS;
+use jp3cki\uuid\Uuid;
 use yii\base\DynamicModel;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -100,13 +101,8 @@ class UserAction extends BaseAction
             )
         );
         $feed->setId(
-            sprintf(
-                'urn:uuid:%s',
-                Uuid::uuid5(
-                    Uuid::NAMESPACE_URL,
-                    Url::to(['show/user', 'screen_name' => $user->screen_name], true)
-                )
-            )
+            Uuid::v5(UuidNS::url(), Url::to(['show/user', 'screen_name' => $user->screen_name], true))
+                ->formatAsUri()
         );
         $feed->setLink(
             Url::to(['show/user', 'screen_name' => $user->screen_name], true)
@@ -181,10 +177,12 @@ class UserAction extends BaseAction
             $at = strtotime($battle->at);
             $entry->setDateCreated($at);
             $entry->setDateModified($at);
-            $entry->setId(sprintf('urn:uuid:%s', Uuid::uuid5(
-                Uuid::NAMESPACE_URL,
-                Url::to(['show/battle', 'screen_name' => $user->screen_name, 'battle' => $battle->id], true)
-            )));
+            $entry->setId(
+                Uuid::v5(
+                    UuidNS::url(),
+                    Url::to(['show/battle', 'screen_name' => $user->screen_name, 'battle' => $battle->id], true)
+                )->formatAsUri()
+            );
             $entry->setLink(
                 Url::to(
                     [
