@@ -16,11 +16,13 @@ class Request extends Base
 {
     public function getMethod()
     {
-        $method = strtoupper((string)$_SERVER['REQUEST_METHOD'] ?? '?');
-        if ($method === 'POST') {
-            $type = strtolower((string)$this->contentType);
-            if (preg_match('!^application/(?:json|x-msgpack)!', $type)) {
-                $params = $this->bodyParams;
+        $method = @$_SERVER['REQUEST_METHOD'] ?: '?';
+        if (strtoupper($method) === 'POST') {
+            $type = $this->headers->get('Content-Type', '');
+            if (stripos($type, 'application/json') !== false ||
+                    stripos($type, 'application/x-msgpack') !== false
+            ) {
+                $params = $this->getBodyParams();
                 if (@isset($params[$this->methodParam])) {
                     return strtoupper($params[$this->methodParam]);
                 }
