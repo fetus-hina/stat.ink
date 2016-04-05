@@ -16,7 +16,7 @@ use app\components\helpers\Resource;
 
 class ImageArchiveController extends Controller
 {
-    const MAX_OPTIMIZE_PROC_COUNT = 3;
+    const MAX_OPTIMIZE_PROC_COUNT = 4;
     const ARCHIVE_SPLIT_AIM = 524288000; // 500 MiB
 
     public function init()
@@ -122,7 +122,7 @@ class ImageArchiveController extends Controller
             if ($terminated > 0) {
                 $procs = array_values($procs);
             }
-            usleep(200 * 1000);
+            usleep(30 * 1000);
         }
 
         // キューは空になったがまだ子はいる(かもしれない)ので終了待ち
@@ -142,7 +142,7 @@ class ImageArchiveController extends Controller
             if ($terminated > 0) {
                 $procs = array_values($procs);
             }
-            usleep(200 * 1000);
+            usleep(30 * 1000);
         }
 
         return !$error;
@@ -153,7 +153,7 @@ class ImageArchiveController extends Controller
     {
         $this->stdout(sprintf("        %s: Optimizing\n", basename($task->input)));
         $cmdline = sprintf(
-            '/usr/bin/env %s -rem allb -l 9 %s %s >/dev/null 2>&1',
+            '/usr/bin/env %s -rem allb -l 9 -fix %s %s >/dev/null 2>&1',
             escapeshellarg('pngcrush'),
             escapeshellarg($task->input),
             escapeshellarg($task->output)
@@ -184,6 +184,7 @@ class ImageArchiveController extends Controller
         $status = proc_get_status($proc->handle->get());
         if (!$status['running']) {
             @fclose($proc->pipes[1]);
+            clearstatcache();
             if ($status['exitcode'] !== 0) {
                 $this->stdout(
                     sprintf(
@@ -194,6 +195,17 @@ class ImageArchiveController extends Controller
                     Console::FG_RED
                 );
                 return 'error';
+            }
+            if ($status['exitcode'] === 0 && !file_exists($proc->output)) {
+                $this->stdout(
+                    sprintf(
+                        "        %s: Failed. Is file broken? SKIPPED.\n",
+                        basename($proc->input)
+                    ),
+                    Console::FG_RED
+                );
+                unlink($proc->input);
+                return 'exit';
             }
             $this->stdout(
                 sprintf(
