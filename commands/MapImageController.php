@@ -47,12 +47,12 @@ class MapImageController extends Controller
             return false;
         }
         $matrix = [
-            [1, 1, 1],
-            [1, 1, 1],
-            [1, 1, 1],
+            [1, 2, 1],
+            [2, 4, 2],
+            [1, 2, 1],
         ];
         for ($i = 0; $i < 5; ++$i) {
-            if (!imageconvolution($img->get(), $matrix, 9, 0)) {
+            if (!imageconvolution($img->get(), $matrix, 16, 0)) {
                 return false;
             }
         }
