@@ -1,6 +1,6 @@
 STYLE_TARGETS=actions assets commands components controllers models
 JS_SRCS=$(shell ls -1 resources/stat.ink/main.js/*.js)
-COMPOSER_VERSION=1.0.0-beta1
+COMPOSER_VERSION=1.0.0-beta2
 GULP=./node_modules/.bin/gulp
 
 RESOURCE_TARGETS_MAIN=\
