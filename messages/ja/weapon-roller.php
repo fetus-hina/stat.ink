@@ -10,5 +10,6 @@ return [
     'Krak-On Splat Roller' => 'スプラローラーコラボ',
     'Octobrush Nouveau' => 'ホクサイ・ヒュー',
     'Octobrush' => 'ホクサイ',
+    'Permanent Inkbrush' => 'パーマネント・パブロ',
     'Splat Roller' => 'スプラローラー',
 ];
