@@ -58,6 +58,7 @@ use app\components\helpers\DateTimeFormatter;
  * @property integer $his_team_count
  * @property integer $period
  * @property string $ua_custom
+ * @property string $ua_variables
  * @property integer $env_id
  * @property boolean $is_automated
  * @property integer $headgear_id
@@ -146,7 +147,7 @@ class Battle extends ActiveRecord
             [['start_at', 'end_at', 'at'], 'safe'],
             [['kill_ratio', 'my_team_final_percent', 'his_team_final_percent'], 'number'],
             [['my_team_color_rgb', 'his_team_color_rgb'], 'string', 'min' => 6, 'max' => 6],
-            [['ua_custom'], 'string'],
+            [['ua_custom', 'ua_variables'], 'string'],
             [['link_url'], 'url'],
             [['note', 'private_note'], 'string'],
             [['my_team_power', 'his_team_power', 'fest_power'], 'integer'],
@@ -199,7 +200,8 @@ class Battle extends ActiveRecord
             'my_team_count' => 'My Team Count',
             'his_team_count' => 'His Team Count',
             'period' => 'Period',
-            'ua_custom' => 'Ua Custom',
+            'ua_custom' => 'UA Custom',
+            'ua_variables' => 'UA Variables',
             'env_id' => 'Env ID',
             'fest_title_after_id' => 'Fest Title After ID',
             'fest_exp' => 'Fest Exp',
@@ -721,6 +723,7 @@ class Battle extends ActiveRecord
                 'name' => $this->agent ? $this->agent->name : null,
                 'version' => $this->agent ? $this->agent->version : null,
                 'custom' => $this->ua_custom,
+                'variables' => $this->ua_variables ? @json_decode($this->ua_variables, false) : null,
             ],
             'automated' => !!$this->is_automated,
             'environment' => $this->env ? $this->env->text : null,
