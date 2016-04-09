@@ -80,6 +80,7 @@ return [
     'Excluded: Private Battles' => '集計除外: プライベートマッチ',
     'Excluded: The uploader, All players (Private Battle), Uploader\'s teammates (Squad Battle or Splatfest Battle)' => '集計除外: プライベートマッチと、投稿ユーザ、タッグマッチ・フェスマッチ時の投稿者のチームメンバー',
     'Export' => 'エクスポート',
+    'Extra Data' => '追加情報',
     'Favorite Weapon' => 'よく使うブキ',
     'Favorite Weapons of This Site Member' => 'このサイトの登録者がよく使うブキ',
     'Favorite Weapons' => 'よく使っているブキ',
