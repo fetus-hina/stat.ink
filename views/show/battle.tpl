@@ -577,6 +577,14 @@
                 {{/if}}
               </td>
             </tr>
+            {{if $battle->ua_variables}}
+               {{foreach $battle->extraData as $k => $v}}
+                 <tr>
+                   <th>{{$k|translate:'app-ua-vars'|escape}}</th>
+                   <td>{{$v|translate:'app-ua-vars-v'|escape}}</td>
+                 </tr>
+               {{/foreach}}
+            {{/if}}
           </tbody>
         </table>
         <p>

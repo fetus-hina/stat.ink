@@ -87,6 +87,7 @@ class PostBattleForm extends Model
     public $agent;
     public $agent_version;
     public $agent_custom;
+    public $agent_variables;
     public $uuid;
 
     public function rules()
@@ -184,6 +185,7 @@ class PostBattleForm extends Model
             [['players'], 'validatePlayers'],
             [['gears'], 'validateGears'],
             [['events'], 'validateEvents'],
+            [['agent_variables'], 'validateAgentVariables'],
         ];
     }
 
@@ -393,6 +395,54 @@ class PostBattleForm extends Model
         $this->addError($attribute, 'Invalid UTF-8 sequence given.');
     }
 
+    public function validateAgentVariables($attribute, $params)
+    {
+        if ($this->hasErrors($attribute)) {
+            return;
+        }
+        $value = $this->$attribute;
+        if ($value == '') {
+            $this->$attribute = null;
+            return;
+        }
+        if (is_array($value)) {
+            if (count($value) === 0) {
+                $this->$attribute = null;
+                return;
+            }
+            $value = (object)$value;
+        }
+        if (is_object($value) && ($value instanceof \stdClass)) {
+            $newValue = new \stdClass();
+            foreach ($value as $k => $v) {
+                $k = is_int($k) ? "ARRAY[{$k}]" : (string)$k;
+                if (!mb_check_encoding($k, 'UTF-8')) {
+                    $this->addError($attribute, 'Invalid UTF-8 sequence in KEY');
+                    return;
+                }
+                if (!is_string($v)) {
+                    if (is_int($v) || is_float($v)) {
+                        $v = (string)$v;
+                    } elseif (is_bool($v)) {
+                        $v = $v ? 'true' : 'false';
+                    } elseif (is_object($v) && is_callable([$v, '__toString'])) {
+                        $v = $v->__toString();
+                    } else {
+                        $v = json_encode($v);
+                    }
+                }
+                if (!mb_check_encoding($v, 'UTF-8')) {
+                    $this->addError($attribute, 'Invalid UTF-8 sequence in VALUE (key=' . $k . ')');
+                    return;
+                }
+                $newValue->$k = $v;
+            }
+            $this->$attribute = $newValue;
+        } else {
+            $this->addError($attribute, 'Invalid format: ' . $attribute);
+        }
+    }
+
     public function getUser()
     {
         return User::findOne(['api_key' => $this->apikey]);
@@ -448,6 +498,7 @@ class PostBattleForm extends Model
             : new Now();
         $o->agent_id        = null;
         $o->ua_custom       = (string)$this->agent_custom == '' ? null : (string)$this->agent_custom;
+        $o->ua_variables    = $this->agent_variables ? json_encode($this->agent_variables, JSON_FORCE_OBJECT) : null;
         $o->client_uuid     = (string)$this->uuid == '' ? null : (string)$this->uuid;
         $o->at              = new Now();
         $o->is_automated    = ($this->automated === 'yes');
