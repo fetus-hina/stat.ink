@@ -941,6 +941,19 @@ class Battle extends ActiveRecord
         return (object)$ret;
     }
 
+    public function getHasAbilities()
+    {
+        return $this->headgear && $this->clothing && $this->shoes;
+    }
+
+    public function getAbilityEffects()
+    {
+        if (!$this->getHasAbilities()) {
+            return null;
+        }
+        return \app\components\ability\Effect::factory($this);
+    }
+
     public function getExtraData()
     {
         $json = $this->ua_variables;
