@@ -940,4 +940,26 @@ class Battle extends ActiveRecord
 
         return (object)$ret;
     }
+
+    public function getExtraData()
+    {
+        $json = $this->ua_variables;
+        if ($json == '') {
+            return [];
+        }
+        return (function () use ($json) {
+            $decoded = @json_decode($json, true);
+            if (!$decoded) {
+                return [];
+            }
+            $ret = [];
+            foreach ($decoded as $key => $value) {
+                $key = str_replace('_', ' ', $key);
+                $key = ucwords($key);
+                $ret[$key] = $value;
+            }
+            ksort($ret, SORT_STRING);
+            return $ret;
+        })();
+    }
 }

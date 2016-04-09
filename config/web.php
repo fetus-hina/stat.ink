@@ -155,6 +155,8 @@ $config = [
                         'app-start'     => 'start.php',
                         'app-subweapon' => 'subweapon.php',
                         'app-tz'        => 'tz.php',
+                        'app-ua-vars'   => 'ua_vars.php',
+                        'app-ua-vars-v' => 'ua_vars_v.php',
                         'app-weapon'    => 'weapon.php',
                     ],
                 ],
