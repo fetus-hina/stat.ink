@@ -524,6 +524,21 @@
                   {{/if}} / {{$battle->agent->version|escape}}
                 </td>
             {{/if}}
+            {{if $battle->ua_variables}}
+              <tr>
+                <th>{{'Extra Data'|translate:'app'|escape}}</th>
+                <td>
+                  <table class="table" style="margin-bottom:0">
+                    {{foreach $battle->extraData as $k => $v}}
+                      <tr>
+                        <th>{{$k|translate:'app-ua-vars'|escape}}</th>
+                        <td>{{$v|translate:'app-ua-vars-v'|escape}}</td>
+                      </tr>
+                    {{/foreach}}
+                  </table>
+                </td>
+              </tr>
+            {{/if}}
             {{if $battle->note != ''}}
               <tr>
                 <th>{{'Note'|translate:'app'|escape}}</th>
@@ -577,14 +592,6 @@
                 {{/if}}
               </td>
             </tr>
-            {{if $battle->ua_variables}}
-               {{foreach $battle->extraData as $k => $v}}
-                 <tr>
-                   <th>{{$k|translate:'app-ua-vars'|escape}}</th>
-                   <td>{{$v|translate:'app-ua-vars-v'|escape}}</td>
-                 </tr>
-               {{/foreach}}
-            {{/if}}
           </tbody>
         </table>
         <p>
