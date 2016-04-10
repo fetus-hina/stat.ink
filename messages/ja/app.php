@@ -318,4 +318,8 @@ return [
     '{nFormatted} {n, plural, =1{time} other{times}}' => '{nFormatted} 回',
     '{number} dead in {battle, plural, =1{1 battle} other{# battles}}' => '{number}回 / {battle}戦',
     '{number} killed in {battle, plural, =1{1 battle} other{# battles}}' => '{number}回 / {battle}戦',
+    '{pct} % loss' => '{pct} % 減少',
+    '{sec} seconds ({pct} %)' => '{sec} 秒 ({pct} %)',
+    '{sec} seconds' => '{sec} 秒',
+    '{sec} seconds, {cnt} times' => '{sec} 秒, 最大 {cnt} 回',
 ];

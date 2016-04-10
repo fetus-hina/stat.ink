@@ -1477,480 +1477,186 @@
             {{/registerJs}}
           {{/if}}
         {{/if}}
-        {{if $battle->headgear && $battle->clothing && $battle->shoes}}
+
+        {{$effects = $battle->abilityEffects}}
+        {{if $effects}}
           {{$hasExtendedData = true}}
           <h2 id="effect">
             {{'Ability Effect'|translate:'app'|escape}}
           </h2>
-          <p style="font-size:10px;line-height:1.1">
-            現在、バージョン2.5.0の計算式で計算しています。2.6.0対応アップデートはしばらくお待ちください。
-          </p>
           <table class="table table-striped">
             <tbody>
-              <tr>
-                <th>{{'Damage'|translate:'app-gearstat'|escape}}</th>
-                <td>
-                  <span id="gearstat-damage"></span>
-                  {{registerJs}}
-                    (function($){
-                      var base = window.getAttackRatio(0, 0);
-                      var value = window.gearAbilities.damage_up
-                        ? window.getAttackRatio(window.gearAbilities.damage_up.count.main, window.gearAbilities.damage_up.count.sub)
-                        : base;
-                      $('#gearstat-damage').text(
-                        (value * 100).toFixed(1) + '%'
-                      );
-                    })(jQuery);
-                  {{/registerJs}}
-                </td>
-              </tr>
-              <tr>
-                <th>{{'Defense'|translate:'app-gearstat'|escape}}</th>
-                <td>
-                  <span id="gearstat-defense"></span>
-                  {{registerJs}}
-                    (function($){
-                      var base = window.getDefenseRatio(0, 0);
-                      var value = window.gearAbilities.defense_up
-                        ? window.getDefenseRatio(window.gearAbilities.defense_up.count.main, window.gearAbilities.defense_up.count.sub)
-                        : base;
-                      $('#gearstat-defense').text(
-                        (value * 100).toFixed(1) + '%'
-                      );
-                    })(jQuery);
-                  {{/registerJs}}
-                </td>
-              </tr>
-              <tr>
-                <th>{{'Ink Usage(Main)'|translate:'app-gearstat'|escape}}</th>
-                <td>
-                  <span id="gearstat-ink-save-main"></span>
-                  {{registerJs}}
-                    (function($){
-                      var base = window.getInkSaverMain(0, 0);
-                      var value = window.gearAbilities.ink_saver_main
-                        ? window.getInkSaverMain(window.gearAbilities.ink_saver_main.count.main, window.gearAbilities.ink_saver_main.count.sub)
-                        : base;
-                      $('#gearstat-ink-save-main').text(
-                        (value * 100).toFixed(1) + '%'
-                      );
-                    })(jQuery);
-                  {{/registerJs}}
-                </td>
-              </tr>
-              <tr>
-                <th>{{'Ink Usage(Sub)'|translate:'app-gearstat'|escape}}</th>
-                <td>
-                  <span id="gearstat-ink-save-sub"></span>
-                  {{registerJs}}
-                    (function($){
-                      var base = window.getInkSaverSub(0, 0);
-                      var value = window.gearAbilities.ink_saver_sub
-                        ? window.getInkSaverSub(window.gearAbilities.ink_saver_sub.count.main, window.gearAbilities.ink_saver_sub.count.sub)
-                        : base;
-                      $('#gearstat-ink-save-sub').text(
-                        (value * 100).toFixed(1) + '%'
-                      );
-                    })(jQuery);
-                  {{/registerJs}}
-                </td>
-              </tr>
-              <tr>
-                <th>{{'Ink Recovery'|translate:'app-gearstat'|escape}}</th>
-                <td>
-                  <span id="gearstat-ink-recovery" data-format="{{':sec seconds (:pct%)'|translate:'app-gearstat'|escape}}"></span>
-                  {{registerJs}}
-                    (function($){
-                      var baseTime = window.getInkRecoveryTime(0, 0);
-                      var time = (window.gearAbilities.ink_recovery_up)
-                        ? window.getInkRecoveryTime(window.gearAbilities.ink_recovery_up.count.main, window.gearAbilities.ink_recovery_up.count.sub)
-                        : baseTime;
-                      var $e = $('#gearstat-ink-recovery');
-                      $e.text(
-                        $e.attr('data-format').replace(/:\w+/g, function(match) {
-                          switch (match) {
-                            case ':sec':
-                              return time.toFixed(2);
+              {{$_tmp = $effects->attackPct}}
+              {{if $_tmp !== null}}
+                <tr>
+                  <th>{{'Damage'|translate:'app-gearstat'|escape}}</th>
+                  <td>{{($_tmp * 100)|number_format:1|escape}} %</td>
+                </tr>
+              {{/if}}
 
-                            case ':pct':
-                              return (time * 100 / baseTime).toFixed(1);
-                          }
-                        })
-                      );
-                    })(jQuery);
-                  {{/registerJs}}
-                </td>
-              </tr>
-              <tr>
-                <th>{{'Run Speed'|translate:'app-gearstat'|escape}}</th>
-                <td>
-                  <span id="gearstat-run"></span>
-                  {{registerJs}}
-                    (function($){
-                      var baseSpeed = window.getRunSpeed(0, 0);
-                      var speed = (window.gearAbilities.run_speed_up)
-                        ? window.getRunSpeed(window.gearAbilities.run_speed_up.count.main, window.gearAbilities.run_speed_up.count.sub)
-                        : baseSpeed;
-                      $('#gearstat-run').text(
-                        (speed * 100 / baseSpeed).toFixed(1) + '%'
-                      );
-                    })(jQuery);
-                  {{/registerJs}}
-                </td>
-              </tr>
-              <tr>
-                <th>{{'Swim Speed'|translate:'app-gearstat'|escape}}</th>
-                <td>
-                  <span id="gearstat-swim"></span>
-                  {{registerJs}}
-                    (function($){
-                      var baseSpeed = window.getSwimSpeed(0, 0);
-                      var speed = (window.gearAbilities.swim_speed_up)
-                        ? window.getSwimSpeed(window.gearAbilities.swim_speed_up.count.main, window.gearAbilities.swim_speed_up.count.sub)
-                        : baseSpeed;
-                      $('#gearstat-swim').text(
-                        (speed * 100 / baseSpeed).toFixed(1) + '%'
-                      );
-                    })(jQuery);
-                  {{/registerJs}}
-                </td>
-              </tr>
-              <tr>
-                <th>{{'Special Charge'|translate:'app-gearstat'|escape}}</th>
-                <td>
-                  <table>
-                    <tbody>
-                      <tr>
-                        <td>
-                          {{'Inkzooka'|translate:'app-special'|escape}}
-                        </td>
-                        <td style="padding:0 10px">:</td>
-                        <td>
-                          <span class="gearstat-special-point" data-base="220" data-format="{{':p p (:pct%)'|translate:'app-gearstat'|escape}}"></span>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          {{'Kraken'|translate:'app-special'|escape}}
-                        </td>
-                        <td style="padding:0 10px">:</td>
-                        <td>
-                          <span class="gearstat-special-point" data-base="200" data-format="{{':p p (:pct%)'|translate:'app-gearstat'|escape}}"></span>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          {{'Echolocator'|translate:'app-special'|escape}}
-                        </td>
-                        <td style="padding:0 10px">:</td>
-                        <td>
-                          <span class="gearstat-special-point" data-base="200" data-format="{{':p p (:pct%)'|translate:'app-gearstat'|escape}}"></span>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          {{'Killer Wail'|translate:'app-special'|escape}}
-                        </td>
-                        <td style="padding:0 10px">:</td>
-                        <td>
-                          <span class="gearstat-special-point" data-base="160" data-format="{{':p p (:pct%)'|translate:'app-gearstat'|escape}}"></span>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          {{'Others'|translate:'app'|escape}}
-                        </td>
-                        <td style="padding:0 10px">:</td>
-                        <td>
-                          <span class="gearstat-special-point" data-base="180" data-format="{{':p p (:pct%)'|translate:'app-gearstat'|escape}}"></span>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                  {{registerJs}}
-                    (function($){
-                      var main = 0;
-                      var sub = 0;
-                      if (window.gearAbilities.special_charge_up) {
-                        main = window.gearAbilities.special_charge_up.count.main;
-                        sub = window.gearAbilities.special_charge_up.count.sub;
-                      }
-                      $('.gearstat-special-point').each(function() {
-                        var $e = $(this);
-                        var basePoint = window.getSpecialPoint(~~$e.attr('data-base'), 0, 0);
-                        var point = window.getSpecialPoint(~~$e.attr('data-base'), main, sub);
-                        $e.text(
-                          $e.attr('data-format').replace(/:\w+/g, function(match) {
-                            switch (match) {
-                              case ':p':
-                                return point;
+              {{$_tmp = $effects->defensePct}}
+              {{if $_tmp !== null}}
+                <tr>
+                  <th>{{'Defense'|translate:'app-gearstat'|escape}}</th>
+                  <td>{{($_tmp * 100)|number_format:1|escape}} %</td>
+                </tr>
+              {{/if}}
 
-                              case ':pct':
-                                return (point * 100 / basePoint).toFixed(1);
-                            }
-                          })
-                        );
-                      });
-                    })(jQuery);
-                  {{/registerJs}}
-                </td>
-              </tr>
-              <tr>
-                <th>{{'Special Duration'|translate:'app-gearstat'|escape}}</th>
-                <td>
-                  <table>
-                    <tbody>
-                      <tr>
-                        <td>
-                          {{'Bubbler'|translate:'app-special'|escape}}
-                        </td>
-                        <td style="padding:0 10px">:</td>
-                        <td>
-                          <span class="gearstat-special-duration-time" data-base="5" data-format="{{':sec seconds (:pct%)'|translate:'app-gearstat'|escape}}"></span>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          {{'Kraken'|translate:'app-special'|escape}}
-                        </td>
-                        <td style="padding:0 10px">:</td>
-                        <td>
-                          <span class="gearstat-special-duration-time" data-base="6" data-format="{{':sec seconds (:pct%)'|translate:'app-gearstat'|escape}}"></span>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          {{'Echolocator'|translate:'app-special'|escape}}
-                        </td>
-                        <td style="padding:0 10px">:</td>
-                        <td>
-                          <span class="gearstat-special-duration-time" data-base="12" data-format="{{':sec seconds (:pct%)'|translate:'app-gearstat'|escape}}"></span>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          {{'Burst Bomb'|translate:'app-subweapon'|escape}}
-                        </td>
-                        <td style="padding:0 10px">:</td>
-                        <td>
-                          <span class="gearstat-special-duration-count" data-base="6" data-frame="22" data-format="{{':sec seconds (:pct%), :count times'|translate:'app-gearstat'|escape}}"></span>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          {{'Splat Bomb'|translate:'app-subweapon'|escape}}
-                        </td>
-                        <td style="padding:0 10px">:</td>
-                        <td>
-                          <span class="gearstat-special-duration-count" data-base="6" data-frame="33" data-format="{{':sec seconds (:pct%), :count times'|translate:'app-gearstat'|escape}}"></span>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          {{'Suction Bomb'|translate:'app-subweapon'|escape}}
-                        </td>
-                        <td style="padding:0 10px">:</td>
-                        <td>
-                          <span class="gearstat-special-duration-count" data-base="6" data-frame="33" data-format="{{':sec seconds (:pct%), :count times'|translate:'app-gearstat'|escape}}"></span>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          {{'Seeker'|translate:'app-subweapon'|escape}}
-                        </td>
-                        <td style="padding:0 10px">:</td>
-                        <td>
-                          <span class="gearstat-special-duration-count" data-base="6" data-frame="38" data-format="{{':sec seconds (:pct%), :count times'|translate:'app-gearstat'|escape}}"></span>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          {{'Inkzooka'|translate:'app-special'|escape}}
-                        </td>
-                        <td style="padding:0 10px">:</td>
-                        <td>
-                          <span class="gearstat-special-duration-count" data-base="6" data-frame="64" data-format="{{':sec seconds (:pct%), :count times'|translate:'app-gearstat'|escape}}"></span>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                  {{registerJs}}
-                    (function($){
-                      var main = 0;
-                      var sub = 0;
-                      if (window.gearAbilities.special_duration_up) {
-                        main = window.gearAbilities.special_duration_up.count.main;
-                        sub = window.gearAbilities.special_duration_up.count.sub;
-                      }
-                      $('.gearstat-special-duration-time').each(function() {
-                        var $e = $(this);
-                        var baseTime = window.getSpecialDuration(~~$e.attr('data-base'), 0, 0);
-                        var time = window.getSpecialDuration(~~$e.attr('data-base'), main, sub);
-                        $e.text(
-                          $e.attr('data-format').replace(/:\w+/g, function(match) {
-                            switch (match) {
-                              case ':sec':
-                                return time.toFixed(2);
+              {{$_tmp = $effects->inkUsePctMain}}
+              {{if $_tmp !== null}}
+                <tr>
+                  <th>{{'Ink Usage(Main)'|translate:'app-gearstat'|escape}}</th>
+                  <td>{{($_tmp * 100)|number_format:1|escape}} %</td>
+                </tr>
+              {{/if}}
 
-                              case ':pct':
-                                return (time * 100 / baseTime).toFixed(1);
-                            }
-                          })
-                        );
-                      });
-                      $('.gearstat-special-duration-count').each(function() {
-                        var $e = $(this);
-                        var baseTime = window.getSpecialDuration(~~$e.attr('data-base'), 0, 0);
-                        var time = window.getSpecialDuration(~~$e.attr('data-base'), main, sub);
-                        var count = window.getSpecialCount(~~$e.attr('data-frame'), main, sub);
-                        $e.text(
-                          $e.attr('data-format').replace(/:\w+/g, function(match) {
-                            switch (match) {
-                              case ':sec':
-                                return time.toFixed(2);
+              {{$_tmp = $effects->inkUsePctSub}}
+              {{if $_tmp !== null}}
+                <tr>
+                  <th>{{'Ink Usage(Sub)'|translate:'app-gearstat'|escape}}</th>
+                  <td>{{($_tmp * 100)|number_format:1|escape}} %</td>
+                </tr>
+              {{/if}}
 
-                              case ':pct':
-                                return (time * 100 / baseTime).toFixed(1);
+              {{$_tmp = $effects->inkRecoverySec}}
+              {{if $_tmp !== null}}
+                <tr>
+                  <th>{{'Ink Recovery'|translate:'app-gearstat'|escape}}</th>
+                  <td>
+                    {{$_param = [
+                        'sec' => $_tmp|number_format:2,
+                        'pct' => (100 * $_tmp / 3)|number_format:1
+                      ]}}
+                    {{'{sec} seconds ({pct} %)'|translate:'app':$_param|escape}}
+                  </td>
+                </tr>
+              {{/if}}
 
-                              case ':count':
-                                return count;
-                            }
-                          })
-                        );
-                      });
-                    })(jQuery);
-                  {{/registerJs}}
-                </td>
-              </tr>
-              <tr>
-                <th>{{'Special Save'|translate:'app-gearstat'|escape}}</th>
-                <td>
-                  <span id="gearstat-special-save" data-format="{{':pct% loss'|translate:'app-gearstat'|escape}}"></span>
-                  {{registerJs}}
-                    (function($){
-                      var baseLoss = window.getSpecialSave(0, 0);
-                      var loss = (window.gearAbilities.special_saver)
-                        ? window.getSpecialSave(window.gearAbilities.special_saver.count.main, window.gearAbilities.special_saver.count.sub)
-                        : baseLoss;
-                      var $e = $('#gearstat-special-save');
-                      $e.text(
-                        $e.attr('data-format').replace(/:\w+/g, function(match) {
-                          switch (match) {
-                            case ':pct':
-                              return (loss * 100).toFixed(1);
-                          }
-                        })
-                      );
-                    })(jQuery);
-                  {{/registerJs}}
-                </td>
-              </tr>
-              <tr>
-                <th>{{'Respawn'|translate:'app-gearstat'|escape}}</th>
-                <td>
-                  <span id="gearstat-respawn" data-format="{{':sec seconds (:pct%)'|translate:'app-gearstat'|escape}}"></span>
-                  {{registerJs}}
-                    (function($){
-                      var baseTime = window.getRespawnTime('wakaba', 0, 0);
-                      var time = (window.gearAbilities.quick_respawn)
-                        ? window.getRespawnTime('wakaba', window.gearAbilities.quick_respawn.count.main, window.gearAbilities.quick_respawn.count.sub)
-                        : baseTime;
-                      var $e = $('#gearstat-respawn');
-                      $e.text(
-                        $e.attr('data-format').replace(/:\w+/g, function(match) {
-                          switch (match) {
-                            case ':sec':
-                              return time.toFixed(2);
+              {{$_tmp = $effects->runSpeedPct}}
+              {{if $_tmp !== null}}
+                <tr>
+                  <th>{{'Run Speed'|translate:'app-gearstat'|escape}}</th>
+                  <td>{{($_tmp * 100)|number_format:1|escape}} %</td>
+                </tr>
+              {{/if}}
 
-                            case ':pct':
-                              return (time * 100 / baseTime).toFixed(1);
-                          }
-                        })
-                      );
-                    })(jQuery);
-                  {{/registerJs}}
-                </td>
-              </tr>
-              <tr>
-                <th>{{'Jump'|translate:'app-gearstat'|escape}}</th>
-                <td>
-                  <span id="gearstat-jump" data-format="{{':sec seconds'|translate:'app-gearstat'|escape}}"></span>
-                  {{registerJs}}
-                    (function($){
-                      var baseTime = window.getJumpTime(0, 0);
-                      var mainCount = window.gearAbilities.quick_super_jump ? window.gearAbilities.quick_super_jump.count.main : 0;
-                      var subCount = window.gearAbilities.quick_super_jump ? window.gearAbilities.quick_super_jump.count.sub : 0;
-                      var timePrepare = window.getJumpPrepareTime(mainCount, subCount);
-                      var timeAscent = window.getJumpPullUpTime(mainCount, subCount);
-                      var timeDescent = window.getJumpPullDownTime(mainCount, subCount);
-                      var timeStiffen = window.getJumpRigidTime(mainCount, subCount);
-                      var timeTotal = timePrepare + timeAscent + timeDescent + timeStiffen;
-                      var $e = $('#gearstat-jump');
-                      var format = function (sec) {
-                        return $e.attr('data-format').replace(/:\w+/g, function (match) {
-                          switch (match) {
-                            case ':sec':
-                              return sec.toFixed(2);
-                          }
-                        });
-                      };
-                      $e.empty().append(
-                        $('<span>', {title: '{{"Prepare"|translate:"app-gearstat"|escape:javascript}}'})
-                          .addClass('auto-tooltip')
-                          .text(format(timePrepare))
-                      ).append(' + ').append(
-                        $('<span>', {title: '{{"Ascent"|translate:"app-gearstat"|escape:javascript}}'})
-                          .addClass('auto-tooltip')
-                          .text(format(timeAscent))
-                      ).append(' + ').append(
-                        $('<span>', {title: '{{"Descent"|translate:"app-gearstat"|escape:javascript}}'})
-                          .addClass('auto-tooltip')
-                          .text(format(timeDescent))
-                      ).append(' + ').append(
-                        $('<span>', {title: '{{"Stiffen"|translate:"app-gearstat"|escape:javascript}}'})
-                          .addClass('auto-tooltip')
-                          .text(format(timeStiffen))
-                      ).append(' = ').append(format(timeTotal)).append(' (' + (timeTotal * 100 / baseTime).toFixed(1) + '%)');
+              {{$_tmp = $effects->swimSpeedPct}}
+              {{if $_tmp !== null}}
+                <tr>
+                  <th>{{'Swim Speed'|translate:'app-gearstat'|escape}}</th>
+                  <td>{{($_tmp * 100)|number_format:1|escape}} %</td>
+                </tr>
+              {{/if}}
 
-                      $('.auto-tooltip', $e).tooltip({'container': 'body'});
-                    })(jQuery);
-                  {{/registerJs}}
-                </td>
-              </tr>
-              <tr>
-                <th>{{'Bomb Throw'|translate:'app-gearstat'|escape}}</th>
-                <td>
-                  <span id="gearstat-bomb-throw"></span>
-                  {{registerJs}}
-                    (function($){
-                      var baseRange = window.getBombThrow(0, 0);
-                      var range = (window.gearAbilities.bomb_range_up)
-                        ? window.getBombThrow(window.gearAbilities.bomb_range_up.count.main, window.gearAbilities.bomb_range_up.count.sub)
-                        : baseRange;
-                      $('#gearstat-bomb-throw').text(
-                        (range * 100 / baseRange).toFixed(1) + '%'
-                      );
-                    })(jQuery);
-                  {{/registerJs}}
-                </td>
-              </tr>
-              <tr>
-                <th>{{'Echolocator'|translate:'app-gearstat'|escape}}</th>
-                <td>
-                  <span id="gearstat-echo"></span>
-                  {{registerJs}}
-                    (function($){
-                      var enable = window.gearAbilities.cold_blooded && window.gearAbilities.cold_blooded.count.main > 0;
-                      $('#gearstat-echo').text(
-                        enable ? '25.0%' : '100.0%'
-                      );
-                    })(jQuery);
-                  {{/registerJs}}
-                </td>
-              </tr>
+              {{$_tmp = $effects->specialChargePoint}}
+              {{if $_tmp !== null}}
+                <tr>
+                  <th>{{'Special Charge'|translate:'app-gearstat'|escape}}</th>
+                  <td>{{$effects->specialChargePoint|round|escape}} p ({{$battle->weapon->special->name|default:''|translate:'app-special'|escape}})</td>
+                </tr>
+              {{/if}}
+
+              {{$_tmp = $effects->specialDurationSec}}
+              {{if $_tmp !== null}}
+                <tr>
+                  <th>{{'Special Duration'|translate:'app-gearstat'|escape}}</th>
+                  <td>
+                    {{$_tmp2 = $effects->specialDurationCount}}
+                    {{if $_tmp2 === null}}
+                      {{$_param = [
+                          'sec' => $_tmp|number_format:2
+                        ]}}
+                      {{'{sec} seconds'|translate:'app':$_param|escape}}
+                    {{else}}
+                      {{$_param = [
+                          'sec' => $_tmp|number_format:2,
+                          'cnt' => $_tmp2
+                        ]}}
+                      {{'{sec} seconds, {cnt} times'|translate:'app':$_param|escape}}
+                    {{/if}}
+                    &#32;({{$battle->weapon->special->name|default:''|translate:'app-special'|escape}})
+                  </td>
+                </tr>
+              {{/if}}
+
+              {{$_tmp = $effects->specialLossPct}}
+              {{if $_tmp !== null}}
+                <tr>
+                  <th>{{'Special Save'|translate:'app-gearstat'|escape}}</th>
+                  <td>
+                    {{$_param = [
+                        'pct' => ($_tmp * 100)|number_format:1
+                      ]}}
+                    {{'{pct} % loss'|translate:'app':$_param|escape}} ({{$battle->weapon->name|translate:'app-weapon'|escape}})
+                  </td>
+                </tr>
+              {{/if}}
+
+              {{$_tmp = $effects->respawnSec}}
+              {{if $_tmp !== null}}
+                <tr>
+                  <th>{{'Respawn'|translate:'app-gearstat'|escape}}</th>
+                  <td>
+                    {{$_param = [
+                        'sec' => $_tmp|number_format:2
+                      ]}}
+                    {{'{sec} seconds'|translate:'app':$_param|escape}}
+                  </td>
+                </tr>
+              {{/if}}
+
+              {{$_tmp = $effects->superJumpSecs}}
+              {{if $_tmp !== null}}
+                <tr>
+                  <th>{{'Jump'|translate:'app-gearstat'|escape}}</th>
+                  <td>
+                    <span class="auto-tooltip" title="{{'Prepare'|translate:'app-gearstat'|escape}}">
+                      {{$_param = ['sec' => $_tmp.prepare|number_format:2]}}
+                      {{'{sec} seconds'|translate:'app':$_param|escape}}
+                    </span>
+                    &#32;+&#32;
+                    <span class="auto-tooltip" title="{{'Ascent'|translate:'app-gearstat'|escape}}">
+                      {{$_param = ['sec' => $_tmp.pullup|number_format:2]}}
+                      {{'{sec} seconds'|translate:'app':$_param|escape}}
+                    </span>
+                    &#32;+&#32;
+                    <span class="auto-tooltip" title="{{'Descent'|translate:'app-gearstat'|escape}}">
+                      {{$_param = ['sec' => $_tmp.pulldown|number_format:2]}}
+                      {{'{sec} seconds'|translate:'app':$_param|escape}}
+                    </span>
+                    &#32;+&#32;
+                    <span class="auto-tooltip" title="{{'Stiffen'|translate:'app-gearstat'|escape}}">
+                      {{$_param = ['sec' => $_tmp.rigid|number_format:2]}}
+                      {{'{sec} seconds'|translate:'app':$_param|escape}}
+                    </span>
+                    &#32;=&#32;
+                    {{$_param = [
+                        'sec' => ($_tmp.prepare + $_tmp.pullup + $_tmp.pulldown + $_tmp.rigid)|number_format:2
+                      ]}}
+                    {{'{sec} seconds'|translate:'app':$_param|escape}}
+                  </td>
+                </tr>
+              {{/if}}
+
+              {{$_tmp = $effects->bombThrowPct}}
+              {{if $_tmp !== null}}
+                <tr>
+                  <th>{{'Bomb Throw'|translate:'app-gearstat'|escape}}</th>
+                  <td>{{($_tmp * 100)|number_format:1|escape}} %</td>
+                </tr>
+              {{/if}}
+
+              {{$_tmp = $effects->markingPct}}
+              {{if $_tmp !== null}}
+                <tr>
+                  <th>{{'Echolocator'|translate:'app-gearstat'|escape}}</th>
+                  <td>{{($_tmp * 100)|number_format:1|escape}} %</td>
+                </tr>
+              {{/if}}
             </tbody>
           </table>
           <p class="text-right" style="font-size:10px;line-height:1.1">
+            [{{$effects->calculatorVersion|escape}}]<br>
             Powered by <a href="http://wikiwiki.jp/splatoon2ch/?%A5%AE%A5%A2%A5%D1%A5%EF%A1%BC%B8%A1%BE%DA">ギアパワー検証 - スプラトゥーン(Splatoon) for 2ch Wiki*</a>
           </p>
         {{/if}}
