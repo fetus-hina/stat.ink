@@ -46,12 +46,18 @@ abstract class Base extends Component
     protected function getSpecialFrameInterval()
     {
         switch ($this->battle->weapon->special->key ?? null) {
-            case 'quickbomb':   return 22;
-            case 'splashbomb':  return 33;
-            case 'kyubanbomb':  return 33;
-            case 'chasebomb':   return 38;
-            case 'supershot':   return 64;
-            default:            return null;
+            case 'quickbomb':
+                return 22;
+            case 'splashbomb':
+                return 33;
+            case 'kyubanbomb':
+                return 33;
+            case 'chasebomb':
+                return 38;
+            case 'supershot':
+                return 64;
+            default:
+                return null;
         }
     }
 

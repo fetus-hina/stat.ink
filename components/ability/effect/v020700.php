@@ -42,10 +42,14 @@ class v020700 extends v020600
     protected function getSpecialDurationDefaultSec()
     {
         switch ($this->battle->weapon->special->key ?? null) {
-            case null:          return null;
-            case 'barrier':     return 5;
-            case 'supersensor': return 9;
-            default:            return 6;
+            case null:
+                return null;
+            case 'barrier':
+                return 5;
+            case 'supersensor':
+                return 9;
+            default:
+                return 6;
         }
     }
 

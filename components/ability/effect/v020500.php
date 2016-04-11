@@ -157,22 +157,32 @@ class v020500 extends Base
     protected function getSpecialChargeDefaultPoint()
     {
         switch ($this->battle->weapon->special->key ?? null) {
-            case null:          return null;
-            case 'supershot':   return 220;
-            case 'supersensor': return 200;
-            case 'daioika':     return 200;
-            case 'megaphone':   return 160;
-            default:            return 180;
+            case null:
+                return null;
+            case 'supershot':
+                return 220;
+            case 'supersensor':
+                return 200;
+            case 'daioika':
+                return 200;
+            case 'megaphone':
+                return 160;
+            default:
+                return 180;
         }
     }
 
     protected function getSpecialDurationDefaultSec()
     {
         switch ($this->battle->weapon->special->key ?? null) {
-            case null:          return null;
-            case 'barrier':     return 5;
-            case 'supersensor': return 12;
-            default:            return 6;
+            case null:
+                return null;
+            case 'barrier':
+                return 5;
+            case 'supersensor':
+                return 12;
+            default:
+                return 6;
         }
     }
 }

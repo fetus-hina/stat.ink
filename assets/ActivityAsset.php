@@ -18,6 +18,6 @@ class ActivityAsset extends AssetBundle
     ];
     public $depends = [
         CalHeatmapAsset::class,
-        JqueryAsset::class, 
+        JqueryAsset::class,
     ];
 }
