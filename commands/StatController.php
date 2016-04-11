@@ -308,8 +308,9 @@ class StatController extends Controller
         $db->createCommand("SET timezone TO 'UTC-6'")->execute();
         $transaction = $db->beginTransaction();
         $startDate = (new \DateTime(
-                StatAgentUser::find()->max('date') ?? '2015-01-01',
-                new \DateTimeZone('Etc/GMT-6')))
+            StatAgentUser::find()->max('date') ?? '2015-01-01',
+            new \DateTimeZone('Etc/GMT-6')
+        ))
             ->setTime(0, 0, 0)
             ->add(new \DateInterval('P1D')); // +1 day
 

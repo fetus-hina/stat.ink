@@ -1490,7 +1490,90 @@
               {{if $_tmp !== null}}
                 <tr>
                   <th>{{'Damage'|translate:'app-gearstat'|escape}}</th>
-                  <td>{{($_tmp * 100)|number_format:1|escape}} %</td>
+                  <td>
+                    {{($_tmp * 100)|number_format:1|escape}} %
+
+                    {{$_attack = $battle->weaponAttack}}
+                    {{if $_attack}}
+                      &#32;
+                      {{$_damage = $_attack->damage * $_tmp}}
+                      [{{$_attack->damage|number_format:1|escape}} &times; {{($_tmp * 100)|number_format:1|escape}}% = <strong>{{$_damage|number_format:1|escape}}</strong>]
+
+                      {{$_baseHit2Kill = $_attack->getHitToKill()}}
+                      <table class="table table-bordered table-condensed hidden-xs">
+                        <thead>
+                          <tr>
+                            <th colspan="2" rowspan="2">
+                              {{'Defense Up'|translate:'app-ability'|escape}}
+                            </th>
+                            <th colspan="10">{{'Secondary Abilities'|translate:'app'|escape}}</th>
+                          </tr>
+                          <tr>
+                            <th>0</th>
+                            <th>1</th>
+                            <th>2</th>
+                            <th>3</th>
+                            <th>4</th>
+                            <th>5</th>
+                            <th>6</th>
+                            <th>7</th>
+                            <th>8</th>
+                            <th>9</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {{for $_defMain=0 to 3}}
+                            <tr>
+                            {{if $_defMain === 0}}
+                              <th scope="row" rowspan="4">{{'Primary Ability'|translate:'app'|escape}}</th>
+                            {{/if}}
+                            <th scope="row">{{$_defMain|escape}}</th>
+                            {{for $_defSub=0 to 9}}
+                              {{$_damage = $effects->calcDamage($_attack->damage, $_defMain, $_defSub)}}
+                              {{$_hit2kill = ceil(100 / $_damage)}}
+                              <td class="{{if $_hit2kill > $_baseHit2Kill}}danger {{/if}}">
+                                {{$_damage|number_format:1|escape}}
+                              </td>
+                            {{/for}}
+                            </tr>
+                          {{/for}}
+                        </tbody>
+                      </table>
+                      <table class="table table-bordered table-condensed visible-xs-block">
+                        <thead>
+                          <tr>
+                            <th colspan="2" rowspan="2">
+                              {{'Defense Up'|translate:'app-ability'|escape}}
+                            </th>
+                            <th colspan="4">{{'Primary Ability'|translate:'app'|escape}}</th>
+                          </tr>
+                          <tr>
+                            <th>0</th>
+                            <th>1</th>
+                            <th>2</th>
+                            <th>3</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {{for $_defSub=0 to 9}}
+                            <tr>
+                            {{if $_defSub === 0}}
+                              <th scope="row" rowspan="10">{{'Secondary Abilities'|translate:'app'|escape}}</th>
+                            {{/if}}
+                            <th scope="row">{{$_defSub|escape}}</th>
+                            {{for $_defMain=0 to 3}}
+                              {{$_damage = $effects->calcDamage($_attack->damage, $_defMain, $_defSub)}}
+                              {{$_hit2kill = ceil(100 / $_damage)}}
+                              <td class="{{if $_hit2kill > $_baseHit2Kill}}danger {{/if}}">
+                                {{$_damage|number_format:1|escape}}
+                              </td>
+                            {{/for}}
+                            </tr>
+                          {{/for}}
+                        </tbody>
+                      </table>
+                    {{/if}}
+                  </td>
                 </tr>
               {{/if}}
 

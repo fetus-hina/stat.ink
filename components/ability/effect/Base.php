@@ -15,6 +15,7 @@ abstract class Base extends Component
 {
     public $battle;
     public $version;
+    private $countCache = [];
 
     abstract public function getCalculatorVersion();
 
@@ -45,16 +46,46 @@ abstract class Base extends Component
     protected function getSpecialFrameInterval()
     {
         switch ($this->battle->weapon->special->key ?? null) {
-            case 'quickbomb':   return 22;
-            case 'splashbomb':  return 33;
-            case 'kyubanbomb':  return 33;
-            case 'chasebomb':   return 38;
-            case 'supershot':   return 64;
-            default:            return null;
+            case 'quickbomb':
+                return 22;
+            case 'splashbomb':
+                return 33;
+            case 'kyubanbomb':
+                return 33;
+            case 'chasebomb':
+                return 38;
+            case 'supershot':
+                return 64;
+            default:
+                return null;
         }
     }
 
+    public function calcDamage($baseDamage, $defMain, $defSub)
+    {
+        $def = $defMain * 10 + $defSub * 3;
+        return $this->calcDamageImpl(
+            $baseDamage,
+            $this->calcX('damage_up', 100),
+            ((0.99 * $def) - pow((0.09 * $def), 2)) / 100
+        );
+    }
+
+    protected function calcDamageImpl($baseDamage, $a, $d)
+    {
+        $x = ($a >= $d) ? (1 + ($a - $d)) : (1 + ($a - $d) / 1.8);
+        return $baseDamage * $x;
+    }
+
     protected function getEffectiveCount($key)
+    {
+        if (!isset($this->countCache[$key])) {
+            $this->countCache[$key] = $this->getEffectiveCountImpl($key);
+        }
+        return $this->countCache[$key];
+    }
+
+    protected function getEffectiveCountImpl($key)
     {
         $gears = [
             $this->battle->headgear,
