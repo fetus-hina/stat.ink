@@ -17,6 +17,28 @@ use Yii;
  */
 class WeaponAttack extends \yii\db\ActiveRecord
 {
+    public static function findByWeaponAndVersion(Weapon $weapon, SplatoonVersion $version)
+    {
+        // 当該ブキのデータを全部取り寄せる(どうせ大した量ではない)
+        $list = static::find()
+            ->with('version')
+            ->andWhere(['{{weapon_attack}}.[[main_weapon_id]]' => $weapon->main_group_id])
+            ->all();
+
+        // 指定バージョンより先のバージョンは捨てる
+        $list = array_filter($list, function ($target) use ($version) {
+            return $target->version && version_compare($target->version->tag, $version->tag, '<=');
+        });
+
+        // 新しい順に並び替える
+        usort($list, function ($a, $b) {
+            return version_compare($b->version->tag, $a->version->tag);
+        });
+
+        // 最初の要素が目的の代物
+        return empty($list) ? null : array_shift($list);
+    }
+
     /**
      * @inheritdoc
      */
@@ -73,5 +95,22 @@ class WeaponAttack extends \yii\db\ActiveRecord
     public function getMainWeapon()
     {
         return $this->hasOne(Weapon::className(), ['id' => 'main_weapon_id']);
+    }
+
+    public function getHitToKill()
+    {
+        return ceil(100 / $this->damage);
+    }
+
+    public function getVirtualDamage($ratio)
+    {
+        return $this->damage * $ratio;
+    }
+
+    public function getRealDamage($ratio)
+    {
+        $virtual = $this->getVirtualDamage($ratio);
+        $limit = 100 / $this->getHitToKill();
+        return min($virtual, $limit);
     }
 }

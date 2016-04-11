@@ -343,6 +343,15 @@ class Battle extends ActiveRecord
         return $this->hasOne(Weapon::class, ['id' => 'weapon_id']);
     }
 
+    public function getWeaponAttack()
+    {
+        $weapon = $this->weapon;
+        $version = $this->splatoonVersion;
+        return ($weapon && $version)
+            ? WeaponAttack::findByWeaponAndVersion($weapon, $version)
+            : null;
+    }
+
     /**
      * @return \yii\db\ActiveQuery
      */
