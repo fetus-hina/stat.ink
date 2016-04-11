@@ -5,5 +5,6 @@ return [
     'Heavy Splatling' => 'バレルスピナー',
     'Hydra Splatling' => 'ハイドラント',
     'Mini Splatling' => 'スプラスピナー',
+    'Refurbished Mini Splatling' => 'スプラスピナーリペア',
     'Zink Mini Splatling' => 'スプラスピナーコラボ',
 ];

@@ -1,9 +1,10 @@
 <?php
 return [
-    'Slosher' => 'バケットスロッシャー',
     'Slosher Deco' => 'バケットスロッシャーデコ',
-    'Sloshing Machine' => 'スクリュースロッシャー',
+    'Slosher' => 'バケットスロッシャー',
     'Sloshing Machine Neo' => 'スクリュースロッシャーネオ',
-    'Tri-Slosher' => 'ヒッセン',
+    'Sloshing Machine' => 'スクリュースロッシャー',
+    'Soda Slosher' => 'バケットスロッシャーソーダ',
     'Tri-Slosher Nouveau' => 'ヒッセン・ヒュー',
+    'Tri-Slosher' => 'ヒッセン',
 ];
