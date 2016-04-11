@@ -1,6 +1,6 @@
 STYLE_TARGETS=actions assets commands components controllers models
 JS_SRCS=$(shell ls -1 resources/stat.ink/main.js/*.js)
-COMPOSER_VERSION=1.0.0-beta2
+COMPOSER_VERSION=1.0.0
 GULP=./node_modules/.bin/gulp
 
 RESOURCE_TARGETS_MAIN=\
@@ -57,6 +57,7 @@ composer-update: composer.phar
 composer-plugin: composer.phar
 	grep '"fxp/composer-asset-plugin"' ~/.composer/composer.json >/dev/null || ./composer.phar global require 'fxp/composer-asset-plugin:^1.1'
 	grep '"hirak/prestissimo"' ~/.composer/composer.json >/dev/null || ./composer.phar global require 'hirak/prestissimo:^0.1'
+	./composer.phar global update -vvv
 
 vendor: composer.phar composer.lock
 	php composer.phar install --prefer-dist --profile
