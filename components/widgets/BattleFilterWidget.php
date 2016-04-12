@@ -346,10 +346,16 @@ class BattleFilterWidget extends Widget
             'div',
             implode('', [
                 $form->field($this->filter, 'term_from', [
-                    'inputTemplate' => Yii::t('app', '<div class="input-group"><span class="input-group-addon">From:</span>{input}</div>'),
+                    'inputTemplate' => Yii::t(
+                        'app',
+                        '<div class="input-group"><span class="input-group-addon">From:</span>{input}</div>'
+                    ),
                 ])->input('text', ['placeholder' => 'YYYY-MM-DD hh:mm:ss'])->label(false),
                 $form->field($this->filter, 'term_to', [
-                    'inputTemplate' => Yii::t('app', '<div class="input-group"><span class="input-group-addon">To:</span>{input}</div>'),
+                    'inputTemplate' => Yii::t(
+                        'app',
+                        '<div class="input-group"><span class="input-group-addon">To:</span>{input}</div>'
+                    ),
                 ])->input('text', ['placeholder' => 'YYYY-MM-DD hh:mm:ss'])->label(false),
             ]),
             [ 'id' => $divId ]

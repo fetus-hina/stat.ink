@@ -99,7 +99,11 @@ class UserStatReportAction extends BaseAction
         throw new NotFoundHttpException(Yii::t('yii', 'Page not found.'));
         $from = mktime(0, 0, 0, 1, 1, (int)$form->year);
         $to = mktime(0, 0, -1, 1, 1, (int)$form->year + 1);
-        $list = $this->query(date('Y-m-d\TH:i:sP', $from), date('Y-m-d\TH:i:sP', $to), "TO_CHAR({{battle}}.[[at]], 'YYYY-MM')");
+        $list = $this->query(
+            date('Y-m-d\TH:i:sP', $from),
+            date('Y-m-d\TH:i:sP', $to),
+            "TO_CHAR({{battle}}.[[at]], 'YYYY-MM')"
+        );
     }
 
     private function query($from, $to, $date)
@@ -134,7 +138,13 @@ class UserStatReportAction extends BaseAction
                 ['<>', '{{lobby}}.[[key]]', 'private'],
                 ['between', '{{battle}}.[[at]]', $from, $to],
             ])
-            ->groupBy([$date, '{{battle}}.[[lobby_id]]', '{{battle}}.[[rule_id]]', '{{battle}}.[[map_id]]', '{{battle}}.[[weapon_id]]']);
+            ->groupBy([
+                $date,
+                '{{battle}}.[[lobby_id]]',
+                '{{battle}}.[[rule_id]]',
+                '{{battle}}.[[map_id]]',
+                '{{battle}}.[[weapon_id]]',
+            ]);
         $list = array_map(
             function ($row) {
                 $row['lobby_name']  = Yii::t('app-rule', $row['lobby_name']);
