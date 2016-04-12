@@ -12,4 +12,5 @@ return [
     'Octobrush' => 'ホクサイ',
     'Permanent Inkbrush' => 'パーマネント・パブロ',
     'Splat Roller' => 'スプラローラー',
+    'Tempered Dynamo Roller' => 'ダイナモローラーバーンド',
 ];
