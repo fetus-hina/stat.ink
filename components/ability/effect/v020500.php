@@ -98,6 +98,9 @@ class v020500 extends Base
             return null;
         }
         $defSec = $this->getSpecialDurationDefaultSec();
+        if ($defSec === null) {
+            return null;
+        }
         return (1 + $x) * $defSec;
     }
 
