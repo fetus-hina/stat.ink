@@ -103,6 +103,18 @@ class Battle extends ActiveRecord
         return $query;
     }
 
+    public static function getRoughCount()
+    {
+        try {
+            return (new \yii\db\Query())
+                ->select('[[last_value]]')
+                ->from('{{battle_id_seq}}')
+                ->scalar();
+        } catch (Exception $e) {
+            return false;
+        }
+    }
+
     /**
      * @inheritdoc
      */

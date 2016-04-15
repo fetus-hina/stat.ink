@@ -46,6 +46,18 @@ class User extends ActiveRecord implements IdentityInterface
         return 'user';
     }
 
+    public static function getRoughCount()
+    {
+        try {
+            return (new \yii\db\Query())
+                ->select('[[last_value]]')
+                ->from('{{user_id_seq}}')
+                ->scalar();
+        } catch (Exception $e) {
+            return false;
+        }
+    }
+
     public function init()
     {
         parent::init();
@@ -54,7 +66,6 @@ class User extends ActiveRecord implements IdentityInterface
                 $this->api_key = self::generateNewApiKey();
             }
         });
-
     }
 
     /**

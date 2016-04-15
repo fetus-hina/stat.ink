@@ -5,6 +5,9 @@ GULP=./node_modules/.bin/gulp
 
 RESOURCE_TARGETS_MAIN=\
 	resources/.compiled/activity/activity.js \
+	resources/.compiled/dseg/dseg14.css \
+	resources/.compiled/dseg/fonts/DSEG14Classic-Italic.ttf \
+	resources/.compiled/dseg/fonts/DSEG14Classic-Italic.woff \
 	resources/.compiled/flot-graph-icon/jquery.flot.icon.js \
 	resources/.compiled/gears/calc.js \
 	resources/.compiled/gh-fork-ribbon/gh-fork-ribbon.css \
@@ -132,6 +135,21 @@ resources/.compiled/stat.ink/no-image.png: resources/stat.ink/no-image.png
 resources/.compiled/stat.ink/favicon.png: resources/stat.ink/favicon.png
 	mkdir -p resources/.compiled/stat.ink || /bin/true
 	pngcrush -rem allb -l 9 resources/stat.ink/favicon.png resources/.compiled/stat.ink/favicon.png
+
+resources/.compiled/dseg/fonts/DSEG14Classic-Italic.ttf: resources/dseg/DSEG_v030.zip
+	mkdir -p resources/.compiled/dseg/fonts
+	unzip -joq $< DSEG14/Classic/DSEG14Classic-Italic.ttf -d resources/.compiled/dseg/fonts
+
+resources/.compiled/dseg/fonts/DSEG14Classic-Italic.woff: resources/dseg/DSEG_v030.zip
+	mkdir -p resources/.compiled/dseg/fonts
+	unzip -joq $< DSEG14/Classic/DSEG14Classic-Italic.woff -d resources/.compiled/dseg/fonts
+
+resources/.compiled/dseg/dseg14.css: resources/dseg/dseg14.less $(GULP)
+	$(GULP) less --in $< --out $@
+
+resources/dseg/DSEG_v030.zip:
+	test -d resources/dseg || mkdir resources/dseg
+	curl -o $@ http://www.keshikan.net/archive/DSEG_v030.zip
 
 migrate-db: vendor config/db.php
 	./yii migrate/up --interactive=0
