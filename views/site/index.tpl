@@ -18,9 +18,9 @@
     <p class="text-right" style="margin-bottom:0">
       {{\app\assets\CounterAsset::register($this)|@void}}
       <span style="white-space:nowrap">
-        Users: <span class="dseg-counter">{{User::getRoughCount()|default:'?'|escape}}</span>,
+        Users: <span class="dseg-counter" data-type="users">{{User::getRoughCount()|default:'?'|escape}}</span>,
       </span>&#32;<span style="white-space:nowrap">
-        Battles: <span class="dseg-counter">{{Battle::getRoughCount()|default:'?'|escape}}</span>
+        Battles: <span class="dseg-counter" data-type="battles">{{Battle::getRoughCount()|default:'?'|escape}}</span>
       </span>
     </p>
     <h1>
