@@ -16,6 +16,7 @@
 /node_modules
 /phpunit.xml
 /resources/.compiled
+/resources/dseg/*.zip
 /vendor
 /web/images
 Thumbs.db
