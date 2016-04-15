@@ -5,6 +5,8 @@ GULP=./node_modules/.bin/gulp
 
 RESOURCE_TARGETS_MAIN=\
 	resources/.compiled/activity/activity.js \
+	resources/.compiled/counter/counter.css \
+	resources/.compiled/counter/counter.js \
 	resources/.compiled/dseg/dseg14.css \
 	resources/.compiled/dseg/fonts/DSEG14Classic-Italic.ttf \
 	resources/.compiled/dseg/fonts/DSEG14Classic-Italic.woff \
@@ -135,6 +137,12 @@ resources/.compiled/stat.ink/no-image.png: resources/stat.ink/no-image.png
 resources/.compiled/stat.ink/favicon.png: resources/stat.ink/favicon.png
 	mkdir -p resources/.compiled/stat.ink || /bin/true
 	pngcrush -rem allb -l 9 resources/stat.ink/favicon.png resources/.compiled/stat.ink/favicon.png
+
+resources/.compiled/counter/counter.js: resources/counter/counter.js $(GULP)
+	$(GULP) js --in $< --out $@
+
+resources/.compiled/counter/counter.css: resources/counter/counter.less $(GULP)
+	$(GULP) less --in $< --out $@
 
 resources/.compiled/dseg/fonts/DSEG14Classic-Italic.ttf: resources/dseg/DSEG_v030.zip
 	mkdir -p resources/.compiled/dseg/fonts

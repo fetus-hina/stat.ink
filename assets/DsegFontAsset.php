@@ -9,7 +9,7 @@ namespace app\assets;
 
 use yii\web\AssetBundle;
 
-class SevenSegmentFontAsset extends AssetBundle
+class DsegFontAsset extends AssetBundle
 {
     public $sourcePath = '@app/resources/.compiled/dseg';
     public $css = [

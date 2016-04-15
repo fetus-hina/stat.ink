@@ -16,54 +16,12 @@
       {{/foreach}}
     </p>
     <p class="text-right" style="margin-bottom:0">
+      {{\app\assets\CounterAsset::register($this)|@void}}
       <span style="white-space:nowrap">
         Users: <span class="dseg-counter">{{User::getRoughCount()|default:'?'|escape}}</span>,
       </span>&#32;<span style="white-space:nowrap">
         Battles: <span class="dseg-counter">{{Battle::getRoughCount()|default:'?'|escape}}</span>
       </span>
-      {{\app\assets\SevenSegmentFontAsset::register($this)|@void}}
-      {{registerCss}}
-        .dseg-counter {
-          display: inline-block;
-          position: relative;
-          font-family: DSEG14Classic-Italic;
-          font-size: 1.618em;
-        }
-
-        .dseg-counter-bg {
-          display: none;
-        }
-
-        @media screen {
-          .dseg-counter-bg {
-            display: inline-block;
-            position: absolute;
-            left: 0;
-            top: 0;
-            content: '~~~~';
-            color: #ddd;
-            z-index: -1;
-          }
-        }
-      {{/registerCss}}
-      {{registerJs}}
-        (function($){
-          $('.dseg-counter').each(function(){
-            $this = $(this);
-            $this.prepend(
-              $('<span>').addClass('dseg-counter-bg').text(
-                (function(len){
-                  var ret = '';
-                  for(var i = 0; i < len; ++i) {
-                    ret += '~';
-                  }
-                  return ret;
-                })($this.text().length)
-              )
-            );
-          });
-        })(jQuery);
-      {{/registerJs}}
     </p>
     <h1>
       {{$app->name|escape}}

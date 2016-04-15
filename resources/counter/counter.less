@@ -1,0 +1,25 @@
+@charset 'UTF-8';
+
+/*!
+ * Copyright (C) 2016 AIZAWA Hina | MIT License
+ */
+
+.dseg-counter {
+    display: inline-block;
+    position: relative;
+    font-family: DSEG14Classic-Italic;
+    font-size: 1.618em;
+}
+
+.dseg-counter-bg {
+    display: none;
+
+    @media screen {
+        display: inline-block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        color: #eee;
+        z-index: -1;
+    }
+}
