@@ -4,7 +4,7 @@ return [
     'Carbon Roller' => 'カーボンローラー',
     'Dynamo Roller' => 'ダイナモローラー',
     'Gold Dynamo Roller' => 'ダイナモローラーテスラ',
-    'Hero Roller Replica' => 'ヒーローローラーレプリカ',
+    'Hero Roller Replica' => 'ヒーローローラー レプリカ',
     'Inkbrush Nouveau' => 'パブロ・ヒュー',
     'Inkbrush' => 'パブロ',
     'Krak-On Splat Roller' => 'スプラローラーコラボ',
