@@ -319,7 +319,7 @@
                   {{if $battle->kill_ratio === null}}
                     {{'N/A'|translate:'app'|escape}}
                   {{else}}
-                    {{$battle->kill_ratio|string_format:'%.2f'|escape}}
+                    {{$battle->kill_ratio|number_format:2|escape}}
                   {{/if}}
                 </td>
               </tr>
@@ -363,7 +363,7 @@
                   {{if $battle->my_team_final_percent === null}}
                     ?
                   {{else}}
-                    {{$battle->my_team_final_percent|string_format:'%.1f'|escape}}
+                    {{$battle->my_team_final_percent|number_format:1|escape}}
                   {{/if}}
                   %)
                 </td>
@@ -375,7 +375,7 @@
                   {{if $battle->his_team_final_percent === null}}
                     ?
                   {{else}}
-                    {{$battle->his_team_final_percent|string_format:'%.1f'|escape}}
+                    {{$battle->his_team_final_percent|number_format:1|escape}}
                   {{/if}}
                   %)
                 </td>
@@ -707,10 +707,10 @@
                     {{if !$hasNull}}
                       {{if $totalDeath == 0}}
                         {{if $totalKill != 0}}
-                          99.99
+                          {{99.99|number_format:2|escape}}
                         {{/if}}
                       {{else}}
-                        {{($totalKill/$totalDeath)|string_format:'%.2f'|escape}}
+                        {{($totalKill/$totalDeath)|number_format:2|escape}}
                       {{/if}}
                     {{/if}}
                   </td>
@@ -763,10 +763,10 @@
                       {{if $player->kill !== null && $player->death !== null}}
                         {{if $player->death === 0}}
                           {{if $player->kill !== 0}}
-                            99.99
+                            {{99.99|number_format:2|escape}}
                           {{/if}}
                         {{else}}
-                          {{($player->kill/$player->death)|string_format:'%.2f'|escape}}
+                          {{($player->kill/$player->death)|number_format:2|escape}}
                         {{/if}}
                       {{/if}}
                     </td>

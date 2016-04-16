@@ -55,15 +55,15 @@
       {{/if}}
     {{/if}}
 
-    {{$_btl = $summary->battle_count}}
+    {{$_btl = $summary->battle_count|number_format}}
     {{if $summary->wp === null}}
       {{$_wp = '-'}}
     {{else}}
-      {{$_wp = $summary->wp|string_format:'%.1f%%'}}
+      {{$_wp = $summary->wp|number_format:1|cat:'%'}}
     {{/if}}
     {{if $summary->kd_present > 0}}
-      {{$_kill = ($summary->total_kill/$summary->kd_present)|string_format:'%.2f'}}
-      {{$_death = ($summary->total_death/$summary->kd_present)|string_format:'%.2f'}}
+      {{$_kill = ($summary->total_kill/$summary->kd_present)|number_format:2}}
+      {{$_death = ($summary->total_death/$summary->kd_present)|number_format:2}}
       {{if $summary->total_death == 0}}
         {{if $summary->total_kill == 0}}
           {{$_kr = '-'}}
@@ -71,7 +71,7 @@
           {{$_kr = '∞'}}
         {{/if}}
       {{else}}
-        {{$_kr = ($summary->total_kill/$summary->total_death)|string_format:'%.2f'}}
+        {{$_kr = ($summary->total_kill/$summary->total_death)|number_format:2}}
       {{/if}}
     {{else}}
       {{$_kill = '-'}}
@@ -112,7 +112,7 @@
                 {{if $summary->wp === null}}
                   {{'N/A'|translate:'app'|escape}}
                 {{else}}
-                  {{$summary->wp|string_format:'%.1f%%'|escape}}
+                  {{$summary->wp|number_format:1|escape}}%
                 {{/if}}
               </div>
             </div>
@@ -122,7 +122,7 @@
                 {{if $summary->wp_short === null}}
                   {{'N/A'|translate:'app'|escape}}
                 {{else}}
-                  {{$summary->wp_short|string_format:'%.1f%%'|escape}}
+                  {{$summary->wp_short|number_format:1|escape}}%
                 {{/if}}
               </div>
             </div>
@@ -133,7 +133,7 @@
                   {{$p = ['number' => $summary->total_kill, 'battle' => $summary->kd_present]}}
                   {{$t = '{number} killed in {battle, plural, =1{1 battle} other{# battles}}'|translate:'app':$p}}
                   <span class="auto-tooltip" title="{{$t|escape}}">
-                    {{($summary->total_kill/$summary->kd_present)|string_format:'%.2f'|escape}}
+                    {{($summary->total_kill/$summary->kd_present)|number_format:2|escape}}
                   </span>
                 {{else}}
                   {{'N/A'|translate:'app'|escape}}
@@ -147,7 +147,7 @@
                   {{$p = ['number' => $summary->total_death, 'battle' => $summary->kd_present]}}
                   {{$t = '{number} dead in {battle, plural, =1{1 battle} other{# battles}}'|translate:'app':$p}}
                   <span class="auto-tooltip" title="{{$t|escape}}">
-                    {{($summary->total_death/$summary->kd_present)|string_format:'%.2f'|escape}}
+                    {{($summary->total_death/$summary->kd_present)|number_format:2|escape}}
                   </span>
                 {{else}}
                   {{'N/A'|translate:'app'|escape}}
@@ -165,7 +165,7 @@
                       ∞
                     {{/if}}
                   {{else}}
-                    {{($summary->total_kill/$summary->total_death)|string_format:'%.2f'|escape}}
+                    {{($summary->total_kill/$summary->total_death)|number_format:2|escape}}
                   {{/if}}
                 {{else}}
                   -

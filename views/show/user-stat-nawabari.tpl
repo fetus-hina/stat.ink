@@ -54,9 +54,9 @@
           </h3>
           {{if $map->avgInked !== null}}
             <p>
-              {{'Average:'|translate:'app'|escape}} {{$map->avgInked|string_format:'%.1f'|escape}}p
+              {{'Average:'|translate:'app'|escape}} {{$map->avgInked|number_format:1|escape}}p
               {{if $map->area}}
-                , {{($map->avgInked*100/$map->area)|string_format:'%.1f%%'|escape}}
+                , {{($map->avgInked*100/$map->area)|number_format:1|escape}}%
               {{/if}}
             </p>
           {{/if}}

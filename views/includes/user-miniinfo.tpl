@@ -28,7 +28,7 @@
               {{if $stat->wp === null}}
                 {{'N/A'|translate:'app'|escape}}
               {{else}}
-                {{$stat->wp|string_format:'%.1f%%'|escape}}
+                {{$stat->wp|number_format:1|escape}}%
               {{/if}}
             </div>
           </div>
@@ -40,7 +40,7 @@
               {{if $stat->wp_short === null}}
                 {{'N/A'|translate:'app'|escape}}
               {{else}}
-                {{$stat->wp_short|string_format:'%.1f%%'|escape}}
+                {{$stat->wp_short|number_format:1|escape}}%
               {{/if}}
             </div>
           </div>
@@ -55,7 +55,7 @@
                 {{$p = ['number' => $stat->total_kill, 'battle' => $stat->total_kd_battle_count]}}
                 {{$s = '{number} killed in {battle, plural, =1{1 battle} other{# battles}}'|translate:'app':$p}}
                 <span class="auto-tooltip" title="{{$s|escape}}">
-                  {{($stat->total_kill/$stat->total_kd_battle_count)|string_format:'%.2f'|escape}}
+                  {{($stat->total_kill/$stat->total_kd_battle_count)|number_format:2|escape}}
                 </span>
               {{else}}
                 {{'N/A'|translate:'app'|escape}}
@@ -71,7 +71,7 @@
                 {{$p = ['number' => $stat->total_death, 'battle' => $stat->total_kd_battle_count]}}
                 {{$s = '{number} dead in {battle, plural, =1{1 battle} other{# battles}}'|translate:'app':$p}}
                 <span class="auto-tooltip" title="{{$s|escape}}">
-                  {{($stat->total_death/$stat->total_kd_battle_count)|string_format:'%.2f'|escape}}
+                  {{($stat->total_death/$stat->total_kd_battle_count)|number_format:2|escape}}
                 </span>
               {{else}}
                 {{'N/A'|translate:'app'|escape}}
@@ -90,7 +90,7 @@
               {{elseif $stat->total_death == 0}}
                 ∞
               {{else}}
-                {{($stat->total_kill/$stat->total_death)|string_format:'%.2f'|escape}}
+                {{($stat->total_kill/$stat->total_death)|number_format:2|escape}}
               {{/if}}
             </div>
           </div>
@@ -122,7 +122,7 @@
               {{if $stat->nawabari_wp === null}}
                 {{'N/A'|translate:'app'|escape}}
               {{else}}
-                {{$stat->nawabari_wp|string_format:'%.1f%%'|escape}}
+                {{$stat->nawabari_wp|number_format:1|escape}}%
               {{/if}}
             </div>
           </div>
@@ -138,7 +138,7 @@
               {{elseif $stat->nawabari_death == 0}}
                 ∞
               {{else}}
-                {{($stat->nawabari_kill/$stat->nawabari_death)|string_format:'%.2f'|escape}}
+                {{($stat->nawabari_kill/$stat->nawabari_death)|number_format:2|escape}}
               {{/if}}
             </div>
           </div>
@@ -169,7 +169,7 @@
               {{if $stat->gachi_wp === null}}
                 {{'N/A'|translate:'app'|escape}}
               {{else}}
-                {{$stat->gachi_wp|string_format:'%.1f%%'|escape}}
+                {{$stat->gachi_wp|number_format:1|escape}}%
               {{/if}}
             </div>
           </div>
@@ -185,7 +185,7 @@
               {{elseif $stat->gachi_death == 0}}
                 ∞
               {{else}}
-                {{($stat->gachi_kill/$stat->gachi_death)|string_format:'%.2f'|escape}}
+                {{($stat->gachi_kill/$stat->gachi_death)|number_format:2|escape}}
               {{/if}}
             </div>
           </div>

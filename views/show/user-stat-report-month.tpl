@@ -101,21 +101,21 @@
               <td class="text-right">{{$row.battles|number_format|escape}}</td>
               <td class="text-right">
                 {{if $row.battles > 0}}{{* 絶対真になるはず *}}
-                  {{($row.wins*100/$row.battles)|string_format:'%.1f%%'|escape}}
+                  {{($row.wins*100/$row.battles)|number_format:1|escape}}%
                 {{/if}}
               </td>
               <td class="text-center">
                 {{if $row.battles > 0}}{{* 絶対真になるはず *}}
-                  {{($row.kill/$row.battles)|string_format:'%.1f'|escape}}
+                  {{($row.kill/$row.battles)|number_format:1|escape}}
                   &#32;/&#32;
-                  {{($row.death/$row.battles)|string_format:'%.1f'|escape}}
+                  {{($row.death/$row.battles)|number_format:1|escape}}
                 {{/if}}
               </td>
               <td class="text-center">
                 {{if $row.death > 0}}
-                  {{($row.kill/$row.death)|string_format:'%.2f'|escape}}
+                  {{($row.kill/$row.death)|number_format:2|escape}}
                 {{elseif $row.kill > 0}}
-                  99.99
+                  {{99.99|number_format:2|escape}}
                 {{else}}
                   -
                 {{/if}}

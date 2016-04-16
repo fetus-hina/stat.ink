@@ -79,7 +79,7 @@
                   {{'{nFormatted} {n, plural, =1{time} other{times}}'|translate:'app':$params}}
                 </td>
                 <td class="text-right">
-                  {{($row->count*100/$total)|string_format:'%.2f%%'|escape}}
+                  {{($row->count*100/$total)|number_format:2|escape}}%
                 </td>
               </tr>
             {{foreachelse}}
