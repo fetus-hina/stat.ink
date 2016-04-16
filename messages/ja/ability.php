@@ -24,5 +24,5 @@ return [
     'Special Saver'         => 'スペシャル減少量ダウン',
     'Stealth Jump'          => 'ステルスジャンプ',
     'Swim Speed Up'         => 'イカダッシュ速度アップ',
-    'Tenacity'              => '逆境',
+    'Tenacity'              => '逆境強化',
 ];

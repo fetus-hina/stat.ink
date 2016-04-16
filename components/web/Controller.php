@@ -104,6 +104,9 @@ class Controller extends Base
                     ? 'en-GB'
                     : 'en-US';
 
+            case 'es':
+                return $firstLang === 'es-es' ? 'es-ES' : 'es-MX';
+
             default:
                 return false;
         }
@@ -126,6 +129,13 @@ class Controller extends Base
 
                 case 'en-gb':
                     return Timezone::findOne(['identifier' => 'Europe/London']);
+
+                case 'es':
+                case 'es-ES':
+                    return Timezone::findOne(['identifier' => 'Europe/Paris']);
+
+                case 'es-MX':
+                    return Timezone::findOne(['identifier' => 'America/Chicago']);
 
                 default:
                     return Timezone::findOne(['identifier' => 'Asia/Tokyo']);
