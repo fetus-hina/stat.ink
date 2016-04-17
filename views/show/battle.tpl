@@ -1627,7 +1627,7 @@
               {{if $_tmp !== null}}
                 <tr>
                   <th>{{'Swim Speed'|translate:'app-gearstat'|escape}}</th>
-                  <td>{{($_tmp * 100)|number_format:1|escape}} %</td>
+                  <td>{{($_tmp * 100)|number_format:1|escape}} % ({{$battle->weapon->name|default:'?'|translate:'app-weapon'|escape}})</td>
                 </tr>
               {{/if}}
 
