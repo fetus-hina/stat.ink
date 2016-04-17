@@ -14,6 +14,16 @@ class v020700 extends v020600
         return '2.7.0';
     }
 
+    public function getSwimSpeedPct()
+    {
+        $x = $this->calcX('swim_speed_up', 120);
+        if ($x === null) {
+            return null;
+        }
+        $w = $this->getSwimSpeedBase() ?? 1;
+        return (1 + $x) * $w;
+    }
+
     public function getSpecialLossPct()
     {
         $x = $this->calcX('special_saver', 60);
@@ -96,6 +106,28 @@ class v020700 extends v020600
 
             default:
                 return 0.40;
+        }
+    }
+
+    protected function getSwimSpeedBase()
+    {
+        switch ($this->battle->weapon->key ?? null) {
+            case null:
+                return null;
+
+            case 'dynamo':
+            case 'dynamo_burned':
+            case 'dynamo_tesla':
+            case 'hydra':
+            case 'hydra_custom':
+            case 'liter3k':
+            case 'liter3k_custom':
+            case 'liter3k_scope':
+            case 'liter3k_scope_custom':
+                return 0.9;
+
+            default:
+                return 1.0;
         }
     }
 }
