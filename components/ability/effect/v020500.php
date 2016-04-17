@@ -75,7 +75,11 @@ class v020500 extends Base
         if ($x === null) {
             return null;
         }
-        return 1 + $x;
+        $ninja = $this->calcX('ninja_squid', 1);
+        if ($ninja === null) {
+            return null;
+        }
+        return (1 + $x) * ($ninja > 0 ? 0.9 : 1.0);
     }
 
     public function getSpecialChargePoint()

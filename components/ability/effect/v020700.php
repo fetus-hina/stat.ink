@@ -20,8 +20,12 @@ class v020700 extends v020600
         if ($x === null) {
             return null;
         }
+        $ninja = $this->calcX('ninja_squid', 1);
+        if ($ninja === null) {
+            return null;
+        }
         $w = $this->getSwimSpeedBase() ?? 1;
-        return (1 + $x) * $w;
+        return (1 + $x) * ($ninja > 0 ? 0.9 : 1.0) * $w;
     }
 
     public function getSpecialLossPct()
