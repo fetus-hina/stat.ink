@@ -60,6 +60,7 @@ class v020700 extends v020600
                 return null;
 
             case '96gal_deco':
+            case 'bamboo14mk3':
             case 'dynamo':
             case 'dynamo_tesla':
             case 'herocharger_replica':
@@ -73,6 +74,7 @@ class v020700 extends v020600
             case '52gal':
             case 'barrelspinner_deco':
             case 'carbon':
+            case 'dynamo_burned':
             case 'hissen':
             case 'hotblaster_custom':
             case 'l3reelgun_d':
@@ -81,10 +83,14 @@ class v020700 extends v020600
             case 'liter3k_scope':
             case 'liter3k_scope_custom':
             case 'nova':
+            case 'prime_berry':
             case 'splatcharger_wakame':
             case 'splatroller_collabo':
             case 'splatscope_wakame':
             case 'splatspinner_collabo':
+            case 'splatspinner_repair':
+            case 'squiclean_g':
+            case 'sshooter_wasabi':
             case 'wakaba':
                 return 0.60;
 
