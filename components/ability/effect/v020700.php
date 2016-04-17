@@ -70,22 +70,22 @@ class v020700 extends v020600
             case 'sshooter_collabo':
                 return 0.75;
 
-            case 'wakaba':
             case '52gal':
-            case 'nova':
+            case 'barrelspinner_deco':
+            case 'carbon':
+            case 'hissen':
             case 'hotblaster_custom':
             case 'l3reelgun_d':
-            case 'carbon':
-            case 'splatroller_collabo':
-            case 'hissen':
-            case 'splatcharger_wakame':
-            case 'splatscope_wakame':
             case 'liter3k':
             case 'liter3k_custom':
             case 'liter3k_scope':
             case 'liter3k_scope_custom':
+            case 'nova':
+            case 'splatcharger_wakame':
+            case 'splatroller_collabo':
+            case 'splatscope_wakame':
             case 'splatspinner_collabo':
-            case 'barrelspinner_deco':
+            case 'wakaba':
                 return 0.60;
 
             default:
