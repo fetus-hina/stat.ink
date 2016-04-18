@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2015 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2016 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  */
@@ -8,6 +8,7 @@
 namespace app\actions\show;
 
 use yii\db\Query;
+use app\components\helpers\Battle as BattleHelper;
 use app\models\BattleFilterForm;
 use app\models\Weapon;
 
@@ -24,6 +25,7 @@ trait UserStatFilterTrait
             ->filterByTerm($query, $filter->term, [
                 'from' => $filter->term_from,
                 'to' => $filter->term_to,
+                'form' => $filter,
             ]);
     }
 
@@ -107,8 +109,8 @@ trait UserStatFilterTrait
 
     public function filterByTerm($query, $value, array $options = [])
     {
-        $now = @$_SERVER['REQUEST_TIME'] ?: time();
-        $currentPeriod = \app\components\helpers\Battle::calcPeriod($now);
+        $now = $_SERVER['REQUEST_TIME'] ?? time();
+        $currentPeriod = BattleHelper::calcPeriod($now);
 
         switch ($value) {
             case 'this-period':
@@ -147,6 +149,16 @@ trait UserStatFilterTrait
                     if ($t = @strtotime($options['to'])) {
                         $query->andWhere(['<=', '{{battle}}.[[at]]', gmdate('Y-m-d\TH:i:sP', $t)]);
                     }
+                }
+                break;
+
+            default:
+                if (preg_match('/^last-(\d+)-battles$/', $value, $match)) {
+                    $range = BattleHelper::getNBattlesRange($options['form'], (int)$match[1]);
+                    if (!$range || $range['min_id'] < 1 || $range['max_id'] < 1) {
+                        break;
+                    }
+                    $query->andWhere(['between', '{{battle}}.[[id]]', $range['min_id'], $range['max_id']]);
                 }
                 break;
         }
