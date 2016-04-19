@@ -737,7 +737,9 @@
                     {{/if}}
                     {{if !$hidePoint}}
                       <td class="col-point text-right">
-                        {{$player->point|number_format|escape}}
+                        {{if $player->point !== null}}
+                          {{$player->point|number_format|escape}}
+                        {{/if}}
                       </td>
                     {{/if}}
                     <td class="col-kd text-center">
