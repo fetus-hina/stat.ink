@@ -41,8 +41,9 @@
     </h1>
     
     {{$battle = $user->latestBattle}}
-    {{if $battle && $battle->agent && $battle->agent->isIkaLog}}
-      {{if $battle->agent->getIsOldIkalogAsAtTheTime($battle->at)}}
+    {{if $battle && $battle->agent}}
+      {{use class="app\components\helpers\IkalogVersion"}}
+      {{if IkalogVersion::isOutdated($battle)}}
         {{registerCss}}
           .old-ikalog {
             font-weight: bold;

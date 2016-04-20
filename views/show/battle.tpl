@@ -58,8 +58,9 @@
       {{"Result of {0}'s Battle"|translate:'app':$name}}
     </h1>
 
-    {{if $battle->agent && $battle->agent->isIkaLog}}
-      {{if $battle->agent->getIsOldIkalogAsAtTheTime($battle->at)}}
+    {{if $battle->agent}}
+      {{use class="app\components\helpers\IkalogVersion"}}
+      {{if IkalogVersion::isOutdated($battle)}}
         {{registerCss}}
           .old-ikalog {
             font-weight: bold;
