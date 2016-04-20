@@ -21,6 +21,7 @@ RUN rpm --import \
     yum install -y \
         ImageMagick \
         brotli \
+        diff \
         git19-git \
         gzip \
         h2o \

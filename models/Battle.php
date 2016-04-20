@@ -12,6 +12,7 @@ use yii\db\ActiveRecord;
 use yii\helpers\Json;
 use yii\helpers\Url;
 use app\components\helpers\DateTimeFormatter;
+use app\components\helpers\Differ;
 
 /**
  * This is the model class for table "battle".
@@ -139,6 +140,9 @@ class Battle extends ActiveRecord
         $this->on(ActiveRecord::EVENT_AFTER_INSERT, [$this, 'updateUserStat']);
         $this->on(ActiveRecord::EVENT_AFTER_UPDATE, [$this, 'updateUserStat']);
         $this->on(ActiveRecord::EVENT_AFTER_DELETE, [$this, 'updateUserStat']);
+
+        $this->on(ActiveRecord::EVENT_BEFORE_UPDATE, [$this, 'saveEditHistory']);
+        $this->on(ActiveRecord::EVENT_BEFORE_DELETE, [$this, 'saveDeleteHistory']);
     }
 
     /**
@@ -995,5 +999,44 @@ class Battle extends ActiveRecord
             ksort($ret, SORT_STRING);
             return $ret;
         })();
+    }
+
+    public function saveEditHistory()
+    {
+        if (!$this->dirtyAttributes) {
+            return true;
+        }
+
+        if (!$before = static::findOne(['id' => $this->id])) {
+            return true;
+        }
+
+        return $this->saveEditHistoryImpl(
+            Json::encode($before->toJsonArray(), JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE),
+            Json::encode($this->toJsonArray(), JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)
+        );
+    }
+
+    public function saveDeleteHistory()
+    {
+        return $this->saveEditHistoryImpl(
+            Json::encode(['id' => $this->id], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE),
+            Json::encode(['_id' => 'deleted'], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)
+        );
+    }
+
+    protected function saveEditHistoryImpl($jsonBefore, $jsonAfter) {
+        try {
+            $edit = new BattleEditHistory();
+            $edit->battle_id = $this->id;
+            $edit->diff = Differ::diff($jsonBefore, $jsonAfter);
+            $edit->at = new \app\components\helpers\db\Now();
+            if ($edit->diff == '') {
+                return true;
+            }
+            return !!$edit->save();
+        } catch (\Exception $e) {
+            return false;
+        }
     }
 }
