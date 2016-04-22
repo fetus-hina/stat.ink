@@ -96,19 +96,28 @@ class BattleFilterForm extends Model
                     return substr($this->weapon, 0, 1) === '~';
                 }],
             [['result'], 'boolean', 'trueValue' => 'win', 'falseValue' => 'lose'],
-            [['term'], 'in', 'range' => [
-                'this-period',
-                'last-period',
-                '24h',
-                'today',
-                'yesterday',
-                'last-10-battles',
-                'last-20-battles',
-                'last-50-battles',
-                'last-100-battles',
-                'last-200-battles',
-                'term',
-            ]],
+            [['term'], 'in', 'range' => array_merge(
+                    [
+                        'this-period',
+                        'last-period',
+                        '24h',
+                        'today',
+                        'yesterday',
+                        'last-10-battles',
+                        'last-20-battles',
+                        'last-50-battles',
+                        'last-100-battles',
+                        'last-200-battles',
+                        'term',
+                    ],
+                    array_map(
+                        function ($a) {
+                            return 'v' . $a['tag'];
+                        },
+                        SplatoonVersion::find()->asArray()->all()
+                    )
+                )
+            ],
             [['term_from', 'term_to'], 'date', 'format' => 'yyyy-M-d H:m:s'],
             [['timezone'], 'validateTimezone', 'skipOnEmpty' => false],
         ];
@@ -208,7 +217,7 @@ class BattleFilterForm extends Model
             }
         }
 
-        $now = @$_SERVER['REQUEST_TIME'] ?: time();
+        $now = $_SERVER['REQUEST_TIME'] ?? time();
         $tz = Yii::$app->timeZone;
         switch ($this->term) {
             case 'this-period':
@@ -266,6 +275,8 @@ class BattleFilterForm extends Model
                     $push('term_from', date('Y-m-d H:i:s', strtotime($range['min_at'])));
                     $push('term_to', date('Y-m-d H:i:s', strtotime($range['max_at'])));
                     $push('timezone', $tz);
+                } elseif (preg_match('/^v\d+/', $this->term)) {
+                    $push('term', $this->term);
                 }
                 break;
         }

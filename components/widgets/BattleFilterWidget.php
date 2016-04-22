@@ -14,11 +14,13 @@ use yii\base\Widget;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 use app\components\helpers\Resource;
+use app\components\helpers\db\Now;
 use app\models\GameMode;
 use app\models\Lobby;
 use app\models\Map;
 use app\models\Rule;
 use app\models\Special;
+use app\models\SplatoonVersion;
 use app\models\Subweapon;
 use app\models\User;
 use app\models\Weapon;
@@ -318,8 +320,21 @@ class BattleFilterWidget extends Widget
             'last-50-battles'   => Yii::t('app', 'Last {n} Battles', ['n' =>  50]),
             'last-100-battles'  => Yii::t('app', 'Last {n} Battles', ['n' => 100]),
             'last-200-battles'  => Yii::t('app', 'Last {n} Battles', ['n' => 200]),
-            'term'              => Yii::t('app', 'Specify Period'),
         ];
+
+        $versions = SplatoonVersion::find()
+            ->andWhere(['between', 'released_at', '2015-09-02T10:00:00+09:00', new Now()])
+            ->asArray()
+            ->all();
+        usort($versions, function ($a, $b) {
+            return version_compare($a['tag'], $b['tag']);
+        });
+        foreach ($versions as $version) {
+            $list['v' . $version['tag']] = Yii::t('app', 'Version {0}', $version['name']);
+        }
+
+        $list['term'] = Yii::t('app', 'Specify Period');
+
         return $form->field($this->filter, 'term')->dropDownList($list)->label(false);
     }
 

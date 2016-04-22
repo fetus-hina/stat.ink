@@ -10,6 +10,7 @@ namespace app\actions\show;
 use yii\db\Query;
 use app\components\helpers\Battle as BattleHelper;
 use app\models\BattleFilterForm;
+use app\models\SplatoonVersion;
 use app\models\Weapon;
 
 trait UserStatFilterTrait
@@ -156,9 +157,17 @@ trait UserStatFilterTrait
                 if (preg_match('/^last-(\d+)-battles$/', $value, $match)) {
                     $range = BattleHelper::getNBattlesRange($options['form'], (int)$match[1]);
                     if (!$range || $range['min_id'] < 1 || $range['max_id'] < 1) {
+                        $query->andWhere('0 = 1');
                         break;
                     }
                     $query->andWhere(['between', '{{battle}}.[[id]]', $range['min_id'], $range['max_id']]);
+                } elseif (preg_match('/^v\d+/', $value)) {
+                    $version = SplatoonVersion::findOne(['tag' => substr($value, 1)]);
+                    if (!$version) {
+                        $query->andWhere('0 = 1');
+                        break;
+                    }
+                    $query->andWhere(['{{battle}}.[[version_id]]' => $version->id]);
                 }
                 break;
         }

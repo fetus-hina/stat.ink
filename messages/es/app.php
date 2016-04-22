@@ -267,6 +267,7 @@ return [
     'User Count' => 'Cuenta de Usuario',
     'User Name' => 'Nombre de Usuario',
     'Users' => 'Usuarios',
+    'Version {0}' => 'La versión {0}',
     'View Settings' => 'Ver la Configuración',
     'WON' => 'Vencido',
     'We don\'t exhibit your information that we collected (e.g. your IP address).' => 'No exhibir la información que tenemos recopilada (por ejemplo, su dirección IP).',
@@ -276,8 +277,7 @@ return [
     'Weapon' => 'Arma',
     'Weapons' => 'Armas',
     'What\'s this?' => '¿Qué es esto?',
-    'When there was a charge from investigating authority, your information would be elucidated.' => 'Cuando había un cargo de autoridad investigadora, su información sería aclarada.
- ',
+    'When there was a charge from investigating authority, your information would be elucidated.' => 'Cuando había un cargo de autoridad investigadora, su información sería aclarada.',
     'Win % (Total)' => 'Ganar % (Total)',
     'Win % ({0} Battles)' => 'Ganar % ({0} Batallas)',
     'Win %' => 'Ganar %',
