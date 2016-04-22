@@ -13,6 +13,7 @@ use app\components\helpers\Resource;
 use app\models\Battle;
 use app\models\BattleFilterForm;
 use app\models\BattleImageType;
+use app\models\SplatoonVersion;
 use app\models\Timezone;
 use app\models\Weapon;
 
@@ -139,7 +140,7 @@ class BattleQuery extends ActiveQuery
 
     public function filterByTerm($value, array $options = [])
     {
-        $now = @$_SERVER['REQUEST_TIME'] ?: time();
+        $now = $_SERVER['REQUEST_TIME'] ?? time();
         $currentPeriod = BattleHelper::calcPeriod($now);
 
         // 指定されたタイムゾーンで処理する
@@ -203,6 +204,13 @@ class BattleQuery extends ActiveQuery
                         $this->andWhere('1 <> 1'); // Always false
                     } else {
                         $this->andWhere(['between', '{{battle}}.[[id]]', $range['min_id'], $range['max_id']]);
+                    }
+                } elseif (preg_match('/^v\d+/', $value)) {
+                    $version = SplatoonVersion::findOne(['tag' => substr($value, 1)]);
+                    if (!$version) {
+                        $this->andWhere('1 <> 1'); // Always false
+                    } else {
+                        $this->andWhere(['{{battle}}.[[version_id]]' => $version->id]);
                     }
                 }
                 break;

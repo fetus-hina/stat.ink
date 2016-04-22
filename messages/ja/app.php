@@ -271,6 +271,7 @@ return [
     'User Count' => 'ユーザ数',
     'User Name' => 'ユーザ名',
     'Users' => 'ユーザ',
+    'Version {0}' => 'バージョン{0}',
     'View Settings' => '表示設定',
     'WON' => '勝利',
     'We don\'t exhibit your information that we collected (e.g. your IP address).' => '記録した情報、たとえばIPアドレスは公開しません。',
