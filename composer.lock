@@ -58,16 +58,16 @@
         },
         {
             "name": "bower-asset/cal-heatmap",
-            "version": "3.5.3",
+            "version": "3.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/wa0x6e/cal-heatmap.git",
-                "reference": "4c973f2d061b393c8a02ffe502da74c6a0ea45f6"
+                "reference": "916fafb94edfb93170e97b8d2d18d1a16405f672"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/wa0x6e/cal-heatmap/zipball/4c973f2d061b393c8a02ffe502da74c6a0ea45f6",
-                "reference": "4c973f2d061b393c8a02ffe502da74c6a0ea45f6",
+                "url": "https://api.github.com/repos/wa0x6e/cal-heatmap/zipball/916fafb94edfb93170e97b8d2d18d1a16405f672",
+                "reference": "916fafb94edfb93170e97b8d2d18d1a16405f672",
                 "shasum": ""
             },
             "require": {
@@ -87,6 +87,9 @@
                     "package.json"
                 ]
             },
+            "license": [
+                "MIT"
+            ],
             "description": "Cal-Heatmap is a javascript module to create calendar heatmap to visualize time series data",
             "keywords": [
                 "calendar",
