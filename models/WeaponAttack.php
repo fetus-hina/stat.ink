@@ -107,6 +107,22 @@ class WeaponAttack extends \yii\db\ActiveRecord
         return ceil(100 / $this->damage);
     }
 
+    public function getDamageCap()
+    {
+        switch ($this->getHitToKill()) {
+            case 1:
+                return 999.9;
+            case 2:
+                return 99.9;
+            case 3:
+                return 49.9;
+            case 4:
+                return 33.3;
+            case 5:
+                return 24.9;
+        }
+    }
+
     public function getVirtualDamage($ratio)
     {
         return $this->damage * $ratio;

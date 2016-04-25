@@ -1494,15 +1494,16 @@
                 <tr>
                   <th>{{'Damage'|translate:'app-gearstat'|escape}}</th>
                   <td>
-                    {{($_tmp * 100)|number_format:1|escape}} %
+                    {{($_tmp * 100)|floor:1|number_format:1|escape}} %
 
                     {{$_attack = $battle->weaponAttack}}
                     {{if $_attack}}
                       &#32;
                       {{$_damage = $_attack->damage * $_tmp}}
-                      [{{$_attack->damage|number_format:1|escape}} &times; {{($_tmp * 100)|number_format:1|escape}}% = <strong>{{$_damage|number_format:1|escape}}</strong>]
+                      [{{$_attack->damage|number_format:1|escape}} &times; {{($_tmp * 100)|number_format:1|escape}}% = <strong>{{$_damage|floor:1|number_format:1|escape}}</strong>]
 
                       {{$_baseHit2Kill = $_attack->getHitToKill()}}
+                      {{$_damageCap = $_attack->getDamageCap()}}
                       <table class="table table-bordered table-condensed hidden-xs">
                         <thead>
                           <tr>
@@ -1534,9 +1535,15 @@
                             {{for $_defSub=0 to 9}}
                               {{$_damage = $effects->calcDamage($_attack->damage, $_defMain, $_defSub)}}
                               {{$_hit2kill = ceil(100 / $_damage)}}
-                              <td class="{{if $_hit2kill > $_baseHit2Kill}}danger {{/if}}">
-                                {{$_damage|number_format:1|escape}}
-                              </td>
+                              {{if $_damage > $_damageCap}}
+                                <td class="auto-tooltip success" title="{{$_damage|floor:1|number_format:1|escape}}" style="font-style:italic">
+                                  {{$_damageCap|floor:1|number_format:1|escape}}
+                                </td>
+                              {{else}}
+                                <td class="{{if $_hit2kill > $_baseHit2Kill}}danger {{/if}}">
+                                  {{$_damage|floor:1|number_format:1|escape}}
+                                </td>
+                              {{/if}}
                             {{/for}}
                             </tr>
                           {{/for}}
@@ -1567,9 +1574,15 @@
                             {{for $_defMain=0 to 3}}
                               {{$_damage = $effects->calcDamage($_attack->damage, $_defMain, $_defSub)}}
                               {{$_hit2kill = ceil(100 / $_damage)}}
-                              <td class="{{if $_hit2kill > $_baseHit2Kill}}danger {{/if}}">
-                                {{$_damage|number_format:1|escape}}
-                              </td>
+                              {{if $_damage > $_damageCap}}
+                                <td class="auto-tooltip success" title="{{$_damage|floor:1|number_format:1|escape}}" style="font-style:italic">
+                                  {{$_damageCap|floor:1|number_format:1|escape}}
+                                </td>
+                              {{else}}
+                                <td class="{{if $_hit2kill > $_baseHit2Kill}}danger {{/if}}">
+                                  {{$_damage|floor:1|number_format:1|escape}}
+                                </td>
+                              {{/if}}
                             {{/for}}
                             </tr>
                           {{/for}}
