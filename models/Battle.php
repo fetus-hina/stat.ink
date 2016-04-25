@@ -97,6 +97,8 @@ use app\components\helpers\Differ;
  */
 class Battle extends ActiveRecord
 {
+    public $skipSaveHistory = false;
+
     public static function find()
     {
         $query = new query\BattleQuery(get_called_class());
@@ -1003,6 +1005,10 @@ class Battle extends ActiveRecord
 
     public function saveEditHistory()
     {
+        if ($this->skipSaveHistory) {
+            return true;
+        }
+
         if (!$this->dirtyAttributes) {
             return true;
         }
@@ -1019,6 +1025,10 @@ class Battle extends ActiveRecord
 
     public function saveDeleteHistory()
     {
+        if ($this->skipSaveHistory) {
+            return true;
+        }
+
         return $this->saveEditHistoryImpl(
             Json::encode(['id' => $this->id], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE),
             Json::encode(['_id' => 'deleted'], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)
