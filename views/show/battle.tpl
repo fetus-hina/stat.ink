@@ -1500,7 +1500,7 @@
                     {{if $_attack}}
                       &#32;
                       {{$_damage = $_attack->damage * $_tmp}}
-                      [{{$_attack->damage|number_format:1|escape}} &times; {{($_tmp * 100)|number_format:1|escape}}% = <strong>{{$_damage|floor:1|number_format:1|escape}}</strong>]
+                      [{{$_attack->damage|number_format:1|escape}} &times; {{($_tmp * 100)|floor:1|number_format:1|escape}}% = <strong>{{$_damage|floor:1|number_format:1|escape}}</strong>]
 
                       {{$_baseHit2Kill = $_attack->getHitToKill()}}
                       {{$_damageCap = $_attack->getDamageCap()}}
