@@ -31,6 +31,7 @@ use app\components\helpers\Password;
  * @property boolean $is_black_out_others
  *
  * @property Battle[] $battles
+ * @property Slack[] $slacks
  * @property Environment $env
  * @property UserStat $userStat
  * @property UserWeapon[] $userWeapons
@@ -115,6 +116,14 @@ class User extends ActiveRecord implements IdentityInterface
     public function getBattles()
     {
         return $this->hasMany(Battle::className(), ['user_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getSlacks()
+    {
+        return $this->hasMany(Slack::className(), ['user_id' => 'id']);
     }
 
     /**
