@@ -7,6 +7,8 @@
 
 namespace app\models;
 
+use Curl\Curl;
+use DateTime;
 use Yii;
 
 /**
@@ -87,5 +89,60 @@ class Slack extends \yii\db\ActiveRecord
     public function getUser()
     {
         return $this->hasOne(User::className(), ['id' => 'user_id']);
+    }
+
+    public function sendTest() : bool
+    {
+        $lang = $this->language->lang ?? 'en-US';
+        $i18n = Yii::$app->i18n;
+        $formatter = Yii::$app->formatter;
+        $formatter->locale = $lang;
+        $formatter->timeZone = 'Etc/UTC';
+
+        return $this->doSend([
+            'text' => sprintf(
+                "%s (%s)\nWebhook Test",
+                $i18n->translate(
+                    'app-slack',
+                    'Staaaay Fresh!',
+                    [],
+                    $lang
+                ),
+                $formatter->asDateTime(
+                    $_SERVER['REQUEST_TIME'] ?? time(),
+                    'long'
+                )
+            )
+        ]);
+    }
+
+    protected function doSend(array $params) : bool
+    {
+        if (!isset($params['username']) && $this->username != '') {
+            $params['username'] = $this->username;
+        }
+        if (!isset($params['icon_emoji']) && !isset($params['icon_url']) && $this->icon != '') {
+            if (strpos($this->icon, '//') === false) {
+                $params['icon_emoji'] = $this->icon;
+            } else {
+                $params['icon_url'] = $this->icon;
+            }
+        }
+        if (!isset($params['channel']) && $this->channel != '') {
+            $params['channel'] = $this->channel;
+        }
+
+        $curl = new Curl();
+        $curl->setUserAgent(sprintf(
+            '%s/%s (+https://github.com/fetus-hina/stat.ink)',
+            Yii::$app->name,
+            Yii::$app->version
+        ));
+        $curl->setHeader('Content-Type', 'application/json');
+        $curl->post($this->webhook_url, $params);
+        if ($curl->error) {
+            return false;
+        }
+        return true;
     }
 }

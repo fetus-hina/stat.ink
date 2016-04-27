@@ -243,6 +243,7 @@ return [
     'Summary: Based on the current filter' => '現在のフィルタに基づくサマリ',
     'TIME IS UP' => 'タイムアップ',
     'TIME' => '時間',
+    'Test' => 'テスト',
     'The OS and browser name/version that you used (aka "User-Agent")' => '利用しているOSやブラウザの情報（User-Agent）',
     'The address of the webpage that linked to our page being requested (aka "Referer")' => '訪問元サイトのURL (リファラ)',
     'The password will be encrypted.' => 'パスワードは暗号化されて保存されます。',

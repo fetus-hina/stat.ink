@@ -58,6 +58,8 @@ class UserController extends Controller
                     'language'      => [ 'post' ],
                     'login'         => [ 'get', 'post' ],
                     'register'      => [ 'get', 'post' ],
+                    'slack'         => [ 'get', 'post' ],
+                    'slack-test'    => [ 'post' ],
                     'timezone'      => [ 'post' ],
                     '*'             => [ 'get' ],
                 ],
@@ -77,6 +79,8 @@ class UserController extends Controller
             'logout'        => [ 'class' => $prefix . '\LogoutAction' ],
             'profile'       => [ 'class' => $prefix . '\ProfileAction' ],
             'register'      => [ 'class' => $prefix . '\RegisterAction' ],
+            'slack'         => [ 'class' => $prefix . '\SlackAction' ],
+            'slack-test'    => [ 'class' => $prefix . '\SlackTestAction' ],
             'timezone'      => [ 'class' => $prefix . '\TimezoneAction' ],
         ];
     }

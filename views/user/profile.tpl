@@ -115,6 +115,7 @@
               <th>{{'Icon'|translate:'app'|escape}}</th>
               <th>{{'Channel'|translate:'app'|escape}}</th>
               <th>{{'Language'|translate:'app'|escape}}</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -158,6 +159,12 @@
                 <td>
                   {{$_slack->language->name|escape}}
                 </td>
+                <td>
+                  {{\app\assets\SlackAsset::register($this)|@void}}
+                  <button disabled class="slack-test btn btn-default btn-sm" data-id="{{$_slack->id|escape}}">
+                    {{'Test'|translate:'app'|escape}}
+                  </button>
+                </td>
               </tr>
             {{foreachelse}}
               <tr>
@@ -187,12 +194,13 @@
 {{/strip}}
 {{registerCss}}
   tbody th { width: 10em; }
-  .emoji { width: 2em; height: auto; }
 {{/registerCss}}
-{{registerJs}}
-  "use strict";
-  $('#apikey-button').click(function () {
-    $(this).hide();
-    $('#apikey').show();
-  });
-{{/registerJs}}
+{{registerJs}}{{strip}}
+  (function($){
+    "use strict";
+    $('#apikey-button').click(function () {
+      $(this).hide();
+      $('#apikey').show();
+    });
+  })(jQuery);
+{{/strip}}{{/registerJs}}

@@ -240,6 +240,7 @@ return [
     'Summary: Based on the current filter' => 'Resumen: Basado en el filtro actual',
     'TIME IS UP' => 'TIEMPO',
     'TIME' => 'TIEMPO',
+    'Test' => 'Prueba',
     'The OS and browser name/version that you used (aka "User-Agent")' => 'El nombre/versión sistema operativo y navegador que usted utiliza (también conocido como "User-Agent")',
     'The address of the webpage that linked to our page being requested (aka "Referer")' => 'La dirección de la página que nuestra página se solicita (también conocido como "Referer")',
     'The password will be encrypted.' => 'La contraseña se cifrará.',
