@@ -18,6 +18,7 @@ use yii\db\BatchQueryResult;
 use yii\helpers\Console;
 use app\components\helpers\Resource;
 use app\models\Battle;
+use app\models\BattlePlayer;
 
 class HasegawExportController extends Controller
 {
@@ -93,6 +94,81 @@ class HasegawExportController extends Controller
         echo "done. {$count}\n";
     }
 
+    public function actionBattleDb()
+    {
+        $outputFileName = sprintf(
+            '%s/battles/battles.db',
+            Yii::getAlias($this->outputDirectory)
+        );
+        if (!file_exists(dirname($outputFileName))) {
+            mkdir(dirname($outputFileName), 0755, true);
+        }
+        if (!file_exists($outputFileName)) {
+            $this->initBattleDb($outputFileName);
+        }
+        $exp = $this->connectSqlite($outputFileName);
+        $quote = function ($v) use ($exp) {
+            if ($v === null) {
+                return 'null';
+            }
+            return $exp->quote($v);
+        };
+        $startId = $exp->query('SELECT MAX("id") FROM "battle"')->fetchColumn(0) + 1;
+        echo "Export start from {$startId}\n";
+        while (true) {
+            echo "{$startId} - \n";
+            $exp->beginTransaction();
+            $insert = [];
+            $battleIdList = [];
+            foreach ($this->queryBattleDbExport($startId) as $battle) {
+                $insert[] = sprintf(
+                    '(%d,%s,%s)',
+                    $battle['id'],
+                    $exp->quote($battle['user']),
+                    $exp->quote($battle['agent_version'])
+                );
+                $battleIdList[] = $battle['id'];
+                $startId = $battle['id'] + 1;
+            }
+            if (!$insert) {
+                break;
+            }
+            $exp->exec('INSERT INTO "battle"("id","user","agent_version") VALUES ' . implode(',', $insert));
+
+            $insert = [];
+            $query = BattlePlayer::find()
+                ->asArray()
+                ->with('weapon')
+                ->with('rank')
+                ->andWhere(['battle_id' => $battleIdList])
+                ->orderBy('id ASC');
+            foreach ($query->each() as $row) {
+                $insert[] = implode(',', [
+                    (int)$row['id'],
+                    (int)$row['battle_id'],
+                    $row['is_me'] ? 1 : 0,
+                    $row['is_my_team'] ? 1 : 0,
+                    (int)$row['rank_in_team'],
+                    $quote($row['level']),
+                    $quote($row['rank']['key'] ?? null),
+                    $quote($row['weapon']['key'] ?? null),
+                    $quote($row['kill']),
+                    $quote($row['death']),
+                    $quote($row['point']),
+                ]);
+            }
+            if (!empty($insert)) {
+                $exp->exec(
+                    $sql = 'INSERT INTO "battle_player" ("' . implode('", "', [
+                        'id', 'battle_id', 'is_me', 'is_my_team', 'rank_in_team',
+                        'level', 'rank', 'weapon', 'kill', 'death', 'point',
+                    ]) . '") VALUES (' . implode('), (', $insert) . ')'
+                );
+            }
+            $exp->commit();
+        }
+    }
+
     private function parseDate($date) : DateTimeInterface
     {
         $date = trim($date);
@@ -135,6 +211,27 @@ class HasegawExportController extends Controller
         }
     }
 
+    protected function queryBattleDbExport($startId)
+    {
+        $query = Battle::find()
+            ->asArray()
+            ->innerJoinWith('agent', true)
+            ->innerJoinWith('user', true)
+            ->andWhere(['and',
+                ['{{agent}}.[[name]]' => [ 'IkaLog', 'TakoLog' ]],
+                ['>=', '{{battle}}.[[id]]', $startId],
+            ])
+            ->orderBy('{{battle}}.[[id]] ASC')
+            ->limit(500);
+        foreach ($query->all() as $row) {
+            yield [
+                'id' => $row['id'],
+                'user' => $row['user']['screen_name'],
+                'agent_version' => $row['agent']['version'],
+            ];
+        }
+    }
+
     protected function formatCsvRow(array $row)
     {
         $ret = array_map(
@@ -148,5 +245,45 @@ class HasegawExportController extends Controller
             $row
         );
         return implode(',', $ret);
+    }
+
+    protected function connectSqlite($path)
+    {
+        $dsn = 'sqlite:' . $path;
+        return new \PDO($dsn);
+    }
+
+    protected function initBattleDb($path)
+    {
+        $db = $this->connectSqlite($path);
+        echo "Creating table: battle\n";
+        $db->exec(<<<'SQL'
+CREATE TABLE "battle" (
+    "id" INTEGER NOT NULL PRIMARY KEY,
+    "user" TEXT NOT NULL,
+    "agent_version" TEXT NOT NULL
+);
+SQL
+        );
+        echo "Creating table: battle_player\n";
+        $db->exec(<<<'SQL'
+CREATE TABLE "battle_player" (
+    "id" INTEGER NOT NULL PRIMARY KEY,
+    "battle_id" INTEGER NOT NULL,
+    "is_me" INTEGER NOT NULL,
+    "is_my_team" INTEGER NOT NULL,
+    "rank_in_team" INTEGER NOT NULL,
+    "level" INTEGER,
+    "rank" TEXT,
+    "weapon" TEXT,
+    "kill" INTEGER,
+    "death" INTEGER,
+    "point" INTEGER
+);
+SQL
+        );
+        echo "Creating index\n";
+        $db->exec('CRETE INDEX ix_battle_player_battle ON battle_player ( battle_id )');
+        echo "initialized\n";
     }
 }
