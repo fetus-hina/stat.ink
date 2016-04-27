@@ -10,6 +10,7 @@ namespace app\models;
 use Curl\Curl;
 use DateTime;
 use Yii;
+use yii\helpers\Url;
 
 /**
  * This is the model class for table "slack".
@@ -89,6 +90,88 @@ class Slack extends \yii\db\ActiveRecord
     public function getUser()
     {
         return $this->hasOne(User::className(), ['id' => 'user_id']);
+    }
+
+    public function send(Battle $battle) : bool
+    {
+        $lang = $this->language->lang ?? 'en-US';
+        $i18n = Yii::$app->i18n;
+        $formatter = Yii::$app->formatter;
+        $formatter->locale = $lang;
+        $formatter->timeZone = 'Etc/UTC';
+
+        $winlose = $i18n->translate(
+            'app-slack',
+            $battle->is_win === null
+                ? '???'
+                : ($battle->is_win ? 'won' : 'lost'),
+            [],
+            $lang
+        );
+        $rule = $i18n->translate(
+            'app-rule',
+            $battle->rule->name ?? $i18n->translate('app-slack', 'unknown mode', [], $lang),
+            [],
+            $lang
+        );
+        $stage = $i18n->translate(
+            'app-map',
+            $battle->map->name ?? $i18n->translate('app-slack', 'unknown stage', [], $lang),
+            [],
+            $lang
+        );
+        $url = Url::to(['show/battle', 'screen_name' => $battle->user->screen_name, 'id' => $battle->id], true);
+
+        $attachment = [
+            'fallback' => $i18n->translate(
+                'app-slack',
+                '{name}: Just {winlose} {rule} at {stage}. {url}',
+                [
+                    'name'      => $battle->user->name,
+                    'winlose'   => $winlose,
+                    'rule'      => $rule,
+                    'stage'     => $stage,
+                    'url'       => $url,
+                ],
+                $lang
+            ),
+            'text' => $i18n->translate(
+                'app-slack',
+                '{name}: Just {winlose} {rule} at {stage}. <{url}|Detail>',
+                [
+                    'name'      => $battle->user->name,
+                    'winlose'   => $winlose,
+                    'rule'      => $rule,
+                    'stage'     => $stage,
+                    'url'       => $url,
+                    'id'        => $battle->id,
+                ],
+                $lang
+            ),
+            'fields' => [
+                [
+                    'title'     => $i18n->translate('app', 'Weapon', [], $lang),
+                    'value'     => $i18n->translate('app-weapon', $battle->weapon->name ?? '???', [], $lang),
+                    'short'     => true,
+                ],
+                [
+                    'title'     => $i18n->translate('app', 'Kill / Death', [], $lang),
+                    'value'     => sprintf('%s / %s', $battle->kill ?? '?', $battle->death ?? '?'),
+                    'short'     => true,
+                ],
+            ],
+            'color' => $battle->is_win === null
+                ? '#cccccc'
+                : ($battle->is_win ? 'good' : 'danger'),
+        ];
+        if ($battle->battleImageResult) {
+            $attachment['image_url'] = $battle->battleImageResult->url;
+        }
+        return $this->doSend([
+            'attachments' => [
+                $attachment,
+            ],
+        ]);
     }
 
     public function sendTest() : bool
