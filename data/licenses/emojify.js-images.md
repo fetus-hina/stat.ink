@@ -1,0 +1,1 @@
+../../vendor/bower/emojify.js/LICENSE-IMAGES.md

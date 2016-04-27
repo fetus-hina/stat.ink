@@ -1,6 +1,7 @@
 {{strip}}
   {{set layout="main.tpl"}}
   {{set title="{{$app->name}} | {{'Profile and Settings'|translate:'app'}}"}}
+  {{use class="yii\helpers\Html"}}
   <div class="container">
     <div class="row">
       <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">
@@ -99,6 +100,74 @@
             </tr>
           </tbody>
         </table>
+        <h2>
+          {{'Slack Integration'|translate:'app'|escape}}
+
+          <a href="{{url route="user/slack"}}" class="btn btn-primary" style="margin-left:30px">
+            {{'Update'|translate:'app'|escape}}
+          </a>
+        </h2>
+
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>{{'User Name'|translate:'app'|escape}}</th>
+              <th>{{'Icon'|translate:'app'|escape}}</th>
+              <th>{{'Channel'|translate:'app'|escape}}</th>
+              <th>{{'Language'|translate:'app'|escape}}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{$_slacks = $user->getSlacks()
+                ->with('language')
+                ->andWhere(['{{slack}}.[[suspended]]' => false])
+                ->all()}}
+            {{foreach $_slacks as $_slack}}
+              <tr>
+                <td>
+                  {{if $_slack->username == ''}}
+                    {{'(default)'|translate:'app'|escape}}
+                  {{else}}
+                    {{$_slack->username|escape}}
+                  {{/if}}
+                </td>
+                <td>
+                  {{if $_slack->icon == ''}}
+                    {{'(default)'|translate:'app'|escape}}
+                  {{elseif $_slack->icon|substr:0:4|strtolower == 'http' || $_slack->icon|substr:0:2 == '//'}}
+                    {{Html::img($_slack->icon, ['class' => 'emoji emoji-url'])}}
+                  {{else}}
+                    {{\app\assets\EmojifyAsset::register($this)|@void}}
+                    {{Html::img(
+                        'data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==',
+                        [
+                          'class' => 'emoji emoji-str',
+                          'data-emoji' => $_slack->icon
+                        ]
+                      )}}
+                    {{$_slack->icon|escape}}
+                  {{/if}}
+                </td>
+                <td>
+                  {{if $_slack->channel == ''}}
+                    {{'(default)'|translate:'app'|escape}}
+                  {{else}}
+                    {{$_slack->channel|escape}}
+                  {{/if}}
+                </td>
+                <td>
+                  {{$_slack->language->name|escape}}
+                </td>
+              </tr>
+            {{foreachelse}}
+              <tr>
+                <td colspan="5">
+                  {{'There are no data.'|translate:'app'|escape}}
+                </td>
+              </tr>
+            {{/foreach}}
+          </tbody>
+        </table>
       </div>
       <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
         <h2>{{'Export'|translate:'app'|escape}}</h2>
@@ -117,7 +186,8 @@
   </div>
 {{/strip}}
 {{registerCss}}
-  th { width: 10em; }
+  tbody th { width: 10em; }
+  .emoji { width: 2em; height: auto; }
 {{/registerCss}}
 {{registerJs}}
   "use strict";

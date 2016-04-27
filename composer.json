@@ -22,6 +22,7 @@
         "ext-zlib": "*",
         "bower-asset/cal-heatmap": "^3.3",
         "bower-asset/clipboard": "^1.5",
+        "bower-asset/emojify.js": "^1.1",
         "bower-asset/github-fork-ribbon-css": "^0.1.1",
         "bower-asset/jquery": "^2.1",
         "bower-asset/jquery-smooth-scroll": "^1.5",

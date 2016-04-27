@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "eb1bbc5e6759639f831b28ab55f43496",
-    "content-hash": "9243d9fe036a3886d11b256503e8616c",
+    "hash": "31b3579fcce34bcd37255a82e39cf306",
+    "content-hash": "c905cb89f3ad02fb4f9e5555e43be042",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -159,6 +159,38 @@
                 "BSD-3-Clause"
             ],
             "description": "A JavaScript visualization library for HTML and SVG."
+        },
+        {
+            "name": "bower-asset/emojify.js",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Ranks/emojify.js.git",
+                "reference": "230b992b2754000b52da2542fa7a4fa730dc9a24"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Ranks/emojify.js/zipball/230b992b2754000b52da2542fa7a4fa730dc9a24",
+                "reference": "230b992b2754000b52da2542fa7a4fa730dc9a24",
+                "shasum": ""
+            },
+            "type": "bower-asset-library",
+            "extra": {
+                "bower-asset-main": "dist/js/emojify.js",
+                "bower-asset-ignore": [
+                    "src",
+                    "**/.*",
+                    "node_modules",
+                    "tests"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "A Javascript module to convert Emoji keywords to images http://hassankhan.github.io/emojify.js/",
+            "keywords": [
+                "emoji"
+            ]
         },
         {
             "name": "bower-asset/eonasdan-bootstrap-datetimepicker",
