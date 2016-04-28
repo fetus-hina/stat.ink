@@ -11,6 +11,7 @@ use Yii;
 use yii\base\DynamicModel;
 use yii\web\BadRequestHttpException;
 use yii\web\ViewAction as BaseAction;
+use app\components\helpers\db\Now;
 use app\models\Slack;
 
 class SlackSuspendAction extends BaseAction
@@ -48,6 +49,7 @@ class SlackSuspendAction extends BaseAction
         $resp = Yii::$app->response;
         $resp->format = 'json';
         $model->suspended = ($form->suspend === 'yes');
+        $model->updated_at = new Now();
         return [
             'result' => $model->save(),
         ];

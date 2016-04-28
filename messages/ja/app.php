@@ -1,5 +1,6 @@
 <?php
 return [
+    '(default)' => '(規定)',
     '* This exclusion is in attempt to minimize overcounting in weapon usage statistics.' => '※できる限り重複カウントしないように除外設定を行っていますが、連戦やナワバリフレンド合流の影響により重複カウントしやすい状況が発生します。',
     '24H Win %' => '24H勝率',
     '<div class="input-group"><span class="input-group-addon">From:</span>{input}</div>' => '<div class="input-group">{input}<span class="input-group-addon">から</span></div>',
@@ -13,6 +14,8 @@ return [
     'Access time' => 'アクセス日時',
     'Active Players' => 'アクティブプレーヤー',
     'Activity' => 'アクティビティー',
+    'Add Slack Integration' => 'Slack連携を追加',
+    'Add' => '追加',
     'All Players' => 'すべてのプレーヤー',
     'Always enable horizontal scroll' => '常にテーブルの横スクロールを有効にする',
     'Any Time' => 'すべての期間',

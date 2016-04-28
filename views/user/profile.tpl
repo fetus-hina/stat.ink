@@ -103,8 +103,8 @@
         <h2>
           {{'Slack Integration'|translate:'app'|escape}}
 
-          <a href="{{url route="user/slack"}}" class="btn btn-primary" style="margin-left:30px">
-            {{'Update'|translate:'app'|escape}}
+          <a href="{{url route="user/slack-add"}}" class="btn btn-primary" style="margin-left:30px">
+            <span class="fa fa-plus"></span>
           </a>
         </h2>
 

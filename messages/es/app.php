@@ -1,5 +1,6 @@
 <?php
 return [
+    '(default)' => '(defecto)',
     '* This exclusion is in attempt to minimize overcounting in weapon usage statistics.' => '* Esta exclusión está en el intento de minimizar overcounting en estadísticas de uso de arma.',
     '24H Win %' => '24H Ganar %',
     '<div class="input-group"><span class="input-group-addon">From:</span>{input}</div>' => '<div class="input-group"><span class="input-group-addon">De:</span>{input}</div>',
@@ -13,6 +14,8 @@ return [
     'Access time' => 'Tiempo de acceso',
     'Active Players' => 'Jugadores activos',
     'Activity' => 'Actividad',
+    'Add Slack Integration' => 'Añadir Integración Slack',
+    'Add' => 'Añadir',
     'All Players' => 'Todos los jugadores',
     'Always enable horizontal scroll' => 'Siempre activar desplazamiento horizontal',
     'Any Time' => 'Cualquier momento',
