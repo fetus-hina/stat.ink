@@ -186,7 +186,7 @@
               </tr>
             {{foreachelse}}
               <tr>
-                <td colspan="5">
+                <td colspan="6">
                   {{'There are no data.'|translate:'app'|escape}}
                 </td>
               </tr>

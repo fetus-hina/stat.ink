@@ -24,11 +24,28 @@
         $.ajax(
             '/user/slack-test',
             {
+                type: 'POST',
                 data: {
                     id: $this.attr('data-id'),
                 },
-                type: 'POST'
             }
         );
+    }).prop('disabled', false);
+
+    $('.slack-del').click(function () {
+        var $this = $(this);
+        $.ajax(
+            '/user/slack-delete',
+            {
+                type: 'POST',
+                data: {
+                    id: $this.attr('data-id'),
+                },
+                complete: function () {
+                    window.location.reload();    
+                },
+            }
+        );
+        $this.prop('disabled', true);
     }).prop('disabled', false);
 })(jQuery);
