@@ -18,9 +18,10 @@ use app\components\helpers\DateTimeFormatter;
 use app\components\helpers\ImageConverter;
 use app\models\Agent;
 use app\models\Battle;
+use app\models\Slack;
 use app\models\User;
-use app\models\api\v1\PostBattleForm;
 use app\models\api\v1\DeleteBattleForm;
+use app\models\api\v1\PostBattleForm;
 
 class BattleAction extends BaseAction
 {
@@ -215,6 +216,23 @@ class BattleAction extends BaseAction
 
         // 保存時間の読み込みのために再読込する
         $battle = Battle::findOne(['id' => $battle->id]);
+
+        // Slack 投稿
+        $slacks = Slack::find()
+            ->andWhere([
+                'user_id' => $battle->user_id,
+                'suspended' => false,
+            ])
+            ->orderBy('id ASC')
+            ->limit(10)
+            ->all();
+        foreach ($slacks as $slack) {
+            try {
+                $slack->send($battle);
+            } catch (\Exception $e) {
+            }
+        }
+
         return $this->runGetImpl($battle);
         // }}}
     }

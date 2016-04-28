@@ -120,7 +120,7 @@ class Slack extends \yii\db\ActiveRecord
             [],
             $lang
         );
-        $url = Url::to(['show/battle', 'screen_name' => $battle->user->screen_name, 'id' => $battle->id], true);
+        $url = Url::to(['show/battle', 'screen_name' => $battle->user->screen_name, 'battle' => $battle->id], true);
 
         $attachment = [
             'fallback' => $i18n->translate(
@@ -150,6 +150,16 @@ class Slack extends \yii\db\ActiveRecord
             ),
             'fields' => [
                 [
+                    'title'     => $i18n->translate('app', 'Mode', [], $lang),
+                    'value'     => $rule,
+                    'short'     => true,
+                ],
+                [
+                    'title'     => $i18n->translate('app', 'Stage', [], $lang),
+                    'value'     => $stage,
+                    'short'     => true,
+                ],
+                [
                     'title'     => $i18n->translate('app', 'Weapon', [], $lang),
                     'value'     => $i18n->translate('app-weapon', $battle->weapon->name ?? '???', [], $lang),
                     'short'     => true,
@@ -162,7 +172,7 @@ class Slack extends \yii\db\ActiveRecord
             ],
             'color' => $battle->is_win === null
                 ? '#cccccc'
-                : ($battle->is_win ? 'good' : 'danger'),
+                : ($battle->is_win ? '#3969b3' : '#ec6110'),
         ];
         if ($battle->battleImageResult) {
             $attachment['image_url'] = $battle->battleImageResult->url;
