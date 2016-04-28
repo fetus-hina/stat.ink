@@ -158,12 +158,17 @@ class HasegawExportController extends Controller
                 ]);
             }
             if (!empty($insert)) {
-                $exp->exec(
+                echo "  player: " . count($insert) . "\n";
+                $a = $exp->exec(
                     $sql = 'INSERT INTO "battle_player" ("' . implode('", "', [
                         'id', 'battle_id', 'is_me', 'is_my_team', 'rank_in_team',
                         'level', 'rank', 'weapon', 'kill', 'death', 'point',
                     ]) . '") VALUES (' . implode('), (', $insert) . ')'
                 );
+                if (!$a) {
+                    var_dump($exp->errorInfo());
+                    exit;
+                }
             }
             $exp->commit();
         }
@@ -222,7 +227,7 @@ class HasegawExportController extends Controller
                 ['>=', '{{battle}}.[[id]]', $startId],
             ])
             ->orderBy('{{battle}}.[[id]] ASC')
-            ->limit(500);
+            ->limit(60);
         foreach ($query->all() as $row) {
             yield [
                 'id' => $row['id'],
