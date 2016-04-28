@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "31b3579fcce34bcd37255a82e39cf306",
-    "content-hash": "c905cb89f3ad02fb4f9e5555e43be042",
+    "hash": "131917e0fa44fd3cec1b21101274710a",
+    "content-hash": "5efb81ce4d75bb6922b2e8e98a1e0dd2",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -54,6 +54,46 @@
                 "mobile-first",
                 "responsive",
                 "web"
+            ]
+        },
+        {
+            "name": "bower-asset/bootstrap-toggle",
+            "version": "2.2.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/minhur/bootstrap-toggle.git",
+                "reference": "187e332b7431afe3d0c07eeef92782ce59a77d66"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/minhur/bootstrap-toggle/zipball/187e332b7431afe3d0c07eeef92782ce59a77d66",
+                "reference": "187e332b7431afe3d0c07eeef92782ce59a77d66",
+                "shasum": ""
+            },
+            "type": "bower-asset-library",
+            "extra": {
+                "bower-asset-main": [
+                    "./js/bootstrap-toggle.min.js",
+                    "./css/bootstrap-toggle.min.css"
+                ],
+                "bower-asset-ignore": [
+                    "**/.*",
+                    "node_modules",
+                    "bower_components",
+                    "test",
+                    "tests"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "Bootstrap Toggle is a highly flexible Bootstrap plugin that converts checkboxes into toggles",
+            "keywords": [
+                "bootstrap",
+                "bootstrap-switch",
+                "bootstrap-toggle",
+                "switch",
+                "toggle"
             ]
         },
         {

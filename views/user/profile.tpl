@@ -111,6 +111,7 @@
         <table class="table table-striped">
           <thead>
             <tr>
+              <th>{{'Enabled'|translate:'app'|escape}}</th>
               <th>{{'User Name'|translate:'app'|escape}}</th>
               <th>{{'Icon'|translate:'app'|escape}}</th>
               <th>{{'Channel'|translate:'app'|escape}}</th>
@@ -119,12 +120,26 @@
             </tr>
           </thead>
           <tbody>
-            {{$_slacks = $user->getSlacks()
-                ->with('language')
-                ->andWhere(['{{slack}}.[[suspended]]' => false])
-                ->all()}}
+            {{$_slacks = $user->getSlacks()->with('language')->all()}}
             {{foreach $_slacks as $_slack}}
               <tr>
+                <td>
+                  {{\app\assets\SlackAsset::register($this)|@void}}
+                  {{Html::checkbox(
+                      "slack-{{$_slack->id}}",
+                      !$_slack->suspended,
+                      [
+                        "class" => [ "slack-toggle-enable" ],
+                        "data" => [
+                          "toggle" => "toggle",
+                          "on" => "Enabled"|translate:'app',
+                          "off" => "Disabled"|translate:'app',
+                          "id" => $_slack->id
+                        ],
+                        "disabled" => true
+                      ]
+                    )}}
+                </td>
                 <td>
                   {{if $_slack->username == ''}}
                     {{'(default)'|translate:'app'|escape}}
@@ -160,9 +175,12 @@
                   {{$_slack->language->name|escape}}
                 </td>
                 <td>
-                  {{\app\assets\SlackAsset::register($this)|@void}}
-                  <button disabled class="slack-test btn btn-default btn-sm" data-id="{{$_slack->id|escape}}">
+                  <button disabled class="slack-test btn btn-info btn-sm" data-id="{{$_slack->id|escape}}">
                     {{'Test'|translate:'app'|escape}}
+                  </button>
+                  &#32;
+                  <button disabled class="slack-del btn btn-danger btn-sm" data-id="{{$_slack->id|escape}}">
+                    {{'Delete'|translate:'app'|escape}}
                   </button>
                 </td>
               </tr>

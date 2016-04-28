@@ -9,14 +9,17 @@ namespace app\assets;
 
 use yii\web\AssetBundle;
 
-class SlackAsset extends AssetBundle
+class BootstrapToggleAsset extends AssetBundle
 {
-    public $sourcePath = '@app/resources/.compiled/slack';
+    public $sourcePath = '@bower/bootstrap-toggle';
     public $js = [
-        'slack.js',
+        'js/bootstrap-toggle.min.js',
+    ];
+    public $css = [
+        'css/bootstrap-toggle.min.css',
     ];
     public $depends = [
-        'yii\web\YiiAsset',
-        BootstrapToggleAsset::class,
+        'yii\bootstrap\BootstrapAsset',
+        'yii\web\JqueryAsset',
     ];
 }
