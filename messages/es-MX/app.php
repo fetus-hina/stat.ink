@@ -121,6 +121,7 @@ return [
     'Knockout Ratio' => 'Palizón la Relación',
     'Knockout' => 'Palizón',
     'LOST' => 'Derrotado',
+    'Language' => 'Lengua',
     'Last 24 Hours' => 'Últimas 24 horas',
     'Last {n} Battles' => 'Últimos {n} batallas',
     'Legend' => 'Leyenda',
@@ -276,8 +277,7 @@ return [
     'Weapon' => 'Arma',
     'Weapons' => 'Armas',
     'What\'s this?' => '¿Qué es esto?',
-    'When there was a charge from investigating authority, your information would be elucidated.' => 'Cuando había un cargo de autoridad investigadora, su información sería aclarada.
- ',
+    'When there was a charge from investigating authority, your information would be elucidated.' => 'Cuando había un cargo de autoridad investigadora, su información sería aclarada.',
     'Win % (Total)' => 'Ganar % (Total)',
     'Win % ({0} Battles)' => 'Ganar % ({0} Batallas)',
     'Win %' => 'Ganar %',

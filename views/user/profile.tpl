@@ -1,6 +1,7 @@
 {{strip}}
   {{set layout="main.tpl"}}
   {{set title="{{$app->name}} | {{'Profile and Settings'|translate:'app'}}"}}
+  {{use class="yii\helpers\Html"}}
   <div class="container">
     <div class="row">
       <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">
@@ -99,6 +100,99 @@
             </tr>
           </tbody>
         </table>
+        <h2>
+          {{'Slack Integration'|translate:'app'|escape}}
+
+          <a href="{{url route="user/slack-add"}}" class="btn btn-primary" style="margin-left:30px">
+            <span class="fa fa-plus"></span>
+          </a>
+        </h2>
+
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>{{'Enabled'|translate:'app'|escape}}</th>
+              <th>{{'User Name'|translate:'app'|escape}}</th>
+              <th>{{'Icon'|translate:'app'|escape}}</th>
+              <th>{{'Channel'|translate:'app'|escape}}</th>
+              <th>{{'Language'|translate:'app'|escape}}</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {{$_slacks = $user->getSlacks()->with('language')->all()}}
+            {{foreach $_slacks as $_slack}}
+              <tr>
+                <td>
+                  {{\app\assets\SlackAsset::register($this)|@void}}
+                  {{Html::checkbox(
+                      "slack-{{$_slack->id}}",
+                      !$_slack->suspended,
+                      [
+                        "class" => [ "slack-toggle-enable" ],
+                        "data" => [
+                          "toggle" => "toggle",
+                          "on" => "Enabled"|translate:'app',
+                          "off" => "Disabled"|translate:'app',
+                          "id" => $_slack->id
+                        ],
+                        "disabled" => true
+                      ]
+                    )}}
+                </td>
+                <td>
+                  {{if $_slack->username == ''}}
+                    {{'(default)'|translate:'app'|escape}}
+                  {{else}}
+                    {{$_slack->username|escape}}
+                  {{/if}}
+                </td>
+                <td>
+                  {{if $_slack->icon == ''}}
+                    {{'(default)'|translate:'app'|escape}}
+                  {{elseif $_slack->icon|substr:0:4|strtolower == 'http' || $_slack->icon|substr:0:2 == '//'}}
+                    {{Html::img($_slack->icon, ['class' => 'emoji emoji-url'])}}
+                  {{else}}
+                    {{\app\assets\EmojifyAsset::register($this)|@void}}
+                    {{Html::img(
+                        'data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==',
+                        [
+                          'class' => 'emoji emoji-str',
+                          'data-emoji' => $_slack->icon
+                        ]
+                      )}}
+                    {{$_slack->icon|escape}}
+                  {{/if}}
+                </td>
+                <td>
+                  {{if $_slack->channel == ''}}
+                    {{'(default)'|translate:'app'|escape}}
+                  {{else}}
+                    {{$_slack->channel|escape}}
+                  {{/if}}
+                </td>
+                <td>
+                  {{$_slack->language->name|escape}}
+                </td>
+                <td>
+                  <button disabled class="slack-test btn btn-info btn-sm" data-id="{{$_slack->id|escape}}">
+                    {{'Test'|translate:'app'|escape}}
+                  </button>
+                  &#32;
+                  <button disabled class="slack-del btn btn-danger btn-sm" data-id="{{$_slack->id|escape}}">
+                    {{'Delete'|translate:'app'|escape}}
+                  </button>
+                </td>
+              </tr>
+            {{foreachelse}}
+              <tr>
+                <td colspan="6">
+                  {{'There are no data.'|translate:'app'|escape}}
+                </td>
+              </tr>
+            {{/foreach}}
+          </tbody>
+        </table>
       </div>
       <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
         <h2>{{'Export'|translate:'app'|escape}}</h2>
@@ -117,12 +211,14 @@
   </div>
 {{/strip}}
 {{registerCss}}
-  th { width: 10em; }
+  tbody th { width: 10em; }
 {{/registerCss}}
-{{registerJs}}
-  "use strict";
-  $('#apikey-button').click(function () {
-    $(this).hide();
-    $('#apikey').show();
-  });
-{{/registerJs}}
+{{registerJs}}{{strip}}
+  (function($){
+    "use strict";
+    $('#apikey-button').click(function () {
+      $(this).hide();
+      $('#apikey').show();
+    });
+  })(jQuery);
+{{/strip}}{{/registerJs}}

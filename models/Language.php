@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2015 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2016 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  */
@@ -16,6 +16,8 @@ use Yii;
  * @property string $lang
  * @property string $name
  * @property string $name_en
+ *
+ * @property Slack[] $slacks
  */
 class Language extends \yii\db\ActiveRecord
 {
@@ -38,7 +40,7 @@ class Language extends \yii\db\ActiveRecord
             [['name', 'name_en'], 'string', 'max' => 32],
             [['lang'], 'unique'],
             [['name_en'], 'unique'],
-            [['name'], 'unique']
+            [['name'], 'unique'],
         ];
     }
 
@@ -53,5 +55,13 @@ class Language extends \yii\db\ActiveRecord
             'name' => 'Name',
             'name_en' => 'Name En',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getSlacks()
+    {
+        return $this->hasMany(Slack::className(), ['language_id' => 'id']);
     }
 }

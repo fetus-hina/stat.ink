@@ -28,6 +28,10 @@ class UserController extends Controller
                     'logout',
                     'profile',
                     'register',
+                    'slack-add',
+                    'slack-delete',
+                    'slack-suspend',
+                    'slack-test',
                 ],
                 'rules' => [
                     [
@@ -44,6 +48,10 @@ class UserController extends Controller
                             'edit-profile',
                             'logout',
                             'profile',
+                            'slack-add',
+                            'slack-delete',
+                            'slack-suspend',
+                            'slack-test',
                         ],
                         'roles' => ['@'],
                         'allow' => true,
@@ -58,6 +66,10 @@ class UserController extends Controller
                     'language'      => [ 'post' ],
                     'login'         => [ 'get', 'post' ],
                     'register'      => [ 'get', 'post' ],
+                    'slack-add'     => [ 'get', 'post' ],
+                    'slack-delete'  => [ 'post' ],
+                    'slack-suspend' => [ 'post' ],
+                    'slack-test'    => [ 'post' ],
                     'timezone'      => [ 'post' ],
                     '*'             => [ 'get' ],
                 ],
@@ -77,6 +89,10 @@ class UserController extends Controller
             'logout'        => [ 'class' => $prefix . '\LogoutAction' ],
             'profile'       => [ 'class' => $prefix . '\ProfileAction' ],
             'register'      => [ 'class' => $prefix . '\RegisterAction' ],
+            'slack-add'     => [ 'class' => $prefix . '\SlackAddAction' ],
+            'slack-delete'  => [ 'class' => $prefix . '\SlackDeleteAction' ],
+            'slack-suspend' => [ 'class' => $prefix . '\SlackSuspendAction' ],
+            'slack-test'    => [ 'class' => $prefix . '\SlackTestAction' ],
             'timezone'      => [ 'class' => $prefix . '\TimezoneAction' ],
         ];
     }

@@ -10,10 +10,12 @@ RESOURCE_TARGETS_MAIN=\
 	resources/.compiled/dseg/dseg14.css \
 	resources/.compiled/dseg/fonts/DSEG14Classic-Italic.ttf \
 	resources/.compiled/dseg/fonts/DSEG14Classic-Italic.woff \
+	resources/.compiled/emoji/emoji.js \
 	resources/.compiled/flot-graph-icon/jquery.flot.icon.js \
 	resources/.compiled/gears/calc.js \
 	resources/.compiled/gh-fork-ribbon/gh-fork-ribbon.css \
 	resources/.compiled/gh-fork-ribbon/gh-fork-ribbon.js \
+	resources/.compiled/slack/slack.js \
 	resources/.compiled/stat.ink/favicon.png \
 	resources/.compiled/stat.ink/main.css \
 	resources/.compiled/stat.ink/main.js \
@@ -158,6 +160,12 @@ resources/.compiled/dseg/dseg14.css: resources/dseg/dseg14.less $(GULP)
 resources/dseg/DSEG_v030.zip:
 	test -d resources/dseg || mkdir resources/dseg
 	curl -o $@ http://www.keshikan.net/archive/DSEG_v030.zip
+
+resources/.compiled/emoji/emoji.js: resources/emoji/emoji.js $(GULP)
+	$(GULP) js --in $< --out $@
+
+resources/.compiled/slack/slack.js: resources/slack/slack.js $(GULP)
+	$(GULP) js --in $< --out $@
 
 migrate-db: vendor config/db.php
 	./yii migrate/up --interactive=0

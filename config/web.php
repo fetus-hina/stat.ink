@@ -151,6 +151,7 @@ $config = [
                         'app-rank'      => 'rank.php',
                         'app-reltime'   => 'reltime.php',
                         'app-rule'      => 'rule.php',
+                        'app-slack'     => 'slack.php',
                         'app-special'   => 'special.php',
                         'app-start'     => 'start.php',
                         'app-subweapon' => 'subweapon.php',
