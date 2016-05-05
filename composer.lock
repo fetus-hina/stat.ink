@@ -178,16 +178,16 @@
         },
         {
             "name": "bower-asset/d3",
-            "version": "v3.5.16",
+            "version": "v3.5.17",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mbostock-bower/d3-bower.git",
-                "reference": "2186a35ce1c46003463896e1c61a81554c1dc70b"
+                "reference": "7a826d211d5067867debf9ce24a9987e0cb02b6e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mbostock-bower/d3-bower/zipball/2186a35ce1c46003463896e1c61a81554c1dc70b",
-                "reference": "2186a35ce1c46003463896e1c61a81554c1dc70b",
+                "url": "https://api.github.com/repos/mbostock-bower/d3-bower/zipball/7a826d211d5067867debf9ce24a9987e0cb02b6e",
+                "reference": "7a826d211d5067867debf9ce24a9987e0cb02b6e",
                 "shasum": ""
             },
             "type": "bower-asset-library",
@@ -324,16 +324,16 @@
         },
         {
             "name": "bower-asset/fontawesome",
-            "version": "v4.6.1",
+            "version": "v4.6.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/FortAwesome/Font-Awesome.git",
-                "reference": "6535013c330e801ecf0b23c437865a7fb344486d"
+                "reference": "e7cc59d666ed0826656f695afad7c56e95eb6513"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FortAwesome/Font-Awesome/zipball/6535013c330e801ecf0b23c437865a7fb344486d",
-                "reference": "6535013c330e801ecf0b23c437865a7fb344486d",
+                "url": "https://api.github.com/repos/FortAwesome/Font-Awesome/zipball/e7cc59d666ed0826656f695afad7c56e95eb6513",
+                "reference": "e7cc59d666ed0826656f695afad7c56e95eb6513",
                 "shasum": ""
             },
             "type": "bower-asset-library",
@@ -652,16 +652,16 @@
         },
         {
             "name": "bower-asset/moment-timezone",
-            "version": "0.5.3",
+            "version": "0.5.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/moment/moment-timezone.git",
-                "reference": "a35db0367651d7bafcc750114a124343d349b8f5"
+                "reference": "eda36cb2c5ed62b7082593c3aeaff9b94204aa1a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/moment/moment-timezone/zipball/a35db0367651d7bafcc750114a124343d349b8f5",
-                "reference": "a35db0367651d7bafcc750114a124343d349b8f5",
+                "url": "https://api.github.com/repos/moment/moment-timezone/zipball/eda36cb2c5ed62b7082593c3aeaff9b94204aa1a",
+                "reference": "eda36cb2c5ed62b7082593c3aeaff9b94204aa1a",
                 "shasum": ""
             },
             "require": {
@@ -855,16 +855,16 @@
         },
         {
             "name": "christian-riesen/base32",
-            "version": "1.3.0",
+            "version": "1.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ChristianRiesen/base32.git",
-                "reference": "fde061a370b0a97fdcd33d9d5f7b1b70ce1f79d4"
+                "reference": "0a31e50c0fa9b1692d077c86ac188eecdcbaf7fa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ChristianRiesen/base32/zipball/fde061a370b0a97fdcd33d9d5f7b1b70ce1f79d4",
-                "reference": "fde061a370b0a97fdcd33d9d5f7b1b70ce1f79d4",
+                "url": "https://api.github.com/repos/ChristianRiesen/base32/zipball/0a31e50c0fa9b1692d077c86ac188eecdcbaf7fa",
+                "reference": "0a31e50c0fa9b1692d077c86ac188eecdcbaf7fa",
                 "shasum": ""
             },
             "require": {
@@ -905,7 +905,7 @@
                 "encode",
                 "rfc4648"
             ],
-            "time": "2016-04-07 07:45:31"
+            "time": "2016-05-05 11:49:03"
         },
         {
             "name": "container-interop/container-interop",
@@ -2630,16 +2630,16 @@
         },
         {
             "name": "symfony/console",
-            "version": "v2.8.4",
+            "version": "v2.8.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "9a5aef5fc0d4eff86853d44202b02be8d5a20154"
+                "reference": "48221d3de4dc22d2cd57c97e8b9361821da86609"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/9a5aef5fc0d4eff86853d44202b02be8d5a20154",
-                "reference": "9a5aef5fc0d4eff86853d44202b02be8d5a20154",
+                "url": "https://api.github.com/repos/symfony/console/zipball/48221d3de4dc22d2cd57c97e8b9361821da86609",
+                "reference": "48221d3de4dc22d2cd57c97e8b9361821da86609",
                 "shasum": ""
             },
             "require": {
@@ -2686,11 +2686,11 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2016-03-17 09:19:04"
+            "time": "2016-04-26 12:00:47"
         },
         {
             "name": "symfony/finder",
-            "version": "v2.8.4",
+            "version": "v2.8.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/finder.git",
@@ -2798,16 +2798,16 @@
         },
         {
             "name": "symfony/process",
-            "version": "v2.8.4",
+            "version": "v2.8.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/process.git",
-                "reference": "fb467471952ef5cf8497c029980e556b47545333"
+                "reference": "1276bd9be89be039748cf753a2137f4ef149cd74"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/process/zipball/fb467471952ef5cf8497c029980e556b47545333",
-                "reference": "fb467471952ef5cf8497c029980e556b47545333",
+                "url": "https://api.github.com/repos/symfony/process/zipball/1276bd9be89be039748cf753a2137f4ef149cd74",
+                "reference": "1276bd9be89be039748cf753a2137f4ef149cd74",
                 "shasum": ""
             },
             "require": {
@@ -2843,20 +2843,20 @@
             ],
             "description": "Symfony Process Component",
             "homepage": "https://symfony.com",
-            "time": "2016-03-23 13:11:46"
+            "time": "2016-04-14 15:22:22"
         },
         {
             "name": "symfony/yaml",
-            "version": "v2.8.4",
+            "version": "v2.8.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "584e52cb8f788a887553ba82db6caacb1d6260bb"
+                "reference": "e4fbcc65f90909c999ac3b4dfa699ee6563a9940"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/584e52cb8f788a887553ba82db6caacb1d6260bb",
-                "reference": "584e52cb8f788a887553ba82db6caacb1d6260bb",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/e4fbcc65f90909c999ac3b4dfa699ee6563a9940",
+                "reference": "e4fbcc65f90909c999ac3b4dfa699ee6563a9940",
                 "shasum": ""
             },
             "require": {
@@ -2892,7 +2892,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2016-03-04 07:54:35"
+            "time": "2016-03-29 19:00:15"
         },
         {
             "name": "yiisoft/yii2-debug",
