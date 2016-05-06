@@ -19,6 +19,7 @@
 /resources/dseg/*.zip
 /vendor
 /web/images
+/web/static-assets/cc
 Thumbs.db
 composer.phar
 nbproject

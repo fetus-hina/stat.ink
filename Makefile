@@ -1,12 +1,9 @@
 STYLE_TARGETS=actions assets commands components controllers models
 JS_SRCS=$(shell ls -1 resources/stat.ink/main.js/*.js)
-COMPOSER_VERSION=1.0.0
+COMPOSER_VERSION=1.1.0-RC
 GULP=./node_modules/.bin/gulp
 
 RESOURCE_TARGETS_MAIN=\
-	doc/images/cc-by.svg \
-	doc/images/cc-by.svg.br \
-	doc/images/cc-by.svg.gz \
 	resources/.compiled/activity/activity.js \
 	resources/.compiled/counter/counter.css \
 	resources/.compiled/counter/counter.js \
@@ -22,7 +19,10 @@ RESOURCE_TARGETS_MAIN=\
 	resources/.compiled/stat.ink/favicon.png \
 	resources/.compiled/stat.ink/main.css \
 	resources/.compiled/stat.ink/main.js \
-	resources/.compiled/stat.ink/no-image.png
+	resources/.compiled/stat.ink/no-image.png \
+	web/static-assets/cc/cc-by.svg \
+	web/static-assets/cc/cc-by.svg.br \
+	web/static-assets/cc/cc-by.svg.gz
 
 RESOURCE_TARGETS=\
 	$(RESOURCE_TARGETS_MAIN) \
@@ -117,7 +117,7 @@ composer.lock: composer.json composer.phar
 $(GULP): node_modules
 	touch $(GULP)
 
-doc/images/cc-by.svg:
+web/static-assets/cc/cc-by.svg:
 	mkdir -p `dirname $@` || true
 	curl -o $@ http://mirrors.creativecommons.org/presskit/buttons/88x31/svg/by.svg
 
