@@ -776,6 +776,6 @@ DELETE /api/v1/battle
 
 ----
 
-[![CC-BY 4.0](doc/images/cc-by.svg)](http://creativecommons.org/licenses/by/4.0/deed.ja)
+[![CC-BY 4.0](https://stat.ink/static-assets/cc/cc-by.svg)](http://creativecommons.org/licenses/by/4.0/deed.ja)
 
 この文章は[Creative Commons - 表示 4.0 国際](http://creativecommons.org/licenses/by/4.0/deed.ja)の下にライセンスされています。
