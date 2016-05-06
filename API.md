@@ -773,3 +773,9 @@ DELETE /api/v1/battle
 ---------------------
 
 [バトルの削除についてはこちらを参照してください](doc/api-1/delete-battle.md)
+
+----
+
+[![CC-BY 4.0](doc/images/cc-by.svg)](http://creativecommons.org/licenses/by/4.0/deed.ja)
+
+この文章は[Creative Commons - 表示 4.0 国際]((http://creativecommons.org/licenses/by/4.0/deed.ja)の下にライセンスされています。
