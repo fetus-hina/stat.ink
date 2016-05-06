@@ -4,6 +4,9 @@ COMPOSER_VERSION=1.0.0
 GULP=./node_modules/.bin/gulp
 
 RESOURCE_TARGETS_MAIN=\
+	doc/images/cc-by.svg \
+	doc/images/cc-by.svg.br \
+	doc/images/cc-by.svg.gz \
 	resources/.compiled/activity/activity.js \
 	resources/.compiled/counter/counter.css \
 	resources/.compiled/counter/counter.js \
@@ -108,8 +111,15 @@ composer.lock: composer.json composer.phar
 %.js.gz: %.js
 	gzip -9c $< > $@
 
+%.svg.gz: %.svg
+	gzip -9c $< > $@
+
 $(GULP): node_modules
 	touch $(GULP)
+
+doc/images/cc-by.svg:
+	mkdir -p `dirname $@` || true
+	curl -o $@ http://mirrors.creativecommons.org/presskit/buttons/88x31/svg/by.svg
 
 resources/.compiled/stat.ink/main.js: $(JS_SRCS) $(GULP)
 	$(GULP) js --in 'resources/stat.ink/main.js/*.js' --out $@
