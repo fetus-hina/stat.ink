@@ -82,6 +82,7 @@ class BattleAction extends BaseAction
                 'rank',
                 'battleImageResult',
                 'battleImageJudge',
+                'battleImageGear',
                 'battleEvents',
                 'splatoonVersion',
             ])
@@ -136,7 +137,7 @@ class BattleAction extends BaseAction
         $request = Yii::$app->getRequest();
         $form = new PostBattleForm();
         $form->attributes = $request->getBodyParams();
-        foreach (['image_judge', 'image_result'] as $key) {
+        foreach (['image_judge', 'image_result', 'image_gear'] as $key) {
             if ($form->$key == '') {
                 $form->$key = UploadedFile::getInstanceByName($key);
             }
@@ -369,8 +370,8 @@ class BattleAction extends BaseAction
                 $imageOutputDir . '/' . $image->filename,
                 ($form->user->is_black_out_others) ? $myPosition : false,
                 $imageArchiveOutputDir
-                ? ($imageArchiveOutputDir . '/' . sprintf('%d-result.png', $battle->id))
-                : null
+                    ? ($imageArchiveOutputDir . '/' . sprintf('%d-result.png', $battle->id))
+                    : null
             )) {
                 $this->logError([
                     'system' => [
@@ -392,6 +393,42 @@ class BattleAction extends BaseAction
                 return $this->formatError([
                     'system' => [
                         Yii::t('app', 'Could not save {0}', 'battle_image(result)'),
+                    ]
+                ], 500);
+            }
+        }
+        if ($image = $form->toImageGear($battle)) {
+            $binary = is_string($form->image_gear)
+                ? $form->image_gear
+                : file_get_contents($form->image_gear->tempName, false);
+            if (!ImageConverter::convert(
+                $binary,
+                $imageOutputDir . '/' . $image->filename,
+                false,
+                $imageArchiveOutputDir
+                    ? ($imageArchiveOutputDir . '/' . sprintf('%d-gear.png', $battle->id))
+                    : null
+            )) {
+                $this->logError([
+                    'system' => [
+                        Yii::t('app', 'Could not convert "{0}" image.', 'gear'),
+                    ]
+                ]);
+                return $this->formatError([
+                    'system' => [
+                        Yii::t('app', 'Could not convert "{0}" image.', 'gear'),
+                    ]
+                ], 500);
+            }
+            if (!$image->save()) {
+                $this->logError([
+                    'system' => [
+                        Yii::t('app', 'Could not save {0}', 'battle_image(gear)'),
+                    ]
+                ]);
+                return $this->formatError([
+                    'system' => [
+                        Yii::t('app', 'Could not save {0}', 'battle_image(gear)'),
                     ]
                 ], 500);
             }

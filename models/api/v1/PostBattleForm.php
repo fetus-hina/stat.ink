@@ -67,6 +67,7 @@ class PostBattleForm extends Model
     public $his_team_color;
     public $image_judge;
     public $image_result;
+    public $image_gear;
     public $start_at;
     public $end_at;
     public $my_point;
@@ -141,17 +142,17 @@ class PostBattleForm extends Model
             [['fest_exp', 'fest_exp_after'], 'integer', 'min' => 0, 'max' => 99],
             [['my_team_power', 'his_team_power', 'fest_power'], 'integer'],
             [['my_team_color', 'his_team_color'], 'validateTeamColor'],
-            [['image_judge', 'image_result'], 'safe'],
-            [['image_judge', 'image_result'], 'file',
+            [['image_judge', 'image_result', 'image_gear'], 'safe'],
+            [['image_judge', 'image_result', 'image_gear'], 'file',
                 'maxSize' => 3 * 1024 * 1024,
                 'when' => function ($model, $attr) {
                     return !is_string($model->$attr);
                 }],
-            [['image_judge', 'image_result'], 'validateImageFile',
+            [['image_judge', 'image_result', 'image_gear'], 'validateImageFile',
                 'when' => function ($model, $attr) {
                     return !is_string($model->$attr);
                 }],
-            [['image_judge', 'image_result'], 'validateImageString',
+            [['image_judge', 'image_result', 'image_gear'], 'validateImageString',
                 'when' => function ($model, $attr) {
                     return is_string($model->$attr);
                 }],
@@ -625,6 +626,11 @@ class PostBattleForm extends Model
     public function toImageResult(Battle $battle)
     {
         return $this->toImage($battle, BattleImageType::ID_RESULT, 'image_result');
+    }
+
+    public function toImageGear(Battle $battle)
+    {
+        return $this->toImage($battle, BattleImageType::ID_GEAR, 'image_gear');
     }
 
     protected function toImage(Battle $battle, $imageTypeId, $attr)

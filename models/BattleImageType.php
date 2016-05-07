@@ -21,6 +21,7 @@ class BattleImageType extends \yii\db\ActiveRecord
 {
     const ID_JUDGE = 1;
     const ID_RESULT = 2;
+    const ID_GEAR = 3;
 
     /**
      * @inheritdoc

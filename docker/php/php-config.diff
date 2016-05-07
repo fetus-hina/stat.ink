@@ -15,8 +15,8 @@ diff -ru php70.o/php-fpm.d/www.conf php70/php-fpm.d/www.conf
 
  ;php_value[opcache.file_cache]  = /var/opt/remi/php70/lib/php/opcache
 +
-+php_admin_value[upload_max_filesize] = 10M
-+php_admin_value[post_max_size] = 11M
++php_admin_value[upload_max_filesize] = 12M
++php_admin_value[post_max_size] = 13M
 diff -ru php70.o/php.ini php70/php.ini
 --- php70.o/php.ini     2015-12-16 13:37:00.000000000 +0000
 +++ php70/php.ini       2016-01-04 07:55:38.100712838 +0000
