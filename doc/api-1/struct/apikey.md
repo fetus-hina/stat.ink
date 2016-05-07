@@ -23,3 +23,10 @@
 `apikey` 実装の詳細が必要であれば `app\models\User::generateNewApiKey()` を確認してください。
 
 `apikey` はパスワードに相当する機密性の高い情報です。取り扱いには注意してください。
+
+
+----
+
+[![CC-BY 4.0](https://stat.ink/static-assets/cc/cc-by.svg)](http://creativecommons.org/licenses/by/4.0/deed.ja)
+
+この文章は[Creative Commons - 表示 4.0 国際](http://creativecommons.org/licenses/by/4.0/deed.ja)の下にライセンスされています。

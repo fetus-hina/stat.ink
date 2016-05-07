@@ -257,6 +257,7 @@ return [
     'This action is provided for deleting a falsely-recognized battle.' => 'Esta acción se proporciona para eliminar una batalla falsamente reconocido.',
     'This battle was recorded with an outdated version of IkaLog. Please upgrade to the latest version.' => 'Esta batalla fue grabada con una versión de IkaLog. Actualice a la versión más reciente.',
     'This behaviour was started at 27 Oct 2015.' => 'Este comportamiento se inició en el 27 de octubre de 2015.',
+    'This document is under a <a href="http://creativecommons.org/licenses/by/4.0/deed.en">Creative Commons Attribution 4.0 International License</a>.' => 'Este documento está bajo una <a href="http://creativecommons.org/licenses/by/4.0/deed.es">Licencia Creative Commons Atribución 4.0 Internacional</a>.',
     'This website ({0}) collects your access data below:' => 'Este sitio web ({0}) recoge sus datos de acceso a continuación:',
     'This website has implemented support for color-blindness. Please check "Color-Blind Support" in the "User Name/Guest" menu of the navbar to enable it.' => '色覚サポートを実装しています。有効にするには上部ナビゲーションの「ユーザ名/ゲスト」部分から「色覚サポート」を選択してください。',
     'This website is an UNOFFICIAL SERVICE. It is not related to the Splatoon development team or Nintendo.' => 'Este sitio web es UN SERVICIO NO OFICIAL. No está relacionado con el equipo de desarrollo de Splatoon o Nintendo.',
