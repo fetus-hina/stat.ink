@@ -43,11 +43,15 @@ class SlackAddForm extends Model
                 },
                 'whenClient' => 'function(){return $("#slackaddform-icon").val().indexOf("//")>=0}',
             ],
-            [['channel'], 'match', 'pattern' => sprintf(
-                    '/^%s|%s$/',
-                    '(?:#[a-z0-9_-]{1,21})',
-                    '(?:@[a-zA-Z0-9._-]{1,21})'
-                )],
+            [['channel'], 'match',
+                'pattern' => sprintf(
+                    '/^%s$/',
+                    implode('|', [
+                        '(?:#[a-z0-9_-]{1,21})',
+                        '(?:@[a-zA-Z0-9._-]{1,21})',
+                    ])
+                ),
+            ],
             [['language_id'], 'exist',
                 'targetClass' => Language::class,
                 'targetAttribute' => 'id'],
@@ -76,7 +80,7 @@ class SlackAddForm extends Model
 
         if (!preg_match('!^https://hooks.slack.com/services/!', $this->$attr)) {
             $this->addError(
-                $attr, 
+                $attr,
                 Yii::t('yii', '{attribute} is not a valid URL.', ['attribute' => $this->getAttributeLabel($attr)])
             );
         }

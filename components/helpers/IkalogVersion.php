@@ -15,7 +15,7 @@ class IkalogVersion
 {
     const V2_7_0_MINIMUM_REVISION = '16bb777';
 
-    static public function isOutdated(Battle $battle) : bool
+    public static function isOutdated(Battle $battle) : bool
     {
         $agent = $battle->agent;
         if (!$agent || !static::isIkaLog($agent)) {
@@ -51,12 +51,12 @@ class IkalogVersion
         return false;
     }
 
-    static public function isIkaLog(Agent $agent) : bool
+    public static function isIkaLog(Agent $agent) : bool
     {
         return $agent->name === 'IkaLog' || $agent->name === 'TakoLog';
     }
 
-    static public function extractGitRevision(Agent $agent)
+    public static function extractGitRevision(Agent $agent)
     {
         if (!static::isIkaLog($agent)) {
             return null;

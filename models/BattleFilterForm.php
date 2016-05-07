@@ -96,7 +96,8 @@ class BattleFilterForm extends Model
                     return substr($this->weapon, 0, 1) === '~';
                 }],
             [['result'], 'boolean', 'trueValue' => 'win', 'falseValue' => 'lose'],
-            [['term'], 'in', 'range' => array_merge(
+            [['term'], 'in',
+                'range' => array_merge(
                     [
                         'this-period',
                         'last-period',
@@ -116,7 +117,7 @@ class BattleFilterForm extends Model
                         },
                         SplatoonVersion::find()->asArray()->all()
                     )
-                )
+                ),
             ],
             [['term_from', 'term_to'], 'date', 'format' => 'yyyy-M-d H:m:s'],
             [['timezone'], 'validateTimezone', 'skipOnEmpty' => false],

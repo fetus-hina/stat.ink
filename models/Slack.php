@@ -52,8 +52,12 @@ class Slack extends \yii\db\ActiveRecord
             [['webhook_url', 'icon'], 'string', 'max' => 256],
             [['username'], 'string', 'max' => 15],
             [['channel'], 'string', 'max' => 22],
-            [['language_id'], 'exist', 'skipOnError' => true, 'targetClass' => Language::className(), 'targetAttribute' => ['language_id' => 'id']],
-            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
+            [['language_id'], 'exist', 'skipOnError' => true,
+                'targetClass' => Language::class,
+                'targetAttribute' => ['language_id' => 'id']],
+            [['user_id'], 'exist', 'skipOnError' => true,
+                'targetClass' => User::class,
+                'targetAttribute' => ['user_id' => 'id']],
         ];
     }
 
