@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "131917e0fa44fd3cec1b21101274710a",
-    "content-hash": "5efb81ce4d75bb6922b2e8e98a1e0dd2",
+    "hash": "2585c935a78dfcabc9027bad549ca8c3",
+    "content-hash": "c72f7fad1f5a903865612d97d763b45f",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -709,6 +709,26 @@
                     "node_modules",
                     "package.json"
                 ]
+            }
+        },
+        {
+            "name": "bower-asset/swipebox",
+            "version": "1.4.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/brutaldesign/swipebox.git",
+                "reference": "c6227436cdeef6237652d9bf7d3cf3b6bd9fc252"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/brutaldesign/swipebox/zipball/c6227436cdeef6237652d9bf7d3cf3b6bd9fc252",
+                "reference": "c6227436cdeef6237652d9bf7d3cf3b6bd9fc252",
+                "shasum": ""
+            },
+            "type": "bower-asset-library",
+            "extra": {
+                "bower-asset-main": "src/js/jquery.swipebox.js",
+                "bower-asset-ignore": []
             }
         },
         {
