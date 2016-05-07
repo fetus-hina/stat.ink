@@ -1035,7 +1035,8 @@ class Battle extends ActiveRecord
         );
     }
 
-    protected function saveEditHistoryImpl($jsonBefore, $jsonAfter) {
+    protected function saveEditHistoryImpl($jsonBefore, $jsonAfter)
+    {
         try {
             $edit = new BattleEditHistory();
             $edit->battle_id = $this->id;
