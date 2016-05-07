@@ -20,6 +20,7 @@ RESOURCE_TARGETS_MAIN=\
 	resources/.compiled/stat.ink/main.css \
 	resources/.compiled/stat.ink/main.js \
 	resources/.compiled/stat.ink/no-image.png \
+	resources/.compiled/stat.ink/swipebox-runner.js \
 	web/static-assets/cc/cc-by.svg \
 	web/static-assets/cc/cc-by.svg.br \
 	web/static-assets/cc/cc-by.svg.gz
@@ -126,6 +127,9 @@ resources/.compiled/stat.ink/main.js: $(JS_SRCS) $(GULP)
 
 resources/.compiled/stat.ink/main.css: resources/stat.ink/main.less $(GULP)
 	$(GULP) less --in $< --out $@
+
+resources/.compiled/stat.ink/swipebox-runner.js: resources/stat.ink/swipebox-runner.js $(GULP)
+	$(GULP) js --in $< --out $@
 
 resources/.compiled/gh-fork-ribbon/gh-fork-ribbon.js: resources/gh-fork-ribbon/gh-fork-ribbon.js $(GULP)
 	$(GULP) js --in $< --out $@

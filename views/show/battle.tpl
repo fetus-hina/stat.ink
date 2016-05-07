@@ -76,15 +76,20 @@
     {{SnsWidget}}
 
     {{if $battle->battleImageJudge || $battle->battleImageResult}}
+      {{\app\assets\SwipeboxRunnerAsset::register($this)|@void}}
       <div class="row">
         {{if $battle->battleImageJudge}}
           <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 image-container">
-            <img src="{{$battle->battleImageJudge->url|escape}}" style="max-width:100%;height:auto">
+            <a href="{{$battle->battleImageJudge->url|escape}}" class="swipebox">
+              <img src="{{$battle->battleImageJudge->url|escape}}" style="max-width:100%;height:auto">
+            </a>
           </div>
         {{/if}}
         {{if $battle->battleImageResult}}
           <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 image-container">
-            <img src="{{$battle->battleImageResult->url|escape}}" style="max-width:100%;height:auto">
+            <a href="{{$battle->battleImageResult->url|escape}}" class="swipebox">
+              <img src="{{$battle->battleImageResult->url|escape}}" style="max-width:100%;height:auto">
+            </a>
           </div>
           {{$this->registerMetaTag(['name' => 'twitter:image', 'content' => $battle->battleImageResult->url])|@void}}
         {{/if}}
@@ -409,7 +414,16 @@
             {{/if}}
             {{if $battle->headgear || $battle->clothing || $battle->shoes}}
               <tr>
-                <th>{{'Gear'|translate:'app'|escape}}</th>
+                <th>
+                  {{'Gear'|translate:'app'|escape}}
+                  {{if $battle->battleImageGear}}
+                    {{\app\assets\SwipeboxRunnerAsset::register($this)|@void}}
+                    &#32;
+                    <a href="{{$battle->battleImageGear->url}}" class="swipebox">
+                      <span class="fa fa-picture-o"></span>
+                    </a>
+                  {{/if}}
+                </th>
                 <td>
                   <table class="table table-bordered table-condensed" style="margin-bottom:0">
                     <thead>
@@ -489,7 +503,7 @@
               <tr>
                 <th>{{'Link'|translate:'app'|escape}}</th>
                 <td>
-                  <a href="{{$battle->link_url|escape}}" rel="nofollow">
+                  <a href="{{$battle->link_url|escape}}" rel="nofollow" class="swipebox">
                     {{$battle->link_url|decode_idn|escape}}
                   </a>
                 </td>

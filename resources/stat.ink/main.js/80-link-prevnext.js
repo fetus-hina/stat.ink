@@ -3,6 +3,11 @@ $(document).ready(function () {
     var $next = $('link[rel="next"]');
     var $prev = $('link[rel="prev"]');
     $(window).keydown(function(ev) {
+        // do nothing when Swipebox is opened
+        if ($.swipebox && $.swipebox.isOpen) {
+            return false;
+        }
+
         // 37: left
         // 39: right
         switch (ev.keyCode) {
