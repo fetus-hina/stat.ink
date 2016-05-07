@@ -430,6 +430,12 @@ class Battle extends ActiveRecord
             ->andWhere(['type_id' => BattleImageType::ID_RESULT]);
     }
 
+    public function getBattleImageGear()
+    {
+        return $this->hasOne(BattleImage::class, ['battle_id' => 'id'])
+            ->andWhere(['type_id' => BattleImageType::ID_GEAR]);
+    }
+
     public function getBattleEvents()
     {
         return $this->hasOne(BattleEvents::class, ['id' => 'id']);
@@ -728,6 +734,9 @@ class Battle extends ActiveRecord
                 : null,
             'image_result' => $this->battleImageResult
                 ? Url::to(Yii::getAlias('@web/images') . '/' . $this->battleImageResult->filename, true)
+                : null,
+            'image_gear' => $this->battleImageGear
+                ? Url::to(Yii::getAlias('@web/images') . '/' . $this->battleImageGear->filename, true)
                 : null,
             'gears' => in_array('gears', $skips, true)
                 ? null
