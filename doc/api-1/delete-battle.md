@@ -107,3 +107,9 @@ HTTPレスポンスは実際の操作が仮に成功していなくても `200 O
     - `"not found"` : 指定された ID のバトルが存在しない場合に設定されます。
     - `"user not match"` : APIキーで与えられたユーザと異なるユーザのバトルが指定された場合に設定されます。
     - `"automated result"` : 「自動化されたバトル結果」と認識している場合に設定されます。現在自動化されているとしているバトルは削除できません。
+
+----
+
+[![CC-BY 4.0](https://stat.ink/static-assets/cc/cc-by.svg)](http://creativecommons.org/licenses/by/4.0/deed.ja)
+
+この文章は[Creative Commons - 表示 4.0 国際](http://creativecommons.org/licenses/by/4.0/deed.ja)の下にライセンスされています。

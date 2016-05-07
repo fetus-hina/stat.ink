@@ -25,3 +25,9 @@
 * `area` : マップの広さの目安です。まだ計算していないときは null になります。
 
 * `release_at` : マップの公開日時を [`time` 構造体](time.md) で表します。公開日時が確定していないときは null になります。
+
+----
+
+[![CC-BY 4.0](https://stat.ink/static-assets/cc/cc-by.svg)](http://creativecommons.org/licenses/by/4.0/deed.ja)
+
+この文章は[Creative Commons - 表示 4.0 国際](http://creativecommons.org/licenses/by/4.0/deed.ja)の下にライセンスされています。

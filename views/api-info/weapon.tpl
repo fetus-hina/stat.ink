@@ -73,5 +73,10 @@
         </tbody>
       </table>
     </div>
+    <hr>
+    <p>
+      <img src="/static-assets/cc/cc-by.svg" alt="CC-BY 4.0"><br>
+      {{'This document is under a <a href="http://creativecommons.org/licenses/by/4.0/deed.en">Creative Commons Attribution 4.0 International License</a>.'|translate:'app'}}
+    </p>
   </div>
 {{/strip}}
