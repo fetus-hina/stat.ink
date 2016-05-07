@@ -76,7 +76,7 @@ class ImageArchiveController extends Controller
             if ($entry->isDot() || !$entry->isFile()) {
                 continue;
             }
-            if (preg_match('/^\d+-(result|judge)\.png$/', $entry->getBasename(), $match)) {
+            if (preg_match('/^\d+-(result|judge|gear)\.png$/', $entry->getBasename(), $match)) {
                 $outDir = sprintf('%s/%s-%s', $outBaseDir, $date, $match[1]);
                 if (!file_exists($outDir)) {
                     if (!mkdir($outDir, 0755, true)) {
@@ -240,6 +240,7 @@ class ImageArchiveController extends Controller
         $inDirs = [
             'judge'  => Yii::getAlias('@archive/interim') . '/' . $date . '-judge',
             'result' => Yii::getAlias('@archive/interim') . '/' . $date . '-result',
+            'gear' => Yii::getAlias('@archive/interim') . '/' . $date . '-gear',
         ];
         $outDir = Yii::getAlias('@archive/archive');
 
