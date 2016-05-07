@@ -16,6 +16,7 @@ RESOURCE_TARGETS_MAIN=\
 	resources/.compiled/gh-fork-ribbon/gh-fork-ribbon.css \
 	resources/.compiled/gh-fork-ribbon/gh-fork-ribbon.js \
 	resources/.compiled/slack/slack.js \
+	resources/.compiled/stat.ink/battles-simple.css \
 	resources/.compiled/stat.ink/favicon.png \
 	resources/.compiled/stat.ink/main.css \
 	resources/.compiled/stat.ink/main.js \
@@ -130,6 +131,9 @@ resources/.compiled/stat.ink/main.css: resources/stat.ink/main.less $(GULP)
 
 resources/.compiled/stat.ink/swipebox-runner.js: resources/stat.ink/swipebox-runner.js $(GULP)
 	$(GULP) js --in $< --out $@
+
+resources/.compiled/stat.ink/battles-simple.css: resources/stat.ink/battles-simple.less $(GULP)
+	$(GULP) less --in $< --out $@
 
 resources/.compiled/gh-fork-ribbon/gh-fork-ribbon.js: resources/gh-fork-ribbon/gh-fork-ribbon.js $(GULP)
 	$(GULP) js --in $< --out $@
