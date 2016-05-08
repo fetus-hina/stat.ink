@@ -21,13 +21,18 @@
   }
 }
 
-.simple-battle-row-impl{
+.simple-battle-row-impl {
+  position:relative;
+  width:100%;
+}
+
+.simple-battle-row-impl-main {
   display:table;
   position:relative;
   width:100%;
 }
 
-.simple-battle-result, .simple-battle-data{
+.simple-battle-result, .simple-battle-data {
   display:table-cell;
   vertical-align:middle;
   max-width:1px;
@@ -53,17 +58,12 @@
   color:#ec6110;
 }
 
-.simple-battle-rule-map {
+.simple-battle-map {
   font-size:1.1em;
   font-weight:bold;
 }
 
-.simple-battle-rule {
-  font-size: unit((1 / 1.1), em);
-  font-weight:normal;
-}
-
-.simple-battle-weapon {
+.simple-battle-rule, .simple-battle-weapon {
   font-size:0.8em;
 }
 
