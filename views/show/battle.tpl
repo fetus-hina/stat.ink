@@ -525,18 +525,15 @@
               <tr>
                 <th>{{'User Agent'|translate:'app'|escape}}</th>
                 <td>
-                  {{$link = null}}
-                  {{if $battle->agent->name === 'IkaLog'}}
-                    {{$link = 'https://github.com/hasegaw/IkaLog/blob/master/doc/IkaUI.md'}}
-                  {{/if}}
-                
-                  {{if $link}}
-                    <a href="{{$link|escape}}" target="_blank" rel="nofollow">
-                  {{/if}}
+                  {{$_link = $battle->agent->productUrl}}
+                  {{if $_link}}<a href="{{$_link}}" target="_blank" rel="nofollow">{{/if}}
                   {{$battle->agent->name|escape}}
-                  {{if $link}}
-                    </a>
-                  {{/if}} / {{$battle->agent->version|escape}}
+                  {{if $_link}}</a>{{/if}}
+                  &#32;/&#32;
+                  {{$_link = $battle->agent->versionUrl}}
+                  {{if $_link}}<a href="{{$_link}}" target="_blank" rel="nofollow">{{/if}}
+                  {{$battle->agent->version|escape}}
+                  {{if $_link}}</a>{{/if}}
                 </td>
             {{/if}}
             {{if $battle->ua_variables}}
