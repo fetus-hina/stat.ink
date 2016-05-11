@@ -72,6 +72,44 @@ class Agent extends \yii\db\ActiveRecord
         return false;
     }
 
+    public function getProductUrl()
+    {
+        if ($this->getIsIkaRec()) {
+            return sprintf(
+                'https://play.google.com/store/apps/details?%s',
+                http_build_query(['id' => 'com.syanari.merluza.ikarec'], '&', '')
+            );
+        } elseif ($this->getIsIkalog()) {
+            switch (substr(Yii::$app->language, 0, 2)) {
+                case 'ja':
+                    return 'https://github.com/hasegaw/IkaLog/blob/master/doc/IkaUI.md';
+
+                default:
+                    return 'https://github.com/hasegaw/IkaLog/wiki/en_Home';
+            }
+        }
+        return null;
+    }
+
+    public function getVersionUrl()
+    {
+        if ($this->getIsIkalog() && preg_match('/^[0-9a-f]{7,}/', $this->version, $match)) {
+            $ikalog = IkalogVersion::findOneByRevision($match[0]);
+            if ($ikalog) {
+                return sprintf(
+                    'https://github.com/hasegaw/IkaLog/commit/%s',
+                    rawurlencode($ikalog->revision)
+                );
+            }
+        }
+        return null;
+    }
+
+    public function getIsIkaRec()
+    {
+        return !!preg_match('/^IkaRec(?:ord)?$/', $this->name);
+    }
+
     public function getIsIkalog()
     {
         return $this->name === 'IkaLog' || $this->name === 'TakoLog';

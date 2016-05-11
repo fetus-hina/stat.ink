@@ -50,7 +50,14 @@
             <td class="text-right">{{$agent.battle|number_format|escape}}</td>
             <td class="text-right">{{$agent.user|number_format|escape}}</td>
             <td>
-              {{$agent.agent_name|escape}} / {{$agent.agent_version|escape}}
+              {{if $agent.agent_prod_url}}<a href="{{$agent.agent_prod_url|escape}}" target="_blank" rel="nofollow">{{/if}}
+              {{$agent.agent_name|escape}}
+              {{if $agent.agent_prod_url}}</a>{{/if}}
+              &#32;/&#32;
+              {{if $agent.agent_rev_url}}<a href="{{$agent.agent_rev_url|escape}}" target="_blank" rel="nofollow">{{/if}}
+              {{$agent.agent_version|escape}}
+              {{if $agent.agent_rev_url}}</a>{{/if}}
+
               {{if $agent.agent_is_old}}
                 &#32;<span class="old-ikalog">
                   {{'[Outdated]'|translate:'app'|escape}}

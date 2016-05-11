@@ -85,9 +85,11 @@ class UsersAction extends BaseAction
         $t = @$_SERVER['REQUEST_TIME'] ?: time();
         foreach ($list as &$row) {
             $agent = @$agents[$row['agent_id']] ?: null;
-            $row['agent_name'] = $agent ? $agent->name : '';
-            $row['agent_version'] = $agent ? $agent->version : '';
-            $row['agent_is_old'] = $agent ? $agent->getIsOldIkalogAsAtTheTime($t) : false;
+            $row['agent_name']      = $agent->name ?? '';
+            $row['agent_version']   = $agent->version ?? '';
+            $row['agent_is_old']    = $agent->getIsOldIkalogAsAtTheTime($t) ?? false;
+            $row['agent_prod_url']  = $agent->productUrl ?? '';
+            $row['agent_rev_url']   = $agent->versionUrl ?? '';
             unset($row);
         }
         return $list;
