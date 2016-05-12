@@ -25,7 +25,7 @@ class v020600 extends v020500
 
     public function getInkUsePctSub()
     {
-        $x = $this->calcX('ink_saver_main', 600 / 7);
+        $x = $this->calcX('ink_saver_sub', 600 / 7);
         if ($x === null) {
             return null;
         }
