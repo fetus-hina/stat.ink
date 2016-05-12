@@ -27,6 +27,7 @@ use app\models\Lobby;
 use app\models\Map;
 use app\models\Rank;
 use app\models\Rule;
+use app\models\SplatoonVersion;
 use app\models\User;
 use app\models\Weapon;
 
@@ -89,6 +90,8 @@ class PostBattleForm extends Model
     public $agent_version;
     public $agent_custom;
     public $agent_variables;
+    public $agent_game_version;
+    public $agent_game_version_date;
     public $uuid;
 
     public function rules()
@@ -187,6 +190,8 @@ class PostBattleForm extends Model
             [['gears'], 'validateGears'],
             [['events'], 'validateEvents'],
             [['agent_variables'], 'validateAgentVariables'],
+            [['agent_game_version'], 'validateAndFixAgentGameVersion'],
+            [['agent_game_version_date'], 'validateAndFixAgentGameVersionDate'],
         ];
     }
 
@@ -444,6 +449,46 @@ class PostBattleForm extends Model
         }
     }
 
+    public function validateAndFixAgentGameVersion($attr, $params)
+    {
+        if ($this->hasErrors($attr)) {
+            return;
+        }
+
+        $value = $this->$attr;
+        if (is_string($value)) {
+            if (preg_match('/^v?([0-9.]+)/', trim($value), $match)) {
+                $version = SplatoonVersion::find()
+                    ->andWhere(['or',
+                        ['tag' => $match[1]],
+                        ['name' => $match[1]],
+                    ])
+                    ->one();
+                if ($version) {
+                    $this->$attr = $version->tag;
+                    return;
+                }
+            }
+        }
+        $this->$attr = null;
+    }
+
+    public function validateAndFixAgentGameVersionDate($attr, $params)
+    {
+        if ($this->hasErrors($attr)) {
+            return;
+        }
+
+        $value = $this->$attr;
+        if (is_string($value)) {
+            $value = trim($value);
+            if (preg_match('/^\d{4}-\d{2}-\d{2}/', $value)) {
+                return;
+            }
+        }
+        $this->$attr = null;
+    }
+
     public function getUser()
     {
         return User::findOne(['api_key' => $this->apikey]);
@@ -500,6 +545,12 @@ class PostBattleForm extends Model
         $o->agent_id        = null;
         $o->ua_custom       = (string)$this->agent_custom == '' ? null : (string)$this->agent_custom;
         $o->ua_variables    = $this->agent_variables ? json_encode($this->agent_variables, JSON_FORCE_OBJECT) : null;
+        $o->agent_game_version_id = $this->agent_game_version != ''
+            ? (SplatoonVersion::findOne(['tag' => $this->agent_game_version])->id ?? null)
+            : null;
+        $o->agent_game_version_date = $this->agent_game_version_date != ''
+            ? $this->agent_game_version_date
+            : null;
         $o->client_uuid     = (string)$this->uuid == '' ? null : (string)$this->uuid;
         $o->at              = new Now();
         $o->is_automated    = ($this->automated === 'yes');
