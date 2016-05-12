@@ -73,6 +73,8 @@ use app\components\helpers\Differ;
  * @property integer $fest_power
  * @property integer $version_id
  * @property string $client_uuid
+ * @property integer $agent_game_version_id
+ * @property string $agent_game_version_date
  *
  * @property Agent $agent
  * @property Environment $env
@@ -94,6 +96,7 @@ use app\components\helpers\Differ;
  * @property BattleImage[] $battleImages
  * @property BattlePlayer[] $battlePlayers
  * @property SplatoonVersion $splatoonVersion
+ * @property SplatoonVersion $agentGameVersion
  */
 class Battle extends ActiveRecord
 {
@@ -170,7 +173,11 @@ class Battle extends ActiveRecord
             [['note', 'private_note'], 'string'],
             [['my_team_power', 'his_team_power', 'fest_power'], 'integer'],
             [['version_id'], 'integer'],
-            [['client_uuid'], 'string', 'max' => 64],
+            [['client_uuid', 'agent_game_version_date'], 'string', 'max' => 64],
+            [['agent_game_version_id'], 'integer'],
+            [['agent_game_version_id'], 'exist', 'skipOnError' => true,
+                'targetClass' => SplatoonVersion::class,
+                'targetAttribute' => ['agent_game_version_id' => 'id']],
         ];
     }
 
@@ -450,6 +457,11 @@ class Battle extends ActiveRecord
     public function getSplatoonVersion()
     {
         return $this->hasOne(SplatoonVersion::class, ['id' => 'version_id']);
+    }
+
+    public function getAgentGameVersion()
+    {
+        return $this->hasOne(SplatoonVersion::class, ['id' => 'agent_game_version_id']);
     }
 
     public function getIsNawabari()
@@ -758,6 +770,8 @@ class Battle extends ActiveRecord
             'agent' => [
                 'name' => $this->agent ? $this->agent->name : null,
                 'version' => $this->agent ? $this->agent->version : null,
+                'game_version' => $this->agentGameVersion->name ?? null,
+                'game_version_date' => $this->agent_game_version_date,
                 'custom' => $this->ua_custom,
                 'variables' => $this->ua_variables ? @json_decode($this->ua_variables, false) : null,
             ],
