@@ -43,7 +43,7 @@ class v020500 extends Base
 
     public function getInkUsePctSub()
     {
-        $x = $this->calcX('ink_saver_main', 120);
+        $x = $this->calcX('ink_saver_sub', 120);
         if ($x === null) {
             return null;
         }
