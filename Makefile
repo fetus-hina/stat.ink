@@ -1,6 +1,5 @@
 STYLE_TARGETS=actions assets commands components controllers models
 JS_SRCS=$(shell ls -1 resources/stat.ink/main.js/*.js)
-COMPOSER_VERSION=1.1.0-RC
 GULP=./node_modules/.bin/gulp
 
 RESOURCE_TARGETS_MAIN=\
@@ -64,11 +63,12 @@ ikalog: all runtime/ikalog runtime/ikalog/repo runtime/ikalog/winikalog.html
 resource: $(RESOURCE_TARGETS)
 
 composer-update: composer.phar
-	(./composer.phar --version | grep "Composer version $(COMPOSER_VERSION) " >/dev/null) || ./composer.phar self-update -- $(COMPOSER_VERSION)
+	./composer.phar self-update
+	touch -r composer.json composer.phar
 
 composer-plugin: composer.phar
 	grep '"fxp/composer-asset-plugin"' ~/.composer/composer.json >/dev/null || ./composer.phar global require 'fxp/composer-asset-plugin:^1.1'
-	grep '"hirak/prestissimo"' ~/.composer/composer.json >/dev/null || ./composer.phar global require 'hirak/prestissimo:^0.1'
+	grep '"hirak/prestissimo"' ~/.composer/composer.json >/dev/null && ./composer.phar global remove 'hirak/prestissimo'
 	./composer.phar global update -vvv
 
 vendor: composer.phar composer.lock
@@ -98,10 +98,12 @@ clean-resource:
 		web/assets/*
 
 composer.phar:
-	curl -sS https://getcomposer.org/installer | php -- --version=$(COMPOSER_VERSION)
+	curl -sS https://getcomposer.org/installer | php
+	touch -r composer.json composer.phar
 
 composer.lock: composer.json composer.phar
 	./composer.phar update -vvv
+	touch -r composer.json composer.lock
 
 %.br: %.gz
 	rm -f $@
