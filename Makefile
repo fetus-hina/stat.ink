@@ -68,7 +68,7 @@ composer-update: composer.phar
 
 composer-plugin: composer.phar
 	grep '"fxp/composer-asset-plugin"' ~/.composer/composer.json >/dev/null || ./composer.phar global require 'fxp/composer-asset-plugin:^1.1'
-	grep '"hirak/prestissimo"' ~/.composer/composer.json >/dev/null && ./composer.phar global remove 'hirak/prestissimo'
+	grep '"hirak/prestissimo"' ~/.composer/composer.json >/dev/null && ./composer.phar global remove 'hirak/prestissimo' || true
 	./composer.phar global update -vvv
 
 vendor: composer.phar composer.lock
