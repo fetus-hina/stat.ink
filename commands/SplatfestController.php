@@ -63,6 +63,7 @@ class SplatfestController extends Controller
         $this->createBattleSummaryTmpTable('tmp_summary_a', $fest, $alpha->color_hue, $bravo->color_hue);
         $this->createBattleSummaryTmpTable('tmp_summary_b', $fest, $bravo->color_hue, $alpha->color_hue);
         $this->createBattleSummary($fest);
+        $this->dropTmpTable();
 
         $transaction->commit();
 
@@ -184,6 +185,18 @@ class SplatfestController extends Controller
             return "(($column} >= {$low}) OR ({$column} <= {$high}))";
         } else {
             return "({$column} BETWEEN {$low} AND {$high})";
+        }
+    }
+
+    private function dropTmpTable()
+    {
+        foreach (['tmp_summary_ts', 'tmp_summary_a', 'tmp_summary_b'] as $tableName) {
+            $t1 = microtime(true);
+            printf("    > drop temporary table %s ... ", $tableName);
+            $sql = sprintf('DROP TABLE {{%s}}', $tableName);
+            Yii::$app->db->createCommand($sql)->execute();
+            $t2 = microtime(true);
+            printf(" done (%.3fs)\n", $t2 - $t1);
         }
     }
 }
