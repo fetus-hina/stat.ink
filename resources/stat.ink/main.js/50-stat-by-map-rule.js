@@ -3,6 +3,7 @@ window.statByMapRule = function () {
     $('.pie-flot-container').each(function () {
       var $container = $(this);
       var data = JSON.parse($container.attr('data-flot'));
+      var click_href = $container.attr('data-clink-href');
       if (data) {
         $.plot($container, data, {
           series: {
@@ -40,8 +41,16 @@ window.statByMapRule = function () {
           colors: [
             window.colorScheme.win,
             window.colorScheme.lose,
-          ]
+          ],
+          grid: {
+            clickable: click_href != '',
+          },
         });
+        if (click_href != '') {
+          $container.bind('plotclick', function (event, pos, obj) {
+            window.location.href = click_href;
+          });
+        }
       }
     });
   };

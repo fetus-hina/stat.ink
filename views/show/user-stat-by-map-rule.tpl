@@ -31,7 +31,10 @@
               </th>
               {{foreach $ruleNames as $ruleKey => $ruleName}}
                 <th>
-                  {{$ruleName|escape}}
+                  {{$_filter = ['rule' => $ruleKey]}}
+                  <a href="{{url route="show/user" screen_name=$user->screen_name filter=$_filter}}">
+                    {{$ruleName|escape}}
+                  </a>
                 </th>
               {{/foreach}}
             </tr>
@@ -39,10 +42,16 @@
           <tbody>
             {{foreach $mapNames as $mapKey => $mapName}}
               <tr>
-                <th>{{$mapName|escape}}</th>
+                <th>
+                  {{$_filter = ['map' => $mapKey]}}
+                  <a href="{{url route="show/user" screen_name=$user->screen_name filter=$_filter}}">
+                    {{$mapName|escape}}
+                  </a>
+                </th>
                 {{foreach $ruleNames as $ruleKey => $ruleName}}
                   <td>
-                    <div class="pie-flot-container" data-json="{{$data[$mapKey][$ruleKey]|json_encode|escape}}">
+                    {{$_filter = ['rule' => $ruleKey, 'map' => $mapKey]}}
+                    <div class="pie-flot-container" data-json="{{$data[$mapKey][$ruleKey]|json_encode|escape}}" data-clink-href="{{url route="show/user" screen_name=$user->screen_name filter=$_filter}}">
                     </div>
                   </td>
                 {{/foreach}}
