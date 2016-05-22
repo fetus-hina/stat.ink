@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2015 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2016 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  */
@@ -22,27 +22,9 @@ class UserStatWeaponAction extends BaseAction
             throw new NotFoundHttpException(Yii::t('app', 'Could not find user'));
         }
 
-        $list = array_map(
-            function ($model) {
-                return (object)[
-                    'key' => $model->weapon->key,
-                    'name' => Yii::t('app-weapon', $model->weapon->name),
-                    'count' => $model->count,
-                ];
-            },
-            $user->userWeapons
+        return $this->controller->redirect(
+            ['show/user-stat-by-weapon', 'screen_name' => $user->screen_name],
+            301
         );
-
-        usort($list, function ($a, $b) {
-            if ($a->count !== $b->count) {
-                return $b->count - $a->count;
-            }
-            return strcasecmp($a->name, $b->name);
-        });
-
-        return $this->controller->render('user-stat-weapon.tpl', [
-            'user' => $user,
-            'list' => $list,
-        ]);
     }
 }
