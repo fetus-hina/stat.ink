@@ -1,6 +1,6 @@
 window.statByRule = function () {
   var $stat = $('#stat');
-  var make = function (json) {
+  var make = function (json, screen_name) {
     var $root = $('<div>').append($('<h2>').text(json.name));
     var rules = [];
     for (var i in json.rules) {
@@ -14,7 +14,12 @@ window.statByRule = function () {
       ];
 
       var $rule = $('<div>').addClass('col-xs-12 col-sm-6 col-md-4 col-lg-4')
-        .append($('<h3>').text(rule.name))
+        .append(
+          $('<h3>').append(
+            $('<a>', {'href': '/u/' + screen_name + '?' + encodeURIComponent('filter[rule]') + '=' + encodeURIComponent(i)})
+              .text(rule.name)
+          )
+        )
         .append($('<div>').addClass('pie-flot-container').attr('data-flot', JSON.stringify(flotData)));
 
       rules.push({
@@ -79,12 +84,13 @@ window.statByRule = function () {
 
   (function () {
     var json = JSON.parse($stat.attr('data-json'));
+    var screen_name = $stat.attr('data-screen-name');
     $stat.empty();
     if (json.regular) {
-      $stat.append(make(json.regular));
+      $stat.append(make(json.regular, screen_name));
     }
     if (json.gachi) {
-      $stat.append(make(json.gachi));
+      $stat.append(make(json.gachi, screen_name));
     }
     if (!json.regular && !json.gachi) {
       $stat.append(
