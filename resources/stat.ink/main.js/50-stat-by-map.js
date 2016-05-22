@@ -1,6 +1,6 @@
 window.statByMap = function () {
   var $stat = $('#stat');
-  var make = function (json) {
+  var make = function (json, screen_name) {
     var $root = $('<div>').append($('<h2>').text(json.name));
     var maps = [];
     for (var i in json) {
@@ -14,7 +14,12 @@ window.statByMap = function () {
       ];
 
       var $map = $('<div>').addClass('col-xs-12 col-sm-6 col-md-4 col-lg-4')
-        .append($('<h3>').text(map.name))
+        .append(
+          $('<h3>').append(
+            $('<a>', {'href': '/u/' + screen_name + '?' + encodeURIComponent('filter[map]') + '=' + encodeURIComponent(i)})
+              .text(map.name)
+          )
+        )
         .append($('<div>').addClass('pie-flot-container').attr('data-flot', JSON.stringify(flotData)));
 
       maps.push({
@@ -78,7 +83,7 @@ window.statByMap = function () {
   };
 
   var json = JSON.parse($stat.attr('data-json'));
-  $stat.empty().append(make(json));
+  $stat.empty().append(make(json, $stat.attr('data-screen-name')));
   window.setTimeout(function () { redrawFlot(); }, 1);
 
   var timerId = null;
