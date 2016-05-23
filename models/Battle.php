@@ -75,6 +75,8 @@ use app\components\helpers\Differ;
  * @property string $client_uuid
  * @property integer $agent_game_version_id
  * @property string $agent_game_version_date
+ * @property integer $max_kill_combo
+ * @property integer $max_kill_streak
  *
  * @property Agent $agent
  * @property Environment $env
@@ -178,6 +180,7 @@ class Battle extends ActiveRecord
             [['agent_game_version_id'], 'exist', 'skipOnError' => true,
                 'targetClass' => SplatoonVersion::class,
                 'targetAttribute' => ['agent_game_version_id' => 'id']],
+            [['max_kill_combo', 'max_kill_streak'], 'integer', 'min' => 0],
         ];
     }
 
@@ -242,6 +245,8 @@ class Battle extends ActiveRecord
             'his_team_power' => 'His Team Power',
             'version_id' => 'Splatoon Version ID',
             'client_uuid' => 'Client-side UUID',
+            'max_kill_combo' => 'Max Kill Combo',
+            'max_kill_streak' => 'Max Kill Streak',
         ];
     }
 
@@ -705,6 +710,8 @@ class Battle extends ActiveRecord
             'kill' => $this->kill,
             'death' => $this->death,
             'kill_ratio' => isset($this->kill_ratio) ? (float)$this->kill_ratio : null,
+            'max_kill_combo' => $this->max_kill_combo,
+            'max_kill_streak' => $this->max_kill_streak,
             'death_reasons' => in_array('death_reasons', $skips, true)
                 ? null
                 : array_map(

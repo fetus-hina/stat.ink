@@ -93,6 +93,8 @@ class PostBattleForm extends Model
     public $agent_game_version;
     public $agent_game_version_date;
     public $uuid;
+    public $max_kill_combo;
+    public $max_kill_streak;
 
     public function rules()
     {
@@ -192,6 +194,7 @@ class PostBattleForm extends Model
             [['agent_variables'], 'validateAgentVariables'],
             [['agent_game_version'], 'validateAndFixAgentGameVersion'],
             [['agent_game_version_date'], 'validateAndFixAgentGameVersionDate'],
+            [['max_kill_combo', 'max_kill_streak'], 'integer', 'min' => 0]
         ];
     }
 
@@ -574,6 +577,8 @@ class PostBattleForm extends Model
         $o->is_knock_out    = $this->knock_out === 'yes' ? true : ($this->knock_out === 'no' ? false : null);
         $o->my_team_count   = (string)$this->my_team_count != '' ? (int)$this->my_team_count : null;
         $o->his_team_count  = (string)$this->his_team_count != '' ? (int)$this->his_team_count : null;
+        $o->max_kill_combo  = (string)$this->max_kill_combo != '' ? (int)$this->max_kill_combo : null;
+        $o->max_kill_streak = (string)$this->max_kill_streak != '' ? (int)$this->max_kill_streak : null;
 
         if ($this->gears) {
             $o->headgear_id = $this->processGear('headgear');
