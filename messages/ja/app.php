@@ -149,6 +149,8 @@ return [
     'Lost' => '敗北',
     'Main Weapon' => 'メインウェポン',
     'Many' => '多',
+    'Max Kill Combo' => '最大キルコンボ',
+    'Max Kill Streak' => '最大連続キル',
     'Mode' => 'ルール',
     'Moving Avg. ({0} Battles)' => '移動平均（{0}戦）',
     'My Team Count' => '自チームカウント',

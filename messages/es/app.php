@@ -145,6 +145,8 @@ return [
     'Lost' => 'Derrotado',
     'Main Weapon' => 'Arma principal',
     'Many' => 'Muchos',
+    'Max Kill Combo' => '', //FIXME
+    'Max Kill Streak' => '', // FIXME
     'Mode' => 'Estilo',
     'Moving Avg. ({0} Battles)' => 'Media Móvil ({0} Batallas)',
     'My Team Count' => 'Mi cuenta de Equipo',

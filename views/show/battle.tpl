@@ -330,6 +330,18 @@
                 </td>
               </tr>
             {{/if}}
+            {{if $battle->max_kill_combo !== null}}
+              <tr>
+                <th>{{'Max Kill Combo'|translate:'app'|escape}}</th>
+                <td>{{$battle->max_kill_combo|escape}}
+              </tr>
+            {{/if}}
+            {{if $battle->max_kill_streak !== null}}
+              <tr>
+                <th>{{'Max Kill Streak'|translate:'app'|escape}}</th>
+                <td>{{$battle->max_kill_streak|escape}}
+              </tr>
+            {{/if}}
             {{$deathReasons = $battle->getBattleDeathReasons()
                 ->with(['reason'])
                 ->orderBy('{{battle_death_reason}}.[[count]] DESC')
