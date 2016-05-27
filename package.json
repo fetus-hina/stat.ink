@@ -7,8 +7,8 @@
     },
     "dependencies": {
         "autoprefixer": "^6.3",
-        "css-mqpacker": "^4.0",
-        "csswring": "^4.2",
+        "css-mqpacker": "^5.0",
+        "csswring": "^5.0",
         "es6-promise": "^3.1",
         "gulp": "^3.9",
         "gulp-concat": "^2.6",
