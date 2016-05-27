@@ -1075,6 +1075,10 @@
                     }).length > 0;
                   })();
 
+                  var streak = 0;
+                  var ignoreStreakUntil = 0;
+                  var combo = 0;
+                  var comboUntil = -10;
                   var iconData = window.battleEvents.filter(function(v){
                     if (!v.at) {
                       return false;
@@ -1107,12 +1111,46 @@
                         })(v.value)].src, v.at, size, size
                       ];
                     } else if (v.type === "dead") {
-                      var reason = (v.reason && window.deathReasons[v.reason])
-                        ? window.deathReasons[v.reason]
-                        : null;
-                      return [
-                        window.graphIcon[v.type].src, v.at, size, size, reason
-                      ];
+                      return (function() {
+                        var reason = (v.reason && window.deathReasons[v.reason])
+                          ? window.deathReasons[v.reason]
+                          : null;
+                        combo = 0;
+                        comboUntil = -10;
+                        streak = 0;
+                        {{* 死んでいる間にkillが出た場合は無視する（同時killとかで起き得るはず） *}}
+                        ignoreStreakUntil = v.at + (function() {
+                            var mainQR = window.gearAbilities.quick_respawn ? window.gearAbilities.quick_respawn.count.main : 0;
+                            var subQR = window.gearAbilities.quick_respawn ? window.gearAbilities.quick_respawn.count.sub : 0;
+                            return window.getRespawnTime(v.reason ? v.reason : 'unknown', mainQR, subQR);
+                        })();
+
+                        return [
+                          window.graphIcon[v.type].src, v.at, size, size, reason
+                        ];
+                      })();
+                    } else if (v.type === "killed") {
+                      return (function() {
+                        var messages = [];
+                        if (v.at <= comboUntil) {
+                          ++combo;
+                        } else {
+                          combo = 1;
+                        }
+                        if (combo > 1) {
+                          messages.push(combo + ' {{'combos'|translate:app|escape:javascript}}');
+                        }
+                        comboUntil = Math.max(comboUntil, v.at + 5.00);
+                        if (ignoreStreakUntil < v.at) {
+                          ++streak;
+                          if (streak > 1) {
+                            messages.push(streak + ' {{'streaks'|translate:app|escape:javascript}}');
+                          }
+                        }
+                        return [
+                          window.graphIcon[v.type].src, v.at, size, size, messages.length ? messages.join(' / ') : undefined
+                        ];
+                      })();
                     } else if (v.type === "special_weapon") {
                       var names = {
                         {{foreach $specials as $special}}
