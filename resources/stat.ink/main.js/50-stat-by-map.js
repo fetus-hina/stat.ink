@@ -1,6 +1,20 @@
 window.statByMap = function () {
   var $stat = $('#stat');
-  var make = function (json, screen_name) {
+  var make = function (json, screen_name, filter) {
+    var battlesUrl = (function(map) {
+      var params = [];
+      for (var k in filter) {
+        if ((k + '').match(/^filter\[/)) {
+          params.push(
+           encodeURIComponent(k) + '=' + encodeURIComponent(filter[k])
+          );
+        }
+      }
+      params.push(
+        encodeURIComponent('filter[map]') + '=' + encodeURIComponent(map)
+      );
+      return '/u/' + screen_name + '?' + params.join('&');
+    });
     var $root = $('<div>').append($('<h2>').text(json.name));
     var maps = [];
     for (var i in json) {
@@ -16,11 +30,15 @@ window.statByMap = function () {
       var $map = $('<div>').addClass('col-xs-12 col-sm-6 col-md-4 col-lg-4')
         .append(
           $('<h3>').append(
-            $('<a>', {'href': '/u/' + screen_name + '?' + encodeURIComponent('filter[map]') + '=' + encodeURIComponent(i)})
-              .text(map.name)
+            $('<a>', {'href': battlesUrl(i)}).text(map.name)
           )
         )
-        .append($('<div>').addClass('pie-flot-container').attr('data-flot', JSON.stringify(flotData)));
+        .append(
+          $('<div>')
+            .addClass('pie-flot-container')
+            .attr('data-flot', JSON.stringify(flotData))
+            .attr('data-url', battlesUrl(i))
+        );
 
       maps.push({
         "name": (map.name + ""),
@@ -77,13 +95,20 @@ window.statByMap = function () {
         colors: [
           window.colorScheme.win,
           window.colorScheme.lose,
-        ]
+        ],
+        grid: {
+          clickable: true
+        },
+      });
+      $container.bind('plotclick', function (event, pos, obj) {
+        window.location.href = $(this).attr('data-url');
       });
     });
   };
 
   var json = JSON.parse($stat.attr('data-json'));
-  $stat.empty().append(make(json, $stat.attr('data-screen-name')));
+  var filter = JSON.parse($stat.attr('data-filter'));
+  $stat.empty().append(make(json, $stat.attr('data-screen-name'), filter));
   window.setTimeout(function () { redrawFlot(); }, 1);
 
   var timerId = null;
