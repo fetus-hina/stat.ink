@@ -24,7 +24,7 @@
     <div class="row">
       <div class="col-xs-12 col-sm-8 col-md-8 col-lg-9">
         {{WinLoseLegend}}
-        <div id="stat" data-screen-name="{{$user->screen_name|escape}}" data-json="{{$data|json_encode|escape}}" data-no-data="{{'No Data'|translate:'app'|escape}}"></div>
+        <div id="stat" data-screen-name="{{$user->screen_name|escape}}" data-json="{{$data|json_encode|escape}}" data-no-data="{{'No Data'|translate:'app'|escape}}" data-filter="{{$filter->toQueryParams()|json_encode|escape}}"></div>
       </div>
       <div class="col-xs-12 col-sm-4 col-md-4 col-lg-3">
         {{BattleFilterWidget route="show/user-stat-by-rule" screen_name=$user->screen_name filter=$filter action="summarize" rule=false result=false}}
