@@ -108,13 +108,14 @@ window.statByRule = function () {
 
   (function () {
     var json = JSON.parse($stat.attr('data-json'));
+    var filter = JSON.parse($stat.attr('data-filter'));
     var screen_name = $stat.attr('data-screen-name');
     $stat.empty();
     if (json.regular) {
-      $stat.append(make(json.regular, screen_name));
+      $stat.append(make(json.regular, screen_name, filter));
     }
     if (json.gachi) {
-      $stat.append(make(json.gachi, screen_name));
+      $stat.append(make(json.gachi, screen_name, filter));
     }
     if (!json.regular && !json.gachi) {
       $stat.append(
