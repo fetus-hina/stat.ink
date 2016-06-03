@@ -15,6 +15,7 @@ return [
     'Custom Splattershot Jr.' => 'Rociador básico adaptado',
     'Dual Squelcher' => 'Soplador doble',
     'Forge Splattershot Pro' => 'Rociador Forima',
+    'Grim Range Blaster' => '', // FIXME
     'H-3 Nozzlenose D' => 'Manguera pesada D',
     'H-3 Nozzlenose' => 'Manguera pesada',
     'Hero Shot Replica' => 'Rociador de élite réplica',
@@ -23,6 +24,7 @@ return [
     'L-3 Nozzlenose' => 'Manguera ligera',
     'Luna Blaster Neo' => 'Lanzamotas Nova neo',
     'Luna Blaster' => 'Lanzamotas Nova',
+    'N-ZAP \'83' => 'N-ZAP 83',
     'N-ZAP \'85' => 'N-ZAP 85',
     'N-ZAP \'89' => 'N-ZAP 89',
     'Neo Splash-o-matic' => 'Plumón neo',

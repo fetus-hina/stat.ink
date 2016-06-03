@@ -2,6 +2,7 @@
 return [
     'Carbon Roller Deco' => 'Rodillo de carbono DX',
     'Carbon Roller' => 'Rodillo de carbono',
+    'CoroCoro Splat Roller' => '', // FIXME
     'Dynamo Roller' => 'Dinamorrodillo',
     'Gold Dynamo Roller' => 'Dinamorrodillo T',
     'Hero Roller Replica' => 'Rodillo de élite (réplica)',

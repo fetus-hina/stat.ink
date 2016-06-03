@@ -2,6 +2,7 @@
 return [
     'Carbon Roller Deco' => 'カーボンローラーデコ',
     'Carbon Roller' => 'カーボンローラー',
+    'CoroCoro Splat Roller' => 'スプラローラーコロコロ',
     'Dynamo Roller' => 'ダイナモローラー',
     'Gold Dynamo Roller' => 'ダイナモローラーテスラ',
     'Hero Roller Replica' => 'ヒーローローラー レプリカ',

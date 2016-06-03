@@ -15,6 +15,7 @@ return [
     'Custom Splattershot Jr.' => 'Lanzatintas novato B',
     'Dual Squelcher' => 'Barredora Doble',
     'Forge Splattershot Pro' => 'Lanzatintas plus B',
+    'Grim Range Blaster' => '', // FIXME
     'H-3 Nozzlenose D' => 'Tintambor pesado D',
     'H-3 Nozzlenose' => 'Tintambor pesado',
     'Hero Shot Replica' => 'Pistola de Élite (réplica)',
@@ -23,6 +24,7 @@ return [
     'L-3 Nozzlenose' => 'Tintambor ligero',
     'Luna Blaster Neo' => 'Ultradevastador neo',
     'Luna Blaster' => 'Ultradevastador',
+    'N-ZAP \'83' => 'N-ZAP 83',
     'N-ZAP \'85' => 'N-ZAP 85',
     'N-ZAP \'89' => 'N-ZAP 89',
     'Neo Splash-o-matic' => 'Marcador fino neo',
