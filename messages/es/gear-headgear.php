@@ -13,6 +13,7 @@ return [
     'Camping Hat' => 'Sombrero acampada',
     'Classic Straw Boater' => 'Sombrero de paja clásico',
     'Clycling Cap' => 'Gorra ciclista',
+    'CoroCoro Cap' => '', // FIXME
     'Cycle King Cap' => 'Gorra rey de la montaña',
     'Designer Headphones' => 'Auriculares multicolor',
     'Fake Contacts' => 'Lentillas sin graduación',

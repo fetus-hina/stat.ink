@@ -25,6 +25,7 @@ return [
     'Camo Zip Hoodie' => 'Sudadera camuflaje',
     'Carnivore Tee' => 'Camiseta leopardo	',
     'Choco Layered LS' => 'Camiseta de capas chocolate',
+    'CoroCoro Parka' => '', // FIXME
     'Cycle King Jersey' => 'Jersey rey de la montaña',
     'Cycling Shirt' => 'Jersey ciclista',
     'Dark Urban Vest' => 'Chaleco oscuro',
@@ -107,9 +108,9 @@ return [
     'White Anchor Tee' => 'Ancla blanca',
     'White Baseball LS' => 'Béisbol blanca manga larga',
     'White Inky Rider' => 'Chaqueta roquera blanca',
+    'White LS' => 'Kalamas blanca manga larga',
     'White Layered LS' => 'Camiseta de capas blanca',
     'White Line Tee' => 'Camiseta a rayas blanca',
-    'White LS' => 'Kalamas blanca manga larga',
     'White Sailor Suit' => 'Uniforme naval blanco',
     'White Shirt' => 'Camisa blanca',
     'White Striped LS' => 'Blanca a rayas manga larga',
