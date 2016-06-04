@@ -5,7 +5,8 @@ return [
     '24H Win %' => '24H Ganar %',
     '<div class="input-group"><span class="input-group-addon">From:</span>{input}</div>' => '<div class="input-group"><span class="input-group-addon">De:</span>{input}</div>',
     '<div class="input-group"><span class="input-group-addon">To:</span>{input}</div>' => '<div class="input-group"><span class="input-group-addon">Para:</span>{input}</div>',
-    'API Info: Weapons' => 'Información de la API: armas',
+    'API Info: Gears: {0}' => 'Información de la API: Indumentaria: {0}',
+    'API Info: Weapons' => 'Información de la API: Armas',
     'API Token' => 'Token API',
     'API' => 'API',
     'Ability Effect' => 'Efecto de la potenciad',
@@ -45,6 +46,7 @@ return [
     'Black out other players from the result image' => 'Negro a otros jugadores de la imagen resultado',
     'Black out other players' => 'Negro a otros jugadores',
     'Boy' => 'Chico',
+    'Brand' => 'Marca', // NOT VERIFIED
     'CSV (IkaLog compat.)' => 'CSV (IkaLog compat.)',
     'Capture Environment' => 'Entorno de captura',
     'Cash' => 'Dinero',

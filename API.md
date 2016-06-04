@@ -425,7 +425,10 @@ JSON または MessagePack で送信する場合、 object/map の配列を指�
 
 それぞれの情報は次の要素を取るオブジェクトで指定します。
 
-* `gear` : ギアを特定して指定します。このパラメータの取り得る値は[key一覧](doc/api-1/constant/gear.md)を参照してください。このパラメータを指定した場合、 `primary_ability` は無視されます。
+* `gear` : ギアを特定して指定します。このパラメータの取り得る値はkey一覧を参照してください。このパラメータを指定した場合、 `primary_ability` は無視されます。
+    - [key一覧 - アタマ](https://stat.ink/api-info/gear-headgear)
+    - [key一覧 - フク](https://stat.ink/api-info/gear-clothing)
+    - [key一覧 - クツ](https://stat.ink/api-info/gear-shoes)
 
 * `primary_ability` : メインギアパワーを指定します。このパラメータの取り得る値は[key一覧](doc/api-1/constant/ability.md)を参照してください。
 
