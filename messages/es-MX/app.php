@@ -4,7 +4,6 @@ return [
     '24H Win %' => '24H Ganar %',
     '<div class="input-group"><span class="input-group-addon">From:</span>{input}</div>' => '<div class="input-group"><span class="input-group-addon">De:</span>{input}</div>',
     '<div class="input-group"><span class="input-group-addon">To:</span>{input}</div>' => '<div class="input-group"><span class="input-group-addon">Para:</span>{input}</div>',
-    'API Info: Weapons' => 'Información de la API: armas',
     'API Token' => 'Token API',
     'API' => 'API',
     'Ability Effect' => 'Efecto de la potenciad',
