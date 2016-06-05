@@ -740,6 +740,108 @@ GET /api/v1/weapon
 
 ----
 
+GET /api/v1/gear
+----------------
+
+ギアの一覧をJSON形式で返します。 `key` が他のAPIで利用するときの値です。
+
+ギアの出現順や構造の中の順番は特に決まっていません。（必要であれば利用者側で並び替えてください）
+
+```js
+[
+    {
+        // この値がバトル登録時に指定する値です
+        "key": "corocoro_cap",
+
+        // ギアの種類（装備箇所）を表します。"headgear" "clothing" "shoes" のいずれかになります。
+        "type": {
+            "key": "headgear",
+            "name": {
+                "ja_JP": "アタマ",
+                "en_US": "Headgear",
+                "en_GB": "Headgear",
+                "es_ES": "Accesorios",
+                "es_MX": "Accesorios"
+            }
+        },
+
+        // ギアのブランドを示します。
+        "brand": {
+            "key": "zekko",
+            "name": {
+                "ja_JP": "エゾッコ",
+                "en_US": "Zekko",
+                "en_GB": "Zekko",
+                "es_ES": "Ezko",
+                "es_MX": "Ezko"
+            },
+
+            // ガチャでつきやすいギアパワー (null-able)
+            "strength": {
+                "key": "special_saver",
+                "name": {
+                    "ja_JP": "スペシャル減少量ダウン",
+                    "en_US": "Special Saver",
+                    "en_GB": "Special Saver",
+                    "es_ES": "Reducción especial",
+                    "es_MX": "Ahorro en especial"
+                }
+            },
+
+            // ガチャでつきにくいギアパワー (null-able)
+            "weakness": {
+                "key": "special_charge_up",
+                "name": {
+                    "ja_JP": "スペシャル増加量アップ",
+                    "en_US": "Special Charge Up",
+                    "en_GB": "Special Charge Up",
+                    "es_ES": "Recarga especial",
+                    "es_MX": "Recarga especial"
+                }
+            }
+        },
+
+        // ギアの名前を示します。
+        "name": {
+            "ja_JP": "コロコロキャップ",
+            "en_US": "CoroCoro Cap",
+            "en_GB": "CoroCoro Cap",
+        },
+
+        // メインのギアパワー（ガチャで変えられない方）を示します。
+        "primary_ability": {
+            "key": "damage_up",
+            "name": {
+                "ja_JP": "攻撃力アップ",
+                "en_US": "Damage Up",
+                "en_GB": "Damage Up",
+                "es_ES": "Superataque",
+                "es_MX": "Ataque mejorado"
+            }
+        }
+    },
+    // ...
+]
+```
+
+### パラメータ ###
+
+複数のパラメータを指定したときは論理積(AND)になります。
+
+それぞれの値が `key` として妥当でない場合はエラーが、論理積を求めた結果該当するものがないときは空の配列が返ります。
+
+* `type` : ギアの種類を指定します。
+    - `headgear` : アタマ
+    - `clothing` : フク
+    - `shoes` : クツ
+
+* `brand` : ブランドの `key` を指定します。例: `/api/v1/gear?brand=krak_on`
+
+* `ability` : メインのギアパワーの `key` を指定します。例: `/api/v1/gear?ability=damage_up`
+
+
+----
+
 GET /api/v1/death-reason
 ----------------
 

@@ -8,6 +8,7 @@
 namespace app\models;
 
 use Yii;
+use app\components\helpers\Translator;
 
 /**
  * This is the model class for table "gear_type".
@@ -48,6 +49,14 @@ class GearType extends \yii\db\ActiveRecord
             'id' => 'ID',
             'key' => 'Key',
             'name' => 'Name',
+        ];
+    }
+
+    public function toJsonArray()
+    {
+        return [
+            'key' => $this->key,
+            'name' => Translator::translateToAll('app-gear', $this->name),
         ];
     }
 }

@@ -90,6 +90,7 @@ class Gear extends \yii\db\ActiveRecord
     {
         return [
             'key' => $this->key,
+            'type' => $this->type->toJsonArray(),
             'brand' => $this->brand ? $this->brand->toJsonArray() : null,
             'name' => Translator::translateToAll('app-gear', $this->name),
             'primary_ability' => $this->ability ? $this->ability->toJsonArray() : null,

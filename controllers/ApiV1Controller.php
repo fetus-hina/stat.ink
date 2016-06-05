@@ -40,10 +40,11 @@ class ApiV1Controller extends Controller
         return [
             'battle'        => [ 'class' => $prefix . '\BattleAction' ],
             'death-reason'  => [ 'class' => $prefix . '\DeathReasonAction' ],
+            'gear'          => [ 'class' => $prefix . '\GearAction' ],
             'map'           => [ 'class' => $prefix . '\MapAction' ],
             'rule'          => [ 'class' => $prefix . '\RuleAction' ],
-            'weapon'        => [ 'class' => $prefix . '\WeaponAction' ],
             'user'          => [ 'class' => $prefix . '\UserAction' ],
+            'weapon'        => [ 'class' => $prefix . '\WeaponAction' ],
         ];
     }
 }
