@@ -77,6 +77,7 @@ use app\components\helpers\Differ;
  * @property string $agent_game_version_date
  * @property integer $max_kill_combo
  * @property integer $max_kill_streak
+ * @property boolean $use_for_entire
  *
  * @property Agent $agent
  * @property Environment $env
@@ -181,6 +182,7 @@ class Battle extends ActiveRecord
                 'targetClass' => SplatoonVersion::class,
                 'targetAttribute' => ['agent_game_version_id' => 'id']],
             [['max_kill_combo', 'max_kill_streak'], 'integer', 'min' => 0],
+            [['use_for_entire'], 'boolean'],
         ];
     }
 
@@ -247,6 +249,7 @@ class Battle extends ActiveRecord
             'client_uuid' => 'Client-side UUID',
             'max_kill_combo' => 'Max Kill Combo',
             'max_kill_streak' => 'Max Kill Streak',
+            'use_for_entire' => 'Use for entire stats',
         ];
     }
 
