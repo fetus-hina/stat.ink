@@ -8,6 +8,7 @@ return [
     'Aerospray RG' => 'Aerógrafo GN',
     'Berry Splattershot Pro' => 'Rociador Pro frambuesa',
     'Blaster' => 'Lanzamotas',
+    'Cherry H-3 Nozzlenose' => '', // FIXME
     'Custom Blaster' => 'Lanzamotas adaptado',
     'Custom Dual Squelcher' => 'Soplador doble adaptado',
     'Custom Jet Squelcher' => 'Megasoplador adaptado',
@@ -39,6 +40,7 @@ return [
     'Splattershot Jr.' => 'Rociador básico',
     'Splattershot Pro' => 'Rociador Pro',
     'Splattershot' => 'Rociador',
+    'Sploosh-o-matic 7' => '', // FIXME
     'Sploosh-o-matic' => 'Marcador grueso',
     'Tentatek Splattershot' => 'Rociador Tentáctica',
     'Wasabi Splattershot' => 'Rociador wasabi',

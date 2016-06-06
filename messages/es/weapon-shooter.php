@@ -8,6 +8,7 @@ return [
     'Aerospray RG' => 'Aerógrafo plus',
     'Berry Splattershot Pro' => 'Lanzatintas plus frambuesa',
     'Blaster' => 'Devastador',
+    'Cherry H-3 Nozzlenose' => '', // FIXME
     'Custom Blaster' => 'Devastador SP',
     'Custom Dual Squelcher' => 'Barredora Doble SP',
     'Custom Jet Squelcher' => 'Megabarredora SP',
@@ -39,6 +40,7 @@ return [
     'Splattershot Jr.' => 'Lanzatintas novato',
     'Splattershot Pro' => 'Lanzatintas plus',
     'Splattershot' => 'Lanzatintas',
+    'Sploosh-o-matic 7' => '', // FIXME
     'Sploosh-o-matic' => 'Marcador',
     'Tentatek Splattershot' => 'Lanzatintas B',
     'Wasabi Splattershot' => 'Lanzatintas wasabi',
