@@ -23,6 +23,7 @@ use app\models\DeathReason;
 use app\models\FestTitle;
 use app\models\GearConfiguration;
 use app\models\GearConfigurationSecondary;
+use app\models\IkalogRequirement;
 use app\models\Lobby;
 use app\models\Map;
 use app\models\Rank;
@@ -580,6 +581,8 @@ class PostBattleForm extends Model
         $o->max_kill_combo  = (string)$this->max_kill_combo != '' ? (int)$this->max_kill_combo : null;
         $o->max_kill_streak = (string)$this->max_kill_streak != '' ? (int)$this->max_kill_streak : null;
 
+        $o->use_for_entire = $this->getIsUsableForEntireStats();
+
         if ($this->gears) {
             $o->headgear_id = $this->processGear('headgear');
             $o->clothing_id = $this->processGear('clothing');
@@ -776,5 +779,66 @@ class PostBattleForm extends Model
         }
 
         return $config->id;
+    }
+
+    public function getIsUsableForEntireStats()
+    {
+        if ($this->automated !== 'yes') {
+            return false;
+        }
+
+        // IkaLog 以外で automated が yes のものは使えることにする
+        if (strtolower(substr((string)$this->agent, 0, 6)) !== 'ikalog') {
+            return true;
+        }
+
+        // IkaLog では統計に利用するためには agent_game_version_date が必須になりました
+        if (trim((string)$this->agent_game_version_date) == '') {
+            return false;
+        }
+
+        // stat.ink の要求する最小IkaLogバージョンを取得
+        $ikalogReq = IkalogRequirement::find()
+            ->andWhere(['<=','[[from]]', new Now()])
+            ->orderBy('[[from]] DESC')
+            ->limit(1)
+            ->one();
+        if (!$ikalogReq) {
+            // 最小IkaLogバージョンの定義がなければokと見なす
+            return true;
+        }
+
+        // "2016-06-08_00" => "2016.6.8.0" のような文字列に game_version_date を変換する
+        // "." 区切りにするのはバージョン比較は version_compare に喰わせると楽だから
+        //
+        // 1. とりあえず数字以外を "." に置き換えて
+        // 2. "." で分割して配列を作って
+        // 3. 各要素の左側の "0" を取り去って
+        // 4. 取り去った結果空文字列になる可能性があるのでそのときに "0" にするために int 経由して（黒魔術）
+        // 5. "." で再結合する
+        $fConvertVersionDate = function ($version_date) {
+            return implode(
+                '.',
+                array_map(
+                    function ($a) {
+                        return (string)(int)ltrim($a, '0');
+                    },
+                    explode(
+                        '.',
+                        trim(preg_replace('/[^0-9]+/', '.', trim((string)$version_date)))
+                    )
+                )
+            );
+        };
+
+        if (version_compare(
+            $fConvertVersionDate($this->agent_game_version_date),
+            $fConvertVersionDate($ikalogReq->version_date),
+            '>='
+        )) {
+            return true;
+        }
+
+        return false;
     }
 }
