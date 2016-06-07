@@ -792,11 +792,6 @@ class PostBattleForm extends Model
             return true;
         }
 
-        // IkaLog では統計に利用するためには agent_game_version_date が必須になりました
-        if (trim((string)$this->agent_game_version_date) == '') {
-            return false;
-        }
-
         // stat.ink の要求する最小IkaLogバージョンを取得
         $ikalogReq = IkalogRequirement::find()
             ->andWhere(['<=','[[from]]', new Now()])
@@ -806,6 +801,11 @@ class PostBattleForm extends Model
         if (!$ikalogReq) {
             // 最小IkaLogバージョンの定義がなければokと見なす
             return true;
+        }
+
+        // IkaLog では統計に利用するためには agent_game_version_date が必須になりました
+        if (trim((string)$this->agent_game_version_date) == '') {
+            return false;
         }
 
         // "2016-06-08_00" => "2016.6.8.0" のような文字列に game_version_date を変換する
