@@ -97,6 +97,7 @@ class StatController extends Controller
                 'weapon',
             ])
             ->andWhere(['{{battle}}.[[is_automated]]' => true])
+            ->andWhere(['{{battle}}.[[use_for_entire]]' => true])
             // プライベートバトルを除外
             ->andWhere(['<>', '{{lobby}}.[[key]]', 'private'])
             // 不完全っぽいデータを除外
@@ -234,6 +235,7 @@ class StatController extends Controller
             ->innerJoin('{{weapon}}', '{{p}}.[[weapon_id]] = {{weapon}}.[[id]]')
             ->andWhere(['and',
                 ['{{b}}.[[is_automated]]' => true],
+                ['{{b}}.[[use_for_entire]]' => true],
                 ['<>', '{{lobby}}.[[key]]', 'private'],
                 ['not', ['{{p}}.[[kill]]' => null]],
                 ['not', ['{{p}}.[[death]]' => null]],
@@ -393,6 +395,7 @@ class StatController extends Controller
                             ['not', ['{{lobby}}.[[key]]' => 'private']],
                             ['{{game_mode}}.[[key]]' => 'gachi'],
                             ['{{battle}}.[[is_automated]]' => true],
+                            ['{{battle}}.[[use_for_entire]]' => true],
                         ])
                         ->groupBy(['{{battle}}.[[map_id]]', '{{battle}}.[[rule_id]]'])
                         ->createCommand()
@@ -439,6 +442,7 @@ class StatController extends Controller
                 ['not', ['{{p}}.[[kill]]' => null]],
                 ['not', ['{{p}}.[[death]]' => null]],
                 ['=', '{{b}}.[[is_automated]]', true],
+                ['=', '{{b}}.[[use_for_entire]]', true],
                 ['=', '{{p}}.[[is_me]]', false], // 自分を除外
                 ['<>', '{{lobby}}.[[key]]', 'private'], // プライベートマッチを除外
             ])
