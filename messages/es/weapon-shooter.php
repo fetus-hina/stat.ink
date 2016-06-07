@@ -5,9 +5,11 @@ return [
     '.96 Gal Deco' => 'Salpicadora 3000 DX',
     '.96 Gal' => 'Salpicadora 3000',
     'Aerospray MG' => 'Aerógrafo pro',
+    'Aerospray PG' => '', // FIXME
     'Aerospray RG' => 'Aerógrafo plus',
     'Berry Splattershot Pro' => 'Lanzatintas plus frambuesa',
     'Blaster' => 'Devastador',
+    'Cherry H-3 Nozzlenose' => '', // FIXME
     'Custom Blaster' => 'Devastador SP',
     'Custom Dual Squelcher' => 'Barredora Doble SP',
     'Custom Jet Squelcher' => 'Megabarredora SP',
@@ -15,6 +17,7 @@ return [
     'Custom Splattershot Jr.' => 'Lanzatintas novato B',
     'Dual Squelcher' => 'Barredora Doble',
     'Forge Splattershot Pro' => 'Lanzatintas plus B',
+    'Grim Range Blaster' => '', // FIXME
     'H-3 Nozzlenose D' => 'Tintambor pesado D',
     'H-3 Nozzlenose' => 'Tintambor pesado',
     'Hero Shot Replica' => 'Pistola de Élite (réplica)',
@@ -23,6 +26,7 @@ return [
     'L-3 Nozzlenose' => 'Tintambor ligero',
     'Luna Blaster Neo' => 'Ultradevastador neo',
     'Luna Blaster' => 'Ultradevastador',
+    'N-ZAP \'83' => 'N-ZAP 83',
     'N-ZAP \'85' => 'N-ZAP 85',
     'N-ZAP \'89' => 'N-ZAP 89',
     'Neo Splash-o-matic' => 'Marcador fino neo',
@@ -37,6 +41,7 @@ return [
     'Splattershot Jr.' => 'Lanzatintas novato',
     'Splattershot Pro' => 'Lanzatintas plus',
     'Splattershot' => 'Lanzatintas',
+    'Sploosh-o-matic 7' => '', // FIXME
     'Sploosh-o-matic' => 'Marcador',
     'Tentatek Splattershot' => 'Lanzatintas B',
     'Wasabi Splattershot' => 'Lanzatintas wasabi',

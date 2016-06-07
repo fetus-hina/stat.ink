@@ -13,6 +13,7 @@ return [
     'Camping Hat' => 'キャンプハット',
     'Classic Straw Boater' => 'イカンカン クラシック',
     'Clycling Cap' => 'テッカサイクルキャップ',
+    'CoroCoro Cap' => 'コロコロキャップ',
     'Cycle King Cap' => 'チャリキング帽',
     'Designer Headphones' => 'オーロラヘッドホン',
     'Fake Contacts' => 'ダテコンタクト',

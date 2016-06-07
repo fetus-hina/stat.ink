@@ -3,6 +3,8 @@ return [
     'Bamboozler 14 Mk I' => 'Bamzuka 14-I',
     'Bamboozler 14 Mk II' => 'Bamzuka 14-II',
     'Bamboozler 14 Mk III' => 'Bamzuka 14-III',
+    'Bento Splat Charger' => '', // FIXME
+    'Bento Splatterscope' => '', // FIXME
     'Classic Squiffer' => 'Delineador',
     'Custom E-liter 3K Scope' => 'Telentintador 3K adaptado',
     'Custom E-liter 3K' => 'Entintador 3K adaptado',

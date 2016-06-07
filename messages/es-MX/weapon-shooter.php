@@ -5,9 +5,11 @@ return [
     '.96 Gal Deco' => 'Salpicadora 3000 chic',
     '.96 Gal' => 'Salpicadora 3000',
     'Aerospray MG' => 'Aerógrafo GP',
+    'Aerospray PG' => '', // FIXME
     'Aerospray RG' => 'Aerógrafo GN',
     'Berry Splattershot Pro' => 'Rociador Pro frambuesa',
     'Blaster' => 'Lanzamotas',
+    'Cherry H-3 Nozzlenose' => '', // FIXME
     'Custom Blaster' => 'Lanzamotas adaptado',
     'Custom Dual Squelcher' => 'Soplador doble adaptado',
     'Custom Jet Squelcher' => 'Megasoplador adaptado',
@@ -15,6 +17,7 @@ return [
     'Custom Splattershot Jr.' => 'Rociador básico adaptado',
     'Dual Squelcher' => 'Soplador doble',
     'Forge Splattershot Pro' => 'Rociador Forima',
+    'Grim Range Blaster' => '', // FIXME
     'H-3 Nozzlenose D' => 'Manguera pesada D',
     'H-3 Nozzlenose' => 'Manguera pesada',
     'Hero Shot Replica' => 'Rociador de élite réplica',
@@ -23,6 +26,7 @@ return [
     'L-3 Nozzlenose' => 'Manguera ligera',
     'Luna Blaster Neo' => 'Lanzamotas Nova neo',
     'Luna Blaster' => 'Lanzamotas Nova',
+    'N-ZAP \'83' => 'N-ZAP 83',
     'N-ZAP \'85' => 'N-ZAP 85',
     'N-ZAP \'89' => 'N-ZAP 89',
     'Neo Splash-o-matic' => 'Plumón neo',
@@ -37,6 +41,7 @@ return [
     'Splattershot Jr.' => 'Rociador básico',
     'Splattershot Pro' => 'Rociador Pro',
     'Splattershot' => 'Rociador',
+    'Sploosh-o-matic 7' => '', // FIXME
     'Sploosh-o-matic' => 'Marcador grueso',
     'Tentatek Splattershot' => 'Rociador Tentáctica',
     'Wasabi Splattershot' => 'Rociador wasabi',
