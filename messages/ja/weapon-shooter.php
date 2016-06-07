@@ -5,6 +5,7 @@ return [
     '.96 Gal Deco' => '.96ガロンデコ',
     '.96 Gal' => '.96ガロン',
     'Aerospray MG' => 'プロモデラーMG',
+    'Aerospray PG' => 'プロモデラーPG',
     'Aerospray RG' => 'プロモデラーRG',
     'Berry Splattershot Pro' => 'プライムシューターベリー',
     'Blaster' => 'ホットブラスター',

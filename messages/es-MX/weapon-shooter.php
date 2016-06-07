@@ -5,6 +5,7 @@ return [
     '.96 Gal Deco' => 'Salpicadora 3000 chic',
     '.96 Gal' => 'Salpicadora 3000',
     'Aerospray MG' => 'Aerógrafo GP',
+    'Aerospray PG' => '', // FIXME
     'Aerospray RG' => 'Aerógrafo GN',
     'Berry Splattershot Pro' => 'Rociador Pro frambuesa',
     'Blaster' => 'Lanzamotas',
