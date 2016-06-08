@@ -15,7 +15,7 @@ RUN rpm --import \
         centos-release-scl-rh \
         curl \
         scl-utils \
-        http://ftp.tsukuba.wide.ad.jp/Linux/fedora/epel/7/x86_64/e/epel-release-7-5.noarch.rpm \
+        http://ftp.tsukuba.wide.ad.jp/Linux/fedora/epel/7/x86_64/e/epel-release-7-6.noarch.rpm \
         http://rpms.famillecollet.com/enterprise/7/safe/x86_64/remi-release-7.1-3.el7.remi.noarch.rpm \
             && \
     yum install -y \
@@ -58,7 +58,7 @@ ADD . /home/statink/stat.ink
 RUN chown -R statink:statink /home/statink/stat.ink
 
 USER statink
-RUN cd ~statink/stat.ink && bash -c 'source /etc/profile.d/scl-env.sh && make clean && make init'
+RUN cd ~statink/stat.ink && bash -c 'source /etc/profile.d/scl-env.sh && make clean && make init-by-archive'
 
 USER postgres
 RUN scl enable rh-postgresql94 'initdb --pgdata=/var/opt/rh/rh-postgresql94/lib/pgsql/data --encoding=UNICODE --locale=en_US.UTF8'

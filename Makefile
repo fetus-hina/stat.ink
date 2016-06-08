@@ -1,6 +1,7 @@
 STYLE_TARGETS=actions assets commands components controllers models
 JS_SRCS=$(shell ls -1 resources/stat.ink/main.js/*.js)
 GULP=./node_modules/.bin/gulp
+VENDOR_SHA256=$(shell sha256sum -t composer.lock | awk '{print $$1}')
 
 RESOURCE_TARGETS_MAIN=\
 	resources/.compiled/activity/activity.js \
@@ -32,6 +33,9 @@ RESOURCE_TARGETS=\
 	$(RESOURCE_TARGETS_MAIN:.js=.js.br) \
 	$(RESOURCE_TARGETS_MAIN:.js=.js.gz) \
 
+VENDOR_ARCHIVE_FILE=runtime/vendor-archive/vendor-$(VENDOR_SHA256).tar.xz
+VENDOR_ARCHIVE_SIGN=runtime/vendor-archive/vendor-$(VENDOR_SHA256).tar.xz.asc
+
 all: init migrate-db
 
 init: \
@@ -52,7 +56,24 @@ init: \
 	config/db.php \
 	resource
 
-docker: all
+init-by-archive: \
+	composer.phar \
+	composer-update \
+	composer-plugin \
+	vendor-by-archive \
+	node_modules \
+	config/debug-ips.php \
+	config/google-analytics.php \
+	config/google-recaptcha.php \
+	config/google-adsense.php \
+	config/amazon-s3.php \
+	config/backup-s3.php \
+	config/cookie-secret.php \
+	config/backup-gpg.php \
+	config/db.php \
+	resource
+
+docker: init-by-archive migrate-db
 	sudo docker build -t jp3cki/statink .
 
 ikalog: all runtime/ikalog runtime/ikalog/repo runtime/ikalog/winikalog.html
@@ -96,6 +117,20 @@ clean-resource:
 	rm -rf \
 		resources/.compiled/* \
 		web/assets/*
+
+vendor-archive: $(VENDOR_ARCHIVE_FILE) $(VENDOR_ARCHIVE_SIGN)
+	rsync -av --progress \
+		$(VENDOR_ARCHIVE_FILE) $(VENDOR_ARCHIVE_SIGN) \
+		statink-src-archive@src-archive.stat.ink:public_html/vendor/
+
+vendor-by-archive: download-vendor-archive
+	gpg --verify $(VENDOR_ARCHIVE_SIGN)
+	tar -Jxf $(VENDOR_ARCHIVE_FILE)
+	touch -r composer.lock vendor
+
+download-vendor-archive: runtime/vendor-archive
+	test -e $(VENDOR_ARCHIVE_FILE) || curl -o $(VENDOR_ARCHIVE_FILE) -sS https://src-archive.stat.ink/vendor/vendor-$(VENDOR_SHA256).tar.xz
+	test -e $(VENDOR_ARCHIVE_SIGN) || curl -o $(VENDOR_ARCHIVE_SIGN) -sS https://src-archive.stat.ink/vendor/vendor-$(VENDOR_SHA256).tar.xz.asc
 
 composer.phar:
 	curl -sS https://getcomposer.org/installer | php
@@ -264,4 +299,13 @@ vendor/smarty/smarty/libs/sysplugins/smarty_internal_templatecompilerbase.php: v
 	head -n 815 vendor/smarty/smarty/libs/sysplugins/smarty_internal_templatecompilerbase.php | tail -n 10 | grep '\\1 \\2' > /dev/null && \
 		patch -d vendor/smarty/smarty -p1 -Nst < data/patch/smarty-strip.patch || /bin/true
 
-.PHONY: FORCE all check-style clean clean-resource composer-plugin composer-update fix-style ikalog init migrate-db resource
+$(VENDOR_ARCHIVE_SIGN): $(VENDOR_ARCHIVE_FILE)
+	gpg -s -u 0x2A8D728D --detach-sign -a $<
+
+$(VENDOR_ARCHIVE_FILE): vendor runtime/vendor-archive
+	tar -Jcf $@ $<
+
+runtime/vendor-archive:
+	mkdir -p $@ || true
+
+.PHONY: FORCE all check-style clean clean-resource composer-plugin composer-update fix-style ikalog init migrate-db resource vendor-archive vendor-by-archive download-vendor-archive
