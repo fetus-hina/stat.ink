@@ -14,6 +14,7 @@ RUN rpm --import \
     yum install -y \
         centos-release-scl-rh \
         curl \
+        gnupg2 \
         scl-utils \
         http://ftp.tsukuba.wide.ad.jp/Linux/fedora/epel/7/x86_64/e/epel-release-7-6.noarch.rpm \
         http://rpms.famillecollet.com/enterprise/7/safe/x86_64/remi-release-7.1-3.el7.remi.noarch.rpm \
@@ -54,10 +55,12 @@ RUN rpm --import \
 
 ADD docker/env/scl-env.sh /etc/profile.d/
 ADD docker/supervisor/* /etc/supervisord.d/
+ADD docker/jp3cki/0xF6B887CD.asc /home/statink/
 ADD . /home/statink/stat.ink
 RUN chown -R statink:statink /home/statink/stat.ink
 
 USER statink
+RUN gpg --import /home/statink/0xF6B887CD.asc
 RUN cd ~statink/stat.ink && bash -c 'source /etc/profile.d/scl-env.sh && make clean && make init-by-archive'
 
 USER postgres
