@@ -12,7 +12,12 @@ class v020800 extends v020700
     protected function getSpecialLossPctBase()
     {
         switch ($this->battle->weapon->key ?? null) {
+            case 'barrelspinner_remix':
+            case 'bold_7':
+            case 'h3reelgun_cherry':
+            case 'longblaster_necro':
             case 'nova':
+            case 'splatroller_corocoro':
             case 'splatspinner_repair':
                 return 0.4;
 
