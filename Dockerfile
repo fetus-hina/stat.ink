@@ -19,6 +19,7 @@ RUN rpm --import \
         scl-utils \
         http://rpms.famillecollet.com/enterprise/7/safe/x86_64/remi-release-7.1-3.el7.remi.noarch.rpm \
             && \
+    yum-config-manager --enable centos-sclo-rh-testing && \
     yum install -y \
         ImageMagick \
         brotli \
@@ -27,7 +28,6 @@ RUN rpm --import \
         gzip \
         h2o \
         jpegoptim \
-        nodejs010-npm \
         patch \
         php70-php-cli \
         php70-php-fpm \
@@ -44,6 +44,7 @@ RUN rpm --import \
         php70-php-runtime \
         php70-php-xml \
         pngcrush \
+        rh-nodejs4-npm \
         rh-postgresql94-postgresql \
         rh-postgresql94-postgresql-server \
         supervisor \
