@@ -34,16 +34,16 @@ RUN rpm --import \
         php70-php-fpm \
         php70-php-gd \
         php70-php-intl \
+        php70-php-json \
         php70-php-mbstring \
         php70-php-mcrypt \
         php70-php-opcache \
         php70-php-pdo \
-        php70-php-pecl-jsonc \
         php70-php-pecl-msgpack \
         php70-php-pecl-zip \
         php70-php-pgsql \
-        php70-php-runtime \
         php70-php-xml \
+        php70-runtime \
         pngcrush \
         rh-nodejs4-npm \
         rh-postgresql95-postgresql \
