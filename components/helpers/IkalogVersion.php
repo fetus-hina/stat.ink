@@ -54,7 +54,7 @@ class IkalogVersion
             return false;
         }
 
-        if (strtotime($agentRevision->at) <= strtotime($minimumRevision->at)) {
+        if (strtotime($agentRevision->at) < strtotime($minimumRevision->at)) {
             return true;
         }
 
