@@ -300,7 +300,7 @@ vendor/smarty/smarty/libs/sysplugins/smarty_internal_templatecompilerbase.php: v
 		patch -d vendor/smarty/smarty -p1 -Nst < data/patch/smarty-strip.patch || /bin/true
 
 $(VENDOR_ARCHIVE_SIGN): $(VENDOR_ARCHIVE_FILE)
-	gpg -s -u 0x2A8D728D --detach-sign -a $<
+	gpg -s -u 0xF6B887CD --detach-sign -a $<
 
 $(VENDOR_ARCHIVE_FILE): vendor runtime/vendor-archive
 	tar -Jcf $@ $<
