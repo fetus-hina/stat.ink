@@ -6,6 +6,7 @@ ADD docker/jp3cki/jp3cki.repo /etc/yum.repos.d/
 
 RUN rpm --import \
         /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7 \
+        /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-SIG-SCLo \
         /etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7 \
         /etc/pki/rpm-gpg/RPM-GPG-KEY-JP3CKI \
         /etc/pki/rpm-gpg/RPM-GPG-KEY-remi \
