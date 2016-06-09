@@ -1,4 +1,4 @@
-FROM centos:centos7
+FROM centos:7
 MAINTAINER AIZAWA Hina <hina@bouhime.com>
 
 ADD docker/rpm-gpg/ /etc/pki/rpm-gpg/
@@ -47,6 +47,7 @@ RUN rpm --import \
         rh-postgresql94-postgresql \
         rh-postgresql94-postgresql-server \
         supervisor \
+        unzip \
             && \
     yum clean all && \
     ln -s /var/opt/rh/rh-postgresql94/lib/pgsql /var/lib/pgsql/rh-postgresql94 && \
@@ -60,8 +61,8 @@ ADD . /home/statink/stat.ink
 RUN chown -R statink:statink /home/statink/stat.ink
 
 USER statink
-RUN gpg --import /home/statink/0xF6B887CD.asc
-RUN cd ~statink/stat.ink && bash -c 'source /etc/profile.d/scl-env.sh && make clean && make init-by-archive'
+RUN gpg --import /home/statink/0xF6B887CD.asc && gpg --refresh-keys
+RUN cd ~statink/stat.ink && bash -c 'source /etc/profile.d/scl-env.sh && make clean && make init-by-archive && rm -f runtime/vendor-archive/*'
 
 USER postgres
 RUN scl enable rh-postgresql94 'initdb --pgdata=/var/opt/rh/rh-postgresql94/lib/pgsql/data --encoding=UNICODE --locale=en_US.UTF8'
