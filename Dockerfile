@@ -45,13 +45,13 @@ RUN rpm --import \
         php70-php-xml \
         pngcrush \
         rh-nodejs4-npm \
-        rh-postgresql94-postgresql \
-        rh-postgresql94-postgresql-server \
+        rh-postgresql95-postgresql \
+        rh-postgresql95-postgresql-server \
         supervisor \
         unzip \
             && \
     yum clean all && \
-    ln -s /var/opt/rh/rh-postgresql94/lib/pgsql /var/lib/pgsql/rh-postgresql94 && \
+    ln -s /var/opt/rh/rh-postgresql95/lib/pgsql /var/lib/pgsql/rh-postgresql95 && \
     useradd statink && \
     chmod 701 /home/statink
 
@@ -66,23 +66,23 @@ RUN gpg --import /home/statink/0xF6B887CD.asc && gpg --refresh-keys
 RUN cd ~statink/stat.ink && bash -c 'source /etc/profile.d/scl-env.sh && make clean && make init-by-archive && rm -f runtime/vendor-archive/*'
 
 USER postgres
-RUN scl enable rh-postgresql94 'initdb --pgdata=/var/opt/rh/rh-postgresql94/lib/pgsql/data --encoding=UNICODE --locale=en_US.UTF8'
-ADD docker/database/pg_hba.conf /var/opt/rh/rh-postgresql94/lib/pgsql/data/pg_hba.conf
-ADD docker/database/password.php /var/opt/rh/rh-postgresql94/lib/pgsql/
-RUN scl enable rh-postgresql94 php70 ' \
-        /opt/rh/rh-postgresql94/root/usr/libexec/postgresql-ctl start -D /var/opt/rh/rh-postgresql94/lib/pgsql/data -s -w && \
+RUN scl enable rh-postgresql95 'initdb --pgdata=/var/opt/rh/rh-postgresql95/lib/pgsql/data --encoding=UNICODE --locale=en_US.UTF8'
+ADD docker/database/pg_hba.conf /var/opt/rh/rh-postgresql95/lib/pgsql/data/pg_hba.conf
+ADD docker/database/password.php /var/opt/rh/rh-postgresql95/lib/pgsql/
+RUN scl enable rh-postgresql95 php70 ' \
+        /opt/rh/rh-postgresql95/root/usr/libexec/postgresql-ctl start -D /var/opt/rh/rh-postgresql95/lib/pgsql/data -s -w && \
         createuser -DRS statink && \
         createdb -E UNICODE -O statink -T template0 statink && \
-        php /var/opt/rh/rh-postgresql94/lib/pgsql/password.php && \
-        /opt/rh/rh-postgresql94/root/usr/libexec/postgresql-ctl stop -D /var/opt/rh/rh-postgresql94/lib/pgsql/data -s -m fast'
+        php /var/opt/rh/rh-postgresql95/lib/pgsql/password.php && \
+        /opt/rh/rh-postgresql95/root/usr/libexec/postgresql-ctl stop -D /var/opt/rh/rh-postgresql95/lib/pgsql/data -s -m fast'
 
 USER root
 RUN cd ~statink/stat.ink && \
     bash -c ' \
         source /etc/profile.d/scl-env.sh && \
-        su postgres -c "/opt/rh/rh-postgresql94/root/usr/libexec/postgresql-ctl start -D /var/opt/rh/rh-postgresql94/lib/pgsql/data -s -w" && \
+        su postgres -c "/opt/rh/rh-postgresql95/root/usr/libexec/postgresql-ctl start -D /var/opt/rh/rh-postgresql95/lib/pgsql/data -s -w" && \
         su statink  -c "make" && \
-        su postgres -c "/opt/rh/rh-postgresql94/root/usr/libexec/postgresql-ctl stop -D /var/opt/rh/rh-postgresql94/lib/pgsql/data -s -m fast"'
+        su postgres -c "/opt/rh/rh-postgresql95/root/usr/libexec/postgresql-ctl stop -D /var/opt/rh/rh-postgresql95/lib/pgsql/data -s -m fast"'
 
 ADD docker/php/php-config.diff /tmp/
 RUN patch -p1 -d /etc/opt/remi/php70 < /tmp/php-config.diff && rm /tmp/php-config.diff
