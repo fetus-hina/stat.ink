@@ -14,6 +14,7 @@ use app\models\IkalogVersion as ARIkalogVersion;
 class IkalogVersion
 {
     const V2_7_0_MINIMUM_REVISION = '16bb777';
+    const V2_8_0_MINIMUM_REVISION = '579408a';
 
     public static function isOutdated(Battle $battle) : bool
     {
@@ -28,9 +29,12 @@ class IkalogVersion
         }
 
         // とりあえず目の前で必要なこととして、
-        // v2.7.0 のバトルで v2.7.0 非対応クライアントを使っていれば怒る
+        // v2.7.0/v2.8.0 のバトルでそのバージョンに非対応のクライアントを使っていれば怒る
         $gameVersion = $battle->splatoonVersion;
-        if (!$gameVersion || $gameVersion->tag !== '2.7.0') {
+        if (!$gameVersion) {
+            return false;
+        }
+        if (!in_array($gameVersion->tag, ['2.7.0', '2.8.0'], true)) {
             return false;
         }
 
@@ -39,7 +43,13 @@ class IkalogVersion
             return false;
         }
 
-        $minimumRevision = ARIkalogVersion::findOneByRevision(static::V2_7_0_MINIMUM_REVISION);
+        $minimumRevision = ARIkalogVersion::findOneByRevision((function ($tag) {
+            switch ($tag) {
+                case '2.7.0':   return static::V2_7_0_MINIMUM_REVISION;
+                case '2.8.0':   return static::V2_8_0_MINIMUM_REVISION;
+                default:        return null;
+            }
+        })($gameVersion->tag));
         if (!$minimumRevision) {
             return false;
         }
