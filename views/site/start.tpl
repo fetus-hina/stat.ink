@@ -1,13 +1,13 @@
 {{strip}}
   {{set layout="main.tpl"}}
-  {{set title="{{$app->name}} | {{'What\'s this?'|translate:'app'}}"}}
+  {{set title="{{$app->name}} | {{'Getting Started'|translate:'app'}}"}}
 
   {{\app\assets\AboutAsset::register($this)|@void}}
   {{$aboutAsset = $app->assetManager->getBundle('app\assets\AboutAsset')}}
 
   <div class="container">
     <h1>
-      {{'What\'s this?'|translate:'app'|escape}}
+      {{'Getting Started'|translate:'app'|escape}}
     </h1>
     <p>
       {{'This website collect your Splatoon logs, and analyze it.'|translate:'app-start'|escape}}
