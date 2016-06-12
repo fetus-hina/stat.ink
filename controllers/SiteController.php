@@ -30,8 +30,7 @@ class SiteController extends Controller
                 'view' => 'privacy.tpl',
             ],
             'start' => [
-                'class' => 'app\actions\site\SimpleAction',
-                'view' => 'start.tpl',
+                'class' => 'app\actions\site\StartAction',
             ],
             'users' => [
                 'class' => 'app\actions\site\UsersAction',
