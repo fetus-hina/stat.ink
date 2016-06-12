@@ -849,6 +849,9 @@
                   specialCharged: imgLoad(
                     "{{$app->assetManager->getAssetUrl($iconAsset, 'special_charged.png')|escape:javascript}}"
                   ),
+                  lowInk: imgLoad(
+                    "{{$app->assetManager->getAssetUrl($iconAsset, 'low_ink.png')|escape:javascript}}"
+                  )
                 };
               })();
             {{/registerJs}}
@@ -1060,7 +1063,7 @@
                     if (!v.at) {
                       return false;
                     }
-                    if (v.type === "killed" || v.type === "dead" || v.type === "special_charged") {
+                    if (v.type === "killed" || v.type === "dead" || v.type === "special_charged" || v.type === "low_ink") {
                       return true;
                     }
                     if (v.type === "special_weapon") {
@@ -1141,6 +1144,10 @@
                     } else if (v.type === "special_charged") {
                       return [
                         window.graphIcon.specialCharged.src, v.at, size, size, "{{'Special Charged'|translate:'app'|escape:javascript}}"
+                      ];
+                    } else if (v.type === "low_ink") {
+                      return [
+                        window.graphIcon.lowInk.src, v.at, size, size, "{{'Low ink'|translate:'app'|escape:javascript}}"
                       ];
                     } else {
                       return [

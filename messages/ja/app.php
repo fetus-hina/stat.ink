@@ -154,6 +154,7 @@ return [
     'Logout' => 'ログアウト',
     'Lose' => '敗北',
     'Lost' => '敗北',
+    'Low ink' => 'インク切れ',
     'Main Weapon' => 'メインウェポン',
     'Many' => '多',
     'Max Kill Combo' => '最大キルコンボ',

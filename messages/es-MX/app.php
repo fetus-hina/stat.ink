@@ -136,6 +136,7 @@ return [
     'Logout' => 'Cierre de sesión',
     'Lose' => 'Derrota',
     'Lost' => 'Derrotado',
+    'Low ink' => 'Sin tinta',
     'Main Weapon' => 'Arma principal',
     'Many' => 'Muchos',
     'Mode' => 'Estilo',

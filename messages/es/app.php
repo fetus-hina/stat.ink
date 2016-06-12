@@ -146,6 +146,7 @@ return [
     'Logout' => 'Cierre de sesión',
     'Lose' => 'Derrota',
     'Lost' => 'Derrotado',
+    'Low ink' => 'No disponible',
     'Main Weapon' => 'Arma principal',
     'Many' => 'Muchos',
     'Max Kill Combo' => '', //FIXME
