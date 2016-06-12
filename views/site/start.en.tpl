@@ -34,7 +34,7 @@
         <p>
           IkaLog analyzes your gameplay by monitoring the video output from Wii U console. The diagram below describes how it all works:
         </p>
-        <img src="{{$app->assetmanager->getAssetUrl($aboutAsset, 'overview.png')|escape}}" alt="" title="" style="width:100%;max-width:530px">
+        <img src="{{$app->assetmanager->getAssetUrl($aboutAsset, 'overview.en.png')|escape}}" alt="" title="" style="width:100%;max-width:530px">
         <p>
           If the application is set up correctly, all of your Splatoon gameplay will be analyzed, and helpful data will be submitted to your stat.ink account automatically.&#32;
           You can benefit from all of stat.ink's features in this case.
