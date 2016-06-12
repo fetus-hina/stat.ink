@@ -7,163 +7,167 @@
 
   <div class="container">
     <h1>
-      {{'Getting Started'|translate:'app'|escape}}
+      Getting Started
     </h1>
     <p>
-      {{'This website collect your Splatoon logs, and analyze it.'|translate:'app-start'|escape}}
+      This website collect your Splatoon logs, and analyze it.
     </p>
 
     {{AdWidget}}
     {{SnsWidget}}
 
     <h2>
-      {{'How to collect your log'|translate:'app-start'|escape}}
+      How do I make my SplatLog?
     </h2>
     <p>
-      {{'There are two ways. "Automatic" or "manually."'|translate:'app-start'|escape}}
+      There are two ways to make your Splatoon play log. The first option is having a program like Ikalog do it automatically, and the another option is entering the data manually.
     </p>
 
     <div class="row">
       <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
         <h3>
-          {{'Automatic (Recommended)'|translate:'app-start'|escape}}
+          Automatic Mode (Recommended)
         </h3>
         <p>
-          <a href="https://github.com/hasegaw/IkaLog/blob/master/doc/IkaUI.md">IkaLog</a>などの対応ソフトを利用して自動的に戦績を登録する方法です。
+          Use a Splatoon data collection program, such as <a href="https://github.com/hasegaw/IkaLog/wiki/en_Home">IkaLog</a>, to analyze your gameplay.
         </p>
         <p>
-          IkaLogの場合、Wii Uからテレビへ出力している映像信号のコピーをPCに入力することでプレーデータを解析します。
-          次のようなイメージです。
+          IkaLog analyzes your gameplay by monitoring the video output from Wii U console. The diagram below describes how it all works:
         </p>
         <img src="{{$app->assetmanager->getAssetUrl($aboutAsset, 'overview.png')|escape}}" alt="" title="" style="width:100%;max-width:530px">
         <p>
-          アプリケーションが動作していれば自動的・正確に多数のデータが{{$app->name|escape}}に送信されてきます。
-          この利用ケースが{{$app->name|escape}}の能力を最大限に生かせます。
+          If the application is set up correctly, all of your Splatoon gameplay will be analyzed, and helpful data will be submitted to your stat.ink account automatically.&#32;
+          You can benefit from all of stat.ink's features in this case.
         </p>
         <p>
-          反面、HDMIに対応したキャプチャデバイスを保有していない場合は「初期費用」がかかります。
+          If you don't already have an HDMI capture card, like an AverMedia or Elgato, you will need to get one.
         </p>
         <p>
-          ※一部のキャプチャデバイス（例えばAVT-C875）はHDMIスプリッタを内蔵していることがあります。
+          *) Some HDMI capture devices (e.g. AverMedia AVT-C875 and Intensity Shuttle) have a built in HDMI splitter.&#32;
+          In this case, you won't need to buy a splitter separately.&#32;
+          Otherwise, you will need a splitter so you can connect the Wii U's output to both your TV and the capture device.
         </p>
         <p>
-          ※720pの解像度を扱えないキャプチャは利用できません。
+          *) 720p must be supported by the capture device.
         </p>
         <p>
-          ※IkaLogは全てのキャプチャデバイスで動作するわけではありません。
-          キャプチャデバイスによって数ピクセルずれて表示される、色味がおかしいなどが発生することが経験上わかっています。
-          新たに購入する場合は<a href="https://github.com/hasegaw/IkaLog/wiki/CaptureDevices">IkaLog Wikiの確認済みリスト</a>を確認して購入することをおすすめします。
-          確認済みリストに掲載があるものでも必ず使えるとは限らないことにご注意ください。
-        </p>
+          *) IkaLog doesn't work with some HDMI captures device, due to compatibiliy issues (e.g. inaccurate/poor image quality or incompatible driver software).&#32;
+          It is strongly suggested to check the <a href="https://github.com/hasegaw/IkaLog/wiki/en_CaptureDevices">"reported HDMI devices" list on the IkaLog wiki</a> if you are going to buy one.&#32;
+          Elgato capture cards will not work directly with IkaLog, so if you have one, you'll have to use the screen capture method. <!--detailed on the GitHub wiki below.-->
+        <p>
         <hr>
         <p>
-          現在この方法で利用できるアプリケーションのリスト:
+          List of data collection software that work with stat.ink automatically:
         </p>
         <ul>
           <li>
-            <a href="https://github.com/hasegaw/IkaLog/blob/master/doc/IkaUI.md">IkaLog / WinIkaLog</a> (Windows, Mac, Linux)
+            <a href="https://github.com/hasegaw/IkaLog/wiki/en_Home">IkaLog / WinIkaLog</a> (Windows, Mac, Linux)
           </li>
         </ul>
       </div>
       <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
         <h3>
-          {{'Manually'|translate:'app-start'|escape}}
+          Manual Mode
         </h3>
         <p>
-          <a href="https://play.google.com/store/apps/details?id=com.syanari.merluza.ikarec&amp;hl=ja">イカレコ</a>などの対応ソフトを利用して手動で戦績を登録する方法です。
+          You can also submit your battle results from applications such as "<a href="https://play.google.com/store/apps/details?id=com.syanari.merluza.ikarec">IkaRec</a>."
         </p>
         <p>
-          この方法は至ってシンプルで、画面に表示されたリザルト画面を基に利用者が手動で登録します。
-        </p>
-        <p>
-          限られた時間の中で登録することを前提としているため、最低限の情報のみが記録されることになると思います。
+          It's quite simple; you can input the battle results manually.&#32;
+          Since you have oly a few seconds to view the scoreboard, you are able to fill a few details about the match (e.g. stage, mode, your weapon, and win/defeat).
         </p>
         <hr>
         <p>
-          現在この方法で利用できるアプリケーションのリスト:
+          List of data collection software work with stat.ink in manual mode:
         </p>
         <ul>
           <li>
-            <a href="https://play.google.com/store/apps/details?id=com.syanari.merluza.ikarec&amp;hl=ja">イカレコ</a> (Android)
+            <a href="https://play.google.com/store/apps/details?id=com.syanari.merluza.ikarec">IkaRec</a> (means Squid-Recorder, for Android devices)
           </li>
         </ul>
       </div>
     </div>
 
+    <hr>
     <h2>
-      利用方法の例
+      Okay, now how do I use it?
     </h2>
     <div class="row">
       <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
         <h3>
-          IkaLogの場合
+          Using IkaLog
         </h3>
         <p>
-          キャプチャデバイスの設定等は<a href="https://github.com/hasegaw/IkaLog/blob/master/doc/IkaUI.md">IkaLogの説明</a>通りに行えているものとします。
-          Previewにゲーム画面が出るまではそちらを見て設定してください。
+          SquidBoards has good documation. Check it out:<br>
+          <a href="http://squidboards.com/guides/how-to-set-up-ikalog-and-stat-ink-for-battle-result-tracking.217/">How to set up IkaLog and stat.ink for battle result tracking!</a>
+        </p>
+        <p>
+          <a href="https://github.com/hasegaw/IkaLog/wiki/en_WinIkaLog">The IkaLog GitHub wiki</a> also has instructions for setting IkaLog up with stat.ink.
+        </p>
+        <p>
+          You will need to configure IkaLog with your video capture device.&#32;
+          Refer to the IkaLog documentation for instructions on how to do so.
         </p>
         <ol>
           <li>
-            <a href="{{url route="user/register"}}">{{$app->name|escape}}へのユーザ登録</a>を行ってください。
-            ユーザ登録が既にお済みでしたらログインしてください。
+            <a href="{{url route="user/register"}}">Register an account on stat.ink.</a>&#32;
+            If you're already registed, log in to your stat.ink account.
           </li>
           <li>
-            <a href="{{url route="user/profile"}}">プロフィールと設定</a>画面を開きます。
+            Open "Your Name" → "Settings" in menu bar.
           </li>
           <li>
-            「APIキー」のボタンを押し、 <code>ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefg</code> のような API キーを表示します。
-            （このAPIキーはあなた専用のもので、パスワードと同じくらい重要なものです。他人には教えないでください）
+            Show your API Key by clicking eye icon.&#32;
+            API Key will be something like <code>ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefg</code>.<br>
+            The API Key is like a password for you.&#32;
+            <strong>Never share the key with anyone!</strong><br>
+            If you have to take a screenshot of this page for any reason, <strong>remove your API Key or cover it with a rectangle</strong> in an image editor.
           </li>
           <li>
-            IkaLog の Options - stat.ink を開きます。
+            Open WinIkaLog application, click "Configure" button, and select "stat.ink" tab.
           </li>
           <li>
-            先ほどのAPIキーを、専用の入力欄に貼り付けます。
+            Copy and Paste your API Key into the API Key field in IkaLog window.
           </li>
           <li>
-            「☑ stat.inkへのスコアを送信する」にチェックを入れます。
+            Check the "☑ Submit to stat.ink" checkbox.
           </li>
           <li>
-            「Apply」ボタンを押して設定を適用します。
+            Click the "Apply" button to reflect the settings.
           </li>
         </ol>
         <p>
-          これで（IkaLogが動いていれば）自動的にデータが送信されます。
-        </p>
-        <p>
-          ※IkaLogはできるだけ最新のものを使うようにしてください。
+          Once the configuration is done, your battle results will be submitted to stat.ink automatically.
         </p>
       </div>
       <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
         <h3>
-          イカレコの場合
+          IkaRec
         </h3>
         <p>
-          <a href="http://gigazine.net/news/20151217-splatoon-ikarec/">Gigazine様にてイカレコが紹介された時の記事</a>にアプリの紹介からstat.inkの連携まで詳しく記載されていますので、そちらを参照してください。
+          Unfortunately this application is not localized for English users.&#32;
+          If you are still interested in using the application in Japanese, <a href="http://gigazine.net/news/20151217-splatoon-ikarec/">this article on Gigazine</a> will be helpful.
         </p>
       </div>
     </div>
-
+    <hr>
     <h2>
-      高度な使い方
+      For software developers
     </h2>
     <p>
-      {{$app->name|escape}}は<a href="https://github.com/fetus-hina/stat.ink/blob/master/API.md">APIを公開しています</a>ので、自作のソフトウェアによっても登録が行えます。
+      <a href="https://github.com/fetus-hina/stat.ink/blob/master/API.md">stat.ink provides an API to the public.</a> You can design your own software if you want.
     </p>
     <p>
-      もちろんあなた専用のアプリを作成しても構いませんし、広く公開すると喜ぶ人がいるかもしれません。
+      You can use your application yourself, but others might find it useful too, so consider sharing.
     </p>
-
     <hr>
-
     <p>
-      このサイトは、相沢陽菜 &lt;hina@bouhime.com&gt; (<span class="fa fa-twitter left"></span>fetus_hina, <span class="fa fa-github left"></span>fetus-hina) が個人的に作成したものです。
-      任天堂株式会社とは一切関係はありません。
-      任天堂株式会社へこのサイトやIkaLogのことを問い合わせたりはしないでください。単純に迷惑になります。
+      This website was developed by AIZAWA Hina &lt;hina@bouhime.com&gt; (<span class="fa fa-twitter left"></span>fetus_hina, <span class="fa fa-github left"></span>fetus-hina) as a personal project.&#32;
+      This project was not produced in association with Nintendo.&#32;
+      Don't ask them about stat.ink or IkaLog, they won't know anything.
     </p>
     <p>
-      このサイトのソースコードはMIT Licenseに基づくオープンソースソフトウェアとして公開しています。
-      MIT Licenseの範囲内で誰でも自由に改造・改良・フォークを行うことができます。
+      The source code of stat.ink is published as open source, under MIT License. 
     </p>
   </div>
 {{/strip}}
