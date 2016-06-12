@@ -838,29 +838,6 @@
                 window.graphIcon = {
                   dead: imgLoad("{{$app->assetmanager->getAssetUrl($iconAsset, 'dead/default.png')|escape:javascript}}"),
                   killed: imgLoad("{{$app->assetmanager->getAssetUrl($iconAsset, 'killed/default.png')|escape:javascript}}"),
-                  {{if $myHue !== null && $hisHue !== null}}
-                    weGot: imgLoad(
-                      {{$tmp = 'gachi/'|cat:$myHue:'.png'}}
-                      "{{$app->assetmanager->getAssetUrl($iconAsset, $tmp)|escape:javascript}}"
-                    ),
-                    theyGot: imgLoad(
-                      {{$tmp = 'gachi/'|cat:$hisHue:'.png'}}
-                      "{{$app->assetmanager->getAssetUrl($iconAsset, $tmp)|escape:javascript}}"
-                    ),
-                    weLost: imgLoad(
-                      "{{$app->assetmanager->getAssetUrl($iconAsset, 'gachi/default.png')|escape:javascript}}"
-                    ),
-                    theyLost: imgLoad(
-                      "{{$app->assetmanager->getAssetUrl($iconAsset, 'gachi/default.png')|escape:javascript}}"
-                    ),
-                  {{else}}
-                    weGot: null,
-                    theyGot: null,
-                    weLost: null,
-                    theyLost: null,
-                  {{/if}}
-                  weLead: null,
-                  theyLead: null,
                   specials: {
                     {{foreach $specials as $special}}
                       {{$special.key|escape:javascript}}: imgLoad(
@@ -1099,18 +1076,7 @@
                     return false;
                   }).map(function(v){
                     var size = Math.max(18, Math.ceil($graph_.height() * 0.075));
-                    if (v.type === "ranked_battle_event") {
-                      return [
-                        window.graphIcon[(function(type) {
-                          switch (type) {
-                            case "we_got": return "weGot";
-                            case "we_lost": return "weLost";
-                            case "they_got": return "theyGot";
-                            case "they_lost": return "theyLost";
-                          }
-                        })(v.value)].src, v.at, size, size
-                      ];
-                    } else if (v.type === "dead") {
+                    if (v.type === "dead") {
                       return (function() {
                         var reason = (v.reason && window.deathReasons[v.reason])
                           ? window.deathReasons[v.reason]
