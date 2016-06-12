@@ -10,47 +10,43 @@
     {{SnsWidget}}
 
     <p>
-      {{'This website ({0}) collects your access data below:'|translate:'app':$app->name|escape}}
+      {{'This website ({0}) collects the following data:'|translate:'app':$app->name|escape}}
     </p>
     <ul>
       <li>
         {{'Access time'|translate:'app'|escape}}
       </li>
       <li>
-        {{'Your IP address'|translate:'app'|escape}}
+        {{'IP address'|translate:'app'|escape}}
       </li>
       <li>
-        {{'The address of the webpage that linked to our page being requested (aka "Referer")'|translate:'app'|escape}}
+        {{'The address of the web site that linked here (aka "referer")'|translate:'app'|escape}}
       </li>
       <li>
-        {{'The OS and browser name/version that you used (aka "User-Agent")'|translate:'app'|escape}}
+        {{'Your OS, browser name, and version that you are using (aka "user agent")'|translate:'app'|escape}}
       </li>
     </ul>
     <p>
-      {{'We use Cookies.'|translate:'app'|escape}}
+      {{'This site uses cookies, as well as Google Analytics for tracking user information.'|translate:'app'|escape}}
     </p>
     <p>
-      {{'We use the Google Analytics for analyzing users\' information.'|translate:'app'|escape}}
+      {{'We don\'t release your collected information, like your IP address. However, statistical information will be released.'|translate:'app'|escape}}
     </p>
     <p>
-      {{'We don\'t exhibit your information that we collected (e.g. your IP address).'|translate:'app'|escape}}
-      {{'However, statistics information will be opened.'|translate:'app'|escape}}
-    </p>
-    <p>
-      {{'When there was a charge from investigating authority, your information would be elucidated.'|translate:'app'|escape}}
+      {{'If there is an investigation being conducted by the police or other authority, your information will be released.'|translate:'app'|escape}}
     </p>
 
     <h2 id="image">
       {{'About image sharing with the IkaLog team'|translate:'app'|escape}}
     </h2>
     <p>
-      {{'Your uploaded data (battle data, images and modification histories) will share with the IkaLog development team.'|translate:'app'|escape}}
+      {{'Your uploaded data (battle stats, images, and modification history) will be shared with the IkaLog development team.'|translate:'app'|escape}}
     </p>
     <p>
-      {{'It\'s doing automatically and will not be deleted even after the deletion of the battle.'|translate:'app'|escape}}
+      {{'This is done automatically and the data will not be deleted even if the the battle is deleted.'|translate:'app'|escape}}
     </p>
     <p>
-      {{'This behaviour was started at 27 Oct 2015.'|translate:'app'|escape}}
+      {{'This behavior was started on 27 Oct 2015.'|translate:'app'|escape}}
     </p>
   </div>
 {{/strip}}
