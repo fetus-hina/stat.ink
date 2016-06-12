@@ -142,12 +142,21 @@
               </li>
               <li class="divider"></li>
               <li>
-                <a href="https://github.com/hasegaw/IkaLog/blob/master/doc/IkaUI.md">
-                  {{'IkaLog'|translate:'app'|escape}}
-                  （<span class="fa fa-windows left"></span>
-                  <span class="fa fa-apple left"></span>
-                  <span class="fa fa-linux"></span>）
-                </a>
+                {{if $app->language === 'ja-JP'}}
+                  <a href="https://github.com/hasegaw/IkaLog/wiki/ja_WinIkaLog">
+                    {{'IkaLog'|translate:'app'|escape}}
+                    （<span class="fa fa-windows left"></span>
+                    <span class="fa fa-apple left"></span>
+                    <span class="fa fa-linux"></span>）
+                  </a>
+                {{else}}
+                  <a href="https://github.com/hasegaw/IkaLog/wiki/en_Home">
+                    {{'IkaLog'|translate:'app'|escape}}
+                    （<span class="fa fa-windows left"></span>
+                    <span class="fa fa-apple left"></span>
+                    <span class="fa fa-linux"></span>）
+                  </a>
+                {{/if}}
               </li>
               <li>
                 <a href="https://dl.dropboxusercontent.com/u/14421778/IkaLog/download.html">
