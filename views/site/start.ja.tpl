@@ -29,7 +29,7 @@
           {{'Automatic (Recommended)'|translate:'app-start'|escape}}
         </h3>
         <p>
-          <a href="https://github.com/hasegaw/IkaLog/blob/master/doc/IkaUI.md">IkaLog</a>などの対応ソフトを利用して自動的に戦績を登録する方法です。
+          <a href="https://github.com/hasegaw/IkaLog/wiki/ja_WinIkaLog">IkaLog</a>などの対応ソフトを利用して自動的に戦績を登録する方法です。
         </p>
         <p>
           IkaLogの場合、Wii Uからテレビへ出力している映像信号のコピーをPCに入力することでプレーデータを解析します。
@@ -61,7 +61,7 @@
         </p>
         <ul>
           <li>
-            <a href="https://github.com/hasegaw/IkaLog/blob/master/doc/IkaUI.md">IkaLog / WinIkaLog</a> (Windows, Mac, Linux)
+            <a href="https://github.com/hasegaw/IkaLog/wiki/ja_WinIkaLog">IkaLog / WinIkaLog</a> (Windows, Mac, Linux)
           </li>
         </ul>
       </div>
@@ -99,7 +99,7 @@
           IkaLogの場合
         </h3>
         <p>
-          キャプチャデバイスの設定等は<a href="https://github.com/hasegaw/IkaLog/blob/master/doc/IkaUI.md">IkaLogの説明</a>通りに行えているものとします。
+          キャプチャデバイスの設定等は<a href="https://github.com/hasegaw/IkaLog/wiki/ja_WinIkaLog">IkaLogの説明</a>通りに行えているものとします。
           Previewにゲーム画面が出るまではそちらを見て設定してください。
         </p>
         <ol>
