@@ -35,7 +35,7 @@
           IkaLogの場合、Wii Uからテレビへ出力している映像信号のコピーをPCに入力することでプレーデータを解析します。
           次のようなイメージです。
         </p>
-        <img src="{{$app->assetmanager->getAssetUrl($aboutAsset, 'overview.png')|escape}}" alt="" title="" style="width:100%;max-width:530px">
+        <img src="{{$app->assetmanager->getAssetUrl($aboutAsset, 'overview.ja.png')|escape}}" alt="" title="" style="width:100%;max-width:530px">
         <p>
           アプリケーションが動作していれば自動的・正確に多数のデータが{{$app->name|escape}}に送信されてきます。
           この利用ケースが{{$app->name|escape}}の能力を最大限に生かせます。
