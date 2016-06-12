@@ -23,10 +23,10 @@
 
     <p>
       {{$_groups = [
-          ''            => 'ブキをまとめない',
-          'canonical'   => '同じブキをまとめる',
-          'main-weapon' => 'メインの性能でまとめる',
-          'type'        => '種類でまとめる'
+          ''            => 'Don\'t group',
+          'canonical'   => 'Group by reskins',
+          'main-weapon' => 'Group by main weapon',
+          'type'        => 'Group by weapon type'
         ]}}
       {{if $group->hasErrors()}}
         {{$_selected = ''}}
@@ -40,10 +40,10 @@
         {{if $_k != $_selected}}
           {{$_param_group = ['level' => $_k]}}
           <a href="{{url route='show/user-stat-cause-of-death' screen_name=$user->screen_name filter=$filter->attributes group=$_param_group}}">
-            {{$_v|escape}}
+            {{$_v|translate:'app'|escape}}
           </a>
         {{else}}
-          {{$_v|escape}}
+          {{$_v|translate:'app'|escape}}
         {{/if}}
       {{/foreach}}
     </p>
