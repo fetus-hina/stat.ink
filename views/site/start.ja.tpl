@@ -55,6 +55,9 @@
           新たに購入する場合は<a href="https://github.com/hasegaw/IkaLog/wiki/CaptureDevices">IkaLog Wikiの確認済みリスト</a>を確認して購入することをおすすめします。
           確認済みリストに掲載があるものでも必ず使えるとは限らないことにご注意ください。
         </p>
+        <p>
+          <a href="{{url route="site/kamiup"}}">IkaLogと組み合わせてよく使われるAVT-C875"神うｐ"の接続が（よく使われる割に特殊な接続になるので）わかりづらいと思われるので簡単に説明を書きました。</a>
+        </p>
         <hr>
         <p>
           現在この方法で利用できるアプリケーションのリスト:
