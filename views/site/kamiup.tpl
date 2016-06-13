@@ -23,7 +23,7 @@
       IkaLogをはじめて使おうという方はおそらくこういったシンプルな接続をされていると思います。
     </p>
     <p>
-      <img src="{{$app->assetmanager->getAssetUrl($aboutAsset, 'kamiup1.png')|escape}}" alt="" title="" style="width:100%;max-width:960px">
+      <img src="{{$app->assetmanager->getAssetUrl($aboutAsset, 'kamiup1.png')|escape}}" alt="" title="" style="width:100%;max-width:761px">
     </p>
     <p>
       IkaLogは、このHDMIケーブルを流れている信号をPCに入力する（「横取りする」の方がわかりやすいかもしれません）ことでゲームのプレーを解析しましょう、というソフトです。
@@ -41,10 +41,7 @@
       次に実際の接続を示した図を出します。ぱっと見複雑ですが実はそうでもないので驚かないでください。
     </p>
     <p>
-      <img src="{{$app->assetmanager->getAssetUrl($aboutAsset, 'kamiup2.png')|escape}}" alt="" title="" style="width:100%;max-width:960px">
-    </p>
-    <p>
-      ※神うｐが二つありますが、書くときの都合によるもので、全く同じものです（向きが違います。HDMI端子を手前に見るとUSB端子は右側にあります）。
+      <img src="{{$app->assetmanager->getAssetUrl($aboutAsset, 'kamiup2.png')|escape}}" alt="" title="" style="width:100%;max-width:761px">
     </p>
     <p>
       元々Wii Uとテレビをつないでいた（おそらく灰色の）HDMIケーブルを神うｐの「OUT」とテレビに付け替えて、Wii Uと神うｐの間には、神うｐ付属の短いHDMIケーブルを接続します。
@@ -68,11 +65,11 @@
       が、実はここから少しややこしい話が始まります。次の図を見てください。
     </p>
     <p>
-      <img src="{{$app->assetmanager->getAssetUrl($aboutAsset, 'kamiup3.png')|escape}}" alt="" title="" style="width:100%;max-width:960px">
+      <img src="{{$app->assetmanager->getAssetUrl($aboutAsset, 'kamiup3.png')|escape}}" alt="" title="" style="width:100%;max-width:761px">
     </p>
     <p>
       ここに書いてあるのですが、IkaLogはそのままだと神うｐの映像を受け取れません（細かい話は省略します）。
-      IkaLogを起動すると「AVT-C875」と表示されたりするのですが、これを選択しても動かないのです。
+      IkaLogを起動すると「C875」と表示されたりするのですが、これを選択しても動かないのです。
     </p>
     <p>
       そこで、図の下側に書いてあるように「LGP Stream Engine」というソフトをインストールします。
@@ -96,25 +93,25 @@
 
     <h3>ライセンス情報</h3>
     <p>
-      Wii U本体の背面画像は任天堂ホームページから引用しました。
-      <a href="https://www.nintendo.co.jp/wiiu/hardware/parts/index.html">https://www.nintendo.co.jp/wiiu/hardware/parts/index.html</a>
-      [&copy; Nintendo.]
+      Wii U本体の背面画像は任天堂ホームページから引用しました。&#32;
+      <a href="https://www.nintendo.co.jp/wiiu/hardware/parts/index.html">https://www.nintendo.co.jp/wiiu/hardware/parts/index.html</a>&#32;
+      - &copy;Nintendo.
     </p>
     <p>
-      AVT-C875本体の画像は製品紹介ページのギャラリーから引用しました。
-      <a href="http://www.avermedia.co.jp/product_swap/avt-c875_gallery.html">http://www.avermedia.co.jp/product_swap/avt-c875_gallery.html</a>
-      [&copy; AVerMedia Technologies Inc.]
+      AVT-C875本体の画像は製品紹介ページのギャラリーから引用しました。&#32;
+      <a href="http://www.avermedia.co.jp/product_swap/avt-c875_gallery.html">http://www.avermedia.co.jp/product_swap/avt-c875_gallery.html</a>&#32;
+      - &copy;AVerMedia Technologies Inc.
     </p>
     <p>
-      テレビとして使用している画像はWikimedia Commonsから引用しました。
-      <a href="https://commons.wikimedia.org/wiki/File:Modern_TV.png">https://commons.wikimedia.org/wiki/File:Modern_TV.png</a>
-      [&copy; NeoMeesje]
+      テレビとして使用している画像は次のリソースを引用しました。&#32;
+      <a href="http://www.publicdomainpictures.net/view-image.php?image=62615" rel="nofollow">http://www.publicdomainpictures.net/view-image.php?image=62615</a>
+      - Public Domain
     </p>
     <p>
-      PCとして使用している画像はWikimedia Commonsから引用しました。
-      <a href="https://commons.wikimedia.org/wiki/File:Desktop-PC.svg">https://commons.wikimedia.org/wiki/File:Desktop-PC.svg</a>
-      <a href="http://www.clker.com/clipart-23850.html">http://www.clker.com/clipart-23850.html</a>
-      [Public Domain]
+      PCとして使用している画像は次のリソースを引用しました。&#32;
+      <a href="https://commons.wikimedia.org/wiki/File:Desktop-PC.svg" rel="nofollow">https://commons.wikimedia.org/wiki/File:Desktop-PC.svg</a>&#32;
+      <a href="http://www.clker.com/clipart-23850.html" rel="nofollow">http://www.clker.com/clipart-23850.html</a>&#32;
+      - Public Domain
     </p>
   </div>
 {{/strip}}
