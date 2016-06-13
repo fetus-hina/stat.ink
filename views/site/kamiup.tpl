@@ -98,18 +98,23 @@
     <p>
       Wii U本体の背面画像は任天堂ホームページから引用しました。
       <a href="https://www.nintendo.co.jp/wiiu/hardware/parts/index.html">https://www.nintendo.co.jp/wiiu/hardware/parts/index.html</a>
+      [&copy; Nintendo.]
     </p>
     <p>
       AVT-C875本体の画像は製品紹介ページのギャラリーから引用しました。
       <a href="http://www.avermedia.co.jp/product_swap/avt-c875_gallery.html">http://www.avermedia.co.jp/product_swap/avt-c875_gallery.html</a>
+      [&copy; AVerMedia Technologies Inc.]
     </p>
     <p>
       テレビとして使用している画像はWikimedia Commonsから引用しました。
       <a href="https://commons.wikimedia.org/wiki/File:Modern_TV.png">https://commons.wikimedia.org/wiki/File:Modern_TV.png</a>
+      [&copy; NeoMeesje]
     </p>
     <p>
       PCとして使用している画像はWikimedia Commonsから引用しました。
       <a href="https://commons.wikimedia.org/wiki/File:Desktop-PC.svg">https://commons.wikimedia.org/wiki/File:Desktop-PC.svg</a>
+      <a href="http://www.clker.com/clipart-23850.html">http://www.clker.com/clipart-23850.html</a>
+      [Public Domain]
     </p>
   </div>
 {{/strip}}
