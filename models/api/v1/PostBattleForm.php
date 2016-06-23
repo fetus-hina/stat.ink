@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2015 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2016 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  */
@@ -670,6 +670,7 @@ class PostBattleForm extends Model
                     'kill'          => (string)$form->kill === '' ? null : (int)$form->kill,
                     'death'         => (string)$form->death === '' ? null : (int)$form->death,
                     'point'         => (string)$form->point === '' ? null : (int)$form->point,
+                    'my_kill'       => (string)$form->my_kill === '' ? null : (int)$form->my_kill,
                 ];
                 yield $player;
             }

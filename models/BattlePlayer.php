@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2015 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2016 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  */
@@ -23,6 +23,7 @@ use Yii;
  * @property integer $kill
  * @property integer $death
  * @property integer $point
+ * @property integer $my_kill
  *
  * @property Battle $battle
  * @property Rank $rank
@@ -52,6 +53,7 @@ class BattlePlayer extends \yii\db\ActiveRecord
         return [
             [['battle_id', 'is_my_team', 'is_me'], 'required'],
             [['battle_id', 'weapon_id', 'rank_id', 'level', 'rank_in_team', 'kill', 'death', 'point'], 'integer'],
+            [['my_kill'], 'integer'],
             [['is_my_team', 'is_me'], 'boolean']
         ];
     }
@@ -73,6 +75,7 @@ class BattlePlayer extends \yii\db\ActiveRecord
             'kill' => 'Kill',
             'death' => 'Death',
             'point' => 'Point',
+            'my_kill' => 'My Kill',
         ];
     }
 
@@ -111,6 +114,7 @@ class BattlePlayer extends \yii\db\ActiveRecord
             'rank_in_team'  => (string)$this->rank_in_team === '' ? null : (int)$this->rank_in_team,
             'kill'          => (string)$this->kill === '' ? null : (int)$this->kill,
             'death'         => (string)$this->death === '' ? null : (int)$this->death,
+            'my_kill'       => (string)$this->my_kill === '' ? null : (int)$this->my_kill,
             'point'         => (string)$this->point === '' ? null : (int)$this->point,
         ];
     }

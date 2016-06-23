@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2015 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2016 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  */
@@ -23,6 +23,7 @@ class PostBattlePlayerForm extends Model
     public $kill;
     public $death;
     public $point;
+    public $my_kill;
 
     public function rules()
     {
@@ -38,7 +39,7 @@ class PostBattlePlayerForm extends Model
                 'targetAttribute' => 'key'],
             [['level'], 'integer', 'min' => 1, 'max' => 50],
             [['rank_in_team'], 'integer', 'min' => 1, 'max' => 4],
-            [['kill', 'death'], 'integer', 'min' => 0],
+            [['kill', 'death', 'my_kill'], 'integer', 'min' => 0],
             [['point'], 'integer', 'min' => 0],
         ];
     }
