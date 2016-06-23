@@ -15,6 +15,7 @@ RESOURCE_TARGETS_MAIN=\
 	resources/.compiled/gears/calc.js \
 	resources/.compiled/gh-fork-ribbon/gh-fork-ribbon.css \
 	resources/.compiled/gh-fork-ribbon/gh-fork-ribbon.js \
+	resources/.compiled/ip-version/badge.css \
 	resources/.compiled/slack/slack.js \
 	resources/.compiled/stat.ink/battles-simple.css \
 	resources/.compiled/stat.ink/favicon.png \
@@ -221,6 +222,9 @@ resources/.compiled/emoji/emoji.js: resources/emoji/emoji.js $(GULP)
 
 resources/.compiled/slack/slack.js: resources/slack/slack.js $(GULP)
 	$(GULP) js --in $< --out $@
+
+resources/.compiled/ip-version/badge.css: resources/ip-version/badge.less $(GULP)
+	$(GULP) less --in $< --out $@
 
 migrate-db: vendor config/db.php
 	./yii migrate/up --interactive=0

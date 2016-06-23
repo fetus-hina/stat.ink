@@ -94,6 +94,7 @@ $config = [
                         'functions' => [
                             'AdWidget' => 'app\components\widgets\AdWidget',
                             'BattleFilterWidget' => 'app\components\widgets\BattleFilterWidget',
+                            'IpVersionBadgeWidget' => 'app\components\widgets\IpVersionBadgeWidget',
                             'SnsWidget' => 'app\components\widgets\SnsWidget',
                             'WinLoseLegend' => 'app\components\widgets\WinLoseLegend',
                         ]
