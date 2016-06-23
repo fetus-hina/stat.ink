@@ -686,6 +686,7 @@
                 {{$totalDeath = 0}}
                 {{$totalPoint = 0}}
                 {{$hasNull = false}}
+                {{$hasMyKill = false}}
                 {{foreach $battle->$attr as $player}}
                   {{if $player->kill === null || $player->death === null}}
                     {{$hasNull = true}}
@@ -701,6 +702,9 @@
                     {{/if}}
                   {{else}}
                     {{$totalPoint = null}}
+                  {{/if}}
+                  {{if $player->my_kill !== null}}
+                    {{$hasMyKill = true}}
                   {{/if}}
                 {{/foreach}}
                 <tr class="bg-{{$teamKey|escape}}">
@@ -771,6 +775,17 @@
                         ?
                       {{else}}
                         {{$player->kill|escape}}
+                      {{/if}}
+                      {{if $hasMyKill}}
+                        {{if $teamKey === 'his'}}
+                          &#32;(
+                          {{if $player->my_kill === null}}
+                            ?
+                          {{else}}
+                            {{$player->my_kill|escape}}
+                          {{/if}}
+                          )
+                        {{/if}}
                       {{/if}} / {{if $player->death === null}}
                         ?
                       {{else}}
