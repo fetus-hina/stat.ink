@@ -45,9 +45,12 @@ class IkalogVersion
 
         $minimumRevision = ARIkalogVersion::findOneByRevision((function ($tag) {
             switch ($tag) {
-                case '2.7.0':   return static::V2_7_0_MINIMUM_REVISION;
-                case '2.8.0':   return static::V2_8_0_MINIMUM_REVISION;
-                default:        return null;
+                case '2.7.0':
+                    return static::V2_7_0_MINIMUM_REVISION;
+                case '2.8.0':
+                    return static::V2_8_0_MINIMUM_REVISION;
+                default:
+                    return null;
             }
         })($gameVersion->tag));
         if (!$minimumRevision) {
