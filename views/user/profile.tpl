@@ -152,13 +152,16 @@
                     {{'(default)'|translate:'app'|escape}}
                   {{elseif $_slack->icon|substr:0:4|strtolower == 'http' || $_slack->icon|substr:0:2 == '//'}}
                     {{Html::img($_slack->icon, ['class' => 'emoji emoji-url'])}}
-                  {{else}}
-                    {{\app\assets\EmojifyAsset::register($this)|@void}}
+                  {{elseif preg_match('/^:[a-zA-Z0-9+._-]+:$/', $_slack->icon)}}
+                    {{$emojiAsset = \app\assets\EmojifyResourceAsset::register($this)}}
+                    {{$emojiFileName = $_slack->icon|trim:':'|cat:'.png'}}
                     {{Html::img(
-                        'data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==',
+                        $app->assetmanager->getAssetUrl($emojiAsset, $emojiFileName),
                         [
-                          'class' => 'emoji emoji-str',
-                          'data-emoji' => $_slack->icon
+                          'style' => [
+                            'height' => '2em',
+                            'width' => 'auto'
+                          ]
                         ]
                       )}}
                     {{$_slack->icon|escape}}
