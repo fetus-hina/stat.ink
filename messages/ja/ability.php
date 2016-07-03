@@ -1,4 +1,11 @@
 <?php
+/**
+ * @copyright Copyright (C) 2015-2016 AIZAWA Hina
+ * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
+ * @author AIZAWA Hina <hina@bouhime.com>
+ * @author mntone <sd8@live.jp>
+ */
+
 return [
     '(Locked)'              => '(未開放)',
     'Bomb Range Up'         => 'ボム飛距離アップ',

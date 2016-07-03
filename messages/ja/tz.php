@@ -1,4 +1,10 @@
 <?php
+/**
+ * @copyright Copyright (C) 2015-2016 AIZAWA Hina
+ * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
+ * @author AIZAWA Hina <hina@bouhime.com>
+ */
+
 return [
     'Australia (Central)' => 'オーストラリア（中央）',
     'Australia (Central, DST)' => 'オーストラリア（中央・夏時間あり）',

@@ -1,4 +1,11 @@
 <?php
+/**
+ * @copyright Copyright (C) 2015-2016 AIZAWA Hina
+ * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
+ * @author mntone <sd8@live.jp>
+ * @author AIZAWA Hina <hina@bouhime.com>
+ */
+
 return [
     'Bamboozler 14 Mk I' => 'Bamzuka 14-I',
     'Bamboozler 14 Mk II' => 'Bamzuka 14-II',

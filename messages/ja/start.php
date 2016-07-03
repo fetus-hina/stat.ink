@@ -1,4 +1,10 @@
 <?php
+/**
+ * @copyright Copyright (C) 2015-2016 AIZAWA Hina
+ * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
+ * @author AIZAWA Hina <hina@bouhime.com>
+ */
+
 return [
     'Automatic (Recommended)' => '自動的に登録する（おすすめ）',
     'How to collect your log' => 'ログを登録する方法',

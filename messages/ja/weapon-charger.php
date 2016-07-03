@@ -1,4 +1,11 @@
 <?php
+/**
+ * @copyright Copyright (C) 2015-2016 AIZAWA Hina
+ * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
+ * @author AIZAWA Hina <hina@bouhime.com>
+ * @author mntone <sd8@live.jp>
+ */
+
 return [
     'Bamboozler 14 Mk I' => '14式竹筒銃・甲',
     'Bamboozler 14 Mk II' => '14式竹筒銃・乙',

@@ -1,4 +1,11 @@
 <?php
+/**
+ * @copyright Copyright (C) 2015-2016 AIZAWA Hina
+ * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
+ * @author mntone <sd8@live.jp>
+ * @author AIZAWA Hina <hina@bouhime.com>
+ */
+
 return [
     '* This exclusion is in attempt to minimize overcounting in weapon usage statistics.' => '* Esta exclusión está en el intento de minimizar overcounting en estadísticas de uso de arma.',
     '24H Win %' => '24H Ganar %',
