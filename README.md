@@ -26,21 +26,19 @@ https://stat.ink/ は現在次の構成で動作しています。（Docker で�
 
 * CentOS 7.2.1511 (x86_64)
 * [JP3CKI Repository](https://rpm.fetus.jp/)
-    - [H2O](https://h2o.examp1e.net/)
+    - [H2O](https://h2o.examp1e.net/) 2.1
     - [Brotli](https://github.com/google/brotli)
-* [SCL](https://www.softwarecollections.org/)
-    - [rh-postgresql94](https://www.softwarecollections.org/en/scls/rhscl/rh-postgresql94/)
-        - PostgreSQL 9.4.*
-            - `rh-postgresql94-postgresql`
-            - `rh-postgresql94-postgresql-server`
-    - [v8314](https://www.softwarecollections.org/en/scls/rhscl/v8314/)
-        - V8 3.14.* (Used by Node.js)
-    - [nodejs010](https://www.softwarecollections.org/en/scls/rhscl/nodejs010/)
-        - Node.js 0.10.*
-            - `nodejs010-nodejs`
-            - `nodejs010-npm`
+* [Software Collections](https://www.softwarecollections.org/)
+    - [rh-postgresql95](https://www.softwarecollections.org/en/scls/rhscl/rh-postgresql95/)
+        - PostgreSQL 9.5.*
+            - `rh-postgresql95-postgresql`
+            - `rh-postgresql95-postgresql-server`
+    - [rh-nodejs4](https://www.softwarecollections.org/en/scls/rhscl/rh-nodejs4/)
+        - Node.js 4.*
+            - `rh-nodejs4-nodejs`
+            - `rh-nodejs4-npm`
 * [Remi's RPM repository](http://rpms.famillecollet.com/)
-    - `remi-safe` repository, use SCL mechanism
+    - `remi-safe` repository, it uses SCL mechanism
         - PHP 7.0.*
             - `php70-php-cli`
             - `php70-php-fpm`
