@@ -13,6 +13,9 @@ use app\models\Battle;
 
 abstract class Base extends Component
 {
+    const SPECIAL_DURATION_40PCT = 75;
+    const SPECIAL_DURATION_60PCT = 50;
+
     public $battle;
     public $version;
     private $countCache = [];

@@ -97,7 +97,7 @@ class v020500 extends Base
 
     public function getSpecialDurationSec()
     {
-        $x = $this->calcX('special_duration_up', 75);
+        $x = $this->calcX('special_duration_up', static::SPECIAL_DURATION_40PCT);
         if ($x === null) {
             return null;
         }

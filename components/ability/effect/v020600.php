@@ -41,4 +41,29 @@ class v020600 extends v020500
         $f = 100 / (180 * (1 - $x));
         return ceil(100 / $f) / 60;
     }
+
+    public function getSpecialDurationSec()
+    {
+        $x = $this->calcX('special_duration_up', $this->getSpecialDurationUpPattern());
+        if ($x === null) {
+            return null;
+        }
+        $defSec = $this->getSpecialDurationDefaultSec();
+        if ($defSec === null) {
+            return null;
+        }
+        return (1 + $x) * $defSec;
+    }
+
+    protected function getSpecialDurationUpPattern()
+    {
+        switch ($this->battle->weapon->special->key ?? null) {
+            case 'supershot':
+            case 'bombrush':
+                return static::SPECIAL_DURATION_60PCT;
+
+            default:
+                return static::SPECIAL_DURATION_40PCT;
+        }
+    }
 }
