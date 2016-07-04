@@ -19,6 +19,7 @@ use app\models\StatWeapon;
 use app\models\StatWeaponBattleCount;
 use app\models\StatWeaponKDWinRate;
 use app\models\StatWeaponKillDeath;
+use app\models\StatWeaponVsWeapon;
 
 class StatController extends Controller
 {
@@ -514,5 +515,86 @@ class StatController extends Controller
         $db->createCommand($sql)->execute();
         $transaction->commit();
         $db->createCommand(sprintf('VACUUM ANALYZE {{%s}}', StatWeaponKDWinRate::tableName()))->execute();
+    }
+
+    /**
+     * 全体統計 - ブキ対ブキデータを更新します
+     *
+     * これを実行しないと当該統計は表示されません。
+     */
+    public function actionUpdateWeaponVsWeapon()
+    {
+        $db = Yii::$app->db;
+        $constraintName = (function () use ($db) : string {
+            $select = (new \yii\db\Query())
+                ->select(['constraint_name'])
+                ->from('{{information_schema}}.{{table_constraints}}')
+                ->andWhere([
+                    'table_name' => StatWeaponVsWeapon::tableName(),
+                    'constraint_type' => 'PRIMARY KEY',
+                ]);
+            return $select->scalar($db);
+        })();
+
+        $select = (new \yii\db\Query())
+            ->select([
+                'version_id'    => '{{battle}}.[[version_id]]',
+                'rule_id'       => '{{battle}}.[[rule_id]]',
+                'weapon_id_1'   => '{{player_lhs}}.[[weapon_id]]',
+                'weapon_id_2'   => '{{player_rhs}}.[[weapon_id]]',
+                'battle_count'  => 'COUNT(*)',
+                'win_count'     => sprintf('SUM(%s)',
+                    'CASE WHEN {{battle}}.[[is_win]] = {{player_lhs}}.[[is_my_team]] THEN 1 ELSE 0 END'
+                ),
+            ])
+            ->from('battle')
+            ->innerJoin('lobby', '{{battle}}.[[lobby_id]] = {{lobby}}.[[id]]')
+            ->innerJoin('rule', '{{battle}}.[[rule_id]] = {{rule}}.[[id]]')
+            ->innerJoin('battle_player player_lhs', '{{battle}}.[[id]] = {{player_lhs}}.[[battle_id]]')
+            ->innerJoin('battle_player player_rhs', '(' . implode(' AND ', [
+                '{{battle}}.[[id]] = {{player_rhs}}.[[battle_id]]',
+                '{{player_lhs}}.[[is_my_team]] <> {{player_rhs}}.[[is_my_team]]',
+                '{{player_lhs}}.[[weapon_id]] < {{player_rhs}}.[[weapon_id]]',
+            ]) . ')')
+            ->andWhere(['and',
+                [
+                    '{{battle}}.[[is_automated]]' => true,
+                    '{{battle}}.[[use_for_entire]]' => true,
+                ],
+                ['not', ['{{battle}}.[[is_win]]' => null]],
+                ['not', ['{{battle}}.[[version_id]]' => null]],
+                ['not', ['{{battle}}.[[rule_id]]' => null]],
+                ['<>', '{{lobby}}.[[key]]', 'private'],
+            ])
+            ->groupBy([
+                '{{battle}}.[[version_id]]',
+                '{{battle}}.[[rule_id]]',
+                '{{player_lhs}}.[[weapon_id]]',
+                '{{player_rhs}}.[[weapon_id]]',
+            ]);
+
+        $upsert = sprintf(
+            'INSERT INTO {{%s}} ( %s ) %s ON CONFLICT ON CONSTRAINT [[%s]] DO UPDATE SET %s',
+            StatWeaponVsWeapon::tableName(),
+            implode(
+                ', ',
+                array_map(
+                    function (string $a) : string {
+                        return sprintf('[[%s]]', $a);
+                    },
+                    array_keys($select->select)
+                )
+            ),
+            $select->createCommand()->rawSql,
+            $constraintName,
+            implode(', ', [
+                '[[battle_count]] = {{excluded}}.[[battle_count]]',
+                '[[win_count]] = {{excluded}}.[[win_count]]',
+            ])
+        );
+
+        $transaction = $db->beginTransaction();
+        $db->createCommand($upsert)->execute();
+        $transaction->commit();
     }
 }
