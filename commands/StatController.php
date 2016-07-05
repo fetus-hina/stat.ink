@@ -543,7 +543,8 @@ class StatController extends Controller
                 'weapon_id_1'   => '{{player_lhs}}.[[weapon_id]]',
                 'weapon_id_2'   => '{{player_rhs}}.[[weapon_id]]',
                 'battle_count'  => 'COUNT(*)',
-                'win_count'     => sprintf('SUM(%s)',
+                'win_count'     => sprintf(
+                    'SUM(%s)',
                     'CASE WHEN {{battle}}.[[is_win]] = {{player_lhs}}.[[is_my_team]] THEN 1 ELSE 0 END'
                 ),
             ])
