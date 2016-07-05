@@ -409,6 +409,55 @@
         });
       })(jQuery);
     {{/registerJs}}
+
+    <h3 id="vs-weapon">ブキ別対戦成績</h3>
+    {{use class="app\models\SummarizedWeaponVsWeapon"}}
+    {{$_list = SummarizedWeaponVsWeapon::find($weapon->id, $rule->id)}}
+    <div class="table-responsive">
+      <table class="table table-striped table-condensed">
+        <thead>
+          <tr>
+            <th>{{'Weapon'|translate:'app'|escape}}</th>
+            <th>{{'Battles'|translate:'app'|escape}}</th>
+            <th class="vs-weapon-bar">{{'Win %'|translate:'app'|escape}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{foreach $_list as $_row}}
+            <tr>
+              <td>
+                <span title="{{*
+                    *}}{{'Sub:'|translate:'app'|escape}}{{$_row->rhsWeapon->subweapon->name|default:'?'|translate:'app-subweapon'|escape}} / {{*
+                    *}}{{'Special:'|translate:'app'|escape}}{{$_row->rhsWeapon->special->name|default:'?'|translate:'app-special'|escape}}" class="auto-tooltip">
+                  {{$_row->rhsWeapon->name|default:'?'|translate:'app-weapon'|escape}}
+                </span>
+              </td>
+              <td class="text-right">
+                {{$_row->battle_count|number_format|escape}}
+              </td>
+              <td class="vs-weapon-bar">
+                {{if !$_row->winPct|is_nan}}
+                  <div class="progress">
+                    <div class="progress-bar" role="progressbar" style="width:{{$_row->winPct|escape}}%;">
+                      {{$_row->winPct|number_format:2|escape}}%
+                    </div>
+                  </div>
+                {{/if}}
+              </td>
+            </tr>
+          {{foreachelse}}
+            <tr>
+              <td colspan="3">
+                {{'There are no data.'|translate:'app'|escape}}
+              </td>
+            </tr>
+          {{/foreach}}
+        </tbody>
+      </table>
+      {{registerCss}}
+        .vs-weapon-bar{min-width:200px}
+      {{/registerCss}}
+    </div>
   </div>
   {{registerJs}}
     $(window).resize();
