@@ -1,4 +1,10 @@
 <?php
+/**
+ * @copyright Copyright (C) 2015-2016 AIZAWA Hina
+ * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
+ * @author AIZAWA Hina <hina@bouhime.com>
+ */
+
 use yii\db\Migration;
 
 class m160704_123222_stat_weapon_vs_weapon extends Migration
