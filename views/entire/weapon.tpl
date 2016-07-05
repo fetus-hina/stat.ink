@@ -456,6 +456,7 @@
       </table>
       {{registerCss}}
         .vs-weapon-bar{min-width:200px}
+        .progress{margin-bottom:0}
       {{/registerCss}}
     </div>
   </div>
