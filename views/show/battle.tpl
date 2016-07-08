@@ -1385,7 +1385,7 @@
                           var alives = [false, false, false, false, false, false, false, false];
                           $.each(events, function() {
                             var d = this;
-                            for (var i = 0; i < d.my_team.length; ++i) {
+                            for (var i = 0; i < 4; ++i) {
                               if (!d.my_team[i] && alives[i]) {
                                 members[i].push([d.at - 0.001, 363 - i * 17]);
                                 members[i].push([d.at, null]);
@@ -1405,6 +1405,23 @@
                               alives[i + 4] = d.his_team[i];
                             }
                           });
+
+                          {{* extend lines to end of battle (Event timing issue) *}}
+                          (function() {
+                            var lastEventAt = Math.max.apply(null, window.battleEvents.map(function (v) {
+                              return v.at;
+                            }));
+                            for (var i = 0; i < 4; ++i) {
+                              if (alives[i]) {
+                                members[i].push([lastEventAt, 363 - i * 17]);
+                              }
+
+                              if (alives[i + 4]) {
+                                members[i + 4].push([lastEventAt, 295 - i * 17]);
+                              }
+                            }
+                          })();
+
                           for (var i = 0; i < 8; ++i) {
                             data.push({
                               label: (i % 4 === 0)
