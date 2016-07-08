@@ -2291,34 +2291,32 @@
     "packages-dev": [
         {
             "name": "bit3/git-php",
-            "version": "1.2.1",
+            "version": "1.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bit3/git-php.git",
-                "reference": "98df2a04c2290da1407732ccf4cb3663527762c9"
+                "reference": "532ffb195251df15a48eb217ef774b24523a7db6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bit3/git-php/zipball/98df2a04c2290da1407732ccf4cb3663527762c9",
-                "reference": "98df2a04c2290da1407732ccf4cb3663527762c9",
+                "url": "https://api.github.com/repos/bit3/git-php/zipball/532ffb195251df15a48eb217ef774b24523a7db6",
+                "reference": "532ffb195251df15a48eb217ef774b24523a7db6",
                 "shasum": ""
             },
             "require": {
-                "bit3/no-op-logger": "~1.0",
                 "php": ">=5.3",
-                "symfony/process": "~2.3"
+                "psr/log": "~1.0",
+                "symfony/process": "~2.3 | ~3.0"
             },
             "require-dev": {
-                "monolog/monolog": "~1.0",
-                "phpcq/all-tasks": "~1.0",
-                "phpunit/phpunit": "3.7.*",
-                "symfony/filesystem": "~2.3"
+                "phpcq/all-tasks": "~1.1",
+                "symfony/filesystem": "~2.3 | ~3.0"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.2.x-dev",
-                    "dev-develop": "1.3.x-dev"
+                    "dev-master": "1.3.x-dev",
+                    "dev-develop": "1.4.x-dev"
                 }
             },
             "autoload": {
@@ -2332,50 +2330,7 @@
                 "MIT"
             ],
             "description": "Easy to use GIT wrapper for PHP.",
-            "time": "2015-09-08 12:55:19"
-        },
-        {
-            "name": "bit3/no-op-logger",
-            "version": "1.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/bit3/no-op-logger.git",
-                "reference": "e659e85674a1d584a937e5d113c49083e4a2933b"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/bit3/no-op-logger/zipball/e659e85674a1d584a937e5d113c49083e4a2933b",
-                "reference": "e659e85674a1d584a937e5d113c49083e4a2933b",
-                "shasum": ""
-            },
-            "require": {
-                "psr/log": "~1.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.0.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Bit3\\NoOpLogger\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Tristan Lins",
-                    "email": "tristan@lins.io",
-                    "homepage": "https://tristan.lins.io",
-                    "role": "Developer"
-                }
-            ],
-            "description": "A no-operation PSR-3 logger.",
-            "time": "2014-12-29 15:01:01"
+            "time": "2016-07-07 15:36:12"
         },
         {
             "name": "bower-asset/typeahead.js",
@@ -2406,24 +2361,24 @@
         },
         {
             "name": "phpcq/author-validation",
-            "version": "1.1.2",
+            "version": "1.1.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpcq/author-validation.git",
-                "reference": "378749eae10d8ce1f7ccd608022e56d75cd810e7"
+                "reference": "b924aa2ffd33c83380c23a44c8c6f18e319370b6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpcq/author-validation/zipball/378749eae10d8ce1f7ccd608022e56d75cd810e7",
-                "reference": "378749eae10d8ce1f7ccd608022e56d75cd810e7",
+                "url": "https://api.github.com/repos/phpcq/author-validation/zipball/b924aa2ffd33c83380c23a44c8c6f18e319370b6",
+                "reference": "b924aa2ffd33c83380c23a44c8c6f18e319370b6",
                 "shasum": ""
             },
             "require": {
                 "bit3/git-php": "~1.0",
                 "php": ">=5.3.4",
                 "phpspec/php-diff": "~1.0",
-                "symfony/console": "~2.3",
-                "symfony/finder": "~2.3"
+                "symfony/console": "~2.3 | ~3.0",
+                "symfony/finder": "~2.3 | ~3.0"
             },
             "require-dev": {
                 "phpcq/all-tasks": "~1.1",
@@ -2435,7 +2390,8 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-develop": "1.x-dev"
+                    "dev-master": "1.1.x-dev",
+                    "dev-develop": "1.2.x-dev"
                 }
             },
             "autoload": {
@@ -2462,7 +2418,7 @@
                 }
             ],
             "description": "Check if all authors of a particular file are mentioned in the copyright header.",
-            "time": "2016-02-10 23:47:16"
+            "time": "2016-07-07 16:11:59"
         },
         {
             "name": "phpspec/php-diff",
@@ -2620,26 +2576,26 @@
         },
         {
             "name": "symfony/console",
-            "version": "v2.8.8",
+            "version": "v3.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "c392a6ec72f2122748032c2ad6870420561ffcfa"
+                "reference": "747154aa69b0f83cd02fc9aa554836dee417631a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/c392a6ec72f2122748032c2ad6870420561ffcfa",
-                "reference": "c392a6ec72f2122748032c2ad6870420561ffcfa",
+                "url": "https://api.github.com/repos/symfony/console/zipball/747154aa69b0f83cd02fc9aa554836dee417631a",
+                "reference": "747154aa69b0f83cd02fc9aa554836dee417631a",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.9",
+                "php": ">=5.5.9",
                 "symfony/polyfill-mbstring": "~1.0"
             },
             "require-dev": {
                 "psr/log": "~1.0",
-                "symfony/event-dispatcher": "~2.1|~3.0.0",
-                "symfony/process": "~2.1|~3.0.0"
+                "symfony/event-dispatcher": "~2.8|~3.0",
+                "symfony/process": "~2.8|~3.0"
             },
             "suggest": {
                 "psr/log": "For using the console logger",
@@ -2649,7 +2605,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.8-dev"
+                    "dev-master": "3.1-dev"
                 }
             },
             "autoload": {
@@ -2676,29 +2632,29 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2016-06-29 07:02:14"
+            "time": "2016-06-29 07:02:31"
         },
         {
             "name": "symfony/finder",
-            "version": "v2.8.8",
+            "version": "v3.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/finder.git",
-                "reference": "bf0506ef4e7778fd3f0f1f141ab5e8c1ef35dd7d"
+                "reference": "8201978de88a9fa0923e18601bb17f1df9c721e7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/finder/zipball/bf0506ef4e7778fd3f0f1f141ab5e8c1ef35dd7d",
-                "reference": "bf0506ef4e7778fd3f0f1f141ab5e8c1ef35dd7d",
+                "url": "https://api.github.com/repos/symfony/finder/zipball/8201978de88a9fa0923e18601bb17f1df9c721e7",
+                "reference": "8201978de88a9fa0923e18601bb17f1df9c721e7",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.9"
+                "php": ">=5.5.9"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.8-dev"
+                    "dev-master": "3.1-dev"
                 }
             },
             "autoload": {
@@ -2725,7 +2681,7 @@
             ],
             "description": "Symfony Finder Component",
             "homepage": "https://symfony.com",
-            "time": "2016-06-29 05:29:29"
+            "time": "2016-06-29 05:41:56"
         },
         {
             "name": "symfony/polyfill-mbstring",
@@ -2788,25 +2744,25 @@
         },
         {
             "name": "symfony/process",
-            "version": "v2.8.8",
+            "version": "v3.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/process.git",
-                "reference": "89f33c16796415ccfd8bb3cf8d520cbb79899bfe"
+                "reference": "5c11a1a4d4016662eeaf0f8757958c7de069f9a0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/process/zipball/89f33c16796415ccfd8bb3cf8d520cbb79899bfe",
-                "reference": "89f33c16796415ccfd8bb3cf8d520cbb79899bfe",
+                "url": "https://api.github.com/repos/symfony/process/zipball/5c11a1a4d4016662eeaf0f8757958c7de069f9a0",
+                "reference": "5c11a1a4d4016662eeaf0f8757958c7de069f9a0",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.9"
+                "php": ">=5.5.9"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.8-dev"
+                    "dev-master": "3.1-dev"
                 }
             },
             "autoload": {
@@ -2833,7 +2789,7 @@
             ],
             "description": "Symfony Process Component",
             "homepage": "https://symfony.com",
-            "time": "2016-06-29 05:29:29"
+            "time": "2016-06-29 05:42:25"
         },
         {
             "name": "symfony/yaml",
