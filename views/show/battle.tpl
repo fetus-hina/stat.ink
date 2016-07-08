@@ -1395,7 +1395,7 @@
                               }
                               alives[i] = d.my_team[i];
 
-                              if (!d.his_team[i] && alives[i]) {
+                              if (!d.his_team[i] && alives[i + 4]) {
                                 members[i + 4].push([d.at - 0.001, 295 - i * 17]);
                                 members[i + 4].push([d.at, null]);
                               }
