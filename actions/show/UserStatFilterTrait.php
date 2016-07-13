@@ -27,7 +27,8 @@ trait UserStatFilterTrait
                 'from' => $filter->term_from,
                 'to' => $filter->term_to,
                 'form' => $filter,
-            ]);
+            ])
+            ->filterByIdRange($query, $filter->id_from, $filter->id_to);
     }
 
     public function filterByLobby($query, $value)
@@ -170,6 +171,17 @@ trait UserStatFilterTrait
                     $query->andWhere(['{{battle}}.[[version_id]]' => $version->id]);
                 }
                 break;
+        }
+        return $this;
+    }
+
+    public function filterByIdRange($query, $idFrom, $idTo)
+    {
+        if ($idFrom != '' && $idFrom > 0) {
+            $query->andWhere(['>=', '{{battle}}.[[id]]', (int)$idFrom]);
+        }
+        if($idTo != '' && $idTo > 0) {
+            $query->andWhere(['<=', '{{battle}}.[[id]]', (int)$idTo]);
         }
         return $this;
     }
