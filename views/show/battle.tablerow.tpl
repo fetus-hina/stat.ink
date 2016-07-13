@@ -54,11 +54,11 @@
         ?
       {{elseif $model->is_win}}
         <span class="label label-success">
-          {{'WON'|translate:'app'|escape}}
+          {{'Won'|translate:'app'|escape}}
         </span>
       {{else}}
         <span class="label label-danger">
-          {{'LOST'|translate:'app'|escape}}
+          {{'Lost'|translate:'app'|escape}}
         </span>
       {{/if}}
       {{if $model->isGachi && $model->is_knock_out !== null}}

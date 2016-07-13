@@ -26,9 +26,9 @@
   {{/if}}
   {{if $battle->is_win !== null}}
     {{if $battle->is_win}}
-      {{$tmp = 'WON'|translate:'app'}}
+      {{$tmp = 'Won'|translate:'app'}}
     {{else}}
-      {{$tmp = 'LOST'|translate:'app'}}
+      {{$tmp = 'Lost'|translate:'app'}}
     {{/if}}
     {{$summary = $summary|cat:$tmp:' | '}}
   {{/if}}
@@ -276,11 +276,11 @@
                   {{/if}}
                   {{if $battle->is_win === true}}
                     <span class="label label-success">
-                      {{'WON'|translate:'app'|escape}}
+                      {{'Won'|translate:'app'|escape}}
                     </span>
                   {{elseif $battle->is_win === false}}
                     <span class="label label-danger">
-                      {{'LOST'|translate:'app'|escape}}
+                      {{'Lost'|translate:'app'|escape}}
                     </span>
                   {{else}}
                     {{'?'|translate:'app'|escape}}

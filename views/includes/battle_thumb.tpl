@@ -8,9 +8,9 @@
       {{if $battle->is_win === null}}
         {{$result = '?'}}
       {{elseif $battle->is_win}}
-        {{$result = 'WON'|translate:'app'}}
+        {{$result = 'Won'|translate:'app'}}
       {{else}}
-        {{$result = 'LOST'|translate:'app'}}
+        {{$result = 'Lost'|translate:'app'}}
       {{/if}}
       {{$description = "%s / %s / %s"|sprintf:$rule:$map:$result}}
       {{$imageUrl = ''}}

@@ -13,9 +13,9 @@
           {{else}}
             <div class="simple-battle-result simple-battle-result-{{if $model->is_win}}won{{else}}lost{{/if}}">
               {{if $model->is_win}}
-                {{'WON'|translate:'app'|escape}}
+                {{'Won'|translate:'app'|escape}}
               {{else}}
-                {{'LOST'|translate:'app'|escape}}
+                {{'Lost'|translate:'app'|escape}}
               {{/if}}
               {{if $model->isGachi && $model->is_knock_out !== null}}
                 <br>
