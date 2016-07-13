@@ -24,7 +24,7 @@
       </span>
     </p>
     {{\app\assets\PaintballAsset::register($this)|@void}}
-    <h1 class="paintball">
+    <h1 class="paintball" style="font-size:42px">
       {{$app->name|escape}}
     </h1>
     <p>

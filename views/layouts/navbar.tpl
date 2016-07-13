@@ -13,9 +13,15 @@
           <span class="icon-bar"></span>
         </button>
         {{\app\assets\PaintballAsset::register($this)|@void}}
-        <a class="navbar-brand paintball" href="/">{{$app->name|escape}}</a>
+        <a class="navbar-brand paintball" href="/" style="font-size:24px">{{$app->name|escape}}</a>
         <span class="navbar-brand ip-via-badge">
           {{IpVersionBadgeWidget}}
+          {{registerCss}}
+            .ip-via-badge {
+              position: relative;
+              top: -3px;
+            }
+          {{/registerCss}}
         </span>
       </div>
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
