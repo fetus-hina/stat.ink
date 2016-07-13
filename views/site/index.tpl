@@ -23,7 +23,8 @@
         Battles: <span class="dseg-counter" data-type="battles">{{Battle::getRoughCount()|default:'?'|escape}}</span>
       </span>
     </p>
-    <h1>
+    {{\app\assets\PaintballAsset::register($this)|@void}}
+    <h1 class="paintball">
       {{$app->name|escape}}
     </h1>
     <p>

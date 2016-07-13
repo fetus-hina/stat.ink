@@ -12,7 +12,8 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="/">{{$app->name|escape}}</a>
+        {{\app\assets\PaintballAsset::register($this)|@void}}
+        <a class="navbar-brand paintball" href="/">{{$app->name|escape}}</a>
         <span class="navbar-brand ip-via-badge">
           {{IpVersionBadgeWidget}}
         </span>
