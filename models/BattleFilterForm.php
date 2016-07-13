@@ -36,6 +36,8 @@ class BattleFilterForm extends Model
     public $term_from;
     public $term_to;
     public $timezone;
+    public $id_from;
+    public $id_to;
 
     public function formName()
     {
@@ -121,6 +123,7 @@ class BattleFilterForm extends Model
             ],
             [['term_from', 'term_to'], 'date', 'format' => 'yyyy-M-d H:m:s'],
             [['timezone'], 'validateTimezone', 'skipOnEmpty' => false],
+            [['id_from', 'id_to'], 'integer', 'min' => 1],
         ];
     }
 
@@ -136,6 +139,8 @@ class BattleFilterForm extends Model
             'term'          => Yii::t('app', 'Term'),
             'term_from'     => Yii::t('app', 'Period From'),
             'term_to'       => Yii::t('app', 'Period To'),
+            'id_from'       => Yii::t('app', 'ID From'),
+            'id_to'         => Yii::t('app', 'ID To'),
         ];
     }
 
@@ -211,7 +216,7 @@ class BattleFilterForm extends Model
             $ret[$key] = $value;
         };
 
-        foreach (['lobby', 'rule', 'map', 'weapon', 'result'] as $key) {
+        foreach (['lobby', 'rule', 'map', 'weapon', 'result', 'id_from', 'id_to'] as $key) {
             $value = $this->$key;
             if ((string)$value !== '') {
                 $push($key, $value);

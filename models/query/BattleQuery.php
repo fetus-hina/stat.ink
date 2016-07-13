@@ -42,7 +42,8 @@ class BattleQuery extends ActiveQuery
                 'from' => $filter->term_from,
                 'to' => $filter->term_to,
                 'tz' => $filter->timezone,
-            ]);
+            ])
+            ->filterByIdRange($filter->id_from, $filter->id_to);
     }
 
     public function filterByScreenName($value)
@@ -214,6 +215,17 @@ class BattleQuery extends ActiveQuery
                     }
                 }
                 break;
+        }
+        return $this;
+    }
+
+    public function filterByIdRange($idFrom, $idTo)
+    {
+        if ($idFrom != '' && $idFrom > 0) {
+            $this->andWhere(['>=', '{{battle}}.[[id]]', (int)$idFrom]);
+        }
+        if ($idTo != '' && $idTo > 0) {
+            $this->andWhere(['<=', '{{battle}}.[[id]]', (int)$idTo]);
         }
         return $this;
     }
