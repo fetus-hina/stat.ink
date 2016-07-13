@@ -22,6 +22,7 @@ RESOURCE_TARGETS_MAIN=\
 	resources/.compiled/stat.ink/main.js \
 	resources/.compiled/stat.ink/no-image.png \
 	resources/.compiled/stat.ink/swipebox-runner.js \
+	resources/paintball/paintball.css \
 	web/static-assets/cc/cc-by.svg \
 	web/static-assets/cc/cc-by.svg.br \
 	web/static-assets/cc/cc-by.svg.gz
@@ -220,6 +221,9 @@ resources/.compiled/slack/slack.js: resources/slack/slack.js $(GULP)
 	$(GULP) js --in $< --out $@
 
 resources/.compiled/ip-version/badge.css: resources/ip-version/badge.less $(GULP)
+	$(GULP) less --in $< --out $@
+
+resources/paintball/paintball.css: resources/paintball/paintball.less $(GULP)
 	$(GULP) less --in $< --out $@
 
 migrate-db: vendor config/db.php
