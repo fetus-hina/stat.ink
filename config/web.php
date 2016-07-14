@@ -44,6 +44,7 @@ $config = [
                 'register'      => 'user/register',
                 'u/<screen_name:\w+>/<battle:\d+>' => 'show/battle',
                 'u/<screen_name:\w+>/<battle:\d+>/edit' => 'show/edit-battle',
+                'u/<screen_name:\w+>/<id_from:\d+>-<id_to:\d+>' => 'show/user',
                 'u/<screen_name:\w+>/stat/report/<year:\d+>/<month:\d+>' => 'show/user-stat-report',
                 'u/<screen_name:\w+>/stat/report/<year:\d+>' => 'show/user-stat-report',
                 'u/<screen_name:\w+>/stat/<by:[\w-]+>' => 'show/user-stat-<by>',

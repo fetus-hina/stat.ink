@@ -144,6 +144,19 @@ class BattleFilterForm extends Model
         ];
     }
 
+    public function load($data, $formName = null)
+    {
+        foreach (['id_from', 'id_to'] as $key) {
+            if (isset($data[$key])) {
+                $value = $data[$key];
+                if (is_scalar($value) && trim($value) !== '') {
+                    $this->$key = trim($value);
+                }
+            }
+        }
+        return parent::load($data, $formName);
+    }
+
     public function validateGameMode($attr, $params)
     {
         $value = substr($this->$attr, 1);
