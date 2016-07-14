@@ -265,11 +265,11 @@
                   {{if $battle->isGachi && $battle->is_knock_out !== null}}
                     {{if $battle->is_knock_out}}
                       <span class="label label-info">
-                        {{'KNOCKOUT'|translate:'app'|escape}}
+                        {{'Knockout'|translate:'app'|escape}}
                       </span>
                     {{else}}
                       <span class="label label-warning">
-                        {{'TIME IS UP'|translate:'app'|escape}}
+                        {{'Time is up'|translate:'app'|escape}}
                       </span>
                     {{/if}}
                     &#32;

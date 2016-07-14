@@ -264,8 +264,6 @@ return [
     'Sub:' => 'サブ:',
     'Summarize' => '集計',
     'Summary: Based on the current filter' => '現在のフィルタに基づくサマリ',
-    'TIME IS UP' => 'タイムアップ',
-    'TIME' => '時間',
     'Test' => 'テスト',
     'The address of the web site that linked here (aka "referer")' => '訪問元サイトのURL（リファラ）',
     'The password will be encrypted.' => 'パスワードは暗号化されて保存されます。',

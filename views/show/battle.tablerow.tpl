@@ -64,12 +64,12 @@
       {{if $model->isGachi && $model->is_knock_out !== null}}
         &nbsp;
         {{if $model->is_knock_out}}
-          <span class="label label-info auto-tooltip" title="{{'KNOCK OUT'|translate:'app'|escape}}">
+          <span class="label label-info auto-tooltip" title="{{'Knockout'|translate:'app'|escape}}">
             {{'K.O.'|translate:'app'|escape}}
           </span>
         {{else}}
-          <span class="label label-warning auto-tooltip" title="{{'TIME IS UP'|translate:'app'|escape}}">
-            {{'TIME'|translate:'app'|escape}}
+          <span class="label label-warning auto-tooltip" title="{{'Time is up'|translate:'app'|escape}}">
+            {{'Time'|translate:'app'|escape}}
           </span>
         {{/if}}
       {{/if}}
