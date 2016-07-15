@@ -4,7 +4,7 @@
     <div style="border:1px solid #ccc;border-radius:5px;padding:15px">
       <h2 style="margin-top:0;margin-bottom:10px">
         <a href="{{url route="show/user" screen_name=$user->screen_name}}">
-          {{'{0}-san'|translate:'app':$user->name|escape}}
+          {{$user->name|escape}}
         </a>
       </h2>
 

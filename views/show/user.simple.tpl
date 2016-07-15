@@ -3,8 +3,7 @@
   {{use class="yii\bootstrap\ActiveForm" type="block"}}
   {{use class="yii\helpers\Url"}}
   {{use class="yii\widgets\ListView"}}
-  {{$name = '{0}-san'|translate:'app':$user->name}}
-  {{$title = "{0}'s SplatLog"|translate:'app':$name}}
+  {{$title = "{0}'s Splat Log"|translate:'app':$user->name}}
   {{set title="{{$app->name}} | {{$title}}"}}
 
   {{$this->registerLinkTag(['rel' => 'canonical', 'href' => $permLink])|@void}}

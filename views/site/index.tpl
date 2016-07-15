@@ -303,8 +303,7 @@
         ->limit(12)
         ->all()}}
       {{if $battles}}
-        {{$name = '{0}-san'|translate:'app':$ident->name}}
-        {{$title = "{0}'s Battle"|translate:'app':$name}}
+        {{$title = "{0}'s Battle"|translate:'app':$user->name}}
         <h2>
           <a href="{{url route="show/user" screen_name=$ident->screen_name}}">
             {{$title|escape}}

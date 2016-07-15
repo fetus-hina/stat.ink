@@ -4,8 +4,7 @@
   {{use class="yii\helpers\Url"}}
   {{$user = $battle->user}}
   {{$canonicalUrl = Url::to(['show/battle', 'screen_name' => $user->screen_name, 'battle' => $battle->id], true)}}
-  {{$name = '{0}-san'|translate:'app':$user->name}}
-  {{$title = "Result of {0}'s Battle"|translate:'app':$name}}
+  {{$title = "Result of {0}'s Battle"|translate:'app':$user->name}}
   {{set title="{{$app->name}} | {{$title}}"}}
   {{$this->registerLinkTag(['rel' => 'canonical', 'href' => $canonicalUrl])|@void}}
   {{$this->registerMetaTag(['name' => 'twitter:card', 'content' => 'photo'])|@void}}
@@ -53,7 +52,7 @@
   <div class="container">
     <h1>
       {{$_url = Url::to(['show/user', 'screen_name' => $user->screen_name])}}
-      {{$name = $name|escape}}
+      {{$name = $user->name|escape}}
       {{$name = '<a href="%s">%s</a>'|sprintf:$_url:$name}}
       {{"Result of {0}'s Battle"|translate:'app':$name}}
     </h1>

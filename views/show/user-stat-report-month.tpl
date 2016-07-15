@@ -1,8 +1,7 @@
 {{strip}}
   {{set layout="main.tpl"}}
 
-  {{$name = '{0}-san'|translate:'app':$user->name}}
-  {{$title = "{0}'s Battle Report"|translate:'app':$name}}
+  {{$title = "{0}'s Battle Report"|translate:'app':$user->name}}
   {{set title="{{$app->name}} | {{$title}}"}}
 
   {{$this->registerMetaTag(['name' => 'twitter:card', 'content' => 'summary'])|@void}}
@@ -22,7 +21,7 @@
     <h1>
       {{use class="yii\helpers\Url"}}
       {{$_url = Url::to(['show/user', 'screen_name' => $user->screen_name])}}
-      {{$name = $name|escape}}
+      {{$name = $user->name|escape}}
       {{$name = '<a href="%s">%s</a>'|sprintf:$_url:$name}}
       {{"{0}'s Battle Report"|translate:'app':$name}}
     </h1>

@@ -2,8 +2,7 @@
   {{set layout="main.tpl"}}
   {{use class="yii\helpers\Url"}}
 
-  {{$name = '{0}-san'|translate:'app':$user->name}}
-  {{$title = "{0}'s Battle Stats (by Weapon)"|translate:'app':$name}}
+  {{$title = "{0}'s Battle Stats (by Weapon)"|translate:'app':$user->name}}
   {{set title="{{$app->name}} | {{$title}}"}}
 
   {{$this->registerMetaTag(['name' => 'twitter:card', 'content' => 'summary'])|@void}}
