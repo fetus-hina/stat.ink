@@ -1689,7 +1689,7 @@
                   <td>
                     {{$_param = [
                         'sec' => $_tmp|number_format:2,
-                        'pct' => (100 * $_tmp / 3)|number_format:1
+                        'pct' => (100 * 3 / $_tmp)|number_format:1
                       ]}}
                     {{'{sec} seconds ({pct} %)'|translate:'app':$_param|escape}}
                   </td>
