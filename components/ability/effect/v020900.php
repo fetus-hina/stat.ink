@@ -9,6 +9,11 @@ namespace app\components\ability\effect;
 
 class v020900 extends v020800
 {
+    public function getCalculatorVersion()
+    {
+        return '2.9.0';
+    }
+
     protected function getSpecialDurationDefaultSec()
     {
         switch ($this->battle->weapon->special->key ?? null) {

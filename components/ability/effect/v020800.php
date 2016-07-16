@@ -9,6 +9,11 @@ namespace app\components\ability\effect;
 
 class v020800 extends v020700
 {
+    public function getCalculatorVersion()
+    {
+        return '2.8.0';
+    }
+
     protected function getSpecialLossPctBase()
     {
         switch ($this->battle->weapon->key ?? null) {
