@@ -537,12 +537,12 @@
                 <th>{{'User Agent'|translate:'app'|escape}}</th>
                 <td>
                   {{$_link = $battle->agent->productUrl}}
-                  {{if $_link}}<a href="{{$_link}}" target="_blank" rel="nofollow">{{/if}}
+                  {{if $_link}}<a href="{{$_link|escape}}" target="_blank" rel="nofollow">{{/if}}
                   {{$battle->agent->name|escape}}
                   {{if $_link}}</a>{{/if}}
                   &#32;/&#32;
                   {{$_link = $battle->agent->versionUrl}}
-                  {{if $_link}}<a href="{{$_link}}" target="_blank" rel="nofollow">{{/if}}
+                  {{if $_link}}<a href="{{$_link|escape}}" target="_blank" rel="nofollow">{{/if}}
                   {{$battle->agent->version|escape}}
                   {{if $_link}}</a>{{/if}}
                 </td>
