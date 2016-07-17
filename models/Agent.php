@@ -82,7 +82,7 @@ class Agent extends \yii\db\ActiveRecord
         } elseif ($this->getIsIkalog()) {
             switch (substr(Yii::$app->language, 0, 2)) {
                 case 'ja':
-                    return 'https://github.com/hasegaw/IkaLog/blob/master/doc/IkaUI.md';
+                    return 'https://github.com/hasegaw/IkaLog/wiki/ja_WinIkaLog';
 
                 default:
                     return 'https://github.com/hasegaw/IkaLog/wiki/en_Home';
@@ -97,7 +97,7 @@ class Agent extends \yii\db\ActiveRecord
             $ikalog = IkalogVersion::findOneByRevision($match[0]);
             if ($ikalog) {
                 return sprintf(
-                    'https://github.com/hasegaw/IkaLog/commit/%s',
+                    'https://github.com/hasegaw/IkaLog/tree/%s',
                     rawurlencode($ikalog->revision)
                 );
             }
