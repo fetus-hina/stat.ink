@@ -46,6 +46,7 @@ init: \
 	vendor \
 	vendor/smarty/smarty/libs/sysplugins/smarty_internal_templatecompilerbase.php \
 	node_modules \
+	config/lepton.php \
 	config/debug-ips.php \
 	config/google-analytics.php \
 	config/google-recaptcha.php \
@@ -289,6 +290,9 @@ config/debug-ips.php:
 	echo "    '127.0.0.1',"     >> config/debug-ips.php
 	echo "    '::1',"           >> config/debug-ips.php
 	echo '];'                   >> config/debug-ips.php
+
+config/lepton.php:
+	cp config/lepton.sample.php $@
 
 runtime/ikalog:
 	mkdir -p runtime/ikalog

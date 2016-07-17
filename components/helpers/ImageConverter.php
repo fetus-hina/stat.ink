@@ -8,6 +8,7 @@
 namespace app\components\helpers;
 
 use Exception;
+use Yii;
 
 class ImageConverter
 {
@@ -21,9 +22,17 @@ class ImageConverter
         if (!$tmpName = self::convertImpl($binary, $myPositionIfFill)) {
             return false;
         }
+        $leptonMode = Yii::$app->params['lepton']['mode'] ?? 'none';
         if (!self::copyJpeg($tmpName->get(), $outPathJpeg)) {
             @unlink($outPathJpeg);
             return false;
+        }
+        if ($leptonMode === 'both' || $leptonMode === 'only') {
+            if (self::copyLepton($outPathJpeg)) {
+                if ($leptonMode === 'only') {
+                    @unlink($outPathJpeg);
+                }
+            }
         }
         if ($outPathArchivePng !== null) {
             $in = new Resource(@imagecreatefromstring($binary), 'imagedestroy');
@@ -123,6 +132,32 @@ class ImageConverter
                 return false;
             }
         }
+        return true;
+    }
+
+    protected static function copyLepton($jpegPath)
+    {
+        $binPath = Yii::$app->params['lepton']['bin'] ?? false;
+        if (!$binPath || !@file_exists($binPath) || !is_executable($binPath)) {
+            return false;
+        }
+
+        $leptonPath = preg_replace('/\.jpg$/', '.lep', $jpegPath);
+        self::mkdir(dirname($leptonPath));
+        $cmdline = sprintf(
+            '/usr/bin/env %s %s %s',
+            escapeshellarg($binPath),
+            escapeshellarg($jpegPath),
+            escapeshellarg($leptonPath)
+        );
+        $lines = [];
+        $status = -1;
+        @exec($cmdline, $lines, $status);
+        if ($status != 0 || @filesize($leptonPath) < 100) {
+            @unlink($leptonPath);
+            return false;
+        }
+        @chmod($leptonPath, 0644);
         return true;
     }
 

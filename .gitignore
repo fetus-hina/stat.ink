@@ -13,6 +13,7 @@
 /config/google-adsense.php
 /config/google-analytics.php
 /config/google-recaptcha.php
+/config/lepton.php
 /node_modules
 /phpunit.xml
 /resources/.compiled
