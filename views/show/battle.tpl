@@ -1423,7 +1423,6 @@
                             window.battleEvents[window.battleEvents.length - 1].at,
                             380 
                           ]);
-                          console.log(dt);
                           data.push({
                             label: "拮抗",
                             data: dt.neutral,
