@@ -522,15 +522,15 @@
             {{/if}}
             <tr>
               <th>{{'Battle Start'|translate:'app'|escape}}</th>
-              <td>{{$battle->start_at|date_format:'%F %T %Z'|escape}}</td>
+              <td>{{$battle->start_at|as_datetime|escape}}</td>
             </tr>
             <tr>
               <th>{{'Battle End'|translate:'app'|escape}}</th>
-              <td>{{$battle->end_at|date_format:'%F %T %Z'|escape}}</td>
+              <td>{{$battle->end_at|as_datetime|escape}}</td>
             </tr>
             <tr>
               <th>{{'Data Sent'|translate:'app'|escape}}</th>
-              <td>{{$battle->at|date_format:'%F %T %Z'|escape}}</td>
+              <td>{{$battle->at|as_datetime|escape}}</td>
             </tr>
             {{if $battle->agent}}
               <tr>

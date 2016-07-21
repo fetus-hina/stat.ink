@@ -62,7 +62,7 @@
         </div>
         <div class="simple-battle-at">
           {{if $model->end_at}}
-            {{$model->end_at|date_format:'%Y-%m-%d %H:%M'|escape}}
+            {{$model->end_at|as_datetime:'short':'medium'|escape}}
           {{/if}}
         </div>
       </div>

@@ -120,7 +120,7 @@
       {{if $model->end_at === null}}
         {{'N/A'|translate:'app'|escape}}
       {{else}}
-        {{$model->end_at|date_format:'%Y-%m-%d %H:%M'|escape}}
+        {{$model->end_at|as_datetime:'short':'short'|escape}}
       {{/if}}
     </td>
     <td class="cell-reltime">
@@ -128,7 +128,7 @@
         {{'N/A'|translate:'app'|escape}}
       {{else}}
         {{$t = $model->end_at|strtotime}}
-        <span class="auto-tooltip" title="{{$model->end_at|date_format:'%Y-%m-%d %H:%M %Z'|escape}}">
+        <span class="auto-tooltip" title="{{$model->end_at|as_datetime|escape}}">
           {{$app->formatter->asRelativeTime($t)|escape}}
         </span>
       {{/if}}
