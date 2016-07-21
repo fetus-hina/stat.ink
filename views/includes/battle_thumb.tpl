@@ -42,7 +42,7 @@
         {{if $battle->end_at}}
           {{$t = $battle->end_at|date_format:'%Y-%m-%d %H:%M %Z'}}
           <a href="{{url route="show/battle" screen_name=$battle->user->screen_name battle=$battle->id}}" title="{{$t|escape}}" class="auto-tooltip">
-            {{$battle->end_at|relative_time:'short'|escape}}
+            {{$battle->end_at|active_reltime:'short'}}
           </a>
         {{/if}}
       </div>

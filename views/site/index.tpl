@@ -66,7 +66,7 @@
             <a href="{{$entry.url|escape}}">
               {{$entry.title|escape}}
             </a>&#32;
-            ({{$entry.at|relative_time|escape}})
+            ({{$entry.at|active_reltime}})
           </span>
         {{/foreach}}
       </p>
