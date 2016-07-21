@@ -1287,90 +1287,178 @@
                       });
                     }
                     {{if $battle->my_team_color_hue !== null && $battle->his_team_color_hue !== null}}
-                      {{* Ranked Battle Events *}}
-                      (function() {
-                        var rankedEvents = window.battleEvents.filter(
-                          function (v) {
-                            if (v.type !== "ranked_battle_event") {
-                              return false;
-                            }
-                            switch (v.value) {
-                              case "we_got":
-                              case "we_lost":
-                              case "they_got":
-                              case "they_lost":
-                                return true;
-                              default:
+                      if (isGachi) {
+                        {{* Ranked Battle Events *}}
+                        (function() {
+                          var rankedEvents = window.battleEvents.filter(
+                            function (v) {
+                              if (v.type !== "ranked_battle_event") {
                                 return false;
+                              }
+                              switch (v.value) {
+                                case "we_got":
+                                case "we_lost":
+                                case "they_got":
+                                case "they_lost":
+                                  return true;
+                                default:
+                                  return false;
+                              }
                             }
+                          );
+                          if (rankedEvents.length == 0) {
+                            return;
                           }
-                        );
-                        if (rankedEvents.length == 0) {
-                          return;
-                        }
-                        var dt = {
-                          'neutral': [[0, 380]],
-                          'we': [],
-                          'they': []
-                        };
-                        var prevState = 'neutral';
-                        var prevTime = null;
-                        $.each(rankedEvents, function() {
-                          var cur = this;
-                          var curState = (function(v) {
-                            switch (v) {
-                              case "we_got": return "we";
-                              case "they_got": return "they";
-                              case "we_lost": case "they_lost": return "neutral";
+                          var dt = {
+                            'neutral': [[0, 380]],
+                            'we': [],
+                            'they': []
+                          };
+                          var prevState = 'neutral';
+                          var prevTime = null;
+                          $.each(rankedEvents, function() {
+                            var cur = this;
+                            var curState = (function(v) {
+                              switch (v) {
+                                case "we_got": return "we";
+                                case "they_got": return "they";
+                                case "we_lost": case "they_lost": return "neutral";
+                              }
+                            })(cur.value);
+                            if (prevState !== curState) {
+                              dt[prevState].push([cur.at, 380]);
+                              dt[prevState].push([cur.at + 0.0001, null]);
                             }
-                          })(cur.value);
-                          if (prevState !== curState) {
-                            dt[prevState].push([cur.at, 380]);
-                            dt[prevState].push([cur.at + 0.0001, null]);
+                            dt[curState].push([cur.at, 380]);
+                            prevState = curState;
+                            prevTime = cur.at;
+                          });
+                          {{* 最後まで描くために最後のイベントの時間までのデータを作る *}}
+                          dt[prevState].push([
+                            window.battleEvents[window.battleEvents.length - 1].at,
+                            380 
+                          ]);
+                          data.push({
+                            label: "{{'No one in control'|translate:'app'|escape:'javascript'}}",
+                            data: dt.neutral,
+                            color: 'rgba(192,192,192,0.85)',
+                            yaxis: 2,
+                            lines: {
+                              fill: false,
+                              lineWidth:7
+                            },
+                            shadowSize: 0
+                          });
+                          data.push({
+                            label: "{{'Good guys are in control'|translate:'app'|escape:'javascript'}}",
+                            data: dt.we,
+                            color: controlColorFromHue({{$battle->my_team_color_hue|intval}}),
+                            yaxis: 2,
+                            lines: {
+                              fill: false,
+                              lineWidth:7
+                            },
+                            shadowSize: 0
+                          });
+                          data.push({
+                            label: "{{'Bad guys are in control'|translate:'app'|escape:'javascript'}}",
+                            data: dt.they,
+                            color: controlColorFromHue({{$battle->his_team_color_hue|intval}}),
+                            yaxis: 2,
+                            lines: {
+                              fill: false,
+                              lineWidth:7
+                            },
+                            shadowSize: 0
+                          });
+                        })();
+                      }
+                      if (isNawabari) {
+                        {{* Game Status *}}
+                        (function() {
+                          var statusEvents = window.battleEvents.filter(
+                            function (v) {
+                              if (v.type !== 'game_status') {
+                                return false;
+                              }
+                              switch (v.game_status) {
+                                case 'neutral':
+                                case 'advantage':
+                                case 'disadvantage':
+                                  return true;
+                                default:
+                                  return false;
+                              }
+                            }
+                          );
+                          if (statusEvents.length == 0) {
+                            return;
                           }
-                          dt[curState].push([cur.at, 380]);
-                          prevState = curState;
-                          prevTime = cur.at;
-                        });
-                        {{* 最後まで描くために最後のイベントの時間までのデータを作る *}}
-                        dt[prevState].push([
-                          window.battleEvents[window.battleEvents.length - 1].at,
-                          380 
-                        ]);
-                        data.push({
-                          label: "{{'No one in control'|translate:'app'|escape:'javascript'}}",
-                          data: dt.neutral,
-                          color: 'rgba(192,192,192,0.85)',
-                          yaxis: 2,
-                          lines: {
-                            fill: false,
-                            lineWidth:7
-                          },
-                          shadowSize: 0
-                        });
-                        data.push({
-                          label: "{{'Good guys are in control'|translate:'app'|escape:'javascript'}}",
-                          data: dt.we,
-                          color: controlColorFromHue({{$battle->my_team_color_hue|intval}}),
-                          yaxis: 2,
-                          lines: {
-                            fill: false,
-                            lineWidth:7
-                          },
-                          shadowSize: 0
-                        });
-                        data.push({
-                          label: "{{'Bad guys are in control'|translate:'app'|escape:'javascript'}}",
-                          data: dt.they,
-                          color: controlColorFromHue({{$battle->his_team_color_hue|intval}}),
-                          yaxis: 2,
-                          lines: {
-                            fill: false,
-                            lineWidth:7
-                          },
-                          shadowSize: 0
-                        });
-                      })();
+                          var dt = {
+                            'neutral': [[0, 380]],
+                            'we': [],
+                            'they': []
+                          };
+                          var prevState = 'neutral';
+                          var prevTime = null;
+                          $.each(statusEvents, function() {
+                            var cur = this;
+                            var curState = (function(v) {
+                              switch (v) {
+                                case "advantage": return "we";
+                                case "disadvantage": return "they";
+                                default: return "neutral";
+                              }
+                            })(cur.game_status);
+                            if (prevState !== curState) {
+                              dt[prevState].push([cur.at, 380]);
+                              dt[prevState].push([cur.at + 0.0001, null]);
+                            }
+                            dt[curState].push([cur.at, 380]);
+                            prevState = curState;
+                            prevTime = cur.at;
+                          });
+                          {{* 最後まで描くために最後のイベントの時間までのデータを作る *}}
+                          dt[prevState].push([
+                            window.battleEvents[window.battleEvents.length - 1].at,
+                            380 
+                          ]);
+                          console.log(dt);
+                          data.push({
+                            label: "拮抗",
+                            data: dt.neutral,
+                            color: 'rgba(192,192,192,0.85)',
+                            yaxis: 2,
+                            lines: {
+                              fill: false,
+                              lineWidth:7
+                            },
+                            shadowSize: 0
+                          });
+                          data.push({
+                            label: "自分のチームが優勢",
+                            data: dt.we,
+                            color: controlColorFromHue({{$battle->my_team_color_hue|intval}}),
+                            yaxis: 2,
+                            lines: {
+                              fill: false,
+                              lineWidth:7
+                            },
+                            shadowSize: 0
+                          });
+                          data.push({
+                            label: "相手のチームが優勢",
+                            data: dt.they,
+                            color: controlColorFromHue({{$battle->his_team_color_hue|intval}}),
+                            yaxis: 2,
+                            lines: {
+                              fill: false,
+                              lineWidth:7
+                            },
+                            shadowSize: 0
+                          });
+                        })();
+                      }
 
                       {{* Inklings Track Events *}}
                       (function() {
