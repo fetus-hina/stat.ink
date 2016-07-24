@@ -16,11 +16,15 @@ class CsvResponseFormatter extends Component implements ResponseFormatterInterfa
 {
     public $inputCharset;
     public $outputCharset;
+    public $substituteCharacter;
+    public $appendBOM;
 
     public function format($response)
     {
-        $this->inputCharset = @$response->data['inputCharset'] ?: Yii::$app->charset;
-        $this->outputCharset = @$response->data['outputCharset'] ?: Yii::$app->charset;
+        $this->inputCharset = $response->data['inputCharset'] ?? Yii::$app->charset;
+        $this->outputCharset = $response->data['outputCharset'] ?? Yii::$app->charset;
+        $this->substituteCharacter = $response->data['substituteCharacter'] ?? 0x3013;
+        $this->appendBOM = $response->data['appendBOM'] ?? false;
         
         // 代替文字
         $substitute = new Resource(
@@ -29,9 +33,12 @@ class CsvResponseFormatter extends Component implements ResponseFormatterInterfa
                 mb_substitute_character($old);
             }
         );
-        mb_substitute_character(0x3013);
+        mb_substitute_character($this->substituteCharacter);
 
         $tmpfile = tmpfile();
+        if ($this->appendBOM && in_array($this->outputCharset, ['UTF-8', 'UTF-16', 'UTF-32'])) {
+            fwrite($tmpfile, mb_convert_encoding("\xfe\xff", $this->outputCharset, 'UTF-16BE'));
+        }
         foreach ($response->data['rows'] as $row) {
             fwrite($tmpfile, $this->formatRow($row) . "\x0d\x0a");
         }
