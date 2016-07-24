@@ -17,6 +17,8 @@ use Yii;
  * @property string $name
  * @property string $name_en
  *
+ * @property LanguageCharset[] $languageCharsets
+ * @property Charset[] $charsets
  * @property Slack[] $slacks
  */
 class Language extends \yii\db\ActiveRecord
@@ -60,8 +62,25 @@ class Language extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
+    public function getLanguageCharsets()
+    {
+        return $this->hasMany(LanguageCharset::class, ['language_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCharsets()
+    {
+        return $this->hasMany(Charset::class, ['id' => 'charset_id'])
+            ->viaTable('language_charset', ['language_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getSlacks()
     {
-        return $this->hasMany(Slack::className(), ['language_id' => 'id']);
+        return $this->hasMany(Slack::class, ['language_id' => 'id']);
     }
 }
