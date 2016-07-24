@@ -963,16 +963,16 @@
         },
         {
             "name": "ezyang/htmlpurifier",
-            "version": "v4.7.0",
+            "version": "v4.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ezyang/htmlpurifier.git",
-                "reference": "ae1828d955112356f7677c465f94f7deb7d27a40"
+                "reference": "d0c392f77d2f2a3dcf7fcb79e2a1e2b8804e75b2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ezyang/htmlpurifier/zipball/ae1828d955112356f7677c465f94f7deb7d27a40",
-                "reference": "ae1828d955112356f7677c465f94f7deb7d27a40",
+                "url": "https://api.github.com/repos/ezyang/htmlpurifier/zipball/d0c392f77d2f2a3dcf7fcb79e2a1e2b8804e75b2",
+                "reference": "d0c392f77d2f2a3dcf7fcb79e2a1e2b8804e75b2",
                 "shasum": ""
             },
             "require": {
@@ -1003,7 +1003,7 @@
             "keywords": [
                 "html"
             ],
-            "time": "2015-08-05 01:03:42"
+            "time": "2016-07-16 12:58:58"
         },
         {
             "name": "himiklab/yii2-recaptcha-widget",
@@ -1486,16 +1486,16 @@
         },
         {
             "name": "php-curl-class/php-curl-class",
-            "version": "4.11.0",
+            "version": "4.12.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-curl-class/php-curl-class.git",
-                "reference": "f85d7aebe750c1ac21b40c7d433d5a615ffdc5f1"
+                "reference": "9479756d5dcceeacaa398a07745e0d16ff9fa9ff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-curl-class/php-curl-class/zipball/f85d7aebe750c1ac21b40c7d433d5a615ffdc5f1",
-                "reference": "f85d7aebe750c1ac21b40c7d433d5a615ffdc5f1",
+                "url": "https://api.github.com/repos/php-curl-class/php-curl-class/zipball/9479756d5dcceeacaa398a07745e0d16ff9fa9ff",
+                "reference": "9479756d5dcceeacaa398a07745e0d16ff9fa9ff",
                 "shasum": ""
             },
             "require": {
@@ -1538,7 +1538,7 @@
                 "web service",
                 "xml"
             ],
-            "time": "2016-03-09 00:50:07"
+            "time": "2016-07-16 21:58:43"
         },
         {
             "name": "rmrevin/yii2-fontawesome",
