@@ -56,6 +56,7 @@ $config = [
                 'entire/users/<b32name:[A-Za-z2-7]+>' => 'entire/agent',
                 'api/v1/<action:[\w-]+>' => 'api-v1/<action>',
                 'api/internal/<action:[\w-]+>' => 'api-internal/<action>',
+                'downloads' => 'download-stats/index',
                 '<action:[\w-]+>'  => 'site/<action>',
                 '<controller:[\w-]+>/<action:[\w-]+>' => '<controller>/<action>',
                 'robots.txt'    => 'site/robots',

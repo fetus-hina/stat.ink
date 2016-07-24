@@ -31,6 +31,7 @@ class DownloadStatsController extends Controller
     {
         $prefix = 'app\actions\downloadStats';
         return [
+            'index' => [ 'class' => $prefix . '\IndexAction' ],
             'weapon-rule-map' => [ 'class' => $prefix . '\WeaponRuleMapAction' ],
         ];
     }

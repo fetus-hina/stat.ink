@@ -83,6 +83,7 @@ return [
     'Detailed List' => 'Lista detallada',
     'Deviation' => 'Desviación',
     'Disabled' => 'Desactivado',
+    'Downloads' => 'Descargar',
     'Edit Your Battle: #{0}' => 'Editar la batalla: #{0}',
     'Edit' => 'Editar',
     'Enabled' => 'Activado',
