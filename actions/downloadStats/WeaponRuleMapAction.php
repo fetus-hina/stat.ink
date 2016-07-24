@@ -8,35 +8,63 @@
 namespace app\actions\downloadStats;
 
 use Yii;
+use app\models\Charset;
+use app\models\Language;
 use app\models\Map;
 use app\models\Rule;
 use app\models\StatWeaponKDWinRate;
 use app\models\Weapon;
-use app\models\Language;
-use yii\web\ViewAction;
+use yii\base\DynamicModel;
 use yii\db\Query;
+use yii\web\BadRequestHttpException;
+use yii\web\ViewAction;
 
 class WeaponRuleMapAction extends ViewAction
 {
+    public $config;
+
     public function init()
     {
         $req = Yii::$app->request;
-        $lang = $req->get('lang');
-        if (is_scalar($lang)) {
-            if ($obj = Language::findOne(['lang' => $lang])) {
-                Yii::$app->language = $obj->lang;
-            }
+        $config = DynamicModel::validateData(
+            [
+                'lang'      => $req->get('lang'),
+                'charset'   => $req->get('charset'),
+                'bom'       => $req->get('bom'),
+            ],
+            [
+                [['lang', 'charset'], 'string'],
+                [['bom'], 'boolean'],
+                [['lang'], 'exist', 'skipOnError' => true,
+                    'targetClass' => Language::class,
+                    'targetAttribute' => 'lang'],
+                [['charset'], 'exist', 'skipOnError' => true,
+                    'targetClass' => Charset::class,
+                    'targetAttribute' => ['charset' => 'php_name']],
+            ]
+        );
+        if ($config->hasErrors()) {
+            throw new BadRequestHttpException('Bad parameters');
         }
+        $this->config = $config;
     }
 
     public function run()
     {
+        if ($this->config->lang) {
+            Yii::$app->language = $this->config->lang;
+        }
+
+        $charset = Charset::findOne(['php_name' => $this->config->charset ?: 'UTF-8']);
+
         $resp = Yii::$app->response;
-        $resp->setDownloadHeaders('weapon-rule-map.csv', 'text/cvs; charset=Shift_JIS', false, null);
+        $resp->setDownloadHeaders('weapon-rule-map.csv', 'text/cvs', false, null);
         $resp->format = 'csv';
         return [
             'inputCharset' => 'UTF-8',
-            'outputCharset' => 'CP932',
+            'outputCharset' => $charset->php_name ?? 'UTF-8',
+            'substituteCharacter' => $charset->substitute ?? ord('?'),
+            'appendBOM' => ($this->config->bom ?? '0') == '1',
             'rows' => $this->generateData(),
         ];
     }
