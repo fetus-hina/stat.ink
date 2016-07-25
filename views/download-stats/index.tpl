@@ -60,6 +60,12 @@
                         {{$charset.name|escape}}(BOM)
                       </a>
                     </td>
+                  {{elseif $charset.name === 'UTF-16LE'}}
+                    <td>
+                      <a href="{{url route="download-stats/weapon-rule-map" lang=$lang.lang charset=$charset.php_name tsv=1}}">
+                        <span class="fa fa-apple"></span>&#32;{{$charset.name|escape}}(TSV)
+                      </a>
+                    </td>
                   {{/if}}
                 {{/foreach}}
               </tr>

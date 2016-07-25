@@ -8,6 +8,7 @@
 namespace app\actions\downloadStats;
 
 use Yii;
+use app\components\web\CsvResponseFormatter;
 use app\models\Charset;
 use app\models\Language;
 use app\models\Map;
@@ -31,10 +32,11 @@ class WeaponRuleMapAction extends ViewAction
                 'lang'      => $req->get('lang'),
                 'charset'   => $req->get('charset'),
                 'bom'       => $req->get('bom'),
+                'tsv'       => $req->get('tsv'),
             ],
             [
                 [['lang', 'charset'], 'string'],
-                [['bom'], 'boolean'],
+                [['bom', 'tsv'], 'boolean'],
                 [['lang'], 'exist', 'skipOnError' => true,
                     'targetClass' => Language::class,
                     'targetAttribute' => 'lang'],
@@ -61,6 +63,9 @@ class WeaponRuleMapAction extends ViewAction
         $resp->setDownloadHeaders('weapon-rule-map.csv', 'text/cvs', false, null);
         $resp->format = 'csv';
         return [
+            'separator' => (($this->config->tsv ?? '0') == '1')
+                    ? CsvResponseFormatter::SEPARATOR_TSV
+                    : CsvResponseFormatter::SEPARATOR_CSV,
             'inputCharset' => 'UTF-8',
             'outputCharset' => $charset->php_name ?? 'UTF-8',
             'substituteCharacter' => $charset->substitute ?? ord('?'),
