@@ -57,14 +57,17 @@ class CsvResponseFormatter extends Component implements ResponseFormatterInterfa
         $quoteRegex = sprintf('/["\x0d\x0a%s]/', preg_quote($this->separator, '/'));
         $ret = array_map(
             function ($cell) use ($quoteRegex) {
-                $cell = mb_convert_encoding((string)$cell, $this->outputCharset, $this->inputCharset);
-                if (!preg_match($quoteRegex, $cell)) {
-                    return $cell;
+                $utf8 = mb_convert_encoding((string)$cell, 'UTF-8', $this->inputCharset);
+                if (preg_match($quoteRegex, $cell)) {
+                    $utf8 = sprintf('"%s"', mb_str_replace('"', '""', $utf8, 'UTF-8'));
                 }
-                return '"' . mb_str_replace('"', '""', $cell, $this->outputCharset)  . '"';
+                return mb_convert_encoding($utf8, $this->outputCharset, 'UTF-8');
             },
             $row
         );
-        return implode(',', $ret);
+        return implode(
+            mb_convert_encoding($this->separator, $this->outputCharset, 'ASCII'),
+            $ret
+        );
     }
 }
