@@ -1,5 +1,6 @@
 {{strip}}
   {{set layout="main.tpl"}}
+  {{\app\assets\DownloadsPageAsset::register($this)|@void}}
 
   {{$title = 'Downloads'|translate:'app'}}
   {{set title="{{$app->name}} | {{$title}}"}}
@@ -36,54 +37,42 @@
     <ul>
       <li>
         <span class="fa fa-file-excel-o"></span> ブキ・ルール・ステージ別にバトル数・勝率を集計したもの (CSV)
-        <table class="dl-langs">
-          <tbody>
-            {{foreach $langs as $lang}}
-              <tr>
-                <th>
-                  <span class="flag-icon flag-icon-{{$lang.lang|substr:3:2|strtolower|escape}}"></span>&#32;
-                  {{$lang.name|escape}}
-                </th>
+        <ul class="dl-langs">
+          {{foreach $langs as $lang}}
+            <li>
+              <span class="lang">
+                <span class="flag-icon flag-icon-{{$lang.lang|substr:3:2|strtolower|escape}}"></span>&#32;{{$lang.name|escape}}
+              </span>
+              <span class="charsets">
                 {{foreach $lang.languageCharsets as $_charset}}
                   {{$charset = $_charset.charset}}
-                  <td>
+                  <span class="charset">
                     <a href="{{url route="download-stats/weapon-rule-map" lang=$lang.lang charset=$charset.php_name}}">
                       {{if $_charset.is_win_acp}}
                         <span class="fa fa-windows"></span>&#32;
                       {{/if}}
                       {{$charset.name|escape}}
                     </a>
-                  </td>
+                  </span>
                   {{if $charset.name === 'UTF-8'}}
-                    <td>
+                    <span class="charset">
                       <a href="{{url route="download-stats/weapon-rule-map" lang=$lang.lang charset=$charset.php_name bom=1}}">
                         {{$charset.name|escape}}(BOM)
                       </a>
-                    </td>
+                    </span>
                   {{elseif $charset.name === 'UTF-16LE'}}
-                    <td>
+                    <span class="charset">
                       <a href="{{url route="download-stats/weapon-rule-map" lang=$lang.lang charset=$charset.php_name tsv=1}}">
                         <span class="fa fa-apple"></span>&#32;{{$charset.name|escape}}(TSV)
                       </a>
-                    </td>
+                    </span>
                   {{/if}}
                 {{/foreach}}
-              </tr>
-            {{/foreach}}
-          </tbody>
-        </table>
+              </span>
+            </li>
+          {{/foreach}}
+        </ul>
       </li>
     </ul>
   </div>
-  {{registerCss}}
-    .dl-langs {
-      margin-left: 2em;
-    }
-    .dl-langs th {
-      font-weight: normal;
-    }
-    .dl-langs td {
-      padding-left: 2ex;
-    }
-  {{/registerCss}}
 {{/strip}}
