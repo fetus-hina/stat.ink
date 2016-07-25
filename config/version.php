@@ -1,2 +1,2 @@
 <?php
-return '1.73.0';
+return '1.74.0-alpha1';
