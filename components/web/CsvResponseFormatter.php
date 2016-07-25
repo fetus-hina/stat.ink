@@ -45,7 +45,8 @@ class CsvResponseFormatter extends Component implements ResponseFormatterInterfa
             fwrite($tmpfile, mb_convert_encoding("\xfe\xff", $this->outputCharset, 'UTF-16BE'));
         }
         foreach ($response->data['rows'] as $row) {
-            fwrite($tmpfile, $this->formatRow($row) . "\x0d\x0a");
+            fwrite($tmpfile, $this->formatRow($row));
+            fwrite($tmpfile, mb_convert_encoding("\x0d\x0a", $this->outputCharset, 'UTF-8'));
         }
         fseek($tmpfile, 0, SEEK_SET);
         $response->content = null;
