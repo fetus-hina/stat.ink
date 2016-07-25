@@ -5,8 +5,6 @@ function smarty_modifier_as_datetime($string, $dateFormat = 'medium', $timeForma
 {
     if ($string != '' && $string != '0000-00-00' && $string != '0000-00-00 00:00:00') {
         $timestamp = smarty_make_timestamp($string);
-    } elseif ($default_date != '') {
-        $timestamp = smarty_make_timestamp($default_date);
     } else {
         return;
     }
