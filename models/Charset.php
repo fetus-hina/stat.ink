@@ -16,6 +16,8 @@ use Yii;
  * @property string $name
  * @property string $php_name
  * @property integer $substitute
+ * @property boolean $is_unicode
+ * @property integer $order
  *
  * @property LanguageCharset[] $languageCharsets
  * @property Language[] $languages
@@ -36,9 +38,11 @@ class Charset extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'php_name'], 'required'],
-            [['substitute'], 'integer'],
+            [['name', 'php_name', 'order'], 'required'],
+            [['substitute', 'order'], 'integer'],
+            [['is_unicode'], 'boolean'],
             [['name', 'php_name'], 'string', 'max' => 32],
+            [['order'], 'unique'],
         ];
     }
 
@@ -52,6 +56,8 @@ class Charset extends \yii\db\ActiveRecord
             'name' => 'Name',
             'php_name' => 'Php Name',
             'substitute' => 'Substitute',
+            'is_unicode' => 'Is Unicode',
+            'order' => 'Order',
         ];
     }
 

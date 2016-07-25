@@ -25,7 +25,7 @@ class LanguageCharset extends \yii\db\ActiveRecord
     {
         return parent::find()
             ->innerJoinWith('charset')
-            ->orderBy('{{charset}}.[[id]] ASC');
+            ->orderBy('{{charset}}.[[order]] ASC');
     }
 
     /**
