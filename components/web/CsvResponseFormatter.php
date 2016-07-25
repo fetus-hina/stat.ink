@@ -14,6 +14,10 @@ use app\components\helpers\Resource;
 
 class CsvResponseFormatter extends Component implements ResponseFormatterInterface
 {
+    const SEPARATOR_CSV = ',';
+    const SEPARATOR_TSV = "\t";
+
+    public $separator;
     public $inputCharset;
     public $outputCharset;
     public $substituteCharacter;
@@ -21,6 +25,7 @@ class CsvResponseFormatter extends Component implements ResponseFormatterInterfa
 
     public function format($response)
     {
+        $this->separator = $response->data['separator'] ?? static::SEPARATOR_CSV;
         $this->inputCharset = $response->data['inputCharset'] ?? Yii::$app->charset;
         $this->outputCharset = $response->data['outputCharset'] ?? Yii::$app->charset;
         $this->substituteCharacter = $response->data['substituteCharacter'] ?? 0x3013;
@@ -49,10 +54,11 @@ class CsvResponseFormatter extends Component implements ResponseFormatterInterfa
 
     protected function formatRow(array $row)
     {
+        $quoteRegex = sprintf('/["\x0d\x0a%s]/', preg_quote($this->separator, '/'));
         $ret = array_map(
-            function ($cell) {
+            function ($cell) use ($quoteRegex) {
                 $cell = mb_convert_encoding((string)$cell, $this->outputCharset, $this->inputCharset);
-                if (!preg_match('/[",\x0d\x0a]/', $cell)) {
+                if (!preg_match($quoteRegex, $cell)) {
                     return $cell;
                 }
                 return '"' . mb_str_replace('"', '""', $cell, $this->outputCharset)  . '"';
