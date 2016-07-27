@@ -1385,6 +1385,8 @@
                                 case 'neutral':
                                 case 'advantage':
                                 case 'disadvantage':
+                                case 'winning':
+                                case 'losing':
                                   return true;
                                 default:
                                   return false;
@@ -1405,9 +1407,14 @@
                             var cur = this;
                             var curState = (function(v) {
                               switch (v) {
-                                case "advantage": return "we";
-                                case "disadvantage": return "they";
-                                default: return "neutral";
+                                case "advantage":
+                                case 'winning':
+                                  return "we";
+                                case "disadvantage":
+                                case 'losing':
+                                  return "they";
+                                default:
+                                  return "neutral";
                               }
                             })(cur.game_status);
                             if (prevState !== curState) {
