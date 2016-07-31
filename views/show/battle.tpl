@@ -1431,7 +1431,7 @@
                             380 
                           ]);
                           data.push({
-                            label: "拮抗",
+                            label: '{{'Neutral'|translate:'app'|escape:javascript}}',
                             data: dt.neutral,
                             color: 'rgba(192,192,192,0.85)',
                             yaxis: 2,
@@ -1442,7 +1442,7 @@
                             shadowSize: 0
                           });
                           data.push({
-                            label: "自分のチームが優勢",
+                            label: '{{'Good guys winning'|translate:'app'|escape:javascript}}',
                             data: dt.we,
                             color: controlColorFromHue({{$battle->my_team_color_hue|intval}}),
                             yaxis: 2,
@@ -1453,7 +1453,7 @@
                             shadowSize: 0
                           });
                           data.push({
-                            label: "相手のチームが優勢",
+                            label: '{{'Bad guys winning'|translate:'app'|escape:javascript}}',
                             data: dt.they,
                             color: controlColorFromHue({{$battle->his_team_color_hue|intval}}),
                             yaxis: 2,
