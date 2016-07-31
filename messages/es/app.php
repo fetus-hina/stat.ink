@@ -334,6 +334,7 @@ return [
     '{0}\'s Battle Stats (by Stage)' => 'Estadística de Batalla de {0} (por Escenario)',
     '{0}\'s Battle Stats (by Weapon)' => 'Estadística de Batalla de {0} (por Arma)',
     '{0}\'s Battle' => 'Batalla de {0}',
+    '{0}\'s Battles' => 'Batallas de {0}',
     '{0}\'s Favorite Weapon' => 'Arma favorita de {0}',
     '{0}\'s SplatLog' => 'SplatLog de {0}',
     '{attribute} must be at most 15 alphanumeric or underscore characters.' => '{attribute} debe ser a lo más 15 alfanumérico o subrayan personajes.',

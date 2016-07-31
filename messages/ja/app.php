@@ -345,6 +345,7 @@ return [
     '{0}\'s Battle Stats (by Stage)' => '{0}さんの統計（ステージ別）',
     '{0}\'s Battle Stats (by Weapon)' => '{0}さんの統計（ブキ別）',
     '{0}\'s Battle' => '{0}さんのバトル',
+    '{0}\'s Battles' => '{0}さんのバトル',
     '{0}\'s Favorite Weapon' => '{0}のよく使うブキ',
     '{0}\'s Splat Log' => '{0}さんのイカログ',
     '{attribute} must be at most 15 alphanumeric or underscore characters.' => '{attribute}は半角英数とアンダースコア15文字以内で入力してください。',
