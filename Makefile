@@ -39,6 +39,16 @@ RESOURCE_TARGETS=\
 VENDOR_ARCHIVE_FILE=runtime/vendor-archive/vendor-$(VENDOR_SHA256).tar.xz
 VENDOR_ARCHIVE_SIGN=runtime/vendor-archive/vendor-$(VENDOR_SHA256).tar.xz.asc
 
+SIMPLE_CONFIG_TARGETS=\
+	config/amazon-s3.php \
+	config/backup-gpg.php \
+	config/backup-s3.php \
+	config/debug-ips.php \
+	config/google-adsense.php \
+	config/google-analytics.php \
+	config/google-recaptcha.php \
+	config/lepton.php
+
 all: init migrate-db
 
 init: \
@@ -48,15 +58,8 @@ init: \
 	vendor \
 	vendor/smarty/smarty/libs/sysplugins/smarty_internal_templatecompilerbase.php \
 	node_modules \
-	config/lepton.php \
-	config/debug-ips.php \
-	config/google-analytics.php \
-	config/google-recaptcha.php \
-	config/google-adsense.php \
-	config/amazon-s3.php \
-	config/backup-s3.php \
+	$(SIMPLE_CONFIG_TARGETS) \
 	config/cookie-secret.php \
-	config/backup-gpg.php \
 	config/db.php \
 	resource
 
@@ -66,14 +69,8 @@ init-by-archive: \
 	composer-plugin \
 	vendor-by-archive \
 	node_modules \
-	config/debug-ips.php \
-	config/google-analytics.php \
-	config/google-recaptcha.php \
-	config/google-adsense.php \
-	config/amazon-s3.php \
-	config/backup-s3.php \
+	$(SIMPLE_CONFIG_TARGETS) \
 	config/cookie-secret.php \
-	config/backup-gpg.php \
 	config/db.php \
 	resource
 
@@ -239,11 +236,11 @@ migrate-db: vendor config/db.php
 	./yii migrate/up --interactive=0
 	./yii cache/flush-schema --interactive=0
 
-config/cookie-secret.php: vendor
+config/cookie-secret.php: vendor $(SIMPLE_CONFIG_TARGETS)
 	test -f config/cookie-secret.php || ./yii secret/cookie
 	touch config/cookie-secret.php
 
-config/db.php: vendor
+config/db.php: vendor $(SIMPLE_CONFIG_TARGETS)
 	test -f config/db.php || ./yii secret/db
 	touch config/db.php
 
