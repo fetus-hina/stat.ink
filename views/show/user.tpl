@@ -78,7 +78,7 @@
       {{$_death = '-'}}
       {{$_kr = '-'}}
     {{/if}}
-    {{$_formatted = 'Battles:{0} / Win %:{1} / Avg Killed:{2} / Avg Dead:{3} / Kill Ratio:{4}'|translate:'app':[$_btl,$_wp,$_kill,$_death,$_kr]}}
+    {{$_formatted = 'Battles:{0} / Win %:{1} / Avg Kills:{2} / Avg Deaths:{3} / Kill Ratio:{4}'|translate:'app':[$_btl,$_wp,$_kill,$_death,$_kr]}}
     {{$_tweet = $title|cat:' [ ':$_formatted:' ]'}}
     {{$_feed = Url::to(['feed/user', 'screen_name' => $user->screen_name, 'type' => 'rss', 'lang' => $app->language], true)}}
     {{SnsWidget tweetText=$_tweet feedUrl=$_feed}}
@@ -128,11 +128,11 @@
               </div>
             </div>
             <div class="col-xs-4 col-sm-4 col-md-2 col-lg-2">
-              <div class="user-label">{{'Avg Killed'|translate:'app'|escape}}</div>
+              <div class="user-label">{{'Avg Kills'|translate:'app'|escape}}</div>
               <div class="user-number">
                 {{if $summary->kd_present > 0}}
                   {{$p = ['number' => $summary->total_kill, 'battle' => $summary->kd_present]}}
-                  {{$t = '{number} killed in {battle, plural, =1{1 battle} other{# battles}}'|translate:'app':$p}}
+                  {{$t = '{number} kills in {battle, plural, =1{1 battle} other{# battles}}'|translate:'app':$p}}
                   <span class="auto-tooltip" title="{{$t|escape}}">
                     {{($summary->total_kill/$summary->kd_present)|number_format:2|escape}}
                   </span>
@@ -142,11 +142,11 @@
               </div>
             </div>
             <div class="col-xs-4 col-sm-4 col-md-2 col-lg-2">
-              <div class="user-label">{{'Avg Dead'|translate:'app'|escape}}</div>
+              <div class="user-label">{{'Avg Deaths'|translate:'app'|escape}}</div>
               <div class="user-number">
                 {{if $summary->kd_present > 0}}
                   {{$p = ['number' => $summary->total_death, 'battle' => $summary->kd_present]}}
-                  {{$t = '{number} dead in {battle, plural, =1{1 battle} other{# battles}}'|translate:'app':$p}}
+                  {{$t = '{number} deaths in {battle, plural, =1{1 battle} other{# battles}}'|translate:'app':$p}}
                   <span class="auto-tooltip" title="{{$t|escape}}">
                     {{($summary->total_death/$summary->kd_present)|number_format:2|escape}}
                   </span>
