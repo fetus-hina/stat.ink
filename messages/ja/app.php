@@ -70,7 +70,7 @@ return [
     'Count (Good Guys)' => 'カウント（自分のチーム）',
     'Current Password' => '現在のパスワード',
     'Current Period' => '現在のステージ',
-    'Current Stage' => '現在のステージ',
+    'Current Stages' => '現在のステージ',
     'Current' => '現在',
     'Daily Report' => '日報',
     'Data Sent' => 'データ送信',
