@@ -180,7 +180,7 @@ trait UserStatFilterTrait
         if ($idFrom != '' && $idFrom > 0) {
             $query->andWhere(['>=', '{{battle}}.[[id]]', (int)$idFrom]);
         }
-        if($idTo != '' && $idTo > 0) {
+        if ($idTo != '' && $idTo > 0) {
             $query->andWhere(['<=', '{{battle}}.[[id]]', (int)$idTo]);
         }
         return $this;
