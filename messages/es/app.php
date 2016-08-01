@@ -70,7 +70,7 @@ return [
     'Count (Good Guys)' => 'Conde (Tu equipo)',
     'Current Password' => 'Contraseña actual',
     'Current Period' => 'Período actual',
-    'Current Stage' => 'Escenario actual',
+    'Current Stages' => 'Escenario actual',
     'Current' => 'Corriente',
     'Daily Report' => 'Informe diario',
     'Data Sent' => 'Datos enviados',
