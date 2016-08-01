@@ -137,7 +137,7 @@
           {{$timeFormat = '%l:%M %p'}}
         {{/if}}
         <h2>
-          <span class="hidden-xs">{{'Current Stage'|translate:'app'|escape}}</span>
+          <span class="hidden-xs">{{'Current Stages'|translate:'app'|escape}}</span>
           {{if $stageInfo->current->t}}
             {{$t = $stageInfo->current->t}}
             <span class="hidden-xs">&#32;[</span>

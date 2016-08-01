@@ -4,6 +4,7 @@
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author mntone <sd8@live.jp>
  * @author AIZAWA Hina <hina@bouhime.com>
+ * @author Allen Pestaluky <allenwp@live.ca>
  */
 
 return [
@@ -29,10 +30,10 @@ return [
     'Australia (West)' => 'Australia (Oeste)',
     'Average' => 'Promedio',
     'Average:' => 'Promedio:',
-    'Avg Dead' => 'Medio muerto',
+    'Avg Deaths' => 'Medio muerto',
     'Avg Inked' => 'Media pintada',
     'Avg KR' => 'Medio MR',
-    'Avg Killed' => 'Medio Mata',
+    'Avg Kills' => 'Medio Mata',
     'Back' => 'Atrás',
     'Bad Guys' => 'Tus rivales',
     'Bad guys are in control' => 'Tus rivales están en control',
@@ -44,7 +45,7 @@ return [
     'Battles and Users' => 'Batallas y los Usuarios',
     'Battles' => 'Batallas',
     'Battles:' => 'Batallas:',
-    'Battles:{0} / Win %:{1} / Avg Killed:{2} / Avg Dead:{3} / Kill Ratio:{4}' => 'Batallas:{0}　Ganar %:{1}　Medio mata:{2}　Medio muerto:{3}　Matar la Relación:{4}',
+    'Battles:{0} / Win %:{1} / Avg Kills:{2} / Avg Deaths:{3} / Kill Ratio:{4}' => 'Batallas:{0}　Ganar %:{1}　Medio mata:{2}　Medio muerto:{3}　Matar la Relación:{4}',
     'Black out other players from the result image' => 'Negro a otros jugadores de la imagen resultado',
     'Black out other players' => 'Negro a otros jugadores',
     'Boy' => 'Chico',
@@ -62,7 +63,7 @@ return [
     'Count (Good Guys)' => 'Conde (Tu equipo)',
     'Current Password' => 'Contraseña actual',
     'Current Period' => 'Período actual',
-    'Current Stage' => 'Escenario actual',
+    'Current Stages' => 'Escenario actual',
     'Current' => 'Corriente',
     'Daily Report' => 'Informe diario',
     'Data Sent' => 'Datos enviados',
@@ -118,8 +119,8 @@ return [
     'KNOCKOUT' => 'Palizón',
     'KR' => 'MR',
     'Kill Ratio' => 'Matar la Relación',
-    'Killed' => 'Mató',
-    'Killed/Dead' => 'Mató / Muertos',
+    'Kills' => 'Mató',
+    'Kills / Deaths' => 'Mató / Muertos',
     'Kills (average):' => 'Mata (promedio):',
     'Kills (median):' => 'Mata (mediana):',
     'Kills and Deaths' => 'Mata y Muertes',
@@ -202,7 +203,7 @@ return [
     'Recent Results' => 'Resultados recientes',
     'Register' => 'Registro',
     'Relative Time' => 'Tiempo relativo',
-    'Result of {0}\'s Battle' => 'Resultado de la Batalla de {0}',
+    'Results of {0}\'s Battle' => 'Resultado de la Batalla de {0}',
     'Result' => 'Resultado',
     'Screen Name (Login Name)' => 'Nombre de la Pantalla',
     'Screen Name' => 'Nombre de la Pantalla',
@@ -304,8 +305,8 @@ return [
     '{0}\'s SplatLog' => 'SplatLog de {0}',
     '{attribute} must be at most 15 alphanumeric or underscore characters.' => '{attribute} debe ser a lo más 15 alfanumérico o subrayan personajes.',
     '{nFormatted} {n, plural, =1{time} other{times}}' => '{nFormatted} veces',
-    '{number} dead in {battle, plural, =1{1 battle} other{# battles}}' => '{number} veces / {battle} batallas',
-    '{number} killed in {battle, plural, =1{1 battle} other{# battles}}' => '{number} veces / {battle} batallas',
+    '{number, plural, =1{1 death} other{# deaths}} in {battle, plural, =1{1 battle} other{# battles}}' => '{number} veces / {battle} batallas',
+    '{number, plural, =1{1 kill} other{# kills}} in {battle, plural, =1{1 battle} other{# battles}}' => '{number} veces / {battle} batallas',
     '{pct} % loss' => '{pct} % pérdida',
     '{sec} seconds ({pct} %)' => '{sec} s ({pct} %)',
     '{sec} seconds' => '{sec} s',
