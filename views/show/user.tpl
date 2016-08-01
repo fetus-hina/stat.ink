@@ -132,7 +132,7 @@
               <div class="user-number">
                 {{if $summary->kd_present > 0}}
                   {{$p = ['number' => $summary->total_kill, 'battle' => $summary->kd_present]}}
-                  {{$t = '{number} kills in {battle, plural, =1{1 battle} other{# battles}}'|translate:'app':$p}}
+                  {{$t = '{number, plural, =1{1 kill} other{# kills}} in {battle, plural, =1{1 battle} other{# battles}}'|translate:'app':$p}}
                   <span class="auto-tooltip" title="{{$t|escape}}">
                     {{($summary->total_kill/$summary->kd_present)|number_format:2|escape}}
                   </span>
@@ -146,7 +146,7 @@
               <div class="user-number">
                 {{if $summary->kd_present > 0}}
                   {{$p = ['number' => $summary->total_death, 'battle' => $summary->kd_present]}}
-                  {{$t = '{number} deaths in {battle, plural, =1{1 battle} other{# battles}}'|translate:'app':$p}}
+                  {{$t = '{number, plural, =1{1 death} other{# deaths}} in {battle, plural, =1{1 battle} other{# battles}}'|translate:'app':$p}}
                   <span class="auto-tooltip" title="{{$t|escape}}">
                     {{($summary->total_death/$summary->kd_present)|number_format:2|escape}}
                   </span>
