@@ -47,8 +47,8 @@
               <th data-sort="string">{{'Weapon'|translate:'app'|escape}}</th>
               <th data-sort="int">{{'Battles'|translate:'app'|escape}}&#32;<span class="arrow fa fa-angle-down"></span></th>
               <th data-sort="float">{{'Win %'|translate:'app'|escape}}</th>
-              <th data-sort="float">{{'Avg Killed'|translate:'app'|escape}}</th>
-              <th data-sort="float">{{'Avg Dead'|translate:'app'|escape}}</th>
+              <th data-sort="float">{{'Avg Kills'|translate:'app'|escape}}</th>
+              <th data-sort="float">{{'Avg Deaths'|translate:'app'|escape}}</th>
               <th data-sort="float">{{'Avg KR'|translate:'app'|escape}}</th>
             </tr>
           </thead>

@@ -45,8 +45,8 @@
             <tr>
               <th data-sort="string">{{'Weapon'|translate:'app'|escape}}</th>
               <th data-sort="int">{{'Players'|translate:'app'|escape}} <span class="arrow fa fa-angle-down"></span></th>
-              <th data-sort="float">{{'Avg Killed'|translate:'app'|escape}}</th>
-              <th data-sort="float">{{'Avg Dead'|translate:'app'|escape}}</th>
+              <th data-sort="float">{{'Avg Kills'|translate:'app'|escape}}</th>
+              <th data-sort="float">{{'Avg Deaths'|translate:'app'|escape}}</th>
               <th data-sort="float">{{'Avg KR'|translate:'app'|escape}}</th>
               {{if $rule->key === 'nawabari'}}
                 <th data-sort="float">{{'Avg Inked'|translate:'app'|escape}}</th>
@@ -107,8 +107,8 @@
             <tr>
               <th data-sort="string">{{'Sub Weapon'|translate:'app'|escape}}</th>
               <th data-sort="int">{{'Players'|translate:'app'|escape}} <span class="arrow fa fa-angle-down"></span></th>
-              <th data-sort="float">{{'Avg Killed'|translate:'app'|escape}}</th>
-              <th data-sort="float">{{'Avg Dead'|translate:'app'|escape}}</th>
+              <th data-sort="float">{{'Avg Kills'|translate:'app'|escape}}</th>
+              <th data-sort="float">{{'Avg Deaths'|translate:'app'|escape}}</th>
               <th data-sort="float">{{'Avg KR'|translate:'app'|escape}}</th>
               <th data-sort="float">{{'Win %'|translate:'app'|escape}}</th>
               <th data-sort="float">{{'Encounter Ratio'|translate:'app'|escape}}</th>
@@ -161,8 +161,8 @@
             <tr>
               <th data-sort="string">{{'Special'|translate:'app'|escape}}</th>
               <th data-sort="int">{{'Players'|translate:'app'|escape}} <span class="arrow fa fa-angle-down"></span></th>
-              <th data-sort="float">{{'Avg Killed'|translate:'app'|escape}}</th>
-              <th data-sort="float">{{'Avg Dead'|translate:'app'|escape}}</th>
+              <th data-sort="float">{{'Avg Kills'|translate:'app'|escape}}</th>
+              <th data-sort="float">{{'Avg Deaths'|translate:'app'|escape}}</th>
               <th data-sort="float">{{'Avg KR'|translate:'app'|escape}}</th>
               <th data-sort="float">{{'Win %'|translate:'app'|escape}}</th>
               <th data-sort="float">{{'Encounter Ratio'|translate:'app'|escape}}</th>

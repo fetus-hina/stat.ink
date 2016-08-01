@@ -48,12 +48,12 @@
         <div class="row">
           <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
             <div class="user-label">
-              {{'Avg Killed'|translate:'app'|escape}}
+              {{'Avg Kills'|translate:'app'|escape}}
             </div>
             <div class="user-number">
               {{if $stat->total_kd_battle_count > 0}}
                 {{$p = ['number' => $stat->total_kill, 'battle' => $stat->total_kd_battle_count]}}
-                {{$s = '{number} killed in {battle, plural, =1{1 battle} other{# battles}}'|translate:'app':$p}}
+                {{$s = '{number, plural, =1{1 kill} other{# kills}} in {battle, plural, =1{1 battle} other{# battles}}'|translate:'app':$p}}
                 <span class="auto-tooltip" title="{{$s|escape}}">
                   {{($stat->total_kill/$stat->total_kd_battle_count)|number_format:2|escape}}
                 </span>
@@ -64,12 +64,12 @@
           </div>
           <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
             <div class="user-label">
-              {{'Avg Dead'|translate:'app'|escape}}
+              {{'Avg Deaths'|translate:'app'|escape}}
             </div>
             <div class="user-number">
               {{if $stat->total_kd_battle_count > 0}}
                 {{$p = ['number' => $stat->total_death, 'battle' => $stat->total_kd_battle_count]}}
-                {{$s = '{number} dead in {battle, plural, =1{1 battle} other{# battles}}'|translate:'app':$p}}
+                {{$s = '{number, plural, =1{1 death} other{# deaths}} in {battle, plural, =1{1 battle} other{# battles}}'|translate:'app':$p}}
                 <span class="auto-tooltip" title="{{$s|escape}}">
                   {{($stat->total_death/$stat->total_kd_battle_count)|number_format:2|escape}}
                 </span>
