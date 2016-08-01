@@ -202,7 +202,7 @@ return [
     'Recent Results' => 'Resultados recientes',
     'Register' => 'Registro',
     'Relative Time' => 'Tiempo relativo',
-    'Result of {0}\'s Battle' => 'Resultado de la Batalla de {0}',
+    'Results of {0}\'s Battle' => 'Resultado de la Batalla de {0}',
     'Result' => 'Resultado',
     'Screen Name (Login Name)' => 'Nombre de la Pantalla',
     'Screen Name' => 'Nombre de la Pantalla',

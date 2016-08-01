@@ -4,7 +4,7 @@
   {{use class="yii\helpers\Url"}}
   {{$user = $battle->user}}
   {{$canonicalUrl = Url::to(['show/battle', 'screen_name' => $user->screen_name, 'battle' => $battle->id], true)}}
-  {{$title = "Result of {0}'s Battle"|translate:'app':$user->name}}
+  {{$title = "Results of {0}'s Battle"|translate:'app':$user->name}}
   {{set title="{{$app->name}} | {{$title}}"}}
   {{$this->registerLinkTag(['rel' => 'canonical', 'href' => $canonicalUrl])|@void}}
   {{$this->registerMetaTag(['name' => 'twitter:card', 'content' => 'photo'])|@void}}
@@ -54,7 +54,7 @@
       {{$_url = Url::to(['show/user', 'screen_name' => $user->screen_name])}}
       {{$name = $user->name|escape}}
       {{$name = '<a href="%s">%s</a>'|sprintf:$_url:$name}}
-      {{"Result of {0}'s Battle"|translate:'app':$name}}
+      {{"Results of {0}'s Battle"|translate:'app':$name}}
     </h1>
 
     {{if $battle->agent}}
