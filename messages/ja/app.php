@@ -4,6 +4,7 @@
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  * @author eli fessler <eliwf8@gmail.com>
+ * @author Allen Pestaluky <allenwp@live.ca>
  */
 
 return [
