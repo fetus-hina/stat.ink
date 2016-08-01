@@ -53,7 +53,7 @@
             <div class="user-number">
               {{if $stat->total_kd_battle_count > 0}}
                 {{$p = ['number' => $stat->total_kill, 'battle' => $stat->total_kd_battle_count]}}
-                {{$s = '{number} kills in {battle, plural, =1{1 battle} other{# battles}}'|translate:'app':$p}}
+                {{$s = '{number, plural, =1{1 kill} other{# kills}} in {battle, plural, =1{1 battle} other{# battles}}'|translate:'app':$p}}
                 <span class="auto-tooltip" title="{{$s|escape}}">
                   {{($stat->total_kill/$stat->total_kd_battle_count)|number_format:2|escape}}
                 </span>
@@ -69,7 +69,7 @@
             <div class="user-number">
               {{if $stat->total_kd_battle_count > 0}}
                 {{$p = ['number' => $stat->total_death, 'battle' => $stat->total_kd_battle_count]}}
-                {{$s = '{number} deaths in {battle, plural, =1{1 battle} other{# battles}}'|translate:'app':$p}}
+                {{$s = '{number, plural, =1{1 death} other{# deaths}} in {battle, plural, =1{1 battle} other{# battles}}'|translate:'app':$p}}
                 <span class="auto-tooltip" title="{{$s|escape}}">
                   {{($stat->total_death/$stat->total_kd_battle_count)|number_format:2|escape}}
                 </span>
