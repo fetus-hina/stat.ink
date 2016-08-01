@@ -226,7 +226,7 @@ return [
     'Recent Results' => '最近の成績',
     'Register' => 'ユーザ登録',
     'Relative Time' => '相対時間',
-    'Result of {0}\'s Battle' => '{0}さんのバトル結果',
+    'Results of {0}\'s Battle' => '{0}さんのバトル結果',
     'Result' => '結果',
     'Screen Name (Login Name)' => 'ログイン名',
     'Screen Name' => 'ログイン名',
