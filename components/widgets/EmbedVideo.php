@@ -55,6 +55,13 @@ class EmbedVideo extends Widget
                     'videoId' => substr($path, 1),
                     'timeCode' => $query['t'] ?? null,
                 ]);
+            } elseif ($host === 'www.twitch.tv' || $host === 'secure.twitch.tv') {
+                if (preg_match('#/v/(\d+)#', $uri->getPath(), $match)) {
+                    return Yii::createObject([
+                        'class' => embedVideo\Twitch::class,
+                        'videoId' => $match[1],
+                    ]);
+                }
             }
             // ニコニコ動画さんTLS対応まだー？
         } catch (\Exception $e) {
