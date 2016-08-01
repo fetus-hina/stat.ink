@@ -283,7 +283,7 @@ class UserAction extends BaseAction
         }
         if ($battle->kill !== null && $battle->death !== null) {
             $_(
-                Yii::t('app', 'Killed/Dead', [], $lang),
+                Yii::t('app', 'Kills / Deaths', [], $lang),
                 sprintf('%d / %d', $battle->kill, $battle->death)
             );
             $_(

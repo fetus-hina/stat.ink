@@ -295,7 +295,7 @@
             {{/if}}
             {{if $battle->kill !== null || $battle->death !== null}}
               <tr>
-                <th>{{'Killed/Dead'|translate:'app'|escape}}</th>
+                <th>{{'Kills / Deaths'|translate:'app'|escape}}</th>
                 <td>
                   {{if $battle->kill === null}}?{{else}}{{$battle->kill|escape}}{{/if}} / {{if $battle->death === null}}?{{else}}{{$battle->death|escape}}{{/if}}
                   {{if $battle->kill !== null && $battle->death !== null}}
