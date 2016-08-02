@@ -59,41 +59,10 @@ CentOS 7 の標準 PostgreSQL のバージョンは 9.2.14 です。このバー
 
 ### SETUP ###
 
-（簡略化して記載しています。気合で頑張るか、Dockerfile を見てください。ただし Dockerfile は自動化のために割と無理矢理な方法をとっている箇所があります）
+[開発環境の作り方](https://github.com/fetus-hina/stat.ink/wiki/%E9%96%8B%E7%99%BA%E7%92%B0%E5%A2%83%E3%81%AE%E3%82%BB%E3%83%83%E3%83%88%E3%82%A2%E3%83%83%E3%83%97)
+[How to setup a development environment](https://github.com/fetus-hina/stat.ink/wiki/How-to-setup-a-development-environment)
 
-1. `git clone` します
-
-    ```sh
-    git clone https://github.com/fetus-hina/stat.ink.git stat.ink
-    cd stat.ink
-    ```
-
-2. `make init` します。
-
-    ```sh
-    make init
-    ```
-
-3. `config/db.php` が作成されています。 `config/db.php` をお好きな設定に変更するかそのままにするかは自由ですが、その設定で繋がるようにデータベースを設定します。
-
-    ```sh
-    su - postgres
-    # pg_hba.conf 等を適切に設定します。必要であれば PostgreSQL サーバを再起動します。
-    createuser -DEPRS statink
-    # パスワードの入力を求められます。
-    # config/db.php の自動生成パスワードを入力するか、
-    # パスワードを任意に決めた上で config/db.php を書き換えてください。
-    createdb --encoding=UTF-8 --owner=statink --template=template0 statink
-    exit
-    ```
-
-4. `make` します。
-
-    ```sh
-    make
-    ```
-
-5. ウェブサーバとかを良い感じにセットアップするときっと動きます。
+Dockerfile を見ても構築の手順が記載されています（Dockerfile は自動化と docker の仕組みの都合上、かなり無理矢理やっている箇所があります）
 
 
 ### UPDATE ###
@@ -108,6 +77,10 @@ git fetch --all && \
   rm -rfv web/assets/* runtime/Smarty/compile/*
 ```
 
+assets の中身や compile の中身は消さなくても動くことがありますが、動かないこともあるので消す事をおすすめします。
+
+なお、assets ディレクトリ自体を消してしまった場合は実行エラーが発生しますので中身だけ消してください。
+
 
 ### DOCKER ###
 
@@ -117,9 +90,20 @@ git fetch --all && \
 
 データの永続化に関する配慮は一切ありません。つまり、コンテナを起動する度にユーザやバトルは全部消えます。
 
-現在の作業ディレクトリの中身が `/home/statink/stat.ink` にデプロイされます。その際 `vendor` などは一度消され、再構成されます。
+自分でイメージを作成する場合、現在の作業ディレクトリの中身が `/home/statink/stat.ink` にデプロイされます。その際 `vendor` などは一度消され、再構成されます。
 
 コンテナを起動すると 80/TCP で H2O が待ち受けています。ここへ接続して使用します。必要であれば `docker run` する時に `-p 8080:80` のように任意のポートにマップしてください。
+
+
+※Docker の本来のポリシーに反して、1アプリケーション1コンテナの形式になっています（内部で複数のdaemonが動作します）。
+
+※永続化のためのヒント:
+
+  - /home/statink/stat.ink/config
+  - /home/statink/stat.ink/web/images
+  - /var/opt/rh/rh-postgresql95/lib/pgsql/data
+
+自分で永続化したことがないのでうまく行くかは知りません。
 
 
 API
