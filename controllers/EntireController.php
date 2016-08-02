@@ -33,6 +33,7 @@ class EntireController extends Controller
         $prefix = 'app\actions\entire';
         return [
             'agent'     => [ 'class' => $prefix . '\AgentAction' ],
+            'combined-agent' => [ 'class' => $prefix . '\CombinedAgentAction' ],
             'kd-win'    => [ 'class' => $prefix . '\KDWinAction' ],
             'knockout'  => [ 'class' => $prefix . '\KnockoutAction' ],
             'users'     => [ 'class' => $prefix . '\UsersAction' ],

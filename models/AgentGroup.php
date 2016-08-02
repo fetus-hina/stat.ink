@@ -54,6 +54,7 @@ class AgentGroup extends \yii\db\ActiveRecord
      */
     public function getAgentGroupMaps()
     {
-        return $this->hasMany(AgentGroupMap::className(), ['group_id' => 'id']);
+        return $this->hasMany(AgentGroupMap::class, ['group_id' => 'id'])
+            ->orderBy('{{agent_group_map}}.[[agent_name]] ASC');
     }
 }

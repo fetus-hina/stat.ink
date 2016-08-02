@@ -8,6 +8,7 @@
  */
 
 return [
+    '(combined)' => '(conjunto)',
     '(default)' => '(defecto)',
     '* This exclusion is in attempt to minimize overcounting in weapon usage statistics.' => '* Esta exclusión está en el intento de minimizar overcounting en estadísticas de uso de arma.',
     '24H Win %' => '24H Ganar %',

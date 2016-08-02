@@ -8,6 +8,7 @@
  */
 
 return [
+    '(combined)' => '(統合済み)',
     '(default)' => '(規定)',
     '* This exclusion is in attempt to minimize overcounting in weapon usage statistics.' => '※できる限り重複カウントしないように除外設定を行っていますが、連戦やナワバリフレンド合流の影響により重複カウントしやすい状況が発生します。',
     '24H Win %' => '24H勝率',
