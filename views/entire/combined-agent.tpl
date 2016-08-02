@@ -25,11 +25,6 @@
       </a>
     </p>
 
-    {{\jp3cki\yii2\flot\FlotAsset::register($this)|@void}}
-    {{\jp3cki\yii2\flot\FlotTimeAsset::register($this)|@void}}
-    <div id="graph" data-data="{{$posts|json_encode|escape}}" data-label-battle="{{'Battles'|translate:'app'|escape}}" data-label-user="{{'Users'|translate:'app'|escape}}">
-    </div>
-
     <ul>
       {{foreach $group->agentGroupMaps as $_}}
         <li>
@@ -40,6 +35,11 @@
         </li>
       {{/foreach}}
     </ul>
+
+    {{\jp3cki\yii2\flot\FlotAsset::register($this)|@void}}
+    {{\jp3cki\yii2\flot\FlotTimeAsset::register($this)|@void}}
+    <div id="graph" data-data="{{$posts|json_encode|escape}}" data-label-battle="{{'Battles'|translate:'app'|escape}}" data-label-user="{{'Users'|translate:'app'|escape}}">
+    </div>
   </div>
 {{/strip}}
 {{registerCss}}

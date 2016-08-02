@@ -17,12 +17,29 @@
     {{AdWidget}}
     {{SnsWidget}}
 
-    <p>
-      <a href="{{url route="entire/users"}}" class="btn btn-default">
-        <span class="fa fa-angle-double-left left"></span>
-        {{'Back'|translate:'app'|escape}}
-      </a>
-    </p>
+    <div class="row">
+      <div class="col-xs-6">
+        <p>
+          <a href="{{url route="entire/users"}}" class="btn btn-default">
+            <span class="fa fa-angle-double-left left"></span>
+            {{'Back'|translate:'app'|escape}}
+          </a>
+        </p>
+      </div>
+      {{if $combineds}}
+        <div class="col-xs-6">
+          <p class="text-right">
+            {{foreach $combineds as $_combined}}
+              {{$b32 = $_combined.name|base32_encode:false|strtolower}}
+              <a href="{{url route="entire/combined-agent" b32name=$b32}}" class="btn btn-default">
+                {{$_combined.name|escape}} {{'(combined)'|translate:'app'|escape}}
+                &#32;<span class="fa fa-angle-double-right"></span>
+              </a>
+            {{/foreach}}
+          </p>
+        </div>
+      {{/if}}
+    </div>
 
     {{\jp3cki\yii2\flot\FlotAsset::register($this)|@void}}
     {{\jp3cki\yii2\flot\FlotTimeAsset::register($this)|@void}}

@@ -9,10 +9,11 @@ namespace app\actions\entire;
 
 use Base32\Base32;
 use Yii;
-use yii\base\DynamicModel;
-use yii\web\ViewAction as BaseAction;
-use yii\web\NotFoundHttpException;
+use app\models\AgentGroup;
 use app\models\StatAgentUser;
+use yii\base\DynamicModel;
+use yii\web\NotFoundHttpException;
+use yii\web\ViewAction as BaseAction;
 
 class AgentAction extends BaseAction
 {
@@ -52,9 +53,11 @@ class AgentAction extends BaseAction
 
     public function run()
     {
+        $name = Base32::decode($this->form->b32name);
         return $this->controller->render('agent.tpl', [
-            'name' => Base32::decode($this->form->b32name),
+            'name' => $name,
             'posts' => $this->postStats,
+            'combineds' => $this->combineds,
         ]);
     }
 
@@ -94,5 +97,21 @@ class AgentAction extends BaseAction
         }
         ksort($ret);
         return array_values($ret);
+    }
+
+    public function getCombineds()
+    {
+        return AgentGroup::find()
+            ->innerJoinWith([
+                'agentGroupMaps' => function ($q) {
+                    $q->orderBy(null);
+                },
+            ], false)
+            ->where([
+                '{{agent_group_map}}.[[agent_name]]' => Base32::decode($this->form->b32name),
+            ])
+            ->orderBy('{{agent_group}}.[[name]] ASC')
+            ->asArray()
+            ->all();
     }
 }
