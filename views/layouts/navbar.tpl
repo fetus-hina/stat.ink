@@ -157,14 +157,16 @@
                     {{'IkaLog'|translate:'app'|escape}}
                     （<span class="fa fa-windows left"></span>
                     <span class="fa fa-apple left"></span>
-                    <span class="fa fa-linux"></span>）
+                    <span class="fa fa-linux"></span> /&#32;
+                    日本語, English）
                   </a>
                 {{else}}
                   <a href="https://github.com/hasegaw/IkaLog/wiki/en_Home">
                     {{'IkaLog'|translate:'app'|escape}}
                     （<span class="fa fa-windows left"></span>
                     <span class="fa fa-apple left"></span>
-                    <span class="fa fa-linux"></span>）
+                    <span class="fa fa-linux"></span> /&#32;
+                    English, 日本語）
                   </a>
                 {{/if}}
               </li>
@@ -175,7 +177,12 @@
               </li>
               <li>
                 <a href="https://play.google.com/store/apps/details?id=com.syanari.merluza.ikarec">
-                  {{'IkaRec'|translate:'app'|escape}}（<span class="fa fa-android"></span>）
+                  {{'IkaRec'|translate:'app'|escape}}（<span class="fa fa-android"></span> / 日本語）
+                </a>
+              </li>
+              <li>
+                <a href="https://play.google.com/store/apps/details?id=ink.pocketgopher.ikarec">
+                  └ {{'IkaRec'|translate:'app'|escape}} (<span class="fa fa-android"></span> / English)
                 </a>
               </li>
               <li class="divider"></li>
