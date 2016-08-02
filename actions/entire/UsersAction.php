@@ -8,10 +8,11 @@
 namespace app\actions\entire;
 
 use Yii;
-use yii\web\ViewAction as BaseAction;
 use app\models\Agent;
+use app\models\AgentGroup;
 use app\models\StatAgentUser;
 use app\models\StatEntireUser;
+use yii\web\ViewAction as BaseAction;
 
 class UsersAction extends BaseAction
 {
@@ -25,6 +26,7 @@ class UsersAction extends BaseAction
             'posts' => $this->postStats,
             'agents' => $this->agentStats,
             'agentNames' => $this->agentNames,
+            'combineds' => $this->combineds,
         ]);
     }
 
@@ -146,6 +148,18 @@ class UsersAction extends BaseAction
                 return $a['agent'];
             },
             $query->createCommand()->queryAll()
+        );
+        usort($list, 'strnatcasecmp');
+        return $list;
+    }
+
+    public function getCombineds()
+    {
+        $list = array_map(
+            function ($a) {
+                return $a['name'];
+            },
+            AgentGroup::find()->asArray()->all()
         );
         usort($list, 'strnatcasecmp');
         return $list;

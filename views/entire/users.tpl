@@ -21,6 +21,18 @@
     {{\jp3cki\yii2\flot\FlotTimeAsset::register($this)|@void}}
     <div id="graph" data-data="{{$posts|json_encode|escape}}" data-label-battle="{{'Battles'|translate:'app'|escape}}" data-label-user="{{'Users'|translate:'app'|escape}}">
     </div>
+    {{registerCss}}#graph{height:300px;margin-bottom:10px}{{/registerCss}}
+    {{if $combineds}}
+      <p>
+        {{foreach $combineds as $name}}
+          {{if !$name@first}} | {{/if}}
+          {{$b32 = $name|base32_encode:false|strtolower}}
+          <a href="{{url route="entire/combined-agent" b32name=$b32}}">
+            {{$name|mb_strimwidth:0:20:'…':'UTF-8'|escape}}
+          </a>
+        {{/foreach}}
+      </p>
+    {{/if}}
     {{if $agentNames}}
       <p>
         {{foreach $agentNames as $name}}
@@ -76,9 +88,6 @@
     </table>
   </div>
 {{/strip}}
-{{registerCss}}
-#graph{height:300px}
-{{/registerCss}}
 {{registerJs}}{{literal}}
 (function($) {
   var $graph = $('#graph');

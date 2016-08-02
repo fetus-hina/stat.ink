@@ -53,6 +53,7 @@ $config = [
                 'fest/<region:\w+>/<order:\d+>' => 'fest/view',
                 'entire/weapons/<weapon:\w+>/<rule:\w+>' => 'entire/weapon',
                 'entire/weapons/<weapon:\w+>' => 'entire/weapon',
+                'entire/users/combined-<b32name:[A-Za-z2-7]+>' => 'entire/combined-agent',
                 'entire/users/<b32name:[A-Za-z2-7]+>' => 'entire/agent',
                 'api/v1/<action:[\w-]+>' => 'api-v1/<action>',
                 'api/internal/<action:[\w-]+>' => 'api-internal/<action>',
