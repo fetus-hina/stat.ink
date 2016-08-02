@@ -75,20 +75,42 @@ class Agent extends \yii\db\ActiveRecord
     public function getProductUrl()
     {
         if ($this->getIsIkaRec()) {
-            return sprintf(
-                'https://play.google.com/store/apps/details?%s',
-                http_build_query(['id' => 'com.syanari.merluza.ikarec'], '&', '')
-            );
+            return $this->getIkaRecProductUrl();
         } elseif ($this->getIsIkalog()) {
+            return $this->getIkaLogProductUrl();
+        } else {
+            return null;
+        }
+    }
+
+    protected function getIkaRecProductUrl() : string
+    {
+        $id = (function () {
             switch (substr(Yii::$app->language, 0, 2)) {
                 case 'ja':
-                    return 'https://github.com/hasegaw/IkaLog/wiki/ja_WinIkaLog';
+                    return 'com.syanari.merluza.ikarec';
 
+                case 'en':
                 default:
-                    return 'https://github.com/hasegaw/IkaLog/wiki/en_Home';
+                    return 'ink.pocketgopher.ikarec';
             }
+        })();
+        return sprintf(
+            'https://play.google.com/store/apps/details?%s',
+            http_build_query(['id' => $id], '&', '')
+        );
+    }
+
+    protected function getIkaLogProductUrl() : string
+    {
+        switch (substr(Yii::$app->language, 0, 2)) {
+            case 'ja':
+                return 'https://github.com/hasegaw/IkaLog/wiki/ja_WinIkaLog';
+
+            case 'en':
+            default:
+                return 'https://github.com/hasegaw/IkaLog/wiki/en_Home';
         }
-        return null;
     }
 
     public function getVersionUrl()
@@ -107,7 +129,11 @@ class Agent extends \yii\db\ActiveRecord
 
     public function getIsIkaRec()
     {
-        return !!preg_match('/^IkaRec(?:ord)?$/', $this->name);
+        return in_array($this->name, [
+            'IkaRec',
+            'IkaRecord',
+            'IkaRec-en',
+        ]);
     }
 
     public function getIsIkalog()
