@@ -178,16 +178,16 @@
         },
         {
             "name": "bower-asset/d3",
-            "version": "v4.2.0",
+            "version": "v4.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mbostock-bower/d3-bower.git",
-                "reference": "a849e87b83e1799e56300465d0a159cabc8a33fb"
+                "reference": "50287dd4a7f68457a5f276853a2bbb19ecf98487"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mbostock-bower/d3-bower/zipball/a849e87b83e1799e56300465d0a159cabc8a33fb",
-                "reference": "a849e87b83e1799e56300465d0a159cabc8a33fb",
+                "url": "https://api.github.com/repos/mbostock-bower/d3-bower/zipball/50287dd4a7f68457a5f276853a2bbb19ecf98487",
+                "reference": "50287dd4a7f68457a5f276853a2bbb19ecf98487",
                 "shasum": ""
             },
             "type": "bower-asset-library",
