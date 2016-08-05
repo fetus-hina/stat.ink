@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "2585c935a78dfcabc9027bad549ca8c3",
-    "content-hash": "c72f7fad1f5a903865612d97d763b45f",
+    "hash": "8f41e63119e60e22a5722f6f5719a109",
+    "content-hash": "f057338b0f3d04c8529a79af207c94ab",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -455,12 +455,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/joequery/Stupid-Table-Plugin.git",
-                "reference": "dd20279ae24f29ea07cba8c035be685b6e9dcf50"
+                "reference": "5fc4a8723602603275fe161cfcd05ce372c770f4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/joequery/Stupid-Table-Plugin/zipball/dd20279ae24f29ea07cba8c035be685b6e9dcf50",
-                "reference": "dd20279ae24f29ea07cba8c035be685b6e9dcf50",
+                "url": "https://api.github.com/repos/joequery/Stupid-Table-Plugin/zipball/5fc4a8723602603275fe161cfcd05ce372c770f4",
+                "reference": "5fc4a8723602603275fe161cfcd05ce372c770f4",
                 "shasum": ""
             },
             "require": {
@@ -489,7 +489,7 @@
                 "sort",
                 "table"
             ],
-            "time": "2015-06-06 20:06:07"
+            "time": "2016-07-19 16:14:17"
         },
         {
             "name": "bower-asset/jquery.inputmask",
@@ -1468,6 +1468,7 @@
                     "jp3cki\\yii2\\zxcvbn\\": "src/"
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -1478,10 +1479,6 @@
                 }
             ],
             "description": "Zxcvbn Assets for Yii Framework 2.",
-            "support": {
-                "source": "https://github.com/fetus-hina/yii2-zxcvbn/tree/v1.0.0",
-                "issues": "https://github.com/fetus-hina/yii2-zxcvbn/issues"
-            },
             "time": "2015-12-25 14:01:09"
         },
         {
@@ -2790,55 +2787,6 @@
             "description": "Symfony Process Component",
             "homepage": "https://symfony.com",
             "time": "2016-07-28 11:13:48"
-        },
-        {
-            "name": "symfony/yaml",
-            "version": "v2.8.9",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/yaml.git",
-                "reference": "0ceab136f43ed9d3e97b3eea32a7855dc50c121d"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/0ceab136f43ed9d3e97b3eea32a7855dc50c121d",
-                "reference": "0ceab136f43ed9d3e97b3eea32a7855dc50c121d",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.9"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.8-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Symfony\\Component\\Yaml\\": ""
-                },
-                "exclude-from-classmap": [
-                    "/Tests/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://symfony.com/contributors"
-                }
-            ],
-            "description": "Symfony Yaml Component",
-            "homepage": "https://symfony.com",
-            "time": "2016-07-17 09:06:15"
         },
         {
             "name": "yiisoft/yii2-debug",
