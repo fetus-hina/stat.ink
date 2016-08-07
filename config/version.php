@@ -1,2 +1,2 @@
 <?php
-return '1.74.0-beta2';
+return '1.74.0';
