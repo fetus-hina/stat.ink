@@ -335,7 +335,7 @@ return [
     'e.g. YouTube video, like "{0}"' => 'YouTubeやニコニコ動画の動画URLを指定します（例えば「{0}」）',
     'fest.ink' => 'イカフェスレート',
     'k' => '殺',
-    'streaks' => 'ストリーク',
+    'streak' => 'ストリーク',
     '{0} etc.' => '{0} 他',
     '{0}-san' => '{0}さん',
     '{0}\'s Battle Report' => '{0}さんのバトルレポート',

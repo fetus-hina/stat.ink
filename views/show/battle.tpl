@@ -1127,7 +1127,7 @@
                         if (ignoreStreakUntil < v.at) {
                           ++streak;
                           if (streak > 1) {
-                            messages.push(streak + ' {{'streaks'|translate:app|escape:javascript}}');
+                            messages.push(streak + ' {{'streak'|translate:app|escape:javascript}}');
                           }
                         }
                         return [
