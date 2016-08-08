@@ -23,6 +23,11 @@ use app\components\helpers\Translator;
  */
 class FestTitle extends \yii\db\ActiveRecord
 {
+    public static function find()
+    {
+        return parent::find()->with('festTitleGenders');
+    }
+
     /**
      * @inheritdoc
      */
@@ -96,13 +101,18 @@ class FestTitle extends \yii\db\ActiveRecord
     {
         return [
             'key' => $this->key,
-            'name' => (($gender === null)
-                ? Translator::translateToAll('app-fest', $this->name)
-                : Translator::translateToAll(
-                    'app-fest',
-                    $this->getFestTitleGenders()->andWhere(['gender_id' => $gender->id])->one()->name,
-                    [ '***', '***' ]
-                )),
+            'name' => (function () use ($gender) {
+                if ($gender === null) {
+                    return Translator::translateToAll('app-fest', $this->name);
+                }
+                $genders = array_filter($this->festTitleGenders, function ($row) use ($gender) {
+                    return $row->gender_id == $gender->id;
+                });
+                if (count($genders) !== 1) {
+                    return Translator::translateToAll('app-fest', $this->name);
+                }
+                return Translator::translateToAll('app-fest', array_shift($genders)->name, ['***', '***']);
+            })(),
         ];
     }
 }

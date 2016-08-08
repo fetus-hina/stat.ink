@@ -22,6 +22,11 @@ use app\components\helpers\Translator;
  */
 class BattleDeathReason extends \yii\db\ActiveRecord
 {
+    public static function find()
+    {
+        return parent::find()->with('reason');
+    }
+
     /**
      * @inheritdoc
      */
