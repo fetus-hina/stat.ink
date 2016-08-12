@@ -16,7 +16,7 @@
         "gulp-load-plugins": "^1.0",
         "gulp-postcss": "^6.1",
         "gulp-rename": "^1.2",
-        "gulp-uglify": "^1.2",
+        "gulp-uglify": "^2.0",
         "minimist": "^1.2"
     }
 }
