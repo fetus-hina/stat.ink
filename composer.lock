@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "b695d887794fbbbfbc11a4ae8b0f00a4",
-    "content-hash": "f41a268453db51d3d099b797ef5505b0",
+    "hash": "f574f77632a8e572eef27e087e018b99",
+    "content-hash": "0d417624d1962558693109fdda288aba",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -1483,16 +1483,16 @@
         },
         {
             "name": "php-curl-class/php-curl-class",
-            "version": "4.13.0",
+            "version": "5.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-curl-class/php-curl-class.git",
-                "reference": "debe0a89ee1eb9a2f15c0bb63ce8b347130af50d"
+                "reference": "c2b4f4c4665fc922a33b26521cad7bde4681929f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-curl-class/php-curl-class/zipball/debe0a89ee1eb9a2f15c0bb63ce8b347130af50d",
-                "reference": "debe0a89ee1eb9a2f15c0bb63ce8b347130af50d",
+                "url": "https://api.github.com/repos/php-curl-class/php-curl-class/zipball/c2b4f4c4665fc922a33b26521cad7bde4681929f",
+                "reference": "c2b4f4c4665fc922a33b26521cad7bde4681929f",
                 "shasum": ""
             },
             "require": {
@@ -1535,7 +1535,7 @@
                 "web service",
                 "xml"
             ],
-            "time": "2016-07-25 19:31:39"
+            "time": "2016-08-07 09:43:45"
         },
         {
             "name": "rmrevin/yii2-fontawesome",
@@ -1590,16 +1590,16 @@
         },
         {
             "name": "smarty/smarty",
-            "version": "v3.1.29",
+            "version": "v3.1.30",
             "source": {
                 "type": "git",
                 "url": "https://github.com/smarty-php/smarty.git",
-                "reference": "35480f10e7ce9b0fdaf23d3799d7b79463919b1e"
+                "reference": "ed2b7f1146cfda13df1eea8a5f707a1b771b6e7e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/smarty-php/smarty/zipball/35480f10e7ce9b0fdaf23d3799d7b79463919b1e",
-                "reference": "35480f10e7ce9b0fdaf23d3799d7b79463919b1e",
+                "url": "https://api.github.com/repos/smarty-php/smarty/zipball/ed2b7f1146cfda13df1eea8a5f707a1b771b6e7e",
+                "reference": "ed2b7f1146cfda13df1eea8a5f707a1b771b6e7e",
                 "shasum": ""
             },
             "require": {
@@ -1641,7 +1641,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2015-12-21 01:57:06"
+            "time": "2016-08-07 18:46:49"
         },
         {
             "name": "tpyo/amazon-s3-php-class",
@@ -2029,16 +2029,16 @@
         },
         {
             "name": "zendframework/zend-http",
-            "version": "2.5.4",
+            "version": "2.5.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/zend-http.git",
-                "reference": "7b920b4ec34b5ee58f76eb4e8c408b083121953c"
+                "reference": "98b1cac0bc7a91497c5898184281abcd0e24c8d6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zend-http/zipball/7b920b4ec34b5ee58f76eb4e8c408b083121953c",
-                "reference": "7b920b4ec34b5ee58f76eb4e8c408b083121953c",
+                "url": "https://api.github.com/repos/zendframework/zend-http/zipball/98b1cac0bc7a91497c5898184281abcd0e24c8d6",
+                "reference": "98b1cac0bc7a91497c5898184281abcd0e24c8d6",
                 "shasum": ""
             },
             "require": {
@@ -2075,7 +2075,7 @@
                 "http",
                 "zf2"
             ],
-            "time": "2016-02-04 20:36:48"
+            "time": "2016-08-08 15:01:54"
         },
         {
             "name": "zendframework/zend-loader",
