@@ -130,7 +130,7 @@ $config = [
             'targets' => [
                 [
                     'class' => 'yii\log\FileTarget',
-                    'levels' => ['error', 'warning', 'profile'],
+                    'levels' => ['error', 'warning'],
                 ],
             ],
         ],
@@ -189,7 +189,6 @@ if (YII_ENV_DEV) {
     $config['modules']['debug'] = [
         'class' => 'yii\debug\Module',
         'allowedIPs' => require(__DIR__ . '/debug-ips.php'),
-        'enableDebugLogs' => true,
     ];
 }
 
