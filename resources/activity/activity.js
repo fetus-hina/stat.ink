@@ -15,7 +15,7 @@
                 "itemName": [ "battle", "battles" ],
             },
             "en-GB": {
-                "moths": [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ],
+                "months": [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ],
                 "itemName": [ "battle", "battles" ],
             },
         }[$('html').attr('lang')];
