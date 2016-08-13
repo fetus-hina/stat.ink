@@ -760,6 +760,7 @@ class PostBattleForm extends Model
             $secondaryAbilityIdList
         );
 
+        $lock = CriticalSection::lock(__METHOD__, 60);
         $config = GearConfiguration::findOne(['finger_print' => $fingerPrint]);
         if (!$config) {
             $config = new GearConfiguration();
