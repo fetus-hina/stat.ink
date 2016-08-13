@@ -11,6 +11,7 @@ use Yii;
 use yii\base\Model;
 use yii\web\UploadedFile;
 use app\components\helpers\db\Now;
+use app\components\helpers\CriticalSection;
 use app\models\Ability;
 use app\models\AgentAttribute;
 use app\models\Battle;
@@ -841,5 +842,24 @@ class PostBattleForm extends Model
         }
 
         return false;
+    }
+
+    public function getCriticalSectionName()
+    {
+        return rtrim(
+            base64_encode(
+                hash_hmac('sha256', $this->apikey, __CLASS__, true)
+            ),
+            '='
+        );
+    }
+
+    public function acquireLock($timeout = 60)
+    {
+        try {
+            return CriticalSection::lock($this->getCriticalSectionName(), $timeout);
+        } catch (\RuntimeException $e) {
+            return false;
+        }
     }
 }

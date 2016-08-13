@@ -167,6 +167,11 @@ $config = [
                 ],
             ],
         ],
+        'mutex' => [
+            'class' => 'yii\mutex\FileMutex',
+            'dirMode' => 0700,
+            'fileMode' => 0600,
+        ],
         'autoAlias' => [
             'class' => 'app\components\AutoAlias',
             'aliases' => [

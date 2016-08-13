@@ -9,19 +9,20 @@ namespace app\actions\api\v1;
 
 use DateTimeZone;
 use Yii;
-use yii\base\DynamicModel;
-use yii\helpers\Url;
-use yii\web\MethodNotAllowedHttpException;
-use yii\web\UploadedFile;
-use yii\web\ViewAction as BaseAction;
 use app\components\helpers\DateTimeFormatter;
 use app\components\helpers\ImageConverter;
+use app\components\web\ServiceUnavailableHttpException;
 use app\models\Agent;
 use app\models\Battle;
 use app\models\Slack;
 use app\models\User;
 use app\models\api\v1\DeleteBattleForm;
 use app\models\api\v1\PostBattleForm;
+use yii\base\DynamicModel;
+use yii\helpers\Url;
+use yii\web\MethodNotAllowedHttpException;
+use yii\web\UploadedFile;
+use yii\web\ViewAction as BaseAction;
 
 class BattleAction extends BaseAction
 {
@@ -207,6 +208,10 @@ class BattleAction extends BaseAction
             );
         }
 
+        if (!$userLock = $form->acquireLock()) {
+            throw new ServiceUnavailableHttpException();
+        }
+
         // 重複登録チェックして重複していれば前のレコードを返す
         if ($battle = $form->getSameBattle()) {
             return $this->runGetImpl($battle);
@@ -228,6 +233,7 @@ class BattleAction extends BaseAction
                 'system' => [ $e->getMessage() ],
             ], 500);
         }
+        unset($userLock);
 
         // 保存時間の読み込みのために再読込する
         $battle = Battle::findOne(['id' => $battle->id]);
