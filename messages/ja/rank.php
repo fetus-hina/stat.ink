@@ -5,4 +5,9 @@
  * @author AIZAWA Hina <hina@bouhime.com>
  */
 
-return [];
+return [
+    'A zone' => 'A帯',
+    'B zone' => 'B帯',
+    'C zone' => 'C帯',
+    'S zone' => 'S帯',
+];

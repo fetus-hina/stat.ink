@@ -6,4 +6,9 @@
  * @author AIZAWA Hina <hina@bouhime.com>
  */
 
-return [];
+return [
+    'A zone' => 'la zona A',
+    'B zone' => 'la zona B',
+    'C zone' => 'la zona C',
+    'S zone' => 'la zona S',
+];
