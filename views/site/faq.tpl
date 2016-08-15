@@ -21,8 +21,26 @@
       Q: stat.ink はどのようなサービスですか
     </h2>
     <p>
-      A: stat.ink は Splatoon の戦績を集めて集計するウェブサービスです。戦績の統計には、<a href="https://github.com/hasegaw/IkaLog/blob/master/doc/IkaUI.md">IkaLog(Windows, Mac, Linux)</a>や<a href="https://play.google.com/store/apps/details?id=com.syanari.merluza.ikarec&amp;hl=ja">イカレコ(Android)</a>などの対応アプリが必要となります。
+      A: stat.ink は Splatoon の戦績を集めて集計するウェブサービスです。戦績の登録には、次のような対応アプリが必要になります。
     </p>
+    <ul>
+      <li>
+        <a href="https://github.com/hasegaw/IkaLog/blob/master/doc/IkaUI.md">IkaLog</a> (Windows, OS X, Linux / Japanese, English[NA/EU/OC])
+        <ul>
+          <li>
+            <a href="https://github.com/hasegaw/IkaLog/wiki/ja_WinIkaLog">WinIkaLog</a> (Windows / Japanese, English[NA/EU/OC])
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a href="https://play.google.com/store/apps/details?id=com.syanari.merluza.ikarec">イカレコ</a> (Android / Japanese)
+        <ul>
+          <li>
+            <a href="https://play.google.com/store/apps/details?id=ink.pocketgopher.ikarec">IkaRec</a> (Android / English[NA/EU/OC])
+          </li>
+        </ul>
+      </li>
+    </ul>
     <p>
       Splatoon Advent Calendar 2015 で解説を書きましたのでご覧ください： <a href="https://blog.fetus.jp/201512/30.html">イカフェスレートとstat.ink</a>
     </p>
@@ -34,7 +52,7 @@
       Q: stat.ink 自体に戦績登録機能はないのですか
     </h2>
     <p>
-      A: 現時点ではありません。<a href="https://github.com/hasegaw/IkaLog/blob/master/doc/IkaUI.md">IkaLog(Windows, Mac, Linux)</a>や<a href="https://play.google.com/store/apps/details?id=com.syanari.merluza.ikarec&amp;hl=ja">イカレコ(Android)</a>をご利用ください。
+      A: 現時点ではありません。IkaLog (WinIkaLog)、イカレコをご利用ください。
     </p>
 
     <h2>
@@ -52,7 +70,7 @@
         ※stat.ink以外にも利用できます。例えばTwitter投稿などができます。
       </li>
       <li>
-        <a href="https://play.google.com/store/apps/details?id=com.syanari.merluza.ikarec&amp;hl=ja">イカレコ</a><br>
+        <a href="https://play.google.com/store/apps/details?id=com.syanari.merluza.ikarec">イカレコ</a>, <a href="https://play.google.com/store/apps/details?id=ink.pocketgopher.ikarec">IkaRec</a>(英語版)<br>
         Androidで動作する戦績登録用のアプリです。<br>
         手動で登録する必要がありますが、キャプチャデバイス等を準備する必要はないためある意味ではお手軽です。<br>
         ※stat.ink連携なしでも戦績の記録、閲覧、統計は出ます。
