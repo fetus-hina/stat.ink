@@ -124,6 +124,17 @@ class Battle extends ActiveRecord
         }
     }
 
+    public function __get($attr)
+    {
+        switch ($attr) {
+            case 'kill_rate':
+                return $this->getKillRate();
+
+            default:
+                return parent::__get($attr);
+        }
+    }
+
     /**
      * @inheritdoc
      */
@@ -1034,6 +1045,14 @@ class Battle extends ActiveRecord
             ksort($ret, SORT_STRING);
             return $ret;
         })();
+    }
+
+    public function getKillRate()
+    {
+        if ($this->kill + $this->death === 0) {
+            return null;
+        }
+        return $this->kill / ($this->kill + $this->death);
     }
 
     public function saveEditHistory()

@@ -60,7 +60,7 @@ window.battleList = function () {
     return y > 153 ? '#000' : '#fff';
   };
 
-  $('.kill-ratio').each(function() {
+  $('.kill-ratio,.kill-rate').each(function() {
     var $this = $(this);
     var kr = parseFloat($this.attr('data-kill-ratio'));
     $this.css('background-color', calcColor(kr));

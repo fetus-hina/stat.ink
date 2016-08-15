@@ -328,6 +328,17 @@
                   {{/if}}
                 </td>
               </tr>
+              <tr>
+                <th>{{'Kill Rate'|translate:'app'|escape}}</th>
+                <td>
+                  {{$_ = $battle->kill_rate}}
+                  {{if $_ === null}}
+                    {{'N/A'|translate:'app'|escape}}
+                  {{else}}
+                    {{$_|percent:1|escape}}
+                  {{/if}}
+                </td>
+              </tr>
             {{/if}}
             {{if $battle->max_kill_combo !== null}}
               <tr>

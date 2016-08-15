@@ -163,10 +163,15 @@
                     {{if $summary->total_kill == 0}}
                       {{'N/A'|translate:'app'|escape}}
                     {{else}}
-                      ∞
+                      <span class="auto-tooltip" title="{{'Kill Rate'|translate:'app'|escape}}: {{1.0|percent|escape}}">
+                        ∞
+                      </span>
                     {{/if}}
                   {{else}}
-                    {{($summary->total_kill/$summary->total_death)|number_format:2|escape}}
+                    {{$_rate = ($summary->total_kill / ($summary->total_kill + $summary->total_death))}}
+                    <span class="auto-tooltip" title="{{'Kill Rate'|translate:'app'|escape}}: {{$_rate|percent|escape}}">
+                      {{($summary->total_kill/$summary->total_death)|number_format:2|escape}}
+                    </span>
                   {{/if}}
                 {{else}}
                   -
@@ -204,7 +209,8 @@
                 {{* <th class="cell-level-after">{{'Level (After)'|translate:'app'|escape}}</th> *}}
                 <th class="cell-result">{{'Result'|translate:'app'|escape}}</th>
                 <th class="cell-kd">{{'k'|translate:'app'|escape}}/{{'d'|translate:'app'|escape}}</th>
-                <th class="cell-kill-ratio">{{'KR'|translate:'app'|escape}}</th>
+                <th class="cell-kill-ratio auto-tooltip" title="{{'Kill Ratio'|translate:'app'|escape}}">{{'Ratio'|translate:'app'|escape}}</th>
+                <th class="cell-kill-rate auto-tooltip" title="{{'Kill Rate'|translate:'app'|escape}}">{{'Rate'|translate:'app'|escape}}</th>
                 <th class="cell-point">{{'Point'|translate:'app'|escape}}</th>
                 <th class="cell-rank-in-team">{{'Rank in Team'|translate:'app'|escape}}</th>
                 <th class="cell-datetime">{{'Date Time'|translate:'app'|escape}}</th>
@@ -275,6 +281,8 @@
             <label><input type="checkbox" class="table-config-chk" data-klass="cell-kd"> {{'k'|translate:'app'|escape}}/{{'d'|translate:'app'|escape}}</label>
           </div><div class="col-xs-6 col-sm-4 col-md-4 col-lg-3">
             <label><input type="checkbox" class="table-config-chk" data-klass="cell-kill-ratio"> {{'Kill Ratio'|translate:'app'|escape}}</label>
+          </div><div class="col-xs-6 col-sm-4 col-md-4 col-lg-3">
+            <label><input type="checkbox" class="table-config-chk" data-klass="cell-kill-rate"> {{'Kill Rate'|translate:'app'|escape}}</label>
           </div><div class="col-xs-6 col-sm-4 col-md-4 col-lg-3">
             <label><input type="checkbox" class="table-config-chk" data-klass="cell-point"> {{'Turf Inked'|translate:'app'|escape}}</label>
           </div><div class="col-xs-6 col-sm-4 col-md-4 col-lg-3">
