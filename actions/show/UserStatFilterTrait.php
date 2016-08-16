@@ -104,7 +104,7 @@ trait UserStatFilterTrait
     {
         if (substr($value, 0, 1) === '~') {
             $query->andWhere(['{{rank_group}}.[[key]]' => substr($value, 1)]);
-        } elseif ($value !== '') {
+        } elseif ($value != '') {
             $query->andWhere(['{{rank}}.[[key]]' => $value]);
         }
         return $this;

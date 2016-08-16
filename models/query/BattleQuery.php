@@ -135,7 +135,7 @@ class BattleQuery extends ActiveQuery
         if (substr($rank, 0, 1) === '~') {
             $this->innerJoinWith(['rank', 'rank.group']);
             $this->andWhere(['{{rank_group}}.[[key]]' => substr($rank, 1)]);
-        } elseif ($rank !== '') {
+        } elseif ($rank != '') {
             $this->innerJoinWith('rank');
             $this->andWhere(['{{rank}}.[[key]]' => $rank]);
         }
