@@ -22,6 +22,7 @@ trait UserStatFilterTrait
             ->filterByRule($query, $filter->rule)
             ->filterByMap($query, $filter->map)
             ->filterByWeapon($query, $filter->weapon)
+            ->filterByRank($query, $filter->rank)
             ->filterByResult($query, $filter->result)
             ->filterByTerm($query, $filter->term, [
                 'from' => $filter->term_from,
@@ -95,6 +96,16 @@ trait UserStatFilterTrait
                     $query->andWhere(['{{weapon}}.[[main_group_id]]' => $main->id]);
                 }
                 break;
+        }
+        return $this;
+    }
+
+    public function filterByRank($query, $value)
+    {
+        if (substr($value, 0, 1) === '~') {
+            $query->andWhere(['{{rank_group}}.[[key]]' => substr($value, 1)]);
+        } else {
+            $query->andWhere(['{{rank}}.[[key]]' => $value]);
         }
         return $this;
     }

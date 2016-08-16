@@ -8,16 +8,13 @@
 namespace app\components\widgets;
 
 use Yii;
-use jp3cki\yii2\datetimepicker\BootstrapDateTimePickerAsset;
-use rmrevin\yii\fontawesome\FontAwesome;
-use yii\base\Widget;
-use yii\bootstrap\ActiveForm;
-use yii\helpers\Html;
 use app\components\helpers\Resource;
 use app\components\helpers\db\Now;
 use app\models\GameMode;
 use app\models\Lobby;
 use app\models\Map;
+use app\models\Rank;
+use app\models\RankGroup;
 use app\models\Rule;
 use app\models\Special;
 use app\models\SplatoonVersion;
@@ -25,6 +22,11 @@ use app\models\Subweapon;
 use app\models\User;
 use app\models\Weapon;
 use app\models\WeaponType;
+use jp3cki\yii2\datetimepicker\BootstrapDateTimePickerAsset;
+use rmrevin\yii\fontawesome\FontAwesome;
+use yii\base\Widget;
+use yii\bootstrap\ActiveForm;
+use yii\helpers\Html;
 
 class BattleFilterWidget extends Widget
 {
@@ -37,6 +39,7 @@ class BattleFilterWidget extends Widget
     public $rule = true;
     public $map = true;
     public $weapon = true;
+    public $rank = true;
     public $result = true;
     public $term = true;
     public $action = 'search'; // search or summarize
@@ -75,6 +78,9 @@ class BattleFilterWidget extends Widget
         }
         if ($this->weapon) {
             $ret[] = $this->drawWeapon($form);
+        }
+        if ($this->rank) {
+            $ret[] = $this->drawRank($form);
         }
         if ($this->result) {
             $ret[] = $this->drawResult($form);
@@ -290,6 +296,34 @@ class BattleFilterWidget extends Widget
             })(),
         ];
     }
+
+    protected function drawRank(ActiveForm $form)
+    {
+        $groups = RankGroup::find()
+            ->with([
+                'ranks' => function ($q) {
+                    return $q->orderBy('[[id]] DESC');
+                },
+            ])
+            ->orderBy('[[id]] DESC')
+            ->asArray()
+            ->all();
+
+        $list = [];
+        $list[''] = Yii::t('app-rank', 'Any Rank');
+        foreach ($groups as $group) {
+            $list['~' . $group['key']] = Yii::t('app-rank', $group['name']);
+            foreach ($group['ranks'] as $i => $rank) {
+                $list[$rank['key']] = sprintf(
+                    '%s %s',
+                    (($i !== count($group['ranks']) - 1) ? '├' : '└'),
+                    Yii::t('app-rank', $rank['name'])
+                );
+            }
+        }
+        return $form->field($this->filter, 'rank')->dropDownList($list)->label(false);
+    }
+
 
     protected function drawResult(ActiveForm $form)
     {

@@ -59,4 +59,9 @@ class RankGroup extends \yii\db\ActiveRecord
             'name' => Translator::translateToAll('app-rank', $this->name),
         ];
     }
+
+    public function getRanks()
+    {
+        return $this->hasMany(Rank::class, ['group_id' => 'id']);
+    }
 }

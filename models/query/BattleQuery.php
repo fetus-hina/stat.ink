@@ -36,6 +36,7 @@ class BattleQuery extends ActiveQuery
             ->filterByRule($filter->rule)
             ->filterByMap($filter->map)
             ->filterByWeapon($filter->weapon)
+            ->filterByRank($filter->rank)
             ->filterByResult($filter->result)
             ->filterByTerm($filter->term, [
                 'filter' => $filter,
@@ -125,6 +126,18 @@ class BattleQuery extends ActiveQuery
                     $this->andWhere(['{{weapon}}.[[main_group_id]]' => $main->id]);
                 }
                 break;
+        }
+        return $this;
+    }
+
+    public function filterByRank($rank)
+    {
+        if (substr($rank, 0, 1) === '~') {
+            $this->innerJoinWith(['rank', 'rank.group']);
+            $this->andWhere(['{{rank_group}}.[[key]]' => substr($rank, 1)]);
+        } else {
+            $this->innerJoinWith('rank');
+            $this->andWhere(['{{rank}}.[[key]]' => $rank]);
         }
         return $this;
     }

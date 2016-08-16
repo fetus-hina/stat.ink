@@ -57,6 +57,8 @@ class UserStatByMapAction extends BaseAction
             ->leftJoin('weapon_type', '{{weapon}}.[[type_id]] = {{weapon_type}}.[[id]]')
             ->leftJoin('subweapon', '{{weapon}}.[[subweapon_id]] = {{subweapon}}.[[id]]')
             ->leftJoin('special', '{{weapon}}.[[special_id]] = {{special}}.[[id]]')
+            ->leftJoin('rank', '{{battle}}.[[rank_id]] = {{rank}}.[[id]]')
+            ->leftJoin('rank_group', '{{rank}}.[[group_id]] = {{rank_group}}.[[id]]')
             ->andWhere(['{{battle}}.[[user_id]]' => $user->id])
             ->andWhere(['in', '{{battle}}.[[is_win]]', [ true, false ]])
             ->groupBy(['{{battle}}.[[map_id]]', '{{battle}}.[[is_win]]']);

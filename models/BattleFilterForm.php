@@ -16,6 +16,7 @@ use app\models\GameMode;
 use app\models\Lobby;
 use app\models\Map;
 use app\models\Rank;
+use app\models\RankGroup;
 use app\models\Rule;
 use app\models\Special;
 use app\models\Subweapon;
@@ -31,6 +32,7 @@ class BattleFilterForm extends Model
     public $rule;
     public $map;
     public $weapon;
+    public $rank;
     public $result;
     public $term;
     public $term_from;
@@ -97,6 +99,15 @@ class BattleFilterForm extends Model
                 'when' => function () {
                     return substr($this->weapon, 0, 1) === '~';
                 }],
+            [['rank'], 'exist',
+                'targetClass' => Rank::class, 'targetAttribute' => 'key',
+                'when' => function () {
+                    return substr($this->rank, 0, 1) !== '~';
+                }],
+            [['rank'], 'validateRankGroup',
+                'when' => function () {
+                    return substr($this->rank, 0, 1) === '~';
+                }],
             [['result'], 'boolean', 'trueValue' => 'win', 'falseValue' => 'lose'],
             [['term'], 'in',
                 'range' => array_merge(
@@ -135,6 +146,7 @@ class BattleFilterForm extends Model
             'rule'          => Yii::t('app', 'Mode'),
             'map'           => Yii::t('app', 'Stage'),
             'weapon'        => Yii::t('app', 'Weapon'),
+            'rank'          => Yii::t('app', 'Rank'),
             'result'        => Yii::t('app', 'Result'),
             'term'          => Yii::t('app', 'Term'),
             'term_from'     => Yii::t('app', 'Period From'),
@@ -203,6 +215,22 @@ class BattleFilterForm extends Model
         }
     }
 
+    public function validateRankGroup($attr, $params)
+    {
+        $value = substr($this->$attr, 1);
+        $count = RankGroup::find()
+            ->andWhere(['key' => $value])
+            ->count();
+        if ($count < 1) {
+            $this->addError(
+                $attr,
+                Yii::t('yii', '{attribute} is invalid.', [
+                    'attribute' => $this->getAttributeLabel($attr),
+                ])
+            );
+        }
+    }
+
     public function validateTimezone($attr, $params)
     {
         $value = $this->$attr;
@@ -229,7 +257,7 @@ class BattleFilterForm extends Model
             $ret[$key] = $value;
         };
 
-        foreach (['lobby', 'rule', 'map', 'weapon', 'result', 'id_from', 'id_to'] as $key) {
+        foreach (['lobby', 'rule', 'map', 'weapon', 'rank', 'result', 'id_from', 'id_to'] as $key) {
             $value = $this->$key;
             if ((string)$value !== '') {
                 $push($key, $value);
@@ -243,7 +271,7 @@ class BattleFilterForm extends Model
                 $t = BattleHelper::periodToRange(BattleHelper::calcPeriod($now), 180);
                 $push('term', 'term');
                 $push('term_from', date('Y-m-d H:i:s', $t[0]));
-                $push('term_to', date('Y-m-d H:i:s', $t[1] - 1));
+                $push('term_to', date('Y-m-d H:i:s', $now));
                 $push('timezone', $tz);
                 break;
 
@@ -265,7 +293,7 @@ class BattleFilterForm extends Model
             case 'today':
                 $push('term', 'term');
                 $push('term_from', date('Y-m-d 00:00:00', $now));
-                $push('term_to', date('Y-m-d 23:59:59', $now));
+                $push('term_to', date('Y-m-d H:i:s', $now));
                 $push('timezone', $tz);
                 break;
 

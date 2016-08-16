@@ -72,6 +72,8 @@ class UserStatByWeaponAction extends BaseAction
             ->leftJoin('game_mode', '{{rule}}.[[mode_id]] = {{game_mode}}.[[id]]')
             ->leftJoin('lobby', '{{battle}}.[[lobby_id]] = {{lobby}}.[[id]]')
             ->leftJoin('map', '{{battle}}.[[map_id]] = {{map}}.[[id]]')
+            ->leftJoin('rank', '{{battle}}.[[rank_id]] = {{rank}}.[[id]]')
+            ->leftJoin('rank_group', '{{rank}}.[[group_id]] = {{rank_group}}.[[id]]')
             ->andWhere([
                 '{{battle}}.[[user_id]]' => $user->id,
                 '{{battle}}.[[is_win]]' => [ true, false ],

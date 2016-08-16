@@ -6,6 +6,7 @@
  */
 
 return [
+    'Any Rank' => 'すべてのウデマエ',
     'A zone' => 'A帯',
     'B zone' => 'B帯',
     'C zone' => 'C帯',
