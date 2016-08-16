@@ -1,9 +1,23 @@
 {{strip}}
   <tr class="battle-row" data-period="{{$model->period|escape}}">
-    <td>
+    <td class="nobr">
       <a href="{{url route='show/battle' screen_name=$model->user->screen_name battle=$model->id}}" class="btn btn-primary btn-xs">
         {{'Detail'|translate:'app'|escape}}
       </a>
+      {{if $model->link_url}}
+        {{use class="app\components\widgets\EmbedVideo"}}
+        {{use class="rmrevin\yii\fontawesome\FontAwesome"}}
+        &#32;
+        {{if EmbedVideo::isSupported($model->link_url)}}
+          <a href="{{$model->link_url|escape}}" class="btn btn-default btn-xs" rel="nofollow">
+            {{FontAwesome::icon('video-camera')->fixedWidth()}}
+          </a>
+        {{else}}
+          <a href="{{$model->link_url|escape}}" class="btn btn-default btn-xs" rel="nofollow">
+            {{FontAwesome::icon('link')->fixedWidth()}}
+          </a>
+        {{/if}}
+      {{/if}}
     </td>
     <td class="cell-lobby">
       {{$model->lobby->name|default:'?'|translate:'app-rule'|escape}}
