@@ -682,7 +682,8 @@
                   <th class="col-point">{{'Points'|translate:'app'|escape}}</th>
                 {{/if}}
                 <th class="col-kd">{{'k'|translate:'app'|escape}}/{{'d'|translate:'app'|escape}}</th>
-                <th class="col-kr">{{'KR'|translate:'app'|escape}}</th>
+                <th class="col-kr auto-tooltip" title="{{'Kill Ratio'|translate:'app'|escape}}">{{'Ratio'|translate:'app'|escape}}</th>
+                <th class="col-kr auto-tooltip" title="{{'Kill Rate'|translate:'app'|escape}}">{{'Rate'|translate:'app'|escape}}</th>
             </thead>
             <tbody>
               {{if $battle->is_win === false}}
@@ -752,6 +753,13 @@
                       {{/if}}
                     {{/if}}
                   </td>
+                  <td class="text-right">
+                    {{if !$hasNull}}
+                      {{if $totalDeath > 0 || $totalKill > 0}}
+                        {{($totalKill/($totalKill+$totalDeath))|percent:1|escape}}
+                      {{/if}}
+                    {{/if}}
+                  </td>
                 </tr>
                 {{foreach $battle->$attr as $player}}
                   <tr class="{{if $player->is_me}}its-me{{/if}}">
@@ -818,6 +826,13 @@
                           {{/if}}
                         {{else}}
                           {{($player->kill/$player->death)|number_format:2|escape}}
+                        {{/if}}
+                      {{/if}}
+                    </td>
+                    <td class="col-kr text-right">
+                      {{if $player->kill !== null && $player->death !== null}}
+                        {{if $player->kill > 0 || $player->death > 0}}
+                          {{($player->kill/($player->kill+$player->death))|percent:1|escape}}
                         {{/if}}
                       {{/if}}
                     </td>
