@@ -81,17 +81,21 @@
           <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
             <div class="user-label">
               <span class="auto-tooltip" title="{{'Kill Ratio'|translate:'app'|escape}}">
-                {{'KR'|translate:'app'|escape}}
+                {{'Ratio'|translate:'app'|escape}}
               </span>
             </div>
             <div class="user-number">
               {{if $stat->total_kill == 0 && $stat->total_death == 0}}
                 -
-              {{elseif $stat->total_death == 0}}
-                ∞
               {{else}}
-                {{($stat->total_kill/$stat->total_death)|number_format:2|escape}}
-              {{/if}}
+                <span class="auto-tooltip" title="{{'Kill Rate'|translate:'app'|escape}}: {{($stat->total_kill/($stat->total_kill+$stat->total_death))|percent:1|escape}}">
+                  {{if $stat->total_death == 0}}
+                    ∞
+                  {{else}}
+                    {{($stat->total_kill/$stat->total_death)|number_format:2|escape}}
+                  {{/if}}
+                </span>
+              {{/if}}  
             </div>
           </div>
         </div>
@@ -129,16 +133,20 @@
           <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
             <div class="user-label">
               <span class="auto-tooltip" title="{{'Kill Ratio'|translate:'app'|escape}}">
-                {{'KR'|translate:'app'|escape}}
+                {{'Ratio'|translate:'app'|escape}}
               </span>
             </div>
             <div class="user-number">
               {{if $stat->nawabari_kill == 0 && $stat->nawabari_death == 0}}
                 -
-              {{elseif $stat->nawabari_death == 0}}
-                ∞
               {{else}}
-                {{($stat->nawabari_kill/$stat->nawabari_death)|number_format:2|escape}}
+                <span class="auto-tooltip" title="{{'Kill Rate'|translate:'app'|escape}}: {{($stat->nawabari_kill/($stat->nawabari_kill+$stat->nawabari_death))|percent:1|escape}}">
+                  {{if $stat->nawabari_death == 0}}
+                    ∞
+                  {{else}}
+                    {{($stat->nawabari_kill/$stat->nawabari_death)|number_format:2|escape}}
+                  {{/if}}
+                </span>
               {{/if}}
             </div>
           </div>
@@ -176,16 +184,20 @@
           <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
             <div class="user-label">
               <span class="auto-tooltip" title="{{'Kill Ratio'|translate:'app'|escape}}">
-                {{'KR'|translate:'app'|escape}}
+                {{'Ratio'|translate:'app'|escape}}
               </span>
             </div>
             <div class="user-number">
               {{if $stat->gachi_kill == 0 && $stat->gachi_death == 0}}
                 -
-              {{elseif $stat->gachi_death == 0}}
-                ∞
               {{else}}
-                {{($stat->gachi_kill/$stat->gachi_death)|number_format:2|escape}}
+                <span class="auto-tooltip" title="{{'Kill Rate'|translate:'app'|escape}}: {{($stat->gachi_kill/($stat->gachi_kill+$stat->gachi_death))|percent:1|escape}}">
+                  {{if $stat->gachi_death == 0}}
+                    ∞
+                  {{else}}
+                    {{($stat->gachi_kill/$stat->gachi_death)|number_format:2|escape}}
+                  {{/if}}
+                </span>
               {{/if}}
             </div>
           </div>
