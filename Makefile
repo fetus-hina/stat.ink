@@ -5,6 +5,7 @@ VENDOR_SHA256=$(shell sha256sum -t composer.lock | awk '{print $$1}')
 
 RESOURCE_TARGETS_MAIN=\
 	resources/.compiled/activity/activity.js \
+	resources/.compiled/app-link-logos/festink.png \
 	resources/.compiled/app-link-logos/ikadenwa.png \
 	resources/.compiled/app-link-logos/ikalog.png \
 	resources/.compiled/app-link-logos/ikanakama.png \
@@ -260,6 +261,11 @@ resources/.compiled/app-link-logos/ikanakama.png: resources/app-link-logos/ikana
 
 resources/app-link-logos/ikanakama.ico:
 	curl -o $@ $(shell php resources/app-link-logos/ikanakama.php)
+
+resources/.compiled/app-link-logos/festink.png: resources/app-link-logos/festink.ico
+	mkdir -p resources/.compiled/app-link-logos
+	convert $<[3] -trim +repage -unsharp 1.5x1+0.7+0.02 -scale x28 $@
+	touch -r $< $@
 
 migrate-db: vendor config/db.php
 	./yii migrate/up --interactive=0

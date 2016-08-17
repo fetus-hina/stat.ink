@@ -190,7 +190,10 @@
               </li>
               <li class="divider"></li>
               <li>
-                <a href="https://fest.ink/">{{'fest.ink'|translate:'app'|escape}}</a>
+                <a href="https://fest.ink/">
+                  {{$_linkIcon->festink}}&#32;
+                  {{'fest.ink'|translate:'app'|escape}}
+                </a>
               </li>
               <li>
                 <a href="https://ikadenwa.ink/">

@@ -30,6 +30,11 @@ class AppLinkAsset extends AssetBundle
         return $this->image('ikanakama.png');
     }
 
+    public function getFestInk() : string
+    {
+        return $this->image('festink.png');
+    }
+
     protected function image(string $file) : string
     {
         return Html::img(
