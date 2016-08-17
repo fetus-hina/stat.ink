@@ -199,7 +199,10 @@
                 </a>
               </li>
               <li>
-                <a href="http://ikazok.net/">{{'Ika-Nakama'|translate:'app'|escape}}</a>
+                <a href="http://ikazok.net/">
+                  {{$_linkIcon->ikanakama}}&#32;
+                  {{'Ika-Nakama'|translate:'app'|escape}}
+                </a>
               </li>
             </ul>
           </li>

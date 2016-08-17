@@ -7,6 +7,7 @@ RESOURCE_TARGETS_MAIN=\
 	resources/.compiled/activity/activity.js \
 	resources/.compiled/app-link-logos/ikadenwa.png \
 	resources/.compiled/app-link-logos/ikalog.png \
+	resources/.compiled/app-link-logos/ikanakama.png \
 	resources/.compiled/counter/counter.css \
 	resources/.compiled/counter/counter.js \
 	resources/.compiled/dseg/dseg14.css \
@@ -251,6 +252,14 @@ resources/.compiled/app-link-logos/ikadenwa.png: resources/app-link-logos/ikaden
 	mkdir -p resources/.compiled/app-link-logos
 	convert $< -trim +repage -unsharp 1.5x1+0.7+0.02 -scale x28 $@
 	touch -r $< $@
+
+resources/.compiled/app-link-logos/ikanakama.png: resources/app-link-logos/ikanakama.ico
+	mkdir -p resources/.compiled/app-link-logos
+	convert $< -trim +repage -unsharp 1.5x1+0.7+0.02 -scale x28 $@
+	touch -r $< $@
+
+resources/app-link-logos/ikanakama.ico:
+	curl -o $@ $(shell php resources/app-link-logos/ikanakama.php)
 
 migrate-db: vendor config/db.php
 	./yii migrate/up --interactive=0

@@ -25,6 +25,11 @@ class AppLinkAsset extends AssetBundle
         return $this->image('ikadenwa.png');
     }
 
+    public function getIkaNakama() : string
+    {
+        return $this->image('ikanakama.png');
+    }
+
     protected function image(string $file) : string
     {
         return Html::img(
