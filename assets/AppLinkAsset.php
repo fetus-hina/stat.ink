@@ -1,0 +1,35 @@
+<?php
+/**
+ * @copyright Copyright (C) 2015-2016 AIZAWA Hina
+ * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
+ * @author AIZAWA Hina <hina@bouhime.com>
+ */
+
+namespace app\assets;
+
+use Yii;
+use yii\helpers\Html;
+use yii\web\AssetBundle;
+
+class AppLinkAsset extends AssetBundle
+{
+    public $sourcePath = '@app/resources/.compiled/app-link-logos';
+
+    public function getIkaLog() : string
+    {
+        return $this->image('ikalog.png');
+    }
+
+    protected function image(string $file) : string
+    {
+        return Html::img(
+            Yii::$app->assetManager->getAssetUrl($this, $file),
+            [
+                'style' => [
+                    'height' => '1em',
+                    'width' => 'auto',
+                ],
+            ]
+        );
+    }
+}

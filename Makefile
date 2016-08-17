@@ -5,6 +5,7 @@ VENDOR_SHA256=$(shell sha256sum -t composer.lock | awk '{print $$1}')
 
 RESOURCE_TARGETS_MAIN=\
 	resources/.compiled/activity/activity.js \
+	resources/.compiled/app-link-logos/ikalog.png \
 	resources/.compiled/counter/counter.css \
 	resources/.compiled/counter/counter.js \
 	resources/.compiled/dseg/dseg14.css \
@@ -211,10 +212,12 @@ resources/.compiled/counter/counter.css: resources/counter/counter.less $(GULP)
 resources/.compiled/dseg/fonts/DSEG14Classic-Italic.ttf: resources/dseg/DSEG_v030.zip
 	mkdir -p resources/.compiled/dseg/fonts
 	unzip -joq $< DSEG14/Classic/DSEG14Classic-Italic.ttf -d resources/.compiled/dseg/fonts
+	touch -r $< $@
 
 resources/.compiled/dseg/fonts/DSEG14Classic-Italic.woff: resources/dseg/DSEG_v030.zip
 	mkdir -p resources/.compiled/dseg/fonts
 	unzip -joq $< DSEG14/Classic/DSEG14Classic-Italic.woff -d resources/.compiled/dseg/fonts
+	touch -r $< $@
 
 resources/.compiled/dseg/dseg14.css: resources/dseg/dseg14.less $(GULP)
 	$(GULP) less --in $< --out $@
@@ -231,6 +234,15 @@ resources/.compiled/ip-version/badge.css: resources/ip-version/badge.less $(GULP
 
 resources/paintball/paintball.css: resources/paintball/paintball.less $(GULP)
 	$(GULP) less --in $< --out $@
+
+resources/app-link-logos/ikalog.png:
+	curl -o $@ 'https://cloud.githubusercontent.com/assets/2528004/17077116/6d613dca-50ff-11e6-9357-9ba894459444.png'
+
+resources/.compiled/app-link-logos/ikalog.png: resources/app-link-logos/ikalog.png
+	mkdir -p resources/.compiled/app-link-logos
+	convert $< -unsharp 1.5x1+0.7+0.02 -scale x28 $@
+	pngcrush -rem allb -l 9 -ow $@
+	touch -r $< $@
 
 migrate-db: vendor config/db.php
 	./yii migrate/up --interactive=0

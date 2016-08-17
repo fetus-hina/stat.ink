@@ -152,8 +152,10 @@
               </li>
               <li class="divider"></li>
               <li>
+                {{$_linkIcon = \app\assets\AppLinkAsset::register($this)}}
                 {{if $app->language === 'ja-JP'}}
                   <a href="https://github.com/hasegaw/IkaLog/wiki/ja_WinIkaLog">
+                    {{$_linkIcon->ikalog}}&#32;
                     {{'IkaLog'|translate:'app'|escape}}
                     （<span class="fa fa-windows left"></span>
                     <span class="fa fa-apple left"></span>
@@ -162,6 +164,7 @@
                   </a>
                 {{else}}
                   <a href="https://github.com/hasegaw/IkaLog/wiki/en_Home">
+                    {{$_linkIcon->ikalog}}&#32;
                     {{'IkaLog'|translate:'app'|escape}}
                     （<span class="fa fa-windows left"></span>
                     <span class="fa fa-apple left"></span>
