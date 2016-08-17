@@ -5,6 +5,7 @@ VENDOR_SHA256=$(shell sha256sum -t composer.lock | awk '{print $$1}')
 
 RESOURCE_TARGETS_MAIN=\
 	resources/.compiled/activity/activity.js \
+	resources/.compiled/app-link-logos/ikadenwa.png \
 	resources/.compiled/app-link-logos/ikalog.png \
 	resources/.compiled/counter/counter.css \
 	resources/.compiled/counter/counter.js \
@@ -241,7 +242,14 @@ resources/app-link-logos/ikalog.png:
 resources/.compiled/app-link-logos/ikalog.png: resources/app-link-logos/ikalog.png
 	mkdir -p resources/.compiled/app-link-logos
 	convert $< -unsharp 1.5x1+0.7+0.02 -scale x28 $@
-	pngcrush -rem allb -l 9 -ow $@
+	touch -r $< $@
+
+resources/app-link-logos/ikadenwa.png:
+	curl -o $@ 'https://ikadenwa.ink/static/img/ika-mark.png'
+
+resources/.compiled/app-link-logos/ikadenwa.png: resources/app-link-logos/ikadenwa.png
+	mkdir -p resources/.compiled/app-link-logos
+	convert $< -trim +repage -unsharp 1.5x1+0.7+0.02 -scale x28 $@
 	touch -r $< $@
 
 migrate-db: vendor config/db.php

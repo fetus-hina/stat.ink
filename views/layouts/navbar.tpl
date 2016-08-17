@@ -193,7 +193,10 @@
                 <a href="https://fest.ink/">{{'fest.ink'|translate:'app'|escape}}</a>
               </li>
               <li>
-                <a href="https://ikadenwa.ink/">{{'Ika-Denwa'|translate:'app'|escape}}</a>
+                <a href="https://ikadenwa.ink/">
+                  {{$_linkIcon->ikadenwa}}&#32;
+                  {{'Ika-Denwa'|translate:'app'|escape}}
+                </a>
               </li>
               <li>
                 <a href="http://ikazok.net/">{{'Ika-Nakama'|translate:'app'|escape}}</a>
