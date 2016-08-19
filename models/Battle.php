@@ -78,6 +78,7 @@ use app\components\helpers\Differ;
  * @property integer $max_kill_combo
  * @property integer $max_kill_streak
  * @property boolean $use_for_entire
+ * @property integer $bonus_id
  *
  * @property Agent $agent
  * @property Environment $env
@@ -100,6 +101,7 @@ use app\components\helpers\Differ;
  * @property BattlePlayer[] $battlePlayers
  * @property SplatoonVersion $splatoonVersion
  * @property SplatoonVersion $agentGameVersion
+ * @property TurfwarWinBonus $bonus
  */
 class Battle extends ActiveRecord
 {
@@ -150,6 +152,7 @@ class Battle extends ActiveRecord
         $this->on(ActiveRecord::EVENT_BEFORE_UPDATE, [$this, 'setKillRatio']);
 
         $this->on(ActiveRecord::EVENT_BEFORE_VALIDATE, [$this, 'setPeriod']);
+        $this->on(ActiveRecord::EVENT_BEFORE_VALIDATE, [$this, 'setBonus']);
 
         $this->on(ActiveRecord::EVENT_BEFORE_INSERT, [$this, 'setSplatoonVersion']);
 
@@ -194,6 +197,10 @@ class Battle extends ActiveRecord
                 'targetAttribute' => ['agent_game_version_id' => 'id']],
             [['max_kill_combo', 'max_kill_streak'], 'integer', 'min' => 0],
             [['use_for_entire'], 'boolean'],
+            [['bonus_id'], 'integer'],
+            [['bonus_id'], 'exist', 'skipOnError' => true,
+                'targetClass' => TurfwarWinBonus::class,
+                'targetAttribute' => ['bonus_id' => 'id']],
         ];
     }
 
@@ -261,6 +268,7 @@ class Battle extends ActiveRecord
             'max_kill_combo' => 'Max Kill Combo',
             'max_kill_streak' => 'Max Kill Streak',
             'use_for_entire' => 'Use for entire stats',
+            'bonus_id' => 'Bonus ID',
         ];
     }
 
@@ -483,6 +491,11 @@ class Battle extends ActiveRecord
         return $this->hasOne(SplatoonVersion::class, ['id' => 'agent_game_version_id']);
     }
 
+    public function getBonus()
+    {
+        return $this->hasOne(TurfwarWinBonus::class, ['id' => 'bonus_id']);
+    }
+
     public function getIsNawabari()
     {
         return $this->getIsThisGameMode('regular');
@@ -564,6 +577,24 @@ class Battle extends ActiveRecord
             $time = $now;
         }
         $this->period = \app\components\helpers\Battle::calcPeriod($time);
+    }
+
+    public function setBonus()
+    {
+        $this->bonus_id = null;
+        if (!$this->rule_id) {
+            return;
+        }
+        if (!$rule = Rule::findOne(['id' => $this->rule_id])) {
+            return;
+        }
+        if ($rule->key !== 'nawabari') {
+            return;
+        }
+        if (!$bonus = TurfwarWinBonus::find()->current()->one()) {
+            return;
+        }
+        $this->bonus_id = $bonus->id;
     }
 
     public function setKillRatio()
@@ -801,6 +832,9 @@ class Battle extends ActiveRecord
             'link_url' => ((string)$this->link_url !== '') ? $this->link_url : null,
             'note' => ((string)$this->note !== '') ? $this->note : null,
             'game_version' => $this->splatoonVersion ? $this->splatoonVersion->name : null,
+            'nawabari_bonus' => (($this->rule->key ?? null) === 'nawabari' && $this->bonus)
+                ? (int)$this->bonus->bonus
+                : null,
             'start_at' => $this->start_at != ''
                 ? DateTimeFormatter::unixTimeToJsonArray(strtotime($this->start_at))
                 : null,
