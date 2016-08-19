@@ -40,6 +40,16 @@ class AppLinkAsset extends AssetBundle
         return $this->image('splatnet.png');
     }
 
+    public function getIkaRecJa() : string
+    {
+        return $this->image('ikarec-ja.png');
+    }
+
+    public function getIkaRecEn() : string
+    {
+        return $this->image('ikarec-en.png');
+    }
+
     protected function image(string $file) : string
     {
         return Html::img(

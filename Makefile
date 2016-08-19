@@ -9,6 +9,8 @@ RESOURCE_TARGETS_MAIN=\
 	resources/.compiled/app-link-logos/ikadenwa.png \
 	resources/.compiled/app-link-logos/ikalog.png \
 	resources/.compiled/app-link-logos/ikanakama.png \
+	resources/.compiled/app-link-logos/ikarec-en.png \
+	resources/.compiled/app-link-logos/ikarec-ja.png \
 	resources/.compiled/app-link-logos/splatnet.png \
 	resources/.compiled/counter/counter.css \
 	resources/.compiled/counter/counter.js \
@@ -270,6 +272,22 @@ resources/.compiled/app-link-logos/splatnet.png: resources/app-link-logos/splatn
 
 resources/app-link-logos/splatnet.ico:
 	curl -o $@ $(shell php resources/app-link-logos/favicon.php 'https://splatoon.nintendo.net/')
+
+resources/.compiled/app-link-logos/ikarec-en.png: resources/app-link-logos/ikarec-en.png
+	mkdir -p resources/.compiled/app-link-logos
+	convert $<[1] -trim +repage -unsharp 1.5x1+0.7+0.02 -scale x28 $@
+	touch -r $< $@
+
+resources/app-link-logos/ikarec-en.png:
+	curl -o $@ $(shell php resources/app-link-logos/googleplay.php ink.pocketgopher.ikarec)
+
+resources/.compiled/app-link-logos/ikarec-ja.png: resources/app-link-logos/ikarec-ja.png
+	mkdir -p resources/.compiled/app-link-logos
+	convert $<[1] -trim +repage -unsharp 1.5x1+0.7+0.02 -scale x28 $@
+	touch -r $< $@
+
+resources/app-link-logos/ikarec-ja.png:
+	curl -o $@ $(shell php resources/app-link-logos/googleplay.php com.syanari.merluza.ikarec)
 
 resources/.compiled/app-link-logos/festink.png: resources/app-link-logos/festink.ico
 	mkdir -p resources/.compiled/app-link-logos

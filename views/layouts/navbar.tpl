@@ -132,18 +132,33 @@
             {{$_linkIcon = \app\assets\AppLinkAsset::register($this)}}
             <ul class="dropdown-menu">
               <li>
-                <a href="http://www.nintendo.co.jp/wiiu/agmj/">{{'Splatoon Official Website (Japan)'|translate:'app'|escape}}</a>
+                <a href="http://www.nintendo.co.jp/wiiu/agmj/">
+                  <span class="flag-icon flag-icon-jp"></span>&#32;
+                  {{'Splatoon Official Website (Japan)'|translate:'app'|escape}}
+                </a>
               </li>
               <li>
-                <a href="http://splatoon.nintendo.com/">{{'Splatoon Official Website (US/Canada)'|translate:'app'|escape}}</a>
+                <a href="http://splatoon.nintendo.com/">
+                  <span class="flag-icon flag-icon-us"></span>&#32;
+                  <span class="flag-icon flag-icon-ca"></span>&#32;
+                  {{'Splatoon Official Website (US/Canada)'|translate:'app'|escape}}
+                </a>
               </li>
               <li>
-                <a href="https://www.nintendo.co.uk/Games/Wii-U/Splatoon-892510.html">{{'Splatoon Official Website (UK)'|translate:'app'|escape}}</a>
+                <a href="https://www.nintendo.co.uk/Games/Wii-U/Splatoon-892510.html">
+                  <span class="flag-icon flag-icon-gb"></span>&#32;
+                  {{'Splatoon Official Website (UK)'|translate:'app'|escape}}
+                </a>
               </li>
               <li class="divider"></li>
               <li>
                 <a href="https://twitter.com/splatoonjp">
                   <span class="fa fa-twitter left"></span>
+                  {{registerCss}}
+                    .fa-twitter{
+                      color:#1da1f2;
+                    }
+                  {{/registerCss}}
                   {{'Official Twitter (Japan)'|translate:'app'|escape}}
                 </a>
               </li>
@@ -178,17 +193,22 @@
               </li>
               <li>
                 <a href="https://dl.dropboxusercontent.com/u/14421778/IkaLog/download.html">
-                  └ {{'IkaLog Download Page'|translate:'app'|escape}}（<span class="fa fa-windows"></span>）
+                  └&#32;
+                  <span class="fa fa-download left"></span>
+                  {{'IkaLog Download Page'|translate:'app'|escape}}（<span class="fa fa-windows"></span>）
                 </a>
               </li>
               <li>
                 <a href="https://play.google.com/store/apps/details?id=com.syanari.merluza.ikarec">
-                  {{'IkaRec'|translate:'app'|escape}}（<span class="fa fa-android"></span> / 日本語）
+                  {{$_linkIcon->ikaRecJa}}&#32;
+                  {{'IkaRec'|translate:'app'|escape}}（<span class="fa fa-android"></span> / 日本語版）
                 </a>
               </li>
               <li>
                 <a href="https://play.google.com/store/apps/details?id=ink.pocketgopher.ikarec">
-                  └ {{'IkaRec'|translate:'app'|escape}} (<span class="fa fa-android"></span> / English)
+                  └&#32;
+                  {{$_linkIcon->ikaRecEn}}&#32;
+                   {{'IkaRec'|translate:'app'|escape}} (<span class="fa fa-android"></span> / English version)
                 </a>
               </li>
               <li class="divider"></li>
