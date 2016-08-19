@@ -11,6 +11,7 @@ use DateTimeZone;
 use Yii;
 use app\components\helpers\DateTimeFormatter;
 use app\components\helpers\db\Now;
+use yii\db\ActiveQuery;
 use yii\db\Expression;
 
 /**
