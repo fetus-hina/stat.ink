@@ -36,8 +36,8 @@ class UserStatNawabariAction extends BaseAction
     public function getInkedData()
     {
         $query = Battle::find()
-            ->with(['rule', 'map'])
-            ->innerJoinWith(['rule', 'map'])
+            ->with(['rule', 'map', 'bonus'])
+            ->innerJoinWith(['rule', 'map', 'bonus'])
             ->joinWith(['lobby'])
             ->andWhere([
                 '{{battle}}.[[user_id]]' => $this->user->id,
@@ -66,7 +66,7 @@ class UserStatNawabariAction extends BaseAction
             $tmp = $maps[$battle['map']['key']];
             $tmp->battles[] = (object)[
                 'index' => -1 * count($tmp->battles),
-                'inked' => max(0, $battle['my_point'] - ($battle['is_win'] ? 300 : 0)),
+                'inked' => max(0, $battle['my_point'] - ($battle['is_win'] ? $battle['bonus']['bonus'] : 0)),
             ];
         }
 

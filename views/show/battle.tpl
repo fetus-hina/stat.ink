@@ -691,6 +691,11 @@
               {{else}}
                 {{$teams = ['my', 'his']}}
               {{/if}}
+              {{if $battle->bonus}}
+                {{$bonus = $battle->bonus->bonus}}
+              {{else}}
+                {{$bonus = 300}}
+              {{/if}}
               {{foreach $teams as $teamKey}}
                 {{$attr = $teamKey|cat:'TeamPlayers'}}
                 {{$totalKill = 0}}
@@ -709,7 +714,7 @@
                     {{$totalPoint = $totalPoint + $player->point}}
                     {{if $teamKey@first}}
                       {{* 勝利チーム側の合計からは勝利ボーナスを消す *}}
-                      {{$totalPoint = $totalPoint - 300}}
+                      {{$totalPoint = $totalPoint - $bonus}}
                     {{/if}}
                   {{else}}
                     {{$totalPoint = null}}

@@ -82,6 +82,7 @@ class BattleAction extends BaseAction
                 'battlePlayers',
                 'battlePlayers.rank',
                 'battlePlayers.weapon',
+                'bonus',
                 'env',
                 'festTitle',
                 'festTitleAfter',
