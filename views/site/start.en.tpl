@@ -17,7 +17,7 @@
     {{SnsWidget}}
 
     <h2>
-      How do I make my SplatLog?
+      How do I make my Splat Log?
     </h2>
     <p>
       There are two ways to make your Splatoon play log. The first option is having a program like Ikalog do it automatically, and the another option is entering the data manually.
@@ -42,19 +42,21 @@
         <p>
           If you don't already have an HDMI capture card, like an AverMedia or Elgato, you will need to get one.
         </p>
-        <p>
-          *) Some HDMI capture devices (e.g. AverMedia AVT-C875 and Intensity Shuttle) have a built in HDMI splitter.&#32;
-          In this case, you won't need to buy a splitter separately.&#32;
-          Otherwise, you will need a splitter so you can connect the Wii U's output to both your TV and the capture device.
-        </p>
-        <p>
-          *) 720p must be supported by the capture device.
-        </p>
-        <p>
-          *) IkaLog doesn't work with some HDMI captures device, due to compatibiliy issues (e.g. inaccurate/poor image quality or incompatible driver software).&#32;
-          It is strongly suggested to check the <a href="https://github.com/hasegaw/IkaLog/wiki/en_CaptureDevices">"reported HDMI devices" list on the IkaLog wiki</a> if you are going to buy one.&#32;
-          Elgato capture cards will not work directly with IkaLog, so if you have one, you'll have to use the screen capture method. <!--detailed on the GitHub wiki below.-->
-        <p>
+        <ul>
+          <li>
+            Some HDMI capture devices (e.g. AverMedia AVT-C875 and Intensity Shuttle) have a built in HDMI splitter.&#32;
+            In this case, you won't need to buy a splitter separately.&#32;
+            Otherwise, you will need a splitter so you can connect the Wii U's output to both your TV and the capture device.
+          </li>
+          <li>
+            720p must be supported by the capture device.
+          </li>
+          <li>
+            IkaLog doesn't work with some HDMI captures device, due to compatibility issues (e.g. inaccurate/poor image quality or incompatible driver software).&#32;
+            It is strongly suggested to check the <a href="https://github.com/hasegaw/IkaLog/wiki/en_CaptureDevices">"reported HDMI devices" list on the IkaLog wiki</a> if you are going to buy one.&#32;
+            Elgato capture cards will not work directly with IkaLog, so if you have one, you'll have to use the screen capture method. <!--detailed on the GitHub wiki below.-->
+          </li>
+        </ul>
         <hr>
         <p>
           List of data collection software that work with stat.ink automatically:
@@ -70,7 +72,7 @@
           Manual Mode
         </h3>
         <p>
-          You can also submit your battle results from applications such as "<a href="https://play.google.com/store/apps/details?id=com.syanari.merluza.ikarec">IkaRec</a>."
+          You can also submit your battle results from applications such as "<a href="https://play.google.com/store/apps/details?id=ink.pocketgopher.ikarec">IkaRec</a>."
         </p>
         <p>
           It's quite simple; you can input the battle results manually.&#32;
@@ -82,7 +84,12 @@
         </p>
         <ul>
           <li>
-            <a href="https://play.google.com/store/apps/details?id=com.syanari.merluza.ikarec">IkaRec</a> (means Squid-Recorder, for Android devices)
+            <a href="https://play.google.com/store/apps/details?id=ink.pocketgopher.ikarec">IkaRec</a> (means Squid-Recorder, for Android devices)
+            <ul>
+              <li>
+                <a href="https://play.google.com/store/apps/details?id=com.syanari.merluza.ikarec">Japanese version of IkaRec</a>
+              </li>
+            </ul>
           </li>
         </ul>
       </div>
@@ -98,7 +105,7 @@
           Using IkaLog
         </h3>
         <p>
-          SquidBoards has good documation. Check it out:<br>
+          SquidBoards has good documentation. Check it out:<br>
           <a href="http://squidboards.com/guides/how-to-set-up-ikalog-and-stat-ink-for-battle-result-tracking.217/">How to set up IkaLog and stat.ink for battle result tracking!</a>
         </p>
         <p>
@@ -142,11 +149,13 @@
       </div>
       <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
         <h3>
-          IkaRec
+          Using IkaRec
         </h3>
         <p>
-          Unfortunately this application is not localized for English users.&#32;
-          If you are still interested in using the application in Japanese, <a href="http://gigazine.net/news/20151217-splatoon-ikarec/">this article on Gigazine</a> will be helpful.
+          The English version of IkaRec can be found <a href="https://play.google.com/store/apps/details?id=ink.pocketgopher.ikarec">here</a>.
+        </p>
+        <p>
+          Please see <a href="https://www.reddit.com/r/splatoon/comments/4vqg5r/english_ikarec_android_app_release/">this reddit post</a> for more information regarding how to use the app.
         </p>
       </div>
     </div>
