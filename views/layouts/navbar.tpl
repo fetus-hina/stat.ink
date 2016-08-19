@@ -129,6 +129,7 @@
               <span class="fa fa-link left"></span>
               {{'Links'|translate:'app'|escape}}&#32;<span class="caret"></span>
             </a>
+            {{$_linkIcon = \app\assets\AppLinkAsset::register($this)}}
             <ul class="dropdown-menu">
               <li>
                 <a href="http://www.nintendo.co.jp/wiiu/agmj/">{{'Splatoon Official Website (Japan)'|translate:'app'|escape}}</a>
@@ -148,11 +149,13 @@
               </li>
               <li class="divider"></li>
               <li>
-                <a href="https://splatoon.nintendo.net/">{{'SplatNet'|translate:'app'|escape}}</a>
+                <a href="https://splatoon.nintendo.net/">
+                  {{$_linkIcon->splatNet}}&#32;
+                  {{'SplatNet'|translate:'app'|escape}}
+                </a>
               </li>
               <li class="divider"></li>
               <li>
-                {{$_linkIcon = \app\assets\AppLinkAsset::register($this)}}
                 {{if $app->language === 'ja-JP'}}
                   <a href="https://github.com/hasegaw/IkaLog/wiki/ja_WinIkaLog">
                     {{$_linkIcon->ikalog}}&#32;

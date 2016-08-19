@@ -1,5 +1,7 @@
 #!/usr/bin/env php
 <?php
+$url = $argv[1];
+
 $doc = (function ($html) {
     $doc = new DOMDocument();
     $doc->preserveWhiteSpace = false;
@@ -7,7 +9,7 @@ $doc = (function ($html) {
         exit(1);
     }
     return $doc;
-})(request());
+})(request($url));
 
 $xpath = new DOMXpath($doc);
 foreach ($xpath->query('//head/link') as $link) {
@@ -15,10 +17,18 @@ foreach ($xpath->query('//head/link') as $link) {
     if ($rel === 'shortcut icon' || $rel === 'icon') {
         $href = $link->getAttribute('href');
         if (strpos($href, '//') === false) {
-            echo 'http://ikazok.net/' . ltrim($href, '/') . "\n";
+            printf(
+                "%s/%s\n",
+                preg_replace('!^(https?://[^/]+)/.*$!', "$1", $url),
+                ltrim($href, '/')
+            );
             exit(0);
         } elseif (substr($href, 0, 2) === '//') {
-            echo 'http' . $href . "\n";
+            printf(
+                "%s:%s",
+                preg_replace('!^(https?)://.+$!', "$1", $url),
+                $href
+            );
             exit(0);
         } else {
             echo $href . "\n";
@@ -28,9 +38,9 @@ foreach ($xpath->query('//head/link') as $link) {
 }
 exit(1);
 
-function request()
+function request(string $url)
 {
-    $curl = curl_init('http://ikazok.net/');
+    $curl = curl_init($url);
     curl_setopt($curl, CURLOPT_BINARYTRANSFER, true);
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);

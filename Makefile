@@ -9,6 +9,7 @@ RESOURCE_TARGETS_MAIN=\
 	resources/.compiled/app-link-logos/ikadenwa.png \
 	resources/.compiled/app-link-logos/ikalog.png \
 	resources/.compiled/app-link-logos/ikanakama.png \
+	resources/.compiled/app-link-logos/splatnet.png \
 	resources/.compiled/counter/counter.css \
 	resources/.compiled/counter/counter.js \
 	resources/.compiled/dseg/dseg14.css \
@@ -260,7 +261,15 @@ resources/.compiled/app-link-logos/ikanakama.png: resources/app-link-logos/ikana
 	touch -r $< $@
 
 resources/app-link-logos/ikanakama.ico:
-	curl -o $@ $(shell php resources/app-link-logos/ikanakama.php)
+	curl -o $@ $(shell php resources/app-link-logos/favicon.php 'http://ikazok.net/')
+
+resources/.compiled/app-link-logos/splatnet.png: resources/app-link-logos/splatnet.ico
+	mkdir -p resources/.compiled/app-link-logos
+	convert $<[1] -trim +repage -unsharp 1.5x1+0.7+0.02 -scale x28 $@
+	touch -r $< $@
+
+resources/app-link-logos/splatnet.ico:
+	curl -o $@ $(shell php resources/app-link-logos/favicon.php 'https://splatoon.nintendo.net/')
 
 resources/.compiled/app-link-logos/festink.png: resources/app-link-logos/festink.ico
 	mkdir -p resources/.compiled/app-link-logos

@@ -35,6 +35,11 @@ class AppLinkAsset extends AssetBundle
         return $this->image('festink.png');
     }
 
+    public function getSplatNet() : string
+    {
+        return $this->image('splatnet.png');
+    }
+
     protected function image(string $file) : string
     {
         return Html::img(
