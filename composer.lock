@@ -178,16 +178,16 @@
         },
         {
             "name": "bower-asset/d3",
-            "version": "v4.2.1",
+            "version": "v4.2.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mbostock-bower/d3-bower.git",
-                "reference": "50287dd4a7f68457a5f276853a2bbb19ecf98487"
+                "reference": "5d6d5ad755f10dd16fbfb290e34d4510c93992c0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mbostock-bower/d3-bower/zipball/50287dd4a7f68457a5f276853a2bbb19ecf98487",
-                "reference": "50287dd4a7f68457a5f276853a2bbb19ecf98487",
+                "url": "https://api.github.com/repos/mbostock-bower/d3-bower/zipball/5d6d5ad755f10dd16fbfb290e34d4510c93992c0",
+                "reference": "5d6d5ad755f10dd16fbfb290e34d4510c93992c0",
                 "shasum": ""
             },
             "type": "bower-asset-library",
@@ -1483,16 +1483,16 @@
         },
         {
             "name": "php-curl-class/php-curl-class",
-            "version": "5.0.0",
+            "version": "5.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-curl-class/php-curl-class.git",
-                "reference": "c2b4f4c4665fc922a33b26521cad7bde4681929f"
+                "reference": "258593be2fda5b7a02831bb9a37d6fc35c69611a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-curl-class/php-curl-class/zipball/c2b4f4c4665fc922a33b26521cad7bde4681929f",
-                "reference": "c2b4f4c4665fc922a33b26521cad7bde4681929f",
+                "url": "https://api.github.com/repos/php-curl-class/php-curl-class/zipball/258593be2fda5b7a02831bb9a37d6fc35c69611a",
+                "reference": "258593be2fda5b7a02831bb9a37d6fc35c69611a",
                 "shasum": ""
             },
             "require": {
@@ -1535,20 +1535,20 @@
                 "web service",
                 "xml"
             ],
-            "time": "2016-08-07 09:43:45"
+            "time": "2016-08-19 02:39:55"
         },
         {
             "name": "rmrevin/yii2-fontawesome",
-            "version": "2.15.1",
+            "version": "2.15.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rmrevin/yii2-fontawesome.git",
-                "reference": "d2777130bc926bc670a4e50c2f504a0fb782efb1"
+                "reference": "23e282eadeaec70ea7a0241eabf5d672568f26ba"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rmrevin/yii2-fontawesome/zipball/d2777130bc926bc670a4e50c2f504a0fb782efb1",
-                "reference": "d2777130bc926bc670a4e50c2f504a0fb782efb1",
+                "url": "https://api.github.com/repos/rmrevin/yii2-fontawesome/zipball/23e282eadeaec70ea7a0241eabf5d672568f26ba",
+                "reference": "23e282eadeaec70ea7a0241eabf5d672568f26ba",
                 "shasum": ""
             },
             "require": {
@@ -1586,7 +1586,7 @@
                 "font",
                 "yii"
             ],
-            "time": "2016-05-28 21:18:32"
+            "time": "2016-08-19 14:09:51"
         },
         {
             "name": "smarty/smarty",
