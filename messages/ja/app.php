@@ -172,6 +172,7 @@ return [
     'Many' => '多',
     'Max Kill Combo' => '最大キルコンボ',
     'Max Kill Streak' => '最大ストリーク',
+    'Mode (Short)' => 'ルール（短）',
     'Mode' => 'ルール',
     'Moving Avg. ({0} Battles)' => '移動平均（{0}戦）',
     'My Team Count' => '自チームカウント',

@@ -25,6 +25,11 @@
     <td class="cell-rule">
       {{$model->rule->name|default:'?'|translate:'app-rule'|escape}}
     </td>
+    <td class="cell-rule-short">
+      <span class="auto-tooltip" title="{{$model->rule->name|default:'?'|translate:'app-rule'|escape}}">
+        {{$model->rule->short_name|default:'?'|translate:'app-rule'|escape}}
+      </span>
+    </td>
     <td class="cell-map">
       {{$model->map->name|default:'?'|translate:'app-map'|escape}}
     </td>

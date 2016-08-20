@@ -43,9 +43,9 @@ class Rule extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['mode_id', 'key', 'name'], 'required'],
+            [['mode_id', 'key', 'name', 'short_name'], 'required'],
             [['mode_id'], 'integer'],
-            [['key'], 'string', 'max' => 16],
+            [['key', 'short_name'], 'string', 'max' => 16],
             [['name'], 'string', 'max' => 32],
             [['key'], 'unique'],
             [['name'], 'unique']
