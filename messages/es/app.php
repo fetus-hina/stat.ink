@@ -250,6 +250,7 @@ return [
     'Splatoon Official Website (UK)' => 'Página Web oficial (UK)',
     'Splatoon Official Website (US/Canada)' => 'Página Web oficial (US/Canadá)',
     'Staaaay Fresh!' => '¡Nos vemos!',
+    'Stage (Short)' => 'Escenario (Corto)',
     'Stage' => 'Escenario',
     'Standard Deviation' => 'Desviación Estándar',
     'Stats (Cause of Death)' => 'Estadística (Causa de la Muerte)',

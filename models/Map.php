@@ -20,6 +20,7 @@ use app\components\helpers\Translator;
  * @property string $name
  * @property integer $area
  * @property string $release_at
+ * @property string $short_name
  *
  * @property Battle[] $battles
  * @property PeriodMap[] $periodMaps
@@ -43,10 +44,10 @@ class Map extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['key', 'name'], 'required'],
+            [['key', 'name', 'short_name'], 'required'],
             [['area'], 'integer'],
             [['release_at'], 'safe'],
-            [['key'], 'string', 'max' => 16],
+            [['key', 'short_name'], 'string', 'max' => 16],
             [['name'], 'string', 'max' => 32],
             [['key'], 'unique'],
             [['name'], 'unique']
@@ -64,6 +65,7 @@ class Map extends \yii\db\ActiveRecord
             'name' => 'Name',
             'area' => 'Area',
             'release_at' => 'Release At',
+            'short_name' => 'Short Name',
         ];
     }
 

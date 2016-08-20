@@ -33,6 +33,11 @@
     <td class="cell-map">
       {{$model->map->name|default:'?'|translate:'app-map'|escape}}
     </td>
+    <td class="cell-map-short">
+      <span class="auto-tooltip" title="{{$model->map->name|default:'?'|translate:'app-map'|escape}}">
+        {{$model->map->short_name|default:'?'|translate:'app-map'|escape}}
+      </span>
+    </td>
     <td class="cell-main-weapon">
       {{if $model->weapon}}
         <span title="{{*

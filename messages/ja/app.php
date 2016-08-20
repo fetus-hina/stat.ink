@@ -257,6 +257,7 @@ return [
     'Splatoon Official Website (UK)' => 'スプラトゥーン公式サイト（英国）',
     'Splatoon Official Website (US/Canada)' => 'スプラトゥーン公式サイト（北米）',
     'Staaaay Fresh!' => 'イカ、よろしく～～～～',
+    'Stage (Short)' => 'ステージ（短）',
     'Stage' => 'ステージ',
     'Standard Deviation' => '標準偏差',
     'Stats (Cause of Death)' => '統計（死因）',

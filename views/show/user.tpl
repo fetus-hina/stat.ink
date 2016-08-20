@@ -201,6 +201,7 @@
                 <th class="cell-rule">{{'Mode'|translate:'app'|escape}}</th>
                 <th class="cell-rule-short">{{'Mode'|translate:'app'|escape}}</th>
                 <th class="cell-map">{{'Stage'|translate:'app'|escape}}</th>
+                <th class="cell-map-short">{{'Stage'|translate:'app'|escape}}</th>
                 <th class="cell-main-weapon">{{'Weapon'|translate:'app'|escape}}</th>
                 <th class="cell-sub-weapon">{{'Sub Weapon'|translate:'app'|escape}}</th>
                 <th class="cell-special">{{'Special'|translate:'app'|escape}}</th>
@@ -262,6 +263,8 @@
             <label><input type="checkbox" class="table-config-chk" data-klass="cell-rule-short"> {{'Mode (Short)'|translate:'app'|escape}}</label>
           </div><div class="col-xs-6 col-sm-4 col-md-4 col-lg-3">
             <label><input type="checkbox" class="table-config-chk" data-klass="cell-map"> {{'Stage'|translate:'app'|escape}}</label>
+          </div><div class="col-xs-6 col-sm-4 col-md-4 col-lg-3">
+            <label><input type="checkbox" class="table-config-chk" data-klass="cell-map-short"> {{'Stage (Short)'|translate:'app'|escape}}</label>
           </div><div class="col-xs-6 col-sm-4 col-md-4 col-lg-3">
             <label><input type="checkbox" class="table-config-chk" data-klass="cell-main-weapon"> {{'Weapon'|translate:'app'|escape}}</label>
           </div><div class="col-xs-6 col-sm-4 col-md-4 col-lg-3">
