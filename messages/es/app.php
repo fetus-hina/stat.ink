@@ -306,6 +306,7 @@ return [
     'View Settings' => 'Ver la Configuración',
     'We don\'t release your collected information, like your IP address. However, statistical information will be released.' => 'No divulgamos su información recopilada, como su dirección IP. Sin embargo, la información estadística se dará a conocer.',
     'Weapon | {weapon}' => 'Arma | {weapon}',
+    'Weapon (Short)' => 'Arma (Corto)',
     'Weapon' => 'Arma',
     'Weapons' => 'Armas',
     'Webhook URL' => 'Webhook URL',

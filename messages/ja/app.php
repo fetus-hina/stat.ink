@@ -315,6 +315,7 @@ return [
     'We don\'t exhibit your information that we collected (e.g. your IP address).' => '記録した情報、たとえばIPアドレスは公開しません。',
     'We don\'t release your collected information, like your IP address. However, statistical information will be released.' => '記録した情報（例えばIPアドレス）は公開しませんが、統計として集計した形では公開することがあります。',
     'Weapon | {weapon}' => 'ブキ | {weapon}',
+    'Weapon (Short)' => 'ブキ（短）',
     'Weapon' => 'ブキ',
     'Weapons' => 'ブキ',
     'Webhook URL' => 'Webhook URL',

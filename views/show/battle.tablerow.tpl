@@ -49,6 +49,18 @@
         ?
       {{/if}}
     </td>
+    <td class="cell-main-weapon-short">
+      {{if $model->weapon}}
+        <span title="{{*
+            *}}{{$model->weapon->name|translate:'app-weapon'|escape}} / {{*
+            *}}{{'Sub:'|translate:'app'|escape}}{{$model->weapon->subweapon->name|default:'?'|translate:'app-subweapon'|escape}} / {{*
+            *}}{{'Special:'|translate:'app'|escape}}{{$model->weapon->special->name|default:'?'|translate:'app-special'|escape}}" class="auto-tooltip">
+          {{$model->weapon->name|default:'?'|translate:'app-weapon'|weapon_shorten|escape}}
+        </span>
+      {{else}}
+        ?
+      {{/if}}
+    </td>
     <td class="cell-sub-weapon">
       {{$model->weapon->subweapon->name|default:'?'|translate:'app-subweapon'|escape}}
     </td>
