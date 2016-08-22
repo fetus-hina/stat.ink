@@ -18,6 +18,16 @@ return [
     'components' => [
         'cache' => [
             'class' => 'yii\caching\FileCache',
+            'serializer' => extension_loaded('msgpack')
+                ? [
+                    function ($value) {
+                        return @gzencode(msgpack_pack($value), 1, FORCE_GZIP);
+                    },
+                    function ($value) {
+                        return @msgpack_unpack(gzdecode($value));
+                    },
+                ]
+                : null,
         ],
         'schemaCache' => [
             'class' => 'yii\caching\FileCache',
@@ -32,6 +42,11 @@ return [
             ],
         ],
         'db' => $db,
+        'urlManager' => array_merge(
+            require(__DIR__ . '/url-manager.php'),
+            ['baseUrl' => 'https://stat.ink/']
+        ),
+        'i18n' => require(__DIR__ . '/i18n.php'),
     ],
     'params' => $params,
 ];
