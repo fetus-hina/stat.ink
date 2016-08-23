@@ -140,7 +140,7 @@ class UserJsonController extends Controller
                 ++$count;
             }
         }
-        if ($count) {
+        if ($count && random_int(0, 29) === 0) {
             $this->recompress();
         }
     }
