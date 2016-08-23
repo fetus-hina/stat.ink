@@ -133,7 +133,7 @@ class UserJsonController extends Controller
             echo "Converting...\n";
             foreach ($list as $battle) {
                 $this->appendJson(
-                    Json::encode($battle->toJsonArray(['events']), JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE),
+                    Json::encode($battle->toJsonArray(['user']), JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE),
                     strtotime($battle->at)
                 );
                 $lastId = $battle->id;

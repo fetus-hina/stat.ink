@@ -268,4 +268,19 @@ class User extends ActiveRecord implements IdentityInterface
             'stat' => $this->userStat ? $this->userStat->toJsonArray() : null,
         ];
     }
+
+    public function getUserJsonPath()
+    {
+        return Yii::getAlias('@app/runtime/user-json') . '/' . $this->id . '.json.gz';
+    }
+
+    public function getIsUserJsonReady()
+    {
+        return file_exists($this->getUserJsonPath()) && filesize($this->getUserJsonPath()) > 0;
+    }
+
+    public function getUserJsonLastUpdatedAt()
+    {
+        return filemtime($this->getUserJsonPath());
+    }
 }

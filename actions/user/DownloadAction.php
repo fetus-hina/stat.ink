@@ -8,9 +8,10 @@
 namespace app\actions\user;
 
 use Yii;
-use yii\web\BadRequestHttpException;
-use yii\web\ViewAction as BaseAction;
 use app\models\Battle;
+use yii\web\BadRequestHttpException;
+use yii\web\ServerErrorHttpException;
+use yii\web\ViewAction as BaseAction;
 
 class DownloadAction extends BaseAction
 {
@@ -27,6 +28,8 @@ class DownloadAction extends BaseAction
                     return $this->runIkaLogCsv();
                 case 'ikalog-json':
                     return $this->runIkaLogJson();
+                case 'user-json':
+                    return $this->runUserJson();
             }
         }
         throw new BadRequestHttpException(
@@ -79,5 +82,23 @@ class DownloadAction extends BaseAction
         return [
             'rows' => $generator(),
         ];
+    }
+
+    private function runUserJson()
+    {
+        if (!$this->user->getIsUserJsonReady()) {
+            throw new BadRequestHttpException(Yii::t('yii', 'You are not allowed to perform this action.'));
+        }
+
+        Yii::$app->response
+            ->sendFile(
+                $this->user->getUserJsonPath(),
+                sprintf('statink-%s.json.gz', $this->user->screen_name),
+                [
+                    'mimeType' => 'application/octet-stream',
+                    'inline' => false,
+                ]
+            )
+            ->send();
     }
 }

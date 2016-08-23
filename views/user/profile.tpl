@@ -208,6 +208,17 @@
             <span class="fa fa-file-code-o left"></span>
             {{'JSON (IkaLog compat.)'|translate:'app'|escape}}
           </a>
+          {{if $user->isUserJsonReady}}
+            <a href="{{url route="/user/download" type="user-json"}}" class="btn btn-default btn-block">
+              <span class="fa fa-file-code-o left"></span>
+              {{'JSON (stat.ink format, gzipped)'|translate:'app'|escape}}
+            </a>
+          {{else}}
+            <button class="btn btn-default btn-block" disabled>
+              <span class="fa fa-file-code-o left"></span>
+              {{'JSON (stat.ink format, gzipped)'|translate:'app'|escape}}
+            </button>
+          {{/if}}
         </p>
       </div>
     </div>

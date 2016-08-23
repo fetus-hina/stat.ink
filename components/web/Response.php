@@ -22,6 +22,11 @@ class Response extends Base
             if (headers_sent()) {
                 return;
             }
+            if (Yii::$app->controller->id ?? null === 'user' &&
+                Yii::$app->controller->action->id ?? null === 'download')
+            {
+                return;
+            }
             if (ob_start('ob_gzhandler')) {
                 $this->isBuffering = true;
             }
