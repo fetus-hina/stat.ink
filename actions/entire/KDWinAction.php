@@ -141,7 +141,17 @@ class KDWinAction extends BaseAction
             '' => Yii::t('app-weapon', 'Any Weapon'),
         ];
         foreach (WeaponType::find()->orderBy('id ASC')->all() as $type) {
-            $ret['@' . $type->key] = Yii::t('app-weapon', $type->name);
+            $ret[Yii::t('app-weapon', $type->name)] = array_merge(
+                ["@{$type->key}" => Yii::t('app-weapon', 'All of {0}', [Yii::t('app-weapon', $type->name)])],
+                (function () use ($type) {
+                    $list = [];
+                    foreach ($type->weapons as $weapon) {
+                        $list[$weapon->key] = Yii::t('app-weapon', $weapon->name);
+                    }
+                    asort($list);
+                    return $list;
+                })()
+            );
         }
         return $ret;
     }
