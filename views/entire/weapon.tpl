@@ -322,6 +322,17 @@
       })(jQuery);
     {{/registerJs}}
     <h3>
+      {{'Winning Percentage based on K/D'|translate:'app'|escape}}
+    </h3>
+    <p>
+      {{$_filter = [
+          "weapon" => $weapon->key
+        ]}}
+      <a href="{{url route="entire/kd-win" filter=$_filter}}#{{$rule->key|escape:"url"|escape}}">
+        {{'Winning Percentage based on K/D'|translate:'app'|escape}}
+      </a>
+    </p>
+    <h3>
       {{'Stage'|translate:'app'|escape}}
     </h3>
     {{use class="app\components\widgets\WinLoseLegend"}}
