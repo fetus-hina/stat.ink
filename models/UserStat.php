@@ -50,7 +50,8 @@ class UserStat extends \yii\db\ActiveRecord
             [['user_id', 'battle_count', 'total_kill', 'total_death', 'total_kd_battle_count'], 'integer'],
             [['nawabari_count', 'nawabari_kill', 'nawabari_death'], 'integer'],
             [['gachi_count', 'gachi_kill', 'gachi_death'], 'integer'],
-            [['wp', 'wp_short', 'nawabari_wp', 'gachi_wp'], 'number']
+            [['wp', 'wp_short', 'nawabari_wp', 'gachi_wp'], 'number'],
+            [['nawabari_inked', 'nawabari_inked_max', 'nawabari_inked_battle'], 'integer'],
         ];
     }
 
@@ -89,12 +90,35 @@ class UserStat extends \yii\db\ActiveRecord
     public function createCurrentData()
     {
         $db = Yii::$app->db;
-        static $nawabari = null;
-        if ($nawabari === null) {
-            $nawabari = Rule::findOne(['key' => 'nawabari'])->id;
+        static $rules = null;
+        if ($rules === null) {
+            $rules = [];
+            foreach (Rule::find()->asArray()->all() as $rule) {
+                $rules[$rule['key']] = (int)$rule['id'];
+            }
         }
-        $condIsNawabari = sprintf('({{battle}}.[[rule_id]] = %s)', $db->quoteValue($nawabari));
-        $condIsGachi = sprintf('({{battle}}.[[rule_id]] <> %s)', $db->quoteValue($nawabari));
+
+        $condIsNawabari = sprintf(
+            '({{battle}}.[[rule_id]] = %s)',
+            $db->quoteValue($rules['nawabari'])
+        );
+        $condIsArea = sprintf(
+            '({{battle}}.[[rule_id]] = %s)',
+            $db->quoteValue($rules['area'])
+        );
+        $condIsYagura = sprintf(
+            '({{battle}}.[[rule_id]] = %s)',
+            $db->quoteValue($rules['yagura'])
+        );
+        $condIsHoko = sprintf(
+            '({{battle}}.[[rule_id]] = %s)',
+            $db->quoteValue($rules['hoko'])
+        );
+        $condIsGachi = sprintf('(%s)', implode(' OR ', [
+            $condIsArea,
+            $condIsYagura,
+            $condIsHoko,
+        ]));
 
         static $private = null;
         if ($private === null) {
@@ -105,7 +129,7 @@ class UserStat extends \yii\db\ActiveRecord
             $db->quoteValue($private)
         );
 
-        $now = isset($_SERVER['REQUEST_TIME']) ? $_SERVER['REQUEST_TIME'] : time();
+        $now = $_SERVER['REQUEST_TIME'] ?? time();
         $cond24Hours = sprintf(
             '(({{battle}}.[[end_at]] IS NOT NULL) AND ({{battle}}.[[end_at]] BETWEEN %s AND %s))',
             $db->quoteValue(gmdate('Y-m-d H:i:sO', $now - 86400 + 1)),
@@ -217,6 +241,40 @@ class UserStat extends \yii\db\ActiveRecord
                 $condKDPresent,
             ])
         );
+        $column_nawabari_inked = sprintf(
+            'SUM(CASE WHEN (%1$s AND %2$s) THEN (%4$s - %5$s) WHEN (%1$s AND %3$s) THEN %4$s ELSE 0 END)',
+            implode(' AND ', [
+                $condIsNotPrivate,
+                $condIsNawabari,
+                '{{turfwar_win_bonus}}.[[bonus]] IS NOT NULL',
+            ]),
+            '{{battle}}.[[is_win]] = TRUE',
+            '{{battle}}.[[is_win]] = FALSE',
+            '{{battle}}.[[my_point]]',
+            '{{turfwar_win_bonus}}.[[bonus]]'
+        );
+        $column_nawabari_inked_max = sprintf(
+            'MAX(CASE WHEN (%1$s AND %2$s) THEN (%4$s - %5$s) WHEN (%1$s AND %3$s) THEN %4$s ELSE 0 END)',
+            implode(' AND ', [
+                $condIsNotPrivate,
+                $condIsNawabari,
+                '{{turfwar_win_bonus}}.[[bonus]] IS NOT NULL',
+            ]),
+            '{{battle}}.[[is_win]] = TRUE',
+            '{{battle}}.[[is_win]] = FALSE',
+            '{{battle}}.[[my_point]]',
+            '{{turfwar_win_bonus}}.[[bonus]]'
+        );
+
+        $column_nawabari_inked_battle = sprintf(
+            'SUM(CASE WHEN (%1$s) THEN 1 ELSE 0 END)',
+            implode(' AND ', [
+                $condIsNotPrivate,
+                $condIsNawabari,
+                '{{battle}}.[[is_win]] IS NOT NULL',
+                '{{turfwar_win_bonus}}.[[bonus]] IS NOT NULL',
+            ])
+        );
 
         $column_gachi_count = sprintf(
             'SUM(CASE WHEN (%s) THEN 1 ELSE 0 END)',
@@ -273,25 +331,30 @@ class UserStat extends \yii\db\ActiveRecord
                 'nawabari_wp'       => $column_nawabari_wp,
                 'nawabari_kill'     => $column_nawabari_kill,
                 'nawabari_death'    => $column_nawabari_death,
+                'nawabari_inked'    => $column_nawabari_inked,
+                'nawabari_inked_max' => $column_nawabari_inked_max,
+                'nawabari_inked_battle' => $column_nawabari_inked_battle,
                 'gachi_count'       => $column_gachi_count,
                 'gachi_wp'          => $column_gachi_wp,
                 'gachi_kill'        => $column_gachi_kill,
                 'gachi_death'       => $column_gachi_death,
             ])
             ->from('battle')
+            ->leftJoin('turfwar_win_bonus', '{{battle}}.[[bonus_id]] = {{turfwar_win_bonus}}.[[id]]')
             ->andWhere(['{{battle}}.[[user_id]]' => $this->user_id]);
 
-        $this->attributes =  $query->createCommand()->queryOne();
+
+        $this->attributes = $query->createCommand()->queryOne();
         
         $keys = [
             'battle_count', 'total_kill', 'total_death', 'total_kd_battle_count',
             'nawabari_count', 'nawabari_kill', 'nawabari_death',
             'gachi_count', 'gachi_kill', 'gachi_death',
+            'nawabari_inked', 'nawabari_inked_battle',
         ];
         foreach ($keys as $key) {
             $this->$key = (int)$this->$key;
         }
-
         return $this;
     }
 

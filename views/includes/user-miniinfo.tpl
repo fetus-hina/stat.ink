@@ -150,6 +150,64 @@
               {{/if}}
             </div>
           </div>
+          <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+            <div class="user-label auto-tooltip" title="{{'Total Inked'|translate:'app'|escape}}">
+              {{'Total Inked'|translate:'app'|escape}}
+            </div>
+            <div class="user-number">
+              {{if $stat->nawabari_inked > 0}}
+                {{$_ = [
+                    'point' => $stat->nawabari_inked,
+                    'battle' => $stat->nawabari_inked_battle
+                  ]}}
+                {{$_msg = '{point, plural, other{#p}}'|translate:'app':$_}}
+                <span class="auto-tooltip" title="{{$_msg|escape}}">
+                  {{if $stat->nawabari_inked <= 99999}}
+                    {{$stat->nawabari_inked|number_format|escape}}
+                  {{elseif $stat->nawabari_inked <= 999999}}
+                    {{($stat->nawabari_inked/1000)|number_format:0|escape}}k
+                  {{elseif $stat->nawabari_inked <= 999999999}}
+                    {{($stat->nawabari_inked/1000000)|number_format:2|escape}}M
+                  {{else}}
+                    {{($stat->nawabari_inked/1000000000)|number_format:2|escape}}G
+                  {{/if}}
+                </span>
+              {{else}}
+                {{'N/A'|translate:'app'|escape}}
+              {{/if}}
+            </div>
+          </div>
+          <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+            <div class="user-label auto-tooltip" title="{{'Avg Inked'|translate:'app'|escape}}">
+              {{'Avg Inked'|translate:'app'|escape}}
+            </div>
+            <div class="user-number">
+              {{if $stat->nawabari_inked > 0 && $stat->nawabari_inked_battle > 0}}
+                {{$_ = [
+                    'point' => $stat->nawabari_inked,
+                    'battle' => $stat->nawabari_inked_battle
+                  ]}}
+                {{$_msg = '{point, plural, =1{1 point} other{# points}} in {battle, plural, =1{1 battle} other{# battles}}'|translate:'app':$_}}
+                <span class="auto-tooltip" title="{{$_msg|escape}}">
+                  {{($stat->nawabari_inked / $stat->nawabari_inked_battle)|number_format:1|escape}}
+                </span>
+              {{else}}
+                {{'N/A'|translate:'app'|escape}}
+              {{/if}}
+            </div>
+          </div>
+          <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+            <div class="user-label auto-tooltip" title="{{'Max Inked'|translate:'app'|escape}}">
+              {{'Max Inked'|translate:'app'|escape}}
+            </div>
+            <div class="user-number">
+              {{if $stat->nawabari_inked_max > 0}}
+                {{$stat->nawabari_inked_max|number_format|escape}}
+              {{else}}
+                {{'N/A'|translate:'app'|escape}}
+              {{/if}}
+            </div>
+          </div>
         </div>
         <hr>
         {{* ガチ *}}
