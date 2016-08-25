@@ -242,10 +242,14 @@
           </div>
           <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
             <div class="user-label">
-              &nbsp;
+              {{'Peak'|translate:'app'|escape}}
             </div>
             <div class="user-number">
-              &nbsp;
+              {{if $stat->gachi_rank_peak > 0}}
+                {{$stat->gachi_rank_peak|int2rank|escape}}
+              {{else}}
+                {{'N/A'|translate:'app'|escape}}
+              {{/if}}
             </div>
           </div>
 

@@ -54,6 +54,7 @@ class UserStat extends \yii\db\ActiveRecord
             [['nawabari_inked', 'nawabari_inked_max', 'nawabari_inked_battle'], 'integer'],
             [['gachi_kd_battle', 'gachi_kill2', 'gachi_death2'], 'integer'],
             [['gachi_total_time'], 'safe'],
+            [['gachi_rank_peak'], 'integer'],
         ];
     }
 
@@ -364,6 +365,30 @@ class UserStat extends \yii\db\ActiveRecord
             'EXTRACT(EPOCH FROM ({{battle}}.[[end_at]] - {{battle}}.[[start_at]]))'
         );
 
+        $column_gachi_rank_peak = sprintf(
+            'GREATEST(%s, %s)',
+            sprintf(
+                'MAX(CASE WHEN (%s) THEN (%s) ELSE 0 END)',
+                implode(' AND ', [
+                    $condIsNotPrivate,
+                    $condIsGachi,
+                    '{{battle}}.[[rank_id]] IS NOT NULL',
+                    '{{battle}}.[[rank_exp]] IS NOT NULL',
+                ]),
+                '{{rank_before}}.[[int_base]] + {{battle}}.[[rank_exp]]'
+            ),
+            sprintf(
+                'MAX(CASE WHEN (%s) THEN (%s) ELSE 0 END)',
+                implode(' AND ', [
+                    $condIsNotPrivate,
+                    $condIsGachi,
+                    '{{battle}}.[[rank_after_id]] IS NOT NULL',
+                    '{{battle}}.[[rank_exp_after]] IS NOT NULL',
+                ]),
+                '{{rank_after}}.[[int_base]] + {{battle}}.[[rank_exp_after]]'
+            )
+        );
+
         $query = (new \yii\db\Query())
             ->select([
                 'battle_count'      => $column_battle_count,
@@ -387,9 +412,12 @@ class UserStat extends \yii\db\ActiveRecord
                 'gachi_kill2'       => $column_gachi_kill2,
                 'gachi_death2'      => $column_gachi_death2,
                 'gachi_total_time'  => $column_gachi_total_time,
+                'gachi_rank_peak'   => $column_gachi_rank_peak,
             ])
             ->from('battle')
             ->leftJoin('turfwar_win_bonus', '{{battle}}.[[bonus_id]] = {{turfwar_win_bonus}}.[[id]]')
+            ->leftJoin('rank rank_before', '{{battle}}.[[rank_id]] = {{rank_before}}.[[id]]')
+            ->leftJoin('rank rank_after', '{{battle}}.[[rank_after_id]] = {{rank_after}}.[[id]]')
             ->andWhere(['{{battle}}.[[user_id]]' => $this->user_id]);
 
         // var_dump($query->createCommand()->queryOne());

@@ -213,6 +213,7 @@ return [
     'Others' => 'その他',
     'Password (again)' => 'パスワード（確認用）',
     'Password' => 'パスワード',
+    'Peak' => '最高',
     'Permalink' => '固定リンク',
     'Players' => 'プレーヤー',
     'Players:' => 'プレーヤー:',
