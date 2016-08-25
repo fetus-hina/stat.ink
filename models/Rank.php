@@ -16,6 +16,7 @@ use app\components\helpers\Translator;
  * @property integer $id
  * @property string $key
  * @property string $name
+ * @property integer $int_base
  *
  * @property Battle[] $battles
  * @property RankGroup $group
@@ -38,10 +39,11 @@ class Rank extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['key', 'name'], 'required'],
+            [['key', 'name', 'int_base'], 'required'],
             [['key', 'name'], 'string', 'max' => 16],
             [['key'], 'unique'],
-            [['name'], 'unique']
+            [['name'], 'unique'],
+            [['int_base'], 'integer'],
         ];
     }
 
