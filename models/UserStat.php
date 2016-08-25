@@ -52,6 +52,8 @@ class UserStat extends \yii\db\ActiveRecord
             [['gachi_count', 'gachi_kill', 'gachi_death'], 'integer'],
             [['wp', 'wp_short', 'nawabari_wp', 'gachi_wp'], 'number'],
             [['nawabari_inked', 'nawabari_inked_max', 'nawabari_inked_battle'], 'integer'],
+            [['gachi_kd_battle', 'gachi_kill2', 'gachi_death2'], 'integer'],
+            [['gachi_total_time'], 'safe'],
         ];
     }
 
@@ -139,6 +141,13 @@ class UserStat extends \yii\db\ActiveRecord
         $condKDPresent = sprintf('(%s)', implode(' AND ', [
             '{{battle}}.[[kill]] IS NOT NULL',
             '{{battle}}.[[death]] IS NOT NULL',
+        ]));
+
+        $condTimePresent = sprintf('(%s)', implode(' AND ', [
+            '{{battle}}.[[start_at]] IS NOT NULL',
+            '{{battle}}.[[end_at]] IS NOT NULL',
+            '{{battle}}.[[start_at]] < {{battle}}.[[end_at]]',
+            "({{battle}}.[[end_at]] - {{battle}}.[[start_at]]) < '10 minutes'::interval",
         ]));
 
         $column_battle_count = "COUNT(*)";
@@ -318,6 +327,42 @@ class UserStat extends \yii\db\ActiveRecord
                 $condKDPresent,
             ])
         );
+        $column_gachi_kd_battle = sprintf(
+            'SUM(CASE WHEN (%s) THEN 1 ELSE 0 END)',
+            implode(' AND ', [
+                $condIsNotPrivate,
+                $condIsGachi,
+                $condKDPresent,
+            ])
+        );
+        $column_gachi_kill2 = sprintf(
+            'SUM(CASE WHEN (%s) THEN {{battle}}.[[kill]] ELSE 0 END)',
+            implode(' AND ', [
+                $condIsNotPrivate,
+                $condIsGachi,
+                $condKDPresent,
+                $condTimePresent,
+            ])
+        );
+        $column_gachi_death2 = sprintf(
+            'SUM(CASE WHEN (%s) THEN {{battle}}.[[death]] ELSE 0 END)',
+            implode(' AND ', [
+                $condIsNotPrivate,
+                $condIsGachi,
+                $condKDPresent,
+                $condTimePresent,
+            ])
+        );
+        $column_gachi_total_time = sprintf(
+            'SUM(CASE WHEN (%s) THEN (%s) ELSE 0 END)',
+            implode(' AND ', [
+                $condIsNotPrivate,
+                $condIsGachi,
+                $condKDPresent,
+                $condTimePresent,
+            ]),
+            'EXTRACT(EPOCH FROM ({{battle}}.[[end_at]] - {{battle}}.[[start_at]]))'
+        );
 
         $query = (new \yii\db\Query())
             ->select([
@@ -338,12 +383,16 @@ class UserStat extends \yii\db\ActiveRecord
                 'gachi_wp'          => $column_gachi_wp,
                 'gachi_kill'        => $column_gachi_kill,
                 'gachi_death'       => $column_gachi_death,
+                'gachi_kd_battle'   => $column_gachi_kd_battle,
+                'gachi_kill2'       => $column_gachi_kill2,
+                'gachi_death2'      => $column_gachi_death2,
+                'gachi_total_time'  => $column_gachi_total_time,
             ])
             ->from('battle')
             ->leftJoin('turfwar_win_bonus', '{{battle}}.[[bonus_id]] = {{turfwar_win_bonus}}.[[id]]')
             ->andWhere(['{{battle}}.[[user_id]]' => $this->user_id]);
 
-
+        // var_dump($query->createCommand()->queryOne());
         $this->attributes = $query->createCommand()->queryOne();
         
         $keys = [

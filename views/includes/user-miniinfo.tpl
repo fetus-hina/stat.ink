@@ -3,6 +3,7 @@
   <div id="user-miniinfo" style="margin-bottom:15px">
     <div style="border:1px solid #ccc;border-radius:5px;padding:15px">
       <h2 style="margin-top:0;margin-bottom:10px">
+        <!-- {{$user->id|escape}} -->
         <a href="{{url route="show/user" screen_name=$user->screen_name}}">
           {{$user->name|escape}}
         </a>
@@ -241,13 +242,54 @@
           </div>
           <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
             <div class="user-label">
+              &nbsp;
+            </div>
+            <div class="user-number">
+              &nbsp;
+            </div>
+          </div>
+
+          <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+            <div class="user-label">
+              {{'Avg Kills'|translate:'app'|escape}}
+            </div>
+            <div class="user-number">
+              {{if $stat->gachi_kd_battle > 0}}
+                {{$p = ['number' => $stat->gachi_kill, 'battle' => $stat->gachi_kd_battle]}}
+                {{$s = '{number, plural, =1{1 kill} other{# kills}} in {battle, plural, =1{1 battle} other{# battles}}'|translate:'app':$p}}
+                <span class="auto-tooltip" title="{{$s|escape}}">
+                  {{($stat->gachi_kill/$stat->gachi_kd_battle)|number_format:2|escape}}
+                </span>
+              {{else}}
+                {{'N/A'|translate:'app'|escape}}
+              {{/if}}
+            </div>
+          </div>
+          <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+            <div class="user-label">
+              {{'Avg Deaths'|translate:'app'|escape}}
+            </div>
+            <div class="user-number">
+              {{if $stat->gachi_kd_battle > 0}}
+                {{$p = ['number' => $stat->gachi_death, 'battle' => $stat->gachi_kd_battle]}}
+                {{$s = '{number, plural, =1{1 death} other{# deaths}} in {battle, plural, =1{1 battle} other{# battles}}'|translate:'app':$p}}
+                <span class="auto-tooltip" title="{{$s|escape}}">
+                  {{($stat->gachi_death/$stat->gachi_kd_battle)|number_format:2|escape}}
+                </span>
+              {{else}}
+                {{'N/A'|translate:'app'|escape}}
+              {{/if}}
+            </div>
+          </div>
+          <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+            <div class="user-label">
               <span class="auto-tooltip" title="{{'Kill Ratio'|translate:'app'|escape}}">
                 {{'Ratio'|translate:'app'|escape}}
               </span>
             </div>
             <div class="user-number">
               {{if $stat->gachi_kill == 0 && $stat->gachi_death == 0}}
-                -
+                {{'N/A'|translate:'app'|escape}}
               {{else}}
                 <span class="auto-tooltip" title="{{'Kill Rate'|translate:'app'|escape}}: {{($stat->gachi_kill/($stat->gachi_kill+$stat->gachi_death))|percent:1|escape}}">
                   {{if $stat->gachi_death == 0}}
@@ -256,6 +298,35 @@
                     {{($stat->gachi_kill/$stat->gachi_death)|number_format:2|escape}}
                   {{/if}}
                 </span>
+              {{/if}}
+            </div>
+          </div>
+
+          <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+            <div class="user-label">
+              <span class="auto-tooltip" title="{{'Kills per minute'|translate:'app'|escape}}">
+                {{'Kills/min'|translate:'app'|escape}}
+              </span>
+            </div>
+            <div class="user-number">
+              {{if $stat->gachi_total_time > 0}}
+                {{($stat->gachi_kill2*60/$stat->gachi_total_time)|number_format:2|escape}}
+              {{else}}
+                {{'N/A'|translate:'app'|escape}}
+              {{/if}}
+            </div>
+          </div>
+          <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+            <div class="user-label">
+              <span class="auto-tooltip" title="{{'Deaths per minute'|translate:'app'|escape}}">
+                {{'Deaths/min'|translate:'app'|escape}}
+              </span>
+            </div>
+            <div class="user-number">
+              {{if $stat->gachi_total_time > 0}}
+                {{($stat->gachi_death2*60/$stat->gachi_total_time)|number_format:2|escape}}
+              {{else}}
+                {{'N/A'|translate:'app'|escape}}
               {{/if}}
             </div>
           </div>
