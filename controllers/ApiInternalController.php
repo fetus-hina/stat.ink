@@ -21,6 +21,7 @@ class ApiInternalController extends Controller
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
+                    'patch-battle' => [ 'patch' ],
                     '*' => [ 'get' ],
                 ],
             ],
@@ -33,6 +34,7 @@ class ApiInternalController extends Controller
         return [
             'activity' => [ 'class' => $prefix . '\ActivityAction' ],
             'counter' => [ 'class' => $prefix . '\CounterAction' ],
+            'patch-battle' => [ 'class' => $prefix . '\PatchBattleAction' ],
             'recent-battles' => [ 'class' => $prefix . '\RecentBattlesAction' ],
         ];
     }

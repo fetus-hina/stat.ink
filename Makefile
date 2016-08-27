@@ -24,6 +24,7 @@ RESOURCE_TARGETS_MAIN=\
 	resources/.compiled/ip-version/badge.css \
 	resources/.compiled/slack/slack.js \
 	resources/.compiled/stat.ink/active-reltime.js \
+	resources/.compiled/stat.ink/battle-edit.js \
 	resources/.compiled/stat.ink/battles-simple.css \
 	resources/.compiled/stat.ink/downloads.css \
 	resources/.compiled/stat.ink/favicon.png \
@@ -181,6 +182,9 @@ resources/.compiled/stat.ink/battles-simple.css: resources/stat.ink/battles-simp
 	$(GULP) less --in $< --out $@
 
 resources/.compiled/stat.ink/active-reltime.js: resources/stat.ink/active-reltime.js $(GULP)
+	$(GULP) js --in $< --out $@
+
+resources/.compiled/stat.ink/battle-edit.js: resources/stat.ink/battle-edit.js $(GULP)
 	$(GULP) js --in $< --out $@
 
 resources/.compiled/stat.ink/downloads.css: resources/stat.ink/downloads.less $(GULP)

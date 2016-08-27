@@ -521,13 +521,36 @@
                 </td>
               </tr>
             {{/if}}
-            {{if $battle->link_url != ''}}
+            {{$_editable = (!$app->user->isGuest && $app->user->identity->id == $battle->user_id)}}
+            {{if $battle->link_url != '' || $_editable}}
+              {{if $_editable}}
+                {{\app\assets\BattleEditAsset::register($this)|@void}}
+              {{/if}}
               <tr>
                 <th>{{'Link'|translate:'app'|escape}}</th>
-                <td>
-                  <a href="{{$battle->link_url|escape}}" rel="nofollow" class="swipebox">
-                    {{$battle->link_url|decode_idn|escape}}
-                  </a>
+                <td id="link-cell">
+                  <div id="link-cell-display" data-post="{{url route="api-internal/patch-battle" id=$battle->id}}" data-url="{{$battle->link_url|escape}}">
+                    {{if $battle->link_url != ''}}
+                      <a href="{{$battle->link_url|escape}}" rel="nofollow" class="swipebox">
+                        {{$battle->link_url|decode_idn|escape}}
+                      </a>&#32;
+                    {{/if}}
+                    {{if $_editable}}
+                      <button id="link-cell-start-edit" class="btn btn-default btn-xs" disabled>
+                        <span class="fa fa-pencil left"></span>{{'Edit'|translate:'app'|escape}}
+                      </button>
+                    {{/if}}
+                  </div>
+                  {{if $_editable}}
+                    <div id="link-cell-edit" style="display:none">
+                      <div class="form-group-sm">
+                        <input type="url" value="" id="link-cell-edit-input" class="form-control" placeholder="https://www.youtube.com/watch?v=...">
+                      </div>
+                      <button type="button" id="link-cell-edit-apply" class="btn btn-primary btn-xs" disabled data-error="{{'Could not be updated.'|translate:'app'|escape}}">
+                        {{'Apply'|translate:'app'|escape}}
+                      </button>
+                    </div>
+                  {{/if}}
                 </td>
               </tr>
             {{/if}}
