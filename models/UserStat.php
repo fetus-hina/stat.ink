@@ -434,14 +434,14 @@ class UserStat extends \yii\db\ActiveRecord
             ->leftJoin('rank rank_after', '{{battle}}.[[rank_after_id]] = {{rank_after}}.[[id]]')
             ->andWhere(['{{battle}}.[[user_id]]' => $this->user_id]);
 
-        // var_dump($query->createCommand()->queryOne());
         $this->attributes = $query->createCommand()->queryOne();
         
         $keys = [
             'battle_count', 'total_kill', 'total_death', 'total_kd_battle_count',
             'nawabari_count', 'nawabari_kill', 'nawabari_death',
+            'nawabari_inked', 'nawabari_inked_battle', 'nawabari_inked_max',
             'gachi_count', 'gachi_kill', 'gachi_death',
-            'nawabari_inked', 'nawabari_inked_battle',
+            'gachi_kd_battle', 'gachi_kill2', 'gachi_death2', 'gachi_total_time', 'gachi_rank_peak',
         ];
         foreach ($keys as $key) {
             $this->$key = (int)$this->$key;
