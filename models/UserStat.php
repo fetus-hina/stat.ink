@@ -144,6 +144,17 @@ class UserStat extends \yii\db\ActiveRecord
             '{{battle}}.[[death]] IS NOT NULL',
         ]));
 
+        $condBonusPointPresent = '({{turfwar_win_bonus}}.[[bonus]] IS NOT NULL)';
+
+        $condTurfInkedPresent = sprintf('(%s)', implode(' AND ', [
+            '{{battle}}.[[my_point]] IS NOT NULL',
+            '{{battle}}.[[my_point]] > 0',
+            sprintf(
+                '{{battle}}.[[my_point]] - (%s) > 0',
+                'CASE {{battle}}.[[is_win]] WHEN TRUE THEN {{turfwar_win_bonus}}.[[bonus]] ELSE 0 END'
+            )
+        ]));
+
         $condTimePresent = sprintf('(%s)', implode(' AND ', [
             '{{battle}}.[[start_at]] IS NOT NULL',
             '{{battle}}.[[end_at]] IS NOT NULL',
@@ -256,7 +267,8 @@ class UserStat extends \yii\db\ActiveRecord
             implode(' AND ', [
                 $condIsNotPrivate,
                 $condIsNawabari,
-                '{{turfwar_win_bonus}}.[[bonus]] IS NOT NULL',
+                $condBonusPointPresent,
+                $condTurfInkedPresent,
             ]),
             '{{battle}}.[[is_win]] = TRUE',
             '{{battle}}.[[is_win]] = FALSE',
@@ -268,7 +280,8 @@ class UserStat extends \yii\db\ActiveRecord
             implode(' AND ', [
                 $condIsNotPrivate,
                 $condIsNawabari,
-                '{{turfwar_win_bonus}}.[[bonus]] IS NOT NULL',
+                $condBonusPointPresent,
+                $condTurfInkedPresent,
             ]),
             '{{battle}}.[[is_win]] = TRUE',
             '{{battle}}.[[is_win]] = FALSE',
@@ -281,8 +294,9 @@ class UserStat extends \yii\db\ActiveRecord
             implode(' AND ', [
                 $condIsNotPrivate,
                 $condIsNawabari,
+                $condBonusPointPresent,
+                $condTurfInkedPresent,
                 '{{battle}}.[[is_win]] IS NOT NULL',
-                '{{turfwar_win_bonus}}.[[bonus]] IS NOT NULL',
             ])
         );
 
