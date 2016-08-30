@@ -233,6 +233,16 @@
             </ul>
           </li>
         </ul>
+        {{if !$app->user->isGuest}}
+          <ul class="nav navbar-nav navbar-right">
+            <li>
+              <button id="battle-input-btn" class="btn btn-primary navbar-btn" disabled>
+                <span class="fa fa-pencil-square-o left"></span>
+                {{'New battle'|translate:'app'|escape}}
+              </button>
+            </li>
+          </ul>
+        {{/if}}
       </div>
     </div>
   </div>

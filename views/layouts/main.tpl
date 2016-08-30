@@ -7,7 +7,7 @@
     <head>
       <meta charset="UTF-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
       <meta name="apple-mobile-web-app-capable" content="yes">
       <meta name="format-detection" content="telephone=no,email=no,address=no">
       {{\yii\helpers\Html::csrfMetaTags()}}
@@ -20,6 +20,9 @@
         {{include '@app/views/layouts/navbar.tpl'}}
         {{$content}}
         {{include '@app/views/layouts/footer.tpl'}}
+        {{if !$app->user->isGuest}}
+          {{include '@app/views/includes/battle-input-modal.tpl'}}
+        {{/if}}
         <span id="event"></span>
         {{if $app->params.googleAnalytics != ''}}
           {{use class="\cybercog\yii\googleanalytics\widgets\GATracking" type="function"}}

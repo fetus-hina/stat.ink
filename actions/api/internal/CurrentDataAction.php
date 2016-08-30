@@ -9,6 +9,7 @@ namespace app\actions\api\internal;
 
 use Yii;
 use app\assets\MapImageAsset;
+use app\components\helpers\Battle as BattleHelper;
 use app\models\GameMode;
 use app\models\Map;
 use app\models\PeriodMap;
@@ -55,7 +56,14 @@ class CurrentDataAction extends ViewAction
             ];
         };
 
+        $now = microtime(true);
+        $period = BattleHelper::calcPeriod((int)$now);
+        $range = BattleHelper::periodToRange($period);
         return [
+            'period' => [
+                'id' => $period,
+                'next' => max($range[1] - $now, 0), // in sec
+            ],
             'fest'    => false,
             'regular' => $info(PeriodMap::findCurrentRegular()->all()),
             'gachi'   => $info(PeriodMap::findCurrentGachi()->all()),
