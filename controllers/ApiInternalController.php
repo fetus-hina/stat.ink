@@ -34,6 +34,7 @@ class ApiInternalController extends Controller
         return [
             'activity' => [ 'class' => $prefix . '\ActivityAction' ],
             'counter' => [ 'class' => $prefix . '\CounterAction' ],
+            'current-data' => [ 'class' => $prefix . '\CurrentDataAction' ],
             'patch-battle' => [ 'class' => $prefix . '\PatchBattleAction' ],
             'recent-battles' => [ 'class' => $prefix . '\RecentBattlesAction' ],
         ];
