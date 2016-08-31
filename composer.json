@@ -30,6 +30,7 @@
         "bower-asset/jquery-stupid-table": "@dev",
         "bower-asset/jquery.lazyload": "^1.9",
         "bower-asset/swipebox": "^1.4",
+        "bower-asset/uuid.js": "^3.3",
         "christian-riesen/base32": "^1.2",
         "cybercog/yii2-google-analytics": "^0.3.1",
         "himiklab/yii2-recaptcha-widget": "^1.0",

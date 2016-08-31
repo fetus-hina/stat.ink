@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "f574f77632a8e572eef27e087e018b99",
-    "content-hash": "0d417624d1962558693109fdda288aba",
+    "hash": "13a5a310eb77488d44c03bc6624fe94a",
+    "content-hash": "c3704026cdee179fbc237a087018618b",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -693,6 +693,45 @@
                 "bower-asset-main": "src/js/jquery.swipebox.js",
                 "bower-asset-ignore": []
             }
+        },
+        {
+            "name": "bower-asset/uuid.js",
+            "version": "v3.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/LiosK/UUID.js.git",
+                "reference": "b462393c12ee1d1061f12709e84524ad2f70509e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/LiosK/UUID.js/zipball/b462393c12ee1d1061f12709e84524ad2f70509e",
+                "reference": "b462393c12ee1d1061f12709e84524ad2f70509e",
+                "shasum": ""
+            },
+            "type": "bower-asset-library",
+            "extra": {
+                "bower-asset-main": "src/uuid.js",
+                "bower-asset-ignore": [
+                    "**/.*",
+                    "doc",
+                    "test"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "UUID.js: The RFC-compliant UUID generator for JavaScript.",
+            "keywords": [
+                "4122",
+                "globally",
+                "guid",
+                "identifier",
+                "library",
+                "rfc",
+                "unique",
+                "universally",
+                "uuid"
+            ]
         },
         {
             "name": "bower-asset/yii2-pjax",
