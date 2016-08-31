@@ -1166,16 +1166,16 @@
         },
         {
             "name": "jp3cki/uuid",
-            "version": "v0.1.0",
+            "version": "v0.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fetus-hina/uuid.git",
-                "reference": "f25f93afaf65bdfe66c871542649a16ddf580213"
+                "reference": "58364ab6d340c6200007f25b411a56ed08d90a64"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fetus-hina/uuid/zipball/f25f93afaf65bdfe66c871542649a16ddf580213",
-                "reference": "f25f93afaf65bdfe66c871542649a16ddf580213",
+                "url": "https://api.github.com/repos/fetus-hina/uuid/zipball/58364ab6d340c6200007f25b411a56ed08d90a64",
+                "reference": "58364ab6d340c6200007f25b411a56ed08d90a64",
                 "shasum": ""
             },
             "require": {
@@ -1207,7 +1207,7 @@
                     "email": "hina@bouhime.com"
                 }
             ],
-            "time": "2016-03-27 11:39:49"
+            "time": "2016-08-30 08:48:40"
         },
         {
             "name": "jp3cki/yii2-bs-datetimepicker",
@@ -1539,16 +1539,16 @@
         },
         {
             "name": "rmrevin/yii2-fontawesome",
-            "version": "2.15.2",
+            "version": "2.16.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rmrevin/yii2-fontawesome.git",
-                "reference": "23e282eadeaec70ea7a0241eabf5d672568f26ba"
+                "reference": "ab08282b8cd05c570634926f41c868cf902981e7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rmrevin/yii2-fontawesome/zipball/23e282eadeaec70ea7a0241eabf5d672568f26ba",
-                "reference": "23e282eadeaec70ea7a0241eabf5d672568f26ba",
+                "url": "https://api.github.com/repos/rmrevin/yii2-fontawesome/zipball/ab08282b8cd05c570634926f41c868cf902981e7",
+                "reference": "ab08282b8cd05c570634926f41c868cf902981e7",
                 "shasum": ""
             },
             "require": {
@@ -1586,7 +1586,7 @@
                 "font",
                 "yii"
             ],
-            "time": "2016-08-19 14:09:51"
+            "time": "2016-08-31 12:41:25"
         },
         {
             "name": "smarty/smarty",
