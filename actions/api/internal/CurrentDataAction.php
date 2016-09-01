@@ -119,18 +119,21 @@ class CurrentDataAction extends ViewAction
     {
         $ret = [];
         foreach (WeaponType::find()->orderBy('[[id]]')->asArray()->all() as $type) {
-            $ret = array_merge($ret, (function (array $type) : array {
-                $tmp = [];
-                foreach (Weapon::find()->andWhere(['type_id' => $type['id']])->asArray()->all() as $_) {
-                    $tmp[$_['key']] = [
-                        'name' => Yii::t('app-weapon', $_['name']),
-                    ];
-                }
-                uasort($tmp, function ($a, $b) {
-                    return strcasecmp($a['name'], $b['name']);
-                });
-                return $tmp;
-            })($type));
+            $ret[] = [
+                'name' => Yii::t('app-weapon', $type['name']),
+                'list' => (function (array $type) : array {
+                    $tmp = [];
+                    foreach (Weapon::find()->andWhere(['type_id' => $type['id']])->asArray()->all() as $_) {
+                        $tmp[$_['key']] = [
+                            'name' => Yii::t('app-weapon', $_['name']),
+                        ];
+                    }
+                    uasort($tmp, function ($a, $b) {
+                        return strcasecmp($a['name'], $b['name']);
+                    });
+                    return $tmp;
+                })($type),
+            ];
         }
         return $ret;
     }

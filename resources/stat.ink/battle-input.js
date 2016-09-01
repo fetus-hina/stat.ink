@@ -168,10 +168,17 @@
                             })());
                         }
 
-                        $.each(json.weapons, function (key, weapon) {
-                            $this.append(
-                                $('<option>', {label: weapon.name, value: key}).text(weapon.name)
-                            );
+                        // 種類別
+                        $.each(json.weapons, function (key, type) {
+                            $this.append((function () {
+                                var $group = $('<optgroup>', {label: type.name});
+                                $.each(type.list, function (key, weapon) {
+                                    $group.append(
+                                        $('<option>', {label: weapon.name, value: key}).text(weapon.name)
+                                    );
+                                });
+                                return $group;
+                            })());
                         });
                     });
 
