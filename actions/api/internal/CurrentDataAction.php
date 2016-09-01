@@ -13,9 +13,11 @@ use app\components\helpers\Battle as BattleHelper;
 use app\models\GameMode;
 use app\models\Map;
 use app\models\PeriodMap;
+use app\models\UserWeapon;
 use app\models\Weapon;
 use app\models\WeaponType;
 use yii\helpers\Url;
+use yii\web\BadRequestHttpException;
 use yii\web\ViewAction;
 
 class CurrentDataAction extends ViewAction
@@ -24,6 +26,9 @@ class CurrentDataAction extends ViewAction
     {
         parent::init();
         Yii::$app->response->format = YII_ENV_DEV ? 'json' : 'compact-json';
+        if (Yii::$app->user->isGuest) {
+            throw new BadRequestHttpException();
+        }
     }
 
     public function run()
@@ -33,6 +38,7 @@ class CurrentDataAction extends ViewAction
             'rules' => $this->getRules(),
             'maps' => $this->getMaps(),
             'weapons' => $this->getWeapons(),
+            'favWeapons' => $this->getFavoriteWeapons(),
         ];
     }
 
@@ -127,5 +133,24 @@ class CurrentDataAction extends ViewAction
             })($type));
         }
         return $ret;
+    }
+
+    public function getFavoriteWeapons()
+    {
+        if (!$user = Yii::$app->user->identity) {
+            return [];
+        }
+        $list = $user->getUserWeapons()
+            ->with('weapon')
+            ->orderBy('[[count]] DESC')
+            ->limit(10)
+            ->asArray()
+            ->all();
+        return array_map(function (array $uw) : array {
+            return [
+                'key' => $uw['weapon']['key'],
+                'name' => Yii::t('app-weapon', $uw['weapon']['name']),
+            ];
+        }, $list);
     }
 }

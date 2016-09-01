@@ -6,6 +6,28 @@
         var nextStageArrives = undefined;
         var stageTimerId = undefined;
 
+        var translate = function (text) {
+            var lang = $('html').attr('lang');
+            switch (text) {
+                case 'Favorite Weapons':
+                    switch (lang) {
+                        case 'ja-JP':
+                            return 'よく使うブキ';
+
+                        case 'es-ES':
+                        case 'es-MX':
+                            return 'Armas Favoritas';
+
+                        default:
+                            return text;
+                    }
+                    break;
+
+                default:
+                    return text;
+            }
+        };
+
         var $modal = $('#inputModal');
         var $selectWeapons = $('.battle-input-form--weapons', $modal);
         var $buttonStages = $('.battle-input-form--stages', $modal);
@@ -132,6 +154,20 @@
                     $selectWeapons.each(function () {
                         var $this = $(this);
                         $this.empty();
+
+                        // お気に入りのブキ
+                        if (json.favWeapons) {
+                            $this.append((function () {
+                                var $group = $('<optgroup>', {label: translate('Favorite Weapons')});
+                                $.each(json.favWeapons, function (i, weapon) {
+                                    $group.append(
+                                        $('<option>', {label: weapon.name, value: weapon.key}).text(weapon.name)
+                                    );
+                                });
+                                return $group;
+                            })());
+                        }
+
                         $.each(json.weapons, function (key, weapon) {
                             $this.append(
                                 $('<option>', {label: weapon.name, value: key}).text(weapon.name)
