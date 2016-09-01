@@ -73,7 +73,7 @@
           {{'Manually'|translate:'app-start'|escape}}
         </h3>
         <p>
-          <a href="https://play.google.com/store/apps/details?id=com.syanari.merluza.ikarec&amp;hl=ja">イカレコ</a>などの対応ソフトを利用して手動で戦績を登録する方法です。
+          <a href="https://play.google.com/store/apps/details?id=com.syanari.merluza.ikarec&amp;hl=ja">イカレコ</a>などの対応ソフトを利用して手動で戦績を登録する方法です。（stat.ink のウェブからも登録できますが、あまりおすすめしません）
         </p>
         <p>
           この方法は至ってシンプルで、画面に表示されたリザルト画面を基に利用者が手動で登録します。
@@ -86,6 +86,9 @@
           現在この方法で利用できるアプリケーションのリスト:
         </p>
         <ul>
+          <li>
+            stat.ink web client
+          </li>
           <li>
             <a href="https://play.google.com/store/apps/details?id=com.syanari.merluza.ikarec&amp;hl=ja">イカレコ</a> (Android)
           </li>
