@@ -228,6 +228,7 @@ return [
     'Ratio' => 'Relación',
     'Recent Battles' => 'Batallas recientes',
     'Recent Results' => 'Resultados recientes',
+    'Recommended to Android users:' => 'Recomendado para los usuarios de Android:',
     'Register' => 'Registro',
     'Relative Time' => 'Tiempo relativo',
     'Result' => 'Resultado',

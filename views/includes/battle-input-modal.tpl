@@ -285,6 +285,23 @@
             </div>
           </div>
         </div>
+        <div class="modal-footer">
+          <p class="text-left">
+            {{$_linkAsset = \app\assets\AppLinkAsset::register($this)}}
+            {{'Recommended to Android users:'|translate:'app'|escape}}&#32;
+            {{if $app->language === 'ja-JP'}}
+              {{$_linkAsset->ikaRecJa}}&#32;
+              <a href="https://play.google.com/store/apps/details?id=com.syanari.merluza.ikarec" target="_blank">
+                イカレコ
+              </a>
+            {{else}}
+              {{$_linkAsset->ikaRecEn}}&#32;
+              <a href="https://play.google.com/store/apps/details?id=ink.pocketgopher.ikarec" target="_blank">
+                IkaRec (English version)
+              </a>
+            {{/if}}
+          </p>
+        </div>
       </div>
     </div>
   </div>

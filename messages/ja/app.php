@@ -243,6 +243,7 @@ return [
     'Ratio' => 'レシオ',
     'Recent Battles' => '最近のバトル',
     'Recent Results' => '最近の成績',
+    'Recommended to Android users:' => 'Androidユーザにはこちらがおすすめ:',
     'Register' => 'ユーザ登録',
     'Relative Time' => '相対時間',
     'Result' => '結果',

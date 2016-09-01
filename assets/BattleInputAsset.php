@@ -20,6 +20,7 @@ class BattleInputAsset extends AssetBundle
     ];
     public $depends = [
         'yii\web\JqueryAsset',
+        'yii\bootstrap\BootstrapAsset',
         'yii\bootstrap\BootstrapPluginAsset',
         'app\assets\DsegFontAsset',
         'app\assets\UuidJsAsset',
