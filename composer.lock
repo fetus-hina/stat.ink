@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "13a5a310eb77488d44c03bc6624fe94a",
-    "content-hash": "c3704026cdee179fbc237a087018618b",
+    "hash": "08af0c17ae783ddadd770c19b3e5d37d",
+    "content-hash": "ceb0bcb511e79196359829a28b70f985",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -94,6 +94,42 @@
                 "bootstrap-toggle",
                 "switch",
                 "toggle"
+            ]
+        },
+        {
+            "name": "bower-asset/bowser",
+            "version": "1.4.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ded/bowser.git",
+                "reference": "d5daa10f01c15292da108ecd0a6fa6d4d1849100"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ded/bowser/zipball/d5daa10f01c15292da108ecd0a6fa6d4d1849100",
+                "reference": "d5daa10f01c15292da108ecd0a6fa6d4d1849100",
+                "shasum": ""
+            },
+            "type": "bower-asset-library",
+            "extra": {
+                "bower-asset-main": "src/bowser.js",
+                "bower-asset-ignore": [
+                    "node_modules",
+                    "test",
+                    "make",
+                    "**/.*",
+                    "Makefile"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "a browser detector",
+            "keywords": [
+                "browser",
+                "detection",
+                "ender",
+                "sniff"
             ]
         },
         {
@@ -2534,16 +2570,16 @@
         },
         {
             "name": "squizlabs/php_codesniffer",
-            "version": "2.6.2",
+            "version": "2.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/squizlabs/PHP_CodeSniffer.git",
-                "reference": "4edb770cb853def6e60c93abb088ad5ac2010c83"
+                "reference": "571e27b6348e5b3a637b2abc82ac0d01e6d7bbed"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/4edb770cb853def6e60c93abb088ad5ac2010c83",
-                "reference": "4edb770cb853def6e60c93abb088ad5ac2010c83",
+                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/571e27b6348e5b3a637b2abc82ac0d01e6d7bbed",
+                "reference": "571e27b6348e5b3a637b2abc82ac0d01e6d7bbed",
                 "shasum": ""
             },
             "require": {
@@ -2608,7 +2644,7 @@
                 "phpcs",
                 "standards"
             ],
-            "time": "2016-07-13 23:29:13"
+            "time": "2016-09-01 23:53:02"
         },
         {
             "name": "symfony/console",

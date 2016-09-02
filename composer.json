@@ -21,6 +21,7 @@
         "ext-session": "*",
         "ext-zlib": "*",
         "bower-asset/bootstrap-toggle": "^2.2",
+        "bower-asset/bowser": "1.4.*",
         "bower-asset/cal-heatmap": "^3.3",
         "bower-asset/clipboard": "^1.5",
         "bower-asset/emojify.js": "^1.1",
