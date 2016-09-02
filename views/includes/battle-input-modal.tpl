@@ -5,9 +5,9 @@
 
   {{$_prefix = 'input-modal-internal'|sha1|substr:0:8}}
 
-  {{$_rev = \app\components\Version::getShortRevision()}}
   {{$_agentName = $app->name|cat:' web client'}}
-  {{$_agentVersion = 'v'|cat:$app->version:'(':$_rev:')'}}
+  {{$_agentVersion = 'v'|cat:$app->version}}
+  {{$_agentRevision = \app\components\Version::getShortRevision()}}
 
   <div class="modal fade" id="inputModal" tabindex="-1" role="dialog" aria-labelledby="inputModalLabel">
     <div class="modal-dialog" role="document">
@@ -53,7 +53,7 @@
               <form class="battle-input-form" id="battle-input-form--regular" action="#" onsubmit="return !1">
                 <input type="hidden" name="apikey" value="{{$app->user->identity->api_key|escape}}">
                 <input type="hidden" name="agent" value="{{$_agentName|escape}}">
-                <input type="hidden" name="agent_version" value="{{$_agentVersion|escape}}">
+                <input type="hidden" name="agent_version" value="{{$_agentVersion|escape}}" data-version="{{$_agentVersion|escape}}" data-revision="{{$_agentRevision|escape}}">
 
                 <div class="row">
                   <div class="col-xs-6">
@@ -160,7 +160,7 @@
               <form class="battle-input-form" id="battle-input-form--gachi" action="#" onsubmit="return !1">
                 <input type="hidden" name="apikey" value="{{$app->user->identity->api_key|escape}}">
                 <input type="hidden" name="agent" value="{{$_agentName|escape}}">
-                <input type="hidden" name="agent_version" value="{{$_agentVersion|escape}}">
+                <input type="hidden" name="agent_version" value="{{$_agentVersion|escape}}" data-version="{{$_agentVersion|escape}}" data-revision="{{$_agentRevision|escape}}">
 
                 <div class="row">
                   <div class="col-xs-6">
