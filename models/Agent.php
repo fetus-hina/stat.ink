@@ -8,6 +8,7 @@
 namespace app\models;
 
 use Yii;
+use app\components\Version;
 
 /**
  * This is the model class for table "agent".
@@ -78,6 +79,8 @@ class Agent extends \yii\db\ActiveRecord
             return $this->getIkaRecProductUrl();
         } elseif ($this->getIsIkalog()) {
             return $this->getIkaLogProductUrl();
+        } elseif ($this->getIsStatinkWeb()) {
+            return 'https://stat.ink/';
         } else {
             return null;
         }
@@ -124,6 +127,18 @@ class Agent extends \yii\db\ActiveRecord
                 );
             }
         }
+        if ($this->getIsStatinkWeb())
+        {
+            if (preg_match('/\(([0-9a-f]{7,}\b)/', $this->version, $match)) {
+                $version = Version::getFullHash($match[1]);
+                if ($version) {
+                    return sprintf(
+                        'https://github.com/fetus-hina/stat.ink/tree/%s',
+                        rawurlencode($version)
+                    );
+                }
+            }
+        }
         return null;
     }
 
@@ -139,6 +154,11 @@ class Agent extends \yii\db\ActiveRecord
     public function getIsIkalog()
     {
         return $this->name === 'IkaLog' || $this->name === 'TakoLog';
+    }
+
+    public function getIsStatinkWeb()
+    {
+        return $this->name === 'stat.ink web client';
     }
 
     public function getIsOldIkalogAsAtTheTime($t = null)

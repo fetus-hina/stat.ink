@@ -32,6 +32,12 @@ class Version
         return self::$shortRevision;
     }
 
+    public static function getFullHash(string $shortHash)
+    {
+        $lines = static::doGit(sprintf('git rev-parse %s -q', escapeshellarg($shortHash)));
+        return $lines ? array_shift($lines) : null;
+    }
+
     private static function fetchRevision()
     {
         if (self::$revision !== null && self::$shortRevision !== null) {
@@ -59,7 +65,14 @@ class Version
             'git log -n 1 --format=%s',
             escapeshellarg($format)
         );
+        if (!$lines = static::doGit($gitCommand)) {
+            return false;
+        }
+        return trim(array_shift($lines));
+    }
 
+    private static function doGit($gitCommand)
+    {
         // FIXME: scl git19 があればそれを、無ければpathの通ったgitを使うひどい場当たりhack
         if (file_exists('/usr/bin/scl') &&
                 is_executable('/usr/bin/scl') &&
@@ -81,6 +94,6 @@ class Version
         if ($status !== 0) {
             return false;
         }
-        return trim($line);
+        return $lines;
     }
 }
