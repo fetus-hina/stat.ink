@@ -116,6 +116,13 @@ $config = [
             'dirMode' => 0700,
             'fileMode' => 0600,
         ],
+        'session' => [
+            'timeout' => 86400,
+            'cookieParams' => [
+                'httponly' => true,
+                'secure' => !!preg_match('/(?:^|\.)stat\.ink$/i', $_SERVER['HTTP_HOST'] ?? ''),
+            ],
+        ],
         'autoAlias' => [
             'class' => 'app\components\AutoAlias',
             'aliases' => [
