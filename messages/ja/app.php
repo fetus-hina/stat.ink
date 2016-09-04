@@ -8,6 +8,8 @@
  */
 
 return [
+    'Enemy Weapon' => '相手のブキ',
+    'Deaths Per Battle' => 'バトルあたりのデス数',
     '(combined)' => '(統合済み)',
     '(default)' => '(規定)',
     '* This exclusion is in attempt to minimize overcounting in weapon usage statistics.' => '※できる限り重複カウントしないように除外設定を行っていますが、連戦やナワバリフレンド合流の影響により重複カウントしやすい状況が発生します。',
@@ -283,6 +285,7 @@ return [
     'Stats (by Mode)' => '統計（ルール別）',
     'Stats (by Stage)' => '統計（ステージ別）',
     'Stats (by Weapon)' => '統計（ブキ別）',
+    'Stats (vs. Weapon)' => '統計（敵のブキ）',
     'Stats: K/D vs Win %' => '統計: KDと勝率',
     'Stats: Knockout Ratio' => '統計: ノックアウト率',
     'Stats: User Activity' => '統計: このサイトのユーザとバトル数',
@@ -370,6 +373,7 @@ return [
     '{0}\'s Battle Stats (by Mode)' => '{0}さんの統計（ルール別）',
     '{0}\'s Battle Stats (by Stage)' => '{0}さんの統計（ステージ別）',
     '{0}\'s Battle Stats (by Weapon)' => '{0}さんの統計（ブキ別）',
+    '{0}\'s Battle Stats (vs. Weapon)' => '{0}さんの統計（相手のブキ）',
     '{0}\'s Battle' => '{0}さんのバトル',
     '{0}\'s Battles' => '{0}さんのバトル',
     '{0}\'s Favorite Weapon' => '{0}のよく使うブキ',

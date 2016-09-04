@@ -377,6 +377,10 @@
             <span class="fa fa-pie-chart left"></span>
             {{'Stats (by Weapon)'|translate:'app'|escape}}
           </a><br>
+          <a href="{{url route="show/user-stat-vs-weapon" screen_name=$user->screen_name}}">
+            <span class="fa fa-pie-chart left"></span>
+            {{'Stats (vs. Weapon)'|translate:'app'|escape}}
+          </a><br>
           <a href="{{url route="show/user-stat-cause-of-death" screen_name=$user->screen_name}}">
             <span class="fa fa-pie-chart left"></span>
             {{'Stats (Cause of Death)'|translate:'app'|escape}}

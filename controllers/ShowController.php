@@ -62,6 +62,7 @@ class ShowController extends Controller
             'user-stat-gachi' => [ 'class' => $prefix . '\UserStatGachiAction' ],
             'user-stat-nawabari' => [ 'class' => $prefix . '\UserStatNawabariAction' ],
             'user-stat-report' => [ 'class' => $prefix . '\UserStatReportAction' ],
+            'user-stat-vs-weapon' => [ 'class' => $prefix . '\UserStatVsWeaponAction' ],
             'user-stat-weapon' => [ 'class' => $prefix . '\UserStatWeaponAction' ],
         ];
     }
