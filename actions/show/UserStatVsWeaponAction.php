@@ -181,6 +181,7 @@ class UserStatVsWeaponAction extends BaseAction
             ->innerJoin('subweapon', '{{weapon}}.[[subweapon_id]] = {{subweapon}}.[[id]]')
             ->innerJoin('special', '{{weapon}}.[[special_id]] = {{special}}.[[id]]')
             ->innerJoin('battle', '{{tmp_battle}}.[[battle_id]] = {{battle}}.[[id]]')
+            ->andWhere('{{battle_player}}.[[is_my_team]] = FALSE')
             ->groupBy('{{battle_player}}.[[weapon_id]]');
         foreach ($query->createCommand($db)->queryAll() as $row) {
             $row['weapon_name'] = Yii::t('app-weapon', $row['weapon_name']);
