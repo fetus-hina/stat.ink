@@ -122,28 +122,41 @@ class UserStatVsWeaponAction extends BaseAction
             ])
         ))->execute();
 
+        $query = (new Query())
+            ->select([
+                'battle_id' => '{{battle}}.[[id]]',
+            ])
+            ->from('battle')
+            ->innerJoin('battle_player', implode(' AND ', [
+                '{{battle}}.[[id]] = {{battle_player}}.[[battle_id]]',
+                '{{battle_player}}.[[is_me]] = TRUE',
+            ]))
+            ->leftJoin('tmp_death_data', '{{battle}}.[[id]] = {{tmp_death_data}}.[[battle_id]]')
+            ->andWhere(['and',
+                ['{{battle}}.[[user_id]]' => $this->user->id],
+                ['not', ['{{battle}}.[[is_win]]' => null]],
+                ['or',
+                    ['{{battle}}.[[death]]' => 0],
+                    ['not', ['{{tmp_death_data}}.[[battle_id]]' => null]],
+                ],
+            ]);
+        if (!$this->filter->hasErrors()) {
+            $query
+                ->leftJoin('rule', '{{battle}}.[[rule_id]] = {{rule}}.[[id]]')
+                ->leftJoin('game_mode', '{{rule}}.[[mode_id]] = {{game_mode}}.[[id]]')
+                ->leftJoin('lobby', '{{battle}}.[[lobby_id]] = {{lobby}}.[[id]]')
+                ->leftJoin('map', '{{battle}}.[[map_id]] = {{map}}.[[id]]')
+                ->leftJoin('weapon', '{{battle}}.[[weapon_id]] = {{weapon}}.[[id]]')
+                ->leftJoin('weapon_type', '{{weapon}}.[[type_id]] = {{weapon_type}}.[[id]]')
+                ->leftJoin('subweapon', '{{weapon}}.[[subweapon_id]] = {{subweapon}}.[[id]]')
+                ->leftJoin('special', '{{weapon}}.[[special_id]] = {{special}}.[[id]]')
+                ->leftJoin('rank', '{{battle}}.[[rank_id]] = {{rank}}.[[id]]')
+                ->leftJoin('rank_group', '{{rank}}.[[group_id]] = {{rank_group}}.[[id]]');
+            $this->filter($query, $this->filter);
+        }
+
         $db->createCommand(sprintf(
-            'INSERT INTO tmp_battle (battle_id) %s',
-            (new Query())
-                ->select([
-                    'battle_id' => '{{battle}}.[[id]]',
-                ])
-                ->from('battle')
-                ->innerJoin('battle_player', implode(' AND ', [
-                    '{{battle}}.[[id]] = {{battle_player}}.[[battle_id]]',
-                    '{{battle_player}}.[[is_me]] = TRUE',
-                ]))
-                ->leftJoin('tmp_death_data', '{{battle}}.[[id]] = {{tmp_death_data}}.[[battle_id]]')
-                ->andWhere(['and',
-                    ['{{battle}}.[[user_id]]' => $this->user->id],
-                    ['not', ['{{battle}}.[[is_win]]' => null]],
-                    ['or',
-                        ['{{battle}}.[[death]]' => 0],
-                        ['not', ['{{tmp_death_data}}.[[battle_id]]' => null]],
-                    ],
-                ])
-                ->createCommand()
-                ->rawSql
+            'INSERT INTO tmp_battle (battle_id) %s', $query->createCommand()->rawSql
         ))->execute();
     }
 

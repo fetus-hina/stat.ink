@@ -80,14 +80,14 @@
               </tr>
             {{foreachelse}}
               <tr>
-                <td>{{'There are no data.'|translate:'app'|escape}}</td>
+                <td colspan="5">{{'There are no data.'|translate:'app'|escape}}</td>
               </tr>
             {{/foreach}}
           </tbody>
         </table>
       </div>
       <div class="col-xs-12 col-sm-4 col-md-4 col-lg-3">
-        {{BattleFilterWidget route="show/user-stat-vs-weapon" screen_name=$user->screen_name filter=$filter action="summarize"}}
+        {{BattleFilterWidget route="show/user-stat-vs-weapon" screen_name=$user->screen_name filter=$filter action="summarize" result=false}}
         {{include file="@app/views/includes/user-miniinfo.tpl" user=$user}}
         {{AdWidget}}
       </div>
