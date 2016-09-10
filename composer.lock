@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "08af0c17ae783ddadd770c19b3e5d37d",
-    "content-hash": "ceb0bcb511e79196359829a28b70f985",
+    "hash": "f7270fecd9690cf37a76a9b16bbfd191",
+    "content-hash": "078537495bc29b75873dcb7f77542076",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -270,22 +270,21 @@
         },
         {
             "name": "bower-asset/eonasdan-bootstrap-datetimepicker",
-            "version": "4.17.37",
+            "version": "4.17.42",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Eonasdan/bootstrap-datetimepicker.git",
-                "reference": "fd8bd86dd78f789fb742798b7d49aba0a957af62"
+                "reference": "295db971685cc68a72990b3b5385e7c25a3ecd90"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Eonasdan/bootstrap-datetimepicker/zipball/fd8bd86dd78f789fb742798b7d49aba0a957af62",
-                "reference": "fd8bd86dd78f789fb742798b7d49aba0a957af62",
+                "url": "https://api.github.com/repos/Eonasdan/bootstrap-datetimepicker/zipball/295db971685cc68a72990b3b5385e7c25a3ecd90",
+                "reference": "295db971685cc68a72990b3b5385e7c25a3ecd90",
                 "shasum": ""
             },
             "require": {
                 "bower-asset/jquery": ">=1.8.3",
-                "bower-asset/moment": ">=2.9.0",
-                "bower-asset/moment-timezone": ">=0.4.0"
+                "bower-asset/moment": ">=2.10.5"
             },
             "type": "bower-asset-library",
             "extra": {
@@ -1558,16 +1557,16 @@
         },
         {
             "name": "php-curl-class/php-curl-class",
-            "version": "5.1.0",
+            "version": "6.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-curl-class/php-curl-class.git",
-                "reference": "258593be2fda5b7a02831bb9a37d6fc35c69611a"
+                "reference": "2e08fc596acb5f9a15ae746dfedd6673134c8cad"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-curl-class/php-curl-class/zipball/258593be2fda5b7a02831bb9a37d6fc35c69611a",
-                "reference": "258593be2fda5b7a02831bb9a37d6fc35c69611a",
+                "url": "https://api.github.com/repos/php-curl-class/php-curl-class/zipball/2e08fc596acb5f9a15ae746dfedd6673134c8cad",
+                "reference": "2e08fc596acb5f9a15ae746dfedd6673134c8cad",
                 "shasum": ""
             },
             "require": {
@@ -1610,7 +1609,7 @@
                 "web service",
                 "xml"
             ],
-            "time": "2016-08-19 02:39:55"
+            "time": "2016-09-03 00:18:01"
         },
         {
             "name": "rmrevin/yii2-fontawesome",
@@ -2648,16 +2647,16 @@
         },
         {
             "name": "symfony/console",
-            "version": "v3.1.3",
+            "version": "v3.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "f9e638e8149e9e41b570ff092f8007c477ef0ce5"
+                "reference": "8ea494c34f0f772c3954b5fbe00bffc5a435e563"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/f9e638e8149e9e41b570ff092f8007c477ef0ce5",
-                "reference": "f9e638e8149e9e41b570ff092f8007c477ef0ce5",
+                "url": "https://api.github.com/repos/symfony/console/zipball/8ea494c34f0f772c3954b5fbe00bffc5a435e563",
+                "reference": "8ea494c34f0f772c3954b5fbe00bffc5a435e563",
                 "shasum": ""
             },
             "require": {
@@ -2704,20 +2703,20 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2016-07-26 08:04:17"
+            "time": "2016-08-19 06:48:39"
         },
         {
             "name": "symfony/finder",
-            "version": "v3.1.3",
+            "version": "v3.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/finder.git",
-                "reference": "8201978de88a9fa0923e18601bb17f1df9c721e7"
+                "reference": "e568ef1784f447a0e54dcb6f6de30b9747b0f577"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/finder/zipball/8201978de88a9fa0923e18601bb17f1df9c721e7",
-                "reference": "8201978de88a9fa0923e18601bb17f1df9c721e7",
+                "url": "https://api.github.com/repos/symfony/finder/zipball/e568ef1784f447a0e54dcb6f6de30b9747b0f577",
+                "reference": "e568ef1784f447a0e54dcb6f6de30b9747b0f577",
                 "shasum": ""
             },
             "require": {
@@ -2753,7 +2752,7 @@
             ],
             "description": "Symfony Finder Component",
             "homepage": "https://symfony.com",
-            "time": "2016-06-29 05:41:56"
+            "time": "2016-08-26 12:04:02"
         },
         {
             "name": "symfony/polyfill-mbstring",
@@ -2816,16 +2815,16 @@
         },
         {
             "name": "symfony/process",
-            "version": "v3.1.3",
+            "version": "v3.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/process.git",
-                "reference": "04c2dfaae4ec56a5c677b0c69fac34637d815758"
+                "reference": "e64e93041c80e77197ace5ab9385dedb5a143697"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/process/zipball/04c2dfaae4ec56a5c677b0c69fac34637d815758",
-                "reference": "04c2dfaae4ec56a5c677b0c69fac34637d815758",
+                "url": "https://api.github.com/repos/symfony/process/zipball/e64e93041c80e77197ace5ab9385dedb5a143697",
+                "reference": "e64e93041c80e77197ace5ab9385dedb5a143697",
                 "shasum": ""
             },
             "require": {
@@ -2861,20 +2860,20 @@
             ],
             "description": "Symfony Process Component",
             "homepage": "https://symfony.com",
-            "time": "2016-07-28 11:13:48"
+            "time": "2016-08-16 14:58:24"
         },
         {
             "name": "symfony/yaml",
-            "version": "v3.1.3",
+            "version": "v3.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "1819adf2066880c7967df7180f4f662b6f0567ac"
+                "reference": "f291ed25eb1435bddbe8a96caaef16469c2a092d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/1819adf2066880c7967df7180f4f662b6f0567ac",
-                "reference": "1819adf2066880c7967df7180f4f662b6f0567ac",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/f291ed25eb1435bddbe8a96caaef16469c2a092d",
+                "reference": "f291ed25eb1435bddbe8a96caaef16469c2a092d",
                 "shasum": ""
             },
             "require": {
@@ -2910,7 +2909,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2016-07-17 14:02:08"
+            "time": "2016-09-02 02:12:52"
         },
         {
             "name": "yiisoft/yii2-debug",
