@@ -8,8 +8,6 @@
  */
 
 return [
-    'Enemy Weapon' => '相手のブキ',
-    'Deaths Per Battle' => 'バトルあたりのデス数',
     '(combined)' => '(統合済み)',
     '(default)' => '(規定)',
     '* This exclusion is in attempt to minimize overcounting in weapon usage statistics.' => '※できる限り重複カウントしないように除外設定を行っていますが、連戦やナワバリフレンド合流の影響により重複カウントしやすい状況が発生します。',
@@ -85,6 +83,7 @@ return [
     'Dead' => 'Death',
     'Deaths (average):' => 'デス数（平均）:',
     'Deaths (median):' => 'デス数（中央値）:',
+    'Deaths Per Battle' => 'バトルあたりのデス数',
     'Deaths per minute' => '1分あたりのデス数',
     'Deaths' => 'デス数',
     'Deaths/min' => 'デス/分',
@@ -99,6 +98,7 @@ return [
     'Edit' => '編集',
     'Enabled' => '有効',
     'Encounter Ratio' => '敵遭遇率',
+    'Enemy Weapon' => '相手のブキ',
     'Europe/Oceania' => '欧州・オセアニア',
     'European Time (Central)' => 'ヨーロッパ時間（中央）',
     'European Time (East)' => 'ヨーロッパ時間（東部）',
@@ -327,6 +327,7 @@ return [
     'Update Your Password' => 'パスワードの更新',
     'Update Your Profile' => 'プロフィールの更新',
     'Update' => '更新',
+    'Use %' => '使用率',
     'User Agents in last 24 hours' => '最近24時間の使用クライアント',
     'User Count' => 'ユーザ数',
     'User Name' => 'ユーザ名',
