@@ -31,6 +31,118 @@
       {{if !$rule@first}} | {{/if}}
       <a href="#weapon-{{$rule->key|escape}}">{{$rule->name|escape}}</a>
     {{/foreach}}
+    
+    {{\jp3cki\yii2\flot\FlotAsset::register($this)|@void}}
+    {{\jp3cki\yii2\flot\FlotTimeAsset::register($this)|@void}}
+    {{\jp3cki\yii2\flot\FlotStackAsset::register($this)|@void}}
+    {{registerCss}}.graph{height:300px}{{/registerCss}}
+    <h3 id="trends">
+      {{'Trends'|translate:'app'|escape}}
+    </h3>
+    <div id="graph-trends" class="graph">
+    </div>
+    <p class="text-right">
+      <label>
+        <input type="checkbox" id="stack-trends" value="1" checked>&#32;{{'Stack'|translate:'app'|escape}}
+      </label>
+    </p>
+    <script id="trends-json" type="application/json">
+      {{$uses|@json_encode}}
+    </script>
+    {{registerJs}}
+      (function($){
+        "use strict";
+        var stack = true;
+        function update() {
+          var formatDate=function(date){
+            function zero(n){
+              n=n+"";
+              return(n.length== 1)?"0"+n:n;
+            }
+            return date.getUTCFullYear()+"-"+zero(date.getUTCMonth()+1)+"-"+zero(date.getUTCDate());
+          };
+          var date2unixTime=function(d){
+            return(new Date(d+'T00:00:00Z')).getTime();
+          };
+          var $graphs = $('#graph-trends');
+          var json = JSON.parse($('#trends-json').text());
+          var data = [];
+          for (var i = 0; i < json[0].weapons.length; ++i) {
+            var weapon = json[0].weapons[i];
+            data.push({
+              label: json[0].weapons[i].name,
+              data: json.map(function(week) {
+                return [
+                  date2unixTime(week.date),
+                  week.weapons[i].pct
+                ];
+              }),
+            });
+          }
+          if (stack) {
+            data.push({
+              label: "{{'Others'|translate:'app'|escape:javascript}}",
+              data: json.map(function(week){
+                return [
+                  date2unixTime(week.date),
+                  week.others_pct
+                ];
+              }),
+              color: '#cccccc'
+            });
+          }
+          $graphs.height($graphs.width() * 9 / 16);
+          $graphs.each(function(){
+            var $graph = $(this);
+            $.plot($graph, data, {
+              xaxis:{
+                mode:'time',
+                minTickSize:[7,'day'],
+                tickFormatter:function(v){
+                  return formatDate(new Date(v));
+                }
+              },
+              yaxis: {
+                min: 0,
+                max: stack ? 100 : undefined,
+                tickFormatter:function(v){
+                  return v.toFixed(1)+"%";
+                }
+              },
+              series: {
+                stack: stack,
+                points: {
+                  show: !stack,
+                },
+                lines: {
+                  show: true,
+                  fill: stack,
+                  steps: false,
+                }
+              },
+              legend: {
+                position: "nw"
+              }
+            });
+          });
+        }
+        var timerId = null;
+        $(window).resize(function() {
+          if (timerId !== null) {
+            window.clearTimeout(timerId);
+          }
+          timerId = window.setTimeout(function() {
+            update();
+          }, 33);
+        }).resize();
+
+        $('#stack-trends').click(function () {
+          stack = !!$(this).prop('checked');
+          $(window).resize();
+        });
+      })(jQuery);
+    {{/registerJs}}
+
     {{foreach $entire as $rule}}
       {{if $rule->data->battle_count > 0}}
         <h3 id="weapon-{{$rule->key|escape}}">
