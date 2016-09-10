@@ -245,6 +245,7 @@
                 {{$_max = $_w->user_count}}
               {{/if}}
               {{if $_max > 0}}
+                {{registerCss}}.progress{margin-bottom:0}{{/registerCss}}
                 <div class="progress">
                   <div class="progress-bar" role="progressbar" style="width:{{($_w->user_count*100/$_max)|escape}}%;">
                     {{$_w->user_count|number_format|escape}}
