@@ -63,6 +63,7 @@ class WeaponAction extends BaseAction
             'maps' => $this->maps,
             'killDeath' => $this->killDeath,
             'mapWP' => $this->mapWinPercentage,
+            'useCount' => $this->useCount,
         ]);
     }
 
@@ -161,5 +162,43 @@ class WeaponAction extends BaseAction
             }
             return $tmp;
         })($query->createCommand()->queryAll());
+    }
+
+    public function getUseCount()
+    {
+        $weaponId = (int)$this->weapon->id;
+        $query = (new \yii\db\Query())
+            ->select([
+                'isoyear'       => 'isoyear',
+                'isoweek'       => 'isoweek',
+                'all_battles'   => 'SUM([[battles]])',
+                'battles'       => "SUM(CASE WHEN [[weapon_id]] = {$weaponId} THEN [[battles]] ELSE 0 END)",
+                'wins'          => "SUM(CASE WHEN [[weapon_id]] = {$weaponId} THEN [[wins]] ELSE 0 END)",
+            ])
+            ->from('stat_weapon_use_count_per_week')
+            ->where(['and',
+                ['rule_id' => $this->rule->id],
+                ['or',
+                    ['>', 'isoyear', 2015],
+                    ['and',
+                        ['=', 'isoyear', 2015],
+                        ['>=', 'isoweek', 46],
+                    ]
+                ],
+            ])
+            ->groupBy('isoyear, isoweek')
+            ->having(['>', 'SUM([[battles]])', 0])
+            ->orderBy('isoyear, isoweek');
+        return array_map(
+            function (array $row) : array {
+                return [
+                    'date'      => date('Y-m-d', strtotime(sprintf('%04d-W%02d', $row['isoyear'], $row['isoweek']))),
+                    'battles'   => (int)$row['all_battles'],
+                    'use_pct'   => $row['battles'] / $row['all_battles'] * 100,
+                    'win_pct'   => $row['battles'] > 0 ? $row['wins'] / $row['battles'] * 100 : 0,
+                ];
+            },
+            $query->createCommand()->queryAll()
+        );
     }
 }

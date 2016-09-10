@@ -11,6 +11,10 @@
   {{$this->registerMetaTag(['name' => 'twitter:description', 'content' => $title])|@void}}
   {{$this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink'])|@void}}
 
+  {{\jp3cki\yii2\flot\FlotAsset::register($this)|@void}}
+  {{\jp3cki\yii2\flot\FlotTimeAsset::register($this)|@void}}
+  {{registerCss}}.graph{height:300px}{{/registerCss}}
+
   <div class="container">
     <h1>
       {{$weaponName|escape}} - {{$ruleName}}
@@ -58,10 +62,122 @@
       window.kddata = {{$killDeath|json_encode}};
       window.mapdata = {{$mapWP|json_encode}};
     </script>
+    <script id="use-pct-json" type="application/json">
+      {{$useCount|json_encode}}
+    </script>
 
     <h2 id="{{$rule->key|escape}}">
       {{$rule->name|translate:'app-rule'|escape}}
     </h2>
+    <h3>
+      {{'Use %'|translate:'app'|escape}}
+    </h3>
+    <div class="graph stat-use-pct">
+    </div>
+    {{registerJs}}
+      (function($){
+        "use strict";
+        function update() {
+          var formatDate=function(date){
+            function zero(n){
+              n=n+"";
+              return(n.length== 1)?"0"+n:n;
+            }
+            return date.getUTCFullYear()+"-"+zero(date.getUTCMonth()+1)+"-"+zero(date.getUTCDate());
+          };
+          var date2unixTime=function(d){
+            return(new Date(d+'T00:00:00Z')).getTime();
+          };
+          var $graphs = $('.graph.stat-use-pct');
+          var $tooltip = $('<span>')
+                .css({
+                  position: "absolute",
+                  display: "none",
+                  padding: "2px",
+                  backgroundColor: "#fff",
+                  opacity: 0.9,
+                  fontSize: "12px",
+                })
+                .appendTo('body');
+          var json = JSON.parse($('#use-pct-json').text());
+          var data = [
+            {
+              label:"{{'Use %'|translate:'app'|escape:javascript}}",
+              data:json.map(function(v){
+                return[
+                  date2unixTime(v.date),
+                  v.use_pct
+                ];
+              }),
+              color:window.colorScheme.graph1
+            }
+          ];
+          $graphs.height($graphs.width() * 9 / 16);
+          $graphs.each(function(){
+            var $graph = $(this);
+            $.plot($graph, data, {
+              xaxis:{
+                mode:'time',
+                minTickSize:[7,'day'],
+                tickFormatter:function(v){
+                  return formatDate(new Date(v));
+                }
+              },
+              yaxis: {
+                min: 0,
+                tickFormatter:function(v){
+                  return v.toFixed(2)+"%";
+                }
+              },
+              series: {
+                points: {
+                  show: true,
+                },
+                lines: {
+                  show: true,
+                  fill: true,
+                  steps: false
+                }
+              },
+              grid: {
+                hoverable: true
+              }
+            });
+          });
+          $graphs.on('plothover',function(event,pos,item){
+            if(item){
+              var date=item.datapoint[0];
+              var pct=item.datapoint[1].toFixed(3) + "%";
+              $tooltip
+                .text(
+                  formatDate(new Date(date)) + '/' +
+                  formatDate(new Date(date + 6 * 86400000)) + ' : ' +
+                  pct
+                )
+                .css({
+                  top: item.pageY - 20,
+                  left: item.pageX <= $(window).width() / 2
+                    ? item.pageX + 10
+                    : item.pageX - ($tooltip.width() + 10)
+                })
+                .show();
+            }else{
+              $tooltip.hide();
+            }
+          });
+        }
+        var timerId = null;
+        $(window).resize(function() {
+          if (timerId !== null) {
+            window.clearTimeout(timerId);
+          }
+          timerId = window.setTimeout(function() {
+            update();
+          }, 33);
+        });
+      })(jQuery);
+    {{/registerJs}}
+
     <h3>
       {{'Kills and Deaths'|translate:'app'|escape}}
     </h3>
@@ -112,12 +228,6 @@
     {{/registerJs}}
     <div class="graph stat-kill-death">
     </div>
-    {{\jp3cki\yii2\flot\FlotAsset::register($this)|@void}}
-    {{registerCss}}
-      .graph {
-        height: 300px;
-      }
-    {{/registerCss}}
     {{registerJs}}
       (function($){
         "use strict";

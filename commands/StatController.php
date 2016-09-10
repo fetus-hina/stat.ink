@@ -8,10 +8,9 @@
 namespace app\commands;
 
 use Yii;
-use yii\console\Controller;
-use yii\helpers\Console;
 use app\models\BattlePlayer;
 use app\models\Knockout;
+use app\models\Lobby;
 use app\models\Rule;
 use app\models\StatAgentUser;
 use app\models\StatEntireUser;
@@ -19,7 +18,11 @@ use app\models\StatWeapon;
 use app\models\StatWeaponBattleCount;
 use app\models\StatWeaponKDWinRate;
 use app\models\StatWeaponKillDeath;
+use app\models\StatWeaponUseCount;
+use app\models\StatWeaponUseCountPerWeek;
 use app\models\StatWeaponVsWeapon;
+use yii\console\Controller;
+use yii\helpers\Console;
 
 class StatController extends Controller
 {
@@ -596,6 +599,142 @@ class StatController extends Controller
 
         $transaction = $db->beginTransaction();
         $db->createCommand($upsert)->execute();
+        $transaction->commit();
+    }
+
+    /**
+     * 全体統計 - ブキ使用数時系列データ
+     *
+     * これを実行しないと当該統計は表示されません。
+     */
+    public function actionUpdateWeaponUseCount()
+    {
+        $db = Yii::$app->db;
+        $maxCreatedPeriod = (int)StatWeaponUseCount::find()->max('period');
+        $select = (new \yii\db\Query())
+            ->select([
+                'period'    => '{{battle}}.[[period]]',
+                'rule_id'   => '{{battle}}.[[rule_id]]',
+                'weapon_id' => '{{battle_player}}.[[weapon_id]]',
+                'battles'   => 'COUNT(*)',
+                'wins'      => 'SUM(CASE WHEN {{battle}}.[[is_win]] = {{battle_player}}.[[is_my_team]] THEN 1 ELSE 0 END)',
+            ])
+            ->from('battle')
+            ->innerJoin('lobby', '{{battle}}.[[lobby_id]] = {{lobby}}.[[id]]')
+            ->innerJoin('rule', '{{battle}}.[[rule_id]] = {{rule}}.[[id]]')
+            ->innerJoin('battle_player', '{{battle}}.[[id]] = {{battle_player}}.[[battle_id]]')
+            ->andWhere(['and',
+                ['not', ['{{battle}}.[[is_win]]' => null]],
+                ['not', ['{{battle}}.[[map_id]]' => null]],
+                ['{{battle}}.[[is_automated]]' => true],
+                ['{{battle}}.[[use_for_entire]]' => true],
+                ['<>', '{{lobby}}.[[key]]', 'private'],
+                ['not', ['{{battle_player}}.[[weapon_id]]' => null]],
+                ['{{battle_player}}.[[is_me]]' => false],
+                ['>', '{{battle}}.[[period]]', (int)StatWeaponUseCount::find()->max('period')],
+                ['<', '{{battle}}.[[period]]', \app\components\helpers\Battle::calcPeriod(time())],
+
+                // ルール別の除外設定
+                ['or',
+                    // ナワバリバトルなら全部 OK
+                    ['{{rule}}.[[key]]' => 'nawabari'],
+
+                    // 通常マッチ（とついでにフェス）なら全部 OK
+                    ['{{lobby}}.[[key]]' => ['standard', 'fest']],
+
+                    // タッグマッチは敵だけ使う
+                    ['and',
+                        ['{{battle}}.[[lobby_id]]' => Lobby::find()
+                                                            ->select('id')
+                                                            ->where(['like', 'key', 'squad_%', false])
+                                                            ->column()],
+                        ['{{battle_player}}.[[is_my_team]]' => false],
+                    ],
+                ],
+            ])
+            ->groupBy(implode(', ', [
+                '{{battle}}.[[period]]',
+                '{{battle}}.[[rule_id]]',
+                '{{battle_player}}.[[weapon_id]]',
+            ]));
+
+        $insert = sprintf(
+            'INSERT INTO {{%s}} ( %s ) %s',
+            StatWeaponUseCount::tablename(),
+            implode(', ', array_map(function (string $a) : string {
+                return "[[{$a}]]";
+            }, array_keys($select->select))),
+            $select->createCommand()->rawSql
+        );
+
+        $isoYear = "TO_CHAR(PERIOD_TO_TIMESTAMP({{t}}.[[period]]), 'IYYY')::integer";
+        $isoWeek = "TO_CHAR(PERIOD_TO_TIMESTAMP({{t}}.[[period]]), 'IW')::integer";
+        $maxWeek = StatWeaponUseCountPerWeek::find()
+            ->orderBy('[[isoyear]] DESC, [[isoweek]] DESC')
+            ->limit(1)
+            ->asArray()
+            ->one();
+        if (!$maxWeek) {
+            $maxWeek = [
+                'isoyear' => 2015,
+                'isoweek' => 1,
+            ];
+        }
+        $selectWeek = (new \yii\db\Query())
+            ->select([
+                'isoyear'   => $isoYear,
+                'isoweek'   => $isoWeek,
+                'rule_id'   => '{{t}}.[[rule_id]]',
+                'weapon_id' => '{{t}}.[[weapon_id]]',
+                'battles'   => 'SUM({{t}}.[[battles]])',
+                'wins'      => 'SUM({{t}}.[[wins]])',
+            ])
+            ->from('stat_weapon_use_count t')
+            ->groupBy([
+                $isoYear,
+                $isoWeek,
+                '{{t}}.[[rule_id]]',
+                '{{t}}.[[weapon_id]]',
+            ])
+            ->having(['or',
+                ['>', $isoYear, $maxWeek['isoyear']],
+                ['and',
+                    ['=', $isoYear, $maxWeek['isoyear']],
+                    ['>=', $isoWeek, $maxWeek['isoweek']],
+                ],
+            ]);
+        $constraintName = (function () use ($db) : string {
+            $select = (new \yii\db\Query())
+                ->select(['constraint_name'])
+                ->from('{{information_schema}}.{{table_constraints}}')
+                ->andWhere([
+                    'table_name' => StatWeaponUseCountPerWeek::tableName(),
+                    'constraint_type' => 'PRIMARY KEY',
+                ]);
+            return $select->scalar($db);
+        })();
+        $upsertWeek = sprintf(
+            'INSERT INTO {{%s}} ( %s ) %s ON CONFLICT ON CONSTRAINT [[%s]] DO UPDATE SET %s',
+            StatWeaponUseCountPerWeek::tableName(),
+            implode(', ', array_map(function (string $a) : string {
+                return "[[{$a}]]";
+            }, array_keys($selectWeek->select))),
+            $selectWeek->createCommand()->rawSql,
+            $constraintName,
+            implode(', ', [
+                '[[battles]] = {{excluded}}.[[battles]]',
+                '[[wins]] = {{excluded}}.[[wins]]',
+            ])
+        );
+
+        $transaction = $db->beginTransaction();
+        $db->createCommand("SET timezone TO 'Asia/Tokyo'")->execute();
+
+        echo "Executing {$insert} ...\n";
+        $db->createCommand($insert)->execute();
+
+        echo "Executing {$upsertWeek} ...\n";
+        $db->createCommand($upsertWeek)->execute();
         $transaction->commit();
     }
 }
