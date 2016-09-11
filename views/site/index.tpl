@@ -31,11 +31,13 @@
       {{'Staaaay Fresh!'|translate:'app'|escape}}
     </p>
 
-    <p class="bg-warning" style="padding:15px;border-radius:10px">
-      バトル登録機能をリリースしました。ログイン後、バトル登録ボタンから登録できます。<br>
-      iOS等をご利用の方、PCでキャプチャボードを使用出来ない方、どうぞご利用ください。<br>
-      (Androidをご利用の方には引き続きイカレコをオススメします)
-    </p>
+    {{if $app->language === 'ja-JP'}}
+      <p class="bg-warning" style="padding:15px;border-radius:10px">
+        バトル登録機能をリリースしました。ログイン後、バトル登録ボタンから登録できます。<br>
+        iOS等をご利用の方、PCでキャプチャボードを使用出来ない方、どうぞご利用ください。<br>
+        (Androidをご利用の方には引き続きイカレコをオススメします)
+      </p>
+    {{/if}}
 
     <p>
       {{if $app->user->isGuest}}
