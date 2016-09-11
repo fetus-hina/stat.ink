@@ -68,6 +68,7 @@ return [
     'Click to copy' => 'クリックしてURLをコピー',
     'Close' => '閉じる',
     'Color-Blind Support' => '色覚サポート',
+    'Compare Number Of Uses' => '使用率の比較',
     'Copied!' => 'コピーしました',
     'Could not be updated.' => '更新できませんでした。',
     'Could not find specified battle.' => '指定されたバトルが見つかりませんでした。',

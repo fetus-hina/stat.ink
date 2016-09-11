@@ -25,8 +25,8 @@ RESOURCE_TARGETS_MAIN=\
 	resources/.compiled/slack/slack.js \
 	resources/.compiled/stat.ink/active-reltime.js \
 	resources/.compiled/stat.ink/battle-edit.js \
-	resources/.compiled/stat.ink/battle-input.js \
 	resources/.compiled/stat.ink/battle-input.css \
+	resources/.compiled/stat.ink/battle-input.js \
 	resources/.compiled/stat.ink/battles-simple.css \
 	resources/.compiled/stat.ink/downloads.css \
 	resources/.compiled/stat.ink/favicon.png \
@@ -34,6 +34,7 @@ RESOURCE_TARGETS_MAIN=\
 	resources/.compiled/stat.ink/main.js \
 	resources/.compiled/stat.ink/no-image.png \
 	resources/.compiled/stat.ink/swipebox-runner.js \
+	resources/.compiled/stat.ink/weapons-use.js \
 	resources/paintball/paintball.css \
 	web/static-assets/cc/cc-by.svg \
 	web/static-assets/cc/cc-by.svg.br \
@@ -197,6 +198,9 @@ resources/.compiled/stat.ink/battle-input.css: resources/stat.ink/battle-input.l
 
 resources/.compiled/stat.ink/downloads.css: resources/stat.ink/downloads.less $(GULP)
 	$(GULP) less --in $< --out $@
+
+resources/.compiled/stat.ink/weapons-use.js: resources/stat.ink/weapons-use.js $(GULP)
+	$(GULP) js --in $< --out $@
 
 resources/.compiled/gh-fork-ribbon/gh-fork-ribbon.js: resources/gh-fork-ribbon/gh-fork-ribbon.js $(GULP)
 	$(GULP) js --in $< --out $@
