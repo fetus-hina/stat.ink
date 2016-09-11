@@ -121,6 +121,7 @@
                 }
               },
               legend: {
+                sorted: stack ? "reverse" : false,
                 position: "nw"
               }
             });
