@@ -72,6 +72,23 @@
     <h3>
       {{'Use %'|translate:'app'|escape}}
     </h3>
+    <p>
+      {{$_form = [
+          'weapon1' => $weapon->key,
+          'rule1' => 'nawabari',
+          'weapon2' => $weapon->key,
+          'rule2' => 'area',
+          'weapon3' => $weapon->key,
+          'rule3' => 'yagura',
+          'weapon4' => $weapon->key,
+          'rule4' => 'hoko',
+          'weapon5' => $weapon->key,
+          'rule5' => '@gachi'
+        ]}}
+      <a href="{{url route="entire/weapons-use" cmp=$_form}}" class="btn btn-default">
+        <span class="fa fa-exchange fa-fw"></span>&#32;{{'Compare number of uses'|translate:'app'|escape}}
+      </a>
+    </p>
     <div class="graph stat-use-pct">
     </div>
     {{registerJs}}

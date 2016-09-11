@@ -69,6 +69,7 @@ return [
     'Close' => '閉じる',
     'Color-Blind Support' => '色覚サポート',
     'Compare Number Of Uses' => '使用率の比較',
+    'Compare number of uses' => '使用率を比較する',
     'Copied!' => 'コピーしました',
     'Could not be updated.' => '更新できませんでした。',
     'Could not find specified battle.' => '指定されたバトルが見つかりませんでした。',

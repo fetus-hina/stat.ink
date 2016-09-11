@@ -39,6 +39,11 @@
     <h3 id="trends">
       {{'Trends'|translate:'app'|escape}}
     </h3>
+    <p>
+      <a href="{{url route="entire/weapons-use"}}" class="btn btn-default">
+        <span class="fa fa-exchange fa-fw"></span>&#32;{{'Compare number of uses'|translate:'app'|escape}}
+      </a>
+    </p>
     <div id="graph-trends" class="graph">
     </div>
     <p class="text-right">
