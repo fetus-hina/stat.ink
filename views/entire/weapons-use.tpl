@@ -34,75 +34,36 @@
     </p>
     {{use class="yii\bootstrap\ActiveForm"}}
     {{$_form = ActiveForm::begin(['method' => 'GET', 'id' => 'compare-form'])}}
+      <div class="form-group">
+        {{Html::submitButton(
+            'Update'|translate:'app',
+            ['class' => 'btn btn-primary']
+          )}}
+      </div>
       <div class="row">
         <div class="col-xs-12 col-sm-8 col-lg-6">
-          {{$_class = "col-xs-6"}}
-          <div class="row">
-            <div class="{{$_class|escape}}">
-              {{$_form->field($form, 'weapon1')
-                ->label(false)
-                ->dropDownList($weapons)}}
+          {{for $_i = 1; $_i <= \app\models\WeaponCompareForm::NUMBER; $_i++}}
+            <div class="row">
+              <div class="col-xs-6">
+                {{$_form->field($form, "weapon{{$_i}}")
+                  ->label(false)
+                  ->dropDownList($weapons)}}
+              </div>
+              <div class="col-xs-6">
+                {{$_form->field($form, "rule{{$_i}}")
+                  ->label(false)
+                  ->dropDownList($rules)}}
+              </div>
             </div>
-            <div class="{{$_class|escape}}">
-              {{$_form->field($form, 'rule1')
-                ->label(false)
-                ->dropDownList($rules)}}
-            </div>
-          </div>
-          <div class="row">
-            <div class="{{$_class|escape}}">
-              {{$_form->field($form, 'weapon2')
-                ->label(false)
-                ->dropDownList($weapons)}}
-            </div>
-            <div class="{{$_class|escape}}">
-              {{$_form->field($form, 'rule2')
-                ->label(false)
-                ->dropDownList($rules)}}
-            </div>
-          </div>
-          <div class="row">
-            <div class="{{$_class|escape}}">
-              {{$_form->field($form, 'weapon3')
-                ->label(false)
-                ->dropDownList($weapons)}}
-            </div>
-            <div class="{{$_class|escape}}">
-              {{$_form->field($form, 'rule3')
-                ->label(false)
-                ->dropDownList($rules)}}
-            </div>
-          </div>
-          <div class="row">
-            <div class="{{$_class|escape}}">
-              {{$_form->field($form, 'weapon4')
-                ->label(false)
-                ->dropDownList($weapons)}}
-            </div>
-            <div class="{{$_class|escape}}">
-              {{$_form->field($form, 'rule4')
-                ->label(false)
-                ->dropDownList($rules)}}
-            </div>
-          </div>
-          <div class="row">
-            <div class="{{$_class|escape}}">
-              {{$_form->field($form, 'weapon5')
-                ->label(false)
-                ->dropDownList($weapons)}}
-            </div>
-            <div class="{{$_class|escape}}">
-              {{$_form->field($form, 'rule5')
-                ->label(false)
-                ->dropDownList($rules)}}
-            </div>
-          </div>
+          {{/for}}
         </div>
       </div>
-      {{Html::submitButton(
-          'Update'|translate:'app',
-          ['class' => 'btn btn-primary']
-        )}}
+      <div class="form-group">
+        {{Html::submitButton(
+            'Update'|translate:'app',
+            ['class' => 'btn btn-primary']
+          )}}
+      </div>
     {{ActiveForm::end()|@void}}
 
     <script id="trends-data" type="application/json">

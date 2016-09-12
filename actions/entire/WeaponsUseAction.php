@@ -148,7 +148,7 @@ class WeaponsUseAction extends BaseAction
     {
         $list = $this->queryData($form);
         $ret = [];
-        foreach (range(1, 5) as $i) {
+        foreach (range(1, WeaponCompareForm::NUMBER) as $i) {
             $columnKey = "w{$i}";
             $bColumnKey = "b{$i}";
             if (!isset($list[0][$columnKey])) {
@@ -244,7 +244,7 @@ class WeaponsUseAction extends BaseAction
             ])
             ->groupBy('{{stat}}.[[isoyear]], {{stat}}.[[isoweek]]')
             ->orderBy('{{stat}}.[[isoyear]], {{stat}}.[[isoweek]]');
-        foreach (range(1, 5) as $i) {
+        foreach (range(1, WeaponCompareForm::NUMBER) as $i) {
             $when = [];
             $whenRule = [];
             $weapon = $form->{"weapon{$i}"};

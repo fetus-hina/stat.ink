@@ -10,21 +10,78 @@ namespace app\models;
 use Yii;
 use app\components\validators\WeaponKeyValidator;
 use app\models\Rule;
+use yii\base\InvalidParamException;
 use yii\base\Model;
 
 class WeaponCompareForm extends Model
 {
-    public $weapon1;
-    public $weapon2;
-    public $weapon3;
-    public $weapon4;
-    public $weapon5;
-    public $rule1;
-    public $rule2;
-    public $rule3;
-    public $rule4;
-    public $rule5;
+    const NUMBER = 20;
 
+    private $attributes = [];
+
+    public function hasAttribute(string $name) : bool
+    {
+        if (!preg_match('/^(?:weapon|rule)(\d+)$/', $name, $match)) {
+            return false;
+        }
+        if ($match[1] < 1 || $match[1] > static::NUMBER) {
+            return false;
+        }
+        return true;
+    }
+
+    public function getAttribute(string $name)
+    {
+        if (!$this->hasAttribute($name)) {
+            throw new InvalidParamException(get_class($this) . ' has no attribute named "' . $name . '".');
+        }
+        return $this->attributes[$name] ?? null;
+    }
+
+    public function setAttribute(string $name, $value) : self
+    {
+        if (!$this->hasAttribute($name)) {
+            throw new InvalidParamException(get_class($this) . ' has no attribute named "' . $name . '".');
+        }
+        $this->attributes[$name] = $value;
+        return $this;
+    }
+
+    public function __get($name)
+    {
+        if ($this->hasAttribute($name)) {
+            return $this->getAttribute($name);
+        } else {
+            return parent::__get($name);
+        }
+    }
+
+    public function __set($name, $value)
+    {
+        if ($this->hasAttribute($name)) {
+            $this->setAttribute($name, $value);
+        } else {
+            parent::__set($name, $value);
+        }
+    }
+
+    public function __isset($name) : bool
+    {
+        if ($this->hasAttribute($name)) {
+            return $this->getAttribute($name) !== null;
+        } else {
+            return parent::__isset($name);
+        }
+    }
+
+    public function __unset($name)
+    {
+        if ($this->hasAttribute($name)) {
+            $this->setAttribute($name, null);
+        } else {
+            parent::__unset($name);
+        }
+    }
 
     public function formName()
     {
@@ -33,8 +90,12 @@ class WeaponCompareForm extends Model
 
     public function rules()
     {
-        $weapons = ['weapon1', 'weapon2', 'weapon3', 'weapon4', 'weapon5'];
-        $rules = ['rule1', 'rule2', 'rule3', 'rule4', 'rule5'];
+        $weapons = array_map(function ($i) {
+            return "weapon{$i}";
+        }, range(1,static::NUMBER));
+        $rules = array_map(function ($i) {
+            return "rule{$i}";
+        }, range(1,static::NUMBER));
         return [
             [$weapons, WeaponKeyValidator::class],
             [$rules, 'safe',
@@ -55,7 +116,7 @@ class WeaponCompareForm extends Model
     public function attributeLabels()
     {
         $ret = [];
-        foreach (range(1, 5) as $i) {
+        foreach (range(1, static::NUMBER) as $i) {
             $ret["weapon{$i}"] = Yii::t('app', 'Weapon') . ' ' . $i;
             $ret["rule{$i}"] = Yii::t('app', 'Rule') . ' ' . $i;
         }
@@ -77,7 +138,7 @@ class WeaponCompareForm extends Model
             $ret[$key] = $value;
         };
 
-        foreach (range(1, 5) as $i) {
+        foreach (range(1, static::NUMBER) as $i) {
             $weaponKey = "weapon{$i}";
             $ruleKey = "rule{$i}";
             if (trim($this->$weaponKey) !== '') {
