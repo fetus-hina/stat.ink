@@ -44,6 +44,7 @@
         <span class="fa fa-exchange fa-fw"></span>&#32;{{'Compare number of uses'|translate:'app'|escape}}
       </a>
     </p>
+    <div id="graph-trends-legends"></div>
     <div id="graph-trends" class="graph">
     </div>
     <p class="text-right">
@@ -127,9 +128,30 @@
               },
               legend: {
                 sorted: stack ? "reverse" : false,
-                position: "nw"
+                position: "nw",
+                container: $('#graph-trends-legends'),
+                noColumns: (function() {
+                  var width = $(window).width();
+                  if (width < 768) {
+                    return 1;
+                  } else if (width < 992) {
+                    return 2;
+                  } else if (width < 1200) {
+                    return 4;
+                  } else {
+                    return 5;
+                  }
+                })()
               }
             });
+            window.setTimeout(function () {
+              var $labels = $('td.legendLabel', $('#graph-trends-legends'));
+              $labels.width(
+                Math.max.apply(null, $labels.map(function () {
+                  return $(this).width('').width();
+                })) + 12
+              );
+            }, 1);
           });
         }
         var timerId = null;

@@ -25,7 +25,9 @@
     <h2>
       {{'Compare Number Of Uses'|translate:'app'|escape}}
     </h2>
-    <div id="graph-trends" data-refs="trends-data" class="graph">
+    <div id="graph-trends-legends">
+    </div>
+    <div id="graph-trends" data-refs="trends-data" data-legends="graph-trends-legends" class="graph">
     </div>
     <p class="text-right">
       <label>

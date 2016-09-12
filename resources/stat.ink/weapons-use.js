@@ -20,6 +20,24 @@
         $graphs.height($graphs.width() * 9 / 16);
         $graphs.each(function() {
             var $graph = $(this);
+            var $legends = $graph.attr('data-legends')
+                    ? $('#' + $graph.attr('data-legends'))
+                    : null;
+            var legendColumns = (function () {
+                var width = $(window).width();
+                if (!$legends) {
+                    return 1;
+                }
+                if (width < 768) { // xs
+                    return 1;
+                } else if (width < 992) { // sm
+                    return 2;
+                } else if (width < 1200) { // md
+                    return 4;
+                } else { // lg
+                    return 5;
+                }
+            })();
             var json = JSON.parse($("#" + $graph.attr('data-refs')).text());
             var data = [];
             $.each(json, function () {
@@ -60,9 +78,22 @@
                 },
                 legend: {
                     sorted: stack ? "reverse" : false,
-                    position: "nw"
+                    position: "nw",
+                    container: $legends,
+                    noColumns: legendColumns,
                 }
             });
+
+            if ($legends) {
+                window.setTimeout(function () {
+                    var $labels = $('td.legendLabel', $legends);
+                    $labels.width(
+                        Math.max.apply(null, $labels.map(function () {
+                            return $(this).width('').width();
+                        })) + 12
+                    );
+                }, 1);
+            }
         });
     }
     var timerId = null;
