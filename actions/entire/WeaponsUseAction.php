@@ -9,6 +9,7 @@ namespace app\actions\entire;
 
 use Yii;
 use app\components\validators\WeaponKeyValidator;
+use app\models\Event;
 use app\models\GameMode;
 use app\models\Rule;
 use app\models\Special;
@@ -147,14 +148,17 @@ class WeaponsUseAction extends BaseAction
     public function getData(WeaponCompareForm $form) : array
     {
         $list = $this->queryData($form);
-        $ret = [];
+        $ret = [
+            'data' => [],
+            'events' => count($list) ? $this->getEventData($list[0], $list[count($list) - 1]) : [],
+        ];
         foreach (range(1, WeaponCompareForm::NUMBER) as $i) {
             $columnKey = "w{$i}";
             $bColumnKey = "b{$i}";
             if (!isset($list[0][$columnKey])) {
                 continue;
             }
-            $ret[] = [
+            $ret['data'][] = [
                 'legend' => $this->makeLegend($form->{"weapon{$i}"}, $form->{"rule{$i}"}),
                 'data' => array_map(
                     function (array $row) use ($columnKey, $bColumnKey) : array {
@@ -169,6 +173,24 @@ class WeaponsUseAction extends BaseAction
             ];
         }
         return $ret;
+    }
+
+    protected function getEventData($firstData, $lastData) : array
+    {
+        $first = strtotime(sprintf('%04d-W%02d', $firstData['isoyear'], $firstData['isoweek']));
+        $last  = strtotime(sprintf('%04d-W%02d', $lastData['isoyear'], $lastData['isoweek']));
+
+        $query = Event::find()
+            ->andWhere(['between', 'date', date('Y-m-d\TH:i:sO', $first), date('Y-m-d\TH:i:sO', $last)])
+            ->orderBy('[[date]] ASC');
+
+        return array_map(function (array $row) : array {
+            return [
+                date('Y-m-d', strtotime(date('o-\WW', strtotime($row['date'])))),
+                Yii::t('app-event', $row['name']),
+                $row['icon'],
+            ];
+        }, $query->asArray()->all());
     }
 
     protected function makeLegend($weapon, $rule) : string

@@ -40,7 +40,7 @@
             })();
             var json = JSON.parse($("#" + $graph.attr('data-refs')).text());
             var data = [];
-            $.each(json, function () {
+            $.each(json.data, function () {
                 data.push({
                     label: this.legend,
                     data: this.data.map(function (row) {
@@ -50,6 +50,36 @@
                         ];
                     }),
                 });
+            });
+            var size = Math.max(18, Math.ceil($graph.height() * 0.075));
+            data.push({
+                icons: {
+                  show: true,
+                  tooltip: function (x, $this, userData) {
+                    if (typeof userData === 'string') {
+                      $this
+                        .attr('title', userData)
+                        .tooltip({'container': 'body'})
+                        .css('opacity', '0.4');
+                    }
+                  },
+                },
+                data: json.events.map(function (item) {
+                    return [
+                        $graph
+                            .attr('data-icon')
+                            .replace(
+                                /\/dummy\.png.*/,
+                                function () {
+                                    return '/' + item[2] + '.png';
+                                }
+                            ),
+                        date2unixTime(item[0]),
+                        size,
+                        size,
+                        item[1]
+                    ];
+                }),
             });
             $.plot($graph, data, {
                 xaxis: {
@@ -81,6 +111,16 @@
                     position: "nw",
                     container: $legends,
                     noColumns: legendColumns,
+                },
+                grid: {
+                    markingsLineWidth: 2,
+                    markings: json.events.map(function (item) {
+                        var t = date2unixTime(item[0]);
+                        return {
+                            xaxis: { from: t, to: t },
+                            color: "rgba(255,200,200,0.6)",
+                        };
+                    }),
                 }
             });
 

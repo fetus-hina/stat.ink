@@ -27,8 +27,16 @@
     </h2>
     <div id="graph-trends-legends">
     </div>
-    <div id="graph-trends" data-refs="trends-data" data-legends="graph-trends-legends" class="graph">
-    </div>
+    {{$_iconAsset = $app->assetManager->getBundle('app\assets\GraphIconAsset')}}
+    {{Html::tag('div', '', [
+          'id' => 'graph-trends',
+          'class' => 'graph',
+          'data' => [
+            'refs' => 'trends-data',
+            'legends' => 'graph-trends-legends',
+            'icon' => $app->assetManager->getAssetUrl($_iconAsset, 'dummy.png')
+          ]
+        ])}}
     <p class="text-right">
       <label>
         <input type="checkbox" id="stack-trends" value="1">&#32;{{'Stack'|translate:'app'|escape}}
@@ -75,7 +83,8 @@
     {{$_depends = [
         'jp3cki\yii2\flot\FlotAsset',
         'jp3cki\yii2\flot\FlotTimeAsset',
-        'jp3cki\yii2\flot\FlotStackAsset'
+        'jp3cki\yii2\flot\FlotStackAsset',
+        'app\assets\FlotIconAsset'
       ]}}
     {{$_appAsset = $app->assetManager->getBundle('app\assets\AppAsset')}}
     {{$_url = $app->assetManager->getAssetUrl($_appAsset, 'weapons-use.js')}}
