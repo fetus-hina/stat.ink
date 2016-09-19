@@ -5,10 +5,14 @@
   {{$subtitle = 'Compare Number Of Uses'|translate:'app'}}
   {{set title="{{$app->name}} | {{$subtitle}} - {{$title}}"}}
 
+  {{use class="yii\helpers\Url"}}
+  {{$_canonicalUrl = Url::to(['entire/weapons-use', 'cmp' => $form->toQueryParams('')], true)}}
+  {{$this->registerLinkTag(['rel' => 'canonical', 'href' => $_canonicalUrl])|@void}}
   {{$this->registerMetaTag(['name' => 'twitter:card', 'content' => 'summary'])|@void}}
   {{$this->registerMetaTag(['name' => 'twitter:title', 'content' => $title])|@void}}
   {{$this->registerMetaTag(['name' => 'twitter:description', 'content' => $title])|@void}}
   {{$this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink'])|@void}}
+  {{$this->registerMetaTag(['name' => 'twitter:url', 'content' => $_canonicalUrl])|@void}}
 
   {{use class="yii\bootstrap\Html"}}
 

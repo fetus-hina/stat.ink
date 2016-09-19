@@ -130,7 +130,7 @@ class WeaponCompareForm extends Model
         }
 
         $ret = [];
-        $index = 0;
+        $index = 1;
         $push = function ($key, $value) use ($formName, &$ret) {
             if ($formName != '') {
                 $key = sprintf('%s[%s]', $formName, $key);
