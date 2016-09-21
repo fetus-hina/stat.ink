@@ -98,6 +98,8 @@ return [
     'Downloads' => 'ダウンロード',
     'Edit Your Battle: #{0}' => 'バトル詳細を編集: #{0}',
     'Edit' => '編集',
+    'Enable noise reduction (count)' => 'エリアのカウントにノイズ軽減を適用する',
+    'Enable noise reduction (position of the objective)' => 'ヤグラ・ホコの位置のグラフにノイズ軽減を適用する',
     'Enabled' => '有効',
     'Encounter Ratio' => '敵遭遇率',
     'Enemy Weapon' => '相手のブキ',

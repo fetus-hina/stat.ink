@@ -882,6 +882,39 @@
             </div>
             <div class="graph" id="timeline">
             </div>
+            {{if $battle->rule && $battle->isGachi}}
+              <p class="text-right">
+                <label>
+                  <input type="checkbox" id="enable-smoothing" disabled>&#32;
+                  {{if $battle->rule->key === 'yagura' || $battle->rule->key === 'hoko'}}
+                    {{'Enable noise reduction (position of the objective)'|translate:'app'|escape}}
+                  {{elseif $battle->rule->key === 'area'}}
+                    {{'Enable noise reduction (count)'|translate:'app'|escape}}
+                  {{/if}}
+                </label>
+              </p>
+              {{registerJs}}
+                (function($){
+                  "use strict";
+                  var events=window.battleEvents.filter(function(v){
+                    return v.type==="objective"||v.type==="splatzone"
+                  });
+                  if(events.length>0){
+                    $('#enable-smoothing')
+                      .prop('disabled', false)
+                      .change(function(){
+                        $('#timeline').attr(
+                          'data-object-smoothing',
+                          $(this).prop('checked')?"enable":"disable"
+                        );
+                        $(window).resize(); {{* redraw *}}
+                      })
+                      .prop('checked',{{if $battle->rule->key === 'area'}}true{{else}}false{{/if}})
+                      .change();
+                  };
+                })(jQuery);
+              {{/registerJs}}
+            {{/if}}
             {{\jp3cki\yii2\flot\FlotAsset::register($this)|@void}}
             {{\app\assets\FlotIconAsset::register($this)|@void}}
             {{\app\assets\GraphIconAsset::register($this)|@void}}
@@ -921,6 +954,18 @@
                     "{{$app->assetManager->getAssetUrl($iconAsset, 'low_ink.png')|escape:javascript}}"
                   )
                 };
+                if (!Array.prototype.sum) {
+                  Array.prototype.sum = function () {
+                    return this.reduce(function (prev, cur) {
+                      return prev + cur;
+                    }, 0);
+                  };
+                }
+                if (!Array.prototype.avg) {
+                  Array.prototype.avg = function () {
+                    return this.length > 0 ? this.sum() / this.length : NaN;
+                  };
+                }
               })();
             {{/registerJs}}
             {{registerJs}}
@@ -958,18 +1003,64 @@
                   var myAreaData = [];
                   var hisAreaData = [];
                   if (isGachi && ruleKey === 'area') {
-                    $.each(
-                      window.battleEvents.filter(function(v){
-                        return v.type === "splatzone";
-                      }),
-                      function(){
-                        myAreaData.push([this.at, 100 - this.my_team_count]);
-                        hisAreaData.push([this.at, 100 - this.his_team_count]);
-                      }
-                    );
+                    (function(){
+                      var lastTime = 0;
+                      var lastMy = 100;
+                      var lastHis = 100;
+                      $.each(
+                        window.battleEvents.filter(function(v){
+                          return v.type === "splatzone";
+                        }),
+                        function(){
+                          {{* 2.5 秒以上データが途切れていたら不自然なグラフを避けるために適当なデータをねつ造する *}}
+                          if(this.at-lastTime>=2.5){
+                            myAreaData.push([this.at - 0.5, 100 - lastMy]);
+                            hisAreaData.push([this.at - 0.5, 100 - lastHis]);
+                          }
+
+                          myAreaData.push([this.at, 100 - this.my_team_count]);
+                          hisAreaData.push([this.at, 100 - this.his_team_count]);
+
+                          lastTime = this.at;
+                          lastMy = this.my_team_count;
+                          lastHis = this.his_team_count;
+                        }
+                      );
+                    })();
                     if (myAreaData.length > 0 || hisAreaData.length > 0) {
                       myAreaData.unshift([0, 0]);
                       hisAreaData.unshift([0, 0]);
+
+                      {{* ノイズリダクション(エリア) *}}
+                      if ($graph_.attr('data-object-smoothing') === 'enable') {
+                        (function() {
+                          var processor = function (oldData) {
+                            var lastTime = 0;
+                            var lastCount = 0;
+                            var ret = [];
+                            $.each(oldData, function() {
+                              var cur = this;
+                              var deltaT = Math.abs(cur[0] - lastTime);
+                              var deltaC = Math.abs(cur[1] - lastCount);
+                              if (deltaC > 5) {
+                                deltaT = Math.max(deltaT, 1); {{* 計算の都合上最小の時間差を 1 秒とする（除算は数字が爆発して勾配がひどいことになるので） *}}
+                                var slope = deltaC / deltaT;
+                                if (slope >= 5) {
+                                  {{* 勾配大きすぎるのでたぶん嘘 *}}
+                                  console && console.log("Noise reduction for SZ working: ignored, time=" + cur[0] + " slope=" + slope);
+                                  return;
+                                }
+                              }
+                              lastTime = cur[0];
+                              lastCount = cur[1];
+                              ret.push(cur);
+                            });
+                            return ret;
+                          };
+                          myAreaData = processor([].concat(myAreaData));
+                          hisAreaData = processor([].concat(hisAreaData));
+                        })();
+                      }
                     }
                   }
 
@@ -984,18 +1075,37 @@
                       })
                     : [];
 
+                  {{* スムージングが有効なら objectiveData を差し替える *}}
+                  if (objectiveData.length && $graph_.attr('data-object-smoothing') === 'enable') {
+                    if (!window.smoothedObjectiveData) {
+                      window.smoothedObjectiveData = (function () {
+                        console && console.log("Creating smoothed data");
+                        var rawData = [].concat(objectiveData);
+                        return objectiveData.map(function (data) {
+                          return [
+                            data[0],
+                            rawData.filter(function (near) {
+                              return Math.abs(data[0] - near[0]) <= 0.6;
+                            }).map(function (near) {
+                              return near[1];
+                            }).avg()
+                          ];
+                        });
+                      })();
+                    }
+                    objectiveData = window.smoothedObjectiveData;
+                  }
+
                   {{* window.battleEvents からヤグラ・ホコ時の対象位置→ポイント変換 *}}
                   {{* isPositive: 自分のチームを対象にするとき true, 相手チームの時 false *}}
                   var createObjectPositionPoint = function (isPositive) {
                     var coeffient = isPositive ? 1 : -1;
 
-                    {{* 対象チームを正とした、objective イベントだけのリストを作成 *}}
-                    var list = window.battleEvents.filter(function (v) {
-                      return v.type === "objective";
-                    }).map(function(v) {
-                      var o = $.extend(true, {}, v);
-                      o.position = o.position * coeffient;
-                      return o;
+                    var list = objectiveData.map(function (v) {
+                      return {
+                        at: v[0],
+                        position: v[1] * coeffient,
+                      };
                     });
 
                     {{* ポイント更新したタイミングのリストを作成 *}}
