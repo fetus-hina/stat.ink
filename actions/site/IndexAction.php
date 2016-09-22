@@ -20,8 +20,10 @@ class IndexAction extends BaseAction
             ->with(['user', 'rule', 'map', 'battleImageResult'])
             ->all();
 
+        $time = $_SERVER['REQUEST_TIME'];
         return $this->controller->render('index.tpl', [
             'active' => $active,
+            'enableAnniversary' => (1474729200 <= $time && $time <= 1474988400),
         ]);
     }
 

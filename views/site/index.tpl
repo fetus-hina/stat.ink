@@ -23,6 +23,18 @@
         Battles: <span class="dseg-counter" data-type="battles">{{Battle::getRoughCount()|default:'?'|escape}}</span>
       </span>
     </p>
+    {{if $enableAnniversary}}
+      <p class="text-center" style="font-size:150%">
+        <span class="emoji">&#x1F382;</span>&#32;
+        stat.ink: Happy First Anniversary!&#32;
+        {{if $app->language === 'ja-JP'}}
+          9/25
+        {{else}}
+          25th Sept.
+        {{/if}}&#32;
+        <span class="emoji">&#x1F382;</span>
+      </p>
+    {{/if}}
     {{\app\assets\PaintballAsset::register($this)|@void}}
     <h1 class="paintball" style="font-size:42px">
       {{$app->name|escape}}
