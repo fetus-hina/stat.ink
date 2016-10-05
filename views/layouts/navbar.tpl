@@ -192,7 +192,7 @@
                 {{/if}}
               </li>
               <li>
-                <a href="https://dl.dropboxusercontent.com/u/14421778/IkaLog/download.html">
+                <a href="https://hasegaw.github.io/IkaLog/">
                   └&#32;
                   <span class="fa fa-download left"></span>
                   {{'IkaLog Download Page'|translate:'app'|escape}}（<span class="fa fa-windows"></span>）
