@@ -1334,6 +1334,7 @@
                     }
                   });
 
+                  {{* デスした時の赤背景 *}}
                   var markings = window.battleEvents.filter(function(v){
                     return v.type === "dead";
                   }).map(function(v){
@@ -1362,6 +1363,31 @@
                       color: "rgba(255,200,200,0.6)"
                     };
                   });
+
+                  {{* キル等した時の縦線 *}}
+                  markings = markings.concat((function(){
+                    var colors = {
+                      "killed":          "rgb(191,191,255)",
+                      "dead":            "rgb(255,191,191)",
+                      "special_charged": "rgb(191,255,191)",
+                      "low_ink":         "rgb(191,191,191)",
+                      "special_weapon":  "rgb(255,191,255)"
+                    };
+                    var keys = Object.keys(colors);
+                    return window.battleEvents
+                      .filter(function(v) {
+                        return keys.indexOf(v.type) >= 0;
+                      })
+                      .map(function(v) {
+                        return {
+                          xaxis: {
+                            from: v.at,
+                            to: v.at
+                          },
+                          color: colors[v.type]
+                        };
+                      })
+                  })());
 
                   if (inkedData.length > 0) {
                     inkedData.unshift([0, null]);
