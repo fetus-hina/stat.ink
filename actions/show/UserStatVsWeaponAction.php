@@ -35,6 +35,7 @@ class UserStatVsWeaponAction extends BaseAction
 
         $this->filter = new BattleFilterForm();
         $this->filter->load($_GET);
+        $this->filter->screen_name = $this->user->screen_name;
         $this->filter->validate();
     }
 
