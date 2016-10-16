@@ -1364,6 +1364,24 @@
                     };
                   });
 
+                  {{* キルした時の赤背景 *}}
+                  markings = markings.concat(
+                    window.battleEvents
+                      .filter(function(v){
+                        return v.type === "killed";
+                      })
+                      .map(function(v){
+                        var respawnTime = window.getRespawnTime('unknown', 0, 0);
+                        return {
+                          xaxis: {
+                            from: v.at,
+                            to: v.at + respawnTime
+                          },
+                          color: "rgba(200,200,255,0.4)"
+                        };
+                      })
+                  );
+
                   {{* キル等した時の縦線 *}}
                   markings = markings.concat((function(){
                     var colors = {
