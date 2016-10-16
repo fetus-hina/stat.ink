@@ -271,6 +271,7 @@ return [
     'Stats (vs. Weapon)' => 'Estadística (Armas enemiga)',
     'Stats: K/D vs Win %' => 'Estadística: K/D vs Ganar %',
     'Stats: Knockout Ratio' => 'Estadística: Palizón la Relación',
+    'Stats: Stages' => 'Estadística: Escenarios',
     'Stats: User Activity' => 'Estadística: Actividad del Usuario',
     'Stats: Weapons' => 'Estadística: Armas',
     'Sub Weapon' => 'Arma secundaria',

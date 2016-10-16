@@ -21,6 +21,8 @@ return [
         'entire/weapons/<weapon:\w+>' => 'entire/weapon',
         'entire/users/combined-<b32name:[A-Za-z2-7]+>' => 'entire/combined-agent',
         'entire/users/<b32name:[A-Za-z2-7]+>' => 'entire/agent',
+        'stages/<year:\d+>/<month:\d+>' => 'stage/month',
+        'stages' => 'stage/index',
         'api/v1/<action:[\w-]+>' => 'api-v1/<action>',
         'api/internal/<action:[\w-]+>' => 'api-internal/<action>',
         'downloads' => 'download-stats/index',
