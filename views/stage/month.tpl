@@ -59,7 +59,9 @@
                 {{/if}}
                 <tr class="{{if $_count == $_max}}max{{/if}}">
                   <td>
-                    {{$_map->name|translate:'app-map'|escape}}
+                    <a href="{{url route="stage/map" map=$_map->key}}#{{$_rule->key|escape}}">
+                      {{$_map->name|translate:'app-map'|escape}}
+                    </a>
                   </td>
                   <td class="text-right">
                     {{$_count|number_format}}

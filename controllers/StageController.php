@@ -19,6 +19,7 @@ class StageController extends Controller
         $prefix = 'app\actions\stage';
         return [
             'index' => [ 'class' => "{$prefix}\\IndexAction" ],
+            'map' => [ 'class' => "{$prefix}\\MapAction" ],
             'month' => [ 'class' => "{$prefix}\\MonthAction" ],
         ];
     }

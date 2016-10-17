@@ -22,6 +22,7 @@ return [
         'entire/users/combined-<b32name:[A-Za-z2-7]+>' => 'entire/combined-agent',
         'entire/users/<b32name:[A-Za-z2-7]+>' => 'entire/agent',
         'stages/<year:\d+>/<month:\d+>' => 'stage/month',
+        'stages/<map:[a-z]+>' => 'stage/map',
         'stages' => 'stage/index',
         'api/v1/<action:[\w-]+>' => 'api-v1/<action>',
         'api/internal/<action:[\w-]+>' => 'api-internal/<action>',
