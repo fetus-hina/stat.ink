@@ -875,6 +875,7 @@
           {{if $events}}
             {{$hasExtendedData = true}}
             <script>
+              window.mySpecial = {{$battle->weapon->special->key|default:null|json_encode}};
               window.battleEvents = {{$events|json_encode}};
               window.deathReasons = {{$battle->getDeathReasonNamesFromEvents()|json_encode}};
             </script>
@@ -1228,7 +1229,7 @@
                   };
 
                   var isIdentifiedWhoseSpecial = (function () {
-                    return window.battleEvents.filter(function (v) {
+                    return window.mySpecial !== null && window.battleEvents.filter(function (v) {
                       return v.at && v.type === "special_weapon" && v.me;
                     }).length > 0;
                   })();
@@ -1314,7 +1315,7 @@
                           var data = this;
                           if (isIdentifiedWhoseSpecial) {
                             $img.css({
-                              opacity: v.me ? 1.0 : 0.4,
+                              opacity: (v.me && v.special_weapon === window.mySpecial) ? 1.0 : 0.4,
                             });
                           }
                         }
