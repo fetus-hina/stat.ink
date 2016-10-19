@@ -939,6 +939,7 @@
                 };
                 window.graphIcon = {
                   dead: imgLoad("{{$app->assetmanager->getAssetUrl($iconAsset, 'dead/default.png')|escape:javascript}}"),
+                  deadSp: imgLoad("{{$app->assetmanager->getAssetUrl($iconAsset, 'dead/special.png')|escape:javascript}}"),
                   killed: imgLoad("{{$app->assetmanager->getAssetUrl($iconAsset, 'killed/default.png')|escape:javascript}}"),
                   specials: {
                     {{foreach $specials as $special}}
@@ -985,6 +986,64 @@
                 window.battleEvents.sort(function(a,b){
                   return a.at - b.at;
                 });
+
+                {{* 抱え落ち判定データを追加 *}}
+                (function(){
+                  var isIdentifiedWhoseSpecial = (function () {
+                    return window.mySpecial !== null && window.battleEvents.filter(function (v) {
+                      return v.at && v.type === "special_weapon" && v.me;
+                    }).length > 0;
+                  })();
+                  if (!isIdentifiedWhoseSpecial) {
+                    return;
+                  }
+
+                  var ignoreUntil = null;
+                  var charged = false;
+                  window.battleEvents
+                    .filter(function(v){
+                      if (v.type === 'special_charged' || v.type === 'dead') {
+                        return true;
+                      }
+                      if (v.type === 'special_weapon' && v.special_weapon === mySpecial && v.me) {
+                        return true;
+                      }
+                      return false;
+                    })
+                    .forEach(function(v){
+                      if (v.type === 'special_charged') {
+                        if (ignoreUntil === null || ignoreUntil < v.at) {
+                          charged = true;
+                          ignoreUntil = null;
+                        }
+                      } else if (v.type === 'special_weapon') {
+                        if (ignoreUntil === null || ignoreUntil < v.at) {
+                          charged = false;
+                          ignoreUntil = null;
+                        }
+                      } else { {{* dead *}}
+                        v.__kakae = false;
+                        var chargedAfterDeath = (function(){ {{* 死んだあと1秒以内に貯まったらたぶん検出遅延 *}}
+                              window.battleEvents.filter(function(tmp){
+                                return tmp.type === 'special_charged' && tmp.at >= v.at && tmp.at <= v.at + 1;
+                              }).length > 0;
+                            })();
+                        if (charged || chargedAfterDeath) {
+                          var usedAfterDeath = (function(){ {{* 死んだあと1秒以内に使用していたらたぶん検出遅延 *}}
+                              window.battleEvents.filter(function(tmp){
+                                return tmp.type === 'special_weapon' && v.special_weapon === mySpecial && v.me &&
+                                  tmp.at >= v.at && tmp.at <= v.at + 1;
+                              }).length > 0;
+                            })();
+                          if (!usedAfterDeath) {
+                            v.__kakae = true;
+                          }
+                        }
+                        charged = false;
+                        ignoreUntil = v.at + 1;
+                      }
+                    });
+                })();
 
                 function drawTimelineGraph() {
                   var $graph_ = $graphs.filter('#timeline');
@@ -1272,9 +1331,8 @@
                             var subQR = window.gearAbilities.quick_respawn ? window.gearAbilities.quick_respawn.count.sub : 0;
                             return window.getRespawnTime(v.reason ? v.reason : 'unknown', mainQR, subQR);
                         })();
-
                         return [
-                          window.graphIcon[v.type].src, v.at, size, size, reason
+                          window.graphIcon[v.__kakae ? 'deadSp' : 'dead'].src, v.at, size, size, reason
                         ];
                       })();
                     } else if (v.type === "killed") {
