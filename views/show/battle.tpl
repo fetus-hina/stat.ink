@@ -1749,6 +1749,57 @@
                       })();
                     {{/if}}
 
+                    {{* Special Charged *}}
+                    (function() {
+                      if (!isIdentifiedWhoseSpecial) {
+                        return;
+                      }
+                      var events = window.battleEvents.filter(function(v){
+                        if (v.type === 'special_charged' || v.type === 'dead') {
+                          return true;
+                        }
+                        if (v.type === 'special_weapon' && v.special_weapon === mySpecial && v.me) {
+                          return true;
+                        }
+                        return false;
+                      });
+
+                      var charged = false;
+                      var ret = [];
+                      var yPos = 2;
+                      $.each(events, function(){
+                        var ev = this;
+                        if (ev.type === 'special_charged') {
+                          charged = true;
+                          ret.push([ev.at, yPos]);
+                        } else if (charged) { {{* type is special_weapon or dead *}}
+                          charged = false;
+                          ret.push([ev.at - 0.001, yPos]);
+                          ret.push([ev.at, null]);
+                        }
+                      });
+
+                      {{* チャージしたまま終わったらグラフの最後まで伸ばす *}}
+                      if (charged) {
+                        var lastEventAt = Math.max.apply(null,window.battleEvents.map(function(v){return v.at}));
+                        ret.push([lastEventAt, yPos]);
+                      }
+
+                      if (ret.length) {
+                        data.push({
+                          label:null,
+                          data:ret,
+                          color: '#1c1',
+                          yaxis: 2,
+                          lines: {
+                            fill: false,
+                            lineWidth:5
+                          },
+                          shadowSize: 0
+                        });
+                      }
+                    })();
+
                     {{* Special % *}}
                     (function() {
                       var events = window.battleEvents.filter(
