@@ -33,10 +33,6 @@ https://stat.ink/ は現在次の構成で動作しています。（Docker で�
         - PostgreSQL 9.5.*
             - `rh-postgresql95-postgresql`
             - `rh-postgresql95-postgresql-server`
-    - [rh-nodejs4](https://www.softwarecollections.org/en/scls/rhscl/rh-nodejs4/)
-        - Node.js 4.*
-            - `rh-nodejs4-nodejs`
-            - `rh-nodejs4-npm`
 * [Remi's RPM repository](http://rpms.famillecollet.com/)
     - `remi-safe` repository, it uses SCL mechanism
         - PHP 7.0.*
@@ -49,6 +45,9 @@ https://stat.ink/ は現在次の構成で動作しています。（Docker で�
             - `php70-php-pdo`
             - `php70-php-pecl-msgpack`
             - `php70-php-pgsql`
+* [Node.js Repository](https://nodejs.org/en/download/package-manager/#enterprise-linux-and-fedora)
+    - [Node.js](https://nodejs.org/) 6.x
+        - `nodejs`
 
 CentOS 7 の標準 PHP は 5.4.16 です。このバージョンでは動作しません。（PHP 7.0 で追加された機能を使用しています（`TheClass::class`、匿名クラスなど））
 

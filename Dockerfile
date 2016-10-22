@@ -18,17 +18,20 @@ RUN rpm --import \
         epel-release \
         gnupg2 \
         scl-utils \
-        http://rpms.famillecollet.com/enterprise/7/safe/x86_64/remi-release-7.1-3.el7.remi.noarch.rpm \
+        http://rpms.famillecollet.com/enterprise/7/safe/x86_64/remi-release-7.2-1.el7.remi.noarch.rpm \
             && \
-    yum-config-manager --enable centos-sclo-rh-testing && \
+    curl -sS https://rpm.nodesource.com/setup_6.x | bash && \
     yum install -y \
         ImageMagick \
         brotli \
         diff \
+        gcc-c++ \
         git19-git \
         gzip \
         h2o \
         jpegoptim \
+        make \
+        nodejs \
         patch \
         php70-php-cli \
         php70-php-fpm \
@@ -45,7 +48,6 @@ RUN rpm --import \
         php70-php-xml \
         php70-runtime \
         pngcrush \
-        rh-nodejs4-npm \
         rh-postgresql95-postgresql \
         rh-postgresql95-postgresql-server \
         supervisor \
