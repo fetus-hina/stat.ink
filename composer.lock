@@ -176,16 +176,16 @@
         },
         {
             "name": "bower-asset/clipboard",
-            "version": "v1.5.13",
+            "version": "v1.5.15",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zenorocha/clipboard.js.git",
-                "reference": "26a9e9d56ccb7241c3a60fc7003e0fd48d77dd44"
+                "reference": "8ad16a2c6cae573eb1f36114317ccaf3f130ae1f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zenorocha/clipboard.js/zipball/26a9e9d56ccb7241c3a60fc7003e0fd48d77dd44",
-                "reference": "26a9e9d56ccb7241c3a60fc7003e0fd48d77dd44",
+                "url": "https://api.github.com/repos/zenorocha/clipboard.js/zipball/8ad16a2c6cae573eb1f36114317ccaf3f130ae1f",
+                "reference": "8ad16a2c6cae573eb1f36114317ccaf3f130ae1f",
                 "shasum": ""
             },
             "type": "bower-asset-library",
@@ -214,16 +214,16 @@
         },
         {
             "name": "bower-asset/d3",
-            "version": "v4.2.7",
+            "version": "v4.2.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mbostock-bower/d3-bower.git",
-                "reference": "bc3e38e5de138426c564680a8e2dccd4a35b48d1"
+                "reference": "ece222ff3756b1975013d70f08a5be87257b9e87"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mbostock-bower/d3-bower/zipball/bc3e38e5de138426c564680a8e2dccd4a35b48d1",
-                "reference": "bc3e38e5de138426c564680a8e2dccd4a35b48d1",
+                "url": "https://api.github.com/repos/mbostock-bower/d3-bower/zipball/ece222ff3756b1975013d70f08a5be87257b9e87",
+                "reference": "ece222ff3756b1975013d70f08a5be87257b9e87",
                 "shasum": ""
             },
             "type": "bower-asset-library",
@@ -653,16 +653,16 @@
         },
         {
             "name": "bower-asset/moment-timezone",
-            "version": "0.5.6",
+            "version": "0.5.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/moment/moment-timezone.git",
-                "reference": "7ad329aa12e5abb86ea4faa6a5fc468b48bba526"
+                "reference": "d0f99d65cec675c6570694f59b5bed3f0c259b08"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/moment/moment-timezone/zipball/7ad329aa12e5abb86ea4faa6a5fc468b48bba526",
-                "reference": "7ad329aa12e5abb86ea4faa6a5fc468b48bba526",
+                "url": "https://api.github.com/repos/moment/moment-timezone/zipball/d0f99d65cec675c6570694f59b5bed3f0c259b08",
+                "reference": "d0f99d65cec675c6570694f59b5bed3f0c259b08",
                 "shasum": ""
             },
             "require": {
@@ -1763,16 +1763,16 @@
         },
         {
             "name": "yiisoft/yii2",
-            "version": "2.0.9",
+            "version": "2.0.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-framework.git",
-                "reference": "2b75151ea60e1fd820046416eee2e89c3dda1133"
+                "reference": "5bfcb7a6dfa9771e2248eb8c4448613330f343ff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/2b75151ea60e1fd820046416eee2e89c3dda1133",
-                "reference": "2b75151ea60e1fd820046416eee2e89c3dda1133",
+                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/5bfcb7a6dfa9771e2248eb8c4448613330f343ff",
+                "reference": "5bfcb7a6dfa9771e2248eb8c4448613330f343ff",
                 "shasum": ""
             },
             "require": {
@@ -1853,7 +1853,7 @@
                 "framework",
                 "yii2"
             ],
-            "time": "2016-07-11 13:36:42"
+            "time": "2016-10-20 12:02:50"
         },
         {
             "name": "yiisoft/yii2-bootstrap",
