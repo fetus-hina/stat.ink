@@ -373,6 +373,11 @@
             <span class="fa fa-pie-chart left"></span>
             {{'Stats (by Mode and Stage)'|translate:'app'|escape}}
           </a><br>
+          <span style="padding-left:2em">
+            ┗ <a href="{{url route="show/user-stat-by-map-rule-detail" screen_name=$user->screen_name}}">
+            {{'Details'|translate:'app'|escape}}
+            </a>
+          </span><br>
           <a href="{{url route="show/user-stat-by-weapon" screen_name=$user->screen_name}}">
             <span class="fa fa-pie-chart left"></span>
             {{'Stats (by Weapon)'|translate:'app'|escape}}

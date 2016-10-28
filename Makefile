@@ -34,6 +34,7 @@ RESOURCE_TARGETS_MAIN=\
 	resources/.compiled/stat.ink/main.js \
 	resources/.compiled/stat.ink/no-image.png \
 	resources/.compiled/stat.ink/swipebox-runner.js \
+	resources/.compiled/stat.ink/user-stat-by-map-rule-detail.css \
 	resources/.compiled/stat.ink/weapons-use.js \
 	resources/paintball/paintball.css \
 	web/static-assets/cc/cc-by.svg \
@@ -201,6 +202,9 @@ resources/.compiled/stat.ink/downloads.css: resources/stat.ink/downloads.less $(
 
 resources/.compiled/stat.ink/weapons-use.js: resources/stat.ink/weapons-use.js $(GULP)
 	$(GULP) js --in $< --out $@
+
+resources/.compiled/stat.ink/user-stat-by-map-rule-detail.css: resources/stat.ink/user-stat-by-map-rule-detail.less $(GULP)
+	$(GULP) less --in $< --out $@
 
 resources/.compiled/gh-fork-ribbon/gh-fork-ribbon.js: resources/gh-fork-ribbon/gh-fork-ribbon.js $(GULP)
 	$(GULP) js --in $< --out $@

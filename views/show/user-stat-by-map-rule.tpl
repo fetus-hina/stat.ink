@@ -20,6 +20,14 @@
 
     {{SnsWidget}}
 
+    <p>
+      <a href="{{url route="show/user-stat-by-map-rule-detail" screen_name=$user->screen_name}}" class="btn btn-success">
+        <span class="fa fa-newspaper-o left"></span>
+        {{'Details'|translate:'app'|escape}}
+        <span class="fa fa-angle-double-right right"></span>
+      </a>
+    </p>
+
     <div class="row">
       <div class="col-xs-12 col-sm-8 col-md-8 col-lg-9 table-responsive table-responsive-force">
         <table class="table table-condensed graph-container">
