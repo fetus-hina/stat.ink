@@ -55,7 +55,7 @@ return [
     'Battles' => 'バトル',
     'Battles:' => 'バトル:',
     'Battles:{0} / Win %:{1} / Avg Kills:{2} / Avg Deaths:{3} / Kill Ratio:{4}' => 'バトル数:{0}　勝率:{1}　平均キル:{2}　平均デス:{3}　キルレ:{4}',
-    'Black out except private battle and teammate on squad battle (tri or quad)' => 'プライベートバトルと、タッグマッチ(3,4人)では黒塗りしない',
+    'Black out except private battle and teammate on squad battle (tri or quad)' => 'プライベートバトルの時と、タッグマッチ(3,4人)の味方は黒塗りしない',
     'Black out except private battle' => 'プライベートバトルでは黒塗りしない',
     'Black out other players from the result image' => '結果画面の他のプレーヤを黒塗りして隠す',
     'Black out other players' => '他のプレーヤを黒塗りする',
