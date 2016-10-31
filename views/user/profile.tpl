@@ -45,18 +45,26 @@
             <tr>
               <th>{{'Black out other players'|translate:'app'|escape}}</th>
               <td>
-                {{use class="app\models\User"}}
-                {{if $user->blackout == User::BLACKOUT_NOT_BLACKOUT}}
-                  {{'No black out'|translate:'app'|escape}}
-                {{elseif $user->blackout == User::BLACKOUT_NOT_PRIVATE}}
-                  {{'Black out except private battle'|translate:'app'|escape}}
-                {{elseif $user->blackout == User::BLACKOUT_NOT_FRIEND}}
-                  {{'Black out except private battle and teammate on squad battle (tri or quad)'|translate:'app'|escape}}
-                {{elseif $user->blackout == User::BLACKOUT_ALWAYS}}
-                  {{'Black out other players'|translate:'app'|escape}}
-                {{else}}
-                  ({{$user->blackout|escape}})
-                {{/if}}
+                <p>
+                  {{use class="app\models\User"}}
+                  {{if $user->blackout == User::BLACKOUT_NOT_BLACKOUT}}
+                    {{'No black out'|translate:'app'|escape}}
+                  {{elseif $user->blackout == User::BLACKOUT_NOT_PRIVATE}}
+                    {{'Black out except private battle'|translate:'app'|escape}}
+                  {{elseif $user->blackout == User::BLACKOUT_NOT_FRIEND}}
+                    {{'Black out except private battle and teammate on squad battle (tri or quad)'|translate:'app'|escape}}
+                  {{elseif $user->blackout == User::BLACKOUT_ALWAYS}}
+                    {{'Black out other players'|translate:'app'|escape}}
+                  {{else}}
+                    ({{$user->blackout|escape}})
+                  {{/if}}
+                </p>
+                <div>
+                  {{include file="_blackout-hint.tpl"}}
+                  {{registerJs}}
+                    updateBlackOutHint('{{$user->blackout|escape:javascript}}');
+                  {{/registerJs}}
+                </div>
               </td>
             </tr>
             <tr>

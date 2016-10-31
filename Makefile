@@ -28,6 +28,8 @@ RESOURCE_TARGETS_MAIN=\
 	resources/.compiled/stat.ink/battle-input.css \
 	resources/.compiled/stat.ink/battle-input.js \
 	resources/.compiled/stat.ink/battles-simple.css \
+	resources/.compiled/stat.ink/blackout-hint.css \
+	resources/.compiled/stat.ink/blackout-hint.js \
 	resources/.compiled/stat.ink/downloads.css \
 	resources/.compiled/stat.ink/favicon.png \
 	resources/.compiled/stat.ink/main.css \
@@ -198,6 +200,12 @@ resources/.compiled/stat.ink/battle-input.js: resources/stat.ink/battle-input.js
 	$(GULP) js --in $< --out $@
 
 resources/.compiled/stat.ink/battle-input.css: resources/stat.ink/battle-input.less $(GULP)
+	$(GULP) less --in $< --out $@
+
+resources/.compiled/stat.ink/blackout-hint.js: resources/stat.ink/blackout-hint.js $(GULP)
+	$(GULP) js --in $< --out $@
+
+resources/.compiled/stat.ink/blackout-hint.css: resources/stat.ink/blackout-hint.less $(GULP)
 	$(GULP) less --in $< --out $@
 
 resources/.compiled/stat.ink/downloads.css: resources/stat.ink/downloads.less $(GULP)

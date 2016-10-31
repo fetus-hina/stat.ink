@@ -20,6 +20,20 @@
         ]}}
       {{$_->field($form, 'blackout')->dropDownList($_options)}}
 
+      <div class="row">
+        <div class="col-xs-12 col-sm-11 col-sm-push-1">
+          {{include file="_blackout-hint.tpl"}}
+          {{registerJs}}
+            (function($){
+              "use strict";
+              $('#profileform-blackout').change(function(){
+                updateBlackOutHint($(this).val())
+              }).change();
+            })(jQuery);
+          {{/registerJs}}
+        </div>
+      </div>
+
       {{$_->field($form, 'nnid')}}
 
       {{$_->field($form, 'twitter', [
