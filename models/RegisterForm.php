@@ -72,7 +72,7 @@ class RegisterForm extends Model
         $u->screen_name = $this->screen_name;
         $u->password = Password::hash($this->password);
         $u->api_key = User::generateNewApiKey();
-        $u->is_black_out_others = false;
+        $u->blackout = User::BLACKOUT_NOT_BLACKOUT;
         $u->join_at = new Now();
         return $u;
     }

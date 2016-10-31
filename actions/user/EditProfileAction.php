@@ -26,7 +26,6 @@ class EditProfileAction extends BaseAction
                 try {
                     $ident->attributes = $form->attributes;
                     $ident->env_id = $this->findOrCreateEnvironmentId($form->env);
-                    $ident->is_black_out_others = ($form->is_black_out_others == '1');
                     if ($ident->save()) {
                         $transaction->commit();
                         $this->controller->redirect(['user/profile']);
@@ -41,7 +40,6 @@ class EditProfileAction extends BaseAction
             if ($ident->env) {
                 $form->env = $ident->env->text;
             }
-            $form->is_black_out_others = $ident->is_black_out_others ? '1' : '0';
         }
 
         return $this->controller->render('edit-profile.tpl', [

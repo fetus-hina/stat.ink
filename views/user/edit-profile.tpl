@@ -3,6 +3,7 @@
   {{set title="{{$app->name}} | {{'Update Your Profile'|translate:'app'}}"}}
   {{use class="yii\helpers\Html"}}
   {{use class="yii\bootstrap\ActiveForm" type="block"}}
+  {{use class="app\models\User"}}
   <div class="container">
     <h1>
       {{'Update Your Profile'|translate:'app'|escape}}
@@ -11,8 +12,13 @@
     {{ActiveForm assign="_" id="update-form" action=['user/edit-profile']}}
       {{$_->field($form, 'name')}}
 
-      <label for="profileform-is_black_out_others">{{'Black out other players from the result image'|translate:'app'|escape}}</label>
-      {{$_->field($form, 'is_black_out_others')->checkbox()}}
+      {{$_options = [
+          User::BLACKOUT_NOT_BLACKOUT => Yii::t('app', 'No black out'),
+          User::BLACKOUT_NOT_PRIVATE  => Yii::t('app', 'Black out except private battle'),
+          User::BLACKOUT_NOT_FRIEND   => Yii::t('app', 'Black out except private battle and teammate on squad battle (tri or quad)'),
+          User::BLACKOUT_ALWAYS       => Yii::t('app', 'Black out other players')
+        ]}}
+      {{$_->field($form, 'blackout')->dropDownList($_options)}}
 
       {{$_->field($form, 'nnid')}}
 

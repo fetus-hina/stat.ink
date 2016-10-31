@@ -45,10 +45,17 @@
             <tr>
               <th>{{'Black out other players'|translate:'app'|escape}}</th>
               <td>
-                {{if $user->is_black_out_others}}
-                  {{'Yes'|translate:'app'|escape}}
+                {{use class="app\models\User"}}
+                {{if $user->blackout == User::BLACKOUT_NOT_BLACKOUT}}
+                  {{'No black out'|translate:'app'|escape}}
+                {{elseif $user->blackout == User::BLACKOUT_NOT_PRIVATE}}
+                  {{'Black out except private battle'|translate:'app'|escape}}
+                {{elseif $user->blackout == User::BLACKOUT_NOT_FRIEND}}
+                  {{'Black out except private battle and teammate on squad battle (tri or quad)'|translate:'app'|escape}}
+                {{elseif $user->blackout == User::BLACKOUT_ALWAYS}}
+                  {{'Black out other players'|translate:'app'|escape}}
                 {{else}}
-                  {{'No'|translate:'app'|escape}}
+                  ({{$user->blackout|escape}})
                 {{/if}}
               </td>
             </tr>

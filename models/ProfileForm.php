@@ -17,12 +17,18 @@ class ProfileForm extends Model
     public $twitter;
     public $ikanakama;
     public $env;
-    public $is_black_out_others;
+    public $blackout;
 
     public function rules()
     {
         return [
-            [['name'], 'required'],
+            [['name', 'nnid', 'twitter', 'ikanakama', 'env'], 'filter',
+                'filter' => function ($value) {
+                    $value = trim((string)$value);
+                    return $value === '' ? null : $value;
+                },
+            ],
+            [['name', 'blackout'], 'required'],
             [['name'], 'string', 'max' => 15],
             [['nnid'], 'string', 'min' => 6, 'max' => 16],
             [['nnid'], 'match', 'pattern' => '/^[a-zA-Z0-9._-]+$/'],
@@ -30,7 +36,14 @@ class ProfileForm extends Model
             [['twitter'], 'match', 'pattern' => '/^[a-zA-Z0-9_]+$/'],
             [['ikanakama'], 'integer', 'min' => 1],
             [['env'], 'string'],
-            [['is_black_out_others'], 'integer'],
+            [['blackout'], 'in',
+                'range' => [
+                    User::BLACKOUT_NOT_BLACKOUT,
+                    User::BLACKOUT_NOT_PRIVATE,
+                    User::BLACKOUT_NOT_FRIEND,
+                    User::BLACKOUT_ALWAYS,
+                ],
+            ],
         ];
     }
 
@@ -40,13 +53,13 @@ class ProfileForm extends Model
     public function attributeLabels()
     {
         return [
-            'screen_name'       => Yii::t('app', 'Screen Name (Login Name)'),
-            'name'              => Yii::t('app', 'Name (for display)'),
-            'nnid'              => Yii::t('app', 'Nintendo Network ID'),
-            'twitter'           => Yii::t('app', 'Twitter @name'),
-            'ikanakama'         => Yii::t('app', 'IKANAKAMA User ID'),
-            'env'               => Yii::t('app', 'Capture Environment'),
-            'is_black_out_others' => Yii::t('app', 'Black out other players from the result image'),
+            'screen_name'   => Yii::t('app', 'Screen Name (Login Name)'),
+            'name'          => Yii::t('app', 'Name (for display)'),
+            'nnid'          => Yii::t('app', 'Nintendo Network ID'),
+            'twitter'       => Yii::t('app', 'Twitter @name'),
+            'ikanakama'     => Yii::t('app', 'IKANAKAMA User ID'),
+            'env'           => Yii::t('app', 'Capture Environment'),
+            'blackout'      => Yii::t('app', 'Black out other players from the result image'),
         ];
     }
 }

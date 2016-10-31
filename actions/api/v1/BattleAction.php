@@ -382,16 +382,23 @@ class BattleAction extends BaseAction
             $binary = is_string($form->image_result)
                 ? $form->image_result
                 : file_get_contents($form->image_result->tempName, false);
-            $myPosition = false;
+
+            $blackoutList = [];
             if ((1 <= $form->rank_in_team && $form->rank_in_team <= 4) &&
-                    ($form->result === 'win' || $form->result === 'lose')
+                    ($form->result === 'win' || $form->result === 'lose') &&
+                    ($form->lobby != '')
             ) {
-                $myPosition = (($form->result === 'win') ? 0 : 4) + $form->rank_in_team;
+                $blackoutList = \app\components\helpers\Blackout::getBlackoutTargetList(
+                    $form->lobby,
+                    $form->user->blackout,
+                    (($form->result === 'win') ? 0 : 4) + $form->rank_in_team
+                );
             }
+
             if (!ImageConverter::convert(
                 $binary,
                 $imageOutputDir . '/' . $image->filename,
-                ($form->user->is_black_out_others) ? $myPosition : false,
+                $blackoutList,
                 $imageArchiveOutputDir
                     ? ($imageArchiveOutputDir . '/' . sprintf('%d-result.png', $battle->id))
                     : null
@@ -427,7 +434,7 @@ class BattleAction extends BaseAction
             if (!ImageConverter::convert(
                 $binary,
                 $imageOutputDir . '/' . $image->filename,
-                false,
+                [],
                 $imageArchiveOutputDir
                     ? ($imageArchiveOutputDir . '/' . sprintf('%d-gear.png', $battle->id))
                     : null

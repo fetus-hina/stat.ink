@@ -28,7 +28,7 @@ use app\components\helpers\Password;
  * @property string $twitter
  * @property integer $ikanakama
  * @property integer $env_id
- * @property boolean $is_black_out_others
+ * @property string $blackout
  *
  * @property Battle[] $battles
  * @property Slack[] $slacks
@@ -39,6 +39,11 @@ use app\components\helpers\Password;
  */
 class User extends ActiveRecord implements IdentityInterface
 {
+    const BLACKOUT_NOT_BLACKOUT = 'no';
+    const BLACKOUT_NOT_PRIVATE  = 'not-private';
+    const BLACKOUT_NOT_FRIEND   = 'not-friend';
+    const BLACKOUT_ALWAYS       = 'always';
+
     /**
      * @inheritdoc
      */
@@ -75,7 +80,7 @@ class User extends ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            [['name', 'screen_name', 'password', 'api_key', 'join_at', 'is_black_out_others'], 'required'],
+            [['name', 'screen_name', 'password', 'api_key', 'join_at'], 'required'],
             [['join_at'], 'safe'],
             [['ikanakama', 'env_id'], 'integer'],
             [['name', 'screen_name', 'twitter'], 'string', 'max' => 15],
@@ -86,7 +91,15 @@ class User extends ActiveRecord implements IdentityInterface
             [['api_key'], 'unique'],
             [['screen_name'], 'unique'],
             [['screen_name', 'twitter'], 'match', 'pattern' => '/^[a-zA-Z0-9_]{1,15}$/'],
-            [['is_black_out_others'], 'boolean'],
+            [['blackout'], 'default', 'value' => static::BLACKOUT_NOT_BLACKOUT],
+            [['blackout'], 'in',
+                'range' => [
+                    static::BLACKOUT_NOT_BLACKOUT,
+                    static::BLACKOUT_NOT_PRIVATE,
+                    static::BLACKOUT_NOT_FRIEND,
+                    static::BLACKOUT_ALWAYS,
+                ],
+            ],
         ];
     }
 
@@ -106,7 +119,7 @@ class User extends ActiveRecord implements IdentityInterface
             'twitter'       => Yii::t('app', 'Twitter @name'),
             'ikanakama'     => Yii::t('app', 'IKANAKAMA User ID'),
             'env_id'        => Yii::t('app', 'Capture Environment'),
-            'is_black_out_others' => Yii::t('app', 'Black out other players from the result image'),
+            'blackout'      => Yii::t('app', 'Black out other players from the result image'),
         ];
     }
 

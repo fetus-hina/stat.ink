@@ -17,9 +17,12 @@ class ImageConverter
 
     const JPEG_QUALITY = 90;
 
-    public static function convert($binary, $outPathJpeg, $myPositionIfFill = false, $outPathArchivePng = null)
+    public static function convert($binary, $outPathJpeg, $blackoutPosList = false, $outPathArchivePng = null)
     {
-        if (!$tmpName = self::convertImpl($binary, $myPositionIfFill)) {
+        if (!is_array($blackoutPosList)) {
+            $blackoutPosList = [];
+        }
+        if (!$tmpName = self::convertImpl($binary, $blackoutPosList)) {
             return false;
         }
         $leptonMode = Yii::$app->params['lepton']['mode'] ?? 'none';
@@ -44,7 +47,7 @@ class ImageConverter
         return true;
     }
 
-    protected static function convertImpl($binary, $myPositionIfFill)
+    protected static function convertImpl($binary, array $blackoutPosList)
     {
         try {
             $in = new Resource(@imagecreatefromstring($binary), 'imagedestroy');
@@ -80,10 +83,9 @@ class ImageConverter
                 $inW,
                 $inH
             );
-            if (is_int($myPositionIfFill)) {
+            if ($blackoutPosList) {
                 for ($i = 0; $i < 8; ++$i) {
-                    // 自分自身はスキップ
-                    if ($myPositionIfFill - 1 == $i) {
+                    if (!in_array($i + 1, $blackoutPosList)) {
                         continue;
                     }
 

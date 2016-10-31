@@ -86,6 +86,9 @@ init-by-archive: \
 	config/db.php \
 	resource
 
+test: init
+	./composer.phar exec codecept run
+
 docker: init-by-archive migrate-db
 	sudo docker build -t jp3cki/statink .
 
