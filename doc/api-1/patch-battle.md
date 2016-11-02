@@ -1,4 +1,4 @@
-`PATCH /api/v1/battle`
+`PATCH /api/v1/battle` (version: v1.94 or later)
 ======================
 
 URL: `https://stat.ink/api/v1/battle`
@@ -7,7 +7,7 @@ Method: `PATCH`
 
 Return-Type: `application/json`
 
-※URLが一般的なRESTと異なりますので注意してください。
+※URLが一般的なRESTと異なりますので注意してください。（リソースIDを含むURIにPATCHを送るのではありません）
 
 リクエスト方法
 --------------
@@ -70,6 +70,8 @@ Content-Length: ***
     - 空文字列やnull、未指定 : 現在の値を維持します。（何もしません）
     - `<<DELETE>>` : この特殊な値を設定すると、現在設定されている値が消去されます。
     - その他任意の文字列: この文字列に更新されます。
+
+その他の属性に対するPATCHの実装は未定です。
 
 
 パラメータ サンプル
