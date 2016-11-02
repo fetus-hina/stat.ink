@@ -18,6 +18,7 @@ use app\models\Slack;
 use app\models\User;
 use app\models\api\v1\DeleteBattleForm;
 use app\models\api\v1\PostBattleForm;
+use app\models\api\v1\PatchBattleForm;
 use yii\base\DynamicModel;
 use yii\helpers\Url;
 use yii\web\MethodNotAllowedHttpException;
@@ -31,6 +32,8 @@ class BattleAction extends BaseAction
         $request = Yii::$app->getRequest();
         if ($request->isDelete) {
             return $this->runDelete();
+        } elseif ($request->isPatch) {
+            return $this->runPatch();
         } elseif ($request->isPost) {
             return $this->runPost();
         } elseif ($request->isGet || $request->isHead) {
@@ -499,6 +502,33 @@ class BattleAction extends BaseAction
             'deleted'       => $form->deletedIdList,
             'not-deleted'   => $form->errorIdList,
         ];
+    }
+
+    private function runPatch()
+    {
+        $request = Yii::$app->getRequest();
+        $form = new PatchBattleForm();
+        $form->attributes = $request->getBodyParams();
+        if (!$form->validate()) {
+            return $this->formatError($form->getErrors(), 400);
+        }
+
+        // テストモード用
+        // validate のみなら既に validate は完了しているので適当なレスポンスボディを返して終わり
+        if ($form->test === 'validate') {
+            $resp = Yii::$app->getResponse();
+            $resp->format = 'json';
+            $resp->statusCode = 200;
+            return [
+                'validate' => true,
+            ];
+        }
+
+        if (!$battle = $form->save()) {
+            return $this->formatError($form->getErrors(), 400);
+        }
+
+        return $this->runGetImpl($battle);
     }
 
     private function runGetImpl(Battle $battle)
