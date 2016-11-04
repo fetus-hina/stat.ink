@@ -380,7 +380,18 @@
             {{if $battle->my_point}}
               <tr>
                 <th>{{'Turf Inked + Bonus'|translate:'app'|escape}}</th>
-                <td>{{$battle->my_point|escape}} P</td>
+                <td>
+                  {{$_inked = $battle->inked}}
+                  {{if $_inked !== null}}
+                    {{$_inked|number_format|escape}}
+                    {{if $battle->is_win && $battle->bonus}}
+                      &#32;+ {{$battle->bonus->bonus|number_format|escape}}
+                    {{/if}}
+                  {{else}}
+                    {{$battle->my_point|number_format|escape}}
+                  {{/if}}
+                  &#32;P
+                </td>
               </tr>
             {{/if}}
             {{if $battle->my_team_final_point || $battle->his_team_final_point}}

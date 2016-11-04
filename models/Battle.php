@@ -533,6 +533,21 @@ class Battle extends ActiveRecord
         return $this->period;
     }
 
+    public function getInked()
+    {
+        if ($this->my_point === null ||
+                $this->is_win === null ||
+                !$this->bonus ||
+                !$this->rule ||
+                $this->rule->key !== 'nawabari'
+        ) {
+            return null;
+        }
+        return ($this->is_win)
+            ? ($this->my_point - $this->bonus->bonus)
+            : $this->my_point;
+    }
+
     public function getPreviousBattle()
     {
         return $this->hasOne(static::class, ['user_id' => 'user_id'])

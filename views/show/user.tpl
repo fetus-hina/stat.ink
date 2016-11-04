@@ -214,7 +214,7 @@
                 <th class="cell-kd">{{'k'|translate:'app'|escape}}/{{'d'|translate:'app'|escape}}</th>
                 <th class="cell-kill-ratio auto-tooltip" title="{{'Kill Ratio'|translate:'app'|escape}}">{{'Ratio'|translate:'app'|escape}}</th>
                 <th class="cell-kill-rate auto-tooltip" title="{{'Kill Rate'|translate:'app'|escape}}">{{'Rate'|translate:'app'|escape}}</th>
-                <th class="cell-point">{{'Point'|translate:'app'|escape}}</th>
+                <th class="cell-point">{{'Inked'|translate:'app'|escape}}</th>
                 <th class="cell-rank-in-team">{{'Rank in Team'|translate:'app'|escape}}</th>
                 <th class="cell-datetime">{{'Date Time'|translate:'app'|escape}}</th>
                 <th class="cell-reltime">{{'Relative Time'|translate:'app'|escape}}</th>

@@ -154,7 +154,9 @@
       <td class="cell-kill-rate"></td>
     {{/if}}
     <td class="cell-point">
-      {{$model->my_point|default:'?'|escape}}
+      {{if $model->my_point !== null}}
+        {{$model->inked|default:'?'|escape}}
+      {{/if}}
     </td>
     <td class="cell-rank-in-team">
       {{$model->rank_in_team|default:'?'|escape}}
