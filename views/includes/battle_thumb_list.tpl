@@ -1,4 +1,5 @@
 {{strip}}
+  {{\app\assets\BattleThumbListAsset::register($this)|@void}}
   {{$imagePlaceholder = $app->assetManager->getAssetUrl(
       $app->assetManager->getBundle('app\assets\AppAsset'),
       'no-image.png'

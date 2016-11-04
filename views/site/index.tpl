@@ -114,16 +114,14 @@
             {{foreach $fest->splatfestMaps as $_}}
               {{if $_ && $_->map}}
                 <li>
-                  <div class="battle">
-                    <div class="battle-image">
-                      {{* ここ本当は night/ *}}
-                      {{$mapFile = 'daytime/'|cat:$_->map->key:'.jpg'}}
-                      <img src="{{$app->assetManager->getAssetUrl(
-                          $app->assetManager->getBundle('app\assets\MapImageAsset'),
-                          $mapFile
-                        )}}">
-                    </div>
-                    <div class="battle-data row">
+                  <div class="thumbnail thumbnail-nawabari">
+                    {{* ここ本当は night/ *}}
+                    {{$mapFile = 'daytime/'|cat:$_->map->key:'.jpg'}}
+                    <img src="{{$app->assetManager->getAssetUrl(
+                        $app->assetManager->getBundle('app\assets\MapImageAsset'),
+                        $mapFile
+                      )}}">
+                    <div class="caption row">
                       <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 omit">
                         {{$_->map->name|translate:'app-map'|escape}}
                       </div>
@@ -200,15 +198,13 @@
             <ul class="battles maps">
               {{foreach $stageInfo->current->regular as $_}}
                 <li>
-                  <div class="battle">
-                    <div class="battle-image">
-                      {{$mapFile = 'daytime/'|cat:$_->map->key:'.jpg'}}
-                      <img src="{{$app->assetManager->getAssetUrl(
-                          $app->assetManager->getBundle('app\assets\MapImageAsset'),
-                          $mapFile
-                        )}}">
-                    </div>
-                    <div class="battle-data row">
+                  <div class="thumbnail thumbnail-{{$stageInfo->current->regular.0->rule->key|escape}}">
+                    {{$mapFile = 'daytime/'|cat:$_->map->key:'.jpg'}}
+                    <img src="{{$app->assetManager->getAssetUrl(
+                        $app->assetManager->getBundle('app\assets\MapImageAsset'),
+                        $mapFile
+                      )}}">
+                    <div class="caption row">
                       <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 omit">
                         {{$_->map->name|translate:'app-map'|escape}}
                       </div>
@@ -225,15 +221,13 @@
             <ul class="battles maps">
               {{foreach $stageInfo->current->gachi as $_}}
                 <li>
-                  <div class="battle">
-                    <div class="battle-image">
-                      {{$mapFile = 'daytime/'|cat:$_->map->key:'.jpg'}}
-                      <img src="{{$app->assetManager->getAssetUrl(
-                          $app->assetManager->getBundle('app\assets\MapImageAsset'),
-                          $mapFile
-                        )}}">
-                    </div>
-                    <div class="battle-data row">
+                  <div class="thumbnail thumbnail-{{$stageInfo->current->gachi.0->rule->key|escape}}">
+                    {{$mapFile = 'daytime/'|cat:$_->map->key:'.jpg'}}
+                    <img src="{{$app->assetManager->getAssetUrl(
+                        $app->assetManager->getBundle('app\assets\MapImageAsset'),
+                        $mapFile
+                      )}}">
+                    <div class="caption row">
                       <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 omit">
                         {{$_->map->name|translate:'app-map'|escape}}
                       </div>
@@ -266,15 +260,13 @@
                 <ul class="battles maps">
                   {{foreach $stageInfo->next->regular as $_}}
                     <li>
-                      <div class="battle">
-                        <div class="battle-image">
-                          {{$mapFile = 'daytime/'|cat:$_->map->key:'.jpg'}}
-                          <img src="{{$app->assetManager->getAssetUrl(
-                              $app->assetManager->getBundle('app\assets\MapImageAsset'),
-                              $mapFile
-                            )}}">
-                        </div>
-                        <div class="battle-data row">
+                      <div class="thumbnail thumbnail-{{$stageInfo->next->regular.0->rule->key|escape}}">
+                        {{$mapFile = 'daytime/'|cat:$_->map->key:'.jpg'}}
+                        <img src="{{$app->assetManager->getAssetUrl(
+                            $app->assetManager->getBundle('app\assets\MapImageAsset'),
+                            $mapFile
+                          )}}">
+                        <div class="caption row">
                           <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 omit">
                             {{$_->map->name|translate:'app-map'|escape}}
                           </div>
@@ -291,14 +283,12 @@
                 <ul class="battles maps">
                   {{foreach $stageInfo->next->gachi as $_}}
                     <li>
-                      <div class="battle">
-                        <div class="battle-image">
-                          {{$mapFile = 'daytime/'|cat:$_->map->key:'.jpg'}}
-                          <img src="{{$app->assetManager->getAssetUrl(
-                              $app->assetManager->getBundle('app\assets\MapImageAsset'),
-                              $mapFile
-                            )}}">
-                        </div>
+                      <div class="thumbnail thumbnail-{{$stageInfo->next->gachi.0->rule->key|escape}}">
+                        {{$mapFile = 'daytime/'|cat:$_->map->key:'.jpg'}}
+                        <img src="{{$app->assetManager->getAssetUrl(
+                            $app->assetManager->getBundle('app\assets\MapImageAsset'),
+                            $mapFile
+                          )}}">
                         <div class="battle-data row">
                           <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 omit">
                             {{$_->map->name|translate:'app-map'|escape}}

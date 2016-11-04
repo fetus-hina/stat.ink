@@ -27,6 +27,7 @@ RESOURCE_TARGETS_MAIN=\
 	resources/.compiled/stat.ink/battle-edit.js \
 	resources/.compiled/stat.ink/battle-input.css \
 	resources/.compiled/stat.ink/battle-input.js \
+	resources/.compiled/stat.ink/battle-thumb-list.css \
 	resources/.compiled/stat.ink/battles-simple.css \
 	resources/.compiled/stat.ink/blackout-hint.css \
 	resources/.compiled/stat.ink/blackout-hint.js \
@@ -182,6 +183,9 @@ resources/.compiled/stat.ink/main.js: $(JS_SRCS) $(GULP)
 	$(GULP) js --in 'resources/stat.ink/main.js/*.js' --out $@
 
 resources/.compiled/stat.ink/main.css: resources/stat.ink/main.less $(GULP)
+	$(GULP) less --in $< --out $@
+
+resources/.compiled/stat.ink/battle-thumb-list.css: resources/stat.ink/battle-thumb-list.less $(GULP)
 	$(GULP) less --in $< --out $@
 
 resources/.compiled/stat.ink/swipebox-runner.js: resources/stat.ink/swipebox-runner.js $(GULP)
