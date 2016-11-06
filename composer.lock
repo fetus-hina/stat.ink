@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "2fab1c148b4757890c3d2eee3859c4b2",
-    "content-hash": "caf5e0dda5ff3039cddb2dc717959970",
+    "hash": "79f57e38abab2c7d27bac57c349390d5",
+    "content-hash": "3c7a50315ed74654f400d7d974a79f38",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -397,6 +397,50 @@
             ]
         },
         {
+            "name": "bower-asset/jdenticon",
+            "version": "1.3.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dmester/jdenticon.git",
+                "reference": "bced9c2f837650277c6a8f2b31ef5ffa13e3e549"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dmester/jdenticon/zipball/bced9c2f837650277c6a8f2b31ef5ffa13e3e549",
+                "reference": "bced9c2f837650277c6a8f2b31ef5ffa13e3e549",
+                "shasum": ""
+            },
+            "type": "bower-asset-library",
+            "extra": {
+                "bower-asset-main": "dist/jdenticon.js",
+                "bower-asset-ignore": [
+                    "/jdenticon.js",
+                    ".npmignore",
+                    ".gitignore",
+                    ".vs",
+                    "*.bat",
+                    "*.nuspec",
+                    "bin",
+                    "gulpfile.js",
+                    "node_modules",
+                    "obj",
+                    "releases",
+                    "src",
+                    "template.*",
+                    "utils"
+                ]
+            },
+            "license": [
+                "zlib"
+            ],
+            "description": "Javascript identicon generator",
+            "keywords": [
+                "identicon",
+                "javascript",
+                "library"
+            ]
+        },
+        {
             "name": "bower-asset/jquery",
             "version": "2.2.4",
             "source": {
@@ -653,16 +697,16 @@
         },
         {
             "name": "bower-asset/moment-timezone",
-            "version": "0.5.7",
+            "version": "0.5.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/moment/moment-timezone.git",
-                "reference": "d0f99d65cec675c6570694f59b5bed3f0c259b08"
+                "reference": "1800e6bee258842a5f6deee0d9bd885b0fe5f283"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/moment/moment-timezone/zipball/d0f99d65cec675c6570694f59b5bed3f0c259b08",
-                "reference": "d0f99d65cec675c6570694f59b5bed3f0c259b08",
+                "url": "https://api.github.com/repos/moment/moment-timezone/zipball/1800e6bee258842a5f6deee0d9bd885b0fe5f283",
+                "reference": "1800e6bee258842a5f6deee0d9bd885b0fe5f283",
                 "shasum": ""
             },
             "require": {

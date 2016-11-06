@@ -9,11 +9,11 @@ namespace app\models;
 
 use DateTimeZone;
 use Yii;
+use app\components\helpers\DateTimeFormatter;
+use app\components\helpers\Password;
 use yii\db\ActiveRecord;
 use yii\helpers\Url;
 use yii\web\IdentityInterface;
-use app\components\helpers\DateTimeFormatter;
-use app\components\helpers\Password;
 
 /**
  * This is the model class for table "user".
@@ -295,5 +295,18 @@ class User extends ActiveRecord implements IdentityInterface
     public function getUserJsonLastUpdatedAt()
     {
         return filemtime($this->getUserJsonPath());
+    }
+
+    public function getIdenticonHash()
+    {
+        return substr(
+            hash_hmac(
+                'sha256',
+                sprintf('uid=%08d', $this->id),
+                Url::to(['site/index'], true)
+            ),
+            0,
+            32
+        );
     }
 }

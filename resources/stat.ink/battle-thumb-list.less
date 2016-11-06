@@ -57,6 +57,7 @@ ul.battles {
     }
 
     .thumbnail {
+        position: relative;
         border: 1px solid #ccc;
 
         &.thumbnail-nawabari {
@@ -68,7 +69,45 @@ ul.battles {
         }
 
         .caption {
-            padding: 4px 9px 0;
+            padding: 4px 4px 0;
+        }
+
+        .thumblist-time {
+            position: absolute;
+            right: 4px;
+            top: 4px;
+            padding: 1px;
+            background-color: rgba(255,255,255,0.8);
+            border-bottom-left-radius: 3px;
+            font-size: 10px;
+            color: #333;
+            &:hover {
+                text-decoration: none;
+            }
+        }
+
+        .caption-line {
+            position: relative;
+
+            .thumblist-user-icon {
+                position: absolute;
+                left: 0;
+                bottom: 0;
+                width: 48px;
+                height: 48px;
+                background-color: #fff;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+            }
+
+            .thumblist-user-name {
+                display: inline-block;
+                padding-left: (48px + 4px);
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                width: 100%;
+            }
         }
     }
 

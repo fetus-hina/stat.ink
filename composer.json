@@ -20,6 +20,7 @@
         "ext-pdo_pgsql": "*",
         "ext-session": "*",
         "ext-zlib": "*",
+        "bower-asset/Jdenticon": "^1.3",
         "bower-asset/bootstrap-toggle": "^2.2",
         "bower-asset/bowser": "1.4.*",
         "bower-asset/cal-heatmap": "^3.3",

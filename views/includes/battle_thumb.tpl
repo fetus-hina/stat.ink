@@ -32,17 +32,22 @@
     <a href="{{url route="show/battle" screen_name=$battle->user->screen_name battle=$battle->id}}">
       <img src="{{$defaultUrl|default:$placeholder|escape}}" class="lazyload auto-tooltip" data-original="{{$imageUrl|escape}}" title="{{$description|escape}}">
     </a>
-    <div class="caption row">
-      <div class="col-xs-8 omit">
-        <a href="{{url route="show/user" screen_name=$battle->user->screen_name}}">{{$battle->user->name|escape}}</a>
+    <div class="caption">
+      <div class="caption-line">
+        <a href="{{url route="show/user" screen_name=$battle->user->screen_name}}">
+          <span class="thumblist-user-icon">
+            {{JdenticonWidget hash=$battle->user->identiconHash class="identicon" size="48"}}
+          </span>
+          <span class="thumblist-user-name">
+            {{$battle->user->name|escape}}
+          </span>
+        </a>
       </div>
-      <div class="col-xs-4 time omit">
-        {{if $battle->end_at}}
-          <a href="{{url route="show/battle" screen_name=$battle->user->screen_name battle=$battle->id}}" title="{{$battle->end_at|as_datetime:'medium':'short'|escape}}" class="auto-tooltip">
-            {{$battle->end_at|active_reltime:'short'}}
-          </a>
-        {{/if}}
-      </div>
+      {{if $battle->end_at}}
+        <a href="{{url route="show/battle" screen_name=$battle->user->screen_name battle=$battle->id}}" title="{{$battle->end_at|as_datetime:'medium':'short'|escape}}" class="auto-tooltip thumblist-time">
+          {{$battle->end_at|active_reltime:'short'}}
+        </a>
+      {{/if}}
     </div>
   </div>
 {{/strip}}
