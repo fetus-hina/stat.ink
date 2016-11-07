@@ -1,17 +1,21 @@
 {{strip}}
+  {{\app\assets\UserMiniinfoAsset::register($this)|@void}}
   {{$stat = $user->userStat}}
-  <div id="user-miniinfo" style="margin-bottom:15px">
-    <div style="border:1px solid #ccc;border-radius:5px;padding:15px">
-      <h2 style="margin-top:0;margin-bottom:10px">
-        <!-- {{$user->id|escape}} -->
+  <div id="user-miniinfo">
+    <div id="user-miniinfo-box">
+      <h2>
         <a href="{{url route="show/user" screen_name=$user->screen_name}}">
-          {{$user->name|escape}}
+          <span class="miniinfo-user-icon">
+            {{JdenticonWidget hash=$user->identiconHash class="identicon" size="48"}}
+          </span>
+          <span class="miniinfo-user-name">
+            {{$user->name|escape}}
+          </span>
         </a>
       </h2>
-
       {{if $stat}}
         <div class="row">
-          <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+          <div class="col-xs-4">
             <div class="user-label">
               {{'Battles'|translate:'app'|escape}}
             </div>
@@ -21,7 +25,7 @@
               </a>
             </div>
           </div>
-          <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+          <div class="col-xs-4">
             <div class="user-label">
               {{'Win %'|translate:'app'|escape}}
             </div>
@@ -33,7 +37,7 @@
               {{/if}}
             </div>
           </div>
-          <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+          <div class="col-xs-4">
             <div class="user-label">
               {{'24H Win %'|translate:'app'|escape}}
             </div>
@@ -47,7 +51,7 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+          <div class="col-xs-4">
             <div class="user-label">
               {{'Avg Kills'|translate:'app'|escape}}
             </div>
@@ -63,7 +67,7 @@
               {{/if}}
             </div>
           </div>
-          <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+          <div class="col-xs-4">
             <div class="user-label">
               {{'Avg Deaths'|translate:'app'|escape}}
             </div>
@@ -79,7 +83,7 @@
               {{/if}}
             </div>
           </div>
-          <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+          <div class="col-xs-4">
             <div class="user-label">
               <span class="auto-tooltip" title="{{'Kill Ratio'|translate:'app'|escape}}">
                 {{'Ratio'|translate:'app'|escape}}
@@ -109,7 +113,7 @@
               {{'Turf War'|translate:'app-rule'|escape}}
             </div>
           </div>
-          <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+          <div class="col-xs-4">
             <div class="user-label">
               {{'Battles'|translate:'app'|escape}}
             </div>
@@ -119,7 +123,7 @@
               </a>
             </div>
           </div>
-          <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+          <div class="col-xs-4">
             <div class="user-label">
               {{'Win %'|translate:'app'|escape}}
             </div>
@@ -131,7 +135,7 @@
               {{/if}}
             </div>
           </div>
-          <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+          <div class="col-xs-4">
             <div class="user-label">
               <span class="auto-tooltip" title="{{'Kill Ratio'|translate:'app'|escape}}">
                 {{'Ratio'|translate:'app'|escape}}
@@ -151,7 +155,7 @@
               {{/if}}
             </div>
           </div>
-          <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+          <div class="col-xs-4">
             <div class="user-label auto-tooltip" title="{{'Total Inked'|translate:'app'|escape}}">
               {{'Total Inked'|translate:'app'|escape}}
             </div>
@@ -178,7 +182,7 @@
               {{/if}}
             </div>
           </div>
-          <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+          <div class="col-xs-4">
             <div class="user-label auto-tooltip" title="{{'Avg Inked'|translate:'app'|escape}}">
               {{'Avg Inked'|translate:'app'|escape}}
             </div>
@@ -197,7 +201,7 @@
               {{/if}}
             </div>
           </div>
-          <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+          <div class="col-xs-4">
             <div class="user-label auto-tooltip" title="{{'Max Inked'|translate:'app'|escape}}">
               {{'Max Inked'|translate:'app'|escape}}
             </div>
@@ -218,7 +222,7 @@
               {{'Ranked Battle'|translate:'app-rule'|escape}}
             </div>
           </div>
-          <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+          <div class="col-xs-4">
             <div class="user-label">
               {{'Battles'|translate:'app'|escape}}
             </div>
@@ -228,7 +232,7 @@
               </a>
             </div>
           </div>
-          <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+          <div class="col-xs-4">
             <div class="user-label">
               {{'Win %'|translate:'app'|escape}}
             </div>
@@ -240,7 +244,7 @@
               {{/if}}
             </div>
           </div>
-          <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+          <div class="col-xs-4">
             <div class="user-label">
               {{'Peak'|translate:'app'|escape}}
             </div>
@@ -253,7 +257,7 @@
             </div>
           </div>
 
-          <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+          <div class="col-xs-4">
             <div class="user-label">
               {{'Avg Kills'|translate:'app'|escape}}
             </div>
@@ -269,7 +273,7 @@
               {{/if}}
             </div>
           </div>
-          <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+          <div class="col-xs-4">
             <div class="user-label">
               {{'Avg Deaths'|translate:'app'|escape}}
             </div>
@@ -285,7 +289,7 @@
               {{/if}}
             </div>
           </div>
-          <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+          <div class="col-xs-4">
             <div class="user-label">
               <span class="auto-tooltip" title="{{'Kill Ratio'|translate:'app'|escape}}">
                 {{'Ratio'|translate:'app'|escape}}
@@ -306,7 +310,7 @@
             </div>
           </div>
 
-          <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+          <div class="col-xs-4">
             <div class="user-label">
               <span class="auto-tooltip" title="{{'Kills per minute'|translate:'app'|escape}}">
                 {{'Kills/min'|translate:'app'|escape}}
@@ -320,7 +324,7 @@
               {{/if}}
             </div>
           </div>
-          <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+          <div class="col-xs-4">
             <div class="user-label">
               <span class="auto-tooltip" title="{{'Deaths per minute'|translate:'app'|escape}}">
                 {{'Deaths/min'|translate:'app'|escape}}
@@ -336,7 +340,7 @@
           </div>
         </div>
         <hr>
-        <div style="margin:10px 0 0">
+        <div class="miniinfo-databox">
           <p class="user-label">
             {{'Activity'|translate:'app'|escape}}
           </p>
@@ -345,14 +349,9 @@
             <div class="activity" data-screen-name="{{$user->screen_name|escape}}">
             </div>
           </div>
-          {{registerCss}}
-            .activity {
-              display:inline-block!important;
-            }
-          {{/registerCss}}
         </div>
         <hr>
-        <p style="margin:10px 0 0">
+        <p class="miniinfo-databox">
           <a href="{{url route="show/user-stat-nawabari" screen_name=$user->screen_name}}">
             <span class="fa fa-pie-chart left"></span>
             {{'Stats (Turf War)'|translate:'app'|escape}}
@@ -397,7 +396,7 @@
         </p>
       {{/if}}
       {{if $user->mainWeapon}}
-        <div style="margin:15px 0 0">
+        <div class="miniinfo-databox">
           {{'Favorite Weapon'|translate:'app'|escape}}:&#32;
           {{$user->mainWeapon->name|translate:'app-weapon'|escape}}<br>
           <a href="{{url route="show/user-stat-by-weapon" screen_name=$user->screen_name}}">
@@ -405,7 +404,7 @@
           </a>
         </div>
       {{/if}}
-      <div style="margin:15px 0 0">
+      <div class="miniinfo-databox">
         <div>
           NNID:&#32;
           {{if $user->nnid == ''}}

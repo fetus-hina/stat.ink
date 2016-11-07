@@ -37,6 +37,7 @@ RESOURCE_TARGETS_MAIN=\
 	resources/.compiled/stat.ink/main.js \
 	resources/.compiled/stat.ink/no-image.png \
 	resources/.compiled/stat.ink/swipebox-runner.js \
+	resources/.compiled/stat.ink/user-miniinfo.css \
 	resources/.compiled/stat.ink/user-stat-by-map-rule-detail.css \
 	resources/.compiled/stat.ink/weapons-use.js \
 	resources/paintball/paintball.css \
@@ -186,6 +187,9 @@ resources/.compiled/stat.ink/main.css: resources/stat.ink/main.less $(GULP)
 	$(GULP) less --in $< --out $@
 
 resources/.compiled/stat.ink/battle-thumb-list.css: resources/stat.ink/battle-thumb-list.less $(GULP)
+	$(GULP) less --in $< --out $@
+
+resources/.compiled/stat.ink/user-miniinfo.css: resources/stat.ink/user-miniinfo.less $(GULP)
 	$(GULP) less --in $< --out $@
 
 resources/.compiled/stat.ink/swipebox-runner.js: resources/stat.ink/swipebox-runner.js $(GULP)
