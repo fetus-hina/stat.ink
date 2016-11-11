@@ -53,7 +53,13 @@
             {{else}}
               {{$ident = $user->identity}}
               <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                <span class="fa fa-user left"></span>{{$ident->name|escape}}&#32;<span class="caret"></span>
+                {{if $ident->userIcon}}
+                  <img src="{{$ident->userIcon->url|escape}}" style="width:1em;height:1em">
+                {{else}}
+                  <span class="fa fa-user"></span>
+                {{/if}}
+                &#32;
+                {{$ident->name|escape}}&#32;<span class="caret"></span>
               </a>
               <ul class="dropdown-menu">
                 <li>
@@ -63,7 +69,7 @@
                 </li>
                 <li>
                   <a href="{{path route="user/profile"}}">
-                    <span class="fa fa-gear left"></span>{{'Settings'|translate:'app'|escape}}
+                    <span class="fa fa-wrench left"></span>{{'Profile and Settings'|translate:'app'|escape}}
                   </a>
                 </li>
                 <li class="divider"></li>

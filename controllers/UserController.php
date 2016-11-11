@@ -22,8 +22,10 @@ class UserController extends Controller
             'access' => [
                 'class' => AccessControl::className(),
                 'only' => [
+                    'edit-icon',
                     'edit-password',
                     'edit-profile',
+                    'icon-twitter',
                     'login',
                     'logout',
                     'profile',
@@ -44,8 +46,10 @@ class UserController extends Controller
                     ],
                     [
                         'actions' => [
+                            'edit-icon',
                             'edit-password',
                             'edit-profile',
+                            'icon-twitter',
                             'logout',
                             'profile',
                             'slack-add',
@@ -61,6 +65,7 @@ class UserController extends Controller
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
+                    'edit-icon'     => [ 'get', 'post' ],
                     'edit-password' => [ 'get', 'post' ],
                     'edit-profile'  => [ 'get', 'post' ],
                     'language'      => [ 'post' ],
@@ -84,6 +89,8 @@ class UserController extends Controller
             'download'      => [ 'class' => $prefix . '\DownloadAction' ],
             'edit-password' => [ 'class' => $prefix . '\EditPasswordAction' ],
             'edit-profile'  => [ 'class' => $prefix . '\EditProfileAction' ],
+            'edit-icon'     => [ 'class' => $prefix . '\EditIconAction' ],
+            'icon-twitter'  => [ 'class' => $prefix . '\IconTwitterAction' ],
             'language'      => [ 'class' => $prefix . '\LanguageAction' ],
             'login'         => [ 'class' => $prefix . '\LoginAction' ],
             'logout'        => [ 'class' => $prefix . '\LogoutAction' ],

@@ -17,7 +17,7 @@ class IndexAction extends BaseAction
     {
         $active = Battle::find()
             ->andWhere(['in', '{{battle}}.[[id]]', $this->getActiveUserBattleIdList()])
-            ->with(['user', 'rule', 'map', 'battleImageResult'])
+            ->with(['user', 'rule', 'map', 'battleImageResult', 'user.userIcon'])
             ->all();
 
         $time = $_SERVER['REQUEST_TIME'];

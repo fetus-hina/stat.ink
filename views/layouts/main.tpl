@@ -28,6 +28,31 @@
           {{use class="\cybercog\yii\googleanalytics\widgets\GATracking" type="function"}}
           {{GATracking trackingId=$app->params.googleAnalytics}}
         {{/if}}
+        {{$_flashes = $app->getSession()->getAllFlashes()}}
+        {{if $_flashes}}
+          {{\app\assets\BootstrapNotifyAsset::register($this)|@void}}
+          {{foreach $_flashes as $_key => $_messages}}
+            {{if $_messages|@is_array}}
+              {{foreach $_messages as $_message}}
+                {{registerJs}}
+                  jQuery.notify({
+                    message:"{{$_message|escape|escape:javascript}}",
+                    type:"{{$_key|escape:javascript}}"
+                  });
+                {{/registerJs}}
+              {{/foreach}}
+            {{else}}
+              {{registerJs}}
+                jQuery.notify({
+                  message:"{{$_messages|escape|escape:javascript}}",
+                },{
+                  type:"{{$_key|escape:javascript}}",
+                  z_index:11031
+                });
+              {{/registerJs}}
+            {{/if}}
+          {{/foreach}}
+        {{/if}}
       {{$this->endBody()|@void}}
     </body>
   </html>

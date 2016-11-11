@@ -6,4 +6,5 @@ return [
     'googleAnalytics' => require(__DIR__ . '/google-analytics.php'),
     'googleRecaptcha' => require(__DIR__ . '/google-recaptcha.php'),
     'lepton' => require(__DIR__ . '/lepton.php'),
+    'twitter' => require(__DIR__ . '/twitter.php'),
 ];

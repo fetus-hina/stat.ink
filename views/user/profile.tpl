@@ -9,6 +9,7 @@
           {{'Profile and Settings'|translate:'app'|escape}}
 
           <a href="{{url route="user/edit-profile"}}" class="btn btn-primary" style="margin-left:30px">
+            <span class="fa fa-pencil left"></span>
             {{'Update'|translate:'app'|escape}}
           </a>
         </h1>
@@ -20,13 +21,64 @@
               <td>#{{$user->id|escape}}</td>
             </tr>
             <tr>
+              <th>{{'Icon'|translate:'app'|escape}}</th>
+              <td>
+                {{registerCss}}
+                  .profile-icon-container {
+                    display: flex;
+                    flex-direction: row;
+                    flex-wrap: wrap;
+                    align-items: baseline;
+                  }
+
+                  .profile-icon {
+                    align-self: center;
+                    display:inline-block;
+                    border:1px solid #ccc;
+                    border-radius:4px;
+                    background-color:#fff;
+                    margin-right:1ex;
+                    line-height:1px;
+                  }
+
+                  .profile-icon-text {
+                    margin-right: 1ex;
+                  }
+                {{/registerCss}}
+                <div class="profile-icon-container">
+                  {{if $user->userIcon}}
+                    <span class="profile-icon">
+                      <img src="{{$user->userIcon->url|escape}}" width="48" height="48">
+                    </span>
+                    <span class="profile-icon-text">
+                    </span>
+                  {{else}}
+                    <span class="profile-icon">
+                      {{JdenticonWidget hash=$user->identiconHash class="identicon" size="48"}}
+                    </span>
+                    <span class="profile-icon-text">
+                      {{'Auto (Identicon)'|translate:'app'|escape}}
+                    </span>
+                  {{/if}}
+                  <a href="{{url route="user/edit-icon"}}" class="btn btn-default">
+                    <span class="fa fa-picture-o left"></span>
+                    {{'Change Icon'|translate:'app'|escape}}
+                  </a>
+                </div>
+              </td>
+            </tr>
+            <tr>
               <th>{{'Screen Name'|translate:'app'|escape}}</th>
               <td><code>{{$user->screen_name|escape}}</code></td>
             </tr>
             <tr>
               <th>{{'Password'|translate:'app'|escape}}</th>
               <td>
-                <code>**********</code> <a href="{{url route="user/edit-password"}}" class="btn btn-default">{{'Change Password'|translate:'app'|escape}}</a>
+                <code>**********</code>&#32;
+                <a href="{{url route="user/edit-password"}}" class="btn btn-default">
+                  <span class="fa fa-repeat left"></span>
+                  {{'Change Password'|translate:'app'|escape}}
+                </a>
               </td>
             </tr>
             <tr>

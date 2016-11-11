@@ -312,7 +312,7 @@
 
     {{if $ident}}
       {{$battles = $ident->getBattles()
-        ->with(['user', 'rule', 'map', 'battleImageResult'])
+        ->with(['user', 'rule', 'map', 'battleImageResult', 'user.userIcon'])
         ->limit(12)
         ->all()}}
       {{if $battles}}
@@ -340,7 +340,7 @@
       {{'Recent Battles'|translate:'app'|escape}}
     </h2>
     {{$battles = Battle::find()
-        ->with(['user', 'rule', 'map', 'battleImageResult'])
+        ->with(['user', 'rule', 'map', 'battleImageResult', 'user.userIcon'])
         ->limit(100)
         ->all()}}
     {{include file="@app/views/includes/battle_thumb_list.tpl" battles=$battles}}

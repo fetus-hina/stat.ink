@@ -63,7 +63,8 @@ SIMPLE_CONFIG_TARGETS=\
 	config/google-adsense.php \
 	config/google-analytics.php \
 	config/google-recaptcha.php \
-	config/lepton.php
+	config/lepton.php \
+	config/twitter.php
 
 all: init migrate-db
 
@@ -399,6 +400,9 @@ config/debug-ips.php:
 
 config/lepton.php:
 	cp config/lepton.sample.php $@
+
+config/twitter.php:
+	cp config/twitter.sample.php $@
 
 runtime/ikalog:
 	mkdir -p runtime/ikalog

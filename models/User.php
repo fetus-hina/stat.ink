@@ -31,8 +31,9 @@ use yii\web\IdentityInterface;
  * @property string $blackout
  *
  * @property Battle[] $battles
- * @property Slack[] $slacks
  * @property Environment $env
+ * @property Slack[] $slacks
+ * @property UserIcon $userIcon
  * @property UserStat $userStat
  * @property UserWeapon[] $userWeapons
  * @property Weapon[] $weapons
@@ -145,6 +146,14 @@ class User extends ActiveRecord implements IdentityInterface
     public function getEnv()
     {
         return $this->hasOne(Environment::className(), ['id' => 'env_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUserIcon()
+    {
+        return $this->hasOne(UserIcon::class, ['user_id' => 'id']);
     }
 
     /**

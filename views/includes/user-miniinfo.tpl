@@ -6,7 +6,11 @@
       <h2>
         <a href="{{url route="show/user" screen_name=$user->screen_name}}">
           <span class="miniinfo-user-icon">
-            {{JdenticonWidget hash=$user->identiconHash class="identicon" size="48"}}
+            {{if $user->userIcon}}
+              <img src="{{$user->userIcon->url|escape}}" width="48" height="48">
+            {{else}}
+              {{JdenticonWidget hash=$user->identiconHash class="identicon" size="48"}}
+            {{/if}}
           </span>
           <span class="miniinfo-user-name">
             {{$user->name|escape}}

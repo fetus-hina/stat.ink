@@ -36,7 +36,11 @@
       <div class="caption-line">
         <a href="{{url route="show/user" screen_name=$battle->user->screen_name}}">
           <span class="thumblist-user-icon">
-            {{JdenticonWidget hash=$battle->user->identiconHash class="identicon" size="48"}}
+            {{if $battle->user->userIcon}}
+              <img src="{{$battle->user->userIcon->url|escape}}" width="46" height="46">
+            {{else}}
+              {{JdenticonWidget hash=$battle->user->identiconHash class="identicon" size="48"}}
+            {{/if}}
           </span>
           <span class="thumblist-user-name">
             {{$battle->user->name|escape}}
