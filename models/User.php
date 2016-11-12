@@ -318,4 +318,12 @@ class User extends ActiveRecord implements IdentityInterface
             32
         );
     }
+
+    public function getJdenticonPngUrl()
+    {
+        return Url::to(
+            Yii::getAlias('@jdenticon') . '/' . rawurlencode($this->identiconHash) . '.png',
+            true
+        );
+    }
 }

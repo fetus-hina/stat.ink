@@ -10,6 +10,7 @@ namespace app\models;
 use Base32\Base32;
 use Yii;
 use yii\helpers\FileHelper;
+use yii\helpers\Url;
 use yii\web\UploadedFile;
 
 /**
@@ -130,6 +131,11 @@ class UserIcon extends \yii\db\ActiveRecord
     public function getUrl()
     {
         return Yii::getAlias('@web/profile-images') . '/' . $this->filename;
+    }
+
+    public function getAbsUrl()
+    {
+        return Url::to($this->url, true);
     }
 
     public function afterDelete()

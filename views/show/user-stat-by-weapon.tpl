@@ -9,6 +9,7 @@
   {{$this->registerMetaTag(['name' => 'twitter:title', 'content' => $title])|@void}}
   {{$this->registerMetaTag(['name' => 'twitter:description', 'content' => $title])|@void}}
   {{$this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink'])|@void}}
+  {{$this->registerMetaTag(['name' => 'twitter:image', 'content' => $user->userIcon->absUrl|default:$user->jdenticonPngUrl])|@void}}
   {{if $user->twitter != ''}}
     {{$this->registerMetaTag(['name' => 'twitter:creator', 'content' => '@'|cat:$user->twitter])|@void}}
   {{/if}}

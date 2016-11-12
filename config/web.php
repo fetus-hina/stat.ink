@@ -132,6 +132,7 @@ $config = [
                         ? 'https://img.stat.ink'
                         : '@web/images';
                 },
+                '@jdenticon' => 'https://jdenticon.stat.ink',
             ],
         ],
     ],
