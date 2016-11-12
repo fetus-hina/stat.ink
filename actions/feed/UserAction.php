@@ -196,7 +196,7 @@ class UserAction extends BaseAction
                     $battle->rule ? Yii::t('app-rule', $battle->rule->name, [], $model->lang) : '???',
                     $battle->map ? Yii::t('app-map', $battle->map->name, [], $model->lang) : '???',
                     $battle->is_win !== null
-                        ? Yii::t('app', $battle->is_win ? 'WON' : 'LOST', [], $model->lang)
+                        ? Yii::t('app', $battle->is_win ? 'Won' : 'Lost', [], $model->lang)
                         : '???',
                     Yii::t('app', '{0}-san', [$user->name], $model->lang),
                     $battle->id
