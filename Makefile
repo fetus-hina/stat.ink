@@ -411,7 +411,7 @@ runtime/ikalog/repo:
 	git clone --recursive -o origin https://github.com/hasegaw/IkaLog.git $@
 
 runtime/ikalog/winikalog.html: FORCE
-	curl -o $@ 'https://dl.dropboxusercontent.com/u/14421778/IkaLog/download.html'
+	curl -o $@ 'https://hasegaw.github.io/IkaLog/'
 
 vendor/smarty/smarty/libs/sysplugins/smarty_internal_templatecompilerbase.php: vendor FORCE
 	head -n 815 vendor/smarty/smarty/libs/sysplugins/smarty_internal_templatecompilerbase.php | tail -n 10 | grep '\\1 \\2' > /dev/null && \
