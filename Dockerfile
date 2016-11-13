@@ -20,7 +20,7 @@ RUN rpm --import \
         scl-utils \
         http://rpms.famillecollet.com/enterprise/7/safe/x86_64/remi-release-7.2-1.el7.remi.noarch.rpm \
             && \
-    curl -sS https://rpm.nodesource.com/setup_6.x | bash && \
+    curl -sS https://rpm.nodesource.com/setup_7.x | bash && \
     yum install -y \
         ImageMagick \
         brotli \
