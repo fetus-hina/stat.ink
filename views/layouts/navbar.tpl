@@ -35,18 +35,25 @@
               <ul class="dropdown-menu">
                 <li>
                   <a href="{{path route="user/login"}}">
-                    <span class="fa fa-sign-in left"></span>{{'Login'|translate:'app'|escape}}
+                    <span class="fa fa-sign-in fa-fw left"></span>{{'Login'|translate:'app'|escape}}
                   </a>
                 </li>
+                {{if $app->params['twitter']['read_enabled']}}
+                  <li>
+                    <a href="{{path route="user/login-with-twitter"}}">
+                      └ <span class="fa fa-twitter fa-fw"></span> {{'Log in with Twitter'|translate:'app'|escape}}
+                    </a>
+                  </li>
+                {{/if}}
                 <li>
                   <a href="{{path route="user/register"}}">
-                    <span class="fa fa-plus left"></span>{{'Register'|translate:'app'|escape}}
+                    <span class="fa fa-plus fa-fw left"></span>{{'Register'|translate:'app'|escape}}
                   </a>
                 </li>
                 <li class="divider"></li>
                 <li>
                   <a href="javascript:;" id="toggle-color-lock">
-                    <span class="fa fa-check left"></span>{{'Color-Blind Support'|translate:'app'|escape}}
+                    <span class="fa fa-check fa-fw left"></span>{{'Color-Blind Support'|translate:'app'|escape}}
                   </a>
                 </li>
               </ul>
@@ -91,7 +98,7 @@
               {{foreach Language::find()->orderBy('name ASC')->all() as $lang}}
                 <li>
                   <a href="javascript:;" data-lang="{{$lang->lang|escape}}" class="language-change">
-                    <span class="fa fa-check left" style="{{if $app->language !== $lang->lang}}color:transparent{{/if}}"></span>
+                    <span class="fa {{if $app->language === $lang->lang}}fa-check {{/if}}fa-fw left"></span>
                     <span class="flag-icon flag-icon-{{$lang->lang|substr:3:2|strtolower|escape}}"></span>&#32;
                     {{$lang->name|escape}} / {{$lang->name_en|escape}}
                   </a>
@@ -114,7 +121,7 @@
               {{foreach Timezone::find()->with('countries')->all() as $tz}}
                 <li>
                   <a href="javascript:;" data-tz="{{$tz->identifier|escape}}" class="timezone-change">
-                    <span class="fa fa-check left" style="{{if $app->timeZone !== $tz->identifier}}color:transparent{{/if}}"></span>
+                    <span class="fa {{if $app->timeZone === $tz->identifier}}fa-check {{/if}}fa-fw left"></span>
                     {{if $tz->countries}}
                       {{foreach $tz->countries as $cc}}
                         <span class="flag-icon flag-icon-{{$cc->key|escape}}"></span>&#32;
