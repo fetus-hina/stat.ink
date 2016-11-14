@@ -32,6 +32,7 @@ use yii\web\IdentityInterface;
  *
  * @property Battle[] $battles
  * @property Environment $env
+ * @property LoginWithTwitter $loginWithTwitter
  * @property Slack[] $slacks
  * @property UserIcon $userIcon
  * @property UserStat $userStat
@@ -130,6 +131,14 @@ class User extends ActiveRecord implements IdentityInterface
     public function getBattles()
     {
         return $this->hasMany(Battle::className(), ['user_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getLoginWithTwitter()
+    {
+        return $this->hasOne(LoginWithTwitter::class, ['user_id' => 'id']);
     }
 
     /**

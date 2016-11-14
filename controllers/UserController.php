@@ -27,6 +27,7 @@ class UserController extends Controller
                     'edit-profile',
                     'icon-twitter',
                     'login',
+                    'login-with-twitter',
                     'logout',
                     'profile',
                     'register',
@@ -39,6 +40,7 @@ class UserController extends Controller
                     [
                         'actions' => [
                             'login',
+                            'login-with-twitter',
                             'register',
                         ],
                         'roles' => ['?'],
@@ -87,12 +89,13 @@ class UserController extends Controller
         $prefix = 'app\actions\user';
         return [
             'download'      => [ 'class' => $prefix . '\DownloadAction' ],
+            'edit-icon'     => [ 'class' => $prefix . '\EditIconAction' ],
             'edit-password' => [ 'class' => $prefix . '\EditPasswordAction' ],
             'edit-profile'  => [ 'class' => $prefix . '\EditProfileAction' ],
-            'edit-icon'     => [ 'class' => $prefix . '\EditIconAction' ],
             'icon-twitter'  => [ 'class' => $prefix . '\IconTwitterAction' ],
             'language'      => [ 'class' => $prefix . '\LanguageAction' ],
             'login'         => [ 'class' => $prefix . '\LoginAction' ],
+            'login-with-twitter' => [ 'class' => $prefix . '\LoginWithTwitterAction' ],
             'logout'        => [ 'class' => $prefix . '\LogoutAction' ],
             'profile'       => [ 'class' => $prefix . '\ProfileAction' ],
             'register'      => [ 'class' => $prefix . '\RegisterAction' ],
