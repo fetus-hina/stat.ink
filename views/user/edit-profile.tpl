@@ -38,7 +38,9 @@
 
       {{$_->field($form, 'twitter', [
           'inputTemplate' => '<div class="input-group"><span class="input-group-addon"><span class="fa fa-twitter left"></span>@</span>{input}</div>'
-        ])}}
+        ])->hint(
+          Yii::t('app', 'This information will be public. Integration for "log in with twitter" can be done from the profile page.')
+        )}}
 
       {{$_->field($form, 'ikanakama', [
           'inputTemplate' => '<div class="input-group"><span class="input-group-addon">http://ikazok.net/users/</span>{input}</div>'

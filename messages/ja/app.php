@@ -336,6 +336,7 @@ return [
     'This battle was recorded with an outdated version of IkaLog. Please upgrade to the latest version.' => 'このバトルは古いIkaLogで記録されました。情報が正しく解析されないため、最新のIkaLogへアップデートしてください。',
     'This behavior was started on 27 Oct 2015.' => 'この共有は2015-10-27に開始しました。',
     'This document is under a <a href="http://creativecommons.org/licenses/by/4.0/deed.en">Creative Commons Attribution 4.0 International License</a>.' => 'この文章は<a href="http://creativecommons.org/licenses/by/4.0/deed.ja">クリエイティブ・コモンズ 表示 4.0 国際 ライセンス</a>の下に提供されています。',
+    'This information will be public. Integration for "log in with twitter" can be done from the profile page.' => 'この情報は公開されます。ツイッターでログインするための設定はプロフィールページから行えます。',
     'This is done automatically and the data will not be deleted even if the the battle is deleted.' => 'この動作は自動的に行われ、バトルの削除を行ったとしても取り消されません。',
     'This site uses cookies, as well as Google Analytics for tracking user information.' => 'このサイトはCookieを利用しており、Google Analyticsを使用してアクセス解析を行っています。',
     'This twitter account has already been integrated with another user.' => 'このTwitterアカウントはすでに別のユーザーに関連づけられています。',
