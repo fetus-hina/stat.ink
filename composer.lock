@@ -657,16 +657,16 @@
         },
         {
             "name": "bower-asset/moment",
-            "version": "2.15.2",
+            "version": "2.16.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/moment/moment.git",
-                "reference": "dc1e659b34365c98896e73e2e858f9efa4b3d5dc"
+                "reference": "73f3c91174406b24fe66f19600958a6f43f2acd8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/moment/moment/zipball/dc1e659b34365c98896e73e2e858f9efa4b3d5dc",
-                "reference": "dc1e659b34365c98896e73e2e858f9efa4b3d5dc",
+                "url": "https://api.github.com/repos/moment/moment/zipball/73f3c91174406b24fe66f19600958a6f43f2acd8",
+                "reference": "73f3c91174406b24fe66f19600958a6f43f2acd8",
                 "shasum": ""
             },
             "type": "bower-asset-library",
@@ -688,7 +688,9 @@
                     "Gruntfile.js",
                     "Moment.js.nuspec",
                     "package.js",
-                    "package.json"
+                    "package.json",
+                    "ISSUE_TEMPLATE.md",
+                    "typing-tests"
                 ]
             },
             "license": [
@@ -1761,16 +1763,16 @@
         },
         {
             "name": "php-curl-class/php-curl-class",
-            "version": "7.0.1",
+            "version": "7.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-curl-class/php-curl-class.git",
-                "reference": "459231fae786dea2b10c373e763faac7f65e178c"
+                "reference": "07dee3e18156ce9543fb86c4d327bbccc5f197c1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-curl-class/php-curl-class/zipball/459231fae786dea2b10c373e763faac7f65e178c",
-                "reference": "459231fae786dea2b10c373e763faac7f65e178c",
+                "url": "https://api.github.com/repos/php-curl-class/php-curl-class/zipball/07dee3e18156ce9543fb86c4d327bbccc5f197c1",
+                "reference": "07dee3e18156ce9543fb86c4d327bbccc5f197c1",
                 "shasum": ""
             },
             "require": {
@@ -1814,7 +1816,7 @@
                 "web service",
                 "xml"
             ],
-            "time": "2016-09-27 07:35:34"
+            "time": "2016-11-13 11:11:22"
         },
         {
             "name": "rmrevin/yii2-fontawesome",
@@ -3564,16 +3566,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "5.6.2",
+            "version": "5.6.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "cd13b23ac5a519a4708e00736c26ee0bb28b2e01"
+                "reference": "a9de0dbafeb6b1391b391fbb034734cb0af9f67c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/cd13b23ac5a519a4708e00736c26ee0bb28b2e01",
-                "reference": "cd13b23ac5a519a4708e00736c26ee0bb28b2e01",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/a9de0dbafeb6b1391b391fbb034734cb0af9f67c",
+                "reference": "a9de0dbafeb6b1391b391fbb034734cb0af9f67c",
                 "shasum": ""
             },
             "require": {
@@ -3642,7 +3644,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2016-10-25 07:40:25"
+            "time": "2016-11-14 06:39:40"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -4177,16 +4179,16 @@
         },
         {
             "name": "sebastian/recursion-context",
-            "version": "1.0.2",
+            "version": "1.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/recursion-context.git",
-                "reference": "913401df809e99e4f47b27cdd781f4a258d58791"
+                "reference": "938df7a6478e72795e5f8266cff24d06e3136f2e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/recursion-context/zipball/913401df809e99e4f47b27cdd781f4a258d58791",
-                "reference": "913401df809e99e4f47b27cdd781f4a258d58791",
+                "url": "https://api.github.com/repos/sebastianbergmann/recursion-context/zipball/938df7a6478e72795e5f8266cff24d06e3136f2e",
+                "reference": "938df7a6478e72795e5f8266cff24d06e3136f2e",
                 "shasum": ""
             },
             "require": {
@@ -4226,7 +4228,7 @@
             ],
             "description": "Provides functionality to recursively process PHP variables",
             "homepage": "http://www.github.com/sebastianbergmann/recursion-context",
-            "time": "2015-11-11 19:50:13"
+            "time": "2016-11-15 06:55:36"
         },
         {
             "name": "sebastian/resource-operations",
@@ -4786,16 +4788,16 @@
         },
         {
             "name": "symfony/polyfill-mbstring",
-            "version": "v1.2.0",
+            "version": "v1.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-mbstring.git",
-                "reference": "dff51f72b0706335131b00a7f49606168c582594"
+                "reference": "e79d363049d1c2128f133a2667e4f4190904f7f4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/dff51f72b0706335131b00a7f49606168c582594",
-                "reference": "dff51f72b0706335131b00a7f49606168c582594",
+                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/e79d363049d1c2128f133a2667e4f4190904f7f4",
+                "reference": "e79d363049d1c2128f133a2667e4f4190904f7f4",
                 "shasum": ""
             },
             "require": {
@@ -4807,7 +4809,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.2-dev"
+                    "dev-master": "1.3-dev"
                 }
             },
             "autoload": {
@@ -4841,7 +4843,7 @@
                 "portable",
                 "shim"
             ],
-            "time": "2016-05-18 14:26:46"
+            "time": "2016-11-14 01:06:16"
         },
         {
             "name": "symfony/process",
