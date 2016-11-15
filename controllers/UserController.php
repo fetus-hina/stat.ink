@@ -22,6 +22,7 @@ class UserController extends Controller
             'access' => [
                 'class' => AccessControl::className(),
                 'only' => [
+                    'clear-login-with-twitter',
                     'edit-icon',
                     'edit-password',
                     'edit-profile',
@@ -35,6 +36,7 @@ class UserController extends Controller
                     'slack-delete',
                     'slack-suspend',
                     'slack-test',
+                    'update-login-with-twitter',
                 ],
                 'rules' => [
                     [
@@ -48,6 +50,7 @@ class UserController extends Controller
                     ],
                     [
                         'actions' => [
+                            'clear-login-with-twitter',
                             'edit-icon',
                             'edit-password',
                             'edit-profile',
@@ -58,6 +61,7 @@ class UserController extends Controller
                             'slack-delete',
                             'slack-suspend',
                             'slack-test',
+                            'update-login-with-twitter',
                         ],
                         'roles' => ['@'],
                         'allow' => true,
@@ -88,6 +92,7 @@ class UserController extends Controller
     {
         $prefix = 'app\actions\user';
         return [
+            'clear-login-with-twitter' => [ 'class' => $prefix . '\ClearLoginWithTwitterAction' ],
             'download'      => [ 'class' => $prefix . '\DownloadAction' ],
             'edit-icon'     => [ 'class' => $prefix . '\EditIconAction' ],
             'edit-password' => [ 'class' => $prefix . '\EditPasswordAction' ],
@@ -104,6 +109,7 @@ class UserController extends Controller
             'slack-suspend' => [ 'class' => $prefix . '\SlackSuspendAction' ],
             'slack-test'    => [ 'class' => $prefix . '\SlackTestAction' ],
             'timezone'      => [ 'class' => $prefix . '\TimezoneAction' ],
+            'update-login-with-twitter' => [ 'class' => $prefix . '\UpdateLoginWithTwitterAction' ],
         ];
     }
 }

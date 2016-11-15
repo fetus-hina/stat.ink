@@ -168,6 +168,94 @@
           </tbody>
         </table>
         <h2>
+          {{'Log in with other services'|translate:'app'|escape}}
+        </h2>
+        <table class="table table-striped">
+          <tbody>
+            <tr>
+              <th>
+                <span class="fa fa-twitter left"></span>
+                Twitter
+              </th>
+              <td>
+                {{if $app->params['twitter']['read_enabled']}}
+                  {{$_tw = $user->loginWithTwitter}}
+                  {{if $_tw}}
+{{registerJs}}{{/strip}}{{literal}}
+(function() {
+  if (window.__twitterIntentHandler) return;
+  var intentRegex = /twitter\.com\/intent\/(\w+)/,
+      windowOptions = 'scrollbars=yes,resizable=yes,toolbar=no,location=yes',
+      width = 550,
+      height = 420,
+      winHeight = screen.height,
+      winWidth = screen.width;
+
+  function handleIntent(e) {
+    e = e || window.event;
+    var target = e.target || e.srcElement,
+        m, left, top;
+
+    while (target && target.nodeName.toLowerCase() !== 'a') {
+      target = target.parentNode;
+    }
+
+    if (target && target.nodeName.toLowerCase() === 'a' && target.href) {
+      m = target.href.match(intentRegex);
+      if (m) {
+        left = Math.round((winWidth / 2) - (width / 2));
+        top = 0;
+
+        if (winHeight > height) {
+          top = Math.round((winHeight / 2) - (height / 2));
+        }
+
+        window.open(target.href, 'intent', windowOptions + ',width=' + width +
+                                           ',height=' + height + ',left=' + left + ',top=' + top);
+        e.returnValue = false;
+        e.preventDefault && e.preventDefault();
+      }
+    }
+  }
+
+  if (document.addEventListener) {
+    document.addEventListener('click', handleIntent, false);
+  } else if (document.attachEvent) {
+    document.attachEvent('onclick', handleIntent);
+  }
+  window.__twitterIntentHandler = true;
+}());
+{{/literal}}{{strip}}{{/registerJs}}
+                    <a href="https://twitter.com/intent/user?user_id={{$_tw->twitter_id|escape:url}}">
+                      @{{$_tw->screen_name|escape}}
+                    </a>
+                    &#32;
+                    ({{$_tw->name|escape}})
+                    &#32;
+                    <a href="{{url route="user/update-login-with-twitter"}}" class="btn btn-primary">
+                      <span class="fa fa-link left"></span>
+                      {{'Another account'|translate:'app'|escape}}
+                    </a>
+                    &#32;
+                    <a href="{{url route="user/clear-login-with-twitter"}}" class="btn btn-danger">
+                      <span class="fa fa-undo left"></span>
+                      {{'Unlink account'|translate:'app'|escape}}
+                    </a>
+                  {{else}}
+                    {{'Disabled'|translate:'app'|escape}}&#32;
+                    <a href="{{url route="user/update-login-with-twitter"}}" class="btn btn-primary">
+                      <span class="fa fa-link left"></span>
+                      {{'Integrate'|translate:'app'|escape}}
+                    </a>
+                  {{/if}}
+                {{else}}
+                  {{'Not configured.'|translate:'app'|escape}}
+                {{/if}}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <h2>
           {{'Slack Integration'|translate:'app'|escape}}
 
           <a href="{{url route="user/slack-add"}}" class="btn btn-primary" style="margin-left:30px">
