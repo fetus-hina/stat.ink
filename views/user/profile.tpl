@@ -238,7 +238,7 @@
                     </a>
                     &#32;
                     <a href="{{url route="user/clear-login-with-twitter"}}" class="btn btn-danger">
-                      <span class="fa fa-undo left"></span>
+                      <span class="fa fa-unlink left"></span>
                       {{'Unlink account'|translate:'app'|escape}}
                     </a>
                   {{else}}
