@@ -1,6 +1,6 @@
-diff -ru php70.o/php-fpm.d/www.conf php70/php-fpm.d/www.conf
---- php70.o/php-fpm.d/www.conf  2015-12-16 13:37:00.000000000 +0000
-+++ php70/php-fpm.d/www.conf    2016-01-04 07:55:24.117712908 +0000
+diff -ru php71.o/php-fpm.d/www.conf php71/php-fpm.d/www.conf
+--- php71.o/php-fpm.d/www.conf  2015-12-16 13:37:00.000000000 +0000
++++ php71/php-fpm.d/www.conf    2016-01-04 07:55:24.117712908 +0000
 @@ -21,7 +21,7 @@
  ; Note: The user is mandatory. If the group is not set, the default user's group
  ;       will be used.
@@ -11,15 +11,15 @@ diff -ru php70.o/php-fpm.d/www.conf php70/php-fpm.d/www.conf
  group = apache
 
 @@ -420,3 +420,6 @@
- php_value[soap.wsdl_cache_dir]  = /var/opt/remi/php70/lib/php/wsdlcache
+ php_value[soap.wsdl_cache_dir]  = /var/opt/remi/php71/lib/php/wsdlcache
 
- ;php_value[opcache.file_cache]  = /var/opt/remi/php70/lib/php/opcache
+ ;php_value[opcache.file_cache]  = /var/opt/remi/php71/lib/php/opcache
 +
 +php_admin_value[upload_max_filesize] = 12M
 +php_admin_value[post_max_size] = 13M
-diff -ru php70.o/php.ini php70/php.ini
---- php70.o/php.ini     2015-12-16 13:37:00.000000000 +0000
-+++ php70/php.ini       2016-01-04 07:55:38.100712838 +0000
+diff -ru php71.o/php.ini php71/php.ini
+--- php71.o/php.ini     2015-12-16 13:37:00.000000000 +0000
++++ php71/php.ini       2016-01-04 07:55:38.100712838 +0000
 @@ -356,7 +356,7 @@
  ; threat in any way, but it makes it possible to determine whether you use PHP
  ; on your server or not.

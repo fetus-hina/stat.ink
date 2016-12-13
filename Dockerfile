@@ -33,20 +33,20 @@ RUN rpm --import \
         make \
         nodejs \
         patch \
-        php70-php-cli \
-        php70-php-fpm \
-        php70-php-gd \
-        php70-php-intl \
-        php70-php-json \
-        php70-php-mbstring \
-        php70-php-mcrypt \
-        php70-php-opcache \
-        php70-php-pdo \
-        php70-php-pecl-msgpack \
-        php70-php-pecl-zip \
-        php70-php-pgsql \
-        php70-php-xml \
-        php70-runtime \
+        php71-php-cli \
+        php71-php-fpm \
+        php71-php-gd \
+        php71-php-intl \
+        php71-php-json \
+        php71-php-mbstring \
+        php71-php-mcrypt \
+        php71-php-opcache \
+        php71-php-pdo \
+        php71-php-pecl-msgpack \
+        php71-php-pecl-zip \
+        php71-php-pgsql \
+        php71-php-xml \
+        php71-runtime \
         pngcrush \
         rh-postgresql95-postgresql \
         rh-postgresql95-postgresql-server \
@@ -72,7 +72,7 @@ USER postgres
 RUN scl enable rh-postgresql95 'initdb --pgdata=/var/opt/rh/rh-postgresql95/lib/pgsql/data --encoding=UNICODE --locale=en_US.UTF8'
 ADD docker/database/pg_hba.conf /var/opt/rh/rh-postgresql95/lib/pgsql/data/pg_hba.conf
 ADD docker/database/password.php /var/opt/rh/rh-postgresql95/lib/pgsql/
-RUN scl enable rh-postgresql95 php70 ' \
+RUN scl enable rh-postgresql95 php71 ' \
         /opt/rh/rh-postgresql95/root/usr/libexec/postgresql-ctl start -D /var/opt/rh/rh-postgresql95/lib/pgsql/data -s -w && \
         createuser -DRS statink && \
         createdb -E UNICODE -O statink -T template0 statink && \
@@ -88,7 +88,7 @@ RUN cd ~statink/stat.ink && \
         su postgres -c "/opt/rh/rh-postgresql95/root/usr/libexec/postgresql-ctl stop -D /var/opt/rh/rh-postgresql95/lib/pgsql/data -s -m fast"'
 
 ADD docker/php/php-config.diff /tmp/
-RUN patch -p1 -d /etc/opt/remi/php70 < /tmp/php-config.diff && rm /tmp/php-config.diff
+RUN patch -p1 -d /etc/opt/remi/php71 < /tmp/php-config.diff && rm /tmp/php-config.diff
 
 ADD docker/h2o/h2o.conf /etc/h2o/h2o.conf
 
