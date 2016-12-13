@@ -14,17 +14,21 @@ https://stat.ink/ のソースコードです。
 動作環境
 --------
 
-* PHP 7.0+ (5.6 以下では動作しません)
-* PostgreSQL 9.5+ (9.4 以下では動作しません)
+* PHP 7.0+
+    - 5.6 以下では動作しません
+    - 7.0 で動作するはずですが、7.1 で開発・運用のため 7.1 を推奨します
+* PostgreSQL 9.5+
+    - 9.4 以下では動作しません
 * ImageMagick (`convert`)
 * Node.js (`npm`)
+    - 6.x または 7.x を推奨
 * `jpegoptim`
 * `pngcrush`
 * Brotli (`bro`)
 
 https://stat.ink/ は現在次の構成で動作しています。（Docker で用意しているものとほぼ同じです）
 
-* CentOS 7.2.1511 (x86_64)
+* CentOS 7.3.1611 (x86_64)
 * [JP3CKI Repository](https://rpm.fetus.jp/)
     - [H2O](https://h2o.examp1e.net/) 2.1
     - [Brotli](https://github.com/google/brotli)
@@ -35,18 +39,18 @@ https://stat.ink/ は現在次の構成で動作しています。（Docker で�
             - `rh-postgresql95-postgresql-server`
 * [Remi's RPM repository](http://rpms.famillecollet.com/)
     - `remi-safe` repository, it uses SCL mechanism
-        - PHP 7.0.*
-            - `php70-php-cli`
-            - `php70-php-fpm`
-            - `php70-php-gd`
-            - `php70-php-intl`
-            - `php70-php-mbstring`
-            - `php70-php-mcrypt`
-            - `php70-php-pdo`
-            - `php70-php-pecl-msgpack`
-            - `php70-php-pgsql`
+        - PHP 7.1.*
+            - `php71-php-cli`
+            - `php71-php-fpm`
+            - `php71-php-gd`
+            - `php71-php-intl`
+            - `php71-php-mbstring`
+            - `php71-php-mcrypt`
+            - `php71-php-pdo`
+            - `php71-php-pecl-msgpack`
+            - `php71-php-pgsql`
 * [Node.js Repository](https://nodejs.org/en/download/package-manager/#enterprise-linux-and-fedora)
-    - [Node.js](https://nodejs.org/) 6.x
+    - [Node.js](https://nodejs.org/) 7.x
         - `nodejs`
 
 CentOS 7 の標準 PHP は 5.4.16 です。このバージョンでは動作しません。（PHP 7.0 で追加された機能を使用しています（`TheClass::class`、匿名クラスなど））
