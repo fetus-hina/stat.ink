@@ -53,7 +53,12 @@
                 <li class="divider"></li>
                 <li>
                   <a href="javascript:;" id="toggle-color-lock">
-                    <span class="fa fa-check fa-fw left"></span>{{'Color-Blind Support'|translate:'app'|escape}}
+                    <span class="fa fa-fw left"></span>{{'Color-Blind Support'|translate:'app'|escape}}
+                  </a>
+                </li>
+                <li>
+                  <a href="javascript:;" id="toggle-use-fluid">
+                    <span class="fa fa-fw left"></span>{{'Use full width of the screen'|translate:'app'|escape}}
                   </a>
                 </li>
               </ul>
@@ -84,7 +89,12 @@
                 <li class="divider"></li>
                 <li>
                   <a href="javascript:;" id="toggle-color-lock">
-                    <span class="fa fa-check left"></span>{{'Color-Blind Support'|translate:'app'|escape}}
+                    <span class="fa left"></span>{{'Color-Blind Support'|translate:'app'|escape}}
+                  </a>
+                </li>
+                <li>
+                  <a href="javascript:;" id="toggle-use-fluid">
+                    <span class="fa fa-fw left"></span>{{'Use full width of the screen'|translate:'app'|escape}}
                   </a>
                 </li>
               </ul>

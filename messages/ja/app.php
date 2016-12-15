@@ -367,6 +367,7 @@ return [
     'Upload icon' => 'アイコンをアップロード',
     'Upload new image' => '新しい画像をアップロード',
     'Use %' => '使用率',
+    'Use full width of the screen' => '画面の横幅いっぱいを使う',
     'Use profile icon of your twitter account' => 'Twitterアカウントのプロフィール画像を使用',
     'Use your profile icon' => 'プロフィール画像を使用',
     'User Agents in last 24 hours' => '最近24時間の使用クライアント',

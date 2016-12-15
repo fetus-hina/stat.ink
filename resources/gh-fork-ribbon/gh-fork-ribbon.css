@@ -4,3 +4,6 @@
         display: none!important;
     }
 }
+body.use-fluid .github-fork-ribbon-wrapper {
+    display: none!important;
+}
