@@ -133,13 +133,6 @@
           </ul>
         </div>
       </div>
-      {{if $fest->region->key == 'jp'}}
-        <p class="text-right" style="font-size:10px;line-height:1.1">
-          Powered by <a href="http://splapi.retrorocket.biz/" target="_blank" rel="nofollow">
-            スプラトゥーンのステージじょうほうがとれるやつ
-          </a>
-        </p>
-      {{/if}}
       <p class="text-right" style="font-size:10px;line-height:1.1">
         勝率推計：
         <a href="{{url route="fest/view" region=$fest->region->key order=$fest->order}}">{{$app->name|escape}}の投稿情報</a>
@@ -302,11 +295,6 @@
             </div>
           </div>
         {{/if}}
-        <p class="text-right" style="font-size:10px;line-height:1.1">
-          Powered by <a href="http://splapi.retrorocket.biz/" target="_blank" rel="nofollow">
-            スプラトゥーンのステージじょうほうがとれるやつ
-          </a>
-        </p>
       {{/if}}
     {{/if}}
 

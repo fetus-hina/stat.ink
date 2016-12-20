@@ -80,8 +80,8 @@ class SplapiController extends Controller
                 },
                 $this->queryJson(
                     $futureOnly
-                        ? 'http://splapi.retrorocket.biz/regular/next_all'
-                        : 'http://splapi.retrorocket.biz/regular'
+                        ? 'https://splapi.fetus.jp/regular/next_all'
+                        : 'https://splapi.fetus.jp/regular'
                 )->result
             ),
             function ($item) use ($latestPeriod) {
@@ -143,8 +143,8 @@ class SplapiController extends Controller
                 },
                 $this->queryJson(
                     $futureOnly
-                        ? 'http://splapi.retrorocket.biz/gachi/next_all'
-                        : 'http://splapi.retrorocket.biz/gachi'
+                        ? 'https://splapi.fetus.jp/gachi/next_all'
+                        : 'https://splapi.fetus.jp/gachi'
                 )->result
             ),
             function ($item) use ($latestPeriod) {
@@ -220,7 +220,7 @@ class SplapiController extends Controller
 
         echo "splatfest...\n";
 
-        $json = $this->queryJson('http://splapi.retrorocket.biz/fes');
+        $json = $this->queryJson('https://splapi.fetus.jp/fes');
         foreach ($json->result as $data) {
             $start_at = strtotime($data->start);
             $end_at = strtotime($data->end);

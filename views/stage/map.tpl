@@ -89,10 +89,6 @@
         </div>
       {{/foreach}}
     </div>
-
-    <p class="text-right" style="font-size:10px;line-height:1.1">
-      Powered by <a href="http://splapi.retrorocket.biz/" rel="nofollow" target="_blank">スプラトゥーンのステージじょうほうがとれるやつ</a>.
-    </p>
   </div>
   {{registerCss}}
     td.range{width:1em;text-align:center;padding-left:0;padding-right:0}
