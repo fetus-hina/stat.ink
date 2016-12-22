@@ -33,7 +33,7 @@ class Youtube extends Widget
             if (filter_var($this->timeCode, FILTER_VALIDATE_INT)) {
                 $params['start'] = (string)(int)$this->timeCode;
             } elseif (preg_match('/^(?:(\d+)h)?(?:(\d+)m)?(?:(\d+)s)?$/', $this->timeCode, $match)) {
-                $params['start'] = (string)(($match[1] ?? 0) * 3600 + ($match[2] ?? 0) * 60 + ($match[3] ?? 0));
+                $params['start'] = (string)(($match[1] ?: 0) * 3600 + ($match[2] ?: 0) * 60 + ($match[3] ?: 0));
             }
         }
         $iframe = Html::tag('iframe', '', [
