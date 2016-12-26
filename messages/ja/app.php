@@ -382,7 +382,7 @@ return [
     'Weapon | {weapon}' => 'ブキ | {weapon}',
     'Weapon' => 'ブキ',
     'Weapons' => 'ブキ',
-    'Weapons\' icon were created by {0}.' => 'ブキアイコンは{0}によって作成・提供されています。',
+    'Weapons\' icon were created by {0}.' => 'ブキアイコンは{0}様が作成されたものを使用しています。',
     'Webhook URL' => 'Webhook URL',
     'Win % (Total)' => '勝率（全体）',
     'Win % ({0} Battles)' => '勝率（{0}戦）',
