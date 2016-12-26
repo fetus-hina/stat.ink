@@ -61,6 +61,11 @@ class IconTwitterAction extends BaseAction
                         throw new \Exception('Could not get binary');
                     }
                     $transaction = Yii::$app->db->beginTransaction();
+                    if ($icon = UserIcon::findOne(['user_id' => Yii::$app->user->identity->id])) {
+                        if (!$icon->delete()) {
+                            throw new \Exception('UserIcon::delete failed');
+                        }
+                    }
                     $icon = UserIcon::createNew(Yii::$app->user->identity->id, $binary);
                     if (!$icon->save()) {
                         throw new \Exception('UserIcon::save failed');
