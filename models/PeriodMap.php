@@ -147,4 +147,18 @@ class PeriodMap extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Rule::className(), ['id' => 'rule_id']);
     }
+
+    public function getWeaponTrends()
+    {
+        $query = StatWeaponMapTrend::find()
+            ->andWhere([
+                'rule_id' => $this->rule_id,
+                'map_id' => $this->map_id,
+            ])
+            ->orderBy('[[battles]] DESC')
+            ->with('weapon')
+            ->limit(5);
+        $query->multiple = true;
+        return $query;
+    }
 }

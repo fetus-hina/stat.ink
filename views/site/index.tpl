@@ -183,52 +183,25 @@
             {{/registerJs}}
           {{/if}}
         </h2>
+        <p class="text-right" style="margin:0">
+          <a href="http://graystar0907.wixsite.com/bukiicons" rel="external">
+            {{"Weapons' icon were created by {0}."|translate:'app':'Stylecase'|escape}}
+          </a>
+        </p>
         <div class="row">
           <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
-            <h3>
-              {{$stageInfo->current->regular.0->rule->name|translate:'app-rule'|escape}}
-            </h3>
-            <ul class="battles maps">
-              {{foreach $stageInfo->current->regular as $_}}
-                <li>
-                  <div class="thumbnail thumbnail-{{$stageInfo->current->regular.0->rule->key|escape}}">
-                    {{$mapFile = 'daytime/'|cat:$_->map->key:'.jpg'}}
-                    <img src="{{$app->assetManager->getAssetUrl(
-                        $app->assetManager->getBundle('app\assets\MapImageAsset'),
-                        $mapFile
-                      )}}">
-                    <div class="caption row">
-                      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 omit">
-                        {{$_->map->name|translate:'app-map'|escape}}
-                      </div>
-                    </div>
-                  </div>
-                </li>
-              {{/foreach}}
-            </ul>
+            {{include
+                file="@app/views/site/_index_stage.tpl"
+                rule=$stageInfo->current->regular.0->rule
+                stages=$stageInfo->current->regular
+            }}
           </div>
           <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
-            <h3>
-              {{$stageInfo->current->gachi.0->rule->name|translate:'app-rule'|escape}}
-            </h3>
-            <ul class="battles maps">
-              {{foreach $stageInfo->current->gachi as $_}}
-                <li>
-                  <div class="thumbnail thumbnail-{{$stageInfo->current->gachi.0->rule->key|escape}}">
-                    {{$mapFile = 'daytime/'|cat:$_->map->key:'.jpg'}}
-                    <img src="{{$app->assetManager->getAssetUrl(
-                        $app->assetManager->getBundle('app\assets\MapImageAsset'),
-                        $mapFile
-                      )}}">
-                    <div class="caption row">
-                      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 omit">
-                        {{$_->map->name|translate:'app-map'|escape}}
-                      </div>
-                    </div>
-                  </div>
-                </li>
-              {{/foreach}}
-            </ul>
+            {{include
+                file="@app/views/site/_index_stage.tpl"
+                rule=$stageInfo->current->gachi.0->rule
+                stages=$stageInfo->current->gachi
+            }}
           </div>
         </div>
         {{if $stageInfo->next->regular && $stageInfo->next->gachi}}
@@ -247,50 +220,18 @@
             </h2>
             <div class="row">
               <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
-                <h3>
-                  {{$stageInfo->next->regular.0->rule->name|translate:'app-rule'|escape}}
-                </h3>
-                <ul class="battles maps">
-                  {{foreach $stageInfo->next->regular as $_}}
-                    <li>
-                      <div class="thumbnail thumbnail-{{$stageInfo->next->regular.0->rule->key|escape}}">
-                        {{$mapFile = 'daytime/'|cat:$_->map->key:'.jpg'}}
-                        <img src="{{$app->assetManager->getAssetUrl(
-                            $app->assetManager->getBundle('app\assets\MapImageAsset'),
-                            $mapFile
-                          )}}">
-                        <div class="caption row">
-                          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 omit">
-                            {{$_->map->name|translate:'app-map'|escape}}
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-                  {{/foreach}}
-                </ul>
+                {{include
+                    file="@app/views/site/_index_stage.tpl"
+                    rule=$stageInfo->next->regular.0->rule
+                    stages=$stageInfo->next->regular
+                }}
               </div>
               <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
-                <h3>
-                  {{$stageInfo->next->gachi.0->rule->name|translate:'app-rule'|escape}}
-                </h3>
-                <ul class="battles maps">
-                  {{foreach $stageInfo->next->gachi as $_}}
-                    <li>
-                      <div class="thumbnail thumbnail-{{$stageInfo->next->gachi.0->rule->key|escape}}">
-                        {{$mapFile = 'daytime/'|cat:$_->map->key:'.jpg'}}
-                        <img src="{{$app->assetManager->getAssetUrl(
-                            $app->assetManager->getBundle('app\assets\MapImageAsset'),
-                            $mapFile
-                          )}}">
-                        <div class="battle-data row">
-                          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 omit">
-                            {{$_->map->name|translate:'app-map'|escape}}
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-                  {{/foreach}}
-                </ul>
+                {{include
+                    file="@app/views/site/_index_stage.tpl"
+                    rule=$stageInfo->next->gachi.0->rule
+                    stages=$stageInfo->next->gachi
+                }}
               </div>
             </div>
           </div>
