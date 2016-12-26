@@ -21,6 +21,7 @@ use app\models\StatWeaponKillDeath;
 use app\models\StatWeaponUseCount;
 use app\models\StatWeaponUseCountPerWeek;
 use app\models\StatWeaponVsWeapon;
+use app\components\helpers\Battle as BattleHelper;
 use yii\console\Controller;
 use yii\helpers\Console;
 
@@ -735,6 +736,80 @@ class StatController extends Controller
 
         echo "Executing {$upsertWeek} ...\n";
         $db->createCommand($upsertWeek)->execute();
+
+        $transaction->commit();
+
+        $this->actionUpdateWeaponUseTrend();
+    }
+
+    /**
+     * 全体統計 - ブキトレンドデータ
+     *
+     * これを実行しないと当該統計は表示されません。
+     */
+    public function actionUpdateWeaponUseTrend()
+    {
+        $db = Yii::$app->db;
+        $select = (new \yii\db\Query())
+            ->select([
+                'rule_id'   => '{{battle}}.[[rule_id]]',
+                'map_id'    => '{{battle}}.[[map_id]]',
+                'weapon_id' => '{{battle_player}}.[[weapon_id]]',
+                'battles'   => 'COUNT(*)',
+            ])
+            ->from('battle')
+            ->innerJoin('lobby', '{{battle}}.[[lobby_id]] = {{lobby}}.[[id]]')
+            ->innerJoin('rule', '{{battle}}.[[rule_id]] = {{rule}}.[[id]]')
+            ->innerJoin('battle_player', '{{battle}}.[[id]] = {{battle_player}}.[[battle_id]]')
+            ->andWhere(['and',
+                ['not', ['{{battle}}.[[is_win]]' => null]],
+                ['not', ['{{battle}}.[[map_id]]' => null]],
+                ['{{battle}}.[[is_automated]]' => true],
+                ['{{battle}}.[[use_for_entire]]' => true],
+                ['<>', '{{lobby}}.[[key]]', 'private'],
+                ['not', ['{{battle_player}}.[[weapon_id]]' => null]],
+                ['{{battle_player}}.[[is_me]]' => false],
+                ['>=', '{{battle}}.[[period]]', BattleHelper::calcPeriod(time()) - 6 * 30], // 最近 30 日分(= 180 ピリオド)
+
+                // ルール別の除外設定
+                ['or',
+                    // ナワバリバトルなら全部 OK
+                    ['{{rule}}.[[key]]' => 'nawabari'],
+
+                    // 通常マッチ（とついでにフェス）なら全部 OK
+                    ['{{lobby}}.[[key]]' => ['standard', 'fest']],
+
+                    // タッグマッチは敵だけ使う
+                    ['and',
+                        ['{{battle}}.[[lobby_id]]' => Lobby::find()
+                                                            ->select('id')
+                                                            ->where(['like', 'key', 'squad_%', false])
+                                                            ->column()],
+                        ['{{battle_player}}.[[is_my_team]]' => false],
+                    ],
+                ],
+            ])
+            ->groupBy(implode(', ', [
+                '{{battle}}.[[rule_id]]',
+                '{{battle}}.[[map_id]]',
+                '{{battle_player}}.[[weapon_id]]',
+            ]));
+        $insertTrend = sprintf(
+            'INSERT INTO {{stat_weapon_map_trend}} ( %s ) %s',
+            implode(', ', array_map(function (string $a) : string {
+                return "[[{$a}]]";
+            }, array_keys($select->select))),
+            $select->createCommand()->rawSql
+        );
+
+        $transaction = $db->beginTransaction();
+
+        echo "Cleanup trend...\n";
+        $db->createCommand('DELETE FROM {{stat_weapon_map_trend}}')->execute();
+
+        echo "Insert trend...\n";
+        $db->createCommand($insertTrend)->execute();
+
         $transaction->commit();
     }
 }
