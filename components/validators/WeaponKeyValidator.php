@@ -61,7 +61,7 @@ class WeaponKeyValidator extends Validator
                         ->count());
 
             case static::PREFIX_SUB_WEAPON:
-                return ($this->enableSubWeapon) && 
+                return ($this->enableSubWeapon) &&
                     (1 == Subweapon::find()
                         ->where(['key' => substr($value, 1)])
                         ->count());

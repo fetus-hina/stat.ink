@@ -618,7 +618,10 @@ class StatController extends Controller
                 'rule_id'   => '{{battle}}.[[rule_id]]',
                 'weapon_id' => '{{battle_player}}.[[weapon_id]]',
                 'battles'   => 'COUNT(*)',
-                'wins'      => 'SUM(CASE WHEN {{battle}}.[[is_win]] = {{battle_player}}.[[is_my_team]] THEN 1 ELSE 0 END)',
+                'wins'      => sprintf('SUM(CASE %s END)', implode(' ', [
+                    'WHEN {{battle}}.[[is_win]] = {{battle_player}}.[[is_my_team]] THEN 1',
+                    'ELSE 0',
+                ])),
             ])
             ->from('battle')
             ->innerJoin('lobby', '{{battle}}.[[lobby_id]] = {{lobby}}.[[id]]')

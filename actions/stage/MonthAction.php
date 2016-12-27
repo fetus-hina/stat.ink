@@ -108,9 +108,9 @@ class MonthAction extends BaseAction
     {
         $q = Map::find()
             ->andWhere(['<=', 'release_at', date(
-                    'Y-m-d\TH:i:sP',
-                    BattleHelper::periodToRange($this->periodE)[1]
-                )
+                'Y-m-d\TH:i:sP',
+                BattleHelper::periodToRange($this->periodE)[1]
+            )
             ]);
         $ret = [];
         foreach ($q->all() as $_) {

@@ -157,7 +157,8 @@ class UserStatVsWeaponAction extends BaseAction
         }
 
         $db->createCommand(sprintf(
-            'INSERT INTO tmp_battle (battle_id) %s', $query->createCommand()->rawSql
+            'INSERT INTO tmp_battle (battle_id) %s',
+            $query->createCommand()->rawSql
         ))->execute();
     }
 

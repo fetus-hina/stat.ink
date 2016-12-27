@@ -92,10 +92,10 @@ class WeaponCompareForm extends Model
     {
         $weapons = array_map(function ($i) {
             return "weapon{$i}";
-        }, range(1,static::NUMBER));
+        }, range(1, static::NUMBER));
         $rules = array_map(function ($i) {
             return "rule{$i}";
-        }, range(1,static::NUMBER));
+        }, range(1, static::NUMBER));
         return [
             [$weapons, WeaponKeyValidator::class],
             [$rules, 'safe',

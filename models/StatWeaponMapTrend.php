@@ -1,4 +1,9 @@
 <?php
+/**
+ * @copyright Copyright (C) 2016 AIZAWA Hina
+ * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
+ * @author AIZAWA Hina <hina@bouhime.com>
+ */
 
 namespace app\models;
 
@@ -34,9 +39,18 @@ class StatWeaponMapTrend extends \yii\db\ActiveRecord
         return [
             [['rule_id', 'map_id', 'weapon_id', 'battles'], 'required'],
             [['rule_id', 'map_id', 'weapon_id', 'battles'], 'integer'],
-            [['map_id'], 'exist', 'skipOnError' => true, 'targetClass' => Map::className(), 'targetAttribute' => ['map_id' => 'id']],
-            [['rule_id'], 'exist', 'skipOnError' => true, 'targetClass' => Rule::className(), 'targetAttribute' => ['rule_id' => 'id']],
-            [['weapon_id'], 'exist', 'skipOnError' => true, 'targetClass' => Weapon::className(), 'targetAttribute' => ['weapon_id' => 'id']],
+            [['map_id'], 'exist', 'skipOnError' => true,
+                'targetClass' => Map::className(),
+                'targetAttribute' => ['map_id' => 'id']
+            ],
+            [['rule_id'], 'exist', 'skipOnError' => true,
+                'targetClass' => Rule::className(),
+                'targetAttribute' => ['rule_id' => 'id']
+            ],
+            [['weapon_id'], 'exist', 'skipOnError' => true,
+                'targetClass' => Weapon::className(),
+                'targetAttribute' => ['weapon_id' => 'id']
+            ],
         ];
     }
 

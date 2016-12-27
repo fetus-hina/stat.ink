@@ -127,8 +127,7 @@ class Agent extends \yii\db\ActiveRecord
                 );
             }
         }
-        if ($this->getIsStatinkWeb())
-        {
+        if ($this->getIsStatinkWeb()) {
             if (preg_match('/\(([0-9a-f]{7,}\b)/', $this->version, $match)) {
                 $version = Version::getFullHash($match[1]);
                 if ($version) {

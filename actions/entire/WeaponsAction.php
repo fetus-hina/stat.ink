@@ -94,7 +94,9 @@ class WeaponsAction extends BaseAction
         }
 
         $weapons = Weapon::findAll([
-            'id' => array_map(function ($_) { return $_['weapon_id']; }, $trends),
+            'id' => array_map(function ($_) {
+                return $_['weapon_id'];
+            }, $trends),
         ]);
 
         return array_map(function (array $_) use ($trends, $weapons) : array {

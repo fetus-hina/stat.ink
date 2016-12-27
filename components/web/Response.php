@@ -23,8 +23,8 @@ class Response extends Base
                 return;
             }
             if (Yii::$app->controller->id ?? null === 'user' &&
-                Yii::$app->controller->action->id ?? null === 'download')
-            {
+                Yii::$app->controller->action->id ?? null === 'download'
+            ) {
                 return;
             }
             if (ob_start('ob_gzhandler')) {

@@ -83,7 +83,7 @@ class WeaponsUseAction extends BaseAction
         $ret = [];
         foreach (WeaponType::find()->orderBy('[[id]] ASC')->all() as $type) {
             $ret = array_merge(
-                $ret, 
+                $ret,
                 (function (WeaponType $type) : array {
                     $ret = [];
                     $weapons = $type->getWeapons()
