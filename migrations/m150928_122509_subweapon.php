@@ -36,7 +36,7 @@ class m150928_122509_subweapon extends Migration
             list($weaponId, $subWeaponId) = $tmp;
             $this->update(
                 'weapon',
-                [ 'subweapon_id' => $subWeaponId ], 
+                [ 'subweapon_id' => $subWeaponId ],
                 'id = :weapon_id',
                 [ 'weapon_id' => $weaponId ]
             );

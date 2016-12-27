@@ -31,7 +31,7 @@ class UserIcon extends \yii\db\ActiveRecord
 
     public static function createNew(int $userId, string $binary)
     {
-    // {{{
+        // {{{
         $gd = static::resizeImage($binary);
         $obj = Yii::createObject([
             'class' => static::class,

@@ -74,4 +74,3 @@ class m160722_075551_16th_splatfest extends Migration
         $this->delete('splatfest', ['id' => $ids]);
     }
 }
-

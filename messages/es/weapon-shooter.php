@@ -39,7 +39,7 @@ return [
     'Neo Splash-o-matic' => 'Marcador fino neo',
     'Neo Sploosh-o-matic' => 'Marcador neo',
     'Octoshot Replica' => 'Pistola octariana (réplica)',
-    'Range Blaster' => 'Teledevastador', 
+    'Range Blaster' => 'Teledevastador',
     'Rapid Blaster Deco' => 'Devastador exprés DX',
     'Rapid Blaster Pro Deco' => 'Superdevastador DX',
     'Rapid Blaster Pro' => 'Superdevastador',

@@ -6,10 +6,8 @@
  */
 
 use yii\db\Migration;
-use app\models\{
-    Region,
-    Splatfest
-};
+use app\models\Region;
+use app\models\Splatfest;
 
 class m160123_092256_jp10th_splatfest extends Migration
 {

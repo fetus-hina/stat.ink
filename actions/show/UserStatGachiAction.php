@@ -44,7 +44,7 @@ class UserStatGachiAction extends BaseAction
                     return $q->from('rank rank_after');
                 }])
             ->joinWith(['lobby', 'rank' => function ($q) {
-                    return $q->from('rank rank_before');
+                return $q->from('rank rank_before');
             }])
             ->andWhere([
                 '{{battle}}.[[user_id]]' => $this->user->id,

@@ -39,7 +39,7 @@ return [
     'Neo Splash-o-matic' => 'シャープマーカーネオ',
     'Neo Sploosh-o-matic' => 'ボールドマーカーネオ',
     'Octoshot Replica' => 'オクタシューター レプリカ',
-    'Range Blaster' => 'ロングブラスター', 
+    'Range Blaster' => 'ロングブラスター',
     'Rapid Blaster Deco' => 'ラピッドブラスターデコ',
     'Rapid Blaster Pro Deco' => 'Rブラスターエリートデコ',
     'Rapid Blaster Pro' => 'Rブラスターエリート',
