@@ -39,7 +39,7 @@ return [
     'Neo Splash-o-matic' => 'Plumón neo',
     'Neo Sploosh-o-matic' => 'Marcador grueso neo',
     'Octoshot Replica' => 'Rociador octariana réplica',
-    'Range Blaster' => 'Telelanzamotas', 
+    'Range Blaster' => 'Telelanzamotas',
     'Rapid Blaster Deco' => 'Turbolanzamotas chic',
     'Rapid Blaster Pro Deco' => 'Turbolanzamotas Pro chic',
     'Rapid Blaster Pro' => 'Turbolanzamotas Pro',

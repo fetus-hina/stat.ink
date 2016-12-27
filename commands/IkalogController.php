@@ -111,7 +111,7 @@ class IkalogController extends Controller
         foreach ($lines as $line) {
             $line = trim($line);
             if (preg_match('!^[[:xdigit:]]{40}/!', $line)) {
-                list ($revision, $at, $comment) = explode('/', $line, 3);
+                list($revision, $at, $comment) = explode('/', $line, 3);
                 $at = strtotime($at);
                 $comment = trim($comment);
                 $ret[$revision] = (object)[

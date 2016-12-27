@@ -18,7 +18,7 @@ class m151227_131628_battle_gears extends Migration
         ]));
         $this->addForeignKey('fk_battle_13', 'battle', 'headgear_id', 'gear_configuration', 'id');
         $this->addForeignKey('fk_battle_14', 'battle', 'clothing_id', 'gear_configuration', 'id');
-        $this->addForeignKey('fk_battle_15', 'battle', 'shoes_id',    'gear_configuration', 'id');
+        $this->addForeignKey('fk_battle_15', 'battle', 'shoes_id', 'gear_configuration', 'id');
     }
 
     public function down()

@@ -20,5 +20,4 @@ class m160408_113941_version2_7 extends Migration
     {
         $this->delete('splatoon_version', ['tag' => '2.7.0']);
     }
-
 }

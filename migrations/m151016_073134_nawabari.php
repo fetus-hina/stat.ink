@@ -30,7 +30,7 @@ class m151016_073134_nawabari extends Migration
                     'my_point',
                     'my_team_final_point',
                     'his_team_final_point',
-                    'my_team_final_percent', 
+                    'my_team_final_percent',
                     'his_team_final_percent',
                 ]
             ))

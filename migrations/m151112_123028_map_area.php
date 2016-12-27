@@ -13,7 +13,6 @@ class m151112_123028_map_area extends Migration
     {
         $this->execute('ALTER TABLE {{map}} ADD COLUMN [[area]] INTEGER');
         parent::up();
-
     }
 
     public function down()

@@ -13,8 +13,7 @@ class m151023_063922_user_stat_init extends Migration
 {
     public function safeUp()
     {
-        foreach (User::find()->orderBy('id')->all() as $user)
-        {
+        foreach (User::find()->orderBy('id')->all() as $user) {
             $stat = $user->userStat ?: new UserStat();
             $stat->user_id = $user->id;
             $stat->createCurrentData();

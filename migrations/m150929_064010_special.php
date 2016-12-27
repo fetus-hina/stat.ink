@@ -33,7 +33,7 @@ class m150929_064010_special extends Migration
             list($weaponId, $specialId) = $tmp;
             $this->update(
                 'weapon',
-                [ 'special_id' => $specialId ], 
+                [ 'special_id' => $specialId ],
                 'id = :weapon_id',
                 [ 'weapon_id' => $weaponId ]
             );
