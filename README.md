@@ -5,6 +5,7 @@ stat.ink
 [![MIT License](https://img.shields.io/github/license/fetus-hina/stat.ink.svg)](https://github.com/fetus-hina/stat.ink/blob/master/LICENSE)
 [![Dependency Status](https://www.versioneye.com/user/projects/56167010a19334001e000337/badge.svg?style=flat)](https://www.versioneye.com/user/projects/56167010a19334001e000337)
 [![Dependency Status](https://www.versioneye.com/user/projects/5616700aa1933400190005db/badge.svg?style=flat)](https://www.versioneye.com/user/projects/5616700aa1933400190005db)
+[![StyleCI](https://styleci.io/repos/42917467/shield?branch=master)](https://styleci.io/repos/42917467)
 
 https://stat.ink/ のソースコードです。
 
