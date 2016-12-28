@@ -13,6 +13,7 @@ use app\models\GameMode;
 use app\models\Map;
 use app\models\PeriodMap;
 use app\models\Rule;
+use app\models\StatWeaponMapTrend;
 use yii\base\DynamicModel;
 use yii\web\NotFoundHttpException;
 use yii\web\ViewAction as BaseAction;
@@ -86,7 +87,26 @@ class MapAction extends BaseAction
                     );
                     return (object)[
                         'rule' => $rule,
-                        'history' => array_reverse($histories),
+                        'history' => array_slice(
+                            array_reverse($histories),
+                            0,
+                            5
+                        ),
+                        'trends' => StatWeaponMapTrend::find()
+                            ->with('weapon')
+                            ->where([
+                                'rule_id' => $rule->id,
+                                'map_id' => $this->map->id,
+                            ])
+                            ->orderBy('[[battles]] DESC')
+                            ->limit(5)
+                            ->all(),
+                        'trendTotalBattles' => StatWeaponMapTrend::find()
+                            ->where([
+                                'rule_id' => $rule->id,
+                                'map_id' => $this->map->id,
+                            ])
+                            ->sum('battles'),
                     ];
                 },
                 $mode->rules
