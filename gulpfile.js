@@ -50,6 +50,7 @@ gulp.task('less', function () {
 gulp.task('js', function () {
   gulp.src(argv.in)
     .pipe($.concat('tmp.js', {newLine:';'}))
+    .pipe($.babel({presets:['latest']}))
     .pipe(
       uglify({
         output: {

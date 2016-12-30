@@ -1,22 +1,24 @@
 {
-    "name": "statink",
-    "license": "MIT",
-    "author": {
-        "name": "AIZAWA Hina",
-        "email": "hina@bouhime.com"
-    },
-    "dependencies": {
-        "autoprefixer": "^6.3",
-        "css-mqpacker": "^5.0",
-        "csswring": "^5.0",
-        "es6-promise": "^4.0",
-        "gulp": "^3.9",
-        "gulp-concat": "^2.6",
-        "gulp-less": "^3.0",
-        "gulp-load-plugins": "^1.0",
-        "gulp-postcss": "^6.1",
-        "gulp-rename": "^1.2",
-        "gulp-uglify": "^2.0",
-        "minimist": "^1.2"
-    }
+  "name": "statink",
+  "license": "MIT",
+  "author": {
+    "name": "AIZAWA Hina",
+    "email": "hina@bouhime.com"
+  },
+  "dependencies": {
+    "autoprefixer": "^6.3",
+    "babel-preset-latest": "^6.16.0",
+    "css-mqpacker": "^5.0",
+    "csswring": "^5.0",
+    "es6-promise": "^4.0",
+    "gulp": "^3.9",
+    "gulp-babel": "^6.1.2",
+    "gulp-concat": "^2.6",
+    "gulp-less": "^3.0",
+    "gulp-load-plugins": "^1.0",
+    "gulp-postcss": "^6.1",
+    "gulp-rename": "^1.2",
+    "gulp-uglify": "^2.0",
+    "minimist": "^1.2"
+  }
 }
