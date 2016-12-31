@@ -26,6 +26,12 @@ class v020800 extends v020700
             case 'splatspinner_repair':
                 return 0.4;
 
+            case 'nzap83':
+            case 'promodeler_pg':
+            case 'splatcharger_bento':
+            case 'splatscope_bento':
+                return 0.6;
+
             case 'splatspinner_collabo':
                 return 0.75;
 
