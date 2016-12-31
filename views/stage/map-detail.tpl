@@ -72,7 +72,7 @@
 
     <div class="row">
       <div class="col-xs-12 col-md-6">
-        <h2 id="weapon">
+        <h2 id="weapons">
           {{'Weapon Trends'|translate:'app'|escape}}
         </h2>
         <div class="table-responsive">
