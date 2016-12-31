@@ -20,6 +20,8 @@ class StageController extends Controller
         return [
             'index' => [ 'class' => "{$prefix}\\IndexAction" ],
             'map' => [ 'class' => "{$prefix}\\MapAction" ],
+            'map-detail' => [ 'class' => "{$prefix}\\MapDetailAction" ],
+            'map-history-json' => [ 'class' => "{$prefix}\\MapHistoryJsonAction" ],
             'month' => [ 'class' => "{$prefix}\\MonthAction" ],
         ];
     }
