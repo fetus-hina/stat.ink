@@ -882,6 +882,13 @@ GET /api/v1/death-reason
 
 ----
 
+GET /api/v1/weapon-trends
+-------------------------
+
+[ルール・マップ別のブキトレンドデータ取得についてはこちらを参照してください](doc/api-1/get-weapon-trends.md)
+
+----
+
 DELETE /api/v1/battle
 ---------------------
 

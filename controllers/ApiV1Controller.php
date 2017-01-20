@@ -51,6 +51,7 @@ class ApiV1Controller extends Controller
             'rule'          => [ 'class' => $prefix . '\RuleAction' ],
             'user'          => [ 'class' => $prefix . '\UserAction' ],
             'weapon'        => [ 'class' => $prefix . '\WeaponAction' ],
+            'weapon-trends' => [ 'class' => $prefix . '\WeaponTrendsAction' ],
         ];
     }
 }
