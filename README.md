@@ -53,7 +53,7 @@ https://stat.ink/ は現在次の構成で動作しています。（Docker で�
     - [Node.js](https://nodejs.org/) 7.x
         - `nodejs`
 
-CentOS 7 の標準 PHP は 5.4.16 です。このバージョンでは動作しません。（PHP 7.0 で追加された機能を使用しています（`TheClass::class`、匿名クラスなど））
+CentOS 7 の標準 PHP は 5.4.16 です。このバージョンでは動作しません。（PHP 7.1 で追加された機能を使用しています（`TheClass::class`、匿名クラス、戻り型のnullableつきのヒントなど））
 
 CentOS 7 の標準 PostgreSQL のバージョンは 9.2.14 です。このバージョンでは動作しません。（PgSQL 9.5 で追加された機能を使用しています（jsonb 型、UPSERT など））
 
@@ -62,7 +62,7 @@ CentOS 7 の標準 PostgreSQL のバージョンは 9.2.14 です。このバー
 
 ### SETUP ###
 
-[開発環境の作り方](https://github.com/fetus-hina/stat.ink/wiki/%E9%96%8B%E7%99%BA%E7%92%B0%E5%A2%83%E3%81%AE%E3%82%BB%E3%83%83%E3%83%88%E3%82%A2%E3%83%83%E3%83%97)
+[開発環境の作り方](https://github.com/fetus-hina/stat.ink/wiki/%E9%96%8B%E7%99%BA%E7%92%B0%E5%A2%83%E3%81%AE%E3%82%BB%E3%83%83%E3%83%88%E3%82%A2%E3%83%83%E3%83%97) /
 [How to setup a development environment](https://github.com/fetus-hina/stat.ink/wiki/How-to-setup-a-development-environment)
 
 Dockerfile を見ても構築の手順が記載されています（Dockerfile は自動化と docker の仕組みの都合上、かなり無理矢理やっている箇所があります）
