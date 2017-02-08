@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "6436c3f76f7ad6bd00c329b8fb7796e1",
+    "content-hash": "960c121a025b50cf353dc2c0453db6dd",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -175,16 +175,16 @@
         },
         {
             "name": "bower-asset/clipboard",
-            "version": "v1.5.16",
+            "version": "v1.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zenorocha/clipboard.js.git",
-                "reference": "402c9ee17bed6f273bcbc7efa81874fd9a50b84c"
+                "reference": "a00f1fe32784f823db7bce3a3ec5d7fc8e3f9eab"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zenorocha/clipboard.js/zipball/402c9ee17bed6f273bcbc7efa81874fd9a50b84c",
-                "reference": "402c9ee17bed6f273bcbc7efa81874fd9a50b84c",
+                "url": "https://api.github.com/repos/zenorocha/clipboard.js/zipball/a00f1fe32784f823db7bce3a3ec5d7fc8e3f9eab",
+                "reference": "a00f1fe32784f823db7bce3a3ec5d7fc8e3f9eab",
                 "shasum": ""
             },
             "type": "bower-asset-library",
@@ -315,21 +315,25 @@
         },
         {
             "name": "bower-asset/flag-icon-css",
-            "version": "1.4.0",
+            "version": "2.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lipis/flag-icon-css.git",
-                "reference": "f13b77e0323a674e6a56ac4284128ff73a39e115"
+                "reference": "b0a4e05d5e5054e58bd7537c3f1f6712ead19dae"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lipis/flag-icon-css/zipball/f13b77e0323a674e6a56ac4284128ff73a39e115",
-                "reference": "f13b77e0323a674e6a56ac4284128ff73a39e115",
+                "url": "https://api.github.com/repos/lipis/flag-icon-css/zipball/b0a4e05d5e5054e58bd7537c3f1f6712ead19dae",
+                "reference": "b0a4e05d5e5054e58bd7537c3f1f6712ead19dae",
                 "shasum": ""
             },
             "type": "bower-asset-library",
             "extra": {
-                "bower-asset-main": "css/flag-icon.min.css",
+                "bower-asset-main": [
+                    "css/flag-icon.min.css",
+                    "less/flag-icon.less",
+                    "sass/_flag-icon.scss"
+                ],
                 "bower-asset-ignore": [
                     "**/.*",
                     "assets",
@@ -1278,21 +1282,25 @@
         },
         {
             "name": "hiqdev/yii2-asset-flag-icon-css",
-            "version": "1.4.0",
+            "version": "2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/hiqdev/yii2-asset-flag-icon-css.git",
-                "reference": "61ad5307130283bc746b98f1814029a18635181a"
+                "reference": "1bb27ea9afadf5fce9afa4fb46cc97531b769b70"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hiqdev/yii2-asset-flag-icon-css/zipball/61ad5307130283bc746b98f1814029a18635181a",
-                "reference": "61ad5307130283bc746b98f1814029a18635181a",
+                "url": "https://api.github.com/repos/hiqdev/yii2-asset-flag-icon-css/zipball/1bb27ea9afadf5fce9afa4fb46cc97531b769b70",
+                "reference": "1bb27ea9afadf5fce9afa4fb46cc97531b769b70",
                 "shasum": ""
             },
             "require": {
-                "bower-asset/flag-icon-css": "~1.4.0",
+                "bower-asset/flag-icon-css": "^2.0",
                 "yiisoft/yii2": "~2.0"
+            },
+            "require-dev": {
+                "hiqdev/hidev-hiqdev": "<2.0",
+                "hiqdev/hidev-php": "<2.0"
             },
             "type": "yii2-extension",
             "extra": {
@@ -1312,26 +1320,26 @@
             ],
             "authors": [
                 {
-                    "name": "Dmitry Naumenko",
-                    "email": "silverfire@hiqdev.com",
-                    "homepage": "http://silverfire.me/",
-                    "role": "Lead backend developer"
-                },
-                {
                     "name": "Andrii Vasyliev",
                     "email": "sol@hiqdev.com",
                     "homepage": "http://hipanel.com/",
                     "role": "Project lead"
                 },
                 {
+                    "name": "Dmitry Naumenko",
+                    "email": "d.naumenko.a@gmail.com",
+                    "homepage": "http://silverfire.me/",
+                    "role": "Lead backend developer"
+                },
+                {
                     "name": "Andrey Klochok",
-                    "email": "tafid@hiqdev.com",
+                    "email": "andreyklochok@gmail.com",
                     "homepage": "http://hiqdev.com/",
                     "role": "Lead frontend developer"
                 },
                 {
                     "name": "Yuriy Myronchuk",
-                    "email": "bladeroot@hiqdev.com",
+                    "email": "bladeroot@gmail.com",
                     "homepage": "http://hiqdev.com/",
                     "role": "QA Lead"
                 }
@@ -1344,7 +1352,7 @@
                 "flag-icon-css",
                 "yii2"
             ],
-            "time": "2016-03-22T21:31:30+00:00"
+            "time": "2017-01-31T10:40:06+00:00"
         },
         {
             "name": "jp3cki/mb_str_replace",
@@ -1972,16 +1980,16 @@
         },
         {
             "name": "yiisoft/yii2",
-            "version": "2.0.11.1",
+            "version": "2.0.11.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-framework.git",
-                "reference": "5c9c894b1d20bc1a39814063adf8a1aeb7c86f77"
+                "reference": "ee996adec1dfd7babb67bd0c604f5bd6425fe5ab"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/5c9c894b1d20bc1a39814063adf8a1aeb7c86f77",
-                "reference": "5c9c894b1d20bc1a39814063adf8a1aeb7c86f77",
+                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/ee996adec1dfd7babb67bd0c604f5bd6425fe5ab",
+                "reference": "ee996adec1dfd7babb67bd0c604f5bd6425fe5ab",
                 "shasum": ""
             },
             "require": {
@@ -2068,7 +2076,7 @@
                 "framework",
                 "yii2"
             ],
-            "time": "2017-02-02T18:53:16+00:00"
+            "time": "2017-02-08T09:04:32+00:00"
         },
         {
             "name": "yiisoft/yii2-bootstrap",
@@ -2846,16 +2854,16 @@
         },
         {
             "name": "codeception/verify",
-            "version": "0.3.2",
+            "version": "0.3.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Codeception/Verify.git",
-                "reference": "b06d706261d1fee0cc312bacc5c1b7c506e5213a"
+                "reference": "5d649dda453cd814dadc4bb053060cd2c6bb4b4c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/Verify/zipball/b06d706261d1fee0cc312bacc5c1b7c506e5213a",
-                "reference": "b06d706261d1fee0cc312bacc5c1b7c506e5213a",
+                "url": "https://api.github.com/repos/Codeception/Verify/zipball/5d649dda453cd814dadc4bb053060cd2c6bb4b4c",
+                "reference": "5d649dda453cd814dadc4bb053060cd2c6bb4b4c",
                 "shasum": ""
             },
             "require-dev": {
@@ -2878,7 +2886,7 @@
                 }
             ],
             "description": "BDD assertion library for PHPUnit",
-            "time": "2016-08-29T22:49:25+00:00"
+            "time": "2017-01-09T10:58:51+00:00"
         },
         {
             "name": "doctrine/instantiator",
@@ -3588,16 +3596,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "5.7.11",
+            "version": "5.7.12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "a6ad2472daba76b0689042b7709f86d4f06bcaab"
+                "reference": "944600e244f80a5252679878553b95c63dbf978b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/a6ad2472daba76b0689042b7709f86d4f06bcaab",
-                "reference": "a6ad2472daba76b0689042b7709f86d4f06bcaab",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/944600e244f80a5252679878553b95c63dbf978b",
+                "reference": "944600e244f80a5252679878553b95c63dbf978b",
                 "shasum": ""
             },
             "require": {
@@ -3666,7 +3674,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2017-02-05T15:31:31+00:00"
+            "time": "2017-02-08T05:54:05+00:00"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
