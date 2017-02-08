@@ -11,14 +11,23 @@ use Yii;
 
 class ActivityAction extends BaseStatAction
 {
-    public function init()
+    public function getCacheFormatVersion()
     {
-        parent::init();
-        Yii::$app->db->createCommand("SET TIMEZONE TO 'GMT-2'")->execute();
+        return implode(';', [
+            parent::getCacheFormatVersion(),
+            Yii::$app->timeZone,
+        ]);
     }
 
     protected function makeData()
     {
+        Yii::$app->db
+            ->createCommand(sprintf(
+                'SET TIMEZONE TO %s',
+                Yii::$app->db->quoteValue(Yii::$app->timeZone)
+            ))
+            ->execute();
+
         $query = (new \yii\db\Query())
             ->select([
                 'date'      => '{{battle}}.[[at]]::date',
