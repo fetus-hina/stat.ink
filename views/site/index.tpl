@@ -43,6 +43,13 @@
       {{'Staaaay Fresh!'|translate:'app'|escape}}
     </p>
 
+    <p class="bg-danger" style="padding:15px;border-radius:10px">
+      <a href="https://testfire2.stat.ink/">Splatoon 2 試射会用の記録サイトを、技術テストを兼ねて運用します。</a><br>
+      対応するIkaLogやイカレコが登場するかは未定です。<br>
+      データベースが完全に別になっているため、会員登録から行ってください。<br>
+      （対応するIkaLogがリリースされた場合、画像認識のためのデータ収集サイトを兼ねることになります）
+    </p>
+
     {{if $app->language === 'ja-JP'}}
       <p class="bg-warning" style="padding:15px;border-radius:10px">
         バトル登録機能をリリースしました。ログイン後、バトル登録ボタンから登録できます。<br>
