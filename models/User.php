@@ -91,10 +91,10 @@ class User extends ActiveRecord implements IdentityInterface
             [['api_key'], 'string', 'max' => 43],
             [['nnid'], 'string', 'min' => 6, 'max' => 16],
             [['nnid'], 'match', 'pattern' => '/^[a-zA-Z0-9._-]{6,16}$/'],
-            [['sw_friend_code'], 'trim'],
             [['sw_friend_code'], 'filter',
                 'filter' => function ($v) {
-                    return preg_replace('/[^\d]+/', '', $v);
+                    $v = trim(preg_replace('/[^\d]+/', '', (string)$v));
+                    return $v != '' ? $v : null;
                 },
             ],
             [['sw_friend_code'], 'string', 'min' => 12, 'max' => 12],
