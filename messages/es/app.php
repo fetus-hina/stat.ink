@@ -107,6 +107,8 @@ return [
     'Favorite Weapons' => 'Armas favoritas',
     'Feedback or suggestions are welcome. Please contact me via GitHub or Twitter.' => 'Comentarios o sugerencias son bienvenidos. Por favor en contacto conmigo a través de GitHub o Twitter.',
     'Few' => 'Algunos',
+    'Friend Code (Switch)' => 'Clave de amigo (Switch)',
+    'Friend Code' => 'Clave de amigo',
     'Game Version' => 'Versión del Juego',
     'Gear' => 'Indumentaria',
     'Getting Started' => 'Empezando',

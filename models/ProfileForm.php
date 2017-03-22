@@ -14,6 +14,7 @@ class ProfileForm extends Model
 {
     public $name;
     public $nnid;
+    public $sw_friend_code;
     public $twitter;
     public $ikanakama;
     public $env;
@@ -32,6 +33,11 @@ class ProfileForm extends Model
             [['name'], 'string', 'max' => 15],
             [['nnid'], 'string', 'min' => 6, 'max' => 16],
             [['nnid'], 'match', 'pattern' => '/^[a-zA-Z0-9._-]+$/'],
+            [['sw_friend_code'], 'string', 'min' => 12, 'max' => 17],
+            [['sw_friend_code'], 'trim'],
+            [['sw_friend_code'], 'match',
+                'pattern' => '/^(?:SW-?)?\d{4}-?\d{4}-?\d{4}$/i',
+            ],
             [['twitter'], 'string', 'max' => 15],
             [['twitter'], 'match', 'pattern' => '/^[a-zA-Z0-9_]+$/'],
             [['ikanakama'], 'integer', 'min' => 1],
@@ -56,6 +62,7 @@ class ProfileForm extends Model
             'screen_name'   => Yii::t('app', 'Screen Name (Login Name)'),
             'name'          => Yii::t('app', 'Name (for display)'),
             'nnid'          => Yii::t('app', 'Nintendo Network ID'),
+            'sw_friend_code' => Yii::t('app', 'Friend Code (Switch)'),
             'twitter'       => Yii::t('app', 'Twitter @name'),
             'ikanakama'     => Yii::t('app', 'IKANAKAMA User ID'),
             'env'           => Yii::t('app', 'Capture Environment'),

@@ -25,6 +25,7 @@ use yii\web\IdentityInterface;
  * @property string $api_key
  * @property string $join_at
  * @property string $nnid
+ * @property string $sw_friend_code
  * @property string $twitter
  * @property integer $ikanakama
  * @property integer $env_id
@@ -90,6 +91,11 @@ class User extends ActiveRecord implements IdentityInterface
             [['api_key'], 'string', 'max' => 43],
             [['nnid'], 'string', 'min' => 6, 'max' => 16],
             [['nnid'], 'match', 'pattern' => '/^[a-zA-Z0-9._-]{6,16}$/'],
+            [['sw_friend_code'], 'string', 'min' => 12, 'max' => 17],
+            [['sw_friend_code'], 'trim'],
+            [['sw_friend_code'], 'match',
+                'pattern' => '/^(?:SW-?)?\d{4}-?\d{4}-?\d{4}$/i',
+            ],
             [['api_key'], 'unique'],
             [['screen_name'], 'unique'],
             [['screen_name', 'twitter'], 'match', 'pattern' => '/^[a-zA-Z0-9_]{1,15}$/'],
@@ -118,6 +124,7 @@ class User extends ActiveRecord implements IdentityInterface
             'api_key'       => Yii::t('app', 'API Key'),
             'join_at'       => Yii::t('app', 'Join At'),
             'nnid'          => Yii::t('app', 'Nintendo Network ID'),
+            'sw_friend_code' => Yii::t('app', 'Friend Code (Switch)'),
             'twitter'       => Yii::t('app', 'Twitter @name'),
             'ikanakama'     => Yii::t('app', 'IKANAKAMA User ID'),
             'env_id'        => Yii::t('app', 'Capture Environment'),
@@ -290,6 +297,14 @@ class User extends ActiveRecord implements IdentityInterface
             ),
             'profile' => [
                 'nnid'          => (string)$this->nnid != '' ? $this->nnid : null,
+                'friend_code'   => (string)$this->sw_friend_code != ''
+                    ? implode('-', [
+                        'SW',
+                        substr((string)$this->sw_friend_code, 0, 4),
+                        substr((string)$this->sw_friend_code, 4, 4),
+                        substr((string)$this->sw_friend_code, 8, 4),
+                    ])
+                    : null,
                 'twitter'       => (string)$this->twitter != '' ? $this->twitter : null,
                 'ikanakama'     => (string)$this->ikanakama
                     ? sprintf('http://ikazok.net/users/%d', $this->ikanakama)

@@ -132,6 +132,19 @@
               </td>
             </tr>
             <tr>
+              <th>{{'Friend Code (Switch)'|translate:'app'|escape}}</th>
+              <td>
+                {{if $user->sw_friend_code != ''}}
+                  SW-
+                  {{$user->sw_friend_code|substr:0:4|escape}}-
+                  {{$user->sw_friend_code|substr:4:4|escape}}-
+                  {{$user->sw_friend_code|substr:8:4|escape}}
+                {{else}}
+                  -
+                {{/if}}
+              </td>
+            </tr>
+            <tr>
               <th>{{'Twitter @name'|translate:'app'|escape}}</th>
               <td>
                 {{if $user->twitter != ''}}

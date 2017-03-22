@@ -129,6 +129,8 @@ return [
     'Favorite Weapons' => 'よく使っているブキ',
     'Feedback or suggestions are welcome. Please contact me via GitHub or Twitter.' => 'バグの報告・改善の提案などがありましたら、 GitHubのプロジェクトに報告・提案するか、ツイッターアカウントへご連絡ください。',
     'Few' => '少',
+    'Friend Code' => 'フレンドコード',
+    'Friend Code (Switch)' => 'フレンドコード (Switch)',
     'Game Version' => 'ゲームバージョン',
     'Gear' => 'ギア',
     'Getting Started' => 'このサイトについて',

@@ -409,16 +409,25 @@
         </div>
       {{/if}}
       <div class="miniinfo-databox">
-        <div>
-          NNID:&#32;
-          {{if $user->nnid == ''}}
-            ?
-          {{else}}
+        {{if $user->nnid != ''}}
+          <div>
+            NNID:&#32;
             <a href="https://miiverse.nintendo.net/users/{{$user->nnid|escape:url}}" rel="nofollow" target="_blank">
               {{$user->nnid|escape}}
             </a>
-          {{/if}}
-        </div>
+          </div>
+        {{/if}}
+        {{if $user->sw_friend_code != ''}}
+          <div>
+            {{'Friend Code'|translate:'app'|escape}}:&#32;
+            <span style="white-space:nowrap">
+              SW-
+              {{$user->sw_friend_code|substr:0:4|escape}}-
+              {{$user->sw_friend_code|substr:4:4|escape}}-
+              {{$user->sw_friend_code|substr:8:4|escape}}
+            </span>
+          </div>
+        {{/if}}
         {{if $user->twitter != ''}}
           <div>
             <a href="https://twitter.com/{{$user->twitter|escape:url}}" rel="nofollow" target="_blank">

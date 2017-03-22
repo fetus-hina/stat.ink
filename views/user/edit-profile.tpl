@@ -36,6 +36,10 @@
 
       {{$_->field($form, 'nnid')}}
 
+      {{$_->field($form, 'sw_friend_code', [
+          'inputTemplate' => '<div class="input-group"><span class="input-group-addon">SW-</span>{input}</div>'
+        ])}}
+
       {{$_->field($form, 'twitter', [
           'inputTemplate' => '<div class="input-group"><span class="input-group-addon"><span class="fa fa-twitter left"></span>@</span>{input}</div>'
         ])->hint(
