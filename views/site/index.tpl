@@ -191,9 +191,9 @@
           {{/if}}
         </h2>
         <p class="text-right" style="margin:0">
-          <a href="http://graystar0907.wixsite.com/bukiicons" rel="external">
-            {{"Weapons' icon were created by {0}."|translate:'app':'Stylecase'|escape}}
-          </a>
+          <!--a href="http://graystar0907.wixsite.com/bukiicons" rel="external"-->
+            {{"Weapon icons were created by {0}."|translate:'app':'Stylecase'|escape}}
+          <!--/a-->
         </p>
         <div class="row">
           <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
