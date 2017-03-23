@@ -84,10 +84,29 @@
             <tr>
               <th>{{'API Token'|translate:'app'|escape}}</th>
               <td>
-                <button class="btn btn-default auto-tooltip" title="{{'Show your API Token'|translate:'app'|escape}}" id="apikey-button">
-                  <span class="fa fa-eye"></span>
+                <p>
+                  {{'Please copy an API key below and paste to IkaLog, IkaRec or other apps that compatible with {0}.'|translate:'app':$app->name|escape}}&#32;
+                  {{'Please keep it secret.'|translate:'app'|escape}}
+                <p>
+                <button class="btn btn-default auto-tooltip" id="apikey-button">
+                  <span class="fa fa-eye left"></span>{{'Show your API Token'|translate:'app'|escape}}
                 </button>
-                <code id="apikey" style="display:none">{{$user->api_key|escape}}</code>
+                <div id="apikey" style="display:none">
+                  <input type="text" class="form-control" value="{{$user->api_key|escape}}" readonly>
+                  {{registerCss}}
+                    #apikey input[type="text"]{
+                      font-family:Menlo,Monaco,Consolas,"Courier New",monospace;
+                    }
+                  {{/registerCss}}
+                  {{registerJs}}
+                    (function($){
+                      "use strict";
+                      $('#apikey input[type="text"]').focus(function(){
+                        $(this).select();
+                      });
+                    })(jQuery);
+                  {{/registerJs}}
+                </div>
               </td>
             </tr>
             <tr>
