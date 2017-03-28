@@ -42,7 +42,6 @@ class m170328_114202_map2 extends Migration
                 null,
             ],
         ]);
-
     }
 
     public function down()
