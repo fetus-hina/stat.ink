@@ -27,14 +27,18 @@ class Migration extends \yii\db\Migration
     public function pkRef(string $table, string $column = 'id')
     {
         return $this->integer()->notNull()->append(sprintf(
-            'REFERENCES {{%s}}([[%s]])', $table, $column
+            'REFERENCES {{%s}}([[%s]])',
+            $table,
+            $column
         ));
     }
 
     public function bigPkRef(string $table, string $column = 'id')
     {
         return $this->bigInteger()->notNull()->append(sprintf(
-            'REFERENCES {{%s}}([[%s]])', $table, $column
+            'REFERENCES {{%s}}([[%s]])',
+            $table,
+            $column
         ));
     }
 }
