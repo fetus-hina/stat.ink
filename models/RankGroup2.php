@@ -11,23 +11,23 @@ use Yii;
 use yii\db\ActiveRecord;
 
 /**
- * This is the model class for table "mode2".
+ * This is the model class for table "rank_group2".
  *
  * @property integer $id
+ * @property integer $rank
  * @property string $key
  * @property string $name
  *
- * @property ModeRule2[] $modeRules
- * @property Rule2[] $rules
+ * @property Rank2[] $ranks
  */
-class Mode2 extends ActiveRecord
+class RankGroup2 extends ActiveRecord
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return 'mode2';
+        return 'rank_group2';
     }
 
     /**
@@ -36,11 +36,13 @@ class Mode2 extends ActiveRecord
     public function rules()
     {
         return [
-            [['key', 'name'], 'required'],
+            [['rank', 'key', 'name'], 'required'],
+            [['rank'], 'integer'],
             [['key'], 'string', 'max' => 16],
             [['name'], 'string', 'max' => 32],
             [['key'], 'unique'],
             [['name'], 'unique'],
+            [['rank'], 'unique'],
         ];
     }
 
@@ -51,6 +53,7 @@ class Mode2 extends ActiveRecord
     {
         return [
             'id' => 'ID',
+            'rank' => 'Rank',
             'key' => 'Key',
             'name' => 'Name',
         ];
@@ -59,16 +62,8 @@ class Mode2 extends ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getModeRules()
+    public function getRanks()
     {
-        return $this->hasMany(ModeRule2::class, ['mode_id' => 'id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getRules()
-    {
-        return $this->hasMany(Rule2::class, ['id' => 'rule_id'])->viaTable('mode_rule2', ['mode_id' => 'id']);
+        return $this->hasMany(Rank2::class, ['group_id' => 'id']);
     }
 }

@@ -18,7 +18,7 @@ use yii\db\ActiveRecord;
  * @property string $name
  * @property string $short_name
  *
- * @property ModeRule2[] $modeRule2s
+ * @property ModeRule2[] $modeRules
  * @property Mode2[] $modes
  */
 class Rule2 extends ActiveRecord
@@ -62,7 +62,7 @@ class Rule2 extends ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getModeRule2s()
+    public function getModeRules()
     {
         return $this->hasMany(ModeRule2::class, ['rule_id' => 'id']);
     }

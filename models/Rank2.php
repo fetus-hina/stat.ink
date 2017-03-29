@@ -11,23 +11,26 @@ use Yii;
 use yii\db\ActiveRecord;
 
 /**
- * This is the model class for table "mode2".
+ * This is the model class for table "rank2".
  *
  * @property integer $id
+ * @property integer $group_id
+ * @property integer $rank
  * @property string $key
  * @property string $name
+ * @property integer $int_base
  *
- * @property ModeRule2[] $modeRules
- * @property Rule2[] $rules
+ * @property Battle2[] $battles
+ * @property RankGroup2 $group
  */
-class Mode2 extends ActiveRecord
+class Rank2 extends ActiveRecord
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return 'mode2';
+        return 'rank2';
     }
 
     /**
@@ -36,11 +39,17 @@ class Mode2 extends ActiveRecord
     public function rules()
     {
         return [
-            [['key', 'name'], 'required'],
+            [['group_id', 'rank', 'key', 'name', 'int_base'], 'required'],
+            [['group_id', 'rank', 'int_base'], 'integer'],
             [['key'], 'string', 'max' => 16],
             [['name'], 'string', 'max' => 32],
             [['key'], 'unique'],
             [['name'], 'unique'],
+            [['rank'], 'unique'],
+            [['group_id'], 'exist', 'skipOnError' => true,
+                'targetClass' => RankGroup2::class,
+                'targetAttribute' => ['group_id' => 'id'],
+            ],
         ];
     }
 
@@ -51,24 +60,27 @@ class Mode2 extends ActiveRecord
     {
         return [
             'id' => 'ID',
+            'group_id' => 'Group ID',
+            'rank' => 'Rank',
             'key' => 'Key',
             'name' => 'Name',
+            'int_base' => 'Int Base',
         ];
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getModeRules()
+    public function getBattles()
     {
-        return $this->hasMany(ModeRule2::class, ['mode_id' => 'id']);
+        return $this->hasMany(Battle2::class, ['rank_id' => 'id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getRules()
+    public function getGroup()
     {
-        return $this->hasMany(Rule2::class, ['id' => 'rule_id'])->viaTable('mode_rule2', ['mode_id' => 'id']);
+        return $this->hasOne(RankGroup2::class, ['id' => 'group_id']);
     }
 }

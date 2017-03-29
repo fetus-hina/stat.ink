@@ -17,7 +17,7 @@ use yii\db\ActiveRecord;
  * @property string $key
  * @property string $name
  *
- * @property Playstyle2[] $playstyle2s
+ * @property Playstyle2[] $playstyles
  * @property NsMode2[] $nsModes
  */
 class ControllerMode2 extends ActiveRecord
@@ -59,7 +59,7 @@ class ControllerMode2 extends ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getPlaystyle2s()
+    public function getPlaystyles()
     {
         return $this->hasMany(Playstyle2::class, ['controller_mode_id' => 'id']);
     }
