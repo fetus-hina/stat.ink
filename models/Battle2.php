@@ -100,7 +100,6 @@ class Battle2 extends ActiveRecord
     {
         return [
             [['user_id', 'client_uuid', 'at'], 'required'],
-                                                                                                                       |
             [['user_id', 'lobby_id', 'mode_id', 'rule_id', 'map_id', 'weapon_id', 'level', 'level_after'], 'integer'],
             [['rank_id', 'rank_exp', 'rank_after_id', 'rank_after_exp', 'rank_in_team', 'kill', 'death'], 'integer'],
             [['max_kill_combo', 'max_kill_streak', 'my_point', 'my_team_point', 'his_team_point'], 'integer'],
