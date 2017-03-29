@@ -19,7 +19,17 @@ return [
         ],
     ],
     'modules' => [
-        'gii' => 'yii\gii\Module',
+        'gii' => [
+            'class' => 'yii\gii\Module',
+            'generators' => [
+                'model' => [
+                    'class' => 'yii\gii\generators\model\Generator',
+                    'templates' => [
+                        'default' => '@app/views/gii/model',
+                    ],
+                ],
+            ],
+        ],
     ],
     'components' => [
         'cache' => [
