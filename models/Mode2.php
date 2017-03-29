@@ -1,0 +1,74 @@
+<?php
+/**
+ * @copyright Copyright (C) 2015-2017 AIZAWA Hina
+ * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
+ * @author AIZAWA Hina <hina@bouhime.com>
+ */
+
+namespace app\models;
+
+use Yii;
+use yii\db\ActiveRecord;
+
+/**
+ * This is the model class for table "mode2".
+ *
+ * @property integer $id
+ * @property string $key
+ * @property string $name
+ *
+ * @property ModeRule2[] $modeRule2s
+ * @property Rule2[] $rules
+ */
+class Mode2 extends ActiveRecord
+{
+    /**
+     * @inheritdoc
+     */
+    public static function tableName()
+    {
+        return 'mode2';
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function rules()
+    {
+        return [
+            [['key', 'name'], 'required'],
+            [['key'], 'string', 'max' => 16],
+            [['name'], 'string', 'max' => 32],
+            [['key'], 'unique'],
+            [['name'], 'unique'],
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'id' => 'ID',
+            'key' => 'Key',
+            'name' => 'Name',
+        ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getModeRule2s()
+    {
+        return $this->hasMany(ModeRule2::class, ['mode_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRules()
+    {
+        return $this->hasMany(Rule2::class, ['id' => 'rule_id'])->viaTable('mode_rule2', ['mode_id' => 'id']);
+    }
+}
