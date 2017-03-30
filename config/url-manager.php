@@ -27,6 +27,7 @@ return [
         'stages/<map:[a-z]+>' => 'stage/map',
         'stages' => 'stage/index',
         'api/v1/<action:[\w-]+>' => 'api-v1/<action>',
+        'api/v2/<action:[\w-]+>' => 'api-v2/<action>',
         'api/internal/<action:[\w-]+>' => 'api-internal/<action>',
         'downloads' => 'download-stats/index',
         '<action:[\w-]+>'  => 'site/<action>',

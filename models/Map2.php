@@ -7,7 +7,10 @@
 
 namespace app\models;
 
+use DateTimeZone;
 use Yii;
+use app\components\helpers\DateTimeFormatter;
+use app\components\helpers\Translator;
 use yii\db\ActiveRecord;
 
 /**
@@ -59,6 +62,23 @@ class Map2 extends ActiveRecord
             'short_name' => 'Short Name',
             'area' => 'Area',
             'release_at' => 'Release At',
+        ];
+    }
+
+    public function toJsonArray() : array
+    {
+        $t = $this->release_at ? strtotime($this->release_at) : null;
+        return [
+            'key' => $this->key,
+            'name' => Translator::translateToAll('app-map2', $this->name),
+            'short_name' => Translator::translateToAll('app-map2', $this->short_name),
+            'area' => $this->area,
+            'release_at' => $t
+                ? DateTimeFormatter::unixTimeToJsonArray(
+                    $t,
+                    new DateTimeZone('Etc/UTC')
+                )
+                : null,
         ];
     }
 }

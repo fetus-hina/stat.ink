@@ -12,6 +12,7 @@ return [
                 'app-gear'      => 'gear.php',
                 'app-gearstat'  => 'gearstat.php',
                 'app-map'       => 'map.php',
+                'app-map2'      => 'map2.php',
                 'app-rank'      => 'rank.php',
                 'app-reltime'   => 'reltime.php',
                 'app-rule'      => 'rule.php',
