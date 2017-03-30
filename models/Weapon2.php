@@ -8,6 +8,7 @@
 namespace app\models;
 
 use Yii;
+use app\components\helpers\Translator;
 use yii\db\ActiveRecord;
 
 /**
@@ -25,7 +26,7 @@ use yii\db\ActiveRecord;
  * @property Special2 $special
  * @property Subweapon2 $subweapon
  * @property Weapon2 $canonical
- * @property Weapon2 $mainGroup
+ * @property Weapon2 $mainReference
  * @property WeaponType2 $type
  */
 class Weapon2 extends ActiveRecord
@@ -117,7 +118,7 @@ class Weapon2 extends ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getMainGroup()
+    public function getMainReference()
     {
         return $this->hasOne(Weapon2::class, ['id' => 'main_group_id']);
     }
@@ -128,5 +129,20 @@ class Weapon2 extends ActiveRecord
     public function getType()
     {
         return $this->hasOne(WeaponType2::class, ['id' => 'type_id']);
+    }
+
+    public function toJsonArray()
+    {
+        return [
+            'key' => $this->key,
+            'type' => $this->type->toJsonArray(),
+            'name' => Translator::translateToAll('app-weapon2', $this->name),
+            'sub' => $this->subweapon->toJsonArray(),
+            'special' => $this->special->toJsonArray(),
+            'reskin_of' => $this->id === $this->canonical_id
+                ? null
+                : $this->canonical->key,
+            'main_ref' => $this->mainReference->key,
+        ];
     }
 }

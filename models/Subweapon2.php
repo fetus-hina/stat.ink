@@ -8,6 +8,7 @@
 namespace app\models;
 
 use Yii;
+use app\components\helpers\Translator;
 use yii\db\ActiveRecord;
 
 /**
@@ -61,5 +62,13 @@ class Subweapon2 extends ActiveRecord
     public function getWeapons()
     {
         return $this->hasMany(Weapon2::class, ['subweapon_id' => 'id']);
+    }
+
+    public function toJsonArray() : array
+    {
+        return [
+            'key' => $this->key,
+            'name' => Translator::translateToAll('app-subweapon2', $this->name),
+        ];
     }
 }

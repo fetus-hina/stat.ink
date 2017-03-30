@@ -12,22 +12,22 @@ use app\components\helpers\Translator;
 use yii\db\ActiveRecord;
 
 /**
- * This is the model class for table "special2".
+ * This is the model class for table "weapon_category2".
  *
  * @property integer $id
  * @property string $key
  * @property string $name
  *
- * @property Weapon2[] $weapons
+ * @property WeaponType $weaponTypes
  */
-class Special2 extends ActiveRecord
+class WeaponCategory2 extends ActiveRecord
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return 'special2';
+        return 'weapon_category2';
     }
 
     /**
@@ -59,16 +59,16 @@ class Special2 extends ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getWeapons()
+    public function getWeaponTypes()
     {
-        return $this->hasMany(Weapon2::class, ['special_id' => 'id']);
+        return $this->hasMany(WeaponType2::class, ['category_id' => 'id']);
     }
 
     public function toJsonArray() : array
     {
         return [
             'key' => $this->key,
-            'name' => Translator::translateToAll('app-special2', $this->name),
+            'name' => Translator::translateToAll('app-weapon2', $this->name),
         ];
     }
 }

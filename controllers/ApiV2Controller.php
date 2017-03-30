@@ -51,7 +51,7 @@ class ApiV2Controller extends Controller
             'map'           => [ 'class' => $prefix . '\MapAction' ],
             // 'rule'          => [ 'class' => $prefix . '\RuleAction' ],
             // 'user'          => [ 'class' => $prefix . '\UserAction' ],
-            // 'weapon'        => [ 'class' => $prefix . '\WeaponAction' ],
+            'weapon'        => [ 'class' => $prefix . '\WeaponAction' ],
             // 'weapon-trends' => [ 'class' => $prefix . '\WeaponTrendsAction' ],
         ];
     }
