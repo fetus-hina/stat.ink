@@ -40,6 +40,11 @@
 ]
 ```
 
+v1との差異
+----------
+
+- `short_name`が追加されています。
+
 ----
 
 [![CC-BY 4.0](https://stat.ink/static-assets/cc/cc-by.svg)](http://creativecommons.org/licenses/by/4.0/deed.ja)
