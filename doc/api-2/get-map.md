@@ -1,6 +1,8 @@
 `GET /api/v2/map`
 =================
 
+| | |
+|-|-|
 |URL|`https://stat.ink/api/v2/map`|
 |Return-Type|`application/json`|
 |認証|なし|
