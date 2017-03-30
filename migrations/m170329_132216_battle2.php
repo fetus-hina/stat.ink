@@ -11,7 +11,6 @@ class m170329_132216_battle2 extends Migration
 {
     public function up()
     {
-        $this->execute('DROP DOMAIN IF EXISTS {{rgb}}, {{hue}}, {{httpurl}}');
         $this->execute(
             Yii::$app->db
                 ->createCommand(
@@ -72,19 +71,15 @@ class m170329_132216_battle2 extends Migration
             'his_team_color_hue' => 'hue NULL',
             'my_team_color_rgb' => 'rgb NULL',
             'his_team_color_rgb' => 'rgb NULL',
-
             'cash'              => $this->integer(),
             'cash_after'        => $this->integer(),
-
             'note'              => $this->text(),
             'private_note'      => $this->text(),
             'link_url'          => 'httpurl NULL',
-
             'period'            => $this->integer(),
             'version_id'        => $this->pkRef('splatoon_version2')->null(),
             'bonus_id'          => $this->pkRef('turfwar_win_bonus2')->null(),
             'env_id'            => $this->pkRef('environment')->null(),
-    
             'client_uuid'       => 'UUID NOT NULL',
             'ua_variables'      => 'JSONB NULL DEFAULT NULL',
             'ua_custom'         => $this->text(),
