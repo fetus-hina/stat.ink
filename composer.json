@@ -74,11 +74,5 @@
             "bower-asset-library": "vendor/bower",
             "npm-asset-library": "vendor/npm"
         }
-    },
-    "repositories": [
-        {
-            "type": "composer",
-            "url": "https://asset-packagist.org"
-        }
-    ]
+    }
 }

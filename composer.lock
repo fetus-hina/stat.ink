@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "a36e61d3195e51e4a02fe7d1782de83b",
+    "content-hash": "dee7052bf1a86238e297f0d9c80d9d97",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -60,13 +60,13 @@
             "version": "2.2.2",
             "source": {
                 "type": "git",
-                "url": "git@github.com:minhur/bootstrap-toggle.git",
-                "reference": "f043b18456b62b4ce84a455f772b323ebe7fb148"
+                "url": "https://github.com/minhur/bootstrap-toggle.git",
+                "reference": "187e332b7431afe3d0c07eeef92782ce59a77d66"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/minhur/bootstrap-toggle/zipball/f043b18456b62b4ce84a455f772b323ebe7fb148",
-                "reference": "f043b18456b62b4ce84a455f772b323ebe7fb148",
+                "url": "https://api.github.com/repos/minhur/bootstrap-toggle/zipball/187e332b7431afe3d0c07eeef92782ce59a77d66",
+                "reference": "187e332b7431afe3d0c07eeef92782ce59a77d66",
                 "shasum": ""
             },
             "type": "bower-asset-library",
@@ -133,22 +133,45 @@
         },
         {
             "name": "bower-asset/cal-heatmap",
-            "version": "3.6.2.0",
+            "version": "3.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/wa0x6e/cal-heatmap.git",
-                "reference": "559752c6ca78fd1620e178c46a9e035dc38bdd0e"
+                "reference": "916fafb94edfb93170e97b8d2d18d1a16405f672"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/wa0x6e/cal-heatmap/zipball/559752c6ca78fd1620e178c46a9e035dc38bdd0e",
-                "reference": "559752c6ca78fd1620e178c46a9e035dc38bdd0e",
-                "shasum": null
+                "url": "https://api.github.com/repos/wa0x6e/cal-heatmap/zipball/916fafb94edfb93170e97b8d2d18d1a16405f672",
+                "reference": "916fafb94edfb93170e97b8d2d18d1a16405f672",
+                "shasum": ""
             },
             "require": {
-                "bower-asset/d3": ">=3.0.6,<4.0.0"
+                "bower-asset/d3": ">=3.0.6"
             },
-            "type": "library"
+            "type": "bower-asset-library",
+            "extra": {
+                "bower-asset-main": [
+                    "./cal-heatmap.js",
+                    "./cal-heatmap.css"
+                ],
+                "bower-asset-ignore": [
+                    "test/",
+                    "src/",
+                    "Gruntfile.js",
+                    "karma.conf.js",
+                    "package.json"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "Cal-Heatmap is a javascript module to create calendar heatmap to visualize time series data",
+            "keywords": [
+                "calendar",
+                "d3js",
+                "graph",
+                "heat map"
+            ]
         },
         {
             "name": "bower-asset/clipboard",
@@ -190,19 +213,27 @@
         },
         {
             "name": "bower-asset/d3",
-            "version": "3.5.17.0",
+            "version": "v4.7.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mbostock-bower/d3-bower.git",
-                "reference": "7a826d211d5067867debf9ce24a9987e0cb02b6e"
+                "reference": "646278862746c508d69ba33210581b6034ebdbb6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mbostock-bower/d3-bower/zipball/7a826d211d5067867debf9ce24a9987e0cb02b6e",
-                "reference": "7a826d211d5067867debf9ce24a9987e0cb02b6e",
-                "shasum": null
+                "url": "https://api.github.com/repos/mbostock-bower/d3-bower/zipball/646278862746c508d69ba33210581b6034ebdbb6",
+                "reference": "646278862746c508d69ba33210581b6034ebdbb6",
+                "shasum": ""
             },
-            "type": "library"
+            "type": "bower-asset-library",
+            "extra": {
+                "bower-asset-main": "d3.js",
+                "bower-asset-ignore": []
+            },
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "description": "A JavaScript visualization library for HTML and SVG."
         },
         {
             "name": "bower-asset/emojify.js",
@@ -541,7 +572,7 @@
                 "sort",
                 "table"
             ],
-            "time": "2016-07-19T16:14:17+00:00"
+            "time": "2016-07-19 16:14:17"
         },
         {
             "name": "bower-asset/jquery.inputmask",
@@ -743,23 +774,42 @@
         },
         {
             "name": "bower-asset/remarkable-bootstrap-notify",
-            "version": "3.1.7.0",
+            "version": "3.1.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mouse0270/bootstrap-notify.git",
-                "reference": "7b4711e091b8329cd15a2f7d59ea1cd5f8221ddf"
+                "reference": "c6a3e3acafda0815cce3703103499b6262500cd7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mouse0270/bootstrap-notify/zipball/7b4711e091b8329cd15a2f7d59ea1cd5f8221ddf",
-                "reference": "7b4711e091b8329cd15a2f7d59ea1cd5f8221ddf",
-                "shasum": null
+                "url": "https://api.github.com/repos/mouse0270/bootstrap-notify/zipball/c6a3e3acafda0815cce3703103499b6262500cd7",
+                "reference": "c6a3e3acafda0815cce3703103499b6262500cd7",
+                "shasum": ""
             },
             "require": {
                 "bower-asset/bootstrap": ">=2.0.0",
                 "bower-asset/jquery": ">=1.10.2"
             },
-            "type": "library"
+            "type": "bower-asset-library",
+            "extra": {
+                "bower-asset-main": "bootstrap-notify.js",
+                "bower-asset-ignore": []
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "This is a simple plugin that turns standard Bootstrap alerts into \"Growl-like\" notifications.",
+            "keywords": [
+                "bootstrap",
+                "growl",
+                "jquery",
+                "message",
+                "notice",
+                "notification",
+                "notifications",
+                "notify",
+                "remarkable"
+            ]
         },
         {
             "name": "bower-asset/swipebox",
