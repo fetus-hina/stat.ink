@@ -162,17 +162,11 @@ composer.lock: composer.json composer.phar
 	./composer.phar update -vvv
 	touch -r composer.json composer.lock
 
-%.br: %.gz
+%.br: %
 	rm -f $@
 	zcat $< | bro --quality 11 --output $@
 
-%.css.gz: %.css
-	gzip -9c $< > $@
-
-%.js.gz: %.js
-	gzip -9c $< > $@
-
-%.svg.gz: %.svg
+%.gz: %
 	gzip -9c $< > $@
 
 $(GULP): node_modules

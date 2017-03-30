@@ -7,10 +7,10 @@
   },
   "dependencies": {
     "autoprefixer": "^6.3",
-    "babel-preset-latest": "^6.16.0",
+    "babel-polyfill": "^6.23.0",
+    "babel-preset-env": "^1.2.2",
     "css-mqpacker": "^5.0",
     "csswring": "^5.0",
-    "es6-promise": "^4.0",
     "gulp": "^3.9",
     "gulp-babel": "^6.1.2",
     "gulp-concat": "^2.6",

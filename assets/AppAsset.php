@@ -19,6 +19,7 @@ class AppAsset extends AssetBundle
         'main.js',
     ];
     public $depends = [
+        'app\assets\BabelPolyfillAsset',
         'yii\web\JqueryAsset',
         'yii\bootstrap\BootstrapAsset',
         'yii\bootstrap\BootstrapPluginAsset',
