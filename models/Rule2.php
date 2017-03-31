@@ -8,6 +8,7 @@
 namespace app\models;
 
 use Yii;
+use app\components\helpers\Translator;
 use yii\db\ActiveRecord;
 
 /**
@@ -73,5 +74,13 @@ class Rule2 extends ActiveRecord
     public function getModes()
     {
         return $this->hasMany(Mode2::class, ['id' => 'mode_id'])->viaTable('mode_rule2', ['rule_id' => 'id']);
+    }
+
+    public function toJsonArray() : array
+    {
+        return [
+            'key' => $this->key,
+            'name' => Translator::translateToAll('app-rule2', $this->name),
+        ];
     }
 }
