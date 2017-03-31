@@ -44,7 +44,10 @@ class WeaponType2 extends ActiveRecord
             [['name'], 'string', 'max' => 32],
             [['key'], 'unique'],
             [['name'], 'unique'],
-            [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => WeaponCategory2::class, 'targetAttribute' => ['category_id' => 'id']],
+            [['category_id'], 'exist', 'skipOnError' => true,
+                'targetClass' => WeaponCategory2::class,
+                'targetAttribute' => ['category_id' => 'id'],
+            ],
         ];
     }
 
