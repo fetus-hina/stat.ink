@@ -1,48 +1,43 @@
-/*! Copyright (C) 2016 AIZAWA Hina | MIT License */ 
-(function ($) {
-    "use strict";
-    var interval_short = 2 * 60 * 1000;
-    var interval_long = 10 * 60 * 1000;
-    var $counters = $('.dseg-counter');
-    var createBackgroud = function () {
-        $counters.each(function () {
-            var $this = $(this);
+/*! Copyright (C) 2015-2017 AIZAWA Hina | MIT License */
+(($) => {
+    const interval_short = 2 * 60 * 1000;
+    const interval_long = 10 * 60 * 1000;
+    const $counters = $('.dseg-counter');
+    const createBackgroud = () => {
+        $counters.each((i, el) => {
+            const $this = $(el);
             $this.prepend(
-                $('<span>').addClass('dseg-counter-bg').text(
-                    (function (len) {
-                        var ret = '';
-                        for (var i = 0; i < len; ++i) {
-                            ret += '~';
-                        }
-                        return ret;
-                    })($this.text().length)
-                )
+                $('<span>')
+                    .addClass('dseg-counter-bg')
+                    .text($this.text().replace(/\d/, '8'))
             );
         });
     };
-    var update = function () {
+    const update = () => {
         $.ajax('/api/internal/counter', {
             cache: false,
             dataType: 'json',
             method: 'GET',
-            error: function () {
-                window.setTimeout(update, interval_long);
-            },
-            success: function (json) {
-                window.setTimeout(update, interval_short);
-                $counters.each(function() {
-                    var $this = $(this);
+        })
+        .then(
+            json => {
+                setTimeout(update, interval_short);
+                $counters.each((i, el) => {
+                    const $this = $(el);
                     $this.empty().text(
-                        ~~(json[$this.attr('data-type')]) + ""
+                        String(parseInt(json[$this.attr('data-type')], 10))
                     );
                 });
                 createBackgroud();
             },
-        });
+            () => {
+                setTimeout(update, interval_long);
+            }
+        );
     };
 
-    $(function() {
+    $(() => {
         createBackgroud();
-        window.setTimeout(update, interval_short);
+        setTimeout(update, interval_short);
     });
 })(jQuery);

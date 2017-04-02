@@ -15,8 +15,11 @@ RESOURCE_TARGETS_MAIN := \
 	resources/.compiled/counter/counter.css \
 	resources/.compiled/counter/counter.js \
 	resources/.compiled/dseg/dseg14.css \
+	resources/.compiled/dseg/dseg7.css \
 	resources/.compiled/dseg/fonts/DSEG14Classic-Italic.ttf \
 	resources/.compiled/dseg/fonts/DSEG14Classic-Italic.woff \
+	resources/.compiled/dseg/fonts/DSEG7Classic-Italic.ttf \
+	resources/.compiled/dseg/fonts/DSEG7Classic-Italic.woff \
 	resources/.compiled/flot-graph-icon/jquery.flot.icon.js \
 	resources/.compiled/gears/calc.js \
 	resources/.compiled/gh-fork-ribbon/gh-fork-ribbon.css \
@@ -267,7 +270,17 @@ resources/.compiled/dseg/fonts/DSEG14Classic-Italic.woff: resources/dseg/DSEG_v0
 	unzip -joq $< DSEG14/Classic/DSEG14Classic-Italic.woff -d resources/.compiled/dseg/fonts
 	touch -r $< $@
 
-resources/.compiled/dseg/dseg14.css: resources/dseg/dseg14.less $(GULP)
+resources/.compiled/dseg/fonts/DSEG7Classic-Italic.ttf: resources/dseg/DSEG_v030.zip
+	mkdir -p resources/.compiled/dseg/fonts
+	unzip -joq $< DSEG7/Classic/DSEG7Classic-Italic.ttf -d resources/.compiled/dseg/fonts
+	touch -r $< $@
+
+resources/.compiled/dseg/fonts/DSEG7Classic-Italic.woff: resources/dseg/DSEG_v030.zip
+	mkdir -p resources/.compiled/dseg/fonts
+	unzip -joq $< DSEG7/Classic/DSEG7Classic-Italic.woff -d resources/.compiled/dseg/fonts
+	touch -r $< $@
+
+resources/.compiled/dseg/%.css: resources/dseg/%.less $(GULP)
 	$(GULP) less --in $< --out $@
 
 resources/dseg/DSEG_v030.zip:

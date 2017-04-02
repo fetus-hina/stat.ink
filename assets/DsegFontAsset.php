@@ -13,6 +13,6 @@ class DsegFontAsset extends AssetBundle
 {
     public $sourcePath = '@app/resources/.compiled/dseg';
     public $css = [
-        'dseg14.css',
+        'dseg7.css',
     ];
 }
