@@ -9,7 +9,7 @@
             $this.prepend(
                 $('<span>')
                     .addClass('dseg-counter-bg')
-                    .text($this.text().replace(/\d/, '8'))
+                    .text($this.text().replace(/\d/g, '8'))
             );
         });
     };
