@@ -18,8 +18,10 @@ RESOURCE_TARGETS_MAIN := \
 	resources/.compiled/dseg/dseg7.css \
 	resources/.compiled/dseg/fonts/DSEG14Classic-Italic.ttf \
 	resources/.compiled/dseg/fonts/DSEG14Classic-Italic.woff \
+	resources/.compiled/dseg/fonts/DSEG14Classic-Italic.woff2 \
 	resources/.compiled/dseg/fonts/DSEG7Classic-Italic.ttf \
 	resources/.compiled/dseg/fonts/DSEG7Classic-Italic.woff \
+	resources/.compiled/dseg/fonts/DSEG7Classic-Italic.woff2 \
 	resources/.compiled/flot-graph-icon/jquery.flot.icon.js \
 	resources/.compiled/gears/calc.js \
 	resources/.compiled/gh-fork-ribbon/gh-fork-ribbon.css \
@@ -268,11 +270,18 @@ resources/.compiled/counter/counter.css: resources/counter/counter.less $(GULP)
 
 DSEG_ARCHIVE := resources/dseg/dseg-$(DSEG_VERSION).tar.gz
 
-resources/.compiled/dseg/fonts/DSEG14Classic-Italic.%: $(DSEG_ARCHIVE) resources/.compiled/dseg/fonts
+resources/.compiled/dseg/fonts/DSEG14Classic-Italic.ttf: $(DSEG_ARCHIVE) resources/.compiled/dseg/fonts
 	tar -zx --to-stdout -f $< DSEG-$(DSEG_VERSION)/fonts/DSEG14-Classic/$(notdir $@) > $@
 	touch $@
 
-resources/.compiled/dseg/fonts/DSEG7Classic-Italic.%: $(DSEG_ARCHIVE) resources/.compiled/dseg/fonts
+resources/.compiled/dseg/fonts/DSEG14Classic-Italic.woff: $(DSEG_ARCHIVE) resources/.compiled/dseg/fonts
+	tar -zx --to-stdout -f $< DSEG-$(DSEG_VERSION)/fonts/DSEG14-Classic/$(notdir $@) > $@
+	touch $@
+
+resources/.compiled/dseg/fonts/DSEG7Classic-Italic.ttf: $(DSEG_ARCHIVE) resources/.compiled/dseg/fonts
+	tar -zx --to-stdout -f $< DSEG-$(DSEG_VERSION)/fonts/DSEG7-Classic/$(notdir $@) > $@
+	touch $@
+resources/.compiled/dseg/fonts/DSEG7Classic-Italic.woff: $(DSEG_ARCHIVE) resources/.compiled/dseg/fonts
 	tar -zx --to-stdout -f $< DSEG-$(DSEG_VERSION)/fonts/DSEG7-Classic/$(notdir $@) > $@
 	touch $@
 
@@ -288,6 +297,9 @@ resources/.compiled/dseg/LICENSE: $(DSEG_ARCHIVE)
 resources/dseg/dseg-%.tar.gz:
 	mkdir -p $(dir $@)
 	curl -o $@ -sSL $(DSEG_RELEASE)
+
+%.woff2: %.ttf node_modules
+	node_modules/.bin/ttf2woff2 < $< > $@
 
 resources/.compiled/slack/slack.js: resources/slack/slack.js $(GULP)
 	$(GULP) js --in $< --out $@
