@@ -182,7 +182,9 @@ composer.lock: composer.json composer.phar
 	chmod 644 $@
 
 %.gz: %
-	gzip -9c $< > $@
+	rm -f $@
+	./node_modules/.bin/zopfli -i 1000 $<
+	chmod 644 $@
 
 $(GULP): node_modules
 	touch $(GULP)
