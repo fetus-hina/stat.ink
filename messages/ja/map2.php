@@ -8,9 +8,11 @@
 return [
     'Any Stage' => 'すべてのステージ',
 
-    'The Reef' => 'バッテラストリート',
+    'Humpback Pump Track' => 'コンブトラック',
     'Musselforge Fitness' => 'フジツボスポーツクラブ',
+    'The Reef' => 'バッテラストリート',
 
-    'Reef' => 'バッテラ',
     'Fitness' => 'フジツボ',
+    'Reef' => 'バッテラ',
+    'Track' => 'コンブ',
 ];

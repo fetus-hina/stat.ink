@@ -8,9 +8,11 @@
 return [
     'Any Stage' => 'Cualquier Escenarios',
 
+    'Humpback Pump Track' => '',
     'Musselforge Fitness' => 'Gimnasio Mejillón',
     'The Reef' => 'Barrio Congrio',
 
     'Fitness' => 'Gimnasio',
     'Reef' => 'Barrio',
+    'Track' => '',
 ];
