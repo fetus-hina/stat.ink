@@ -72,6 +72,11 @@ SIMPLE_CONFIG_TARGETS := \
 	config/lepton.php \
 	config/twitter.php
 
+DSEG_VERSION := 0.41
+DSEG_RELEASE := https://github.com/keshikan/DSEG/archive/v$(DSEG_VERSION).tar.gz
+
+ADDITIONAL_LICENSES := resources/.compiled/dseg/LICENSE
+
 all: init migrate-db
 
 init: \
@@ -100,7 +105,7 @@ init-by-archive: \
 test: init
 	./composer.phar exec codecept run
 
-Gdocker: init-by-archive migrate-db
+docker: init-by-archive migrate-db
 	sudo docker build -t jp3cki/statink .
 
 ikalog: all runtime/ikalog runtime/ikalog/repo runtime/ikalog/winikalog.html
@@ -108,7 +113,7 @@ ikalog: all runtime/ikalog runtime/ikalog/repo runtime/ikalog/winikalog.html
 	./yii ikalog/update-ikalog
 	./yii ikalog/update-winikalog
 
-resource: $(RESOURCE_TARGETS) $(SUB_RESOURCES)
+resource: $(RESOURCE_TARGETS) $(SUB_RESOURCES) $(ADDITIONAL_LICENSES)
 
 composer-update: composer.phar
 	./composer.phar self-update
@@ -143,7 +148,8 @@ clean: clean-resource
 clean-resource:
 	rm -rf \
 		resources/.compiled/* \
-		web/assets/*
+		web/assets/* \
+		$(ADDITIONAL_LICENSES)
 	cd resources/maps2 && make clean
 
 vendor-archive: $(VENDOR_ARCHIVE_FILE) $(VENDOR_ARCHIVE_SIGN)
@@ -260,32 +266,28 @@ resources/.compiled/counter/counter.js: resources/counter/counter.js $(GULP)
 resources/.compiled/counter/counter.css: resources/counter/counter.less $(GULP)
 	$(GULP) less --in $< --out $@
 
-resources/.compiled/dseg/fonts/DSEG14Classic-Italic.ttf: resources/dseg/DSEG_v030.zip
-	mkdir -p resources/.compiled/dseg/fonts
-	unzip -joq $< DSEG14/Classic/DSEG14Classic-Italic.ttf -d resources/.compiled/dseg/fonts
-	touch -r $< $@
+DSEG_ARCHIVE := resources/dseg/dseg-$(DSEG_VERSION).tar.gz
 
-resources/.compiled/dseg/fonts/DSEG14Classic-Italic.woff: resources/dseg/DSEG_v030.zip
-	mkdir -p resources/.compiled/dseg/fonts
-	unzip -joq $< DSEG14/Classic/DSEG14Classic-Italic.woff -d resources/.compiled/dseg/fonts
-	touch -r $< $@
+resources/.compiled/dseg/fonts/DSEG14Classic-Italic.%: $(DSEG_ARCHIVE) resources/.compiled/dseg/fonts
+	tar -zx --to-stdout -f $< DSEG-$(DSEG_VERSION)/fonts/DSEG14-Classic/$(notdir $@) > $@
+	touch $@
 
-resources/.compiled/dseg/fonts/DSEG7Classic-Italic.ttf: resources/dseg/DSEG_v030.zip
-	mkdir -p resources/.compiled/dseg/fonts
-	unzip -joq $< DSEG7/Classic/DSEG7Classic-Italic.ttf -d resources/.compiled/dseg/fonts
-	touch -r $< $@
-
-resources/.compiled/dseg/fonts/DSEG7Classic-Italic.woff: resources/dseg/DSEG_v030.zip
-	mkdir -p resources/.compiled/dseg/fonts
-	unzip -joq $< DSEG7/Classic/DSEG7Classic-Italic.woff -d resources/.compiled/dseg/fonts
-	touch -r $< $@
+resources/.compiled/dseg/fonts/DSEG7Classic-Italic.%: $(DSEG_ARCHIVE) resources/.compiled/dseg/fonts
+	tar -zx --to-stdout -f $< DSEG-$(DSEG_VERSION)/fonts/DSEG7-Classic/$(notdir $@) > $@
+	touch $@
 
 resources/.compiled/dseg/%.css: resources/dseg/%.less $(GULP)
 	$(GULP) less --in $< --out $@
 
-resources/dseg/DSEG_v030.zip:
-	test -d resources/dseg || mkdir resources/dseg
-	curl -o $@ http://www.keshikan.net/archive/DSEG_v030.zip
+resources/.compiled/dseg/fonts:
+	mkdir -p $@
+
+resources/.compiled/dseg/LICENSE: $(DSEG_ARCHIVE)
+	tar -zx --to-stdout -f $< DSEG-$(DSEG_VERSION)/DSEG-LICENSE.txt > $@
+
+resources/dseg/dseg-%.tar.gz:
+	mkdir -p $(dir $@)
+	curl -o $@ -sSL $(DSEG_RELEASE)
 
 resources/.compiled/slack/slack.js: resources/slack/slack.js $(GULP)
 	$(GULP) js --in $< --out $@

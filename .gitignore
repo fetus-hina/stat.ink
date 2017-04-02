@@ -18,6 +18,7 @@
 /node_modules
 /phpunit.xml
 /resources/.compiled
+/resources/dseg/*.tar.gz
 /resources/dseg/*.zip
 /vendor
 /web/images
