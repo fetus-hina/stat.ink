@@ -164,7 +164,8 @@ composer.lock: composer.json composer.phar
 
 %.br: %
 	rm -f $@
-	zcat $< | bro --quality 11 --output $@
+	bro --quality 11 --input $< --output $@
+	chmod 644 $@
 
 %.gz: %
 	gzip -9c $< > $@
