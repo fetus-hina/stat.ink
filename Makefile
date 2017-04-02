@@ -1,9 +1,9 @@
-STYLE_TARGETS=actions assets commands components controllers models
-JS_SRCS=$(shell ls -1 resources/stat.ink/main.js/*.js)
-GULP=./node_modules/.bin/gulp
-VENDOR_SHA256=$(shell sha256sum -t composer.lock | awk '{print $$1}')
+STYLE_TARGETS := actions assets commands components controllers models
+JS_SRCS := $(shell ls -1 resources/stat.ink/main.js/*.js)
+GULP := ./node_modules/.bin/gulp
+VENDOR_SHA256 := $(shell sha256sum -t composer.lock | awk '{print $$1}')
 
-RESOURCE_TARGETS_MAIN=\
+RESOURCE_TARGETS_MAIN := \
 	resources/.compiled/activity/activity.js \
 	resources/.compiled/app-link-logos/festink.png \
 	resources/.compiled/app-link-logos/ikadenwa.png \
@@ -46,17 +46,19 @@ RESOURCE_TARGETS_MAIN=\
 	web/static-assets/cc/cc-by.svg.br \
 	web/static-assets/cc/cc-by.svg.gz
 
-RESOURCE_TARGETS=\
+RESOURCE_TARGETS := \
 	$(RESOURCE_TARGETS_MAIN) \
 	$(RESOURCE_TARGETS_MAIN:.css=.css.br) \
 	$(RESOURCE_TARGETS_MAIN:.css=.css.gz) \
 	$(RESOURCE_TARGETS_MAIN:.js=.js.br) \
 	$(RESOURCE_TARGETS_MAIN:.js=.js.gz) \
 
-VENDOR_ARCHIVE_FILE=runtime/vendor-archive/vendor-$(VENDOR_SHA256).tar.xz
-VENDOR_ARCHIVE_SIGN=runtime/vendor-archive/vendor-$(VENDOR_SHA256).tar.xz.asc
+SUB_RESOURCES := resources/maps2
 
-SIMPLE_CONFIG_TARGETS=\
+VENDOR_ARCHIVE_FILE := runtime/vendor-archive/vendor-$(VENDOR_SHA256).tar.xz
+VENDOR_ARCHIVE_SIGN := runtime/vendor-archive/vendor-$(VENDOR_SHA256).tar.xz.asc
+
+SIMPLE_CONFIG_TARGETS := \
 	config/amazon-s3.php \
 	config/backup-gpg.php \
 	config/backup-s3.php \
@@ -95,7 +97,7 @@ init-by-archive: \
 test: init
 	./composer.phar exec codecept run
 
-docker: init-by-archive migrate-db
+Gdocker: init-by-archive migrate-db
 	sudo docker build -t jp3cki/statink .
 
 ikalog: all runtime/ikalog runtime/ikalog/repo runtime/ikalog/winikalog.html
@@ -103,7 +105,7 @@ ikalog: all runtime/ikalog runtime/ikalog/repo runtime/ikalog/winikalog.html
 	./yii ikalog/update-ikalog
 	./yii ikalog/update-winikalog
 
-resource: $(RESOURCE_TARGETS)
+resource: $(RESOURCE_TARGETS) $(SUB_RESOURCES)
 
 composer-update: composer.phar
 	./composer.phar self-update
@@ -139,6 +141,7 @@ clean-resource:
 	rm -rf \
 		resources/.compiled/* \
 		web/assets/*
+	cd resources/maps2 && make clean
 
 vendor-archive: $(VENDOR_ARCHIVE_FILE) $(VENDOR_ARCHIVE_SIGN)
 	rsync -av --progress \
@@ -424,5 +427,9 @@ $(VENDOR_ARCHIVE_FILE): vendor runtime/vendor-archive
 
 runtime/vendor-archive:
 	mkdir -p $@ || true
+
+$(SUB_RESOURCES):
+	$(MAKE) -C $@
+.PHONY: $(SUB_RESOURCES)
 
 .PHONY: FORCE all check-style clean clean-resource composer-plugin composer-update fix-style ikalog init migrate-db resource vendor-archive vendor-by-archive download-vendor-archive
