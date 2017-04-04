@@ -10,9 +10,11 @@ return [
 
     'Humpback Pump Track' => 'コンブトラック',
     'Musselforge Fitness' => 'フジツボスポーツクラブ',
+    'Starfish Mainstage' => 'ガンガゼ野外音楽堂',
     'The Reef' => 'バッテラストリート',
 
     'Fitness' => 'フジツボ',
+    'Mainstage' => 'ガンガゼ',
     'Reef' => 'バッテラ',
     'Track' => 'コンブ',
 ];
