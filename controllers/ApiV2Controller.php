@@ -48,11 +48,19 @@ class ApiV2Controller extends Controller
             // 'battle'        => [ 'class' => $prefix . '\BattleAction' ],
             // 'death-reason'  => [ 'class' => $prefix . '\DeathReasonAction' ],
             // 'gear'          => [ 'class' => $prefix . '\GearAction' ],
-            'map'           => [ 'class' => $prefix . '\MapAction' ],
             'rule'          => [ 'class' => $prefix . '\RuleAction' ],
+            'stage'         => [ 'class' => $prefix . '\StageAction' ],
             // 'user'          => [ 'class' => $prefix . '\UserAction' ],
             'weapon'        => [ 'class' => $prefix . '\WeaponAction' ],
             // 'weapon-trends' => [ 'class' => $prefix . '\WeaponTrendsAction' ],
         ];
+    }
+
+    public function actionMap()
+    {
+        return $this->redirect(
+            array_merge(Yii::$app->request->get(), ['/api-v2/stage']),
+            301
+        );
     }
 }

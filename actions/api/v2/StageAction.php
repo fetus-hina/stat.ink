@@ -11,7 +11,7 @@ use Yii;
 use yii\web\ViewAction as BaseAction;
 use app\models\Map2;
 
-class MapAction extends BaseAction
+class StageAction extends BaseAction
 {
     public function run()
     {
