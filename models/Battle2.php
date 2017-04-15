@@ -8,6 +8,9 @@
 namespace app\models;
 
 use Yii;
+use app\components\behaviors\TimestampBehavior;
+use jp3cki\uuid\Uuid;
+use yii\behaviors\AttributeBehavior;
 use yii\db\ActiveRecord;
 
 /**
@@ -67,7 +70,8 @@ use yii\db\ActiveRecord;
  * @property integer $remote_port
  * @property string $start_at
  * @property string $end_at
- * @property string $at
+ * @property string $created_at
+ * @property string $updated_at
  *
  * @property Agent $agent
  * @property Environment $env
@@ -85,6 +89,41 @@ use yii\db\ActiveRecord;
  */
 class Battle2 extends ActiveRecord
 {
+    const CLIENT_UUID_NAMESPACE = '15de9082-1c7b-11e7-8f94-001b21a098c2';
+
+    public function behaviors()
+    {
+        return [
+            TimestampBehavior::class,
+            [
+                // client_uuid の格納形式を作成する
+                'class' => AttributeBehavior::class,
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_VALIDATE => 'client_uuid',
+                ],
+                'value' => function ($event) {
+                    $value = $event->sender->client_uuid;
+                    return static::createClientUuid($value);
+                },
+            ],
+        ];
+    }
+
+    public static function createClientUuid($value) : string
+    {
+        if (!is_scalar($value)) {
+            return Uuid::v4()->formatAsString();
+        }
+        $value = trim((string)$value);
+        if ($value === '') {
+            return Uuid::v4()->formatAsString();
+        }
+        if (preg_match('/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i', $value)) {
+            return strtolower($value);
+        }
+        return Uuid::v5(static::CLIENT_UUID_NAMESPACE, $value);
+    }
+
     /**
      * @inheritdoc
      */
@@ -99,7 +138,7 @@ class Battle2 extends ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'client_uuid', 'at'], 'required'],
+            [['user_id'], 'required'],
             [['user_id', 'lobby_id', 'mode_id', 'rule_id', 'map_id', 'weapon_id', 'level', 'level_after'], 'integer'],
             [['rank_id', 'rank_exp', 'rank_after_id', 'rank_after_exp', 'rank_in_team', 'kill', 'death'], 'integer'],
             [['max_kill_combo', 'max_kill_streak', 'my_point', 'my_team_point', 'his_team_point'], 'integer'],
@@ -107,11 +146,15 @@ class Battle2 extends ActiveRecord
             [['env_id', 'agent_game_version_id', 'agent_id', 'remote_port'], 'integer'],
             [['is_win', 'is_knockout', 'is_automated', 'use_for_entire'], 'boolean'],
             [['kill_ratio', 'kill_rate', 'my_team_percent', 'his_team_percent'], 'number'],
-            [['my_team_color_hue', 'his_team_color_hue', 'note', 'private_note', 'link_url', 'client_uuid'], 'string'],
+            [['my_team_color_hue', 'his_team_color_hue', 'note', 'private_note', 'link_url'], 'string'],
             [['ua_variables', 'ua_custom', 'remote_addr'], 'string'],
-            [['start_at', 'end_at', 'at'], 'safe'],
+            [['start_at', 'end_at', 'created_at', 'updated_at'], 'safe'],
             [['my_team_color_rgb', 'his_team_color_rgb'], 'string', 'max' => 6],
             [['agent_game_version_date'], 'string', 'max' => 32],
+            [['client_uuid'], 'string'],
+            [['client_uuid'], 'match',
+                'pattern' => '/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i',
+            ],
             [['agent_id'], 'exist', 'skipOnError' => true,
                 'targetClass' => Agent::class,
                 'targetAttribute' => ['agent_id' => 'id'],
@@ -227,7 +270,8 @@ class Battle2 extends ActiveRecord
             'remote_port' => 'Remote Port',
             'start_at' => 'Start At',
             'end_at' => 'End At',
-            'at' => 'At',
+            'created_at' => 'Created At',
+            'updated_at' => 'Updated At',
         ];
     }
 
