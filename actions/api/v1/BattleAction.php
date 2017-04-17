@@ -14,11 +14,12 @@ use app\components\helpers\ImageConverter;
 use app\components\web\ServiceUnavailableHttpException;
 use app\models\Agent;
 use app\models\Battle;
+use app\models\OstatusPubsubhubbub;
 use app\models\Slack;
 use app\models\User;
 use app\models\api\v1\DeleteBattleForm;
-use app\models\api\v1\PostBattleForm;
 use app\models\api\v1\PatchBattleForm;
+use app\models\api\v1\PostBattleForm;
 use yii\base\DynamicModel;
 use yii\helpers\Url;
 use yii\web\MethodNotAllowedHttpException;
@@ -256,6 +257,18 @@ class BattleAction extends BaseAction
         foreach ($slacks as $slack) {
             try {
                 $slack->send($battle);
+            } catch (\Exception $e) {
+            }
+        }
+
+        // Ostatus 投稿
+        $ostatus = OstatusPubsubhubbub::find()
+            ->andWhere(['topic' => $battle->user_id])
+            ->active()
+            ->all();
+        foreach ($ostatus as $push) {
+            try {
+                $push->notify($battle);
             } catch (\Exception $e) {
             }
         }
