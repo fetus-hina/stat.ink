@@ -34,6 +34,12 @@ return [
         'OPTIONS api/v2/battle/<id:\d+>' => 'api-v2-battle/options',
         'api/v2/<action:[\w-]+>' => 'api-v2/<action>',
         'api/internal/<action:[\w-]+>' => 'api-internal/<action>',
+        'well-known/host-meta' => 'ostatus/host-meta', // TMP
+        'well-known/webfinger' => 'ostatus/webfinger', // TMP
+        '.well-known/host-meta' => 'ostatus/host-meta',
+        '.well-known/webfinger' => 'ostatus/webfinger',
+        'api/salmon/<screen_name:\w+>' => 'ostatus/salmon',
+        'api/ostatus/subscribe' => 'ostatus/subscribe',
         'downloads' => 'download-stats/index',
         '<action:[\w-]+>'  => 'site/<action>',
         '<controller:[\w-]+>/<action:[\w-]+>' => '<controller>/<action>',

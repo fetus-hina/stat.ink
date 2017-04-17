@@ -34,6 +34,7 @@ use yii\web\IdentityInterface;
  * @property Battle[] $battles
  * @property Environment $env
  * @property LoginWithTwitter $loginWithTwitter
+ * @property OstatusRsa $ostatusRsa
  * @property Slack[] $slacks
  * @property UserIcon $userIcon
  * @property UserStat $userStat
@@ -231,6 +232,11 @@ class User extends ActiveRecord implements IdentityInterface
                 $query->limit(1);
             })
             ->andWhere(['battle_image.type_id' => BattleImageType::ID_RESULT]);
+    }
+
+    public function getOstatusRsa()
+    {
+        return $this->hasOne(OstatusRsa::class, ['user_id' => 'id']);
     }
 
     public static function generateNewApiKey()
