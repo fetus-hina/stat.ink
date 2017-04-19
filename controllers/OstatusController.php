@@ -8,8 +8,11 @@
 namespace app\controllers;
 
 use Yii;
+use Zend\Feed\Writer\Feed as FeedWriter;
 use app\models\OstatusRsa;
 use app\models\User;
+use jp3cki\uuid\NS as UuidNs;
+use jp3cki\uuid\Uuid;
 use yii\helpers\Url;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
@@ -62,8 +65,6 @@ class OstatusController extends Controller
         if (!$rsa = $user->ostatusRsa) {
             $rsa = OstatusRsa::factory($user->id);
             if (!$rsa->save()) {
-                var_dump($rsa->getErrors());
-                exit;
                 throw new ServerErrorHttpException('Could not generate new magicsig');
             }
         }
@@ -81,6 +82,11 @@ class OstatusController extends Controller
                     'rel' => 'http://webfinger.net/rel/profile-page',
                     'type' => 'text/html',
                     'href' => $url,
+                ],
+                [
+                    'rel' => 'http://schemas.google.com/g/2010#updates-from',
+                    'type' => 'application/atom+xml',
+                    'href' => Url::to(['/ostatus/feed', 'screen_name' => $user->screen_name], true),
                 ],
                 [
                     'rel' => 'magic-public-key',
@@ -112,5 +118,26 @@ class OstatusController extends Controller
                 ],
             ],
         ];
+    }
+
+    public function actionFeed(string $screen_name)
+    {
+        Yii::$app->language = 'ja-JP';
+        Yii::$app->timeZone = 'Etc/UTC';
+        $resp = Yii::$app->getResponse();
+
+        if (!$user = User::findOne(['screen_name' => $screen_name])) {
+            $resp->format = 'json';
+            $resp->statusCode = 404;
+            $resp->statusText = 'File Not Found';
+            return ['error' => Yii::t('yii', 'Page not found.')];
+        }
+
+        $resp->format = 'raw';
+        $resp->headers->set('Content-Type', 'application/atom+xml; charset=UTF-8');
+
+        return $this->render('atom.tpl', [
+            'user' => $user,
+        ]);
     }
 }

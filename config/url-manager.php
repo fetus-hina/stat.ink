@@ -10,12 +10,15 @@ return [
         'register'      => 'user/register',
         'u/<screen_name:\w+>/<battle:\d+>' => 'show/battle',
         'u/<screen_name:\w+>/<battle:\d+>/edit' => 'show/edit-battle',
+        'u/<screen_name:\w+>/<battle:\d+>.atom' => 'ostatus/battle-atom',
         'u/<screen_name:\w+>/<id_from:\d+>-<id_to:\d+>' => 'show/user',
         'u/<screen_name:\w+>/stat/report/<year:\d+>/<month:\d+>' => 'show/user-stat-report',
         'u/<screen_name:\w+>/stat/report/<year:\d+>' => 'show/user-stat-report',
         'u/<screen_name:\w+>/stat/<by:[\w-]+>' => 'show/user-stat-<by>',
+        'u/<screen_name:\w+>/remote-follow' => 'show/user-remote-follow',
         'u/<screen_name:\w+>' => 'show/user',
         'u/<screen_name:\w+>.<lang:[\w-]+>.<type:rss|atom>' => 'feed/user',
+        'u/<screen_name:\w+>-ostatus.atom' => 'ostatus/feed',
         'fest/<region:\w+>/<order:\d+>' => 'fest/view',
         'entire/weapons/<weapon:\w+>/<rule:\w+>' => 'entire/weapon',
         'entire/weapons/<weapon:\w+>' => 'entire/weapon',
@@ -34,8 +37,8 @@ return [
         'OPTIONS api/v2/battle/<id:\d+>' => 'api-v2-battle/options',
         'api/v2/<action:[\w-]+>' => 'api-v2/<action>',
         'api/internal/<action:[\w-]+>' => 'api-internal/<action>',
-        'well-known/host-meta' => 'ostatus/host-meta', // TMP
-        'well-known/webfinger' => 'ostatus/webfinger', // TMP
+        // 'well-known/host-meta' => 'ostatus/host-meta', // TMP
+        // 'well-known/webfinger' => 'ostatus/webfinger', // TMP
         '.well-known/host-meta' => 'ostatus/host-meta',
         '.well-known/webfinger' => 'ostatus/webfinger',
         'api/salmon/<screen_name:\w+>' => 'ostatus/salmon',

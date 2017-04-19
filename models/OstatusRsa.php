@@ -29,7 +29,7 @@ use yii\db\ActiveRecord;
 class OstatusRsa extends ActiveRecord
 {
     // should call save() after return
-    static public function factory(int $user_id, int $bits = 1024) : self
+    public static function factory(int $user_id, int $bits = 2048) : self
     {
         $b64 = function (string $binary) : string {
             return strtr(base64_encode($binary), '+/', '-_');
