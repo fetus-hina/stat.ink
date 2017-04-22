@@ -572,7 +572,7 @@
                 "sort",
                 "table"
             ],
-            "time": "2016-07-19T16:14:17+00:00"
+            "time": "2016-07-19 16:14:17"
         },
         {
             "name": "bower-asset/jquery.inputmask",
@@ -840,16 +840,16 @@
         },
         {
             "name": "bower-asset/uuid.js",
-            "version": "v3.3.0",
+            "version": "v3.5.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/LiosK/UUID.js.git",
-                "reference": "b462393c12ee1d1061f12709e84524ad2f70509e"
+                "reference": "7269a37cf69813cb11449c5930cfaa5d1ace6127"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/LiosK/UUID.js/zipball/b462393c12ee1d1061f12709e84524ad2f70509e",
-                "reference": "b462393c12ee1d1061f12709e84524ad2f70509e",
+                "url": "https://api.github.com/repos/LiosK/UUID.js/zipball/7269a37cf69813cb11449c5930cfaa5d1ace6127",
+                "reference": "7269a37cf69813cb11449c5930cfaa5d1ace6127",
                 "shasum": ""
             },
             "type": "bower-asset-library",
@@ -864,7 +864,7 @@
             "license": [
                 "MIT"
             ],
-            "description": "UUID.js: The RFC-compliant UUID generator for JavaScript.",
+            "description": "UUID.js - RFC-compliant UUID Generator for JavaScript",
             "keywords": [
                 "4122",
                 "globally",
