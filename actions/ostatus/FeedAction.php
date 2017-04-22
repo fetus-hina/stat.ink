@@ -18,6 +18,7 @@ use app\models\User;
 use jp3cki\uuid\NS as UuidNS;
 use jp3cki\uuid\Uuid;
 use yii\helpers\Url;
+use yii\web\Response;
 use yii\web\ViewAction as BaseAction;
 
 class FeedAction extends BaseAction
@@ -37,10 +38,23 @@ class FeedAction extends BaseAction
             return $this->http404();
         }
 
+        if (!$battleId = Yii::$app->getRequest()->get('battle')) {
+            $resp = Yii::$app->getResponse();
+            $resp->format = 'raw';
+            $resp->getHeaders()->set('Content-Type', 'application/atom+xml; charset=UTF-8');
+            $resp->data = $this->renderAtom($user);
+            $resp->content = null;
+            return $resp;
+        }
+
+        $battle = $user->getBattles()->andWhere(['id' => $battleId])->one();
+        if (!$battle) {
+            return $this->http404();
+        }
         $resp = Yii::$app->getResponse();
         $resp->format = 'raw';
         $resp->getHeaders()->set('Content-Type', 'application/atom+xml; charset=UTF-8');
-        $resp->data = $this->renderAtom($user);
+        $resp->data = $this->renderBattleAtom($user, $battle);
         $resp->content = null;
         return $resp;
     }
@@ -115,7 +129,15 @@ class FeedAction extends BaseAction
             $root->appendChild($this->createEntry($doc, $user, $battle));
         }
 
-        $doc->formatOutput = true;
+        $doc->formatOutput = !!YII_DEBUG;
+        return $doc->saveXML();
+    }
+
+    public function renderBattleAtom(User $user, Battle $battle) : string
+    {
+        $doc = new DOMDocument('1.0', 'UTF-8');
+        $doc->appendChild($this->createEntry($doc, $user, $battle));
+        $doc->formatOutput = !!YII_DEBUG;
         return $doc->saveXML();
     }
 
@@ -214,7 +236,7 @@ class FeedAction extends BaseAction
 
     public function createEntry(DOMDocument $doc, User $user, Battle $battle) : DOMElement
     {
-        $root = $doc->createElement('entry');
+        $root = $doc->createElementNS('http://www.w3.org/2005/Atom', 'entry');
         $root->appendChild($doc->createElement(
             'id',
             Url::to(['/show/battle', 'screen_name' => $user->screen_name, 'battle' => $battle->id], true)

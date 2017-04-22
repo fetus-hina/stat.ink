@@ -34,6 +34,7 @@ class OstatusController extends Controller
     public function actions()
     {
         return [
+            'battle-atom' => 'app\actions\ostatus\FeedAction',
             'feed' => 'app\actions\ostatus\FeedAction',
         ];
     }
