@@ -11,8 +11,10 @@ use Yii;
 use Zend\Feed\Writer\Feed as FeedWriter;
 use app\models\OstatusRsa;
 use app\models\User;
+use app\models\api\internal\PubsubhubbubForm;
 use jp3cki\uuid\NS as UuidNs;
 use jp3cki\uuid\Uuid;
+use yii\filters\VerbFilter;
 use yii\helpers\Url;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
@@ -29,6 +31,19 @@ class OstatusController extends Controller
         Yii::$app->language = 'en-US';
         Yii::$app->timeZone = 'Etc/UTC';
         parent::init();
+    }
+
+    public function behaviors()
+    {
+        return [
+            'verbs' => [
+                'class' => VerbFilter::class,
+                'actions' => [
+                    'pubsubhubbub' => [ 'post' ],
+                    '*' => [ 'get', 'head' ],
+                ],
+            ],
+        ];
     }
 
     public function actions()
@@ -123,5 +138,42 @@ class OstatusController extends Controller
                 ],
             ],
         ];
+    }
+
+    public function actionPubsubhubbub()
+    {
+        $request = Yii::$app->getRequest();
+        $response = Yii::$app->getResponse();
+
+        $form = Yii::createObject(PubsubhubbubForm::class);
+        $form->callback         = $request->post('hub_callback');
+        $form->mode             = $request->post('hub_mode');
+        $form->topic            = $request->post('hub_topic');
+        $form->lease_seconds    = $request->post('hub_lease_seconds');
+        $form->secret           = $request->post('hub_secret');
+
+        if (!$form->validate()) {
+            $response = Yii::$app->getResponse();
+            $response->statusCode   = 400;
+            $response->statusText   = 'Bad Request';
+            $response->format       = 'json';
+            $response->data = [
+                'error' => 'Bad Request',
+                'details' => $form->getErrors(),
+            ];
+        } elseif (!$form->save()) {
+            $response->statusCode   = 500;
+            $response->statusText   = 'Internal Server Error';
+            $response->format       = 'json';
+            $response->data = [
+                'error' => 'Internal Server Error',
+            ];
+        } else {
+            $response->statusCode   = 204;
+            $response->statusText   = 'No Content';
+            $response->format       = 'raw';
+            $response->data         = '';
+        }
+        return $response;
     }
 }

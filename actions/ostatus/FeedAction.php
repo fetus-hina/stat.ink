@@ -227,6 +227,11 @@ class FeedAction extends BaseAction
             $this->text($doc, $user->screen_name)
         ));
         $root->appendChild($doc->createElementNS(
+            'http://portablecontacts.net/spec/1.0',
+            'poco:displayName',
+            $this->text($doc, $user->name)
+        ));
+        $root->appendChild($doc->createElementNS(
             'http://mastodon.social/schema/1.0',
             'mastodon:scope',
             $this->text($doc, 'unlisted')
