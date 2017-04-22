@@ -1,5 +1,6 @@
 {{strip}}
   {{use class="yii\helpers\Html"}}
+  {{use class="yii\helpers\Url"}}
   {{use class="yii\bootstrap\ActiveForm" type="block"}}
   {{use class="rmrevin\yii\fontawesome\FontAwesome" as="FA"}}
   {{\rmrevin\yii\fontawesome\AssetBundle::register($this)|@void}}
@@ -28,16 +29,25 @@
             例えば、mstdn.jp の利用者であれば「<code>your_id@mstdn.jp</code>」、Pawoo の利用者であれば「<code>your_id@pawoo.net</code>」です。
           </p>
           <hr>
-          <form action="{{url route="/show/user-remote-follow" screen_name=$user->screen_name}}" method="post" style="margin-top:15px">
-            {{$_req = $app->request}}
-            <input type="hidden" name="{{$_req->csrfParam|escape}}" value="{{$_req->csrfToken|escape}}">
-            <div class="form-group">
-              <input type="index" name="account" pattern="[a-zA-Z0-9_]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*" class="form-control" placeholder="例: example@mstdn.jp">
-            </div>
-            <div class="form-group">
-              <input type="submit" value="指定アカウントでこのユーザをフォローする" class="btn btn-primary btn-block">
-            </div>
-          </form>
+          <div style="margin-top:15px">
+            {{use class="app\models\RemoteFollowModalForm"}}
+            {{use class="yii\bootstrap\ActiveForm"}}
+            {{$_form = RemoteFollowModalForm::factory()}}
+            {{$_ = ActiveForm::begin([
+              'action' => Url::to(['/ostatus/start-remote-follow', 'screen_name' => $user->screen_name])
+            ])}}
+              {{$_->field($_form, 'screen_name')
+                  ->hiddenInput(['value' => $user->screen_name])
+                  ->label(false)}}
+              {{$_->field($_form, 'account')
+                  ->textInput(['placeholder' => '例: your_id@mstdn.jp'])
+                  ->label('あなたのアカウント')
+                }}
+              <div class="form-group">
+                <input type="submit" value="指定アカウントでこのユーザをフォローする" class="btn btn-primary btn-block">
+              </div>
+            {{ActiveForm::end()|@void}}
+          </div>
         </div>
       </div>
     </div>

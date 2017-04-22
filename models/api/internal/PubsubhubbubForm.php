@@ -76,8 +76,6 @@ class PubsubhubbubForm extends Model
 
     private function saveUnsubscribe() : bool
     {
-        Yii::warning('app', json_encode($this->attributes));
-
         $model = OstatusPubsubhubbub::find()
             ->andWhere([
                 'topic' => $this->getUser()->id,

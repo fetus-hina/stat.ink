@@ -40,6 +40,7 @@ class OstatusController extends Controller
                 'class' => VerbFilter::class,
                 'actions' => [
                     'pubsubhubbub' => [ 'post' ],
+                    'start-remote-follow' => [ 'post' ],
                     '*' => [ 'get', 'head' ],
                 ],
             ],
@@ -51,6 +52,7 @@ class OstatusController extends Controller
         return [
             'battle-atom' => 'app\actions\ostatus\FeedAction',
             'feed' => 'app\actions\ostatus\FeedAction',
+            'start-remote-follow' => 'app\actions\ostatus\StartRemoteFollowAction',
         ];
     }
 

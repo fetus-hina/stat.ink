@@ -15,7 +15,6 @@ return [
         'u/<screen_name:\w+>/stat/report/<year:\d+>/<month:\d+>' => 'show/user-stat-report',
         'u/<screen_name:\w+>/stat/report/<year:\d+>' => 'show/user-stat-report',
         'u/<screen_name:\w+>/stat/<by:[\w-]+>' => 'show/user-stat-<by>',
-        'u/<screen_name:\w+>/remote-follow' => 'show/user-remote-follow',
         'u/<screen_name:\w+>' => 'show/user',
         'u/<screen_name:\w+>.<lang:[\w-]+>.<type:rss|atom>' => 'feed/user',
         'u/<screen_name:\w+>-ostatus.atom' => 'ostatus/feed',
