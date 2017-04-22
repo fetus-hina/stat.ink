@@ -31,24 +31,28 @@ class OstatusController extends Controller
         parent::init();
     }
 
+    public function actions()
+    {
+        return [
+            'feed' => 'app\actions\ostatus\FeedAction',
+        ];
+    }
+
     public function actionHostMeta()
     {
         $resp = Yii::$app->response;
-        $resp->format = 'json';
-        return [
-            'links' => [
-                [
-                    'rel' => 'lrdd',
-                    'type' => 'application/json',
-                    'template' => Url::to(['/ostatus/webfinger'], true) . '?resource={uri}',
-                ],
-                [
-                    'rel' => 'lrdd',
-                    'type' => 'application/jrd+json',
-                    'template' => Url::to(['/ostatus/webfinger'], true) . '?resource={uri}',
-                ],
-            ],
-        ];
+        $resp->format = 'raw';
+        $resp->headers->set('Content-Type', 'text/plain');
+
+        $doc = new \DOMDocument('1.0', 'UTF-8');
+        $root = $doc->appendChild($doc->createElementNS('http://docs.oasis-open.org/ns/xri/xrd-1.0', 'XRD'));
+
+        $elem = $root->appendChild($doc->createElement('Link'));
+        $elem->setAttribute('rel', 'lrdd');
+        $elem->setAttribute('type', 'application/jrd+json');
+        $elem->setAttribute('template', Url::to(['/ostatus/webfinger'], true) . '?resource={uri}');
+
+        return $doc->saveXML();
     }
 
     public function actionWebfinger($resource)
@@ -118,26 +122,5 @@ class OstatusController extends Controller
                 ],
             ],
         ];
-    }
-
-    public function actionFeed(string $screen_name)
-    {
-        Yii::$app->language = 'ja-JP';
-        Yii::$app->timeZone = 'Etc/UTC';
-        $resp = Yii::$app->getResponse();
-
-        if (!$user = User::findOne(['screen_name' => $screen_name])) {
-            $resp->format = 'json';
-            $resp->statusCode = 404;
-            $resp->statusText = 'File Not Found';
-            return ['error' => Yii::t('yii', 'Page not found.')];
-        }
-
-        $resp->format = 'raw';
-        $resp->headers->set('Content-Type', 'application/atom+xml; charset=UTF-8');
-
-        return $this->render('atom.tpl', [
-            'user' => $user,
-        ]);
     }
 }
