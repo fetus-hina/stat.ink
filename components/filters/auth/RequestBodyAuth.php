@@ -1,0 +1,30 @@
+<?php
+/**
+ * @copyright Copyright (C) 2015-2017 AIZAWA Hina
+ * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
+ * @author AIZAWA Hina <hina@bouhime.com>
+ */
+
+namespace app\components\filters\auth;
+
+use yii\filters\auth\AuthMethod;
+
+class RequestBodyAuth extends AuthMethod
+{
+    public $tokenParam = 'access-token';
+
+    public function authenticate($user, $request, $response)
+    {
+        $accessToken = $request->post($this->tokenParam);
+        if (is_string($accessToken)) {
+            $identity = $user->loginByAccessToken($accessToken, get_class($this));
+            if ($identity !== null) {
+                return $identity;
+            }
+        }
+        if ($accessToken !== null) {
+            $this->handleFailure($response);
+        }
+        return null;
+    }
+}

@@ -27,6 +27,10 @@ RESOURCE_TARGETS_MAIN := \
 	resources/.compiled/gh-fork-ribbon/gh-fork-ribbon.css \
 	resources/.compiled/gh-fork-ribbon/gh-fork-ribbon.js \
 	resources/.compiled/ip-version/badge.css \
+	resources/.compiled/ostatus/ostatus.min.svg \
+	resources/.compiled/ostatus/ostatus.min.svg.br \
+	resources/.compiled/ostatus/ostatus.min.svg.gz \
+	resources/.compiled/ostatus/remote-follow.js \
 	resources/.compiled/slack/slack.js \
 	resources/.compiled/stat.ink/active-reltime.js \
 	resources/.compiled/stat.ink/battle-edit.js \
@@ -177,14 +181,16 @@ composer.lock: composer.json composer.phar
 	touch -r composer.json composer.lock
 
 %.br: %
-	rm -f $@
-	bro --quality 11 --input $< --output $@
+	bro --quality 11 --force --input $< --output $@
 	chmod 644 $@
 
 %.gz: %
 	rm -f $@
-	./node_modules/.bin/zopfli -i 1000 $<
+	./node_modules/.bin/zopfli -i 15 $<
 	chmod 644 $@
+
+%.min.svg: %.svg node_modules
+	./node_modules/.bin/svgo --output $@ --input $< -q
 
 $(GULP): node_modules
 	touch $(GULP)
@@ -240,6 +246,13 @@ resources/.compiled/stat.ink/session-calendar.js: resources/stat.ink/session-cal
 
 resources/.compiled/stat.ink/user-stat-by-map-rule-detail.css: resources/stat.ink/user-stat-by-map-rule-detail.less $(GULP)
 	$(GULP) less --in $< --out $@
+
+resources/.compiled/ostatus/remote-follow.js: resources/ostatus/remote-follow.js $(GULP)
+	$(GULP) js --in $< --out $@
+
+resources/.compiled/ostatus/ostatus.svg:
+	mkdir -p $(dir $@)
+	curl -sSL -o $@ 'https://github.com/OStatus/assets/raw/master/ostatus.svg'
 
 resources/.compiled/gh-fork-ribbon/gh-fork-ribbon.js: resources/gh-fork-ribbon/gh-fork-ribbon.js $(GULP)
 	$(GULP) js --in $< --out $@

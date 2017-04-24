@@ -443,6 +443,15 @@
           </div>
         {{/if}}
       </div>
+      <div class="miniinfo-databox">
+        {{$_asset = \app\assets\RemoteFollowAsset::register($this)}}
+        OStatus ({{'GNU Social, Mastodon etc.'|translate:'app'|escape}}):<br>
+        <button id="miniinfo-remote-follow" class="btn btn-default btn-xs" disabled>
+          <span class="fa fa-fw"><img src="{{$app->assetManager->getAssetUrl($_asset, 'ostatus.min.svg')|escape}}" style="width:auto;height:1em;vertical-align:baseline"></span>
+          {{'Remote Follow'|translate:'app'|escape}}
+        </button>
+        {{include file='includes/remote-follow-modal.tpl'}}
+      </div>
     </div>
   </div>
 {{/strip}}
