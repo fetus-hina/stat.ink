@@ -96,7 +96,7 @@ class PostBattleForm extends Model
                 'filter' => function ($value) {
                     return ($value === 'yes' || $value === 'no')
                         ? $value
-                        : strtolower($this->agent) === 'ikalog') ? 'yes' : 'no';
+                        : ((strtolower($this->agent) === 'ikalog') ? 'yes' : 'no');
                 },
             ],
             [['my_point'], 'integer', 'min' => 0],
