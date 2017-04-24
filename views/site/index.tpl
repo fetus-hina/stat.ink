@@ -54,24 +54,6 @@
       </div>
     </div>
 
-    <p class="bg-danger" style="padding:15px;border-radius:10px">
-      {{if $app->language === 'ja-JP'}}
-        WinIkaLog 利用予定の方へ:<br>
-        <br>
-        IkaLog のダウンロードリンクが現在機能していません。<br>
-        ダウンロードは作者のツイートを参照してください。
-      {{else}}
-        For WinIkaLog (package for <span class="fa fa-windows fa-fw"></span>Windows) Users:<br>
-        <br>
-        IkaLog download link on <a href="https://hasegaw.github.io/IkaLog/">WinIkaLog download site</a> is broken temporarily.<br>
-        Please see author's tweet (Japanese) below.<br>
-        * The first link is to the development preview version with the latest features and web-based UI.<br>
-        * The second link is to the stable version.
-      {{/if}}<br>
-      <a href="https://twitter.com/hasegaw/status/843801546118717440">
-        <span class="fa fa-twitter fa-fw"></span>https://twitter.com/<wbr>hasegaw/<wbr>status/<wbr>843801546118717440
-      </a>
-    </p>
     {{if false}}
       <p class="bg-danger" style="padding:15px;border-radius:10px">
         <a href="https://testfire2.stat.ink/">Splatoon 2 試射会用の記録サイトを、技術テストを兼ねて運用します。</a><br>
