@@ -127,6 +127,5 @@ class OstatusPubsubhubbub extends ActiveRecord
                 $curl->errorMessage
             ));
         }
-
     }
 }
