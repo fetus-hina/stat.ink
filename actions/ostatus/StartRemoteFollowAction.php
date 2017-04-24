@@ -98,8 +98,8 @@ class StartRemoteFollowAction extends BaseAction
         string $url,
         string $thisName,
         string $accountName,
-        string $remoteHostName) : ?string
-    {
+        string $remoteHostName
+    ) : ?string {
         if (!$response = $this->get($url)) {
             return null;
         }
@@ -141,13 +141,4 @@ class StartRemoteFollowAction extends BaseAction
         }
         return $curl->rawResponse;
     }
-    /*
-        curl https://mstdn.fetus.jp/.well-known/host-meta
-        <?xml version="1.0"?>
-        <XRD xmlns="http://docs.oasis-open.org/ns/xri/xrd-1.0">
-          <Link rel="lrdd" type="application/xrd+xml" template="https://mstdn.fetus.jp/.well-known/webfinger?resource={uri}"/>
-          </XRD>
-
-    }
-    */
 }

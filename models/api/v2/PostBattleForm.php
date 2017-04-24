@@ -203,9 +203,12 @@ class PostBattleForm extends Model
         $battle->weapon_id      = $key2id($this->weapon, Weapon2::class);
         $battle->is_win = (function ($value) {
             switch (string($value)) {
-                case 'win': return true;
-                case 'lose': return false;
-                default: null;
+                case 'win':
+                    return true;
+                case 'lose':
+                    return false;
+                default:
+                    null;
             }
         })($this->result);
         $battle->rank_in_team   = $intval($this->rank_in_team);

@@ -146,8 +146,8 @@ class BattleAtom
     private static function createElement(
         DOMDocument $doc,
         string $name,
-        array $attributes = []) : DOMElement
-    {
+        array $attributes = []
+    ) : DOMElement {
         $e = $doc->createElement($name);
         foreach ($attributes as $k => $v) {
             $e->setAttribute($k, $v);
@@ -231,8 +231,8 @@ class BattleAtom
         DOMDocument $doc,
         User $user,
         Battle $battle,
-        bool $includeUser = true) : DOMElement
-    {
+        bool $includeUser = true
+    ) : DOMElement {
         $root = $doc->createElementNS('http://www.w3.org/2005/Atom', 'entry');
         $root->appendChild($doc->createElement(
             'id',
