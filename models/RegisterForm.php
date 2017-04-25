@@ -73,7 +73,13 @@ class RegisterForm extends Model
         $u->password = Password::hash($this->password);
         $u->api_key = User::generateNewApiKey();
         $u->blackout = User::BLACKOUT_NOT_BLACKOUT;
+        $u->default_language_id = $this->getCurrentLanguageId();
         $u->join_at = new Now();
         return $u;
+    }
+
+    private function getCurrentLanguageId()
+    {
+        return Language::findOne(['lang' => Yii::$app->language])->id;
     }
 }
