@@ -17,6 +17,7 @@ use app\models\Battle;
 use app\models\User;
 use jp3cki\uuid\NS as UuidNS;
 use jp3cki\uuid\Uuid;
+use yii\db\Query;
 use yii\helpers\Url;
 
 class BattleAtom
@@ -107,7 +108,7 @@ class BattleAtom
         $query = $user->getBattles()
             ->with(['rule', 'map'])
             ->orderBy('[[id]] DESC')
-            ->limit(50);
+            ->limit(10);
         if ($only) {
             $query->andWhere(['id' => $only]);
         }
@@ -327,13 +328,54 @@ class BattleAtom
             $text .= sprintf(' %s %d', $battle->rankAfter->name, $battle->rank_exp_after);
         }
 
-        return sprintf('<p>%s</p>', implode(' ', [
-            htmlspecialchars($text, ENT_QUOTES, 'UTF-8'),
+        if ($stats24h = self::get24hStats($battle)) {
+            if ($stats24h['count'] >= 2) {
+                $text .= "\n";
+                $text .= Yii::t('app', 'Last 24h: {winpct} win, Avg. {kill}k/{death}d', [
+                    'winpct' => sprintf('%.1f%%', $stats24h['win_count'] * 100 / $stats24h['count']),
+                    'kill' => sprintf('%.1f', $stats24h['kill'] / $stats24h['count']),
+                    'death' => sprintf('%.1f', $stats24h['death'] / $stats24h['count']),
+                ]);
+            }
+        }
+
+        return sprintf('<p>%s</p>', implode('<br/>', [
+            preg_replace(
+                '/\x0d\x0a|\x0d|\x0a/',
+                '<br/>',
+                htmlspecialchars($text, ENT_QUOTES, 'UTF-8')
+            ),
             sprintf(
                 '<a href="%s">%s</a>',
                 Url::to(['/show/battle', 'screen_name' => $user->screen_name, 'battle' => $battle->id], true),
                 Yii::$app->getRequest()->hostName
             )
         ]));
+    }
+
+    private static function get24hStats(Battle $battle) : ?array
+    {
+        try {
+            $query = (new Query())
+                ->select([
+                    'count'     => 'COUNT(*)',
+                    'win_count' => 'SUM(CASE WHEN [[is_win]] THEN 1 ELSE 0 END)',
+                    'kill'      => 'SUM([[kill]])',
+                    'death'     => 'SUM([[death]])',
+                ])
+                ->from('battle')
+                ->where(['and',
+                    ['user_id' => $battle->user_id],
+                    ['not', ['is_win' => null]],
+                    ['not', ['kill' => null]],
+                    ['not', ['death' => null]],
+                    ['>=', 'at', date('Y-m-d H:i:sP', strtotime($battle->at) - 86400)],
+                ]);
+            if ($ret = $query->one()) {
+                return $ret;
+            }
+        } catch (\Exception $e) {
+        }
+        return null;
     }
 }
