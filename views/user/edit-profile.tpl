@@ -1,9 +1,9 @@
 {{strip}}
   {{set layout="main.tpl"}}
   {{set title="{{$app->name}} | {{'Update Your Profile'|translate:'app'}}"}}
-  {{use class="yii\helpers\Html"}}
-  {{use class="yii\bootstrap\ActiveForm" type="block"}}
   {{use class="app\models\User"}}
+  {{use class="yii\bootstrap\ActiveForm" type="block"}}
+  {{use class="yii\helpers\Html"}}
   <div class="container">
     <h1>
       {{'Update Your Profile'|translate:'app'|escape}}
@@ -33,6 +33,8 @@
           {{/registerJs}}
         </div>
       </div>
+
+      {{$_->field($form, 'default_language_id')->dropDownList($languages)}}
 
       {{$_->field($form, 'nnid')}}
 

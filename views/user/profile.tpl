@@ -139,6 +139,12 @@
               </td>
             </tr>
             <tr>
+              <th>{{'Language (used for OStatus)'|translate:'app'|escape}}</th>
+              <td>
+                {{$user->defaultLanguage->name|escape}} / {{$user->defaultLanguage->name_en|escape}}
+              </td>
+            </tr>
+            <tr>
               <th>{{'Nintendo Network ID'|translate:'app'|escape}}</th>
               <td>
                 {{if $user->nnid != ''}}

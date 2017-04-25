@@ -30,8 +30,10 @@ use yii\web\IdentityInterface;
  * @property integer $ikanakama
  * @property integer $env_id
  * @property string $blackout
+ * @property integer $default_language_id
  *
  * @property Battle[] $battles
+ * @property Language $defaultLanguage
  * @property Environment $env
  * @property LoginWithTwitter $loginWithTwitter
  * @property OstatusRsa $ostatusRsa
@@ -84,9 +86,9 @@ class User extends ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            [['name', 'screen_name', 'password', 'api_key', 'join_at'], 'required'],
+            [['name', 'screen_name', 'password', 'api_key', 'join_at', 'default_language_id'], 'required'],
             [['join_at'], 'safe'],
-            [['ikanakama', 'env_id'], 'integer'],
+            [['ikanakama', 'env_id', 'default_language_id'], 'integer'],
             [['name', 'screen_name', 'twitter'], 'string', 'max' => 15],
             [['password'], 'string', 'max' => 255],
             [['api_key'], 'string', 'max' => 43],
@@ -114,6 +116,10 @@ class User extends ActiveRecord implements IdentityInterface
                     static::BLACKOUT_ALWAYS,
                 ],
             ],
+            [['default_language_id'], 'exist', 'skipOnError' => true,
+                'targetClass' => Language::class,
+                'targetAttribute' => ['default_language_id' => 'id'],
+            ],
         ];
     }
 
@@ -135,6 +141,7 @@ class User extends ActiveRecord implements IdentityInterface
             'ikanakama'     => Yii::t('app', 'IKANAKAMA User ID'),
             'env_id'        => Yii::t('app', 'Capture Environment'),
             'blackout'      => Yii::t('app', 'Black out other players from the result image'),
+            'default_language_id' => Yii::t('app', 'Language (used for OStatus)'),
         ];
     }
 
@@ -168,6 +175,14 @@ class User extends ActiveRecord implements IdentityInterface
     public function getEnv()
     {
         return $this->hasOne(Environment::className(), ['id' => 'env_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getDefaultLanguage()
+    {
+        return $this->hasOne(Language::class, ['id' => 'default_language_id']);
     }
 
     /**

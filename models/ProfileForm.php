@@ -19,6 +19,7 @@ class ProfileForm extends Model
     public $ikanakama;
     public $env;
     public $blackout;
+    public $default_language_id;
 
     public function rules()
     {
@@ -29,7 +30,7 @@ class ProfileForm extends Model
                     return $value === '' ? null : $value;
                 },
             ],
-            [['name', 'blackout'], 'required'],
+            [['name', 'blackout', 'default_language_id'], 'required'],
             [['name'], 'string', 'max' => 15],
             [['nnid'], 'string', 'min' => 6, 'max' => 16],
             [['nnid'], 'match', 'pattern' => '/^[a-zA-Z0-9._-]+$/'],
@@ -50,6 +51,11 @@ class ProfileForm extends Model
                     User::BLACKOUT_ALWAYS,
                 ],
             ],
+            [['default_language_id'], 'integer'],
+            [['default_language_id'], 'exist', 'skipOnError' => true,
+                'targetClass' => Language::class,
+                'targetAttribute' => ['default_language_id' => 'id'],
+            ],
         ];
     }
 
@@ -67,6 +73,7 @@ class ProfileForm extends Model
             'ikanakama'     => Yii::t('app', 'IKANAKAMA User ID'),
             'env'           => Yii::t('app', 'Capture Environment'),
             'blackout'      => Yii::t('app', 'Black out other players from the result image'),
+            'default_language_id' => Yii::t('app', 'Language (used for OStatus)'),
         ];
     }
 }

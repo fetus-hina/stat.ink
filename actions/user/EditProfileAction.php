@@ -8,9 +8,11 @@
 namespace app\actions\user;
 
 use Yii;
-use yii\web\ViewAction as BaseAction;
 use app\models\Environment;
+use app\models\Language;
 use app\models\ProfileForm;
+use yii\helpers\ArrayHelper;
+use yii\web\ViewAction as BaseAction;
 
 class EditProfileAction extends BaseAction
 {
@@ -45,6 +47,21 @@ class EditProfileAction extends BaseAction
         return $this->controller->render('edit-profile.tpl', [
             'user' => $ident,
             'form' => $form,
+            'languages' => ArrayHelper::map(
+                array_map(
+                    function ($row) {
+                        $row['_name'] = sprintf(
+                            '%s / %s',
+                            $row['name'],
+                            $row['name_en']
+                        );
+                        return $row;
+                    },
+                    Language::find()->orderBy('name')->asArray()->all()
+                ),
+                'id',
+                '_name'
+            ),
         ]);
     }
 

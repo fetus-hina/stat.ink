@@ -187,6 +187,7 @@ return [
     'Kills/min' => 'キル/分',
     'Knockout Ratio' => 'ノックアウト率',
     'Knockout' => 'ノックアウト',
+    'Language (used for OStatus)' => '言語（OStatusで使用）',
     'Language' => '言語',
     'Last 24 Hours' => '最近24時間',
     'Last {n} Battles' => '最近{n}バトル',
