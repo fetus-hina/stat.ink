@@ -331,10 +331,12 @@ class BattleAtom
         if ($stats24h = self::get24hStats($battle)) {
             if ($stats24h['count'] >= 2) {
                 $text .= "\n";
-                $text .= Yii::t('app', 'Last 24h: {winpct} win, Avg. {kill}k/{death}d', [
+                $text .= Yii::t('app', 'Last 24h: {winpct} win ({win}/{count}), Avg. {kill}k/{death}d', [
                     'winpct' => sprintf('%.1f%%', $stats24h['win_count'] * 100 / $stats24h['count']),
-                    'kill' => sprintf('%.1f', $stats24h['kill'] / $stats24h['count']),
-                    'death' => sprintf('%.1f', $stats24h['death'] / $stats24h['count']),
+                    'win'    => number_format($stats24h['win_count']),
+                    'count'  => number_format($stats24h['count']),
+                    'kill'   => sprintf('%.1f', $stats24h['kill'] / $stats24h['count']),
+                    'death'  => sprintf('%.1f', $stats24h['death'] / $stats24h['count']),
                 ]);
             }
         }
@@ -369,7 +371,10 @@ class BattleAtom
                     ['not', ['is_win' => null]],
                     ['not', ['kill' => null]],
                     ['not', ['death' => null]],
-                    ['>=', 'at', date('Y-m-d H:i:sP', strtotime($battle->at) - 86400)],
+                    ['between', 'at',
+                        date('Y-m-d H:i:sP', strtotime($battle->at) - 86400),
+                        $battle->at,
+                    ],
                 ]);
             if ($ret = $query->one()) {
                 return $ret;

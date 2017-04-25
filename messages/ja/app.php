@@ -192,7 +192,7 @@ return [
     'Language (used for OStatus)' => '言語（OStatusで使用）',
     'Language' => '言語',
     'Last 24 Hours' => '最近24時間',
-    'Last 24h: {winpct} win, Avg. {kill}k/{death}d' => '最近24時間: 勝率 {winpct}, 平均 {kill}k/{death}d',
+    'Last 24h: {winpct} win ({win}/{count}), Avg. {kill}k/{death}d' => '最近24時間: 勝率 {winpct} ({count}戦{win}勝), 平均 {kill}k/{death}d',
     'Last {n} Battles' => '最近{n}バトル',
     'Legend' => '凡例',
     'Legends' => '凡例',
