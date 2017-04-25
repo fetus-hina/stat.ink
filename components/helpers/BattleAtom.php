@@ -23,13 +23,13 @@ class BattleAtom
 {
     public static function createUserFeed(User $user, array $only = []) : ?string
     {
-        $raii = self::switchLanguage('ja-JP'); // FIXME
+        $raii = self::switchLanguage($user->defaultLanguage->lang);
         return static::renderAtom($user, $only);
     }
 
     public static function createBattleFeed(User $user, Battle $battle) : ?string
     {
-        $raii = self::switchLanguage('ja-JP'); // FIXME
+        $raii = self::switchLanguage($user->defaultLanguage->lang);
         return static::renderBattleAtom($user, $battle);
     }
 
@@ -275,7 +275,7 @@ class BattleAtom
             static::text($doc, static::createBattleHtml($user, $battle))
         ));
         $content->setAttribute('type', 'html');
-        $content->setAttribute('xml:lang', 'ja-JP');
+        $content->setAttribute('xml:lang', Yii::$app->language);
         $root->appendChild($doc->createElementNS(
             'http://mastodon.social/schema/1.0',
             'mastodon:scope',
@@ -305,20 +305,28 @@ class BattleAtom
 
     private static function createBattleHtml(User $user, Battle $battle) : string
     {
-        $text = sprintf(
-            '%sでの%sで%s。(%sk/%sd)',
-            $battle->map
-                ? Yii::t('app-map', $battle->map->name)
-                : Yii::t('app', 'Splatoon'),
-            $battle->rule
+        $text = Yii::t('app', 'Just {result} {rule} at {stage}', [
+            'result' => $battle->is_win === null
+                ? Yii::t('app', '(unknown result)')
+                : ($battle->is_win
+                    ? Yii::t('app', 'won')
+                    : Yii::t('app', 'lost')),
+            'rule' => $battle->rule
                 ? Yii::t('app-rule', $battle->rule->name)
-                : Yii::t('app', 'battle'),
-            $battle->is_win === null
-                ? '戦いました'
-                : ($battle->is_win ? '勝ちました' : '負けました'),
-            $battle->kill === null ? '??' : $battle->kill,
-            $battle->death === null ? '??' : $battle->death
-        );
+                : '???',
+            'stage' => $battle->map
+                ? Yii::t('app-map', $battle->map->name)
+                : '???',
+        ]);
+
+        if ($battle->kill !== null && $battle->death !== null) {
+            $text .= sprintf(' (%dk/%dd)', $battle->kill, $battle->death);
+        }
+
+        if ($battle->rankAfter && $battle->rank_exp_after !== null) {
+            $text .= sprintf(' %s %d', $battle->rankAfter->name, $battle->rank_exp_after);
+        }
+
         return sprintf('<p>%s</p>', implode(' ', [
             htmlspecialchars($text, ENT_QUOTES, 'UTF-8'),
             sprintf(
