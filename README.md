@@ -19,6 +19,7 @@ https://stat.ink/ のソースコードです。
     - 7.0 以下では動作しません（7.1 で追加された文法を使用しています）
 * PostgreSQL 9.5+
     - 9.4 以下では動作しません（9.5 で追加された機能を使用しています）
+* Gearman
 * ImageMagick (`convert`)
 * Node.js (`npm`)
     - 6.x または 7.x を推奨
@@ -29,8 +30,10 @@ https://stat.ink/ のソースコードです。
 https://stat.ink/ は現在次の構成で動作しています。（Docker で用意しているものとほぼ同じです）
 
 * CentOS 7.3.1611 (x86_64)
+* EPEL
+    - `gearmand`
 * [JP3CKI Repository](https://rpm.fetus.jp/)
-    - [H2O](https://h2o.examp1e.net/) 2.1
+    - [H2O](https://h2o.examp1e.net/) mainline
     - [Brotli](https://github.com/google/brotli)
 * [Software Collections](https://www.softwarecollections.org/)
     - [rh-postgresql95](https://www.softwarecollections.org/en/scls/rhscl/rh-postgresql95/)
@@ -47,6 +50,7 @@ https://stat.ink/ は現在次の構成で動作しています。（Docker で�
             - `php71-php-mbstring`
             - `php71-php-mcrypt`
             - `php71-php-pdo`
+            - `php71-php-pecl-gearman`
             - `php71-php-pecl-msgpack`
             - `php71-php-pgsql`
 * [Node.js Repository](https://nodejs.org/en/download/package-manager/#enterprise-linux-and-fedora)

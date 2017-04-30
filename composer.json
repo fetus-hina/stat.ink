@@ -5,10 +5,12 @@
     "minimum-stability": "stable",
     "require": {
         "php": ">= 7.1.0",
+        "ext-PDO": "*",
         "ext-curl": "*",
         "ext-date": "*",
         "ext-filter": "*",
         "ext-gd": "*",
+        "ext-gearman": "*",
         "ext-hash": "*",
         "ext-intl": "*",
         "ext-json": "*",
@@ -16,7 +18,6 @@
         "ext-mcrypt": "*",
         "ext-openssl": "*",
         "ext-pcre": "*",
-        "ext-PDO": "*",
         "ext-pdo_pgsql": "*",
         "ext-session": "*",
         "ext-zlib": "*",
@@ -51,8 +52,10 @@
         "php-curl-class/php-curl-class": "^7.0",
         "phpseclib/phpseclib": "^2.0",
         "rmrevin/yii2-fontawesome": "^2.13",
+        "shakura/yii2-gearman": "dev-master",
         "smarty/smarty": "~3.1",
         "tpyo/amazon-s3-php-class": "^0.5.1",
+        "websightnl/gearman": "^1.0",
         "yiisoft/yii2": "^2.0.6",
         "yiisoft/yii2-bootstrap": "2.0.*",
         "yiisoft/yii2-smarty": "2.0.*",
@@ -60,6 +63,8 @@
         "zendframework/zend-http": "^2.5",
         "zendframework/zend-uri": "^2.5"
     },
+    "provides": [
+    ],
     "require-dev": {
         "codeception/base": "^2.2.3",
         "codeception/specify": "~0.4.3",
