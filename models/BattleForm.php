@@ -24,6 +24,12 @@ class BattleForm extends Model
     public function rules()
     {
         return [
+            [['lobby_id', 'rule_id', 'map_id', 'weapon_id', 'link_url', 'note', 'private_note'], 'filter',
+                'filter' => function ($value) {
+                    $value = trim((string)$value);
+                    return ($value === '') ? null : $value;
+                },
+            ],
             [['lobby_id'], 'exist',
                 'targetClass' => Lobby::class,
                 'targetAttribute' => 'id'],
