@@ -73,4 +73,8 @@ return [
         'gearman' => require(__DIR__ . '/gearman.php'),
     ],
     'params' => $params,
+    'aliases' => [
+        '@imageurl' => 'https://img.stat.ink',
+        '@jdenticon' => 'https://jdenticon.stat.ink',
+    ],
 ];

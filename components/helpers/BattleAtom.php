@@ -75,7 +75,7 @@ class BattleAtom
         $root->appendChild($doc->createElement('subtitle', static::text($doc, sprintf(
             '@%s@%s',
             $user->screen_name,
-            Yii::$app->getRequest()->hostName
+            static::getHostName()
         ))));
         $root->appendChild($doc->createElement('updated', static::text(
             $doc,
@@ -182,7 +182,7 @@ class BattleAtom
         $root->appendChild($doc->createElement('email', static::text($doc, sprintf(
             '%s@%s',
             $user->screen_name,
-            Yii::$app->getRequest()->hostName
+            static::getHostName()
         ))));
         $root->appendChild($doc->createElement('summary', ' '));
         $root->appendChild(static::createElement($doc, 'link', [
@@ -350,7 +350,7 @@ class BattleAtom
             sprintf(
                 '<a href="%s">%s</a>',
                 Url::to(['/show/battle', 'screen_name' => $user->screen_name, 'battle' => $battle->id], true),
-                Yii::$app->getRequest()->hostName
+                static::getHostName()
             )
         ]));
     }
@@ -382,5 +382,11 @@ class BattleAtom
         } catch (\Exception $e) {
         }
         return null;
+    }
+
+    private static function getHostName() : string
+    {
+        $hostInfo = Yii::$app->getUrlManager()->hostInfo;
+        return parse_url($hostInfo, PHP_URL_HOST);
     }
 }
