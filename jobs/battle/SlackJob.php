@@ -16,7 +16,7 @@ use shakura\yii2\gearman\JobWorkload;
 
 class SlackJob extends BaseJob
 {
-    static public function jobName() : string
+    public static function jobName() : string
     {
         return sprintf(
             'statinkPushBattleToSlack_%s',
