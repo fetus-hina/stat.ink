@@ -135,6 +135,7 @@ $config = [
                 '@jdenticon' => 'https://jdenticon.stat.ink',
             ],
         ],
+        'gearman' => require(__DIR__ . '/gearman.php'),
     ],
     'params' => $params,
 ];

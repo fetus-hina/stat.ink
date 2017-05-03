@@ -17,6 +17,10 @@ return [
             'class' => 'yii\console\controllers\MigrateController',
             'templateFile' => '@app/views/migration/migration.php',
         ],
+        'gearman' => [
+            'class' => 'shakura\yii2\gearman\GearmanController',
+            'gearmanComponent' => 'gearman'
+        ],
     ],
     'modules' => [
         'gii' => [
@@ -60,9 +64,13 @@ return [
         'db' => $db,
         'urlManager' => array_merge(
             require(__DIR__ . '/url-manager.php'),
-            ['baseUrl' => 'https://stat.ink/']
+            [
+                'baseUrl' => 'https://stat.ink/',
+                'hostInfo' => 'https://stat.ink',
+            ]
         ),
         'i18n' => require(__DIR__ . '/i18n.php'),
+        'gearman' => require(__DIR__ . '/gearman.php'),
     ],
     'params' => $params,
 ];

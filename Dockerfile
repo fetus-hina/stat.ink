@@ -47,6 +47,7 @@ RUN rpm --import \
         php71-php-pecl-msgpack \
         php71-php-pecl-zip \
         php71-php-pgsql \
+        php71-php-process \
         php71-php-xml \
         php71-runtime \
         pngcrush \

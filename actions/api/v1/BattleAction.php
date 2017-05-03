@@ -20,6 +20,7 @@ use app\models\User;
 use app\models\api\v1\DeleteBattleForm;
 use app\models\api\v1\PatchBattleForm;
 use app\models\api\v1\PostBattleForm;
+use shakura\yii2\gearman\JobWorkload;
 use yii\base\DynamicModel;
 use yii\helpers\Url;
 use yii\web\MethodNotAllowedHttpException;
@@ -245,33 +246,9 @@ class BattleAction extends BaseAction
         // 保存時間の読み込みのために再読込する
         $battle = Battle::findOne(['id' => $battle->id]);
 
-        // Slack 投稿
-        $slacks = Slack::find()
-            ->andWhere([
-                'user_id' => $battle->user_id,
-                'suspended' => false,
-            ])
-            ->orderBy('id ASC')
-            ->limit(10)
-            ->all();
-        foreach ($slacks as $slack) {
-            try {
-                $slack->send($battle);
-            } catch (\Exception $e) {
-            }
-        }
-
-        // Ostatus 投稿
-        $ostatus = OstatusPubsubhubbub::find()
-            ->andWhere(['topic' => $battle->user_id])
-            ->active()
-            ->all();
-        foreach ($ostatus as $push) {
-            try {
-                $push->notify($battle);
-            } catch (\Exception $e) {
-            }
-        }
+        // バックグラウンドジョブの登録
+        // (Slack, Ostatus への push のタスク登録など)
+        $this->registerBackgroundJob($battle);
 
         return $this->runGetImpl($battle);
         // }}}
@@ -577,6 +554,33 @@ class BattleAction extends BaseAction
         $resp = Yii::$app->getResponse();
         $resp->format = 'json';
         return $ret;
+    }
+
+    private function registerBackgroundJob(Battle $battle) : void
+    {
+        // Slack 投稿
+        Yii::$app->gearman->getDispatcher()->background(
+            'statinkPushBattleToSlack',
+            new JobWorkload([
+                'params' => [
+                    'hostInfo' => Yii::$app->getRequest()->getHostInfo(),
+                    'version' => 1,
+                    'battle' => $battle->id,
+                ],
+            ])
+        );
+
+        // Ostatus 投稿
+        Yii::$app->gearman->getDispatcher()->background(
+            'statinkPushBattleOstatus',
+            new JobWorkload([
+                'params' => [
+                    'hostInfo' => Yii::$app->getRequest()->getHostInfo(),
+                    'version' => 1,
+                    'battle' => $battle->id,
+                ],
+            ])
+        );
     }
 
     private function formatError(array $errors, $code)
