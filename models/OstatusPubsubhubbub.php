@@ -103,7 +103,7 @@ class OstatusPubsubhubbub extends ActiveRecord
         return $this->hasOne(User::class, ['id' => 'topic']);
     }
 
-    public function notify(Battle $battle) : void
+    public function notify(Battle $battle) : ?string
     {
         $atom = BattleAtom::createUserFeed($battle->user, [$battle->id]);
         $hash = $this->secret != ''
@@ -126,6 +126,8 @@ class OstatusPubsubhubbub extends ActiveRecord
                 __METHOD__,
                 $curl->errorMessage
             ));
+            return null;
         }
+        return $atom;
     }
 }
