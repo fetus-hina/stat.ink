@@ -12,6 +12,8 @@ use Yii;
 use app\components\helpers\DateTimeFormatter;
 use app\components\helpers\ImageConverter;
 use app\components\web\ServiceUnavailableHttpException;
+use app\jobs\battle\OstatusJob;
+use app\jobs\battle\SlackJob;
 use app\models\Agent;
 use app\models\Battle;
 use app\models\OstatusPubsubhubbub;
@@ -560,7 +562,7 @@ class BattleAction extends BaseAction
     {
         // Slack 投稿
         Yii::$app->gearman->getDispatcher()->background(
-            'statinkPushBattleToSlack',
+            SlackJob::jobName(),
             new JobWorkload([
                 'params' => [
                     'hostInfo' => Yii::$app->getRequest()->getHostInfo(),
@@ -572,7 +574,7 @@ class BattleAction extends BaseAction
 
         // Ostatus 投稿
         Yii::$app->gearman->getDispatcher()->background(
-            'statinkPushBattleOstatus',
+            OstatusJob::jobName(),
             new JobWorkload([
                 'params' => [
                     'hostInfo' => Yii::$app->getRequest()->getHostInfo(),
