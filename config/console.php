@@ -74,6 +74,7 @@ return [
     ],
     'params' => $params,
     'aliases' => [
+        '@web' => 'https://stat.ink',
         '@imageurl' => 'https://img.stat.ink',
         '@jdenticon' => 'https://jdenticon.stat.ink',
     ],
