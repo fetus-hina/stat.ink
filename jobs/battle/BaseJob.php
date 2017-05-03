@@ -18,7 +18,8 @@ abstract class BaseJob extends \app\jobs\BaseJob
     abstract public function battle1Job(Battle $battle, JobWorkload $workload, GearmanJob $job);
     abstract public function battle2Job(Battle2 $battle, JobWorkload $workload, GearmanJob $job);
 
-    public function job(JobWorkload $workload, GearmanJob $job) {
+    public function job(JobWorkload $workload, GearmanJob $job)
+    {
         $params = $workload->getParams();
         if (isset($params['hostInfo'])) {
             $urlManager = Yii::$app->getUrlManager();
