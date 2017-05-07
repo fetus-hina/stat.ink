@@ -131,7 +131,7 @@ class Battle2 extends ActiveRecord
                     $death = intval($death, 10);
                     if ($death >= 1) {
                         return round($kill / $death, 2);
-                    } 
+                    }
                     return $kill === 0 ? null : 99.99;
                 },
             ],
