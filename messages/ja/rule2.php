@@ -10,6 +10,8 @@ return [
     'Any Lobby' => 'すべてのロビー',
     'Any Mode' => 'すべてのルール',
 
+    'Solo Queue' => '野良',
+
     'Regular Battle' => 'レギュラーバトル',
 
     'Turf War' => 'ナワバリバトル',

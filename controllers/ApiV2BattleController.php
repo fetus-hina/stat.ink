@@ -83,7 +83,9 @@ class ApiV2BattleController extends Controller
         if (!$model = Battle2::findOne(['id' => $id])) {
             throw new NotFoundHttpException(Yii::t('yii', 'Page not found.'));
         }
-        return "TODO";
+        $res = Yii::$app->response;
+        $res->format = 'json';
+        return $model->toJsonArray();
     }
 
     public function actionOptions($id = null)

@@ -18,6 +18,17 @@ return [
         'u/<screen_name:\w+>' => 'show/user',
         'u/<screen_name:\w+>.<lang:[\w-]+>.<type:rss|atom>' => 'feed/user',
         'u/<screen_name:\w+>-ostatus.atom' => 'ostatus/feed',
+
+        'v2/<screen_name:\w+>/<battle:\d+>' => 'show-v2/battle',
+        'v2/<screen_name:\w+>/<battle:\d+>/edit' => 'show-v2/edit-battle',
+        //'v2/<screen_name:\w+>/<battle:\d+>.atom' => 'ostatus/battle-atom',
+        'v2/<screen_name:\w+>/<id_from:\d+>-<id_to:\d+>' => 'show-v2/user',
+        'v2/<screen_name:\w+>/stat/report/<year:\d+>/<month:\d+>' => 'show-v2/user-stat-report',
+        'v2/<screen_name:\w+>/stat/report/<year:\d+>' => 'show-v2/user-stat-report',
+        'v2/<screen_name:\w+>/stat/<by:[\w-]+>' => 'show-v2/user-stat-<by>',
+        'v2/<screen_name:\w+>' => 'show-v2/user',
+        //'v2/<screen_name:\w+>.<lang:[\w-]+>.<type:rss|atom>' => 'feed/user',
+
         'fest/<region:\w+>/<order:\d+>' => 'fest/view',
         'entire/weapons/<weapon:\w+>/<rule:\w+>' => 'entire/weapon',
         'entire/weapons/<weapon:\w+>' => 'entire/weapon',

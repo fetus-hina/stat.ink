@@ -8,12 +8,16 @@
 namespace app\models;
 
 use Yii;
-use app\components\behaviors\TimestampBehavior;
 use app\components\behaviors\RemoteAddrBehavior;
 use app\components\behaviors\RemotePortBehavior;
+use app\components\behaviors\TimestampBehavior;
+use app\components\helpers\DateTimeFormatter;
 use jp3cki\uuid\Uuid;
 use yii\behaviors\AttributeBehavior;
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
+use yii\helpers\Json;
+use yii\helpers\Url;
 
 /**
  * This is the model class for table "battle2".
@@ -108,6 +112,45 @@ class Battle2 extends ActiveRecord
                 'value' => function ($event) {
                     $value = $event->sender->client_uuid;
                     return static::createClientUuid($value);
+                },
+            ],
+            [
+                // kill ratio
+                'class' => AttributeBehavior::class,
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => 'kill_ratio',
+                    ActiveRecord::EVENT_BEFORE_UPDATE => 'kill_ratio',
+                ],
+                'value' => function ($event) {
+                    $kill  = (string)$event->sender->kill;
+                    $death = (string)$event->sender->death;
+                    if ($kill === '' || $death === '') {
+                        return null;
+                    }
+                    $kill = intval($kill, 10);
+                    $death = intval($death, 10);
+                    if ($death >= 1) {
+                        return round($kill / $death, 2);
+                    } 
+                    return $kill === 0 ? null : 99.99;
+                },
+            ],
+            [
+                // kill rate
+                'class' => AttributeBehavior::class,
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => 'kill_rate',
+                    ActiveRecord::EVENT_BEFORE_UPDATE => 'kill_rate',
+                ],
+                'value' => function ($event) {
+                    $kill  = (string)$event->sender->kill;
+                    $death = (string)$event->sender->death;
+                    if ($kill === '' || $death === '') {
+                        return null;
+                    }
+                    $kill = intval($kill, 10);
+                    $death = intval($death, 10);
+                    return ($kill === 0 && $death === 0) ? null : ($kill * 100 / ($kill + $death));
                 },
             ],
         ];
@@ -287,6 +330,24 @@ class Battle2 extends ActiveRecord
         return $this->hasOne(Agent::class, ['id' => 'agent_id']);
     }
 
+    public function getBattleImageJudge()
+    {
+        return $this->hasOne(BattleImage2::class, ['battle_id' => 'id'])
+            ->andWhere(['type_id' => BattleImageType::ID_JUDGE]);
+    }
+
+    public function getBattleImageResult()
+    {
+        return $this->hasOne(BattleImage2::class, ['battle_id' => 'id'])
+            ->andWhere(['type_id' => BattleImageType::ID_RESULT]);
+    }
+
+    public function getBattleImageGear()
+    {
+        return $this->hasOne(BattleImage2::class, ['battle_id' => 'id'])
+            ->andWhere(['type_id' => BattleImageType::ID_GEAR]);
+    }
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -394,5 +455,166 @@ class Battle2 extends ActiveRecord
             }
         }
         return false;
+    }
+
+    public function getPreviousBattle() : ActiveQuery
+    {
+        return $this->hasOne(static::class, ['user_id' => 'user_id'])
+            ->andWhere(['<', 'id', $this->id])
+            ->orderBy('id DESC')
+            ->limit(1);
+    }
+
+    public function getNextBattle() : ActiveQuery
+    {
+        return $this->hasOne(static::class, ['user_id' => 'user_id'])
+            ->andWhere(['>', 'id', $this->id])
+            ->orderBy('id ASC')
+            ->limit(1);
+    }
+
+    public function getExtraData() : array
+    {
+        $json = $this->ua_variables;
+        if ($json == '') {
+            return [];
+        }
+        try {
+            return (function () use ($json) {
+                $decoded = Json::decode($json);
+                if (!$decoded) {
+                    return [];
+                }
+                $ret = [];
+                foreach ($decoded as $key => $value) {
+                    $key = str_replace('_', ' ', $key);
+                    $key = ucwords($key);
+                    $ret[$key] = $value;
+                }
+                ksort($ret, SORT_STRING);
+                return $ret;
+            })();
+        } catch (\Exception $e) {
+            return [];
+        }
+    }
+
+    public function getInked() : ?int
+    {
+        return $this->my_point; // FIXME
+    }
+
+    public function toJsonArray(array $skips = []) : array
+    {
+        // $events = null;
+        // if ($this->events && !in_array('events', $skips, true)) {
+        //     $events = Json::decode($this->events, false);
+        //     usort($events, function ($a, $b) {
+        //         return $a->at <=> $b->at;
+        //     });
+        // }
+        return [
+            'id' => $this->id,
+            'url' => Url::to([
+                'show-v2/battle',
+                'screen_name' => $this->user->screen_name,
+                'battle' => $this->id
+            ], true),
+            'user' => !in_array('user', $skips, true) && $this->user ? $this->user->toJsonArray() : null,
+            'lobby' => $this->lobby ? $this->lobby->toJsonArray() : null,
+            'mode' => $this->mode ? $this->mode->toJsonArray(false) : null,
+            'rule' => $this->rule ? $this->rule->toJsonArray() : null,
+            'map' => $this->map ? $this->map->toJsonArray() : null,
+            'weapon' => $this->weapon ? $this->weapon->toJsonArray() : null,
+            // 'rank' => $this->rank ? $this->rank->toJsonArray() : null,
+            // 'rank_exp' => $this->rank_exp,
+            // 'rank_after' => $this->rankAfter ? $this->rankAfter->toJsonArray() : null,
+            // 'rank_exp_after' => $this->rank_exp_after,
+            'level' => $this->level,
+            'level_after' => $this->level_after,
+            //'cash' => $this->cash,
+            //'cash_after' => $this->cash_after,
+            'result' => $this->is_win === true ? 'win' : ($this->is_win === false ? 'lose' : null),
+            'knock_out' => $this->is_knockout,
+            'rank_in_team' => $this->rank_in_team,
+            'kill' => $this->kill,
+            'death' => $this->death,
+            'kill_ratio' => isset($this->kill_ratio) ? floatval($this->kill_ratio) : null,
+            'kill_rate' => isset($this->kill_rate) ? floatval($this->kill_rate) / 100 : null,
+            'max_kill_combo' => $this->max_kill_combo,
+            'max_kill_streak' => $this->max_kill_streak,
+            //'death_reasons' => in_array('death_reasons', $skips, true)
+            //    ? null
+            //    : array_map(
+            //        function ($model) {
+            //            return $model->toJsonArray();
+            //        },
+            //        $this->battleDeathReasons
+            //    ),
+            'my_point' => $this->my_point,
+            'my_team_point' => $this->my_team_point,
+            'his_team_point' => $this->his_team_point,
+            'my_team_percent' => $this->my_team_percent,
+            'his_team_percent' => $this->his_team_percent,
+            // 'my_team_count' => $this->my_team_count,
+            // 'his_team_count' => $this->his_team_count,
+            // 'my_team_color' => [
+            //     'hue' => $this->my_team_color_hue,
+            //     'rgb' => $this->my_team_color_rgb,
+            // ],
+            // 'his_team_color' => [
+            //     'hue' => $this->his_team_color_hue,
+            //     'rgb' => $this->his_team_color_rgb,
+            // ],
+            'image_judge' => $this->battleImageJudge
+                ? Url::to(Yii::getAlias('@imageurl') . '/' . $this->battleImageJudge->filename, true)
+                : null,
+            'image_result' => $this->battleImageResult
+                ? Url::to(Yii::getAlias('@imageurl') . '/' . $this->battleImageResult->filename, true)
+                : null,
+            'image_gear' => $this->battleImageGear
+                ? Url::to(Yii::getAlias('@imageurl') . '/' . $this->battleImageGear->filename, true)
+                : null,
+            // 'gears' => in_array('gears', $skips, true)
+            //     ? null
+            //     : [
+            //         'headgear' => $this->headgear ? $this->headgear->toJsonArray() : null,
+            //         'clothing' => $this->clothing ? $this->clothing->toJsonArray() : null,
+            //         'shoes'    => $this->shoes ? $this->shoes->toJsonArray() : null,
+            //     ],
+            // 'period' => $this->period,
+            // // 'players' => (in_array('players', $skips, true) || count($this->battlePlayers) === 0)
+            // //     ? null
+            // //     : array_map(
+            // //         function ($model) {
+            // //             return $model->toJsonArray();
+            // //         },
+            // //         $this->battlePlayers
+            // //     ),
+            //'events' => $events,
+            'agent' => [
+                'name' => $this->agent ? $this->agent->name : null,
+                'version' => $this->agent ? $this->agent->version : null,
+                'game_version' => $this->agentGameVersion->name ?? null,
+                'game_version_date' => $this->agent_game_version_date,
+                'custom' => $this->ua_custom,
+                'variables' => $this->ua_variables ? @json_decode($this->ua_variables, false) : null,
+            ],
+            'automated' => !!$this->is_automated,
+            'environment' => $this->env ? $this->env->text : null,
+            'link_url' => ((string)$this->link_url !== '') ? $this->link_url : null,
+            'note' => ((string)$this->note !== '') ? $this->note : null,
+            'game_version' => $this->version ? $this->version->name : null,
+            'nawabari_bonus' => (($this->rule->key ?? null) === 'nawabari' && $this->bonus)
+                ? (int)$this->bonus->bonus
+                : null,
+            'start_at' => $this->start_at != ''
+                ? DateTimeFormatter::unixTimeToJsonArray(strtotime($this->start_at))
+                : null,
+            'end_at' => $this->end_at != ''
+                ? DateTimeFormatter::unixTimeToJsonArray(strtotime($this->end_at))
+                : null,
+            'register_at' => DateTimeFormatter::unixTimeToJsonArray(strtotime($this->created_at)),
+        ];
     }
 }
