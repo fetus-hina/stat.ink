@@ -19,7 +19,6 @@
         "ext-openssl": "*",
         "ext-pcre": "*",
         "ext-pdo_pgsql": "*",
-        "ext-process": "*",
         "ext-session": "*",
         "ext-zlib": "*",
         "bower-asset/bootstrap-toggle": "^2.2",
