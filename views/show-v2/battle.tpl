@@ -273,7 +273,7 @@
                   {{if $_ === null}}
                     {{'N/A'|translate:'app'|escape}}
                   {{else}}
-                    {{$_|percent:1|escape}}
+                    {{$_|escape}}%
                   {{/if}}
                 </td>
               </tr>
