@@ -9,6 +9,8 @@ namespace app\models;
 
 use Yii;
 use app\components\behaviors\TimestampBehavior;
+use app\components\behaviors\RemoteAddrBehavior;
+use app\components\behaviors\RemotePortBehavior;
 use jp3cki\uuid\Uuid;
 use yii\behaviors\AttributeBehavior;
 use yii\db\ActiveRecord;
@@ -95,6 +97,8 @@ class Battle2 extends ActiveRecord
     {
         return [
             TimestampBehavior::class,
+            RemoteAddrBehavior::class,
+            RemotePortBehavior::class,
             [
                 // client_uuid の格納形式を作成する
                 'class' => AttributeBehavior::class,
@@ -377,5 +381,18 @@ class Battle2 extends ActiveRecord
     public function getWeapon()
     {
         return $this->hasOne(Weapon2::class, ['id' => 'weapon_id']);
+    }
+
+    public function getIsMeaningful() : bool
+    {
+        $props = [
+            'rule_id', 'map_id', 'weapon_id', 'is_win', 'rank_in_team', 'kill', 'death',
+        ];
+        foreach ($props as $prop) {
+            if ($this->$prop !== null) {
+                return true;
+            }
+        }
+        return false;
     }
 }

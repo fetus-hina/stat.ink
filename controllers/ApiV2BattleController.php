@@ -62,17 +62,12 @@ class ApiV2BattleController extends Controller
 
     public function actions()
     {
-        // $prefix = 'app\actions\api\v2';
-        // return [
-        //     // 'battle'        => [ 'class' => $prefix . '\BattleAction' ],
-        //     // 'death-reason'  => [ 'class' => $prefix . '\DeathReasonAction' ],
-        //     // 'gear'          => [ 'class' => $prefix . '\GearAction' ],
-        //     'rule'          => [ 'class' => $prefix . '\RuleAction' ],
-        //     'stage'         => [ 'class' => $prefix . '\StageAction' ],
-        //     // 'user'          => [ 'class' => $prefix . '\UserAction' ],
-        //     'weapon'        => [ 'class' => $prefix . '\WeaponAction' ],
-        //     // 'weapon-trends' => [ 'class' => $prefix . '\WeaponTrendsAction' ],
-        // ];
+        $prefix = 'app\actions\api\v2\battle';
+        return [
+            'create' => [
+                'class' => $prefix . '\CreateAction',
+            ],
+        ];
     }
 
     public function actionIndex()
@@ -89,15 +84,6 @@ class ApiV2BattleController extends Controller
             throw new NotFoundHttpException(Yii::t('yii', 'Page not found.'));
         }
         return "TODO";
-    }
-
-    public function actionCreate()
-    {
-        $resp = Yii::$app->response;
-        $resp->statusCode = 201;
-        $resp->headers->set('Location', Url::to(['/show-v2/battle', 'id' => 42], true));
-        $resp->headers->set('X-Api-Location', Url::to(['/api-v2-battle/view', 'id' => 42], true));
-        return $resp;
     }
 
     public function actionOptions($id = null)

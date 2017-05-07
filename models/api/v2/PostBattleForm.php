@@ -8,17 +8,25 @@
 namespace app\models\api\v2;
 
 use Yii;
+use app\components\behaviors\TrimAttributesBehavior;
 use app\components\helpers\CriticalSection;
 use app\components\helpers\db\Now;
+use app\models\Agent;
 use app\models\Battle2;
+use app\models\BattleDeathReason2;
+use app\models\BattleEvents2;
+use app\models\BattleImage2;
+use app\models\BattleImageType;
+use app\models\DeathReason2;
 use app\models\Lobby2;
+use app\models\Map2;
 use app\models\Mode2;
 use app\models\Rule2;
 use app\models\SplatoonVersion2;
-use app\models\Stage2;
 use app\models\User;
 use app\models\Weapon2;
 use yii\base\Model;
+use yii\helpers\Json;
 use yii\web\UploadedFile;
 
 class PostBattleForm extends Model
@@ -40,6 +48,13 @@ class PostBattleForm extends Model
     public $level;
     public $level_after;
     public $my_point;
+    public $my_team_point;
+    public $his_team_point;
+    public $my_team_percent;
+    public $his_team_percent;
+    public $players;
+    public $death_reasons;
+    public $events;
     public $automated;
     public $link_url;
     public $note;
@@ -51,9 +66,37 @@ class PostBattleForm extends Model
     public $start_at;
     public $end_at;
 
+    public $image_judge;
+    public $image_result;
+    public $image_gear;
+
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => TrimAttributesBehavior::class,
+                'targets' => array_keys($this->attributes),
+            ],
+        ];
+    }
+
     public function rules()
     {
         return [
+            [['mode'], 'default',
+                'value' => function ($model, $attribute) : ?string {
+                    if (!$model->rule) {
+                        return null;
+                    }
+                    if (!$rule = Rule2::findOne(['key' => $model->rule])) {
+                        return null;
+                    }
+                    if (count($rule->modes) !== 1) {
+                        return null;
+                    }
+                    return $rule->modes[0]->key;
+                },
+            ],
             [['test'], 'in',
                 'range' => ['no', 'validate', 'dry_run'],
             ],
@@ -70,7 +113,7 @@ class PostBattleForm extends Model
                 'targetAttribute' => 'key',
             ],
             [['stage'], 'exist',
-                'targetClass' => Stage2::class,
+                'targetClass' => Map2::class,
                 'targetAttribute' => 'key',
             ],
             [['weapon'], 'exist',
@@ -100,11 +143,13 @@ class PostBattleForm extends Model
                 },
             ],
             [['my_point'], 'integer', 'min' => 0],
-            [['my_team_final_point', 'his_team_final_point'], 'integer', 'min' => 0],
-            [['my_team_final_percent', 'his_team_final_percent'], 'number',
+            [['my_team_point', 'his_team_point'], 'integer', 'min' => 0],
+            [['my_team_percent', 'his_team_percent'], 'number',
                 'min' => 0.0,
                 'max' => 100.0,
             ],
+            // public $players;
+            // public $death_reasons;
             [['link_url'], 'url'],
             [['note', 'private_note'], 'string'],
             [['note', 'private_note'], 'filter',
@@ -152,7 +197,7 @@ class PostBattleForm extends Model
 
     public function getIsTest() : bool
     {
-        $value = trim((string)$this->test);
+        $value = (string)$this->test;
         return $value !== '' && $value !== 'no';
     }
 
@@ -162,27 +207,24 @@ class PostBattleForm extends Model
         return $this;
     }
 
-    public function getMap()
+    public function getMap() : Map2
     {
         return $this->stage;
     }
 
-    public function save()
+    public function toBattle() : Battle2
     {
-        $trim = function ($string) : ?string {
-            $string = trim((string)$string);
-            return $string === '' ? null : $string;
-        };
-        $intval = function ($string) use ($trim) : ?int {
-            $string = $trim($string);
+        $intval = function ($string) : ?int {
             return $string === null ? null : intval($string, 10);
         };
+        $floatval = function ($string) : ?float {
+            return $string === null ? null : floatval($string);
+        };
         $datetime = function ($value) use ($intval) : ?string {
-            $value = $trim($value);
+            $value = $intval($value);
             return $value === null ? null : gmdate('Y-m-d\TH:i:sP', $value);
         };
-        $key2id = function ($key, string $class) use ($trim) {
-            $key = $trim($key);
+        $key2id = function ($key, string $class) {
             if ($key === null) {
                 return null;
             }
@@ -195,14 +237,14 @@ class PostBattleForm extends Model
         $battle = Yii::createObject(['class' => Battle2::class]);
         $battle->user_id        = $user->id;
         $battle->env_id         = $user->env_id;
-        $battle->client_uuid    = $trim($this->uuid);
+        $battle->client_uuid    = $this->uuid;
         $battle->lobby_id       = $key2id($this->lobby, Lobby2::class);
         $battle->mode_id        = $key2id($this->mode, Mode2::class);
         $battle->rule_id        = $key2id($this->rule, Rule2::class);
-        $battle->stage_id       = $key2id($this->stage, Stage2::class);
+        $battle->map_id         = $key2id($this->stage, Map2::class);
         $battle->weapon_id      = $key2id($this->weapon, Weapon2::class);
         $battle->is_win = (function ($value) {
-            switch (string($value)) {
+            switch ((string)$value) {
                 case 'win':
                     return true;
                 case 'lose':
@@ -217,161 +259,86 @@ class PostBattleForm extends Model
         $battle->level          = $intval($this->level);
         $battle->level_after    = $intval($this->level_after);
         $battle->my_point       = $intval($this->my_point);
+        $battle->my_team_point  = $intval($this->my_team_point);
+        $battle->his_team_point = $intval($this->his_team_point);
+        $battle->my_team_percent  = $floatval($this->my_team_percent);
+        $battle->his_team_percent = $floatval($this->his_team_percent);
         $battle->is_automated   = ($this->automated === 'yes');
-        $battle->link_url       = $trim($this->link_url);
-        $battle->note           = $trim($this->note);
-        $battle->private_note   = $trim($this->private_note);
-        //$battle->agent          = $trim($this->agent);
-        //$battle->aget_version   = $trim($this->agent_version);
-        $battle->agent_id       = null;
-        $battle->ua_custom      = $trim($this->agent_custom);
+        $battle->link_url       = $this->link_url;
+        $battle->note           = $this->note;
+        $battle->private_note   = $this->private_note;
+        $battle->agent_id       = $this->getAgentId($this->agent, $this->agent_version);
+        $battle->ua_custom      = $this->agent_custom;
         $battle->ua_variables   = $this->agent_variables
-            ? json_encode($this->agent_variables, JSON_FORCE_OBJECT)
+            ? Json::encode(
+                $this->agent_variables,
+                JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_FORCE_OBJECT
+            )
             : null;
         $battle->start_at       = $datetime($this->start_at);
         $battle->end_at         = $datetime($this->end_at);
-    }
-
-    public function toBattle()
-    {
-        $user = $this->getUser();
-
-        $o = new Battle();
-        $o->user_id         = $user->id;
-        $o->env_id          = $user->env_id;
-        $o->lobby_id        = $this->lobby ? Lobby::findOne(['key' => $this->lobby])->id : null;
-        $o->rule_id         = $this->rule ? Rule::findOne(['key' => $this->rule])->id : null;
-        $o->map_id          = $this->map ? Map::findOne(['key' => $this->map])->id : null;
-        $o->weapon_id       = $this->weapon ? Weapon::findOne(['key' => $this->weapon])->id : null;
-        $o->level           = $this->level ? (int)$this->level : null;
-        $o->level_after     = $this->level_after ? (int)$this->level_after : null;
-        $o->rank_id         = $this->rank ? Rank::findOne(['key' => $this->rank])->id : null;
-        $o->rank_after_id   = $this->rank_after ? Rank::findOne(['key' => $this->rank_after])->id : null;
-        $o->rank_exp        = (string)$this->rank_exp != '' ? (int)$this->rank_exp : null;
-        $o->rank_exp_after  = (string)$this->rank_exp_after != '' ? (int)$this->rank_exp_after : null;
-        $o->cash            = (string)$this->cash != '' ? (int)$this->cash : null;
-        $o->cash_after      = (string)$this->cash_after != '' ? (int)$this->cash_after : null;
-        $o->is_win          = $this->result === 'win' ? true : ($this->result === 'lose' ? false : null);
-        $o->rank_in_team    = $this->rank_in_team ? (int)$this->rank_in_team : null;
-        $o->kill            = (string)$this->kill != '' ? (int)$this->kill : null;
-        $o->death           = (string)$this->death != '' ? (int)$this->death : null;
-        $o->gender_id       = $this->gender === 'boy' ? 1 : ($this->gender === 'girl' ? 2 : null);
-        $o->fest_title_id = $this->fest_title ? FestTitle::findOne(['key' => $this->fest_title])->id : null;
-        $o->fest_title_after_id = $this->fest_title_after
-            ? FestTitle::findOne(['key' => $this->fest_title_after])->id
-            : null;
-        $o->fest_exp        = (string)$this->fest_exp != '' ? (int)$this->fest_exp : null;
-        $o->fest_exp_after  = (string)$this->fest_exp_after != '' ? (int)$this->fest_exp_after : null;
-        $o->fest_power      = (string)$this->fest_power != '' ? (int)$this->fest_power : null;
-        $o->my_team_power   = (string)$this->my_team_power != '' ? (int)$this->my_team_power : null;
-        $o->his_team_power  = (string)$this->his_team_power != '' ? (int)$this->his_team_power : null;
-        $o->my_team_color_hue = $this->my_team_color ? $this->my_team_color['hue'] : null;
-        $o->my_team_color_rgb = $this->my_team_color ? vsprintf('%02x%02x%02x', $this->my_team_color['rgb']) : null;
-        $o->his_team_color_hue = $this->his_team_color ? $this->his_team_color['hue'] : null;
-        $o->his_team_color_rgb = $this->his_team_color ? vsprintf('%02x%02x%02x', $this->his_team_color['rgb']) : null;
-        $o->start_at        = $this->start_at != ''
-            ? gmdate('Y-m-d H:i:sP', (int)$this->start_at)
-            : null;
-        $o->end_at          = $this->end_at != ''
-            ? gmdate('Y-m-d H:i:sP', (int)$this->end_at)
-            : new Now();
-        $o->agent_id        = null;
-        $o->ua_custom       = (string)$this->agent_custom == '' ? null : (string)$this->agent_custom;
-        $o->ua_variables    = $this->agent_variables ? json_encode($this->agent_variables, JSON_FORCE_OBJECT) : null;
-        $o->agent_game_version_id = $this->agent_game_version != ''
-            ? (SplatoonVersion::findOne(['tag' => $this->agent_game_version])->id ?? null)
-            : null;
-        $o->agent_game_version_date = $this->agent_game_version_date != ''
-            ? $this->agent_game_version_date
-            : null;
-        $o->client_uuid     = (string)$this->uuid == '' ? null : (string)$this->uuid;
-        $o->at              = new Now();
-        $o->is_automated    = ($this->automated === 'yes');
-        $o->link_url        = (string)$this->link_url == '' ? null : (string)$this->link_url;
-        $o->note            = $this->note;
-        $o->private_note    = $this->private_note;
-
-        $o->my_point                = (string)$this->my_point != '' ? (int)$this->my_point : null;
-        $o->my_team_final_point     = (string)$this->my_team_final_point != ''
-            ? (int)$this->my_team_final_point
-            : null;
-        $o->his_team_final_point    = (string)$this->his_team_final_point != ''
-            ? (int)$this->his_team_final_point
-            : null;
-        $o->my_team_final_percent   = (string)$this->my_team_final_percent != ''
-            ? sprintf('%.1f', (float)$this->my_team_final_percent)
-            : null;
-        $o->his_team_final_percent   = (string)$this->his_team_final_percent != ''
-            ? sprintf('%.1f', (float)$this->his_team_final_percent)
-            : null;
-        $o->is_knock_out    = $this->knock_out === 'yes' ? true : ($this->knock_out === 'no' ? false : null);
-        $o->my_team_count   = (string)$this->my_team_count != '' ? (int)$this->my_team_count : null;
-        $o->his_team_count  = (string)$this->his_team_count != '' ? (int)$this->his_team_count : null;
-        $o->max_kill_combo  = (string)$this->max_kill_combo != '' ? (int)$this->max_kill_combo : null;
-        $o->max_kill_streak = (string)$this->max_kill_streak != '' ? (int)$this->max_kill_streak : null;
-
-        $o->use_for_entire = $this->getIsUsableForEntireStats();
-
-        if ($this->gears) {
-            $o->headgear_id = $this->processGear('headgear');
-            $o->clothing_id = $this->processGear('clothing');
-            $o->shoes_id    = $this->processGear('shoes');
-        }
-
+        $battle->use_for_entire = $this->getIsUsableForEntireStats();
+        //if ($this->gears) {
+        //    $o->headgear_id = $this->processGear('headgear');
+        //    $o->clothing_id = $this->processGear('clothing');
+        //    $o->shoes_id    = $this->processGear('shoes');
+        //}
         if ($this->isTest) {
-            $now = isset($_SERVER['REQUEST_TIME']) ? $_SERVER['REQUEST_TIME'] : time();
-            $o->id = 0;
-            foreach ($o->attributes as $k => $v) {
+            $now = (int)($_SERVER['REQUEST_TIME'] ?? time());
+            $battle->id = 0;
+            foreach ($battle->attributes as $k => $v) {
                 if ($v instanceof Now) {
-                    $o->$k = gmdate('Y-m-d H:i:sP', $now);
+                    $battle->$k = gmdate('Y-m-d H:i:sP', $now);
                 }
             }
         }
-
-        return $o;
+        return $battle;
     }
 
-    public function toEvents(Battle $battle)
+    public function toEvents(Battle2 $battle) : ?BattleEvents2
     {
         if (!$this->events) {
             return null;
         }
-        $o = new BattleEvents();
-        $o->id = $battle->id;
-        $o->events = json_encode($this->events, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
-        return $o;
+        return Yii::createObject([
+            'class'  => BattleEvents2::class,
+            'id'     => $battle->id,
+            'events' => Json::encode($this->events),
+        ]);
     }
 
-    public function toDeathReasons(Battle $battle)
+    public function toDeathReasons(Battle2 $battle)
     {
         if (is_array($this->death_reasons) || $this->death_reasons instanceof \stdClass) {
             $unknownCount = 0;
             foreach ($this->death_reasons as $key => $count) {
-                $reason = DeathReason::findOne(['key' => $key]);
+                $reason = DeathReason2::findOne(['key' => $key]);
                 if ($key === 'unknown' || !$reason) {
                     $unknownCount += (int)$count;
                 } else {
-                    $o = new BattleDeathReason();
-                    $o->battle_id = $battle->id;
-                    $o->reason_id = $reason->id;
-                    $o->count = (int)$count;
-                    yield $o;
+                    yield Yii::createObject([
+                        'class'     => BattleDeathReason2::class,
+                        'battle_id' => $battle->id,
+                        'reason_id' => $reason->id,
+                        'count'     => (int)$count,
+                    ]);
                 }
             }
             if ($unknownCount > 0) {
-                $reason = DeathReason::findOne(['key' => 'unknown']);
+                $reason = DeathReason2::findOne(['key' => 'unknown']);
                 if ($reason) {
-                    $o = new BattleDeathReason();
-                    $o->battle_id = $battle->id;
-                    $o->reason_id = $reason->id;
-                    $o->count = (int)$unknownCount;
-                    yield $o;
+                    yield Yii::createObject([
+                        'class' => BattleDeathReason2::class,
+                        'battle_id' => $battle->id,
+                        'reason_id' => $reason->id,
+                        'count'     => (int)$unknownCount,
+                    ]);
                 }
             }
         }
     }
 
-    public function toPlayers(Battle $battle)
+    public function toPlayers(Battle2 $battle)
     {
         if (is_array($this->players) && !empty($this->players)) {
             foreach ($this->players as $form) {
@@ -381,48 +348,42 @@ class PostBattleForm extends Model
 
                 $weapon = ($form->weapon == '')
                     ? null
-                    : Weapon::findOne(['key' => $form->weapon]);
+                    : Weapon2::findOne(['key' => $form->weapon]);
 
-                $rank = ($form->rank == '')
-                    ? null
-                    : Rank::findOne(['key' => $form->rank]);
-
-                $player = new BattlePlayer();
-                $player->attributes = [
+                yield Yii::createObject([
+                    'class'         => BattlePlayer2::class,
                     'battle_id'     => $battle->id,
                     'is_my_team'    => $form->team === 'my',
                     'is_me'         => $form->is_me === 'yes',
-                    'weapon_id'     => $weapon ? $weapon->id : null,
-                    'rank_id'       => $rank ? $rank->id : null,
-                    'level'         => (string)$form->level === '' ? null : (int)$form->level,
-                    'rank_in_team'  => (string)$form->rank_in_team === '' ? null : (int)$form->rank_in_team,
-                    'kill'          => (string)$form->kill === '' ? null : (int)$form->kill,
-                    'death'         => (string)$form->death === '' ? null : (int)$form->death,
-                    'point'         => (string)$form->point === '' ? null : (int)$form->point,
-                    'my_kill'       => (string)$form->my_kill === '' ? null : (int)$form->my_kill,
-                ];
-                yield $player;
+                    'weapon_id'     => $weapon->id ?? null,
+                    'level'         => $form->level,
+                    'rank_in_team'  => $form->rank_in_team,
+                    'kill'          => $form->kill,
+                    'death'         => $form->death,
+                    'point'         => $form->point,
+                    'my_kill'       => $form->my_kill,
+                ]);
             }
         }
     }
 
 
-    public function toImageJudge(Battle $battle)
+    public function toImageJudge(Battle2 $battle)
     {
         return $this->toImage($battle, BattleImageType::ID_JUDGE, 'image_judge');
     }
 
-    public function toImageResult(Battle $battle)
+    public function toImageResult(Battle2 $battle)
     {
         return $this->toImage($battle, BattleImageType::ID_RESULT, 'image_result');
     }
 
-    public function toImageGear(Battle $battle)
+    public function toImageGear(Battle2 $battle)
     {
         return $this->toImage($battle, BattleImageType::ID_GEAR, 'image_gear');
     }
 
-    protected function toImage(Battle $battle, $imageTypeId, $attr)
+    protected function toImage(Battle2 $battle, $imageTypeId, $attr)
     {
         if ($this->isTest) {
             return null;
@@ -430,11 +391,12 @@ class PostBattleForm extends Model
         if ($this->$attr == '' && !$this->$attr instanceof UploadedFile) {
             return null;
         }
-        $o = new BattleImage();
-        $o->battle_id = $battle->id;
-        $o->type_id = $imageTypeId;
-        $o->filename = BattleImage::generateFilename();
-        return $o;
+        return Yii::createObject([
+            'class'     => BattleImage2::class,
+            'battle_id' => $battle->id,
+            'type_id'   => $imageTypeId,
+            'filename'  => BattleImage2::generateFilename(),
+        ]);
     }
 
     public function estimateAutomatedAgent()
@@ -455,62 +417,62 @@ class PostBattleForm extends Model
         }
     }
 
-    protected function processGear($key)
-    {
-        if ($this->isTest || !($this->gears instanceof PostGearsForm)) {
-            return null;
-        }
+    // protected function processGear($key)
+    // {
+    //     if ($this->isTest || !($this->gears instanceof PostGearsForm)) {
+    //         return null;
+    //     }
 
-        $gearForm = $this->gears->$key;
-        if (!($gearForm instanceof BaseGearForm)) {
-            return null;
-        }
+    //     $gearForm = $this->gears->$key;
+    //     if (!($gearForm instanceof BaseGearForm)) {
+    //         return null;
+    //     }
 
-        $gearModel = $gearForm->getGearModel(); // may null
-        $primaryAbility = $gearForm->primary_ability
-            ? Ability::findOne(['key' => $gearForm->primary_ability])
-            : null;
-        $secondaryAbilityIdList = [];
-        if (is_array($gearForm->secondary_abilities)) {
-            foreach ($gearForm->secondary_abilities as $aKey) {
-                if ($aKey == '') {
-                    $secondaryAbilityIdList[] = null;
-                } else {
-                    if ($a = Ability::findOne(['key' => $aKey])) {
-                        $secondaryAbilityIdList[] = $a->id;
-                    }
-                }
-            }
-        }
-        $fingerPrint = GearConfiguration::generateFingerPrint(
-            $gearModel ? $gearModel->id : null,
-            $primaryAbility ? $primaryAbility->id : null,
-            $secondaryAbilityIdList
-        );
+    //     $gearModel = $gearForm->getGearModel(); // may null
+    //     $primaryAbility = $gearForm->primary_ability
+    //         ? Ability::findOne(['key' => $gearForm->primary_ability])
+    //         : null;
+    //     $secondaryAbilityIdList = [];
+    //     if (is_array($gearForm->secondary_abilities)) {
+    //         foreach ($gearForm->secondary_abilities as $aKey) {
+    //             if ($aKey == '') {
+    //                 $secondaryAbilityIdList[] = null;
+    //             } else {
+    //                 if ($a = Ability::findOne(['key' => $aKey])) {
+    //                     $secondaryAbilityIdList[] = $a->id;
+    //                 }
+    //             }
+    //         }
+    //     }
+    //     $fingerPrint = GearConfiguration::generateFingerPrint(
+    //         $gearModel ? $gearModel->id : null,
+    //         $primaryAbility ? $primaryAbility->id : null,
+    //         $secondaryAbilityIdList
+    //     );
 
-        $lock = CriticalSection::lock(__METHOD__, 60);
-        $config = GearConfiguration::findOne(['finger_print' => $fingerPrint]);
-        if (!$config) {
-            $config = new GearConfiguration();
-            $config->finger_print = $fingerPrint;
-            $config->gear_id = $gearModel ? $gearModel->id : null;
-            $config->primary_ability_id = $primaryAbility ? $primaryAbility->id : null;
-            if (!$config->save()) {
-                throw new \Exception('Could not save gear_counfiguration');
-            }
+    //     $lock = CriticalSection::lock(__METHOD__, 60);
+    //     $config = GearConfiguration::findOne(['finger_print' => $fingerPrint]);
+    //     if (!$config) {
+    //         $config = new GearConfiguration();
+    //         $config->finger_print = $fingerPrint;
+    //         $config->gear_id = $gearModel ? $gearModel->id : null;
+    //         $config->primary_ability_id = $primaryAbility ? $primaryAbility->id : null;
+    //         if (!$config->save()) {
+    //             throw new \Exception('Could not save gear_counfiguration');
+    //         }
 
-            foreach ($secondaryAbilityIdList as $aId) {
-                $sub = new GearConfigurationSecondary();
-                $sub->config_id = $config->id;
-                $sub->ability_id = $aId;
-                if (!$sub->save()) {
-                    throw new \Exception('Could not save gear_configuration_secondary');
-                }
-            }
-        }
+    //         foreach ($secondaryAbilityIdList as $aId) {
+    //             $sub = new GearConfigurationSecondary();
+    //             $sub->config_id = $config->id;
+    //             $sub->ability_id = $aId;
+    //             if (!$sub->save()) {
+    //                 throw new \Exception('Could not save gear_configuration_secondary');
+    //             }
+    //         }
+    //     }
 
-        return $config->id;
-    }
+    //     return $config->id;
+    // }
 
     public function getIsUsableForEntireStats()
     {
@@ -523,61 +485,75 @@ class PostBattleForm extends Model
             return true;
         }
 
-        // stat.ink の要求する最小IkaLogバージョンを取得
-        $ikalogReq = IkalogRequirement::find()
-            ->andWhere(['<=','[[from]]', new Now()])
-            ->orderBy('[[from]] DESC')
-            ->limit(1)
-            ->one();
-        if (!$ikalogReq) {
-            // 最小IkaLogバージョンの定義がなければokと見なす
-            return true;
-        }
+        //FIXME: とりあえず ikalog なら ok ということにする
+        return true;
 
-        // IkaLog では統計に利用するためには agent_game_version_date が必須になりました
-        if (trim((string)$this->agent_game_version_date) == '') {
-            return false;
-        }
+        // // stat.ink の要求する最小IkaLogバージョンを取得
+        // $ikalogReq = IkalogRequirement::find()
+        //     ->andWhere(['<=','[[from]]', new Now()])
+        //     ->orderBy('[[from]] DESC')
+        //     ->limit(1)
+        //     ->one();
+        // if (!$ikalogReq) {
+        //     // 最小IkaLogバージョンの定義がなければokと見なす
+        //     return true;
+        // }
 
-        // "2016-06-08_00" => "2016.6.8.0" のような文字列に game_version_date を変換する
-        // "." 区切りにするのはバージョン比較は version_compare に喰わせると楽だから
-        //
-        // 1. とりあえず数字以外を "." に置き換えて
-        // 2. "." で分割して配列を作って
-        // 3. 各要素の左側の "0" を取り去って
-        // 4. 取り去った結果空文字列になる可能性があるのでそのときに "0" にするために int 経由して（黒魔術）
-        // 5. "." で再結合する
-        $fConvertVersionDate = function ($version_date) {
-            return implode(
-                '.',
-                array_map(
-                    function ($a) {
-                        return (string)(int)ltrim($a, '0');
-                    },
-                    explode(
-                        '.',
-                        trim(preg_replace('/[^0-9]+/', '.', trim((string)$version_date)))
-                    )
-                )
-            );
-        };
+        // // IkaLog では統計に利用するためには agent_game_version_date が必須になりました
+        // if (trim((string)$this->agent_game_version_date) == '') {
+        //     return false;
+        // }
 
-        if (version_compare(
-            $fConvertVersionDate($this->agent_game_version_date),
-            $fConvertVersionDate($ikalogReq->version_date),
-            '>='
-        )) {
-            return true;
-        }
+        // // "2016-06-08_00" => "2016.6.8.0" のような文字列に game_version_date を変換する
+        // // "." 区切りにするのはバージョン比較は version_compare に喰わせると楽だから
+        // //
+        // // 1. とりあえず数字以外を "." に置き換えて
+        // // 2. "." で分割して配列を作って
+        // // 3. 各要素の左側の "0" を取り去って
+        // // 4. 取り去った結果空文字列になる可能性があるのでそのときに "0" にするために int 経由して（黒魔術）
+        // // 5. "." で再結合する
+        // $fConvertVersionDate = function ($version_date) {
+        //     return implode(
+        //         '.',
+        //         array_map(
+        //             function ($a) {
+        //                 return (string)(int)ltrim($a, '0');
+        //             },
+        //             explode(
+        //                 '.',
+        //                 trim(preg_replace('/[^0-9]+/', '.', trim((string)$version_date)))
+        //             )
+        //         )
+        //     );
+        // };
 
-        return false;
+        // if (version_compare(
+        //     $fConvertVersionDate($this->agent_game_version_date),
+        //     $fConvertVersionDate($ikalogReq->version_date),
+        //     '>='
+        // )) {
+        //     return true;
+        // }
+
+        // return false;
     }
 
     public function getCriticalSectionName()
     {
+        $values = [
+            'class' => __CLASS__,
+            'version' => 2,
+            'user' => Yii::$app->user->identity->id,
+        ];
+        asort($values);
         return rtrim(
             base64_encode(
-                hash_hmac('sha256', $this->apikey, __CLASS__, true)
+                hash_hmac(
+                    'sha256',
+                    http_build_query($values, '', '&'),
+                    Yii::getAlias('@app'),
+                    true
+                )
             ),
             '='
         );
@@ -590,5 +566,78 @@ class PostBattleForm extends Model
         } catch (\RuntimeException $e) {
             return false;
         }
+    }
+
+    public function validateAgentVariables(string $attribute, $params)
+    {
+        if ($this->hasErrors($attribute)) {
+            return;
+        }
+        $value = $this->$attribute;
+        if ($value == '') {
+            $this->$attribute = null;
+            return;
+        }
+        if (is_array($value)) {
+            if (count($value) === 0) {
+                $this->$attribute = null;
+                return;
+            }
+            $value = (object)$value;
+        }
+        if (is_object($value) && ($value instanceof \stdClass)) {
+            $newValue = new \stdClass();
+            foreach ($value as $k => $v) {
+                $k = is_int($k) ? "ARRAY[{$k}]" : (string)$k;
+                if (!mb_check_encoding($k, 'UTF-8')) {
+                    $this->addError($attribute, 'Invalid UTF-8 sequence in KEY');
+                    return;
+                }
+                if (!is_string($v)) {
+                    if (is_int($v) || is_float($v)) {
+                        $v = (string)$v;
+                    } elseif (is_bool($v)) {
+                        $v = $v ? 'true' : 'false';
+                    } elseif (is_object($v) && is_callable([$v, '__toString'])) {
+                        $v = $v->__toString();
+                    } else {
+                        $v = Json::encode($v);
+                    }
+                }
+                if (!mb_check_encoding($v, 'UTF-8')) {
+                    $this->addError($attribute, 'Invalid UTF-8 sequence in VALUE (key=' . $k . ')');
+                    return;
+                }
+                $newValue->$k = $v;
+            }
+            $this->$attribute = $newValue;
+        } else {
+            $this->addError($attribute, 'Invalid format: ' . $attribute);
+        }
+    }
+
+    private function getAgentId(?string $name, ?string $version) : ?int
+    {
+        $name = trim($name);
+        $version = trim($version);
+        if ($name == '' || $version == '') {
+            return null;
+        }
+        $model = Agent::findOne([
+            'name' => $name,
+            'version' => $version,
+        ]);
+        if ($model) {
+            return (int)$model->id;
+        }
+        $model = Yii::createObject([
+            'class' => Agent::class,
+            'name' => $name,
+            'version' => $version,
+        ]);
+        if (!$model->save()) {
+            return null;
+        }
+        return (int)$model->id;
     }
 }
