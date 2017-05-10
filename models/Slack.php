@@ -10,6 +10,7 @@ namespace app\models;
 use Curl\Curl;
 use DateTime;
 use Yii;
+use yii\helpers\Json;
 use yii\helpers\Url;
 
 /**
@@ -96,7 +97,7 @@ class Slack extends \yii\db\ActiveRecord
         return $this->hasOne(User::className(), ['id' => 'user_id']);
     }
 
-    public function send(Battle $battle) : bool
+    public function send(Battle $battle, bool $realSend = true) : ?string
     {
         $lang = $this->language->lang ?? 'en-US';
         $i18n = Yii::$app->i18n;
@@ -185,7 +186,7 @@ class Slack extends \yii\db\ActiveRecord
             'attachments' => [
                 $attachment,
             ],
-        ]);
+        ], $realSend);
     }
 
     public function sendTest() : bool
@@ -196,7 +197,7 @@ class Slack extends \yii\db\ActiveRecord
         $formatter->locale = $lang;
         $formatter->timeZone = 'Etc/UTC';
 
-        return $this->doSend([
+        return null !== $this->doSend([
             'text' => sprintf(
                 "%s (%s)\nWebhook Test",
                 $i18n->translate(
@@ -210,10 +211,10 @@ class Slack extends \yii\db\ActiveRecord
                     'long'
                 )
             )
-        ]);
+        ], true);
     }
 
-    protected function doSend(array $params) : bool
+    protected function buildRealQuery(array $params) : array
     {
         if (!isset($params['username']) && $this->username != '') {
             $params['username'] = $this->username;
@@ -228,6 +229,15 @@ class Slack extends \yii\db\ActiveRecord
         if (!isset($params['channel']) && $this->channel != '') {
             $params['channel'] = $this->channel;
         }
+        return $params;
+    }
+
+    protected function doSend(array $params, bool $realSend) : ?string
+    {
+        $params = Json::encode($this->buildRealQuery($params));
+        if (!$realSend) {
+            return $params;
+        }
 
         $curl = new Curl();
         $curl->setUserAgent(sprintf(
@@ -238,8 +248,8 @@ class Slack extends \yii\db\ActiveRecord
         $curl->setHeader('Content-Type', 'application/json');
         $curl->post($this->webhook_url, $params);
         if ($curl->error) {
-            return false;
+            return null;
         }
-        return true;
+        return $params;
     }
 }
