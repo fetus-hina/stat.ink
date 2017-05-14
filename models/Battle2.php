@@ -80,6 +80,7 @@ use yii\helpers\Url;
  * @property string $updated_at
  *
  * @property Agent $agent
+ * @property BattlePlayer2 $battlePlayers
  * @property Environment $env
  * @property Lobby2 $lobby
  * @property Map2 $map
@@ -348,6 +349,13 @@ class Battle2 extends ActiveRecord
             ->andWhere(['type_id' => BattleImageType::ID_GEAR]);
     }
 
+    public function getBattlePlayers() : \yii\db\ActiveQuery
+    {
+        return $this->hasMany(BattlePlayer2::class, ['battle_id' => 'id'])
+            ->with(['weapon', 'weapon.type', 'weapon.subweapon', 'weapon.special'])
+            ->orderBy('id');
+    }
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -591,14 +599,14 @@ class Battle2 extends ActiveRecord
             //         'shoes'    => $this->shoes ? $this->shoes->toJsonArray() : null,
             //     ],
             // 'period' => $this->period,
-            // // 'players' => (in_array('players', $skips, true) || count($this->battlePlayers) === 0)
-            // //     ? null
-            // //     : array_map(
-            // //         function ($model) {
-            // //             return $model->toJsonArray();
-            // //         },
-            // //         $this->battlePlayers
-            // //     ),
+            'players' => (in_array('players', $skips, true) || count($this->battlePlayers) === 0)
+                ? null
+                : array_map(
+                    function ($model) {
+                        return $model->toJsonArray();
+                    },
+                    $this->battlePlayers
+                ),
             'events' => $events,
             'agent' => [
                 'name' => $this->agent ? $this->agent->name : null,

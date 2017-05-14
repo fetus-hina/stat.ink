@@ -17,6 +17,7 @@ use app\models\BattleDeathReason2;
 use app\models\BattleEvents2;
 use app\models\BattleImage2;
 use app\models\BattleImageType;
+use app\models\BattlePlayer2;
 use app\models\DeathReason2;
 use app\models\Lobby2;
 use app\models\Map2;
@@ -148,7 +149,7 @@ class PostBattleForm extends Model
                 'min' => 0.0,
                 'max' => 100.0,
             ],
-            // public $players;
+            [['players'], 'validatePlayers'],
             // public $death_reasons;
             [['events'], 'validateEvents'],
             [['link_url'], 'url'],
@@ -655,6 +656,38 @@ class PostBattleForm extends Model
         } else {
             $this->addError($attribute, 'Invalid format: ' . $attribute);
         }
+    }
+
+    public function validatePlayers(string $attribute, $params)
+    {
+        if ($this->hasErrors($attribute)) {
+            return;
+        }
+
+        if (!is_array($this->$attribute)) {
+            $this->addError($attribute, "{$attribute} must be an array.");
+            return;
+        }
+
+        if (count($this->$attribute) === 0) {
+            return;
+        }
+
+        if (count($this->$attribute) < 2 || count($this->$attribute) > 8) {
+            $this->addError($attribute, "{$attribute} must be contain 2-8 elements.");
+            return;
+        }
+
+        $newValues = [];
+        foreach ($this->$attribute as $i => $oldValue) {
+            $newValue = Yii::createObject(['class' => PostBattlePlayerForm::class]);
+            $newValue->attributes = $oldValue;
+            if (!$newValue->validate()) {
+                $this->addError("{$attribute}.{$i}", $newValue->getErrors());
+            }
+            $newValues[] = $newValue;
+        }
+        $this->$attribute = $newValues;
     }
 
     private function getAgentId(?string $name, ?string $version) : ?int
