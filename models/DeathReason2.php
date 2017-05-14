@@ -8,6 +8,7 @@
 namespace app\models;
 
 use Yii;
+use app\components\helpers\Translator;
 use yii\db\ActiveRecord;
 
 /**
@@ -112,5 +113,53 @@ class DeathReason2 extends ActiveRecord
     public function getWeapon()
     {
         return $this->hasOne(Weapon2::class, ['id' => 'weapon_id']);
+    }
+
+    public function toJsonArray()
+    {
+        return [
+            'key' => $this->key,
+            'name' => $this->getTranslatedNameList(),
+            'type' => $this->type
+                ? $this->type->toJsonArray()
+                : [
+                    'key' => null,
+                    'name' => Translator::translateToAll('app-death2', 'Unknown'),
+                ],
+        ];
+    }
+
+    public function getTranslatedNameList()
+    {
+        if ($this->type) {
+            switch ($this->type->key) {
+                case 'main':
+                    return Translator::translateToAll('app-weapon2', $this->name);
+
+                case 'sub':
+                    return Translator::translateToAll('app-subweapon2', $this->name);
+
+                case 'special':
+                    return Translator::translateToAll('app-special2', $this->name);
+            }
+        }
+        return Translator::translateToAll('app-death2', $this->name);
+    }
+
+    public function getTranslatedName()
+    {
+        if ($this->type) {
+            switch ($this->type->key) {
+                case 'main':
+                    return Yii::t('app-weapon2', $this->name);
+
+                case 'sub':
+                    return Yii::t('app-subweapon2', $this->name);
+
+                case 'special':
+                    return Yii::t('app-special2', $this->name);
+            }
+        }
+        return Yii::t('app-death2', $this->name);
     }
 }

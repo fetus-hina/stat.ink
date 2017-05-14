@@ -150,7 +150,7 @@ class PostBattleForm extends Model
                 'max' => 100.0,
             ],
             [['players'], 'validatePlayers'],
-            // public $death_reasons;
+            [['death_reasons'], 'validateDeathReasons'],
             [['events'], 'validateEvents'],
             [['link_url'], 'url'],
             [['note', 'private_note'], 'string'],
@@ -688,6 +688,28 @@ class PostBattleForm extends Model
             $newValues[] = $newValue;
         }
         $this->$attribute = $newValues;
+    }
+
+    public function validateDeathReasons(string $attribute, $params)
+    {
+        if ($this->hasErrors($attribute)) {
+            return;
+        }
+        $value = $this->$attribute;
+        if ($value == '') {
+            $this->$attribute = [];
+            return;
+        }
+        if (!is_array($value) && !$value instanceof \stdClass) {
+            $this->addError($attribute, "{$attribute} should be a map.");
+            return;
+        }
+        foreach ($value as $k => $v) {
+            $tmp = filter_var($v, FILTER_VALIDATE_INT);
+            if ($tmp === false || $tmp < 1 || $tmp > 99) {
+                $this->addError($attribute, "Value of {$attribute}[{$k}] (= {$v}) looks broken.");
+            }
+        }
     }
 
     private function getAgentId(?string $name, ?string $version) : ?int

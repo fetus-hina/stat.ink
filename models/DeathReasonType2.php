@@ -8,6 +8,7 @@
 namespace app\models;
 
 use Yii;
+use app\components\helpers\Translator;
 use yii\db\ActiveRecord;
 
 /**
@@ -60,5 +61,13 @@ class DeathReasonType2 extends ActiveRecord
     public function getDeathReasons()
     {
         return $this->hasMany(DeathReason2::class, ['type_id' => 'id']);
+    }
+
+    public function toJsonArray()
+    {
+        return [
+            'key' => $this->key,
+            'name' => Translator::translateToAll('app-death2', $this->name),
+        ];
     }
 }

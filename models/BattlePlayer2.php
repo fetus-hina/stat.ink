@@ -34,10 +34,10 @@ class BattlePlayer2 extends ActiveRecord
     public function behaviors()
     {
         return [
-            [
-                'class' => TrimAttributesBehavior::class,
-                'targets' => array_keys($this->attributes),
-            ],
+            // [
+            //     'class' => TrimAttributesBehavior::class,
+            //     'targets' => array_keys($this->attributes),
+            // ],
         ];
     }
 

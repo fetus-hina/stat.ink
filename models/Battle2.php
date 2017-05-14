@@ -80,6 +80,7 @@ use yii\helpers\Url;
  * @property string $updated_at
  *
  * @property Agent $agent
+ * @property BattleDeathReason2 $battleDeathReasons
  * @property BattlePlayer2 $battlePlayers
  * @property Environment $env
  * @property Lobby2 $lobby
@@ -331,6 +332,15 @@ class Battle2 extends ActiveRecord
         return $this->hasOne(Agent::class, ['id' => 'agent_id']);
     }
 
+    public function getBattleDeathReasons() : \yii\db\ActiveQuery
+    {
+        return $this->hasMany(BattleDeathReason2::class, ['battle_id' => 'id'])
+            ->orderBy([
+                'battle_id' => SORT_ASC,
+                'reason_id' => SORT_ASC,
+            ]);
+    }
+
     public function getBattleImageJudge()
     {
         return $this->hasOne(BattleImage2::class, ['battle_id' => 'id'])
@@ -559,14 +569,14 @@ class Battle2 extends ActiveRecord
             'kill_rate' => isset($this->kill_rate) ? floatval($this->kill_rate) / 100 : null,
             'max_kill_combo' => $this->max_kill_combo,
             'max_kill_streak' => $this->max_kill_streak,
-            //'death_reasons' => in_array('death_reasons', $skips, true)
-            //    ? null
-            //    : array_map(
-            //        function ($model) {
-            //            return $model->toJsonArray();
-            //        },
-            //        $this->battleDeathReasons
-            //    ),
+            'death_reasons' => in_array('death_reasons', $skips, true)
+                ? null
+                : array_map(
+                    function ($model) {
+                        return $model->toJsonArray();
+                    },
+                    $this->battleDeathReasons
+                ),
             'my_point' => $this->my_point,
             'my_team_point' => $this->my_team_point,
             'his_team_point' => $this->his_team_point,
