@@ -359,6 +359,14 @@ class Battle2 extends ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
+    public function getEvents() : \yii\db\ActiveQuery
+    {
+        return $this->hasOne(BattleEvents2::class, ['id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getLobby()
     {
         return $this->hasOne(Lobby2::class, ['id' => 'lobby_id']);
@@ -506,13 +514,13 @@ class Battle2 extends ActiveRecord
 
     public function toJsonArray(array $skips = []) : array
     {
-        // $events = null;
-        // if ($this->events && !in_array('events', $skips, true)) {
-        //     $events = Json::decode($this->events, false);
-        //     usort($events, function ($a, $b) {
-        //         return $a->at <=> $b->at;
-        //     });
-        // }
+        $events = null;
+        if ($this->events && !in_array('events', $skips, true)) {
+            $events = Json::decode($this->events->events, false);
+            usort($events, function ($a, $b) {
+                return $a->at <=> $b->at;
+            });
+        }
         return [
             'id' => $this->id,
             'url' => Url::to([
@@ -591,7 +599,7 @@ class Battle2 extends ActiveRecord
             // //         },
             // //         $this->battlePlayers
             // //     ),
-            //'events' => $events,
+            'events' => $events,
             'agent' => [
                 'name' => $this->agent ? $this->agent->name : null,
                 'version' => $this->agent ? $this->agent->version : null,

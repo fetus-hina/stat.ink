@@ -8,6 +8,7 @@
 namespace app\models;
 
 use Yii;
+use app\components\behaviors\CompressBehavior;
 use yii\db\ActiveRecord;
 
 /**

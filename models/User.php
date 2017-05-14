@@ -169,6 +169,26 @@ class User extends ActiveRecord implements IdentityInterface
         return $this->hasMany(Slack::className(), ['user_id' => 'id']);
     }
 
+    public function getIsSlackIntegrated() : bool
+    {
+        $row = $this->getSlacks()
+            ->andWhere(['suspended' => false])
+            ->asArray()
+            ->limit(1)
+            ->one();
+        return !!$row;
+    }
+
+    public function getIsOstatusIntegrated() : bool {
+        $row = OstatusPubsubhubbub::find()
+            ->active()
+            ->andWhere(['topic' => $this->id])
+            ->asArray()
+            ->limit(1)
+            ->one();
+        return !!$row;
+    }
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -322,8 +342,8 @@ class User extends ActiveRecord implements IdentityInterface
                 new DateTimeZone('Etc/UTC')
             ),
             'profile' => [
-                'nnid'          => (string)$this->nnid != '' ? $this->nnid : null,
-                'friend_code'   => (string)$this->sw_friend_code != ''
+                'nnid'          => (string)$this->nnid !== '' ? $this->nnid : null,
+                'friend_code'   => (string)$this->sw_friend_code !== ''
                     ? implode('-', [
                         'SW',
                         substr((string)$this->sw_friend_code, 0, 4),
@@ -338,6 +358,10 @@ class User extends ActiveRecord implements IdentityInterface
                 'environment'   => $this->env ? $this->env->text : null,
             ],
             'stat' => $this->userStat ? $this->userStat->toJsonArray() : null,
+            'stats' => [
+                'v1' => $this->userStat ? $this->userStat->toJsonArray() : null,
+                'v2' => null,
+            ],
         ];
     }
 

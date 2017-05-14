@@ -28,6 +28,7 @@ class CompressBehavior extends Behavior
 
     public function compress() : void
     {
+        $attribute = $this->attribute;
         if (substr($this->owner->$attribute, 0, 2) !== static::PREFIX_PLAIN) {
             return;
         }
@@ -45,13 +46,14 @@ class CompressBehavior extends Behavior
 
     public function decompress() : void
     {
+        $attribute = $this->attribute;
         switch (substr($this->owner->$attribute, 0, 2)) {
             case static::PREFIX_PLAIN:
             default:
                 return;
 
             case static::PREFIX_GZIP:
-                $value = $this->decompressGzip($this->owner->$attributae);
+                $value = $this->decompressGzip($this->owner->$attribute);
                 if ($value !== null) {
                     $this->owner->$attribute = $value;
                 }
@@ -82,5 +84,6 @@ class CompressBehavior extends Behavior
         if ($decoded === false) {
             return null;
         }
+        return $decoded;
     }
 }

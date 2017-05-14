@@ -150,6 +150,7 @@ class PostBattleForm extends Model
             ],
             // public $players;
             // public $death_reasons;
+            [['events'], 'validateEvents'],
             [['link_url'], 'url'],
             [['note', 'private_note'], 'string'],
             [['note', 'private_note'], 'filter',
@@ -567,6 +568,46 @@ class PostBattleForm extends Model
             return false;
         }
     }
+
+    public function validateEvents(string $attribute, $params)
+    {
+        if ($this->hasErrors($attribute)) {
+            return;
+        }
+
+        if (!is_array($this->$attribute)) {
+            if ($this->$attribute == '') {
+                $this->$attribute = null;
+            } else {
+                $this->addError($attribute, "{$attribute} must be an array.");
+            }
+            return;
+        }
+
+        if (count($this->$attribute) === 0) {
+            return;
+        }
+
+        $newValues = [];
+        foreach ($this->$attribute as $value) {
+            if (is_array($value)) {
+                $value = (object)$value;
+            }
+            if (!isset($value->at) || !isset($value->type)) {
+                continue;
+            }
+            $value->at = filter_var($value->at, FILTER_VALIDATE_FLOAT);
+            if ($value->at === false) {
+                continue;
+            }
+            $newValues[] = $value;
+        }
+        usort($newValues, function ($a, $b) {
+            return $a->at - $b->at;
+        });
+        $this->$attribute = $newValues;
+    }
+
 
     public function validateAgentVariables(string $attribute, $params)
     {

@@ -286,29 +286,35 @@ class CreateAction extends BaseAction
 
     private function registerBackgroundJob(Battle2 $battle) : void
     {
+        $user = $battle->user;
+
         // Slack 投稿
-        Yii::$app->gearman->getDispatcher()->background(
-            SlackJob::jobName(),
-            new JobWorkload([
-                'params' => [
-                    'hostInfo' => Yii::$app->getRequest()->getHostInfo(),
-                    'version' => 2,
-                    'battle' => $battle->id,
-                ],
-            ])
-        );
+        if ($user && $user->isSlackIntegrated) {
+            Yii::$app->gearman->getDispatcher()->background(
+                SlackJob::jobName(),
+                new JobWorkload([
+                    'params' => [
+                        'hostInfo' => Yii::$app->getRequest()->getHostInfo(),
+                        'version' => 2,
+                        'battle' => $battle->id,
+                    ],
+                ])
+            );
+        }
 
         // Ostatus 投稿
-        Yii::$app->gearman->getDispatcher()->background(
-            OstatusJob::jobName(),
-            new JobWorkload([
-                'params' => [
-                    'hostInfo' => Yii::$app->getRequest()->getHostInfo(),
-                    'version' => 2,
-                    'battle' => $battle->id,
-                ],
-            ])
-        );
+        if ($user && $user->isOstatusIntegrated) {
+            Yii::$app->gearman->getDispatcher()->background(
+                OstatusJob::jobName(),
+                new JobWorkload([
+                    'params' => [
+                        'hostInfo' => Yii::$app->getRequest()->getHostInfo(),
+                        'version' => 2,
+                        'battle' => $battle->id,
+                    ],
+                ])
+            );
+        }
     }
 
     private function formatError(array $errors, $code)
