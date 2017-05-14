@@ -179,7 +179,8 @@ class User extends ActiveRecord implements IdentityInterface
         return !!$row;
     }
 
-    public function getIsOstatusIntegrated() : bool {
+    public function getIsOstatusIntegrated() : bool
+    {
         $row = OstatusPubsubhubbub::find()
             ->active()
             ->andWhere(['topic' => $this->id])
