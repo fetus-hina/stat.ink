@@ -384,7 +384,7 @@ class BattleAction extends BaseAction
                     new JobWorkload([
                         'params' => [
                             'inPath' => "{$imageArchiveOutputDir}/{$basename}",
-                            'outPath' => "{$imageArchiveOptimizeDir}/{$basename}",
+                            'outPath' => "{$imageArchiveOptimizeDir}-judge/{$basename}",
                         ],
                     ])
                 );
@@ -445,7 +445,7 @@ class BattleAction extends BaseAction
                     new JobWorkload([
                         'params' => [
                             'inPath' => "{$imageArchiveOutputDir}/{$basename}",
-                            'outPath' => "{$imageArchiveOptimizeDir}/{$basename}",
+                            'outPath' => "{$imageArchiveOptimizeDir}-result/{$basename}",
                         ],
                     ])
                 );
@@ -493,7 +493,7 @@ class BattleAction extends BaseAction
                     new JobWorkload([
                         'params' => [
                             'inPath' => "{$imageArchiveOutputDir}/{$basename}",
-                            'outPath' => "{$imageArchiveOptimizeDir}/{$basename}",
+                            'outPath' => "{$imageArchiveOptimizeDir}-gear/{$basename}",
                         ],
                     ])
                 );
