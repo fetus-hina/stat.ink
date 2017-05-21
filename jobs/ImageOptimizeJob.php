@@ -12,7 +12,7 @@ use Yii;
 use shakura\yii2\gearman\JobWorkload;
 use yii\helpers\FileHelper;
 
-class ImageOptimizeJob extends JobBase
+class ImageOptimizeJob extends BaseJob
 {
     public static function jobName() : string
     {
