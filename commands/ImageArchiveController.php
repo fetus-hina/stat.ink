@@ -77,6 +77,9 @@ class ImageArchiveController extends Controller
                 continue;
             }
             if (preg_match('/^\d+-(result|judge|gear)\.png$/', $entry->getBasename(), $match)) {
+                if (time() - $entry->getMTime() < 300) {
+                    continue;
+                }
                 $outDir = sprintf('%s/%s-%s', $outBaseDir, $date, $match[1]);
                 if (!file_exists($outDir)) {
                     if (!mkdir($outDir, 0755, true)) {
