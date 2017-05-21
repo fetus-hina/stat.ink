@@ -12,6 +12,7 @@ use Yii;
 use app\components\helpers\DateTimeFormatter;
 use app\components\helpers\ImageConverter;
 use app\components\web\ServiceUnavailableHttpException;
+use app\jobs\ImageOptimizeJob;
 use app\jobs\battle\OstatusJob;
 use app\jobs\battle\SlackJob;
 use app\models\Agent;
@@ -334,9 +335,13 @@ class BattleAction extends BaseAction
             }
         }
         $imageOutputDir = Yii::getAlias('@webroot/images');
+        $time = time();
         $imageArchiveOutputDir = Yii::$app->params['amazonS3'] && Yii::$app->params['amazonS3'][0]['bucket'] != ''
-            ? (Yii::getAlias('@app/runtime/image-archive/queue') . '/' . gmdate('Ymd', time() + 9 * 3600)) // JST
+            ? (Yii::getAlias('@app/runtime/image-archive/queue') . '/' . gmdate('Ymd', $time + 9 * 3600)) // JST
             : null;
+        $imageArchiveOptimizeDir = ($imageArchiveOutputDir === null)
+            ? null
+            : (Yii::getAlias('@app/runtime/image-archive/interim') . '/' . gmdate('Ymd', $time + 9 * 3600));
         if ($image = $form->toImageJudge($battle)) {
             $binary = is_string($form->image_judge)
                 ? $form->image_judge
@@ -371,6 +376,18 @@ class BattleAction extends BaseAction
                         Yii::t('app', 'Could not save {0}', 'battle_image(judge)'),
                     ]
                 ], 500);
+            }
+            if ($imageArchiveOutputDir && $imageArchiveOptimizeDir) {
+                $basename = sprintf('%d-judge.png', $battle->id);
+                Yii::$app->gearman->getDispatcher()->background(
+                    ImageOptimizeJob::jobName(),
+                    new JobWorkload([
+                        'params' => [
+                            'inPath' => "{$imageArchiveOutputDir}/{$basename}",
+                            'outPath' => "{$imageArchiveOptimizeDir}/{$basename}",
+                        ],
+                    ])
+                );
             }
         }
         if ($image = $form->toImageResult($battle)) {
@@ -421,6 +438,18 @@ class BattleAction extends BaseAction
                     ]
                 ], 500);
             }
+            if ($imageArchiveOutputDir && $imageArchiveOptimizeDir) {
+                $basename = sprintf('%d-result.png', $battle->id);
+                Yii::$app->gearman->getDispatcher()->background(
+                    ImageOptimizeJob::jobName(),
+                    new JobWorkload([
+                        'params' => [
+                            'inPath' => "{$imageArchiveOutputDir}/{$basename}",
+                            'outPath' => "{$imageArchiveOptimizeDir}/{$basename}",
+                        ],
+                    ])
+                );
+            }
         }
         if ($image = $form->toImageGear($battle)) {
             $binary = is_string($form->image_gear)
@@ -456,6 +485,18 @@ class BattleAction extends BaseAction
                         Yii::t('app', 'Could not save {0}', 'battle_image(gear)'),
                     ]
                 ], 500);
+            }
+            if ($imageArchiveOutputDir && $imageArchiveOptimizeDir) {
+                $basename = sprintf('%d-gear.png', $battle->id);
+                Yii::$app->gearman->getDispatcher()->background(
+                    ImageOptimizeJob::jobName(),
+                    new JobWorkload([
+                        'params' => [
+                            'inPath' => "{$imageArchiveOutputDir}/{$basename}",
+                            'outPath' => "{$imageArchiveOptimizeDir}/{$basename}",
+                        ],
+                    ])
+                );
             }
         }
 
