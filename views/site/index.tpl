@@ -54,6 +54,23 @@
       </div>
     </div>
 
+    {{if true}}
+      <p class="bg-danger" style="padding:15px;border-radius:10px">
+        {{if $app->language === 'ja-JP'}}
+          2017-05-25 03:00 (日本時間) 頃から stat.ink のサーバメンテナンスを行います。<br>
+          メンテナンス中は stat.ink への投稿も含め、全てのアクセスが行えません。<br>
+          また、メンテナンス終了時にサーバのIPアドレスが変更になります。<br>
+          これに伴い、環境によってはしばらくアクセスできなくなる可能性があります。<br>
+          （アプリケーションやブラウザ、OSを再起動すると回復する可能性があります）
+        {{else}}
+          We scheduled server maintenance at 2017-05-25 03:00 <a href="https://en.wikipedia.org/wiki/Japan_Standard_Time">JST</a>.<br>
+          (2017-05-24 18:00 UTC, 2017-05-24 2:00pm EDT, 2017-05-24 11:00am PDT)<br>
+          The service will be shut down and will not be accessed.<br>
+          It will take several hours for the maintenance.<br>
+          Sorry for inconvenience.
+        {{/if}}
+      </p>
+    {{/if}}
     {{if false}}
       <p class="bg-danger" style="padding:15px;border-radius:10px">
         <a href="https://testfire2.stat.ink/">Splatoon 2 試射会用の記録サイトを、技術テストを兼ねて運用します。</a><br>
