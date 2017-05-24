@@ -54,7 +54,7 @@
       </div>
     </div>
 
-    {{if true}}
+    {{if false}}
       <p class="bg-danger" style="padding:15px;border-radius:10px">
         {{if $app->language === 'ja-JP'}}
           2017-05-25 03:00 (日本時間) 頃から stat.ink のサーバメンテナンスを行います。<br>
