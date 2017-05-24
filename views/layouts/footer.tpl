@@ -37,7 +37,8 @@
         {{$_phpv = phpversion()}}{{* PHP コード開始タグと解釈される問題があるので一回変数に入れる *}}
         {{'Powered by'|translate:'app'|escape}}&#32;
         <a href="http://www.yiiframework.com/">Yii Framework {{\Yii::getVersion()|escape}}</a>,&#32;
-        <a href="http://php.net/">PHP {{$_phpv|escape}}</a>
+        <a href="http://php.net/">PHP {{$_phpv|escape}}</a><br>
+        {{'Served by'|translate:'app'|escape}}&#32;{{'n'|php_uname|escape}}.
       </div>
     </div>
   </footer>
