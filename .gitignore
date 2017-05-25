@@ -13,6 +13,7 @@
 /config/google-adsense.php
 /config/google-analytics.php
 /config/google-recaptcha.php
+/config/img-s3.php
 /config/lepton.php
 /config/twitter.php
 /node_modules

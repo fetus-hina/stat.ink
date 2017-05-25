@@ -75,6 +75,7 @@ SIMPLE_CONFIG_TARGETS := \
 	config/google-adsense.php \
 	config/google-analytics.php \
 	config/google-recaptcha.php \
+	config/img-s3.php \
 	config/lepton.php \
 	config/twitter.php
 
@@ -428,6 +429,17 @@ config/backup-s3.php:
 	echo "    'secret'    => '',"          >> config/backup-s3.php
 	echo "    'bucket'    => '',"          >> config/backup-s3.php
 	echo '];'                 	           >> config/backup-s3.php
+
+config/img-s3.php:
+	echo '<?php' > $@
+	echo 'return [' >> $@
+	echo "    'class' => 'app\components\ImageS3'," >> $@
+	echo "    'enabled' => false," >> $@
+	echo "    'endpoint' => 's3-ap-northeast-1.amazonaws.com'," >> $@
+	echo "    'accessKey' => ''," >> $@
+	echo "    'secret' => ''," >> $@
+	echo "    'bucket' => ''," >> $@
+	echo '];' >> $@
 
 config/backup-gpg.php:
 	echo '<?php'                            >  $@
