@@ -87,7 +87,7 @@ class BackupController extends Controller
         $this->stdout(count($files) . " file(s).\n", Console::FG_GREEN);
         S3::setEndpoint($config['endpoint']);
         S3::setAuth($config['accessKey'], $config['secret']);
-        S3::setSSL(true, true);
+        S3::setSSL(true, strpos($config['endpoint'], 'amazonaws') !== false);
         S3::setExceptions(true);
         foreach ($files as $i => $path) {
             if (preg_match('/^statink-(\d{4}\d{2})(\d{2})\d+\.dump\.xz\.(?:aes|gpg)$/', basename($path), $match)) {
