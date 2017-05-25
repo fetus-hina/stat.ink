@@ -136,6 +136,7 @@ $config = [
             ],
         ],
         'gearman' => require(__DIR__ . '/gearman.php'),
+        'imgS3' => require(__DIR__ . '/img-s3.php'),
     ],
     'params' => $params,
 ];
