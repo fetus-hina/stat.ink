@@ -13,6 +13,7 @@ use app\components\helpers\DateTimeFormatter;
 use app\components\helpers\ImageConverter;
 use app\components\web\ServiceUnavailableHttpException;
 use app\jobs\ImageOptimizeJob;
+use app\jobs\ImageS3Job;
 use app\jobs\battle\OstatusJob;
 use app\jobs\battle\SlackJob;
 use app\models\Agent;
@@ -601,29 +602,49 @@ class BattleAction extends BaseAction
 
     private function registerBackgroundJob(Battle $battle) : void
     {
+        $user = $battle->user;
+
         // Slack 投稿
-        Yii::$app->gearman->getDispatcher()->background(
-            SlackJob::jobName(),
-            new JobWorkload([
-                'params' => [
-                    'hostInfo' => Yii::$app->getRequest()->getHostInfo(),
-                    'version' => 1,
-                    'battle' => $battle->id,
-                ],
-            ])
-        );
+        if ($user && $user->isSlackIntegrated) {
+            Yii::$app->gearman->getDispatcher()->background(
+                SlackJob::jobName(),
+                new JobWorkload([
+                    'params' => [
+                        'hostInfo' => Yii::$app->getRequest()->getHostInfo(),
+                        'version' => 1,
+                        'battle' => $battle->id,
+                    ],
+                ])
+            );
+        }
 
         // Ostatus 投稿
-        Yii::$app->gearman->getDispatcher()->background(
-            OstatusJob::jobName(),
-            new JobWorkload([
-                'params' => [
-                    'hostInfo' => Yii::$app->getRequest()->getHostInfo(),
-                    'version' => 1,
-                    'battle' => $battle->id,
-                ],
-            ])
-        );
+        if ($user && $user->isOstatusIntegrated) {
+            Yii::$app->gearman->getDispatcher()->background(
+                OstatusJob::jobName(),
+                new JobWorkload([
+                    'params' => [
+                        'hostInfo' => Yii::$app->getRequest()->getHostInfo(),
+                        'version' => 1,
+                        'battle' => $battle->id,
+                    ],
+                ])
+            );
+        }
+
+        // S3 への画像アップロード
+        if (Yii::$app->imgS3->enabled) {
+            foreach ($battle->battleImages as $image) {
+                Yii::$app->gearman->getDispatcher()->background(
+                    ImageS3Job::jobName(),
+                    new JobWorkload([
+                        'params' => [
+                            'file' => $image->filename,
+                        ],
+                    ])
+                );
+            }
+        }
     }
 
     private function formatError(array $errors, $code)
