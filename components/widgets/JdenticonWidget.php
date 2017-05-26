@@ -19,6 +19,7 @@ class JdenticonWidget extends Widget
     public $class;
     public $params = [];
     public $vector = true;
+    public $schema;
 
     public function run()
     {
@@ -40,11 +41,28 @@ class JdenticonWidget extends Widget
             $params['data'] = [];
         }
         $params['data']['jdenticon-hash'] = $this->hash;
-
-        return Html::tag(
+        $html = Html::tag(
             $this->vector ? 'svg' : 'canvas',
             '',
             $params
         );
+        if ($this->schema) {
+            $html = Html::tag(
+                'span',
+                implode('', [
+                    Html::tag('meta', '', [
+                        'itemprop' => 'url',
+                        'content' => Yii::getAlias('@jdenticon') . '/' . $this->hash . '.svg',
+                    ]),
+                    $html,
+                ]),
+                [
+                    'itemscope' => true,
+                    'itemtype' => 'http://schema.org/ImageObject',
+                    'itemprop' => $this->schema,
+                ]
+            );
+        }
+        return $html;
     }
 }

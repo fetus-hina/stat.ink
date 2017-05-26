@@ -15,10 +15,14 @@
       {{\app\components\helpers\I18n::languageLinkTags()}}
       {{$this->head()}}
     </head>
-    <body>
+    <body itemprop proptype="http://schema.org/WebPage">
       {{$this->beginBody()|@void}}
-        {{include '@app/views/layouts/navbar.tpl'}}
-        {{$content}}
+        <header>
+          {{include '@app/views/layouts/navbar.tpl'}}
+        </header>
+        <main>
+          {{$content}}
+        </main>
         {{include '@app/views/layouts/footer.tpl'}}
         {{if !$app->user->isGuest}}
           {{include '@app/views/includes/battle-input-modal.tpl'}}

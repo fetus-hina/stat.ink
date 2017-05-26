@@ -1,7 +1,7 @@
 {{strip}}
   {{\app\assets\UserMiniinfoAsset::register($this)|@void}}
   {{$stat = $user->userStat}}
-  <div id="user-miniinfo">
+  <div id="user-miniinfo" itemscope itemtype="http://schema.org/Person" itemprop="author">
     <div id="user-miniinfo-box">
       <h2>
         <a href="{{url route="show/user" screen_name=$user->screen_name}}">
@@ -9,10 +9,10 @@
             {{if $user->userIcon}}
               <img src="{{$user->userIcon->url|escape}}" width="48" height="48">
             {{else}}
-              {{JdenticonWidget hash=$user->identiconHash class="identicon" size="48"}}
+              {{JdenticonWidget hash=$user->identiconHash class="identicon" size="48" schema="image"}}
             {{/if}}
           </span>
-          <span class="miniinfo-user-name">
+          <span itemprop="name" class="miniinfo-user-name">
             {{$user->name|escape}}
           </span>
         </a>

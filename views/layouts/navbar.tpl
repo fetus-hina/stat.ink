@@ -13,7 +13,9 @@
           <span class="icon-bar"></span>
         </button>
         {{\app\assets\PaintballAsset::register($this)|@void}}
-        <a class="navbar-brand paintball" href="/" style="font-size:24px">{{$app->name|escape}}</a>
+        <a itemprop="name" class="navbar-brand paintball" href="/" style="font-size:24px">
+          {{$app->name|escape}}
+        </a>
         <span class="navbar-brand ip-via-badge">
           {{IpVersionBadgeWidget}}
           {{registerCss}}
@@ -24,7 +26,7 @@
           {{/registerCss}}
         </span>
       </div>
-      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <div itemscope itemtype="http://schema.org/SiteNavigationElement" class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
           <li class="dropdown">
             {{$user = $app->user}}
@@ -107,7 +109,7 @@
             <ul class="dropdown-menu">
               {{foreach Language::find()->orderBy('name ASC')->all() as $lang}}
                 <li>
-                  <a href="javascript:;" data-lang="{{$lang->lang|escape}}" class="language-change">
+                  <a href="javascript:;" hreflang="{{$lang->lang|escape}}"" data-lang="{{$lang->lang|escape}}" class="language-change">
                     <span class="fa {{if $app->language === $lang->lang}}fa-check {{/if}}fa-fw left"></span>
                     <span class="flag-icon flag-icon-{{$lang->lang|substr:3:2|strtolower|escape}}"></span>&#32;
                     {{$lang->name|escape}} / {{$lang->name_en|escape}}

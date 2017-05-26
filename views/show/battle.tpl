@@ -49,8 +49,8 @@
   {{use class="app\models\Special"}}
   {{$specials = Special::find()->asArray()->all()}}
 
-  <div class="container">
-    <h1>
+  <div itemscope itemtype="http://schema.org/BlogPosting" class="container">
+    <h1 itemprop="headline">
       {{$_url = Url::to(['show/user', 'screen_name' => $user->screen_name])}}
       {{$name = $user->name|escape}}
       {{$name = '<a href="%s">%s</a>'|sprintf:$_url:$name}}
@@ -79,15 +79,19 @@
       <div class="row">
         {{if $battle->battleImageJudge}}
           <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 image-container">
-            <a href="{{$battle->battleImageJudge->url|escape}}" class="swipebox">
-              <img src="{{$battle->battleImageJudge->url|escape}}" style="max-width:100%;height:auto">
+            <a itemscope itemprop="image" itemtype="http://schema.org/ImageObject" href="{{$battle->battleImageJudge->url|escape}}" class="swipebox">
+              <img itemprop="url" src="{{$battle->battleImageJudge->url|escape}}" style="width:100%;height:auto">
+              <meta itemprop="width" content="640">
+              <meta itemprop="height" content="360">
             </a>
           </div>
         {{/if}}
         {{if $battle->battleImageResult}}
           <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 image-container">
-            <a href="{{$battle->battleImageResult->url|escape}}" class="swipebox">
-              <img src="{{$battle->battleImageResult->url|escape}}" style="max-width:100%;height:auto">
+            <a itemscope itemprop="image" itemtype="http://schema.org/ImageObject" href="{{$battle->battleImageResult->url|escape}}" class="swipebox">
+              <img itemprop="url" src="{{$battle->battleImageResult->url|escape}}" style="width:100%;height:auto">
+              <meta itemprop="width" content="640">
+              <meta itemprop="height" content="360">
             </a>
           </div>
           {{$this->registerMetaTag(['name' => 'twitter:image', 'content' => $battle->battleImageResult->url])|@void}}
@@ -164,7 +168,9 @@
                   <a href="{{url route="show/user" screen_name=$user->screen_name}}?filter[map]={{$battle->map->key|escape:url}}">
                     <span class="fa fa-search"></span>
                   </a>&#32;
-                  {{$battle->map->name|translate:'app-map'|escape}}
+                  <span itemprop="contentLocation">
+                    {{$battle->map->name|translate:'app-map'|escape}}
+                  </span>
                 </td>
               </tr>
             {{/if}}
@@ -567,15 +573,32 @@
             {{/if}}
             <tr>
               <th>{{'Battle Start'|translate:'app'|escape}}</th>
-              <td>{{$battle->start_at|as_datetime|escape}}</td>
+              <td>
+                {{if $battle->start_at}}
+                  <time datetime="{{$battle->start_at|as_isotime|escape}}">
+                    {{$battle->start_at|as_datetime|escape}}
+                  </time>
+                {{/if}}
+              </td>
             </tr>
             <tr>
               <th>{{'Battle End'|translate:'app'|escape}}</th>
-              <td>{{$battle->end_at|as_datetime|escape}}</td>
+              <td>
+                <time datetime="{{$battle->end_at|as_isotime|escape}}">
+                  {{$battle->end_at|as_datetime|escape}}
+                </time>
+              </td>
             </tr>
             <tr>
               <th>{{'Data Sent'|translate:'app'|escape}}</th>
-              <td>{{$battle->at|as_datetime|escape}}</td>
+              <td>
+                <time datetime="{{$battle->at|as_isotime|escape}}">
+                  {{$battle->at|as_datetime|escape}}
+                </time>
+              </td>
+              <meta itemprop="dateCreated" content="{{$battle->at|as_isotime|escape}}">
+              <meta itemprop="dateModified" content="{{$battle->at|as_isotime|escape}}">
+              <meta itemprop="datePublished" content="{{$battle->at|as_isotime|escape}}">
             </tr>
             {{if $battle->agent}}
               <tr>
@@ -2242,6 +2265,30 @@
         {{AdWidget}}
       </div>
     </div>
+    <span itemscope itemprop="publisher" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="{{$app->name|escape}}">
+      <meta itemprop="url" content="{{Url::to(['/site/index'], true)|escape}}">
+      {{$_am = $app->getAssetManager()}}
+      {{$_asset = \app\assets\AppAsset::register($this)}}
+      <span itemscope itemprop="logo" itemtype="http://schema.org/ImageObject">
+        <meta itemprop="url" itemtype="http://schema.org/URL" content="{{Url::to($_am->getAssetUrl($_asset, 'favicon.png'), true)|escape}}">
+        <meta itemprop="width" content="512">
+        <meta itemprop="height" content="512">
+      </span>
+      {{if $app->name === 'stat.ink'}}
+        <span itemscope itemprop="member" itemtype="http://schema.org/Person">
+          <meta itemprop="familyName" content="Aizawa">
+          <meta itemprop="givenName" content="Hina">
+          <meta itemprop="url" content="https://fetus.jp/">
+          <meta itemprop="email" content="hina@bouhime.com">
+        </span>
+        <span itemscope itemprop="funder" itemtype="http://schema.org/Organization">
+          <meta itemprop="name" content="さくらインターネット">
+          <meta itemprop="url" content="https://www.sakura.ad.jp/">
+          <meta itemprop="logo" itemtype="http://schema.org/URL" content="https://www.sakura.ad.jp/resource/images/header_logo.png">
+        </span>
+      {{/if}}
+    </span>
   </div>
 {{/strip}}
 {{registerCss}}{{literal}}
