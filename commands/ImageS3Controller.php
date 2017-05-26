@@ -18,7 +18,10 @@ class ImageS3Controller extends Controller
     {
         parent::init();
         Yii::setAlias('@image', Yii::getAlias('@app/web/images'));
+    }
 
+    public function actionUpload(string $path) : int
+    {
         if (!Yii::$app->imgS3->enabled) {
             $this->stderr(
                 "The component \"imgS3\" is not enabled.\n",
@@ -26,10 +29,7 @@ class ImageS3Controller extends Controller
             );
             return false;
         }
-    }
 
-    public function actionUpload(string $path) : int
-    {
         if (!preg_match('/\b([a-z2-9]{26}\.jpg)$/', $path, $match)) {
             $this->stderr(
                 "The specified path {$path} is not a valid file name of image.\n",
