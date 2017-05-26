@@ -36,6 +36,12 @@
   {{/foreach}}
 
   <div class="container">
+    <span itemscope itemtype="http://schema.org/BreadcrumbList">
+      <span itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+        <meta itemprop="url" content="{{Url::home(true)|escape}}">
+        <meta itemprop="title" content="{{$app->name|escape}}">
+      </span>
+    </span>
     <h1>
       {{$title|escape}}
     </h1>

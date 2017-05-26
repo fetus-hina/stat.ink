@@ -50,6 +50,16 @@
   {{$specials = Special::find()->asArray()->all()}}
 
   <div itemscope itemtype="http://schema.org/BlogPosting" class="container">
+    <span itemscope itemtype="http://schema.org/BreadcrumbList">
+      <span itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+        <meta itemprop="url" content="{{Url::home(true)|escape}}">
+        <meta itemprop="title" content="{{$app->name|escape}}">
+      </span>
+      <span itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+        <meta itemprop="url" content="{{Url::to(['/show/user', 'screen_name' => $user->screen_name], true)|escape}}">
+        <meta itemprop="title" content="{{$user->name|escape}}">
+      </span>
+    </span>
     <h1 itemprop="headline">
       {{$_url = Url::to(['show/user', 'screen_name' => $user->screen_name])}}
       {{$name = $user->name|escape}}
