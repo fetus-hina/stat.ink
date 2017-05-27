@@ -103,12 +103,12 @@ class ImageS3Controller extends Controller
         $innerIterator = new \RecursiveIteratorIterator(
             new \RecursiveDirectoryIterator(Yii::getAlias('@image'))
         );
-        $iterator = new class ($innerIterator) extends \FilterIterator {
+        $iterator = new class($innerIterator) extends \FilterIterator {
             public function accept()
             {
                 $entry = $this->getInnerIterator()->current();
                 return (
-                    $entry->isFile() && 
+                    $entry->isFile() &&
                     preg_match('/^[a-z2-9]{26}\.jpg$/', $entry->getBasename()) &&
                     time() - $entry->getMTime() >= 10
                 );
