@@ -46,6 +46,8 @@ class PostBattleForm extends Model
     public $rank_in_team;
     public $kill;
     public $death;
+    public $max_kill_combo;
+    public $max_kill_streak;
     public $level;
     public $level_after;
     public $my_point;
@@ -124,7 +126,7 @@ class PostBattleForm extends Model
             [['level', 'level_after'], 'integer', 'min' => 1],
             [['result'], 'boolean', 'trueValue' => 'win', 'falseValue' => 'lose'],
             [['rank_in_team'], 'integer', 'min' => 1, 'max' => 4],
-            [['kill', 'death'], 'integer', 'min' => 0],
+            [['kill', 'death', 'max_kill_combo', 'max_kill_streak'], 'integer', 'min' => 0],
             [['start_at', 'end_at'], 'integer', 'min' => 0],
             [['agent'], 'string', 'max' => 64],
             [['agent_version'], 'string', 'max' => 255],
@@ -258,6 +260,8 @@ class PostBattleForm extends Model
         $battle->rank_in_team   = $intval($this->rank_in_team);
         $battle->kill           = $intval($this->kill);
         $battle->death          = $intval($this->death);
+        $battle->max_kill_combo = $intval($this->max_kill_combo);
+        $battle->max_kill_streak = $intval($this->max_kill_streak);
         $battle->level          = $intval($this->level);
         $battle->level_after    = $intval($this->level_after);
         $battle->my_point       = $intval($this->my_point);
