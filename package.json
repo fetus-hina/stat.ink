@@ -6,7 +6,7 @@
     "email": "hina@bouhime.com"
   },
   "dependencies": {
-    "autoprefixer": "^6.3",
+    "autoprefixer": "^7.1",
     "babel-polyfill": "^6.23.0",
     "babel-preset-env": "^1.2.2",
     "css-mqpacker": "^5.0",
@@ -16,7 +16,7 @@
     "gulp-concat": "^2.6",
     "gulp-less": "^3.0",
     "gulp-load-plugins": "^1.0",
-    "gulp-postcss": "^6.1",
+    "gulp-postcss": "^7.0",
     "gulp-rename": "^1.2",
     "gulp-uglify": "^2.0",
     "minimist": "^1.2",
