@@ -96,10 +96,10 @@ class ImageS3Controller extends Controller
     public function actionAutoUpload() : int
     {
         // {{{
-        if (!$this->lockAutoUpload()) {
+        if (!$lock = $this->lockAutoUpload()) {
             return 1;
         }
-    
+
         $innerIterator = new \RecursiveIteratorIterator(
             new \RecursiveDirectoryIterator(Yii::getAlias('@image'))
         );
@@ -138,7 +138,7 @@ class ImageS3Controller extends Controller
         return 0;
     }
 
-    private function lockAutoUpload() : bool
+    private function lockAutoUpload()
     {
         $path = Yii::getAlias('@app/runtime/images3-auto-upload.lock');
         if (!file_exists(dirname($path))) {
@@ -152,7 +152,7 @@ class ImageS3Controller extends Controller
             $this->stderr("Could not get file lock. Another process running?\n", Console::FG_RED, Console::BOLD);
             return false;
         }
-        return true;
+        return $lock;
     }
 
     private function shouldPushUploadQueue() : ?bool
