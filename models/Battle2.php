@@ -541,6 +541,7 @@ class Battle2 extends ActiveRecord
         }
         return [
             'id' => $this->id,
+            // 'uuid' => $this->client_uuid,
             'url' => Url::to([
                 'show-v2/battle',
                 'screen_name' => $this->user->screen_name,

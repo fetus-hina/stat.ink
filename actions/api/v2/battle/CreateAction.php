@@ -81,6 +81,7 @@ class CreateAction extends BaseAction
             ]);
             return $this->formatError([
                 'system' => [ $e->getMessage() ],
+                'stackTrace' => $e->getTraceAsString(),
             ], 500);
         }
         unset($userLock);
@@ -156,7 +157,7 @@ class CreateAction extends BaseAction
         }
         $imageOutputDir = Yii::getAlias('@webroot/images');
         $imageArchiveOutputDir = Yii::$app->params['amazonS3'] && Yii::$app->params['amazonS3'][0]['bucket'] != ''
-            ? (Yii::getAlias('@app/runtime/image-archive/queue') . '/' . gmdate('Ymd', time() + 9 * 3600)) // JST
+            ? (Yii::getAlias('@app/runtime/image-archive2/queue') . '/' . gmdate('Ymd', time() + 9 * 3600)) // JST
             : null;
         if ($image = $form->toImageJudge($battle)) {
             $binary = is_string($form->image_judge)
@@ -204,9 +205,10 @@ class CreateAction extends BaseAction
                     ($form->result === 'win' || $form->result === 'lose') &&
                     ($form->lobby != '')
             ) {
+                $user = Yii::$app->getUser()->getIdentity();
                 $blackoutList = \app\components\helpers\Blackout::getBlackoutTargetList(
                     $form->lobby,
-                    $form->user->blackout,
+                    $user->blackout,
                     (($form->result === 'win') ? 0 : 4) + $form->rank_in_team
                 );
             }

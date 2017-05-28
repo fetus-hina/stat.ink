@@ -38,9 +38,13 @@ class BattleImage extends ActiveRecord
         while (true) {
             $name = RandomFilename::generate('jpg');
             $path = substr($name, 0, 2) . '/' . $name;
-            if (!BattleImage::findOne(['filename' => $path])) {
-                return $path;
+            if (self::findOne(['filename' => $path])) {
+                continue;
             }
+            if (BattleImage2::findOne(['filename' => $path])) {
+                continue;
+            }
+            return $path;
         }
     }
 

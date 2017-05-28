@@ -166,6 +166,20 @@ class PostBattleForm extends Model
                 },
             ],
             [['agent_variables'], 'validateAgentVariables'],
+            [['image_judge', 'image_result', 'image_gear'], 'safe'],
+            [['image_judge', 'image_result', 'image_gear'], 'file',
+                'maxSize' => 3 * 1024 * 1024,
+                'when' => function ($model, $attr) {
+                    return !is_string($model->$attr);
+                }],
+            [['image_judge', 'image_result', 'image_gear'], 'validateImageFile',
+                'when' => function ($model, $attr) {
+                    return !is_string($model->$attr);
+                }],
+            [['image_judge', 'image_result', 'image_gear'], 'validateImageString',
+                'when' => function ($model, $attr) {
+                    return is_string($model->$attr);
+                }],
         ];
     }
 
@@ -193,7 +207,7 @@ class PostBattleForm extends Model
                     'user_id' => $user->id,
                     'client_uuid' => Battle2::createClientUuid($this->uuid),
                 ],
-                ['>=', 'at', gmdate('Y-m-d H:i:sP', $t - static::SAME_BATTLE_THRESHOLD_TIME)],
+                ['>=', 'created_at', gmdate('Y-m-d H:i:sP', $t - static::SAME_BATTLE_THRESHOLD_TIME)],
             ])
             ->limit(1)
             ->one();
@@ -389,7 +403,7 @@ class PostBattleForm extends Model
         return $this->toImage($battle, BattleImageType::ID_GEAR, 'image_gear');
     }
 
-    protected function toImage(Battle2 $battle, $imageTypeId, $attr)
+    protected function toImage(Battle2 $battle, int $imageTypeId, string $attr)
     {
         if ($this->isTest) {
             return null;
@@ -714,6 +728,39 @@ class PostBattleForm extends Model
                 $this->addError($attribute, "Value of {$attribute}[{$k}] (= {$v}) looks broken.");
             }
         }
+    }
+
+    public function validateImageFile($attribute, $params)
+    {
+        if ($this->hasErrors($attribute)) {
+            return;
+        }
+        if (!($this->$attribute instanceof UploadedFile)) {
+            // 先に file バリデータを通すのでここは絶対通らないはず
+            $this->addError($attribute, '[BUG?] $attributes is not an instance of UploadedFile');
+            return;
+        }
+        return $this->validateImageStringImpl(
+            file_get_contents($this->$attribute->tempName, false, null),
+            $attribute
+        );
+    }
+
+    public function validateImageString($attribute, $params)
+    {
+        return $this->validateImageStringImpl($this->$attribute, $attribute);
+    }
+
+    private function validateImageStringImpl($binary, $attribute)
+    {
+        if ($this->hasErrors($attribute)) {
+            return;
+        }
+        if (!$gd = @imagecreatefromstring($binary)) {
+            $this->addError($attribute, 'Could not decode binary that contained an image data.');
+            return;
+        }
+        imagedestroy($gd);
     }
 
     private function getAgentId(?string $name, ?string $version) : ?int
