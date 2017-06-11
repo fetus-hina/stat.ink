@@ -78,6 +78,8 @@ POST データは全体で 12MiB 以内である必要があります。
 
 [GET /api/v2/weapon](get-weapon.md)で詳細情報が取得可能です。
 
+また、実際のデータベースを参照した一覧ページが[ここにあります](https://stat.ink/api-info/weapon2)。
+
 |指定文字列|ブキ|
 |-|-|
 |`manueuver`|スプラマニューバー|
