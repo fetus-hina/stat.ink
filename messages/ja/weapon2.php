@@ -15,10 +15,20 @@ return [
     'Sloshers' => 'スロッシャー',
     'Splatlings' => 'スピナー',
     // shooters -----
+    'Blaster' => 'ホットブラスター',
+    'Splash-o-matic' => 'シャープマーカー',
     'Splat Dualies' => 'スプラマニューバー',
+    'Splattershot Pro' => 'プライムシューター',
     'Splattershot' => 'スプラシューター',
     // rollers -----
+    'Dynamo Roller' => 'ダイナモローラー',
+    'Octobrush' => 'ホクサイ',
     'Splat Roller' => 'スプラローラー',
     // chargers -----
     'Splat Charger' => 'スプラチャージャー',
+    'Splatterscope' => 'スプラスコープ',
+    // sloshers -----
+    'Slosher' => 'バケットスロッシャー',
+    // splatlings ----
+    'Heavy Splatling' => 'バレルスピナー',
 ];

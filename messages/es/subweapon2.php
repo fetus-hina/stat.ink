@@ -6,8 +6,13 @@
  */
 
 return [
+    'Autobomb' => '',
     'Burst Bomb' => 'Bomba rápida',
     'Curling Bomb' => 'Bomba deslizante',
+    'Ink Mine' => 'Bomba Trampa',
+    'Point Sensor' => 'Rastreador',
     'Splat Bomb' => 'Bomba básica',
+    'Sprinkler' => 'Aspersor',
     'Suction Bomb' => 'Bomba ventosa',
+    'Toxic Mist' => '',
 ];

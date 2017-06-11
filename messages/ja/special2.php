@@ -6,6 +6,7 @@
  */
 
 return [
+    'Ink Storm' => 'アメフラシ',
     'Inkjet' => 'ジェットパック',
     'Splashdown' => 'スーパーチャクチ',
     'Sting Ray' => 'ハイパープレッサー',

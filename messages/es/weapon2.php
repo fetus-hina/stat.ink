@@ -15,10 +15,20 @@ return [
     'Sloshers' => 'Derramatics',
     'Splatlings' => 'Tintralladoras',
     //
-    'Splattershot' => 'Lanzatintas',
+    'Blaster' => 'Devastador',
+    'Splash-o-matic' => 'Marcador fino',
     'Splat Dualies' => 'Dual diffusor',
+    'Splattershot Pro' => 'Lanzatintas plus',
+    'Splattershot' => 'Lanzatintas',
     //
+    'Dynamo Roller' => 'Dinamorrodillo',
+    'Octobrush' => 'Brocha',
     'Splat Roller' => 'Rodillo básico',
     //
     'Splat Charger' => 'Cargatintas',
+    'Splatterscope' => 'Cargatintas con mira',
+    //
+    'Slosher' => 'Derramatic',
+    //
+    'Heavy Splatling' => 'Tintralladora',
 ];

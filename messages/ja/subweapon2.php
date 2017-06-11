@@ -6,8 +6,13 @@
  */
 
 return [
+    'Autobomb' => 'ロケットボム',
     'Burst Bomb' => 'クイックボム',
     'Curling Bomb' => 'カーリングボム',
+    'Ink Mine' => 'トラップ',
+    'Point Sensor' => 'ポイントセンサー',
     'Splat Bomb' => 'スプラッシュボム',
+    'Sprinkler' => 'スプリンクラー',
     'Suction Bomb' => 'キューバンボム',
+    'Toxic Mist' => 'ポイズンミスト',
 ];

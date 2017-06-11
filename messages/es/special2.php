@@ -6,6 +6,7 @@
  */
 
 return [
+    'Ink Storm' => '',
     'Inkjet' => 'Propulsor',
     'Splashdown' => 'Salto explosivo',
     'Sting Ray' => 'Rayo tintódico',
