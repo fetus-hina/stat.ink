@@ -67,9 +67,17 @@ class WeaponType2 extends ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getWeapon2s()
+    public function getWeapons()
     {
         return $this->hasMany(Weapon2::class, ['type_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getWeapon2s()
+    {
+        return $this->getWeapons();
     }
 
     /**

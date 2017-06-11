@@ -9,6 +9,8 @@ return [
     'All of {0}' => 'Todos los {0}',
     'Any Weapon' => 'Cualquier principal',
 
+    'Blasters' => 'Devastadors',
+    'Brushes' => 'Brochas',
     'Chargers' => 'Cargatintas',
     'Rollers' => 'Rodillos',
     'Shooters' => 'Lanzatintas',

@@ -9,6 +9,8 @@ return [
     'All of {0}' => 'すべての{0}',
     'Any Weapon' => 'すべてのブキ',
 
+    'Blasters' => 'ブラスター',
+    'Brushes' => 'フデ',
     'Chargers' => 'チャージャー',
     'Rollers' => 'ローラー',
     'Shooters' => 'シューター',

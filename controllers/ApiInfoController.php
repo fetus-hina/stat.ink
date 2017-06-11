@@ -17,6 +17,7 @@ class ApiInfoController extends Controller
         $prefix = 'app\actions\api\info';
         return [
             'weapon'        => [ 'class' => $prefix . '\WeaponAction' ],
+            'weapon2'       => [ 'class' => $prefix . '\Weapon2Action' ],
             'gear-headgear' => [ 'class' => $prefix . '\GearAction', 'type' => 'headgear'],
             'gear-clothing' => [ 'class' => $prefix . '\GearAction', 'type' => 'clothing'],
             'gear-shoes'    => [ 'class' => $prefix . '\GearAction', 'type' => 'shoes'],

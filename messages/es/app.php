@@ -16,6 +16,7 @@ return [
     '<div class="input-group"><span class="input-group-addon">From:</span>{input}</div>' => '<div class="input-group"><span class="input-group-addon">De:</span>{input}</div>',
     '<div class="input-group"><span class="input-group-addon">To:</span>{input}</div>' => '<div class="input-group"><span class="input-group-addon">Para:</span>{input}</div>',
     'API Info: Gears: {0}' => 'Información de la API: Indumentaria: {0}',
+    'API Info: Weapons (Splatoon 2)' => 'Información de la API: Armas (Splatoon 2)',
     'API Info: Weapons' => 'Información de la API: Armas',
     'API Token' => 'Token API',
     'API' => 'API',
