@@ -80,11 +80,18 @@ POST データは全体で 12MiB 以内である必要があります。
 
 |指定文字列|ブキ|
 |-|-|
-|`sshooter`|スプラシューター|
 |`manueuver`|スプラマニューバー|
+|`prime`|プライムシューター|
+|`sharp`|シャープマーカー|
+|`sshooter`|スプラシューター|
+|`hotblaster`|ホットブラスター|
+|`dynamo`|ダイナモローラー|
 |`splatroller`|スプラローラー|
+|`hokusai`|ホクサイ|
 |`splatcharger`|スプラチャージャー|
-
+|`splatscope`|スプラスコープ|
+|`bucketslosher`|バケットスロッシャー|
+|`barrelspinner`|バレルスピナー|
 
 `players`
 ---------
@@ -151,10 +158,15 @@ POST データは全体で 12MiB 以内である必要があります。
 |`curlingbomb`|カーリングボム|
 |`kyubanbomb`|キューバンボム|
 |`quickbomb`|クイックボム|
+|`rocketbomb`|ロケットボム|
 |`splashbomb`|スプラッシュボム|
+|`splashshield`|スプラッシュシールド|
+|`sprinkler`|スプリンクラー|
+|`trap`|トラップ|
 
 |指定文字列|死因|
 |-|-|
+|`amefurashi`|アメフラシ|
 |`chakuchi`|スーパーチャクチ|
 |`jetpack`|ジェットパック|
 |`missile`|マルチミサイル|
@@ -242,7 +254,7 @@ POST データは全体で 12MiB 以内である必要があります。
 }
 ```
 
-### 書きかけ
+書きかけ
 
 
 `agent_variables`
