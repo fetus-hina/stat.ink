@@ -6,6 +6,9 @@
  */
 
 return [
+    'Baller' => 'イカスフィア',
+    'Bubble Blower' => 'ボムピッチャー',
+    'Ink Armor' => 'インクアーマー',
     'Ink Storm' => 'アメフラシ',
     'Inkjet' => 'ジェットパック',
     'Splashdown' => 'スーパーチャクチ',

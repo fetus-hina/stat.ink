@@ -177,6 +177,7 @@ POST データは全体で 12MiB 以内である必要があります。
 |`jetpack`|ジェットパック|
 |`missile`|マルチミサイル|
 |`presser`|ハイパープレッサー|
+|`sphere`|イカスフィア|
 
 
 `events`

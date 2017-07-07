@@ -6,7 +6,10 @@
  */
 
 return [
-    'Ink Storm' => '',
+    'Baller' => '',
+    'Bubble Blower' => '',
+    'Ink Armor' => '',
+    'Ink Storm' => 'Atormentador',
     'Inkjet' => 'Propulsor',
     'Splashdown' => 'Salto explosivo',
     'Sting Ray' => 'Rayo tintódico',
