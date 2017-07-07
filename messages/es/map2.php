@@ -10,13 +10,19 @@ return [
 
     'Humpback Pump Track' => 'Tiburódromo',
     'Inkblot Art Academy' => 'Instituto Coralino',
+    'Moray Towers' => 'Torres Merluza',
     'Musselforge Fitness' => 'Gimnasio Mejillón',
+    'Port Mackerel' => 'Puerto Jurel',
     'Starfish Mainstage' => 'Auditorio Erizo',
+    'Sturgeon Shipyard' => '',
     'The Reef' => 'Barrio Congrio',
 
     'Academy' => 'Institute',
     'Fitness' => 'Gimnasio',
     'Mainstage' => 'Auditorio',
+    'Port' => 'Puerto',
     'Reef' => 'Barrio',
+    'Shipyard' => '',
+    'Towers' => 'Torres',
     'Track' => 'Tiburódromo',
 ];
