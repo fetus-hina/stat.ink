@@ -19,7 +19,9 @@
         </a><br>
       </div>
       <div class="footer-nav">
-        <a href="{{path route="/site/api"}}">{{'API'|translate:'app'|escape}}</a>
+        <a href="{{path route="/site/api"}}">{{'API (Splatoon)'|translate:'app'|escape}}</a>
+        &#32;|&#32;
+        <a href="https://github.com/fetus-hina/stat.ink/tree/master/doc/api-2">{{'API (Splatoon 2)'|translate:'app'|escape}}</a>
         &#32;|&#32;
         <a href="{{path route="/site/privacy"}}">{{'Privacy Policy'|translate:'app'|escape}}</a>
         &#32;|&#32;

@@ -19,7 +19,6 @@ return [
     'API Info: Weapons (Splatoon 2)' => 'Información de la API: Armas (Splatoon 2)',
     'API Info: Weapons' => 'Información de la API: Armas',
     'API Token' => 'Token API',
-    'API' => 'API',
     'Ability Effect' => 'Efecto de la potenciad',
     'About image sharing with the IkaLog team' => 'Sobre la imagen, compartiendo con el equipo de IkaLog',
     'About support for color-blindness' => 'Apoyo a color-blindness',

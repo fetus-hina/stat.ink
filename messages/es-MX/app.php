@@ -13,7 +13,6 @@ return [
     '<div class="input-group"><span class="input-group-addon">From:</span>{input}</div>' => '<div class="input-group"><span class="input-group-addon">De:</span>{input}</div>',
     '<div class="input-group"><span class="input-group-addon">To:</span>{input}</div>' => '<div class="input-group"><span class="input-group-addon">Para:</span>{input}</div>',
     'API Token' => 'Token API',
-    'API' => 'API',
     'Ability Effect' => 'Efecto de la potenciad',
     'About image sharing with the IkaLog team' => 'Sobre la imagen, compartiendo con el equipo de IkaLog',
     'About support for color-blindness' => 'Apoyo a color-blindness',

@@ -19,7 +19,6 @@ return [
     'API Info: Weapons (Splatoon 2)' => 'API情報: ブキ (Splatoon 2)',
     'API Info: Weapons' => 'API情報: ブキ',
     'API Token' => 'APIキー',
-    'API' => 'API',
     'Ability Effect' => 'ギアパワー効果',
     'About image sharing with the IkaLog team' => 'IkaLog開発チームとの画像共有について',
     'About support for color-blindness' => '色覚サポートについて',
