@@ -98,7 +98,7 @@ class UserAction extends BaseAction
             )
         );
         $feed->setId(
-            Uuid::v5(UuidNS::url(), Url::to(['show/user', 'screen_name' => $user->screen_name], true))
+            Uuid::v5(UuidNS::url(), Url::to(['show-compat/user', 'screen_name' => $user->screen_name], true))
                 ->formatAsUri()
         );
         $feed->setLink(
