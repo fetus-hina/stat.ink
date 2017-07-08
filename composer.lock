@@ -401,16 +401,16 @@
         },
         {
             "name": "bower-asset/jdenticon",
-            "version": "1.4.0",
+            "version": "1.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dmester/jdenticon.git",
-                "reference": "882d00baa7f7bd90df3adf2e5bc5004172910ec7"
+                "reference": "fa067bdf4663424f392625b7d3d24fe50970a83a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dmester/jdenticon/zipball/882d00baa7f7bd90df3adf2e5bc5004172910ec7",
-                "reference": "882d00baa7f7bd90df3adf2e5bc5004172910ec7",
+                "url": "https://api.github.com/repos/dmester/jdenticon/zipball/fa067bdf4663424f392625b7d3d24fe50970a83a",
+                "reference": "fa067bdf4663424f392625b7d3d24fe50970a83a",
                 "shasum": ""
             },
             "type": "bower-asset-library",
@@ -2233,7 +2233,7 @@
         },
         {
             "name": "symfony/console",
-            "version": "v2.8.23",
+            "version": "v2.8.24",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
@@ -5083,7 +5083,7 @@
         },
         {
             "name": "symfony/browser-kit",
-            "version": "v3.3.3",
+            "version": "v3.3.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/browser-kit.git",
@@ -5140,7 +5140,7 @@
         },
         {
             "name": "symfony/css-selector",
-            "version": "v3.3.3",
+            "version": "v3.3.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/css-selector.git",
@@ -5193,7 +5193,7 @@
         },
         {
             "name": "symfony/dom-crawler",
-            "version": "v3.3.3",
+            "version": "v3.3.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/dom-crawler.git",
@@ -5249,7 +5249,7 @@
         },
         {
             "name": "symfony/event-dispatcher",
-            "version": "v3.3.3",
+            "version": "v3.3.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/event-dispatcher.git",
@@ -5312,7 +5312,7 @@
         },
         {
             "name": "symfony/finder",
-            "version": "v3.3.3",
+            "version": "v3.3.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/finder.git",
@@ -5361,7 +5361,7 @@
         },
         {
             "name": "symfony/process",
-            "version": "v3.3.3",
+            "version": "v3.3.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/process.git",
@@ -5410,7 +5410,7 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "v3.3.3",
+            "version": "v3.3.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
