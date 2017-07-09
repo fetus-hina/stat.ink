@@ -13,6 +13,7 @@ return [
     'Solo Queue' => '野良',
 
     'Regular Battle' => 'レギュラーバトル',
+    'Splatfest' => 'フェス',
 
     'Turf War' => 'ナワバリバトル',
 

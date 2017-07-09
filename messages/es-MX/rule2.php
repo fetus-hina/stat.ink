@@ -6,4 +6,5 @@
  */
 
 return [
+    'Splatfest' => 'Dyeing Festival',
 ];

@@ -11,6 +11,7 @@ return [
     'Any Mode' => 'Cualquier estilo',
 
     'Regular Battle' => 'Combate amistoso',
+    'Splatfest' => 'Thematic Festival',
 
     'Turf War' => 'Territorial',
 
