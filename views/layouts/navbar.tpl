@@ -73,30 +73,42 @@
               </a>
               <ul class="dropdown-menu">
                 <li>
+                  <a href="javascript:;">
+                    <span class="fa fa-fw fa-user"></span>{{'Your Battles'|translate:'app'|escape}}
+                  </a>
+                </li>
+                <li>
                   <a href="{{path route="show/user" screen_name=$ident->screen_name}}">
-                    <span class="fa fa-user left"></span>{{'Your Battles'|translate:'app'|escape}}
+                    <span class="fa fa-fw"></span>
+                    ┣ Splatoon
+                  </a>
+                </li>
+                <li>
+                  <a href="{{path route="show-v2/user" screen_name=$ident->screen_name}}">
+                    <span class="fa fa-fw"></span>
+                    ┗ Splatoon 2
                   </a>
                 </li>
                 <li>
                   <a href="{{path route="user/profile"}}">
-                    <span class="fa fa-wrench left"></span>{{'Profile and Settings'|translate:'app'|escape}}
+                    <span class="fa fa-fw fa-wrench"></span>{{'Profile and Settings'|translate:'app'|escape}}
                   </a>
                 </li>
                 <li class="divider"></li>
                 <li>
                   <a href="{{path route="user/logout"}}">
-                    <span class="fa fa-sign-out left"></span>{{'Logout'|translate:'app'|escape}}
+                    <span class="fa fa-fw fa-sign-out"></span>{{'Logout'|translate:'app'|escape}}
                   </a>
                 </li>
                 <li class="divider"></li>
                 <li>
                   <a href="javascript:;" id="toggle-color-lock">
-                    <span class="fa left"></span>{{'Color-Blind Support'|translate:'app'|escape}}
+                    <span class="fa fa-fw"></span>{{'Color-Blind Support'|translate:'app'|escape}}
                   </a>
                 </li>
                 <li>
                   <a href="javascript:;" id="toggle-use-fluid">
-                    <span class="fa fa-fw left"></span>{{'Use full width of the screen'|translate:'app'|escape}}
+                    <span class="fa fa-fw"></span>{{'Use full width of the screen'|translate:'app'|escape}}
                   </a>
                 </li>
               </ul>

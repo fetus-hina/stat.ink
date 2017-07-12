@@ -99,6 +99,17 @@ class Battle2 extends ActiveRecord
 {
     const CLIENT_UUID_NAMESPACE = '15de9082-1c7b-11e7-8f94-001b21a098c2';
 
+    public static function find()
+    {
+        return new class(get_called_class()) extends \yii\db\ActiveQuery
+        {
+            public function getSummary()
+            {
+                return \app\components\helpers\BattleSummarizer::getSummary2($this);
+            }
+        };
+    }
+
     public function behaviors()
     {
         return [
