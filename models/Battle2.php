@@ -101,8 +101,7 @@ class Battle2 extends ActiveRecord
 
     public static function find()
     {
-        return new class(get_called_class()) extends \yii\db\ActiveQuery
-        {
+        return new class(get_called_class()) extends \yii\db\ActiveQuery {
             public function getSummary()
             {
                 return \app\components\helpers\BattleSummarizer::getSummary2($this);
