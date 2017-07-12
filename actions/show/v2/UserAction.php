@@ -55,7 +55,8 @@ class UserAction extends BaseAction
                 'weapon',
                 'weapon.subweapon',
                 'weapon.special',
-            ]);
+            ])
+            ->andWhere(['user_id' => $user->id]);
 
         $summary = $battle->summary;
 
