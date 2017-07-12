@@ -43,8 +43,8 @@
     {{$this->registerLinkTag(['rel' => 'next', 'href' => $_url])|@void}}
   {{/if}}
 
-  {{use class="app\models\Special"}}
-  {{$specials = Special::find()->asArray()->all()}}
+  {{use class="app\models\Special2"}}
+  {{$specials = Special2::find()->asArray()->all()}}
 
   <div class="container">
     <h1>
@@ -125,6 +125,16 @@
 
         <table class="table table-striped" id="battle">
           <tbody>
+            {{if $battle->mode}}
+              <tr>
+                <th>
+                  {{'Game Mode'|translate:'app'|escape}}
+                </th>
+                <td>
+                  {{$battle->mode->name|translate:'app-rule2'|escape}}
+                </td>
+              </tr>
+            {{/if}}
             {{if $battle->lobby}}
               <tr>
                 <th>
@@ -139,14 +149,14 @@
               <tr>
                 <th>
                   {{'Mode'|translate:'app'|escape}}&#32;
-                  <a href="{{url route="/show-v2/user-stat-by-rule" screen_name=$user->screen_name}}">
+                  <!--a href="{{url route="/show-v2/user-stat-by-rule" screen_name=$user->screen_name}}">
                     <span class="fa fa-pie-chart"></span>
-                  </a>
+                  </a-->
                 </th>
                 <td>
-                  <a href="{{url route="/show-v2/user" screen_name=$user->screen_name}}?filter[rule]={{$battle->rule->key|escape:url}}">
+                  <!--a href="{{url route="/show-v2/user" screen_name=$user->screen_name}}?filter[rule]={{$battle->rule->key|escape:url}}">
                     <span class="fa fa-search"></span>
-                  </a>&#32;
+                  </a-->&#32;
                   {{$battle->rule->name|translate:'app-rule'|escape}}
                 </td>
               </tr>
@@ -155,14 +165,14 @@
               <tr>
                 <th>
                   {{'Stage'|translate:'app'|escape}}&#32;
-                  <a href="{{url route="/show-v2/user-stat-by-map" screen_name=$user->screen_name}}">
+                  <!--a href="{{url route="/show-v2/user-stat-by-map" screen_name=$user->screen_name}}">
                     <span class="fa fa-pie-chart"></span>
-                  </a>
+                  </a-->
                 </th>
                 <td>
-                  <a href="{{url route="/show-v2/user" screen_name=$user->screen_name}}?filter[map]={{$battle->map->key|escape:url}}">
+                  <!--a href="{{url route="/show-v2/user" screen_name=$user->screen_name}}?filter[map]={{$battle->map->key|escape:url}}">
                     <span class="fa fa-search"></span>
-                  </a>&#32;
+                  </a-->&#32;
                   {{$battle->map->name|translate:'app-map2'|escape}}
                 </td>
               </tr>
@@ -171,9 +181,9 @@
               <tr>
                 <th>{{'Weapon'|translate:'app'|escape}}</th>
                 <td>
-                  <a href="{{url route="/show-v2/user" screen_name=$user->screen_name}}?filter[weapon]={{$battle->weapon->key|escape:url}}">
+                  <!--a href="{{url route="/show-v2/user" screen_name=$user->screen_name}}?filter[weapon]={{$battle->weapon->key|escape:url}}">
                     <span class="fa fa-search"></span>
-                  </a>&#32;
+                  </a-->&#32;
                   {{$battle->weapon->name|translate:'app-weapon2'|escape}}
                   &#32;(
                   {{$battle->weapon->subweapon->name|default:'?'|translate:'app-subweapon2'|escape}} /&#32;
@@ -475,6 +485,7 @@
             {{/if}}
 *}}
             {{$_editable = (!$app->user->isGuest && $app->user->identity->id == $battle->user_id)}}
+            {{$_editable = false}}
             {{if $battle->link_url != '' || $_editable}}
               {{if $_editable}}
                 {{\app\assets\BattleEditAsset::register($this)|@void}}
@@ -614,7 +625,7 @@
             </a>
           </p>
         {{/if}}
-        {{if !$app->user->isGuest && $app->user->identity->id == $user->id && $hasExtendedData}}
+        {{if !$app->user->isGuest && $app->user->identity->id == $user->id}}
           <p class="text-right">
             <a href="{{url route="/show-v2/edit-battle" screen_name=$user->screen_name battle=$battle->id}}" class="btn btn-default">
               {{'Edit'|translate:'app'|escape}}
@@ -623,7 +634,7 @@
         {{/if}}
       </div>
       <div class="col-xs-12 col-sm-4 col-md-4 col-lg-3">
-        {{include file="@app/views/includes/user-miniinfo.tpl" user=$user}}
+        {{include file="@app/views/includes/user-miniinfo2.tpl" user=$user}}
         {{AdWidget}}
       </div>
     </div>

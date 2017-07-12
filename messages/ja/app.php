@@ -133,6 +133,7 @@ return [
     'Friend Code (Switch)' => 'フレンドコード (Switch)',
     'Friend Code' => 'フレンドコード',
     'GNU Social, Mastodon etc.' => 'マストドン他',
+    'Game Mode' => 'ゲームモード',
     'Game Version' => 'ゲームバージョン',
     'Gear' => 'ギア',
     'Getting Started' => 'このサイトについて',

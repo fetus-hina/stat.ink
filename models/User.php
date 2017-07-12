@@ -33,6 +33,7 @@ use yii\web\IdentityInterface;
  * @property integer $default_language_id
  *
  * @property Battle[] $battles
+ * @property Battle2[] $battle2s
  * @property Language $defaultLanguage
  * @property Environment $env
  * @property LoginWithTwitter $loginWithTwitter
@@ -151,6 +152,14 @@ class User extends ActiveRecord implements IdentityInterface
     public function getBattles()
     {
         return $this->hasMany(Battle::className(), ['user_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getBattle2s()
+    {
+        return $this->hasMany(Battle2::className(), ['user_id' => 'id']);
     }
 
     /**
