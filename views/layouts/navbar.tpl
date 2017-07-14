@@ -280,10 +280,16 @@
         </ul>
         {{if !$app->user->isGuest}}
           <ul class="nav navbar-nav navbar-right">
+            <li style="margin-right:1ex">
+              <button id="battle-input2-btn" class="btn btn-primary navbar-btn" title="{{'New battle'|translate:'app'|escape}}" disabled>
+                <span class="fa fa-pencil-square-o fa-fw"></span>
+                Splatoon 2
+              </button>
+            </li>
             <li>
-              <button id="battle-input-btn" class="btn btn-primary navbar-btn" disabled>
-                <span class="fa fa-pencil-square-o left"></span>
-                {{'New battle'|translate:'app'|escape}}
+              <button id="battle-input-btn" class="btn btn-primary navbar-btn" title="{{'New battle'|translate:'app'|escape}}" disabled>
+                <span class="fa fa-pencil-square-o fa-fw"></span>
+                Splatoon
               </button>
             </li>
           </ul>

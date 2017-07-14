@@ -1,0 +1,435 @@
+/*! Copyright (C) 2017 AIZAWA Hina | MIT License */
+($ => {
+  $(() => {
+    let initialized = false;
+    let nextStageArrives = undefined;
+    let stageTimerId = undefined;
+
+    const translate = text => {
+      const lang = $('html').attr('lang');
+      switch (text) {
+        case 'Favorite Weapons':
+          switch (lang) {
+            case 'ja-JP':
+              return 'よく使うブキ';
+
+            case 'es-ES':
+            case 'es-MX':
+              return 'Armas Favoritas';
+
+            default:
+              return text;
+          }
+          break;
+
+        default:
+          return text;
+      }
+    };
+
+    const $modal = $('#inputModal2');
+    const $selectWeapons = $('.battle-input2-form--weapons', $modal);
+    const $buttonStages = $('.battle-input2-form--stages', $modal);
+    const $buttonResults = $('.battle-input2-form--result', $modal);
+    const $festSubmit = $('#battle-input2-form--fest--submit', $modal);
+    const updateStageTimer = () => {
+      $('.next-stages-will-arrive-in-2--value').text(
+        (() => {
+          if (!nextStageArrives) {
+            return '-:--:--';
+          }
+          const now = Date.now() / 1000;
+          const inSec_ = Math.max(nextStageArrives - now, 0);
+          const inSec = Math.floor(inSec_);
+          const colon = inSec_ - inSec >= 0.5 ? ':' : ' ';
+          const hours = Math.floor(inSec / 3600);
+          const minutes = Math.floor(inSec / 60) % 60;
+          const seconds = inSec % 60;
+          const zero = v => (v < 10 ? '0' + v : v);
+          return hours + colon + zero(minutes) + colon + zero(seconds);
+        })()
+      );
+    };
+    const stopStageTimer = () => {
+      if (stageTimerId) {
+        window.clearInterval(stageTimerId);
+      }
+      stageTimerId = undefined;
+      window.setTimeout(updateStageTimer, 1);
+    };
+    const runStageTimer = () => {
+      stopStageTimer();
+      window.setTimeout(updateStageTimer, 1);
+      stageTimerId = window.setInterval(updateStageTimer, 500);
+    };
+    const updateUuidFest = () => {
+      $('#battle-input2-form--fest--uuid').val(UUID.genV1().hexString);
+    };
+    const serializeForm = $form => {
+      const ret = {};
+      $.each($form.serializeArray(), (i, obj) => {
+        const name = obj.name;
+        let value = obj.value;
+        if (name && value !== null && value !== undefined) {
+          value = String(value).trim();
+          if (value !== "") {
+            ret[name] = value;
+          }
+        }
+      });
+      if ('rank_after' in ret && !('rank_exp_after' in ret)) {
+        delete ret.rank_after;
+      }
+      return ret;
+    };
+    const refresh = () => {
+      $.ajax('/api/internal/current-data2', {
+        cache: false,
+        method: 'GET',
+        dataType: 'json',
+        success: json => {
+          // ステージタイマー用データ
+          nextStageArrives = Math.floor(Date.now() / 1000 + json.current.period.next);
+          runStageTimer();
+
+          // ステージ変更時にinitializedフラグを落とす仕込み
+          (() => {
+            let timerId;
+            if (timerId) {
+              window.clearTimeout(timerId);
+            }
+            timerId = window.setTimeout(() => {
+              initialized = false;
+            }, json.current.period.next * 1000);
+          })();
+
+          $.each(['fest'], (i, modeKey) => {
+            if (json.current[modeKey] && json.current[modeKey].rule) {
+              const rule = json.current[modeKey].rule;
+              const $inputs = $('input', $modal);
+              $inputs
+                .filter(function () { return $(this).attr('id') === 'battle-input2-form--' + modeKey + '--rule'; })
+                .val(rule.key);
+              $inputs
+                .filter(function () { return $(this).attr('id') === 'battle-input2-form--' + modeKey + '--rule--label'; })
+                .val(rule.name);
+            }
+
+            // ステージ用の <button> のラベルを正しく設定する
+            // 広い画面ではフルのステージ名を、狭い画面では短縮のステージ名を表示する
+            if (json.current[modeKey] && json.current[modeKey].maps.length) {
+              var $buttons = $buttonStages.filter(function () {
+                return $(this).attr('data-game-mode') === modeKey;
+              });
+              $buttons.each(function (index) {
+                var $this = $(this);
+                var key = json.current[modeKey].maps[index];
+                if (key) {
+                  $this
+                    .attr('data-value', key)
+                    .attr('data-image', json.maps[key].image) // 今のところ使う予定なし
+                    .empty()
+                    .append($('<span>', {'class': 'hidden-xs'}).text(json.maps[key].name))
+                    .append($('<span>', {'class': 'visible-xs-inline'}).text(json.maps[key].shortName));
+                }
+              });
+            }
+          });
+
+          // ブキ一覧の <select> の <option> を作成する
+          $selectWeapons.each(function () {
+            var $this = $(this);
+            $this.empty();
+
+            // お気に入りのブキ
+            if (json.favWeapons) {
+              $this.append((function () {
+                var $group = $('<optgroup>', {label: translate('Favorite Weapons')});
+                $.each(json.favWeapons, function (i, weapon) {
+                  $group.append(
+                    $('<option>', {label: weapon.name, value: weapon.key}).text(weapon.name)
+                  );
+                });
+                return $group;
+              })());
+            }
+
+            // 種類別
+            $.each(json.weapons, function (key, type) {
+              $this.append((function () {
+                var $group = $('<optgroup>', {label: type.name});
+                $.each(type.list, function (key, weapon) {
+                  $group.append(
+                    $('<option>', {label: weapon.name, value: key}).text(weapon.name)
+                  );
+                });
+                return $group;
+              })());
+            });
+          });
+
+          initialized = true;
+        },
+      });
+    };
+
+    var validatefest = function () {
+      var $form = $('form#battle-input2-form--fest');
+      var $requires = $([
+        '#battle-input2-form--fest--rule',
+        '#battle-input2-form--fest--lobby',
+        '#battle-input2-form--fest--weapon',
+        '#battle-input2-form--fest--stage',
+        '#battle-input2-form--fest--result',
+      ].join(','), $form);
+      var $empty = $requires.filter(function () {
+        return $(this).val() == '';
+      });
+      if ($empty.length) {
+        return false;
+      }
+
+      var $elem;
+      var value;
+      $elem = $('#battle-input2-form--fest--point', $form);
+      value = ($elem.val() + "").trim();
+      if (value !== '' && !value.match(/^\d+$/)) {
+        return false;
+      }
+
+      $elem = $('#battle-input2-form--fest--kill', $form);
+      value = ($elem.val() + "").trim();
+      if (value !== '') {
+        if (!value.match(/^\d+$/)) {
+          return false;
+        }
+        value = parseInt(value, 10);
+        if (value < 0 || value > 99) {
+          return false;
+        }
+      }
+
+      $elem = $('#battle-input2-form--fest--death', $form);
+      value = ($elem.val() + "").trim();
+      if (value !== '') {
+        if (!value.match(/^\d+$/)) {
+          return false;
+        }
+        value = parseInt(value, 10);
+        if (value < 0 || value > 99) {
+          return false;
+        }
+      }
+      return true;
+    };
+    const updateAgentVersion = () => {
+      const $input = $('input[name="agent_version"]');
+      $input.val((detect => {
+        // {{{
+        const comments = [
+          $input.attr('data-revision'),
+        ];
+        if (detect.mac) {
+          comments.push('macOS');
+        } else if (detect.windows) {
+          comments.push('Windows');
+        } else if (detect.windowsphone) {
+          comments.push('Windows Phone');
+        } else if (detect.linux) {
+          comments.push('Linux');
+        } else if (detect.chromeos) {
+          comments.push('Chrome OS');
+        } else if (detect.android) {
+          comments.push('Android');
+        } else if (detect.ios) {
+          comments.push('iOS');
+          if (detect.iphone) {
+            comments.push('iPhone');
+          } else if (detect.ipad) {
+            comments.push('iPad');
+          } else if (detect.ipod) {
+            comments.push('iPod');
+          }
+        } else if (detect.blackberry) {
+          comments.push('BlackBerry');
+        } else if (detect.firefoxos) {
+          comments.push('Firefox OS');
+        } else if (detect.webos) {
+          comments.push('webOS');
+        } else if (detect.bada) {
+          comments.push('Bada');
+        } else if (detect.tizen) {
+          comments.push('Tizen');
+        } else if (detect.sailfish) {
+          comments.push('Sailfish OS');
+        }
+        if (detect.name) {
+          comments.push(detect.name);
+        }
+        return $input.attr('data-version') + ' (' + comments.join(', ') + ')';
+        // }}}
+      })(window.bowser._detect(window.navigator.userAgent || '')));
+    };
+
+    // 表示時に（必要であれば）通信をして画面要素を更新する
+    $modal.on('show.bs.modal', function (event) {
+      if (!initialized) {
+        refresh();
+        updateAgentVersion();
+      }
+      updateUuidFest();
+    });
+
+    // ステージボタンがクリックされた時、電文用の <input type="hidden"> を更新する
+    // また、class を変更して選択されているかのように見せる
+    $buttonStages.click(function () {
+      const $this = $(this);
+      const $input = $('input', $modal).filter(function () { return $(this).attr('id') === $this.attr('data-target'); });
+      $input.val($this.attr('data-value')).change();
+
+      $buttonStages
+        .filter(function () { return $this.attr('data-target') === $(this).attr('data-target'); })
+        .removeClass('btn-success')
+        .addClass('btn-default');
+      $this
+        .removeClass('btn-default')
+        .addClass('btn-success');
+    });
+
+    // 勝ち/負けボタンがクリックされた時、電文用の <input type="hidden"> を更新する
+    // また、class を変更して選択されているかのように見せる
+    $buttonResults.click(function () {
+      var $this = $(this);
+      var $input = $('input', $modal).filter(function () { return $(this).attr('id') === $this.attr('data-target'); });
+      $input.val($this.attr('data-value')).change();
+
+      $buttonResults
+        .filter(function () { return $this.attr('data-target') === $(this).attr('data-target'); })
+        .removeClass('btn-info')
+        .removeClass('btn-danger')
+        .addClass('btn-default');
+      $this
+        .removeClass('btn-default')
+        .addClass($this.attr('data-value') === 'win' ? 'btn-info' : 'btn-danger');
+    });
+
+    // レギュラーバトルの送信ボタン押下処理
+    $festSubmit.click(function () {
+      const $this = $(this);
+      const $form = $('#' + $this.attr('data-form') + ' form');
+      if (!$form.length) {
+        return;
+      }
+      $('#battle-input2-form--fest--end_at').val(Math.floor(Date.now() / 1000));
+      $this.prop('disabled', true);
+      $.ajax('/api/v2/battle', {
+        'method': 'POST',
+        'headers': {
+          'Authorization': 'Bearer ' + $form.attr('data-apikey'),
+        },
+        'data': JSON.stringify(serializeForm($form)),
+        'contentType': 'application/json',
+        'processData': false,
+        'success': () => {
+          const clear = [
+            'battle-input2-form--fest--death',
+            'battle-input2-form--fest--kill',
+            'battle-input2-form--fest--point',
+            'battle-input2-form--fest--result',
+            'battle-input2-form--fest--stage',
+          ];
+          $.each(clear, (i, id) => {
+            $('#' + id).val('');
+          });
+          $buttonStages
+            .filter('[data-target="battle-input2-form--fest--stage"]')
+            .removeClass('btn-success')
+            .addClass('btn-default');
+          $buttonResults
+            .filter('[data-target="battle-input2-form--fest--result"]')
+            .removeClass('btn-info')
+            .removeClass('btn-danger')
+            .addClass('btn-default');
+          $this.prop('disabled', false);
+        },
+        'error': () => {
+          alert('Could not create a new battle record.');
+          $this.prop('disabled', false);
+        },
+        'complete': () => {
+          updateUuidFest();
+        },
+      });
+    });
+
+    // 変更を検知して送信ボタンの状態を切り替える
+    (() => {
+      // 変更即反映できる方々
+      const idList = [
+        '#battle-input2-form--fest--rule',
+        '#battle-input2-form--fest--lobby',
+        '#battle-input2-form--fest--weapon',
+        '#battle-input2-form--fest--stage',
+        '#battle-input2-form--fest--result',
+      ];
+      $(idList.join(',')).change(() => {
+        $festSubmit.prop('disabled', !validatefest());
+      });
+
+      // ユーザ入力のためにキー入力をベースにする方々
+      let timerId;
+      const idList2 = [
+        '#battle-input2-form--fest--point',
+        '#battle-input2-form--fest--kill',
+        '#battle-input2-form--fest--death',
+      ];
+      $(idList2.join(',')).keydown(() => {
+        if (timerId) {
+          window.clearTimeout(timerId);
+        }
+        timerId = window.setTimeout(() => {
+          $festSubmit.prop('disabled', !validatefest());
+        }, 50);
+      });
+    })();
+    (() => {
+      // 変更即反映できる方々
+      const idList = [
+        '#battle-input2-form--gachi--rule',
+        '#battle-input2-form--gachi--lobby',
+        '#battle-input2-form--gachi--weapon',
+        '#battle-input2-form--gachi--stage',
+        '#battle-input2-form--gachi--result',
+        '#battle-input2-form--gachi--rank-after',
+      ];
+      $(idList.join(',')).change(() => {
+        $gachiSubmit.prop('disabled', !validateGachi());
+      });
+
+      // ユーザ入力のためにキー入力をベースにする方々
+      var timerId;
+      const idList2 = [
+        '#battle-input2-form--gachi--rank-exp-after',
+        '#battle-input2-form--gachi--kill',
+        '#battle-input2-form--gachi--death',
+      ];
+      $(idList2.join(',')).keydown(() => {
+        if (timerId) {
+          window.clearTimeout(timerId);
+        }
+        timerId = window.setTimeout(() => {
+          $gachiSubmit.prop('disabled', !validateGachi());
+        }, 50);
+      });
+    })();
+
+    // ナビゲーションバーの登録ボタン
+    if ($modal.length) {
+      $('#battle-input2-btn')
+        .prop('disabled', false)
+        .click(() => {
+          $modal.modal();
+        });
+    }
+  });
+})(jQuery);

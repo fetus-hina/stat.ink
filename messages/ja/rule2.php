@@ -11,6 +11,8 @@ return [
     'Any Mode' => 'すべてのルール',
 
     'Solo Queue' => '野良',
+    'Splatfest (Solo)' => 'フェス（ソロ）',
+    'Splatfest (Team)' => 'フェス（チーム）',
 
     'Regular Battle' => 'レギュラーバトル',
     'Splatfest' => 'フェス',

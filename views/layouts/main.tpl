@@ -25,6 +25,7 @@
         </main>
         {{include '@app/views/layouts/footer.tpl'}}
         {{if !$app->user->isGuest}}
+          {{include '@app/views/includes/battle-input-modal-2.tpl'}}
           {{include '@app/views/includes/battle-input-modal.tpl'}}
         {{/if}}
         <span id="event"></span>

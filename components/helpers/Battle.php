@@ -12,17 +12,29 @@ use app\models\BattleFilterForm;
 
 class Battle
 {
-    public static function calcPeriod($unixTime)
+    public static function calcPeriod(int $unixTime) : int
     {
         // 2 * 3600: UTC 02:00 に切り替わるのでその分を引く
         // 4 * 3600: 4時間ごとにステージ変更
         return (int)floor(($unixTime - 2 * 3600) / (4 * 3600));
     }
 
-    public static function periodToRange($period, $offset = 0)
+    public static function periodToRange($period, $offset = 0) : array
     {
         $from = $period * (4 * 3600) + (2 * 3600) + $offset;
         $to = $from + 4 * 3600;
+        return [$from, $to];
+    }
+
+    public static function calcPeriod2(int $unixTime) : int
+    {
+        return (int)floor($unixTime / (2 * 3600));
+    }
+
+    public static function periodToRange2($period, $offset = 0) : array
+    {
+        $from = $period * (2 * 3600) + $offset;
+        $to = $from + 2 * 3600;
         return [$from, $to];
     }
 

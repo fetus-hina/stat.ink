@@ -34,6 +34,7 @@ RESOURCE_TARGETS_MAIN := \
 	resources/.compiled/slack/slack.js \
 	resources/.compiled/stat.ink/active-reltime.js \
 	resources/.compiled/stat.ink/battle-edit.js \
+	resources/.compiled/stat.ink/battle-input-2.js \
 	resources/.compiled/stat.ink/battle-input.css \
 	resources/.compiled/stat.ink/battle-input.js \
 	resources/.compiled/stat.ink/battle-thumb-list.css \
@@ -229,6 +230,9 @@ resources/.compiled/stat.ink/battle-input.js: resources/stat.ink/battle-input.js
 
 resources/.compiled/stat.ink/battle-input.css: resources/stat.ink/battle-input.less $(GULP)
 	$(GULP) less --in $< --out $@
+
+resources/.compiled/stat.ink/battle-input-2.js: resources/stat.ink/battle-input-2.es $(GULP)
+	$(GULP) js --in $< --out $@
 
 resources/.compiled/stat.ink/blackout-hint.js: resources/stat.ink/blackout-hint.js $(GULP)
 	$(GULP) js --in $< --out $@
