@@ -618,6 +618,7 @@
         <p>
           {{'Note: You can change the time zone via the navbar.'|translate:'app'|escape}}
         </p>
+{{*
         {{if !$app->user->isGuest && $app->user->identity->id == $user->id}}
           <p class="text-right">
             <a href="{{url route="/show-v2/edit-battle" screen_name=$user->screen_name battle=$battle->id}}" class="btn btn-default">
@@ -625,13 +626,7 @@
             </a>
           </p>
         {{/if}}
-        {{if !$app->user->isGuest && $app->user->identity->id == $user->id}}
-          <p class="text-right">
-            <a href="{{url route="/show-v2/edit-battle" screen_name=$user->screen_name battle=$battle->id}}" class="btn btn-default">
-              {{'Edit'|translate:'app'|escape}}
-            </a>
-          </p>
-        {{/if}}
+*}}
       </div>
       <div class="col-xs-12 col-sm-4 col-md-4 col-lg-3">
         {{include file="@app/views/includes/user-miniinfo2.tpl" user=$user}}
