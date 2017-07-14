@@ -234,14 +234,20 @@
               <li>
                 <a href="https://play.google.com/store/apps/details?id=com.syanari.merluza.ikarec">
                   {{$_linkIcon->ikaRecJa}}&#32;
-                  {{'IkaRec'|translate:'app'|escape}}（<span class="fa fa-android"></span> / 日本語版）
+                  {{'IkaRec'|translate:'app'|escape}}（<span class="fa fa-android"></span> / 日本語版 / Splatoon）
                 </a>
               </li>
               <li>
                 <a href="https://play.google.com/store/apps/details?id=ink.pocketgopher.ikarec">
                   └&#32;
                   {{$_linkIcon->ikaRecEn}}&#32;
-                   {{'IkaRec'|translate:'app'|escape}} (<span class="fa fa-android"></span> / English version)
+                   {{'IkaRec'|translate:'app'|escape}} (<span class="fa fa-android"></span> / English version / Splatoon)
+                </a>
+              </li>
+              <li>
+                <a href="https://play.google.com/store/apps/details?id=com.syanari.merluza.ikarec2">
+                  {{$_linkIcon->ikaRecJa}}&#32;
+                  {{'IkaRec 2'|translate:'app'|escape}} (<span class="fa fa-android"></span> / Splatoon 2）
                 </a>
               </li>
               <li class="divider"></li>

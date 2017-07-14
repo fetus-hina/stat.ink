@@ -163,6 +163,7 @@ return [
     'Ika-Nakama 2' => 'イカナカマ2',
     'IkaLog Download Page' => 'IkaLogダウンロードページ',
     'IkaLog' => 'IkaLog',
+    'IkaRec 2' => 'イカレコ2',
     'IkaRec' => 'イカレコ',
     'Image Sharing' => '画像の共有',
     'In session' => '開催中',
