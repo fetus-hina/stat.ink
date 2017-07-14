@@ -52,6 +52,10 @@
           'inputTemplate' => '<div class="input-group"><span class="input-group-addon">http://ikazok.net/users/</span>{input}</div>'
         ])}}
 
+      {{$_->field($form, 'ikanakama2', [
+          'inputTemplate' => '<div class="input-group"><span class="input-group-addon">https://ikanakama.ink/users/</span>{input}</div>'
+        ])}}
+
       {{$_->field($form, 'env')->textArea([
           'style' => 'height:10em'
         ])->hint(

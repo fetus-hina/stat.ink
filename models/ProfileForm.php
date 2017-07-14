@@ -17,6 +17,7 @@ class ProfileForm extends Model
     public $sw_friend_code;
     public $twitter;
     public $ikanakama;
+    public $ikanakama2;
     public $env;
     public $blackout;
     public $default_language_id;
@@ -24,7 +25,7 @@ class ProfileForm extends Model
     public function rules()
     {
         return [
-            [['name', 'nnid', 'twitter', 'ikanakama', 'env'], 'filter',
+            [['name', 'nnid', 'twitter', 'ikanakama', 'ikanakama2', 'env'], 'filter',
                 'filter' => function ($value) {
                     $value = trim((string)$value);
                     return $value === '' ? null : $value;
@@ -41,7 +42,7 @@ class ProfileForm extends Model
             ],
             [['twitter'], 'string', 'max' => 15],
             [['twitter'], 'match', 'pattern' => '/^[a-zA-Z0-9_]+$/'],
-            [['ikanakama'], 'integer', 'min' => 1],
+            [['ikanakama', 'ikanakama2'], 'integer', 'min' => 1],
             [['env'], 'string'],
             [['blackout'], 'in',
                 'range' => [
@@ -70,7 +71,8 @@ class ProfileForm extends Model
             'nnid'          => Yii::t('app', 'Nintendo Network ID'),
             'sw_friend_code' => Yii::t('app', 'Friend Code (Switch)'),
             'twitter'       => Yii::t('app', 'Twitter @name'),
-            'ikanakama'     => Yii::t('app', 'IKANAKAMA User ID'),
+            'ikanakama'     => Yii::t('app', 'Ika-Nakama User ID'),
+            'ikanakama2'    => Yii::t('app', 'Ika-Nakama 2 User ID'),
             'env'           => Yii::t('app', 'Capture Environment'),
             'blackout'      => Yii::t('app', 'Black out other players from the result image'),
             'default_language_id' => Yii::t('app', 'Language (used for OStatus)'),

@@ -28,6 +28,7 @@ use yii\web\IdentityInterface;
  * @property string $sw_friend_code
  * @property string $twitter
  * @property integer $ikanakama
+ * @property integer $ikanakama2
  * @property integer $env_id
  * @property string $blackout
  * @property integer $default_language_id
@@ -89,7 +90,7 @@ class User extends ActiveRecord implements IdentityInterface
         return [
             [['name', 'screen_name', 'password', 'api_key', 'join_at', 'default_language_id'], 'required'],
             [['join_at'], 'safe'],
-            [['ikanakama', 'env_id', 'default_language_id'], 'integer'],
+            [['ikanakama', 'ikanakama2', 'env_id', 'default_language_id'], 'integer'],
             [['name', 'screen_name', 'twitter'], 'string', 'max' => 15],
             [['password'], 'string', 'max' => 255],
             [['api_key'], 'string', 'max' => 43],
@@ -139,7 +140,8 @@ class User extends ActiveRecord implements IdentityInterface
             'nnid'          => Yii::t('app', 'Nintendo Network ID'),
             'sw_friend_code' => Yii::t('app', 'Friend Code (Switch)'),
             'twitter'       => Yii::t('app', 'Twitter @name'),
-            'ikanakama'     => Yii::t('app', 'IKANAKAMA User ID'),
+            'ikanakama'     => Yii::t('app', 'Ika-Nakama User ID'),
+            'ikanakama2'    => Yii::t('app', 'Ika-Nakama 2 User ID'),
             'env_id'        => Yii::t('app', 'Capture Environment'),
             'blackout'      => Yii::t('app', 'Black out other players from the result image'),
             'default_language_id' => Yii::t('app', 'Language (used for OStatus)'),
@@ -364,6 +366,9 @@ class User extends ActiveRecord implements IdentityInterface
                 'twitter'       => (string)$this->twitter != '' ? $this->twitter : null,
                 'ikanakama'     => (string)$this->ikanakama
                     ? sprintf('http://ikazok.net/users/%d', $this->ikanakama)
+                    : null,
+                'ikanakama2'    => (string)$this->ikanakama2
+                    ? sprintf('https://ikanakama.ink/users/%d', $this->ikanakama2)
                     : null,
                 'environment'   => $this->env ? $this->env->text : null,
             ],

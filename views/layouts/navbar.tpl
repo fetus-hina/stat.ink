@@ -260,7 +260,13 @@
               <li>
                 <a href="http://ikazok.net/">
                   {{$_linkIcon->ikanakama}}&#32;
-                  {{'Ika-Nakama'|translate:'app'|escape}}
+                  {{'Ika-Nakama'|translate:'app'|escape}} (Splatoon)
+                </a>
+              </li>
+              <li>
+                <a href="https://ikanakama.ink/">
+                  {{$_linkIcon->ikanakama}}&#32;
+                  {{'Ika-Nakama 2'|translate:'app'|escape}} (Splatoon 2)
                 </a>
               </li>
             </ul>

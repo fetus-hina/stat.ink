@@ -182,11 +182,23 @@
               </td>
             </tr>
             <tr>
-              <th>{{'IKANAKAMA User ID'|translate:'app'|escape}}</th>
+              <th>{{'Ika-Nakama User ID'|translate:'app'|escape}}</th>
               <td>
                 {{if $user->ikanakama != ''}}
                   <a href="http://ikazok.net/users/{{$user->ikanakama|escape:url}}">
                     #{{$user->ikanakama|escape}}
+                  </a>
+                {{else}}
+                  -
+                {{/if}}
+              </td>
+            </tr>
+            <tr>
+              <th>{{'Ika-Nakama 2 User ID'|translate:'app'|escape}}</th>
+              <td>
+                {{if $user->ikanakama2 != ''}}
+                  <a href="https://ikanakama.ink/users/{{$user->ikanakama2|escape:url}}">
+                    #{{$user->ikanakama2|escape}}
                   </a>
                 {{else}}
                   -

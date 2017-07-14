@@ -442,6 +442,13 @@
             </a>
           </div>
         {{/if}}
+        {{if $user->ikanakama2 != ''}}
+          <div>
+            <a href="https://ikanakama.ink/users/{{$user->ikanakama2|escape:url}}" rel="nofollow" target="_blank">
+              {{'Ika-Nakama 2'|translate:'app'|escape}}
+            </a>
+          </div>
+        {{/if}}
       </div>
       <div class="miniinfo-databox">
         {{$_asset = \app\assets\RemoteFollowAsset::register($this)}}
