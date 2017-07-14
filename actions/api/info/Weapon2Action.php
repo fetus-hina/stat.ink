@@ -32,8 +32,10 @@ class Weapon2Action extends BaseAction
                                 'weapons' => array_map(
                                     function (Weapon2 $weapon) : array {
                                         return [
-                                            'key' => $weapon['key'],
-                                            'names' => Translator::translateToAll('app-weapon2', $weapon['name']),
+                                            'key' => $weapon->key,
+                                            'names' => Translator::translateToAll('app-weapon2', $weapon->name),
+                                            'sub' => Yii::t('app-subweapon2', $weapon->subweapon->name),
+                                            'special' => Yii::t('app-special2', $weapon->special->name),
                                         ];
                                     },
                                     $type->weapons
@@ -52,6 +54,8 @@ class Weapon2Action extends BaseAction
                     'weaponTypes.weapons' => function ($query) {
                         $query->orderBy('[[key]] ASC');
                     },
+                    'weaponTypes.weapons.subweapon',
+                    'weaponTypes.weapons.special',
                 ])
                 ->orderBy('[[id]] ASC')
                 ->all()

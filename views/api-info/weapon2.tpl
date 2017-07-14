@@ -51,6 +51,14 @@
               <th data-sort="string">
                 {{$lang.name|escape}}
               </th>
+              {{if $lang@first}}
+                <th data-sort="string">
+                  {{'Sub Weapon'|translate:'app'|escape}}
+                </th>
+                <th data-sort="string">
+                  {{'Special'|translate:'app'|escape}}
+                </th>
+              {{/if}}
             {{/foreach}}
           </tr>
         </thead>
@@ -75,6 +83,14 @@
                       {{$langKey = $lang.lang|replace:'-':'_'}}
                       {{$weapon.names[$langKey]|escape}}
                     </td>
+                    {{if $lang@first}}
+                      <td>
+                        {{$weapon.sub|escape}}
+                      </td>
+                      <td>
+                        {{$weapon.special|escape}}
+                      </td>
+                    {{/if}}
                   {{/foreach}}
                 </tr>
               {{/foreach}}
