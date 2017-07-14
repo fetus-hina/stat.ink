@@ -20,7 +20,7 @@
       <span style="white-space:nowrap">
         Users: <span class="dseg-counter" data-type="users">{{User::getRoughCount()|default:'?'|escape}}</span>,
       </span>&#32;<span style="white-space:nowrap">
-        Battles: <span class="dseg-counter" data-type="battles">{{Battle::getRoughCount()|default:'?'|escape}}</span>
+        Battles: <span class="dseg-counter" data-type="battles">{{Battle::getTotalRoughCount()|default:'?'|escape}}</span>
       </span>
     </p>
     {{if $enableAnniversary}}
@@ -83,6 +83,11 @@
     {{/if}}
 
     {{if $app->language === 'ja-JP'}}
+      <p class="bg-danger" style="padding:15px;border-radius:10px">
+        Splatoon 2 前夜祭登録機能に対応しました。右上の登録ボタンからご利用ください。<br>
+        まだ Splatoon 2 対応は半端な状態で、仮対応です。<br>
+        ナビゲーションや機能面で不完全な箇所が目立ちますがご容赦ください。
+      </p>
       <p class="bg-warning" style="padding:15px;border-radius:10px">
         バトル登録機能をリリースしました。ログイン後、バトル登録ボタンから登録できます。<br>
         iOS等をご利用の方、PCでキャプチャボードを使用出来ない方、どうぞご利用ください。<br>

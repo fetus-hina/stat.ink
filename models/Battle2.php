@@ -99,6 +99,18 @@ class Battle2 extends ActiveRecord
 {
     const CLIENT_UUID_NAMESPACE = '15de9082-1c7b-11e7-8f94-001b21a098c2';
 
+    public static function getRoughCount()
+    {
+        try {
+            return (new \yii\db\Query())
+                ->select('[[last_value]]')
+                ->from('{{battle2_id_seq}}')
+                ->scalar();
+        } catch (Exception $e) {
+            return false;
+        }
+    }
+
     public static function find()
     {
         return new class(get_called_class()) extends \yii\db\ActiveQuery {

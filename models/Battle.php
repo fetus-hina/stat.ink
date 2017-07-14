@@ -126,6 +126,23 @@ class Battle extends ActiveRecord
         }
     }
 
+    public static function getTotalRoughCount()
+    {
+        $list = [
+            [Battle::class, 'getRoughCount'],
+            [Battle2::class, 'getRoughCount'],
+        ];
+        $total = 0;
+        foreach ($list as $callback) {
+            $tmp = call_user_func($callback);
+            if ($tmp === false || $tmp === null) {
+                return false;
+            }
+            $total += $tmp;
+        }
+        return $total;
+    }
+
     public function __get($attr)
     {
         switch ($attr) {
