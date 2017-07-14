@@ -20,6 +20,23 @@ use yii\db\ActiveRecord;
  */
 class SplatoonVersion2 extends ActiveRecord
 {
+    public static function findCurrentVersion($at = null) : ?self
+    {
+        if ($at === null) {
+            $at = (int)($_SERVER['REQUEST_TIME'] ?? time());
+        }
+        if (is_int($at)) {
+            $at = gmdate('Y-m-d\TH:i:sP', $at);
+        } elseif ($at instanceof \DateTimeInterface) {
+            $at = $at->format('Y-m-d\TH:i:sP');
+        }
+        return static::find()
+            ->andWhere(['<=', 'released_at', $at])
+            ->orderBy('[[released_at]] DESC')
+            ->limit(1)
+            ->one();
+    }
+
     /**
      * @inheritdoc
      */

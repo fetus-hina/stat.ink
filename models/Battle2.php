@@ -165,6 +165,33 @@ class Battle2 extends ActiveRecord
                     return ($kill === 0 && $death === 0) ? null : ($kill * 100 / ($kill + $death));
                 },
             ],
+            [
+                // splatoon version
+                'class' => AttributeBehavior::class,
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => 'version_id',
+                ],
+                'value' => function ($event) : ?int {
+                    $battle = $event->sender;
+                    if ($battle->version_id) {
+                        return (int)$battle->version_id;
+                    }
+                    $time = (function () use ($battle) : ?int {
+                        if (is_string($battle->end_at) && trim($battle->end_at) !== '') {
+                            return strtotime($battle->end_at);
+                        }
+                        if (is_string($battle->at) && trim($battle->at) !== '') {
+                            return strtotime($battle->at);
+                        }
+                        return null;
+                    })();
+                    if (!is_int($time)) {
+                        $time = (int)($_SERVER['REQUEST_TIME'] ?? time());
+                    }
+                    $version = SplatoonVersion2::findCurrentVersion($time);
+                    return $version ? $version->id : null;
+                },
+            ],
         ];
     }
 
