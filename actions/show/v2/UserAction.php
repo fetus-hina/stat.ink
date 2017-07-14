@@ -56,7 +56,8 @@ class UserAction extends BaseAction
                 'weapon.subweapon',
                 'weapon.special',
             ])
-            ->andWhere(['user_id' => $user->id]);
+            ->andWhere(['user_id' => $user->id])
+            ->orderBy(['battle2.id' => SORT_DESC]);
 
         $summary = $battle->summary;
 
