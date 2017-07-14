@@ -22,6 +22,7 @@ return [
     'Splat Dualies' => 'スプラマニューバー',
     'Splattershot Pro' => 'プライムシューター',
     'Splattershot' => 'スプラシューター',
+    'Tentatek Splattershot' => 'スプラシューターコラボ',
     // rollers -----
     'Dynamo Roller' => 'ダイナモローラー',
     'Octobrush' => 'ホクサイ',

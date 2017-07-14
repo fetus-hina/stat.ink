@@ -12,6 +12,7 @@ return [
     'Sloshers' => 'Derramatics',
     'Splatlings' => 'Garabateadors',
 
-    'Splattershot' => 'Rociador',
     'Splat Dualies' => 'Dual diffusor',
+    'Splattershot' => 'Rociador',
+    'Tentatek Splattershot' => 'Rociador Tentáctica',
 ];

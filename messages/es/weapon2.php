@@ -22,6 +22,7 @@ return [
     'Splat Dualies' => 'Dual diffusor',
     'Splattershot Pro' => 'Lanzatintas plus',
     'Splattershot' => 'Lanzatintas',
+    'Tentatek Splattershot' => 'Lanzatintas B',
     //
     'Dynamo Roller' => 'Dinamorrodillo',
     'Octobrush' => 'Brocha',

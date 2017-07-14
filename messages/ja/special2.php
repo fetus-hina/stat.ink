@@ -7,7 +7,8 @@
 
 return [
     'Baller' => 'イカスフィア',
-    'Bubble Blower' => 'ボムピッチャー',
+    'Bubble Blower' => 'バブルランチャー',
+    'Bomb Launcher' => 'ボムピッチャー',
     'Ink Armor' => 'インクアーマー',
     'Ink Storm' => 'アメフラシ',
     'Inkjet' => 'ジェットパック',

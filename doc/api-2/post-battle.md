@@ -129,11 +129,12 @@ POST データは全体で 12MiB 以内である必要があります。
 
 |指定文字列|ブキ|
 |-|-|
+|`hotblaster`|ホットブラスター|
 |`manueuver`|スプラマニューバー|
 |`prime`|プライムシューター|
 |`sharp`|シャープマーカー|
+|`sshooter_collabo`|スプラシューターコラボ|
 |`sshooter`|スプラシューター|
-|`hotblaster`|ホットブラスター|
 |`dynamo`|ダイナモローラー|
 |`splatroller`|スプラローラー|
 |`hokusai`|ホクサイ|
