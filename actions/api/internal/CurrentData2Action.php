@@ -73,14 +73,31 @@ class CurrentData2Action extends ViewAction
         $now = microtime(true);
         $period = BattleHelper::calcPeriod2((int)$now);
         $range = BattleHelper::periodToRange2($period);
+        if ($now < strtotime('2017-07-15T19:00:00+09:00')) {
+            // 日本フェス前半
+            $fest = $info2(['gangaze', 'ama']);
+        } else if ($now <= strtotime('2017-07-15T21:00:00+09:00')) {
+            // 日本フェス後半
+            $fest = $info2(['combu', 'tachiuo']);
+        } else if ($now < strtotime('2017-07-16T03:00:00+09:00')) {
+            // 欧州フェス前半
+            $fest = $info2(['gangaze', 'ama']);
+        } else if ($now <= strtotime('2017-07-16T05:00:00+09:00')) {
+            // 欧州フェス後半
+            $fest = $info2(['combu', 'tachiuo']);
+        } else if ($now < strtotime('2017-07-16T09:00:00+09:00')) {
+            // 米国フェス前半
+            $fest = $info2(['gangaze', 'ama']);
+        } else {
+            // 米国フェス後半
+            $fest = $info2(['combu', 'tachiuo']);
+        }
         return [
             'period' => [
                 'id' => $period,
                 'next' => max($range[1] - $now, 0), // in sec
             ],
-            'fest'    => $now < 1500112800
-                ? $info2(['gangaze', 'ama'])
-                : $info2(['combu', 'tachiuo']),
+            'fest'    => $fest,
             'regular' => false, // $info(PeriodMap::findCurrentRegular()->all()),
             'gachi'   => false, // $info(PeriodMap::findCurrentGachi()->all()),
         ];
