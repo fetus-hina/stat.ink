@@ -180,6 +180,7 @@ class PostBattleForm extends Model
                 'when' => function ($model, $attr) {
                     return is_string($model->$attr);
                 }],
+            [['map'], 'safe'],
         ];
     }
 
