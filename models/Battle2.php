@@ -128,6 +128,18 @@ class Battle2 extends ActiveRecord
             RemoteAddrBehavior::class,
             RemotePortBehavior::class,
             [
+                // end_at の自動登録
+                'class' => AttributeBehavior::class,
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => 'end_at',
+                ],
+                'value' => function ($event) {
+                    return ($event->sender->end_at)
+                        ? $event->sender->end_at
+                        : new \app\components\helpers\db\Now();
+                },
+            ],
+            [
                 // client_uuid の格納形式を作成する
                 'class' => AttributeBehavior::class,
                 'attributes' => [
@@ -192,8 +204,8 @@ class Battle2 extends ActiveRecord
                         if (is_string($battle->end_at) && trim($battle->end_at) !== '') {
                             return strtotime($battle->end_at);
                         }
-                        if (is_string($battle->at) && trim($battle->at) !== '') {
-                            return strtotime($battle->at);
+                        if (is_string($battle->created_at) && trim($battle->created_at) !== '') {
+                            return strtotime($battle->created_at);
                         }
                         return null;
                     })();
