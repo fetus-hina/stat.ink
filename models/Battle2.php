@@ -591,6 +591,11 @@ class Battle2 extends ActiveRecord
         return $this->my_point; // FIXME
     }
 
+    public function getCreatedAt() : int
+    {
+        return strtotime($this->created_at);
+    }
+
     public function toJsonArray(array $skips = []) : array
     {
         $events = null;

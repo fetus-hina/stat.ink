@@ -1,6 +1,5 @@
 {{strip}}
   {{set layout="main.tpl"}}
-  {{use class="app\models\Battle"}}
   <div class="container">
     <h1>
       {{'All Players'|translate:'app':$app->name|escape}}

@@ -1168,4 +1168,9 @@ class Battle extends ActiveRecord
             return false;
         }
     }
+
+    public function getCreatedAt() : int
+    {
+        return strtotime($this->at);
+    }
 }

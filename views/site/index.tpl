@@ -1,7 +1,9 @@
 {{strip}}
   {{set layout="main.tpl"}}
-  {{use class="app\models\User"}}
+  {{use class="app\components\helpers\CombinedBattles"}}
+  {{use class="app\components\widgets\battle\BattleListWidget"}}
   {{use class="app\models\Battle"}}
+  {{use class="app\models\User"}}
   <div class="container">
     <p class="text-right" style="margin-bottom:0">
       Switch Language:&#32;
@@ -284,10 +286,7 @@
     {{/if}}
 
     {{if $ident}}
-      {{$battles = $ident->getBattles()
-        ->with(['user', 'rule', 'map', 'battleImageResult', 'user.userIcon'])
-        ->limit(12)
-        ->all()}}
+      {{$battles = CombinedBattles::getUserRecentBattles($ident, 12)}}
       {{if $battles}}
         {{$title = "{0}'s Battles"|translate:'app':$ident->name}}
         <h2>
@@ -295,7 +294,7 @@
             {{$title|escape}}
           </a>
         </h2>
-        {{include file="@app/views/includes/battle_thumb_list.tpl" battles=$battles}}
+        {{BattleListWidget::widget(['models' => $battles])}}
       {{/if}}
     {{/if}}
 
@@ -307,15 +306,11 @@
         {{'Show All Players'|translate:'app'|escape}}
       </a>
     </p>
-    {{include file="@app/views/includes/battle_thumb_list.tpl" battles=$active}}
+    {{BattleListWidget::widget(['models' => $active])}}
 
     <h2>
       {{'Recent Battles'|translate:'app'|escape}}
     </h2>
-    {{$battles = Battle::find()
-        ->with(['user', 'rule', 'map', 'battleImageResult', 'user.userIcon'])
-        ->limit(100)
-        ->all()}}
-    {{include file="@app/views/includes/battle_thumb_list.tpl" battles=$battles}}
+    {{BattleListWidget::widget(['models' => CombinedBattles::getRecentBattles(100)])}}
   </div>
 {{/strip}}
