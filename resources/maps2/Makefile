@@ -27,14 +27,17 @@ _gray-blur: $(addprefix assets/gray-blur/, $(FILENAMES))
 assets/daytime/%.jpg: %.jpg assets/daytime
 	convert $< -resize 320x180 -quality 95 $@
 	jpegoptim -qs $@
+	touch $@
 
 assets/daytime-blur/%.jpg: %.jpg assets/daytime-blur
 	convert $< -resize 320x180 -blur $(BLUR) -quality 95 $@
 	jpegoptim -qs $@
+	touch $@
 
 assets/gray-blur/%.jpg: %.jpg assets/gray-blur
 	convert $< -fx 'r*0.299+g*0.587+b*0.114' -colorspace Gray -resize 320x180 -blur $(BLUR) -quality 95 $@
 	jpegoptim -qs $@
+	touch $@
 
 assets/daytime:
 	mkdir -p $@

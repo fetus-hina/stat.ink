@@ -24,6 +24,7 @@ return [
         'u/<screen_name:\w+>.<lang:[\w-]+>.<type:rss|atom>' => 'feed/compat-user',
         'u/<screen_name:\w+>-ostatus.atom' => 'ostatus/feed',
 
+        '@<screen_name:\w+>' => 'show-user/profile',
         '@<screen_name:\w+>/spl1/<battle:\d+>' => 'show/battle',
         '@<screen_name:\w+>/spl1/<battle:\d+>/edit' => 'show/edit-battle',
         // 'u/<screen_name:\w+>/<battle:\d+>.atom' => 'ostatus/battle-atom',

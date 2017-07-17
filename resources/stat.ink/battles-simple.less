@@ -1,17 +1,19 @@
 @charset "UTF-8";
 @golden-ratio: 1.61803398875;
 
-/*! Copyright (C) 2015-2016 AIZAWA Hina | MIT License */
+/*! Copyright (C) 2015-2017 AIZAWA Hina | MIT License */
 
 .simple-battle-row {
-  display:block;
-  list-style-type:none;
-  margin:1em 0;
-  padding: unit(1/@golden-ratio, em);
-  box-shadow:2px 2px 3px rgba(0,0,0,.1);
-  border-radius:4px;
-  border:1px solid #ccc;
+  li& {
+    display:block;
+    list-style-type:none;
+    margin:1em 0;
+    box-shadow:2px 2px 3px rgba(0,0,0,.1);
+    border-radius:4px;
+    border:1px solid #ccc;
   background-color:#f9f9f9;
+  }
+  padding: unit(1/@golden-ratio, em);
 
   a {
     &, &:link, &:visited, &:hover, &:active {

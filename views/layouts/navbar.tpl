@@ -73,7 +73,7 @@
               </a>
               <ul class="dropdown-menu">
                 <li>
-                  <a href="javascript:;">
+                  <a href="{{path route="show-user/profile" screen_name=$ident->screen_name}}">
                     <span class="fa fa-fw fa-user"></span>{{'Your Battles'|translate:'app'|escape}}
                   </a>
                 </li>

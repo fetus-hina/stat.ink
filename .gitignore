@@ -19,6 +19,9 @@
 /node_modules
 /phpunit.xml
 /resources/.compiled
+/resources/app-link-logos/*.br
+/resources/app-link-logos/*.gz
+/resources/app-link-logos/*.min.svg
 /resources/dseg/*.tar.gz
 /resources/dseg/*.zip
 /vendor

@@ -1,0 +1,145 @@
+<?php
+/**
+ * @copyright Copyright (C) 2017 AIZAWA Hina
+ * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
+ * @author AIZAWA Hina <hina@bouhime.com>
+ */
+
+namespace app\components\widgets\battle\panelItem;
+
+use DateTimeImmutable;
+use DateTimeZone;
+use Yii;
+use app\assets\AppAsset;
+use app\assets\AppOptAsset;
+use app\assets\JqueryLazyloadAsset;
+use app\components\widgets\ActiveRelativeTimeWidget;
+use app\components\widgets\JdenticonWidget;
+use app\models\User;
+use yii\base\Widget;
+use yii\bootstrap\Html;
+
+abstract class BaseWidget extends Widget
+{
+    public $model;
+
+    abstract public function getBattleEndAt() : ?DateTimeImmutable;
+    abstract public function getIsKO() : ?bool;
+    abstract public function getIsWin() : ?bool;
+    abstract public function getKillDeath() : array;
+    abstract public function getLinkRoute() : array;
+    abstract public function getMapName() : string;
+    abstract public function getRuleName() : string;
+    abstract public function getWeaponName() : string;
+
+    public function run()
+    {
+        AppOptAsset::register($this->view)->registerCssFile($this->view, 'battles-simple.css');
+        return Html::tag(
+            'tr',
+            Html::tag(
+                'td',
+                Html::a(
+                    Html::tag(
+                        'div',
+                        implode('', [
+                            Html::tag(
+                                'div',
+                                implode('', [
+                                    $this->renderResultHtml(),
+                                    $this->renderDataHtml(),
+                                ]),
+                                ['class' => 'simple-battle-row-impl-main']
+                            ),
+                            Html::tag(
+                                'div',
+                                $this->renderDatetimeHtml(),
+                                ['class' => 'simple-battle-at']
+                            )
+                        ]),
+                        ['class' => 'simple-battle-row-impl']
+                    ),
+                    $this->getLinkRoute()
+                ),
+                ['class' => 'simple-battle-row']
+            )
+        );
+    }
+
+    protected function renderResultHtml() : string
+    {
+        $result = $this->getIsWin();
+        $isKO = $this->getIsKO();
+        if ($result === null) {
+            return Html::tag(
+                'div',
+                '?',
+                ['class' => 'simple-battle-result simple-battle-result-unk']
+            );
+        }
+        if ($isKO === null) {
+            $koHtml = '';
+        } else {
+            $koHtml = '<br>' . Html::encode(Yii::t('app', $isKO ? 'K.O.' : 'Time'));
+        }
+        return Html::tag(
+            'div',
+            Html::encode(Yii::t('app', $result ? 'Won' : 'Lost')) . $koHtml,
+            ['class' => [
+                'simple-battle-result',
+                $result ? 'simple-battle-result-won' : 'simple-battle-result-lost',
+            ]]
+        );
+    }
+
+    protected function renderDataHtml() : string
+    {
+        return Html::tag('div', implode('', [
+            Html::tag('div', $this->getMapName(), ['class' => 'simple-battle-map omit']),
+            Html::tag('div', $this->getRuleName(), ['class' => 'simple-battle-rule omit']),
+            Html::tag('div', $this->getWeaponName(), ['class' => 'simple-battle-weapon omit']),
+            Html::tag(
+                'div',
+                $this->renderKillDeathHtml(),
+                ['class' => 'simple-battle-kill-death omit']
+            ),
+        ]), ['class' => 'simple-battle-data']);
+    }
+
+    protected function renderKillDeathHtml() : string
+    {
+        list($kill, $death) = $this->getKillDeath();
+        return implode('', [
+            sprintf(
+                '%sK / %sD',
+                $kill === null ? '?' : (string)(int)$kill,
+                $death === null ? '?' : (string)(int)$death
+            ),
+            ' ',
+            (function () use ($kill, $death) : string {
+                if ($kill === null || $death === null) {
+                    return '';
+                }
+                if ($kill == $death) {
+                    return Html::tag('span', '=', ['class' => 'label label-default']);
+                } elseif ($kill > $death) {
+                    return Html::tag('span', Html::encode('>'), ['class' => 'label label-success']);
+                } else {
+                    return Html::tag('span', Html::encode('<'), ['class' => 'label label-danger']);
+                }
+            })(),
+        ]);
+    }
+
+    protected function renderDatetimeHtml() : string
+    {
+        if (!$datetime = $this->getBattleEndAt()) {
+            return '';
+        }
+        return Html::tag(
+            'time',
+            Html::encode(Yii::$app->formatter->asDatetime($datetime, 'medium')),
+            ['datetime' => $datetime->format(\DateTime::ATOM)]
+        );
+    }
+}

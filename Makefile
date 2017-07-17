@@ -11,7 +11,13 @@ RESOURCE_TARGETS_MAIN := \
 	resources/.compiled/app-link-logos/ikanakama.png \
 	resources/.compiled/app-link-logos/ikarec-en.png \
 	resources/.compiled/app-link-logos/ikarec-ja.png \
+	resources/.compiled/app-link-logos/nnid.min.svg \
+	resources/.compiled/app-link-logos/nnid.min.svg.br \
+	resources/.compiled/app-link-logos/nnid.min.svg.gz \
 	resources/.compiled/app-link-logos/splatnet.png \
+	resources/.compiled/app-link-logos/switch.min.svg \
+	resources/.compiled/app-link-logos/switch.min.svg.br \
+	resources/.compiled/app-link-logos/switch.min.svg.gz \
 	resources/.compiled/counter/counter.css \
 	resources/.compiled/counter/counter.js \
 	resources/.compiled/dseg/dseg14.css \
@@ -185,6 +191,7 @@ composer.lock: composer.json composer.phar
 %.br: %
 	bro --quality 11 --force --input $< --output $@
 	chmod 644 $@
+	touch $@
 
 %.gz: %
 	rm -f $@
@@ -382,6 +389,12 @@ resources/.compiled/app-link-logos/festink.png: resources/app-link-logos/festink
 	mkdir -p resources/.compiled/app-link-logos
 	convert $<[3] -trim +repage -unsharp 1.5x1+0.7+0.02 -scale x28 $@
 	touch -r $< $@
+
+resources/.compiled/app-link-logos/nnid.svg: resources/app-link-logos/nnid.svg
+	xmllint --format $< > $@
+
+resources/.compiled/app-link-logos/switch.svg: resources/app-link-logos/switch.svg
+	xmllint --format $< > $@
 
 migrate-db: vendor config/db.php
 	./yii migrate/up --interactive=0
