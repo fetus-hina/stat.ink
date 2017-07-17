@@ -2,10 +2,10 @@ window.useContainerFluid = window.localStorage.getItem('useFluid') == 1;
 $(function () {
   var $elem = $('#toggle-use-fluid');
   var $icon = $('.fa', $elem);
-  var update = function () {
+  var update = () => {
     var $container = $([
-      'body>.container',
-      'body>.container-fluid',
+      'body>main>.container',
+      'body>main>.container-fluid',
       'nav.navbar>.container-fluid>.container',
       'nav.navbar>.container-fluid>.container-fluid',
       'footer>.container',
@@ -21,7 +21,6 @@ $(function () {
       $('body').removeClass('use-fluid');
     }
   };
-  window.useContainerFluid
   $elem.click(function () {
     window.useContainerFluid = !window.useContainerFluid;
     window.localStorage.setItem('useFluid', window.useContainerFluid ? 1 : 0);
