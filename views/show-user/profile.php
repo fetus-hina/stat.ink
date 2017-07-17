@@ -63,11 +63,14 @@ $this->registerCss(implode('', array_map(
     <div id="person-box" class="col-xs-12 col-md-3" itemscope itemtype="http://schema.org/Person">
       <?= Html::img(
             $user->userIcon->absUrl ?? $user->jdenticonPngUrl,
-            ['class' => [
-              'img-responsive',
-              'img-thumbnail',
-              'img-rounded',
-            ]]
+            [
+              'class' => [
+                'img-responsive',
+                'img-thumbnail',
+                'img-rounded',
+              ],
+              'style' => ['width' => '100%'],
+            ]
       ) . "\n" ?>
       <h1 itemprop="name">
         <?= Html::encode($user->name) . "\n" ?>

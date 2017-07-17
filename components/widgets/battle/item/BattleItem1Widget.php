@@ -104,7 +104,7 @@ class BattleItem1Widget extends BaseWidget
     {
         $user = $this->getUser();
         return [
-            'show/user',
+            'show-user/profile',
             'screen_name' => $user->screen_name,
         ];
     }
