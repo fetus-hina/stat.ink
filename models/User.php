@@ -348,7 +348,7 @@ class User extends ActiveRecord implements IdentityInterface
             'id' => $this->id,
             'name' => $this->name,
             'screen_name' => $this->screen_name,
-            'url' => Url::to(['show/user', 'screen_name' => $this->screen_name], true),
+            'url' => Url::to(['show-user/profile', 'screen_name' => $this->screen_name], true),
             'join_at' => DateTimeFormatter::unixTimeToJsonArray(
                 strtotime($this->join_at),
                 new DateTimeZone('Etc/UTC')
