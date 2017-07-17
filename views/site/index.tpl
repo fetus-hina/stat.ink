@@ -290,7 +290,7 @@
       {{if $battles}}
         {{$title = "{0}'s Battles"|translate:'app':$ident->name}}
         <h2>
-          <a href="{{url route="show/user" screen_name=$ident->screen_name}}">
+          <a href="{{url route="show-user/profile" screen_name=$ident->screen_name}}">
             {{$title|escape}}
           </a>
         </h2>

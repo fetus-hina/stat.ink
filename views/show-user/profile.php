@@ -60,7 +60,7 @@ $this->registerCss(implode('', array_map(
 ?>
 <div id="profile" class="container">
   <div class="row">
-    <div id="person-box" class="col-xs-12 col-sm-3" itemscope itemtype="http://schema.org/Person">
+    <div id="person-box" class="col-xs-12 col-md-3" itemscope itemtype="http://schema.org/Person">
       <?= Html::img(
             $user->userIcon->absUrl ?? $user->jdenticonPngUrl,
             ['class' => [
@@ -132,7 +132,7 @@ $this->registerCss(implode('', array_map(
         </li>
 <?php endif; ?>
     </div>
-    <div class="col-xs-12 col-sm-9">
+    <div class="col-xs-12 col-md-9">
       <ul class="nav nav-tabs" role="tablist">
         <li role="presentation" class="active">
           <a href="#splatoon2" aria-controls="splatoon2" role="tab" data-toggle="tab">Splatoon 2</a>

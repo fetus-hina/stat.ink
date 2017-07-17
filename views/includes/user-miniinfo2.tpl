@@ -4,7 +4,7 @@
   <div id="user-miniinfo" itemscope itemtype="http://schema.org/Person" itemprop="author">
     <div id="user-miniinfo-box">
       <h2>
-        <a href="{{url route="show-v2/user" screen_name=$user->screen_name}}">
+        <a href="{{url route="show-user/profile" screen_name=$user->screen_name}}">
           <span class="miniinfo-user-icon">
             {{if $user->userIcon}}
               <img src="{{$user->userIcon->url|escape}}" width="48" height="48">
