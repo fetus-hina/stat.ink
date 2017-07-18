@@ -408,11 +408,23 @@ class User extends ActiveRecord implements IdentityInterface
         );
     }
 
-    public function getJdenticonPngUrl()
+    public function getJdenticonPngUrl() : string
+    {
+        return $this->getJdenticonUrl('png');
+    }
+
+    public function getJdenticonUrl(string $ext = 'svg') : string
     {
         return Url::to(
-            Yii::getAlias('@jdenticon') . '/' . rawurlencode($this->identiconHash) . '.png',
+            Yii::getAlias('@jdenticon') . '/' . rawurlencode($this->identiconHash) . '.svg',
             true
         );
+    }
+
+    public function getIconUrl(string $ext = 'svg') : string
+    {
+        return $this->userIcon
+            ? $this->userIcon->url
+            : $this->getJdenticonUrl($ext);
     }
 }

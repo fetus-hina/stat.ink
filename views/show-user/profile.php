@@ -62,7 +62,7 @@ $this->registerCss(implode('', array_map(
   <div class="row">
     <div id="person-box" class="col-xs-12 col-md-3" itemscope itemtype="http://schema.org/Person">
       <?= Html::img(
-            $user->userIcon->absUrl ?? $user->jdenticonPngUrl,
+            $user->iconUrl,
             [
               'class' => [
                 'img-responsive',
@@ -78,6 +78,15 @@ $this->registerCss(implode('', array_map(
       <h2 itemprop="alternateName">
         <?= Html::encode('@' . $user->screen_name) . "\n" ?>
       </h2>
+<?php if (!Yii::$app->user->isGuest && Yii::$app->user->identity->id == $user->id): ?>
+      <div class="text-right">
+        <?= Html::a(
+          Yii::t('app', 'Edit'),
+          ['/user/profile'],
+          ['class' => 'btn btn-default']
+        ) . "\n" ?>
+      </div>
+<?php endif; ?>
       <hr>
       <ul>
 <?php if ($user->twitter): ?>
