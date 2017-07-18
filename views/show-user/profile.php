@@ -177,7 +177,7 @@ $this->registerCss(implode('', array_map(
                     ->limit(5)
                     ->all(),
               ]) . "\n" ?>
-            </div>
+            </div><!-- col -->
             <div class="col-xs-12 col-sm-6">
               <?= PanelListWidget::widget([
                 'title' => Yii::t('app-rule2', 'Ranked Battle'),
@@ -191,9 +191,9 @@ $this->registerCss(implode('', array_map(
                 'titleLinkText' => Yii::t('app', 'List'),
                 'models' => [],
               ]) . "\n" ?>
-            </div>
-          </div>
-        </div>
+            </div><!-- col -->
+          </div><!-- row -->
+        </div><!-- tabpanel -->
         <div role="tabpanel" class="tab-pane" id="splatoon">
           <div class="row tab-pane" id="splatoon">
             <div class="col-xs-12 col-sm-6">
@@ -218,7 +218,7 @@ $this->registerCss(implode('', array_map(
                     ->limit(5)
                     ->all(),
               ]) . "\n" ?>
-            </div>
+            </div><!-- col -->
             <div class="col-xs-12 col-sm-6">
               <?= PanelListWidget::widget([
                 'title' => Yii::t('app-rule', 'Ranked Battle'),
@@ -241,9 +241,9 @@ $this->registerCss(implode('', array_map(
                     ->limit(5)
                     ->all(),
               ]) . "\n" ?>
-            </div>
-          </div>
-        </div>
+            </div><!-- col -->
+          </div><!-- row -->
+        </div><!-- tabpanel -->
       </div>
     </div>
   </div>

@@ -11,9 +11,16 @@ return [
     'Any Mode' => 'Cualquier estilo',
 
     'Regular Battle' => 'Combate amistoso',
+    'Ranked Battle' => 'Combate competitivo',
     'Splatfest' => 'Thematic Festival',
 
     'Turf War' => 'Territorial',
+    'Splat Zones' => 'Pintazonas',
+    'Tower Control' => 'Torre',
+    'Rainmaker' => 'Pez dorado',
 
     'TW' => 'Territorial',
+    'SZ' => 'Pintazonas',
+    'TC' => 'Torre',
+    'RM' => 'Pez dorado',
 ];

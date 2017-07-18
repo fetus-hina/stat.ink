@@ -15,9 +15,16 @@ return [
     'Splatfest (Team)' => 'フェス（チーム）',
 
     'Regular Battle' => 'レギュラーバトル',
+    'Ranked Battle' => 'ガチマッチ',
     'Splatfest' => 'フェス',
 
     'Turf War' => 'ナワバリバトル',
+    'Splat Zones' => 'ガチエリア',
+    'Tower Control' => 'ガチヤグラ',
+    'Rainmaker' => 'ガチホコバトル',
 
     'TW' => 'ナワバリ',
+    'SZ' => 'エリア',
+    'TC' => 'ヤグラ',
+    'RM' => 'ホコ',
 ];
