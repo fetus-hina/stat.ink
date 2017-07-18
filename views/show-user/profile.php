@@ -5,8 +5,9 @@ use rmrevin\yii\fontawesome\FA;
 use yii\bootstrap\Html;
 use yii\web\Url;
 
-function fa($icon) : string {
-  return FA::icon($icon)->fixedWidth()->tag('span')->__toString();
+function fa($icon) : string
+{
+    return FA::icon($icon)->fixedWidth()->tag('span')->__toString();
 }
 
 $title = Yii::t('app', "{0}'s Splat Log", [$user->name]);
@@ -22,7 +23,7 @@ $this->registerMetaTag(['name' => 'twitter:url', 'content' => $permLink]);
 $this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink']);
 $this->registerMetaTag(['name' => 'twitter:image', 'content' => $user->userIcon->absUrl ?? $user->jdenticonPngUrl]);
 if ($user->twitter != '') {
-  $this->registerMetaTag(['name' => 'twitter:creator', 'content' => sprintf('@%s', $user->twitter)]);
+    $this->registerMetaTag(['name' => 'twitter:creator', 'content' => sprintf('@%s', $user->twitter)]);
 }
 
 $css = [
@@ -48,7 +49,7 @@ $css = [
 ];
 $this->registerCss(implode('', array_map(
   function ($key, $value) {
-    return sprintf(
+      return sprintf(
       '%s{%s}',
       $key,
       Html::cssStyleFromArray($value)
