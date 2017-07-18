@@ -7,6 +7,7 @@
 
 namespace app\components\widgets\battle\panelItem;
 
+use DateTime;
 use DateTimeImmutable;
 use DateTimeZone;
 use Yii;
@@ -138,8 +139,11 @@ abstract class BaseWidget extends Widget
         }
         return Html::tag(
             'time',
-            Html::encode(Yii::$app->formatter->asDatetime($datetime, 'medium')),
-            ['datetime' => $datetime->format(\DateTime::ATOM)]
+            Html::encode(Yii::$app->formatter->asRelativeTime($datetime)),
+            [
+              'datetime' => $datetime->format(DateTime::ATOM),
+              'title' => Yii::$app->formatter->asDatetime($datetime, 'medium'),
+            ]
         );
     }
 }
