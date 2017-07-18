@@ -408,10 +408,21 @@
           </a>
         </div>
       {{/if}}
+      {{$_icon = \app\assets\AppLinkAsset::register($this)}}
       <div class="miniinfo-databox">
+        {{if $user->twitter != ''}}
+          <div>
+            <span class="fa fa-twitter fa-fw"></span>&#32;
+            <a href="https://twitter.com/{{$user->twitter|escape:url}}" rel="nofollow" target="_blank">
+              {{$user->twitter|escape}}
+            </a>
+          </div>
+        {{/if}}
         {{if $user->nnid != ''}}
           <div>
-            NNID:&#32;
+            <span class="fa fa-fw">
+              {{$_icon->nnid}}
+            </span>&#32;
             <a href="https://miiverse.nintendo.net/users/{{$user->nnid|escape:url}}" rel="nofollow" target="_blank">
               {{$user->nnid|escape}}
             </a>
@@ -419,7 +430,9 @@
         {{/if}}
         {{if $user->sw_friend_code != ''}}
           <div>
-            {{'Friend Code'|translate:'app'|escape}}:&#32;
+            <span class="fa fa-fw">
+              {{$_icon->switch}}
+            </span>&#32;
             <span style="white-space:nowrap">
               SW-
               {{$user->sw_friend_code|substr:0:4|escape}}-
@@ -428,15 +441,11 @@
             </span>
           </div>
         {{/if}}
-        {{if $user->twitter != ''}}
-          <div>
-            <a href="https://twitter.com/{{$user->twitter|escape:url}}" rel="nofollow" target="_blank">
-              <span class="fa fa-twitter left"></span>{{$user->twitter|escape}}
-            </a>
-          </div>
-        {{/if}}
         {{if $user->ikanakama != ''}}
           <div>
+            <span class="fa fa-fw">
+              {{$_icon->ikanakama}}
+            </span>&#32;
             <a href="http://ikazok.net/users/{{$user->ikanakama|escape:url}}" rel="nofollow" target="_blank">
               {{'Ika-Nakama'|translate:'app'|escape}}
             </a>
@@ -444,6 +453,9 @@
         {{/if}}
         {{if $user->ikanakama2 != ''}}
           <div>
+            <span class="fa fa-fw">
+              {{$_icon->ikanakama}}
+            </span>&#32;
             <a href="https://ikanakama.ink/users/{{$user->ikanakama2|escape:url}}" rel="nofollow" target="_blank">
               {{'Ika-Nakama 2'|translate:'app'|escape}}
             </a>
