@@ -24,17 +24,20 @@ _daytime-blur: $(addprefix assets/daytime-blur/, $(FILENAMES))
 _gray-blur: $(addprefix assets/gray-blur/, $(FILENAMES))
 .PHONY: _gray-blur
 
-assets/daytime/%.jpg: %.jpg assets/daytime
+assets/daytime/%.jpg: %.jpg
+	mkdir -p assets/daytime
 	convert $< -resize 320x180 -quality 95 $@
 	jpegoptim -qs $@
 	touch $@
 
-assets/daytime-blur/%.jpg: %.jpg assets/daytime-blur
+assets/daytime-blur/%.jpg: %.jpg
+	mkdir -p assets/daytime-blur
 	convert $< -resize 320x180 -blur $(BLUR) -quality 95 $@
 	jpegoptim -qs $@
 	touch $@
 
-assets/gray-blur/%.jpg: %.jpg assets/gray-blur
+assets/gray-blur/%.jpg: %.jpg
+	mkdir -p assets/gray-blur
 	convert $< -fx 'r*0.299+g*0.587+b*0.114' -colorspace Gray -resize 320x180 -blur $(BLUR) -quality 95 $@
 	jpegoptim -qs $@
 	touch $@
