@@ -34,6 +34,8 @@
         </div>
       </div>
 
+      {{$_->field($form, 'region_id')->dropDownList($regions)}}
+
       {{$_->field($form, 'default_language_id')->dropDownList($languages)}}
 
       {{$_->field($form, 'nnid')}}

@@ -237,6 +237,7 @@ return [
     'Recent Battles' => 'Batallas recientes',
     'Recent Results' => 'Resultados recientes',
     'Recommended to Android users:' => 'Recomendado para los usuarios de Android:',
+    'Region (used for Splatfest)' => 'Región (utilizada para Splatfest)',
     'Register' => 'Registro',
     'Relative Time' => 'Tiempo relativo',
     'Result' => 'Resultado',

@@ -32,6 +32,7 @@ use yii\web\IdentityInterface;
  * @property integer $env_id
  * @property string $blackout
  * @property integer $default_language_id
+ * @property integer $region_id
  *
  * @property Battle[] $battles
  * @property Battle2[] $battle2s
@@ -39,6 +40,7 @@ use yii\web\IdentityInterface;
  * @property Environment $env
  * @property LoginWithTwitter $loginWithTwitter
  * @property OstatusRsa $ostatusRsa
+ * @property Region $region
  * @property Slack[] $slacks
  * @property UserIcon $userIcon
  * @property UserStat $userStat
@@ -88,7 +90,8 @@ class User extends ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            [['name', 'screen_name', 'password', 'api_key', 'join_at', 'default_language_id'], 'required'],
+            [['name', 'screen_name', 'password', 'api_key', 'join_at'], 'required'],
+            [['default_language_id', 'region_id'], 'required'],
             [['join_at'], 'safe'],
             [['ikanakama', 'ikanakama2', 'env_id', 'default_language_id'], 'integer'],
             [['name', 'screen_name', 'twitter'], 'string', 'max' => 15],
@@ -122,6 +125,10 @@ class User extends ActiveRecord implements IdentityInterface
                 'targetClass' => Language::class,
                 'targetAttribute' => ['default_language_id' => 'id'],
             ],
+            [['region_id'], 'exist', 'skipOnError' => true,
+                'targetClass' => Region::class,
+                'targetAttribute' => ['region_id' => 'id'],
+            ],
         ];
     }
 
@@ -145,6 +152,7 @@ class User extends ActiveRecord implements IdentityInterface
             'env_id'        => Yii::t('app', 'Capture Environment'),
             'blackout'      => Yii::t('app', 'Black out other players from the result image'),
             'default_language_id' => Yii::t('app', 'Language (used for OStatus)'),
+            'region_id'     => Yii::t('app', 'Region (used for Splatfest)'),
         ];
     }
 
@@ -215,6 +223,14 @@ class User extends ActiveRecord implements IdentityInterface
     public function getDefaultLanguage()
     {
         return $this->hasOne(Language::class, ['id' => 'default_language_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRegion()
+    {
+        return $this->hasOne(Region::class, ['id' => 'region_id']);
     }
 
     /**

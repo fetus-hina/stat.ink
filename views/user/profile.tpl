@@ -139,6 +139,12 @@
               </td>
             </tr>
             <tr>
+              <th>{{'Region (used for Splatfest)'|translate:'app'|escape}}</th>
+              <td>
+                {{$user->region->name|translate:'app-region'|escape}}
+              </td>
+            </tr>
+            <tr>
               <th>{{'Language (used for OStatus)'|translate:'app'|escape}}</th>
               <td>
                 {{$user->defaultLanguage->name|escape}} / {{$user->defaultLanguage->name_en|escape}}

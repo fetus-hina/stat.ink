@@ -15,6 +15,7 @@ return [
                 'app-map'       => 'map.php',
                 'app-map2'      => 'map2.php',
                 'app-rank'      => 'rank.php',
+                'app-region'    => 'region.php',
                 'app-reltime'   => 'reltime.php',
                 'app-rule'      => 'rule.php',
                 'app-rule2'     => 'rule2.php',

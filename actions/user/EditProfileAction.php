@@ -11,6 +11,7 @@ use Yii;
 use app\models\Environment;
 use app\models\Language;
 use app\models\ProfileForm;
+use app\models\Region;
 use yii\helpers\ArrayHelper;
 use yii\web\ViewAction as BaseAction;
 
@@ -61,6 +62,19 @@ class EditProfileAction extends BaseAction
                 ),
                 'id',
                 '_name'
+            ),
+            'regions' => ArrayHelper::map(
+                array_map(
+                    function (array $row) : array {
+                        return [
+                            'id' => $row['id'],
+                            'name' => Yii::t('app-region', $row['name']),
+                        ];
+                    },
+                    Region::find()->orderBy('id')->asArray()->all()
+                ),
+                'id',
+                'name'
             ),
         ]);
     }

@@ -21,6 +21,7 @@ class ProfileForm extends Model
     public $env;
     public $blackout;
     public $default_language_id;
+    public $region_id;
 
     public function rules()
     {
@@ -31,7 +32,7 @@ class ProfileForm extends Model
                     return $value === '' ? null : $value;
                 },
             ],
-            [['name', 'blackout', 'default_language_id'], 'required'],
+            [['name', 'blackout', 'default_language_id', 'region_id'], 'required'],
             [['name'], 'string', 'max' => 15],
             [['nnid'], 'string', 'min' => 6, 'max' => 16],
             [['nnid'], 'match', 'pattern' => '/^[a-zA-Z0-9._-]+$/'],
@@ -57,6 +58,11 @@ class ProfileForm extends Model
                 'targetClass' => Language::class,
                 'targetAttribute' => ['default_language_id' => 'id'],
             ],
+            [['region_id'], 'integer'],
+            [['region_id'], 'exist', 'skipOnError' => true,
+                'targetClass' => Region::class,
+                'targetAttribute' => ['region_id' => 'id'],
+            ],
         ];
     }
 
@@ -76,6 +82,7 @@ class ProfileForm extends Model
             'env'           => Yii::t('app', 'Capture Environment'),
             'blackout'      => Yii::t('app', 'Black out other players from the result image'),
             'default_language_id' => Yii::t('app', 'Language (used for OStatus)'),
+            'region_id'     => Yii::t('app', 'Region (used for Splatfest)'),
         ];
     }
 }
