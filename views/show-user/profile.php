@@ -155,6 +155,10 @@ $this->registerCss(implode('', array_map(
       </ul>
       <div class="tab-content">
         <div role="tabpanel" class="tab-pane active" id="splatoon2">
+          <?= $this->render(
+            '@app/views/includes/battles-summary',
+            ['summary' => $user->getBattle2s()->getSummary()]
+          ) . "\n" ?>
           <div class="row">
             <div class="col-xs-12 col-sm-6">
               <?= PanelListWidget::widget([
@@ -195,7 +199,11 @@ $this->registerCss(implode('', array_map(
           </div><!-- row -->
         </div><!-- tabpanel -->
         <div role="tabpanel" class="tab-pane" id="splatoon">
-          <div class="row tab-pane" id="splatoon">
+          <?= $this->render(
+            '@app/views/includes/battles-summary',
+            ['summary' => $user->getBattles()->getSummary()]
+          ) . "\n" ?>
+          <div class="row">
             <div class="col-xs-12 col-sm-6">
               <?= PanelListWidget::widget([
                 'title' => Yii::t('app-rule', 'Turf War'),
