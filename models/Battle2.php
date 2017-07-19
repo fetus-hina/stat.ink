@@ -40,6 +40,8 @@ use yii\helpers\Url;
  * @property integer $rank_in_team
  * @property integer $kill
  * @property integer $death
+ * @property integer $kill_or_assist
+ * @property integer $special
  * @property string $kill_ratio
  * @property string $kill_rate
  * @property integer $max_kill_combo
@@ -254,6 +256,7 @@ class Battle2 extends ActiveRecord
             [['max_kill_combo', 'max_kill_streak', 'my_point', 'my_team_point', 'his_team_point'], 'integer'],
             [['my_team_count', 'his_team_count', 'cash', 'cash_after', 'period', 'version_id', 'bonus_id'], 'integer'],
             [['env_id', 'agent_game_version_id', 'agent_id', 'remote_port'], 'integer'],
+            [['kill_or_assist', 'special'], 'integer'],
             [['is_win', 'is_knockout', 'is_automated', 'use_for_entire'], 'boolean'],
             [['kill_ratio', 'kill_rate', 'my_team_percent', 'his_team_percent'], 'number'],
             [['my_team_color_hue', 'his_team_color_hue', 'note', 'private_note', 'link_url'], 'string'],
@@ -344,6 +347,8 @@ class Battle2 extends ActiveRecord
             'rank_in_team' => 'Rank In Team',
             'kill' => 'Kill',
             'death' => 'Death',
+            'kill_or_assist' => 'Kill or Assist',
+            'special' => 'Special',
             'kill_ratio' => 'Kill Ratio',
             'kill_rate' => 'Kill Rate',
             'max_kill_combo' => 'Max Kill Combo',
@@ -534,7 +539,8 @@ class Battle2 extends ActiveRecord
     public function getIsMeaningful() : bool
     {
         $props = [
-            'rule_id', 'map_id', 'weapon_id', 'is_win', 'rank_in_team', 'kill', 'death',
+            'rule_id', 'map_id', 'weapon_id', 'is_win', 'rank_in_team',
+            'kill', 'death', 'kill_or_assist', 'special',
         ];
         foreach ($props as $prop) {
             if ($this->$prop !== null) {
@@ -632,6 +638,8 @@ class Battle2 extends ActiveRecord
             'rank_in_team' => $this->rank_in_team,
             'kill' => $this->kill,
             'death' => $this->death,
+            'kill_or_assist' => $this->kill_or_assist,
+            'special' => $this->special,
             'kill_ratio' => isset($this->kill_ratio) ? floatval($this->kill_ratio) : null,
             'kill_rate' => isset($this->kill_rate) ? floatval($this->kill_rate) / 100 : null,
             'max_kill_combo' => $this->max_kill_combo,

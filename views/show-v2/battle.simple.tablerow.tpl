@@ -30,23 +30,27 @@
               {{$model->weapon->name|default:'?'|translate:'app-weapon2'|escape}}
             </div>
             <div class="simple-battle-kill-death omit">
-              {{if $model->kill !== null}}
-                {{$model->kill|escape}}
+              {{if $model->kill_or_assist}}
+                {{'Kill or Assist'|translate:'app'|escape}}: {{$model->kill_or_assist|escape}}
               {{else}}
-                ?
-              {{/if}}K / {{if $model->death !== null}}
-                {{$model->death|escape}}
-              {{else}}
-                ?
-              {{/if}}D
-              {{if $model->kill !== null && $model->death !== null}}
-                &#32;
-                {{if $model->kill == $model->death}}
-                  <span class="label label-default">=</span>
-                {{elseif $model->kill > $model->death}}
-                  <span class="label label-success">&gt;</span>
+                {{if $model->kill !== null}}
+                  {{$model->kill|escape}}
                 {{else}}
-                  <span class="label label-danger">&lt;</span>
+                  ?
+                {{/if}}K / {{if $model->death !== null}}
+                  {{$model->death|escape}}
+                {{else}}
+                  ?
+                {{/if}}D
+                {{if $model->kill !== null && $model->death !== null}}
+                  &#32;
+                  {{if $model->kill == $model->death}}
+                    <span class="label label-default">=</span>
+                  {{elseif $model->kill > $model->death}}
+                    <span class="label label-success">&gt;</span>
+                  {{else}}
+                    <span class="label label-danger">&lt;</span>
+                  {{/if}}
                 {{/if}}
               {{/if}}
             </div>

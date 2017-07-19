@@ -300,6 +300,18 @@
                 <td>{{$battle->max_kill_streak|escape}}
               </tr>
             {{/if}}
+            {{if $battle->kill_or_assist}}
+              <tr>
+                <th>{{'Kill or Assist'|translate:'app'|escape}}</th>
+                <td>{{$battle->kill_or_assist|escape}}</td>
+              </tr>
+            {{/if}}
+            {{if $battle->special}}
+              <tr>
+                <th>{{'Specials'|translate:'app'|escape}}</th>
+                <td>{{$battle->special|escape}}</td>
+              </tr>
+            {{/if}}
 {{*
             {{$deathReasons = $battle->getBattleDeathReasons()
                 ->with(['reason'])

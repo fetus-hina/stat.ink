@@ -23,6 +23,8 @@ use yii\db\ActiveRecord;
  * @property integer $rank_in_team
  * @property integer $kill
  * @property integer $death
+ * @property integer $kill_or_assist
+ * @property integer $special
  * @property integer $point
  * @property integer $my_kill
  *
@@ -60,6 +62,7 @@ class BattlePlayer2 extends ActiveRecord
             [['level'], 'integer', 'min' => 1, 'max' => 50],
             [['rank_in_team'], 'integer', 'min' => 1, 'max' => 4],
             [['kill', 'death', 'my_kill'], 'integer', 'min' => 0],
+            [['kill_or_assist', 'special'], 'integer', 'min' => 0],
             [['point'], 'integer', 'min' => 0],
             [['is_my_team', 'is_me'], 'boolean'],
             [['battle_id'], 'exist', 'skipOnError' => true,
@@ -88,6 +91,8 @@ class BattlePlayer2 extends ActiveRecord
             'rank_in_team' => 'Rank In Team',
             'kill' => 'Kill',
             'death' => 'Death',
+            'kill_or_assist' => 'Kill or Assist',
+            'special' => 'Special',
             'point' => 'Point',
             'my_kill' => 'My Kill',
         ];
@@ -119,6 +124,8 @@ class BattlePlayer2 extends ActiveRecord
             'rank_in_team'  => (string)$this->rank_in_team === '' ? null : (int)$this->rank_in_team,
             'kill'          => (string)$this->kill === '' ? null : (int)$this->kill,
             'death'         => (string)$this->death === '' ? null : (int)$this->death,
+            'kill_or_assist' => (string)$this->kill_or_assist === '' ? null : (int)$this->kill_or_assist,
+            'special'       => (string)$this->special === '' ? null : (int)$this->kill_or_assist,
             'my_kill'       => (string)$this->my_kill === '' ? null : (int)$this->my_kill,
             'point'         => (string)$this->point === '' ? null : (int)$this->point,
         ];

@@ -21,6 +21,8 @@ class PostBattlePlayerForm extends Model
     public $rank_in_team;
     public $kill;
     public $death;
+    public $kill_or_assist;
+    public $special;
     public $point;
     public $my_kill;
 
@@ -46,6 +48,7 @@ class PostBattlePlayerForm extends Model
             [['level'], 'integer', 'min' => 1, 'max' => 50],
             [['rank_in_team'], 'integer', 'min' => 1, 'max' => 4],
             [['kill', 'death', 'my_kill'], 'integer', 'min' => 0],
+            [['kill_or_assist', 'special'], 'integer', 'min' => 0],
             [['point'], 'integer', 'min' => 0],
         ];
     }

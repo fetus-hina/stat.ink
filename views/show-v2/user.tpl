@@ -105,6 +105,8 @@
                 <th class="cell-kd">{{'k'|translate:'app'|escape}}/{{'d'|translate:'app'|escape}}</th>
                 <th class="cell-kill-ratio auto-tooltip" title="{{'Kill Ratio'|translate:'app'|escape}}">{{'Ratio'|translate:'app'|escape}}</th>
                 <th class="cell-kill-rate auto-tooltip" title="{{'Kill Rate'|translate:'app'|escape}}">{{'Rate'|translate:'app'|escape}}</th>
+                <th class="cell-kill-or-assist">{{'Kill or Assist'|translate:'app'|escape}}</th>
+                <th class="cell-specials">{{'Specials'|translate:'app'|escape}}</th>
                 <th class="cell-point">{{'Inked'|translate:'app'|escape}}</th>
                 <th class="cell-rank-in-team">{{'Rank in Team'|translate:'app'|escape}}</th>
                 <th class="cell-datetime">{{'Date Time'|translate:'app'|escape}}</th>
@@ -178,6 +180,10 @@
             <label><input type="checkbox" class="table-config-chk" data-klass="cell-kill-ratio"> {{'Kill Ratio'|translate:'app'|escape}}</label>
           </div><div class="col-xs-6 col-sm-4 col-md-4 col-lg-3">
             <label><input type="checkbox" class="table-config-chk" data-klass="cell-kill-rate"> {{'Kill Rate'|translate:'app'|escape}}</label>
+          </div><div class="col-xs-6 col-sm-4 col-md-4 col-lg-3">
+            <label><input type="checkbox" class="table-config-chk" data-klass="cell-kill-or-assist"> {{'Kill or Assist'|translate:'app'|escape}}</label>
+          </div><div class="col-xs-6 col-sm-4 col-md-4 col-lg-3">
+            <label><input type="checkbox" class="table-config-chk" data-klass="cell-specials"> {{'Specials'|translate:'app'|escape}}</label>
           </div><div class="col-xs-6 col-sm-4 col-md-4 col-lg-3">
             <label><input type="checkbox" class="table-config-chk" data-klass="cell-point"> {{'Turf Inked'|translate:'app'|escape}}</label>
           </div><div class="col-xs-6 col-sm-4 col-md-4 col-lg-3">

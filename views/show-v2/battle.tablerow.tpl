@@ -131,6 +131,12 @@
     {{else}}
       <td class="cell-kill-rate"></td>
     {{/if}}
+    <td class="cell-kill-or-assist text-right">
+      {{$model->kill_or_assist|escape}}
+    </td>
+    <td class="cell-specials text-right">
+      {{$model->special|escape}}
+    </td>
     <td class="cell-point">
       {{if $model->my_point !== null}}
         {{$model->inked|default:'?'|escape}}

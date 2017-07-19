@@ -72,4 +72,16 @@ class BattleItem2Widget extends BaseWidget
         }
         return Yii::t('app-weapon2', $weapon->name);
     }
+
+    protected function renderKillDeathHtml() : string
+    {
+        if ($this->model->kill_or_assist !== null) {
+            return sprintf(
+                '%s: %d',
+                Yii::t('app', 'Kill or Assist'),
+                $this->model->kill_or_assist
+            );
+        }
+        return parent::renderKillDeathHtml();
+    }
 }
