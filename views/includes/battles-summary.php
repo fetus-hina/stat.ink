@@ -8,6 +8,13 @@ $this->registerCss('.battles-summary{margin-bottom:15px}');
 $fmt = Yii::$app->formatter;
 ?>
 <div class="row battles-summary">
+<?php if (isset($headingText) && $headingText != ''): ?>
+  <div class="col-xs-12">
+    <div class="user-label">
+      <?= Html::encode($headingText) . "\n" ?>
+    </div>
+  </div>
+<?php endif; ?>
   <div class="col-xs-4 col-md-2">
     <div class="user-label">
       <?= Html::encode(Yii::t('app', 'Battles')) . "\n" ?>

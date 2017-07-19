@@ -76,85 +76,13 @@
               ]
             ])}}
         </div>
-        <div style="margin-bottom:15px">
-          <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-              <div class="user-label">
-                {{'Summary: Based on the current filter'|translate:'app'|escape}}
-              </div>
-            </div>
-            <div class="col-xs-4 col-sm-4 col-md-2 col-lg-2">
-              <div class="user-label">{{'Battles'|translate:'app'|escape}}</div>
-              <div class="user-number">{{$summary->battle_count|number_format|escape}}</div>
-            </div>
-            <div class="col-xs-4 col-sm-4 col-md-2 col-lg-2">
-              <div class="user-label">{{'Win %'|translate:'app'|escape}}</div>
-              <div class="user-number">
-                {{if $summary->wp === null}}
-                  {{'N/A'|translate:'app'|escape}}
-                {{else}}
-                  {{$summary->wp|number_format:1|escape}}%
-                {{/if}}
-              </div>
-            </div>
-            <div class="col-xs-4 col-sm-4 col-md-2 col-lg-2">
-              <div class="user-label">{{'24H Win %'|translate:'app'|escape}}</div>
-              <div class="user-number">
-                {{if $summary->wp_short === null}}
-                  {{'N/A'|translate:'app'|escape}}
-                {{else}}
-                  {{$summary->wp_short|number_format:1|escape}}%
-                {{/if}}
-              </div>
-            </div>
-            <div class="col-xs-4 col-sm-4 col-md-2 col-lg-2">
-              <div class="user-label">{{'Avg Kills'|translate:'app'|escape}}</div>
-              <div class="user-number">
-                {{if $summary->kd_present > 0}}
-                  {{$p = ['number' => $summary->total_kill, 'battle' => $summary->kd_present]}}
-                  {{$t = '{number, plural, =1{1 kill} other{# kills}} in {battle, plural, =1{1 battle} other{# battles}}'|translate:'app':$p}}
-                  <span class="auto-tooltip" title="{{$t|escape}}">
-                    {{($summary->total_kill/$summary->kd_present)|number_format:2|escape}}
-                  </span>
-                {{else}}
-                  {{'N/A'|translate:'app'|escape}}
-                {{/if}}
-              </div>
-            </div>
-            <div class="col-xs-4 col-sm-4 col-md-2 col-lg-2">
-              <div class="user-label">{{'Avg Deaths'|translate:'app'|escape}}</div>
-              <div class="user-number">
-                {{if $summary->kd_present > 0}}
-                  {{$p = ['number' => $summary->total_death, 'battle' => $summary->kd_present]}}
-                  {{$t = '{number, plural, =1{1 death} other{# deaths}} in {battle, plural, =1{1 battle} other{# battles}}'|translate:'app':$p}}
-                  <span class="auto-tooltip" title="{{$t|escape}}">
-                    {{($summary->total_death/$summary->kd_present)|number_format:2|escape}}
-                  </span>
-                {{else}}
-                  {{'N/A'|translate:'app'|escape}}
-                {{/if}}
-              </div>
-            </div>
-            <div class="col-xs-4 col-sm-4 col-md-2 col-lg-2">
-              <div class="user-label">{{'Kill Ratio'|translate:'app'|escape}}</div>
-              <div class="user-number">
-                {{if $summary->kd_present > 0}}
-                  {{if $summary->total_death == 0}}
-                    {{if $summary->total_kill}}
-                      {{'N/A'|translate:'app'|escape}}
-                    {{else}}
-                      ∞
-                    {{/if}}
-                  {{else}}
-                    {{($summary->total_kill/$summary->total_death)|number_format:2|escape}}
-                  {{/if}}
-                {{else}}
-                  -
-                {{/if}}
-              </div>
-            </div>
-          </div>
-        </div>
+        {{$this->render(
+          '/includes/battles-summary',
+          [
+            'headingText' => Yii::t('app', 'Summary: Based on the current filter'),
+            'summary' => $summary
+          ]
+        )}}
         <div>
           {{$params = ['v' => 'standard', '0' => 'show-v2/user', 'screen_name' => $user->screen_name]}}
           <a href="{{Url::to($params)|escape}}" class="btn btn-default" rel="nofollow">
