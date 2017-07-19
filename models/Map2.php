@@ -33,6 +33,16 @@ class Map2 extends ActiveRecord
         return 'map2';
     }
 
+    public static function getSortedMap() : array
+    {
+        $list = [];
+        foreach (static::find()->asArray()->all() as $row) {
+            $list[$row['key']] = Yii::t('app-map2', $row['name']);
+        }
+        uasort($list, 'strcmp');
+        return $list;
+    }
+
     /**
      * @inheritdoc
      */

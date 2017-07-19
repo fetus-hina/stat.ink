@@ -31,6 +31,8 @@
     const $selectWeapons = $('.battle-input2-form--weapons', $modal);
     const $buttonStages = $('.battle-input2-form--stages', $modal);
     const $buttonResults = $('.battle-input2-form--result', $modal);
+    const $regularSubmit = $('#battle-input2-form--regular--submit', $modal);
+    const $rankedSubmit = $('#battle-input2-form--ranked--submit', $modal);
     const $festSubmit = $('#battle-input2-form--fest--submit', $modal);
     const updateStageTimer = () => {
       $('.next-stages-will-arrive-in-2--value').text(
@@ -61,6 +63,12 @@
       stopStageTimer();
       window.setTimeout(updateStageTimer, 1);
       stageTimerId = window.setInterval(updateStageTimer, 500);
+    };
+    const updateUuidRegular = () => {
+      $('#battle-input2-form--regular--uuid').val(UUID.genV1().hexString);
+    };
+    const updateUuidRanked = () => {
+      $('#battle-input2-form--ranked--uuid').val(UUID.genV1().hexString);
     };
     const updateUuidFest = () => {
       $('#battle-input2-form--fest--uuid').val(UUID.genV1().hexString);
@@ -103,7 +111,7 @@
             }, json.current.period.next * 1000);
           })();
 
-          $.each(['fest'], (i, modeKey) => {
+          $.each(['regular', 'ranked', 'fest'], (i, modeKey) => {
             if (json.current[modeKey] && json.current[modeKey].rule) {
               const rule = json.current[modeKey].rule;
               const $inputs = $('input', $modal);
@@ -173,7 +181,94 @@
       });
     };
 
-    var validatefest = function () {
+    var validateRegular = function () {
+      var $form = $('form#battle-input2-form--regular');
+      var $requires = $([
+        '#battle-input2-form--regular--rule',
+        '#battle-input2-form--regular--lobby',
+        '#battle-input2-form--regular--weapon',
+        '#battle-input2-form--regular--stage',
+        '#battle-input2-form--regular--result',
+      ].join(','), $form);
+      var $empty = $requires.filter(function () {
+        return $(this).val() == '';
+      });
+      if ($empty.length) {
+        return false;
+      }
+
+      const $elems =$([
+        '#battle-input2-form--regular--kill-or-assist',
+        '#battle-input2-form--regular--special',
+        '#battle-input2-form--regular--kill',
+        '#battle-input2-form--regular--death',
+      ].join(','), $form);
+      var valid = true;
+      $elems.each((i, el) => {
+        const $elem = $(el);
+        const value = String($elem.val()).trim();
+        if (value !== '') {
+          if (!value.match(/^\d+$/)) {
+            valid = false;
+            return;
+          }
+          const intValue = parseInt(value, 10);
+          if (intValue < 0 || intValue > 99) {
+            valid = false;
+            return;
+          }
+        }
+      });
+      if (!valid) {
+        return false;
+      }
+      return true;
+    };
+    var validateRanked = function () {
+      var $form = $('form#battle-input2-form--ranked');
+      var $requires = $([
+        '#battle-input2-form--ranked--rule',
+        '#battle-input2-form--ranked--lobby',
+        '#battle-input2-form--ranked--weapon',
+        '#battle-input2-form--ranked--stage',
+        '#battle-input2-form--ranked--result',
+      ].join(','), $form);
+      var $empty = $requires.filter(function () {
+        return $(this).val() == '';
+      });
+      if ($empty.length) {
+        return false;
+      }
+
+      const $elems =$([
+        '#battle-input2-form--ranked--kill-or-assist',
+        '#battle-input2-form--ranked--special',
+        '#battle-input2-form--ranked--kill',
+        '#battle-input2-form--ranked--death',
+        '#battle-input2-form--ranked--rank-exp-after',
+      ].join(','), $form);
+      var valid = true;
+      $elems.each((i, el) => {
+        const $elem = $(el);
+        const value = String($elem.val()).trim();
+        if (value !== '') {
+          if (!value.match(/^\d+$/)) {
+            valid = false;
+            return;
+          }
+          const intValue = parseInt(value, 10);
+          if (intValue < 0 || intValue > 99) {
+            valid = false;
+            return;
+          }
+        }
+      });
+      if (!valid) {
+        return false;
+      }
+      return true;
+    };
+    var validateFest = function () {
       var $form = $('form#battle-input2-form--fest');
       var $requires = $([
         '#battle-input2-form--fest--rule',
@@ -191,13 +286,8 @@
 
       var $elem;
       var value;
-      $elem = $('#battle-input2-form--fest--point', $form);
-      value = ($elem.val() + "").trim();
-      if (value !== '' && !value.match(/^\d+$/)) {
-        return false;
-      }
 
-      $elem = $('#battle-input2-form--fest--kill', $form);
+      $elem = $('#battle-input2-form--fest--kill-or-assist', $form);
       value = ($elem.val() + "").trim();
       if (value !== '') {
         if (!value.match(/^\d+$/)) {
@@ -209,7 +299,7 @@
         }
       }
 
-      $elem = $('#battle-input2-form--fest--death', $form);
+      $elem = $('#battle-input2-form--fest--special', $form);
       value = ($elem.val() + "").trim();
       if (value !== '') {
         if (!value.match(/^\d+$/)) {
@@ -277,6 +367,8 @@
         refresh();
         updateAgentVersion();
       }
+      updateUuidRegular();
+      updateUuidRanked();
       updateUuidFest();
     });
 
@@ -313,7 +405,109 @@
         .addClass($this.attr('data-value') === 'win' ? 'btn-info' : 'btn-danger');
     });
 
-    // レギュラーバトルの送信ボタン押下処理
+    // レギュラーの送信ボタン押下処理
+    $regularSubmit.click(function () {
+      const $this = $(this);
+      const $form = $('#' + $this.attr('data-form') + ' form');
+      console.log($form);
+      if (!$form.length) {
+        return;
+      }
+      $('#battle-input2-form--regular--end_at').val(Math.floor(Date.now() / 1000));
+      $this.prop('disabled', true);
+      $.ajax('/api/v2/battle', {
+        'method': 'POST',
+        'headers': {
+          'Authorization': 'Bearer ' + $form.attr('data-apikey'),
+        },
+        'data': JSON.stringify(serializeForm($form)),
+        'contentType': 'application/json',
+        'processData': false,
+        'success': () => {
+          const clear = [
+            'battle-input2-form--regular--death',
+            'battle-input2-form--regular--kill',
+            'battle-input2-form--regular--kill-or-assist',
+            'battle-input2-form--regular--point',
+            'battle-input2-form--regular--result',
+            'battle-input2-form--regular--special',
+            'battle-input2-form--regular--stage',
+          ];
+          $.each(clear, (i, id) => {
+            $('#' + id).val('');
+          });
+          $buttonStages
+            .filter('[data-target="battle-input2-form--regular--stage"]')
+            .removeClass('btn-success')
+            .addClass('btn-default');
+          $buttonResults
+            .filter('[data-target="battle-input2-form--regular--result"]')
+            .removeClass('btn-info')
+            .removeClass('btn-danger')
+            .addClass('btn-default');
+          $this.prop('disabled', false);
+        },
+        'error': () => {
+          alert('Could not create a new battle record.');
+          $this.prop('disabled', false);
+        },
+        'complete': () => {
+          updateUuidRegular();
+        },
+      });
+    });
+    // ガチマッチの送信ボタン押下処理
+    $rankedSubmit.click(function () {
+      const $this = $(this);
+      const $form = $('#' + $this.attr('data-form') + ' form');
+      console.log($form);
+      if (!$form.length) {
+        return;
+      }
+      $('#battle-input2-form--ranked--end_at').val(Math.floor(Date.now() / 1000));
+      $this.prop('disabled', true);
+      $.ajax('/api/v2/battle', {
+        'method': 'POST',
+        'headers': {
+          'Authorization': 'Bearer ' + $form.attr('data-apikey'),
+        },
+        'data': JSON.stringify(serializeForm($form)),
+        'contentType': 'application/json',
+        'processData': false,
+        'success': () => {
+          const clear = [
+            'battle-input2-form--ranked--death',
+            'battle-input2-form--ranked--kill',
+            'battle-input2-form--ranked--kill-or-assist',
+            'battle-input2-form--ranked--point',
+            'battle-input2-form--ranked--result',
+            'battle-input2-form--ranked--special',
+            'battle-input2-form--ranked--stage',
+          ];
+          $.each(clear, (i, id) => {
+            $('#' + id).val('');
+          });
+          $buttonStages
+            .filter('[data-target="battle-input2-form--ranked--stage"]')
+            .removeClass('btn-success')
+            .addClass('btn-default');
+          $buttonResults
+            .filter('[data-target="battle-input2-form--ranked--result"]')
+            .removeClass('btn-info')
+            .removeClass('btn-danger')
+            .addClass('btn-default');
+          $this.prop('disabled', false);
+        },
+        'error': () => {
+          alert('Could not create a new battle record.');
+          $this.prop('disabled', false);
+        },
+        'complete': () => {
+          updateUuidRanked();
+        },
+      });
+    });
+    // フェスの送信ボタン押下処理
     $festSubmit.click(function () {
       const $this = $(this);
       const $form = $('#' + $this.attr('data-form') + ' form');
@@ -332,10 +526,10 @@
         'processData': false,
         'success': () => {
           const clear = [
-            'battle-input2-form--fest--death',
-            'battle-input2-form--fest--kill',
+            'battle-input2-form--fest--kill-or-assist',
             'battle-input2-form--fest--point',
             'battle-input2-form--fest--result',
+            'battle-input2-form--fest--special',
             'battle-input2-form--fest--stage',
           ];
           $.each(clear, (i, id) => {
@@ -366,6 +560,36 @@
     (() => {
       // 変更即反映できる方々
       const idList = [
+        '#battle-input2-form--regular--rule',
+        '#battle-input2-form--regular--lobby',
+        '#battle-input2-form--regular--weapon',
+        '#battle-input2-form--regular--stage',
+        '#battle-input2-form--regular--result',
+      ];
+      $(idList.join(',')).change(() => {
+        $regularSubmit.prop('disabled', !validateRegular());
+      });
+
+      // ユーザ入力のためにキー入力をベースにする方々
+      let timerId;
+      const idList2 = [
+        '#battle-input2-form--regular--kill',
+        '#battle-input2-form--regular--death',
+        '#battle-input2-form--regular--kill-or-assist',
+        '#battle-input2-form--regular--special',
+      ];
+      $(idList2.join(',')).keydown(() => {
+        if (timerId) {
+          window.clearTimeout(timerId);
+        }
+        timerId = window.setTimeout(() => {
+          $regularSubmit.prop('disabled', !validateRegular());
+        }, 50);
+      });
+    })();
+    (() => {
+      // 変更即反映できる方々
+      const idList = [
         '#battle-input2-form--fest--rule',
         '#battle-input2-form--fest--lobby',
         '#battle-input2-form--fest--weapon',
@@ -373,52 +597,53 @@
         '#battle-input2-form--fest--result',
       ];
       $(idList.join(',')).change(() => {
-        $festSubmit.prop('disabled', !validatefest());
+        $festSubmit.prop('disabled', !validateFest());
       });
 
       // ユーザ入力のためにキー入力をベースにする方々
       let timerId;
       const idList2 = [
-        '#battle-input2-form--fest--point',
-        '#battle-input2-form--fest--kill',
-        '#battle-input2-form--fest--death',
+        '#battle-input2-form--fest--kill-or-assist',
+        '#battle-input2-form--fest--special',
       ];
       $(idList2.join(',')).keydown(() => {
         if (timerId) {
           window.clearTimeout(timerId);
         }
         timerId = window.setTimeout(() => {
-          $festSubmit.prop('disabled', !validatefest());
+          $festSubmit.prop('disabled', !validateFest());
         }, 50);
       });
     })();
     (() => {
       // 変更即反映できる方々
       const idList = [
-        '#battle-input2-form--gachi--rule',
-        '#battle-input2-form--gachi--lobby',
-        '#battle-input2-form--gachi--weapon',
-        '#battle-input2-form--gachi--stage',
-        '#battle-input2-form--gachi--result',
-        '#battle-input2-form--gachi--rank-after',
+        '#battle-input2-form--ranked--rule',
+        '#battle-input2-form--ranked--lobby',
+        '#battle-input2-form--ranked--weapon',
+        '#battle-input2-form--ranked--stage',
+        '#battle-input2-form--ranked--result',
+        '#battle-input2-form--ranked--rank-after',
       ];
       $(idList.join(',')).change(() => {
-        $gachiSubmit.prop('disabled', !validateGachi());
+        $rankedSubmit.prop('disabled', !validateRanked());
       });
 
       // ユーザ入力のためにキー入力をベースにする方々
       var timerId;
       const idList2 = [
-        '#battle-input2-form--gachi--rank-exp-after',
-        '#battle-input2-form--gachi--kill',
-        '#battle-input2-form--gachi--death',
+        '#battle-input2-form--ranked--rank-exp-after',
+        '#battle-input2-form--ranked--kill',
+        '#battle-input2-form--ranked--death',
+        '#battle-input2-form--ranked--kill-or-assist',
+        '#battle-input2-form--ranked--special',
       ];
       $(idList2.join(',')).keydown(() => {
         if (timerId) {
           window.clearTimeout(timerId);
         }
         timerId = window.setTimeout(() => {
-          $gachiSubmit.prop('disabled', !validateGachi());
+          $rankedSubmit.prop('disabled', !validateRanked());
         }, 50);
       });
     })();

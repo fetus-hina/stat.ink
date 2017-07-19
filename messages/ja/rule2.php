@@ -13,6 +13,9 @@ return [
     'Solo Queue' => '野良',
     'Splatfest (Solo)' => 'フェス（ソロ）',
     'Splatfest (Team)' => 'フェス（チーム）',
+    'Squad Battle (Quad)' => '4人タッグ',
+    'Squad Battle (Tri)' => '3人タッグ',
+    'Squad Battle (Twin)' => '2人タッグ',
 
     'Regular Battle' => 'レギュラーバトル',
     'Ranked Battle' => 'ガチマッチ',
