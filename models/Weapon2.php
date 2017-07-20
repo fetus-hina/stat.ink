@@ -47,7 +47,7 @@ class Weapon2 extends ActiveRecord
         return [
             [['key', 'type_id', 'subweapon_id', 'special_id', 'name', 'canonical_id', 'main_group_id'], 'required'],
             [['type_id', 'subweapon_id', 'special_id', 'canonical_id', 'main_group_id'], 'integer'],
-            [['key'], 'string', 'max' => 16],
+            [['key'], 'string', 'max' => 32],
             [['name'], 'string', 'max' => 32],
             [['key'], 'unique'],
             [['name'], 'unique'],

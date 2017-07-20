@@ -45,7 +45,7 @@ class DeathReason2 extends ActiveRecord
         return [
             [['key', 'name'], 'required'],
             [['type_id', 'weapon_id', 'subweapon_id', 'special_id'], 'integer'],
-            [['key'], 'string', 'max' => 16],
+            [['key'], 'string', 'max' => 32],
             [['name'], 'string', 'max' => 32],
             [['key'], 'unique'],
             [['type_id'], 'exist', 'skipOnError' => true,
