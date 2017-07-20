@@ -10,6 +10,7 @@ return [
     'Any Weapon' => 'すべてのブキ',
 
     'Blasters' => 'ブラスター',
+    'Brellas' => 'シェルター',
     'Brushes' => 'フデ',
     'Chargers' => 'チャージャー',
     'Rollers' => 'ローラー',
@@ -34,4 +35,5 @@ return [
     'Slosher' => 'バケットスロッシャー',
     // splatlings ----
     'Heavy Splatling' => 'バレルスピナー',
+    // brellas ------
 ];
