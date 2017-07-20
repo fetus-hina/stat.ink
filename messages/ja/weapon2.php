@@ -19,8 +19,11 @@ return [
     'Splatlings' => 'スピナー',
     // shooters -----
     'Blaster' => 'ホットブラスター',
+    'Clash Blaster' => 'クラッシュブラスター',
+    'Dapple Dualies' => 'スパッタリー',
     'Splash-o-matic' => 'シャープマーカー',
     'Splat Dualies' => 'スプラマニューバー',
+    'Splattershot Jr.' => 'わかばシューター',
     'Splattershot Pro' => 'プライムシューター',
     'Splattershot' => 'スプラシューター',
     'Tentatek Splattershot' => 'スプラシューターコラボ',
@@ -29,6 +32,7 @@ return [
     'Octobrush' => 'ホクサイ',
     'Splat Roller' => 'スプラローラー',
     // chargers -----
+    'Goo Tuber' => 'ソイチューバー',
     'Splat Charger' => 'スプラチャージャー',
     'Splatterscope' => 'スプラスコープ',
     // sloshers -----

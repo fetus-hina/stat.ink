@@ -131,19 +131,24 @@ POST データは全体で 12MiB 以内である必要があります。
 
 |指定文字列|ブキ|
 |-|-|
+|`clashblaster`|クラッシュブラスター|
 |`hotblaster`|ホットブラスター|
 |`manueuver`|スプラマニューバー|
 |`prime`|プライムシューター|
 |`sharp`|シャープマーカー|
+|`sputtery`|スパッタリー|
 |`sshooter_collabo`|スプラシューターコラボ|
 |`sshooter`|スプラシューター|
+|`wakaba`|わかばシューター|
 |`dynamo`|ダイナモローラー|
 |`splatroller`|スプラローラー|
 |`hokusai`|ホクサイ|
+|`soytuber`|ソイチューバー|
 |`splatcharger`|スプラチャージャー|
 |`splatscope`|スプラスコープ|
 |`bucketslosher`|バケットスロッシャー|
 |`barrelspinner`|バレルスピナー|
+
 
 `players`
 ---------

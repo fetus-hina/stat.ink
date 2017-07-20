@@ -13,6 +13,7 @@ return [
     'Point Sensor' => 'ポイントセンサー',
     'Splat Bomb' => 'スプラッシュボム',
     'Sprinkler' => 'スプリンクラー',
+    'Squid Beakon' => 'ジャンプビーコン',
     'Suction Bomb' => 'キューバンボム',
     'Toxic Mist' => 'ポイズンミスト',
 ];
