@@ -131,23 +131,44 @@ POST データは全体で 12MiB 以内である必要があります。
 
 |指定文字列|ブキ|
 |-|-|
+|`52gal`|.52ガロン|
+|`96gal`|.96ガロン|
 |`clashblaster`|クラッシュブラスター|
+|`h3reelgun`|H3リールガン|
+|`hotblaster_custom`|ホットブラスターカスタム|
 |`hotblaster`|ホットブラスター|
+|`jetsweeper`|ジェットスイーパー|
+|`l3reelgun`|L3リールガン|
+|`manueuver_collabo`|スプラマニューバーコラボ|
 |`manueuver`|スプラマニューバー|
+|`nova`|ノヴァブラスター|
+|`nzap85`|N-ZAP85|
 |`prime`|プライムシューター|
+|`promodeler_mg`|プロモデラーMG|
+|`promodeler_rg`|プロモデラーRG|
+|`rapid`|ラピッドブラスター|
 |`sharp`|シャープマーカー|
 |`sputtery`|スパッタリー|
 |`sshooter_collabo`|スプラシューターコラボ|
 |`sshooter`|スプラシューター|
 |`wakaba`|わかばシューター|
+|`carbon`|カーボンローラー|
 |`dynamo`|ダイナモローラー|
-|`splatroller`|スプラローラー|
 |`hokusai`|ホクサイ|
+|`splatroller_collabo`|スプラローラーコラボ|
+|`splatroller`|スプラローラー|
+|`variableroller`|ヴァリアブルローラー|
+|`liter4k_scope`|4Kスコープ|
+|`liter4k`|リッター4K|
 |`soytuber`|ソイチューバー|
+|`splatcharger_collabo`|スプラチャージャーコラボ|
 |`splatcharger`|スプラチャージャー|
+|`splatscope_collabo`|スプラスコープコラボ|
 |`splatscope`|スプラスコープ|
 |`bucketslosher`|バケットスロッシャー|
+|`hissen`|ヒッセン|
 |`barrelspinner`|バレルスピナー|
+|`splatspinner`|スプラスピナー|
 
 
 `players`
@@ -217,7 +238,7 @@ POST データは全体で 12MiB 以内である必要があります。
 |`curlingbomb`|カーリングボム|
 |`kyubanbomb`|キューバンボム|
 |`quickbomb`|クイックボム|
-|`rocketbomb`|ロケットボム|
+|`robotbomb`|ロボットボム|
 |`splashbomb`|スプラッシュボム|
 |`splashshield`|スプラッシュシールド|
 |`sprinkler`|スプリンクラー|

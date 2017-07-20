@@ -6,11 +6,12 @@
  */
 
 return [
-    'Autobomb' => 'ロケットボム',
+    'Autobomb' => 'ロボットボム',
     'Burst Bomb' => 'クイックボム',
     'Curling Bomb' => 'カーリングボム',
     'Ink Mine' => 'トラップ',
     'Point Sensor' => 'ポイントセンサー',
+    'Splash Wall' => 'スプラッシュシールド',
     'Splat Bomb' => 'スプラッシュボム',
     'Sprinkler' => 'スプリンクラー',
     'Squid Beakon' => 'ジャンプビーコン',
