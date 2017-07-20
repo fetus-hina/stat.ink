@@ -13,16 +13,16 @@ class m170720_112422_fix_weapon2 extends Migration
 {
     public function safeUp()
     {
-        $this->fix('manueuver',     'quickbomb',    'missile');
-        $this->fix('sshooter',      null,           'chakuchi');
-        $this->fix('splatroller',   'curlingbomb',  null);
+        $this->fix('manueuver', 'quickbomb', 'missile');
+        $this->fix('sshooter', null, 'chakuchi');
+        $this->fix('splatroller', 'curlingbomb', null);
     }
 
     public function safeDown()
     {
-        $this->fix('manueuver',     'curlingbomb',  'jetpack');
-        $this->fix('sshooter',      null,           'missile');
-        $this->fix('splatroller',   'kyubanbomb',   null);
+        $this->fix('manueuver', 'curlingbomb', 'jetpack');
+        $this->fix('sshooter', null, 'missile');
+        $this->fix('splatroller', 'kyubanbomb', null);
     }
 
     private function fix(
