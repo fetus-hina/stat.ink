@@ -74,6 +74,7 @@ class RegisterForm extends Model
         $u->api_key = User::generateNewApiKey();
         $u->blackout = User::BLACKOUT_NOT_BLACKOUT;
         $u->default_language_id = $this->getCurrentLanguageId();
+        $u->region_id = $this->getCurrentRegionId();
         $u->join_at = new Now();
         return $u;
     }
@@ -81,5 +82,10 @@ class RegisterForm extends Model
     private function getCurrentLanguageId()
     {
         return Language::findOne(['lang' => Yii::$app->language])->id;
+    }
+
+    private function getCurrentRegionId()
+    {
+        return Region::findOne(['key' => 'jp'])->id;
     }
 }
