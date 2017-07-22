@@ -155,6 +155,7 @@ POST データは全体で 12MiB 以内である必要があります。
 |`carbon`|カーボンローラー|
 |`dynamo`|ダイナモローラー|
 |`hokusai`|ホクサイ|
+|`pablo`|パブロ|
 |`splatroller_collabo`|スプラローラーコラボ|
 |`splatroller`|スプラローラー|
 |`variableroller`|ヴァリアブルローラー|
