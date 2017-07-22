@@ -42,6 +42,7 @@ return [
     'Carbon Roller' => 'カーボンローラー',
     'Dynamo Roller' => 'ダイナモローラー',
     'Flingza Roller' => 'ヴァリアブルローラー',
+    'Inkbrush' => 'パブロ',
     'Krak-On Splat Roller' => 'スプラローラーコラボ',
     'Octobrush' => 'ホクサイ',
     'Splat Roller' => 'スプラローラー',
