@@ -10,15 +10,19 @@ return [
     'Any Lobby' => 'すべてのロビー',
     'Any Mode' => 'すべてのルール',
 
+    '(Solo)' => '（ソロ）',
+    '(Twin)' => '（2人）',
+    '(Quad)' => '（4人）',
+
     'Solo Queue' => '野良',
     'Splatfest (Solo)' => 'フェス（ソロ）',
     'Splatfest (Team)' => 'フェス（チーム）',
-    'Squad Battle (Quad)' => '4人タッグ',
-    'Squad Battle (Tri)' => '3人タッグ',
-    'Squad Battle (Twin)' => '2人タッグ',
 
     'Regular Battle' => 'レギュラーバトル',
     'Ranked Battle' => 'ガチマッチ',
+    'League Battle' => 'リーグバトル',
+    'League Battle (Twin)' => 'リーグバトル（2人）',
+    'Leatue Battle (Quad)' => 'リーグバトル（4人）',
     'Splatfest' => 'フェス',
 
     'Turf War' => 'ナワバリバトル',

@@ -12,7 +12,19 @@ use yii\base\Model;
 
 class TrimAttributesBehavior extends Behavior
 {
-    public $targets = [];
+    public $targets;
+    public $recursive;
+
+    public function init()
+    {
+        parent::init();
+        if (!is_array($this->targets)) {
+            $this->targets = [];
+        }
+        if ($this->recursive !== false) {
+            $this->recursive = true;
+        }
+    }
 
     public function events()
     {
@@ -34,8 +46,10 @@ class TrimAttributesBehavior extends Behavior
             $value = trim((string)$value);
             return $value === '' ? null : $value;
         } elseif (is_array($value) || $value instanceof \Traversable) {
-            foreach ($value as $k => $v) {
-                $value[$k] = $this->doTrim($v);
+            if ($this->recursive) {
+                foreach ($value as $k => $v) {
+                    $value[$k] = $this->doTrim($v);
+                }
             }
             return $value;
         } else {

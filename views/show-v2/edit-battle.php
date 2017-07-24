@@ -1,0 +1,172 @@
+<?php
+use yii\bootstrap\Html;
+use yii\bootstrap\ActiveForm;
+
+$title = Yii::t('app', 'Edit Your Battle: #{0}', [$battle->id]);
+$this->title = sprintf('%s | %s', Yii::$app->name, $title);
+
+$this->registerCss(implode('', [
+  'th{width:15em}',
+  '@media(max-width:30em){th{width:auto}}',
+  '.image-container{margin-bottom:15px}',
+]));
+?>
+<div class="container">
+  <h1>
+    <?= Html::encode($title) . "\n" ?>
+  </h1>
+<?php if ($battle->battleImageJudge || $battle->battleImageResult): ?>
+  <div class="row">
+<?php if ($battle->battleImageJudge): ?>
+    <div class="col-xs-12 col-md-6 image-container">
+      <?= Html::img(
+        $battle->battleImageJudge->url,
+        ['style' => ['max-width' => '100%', 'height' => 'auto']]
+      ) . "\n" ?>
+    </div>
+<?php endif; ?>
+<?php if ($battle->battleImageResult): ?>
+    <div class="col-xs-12 col-md-6 image-container">
+      <?= Html::img(
+        $battle->battleImageResult->url,
+        ['style' => ['max-width' => '100%', 'height' => 'auto']]
+      ) . "\n" ?>
+    </div>
+<?php endif; ?>
+  </div>
+<?php endif; ?>
+  <?php $_ = ActiveForm::begin([
+    'action' => ['show-v2/edit-battle', 'screen_name' => $user->screen_name, 'battle' => $battle->id],
+    'id' => 'edit-form',
+  ]); echo "\n"; ?>
+    <?= $_->field($form, 'xMode')
+      ->dropDownList($form->createModeList()) . "\n"
+    ?>
+    <?= $_->field($form, 'map_id')
+      ->dropDownList($maps) . "\n"
+    ?>
+    <?= $_->field($form, 'weapon_id')
+      ->dropDownList($weapons) . "\n"
+    ?>
+    <?= $_->field($form, 'result')
+      ->dropDownList([
+        '' => '',
+        'win' => Yii::t('app', 'Won'),
+        'lose' => Yii::t('app', 'Lost'),
+      ]) . "\n"
+    ?>
+    <?= implode(' / ', [
+        Html::tag(
+          'label',
+          Html::encode(Yii::t('app', 'Kill or Assist')),
+          ['class' => 'control-label', 'for' => 'battle2form-kill_or_assist']
+        ),
+        Html::tag(
+          'label',
+          Html::encode(Yii::t('app', 'Specials')),
+          ['class' => 'control-label', 'for' => 'battle2form-special']
+        ),
+      ]) . "\n"
+    ?>
+    <div class="form-inline">
+      <?= $_->field($form, 'kill_or_assist')
+        ->label(false)
+        ->textInput(['style' => 'width:4em']) ?> K /
+      <?= $_->field($form, 'special')
+        ->label(false)
+        ->textInput(['style' => 'width:4em']) ?> SP
+    </div>
+    <?= implode(' / ', [
+        Html::tag(
+          'label',
+          Html::encode(Yii::t('app', 'Kills')),
+          ['class' => 'control-label', 'for' => 'battle2form-kill']
+        ),
+        Html::tag(
+          'label',
+          Html::encode(Yii::t('app', 'Deaths')),
+          ['class' => 'control-label', 'for' => 'battle2form-death']
+        ),
+      ]) . "\n"
+    ?>
+    <div class="form-inline">
+      <?= $_->field($form, 'kill')
+        ->label(false)
+        ->textInput(['style' => 'width:4em']) ?> K /
+      <?= $_->field($form, 'death')
+        ->label(false)
+        ->textInput(['style' => 'width:4em']) ?> D
+    </div>
+    <?= $_->field($form, 'my_point')
+      ->hint(Html::encode(
+        sprintf('(%s)', Yii::t('app-rule2', 'Turf War'))
+      )) . "\n"
+    ?>
+    <?= $_->field($form, 'link_url')
+      ->textInput([
+        'type' => 'url',
+        'placeholder' => 'https://example.com/',
+      ])
+      ->hint(
+        Html::encode(
+          Yii::t('app', 'e.g. YouTube video, like "{0}"', [
+            'https://www.youtube.com/watch?v=TjLbFFPF904'
+          ])
+        )
+      ) . "\n"
+    ?>
+    <?= $_->field($form, 'note')
+      ->textArea(['rows' => 7]) . "\n"
+    ?>
+    <?= $_->field($form, 'private_note')
+      ->textArea(['rows' => 7]) . "\n"
+    ?>
+    <?= Html::submitButton(
+        Yii::t('app', 'Update'),
+        ['class' => 'btn btn-primary btn-block']
+    ) . "\n" ?>
+  <?php ActiveForm::end(); echo "\n"; ?>
+  <div style="margin-top:15px">
+    <?= Html::a(
+      Yii::t('app', 'Back'),
+      ['show-v2/battle', 'screen_name' => $user->screen_name, 'battle' => $battle->id],
+      ['class' => 'btn btn-default btn-block']
+    ) . "\n" ?>
+  </div>
+  <hr>
+<?php /*
+  <div style="margin-top:7.5em;border:1px solid #ccc;border-radius:5px;padding:15px">
+    <h2 style="color:#c9302c">
+      {{'Danger Zone'|translate:'app'|escape}}
+    </h2>
+    <p>
+      {{'You can delete this battle.'|translate:'app'|escape}}
+    </p>
+    <ul>
+      <li>
+        {{'If you delete this battle, it will be gone forever.'|translate:'app'|escape}}
+      </li>
+      <li>
+        <strong style="color:#c9302c">
+          {{'Please do not use this feature to destroy evidence.'|translate:'app'|escape}}
+        </strong>
+        &#32;
+        {{'This action is provided for deleting a falsely-recognized battle.'|translate:'app'|escape}}
+      </li>
+      <li>
+        {{'If you misuse this feature, you will be banned.'|translate:'app'|escape}}
+      </li>
+    </ul>
+    {{ActiveForm assign="_" id="delete-form" action=['show/edit-battle', 'screen_name' => $user->screen_name, 'battle' => $battle->id]}}
+      {{Html::hiddenInput('_action', 'delete')}}
+      {{$_->field($delete, 'agree')
+          ->label(Yii::t('app', 'I agree. Delete this battle.'))
+          ->checkbox(['value' => 'yes', 'uncheck' => null])}}
+      {{Html::submitButton(
+          Yii::t('app', 'Delete'),
+          ['class' => 'btn btn-lg btn-danger btn-block']
+        )}}
+    {{/ActiveForm}}
+  </div>
+*/ ?>
+</div>

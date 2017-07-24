@@ -218,6 +218,16 @@ class Battle2 extends ActiveRecord
                     return $version ? $version->id : null;
                 },
             ],
+            [
+                // 更新時に統計利用フラグを落とす
+                'class' => AttributeBehavior::class,
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_UPDATE => ['is_automated', 'use_for_entire'],
+                ],
+                'value' => function ($event) {
+                    return false;
+                },
+            ],
         ];
     }
 
