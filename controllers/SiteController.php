@@ -36,9 +36,6 @@ class SiteController extends Controller
                 'class' => 'app\actions\site\SimpleAction',
                 'view' => 'kamiup.tpl',
             ],
-            'users' => [
-                'class' => 'app\actions\site\UsersAction',
-            ],
             'faq' => [
                 'class' => 'app\actions\site\SimpleAction',
                 'view' => 'faq.tpl',

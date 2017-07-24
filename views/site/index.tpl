@@ -265,15 +265,12 @@
       {{/if}}
     {{/if}}
 
+    {{*
     <h2>
       {{'Active Players'|translate:'app'|escape}}
     </h2>
-    <p class="text-right" style="margin:0">
-      <a href="{{url route="site/users"}}">
-        {{'Show All Players'|translate:'app'|escape}}
-      </a>
-    </p>
     {{BattleListWidget::widget(['models' => $active])}}
+    *}}
 
     <h2>
       {{'Recent Battles'|translate:'app'|escape}}
