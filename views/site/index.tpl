@@ -56,40 +56,7 @@
       </div>
     </div>
 
-    {{if false}}
-      <p class="bg-danger" style="padding:15px;border-radius:10px">
-        {{if $app->language === 'ja-JP'}}
-          2017-05-25 03:00 (日本時間) 頃から stat.ink のサーバメンテナンスを行います。<br>
-          メンテナンス中は stat.ink への投稿も含め、全てのアクセスが行えません。<br>
-          また、メンテナンス終了時にサーバのIPアドレスが変更になります。<br>
-          これに伴い、環境によってはしばらくアクセスできなくなる可能性があります。<br>
-          （アプリケーションやブラウザ、OSを再起動すると回復する可能性があります）
-        {{else}}
-          We scheduled server maintenance at 2017-05-25 03:00 <a href="https://en.wikipedia.org/wiki/Japan_Standard_Time">JST</a>.<br>
-          (2017-05-24 18:00 UTC, 2017-05-24 2:00pm EDT, 2017-05-24 11:00am PDT)<br>
-          The service will be shut down and will not be accessed.<br>
-          It will take several hours for the maintenance.<br>
-          Sorry for inconvenience.
-        {{/if}}
-      </p>
-    {{/if}}
-    {{if false}}
-      <p class="bg-danger" style="padding:15px;border-radius:10px">
-        <a href="https://testfire2.stat.ink/">Splatoon 2 試射会用の記録サイトを、技術テストを兼ねて運用します。</a><br>
-        Splatoon 2 試射会対応の<a href="https://play.google.com/store/apps/details?id=com.syanari.merluza.ikarec2">イカレコ 2</a> はこの記録サイトに対応しています。<br>
-        対応するIkaLogが登場するかは未定です。<br>
-        <br>
-        データベースが完全に別になっているため、会員登録から行ってください。<br>
-        （対応するIkaLogがリリースされた場合、画像認識のためのデータ収集サイトを兼ねることになります）
-      </p>
-    {{/if}}
-
     {{if $app->language === 'ja-JP'}}
-      <p class="bg-danger" style="padding:15px;border-radius:10px">
-        Splatoon 2 前夜祭登録機能に対応しました。右上の登録ボタンからご利用ください。<br>
-        まだ Splatoon 2 対応は半端な状態で、仮対応です。<br>
-        ナビゲーションや機能面で不完全な箇所が目立ちますがご容赦ください。
-      </p>
       <p class="bg-warning" style="padding:15px;border-radius:10px">
         バトル登録機能をリリースしました。ログイン後、バトル登録ボタンから登録できます。<br>
         iOS等をご利用の方、PCでキャプチャボードを使用出来ない方、どうぞご利用ください。<br>
