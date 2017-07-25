@@ -24,7 +24,10 @@ class BattleItem2Widget extends BaseWidget
 
     public function getIsKO() : ?bool
     {
-        return null; // FIXME
+        if ($this->model->isGachi) {
+            return $this->model->is_knockout;
+        }
+        return null;
     }
 
     public function getIsWin() : ?bool

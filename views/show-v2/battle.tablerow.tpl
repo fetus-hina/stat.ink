@@ -87,6 +87,18 @@
           {{'Lost'|translate:'app'|escape}}
         </span>
       {{/if}}
+      {{if $model->isGachi && $model->is_knockout !== null}}
+        &nbsp;
+        {{if $model->is_knockout}}
+          <span class="label label-info auto-tooltip" title="{{'Knockout'|translate:'app'|escape}}">
+            {{'K.O.'|translate:'app'|escape}}
+          </span>
+        {{else}}
+          <span class="label label-warning auto-tooltip" title="{{'Time is up'|translate:'app'|escape}}">
+            {{'Time'|translate:'app'|escape}}
+          </span>
+        {{/if}}
+      {{/if}}
     </td>
     <td class="cell-kd nobr">
       <span class="kill">

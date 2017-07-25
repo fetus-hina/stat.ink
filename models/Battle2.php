@@ -612,6 +612,21 @@ class Battle2 extends ActiveRecord
         return strtotime($this->created_at);
     }
 
+    public function getIsNawabari()
+    {
+        return $this->getIsThisGameMode('regular');
+    }
+
+    public function getIsGachi()
+    {
+        return $this->getIsThisGameMode('gachi');
+    }
+
+    private function getIsThisGameMode($key)
+    {
+        return ($this->mode->key ?? null) === $key;
+    }
+
     public function toJsonArray(array $skips = []) : array
     {
         $events = null;

@@ -17,6 +17,14 @@
               {{else}}
                 {{'Lost'|translate:'app'|escape}}
               {{/if}}
+              {{if $model->isGachi && $model->is_knockout !== null}}
+                <br>
+                {{if $model->is_knockout}}
+                  {{'K.O.'|translate:'app'|escape}}
+                {{else}}
+                  {{'Time'|translate:'app'|escape}}
+                {{/if}}
+              {{/if}}
             </div>
           {{/if}}
           <div class="simple-battle-data">

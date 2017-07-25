@@ -207,9 +207,8 @@
               <tr>
                 <th>{{'Result'|translate:'app'|escape}}</th>
                 <td>
-{{*
-                  {{if $battle->isGachi && $battle->is_knock_out !== null}}
-                    {{if $battle->is_knock_out}}
+                  {{if $battle->isGachi && $battle->is_knockout !== null}}
+                    {{if $battle->is_knockout}}
                       <span class="label label-info">
                         {{'Knockout'|translate:'app'|escape}}
                       </span>
@@ -220,7 +219,6 @@
                     {{/if}}
                     &#32;
                   {{/if}}
-*}}
                   {{if $battle->is_win === true}}
                     <span class="label label-success">
                       {{'Won'|translate:'app'|escape}}

@@ -194,7 +194,15 @@ $this->registerCss(implode('', array_map(
                     ],
                 ],
                 'titleLinkText' => Yii::t('app', 'List'),
-                'models' => [],
+                'models' => $user->getBattle2s()
+                    ->with(['user', 'map', 'weapon'])
+                    ->innerJoinWith(['mode', 'rule'])
+                    ->andWhere(['and',
+                        ['rule2.key' => ['area', 'yagura', 'hoko']],
+                    ])
+                    ->orderBy(['battle2.id' => SORT_DESC])
+                    ->limit(5)
+                    ->all(),
               ]) . "\n" ?>
             </div><!-- col -->
           </div><!-- row -->
@@ -220,7 +228,6 @@ $this->registerCss(implode('', array_map(
                     ->with(['user', 'map', 'weapon'])
                     ->innerJoinWith(['lobby', 'rule'])
                     ->andWhere(['and',
-                        ['lobby.key' => 'standard'],
                         ['rule.key' => 'nawabari'],
                     ])
                     ->orderBy(['battle.id' => SORT_DESC])
@@ -243,7 +250,6 @@ $this->registerCss(implode('', array_map(
                     ->with(['user', 'map', 'weapon'])
                     ->innerJoinWith(['lobby', 'rule'])
                     ->andWhere(['and',
-                        ['<>', 'lobby.key', 'private'],
                         ['rule.key' => ['area', 'yagura', 'hoko']],
                     ])
                     ->orderBy(['battle.id' => SORT_DESC])
