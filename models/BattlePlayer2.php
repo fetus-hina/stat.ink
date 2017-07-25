@@ -20,6 +20,7 @@ use yii\db\ActiveRecord;
  * @property boolean $is_me
  * @property integer $weapon_id
  * @property integer $level
+ * @property string $rank
  * @property integer $rank_in_team
  * @property integer $kill
  * @property integer $death
@@ -58,7 +59,7 @@ class BattlePlayer2 extends ActiveRecord
     {
         return [
             [['battle_id', 'is_my_team', 'is_me'], 'required'],
-            [['battle_id', 'weapon_id'], 'integer'],
+            [['battle_id', 'weapon_id', 'rank_id'], 'integer'],
             [['level'], 'integer', 'min' => 1, 'max' => 50],
             [['rank_in_team'], 'integer', 'min' => 1, 'max' => 4],
             [['kill', 'death', 'my_kill'], 'integer', 'min' => 0],
@@ -72,6 +73,10 @@ class BattlePlayer2 extends ActiveRecord
             [['weapon_id'], 'exist', 'skipOnError' => true,
                 'targetClass' => Weapon2::class,
                 'targetAttribute' => ['weapon_id' => 'id'],
+            ],
+            [['rank_id'], 'exist', 'skipOnError' => true,
+                'targetClass' => Rank2::class,
+                'targetAttribute' => ['rank_id' => 'id'],
             ],
         ];
     }
@@ -88,6 +93,7 @@ class BattlePlayer2 extends ActiveRecord
             'is_me' => 'Is Me',
             'weapon_id' => 'Weapon ID',
             'level' => 'Level',
+            'rank_id' => 'Rank ID',
             'rank_in_team' => 'Rank In Team',
             'kill' => 'Kill',
             'death' => 'Death',
@@ -114,6 +120,14 @@ class BattlePlayer2 extends ActiveRecord
         return $this->hasOne(Weapon2::class, ['id' => 'weapon_id']);
     }
 
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRank()
+    {
+        return $this->hasOne(Rank2::class, ['id' => 'rank_id']);
+    }
+
     public function toJsonArray()
     {
         return [
@@ -121,6 +135,7 @@ class BattlePlayer2 extends ActiveRecord
             'is_me'         => !!$this->is_me,
             'weapon'        => $this->weapon ? $this->weapon->toJsonArray() : null,
             'level'         => (string)$this->level === '' ? null : (int)$this->level,
+            'rank'          => $this->rank ? $this->rank->toJsonArray() : null,
             'rank_in_team'  => (string)$this->rank_in_team === '' ? null : (int)$this->rank_in_team,
             'kill'          => (string)$this->kill === '' ? null : (int)$this->kill,
             'death'         => (string)$this->death === '' ? null : (int)$this->death,

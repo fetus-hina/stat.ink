@@ -9,6 +9,7 @@ namespace app\models\api\v2;
 
 use Yii;
 use app\components\behaviors\TrimAttributesBehavior;
+use app\models\Rank2;
 use app\models\Weapon2;
 use yii\base\Model;
 
@@ -18,6 +19,7 @@ class PostBattlePlayerForm extends Model
     public $is_me;
     public $weapon;
     public $level;
+    public $rank;
     public $rank_in_team;
     public $kill;
     public $death;
@@ -44,8 +46,13 @@ class PostBattlePlayerForm extends Model
             [['is_me'], 'boolean', 'trueValue' => 'yes', 'falseValue' => 'no'],
             [['weapon'], 'exist',
                 'targetClass' =>  Weapon2::class,
-                'targetAttribute' => 'key'],
+                'targetAttribute' => 'key',
+            ],
             [['level'], 'integer', 'min' => 1, 'max' => 50],
+            [['rank'], 'exist',
+                'targetClass' => Rank2::class,
+                'targetAttribute' => 'key',
+            ],
             [['rank_in_team'], 'integer', 'min' => 1, 'max' => 4],
             [['kill', 'death', 'my_kill'], 'integer', 'min' => 0],
             [['kill_or_assist', 'special'], 'integer', 'min' => 0],

@@ -8,6 +8,7 @@
 namespace app\models;
 
 use Yii;
+use app\components\helpers\Translator;
 use yii\db\ActiveRecord;
 
 /**
@@ -82,5 +83,14 @@ class Rank2 extends ActiveRecord
     public function getGroup()
     {
         return $this->hasOne(RankGroup2::class, ['id' => 'group_id']);
+    }
+
+    public function toJsonArray() : array
+    {
+        return [
+            'key' => $this->key,
+            'zone' => $this->group->toJsonArray(),
+            'name' => Translator::translateToAll('app-rank2', $this->name),
+        ];
     }
 }

@@ -22,6 +22,7 @@ use app\models\DeathReason2;
 use app\models\Lobby2;
 use app\models\Map2;
 use app\models\Mode2;
+use app\models\Rank2;
 use app\models\Rule2;
 use app\models\SplatoonVersion2;
 use app\models\User;
@@ -52,6 +53,8 @@ class PostBattleForm extends Model
     public $max_kill_streak;
     public $level;
     public $level_after;
+    public $rank;
+    public $rank_after;
     public $my_point;
     public $my_team_point;
     public $his_team_point;
@@ -126,6 +129,10 @@ class PostBattleForm extends Model
                 'targetAttribute' => 'key',
             ],
             [['level', 'level_after'], 'integer', 'min' => 1],
+            [['rank', 'rank_after'], 'exist',
+                'targetClass' => Rank2::class,
+                'targetAttribute' => 'key',
+            ],
             [['result'], 'boolean', 'trueValue' => 'win', 'falseValue' => 'lose'],
             [['rank_in_team'], 'integer', 'min' => 1, 'max' => 4],
             [['kill', 'death', 'max_kill_combo', 'max_kill_streak'], 'integer', 'min' => 0],
@@ -284,6 +291,8 @@ class PostBattleForm extends Model
         $battle->max_kill_streak = $intval($this->max_kill_streak);
         $battle->level          = $intval($this->level);
         $battle->level_after    = $intval($this->level_after);
+        $battle->rank_id        = $key2id($this->rank, Rank2::class);
+        $battle->rank_after_id  = $key2id($this->rank_after, Rank2::class);
         $battle->my_point       = $intval($this->my_point);
         $battle->my_team_point  = $intval($this->my_team_point);
         $battle->his_team_point = $intval($this->his_team_point);
@@ -376,6 +385,10 @@ class PostBattleForm extends Model
                     ? null
                     : Weapon2::findOne(['key' => $form->weapon]);
 
+                $rank = ($form->rank == '')
+                    ? null
+                    : Rank2::findOne(['key' => $form->rank]);
+
                 yield Yii::createObject([
                     'class'         => BattlePlayer2::class,
                     'battle_id'     => $battle->id,
@@ -383,6 +396,7 @@ class PostBattleForm extends Model
                     'is_me'         => $form->is_me === 'yes',
                     'weapon_id'     => $weapon->id ?? null,
                     'level'         => $form->level,
+                    'rank_id'       => $rank->id ?? null,
                     'rank_in_team'  => $form->rank_in_team,
                     'kill'          => $form->kill,
                     'death'         => $form->death,
