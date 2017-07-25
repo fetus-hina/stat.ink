@@ -31,19 +31,17 @@
           <ul class="nav nav-tabs" role="tablist" style="margin-bottom:15px">
             <li role="presentation" class="active">
               <a href="#_{{$_prefix|escape}}_regular" data-toggle="tab">
-                {{'Regular Battle'|translate:'app-rule'|escape}}
+                {{'Regular'|translate:'app-rule2'|escape}}
               </a>
             </li>
-            <!--
             <li role="presentation" class="">
               <a href="#_{{$_prefix|escape}}_ranked" data-toggle="tab">
-                {{'Ranked Battle'|translate:'app-rule'|escape}}
+                {{'Ranked'|translate:'app-rule2'|escape}} / {{'League'|translate:'app-rule2'|escape}}
               </a>
             </li>
-            -->
             <li role="presentation" class="">
               <a href="#_{{$_prefix|escape}}_fest" data-toggle="tab">
-                {{'Splatfest'|translate:'app-rule'|escape}}
+                {{'Splatfest'|translate:'app-rule2'|escape}}
               </a>
             </li>
           </ul>
@@ -118,27 +116,6 @@
                   </div>
                   <div class="col-xs-6 col-sm-3">
                     <div class="form-group">
-                      <label for="battle-input2-form--regular--kill">
-                        {{'Kills'|translate:'app'|escape}}
-                      </label>
-                      <input type="number" id="battle-input2-form--regular--kill" name="kill" min="0" max="99" class="form-control" pattern="\d+" inputmode="numeric">
-                    </div>
-                  </div>
-                  <div class="col-xs-6 col-sm-3">
-                    <div class="form-group">
-                      <label for="battle-input2-form--regular--death">
-                        {{'Deaths'|translate:'app'|escape}}
-                      </label>
-                      <input type="number" id="battle-input2-form--regular--death" name="death" min="0" max="99" class="form-control" pattern="\d+" inputmode="numeric">
-                    </div>
-                  </div>
-                </div>
-
-                <div class="row">
-                  <div class="col-xs-12 col-sm-6">
-                  </div>
-                  <div class="col-xs-6 col-sm-3">
-                    <div class="form-group">
                       <label for="battle-input2-form--regular--kill-or-assist">
                         {{'Kill or Assist'|translate:'app'|escape}}
                       </label>
@@ -170,7 +147,6 @@
                 </div>
               </form>
             </div><!-- panel -->
-{{*
             <div role="tabpanel" class="tab-pane" id="_{{$_prefix|escape}}_ranked">
               <form class="battle-input-form" id="battle-input2-form--ranked" action="#" onsubmit="return !1" data-apikey="{{$app->user->identity->api_key|escape}}">
                 <input type="hidden" name="agent" value="{{$_agentName|escape}}">
@@ -180,9 +156,9 @@
                   <div class="col-xs-6">
                     <div class="form-group">
                       <select id="battle-input2-form--ranked--rule" name="rule" class="form-control">
-                        <option val="area">{{'Splat Zones'|translate:'app-rule2'|escape}}</option>
-                        <option val="yagura">{{'Tower Control'|translate:'app-rule2'|escape}}</option>
-                        <option val="hoko">{{'Rainmaker'|translate:'app-rule2'|escape}}</option>
+                        <option value="area">{{'Splat Zones'|translate:'app-rule2'|escape}}</option>
+                        <option value="yagura">{{'Tower Control'|translate:'app-rule2'|escape}}</option>
+                        <option value="hoko">{{'Rainmaker'|translate:'app-rule2'|escape}}</option>
                       </select>
                       <input type="hidden" id="battle-input2-form--ranked--mode" name="mode" value="gachi">
                     </div>
@@ -191,16 +167,13 @@
                     <div class="form-group">
                       <select id="battle-input2-form--ranked--lobby" name="lobby" class="form-control">
                         <option value="standard">
-                          {{'Solo Queue'|translate:'app-rule2'|escape}}
+                          {{'Ranked Battle (Solo)'|translate:'app-rule2'|escape}}
                         </option>
                         <option value="squad_2">
-                          {{'Squad Battle (Twin)'|translate:'app-rule2'|escape}}
+                          {{'League Battle (Twin)'|translate:'app-rule2'|escape}}
                         </option>
                         <option value="squad_4">
-                          {{'Squad Battle (Tri)'|translate:'app-rule2'|escape}}
-                        </option>
-                        <option value="squad_4">
-                          {{'Squad Battle (Quad)'|translate:'app-rule2'|escape}}
+                          {{'League Battle (Quad)'|translate:'app-rule2'|escape}}
                         </option>
                       </select>
                     </div>
@@ -240,44 +213,46 @@
                     </div>
                   </div>
                 </div>
-
-                <div class="row">
-                  <div class="col-xs-12 col-sm-6 form-inline">
-                    <div class="form-group">
-                      <label style="display:block">
-                        {{'Rank (after the battle)'|translate:'app'|escape}}
-                      </label>
-                      <select name="rank_after" id="battle-input2-form--ranked--rank-after" class="form-control">
-                        {{use class="app\models\Rank"}}
-                        {{foreach Rank::find()->orderBy('[[id]] DESC')->asArray()->all() as $_rank}}
-                          <option value="{{$_rank.key|escape}}">
-                            {{$_rank.name|translate:'app-rank'|escape}}
-                          </option>
-                        {{/foreach}}
-                      </select>
-                      <input type="number" id="battle-input2-form--ranked--rank-exp-after" name="rank_exp_after" class="form-control" min="0" max="99" pattern="\d+" inputmode="numeric" placeholder="0～99">
+                <div class="form-group">
+                  <input type="hidden" id="battle-input2-form--ranked--knock_out" name="knock_out" value="">
+                  <div class="row">
+                    <div class="col-xs-6">
+                      <button type="button" class="btn btn-default btn-block battle-input2-form--knock_out" data-target="battle-input2-form--ranked--knock_out" data-value="yes">
+                        {{'Knockout'|translate:'app'|escape}}
+                      </button>
                     </div>
-                  </div>
-                  <div class="col-xs-6 col-sm-3">
-                    <div class="form-group">
-                      <label for="battle-input2-form--ranked--kill">
-                        {{'Kills'|translate:'app'|escape}}
-                      </label>
-                      <input type="number" id="battle-input2-form--ranked--kill" name="kill" min="0" max="99" class="form-control" pattern="\d+" inputmode="numeric">
-                    </div>
-                  </div>
-                  <div class="col-xs-6 col-sm-3">
-                    <div class="form-group">
-                      <label for="battle-input2-form--ranked--death">
-                        {{'Deaths'|translate:'app'|escape}}
-                      </label>
-                      <input type="number" id="battle-input2-form--ranked--death" name="death" min="0" max="99" class="form-control" pattern="\d+" inputmode="numeric">
+                    <div class="col-xs-6">
+                      <button type="button" class="btn btn-default btn-block battle-input2-form--knock_out" data-target="battle-input2-form--ranked--knock_out" data-value="no">
+                        {{'Time is up'|translate:'app'|escape}}
+                      </button>
                     </div>
                   </div>
                 </div>
 
                 <div class="row">
-                  <div class="col-xs-12 col-sm-6">
+                  <div class="col-xs-12 col-sm-6 form-inline">
+                    <div class="form-group">
+                      <label style="display:block">
+                        {{'Rank'|translate:'app'|escape}}
+                      </label>
+                      {{use class="app\models\Rank2"}}
+                      {{$_ranks = Rank2::find()->orderBy('[[id]] DESC')->asArray()->all()}}
+                      <select name="rank" id="battle-input2-form--ranked--rank" class="form-control">
+                        {{foreach $_ranks as $_rank}}
+                          <option value="{{$_rank.key|escape}}">
+                            {{$_rank.name|translate:'app-rank'|escape}}
+                          </option>
+                        {{/foreach}}
+                      </select>
+                      &#32;<span class="fa fa-fw fa-arrow-right"></span>&#32;
+                      <select name="rank_after" id="battle-input2-form--ranked--rank-after" class="form-control">
+                        {{foreach $_ranks as $_rank}}
+                          <option value="{{$_rank.key|escape}}">
+                            {{$_rank.name|translate:'app-rank'|escape}}
+                          </option>
+                        {{/foreach}}
+                      </select>
+                    </div>
                   </div>
                   <div class="col-xs-6 col-sm-3">
                     <div class="form-group">
@@ -312,7 +287,6 @@
                 </div>
               </form>
             </div><!-- panel -->
-*}}
             <div role="tabpanel" class="tab-pane" id="_{{$_prefix|escape}}_fest">
               <form class="battle-input-form" id="battle-input2-form--fest" action="#" onsubmit="return !1" data-apikey="{{$app->user->identity->api_key|escape}}">
                 <input type="hidden" name="agent" value="{{$_agentName|escape}}">

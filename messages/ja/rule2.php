@@ -20,10 +20,16 @@ return [
 
     'Regular Battle' => 'レギュラーバトル',
     'Ranked Battle' => 'ガチマッチ',
+    'Ranked Battle (Solo)' => 'ガチマッチ（ソロ）',
     'League Battle' => 'リーグバトル',
     'League Battle (Twin)' => 'リーグバトル（2人）',
-    'Leatue Battle (Quad)' => 'リーグバトル（4人）',
+    'League Battle (Quad)' => 'リーグバトル（4人）',
     'Splatfest' => 'フェス',
+
+    'Regular' => 'レギュラー',
+    'Ranked' => 'ガチ',
+    'League' => 'リーグ',
+    'Fest' => 'フェス',
 
     'Turf War' => 'ナワバリバトル',
     'Splat Zones' => 'ガチエリア',

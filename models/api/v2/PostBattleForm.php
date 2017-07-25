@@ -44,6 +44,7 @@ class PostBattleForm extends Model
     public $stage;
     public $weapon;
     public $result;
+    public $knock_out;
     public $rank_in_team;
     public $kill;
     public $death;
@@ -134,6 +135,7 @@ class PostBattleForm extends Model
                 'targetAttribute' => 'key',
             ],
             [['result'], 'boolean', 'trueValue' => 'win', 'falseValue' => 'lose'],
+            [['knock_out'], 'boolean', 'trueValue' => 'yes', 'falseValue' => 'no'],
             [['rank_in_team'], 'integer', 'min' => 1, 'max' => 4],
             [['kill', 'death', 'max_kill_combo', 'max_kill_streak'], 'integer', 'min' => 0],
             [['kill_or_assist', 'special'], 'integer', 'min' => 0],
@@ -282,6 +284,16 @@ class PostBattleForm extends Model
                     null;
             }
         })($this->result);
+        $battle->is_knockout = (function ($value) {
+            switch ((string)$value) {
+                case 'yes':
+                    return true;
+                case 'no':
+                    return false;
+                default:
+                    null;
+            }
+        })($this->knock_out);
         $battle->rank_in_team   = $intval($this->rank_in_team);
         $battle->kill           = $intval($this->kill);
         $battle->death          = $intval($this->death);

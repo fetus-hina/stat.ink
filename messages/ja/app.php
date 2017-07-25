@@ -370,6 +370,7 @@ return [
     'This {attribute} is already in use.' => '指定した{attribute}は既に使用されています。',
     'Time Zone' => 'タイムゾーン',
     'Time is up' => 'タイムアップ',
+    'Time was up' => 'タイムアップ',
     'Time' => '時間',
     'Times' => '回数',
     'Today' => '今日',

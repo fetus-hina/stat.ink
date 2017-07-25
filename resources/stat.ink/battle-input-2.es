@@ -31,6 +31,7 @@
     const $selectWeapons = $('.battle-input2-form--weapons', $modal);
     const $buttonStages = $('.battle-input2-form--stages', $modal);
     const $buttonResults = $('.battle-input2-form--result', $modal);
+    const $buttonKOs = $('.battle-input2-form--knock_out', $modal);
     const $regularSubmit = $('#battle-input2-form--regular--submit', $modal);
     const $rankedSubmit = $('#battle-input2-form--ranked--submit', $modal);
     const $festSubmit = $('#battle-input2-form--fest--submit', $modal);
@@ -85,9 +86,6 @@
           }
         }
       });
-      if ('rank_after' in ret && !('rank_exp_after' in ret)) {
-        delete ret.rank_after;
-      }
       return ret;
     };
     const refresh = () => {
@@ -200,8 +198,6 @@
       const $elems =$([
         '#battle-input2-form--regular--kill-or-assist',
         '#battle-input2-form--regular--special',
-        '#battle-input2-form--regular--kill',
-        '#battle-input2-form--regular--death',
       ].join(','), $form);
       var valid = true;
       $elems.each((i, el) => {
@@ -232,20 +228,20 @@
         '#battle-input2-form--ranked--weapon',
         '#battle-input2-form--ranked--stage',
         '#battle-input2-form--ranked--result',
+        '#battle-input2-form--ranked--knock_out',
       ].join(','), $form);
       var $empty = $requires.filter(function () {
         return $(this).val() == '';
       });
       if ($empty.length) {
+console.log("empty");
+console.log($empty);
         return false;
       }
 
       const $elems =$([
         '#battle-input2-form--ranked--kill-or-assist',
         '#battle-input2-form--ranked--special',
-        '#battle-input2-form--ranked--kill',
-        '#battle-input2-form--ranked--death',
-        '#battle-input2-form--ranked--rank-exp-after',
       ].join(','), $form);
       var valid = true;
       $elems.each((i, el) => {
@@ -405,6 +401,23 @@
         .addClass($this.attr('data-value') === 'win' ? 'btn-info' : 'btn-danger');
     });
 
+    // KOボタンがクリックされた時、電文用の <input type="hidden"> を更新する
+    // また、class を変更して選択されているかのように見せる
+    $buttonKOs.click(function () {
+      var $this = $(this);
+      var $input = $('input', $modal).filter(function () { return $(this).attr('id') === $this.attr('data-target'); });
+      $input.val($this.attr('data-value')).change();
+
+      $buttonKOs
+        .filter(function () { return $this.attr('data-target') === $(this).attr('data-target'); })
+        .removeClass('btn-info')
+        .removeClass('btn-danger')
+        .addClass('btn-default');
+      $this
+        .removeClass('btn-default')
+        .addClass($this.attr('data-value') === 'yes' ? 'btn-danger' : 'btn-info');
+    });
+
     // レギュラーの送信ボタン押下処理
     $regularSubmit.click(function () {
       const $this = $(this);
@@ -425,13 +438,10 @@
         'processData': false,
         'success': () => {
           const clear = [
-            'battle-input2-form--regular--death',
-            'battle-input2-form--regular--kill',
             'battle-input2-form--regular--kill-or-assist',
             'battle-input2-form--regular--point',
             'battle-input2-form--regular--result',
             'battle-input2-form--regular--special',
-            'battle-input2-form--regular--stage',
           ];
           $.each(clear, (i, id) => {
             $('#' + id).val('');
@@ -476,26 +486,28 @@
         'processData': false,
         'success': () => {
           const clear = [
-            'battle-input2-form--ranked--death',
-            'battle-input2-form--ranked--kill',
             'battle-input2-form--ranked--kill-or-assist',
-            'battle-input2-form--ranked--point',
             'battle-input2-form--ranked--result',
+            'battle-input2-form--ranked--knock_out',
             'battle-input2-form--ranked--special',
-            'battle-input2-form--ranked--stage',
           ];
           $.each(clear, (i, id) => {
             $('#' + id).val('');
           });
-          $buttonStages
-            .filter('[data-target="battle-input2-form--ranked--stage"]')
-            .removeClass('btn-success')
-            .addClass('btn-default');
           $buttonResults
             .filter('[data-target="battle-input2-form--ranked--result"]')
             .removeClass('btn-info')
             .removeClass('btn-danger')
             .addClass('btn-default');
+          $buttonKOs
+            .filter('[data-target="battle-input2-form--ranked--knock_out"]')
+            .removeClass('btn-info')
+            .removeClass('btn-danger')
+            .addClass('btn-default');
+
+          // ウデマエをずらす
+          $('#battle-input2-form--ranked--rank').val($('#battle-input2-form--ranked--rank-after').val());
+
           $this.prop('disabled', false);
         },
         'error': () => {
@@ -573,8 +585,6 @@
       // ユーザ入力のためにキー入力をベースにする方々
       let timerId;
       const idList2 = [
-        '#battle-input2-form--regular--kill',
-        '#battle-input2-form--regular--death',
         '#battle-input2-form--regular--kill-or-assist',
         '#battle-input2-form--regular--special',
       ];
@@ -623,6 +633,8 @@
         '#battle-input2-form--ranked--weapon',
         '#battle-input2-form--ranked--stage',
         '#battle-input2-form--ranked--result',
+        '#battle-input2-form--ranked--knock_out',
+        '#battle-input2-form--ranked--rank',
         '#battle-input2-form--ranked--rank-after',
       ];
       $(idList.join(',')).change(() => {
@@ -632,9 +644,6 @@
       // ユーザ入力のためにキー入力をベースにする方々
       var timerId;
       const idList2 = [
-        '#battle-input2-form--ranked--rank-exp-after',
-        '#battle-input2-form--ranked--kill',
-        '#battle-input2-form--ranked--death',
         '#battle-input2-form--ranked--kill-or-assist',
         '#battle-input2-form--ranked--special',
       ];
