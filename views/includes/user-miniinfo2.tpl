@@ -1,6 +1,5 @@
 {{strip}}
   {{\app\assets\UserMiniinfoAsset::register($this)|@void}}
-  {{$stat = $user->userStat}}
   <div id="user-miniinfo" itemscope itemtype="http://schema.org/Person" itemprop="author">
     <div id="user-miniinfo-box">
       <h2>
@@ -17,20 +16,18 @@
           </span>
         </a>
       </h2>
-      {{if $stat}}
-        <div class="row">
-          <div class="col-xs-4">
-            <div class="user-label">
-              {{'Battles'|translate:'app'|escape}}
-            </div>
-            <div class="user-number">
-              <a href="{{url route="show-v2/user" screen_name=$user->screen_name}}">
-                {{$user->getBattle2s()->count()|number_format|escape}}
-              </a>
-            </div>
+      <div class="row">
+        <div class="col-xs-4">
+          <div class="user-label">
+            {{'Battles'|translate:'app'|escape}}
+          </div>
+          <div class="user-number">
+            <a href="{{url route="show-v2/user" screen_name=$user->screen_name}}">
+              {{$user->getBattle2s()->count()|number_format|escape}}
+            </a>
           </div>
         </div>
-      {{/if}}
+      </div>
       {{$_icon = \app\assets\AppLinkAsset::register($this)}}
       <div class="miniinfo-databox">
         {{if $user->twitter != ''}}
