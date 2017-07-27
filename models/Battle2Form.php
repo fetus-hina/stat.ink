@@ -114,21 +114,21 @@ class Battle2Form extends Model
             Yii::t('app-rule2', 'Regular Battle') => [
                 'standard-regular-nawabari' => $nawabari,
             ],
-            // Yii::t('app-rule2', 'Ranked Battle') => [
-            //     'standard-gachi-area'   => "{$area} {$solo}",
-            //     'standard-gachi-yagura' => "{$yagura} {$solo}",
-            //     'standard-gachi-hoko'   => "{$hoko} {$solo}",
-            // ],
-            // Yii::t('app-rule2', 'League Battle (Twin)') => [
-            //     'squad_2-gachi-area'    => "{$area} {$twin}",
-            //     'squad_2-gachi-yagura'  => "{$yagura} {$twin}",
-            //     'squad_2-gachi-hoko'    => "{$hoko} {$twin}",
-            // ],
-            // Yii::t('app-rule2', 'League Battle (Quad)') => [
-            //     'squad_4-gachi-area'    => "{$area} {$quad}",
-            //     'squad_4-gachi-yagura'  => "{$yagura} {$quad}",
-            //     'squad_4-gachi-hoko'    => "{$hoko} {$quad}",
-            // ],
+            Yii::t('app-rule2', 'Ranked Battle') => [
+                'standard-gachi-area'   => "{$area} {$solo}",
+                'standard-gachi-yagura' => "{$yagura} {$solo}",
+                'standard-gachi-hoko'   => "{$hoko} {$solo}",
+            ],
+            Yii::t('app-rule2', 'League Battle (Twin)') => [
+                'squad_2-gachi-area'    => "{$area} {$twin}",
+                'squad_2-gachi-yagura'  => "{$yagura} {$twin}",
+                'squad_2-gachi-hoko'    => "{$hoko} {$twin}",
+            ],
+            Yii::t('app-rule2', 'League Battle (Quad)') => [
+                'squad_4-gachi-area'    => "{$area} {$quad}",
+                'squad_4-gachi-yagura'  => "{$yagura} {$quad}",
+                'squad_4-gachi-hoko'    => "{$hoko} {$quad}",
+            ],
             Yii::t('app-rule2', 'Splatfest') => [
                 'standard-fest-nawabari' => Yii::t('app-rule2', 'Splatfest (Solo)'),
                 'squad_4-fest-nawabari'  => Yii::t('app-rule2', 'Splatfest (Team)'),
