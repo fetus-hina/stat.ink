@@ -17,6 +17,7 @@ return [
     'Solo Queue' => '野良',
     'Splatfest (Solo)' => 'フェス（ソロ）',
     'Splatfest (Team)' => 'フェス（チーム）',
+    'Private' => 'プライベート',
 
     'Regular Battle' => 'レギュラーバトル',
     'Ranked Battle' => 'ガチマッチ',
@@ -25,6 +26,7 @@ return [
     'League Battle (Twin)' => 'リーグバトル（2人）',
     'League Battle (Quad)' => 'リーグバトル（4人）',
     'Splatfest' => 'フェス',
+    'Private Battle' => 'プライベートマッチ',
 
     'Regular' => 'レギュラー',
     'Ranked' => 'ガチ',
@@ -40,4 +42,21 @@ return [
     'SZ' => 'エリア',
     'TC' => 'ヤグラ',
     'RM' => 'ホコ',
+
+    'Turf War - Regular Battle'             => 'ナワバリバトル - レギュラーマッチ',
+    'Turf War - Splatfest (Solo)'           => 'ナワバリバトル - フェス（ソロ）',
+    'Turf War - Splatfest (Team)'           => 'ナワバリバトル - フェス（チーム）',
+    'Turf War - Private Battle'             => 'ナワバリバトル - プライベートマッチ',
+    'Splat Zones - Ranked Battle'           => 'ガチエリア - ガチマッチ',
+    'Splat Zones - League Battle (Quad)'    => 'ガチエリア - リーグバトル（2人）',
+    'Splat Zones - League Battle (Twin)'    => 'ガチエリア - リーグバトル（4人）',
+    'Splat Zones - Private Battle'          => 'ガチエリア - プライベートマッチ',
+    'Tower Control - Ranked Battle'         => 'ガチヤグラ - ガチマッチ',
+    'Tower Control - League Battle (Twin)'  => 'ガチヤグラ - リーグバトル（2人）',
+    'Tower Control - League Battle (Quad)'  => 'ガチヤグラ - リーグバトル（4人）',
+    'Tower Control - Private Battle'        => 'ガチヤグラ - プライベートマッチ',
+    'Rainmaker - Ranked Battle'             => 'ガチホコバトル - ガチマッチ',
+    'Rainmaker - League Battle (Twin)'      => 'ガチホコバトル - リーグバトル（2人）',
+    'Rainmaker - League Battle (Quad)'      => 'ガチホコバトル - リーグバトル（4人）',
+    'Rainmaker - Private Battle'            => 'ガチホコバトル - プライベートマッチ',
 ];

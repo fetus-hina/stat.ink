@@ -34,9 +34,7 @@ use yii\helpers\Url;
  * @property integer $level
  * @property integer $level_after
  * @property integer $rank_id
- * @property integer $rank_exp
  * @property integer $rank_after_id
- * @property integer $rank_after_exp
  * @property integer $rank_in_team
  * @property integer $kill
  * @property integer $death
@@ -344,25 +342,23 @@ class Battle2 extends ActiveRecord
             'lobby_id' => 'Lobby ID',
             'mode_id' => 'Mode ID',
             'rule_id' => 'Rule ID',
-            'map_id' => 'Map ID',
-            'weapon_id' => 'Weapon ID',
+            'map_id' => Yii::t('app', 'Stage'),
+            'weapon_id' => Yii::t('app', 'Weapon'),
             'is_win' => 'Is Win',
             'is_knockout' => 'Is Knockout',
-            'level' => 'Level',
-            'level_after' => 'Level After',
-            'rank_id' => 'Rank ID',
-            'rank_exp' => 'Rank Exp',
-            'rank_after_id' => 'Rank After ID',
-            'rank_after_exp' => 'Rank After Exp',
-            'rank_in_team' => 'Rank In Team',
+            'level' => Yii::t('app', 'Level'),
+            'level_after' => Yii::t('app', 'Level (after the battle)'),
+            'rank_id' => Yii::t('app', 'Rank'),
+            'rank_after_id' => Yii::t('app', 'Rank (after the battle)'),
+            'rank_in_team' => Yii::t('app', 'Rank in Team'),
             'kill' => 'Kill',
             'death' => 'Death',
             'kill_or_assist' => 'Kill or Assist',
             'special' => 'Special',
-            'kill_ratio' => 'Kill Ratio',
-            'kill_rate' => 'Kill Rate',
-            'max_kill_combo' => 'Max Kill Combo',
-            'max_kill_streak' => 'Max Kill Streak',
+            'kill_ratio' => Yii::t('app', 'Kill Ratio'),
+            'kill_rate' => Yii::t('app', 'Kill Rate'),
+            'max_kill_combo' => Yii::t('app', 'Max Kill Combo'),
+            'max_kill_streak' => Yii::t('app', 'Max Kill Streak'),
             'my_point' => 'My Point',
             'my_team_point' => 'My Team Point',
             'his_team_point' => 'His Team Point',
@@ -376,15 +372,15 @@ class Battle2 extends ActiveRecord
             'his_team_color_rgb' => 'His Team Color Rgb',
             'cash' => 'Cash',
             'cash_after' => 'Cash After',
-            'note' => 'Note',
-            'private_note' => 'Private Note',
-            'link_url' => 'Link Url',
+            'note' => Yii::t('app', 'Note'),
+            'private_note' => Yii::t('app', 'Note (private)'),
+            'link_url' => Yii::t('app', 'URL related to this battle'),
             'period' => 'Period',
             'version_id' => 'Version ID',
             'bonus_id' => 'Bonus ID',
             'env_id' => 'Env ID',
             'client_uuid' => 'Client Uuid',
-            'ua_variables' => 'Ua Variables',
+            'ua_variables' => Yii::t('app', 'Extra Data'),
             'ua_custom' => 'Ua Custom',
             'agent_game_version_id' => 'Agent Game Version ID',
             'agent_game_version_date' => 'Agent Game Version Date',
@@ -393,9 +389,9 @@ class Battle2 extends ActiveRecord
             'use_for_entire' => 'Use For Entire',
             'remote_addr' => 'Remote Addr',
             'remote_port' => 'Remote Port',
-            'start_at' => 'Start At',
-            'end_at' => 'End At',
-            'created_at' => 'Created At',
+            'start_at' => Yii::t('app', 'Battle Start'),
+            'end_at' => Yii::t('app', 'Battle End'),
+            'created_at' => Yii::t('app', 'Data Sent'),
             'updated_at' => 'Updated At',
         ];
     }
@@ -604,7 +600,20 @@ class Battle2 extends ActiveRecord
 
     public function getInked() : ?int
     {
-        return $this->my_point; // FIXME
+        if ($this->is_win === null || $this->my_point === null) {
+            return null;
+        }
+        if ($this->is_win) {
+            if (!$bonus = $this->bonus) {
+                return null;
+            }
+            if ($bonus->bonus > $this->my_point) {
+                return null;
+            }
+            return $this->my_point - $bonus->bonus;
+        } else {
+            return $this->my_point;
+        }
     }
 
     public function getCreatedAt() : int
@@ -651,9 +660,7 @@ class Battle2 extends ActiveRecord
             'map' => $this->map ? $this->map->toJsonArray() : null,
             'weapon' => $this->weapon ? $this->weapon->toJsonArray() : null,
             'rank' => $this->rank ? $this->rank->toJsonArray() : null,
-            // 'rank_exp' => $this->rank_exp,
             'rank_after' => $this->rankAfter ? $this->rankAfter->toJsonArray() : null,
-            // 'rank_exp_after' => $this->rank_exp_after,
             'level' => $this->level,
             'level_after' => $this->level_after,
             //'cash' => $this->cash,
@@ -742,5 +749,51 @@ class Battle2 extends ActiveRecord
                 : null,
             'register_at' => DateTimeFormatter::unixTimeToJsonArray(strtotime($this->created_at)),
         ];
+    }
+
+    public function getPrettyMode()
+    {
+        $key = implode('-', [
+            $this->lobby->key ?? '?',
+            $this->mode->key ?? '?',
+            $this->rule->key ?? '?',
+        ]);
+
+        switch ($key) {
+            case 'standard-regular-nawabari':
+                return Yii::t('app-rule2', 'Turf War - Regular Battle');
+            case 'standard-gachi-area':
+                return Yii::t('app-rule2', 'Splat Zones - Ranked Battle');
+            case 'standard-gachi-yagura':
+                return Yii::t('app-rule2', 'Tower Control - Ranked Battle');
+            case 'standard-gachi-hoko':
+                return Yii::t('app-rule2', 'Rainmaker - Ranked Battle');
+            case 'squad_2-gachi-area':
+                return Yii::t('app-rule2', 'Splat Zones - League Battle (Twin)');
+            case 'squad_2-gachi-yagura':
+                return Yii::t('app-rule2', 'Tower Control - League Battle (Twin)');
+            case 'squad_2-gachi-hoko':
+                return Yii::t('app-rule2', 'Rainmaker - League Battle (Twin)');
+            case 'squad_4-gachi-area':
+                return Yii::t('app-rule2', 'Splat Zones - League Battle (Quad)');
+            case 'squad_4-gachi-yagura':
+                return Yii::t('app-rule2', 'Tower Control - League Battle (Quad)');
+            case 'squad_4-gachi-hoko':
+                return Yii::t('app-rule2', 'Rainmaker - League Battle (Quad)');
+            case 'standard-fest-nawabari':
+                return Yii::t('app-rule2', 'Turf War - Splatfest (Solo)');
+            case 'squad_4-fest-nawabari':
+                return Yii::t('app-rule2', 'Turf War - Splatfest (Team)');
+            case 'private-private-nawabari':
+                return Yii::t('app-rule2', 'Turf War - Private Battle');
+            case 'private-private-area':
+                return Yii::t('app-rule2', 'Splat Zones - Private Battle');
+            case 'private-private-yagura':
+                return Yii::t('app-rule2', 'Tower Control - Private Battle');
+            case 'private-private-hoko':
+                return Yii::t('app-rule2', 'Rainmaker - Private Battle');
+        }
+
+        return null;
     }
 }

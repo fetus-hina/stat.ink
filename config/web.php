@@ -112,6 +112,9 @@ $config = [
             'loginUrl' => ['user/login'],
         ],
         'i18n' => require(__DIR__ . '/i18n.php'),
+        'formatter' => [
+            'class' => 'app\components\i18n\Formatter',
+        ],
         'mutex' => [
             'class' => 'yii\mutex\FileMutex',
             'dirMode' => 0700,
