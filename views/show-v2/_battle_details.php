@@ -6,13 +6,6 @@ use yii\helpers\Url;
 use yii\widgets\DetailView;
 
 $this->registerCss('#battle .progress{margin-bottom:0}');
-
-// $battle->my_team_percent = 20.1;
-// $battle->his_team_percent = 40.5;
-$battle->my_team_point = 1001;
-$battle->his_team_point = 1002;
-$battle->my_team_count = 42;
-$battle->his_team_count = 100;
 ?>
 <?= DetailView::widget([
   'model' => $battle,
