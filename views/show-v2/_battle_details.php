@@ -151,66 +151,70 @@ $this->registerCss('#battle .progress{margin-bottom:0}');
         if ($model->my_team_percent !== null && $model->his_team_percent !== null) {
           $myPct = (float)$model->my_team_percent;
           $hisPct = (float)$model->his_team_percent;
-          $myDrawPct = round($myPct * 100 / ($myPct + $hisPct) * 100) / 100;
-          $myPoint = null;
-          $hisPoint = null;
-          if ($model->my_team_point !== null && $model->his_team_point !== null) {
-            $myPoint = Yii::$app->formatter->asInteger($model->my_team_point) . 'P';
-            $hisPoint = Yii::$app->formatter->asInteger($model->his_team_point) . 'P';
+          if ($myPct > 0 || $hisPct > 0) {
+            $myDrawPct = round($myPct * 100 / ($myPct + $hisPct) * 100) / 100;
+            $myPoint = null;
+            $hisPoint = null;
+            if ($model->my_team_point !== null && $model->his_team_point !== null) {
+              $myPoint = Yii::$app->formatter->asInteger($model->my_team_point) . 'P';
+              $hisPoint = Yii::$app->formatter->asInteger($model->his_team_point) . 'P';
+            }
+            return Html::tag(
+              'div',
+              implode('', [
+                Html::tag(
+                  'div',
+                  sprintf('%.1f%%', $myPct),
+                  [
+                    'class' => ['progress-bar', 'progress-bar-info'],
+                    'style' => ['width' => sprintf('%.2f%%', $myDrawPct)],
+                    'title' => $myPoint,
+                  ]
+                ),
+                Html::tag(
+                  'div',
+                  sprintf('%.1f%%', $hisPct),
+                  [
+                    'class' => ['progress-bar', 'progress-bar-danger', 'text-right'],
+                    'style' => ['width' => sprintf('%.2f%%', 100 - $myDrawPct)],
+                    'title' => $hisPoint,
+                  ]
+                )
+              ]),
+              ['class' => 'progress', 'style' => 'width:100%;max-width:400px']
+            );
           }
-          return Html::tag(
-            'div',
-            implode('', [
-              Html::tag(
-                'div',
-                sprintf('%.1f%%', $myPct),
-                [
-                  'class' => ['progress-bar', 'progress-bar-info'],
-                  'style' => ['width' => sprintf('%.2f%%', $myDrawPct)],
-                  'title' => $myPoint,
-                ]
-              ),
-              Html::tag(
-                'div',
-                sprintf('%.1f%%', $hisPct),
-                [
-                  'class' => ['progress-bar', 'progress-bar-danger', 'text-right'],
-                  'style' => ['width' => sprintf('%.2f%%', 100 - $myDrawPct)],
-                  'title' => $hisPoint,
-                ]
-              )
-            ]),
-            ['class' => 'progress', 'style' => 'width:100%;max-width:400px']
-          );
         }
 
         if ($model->my_team_point !== null && $model->his_team_point !== null) {
           $myPoint = (int)$model->my_team_point;
           $hisPoint = (int)$model->his_team_point;
-          $myDrawPct = round($myPoint * 100 / ($myPoint + $hisPoint) * 100) / 100;
-          return Html::tag(
-            'div',
-            implode('', [
-              Html::tag(
-                'div',
-                sprintf('%dP', $myPoint),
-                [
-                  'class' => ['progress-bar', 'progress-bar-info'],
-                  'style' => ['width' => sprintf('%.2f%%', $myDrawPct)],
-                ]
-              ),
-              Html::tag(
-                'div',
-                sprintf('%dP', $hisPoint),
-                [
-                  'class' => ['progress-bar', 'progress-bar-danger', 'text-right'],
-                  'style' => ['width' => sprintf('%.2f%%', 100 - $myDrawPct)],
-                  'title' => $hisPoint,
-                ]
-              )
-            ]),
-            ['class' => 'progress', 'style' => 'width:100%;max-width:400px']
-          );
+          if ($myPoint > 0 || $hisPoint > 0) {
+            $myDrawPct = round($myPoint * 100 / ($myPoint + $hisPoint) * 100) / 100;
+            return Html::tag(
+              'div',
+              implode('', [
+                Html::tag(
+                  'div',
+                  sprintf('%dP', $myPoint),
+                  [
+                    'class' => ['progress-bar', 'progress-bar-info'],
+                    'style' => ['width' => sprintf('%.2f%%', $myDrawPct)],
+                  ]
+                ),
+                Html::tag(
+                  'div',
+                  sprintf('%dP', $hisPoint),
+                  [
+                    'class' => ['progress-bar', 'progress-bar-danger', 'text-right'],
+                    'style' => ['width' => sprintf('%.2f%%', 100 - $myDrawPct)],
+                    'title' => $hisPoint,
+                  ]
+                )
+              ]),
+              ['class' => 'progress', 'style' => 'width:100%;max-width:400px']
+            );
+          }
         }
         return null;
       },
