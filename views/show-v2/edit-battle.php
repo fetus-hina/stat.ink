@@ -102,6 +102,17 @@ $this->registerCss(implode('', [
         sprintf('(%s)', Yii::t('app-rule2', 'Turf War'))
       )) . "\n"
     ?>
+    <label><?=
+      Html::encode(Yii::t('app', 'Rank'))
+    ?></label>
+    <div class="form-inline">
+      <?= $_->field($form, 'rank_id')
+        ->label(false)
+        ->dropDownList($ranks) ?> →
+      <?= $_->field($form, 'rank_after_id')
+        ->label(false)
+        ->dropDownList($ranks) . "\n" ?>
+    </div>
     <?= $_->field($form, 'link_url')
       ->textInput([
         'type' => 'url',

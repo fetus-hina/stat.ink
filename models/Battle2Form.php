@@ -25,6 +25,8 @@ class Battle2Form extends Model
     public $death;
     public $kill_or_assist;
     public $special;
+    public $rank_id;
+    public $rank_after_id;
     public $my_point;
     public $link_url;
     public $note;
@@ -43,6 +45,7 @@ class Battle2Form extends Model
             [['lobby_id', 'mode_id', 'rule_id', 'map_id', 'weapon_id'], 'integer'],
             [['kill', 'death', 'kill_or_assist', 'special'], 'integer', 'min' => 0, 'max' => 99],
             [['my_point'], 'integer', 'min' => 0],
+            [['rank_id', 'rank_after_id'], 'integer'],
             [['result'], 'in', 'range' => ['win', 'lose']],
             [['link_url'], 'url', 'enableIDN' => true],
             [['link_url'], IdnToPunycodeFilterValidator::class],
@@ -61,6 +64,9 @@ class Battle2Form extends Model
                 'targetAttribute' => 'id'],
             [['weapon_id'], 'exist',
                 'targetClass' => Weapon2::class,
+                'targetAttribute' => 'id'],
+            [['rank_id', 'rank_after_id'], 'exist',
+                'targetClass' => Rank2::class,
                 'targetAttribute' => 'id'],
             [['link_url', 'note', 'private_note'], 'filter', 'filter' => function ($value) {
                 $value = (string)$value;
