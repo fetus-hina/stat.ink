@@ -45,6 +45,7 @@ use yii\web\IdentityInterface;
  * @property UserIcon $userIcon
  * @property UserStat $userStat
  * @property UserWeapon[] $userWeapons
+ * @property UserWeapon2[] $userWeapon2s
  * @property Weapon[] $weapons
  */
 class User extends ActiveRecord implements IdentityInterface
@@ -256,6 +257,11 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return $this->hasMany(UserWeapon::className(), ['user_id' => 'id'])
             ->with(['weapon']);
+    }
+
+    public function getUserWeapon2s() : \yii\db\ActiveQuery
+    {
+        return $this->hasMany(UserWeapon2::class, ['user_id' => 'id']);
     }
 
     /**

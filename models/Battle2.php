@@ -16,6 +16,7 @@ use jp3cki\uuid\Uuid;
 use yii\behaviors\AttributeBehavior;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
 use yii\helpers\Url;
 
@@ -119,6 +120,14 @@ class Battle2 extends ActiveRecord
                 return \app\components\helpers\BattleSummarizer::getSummary2($this);
             }
         };
+    }
+
+    public function init()
+    {
+        parent::init();
+        foreach ($this->events() as $event => $handler) {
+            $this->on($event, $handler);
+        }
     }
 
     public function behaviors()
@@ -226,6 +235,26 @@ class Battle2 extends ActiveRecord
                     return false;
                 },
             ],
+        ];
+    }
+
+    public function events()
+    {
+        return [
+            static::EVENT_AFTER_INSERT => function ($event) {
+                $this->adjustUserWeapon($this->weapon_id);
+            },
+            static::EVENT_AFTER_UPDATE => function ($event) {
+                if (isset($event->changedAttributes['weapon_id'])) {
+                    $this->adjustUserWeapon([
+                        $event->changedAttributes['weapon_id'],
+                        $this->weapon_id,
+                    ]);
+                }
+            },
+            static::EVENT_BEFORE_DELETE => function ($event) {
+                $this->adjustUserWeapon($this->getOldAttribute('weapon_id'), $this->id);
+            }
         ];
     }
 
@@ -793,7 +822,58 @@ class Battle2 extends ActiveRecord
             case 'private-private-hoko':
                 return Yii::t('app-rule2', 'Rainmaker - Private Battle');
         }
-
         return null;
+    }
+
+    public function adjustUserWeapon($weaponIds, ?int $excludeBattle = null) : void
+    {
+        $weaponIds = array_unique(array_filter((array)$weaponIds, function ($value) {
+            return $value > 0;
+        }));
+        if (!$weaponIds) {
+            return;
+        }
+        // $list: [weapon_id => attrs, ...] {{{
+        $query = (new \yii\db\Query())
+            ->select([
+                'weapon_id',
+                'battles'       => 'COUNT(*)',
+                'last_used_at'  => 'MAX(CASE WHEN [[end_at]] IS NOT NULL THEN [[end_at]] ELSE [[created_at]] END)',
+            ])
+            ->from('battle2')
+            ->where([
+                'user_id' => $this->user_id,
+                'weapon_id' => $weaponIds,
+            ])
+            ->groupBy('weapon_id');
+        if ($excludeBattle) {
+            $query->andWhere(['<>', 'id', $excludeBattle]);
+        }
+        $list = ArrayHelper::map(
+            $query->all(),
+            'weapon_id',
+            function ($a) {
+                return $a;
+            }
+        );
+        // }}}
+        foreach ($weaponIds as $weapon_id) {
+            if (isset($list[$weapon_id])) {
+                if (!$model = UserWeapon2::findOne(['user_id' => $this->user_id, 'weapon_id' => $weapon_id])) {
+                    $model = Yii::createObject([
+                        'class' => UserWeapon2::class,
+                        'user_id' => $this->user_id,
+                        'weapon_id' => $weapon_id,
+                    ]);
+                }
+                $model->battles = (int)$list[$weapon_id]['battles'];
+                $model->last_used_at = $list[$weapon_id]['last_used_at'];
+                $model->save();
+            } else {
+                if ($model = UserWeapon2::findOne(['user_id' => $this->user_id, 'weapon_id' => $weapon_id])) {
+                    $model->delete();
+                }
+            }
+        }
     }
 }

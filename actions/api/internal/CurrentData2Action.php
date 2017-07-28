@@ -10,12 +10,14 @@ namespace app\actions\api\internal;
 use Yii;
 use app\assets\MapImageAsset;
 use app\components\helpers\Battle as BattleHelper;
-use app\models\Mode2;
 use app\models\Map2;
+use app\models\Mode2;
 use app\models\PeriodMap;
 use app\models\UserWeapon;
 use app\models\Weapon2;
+use app\models\WeaponCategory2;
 use app\models\WeaponType2;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 use yii\web\BadRequestHttpException;
 use yii\web\ViewAction;
@@ -145,63 +147,59 @@ class CurrentData2Action extends ViewAction
     public function getWeapons()
     {
         $ret = [];
-        foreach (WeaponType2::find()->orderBy('[[id]]')->asArray()->all() as $type) {
-            $ret[] = [
-                'name' => Yii::t('app-weapon2', $type['name']),
-                'list' => (function (array $type) : array {
-                    $tmp = [];
-                    foreach (Weapon2::find()->andWhere(['type_id' => $type['id']])->asArray()->all() as $_) {
-                        $tmp[$_['key']] = [
-                            'name' => Yii::t('app-weapon2', $_['name']),
-                        ];
-                    }
-                    uasort($tmp, function ($a, $b) {
-                        return strcasecmp($a['name'], $b['name']);
-                    });
-                    return $tmp;
-                })($type),
-            ];
+        foreach (WeaponCategory2::find()->orderBy(['id' => SORT_ASC])->all() as $category) {
+            $q = $category->getWeaponTypes()->orderBy(['id' => SORT_ASC]);
+            foreach ($q->all() as $type) {
+                $weapons = $type->getWeapons()->asArray()->all();
+                if ($weapons) {
+                    $ret[] = [
+                        'name' => ($category->name === $type->name)
+                            ? Yii::t('app-weapon2', $type->name)
+                            : sprintf(
+                                '%s » %s',
+                                Yii::t('app-weapon2', $category->name),
+                                Yii::t('app-weapon2', $type->name)
+                            ),
+                        'list' => (function () use ($weapons) : array {
+                            $tmp = ArrayHelper::map(
+                                $weapons,
+                                'key',
+                                function (array $weapon) : array {
+                                    return [
+                                        'name' => Yii::t('app-weapon2', $weapon['name']),
+                                    ];
+                                }
+                            );
+                            uasort($tmp, function (array $a, array $b) {
+                                return strcasecmp($a['name'], $b['name']);
+                            });
+                            return $tmp;
+                        })($type),
+                    ];
+                }
+            }
         }
         return $ret;
     }
 
     public function getFavoriteWeapons()
     {
-        $list = array_map(
-            function (array $w) : array {
+        if (!$user = Yii::$app->user->identity) {
+            return [];
+        }
+        $fmt = Yii::$app->formatter;
+        return array_map(
+            function (array $row) use ($fmt) : array {
                 return [
-                    'key' => $w['key'],
-                    'name' => Yii::t('app-weapon2', $w['name']),
+                    'key' => $row['weapon']['key'],
+                    'name' => sprintf(
+                        '%s (%s)',
+                        Yii::t('app-weapon2', $row['weapon']['name']),
+                        $fmt->asInteger($row['battles'])
+                    ),
                 ];
             },
-            Weapon2::find()
-                ->andWhere(['key' => [
-                    'sshooter_collabo',
-                    'splatroller',
-                    'splatcharger',
-                    'manueuver',
-                ]])
-                ->asArray()
-                ->all()
+            $user->getUserWeapon2s()->favoriteOrder()->limit(10)->with('weapon')->asArray()->all()
         );
-        usort($list, function ($a, $b) {
-            return strcasecmp($a['name'], $b['name']);
-        });
-        return $list;
-        // if (!$user = Yii::$app->user->identity) {
-        //     return [];
-        // }
-        // $list = $user->getUserWeapons()
-        //     ->with('weapon')
-        //     ->orderBy('[[count]] DESC')
-        //     ->limit(10)
-        //     ->asArray()
-        //     ->all();
-        // return array_map(function (array $uw) : array {
-        //     return [
-        //         'key' => $uw['weapon']['key'],
-        //         'name' => Yii::t('app-weapon', $uw['weapon']['name']),
-        //     ];
-        // }, $list);
     }
 }
