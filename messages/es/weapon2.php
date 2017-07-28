@@ -18,6 +18,7 @@ return [
     'Splatlings' => 'Tintralladoras',
     //
     'Blaster' => 'Devastador',
+    'Dual Squelcher' => 'Barredora Doble',
     'Splash-o-matic' => 'Marcador fino',
     'Splat Dualies' => 'Dual diffusor',
     'Splattershot Pro' => 'Lanzatintas plus',

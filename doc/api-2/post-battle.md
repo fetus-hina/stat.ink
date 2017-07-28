@@ -135,6 +135,7 @@ POST データは全体で 12MiB 以内である必要があります。
 |`52gal`|.52ガロン|
 |`96gal`|.96ガロン|
 |`clashblaster`|クラッシュブラスター|
+|`dualsweeper`|デュアルスイーパー|
 |`h3reelgun`|H3リールガン|
 |`hotblaster_custom`|ホットブラスターカスタム|
 |`hotblaster`|ホットブラスター|
