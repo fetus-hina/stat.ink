@@ -22,20 +22,20 @@ $this->registerMetaTag(['name' => 'twitter:title', 'content' => $title]);
 $this->registerMetaTag(['name' => 'twitter:url', 'content' => $canonicalUrl]);
 $this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink']);
 if ($user->twitter != '') {
-  $this->registerMetaTag([
+    $this->registerMetaTag([
     'name' => 'twitter:creator',
     'content' => sprintf('@%s', $user->twitter),
   ]);
 }
 $summary = [];
 if ($battle->rule) {
-  $summary[] = Yii::t('app-rule2', $battle->rule->name);
+    $summary[] = Yii::t('app-rule2', $battle->rule->name);
 }
 if ($battle->map) {
-  $summary[] = Yii::t('app-map2', $battle->map->name);
+    $summary[] = Yii::t('app-map2', $battle->map->name);
 }
 if ($battle->is_win !== null) {
-  $summary[] = ($battle->is_win)
+    $summary[] = ($battle->is_win)
     ? Yii::t('app', 'Won')
     : Yii::t('app', 'Lost');
 }
@@ -44,7 +44,7 @@ $this->registerMetaTag([
   'content' => implode(' | ', $summary),
 ]);
 if ($battle->previousBattle) {
-  $this->registerLinkTag([
+    $this->registerLinkTag([
     'rel' => 'prev',
     'href' => Url::to(
       ['show-v2/battle', 'screen_name' => $user->screen_name, 'battle' => $battle->previousBattle->id],
@@ -53,7 +53,7 @@ if ($battle->previousBattle) {
   ]);
 }
 if ($battle->nextBattle) {
-  $this->registerLinkTag([
+    $this->registerLinkTag([
     'rel' => 'next',
     'href' => Url::to(
       ['show-v2/battle', 'screen_name' => $user->screen_name, 'battle' => $battle->nextBattle->id],
