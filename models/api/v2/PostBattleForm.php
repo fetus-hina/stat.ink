@@ -61,6 +61,8 @@ class PostBattleForm extends Model
     public $his_team_point;
     public $my_team_percent;
     public $his_team_percent;
+    public $my_team_count;
+    public $his_team_count;
     public $players;
     public $death_reasons;
     public $events;
@@ -163,6 +165,7 @@ class PostBattleForm extends Model
                 'min' => 0.0,
                 'max' => 100.0,
             ],
+            [['my_team_count', 'his_team_count'], 'integer', 'min' => 0, 'max' => 100],
             [['players'], 'validatePlayers'],
             [['death_reasons'], 'validateDeathReasons'],
             [['events'], 'validateEvents'],
@@ -310,6 +313,8 @@ class PostBattleForm extends Model
         $battle->his_team_point = $intval($this->his_team_point);
         $battle->my_team_percent  = $floatval($this->my_team_percent);
         $battle->his_team_percent = $floatval($this->his_team_percent);
+        $battle->my_team_count  = $intval($this->my_team_count);
+        $battle->his_team_count = $intval($this->his_team_count);
         $battle->is_automated   = ($this->automated === 'yes');
         $battle->link_url       = $this->link_url;
         $battle->note           = $this->note;

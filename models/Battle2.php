@@ -689,8 +689,8 @@ class Battle2 extends ActiveRecord
             'his_team_point' => $this->his_team_point,
             'my_team_percent' => $this->my_team_percent,
             'his_team_percent' => $this->his_team_percent,
-            // 'my_team_count' => $this->my_team_count,
-            // 'his_team_count' => $this->his_team_count,
+            'my_team_count' => $this->my_team_count,
+            'his_team_count' => $this->his_team_count,
             // 'my_team_color' => [
             //     'hue' => $this->my_team_color_hue,
             //     'rgb' => $this->my_team_color_rgb,
