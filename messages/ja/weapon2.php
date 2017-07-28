@@ -13,6 +13,7 @@ return [
     'Brellas' => 'シェルター',
     'Brushes' => 'フデ',
     'Chargers' => 'チャージャー',
+    'Dualies' => 'マニューバー',
     'Rollers' => 'ローラー',
     'Shooters' => 'シューター',
     'Sloshers' => 'スロッシャー',
