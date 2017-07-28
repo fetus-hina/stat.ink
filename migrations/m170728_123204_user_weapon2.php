@@ -11,7 +11,6 @@ class m170728_123204_user_weapon2 extends Migration
 {
     public function up()
     {
-        $this->dropTable('user_weapon2');
         $this->createTable('user_weapon2', [
             'user_id'       => $this->integer()->notNull(),
             'weapon_id'     => $this->integer()->NotNull(),
