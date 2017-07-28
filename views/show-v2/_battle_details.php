@@ -135,7 +135,7 @@ $this->registerCss('#battle .progress{margin-bottom:0}');
             : Html::tag(
               'span',
               Html::encode(Yii::t('app', 'Lost')),
-              ['class' => 'label label-success']
+              ['class' => 'label label-danger']
             );
         } else {
           $parts[] = Html::encode('?');
