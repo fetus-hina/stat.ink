@@ -114,7 +114,7 @@ class Battle2Form extends Model
         $area       = Yii::t('app-rule2', 'Splat Zones');
         $yagura     = Yii::t('app-rule2', 'Tower Control');
         $hoko       = Yii::t('app-rule2', 'Rainmaker');
-        $private    = Yii::t('app-rule2', 'Private Match');
+        $private    = Yii::t('app-rule2', 'Private Battle');
         return [
             '' => Yii::t('app', 'Unknown'),
             Yii::t('app-rule2', 'Regular Battle') => [
@@ -139,12 +139,12 @@ class Battle2Form extends Model
                 'standard-fest-nawabari' => Yii::t('app-rule2', 'Splatfest (Solo)'),
                 'squad_4-fest-nawabari'  => Yii::t('app-rule2', 'Splatfest (Team)'),
             ],
-            // $private => [
-            //     'private-private-nawabari'  => "{$nawabari} {$priv}",
-            //     'private-private-area'      => "{$area} {$priv}",
-            //     'private-private-yagura'    => "{$yagura} {$priv}",
-            //     'private-private-hoko'      => "{$hoko} {$priv}",
-            // ],
+            $private => [
+                'private-private-nawabari'  => "{$nawabari} {$priv}",
+                'private-private-area'      => "{$area} {$priv}",
+                'private-private-yagura'    => "{$yagura} {$priv}",
+                'private-private-hoko'      => "{$hoko} {$priv}",
+            ],
         ];
     }
 
@@ -208,7 +208,7 @@ class Battle2Form extends Model
         $this->mode_id = null;
         $this->rule_id = null;
         $s = preg_match(
-            '/^(standard|squad_[24]|private)-(regular|gachi|fest)-(nawabari|area|yagura|hoko)$/',
+            '/^(standard|squad_[24]|private)-(regular|gachi|fest|private)-(nawabari|area|yagura|hoko)$/',
             $str,
             $match
         );

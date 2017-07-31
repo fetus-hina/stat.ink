@@ -77,6 +77,7 @@ POST データは全体で 12MiB 以内である必要があります。
 |`standard`|ひとりプレー（野良、ソロ）|
 |`squad_2`|リーグ（2人）|
 |`squad_4`|リーグ（4人）、フェス（チーム）|
+|`private`|プライベートマッチ|
 
 `mode` は次のいずれかの値を取ります。
 
@@ -85,6 +86,7 @@ POST データは全体で 12MiB 以内である必要があります。
 |`regular`|レギュラーマッチ|
 |`gachi`|ガチバトル|
 |`fest`|フェス|
+|`private`|プライベートマッチ|
 
 `rule` は次のいずれかの値を取ります。
 
@@ -106,6 +108,7 @@ POST データは全体で 12MiB 以内である必要があります。
 |ガチマッチ|リーグ（4人）|`squad_4`|`gachi`|`area`, `yagura`, `hoko`|
 |フェス|ソロ|`standard`|`fest`|`nawabari`||
 |フェス|チーム|`squad_4`|`fest`|`nawabari`||
+|プラベ|-|`private`|`private`|`nawabari`, `area`, `yagura`, `hoko`|
 
 
 `stage`

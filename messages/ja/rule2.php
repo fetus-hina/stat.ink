@@ -13,6 +13,7 @@ return [
     '(Solo)' => '（ソロ）',
     '(Twin)' => '（2人）',
     '(Quad)' => '（4人）',
+    '(Private)' => '（プラベ）',
 
     'Solo Queue' => '野良',
     'Splatfest (Solo)' => 'フェス（ソロ）',
