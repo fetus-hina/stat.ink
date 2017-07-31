@@ -514,7 +514,7 @@ $this->registerCss('#battle .progress{margin-bottom:0}');
     [
       'label' => Yii::t('app', 'Game Version'), // {{{
       'value' => function ($model) {
-        return $model->splatoonVersion->name ?? Yii::t('app', 'Unknown');
+        return $model->version->name ?? Yii::t('app', 'Unknown');
       },
       // }}}
     ],
