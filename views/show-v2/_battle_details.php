@@ -225,30 +225,32 @@ $this->registerCss('#battle .progress{margin-bottom:0}');
         if ($model->my_team_count !== null && $model->his_team_count !== null) {
           $myCount = (int)$model->my_team_count;
           $hisCount = (int)$model->his_team_count;
-          $myDrawPct = round($myCount * 100 / ($myCount + $hisCount) * 100) / 100;
-          return Html::tag(
-            'div',
-            implode('', [
-              Html::tag(
-                'div',
-                sprintf('%dP', $myCount),
-                [
-                  'class' => ['progress-bar', 'progress-bar-info'],
-                  'style' => ['width' => sprintf('%.2f%%', $myDrawPct)],
-                ]
-              ),
-              Html::tag(
-                'div',
-                sprintf('%dP', $hisCount),
-                [
-                  'class' => ['progress-bar', 'progress-bar-danger', 'text-right'],
-                  'style' => ['width' => sprintf('%.2f%%', 100 - $myDrawPct)],
-                  'title' => $hisCount,
-                ]
-              )
-            ]),
-            ['class' => 'progress', 'style' => 'width:100%;max-width:400px']
-          );
+          if ($myCount > 0 || $hisCount > 0) {
+            $myDrawPct = round($myCount * 100 / ($myCount + $hisCount) * 100) / 100;
+            return Html::tag(
+              'div',
+              implode('', [
+                Html::tag(
+                  'div',
+                  sprintf('%dP', $myCount),
+                  [
+                    'class' => ['progress-bar', 'progress-bar-info'],
+                    'style' => ['width' => sprintf('%.2f%%', $myDrawPct)],
+                  ]
+                ),
+                Html::tag(
+                  'div',
+                  sprintf('%dP', $hisCount),
+                  [
+                    'class' => ['progress-bar', 'progress-bar-danger', 'text-right'],
+                    'style' => ['width' => sprintf('%.2f%%', 100 - $myDrawPct)],
+                    'title' => $hisCount,
+                  ]
+                )
+              ]),
+              ['class' => 'progress', 'style' => 'width:100%;max-width:400px']
+            );
+          }
         }
         return null;
       },
