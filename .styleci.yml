@@ -1,0 +1,5 @@
+preset: recommended
+risky: false
+finder:
+  exclude:
+    - "views"
