@@ -90,8 +90,6 @@ $this->registerCss('#battle .progress{margin-bottom:0}');
     [
       'attribute' => 'level', // {{{
       'value' => function ($model) : ?string {
-        $model->level = 10;
-        $model->level_after = 42;
         if ($model->level === null && $model->level_after === null) {
           return null;
         }
