@@ -80,19 +80,19 @@ class CurrentData2Action extends ViewAction
             $fest = $info2(['gangaze', 'ama']);
         } elseif ($now <= strtotime('2017-07-15T21:00:00+09:00')) {
             // 日本フェス後半
-            $fest = $info2(['combu', 'tachiuo']);
+            $fest = $info2(['kombu', 'tachiuo']);
         } elseif ($now < strtotime('2017-07-16T03:00:00+09:00')) {
             // 欧州フェス前半
             $fest = $info2(['gangaze', 'ama']);
         } elseif ($now <= strtotime('2017-07-16T05:00:00+09:00')) {
             // 欧州フェス後半
-            $fest = $info2(['combu', 'tachiuo']);
+            $fest = $info2(['kombu', 'tachiuo']);
         } elseif ($now < strtotime('2017-07-16T09:00:00+09:00')) {
             // 米国フェス前半
             $fest = $info2(['gangaze', 'ama']);
         } else {
             // 米国フェス後半
-            $fest = $info2(['combu', 'tachiuo']);
+            $fest = $info2(['kombu', 'tachiuo']);
         }
         return [
             'period' => [
