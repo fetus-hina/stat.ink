@@ -8,6 +8,7 @@
 namespace app\models\api\v2;
 
 use Yii;
+use app\components\behaviors\FixAttributesBehavior;
 use app\components\behaviors\TrimAttributesBehavior;
 use app\components\helpers\CriticalSection;
 use app\components\helpers\db\Now;
@@ -87,6 +88,18 @@ class PostBattleForm extends Model
             [
                 'class' => TrimAttributesBehavior::class,
                 'targets' => array_keys($this->attributes),
+            ],
+            [
+                'class' => FixAttributesBehavior::class,
+                'attributes' => [
+                    'stage' => [
+                        'combu' => 'kombu', // issue #219
+                    ],
+                    'weapon' => [
+                        'manueuver' => 'maneuver', // issue #221
+                        'manueuver_collabo' => 'maneuver_collabo', // issue #221
+                    ],
+                ],
             ],
         ];
     }

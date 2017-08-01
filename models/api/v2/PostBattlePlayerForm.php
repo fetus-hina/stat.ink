@@ -8,6 +8,7 @@
 namespace app\models\api\v2;
 
 use Yii;
+use app\components\behaviors\FixAttributesBehavior;
 use app\components\behaviors\TrimAttributesBehavior;
 use app\models\Rank2;
 use app\models\Weapon2;
@@ -34,6 +35,15 @@ class PostBattlePlayerForm extends Model
             [
                 'class' => TrimAttributesBehavior::class,
                 'targets' => array_keys($this->attributes),
+            ],
+            [
+                'class' => FixAttributesBehavior::class,
+                'attributes' => [
+                    'weapon' => [
+                        'manueuver' => 'maneuver', // issue #221
+                        'manueuver_collabo' => 'maneuver_collabo', // issue #221
+                    ],
+                ],
             ],
         ];
     }
