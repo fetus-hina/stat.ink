@@ -28,6 +28,7 @@ return [
     'Custom Blaster' => 'ホットブラスターカスタム',
     'Dapple Dualies' => 'スパッタリー',
     'Dualie Squelchers' => 'デュアルスイーパー',
+    'Enperry Splat Dualies' => 'スプラマニューバーコラボ',
     'H-3 Nozzlenose' => 'H3リールガン',
     'Jet Squelcher' => 'ジェットスイーパー',
     'L-3 Nozzlenose' => 'L3リールガン',
