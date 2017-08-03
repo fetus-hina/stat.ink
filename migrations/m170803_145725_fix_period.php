@@ -28,7 +28,6 @@ class m170803_145725_fix_period extends Migration
             'UPDATE {{battle2}} SET [[period]] = %s WHERE [[period]] IS NULL',
             $calcBattlePeriod
         ));
-
     }
 
     public function safeDown()

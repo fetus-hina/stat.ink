@@ -772,7 +772,7 @@ class Battle2 extends ActiveRecord
                 if (!$this->period) {
                     return null;
                 }
-                list ($from, $to) = BattleHelper::periodToRange2($this->period);
+                list($from, $to) = BattleHelper::periodToRange2($this->period);
                 return sprintf(
                     '%s/%s',
                     gmdate(\DateTime::ATOM, $from),
