@@ -322,19 +322,14 @@
 
                 <!--h5>{{'Stages'|translate:'app'|escape}}</h5-->
                 <div class="form-group">
-                  <input type="hidden" id="battle-input2-form--fest--stage" name="stage" value="">
-                  <div class="row">
-                    <div class="col-xs-6">
-                      <button type="button" class="btn btn-default btn-block battle-input2-form--stages" data-game-mode="fest" data-target="battle-input2-form--fest--stage">
-                        Stage A
-                      </button>
-                    </div>
-                    <div class="col-xs-6">
-                      <button type="button" class="btn btn-default btn-block battle-input2-form--stages" data-game-mode="fest" data-target="battle-input2-form--fest--stage">
-                        Stage B
-                      </button>
-                    </div>
-                  </div>
+                  <select class="form-control" id="battle-input2-form--fest--stage" name="stage">
+                    {{use class="app\models\Map2"}}
+                    {{foreach Map2::getSortedMap() as $_key => $_name}}
+                      <option value="{{$_key|escape}}">
+                        {{$_name|escape}}
+                      </option>
+                    {{/foreach}}
+                  </select>
                 </div>
 
                 <!--h5>{{'Result'|translate:'app'|escape}}</h5-->
