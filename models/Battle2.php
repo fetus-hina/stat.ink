@@ -11,6 +11,7 @@ use Yii;
 use app\components\behaviors\RemoteAddrBehavior;
 use app\components\behaviors\RemotePortBehavior;
 use app\components\behaviors\TimestampBehavior;
+use app\components\helpers\Battle as BattleHelper;
 use app\components\helpers\DateTimeFormatter;
 use jp3cki\uuid\Uuid;
 use yii\behaviors\AttributeBehavior;
@@ -223,6 +224,17 @@ class Battle2 extends ActiveRecord
                     }
                     $version = SplatoonVersion2::findCurrentVersion($time);
                     return $version ? $version->id : null;
+                },
+            ],
+            [
+                // Period の設定
+                'class' => AttributeBehavior::class,
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_VALIDATE => [ 'period' ],
+                ],
+                'value' => function ($event) {
+                    $datetime = $event->sender->getVirtualStartTime();
+                    return BattleHelper::calcPeriod2($datetime->getTimestamp());
                 },
             ],
             [
@@ -665,6 +677,19 @@ class Battle2 extends ActiveRecord
         return ($this->mode->key ?? null) === $key;
     }
 
+    public function getVirtualStartTime() : \DateTimeImmutable
+    {
+        if ($this->start_at) {
+            return new \DateTimeImmutable($this->start_at);
+        }
+        if ($this->end_at) {
+            return (new \DateTimeImmutable($this->end_at))
+                ->sub(new \DateInterval('PT3M'));
+        }
+        return (new \DateTimeImmutable($this->created_at))
+            ->sub(new \DateInterval('PT3M15S'));
+    }
+
     public function toJsonArray(array $skips = []) : array
     {
         $events = null;
@@ -744,7 +769,18 @@ class Battle2 extends ActiveRecord
             //         'clothing' => $this->clothing ? $this->clothing->toJsonArray() : null,
             //         'shoes'    => $this->shoes ? $this->shoes->toJsonArray() : null,
             //     ],
-            // 'period' => $this->period,
+            'period' => $this->period,
+            'period_range' => (function () {
+                if (!$this->period) {
+                    return null;
+                }
+                list ($from, $to) = BattleHelper::periodToRange2($this->period);
+                return sprintf(
+                    '%s/%s',
+                    gmdate(\DateTime::ATOM, $from),
+                    gmdate(\DateTime::ATOM, $to)
+                );
+            })(),
             'players' => (in_array('players', $skips, true) || count($this->battlePlayers) === 0)
                 ? null
                 : array_map(
