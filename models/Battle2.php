@@ -645,13 +645,11 @@ class Battle2 extends ActiveRecord
             return null;
         }
         if ($this->is_win) {
-            if (!$bonus = $this->bonus) {
+            $bonus = 1000;
+            if ($bonus > $this->my_point) {
                 return null;
             }
-            if ($bonus->bonus > $this->my_point) {
-                return null;
-            }
-            return $this->my_point - $bonus->bonus;
+            return $this->my_point - $bonus;
         } else {
             return $this->my_point;
         }
@@ -803,8 +801,8 @@ class Battle2 extends ActiveRecord
             'link_url' => ((string)$this->link_url !== '') ? $this->link_url : null,
             'note' => ((string)$this->note !== '') ? $this->note : null,
             'game_version' => $this->version ? $this->version->name : null,
-            'nawabari_bonus' => (($this->rule->key ?? null) === 'nawabari' && $this->bonus)
-                ? (int)$this->bonus->bonus
+            'nawabari_bonus' => (($this->rule->key ?? null) === 'nawabari')
+                ? 1000
                 : null,
             'start_at' => $this->start_at != ''
                 ? DateTimeFormatter::unixTimeToJsonArray(strtotime($this->start_at))
