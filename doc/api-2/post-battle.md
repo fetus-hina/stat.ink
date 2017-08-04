@@ -144,6 +144,9 @@ POST データは全体で 12MiB 以内である必要があります。
 |`clashblaster`|クラッシュブラスター||
 |`dualsweeper`|デュアルスイーパー||
 |`h3reelgun`|H3リールガン||
+|`heroblaster_replica`|ヒーローブラスターレプリカ|
+|`heromaneuver_replica`|ヒーローマニューバーレプリカ|
+|`heroshooter_replica`|ヒーローシューターレプリカ|
 |`hotblaster_custom`|ホットブラスターカスタム||
 |`hotblaster`|ホットブラスター||
 |`jetsweeper`|ジェットスイーパー||
@@ -163,11 +166,14 @@ POST データは全体で 12MiB 以内である必要があります。
 |`wakaba`|わかばシューター||
 |`carbon`|カーボンローラー||
 |`dynamo`|ダイナモローラー||
+|`herobrush_replica`|ヒーローブラシレプリカ||
+|`heroroller_replica`|ヒーローローラーレプリカ||
 |`hokusai`|ホクサイ||
 |`pablo`|パブロ||
 |`splatroller_collabo`|スプラローラーコラボ||
 |`splatroller`|スプラローラー||
 |`variableroller`|ヴァリアブルローラー||
+|`herocharger_replica`|ヒーローチャージャーレプリカ||
 |`liter4k_scope`|4Kスコープ||
 |`liter4k`|リッター4K||
 |`soytuber`|ソイチューバー||
@@ -176,8 +182,10 @@ POST データは全体で 12MiB 以内である必要があります。
 |`splatscope_collabo`|スプラスコープコラボ||
 |`splatscope`|スプラスコープ||
 |`bucketslosher`|バケットスロッシャー||
+|`heroslosher_replica`|ヒーロースロッシャーレプリカ||
 |`hissen`|ヒッセン||
 |`barrelspinner`|バレルスピナー||
+|`hirospinner_replica`|ヒーロースピナーレプリカ||
 |`splatspinner`|スプラスピナー||
 
 
