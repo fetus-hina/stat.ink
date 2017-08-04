@@ -23,6 +23,7 @@ return [
     'Splat Dualies' => 'Dual diffusor',
     'Splattershot Pro' => 'Lanzatintas plus',
     'Splattershot' => 'Lanzatintas',
+    'Sploosh-o-matic' => 'Marcador',
     'Tentatek Splattershot' => 'Lanzatintas B',
     //
     'Dynamo Roller' => 'Dinamorrodillo',

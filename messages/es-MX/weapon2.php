@@ -14,5 +14,6 @@ return [
 
     'Dual Squelcher' => 'Soplador doble',
     'Splattershot' => 'Rociador',
+    'Sploosh-o-matic' => 'Marcador grueso',
     'Tentatek Splattershot' => 'Rociador Tentáctica',
 ];

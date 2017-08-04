@@ -40,6 +40,7 @@ return [
     'Splattershot Jr.' => 'わかばシューター',
     'Splattershot Pro' => 'プライムシューター',
     'Splattershot' => 'スプラシューター',
+    'Sploosh-o-matic' => 'ボールドマーカー',
     'Tentatek Splattershot' => 'スプラシューターコラボ',
     // rollers -----
     'Carbon Roller' => 'カーボンローラー',
