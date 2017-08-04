@@ -185,7 +185,7 @@ POST データは全体で 12MiB 以内である必要があります。
 |`heroslosher_replica`|ヒーロースロッシャーレプリカ||
 |`hissen`|ヒッセン||
 |`barrelspinner`|バレルスピナー||
-|`hirospinner_replica`|ヒーロースピナーレプリカ||
+|`herospinner_replica`|ヒーロースピナーレプリカ||
 |`splatspinner`|スプラスピナー||
 
 
