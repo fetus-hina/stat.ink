@@ -30,6 +30,9 @@ return [
     'Dualie Squelchers' => 'デュアルスイーパー',
     'Enperry Splat Dualies' => 'スプラマニューバーコラボ',
     'H-3 Nozzlenose' => 'H3リールガン',
+    'Hero Blaster Replica' => 'ヒーローブラスターレプリカ',
+    'Hero Dualies Replica' => 'ヒーローマニューバーレプリカ',
+    'Hero Shot Replica' => 'ヒーローシューターレプリカ',
     'Jet Squelcher' => 'ジェットスイーパー',
     'L-3 Nozzlenose' => 'L3リールガン',
     'Luna Blaster' => 'ノヴァブラスター',
@@ -46,6 +49,8 @@ return [
     'Carbon Roller' => 'カーボンローラー',
     'Dynamo Roller' => 'ダイナモローラー',
     'Flingza Roller' => 'ヴァリアブルローラー',
+    'Hero Brush Replica' => 'ヒーローブラシレプリカ',
+    'Hero Roller Replica' => 'ヒーローローラーレプリカ',
     'Inkbrush' => 'パブロ',
     'Krak-On Splat Roller' => 'スプラローラーコラボ',
     'Octobrush' => 'ホクサイ',
@@ -56,13 +61,18 @@ return [
     'Firefin Splat Charger' => 'スプラチャージャーコラボ',
     'Firefin Splatterscope' => 'スプラスコープコラボ',
     'Goo Tuber' => 'ソイチューバー',
+    'Hero Charger Replica' => 'ヒーローチャージャーレプリカ',
     'Splat Charger' => 'スプラチャージャー',
     'Splatterscope' => 'スプラスコープ',
     // sloshers -----
+    'Hero Slosher Replica' => 'ヒーロースロッシャーレプリカ',
     'Slosher' => 'バケットスロッシャー',
     'Tri-Slosher' => 'ヒッセン',
     // splatlings ----
     'Heavy Splatling' => 'バレルスピナー',
+    'Hero Splatling Replica' => 'ヒーロースピナーレプリカ',
     'Mini Splatling' => 'スプラスピナー',
     // brellas ------
+    'Hero Brella Replica' => 'ヒーローシェルターレプリカ',
+    'Splat Brella' => 'パラシェルター',
 ];

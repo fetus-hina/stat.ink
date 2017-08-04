@@ -19,6 +19,7 @@ return [
     //
     'Blaster' => 'Devastador',
     'Dualie Squelchers' => 'Barredora dual',
+    'Hero Shot Replica' => 'Pistola de Élite (réplica)',
     'Splash-o-matic' => 'Marcador fino',
     'Splat Dualies' => 'Dual diffusor',
     'Splattershot Pro' => 'Lanzatintas plus',

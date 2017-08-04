@@ -13,6 +13,7 @@ return [
     'Splatlings' => 'Garabateadors',
 
     'Dual Squelcher' => 'Soplador doble',
+    'Hero Shot Replica' => 'Rociador de élite réplica',
     'Splattershot' => 'Rociador',
     'Sploosh-o-matic' => 'Marcador grueso',
     'Tentatek Splattershot' => 'Rociador Tentáctica',
