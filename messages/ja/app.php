@@ -297,6 +297,7 @@ return [
     'Remote Follow' => 'リモートフォロー',
     'Reset icon' => 'アイコンを戻す',
     'Reset to default icon' => 'デフォルトアイコンに戻す',
+    'Reskin of' => '同一性能',
     'Result' => '結果',
     'Results of {0}\'s Battle' => '{0}さんのバトル結果',
     'Save!' => '保存',

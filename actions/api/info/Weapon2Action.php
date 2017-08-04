@@ -33,9 +33,12 @@ class Weapon2Action extends BaseAction
                                     function (Weapon2 $weapon) : array {
                                         return [
                                             'key' => $weapon->key,
+                                            'name' => Yii::t('app-weapon2', $weapon->name),
                                             'names' => Translator::translateToAll('app-weapon2', $weapon->name),
                                             'sub' => Yii::t('app-subweapon2', $weapon->subweapon->name),
                                             'special' => Yii::t('app-special2', $weapon->special->name),
+                                            'mainReference' => Yii::t('app-weapon2', $weapon->mainReference->name),
+                                            'canonical' => Yii::t('app-weapon2', $weapon->canonical->name),
                                         ];
                                     },
                                     $type->weapons
@@ -56,6 +59,8 @@ class Weapon2Action extends BaseAction
                     },
                     'weaponTypes.weapons.subweapon',
                     'weaponTypes.weapons.special',
+                    'weaponTypes.weapons.mainReference',
+                    'weaponTypes.weapons.canonical',
                 ])
                 ->orderBy('[[id]] ASC')
                 ->all()
@@ -73,7 +78,7 @@ class Weapon2Action extends BaseAction
             return strnatcasecmp($a['name'], $b['name']);
         });
 
-        return $this->controller->render('weapon2.tpl', [
+        return $this->controller->render('weapon2', [
             'categories' => $categories,
             'langs' => $langs,
         ]);

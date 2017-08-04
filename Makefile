@@ -53,6 +53,7 @@ RESOURCE_TARGETS_MAIN := \
 	resources/.compiled/stat.ink/main.js \
 	resources/.compiled/stat.ink/no-image.png \
 	resources/.compiled/stat.ink/session-calendar.js \
+	resources/.compiled/stat.ink/sortable-table.js \
 	resources/.compiled/stat.ink/swipebox-runner.js \
 	resources/.compiled/stat.ink/user-miniinfo.css \
 	resources/.compiled/stat.ink/user-stat-by-map-rule-detail.css \
@@ -258,6 +259,9 @@ resources/.compiled/stat.ink/session-calendar.js: resources/stat.ink/session-cal
 
 resources/.compiled/stat.ink/user-stat-by-map-rule-detail.css: resources/stat.ink/user-stat-by-map-rule-detail.less $(GULP)
 	$(GULP) less --in $< --out $@
+
+resources/.compiled/stat.ink/sortable-table.js: resources/stat.ink/sortable-table.js $(GULP)
+	$(GULP) js --in $< --out $@
 
 resources/.compiled/ostatus/remote-follow.js: resources/ostatus/remote-follow.js $(GULP)
 	$(GULP) js --in $< --out $@
