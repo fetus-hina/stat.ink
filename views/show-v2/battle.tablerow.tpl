@@ -138,7 +138,7 @@
     {{/if}}
     {{if $model->kill_rate !== null}}
       <td class="text-right kill-rate cell-kill-rate" data-kill-ratio="{{$model->kill_ratio|escape}}">
-        {{$model->kill_rate|percent:1|escape}}
+        {{($model->kill_rate/100)|percent:1|escape}}
       </td>
     {{else}}
       <td class="cell-kill-rate"></td>
