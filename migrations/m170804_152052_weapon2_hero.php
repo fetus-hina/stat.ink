@@ -14,8 +14,6 @@ class m170804_152052_weapon2_hero extends Migration
 
     public function safeUp()
     {
-        //                        1         2         3
-        //               12345678901234567890123456789012
         $this->upWeapon('heroshooter_replica', 'Hero Shot Replica', 'shooter', 'quickbomb', 'chakuchi', 'sshooter', 'sshooter');
         $this->upWeapon('heroblaster_replica', 'Hero Blaster Replica', 'blaster', 'poisonmist', 'chakuchi', 'hotblaster', 'hotblaster');
         $this->upWeapon('heromaneuver_replica', 'Hero Dualies Replica', 'maneuver', 'quickbomb', 'missile', 'maneuver', 'maneuver');

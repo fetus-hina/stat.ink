@@ -31,7 +31,7 @@ return [
     'Enperry Splat Dualies' => 'スプラマニューバーコラボ',
     'H-3 Nozzlenose' => 'H3リールガン',
     'Hero Blaster Replica' => 'ヒーローブラスターレプリカ',
-    'Hero Dualies Replica' => 'ヒーローマニューバーレプリカ',
+    'Hero Dualie Replicas' => 'ヒーローマニューバーレプリカ',
     'Hero Shot Replica' => 'ヒーローシューターレプリカ',
     'Jet Squelcher' => 'ジェットスイーパー',
     'L-3 Nozzlenose' => 'L3リールガン',
