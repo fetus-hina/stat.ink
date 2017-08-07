@@ -67,6 +67,7 @@ $config = [
                         'functions' => [
                             'AdWidget' => 'app\components\widgets\AdWidget',
                             'BattleFilterWidget' => 'app\components\widgets\BattleFilterWidget',
+                            'Battle2FilterWidget' => 'app\components\widgets\Battle2FilterWidget',
                             'IpVersionBadgeWidget' => 'app\components\widgets\IpVersionBadgeWidget',
                             'JdenticonWidget' => 'app\components\widgets\JdenticonWidget',
                             'SnsWidget' => 'app\components\widgets\SnsWidget',

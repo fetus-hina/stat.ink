@@ -77,14 +77,21 @@
           ]
         )}}
         <div>
+          <a href="#filter-form" class="visible-xs-inline btn btn-info">
+            <span class="fa fa-search left"></span>{{'Search'|translate:'app'|escape}}
+          </a>&#32;
           <a href="#table-config" class="btn btn-default">
             <span class="fa fa-cogs left"></span>{{'View Settings'|translate:'app'|escape}}
           </a>&#32;
-          {{$params = ['v' => 'simple', '0' => 'show-v2/user', 'screen_name' => $user->screen_name]}}
+          {{$params = array_merge(
+            $filter->toQueryParams(),
+            ['v' => 'simple', '0' => 'show-v2/user', 'screen_name' => $user->screen_name]
+          )}}
           <a href="{{Url::to($params)|escape}}" class="btn btn-default" rel="nofollow">
             <span class="fa fa-list left"></span>{{'Simplified List'|translate:'app'|escape}}
           </a>
         </div>
+
         <div class="table-responsive" id="battles">
           <table class="table table-striped table-condensed">
             <thead>
@@ -136,6 +143,7 @@
         </div>
       </div>
       <div class="col-xs-12 col-sm-4 col-md-4 col-lg-3">
+        {{Battle2FilterWidget route="show-v2/user" screen_name=$user->screen_name filter=$filter}}
         {{$this->render('/includes/user-miniinfo2', ['user' => $user])}}
         {{AdWidget}}
       </div>

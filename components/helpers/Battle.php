@@ -8,6 +8,8 @@
 namespace app\components\helpers;
 
 use app\models\Battle as BattleModel;
+use app\models\Battle2 as Battle2Model;
+use app\models\Battle2FilterForm;
 use app\models\BattleFilterForm;
 
 class Battle
@@ -48,6 +50,33 @@ class Battle
                 'at' => '{{battle}}.[[at]]',
             ])
             ->filter($filter)
+            ->offset(0)
+            ->limit($num);
+
+        $query = (new \yii\db\Query())
+            ->select([
+                'min_id' => 'MIN({{t}}.[[id]])',
+                'max_id' => 'MAX({{t}}.[[id]])',
+                'min_at' => 'MIN({{t}}.[[at]])',
+                'max_at' => 'MAX({{t}}.[[at]])',
+            ])
+            ->from(sprintf(
+                '(%s) {{t}}',
+                $subQuery->createCommand()->rawSql
+            ));
+        return $query->createCommand()->queryOne();
+    }
+
+    public static function getNBattlesRange2(Battle2FilterForm $filter, int $num) : ?array
+    {
+        $filter = clone $filter;
+        $filter->term = null;
+        $subQuery = Battle2Model::find()
+            ->select([
+                'id' => '{{battle2}}.[[id]]',
+                'at' => '{{battle2}}.[[created_at]]',
+            ])
+            ->applyFilter($filter)
             ->offset(0)
             ->limit($num);
 

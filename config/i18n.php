@@ -29,6 +29,7 @@ return [
                 'app-tz'        => 'tz.php',
                 'app-ua-vars'   => 'ua_vars.php',
                 'app-ua-vars-v' => 'ua_vars_v.php',
+                'app-version2'  => 'version2.php',
                 'app-weapon'    => 'weapon.php',
                 'app-weapon2'   => 'weapon2.php',
             ],

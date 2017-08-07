@@ -168,7 +168,7 @@ $this->registerCss(implode('', array_map(
                     '/show-v2/user',
                     'screen_name' => $user->screen_name,
                     'filter' => [
-                        'rule' => 'nawabari'
+                        'rule' => 'standard-regular-nawabari',
                     ],
                 ],
                 'titleLinkText' => Yii::t('app', 'List'),
@@ -190,7 +190,7 @@ $this->registerCss(implode('', array_map(
                     '/show-v2/user',
                     'screen_name' => $user->screen_name,
                     'filter' => [
-                        'rule2' => '@gachi'
+                        'rule' => 'any-gachi-any',
                     ],
                 ],
                 'titleLinkText' => Yii::t('app', 'List'),

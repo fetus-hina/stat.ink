@@ -116,6 +116,210 @@ class Battle2 extends ActiveRecord
     public static function find()
     {
         return new class(get_called_class()) extends \yii\db\ActiveQuery {
+            public function applyFilter(Battle2FilterForm $form) : self
+            {
+                $and = ['and'];
+                if ($form->screen_name != '') {
+                    $this->innerJoinWith('user');
+                    $and[] = ['user.screen_name' => $form->screen_name];
+                }
+                if ($form->rule != '') {
+                    // {{{
+                    $parts = explode('-', $form->rule);
+                    if (count($parts) === 3) {
+                        $this->innerJoinWith(['lobby', 'mode', 'rule']);
+                        switch ($parts[0]) {
+                            case 'any':
+                                break;
+
+                            case 'any_squad':
+                                $and[] = ['lobby2.key' => ['squad_2', 'squad_4']];
+                                break;
+                            
+                            default:
+                                $and[] = ['lobby2.key' => $parts[0]];
+                                break;
+                        }
+                        $and[] = ['mode2.key' => $parts[1]];
+                        switch ($parts[2]) {
+                            case 'any':
+                                break;
+                            
+                            case 'gachi':
+                                $and[] = ['rule2.key' => ['area', 'yagura', 'hoko']];
+                                break;
+
+                            default:
+                                $and[] = ['rule2.key' => $parts[2]];
+                                break;
+                        }
+                    }
+                    // }}}
+                }
+                if ($form->map != '') {
+                    $and[] = ['battle2.map_id' => Map2::findOne(['key' => $form->map])->id];
+                }
+                if ($form->weapon != '') {
+                    // {{{
+                    switch (substr($form->weapon, 0, 1)) {
+                        default:
+                            $and[] = ['battle2.weapon_id' => Weapon2::findOne(['key' => $form->weapon])->id];
+                            break;
+
+                        case '@': // type
+                            $this->innerJoinWith('weapon');
+                            $type = WeaponType2::findOne(['key' => substr($form->weapon, 1)]);
+                            $and[] = ['weapon2.type_id' => $type->id];
+                            break;
+
+                        case '~': // main weapon
+                            $this->innerJoinWith('weapon');
+                            $main = Weapon2::findOne(['key' => substr($form->weapon, 1)]);
+                            $and[] = ['weapon2.main_group_id' => $main->id];
+                            break;
+
+                        case '+': // sub weapon
+                            $this->innerJoinWith('weapon');
+                            $sub = SubWeapon2::findOne(['key' => substr($form->weapon, 1)]);
+                            $and[] = ['weapon2.subweapon_id' => $sub->id];
+                            break;
+
+                        case '*': // special
+                            $this->innerJoinWith('weapon');
+                            $sp = Special2::findOne(['key' => substr($form->weapon, 1)]);
+                            $and[] = ['weapon2.special_id' => $sp->id];
+                            break;
+                    }
+                    // }}}
+                }
+                if ($form->rank != '') {
+                    $this->innerJoinWith(['rank', 'rank.group']);
+                    if (substr($form->rank, 0, 1) === '~') { // group
+                        $and[] = ['rank_group2.key' => substr($form->rank, 1)];
+                    } else {
+                        $and[] = ['rank2.key' => $form->rank];
+                    }
+                }
+                if ($form->result != '' || is_bool($form->result)) {
+                    $and[] = ['battle2.is_win' => ($form->result === 'win' || $form->result === true)];
+                }
+                if ($form->term != '') {
+                    $this->filterTerm($form->term, [
+                        'from' => $form->term_from,
+                        'to' => $form->term_to,
+                        'filter' => $form,
+                        'timeZone' => $form->timezone,
+                    ]);
+                }
+                if ($form->id_from != '' && $form->id_from > 0) {
+                    $and[] = ['<=', 'battle2.id', (int)$form->id_from];
+                }
+                if ($form->id_to != '' && $form->id_to > 0) {
+                    $and[] = ['>=', 'battle2.id', (int)$form->id_to];
+                }
+                if (count($and) > 1) {
+                    $this->andWhere($and);
+                }
+                return $this;
+            }
+
+            public function filterTerm(string $term, array $options) : self
+            {
+                // DateTimeZone
+                $tz = (function (?string $tzIdent) {
+                    if ($tzIdent && ($model = Timezone::findOne(['identifier' => (string)$tzIdent]))) {
+                        return new \DateTimeZone($model->identifier);
+                    }
+                    return new \DateTimeZone(Yii::$app->timeZone);
+                })($options['timeZone'] ?? null);
+
+                // DateTimeImmutable
+                $now = (new \DateTimeImmutable())
+                    ->setTimestamp($_SERVER['REQUEST_TIME'] ?? time())
+                    ->setTimezone($tz);
+                $currentPeriod = BattleHelper::calcPeriod2($now->getTimestamp());
+
+                switch ($term) {
+                    case 'this-period':
+                        $this->andWhere(['battle2.period' => $currentPeriod]);
+                        break;
+                
+                    case 'last-period':
+                        $this->andWhere(['battle2.period' => $currentPeriod - 1]);
+                        break;
+                
+                    case '24h':
+                        $t = $now->sub(new \DateInterval('PT24H'));
+                        $this->andWhere(
+                            ['>', 'battle2.created_at', $t->format(\DateTime::ATOM)]
+                        );
+                        break;
+
+                    case 'today':
+                        $today = $now->setTime(0, 0, 0);
+                        $tomorrow = $today->add(new \DateInterval('P1D'));
+                        $this->andWhere(['and',
+                            ['>=', 'battle2.created_at', $today->format(\DateTime::ATOM)],
+                            ['<', 'battle2.created_at', $tomorrow->format(\DateTime::ATOM)],
+                        ]);
+                        break;
+
+                    case 'yesterday':
+                        $today = $now->setTime(0, 0, 0);
+                        $yesterday = $today->sub(new \DateInterval('P1D'));
+                        $this->andWhere(['and',
+                            ['>=', 'battle2.created_at', $yesterday->format(\DateTime::ATOM)],
+                            ['<', 'battle2.created_at', $today->format(\DateTime::ATOM)],
+                        ]);
+                        break;
+
+                    case 'term':
+                        try {
+                            $from = (($options['from'] ?? '') != '')
+                                ? (new \DateTimeImmutable($options['from']))->setTimezone($tz)
+                                : null;
+                            $to = (($options['to'] ?? '') != '')
+                                ? (new \DateTimeImmutable($options['to']))->setTimezone($tz)
+                                : null;
+                            if ($from) {
+                                $this->andWhere(
+                                    ['>=', 'battle2.created_at', $from->format(\DateTime::ATOM)]
+                                );
+                            }
+                            if ($to) {
+                                $this->andWhere(
+                                    ['<', 'battle2.created_at', $to->format(\DateTime::ATOM)]
+                                );
+                            }
+                        } catch (\Exception $e) {
+                        }
+                        break;
+
+                    default:
+                        if (isset($options['filter']) && preg_match('/^last-(\d+)-battles$/', $term, $match)) {
+                            $range = BattleHelper::getNBattlesRange2($options['filter'], (int)$match[1]);
+                            if (!$range || $range['min_id'] < 1 || $range['max_id'] < 1) {
+                                $this->andWhere('1 <> 1'); // Always false
+                            } else {
+                                $this->andWhere(['between',
+                                    'battle2.id',
+                                    (int)$range['min_id'],
+                                    (int)$range['max_id']
+                                ]);
+                            }
+                        } elseif (preg_match('/^v\d+/', $term)) {
+                            $version = SplatoonVersion2::findOne(['tag' => substr($term, 1)]);
+                            if (!$version) {
+                                $this->andWhere('1 <> 1'); // Always false
+                            } else {
+                                $this->andWhere(['battle2.version_id' => $version->id]);
+                            }
+                        }
+                        break;
+                }
+                return $this;
+            }
+
             public function getSummary()
             {
                 return \app\components\helpers\BattleSummarizer::getSummary2($this);

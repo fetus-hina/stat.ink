@@ -8,13 +8,14 @@
 namespace app\actions\show\v2;
 
 use Yii;
+use app\models\Battle2;
+use app\models\Battle2FilterForm;
+use app\models\User;
 use yii\data\ActiveDataProvider;
 use yii\helpers\Url;
 use yii\web\Cookie;
 use yii\web\NotFoundHttpException;
 use yii\web\ViewAction as BaseAction;
-use app\models\Battle2;
-use app\models\User;
 
 class UserAction extends BaseAction
 {
@@ -46,8 +47,14 @@ class UserAction extends BaseAction
             return;
         }
 
+        $permLink = Url::to(
+            ['show-v2/user', 'screen_name' => $user->screen_name],
+            true
+        );
+
         $battle = Battle2::find()
             ->with([
+                'user',
                 'mode',
                 'lobby',
                 'rule',
@@ -59,17 +66,23 @@ class UserAction extends BaseAction
             ->andWhere(['user_id' => $user->id])
             ->orderBy(['battle2.id' => SORT_DESC]);
 
+        $filter = Yii::createObject(Battle2FilterForm::class);
+        if ($filter->load($_GET) && $filter->validate()) {
+            $battle->applyFilter($filter);
+            $permLink = Url::to(
+                array_merge($filter->toPermLink(), ['show-v2/user', 'screen_name' => $user->screen_name]),
+                true
+            );
+        }
+
         $summary = $battle->summary;
 
-        $permLink = Url::to(
-            ['show-v2/user', 'screen_name' => $user->screen_name],
-            true
-        );
 
         $isPjax = $request->isPjax;
         $template = $this->viewMode === 'simple' ? 'user.simple.tpl' : 'user.tpl';
         return $this->controller->render($template, [
             'user'      => $user,
+            'filter'    => $filter,
             'battleDataProvider' => new ActiveDataProvider([
                 'query' => $battle,
                 'pagination' => ['pageSize' => 100 ]

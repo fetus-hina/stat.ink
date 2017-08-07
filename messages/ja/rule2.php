@@ -28,10 +28,13 @@ return [
     'League Battle (Quad)' => 'リーグバトル（4人）',
     'Splatfest' => 'フェス',
     'Private Battle' => 'プライベートマッチ',
+    'Ranked + League' => 'ガチ+リーグ',
 
     'Regular' => 'レギュラー',
     'Ranked' => 'ガチ',
     'League' => 'リーグ',
+    'League (Twin)' => 'リーグ（2人）',
+    'League (Quad)' => 'リーグ（4人）',
     'Fest' => 'フェス',
 
     'Turf War' => 'ナワバリバトル',

@@ -120,6 +120,7 @@
         </div>
       </div>
       <div class="col-xs-12 col-sm-4 col-md-4 col-lg-3">
+        {{Battle2FilterWidget route="show-v2/user" screen_name=$user->screen_name filter=$filter}}
         {{$this->render('/includes/user-miniinfo2', ['user' => $user])}}
         {{AdWidget}}
       </div>
