@@ -20,6 +20,24 @@ SortableTableAsset::register($this);
   </h1>
   <?= AdWidget::widget() . "\n" ?>
   <?= SnsWidget::widget() . "\n" ?>
+  <p>
+    <?= Html::a(
+      implode('', [
+        Html::tag('span', '', ['class' => ['fa fa-file-code-o fa-fw']]),
+        Html::encode(Yii::t('app', 'JSON format')),
+      ]),
+      ['api-v2/weapon'],
+      ['class' => 'label label-default']
+    ) ."\n" ?>
+    <?= Html::a(
+      implode('', [
+        Html::tag('span', '', ['class' => ['fa fa-file-excel-o fa-fw']]),
+        Html::encode(Yii::t('app', 'CSV format')),
+      ]),
+      ['api-v2/weapon', 'format' => 'csv'],
+      ['class' => 'label label-default']
+    ) ."\n" ?>
+  </p>
   <div class="table-responsive table-responsive-force">
     <table class="table table-striped table-condensed table-sortable">
       <thead>

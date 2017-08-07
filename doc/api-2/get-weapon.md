@@ -7,6 +7,8 @@
 |Return-Type|`application/json`|
 |認証|なし|
 
+[CSV version](get-weapon-csv.md)
+
 ブキの一覧をJSON形式、[`weapon`構造体](struct/weapon.md)の配列で返します。
 各ブキの`key`が他のAPIで利用するときの値です。
 

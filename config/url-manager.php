@@ -62,6 +62,7 @@ return [
         'POST api/v2/battle'     => 'api-v2-battle/create',
         'OPTIONS api/v2/battle'  => 'api-v2-battle/options',
         'OPTIONS api/v2/battle/<id:\d+>' => 'api-v2-battle/options',
+        'api/v2/<action:[\w-]+>.<format:[\w]+>' => 'api-v2/<action>',
         'api/v2/<action:[\w-]+>' => 'api-v2/<action>',
         'api/internal/<action:[\w-]+>' => 'api-internal/<action>',
         '.well-known/host-meta' => 'ostatus/host-meta',
