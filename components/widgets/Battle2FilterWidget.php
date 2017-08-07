@@ -153,7 +153,7 @@ class Battle2FilterWidget extends Widget
                 'standard-gachi-any' => "{$any} ({$gachi})",
                 'standard-gachi-area' => "{$area} ({$gachi})",
                 'standard-gachi-yagura' => "{$yagura} ({$gachi})",
-                'standard-gachi-hoko' => "{$hoko} ({$gachi})", 
+                'standard-gachi-hoko' => "{$hoko} ({$gachi})",
             ],
             $rankLeague => [
                 'any-gachi-any' => "{$any} ({$rankLeague})",
@@ -168,13 +168,13 @@ class Battle2FilterWidget extends Widget
                 'any_squad-gachi-hoko' => "{$hoko} ({$league})",
             ],
             Yii::t('app-rule2', 'League Battle (Twin)') => [
-                'squad_2-gachi-any' => "{$any} ({$league2})", 
+                'squad_2-gachi-any' => "{$any} ({$league2})",
                 'squad_2-gachi-area' => "{$area} ({$league2})",
                 'squad_2-gachi-yagura' => "{$yagura} ({$league2})",
                 'squad_2-gachi-hoko' => "{$hoko} ({$league2})",
             ],
             Yii::t('app-rule2', 'League Battle (Quad)') => [
-                'squad_4-gachi-any' => "{$any} ({$league4})", 
+                'squad_4-gachi-any' => "{$any} ({$league4})",
                 'squad_4-gachi-area' => "{$area} ({$league4})",
                 'squad_4-gachi-yagura' => "{$yagura} ({$league4})",
                 'squad_4-gachi-hoko' => "{$hoko} ({$league4})",
@@ -185,7 +185,7 @@ class Battle2FilterWidget extends Widget
                 'squad_4-fest-nawabari' => Yii::t('app-rule2', 'Splatfest (Team)'),
             ],
             Yii::t('app-rule2', 'Private Battle') => [
-                'private-private-any' => "{$any} ({$private})", 
+                'private-private-any' => "{$any} ({$private})",
                 'private-private-nawabari' => "{$nawabari} ({$private})",
                 'private-private-gachi' => "{$gachi} ({$private})",
                 'private-private-area' => "{$area} ({$private})",
