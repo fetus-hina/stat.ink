@@ -85,7 +85,7 @@ foreach ($players as $i => $player) {
       ),
       Html::tag('td', Html::encode($player->level), ['class' => ['col-level', 'text-right']]),
       $hideRank ? '' : Html::tag('td', Html::encode(Yii::t('app-rank2', $player->rank->name ?? '')), ['class' => ['col-rank', 'text-center']]),
-      $hidePoint ? '' : Html::tag('td', Html::encode($fmt->asInteger($player->point)), ['class' => ['col-point', 'text-right']]),
+      $hidePoint ? '' : Html::tag('td', Html::encode($player->point === null ? '' : $fmt->asInteger($player->point)), ['class' => ['col-point', 'text-right']]),
       Html::tag('td', Html::encode(sprintf(
         '%s %s / %s', 
         $player->kill_or_assist === null ? '?' : $fmt->asInteger($player->kill_or_assist),
