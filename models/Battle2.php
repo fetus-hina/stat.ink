@@ -683,6 +683,18 @@ class Battle2 extends ActiveRecord
             ->orderBy('id');
     }
 
+    public function getMyTeamPlayers() : \yii\db\ActiveQuery
+    {
+        return $this->getBattlePlayers()
+            ->andWhere(['{{battle_player2}}.[[is_my_team]]' => true]);
+    }
+
+    public function getHisTeamPlayers() : \yii\db\ActiveQuery
+    {
+        return $this->getBattlePlayers()
+            ->andWhere(['{{battle_player2}}.[[is_my_team]]' => false]);
+    }
+
     /**
      * @return \yii\db\ActiveQuery
      */

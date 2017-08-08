@@ -168,6 +168,11 @@ if ($battle->nextBattle) {
           Yii::t('app', 'Note: You can change the time zone via the navbar.')
         ) . "\n" ?>
       </p>
+<?php if ($battle->getBattlePlayers()->exists()): ?>
+      <?= $this->render('_battle_details_players', [
+        'battle' => $battle,
+      ]) . "\n" ?>
+<?php endif; ?>
 <?php /* 編集 {{{ */ ?>
 <?php if (!Yii::$app->user->isGuest && Yii::$app->user->identity->id == $user->id): ?>
       <p class="text-right">

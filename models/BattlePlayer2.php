@@ -128,6 +128,60 @@ class BattlePlayer2 extends ActiveRecord
         return $this->hasOne(Rank2::class, ['id' => 'rank_id']);
     }
 
+    public function getKillRatio() : ?float
+    {
+        if ($this->kill === null || $this->death === null) {
+            return null;
+        }
+        if ($this->death == 0) {
+            if ($this->kill == 0) {
+                return NAN;
+            }
+            return INF;
+        }
+        return $this->kill / $this->death;
+    }
+
+    public function getFormattedKillRatio() : ?string
+    {
+        $ratio = $this->getKillRatio();
+        if ($ratio === null) {
+            return null;
+        }
+        if (is_nan($ratio)) {
+            return Yii::t('app', 'N/A');
+        }
+        $fmt = Yii::$app->formatter;
+        if (is_infinite($ratio)) {
+            return $fmt->asDecimal(99.99, 2);
+        }
+        return $fmt->asDecimal($ratio, 2);
+    }
+
+    public function getKillRate() : ?float
+    {
+        if ($this->kill === null || $this->death === null) {
+            return null;
+        }
+        if ($this->kill == 0 && $this->death == 0) {
+            return NAN;
+        }
+        return $this->kill * 100 / ($this->kill + $this->death);
+    }
+
+    public function getFormattedKillRate() : ?string
+    {
+        $rate = $this->getKillRate();
+        if ($rate === null) {
+            return null;
+        }
+        if (is_nan($rate)) {
+            return Yii::t('app', 'N/A');
+        }
+        $fmt = Yii::$app->formatter;
+        return $fmt->asPercent($rate / 100, 2);
+    }
+
     public function toJsonArray()
     {
         return [
