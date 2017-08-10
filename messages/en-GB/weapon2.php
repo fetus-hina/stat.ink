@@ -6,6 +6,4 @@
  */
 
 return [
-    'E-liter 4K Scope' => 'E-litre 4K Scope',
-    'E-liter 4K' => 'E-litre 4K',
 ];
