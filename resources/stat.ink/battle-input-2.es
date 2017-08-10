@@ -17,6 +17,10 @@
             case 'es-MX':
               return 'Armas Favoritas';
 
+            case 'fr-FR':
+            case 'fr-CA':
+                return 'Armes préférées';
+
             default:
               return text;
           }

@@ -24,6 +24,14 @@
                 "months": [ "Ene.", "Feb.", "Mar.", "Abr.", "May.", "Jun.", "Jul.", "Ago.", "Sep.", "Oct.", "Nov.", "Dic." ],
                 "itemName": [ "vece", "veces" ],
             },
+            "fr-FR": {
+                "months": [ "Janv.", "Fév.", "Mars", "Avril", "Mai", "Juin", "Juill.", "Août", "Sept.", "Oct.", "Nov.", "Déc." ],
+                "itemName": [ "fois", "fois" ],
+            },
+            "fr-CA": {
+                "months": [ "Janv.", "Fév.", "Mars", "Avril", "Mai", "Juin", "Juill.", "Août", "Sept.", "Oct.", "Nov.", "Déc." ],
+                "itemName": [ "fois", "fois" ],
+            },
         }[$('html').attr('lang')];
     })();
 

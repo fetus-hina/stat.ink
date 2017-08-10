@@ -26,6 +26,14 @@
                 "months": [ "Ene.", "Feb.", "Mar.", "Abr.", "May.", "Jun.", "Jul.", "Ago.", "Sep.", "Oct.", "Nov.", "Dic." ],
                 "itemName": [ "batalla", "batallas" ],
             },
+            "fr-FR": {
+                "months": [ "Janv.", "Fév.", "Mars", "Avril", "Mai", "Juin", "Juill.", "Août", "Sept.", "Oct.", "Nov.", "Déc." ],
+                "itemName": [ "bataille", "batailles" ],
+            },
+            "fr-CA": {
+                "months": [ "Janv.", "Fév.", "Mars", "Avril", "Mai", "Juin", "Juill.", "Août", "Sept.", "Oct.", "Nov.", "Déc." ],
+                "itemName": [ "bataille", "batailles" ],
+            },
         }[$('html').attr('lang')];
     })();
 
