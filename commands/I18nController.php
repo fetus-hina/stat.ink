@@ -135,6 +135,7 @@ class I18nController extends Controller
             $this->stderr("Could not get contributors\n");
             exit(1);
         }
+        $lines[] = 'AIZAWA Hina <hina@bouhime.com>';
 
         $authorMap = [
             'AIZAWA, Hina <hina@bouhime.com>' => 'AIZAWA Hina <hina@bouhime.com>',

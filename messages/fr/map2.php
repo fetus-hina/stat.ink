@@ -9,7 +9,7 @@ return [
     'Any Stage' => '',
 
     'Humpback Pump Track' => 'Piste Méroule',
-    'Inkblot Art Academy' => 'Institut Calam\'art',
+    'Inkblot Art Academy' => 'Institut Calam\'arts',
     'Moray Towers' => 'Tours Girelle',
     'Musselforge Fitness' => 'Gymnase Ancrage',
     'Port Mackerel' => 'Docks Haddock',
@@ -19,7 +19,7 @@ return [
     'The Reef' => 'Allées salées',
 
     'Track' => 'Piste Méroule',
-    'Academy' => 'Institut Calam\'art',
+    'Academy' => 'Institut Calam\'arts',
     'Towers' => 'Tours Girelle',
     'Fitness' => 'Gymnase Ancrage',
     'Port' => 'Docks Haddock',
