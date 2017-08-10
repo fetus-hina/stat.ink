@@ -6,4 +6,15 @@
  */
 
 return [
+    'Autobomb' => '',
+    'Burst Bomb' => '',
+    'Curling Bomb' => '',
+    'Ink Mine' => '',
+    'Point Sensor' => '',
+    'Splash Wall' => '',
+    'Splat Bomb' => '',
+    'Sprinkler' => '',
+    'Squid Beakon' => '',
+    'Suction Bomb' => '',
+    'Toxic Mist' => '',
 ];

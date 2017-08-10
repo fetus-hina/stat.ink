@@ -6,4 +6,23 @@
  */
 
 return [
+    'Academy' => '',
+    'Any Stage' => '',
+    'Fitness' => '',
+    'Humpback Pump Track' => '',
+    'Inkblot Art Academy' => '',
+    'Mainstage' => '',
+    'Moray Towers' => '',
+    'Musselforge Fitness' => '',
+    'Port' => '',
+    'Port Mackerel' => '',
+    'Reef' => '',
+    'Shifty' => '',
+    'Shifty Station' => '',
+    'Shipyard' => '',
+    'Starfish Mainstage' => '',
+    'Sturgeon Shipyard' => '',
+    'The Reef' => '',
+    'Towers' => '',
+    'Track' => '',
 ];

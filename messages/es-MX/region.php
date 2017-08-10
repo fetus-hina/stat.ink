@@ -6,4 +6,7 @@
  */
 
 return [
+    'Europe/Oceania' => '',
+    'Japan' => '',
+    'North America' => '',
 ];

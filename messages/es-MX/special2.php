@@ -6,4 +6,13 @@
  */
 
 return [
+    'Baller' => '',
+    'Bomb Launcher' => '',
+    'Bubble Blower' => '',
+    'Ink Armor' => '',
+    'Inkjet' => '',
+    'Ink Storm' => '',
+    'Splashdown' => '',
+    'Sting Ray' => '',
+    'Tenta Missiles' => '',
 ];

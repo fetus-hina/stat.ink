@@ -11,8 +11,10 @@ return [
     'Curling Bomb' => 'Bomba deslizante',
     'Ink Mine' => 'Bomba Trampa',
     'Point Sensor' => 'Rastreador',
+    'Splash Wall' => '',
     'Splat Bomb' => 'Bomba básica',
     'Sprinkler' => 'Aspersor',
+    'Squid Beakon' => '',
     'Suction Bomb' => 'Bomba ventosa',
     'Toxic Mist' => '',
 ];

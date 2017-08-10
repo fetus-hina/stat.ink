@@ -1,28 +1,32 @@
 <?php
 /**
- * @copyright Copyright (C) 2015-2016 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2017 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
- * @author mntone <sd8@live.jp>
  * @author AIZAWA Hina <hina@bouhime.com>
+ * @author mntone <sd8@live.jp>
  */
 
 return [
     'All of {0}' => 'Todos los {0}',
     'Any Lobby' => 'Cualquier vestíbulo',
     'Any Mode' => 'Cualquier estilo',
-    'Private Battle' => 'Combate privado',
     'Private' => 'Privado',
+    'Private Battle' => 'Combate privado',
     'Rainmaker' => 'Pez dorado',
-    'Ranked Battle' => 'Combate competitivo',
     'Ranked' => 'Competitivo',
-    'Regular Battle' => 'Combate amistoso',
+    'Ranked Battle' => 'Combate competitivo',
     'Regular' => 'Amistoso',
-    'Splat Zones' => 'Pintazonas',
-    'Splatfest' => 'Festival temático',
-    'Squad Battle (Twin)' => 'Combate en equipo (Gemelo)',
-    'Squad Battle (Tri)' => 'Combate en equipo (Tri)',
-    'Squad Battle (Quad)' => 'Combate en equipo (Patio)',
+    'Regular Battle' => 'Combate amistoso',
+    'RM' => '',
     'Solo Queue' => 'Solo Queue',
+    'Splatfest' => 'Festival temático',
+    'Splat Zones' => 'Pintazonas',
+    'Squad Battle (Quad)' => 'Combate en equipo (Patio)',
+    'Squad Battle (Tri)' => 'Combate en equipo (Tri)',
+    'Squad Battle (Twin)' => 'Combate en equipo (Gemelo)',
+    'SZ' => '',
+    'TC' => '',
     'Tower Control' => 'Torre',
     'Turf War' => 'Territorial',
+    'TW' => '',
 ];

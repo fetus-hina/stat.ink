@@ -7,10 +7,11 @@
 
 return [
     'Baller' => '',
+    'Bomb Launcher' => '',
     'Bubble Blower' => '',
     'Ink Armor' => '',
-    'Ink Storm' => 'Atormentador',
     'Inkjet' => 'Propulsor',
+    'Ink Storm' => 'Atormentador',
     'Splashdown' => 'Salto explosivo',
     'Sting Ray' => 'Rayo tintódico',
     'Tenta Missiles' => 'Lanzamisiles',

@@ -6,4 +6,11 @@
  */
 
 return [
+    'Drowning' => '',
+    'Fall' => '',
+    'Main Weapon' => '',
+    'Out of Bounds' => '',
+    'Special Weapon' => '',
+    'Sub Weapon' => '',
+    'Unknown' => '',
 ];

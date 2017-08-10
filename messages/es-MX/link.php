@@ -5,4 +5,7 @@
  * @author AIZAWA Hina <hina@bouhime.com>
  */
 
-return [];
+return [
+    'https://github.com/hasegaw/IkaLog/wiki/en_Home' => '',
+    'https://play.google.com/store/apps/details?id=ink.pocketgopher.ikarec' => '',
+];
