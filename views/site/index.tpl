@@ -62,8 +62,13 @@
         iOS等をご利用の方、PCでキャプチャボードを使用出来ない方、どうぞご利用ください。<br>
         (Androidをご利用の方には引き続きイカレコをオススメします)
       </p>
+    {{elseif $app->language|substr:0:2 === 'fr'}}
+      <p class="bg-warning" style="padding:15px;border-radius:10px">
+        French language support is really limited at this time.<br>
+        Only proper nouns translated. (e.g. weapons, stages)<br>
+        We need your support!
+      </p>
     {{/if}}
-
     <p>
       {{if $app->user->isGuest}}
         {{$ident = null}}
