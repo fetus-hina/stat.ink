@@ -12,6 +12,7 @@ return [
                 'app-fest'      => 'fest.php',
                 'app-gear'      => 'gear.php',
                 'app-gearstat'  => 'gearstat.php',
+                'app-link'      => 'link.php',
                 'app-map'       => 'map.php',
                 'app-map2'      => 'map2.php',
                 'app-rank'      => 'rank.php',

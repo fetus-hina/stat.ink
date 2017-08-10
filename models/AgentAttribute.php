@@ -35,7 +35,8 @@ class AgentAttribute extends \yii\db\ActiveRecord
             [['name', 'is_automated'], 'required'],
             [['is_automated'], 'boolean'],
             [['name'], 'string', 'max' => 64],
-            [['name'], 'unique']
+            [['name'], 'unique'],
+            [['link_url'], 'string', 'max' => 256],
         ];
     }
 
@@ -48,6 +49,7 @@ class AgentAttribute extends \yii\db\ActiveRecord
             'id' => 'ID',
             'name' => 'Name',
             'is_automated' => 'Is Automated',
+            'link_url' => 'Link URL',
         ];
     }
 }

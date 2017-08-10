@@ -64,56 +64,29 @@ class Agent extends \yii\db\ActiveRecord
         return $this->hasMany(Battle::class, ['agent_id' => 'id']);
     }
 
-    public function getIsAutomatedByDefault()
+    public function getAgentAttribute()
     {
-        $attr = AgentAttribute::findOne(['name' => (string)$this->name]);
+        return $this->hasOne(AgentAttribute::class, ['name' => 'name']);
+    }
+
+    public function getIsAutomatedByDefault() : bool
+    {
+        $attr = $this->agentAttribute;
         if ($attr && $attr->is_automated) {
             return true;
         }
         return false;
     }
 
-    public function getProductUrl()
+    public function getProductUrl() : ?string
     {
-        if ($this->getIsIkaRec()) {
-            return $this->getIkaRecProductUrl();
-        } elseif ($this->getIsIkalog()) {
-            return $this->getIkaLogProductUrl();
-        } elseif ($this->getIsStatinkWeb()) {
-            return 'https://stat.ink/';
-        } else {
+        if (!$attr = $this->agentAttribute) {
             return null;
         }
-    }
-
-    protected function getIkaRecProductUrl() : string
-    {
-        $id = (function () {
-            switch (substr(Yii::$app->language, 0, 2)) {
-                case 'ja':
-                    return 'com.syanari.merluza.ikarec';
-
-                case 'en':
-                default:
-                    return 'ink.pocketgopher.ikarec';
-            }
-        })();
-        return sprintf(
-            'https://play.google.com/store/apps/details?%s',
-            http_build_query(['id' => $id], '&', '')
-        );
-    }
-
-    protected function getIkaLogProductUrl() : string
-    {
-        switch (substr(Yii::$app->language, 0, 2)) {
-            case 'ja':
-                return 'https://github.com/hasegaw/IkaLog/wiki/ja_WinIkaLog';
-
-            case 'en':
-            default:
-                return 'https://github.com/hasegaw/IkaLog/wiki/en_Home';
+        if (trim($attr->link_url) === '') {
+            return null;
         }
+        return Yii::t('app-link', $attr->link_url);
     }
 
     public function getVersionUrl()
