@@ -119,7 +119,7 @@ $this->registerCss('#battle .progress{margin-bottom:0}');
             $parts[] = Html::tag(
               'span',
               Html::encode(Yii::t('app', 'Time was up')),
-              ['class' => 'label-label-warning']
+              ['class' => 'label label-warning']
             );
           }
         }
