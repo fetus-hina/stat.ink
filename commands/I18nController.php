@@ -49,7 +49,7 @@ class I18nController extends Controller
         ];
         $locale = $localeMap[$locale] ?? $locale;
 
-        $status = true; 
+        $status = true;
         foreach ($this->findJapaneseFiles() as $fileName) {
             $this->stderr("Processing {$fileName} of $locale ...\n");
             $inPath = Yii::getAlias('@messages/ja') . '/' . $fileName;
@@ -83,7 +83,7 @@ class I18nController extends Controller
 
         $changed = false;
         $current = file_exists($outPath) ? include($outPath) : [];
-        $new = !file_exists($outPath); 
+        $new = !file_exists($outPath);
         foreach (array_keys(include($inPath)) as $enText) {
             if (!isset($current[$enText])) {
                 $current[$enText] = '';
@@ -144,7 +144,7 @@ class I18nController extends Controller
             array_map(
                 function ($name) use ($authorMap) {
                     $name = trim($name);
-                    return $authorMap[$name] ?? $name; 
+                    return $authorMap[$name] ?? $name;
                 },
                 $lines
             )
