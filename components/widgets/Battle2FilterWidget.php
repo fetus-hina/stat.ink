@@ -52,14 +52,14 @@ class Battle2FilterWidget extends Widget
         });
         $divId = $this->getId();
         $this->view->registerCss(sprintf(
-          '#%s{%s}',
-          $divId,
-          Html::cssStyleFromArray([
-            'border' => '1px solid #ccc',
-            'border-radius' => '5px',
-            'padding' => '15px',
-            'margin-bottom' => '15px',
-          ])
+            '#%s{%s}',
+            $divId,
+            Html::cssStyleFromArray([
+                'border' => '1px solid #ccc',
+                'border-radius' => '5px',
+                'padding' => '15px',
+                'margin-bottom' => '15px',
+            ])
         ));
         echo Html::beginTag('div', ['id' => $divId]);
         $form = ActiveForm::begin([

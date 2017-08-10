@@ -18,8 +18,8 @@ trait WeaponMigration
         string $sub,
         string $special,
         ?string $main = null,
-        ?string $canonical = null) : void
-    {
+        ?string $canonical = null
+    ) : void {
         $this->insert('weapon2', [
             'key'           => $key,
             'name'          => $name,
