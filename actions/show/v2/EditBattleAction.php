@@ -9,6 +9,7 @@ namespace app\actions\show\v2;
 
 use Yii;
 use app\models\Battle2;
+use app\models\Battle2DeleteForm;
 use app\models\Battle2Form;
 use app\models\Lobby2;
 use app\models\Map2;
@@ -45,25 +46,25 @@ class EditBattleAction extends BaseAction
 
     public function run()
     {
-        // $del = new BattleDeleteForm();
+        $del = Yii::createObject(Battle2DeleteForm::class);
         if (Yii::$app->request->isPost) {
             $form = Yii::createObject(['class' => Battle2Form::class]);
             $form->load($_POST);
-            // $del->load($_POST);
-            // if (Yii::$app->request->post('_action') === 'delete') {
-            //     if ($del->validate()) {
-            //         $transaction = Yii::$app->db->beginTransaction();
-            //         if ($this->battle->delete()) {
-            //             $transaction->commit();
-            //             $this->controller->redirect([
-            //                 'show/user',
-            //                 'screen_name' => $this->battle->user->screen_name,
-            //             ]);
-            //             return;
-            //         }
-            //         $transaction->rollback();
-            //     }
-            // } else {
+            $del->load($_POST);
+            $del->battle = $this->battle->id;
+            if (Yii::$app->request->post('_action') === 'delete') {
+                if ($del->validate()) {
+                    $transaction = Yii::$app->db->beginTransaction();
+                    if ($del->delete()) {
+                        $transaction->commit();
+                        return $this->controller->redirect([
+                            'show-v2/user',
+                            'screen_name' => $this->battle->user->screen_name,
+                        ]);
+                    }
+                    $transaction->rollback();
+                }
+            } else {
                 if ($form->validate()) {
                     $this->battle->attributes = $form->attributes;
                     if ($this->battle->save()) {
@@ -75,7 +76,7 @@ class EditBattleAction extends BaseAction
                         return;
                     }
                 }
-            // }
+            }
         } else {
             $form = Battle2Form::fromBattle($this->battle);
         }
@@ -83,7 +84,7 @@ class EditBattleAction extends BaseAction
             'user' => $this->battle->user,
             'battle' => $this->battle,
             'form' => $form,
-            // 'delete' => $del,
+            'delete' => $del,
             'maps' => $this->makeMaps(),
             'weapons' => $this->makeWeapons(),
             'ranks' => $this->makeRanks(),

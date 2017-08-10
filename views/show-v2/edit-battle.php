@@ -145,39 +145,40 @@ $this->registerCss(implode('', [
     ) . "\n" ?>
   </div>
   <hr>
-<?php /*
   <div style="margin-top:7.5em;border:1px solid #ccc;border-radius:5px;padding:15px">
     <h2 style="color:#c9302c">
-      {{'Danger Zone'|translate:'app'|escape}}
+      <?= Html::encode(Yii::t('app', 'Danger Zone')) . "\n" ?>
     </h2>
     <p>
-      {{'You can delete this battle.'|translate:'app'|escape}}
+      <?= Html::encode(Yii::t('app', 'You can delete this battle.')) . "\n" ?>
     </p>
     <ul>
       <li>
-        {{'If you delete this battle, it will be gone forever.'|translate:'app'|escape}}
+        <?= Html::encode(Yii::t('app', 'If you delete this battle, it will be gone forever.')) . "\n" ?>
       </li>
       <li>
         <strong style="color:#c9302c">
-          {{'Please do not use this feature to destroy evidence.'|translate:'app'|escape}}
+          <?= Html::encode(Yii::t('app', 'Please do not use this feature to destroy evidence.')) . "\n" ?>
         </strong>
-        &#32;
-        {{'This action is provided for deleting a falsely-recognized battle.'|translate:'app'|escape}}
+        <?= Html::encode(Yii::t('app', 'This action is provided for deleting a falsely-recognized battle.')) . "\n" ?>
       </li>
       <li>
-        {{'If you misuse this feature, you will be banned.'|translate:'app'|escape}}
+        <?= Html::encode(Yii::t('app', 'If you misuse this feature, you will be banned.')) . "\n" ?>
       </li>
     </ul>
-    {{ActiveForm assign="_" id="delete-form" action=['show/edit-battle', 'screen_name' => $user->screen_name, 'battle' => $battle->id]}}
-      {{Html::hiddenInput('_action', 'delete')}}
-      {{$_->field($delete, 'agree')
-          ->label(Yii::t('app', 'I agree. Delete this battle.'))
-          ->checkbox(['value' => 'yes', 'uncheck' => null])}}
-      {{Html::submitButton(
-          Yii::t('app', 'Delete'),
-          ['class' => 'btn btn-lg btn-danger btn-block']
-        )}}
-    {{/ActiveForm}}
+    <?php $_ = ActiveForm::begin([
+      'action' => ['show-v2/edit-battle', 'screen_name' => $user->screen_name, 'battle' => $battle->id],
+      'id' => 'edit-form',
+    ]); echo "\n"; ?>
+      <?= Html::hiddenInput('_action', 'delete') . "\n" ?>
+      <?= $_->field($delete, 'agree')
+        ->label(Yii::t('app', 'I agree. Delete this battle.'))
+        ->checkbox(['uncheck' => null]) . "\n"
+      ?>
+      <?= Html::submitButton(
+        Html::encode(Yii::t('app', 'Delete')),
+        ['class' => 'btn btn-lg btn-danger btn-block']
+      ) . "\n" ?>
+    <?php ActiveForm::end(); echo "\n"; ?>
   </div>
-*/ ?>
 </div>
