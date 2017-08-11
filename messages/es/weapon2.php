@@ -56,7 +56,7 @@ return [
     'Slosher' => 'Derramatic',
     'Sloshers' => 'Derramatics',
     'Splash-o-matic' => 'Marcador fino',
-    'Splat Brella' => '',
+    'Splat Brella' => 'Paratintas',
     'Splat Charger' => 'Cargatintas',
     'Splat Dualies' => 'Dual diffusor',
     'Splatlings' => 'Tintralladoras',
