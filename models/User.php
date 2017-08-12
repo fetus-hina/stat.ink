@@ -44,6 +44,7 @@ use yii\web\IdentityInterface;
  * @property Slack[] $slacks
  * @property UserIcon $userIcon
  * @property UserStat $userStat
+ * @property UserStat2 $userStat2
  * @property UserWeapon[] $userWeapons
  * @property UserWeapon2[] $userWeapon2s
  * @property Weapon[] $weapons
@@ -248,6 +249,14 @@ class User extends ActiveRecord implements IdentityInterface
     public function getUserStat()
     {
         return $this->hasOne(UserStat::className(), ['user_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUserStat2() : \yii\db\ActiveQuery
+    {
+        return $this->hasOne(UserStat2::class, ['user_id' => 'id']);
     }
 
     /**
