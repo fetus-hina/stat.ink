@@ -334,6 +334,7 @@ return [
     'Reskin of' => '',
     'Result' => 'Resultado',
     'Results of {0}\'s Battle' => 'Resultado de la Batalla de {0}',
+    '{rule}: Peak' => '',
     'Save!' => '',
     'Scheduled' => '',
     'Screen Name' => 'Nombre de la Pantalla',

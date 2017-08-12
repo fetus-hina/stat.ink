@@ -469,6 +469,7 @@ return [
     '{pct} % loss' => '{pct} % 減少',
     '{point, plural, =1{1 point} other{# points}} in {battle, plural, =1{1 battle} other{# battles}}' => '{point, plural, other{#p}} / {battle, plural, other{#戦}}',
     '{point, plural, other{#p}}' => '{point, plural, other{#ポイント}}',
+    '{rule}: Peak' => '{rule}: 最高',
     '{sec} seconds ({pct} %)' => '{sec} 秒 ({pct} %)',
     '{sec} seconds' => '{sec} 秒',
     '{sec} seconds, {cnt} times' => '{sec} 秒, 最大 {cnt} 回',

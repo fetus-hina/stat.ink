@@ -328,6 +328,7 @@ return [
     'Reskin of' => '',
     'Result' => '',
     'Results of {0}\'s Battle' => '',
+    '{rule}: Peak' => '',
     'Save!' => '',
     'Scheduled' => '',
     'Screen Name' => '',
