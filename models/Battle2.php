@@ -13,7 +13,9 @@ use app\components\behaviors\RemotePortBehavior;
 use app\components\behaviors\TimestampBehavior;
 use app\components\helpers\Battle as BattleHelper;
 use app\components\helpers\DateTimeFormatter;
+use app\jobs\UserStatsJob;
 use jp3cki\uuid\Uuid;
+use shakura\yii2\gearman\JobWorkload;
 use yii\behaviors\AttributeBehavior;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
@@ -459,6 +461,7 @@ class Battle2 extends ActiveRecord
         return [
             static::EVENT_AFTER_INSERT => function ($event) {
                 $this->adjustUserWeapon($this->weapon_id);
+                $this->updateUserStats();
             },
             static::EVENT_AFTER_UPDATE => function ($event) {
                 if (isset($event->changedAttributes['weapon_id'])) {
@@ -467,10 +470,12 @@ class Battle2 extends ActiveRecord
                         $this->weapon_id,
                     ]);
                 }
+                $this->updateUserStats();
             },
             static::EVENT_BEFORE_DELETE => function ($event) {
                 $this->adjustUserWeapon($this->getOldAttribute('weapon_id'), $this->id);
-            }
+                $this->updateUserStats();
+            },
         ];
     }
 
@@ -1125,5 +1130,18 @@ class Battle2 extends ActiveRecord
                 }
             }
         }
+    }
+
+    public function updateUserStats() : void
+    {
+        Yii::$app->gearman->getDispatcher()->background(
+            UserStatsJob::jobName(),
+            new JobWorkload([
+                'params' => [
+                    'version' => 2,
+                    'user' => $this->user_id,
+                ],
+            ])
+        );
     }
 }

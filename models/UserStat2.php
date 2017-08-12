@@ -8,7 +8,7 @@
 namespace app\models;
 
 use Yii;
-use app\components\behaviors\TimestampBehavior;
+use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\db\Query;
 
@@ -125,6 +125,9 @@ class UserStat2 extends ActiveRecord
             [
                 'class' => TimestampBehavior::class,
                 'createdAtAttribute' => false,
+                'value' => function () {
+                    return date(\DateTime::ATOM, time());
+                },
             ],
         ];
     }
@@ -429,7 +432,6 @@ class UserStat2 extends ActiveRecord
             ->leftJoin(['rank2a' => 'rank2'], '{{battle2}}.[[rank_id]] = {{rank2a}}.[[id]]')
             ->leftJoin(['rank2b' => 'rank2'], '{{battle2}}.[[rank_after_id]] = {{rank2b}}.[[id]]')
             ->where(['{{battle2}}.[[user_id]]' => $this->user_id]);
-        echo $query->createCommand()->rawSql . "\n";
         if (!$row = $query->one()) {
             foreach (array_keys($this->attributes) as $k) {
                 if ($k === 'user_id' || $k === 'updated_at') {

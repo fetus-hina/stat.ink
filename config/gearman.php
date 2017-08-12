@@ -7,6 +7,7 @@ return [
     'jobs' => [
         'app\jobs\ImageOptimizeJob',
         'app\jobs\ImageS3Job',
+        'app\jobs\UserStatsJob',
         'app\jobs\battle\OstatusJob',
         'app\jobs\battle\SlackJob',
     ],
