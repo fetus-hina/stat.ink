@@ -22,6 +22,7 @@ use yii\db\ActiveRecord;
  * @property string $short_name
  * @property integer $area
  * @property string $release_at
+ * @property integer $splatnet
  */
 class Map2 extends ActiveRecord
 {
@@ -50,7 +51,7 @@ class Map2 extends ActiveRecord
     {
         return [
             [['key', 'name', 'short_name'], 'required'],
-            [['area'], 'integer'],
+            [['area', 'splatnet'], 'integer'],
             [['release_at'], 'safe'],
             [['key', 'short_name'], 'string', 'max' => 16],
             [['name'], 'string', 'max' => 32],
@@ -72,6 +73,7 @@ class Map2 extends ActiveRecord
             'short_name' => 'Short Name',
             'area' => 'Area',
             'release_at' => 'Release At',
+            'splatnet' => 'SplatNet ID',
         ];
     }
 
@@ -80,6 +82,7 @@ class Map2 extends ActiveRecord
         $t = $this->release_at ? strtotime($this->release_at) : null;
         return [
             'key' => $this->key,
+            'splatnet' => $this->splatnet,
             'name' => Translator::translateToAll('app-map2', $this->name),
             'short_name' => Translator::translateToAll('app-map2', $this->short_name),
             'area' => $this->area,

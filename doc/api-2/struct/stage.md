@@ -6,6 +6,7 @@
 ```js
 {
     "key": "battera",
+    "splatnet": 0,
     "name": {
         "ja_JP": "バッテラストリート",
         "en_US": "The Reef",
@@ -29,6 +30,7 @@
 ```
 
 - `key` : 識別する時に使用するキーです。たとえば[`POST /api/v2/battle`](../post-battle.md) APIでステージを指定する際に使用します。
+- `splatnet` : イカリング2で使用されていると思われるキーです。
 - `name` : マップの名前を[`name`構造体](name.md)で表します。
 - `name_short` : マップの名前（短縮名）を[`name`構造体](name.md)で表します。
 - `area` : マップの広さの目安です。まだ計算していないときは`null`になります。

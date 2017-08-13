@@ -16,6 +16,7 @@
 [
     {
         "key": "battera",
+        "splatnet": 0,
         "name": {
             "ja_JP": "バッテラストリート",
             "en_US": "The Reef",
@@ -45,6 +46,7 @@ v1との差異
 
 - このAPIは`map`という名前でした。
 - `short_name`が追加されています。
+- `splatnet` が追加されています。
 
 ----
 
