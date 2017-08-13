@@ -32,7 +32,7 @@ return [
     'Dynamo Roller' => 'Dynamo-rouleau',
     'E-liter 4K Scope' => 'Extraceur + zoom',
     'E-liter 4K' => 'Extraceur +',
-    'Enperry Splat Dualies' => 'Double encreur',
+    'Enperry Splat Dualies' => 'Double encreur griffé',
     'Firefin Splat Charger' => '',
     'Firefin Splatterscope' => '',
     'Flingza Roller' => 'Flexi-rouleau',
