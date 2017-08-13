@@ -75,7 +75,7 @@ class WeaponAction extends BaseAction
             ->select(['lang'])
             ->column();
         yield array_merge(
-            ['category1', 'category2', 'key', 'subweapon', 'special', 'mainweapon', 'reskin'],
+            ['category1', 'category2', 'key', 'subweapon', 'special', 'mainweapon', 'reskin', 'splatnet'],
             array_map(
                 function (string $lang) : string {
                     return sprintf('[%s]', $lang);
@@ -104,6 +104,7 @@ class WeaponAction extends BaseAction
                     $weapon->special->key,
                     $weapon->mainReference->key,
                     $weapon->canonical->key,
+                    $weapon->splatnet,
                 ],
                 array_map(
                     function (string $lang) use ($weapon, $i18n) {

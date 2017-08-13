@@ -27,6 +27,7 @@
 [
     {
         "key": "sshooter",
+        "splatnet": 40,
         "type": {
             "key": "shooter",
             "name": {

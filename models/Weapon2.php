@@ -22,6 +22,7 @@ use yii\db\ActiveRecord;
  * @property string $name
  * @property integer $canonical_id
  * @property integer $main_group_id
+ * @property integer $splatnet
  *
  * @property Special2 $special
  * @property Subweapon2 $subweapon
@@ -51,6 +52,7 @@ class Weapon2 extends ActiveRecord
             [['name'], 'string', 'max' => 32],
             [['key'], 'unique'],
             [['name'], 'unique'],
+            [['splatnet'], 'integer'],
             [['special_id'], 'exist', 'skipOnError' => true,
                 'targetClass' => Special2::class,
                 'targetAttribute' => ['special_id' => 'id'],
@@ -135,6 +137,7 @@ class Weapon2 extends ActiveRecord
     {
         return [
             'key' => $this->key,
+            'splatnet' => $this->splatnet,
             'type' => $this->type->toJsonArray(),
             'name' => Translator::translateToAll('app-weapon2', $this->name),
             'sub' => $this->subweapon->toJsonArray(),

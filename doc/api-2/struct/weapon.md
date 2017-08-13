@@ -6,6 +6,7 @@
 ```js
 {
     "key": "sshooter",
+    "splatnet": 40,
     "type": {
         "key": "shooter",
         "name": {
@@ -59,6 +60,7 @@
 ```
 
 - `key` : 識別する時に使用するキーです。たとえば`POST /api/v2/battle` APIでブキを指定する際に使用します。
+- `splatnet` : イカリング2で使用されていると思われるキーです。
 - `type` : ブキの種類を[`weapon_type`構造体](weapon_type.md)で表します。ここでいう「種類」は、シューター、ブラスター、ローラー、フデなどの大雑把な区分です。（シューター、チャージャー...という大きな区分は更にその中の`category`が表しています）
 - `name` : ブキの名前を[`name`構造体](name.md)で表します。
 - `sub` : サブウェポンを[`subweapon`構造体](subweapon.md)で表します。
@@ -70,7 +72,7 @@
 v1との差異
 ----------
 
-- `reskin_of`, `main_ref`が追加されています。
+- `reskin_of`, `main_ref`, `splatnet` が追加されています。
 - `type`の示す内容が変更されています。
 
 ----
