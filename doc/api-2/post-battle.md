@@ -187,6 +187,8 @@ POST データは全体で 12MiB 以内である必要があります。
 |`barrelspinner`|バレルスピナー||
 |`herospinner_replica`|ヒーロースピナーレプリカ||
 |`splatspinner`|スプラスピナー||
+|`heroshelter_replica`|ヒーローシェルター レプリカ||
+|`parashelter`|パラシェルター||
 
 
 `rank`, `rank_after`
