@@ -28,6 +28,7 @@ class PostBattlePlayerForm extends Model
     public $special;
     public $point;
     public $my_kill;
+    public $name;
 
     public function behaviors()
     {
@@ -67,6 +68,7 @@ class PostBattlePlayerForm extends Model
             [['kill', 'death', 'my_kill'], 'integer', 'min' => 0],
             [['kill_or_assist', 'special'], 'integer', 'min' => 0],
             [['point'], 'integer', 'min' => 0],
+            [['name'], 'string', 'max' => 10],
         ];
     }
 

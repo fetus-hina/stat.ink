@@ -434,6 +434,7 @@ class PostBattleForm extends Model
                     'special'       => $form->special,
                     'point'         => $form->point,
                     'my_kill'       => $form->my_kill,
+                    'name'          => $form->name,
                 ]);
             }
         }

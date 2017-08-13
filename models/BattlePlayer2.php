@@ -28,6 +28,7 @@ use yii\db\ActiveRecord;
  * @property integer $special
  * @property integer $point
  * @property integer $my_kill
+ * @property string $name
  *
  * @property Battle2 $battle
  * @property Weapon2 $weapon
@@ -66,6 +67,7 @@ class BattlePlayer2 extends ActiveRecord
             [['kill_or_assist', 'special'], 'integer', 'min' => 0],
             [['point'], 'integer', 'min' => 0],
             [['is_my_team', 'is_me'], 'boolean'],
+            [['name'], 'string', 'max' => 10],
             [['battle_id'], 'exist', 'skipOnError' => true,
                 'targetClass' => Battle2::class,
                 'targetAttribute' => ['battle_id' => 'id'],
@@ -101,6 +103,7 @@ class BattlePlayer2 extends ActiveRecord
             'special' => 'Special',
             'point' => 'Point',
             'my_kill' => 'My Kill',
+            'name' => 'Name',
         ];
     }
 
@@ -197,6 +200,7 @@ class BattlePlayer2 extends ActiveRecord
             'special'       => (string)$this->special === '' ? null : (int)$this->kill_or_assist,
             'my_kill'       => (string)$this->my_kill === '' ? null : (int)$this->my_kill,
             'point'         => (string)$this->point === '' ? null : (int)$this->point,
+            'name'          => (string)$this->name === '' ? null : $this->name,
         ];
     }
 }
