@@ -52,7 +52,6 @@ class m170812_095424_user_stat2 extends Migration
 
             'PRIMARY KEY ([[user_id]])',
         ]);
-
     }
 
     public function down()
