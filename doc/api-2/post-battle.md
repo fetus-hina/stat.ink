@@ -12,7 +12,15 @@
 
 投稿時のリクエストボディの形式については[request-body.md](request-body.md)を参照してください。
 
-注意: 現時点では、ガチマッチ関連のフィールドは全く定義していません。仕様が Splatoon (1) と同じ/違うことを確認してから実装します。
+投稿が成功したとき、結果はHTTPレスポンスヘッダに次のように返却されます。
+
+|レスポンスヘッダ|値の例|意味|
+|-|-|-|
+|`Location`|`https://stat.ink/@username/spl2/42`|ブラウザで表示するバトル詳細ページです|
+|`X-Api-Location`|`https://stat.ink/api/v2/battle/42`|APIで利用するためのURLです|
+|`X-User-Screen-Name`|`username`|URL中に含まれるユーザ名です|
+|`X-Battle-Id`|`42`|バトルを識別する番号です|
+
 
 パラメータ
 ----------
