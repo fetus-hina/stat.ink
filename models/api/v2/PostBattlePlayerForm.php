@@ -10,6 +10,8 @@ namespace app\models\api\v2;
 use Yii;
 use app\components\behaviors\FixAttributesBehavior;
 use app\components\behaviors\TrimAttributesBehavior;
+use app\models\FestTitle;
+use app\models\Gender;
 use app\models\Rank2;
 use app\models\Weapon2;
 use yii\base\Model;
@@ -29,6 +31,8 @@ class PostBattlePlayerForm extends Model
     public $point;
     public $my_kill;
     public $name;
+    public $gender;
+    public $fest_title;
 
     public function behaviors()
     {
@@ -43,6 +47,9 @@ class PostBattlePlayerForm extends Model
                     'weapon' => [
                         'manueuver' => 'maneuver', // issue #221
                         'manueuver_collabo' => 'maneuver_collabo', // issue #221
+                    ],
+                    'fest_title' => [
+                        'friend' => 'fiend', // issue #44
                     ],
                 ],
             ],
@@ -69,6 +76,12 @@ class PostBattlePlayerForm extends Model
             [['kill_or_assist', 'special'], 'integer', 'min' => 0],
             [['point'], 'integer', 'min' => 0],
             [['name'], 'string', 'max' => 10],
+            [['gender'], 'in', 'range' => ['boy', 'girl']],
+            [['fest_title'], 'string'],
+            [['fest_title'], 'exist', 'skipOnError' => true,
+                'targetClass' => FestTitle::class,
+                'targetAttribute' => 'key',
+            ],
         ];
     }
 

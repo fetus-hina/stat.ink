@@ -76,6 +76,11 @@ use yii\helpers\Url;
  * @property integer $agent_id
  * @property boolean $is_automated
  * @property boolean $use_for_entire
+ * @property integer $gender_id
+ * @property integer $fest_title_id
+ * @property integer $fest_exp
+ * @property integer $fest_title_after_id
+ * @property integer $fest_exp_after
  * @property string $remote_addr
  * @property integer $remote_port
  * @property string $start_at
@@ -514,7 +519,8 @@ class Battle2 extends ActiveRecord
             [['max_kill_combo', 'max_kill_streak', 'my_point', 'my_team_point', 'his_team_point'], 'integer'],
             [['my_team_count', 'his_team_count', 'cash', 'cash_after', 'period', 'version_id', 'bonus_id'], 'integer'],
             [['env_id', 'agent_game_version_id', 'agent_id', 'remote_port'], 'integer'],
-            [['kill_or_assist', 'special'], 'integer'],
+            [['kill_or_assist', 'special', 'gender_id', 'fest_title_id', 'fest_title_after_id'], 'integer'],
+            [['fest_exp', 'fest_exp_after'], 'integer', 'min' => 0, 'max' => 99],
             [['is_win', 'is_knockout', 'is_automated', 'use_for_entire'], 'boolean'],
             [['kill_ratio', 'kill_rate', 'my_team_percent', 'his_team_percent'], 'number'],
             [['my_team_color_hue', 'his_team_color_hue', 'note', 'private_note', 'link_url'], 'string'],
@@ -578,6 +584,14 @@ class Battle2 extends ActiveRecord
                 'targetClass' => Weapon2::class,
                 'targetAttribute' => ['weapon_id' => 'id'],
             ],
+            [['gender_id'], 'exist', 'skipOnError' => true,
+                'targetClass' => Gender::class,
+                'targetAttribute' => ['gender_id' => 'id'],
+            ],
+            [['fest_title_id', 'fest_title_after_id'], 'exist', 'skipOnError' => true,
+                'targetClass' => FestTitle::class,
+                'targetAttribute' => 'id',
+            ],
         ];
     }
 
@@ -637,6 +651,11 @@ class Battle2 extends ActiveRecord
             'agent_id' => 'Agent ID',
             'is_automated' => 'Is Automated',
             'use_for_entire' => 'Use For Entire',
+            'gender_id' => 'Gender',
+            'fest_title_id' => 'Fest Title',
+            'fest_exp' => 'Fest Exp',
+            'fest_title_after_id' => 'Fest Title (After the battle)',
+            'fest_exp_after' => 'Fest Exp (After the battle)',
             'remote_addr' => 'Remote Addr',
             'remote_port' => 'Remote Port',
             'start_at' => Yii::t('app', 'Battle Start'),
@@ -802,6 +821,21 @@ class Battle2 extends ActiveRecord
     public function getWeapon()
     {
         return $this->hasOne(Weapon2::class, ['id' => 'weapon_id']);
+    }
+
+    public function getGender()
+    {
+        return $this->hasOne(Gender::class, ['id' => 'gender_id']);
+    }
+
+    public function getFestTitle()
+    {
+        return $this->hasOne(FestTitle::class, ['id' => 'fest_title_id']);
+    }
+
+    public function getFestTitleAfter()
+    {
+        return $this->hasOne(FestTitle::class, ['id' => 'fest_title_after_id']);
     }
 
     public function getIsMeaningful() : bool
@@ -972,6 +1006,11 @@ class Battle2 extends ActiveRecord
             //     'hue' => $this->his_team_color_hue,
             //     'rgb' => $this->his_team_color_rgb,
             // ],
+            'gender' => $this->gender ? $this->gender->toJsonArray() : null,
+            'fest_title' => $this->festTitle ? $this->festTitle->toJsonArray($this->gender) : null,
+            'fest_exp' => $this->fest_exp,
+            'fest_title_after' => $this->festTitleAfter ? $this->festTitleAfter->toJsonArray($this->gender) : null,
+            'fest_exp_after' => $this->fest_exp_after,
             'image_judge' => $this->battleImageJudge
                 ? Url::to(Yii::getAlias('@imageurl') . '/' . $this->battleImageJudge->filename, true)
                 : null,

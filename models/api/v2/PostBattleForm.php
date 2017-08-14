@@ -20,6 +20,8 @@ use app\models\BattleImage2;
 use app\models\BattleImageType;
 use app\models\BattlePlayer2;
 use app\models\DeathReason2;
+use app\models\FestTitle;
+use app\models\Gender;
 use app\models\Lobby2;
 use app\models\Map2;
 use app\models\Mode2;
@@ -64,6 +66,11 @@ class PostBattleForm extends Model
     public $his_team_percent;
     public $my_team_count;
     public $his_team_count;
+    public $gender;
+    public $fest_title;
+    public $fest_exp;
+    public $fest_title_after;
+    public $fest_exp_after;
     public $players;
     public $death_reasons;
     public $events;
@@ -98,6 +105,12 @@ class PostBattleForm extends Model
                     'weapon' => [
                         'manueuver' => 'maneuver', // issue #221
                         'manueuver_collabo' => 'maneuver_collabo', // issue #221
+                    ],
+                    'fest_title' => [
+                        'friend' => 'fiend',
+                    ],
+                    'fest_title_after' => [
+                        'friend' => 'fiend',
                     ],
                 ],
             ],
@@ -179,6 +192,13 @@ class PostBattleForm extends Model
                 'max' => 100.0,
             ],
             [['my_team_count', 'his_team_count'], 'integer', 'min' => 0, 'max' => 100],
+            [['gender'], 'in', 'range' => ['boy', 'girl']],
+            [['fest_title', 'fest_title_after'], 'string'],
+            [['fest_title', 'fest_title_after'], 'exist', 'skipOnError' => true,
+                'targetClass' => FestTitle::class,
+                'targetAttribute' => 'key',
+            ],
+            [['fest_exp', 'fest_exp_after'], 'integer', 'min' => 0, 'max' => 99],
             [['players'], 'validatePlayers'],
             [['death_reasons'], 'validateDeathReasons'],
             [['events'], 'validateEvents'],
@@ -328,6 +348,17 @@ class PostBattleForm extends Model
         $battle->his_team_percent = $floatval($this->his_team_percent);
         $battle->my_team_count  = $intval($this->my_team_count);
         $battle->his_team_count = $intval($this->his_team_count);
+        $battle->gender_id      = (function ($v) : ?int {
+            switch (trim((string)$v)) {
+                case 'boy': return 1;
+                case 'girl': return 2;
+                default: return null;
+            }
+        })($this->gender);
+        $battle->fest_title_id  = $key2id($this->fest_title, FestTitle::class);
+        $battle->fest_exp       = $intval($this->fest_exp);
+        $battle->fest_title_after_id = $key2id($this->fest_title_after, FestTitle::class);
+        $battle->fest_exp_after = $intval($this->fest_exp);
         $battle->is_automated   = ($this->automated === 'yes');
         $battle->link_url       = $this->link_url;
         $battle->note           = $this->note;
@@ -419,6 +450,18 @@ class PostBattleForm extends Model
                     ? null
                     : Rank2::findOne(['key' => $form->rank]);
 
+                $gender = (function ($v) {
+                    switch (trim((string)$v)) {
+                        case 'boy': return 1;
+                        case 'girl': return 2;
+                        return null;
+                    }
+                })($form->gender);
+
+                $festTitle = ($form->fest_title == '')
+                    ? null
+                    : FestTitle::findOne(['key' => $form->fest_title]);
+
                 yield Yii::createObject([
                     'class'         => BattlePlayer2::class,
                     'battle_id'     => $battle->id,
@@ -435,6 +478,8 @@ class PostBattleForm extends Model
                     'point'         => $form->point,
                     'my_kill'       => $form->my_kill,
                     'name'          => $form->name,
+                    'gender_id'     => $gender,
+                    'fest_title_id' => $festTitle->id ?? null,
                 ]);
             }
         }
