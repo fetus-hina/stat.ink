@@ -95,4 +95,7 @@
       </div>
     {{/if}}
   {{/if}}
+  <p class="text-right">
+    Powered by <a href="https://splapi.fetus.jp/">SPLAPI</a>
+  </p>
 {{/strip}}

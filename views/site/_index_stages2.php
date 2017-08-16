@@ -53,3 +53,6 @@ $schedule = Schedule2::getInfo();
   </div>
 </div>
 <?php endif; ?>
+<p class="text-right">
+  Powered by <a href="https://splapi2.stat.ink/">SPLAPI2</a>
+</p>
