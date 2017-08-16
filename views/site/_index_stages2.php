@@ -19,13 +19,13 @@ $schedule = Schedule2::getInfo();
 </h2>
 <div class="row">
   <div class="col-xs-12 col-lg-4">
-    <?= $this->render('_index_stages_rule2', ['mode' => 'Regular', 'data' => $schedule->current->regular]) . "\n" ?>
+    <?= $this->render('_index_stages_rule2', ['mode' => 'Regular', 'data' => $schedule->current->regular ?? null]) . "\n" ?>
   </div>
   <div class="col-xs-12 col-lg-4">
-    <?= $this->render('_index_stages_rule2', ['mode' => 'Ranked', 'data' => $schedule->current->gachi]) . "\n" ?>
+    <?= $this->render('_index_stages_rule2', ['mode' => 'Ranked', 'data' => $schedule->current->gachi ?? null]) . "\n" ?>
   </div>
   <div class="col-xs-12 col-lg-4">
-    <?= $this->render('_index_stages_rule2', ['mode' => 'League', 'data' => $schedule->current->league]) . "\n" ?>
+    <?= $this->render('_index_stages_rule2', ['mode' => 'League', 'data' => $schedule->current->league ?? null]) . "\n" ?>
   </div>
 </div>
 <?php if ($schedule->next->regular || $schedule->next->gachi || $schedule->next->league): ?>
@@ -43,13 +43,13 @@ $schedule = Schedule2::getInfo();
 </h2>
 <div class="row">
   <div class="col-xs-12 col-lg-4">
-    <?= $this->render('_index_stages_rule2', ['mode' => 'Regular', 'data' => $schedule->next->regular]) . "\n" ?>
+    <?= $this->render('_index_stages_rule2', ['mode' => 'Regular', 'data' => $schedule->next->regular ?? null]) . "\n" ?>
   </div>
   <div class="col-xs-12 col-lg-4">
-    <?= $this->render('_index_stages_rule2', ['mode' => 'Ranked', 'data' => $schedule->next->gachi]) . "\n" ?>
+    <?= $this->render('_index_stages_rule2', ['mode' => 'Ranked', 'data' => $schedule->next->gachi ?? null]) . "\n" ?>
   </div>
   <div class="col-xs-12 col-lg-4">
-    <?= $this->render('_index_stages_rule2', ['mode' => 'League', 'data' => $schedule->next->league]) . "\n" ?>
+    <?= $this->render('_index_stages_rule2', ['mode' => 'League', 'data' => $schedule->next->league ?? null]) . "\n" ?>
   </div>
 </div>
 <?php endif; ?>
