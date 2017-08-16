@@ -331,6 +331,7 @@ return [
     'Results of {0}\'s Battle' => '',
     '{rule}: Peak' => '',
     'Save!' => '',
+    'Schedule' => '',
     'Scheduled' => '',
     'Screen Name' => '',
     'Screen Name (Login Name)' => '',
