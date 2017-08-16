@@ -92,7 +92,24 @@
                   <span class="fa fa-eye left"></span>{{'Show your API Token'|translate:'app'|escape}}
                 </button>
                 <div id="apikey" style="display:none">
-                  <input type="text" class="form-control" value="{{$user->api_key|escape}}" readonly>
+                  <div class="input-group">
+                    <input type="text" class="form-control" value="{{$user->api_key|escape}}" readonly>
+                    <span class="input-group-btn">
+                      {{Html::a(
+                        '<span class="fa fa-repeat"></span>',
+                        ['/user/regenerate-apikey'],
+                        [
+                          'id' => 'regenerate-apikey',
+                          'class' => 'btn btn-default auto-tooltip',
+                          'title' => Yii::t('app', 'Regenerate your API token'),
+                          'data' => [
+                            'confirm' => Yii::t('app', 'Are you sure you want to regenerate your API token?'),
+                            'method' => 'post'
+                          ]
+                        ]
+                      )}}
+                    </span>
+                  </div>
                   {{registerCss}}
                     #apikey input[type="text"]{
                       font-family:Menlo,Monaco,Consolas,"Courier New",monospace;

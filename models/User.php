@@ -323,7 +323,7 @@ class User extends ActiveRecord implements IdentityInterface
             $key = random_bytes(256 / 8);
             $key = rtrim(base64_encode($key), '=');
             $key = strtr($key, '+/', '_-');
-            if (self::find()->where(['[[api_key]]' => $key])->count() == 0) {
+            if (!self::find()->where(['[[api_key]]' => $key])->exists()) {
                 return $key;
             }
         }
