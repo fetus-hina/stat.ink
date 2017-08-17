@@ -80,9 +80,15 @@ $this->registerCss('#battle .progress{margin-bottom:0}');
           return null;
         }
         return sprintf(
-          '%s → %s',
+          '%s%s → %s%s',
           Yii::t('app-rank2', $model->rank->name ?? '?'),
-          Yii::t('app-rank2', $model->rankAfter->name ?? '?')
+          ($model->rank_exp !== null && ($model->rank->key ?? '') === 's+')
+            ? (' ' . $model->rank_exp)
+            : '',
+          Yii::t('app-rank2', $model->rankAfter->name ?? '?'),
+          ($model->rank_after_exp !== null && ($model->rankAfter->key ?? '') === 's+')
+            ? (' ' . $model->rank_after_exp)
+            : ''
         );
       },
       // }}}
