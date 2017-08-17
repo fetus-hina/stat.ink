@@ -57,12 +57,44 @@
     </div>
 
     {{if $app->language === 'ja-JP'}}
-      <p class="bg-warning" style="padding:15px;border-radius:10px">
-        バトル登録機能をリリースしました。ログイン後、バトル登録ボタンから登録できます。<br>
-        iOS等をご利用の方、PCでキャプチャボードを使用出来ない方、どうぞご利用ください。<br>
-        (Androidをご利用の方には引き続きイカレコをオススメします)
-      </p>
-    {{elseif $app->language|substr:0:2 === 'fr'}}
+      <div class="bg-warning" style="margin-bottom:15px;padding:15px;border-radius:10px">
+        <p>
+          イカリング2からの取り込みを検討されている方は、次のようなアプリをご利用ください。（自己責任）
+        </p>
+        <ul>
+          <li>
+            <a href="https://github.com/hymm/squid-tracks/">SquidTracks</a> (Windowsインストーラあり)
+          </li>
+          <li>
+            <a href="https://github.com/frozenpandaman/splatnet2statink">splatnet2statink</a>（知識と経験が必要）
+          </li>
+        </ul>
+        <p style="margin-bottom:0">
+          stat.ink自体にiksm_session, token あるいはパスワードを保存しての自動登録機能実装の予定はありません。
+          （<a href="https://twitter.com/fetus_hina/status/895268629230493696">理由ツイート</a>）<br>
+          iksm_session等の登録は、<a href="https://ja.wikipedia.org/wiki/%E3%82%BB%E3%83%83%E3%82%B7%E3%83%A7%E3%83%B3%E3%83%8F%E3%82%A4%E3%82%B8%E3%83%A3%E3%83%83%E3%82%AF">セッションハイジャック</a>を起こさせることに等しく、危険です。<br>
+          自分のiksm_sessionを何らかの方法で知ったとしても、それを他人には決して渡さないようにしてください。
+        </p>
+      </div>
+    {{else}}
+      <div class="bg-warning" style="margin-bottom:15px;padding:15px;border-radius:10px">
+        <p>
+          You can import automatically from SplatNet 2, use these apps: (USE AT YOUR OWN RISK)
+        </p>
+        <ul>
+          <li>
+            <a href="https://github.com/hymm/squid-tracks/">SquidTracks</a> (multi platform, available installer for Windows)
+          </li>
+          <li>
+            <a href="https://github.com/frozenpandaman/splatnet2statink">splatnet2statink</a> (multi platform, needs Python 3.5+)
+          </li>
+        </ul>
+        <p style="margin-bottom:0">
+          We won't implement to import automatically to stat.ink for security reasons.
+        </p>
+      </div>
+    {{/if}}
+    {{if $app->language|substr:0:2 === 'fr'}}
       <p class="bg-warning" style="padding:15px;border-radius:10px">
         French language support is really limited at this time.<br>
         Only proper nouns translated. (e.g. weapons, stages)<br>
