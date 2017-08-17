@@ -72,7 +72,7 @@
         <p style="margin-bottom:0">
           stat.ink自体にiksm_session, token あるいはパスワードを保存しての自動登録機能実装の予定はありません。
           （<a href="https://twitter.com/fetus_hina/status/895268629230493696">理由ツイート</a>）<br>
-          iksm_session等の登録は、<a href="https://ja.wikipedia.org/wiki/%E3%82%BB%E3%83%83%E3%82%B7%E3%83%A7%E3%83%B3%E3%83%8F%E3%82%A4%E3%82%B8%E3%83%A3%E3%83%83%E3%82%AF">セッションハイジャック</a>を起こさせることに等しく、危険です。<br>
+          iksm_session等の登録は、<a href="https://ja.wikipedia.org/wiki/%E3%82%BB%E3%83%83%E3%82%B7%E3%83%A7%E3%83%B3%E3%83%8F%E3%82%A4%E3%82%B8%E3%83%A3%E3%83%83%E3%82%AF">セッションハイジャック</a>を起こさせることに等しく、危険です。（最近だと、艦これの乗っ取り事件とかありましたね）<br>
           自分のiksm_sessionを何らかの方法で知ったとしても、それを他人には決して渡さないようにしてください。
         </p>
       </div>
