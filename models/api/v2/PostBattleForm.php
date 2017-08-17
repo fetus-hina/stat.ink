@@ -58,7 +58,9 @@ class PostBattleForm extends Model
     public $level;
     public $level_after;
     public $rank;
+    public $rank_exp;
     public $rank_after;
+    public $rank_exp_after;
     public $my_point;
     public $my_team_point;
     public $his_team_point;
@@ -162,6 +164,7 @@ class PostBattleForm extends Model
                 'targetClass' => Rank2::class,
                 'targetAttribute' => 'key',
             ],
+            [['rank_exp', 'rank_exp_after'], 'integer', 'min' => 0, 'max' => 50],
             [['result'], 'boolean', 'trueValue' => 'win', 'falseValue' => 'lose'],
             [['knock_out'], 'boolean', 'trueValue' => 'yes', 'falseValue' => 'no'],
             [['rank_in_team'], 'integer', 'min' => 1, 'max' => 4],
@@ -340,7 +343,9 @@ class PostBattleForm extends Model
         $battle->level          = $intval($this->level);
         $battle->level_after    = $intval($this->level_after);
         $battle->rank_id        = $key2id($this->rank, Rank2::class);
+        $battle->rank_exp       = $intval($this->rank_exp);
         $battle->rank_after_id  = $key2id($this->rank_after, Rank2::class);
+        $battle->rank_after_exp = $intval($this->rank_exp_after);
         $battle->my_point       = $intval($this->my_point);
         $battle->my_team_point  = $intval($this->my_team_point);
         $battle->his_team_point = $intval($this->his_team_point);

@@ -38,7 +38,9 @@ use yii\helpers\Url;
  * @property integer $level
  * @property integer $level_after
  * @property integer $rank_id
+ * @property integer $rank_exp
  * @property integer $rank_after_id
+ * @property integer $rank_after_exp
  * @property integer $rank_in_team
  * @property integer $kill
  * @property integer $death
@@ -520,6 +522,7 @@ class Battle2 extends ActiveRecord
             [['my_team_count', 'his_team_count', 'cash', 'cash_after', 'period', 'version_id', 'bonus_id'], 'integer'],
             [['env_id', 'agent_game_version_id', 'agent_id', 'remote_port'], 'integer'],
             [['kill_or_assist', 'special', 'gender_id', 'fest_title_id', 'fest_title_after_id'], 'integer'],
+            [['rank_exp', 'rank_after_exp'], 'integer', 'min' => 0, 'max' => 50],
             [['fest_exp', 'fest_exp_after'], 'integer', 'min' => 0, 'max' => 99],
             [['is_win', 'is_knockout', 'is_automated', 'use_for_entire'], 'boolean'],
             [['kill_ratio', 'kill_rate', 'my_team_percent', 'his_team_percent'], 'number'],
@@ -613,7 +616,9 @@ class Battle2 extends ActiveRecord
             'level' => Yii::t('app', 'Level'),
             'level_after' => Yii::t('app', 'Level (after the battle)'),
             'rank_id' => Yii::t('app', 'Rank'),
+            'rank_exp' => 'Rank Exp',
             'rank_after_id' => Yii::t('app', 'Rank (after the battle)'),
+            'rank_after_exp' => 'Rank Exp After',
             'rank_in_team' => Yii::t('app', 'Rank in Team'),
             'kill' => 'Kill',
             'death' => 'Death',
@@ -967,7 +972,9 @@ class Battle2 extends ActiveRecord
             'map' => $this->map ? $this->map->toJsonArray() : null,
             'weapon' => $this->weapon ? $this->weapon->toJsonArray() : null,
             'rank' => $this->rank ? $this->rank->toJsonArray() : null,
+            'rank_exp' => $this->rank_exp,
             'rank_after' => $this->rankAfter ? $this->rankAfter->toJsonArray() : null,
+            'rank_exp_after' => $this->rank_after_exp,
             'level' => $this->level,
             'level_after' => $this->level_after,
             //'cash' => $this->cash,
