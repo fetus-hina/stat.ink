@@ -75,6 +75,9 @@
       {{$model->level_after|default:''|escape}}
     </td>
 *}}
+    <td class="cell-judge">
+      {{$this->render('_battle_judge', ['model' => $model])}}
+    </td>
     <td class="cell-result">
       {{if $model->is_win === null}}
         ?

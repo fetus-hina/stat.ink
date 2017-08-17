@@ -108,6 +108,7 @@
                 <th class="cell-special">{{'Special'|translate:'app'|escape}}</th>
                 <th class="cell-level">{{'Level'|translate:'app'|escape}}</th>
                 {{* <th class="cell-level-after">{{'Level (After)'|translate:'app'|escape}}</th> *}}
+                <th class="cell-judge">{{'Judge'|translate:'app'|escape}}</th>
                 <th class="cell-result">{{'Result'|translate:'app'|escape}}</th>
                 <th class="cell-kd">{{'k'|translate:'app'|escape}}/{{'d'|translate:'app'|escape}}</th>
                 <th class="cell-kill-ratio auto-tooltip" title="{{'Kill Ratio'|translate:'app'|escape}}">{{'Ratio'|translate:'app'|escape}}</th>
@@ -181,6 +182,8 @@
             <label><input type="checkbox" class="table-config-chk" data-klass="cell-level-after"> {{'Level (After)'|translate:'app'|escape}}</label>
           </div><div class="col-xs-6 col-sm-4 col-md-4 col-lg-3">
         *}}
+            <label><input type="checkbox" class="table-config-chk" data-klass="cell-judge"> {{'Judge'|translate:'app'|escape}}</label>
+          </div><div class="col-xs-6 col-sm-4 col-md-4 col-lg-3">
             <label><input type="checkbox" class="table-config-chk" data-klass="cell-result"> {{'Result'|translate:'app'|escape}}</label>
           </div><div class="col-xs-6 col-sm-4 col-md-4 col-lg-3">
             <label><input type="checkbox" class="table-config-chk" data-klass="cell-kd"> {{'k'|translate:'app'|escape}}/{{'d'|translate:'app'|escape}}</label>

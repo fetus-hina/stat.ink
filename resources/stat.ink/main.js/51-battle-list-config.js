@@ -21,6 +21,7 @@ window.battleListConfig = function() {
             "cell-rank-after": false,
             "cell-level": false,
             "cell-level-after": false,
+            "cell-judge": true,
             "cell-result": true,
             "cell-kd": true,
             "cell-kill-ratio": true,
