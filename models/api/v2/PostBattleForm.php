@@ -355,9 +355,12 @@ class PostBattleForm extends Model
         $battle->his_team_count = $intval($this->his_team_count);
         $battle->gender_id      = (function ($v) : ?int {
             switch (trim((string)$v)) {
-                case 'boy': return 1;
-                case 'girl': return 2;
-                default: return null;
+                case 'boy':
+                    return 1;
+                case 'girl':
+                    return 2;
+                default:
+                    return null;
             }
         })($this->gender);
         $battle->fest_title_id  = $key2id($this->fest_title, FestTitle::class);
@@ -457,8 +460,10 @@ class PostBattleForm extends Model
 
                 $gender = (function ($v) {
                     switch (trim((string)$v)) {
-                        case 'boy': return 1;
-                        case 'girl': return 2;
+                        case 'boy':
+                            return 1;
+                        case 'girl':
+                            return 2;
                         return null;
                     }
                 })($form->gender);

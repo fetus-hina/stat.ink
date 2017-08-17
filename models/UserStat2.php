@@ -177,252 +177,312 @@ class UserStat2 extends ActiveRecord
                     ['ELSE 1']
                 ))),
                 'win_battles' => sprintf('SUM(CASE %s END)', implode(' ', array_merge(
-                    $excludeHaventWinLose, [
-                    'WHEN {{battle2}}.[[is_win]] = TRUE THEN 1',
-                    'ELSE 0',
-                ]))),
+                    $excludeHaventWinLose,
+                    [
+                        'WHEN {{battle2}}.[[is_win]] = TRUE THEN 1',
+                        'ELSE 0',
+                    ]
+                ))),
                 'have_kill_death' => sprintf('SUM(CASE %s END)', implode(' ', array_merge(
-                    $excludeHaventKillDeath, [
-                    'ELSE 1',
-                ]))),
+                    $excludeHaventKillDeath,
+                    [
+                        'ELSE 1',
+                    ]
+                ))),
                 'kill' => sprintf('SUM(CASE %s END)', implode(' ', array_merge(
-                    $excludeHaventKillDeath, [
-                    'ELSE {{battle2}}.[[kill]]',
-                ]))),
+                    $excludeHaventKillDeath,
+                    [
+                        'ELSE {{battle2}}.[[kill]]',
+                    ]
+                ))),
                 'death' => sprintf('SUM(CASE %s END)', implode(' ', array_merge(
-                    $excludeHaventKillDeath, [
+                    $excludeHaventKillDeath,
+                    [
                     'ELSE {{battle2}}.[[death]]',
-                ]))),
+                    ]
+                ))),
                 'have_kill_death_time' => sprintf('SUM(CASE %s END)', implode(' ', array_merge(
                     $excludeHaventKillDeath,
-                    $excludeHaventTimes, [
+                    $excludeHaventTimes,
+                    [
                     'ELSE 1',
-                ]))),
+                    ]
+                ))),
                 'kill_with_time' => sprintf('SUM(CASE %s END)', implode(' ', array_merge(
                     $excludeHaventKillDeath,
-                    $excludeHaventTimes, [
+                    $excludeHaventTimes,
+                    [
                     'ELSE {{battle2}}.[[kill]]',
-                ]))),
+                    ]
+                ))),
                 'death_with_time' => sprintf('SUM(CASE %s END)', implode(' ', array_merge(
                     $excludeHaventKillDeath,
-                    $excludeHaventTimes, [
+                    $excludeHaventTimes,
+                    [
                     'ELSE {{battle2}}.[[death]]',
-                ]))),
+                    ]
+                ))),
                 'total_seconds' => sprintf('SUM(CASE %s END)', implode(' ', array_merge(
                     $excludeHaventKillDeath,
-                    $excludeHaventTimes, [
+                    $excludeHaventTimes,
+                    [
                     sprintf(
                         'ELSE (%s - %s)',
                         $timestamp('{{battle2}}.[[end_at]]'),
                         $timestamp('{{battle2}}.[[start_at]]')
                     ),
-                ]))),
+                    ]
+                ))),
                 // }}}
                 // ナワバリ {{{
                 'turf_battles' => sprintf('SUM(CASE %s END)', implode(' ', array_merge(
                     $excludePrivate,
-                    $excludeNonTurfWar, [
+                    $excludeNonTurfWar,
+                    [
                     'ELSE 1',
-                ]))),
+                    ]
+                ))),
                 'turf_have_win_lose' => sprintf('SUM(CASE %s END)', implode(' ', array_merge(
                     $excludePrivate,
                     $excludeNonTurfWar,
-                    $excludeHaventWinLose, [
+                    $excludeHaventWinLose,
+                    [
                     'ELSE 1',
-                ]))),
+                    ]
+                ))),
                 'turf_win_battles' => sprintf('SUM(CASE %s END)', implode(' ', array_merge(
                     $excludePrivate,
                     $excludeNonTurfWar,
-                    $excludeHaventWinLose, [
+                    $excludeHaventWinLose,
+                    [
                     'WHEN {{battle2}}.[[is_win]] = TRUE THEN 1',
                     'ELSE 0',
-                ]))),
+                    ]
+                ))),
                 'turf_have_kill_death' => sprintf('SUM(CASE %s END)', implode(' ', array_merge(
                     $excludePrivate,
                     $excludeNonTurfWar,
-                    $excludeHaventKillDeath, [
+                    $excludeHaventKillDeath,
+                    [
                     'ELSE 1',
-                ]))),
+                    ]
+                ))),
                 'turf_kill' => sprintf('SUM(CASE %s END)', implode(' ', array_merge(
                     $excludePrivate,
                     $excludeNonTurfWar,
-                    $excludeHaventKillDeath, [
+                    $excludeHaventKillDeath,
+                    [
                     'ELSE {{battle2}}.[[kill]]',
-                ]))),
+                    ]
+                ))),
                 'turf_death' => sprintf('SUM(CASE %s END)', implode(' ', array_merge(
                     $excludePrivate,
                     $excludeNonTurfWar,
-                    $excludeHaventKillDeath, [
+                    $excludeHaventKillDeath,
+                    [
                     'ELSE {{battle2}}.[[death]]',
-                ]))),
+                    ]
+                ))),
                 'turf_have_inked'  => sprintf('SUM(CASE %s END)', implode(' ', array_merge(
                     $excludePrivate,
                     $excludeNonTurfWar,
-                    $excludeHaventInked, [
+                    $excludeHaventInked,
+                    [
                     'ELSE 1',
-                ]))),
+                    ]
+                ))),
                 'turf_total_inked'  => sprintf('SUM(CASE %s END)', implode(' ', array_merge(
                     $excludePrivate,
                     $excludeNonTurfWar,
-                    $excludeHaventInked, [
+                    $excludeHaventInked,
+                    [
                     'WHEN {{battle2}}.[[is_win]] THEN {{battle2}}.[[my_point]] - 1000',
                     'ELSE {{battle2}}.[[my_point]]',
-                ]))),
+                    ]
+                ))),
                 'turf_max_inked'  => sprintf('MAX(CASE %s END)', implode(' ', array_merge(
                     $excludePrivate,
                     $excludeNonTurfWar,
-                    $excludeHaventInked, [
+                    $excludeHaventInked,
+                    [
                     'WHEN {{battle2}}.[[is_win]] THEN {{battle2}}.[[my_point]] - 1000',
                     'ELSE {{battle2}}.[[my_point]]',
-                ]))),
+                    ]
+                ))),
                 // }}}
                 // ガチ {{{
                 'gachi_battles' => sprintf('SUM(CASE %s END)', implode(' ', array_merge(
                     $excludePrivate,
-                    $excludeNonGachi, [
+                    $excludeNonGachi,
+                    [
                     'ELSE 1',
-                ]))),
+                    ]
+                ))),
                 'gachi_have_win_lose' => sprintf('SUM(CASE %s END)', implode(' ', array_merge(
                     $excludePrivate,
                     $excludeNonGachi,
-                    $excludeHaventWinLose, [
+                    $excludeHaventWinLose,
+                    [
                     'ELSE 1',
-                ]))),
+                    ]
+                ))),
                 'gachi_win_battles' => sprintf('SUM(CASE %s END)', implode(' ', array_merge(
                     $excludePrivate,
                     $excludeNonGachi,
-                    $excludeHaventWinLose, [
+                    $excludeHaventWinLose,
+                    [
                     'WHEN {{battle2}}.[[is_win]] = TRUE THEN 1',
                     'ELSE 0',
-                ]))),
+                    ]
+                ))),
                 'gachi_have_kill_death' => sprintf('SUM(CASE %s END)', implode(' ', array_merge(
                     $excludePrivate,
                     $excludeNonGachi,
-                    $excludeHaventKillDeath, [
+                    $excludeHaventKillDeath,
+                    [
                     'ELSE 1',
-                ]))),
+                    ]
+                ))),
                 'gachi_kill' => sprintf('SUM(CASE %s END)', implode(' ', array_merge(
                     $excludePrivate,
                     $excludeNonGachi,
-                    $excludeHaventKillDeath, [
+                    $excludeHaventKillDeath,
+                    [
                     'ELSE {{battle2}}.[[kill]]',
-                ]))),
+                    ]
+                ))),
                 'gachi_death' => sprintf('SUM(CASE %s END)', implode(' ', array_merge(
                     $excludePrivate,
                     $excludeNonGachi,
-                    $excludeHaventKillDeath, [
+                    $excludeHaventKillDeath,
+                    [
                     'ELSE {{battle2}}.[[death]]',
-                ]))),
+                    ]
+                ))),
                 'gachi_kill_death_time' => sprintf('SUM(CASE %s END)', implode(' ', array_merge(
                     $excludePrivate,
                     $excludeNonGachi,
                     $excludeHaventKillDeath,
-                    $excludeHaventTimes, [
+                    $excludeHaventTimes,
+                    [
                     'ELSE 1',
-                ]))),
+                    ]
+                ))),
                 'gachi_kill_with_time' => sprintf('SUM(CASE %s END)', implode(' ', array_merge(
                     $excludePrivate,
                     $excludeNonGachi,
                     $excludeHaventKillDeath,
-                    $excludeHaventTimes, [
+                    $excludeHaventTimes,
+                    [
                     'ELSE {{battle2}}.[[kill]]',
-                ]))),
+                    ]
+                ))),
                 'gachi_death_with_time' => sprintf('SUM(CASE %s END)', implode(' ', array_merge(
                     $excludePrivate,
                     $excludeNonGachi,
                     $excludeHaventKillDeath,
-                    $excludeHaventTimes, [
+                    $excludeHaventTimes,
+                    [
                     'ELSE {{battle2}}.[[death]]',
-                ]))),
+                    ]
+                ))),
                 'gachi_total_seconds' => sprintf('SUM(CASE %s END)', implode(' ', array_merge(
                     $excludePrivate,
                     $excludeNonGachi,
                     $excludeHaventKillDeath,
-                    $excludeHaventTimes, [
+                    $excludeHaventTimes,
+                    [
                     sprintf(
                         'ELSE (%s - %s)',
                         $timestamp('{{battle2}}.[[end_at]]'),
                         $timestamp('{{battle2}}.[[start_at]]')
                     ),
-                ]))),
+                    ]
+                ))),
                 'area_rank_peak' => sprintf('MAX(CASE %s END)', implode(' ', array_merge(
-                    $excludePrivate, [
-                    "WHEN {{rule2}}.[[key]] <> 'area' THEN 0",
-                    "WHEN {{rank2a}}.[[int_base]] IS NULL AND {{rank2b}}.[[int_base]] IS NULL THEN 0",
-                    sprintf(
-                        'ELSE GREATEST(%s + %s, %s + %s)',
-                        sprintf('(CASE %s END)', implode(' ', [
-                            'WHEN {{rank2a}}.[[int_base]] IS NULL THEN 0',
-                            'ELSE {{rank2a}}.[[int_base]]',
-                        ])),
-                        sprintf('(CASE %s END)', implode(' ', [
-                            'WHEN {{rank2a}}.[[int_base]] IS NULL THEN 0',
-                            'WHEN {{battle2}}.[[rank_exp]] IS NULL THEN 0',
-                            'ELSE {{battle2}}.[[rank_exp]]',
-                        ])),
-                        sprintf('(CASE %s END)', implode(' ', [
-                            'WHEN {{rank2b}}.[[int_base]] IS NULL THEN 0',
-                            'ELSE {{rank2b}}.[[int_base]]',
-                        ])),
-                        sprintf('(CASE %s END)', implode(' ', [
-                            'WHEN {{rank2b}}.[[int_base]] IS NULL THEN 0',
-                            'WHEN {{battle2}}.[[rank_after_exp]] IS NULL THEN 0',
-                            'ELSE {{battle2}}.[[rank_after_exp]]',
-                        ]))
-                    ),
-                ]))),
+                    $excludePrivate,
+                    [
+                        "WHEN {{rule2}}.[[key]] <> 'area' THEN 0",
+                        "WHEN {{rank2a}}.[[int_base]] IS NULL AND {{rank2b}}.[[int_base]] IS NULL THEN 0",
+                        sprintf(
+                            'ELSE GREATEST(%s + %s, %s + %s)',
+                            sprintf('(CASE %s END)', implode(' ', [
+                                'WHEN {{rank2a}}.[[int_base]] IS NULL THEN 0',
+                                'ELSE {{rank2a}}.[[int_base]]',
+                            ])),
+                            sprintf('(CASE %s END)', implode(' ', [
+                                'WHEN {{rank2a}}.[[int_base]] IS NULL THEN 0',
+                                'WHEN {{battle2}}.[[rank_exp]] IS NULL THEN 0',
+                                'ELSE {{battle2}}.[[rank_exp]]',
+                            ])),
+                            sprintf('(CASE %s END)', implode(' ', [
+                                'WHEN {{rank2b}}.[[int_base]] IS NULL THEN 0',
+                                'ELSE {{rank2b}}.[[int_base]]',
+                            ])),
+                            sprintf('(CASE %s END)', implode(' ', [
+                                'WHEN {{rank2b}}.[[int_base]] IS NULL THEN 0',
+                                'WHEN {{battle2}}.[[rank_after_exp]] IS NULL THEN 0',
+                                'ELSE {{battle2}}.[[rank_after_exp]]',
+                            ]))
+                        ),
+                    ]
+                ))),
                 'yagura_rank_peak' => sprintf('MAX(CASE %s END)', implode(' ', array_merge(
-                    $excludePrivate, [
-                    "WHEN {{rule2}}.[[key]] <> 'yagura' THEN 0",
-                    "WHEN {{rank2a}}.[[int_base]] IS NULL AND {{rank2b}}.[[int_base]] IS NULL THEN 0",
-                    sprintf(
-                        'ELSE GREATEST(%s + %s, %s + %s)',
-                        sprintf('(CASE %s END)', implode(' ', [
-                            'WHEN {{rank2a}}.[[int_base]] IS NULL THEN 0',
-                            'ELSE {{rank2a}}.[[int_base]]',
-                        ])),
-                        sprintf('(CASE %s END)', implode(' ', [
-                            'WHEN {{rank2a}}.[[int_base]] IS NULL THEN 0',
-                            'WHEN {{battle2}}.[[rank_exp]] IS NULL THEN 0',
-                            'ELSE {{battle2}}.[[rank_exp]]',
-                        ])),
-                        sprintf('(CASE %s END)', implode(' ', [
-                            'WHEN {{rank2b}}.[[int_base]] IS NULL THEN 0',
-                            'ELSE {{rank2b}}.[[int_base]]',
-                        ])),
-                        sprintf('(CASE %s END)', implode(' ', [
-                            'WHEN {{rank2b}}.[[int_base]] IS NULL THEN 0',
-                            'WHEN {{battle2}}.[[rank_after_exp]] IS NULL THEN 0',
-                            'ELSE {{battle2}}.[[rank_after_exp]]',
-                        ]))
-                    ),
-                ]))),
+                    $excludePrivate,
+                    [
+                        "WHEN {{rule2}}.[[key]] <> 'yagura' THEN 0",
+                        "WHEN {{rank2a}}.[[int_base]] IS NULL AND {{rank2b}}.[[int_base]] IS NULL THEN 0",
+                        sprintf(
+                            'ELSE GREATEST(%s + %s, %s + %s)',
+                            sprintf('(CASE %s END)', implode(' ', [
+                                'WHEN {{rank2a}}.[[int_base]] IS NULL THEN 0',
+                                'ELSE {{rank2a}}.[[int_base]]',
+                            ])),
+                            sprintf('(CASE %s END)', implode(' ', [
+                                'WHEN {{rank2a}}.[[int_base]] IS NULL THEN 0',
+                                'WHEN {{battle2}}.[[rank_exp]] IS NULL THEN 0',
+                                'ELSE {{battle2}}.[[rank_exp]]',
+                            ])),
+                            sprintf('(CASE %s END)', implode(' ', [
+                                'WHEN {{rank2b}}.[[int_base]] IS NULL THEN 0',
+                                'ELSE {{rank2b}}.[[int_base]]',
+                            ])),
+                            sprintf('(CASE %s END)', implode(' ', [
+                                'WHEN {{rank2b}}.[[int_base]] IS NULL THEN 0',
+                                'WHEN {{battle2}}.[[rank_after_exp]] IS NULL THEN 0',
+                                'ELSE {{battle2}}.[[rank_after_exp]]',
+                            ]))
+                        ),
+                    ]
+                ))),
                 'hoko_rank_peak' => sprintf('MAX(CASE %s END)', implode(' ', array_merge(
-                    $excludePrivate, [
-                    "WHEN {{rule2}}.[[key]] <> 'hoko' THEN 0",
-                    "WHEN {{rank2a}}.[[int_base]] IS NULL AND {{rank2b}}.[[int_base]] IS NULL THEN 0",
-                    sprintf(
-                        'ELSE GREATEST(%s + %s, %s + %s)',
-                        sprintf('(CASE %s END)', implode(' ', [
-                            'WHEN {{rank2a}}.[[int_base]] IS NULL THEN 0',
-                            'ELSE {{rank2a}}.[[int_base]]',
-                        ])),
-                        sprintf('(CASE %s END)', implode(' ', [
-                            'WHEN {{rank2a}}.[[int_base]] IS NULL THEN 0',
-                            'WHEN {{battle2}}.[[rank_exp]] IS NULL THEN 0',
-                            'ELSE {{battle2}}.[[rank_exp]]',
-                        ])),
-                        sprintf('(CASE %s END)', implode(' ', [
-                            'WHEN {{rank2b}}.[[int_base]] IS NULL THEN 0',
-                            'ELSE {{rank2b}}.[[int_base]]',
-                        ])),
-                        sprintf('(CASE %s END)', implode(' ', [
-                            'WHEN {{rank2b}}.[[int_base]] IS NULL THEN 0',
-                            'WHEN {{battle2}}.[[rank_after_exp]] IS NULL THEN 0',
-                            'ELSE {{battle2}}.[[rank_after_exp]]',
-                        ]))
-                    ),
-                ]))),
+                    $excludePrivate,
+                    [
+                        "WHEN {{rule2}}.[[key]] <> 'hoko' THEN 0",
+                        "WHEN {{rank2a}}.[[int_base]] IS NULL AND {{rank2b}}.[[int_base]] IS NULL THEN 0",
+                        sprintf(
+                            'ELSE GREATEST(%s + %s, %s + %s)',
+                            sprintf('(CASE %s END)', implode(' ', [
+                                'WHEN {{rank2a}}.[[int_base]] IS NULL THEN 0',
+                                'ELSE {{rank2a}}.[[int_base]]',
+                            ])),
+                            sprintf('(CASE %s END)', implode(' ', [
+                                'WHEN {{rank2a}}.[[int_base]] IS NULL THEN 0',
+                                'WHEN {{battle2}}.[[rank_exp]] IS NULL THEN 0',
+                                'ELSE {{battle2}}.[[rank_exp]]',
+                            ])),
+                            sprintf('(CASE %s END)', implode(' ', [
+                                'WHEN {{rank2b}}.[[int_base]] IS NULL THEN 0',
+                                'ELSE {{rank2b}}.[[int_base]]',
+                            ])),
+                            sprintf('(CASE %s END)', implode(' ', [
+                                'WHEN {{rank2b}}.[[int_base]] IS NULL THEN 0',
+                                'WHEN {{battle2}}.[[rank_after_exp]] IS NULL THEN 0',
+                                'ELSE {{battle2}}.[[rank_after_exp]]',
+                            ]))
+                        ),
+                    ]
+                ))),
                 // }}}
             ])
             ->from('battle2')
