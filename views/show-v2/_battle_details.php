@@ -160,15 +160,15 @@ $this->registerCss('#battle .progress{margin-bottom:0}');
             $myPoint = null;
             $hisPoint = null;
             if ($model->my_team_point !== null && $model->his_team_point !== null) {
-              $myPoint = Yii::$app->formatter->asInteger($model->my_team_point) . 'P';
-              $hisPoint = Yii::$app->formatter->asInteger($model->his_team_point) . 'P';
+              $myPoint = Yii::t('app', '{point}p', ['point' => $model->my_team_point]);
+              $hisPoint = Yii::t('app', '{point}p', ['point' => $model->his_team_point]);
             }
             return Html::tag(
               'div',
               implode('', [
                 Html::tag(
                   'div',
-                  sprintf('%.1f%%', $myPct),
+                  Html::encode(Yii::$app->formatter->asPercent($myPct / 100, 1)),
                   [
                     'class' => ['progress-bar', 'progress-bar-info'],
                     'style' => ['width' => sprintf('%.2f%%', $myDrawPct)],
@@ -177,7 +177,7 @@ $this->registerCss('#battle .progress{margin-bottom:0}');
                 ),
                 Html::tag(
                   'div',
-                  sprintf('%.1f%%', $hisPct),
+                  Html::encode(Yii::$app->formatter->asPercent($hisPct / 100, 1)),
                   [
                     'class' => ['progress-bar', 'progress-bar-danger', 'text-right'],
                     'style' => ['width' => sprintf('%.2f%%', 100 - $myDrawPct)],
@@ -200,7 +200,7 @@ $this->registerCss('#battle .progress{margin-bottom:0}');
               implode('', [
                 Html::tag(
                   'div',
-                  sprintf('%dP', $myPoint),
+                  Html::encode(Yii::t('app', '{point}p', ['point' => $myPoint])),
                   [
                     'class' => ['progress-bar', 'progress-bar-info'],
                     'style' => ['width' => sprintf('%.2f%%', $myDrawPct)],
@@ -208,7 +208,7 @@ $this->registerCss('#battle .progress{margin-bottom:0}');
                 ),
                 Html::tag(
                   'div',
-                  sprintf('%dP', $hisPoint),
+                  Html::encode(Yii::t('app', '{point}p', ['point' => $hisPoint])),
                   [
                     'class' => ['progress-bar', 'progress-bar-danger', 'text-right'],
                     'style' => ['width' => sprintf('%.2f%%', 100 - $myDrawPct)],
@@ -238,7 +238,7 @@ $this->registerCss('#battle .progress{margin-bottom:0}');
               implode('', [
                 Html::tag(
                   'div',
-                  sprintf('%dP', $myCount),
+                  Html::encode(Yii::$app->formatter->asInteger($myCount)),
                   [
                     'class' => ['progress-bar', 'progress-bar-info'],
                     'style' => ['width' => sprintf('%.2f%%', $myDrawPct)],
@@ -246,7 +246,7 @@ $this->registerCss('#battle .progress{margin-bottom:0}');
                 ),
                 Html::tag(
                   'div',
-                  sprintf('%dP', $hisCount),
+                  Html::encode(Yii::$app->formatter->asInteger($myCount)),
                   [
                     'class' => ['progress-bar', 'progress-bar-danger', 'text-right'],
                     'style' => ['width' => sprintf('%.2f%%', 100 - $myDrawPct)],
