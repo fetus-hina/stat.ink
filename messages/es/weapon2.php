@@ -19,6 +19,7 @@ return [
     'Carbon Roller' => '',
     'Chargers' => 'Cargatintas',
     'Clash Blaster' => '',
+    'Classic Squiffer' => 'Kalarrapid α',
     'Custom Blaster' => '',
     'Dapple Dualies' => '',
     'Dualies' => '',

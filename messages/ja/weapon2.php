@@ -56,6 +56,7 @@ return [
     'Octobrush' => 'ホクサイ',
     'Splat Roller' => 'スプラローラー',
     // chargers -----
+    'Classic Squiffer' => 'スクイックリンα',
     'E-liter 4K Scope' => '4Kスコープ',
     'E-liter 4K' => 'リッター4K',
     'Firefin Splat Charger' => 'スプラチャージャーコラボ',
