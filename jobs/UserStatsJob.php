@@ -38,7 +38,7 @@ class UserStatsJob extends BaseJob
                     'class' => UserStat2::class,
                     'user_id' => $user->id,
                 ]);
-                $stats->makeUpdate()->update();
+                $stats->makeUpdate()->save();
                 break;
 
             default:
