@@ -196,6 +196,7 @@ POST データは全体で 12MiB 以内である必要があります。
 |`splatcharger`|スプラチャージャー||
 |`splatscope_collabo`|スプラスコープコラボ||
 |`splatscope`|スプラスコープ||
+|`squiclean_a`|スクイックリンα||
 |`bucketslosher`|バケットスロッシャー||
 |`heroslosher_replica`|ヒーロースロッシャーレプリカ||
 |`hissen`|ヒッセン||
