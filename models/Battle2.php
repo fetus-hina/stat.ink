@@ -480,6 +480,7 @@ class Battle2 extends ActiveRecord
                 $this->updateUserStats();
             },
             static::EVENT_BEFORE_DELETE => function ($event) {
+                $this->deleteRelated();
                 $this->adjustUserWeapon($this->getOldAttribute('weapon_id'), $this->id);
                 $this->updateUserStats();
             },
@@ -1189,5 +1190,20 @@ class Battle2 extends ActiveRecord
                 ],
             ])
         );
+    }
+
+    public function deleteRelated() : void
+    {
+        $queries = [
+            $this->getBattleDeathReasons(),
+            $this->getEvents(),
+            $this->hasMany(BattleImage2::class, ['battle_id' => 'id']),
+            $this->hasMany(BattlePlayer2::class, ['battle_id' => 'id']),
+        ];
+        foreach ($queries as $query) {
+            foreach ($query->orderBy([])->all() as $model) {
+                $model->delete();
+            }
+        }
     }
 }
