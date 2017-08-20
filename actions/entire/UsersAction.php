@@ -11,6 +11,7 @@ use Yii;
 use app\models\Agent;
 use app\models\AgentGroup;
 use app\models\StatAgentUser;
+use app\models\StatEntireUser2;
 use app\models\StatEntireUser;
 use yii\web\ViewAction as BaseAction;
 
@@ -22,8 +23,9 @@ class UsersAction extends BaseAction
             ->createCommand("SET timezone TO 'UTC-6'")
             ->execute();
 
-        return $this->controller->render('users.tpl', [
+        return $this->controller->render('users', [
             'posts' => $this->postStats,
+            'posts2' => $this->postStats2,
             'agents' => $this->agentStats,
             'agentNames' => $this->agentNames,
             'combineds' => $this->combineds,
@@ -72,6 +74,52 @@ class UsersAction extends BaseAction
     {
         return StatEntireUser::find()
             ->orderBy('{{stat_entire_user}}.[[date]] ASC')
+            ->all();
+    }
+
+    public function getPostStats2()
+    {
+        $lastSummariedDate = null;
+        if ($stats = $this->getPostStatsSummarized2()) {
+            $lastSummariedDate = $stats[count($stats) - 1]['date'];
+        } else {
+            $stats = [];
+        }
+
+        $query = (new \yii\db\Query())
+            ->select([
+                'date'          => '{{battle2}}.[[created_at]]::date',
+                'battle_count'  => 'COUNT({{battle2}}.*)',
+                'user_count'    => 'COUNT(DISTINCT {{battle2}}.[[user_id]])',
+            ])
+            ->from('battle2')
+            ->groupBy('{{battle2}}.[[created_at]]::date')
+            ->orderBy(['date' => SORT_ASC]);
+        if ($lastSummariedDate !== null) {
+            $query->andWhere(['>', '{{battle2}}.[[created_at]]', $lastSummariedDate . ' 23:59:59']);
+        }
+
+        foreach ($query->createCommand()->queryAll() as $row) {
+            $stats[] = $row;
+        }
+
+        return array_map(
+            function ($a) {
+                return [
+                    'date' => $a['date'],
+                    'battle' => $a['battle_count'],
+                    'user' => $a['user_count'],
+                ];
+            },
+            $stats
+        );
+    }
+
+    private function getPostStatsSummarized2() : array
+    {
+        return StatEntireUser2::find()
+            ->orderBy(['date' => SORT_ASC])
+            ->asArray()
             ->all();
     }
 

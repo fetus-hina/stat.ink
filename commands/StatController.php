@@ -262,11 +262,17 @@ class StatController extends Controller
      */
     public function actionUpdateEntireUser()
     {
+        $this->updateEntireUser1();
+        $this->updateEntireUser2();
+    }
+
+    private function updateEntireUser1()
+    {
+        // {{{
         // 集計対象期間を計算する
         $today = (new \DateTime(sprintf('@%d', @$_SERVER['REQUEST_TIME'] ?: time()), null))
             ->setTimeZone(new \DateTimeZone('Etc/GMT-6'))
             ->setTime(0, 0, 0); // 今日の 00:00:00+06 に設定する
-        // これで $today より前を抽出すれば前日までのサマリにできる
 
         $db = Yii::$app->db;
         $db->createCommand("SET timezone TO 'UTC-6'")->execute();
@@ -299,6 +305,38 @@ class StatController extends Controller
             )
             ->execute();
         $transaction->commit();
+        // }}}
+    }
+
+    private function updateEntireUser2()
+    {
+        // {{{
+        // 集計対象期間を計算する
+        $today = (new \DateTimeImmutable())
+            ->setTimestamp($_SERVER['REQUEST_TIME'] ?? time())
+            ->setTimeZone(new \DateTimeZone('Etc/GMT-6'))
+            ->setTime(0, 0, 0); // 今日の 00:00:00+06 に設定する
+
+        $db = Yii::$app->db;
+        $db->createCommand("SET timezone TO 'UTC-6'")->execute();
+        $cmd = $db
+            ->createCommand(
+                'INSERT INTO {{stat_entire_user2}} ([[date]], [[battle_count]], [[user_count]]) ' .
+                'SELECT ' . implode(', ', [
+                    '{{battle2}}.[[created_at]]::date',
+                    'COUNT(*) AS [[battle_count]]',
+                    'COUNT(DISTINCT {{battle2}}.[[user_id]]) AS [[user_count]]',
+                ]) . ' ' .
+                'FROM {{battle2}} ' .
+                'WHERE ({{battle2}}.[[created_at]] < :today) ' .
+                'GROUP BY {{battle2}}.[[created_at]]::date ' .
+                'ON CONFLICT ([[date]]) DO UPDATE SET ' .
+                '[[battle_count]] = {{excluded}}.[[battle_count]], ' .
+                '[[user_count]] = {{excluded}}.[[battle_count]]'
+            )
+            ->bindValue(':today', $today->format(\DateTime::ATOM), \PDO::PARAM_STR);
+        $cmd->execute();
+        // }}}
     }
 
     /**
