@@ -8,10 +8,12 @@
 namespace app\commands;
 
 use Yii;
+use app\components\helpers\Battle as BattleHelper;
 use app\models\BattlePlayer;
 use app\models\Knockout;
 use app\models\Lobby;
 use app\models\Rule;
+use app\models\StatAgentUser2;
 use app\models\StatAgentUser;
 use app\models\StatEntireUser;
 use app\models\StatWeapon;
@@ -21,7 +23,6 @@ use app\models\StatWeaponKillDeath;
 use app\models\StatWeaponUseCount;
 use app\models\StatWeaponUseCountPerWeek;
 use app\models\StatWeaponVsWeapon;
-use app\components\helpers\Battle as BattleHelper;
 use yii\console\Controller;
 use yii\helpers\Console;
 
@@ -305,6 +306,13 @@ class StatController extends Controller
      */
     public function actionUpdateAgentUser()
     {
+        $this->updateAgentUser1();
+        $this->updateAgentUser2();
+    }
+
+    private function updateAgentUser1()
+    {
+        // {{{
         // 集計対象期間を計算する
         $today = (new \DateTime(sprintf('@%d', @$_SERVER['REQUEST_TIME'] ?: time()), null))
             ->setTimeZone(new \DateTimeZone('Etc/GMT-6'))
@@ -347,6 +355,7 @@ class StatController extends Controller
                 ->queryAll()
         );
         if (!$insertList) {
+            $transaction->rollBack();
             return;
         }
         $db->createCommand()
@@ -357,6 +366,62 @@ class StatController extends Controller
             )
             ->execute();
         $transaction->commit();
+        // }}}
+    }
+
+    private function updateAgentUser2()
+    {
+        // {{{
+        // 集計対象期間を計算する
+        $today = (new \DateTimeImmutable())
+            ->setTimeZone(new \DateTimeZone('Etc/GMT-6'))
+            ->setTimestamp($_SERVER['REQUEST_TIME'] ?? time())
+            ->setTime(0, 0, 0); // 今日の 00:00:00+06 に設定する
+
+        $db = Yii::$app->db;
+        $db->createCommand("SET timezone TO 'UTC-6'")->execute();
+        $transaction = $db->beginTransaction();
+        $storedMaxDate = StatAgentUser2::find()->max('date') ?? '2017-01-01';
+        $startDate = (new \DateTimeImmutable($storedMaxDate, new \DateTimeZone('Etc/GMT-6')))
+            ->setTime(0, 0, 0)
+            ->add(new \DateInterval('P1D')); // +1 day
+        $select = (new \yii\db\Query())
+            ->select([
+                'agent' => sprintf('(CASE %s END)', implode(' ', [
+                    'WHEN {{agent}}.[[name]] IS NULL THEN :unknown_agent',
+                    'ELSE {{agent}}.[[name]]',
+                ])),
+                'date' => '{{battle2}}.[[created_at]]::date',
+                'battle_count' => 'COUNT({{battle2}}.*)',
+                'user_count' => 'COUNT(DISTINCT {{battle2}}.[[user_id]])',
+            ])
+            ->from('{{battle2}}')
+            ->leftJoin('{{agent}}', '{{battle2}}.[[agent_id]] = {{agent}}.[[id]]')
+            ->andWhere(['>=', '{{battle2}}.[[created_at]]', $startDate->format(\DateTime::ATOM)])
+            ->andWhere(['<', '{{battle2}}.[[created_at]]', $today->format(\DateTime::ATOM)])
+            ->groupBy(implode(', ', [
+                '{{battle2}}.[[created_at]]::date',
+                sprintf('(CASE %s END)', implode(' ', [
+                    'WHEN {{agent}}.[[name]] IS NULL THEN :unknown_agent',
+                    'ELSE {{agent}}.[[name]]',
+                ])),
+            ]))
+            ->orderBy([
+                'date' => SORT_ASC,
+                'agent' => SORT_ASC,
+            ])
+            ->createCommand()
+            ->bindValue(':unknown_agent', '(unknown)', \PDO::PARAM_STR);
+
+        $cmd = Yii::$app->db
+            ->createCommand(
+                'INSERT INTO "stat_agent_user2"("agent","date","battle_count","user_count") ' .
+                $select->rawSql
+            );
+
+        $cmd->execute();
+        $transaction->commit();
+        // }}}
     }
 
     /**
