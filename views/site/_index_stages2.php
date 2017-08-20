@@ -4,6 +4,8 @@ use yii\helpers\Html;
 
 $timeFormat = Yii::$app->language === 'en-US' ? 'g:i A' : 'H:i';
 $schedule = Schedule2::getInfo();
+
+if ($schedule->current) {
 ?>
 <h2>
   <span class="hidden-xs"><?= Html::encode(Yii::t('app', 'Current Stages')) ?></span>
@@ -28,7 +30,7 @@ $schedule = Schedule2::getInfo();
     <?= $this->render('_index_stages_rule2', ['mode' => 'League', 'data' => $schedule->current->league ?? null]) . "\n" ?>
   </div>
 </div>
-<?php if ($schedule->next->regular || $schedule->next->gachi || $schedule->next->league): ?>
+<?php if ($schedule->next && ($schedule->next->regular || $schedule->next->gachi || $schedule->next->league)) { ?>
 <h2>
   <span class="hidden-xs"><?= Html::encode(Yii::t('app', 'Next Stages')) ?></span>
   <?= implode('', [
@@ -52,7 +54,8 @@ $schedule = Schedule2::getInfo();
     <?= $this->render('_index_stages_rule2', ['mode' => 'League', 'data' => $schedule->next->league ?? null]) . "\n" ?>
   </div>
 </div>
-<?php endif; ?>
+<?php } /* $schedule->next */ ?>
 <p class="text-right">
   Powered by <a href="https://splapi2.stat.ink/">SPLAPI2</a>
 </p>
+<?php } /* $schedule->current */ ?>
