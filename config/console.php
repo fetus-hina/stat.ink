@@ -72,6 +72,9 @@ return [
         'i18n' => require(__DIR__ . '/i18n.php'),
         'gearman' => require(__DIR__ . '/gearman.php'),
         'imgS3' => require(__DIR__ . '/img-s3.php'),
+        'pgMutex' => [
+            'class' => 'yii\mutex\PgsqlMutex',
+        ],
     ],
     'params' => $params,
     'aliases' => [

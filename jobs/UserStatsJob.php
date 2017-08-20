@@ -34,6 +34,7 @@ class UserStatsJob extends BaseJob
                 break;
 
             case 2:
+                UserStat2::getLock($user->id);
                 $stats = $user->userStat2 ?? Yii::createObject([
                     'class' => UserStat2::class,
                     'user_id' => $user->id,

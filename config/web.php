@@ -121,6 +121,9 @@ $config = [
             'dirMode' => 0700,
             'fileMode' => 0600,
         ],
+        'pgMutex' => [
+            'class' => 'yii\mutex\PgsqlMutex',
+        ],
         'session' => [
             'timeout' => 86400,
             'cookieParams' => [

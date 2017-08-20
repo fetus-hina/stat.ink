@@ -50,6 +50,40 @@ use yii\db\Query;
  */
 class UserStat2 extends ActiveRecord
 {
+    public static function getLock(int $userId, float $timeout = 10.0) : bool
+    {
+        // {{{
+        $mutex = Yii::$app->pgMutex;
+        $lockName = http_build_query([
+            'method' => __METHOD__,
+            'id' => (string)$userId,
+        ], '', '&');
+        Yii::trace(sprintf(
+            'Try to get UserStat2 lock for user #%d (%s)',
+            $userId,
+            (Yii::$app instanceof \yii\web\Application) ? 'webapp' : 'console'
+        ));
+        $time = microtime(true);
+        do {
+            if ($mutex->acquire($lockName)) {
+                Yii::trace(sprintf(
+                    'Got a UserStat2 lock for user #%d (%s)',
+                    $userId,
+                    (Yii::$app instanceof \yii\web\Application) ? 'webapp' : 'console'
+                ));
+                return true;
+            }
+            usleep(50000);
+        } while (microtime(true) - $time < $timeout);
+        Yii::trace(sprintf(
+            'Failed to get a lock for user #%d (%s)',
+            $userId,
+            (Yii::$app instanceof \yii\web\Application) ? 'webapp' : 'console'
+        ));
+        return false;
+        // }}}
+    }
+
     /**
      * @inheritdoc
      */

@@ -1181,6 +1181,7 @@ class Battle2 extends ActiveRecord
 
     public function updateUserStats() : void
     {
+        UserStat2::getLock($this->user_id);
         Yii::$app->gearman->getDispatcher()->background(
             UserStatsJob::jobName(),
             new JobWorkload([
