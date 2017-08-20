@@ -7,11 +7,11 @@ $img2asset = $am->getBundle(MapImage2Asset::class);
 
 if ($data):
 ?>
-<h3 style="margin:0">
-  <?= Html::encode(Yii::t('app-rule2', $mode)) . "\n" ?>
-  &raquo;
-  <?= Html::encode(Yii::t('app-rule2', $data->rule->name)) . "\n" ?>
-</h3>
+<?= Html::tag('h3', implode('', [
+  Html::encode(Yii::t('app-rule2', $mode)),
+  ' &raquo; ',
+  Html::encode(Yii::t('app-rule2', $data->rule->name)),
+])) . "\n" ?>
 <ul class="battles maps">
 <?php foreach ($data->maps as $_): ?>
   <li>

@@ -154,11 +154,28 @@ ul.battles {
 }
 
 #schedule-spl2 {
+  h3 {
+    margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    line-height: 1.4;
+  }
+
   ul.battles {
     margin-bottom: 5px;
 
     li {
       padding: 5px;
+    }
+
+    &.maps {
+      .battle-data {
+        font-weight: normal;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
     }
   }
 
