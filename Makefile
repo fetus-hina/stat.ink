@@ -70,8 +70,6 @@ RESOURCE_TARGETS := \
 	$(RESOURCE_TARGETS_MAIN:.js=.js.br) \
 	$(RESOURCE_TARGETS_MAIN:.js=.js.gz) \
 
-SUB_RESOURCES := resources/maps2
-
 VENDOR_ARCHIVE_FILE := runtime/vendor-archive/vendor-$(VENDOR_SHA256).tar.xz
 VENDOR_ARCHIVE_SIGN := runtime/vendor-archive/vendor-$(VENDOR_SHA256).tar.xz.asc
 
@@ -128,7 +126,8 @@ ikalog: all runtime/ikalog runtime/ikalog/repo runtime/ikalog/winikalog.html
 	./yii ikalog/update-ikalog
 	./yii ikalog/update-winikalog
 
-resource: $(RESOURCE_TARGETS) $(SUB_RESOURCES) $(ADDITIONAL_LICENSES)
+resource: $(RESOURCE_TARGETS) $(ADDITIONAL_LICENSES)
+	./yii map-image2/generate
 
 composer-update: composer.phar
 	./composer.phar self-update
@@ -163,9 +162,10 @@ clean: clean-resource
 clean-resource:
 	rm -rf \
 		resources/.compiled/* \
+		resources/maps2/*.png \
+		resources/maps2/assets \
 		web/assets/* \
 		$(ADDITIONAL_LICENSES)
-	cd resources/maps2 && make clean
 
 vendor-archive: $(VENDOR_ARCHIVE_FILE) $(VENDOR_ARCHIVE_SIGN)
 	rsync -av --progress \
