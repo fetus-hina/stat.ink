@@ -44,6 +44,7 @@ RESOURCE_TARGETS_MAIN := \
 	resources/.compiled/stat.ink/battle-input.css \
 	resources/.compiled/stat.ink/battle-input.js \
 	resources/.compiled/stat.ink/battle-thumb-list.css \
+	resources/.compiled/stat.ink/battle2-players-point-inked.js \
 	resources/.compiled/stat.ink/battles-simple.css \
 	resources/.compiled/stat.ink/blackout-hint.css \
 	resources/.compiled/stat.ink/blackout-hint.js \
@@ -261,6 +262,9 @@ resources/.compiled/stat.ink/user-stat-by-map-rule-detail.css: resources/stat.in
 	$(GULP) less --in $< --out $@
 
 resources/.compiled/stat.ink/sortable-table.js: resources/stat.ink/sortable-table.js $(GULP)
+	$(GULP) js --in $< --out $@
+
+resources/.compiled/stat.ink/battle2-players-point-inked.js: resources/stat.ink/battle2-players-point-inked.es $(GULP)
 	$(GULP) js --in $< --out $@
 
 resources/.compiled/ostatus/remote-follow.js: resources/ostatus/remote-follow.js $(GULP)

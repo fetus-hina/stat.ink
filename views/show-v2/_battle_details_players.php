@@ -1,5 +1,17 @@
 <?php
+use app\assets\AppAsset;
 use yii\bootstrap\Html;
+
+$assetMgr = Yii::$app->assetManager;
+$this->registerJsFile(
+  $assetMgr->getAssetUrl(
+    $assetMgr->getBundle(AppAsset::class),
+    'battle2-players-point-inked.js'
+  ),
+  [
+    'depends' => AppAsset::class,
+  ]
+);
 
 if ($battle->my_team_color_rgb && $battle->his_team_color_rgb) {
   $this->registerCss(implode('', [
@@ -56,7 +68,17 @@ checkedKD:
         <th class="col-rank"><?= Html::encode(Yii::t('app', 'Rank')) ?></th>
 <?php endif; ?>
 <?php if (!$hidePoint): ?>
-        <th class="col-point"><?= Html::encode(Yii::t('app', 'Points')) ?></th>
+        <th class="col-point">
+          <button id="players-swith-point-inked" class="btn btn-default btn-xs pull-right" disabled>
+            <span class="fa fa-tint"></span>
+          </button>
+          <span class="col-point-point">
+            <?= Html::encode(Yii::t('app', 'Points')) . "\n" ?>
+          </span>
+          <span class="col-point-inked hidden" aria-hidden="true">
+            <?= Html::encode(Yii::t('app', 'Turf Inked')) . "\n" ?>
+          </span>
+        </th>
 <?php endif; ?>
         <th class="col-kasp"><?= Html::encode(Yii::t('app', 'k+a/sp')) ?></th>
 <?php if ($hasKD): ?>
