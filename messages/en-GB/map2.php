@@ -12,6 +12,8 @@ return [
     'Humpback Pump Track' => '',
     'Inkblot Art Academy' => '',
     'Mainstage' => '',
+    'Manta' => '',
+    'Manta Maria' => '',
     'Moray Towers' => '',
     'Musselforge Fitness' => '',
     'Port' => '',

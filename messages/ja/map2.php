@@ -10,6 +10,7 @@ return [
 
     'Humpback Pump Track' => 'コンブトラック',
     'Inkblot Art Academy' => '海女美術大学',
+    'Manta Maria' => 'マンタマリア号',
     'Moray Towers' => 'タチウオパーキング',
     'Musselforge Fitness' => 'フジツボスポーツクラブ',
     'Port Mackerel' => 'ホッケふ頭',
@@ -21,6 +22,7 @@ return [
     'Academy' => 'アマビ',
     'Fitness' => 'フジツボ',
     'Mainstage' => 'ガンガゼ',
+    'Manta' => 'マンタ',
     'Port' => 'ホッケ',
     'Reef' => 'バッテラ',
     'Shifty' => 'ミステリー',

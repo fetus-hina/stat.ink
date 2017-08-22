@@ -6,25 +6,25 @@
  */
 
 return [
+    'Academy' => 'Institut Calam\'arts',
     'Any Stage' => '',
-
+    'Fitness' => 'Gymnase Ancrage',
     'Humpback Pump Track' => 'Piste Méroule',
     'Inkblot Art Academy' => 'Institut Calam\'arts',
+    'Mainstage' => 'Scène Sirène',
+    'Manta' => '',
+    'Manta Maria' => '',
     'Moray Towers' => 'Tours Girelle',
     'Musselforge Fitness' => 'Gymnase Ancrage',
+    'Port' => 'Docks Haddock',
     'Port Mackerel' => 'Docks Haddock',
+    'Reef' => 'Allées salées',
+    'Shifty' => 'Plateforme polymorphe',
     'Shifty Station' => 'Plateforme polymorphe',
+    'Shipyard' => 'Chantier Narval',
     'Starfish Mainstage' => 'Scène Sirène',
     'Sturgeon Shipyard' => 'Chantier Narval',
     'The Reef' => 'Allées salées',
-
-    'Track' => 'Piste Méroule',
-    'Academy' => 'Institut Calam\'arts',
     'Towers' => 'Tours Girelle',
-    'Fitness' => 'Gymnase Ancrage',
-    'Port' => 'Docks Haddock',
-    'Shifty' => 'Plateforme polymorphe',
-    'Mainstage' => 'Scène Sirène',
-    'Shipyard' => 'Chantier Narval',
-    'Reef' => 'Allées salées',
+    'Track' => 'Piste Méroule',
 ];
