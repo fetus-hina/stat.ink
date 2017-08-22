@@ -332,7 +332,7 @@ class StatController extends Controller
                 'GROUP BY {{battle2}}.[[created_at]]::date ' .
                 'ON CONFLICT ([[date]]) DO UPDATE SET ' .
                 '[[battle_count]] = {{excluded}}.[[battle_count]], ' .
-                '[[user_count]] = {{excluded}}.[[battle_count]]'
+                '[[user_count]] = {{excluded}}.[[user_count]]'
             )
             ->bindValue(':today', $today->format(\DateTime::ATOM), \PDO::PARAM_STR);
         $cmd->execute();
