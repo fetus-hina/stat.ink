@@ -29,6 +29,7 @@ return [
     'Dapple Dualies' => 'スパッタリー',
     'Dualie Squelchers' => 'デュアルスイーパー',
     'Enperry Splat Dualies' => 'スプラマニューバーコラボ',
+    'Forge Splattershot Pro' => 'プライムシューターコラボ',
     'H-3 Nozzlenose' => 'H3リールガン',
     'Hero Blaster Replica' => 'ヒーローブラスター レプリカ',
     'Hero Dualie Replicas' => 'ヒーローマニューバー レプリカ',

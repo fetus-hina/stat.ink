@@ -31,6 +31,7 @@ return [
     'Firefin Splat Charger' => '',
     'Firefin Splatterscope' => '',
     'Flingza Roller' => 'Flexi-rouleau',
+    'Forge Splattershot Pro' => 'Liquidateur pro griffé',
     'Goo Tuber' => 'Détubeur',
     'H-3 Nozzlenose' => 'Arroseur lourd',
     'Heavy Splatling' => 'Badigeonneur',

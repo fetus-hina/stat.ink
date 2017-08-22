@@ -31,6 +31,7 @@ return [
     'Firefin Splat Charger' => '',
     'Firefin Splatterscope' => '',
     'Flingza Roller' => '',
+    'Forge Splattershot Pro' => 'Lanzatintas plus B',
     'Goo Tuber' => '',
     'H-3 Nozzlenose' => '',
     'Heavy Splatling' => 'Tintralladora',

@@ -171,6 +171,7 @@ POST データは全体で 12MiB 以内である必要があります。
 |`maneuver`|スプラマニューバー|互換性のため`manueuver`も受け付けます|
 |`nova`|ノヴァブラスター||
 |`nzap85`|N-ZAP85||
+|`prime_collabo`|プライムシューターコラボ||
 |`prime`|プライムシューター||
 |`promodeler_mg`|プロモデラーMG||
 |`promodeler_rg`|プロモデラーRG||

@@ -32,6 +32,7 @@ return [
     'Firefin Splat Charger' => '',
     'Firefin Splatterscope' => '',
     'Flingza Roller' => '',
+    'Forge Splattershot Pro' => 'Rociador Forima',
     'Goo Tuber' => '',
     'H-3 Nozzlenose' => '',
     'Heavy Splatling' => '',
