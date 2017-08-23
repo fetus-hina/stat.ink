@@ -921,17 +921,18 @@ class Battle2 extends ActiveRecord
         return strtotime($this->created_at);
     }
 
-    public function getIsNawabari()
+    public function getIsNawabari() : bool
     {
         return $this->getIsThisGameMode('regular');
     }
 
-    public function getIsGachi()
+    public function getIsGachi() : bool
     {
-        return $this->getIsThisGameMode('gachi');
+        return $this->getIsThisGameMode('gachi') ||
+            in_array($this->rule->key ?? null, ['area', 'yagura', 'hoko'], true);
     }
 
-    private function getIsThisGameMode($key)
+    private function getIsThisGameMode(string $key) : bool
     {
         return ($this->mode->key ?? null) === $key;
     }
