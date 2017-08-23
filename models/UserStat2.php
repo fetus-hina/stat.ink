@@ -8,6 +8,7 @@
 namespace app\models;
 
 use Yii;
+use app\components\helpers\Resource;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\db\Query;
@@ -50,7 +51,7 @@ use yii\db\Query;
  */
 class UserStat2 extends ActiveRecord
 {
-    public static function getLock(int $userId, float $timeout = 10.0) : bool
+    public static function getLock(int $userId, float $timeout = 10.0, bool $autoRelease = true)
     {
         // {{{
         $mutex = Yii::$app->pgMutex;
@@ -71,7 +72,14 @@ class UserStat2 extends ActiveRecord
                     $userId,
                     (Yii::$app instanceof \yii\web\Application) ? 'webapp' : 'console'
                 ));
-                return true;
+                if ($autoRelease) {
+                    return true;
+                } else {
+                    return new Resource($lockName, function ($lockName) {
+                        $mutex = Yii::$app->pgMutex;
+                        $mutex->release($lockName);
+                    });
+                }
             }
             usleep(50000);
         } while (microtime(true) - $time < $timeout);
