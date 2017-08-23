@@ -246,11 +246,10 @@ $this->registerCss('#battle .progress{margin-bottom:0}');
                 ),
                 Html::tag(
                   'div',
-                  Html::encode(Yii::$app->formatter->asInteger($myCount)),
+                  Html::encode(Yii::$app->formatter->asInteger($hisCount)),
                   [
                     'class' => ['progress-bar', 'progress-bar-danger', 'text-right'],
                     'style' => ['width' => sprintf('%.2f%%', 100 - $myDrawPct)],
-                    'title' => $hisCount,
                   ]
                 )
               ]),
