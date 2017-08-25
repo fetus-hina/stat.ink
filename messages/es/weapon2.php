@@ -57,6 +57,7 @@ return [
     'Shooters' => 'Lanzatintas',
     'Slosher' => 'Derramatic',
     'Sloshers' => 'Derramatics',
+    'Sloshing Machine' => 'Derramatic centrífugo',
     'Splash-o-matic' => 'Marcador fino',
     'Splat Brella' => 'Paratintas',
     'Splat Charger' => 'Cargatintas',

@@ -57,6 +57,7 @@ return [
     'Shooters' => 'Lanceur',
     'Slosher' => 'Seauceur',
     'Sloshers' => 'Seauceur',
+    'Sloshing Machine' => 'Encrifugeur',
     'Splash-o-matic' => 'Marqueur léger',
     'Splat Brella' => '',
     'Splat Charger' => 'Concentraceur',

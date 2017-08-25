@@ -58,6 +58,7 @@ return [
     'Shooters' => 'Rociadors',
     'Slosher' => '',
     'Sloshers' => 'Derramatics',
+    'Sloshing Machine' => '',
     'Splash-o-matic' => '',
     'Splat Brella' => '',
     'Splat Charger' => '',
