@@ -72,11 +72,13 @@ checkedKD:
           <button id="players-swith-point-inked" class="btn btn-default btn-xs pull-right" disabled>
             <span class="fa fa-tint"></span>
           </button>
-          <span class="col-point-point">
-            <?= Html::encode(Yii::t('app', 'Points')) . "\n" ?>
-          </span>
-          <span class="col-point-inked hidden" aria-hidden="true">
-            <?= Html::encode(Yii::t('app', 'Turf Inked')) . "\n" ?>
+          <span class="pull-right">
+            <span class="col-point-point">
+              <?= Html::encode(Yii::t('app', 'Points')) . "\n" ?>
+            </span>
+            <span class="col-point-inked hidden" aria-hidden="true">
+              <?= Html::encode(Yii::t('app', 'Turf Inked')) . "\n" ?>
+            </span>
           </span>
         </th>
 <?php endif; ?>
