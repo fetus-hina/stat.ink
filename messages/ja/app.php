@@ -234,6 +234,7 @@ return [
     'My Team Score' => '自チームのスコア',
     'My Team Splatfest Power' => '自分のチームのフェスパワー',
     'Name (for display)' => '名前（表示用）',
+    'Name' => '名前',
     'Neutral' => '拮抗',
     'New Password (again)' => '新しいパスワード（確認用）',
     'New Password' => '新しいパスワード',

@@ -54,6 +54,7 @@ echo Html::tag(
   'tr',
   '  ' . implode("\n  ", [
     Html::tag('th', Html::encode(Yii::t('app', ($teamKey === 'my') ? 'Good Guys' : 'Bad Guys')), ['colspan' => 2]),
+    !$hasName ? '' : Html::tag('td', ''),
     Html::tag('td', ''),
     $hideRank ? '' : Html::tag('td', ''),
     $hidePoint ? '' : Html::tag('td', Html::encode($totalP === null ? '' : $fmt->asInteger($totalP)), ['class' => 'text-right']),
@@ -78,6 +79,24 @@ foreach ($players as $i => $player) {
     'tr',
     '  ' . implode("\n  ", [
       Html::tag('td', $player->is_me ? Html::tag('span', '', ['class' => 'fa fa-fw fa-rotate-90 fa-level-up']) : '', ['class' => ['bg-' . $teamKey, 'text-center']]),
+      $hasName
+        ? Html::tag(
+          'td',
+          Html::encode(
+            (function () use ($battle, $player) : string {
+              if ($player->is_me) {
+                return trim($player->name);
+              }
+              $user = Yii::$app->user;
+              if ($user->isGuest || $user->identity->id != $battle->user_id) {
+                //TODO (private || (league 4 && good guys)) && config
+                return str_repeat('*', 10);
+              }
+              return trim($player->name);
+            })()
+          ),
+          ['class' => 'col-name']
+        ) : '',
       Html::tag(
         'td',
         $player->weapon

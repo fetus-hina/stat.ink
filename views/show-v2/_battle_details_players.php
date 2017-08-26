@@ -22,6 +22,7 @@ $this->registerCss('#players .its-me{background:#ffc}');
 $isGachi = $battle->isGachi;
 $hideRank = true;
 $hidePoint = true;
+$hasName = false;
 $hasKD = false;
 $hasRankedInked = false;
 if (!$battle->rule || $battle->rule->key !== 'nawabari') {
@@ -40,6 +41,9 @@ $bonus = (int)($battle->bonus->bonus ?? 1000);
 // check has-KD
 foreach ($teams as $team) {
   foreach ($team as $player) {
+    if (trim($player->name) !== '') {
+      $hasName = true;
+    }
     if ($player->kill !== null || $player->death !== null) {
       $hasKD = true;
     }
@@ -56,6 +60,9 @@ foreach ($teams as $team) {
     <thead>
       <tr>
         <th style="width:38px"><span class="fa fa-fw"></span></th>
+<?php if ($hasName): ?>
+        <th class="col-name"><?= Html::encode(Yii::t('app', 'Name')) ?></th>
+<?php endif; ?>
         <th class="col-weapon"><?= Html::encode(Yii::t('app', 'Weapon')) ?></th>
         <th class="col-level"><?= Html::encode(Yii::t('app', 'Level')) ?></th>
 <?php if (!$hideRank): ?>
@@ -112,6 +119,7 @@ $this->registerJsFile(
         'teamKey',
         'hideRank',
         'hidePoint',
+        'hasName',
         'hasKD',
         'hasRankedInked'
       )) . "\n" ?>

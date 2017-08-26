@@ -256,6 +256,7 @@ return [
     'My Team Count' => 'Mi cuenta de Equipo',
     'My Team Score' => 'Mi puntaje de Equipo',
     'My Team Splatfest Power' => 'Mi Energía de equipo',
+    'Name' => '',
     'Name (for display)' => 'Nombre (para pantalla)',
     'Neutral' => '',
     'New battle' => '',

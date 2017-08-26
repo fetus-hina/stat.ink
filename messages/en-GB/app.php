@@ -253,6 +253,7 @@ return [
     'My Team Count' => '',
     'My Team Score' => '',
     'My Team Splatfest Power' => '',
+    'Name' => '',
     'Name (for display)' => '',
     'Neutral' => '',
     'New battle' => '',
