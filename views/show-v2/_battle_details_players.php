@@ -3,16 +3,6 @@ use app\assets\AppAsset;
 use yii\bootstrap\Html;
 
 $assetMgr = Yii::$app->assetManager;
-$this->registerJsFile(
-  $assetMgr->getAssetUrl(
-    $assetMgr->getBundle(AppAsset::class),
-    'battle2-players-point-inked.js'
-  ),
-  [
-    'depends' => AppAsset::class,
-  ]
-);
-
 if ($battle->my_team_color_rgb && $battle->his_team_color_rgb) {
   $this->registerCss(implode('', [
     sprintf('#players .bg-my{%s}', Html::cssStyleFromArray([
@@ -29,9 +19,11 @@ if ($battle->my_team_color_rgb && $battle->his_team_color_rgb) {
 }
 $this->registerCss('#players .its-me{background:#ffc}');
 
+$isGachi = $battle->isGachi;
 $hideRank = true;
 $hidePoint = true;
 $hasKD = false;
+$hasRankedInked = false;
 if (!$battle->rule || $battle->rule->key !== 'nawabari') {
   $hideRank = false;
 }
@@ -50,12 +42,14 @@ foreach ($teams as $team) {
   foreach ($team as $player) {
     if ($player->kill !== null || $player->death !== null) {
       $hasKD = true;
-      goto checkedKD;
+    }
+    if ($hidePoint && $isGachi) {
+      if ($player->point > 0) {
+        $hasRankedInked = true;
+      }
     }
   }
 }
-checkedKD:
-
 ?>
 <div class="table-responsive">
   <table class="table table-bordered" id="players">
@@ -68,6 +62,15 @@ checkedKD:
         <th class="col-rank"><?= Html::encode(Yii::t('app', 'Rank')) ?></th>
 <?php endif; ?>
 <?php if (!$hidePoint): ?>
+<?php
+$this->registerJsFile(
+  $assetMgr->getAssetUrl(
+    $assetMgr->getBundle(AppAsset::class),
+    'battle2-players-point-inked.js'
+  ),
+  ['depends' => AppAsset::class]
+);
+?>
         <th class="col-point">
           <button id="players-swith-point-inked" class="btn btn-default btn-xs pull-right" disabled>
             <span class="fa fa-tint"></span>
@@ -78,6 +81,14 @@ checkedKD:
             </span>
             <span class="col-point-inked hidden" aria-hidden="true">
               <?= Html::encode(Yii::t('app', 'Turf Inked')) . "\n" ?>
+            </span>
+          </span>
+        </th>
+<?php endif; ?>
+<?php if ($hasRankedInked): ?>
+        <th class="col-point">
+            <span class="col-point-inked">
+              <?= Html::encode(Yii::t('app', 'Inked')) . "\n" ?>
             </span>
           </span>
         </th>
@@ -101,7 +112,8 @@ checkedKD:
         'teamKey',
         'hideRank',
         'hidePoint',
-        'hasKD'
+        'hasKD',
+        'hasRankedInked'
       )) . "\n" ?>
 <?php endforeach; ?>
     </tbody>

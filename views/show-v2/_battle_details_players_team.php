@@ -6,6 +6,7 @@ $fmt = Yii::$app->formatter;
 $totalK = 0;
 $totalD = 0;
 $totalP = 0;
+$totalInked = 0;
 $totalKA = 0;
 $totalSP = 0;
 $totalRatio = '';
@@ -24,6 +25,11 @@ foreach ($players as $player) {
     }
   } else {
     $totalP += $player->point;
+  }
+  if ($totalInked === null || !$hasRankedInked || $player->point === null) {
+    $totalInked = null;
+  } else {
+    $totalInked += $player->point;
   }
   $totalKA = ($totalKA === null || $player->kill_or_assist === null) ? null : ($totalKA + $player->kill_or_assist);
   $totalSP = ($totalSP === null || $player->special === null) ? null : ($totalSP + $player->special);
@@ -51,6 +57,11 @@ echo Html::tag(
     Html::tag('td', ''),
     $hideRank ? '' : Html::tag('td', ''),
     $hidePoint ? '' : Html::tag('td', Html::encode($totalP === null ? '' : $fmt->asInteger($totalP)), ['class' => 'text-right']),
+    !$hasRankedInked ? '' : Html::tag(
+      'td',
+      Html::encode($totalInked === null ? '' : $fmt->asInteger($totalInked)),
+      ['class' => 'text-right']
+    ),
     Html::tag('td', '', ['class' => 'text-center']),
     !$hasKD ? '' : Html::tag('td', Html::encode(sprintf(
       '%s / %s',
@@ -109,6 +120,17 @@ foreach ($players as $i => $player) {
           ]),
           ['class' => ['col-point', 'text-right']]
         ),
+      $hasRankedInked
+        ? Html::tag(
+          'td',
+          Html::tag(
+            'span',  
+            Html::encode($player->point === null ? '' : $fmt->asInteger($player->point)),
+            ['class' => 'col-point-inked']
+          ),
+          ['class' => ['col-point', 'text-right']]
+        )
+        : '',
       Html::tag('td', Html::encode(sprintf(
         '%s %s / %s', 
         $player->kill_or_assist === null ? '?' : $fmt->asInteger($player->kill_or_assist),
