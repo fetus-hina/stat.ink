@@ -3,7 +3,7 @@ use app\assets\AppLinkAsset;
 use app\components\widgets\battle\PanelListWidget;
 use rmrevin\yii\fontawesome\FA;
 use yii\bootstrap\Html;
-use yii\web\Url;
+use yii\helpers\Url;
 
 function fa($icon) : string
 {
@@ -158,7 +158,10 @@ $this->registerCss(implode('', array_map(
         <div role="tabpanel" class="tab-pane active" id="splatoon2">
           <?= $this->render(
             '@app/views/includes/battles-summary',
-            ['summary' => $user->getBattle2s()->getSummary()]
+            [
+              'summary' => $user->getBattle2s()->getSummary(),
+              'link' => ['show-v2/user', 'screen_name' => $user->screen_name],
+            ]
           ) . "\n" ?>
           <div class="row">
             <div class="col-xs-12 col-sm-6">
@@ -210,7 +213,10 @@ $this->registerCss(implode('', array_map(
         <div role="tabpanel" class="tab-pane" id="splatoon">
           <?= $this->render(
             '@app/views/includes/battles-summary',
-            ['summary' => $user->getBattles()->getSummary()]
+            [
+              'summary' => $user->getBattles()->getSummary(),
+              'link' => ['show/user', 'screen_name' => $user->screen_name],
+            ]
           ) . "\n" ?>
           <div class="row">
             <div class="col-xs-12 col-sm-6">

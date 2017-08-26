@@ -20,7 +20,14 @@ $fmt = Yii::$app->formatter;
       <?= Html::encode(Yii::t('app', 'Battles')) . "\n" ?>
     </div>
     <div class="user-number">
+<?php if (isset($link) && $link): ?>
+      <?= Html::a(
+        Html::encode($fmt->asInteger($summary->battle_count)),
+        $link
+      ) . "\n" ?>
+<?php else: ?>
       <?= Html::encode($fmt->asInteger($summary->battle_count)) . "\n" ?>
+<?php endif; ?>
     </div>
   </div>
   <div class="col-xs-4 col-md-2">
