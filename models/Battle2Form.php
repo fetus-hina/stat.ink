@@ -225,6 +225,20 @@ class Battle2Form extends Model
         }
     }
 
+    public function getIsWin() : ?bool
+    {
+        switch ($this->result) {
+            case 'win':
+                return true;
+
+            case 'lose':
+                return false;
+
+            default:
+                return null;
+        }
+    }
+
     public static function fromBattle(Battle2 $battle) : self
     {
         $model = Yii::createObject([

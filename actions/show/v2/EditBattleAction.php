@@ -67,6 +67,7 @@ class EditBattleAction extends BaseAction
             } else {
                 if ($form->validate()) {
                     $this->battle->attributes = $form->attributes;
+                    $this->battle->is_win = $form->getIsWin();
                     if ($this->battle->save()) {
                         $this->controller->redirect([
                             'show-v2/battle',
