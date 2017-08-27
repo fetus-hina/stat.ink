@@ -41,26 +41,20 @@ class UserStatByMapRuleAction extends BaseAction
 
     private function getData(User $user, Battle2FilterForm $filter)
     {
-        $query = (new \yii\db\Query())
+        $query = $user->getBattle2s()
+            ->orderBy(null)
+            ->andWhere(['in', '{{battle2}}.{{is_win}}', [true, false]])
+            ->applyFilter($filter)
+            ->innerJoinWith(['map', 'rule'], false)
             ->select([
-                'map_key'   => 'MAX({{map2}}.[[key]])',
-                'rule_key'  => 'MAX({{rule2}}.[[key]])',
-                'result'    => '(CASE WHEN {{battle2}}.[[is_win]] = TRUE THEN \'win\' ELSE \'lose\' END)',
-                'count'     => 'COUNT(*)',
+                'map_key' => 'MAX({{map2}}.[[key]])',
+                'rule_key' => 'MAX({{rule2}}.[[key]])',
+                'result' => sprintf('(CASE %s END)', implode(' ', [
+                    "WHEN {{battle2}}.[[is_win]] = TRUE THEN 'win'",
+                    "ELSE 'lose'",
+                ])),
+                'count' => 'COUNT(*)',
             ])
-            ->from('battle2')
-            ->innerJoin('map2', '{{battle2}}.[[map_id]] = {{map2}}.[[id]]')
-            ->innerJoin('rule2', '{{battle2}}.[[rule_id]] = {{rule2}}.[[id]]')
-            ->leftJoin('lobby2', '{{battle2}}.[[lobby_id]] = {{lobby2}}.[[id]]')
-            // ->leftJoin('game_mode', '{{rule2}}.[[mode_id]] = {{mode2}}.[[id]]')
-            ->leftJoin('weapon2', '{{battle2}}.[[weapon_id]] = {{weapon2}}.[[id]]')
-            ->leftJoin('weapon_type2', '{{weapon2}}.[[type_id]] = {{weapon_type2}}.[[id]]')
-            ->leftJoin('subweapon2', '{{weapon2}}.[[subweapon_id]] = {{subweapon2}}.[[id]]')
-            ->leftJoin('special2', '{{weapon2}}.[[special_id]] = {{special2}}.[[id]]')
-            ->leftJoin('rank2', '{{battle2}}.[[rank_id]] = {{rank2}}.[[id]]')
-            ->leftJoin('rank_group2', '{{rank2}}.[[group_id]] = {{rank_group2}}.[[id]]')
-            ->andWhere(['{{battle2}}.[[user_id]]' => $user->id])
-            ->andWhere(['in', '{{battle2}}.[[is_win]]', [ true, false ]])
             ->groupBy([
                 '{{battle2}}.[[map_id]]',
                 '{{battle2}}.[[rule_id]]',

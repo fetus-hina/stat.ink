@@ -139,7 +139,7 @@ $ruleMap = [
       </table>
     </div>
     <div class="col-xs-12 col-sm-4 col-lg-3">
-      <?= /*Battle2FilterWidget::widget([
+      <?= Battle2FilterWidget::widget([
         'route' => 'show-v2/user-stat-by-map-rule',
         'screen_name' => $user->screen_name,
         'filter' => $filter,
@@ -147,7 +147,7 @@ $ruleMap = [
         'rule' => false,
         'map' => false,
         'result' => false,
-      ]) . */ "\n" ?>
+      ]) . "\n" ?>
       <?= $this->render(
         '@app/views/includes/user-miniinfo2',
         ['user' => $user]
