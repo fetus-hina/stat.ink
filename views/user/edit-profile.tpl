@@ -22,12 +22,37 @@
 
       <div class="row">
         <div class="col-xs-12 col-sm-11 col-sm-push-1">
-          {{include file="_blackout-hint.tpl"}}
+          {{$this->render('_blackout-hint.tpl', ['id' => 'blackout-info'])}}
           {{registerJs}}
             (function($){
               "use strict";
               $('#profileform-blackout').change(function(){
-                updateBlackOutHint($(this).val())
+                updateBlackOutHint($(this).val(), '#blackout-info')
+              }).change();
+            })(jQuery);
+          {{/registerJs}}
+        </div>
+      </div>
+
+      {{$_options = [
+          User::BLACKOUT_NOT_BLACKOUT => Yii::t('app', 'No black out'),
+          User::BLACKOUT_NOT_PRIVATE  => Yii::t('app', 'Black out except private battle'),
+          User::BLACKOUT_NOT_FRIEND   => Yii::t('app', 'Black out except private battle and teammate on league battle (4 players)'),
+          User::BLACKOUT_ALWAYS       => Yii::t('app', 'Black out other players')
+        ]}}
+      {{$_->field($form, 'blackout_list')->dropDownList($_options)}}
+
+      <div class="row">
+        <div class="col-xs-12 col-sm-11 col-sm-push-1">
+          {{$this->render('_blackout-hint.tpl', [
+            'mode' => 'splatoon2',
+            'id' => 'blackout-info2'
+          ])}}
+          {{registerJs}}
+            (function($){
+              "use strict";
+              $('#profileform-blackout_list').change(function(){
+                updateBlackOutHint($(this).val(), '#blackout-info2')
               }).change();
             })(jQuery);
           {{/registerJs}}

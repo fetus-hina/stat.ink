@@ -20,6 +20,7 @@ class ProfileForm extends Model
     public $ikanakama2;
     public $env;
     public $blackout;
+    public $blackout_list;
     public $default_language_id;
     public $region_id;
 
@@ -32,7 +33,7 @@ class ProfileForm extends Model
                     return $value === '' ? null : $value;
                 },
             ],
-            [['name', 'blackout', 'default_language_id', 'region_id'], 'required'],
+            [['name', 'blackout', 'blackout_list', 'default_language_id', 'region_id'], 'required'],
             [['name'], 'string', 'max' => 15],
             [['nnid'], 'string', 'min' => 6, 'max' => 16],
             [['nnid'], 'match', 'pattern' => '/^[a-zA-Z0-9._-]+$/'],
@@ -45,7 +46,7 @@ class ProfileForm extends Model
             [['twitter'], 'match', 'pattern' => '/^[a-zA-Z0-9_]+$/'],
             [['ikanakama', 'ikanakama2'], 'integer', 'min' => 1],
             [['env'], 'string'],
-            [['blackout'], 'in',
+            [['blackout', 'blackout_list'], 'in',
                 'range' => [
                     User::BLACKOUT_NOT_BLACKOUT,
                     User::BLACKOUT_NOT_PRIVATE,
@@ -81,6 +82,7 @@ class ProfileForm extends Model
             'ikanakama2'    => Yii::t('app', 'Ika-Nakama 2 User ID'),
             'env'           => Yii::t('app', 'Capture Environment'),
             'blackout'      => Yii::t('app', 'Black out other players from the result image'),
+            'blackout_list' => Yii::t('app', 'Black out other players from the details list'),
             'default_language_id' => Yii::t('app', 'Language (used for OStatus)'),
             'region_id'     => Yii::t('app', 'Region (used for Splatfest)'),
         ];

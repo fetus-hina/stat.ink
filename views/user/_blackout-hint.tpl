@@ -1,7 +1,9 @@
 {{strip}}
   {{\app\assets\BlackoutHintAsset::register($this)|@void}}
+  {{$_mode = $mode|default:'ambiguous'}}
+  {{$_id = $id|default:'blackout_list'}}
   <div class="table-responsive">
-    <table id="blackout-info" class="table table-bordered table-condensed">
+    <table id="{{$_id|escape}}" class="table table-bordered table-condensed">
       <thead>
         <tr>
           <th>
@@ -12,11 +14,26 @@
             -->
           </th>
           <th>
-            {{'Squad Battle (Twin)'|translate:'app-rule'|escape}}
+            {{if $_mode === 'splatoon2'}}
+              {{'League Battle (Twin)'|translate:'app-rule2'|escape}}
+            {{elseif $_mode === 'splatoon1'}}
+              {{'Squad Battle (Twin)'|translate:'app-rule'|escape}}
+            {{else}}
+              {{'League Battle (Twin)'|translate:'app-rule2'|escape}}<br>
+              {{'Squad Battle (Twin)'|translate:'app-rule'|escape}}
+            {{/if}}
           </th>
           <th>
-            {{'Squad Battle (Tri)'|translate:'app-rule'|escape}}<br>
-            {{'Squad Battle (Quad)'|translate:'app-rule'|escape}}
+            {{if $_mode === 'splatoon2'}}
+              {{'League Battle (Quad)'|translate:'app-rule2'|escape}}
+            {{elseif $_mode === 'splatoon1'}}
+              {{'Squad Battle (Tri)'|translate:'app-rule'|escape}}<br>
+              {{'Squad Battle (Quad)'|translate:'app-rule'|escape}}
+            {{else}}
+              {{'League Battle (Quad)'|translate:'app-rule2'|escape}}<br>
+              {{'Squad Battle (Quad)'|translate:'app-rule'|escape}}<br>
+              {{'Squad Battle (Tri)'|translate:'app-rule'|escape}}
+            {{/if}}
           </th>
           <th>
             {{'Private Battle'|translate:'app-rule'|escape}}

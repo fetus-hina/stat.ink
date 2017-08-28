@@ -8,6 +8,7 @@
  */
 
 return [
+    '(For only Splatoon 1 at this time)' => '(現時点ではSplatoon1のみ)',
     '(combined)' => '(統合済み)',
     '(default)' => '(規定)',
     '(incomplete)' => '(不完全)',
@@ -60,8 +61,12 @@ return [
     'Battles' => 'バトル',
     'Battles:' => 'バトル:',
     'Battles:{0} / Win %:{1} / Avg Kills:{2} / Avg Deaths:{3} / Kill Ratio:{4}' => 'バトル数:{0}　勝率:{1}　平均キル:{2}　平均デス:{3}　キルレ:{4}',
+    'Black out except private battle and teammate on league battle (4 players)' => 'プライベートバトルの時と、リーグマッチ(4人)の味方は黒塗りしない',
     'Black out except private battle and teammate on squad battle (tri or quad)' => 'プライベートバトルの時と、タッグマッチ(3,4人)の味方は黒塗りしない',
     'Black out except private battle' => 'プライベートバトルでは黒塗りしない',
+    'Black out other players (details)' => '他のプレーヤを黒塗りする（詳細）',
+    'Black out other players (images)' => '他のプレーヤを黒塗りする（画像）',
+    'Black out other players from the details list' => '詳細リストの他のプレーヤ名を黒塗りして隠す',
     'Black out other players from the result image' => '結果画面の他のプレーヤを黒塗りして隠す',
     'Black out other players' => '他のプレーヤを黒塗りする',
     'Black out' => '黒塗りする',

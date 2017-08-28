@@ -131,7 +131,10 @@
               <td>{{$user->name|escape}}</td>
             </tr>
             <tr>
-              <th>{{'Black out other players'|translate:'app'|escape}}</th>
+              <th>
+                {{'Black out other players (images)'|translate:'app'|escape}}&#32;
+                {{'(For only Splatoon 1 at this time)'|translate:'app'|escape}}
+              </th>
               <td>
                 <p>
                   {{use class="app\models\User"}}
@@ -148,9 +151,40 @@
                   {{/if}}
                 </p>
                 <div>
-                  {{include file="_blackout-hint.tpl"}}
+                  {{$this->render('_blackout-hint.tpl', ['id' => 'blackout-info'])}}
                   {{registerJs}}
-                    updateBlackOutHint('{{$user->blackout|escape:javascript}}');
+                    updateBlackOutHint('{{$user->blackout|escape:javascript}}', '#blackout-info');
+                  {{/registerJs}}
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <th>
+                {{'Black out other players (details)'|translate:'app'|escape}}
+              </th>
+              <td>
+                <p>
+                  {{use class="app\models\User"}}
+                  {{if $user->blackout_list == User::BLACKOUT_NOT_BLACKOUT}}
+                    {{'No black out'|translate:'app'|escape}}
+                  {{elseif $user->blackout_list == User::BLACKOUT_NOT_PRIVATE}}
+                    {{'Black out except private battle'|translate:'app'|escape}}
+                  {{elseif $user->blackout_list == User::BLACKOUT_NOT_FRIEND}}
+                    {{'Black out except private battle and teammate on league battle (4 players)'|translate:'app'|escape}}
+                  {{elseif $user->blackout_list == User::BLACKOUT_ALWAYS}}
+                    {{'Black out other players'|translate:'app'|escape}}
+                  {{else}}
+                    ({{$user->blackout_list|escape}})
+                  {{/if}}
+                </p>
+                <div>
+                  {{$this->render('_blackout-hint.tpl', [
+                      'mode' => 'splatoon2',
+                      'id' => 'blackout-info2'
+                    ]
+                  )}}
+                  {{registerJs}}
+                    updateBlackOutHint('{{$user->blackout_list|escape:javascript}}', '#blackout-info2');
                   {{/registerJs}}
                 </div>
               </td>

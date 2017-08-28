@@ -31,6 +31,7 @@ use yii\web\IdentityInterface;
  * @property integer $ikanakama2
  * @property integer $env_id
  * @property string $blackout
+ * @property string $blackout_list
  * @property integer $default_language_id
  * @property integer $region_id
  *
@@ -115,7 +116,8 @@ class User extends ActiveRecord implements IdentityInterface
             [['screen_name'], 'unique'],
             [['screen_name', 'twitter'], 'match', 'pattern' => '/^[a-zA-Z0-9_]{1,15}$/'],
             [['blackout'], 'default', 'value' => static::BLACKOUT_NOT_BLACKOUT],
-            [['blackout'], 'in',
+            [['blackout_list'], 'default', 'value' => static::BLACKOUT_NOT_FRIEND],
+            [['blackout', 'blackout_list'], 'in',
                 'range' => [
                     static::BLACKOUT_NOT_BLACKOUT,
                     static::BLACKOUT_NOT_PRIVATE,
@@ -153,6 +155,7 @@ class User extends ActiveRecord implements IdentityInterface
             'ikanakama2'    => Yii::t('app', 'Ika-Nakama 2 User ID'),
             'env_id'        => Yii::t('app', 'Capture Environment'),
             'blackout'      => Yii::t('app', 'Black out other players from the result image'),
+            'blackout_list' => Yii::t('app', 'Black out other players on details view'),
             'default_language_id' => Yii::t('app', 'Language (used for OStatus)'),
             'region_id'     => Yii::t('app', 'Region (used for Splatfest)'),
         ];
