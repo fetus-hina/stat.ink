@@ -1,4 +1,5 @@
 <?php
+use app\models\User;
 use yii\bootstrap\Html;
 
 $fmt = Yii::$app->formatter;
@@ -89,7 +90,33 @@ foreach ($players as $i => $player) {
               }
               $user = Yii::$app->user;
               if ($user->isGuest || $user->identity->id != $battle->user_id) {
-                //TODO (private || (league 4 && good guys)) && config
+                $blackoutMode = $battle->user->blackout_list ?? 'always';
+                switch ($blackoutMode) {
+                  case User::BLACKOUT_NOT_BLACKOUT:
+                    return trim($player->name);
+
+                  case User::BLACKOUT_NOT_PRIVATE:
+                    if ($battle->lobby->key ?? '' === 'private' || $battle->mode->key ?? '' === 'private') {
+                      return trim($player->name);
+                    }
+                    // blackout
+                    break;
+
+                  case User::BLACKOUT_NOT_FRIEND:
+                    if ($battle->lobby->key ?? '' === 'private' || $battle->mode->key ?? '' === 'private') {
+                      return trim($player->name);
+                    }
+                    if ($battle->isGachi && $battle->lobby->key === 'squad_4') {
+                      return trim($player->name);
+                    }
+                    // blackout
+                    break;
+
+                  case User::BLACKOUT_ALWAYS:
+                  default:
+                    // blackout
+                    break;
+                }
                 return str_repeat('*', 10);
               }
               return trim($player->name);
