@@ -83,45 +83,50 @@ foreach ($players as $i => $player) {
       $hasName
         ? Html::tag(
           'td',
-          Html::encode(
-            (function () use ($battle, $player) : string {
-              if ($player->is_me) {
-                return trim($player->name);
+          (function () use ($battle, $player, $teamKey) : string {
+            if ($player->is_me) {
+              return Html::encode(trim($player->name));
+            }
+            $user = Yii::$app->user;
+            if ($user->isGuest || $user->identity->id != $battle->user_id) {
+              $blackoutMode = $battle->user->blackout_list ?? 'always';
+              switch ($blackoutMode) {
+                case User::BLACKOUT_NOT_BLACKOUT:
+                  return Html::encode(trim($player->name));
+
+                case User::BLACKOUT_NOT_PRIVATE:
+                  if (($battle->lobby->key ?? '') === 'private' || ($battle->mode->key ?? '') === 'private') {
+                    return Html::encode(trim($player->name));
+                  }
+                  // blackout
+                  break;
+
+                case User::BLACKOUT_NOT_FRIEND:
+                  if (($battle->lobby->key ?? '') === 'private' || ($battle->mode->key ?? '') === 'private') {
+                    return Html::encode(trim($player->name));
+                  }
+                  if ($battle->isGachi && ($battle->lobby->key ?? '') === 'squad_4' && ($teamKey === 'my')) {
+                    return Html::encode(trim($player->name));
+                  }
+                  // blackout
+                  break;
+
+                case User::BLACKOUT_ALWAYS:
+                default:
+                  // blackout
+                  break;
               }
-              $user = Yii::$app->user;
-              if ($user->isGuest || $user->identity->id != $battle->user_id) {
-                $blackoutMode = $battle->user->blackout_list ?? 'always';
-                switch ($blackoutMode) {
-                  case User::BLACKOUT_NOT_BLACKOUT:
-                    return trim($player->name);
-
-                  case User::BLACKOUT_NOT_PRIVATE:
-                    if ($battle->lobby->key ?? '' === 'private' || $battle->mode->key ?? '' === 'private') {
-                      return trim($player->name);
-                    }
-                    // blackout
-                    break;
-
-                  case User::BLACKOUT_NOT_FRIEND:
-                    if ($battle->lobby->key ?? '' === 'private' || $battle->mode->key ?? '' === 'private') {
-                      return trim($player->name);
-                    }
-                    if ($battle->isGachi && $battle->lobby->key === 'squad_4') {
-                      return trim($player->name);
-                    }
-                    // blackout
-                    break;
-
-                  case User::BLACKOUT_ALWAYS:
-                  default:
-                    // blackout
-                    break;
-                }
-                return str_repeat('*', 10);
+              if (trim($player->name) === '') {
+                return '';
               }
-              return trim($player->name);
-            })()
-          ),
+              return Html::tag(
+                'span',
+                Html::encode(str_repeat('*', 10)),
+                ['title' => Yii::t('app', 'Masked'), 'class' => 'auto-tooltip']
+              );
+            }
+            return Html::encode(trim($player->name));
+          })(),
           ['class' => 'col-name']
         ) : '',
       Html::tag(

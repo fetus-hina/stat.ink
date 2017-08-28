@@ -6,7 +6,6 @@
  * @author eli fessler <eliwf8@gmail.com>
  * @author Allen Pestaluky <allenwp@live.ca>
  */
-
 return [
     '(For only Splatoon 1 at this time)' => '(現時点ではSplatoon1のみ)',
     '(combined)' => '(統合済み)',
@@ -229,6 +228,7 @@ return [
     'Low ink' => 'インク切れ',
     'Main Weapon' => 'メインウェポン',
     'Many' => '多',
+    'Masked' => '設定によって隠されています',
     'Max Inked' => '最大塗った面積',
     'Max Kill Combo' => '最大キルコンボ',
     'Max Kill Streak' => '最大ストリーク',

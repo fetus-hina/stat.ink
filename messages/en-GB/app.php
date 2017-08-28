@@ -248,6 +248,7 @@ return [
     'Low ink' => 'Ink low',
     'Main Weapon' => '',
     'Many' => '',
+    'Masked' => '',
     'Max Inked' => '',
     'Max Kill Combo' => '',
     'Max Kill Streak' => '',
