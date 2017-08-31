@@ -63,7 +63,7 @@
         </p>
         <ul>
           <li>
-            <a href="https://github.com/hymm/squid-tracks/">SquidTracks</a> (Windowsインストーラあり)
+            <a href="https://github.com/hymm/squid-tracks/">SquidTracks</a> (Windows, MacOSインストーラあり)
           </li>
           <li>
             <a href="https://github.com/frozenpandaman/splatnet2statink">splatnet2statink</a>（知識と経験が必要）
@@ -83,10 +83,10 @@
         </p>
         <ul>
           <li>
-            <a href="https://github.com/hymm/squid-tracks/">SquidTracks</a> (multi platform, available installer for Windows)
+            <a href="https://github.com/hymm/squid-tracks/">SquidTracks</a> (multi platform, available installer for Windows and MacOS)
           </li>
           <li>
-            <a href="https://github.com/frozenpandaman/splatnet2statink">splatnet2statink</a> (multi platform, needs Python 3.5+)
+            <a href="https://github.com/frozenpandaman/splatnet2statink">splatnet2statink</a> (multi platform, needs Python environment)
           </li>
         </ul>
         <p style="margin-bottom:0">
