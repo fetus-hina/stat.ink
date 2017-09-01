@@ -241,8 +241,8 @@ class User2Action extends BaseAction
             $_(
               Yii::t('app', 'Lobby', [], $lang),
               (function () use ($battle, $lang) {
-                // {{{
-                switch ($battle->mode->key ?? '') {
+                  // {{{
+                  switch ($battle->mode->key ?? '') {
                   default:
                     return '?';
 
@@ -279,7 +279,7 @@ class User2Action extends BaseAction
                   case 'private':
                     return Yii::t('app-rule2', 'Private Battle', [], $lang);
                 }
-                // }}}
+                  // }}}
               })()
             );
         }

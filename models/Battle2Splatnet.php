@@ -73,7 +73,7 @@ class Battle2Splatnet extends ActiveRecord
 
         try {
             Json::decode($this->$attr);
-        } catch(InvalidParamException $e) {
+        } catch (InvalidParamException $e) {
             $this->addError($attr, Json::$jsonErrorMessages['JSON_ERROR_STATE_MISMATCH']);
         }
     }
