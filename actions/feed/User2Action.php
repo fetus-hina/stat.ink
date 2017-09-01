@@ -239,47 +239,47 @@ class User2Action extends BaseAction
         };
         if ($battle->lobby) {
             $_(
-              Yii::t('app', 'Lobby', [], $lang),
-              (function () use ($battle, $lang) {
-                  // {{{
-                  switch ($battle->mode->key ?? '') {
-                  default:
-                    return '?';
+                Yii::t('app', 'Lobby', [], $lang),
+                (function () use ($battle, $lang) {
+                    // {{{
+                    switch ($battle->mode->key ?? '') {
+                        default:
+                            return '?';
 
-                  case 'regular':
-                    return Yii::t('app-rule2', $battle->mode->name, [], $lang);
+                        case 'regular':
+                            return Yii::t('app-rule2', $battle->mode->name, [], $lang);
 
-                  case 'fest':
-                    switch ($battle->lobby->key ?? '') {
-                      case 'standard':
-                        return Yii::t('app-rule2', 'Splatfest (Solo)', [], $lang);
+                        case 'fest':
+                            switch ($battle->lobby->key ?? '') {
+                                case 'standard':
+                                    return Yii::t('app-rule2', 'Splatfest (Solo)', [], $lang);
 
-                      case 'squad_4':
-                        return Yii::t('app-rule2', 'Splatfest (Team)', [], $lang);
-                    
-                      default:
-                        return Yii::t('app-rule2', 'Splatfest', [], $lang);
-                    }
+                                case 'squad_4':
+                                    return Yii::t('app-rule2', 'Splatfest (Team)', [], $lang);
 
-                  case 'gachi':
-                    switch ($battle->lobby->key ?? '') {
-                      case 'standard':
-                        return Yii::t('app-rule2', 'Ranked Battle (Solo)', [], $lang);
+                                default:
+                                    return Yii::t('app-rule2', 'Splatfest', [], $lang);
+                            }
 
-                      case 'squad_2':
-                        return Yii::t('app-rule2', 'League Battle (Twin)', [], $lang);
+                        case 'gachi':
+                            switch ($battle->lobby->key ?? '') {
+                                case 'standard':
+                                    return Yii::t('app-rule2', 'Ranked Battle (Solo)', [], $lang);
 
-                      case 'squad_4':
-                        return Yii::t('app-rule2', 'League Battle (Quad)', [], $lang);
+                                case 'squad_2':
+                                    return Yii::t('app-rule2', 'League Battle (Twin)', [], $lang);
 
-                      default:
-                        return Yii::t('app-rule2', 'Ranked Battle', [], $lang);
-                    }
+                                case 'squad_4':
+                                    return Yii::t('app-rule2', 'League Battle (Quad)', [], $lang);
 
-                  case 'private':
-                    return Yii::t('app-rule2', 'Private Battle', [], $lang);
-                }
-                  // }}}
+                                default:
+                                    return Yii::t('app-rule2', 'Ranked Battle', [], $lang);
+                            }
+
+                        case 'private':
+                            return Yii::t('app-rule2', 'Private Battle', [], $lang);
+                 }
+                 // }}}
               })()
             );
         }
