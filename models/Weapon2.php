@@ -145,7 +145,9 @@ class Weapon2 extends ActiveRecord
             'reskin_of' => $this->id === $this->canonical_id
                 ? null
                 : $this->canonical->key,
-            'main_ref' => $this->mainReference->key,
+            'main_ref' => $this->id === $this->main_group_id
+                ? $this->key
+                : $this->mainReference->key,
         ];
     }
 }

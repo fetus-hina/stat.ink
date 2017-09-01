@@ -215,9 +215,9 @@ class BattlePlayer2 extends ActiveRecord
         return [
             'team'          => $this->is_my_team ? 'my' : 'his',
             'is_me'         => !!$this->is_me,
-            'weapon'        => $this->weapon ? $this->weapon->toJsonArray() : null,
+            'weapon'        => $this->weapon_id ? $this->weapon->toJsonArray() : null,
             'level'         => (string)$this->level === '' ? null : (int)$this->level,
-            'rank'          => $this->rank ? $this->rank->toJsonArray() : null,
+            'rank'          => $this->rank_id ? $this->rank->toJsonArray() : null,
             'rank_in_team'  => (string)$this->rank_in_team === '' ? null : (int)$this->rank_in_team,
             'kill'          => (string)$this->kill === '' ? null : (int)$this->kill,
             'death'         => (string)$this->death === '' ? null : (int)$this->death,
@@ -226,8 +226,8 @@ class BattlePlayer2 extends ActiveRecord
             'my_kill'       => (string)$this->my_kill === '' ? null : (int)$this->my_kill,
             'point'         => (string)$this->point === '' ? null : (int)$this->point,
             'name'          => (string)$this->name === '' ? null : $this->name,
-            'gender'        => $this->gender ? $this->gender->toJsonArray() : null,
-            'fest_title'    => $this->festTitle ? $this->festTitle->toJsonArray($this->gender) : null,
+            'gender'        => $this->gender_id ? $this->gender->toJsonArray() : null,
+            'fest_title'    => $this->fest_title_id ? $this->festTitle->toJsonArray($this->gender) : null,
             'splatnet_id'   => (string)$this->splatnet_id === '' ? null : $this->splatnet_id,
         ];
     }

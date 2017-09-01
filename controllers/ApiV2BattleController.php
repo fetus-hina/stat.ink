@@ -10,6 +10,8 @@ namespace app\controllers;
 use Yii;
 use app\components\filters\auth\RequestBodyAuth;
 use app\models\Battle2;
+use app\models\User;
+use yii\base\DynamicModel;
 use yii\filters\ContentNegotiator;
 use yii\filters\auth\CompositeAuth;
 use yii\filters\auth\HttpBearerAuth;
@@ -72,7 +74,103 @@ class ApiV2BattleController extends Controller
 
     public function actionIndex()
     {
-        return "TODO";
+        $req = Yii::$app->request;
+        $params = [
+            'screen_name' => $req->get('screen_name'),
+            'newer_than' => $req->get('newer_than'),
+            'older_than' => $req->get('older_than'),
+            'order' => $req->get('order'),
+            'count' => $req->get('count'),
+        ];
+        $model = DynamicModel::validateData($params, [
+            [['screen_name'], 'string'],
+            [['screen_name'], 'exist', 'skipOnError' => true,
+                'targetClass' => User::class,
+                'targetAttribute' => ['screen_name' => 'screen_name'],
+            ],
+            [['newer_than', 'older_than'], 'integer', 'min' => 1],
+            [['order'], 'string'],
+            [['order'], 'in', 'range' => ['asc', 'desc']],
+            [['count'], 'integer', 'min' => 1, 'max' => 50],
+        ]);
+        if ($model->hasErrors()) {
+            $res = Yii::$app->response;
+            $res->format = 'json';
+            $res->statusCode = 400;
+            return $model->getErrors();
+        }
+        $query = Battle2::find()
+            ->with([
+                'agent',
+                'agentGameVersion',
+                'battleDeathReasons',
+                'battleImageGear',
+                'battleImageJudge',
+                'battleImageResult',
+                'battlePlayers',
+                'battlePlayers.festTitle',
+                'battlePlayers.gender',
+                'battlePlayers.rank',
+                'battlePlayers.rank.group',
+                'battlePlayers.weapon',
+                'battlePlayers.weapon.canonical',
+                'battlePlayers.weapon.mainReference',
+                'battlePlayers.weapon.special',
+                'battlePlayers.weapon.subweapon',
+                'battlePlayers.weapon.type',
+                'battlePlayers.weapon.type.category',
+                'env',
+                'events',
+                'festTitle',
+                'festTitleAfter',
+                'gender',
+                'lobby',
+                'map',
+                'mode',
+                'rank',
+                'rank.group',
+                'rankAfter',
+                'rankAfter.group',
+                'rule',
+                'splatnetJson',
+                'user',
+                'user.env',
+                'user.userStat',
+                'user.userStat2',
+                'version',
+                'weapon',
+                'weapon.special',
+                'weapon.subweapon',
+                'weapon.type',
+                'weapon.type.category',
+            ])
+            ->orderBy(['id' => SORT_DESC])
+            ->limit(10);
+        if ($model->screen_name != '') {
+            $query
+                ->innerJoinWith('user')
+                ->andWhere(['{{user}}.[[screen_name]]' => $model->screen_name]);
+        }
+        if ($model->newer_than != '') {
+            $query->andWhere(['>', '{{battle2}}.[[id]]', (int)$model->newer_than]);
+        }
+        if ($model->older_than != '') {
+            $query->andWhere(['<', '{{battle2}}.[[id]]', (int)$model->older_than]);
+        }
+        if ($model->order != '') {
+            $query->orderBy(['id' => ($model->order == 'asc' ? SORT_ASC : SORT_DESC)]);
+        }
+        if ($model->count != '') {
+            $query->limit((int)$model->count);
+        }
+        $res = Yii::$app->response;
+        $res->format = 'compact-json';
+        return array_map(
+            function ($model) {
+                return $model->toJsonArray(['events', 'splatnet_json']);
+            },
+            $query->all()
+        );
     }
 
     public function actionView($id)
