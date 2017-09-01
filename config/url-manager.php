@@ -44,7 +44,7 @@ return [
         '@<screen_name:\w+>/spl2/stat/report/<year:\d+>' => 'show-v2/user-stat-report',
         '@<screen_name:\w+>/spl2/stat/<by:[\w-]+>' => 'show-v2/user-stat-<by>',
         '@<screen_name:\w+>/spl2/' => 'show-v2/user',
-        // '@<screen_name:\w+>.2.<lang:[\w-]+>.<type:rss|atom>' => 'feed/user',
+        '@<screen_name:\w+>.2.<lang:[\w-]+>.<type:rss|atom>' => 'feed/user-v2',
 
         'fest/<region:\w+>/<order:\d+>' => 'fest/view',
         'entire/weapons/<weapon:\w+>/<rule:\w+>' => 'entire/weapon',

@@ -30,6 +30,7 @@ class FeedController extends Controller
         $prefix = 'app\actions\feed';
         return [
             'user' => [ 'class' => $prefix . '\UserAction' ],
+            'user-v2' => [ 'class' => $prefix . '\User2Action' ],
         ];
     }
 }
