@@ -33,6 +33,7 @@ class PostBattlePlayerForm extends Model
     public $name;
     public $gender;
     public $fest_title;
+    public $splatnet_id;
 
     public function behaviors()
     {
@@ -82,6 +83,7 @@ class PostBattlePlayerForm extends Model
                 'targetClass' => FestTitle::class,
                 'targetAttribute' => 'key',
             ],
+            [['splatnet_id'], 'string', 'max' => 16],
         ];
     }
 

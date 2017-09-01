@@ -103,6 +103,7 @@ use yii\helpers\Url;
  * @property SplatoonVersion2 $version
  * @property SplatoonVersion2 $agentGameVersion
  * @property TurfwarWinBonus2 $bonus
+ * @property Battle2Splatnet $splatnetJson
  * @property User $user
  * @property Weapon2 $weapon
  */
@@ -525,6 +526,8 @@ class Battle2 extends ActiveRecord
             [['kill_or_assist', 'special', 'gender_id', 'fest_title_id', 'fest_title_after_id'], 'integer'],
             [['rank_exp', 'rank_after_exp'], 'integer', 'min' => 0, 'max' => 50],
             [['fest_exp', 'fest_exp_after'], 'integer', 'min' => 0, 'max' => 99],
+            [['splatnet_number'], 'integer', 'min' => 1],
+            [['my_team_id', 'his_team_id'], 'string', 'max' => 16],
             [['is_win', 'is_knockout', 'is_automated', 'use_for_entire'], 'boolean'],
             [['kill_ratio', 'kill_rate', 'my_team_percent', 'his_team_percent'], 'number'],
             [['my_team_color_hue', 'his_team_color_hue', 'note', 'private_note', 'link_url'], 'string'],
@@ -816,6 +819,14 @@ class Battle2 extends ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
+    public function getSplatnetJson()
+    {
+        return $this->hasOne(Battle2Splatnet::class, ['id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getUser()
     {
         return $this->hasOne(User::class, ['id' => 'user_id']);
@@ -959,9 +970,14 @@ class Battle2 extends ActiveRecord
                 return $a->at <=> $b->at;
             });
         }
+        $splatnetJson = null;
+        if ($this->splatnetJson && !in_array('splatnet_json', $skips, true)) {
+            $splatnetJson = Json::decode($this->splatnetJson->json ?? 'null');
+        }
         return [
             'id' => $this->id,
             // 'uuid' => $this->client_uuid,
+            'splatnet_number' => $this->splatnet_number,
             'url' => Url::to([
                 'show-v2/battle',
                 'screen_name' => $this->user->screen_name,
@@ -1015,6 +1031,8 @@ class Battle2 extends ActiveRecord
             //     'hue' => $this->his_team_color_hue,
             //     'rgb' => $this->his_team_color_rgb,
             // ],
+            'my_team_id' => $this->my_team_id,
+            'his_team_id' => $this->his_team_id,
             'gender' => $this->gender ? $this->gender->toJsonArray() : null,
             'fest_title' => $this->festTitle ? $this->festTitle->toJsonArray($this->gender) : null,
             'fest_exp' => $this->fest_exp,
@@ -1057,6 +1075,7 @@ class Battle2 extends ActiveRecord
                     $this->battlePlayers
                 ),
             'events' => $events,
+            'splatnet_json' => $splatnetJson,
             'agent' => [
                 'name' => $this->agent ? $this->agent->name : null,
                 'version' => $this->agent ? $this->agent->version : null,

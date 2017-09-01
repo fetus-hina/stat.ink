@@ -84,7 +84,7 @@ class ApiV2BattleController extends Controller
             throw new NotFoundHttpException(Yii::t('yii', 'Page not found.'));
         }
         $res = Yii::$app->response;
-        $res->format = 'json';
+        $res->format = 'compact-json';
         return $model->toJsonArray();
     }
 

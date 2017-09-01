@@ -131,6 +131,18 @@ class CreateAction extends BaseAction
                 ], 500);
             }
         }
+        if ($json = $form->toSplatnetJson($battle)) {
+            if (!$json->save()) {
+                $this->logError([
+                    'system' => [ Yii::t('app', 'Could not save to database: {0}', 'battle2_splatnet') ],
+                    'system_' => $battle->getErrors(),
+                ]);
+                return $this->formatError([
+                    'system' => [ Yii::t('app', 'Could not save to database: {0}', 'battle2_splatnet') ],
+                    'system_' => $battle->getErrors(),
+                ], 500);
+            }
+        }
         foreach ($form->toDeathReasons($battle) as $reason) {
             if ($reason && !$reason->save()) {
                 $this->logError([

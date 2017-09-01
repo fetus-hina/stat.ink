@@ -31,6 +31,7 @@ use yii\db\ActiveRecord;
  * @property string $name
  * @property integer $gender_id
  * @property integer $fest_title_id
+ * @property string $splatnet_id
  *
  * @property Battle2 $battle
  * @property Weapon2 $weapon
@@ -70,6 +71,7 @@ class BattlePlayer2 extends ActiveRecord
             [['point'], 'integer', 'min' => 0],
             [['is_my_team', 'is_me'], 'boolean'],
             [['name'], 'string', 'max' => 10],
+            [['splatnet_id'], 'string', 'max' => 16],
             [['battle_id'], 'exist', 'skipOnError' => true,
                 'targetClass' => Battle2::class,
                 'targetAttribute' => ['battle_id' => 'id'],
@@ -116,6 +118,7 @@ class BattlePlayer2 extends ActiveRecord
             'name' => 'Name',
             'gender_id' => 'Gender',
             'fest_title_id' => 'Fest Title',
+            'splatnet_id' => 'SplatNet ID',
         ];
     }
 
@@ -225,6 +228,7 @@ class BattlePlayer2 extends ActiveRecord
             'name'          => (string)$this->name === '' ? null : $this->name,
             'gender'        => $this->gender ? $this->gender->toJsonArray() : null,
             'fest_title'    => $this->festTitle ? $this->festTitle->toJsonArray($this->gender) : null,
+            'splatnet_id'   => (string)$this->splatnet_id === '' ? null : $this->splatnet_id,
         ];
     }
 }

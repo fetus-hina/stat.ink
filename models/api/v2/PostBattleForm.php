@@ -14,6 +14,7 @@ use app\components\helpers\CriticalSection;
 use app\components\helpers\db\Now;
 use app\models\Agent;
 use app\models\Battle2;
+use app\models\Battle2Splatnet;
 use app\models\BattleDeathReason2;
 use app\models\BattleEvents2;
 use app\models\BattleImage2;
@@ -30,6 +31,7 @@ use app\models\Rule2;
 use app\models\SplatoonVersion2;
 use app\models\User;
 use app\models\Weapon2;
+use yii\base\InvalidParamException;
 use yii\base\Model;
 use yii\helpers\Json;
 use yii\web\UploadedFile;
@@ -40,6 +42,7 @@ class PostBattleForm extends Model
 
     public $test;
 
+    public $splatnet_number;
     public $uuid;
     public $lobby;
     public $mode;
@@ -68,6 +71,8 @@ class PostBattleForm extends Model
     public $his_team_percent;
     public $my_team_count;
     public $his_team_count;
+    public $my_team_id;
+    public $his_team_id;
     public $gender;
     public $fest_title;
     public $fest_exp;
@@ -76,6 +81,7 @@ class PostBattleForm extends Model
     public $players;
     public $death_reasons;
     public $events;
+    public $splatnet_json;
     public $automated;
     public $link_url;
     public $note;
@@ -232,6 +238,9 @@ class PostBattleForm extends Model
                     return is_string($model->$attr);
                 }],
             [['map'], 'safe'],
+            [['splatnet_number'], 'integer', 'min' => 1],
+            [['my_team_id', 'his_team_id'], 'string', 'max' => 16],
+            [['splatnet_json'], 'validateJson'],
         ];
     }
 
@@ -308,6 +317,7 @@ class PostBattleForm extends Model
         $battle->user_id        = $user->id;
         $battle->env_id         = $user->env_id;
         $battle->client_uuid    = $this->uuid;
+        $battle->splatnet_number = $intval($this->splatnet_number);
         $battle->lobby_id       = $key2id($this->lobby, Lobby2::class);
         $battle->mode_id        = $key2id($this->mode, Mode2::class);
         $battle->rule_id        = $key2id($this->rule, Rule2::class);
@@ -353,6 +363,8 @@ class PostBattleForm extends Model
         $battle->his_team_percent = $floatval($this->his_team_percent);
         $battle->my_team_count  = $intval($this->my_team_count);
         $battle->his_team_count = $intval($this->his_team_count);
+        $battle->my_team_id     = $this->my_team_id;
+        $battle->his_team_id    = $this->his_team_id;
         $battle->gender_id      = (function ($v) : ?int {
             switch (trim((string)$v)) {
                 case 'boy':
@@ -442,6 +454,18 @@ class PostBattleForm extends Model
         }
     }
 
+    public function toSplatnetJson(Battle2 $battle)
+    {
+        if (!$this->splatnet_json) {
+            return null;
+        }
+        return Yii::createObject([
+            'class' => Battle2Splatnet::class,
+            'id' => $battle->id,
+            'json' => Json::encode($this->splatnet_json),
+        ]);
+    }
+
     public function toPlayers(Battle2 $battle)
     {
         if (is_array($this->players) && !empty($this->players)) {
@@ -490,6 +514,7 @@ class PostBattleForm extends Model
                     'name'          => $form->name,
                     'gender_id'     => $gender,
                     'fest_title_id' => $festTitle->id ?? null,
+                    'splatnet_id'   => $form->splatnet_id,
                 ]);
             }
         }
@@ -869,6 +894,22 @@ class PostBattleForm extends Model
             return;
         }
         imagedestroy($gd);
+    }
+
+    public function validateJson($attr, $params)
+    {
+        if ($this->hasErrors($attr)) {
+            return;
+        }
+
+        if (is_string($this->$attr)) {
+            try {
+                $value = Json::decode($this->$attr);
+                $this->$attr = $value;
+            } catch(InvalidParamException $e) {
+                $this->addError($attr, Json::$jsonErrorMessages['JSON_ERROR_STATE_MISMATCH']);
+            }
+        }
     }
 
     private function getAgentId(?string $name, ?string $version) : ?int
