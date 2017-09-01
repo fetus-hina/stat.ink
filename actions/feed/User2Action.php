@@ -279,8 +279,8 @@ class User2Action extends BaseAction
                         case 'private':
                             return Yii::t('app-rule2', 'Private Battle', [], $lang);
                  }
-                 // }}}
-              })()
+                    // }}}
+                })()
             );
         }
         if ($battle->rule) {
