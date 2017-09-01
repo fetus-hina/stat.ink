@@ -906,7 +906,7 @@ class PostBattleForm extends Model
             try {
                 $value = Json::decode($this->$attr);
                 $this->$attr = $value;
-            } catch(InvalidParamException $e) {
+            } catch (InvalidParamException $e) {
                 $this->addError($attr, Json::$jsonErrorMessages['JSON_ERROR_STATE_MISMATCH']);
             }
         }
