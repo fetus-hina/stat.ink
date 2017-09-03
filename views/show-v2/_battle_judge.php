@@ -10,6 +10,7 @@ $draw = function (float $lhsValue, float $rhsValue, string $lhsString, string $r
                 'class' => ['progress-bar', $class],
                 'style' => [
                     'width' => sprintf('%.f%%', $curValue * 100 / ($curValue + $otherValue)),
+                    'font-weight' => ($curValue >= $otherValue) ? '700' : '400',
                 ],
             ])
             : '';
@@ -49,8 +50,12 @@ if ($model->my_team_percent !== null && $model->his_team_percent !== null) {
     $v = $draw(
         $model->my_team_count,
         $model->his_team_count,
-        $model->my_team_count,
-        $model->his_team_count
+        $model->my_team_count == 100
+          ? Yii::t('app', 'KNOCKOUT')
+          : $model->my_team_count,
+        $model->his_team_count == 100
+          ? Yii::t('app', 'KNOCKOUT')
+          : $model->his_team_count
     );
     echo "$v\n";
 }
