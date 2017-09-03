@@ -80,7 +80,7 @@ class UserAction extends BaseAction
 
 
         $isPjax = $request->isPjax;
-        $template = $this->viewMode === 'simple' ? 'user.simple.tpl' : 'user';
+        $template = $this->viewMode === 'simple' ? 'user.simple.php' : 'user';
         return $this->controller->render($template, [
             'user'      => $user,
             'filter'    => $filter,
