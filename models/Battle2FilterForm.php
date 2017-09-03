@@ -285,7 +285,7 @@ class Battle2FilterForm extends Model
                 break;
 
             case 'last-period':
-                $t = BattleHelper::periodToRange2(BattleHelper::calcPeriod2($now - 14400), 180);
+                $t = BattleHelper::periodToRange2(BattleHelper::calcPeriod2($now) - 1, 180);
                 $push('term', 'term');
                 $push('term_from', date('Y-m-d H:i:s', $t[0]));
                 $push('term_to', date('Y-m-d H:i:s', $t[1] - 1));
