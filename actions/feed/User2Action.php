@@ -308,7 +308,7 @@ class User2Action extends BaseAction
                         ? sprintf(
                             '%s %s',
                             Yii::t('app-rank2', $battle->rankAfter->name, [], $lang),
-                            $battle->rank_exp_after !== null ? $battle->rank_exp_after : ''
+                            $battle->rank_after_exp !== null ? $battle->rank_after_exp : ''
                         )
                         : '???'
                 )
@@ -319,10 +319,10 @@ class User2Action extends BaseAction
         }
         if ($battle->is_win !== null) {
             $__('Result', $battle->is_win ? 'Won' : 'Lost', 'app');
-            if ($battle->isGachi && $battle->is_knock_out !== null) {
+            if ($battle->isGachi && $battle->is_knockout !== null) {
                 $dl[] = Html::tag(
                   'dt',
-                  Html::encode(Yii::t('app', $battle->is_knock_out ? 'Knockout' : 'Time is up', [], $lang))
+                  Html::encode(Yii::t('app', $battle->is_knockout ? 'Knockout' : 'Time is up', [], $lang))
                 );
             }
         }
