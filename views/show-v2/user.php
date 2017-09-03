@@ -75,8 +75,8 @@ if ($user->twitter != '') {
         'headingText' => Yii::t('app', 'Summary: Based on the current filter'),
         'summary' => $summary
       ]) . "\n" ?>
-      <div>
-        <a href="#filter-form" class="visible-xs-inline btn btn-info">
+      <div style="margin-bottom:10px">
+        <a href="#filter-form" class="visible-xs-inline-block btn btn-info">
           <span class="fa fa-search fa-fw"></span>
           <?= Html::encode(Yii::t('app', 'Search')) . "\n" ?>
         </a>

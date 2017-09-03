@@ -84,9 +84,12 @@
           ]
         )}}
         <div>
+          <a href="#filter-form" class="visible-xs-inline btn btn-info">
+            <span class="fa fa-search fa-fw"></span>{{'Search'|translate:'app'|escape}}
+          </a>&#32;
           {{$params = ['v' => 'standard', '0' => 'show-v2/user', 'screen_name' => $user->screen_name]}}
           <a href="{{Url::to($params)|escape}}" class="btn btn-default" rel="nofollow">
-            <span class="fa fa-list left"></span>{{'Detailed List'|translate:'app'|escape}}
+            <span class="fa fa-list fa-fw"></span>{{'Detailed List'|translate:'app'|escape}}
           </a>
         </div>
         <div id="battles">
