@@ -359,8 +359,11 @@ $this->registerCss('#battle .progress{margin-bottom:0}');
       // }}}
     ],
     [
-      'label' => Yii::t('app', 'Turf Inked + Bonus'), // {{{
+      'label' => Yii::t('app', 'Turf Inked + Bonus'), // (Nawabari) {{{
       'value' => function ($model) {
+        if (!$model->isNawabari) {
+          return null;
+        }
         $inked = $model->inked;
         if ($model->my_point === null) {
           return null;
@@ -378,6 +381,20 @@ $this->registerCss('#battle .progress{margin-bottom:0}');
         } else {
           return Yii::$app->formatter->asInteger($inked) . 'P';
         }
+      },
+      // }}}
+    ],
+    [
+      'label' => Yii::t('app', 'Turf Inked'), // (Gachi) {{{
+      'value' => function ($model) {
+        if ($model->isNawabari) {
+          return null;
+        }
+        $inked = $model->inked;
+        if ($model->my_point === null || $inked === null) {
+          return null;
+        }
+        return Yii::$app->formatter->asInteger($inked) . 'P';
       },
       // }}}
     ],
