@@ -916,10 +916,17 @@ class Battle2 extends ActiveRecord
         if ($this->is_win === null || $this->my_point === null) {
             return null;
         }
-        if ($this->is_win && $this->rule->key === 'nawabari') {
-            return ($this->my_point < 1000)
-                ? null
-                : ($this->my_point - 1000);
+        if (!$this->is_win) {
+            return $this->my_point;
+        }
+        if ($this->rule->key === 'nawabari') {
+            return ($this->my_point < 1000) ? null : ($this->my_point - 1000);
+        }
+        if ($this->agent &&
+            $this->agent->name === 'SquidTracks' &&
+            version_compare($this->agent->version, '0.2.3', '<=')
+        ) {
+            return ($this->my_point < 1000) ? null : ($this->my_point - 1000);
         }
         return $this->my_point;
     }
