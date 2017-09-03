@@ -424,7 +424,7 @@ if ($user->twitter != '') {
               // specials {{{
               'label' => Yii::t('app', 'Specials'),
               'headerOptions' => ['class' => 'cell-specials'],
-              'contentOptions' => ['class' => 'cell-specials'],
+              'contentOptions' => ['class' => 'cell-specials text-right'],
               'value' => function ($model) : string {
                 return $model->special ?? '';
               },
@@ -434,9 +434,12 @@ if ($user->twitter != '') {
               // inked {{{
               'label' => Yii::t('app', 'Inked'),
               'headerOptions' => ['class' => 'cell-point'],
-              'contentOptions' => ['class' => 'cell-point'],
+              'contentOptions' => ['class' => 'cell-point text-right'],
               'value' => function ($model) : string {
-                return $model->inked ?? '';
+                $value = $model->inked ?? null;
+                return ($value === null)
+                  ? ''
+                  : Yii::$app->formatter->asInteger($value);
               },
               // }}}
             ],

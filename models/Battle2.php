@@ -916,15 +916,12 @@ class Battle2 extends ActiveRecord
         if ($this->is_win === null || $this->my_point === null) {
             return null;
         }
-        if ($this->is_win) {
-            $bonus = 1000;
-            if ($bonus > $this->my_point) {
-                return null;
-            }
-            return $this->my_point - $bonus;
-        } else {
-            return $this->my_point;
+        if ($this->is_win && $this->rule->key === 'nawabari') {
+            return ($this->my_point < 1000)
+                ? null
+                : ($this->my_point - 1000);
         }
+        return $this->my_point;
     }
 
     public function getCreatedAt() : int
