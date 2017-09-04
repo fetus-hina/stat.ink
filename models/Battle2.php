@@ -934,7 +934,7 @@ class Battle2 extends ActiveRecord
     public function getElapsedTime() : ?int
     {
         if (($this->rule->key ?? '') === 'nawabari') {
-            return 300;
+            return 180;
         }
         if ($this->start_at === null || $this->end_at === null) {
             return null;
