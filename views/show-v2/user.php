@@ -90,406 +90,408 @@ if ($user->twitter != '') {
           ['class' => 'btn btn-default', 'rel' => 'nofollow']
         ) . "\n" ?>
       </div>
-      <div class="table-responsive" id="battles">
-        <?= GridView::widget([
-          'layout' => '{items}',
-          'dataProvider' => $battleDataProvider,
-          'tableOptions' => ['class' => 'table table-striped table-condensed'],
-          'rowOptions' => function ($model) : array {
-            return [
-              'class' => 'battle-row',
-              'data' => [
-                'period' => $model->period,
-              ],
-            ];
-          },
-          'columns' => [ // {{{
-            [
-              // button {{{
-              'format' => 'raw',
-              'value' => function ($model) : string {
-                return trim(implode(' ', [
-                  Html::a(
-                    Yii::t('app', 'Detail'),
-                    ['show-v2/battle', 'screen_name' => $model->user->screen_name, 'battle' => $model->id],
-                    ['class' => 'btn btn-primary btn-xs']
+      <?= GridView::widget([
+        'options' => [
+          'id' => 'battles',
+          'class' => 'table-responsive',
+        ],
+        'layout' => '{items}',
+        'dataProvider' => $battleDataProvider,
+        'tableOptions' => ['class' => 'table table-striped table-condensed'],
+        'rowOptions' => function ($model) : array {
+          return [
+            'class' => 'battle-row',
+            'data' => [
+              'period' => $model->period,
+            ],
+          ];
+        },
+        'columns' => [ // {{{
+          [
+            // button {{{
+            'format' => 'raw',
+            'value' => function ($model) : string {
+              return trim(implode(' ', [
+                Html::a(
+                  Yii::t('app', 'Detail'),
+                  ['show-v2/battle', 'screen_name' => $model->user->screen_name, 'battle' => $model->id],
+                  ['class' => 'btn btn-primary btn-xs']
+                ),
+                (!$model->link_url) ? '' : Html::a(
+                  FontAwesome::icon(EmbedVideo::isSupported($model->link_url) ? 'video-camera' : 'link')->fixedWidth(),
+                  $model->link_url,
+                  ['class' => 'btn btn-default btn-xs', 'rel' => 'nofollow']
+                ),
+              ]));
+            },
+            'contentOptions' => ['class' => 'nobr'],
+            // }}}
+          ],
+          [
+            // lobby {{{
+            'label' => Yii::t('app', 'Lobby'),
+            'value' => function ($model) {
+              switch ($model->mode->key ?? '') {
+                default:
+                  return '?';
+
+                case 'regular':
+                  return Yii::t('app-rule2', $model->mode->name);
+
+                case 'fest':
+                  switch ($model->lobby->key ?? '') {
+                    case 'standard':
+                      return Yii::t('app-rule2', 'Splatfest (Solo)');
+
+                    case 'squad_4':
+                      return Yii::t('app-rule2', 'Splatfest (Team)');
+                  
+                    default:
+                      return Yii::t('app-rule2', 'Splatfest');
+                  }
+
+                case 'gachi':
+                  switch ($model->lobby->key ?? '') {
+                    case 'standard':
+                      return Yii::t('app-rule2', 'Ranked Battle (Solo)');
+
+                    case 'squad_2':
+                      return Yii::t('app-rule2', 'League Battle (Twin)');
+
+                    case 'squad_4':
+                      return Yii::t('app-rule2', 'League Battle (Quad)');
+
+                    default:
+                      return Yii::t('app-rule2', 'Ranked Battle');
+                  }
+
+                case 'private':
+                  return Yii::t('app-rule2', 'Private Battle');
+              }
+            },
+            // }}}
+          ],
+          [
+            // mode {{{
+            'label' => Yii::t('app', 'Mode'),
+            'headerOptions' => ['class' => 'cell-rule'],
+            'contentOptions' => ['class' => 'cell-rule'],
+            'value' => function ($model) : string {
+              return Yii::t('app-rule2', $model->rule->name ?? '?');
+            },
+            // }}}
+          ],
+          [
+            // mode (short) {{{
+            'label' => Yii::t('app', 'Mode'),
+            'headerOptions' => ['class' => 'cell-rule-short'],
+            'contentOptions' => ['class' => 'cell-rule-short'],
+            'format' => 'raw',
+            'value' => function ($model) : string {
+              return Html::tag(
+                'span',
+                Html::encode(Yii::t('app-rule2', $model->rule->short_name ?? '?')),
+                ['class' => 'auto-tooltip', 'title' => $model->rule->name ?? '?']
+              );
+            },
+            // }}}
+          ],
+          [
+            // stage {{{
+            'label' => Yii::t('app', 'Stage'),
+            'headerOptions' => ['class' => 'cell-map'],
+            'contentOptions' => ['class' => 'cell-map'],
+            'value' => function ($model) : string {
+              return Yii::t('app-map2', $model->map->name ?? '?');
+            },
+            // }}}
+          ],
+          [
+            // stage (short) {{{
+            'label' => Yii::t('app', 'Stage'),
+            'headerOptions' => ['class' => 'cell-map-short'],
+            'contentOptions' => ['class' => 'cell-map-short'],
+            'value' => function ($model) : string {
+              return Yii::t('app-map2', $model->map->short_name ?? '?');
+            },
+            // }}}
+          ],
+          [
+            // weapon {{{
+            'label' => Yii::t('app', 'Weapon'),
+            'headerOptions' => ['class' => 'cell-main-weapon'],
+            'contentOptions' => ['class' => 'cell-main-weapon'],
+            'format' => 'raw',
+            'value' => function ($model) : string {
+              $title = implode(' / ', [
+                implode(' ', [
+                  Yii::t('app', 'Sub:'),
+                  Yii::t('app-subweapon2', $model->weapon->subweapon->name ?? '?'),
+                ]),
+                implode(' ', [
+                  Yii::t('app', 'Special:'),
+                  Yii::t('app-special2', $model->weapon->special->name ?? '?'),
+                ]),
+              ]);
+              return Html::tag(
+                'span',
+                Html::encode(Yii::t('app-weapon2', $model->weapon->name ?? '?')),
+                ['class' => 'auto-tooltip', 'title' => $title]
+              );
+            },
+            // }}}
+          ],
+          [
+            // weapon (short) {{{
+            'label' => Yii::t('app', 'Weapon'),
+            'headerOptions' => ['class' => 'cell-main-weapon-short'],
+            'contentOptions' => ['class' => 'cell-main-weapon-short'],
+            'format' => 'raw',
+            'value' => function ($model) : string {
+              $title = implode(' / ', [
+                Yii::t('app-weapon2', $model->weapon->name ?? '?'),
+                implode(' ', [
+                  Yii::t('app', 'Sub:'),
+                  Yii::t('app-subweapon2', $model->weapon->subweapon->name ?? '?'),
+                ]),
+                implode(' ', [
+                  Yii::t('app', 'Special:'),
+                  Yii::t('app-special2', $model->weapon->special->name ?? '?'),
+                ]),
+              ]);
+              return Html::tag(
+                'span',
+                Html::encode(
+                  Yii::$app->weaponShortener->get(Yii::t('app-weapon2', $model->weapon->name ?? '?'))
+                ),
+                ['class' => 'auto-tooltip', 'title' => $title]
+              );
+            },
+            // }}}
+          ],
+          [
+            // sub weapon {{{
+            'label' => Yii::t('app', 'Sub Weapon'),
+            'headerOptions' => ['class' => 'cell-sub-weapon'],
+            'contentOptions' => ['class' => 'cell-sub-weapon'],
+            'value' => function ($model) : string {
+              return Yii::t('app-subweapon2', $model->weapon->subweapon->name ?? '?');
+            },
+            // }}} 
+          ],
+          [
+            // special weapon {{{
+            'label' => Yii::t('app', 'Special'),
+            'headerOptions' => ['class' => 'cell-special'],
+            'contentOptions' => ['class' => 'cell-special'],
+            'value' => function ($model) : string {
+              return Yii::t('app-special2', $model->weapon->special->name ?? '?');
+            },
+            // }}}
+          ],
+          [
+            // level {{{
+            'label' => Yii::t('app', 'Level'),
+            'headerOptions' => ['class' => 'cell-level'],
+            'contentOptions' => ['class' => 'cell-level'],
+            'value' => function ($model) : string {
+              return $model->level ?? '';
+            },
+            // }}}
+          ],
+          [
+            // judge {{{
+            'label' => Yii::t('app', 'Judge'),
+            'headerOptions' => ['class' => 'cell-judge'],
+            'contentOptions' => ['class' => 'cell-judge'],
+            'format' => 'raw',
+            'value' => function ($model) : string {
+              return $this->render('_battle_judge', ['model' => $model]);
+            },
+            // }}}
+          ],
+          [
+            // result {{{
+            'label' => Yii::t('app', 'Result'),
+            'headerOptions' => ['class' => 'cell-result'],
+            'contentOptions' => ['class' => 'cell-result'],
+            'format' => 'raw',
+            'value' => function ($model) : string {
+              $parts = [
+                ($model->is_win === null)
+                  ? Html::encode('?')
+                  : ($model->is_win
+                    ? Html::tag('span', Html::encode(Yii::t('app', 'Won')), ['class' => 'label label-success'])
+                    : Html::tag('span', Html::encode(Yii::t('app', 'Lost')), ['class' => 'label label-danger'])
                   ),
-                  (!$model->link_url) ? '' : Html::a(
-                    FontAwesome::icon(EmbedVideo::isSupported($model->link_url) ? 'video-camera' : 'link')->fixedWidth(),
-                    $model->link_url,
-                    ['class' => 'btn btn-default btn-xs', 'rel' => 'nofollow']
-                  ),
-                ]));
-              },
-              'contentOptions' => ['class' => 'nobr'],
-              // }}}
-            ],
-            [
-              // lobby {{{
-              'label' => Yii::t('app', 'Lobby'),
-              'value' => function ($model) {
-                switch ($model->mode->key ?? '') {
-                  default:
-                    return '?';
-
-                  case 'regular':
-                    return Yii::t('app-rule2', $model->mode->name);
-
-                  case 'fest':
-                    switch ($model->lobby->key ?? '') {
-                      case 'standard':
-                        return Yii::t('app-rule2', 'Splatfest (Solo)');
-
-                      case 'squad_4':
-                        return Yii::t('app-rule2', 'Splatfest (Team)');
-                    
-                      default:
-                        return Yii::t('app-rule2', 'Splatfest');
-                    }
-
-                  case 'gachi':
-                    switch ($model->lobby->key ?? '') {
-                      case 'standard':
-                        return Yii::t('app-rule2', 'Ranked Battle (Solo)');
-
-                      case 'squad_2':
-                        return Yii::t('app-rule2', 'League Battle (Twin)');
-
-                      case 'squad_4':
-                        return Yii::t('app-rule2', 'League Battle (Quad)');
-
-                      default:
-                        return Yii::t('app-rule2', 'Ranked Battle');
-                    }
-
-                  case 'private':
-                    return Yii::t('app-rule2', 'Private Battle');
-                }
-              },
-              // }}}
-            ],
-            [
-              // mode {{{
-              'label' => Yii::t('app', 'Mode'),
-              'headerOptions' => ['class' => 'cell-rule'],
-              'contentOptions' => ['class' => 'cell-rule'],
-              'value' => function ($model) : string {
-                return Yii::t('app-rule2', $model->rule->name ?? '?');
-              },
-              // }}}
-            ],
-            [
-              // mode (short) {{{
-              'label' => Yii::t('app', 'Mode'),
-              'headerOptions' => ['class' => 'cell-rule-short'],
-              'contentOptions' => ['class' => 'cell-rule-short'],
-              'format' => 'raw',
-              'value' => function ($model) : string {
-                return Html::tag(
-                  'span',
-                  Html::encode(Yii::t('app-rule2', $model->rule->short_name ?? '?')),
-                  ['class' => 'auto-tooltip', 'title' => $model->rule->name ?? '?']
-                );
-              },
-              // }}}
-            ],
-            [
-              // stage {{{
-              'label' => Yii::t('app', 'Stage'),
-              'headerOptions' => ['class' => 'cell-map'],
-              'contentOptions' => ['class' => 'cell-map'],
-              'value' => function ($model) : string {
-                return Yii::t('app-map2', $model->map->name ?? '?');
-              },
-              // }}}
-            ],
-            [
-              // stage (short) {{{
-              'label' => Yii::t('app', 'Stage'),
-              'headerOptions' => ['class' => 'cell-map-short'],
-              'contentOptions' => ['class' => 'cell-map-short'],
-              'value' => function ($model) : string {
-                return Yii::t('app-map2', $model->map->short_name ?? '?');
-              },
-              // }}}
-            ],
-            [
-              // weapon {{{
-              'label' => Yii::t('app', 'Weapon'),
-              'headerOptions' => ['class' => 'cell-main-weapon'],
-              'contentOptions' => ['class' => 'cell-main-weapon'],
-              'format' => 'raw',
-              'value' => function ($model) : string {
-                $title = implode(' / ', [
-                  implode(' ', [
-                    Yii::t('app', 'Sub:'),
-                    Yii::t('app-subweapon2', $model->weapon->subweapon->name ?? '?'),
-                  ]),
-                  implode(' ', [
-                    Yii::t('app', 'Special:'),
-                    Yii::t('app-special2', $model->weapon->special->name ?? '?'),
-                  ]),
-                ]);
-                return Html::tag(
-                  'span',
-                  Html::encode(Yii::t('app-weapon2', $model->weapon->name ?? '?')),
-                  ['class' => 'auto-tooltip', 'title' => $title]
-                );
-              },
-              // }}}
-            ],
-            [
-              // weapon (short) {{{
-              'label' => Yii::t('app', 'Weapon'),
-              'headerOptions' => ['class' => 'cell-main-weapon-short'],
-              'contentOptions' => ['class' => 'cell-main-weapon-short'],
-              'format' => 'raw',
-              'value' => function ($model) : string {
-                $title = implode(' / ', [
-                  Yii::t('app-weapon2', $model->weapon->name ?? '?'),
-                  implode(' ', [
-                    Yii::t('app', 'Sub:'),
-                    Yii::t('app-subweapon2', $model->weapon->subweapon->name ?? '?'),
-                  ]),
-                  implode(' ', [
-                    Yii::t('app', 'Special:'),
-                    Yii::t('app-special2', $model->weapon->special->name ?? '?'),
-                  ]),
-                ]);
-                return Html::tag(
-                  'span',
-                  Html::encode(
-                    Yii::$app->weaponShortener->get(Yii::t('app-weapon2', $model->weapon->name ?? '?'))
-                  ),
-                  ['class' => 'auto-tooltip', 'title' => $title]
-                );
-              },
-              // }}}
-            ],
-            [
-              // sub weapon {{{
-              'label' => Yii::t('app', 'Sub Weapon'),
-              'headerOptions' => ['class' => 'cell-sub-weapon'],
-              'contentOptions' => ['class' => 'cell-sub-weapon'],
-              'value' => function ($model) : string {
-                return Yii::t('app-subweapon2', $model->weapon->subweapon->name ?? '?');
-              },
-              // }}} 
-            ],
-            [
-              // special weapon {{{
-              'label' => Yii::t('app', 'Special'),
-              'headerOptions' => ['class' => 'cell-special'],
-              'contentOptions' => ['class' => 'cell-special'],
-              'value' => function ($model) : string {
-                return Yii::t('app-special2', $model->weapon->special->name ?? '?');
-              },
-              // }}}
-            ],
-            [
-              // level {{{
-              'label' => Yii::t('app', 'Level'),
-              'headerOptions' => ['class' => 'cell-level'],
-              'contentOptions' => ['class' => 'cell-level'],
-              'value' => function ($model) : string {
-                return $model->level ?? '';
-              },
-              // }}}
-            ],
-            [
-              // judge {{{
-              'label' => Yii::t('app', 'Judge'),
-              'headerOptions' => ['class' => 'cell-judge'],
-              'contentOptions' => ['class' => 'cell-judge'],
-              'format' => 'raw',
-              'value' => function ($model) : string {
-                return $this->render('_battle_judge', ['model' => $model]);
-              },
-              // }}}
-            ],
-            [
-              // result {{{
-              'label' => Yii::t('app', 'Result'),
-              'headerOptions' => ['class' => 'cell-result'],
-              'contentOptions' => ['class' => 'cell-result'],
-              'format' => 'raw',
-              'value' => function ($model) : string {
-                $parts = [
-                  ($model->is_win === null)
+                ($model->isGachi && $model->is_knockout !== null)
+                  ? ($model->is_knockout
+                    ? Html::tag('span', Html::encode(Yii::t('app', 'K.O.')), [
+                        'class' => 'label label-info auto-tooltip',
+                        'title' => Yii::t('app', 'Knockout'),
+                      ])
+                    : Html::tag('span', Html::encode(Yii::t('app', 'Time')), [
+                        'class' => 'label label-warning auto-tooltip',
+                        'title' => Yii::t('app', 'Time is up'),
+                      ])
+                  )
+                  : ''
+              ];
+              return implode('&nbsp', array_filter($parts, function (string $value) : bool {
+                return trim($value) != '';
+              }));
+            },
+            // }}}
+          ],
+          [
+            // K/D {{{
+            'label' => Yii::t('app', 'k') . '/' . Yii::t('app', 'd'),
+            'headerOptions' => ['class' => 'cell-kd'],
+            'contentOptions' => ['class' => 'cell-kd nobr'],
+            'format' => 'raw',
+            'value' => function ($model) : string {
+              return implode(' ', [
+                Html::tag(
+                  'span', 
+                  $model->kill === null
                     ? Html::encode('?')
-                    : ($model->is_win
-                      ? Html::tag('span', Html::encode(Yii::t('app', 'Won')), ['class' => 'label label-success'])
-                      : Html::tag('span', Html::encode(Yii::t('app', 'Lost')), ['class' => 'label label-danger'])
+                    : ($model->death !== null && $model->kill >= $model->death
+                      ? Html::tag('strong', Html::encode($model->kill))
+                      : Html::encode($model->kill)
                     ),
-                  ($model->isGachi && $model->is_knockout !== null)
-                    ? ($model->is_knockout
-                      ? Html::tag('span', Html::encode(Yii::t('app', 'K.O.')), [
-                          'class' => 'label label-info auto-tooltip',
-                          'title' => Yii::t('app', 'Knockout'),
-                        ])
-                      : Html::tag('span', Html::encode(Yii::t('app', 'Time')), [
-                          'class' => 'label label-warning auto-tooltip',
-                          'title' => Yii::t('app', 'Time is up'),
-                        ])
-                    )
-                    : ''
-                ];
-                return implode('&nbsp', array_filter($parts, function (string $value) : bool {
-                  return trim($value) != '';
-                }));
-              },
-              // }}}
-            ],
-            [
-              // K/D {{{
-              'label' => Yii::t('app', 'k') . '/' . Yii::t('app', 'd'),
-              'headerOptions' => ['class' => 'cell-kd'],
-              'contentOptions' => ['class' => 'cell-kd nobr'],
-              'format' => 'raw',
-              'value' => function ($model) : string {
-                return implode(' ', [
-                  Html::tag(
-                    'span', 
-                    $model->kill === null
-                      ? Html::encode('?')
-                      : ($model->death !== null && $model->kill >= $model->death
-                        ? Html::tag('strong', Html::encode($model->kill))
-                        : Html::encode($model->kill)
-                      ),
-                    ['class' => 'kill']
-                  ),
-                  '/',
-                  Html::tag(
-                    'span', 
-                    $model->death === null
-                      ? Html::encode('?')
-                      : ($model->kill !== null && $model->kill <= $model->death
-                        ? Html::tag('strong', Html::encode($model->death))
-                        : Html::encode($model->death)
-                      ),
-                    ['class' => 'death']
-                  ),
-                  $model->kill !== null && $model->death !== null
-                    ? (
-                      (function (int $k, int $d) {
-                        if ($k > $d) {
-                          return Html::tag('span', Html::encode('>'), ['class' => 'label label-success']);
-                        } elseif ($k < $d) {
-                          return Html::tag('span', Html::encode('<'), ['class' => 'label label-danger']);
-                        } else {
-                          return Html::tag('span', Html::encode('='), ['class' => 'label label-default']);
-                        }
-                      })($model->kill, $model->death)
-                    )
-                    : '',
-                ]);
-              },
-              // }}}
-            ],
-            [
-              // kill ratio {{{
-              'label' => Yii::t('app', 'Ratio'),
-              'headerOptions' => ['class' => 'cell-kill-ratio auto-tooltip', 'title' => Yii::t('app', 'Kill Ratio')],
-              'contentOptions' => ['class' => 'cell-kill-ratio'],
-              'value' => function ($model) : string {
-                return ($model->kill_ratio !== null)
-                  ? Yii::$app->formatter->asDecimal($model->kill_ratio, 2)
-                  : '';
-              },
-              // }}}
-            ],
-            [
-              // kill rate {{{
-              'label' => Yii::t('app', 'Rate'),
-              'headerOptions' => ['class' => 'cell-kill-rate auto-tooltip', 'title' => Yii::t('app', 'Kill Rate')],
-              'contentOptions' => ['class' => 'cell-kill-rate'],
-              'value' => function ($model) : string {
-                return ($model->kill_rate !== null)
-                  ? Yii::$app->formatter->asPercent($model->kill_rate / 100, 2)
-                  : '';
-              },
-              // }}}
-            ],
-            [
-              // kill or assist {{{
-              'label' => Yii::t('app', 'Kill or Assist'),
-              'headerOptions' => ['class' => 'cell-kill-or-assist'],
-              'contentOptions' => ['class' => 'cell-kill-or-assist'],
-              'value' => function ($model) : string {
-                return $model->kill_or_assist ?? '';
-              },
-              // }}}
-            ],
-            [
-              // specials {{{
-              'label' => Yii::t('app', 'Specials'),
-              'headerOptions' => ['class' => 'cell-specials'],
-              'contentOptions' => ['class' => 'cell-specials text-right'],
-              'value' => function ($model) : string {
-                return $model->special ?? '';
-              },
-              // }}}
-            ],
-            [
-              // inked {{{
-              'label' => Yii::t('app', 'Inked'),
-              'headerOptions' => ['class' => 'cell-point'],
-              'contentOptions' => ['class' => 'cell-point text-right'],
-              'value' => function ($model) : string {
-                $value = $model->inked ?? null;
-                return ($value === null)
-                  ? ''
-                  : Yii::$app->formatter->asInteger($value);
-              },
-              // }}}
-            ],
-            [
-              // rank in team {{{
-              'label' => Yii::t('app', 'Rank in Team'),
-              'headerOptions' => ['class' => 'cell-rank-in-team'],
-              'contentOptions' => ['class' => 'cell-rank-in-team'],
-              'value' => function ($model) : string {
-                return $model->rank_in_team ?? '';
-              },
-              // }}}
-            ],
-            [
-              // datetime {{{
-              'label' => Yii::t('app', 'Date Time'),
-              'headerOptions' => ['class' => 'cell-datetime'],
-              'contentOptions' => ['class' => 'cell-datetime'],
-              'format' => 'raw',
-              'value' => function ($model) : string {
-                return $model->end_at === null
-                  ? Html::encode(Yii::t('app', 'N/A'))
-                  : Html::tag(
-                    'time',
-                    Html::encode(Yii::$app->formatter->asDateTime($model->end_at, 'short')),
-                    ['datetime' => Yii::$app->formatter->asDateTime($model->end_at, 'yyyy-MM-dd\'T\'HH:mm:ssZZZZZ')]
-                  );
-              },
-              // }}}
-            ],
-            [
-              // reltime {{{
-              'label' => Yii::t('app', 'Relative Time'),
-              'headerOptions' => ['class' => 'cell-reltime'],
-              'contentOptions' => ['class' => 'cell-reltime'],
-              'format' => 'raw',
-              'value' => function ($model) : string {
-                return $model->end_at === null
-                  ? Html::encode(Yii::t('app', 'N/A'))
-                  : Html::tag(
-                    'time',
-                    Html::encode(Yii::$app->formatter->asRelativeTime($model->end_at)),
-                    ['datetime' => Yii::$app->formatter->asDateTime($model->end_at, 'yyyy-MM-dd\'T\'HH:mm:ssZZZZZ')]
-                  );
-              },
-              // }}}
-            ],
-          ], // }}}
-        ]) . "\n" ?>
-      </div>
+                  ['class' => 'kill']
+                ),
+                '/',
+                Html::tag(
+                  'span', 
+                  $model->death === null
+                    ? Html::encode('?')
+                    : ($model->kill !== null && $model->kill <= $model->death
+                      ? Html::tag('strong', Html::encode($model->death))
+                      : Html::encode($model->death)
+                    ),
+                  ['class' => 'death']
+                ),
+                $model->kill !== null && $model->death !== null
+                  ? (
+                    (function (int $k, int $d) {
+                      if ($k > $d) {
+                        return Html::tag('span', Html::encode('>'), ['class' => 'label label-success']);
+                      } elseif ($k < $d) {
+                        return Html::tag('span', Html::encode('<'), ['class' => 'label label-danger']);
+                      } else {
+                        return Html::tag('span', Html::encode('='), ['class' => 'label label-default']);
+                      }
+                    })($model->kill, $model->death)
+                  )
+                  : '',
+              ]);
+            },
+            // }}}
+          ],
+          [
+            // kill ratio {{{
+            'label' => Yii::t('app', 'Ratio'),
+            'headerOptions' => ['class' => 'cell-kill-ratio auto-tooltip', 'title' => Yii::t('app', 'Kill Ratio')],
+            'contentOptions' => ['class' => 'cell-kill-ratio'],
+            'value' => function ($model) : string {
+              return ($model->kill_ratio !== null)
+                ? Yii::$app->formatter->asDecimal($model->kill_ratio, 2)
+                : '';
+            },
+            // }}}
+          ],
+          [
+            // kill rate {{{
+            'label' => Yii::t('app', 'Rate'),
+            'headerOptions' => ['class' => 'cell-kill-rate auto-tooltip', 'title' => Yii::t('app', 'Kill Rate')],
+            'contentOptions' => ['class' => 'cell-kill-rate'],
+            'value' => function ($model) : string {
+              return ($model->kill_rate !== null)
+                ? Yii::$app->formatter->asPercent($model->kill_rate / 100, 2)
+                : '';
+            },
+            // }}}
+          ],
+          [
+            // kill or assist {{{
+            'label' => Yii::t('app', 'Kill or Assist'),
+            'headerOptions' => ['class' => 'cell-kill-or-assist'],
+            'contentOptions' => ['class' => 'cell-kill-or-assist'],
+            'value' => function ($model) : string {
+              return $model->kill_or_assist ?? '';
+            },
+            // }}}
+          ],
+          [
+            // specials {{{
+            'label' => Yii::t('app', 'Specials'),
+            'headerOptions' => ['class' => 'cell-specials'],
+            'contentOptions' => ['class' => 'cell-specials text-right'],
+            'value' => function ($model) : string {
+              return $model->special ?? '';
+            },
+            // }}}
+          ],
+          [
+            // inked {{{
+            'label' => Yii::t('app', 'Inked'),
+            'headerOptions' => ['class' => 'cell-point'],
+            'contentOptions' => ['class' => 'cell-point text-right'],
+            'value' => function ($model) : string {
+              $value = $model->inked ?? null;
+              return ($value === null)
+                ? ''
+                : Yii::$app->formatter->asInteger($value);
+            },
+            // }}}
+          ],
+          [
+            // rank in team {{{
+            'label' => Yii::t('app', 'Rank in Team'),
+            'headerOptions' => ['class' => 'cell-rank-in-team'],
+            'contentOptions' => ['class' => 'cell-rank-in-team'],
+            'value' => function ($model) : string {
+              return $model->rank_in_team ?? '';
+            },
+            // }}}
+          ],
+          [
+            // datetime {{{
+            'label' => Yii::t('app', 'Date Time'),
+            'headerOptions' => ['class' => 'cell-datetime'],
+            'contentOptions' => ['class' => 'cell-datetime'],
+            'format' => 'raw',
+            'value' => function ($model) : string {
+              return $model->end_at === null
+                ? Html::encode(Yii::t('app', 'N/A'))
+                : Html::tag(
+                  'time',
+                  Html::encode(Yii::$app->formatter->asDateTime($model->end_at, 'short')),
+                  ['datetime' => Yii::$app->formatter->asDateTime($model->end_at, 'yyyy-MM-dd\'T\'HH:mm:ssZZZZZ')]
+                );
+            },
+            // }}}
+          ],
+          [
+            // reltime {{{
+            'label' => Yii::t('app', 'Relative Time'),
+            'headerOptions' => ['class' => 'cell-reltime'],
+            'contentOptions' => ['class' => 'cell-reltime'],
+            'format' => 'raw',
+            'value' => function ($model) : string {
+              return $model->end_at === null
+                ? Html::encode(Yii::t('app', 'N/A'))
+                : Html::tag(
+                  'time',
+                  Html::encode(Yii::$app->formatter->asRelativeTime($model->end_at)),
+                  ['datetime' => Yii::$app->formatter->asDateTime($model->end_at, 'yyyy-MM-dd\'T\'HH:mm:ssZZZZZ')]
+                );
+            },
+            // }}}
+          ],
+        ], // }}}
+      ]) . "\n" ?>
       <div class="text-right">
         <?= ListView::widget([
           'dataProvider' => $battleDataProvider,
