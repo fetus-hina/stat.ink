@@ -433,7 +433,24 @@ if ($user->twitter != '') {
             // kill ratio {{{
             'label' => Yii::t('app', 'Ratio'),
             'headerOptions' => ['class' => 'cell-kill-ratio auto-tooltip', 'title' => Yii::t('app', 'Kill Ratio')],
-            'contentOptions' => ['class' => 'cell-kill-ratio'],
+            'contentOptions' => function ($model) : array {
+              return $model->kill_ratio === null
+                ? [
+                  'class' => [
+                    'cell-kill-ratio',
+                  ],
+                ]
+                : [
+                  'class' => [
+                    'cell-kill-ratio',
+                    'kill-ratio',
+                    'text-right',
+                  ],
+                  'data' => [
+                    'kill-ratio' => $model->kill_ratio,
+                  ],
+                ];
+            },
             'value' => function ($model) : string {
               return ($model->kill_ratio !== null)
                 ? Yii::$app->formatter->asDecimal($model->kill_ratio, 2)
@@ -445,7 +462,24 @@ if ($user->twitter != '') {
             // kill rate {{{
             'label' => Yii::t('app', 'Rate'),
             'headerOptions' => ['class' => 'cell-kill-rate auto-tooltip', 'title' => Yii::t('app', 'Kill Rate')],
-            'contentOptions' => ['class' => 'cell-kill-rate'],
+            'contentOptions' => function ($model) : array {
+              return $model->kill_ratio === null
+                ? [
+                  'class' => [
+                    'cell-kill-rate',
+                  ],
+                ]
+                : [
+                  'class' => [
+                    'cell-kill-rate',
+                    'kill-rate',
+                    'text-right',
+                  ],
+                  'data' => [
+                    'kill-ratio' => $model->kill_ratio,
+                  ],
+                ];
+            },
             'value' => function ($model) : string {
               return ($model->kill_rate !== null)
                 ? Yii::$app->formatter->asPercent($model->kill_rate / 100, 2)
