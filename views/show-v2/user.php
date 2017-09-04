@@ -130,6 +130,8 @@ if ($user->twitter != '') {
           [
             // lobby {{{
             'label' => Yii::t('app', 'Lobby'),
+            'headerOptions' => ['class' => 'cell-lobby'],
+            'contentOptions' => ['class' => 'cell-lobby'],
             'value' => function ($model) {
               switch ($model->mode->key ?? '') {
                 default:
