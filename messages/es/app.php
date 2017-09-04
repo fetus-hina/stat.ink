@@ -196,6 +196,7 @@ return [
     'Image Sharing' => 'Compartir imagen',
     '(incomplete)' => '',
     'Inked' => '',
+    'Inked/min' => '',
     'Input new battle results' => 'Introducir nuevos resultados de la batalla',
     'In session' => '',
     'Integrate' => '',

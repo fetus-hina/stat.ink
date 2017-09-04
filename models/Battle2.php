@@ -931,6 +931,19 @@ class Battle2 extends ActiveRecord
         return $this->my_point;
     }
 
+    public function getElapsedTime() : ?int
+    {
+        if ($this->start_at === null || $this->end_at === null) {
+            return null;
+        }
+        $s = @strtotime($this->start_at);
+        $e = @strtotime($this->end_at);
+        if ($s === false || $e === false || $e - $s < 1) {
+            return null;
+        }
+        return $e - $s;
+    }
+
     public function getCreatedAt() : int
     {
         return strtotime($this->created_at);

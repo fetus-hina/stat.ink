@@ -176,6 +176,7 @@ return [
     'Image Sharing' => '画像の共有',
     'In session' => '開催中',
     'Inked' => '塗面積',
+    'Inked/min' => '塗/分',
     'Input new battle results' => 'バトルの登録',
     'Integrate' => '連携',
     'Internal ID' => '内部ID',

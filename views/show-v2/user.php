@@ -449,6 +449,20 @@ if ($user->twitter != '') {
             // }}}
           ],
           [
+            // inked/min {{{
+            'label' => Yii::t('app', 'Inked/min'),
+            'headerOptions' => ['class' => 'cell-inked-min'],
+            'contentOptions' => ['class' => 'cell-inked-min text-right'],
+            'value' => function ($model) : string {
+              $inked = $model->inked ?? null;
+              $time = $model->elapsedTime ?? null;
+              return ($inked === null || $time === null || $time < 1)
+                ? ''
+                : Yii::$app->formatter->asDecimal($inked * 60 / $time, 1);
+            },
+            // }}}
+          ],
+          [
             // rank in team {{{
             'label' => Yii::t('app', 'Rank in Team'),
             'headerOptions' => ['class' => 'cell-rank-in-team'],
@@ -543,6 +557,7 @@ if ($user->twitter != '') {
           'cell-kill-or-assist'       => Yii::t('app', 'Kill or Assist'),
           'cell-specials'             => Yii::t('app', 'Specials'),
           'cell-point'                => Yii::t('app', 'Turf Inked'),
+          'cell-inked-min'            => Yii::t('app', 'Inked/min'),
           'cell-rank-in-team'         => Yii::t('app', 'Rank in Team'),
           'cell-datetime'             => Yii::t('app', 'Date Time'),
           'cell-reltime'              => Yii::t('app', 'Relative Time'),

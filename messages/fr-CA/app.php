@@ -192,6 +192,7 @@ return [
     'Image Sharing' => '',
     '(incomplete)' => '',
     'Inked' => '',
+    'Inked/min' => '',
     'Input new battle results' => '',
     'In session' => '',
     'Integrate' => '',
