@@ -392,6 +392,44 @@ if ($user->twitter != '') {
             // }}}
           ],
           [
+            // kills/min {{{
+            'label' => Yii::t('app', 'K/min'),
+            'headerOptions' => ['class' => 'cell-kill-min'],
+            'contentOptions' => ['class' => 'cell-kill-min text-right'],
+            'format' => 'raw',
+            'value' => function ($model) : string {
+              $kill = $model->kill ?? null;
+              $time = $model->elapsedTime ?? null;
+              if ($kill === null || $time === null || $time < 1) {
+                return '';
+              }
+              $value = Yii::$app->formatter->asDecimal($kill * 60 / $time, 3);
+              return ($model->death ?? 9999) <= $kill
+                ? Html::tag('strong', Html::encode($value))
+                : Html::encode($value);
+            },
+            // }}}
+          ],
+          [
+            // deaths/min {{{
+            'label' => Yii::t('app', 'D/min'),
+            'headerOptions' => ['class' => 'cell-death-min'],
+            'contentOptions' => ['class' => 'cell-death-min text-right'],
+            'format' => 'raw',
+            'value' => function ($model) : string {
+              $death = $model->death ?? null;
+              $time = $model->elapsedTime ?? null;
+              if ($death === null || $time === null || $time < 1) {
+                return '';
+              }
+              $value = Yii::$app->formatter->asDecimal($death * 60 / $time, 3);
+              return ($model->kill ?? 9999) <= $death
+                ? Html::tag('strong', Html::encode($value))
+                : Html::encode($value);
+            },
+            // }}}
+          ],
+          [
             // kill ratio {{{
             'label' => Yii::t('app', 'Ratio'),
             'headerOptions' => ['class' => 'cell-kill-ratio auto-tooltip', 'title' => Yii::t('app', 'Kill Ratio')],
@@ -432,6 +470,20 @@ if ($user->twitter != '') {
             'contentOptions' => ['class' => 'cell-specials text-right'],
             'value' => function ($model) : string {
               return $model->special ?? '';
+            },
+            // }}}
+          ],
+          [
+            // specials/min {{{
+            'label' => Yii::t('app', 'S/min'),
+            'headerOptions' => ['class' => 'cell-specials-min'],
+            'contentOptions' => ['class' => 'cell-specials-min text-right'],
+            'value' => function ($model) : string {
+              $specials = $model->special ?? null;
+              $time = $model->elapsedTime ?? null;
+              return ($specials === null || $time === null || $time < 1)
+                ? ''
+                : Yii::$app->formatter->asDecimal($specials * 60 / $time, 3);
             },
             // }}}
           ],
@@ -552,10 +604,13 @@ if ($user->twitter != '') {
           'cell-judge'                => Yii::t('app', 'Judge'),
           'cell-result'               => Yii::t('app', 'Result'),
           'cell-kd'                   => Yii::t('app', 'k') . '/' . Yii::t('app', 'd'),
+          'cell-kill-min'             => Yii::t('app', 'Kills/min'),
+          'cell-death-min'            => Yii::t('app', 'Deaths/min'),
           'cell-kill-ratio'           => Yii::t('app', 'Kill Ratio'),
           'cell-kill-rate'            => Yii::t('app', 'Kill Rate'),
           'cell-kill-or-assist'       => Yii::t('app', 'Kill or Assist'),
           'cell-specials'             => Yii::t('app', 'Specials'),
+          'cell-specials-min'         => Yii::t('app', 'Specials/min'),
           'cell-point'                => Yii::t('app', 'Turf Inked'),
           'cell-inked-min'            => Yii::t('app', 'Inked/min'),
           'cell-rank-in-team'         => Yii::t('app', 'Rank in Team'),
