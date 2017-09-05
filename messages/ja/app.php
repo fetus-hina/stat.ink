@@ -368,6 +368,7 @@ return [
     'Sub:' => 'サブ:',
     'Summarize' => '集計',
     'Summary: Based on the current filter' => '現在のフィルタに基づくサマリ',
+    'Team ID' => 'チームID',
     'Team Inked' => 'チームで塗った面積',
     'Test' => 'テスト',
     'The address of the web site that linked here (aka "referer")' => '訪問元サイトのURL（リファラ）',

@@ -405,6 +405,7 @@ return [
     'Sub Weapon' => 'Arma secundaria',
     'Summarize' => 'Resumen',
     'Summary: Based on the current filter' => 'Resumen: Basado en el filtro actual',
+    'Team ID' => '',
     'Team Inked' => '',
     'Test' => '',
     'The address of the web site that linked here (aka "referer")' => '',

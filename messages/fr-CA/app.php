@@ -399,6 +399,7 @@ return [
     'Sub Weapon' => '',
     'Summarize' => '',
     'Summary: Based on the current filter' => '',
+    'Team ID' => '',
     'Team Inked' => '',
     'Test' => '',
     'The address of the web site that linked here (aka "referer")' => '',

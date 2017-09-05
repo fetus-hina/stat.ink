@@ -41,7 +41,7 @@ $bonus = (int)($battle->bonus->bonus ?? 1000);
 // check has-KD
 foreach ($teams as $team) {
   foreach ($team as $player) {
-    if (trim($player->name) !== '') {
+    if (trim($player->name) !== '' || trim($player->splatnet_id) !== '') {
       $hasName = true;
     }
     if ($player->kill !== null || $player->death !== null) {

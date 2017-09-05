@@ -59,10 +59,32 @@ if ($totalK !== null && $totalD !== null) {
 }
 
 // チーム合計
+$teamId = trim($teamKey === 'my' ? $battle->my_team_id : $battle->his_team_id);
 echo Html::tag(
   'tr',
   '  ' . implode("\n  ", [
-    Html::tag('th', Html::encode(Yii::t('app', ($teamKey === 'my') ? 'Good Guys' : 'Bad Guys')), ['colspan' => 2]),
+    Html::tag(
+      'th',
+      trim(implode(' ', [
+        Html::encode(
+          Yii::t('app', ($teamKey === 'my') ? 'Good Guys' : 'Bad Guys')
+        ),
+        $teamId == ''
+          ? ''
+          : Html::tag(
+            'code',
+            Html::encode($teamId),
+            [
+              'class' => 'auto-tooltip',
+              'title' => Yii::t('app', 'Team ID'),
+              'style' => [
+                'font-weight' => '400',
+              ],
+            ]
+          ),
+      ])),
+      ['colspan' => 2]
+    ),
     !$hasName ? '' : Html::tag('td', ''),
     Html::tag('td', ''),
     $hideRank ? '' : Html::tag('td', ''),
