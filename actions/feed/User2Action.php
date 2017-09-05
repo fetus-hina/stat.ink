@@ -278,7 +278,7 @@ class User2Action extends BaseAction
 
                         case 'private':
                             return Yii::t('app-rule2', 'Private Battle', [], $lang);
-                 }
+                    }
                     // }}}
                 })()
             );
@@ -321,8 +321,8 @@ class User2Action extends BaseAction
             $__('Result', $battle->is_win ? 'Won' : 'Lost', 'app');
             if ($battle->isGachi && $battle->is_knockout !== null) {
                 $dl[] = Html::tag(
-                  'dt',
-                  Html::encode(Yii::t('app', $battle->is_knockout ? 'Knockout' : 'Time is up', [], $lang))
+                    'dt',
+                    Html::encode(Yii::t('app', $battle->is_knockout ? 'Knockout' : 'Time is up', [], $lang))
                 );
             }
         }
