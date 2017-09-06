@@ -9,6 +9,7 @@ namespace app\commands;
 
 use Yii;
 use app\components\helpers\Battle as BattleHelper;
+use app\models\BattlePlayer2;
 use app\models\BattlePlayer;
 use app\models\Knockout;
 use app\models\Lobby;
@@ -917,5 +918,32 @@ class StatController extends Controller
         $db->createCommand($insertTrend)->execute();
 
         $transaction->commit();
+    }
+
+    /**
+     * プレーヤーIDと投稿者紐付けデータ
+     *
+     * これを実行しないとバトルのプレーヤーリストからユーザへのリンクや
+     * アイコン表示が機能しません。
+     */
+    public function actionUpdatePlayerIdMap()
+    {
+        $db = Yii::$app->db;
+
+        echo "Updating splatnet2_user_map...\n";
+        $sql = "INSERT INTO {{splatnet2_user_map}} ( [[splatnet_id]], [[user_id]], [[battles]] ) " .
+            "SELECT {{battle_player2}}.[[splatnet_id]], {{battle2}}.[[user_id]], COUNT(*) AS [[battles]] " .
+            "FROM {{battle_player2}} " .
+            "INNER JOIN {{battle2}} ON {{battle_player2}}.[[battle_id]] = {{battle2}}.[[id]] " .
+            "WHERE {{battle_player2}}.[[splatnet_id]] IS NOT NULL " .
+            "AND {{battle_player2}}.[[is_me]] = TRUE " .
+            "GROUP BY {{battle_player2}}.[[splatnet_id]], {{battle2}}.[[user_id]] " .
+            "ON CONFLICT ( [[splatnet_id]], [[user_id]] ) DO UPDATE SET " .
+            "[[battles]] = {{excluded}}.[[battles]] ";
+        $db->createCommand($sql)->execute();
+        echo "done.\n";
+        echo "VACUUM...\n";
+        $db->createCommand('VACUUM ANALYZE {{splatnet2_user_map}}')->execute();
+        echo "done.\n";
     }
 }
