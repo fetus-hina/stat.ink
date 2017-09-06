@@ -981,6 +981,30 @@ class Battle2 extends ActiveRecord
             ->sub(new \DateInterval('PT3M15S'));
     }
 
+    public function getMyTeamIcon(string $ext = 'svg') : ?string
+    {
+        return $this->getTeamIcon($this->my_team_id, $ext);
+    }
+
+    public function getHisTeamIcon(string $ext = 'svg') : ?string
+    {
+        return $this->getTeamIcon($this->his_team_id, $ext);
+    }
+
+    private function getTeamIcon(?string $id, string $ext) : ?string
+    {
+        $id = trim((string)$id);
+        if ($id === '') {
+            return null;
+        }
+        $hash = substr(
+            hash('sha256', $id, false),
+            0,
+            40
+        );
+        return Yii::getAlias('@jdenticon') . '/' . $hash . '.' . $ext;
+    }
+
     public function toJsonArray(array $skips = []) : array
     {
         $events = null;

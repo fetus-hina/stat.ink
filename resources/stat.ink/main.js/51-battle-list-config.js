@@ -17,6 +17,8 @@ window.battleListConfig = function() {
             "cell-main-weapon-short": false,
             "cell-sub-weapon": false,
             "cell-special": false,
+            "cell-team-icon": false,
+            "cell-team-id": false,
             "cell-rank": false,
             "cell-rank-after": false,
             "cell-level": false,

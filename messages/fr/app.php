@@ -399,6 +399,8 @@ return [
     'Sub Weapon' => 'Arme secondaire',
     'Summarize' => '',
     'Summary: Based on the current filter' => '',
+    'Team' => '',
+    'Team Icon' => '',
     'Team ID' => '',
     'Team Inked' => '',
     'Test' => '',

@@ -292,6 +292,42 @@ if ($user->twitter != '') {
             // }}}
           ],
           [
+            // team id (icon) {{{
+            'label' => Yii::t('app', 'Team'),
+            'headerOptions' => ['class' => 'cell-team-icon'],
+            'contentOptions' => ['class' => 'cell-team-icon text-center'],
+            'format' => 'raw',
+            'value' => function ($model) : string {
+              return trim($model->my_team_id) === ''
+                ? ''
+                : Html::img(
+                  $model->myTeamIcon,
+                  [
+                    'title' => $model->my_team_id,
+                    'class' => 'auto-tooltip',
+                    'style' => [
+                      'width' => 'auto',
+                      'height' => '1.5em',
+                    ],
+                  ]
+                );
+            },
+            // }}}
+          ],
+          [
+            // team id {{{
+            'label' => Yii::t('app', 'Team ID'),
+            'headerOptions' => ['class' => 'cell-team-id'],
+            'contentOptions' => ['class' => 'cell-team-id'],
+            'format' => 'raw',
+            'value' => function ($model) : string {
+              return trim($model->my_team_id) === ''
+                ? ''
+                : Html::tag('code', Html::encode(trim($model->my_team_id)));
+            },
+            // }}}
+          ],
+          [
             // level {{{
             'label' => Yii::t('app', 'Level'),
             'headerOptions' => ['class' => 'cell-level'],
@@ -634,6 +670,8 @@ if ($user->twitter != '') {
           'cell-main-weapon-short'    => Yii::t('app', 'Weapon (Short)'),
           'cell-sub-weapon'           => Yii::t('app', 'Sub Weapon'),
           'cell-special'              => Yii::t('app', 'Special'),
+          'cell-team-icon'            => Yii::t('app', 'Team Icon'),
+          'cell-team-id'              => Yii::t('app', 'Team ID'),
           'cell-level'                => Yii::t('app', 'Level'),
           'cell-judge'                => Yii::t('app', 'Judge'),
           'cell-result'               => Yii::t('app', 'Result'),
