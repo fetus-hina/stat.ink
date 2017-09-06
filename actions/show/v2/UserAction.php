@@ -62,6 +62,8 @@ class UserAction extends BaseAction
                 'weapon',
                 'weapon.subweapon',
                 'weapon.special',
+                'rank',
+                'rankAfter',
                 'agent',
             ])
             ->andWhere(['user_id' => $user->id])

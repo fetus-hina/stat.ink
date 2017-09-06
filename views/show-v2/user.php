@@ -328,6 +328,46 @@ if ($user->twitter != '') {
             // }}}
           ],
           [
+            // rank {{{
+            'label' => Yii::t('app', 'Rank'),
+            'headerOptions' => ['class' => 'cell-rank'],
+            'contentOptions' => ['class' => 'cell-rank'],
+            'value' => function ($model) : string {
+              if (!$rank = $model->rank) {
+                return '';
+              }
+              if ($rank->key === 's+' && $model->rank_exp !== null) {
+                return sprintf(
+                  '%s %d',
+                  Yii::t('app-rank2', $rank->name),
+                  $model->rank_exp
+                );
+              }
+              return Yii::t('app-rank2', $rank->name);
+            },
+            // }}}
+          ],
+          [
+            // rank (after) {{{
+            'label' => Yii::t('app', 'Rank (After)'),
+            'headerOptions' => ['class' => 'cell-rank-after'],
+            'contentOptions' => ['class' => 'cell-rank-after'],
+            'value' => function ($model) : string {
+              if (!$rank = $model->rankAfter) {
+                return '';
+              }
+              if ($rank->key === 's+' && $model->rank_after_exp !== null) {
+                return sprintf(
+                  '%s %d',
+                  Yii::t('app-rank2', $rank->name),
+                  $model->rank_after_exp
+                );
+              }
+              return Yii::t('app-rank2', $rank->name);
+            },
+            // }}}
+          ],
+          [
             // level {{{
             'label' => Yii::t('app', 'Level'),
             'headerOptions' => ['class' => 'cell-level'],
@@ -672,6 +712,8 @@ if ($user->twitter != '') {
           'cell-special'              => Yii::t('app', 'Special'),
           'cell-team-icon'            => Yii::t('app', 'Team Icon'),
           'cell-team-id'              => Yii::t('app', 'Team ID'),
+          'cell-rank'                 => Yii::t('app', 'Rank'),
+          'cell-rank-after'           => Yii::t('app', 'Rank (After)'),
           'cell-level'                => Yii::t('app', 'Level'),
           'cell-judge'                => Yii::t('app', 'Judge'),
           'cell-result'               => Yii::t('app', 'Result'),
