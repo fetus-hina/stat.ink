@@ -38,6 +38,8 @@ use yii\db\ActiveRecord;
  */
 class BattlePlayer2 extends ActiveRecord
 {
+    private $user = false;
+
     public function behaviors()
     {
         return [
@@ -156,6 +158,25 @@ class BattlePlayer2 extends ActiveRecord
         return $this->hasOne(FestTitle::class, ['id' => 'fest_title_id']);
     }
 
+    public function getUser() : ?User
+    {
+        if ($this->user === false) {
+            $id = trim((string)$this->splatnet_id);
+            if ($id === '') {
+                $this->user = null;
+            } else {
+                $model = Splatnet2UserMap::find()
+                    ->with('user')
+                    ->andWhere(['splatnet_id' => $id])
+                    ->orderBy(['battles' => SORT_DESC])
+                    ->limit(1)
+                    ->one();
+                $this->user = $model->user ?? null;
+            }
+        }
+        return $this->user;
+    }
+
     public function getKillRatio() : ?float
     {
         if ($this->kill === null || $this->death === null) {
@@ -228,6 +249,9 @@ class BattlePlayer2 extends ActiveRecord
 
     public function getIconUrl(string $ext = 'svg') : ?string
     {
+        if ($user = $this->getUser()) {
+            return $user->getIconUrl($ext);
+        }
         $hash = $this->getJdenticonHash();
         if ($hash === null) {
             return null;
