@@ -21,6 +21,7 @@ return [
     'Clash Blaster' => 'Rafalblasteur',
     'Classic Squiffer' => 'Lignizateur alpha',
     'Custom Blaster' => 'Éclablasteur modifié',
+    'Custom Splattershot Jr.' => 'Liquéficateur ultra modifié',
     'Dapple Dualies' => '',
     'Dualies' => '',
     'Dualie Squelchers' => '',

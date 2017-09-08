@@ -21,6 +21,7 @@ return [
     'Clash Blaster' => '',
     'Classic Squiffer' => 'Kalarrapid α',
     'Custom Blaster' => '',
+    'Custom Splattershot Jr.' => 'Lanzatintas novato B',
     'Dapple Dualies' => '',
     'Dualies' => '',
     'Dualie Squelchers' => 'Barredora dual',

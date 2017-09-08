@@ -21,6 +21,7 @@ return [
     'Clash Blaster' => '',
     'Classic Squiffer' => 'Delineador X',
     'Custom Blaster' => '',
+    'Custom Splattershot Jr.' => 'Rociador básico adaptado',
     'Dapple Dualies' => '',
     'Dualies' => '',
     'Dualie Squelchers' => '',

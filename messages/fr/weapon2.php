@@ -21,6 +21,7 @@ return [
     'Clash Blaster' => 'Rafablaster',
     'Classic Squiffer' => 'Décap\'express Alpha',
     'Custom Blaster' => 'Éclablaster modifié',
+    'Custom Splattershot Jr.' => 'Liquidateur Sr.',
     'Dapple Dualies' => 'Double moucheteur',
     'Dualies' => '',
     'Dualie Squelchers' => 'Double nettoyeur',

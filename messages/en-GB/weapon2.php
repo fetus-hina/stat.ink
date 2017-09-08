@@ -21,6 +21,7 @@ return [
     'Clash Blaster' => '',
     'Classic Squiffer' => '',
     'Custom Blaster' => '',
+    'Custom Splattershot Jr.' => '',
     'Dapple Dualies' => '',
     'Dualies' => '',
     'Dualie Squelchers' => '',

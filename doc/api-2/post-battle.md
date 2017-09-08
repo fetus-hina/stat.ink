@@ -173,6 +173,7 @@ POST データは全体で 12MiB 以内である必要があります。
 |`l3reelgun`|L3リールガン||
 |`maneuver_collabo`|スプラマニューバーコラボ|互換性のため`manueuver_collabo`も受け付けます|
 |`maneuver`|スプラマニューバー|互換性のため`manueuver`も受け付けます|
+|`momiji`|もみじシューター||
 |`nova`|ノヴァブラスター||
 |`nzap85`|N-ZAP85||
 |`prime_collabo`|プライムシューターコラボ||
