@@ -22,4 +22,3 @@ class m170908_094901_weapon2_momiji extends Migration
         $this->downWeapon('momiji');
     }
 }
-
