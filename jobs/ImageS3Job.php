@@ -38,19 +38,24 @@ class ImageS3Job extends BaseJob
             substr($file, 0, 2),
             $file
         ]);
-        if (!@file_exists($path)) {
-            return;
+        for ($retry = 0; $retry < 3; ++$retry) {
+            if (!@file_exists($path)) {
+                return;
+            }
+            try {
+                $ret = Yii::$app->imgS3->uploadFile(
+                    $path,
+                    implode('/', [
+                        substr($file, 0, 2),
+                        $file
+                    ])
+                );
+                if ($ret) {
+                    @unlink($path);
+                    return;
+                }
+            } catch (\Exception $e) {
+            }
         }
-        $ret = Yii::$app->imgS3->uploadFile(
-            $path,
-            implode('/', [
-                substr($file, 0, 2),
-                $file
-            ])
-        );
-        if (!$ret) {
-            return;
-        }
-        @unlink($path);
     }
 }
