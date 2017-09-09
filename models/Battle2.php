@@ -711,9 +711,13 @@ class Battle2 extends ActiveRecord
 
     public function getBattlePlayers() : \yii\db\ActiveQuery
     {
-        return $this->hasMany(BattlePlayer2::class, ['battle_id' => 'id'])
+        $query = $this->hasMany(BattlePlayer2::class, ['battle_id' => 'id'])
             ->with(['weapon', 'weapon.type', 'weapon.subweapon', 'weapon.special'])
             ->orderBy('id');
+        if ($this->rule->key === 'nawabari') {
+            $query->orderBy('[[point]] DESC NULLS LAST, [[id]] ASC');
+        }
+        return $query;
     }
 
     public function getMyTeamPlayers() : \yii\db\ActiveQuery
