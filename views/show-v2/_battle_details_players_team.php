@@ -183,7 +183,14 @@ foreach ($players as $i => $player) {
                       [
                         'title' => Yii::t('app', 'Anonymized'),
                         'class' => 'auto-tooltip anonymize',
-                        'data' => ['anonymize' => trim($player->splatnet_id)],
+                        'data' => [
+                          'anonymize' => (function (string $raw) : string {
+                            return hash(
+                              'sha256',
+                              preg_match('/^(?:[0-9a-f]{2}){4,}$/', $raw) ? hex2bin($raw) : $raw
+                            );
+                          })(trim($player->splatnet_id)),
+                        ],
                       ]
                     );
                   }
