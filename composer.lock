@@ -213,16 +213,16 @@
         },
         {
             "name": "bower-asset/d3",
-            "version": "v4.10.1",
+            "version": "v4.10.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mbostock-bower/d3-bower.git",
-                "reference": "51174e0d3fe003aa84c7e1d35863e67c9b2ec139"
+                "reference": "2243ec878a4cee20e252347f69d140c052a7a340"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mbostock-bower/d3-bower/zipball/51174e0d3fe003aa84c7e1d35863e67c9b2ec139",
-                "reference": "51174e0d3fe003aa84c7e1d35863e67c9b2ec139",
+                "url": "https://api.github.com/repos/mbostock-bower/d3-bower/zipball/2243ec878a4cee20e252347f69d140c052a7a340",
+                "reference": "2243ec878a4cee20e252347f69d140c052a7a340",
                 "shasum": ""
             },
             "type": "bower-asset-library",
@@ -1791,16 +1791,16 @@
         },
         {
             "name": "php-curl-class/php-curl-class",
-            "version": "7.3.1",
+            "version": "7.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-curl-class/php-curl-class.git",
-                "reference": "0dcf0230ef7b1cc49d5f8c1a3457acb325ab3707"
+                "reference": "c15f23ce5d52a4c68b69640ed6510a9d2a98ec6f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-curl-class/php-curl-class/zipball/0dcf0230ef7b1cc49d5f8c1a3457acb325ab3707",
-                "reference": "0dcf0230ef7b1cc49d5f8c1a3457acb325ab3707",
+                "url": "https://api.github.com/repos/php-curl-class/php-curl-class/zipball/c15f23ce5d52a4c68b69640ed6510a9d2a98ec6f",
+                "reference": "c15f23ce5d52a4c68b69640ed6510a9d2a98ec6f",
                 "shasum": ""
             },
             "require": {
@@ -1844,7 +1844,7 @@
                 "web service",
                 "xml"
             ],
-            "time": "2017-06-27T23:57:16+00:00"
+            "time": "2017-09-04T21:38:09+00:00"
         },
         {
             "name": "phpseclib/phpseclib",
@@ -3923,16 +3923,16 @@
         },
         {
             "name": "phpspec/prophecy",
-            "version": "v1.7.1",
+            "version": "v1.7.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpspec/prophecy.git",
-                "reference": "15ea9ac619e37009edcda64089e3fa4cc88aa659"
+                "reference": "c9b8c6088acd19d769d4cc0ffa60a9fe34344bd6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpspec/prophecy/zipball/15ea9ac619e37009edcda64089e3fa4cc88aa659",
-                "reference": "15ea9ac619e37009edcda64089e3fa4cc88aa659",
+                "url": "https://api.github.com/repos/phpspec/prophecy/zipball/c9b8c6088acd19d769d4cc0ffa60a9fe34344bd6",
+                "reference": "c9b8c6088acd19d769d4cc0ffa60a9fe34344bd6",
                 "shasum": ""
             },
             "require": {
@@ -3982,7 +3982,7 @@
                 "spy",
                 "stub"
             ],
-            "time": "2017-09-03T09:38:53+00:00"
+            "time": "2017-09-04T11:05:03+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -5556,16 +5556,16 @@
         },
         {
             "name": "yiisoft/yii2-debug",
-            "version": "2.0.9",
+            "version": "2.0.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-debug.git",
-                "reference": "647be6c9d48dc2f3c2e2f33b9eba0a4ca78abde9"
+                "reference": "372fbf0d47303b7d68275d6720935e5116915418"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-debug/zipball/647be6c9d48dc2f3c2e2f33b9eba0a4ca78abde9",
-                "reference": "647be6c9d48dc2f3c2e2f33b9eba0a4ca78abde9",
+                "url": "https://api.github.com/repos/yiisoft/yii2-debug/zipball/372fbf0d47303b7d68275d6720935e5116915418",
+                "reference": "372fbf0d47303b7d68275d6720935e5116915418",
                 "shasum": ""
             },
             "require": {
@@ -5599,7 +5599,7 @@
                 "debugger",
                 "yii2"
             ],
-            "time": "2017-02-21T10:30:50+00:00"
+            "time": "2017-09-05T23:21:05+00:00"
         },
         {
             "name": "yiisoft/yii2-gii",
