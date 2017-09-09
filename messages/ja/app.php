@@ -30,6 +30,7 @@ return [
     'Add' => '追加',
     'All Players' => 'すべてのプレーヤー',
     'Always enable horizontal scroll' => '常にテーブルの横スクロールを有効にする',
+    'Anonymized' => '匿名化されています',
     'Another account' => '別のアカウント',
     'Any Time' => 'すべての期間',
     'Apply' => '適用',

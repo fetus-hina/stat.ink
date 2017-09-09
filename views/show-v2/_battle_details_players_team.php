@@ -1,4 +1,5 @@
 <?php
+use app\assets\NameAnonymizerAsset;
 use app\models\User;
 use yii\bootstrap\Html;
 
@@ -173,6 +174,18 @@ foreach ($players as $i => $player) {
                     default:
                       // blackout
                       break;
+                  }
+                  if (trim($player->splatnet_id) !== '') {
+                    NameAnonymizerAsset::register($this);
+                    return Html::tag(
+                      'span',
+                      Html::encode(str_repeat('*', 10)),
+                      [
+                        'title' => Yii::t('app', 'Anonymized'),
+                        'class' => 'auto-tooltip anonymize',
+                        'data' => ['anonymize' => trim($player->splatnet_id)],
+                      ]
+                    );
                   }
                   if (trim($player->name) === '') {
                     return '';

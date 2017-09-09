@@ -34,6 +34,7 @@ return [
     'Add Slack Integration' => '',
     'All Players' => '',
     'Always enable horizontal scroll' => '',
+    'Anonymized' => '',
     'Another account' => '',
     'Any Time' => '',
     'API Info: Gears: {0}' => '',

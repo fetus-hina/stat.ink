@@ -37,6 +37,7 @@ RESOURCE_TARGETS_MAIN := \
 	resources/.compiled/ostatus/ostatus.min.svg.br \
 	resources/.compiled/ostatus/ostatus.min.svg.gz \
 	resources/.compiled/ostatus/remote-follow.js \
+	resources/.compiled/sillyname/sillyname.js \
 	resources/.compiled/slack/slack.js \
 	resources/.compiled/stat.ink/active-reltime.js \
 	resources/.compiled/stat.ink/battle-edit.js \
@@ -52,6 +53,8 @@ RESOURCE_TARGETS_MAIN := \
 	resources/.compiled/stat.ink/favicon.png \
 	resources/.compiled/stat.ink/main.css \
 	resources/.compiled/stat.ink/main.js \
+	resources/.compiled/stat.ink/name-anonymizer.css \
+	resources/.compiled/stat.ink/name-anonymizer.js \
 	resources/.compiled/stat.ink/no-image.png \
 	resources/.compiled/stat.ink/session-calendar.js \
 	resources/.compiled/stat.ink/sortable-table.js \
@@ -267,6 +270,12 @@ resources/.compiled/stat.ink/sortable-table.js: resources/stat.ink/sortable-tabl
 resources/.compiled/stat.ink/battle2-players-point-inked.js: resources/stat.ink/battle2-players-point-inked.es $(GULP)
 	$(GULP) js --in $< --out $@
 
+resources/.compiled/stat.ink/name-anonymizer.css: resources/stat.ink/name-anonymizer.less $(GULP)
+	$(GULP) less --in $< --out $@
+
+resources/.compiled/stat.ink/name-anonymizer.js: resources/stat.ink/name-anonymizer.es $(GULP)
+	$(GULP) js --in $< --out $@
+
 resources/.compiled/ostatus/remote-follow.js: resources/ostatus/remote-follow.js $(GULP)
 	$(GULP) js --in $< --out $@
 
@@ -335,6 +344,9 @@ resources/dseg/dseg-%.tar.gz:
 
 %.woff2: %.ttf node_modules
 	node_modules/.bin/ttf2woff2 < $< > $@
+
+resources/.compiled/sillyname/sillyname.js: resources/sillyname/index.js $(GULP)
+	$(GULP) js --in $< --out $@
 
 resources/.compiled/slack/slack.js: resources/slack/slack.js $(GULP)
 	$(GULP) js --in $< --out $@
