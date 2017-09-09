@@ -225,7 +225,7 @@ resources/.compiled/stat.ink/battle-thumb-list.css: resources/stat.ink/battle-th
 resources/.compiled/stat.ink/user-miniinfo.css: resources/stat.ink/user-miniinfo.less $(GULP)
 	$(GULP) less --in $< --out $@
 
-resources/.compiled/stat.ink/swipebox-runner.js: resources/stat.ink/swipebox-runner.js $(GULP)
+resources/.compiled/stat.ink/swipebox-runner.js: resources/stat.ink/swipebox-runner.es $(GULP)
 	$(GULP) js --in $< --out $@
 
 resources/.compiled/stat.ink/battles-simple.css: resources/stat.ink/battles-simple.less $(GULP)
