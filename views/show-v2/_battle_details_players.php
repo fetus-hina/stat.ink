@@ -17,10 +17,6 @@ if ($battle->my_team_color_rgb && $battle->his_team_color_rgb) {
     ])),
   ]));
 }
-$this->registerCss(implode('', [
-  '#players .its-me{background:#ffc}',
-  '#players .disconnected{background:#fee}',
-]));
 
 $isGachi = $battle->isGachi;
 $hideRank = true;

@@ -1211,6 +1211,16 @@ class Battle2 extends ActiveRecord
         return null;
     }
 
+    public function getHasDisconnectedPlayer() : bool
+    {
+        foreach ($this->battlePlayers as $player) {
+            if ($player->getIsDisconnected()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public function adjustUserWeapon($weaponIds, ?int $excludeBattle = null) : void
     {
         $weaponIds = array_unique(array_filter((array)$weaponIds, function ($value) {

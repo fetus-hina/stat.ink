@@ -100,7 +100,10 @@ if ($user->twitter != '') {
         'tableOptions' => ['class' => 'table table-striped table-condensed'],
         'rowOptions' => function ($model) : array {
           return [
-            'class' => 'battle-row',
+            'class' => [
+              'battle-row',
+              $model->getHasDisconnectedPlayer() ? 'disconnected' : '',
+            ],
             'data' => [
               'period' => $model->period,
             ],
