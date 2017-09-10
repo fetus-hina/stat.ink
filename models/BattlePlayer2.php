@@ -259,6 +259,14 @@ class BattlePlayer2 extends ActiveRecord
         return Yii::getAlias('@jdenticon') . '/' . $hash . '.' . $ext;
     }
 
+    public function getIsDisconnected() : bool
+    {
+        if ((string)$this->point === '') {
+            return false;
+        }
+        return ($this->point == 0);
+    }
+
     public function toJsonArray()
     {
         return [

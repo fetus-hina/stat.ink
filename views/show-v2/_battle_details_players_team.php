@@ -297,6 +297,9 @@ foreach ($players as $i => $player) {
       !$hasKD ? '' : Html::tag('td', Html::encode($player->getFormattedKillRatio()), ['class' => ['col-kd', 'text-right']]),
       !$hasKD ? '' : Html::tag('td', Html::encode($player->getFormattedKillRate()), ['class' => ['col-kd', 'text-right']]),
     ]),
-    ['class' => $player->is_me ? 'its-me' : '']
+    ['class' => [
+      $player->is_me ? 'its-me' : '',
+      $player->isDisconnected ? 'disconnected' : '',
+    ]]
   ) . "\n";
 }
