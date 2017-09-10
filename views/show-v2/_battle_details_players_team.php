@@ -185,9 +185,15 @@ foreach ($players as $i => $player) {
                         'class' => 'auto-tooltip anonymize',
                         'data' => [
                           'anonymize' => (function (string $raw) : string {
-                            return hash(
-                              'sha256',
-                              preg_match('/^(?:[0-9a-f]{2}){4,}$/', $raw) ? hex2bin($raw) : $raw
+                            return substr(
+                              hash(
+                                'sha256',
+                                (preg_match('/^([0-9a-f]{2}+)[0-9a-f]?$/', $raw, $match))
+                                  ? hex2bin($match[1])
+                                  : $raw
+                              ),
+                              0,
+                              40
                             );
                           })(trim($player->splatnet_id)),
                         ],

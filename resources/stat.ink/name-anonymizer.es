@@ -5,7 +5,7 @@
       const hash = String($this.attr('data-anonymize'));
       let j = 0;
       const generator = () => {
-        const hashVal = hash.substr(2 * j++, 4);
+        const hashVal = hash.substr(4 * j++, 4);
         const val = parseInt(hashVal, 16);
         // console.log({
         //   "hash": hash,
