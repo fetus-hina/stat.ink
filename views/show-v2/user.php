@@ -368,6 +368,32 @@ if ($user->twitter != '') {
             // }}}
           ],
           [
+            // gachi power {{{
+            'label' => Yii::t('app', 'Power Level'),
+            'headerOptions' => ['class' => 'cell-gachi-power'],
+            'contentOptions' => ['class' => 'cell-gachi-power text-right'],
+            'value' => function ($model) : string {
+              if ($model->estimate_gachi_power < 1) {
+                return '';
+              }
+              return $model->estimate_gachi_power;
+            },
+            // }}}
+          ],
+          [
+            // league power {{{
+            'label' => Yii::t('app', 'League Power'),
+            'headerOptions' => ['class' => 'cell-league-power'],
+            'contentOptions' => ['class' => 'cell-league-power text-right'],
+            'value' => function ($model) : string {
+              if ($model->league_point < 1) {
+                return '';
+              }
+              return $model->league_point;
+            },
+            // }}}
+          ],
+          [
             // level {{{
             'label' => Yii::t('app', 'Level'),
             'headerOptions' => ['class' => 'cell-level'],
@@ -714,6 +740,8 @@ if ($user->twitter != '') {
           'cell-team-id'              => Yii::t('app', 'Team ID'),
           'cell-rank'                 => Yii::t('app', 'Rank'),
           'cell-rank-after'           => Yii::t('app', 'Rank (After)'),
+          'cell-gachi-power'          => Yii::t('app', 'Power Level'),
+          'cell-league-power'         => Yii::t('app', 'League Power'),
           'cell-level'                => Yii::t('app', 'Level'),
           'cell-judge'                => Yii::t('app', 'Judge'),
           'cell-result'               => Yii::t('app', 'Result'),

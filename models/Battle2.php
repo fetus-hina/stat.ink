@@ -51,6 +51,10 @@ use yii\helpers\Url;
  * @property integer $max_kill_combo
  * @property integer $max_kill_streak
  * @property integer $my_point
+ * @property integer $estimate_gachi_power
+ * @property float $league_point
+ * @property integer $my_team_estimate_league_point
+ * @property integer $his_team_estimate_league_point
  * @property integer $my_team_point
  * @property integer $his_team_point
  * @property string $my_team_percent
@@ -535,6 +539,10 @@ class Battle2 extends ActiveRecord
             [['start_at', 'end_at', 'created_at', 'updated_at'], 'safe'],
             [['my_team_color_rgb', 'his_team_color_rgb'], 'string', 'max' => 6],
             [['agent_game_version_date'], 'string', 'max' => 32],
+            [['estimate_gachi_power', 'my_team_estimate_league_point', 'his_team_estimate_league_point'], 'integer',
+                'min' => 0,
+            ],
+            [['league_point'], 'number', 'min' => 0],
             [['client_uuid'], 'string'],
             [['client_uuid'], 'match',
                 'pattern' => '/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i',
@@ -671,6 +679,10 @@ class Battle2 extends ActiveRecord
             'end_at' => Yii::t('app', 'Battle End'),
             'created_at' => Yii::t('app', 'Data Sent'),
             'updated_at' => 'Updated At',
+            'estimate_gachi_power' => Yii::t('app', 'Power Level'),
+            'league_point' => Yii::t('app', 'League Power'),
+            'my_team_estimate_league_point' => Yii::t('app', 'My team\'s league power'),
+            'his_team_estimate_league_point' => Yii::t('app', 'Their team\'s league power'),
         ];
     }
 
@@ -1065,6 +1077,10 @@ class Battle2 extends ActiveRecord
                     $this->battleDeathReasons
                 ),
             'my_point' => $this->my_point,
+            'estimate_gachi_power' => $this->estimate_gachi_power,
+            'league_point' => $this->league_point,
+            'my_team_estimate_league_point' => $this->my_team_estimate_league_point,
+            'his_team_estimate_league_point' => $this->his_team_estimate_league_point,
             'my_team_point' => $this->my_team_point,
             'his_team_point' => $this->his_team_point,
             'my_team_percent' => $this->my_team_percent,

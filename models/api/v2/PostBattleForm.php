@@ -65,6 +65,10 @@ class PostBattleForm extends Model
     public $rank_after;
     public $rank_exp_after;
     public $my_point;
+    public $estimate_gachi_power;
+    public $my_team_estimate_league_point;
+    public $his_team_estimate_league_point;
+    public $league_point;
     public $my_team_point;
     public $his_team_point;
     public $my_team_percent;
@@ -241,6 +245,10 @@ class PostBattleForm extends Model
             [['splatnet_number'], 'integer', 'min' => 1],
             [['my_team_id', 'his_team_id'], 'string', 'max' => 16],
             [['splatnet_json'], 'validateJson'],
+            [['estimate_gachi_power', 'my_team_estimate_league_point', 'his_team_estimate_league_point'], 'integer',
+                'min' => 0,
+            ],
+            [['league_point'], 'number', 'min' => 0],
         ];
     }
 
@@ -379,6 +387,10 @@ class PostBattleForm extends Model
         $battle->fest_exp       = $intval($this->fest_exp);
         $battle->fest_title_after_id = $key2id($this->fest_title_after, FestTitle::class);
         $battle->fest_exp_after = $intval($this->fest_exp);
+        $battle->estimate_gachi_power = $intval($this->estimate_gachi_power);
+        $battle->my_team_estimate_league_point = $intval($this->my_team_estimate_league_point);
+        $battle->his_team_estimate_league_point = $intval($this->his_team_estimate_league_point);
+        $battle->league_point   = $floatval($this->league_point);
         $battle->is_automated   = ($this->automated === 'yes');
         $battle->link_url       = $this->link_url;
         $battle->note           = $this->note;

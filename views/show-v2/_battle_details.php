@@ -109,6 +109,106 @@ $this->registerCss('#battle .progress{margin-bottom:0}');
     ],
     // fest title
     // fest power
+    'league_point',
+    [
+      'attribute' => 'estimate_gachi_power', // {{{
+      'format' => 'raw',
+      'value' => function ($model) : ?string {
+        if ($model->estimate_gachi_power < 1) {
+          return null;
+        }
+        $max = max(
+          (int)$model->estimate_gachi_power,
+          (int)$model->my_team_estimate_league_point,
+          (int)$model->his_team_estimate_league_point
+        );
+        return Html::tag(
+          'div',
+          Html::tag(
+            'div',
+            Html::encode((string)$model->estimate_gachi_power),
+            [
+              'class' => [
+                'progress-bar',
+                'progress-bar-success',
+                'progress-bar-striped',
+              ],
+              'style' => [
+                'width' => sprintf('%.2f%%', $model->estimate_gachi_power * 100 / $max),
+              ],
+            ]
+          ),
+          ['class' => 'progress', 'style' => 'width:100%;max-width:400px']
+        );
+      },
+      // }}}
+    ],
+    [
+      'attribute' => 'my_team_estimate_league_point', // {{{
+      'format' => 'raw',
+      'value' => function ($model) : ?string {
+        if ($model->my_team_estimate_league_point < 1) {
+          return null;
+        }
+        $max = max(
+          (int)$model->estimate_gachi_power,
+          (int)$model->my_team_estimate_league_point,
+          (int)$model->his_team_estimate_league_point
+        );
+        return Html::tag(
+          'div',
+          Html::tag(
+            'div',
+            Html::encode((string)$model->my_team_estimate_league_point),
+            [
+              'class' => [
+                'progress-bar',
+                'progress-bar-info',
+                'progress-bar-striped',
+              ],
+              'style' => [
+                'width' => sprintf('%.2f%%', $model->my_team_estimate_league_point * 100 / $max),
+              ],
+            ]
+          ),
+          ['class' => 'progress', 'style' => 'width:100%;max-width:400px']
+        );
+      },
+      // }}}
+    ],
+    [
+      'attribute' => 'my_team_estimate_league_point', // {{{
+      'format' => 'raw',
+      'value' => function ($model) : ?string {
+        if ($model->his_team_estimate_league_point < 1) {
+          return null;
+        }
+        $max = max(
+          (int)$model->estimate_gachi_power,
+          (int)$model->my_team_estimate_league_point,
+          (int)$model->his_team_estimate_league_point
+        );
+        return Html::tag(
+          'div',
+          Html::tag(
+            'div',
+            Html::encode((string)$model->his_team_estimate_league_point),
+            [
+              'class' => [
+                'progress-bar',
+                'progress-bar-danger',
+                'progress-bar-striped',
+              ],
+              'style' => [
+                'width' => sprintf('%.2f%%', $model->his_team_estimate_league_point * 100 / $max),
+              ],
+            ]
+          ),
+          ['class' => 'progress', 'style' => 'width:100%;max-width:400px']
+        );
+      },
+      // }}}
+    ],
     [
       'label' => Yii::t('app', 'Result'), // {{{
       'format' => 'raw',
