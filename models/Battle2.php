@@ -87,6 +87,9 @@ use yii\helpers\Url;
  * @property integer $fest_exp
  * @property integer $fest_title_after_id
  * @property integer $fest_exp_after
+ * @property integer $fest_power;
+ * @property float $my_team_estimate_fest_power;
+ * @property float $his_team_estimate_fest_power;
  * @property string $remote_addr
  * @property integer $remote_port
  * @property string $start_at
@@ -543,6 +546,8 @@ class Battle2 extends ActiveRecord
                 'min' => 0,
             ],
             [['league_point'], 'number', 'min' => 0],
+            [['fest_power'], 'number', 'min' => 0],
+            [['my_team_estimate_fest_power', 'his_team_estimate_fest_power'], 'integer', 'min' => 0],
             [['client_uuid'], 'string'],
             [['client_uuid'], 'match',
                 'pattern' => '/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i',
@@ -669,10 +674,13 @@ class Battle2 extends ActiveRecord
             'is_automated' => 'Is Automated',
             'use_for_entire' => 'Use For Entire',
             'gender_id' => 'Gender',
-            'fest_title_id' => 'Fest Title',
+            'fest_title_id' => Yii::t('app', 'Splatfest Title'),
             'fest_exp' => 'Fest Exp',
             'fest_title_after_id' => 'Fest Title (After the battle)',
             'fest_exp_after' => 'Fest Exp (After the battle)',
+            'fest_power' => Yii::t('app', 'Splatfest Power'),
+            'my_team_estimate_fest_power' => Yii::t('app', 'My team\'s splatfest power'),
+            'his_team_estimate_fest_power' => Yii::t('app', 'Their team\'s splatfest power'),
             'remote_addr' => 'Remote Addr',
             'remote_port' => 'Remote Port',
             'start_at' => Yii::t('app', 'Battle Start'),
@@ -1102,6 +1110,9 @@ class Battle2 extends ActiveRecord
             'fest_exp' => $this->fest_exp,
             'fest_title_after' => $this->festTitleAfter ? $this->festTitleAfter->toJsonArray($this->gender) : null,
             'fest_exp_after' => $this->fest_exp_after,
+            'fest_power' => $this->fest_power,
+            'my_team_estimate_fest_power' => $this->my_team_estimate_fest_power,
+            'his_team_my_team_estimate_fest_power' => $this->his_team_estimate_fest_power,
             'image_judge' => $this->battleImageJudge
                 ? Url::to(Yii::getAlias('@imageurl') . '/' . $this->battleImageJudge->filename, true)
                 : null,

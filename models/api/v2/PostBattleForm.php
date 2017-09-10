@@ -82,6 +82,9 @@ class PostBattleForm extends Model
     public $fest_exp;
     public $fest_title_after;
     public $fest_exp_after;
+    public $fest_power;
+    public $my_team_estimate_fest_power;
+    public $his_team_estimate_fest_power;
     public $players;
     public $death_reasons;
     public $events;
@@ -249,6 +252,8 @@ class PostBattleForm extends Model
                 'min' => 0,
             ],
             [['league_point'], 'number', 'min' => 0],
+            [['fest_power'], 'number', 'min' => 0],
+            [['my_team_estimate_fest_power', 'his_team_estimate_fest_power'], 'integer', 'min' => 0],
         ];
     }
 
@@ -387,6 +392,9 @@ class PostBattleForm extends Model
         $battle->fest_exp       = $intval($this->fest_exp);
         $battle->fest_title_after_id = $key2id($this->fest_title_after, FestTitle::class);
         $battle->fest_exp_after = $intval($this->fest_exp);
+        $battle->fest_power     = $floatval($this->fest_power);
+        $battle->my_team_estimate_fest_power = $intval($this->my_team_estimate_fest_power);
+        $battle->his_team_estimate_fest_power = $intval($this->his_team_estimate_fest_power);
         $battle->estimate_gachi_power = $intval($this->estimate_gachi_power);
         $battle->my_team_estimate_league_point = $intval($this->my_team_estimate_league_point);
         $battle->his_team_estimate_league_point = $intval($this->his_team_estimate_league_point);

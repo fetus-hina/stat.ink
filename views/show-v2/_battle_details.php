@@ -107,8 +107,131 @@ $this->registerCss('#battle .progress{margin-bottom:0}');
       },
       // }}}
     ],
-    // fest title
-    // fest power
+    [
+      'attribute' => 'fest_title_id', // {{{
+      'value' => function ($model) : ?string {
+        $title1 = $model->festTitle;
+        $title2 = $model->festTitleAfter;
+        if (!$title1 && !$title2) {
+          return '';
+        }
+        $gender = $model->gender;
+        $format = function ($title, $exp) use ($model, $gender) : string {
+          if (!$title) {
+            return '?';
+          }
+          $name = Yii::t('app-fest', $title->getName($gender), ['***', '***']);
+          return ($title->key === 'king' || $exp === null)
+            ? $name
+            : "{$name} {$exp}";
+        };
+        return sprintf(
+          '%s → %s',
+          $format($title1, $model->fest_exp),
+          $format($title2, $model->fest_exp_after)
+        );
+      },
+      // }}}
+    ],
+    [
+      'attribute' => 'fest_power', // {{{
+      'format' => 'raw',
+      'value' => function ($model) : ?string {
+        if ($model->fest_power < 1) {
+          return null;
+        }
+        $max = max(
+          (float)$model->fest_power,
+          (int)$model->my_team_estimate_fest_power,
+          (int)$model->his_team_estimate_fest_power
+        );
+        return Html::tag(
+          'div',
+          Html::tag(
+            'div',
+            Html::encode((string)$model->fest_power),
+            [
+              'class' => [
+                'progress-bar',
+                'progress-bar-success',
+                'progress-bar-striped',
+              ],
+              'style' => [
+                'width' => sprintf('%.2f%%', $model->fest_power * 100 / $max),
+              ],
+            ]
+          ),
+          ['class' => 'progress', 'style' => 'width:100%;max-width:400px']
+        );
+      },
+      // }}}
+    ],
+    [
+      'attribute' => 'my_team_estimate_fest_power', // {{{
+      'format' => 'raw',
+      'value' => function ($model) : ?string {
+        if ($model->my_team_estimate_fest_power < 1) {
+          return null;
+        }
+        $max = max(
+          (float)$model->fest_power,
+          (int)$model->my_team_estimate_fest_power,
+          (int)$model->his_team_estimate_fest_power
+        );
+        return Html::tag(
+          'div',
+          Html::tag(
+            'div',
+            Html::encode((string)$model->my_team_estimate_fest_power),
+            [
+              'class' => [
+                'progress-bar',
+                'progress-bar-info',
+                'progress-bar-striped',
+              ],
+              'style' => [
+                'width' => sprintf('%.2f%%', $model->my_team_estimate_fest_power * 100 / $max),
+              ],
+            ]
+          ),
+          ['class' => 'progress', 'style' => 'width:100%;max-width:400px']
+        );
+      },
+      // }}}
+    ],
+    [
+      'attribute' => 'his_team_estimate_fest_power', // {{{
+      'format' => 'raw',
+      'value' => function ($model) : ?string {
+        if ($model->his_team_estimate_fest_power < 1) {
+          return null;
+        }
+        $max = max(
+          (float)$model->fest_power,
+          (int)$model->my_team_estimate_fest_power,
+          (int)$model->his_team_estimate_fest_power
+        );
+        return Html::tag(
+          'div',
+          Html::tag(
+            'div',
+            Html::encode((string)$model->his_team_estimate_fest_power),
+            [
+              'class' => [
+                'progress-bar',
+                'progress-bar-danger',
+                'progress-bar-striped',
+              ],
+              'style' => [
+                'width' => sprintf('%.2f%%', $model->his_team_estimate_fest_power * 100 / $max),
+              ],
+            ]
+          ),
+          ['class' => 'progress', 'style' => 'width:100%;max-width:400px']
+        );
+      },
+      // }}}
+    ],
     'league_point',
     [
       'attribute' => 'estimate_gachi_power', // {{{
@@ -118,7 +241,7 @@ $this->registerCss('#battle .progress{margin-bottom:0}');
           return null;
         }
         $max = max(
-          (int)$model->estimate_gachi_power,
+          (float)$model->estimate_gachi_power,
           (int)$model->my_team_estimate_league_point,
           (int)$model->his_team_estimate_league_point
         );
@@ -151,7 +274,7 @@ $this->registerCss('#battle .progress{margin-bottom:0}');
           return null;
         }
         $max = max(
-          (int)$model->estimate_gachi_power,
+          (float)$model->estimate_gachi_power,
           (int)$model->my_team_estimate_league_point,
           (int)$model->his_team_estimate_league_point
         );
@@ -184,7 +307,7 @@ $this->registerCss('#battle .progress{margin-bottom:0}');
           return null;
         }
         $max = max(
-          (int)$model->estimate_gachi_power,
+          (float)$model->estimate_gachi_power,
           (int)$model->my_team_estimate_league_point,
           (int)$model->his_team_estimate_league_point
         );
