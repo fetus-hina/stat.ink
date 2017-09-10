@@ -113,7 +113,7 @@ $this->registerCss('#battle .progress{margin-bottom:0}');
         $title1 = $model->festTitle;
         $title2 = $model->festTitleAfter;
         if (!$title1 && !$title2) {
-          return '';
+          return null;
         }
         $gender = $model->gender;
         $format = function ($title, $exp) use ($model, $gender) : string {
