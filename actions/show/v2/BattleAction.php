@@ -20,7 +20,16 @@ class BattleAction extends BaseAction
     {
         $request = Yii::$app->getRequest();
 
-        $battle = Battle2::findOne(['id' => $request->get('battle')]);
+        $battle = Battle2::find()
+            ->andWhere(['id' => $request->get('battle')])
+            ->with([
+                'myTeamPlayers',
+                'myTeamPlayers.rank',
+                'hisTeamPlayers',
+                'hisTeamPlayers.rank',
+            ])
+            ->limit(1)
+            ->one();
         if (!$battle || !$battle->user) {
             throw new NotFoundHttpException(Yii::t('yii', 'Page not found.'));
         }
