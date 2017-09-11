@@ -300,7 +300,7 @@ $this->registerCss('#battle .progress{margin-bottom:0}');
       // }}}
     ],
     [
-      'attribute' => 'my_team_estimate_league_point', // {{{
+      'attribute' => 'his_team_estimate_league_point', // {{{
       'format' => 'raw',
       'value' => function ($model) : ?string {
         if ($model->his_team_estimate_league_point < 1) {
