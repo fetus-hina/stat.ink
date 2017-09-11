@@ -19,6 +19,7 @@ use yii\helpers\Url;
 use yii\rest\Controller;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
+use yii\web\UnauthorizedHttpException;
 
 class ApiV2BattleController extends Controller
 {
@@ -47,7 +48,7 @@ class ApiV2BattleController extends Controller
                     ['class' => RequestBodyAuth::class, 'tokenParam' => 'apikey'],
                 ],
                 'except' => [ 'options' ],
-                'optional' => [ 'index', 'view' ],
+                'optional' => [ 'index', 'index-with-auth', 'view' ],
             ],
         ]);
     }
@@ -56,6 +57,7 @@ class ApiV2BattleController extends Controller
     {
         return [
             'index'   => ['GET', 'HEAD'],
+            'index-with-auth' => ['GET', 'HEAD'],
             'view'    => ['GET', 'HEAD'],
             'create'  => ['POST'],
             'options' => ['OPTIONS'],
@@ -77,20 +79,37 @@ class ApiV2BattleController extends Controller
         $req = Yii::$app->request;
         $params = [
             'screen_name' => $req->get('screen_name'),
+            'only' => $req->get('only'),
             'newer_than' => $req->get('newer_than'),
             'older_than' => $req->get('older_than'),
             'order' => $req->get('order'),
             'count' => $req->get('count'),
         ];
         $model = DynamicModel::validateData($params, [
+            [['screen_name'], 'required',
+                'when' => function ($model) {
+                    return ($model->only === 'splatnet_number') ||
+                        ($model->order === 'splatnet_asc') ||
+                        ($model->order === 'splatnet_desc');
+                },
+            ],
             [['screen_name'], 'string'],
             [['screen_name'], 'exist', 'skipOnError' => true,
                 'targetClass' => User::class,
                 'targetAttribute' => ['screen_name' => 'screen_name'],
             ],
+            [['only'], 'string'],
+            [['only'], 'in', 'range' => [
+                'splatnet_number',
+            ]],
             [['newer_than', 'older_than'], 'integer', 'min' => 1],
             [['order'], 'string'],
-            [['order'], 'in', 'range' => ['asc', 'desc']],
+            [['order'], 'in', 'range' => [
+                'asc',
+                'desc',
+                'splatnet_asc',
+                'splatnet_desc',
+            ]],
             [['count'], 'integer', 'min' => 1, 'max' => 50],
         ]);
         if ($model->hasErrors()) {
@@ -99,8 +118,70 @@ class ApiV2BattleController extends Controller
             $res->statusCode = 400;
             return $model->getErrors();
         }
+        return $this->createList(
+            $model->screen_name != ''
+                ? User::findOne(['screen_name' => $model->screen_name])
+                : null,
+            $model
+        );
+    }
+
+    public function actionIndexWithAuth()
+    {
+        if (!Yii::$app->user->identity) {
+            $res = Yii::$app->response;
+            $res->format = 'json';
+            throw new UnauthorizedHttpException('Your request was made with invalid credentials.');
+        }
+
+        $req = Yii::$app->request;
+        $params = [
+            'only' => $req->get('only'),
+            'newer_than' => $req->get('newer_than'),
+            'older_than' => $req->get('older_than'),
+            'order' => $req->get('order'),
+            'count' => $req->get('count'),
+        ];
+        $model = DynamicModel::validateData($params, [
+            [['only'], 'string'],
+            [['only'], 'in', 'range' => [
+                'splatnet_number',
+            ]],
+            [['newer_than', 'older_than'], 'integer', 'min' => 1],
+            [['order'], 'string'],
+            [['order'], 'in', 'range' => [
+                'asc',
+                'desc',
+                'splatnet_asc',
+                'splatnet_desc',
+            ]],
+            [['count'], 'integer', 'min' => 1, 'max' => 50],
+        ]);
+        if ($model->hasErrors()) {
+            $res = Yii::$app->response;
+            $res->format = 'json';
+            $res->statusCode = 400;
+            return $model->getErrors();
+        }
+        return $this->createList(
+            Yii::$app->user->identity,
+            $model
+        );
+    }
+
+    private function createList(?User $user, DynamicModel $model) : array
+    {
         $query = Battle2::find()
-            ->with([
+            ->orderBy(['id' => SORT_DESC])
+            ->limit(10);
+
+        if ($model->only === 'splatnet_number') {
+            $query
+                ->andWhere(['not', ['{{battle2}}.[[splatnet_number]]' => null]])
+                ->orderBy(['{{battle2}}.[[splatnet_number]]' => SORT_DESC]);
+        } else {
+            $query->with([
+                // {{{
                 'agent',
                 'agentGameVersion',
                 'battleDeathReasons',
@@ -143,13 +224,12 @@ class ApiV2BattleController extends Controller
                 'weapon.subweapon',
                 'weapon.type',
                 'weapon.type.category',
-            ])
-            ->orderBy(['id' => SORT_DESC])
-            ->limit(10);
-        if ($model->screen_name != '') {
-            $query
-                ->innerJoinWith('user')
-                ->andWhere(['{{user}}.[[screen_name]]' => $model->screen_name]);
+                // }}}
+            ]);
+        }
+
+        if ($user) {
+            $query->andWhere(['{{battle2}}.[[user_id]]' => $user->id]);
         }
         if ($model->newer_than != '') {
             $query->andWhere(['>', '{{battle2}}.[[id]]', (int)$model->newer_than]);
@@ -158,19 +238,42 @@ class ApiV2BattleController extends Controller
             $query->andWhere(['<', '{{battle2}}.[[id]]', (int)$model->older_than]);
         }
         if ($model->order != '') {
-            $query->orderBy(['id' => ($model->order == 'asc' ? SORT_ASC : SORT_DESC)]);
+            switch ($model->order) {
+                case 'asc':
+                case 'desc':
+                default:
+                    $query->orderBy(['id' => ($model->order == 'asc' ? SORT_ASC : SORT_DESC)]);
+                    break;
+
+                case 'splatnet_asc':
+                case 'splatnet_desc':
+                    $direction = $model->order === 'splatnet_asc' ? SORT_ASC : SORT_DESC;
+                    $query
+                        ->andWhere(['not', ['{{battle2}}.[[splatnet_number]]' => null]])
+                        ->orderBy(['{{battle2}}.[[splatnet_number]]' => $direction]);
+                    break;
+            }
         }
         if ($model->count != '') {
             $query->limit((int)$model->count);
         }
         $res = Yii::$app->response;
         $res->format = 'compact-json';
-        return array_map(
-            function ($model) {
-                return $model->toJsonArray(['events', 'splatnet_json']);
-            },
-            $query->all()
-        );
+        if ($model->only === 'splatnet_number') {
+            return array_map(
+                function ($model) {
+                    return (int)$model->splatnet_number;
+                },
+                $query->all()
+            );
+        } else {
+            return array_map(
+                function ($model) {
+                    return $model->toJsonArray(['events', 'splatnet_json']);
+                },
+                $query->all()
+            );
+        }
     }
 
     public function actionView($id)
