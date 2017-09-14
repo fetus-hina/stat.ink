@@ -144,16 +144,18 @@ POST データは全体で 12MiB 以内である必要があります。
 
 |指定文字列|ステージ||
 |-|-|-|
-|`ama`|海女美術大学||
-|`battera`|バッテラストリート||
-|`chozame`|チョウザメ造船||
-|`fujitsubo`|フジツボスポーツクラブ||
-|`gangaze`|ガンガゼ野外音楽堂||
-|`hokke`|ホッケふ頭||
-|`kombu`|コンブトラック|互換性のため`combu`も受け付けます|
-|`manta`|マンタマリア号||
-|`mystery`|ミステリーゾーン|フェス専用ステージ|
-|`tachiuo`|タチウオパーキング||
+|`ama`|海女美術大学<br>Inkblot Art Acodemy||
+|`battera`|バッテラストリート<br>The Reef||
+|`chozame`|チョウザメ造船<br>Sturgeon Shipyard||
+|`engawa`|エンガワ河川敷<br>Snapper Canal||
+|`fujitsubo`|フジツボスポーツクラブ<br>Musselforge Fitness||
+|`gangaze`|ガンガゼ野外音楽堂<br>Starfish Mainstage||
+|`hokke`|ホッケふ頭<br>Port Mackerel||
+|`kombu`|コンブトラック<br>Humpback Pump Track|互換性のため`combu`も受け付けます<br>Also accepts `combu` for compatibility|
+|`manta`|マンタマリア号<br>Manta Maria||
+|`mozuku`|モズク農園<br>Kelp Dome||
+|`tachiuo`|タチウオパーキング<br>Moray Towers||
+|`mystery`|ミステリーゾーン<br>Shifty Station|フェス専用ステージ|
 
 
 `weapon`
