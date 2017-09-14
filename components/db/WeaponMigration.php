@@ -48,6 +48,11 @@ trait WeaponMigration
         $this->delete('weapon2', ['key' => $key]);
     }
 
+    protected function findWeaponId(string $key) : int
+    {
+        return $this->findId('weapon2', $key);
+    }
+
     private function findId(string $table, string $key) : int
     {
         $id = (new Query())
