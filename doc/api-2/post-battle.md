@@ -217,9 +217,10 @@ POST データは全体で 12MiB 以内である必要があります。
 |`heroslosher_replica`|ヒーロースロッシャーレプリカ||
 |`hissen`|ヒッセン||
 |`screwslosher`|スクリュースロッシャー||
-|`barrelspinner`|バレルスピナー||
-|`herospinner_replica`|ヒーロースピナーレプリカ||
-|`splatspinner`|スプラスピナー||
+|`barrelspinner_deco`|バレルスピナーデコ<br>Heavy Splatling Deco||
+|`barrelspinner`|バレルスピナー<br>Heavy Splatling||
+|`herospinner_replica`|ヒーロースピナーレプリカ<br>Hero Splatling Replica||
+|`splatspinner`|スプラスピナー<br>Mini Splatling||
 |`heroshelter_replica`|ヒーローシェルター レプリカ||
 |`parashelter`|パラシェルター||
 

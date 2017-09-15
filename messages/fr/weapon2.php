@@ -36,6 +36,7 @@ return [
     'Goo Tuber' => 'Détubeur',
     'H-3 Nozzlenose' => 'Arroseur lourd',
     'Heavy Splatling' => 'Badigeonneur',
+    'Heavy Splatling Deco' => 'Badigeonneur chic',
     'Hero Blaster Replica' => '',
     'Hero Brella Replica' => '',
     'Herobrush Replica' => '',

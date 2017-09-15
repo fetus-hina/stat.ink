@@ -73,6 +73,7 @@ return [
     'Sloshing Machine' => 'スクリュースロッシャー',
     'Tri-Slosher' => 'ヒッセン',
     // splatlings ----
+    'Heavy Splatling Deco' => 'バレルスピナーデコ',
     'Heavy Splatling' => 'バレルスピナー',
     'Hero Splatling Replica' => 'ヒーロースピナー レプリカ',
     'Mini Splatling' => 'スプラスピナー',

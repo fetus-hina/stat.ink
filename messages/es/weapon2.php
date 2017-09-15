@@ -36,6 +36,7 @@ return [
     'Goo Tuber' => '',
     'H-3 Nozzlenose' => '',
     'Heavy Splatling' => 'Tintralladora',
+    'Heavy Splatling Deco' => 'Tintralladora DX',
     'Hero Blaster Replica' => '',
     'Hero Brella Replica' => '',
     'Herobrush Replica' => '',
