@@ -218,7 +218,7 @@ POST データは全体で 12MiB 以内である必要があります。
 |`hissen`|`3010`|ヒッセン<br>Tri-Slosher||
 |`screwslosher`|`3020`|スクリュースロッシャー<br>Sloshing Machine||
 |`barrelspinner`|`4010`|バレルスピナー<br>Heavy Splatling||
-|`barrelspinner_deco`|``|バレルスピナーデコ<br>Heavy Splatling Deco||
+|`barrelspinner_deco`||バレルスピナーデコ<br>Heavy Splatling Deco||
 |`herospinner_replica`|`4015`|ヒーロースピナー レプリカ<br>Hero Splatling Replica||
 |`splatspinner`|`4000`|スプラスピナー<br>Mini Splatling||
 |`heroshelter_replica`|`6005`|ヒーローシェルター レプリカ<br>Hero Brella Replica||

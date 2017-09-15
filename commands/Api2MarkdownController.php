@@ -55,9 +55,11 @@ class Api2MarkdownController extends Controller
                         );
                     }
                     printf(
-                        "|`%s`|`%s`|%s<br>%s|%s|\n",
+                        "|`%s`|%s|%s<br>%s|%s|\n",
                         $weapon['key'],
-                        isset($weapon['splatnet']) ? (string)(int)$weapon['splatnet'] : '',
+                        isset($weapon['splatnet'])
+                            ? sprintf('`%d`', $weapon['splatnet'])
+                            : '',
                         Yii::t('app-weapon2', $weapon['name'], [], 'ja-JP'),
                         $weapon['name'],
                         implode('<br>', $remarks)
