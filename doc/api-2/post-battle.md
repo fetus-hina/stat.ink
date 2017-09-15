@@ -165,64 +165,64 @@ POST データは全体で 12MiB 以内である必要があります。
 
 また、実際のデータベースを参照した一覧ページが[ここにあります](https://stat.ink/api-info/weapon2)。
 
-|指定文字列|ブキ||
-|-|-|-|
-|`52gal`|.52ガロン||
-|`96gal`|.96ガロン||
-|`bold`|ボールドマーカー||
-|`clashblaster`|クラッシュブラスター||
-|`dualsweeper`|デュアルスイーパー||
-|`h3reelgun`|H3リールガン||
-|`heroblaster_replica`|ヒーローブラスターレプリカ|
-|`heromaneuver_replica`|ヒーローマニューバーレプリカ|
-|`heroshooter_replica`|ヒーローシューターレプリカ|
-|`hotblaster_custom`|ホットブラスターカスタム||
-|`hotblaster`|ホットブラスター||
-|`jetsweeper`|ジェットスイーパー||
-|`l3reelgun`|L3リールガン||
-|`maneuver_collabo`|スプラマニューバーコラボ|互換性のため`manueuver_collabo`も受け付けます|
-|`maneuver`|スプラマニューバー|互換性のため`manueuver`も受け付けます|
-|`momiji`|もみじシューター||
-|`nova`|ノヴァブラスター||
-|`nzap85`|N-ZAP85||
-|`prime_collabo`|プライムシューターコラボ||
-|`prime`|プライムシューター||
-|`promodeler_mg`|プロモデラーMG||
-|`promodeler_rg`|プロモデラーRG||
-|`rapid`|ラピッドブラスター||
-|`sharp`|シャープマーカー||
-|`sputtery`|スパッタリー||
-|`sshooter_collabo`|スプラシューターコラボ||
-|`sshooter`|スプラシューター||
-|`wakaba`|わかばシューター||
-|`carbon`|カーボンローラー||
-|`dynamo`|ダイナモローラー||
-|`herobrush_replica`|ヒーローブラシレプリカ||
-|`heroroller_replica`|ヒーローローラーレプリカ||
-|`hokusai`|ホクサイ||
-|`pablo`|パブロ||
-|`splatroller_collabo`|スプラローラーコラボ||
-|`splatroller`|スプラローラー||
-|`variableroller`|ヴァリアブルローラー||
-|`herocharger_replica`|ヒーローチャージャーレプリカ||
-|`liter4k_scope`|4Kスコープ||
-|`liter4k`|リッター4K||
-|`soytuber`|ソイチューバー||
-|`splatcharger_collabo`|スプラチャージャーコラボ||
-|`splatcharger`|スプラチャージャー||
-|`splatscope_collabo`|スプラスコープコラボ||
-|`splatscope`|スプラスコープ||
-|`squiclean_a`|スクイックリンα||
-|`bucketslosher`|バケットスロッシャー||
-|`heroslosher_replica`|ヒーロースロッシャーレプリカ||
-|`hissen`|ヒッセン||
-|`screwslosher`|スクリュースロッシャー||
-|`barrelspinner_deco`|バレルスピナーデコ<br>Heavy Splatling Deco||
-|`barrelspinner`|バレルスピナー<br>Heavy Splatling||
-|`herospinner_replica`|ヒーロースピナーレプリカ<br>Hero Splatling Replica||
-|`splatspinner`|スプラスピナー<br>Mini Splatling||
-|`heroshelter_replica`|ヒーローシェルター レプリカ||
-|`parashelter`|パラシェルター||
+|Value|SplatNet|Weapon Name|Remarks|
+|-|-|-|-|
+|`52gal`|`50`|.52ガロン<br>.52 Gal||
+|`96gal`|`80`|.96ガロン<br>.96 Gal||
+|`bold`|`0`|ボールドマーカー<br>Sploosh-o-matic||
+|`h3reelgun`|`310`|H3リールガン<br>H-3 Nozzlenose||
+|`heroshooter_replica`|`45`|ヒーローシューター レプリカ<br>Hero Shot Replica||
+|`jetsweeper`|`90`|ジェットスイーパー<br>Jet Squelcher||
+|`l3reelgun`|`300`|L3リールガン<br>L-3 Nozzlenose||
+|`momiji`|`11`|もみじシューター<br>Custom Splattershot Jr.||
+|`nzap85`|`60`|N-ZAP85<br>N-ZAP '85||
+|`prime`|`70`|プライムシューター<br>Splattershot Pro||
+|`prime_collabo`|`71`|プライムシューターコラボ<br>Forge Splattershot Pro||
+|`promodeler_mg`|`30`|プロモデラーMG<br>Aerospray MG||
+|`promodeler_rg`|`31`|プロモデラーRG<br>Aerospray RG||
+|`sharp`|`20`|シャープマーカー<br>Splash-o-matic||
+|`sshooter`|`40`|スプラシューター<br>Splattershot||
+|`sshooter_collabo`|`41`|スプラシューターコラボ<br>Tentatek Splattershot||
+|`wakaba`|`10`|わかばシューター<br>Splattershot Jr.||
+|`clashblaster`|`230`|クラッシュブラスター<br>Clash Blaster||
+|`heroblaster_replica`|`215`|ヒーローブラスター レプリカ<br>Hero Blaster Replica||
+|`hotblaster`|`210`|ホットブラスター<br>Blaster||
+|`hotblaster_custom`|`211`|ホットブラスターカスタム<br>Custom Blaster||
+|`nova`|`200`|ノヴァブラスター<br>Luna Blaster||
+|`rapid`|`240`|ラピッドブラスター<br>Rapid Blaster||
+|`dualsweeper`|`5030`|デュアルスイーパー<br>Dualie Squelchers||
+|`heromaneuver_replica`|`5015`|ヒーローマニューバー レプリカ<br>Hero Dualie Replicas||
+|`maneuver`|`5010`|スプラマニューバー<br>Splat Dualies|互換性のため `manueuver` も受け付けます<br>Also accepts `manueuver` for compatibility|
+|`maneuver_collabo`|`5011`|スプラマニューバーコラボ<br>Enperry Splat Dualies|互換性のため `manueuver_collabo` も受け付けます<br>Also accepts `manueuver_collabo` for compatibility|
+|`sputtery`|`5000`|スパッタリー<br>Dapple Dualies||
+|`carbon`|`1000`|カーボンローラー<br>Carbon Roller||
+|`dynamo`|`1020`|ダイナモローラー<br>Dynamo Roller||
+|`heroroller_replica`|`1015`|ヒーローローラー レプリカ<br>Hero Roller Replica||
+|`splatroller`|`1010`|スプラローラー<br>Splat Roller||
+|`splatroller_collabo`|`1011`|スプラローラーコラボ<br>Krak-On Splat Roller||
+|`variableroller`|`1030`|ヴァリアブルローラー<br>Flingza Roller||
+|`herobrush_replica`|`1115`|ヒーローブラシ レプリカ<br>Herobrush Replica||
+|`hokusai`|`1110`|ホクサイ<br>Octobrush||
+|`pablo`|`1100`|パブロ<br>Inkbrush||
+|`herocharger_replica`|`2015`|ヒーローチャージャー レプリカ<br>Hero Charger Replica||
+|`liter4k`|`2030`|リッター4K<br>E-liter 4K||
+|`liter4k_scope`|`2040`|4Kスコープ<br>E-liter 4K Scope||
+|`soytuber`|`2060`|ソイチューバー<br>Goo Tuber||
+|`splatcharger`|`2010`|スプラチャージャー<br>Splat Charger||
+|`splatcharger_collabo`|`2011`|スプラチャージャーコラボ<br>Firefin Splat Charger||
+|`splatscope`|`2020`|スプラスコープ<br>Splatterscope||
+|`splatscope_collabo`|`2021`|スプラスコープコラボ<br>Firefin Splatterscope||
+|`squiclean_a`|`2000`|スクイックリンα<br>Classic Squiffer||
+|`bucketslosher`|`3000`|バケットスロッシャー<br>Slosher||
+|`heroslosher_replica`|`3005`|ヒーロースロッシャー レプリカ<br>Hero Slosher Replica||
+|`hissen`|`3010`|ヒッセン<br>Tri-Slosher||
+|`screwslosher`|`3020`|スクリュースロッシャー<br>Sloshing Machine||
+|`barrelspinner`|`4010`|バレルスピナー<br>Heavy Splatling||
+|`barrelspinner_deco`|``|バレルスピナーデコ<br>Heavy Splatling Deco||
+|`herospinner_replica`|`4015`|ヒーロースピナー レプリカ<br>Hero Splatling Replica||
+|`splatspinner`|`4000`|スプラスピナー<br>Mini Splatling||
+|`heroshelter_replica`|`6005`|ヒーローシェルター レプリカ<br>Hero Brella Replica||
+|`parashelter`|`6000`|パラシェルター<br>Splat Brella||
 
 
 `rank`, `rank_after`
