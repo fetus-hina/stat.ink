@@ -5,8 +5,12 @@ use yii\helpers\Html;
 $timeFormat = Yii::$app->language === 'en-US' ? 'g:i A' : 'H:i';
 $schedule = Schedule2::getInfo();
 
-if ($schedule->current) {
 ?>
+<?php if ($schedule->current && (
+            ($schedule->current->regular ?? null) ||
+            ($schedule->current->gachi ?? null) ||
+            ($schedule->current->league ?? null))
+) { ?>
 <h2>
   <span class="hidden-xs"><?= Html::encode(Yii::t('app', 'Current Stages')) ?></span>
   <?= implode('', [
@@ -30,7 +34,11 @@ if ($schedule->current) {
     <?= $this->render('_index_stages_rule2', ['mode' => 'League', 'data' => $schedule->current->league ?? null]) . "\n" ?>
   </div>
 </div>
-<?php if ($schedule->next && ($schedule->next->regular || $schedule->next->gachi || $schedule->next->league)) { ?>
+<?php if ($schedule->next && (
+            ($schedule->next->regular ?? null) ||
+            ($schedule->next->gachi ?? null) ||
+            ($schedule->next->league ?? null))
+) { ?>
 <h2>
   <span class="hidden-xs"><?= Html::encode(Yii::t('app', 'Next Stages')) ?></span>
   <?= implode('', [
