@@ -51,6 +51,9 @@ SortableTableAsset::register($this);
           <th data-sort="string">
             <code>key</code>
           </th>
+          <th data-sort="int">
+            <?= Html::encode(Yii::t('app', 'SplatNet 2')) . "\n" ?>
+          </th>
 <?php foreach ($langs as $i => $lang): ?>
           <th data-sort="string">
             <?= Html::encode($lang['name']) . "\n" ?>
@@ -78,7 +81,7 @@ SortableTableAsset::register($this);
 <?php foreach ($category['types'] as $type): ?>
 <?php foreach ($type['weapons'] as $weapon): ?>
 <?php ++$i; ?>
-        <tr>  
+        <tr>
           <td data-sort-value="<?= Html::encode((string)$i) ?>">
             <?= Html::encode($category['name']) . "\n" ?>
           </td>
@@ -88,13 +91,29 @@ SortableTableAsset::register($this);
           <td data-sort-value="<?= Html::encode($weapon['key']) ?>">
             <code><?= Html::encode($weapon['key']) ?></code>
           </td>
+          <?= Html::tag(
+            'td',
+            $weapon['splatnet'] === null
+              ? ''
+              : Html::tag('code', Html::encode($weapon['splatnet'])),
+            [
+              'data' => [
+                'sort-value' => $weapon['splatnet'] === null
+                  ? PHP_INT_MAX
+                  : $weapon['splatnet'],
+              ],
+              'class' => [
+                'text-right',
+              ],
+            ]
+          ) . "\n" ?>
 <?php foreach ($langs as $j => $lang): ?>
-          <td>
-            <?= Html::encode(
-                $weapon['names'][str_replace('-', '_', $lang['lang'])]
-              ) . "\n"
-            ?>
-          </td>
+<?php $name = $weapon['names'][str_replace('-', '_', $lang['lang'])] ?>
+          <?= Html::tag('td', Html::encode($name), [
+            'data' => [
+              'sort-value' => $name,
+            ],
+          ]) . "\n" ?>
 <?php if ($j === 0): ?>
           <td>
             <?= Html::encode($weapon['sub']) . "\n" ?>

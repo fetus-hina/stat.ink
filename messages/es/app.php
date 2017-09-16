@@ -383,6 +383,7 @@ return [
     'Splatfest Power' => 'Energía',
     'Splatfest Title' => 'Splatfest Título',
     'SplatNet' => '',
+    'SplatNet 2' => '',
     'Splatoon Official Website (Japan)' => 'Página Web oficial (Japón)',
     'Splatoon Official Website (UK)' => 'Página Web oficial (UK)',
     'Splatoon Official Website (US/Canada)' => 'Página Web oficial (US/Canadá)',

@@ -377,6 +377,7 @@ return [
     'Splatfest Power' => '',
     'Splatfest Title' => '',
     'SplatNet' => '',
+    'SplatNet 2' => '',
     'Splatoon Official Website (Japan)' => '',
     'Splatoon Official Website (UK)' => '',
     'Splatoon Official Website (US/Canada)' => '',

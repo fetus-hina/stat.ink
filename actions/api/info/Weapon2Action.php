@@ -33,6 +33,7 @@ class Weapon2Action extends BaseAction
                                     function (Weapon2 $weapon) : array {
                                         return [
                                             'key' => $weapon->key,
+                                            'splatnet' => $weapon->splatnet,
                                             'name' => Yii::t('app-weapon2', $weapon->name),
                                             'names' => Translator::translateToAll('app-weapon2', $weapon->name),
                                             'sub' => Yii::t('app-subweapon2', $weapon->subweapon->name),
