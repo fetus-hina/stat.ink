@@ -6,13 +6,13 @@
  */
 
 return [
-    'Baller' => '',
+    'Baller' => 'Sepisphäre',
     'Bomb Launcher' => '',
-    'Bubble Blower' => '',
-    'Ink Armor' => '',
-    'Inkjet' => '',
-    'Ink Storm' => '',
-    'Splashdown' => '',
-    'Sting Ray' => '',
-    'Tenta Missiles' => '',
+    'Bubble Blower' => 'Blubberwerfer',
+    'Ink Armor' => 'Tintenrüstung',
+    'Inkjet' => 'Tintendüser',
+    'Ink Storm' => 'Tintenschauer',
+    'Splashdown' => 'Tintenschock',
+    'Sting Ray' => 'Magistraal',
+    'Tenta Missiles' => 'Schwarmraketen',
 ];

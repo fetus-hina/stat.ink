@@ -94,11 +94,15 @@
         </p>
       </div>
     {{/if}}
-    {{if $app->language|substr:0:2 === 'fr'}}
-      <p class="bg-warning" style="padding:15px;border-radius:10px">
-        French language support is really limited at this time.<br>
+    {{if $app->language|substr:0:2 === 'fr' || $app->language|substr:0:2 === 'de'}}
+      <p class="bg-danger" style="padding:15px;border-radius:10px">
+        {{if $app->language|substr:0:2 === 'fr'}}
+          French
+        {{else}}
+          German
+        {{/if}} language support is really limited at this time.<br>
         Only proper nouns translated. (e.g. weapons, stages)<br>
-        We need your support!
+        <a href="https://github.com/fetus-hina/stat.ink/wiki/Translation">We need your support!</a>
       </p>
     {{/if}}
     <p>
