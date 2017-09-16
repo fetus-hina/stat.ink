@@ -34,6 +34,10 @@
                 "months": [ "Janv.", "Fév.", "Mars", "Avril", "Mai", "Juin", "Juill.", "Août", "Sept.", "Oct.", "Nov.", "Déc." ],
                 "itemName": [ "bataille", "batailles" ],
             },
+            "de-DE": {
+                "months": [ "Jan.", "Feb.", "März", "Apr.", "Mai", "Juni", "Juli", "Aug.", "Sept.", "Okt.", "Nov.", "Dez." ],
+                "itemName": [ "kampf", "kämpfe" ],
+            },
         }[$('html').attr('lang')];
     })();
 

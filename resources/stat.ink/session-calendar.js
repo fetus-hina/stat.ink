@@ -32,6 +32,10 @@
                 "months": [ "Janv.", "Fév.", "Mars", "Avril", "Mai", "Juin", "Juill.", "Août", "Sept.", "Oct.", "Nov.", "Déc." ],
                 "itemName": [ "fois", "fois" ],
             },
+            "de-DE": {
+                "months": [ "Jan.", "Feb.", "März", "Apr.", "Mai", "Juni", "Juli", "Aug.", "Sept.", "Okt.", "Nov.", "Dez." ],
+                "itemName": [ "mal", "mal" ],
+            },
         }[$('html').attr('lang')];
     })();
 
