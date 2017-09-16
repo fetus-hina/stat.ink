@@ -118,6 +118,7 @@ return [
     'Deviation' => '偏差値',
     'Disabled' => '無効',
     'Don\'t group' => 'ブキをまとめない',
+    'Download Stats' => '統計情報ダウンロード',
     'Downloads' => 'ダウンロード',
     'Edit Your Battle: #{0}' => 'バトル詳細を編集: #{0}',
     'Edit' => '編集',

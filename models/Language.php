@@ -59,6 +59,21 @@ class Language extends \yii\db\ActiveRecord
         ];
     }
 
+    public function getLanguageCode() : string
+    {
+        return $this->splitLangId()[0];
+    }
+
+    public function getCountryCode() : string
+    {
+        return strtolower($this->splitLangId()[1]);
+    }
+
+    private function splitLangId() : array
+    {
+        return explode('-', $this->lang);
+    }
+
     /**
      * @return \yii\db\ActiveQuery
      */
