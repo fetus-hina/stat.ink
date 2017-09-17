@@ -17,6 +17,11 @@
     {{AdWidget}}
     {{SnsWidget}}
 
+    <ul class="nav nav-tabs">
+      <li><a href="{{url route="entire/weapons2"}}">Splatoon 2</a></li>
+      <li class="active"><a href="javascript:;">Splatoon</a></li>
+    </ul>
+
     <h2>
       {{'Weapons'|translate:'app'|escape}}
     </h2>

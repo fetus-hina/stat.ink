@@ -189,7 +189,7 @@ PaintballAsset::register($this);
     <?= implode(' | ', [
       Html::a(Html::encode(Yii::t('app', 'Stats: K/D vs Win %')), ['entire/kd-win']),
       Html::a(Html::encode(Yii::t('app', 'Stats: Knockout Ratio')), ['entire/knockout']),
-      Html::a(Html::encode(Yii::t('app', 'Stats: Weapons')), ['entire/weapons']),
+      Html::a(Html::encode(Yii::t('app', 'Stats: Weapons')), ['entire/weapons2']),
       Html::a(Html::encode(Yii::t('app', 'Stats: Stages')), ['stage/index']),
       Html::a(Html::encode(Yii::t('app', 'Download Stats')), ['download-stats/index']),
     ]) . "\n" ?>

@@ -31,6 +31,10 @@ $this->registerCss('.graph{height:300px}');
   </h1>
   <?= AdWidget::widget() . "\n" ?>  
   <?= SnsWidget::widget() . "\n" ?>
+  <ul class="nav nav-tabs">
+    <li class="active"><a href="javascript:;">Splatoon 2</a></li>
+    <li><?= Html::a('Splatoon', ['entire/weapons']) ?></li>
+  </ul>
   <h2>
     <?= Html::encode(Yii::t('app', 'Weapons')) . "\n" ?>
   </h2>
