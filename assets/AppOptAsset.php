@@ -8,6 +8,7 @@
 namespace app\assets;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 use yii\web\AssetBundle;
 
 class AppOptAsset extends AssetBundle
@@ -30,7 +31,10 @@ class AppOptAsset extends AssetBundle
     {
         $view->registerJsFile(
             Yii::$app->assetManager->getAssetUrl($this, $filename),
-            $options,
+            ArrayHelper::merge(
+                ['depends' => static::class],
+                $options
+            ),
             $key
         );
     }

@@ -717,7 +717,7 @@ class StatController extends Controller
      */
     public function actionUpdateWeaponUseCount()
     {
-        // $this->updateWeaponUseCount1();
+        $this->updateWeaponUseCount1();
         $this->updateWeaponUseCount2();
         $this->actionUpdateWeaponUseTrend();
     }
@@ -880,6 +880,7 @@ class StatController extends Controller
             ])
             ->innerJoinWith([
                 'lobby',
+                'mode',
                 'rule',
                 'battlePlayers' => function ($query) {
                     $query->orderBy(null);
@@ -891,6 +892,7 @@ class StatController extends Controller
                 ['{{battle2}}.[[is_automated]]' => true],
                 ['{{battle2}}.[[use_for_entire]]' => true],
                 ['<>', '{{lobby2}}.[[key]]', 'private'],
+                ['<>', '{{mode2}}.[[key]]', 'private'],
                 ['not', ['{{battle_player2}}.[[weapon_id]]' => null]],
                 ['{{battle_player2}}.[[is_me]]' => false],
                 ['>', '{{battle2}}.[[period]]', $maxCreatedPeriod],
@@ -898,14 +900,32 @@ class StatController extends Controller
             ])
             // ルール別除外処理
             ->andWhere(['or',
-                // ナワバリバトルなら全部 OK
-                ['{{rule2}}.[[key]]' => 'nawabari'],
+                // レギュラーマッチなら自分以外全員使う
+                ['{{mode2}}.[[key]]' => 'regular'],
 
-                // 通常マッチ（とついでにフェス）なら全部 OK
-                ['{{lobby2}}.[[key]]' => ['standard', 'fest']],
+                // フェスマッチでソロなら自分以外全員使う
+                // フェスマッチでチームなら敵チームだけ使う
+                ['and',
+                    ['{{mode2}}.[[key]]' => 'fest'],
+                    ['or',
+                        ['{{lobby2}}.[[key]]' => 'standard'],
+                        ['and',
+                            ['{{lobby2}}.[[key]]' => 'squad_4'],
+                            ['{{battle_player2}}.[[is_my_team]]' => false],
+                        ],
+                    ],
+                ],
+
+                // ガチマッチ（ソロ）なら自分以外全員使う
+                ['and',
+                    ['{{mode2}}.[[key]]' => 'gachi'],
+                    ['{{lobby2}}.[[key]]' => 'standard'],
+                ],
+
 
                 // タッグマッチは敵だけ使う
                 ['and',
+                    ['{{mode2}}.[[key]]' => 'gachi'],
                     ['{{lobby2}}.[[key]]' => ['squad_2', 'squad_4']],
                     ['{{battle_player2}}.[[is_my_team]]' => false],
                 ],

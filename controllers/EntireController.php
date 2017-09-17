@@ -40,6 +40,7 @@ class EntireController extends Controller
             'weapon'    => [ 'class' => $prefix . '\WeaponAction' ],
             'weapons'   => [ 'class' => $prefix . '\WeaponsAction' ],
             'weapons-use' => [ 'class' => $prefix . '\WeaponsUseAction' ],
+            'weapons2'  => [ 'class' => $prefix . '\Weapons2Action' ],
         ];
     }
 }
