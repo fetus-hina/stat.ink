@@ -41,4 +41,21 @@ class Migration extends \yii\db\Migration
             $column
         ));
     }
+
+    public function tablePrimaryKey($columns) : string
+    {
+        if (is_string($columns)) {
+            $columns = preg_split('/\s*,\s*/', $columns, -1, PREG_SPLIT_NO_EMPTY);
+        }
+
+        return sprintf(
+            'PRIMARY KEY ( %s )',
+            implode(', ', array_map(
+                function (string $column) : string {
+                    return $this->db->quoteColumnName($column);
+                },
+                (array)$columns
+            ))
+        );
+    }
 }

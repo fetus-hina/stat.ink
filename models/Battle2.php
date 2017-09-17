@@ -734,7 +734,7 @@ class Battle2 extends ActiveRecord
         $query = $this->hasMany(BattlePlayer2::class, ['battle_id' => 'id'])
             ->with(['weapon', 'weapon.type', 'weapon.subweapon', 'weapon.special'])
             ->orderBy('id');
-        if ($this->rule->key === 'nawabari') {
+        if (($this->rule->key ?? '') === 'nawabari') {
             $query->orderBy('[[point]] DESC NULLS LAST, [[id]] ASC');
         }
         return $query;

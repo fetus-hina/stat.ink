@@ -9,6 +9,7 @@ namespace app\commands;
 
 use Yii;
 use app\components\helpers\Battle as BattleHelper;
+use app\models\Battle2;
 use app\models\BattlePlayer2;
 use app\models\BattlePlayer;
 use app\models\Knockout;
@@ -17,6 +18,8 @@ use app\models\Rule;
 use app\models\StatAgentUser2;
 use app\models\StatAgentUser;
 use app\models\StatEntireUser;
+use app\models\StatWeapon2UseCount;
+use app\models\StatWeapon2UseCountPerWeek;
 use app\models\StatWeapon;
 use app\models\StatWeaponBattleCount;
 use app\models\StatWeaponKDWinRate;
@@ -714,6 +717,14 @@ class StatController extends Controller
      */
     public function actionUpdateWeaponUseCount()
     {
+        // $this->updateWeaponUseCount1();
+        $this->updateWeaponUseCount2();
+        $this->actionUpdateWeaponUseTrend();
+    }
+
+    private function updateWeaponUseCount1()
+    {
+        // {{{
         $db = Yii::$app->db;
         $maxCreatedPeriod = (int)StatWeaponUseCount::find()->max('period');
         $select = (new \yii\db\Query())
@@ -740,7 +751,7 @@ class StatController extends Controller
                 ['not', ['{{battle_player}}.[[weapon_id]]' => null]],
                 ['{{battle_player}}.[[is_me]]' => false],
                 ['>', '{{battle}}.[[period]]', (int)StatWeaponUseCount::find()->max('period')],
-                ['<', '{{battle}}.[[period]]', \app\components\helpers\Battle::calcPeriod(time())],
+                ['<', '{{battle}}.[[period]]', BattleHelper::calcPeriod(time())],
 
                 // ルール別の除外設定
                 ['or',
@@ -840,13 +851,152 @@ class StatController extends Controller
 
         echo "Executing {$insert} ...\n";
         $db->createCommand($insert)->execute();
+        echo "\n";
 
         echo "Executing {$upsertWeek} ...\n";
         $db->createCommand($upsertWeek)->execute();
+        echo "\n";
 
+        echo "Commiting...\n";
         $transaction->commit();
+        // }}}
+    }
 
-        $this->actionUpdateWeaponUseTrend();
+    private function updateWeaponUseCount2()
+    {
+        $db = Yii::$app->db;
+        // {{{
+        $maxCreatedPeriod = (int)StatWeapon2UseCount::find()->max('period');
+        $select = Battle2::find()
+            ->select([
+                'period' => '{{battle2}}.[[period]]',
+                'rule_id' => '{{battle2}}.[[rule_id]]',
+                'weapon_id' => '{{battle_player2}}.[[weapon_id]]',
+                'battles' => 'COUNT(*)',
+                'wins' => sprintf('SUM(CASE %s END)', implode(' ', [
+                    'WHEN {{battle2}}.[[is_win]] = {{battle_player2}}.[[is_my_team]] THEN 1',
+                    'ELSE 0',
+                ])),
+            ])
+            ->innerJoinWith([
+                'lobby',
+                'rule',
+                'battlePlayers' => function ($query) {
+                    $query->orderBy(null);
+                },
+            ])
+            ->andWhere(['and',
+                ['not', ['{{battle2}}.[[is_win]]' => null]],
+                ['not', ['{{battle2}}.[[map_id]]' => null]],
+                ['{{battle2}}.[[is_automated]]' => true],
+                ['{{battle2}}.[[use_for_entire]]' => true],
+                ['<>', '{{lobby2}}.[[key]]', 'private'],
+                ['not', ['{{battle_player2}}.[[weapon_id]]' => null]],
+                ['{{battle_player2}}.[[is_me]]' => false],
+                ['>', '{{battle2}}.[[period]]', $maxCreatedPeriod],
+                ['<', '{{battle2}}.[[period]]', BattleHelper::calcPeriod2(time())],
+            ])
+            // ルール別除外処理
+            ->andWhere(['or',
+                // ナワバリバトルなら全部 OK
+                ['{{rule2}}.[[key]]' => 'nawabari'],
+
+                // 通常マッチ（とついでにフェス）なら全部 OK
+                ['{{lobby2}}.[[key]]' => ['standard', 'fest']],
+
+                // タッグマッチは敵だけ使う
+                ['and',
+                    ['{{lobby2}}.[[key]]' => ['squad_2', 'squad_4']],
+                    ['{{battle_player2}}.[[is_my_team]]' => false],
+                ],
+            ])
+            ->groupBy(implode(', ', [
+                '{{battle2}}.[[period]]',
+                '{{battle2}}.[[rule_id]]',
+                '{{battle_player2}}.[[weapon_id]]',
+            ]))
+            ->orderBy(null);
+
+        $insert = sprintf(
+            'INSERT INTO {{%s}} ( %s ) %s',
+            StatWeapon2UseCount::tablename(),
+            implode(', ', array_map(function (string $a) : string {
+                return "[[{$a}]]";
+            }, array_keys($select->select))),
+            $select->createCommand()->rawSql
+        );
+        // }}}
+
+        // {{{
+        $isoYear = "TO_CHAR(PERIOD2_TO_TIMESTAMP({{t}}.[[period]]), 'IYYY')::integer";
+        $isoWeek = "TO_CHAR(PERIOD2_TO_TIMESTAMP({{t}}.[[period]]), 'IW')::integer";
+        $maxWeek = StatWeapon2UseCountPerWeek::find()
+            ->orderBy([
+                '[[isoyear]]' => SORT_DESC,
+                '[[isoweek]]' => SORT_DESC,
+            ])
+            ->limit(1)
+            ->asArray()
+            ->one();
+        if (!$maxWeek) {
+            $maxWeek = [
+                'isoyear' => 2017,
+                'isoweek' => 1,
+            ];
+        }
+        $selectWeek = (new \yii\db\Query())
+            ->select([
+                'isoyear' => $isoYear,
+                'isoweek' => $isoWeek,
+                'rule_id' => '{{t}}.[[rule_id]]',
+                'weapon_id' => '{{t}}.[[weapon_id]]',
+                'battles' => 'SUM({{t}}.[[battles]])',
+                'wins' => 'SUM({{t}}.[[wins]])',
+            ])
+            ->from(sprintf('{{%s}} {{t}}', StatWeapon2UseCount::tableName()))
+            ->groupBy([
+                $isoYear,
+                $isoWeek,
+                '{{t}}.[[rule_id]]',
+                '{{t}}.[[weapon_id]]',
+            ])
+            ->having(['or',
+                ['>', $isoYear, $maxWeek['isoyear']],
+                ['and',
+                    ['=', $isoYear, $maxWeek['isoyear']],
+                    ['>=', $isoWeek, $maxWeek['isoweek']],
+                ],
+            ]);
+        $upsertWeek = sprintf(
+            'INSERT INTO {{%s}} ( %s ) %s ON CONFLICT ( %s ) DO UPDATE SET %s',
+            StatWeapon2UseCountPerWeek::tableName(),
+            implode(', ', array_map(function (string $a) : string {
+                return "[[{$a}]]";
+            }, array_keys($selectWeek->select))),
+            $selectWeek->createCommand()->rawSql,
+            implode(', ', array_map(function (string $a) : string {
+                return "[[{$a}]]";
+            }, ['isoyear', 'isoweek', 'rule_id', 'weapon_id'])),
+            implode(', ', array_map(function (string $a) : string {
+                return sprintf('[[%1$s]] = {{excluded}}.[[%1$s]]', $a);
+            }, ['battles', 'wins']))
+        );
+        // }}}
+
+        $transaction = $db->beginTransaction();
+        $db->createCommand("SET timezone TO 'Asia/Tokyo'")->execute();
+
+        echo "Executing {$insert} ...\n";
+        $db->createCommand($insert)->execute();
+        echo "\n";
+
+        echo "Executing {$upsertWeek} ...\n";
+        $db->createCommand($upsertWeek)->execute();
+        echo "\n";
+
+        echo "Commiting...\n";
+        $transaction->commit();
+        // }}}
     }
 
     /**
