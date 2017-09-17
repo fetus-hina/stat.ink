@@ -100,41 +100,41 @@ POST データは全体で 12MiB 以内である必要があります。
 
 |指定文字列|内容|
 |-|-|
-|`standard`|ひとりプレー（野良、ソロ）|
-|`squad_2`|リーグ（2人）|
-|`squad_4`|リーグ（4人）、フェス（チーム）|
-|`private`|プライベートマッチ|
+|`standard`|ひとりプレー（野良、ソロ）<br>Solo Queue|
+|`squad_2`|リーグ（2人）<br>League (Twin)|
+|`squad_4`|リーグ（4人）、フェス（チーム）<br>League (Quad), Splatfest (Team)|
+|`private`|プライベートマッチ<br>Private battle|
 
 `mode` は次のいずれかの値を取ります。
 
 |指定文字列|内容|
 |-|-|
-|`regular`|レギュラーマッチ|
-|`gachi`|ガチバトル|
-|`fest`|フェス|
-|`private`|プライベートマッチ|
+|`regular`|レギュラーマッチ<br>Regular Battle|
+|`gachi`|ガチバトル<br>Ranked Battle|
+|`fest`|フェス<br>Splatfest|
+|`private`|プライベートマッチ<br>Private Battle|
 
 `rule` は次のいずれかの値を取ります。
 
 |指定文字列|内容|
 |-|-|
-|`nawabari`|ナワバリバトル|
-|`area`|ガチエリア|
-|`yagura`|ガチヤグラ|
-|`hoko`|ガチホコ|
+|`nawabari`|ナワバリバトル<br>Turf War|
+|`area`|ガチエリア<br>Splat Zones|
+|`yagura`|ガチヤグラ<br>Tower Control|
+|`hoko`|ガチホコ<br>Rainmaker|
 
 `lobby`, `mode`, `rule` は現実的には次のような組み合わせになります。
 
 |プレー|プレー人数|`lobby`|`mode`|`rule`||
 |------|----------|-------|------|------|-|
-|レギュラー|1人|`standard`|`regular`|`nawabari`||
-|レギュラー|合流|`standard`|`regular`|`nawabari`|区別しない|
-|ガチマッチ|1人|`standard`|`gachi`|`area`, `yagura`, `hoko`|
-|ガチマッチ|リーグ（2人）|`squad_2`|`gachi`|`area`, `yagura`, `hoko`|
-|ガチマッチ|リーグ（4人）|`squad_4`|`gachi`|`area`, `yagura`, `hoko`|
-|フェス|ソロ|`standard`|`fest`|`nawabari`||
-|フェス|チーム|`squad_4`|`fest`|`nawabari`||
-|プラベ|-|`private`|`private`|`nawabari`, `area`, `yagura`, `hoko`|
+|レギュラー<br>Regular|1人<br>Solo|`standard`|`regular`|`nawabari`||
+|レギュラー<br>Regular|合流<br>Join to friend|`standard`|`regular`|`nawabari`|区別しない<br>Same as Solo|
+|ガチマッチ<br>Ranked|1人<br>Solo|`standard`|`gachi`|`area`, `yagura`, `hoko`|
+|ガチマッチ<br>Ranked|リーグ（2人）<br>League (Twin)|`squad_2`|`gachi`|`area`, `yagura`, `hoko`|
+|ガチマッチ<br>Ranked|リーグ（4人）<br>League (Quad)|`squad_4`|`gachi`|`area`, `yagura`, `hoko`|
+|フェス<br>Splatfest|ソロ<br>Solo|`standard`|`fest`|`nawabari`||
+|フェス<br>Splatfest|チーム<br>Team|`squad_4`|`fest`|`nawabari`||
+|プラベ<br>Private|-|`private`|`private`|`nawabari`, `area`, `yagura`, `hoko`|
 
 
 `stage`
@@ -155,7 +155,7 @@ POST データは全体で 12MiB 以内である必要があります。
 |`manta`|マンタマリア号<br>Manta Maria||
 |`mozuku`|モズク農園<br>Kelp Dome||
 |`tachiuo`|タチウオパーキング<br>Moray Towers||
-|`mystery`|ミステリーゾーン<br>Shifty Station|フェス専用ステージ|
+|`mystery`|ミステリーゾーン<br>Shifty Station|フェス専用ステージ<br>For Splatfest|
 
 
 `weapon`
@@ -163,7 +163,8 @@ POST データは全体で 12MiB 以内である必要があります。
 
 [GET /api/v2/weapon](get-weapon.md)で詳細情報が取得可能です。
 
-また、実際のデータベースを参照した一覧ページが[ここにあります](https://stat.ink/api-info/weapon2)。
+また、実際のデータベースを参照した一覧ページが[ここにあります](https://stat.ink/api-info/weapon2)。<br>
+There is a listing page [here](https://stat.ink/api-info/weapon2).
 
 |Value|SplatNet|Weapon Name|Remarks|
 |-|-|-|-|
@@ -218,7 +219,7 @@ POST データは全体で 12MiB 以内である必要があります。
 |`hissen`|`3010`|ヒッセン<br>Tri-Slosher||
 |`screwslosher`|`3020`|スクリュースロッシャー<br>Sloshing Machine||
 |`barrelspinner`|`4010`|バレルスピナー<br>Heavy Splatling||
-|`barrelspinner_deco`||バレルスピナーデコ<br>Heavy Splatling Deco||
+|`barrelspinner_deco`|`4011`|バレルスピナーデコ<br>Heavy Splatling Deco||
 |`herospinner_replica`|`4015`|ヒーロースピナー レプリカ<br>Hero Splatling Replica||
 |`splatspinner`|`4000`|スプラスピナー<br>Mini Splatling||
 |`heroshelter_replica`|`6005`|ヒーローシェルター レプリカ<br>Hero Brella Replica||
@@ -250,15 +251,16 @@ POST データは全体で 12MiB 以内である必要があります。
 
 `fest_title`, `fest_title_after` にはバトル前、バトル後のフェスの称号を指定します。
 
-指定する値には性別を示唆するものも含まれますが、 **性別によらず同じものを指定** します。（性別は `gender` で指定します）
+指定する値には性別を示唆するものも含まれますが、 **性別によらず同じものを指定** します。（性別は `gender` で指定します）<br>
+Regardless of gender, specify the same key-string. (Use `gender` to specify gender)
 
-|キー|称号（ボーイ）|称号（ガール）|
+|キー|称号（ボーイ）<br>Title (Boy)|称号（ガール）<br>Title (Girl)|
 |-|-|-|
-|`fanboy`|ふつうの《お題》ボーイ|ふつうの《お題》ガール|
-|`fiend`|まことの《お題》ボーイ|まことの《お題》ガール|
-|`defender`|スーパー《お題》ボーイ|スーパー《お題》ガール|
-|`champion`|カリスマ《お題》ボーイ|カリスマ《お題》ガール|
-|`king`|えいえんの《お題》ボーイ|えいえんの《お題》ガール|
+|`fanboy`|ふつうの《お題》ボーイ<br>*Something* Fanboy|ふつうの《お題》ガール<br>*Something* Fangirl|
+|`fiend`|まことの《お題》ボーイ<br>*Something* Fiend|まことの《お題》ガール<br>*Something* Fiend|
+|`defender`|スーパー《お題》ボーイ<br>*Something* Defender|スーパー《お題》ガール<br>*Something* Defender|
+|`champion`|カリスマ《お題》ボーイ<br>*Something* Champion|カリスマ《お題》ガール<br>*Something* Champion|
+|`king`|えいえんの《お題》ボーイ<br>*Something* King|えいえんの《お題》ガール<br>*Something* Queen|
 
 なお、キーの値は英語（北米）版のボーイ用の称号を小文字にしたものです。
 
@@ -325,31 +327,31 @@ POST データは全体で 12MiB 以内である必要があります。
 
 |指定文字列|死因|
 |-|-|
-|`unknown`|死因不明|
-|`fall`|場外転落|
-|`drown`|水死|
-|`oob`|場外（詳細不明）|
+|`unknown`|死因不明<br>Unknown|
+|`fall`|場外転落<br>Out of bounds (fall)|
+|`drown`|水死<br>Out of bounds (water)|
+|`oob`|場外（詳細不明）<br>Out of bounds (details unknown)|
 
 |指定文字列|死因|
 |-|-|
-|`curlingbomb`|カーリングボム|
-|`kyubanbomb`|キューバンボム|
-|`quickbomb`|クイックボム|
-|`robotbomb`|ロボットボム|
-|`splashbomb`|スプラッシュボム|
-|`splashshield`|スプラッシュシールド|
-|`sprinkler`|スプリンクラー|
-|`trap`|トラップ|
+|`curlingbomb`|カーリングボム<br>Curling Bomb|
+|`kyubanbomb`|キューバンボム<br>Suction Bomb|
+|`quickbomb`|クイックボム<br>Burst Bomb|
+|`robotbomb`|ロボットボム<br>Autobomb|
+|`splashbomb`|スプラッシュボム<br>Splat Bomb|
+|`splashshield`|スプラッシュシールド<br>Splash Wall|
+|`sprinkler`|スプリンクラー<br>Sprinkler|
+|`trap`|トラップ<br>Ink Mine|
 
 |指定文字列|死因|
 |-|-|
-|`amefurashi`|アメフラシ|
-|`chakuchi`|スーパーチャクチ|
-|`jetpack`|ジェットパック|
-|`missile`|マルチミサイル|
-|`presser`|ハイパープレッサー|
-|`sphere`|イカスフィア|
-
+|`amefurashi`|アメフラシ<br>Ink Storm|
+|`bubble`|バブルランチャー<br>Bubble Blower|
+|`chakuchi`|スーパーチャクチ<br>Splashdown|
+|`jetpack`|ジェットパック<br>Inkjet|
+|`missile`|マルチミサイル<br>Tenta Missiles|
+|`presser`|ハイパープレッサー<br>Sting Ray|
+|`sphere`|イカスフィア<br>Baller|
 
 `events`
 --------
