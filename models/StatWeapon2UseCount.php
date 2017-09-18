@@ -18,6 +18,27 @@ use yii\db\ActiveRecord;
  * @property integer $weapon_id
  * @property integer $battles
  * @property integer $wins
+ * @property integer $kills
+ * @property integer $deaths
+ * @property integer $kd_available
+ * @property integer $kills_with_time
+ * @property integer $deaths_with_time
+ * @property integer $kd_time_available
+ * @property integer $kd_time_seconds
+ * @property integer $specials
+ * @property integer $specials_available
+ * @property integer $specials_with_time
+ * @property integer $specials_time_available
+ * @property integer $specials_time_seconds
+ * @property integer $inked
+ * @property integer $inked_available
+ * @property integer $inked_with_time
+ * @property integer $inked_time_available
+ * @property integer $inked_time_seconds
+ * @property integer $knockout_wins
+ * @property integer $timeup_wins
+ * @property integer $knockout_loses
+ * @property integer $timeup_loses
  *
  * @property Rule2 $rule
  * @property Weapon2 $weapon
@@ -38,8 +59,17 @@ class StatWeapon2UseCount extends ActiveRecord
     public function rules()
     {
         return [
-            [['period', 'rule_id', 'weapon_id', 'battles', 'wins'], 'required'],
-            [['period', 'rule_id', 'weapon_id', 'battles', 'wins'], 'integer'],
+            [['period', 'rule_id', 'weapon_id', 'battles', 'wins', 'kills', 'deaths', 'kd_available'], 'required'],
+            [['kills_with_time', 'deaths_with_time', 'kd_time_available', 'kd_time_seconds', 'specials'], 'required'],
+            [['specials_available', 'specials_with_time', 'specials_time_available'], 'required'],
+            [['specials_time_seconds', 'inked', 'inked_available', 'inked_with_time'], 'required'],
+            [['inked_time_available', 'inked_time_seconds'], 'required'],
+            [['period', 'rule_id', 'weapon_id', 'battles', 'wins', 'kills', 'deaths', 'kd_available'], 'integer'],
+            [['kills_with_time', 'deaths_with_time', 'kd_time_available', 'kd_time_seconds', 'specials'], 'integer'],
+            [['specials_available', 'specials_with_time', 'specials_time_available'], 'integer'],
+            [['specials_time_seconds', 'inked', 'inked_available', 'inked_with_time'], 'integer'],
+            [['inked_time_available', 'inked_time_seconds', 'knockout_wins', 'timeup_wins'], 'integer'],
+            [['knockout_loses', 'timeup_loses'], 'integer'],
             [['rule_id'], 'exist', 'skipOnError' => true,
                 'targetClass' => Rule2::class,
                 'targetAttribute' => ['rule_id' => 'id'],
@@ -62,6 +92,27 @@ class StatWeapon2UseCount extends ActiveRecord
             'weapon_id' => 'Weapon ID',
             'battles' => 'Battles',
             'wins' => 'Wins',
+            'kills' => 'Kills',
+            'deaths' => 'Deaths',
+            'kd_available' => 'Kd Available',
+            'kills_with_time' => 'Kills With Time',
+            'deaths_with_time' => 'Deaths With Time',
+            'kd_time_available' => 'Kd Time Available',
+            'kd_time_seconds' => 'Kd Time Seconds',
+            'specials' => 'Specials',
+            'specials_available' => 'Specials Available',
+            'specials_with_time' => 'Specials With Time',
+            'specials_time_available' => 'Specials Time Available',
+            'specials_time_seconds' => 'Specials Time Seconds',
+            'inked' => 'Inked',
+            'inked_available' => 'Inked Available',
+            'inked_with_time' => 'Inked With Time',
+            'inked_time_available' => 'Inked Time Available',
+            'inked_time_seconds' => 'Inked Time Seconds',
+            'knockout_wins' => 'Knockout Wins',
+            'timeup_wins' => 'Timeup Wins',
+            'knockout_loses' => 'Knockout Loses',
+            'timeup_loses' => 'Timeup Loses',
         ];
     }
 

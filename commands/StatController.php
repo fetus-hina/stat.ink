@@ -28,6 +28,7 @@ use app\models\StatWeaponUseCount;
 use app\models\StatWeaponUseCountPerWeek;
 use app\models\StatWeaponVsWeapon;
 use yii\console\Controller;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Console;
 
 class StatController extends Controller
@@ -717,9 +718,9 @@ class StatController extends Controller
      */
     public function actionUpdateWeaponUseCount()
     {
-        $this->updateWeaponUseCount1();
+        //$this->updateWeaponUseCount1();
         $this->updateWeaponUseCount2();
-        $this->actionUpdateWeaponUseTrend();
+        //$this->actionUpdateWeaponUseTrend();
     }
 
     private function updateWeaponUseCount1()
@@ -877,6 +878,163 @@ class StatController extends Controller
                     'WHEN {{battle2}}.[[is_win]] = {{battle_player2}}.[[is_my_team]] THEN 1',
                     'ELSE 0',
                 ])),
+                'kills' => sprintf('SUM(CASE %s END)', implode(' ', [
+                    'WHEN {{battle_player2}}.[[kill]] IS NULL THEN 0',
+                    'WHEN {{battle_player2}}.[[death]] IS NULL THEN 0',
+                    'ELSE {{battle_player2}}.[[kill]]',
+                ])),
+                'deaths' => sprintf('SUM(CASE %s END)', implode(' ', [
+                    'WHEN {{battle_player2}}.[[kill]] IS NULL THEN 0',
+                    'WHEN {{battle_player2}}.[[death]] IS NULL THEN 0',
+                    'ELSE {{battle_player2}}.[[death]]',
+                ])),
+                'kd_available' => sprintf('SUM(CASE %s END)', implode(' ', [
+                    'WHEN {{battle_player2}}.[[kill]] IS NULL THEN 0',
+                    'WHEN {{battle_player2}}.[[death]] IS NULL THEN 0',
+                    'ELSE 1',
+                ])),
+                'kills_with_time' => sprintf('SUM(CASE %s END)', implode(' ', [
+                    'WHEN {{battle_player2}}.[[kill]] IS NULL THEN 0',
+                    'WHEN {{battle_player2}}.[[death]] IS NULL THEN 0',
+                    'WHEN {{battle2}}.[[start_at]] IS NULL THEN 0',
+                    'WHEN {{battle2}}.[[end_at]] IS NULL THEN 0',
+                    'WHEN {{battle2}}.[[start_at]] >= {{battle2}}.[[end_at]] IS NULL THEN 0',
+                    'ELSE {{battle_player2}}.[[kill]]',
+                ])),
+                'deaths_with_time' => sprintf('SUM(CASE %s END)', implode(' ', [
+                    'WHEN {{battle_player2}}.[[kill]] IS NULL THEN 0',
+                    'WHEN {{battle_player2}}.[[death]] IS NULL THEN 0',
+                    'WHEN {{battle2}}.[[start_at]] IS NULL THEN 0',
+                    'WHEN {{battle2}}.[[end_at]] IS NULL THEN 0',
+                    'WHEN {{battle2}}.[[start_at]] >= {{battle2}}.[[end_at]] IS NULL THEN 0',
+                    'ELSE {{battle_player2}}.[[death]]',
+                ])),
+                'kd_time_available' => sprintf('SUM(CASE %s END)', implode(' ', [
+                    'WHEN {{battle_player2}}.[[kill]] IS NULL THEN 0',
+                    'WHEN {{battle_player2}}.[[death]] IS NULL THEN 0',
+                    'WHEN {{battle2}}.[[start_at]] IS NULL THEN 0',
+                    'WHEN {{battle2}}.[[end_at]] IS NULL THEN 0',
+                    'WHEN {{battle2}}.[[start_at]] >= {{battle2}}.[[end_at]] IS NULL THEN 0',
+                    'ELSE 1',
+                ])),
+                'kd_time_seconds' => sprintf('SUM(CASE %s END)', implode(' ', [
+                    'WHEN {{battle_player2}}.[[kill]] IS NULL THEN 0',
+                    'WHEN {{battle_player2}}.[[death]] IS NULL THEN 0',
+                    'WHEN {{battle2}}.[[start_at]] IS NULL THEN 0',
+                    'WHEN {{battle2}}.[[end_at]] IS NULL THEN 0',
+                    'WHEN {{battle2}}.[[start_at]] >= {{battle2}}.[[end_at]] IS NULL THEN 0',
+                    sprintf(
+                        'ELSE (EXTRACT(EPOCH FROM %s) - EXTRACT(EPOCH FROM %s))',
+                        '{{battle2}}.[[end_at]]',
+                        '{{battle2}}.[[start_at]]'
+                    ),
+                ])),
+                'specials' => sprintf('SUM(CASE %s END)', implode(' ', [
+                    'WHEN {{battle_player2}}.[[special]] IS NULL THEN 0',
+                    'ELSE {{battle_player2}}.[[special]]',
+                ])),
+                'specials_available' => sprintf('SUM(CASE %s END)', implode(' ', [
+                    'WHEN {{battle_player2}}.[[special]] IS NULL THEN 0',
+                    'ELSE 1',
+                ])),
+                'specials_with_time' => sprintf('SUM(CASE %s END)', implode(' ', [
+                    'WHEN {{battle_player2}}.[[special]] IS NULL THEN 0',
+                    'WHEN {{battle2}}.[[start_at]] IS NULL THEN 0',
+                    'WHEN {{battle2}}.[[end_at]] IS NULL THEN 0',
+                    'WHEN {{battle2}}.[[start_at]] >= {{battle2}}.[[end_at]] IS NULL THEN 0',
+                    'ELSE {{battle_player2}}.[[special]]',
+                ])),
+                'specials_time_available'  => sprintf('SUM(CASE %s END)', implode(' ', [
+                    'WHEN {{battle_player2}}.[[special]] IS NULL THEN 0',
+                    'WHEN {{battle2}}.[[start_at]] IS NULL THEN 0',
+                    'WHEN {{battle2}}.[[end_at]] IS NULL THEN 0',
+                    'WHEN {{battle2}}.[[start_at]] >= {{battle2}}.[[end_at]] IS NULL THEN 0',
+                    'ELSE 1',
+                ])),
+                'specials_time_seconds' => sprintf('SUM(CASE %s END)', implode(' ', [
+                    'WHEN {{battle_player2}}.[[special]] IS NULL THEN 0',
+                    'WHEN {{battle2}}.[[start_at]] IS NULL THEN 0',
+                    'WHEN {{battle2}}.[[end_at]] IS NULL THEN 0',
+                    'WHEN {{battle2}}.[[start_at]] >= {{battle2}}.[[end_at]] IS NULL THEN 0',
+                    sprintf(
+                        'ELSE (EXTRACT(EPOCH FROM %s) - EXTRACT(EPOCH FROM %s))',
+                        '{{battle2}}.[[end_at]]',
+                        '{{battle2}}.[[start_at]]'
+                    ),
+                ])),
+                'inked' => sprintf('SUM(CASE %s END)', implode(' ', [
+                    'WHEN {{battle_player2}}.[[point]] IS NULL THEN 0',
+                    "WHEN {{rule2}}.[[key]] <> 'nawabari' THEN {{battle_player2}}.[[point]]",
+                    sprintf(
+                        'WHEN %s THEN %s',
+                        '{{battle2}}.[[is_win]] = {{battle_player2}}.[[is_my_team]]',
+                        '({{battle_player2}}.[[point]] - 1000)'
+                    ),
+                    'ELSE {{battle_player2}}.[[point]]'
+                ])),
+                'inked_available' => sprintf('SUM(CASE %s END)', implode(' ', [
+                    'WHEN {{battle_player2}}.[[point]] IS NULL THEN 0',
+                    'ELSE 1',
+                ])),
+                'inked_with_time' => sprintf('SUM(CASE %s END)', implode(' ', [
+                    'WHEN {{battle_player2}}.[[point]] IS NULL THEN 0',
+                    'WHEN {{battle2}}.[[start_at]] IS NULL THEN 0',
+                    'WHEN {{battle2}}.[[end_at]] IS NULL THEN 0',
+                    'WHEN {{battle2}}.[[start_at]] >= {{battle2}}.[[end_at]] IS NULL THEN 0',
+                    "WHEN {{rule2}}.[[key]] <> 'nawabari' THEN {{battle_player2}}.[[point]]",
+                    sprintf(
+                        'WHEN %s THEN %s',
+                        '{{battle2}}.[[is_win]] = {{battle_player2}}.[[is_my_team]]',
+                        '({{battle_player2}}.[[point]] - 1000)'
+                    ),
+                    'ELSE {{battle_player2}}.[[point]]'
+                ])),
+                'inked_time_available' => sprintf('SUM(CASE %s END)', implode(' ', [
+                    'WHEN {{battle_player2}}.[[point]] IS NULL THEN 0',
+                    'WHEN {{battle2}}.[[start_at]] IS NULL THEN 0',
+                    'WHEN {{battle2}}.[[end_at]] IS NULL THEN 0',
+                    'WHEN {{battle2}}.[[start_at]] >= {{battle2}}.[[end_at]] IS NULL THEN 0',
+                    'ELSE 1',
+                ])),
+                'inked_time_seconds' => sprintf('SUM(CASE %s END)', implode(' ', [
+                    'WHEN {{battle_player2}}.[[point]] IS NULL THEN 0',
+                    'WHEN {{battle2}}.[[start_at]] IS NULL THEN 0',
+                    'WHEN {{battle2}}.[[end_at]] IS NULL THEN 0',
+                    'WHEN {{battle2}}.[[start_at]] >= {{battle2}}.[[end_at]] IS NULL THEN 0',
+                    sprintf(
+                        'ELSE (EXTRACT(EPOCH FROM %s) - EXTRACT(EPOCH FROM %s))',
+                        '{{battle2}}.[[end_at]]',
+                        '{{battle2}}.[[start_at]]'
+                    ),
+                ])),
+                'knockout_wins' => sprintf('SUM(CASE %s END)', implode(' ', [
+                    "WHEN {{rule2}}.[[key]] = 'nawabari' THEN NULL",
+                    "WHEN {{battle2}}.[[is_knockout]] IS NULL THEN 0",
+                    "WHEN {{battle2}}.[[is_knockout]] = FALSE THEN 0",
+                    "WHEN {{battle2}}.[[is_win]] <> {{battle_player2}}.[[is_my_team]] THEN 0",
+                    "ELSE 1",
+                ])),
+                'timeup_wins' => sprintf('SUM(CASE %s END)', implode(' ', [
+                    "WHEN {{rule2}}.[[key]] = 'nawabari' THEN NULL",
+                    "WHEN {{battle2}}.[[is_knockout]] IS NULL THEN 0",
+                    "WHEN {{battle2}}.[[is_knockout]] = TRUE THEN 0",
+                    "WHEN {{battle2}}.[[is_win]] <> {{battle_player2}}.[[is_my_team]] THEN 0",
+                    "ELSE 1",
+                ])),
+                'knockout_loses' => sprintf('SUM(CASE %s END)', implode(' ', [
+                    "WHEN {{rule2}}.[[key]] = 'nawabari' THEN NULL",
+                    "WHEN {{battle2}}.[[is_knockout]] IS NULL THEN 0",
+                    "WHEN {{battle2}}.[[is_knockout]] = FALSE THEN 0",
+                    "WHEN {{battle2}}.[[is_win]] = {{battle_player2}}.[[is_my_team]] THEN 0",
+                    "ELSE 1",
+                ])),
+                'timeup_loses' => sprintf('SUM(CASE %s END)', implode(' ', [
+                    "WHEN {{rule2}}.[[key]] = 'nawabari' THEN NULL",
+                    "WHEN {{battle2}}.[[is_knockout]] IS NULL THEN 0",
+                    "WHEN {{battle2}}.[[is_knockout]] = TRUE THEN 0",
+                    "WHEN {{battle2}}.[[is_win]] = {{battle_player2}}.[[is_my_team]] THEN 0",
+                    "ELSE 1",
+                ])),
             ])
             ->innerJoinWith([
                 'lobby',
@@ -936,6 +1094,7 @@ class StatController extends Controller
                 '{{battle_player2}}.[[weapon_id]]',
             ]))
             ->orderBy(null);
+        $sql = $select->createCommand()->rawSql;
 
         $insert = sprintf(
             'INSERT INTO {{%s}} ( %s ) %s',
@@ -964,15 +1123,49 @@ class StatController extends Controller
                 'isoweek' => 1,
             ];
         }
+        $columns = [
+            'battles',
+            'wins',
+            'kills',
+            'deaths',
+            'kd_available',
+            'kills_with_time',
+            'deaths_with_time',
+            'kd_time_available',
+            'kd_time_seconds',
+            'specials',
+            'specials_available',
+            'specials_with_time',
+            'specials_time_available',
+            'specials_time_seconds',
+            'inked',
+            'inked_available',
+            'inked_with_time',
+            'inked_time_available',
+            'inked_time_seconds',
+            'knockout_wins',
+            'timeup_wins',
+            'knockout_loses',
+            'timeup_loses',
+        ];
         $selectWeek = (new \yii\db\Query())
-            ->select([
-                'isoyear' => $isoYear,
-                'isoweek' => $isoWeek,
-                'rule_id' => '{{t}}.[[rule_id]]',
-                'weapon_id' => '{{t}}.[[weapon_id]]',
-                'battles' => 'SUM({{t}}.[[battles]])',
-                'wins' => 'SUM({{t}}.[[wins]])',
-            ])
+            ->select(array_merge(
+                [
+                    'isoyear' => $isoYear,
+                    'isoweek' => $isoWeek,
+                    'rule_id' => '{{t}}.[[rule_id]]',
+                    'weapon_id' => '{{t}}.[[weapon_id]]',
+                ],
+                ArrayHelper::map(
+                    $columns,
+                    function (string $colName) : string {
+                        return $colName;
+                    },
+                    function (string $colName) : string {
+                        return "SUM({{t}}.[[{$colName}]])";
+                    }
+                )
+            ))
             ->from(sprintf('{{%s}} {{t}}', StatWeapon2UseCount::tableName()))
             ->groupBy([
                 $isoYear,
