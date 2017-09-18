@@ -261,7 +261,7 @@ END_JS
             }
             return implode(' ', [
               Html::encode(Yii::$app->formatter->asDecimal($model->kill_ratio, 3)),
-              $this->render('/includes/kill_ratio_indicator', ['value' => $model->wp * 2 / 100]),
+              $this->render('/includes/kill_ratio_indicator', ['value' => $model->kill_ratio]),
             ]);
           },
           // }}}
@@ -609,7 +609,7 @@ END_JS
             }
             return implode(' ', [
               Html::encode(Yii::$app->formatter->asDecimal($model->kill_ratio, 3)),
-              $this->render('/includes/kill_ratio_indicator', ['value' => $model->wp * 2 / 100]),
+              $this->render('/includes/kill_ratio_indicator', ['value' => $model->kill_ratio]),
             ]);
           },
           // }}}
