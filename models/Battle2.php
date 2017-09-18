@@ -1303,6 +1303,7 @@ class Battle2 extends ActiveRecord
         $queries = [
             $this->getBattleDeathReasons(),
             $this->getEvents(),
+            $this->getSplatnetJson(),
             $this->hasMany(BattleImage2::class, ['battle_id' => 'id']),
             $this->hasMany(BattlePlayer2::class, ['battle_id' => 'id']),
         ];

@@ -35,4 +35,19 @@ class Battle2Controller extends Controller
         $this->stderr("updated.\n");
         return 0;
     }
+
+    public function actionDelete($id)
+    {
+        $transaction = Yii::$app->db->beginTransaction();
+        $battle = Battle2::findOne(['id' => (int)(string)$id]);
+        if (!$battle) {
+            $this->stderr("Could not find specified battle \"{$id}\"\n", Console::FG_RED);
+            return 1;
+        }
+        $battle->delete();
+        $transaction->commit();
+        $this->stderr("updated.\n");
+        return 0;
+    }
+
 }
