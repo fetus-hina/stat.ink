@@ -47,6 +47,7 @@ return [
     'Avg Inked' => '平均塗った面積',
     'Avg KR' => '平均キルレ',
     'Avg Kills' => '平均Kill',
+    'Avg Specials' => '平均スペシャル',
     'Avg.' => '平均',
     'Back' => '戻る',
     'Bad Guys' => '相手のチーム',

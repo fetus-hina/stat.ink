@@ -1,10 +1,13 @@
 <?php
 use app\assets\AppOptAsset;
+use app\assets\JqueryStupidTableAsset;
 use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
 use jp3cki\yii2\flot\FlotAsset;
 use jp3cki\yii2\flot\FlotStackAsset;
 use jp3cki\yii2\flot\FlotTimeAsset;
+use yii\data\ArrayDataProvider;
+use yii\grid\GridView;
 use yii\helpers\Html;
 use yii\helpers\Json;
 
@@ -19,11 +22,30 @@ $this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink']);
 FlotAsset::register($this);
 FlotTimeAsset::register($this);
 FlotStackAsset::register($this);
+JqueryStupidTableAsset::register($this);
 
 $asset = AppOptAsset::register($this);
 $asset->registerJsFile($this, 'weapons.js');
 
 $this->registerCss('.graph{height:300px}');
+$this->registerJs(<<<'END_JS'
+(function(){
+  $('.table-sortable')
+    .stupidtable()
+    .on("aftertablesort",function(event,data){
+      var th = $(this).find("th");
+      th.find(".arrow").remove();
+      var dir = $.fn.stupidtable.dir;
+      var arrow = data.direction === dir.ASC ? "fa-angle-up" : "fa-angle-down";
+      th.eq(data.column)
+        .append(' ')
+        .append(
+          $('<span/>').addClass('arrow fa').addClass(arrow)
+        );
+    });
+})();
+END_JS
+);
 ?>
 <div class="container">
   <h1>
@@ -51,13 +73,17 @@ $this->registerCss('.graph{height:300px}');
       Yii::t('app', '* This exclusion is in attempt to minimize overcounting in weapon usage statistics.')
     ) . "\n" ?>
   </p>
-<?php /*
-  {{\app\assets\JqueryStupidTableAsset::register($this)|@void}}
-  {{foreach $entire as $rule}}
-    {{if !$rule@first}} | {{/if}}
-    <a href="#weapon-{{$rule->key|escape}}">{{$rule->name|escape}}</a>
-  {{/foreach}}
-*/ ?>
+  <p>
+    <?= implode(' | ', array_map(
+      function ($row) : string {
+        return Html::a(
+          Html::encode($row->name),
+          '#weapon-' . $row->key
+        );
+      },
+      $entire
+    )) . "\n" ?>
+  </p>
   <h3 id="trends">
     <?= Html::encode(Yii::t('app', 'Trends')) . "\n" ?>
   </h3>
@@ -90,203 +116,539 @@ $this->registerCss('.graph{height:300px}');
     Json::encode($uses),
     ['id' => 'trends-json', 'type' => 'application/json']
   ) . "\n" ?>
-<?php /*
-  {{foreach $entire as $rule}}
-    {{if $rule->data->battle_count > 0}}
-      <h3 id="weapon-{{$rule->key|escape}}">
-        {{$rule->name|escape}}
-      </h3>
-      <p>
-        {{'Battles:'|translate:'app'|escape}} {{$rule->data->battle_count|number_format|escape}},&#32;
-        {{'Players:'|translate:'app'|escape}} {{$rule->data->player_count|number_format|escape}}
-      </p>
-      <table class="table table-striped table-condensed table-sortable">
-        <thead>
-          <tr>
-            <th data-sort="string">{{'Weapon'|translate:'app'|escape}}</th>
-            <th data-sort="int">{{'Players'|translate:'app'|escape}} <span class="arrow fa fa-angle-down"></span></th>
-            <th data-sort="float">{{'Avg Kills'|translate:'app'|escape}}</th>
-            <th data-sort="float">{{'Avg Deaths'|translate:'app'|escape}}</th>
-            <th data-sort="float">{{'Avg KR'|translate:'app'|escape}}</th>
-            {{if $rule->key === 'nawabari'}}
-              <th data-sort="float">{{'Avg Inked'|translate:'app'|escape}}</th>
-            {{/if}}
-            <th data-sort="float">{{'Win %'|translate:'app'|escape}}</th>
-          </tr>
-        </thead>
-        <tbody>
-          {{foreach $rule->data->weapons as $weapon}}
-            <tr class="weapon">
-              <td>
-                <a href="{{url route="entire/weapon" weapon=$weapon->key rule=$rule->key}}">
-                  <span title="{{'Sub:'|translate:'app'|escape}}{{$weapon->subweapon->name|escape}} / {{'Special:'|translate:'app'|escape}}{{$weapon->special->name|escape}}" class="auto-tooltip">
-                    {{$weapon->name|escape}}
-                  </span>
-                </a>
-              </td>
-              <td class="players" title="{{if $weapon->count > 0}}{{($rule->data->player_count*100/$weapon->count)|string_format:'%.2f%%'|escape}}{{/if}}" data-sort-value="{{$weapon->count|escape}}">
-                {{if $rule->data->player_count > 0}}
-                  <span class="auto-tooltip" title="{{($weapon->count*100/$rule->data->player_count)|string_format:'%.2f%%'|escape}}">
-                    {{$weapon->count|number_format|escape}}
-                  </span>
-                {{else}}
-                  0
-                {{/if}}
-              </td>
-              <td class="kill" data-sort-value="{{$weapon->avg_kill|escape}}">{{$weapon->avg_kill|string_format:'%.2f'|escape}}</td>
-              <td class="death" data-sort-value="{{$weapon->avg_death|escape}}">{{$weapon->avg_death|string_format:'%.2f'|escape}}</td>
-              {{if $weapon->avg_death == 0}}
-                {{if $weapon->avg_kill > 0}}
-                  {{$kr = 99.99}}
-                {{else}}
-                  {{$kr = null}}
-                {{/if}}
-              {{else}}
-                {{$kr = $weapon->avg_kill / $weapon->avg_death}}
-              {{/if}}
-              <td data-sort-value="{{$kr|escape}}">
-                {{if $kr !== null}}
-                  {{$kr|string_format:'%.2f'|escape}}
-                {{/if}}
-              </td>
-              {{if $rule->key === 'nawabari'}}
-                <td data-sort-value="{{if $weapon->avg_inked === null}}-1{{else}}{{$weapon->avg_inked|escape}}{{/if}}">
-                  {{$weapon->avg_inked|string_format:'%.1f'|escape}}
-                </td>
-              {{/if}}
-              <td data-sort-value="{{$weapon->wp|escape}}">
-                {{$weapon->wp|string_format:'%.2f%%'|escape}}
-              </td>
-            </tr>
-          {{/foreach}}
-        </tbody>
-      </table>
-
-      <table class="table table-striped table-condensed table-sortable" id="sub-{{$rule->key|escape}}">
-        <thead>
-          <tr>
-            <th data-sort="string">{{'Sub Weapon'|translate:'app'|escape}}</th>
-            <th data-sort="int">{{'Players'|translate:'app'|escape}} <span class="arrow fa fa-angle-down"></span></th>
-            <th data-sort="float">{{'Avg Kills'|translate:'app'|escape}}</th>
-            <th data-sort="float">{{'Avg Deaths'|translate:'app'|escape}}</th>
-            <th data-sort="float">{{'Avg KR'|translate:'app'|escape}}</th>
-            <th data-sort="float">{{'Win %'|translate:'app'|escape}}</th>
-            <th data-sort="float">{{'Encounter Ratio'|translate:'app'|escape}}</th>
-          </tr>
-        </thead>
-        <tbody>
-          {{foreach $rule->sub as $weapon}}
-            <tr class="weapon">
-              <td>
-                {{$weapon->name|escape}}
-              </td>
-              <td class="players" title="{{if $weapon->count > 0}}{{($rule->data->player_count*100/$weapon->count)|string_format:'%.2f%%'|escape}}{{/if}}" data-sort-value="{{$weapon->count|escape}}">
-                {{if $rule->data->player_count > 0}}
-                  <span class="auto-tooltip" title="{{($weapon->count*100/$rule->data->player_count)|string_format:'%.2f%%'|escape}}">
-                    {{$weapon->count|number_format|escape}}
-                  </span>
-                {{else}}
-                  0
-                {{/if}}
-              </td>
-              <td class="kill" data-sort-value="{{$weapon->avg_kill|escape}}">{{$weapon->avg_kill|string_format:'%.2f'|escape}}</td>
-              <td class="death" data-sort-value="{{$weapon->avg_death|escape}}">{{$weapon->avg_death|string_format:'%.2f'|escape}}</td>
-              {{if $weapon->avg_death == 0}}
-                {{if $weapon->avg_kill > 0}}
-                  {{$kr = 99.99}}
-                {{else}}
-                  {{$kr = null}}
-                {{/if}}
-              {{else}}
-                {{$kr = $weapon->avg_kill / $weapon->avg_death}}
-              {{/if}}
-              <td data-sort-value="{{$kr|escape}}">
-                {{if $kr !== null}}
-                  {{$kr|string_format:'%.2f'|escape}}
-                {{/if}}
-              </td>
-              <td data-sort-value="{{$weapon->wp|escape}}">
-                {{$weapon->wp|string_format:'%.2f%%'|escape}}
-              </td>
-              <td data-sort-value="{{$weapon->encounter_4|escape}}">
-                {{$weapon->encounter_4|string_format:'%.2f%%'|escape}}
-              </td>
-            </tr>
-          {{/foreach}}
-        </tbody>
-      </table>
-
-      <table class="table table-striped table-condensed table-sortable" id="special-{{$rule->key|escape}}">
-        <thead>
-          <tr>
-            <th data-sort="string">{{'Special'|translate:'app'|escape}}</th>
-            <th data-sort="int">{{'Players'|translate:'app'|escape}} <span class="arrow fa fa-angle-down"></span></th>
-            <th data-sort="float">{{'Avg Kills'|translate:'app'|escape}}</th>
-            <th data-sort="float">{{'Avg Deaths'|translate:'app'|escape}}</th>
-            <th data-sort="float">{{'Avg KR'|translate:'app'|escape}}</th>
-            <th data-sort="float">{{'Win %'|translate:'app'|escape}}</th>
-            <th data-sort="float">{{'Encounter Ratio'|translate:'app'|escape}}</th>
-          </tr>
-        </thead>
-        <tbody>
-          {{foreach $rule->special as $weapon}}
-            <tr class="weapon">
-              <td>
-                {{$weapon->name|escape}}
-              </td>
-              <td class="players" title="{{if $weapon->count > 0}}{{($rule->data->player_count*100/$weapon->count)|string_format:'%.2f%%'|escape}}{{/if}}" data-sort-value="{{$weapon->count|escape}}">
-                {{if $rule->data->player_count > 0}}
-                  <span class="auto-tooltip" title="{{($weapon->count*100/$rule->data->player_count)|string_format:'%.2f%%'|escape}}">
-                    {{$weapon->count|number_format|escape}}
-                  </span>
-                {{else}}
-                  0
-                {{/if}}
-              </td>
-              <td class="kill" data-sort-value="{{$weapon->avg_kill|escape}}">{{$weapon->avg_kill|string_format:'%.2f'|escape}}</td>
-              <td class="death" data-sort-value="{{$weapon->avg_death|escape}}">{{$weapon->avg_death|string_format:'%.2f'|escape}}</td>
-              {{if $weapon->avg_death == 0}}
-                {{if $weapon->avg_kill > 0}}
-                  {{$kr = 99.99}}
-                {{else}}
-                  {{$kr = null}}
-                {{/if}}
-              {{else}}
-                {{$kr = $weapon->avg_kill / $weapon->avg_death}}
-              {{/if}}
-              <td data-sort-value="{{$kr|escape}}">
-                {{if $kr !== null}}
-                  {{$kr|string_format:'%.2f'|escape}}
-                {{/if}}
-              </td>
-              <td data-sort-value="{{$weapon->wp|escape}}">
-                {{$weapon->wp|string_format:'%.2f%%'|escape}}
-              </td>
-              <td data-sort-value="{{$weapon->encounter_4|escape}}">
-                {{$weapon->encounter_4|string_format:'%.2f%%'|escape}}
-              </td>
-            </tr>
-          {{/foreach}}
-        </tbody>
-      </table>
-    {{/if}}
-  {{/foreach}}
-  {{registerJs}}
-    (function(){
-      $('.table-sortable')
-        .stupidtable()
-        .on("aftertablesort",function(event,data){
-          var th = $(this).find("th");
-          th.find(".arrow").remove();
-          var dir = $.fn.stupidtable.dir;
-          var arrow = data.direction === dir.ASC ? "fa-angle-up" : "fa-angle-down";
-          th.eq(data.column)
-            .append(' ')
-            .append(
-              $('<span/>').addClass('arrow fa').addClass(arrow)
+<?php foreach ($entire as $rule) if ($rule->data->player_count > 0) { ?>
+  <?= Html::tag(
+    'h3',
+    Html::encode($rule->name),
+    ['id' => 'weapon-' . $rule->key]
+  ) . "\n" ?>
+  <p>
+    <?= sprintf(
+      '%s %s',
+      Html::encode(Yii::t('app', 'Players:')),
+      Html::encode(Yii::$app->formatter->asInteger($rule->data->player_count))
+    ) . "\n" ?>
+  </p>
+  <div class="table-responsive table-responsive-force">
+    <?= GridView::widget([
+      // {{{
+      'tableOptions' => ['class' => 'table table-striped table-condensed table-sortable'],
+      'layout' => '{items}',
+      'dataProvider' => new ArrayDataProvider([
+        'allModels' => $rule->data->weapons,
+        'pagination' => false,
+        'sort' => false,
+      ]),
+      'columns' => [
+        [
+          'label' => Yii::t('app', 'Weapon'), // {{{
+          'headerOptions' => [
+            'data-sort' => 'string',
+          ],
+          'contentOptions' => function ($model) : array {
+            return [
+              'data-sort-value' => $model->name,
+            ];
+          },
+          'format' => 'raw',
+          'value' => function ($model) : string {
+            return Html::tag(
+              'span',
+              Html::encode($model->name),
+              [
+                'class' => 'auto-tooltip',
+                'title' => vsprintf('%s%s / %s%s', [
+                  Yii::t('app', 'Sub:'),
+                  $model->subweapon->name,
+                  Yii::t('app', 'Special:'),
+                  $model->special->name,
+                ]),
+              ]
             );
-        });
-    })();
-  {{/registerJs}}
-*/ ?>
+          },
+          // }}}
+        ],
+        [
+          'label' => Yii::t('app', 'Players'), // {{{
+          'headerOptions' => [
+            'data-sort' => 'int',
+          ],
+          'contentOptions' => function ($model) : array {
+            return [
+              'class' => 'text-right',
+              'data-sort-value' => $model->count,
+            ];
+          },
+          'format' => 'raw',
+          'value' => function ($weapon) use ($rule) : string {
+            return Html::tag(
+              'span',
+              Html::encode(Yii::$app->formatter->asInteger($weapon->count)),
+              [
+                'class' => 'auto-tooltip',
+                'title' => Yii::$app->formatter->asPercent($weapon->count / $rule->data->player_count, 2),
+              ]
+            );
+          },
+          // }}}
+        ],
+        [
+          'label' => Yii::t('app', 'Win %'), // {{{
+          'headerOptions' => [
+            'data-sort' => 'float',
+          ],
+          'contentOptions' => function ($model) : array {
+            return [
+              'class' => 'text-right',
+              'data-sort-value' => $model->wp,
+            ];
+          },
+          'format' => 'raw',
+          'value' => function ($model) : string {
+            return implode(' ', [
+              Html::encode(Yii::$app->formatter->asPercent($model->wp / 100, 2)),
+            ]);
+          },
+          // }}}
+        ],
+        [
+          'label' => Yii::t('app', 'Avg Kills'), // {{{
+          'headerOptions' => [
+            'data-sort' => 'float',
+          ],
+          'contentOptions' => function ($model) : array {
+            return [
+              'class' => 'text-right',
+              'data-sort-value' => $model->avg_kill,
+            ];
+          },
+          'value' => function ($model) : string {
+            return Yii::$app->formatter->asDecimal($model->avg_kill, 2);
+          },
+          // }}}
+        ],
+        [
+          'label' => Yii::t('app', 'Avg Deaths'), // {{{
+          'headerOptions' => [
+            'data-sort' => 'float',
+          ],
+          'contentOptions' => function ($model) : array {
+            return [
+              'class' => 'text-right',
+              'data-sort-value' => $model->avg_death,
+            ];
+          },
+          'value' => function ($model) : string {
+            return Yii::$app->formatter->asDecimal($model->avg_death, 2);
+          },
+          // }}}
+        ],
+        [
+          'label' => Yii::t('app', 'Kill Ratio'), // {{{
+          'headerOptions' => [
+            'data-sort' => 'float',
+          ],
+          'contentOptions' => function ($model) : array {
+            return [
+              'class' => 'text-right',
+              'data-sort-value' => $model->kill_ratio,
+            ];
+          },
+          'format' => 'raw',
+          'value' => function ($model) : string {
+            if ($model->kill_ratio === null) {
+              return '';
+            }
+            return implode(' ', [
+              Html::encode(Yii::$app->formatter->asDecimal($model->kill_ratio, 3)),
+              $this->render('/includes/kill_ratio_indicator', ['value' => $model->wp * 2 / 100]),
+            ]);
+          },
+          // }}}
+        ],
+        [
+          'label' => Yii::t('app', 'Kills/min'), // {{{
+          'headerOptions' => [
+            'data-sort' => 'float',
+          ],
+          'contentOptions' => function ($model) : array {
+            return [
+              'class' => 'text-right',
+              'data-sort-value' => $model->kill_per_min,
+            ];
+          },
+          'value' => function ($model) : string {
+            return Yii::$app->formatter->asDecimal($model->kill_per_min, 3);
+          },
+          // }}}
+        ],
+        [
+          'label' => Yii::t('app', 'Deaths/min'), // {{{
+          'headerOptions' => [
+            'data-sort' => 'float',
+          ],
+          'contentOptions' => function ($model) : array {
+            return [
+              'class' => 'text-right',
+              'data-sort-value' => $model->death_per_min,
+            ];
+          },
+          'value' => function ($model) : string {
+            return Yii::$app->formatter->asDecimal($model->death_per_min, 3);
+          },
+          // }}}
+        ],
+        [
+          'label' => Yii::t('app', 'Avg Specials'), // {{{
+          'headerOptions' => [
+            'data-sort' => 'float',
+          ],
+          'contentOptions' => function ($model) : array {
+            return [
+              'class' => 'text-right',
+              'data-sort-value' => $model->avg_special,
+            ];
+          },
+          'value' => function ($model) : string {
+            return Yii::$app->formatter->asDecimal($model->avg_special, 2);
+          },
+          // }}}
+        ],
+        [
+          'label' => Yii::t('app', 'Specials/min'), // {{{
+          'headerOptions' => [
+            'data-sort' => 'float',
+          ],
+          'contentOptions' => function ($model) : array {
+            return [
+              'class' => 'text-right',
+              'data-sort-value' => $model->special_per_min,
+            ];
+          },
+          'value' => function ($model) : string {
+            return Yii::$app->formatter->asDecimal($model->special_per_min, 3);
+          },
+          // }}}
+        ],
+        [
+          'label' => Yii::t('app', 'Avg Inked'), // {{{
+          'headerOptions' => [
+            'data-sort' => 'float',
+          ],
+          'contentOptions' => function ($model) : array {
+            return [
+              'class' => 'text-right',
+              'data-sort-value' => $model->avg_inked,
+            ];
+          },
+          'value' => function ($model) : string {
+            return Yii::$app->formatter->asDecimal($model->avg_inked, 1);
+          },
+          // }}}
+        ],
+        [
+          'label' => Yii::t('app', 'Inked/min'), // {{{
+          'headerOptions' => [
+            'data-sort' => 'float',
+          ],
+          'contentOptions' => function ($model) : array {
+            return [
+              'class' => 'text-right',
+              'data-sort-value' => $model->inked_per_min,
+            ];
+          },
+          'value' => function ($model) : string {
+            return Yii::$app->formatter->asDecimal($model->inked_per_min, 2);
+          },
+          // }}}
+        ],
+      ],
+      // }}}
+    ]) . "\n" ?>
+  </div>
+  <div class="table-responsive table-responsive-force">
+    <?= GridView::widget([
+      // {{{
+      'tableOptions' => ['class' => 'table table-striped table-condensed table-sortable'],
+      'layout' => '{items}',
+      'dataProvider' => new ArrayDataProvider([
+        'allModels' => $rule->special,
+        'pagination' => false,
+        'sort' => false,
+      ]),
+      'columns' => [
+        [
+          'label' => Yii::t('app', 'Special'), // {{{
+          'attribute' => 'name',
+          'headerOptions' => [
+            'data-sort' => 'string',
+          ],
+          // }}}
+        ],
+        [
+          'label' => Yii::t('app', 'Players'), // {{{
+          'attribute' => 'count',
+          'format' => 'integer',
+          'headerOptions' => [
+            'data-sort' => 'int',
+          ],
+          'contentOptions' => function ($model) use ($rule) {
+            return [
+              'class' => 'text-right auto-tooltip',
+              'title' => Yii::$app->formatter->asPercent($model->count / $rule->data->player_count, 2),
+              'data-sort-value' => $model->count,
+            ];
+          },
+          // }}}
+        ],
+        [
+          'label' => Yii::t('app', 'Win %'), // {{{
+          'headerOptions' => [
+            'data-sort' => 'float',
+          ],
+          'contentOptions' => function ($model) : array {
+            return [
+              'class' => 'text-right',
+              'data-sort-value' => $model->wp,
+            ];
+          },
+          'value' => function ($model) : string {
+            return Yii::$app->formatter->asPercent($model->wp / 100, 2);
+          },
+          // }}}
+        ],
+        [
+          'label' => Yii::t('app', 'Avg Kills'), // {{{
+          'headerOptions' => [
+            'data-sort' => 'float',
+          ],
+          'contentOptions' => function ($model) : array {
+            return [
+              'class' => 'text-right',
+              'data-sort-value' => $model->avg_kill,
+            ];
+          },
+          'value' => function ($model) : string {
+            return Yii::$app->formatter->asDecimal($model->avg_kill, 2);
+          },
+          // }}}
+        ],
+        [
+          'label' => Yii::t('app', 'Avg Deaths'), // {{{
+          'headerOptions' => [
+            'data-sort' => 'float',
+          ],
+          'contentOptions' => function ($model) : array {
+            return [
+              'class' => 'text-right',
+              'data-sort-value' => $model->avg_death,
+            ];
+          },
+          'value' => function ($model) : string {
+            return Yii::$app->formatter->asDecimal($model->avg_death, 2);
+          },
+          // }}}
+        ],
+        [
+          'label' => Yii::t('app', 'Kill Ratio'), // {{{
+          'headerOptions' => [
+            'data-sort' => 'float',
+          ],
+          'contentOptions' => function ($model) : array {
+            return [
+              'class' => 'text-right',
+              'data-sort-value' => $model->kill_ratio,
+            ];
+          },
+          'format' => 'raw',
+          'value' => function ($model) : string {
+            if ($model->kill_ratio === null) {
+              return '';
+            }
+            return implode(' ', [
+              Html::encode(Yii::$app->formatter->asDecimal($model->kill_ratio, 3)),
+              $this->render('/includes/kill_ratio_indicator', ['value' => $model->kill_ratio]),
+            ]);
+          },
+          // }}}
+        ],
+        [
+          'label' => Yii::t('app', 'Avg Specials'), // {{{
+          'headerOptions' => [
+            'data-sort' => 'float',
+          ],
+          'contentOptions' => function ($model) : array {
+            return [
+              'class' => 'text-right',
+              'data-sort-value' => $model->avg_special,
+            ];
+          },
+          'value' => function ($model) : string {
+            return Yii::$app->formatter->asDecimal($model->avg_special, 2);
+          },
+          // }}}
+        ],
+        [
+          'label' => Yii::t('app', 'Encounter Ratio'), // {{{
+          'headerOptions' => [
+            'data-sort' => 'float',
+          ],
+          'contentOptions' => function ($model) : array {
+            return [
+              'class' => 'text-right',
+              'data-sort-value' => $model->encounter_4,
+            ];
+          },
+          'value' => function ($model) : string {
+            return Yii::$app->formatter->asPercent($model->encounter_4 / 100, 2);
+          },
+          // }}}
+        ],
+      ],
+      // }}}
+    ]) . "\n" ?>
+  </div>
+  <div class="table-responsive table-responsive-force">
+    <?= GridView::widget([
+      // {{{
+      'tableOptions' => ['class' => 'table table-striped table-condensed table-sortable'],
+      'layout' => '{items}',
+      'dataProvider' => new ArrayDataProvider([
+        'allModels' => $rule->sub,
+        'pagination' => false,
+        'sort' => false,
+      ]),
+      'columns' => [
+        [
+          'label' => Yii::t('app', 'Sub Weapon'), // {{{
+          'attribute' => 'name',
+          'headerOptions' => [
+            'data-sort' => 'string',
+          ],
+          // }}}
+        ],
+        [
+          'label' => Yii::t('app', 'Players'), // {{{
+          'attribute' => 'count',
+          'format' => 'integer',
+          'headerOptions' => [
+            'data-sort' => 'int',
+          ],
+          'contentOptions' => function ($model) use ($rule) {
+            return [
+              'class' => 'text-right auto-tooltip',
+              'title' => Yii::$app->formatter->asPercent($model->count / $rule->data->player_count, 2),
+              'data-sort-value' => $model->count,
+            ];
+          },
+          // }}}
+        ],
+        [
+          'label' => Yii::t('app', 'Win %'), // {{{
+          'headerOptions' => [
+            'data-sort' => 'float',
+          ],
+          'contentOptions' => function ($model) : array {
+            return [
+              'class' => 'text-right',
+              'data-sort-value' => $model->wp,
+            ];
+          },
+          'value' => function ($model) : string {
+            return Yii::$app->formatter->asPercent($model->wp / 100, 2);
+          },
+          // }}}
+        ],
+        [
+          'label' => Yii::t('app', 'Avg Kills'), // {{{
+          'headerOptions' => [
+            'data-sort' => 'float',
+          ],
+          'contentOptions' => function ($model) : array {
+            return [
+              'class' => 'text-right',
+              'data-sort-value' => $model->avg_kill,
+            ];
+          },
+          'value' => function ($model) : string {
+            return Yii::$app->formatter->asDecimal($model->avg_kill, 2);
+          },
+          // }}}
+        ],
+        [
+          'label' => Yii::t('app', 'Avg Deaths'), // {{{
+          'headerOptions' => [
+            'data-sort' => 'float',
+          ],
+          'contentOptions' => function ($model) : array {
+            return [
+              'class' => 'text-right',
+              'data-sort-value' => $model->avg_death,
+            ];
+          },
+          'value' => function ($model) : string {
+            return Yii::$app->formatter->asDecimal($model->avg_death, 2);
+          },
+          // }}}
+        ],
+        [
+          'label' => Yii::t('app', 'Kill Ratio'), // {{{
+          'headerOptions' => [
+            'data-sort' => 'float',
+          ],
+          'contentOptions' => function ($model) : array {
+            return [
+              'class' => 'text-right',
+              'data-sort-value' => $model->kill_ratio,
+            ];
+          },
+          'format' => 'raw',
+          'value' => function ($model) : string {
+            if ($model->kill_ratio === null) {
+              return '';
+            }
+            return implode(' ', [
+              Html::encode(Yii::$app->formatter->asDecimal($model->kill_ratio, 3)),
+              $this->render('/includes/kill_ratio_indicator', ['value' => $model->wp * 2 / 100]),
+            ]);
+          },
+          // }}}
+        ],
+        [
+          'label' => Yii::t('app', 'Avg Specials'), // {{{
+          'headerOptions' => [
+            'data-sort' => 'float',
+          ],
+          'contentOptions' => function ($model) : array {
+            return [
+              'class' => 'text-right',
+              'data-sort-value' => $model->avg_special,
+            ];
+          },
+          'value' => function ($model) : string {
+            return Yii::$app->formatter->asDecimal($model->avg_special, 2);
+          },
+          // }}}
+        ],
+        [
+          'label' => Yii::t('app', 'Encounter Ratio'), // {{{
+          'headerOptions' => [
+            'data-sort' => 'float',
+          ],
+          'contentOptions' => function ($model) : array {
+            return [
+              'class' => 'text-right',
+              'data-sort-value' => $model->encounter_4,
+            ];
+          },
+          'value' => function ($model) : string {
+            return Yii::$app->formatter->asPercent($model->encounter_4 / 100, 2);
+          },
+          // }}}
+        ],
+      ],
+      // }}}
+    ]) . "\n" ?>
+  </div>
+<?php } ?>
 </div>
