@@ -49,5 +49,4 @@ class Battle2Controller extends Controller
         $this->stderr("updated.\n");
         return 0;
     }
-
 }
