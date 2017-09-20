@@ -151,10 +151,13 @@ END_JS
             ];
           },
           'format' => 'raw',
-          'value' => function ($model) : string {
+          'value' => function ($model) use ($rule) : string {
             return Html::tag(
               'span',
-              Html::encode($model->name),
+              Html::a(
+                Html::encode($model->name),
+                ['weapon2', 'weapon' => $model->key, 'rule' => $rule->key]
+              ),
               [
                 'class' => 'auto-tooltip',
                 'title' => vsprintf('%s%s / %s%s', [

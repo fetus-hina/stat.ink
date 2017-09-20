@@ -38,6 +38,7 @@ class EntireController extends Controller
             'knockout'  => [ 'class' => $prefix . '\KnockoutAction' ],
             'users'     => [ 'class' => $prefix . '\UsersAction' ],
             'weapon'    => [ 'class' => $prefix . '\WeaponAction' ],
+            'weapon2'   => [ 'class' => $prefix . '\Weapon2Action' ],
             'weapons'   => [ 'class' => $prefix . '\WeaponsAction' ],
             'weapons-use' => [ 'class' => $prefix . '\WeaponsUseAction' ],
             'weapons2'  => [ 'class' => $prefix . '\Weapons2Action' ],

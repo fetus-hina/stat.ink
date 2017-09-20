@@ -61,6 +61,7 @@ RESOURCE_TARGETS_MAIN := \
 	resources/.compiled/stat.ink/swipebox-runner.js \
 	resources/.compiled/stat.ink/user-miniinfo.css \
 	resources/.compiled/stat.ink/user-stat-by-map-rule-detail.css \
+	resources/.compiled/stat.ink/weapon2.js \
 	resources/.compiled/stat.ink/weapons-use.js \
 	resources/.compiled/stat.ink/weapons.js \
 	resources/paintball/paintball.css \
@@ -260,6 +261,9 @@ resources/.compiled/stat.ink/weapons-use.js: resources/stat.ink/weapons-use.js $
 	$(GULP) js --in $< --out $@
 
 resources/.compiled/stat.ink/weapons.js: resources/stat.ink/weapons.js $(GULP)
+	$(GULP) js --in $< --out $@
+
+resources/.compiled/stat.ink/weapon2.js: resources/stat.ink/weapon2.js $(GULP)
 	$(GULP) js --in $< --out $@
 
 resources/.compiled/stat.ink/session-calendar.js: resources/stat.ink/session-calendar.js $(GULP)

@@ -49,6 +49,7 @@ return [
         'fest/<region:\w+>/<order:\d+>' => 'fest/view',
         'entire/weapons/<weapon:\w+>/<rule:\w+>' => 'entire/weapon',
         'entire/weapons/<weapon:\w+>' => 'entire/weapon',
+        'entire/weapons2/<weapon:\w+>/<rule:\w+>' => 'entire/weapon2',
         'entire/users/combined-<b32name:[A-Za-z2-7]+>' => 'entire/combined-agent',
         'entire/users/<b32name:[A-Za-z2-7]+>' => 'entire/agent',
         'stages/<year:\d+>/<month:\d+>' => 'stage/month',
