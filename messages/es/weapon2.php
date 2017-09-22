@@ -55,6 +55,7 @@ return [
     'N-ZAP \'85' => 'N-ZAP 85',
     'Octobrush' => 'Brocha',
     'Rapid Blaster' => 'Devastador exprés',
+    'Rapid Blaster Pro' => 'Superdevastador',
     'Rollers' => 'Rodillos',
     'Shooters' => 'Lanzatintas',
     'Slosher' => 'Derramatic',

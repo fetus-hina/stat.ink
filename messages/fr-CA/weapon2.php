@@ -55,6 +55,7 @@ return [
     'N-ZAP \'85' => '',
     'Octobrush' => '',
     'Rapid Blaster' => 'Turboblasteur',
+    'Rapid Blaster Pro' => 'Turboblasteur pro',
     'Rollers' => '',
     'Shooters' => '',
     'Slosher' => '',
