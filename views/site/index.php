@@ -165,7 +165,7 @@ PaintballAsset::register($this);
 <?php endif; ?>
 <?php if (!in_array(Yii::$app->language, ['ja-JP', 'en-US', 'en-GB'], true)): ?>
     <p class="bg-danger" style="padding:15px;border-radius:10px">
-      French and German language support is really limited at this time.<br>
+      This language support is really limited at this time.<br>
       Only proper nouns translated. (e.g. weapons, stages)<br>
       <a href="https://github.com/fetus-hina/stat.ink/wiki/Translation">We need your support!</a>
     </p>

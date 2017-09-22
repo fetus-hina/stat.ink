@@ -107,6 +107,12 @@ class Controller extends Base
             case 'es':
                 return $firstLang === 'es-es' ? 'es-ES' : 'es-MX';
 
+            case 'fr':
+                return $firstLang === 'fr-ca' ? 'fr-CA' : 'fr-FR';
+
+            case 'it':
+                return 'it-IT';
+
             default:
                 return false;
         }
@@ -132,10 +138,17 @@ class Controller extends Base
 
                 case 'es':
                 case 'es-ES':
+                case 'fr':
+                case 'fr-FR':
+                case 'it':
+                case 'it-IT':
                     return Timezone::findOne(['identifier' => 'Europe/Paris']);
 
                 case 'es-MX':
                     return Timezone::findOne(['identifier' => 'America/Chicago']);
+
+                case 'fr-CA':
+                    return Timezone::findOne(['identifier' => 'America/Halifax']);
 
                 default:
                     return Timezone::findOne(['identifier' => 'Asia/Tokyo']);
