@@ -191,6 +191,7 @@ There is a listing page [here](https://stat.ink/api-info/weapon2).
 |`hotblaster_custom`|`211`|ホットブラスターカスタム<br>Custom Blaster||
 |`nova`|`200`|ノヴァブラスター<br>Luna Blaster||
 |`rapid`|`240`|ラピッドブラスター<br>Rapid Blaster||
+|`rapid_elite`||Rブラスターエリート<br>Rapid Blaster Pro||
 |`dualsweeper`|`5030`|デュアルスイーパー<br>Dualie Squelchers||
 |`heromaneuver_replica`|`5015`|ヒーローマニューバー レプリカ<br>Hero Dualie Replicas||
 |`maneuver`|`5010`|スプラマニューバー<br>Splat Dualies|互換性のため `manueuver` も受け付けます<br>Also accepts `manueuver` for compatibility|
