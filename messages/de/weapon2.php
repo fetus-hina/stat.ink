@@ -52,6 +52,7 @@ return [
     'L-3 Nozzlenose' => 'L3 Tintenwerfer',
     'Luna Blaster' => 'Luna-Blaster',
     'Mini Splatling' => 'Klecks-Splatling',
+    'Nozzlenose' => '',
     'N-ZAP \'85' => 'N-ZAP85',
     'Octobrush' => 'Kalligraf',
     'Rapid Blaster' => 'Turbo-Blaster',

@@ -14,6 +14,7 @@ return [
     'Brushes' => 'フデ',
     'Chargers' => 'チャージャー',
     'Dualies' => 'マニューバー',
+    'Nozzlenose' => 'リールガン',
     'Rollers' => 'ローラー',
     'Shooters' => 'シューター',
     'Sloshers' => 'スロッシャー',

@@ -25,7 +25,10 @@ class Api2MarkdownController extends Controller
             ->all();
         foreach ($categories as $category) {
             $types = $category->getWeaponTypes()
-                ->orderBy(['id' => SORT_ASC])
+                ->orderBy([
+                    'category_id' => SORT_ASC,
+                    'rank' => SORT_ASC,
+                ])
                 ->all();
             foreach ($types as $type) {
                 $weapons = $type->getWeapons()

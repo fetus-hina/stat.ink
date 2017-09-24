@@ -53,17 +53,24 @@ class Weapon2Action extends BaseAction
             WeaponCategory2::find()
                 ->with([
                     'weaponTypes' => function ($query) {
-                        $query->orderBy('[[id]] ASC');
+                        $query->orderBy([
+                            'category_id' => SORT_ASC,
+                            'rank' => SORT_ASC,
+                        ]);
                     },
                     'weaponTypes.weapons' => function ($query) {
-                        $query->orderBy('[[key]] ASC');
+                        $query->orderBy([
+                            'key' => SORT_ASC,
+                        ]);
                     },
                     'weaponTypes.weapons.subweapon',
                     'weaponTypes.weapons.special',
                     'weaponTypes.weapons.mainReference',
                     'weaponTypes.weapons.canonical',
                 ])
-                ->orderBy('[[id]] ASC')
+                ->orderBy([
+                    'id' => SORT_ASC,
+                ])
                 ->all()
         );
 

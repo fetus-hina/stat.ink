@@ -53,6 +53,7 @@ return [
     'L-3 Nozzlenose' => 'Manguera ligera',
     'Luna Blaster' => 'Lanzamotas Nova',
     'Mini Splatling' => 'Garabateador',
+    'Nozzlenose' => '',
     'N-ZAP \'85' => '',
     'Octobrush' => '',
     'Rapid Blaster' => 'Turbolanzamotas',

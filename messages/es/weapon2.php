@@ -52,6 +52,7 @@ return [
     'L-3 Nozzlenose' => 'Tintambor ligero',
     'Luna Blaster' => 'Ultradevastador',
     'Mini Splatling' => 'Tintralladora ligera',
+    'Nozzlenose' => '',
     'N-ZAP \'85' => 'N-ZAP 85',
     'Octobrush' => 'Brocha',
     'Rapid Blaster' => 'Devastador exprés',

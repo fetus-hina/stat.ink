@@ -52,6 +52,7 @@ return [
     'L-3 Nozzlenose' => 'Triplete compatto',
     'Luna Blaster' => 'Blaster lunar',
     'Mini Splatling' => 'Mini Splatling',
+    'Nozzlenose' => '',
     'N-ZAP \'85' => 'N-ZAP85',
     'Octobrush' => 'Tinturicchio',
     'Rapid Blaster' => 'Blaster rapido',

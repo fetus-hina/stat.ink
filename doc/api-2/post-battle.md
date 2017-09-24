@@ -171,10 +171,8 @@ There is a listing page [here](https://stat.ink/api-info/weapon2).
 |`52gal`|`50`|.52ガロン<br>.52 Gal||
 |`96gal`|`80`|.96ガロン<br>.96 Gal||
 |`bold`|`0`|ボールドマーカー<br>Sploosh-o-matic||
-|`h3reelgun`|`310`|H3リールガン<br>H-3 Nozzlenose||
 |`heroshooter_replica`|`45`|ヒーローシューター レプリカ<br>Hero Shot Replica||
 |`jetsweeper`|`90`|ジェットスイーパー<br>Jet Squelcher||
-|`l3reelgun`|`300`|L3リールガン<br>L-3 Nozzlenose||
 |`momiji`|`11`|もみじシューター<br>Custom Splattershot Jr.||
 |`nzap85`|`60`|N-ZAP85<br>N-ZAP '85||
 |`prime`|`70`|プライムシューター<br>Splattershot Pro||
@@ -192,6 +190,8 @@ There is a listing page [here](https://stat.ink/api-info/weapon2).
 |`nova`|`200`|ノヴァブラスター<br>Luna Blaster||
 |`rapid`|`240`|ラピッドブラスター<br>Rapid Blaster||
 |`rapid_elite`|`250`|Rブラスターエリート<br>Rapid Blaster Pro||
+|`h3reelgun`|`310`|H3リールガン<br>H-3 Nozzlenose||
+|`l3reelgun`|`300`|L3リールガン<br>L-3 Nozzlenose||
 |`dualsweeper`|`5030`|デュアルスイーパー<br>Dualie Squelchers||
 |`heromaneuver_replica`|`5015`|ヒーローマニューバー レプリカ<br>Hero Dualie Replicas||
 |`maneuver`|`5010`|スプラマニューバー<br>Splat Dualies|互換性のため `manueuver` も受け付けます<br>Also accepts `manueuver` for compatibility|

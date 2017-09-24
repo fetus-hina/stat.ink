@@ -52,6 +52,7 @@ return [
     'L-3 Nozzlenose' => 'Arroseur léger',
     'Luna Blaster' => 'Proxiblaster',
     'Mini Splatling' => 'Badigeonneur XS',
+    'Nozzlenose' => '',
     'N-ZAP \'85' => 'N-ZAP 85',
     'Octobrush' => 'Épinceau brosse',
     'Rapid Blaster' => 'Turboblaster',
