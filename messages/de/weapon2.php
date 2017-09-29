@@ -73,6 +73,7 @@ return [
     'Splattershot Jr.' => 'Junior-Kleckser',
     'Splattershot Pro' => 'Profi-Kleckser',
     'Sploosh-o-matic' => 'Disperser',
+    'Tenta Brella' => 'Camp-Pluviator',
     'Tentatek Splattershot' => 'Tentatek-Kleckser',
     'Tri-Slosher' => '3R-Schwapper',
 ];

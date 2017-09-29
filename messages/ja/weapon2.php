@@ -82,4 +82,5 @@ return [
     // brellas ------
     'Hero Brella Replica' => 'ヒーローシェルター レプリカ',
     'Splat Brella' => 'パラシェルター',
+    'Tenta Brella' => 'キャンピングシェルター',
 ];

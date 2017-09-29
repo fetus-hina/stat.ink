@@ -73,6 +73,7 @@ return [
     'Splattershot Jr.' => '',
     'Splattershot Pro' => '',
     'Sploosh-o-matic' => '',
+    'Tenta Brella' => '',
     'Tentatek Splattershot' => '',
     'Tri-Slosher' => '',
 ];

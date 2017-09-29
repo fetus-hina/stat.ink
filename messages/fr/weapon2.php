@@ -73,6 +73,7 @@ return [
     'Splattershot Jr.' => 'Liquidateur Jr.',
     'Splattershot Pro' => 'Liquidateur pro',
     'Sploosh-o-matic' => 'Marqueur lourd',
+    'Tenta Brella' => 'Para-encre XL',
     'Tentatek Splattershot' => 'Liquidateur griffé',
     'Tri-Slosher' => 'Dépoteur',
 ];
