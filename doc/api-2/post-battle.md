@@ -223,7 +223,7 @@ There is a listing page [here](https://stat.ink/api-info/weapon2).
 |`barrelspinner_deco`|`4011`|バレルスピナーデコ<br>Heavy Splatling Deco||
 |`herospinner_replica`|`4015`|ヒーロースピナー レプリカ<br>Hero Splatling Replica||
 |`splatspinner`|`4000`|スプラスピナー<br>Mini Splatling||
-|`campingshelter`||キャンピングシェルター<br>Tenta Brella||
+|`campingshelter`|`6010`|キャンピングシェルター<br>Tenta Brella||
 |`heroshelter_replica`|`6005`|ヒーローシェルター レプリカ<br>Hero Brella Replica||
 |`parashelter`|`6000`|パラシェルター<br>Splat Brella||
 
