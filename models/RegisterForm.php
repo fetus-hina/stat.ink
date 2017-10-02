@@ -32,7 +32,8 @@ class RegisterForm extends Model
                 'message' => '{attribute} must be at most 15 alphanumeric or underscore characters.',
             ],
             [['screen_name'], 'unique',
-                'targetClass' => User::className(),
+                'targetClass' => User::class,
+                'targetAttribute' => ['screen_name'],
                 'message' => Yii::t('app', 'This {attribute} is already in use.'),
             ],
             [['name'], 'string', 'max' => 15],
@@ -75,6 +76,7 @@ class RegisterForm extends Model
         $u->blackout = User::BLACKOUT_NOT_BLACKOUT;
         $u->default_language_id = $this->getCurrentLanguageId();
         $u->region_id = $this->getCurrentRegionId();
+        $u->link_mode_id = $this->getDefaultLinkModeId();
         $u->join_at = new Now();
         return $u;
     }
@@ -87,5 +89,10 @@ class RegisterForm extends Model
     private function getCurrentRegionId()
     {
         return Region::findOne(['key' => 'jp'])->id;
+    }
+
+    private function getDefaultLinkModeId() : int
+    {
+        return LinkMode::findOne(['key' => 'in_game'])->id;
     }
 }

@@ -59,6 +59,8 @@
         </div>
       </div>
 
+      {{$_->field($form, 'link_mode_id')->dropDownList($form->linkModes)}}
+
       {{$_->field($form, 'region_id')->dropDownList($regions)}}
 
       {{$_->field($form, 'default_language_id')->dropDownList($languages)}}

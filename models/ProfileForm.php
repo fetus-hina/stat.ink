@@ -9,6 +9,7 @@ namespace app\models;
 
 use Yii;
 use yii\base\Model;
+use yii\helpers\ArrayHelper;
 
 class ProfileForm extends Model
 {
@@ -23,6 +24,7 @@ class ProfileForm extends Model
     public $blackout_list;
     public $default_language_id;
     public $region_id;
+    public $link_mode_id;
 
     public function rules()
     {
@@ -34,6 +36,7 @@ class ProfileForm extends Model
                 },
             ],
             [['name', 'blackout', 'blackout_list', 'default_language_id', 'region_id'], 'required'],
+            [['link_mode_id'], 'required'],
             [['name'], 'string', 'max' => 15],
             [['nnid'], 'string', 'min' => 6, 'max' => 16],
             [['nnid'], 'match', 'pattern' => '/^[a-zA-Z0-9._-]+$/'],
@@ -64,6 +67,11 @@ class ProfileForm extends Model
                 'targetClass' => Region::class,
                 'targetAttribute' => ['region_id' => 'id'],
             ],
+            [['link_mode_id'], 'integer'],
+            [['link_mode_id'], 'exist', 'skipOnError' => true,
+                'targetClass' => LinkMode::class,
+                'targetAttribute' => ['link_mode_id' => 'id'],
+            ],
         ];
     }
 
@@ -85,6 +93,18 @@ class ProfileForm extends Model
             'blackout_list' => Yii::t('app', 'Black out other players from the details list'),
             'default_language_id' => Yii::t('app', 'Language (used for OStatus)'),
             'region_id'     => Yii::t('app', 'Region (used for Splatfest)'),
+            'link_mode_id'  => Yii::t('app', 'Link from other user\'s results'),
         ];
+    }
+
+    public function getLinkModes() : array
+    {
+        return ArrayHelper::map(
+            LinkMode::find()->orderBy(['rank' => SORT_ASC])->asArray()->all(),
+            'id',
+            function (array $row) : string {
+                return Yii::t('app', $row['name']);
+            }
+        );
     }
 }

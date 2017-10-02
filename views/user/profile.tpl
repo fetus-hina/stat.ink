@@ -190,6 +190,12 @@
               </td>
             </tr>
             <tr>
+              <th>{{'Link from other user\'s results'|translate:'app'|escape}}</th>
+              <td>
+                {{$user->linkMode->name|translate:'app'|escape}}
+              </td>
+            </tr>
+            <tr>
               <th>{{'Region (used for Splatfest)'|translate:'app'|escape}}</th>
               <td>
                 {{$user->region->name|translate:'app-region'|escape}}

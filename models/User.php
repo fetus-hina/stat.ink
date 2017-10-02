@@ -34,6 +34,7 @@ use yii\web\IdentityInterface;
  * @property string $blackout_list
  * @property integer $default_language_id
  * @property integer $region_id
+ * @property integer $link_mode_id
  *
  * @property Battle[] $battles
  * @property Battle2[] $battle2s
@@ -42,6 +43,7 @@ use yii\web\IdentityInterface;
  * @property LoginWithTwitter $loginWithTwitter
  * @property OstatusRsa $ostatusRsa
  * @property Region $region
+ * @property LinkMode $linkMode
  * @property Slack[] $slacks
  * @property UserIcon $userIcon
  * @property UserStat $userStat
@@ -94,9 +96,10 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return [
             [['name', 'screen_name', 'password', 'api_key', 'join_at'], 'required'],
-            [['default_language_id', 'region_id'], 'required'],
+            [['default_language_id', 'region_id', 'link_mode_id'], 'required'],
             [['join_at'], 'safe'],
             [['ikanakama', 'ikanakama2', 'env_id', 'default_language_id'], 'integer'],
+            [['link_mode_id'], 'integer'],
             [['name', 'screen_name', 'twitter'], 'string', 'max' => 15],
             [['password'], 'string', 'max' => 255],
             [['api_key'], 'string', 'max' => 43],
@@ -133,6 +136,10 @@ class User extends ActiveRecord implements IdentityInterface
                 'targetClass' => Region::class,
                 'targetAttribute' => ['region_id' => 'id'],
             ],
+            [['link_mode_id'], 'exist', 'skipOnError' => true,
+                'targetClass' => LinkMode::class,
+                'targetAttribute' => ['link_mode_id' => 'id'],
+            ],
         ];
     }
 
@@ -158,6 +165,7 @@ class User extends ActiveRecord implements IdentityInterface
             'blackout_list' => Yii::t('app', 'Black out other players on details view'),
             'default_language_id' => Yii::t('app', 'Language (used for OStatus)'),
             'region_id'     => Yii::t('app', 'Region (used for Splatfest)'),
+            'link_mode_id'  => Yii::t('app', 'Link from other user\'s results'),
         ];
     }
 
@@ -228,6 +236,14 @@ class User extends ActiveRecord implements IdentityInterface
     public function getDefaultLanguage()
     {
         return $this->hasOne(Language::class, ['id' => 'default_language_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getLinkMode()
+    {
+        return $this->hasOne(LinkMode::class, ['id' => 'link_mode_id']);
     }
 
     /**
