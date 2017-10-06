@@ -77,10 +77,6 @@
           Yii::t('app', 'This information will be public. Integration for "log in with twitter" can be done from the profile page.')
         )}}
 
-      {{$_->field($form, 'ikanakama', [
-          'inputTemplate' => '<div class="input-group"><span class="input-group-addon">http://ikazok.net/users/</span>{input}</div>'
-        ])}}
-
       {{$_->field($form, 'ikanakama2', [
           'inputTemplate' => '<div class="input-group"><span class="input-group-addon">https://ikanakama.ink/users/</span>{input}</div>'
         ])}}

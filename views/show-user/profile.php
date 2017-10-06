@@ -118,17 +118,6 @@ $this->registerCss(implode('', array_map(
           ])) . "\n" ?>
         </li>
 <?php endif; ?>
-<?php if ($user->ikanakama): ?>
-<?php $asset = AppLinkAsset::register($this) ?>
-        <li>
-          <span class="fa fa-fw"><?= $asset->ikanakama ?></span>
-          <?= Html::a(
-            Yii::t('app', 'Ika-Nakama'),
-            sprintf('http://ikazok.net/users/%d', $user->ikanakama),
-            ['rel' => 'nofollow', 'target' => '_blank']
-          ) . "\n" ?>
-        </li>
-<?php endif; ?>
 <?php if ($user->ikanakama2): ?>
 <?php $asset = AppLinkAsset::register($this) ?>
         <li>

@@ -14,7 +14,6 @@ RESOURCE_TARGETS_MAIN := \
 	resources/.compiled/app-link-logos/nnid.min.svg \
 	resources/.compiled/app-link-logos/nnid.min.svg.br \
 	resources/.compiled/app-link-logos/nnid.min.svg.gz \
-	resources/.compiled/app-link-logos/splatnet.png \
 	resources/.compiled/app-link-logos/switch.min.svg \
 	resources/.compiled/app-link-logos/switch.min.svg.br \
 	resources/.compiled/app-link-logos/switch.min.svg.gz \
@@ -387,15 +386,7 @@ resources/.compiled/app-link-logos/ikanakama.png: resources/app-link-logos/ikana
 	touch -r $< $@
 
 resources/app-link-logos/ikanakama.ico:
-	curl -o $@ $(shell php resources/app-link-logos/favicon.php 'http://ikazok.net/')
-
-resources/.compiled/app-link-logos/splatnet.png: resources/app-link-logos/splatnet.ico
-	mkdir -p resources/.compiled/app-link-logos
-	convert $<[1] -trim +repage -unsharp 1.5x1+0.7+0.02 -scale x28 $@
-	touch -r $< $@
-
-resources/app-link-logos/splatnet.ico:
-	curl -o $@ $(shell php resources/app-link-logos/favicon.php 'https://splatoon.nintendo.net/')
+	curl -o $@ $(shell php resources/app-link-logos/favicon.php 'https://ikanakama.ink/')
 
 resources/.compiled/app-link-logos/ikarec-en.png: resources/app-link-logos/ikarec-en.png
 	mkdir -p resources/.compiled/app-link-logos

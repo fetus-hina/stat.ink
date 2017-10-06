@@ -414,9 +414,7 @@ class User extends ActiveRecord implements IdentityInterface
                     ])
                     : null,
                 'twitter'       => (string)$this->twitter != '' ? $this->twitter : null,
-                'ikanakama'     => (string)$this->ikanakama
-                    ? sprintf('http://ikazok.net/users/%d', $this->ikanakama)
-                    : null,
+                'ikanakama'     => null,
                 'ikanakama2'    => (string)$this->ikanakama2
                     ? sprintf('https://ikanakama.ink/users/%d', $this->ikanakama2)
                     : null,

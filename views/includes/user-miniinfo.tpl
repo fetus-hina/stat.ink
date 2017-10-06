@@ -439,16 +439,6 @@
             </span>
           </div>
         {{/if}}
-        {{if $user->ikanakama != ''}}
-          <div>
-            <span class="fa fa-fw">
-              {{$_icon->ikanakama}}
-            </span>&#32;
-            <a href="http://ikazok.net/users/{{$user->ikanakama|escape:url}}" rel="nofollow" target="_blank">
-              {{'Ika-Nakama'|translate:'app'|escape}}
-            </a>
-          </div>
-        {{/if}}
         {{if $user->ikanakama2 != ''}}
           <div>
             <span class="fa fa-fw">

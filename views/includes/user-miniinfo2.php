@@ -458,18 +458,6 @@ $fmt = Yii::$app->formatter;
         ) . "\n" ?>
       </div>
 <?php endif; ?>
-<?php if ($user->ikanakama != ''): ?>
-      <div>
-        <span class="fa fa-fw"><?=
-          $_icon->ikanakama
-        ?></span>
-        <?= Html::a(
-          Html::encode(Yii::t('app', 'Ika-Nakama')),
-          sprintf('http://ikazok.net/users/%d', $user->ikanakama),
-          ['rel' => 'nofollow', 'target' => '_blank']
-        ) . "\n" ?>
-      </div>
-<?php endif; ?>
 <?php if ($user->ikanakama2 != ''): ?>
       <div>
         <span class="fa fa-fw"><?=
