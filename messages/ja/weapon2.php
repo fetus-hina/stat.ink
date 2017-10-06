@@ -60,6 +60,7 @@ return [
     'Octobrush' => 'ホクサイ',
     'Splat Roller' => 'スプラローラー',
     // chargers -----
+    'Bamboozler 14 Mk I' => '14式竹筒銃・甲',
     'Classic Squiffer' => 'スクイックリンα',
     'E-liter 4K Scope' => '4Kスコープ',
     'E-liter 4K' => 'リッター4K',

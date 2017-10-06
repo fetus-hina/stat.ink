@@ -12,6 +12,7 @@ return [
     'Aerospray RG' => 'Aerografo élite',
     'All of {0}' => '',
     'Any Weapon' => '',
+    'Bamboozler 14 Mk I' => 'Bimbamboom 14-I',
     'Blaster' => 'Blaster',
     'Blasters' => '',
     'Brellas' => '',

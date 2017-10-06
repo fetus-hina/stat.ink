@@ -12,6 +12,7 @@ return [
     'Aerospray RG' => 'Pouche-pouche premium',
     'All of {0}' => '',
     'Any Weapon' => '',
+    'Bamboozler 14 Mk I' => '',
     'Blaster' => 'Éclablasteur',
     'Blasters' => '',
     'Brellas' => '',

@@ -12,6 +12,7 @@ return [
     'Aerospray RG' => 'Aerógrafo plus',
     'All of {0}' => 'Todos los {0}',
     'Any Weapon' => 'Cualquier principal',
+    'Bamboozler 14 Mk I' => 'Bambufusil 14-I',
     'Blaster' => 'Devastador',
     'Blasters' => 'Devastadors',
     'Brellas' => '',
