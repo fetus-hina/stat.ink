@@ -234,6 +234,7 @@ if ($blogEntries):
     )) . "\n" ?>
   </p>
 <?php endif; ?>
+<?php /* ?>
   <h2>
     <?= Html::encode(Yii::t('app', 'Schedule')) . "\n" ?>
   </h2>
@@ -253,6 +254,7 @@ if ($blogEntries):
       <?= $this->render('_index_stages1.tpl') . "\n" ?>
     </div>
   </div>
+<?php */ ?>
 <?php if (!Yii::$app->user->isGuest): ?>
 <?php $ident = Yii::$app->user->identity ?>
 <?php $battles = CombinedBattles::getUserRecentBattles($ident, 12) ?>
