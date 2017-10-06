@@ -132,6 +132,7 @@ return [
     'Enabled' => '有効',
     'Encounter Ratio' => '敵遭遇率',
     'Enemy Weapon' => '相手のブキ',
+    'Europe' => 'ヨーロッパ',
     'Europe/Oceania' => '欧州・オセアニア',
     'European Time (Central)' => 'ヨーロッパ時間（中央）',
     'European Time (East)' => 'ヨーロッパ時間（東部）',
@@ -282,7 +283,7 @@ return [
     'Note (public)' => 'メモ（公開）',
     'Note' => 'メモ',
     'Note: You can change the time zone via the navbar.' => 'Note: 日時のタイムゾーンを変更することができます。上部ナビゲーションの「タイムゾーン」をご使用ください。',
-    'Official Twitter (Japan)' => '公式ツイッター（日本）',
+    'Official Twitter' => '公式ツイッター',
     'Open Source Licenses' => 'オープンソースライセンス',
     'Others' => 'その他',
     'PNG/JPEG file up to {0}' => '{0} までのPNGまたはJPEGファイル',
@@ -513,4 +514,5 @@ return [
     '{sec} seconds ({pct} %)' => '{sec} 秒 ({pct} %)',
     '{sec} seconds' => '{sec} 秒',
     '{sec} seconds, {cnt} times' => '{sec} 秒, 最大 {cnt} 回',
+    '{title} Official Website' => '{title} 公式サイト',
 ];

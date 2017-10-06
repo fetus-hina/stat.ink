@@ -164,36 +164,76 @@
             </a>
             {{$_linkIcon = \app\assets\AppLinkAsset::register($this)}}
             <ul class="dropdown-menu">
-              <li>
-                <a href="http://www.nintendo.co.jp/wiiu/agmj/">
-                  <span class="flag-icon flag-icon-jp"></span>&#32;
-                  {{'Splatoon Official Website (Japan)'|translate:'app'|escape}}
+              <li class="dropdown-submenu">
+                {{$_params = ['title' => 'Splatoon 2']}}
+                <a href="javascript:;" data-toggle="dropdown">
+                  {{'{title} Official Website'|translate:'app':$_params|escape}}
                 </a>
+                <ul class="dropdown-menu">
+                  <li>
+                    <a href="https://www.nintendo.co.jp/switch/aab6a/">
+                      <span class="flag-icon flag-icon-jp"></span>&#32;
+                      {{'Japan'|translate:'app'|escape}}
+                    </a>
+                  </li>
+                  <li>
+                    <a href="http://splatoon.nintendo.com/">
+                      <span class="flag-icon flag-icon-us"></span>&#32;
+                      {{'North America'|translate:'app'|escape}}
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://www.nintendo.co.uk/Games/Nintendo-Switch/Splatoon-2-1173295.html">
+                      <span class="flag-icon flag-icon-eu"></span>&#32;
+                      {{'Europe'|translate:'app'|escape}}
+                    </a>
+                  </li>
+                </ul>
               </li>
-              <li>
-                <a href="http://splatoon.nintendo.com/">
-                  <span class="flag-icon flag-icon-us"></span>&#32;
-                  <span class="flag-icon flag-icon-ca"></span>&#32;
-                  {{'Splatoon Official Website (US/Canada)'|translate:'app'|escape}}
+              <li class="dropdown-submenu">
+                {{$_params = ['title' => 'Splatoon']}}
+                <a href="javascript:;" data-toggle="dropdown">
+                  {{'{title} Official Website'|translate:'app':$_params|escape}}
                 </a>
+                <ul class="dropdown-menu">
+                  <li>
+                    <a href="http://www.nintendo.co.jp/wiiu/agmj/">
+                      <span class="flag-icon flag-icon-jp"></span>&#32;
+                      {{'Japan'|translate:'app'|escape}}
+                    </a>
+                  </li>
+                  <li>
+                    <a href="http://splatoon.nintendo.com/splatoon/">
+                      <span class="flag-icon flag-icon-us"></span>&#32;
+                      {{'North America'|translate:'app'|escape}}
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://www.nintendo.co.uk/Games/Wii-U/Splatoon-892510.html">
+                      <span class="flag-icon flag-icon-eu"></span>&#32;
+                      {{'Europe'|translate:'app'|escape}}
+                    </a>
+                  </li>
+                </ul>
               </li>
-              <li>
-                <a href="https://www.nintendo.co.uk/Games/Wii-U/Splatoon-892510.html">
-                  <span class="flag-icon flag-icon-gb"></span>&#32;
-                  {{'Splatoon Official Website (UK)'|translate:'app'|escape}}
-                </a>
-              </li>
-              <li class="divider"></li>
-              <li>
-                <a href="https://twitter.com/splatoonjp">
-                  <span class="fa fa-twitter left"></span>
+              <li class="dropdown-submenu">
+                <a href="javascript:;" data-toggle="dropdown">
                   {{registerCss}}
                     .fa-twitter{
                       color:#1da1f2;
                     }
                   {{/registerCss}}
-                  {{'Official Twitter (Japan)'|translate:'app'|escape}}
+                  <span class="fa fa-fw fa-twitter"></span>
+                  {{'Official Twitter'|translate:'app'|escape}}
                 </a>
+                <ul class="dropdown-menu">
+                  <li>
+                    <a href="https://twitter.com/splatoonjp">
+                      <span class="flag-icon flag-icon-jp"></span>&#32;
+                      {{'Japan'|translate:'app'|escape}}
+                    </a>
+                  </li>
+                </ul>
               </li>
               <li class="divider"></li>
               <li>
