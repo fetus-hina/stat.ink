@@ -287,6 +287,7 @@ return [
     'Next Stages' => 'Siguiente Escenario',
     '{nFormatted} {n, plural, =1{time} other{times}}' => '{nFormatted} veces',
     'Nintendo Network ID' => 'Nintendo Network ID',
+    'Nintendo Switch Online app' => '',
     'No' => 'No',
     'No black out' => '',
     'No Data' => 'No hay Datos',

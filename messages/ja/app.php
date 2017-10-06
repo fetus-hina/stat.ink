@@ -264,6 +264,7 @@ return [
     'Next Month' => '次の月',
     'Next Stages' => '次のステージ',
     'Nintendo Network ID' => 'ニンテンドーネットワークID',
+    'Nintendo Switch Online app' => 'Nintendo Switch Online アプリ',
     'No Data' => 'データがありません',
     'No black out' => '黒塗りしない',
     'No one in control' => '中立',

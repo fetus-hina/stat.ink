@@ -103,11 +103,7 @@ $this->registerCss(implode('', array_map(
 <?php $asset = AppLinkAsset::register($this) ?>
         <li>
           <span class="fa fa-fw"><?= $asset->nnid ?></span>
-          <?= Html::a(
-            Html::encode($user->nnid),
-            sprintf('https://miiverse.nintendo.net/users/%s', rawurlencode($user->nnid)),
-            ['rel' => 'nofollow', 'target' => '_blank']
-          ) . "\n" ?>
+          <?= Html::encode($user->nnid) . "\n" ?>
         </li>
 <?php endif; ?>
 <?php if ($user->sw_friend_code): ?>

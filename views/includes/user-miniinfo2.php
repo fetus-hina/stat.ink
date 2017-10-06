@@ -438,11 +438,7 @@ $fmt = Yii::$app->formatter;
         <span class="fa fa-fw"><?=
           $_icon->nnid;
         ?></span>
-        <?= Html::a(
-          Html::encode($user->nnid),
-          sprintf('https://miiverse.nintendo.net/users/%s', rawurlencode($user->nnid)),
-          ['rel' => 'nofollow', 'target' => '_blank']
-        ) . "\n" ?>
+        <?= Html::encode($user->nnid) . "\n" ?>
       </div>
 <?php endif; ?>
 <?php if ($user->sw_friend_code != ''): ?>

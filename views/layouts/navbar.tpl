@@ -197,9 +197,18 @@
               </li>
               <li class="divider"></li>
               <li>
-                <a href="https://splatoon.nintendo.net/">
-                  {{$_linkIcon->splatNet}}&#32;
-                  {{'SplatNet'|translate:'app'|escape}}
+                <a>{{'Nintendo Switch Online app'|translate:'app'|escape}}</a>
+              </li>
+              <li>
+                <a href="https://play.google.com/store/apps/details?id=com.nintendo.znca">
+                  <span class="fa fa-fw">├</span>
+                  <span class="fa fa-fw fa-android"></span>Android
+                </a>
+              </li>
+              <li>
+                <a href="https://itunes.apple.com/app/nintendo-switch-online/id1234806557">
+                  <span class="fa fa-fw">└</span>
+                  <span class="fa fa-fw fa-apple"></span>iOS (iPhone/iPad)
                 </a>
               </li>
               <li class="divider"></li>

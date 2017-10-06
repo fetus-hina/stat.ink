@@ -285,6 +285,7 @@ return [
     'Next Stages' => '',
     '{nFormatted} {n, plural, =1{time} other{times}}' => '',
     'Nintendo Network ID' => '',
+    'Nintendo Switch Online app' => '',
     'No' => '',
     'No black out' => '',
     'No Data' => '',

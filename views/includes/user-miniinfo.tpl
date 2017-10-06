@@ -423,9 +423,7 @@
             <span class="fa fa-fw">
               {{$_icon->nnid}}
             </span>&#32;
-            <a href="https://miiverse.nintendo.net/users/{{$user->nnid|escape:url}}" rel="nofollow" target="_blank">
-              {{$user->nnid|escape}}
-            </a>
+            {{$user->nnid|escape}}
           </div>
         {{/if}}
         {{if $user->sw_friend_code != ''}}

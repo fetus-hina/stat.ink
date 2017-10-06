@@ -211,9 +211,7 @@
               <th>{{'Nintendo Network ID'|translate:'app'|escape}}</th>
               <td>
                 {{if $user->nnid != ''}}
-                  <a href="https://miiverse.nintendo.net/users/{{$user->nnid|escape:url}}">
-                    {{$user->nnid|escape}}
-                  </a>
+                  {{$user->nnid|escape}}
                 {{else}}
                   -
                 {{/if}}
