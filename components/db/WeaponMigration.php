@@ -18,7 +18,8 @@ trait WeaponMigration
         string $sub,
         string $special,
         ?string $main = null,
-        ?string $canonical = null
+        ?string $canonical = null,
+        ?int $splatnet = null
     ) : void {
         $this->insert('weapon2', [
             'key'           => $key,
@@ -32,6 +33,7 @@ trait WeaponMigration
             'canonical_id'  => ($canonical !== null)
                 ? $this->findId('weapon2', $canonical)
                 : new Expression("currval('weapon2_id_seq'::regclass)"),
+            'splatnet'      => $splatnet,
         ]);
 
         $this->insert('death_reason2', [

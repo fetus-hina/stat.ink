@@ -22,6 +22,8 @@ return [
     'Clash Blaster' => 'Hiperlanzamotas',
     'Classic Squiffer' => 'Delineador X',
     'Custom Blaster' => 'Lanzamotas adaptado',
+    'Custom E-liter 4K' => 'Entintador 4K adaptado',
+    'Custom E-liter 4K Scope' => 'Telentintador 4K adaptado',
     'Custom Splattershot Jr.' => 'Rociador básico adaptado',
     'Dapple Dualies' => '',
     'Dualies' => '',

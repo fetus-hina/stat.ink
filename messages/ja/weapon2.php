@@ -62,6 +62,8 @@ return [
     // chargers -----
     'Bamboozler 14 Mk I' => '14式竹筒銃・甲',
     'Classic Squiffer' => 'スクイックリンα',
+    'Custom E-liter 4K Scope' => '4Kスコープカスタム',
+    'Custom E-liter 4K' => 'リッター4Kカスタム',
     'E-liter 4K Scope' => '4Kスコープ',
     'E-liter 4K' => 'リッター4K',
     'Firefin Splat Charger' => 'スプラチャージャーコラボ',

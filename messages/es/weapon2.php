@@ -22,6 +22,8 @@ return [
     'Clash Blaster' => 'Turbodevastador',
     'Classic Squiffer' => 'Kalarrapid α',
     'Custom Blaster' => 'Devastador SP',
+    'Custom E-liter 4K' => 'Entintador 4K SP',
+    'Custom E-liter 4K Scope' => 'Telentintador 4K SP',
     'Custom Splattershot Jr.' => 'Lanzatintas novato B',
     'Dapple Dualies' => 'Atomizador dual',
     'Dualies' => '',

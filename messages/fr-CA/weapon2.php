@@ -22,6 +22,8 @@ return [
     'Clash Blaster' => 'Rafalblasteur',
     'Classic Squiffer' => 'Lignizateur alpha',
     'Custom Blaster' => 'Éclablasteur modifié',
+    'Custom E-liter 4K' => 'X-traceur + modifié',
+    'Custom E-liter 4K Scope' => 'X-traceur + zoom modifié',
     'Custom Splattershot Jr.' => 'Liquéficateur ultra modifié',
     'Dapple Dualies' => '',
     'Dualies' => '',

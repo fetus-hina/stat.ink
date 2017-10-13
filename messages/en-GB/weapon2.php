@@ -22,6 +22,8 @@ return [
     'Clash Blaster' => '',
     'Classic Squiffer' => '',
     'Custom Blaster' => '',
+    'Custom E-liter 4K' => '',
+    'Custom E-liter 4K Scope' => '',
     'Custom Splattershot Jr.' => '',
     'Dapple Dualies' => '',
     'Dualies' => '',

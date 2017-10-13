@@ -22,6 +22,8 @@ return [
     'Clash Blaster' => 'Blaster da mischia',
     'Classic Squiffer' => 'Kalamarapid α',
     'Custom Blaster' => 'Blaster CM',
+    'Custom E-liter 4K' => 'Tinter a carica 4K CM',
+    'Custom E-liter 4K Scope' => 'Tinter con mirino 4K CM',
     'Custom Splattershot Jr.' => 'Sparacolore logo',
     'Dapple Dualies' => 'Ripolpella duplo',
     'Dualies' => 'Armi "duplo"',

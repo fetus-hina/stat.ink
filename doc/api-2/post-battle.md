@@ -209,7 +209,9 @@ There is a listing page [here](https://stat.ink/api-info/weapon2).
 |`bamboo14mk1`|`2050`|14式竹筒銃・甲<br>Bamboozler 14 Mk I||
 |`herocharger_replica`|`2015`|ヒーローチャージャー レプリカ<br>Hero Charger Replica||
 |`liter4k`|`2030`|リッター4K<br>E-liter 4K||
+|`liter4k_custom`|`2031`|リッター4Kカスタム<br>Custom E-liter 4K||
 |`liter4k_scope`|`2040`|4Kスコープ<br>E-liter 4K Scope||
+|`liter4k_scope_custom`|`2041`|4Kスコープカスタム<br>Custom E-liter 4K Scope||
 |`soytuber`|`2060`|ソイチューバー<br>Goo Tuber||
 |`splatcharger`|`2010`|スプラチャージャー<br>Splat Charger||
 |`splatcharger_collabo`|`2011`|スプラチャージャーコラボ<br>Firefin Splat Charger||
