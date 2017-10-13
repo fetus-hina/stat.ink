@@ -56,11 +56,12 @@ https://stat.ink/ は現在次の構成で動作しています。（Docker で�
       - `postgresql10`
       - `postgresql10-server`
 
-※CentOS 7 の標準 PHP は 5.4.16 です。このバージョンでは動作しません。   
-　PHP 7.1 で追加された機能を使用しています（`TheClass::class`、匿名クラス、戻り型のnullableつきのヒントなど）   
-※CentOS 7 の標準 PostgreSQL のバージョンは 9.2.14 です。このバージョンでは動作しません。   
-　PgSQL 9.5 で追加された機能を使用しています（jsonb 型、UPSERT など）   
-　実際のサーバでは PgSQL 10 を使用していますが、現時点では 9.5 で充分動作するはずです。   
+※CentOS 7 の標準 PHP は 5.4.16 です。このバージョンでは動作しません。<br>
+　PHP 7.1 で追加された機能を使用しています（`TheClass::class`、匿名クラス、戻り型のnullableつきのヒントなど）
+
+※CentOS 7 の標準 PostgreSQL のバージョンは 9.2.14 です。このバージョンでは動作しません。<br>
+　PgSQL 9.5 で追加された機能を使用しています（jsonb 型、UPSERT など）<br>
+　実際のサーバでは PgSQL 10 を使用していますが、現時点では 9.5 で充分動作するはずです。<br>
 　ただし、将来必要が生じた場合はためらわずに PgSQL 10 (以降) に依存させます。
 
 使い方
@@ -120,8 +121,8 @@ API
 
 stat.ink にデータを投稿する、または取得する API は次のページを参照してください。
 
-[API for Splatoon 1](https://github.com/fetus-hina/stat.ink/blob/master/API.md)
-[API for Splatoon 2](https://github.com/fetus-hina/stat.ink/blob/master/doc/api-2/)
+- [API for Splatoon 2](https://github.com/fetus-hina/stat.ink/blob/master/doc/api-2/)
+- [API for Splatoon 1](https://github.com/fetus-hina/stat.ink/blob/master/API.md)
 
 
 ライセンス
