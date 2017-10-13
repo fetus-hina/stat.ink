@@ -29,37 +29,39 @@ https://stat.ink/ のソースコードです。
 
 https://stat.ink/ は現在次の構成で動作しています。（Docker で用意しているものとほぼ同じです）
 
-* CentOS 7.3.1611 (x86_64)
-* EPEL
-    - `gearmand`
-* [JP3CKI Repository](https://rpm.fetus.jp/)
-    - [H2O](https://h2o.examp1e.net/) mainline
-    - [Brotli](https://github.com/google/brotli)
-* [Software Collections](https://www.softwarecollections.org/)
-    - [rh-postgresql95](https://www.softwarecollections.org/en/scls/rhscl/rh-postgresql95/)
-        - PostgreSQL 9.5.*
-            - `rh-postgresql95-postgresql`
-            - `rh-postgresql95-postgresql-server`
-* [Remi's RPM repository](http://rpms.famillecollet.com/)
-    - `remi-safe` repository, it uses SCL mechanism
-        - PHP 7.1.*
-            - `php71-php-cli`
-            - `php71-php-fpm`
-            - `php71-php-gd`
-            - `php71-php-intl`
-            - `php71-php-mbstring`
-            - `php71-php-mcrypt`
-            - `php71-php-pdo`
-            - `php71-php-pecl-gearman`
-            - `php71-php-pecl-msgpack`
-            - `php71-php-pgsql`
+- CentOS 7.4.1708 (x86-64)
+- EPEL
+  - `gearmand`
+- [JP3CKI Repository](https://rpm.fetus.jp/)
+  - [H2O](https://h2o.examp1e.net/) mainline
+  - [Brotli](https://github.com/google/brotli)
+- [Remi's RPM repository](http://rpms.famillecollet.com/)
+  - `remi-safe` repository, it uses SCL mechanism
+      - PHP 7.1.*
+          - `php71-php-cli`
+          - `php71-php-fpm`
+          - `php71-php-gd`
+          - `php71-php-intl`
+          - `php71-php-mbstring`
+          - `php71-php-mcrypt`
+          - `php71-php-pdo`
+          - `php71-php-pecl-gearman`
+          - `php71-php-pecl-msgpack`
+          - `php71-php-pgsql`
 * [Node.js Repository](https://nodejs.org/en/download/package-manager/#enterprise-linux-and-fedora)
     - [Node.js](https://nodejs.org/) 7.x
         - `nodejs`
+* [PostgreSQL Official Repository](https://www.postgresql.org/download/linux/redhat/)
+    - PostgreSQL 10.x
+      - `postgresql10`
+      - `postgresql10-server`
 
-CentOS 7 の標準 PHP は 5.4.16 です。このバージョンでは動作しません。（PHP 7.1 で追加された機能を使用しています（`TheClass::class`、匿名クラス、戻り型のnullableつきのヒントなど））
-
-CentOS 7 の標準 PostgreSQL のバージョンは 9.2.14 です。このバージョンでは動作しません。（PgSQL 9.5 で追加された機能を使用しています（jsonb 型、UPSERT など））
+※CentOS 7 の標準 PHP は 5.4.16 です。このバージョンでは動作しません。   
+　PHP 7.1 で追加された機能を使用しています（`TheClass::class`、匿名クラス、戻り型のnullableつきのヒントなど）   
+※CentOS 7 の標準 PostgreSQL のバージョンは 9.2.14 です。このバージョンでは動作しません。   
+　PgSQL 9.5 で追加された機能を使用しています（jsonb 型、UPSERT など）   
+　実際のサーバでは PgSQL 10 を使用していますが、現時点では 9.5 で充分動作するはずです。   
+　ただし、将来必要が生じた場合はためらわずに PgSQL 10 (以降) に依存させます。
 
 使い方
 ------
@@ -117,7 +119,9 @@ API
 ---
 
 stat.ink にデータを投稿する、または取得する API は次のページを参照してください。
-[API.md](https://github.com/fetus-hina/stat.ink/blob/master/API.md)
+
+[API for Splatoon 1](https://github.com/fetus-hina/stat.ink/blob/master/API.md)
+[API for Splatoon 2](https://github.com/fetus-hina/stat.ink/blob/master/doc/api-2/)
 
 
 ライセンス
