@@ -14,6 +14,7 @@ return [
     'European Time (Central)' => '',
     'European Time (East)' => '',
     'European Time (West)' => '',
+    'Guam Time' => '',
     'Hawaii Time' => '',
     'Japan Time' => '',
     'North America (Adak)' => '',

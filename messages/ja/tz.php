@@ -14,6 +14,7 @@ return [
     'European Time (Central)' => 'ヨーロッパ時間（中央）',
     'European Time (East)' => 'ヨーロッパ時間（東部）',
     'European Time (West)' => 'ヨーロッパ時間（西部）',
+    'Guam Time' => 'グアム時間',
     'Hawaii Time' => 'ハワイ時間',
     'Japan Time' => '日本時間',
     'North America (AT)' => '北米時間（大西洋）',
