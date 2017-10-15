@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2015-2016 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2017 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  */
@@ -8,6 +8,7 @@
 namespace app\models;
 
 use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "timezone".
@@ -17,16 +18,20 @@ use Yii;
  * @property string $name
  * @property integer $order
  * @property integer $region_id
+ * @property integer $group_id
  *
  * @property Region $region
+ * @property TimezoneGroup $group
  * @property TimezoneCountry[] $timezoneCountries
  * @property Country[] $countries
  */
-class Timezone extends \yii\db\ActiveRecord
+class Timezone extends ActiveRecord
 {
     public static function find()
     {
-        return parent::find()->orderBy('{{timezone}}.[[order]] ASC');
+        return parent::find()->orderBy([
+            '{{timezone}}.[[order]]' => SORT_ASC,
+        ]);
     }
 
     /**
@@ -44,11 +49,20 @@ class Timezone extends \yii\db\ActiveRecord
     {
         return [
             [['identifier', 'name', 'region_id'], 'required'],
-            [['order', 'region_id'], 'integer'],
+            [['order', 'region_id', 'group_id'], 'default', 'value' => null],
+            [['order', 'region_id', 'group_id'], 'integer'],
             [['identifier', 'name'], 'string', 'max' => 32],
             [['identifier'], 'unique'],
             [['name'], 'unique'],
-            [['"order"'], 'unique']
+            [['"order"'], 'unique'],
+            [['region_id'], 'exist', 'skipOnError' => true,
+                'targetClass' => Region::class,
+                'targetAttribute' => ['region_id' => 'id'],
+            ],
+            [['group_id'], 'exist', 'skipOnError' => true,
+                'targetClass' => TimezoneGroup::class,
+                'targetAttribute' => ['group_id' => 'id'],
+            ],
         ];
     }
 
@@ -63,6 +77,7 @@ class Timezone extends \yii\db\ActiveRecord
             'name' => 'Name',
             'order' => 'Order',
             'region_id' => 'Region ID',
+            'group_id' => 'Group ID',
         ];
     }
 
@@ -71,7 +86,15 @@ class Timezone extends \yii\db\ActiveRecord
      */
     public function getRegion()
     {
-        return $this->hasOne(Region::className(), ['id' => 'region_id']);
+        return $this->hasOne(Region::class, ['id' => 'region_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getGroup()
+    {
+        return $this->hasOne(TimezoneGroup::class, ['id' => 'group_id']);
     }
 
     /**
@@ -79,7 +102,7 @@ class Timezone extends \yii\db\ActiveRecord
      */
     public function getTimezoneCountries()
     {
-        return $this->hasMany(TimezoneCountry::className(), ['timezone_id' => 'id']);
+        return $this->hasMany(TimezoneCountry::class, ['timezone_id' => 'id']);
     }
 
     /**
@@ -87,8 +110,10 @@ class Timezone extends \yii\db\ActiveRecord
      */
     public function getCountries()
     {
-        return $this->hasMany(Country::className(), ['id' => 'country_id'])
+        return $this->hasMany(Country::class, ['id' => 'country_id'])
             ->viaTable('timezone_country', ['timezone_id' => 'id'])
-            ->orderBy('{{country}}.[[key]]');
+            ->orderBy([
+                '{{country}}.[[key]]' => SORT_ASC,
+            ]);
     }
 }

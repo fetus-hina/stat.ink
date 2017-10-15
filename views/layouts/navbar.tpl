@@ -137,25 +137,7 @@
             </ul>
           </li>
           <li class="dropdown">
-            <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-              <span class="fa fa-clock-o left"></span>
-              {{'Time Zone'|translate:'app'|escape}}&#32;<span class="caret"></span>
-            </a>
-            <ul class="dropdown-menu">
-              {{foreach Timezone::find()->with('countries')->all() as $tz}}
-                <li>
-                  <a href="javascript:;" data-tz="{{$tz->identifier|escape}}" class="timezone-change">
-                    <span class="fa {{if $app->timeZone === $tz->identifier}}fa-check {{/if}}fa-fw left"></span>
-                    {{if $tz->countries}}
-                      {{foreach $tz->countries as $cc}}
-                        <span class="flag-icon flag-icon-{{$cc->key|escape}}"></span>&#32;
-                      {{/foreach}}
-                    {{/if}}
-                    {{$tz->name|translate:'app-tz'|escape}}
-                  </a>
-                </li>
-              {{/foreach}}
-            </ul>
+            {{$this->render('/layouts/navbar/timezone')}}
           </li>
           <li class="dropdown">
             <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
