@@ -21,6 +21,13 @@ class MapImage2Controller extends Controller
 
     public function actionGenerate() : int
     {
+        $this->generateFromSplapi2();
+        $this->generateFromTwitter();
+        return 0;
+    }
+
+    private function generateFromSplapi2()
+    {
         $json = $this->downloadFromSplapi2();
         foreach ($json as $stage) {
             if (!$stage->key || !$stage->image) {
@@ -35,19 +42,44 @@ class MapImage2Controller extends Controller
                     $this->downloadImage($stage->image)
                 );
             }
-            $paths = [
-                'daytime' => Yii::getAlias($this->baseDir) . '/assets/daytime/' . $stage->key . '.jpg',
-                'daytime-blur' => Yii::getAlias($this->baseDir) . '/assets/daytime-blur/' . $stage->key . '.jpg',
-                'gray-blur' => Yii::getAlias($this->baseDir) . '/assets/gray-blur/' . $stage->key . '.jpg',
-            ];
-            foreach ($paths as $pattern => $path) {
-                if (!file_exists($path) || filesize($path) < 1024) {
-                    $this->stderr("  Create image " . $pattern . "...\n");
-                    $this->convert($pattern, $inputPngPath, $path);
-                }
+            $this->convertToImages($inputPngPath, $stage->key);
+        }
+    }
+
+    private function generateFromTwitter()
+    {
+        $list = [
+            'engawa' => 'https://pbs.twimg.com/media/DLXOzECUEAAyMkl.jpg:orig',
+            'mozuku' => 'https://pbs.twimg.com/media/DJo7HTzUEAESeuF.jpg:orig',
+            'mystery' => 'https://pbs.twimg.com/media/DGDTWhAUwAA4Bri.jpg:orig',
+        ];
+        foreach ($list as $stage => $url) {
+            $this->stderr("Processing " . $stage . " ...\n");
+            $inputJpgPath = Yii::getAlias($this->baseDir) . '/' . $stage . '.jpg';
+            if (!file_exists($inputJpgPath) || filesize($inputJpgPath) < 1024) {
+                $this->stderr("  Download base image...\n");
+                file_put_contents(
+                    $inputJpgPath,
+                    $this->downloadImage($url)
+                );
+            }
+            $this->convertToImages($inputJpgPath, $stage);
+        }
+    }
+
+    private function convertToImages(string $inPath, string $stage) : void
+    {
+        $paths = [
+            'daytime' => Yii::getAlias($this->baseDir) . '/assets/daytime/' . $stage . '.jpg',
+            'daytime-blur' => Yii::getAlias($this->baseDir) . '/assets/daytime-blur/' . $stage . '.jpg',
+            'gray-blur' => Yii::getAlias($this->baseDir) . '/assets/gray-blur/' . $stage . '.jpg',
+        ];
+        foreach ($paths as $pattern => $path) {
+            if (!file_exists($path) || filesize($path) < 1024) {
+                $this->stderr("  Create image " . $pattern . "...\n");
+                $this->convert($pattern, $inPath, $path);
             }
         }
-        return 0;
     }
 
     private function convert(string $pattern, string $inPath, string $outPath)
