@@ -590,7 +590,7 @@ class StatController extends Controller
                     'ELSE NULL',
                 ])),
             ]);
-            // }}}
+        // }}}
 
         $insert = 'INSERT INTO knockout2 (' . implode(', ', array_keys($select->select)) . ') ' .
             $select->createCommand()->rawSql . ' ' .
