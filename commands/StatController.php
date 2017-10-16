@@ -592,7 +592,7 @@ class StatController extends Controller
                     'ELSE NULL',
                 ])),
             ]);
-            // }}}
+        // }}}
 
         $insert = 'INSERT INTO knockout2 (' . implode(', ', array_keys($select->select)) . ') ' .
             $select->createCommand()->rawSql . ' ' .
@@ -603,7 +603,7 @@ class StatController extends Controller
                 },
                 ['battles', 'knockouts', 'avg_game_time', 'avg_knockout_time']
             ));
-echo $insert . "\n";
+        echo $insert . "\n";
         $db->createCommand($insert)->execute();
 
         $transaction->commit();
