@@ -23,7 +23,6 @@ class m171016_163157_knockout2 extends Migration
             'avg_knockout_time' => $this->double()->notNull(),
             'PRIMARY KEY ([[rule_id]], [[map_id]], [[lobby_id]], [[rank_id]])',
         ]);
-
     }
 
     public function down()
