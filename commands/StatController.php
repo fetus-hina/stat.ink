@@ -12,6 +12,7 @@ use app\components\helpers\Battle as BattleHelper;
 use app\models\Battle2;
 use app\models\BattlePlayer2;
 use app\models\BattlePlayer;
+use app\models\Knockout2;
 use app\models\Knockout;
 use app\models\Lobby;
 use app\models\Rule;
@@ -474,6 +475,13 @@ class StatController extends Controller
      */
     public function actionUpdateKnockout()
     {
+        $this->updateKnockout1();
+        $this->updateKnockout2();
+    }
+
+    private function updateKnockout1()
+    {
+        // {{{
         $db = Yii::$app->db;
         $transaction = $db->beginTransaction();
         Knockout::deleteAll();
@@ -516,6 +524,86 @@ class StatController extends Controller
                 )
             )
             ->execute();
+        $transaction->commit();
+        // }}}
+    }
+
+    private function updateKnockout2()
+    {
+        $db = Yii::$app->db;
+        $transaction = $db->beginTransaction();
+        $timestamp = function (string $column) : string {
+            return sprintf('EXTRACT(EPOCH FROM %s)', $column);
+        };
+
+        $select = Battle2::find() // {{{
+            ->innerJoinWith([
+                'lobby',
+                'mode',
+                'rule',
+                'map',
+                'battlePlayers' => function ($query) {
+                    $query->orderBy(null);
+                },
+                'battlePlayers.rank'
+            ])
+            ->where(['and',
+                ['not', ['battle2.is_win' => null]],
+                ['not', ['battle2.is_knockout' => null]],
+                ['not', ['battle2.start_at' => null]],
+                ['not', ['battle2.end_at' => null]],
+                ['battle2.is_automated' => true],
+                ['battle2.use_for_entire' => true],
+                ['<>', 'lobby2.key', 'private'],
+                ['<>', 'rule2.key', 'nawabari'],
+                ['mode2.key' => 'gachi'],
+            ])
+            ->groupBy([
+                'battle2.rule_id',
+                'battle2.map_id',
+                'battle_player2.rank_id',
+            ])
+            ->orderBy(null)
+            ->select([
+                'rule_id' => 'battle2.rule_id',
+                'map_id' => 'battle2.map_id',
+                'rank_id' => 'battle_player2.rank_id',
+                'battles' => 'COUNT(*)',
+                'knockouts' => sprintf('SUM(CASE %s END)', implode(' ', [
+                    'WHEN battle2.is_knockout THEN 1',
+                    'ELSE 0',
+                ])),
+                'avg_game_time' => sprintf(
+                    'AVG(%s)',
+                    sprintf(
+                        '(%s - %s)::double precision',
+                        $timestamp('battle2.end_at'),
+                        $timestamp('battle2.start_at')
+                    )
+                ),
+                'avg_knockout_time' => sprintf('COALESCE(AVG(CASE %s END), 300)', implode(' ', [
+                    sprintf(
+                        'WHEN battle2.is_knockout THEN (%s - %s)::double precision',
+                        $timestamp('battle2.end_at'),
+                        $timestamp('battle2.start_at')
+                    ),
+                    'ELSE NULL',
+                ])),
+            ]);
+            // }}}
+
+        $insert = 'INSERT INTO knockout2 (' . implode(', ', array_keys($select->select)) . ') ' .
+            $select->createCommand()->rawSql . ' ' .
+            'ON CONFLICT ( rule_id, map_id, rank_id ) DO UPDATE SET ' .
+            implode(', ', array_map(
+                function (string $column) : string {
+                    return sprintf('%1$s = EXCLUDED.%1$s', $column);
+                },
+                ['battles', 'knockouts', 'avg_game_time', 'avg_knockout_time']
+            ));
+
+        $db->createCommand($insert)->execute();
+
         $transaction->commit();
     }
 
@@ -718,9 +806,9 @@ class StatController extends Controller
      */
     public function actionUpdateWeaponUseCount()
     {
-        //$this->updateWeaponUseCount1();
+        $this->updateWeaponUseCount1();
         $this->updateWeaponUseCount2();
-        //$this->actionUpdateWeaponUseTrend();
+        $this->actionUpdateWeaponUseTrend();
     }
 
     private function updateWeaponUseCount1()
