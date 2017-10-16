@@ -17,12 +17,12 @@ class m171015_165205_timezone_group extends Migration
             'name'  => $this->string()->notNull(),
         ]);
         $this->batchInsert('timezone_group', [ 'order', 'name' ], [
-            [ 10, 'East Asia' ], 
-            [ 20, 'Australia/Oceania' ], 
-            [ 30, 'Russia' ], 
-            [ 40, 'Europe' ], 
-            [ 50, 'North America' ], 
-            [ 60, 'Latin America' ], 
+            [ 10, 'East Asia' ],
+            [ 20, 'Australia/Oceania' ],
+            [ 30, 'Russia' ],
+            [ 40, 'Europe' ],
+            [ 50, 'North America' ],
+            [ 60, 'Latin America' ],
             [ 999, 'Others' ],
         ]);
     }
