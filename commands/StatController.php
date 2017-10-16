@@ -603,7 +603,7 @@ class StatController extends Controller
                 },
                 ['battles', 'knockouts', 'avg_game_time', 'avg_knockout_time']
             ));
-echo $insert . "\n";
+
         $db->createCommand($insert)->execute();
 
         $transaction->commit();
