@@ -76,6 +76,7 @@ foreach ($data as $_map) {
     <li><?= Html::a('Splatoon', ['entire/knockout']) ?></li>
   </ul>
   <?php $_form = ActiveForm::begin([
+      'action' => ['entire/knockout2'],
       'method' => 'get',
       'options' => [
         'id' => 'filter-form',
