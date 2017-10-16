@@ -15,12 +15,14 @@ use yii\db\ActiveRecord;
  *
  * @property integer $rule_id
  * @property integer $map_id
+ * @property integer $lobby_id
  * @property integer $rank_id
  * @property integer $battles
  * @property integer $knockouts
  * @property double $avg_game_time
  * @property double $avg_knockout_time
  *
+ * @property Lobby2 $lobby
  * @property Map2 $map
  * @property Rank2 $rank
  * @property Rule2 $rule
@@ -41,13 +43,17 @@ class Knockout2 extends ActiveRecord
     public function rules()
     {
         return [
-            [['rule_id', 'map_id', 'rank_id', 'battles', 'knockouts'], 'required'],
+            [['rule_id', 'map_id', 'lobby_id', 'rank_id', 'battles', 'knockouts'], 'required'],
             [['avg_game_time', 'avg_knockout_time'], 'required'],
-            [['rule_id', 'map_id', 'rank_id', 'battles', 'knockouts'], 'default', 'value' => null],
-            [['rule_id', 'map_id', 'rank_id', 'battles', 'knockouts'], 'integer'],
+            [['rule_id', 'map_id', 'lobby_id', 'rank_id', 'battles', 'knockouts'], 'default', 'value' => null],
+            [['rule_id', 'map_id', 'lobby_id', 'rank_id', 'battles', 'knockouts'], 'integer'],
             [['avg_game_time', 'avg_knockout_time'], 'number'],
-            [['rule_id', 'map_id', 'rank_id'], 'unique',
-                'targetAttribute' => ['rule_id', 'map_id', 'rank_id'],
+            [['rule_id', 'map_id', 'lobby_id', 'rank_id'], 'unique',
+                'targetAttribute' => ['rule_id', 'map_id', 'lobby_id', 'rank_id'],
+            ],
+            [['lobby_id'], 'exist', 'skipOnError' => true,
+                'targetClass' => Lobby2::class,
+                'targetAttribute' => ['lobby_id' => 'id'],
             ],
             [['map_id'], 'exist', 'skipOnError' => true,
                 'targetClass' => Map2::class,
@@ -72,12 +78,21 @@ class Knockout2 extends ActiveRecord
         return [
             'rule_id' => 'Rule ID',
             'map_id' => 'Map ID',
+            'lobby_id' => 'Lobby ID',
             'rank_id' => 'Rank ID',
             'battles' => 'Battles',
             'knockouts' => 'Knockouts',
             'avg_game_time' => 'Avg Game Time',
             'avg_knockout_time' => 'Avg Knockout Time',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getLobby()
+    {
+        return $this->hasOne(Lobby2::class, ['id' => 'lobby_id']);
     }
 
     /**

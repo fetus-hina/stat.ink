@@ -561,12 +561,14 @@ class StatController extends Controller
             ->groupBy([
                 'battle2.rule_id',
                 'battle2.map_id',
+                'battle2.lobby_id',
                 'battle_player2.rank_id',
             ])
             ->orderBy(null)
             ->select([
                 'rule_id' => 'battle2.rule_id',
                 'map_id' => 'battle2.map_id',
+                'lobby_id' => 'battle2.lobby_id',
                 'rank_id' => 'battle_player2.rank_id',
                 'battles' => 'COUNT(*)',
                 'knockouts' => sprintf('SUM(CASE %s END)', implode(' ', [
@@ -594,14 +596,14 @@ class StatController extends Controller
 
         $insert = 'INSERT INTO knockout2 (' . implode(', ', array_keys($select->select)) . ') ' .
             $select->createCommand()->rawSql . ' ' .
-            'ON CONFLICT ( rule_id, map_id, rank_id ) DO UPDATE SET ' .
+            'ON CONFLICT ( rule_id, map_id, lobby_id, rank_id ) DO UPDATE SET ' .
             implode(', ', array_map(
                 function (string $column) : string {
                     return sprintf('%1$s = EXCLUDED.%1$s', $column);
                 },
                 ['battles', 'knockouts', 'avg_game_time', 'avg_knockout_time']
             ));
-
+echo $insert . "\n";
         $db->createCommand($insert)->execute();
 
         $transaction->commit();
