@@ -4,11 +4,13 @@ use app\assets\MapImage2Asset;
 use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
 use app\models\Map2;
+use app\models\RankGroup2;
 use app\models\Rule2;
 use jp3cki\yii2\flot\FlotPieAsset;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Json;
+use yii\widgets\ActiveForm;
 
 $title = Yii::t('app', 'Knockout Ratio');
 $this->title = Yii::$app->name . ' | ' . $title;
@@ -44,6 +46,7 @@ $maps = ArrayHelper::map(
 );
 asort($maps);
 
+// ルール別の合計データを作成する {{{
 $_total = [];
 foreach ($rules as $_key => $_name) {
   $_total[$_key] = [
@@ -57,6 +60,7 @@ foreach ($data as $_map) {
     $_total[$_key]['ko'] += (int)$_value['knockouts'];
   }
 }
+// }}}
 ?>
 <div class="container">
   <h1>
@@ -71,6 +75,50 @@ foreach ($data as $_map) {
     <li class="active"><a href="javascript:;">Splatoon 2</a></li>
     <li><?= Html::a('Splatoon', ['entire/knockout']) ?></li>
   </ul>
+  <?php $_form = ActiveForm::begin([
+      'method' => 'get',
+      'options' => [
+        'id' => 'filter-form',
+        'class' => 'form-inline',
+        'style' => [
+          'margin-top' => '20px',
+        ],
+      ],
+      'enableClientValidation' => false,
+    ]);
+    echo "\n"
+  ?>
+    <?= $_form->field($form, 'lobby')
+      ->label(false)
+      ->dropDownList([
+        ''          => Yii::t('app-rule2', 'Any Lobby'),
+        'standard'  => Yii::t('app-rule2', 'Ranked Battle (Solo)'),
+        'squad'     => Yii::t('app-rule2', 'League Battle'),
+        'squad_2'   => '┣ ' . Yii::t('app-rule2', 'League Battle (Twin)'),
+        'squad_4'   => '┗ ' . Yii::t('app-rule2', 'League Battle (Quad)'),
+      ], [
+        'onchange' => 'document.getElementById("filter-form").submit()',
+      ]) . "\n"
+    ?>
+    <?= $_form->field($form, 'rank')
+      ->label(false)
+      ->dropDownList(array_merge(
+        ['' => Yii::t('app-rank2', 'Any Rank')],
+        ArrayHelper::map(
+          RankGroup2::find()
+            ->orderBy(['rank' => SORT_DESC])
+            ->asArray()
+            ->all(),
+          'key',
+          function (array $group) : string {
+            return Yii::t('app-rank2', $group['name']);
+          }
+        )
+      ), [
+        'onchange' => 'document.getElementById("filter-form").submit()',
+      ]) . "\n"
+    ?>
+  <?php ActiveForm::end(); echo "\n"; ?>
   <div class="table-responsive table-responsive-force">
     <table class="table table-condensed graph-container">
       <thead>
