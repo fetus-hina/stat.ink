@@ -50,6 +50,7 @@ RESOURCE_TARGETS_MAIN := \
 	resources/.compiled/stat.ink/blackout-hint.js \
 	resources/.compiled/stat.ink/downloads.css \
 	resources/.compiled/stat.ink/favicon.png \
+	resources/.compiled/stat.ink/knockout.js \
 	resources/.compiled/stat.ink/main.css \
 	resources/.compiled/stat.ink/main.js \
 	resources/.compiled/stat.ink/name-anonymizer.css \
@@ -263,6 +264,9 @@ resources/.compiled/stat.ink/weapons.js: resources/stat.ink/weapons.js $(GULP)
 	$(GULP) js --in $< --out $@
 
 resources/.compiled/stat.ink/weapon2.js: resources/stat.ink/weapon2.js $(GULP)
+	$(GULP) js --in $< --out $@
+
+resources/.compiled/stat.ink/knockout.js: resources/stat.ink/knockout.js $(GULP)
 	$(GULP) js --in $< --out $@
 
 resources/.compiled/stat.ink/session-calendar.js: resources/stat.ink/session-calendar.js $(GULP)

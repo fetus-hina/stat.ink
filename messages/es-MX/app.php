@@ -60,6 +60,7 @@ return [
     'Avg Deaths' => 'Medio muerto',
     'Avg Inked' => 'Media pintada',
     'Avg Kills' => 'Medio Mata',
+    'Avg. K.O. in {time}' => '',
     'Avg KR' => 'Medio MR',
     'Avg Specials' => '',
     'Back' => 'Atrás',

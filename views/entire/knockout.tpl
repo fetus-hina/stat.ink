@@ -20,6 +20,10 @@
     <p>
       {{'Excluded: Private Battles'|translate:'app'|escape}}
     </p>
+    <ul class="nav nav-tabs">
+      <li><a href="/entire/knockout2">Splatoon 2</a></li>
+      <li class="active"><a href="javascript:;">Splatoon</a></li>
+    </ul>
     <div class="table-responsive table-responsive-force">
       <table class="table table-condensed graph-container">
         <thead>

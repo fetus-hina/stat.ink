@@ -57,6 +57,7 @@ return [
     'Avg Deaths' => '',
     'Avg Inked' => '',
     'Avg Kills' => '',
+    'Avg. K.O. in {time}' => '',
     'Avg KR' => '',
     'Avg Specials' => '',
     'Back' => '',

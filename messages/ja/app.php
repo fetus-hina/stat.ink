@@ -50,6 +50,7 @@ return [
     'Avg KR' => '平均キルレ',
     'Avg Kills' => '平均Kill',
     'Avg Specials' => '平均スペシャル',
+    'Avg. K.O. in {time}' => '平均KO時間: {time}',
     'Avg.' => '平均',
     'Back' => '戻る',
     'Bad Guys' => '相手のチーム',

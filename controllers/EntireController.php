@@ -36,6 +36,7 @@ class EntireController extends Controller
             'combined-agent' => [ 'class' => $prefix . '\CombinedAgentAction' ],
             'kd-win'    => [ 'class' => $prefix . '\KDWinAction' ],
             'knockout'  => [ 'class' => $prefix . '\KnockoutAction' ],
+            'knockout2' => [ 'class' => $prefix . '\Knockout2Action' ],
             'users'     => [ 'class' => $prefix . '\UsersAction' ],
             'weapon'    => [ 'class' => $prefix . '\WeaponAction' ],
             'weapon2'   => [ 'class' => $prefix . '\Weapon2Action' ],
