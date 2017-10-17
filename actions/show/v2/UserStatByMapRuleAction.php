@@ -12,6 +12,7 @@ use app\models\Battle2FilterForm;
 use app\models\Map2;
 use app\models\Rule2;
 use app\models\User;
+use yii\helpers\ArrayHelper;
 use yii\web\NotFoundHttpException;
 use yii\web\ViewAction as BaseAction;
 
@@ -62,7 +63,7 @@ class UserStatByMapRuleAction extends BaseAction
             ]);
         
         $maps = Map2::find()->all();
-        $rules = Rule2::find()->all();
+        $rules = Rule2::find()->orderBy(['id' => SORT_ASC])->all();
 
         $ret = ['total' => []];
         foreach ($rules as $rule) {
@@ -88,17 +89,30 @@ class UserStatByMapRuleAction extends BaseAction
             $ret['total'][$row->rule_key][$row->result] += (int)$row->count;
         }
 
-        $maps2 = [];
-        foreach ($maps as $map) {
-            $maps2[$map->key] = Yii::t('app-map2', $map->name);
-        }
-        asort($maps2);
+        $maps2 = ArrayHelper::map(
+            $maps,
+            'key',
+            function (Map2 $map) : string {
+                return Yii::t('app-map2', $map->name);
+            }
+        );
+        uksort($maps2, function (string $key1, string $key2) use ($maps2) : int {
+            if ($key1 === 'mystery') {
+                return 1;
+            }
+            if ($key2 === 'mystery') {
+                return -1;
+            }
+            return strnatcasecmp($maps2[$key1], $maps2[$key2]);
+        });
 
-        $rules2 = [];
-        foreach ($rules as $rule) {
-            $rules2[$rule->key] = Yii::t('app-rule2', $rule->name);
-        }
-        asort($rules2);
+        $rules2 = ArrayHelper::map(
+            $rules,
+            'key',
+            function (Rule2 $rule) : string {
+                return Yii::t('app-rule2', $rule->name);
+            }
+        );
 
         return [
             'data' => $ret,
