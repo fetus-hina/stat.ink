@@ -3,6 +3,7 @@
  * @copyright Copyright (C) 2015-2017 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
+ * @author Allen Pestaluky <allenwp@live.ca>
  */
 
 namespace app\actions\feed;
@@ -256,10 +257,8 @@ class User2Action extends BaseAction
 
                                 case 'squad_4':
                                     return Yii::t('app-rule2', 'Splatfest (Team)', [], $lang);
-
-                                default:
-                                    return Yii::t('app-rule2', 'Splatfest', [], $lang);
                             }
+                            return Yii::t('app-rule2', 'Splatfest', [], $lang);
 
                         case 'gachi':
                             switch ($battle->lobby->key ?? '') {
@@ -271,10 +270,8 @@ class User2Action extends BaseAction
 
                                 case 'squad_4':
                                     return Yii::t('app-rule2', 'League Battle (Quad)', [], $lang);
-
-                                default:
-                                    return Yii::t('app-rule2', 'Ranked Battle', [], $lang);
                             }
+                            return Yii::t('app-rule2', 'Ranked Battle', [], $lang);
 
                         case 'private':
                             return Yii::t('app-rule2', 'Private Battle', [], $lang);
