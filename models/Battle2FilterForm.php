@@ -156,7 +156,7 @@ class Battle2FilterForm extends Model
                     )
                 ),
             ],
-            [['term_from', 'term_to'], 'date', 'format' => 'yyyy-M-d H:m:s'],
+            [['term_from', 'term_to'], 'datetime', 'format' => 'php:Y-m-d H:i:s'],
             [['timezone'], 'validateTimezone', 'skipOnEmpty' => false],
             [['id_from', 'id_to'], 'integer', 'min' => 1],
         ];

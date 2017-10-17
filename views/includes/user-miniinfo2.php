@@ -414,13 +414,22 @@ $fmt = Yii::$app->formatter;
     </div>
 <?php endif; ?>
     <div class="miniinfo-databox">
-      <?= Html::a(
-        implode('', [
-          Html::tag('span', '', ['class' => 'fa fa-fw fa-pie-chart']),
-          Html::encode(Yii::t('app', 'Stats (by Mode and Stage)')),
-        ]),
-        ['show-v2/user-stat-by-map-rule', 'screen_name' => $user->screen_name]
-      ) . "<br>\n" ?>
+      <?= implode('<br>', [
+        Html::a(
+          implode('', [
+            Html::tag('span', '', ['class' => 'fa fa-fw fa-pie-chart']),
+            Html::encode(Yii::t('app', 'Stats (by Mode and Stage)')),
+          ]),
+          ['show-v2/user-stat-by-map-rule', 'screen_name' => $user->screen_name]
+        ),
+        Html::a(
+          implode('', [
+            Html::tag('span', '', ['class' => 'fa fa-fw fa-pie-chart']),
+            Html::encode(Yii::t('app', 'Daily Report')),
+          ]),
+          ['show-v2/user-stat-report', 'screen_name' => $user->screen_name]
+        ),
+      ]) . "\n" ?>
     </div>
     <div class="miniinfo-databox">
 <?php if ($user->twitter != ''): ?>

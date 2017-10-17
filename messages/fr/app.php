@@ -267,6 +267,7 @@ return [
     'Max Inked' => '',
     'Max Kill Combo' => '',
     'Max Kill Streak' => '',
+    'max={max} min={min} average={avg} median={median} mode={mode}' => '',
     'Mode' => 'Mode',
     'Mode (Short)' => 'Mode (court)',
     'more...' => '',

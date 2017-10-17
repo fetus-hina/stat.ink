@@ -1007,15 +1007,15 @@ class Battle2 extends ActiveRecord
 
     public function getMyTeamIcon(string $ext = 'svg') : ?string
     {
-        return $this->getTeamIcon($this->my_team_id, $ext);
+        return static::teamIcon($this->my_team_id, $ext);
     }
 
     public function getHisTeamIcon(string $ext = 'svg') : ?string
     {
-        return $this->getTeamIcon($this->his_team_id, $ext);
+        return static::teamIcon($this->his_team_id, $ext);
     }
 
-    private function getTeamIcon(?string $id, string $ext) : ?string
+    public static function teamIcon(?string $id, string $ext = 'svg') : ?string
     {
         $id = trim((string)$id);
         if ($id === '') {

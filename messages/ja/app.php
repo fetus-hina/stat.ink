@@ -487,6 +487,7 @@ return [
     'fest.ink' => 'イカフェスレート',
     'k' => '殺',
     'lost' => '負けました',
+    'max={max} min={min} average={avg} median={median} mode={mode}' => '最大={max} 最小={min} 平均={avg} 中央値={median} 最頻値={mode}',
     'more...' => '続きを見る...',
     'streak' => 'ストリーク',
     'won' => '勝ちました',
