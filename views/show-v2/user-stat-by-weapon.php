@@ -111,17 +111,12 @@ $dataColumn = function (string $label, string $colKey) : array {
               ];
             },
             'value' => function (array $row) use ($user, $filter) : string {
-              $params = array_merge($filter->toQueryParams(), [
-                0 => 'show-v2/user',
-                'screen_name' => $user->screen_name,
-                'weapon' => $row['weapon_key'],
-              ]);
               return Html::a(Html::encode(
                 Yii::$app->formatter->asInteger($row['battles'])
               ), [
                 'show-v2/user',
                 'screen_name' => $user->screen_name,
-                'filter' => array_merge($filter->toQueryParams(), ['weapon' => $row['weapon_key']]),
+                'filter' => array_merge($filter->toQueryParams(''), ['weapon' => $row['weapon_key']]),
               ]);
             }
             // }}}
