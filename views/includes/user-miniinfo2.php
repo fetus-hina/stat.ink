@@ -425,6 +425,13 @@ $fmt = Yii::$app->formatter;
         Html::a(
           implode('', [
             Html::tag('span', '', ['class' => 'fa fa-fw fa-pie-chart']),
+            Html::encode(Yii::t('app', 'Stats (by Weapon)')),
+          ]),
+          ['show-v2/user-stat-by-weapon', 'screen_name' => $user->screen_name]
+        ),
+        Html::a(
+          implode('', [
+            Html::tag('span', '', ['class' => 'fa fa-fw fa-pie-chart']),
             Html::encode(Yii::t('app', 'Daily Report')),
           ]),
           ['show-v2/user-stat-report', 'screen_name' => $user->screen_name]
