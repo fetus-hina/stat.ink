@@ -314,16 +314,17 @@ class Battle2 extends ActiveRecord
 
                     default:
                         if (isset($options['filter']) && preg_match('/^last-(\d+)-battles$/', $term, $match)) {
-                            $range = BattleHelper::getNBattlesRange2($options['filter'], (int)$match[1]);
-                            if (!$range || $range['min_id'] < 1 || $range['max_id'] < 1) {
-                                $this->andWhere('1 <> 1'); // Always false
-                            } else {
-                                $this->andWhere(['between',
-                                    'battle2.id',
-                                    (int)$range['min_id'],
-                                    (int)$range['max_id']
-                                ]);
-                            }
+                            $this->andWhere(['battle2.id' => (function ($q, $limit) : array {
+                                return $q->select(['id' => 'battle2.id'])
+                                    ->groupBy(null)
+                                    ->orderBy(sprintf('(CASE %s END) DESC, battle2.id DESC', implode(' ', [
+                                        'WHEN battle2.end_at IS NOT NULL THEN battle2.end_at',
+                                        'ELSE battle2.created_at',
+                                    ])))
+                                    ->limit($limit)
+                                    ->asArray()
+                                    ->column();
+                            })(clone $this, $match[1])]);
                         } elseif (preg_match('/^v\d+/', $term)) {
                             $version = SplatoonVersion2::findOne(['tag' => substr($term, 1)]);
                             if (!$version) {
