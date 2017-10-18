@@ -7,6 +7,10 @@
 
 namespace app\components\helpers;
 
+use DateInterval;
+use DateTime;
+use DateTimeImmutable;
+use DateTimeZone;
 use Yii;
 use yii\db\Query;
 
@@ -98,11 +102,13 @@ class BattleSummarizer
     public static function getSummary2(Query $oldQuery)
     {
         $db = Yii::$app->db;
-        $now = isset($_SERVER['REQUEST_TIME']) ? $_SERVER['REQUEST_TIME'] : time();
+        $now = (new DateTimeImmutable())
+            ->setTimeZone(new DateTimeZone(Yii::$app->timeZone))
+            ->setTimestamp($_SERVER['REQUEST_TIME'] ?? time());
         $cond24Hours = sprintf(
             '(({{battle2}}.[[end_at]] IS NOT NULL) AND ({{battle2}}.[[end_at]] BETWEEN %s AND %s))',
-            $db->quoteValue(gmdate('Y-m-d H:i:sO', $now - 86400 + 1)),
-            $db->quoteValue(gmdate('Y-m-d H:i:sO', $now))
+            $db->quoteValue($now->sub(new DateInterval('PT86399S'))->format(DateTime::ATOM)),
+            $db->quoteValue($now->format(DateTime::ATOM))
         );
         $condResultPresent = sprintf('(%s)', implode(' AND ', [
             '{{battle2}}.[[is_win]] IS NOT NULL',
@@ -174,6 +180,12 @@ class BattleSummarizer
             'total_kill' => $column_total_kill,
             'total_death' => $column_total_death,
             'kd_present' => $column_kd_present,
+            'max_kill' => 'MAX({{battle2}}.[[kill]])',
+            'max_death' => 'MAX({{battle2}}.[[death]])',
+            'min_kill' => 'MIN({{battle2}}.[[kill]])',
+            'min_death' => 'MIN({{battle2}}.[[death]])',
+            'median_kill' => 'percentile_cont(0.5) WITHIN GROUP (ORDER BY {{battle2}}.[[kill]])',
+            'median_death' => 'percentile_cont(0.5) WITHIN GROUP (ORDER BY {{battle2}}.[[death]])',
         ]);
         return (object)$query->createCommand()->queryOne();
     }

@@ -70,14 +70,20 @@ $fmt = Yii::$app->formatter;
         ),
         [
           'class' => 'auto-tooltip',
-          'title' => Yii::t(
-            'app',
-            '{number, plural, =1{1 kill} other{# kills}} in {battle, plural, =1{1 battle} other{# battles}}',
-            [
-              'number' => $summary->total_kill,
-              'battle' => $summary->kd_present,
-            ]
-          ),
+          'title' => isset($summary->median_kill)
+            ? Yii::t('app', 'max={max} min={min} median={median}', [
+              'max' => $summary->max_kill === null ? '?' : $fmt->asInteger($summary->max_kill),
+              'min' => $summary->min_kill === null ? '?' : $fmt->asInteger($summary->min_kill),
+              'median' => $summary->median_kill === null ? '?' : $fmt->asDecimal($summary->median_kill, 1),
+            ])
+            : Yii::t(
+              'app',
+              '{number, plural, =1{1 kill} other{# kills}} in {battle, plural, =1{1 battle} other{# battles}}',
+              [
+                'number' => $summary->total_kill,
+                'battle' => $summary->kd_present,
+              ]
+            ),
         ]
       ) . "\n" ?>
 <?php else: ?>
@@ -101,14 +107,20 @@ $fmt = Yii::$app->formatter;
         ),
         [
           'class' => 'auto-tooltip',
-          'title' => Yii::t(
-            'app',
-            '{number, plural, =1{1 death} other{# deaths}} in {battle, plural, =1{1 battle} other{# battles}}',
-            [
-              'number' => $summary->total_death,
-              'battle' => $summary->kd_present,
-            ]
-          ),
+          'title' => isset($summary->median_kill)
+            ? Yii::t('app', 'max={max} min={min} median={median}', [
+              'max' => $summary->max_kill === null ? '?' : $fmt->asInteger($summary->max_kill),
+              'min' => $summary->min_kill === null ? '?' : $fmt->asInteger($summary->min_kill),
+              'median' => $summary->median_kill === null ? '?' : $fmt->asDecimal($summary->median_kill, 1),
+            ])
+            : Yii::t(
+              'app',
+              '{number, plural, =1{1 death} other{# deaths}} in {battle, plural, =1{1 battle} other{# battles}}',
+              [
+                'number' => $summary->total_death,
+                'battle' => $summary->kd_present,
+              ]
+            ),
         ]
       ) . "\n" ?>
 <?php else: ?>
