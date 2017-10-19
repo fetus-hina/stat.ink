@@ -18,7 +18,7 @@
     <body itemprop proptype="http://schema.org/WebPage">
       {{$this->beginBody()|@void}}
         <header>
-          {{include '@app/views/layouts/navbar.tpl'}}
+          {{$this->render('/layouts/navbar')}}
         </header>
         <main>
           {{$content}}

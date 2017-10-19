@@ -62,14 +62,18 @@ class AppLinkAsset extends AssetBundle
 
     protected function image(string $file) : string
     {
-        return Html::img(
-            Yii::$app->assetManager->getAssetUrl($this, $file),
-            [
-                'style' => [
-                    'height' => '1em',
-                    'width' => 'auto',
-                ],
-            ]
+        return Html::tag(
+            'span',
+            Html::img(
+                Yii::$app->assetManager->getAssetUrl($this, $file),
+                [
+                    'style' => [
+                        'height' => '1em',
+                        'width' => 'auto',
+                    ],
+                ]
+            ),
+            ['class' => 'fa fa-fw']
         );
     }
 }

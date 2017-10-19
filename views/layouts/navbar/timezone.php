@@ -136,4 +136,4 @@ $currentTZ = Yii::$app->timeZone;
     // }}}
   ]),
   ['class' => 'dropdown-menu']
-) . "\n" ?>
+) ?>
