@@ -187,6 +187,7 @@ There is a listing page [here](https://stat.ink/api-info/weapon2).
 |`heroblaster_replica`|`215`|ヒーローブラスター レプリカ<br>Hero Blaster Replica||
 |`hotblaster`|`210`|ホットブラスター<br>Blaster||
 |`hotblaster_custom`|`211`|ホットブラスターカスタム<br>Custom Blaster||
+|`longblaster`||ロングブラスター<br>Range Blaster||
 |`nova`|`200`|ノヴァブラスター<br>Luna Blaster||
 |`rapid`|`240`|ラピッドブラスター<br>Rapid Blaster||
 |`rapid_elite`|`250`|Rブラスターエリート<br>Rapid Blaster Pro||
