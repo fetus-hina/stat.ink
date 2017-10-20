@@ -14,6 +14,7 @@ RESOURCE_TARGETS_MAIN := \
 	resources/.compiled/app-link-logos/nnid.min.svg \
 	resources/.compiled/app-link-logos/nnid.min.svg.br \
 	resources/.compiled/app-link-logos/nnid.min.svg.gz \
+	resources/.compiled/app-link-logos/squidtracks.png \
 	resources/.compiled/app-link-logos/switch.min.svg \
 	resources/.compiled/app-link-logos/switch.min.svg.br \
 	resources/.compiled/app-link-logos/switch.min.svg.gz \
@@ -412,6 +413,14 @@ resources/.compiled/app-link-logos/festink.png: resources/app-link-logos/festink
 	mkdir -p resources/.compiled/app-link-logos
 	convert $<[3] -trim +repage -unsharp 1.5x1+0.7+0.02 -scale x28 $@
 	touch -r $< $@
+
+resources/.compiled/app-link-logos/squidtracks.png: resources/app-link-logos/squidtracks.ico
+	mkdir -p resources/.compiled/app-link-logos
+	convert $<[3] -trim +repage -unsharp 1.5x1+0.7+0.02 -scale x28 $@
+	touch -r $< $@
+
+resources/app-link-logos/squidtracks.ico:
+	curl -sSL -o $@ 'https://github.com/hymm/squid-tracks/raw/master/public/favicon.ico'
 
 resources/.compiled/app-link-logos/nnid.svg: resources/app-link-logos/nnid.svg
 	xmllint --format $< > $@

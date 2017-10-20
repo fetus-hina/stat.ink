@@ -50,6 +50,11 @@ class AppLinkAsset extends AssetBundle
         return $this->image('ikarec-en.png');
     }
 
+    public function getSquidTracks() : string
+    {
+        return $this->image('squidtracks.png');
+    }
+
     public function getNnid() : string
     {
         return $this->image('nnid.min.svg');

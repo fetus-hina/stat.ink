@@ -189,7 +189,7 @@ $list = [
     // SquidTracks {{{
     'url' => 'https://github.com/hymm/squid-tracks/',
     'name' => implode('', [
-      Html::tag('span', '', ['class' => 'fa fa-fw']),
+      $icon->squidTracks,
       Html::encode(Yii::t('app', 'SquidTracks')),
       Html::tag('span', '', ['class' => 'fa fa-fw fa-windows']),
       Html::tag('span', '', ['class' => 'fa fa-fw fa-apple']),
