@@ -58,6 +58,7 @@ return [
     'Nozzlenose' => '',
     'N-ZAP \'85' => '',
     'Octobrush' => '',
+    'Range Blaster' => '',
     'Rapid Blaster' => '',
     'Rapid Blaster Pro' => '',
     'Rollers' => '',

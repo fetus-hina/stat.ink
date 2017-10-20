@@ -58,6 +58,7 @@ return [
     'Nozzlenose' => '',
     'N-ZAP \'85' => '',
     'Octobrush' => '',
+    'Range Blaster' => 'Éclablasteur LP',
     'Rapid Blaster' => 'Turboblasteur',
     'Rapid Blaster Pro' => 'Turboblasteur pro',
     'Rollers' => '',

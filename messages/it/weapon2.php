@@ -58,6 +58,7 @@ return [
     'Nozzlenose' => '',
     'N-ZAP \'85' => 'N-ZAP85',
     'Octobrush' => 'Tinturicchio',
+    'Range Blaster' => 'Blaster a distanza',
     'Rapid Blaster' => 'Blaster rapido',
     'Rapid Blaster Pro' => 'Blaster élite',
     'Rollers' => '',

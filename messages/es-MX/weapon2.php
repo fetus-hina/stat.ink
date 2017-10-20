@@ -59,6 +59,7 @@ return [
     'Nozzlenose' => '',
     'N-ZAP \'85' => '',
     'Octobrush' => '',
+    'Range Blaster' => 'Telelanzamotas',
     'Rapid Blaster' => 'Turbolanzamotas',
     'Rapid Blaster Pro' => 'Turbolanzamotas Pro',
     'Rollers' => 'Rodillos',
