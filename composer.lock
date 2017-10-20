@@ -2512,12 +2512,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-framework.git",
-                "reference": "9bb2793d69f1ce8b278c4fd8825f65685b962a6a"
+                "reference": "32da118f1254572ca53e472299cd096ac7a39efd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/9bb2793d69f1ce8b278c4fd8825f65685b962a6a",
-                "reference": "9bb2793d69f1ce8b278c4fd8825f65685b962a6a",
+                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/32da118f1254572ca53e472299cd096ac7a39efd",
+                "reference": "32da118f1254572ca53e472299cd096ac7a39efd",
                 "shasum": ""
             },
             "require": {
@@ -2604,7 +2604,7 @@
                 "framework",
                 "yii2"
             ],
-            "time": "2017-10-17T15:27:23+00:00"
+            "time": "2017-10-19T22:28:05+00:00"
         },
         {
             "name": "yiisoft/yii2-bootstrap",
@@ -5611,12 +5611,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-gii.git",
-                "reference": "7d60ee3268d5dbf43bfbf22c540f8f87320579d0"
+                "reference": "80a01d9aec4a65a51206f1761a96309123e2286a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-gii/zipball/7d60ee3268d5dbf43bfbf22c540f8f87320579d0",
-                "reference": "7d60ee3268d5dbf43bfbf22c540f8f87320579d0",
+                "url": "https://api.github.com/repos/yiisoft/yii2-gii/zipball/80a01d9aec4a65a51206f1761a96309123e2286a",
+                "reference": "80a01d9aec4a65a51206f1761a96309123e2286a",
                 "shasum": ""
             },
             "require": {
@@ -5656,7 +5656,7 @@
                 "gii",
                 "yii2"
             ],
-            "time": "2017-09-21T12:31:17+00:00"
+            "time": "2017-10-19T20:56:59+00:00"
         }
     ],
     "aliases": [],
