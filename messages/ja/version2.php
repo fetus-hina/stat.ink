@@ -6,6 +6,7 @@
  */
 
 return [
+    'Any Version' => 'すべてのバージョン',
     'Splatfest World Premiere' => '前夜祭',
     'Testfire' => '試射会',
 ];

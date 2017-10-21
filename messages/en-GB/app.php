@@ -44,6 +44,7 @@ return [
     'API Token' => '',
     'Apply' => '',
     'Are you sure you want to regenerate your API token?' => '',
+    'Assist' => '',
     '{attribute} must be at most 15 alphanumeric or underscore characters.' => '',
     'Australia (Central)' => '',
     'Australia (Central, DST)' => '',

@@ -264,8 +264,9 @@ resources/.compiled/stat.ink/weapons-use.js: resources/stat.ink/weapons-use.js $
 resources/.compiled/stat.ink/weapons.js: resources/stat.ink/weapons.js $(GULP)
 	$(GULP) js --in $< --out $@
 
-resources/.compiled/stat.ink/weapon2.js: resources/stat.ink/weapon2.js $(GULP)
-	$(GULP) js --in $< --out $@
+WEAPON2_JS := $(shell ls -1 resources/stat.ink/weapon2.js/*.js)
+resources/.compiled/stat.ink/weapon2.js: $(WEAPON2_JS) $(GULP)
+	$(GULP) js --in 'resources/stat.ink/weapon2.js/*.js' --out $@
 
 resources/.compiled/stat.ink/knockout.js: resources/stat.ink/knockout.js $(GULP)
 	$(GULP) js --in $< --out $@

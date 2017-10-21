@@ -12,6 +12,8 @@ use Yii;
 use app\components\helpers\DateTimeFormatter;
 use app\components\helpers\Translator;
 use yii\db\ActiveRecord;
+use yii\db\ActiveQuery;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "map2".
@@ -26,6 +28,16 @@ use yii\db\ActiveRecord;
  */
 class Map2 extends ActiveRecord
 {
+    public static function find() : ActiveQuery
+    {
+        return new class(static::class) extends ActiveQuery {
+            public function excludeMystery() : self
+            {
+                return $this->andWhere(['<>', 'key', 'mystery']);
+            }
+        };
+    }
+
     /**
      * @inheritdoc
      */
@@ -34,13 +46,30 @@ class Map2 extends ActiveRecord
         return 'map2';
     }
 
-    public static function getSortedMap() : array
+    public static function getSortedMap($callback = null) : array
     {
-        $list = [];
-        foreach (static::find()->asArray()->all() as $row) {
-            $list[$row['key']] = Yii::t('app-map2', $row['name']);
+        $query = static::find()->asArray();
+        if ($callback && is_callable($callback)) {
+            call_user_func($callback, $query);
         }
-        uasort($list, 'strcmp');
+        $list = ArrayHelper::map(
+            $query->all(),
+            'key',
+            function (array $row) : string {
+                return Yii::t('app-map2', $row['name']);
+            }
+        );
+        uksort($list, function ($a, $b) use ($list) {
+            if ($a === $b) {
+                return 0;
+            } elseif ($a === 'mystery') {
+                return 1;
+            } elseif ($b === 'mystery') {
+                return -1;
+            } else {
+                return strcmp($list[$a], $list[$b]);
+            }
+        });
         return $list;
     }
 

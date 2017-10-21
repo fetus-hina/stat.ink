@@ -1,13 +1,20 @@
 <?php
 use app\assets\AppOptAsset;
+use app\assets\MapImage2Asset;
+use app\assets\SortableTableAsset;
 use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
+use app\components\widgets\WinLoseLegend;
+use app\models\RankGroup2;
 use app\models\Rule2;
+use app\models\SplatoonVersion2;
 use app\models\StatWeapon2UseCountPerWeek;
 use app\models\Weapon2;
 use app\models\WeaponCategory2;
 use jp3cki\yii2\flot\FlotAsset;
+use jp3cki\yii2\flot\FlotPieAsset;
 use jp3cki\yii2\flot\FlotTimeAsset;
+use yii\bootstrap\ActiveForm;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Json;
@@ -32,7 +39,9 @@ $this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink']);
 $optAsset = AppOptAsset::register($this);
 
 FlotAsset::register($this);
+FlotPieAsset::register($this);
 FlotTimeAsset::register($this);
+SortableTableAsset::register($this);
 
 $this->registerCss('.graph{height:300px}');
 ?>
@@ -261,4 +270,268 @@ $normalizedSeconds = ($rule->key == 'nawabari' ? 3 : 5) * 60;
     ) . "\n" ?>
   </p>
 <?php } ?>
+
+  <h2 id="stages">
+    <?= Html::encode(Yii::t('app', 'Stages')) . "\n" ?>
+  </h2>
+  <?php $_form = ActiveForm::begin([
+    'id' => 'stage-filter-form',
+    'action' => ['entire/weapon2',
+      'weapon' => $weapon->key,
+      'rule' => $rule->key,
+      '#' => 'stages',
+    ],
+    'method' => 'GET',
+    'enableClientValidation' => false,
+    'options' => [
+      'class' => 'form-inline',
+    ],
+  ]); echo "\n" ?>
+<?php if ($rule->key !== 'nawabari') { ?>
+    <?= $_form->field($stageFilter, 'rank')
+      ->label(false)
+      ->dropDownList(array_merge(
+        ['' => Yii::t('app-rank2', 'Any Rank')],
+        ArrayHelper::map(
+          RankGroup2::find()->orderBy(['rank' => SORT_DESC])->asArray()->all(),
+          'key',
+          function (array $group) : string {
+            return Yii::t('app-rank2', $group['name']);
+          }
+        )
+      )) . "\n"
+    ?>
+<?php } ?>
+    <?= $_form->field($stageFilter, 'version')
+      ->label(false)
+      ->dropDownList(array_merge(
+        ['' => Yii::t('app-version2', 'Any Version')],
+        (function () {
+          $list = ArrayHelper::map(
+            SplatoonVersion2::find()->asArray()->all(),
+            'tag',
+            function (array $version) : string {
+              return Yii::t('app-version2', $version['name']);
+            }
+          );
+          uksort($list, function (string $a, string $b) : int {
+            return version_compare($b, $a);
+          });
+          return $list;
+        })()
+      )) . "\n"
+    ?>
+  <?php ActiveForm::end(); echo "\n" ?>
+<?php $this->registerJs('(function($){"use strict";$(function(){$("#stage-filter-form select").change(function(){$("#stage-filter-form").submit()})})})(jQuery);'); ?>
+
+  <?= WinLoseLegend::widget() . "\n" ?>
+
+  <div class="table-responsive table-responsive-force">
+<?php $_mapImage = MapImage2Asset::register($this) ?>
+    <table class="table table-condensed table-sortable graph-container">
+      <thead>
+        <tr>
+          <th data-sort="int"><?= Html::encode(Yii::t('app', 'Stage')) ?></th>
+          <th data-sort="float"><?= Html::encode(Yii::t('app', 'Win %')) ?></th>
+          <th data-sort="float"><?= Html::encode(Yii::t('app', 'Kills')) ?></th>
+          <th data-sort="float"><?= Html::encode(Yii::t('app', 'Deaths')) ?></th>
+          <th data-sort="float"><?= Html::encode(Yii::t('app', 'Specials')) ?></th>
+          <th data-sort="float"><?= Html::encode(Yii::t('app', 'Assist')) ?></th>
+        </tr>
+      </thead>
+      <tbody>
+<?php $_mapCnt = 0 ?>
+<?php foreach ($maps as $_mapKey => $_mapName) { ?>
+<?php $_imgFileName = "daytime/{$_mapKey}.jpg"; ?>
+        <tr>
+          <?= Html::tag(
+            'th',
+            implode('', [
+              Html::encode($_mapName) . '<br>',
+              (file_exists(Yii::$app->assetManager->getAssetPath($_mapImage, $_imgFileName))
+                ? Html::img(
+                  Yii::$app->assetManager->getAssetUrl($_mapImage, $_imgFileName),
+                  ['style' => [
+                    'max-width' => '100%',
+                  ]]
+                )
+                : ''
+              ),
+            ]),
+            [
+              'data' => [
+                'sort-value' => $_mapCnt++,
+              ]
+            ]
+          ) . "\n" ?>
+          <?= Html::tag(
+            'td',
+            isset($winRate[$_mapKey])
+              ? Html::tag(
+                'div',
+                '',
+                [
+                  'class' => 'pie-flot-container',
+                  'data' => [
+                    'json' => Json::encode($winRate[$_mapKey]),
+                  ],
+                ]
+              )
+              : '',
+            [
+              'data' => [
+                'sort-value' => isset($winRate[$_mapKey])
+                  ? (function (array $data) : string {
+                    return sprintf(
+                      '%f',
+                      ($data['win'] + $data['lose'] > 0)
+                        ? ($data['win'] * 100 / ($data['win'] + $data['lose']))
+                        : -1.0
+                    );
+                  })($winRate[$_mapKey])
+                  : '-1.0',
+              ],
+            ]
+          ) . "\n" ?>
+          <?= Html::tag(
+            'td',
+            isset($kills[$_mapKey])
+              ? Html::tag(
+                'div',
+                '',
+                [
+                  'class' => 'bar-flot-container',
+                  'data' => [
+                    'type' => 'kill',
+                    'json' => Json::encode(array_slice($kills[$_mapKey], 0)),
+                  ],
+                ]
+              )
+              : '',
+            [
+              'data' => [
+                'sort-value' => isset($kills[$_mapKey])
+                  ? (function (array $list) : string {
+                    $battles = 0;
+                    $kills = 0;
+                    foreach ($list as $row) {
+                      $battles += $row['battles'];
+                      $kills += $row['battles'] * $row['times'];
+                    }
+                    return sprintf('%f', $battles > 0 ? $kills / $battles : -0.1);
+                  })($kills[$_mapKey])
+                  : '-1.0',
+              ],
+            ]
+          ) . "\n" ?>
+          <?= Html::tag(
+            'td',
+            isset($deaths[$_mapKey])
+              ? Html::tag(
+                'div',
+                '',
+                [
+                  'class' => 'bar-flot-container',
+                  'data' => [
+                    'type' => 'death',
+                    'json' => Json::encode(array_slice($deaths[$_mapKey], 0)),
+                  ],
+                ]
+              )
+              : '',
+            [
+              'data' => [
+                'sort-value' => isset($deaths[$_mapKey])
+                  ? (function (array $list) : string {
+                    $battles = 0;
+                    $deaths = 0;
+                    foreach ($list as $row) {
+                      $battles += $row['battles'];
+                      $deaths += $row['battles'] * $row['times'];
+                    }
+                    return sprintf('%f', $battles > 0 ? $deaths / $battles : -0.1);
+                  })($deaths[$_mapKey])
+                  : '-1.0',
+              ],
+            ]
+          ) . "\n" ?>
+          <?= Html::tag(
+            'td',
+            isset($specials[$_mapKey])
+              ? Html::tag(
+                'div',
+                '',
+                [
+                  'class' => 'bar-flot-container',
+                  'data' => [
+                    'type' => 'special',
+                    'json' => Json::encode(array_slice($specials[$_mapKey], 0)),
+                  ],
+                ]
+              )
+              : '',
+            [
+              'data' => [
+                'sort-value' => isset($specials[$_mapKey])
+                  ? (function (array $list) : string {
+                    $battles = 0;
+                    $specials = 0;
+                    foreach ($list as $row) {
+                      $battles += $row['battles'];
+                      $specials += $row['battles'] * $row['times'];
+                    }
+                    return sprintf('%f', $battles > 0 ? $specials / $battles : -0.1);
+                  })($specials[$_mapKey])
+                  : '-1.0',
+              ],
+            ]
+          ) . "\n" ?>
+          <?= Html::tag(
+            'td',
+            isset($assists[$_mapKey])
+              ? Html::tag(
+                'div',
+                '',
+                [
+                  'class' => 'bar-flot-container',
+                  'data' => [
+                    'type' => 'assist',
+                    'json' => Json::encode(array_slice($assists[$_mapKey], 0)),
+                  ],
+                ]
+              )
+              : '',
+            [
+              'data' => [
+                'sort-value' => isset($assists[$_mapKey])
+                  ? (function (array $list) : string {
+                    $battles = 0;
+                    $assists = 0;
+                    foreach ($list as $row) {
+                      $battles += $row['battles'];
+                      $assists += $row['battles'] * $row['times'];
+                    }
+                    return sprintf('%f', $battles > 0 ? $assists / $battles : -0.1);
+                  })($assists[$_mapKey])
+                  : '-1.0',
+              ],
+            ]
+          ) . "\n" ?>
+        </tr>
+<?php } ?>
+      </tbody>
+    </table>
+  </div>
 </div>
+<?php
+$this->registerCss(implode('', [
+  '.pie-flot-container{height:200px}',
+  '.pie-flot-container .error{display:none}',
+  '.bar-flot-container{min-width:150px}',
+  '.graph-container thead tr:nth-child(1) th{width:17%;min-width:100px}',
+  '.graph-container thead tr:nth-child(1) th:nth-child(1){width:15%;min-width:80px}',
+]));
+
+// update pie charts
+$this->registerJs('(function(){window.statByMapRule()})();');
+?>

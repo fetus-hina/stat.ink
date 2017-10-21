@@ -6,6 +6,7 @@
  */
 
 return [
+    'Any Version' => '',
     'Splatfest World Premiere' => '',
     'Testfire' => '',
 ];

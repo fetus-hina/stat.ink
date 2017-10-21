@@ -36,6 +36,7 @@ return [
     'Any Time' => 'すべての期間',
     'Apply' => '適用',
     'Are you sure you want to regenerate your API token?' => 'APIキーを再生成してもよろしいですか？（連携したアプリ[IkaLog, IkaRec etc.]が動作しなくなります）',
+    'Assist' => 'アシスト',
     'Australia (Central)' => 'オーストラリア（中央）',
     'Australia (Central, DST)' => 'オーストラリア（中央・夏時間あり）',
     'Australia (East)' => 'オーストラリア（東部）',

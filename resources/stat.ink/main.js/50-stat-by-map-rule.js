@@ -3,7 +3,7 @@ window.statByMapRule = function () {
     $('.pie-flot-container').each(function () {
       var $container = $(this);
       var data = JSON.parse($container.attr('data-flot'));
-      var click_href = $container.attr('data-clink-href');
+      var click_href = $container.attr('data-clink-href') || '';
       if (data) {
         $.plot($container, data, {
           series: {

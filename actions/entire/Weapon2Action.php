@@ -8,11 +8,16 @@
 namespace app\actions\entire;
 
 use Yii;
-use yii\helpers\Url;
-use yii\web\ViewAction as BaseAction;
-use yii\web\NotFoundHttpException;
+use app\models\Map2;
 use app\models\Rule2;
+use app\models\StatWeapon2Result;
 use app\models\Weapon2;
+use app\models\Weapon2StageFilterForm;
+use yii\db\ActiveQuery;
+use yii\helpers\ArrayHelper;
+use yii\helpers\Url;
+use yii\web\NotFoundHttpException;
+use yii\web\ViewAction as BaseAction;
 
 class Weapon2Action extends BaseAction
 {
@@ -33,9 +38,180 @@ class Weapon2Action extends BaseAction
 
     public function run()
     {
+        $maps = Map2::getSortedMap(function (ActiveQuery $query) {
+            if ($this->rule->key !== 'nawabari') {
+                $query->excludeMystery();
+            }
+        });
+
+        $stageFilter = Yii::createObject(Weapon2StageFilterForm::class);
+        $stageFilter->load($_GET) && $stageFilter->validate();
+
+        $winRate = ArrayHelper::map(
+            // {{{
+            StatWeapon2Result::find()
+                ->innerJoinWith('map', false)
+                ->andWhere([
+                    'stat_weapon2_result.weapon_id' => $this->weapon->id,
+                    'stat_weapon2_result.rule_id' => $this->rule->id,
+                ])
+                ->applyFilter($stageFilter, ['result'])
+                ->groupBy('stat_weapon2_result.map_id')
+                ->select([
+                    'map'       => 'MAX(map2.key)',
+                    'battles'   => 'SUM(stat_weapon2_result.battles)',
+                    'wins'      => 'SUM(stat_weapon2_result.wins)',
+                ])
+                ->asArray()
+                ->all(),
+            'map',
+            function (array $row) : array {
+                return [
+                    'win' => (int)$row['wins'],
+                    'lose' => (int)$row['battles'] - (int)$row['wins'],
+                ];
+            }
+            // }}}
+        );
+
+        $kills = ArrayHelper::map(
+            // {{{
+            StatWeapon2Result::find()
+                ->innerJoinWith('map', false)
+                ->andWhere([
+                    'stat_weapon2_result.weapon_id' => $this->weapon->id,
+                    'stat_weapon2_result.rule_id' => $this->rule->id,
+                ])
+                ->applyFilter($stageFilter)
+                ->groupBy(['stat_weapon2_result.map_id', 'stat_weapon2_result.kill'])
+                ->select([
+                    'map'       => 'MAX(map2.key)',
+                    'kill'      => 'stat_weapon2_result.kill',
+                    'battles'   => 'SUM(stat_weapon2_result.battles)',
+                ])
+                ->orderBy([
+                  'map' => SORT_ASC,
+                  'kill' => SORT_ASC,
+                ])
+                ->asArray()
+                ->all(),
+            'kill',
+            function ($row) {
+                return [
+                    'times' => (int)$row['kill'],
+                    'battles' => (int)$row['battles'],
+                ];
+            },
+            'map'
+            // }}}
+        );
+
+        $deaths = ArrayHelper::map(
+            // {{{
+            StatWeapon2Result::find()
+                ->innerJoinWith('map', false)
+                ->andWhere([
+                    'stat_weapon2_result.weapon_id' => $this->weapon->id,
+                    'stat_weapon2_result.rule_id' => $this->rule->id,
+                ])
+                ->applyFilter($stageFilter)
+                ->groupBy(['stat_weapon2_result.map_id', 'stat_weapon2_result.death'])
+                ->select([
+                    'map'       => 'MAX(map2.key)',
+                    'death'     => 'stat_weapon2_result.death',
+                    'battles'   => 'SUM(stat_weapon2_result.battles)',
+                ])
+                ->orderBy([
+                  'map' => SORT_ASC,
+                  'death' => SORT_ASC,
+                ])
+                ->asArray()
+                ->all(),
+            'death',
+            function ($row) {
+                return [
+                    'times' => (int)$row['death'],
+                    'battles' => (int)$row['battles'],
+                ];
+            },
+            'map'
+            // }}}
+        );
+
+        $specials = ArrayHelper::map(
+            // {{{
+            StatWeapon2Result::find()
+                ->innerJoinWith('map', false)
+                ->andWhere([
+                    'stat_weapon2_result.weapon_id' => $this->weapon->id,
+                    'stat_weapon2_result.rule_id' => $this->rule->id,
+                ])
+                ->applyFilter($stageFilter)
+                ->groupBy(['stat_weapon2_result.map_id', 'stat_weapon2_result.special'])
+                ->select([
+                    'map'       => 'MAX(map2.key)',
+                    'special'   => 'stat_weapon2_result.special',
+                    'battles'   => 'SUM(stat_weapon2_result.battles)',
+                ])
+                ->orderBy([
+                  'map' => SORT_ASC,
+                  'special' => SORT_ASC,
+                ])
+                ->asArray()
+                ->all(),
+            'special',
+            function ($row) {
+                return [
+                    'times' => (int)$row['special'],
+                    'battles' => (int)$row['battles'],
+                ];
+            },
+            'map'
+            // }}}
+        );
+
+        $assists = ArrayHelper::map(
+            // {{{
+            StatWeapon2Result::find()
+                ->innerJoinWith('map', false)
+                ->andWhere([
+                    'stat_weapon2_result.weapon_id' => $this->weapon->id,
+                    'stat_weapon2_result.rule_id' => $this->rule->id,
+                ])
+                ->applyFilter($stageFilter)
+                ->groupBy(['stat_weapon2_result.map_id', 'stat_weapon2_result.assist'])
+                ->select([
+                    'map'       => 'MAX(map2.key)',
+                    'assist'    => 'stat_weapon2_result.assist',
+                    'battles'   => 'SUM(stat_weapon2_result.battles)',
+                ])
+                ->orderBy([
+                  'map' => SORT_ASC,
+                  'assist' => SORT_ASC,
+                ])
+                ->asArray()
+                ->all(),
+            'assist',
+            function ($row) {
+                return [
+                    'times' => (int)$row['assist'],
+                    'battles' => (int)$row['battles'],
+                ];
+            },
+            'map'
+            // }}}
+        );
+
         return $this->controller->render('weapon2', [
-            'weapon' => $this->weapon,
-            'rule' => $this->rule,
+            'stageFilter' => $stageFilter,
+            'weapon'    => $this->weapon,
+            'rule'      => $this->rule,
+            'maps'      => $maps,
+            'winRate'   => $winRate,
+            'kills'     => $kills,
+            'deaths'    => $deaths,
+            'specials'  => $specials,
+            'assists'   => $assists,
         ]);
     }
 }
