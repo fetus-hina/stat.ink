@@ -9,6 +9,10 @@
   {{$this->registerMetaTag(['name' => 'twitter:description', 'content' => $title])|@void}}
   {{$this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink'])|@void}}
 
+  {{use class="app\assets\AppOptAsset"}}
+  {{$optAsset = AppOptAsset::register($this)}}
+  {{$optAsset->registerJsFile($this, 'kd-win.js')}}
+
   <div class="container">
     <h1>
       {{$title|escape}}
@@ -19,6 +23,11 @@
 
     {{AdWidget}}
     {{SnsWidget}}
+
+    <ul class="nav nav-tabs" style="margin-bottom:15px">
+      <li><a href="/entire/kd-win2">Splatoon 2</a></li>
+      <li class="active"><a href="javascript:;">Splatoon</a></li>
+    </ul>
 
     {{use class="yii\bootstrap\ActiveForm" type="block"}}
     {{ActiveForm assign="_" id="filter-form" action=['entire/kd-win'] method="get" layout="inline"}}
@@ -156,81 +165,3 @@
 .kdcell{width:{{(100/(16+2))}}%!important}
 .center{text-align:center!important}
 {{/registerCss}}
-{{registerJs}}{{literal}}
-(function($){
-  /*
-    var colorHigh = $.Color("#3e8ffa"); // H:214, S:75, V:98 / S:95, L:61
-    var colorMid  = $.Color("#888888"); // H:  0, S: 0, V:53 / S: 0, L:53
-    var colorLow  = $.Color("#fa833e"); // H: 22, S:75, V:98 / S:95, L:61
-  */
-
-  $('.rule-table').each(function() {
-    var $table = $(this);
-    var $cells = $('.percent-cell', $table);
-    var maxBattle = 0;
-    $cells.each(function() {
-      var value = ~~$(this).attr('data-battle');
-      if (maxBattle < value) {
-        maxBattle = value;
-      }
-    });
-    $cells.each(function() {
-      var $cell = $(this);
-      var battle = ~~$cell.attr('data-battle');
-      if (battle < 1) {
-        return;
-      }
-      var battleCountCoefficient = Math.min(1.0, (battle * 2) / maxBattle);
-      var percent = parseFloat($cell.attr('data-percent'));
-
-      /* 10%-90% scale to 0%-100% */
-      var ratio = Math.min(100, Math.max(0, (percent - 10) * (100 / 80)));
-
-      /* calc background color */
-      if (window.colorLock) {
-        if (ratio >= 50) {
-          $cell.css(
-            'background-color',
-            $.Color({
-              hue: 214,
-              saturation: 0.95 * ((ratio - 50) * 2 / 100),
-              lightness: 0.53 + 0.08 * ((ratio - 50) * 2 / 100),
-            })
-            .alpha(battleCountCoefficient)
-            .blend($.Color("#ffffff"))
-            .toRgbaString()
-          );
-        } else {
-          $cell.css(
-            'background-color',
-            $.Color({
-              hue: 22,
-              saturation: 0.95 * ((50 - ratio) * 2 / 100),
-              lightness: 0.53 + 0.08 * ((50 - ratio) * 2 / 100)
-            })
-            .alpha(battleCountCoefficient)
-            .blend($.Color("#ffffff"))
-            .toRgbaString()
-          );
-        }
-      } else {
-        $cell.css(
-          'background-color',
-          $.Color({
-            hue: 120 * ratio / 100,
-            saturation: 0.95,
-            lightness: 0.53
-          })
-          .alpha(battleCountCoefficient)
-          .blend($.Color("#ffffff"))
-          .toRgbaString()
-        );
-      }
-
-      var c = $.Color($cell.css('background-color'));
-      var y = Math.round(c.red() * 0.299 + c.green() * 0.587 + c.blue() * 0.114);
-      $cell.css('color', (y > 153) ? '#000' : '#fff');
-    });
-  });
-})(jQuery);
-{{/literal}}{{/registerJs}}

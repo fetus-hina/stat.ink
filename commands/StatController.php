@@ -42,7 +42,7 @@ class StatController extends Controller
      */
     public function actionUpdateEntireWeapons()
     {
-        $this->updateEntireWeapons1();
+        // $this->updateEntireWeapons1();
         $this->updateEntireWeapons2();
     }
 
@@ -273,24 +273,6 @@ class StatController extends Controller
     private function updateEntireWeapons2()
     {
         $pointNormalize = 50;
-        $normalize = function (string $column) : string {
-            // {{{
-            $canonicalTime = "(CASE WHEN rule2.key = 'nawabari' THEN 180 ELSE 300 END)";
-            return sprintf(
-                '(ROUND(%s)::BIGINT)',
-                sprintf(
-                    '(%s)::DOUBLE PRECISION * %s / %s',
-                    $column,
-                    $canonicalTime,
-                    sprintf(
-                        '(%s - %s)',
-                        'EXTRACT(EPOCH FROM battle2.end_at)',
-                        'EXTRACT(EPOCH FROM battle2.start_at)'
-                    )
-                )
-            );
-            // }}}
-        };
         $dummyRank = Rank2::findOne(['key' => 'c-'])->id;
         $select = Battle2::find() // {{{
             ->select([
@@ -301,21 +283,21 @@ class StatController extends Controller
                 'mode_id'       => 'battle2.mode_id',
                 'rank_id'       => sprintf('COALESCE(battle_player2.rank_id, %d)', $dummyRank),
                 'version_id'    => 'battle2.version_id',
-                'kill'          => $normalize('battle_player2.kill'),
-                'death'         => $normalize('battle_player2.death'),
+                'kill'          => 'battle_player2.kill',
+                'death'         => 'battle_player2.death',
                 'assist'        => sprintf(
                     '(%s - %s)',
-                    $normalize('battle_player2.kill_or_assist'),
-                    $normalize('battle_player2.kill')
+                    'battle_player2.kill_or_assist',
+                    'battle_player2.kill'
                 ),
-                'special'       => $normalize('battle_player2.special'),
+                'special'       => 'battle_player2.special',
                 'points'        => sprintf(
                     '(FLOOR((%s)::DOUBLE PRECISION / %2$.1f)::BIGINT * %2$d)',
-                    $normalize(sprintf('(battle_player2.point - CASE %s END)', implode(' ', [
+                    sprintf('(battle_player2.point - CASE %s END)', implode(' ', [
                         "WHEN rule2.key <> 'nawabari' THEN 0",
                         "WHEN battle2.is_win = battle_player2.is_my_team THEN 1000",
                         "ELSE 0",
-                    ]))),
+                    ])),
                     $pointNormalize
                 ),
                 'battles'       => 'COUNT(*)',
@@ -372,21 +354,21 @@ class StatController extends Controller
                 'battle2.mode_id',
                 'battle_player2.rank_id',
                 'battle2.version_id',
-                $normalize('battle_player2.kill'),
-                $normalize('battle_player2.death'),
+                'battle_player2.kill',
+                'battle_player2.death',
                 sprintf(
                     '(%s - %s)',
-                    $normalize('battle_player2.kill_or_assist'),
-                    $normalize('battle_player2.kill')
+                    'battle_player2.kill_or_assist',
+                    'battle_player2.kill'
                 ),
-                $normalize('battle_player2.special'),
+                'battle_player2.special',
                 sprintf(
                     '(FLOOR((%s)::DOUBLE PRECISION / %2$.1f)::BIGINT * %2$d)',
-                    $normalize(sprintf('(battle_player2.point - CASE %s END)', implode(' ', [
+                    sprintf('(battle_player2.point - CASE %s END)', implode(' ', [
                         "WHEN rule2.key <> 'nawabari' THEN 0",
                         "WHEN battle2.is_win = battle_player2.is_my_team THEN 1000",
                         "ELSE 0",
-                    ]))),
+                    ])),
                     $pointNormalize
                 ),
             ])
@@ -394,11 +376,11 @@ class StatController extends Controller
                 ['>',
                     sprintf(
                         '(FLOOR((%s)::DOUBLE PRECISION / %2$.1f)::BIGINT * %2$d)',
-                        $normalize(sprintf('(battle_player2.point - CASE %s END)', implode(' ', [
+                        sprintf('(battle_player2.point - CASE %s END)', implode(' ', [
                             "WHEN rule2.key <> 'nawabari' THEN 0",
                             "WHEN battle2.is_win = battle_player2.is_my_team THEN 1000",
                             "ELSE 0",
-                        ]))),
+                        ])),
                         $pointNormalize
                     ),
                     0
@@ -436,6 +418,7 @@ class StatController extends Controller
             // }}}
         );
         echo "Updating stat_weapon2_result...\n";
+        Yii::$app->db->createCommand('TRUNCATE TABLE stat_weapon2_result')->execute();
         Yii::$app->db->createCommand($insert)->execute();
         echo "Vacuum...\n";
         Yii::$app->db->createCommand('VACUUM ANALYZE stat_weapon2_result')->execute();

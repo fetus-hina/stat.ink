@@ -51,6 +51,7 @@ RESOURCE_TARGETS_MAIN := \
 	resources/.compiled/stat.ink/blackout-hint.js \
 	resources/.compiled/stat.ink/downloads.css \
 	resources/.compiled/stat.ink/favicon.png \
+	resources/.compiled/stat.ink/kd-win.js \
 	resources/.compiled/stat.ink/knockout.js \
 	resources/.compiled/stat.ink/main.css \
 	resources/.compiled/stat.ink/main.js \
@@ -287,6 +288,9 @@ resources/.compiled/stat.ink/name-anonymizer.css: resources/stat.ink/name-anonym
 	$(GULP) less --in $< --out $@
 
 resources/.compiled/stat.ink/name-anonymizer.js: resources/stat.ink/name-anonymizer.es $(GULP)
+	$(GULP) js --in $< --out $@
+
+resources/.compiled/stat.ink/kd-win.js: resources/stat.ink/kd-win.js $(GULP)
 	$(GULP) js --in $< --out $@
 
 resources/.compiled/ostatus/remote-follow.js: resources/ostatus/remote-follow.js $(GULP)

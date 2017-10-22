@@ -42,7 +42,18 @@ class StatWeapon2Result extends ActiveRecord
     public static function find() : ActiveQuery
     {
         return new class(static::class) extends ActiveQuery {
-            public function applyFilter(Weapon2StageFilterForm $filter) : self
+            public function applyFilter($filter) : self
+            {
+                if ($filter instanceof Weapon2StageFilterForm) {
+                    return $this->applyStageFilter($filter);
+                } elseif ($filter instanceof Battle2FilterForm) {
+                    return $this->applyBattleFilter($filter);
+                } else {
+                    return $this;
+                }
+            }
+
+            private function applyStageFilter(Weapon2StageFilterForm $filter) : self
             {
                 if ($filter->hasErrors()) {
                     return $this;
@@ -60,6 +71,45 @@ class StatWeapon2Result extends ActiveRecord
                         ->andWhere([
                             'splatoon_version2.tag' => $filter->version,
                         ]);
+                }
+                return $this;
+            }
+
+            private function applyBattleFilter(Battle2FilterForm $filter) : self
+            {
+                if ($filter->hasErrors()) {
+                    return $this;
+                }
+                if ($filter->map != '') {
+                    $this->innerJoinWith('map', false)
+                        ->andWhere(['map2.key' => $filter->map]);
+                }
+                if ($filter->rank != '') {
+                    if (substr($filter->rank, 0, 1) === '~') {
+                        $this
+                            ->innerJoinWith('rank.group', false)
+                            ->andWhere(['rank_group2.key' => substr($filter->rank, 1)]);
+                    } else {
+                        $this
+                            ->innerJoinWith('rank', false)
+                            ->andWhere(['rank2.key' => $filter->rank]);
+                    }
+                }
+                if ($filter->weapon != '') {
+                    if (substr($filter->weapon, 0, 1) === '@') {
+                        $this->innerJoinWith('weapon.type', false)
+                            ->andWhere(['weapon_type2.key' => substr($filter->weapon, 1)]);
+                    } else {
+                        $this->innerJoinWith('weapon', false)
+                            ->andWhere(['weapon2.key' => $filter->weapon]);
+                    }
+                }
+                if ($filter->term != '') {
+                    if (substr($filter->term, 0, 1) === 'v') {
+                        $this
+                            ->innerJoinWith('version', false)
+                            ->andWhere(['splatoon_version2.tag' => substr($filter->term, 1)]);
+                    }
                 }
                 return $this;
             }
