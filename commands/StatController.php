@@ -42,7 +42,7 @@ class StatController extends Controller
      */
     public function actionUpdateEntireWeapons()
     {
-        // $this->updateEntireWeapons1();
+        $this->updateEntireWeapons1();
         $this->updateEntireWeapons2();
     }
 
@@ -418,7 +418,6 @@ class StatController extends Controller
             // }}}
         );
         echo "Updating stat_weapon2_result...\n";
-        Yii::$app->db->createCommand('TRUNCATE TABLE stat_weapon2_result')->execute();
         Yii::$app->db->createCommand($insert)->execute();
         echo "Vacuum...\n";
         Yii::$app->db->createCommand('VACUUM ANALYZE stat_weapon2_result')->execute();
