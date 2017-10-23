@@ -163,6 +163,7 @@ class User2Action extends BaseAction
                 'weapon',
                 'rank',
                 'rankAfter',
+                'mode',
             ])
             ->all();
         foreach ($battles as $battle) {
