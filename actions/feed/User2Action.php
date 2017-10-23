@@ -165,7 +165,7 @@ class User2Action extends BaseAction
                 'rankAfter',
                 'mode',
             ])
-            ->orderBy(['id' => SORT_ASC])
+            ->orderBy(['id' => SORT_DESC])
             ->all();
         foreach ($battles as $battle) {
             $entry = $feed->createEntry();
