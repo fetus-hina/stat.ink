@@ -8,6 +8,7 @@
 return [
     'Academy' => 'Institut Calm\'arts',
     'Any Stage' => '',
+    'Blackbelly Skatepark' => 'Plancho Mako',
     'Canal' => '',
     'Dome' => '',
     'Fitness' => '',
@@ -25,6 +26,7 @@ return [
     'Shifty' => '',
     'Shifty Station' => '',
     'Shipyard' => '',
+    'Skatepark' => 'Plancho Mako',
     'Snapper Canal' => '',
     'Starfish Mainstage' => '',
     'Sturgeon Shipyard' => '',

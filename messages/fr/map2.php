@@ -8,6 +8,7 @@
 return [
     'Academy' => 'Institut Calam\'arts',
     'Any Stage' => '',
+    'Blackbelly Skatepark' => 'Skatepark Mako',
     'Canal' => 'Canalamar',
     'Dome' => 'Serre Goémon',
     'Fitness' => 'Gymnase Ancrage',
@@ -25,6 +26,7 @@ return [
     'Shifty' => 'Plateforme polymorphe',
     'Shifty Station' => 'Plateforme polymorphe',
     'Shipyard' => 'Chantier Narval',
+    'Skatepark' => 'Skatepark Mako',
     'Snapper Canal' => 'Canalamar',
     'Starfish Mainstage' => 'Scène Sirène',
     'Sturgeon Shipyard' => 'Chantier Narval',

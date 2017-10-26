@@ -8,6 +8,7 @@
 return [
     'Academy' => '',
     'Any Stage' => '',
+    'Blackbelly Skatepark' => '',
     'Canal' => '',
     'Dome' => '',
     'Fitness' => '',
@@ -25,6 +26,7 @@ return [
     'Shifty' => '',
     'Shifty Station' => '',
     'Shipyard' => '',
+    'Skatepark' => '',
     'Snapper Canal' => '',
     'Starfish Mainstage' => '',
     'Sturgeon Shipyard' => '',

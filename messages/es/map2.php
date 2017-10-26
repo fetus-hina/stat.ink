@@ -8,6 +8,7 @@
 return [
     'Academy' => 'Instituto Coralino',
     'Any Stage' => 'Cualquier Escenarios',
+    'Blackbelly Skatepark' => 'Parque Lubina',
     'Canal' => 'Canal Cormorán',
     'Dome' => 'Jardín botánico',
     'Fitness' => 'Gimnasio Mejillón',
@@ -25,6 +26,7 @@ return [
     'Shifty' => 'Área mutante',
     'Shifty Station' => 'Área mutante',
     'Shipyard' => 'Astillero Beluga',
+    'Skatepark' => 'Parque Lubina',
     'Snapper Canal' => 'Canal Cormorán',
     'Starfish Mainstage' => 'Auditorio Erizo',
     'Sturgeon Shipyard' => 'Astillero Beluga',

@@ -8,6 +8,7 @@
 return [
     'Academy' => 'Campus Hippocampus',
     'Any Stage' => '',
+    'Blackbelly Skatepark' => 'Pista Polposkate',
     'Canal' => 'Canale Cannolicchio',
     'Dome' => 'Serra di alghe',
     'Fitness' => 'Centro polpisportivo',
@@ -25,6 +26,7 @@ return [
     'Shifty' => 'Zona mista',
     'Shifty Station' => 'Zona mista',
     'Shipyard' => 'Cantiere Pinnenere',
+    'Skatepark' => 'Pista Polposkate',
     'Snapper Canal' => 'Canale Cannolicchio',
     'Starfish Mainstage' => 'Palco Plancton',
     'Sturgeon Shipyard' => 'Cantiere Pinnenere',

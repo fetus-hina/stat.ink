@@ -8,6 +8,7 @@
 return [
     'Any Stage' => 'すべてのステージ',
 
+    'Blackbelly Skatepark' => 'Bバスパーク',
     'Humpback Pump Track' => 'コンブトラック',
     'Inkblot Art Academy' => '海女美術大学',
     'Kelp Dome' => 'モズク農園',
@@ -31,6 +32,7 @@ return [
     'Reef' => 'バッテラ',
     'Shifty' => 'ミステリー',
     'Shipyard' => 'チョウザメ',
+    'Skatepark' => 'Bバス',
     'Towers' => 'タチウオ',
     'Track' => 'コンブ',
 ];

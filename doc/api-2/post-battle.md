@@ -146,6 +146,7 @@ POST データは全体で 12MiB 以内である必要があります。
 |-|-|-|
 |`ama`|海女美術大学<br>Inkblot Art Acodemy||
 |`battera`|バッテラストリート<br>The Reef||
+|`bbass`|Bバスパーク<br>Blackbelly Skatepark||
 |`chozame`|チョウザメ造船<br>Sturgeon Shipyard||
 |`engawa`|エンガワ河川敷<br>Snapper Canal||
 |`fujitsubo`|フジツボスポーツクラブ<br>Musselforge Fitness||
