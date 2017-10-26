@@ -1854,16 +1854,16 @@
         },
         {
             "name": "phpseclib/phpseclib",
-            "version": "2.0.6",
+            "version": "2.0.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpseclib/phpseclib.git",
-                "reference": "34a7699e6f31b1ef4035ee36444407cecf9f56aa"
+                "reference": "f4b6a522dfa1fd1e477c9cfe5909d5b31f098c0b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpseclib/phpseclib/zipball/34a7699e6f31b1ef4035ee36444407cecf9f56aa",
-                "reference": "34a7699e6f31b1ef4035ee36444407cecf9f56aa",
+                "url": "https://api.github.com/repos/phpseclib/phpseclib/zipball/f4b6a522dfa1fd1e477c9cfe5909d5b31f098c0b",
+                "reference": "f4b6a522dfa1fd1e477c9cfe5909d5b31f098c0b",
                 "shasum": ""
             },
             "require": {
@@ -1942,7 +1942,7 @@
                 "x.509",
                 "x509"
             ],
-            "time": "2017-06-05T06:31:10+00:00"
+            "time": "2017-10-23T05:04:54+00:00"
         },
         {
             "name": "psr/container",
@@ -2512,12 +2512,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-framework.git",
-                "reference": "32da118f1254572ca53e472299cd096ac7a39efd"
+                "reference": "cc7b959d8aa999ac0a816706f6d7872b421557f5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/32da118f1254572ca53e472299cd096ac7a39efd",
-                "reference": "32da118f1254572ca53e472299cd096ac7a39efd",
+                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/cc7b959d8aa999ac0a816706f6d7872b421557f5",
+                "reference": "cc7b959d8aa999ac0a816706f6d7872b421557f5",
                 "shasum": ""
             },
             "require": {
@@ -2604,7 +2604,7 @@
                 "framework",
                 "yii2"
             ],
-            "time": "2017-10-19T22:28:05+00:00"
+            "time": "2017-10-26T08:32:52+00:00"
         },
         {
             "name": "yiisoft/yii2-bootstrap",
