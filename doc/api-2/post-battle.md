@@ -188,7 +188,7 @@ There is a listing page [here](https://stat.ink/api-info/weapon2).
 |`heroblaster_replica`|`215`|ヒーローブラスター レプリカ<br>Hero Blaster Replica||
 |`hotblaster`|`210`|ホットブラスター<br>Blaster||
 |`hotblaster_custom`|`211`|ホットブラスターカスタム<br>Custom Blaster||
-|`longblaster`||ロングブラスター<br>Range Blaster||
+|`longblaster`|`220`|ロングブラスター<br>Range Blaster||
 |`nova`|`200`|ノヴァブラスター<br>Luna Blaster||
 |`rapid`|`240`|ラピッドブラスター<br>Rapid Blaster||
 |`rapid_elite`|`250`|Rブラスターエリート<br>Rapid Blaster Pro||
@@ -201,6 +201,7 @@ There is a listing page [here](https://stat.ink/api-info/weapon2).
 |`sputtery`|`5000`|スパッタリー<br>Dapple Dualies||
 |`carbon`|`1000`|カーボンローラー<br>Carbon Roller||
 |`dynamo`|`1020`|ダイナモローラー<br>Dynamo Roller||
+|`dynamo_tesla`|`1021`|ダイナモローラーテスラ<br>Gold Dynamo Roller||
 |`heroroller_replica`|`1015`|ヒーローローラー レプリカ<br>Hero Roller Replica||
 |`splatroller`|`1010`|スプラローラー<br>Splat Roller||
 |`splatroller_collabo`|`1011`|スプラローラーコラボ<br>Krak-On Splat Roller||

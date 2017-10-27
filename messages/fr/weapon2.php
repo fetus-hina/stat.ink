@@ -36,6 +36,7 @@ return [
     'Firefin Splatterscope' => '',
     'Flingza Roller' => 'Flexi-rouleau',
     'Forge Splattershot Pro' => 'Liquidateur pro griffé',
+    'Gold Dynamo Roller' => 'Dynamo-rouleau tesla',
     'Goo Tuber' => 'Détubeur',
     'H-3 Nozzlenose' => 'Arroseur lourd',
     'Heavy Splatling' => 'Badigeonneur',

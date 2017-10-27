@@ -36,6 +36,7 @@ return [
     'Firefin Splatterscope' => 'Cargatintas con mira Chokkor',
     'Flingza Roller' => 'Rodillo versátil',
     'Forge Splattershot Pro' => 'Lanzatintas plus B',
+    'Gold Dynamo Roller' => 'Dinamorrodillo T',
     'Goo Tuber' => 'Tubofusil',
     'H-3 Nozzlenose' => 'Tintambor pesado',
     'Heavy Splatling' => 'Tintralladora',

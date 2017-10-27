@@ -37,6 +37,7 @@ return [
     'Firefin Splatterscope' => 'Telecargatintas Shachi',
     'Flingza Roller' => '',
     'Forge Splattershot Pro' => 'Rociador Forima',
+    'Gold Dynamo Roller' => 'Rodillo Pro dorado',
     'Goo Tuber' => '',
     'H-3 Nozzlenose' => 'Manguera pesada',
     'Heavy Splatling' => 'Garabateador Pro',

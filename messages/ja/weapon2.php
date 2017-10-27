@@ -54,6 +54,7 @@ return [
     'Carbon Roller' => 'カーボンローラー',
     'Dynamo Roller' => 'ダイナモローラー',
     'Flingza Roller' => 'ヴァリアブルローラー',
+    'Gold Dynamo Roller' => 'ダイナモローラーテスラ',
     'Hero Roller Replica' => 'ヒーローローラー レプリカ',
     'Herobrush Replica' => 'ヒーローブラシ レプリカ',
     'Inkbrush' => 'パブロ',
