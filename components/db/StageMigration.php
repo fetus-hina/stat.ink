@@ -12,7 +12,7 @@ use yii\db\Query;
 
 trait StageMigration
 {
-    Protected function setArea(array $list) : void
+    protected function setArea(array $list) : void
     {
         $db = Yii::$app->db;
         $value = new Expression(vsprintf('(CASE %s %s END)', [
