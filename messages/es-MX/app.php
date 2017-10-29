@@ -337,6 +337,7 @@ return [
     'Please tell us about your capture environment and communication between your Wii U and User Agent (e.g. IkaLog). This information will be public.' => 'Por favor díganos acerca de su entorno de captura y comunicación entre el Wii U y el agente de usuario (por ejemplo, IkaLog). Esta información será pública.',
     'Please wait.' => 'Espera.',
     'PNG/JPEG file up to {0}' => '',
+    '~{point}p' => '',
     '{point}p' => '{point} p.',
     '{point, plural, =1{1 point} other{# points}} in {battle, plural, =1{1 battle} other{# battles}}' => '',
     '{point, plural, other{#p}}' => '{point, plural, other{# p}}',

@@ -525,4 +525,5 @@ return [
     '{sec} seconds' => '{sec} 秒',
     '{sec} seconds, {cnt} times' => '{sec} 秒, 最大 {cnt} 回',
     '{title} Official Website' => '{title} 公式サイト',
+    '~{point}p' => '約{point}p',
 ];
