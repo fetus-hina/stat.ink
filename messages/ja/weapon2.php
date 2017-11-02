@@ -27,6 +27,7 @@ return [
     'Blaster' => 'ホットブラスター',
     'Clash Blaster' => 'クラッシュブラスター',
     'Custom Blaster' => 'ホットブラスターカスタム',
+    'Custom Jet Squelcher' => 'ジェットスイーパーカスタム',
     'Custom Splattershot Jr.' => 'もみじシューター',
     'Dapple Dualies' => 'スパッタリー',
     'Dualie Squelchers' => 'デュアルスイーパー',

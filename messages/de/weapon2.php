@@ -24,6 +24,7 @@ return [
     'Custom Blaster' => 'Blaster SE',
     'Custom E-liter 4K' => 'E-liter 4K SE',
     'Custom E-liter 4K Scope' => 'Ziel-E-liter 4K SE',
+    'Custom Jet Squelcher' => 'Platscher SE',
     'Custom Splattershot Jr.' => 'Junior-Kleckser Plus',
     'Dapple Dualies' => 'Sprenkler',
     'Dualies' => '',

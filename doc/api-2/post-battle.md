@@ -174,6 +174,7 @@ There is a listing page [here](https://stat.ink/api-info/weapon2).
 |`bold`|`0`|ボールドマーカー<br>Sploosh-o-matic||
 |`heroshooter_replica`|`45`|ヒーローシューター レプリカ<br>Hero Shot Replica||
 |`jetsweeper`|`90`|ジェットスイーパー<br>Jet Squelcher||
+|`jetsweeper_custom`|`91`|ジェットスイーパーカスタム<br>Custom Jet Squelcher||
 |`momiji`|`11`|もみじシューター<br>Custom Splattershot Jr.||
 |`nzap85`|`60`|N-ZAP85<br>N-ZAP '85||
 |`prime`|`70`|プライムシューター<br>Splattershot Pro||

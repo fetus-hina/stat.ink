@@ -24,6 +24,7 @@ return [
     'Custom Blaster' => 'Lanzamotas adaptado',
     'Custom E-liter 4K' => 'Entintador 4K adaptado',
     'Custom E-liter 4K Scope' => 'Telentintador 4K adaptado',
+    'Custom Jet Squelcher' => 'Megasoplador adaptado',
     'Custom Splattershot Jr.' => 'Rociador básico adaptado',
     'Dapple Dualies' => '',
     'Dualies' => '',

@@ -24,6 +24,7 @@ return [
     'Custom Blaster' => 'Éclablaster modifié',
     'Custom E-liter 4K' => 'Extraceur + modifié',
     'Custom E-liter 4K Scope' => 'Extraceur + zoom modifié',
+    'Custom Jet Squelcher' => 'Nettoyeur XL modifié',
     'Custom Splattershot Jr.' => 'Liquidateur Sr.',
     'Dapple Dualies' => 'Double moucheteur',
     'Dualies' => '',

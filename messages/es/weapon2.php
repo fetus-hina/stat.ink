@@ -24,6 +24,7 @@ return [
     'Custom Blaster' => 'Devastador SP',
     'Custom E-liter 4K' => 'Entintador 4K SP',
     'Custom E-liter 4K Scope' => 'Telentintador 4K SP',
+    'Custom Jet Squelcher' => 'Megabarredora SP',
     'Custom Splattershot Jr.' => 'Lanzatintas novato B',
     'Dapple Dualies' => 'Atomizador dual',
     'Dualies' => '',
