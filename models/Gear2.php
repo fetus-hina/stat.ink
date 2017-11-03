@@ -27,6 +27,8 @@ use yii\db\ActiveRecord;
  */
 class Gear2 extends ActiveRecord
 {
+    private $translatedName;
+
     /*
      * @inheritdoc
      */
@@ -100,5 +102,13 @@ class Gear2 extends ActiveRecord
     public function getType()
     {
         return $this->hasOne(GearType::class, ['id' => 'type_id']);
+    }
+
+    public function getTranslatedName() : string
+    {
+        if ($this->translatedName === null) {
+            $this->translatedName = Yii::t('app-gear2', $this->name);
+        }
+        return $this->translatedName;
     }
 }

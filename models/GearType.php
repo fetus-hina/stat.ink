@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2015 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2017 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  */
@@ -9,6 +9,7 @@ namespace app\models;
 
 use Yii;
 use app\components\helpers\Translator;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "gear_type".
@@ -16,8 +17,11 @@ use app\components\helpers\Translator;
  * @property integer $id
  * @property string $key
  * @property string $name
+ *
+ * @property Gear[] $gears
+ * @property Gear2[] $gear2s
  */
-class GearType extends \yii\db\ActiveRecord
+class GearType extends ActiveRecord
 {
     /**
      * @inheritdoc
@@ -36,7 +40,7 @@ class GearType extends \yii\db\ActiveRecord
             [['key', 'name'], 'required'],
             [['key'], 'string', 'max' => 16],
             [['name'], 'string', 'max' => 32],
-            [['key'], 'unique']
+            [['key'], 'unique'],
         ];
     }
 
@@ -50,6 +54,22 @@ class GearType extends \yii\db\ActiveRecord
             'key' => 'Key',
             'name' => 'Name',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getGears()
+    {
+        return $this->hasMany(Gear::class, ['type_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getGear2s()
+    {
+        return $this->hasMany(Gear2::class, ['type_id' => 'id']);
     }
 
     public function toJsonArray()
