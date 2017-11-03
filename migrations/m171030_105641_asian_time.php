@@ -71,19 +71,23 @@ class m171030_105641_asian_time extends Migration
     // }}}
 
     // get id {{{
-    private function timezone(string $key) : int {
+    private function timezone(string $key) : int
+    {
         return $this->getIdByKey('timezone', $key, 'identifier');
     }
 
-    private function country(string $key) : int {
+    private function country(string $key) : int
+    {
         return $this->getIdByKey('country', $key);
     }
 
-    private function region(string $key) : int {
+    private function region(string $key) : int
+    {
         return $this->getIdByKey('region', $key);
     }
 
-    private function group(string $name) : int {
+    private function group(string $name) : int
+    {
         return $this->getIdByKey('timezone_group', $name, 'name');
     }
 
