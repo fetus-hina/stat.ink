@@ -167,72 +167,72 @@ POST データは全体で 12MiB 以内である必要があります。
 また、実際のデータベースを参照した一覧ページが[ここにあります](https://stat.ink/api-info/weapon2)。<br>
 There is a listing page [here](https://stat.ink/api-info/weapon2).
 
-|Value|SplatNet|Weapon Name|Remarks|
-|-|-|-|-|
-|`52gal`|`50`|.52ガロン<br>.52 Gal||
-|`96gal`|`80`|.96ガロン<br>.96 Gal||
-|`bold`|`0`|ボールドマーカー<br>Sploosh-o-matic||
-|`heroshooter_replica`|`45`|ヒーローシューター レプリカ<br>Hero Shot Replica||
-|`jetsweeper`|`90`|ジェットスイーパー<br>Jet Squelcher||
-|`jetsweeper_custom`|`91`|ジェットスイーパーカスタム<br>Custom Jet Squelcher||
-|`momiji`|`11`|もみじシューター<br>Custom Splattershot Jr.||
-|`nzap85`|`60`|N-ZAP85<br>N-ZAP '85||
-|`prime`|`70`|プライムシューター<br>Splattershot Pro||
-|`prime_collabo`|`71`|プライムシューターコラボ<br>Forge Splattershot Pro||
-|`promodeler_mg`|`30`|プロモデラーMG<br>Aerospray MG||
-|`promodeler_rg`|`31`|プロモデラーRG<br>Aerospray RG||
-|`sharp`|`20`|シャープマーカー<br>Splash-o-matic||
-|`sshooter`|`40`|スプラシューター<br>Splattershot||
-|`sshooter_collabo`|`41`|スプラシューターコラボ<br>Tentatek Splattershot||
-|`wakaba`|`10`|わかばシューター<br>Splattershot Jr.||
-|`clashblaster`|`230`|クラッシュブラスター<br>Clash Blaster||
-|`heroblaster_replica`|`215`|ヒーローブラスター レプリカ<br>Hero Blaster Replica||
-|`hotblaster`|`210`|ホットブラスター<br>Blaster||
-|`hotblaster_custom`|`211`|ホットブラスターカスタム<br>Custom Blaster||
-|`longblaster`|`220`|ロングブラスター<br>Range Blaster||
-|`nova`|`200`|ノヴァブラスター<br>Luna Blaster||
-|`rapid`|`240`|ラピッドブラスター<br>Rapid Blaster||
-|`rapid_elite`|`250`|Rブラスターエリート<br>Rapid Blaster Pro||
-|`h3reelgun`|`310`|H3リールガン<br>H-3 Nozzlenose||
-|`l3reelgun`|`300`|L3リールガン<br>L-3 Nozzlenose||
-|`dualsweeper`|`5030`|デュアルスイーパー<br>Dualie Squelchers||
-|`heromaneuver_replica`|`5015`|ヒーローマニューバー レプリカ<br>Hero Dualie Replicas||
-|`maneuver`|`5010`|スプラマニューバー<br>Splat Dualies|互換性のため `manueuver` も受け付けます<br>Also accepts `manueuver` for compatibility|
-|`maneuver_collabo`|`5011`|スプラマニューバーコラボ<br>Enperry Splat Dualies|互換性のため `manueuver_collabo` も受け付けます<br>Also accepts `manueuver_collabo` for compatibility|
-|`sputtery`|`5000`|スパッタリー<br>Dapple Dualies||
-|`carbon`|`1000`|カーボンローラー<br>Carbon Roller||
-|`dynamo`|`1020`|ダイナモローラー<br>Dynamo Roller||
-|`dynamo_tesla`|`1021`|ダイナモローラーテスラ<br>Gold Dynamo Roller||
-|`heroroller_replica`|`1015`|ヒーローローラー レプリカ<br>Hero Roller Replica||
-|`splatroller`|`1010`|スプラローラー<br>Splat Roller||
-|`splatroller_collabo`|`1011`|スプラローラーコラボ<br>Krak-On Splat Roller||
-|`variableroller`|`1030`|ヴァリアブルローラー<br>Flingza Roller||
-|`herobrush_replica`|`1115`|ヒーローブラシ レプリカ<br>Herobrush Replica||
-|`hokusai`|`1110`|ホクサイ<br>Octobrush||
-|`pablo`|`1100`|パブロ<br>Inkbrush||
-|`bamboo14mk1`|`2050`|14式竹筒銃・甲<br>Bamboozler 14 Mk I||
-|`herocharger_replica`|`2015`|ヒーローチャージャー レプリカ<br>Hero Charger Replica||
-|`liter4k`|`2030`|リッター4K<br>E-liter 4K||
-|`liter4k_custom`|`2031`|リッター4Kカスタム<br>Custom E-liter 4K||
-|`liter4k_scope`|`2040`|4Kスコープ<br>E-liter 4K Scope||
-|`liter4k_scope_custom`|`2041`|4Kスコープカスタム<br>Custom E-liter 4K Scope||
-|`soytuber`|`2060`|ソイチューバー<br>Goo Tuber||
-|`splatcharger`|`2010`|スプラチャージャー<br>Splat Charger||
-|`splatcharger_collabo`|`2011`|スプラチャージャーコラボ<br>Firefin Splat Charger||
-|`splatscope`|`2020`|スプラスコープ<br>Splatterscope||
-|`splatscope_collabo`|`2021`|スプラスコープコラボ<br>Firefin Splatterscope||
-|`squiclean_a`|`2000`|スクイックリンα<br>Classic Squiffer||
-|`bucketslosher`|`3000`|バケットスロッシャー<br>Slosher||
-|`heroslosher_replica`|`3005`|ヒーロースロッシャー レプリカ<br>Hero Slosher Replica||
-|`hissen`|`3010`|ヒッセン<br>Tri-Slosher||
-|`screwslosher`|`3020`|スクリュースロッシャー<br>Sloshing Machine||
-|`barrelspinner`|`4010`|バレルスピナー<br>Heavy Splatling||
-|`barrelspinner_deco`|`4011`|バレルスピナーデコ<br>Heavy Splatling Deco||
-|`herospinner_replica`|`4015`|ヒーロースピナー レプリカ<br>Hero Splatling Replica||
-|`splatspinner`|`4000`|スプラスピナー<br>Mini Splatling||
-|`campingshelter`|`6010`|キャンピングシェルター<br>Tenta Brella||
-|`heroshelter_replica`|`6005`|ヒーローシェルター レプリカ<br>Hero Brella Replica||
-|`parashelter`|`6000`|パラシェルター<br>Splat Brella||
+|指定文字列<br>Key String|イカリング<br>SplatNet|ブキ<br>Weapon Name                                  |備考<br>Remarks                                                                                      |
+|------------------------|----------------------|-----------------------------------------------------|-----------------------------------------------------------------------------------------------------|
+|`52gal`                 |`50`                  |.52ガロン<br>.52 Gal                                 |                                                                                                     |
+|`96gal`                 |`80`                  |.96ガロン<br>.96 Gal                                 |                                                                                                     |
+|`bold`                  |`0`                   |ボールドマーカー<br>Sploosh-o-matic                  |                                                                                                     |
+|`heroshooter_replica`   |`45`                  |ヒーローシューター レプリカ<br>Hero Shot Replica     |                                                                                                     |
+|`jetsweeper`            |`90`                  |ジェットスイーパー<br>Jet Squelcher                  |                                                                                                     |
+|`jetsweeper_custom`     |`91`                  |ジェットスイーパーカスタム<br>Custom Jet Squelcher   |                                                                                                     |
+|`momiji`                |`11`                  |もみじシューター<br>Custom Splattershot Jr.          |                                                                                                     |
+|`nzap85`                |`60`                  |N-ZAP85<br>N-ZAP '85                                 |                                                                                                     |
+|`prime`                 |`70`                  |プライムシューター<br>Splattershot Pro               |                                                                                                     |
+|`prime_collabo`         |`71`                  |プライムシューターコラボ<br>Forge Splattershot Pro   |                                                                                                     |
+|`promodeler_mg`         |`30`                  |プロモデラーMG<br>Aerospray MG                       |                                                                                                     |
+|`promodeler_rg`         |`31`                  |プロモデラーRG<br>Aerospray RG                       |                                                                                                     |
+|`sharp`                 |`20`                  |シャープマーカー<br>Splash-o-matic                   |                                                                                                     |
+|`sshooter`              |`40`                  |スプラシューター<br>Splattershot                     |                                                                                                     |
+|`sshooter_collabo`      |`41`                  |スプラシューターコラボ<br>Tentatek Splattershot      |                                                                                                     |
+|`wakaba`                |`10`                  |わかばシューター<br>Splattershot Jr.                 |                                                                                                     |
+|`clashblaster`          |`230`                 |クラッシュブラスター<br>Clash Blaster                |                                                                                                     |
+|`heroblaster_replica`   |`215`                 |ヒーローブラスター レプリカ<br>Hero Blaster Replica  |                                                                                                     |
+|`hotblaster`            |`210`                 |ホットブラスター<br>Blaster                          |                                                                                                     |
+|`hotblaster_custom`     |`211`                 |ホットブラスターカスタム<br>Custom Blaster           |                                                                                                     |
+|`longblaster`           |`220`                 |ロングブラスター<br>Range Blaster                    |                                                                                                     |
+|`nova`                  |`200`                 |ノヴァブラスター<br>Luna Blaster                     |                                                                                                     |
+|`rapid`                 |`240`                 |ラピッドブラスター<br>Rapid Blaster                  |                                                                                                     |
+|`rapid_elite`           |`250`                 |Rブラスターエリート<br>Rapid Blaster Pro             |                                                                                                     |
+|`h3reelgun`             |`310`                 |H3リールガン<br>H-3 Nozzlenose                       |                                                                                                     |
+|`l3reelgun`             |`300`                 |L3リールガン<br>L-3 Nozzlenose                       |                                                                                                     |
+|`dualsweeper`           |`5030`                |デュアルスイーパー<br>Dualie Squelchers              |                                                                                                     |
+|`heromaneuver_replica`  |`5015`                |ヒーローマニューバー レプリカ<br>Hero Dualie Replicas|                                                                                                     |
+|`maneuver`              |`5010`                |スプラマニューバー<br>Splat Dualies                  |互換性のため `manueuver` も受け付けます<br>Also accepts `manueuver` for compatibility                |
+|`maneuver_collabo`      |`5011`                |スプラマニューバーコラボ<br>Enperry Splat Dualies    |互換性のため `manueuver_collabo` も受け付けます<br>Also accepts `manueuver_collabo` for compatibility|
+|`sputtery`              |`5000`                |スパッタリー<br>Dapple Dualies                       |                                                                                                     |
+|`carbon`                |`1000`                |カーボンローラー<br>Carbon Roller                    |                                                                                                     |
+|`dynamo`                |`1020`                |ダイナモローラー<br>Dynamo Roller                    |                                                                                                     |
+|`dynamo_tesla`          |`1021`                |ダイナモローラーテスラ<br>Gold Dynamo Roller         |                                                                                                     |
+|`heroroller_replica`    |`1015`                |ヒーローローラー レプリカ<br>Hero Roller Replica     |                                                                                                     |
+|`splatroller`           |`1010`                |スプラローラー<br>Splat Roller                       |                                                                                                     |
+|`splatroller_collabo`   |`1011`                |スプラローラーコラボ<br>Krak-On Splat Roller         |                                                                                                     |
+|`variableroller`        |`1030`                |ヴァリアブルローラー<br>Flingza Roller               |                                                                                                     |
+|`herobrush_replica`     |`1115`                |ヒーローブラシ レプリカ<br>Herobrush Replica         |                                                                                                     |
+|`hokusai`               |`1110`                |ホクサイ<br>Octobrush                                |                                                                                                     |
+|`pablo`                 |`1100`                |パブロ<br>Inkbrush                                   |                                                                                                     |
+|`bamboo14mk1`           |`2050`                |14式竹筒銃・甲<br>Bamboozler 14 Mk I                 |                                                                                                     |
+|`herocharger_replica`   |`2015`                |ヒーローチャージャー レプリカ<br>Hero Charger Replica|                                                                                                     |
+|`liter4k`               |`2030`                |リッター4K<br>E-liter 4K                             |                                                                                                     |
+|`liter4k_custom`        |`2031`                |リッター4Kカスタム<br>Custom E-liter 4K              |                                                                                                     |
+|`liter4k_scope`         |`2040`                |4Kスコープ<br>E-liter 4K Scope                       |                                                                                                     |
+|`liter4k_scope_custom`  |`2041`                |4Kスコープカスタム<br>Custom E-liter 4K Scope        |                                                                                                     |
+|`soytuber`              |`2060`                |ソイチューバー<br>Goo Tuber                          |                                                                                                     |
+|`splatcharger`          |`2010`                |スプラチャージャー<br>Splat Charger                  |                                                                                                     |
+|`splatcharger_collabo`  |`2011`                |スプラチャージャーコラボ<br>Firefin Splat Charger    |                                                                                                     |
+|`splatscope`            |`2020`                |スプラスコープ<br>Splatterscope                      |                                                                                                     |
+|`splatscope_collabo`    |`2021`                |スプラスコープコラボ<br>Firefin Splatterscope        |                                                                                                     |
+|`squiclean_a`           |`2000`                |スクイックリンα<br>Classic Squiffer                 |                                                                                                     |
+|`bucketslosher`         |`3000`                |バケットスロッシャー<br>Slosher                      |                                                                                                     |
+|`heroslosher_replica`   |`3005`                |ヒーロースロッシャー レプリカ<br>Hero Slosher Replica|                                                                                                     |
+|`hissen`                |`3010`                |ヒッセン<br>Tri-Slosher                              |                                                                                                     |
+|`screwslosher`          |`3020`                |スクリュースロッシャー<br>Sloshing Machine           |                                                                                                     |
+|`barrelspinner`         |`4010`                |バレルスピナー<br>Heavy Splatling                    |                                                                                                     |
+|`barrelspinner_deco`    |`4011`                |バレルスピナーデコ<br>Heavy Splatling Deco           |                                                                                                     |
+|`herospinner_replica`   |`4015`                |ヒーロースピナー レプリカ<br>Hero Splatling Replica  |                                                                                                     |
+|`splatspinner`          |`4000`                |スプラスピナー<br>Mini Splatling                     |                                                                                                     |
+|`campingshelter`        |`6010`                |キャンピングシェルター<br>Tenta Brella               |                                                                                                     |
+|`heroshelter_replica`   |`6005`                |ヒーローシェルター レプリカ<br>Hero Brella Replica   |                                                                                                     |
+|`parashelter`           |`6000`                |パラシェルター<br>Splat Brella                       |                                                                                                     |
 
 
 `rank`, `rank_after`

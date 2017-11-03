@@ -22,6 +22,14 @@ class Api2MarkdownController extends Controller
             'maneuver_collabo' => 'manueuver_collabo',
             'maneuver' => 'manueuver',
         ];
+        $data = [
+            [
+                "指定文字列<br>Key String",
+                "イカリング<br>SplatNet",
+                "ブキ<br>Weapon Name",
+                "備考<br>Remarks",
+            ],
+        ];
         $categories = WeaponCategory2::find()
             ->orderBy(['id' => SORT_ASC])
             ->all();
@@ -59,19 +67,19 @@ class Api2MarkdownController extends Controller
                             ))
                         );
                     }
-                    printf(
-                        "|`%s`|%s|%s<br>%s|%s|\n",
-                        $weapon['key'],
-                        isset($weapon['splatnet'])
-                            ? sprintf('`%d`', $weapon['splatnet'])
-                            : '',
-                        Yii::t('app-weapon2', $weapon['name'], [], 'ja-JP'),
-                        $weapon['name'],
-                        implode('<br>', $remarks)
-                    );
+                    $data[] = [
+                        sprintf('`%s`', $weapon['key']),
+                        isset($weapon['splatnet']) ? sprintf('`%d`', $weapon['splatnet']) : '',
+                        implode('<br>', [
+                            Yii::t('app-weapon2', $weapon['name'], [], 'ja-JP'),
+                            $weapon['name'],
+                        ]),
+                        implode('<br>', $remarks),
+                    ];
                 }
             }
         }
+        echo static::createTable($data);
         return 0;
         // }}}
     }
@@ -167,8 +175,7 @@ class Api2MarkdownController extends Controller
         return array_reduce(
             array_map(
                 function (string $line) : int {
-                    // mb_strwidth may returns wrong value for East Asian Ambiguous Width
-                    return mb_strwidth($line, 'UTF-8');
+                    return self::strwidth($line);
                 },
                 $lines
             ),
@@ -205,8 +212,17 @@ class Api2MarkdownController extends Controller
     {
         $outColumns = [];
         foreach (array_values($row) as $i => $colText) {
-            $outColumns[] = $colText . str_repeat(' ', $widths[$i] - mb_strwidth($colText, 'UTF-8'));
+            $outColumns[] = $colText . str_repeat(' ', $widths[$i] - self::strwidth($colText));
         }
         return '|' . implode('|', $outColumns) . '|';
+    }
+
+    private static function strwidth(string $text) : int
+    {
+        // mb_strwidth may returns wrong value for East Asian Ambiguous Width
+        $width = mb_strwidth($text, 'UTF-8');
+        $additional = 0;
+        $additional += preg_match_all('/[Α-Ωα-ω]/u', $text, $matches);
+        return $width + $additional;
     }
 }
