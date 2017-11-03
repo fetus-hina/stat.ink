@@ -142,21 +142,21 @@ POST データは全体で 12MiB 以内である必要があります。
 
 [GET /api/v2/stage](get-stage.md)で詳細情報が取得可能です。
 
-|指定文字列|ステージ||
-|-|-|-|
-|`ama`|海女美術大学<br>Inkblot Art Acodemy||
-|`battera`|バッテラストリート<br>The Reef||
-|`bbass`|Bバスパーク<br>Blackbelly Skatepark||
-|`chozame`|チョウザメ造船<br>Sturgeon Shipyard||
-|`engawa`|エンガワ河川敷<br>Snapper Canal||
-|`fujitsubo`|フジツボスポーツクラブ<br>Musselforge Fitness||
-|`gangaze`|ガンガゼ野外音楽堂<br>Starfish Mainstage||
-|`hokke`|ホッケふ頭<br>Port Mackerel||
-|`kombu`|コンブトラック<br>Humpback Pump Track|互換性のため`combu`も受け付けます<br>Also accepts `combu` for compatibility|
-|`manta`|マンタマリア号<br>Manta Maria||
-|`mozuku`|モズク農園<br>Kelp Dome||
-|`tachiuo`|タチウオパーキング<br>Moray Towers||
-|`mystery`|ミステリーゾーン<br>Shifty Station|フェス専用ステージ<br>For Splatfest|
+|指定文字列<br>Key String|イカリング<br>SplatNet|ステージ<br>Stage Name                       |備考<br>Remarks                                                              |
+|------------------------|----------------------|---------------------------------------------|-----------------------------------------------------------------------------|
+|`ama`                   |`4`                   |海女美術大学<br>Inkblot Art Academy          |                                                                             |
+|`battera`               |`0`                   |バッテラストリート<br>The Reef               |                                                                             |
+|`bbass`                 |`11`                  |Bバスパーク<br>Blackbelly Skatepark          |                                                                             |
+|`chozame`               |`3`                   |チョウザメ造船<br>Sturgeon Shipyard          |                                                                             |
+|`engawa`                |`9`                   |エンガワ河川敷<br>Snapper Canal              |                                                                             |
+|`fujitsubo`             |`1`                   |フジツボスポーツクラブ<br>Musselforge Fitness|                                                                             |
+|`gangaze`               |`2`                   |ガンガゼ野外音楽堂<br>Starfish Mainstage     |                                                                             |
+|`hokke`                 |`7`                   |ホッケふ頭<br>Port Mackerel                  |                                                                             |
+|`kombu`                 |`5`                   |コンブトラック<br>Humpback Pump Track        |互換性のため `combu` も受け付けます<br>Also accepts `combu` for compatibility|
+|`manta`                 |`6`                   |マンタマリア号<br>Manta Maria                |                                                                             |
+|`mozuku`                |`10`                  |モズク農園<br>Kelp Dome                      |                                                                             |
+|`tachiuo`               |`8`                   |タチウオパーキング<br>Moray Towers           |                                                                             |
+|`mystery`               |`9999`                |ミステリーゾーン<br>Shifty Station           |フェス専用ステージ<br>For Splatfest                                          |
 
 
 `weapon`
