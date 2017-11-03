@@ -142,6 +142,7 @@ POST データは全体で 12MiB 以内である必要があります。
 
 [GET /api/v2/stage](get-stage.md)で詳細情報が取得可能です。
 
+<!--replace:stage-->
 |指定文字列<br>Key String|イカリング<br>SplatNet|ステージ<br>Stage Name                       |備考<br>Remarks                                                              |
 |------------------------|----------------------|---------------------------------------------|-----------------------------------------------------------------------------|
 |`ama`                   |`4`                   |海女美術大学<br>Inkblot Art Academy          |                                                                             |
@@ -157,6 +158,7 @@ POST データは全体で 12MiB 以内である必要があります。
 |`mozuku`                |`10`                  |モズク農園<br>Kelp Dome                      |                                                                             |
 |`tachiuo`               |`8`                   |タチウオパーキング<br>Moray Towers           |                                                                             |
 |`mystery`               |`9999`                |ミステリーゾーン<br>Shifty Station           |フェス専用ステージ<br>For Splatfest                                          |
+<!--endreplace-->
 
 
 `weapon`
@@ -167,6 +169,7 @@ POST データは全体で 12MiB 以内である必要があります。
 また、実際のデータベースを参照した一覧ページが[ここにあります](https://stat.ink/api-info/weapon2)。<br>
 There is a listing page [here](https://stat.ink/api-info/weapon2).
 
+<!--replace:weapon-->
 |指定文字列<br>Key String|イカリング<br>SplatNet|ブキ<br>Weapon Name                                  |備考<br>Remarks                                                                                      |
 |------------------------|----------------------|-----------------------------------------------------|-----------------------------------------------------------------------------------------------------|
 |`52gal`                 |`50`                  |.52ガロン<br>.52 Gal                                 |                                                                                                     |
@@ -233,6 +236,7 @@ There is a listing page [here](https://stat.ink/api-info/weapon2).
 |`campingshelter`        |`6010`                |キャンピングシェルター<br>Tenta Brella               |                                                                                                     |
 |`heroshelter_replica`   |`6005`                |ヒーローシェルター レプリカ<br>Hero Brella Replica   |                                                                                                     |
 |`parashelter`           |`6000`                |パラシェルター<br>Splat Brella                       |                                                                                                     |
+<!--endreplace-->
 
 
 `rank`, `rank_after`

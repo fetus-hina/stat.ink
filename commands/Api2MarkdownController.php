@@ -15,6 +15,45 @@ use yii\helpers\Console;
 
 class Api2MarkdownController extends Controller
 {
+    public $defaultAction = 'update';
+
+    public function actionUpdate() : int
+    {
+        $path = Yii::getAlias('@app/doc/api-2/post-battle.md');
+        $markdown = preg_replace_callback(
+            '/(?<start><!--replace:(?<kind>[\w-]+)-->)(?<oldvalue>.*?)(?<end><!--endreplace-->)/us',
+            function (array $match) : string {
+                switch ($match['kind']) {
+                    case 'weapon':
+                        ob_start();
+                        $status = $this->actionWeapon();
+                        if ($status !== 0) {
+                            return $status;
+                        }
+                        $repl = ob_get_clean();
+                        return $match['start'] . "\n" . rtrim($repl) . "\n" . $match['end'];
+
+                    case 'stage':
+                        ob_start();
+                        $status = $this->actionStage();
+                        if ($status !== 0) {
+                            return $status;
+                        }
+                        $repl = ob_get_clean();
+                        return $match['start'] . "\n" . rtrim($repl) . "\n" . $match['end'];
+
+                    default:
+                        $this->stderr("Unknown kind of replace tag: " . $match['kind'] . "\n");
+                        exit(1);
+                }
+            },
+            file_get_contents($path)
+        );
+        file_put_contents($path, $markdown);
+        echo "Updated $path\n";
+        return 0;
+    }
+
     public function actionWeapon() : int
     {
         // {{{
@@ -156,6 +195,7 @@ class Api2MarkdownController extends Controller
         // }}}
     }
 
+    // Markdown Table {{{
     private static function calcWidths(array $rows) : array
     {
         $widths = [];
@@ -225,4 +265,5 @@ class Api2MarkdownController extends Controller
         $additional += preg_match_all('/[Α-Ωα-ω]/u', $text, $matches);
         return $width + $additional;
     }
+    // }}}
 }
