@@ -58,4 +58,9 @@ class Migration extends \yii\db\Migration
             ))
         );
     }
+
+    public function analyze($table) : void
+    {
+        $this->execute("VACUUM ANALYZE {{{$table}}}");
+    }
 }

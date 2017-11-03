@@ -5,6 +5,7 @@ return [
             'class' => 'yii\i18n\PhpMessageSource',
             'fileMap' => [
                 'app-ability'   => 'ability.php',
+                'app-ability2'  => 'ability2.php',
                 'app-brand'     => 'brand.php',
                 'app-death'     => 'death.php',
                 'app-death2'    => 'death2.php',
