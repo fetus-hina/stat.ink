@@ -1,0 +1,27 @@
+<?php
+/**
+ * @copyright Copyright (C) 2015-2017 AIZAWA Hina
+ * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
+ * @author AIZAWA Hina <hina@bouhime.com>
+ */
+
+return [
+    'amiibo' => '',
+    'Annaki' => 'アナアキ',
+    'Cuttlegear' => 'アタリメイド',
+    'Enperry' => 'エンペリー',
+    'Firefin' => 'ホッコリー',
+    'Forge' => 'フォーリマ',
+    'Grizzco' => 'クマサン商会',
+    'Inkline' => 'シグレニ',
+    'Krak-On' => 'クラーゲス',
+    'Rockenberg' => 'ロッケンベルグ',
+    'Skalop' => 'ホタックス',
+    'Splash Mob' => 'ジモン',
+    'SquidForce' => 'バトロイカ',
+    'Takoroka' => 'ヤコ',
+    'Tentatek' => 'アロメ',
+    'Toni Kensa' => 'タタキケンサキ',
+    'Zekko' => 'エゾッコ',
+    'Zink' => 'アイロニック',
+];
