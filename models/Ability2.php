@@ -16,9 +16,11 @@ use yii\db\ActiveRecord;
  * @property integer $id
  * @property string $key
  * @property string $name
+ * @property integer $splatnet
  *
  * @property Brand2[] $strengthBrands
  * @property Brand2[] $weaknessBrands
+ * @property Gear2[] $gears
  */
 class Ability2 extends ActiveRecord
 {
@@ -37,8 +39,11 @@ class Ability2 extends ActiveRecord
     {
         return [
             [['key', 'name'], 'required'],
+            [['splatnet'], 'default', 'value' => null],
+            [['splatnet'], 'integer'],
             [['key', 'name'], 'string', 'max' => 32],
             [['key'], 'unique'],
+            [['splatnet'], 'unique'],
         ];
     }
 
@@ -51,6 +56,7 @@ class Ability2 extends ActiveRecord
             'id' => 'ID',
             'key' => 'Key',
             'name' => 'Name',
+            'splatnet' => 'Splatnet',
         ];
     }
 
@@ -68,5 +74,13 @@ class Ability2 extends ActiveRecord
     public function getWeaknessBrands()
     {
         return $this->hasMany(Brand2::class, ['weakness_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getGears()
+    {
+        return $this->hasMany(Gear2::class, ['ability_id' => 'id']);
     }
 }

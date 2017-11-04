@@ -278,6 +278,41 @@ Regardless of gender, specify the same key-string. (Use `gender` to specify gend
 なお、キーの値は英語（北米）版のボーイ用の称号を小文字にしたものです。
 
 
+Gear Ability
+------------
+
+<!--replace:ability-->
+|指定文字列<br>Key String|イカリング<br>SplatNet|ギアパワー<br>Ability Name                    |備考<br>Remarks|
+|------------------------|----------------------|----------------------------------------------|---------------|
+|`ability_doubler`       |`108`                 |追加ギアパワー倍化<br>Ability Doubler         |               |
+|`bomb_defense_up`       |`12`                  |爆風ダメージ軽減<br>Bomb Defense Up           |               |
+|`cold_blooded`          |`13`                  |マーキング時間短縮<br>Cold-Blooded            |               |
+|`comeback`              |`103`                 |カムバック<br>Comeback                        |               |
+|`drop_roller`           |`111`                 |受け身術<br>Drop Roller                       |               |
+|`haunt`                 |`105`                 |リベンジ<br>Haunt                             |               |
+|`ink_recovery_up`       |`2`                   |インク回復力アップ<br>Ink Recovery Up         |               |
+|`ink_resistance_up`     |`11`                  |相手インク影響軽減<br>Ink Resistance Up       |               |
+|`ink_saver_main`        |`0`                   |インク効率アップ（メイン）<br>Ink Saver (Main)|               |
+|`ink_saver_sub`         |`1`                   |インク効率アップ（サブ）<br>Ink Saver (Sub)   |               |
+|`last_ditch_effort`     |`101`                 |ラストスパート<br>Last-Ditch Effort           |               |
+|`ninja_squid`           |`104`                 |イカニンジャ<br>Ninja Squid                   |               |
+|`object_shredder`       |`110`                 |対物攻撃力アップ<br>Object Shredder           |               |
+|`opening_gambit`        |`100`                 |スタートダッシュ<br>Opening Gambit            |               |
+|`quick_respawn`         |`8`                   |復活時間短縮<br>Quick Respawn                 |               |
+|`quick_super_jump`      |`9`                   |スーパージャンプ時間短縮<br>Quick Super Jump  |               |
+|`respawn_punisher`      |`107`                 |復活ペナルティアップ<br>Respawn Punisher      |               |
+|`run_speed_up`          |`3`                   |ヒト移動速度アップ<br>Run Speed Up            |               |
+|`special_charge_up`     |`5`                   |スペシャル増加量アップ<br>Special Charge Up   |               |
+|`special_power_up`      |`7`                   |スペシャル性能アップ<br>Special Power Up      |               |
+|`special_saver`         |`6`                   |スペシャル減少量ダウン<br>Special Saver       |               |
+|`stealth_jump`          |`109`                 |ステルスジャンプ<br>Stealth Jump              |               |
+|`sub_power_up`          |`10`                  |サブ性能アップ<br>Sub Power Up                |               |
+|`swim_speed_up`         |`4`                   |イカダッシュ速度アップ<br>Swim Speed Up       |               |
+|`tenacity`              |`102`                 |逆境強化<br>Tenacity                          |               |
+|`thermal_ink`           |`106`                 |サーマルインク<br>Thermal Ink                 |               |
+<!--endreplace-->
+
+
 `players`
 ---------
 

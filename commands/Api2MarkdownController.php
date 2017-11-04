@@ -8,6 +8,7 @@
 namespace app\commands;
 
 use Yii;
+use app\models\Ability2;
 use app\models\Map2;
 use app\models\WeaponCategory2;
 use yii\console\Controller;
@@ -36,6 +37,15 @@ class Api2MarkdownController extends Controller
                     case 'stage':
                         ob_start();
                         $status = $this->actionStage();
+                        if ($status !== 0) {
+                            return $status;
+                        }
+                        $repl = ob_get_clean();
+                        return $match['start'] . "\n" . rtrim($repl) . "\n" . $match['end'];
+
+                    case 'ability':
+                        ob_start();
+                        $status = $this->actionAbility();
                         if ($status !== 0) {
                             return $status;
                         }
@@ -185,6 +195,60 @@ class Api2MarkdownController extends Controller
                 implode("<br>", [
                     Yii::t('app-map2', $map->name, [], 'ja-JP'),
                     $map->name,
+                ]),
+                implode("<br>", $colRemarks),
+            ];
+            // }}}
+        }
+        echo static::createTable($data);
+        return 0;
+        // }}}
+    }
+
+    public function actionAbility() : int
+    {
+        // {{{
+        $compats = [];
+        $remarks = [];
+        $abilities = Ability2::find()->orderBy(['key' => SORT_ASC])->all();
+
+        $data = [
+            [
+                "指定文字列<br>Key String",
+                "イカリング<br>SplatNet",
+                "ギアパワー<br>Ability Name",
+                "備考<br>Remarks",
+            ],
+        ];
+        foreach ($abilities as $ability) {
+            // {{{
+            $colRemarks = $remarks[$ability->key] ?? [];
+            if (isset($compats[$ability->key])) {
+                $colRemarks[] = sprintf(
+                    '互換性のため %s も受け付けます',
+                    implode(', ', array_map(
+                        function (string $value) : string {
+                            return '`' . $value . '`';
+                        },
+                        (array)$compats[$ability->key]
+                    ))
+                );
+                $colRemarks[] = sprintf(
+                    'Also accepts %s for compatibility',
+                    implode(', ', array_map(
+                        function (string $value) : string {
+                            return '`' . $value . '`';
+                        },
+                        (array)$compats[$ability->key]
+                    ))
+                );
+            }
+            $data[] = [
+                sprintf('`%s`', $ability->key),
+                $ability->splatnet !== null ? sprintf('`%d`', $ability->splatnet) : '',
+                implode("<br>", [
+                    Yii::t('app-ability2', $ability->name, [], 'ja-JP'),
+                    $ability->name,
                 ]),
                 implode("<br>", $colRemarks),
             ];
