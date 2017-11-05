@@ -25,20 +25,30 @@ SortableTableAsset::register($this);
   <?= AdWidget::widget() . "\n" ?>
   <?= SnsWidget::widget() . "\n" ?>
 
-  <p>
-    <?= implode(' | ', array_map(
-        function (GearType $_type) use ($type) : string {
-          return ($_type->id == $type->id)
-            ? Html::encode(Yii::t('app-gear', $_type->name))
-            : Html::a(
+  <?= Html::tag(
+    'ul',
+    implode('', array_map(
+      function (GearType $_type) use ($type) : string {
+        return ($_type->id == $type->id)
+          ? Html::tag(
+            'li',
+            Html::a(Html::encode(Yii::t('app-gear', $_type->name)), '#'),
+            ['role' => 'presentation', 'class' => 'active']
+          )
+          : Html::tag(
+            'li',
+            Html::a(
               Html::encode(Yii::t('app-gear', $_type->name)),
               ['api-info/gear2-' . $_type->key]
-            );
-        },
-        GearType::find()->orderBy(['id' => SORT_ASC])->all()
-    )) . "\n" ?>
-  </p>
-  <div class="table-responsive table-responsive-force">
+            ),
+            ['role' => 'presentation']
+          );
+      },
+      GearType::find()->orderBy(['id' => SORT_ASC])->all()
+    )),
+    ['class' => 'nav nav-pills']
+  ) . "\n" ?>
+  <div class="table-responsive table-responsive-force" style="margin-top:15px":>
     <table class="table table-striped table-condensed table-sortable">
       <thead>
         <tr>
