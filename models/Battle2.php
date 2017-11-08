@@ -325,12 +325,26 @@ class Battle2 extends ActiveRecord
                                     ->asArray()
                                     ->column();
                             })(clone $this, $match[1])]);
-                        } elseif (preg_match('/^v\d+/', $term)) {
-                            $version = SplatoonVersion2::findOne(['tag' => substr($term, 1)]);
-                            if (!$version) {
+                        } elseif (preg_match('/^~v\d+/', $term)) {
+                            $versions = (function () use ($term) {
+                                $query = SplatoonVersion2::find()->asArray();
+                                if (substr($term, 0, 1) === '~') {
+                                    $query->innerJoinWith('group', false)
+                                        ->andWhere(['splatoon_version_group2.tag' => substr($term, 2)]);
+                                } else {
+                                    $query->andWhere(['tag' => substr($term, 1)]);
+                                }
+                                return array_map(
+                                    function (array $version) : int {
+                                        return $version['id'];
+                                    },
+                                    $query->all()
+                                );
+                            })();
+                            if (!$versions) {
                                 $this->andWhere('1 <> 1'); // Always false
                             } else {
-                                $this->andWhere(['battle2.version_id' => $version->id]);
+                                $this->andWhere(['battle2.version_id' => $versions]);
                             }
                         }
                         break;

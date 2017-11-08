@@ -16,6 +16,7 @@ use app\models\Rank2;
 use app\models\RankGroup2;
 use app\models\Special2;
 use app\models\SplatoonVersion2;
+use app\models\SplatoonVersionGroup2;
 use app\models\Subweapon2;
 use app\models\User;
 use app\models\Weapon2;
@@ -407,22 +408,47 @@ class Battle2FilterWidget extends Widget
             'last-200-battles'  => Yii::t('app', 'Last {n} Battles', ['n' => 200]),
         ];
 
-        $versions = ArrayHelper::map(
-            SplatoonVersion2::find()->asArray()->all(),
-            function ($version) {
-                return sprintf('v%s', $version['tag']);
-            },
-            function ($version) {
-                return Yii::t(
-                    'app',
-                    'Version {0}',
-                    Yii::t('app-version2', $version['name'])
-                );
+
+        $versions = (function () : array {
+            $result = [];
+            $groups = SplatoonVersionGroup2::find()->with('versions')->asArray()->all();
+            usort($groups, function (array $a, array $b) : int {
+                return version_compare($b['tag'], $a['tag']);
+            });
+            foreach ($groups as $group) {
+                $n = count($group['versions']);
+                if ($n == 1) {
+                    $version = $group['versions'][0];
+                    $result['v' . $version['tag']] = Yii::t(
+                        'app',
+                        'Version {0}',
+                        Yii::t('app-version2', $version['name'])
+                    );
+                } elseif ($n > 1) {
+                    $result['~v' . $group['tag']] = Yii::t(
+                        'app',
+                        'Version {0}',
+                        Yii::t('app-version2', $group['name'])
+                    );
+                    usort($group['versions'], function (array $a, array $b) : int {
+                        return version_compare($b['tag'], $a['tag']);
+                    });
+                    foreach ($group['versions'] as $i => $version) {
+                        $isLast = ($i === $n - 1);
+                        $result['v' . $version['tag']] = sprintf(
+                            '%s %s',
+                            $isLast ? '┗' : '┣',
+                            Yii::t(
+                                'app',
+                                'Version {0}',
+                                Yii::t('app-version2', $version['name'])
+                            )
+                        );
+                    }
+                }
             }
-        );
-        uksort($versions, function (string $a, string $b) {
-            return version_compare($b, $a);
-        });
+            return $result;
+        })();
         $list = array_merge($list, $versions);
 
         $list['term'] = Yii::t('app', 'Specify Period');

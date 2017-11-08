@@ -7,6 +7,8 @@
 
 return [
     'Any Version' => '',
+    'Initial Release' => '',
+    'Prerelease' => '',
     'Splatfest World Premiere' => '',
     'Testfire' => '',
 ];

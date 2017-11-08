@@ -146,11 +146,18 @@ class Battle2FilterForm extends Model
                         'term',
                     ],
                     array_map(
-                        function ($a) : string {
+                        function (array $a) : string {
+                            return '~v' . $a['tag'];
+                        },
+                        SplatoonVersionGroup2::find()
+                            ->asArray()
+                            ->all()
+                    ),
+                    array_map(
+                        function (array $a) : string {
                             return 'v' . $a['tag'];
                         },
                         SplatoonVersion2::find()
-                            ->orderBy(['released_at' => SORT_DESC])
                             ->asArray()
                             ->all()
                     )
@@ -331,7 +338,7 @@ class Battle2FilterForm extends Model
                     $push('term_from', date('Y-m-d H:i:s', strtotime($range['min_at'])));
                     $push('term_to', date('Y-m-d H:i:s', strtotime($range['max_at'])));
                     $push('timezone', $tz);
-                } elseif (preg_match('/^v\d+/', $this->term)) {
+                } elseif (preg_match('/^~?v\d+/', $this->term)) {
                     $push('term', $this->term);
                 }
                 break;

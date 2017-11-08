@@ -7,6 +7,8 @@
 
 return [
     'Any Version' => 'すべてのバージョン',
+    'Initial Release' => '初期版',
+    'Prerelease' => '事前版',
     'Splatfest World Premiere' => '前夜祭',
     'Testfire' => '試射会',
 ];
