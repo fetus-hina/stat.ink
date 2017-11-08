@@ -17,6 +17,11 @@ use yii\db\ActiveRecord;
  * @property string $tag
  * @property string $name
  * @property string $released_at
+ * @property integer $group_id
+ *
+ * @property Battle2[] $battles
+ * @property SplatoonVersionGroup2 $group
+ * @property StatWeapon2Result[] $statWeapon2Results
  */
 class SplatoonVersion2 extends ActiveRecord
 {
@@ -51,11 +56,17 @@ class SplatoonVersion2 extends ActiveRecord
     public function rules()
     {
         return [
-            [['tag', 'name', 'released_at'], 'required'],
+            [['tag', 'name', 'released_at', 'group_id'], 'required'],
             [['released_at'], 'safe'],
+            [['group_id'], 'default', 'value' => null],
+            [['group_id'], 'integer'],
             [['tag'], 'string', 'max' => 16],
             [['name'], 'string', 'max' => 32],
             [['tag'], 'unique'],
+            [['group_id'], 'exist', 'skipOnError' => true,
+                'targetClass' => SplatoonVersionGroup2::class,
+                'targetAttribute' => ['group_id' => 'id'],
+            ],
         ];
     }
 
@@ -69,6 +80,31 @@ class SplatoonVersion2 extends ActiveRecord
             'tag' => 'Tag',
             'name' => 'Name',
             'released_at' => 'Released At',
+            'group_id' => 'Group ID',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getBattles()
+    {
+        return $this->hasMany(Battle2::class, ['version_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getGroup()
+    {
+        return $this->hasOne(SplatoonVersionGroup2::class, ['id' => 'group_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getStatWeapon2Results()
+    {
+        return $this->hasMany(StatWeapon2Result::class, ['version_id' => 'id']);
     }
 }
