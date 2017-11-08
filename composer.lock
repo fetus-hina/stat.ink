@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "7ea2696eedbf2b31b6f9e514495a0779",
+    "content-hash": "bbfdebb3a44ea07e8ea73d11bf5c70ca",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -1251,25 +1251,20 @@
         },
         {
             "name": "himiklab/yii2-recaptcha-widget",
-            "version": "1.0.6",
+            "version": "1.0.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/himiklab/yii2-recaptcha-widget.git",
-                "reference": "6c7c6c41a595f8fdcc5ec54e5f09a332ef0358cc"
+                "reference": "64daf4d4628c6fa9275f774b927fa2d750e64ae3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/himiklab/yii2-recaptcha-widget/zipball/6c7c6c41a595f8fdcc5ec54e5f09a332ef0358cc",
-                "reference": "6c7c6c41a595f8fdcc5ec54e5f09a332ef0358cc",
+                "url": "https://api.github.com/repos/himiklab/yii2-recaptcha-widget/zipball/64daf4d4628c6fa9275f774b927fa2d750e64ae3",
+                "reference": "64daf4d4628c6fa9275f774b927fa2d750e64ae3",
                 "shasum": ""
             },
             "require": {
                 "yiisoft/yii2": "*"
-            },
-            "require-dev": {
-                "phpunit/dbunit": ">=1.2",
-                "phpunit/phpunit": ">=3.7",
-                "phpunit/phpunit-selenium": ">=1.2"
             },
             "type": "yii2-extension",
             "autoload": {
@@ -1295,7 +1290,7 @@
                 "widget",
                 "yii2"
             ],
-            "time": "2017-01-10T15:46:29+00:00"
+            "time": "2017-11-08T16:56:06+00:00"
         },
         {
             "name": "hiqdev/yii2-asset-flag-icon-css",
@@ -2509,16 +2504,16 @@
         },
         {
             "name": "yiisoft/yii2",
-            "version": "dev-master",
+            "version": "2.0.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-framework.git",
-                "reference": "bf2571825dafaaf9e61fbf2f9fd4e28812817933"
+                "reference": "9f82b8f0df9adb4b8a410be5aaa97818153689d9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/bf2571825dafaaf9e61fbf2f9fd4e28812817933",
-                "reference": "bf2571825dafaaf9e61fbf2f9fd4e28812817933",
+                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/9f82b8f0df9adb4b8a410be5aaa97818153689d9",
+                "reference": "9f82b8f0df9adb4b8a410be5aaa97818153689d9",
                 "shasum": ""
             },
             "require": {
@@ -2605,7 +2600,7 @@
                 "framework",
                 "yii2"
             ],
-            "time": "2017-11-07T16:20:14+00:00"
+            "time": "2017-11-02T22:09:29+00:00"
         },
         {
             "name": "yiisoft/yii2-bootstrap",
@@ -4244,16 +4239,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "6.4.3",
+            "version": "6.4.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "06b28548fd2b4a20c3cd6e247dc86331a7d4db13"
+                "reference": "562f7dc75d46510a4ed5d16189ae57fbe45a9932"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/06b28548fd2b4a20c3cd6e247dc86331a7d4db13",
-                "reference": "06b28548fd2b4a20c3cd6e247dc86331a7d4db13",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/562f7dc75d46510a4ed5d16189ae57fbe45a9932",
+                "reference": "562f7dc75d46510a4ed5d16189ae57fbe45a9932",
                 "shasum": ""
             },
             "require": {
@@ -4324,7 +4319,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2017-10-16T13:18:59+00:00"
+            "time": "2017-11-08T11:26:09+00:00"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -5668,7 +5663,6 @@
     "stability-flags": {
         "bower-asset/jquery-stupid-table": 20,
         "shakura/yii2-gearman": 20,
-        "yiisoft/yii2": 20,
         "yiisoft/yii2-gii": 20
     },
     "prefer-stable": false,

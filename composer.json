@@ -56,7 +56,7 @@
         "smarty/smarty": "~3.1",
         "tpyo/amazon-s3-php-class": "^0.5.1",
         "websightnl/gearman": "^1.0",
-        "yiisoft/yii2": "2.0.x-dev",
+        "yiisoft/yii2": "~2.0.13",
         "yiisoft/yii2-bootstrap": "2.0.*",
         "yiisoft/yii2-smarty": "2.0.*",
         "zendframework/zend-feed": "^2.6",
