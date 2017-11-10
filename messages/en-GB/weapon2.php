@@ -52,6 +52,7 @@ return [
     'Hero Slosher Replica' => '',
     'Hero Splatling Replica' => '',
     'Inkbrush' => '',
+    'Inkbrush Nouveau' => '',
     'Jet Squelcher' => '',
     'Krak-On Splat Roller' => '',
     'L-3 Nozzlenose' => '',

@@ -52,6 +52,7 @@ return [
     'Hero Slosher Replica' => 'Helden-Schwapper Replik',
     'Hero Splatling Replica' => 'Helden-Splatling Replik',
     'Inkbrush' => 'Quasto',
+    'Inkbrush Nouveau' => 'Quasto Fresco',
     'Jet Squelcher' => 'Platscher',
     'Krak-On Splat Roller' => 'Medusa-Klecksroller',
     'L-3 Nozzlenose' => 'L3 Tintenwerfer',

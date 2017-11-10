@@ -52,6 +52,7 @@ return [
     'Hero Slosher Replica' => 'Derramatic de élite (réplica)',
     'Hero Splatling Replica' => 'Tintralladora de élite (réplica)',
     'Inkbrush' => 'Pincel',
+    'Inkbrush Nouveau' => 'Pincel maestro',
     'Jet Squelcher' => 'Megabarredora',
     'Krak-On Splat Roller' => 'Rodillo básico B',
     'L-3 Nozzlenose' => 'Tintambor ligero',

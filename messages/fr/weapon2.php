@@ -52,6 +52,7 @@ return [
     'Hero Slosher Replica' => '',
     'Hero Splatling Replica' => '',
     'Inkbrush' => 'Épinceau',
+    'Inkbrush Nouveau' => 'Épinceau nuancé',
     'Jet Squelcher' => 'Nettoyeur XL',
     'Krak-On Splat Roller' => 'Rouleau griffé',
     'L-3 Nozzlenose' => 'Arroseur léger',

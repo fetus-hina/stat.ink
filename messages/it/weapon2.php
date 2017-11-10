@@ -52,6 +52,7 @@ return [
     'Hero Slosher Replica' => 'Secchiostro élite replica',
     'Hero Splatling Replica' => 'Splatling élite replica',
     'Inkbrush' => 'Calamaravaggio',
+    'Inkbrush Nouveau' => 'Calamaravaggio master',
     'Jet Squelcher' => 'Sweeper',
     'Krak-On Splat Roller' => 'Rullo splat logo',
     'L-3 Nozzlenose' => 'Triplete compatto',

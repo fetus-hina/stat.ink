@@ -58,6 +58,7 @@ return [
     'Gold Dynamo Roller' => 'ダイナモローラーテスラ',
     'Hero Roller Replica' => 'ヒーローローラー レプリカ',
     'Herobrush Replica' => 'ヒーローブラシ レプリカ',
+    'Inkbrush Nouveau' => 'パブロ・ヒュー',
     'Inkbrush' => 'パブロ',
     'Krak-On Splat Roller' => 'スプラローラーコラボ',
     'Octobrush' => 'ホクサイ',

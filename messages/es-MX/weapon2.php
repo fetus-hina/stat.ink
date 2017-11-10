@@ -53,6 +53,7 @@ return [
     'Hero Slosher Replica' => 'Derramatic de élite réplica',
     'Hero Splatling Replica' => 'Garabateador de élite réplica',
     'Inkbrush' => '',
+    'Inkbrush Nouveau' => '',
     'Jet Squelcher' => 'Megasoplador',
     'Krak-On Splat Roller' => 'Rodillo básico Meddux',
     'L-3 Nozzlenose' => 'Manguera ligera',
