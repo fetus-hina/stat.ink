@@ -213,7 +213,7 @@ There is a listing page [here](https://stat.ink/api-info/weapon2).
 |`herobrush_replica`     |`1115`                |ヒーローブラシ レプリカ<br>Herobrush Replica         |                                                                                                     |
 |`hokusai`               |`1110`                |ホクサイ<br>Octobrush                                |                                                                                                     |
 |`pablo`                 |`1100`                |パブロ<br>Inkbrush                                   |                                                                                                     |
-|`pablo_hue`             |`1101`                |パブロ・ヒュー<br>Inkbrush Nouveau                   |                                                                                                     |
+|`pablo_hue`             |`1101`                |パブロ・ヒュー<br>Inkbrush Nouveau                   |互換性のため `publo_hue` も受け付けます<br>Also accepts `publo_hue` for compatibility                |
 |`bamboo14mk1`           |`2050`                |14式竹筒銃・甲<br>Bamboozler 14 Mk I                 |                                                                                                     |
 |`herocharger_replica`   |`2015`                |ヒーローチャージャー レプリカ<br>Hero Charger Replica|                                                                                                     |
 |`liter4k`               |`2030`                |リッター4K<br>E-liter 4K                             |                                                                                                     |
