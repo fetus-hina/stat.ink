@@ -48,6 +48,7 @@ class PostBattlePlayerForm extends Model
                     'weapon' => [
                         'manueuver' => 'maneuver', // issue #221
                         'manueuver_collabo' => 'maneuver_collabo', // issue #221
+                        'publo_hue' => 'pablo_hue', // issue #301
                     ],
                     'fest_title' => [
                         'friend' => 'fiend', // issue #44

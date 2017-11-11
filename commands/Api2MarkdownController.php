@@ -70,6 +70,7 @@ class Api2MarkdownController extends Controller
         $compats = [
             'maneuver_collabo' => 'manueuver_collabo',
             'maneuver' => 'manueuver',
+            'publo_hue' => 'pablo_hue', // issue #301
         ];
         $data = [
             [
