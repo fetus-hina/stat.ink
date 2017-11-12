@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "37c812aebe2281bf826862287bad7835",
+    "content-hash": "2c521f7a8d31581a9b0f1e69268f5686",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -2135,13 +2135,13 @@
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/shakura/yii2-gearman.git",
-                "reference": "3c78e6fde4bc304f33fd64aeff38c015d8a14191"
+                "url": "https://github.com/fetus-hina/yii2-gearman.git",
+                "reference": "cd672fd065c6afb4ff2de54e8ac7c91f53f8dae0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/shakura/yii2-gearman/zipball/3c78e6fde4bc304f33fd64aeff38c015d8a14191",
-                "reference": "3c78e6fde4bc304f33fd64aeff38c015d8a14191",
+                "url": "https://api.github.com/repos/fetus-hina/yii2-gearman/zipball/cd672fd065c6afb4ff2de54e8ac7c91f53f8dae0",
+                "reference": "cd672fd065c6afb4ff2de54e8ac7c91f53f8dae0",
                 "shasum": ""
             },
             "require": {
@@ -2162,7 +2162,6 @@
                     "shakura\\yii2\\gearman\\": ""
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -2178,7 +2177,11 @@
                 "extension",
                 "yii"
             ],
-            "time": "2015-11-02T08:21:02+00:00"
+            "support": {
+                "email": "waclaw@shakura.ru",
+                "source": "https://github.com/shakura/yii2-gearman"
+            },
+            "time": "2017-11-12T16:31:47+00:00"
         },
         {
             "name": "smarty/smarty",
