@@ -7,6 +7,7 @@ use app\models\Map2;
 use app\models\RankGroup2;
 use app\models\Rule2;
 use app\models\SplatoonVersion2;
+use app\models\SplatoonVersionGroup2;
 use app\models\Weapon2;
 use app\models\WeaponCategory2;
 use yii\bootstrap\ActiveForm;
@@ -125,18 +126,43 @@ $this->registerCss(implode('', [
     <?= $_form->field($filter, 'term')->label(false)->dropDownList(array_merge(
       ['' => Yii::t('app-version2', 'Any Version')],
       (function () {
-        $list = ArrayHelper::map(
-          SplatoonVersion2::find()->asArray()->all(),
-          function (array $row) : string {
-            return 'v' . $row['tag'];
-          },
-          function (array $row) : string {
-            return Yii::t('app-version2', $row['name']);
-          }
-        );
-        uksort($list, function (string $a, string $b) : int {
-          return version_compare($b, $a);
+        $list = [];
+        $g = SplatoonVersionGroup2::find()->with('versions')->asArray()->all();
+        usort($g, function (array $a, array $b) : int {
+          return version_compare($b['tag'], $a['tag']);
         });
+        foreach ($g as $_g) {
+          switch (count($_g['versions'])) {
+            case 0:
+              break;
+
+            case 1:
+              $_v = array_shift($_g['versions']);
+              $list['v' . $_v['tag']] = Yii::t('app', 'Version {0}', [
+                Yii::t('app-version2', $_v['name']),
+              ]);
+              break;
+
+            default:
+              $list['~v' . $_g['tag']] = Yii::t('app', 'Version {0}', [
+                Yii::t('app-version2', $_g['name']),
+              ]);
+              usort($_g['versions'], function (array $a, array $b) : int {
+                return version_compare($b['tag'], $a['tag']);
+              });
+              foreach ($_g['versions'] as $i => $_v) {
+                $name = Yii::t('app', 'Version {0}', [
+                  Yii::t('app-version2', $_v['name']),
+                ]);
+                if ($i === count($_g['versions']) - 1) {
+                  $list['v' . $_v['tag']] = '┗ ' . $name;
+                } else {
+                  $list['v' . $_v['tag']] = '┣ ' . $name;
+                }
+              }
+              break;
+          }
+        }
         return $list;
       })()
     )) . "\n" ?>

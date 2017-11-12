@@ -109,6 +109,10 @@ class StatWeapon2Result extends ActiveRecord
                         $this
                             ->innerJoinWith('version', false)
                             ->andWhere(['splatoon_version2.tag' => substr($filter->term, 1)]);
+                    } elseif (substr($filter->term, 0, 2) === '~v') {
+                        $this
+                            ->innerJoinWith('version.group', false)
+                            ->andWhere(['splatoon_version_group2.tag' => substr($filter->term, 2)]);
                     }
                 }
                 return $this;
