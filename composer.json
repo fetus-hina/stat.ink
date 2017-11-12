@@ -57,7 +57,7 @@
         "tpyo/amazon-s3-php-class": "^0.5.1",
         "websightnl/gearman": "^1.0",
         "yiisoft/yii2": "~2.0.13",
-        "yiisoft/yii2-bootstrap": "2.0.*",
+        "yiisoft/yii2-bootstrap": "2.0.x-dev",
         "yiisoft/yii2-smarty": "2.0.*",
         "zendframework/zend-feed": "^2.6",
         "zendframework/zend-http": "^2.5",
@@ -72,7 +72,7 @@
         "phpcq/author-validation": "^1.1",
         "squizlabs/php_codesniffer": "^3.0",
         "symfony/yaml": "^3.1",
-        "yiisoft/yii2-debug": "2.0.*",
+        "yiisoft/yii2-debug": "2.0.x-dev",
         "yiisoft/yii2-gii": "2.0.x-dev"
     },
     "extra": {
