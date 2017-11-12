@@ -428,10 +428,13 @@ END_JS
           'contentOptions' => function ($model) : array {
             return [
               'class' => 'text-right',
-              'data-sort-value' => $model->avg_kill,
+              'data-sort-value' => $model->avg_kill ?? null,
             ];
           },
           'value' => function ($model) : string {
+            if (($model->avg_kill ?? null) === null) {
+              return '';
+            }
             return Yii::$app->formatter->asDecimal($model->avg_kill, 2);
           },
           // }}}
@@ -444,10 +447,13 @@ END_JS
           'contentOptions' => function ($model) : array {
             return [
               'class' => 'text-right',
-              'data-sort-value' => $model->avg_death,
+              'data-sort-value' => $model->avg_death ?? null,
             ];
           },
           'value' => function ($model) : string {
+            if (($model->avg_death ?? null) === null) {
+              return '';
+            }
             return Yii::$app->formatter->asDecimal($model->avg_death, 2);
           },
           // }}}
@@ -460,12 +466,12 @@ END_JS
           'contentOptions' => function ($model) : array {
             return [
               'class' => 'text-right',
-              'data-sort-value' => $model->kill_ratio,
+              'data-sort-value' => $model->kill_ratio ?? null,
             ];
           },
           'format' => 'raw',
           'value' => function ($model) : string {
-            if ($model->kill_ratio === null) {
+            if (($model->kill_ratio ?? null) === null) {
               return '';
             }
             return implode(' ', [
@@ -483,10 +489,13 @@ END_JS
           'contentOptions' => function ($model) : array {
             return [
               'class' => 'text-right',
-              'data-sort-value' => $model->avg_special,
+              'data-sort-value' => $model->avg_special ?? null,
             ];
           },
           'value' => function ($model) : string {
+            if (($model->avg_special ?? null) === null) {
+              return '';
+            }
             return Yii::$app->formatter->asDecimal($model->avg_special, 2);
           },
           // }}}
@@ -570,10 +579,13 @@ END_JS
           'contentOptions' => function ($model) : array {
             return [
               'class' => 'text-right',
-              'data-sort-value' => $model->avg_kill,
+              'data-sort-value' => $model->avg_kill ?? null,
             ];
           },
           'value' => function ($model) : string {
+            if (($model->avg_kill ?? null) === null) {
+              return  '';
+            }
             return Yii::$app->formatter->asDecimal($model->avg_kill, 2);
           },
           // }}}
@@ -586,10 +598,13 @@ END_JS
           'contentOptions' => function ($model) : array {
             return [
               'class' => 'text-right',
-              'data-sort-value' => $model->avg_death,
+              'data-sort-value' => $model->avg_death ?? null,
             ];
           },
           'value' => function ($model) : string {
+            if (($model->avg_death ?? null) === null) {
+              return  '';
+            }
             return Yii::$app->formatter->asDecimal($model->avg_death, 2);
           },
           // }}}
@@ -602,12 +617,12 @@ END_JS
           'contentOptions' => function ($model) : array {
             return [
               'class' => 'text-right',
-              'data-sort-value' => $model->kill_ratio,
+              'data-sort-value' => $model->kill_ratio ?? '',
             ];
           },
           'format' => 'raw',
           'value' => function ($model) : string {
-            if ($model->kill_ratio === null) {
+            if (($model->kill_ratio ?? null) === null) {
               return '';
             }
             return implode(' ', [
@@ -625,10 +640,13 @@ END_JS
           'contentOptions' => function ($model) : array {
             return [
               'class' => 'text-right',
-              'data-sort-value' => $model->avg_special,
+              'data-sort-value' => $model->avg_special ?? null,
             ];
           },
           'value' => function ($model) : string {
+            if (($model->avg_special ?? null) === null) {
+              return '';
+            }
             return Yii::$app->formatter->asDecimal($model->avg_special, 2);
           },
           // }}}
