@@ -74,6 +74,7 @@ POST データは全体で 12MiB 以内である必要があります。
 |`fest_power`|数値(e.g. 1234.5)|フェスパワーを指定します。|
 |`my_team_estimate_fest_power`|整数|自チームの概算フェスパワーを指定します。|
 |`his_team_estimate_fest_power`|整数|敵チームの概算フェスパワーを指定します。|
+|`gears`|構造体|プレーヤーのギア構成を指定します。（後述）<br>Specify gear configuration (the player)|
 |`players`|構造体|自分を含めた両チーム8人分のデータを指定します。（後述）|
 |`death_reasons`|マップ|自分が死んだ死因を指定します。（後述）|
 |`events`|配列|ゲーム中の進行状況に対応する時系列データを指定します。（後述）|
@@ -277,6 +278,43 @@ Regardless of gender, specify the same key-string. (Use `gender` to specify gend
 |`king`|えいえんの《お題》ボーイ<br>*Something* King|えいえんの《お題》ガール<br>*Something* Queen|
 
 なお、キーの値は英語（北米）版のボーイ用の称号を小文字にしたものです。
+
+
+`gears` Structure
+-----------------
+
+`gears` は次のような構造体を指定します。<br>
+Specifies structure like below:<br>
+
+```js
+"gears": {
+  "headgear": {
+    "gear": "white_headband",
+    "primary_ability": "last_ditch_effort",
+    "secondary_abilities": [
+      "ink_saver_main",
+      "ink_saver_sub",
+      null
+    ]
+  },
+  "clothing": {
+    // ...
+  },
+  "shoes": {
+    // ...
+  }
+}
+```
+
+![](img/gear.png)
+
+ギア一覧は次の通りです: Gear lists are below:<br>
+[アタマ Headgear](https://stat.ink/api-info/gear2-headgear)<br>
+[フク Clothing](https://stat.ink/api-info/gear2-clothing)<br>
+[クツ Shoes](https://stat.ink/api-info/gear2-shoes)
+
+ギアパワーはこの次のセクションにある一覧を参照してください。<br>
+For abilities, please refer the list in next section ("Gear Ability").
 
 
 Gear Ability
