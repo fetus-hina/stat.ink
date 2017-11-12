@@ -8,6 +8,7 @@
 namespace app\models;
 
 use Yii;
+use app\components\helpers\Translator;
 use yii\db\ActiveRecord;
 
 /**
@@ -82,5 +83,15 @@ class Brand2 extends ActiveRecord
     public function getWeakness()
     {
         return $this->hasOne(Ability2::class, ['id' => 'weakness_id']);
+    }
+
+    public function toJsonArray()
+    {
+        return [
+            'key' => $this->key,
+            'name' => Translator::translateToAll('app-brand2', $this->name),
+            'strength' => $this->strength ? $this->strength->toJsonArray() : null,
+            'weakness' => $this->weakness ? $this->weakness->toJsonArray() : null,
+        ];
     }
 }

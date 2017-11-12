@@ -8,6 +8,7 @@
 namespace app\models;
 
 use Yii;
+use app\components\helpers\Translator;
 use yii\db\ActiveRecord;
 
 /**
@@ -110,5 +111,16 @@ class Gear2 extends ActiveRecord
             $this->translatedName = Yii::t('app-gear2', $this->name);
         }
         return $this->translatedName;
+    }
+
+    public function toJsonArray()
+    {
+        return [
+            'key' => $this->key,
+            'type' => $this->type->toJsonArray(),
+            'brand' => $this->brand ? $this->brand->toJsonArray() : null,
+            'name' => Translator::translateToAll('app-gear2', $this->name),
+            'primary_ability' => $this->ability ? $this->ability->toJsonArray() : null,
+        ];
     }
 }

@@ -90,6 +90,9 @@ use yii\helpers\Url;
  * @property integer $fest_power;
  * @property float $my_team_estimate_fest_power;
  * @property float $his_team_estimate_fest_power;
+ * @property integer $headgear_id
+ * @property integer $clothing_id
+ * @property integer $shoes_id
  * @property string $remote_addr
  * @property integer $remote_port
  * @property string $start_at
@@ -113,6 +116,9 @@ use yii\helpers\Url;
  * @property Battle2Splatnet $splatnetJson
  * @property User $user
  * @property Weapon2 $weapon
+ * @property GearConfiguration2 $headgear
+ * @property GearConfiguration2 $clothing
+ * @property GearConfiguration2 $shoes
  */
 class Battle2 extends ActiveRecord
 {
@@ -894,6 +900,21 @@ class Battle2 extends ActiveRecord
         return $this->hasOne(FestTitle::class, ['id' => 'fest_title_after_id']);
     }
 
+    public function getHeadgear()
+    {
+        return $this->hasOne(GearConfiguration2::class, ['id' => 'headgear_id']);
+    }
+
+    public function getClothing()
+    {
+        return $this->hasOne(GearConfiguration2::class, ['id' => 'clothing_id']);
+    }
+
+    public function getShoes()
+    {
+        return $this->hasOne(GearConfiguration2::class, ['id' => 'shoes_id']);
+    }
+
     public function getIsMeaningful() : bool
     {
         $props = [
@@ -1137,13 +1158,13 @@ class Battle2 extends ActiveRecord
             'image_gear' => $this->battleImageGear
                 ? Url::to(Yii::getAlias('@imageurl') . '/' . $this->battleImageGear->filename, true)
                 : null,
-            // 'gears' => in_array('gears', $skips, true)
-            //     ? null
-            //     : [
-            //         'headgear' => $this->headgear ? $this->headgear->toJsonArray() : null,
-            //         'clothing' => $this->clothing ? $this->clothing->toJsonArray() : null,
-            //         'shoes'    => $this->shoes ? $this->shoes->toJsonArray() : null,
-            //     ],
+            'gears' => in_array('gears', $skips, true)
+                ? null
+                : [
+                    'headgear' => $this->headgear_id ? $this->headgear->toJsonArray() : null,
+                    'clothing' => $this->clothing_id ? $this->clothing->toJsonArray() : null,
+                    'shoes'    => $this->shoes_id ? $this->shoes->toJsonArray() : null,
+                ],
             'period' => $this->period,
             'period_range' => (function () {
                 if (!$this->period) {

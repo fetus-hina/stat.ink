@@ -1,5 +1,6 @@
 <?php
 use app\assets\BattleEditAsset;
+use app\models\Battle2;
 use yii\bootstrap\Html;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
@@ -629,7 +630,24 @@ $this->registerCss('#battle .progress{margin-bottom:0}');
       // }}}
     ],
     // cash
-    // gear
+    [
+      'label' => Yii::t('app', 'Gear'), // FIXME {{{
+      'format' => 'raw',
+      'value' => function (Battle2 $model) : ?string {
+        if ($model->headgear_id === null &&
+          $model->clothing_id === null &&
+          $model->shoes_id === null)
+        {
+          return null;
+        }
+        return $this->render('_battle_gear', [
+          'headgear' => $model->headgear,
+          'clothing' => $model->clothing,
+          'shoes' => $model->shoes,
+        ]);
+      },
+      // }}}
+    ],
     'link_url:url', //TODO: easy edit
     [
       'attribute' => 'start_at', // {{{

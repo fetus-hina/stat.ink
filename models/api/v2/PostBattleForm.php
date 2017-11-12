@@ -12,6 +12,7 @@ use app\components\behaviors\FixAttributesBehavior;
 use app\components\behaviors\TrimAttributesBehavior;
 use app\components\helpers\CriticalSection;
 use app\components\helpers\db\Now;
+use app\models\Ability2;
 use app\models\Agent;
 use app\models\Battle2;
 use app\models\Battle2Splatnet;
@@ -22,6 +23,8 @@ use app\models\BattleImageType;
 use app\models\BattlePlayer2;
 use app\models\DeathReason2;
 use app\models\FestTitle;
+use app\models\GearConfiguration2;
+use app\models\GearConfigurationSecondary2;
 use app\models\Gender;
 use app\models\Lobby2;
 use app\models\Map2;
@@ -85,6 +88,7 @@ class PostBattleForm extends Model
     public $fest_power;
     public $my_team_estimate_fest_power;
     public $his_team_estimate_fest_power;
+    public $gears;
     public $players;
     public $death_reasons;
     public $events;
@@ -216,6 +220,7 @@ class PostBattleForm extends Model
                 'targetAttribute' => 'key',
             ],
             [['fest_exp', 'fest_exp_after'], 'integer', 'min' => 0, 'max' => 99],
+            [['gears'], 'validateGears'],
             [['players'], 'validatePlayers'],
             [['death_reasons'], 'validateDeathReasons'],
             [['events'], 'validateEvents'],
@@ -415,11 +420,11 @@ class PostBattleForm extends Model
         $battle->start_at       = $datetime($this->start_at);
         $battle->end_at         = $datetime($this->end_at);
         $battle->use_for_entire = $this->getIsUsableForEntireStats();
-        //if ($this->gears) {
-        //    $o->headgear_id = $this->processGear('headgear');
-        //    $o->clothing_id = $this->processGear('clothing');
-        //    $o->shoes_id    = $this->processGear('shoes');
-        //}
+        if ($this->gears) {
+            $battle->headgear_id = $this->processGear('headgear');
+            $battle->clothing_id = $this->processGear('clothing');
+            $battle->shoes_id    = $this->processGear('shoes');
+        }
         if ($this->isTest) {
             $now = (int)($_SERVER['REQUEST_TIME'] ?? time());
             $battle->id = 0;
@@ -591,62 +596,66 @@ class PostBattleForm extends Model
         }
     }
 
-    // protected function processGear($key)
-    // {
-    //     if ($this->isTest || !($this->gears instanceof PostGearsForm)) {
-    //         return null;
-    //     }
+    protected function processGear($key) : ?int
+    {
+        if ($this->isTest || !($this->gears instanceof PostGearsForm)) {
+            return null;
+        }
 
-    //     $gearForm = $this->gears->$key;
-    //     if (!($gearForm instanceof BaseGearForm)) {
-    //         return null;
-    //     }
+        $gearForm = $this->gears->$key;
+        if (!($gearForm instanceof BaseGearForm)) {
+            return null;
+        }
 
-    //     $gearModel = $gearForm->getGearModel(); // may null
-    //     $primaryAbility = $gearForm->primary_ability
-    //         ? Ability::findOne(['key' => $gearForm->primary_ability])
-    //         : null;
-    //     $secondaryAbilityIdList = [];
-    //     if (is_array($gearForm->secondary_abilities)) {
-    //         foreach ($gearForm->secondary_abilities as $aKey) {
-    //             if ($aKey == '') {
-    //                 $secondaryAbilityIdList[] = null;
-    //             } else {
-    //                 if ($a = Ability::findOne(['key' => $aKey])) {
-    //                     $secondaryAbilityIdList[] = $a->id;
-    //                 }
-    //             }
-    //         }
-    //     }
-    //     $fingerPrint = GearConfiguration::generateFingerPrint(
-    //         $gearModel ? $gearModel->id : null,
-    //         $primaryAbility ? $primaryAbility->id : null,
-    //         $secondaryAbilityIdList
-    //     );
+        $gearModel = $gearForm->getGearModel(); // may null
+        $primaryAbility = $gearForm->primary_ability
+            ? Ability2::findOne(['key' => $gearForm->primary_ability])
+            : null;
+        $secondaryAbilityIdList = [];
+        if (is_array($gearForm->secondary_abilities)) {
+            foreach ($gearForm->secondary_abilities as $aKey) {
+                if ($aKey == '') {
+                    $secondaryAbilityIdList[] = null;
+                } else {
+                    if ($a = Ability2::findOne(['key' => $aKey])) {
+                        $secondaryAbilityIdList[] = (int)$a->id;
+                    }
+                }
+            }
+        }
+        $fingerPrint = GearConfiguration2::generateFingerPrint(
+            $gearModel ? $gearModel->id : null,
+            $primaryAbility ? $primaryAbility->id : null,
+            $secondaryAbilityIdList
+        );
 
-    //     $lock = CriticalSection::lock(__METHOD__, 60);
-    //     $config = GearConfiguration::findOne(['finger_print' => $fingerPrint]);
-    //     if (!$config) {
-    //         $config = new GearConfiguration();
-    //         $config->finger_print = $fingerPrint;
-    //         $config->gear_id = $gearModel ? $gearModel->id : null;
-    //         $config->primary_ability_id = $primaryAbility ? $primaryAbility->id : null;
-    //         if (!$config->save()) {
-    //             throw new \Exception('Could not save gear_counfiguration');
-    //         }
+        $lock = CriticalSection::lock(__METHOD__, 60);
+        $config = GearConfiguration2::findOne(['finger_print' => $fingerPrint]);
+        if (!$config) {
+            $config = Yii::createObject([
+                'class'                 => GearConfiguration2::class,
+                'finger_print'          => $fingerPrint,
+                'gear_id'               => $gearModel ? $gearModel->id : null,
+                'primary_ability_id'    => $primaryAbility ? $primaryAbility->id : null,
+            ]);
+            if (!$config->save()) {
+                throw new \Exception('Could not save gear_counfiguration2');
+            }
 
-    //         foreach ($secondaryAbilityIdList as $aId) {
-    //             $sub = new GearConfigurationSecondary();
-    //             $sub->config_id = $config->id;
-    //             $sub->ability_id = $aId;
-    //             if (!$sub->save()) {
-    //                 throw new \Exception('Could not save gear_configuration_secondary');
-    //             }
-    //         }
-    //     }
+            foreach ($secondaryAbilityIdList as $aId) {
+                $sub = Yii::createObject([
+                    'class'         => GearConfigurationSecondary2::class,
+                    'config_id'     => $config->id,
+                    'ability_id'    => $aId,
+                ]);
+                if (!$sub->save()) {
+                    throw new \Exception('Could not save gear_configuration_secondary2');
+                }
+            }
+        }
 
-    //     return $config->id;
-    // }
+        return (int)$config->id;
+    }
 
     public function getIsUsableForEntireStats()
     {
@@ -828,6 +837,25 @@ class PostBattleForm extends Model
         } else {
             $this->addError($attribute, 'Invalid format: ' . $attribute);
         }
+    }
+
+    public function validateGears($attribute, $params) : void
+    {
+        if ($this->hasErrors($attribute)) {
+            return;
+        }
+
+        $form = new PostGearsForm();
+        $form->attributes = $this->$attribute;
+        if (!$form->validate()) {
+            foreach ($form->getErrors() as $key => $values) {
+                foreach ($values as $value) {
+                    $this->addError($attribute, "{$key}::{$value}");
+                }
+            }
+            return;
+        }
+        $this->$attribute = $form;
     }
 
     public function validatePlayers(string $attribute, $params)
