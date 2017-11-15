@@ -6,6 +6,7 @@ use app\components\widgets\SnsWidget;
 use jp3cki\yii2\flot\FlotAsset;
 use jp3cki\yii2\flot\FlotStackAsset;
 use jp3cki\yii2\flot\FlotTimeAsset;
+use yii\bootstrap\ActiveForm;
 use yii\data\ArrayDataProvider;
 use yii\grid\GridView;
 use yii\helpers\Html;
@@ -116,9 +117,32 @@ END_JS
     Json::encode($uses),
     ['id' => 'trends-json', 'type' => 'application/json']
   ) . "\n" ?>
+  <h3 id="stats">
+    <?= Html::encode(Yii::t('app', 'Stats')) . "\n" ?>
+  </h3>
+  <?php $_form = ActiveForm::begin([
+      'action' => ['entire/weapons2', '#' => 'stats'],
+      'method' => 'get',
+      'options' => [
+        'id' => 'filter-form',
+        'class' => 'form-inline',
+        'style' => [
+          'margin-top' => '20px',
+        ],
+      ],
+      'enableClientValidation' => false,
+    ]);
+    echo "\n"
+  ?>
+    <?= $_form->field($form, 'term')
+      ->label(false)
+      ->dropDownList($form->getList(), [
+        'onchange' => 'document.getElementById("filter-form").submit()',
+      ]) . "\n" ?>
+  <?php ActiveForm::end(); echo "\n"; ?>
 <?php foreach ($entire as $rule) if ($rule->data->player_count > 0) { ?>
   <?= Html::tag(
-    'h3',
+    'h4',
     Html::encode($rule->name),
     ['id' => 'weapon-' . $rule->key]
   ) . "\n" ?>

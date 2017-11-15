@@ -9,10 +9,15 @@ namespace app\actions\entire;
 
 use DateInterval;
 use DateTime;
+use DateTimeImmutable;
 use DateTimeZone;
 use Yii;
+use app\components\helpers\Battle as BattleHelper;
+use app\models\EntireWeapon2Form;
 use app\models\Rule2;
 use app\models\Special2;
+use app\models\SplatoonVersion2;
+use app\models\SplatoonVersionGroup2;
 use app\models\StatWeapon2UseCount;
 use app\models\Subweapon2;
 use app\models\Weapon2;
@@ -23,9 +28,13 @@ class Weapons2Action extends BaseAction
 {
     public function run()
     {
+        $form = Yii::createObject(['class' => EntireWeapon2Form::class]);
+        $form->load($_GET) && $form->validate();
+
         return $this->controller->render('weapons2', [
+            'form' => $form,
             'uses' => $this->weaponUses,
-            'entire' => $this->entireWeapons,
+            'entire' => $this->getEntireWeapons($form),
         ]);
     }
 
@@ -130,11 +139,11 @@ class Weapons2Action extends BaseAction
         }, $baselist);
     }
 
-    public function getEntireWeapons() : array
+    public function getEntireWeapons(EntireWeapon2Form $form) : array
     {
         $rules = [];
         foreach (Rule2::find()->orderBy(['id' => SORT_ASC])->all() as $rule) {
-            $weapons = $this->getEntireWeaponsByRule($rule);
+            $weapons = $this->getEntireWeaponsByRule($rule, $form);
             $rules[] = (object)[
                 'key' => $rule->key,
                 'name' => Yii::t('app-rule2', $rule->name),
@@ -146,7 +155,7 @@ class Weapons2Action extends BaseAction
         return $rules;
     }
 
-    private function getEntireWeaponsByRule(Rule2 $rule)
+    private function getEntireWeaponsByRule(Rule2 $rule, EntireWeapon2Form $form)
     {
         $columns = [
             'weapon_key'        => 'MAX({{weapon2}}.[[key]])',
@@ -216,6 +225,80 @@ class Weapons2Action extends BaseAction
             ])
             ->andWhere(['{{stat_weapon2_use_count}}.[[rule_id]]' => $rule->id])
             ->groupBy('{{stat_weapon2_use_count}}.[[weapon_id]]');
+        try {
+            if ($form->hasErrors()) {
+                throw new \Exception();
+            }
+            if ($form->term == '') {
+                // nothing to do
+            } elseif (preg_match('/^(\d{4})-(\d{2})$/', $form->term, $match)) {
+                // [$start, $end)
+                $start = (new DateTimeImmutable())
+                    ->setTimeZone(new DateTimeZone('Etc/UTC'))
+                    ->setDate(intval($match[1], 10), intval($match[2], 10), 1)
+                    ->setTime(0, 0, 0);
+                $end = $start->add(new DateInterval('P1M'));
+                $startPeriod = BattleHelper::calcPeriod2($start->getTimestamp());
+                $endPeriod = BattleHelper::calcPeriod2($end->getTimestamp());
+                $query->andWhere(['and',
+                    ['>=', '{{stat_weapon2_use_count}}.[[period]]', $startPeriod],
+                    ['<', '{{stat_weapon2_use_count}}.[[period]]', $endPeriod],
+                ]);
+            } elseif (substr($form->term, 0, 1) === 'v') {
+                if (!$v1 = SplatoonVersion2::findOne(['tag' => substr($form->term, 1)])) {
+                    throw new \Exception();
+                }
+                $v2 = SplatoonVersion2::find()
+                    ->andWhere(['>', 'released_at', $v1->released_at])
+                    ->orderBy(['released_at' => SORT_ASC])
+                    ->limit(1)
+                    ->one();
+                $query->andWhere([
+                    '>=',
+                    '{{stat_weapon2_use_count}}.[[period]]',
+                    BattleHelper::calcPeriod2(strtotime($v1->released_at))
+                ]);
+                if ($v2) {
+                    $query->andWhere([
+                        '<',
+                        '{{stat_weapon2_use_count}}.[[period]]',
+                        BattleHelper::calcPeriod2(strtotime($v2->released_at))
+                    ]);
+                }
+            } elseif (substr($form->term, 0, 2) === '~v') {
+                if (!$vg = SplatoonVersionGroup2::findOne(['tag' => substr($form->term, 2)])) {
+                    throw new \Exception();
+                }
+                $versions = $vg->getVersions()->orderBy(['released_at' => SORT_ASC])->asArray()->all();
+                if (!$versions) {
+                    throw new \Exception();
+                }
+                $v1 = $versions[0];
+                $v2 = $versions[count($versions) - 1];
+                $v3 = SplatoonVersion2::find()
+                    ->andWhere(['>', 'released_at', $v2['released_at']])
+                    ->orderBy(['released_at' => SORT_ASC])
+                    ->limit(1)
+                    ->asArray()
+                    ->one();
+                $query->andWhere([
+                    '>=',
+                    '{{stat_weapon2_use_count}}.[[period]]',
+                    BattleHelper::calcPeriod2(strtotime($v1['released_at']))
+                ]);
+                if ($v3) {
+                    $query->andWhere([
+                        '<',
+                        '{{stat_weapon2_use_count}}.[[period]]',
+                        BattleHelper::calcPeriod2(strtotime($v3['released_at']))
+                    ]);
+                }
+            } else {
+                throw new \Exception();
+            }
+        } catch (\Exception $e) {
+            $query->andWhere('0 = 1');
+        }
 
         $totalPlayers = 0;
         $list = array_map(
