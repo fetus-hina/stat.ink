@@ -36,6 +36,7 @@ return [
     'Firefin Splat Charger' => 'Rilax-Klecks-Konzentrator',
     'Firefin Splatterscope' => 'Rilax-Ziel-Konzentrator',
     'Flingza Roller' => 'Flex-Roller',
+    'Foil Flingza Roller' => 'Flex-Roller Fol',
     'Forge Splattershot Pro' => 'Focus-Profi-Kleckser',
     'Gold Dynamo Roller' => 'Dynaroller Tesla',
     'Goo Tuber' => 'T-Tuber',

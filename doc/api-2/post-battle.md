@@ -211,6 +211,7 @@ There is a listing page [here](https://stat.ink/api-info/weapon2).
 |`splatroller`           |`1010`                |スプラローラー<br>Splat Roller                       |                                                                                                     |
 |`splatroller_collabo`   |`1011`                |スプラローラーコラボ<br>Krak-On Splat Roller         |                                                                                                     |
 |`variableroller`        |`1030`                |ヴァリアブルローラー<br>Flingza Roller               |                                                                                                     |
+|`variableroller_foil`   |`1031`                |ヴァリアブルローラーフォイル<br>Foil Flingza Roller  |                                                                                                     |
 |`herobrush_replica`     |`1115`                |ヒーローブラシ レプリカ<br>Herobrush Replica         |                                                                                                     |
 |`hokusai`               |`1110`                |ホクサイ<br>Octobrush                                |                                                                                                     |
 |`pablo`                 |`1100`                |パブロ<br>Inkbrush                                   |                                                                                                     |

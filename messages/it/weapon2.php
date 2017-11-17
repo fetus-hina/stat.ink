@@ -36,6 +36,7 @@ return [
     'Firefin Splat Charger' => 'Splatter a carica logo',
     'Firefin Splatterscope' => 'Splatter con mirino logo',
     'Flingza Roller' => 'Flexi-rullo',
+    'Foil Flingza Roller' => 'Flexi-rullo B',
     'Forge Splattershot Pro' => 'Splasher élite logo',
     'Gold Dynamo Roller' => 'Rullo dinamo dorato',
     'Goo Tuber' => 'Tintubator',

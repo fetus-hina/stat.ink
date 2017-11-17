@@ -36,6 +36,7 @@ return [
     'Firefin Splat Charger' => '',
     'Firefin Splatterscope' => '',
     'Flingza Roller' => '',
+    'Foil Flingza Roller' => '',
     'Forge Splattershot Pro' => '',
     'Gold Dynamo Roller' => '',
     'Goo Tuber' => '',

@@ -36,6 +36,7 @@ return [
     'Firefin Splat Charger' => '',
     'Firefin Splatterscope' => '',
     'Flingza Roller' => 'Flexi-rouleau',
+    'Foil Flingza Roller' => 'Flexi-rouleau alu',
     'Forge Splattershot Pro' => 'Liquidateur pro griffé',
     'Gold Dynamo Roller' => 'Dynamo-rouleau tesla',
     'Goo Tuber' => 'Détubeur',

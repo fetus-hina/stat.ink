@@ -37,6 +37,7 @@ return [
     'Firefin Splat Charger' => 'Cargatintas Shachi',
     'Firefin Splatterscope' => 'Telecargatintas Shachi',
     'Flingza Roller' => '',
+    'Foil Flingza Roller' => 'Rodillo versátil Foil',
     'Forge Splattershot Pro' => 'Rociador Forima',
     'Gold Dynamo Roller' => 'Rodillo Pro dorado',
     'Goo Tuber' => '',
