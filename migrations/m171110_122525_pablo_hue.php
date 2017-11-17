@@ -28,6 +28,6 @@ class m171110_122525_pablo_hue extends Migration
 
     public function safeDown()
     {
-        $this->downWeapon('pablo_hue');
+        $this->downWeapon('publo_hue');
     }
 }
