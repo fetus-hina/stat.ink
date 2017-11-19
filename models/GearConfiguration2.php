@@ -118,12 +118,16 @@ class GearConfiguration2 extends ActiveRecord
     public function toJsonArray()
     {
         return [
-            'gear' => $this->gear->toJsonArray() ?? null,
-            'primary_ability' => $this->primaryAbility->toJsonArray() ?? null,
+            'gear' => $this->gear
+                ? $this->gear->toJsonArray()
+                : null,
+            'primary_ability' => $this->primaryAbility
+                ? $this->primaryAbility->toJsonArray()
+                : null,
             'secondary_abilities' => $this->secondaries
                 ? array_map(
-                    function (GearConfigurationSecondary2 $o) {
-                        return $o->toJsonArray();
+                    function (?GearConfigurationSecondary2 $o) {
+                        return $o ? $o->toJsonArray() : null;
                     },
                     $this->secondaries
                 )
