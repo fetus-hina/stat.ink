@@ -8,6 +8,7 @@
 return [
     'Academy' => 'Perlmutt-Akademie',
     'Any Stage' => '',
+    'Arowana Mall' => 'Arowana Center',
     'Blackbelly Skatepark' => 'Punkasius-Skatepark',
     'Canal' => 'Grätenkanal',
     'Dome' => 'Tümmlerkuppel',
@@ -16,8 +17,11 @@ return [
     'Inkblot Art Academy' => 'Perlmutt-Akademie',
     'Kelp Dome' => 'Tümmlerkuppel',
     'Mainstage' => 'Seeigel-Rockbühne',
+    'MakoMart' => '',
+    'Mall' => 'Arowana Center',
     'Manta' => 'Manta Maria',
     'Manta Maria' => '',
+    'Mart' => '',
     'Moray Towers' => 'Muränentürme',
     'Musselforge Fitness' => 'Molluskelbude',
     'Port' => 'Heilbutt-Hafen',
@@ -33,4 +37,6 @@ return [
     'The Reef' => 'Korallenviertel',
     'Towers' => 'Muränentürme',
     'Track' => 'Buckelwal-Piste',
+    'Walleye Warehouse' => 'Kofferfisch-Lager',
+    'Warehouse' => 'Kofferfisch-Lager',
 ];

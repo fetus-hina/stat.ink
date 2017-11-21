@@ -8,6 +8,7 @@
 return [
     'Academy' => 'Campus Hippocampus',
     'Any Stage' => '',
+    'Arowana Mall' => 'Centro Commerciale',
     'Blackbelly Skatepark' => 'Pista Polposkate',
     'Canal' => 'Canale Cannolicchio',
     'Dome' => 'Serra di alghe',
@@ -16,8 +17,11 @@ return [
     'Inkblot Art Academy' => 'Campus Hippocampus',
     'Kelp Dome' => 'Serra di alghe',
     'Mainstage' => 'Palco Plancton',
+    'MakoMart' => '',
+    'Mall' => 'Centro Commerciale',
     'Manta' => 'Manta Maria',
     'Manta Maria' => 'Manta Maria',
+    'Mart' => '',
     'Moray Towers' => 'Torri cittadine',
     'Musselforge Fitness' => 'Centro polpisportivo',
     'Port' => 'Porto Polpo',
@@ -33,4 +37,6 @@ return [
     'The Reef' => 'Rione Storione',
     'Towers' => 'Torri cittadine',
     'Track' => 'Tintodromo Montecarpa',
+    'Walleye Warehouse' => 'Magazzino',
+    'Warehouse' => 'Magazzino',
 ];

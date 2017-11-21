@@ -8,6 +8,7 @@
 return [
     'Academy' => 'Institut Calm\'arts',
     'Any Stage' => '',
+    'Arowana Mall' => '',
     'Blackbelly Skatepark' => 'Plancho Mako',
     'Canal' => '',
     'Dome' => '',
@@ -16,8 +17,11 @@ return [
     'Inkblot Art Academy' => 'Institut Calm\'arts',
     'Kelp Dome' => '',
     'Mainstage' => '',
+    'MakoMart' => '',
+    'Mall' => '',
     'Manta' => '',
     'Manta Maria' => '',
+    'Mart' => '',
     'Moray Towers' => '',
     'Musselforge Fitness' => '',
     'Port' => '',
@@ -33,4 +37,6 @@ return [
     'The Reef' => '',
     'Towers' => '',
     'Track' => '',
+    'Walleye Warehouse' => '',
+    'Warehouse' => '',
 ];

@@ -53,6 +53,7 @@ class MapImage2Controller extends Controller
             'engawa' => 'https://pbs.twimg.com/media/DLXOzECUEAAyMkl.jpg:orig',
             'mozuku' => 'https://pbs.twimg.com/media/DJo7HTzUEAESeuF.jpg:orig',
             'mystery' => 'https://pbs.twimg.com/media/DGDTWhAUwAA4Bri.jpg:orig',
+            'zatou' => 'https://pbs.twimg.com/media/DPKV9mCV4AExVBF.jpg:orig',
         ];
         foreach ($list as $stage => $url) {
             $this->stderr("Processing " . $stage . " ...\n");

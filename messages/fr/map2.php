@@ -8,6 +8,7 @@
 return [
     'Academy' => 'Institut Calam\'arts',
     'Any Stage' => '',
+    'Arowana Mall' => 'Centre Arowana',
     'Blackbelly Skatepark' => 'Skatepark Mako',
     'Canal' => 'Canalamar',
     'Dome' => 'Serre Goémon',
@@ -16,8 +17,11 @@ return [
     'Inkblot Art Academy' => 'Institut Calam\'arts',
     'Kelp Dome' => 'Serre Goémon',
     'Mainstage' => 'Scène Sirène',
+    'MakoMart' => '',
+    'Mall' => 'Centre Arowana',
     'Manta' => '',
     'Manta Maria' => '',
+    'Mart' => '',
     'Moray Towers' => 'Tours Girelle',
     'Musselforge Fitness' => 'Gymnase Ancrage',
     'Port' => 'Docks Haddock',
@@ -33,4 +37,6 @@ return [
     'The Reef' => 'Allées salées',
     'Towers' => 'Tours Girelle',
     'Track' => 'Piste Méroule',
+    'Walleye Warehouse' => 'Encrepôt',
+    'Warehouse' => 'Encrepôt',
 ];

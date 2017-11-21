@@ -8,10 +8,12 @@
 return [
     'Any Stage' => 'すべてのステージ',
 
+    'Arowana Mall' => 'アロワナモール',
     'Blackbelly Skatepark' => 'Bバスパーク',
     'Humpback Pump Track' => 'コンブトラック',
     'Inkblot Art Academy' => '海女美術大学',
     'Kelp Dome' => 'モズク農園',
+    'MakoMart' => 'ザトウマーケット',
     'Manta Maria' => 'マンタマリア号',
     'Moray Towers' => 'タチウオパーキング',
     'Musselforge Fitness' => 'フジツボスポーツクラブ',
@@ -21,13 +23,16 @@ return [
     'Starfish Mainstage' => 'ガンガゼ野外音楽堂',
     'Sturgeon Shipyard' => 'チョウザメ造船',
     'The Reef' => 'バッテラストリート',
+    'Walleye Warehouse' => 'ハコフグ倉庫',
 
     'Academy' => 'アマビ',
     'Canal' => 'エンガワ',
     'Dome' => 'モズク',
     'Fitness' => 'フジツボ',
     'Mainstage' => 'ガンガゼ',
+    'Mall' => 'アロワナ',
     'Manta' => 'マンタ',
+    'Mart' => 'ザトウ',
     'Port' => 'ホッケ',
     'Reef' => 'バッテラ',
     'Shifty' => 'ミステリー',
@@ -35,4 +40,5 @@ return [
     'Skatepark' => 'Bバス',
     'Towers' => 'タチウオ',
     'Track' => 'コンブ',
+    'Warehouse' => 'ハコフグ',
 ];

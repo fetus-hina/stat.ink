@@ -8,6 +8,7 @@
 return [
     'Academy' => '',
     'Any Stage' => '',
+    'Arowana Mall' => '',
     'Blackbelly Skatepark' => '',
     'Canal' => '',
     'Dome' => '',
@@ -16,8 +17,11 @@ return [
     'Inkblot Art Academy' => '',
     'Kelp Dome' => '',
     'Mainstage' => '',
+    'MakoMart' => '',
+    'Mall' => '',
     'Manta' => '',
     'Manta Maria' => '',
+    'Mart' => '',
     'Moray Towers' => '',
     'Musselforge Fitness' => '',
     'Port' => '',
@@ -33,4 +37,6 @@ return [
     'The Reef' => '',
     'Towers' => '',
     'Track' => '',
+    'Walleye Warehouse' => '',
+    'Warehouse' => '',
 ];

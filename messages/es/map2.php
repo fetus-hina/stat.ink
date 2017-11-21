@@ -8,6 +8,7 @@
 return [
     'Academy' => 'Instituto Coralino',
     'Any Stage' => 'Cualquier Escenarios',
+    'Arowana Mall' => 'Plazuela del Calamar',
     'Blackbelly Skatepark' => 'Parque Lubina',
     'Canal' => 'Canal Cormorán',
     'Dome' => 'Jardín botánico',
@@ -16,8 +17,11 @@ return [
     'Inkblot Art Academy' => 'Instituto Coralino',
     'Kelp Dome' => 'Jardín botánico',
     'Mainstage' => 'Auditorio Erizo',
+    'MakoMart' => '',
+    'Mall' => 'Plazuela del Calamar',
     'Manta' => 'Corbeta Corvina',
     'Manta Maria' => 'Corbeta Corvina',
+    'Mart' => '',
     'Moray Towers' => 'Torres Merluza',
     'Musselforge Fitness' => 'Gimnasio Mejillón',
     'Port' => 'Puerto Jurel',
@@ -33,4 +37,6 @@ return [
     'The Reef' => 'Barrio Congrio',
     'Towers' => 'Torres Merluza',
     'Track' => 'Tiburódromo',
+    'Walleye Warehouse' => 'Almacén Rodaballo',
+    'Warehouse' => 'Almacén Rodaballo',
 ];
