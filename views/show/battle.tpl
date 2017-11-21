@@ -558,7 +558,7 @@
                 <td id="link-cell">
                   <div id="link-cell-display" data-post="{{url route="api-internal/patch-battle" id=$battle->id}}" data-url="{{$battle->link_url|escape}}">
                     {{if $battle->link_url != ''}}
-                      <a href="{{$battle->link_url|escape}}" rel="nofollow" class="swipebox">
+                      <a href="{{$battle->link_url|escape}}" rel="nofollow">
                         {{$battle->link_url|decode_idn|escape}}
                       </a>&#32;
                     {{/if}}

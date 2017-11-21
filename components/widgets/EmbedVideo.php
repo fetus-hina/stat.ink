@@ -62,8 +62,14 @@ class EmbedVideo extends Widget
                         'videoId' => $match[1],
                     ]);
                 }
+            } elseif ($host === 'www.nicovideo.jp') {
+                if (preg_match('#/watch/([a-z]{2}\d+)#', $path, $match)) {
+                    return Yii::createObject([
+                        'class' => embedVideo\Nicovideo::class,
+                        'videoId' => $match[1],
+                    ]);
+                }
             }
-            // ニコニコ動画さんTLS対応まだー？
         } catch (\Exception $e) {
         }
         return null;
