@@ -144,6 +144,7 @@ class Battle2FilterWidget extends Widget
         $area       = Yii::t('app-rule2', 'Splat Zones');
         $yagura     = Yii::t('app-rule2', 'Tower Control');
         $hoko       = Yii::t('app-rule2', 'Rainmaker');
+        $asari      = Yii::t('app-rule2', 'Clam Blitz');
 
         $list = [
             '' => Yii::t('app-rule2', 'Any Mode'),
@@ -155,30 +156,35 @@ class Battle2FilterWidget extends Widget
                 'standard-gachi-area' => "{$area} ({$gachi})",
                 'standard-gachi-yagura' => "{$yagura} ({$gachi})",
                 'standard-gachi-hoko' => "{$hoko} ({$gachi})",
+                'standard-gachi-asari' => "{$asari} ({$gachi})",
             ],
             $rankLeague => [
                 'any-gachi-any' => "{$any} ({$rankLeague})",
                 'any-gachi-area' => "{$area} ({$rankLeague})",
                 'any-gachi-yagura' => "{$yagura} ({$rankLeague})",
                 'any-gachi-hoko' => "{$hoko} ({$rankLeague})",
+                'any-gachi-asari' => "{$asari} ({$rankLeague})",
             ],
             Yii::t('app-rule2', 'League Battle') => [
                 'any_squad-gachi-any' => "{$any} ({$league})",
                 'any_squad-gachi-area' => "{$area} ({$league})",
                 'any_squad-gachi-yagura' => "{$yagura} ({$league})",
                 'any_squad-gachi-hoko' => "{$hoko} ({$league})",
+                'any_squad-gachi-asari' => "{$asari} ({$league})",
             ],
             Yii::t('app-rule2', 'League Battle (Twin)') => [
                 'squad_2-gachi-any' => "{$any} ({$league2})",
                 'squad_2-gachi-area' => "{$area} ({$league2})",
                 'squad_2-gachi-yagura' => "{$yagura} ({$league2})",
                 'squad_2-gachi-hoko' => "{$hoko} ({$league2})",
+                'squad_2-gachi-asari' => "{$asari} ({$league2})",
             ],
             Yii::t('app-rule2', 'League Battle (Quad)') => [
                 'squad_4-gachi-any' => "{$any} ({$league4})",
                 'squad_4-gachi-area' => "{$area} ({$league4})",
                 'squad_4-gachi-yagura' => "{$yagura} ({$league4})",
                 'squad_4-gachi-hoko' => "{$hoko} ({$league4})",
+                'squad_4-gachi-asari' => "{$asari} ({$league4})",
             ],
             Yii::t('app-rule2', 'Splatfest') => [
                 'any-fest-nawabari' => Yii::t('app-rule2', 'Splatfest'),
@@ -192,6 +198,7 @@ class Battle2FilterWidget extends Widget
                 'private-private-area' => "{$area} ({$private})",
                 'private-private-yagura' => "{$yagura} ({$private})",
                 'private-private-hoko' => "{$hoko} ({$private})",
+                'private-private-asari' => "{$asari} ({$private})",
             ],
         ];
         return (string)$form

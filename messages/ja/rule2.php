@@ -41,11 +41,13 @@ return [
     'Splat Zones' => 'ガチエリア',
     'Tower Control' => 'ガチヤグラ',
     'Rainmaker' => 'ガチホコバトル',
+    'Clam Blitz' => 'ガチアサリ',
 
     'TW' => 'ナワバリ',
     'SZ' => 'エリア',
     'TC' => 'ヤグラ',
     'RM' => 'ホコ',
+    'CB' => 'アサリ',
 
     'Turf War - Regular Battle'             => 'ナワバリバトル - レギュラーマッチ',
     'Turf War - Splatfest (Solo)'           => 'ナワバリバトル - フェス（ソロ）',
@@ -63,4 +65,8 @@ return [
     'Rainmaker - League Battle (Twin)'      => 'ガチホコバトル - リーグバトル（2人）',
     'Rainmaker - League Battle (Quad)'      => 'ガチホコバトル - リーグバトル（4人）',
     'Rainmaker - Private Battle'            => 'ガチホコバトル - プライベートマッチ',
+    'Clam Blitz - Ranked Battle'            => 'ガチアサリ - ガチマッチ',
+    'Clam Blitz - League Battle (Twin)'     => 'ガチアサリ - リーグバトル（2人）',
+    'Clam Blitz - League Battle (Quad)'     => 'ガチアサリ - リーグバトル（4人）',
+    'Clam Blitz - Private Battle'           => 'ガチアサリ - プライベートマッチ',
 ];

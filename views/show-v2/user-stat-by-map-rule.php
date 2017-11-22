@@ -36,6 +36,7 @@ $ruleMap = [
     'area' => 'any-gachi-area',
     'yagura' => 'any-gachi-yagura',
     'hoko' => 'any-gachi-hoko',
+    'asari' => 'any-gachi-asari',
 ];
 ?>
 <div class="container">
@@ -163,5 +164,5 @@ $this->registerJs(
 $this->registerCss(implode('', [
   '.pie-flot-container{height:200px}',
   '.pie-flot-container .error{display:none}',
-  '.graph-container thead tr:nth-child(1) th{width:20%;min-width:150px}',
+  '.graph-container thead tr:nth-child(1) th{width:16.6667%;min-width:100px}',
 ]));

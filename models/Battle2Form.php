@@ -114,6 +114,7 @@ class Battle2Form extends Model
         $area       = Yii::t('app-rule2', 'Splat Zones');
         $yagura     = Yii::t('app-rule2', 'Tower Control');
         $hoko       = Yii::t('app-rule2', 'Rainmaker');
+        $asari      = Yii::t('app-rule2', 'Clam Blitz');
         $private    = Yii::t('app-rule2', 'Private Battle');
         return [
             '' => Yii::t('app', 'Unknown'),
@@ -124,16 +125,19 @@ class Battle2Form extends Model
                 'standard-gachi-area'   => "{$area} {$solo}",
                 'standard-gachi-yagura' => "{$yagura} {$solo}",
                 'standard-gachi-hoko'   => "{$hoko} {$solo}",
+                'standard-gachi-asari'  => "{$asari} {$solo}",
             ],
             Yii::t('app-rule2', 'League Battle (Twin)') => [
                 'squad_2-gachi-area'    => "{$area} {$twin}",
                 'squad_2-gachi-yagura'  => "{$yagura} {$twin}",
                 'squad_2-gachi-hoko'    => "{$hoko} {$twin}",
+                'squad_2-gachi-asari'   => "{$asari} {$twin}",
             ],
             Yii::t('app-rule2', 'League Battle (Quad)') => [
                 'squad_4-gachi-area'    => "{$area} {$quad}",
                 'squad_4-gachi-yagura'  => "{$yagura} {$quad}",
                 'squad_4-gachi-hoko'    => "{$hoko} {$quad}",
+                'squad_4-gachi-asari'   => "{$asari} {$quad}",
             ],
             Yii::t('app-rule2', 'Splatfest') => [
                 'standard-fest-nawabari' => Yii::t('app-rule2', 'Splatfest (Solo)'),
@@ -144,6 +148,7 @@ class Battle2Form extends Model
                 'private-private-area'      => "{$area} {$priv}",
                 'private-private-yagura'    => "{$yagura} {$priv}",
                 'private-private-hoko'      => "{$hoko} {$priv}",
+                'private-private-asari'     => "{$asari} {$priv}",
             ],
         ];
     }
@@ -191,6 +196,7 @@ class Battle2Form extends Model
                 case 'area':
                 case 'yagura':
                 case 'hoko':
+                case 'asari':
                     return ($lobby && ($lobby->key === 'squad_2' || $lobby->key === 'squad_4'))
                         ? sprintf('%s-gachi-%s', $lobby->key, $rule->key)
                         : sprintf('standard-gachi-%s', $rule->key);
@@ -208,7 +214,7 @@ class Battle2Form extends Model
         $this->mode_id = null;
         $this->rule_id = null;
         $s = preg_match(
-            '/^(standard|squad_[24]|private)-(regular|gachi|fest|private)-(nawabari|area|yagura|hoko)$/',
+            '/^(standard|squad_[24]|private)-(regular|gachi|fest|private)-(nawabari|area|yagura|hoko|asari)$/',
             $str,
             $match
         );

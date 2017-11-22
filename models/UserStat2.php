@@ -45,6 +45,7 @@ use yii\db\Query;
  * @property integer $area_rank_peak
  * @property integer $yagura_rank_peak
  * @property integer $hoko_rank_peak
+ * @property integer $asari_rank_peak
  * @property string $updated_at
  *
  * @property User $user
@@ -114,6 +115,7 @@ class UserStat2 extends ActiveRecord
             [['turf_max_inked', 'gachi_battles', 'gachi_have_win_lose', 'gachi_win_battles'], 'integer'],
             [['gachi_have_kill_death', 'gachi_kill', 'gachi_death', 'gachi_kill_death_time'], 'integer'],
             [['gachi_total_seconds', 'area_rank_peak', 'yagura_rank_peak', 'hoko_rank_peak'], 'integer'],
+            [['asari_rank_peak'], 'integer'],
             [['updated_at'], 'safe'],
             [['user_id'], 'exist', 'skipOnError' => true,
                 'targetClass' => User::class,
@@ -157,6 +159,7 @@ class UserStat2 extends ActiveRecord
             'area_rank_peak' => 'Area Rank Peak',
             'yagura_rank_peak' => 'Yagura Rank Peak',
             'hoko_rank_peak' => 'Hoko Rank Peak',
+            'asari_rank_peak' => 'Asari Rank Peak',
             'updated_at' => 'Updated At',
         ];
     }
@@ -205,7 +208,7 @@ class UserStat2 extends ActiveRecord
             "WHEN {{rule2}}.[[key]] <> 'nawabari' THEN 0",
         ];
         $excludeNonGachi = [
-            "WHEN {{rule2}}.[[key]] NOT IN ('area', 'yagura', 'hoko') THEN 0",
+            "WHEN {{rule2}}.[[key]] NOT IN ('area', 'yagura', 'hoko', 'asari') THEN 0",
         ];
         $timestamp = function (string $column) : string {
             return sprintf('EXTRACT(EPOCH FROM %s)', $column);
@@ -501,6 +504,34 @@ class UserStat2 extends ActiveRecord
                     $excludePrivate,
                     [
                         "WHEN {{rule2}}.[[key]] <> 'hoko' THEN 0",
+                        "WHEN {{rank2a}}.[[int_base]] IS NULL AND {{rank2b}}.[[int_base]] IS NULL THEN 0",
+                        sprintf(
+                            'ELSE GREATEST(%s + %s, %s + %s)',
+                            sprintf('(CASE %s END)', implode(' ', [
+                                'WHEN {{rank2a}}.[[int_base]] IS NULL THEN 0',
+                                'ELSE {{rank2a}}.[[int_base]]',
+                            ])),
+                            sprintf('(CASE %s END)', implode(' ', [
+                                'WHEN {{rank2a}}.[[int_base]] IS NULL THEN 0',
+                                'WHEN {{battle2}}.[[rank_exp]] IS NULL THEN 0',
+                                'ELSE {{battle2}}.[[rank_exp]]',
+                            ])),
+                            sprintf('(CASE %s END)', implode(' ', [
+                                'WHEN {{rank2b}}.[[int_base]] IS NULL THEN 0',
+                                'ELSE {{rank2b}}.[[int_base]]',
+                            ])),
+                            sprintf('(CASE %s END)', implode(' ', [
+                                'WHEN {{rank2b}}.[[int_base]] IS NULL THEN 0',
+                                'WHEN {{battle2}}.[[rank_after_exp]] IS NULL THEN 0',
+                                'ELSE {{battle2}}.[[rank_after_exp]]',
+                            ]))
+                        ),
+                    ]
+                ))),
+                'asari_rank_peak' => sprintf('MAX(CASE %s END)', implode(' ', array_merge(
+                    $excludePrivate,
+                    [
+                        "WHEN {{rule2}}.[[key]] <> 'asari' THEN 0",
                         "WHEN {{rank2a}}.[[int_base]] IS NULL AND {{rank2b}}.[[int_base]] IS NULL THEN 0",
                         sprintf(
                             'ELSE GREATEST(%s + %s, %s + %s)',

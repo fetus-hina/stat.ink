@@ -4,6 +4,7 @@ use app\assets\UserMiniinfoAsset;
 use app\components\widgets\JdenticonWidget;
 use app\models\Rank2;
 use yii\bootstrap\Html;
+use yii\helpers\ArrayHelper;
 use yii\widgets\DetailView;
 
 UserMiniinfoAsset::register($this);
@@ -277,14 +278,41 @@ $fmt = Yii::$app->formatter;
           'tag' => 'div',
         ],
         'model' => $_st,
-        'template' => "\n" . Html::tag(
-          'div',
-          implode("\n", [
-            Html::tag('div', '{label}', ['class' => 'user-label auto-tooltip', 'title' => '{label}']),
-            Html::tag('div', '{value}', ['class' => 'user-number']),
-          ]),
-          ['class' => 'col-xs-4']
-        ) . "\n",
+        'template' => function ($attribute, $index, $widget) : string {
+          static $standard = null;
+          static $peak = null;
+          if ($standard === null) {
+            $standard = Html::tag(
+              'div',
+              implode("\n", [
+                Html::tag('div', '{label}', ['class' => 'user-label auto-tooltip', 'title' => '{label}']),
+                Html::tag('div', '{value}', ['class' => 'user-number']),
+              ]),
+              ['class' => 'col-xs-4']
+            );
+          }
+          if ($peak === null) {
+            $peak = Html::tag(
+              'div',
+              implode("\n", [
+                Html::tag('div', '{label}', ['class' => 'user-label auto-tooltip', 'title' => '{label}']),
+                Html::tag('div', '{value}', ['class' => 'user-number']),
+              ]),
+              ['class' => 'col-xs-6']
+            );
+          }
+          $captionOptions = Html::renderTagAttributes(ArrayHelper::getValue($attribute, 'captionOptions', []));
+          $contentOptions = Html::renderTagAttributes(ArrayHelper::getValue($attribute, 'contentOptions', []));
+          return strtr(
+            preg_match('/_rank_peak$/', $attribute['attribute'] ?? '') ? $peak : $standard,
+            [
+              '{label}' => $attribute['label'],
+              '{value}' => $widget->formatter->format($attribute['value'], $attribute['format']),
+              '{captionOptions}' => $captionOptions,
+              '{contentOptions}' => $contentOptions,
+            ]
+          );
+        },
         'attributes' => [
           [
             'label' => Yii::t('app', 'Battles'),
@@ -364,6 +392,7 @@ $fmt = Yii::$app->formatter;
             },
           ],
           [
+            'attribute' => 'area_rank_peak',
             'label' => Yii::t('app', '{rule}: Peak', [
               'rule' => Yii::t('app-rule2', 'SZ'),
             ]),
@@ -379,6 +408,7 @@ $fmt = Yii::$app->formatter;
             },
           ],
           [
+            'attribute' => 'yagura_rank_peak',
             'label' => Yii::t('app', '{rule}: Peak', [
               'rule' => Yii::t('app-rule2', 'TC'),
             ]),
@@ -394,6 +424,7 @@ $fmt = Yii::$app->formatter;
             },
           ],
           [
+            'attribute' => 'hoko_rank_peak',
             'label' => Yii::t('app', '{rule}: Peak', [
               'rule' => Yii::t('app-rule2', 'RM'),
             ]),
@@ -402,6 +433,22 @@ $fmt = Yii::$app->formatter;
                 return Yii::t('app', 'N/A');
               }
               $string = Rank2::renderRank($model->hoko_rank_peak);
+              if (!$string) {
+                return Yii::t('app', 'N/A');
+              }
+              return $string;
+            },
+          ],
+          [
+            'attribute' => 'asari_rank_peak',
+            'label' => Yii::t('app', '{rule}: Peak', [
+              'rule' => Yii::t('app-rule2', 'CB'),
+            ]),
+            'value' => function ($model) use ($fmt, $nbsp) : string {
+              if ($model->gachi_battles < 1) {
+                return Yii::t('app', 'N/A');
+              }
+              $string = Rank2::renderRank($model->asari_rank_peak);
               if (!$string) {
                 return Yii::t('app', 'N/A');
               }

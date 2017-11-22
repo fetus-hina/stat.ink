@@ -169,7 +169,7 @@ class Battle2 extends ActiveRecord
                                 break;
                             
                             case 'gachi':
-                                $and[] = ['rule2.key' => ['area', 'yagura', 'hoko']];
+                                $and[] = ['rule2.key' => ['area', 'yagura', 'hoko', 'asari']];
                                 break;
 
                             default:
@@ -1020,7 +1020,7 @@ class Battle2 extends ActiveRecord
     public function getIsGachi() : bool
     {
         return $this->getIsThisGameMode('gachi') ||
-            in_array($this->rule->key ?? null, ['area', 'yagura', 'hoko'], true);
+            in_array($this->rule->key ?? null, ['area', 'yagura', 'hoko', 'asari'], true);
     }
 
     private function getIsThisGameMode(string $key) : bool
@@ -1230,18 +1230,24 @@ class Battle2 extends ActiveRecord
                 return Yii::t('app-rule2', 'Tower Control - Ranked Battle');
             case 'standard-gachi-hoko':
                 return Yii::t('app-rule2', 'Rainmaker - Ranked Battle');
+            case 'standard-gachi-asari':
+                return Yii::t('app-rule2', 'Clam Blitz - Ranked Battle');
             case 'squad_2-gachi-area':
                 return Yii::t('app-rule2', 'Splat Zones - League Battle (Twin)');
             case 'squad_2-gachi-yagura':
                 return Yii::t('app-rule2', 'Tower Control - League Battle (Twin)');
             case 'squad_2-gachi-hoko':
                 return Yii::t('app-rule2', 'Rainmaker - League Battle (Twin)');
+            case 'squad_2-gachi-asari':
+                return Yii::t('app-rule2', 'Clam Blitz - League Battle (Twin)');
             case 'squad_4-gachi-area':
                 return Yii::t('app-rule2', 'Splat Zones - League Battle (Quad)');
             case 'squad_4-gachi-yagura':
                 return Yii::t('app-rule2', 'Tower Control - League Battle (Quad)');
             case 'squad_4-gachi-hoko':
                 return Yii::t('app-rule2', 'Rainmaker - League Battle (Quad)');
+            case 'squad_4-gachi-asari':
+                return Yii::t('app-rule2', 'Clam Blitz - League Battle (Quad)');
             case 'standard-fest-nawabari':
                 return Yii::t('app-rule2', 'Turf War - Splatfest (Solo)');
             case 'squad_4-fest-nawabari':
@@ -1254,6 +1260,8 @@ class Battle2 extends ActiveRecord
                 return Yii::t('app-rule2', 'Tower Control - Private Battle');
             case 'private-private-hoko':
                 return Yii::t('app-rule2', 'Rainmaker - Private Battle');
+            case 'private-private-asari':
+                return Yii::t('app-rule2', 'Clam Blitz - Private Battle');
         }
         return null;
     }

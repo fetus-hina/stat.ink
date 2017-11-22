@@ -123,6 +123,7 @@ POST データは全体で 12MiB 以内である必要があります。
 |`area`|ガチエリア<br>Splat Zones|
 |`yagura`|ガチヤグラ<br>Tower Control|
 |`hoko`|ガチホコ<br>Rainmaker|
+|`asari`|ガチアサリ<br>Clam Blitz|
 
 `lobby`, `mode`, `rule` は現実的には次のような組み合わせになります。
 
@@ -130,12 +131,12 @@ POST データは全体で 12MiB 以内である必要があります。
 |------|----------|-------|------|------|-|
 |レギュラー<br>Regular|1人<br>Solo|`standard`|`regular`|`nawabari`||
 |レギュラー<br>Regular|合流<br>Join to friend|`standard`|`regular`|`nawabari`|区別しない<br>Same as Solo|
-|ガチマッチ<br>Ranked|1人<br>Solo|`standard`|`gachi`|`area`, `yagura`, `hoko`|
-|ガチマッチ<br>Ranked|リーグ（2人）<br>League (Twin)|`squad_2`|`gachi`|`area`, `yagura`, `hoko`|
-|ガチマッチ<br>Ranked|リーグ（4人）<br>League (Quad)|`squad_4`|`gachi`|`area`, `yagura`, `hoko`|
+|ガチマッチ<br>Ranked|1人<br>Solo|`standard`|`gachi`|`area`, `yagura`, `hoko`, `asari`|
+|ガチマッチ<br>Ranked|リーグ（2人）<br>League (Twin)|`squad_2`|`gachi`|`area`, `yagura`, `hoko`, `asari`|
+|ガチマッチ<br>Ranked|リーグ（4人）<br>League (Quad)|`squad_4`|`gachi`|`area`, `yagura`, `hoko`, `asari`|
 |フェス<br>Splatfest|ソロ<br>Solo|`standard`|`fest`|`nawabari`||
 |フェス<br>Splatfest|チーム<br>Team|`squad_4`|`fest`|`nawabari`||
-|プラベ<br>Private|-|`private`|`private`|`nawabari`, `area`, `yagura`, `hoko`|
+|プラベ<br>Private|-|`private`|`private`|`nawabari`, `area`, `yagura`, `hoko`, `asari`|
 
 
 `stage`
