@@ -52,6 +52,7 @@ return [
     'Hero Shot Replica' => 'Pistola élite replica',
     'Hero Slosher Replica' => 'Secchiostro élite replica',
     'Hero Splatling Replica' => 'Splatling élite replica',
+    'Hydra Splatling' => 'Idrante',
     'Inkbrush' => 'Calamaravaggio',
     'Inkbrush Nouveau' => 'Calamaravaggio master',
     'Jet Squelcher' => 'Sweeper',

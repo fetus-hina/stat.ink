@@ -52,6 +52,7 @@ return [
     'Hero Shot Replica' => 'Pistola de Élite (réplica)',
     'Hero Slosher Replica' => 'Derramatic de élite (réplica)',
     'Hero Splatling Replica' => 'Tintralladora de élite (réplica)',
+    'Hydra Splatling' => 'Extintador',
     'Inkbrush' => 'Pincel',
     'Inkbrush Nouveau' => 'Pincel maestro',
     'Jet Squelcher' => 'Megabarredora',

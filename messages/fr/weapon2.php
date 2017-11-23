@@ -52,6 +52,7 @@ return [
     'Hero Shot Replica' => 'Lanceur héroïque (réplique)',
     'Hero Slosher Replica' => '',
     'Hero Splatling Replica' => '',
+    'Hydra Splatling' => 'Exteinteur',
     'Inkbrush' => 'Épinceau',
     'Inkbrush Nouveau' => 'Épinceau nuancé',
     'Jet Squelcher' => 'Nettoyeur XL',

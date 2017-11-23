@@ -53,6 +53,7 @@ return [
     'Hero Shot Replica' => 'Rociador de élite réplica',
     'Hero Slosher Replica' => 'Derramatic de élite réplica',
     'Hero Splatling Replica' => 'Garabateador de élite réplica',
+    'Hydra Splatling' => 'Garabateador HD',
     'Inkbrush' => '',
     'Inkbrush Nouveau' => '',
     'Jet Squelcher' => 'Megasoplador',

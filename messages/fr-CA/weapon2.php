@@ -52,6 +52,7 @@ return [
     'Hero Shot Replica' => 'Liquéfi. héroïque (rép.)',
     'Hero Slosher Replica' => '',
     'Hero Splatling Replica' => '',
+    'Hydra Splatling' => '',
     'Inkbrush' => '',
     'Inkbrush Nouveau' => '',
     'Jet Squelcher' => 'Méganettoyeur',

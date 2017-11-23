@@ -86,6 +86,7 @@ return [
     'Heavy Splatling Deco' => 'バレルスピナーデコ',
     'Heavy Splatling' => 'バレルスピナー',
     'Hero Splatling Replica' => 'ヒーロースピナー レプリカ',
+    'Hydra Splatling' => 'ハイドラント',
     'Mini Splatling' => 'スプラスピナー',
     // brellas ------
     'Hero Brella Replica' => 'ヒーローシェルター レプリカ',

@@ -52,6 +52,7 @@ return [
     'Hero Shot Replica' => 'Heldenwaffe Replik',
     'Hero Slosher Replica' => 'Helden-Schwapper Replik',
     'Hero Splatling Replica' => 'Helden-Splatling Replik',
+    'Hydra Splatling' => 'Hydrant',
     'Inkbrush' => 'Quasto',
     'Inkbrush Nouveau' => 'Quasto Fresco',
     'Jet Squelcher' => 'Platscher',
