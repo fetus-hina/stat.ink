@@ -213,16 +213,16 @@
         },
         {
             "name": "bower-asset/d3",
-            "version": "v4.11.0",
+            "version": "v4.12.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mbostock-bower/d3-bower.git",
-                "reference": "4c22439fa01b028a1144654becc812ccc27482bd"
+                "reference": "a9a66ccdbf730f34a9128c59317496778cffa444"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mbostock-bower/d3-bower/zipball/4c22439fa01b028a1144654becc812ccc27482bd",
-                "reference": "4c22439fa01b028a1144654becc812ccc27482bd",
+                "url": "https://api.github.com/repos/mbostock-bower/d3-bower/zipball/a9a66ccdbf730f34a9128c59317496778cffa444",
+                "reference": "a9a66ccdbf730f34a9128c59317496778cffa444",
                 "shasum": ""
             },
             "type": "bower-asset-library",
@@ -234,7 +234,7 @@
                 "BSD-3-Clause"
             ],
             "description": "A JavaScript visualization library for HTML and SVG.",
-            "time": "2017-10-03T17:25:49+00:00"
+            "time": "2017-11-21T22:04:46+00:00"
         },
         {
             "name": "bower-asset/emojify.js",
