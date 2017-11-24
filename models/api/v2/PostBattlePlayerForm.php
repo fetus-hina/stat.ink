@@ -68,7 +68,7 @@ class PostBattlePlayerForm extends Model
                 'targetClass' =>  Weapon2::class,
                 'targetAttribute' => 'key',
             ],
-            [['level'], 'integer', 'min' => 1, 'max' => 50],
+            [['level'], 'integer', 'min' => 1, 'max' => 99],
             [['rank'], 'exist',
                 'targetClass' => Rank2::class,
                 'targetAttribute' => 'key',

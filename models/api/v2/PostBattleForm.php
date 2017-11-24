@@ -177,7 +177,7 @@ class PostBattleForm extends Model
                 'targetClass' =>  Weapon2::class,
                 'targetAttribute' => 'key',
             ],
-            [['level', 'level_after'], 'integer', 'min' => 1],
+            [['level', 'level_after'], 'integer', 'min' => 1, 'max' => 99],
             [['rank', 'rank_after'], 'exist',
                 'targetClass' => Rank2::class,
                 'targetAttribute' => 'key',

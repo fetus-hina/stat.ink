@@ -66,7 +66,7 @@ class BattlePlayer2 extends ActiveRecord
         return [
             [['battle_id', 'is_my_team', 'is_me'], 'required'],
             [['battle_id', 'weapon_id', 'rank_id', 'gender_id', 'fest_title_id'], 'integer'],
-            [['level'], 'integer', 'min' => 1, 'max' => 50],
+            [['level'], 'integer', 'min' => 1, 'max' => 99],
             [['rank_in_team'], 'integer', 'min' => 1, 'max' => 4],
             [['kill', 'death', 'my_kill'], 'integer', 'min' => 0],
             [['kill_or_assist', 'special'], 'integer', 'min' => 0],
