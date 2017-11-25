@@ -49,8 +49,11 @@ class MapImage2Controller extends Controller
     private function generateFromTwitter()
     {
         $list = [
+            'arowana' => 'https://pbs.twimg.com/media/DPSOeyvVoAAGnWL.jpg:orig',
             'bbass' => 'https://pbs.twimg.com/media/DNEAZ9cUIAAphwV.jpg:orig',
+            'devon' => 'https://pbs.twimg.com/media/DPOdfAvVAAArv3f.jpg:orig',
             'engawa' => 'https://pbs.twimg.com/media/DLXOzECUEAAyMkl.jpg:orig',
+            'hakofugu' => 'https://pbs.twimg.com/media/DPNH39SVQAAIPiE.jpg:orig',
             'mozuku' => 'https://pbs.twimg.com/media/DJo7HTzUEAESeuF.jpg:orig',
             'mystery' => 'https://pbs.twimg.com/media/DGDTWhAUwAA4Bri.jpg:orig',
             'zatou' => 'https://pbs.twimg.com/media/DPKV9mCV4AExVBF.jpg:orig',
