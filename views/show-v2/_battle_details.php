@@ -233,7 +233,15 @@ $this->registerCss('#battle .progress{margin-bottom:0}');
       },
       // }}}
     ],
-    'league_point',
+    [
+      'attribute' => 'league_point',
+      'value' => function ($model) : ?string {
+        if ($model->league_point < 1) {
+          return null;
+        }
+        return Yii::$app->formatter->asDecimal($model->league_point, 1);
+      }
+    ],
     [
       'attribute' => 'estimate_gachi_power', // {{{
       'format' => 'raw',
