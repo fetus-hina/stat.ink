@@ -152,6 +152,7 @@ POST データは全体で 12MiB 以内である必要があります。
 |`battera`               |`0`                   |バッテラストリート<br>The Reef               |                                                                             |
 |`bbass`                 |`11`                  |Bバスパーク<br>Blackbelly Skatepark          |                                                                             |
 |`chozame`               |`3`                   |チョウザメ造船<br>Sturgeon Shipyard          |                                                                             |
+|`devon`                 |                      |デボン海洋博物館<br>Shellendorf Institute    |                                                                             |
 |`engawa`                |`9`                   |エンガワ河川敷<br>Snapper Canal              |                                                                             |
 |`fujitsubo`             |`1`                   |フジツボスポーツクラブ<br>Musselforge Fitness|                                                                             |
 |`gangaze`               |`2`                   |ガンガゼ野外音楽堂<br>Starfish Mainstage     |                                                                             |
