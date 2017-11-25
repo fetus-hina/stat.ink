@@ -48,6 +48,7 @@ class I18nController extends Controller
             'es-ES' => 'es',
             'fr-FR' => 'fr',
             'it-IT' => 'it',
+            'nl-NL' => 'nl',
             'ru-RU' => 'ru',
         ];
         $locale = $localeMap[$locale] ?? $locale;

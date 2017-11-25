@@ -36,6 +36,14 @@
                 "months": [ "Jan.", "Feb.", "März", "Apr.", "Mai", "Juni", "Juli", "Aug.", "Sept.", "Okt.", "Nov.", "Dez." ],
                 "itemName": [ "mal", "mal" ],
             },
+            "nl-NL": {
+                "months": [ "jan.", "feb.", "mrt.", "apr.", "mei", "jun.", "jul.", "aug.", "sep.", "okt.", "nov.", "dec." ],
+                "itemName": [ "keer", "keer" ],
+            },
+            "ru-RU": {
+                "months": [ "янв.", "февр.", "марта", "апр.", "мая", "июня", "июля", "авг.", "сент.", "окт.", "нояб.", "дек." ],
+                "itemName": [ "раз", "раза" ],
+            },
         }[$('html').attr('lang')];
     })();
 
