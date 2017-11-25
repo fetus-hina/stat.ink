@@ -161,7 +161,7 @@ POST データは全体で 12MiB 以内である必要があります。
 |`manta`                 |`6`                   |マンタマリア号<br>Manta Maria                |                                                                             |
 |`mozuku`                |`10`                  |モズク農園<br>Kelp Dome                      |                                                                             |
 |`tachiuo`               |`8`                   |タチウオパーキング<br>Moray Towers           |                                                                             |
-|`zatou`                 |                      |ザトウマーケット<br>MakoMart                 |                                                                             |
+|`zatou`                 |`13`                  |ザトウマーケット<br>MakoMart                 |                                                                             |
 |`mystery`               |`9999`                |ミステリーゾーン<br>Shifty Station           |フェス専用ステージ<br>For Splatfest                                          |
 <!--endreplace-->
 
