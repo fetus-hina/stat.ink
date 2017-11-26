@@ -113,6 +113,12 @@ class Controller extends Base
             case 'it':
                 return 'it-IT';
 
+            case 'ru':
+                return 'ru-RU';
+
+            case 'nl':
+                return 'nl-NL';
+
             default:
                 return false;
         }
@@ -142,6 +148,8 @@ class Controller extends Base
                 case 'fr-FR':
                 case 'it':
                 case 'it-IT':
+                case 'nl':
+                case 'nl-NL':
                     return Timezone::findOne(['identifier' => 'Europe/Paris']);
 
                 case 'es-MX':
@@ -149,6 +157,10 @@ class Controller extends Base
 
                 case 'fr-CA':
                     return Timezone::findOne(['identifier' => 'America/Halifax']);
+
+                case 'ru':
+                case 'ru-RU':
+                    return Timezone::findOne(['identifier' => 'Europe/Moscow']);
 
                 default:
                     return Timezone::findOne(['identifier' => 'Asia/Tokyo']);
