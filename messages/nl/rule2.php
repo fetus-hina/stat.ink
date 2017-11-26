@@ -57,7 +57,7 @@ return [
     'Tower Control - Ranked Battle' => 'Torentwist - Profgevecht',
     'Turf War' => 'Grondoorlog',
     'Turf War - Private Battle' => 'Grondoorlog - Privégevecht',
-    'Turf War - Regular Battle' => 'Grondoorlog - ',
+    'Turf War - Regular Battle' => 'Grondoorlog - Standart-gevecht',
     'Turf War - Splatfest (Solo)' => 'Grondoorlog - Splatfest (Solo)',
     'Turf War - Splatfest (Team)' => 'Grondoorlog - Splatfest (Team)',
     'TW' => 'Grondoorlog',
