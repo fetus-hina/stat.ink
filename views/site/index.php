@@ -2,11 +2,11 @@
 use app\assets\CounterAsset;
 use app\assets\PaintballAsset;
 use app\components\helpers\CombinedBattles;
+use app\components\widgets\ChangeLangDropdown;
 use app\components\widgets\SnsWidget;
 use app\components\widgets\battle\BattleListWidget;
 use app\models\Battle;
 use app\models\BlogEntry;
-use app\models\Language;
 use app\models\User;
 use yii\helpers\Html;
 
@@ -16,43 +16,16 @@ CounterAsset::register($this);
 PaintballAsset::register($this);
 ?>
 <div class="container">
-  <p class="text-right" style="margin-bottom:0">
-    Switch Language:
-    <?= implode(
-      ' / ',
-      array_map(
-        function (Language $lang) : string {
-          return Html::a(
-            vsprintf(
-              '%s %s',
-              [
-                Html::tag('span', '', [
-                  'class' => [
-                    'flag-icon',
-                    'flag-icon-' . $lang->countryCode,
-                  ],
-                ]),
-                Html::encode($lang->name),
-              ]
-            ),
-            'javascript:;',
-            [
-              'class' => [
-                'language-change',
-                'auto-tooltip',
-                'nobr',
-              ],
-              'data' => [
-                'lang' => $lang->lang,
-              ],
-              'title' => sprintf('Switch to %s', $lang->name_en),
-            ]
-          );
-        },
-        Language::find()->orderBy(['name' => SORT_ASC])->all()
-      )
-    ) . "\n" ?>
-  </p>
+  <div class="text-right" style="margin-bottom:10px">
+    <?= ChangeLangDropdown::widget([
+      'dropdownOptions' => [
+        'style' => [
+          'left' => 'auto',
+          'right' => '0',
+        ],
+      ],
+    ]) . "\n" ?>
+  </div>
   <p class="text-right" style="margin-bottom:0">
     <?= Html::tag(
       'span',
