@@ -38,6 +38,7 @@ return [
     'Flingza Roller' => '',
     'Foil Flingza Roller' => '',
     'Forge Splattershot Pro' => '',
+    'Glooga Dualies' => '',
     'Gold Dynamo Roller' => '',
     'Goo Tuber' => '',
     'H-3 Nozzlenose' => '',

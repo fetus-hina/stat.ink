@@ -38,6 +38,7 @@ return [
     'Flingza Roller' => 'Flex-Roller',
     'Foil Flingza Roller' => 'Flex-Roller Fol',
     'Forge Splattershot Pro' => 'Focus-Profi-Kleckser',
+    'Glooga Dualies' => 'Kelvin 525',
     'Gold Dynamo Roller' => 'Dynaroller Tesla',
     'Goo Tuber' => 'T-Tuber',
     'H-3 Nozzlenose' => 'S3 Tintenwerfer',

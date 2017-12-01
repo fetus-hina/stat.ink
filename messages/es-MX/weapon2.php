@@ -39,6 +39,7 @@ return [
     'Flingza Roller' => '',
     'Foil Flingza Roller' => 'Rodillo versátil Foil',
     'Forge Splattershot Pro' => 'Rociador Forima',
+    'Glooga Dualies' => '',
     'Gold Dynamo Roller' => 'Rodillo Pro dorado',
     'Goo Tuber' => '',
     'H-3 Nozzlenose' => 'Manguera pesada',

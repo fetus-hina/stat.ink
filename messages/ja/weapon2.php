@@ -33,6 +33,7 @@ return [
     'Dualie Squelchers' => 'デュアルスイーパー',
     'Enperry Splat Dualies' => 'スプラマニューバーコラボ',
     'Forge Splattershot Pro' => 'プライムシューターコラボ',
+    'Glooga Dualies' => 'ケルビン525',
     'H-3 Nozzlenose' => 'H3リールガン',
     'Hero Blaster Replica' => 'ヒーローブラスター レプリカ',
     'Hero Dualie Replicas' => 'ヒーローマニューバー レプリカ',

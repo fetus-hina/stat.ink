@@ -38,6 +38,7 @@ return [
     'Flingza Roller' => 'Flexroller',
     'Foil Flingza Roller' => 'Foil Flexroller',
     'Forge Splattershot Pro' => 'Forge Superspetter Pro',
+    'Glooga Dualies' => 'Kelvin 525',
     'Gold Dynamo Roller' => 'Gouden Dynamoroller',
     'Goo Tuber' => 'Spetbuizer',
     'H-3 Nozzlenose' => 'H-3 Langsnuit',

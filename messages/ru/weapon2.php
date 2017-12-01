@@ -38,6 +38,7 @@ return [
     'Flingza Roller' => 'Омнивалик',
     'Foil Flingza Roller' => 'Омнивалик «Блеск»',
     'Forge Splattershot Pro' => 'Каплестрел ПРО «Блиц»',
+    'Glooga Dualies' => 'Термоплюхи 525',
     'Gold Dynamo Roller' => 'Мотовалик VIP',
     'Goo Tuber' => 'Импрессиометы',
     'H-3 Nozzlenose' => 'Тяжелый каплетрон',

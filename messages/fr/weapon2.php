@@ -38,6 +38,7 @@ return [
     'Flingza Roller' => 'Flexi-rouleau',
     'Foil Flingza Roller' => 'Flexi-rouleau alu',
     'Forge Splattershot Pro' => 'Liquidateur pro griffé',
+    'Glooga Dualies' => 'Double Kelvin 525',
     'Gold Dynamo Roller' => 'Dynamo-rouleau tesla',
     'Goo Tuber' => 'Détubeur',
     'H-3 Nozzlenose' => 'Arroseur lourd',

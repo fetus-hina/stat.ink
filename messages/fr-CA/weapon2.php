@@ -38,6 +38,7 @@ return [
     'Flingza Roller' => '',
     'Foil Flingza Roller' => '  Flexi-rouleau aluminium',
     'Forge Splattershot Pro' => 'Liquéficateur pro Fosia',
+    'Glooga Dualies' => '',
     'Gold Dynamo Roller' => 'Dynamo-rouleau pro',
     'Goo Tuber' => '',
     'H-3 Nozzlenose' => '',

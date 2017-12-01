@@ -38,6 +38,7 @@ return [
     'Flingza Roller' => 'Flexi-rullo',
     'Foil Flingza Roller' => 'Flexi-rullo B',
     'Forge Splattershot Pro' => 'Splasher élite logo',
+    'Glooga Dualies' => 'Kelvin duplo 525',
     'Gold Dynamo Roller' => 'Rullo dinamo dorato',
     'Goo Tuber' => 'Tintubator',
     'H-3 Nozzlenose' => 'Triplete',

@@ -38,6 +38,7 @@ return [
     'Flingza Roller' => 'Rodillo versátil',
     'Foil Flingza Roller' => 'Rodillo versátil B',
     'Forge Splattershot Pro' => 'Lanzatintas plus B',
+    'Glooga Dualies' => 'Fundidora 525 dual',
     'Gold Dynamo Roller' => 'Dinamorrodillo T',
     'Goo Tuber' => 'Tubofusil',
     'H-3 Nozzlenose' => 'Tintambor pesado',
