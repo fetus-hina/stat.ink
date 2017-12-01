@@ -75,14 +75,18 @@
         "yiisoft/yii2-debug": "2.0.x-dev",
         "yiisoft/yii2-gii": "2.0.x-dev"
     },
-    "repositories": [{
-        "type": "vcs",
-        "url": "https://github.com/fetus-hina/yii2-gearman.git"
-    }],
-    "extra": {
-        "asset-installer-paths": {
-            "bower-asset-library": "vendor/bower",
-            "npm-asset-library": "vendor/npm"
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/fetus-hina/yii2-gearman.git"
+        },
+        {
+            "type": "composer",
+            "url": "https://packagist.jp"
+        },
+        {
+            "type": "composer",
+            "url": "https://asset-packagist.org"
         }
-    }
+    ]
 }

@@ -8,6 +8,10 @@ $config = [
     'timeZone' => 'Asia/Tokyo',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log', 'autoAlias'],
+    'aliases' => [
+        '@bower' => '@vendor/bower-asset',
+        '@npm'   => '@vendor/npm-asset',
+    ],
     'components' => [
         'assetManager' => [
             'class' => 'app\components\web\AssetManager',
