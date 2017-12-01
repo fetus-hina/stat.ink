@@ -22,6 +22,7 @@ class PostBattlePlayerForm extends Model
     public $is_me;
     public $weapon;
     public $level;
+    public $star_rank;
     public $rank;
     public $rank_in_team;
     public $kill;
@@ -69,6 +70,7 @@ class PostBattlePlayerForm extends Model
                 'targetAttribute' => 'key',
             ],
             [['level'], 'integer', 'min' => 1, 'max' => 99],
+            [['star_rank'], 'integer'],
             [['rank'], 'exist',
                 'targetClass' => Rank2::class,
                 'targetAttribute' => 'key',

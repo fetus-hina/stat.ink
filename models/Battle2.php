@@ -37,6 +37,7 @@ use yii\helpers\Url;
  * @property boolean $is_knockout
  * @property integer $level
  * @property integer $level_after
+ * @property integer $star_rank
  * @property integer $rank_id
  * @property integer $rank_exp
  * @property integer $rank_after_id
@@ -550,7 +551,7 @@ class Battle2 extends ActiveRecord
             [['rank_id', 'rank_exp', 'rank_after_id', 'rank_after_exp', 'rank_in_team', 'kill', 'death'], 'integer'],
             [['max_kill_combo', 'max_kill_streak', 'my_point', 'my_team_point', 'his_team_point'], 'integer'],
             [['my_team_count', 'his_team_count', 'cash', 'cash_after', 'period', 'version_id', 'bonus_id'], 'integer'],
-            [['env_id', 'agent_game_version_id', 'agent_id', 'remote_port'], 'integer'],
+            [['env_id', 'agent_game_version_id', 'agent_id', 'remote_port', 'star_rank'], 'integer'],
             [['kill_or_assist', 'special', 'gender_id', 'fest_title_id', 'fest_title_after_id'], 'integer'],
             [['rank_exp', 'rank_after_exp'], 'integer', 'min' => 0, 'max' => 50],
             [['fest_exp', 'fest_exp_after'], 'integer', 'min' => 0, 'max' => 99],
@@ -653,6 +654,7 @@ class Battle2 extends ActiveRecord
             'is_knockout' => 'Is Knockout',
             'level' => Yii::t('app', 'Level'),
             'level_after' => Yii::t('app', 'Level (after the battle)'),
+            'star_rank' => 'Star Rank',
             'rank_id' => Yii::t('app', 'Rank'),
             'rank_exp' => 'Rank Exp',
             'rank_after_id' => Yii::t('app', 'Rank (after the battle)'),
@@ -1099,6 +1101,7 @@ class Battle2 extends ActiveRecord
             'rank_exp_after' => $this->rank_after_exp,
             'level' => $this->level,
             'level_after' => $this->level_after,
+            'star_rank' => $this->star_rank,
             //'cash' => $this->cash,
             //'cash_after' => $this->cash_after,
             'result' => $this->is_win === true ? 'win' : ($this->is_win === false ? 'lose' : null),

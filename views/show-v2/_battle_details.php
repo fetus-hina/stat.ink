@@ -96,14 +96,25 @@ $this->registerCss('#battle .progress{margin-bottom:0}');
     ],
     [
       'attribute' => 'level', // {{{
+      'format' => 'raw',
       'value' => function ($model) : ?string {
         if ($model->level === null && $model->level_after === null) {
           return null;
         }
         return sprintf(
-          '%s → %s',
-          $model->level ?? '?',
-          $model->level_after ?? '?'
+          '%3$s%1$s → %3$s%2$s',
+          Html::encode($model->level ?? '?'),
+          Html::encode($model->level_after ?? '?'),
+          (($model->star_rank ?? 0) > 0)
+            ? Html::tag('span', Html::encode('★'), [
+              'style' => [
+                'vertical-align' => 'super',
+                'font-size' => '0.75em',
+              ],
+              'class' => 'auto-tooltip',
+              'title' => (string)$model->star_rank,
+            ])
+            : ''
         );
       },
       // }}}

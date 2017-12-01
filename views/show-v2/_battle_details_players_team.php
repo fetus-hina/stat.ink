@@ -238,7 +238,26 @@ foreach ($players as $i => $player) {
           : '',
         ['class' => 'col-weapon']
       ),
-      Html::tag('td', Html::encode($player->level), ['class' => ['col-level', 'text-right']]),
+      Html::tag(
+        'td',
+        sprintf(
+          '%2$s%1$s',
+          Html::encode($player->level),
+          (($player->star_rank ?? 0) > 0)
+            ? Html::tag('span', Html::encode('★'), [
+              'style' => [
+                'vertical-align' => 'super',
+                'font-size' => '0.75em',
+              ],
+              'class' => 'auto-tooltip',
+              'title' => (string)$player->star_rank,
+            ])
+            : ''
+        ),
+        [
+          'class' => ['col-level', 'text-right'],
+        ]
+      ),
       $hideRank ? '' : Html::tag('td', Html::encode(Yii::t('app-rank2', $player->rank->name ?? '')), ['class' => ['col-rank', 'text-center']]),
       $hidePoint
         ? ''

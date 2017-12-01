@@ -20,6 +20,7 @@ use yii\db\ActiveRecord;
  * @property boolean $is_me
  * @property integer $weapon_id
  * @property integer $level
+ * @property integer $star_rank
  * @property string $rank
  * @property integer $rank_in_team
  * @property integer $kill
@@ -65,7 +66,7 @@ class BattlePlayer2 extends ActiveRecord
     {
         return [
             [['battle_id', 'is_my_team', 'is_me'], 'required'],
-            [['battle_id', 'weapon_id', 'rank_id', 'gender_id', 'fest_title_id'], 'integer'],
+            [['battle_id', 'weapon_id', 'rank_id', 'gender_id', 'fest_title_id', 'star_rank'], 'integer'],
             [['level'], 'integer', 'min' => 1, 'max' => 99],
             [['rank_in_team'], 'integer', 'min' => 1, 'max' => 4],
             [['kill', 'death', 'my_kill'], 'integer', 'min' => 0],
@@ -109,6 +110,7 @@ class BattlePlayer2 extends ActiveRecord
             'is_me' => 'Is Me',
             'weapon_id' => 'Weapon ID',
             'level' => 'Level',
+            'star_rank' => 'Star Rank',
             'rank_id' => 'Rank ID',
             'rank_in_team' => 'Rank In Team',
             'kill' => 'Kill',
@@ -275,6 +277,7 @@ class BattlePlayer2 extends ActiveRecord
             'weapon'        => $this->weapon_id ? $this->weapon->toJsonArray() : null,
             'level'         => (string)$this->level === '' ? null : (int)$this->level,
             'rank'          => $this->rank_id ? $this->rank->toJsonArray() : null,
+            'star_rank'     => (string)$this->star_rank === '' ? null : (int)$this->star_rank,
             'rank_in_team'  => (string)$this->rank_in_team === '' ? null : (int)$this->rank_in_team,
             'kill'          => (string)$this->kill === '' ? null : (int)$this->kill,
             'death'         => (string)$this->death === '' ? null : (int)$this->death,

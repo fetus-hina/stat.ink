@@ -63,6 +63,7 @@ class PostBattleForm extends Model
     public $max_kill_streak;
     public $level;
     public $level_after;
+    public $star_rank;
     public $rank;
     public $rank_exp;
     public $rank_after;
@@ -178,6 +179,7 @@ class PostBattleForm extends Model
                 'targetAttribute' => 'key',
             ],
             [['level', 'level_after'], 'integer', 'min' => 1, 'max' => 99],
+            [['star_rank'], 'integer'],
             [['rank', 'rank_after'], 'exist',
                 'targetClass' => Rank2::class,
                 'targetAttribute' => 'key',
@@ -371,6 +373,7 @@ class PostBattleForm extends Model
         $battle->max_kill_streak = $intval($this->max_kill_streak);
         $battle->level          = $intval($this->level);
         $battle->level_after    = $intval($this->level_after);
+        $battle->star_rank      = $intval($this->star_rank);
         $battle->rank_id        = $key2id($this->rank, Rank2::class);
         $battle->rank_exp       = $intval($this->rank_exp);
         $battle->rank_after_id  = $key2id($this->rank_after, Rank2::class);
@@ -529,6 +532,7 @@ class PostBattleForm extends Model
                     'is_me'         => $form->is_me === 'yes',
                     'weapon_id'     => $weapon->id ?? null,
                     'level'         => $form->level,
+                    'star_rank'     => $form->star_rank,
                     'rank_id'       => $rank->id ?? null,
                     'rank_in_team'  => $form->rank_in_team,
                     'kill'          => $form->kill,
