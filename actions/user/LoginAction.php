@@ -27,7 +27,7 @@ class LoginAction extends BaseAction
             }
         }
 
-        return $this->controller->render('login.tpl', [
+        return $this->controller->render('login', [
             'login' => $form,
         ]);
     }
