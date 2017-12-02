@@ -94,7 +94,7 @@ class EditIconAction extends BaseAction
                 $message ?: Yii::t('app', 'Could not update your icon. Please try again.')
             );
         }
-        return $this->controller->render('edit-icon.tpl', [
+        return $this->controller->render('edit-icon', [
             'user' => $user,
             'current' => $user->userIcon,
         ]);
