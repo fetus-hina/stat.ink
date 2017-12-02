@@ -1,6 +1,6 @@
 {{strip}}
   {{\app\assets\GearCalcAsset::register($this)|@void}}
-  {{set layout="main.tpl"}}
+  {{set layout="main"}}
   {{use class="yii\helpers\Url"}}
   {{$user = $battle->user}}
   {{$canonicalUrl = Url::to(['show/battle', 'screen_name' => $user->screen_name, 'battle' => $battle->id], true)}}

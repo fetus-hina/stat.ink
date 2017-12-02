@@ -1,5 +1,5 @@
 {{strip}}
-  {{set layout="main.tpl"}}
+  {{set layout="main"}}
   {{set title="{{$app->name}} | {{'Open Source Licenses'|translate:'app'}}"}}
   <div class="container">
     <h1 class="ikamodoki">{{'Open Source Licenses'|translate:'app'|escape}}</h1>

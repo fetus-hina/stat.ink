@@ -1,5 +1,5 @@
 {{strip}}
-  {{set layout="main.tpl"}}
+  {{set layout="main"}}
   {{set title="{{$app->name}} | {{'Login'|translate:'app'|escape}}"}}
   {{use class="yii\helpers\Html"}}
   {{use class="yii\bootstrap\ActiveForm" type="block"}}

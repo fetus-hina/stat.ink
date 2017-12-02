@@ -1,5 +1,5 @@
 {{strip}}
-  {{set layout="main.tpl"}}
+  {{set layout="main"}}
 
   {{$combined = '(combined)'|translate:'app'}}
   {{$title = 'Battles and Users'|translate:'app'|cat:' - ':$name:' ':$combined}}

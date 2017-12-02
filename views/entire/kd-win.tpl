@@ -1,5 +1,5 @@
 {{strip}}
-  {{set layout="main.tpl"}}
+  {{set layout="main"}}
 
   {{$title = 'Winning Percentage based on K/D'|translate:'app'}}
   {{set title="{{$app->name}} | {{$title}}"}}

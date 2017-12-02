@@ -1,5 +1,5 @@
 {{strip}}
-  {{set layout="main.tpl"}}
+  {{set layout="main"}}
   <div class="container">
     <h1>
       {{'All Players'|translate:'app':$app->name|escape}}

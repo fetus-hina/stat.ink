@@ -1,5 +1,5 @@
 {{strip}}
-  {{set layout="main.tpl"}}
+  {{set layout="main"}}
   {{use class="yii\helpers\Url"}}
 
   {{$title = "{0}'s Battle Stats (by Weapon)"|translate:'app':$user->name}}

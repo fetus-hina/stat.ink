@@ -1,5 +1,5 @@
 {{strip}}
-  {{set layout="main.tpl"}}
+  {{set layout="main"}}
 
   {{$weaponName = $weapon->name|translate:'app-weapon'}}
   {{$ruleName = $rule->name|translate:'app-rule'}}

@@ -1,5 +1,5 @@
 {{strip}}
-  {{set layout="main.tpl"}}
+  {{set layout="main"}}
 
   {{$title = 'API Info: Weapons'|translate:'app'|escape}}
 

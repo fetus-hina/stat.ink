@@ -4,7 +4,7 @@ use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
 use yii\bootstrap\Html;
 
-$this->context->layout = 'main.tpl';
+$this->context->layout = 'main';
 $this->title = Yii::t('app', 'API Info: Weapons (Splatoon 2)');
 
 $this->registerMetaTag(['name' => 'twitter:card', 'content' => 'summary']);

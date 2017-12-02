@@ -1,5 +1,5 @@
 {{strip}}
-  {{set layout="main.tpl"}}
+  {{set layout="main"}}
 
   {{$_type = $type->name|translate:'app-gear'}}
   {{$title = 'API Info: Gears: {0}'|translate:'app':$_type|escape}}

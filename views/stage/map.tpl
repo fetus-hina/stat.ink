@@ -1,5 +1,5 @@
 {{strip}}
-  {{set layout="main.tpl"}}
+  {{set layout="main"}}
   {{$_map = $map->name|translate:'app-map'}}
   {{$title = 'Stages'|translate:'app'|cat:' - ':$_map}}
   {{set title="{{$app->name}} | {{$title}}"}}

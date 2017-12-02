@@ -1,5 +1,5 @@
 {{strip}}
-  {{set layout="main.tpl"}}
+  {{set layout="main"}}
   {{$_date = $month->format('Y-m')}}
   {{$title = 'Stages'|translate:'app'|cat:' - ':$_date}}
   {{set title="{{$app->name}} | {{$title}}"}}

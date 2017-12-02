@@ -15,7 +15,7 @@ use app\components\web\Controller;
 
 class ShowV2Controller extends Controller
 {
-    public $layout = "main.tpl";
+    public $layout = "main";
 
     public function behaviors()
     {

@@ -1,5 +1,5 @@
 {{strip}}
-  {{set layout="main.tpl"}}
+  {{set layout="main"}}
   {{set title="{{$app->name}} | {{'Profile and Settings'|translate:'app'}}"}}
   {{use class="yii\helpers\Html"}}
   <div class="container">

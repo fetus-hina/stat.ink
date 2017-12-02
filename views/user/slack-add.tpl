@@ -1,5 +1,5 @@
 {{strip}}
-  {{set layout="main.tpl"}}
+  {{set layout="main"}}
   {{set title="{{$app->name}} | {{'Add Slack Integration'|translate:'app'}}"}}
   {{use class="yii\helpers\ArrayHelper"}}
   {{use class="yii\helpers\Html"}}

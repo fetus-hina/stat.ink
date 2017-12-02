@@ -1,5 +1,5 @@
 {{strip}}
-  {{set layout="main.tpl"}}
+  {{set layout="main"}}
 
   {{$title = 'Weapons'|translate:'app'}}
   {{$subtitle = 'Compare Number Of Uses'|translate:'app'}}

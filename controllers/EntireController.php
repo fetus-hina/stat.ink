@@ -14,7 +14,7 @@ use app\components\web\Controller;
 
 class EntireController extends Controller
 {
-    public $layout = "main.tpl";
+    public $layout = "main";
 
     public function behaviors()
     {

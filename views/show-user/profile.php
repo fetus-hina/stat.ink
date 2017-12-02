@@ -12,7 +12,7 @@ function fa($icon) : string
 
 $title = Yii::t('app', "{0}'s Splat Log", [$user->name]);
 
-$this->context->layout = 'main.tpl';
+$this->context->layout = 'main';
 $this->title = sprintf('%s | %s', Yii::$app->name, $title);
 
 $this->registerLinkTag(['rel' => 'canonical', 'href' => $permLink]);

@@ -15,7 +15,7 @@ use app\components\web\Controller;
 
 class ShowController extends Controller
 {
-    public $layout = "main.tpl";
+    public $layout = "main";
 
     public function behaviors()
     {

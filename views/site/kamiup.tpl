@@ -1,5 +1,5 @@
 {{strip}}
-  {{set layout="main.tpl"}}
+  {{set layout="main"}}
   {{set title="{{$app->name}} | AVT-C875の接続の仕方"}}
 
   {{\app\assets\AboutAsset::register($this)|@void}}

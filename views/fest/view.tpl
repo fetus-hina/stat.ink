@@ -1,5 +1,5 @@
 {{strip}}
-  {{set layout="main.tpl"}}
+  {{set layout="main"}}
   {{*
     {{$title = 'Splatfest'|translate:'app'}}
     {{set title="{{$app->name}} | {{$title}} - {{$fest->name}}"}}

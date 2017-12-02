@@ -1,5 +1,5 @@
 {{strip}}
-  {{set layout="main.tpl"}}
+  {{set layout="main"}}
   {{$title = "Edit Your Battle: #{0}"|translate:'app':$battle->id}}
   {{set title="{{$app->name}} | {{$title}}"}}
   {{use class="yii\helpers\Html"}}

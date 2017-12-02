@@ -1,5 +1,5 @@
 {{strip}}
-  {{set layout="main.tpl"}}
+  {{set layout="main"}}
 
   {{$title = 'Battles and Users'|translate:'app'|cat:' - ':$name}}
   {{set title="{{$app->name}} | {{$title}}"}}

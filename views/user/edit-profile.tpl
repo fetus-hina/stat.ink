@@ -1,5 +1,5 @@
 {{strip}}
-  {{set layout="main.tpl"}}
+  {{set layout="main"}}
   {{set title="{{$app->name}} | {{'Update Your Profile'|translate:'app'}}"}}
   {{use class="app\models\User"}}
   {{use class="yii\bootstrap\ActiveForm" type="block"}}

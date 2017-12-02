@@ -1,5 +1,5 @@
 {{strip}}
-  {{set layout="main.tpl"}}
+  {{set layout="main"}}
   {{set title="{{$app->name}} | About Translation"}}
 
   {{\app\assets\AboutAsset::register($this)|@void}}

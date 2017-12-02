@@ -1,5 +1,5 @@
 {{strip}}
-  {{set layout="main.tpl"}}
+  {{set layout="main"}}
   {{set title="{{$app->name}} | {{'Privacy Policy'|translate:'app'}}"}}
   <div class="container">
     <h1>

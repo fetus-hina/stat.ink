@@ -1,5 +1,5 @@
 {{strip}}
-  {{set layout="main.tpl"}}
+  {{set layout="main"}}
 
   {{$title = "{0}'s Battle Stats (vs. Weapon)"|translate:'app':$user->name}}
   {{set title="{{$app->name}} | {{$title}}"}}

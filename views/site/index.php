@@ -10,7 +10,7 @@ use app\models\BlogEntry;
 use app\models\User;
 use yii\helpers\Html;
 
-$this->context->layout = 'main.tpl';
+$this->context->layout = 'main';
 
 CounterAsset::register($this);
 PaintballAsset::register($this);

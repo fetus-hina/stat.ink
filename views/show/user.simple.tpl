@@ -1,5 +1,5 @@
 {{strip}}
-  {{set layout="main.tpl"}}
+  {{set layout="main"}}
   {{use class="yii\bootstrap\ActiveForm" type="block"}}
   {{use class="yii\helpers\Url"}}
   {{use class="yii\widgets\ListView"}}

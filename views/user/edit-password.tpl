@@ -1,5 +1,5 @@
 {{strip}}
-  {{set layout="main.tpl"}}
+  {{set layout="main"}}
   {{set title="{{$app->name}} | {{'Update Your Password'|translate:'app'}}"}}
   {{use class="yii\helpers\Html"}}
   {{use class="yii\bootstrap\ActiveForm" type="block"}}

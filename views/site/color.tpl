@@ -1,5 +1,5 @@
 {{strip}}
-  {{set layout="main.tpl"}}
+  {{set layout="main"}}
   {{set title="{{$app->name}} | {{'Color-Blind Support'|translate:'app'}}"}}
   <div class="container">
     <h1>

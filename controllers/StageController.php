@@ -12,7 +12,7 @@ use app\components\web\Controller;
 
 class StageController extends Controller
 {
-    public $layout = "main.tpl";
+    public $layout = "main";
 
     public function actions()
     {
