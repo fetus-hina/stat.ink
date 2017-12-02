@@ -42,7 +42,7 @@ $this->registerCss('.fa-twitter{color:#1da1f2}');
           Html::tag('span', '', ['class' => 'fa fa-fw fa-user']),
           Html::encode(Yii::t('app', 'Your Battles')),
         ]),
-        ['/show-user/profile']
+        ['/show-user/profile', 'screen_name' => $user->screen_name]
       )),
       Html::tag('li', Html::a(
         implode('', [
