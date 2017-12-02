@@ -23,7 +23,7 @@
         <main>
           {{$content}}
         </main>
-        {{include '@app/views/layouts/footer.tpl'}}
+        {{$this->render('/layouts/footer')}}
         {{if !$app->user->isGuest}}
           {{include '@app/views/includes/battle-input-modal-2.tpl'}}
           {{include '@app/views/includes/battle-input-modal.tpl'}}

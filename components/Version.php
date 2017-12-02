@@ -7,6 +7,8 @@
 
 namespace app\components;
 
+use DateTimeImmutable;
+use DateTimeZone;
 use Exception;
 use Yii;
 
@@ -14,22 +16,29 @@ class Version
 {
     private static $revision = null;
     private static $shortRevision = null;
+    private static $lastCommited = null;
 
     public static function getVersion()
     {
         return Yii::$app->version;
     }
 
-    public static function getRevision()
+    public static function getRevision() : ?string
     {
         self::fetchRevision();
-        return self::$revision;
+        return self::$revision ?: null;
     }
 
-    public static function getShortRevision()
+    public static function getShortRevision() : ?string
     {
         self::fetchRevision();
-        return self::$shortRevision;
+        return self::$shortRevision ?: null;
+    }
+
+    public static function getLastCommited() : ?DateTimeImmutable
+    {
+        self::fetchRevision();
+        return self::$lastCommited ?: null;
     }
 
     public static function getFullHash(string $shortHash)
@@ -40,29 +49,36 @@ class Version
 
     private static function fetchRevision()
     {
-        if (self::$revision !== null && self::$shortRevision !== null) {
+        if (self::$revision !== null &&
+                self::$shortRevision !== null &&
+                self::$lastCommited !== null
+        ) {
             return;
         }
         try {
-            if (!$line = self::getGitLog('%H:%h')) {
+            if (!$line = self::getGitLog('%H:%h:%cd')) {
                 throw new Exception();
             }
             $revisions = explode(':', $line);
-            if (count($revisions) !== 2) {
+            if (count($revisions) !== 3) {
                 throw new Exception();
             }
             self::$revision = $revisions[0];
             self::$shortRevision = $revisions[1];
+            self::$lastCommited = (new DateTimeImmutable())
+                ->setTimeZone(new DateTimeZone(Yii::$app->timeZone))
+                ->setTimestamp((int)$revisions[2]);
         } catch (Exception $e) {
             self::$revision = false;
             self::$shortRevision = false;
+            self::$lastCommited = false;
         }
     }
 
     private static function getGitLog($format)
     {
         $gitCommand = sprintf(
-            'git log -n 1 --format=%s',
+            'git log -n 1 --format=%s --date=raw',
             escapeshellarg($format)
         );
         if (!$lines = static::doGit($gitCommand)) {
