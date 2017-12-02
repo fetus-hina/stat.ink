@@ -24,6 +24,8 @@ if (@file_exists(__DIR__ . '/../.maintenance')) {
 require(__DIR__ . '/../vendor/autoload.php');
 require(__DIR__ . '/../vendor/yiisoft/yii2/Yii.php');
 
+Yii::$classMap['yii\helpers\Html'] = __DIR__ . '/../components/overwrite/yii/helpers/Html.php';
+
 $config = require(__DIR__ . '/../config/web.php');
 
 require(__DIR__ . '/../components/web/Application.php');
