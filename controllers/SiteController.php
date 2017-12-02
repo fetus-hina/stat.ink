@@ -17,7 +17,7 @@ class SiteController extends Controller
         return [
             'error' => [
                 'class' => 'yii\web\ErrorAction',
-                'view' => 'error.tpl',
+                'view' => 'error',
             ],
             'index' => [
                 'class' => 'app\actions\site\IndexAction',

@@ -1,11 +1,11 @@
-{{strip}}
-{{set layout="main"}}
+<?php
+use yii\helpers\Html;
+?>
 <div class="container">
   <h1>
     エラー
   </h1>
   <p>
-    {{$message|escape}}
+    <?= Html::encode($message) . "\n" ?>
   </p>
 </div>
-{{/strip}}
