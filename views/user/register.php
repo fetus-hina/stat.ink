@@ -1,0 +1,111 @@
+<?php
+use app\components\widgets\AdWidget;
+use himiklab\yii2\recaptcha\ReCaptcha;
+use jp3cki\yii2\zxcvbn\ZxcvbnAsset;
+use yii\bootstrap\ActiveForm;
+use yii\helpers\Html;
+
+$this->title = implode(' | ', [
+  Yii::$app->name,
+  Yii::t('app', 'Register'),
+]);
+
+ZxcvbnAsset::register($this);
+?>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6" style="padding:0 5%">
+      <h1>
+        <?= Html::encode(Yii::t('app', 'Register')) . "\n" ?>
+      </h1>
+      <?= Html::a(
+        Yii::t('app', 'If you already have an account, please click here.'),
+        ['user/login'],
+        []
+      ) . "\n" ?>
+      <p>
+        <?= Html::encode(Yii::t('app', 'The password will be encrypted.')) . "\n" ?>
+      </p>
+      <?php $_ = ActiveForm::begin(['id' => 'register-form']); echo "\n" ?>
+        <?= $_->field($register, 'name') . "\n" ?>
+        <?= $_->field($register, 'screen_name') . "\n" ?>
+        <?= $_->field($register, 'password')->passwordInput() . "\n" ?>
+        <?= $_->field($register, 'password_repeat')->passwordInput() . "\n" ?>
+        <div id="password-strength"></div>
+<?php if (Yii::$app->params['googleRecaptcha']['siteKey'] ?? null) { ?>
+        <div class="form-group">
+          <?= ReCaptcha::widget([
+            'name' => 'recaptcha',
+            'siteKey' => Yii::$app->params['googleRecaptcha']['siteKey'],
+            'secret' => Yii::$app->params['googleRecaptcha']['secret'],
+          ]) . "\n" ?>
+        </div>
+<?php } ?>
+        <?= Html::submitButton(
+          Html::encode(Yii::t('app', 'Register')),
+          ['class' => 'btn btn-primary btn-block']
+        ) . "\n" ?>
+      <?php ActiveForm::end(); echo "\n" ?>
+      <?= Html::tag(
+        'div',
+        Html::a(
+          Html::encode(Yii::t('app', 'Login')),
+          ['/user/login'],
+          ['class' => 'btn btn-default btn-block']
+        ),
+        ['style' => [
+          'margin-top' => '15px',
+        ]]
+      ) . "\n" ?>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6" style="padding:0 5%">
+      <?= AdWidget::widget() . "\n" ?>
+    </div>
+  </div>
+</div>
+<?php
+$this->registerJs(<<<'EOF'
+(function ($) {
+  "use strict";
+  var $container = $('#password-strength');
+  $container.empty().append($('<div>', {id: 'password-strength-gauge'}).width(0));
+
+  var $input = $('input[name="RegisterForm[password]"]');
+  var timerId = null;
+  var doUpdate = function () {
+    timerId = null;
+    var score = zxcvbn($input.val() + "").score;
+    $('#password-strength-gauge').width((1 + (99 * score / 4)) + '%');
+  };
+
+  $input.keydown(function () {
+    if (timerId !== null) {
+      window.clearTimeout(timerId);
+      timerId = null;
+    }
+    timerId = window.setTimeout(doUpdate, 100);
+  });
+
+  window.setTimeout(doUpdate, 1);
+})(jQuery);
+EOF
+);
+$this->registerCss(<<<'EOF'
+#password-strength {
+  box-sizing:border-box;
+  font-size:1px;
+  line-height:1;
+  width:100%;
+  height:6px;
+  border:1px solid #ccc;
+  border-radius:3px;
+  margin-bottom: 15px;
+}
+
+#password-strength-gauge {
+  width:0;
+  height:100%;
+  background-color:#0d0;
+}
+EOF
+);

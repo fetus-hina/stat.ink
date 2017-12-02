@@ -37,7 +37,7 @@ class RegisterAction extends BaseAction
             }
         }
 
-        return $this->controller->render('register.tpl', [
+        return $this->controller->render('register', [
             'register' => $form,
         ]);
     }
