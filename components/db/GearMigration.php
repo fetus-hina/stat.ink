@@ -19,8 +19,7 @@ trait GearMigration
         string $type,
         string $brand,
         ?string $ability,
-        ?int $splatnet
-    ) : void
+        ?int $splatnet) : void
     {
         $this->insert('gear2', [
             'key'           => $key,
@@ -79,7 +78,7 @@ trait GearMigration
             'ρ' => ' rho ',
             'Σ' => ' sigma ',
             'σ' => ' sigma ',
-            'ς'  => ' sigma ',
+            'ς' => ' sigma ',
             'Τ' => ' tau ',
             'τ' => ' tau ',
             'Υ' => ' upsilon ',
