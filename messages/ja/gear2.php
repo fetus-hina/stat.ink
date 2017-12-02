@@ -356,7 +356,7 @@ return [
     'Blue Laceless Dakroniks' => '',
     'Blue Lo-Tops' => 'グリッチョ ブルー',
     'Bubble Rain Boots' => 'レイニーシャボン',
-    'Clowfish Basics' => '',
+    'Clownfish Basics' => 'キャンバス クマノミ',
     'Cyan Trainers' => 'シアンビーンズ',
     'Deepsea Leather Boots' => '',
     'Gray Yellow-Soled Wingtips' => '',

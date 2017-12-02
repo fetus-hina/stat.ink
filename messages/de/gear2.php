@@ -77,7 +77,7 @@ return [
     'Choco Clogs' => '',
     'Choco Layered LS' => '',
     'Classic Straw Boater' => '',
-    'Clowfish Basics' => '',
+    'Clownfish Basics' => '',
     'Crazy Arrows' => '',
     'Cream Basics' => '',
     'Crimson Parashooter' => '',
