@@ -1,0 +1,33 @@
+<?php
+/**
+ * @copyright Copyright (C) 2015-2017 AIZAWA Hina
+ * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
+ * @author AIZAWA Hina <hina@bouhime.com>
+ */
+
+use app\components\db\GearMigration;
+use app\components\db\Migration;
+
+class m171202_104249_angry_rain_boots extends Migration
+{
+    use GearMigration;
+
+    public function safeUp()
+    {
+        $this->upGear2(
+            static::name2key('Angry Rain Boots'),
+            'Angry Rain Boots',
+            'shoes',
+            static::name2key('Grizzco'),
+            null,
+            21001
+        );
+    }
+
+    public function safeDown()
+    {
+        $this->downGear2(
+            static::name2key('Angry Rain Boots')
+        );
+    }
+}

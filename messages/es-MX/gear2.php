@@ -12,6 +12,7 @@ return [
     'Amber Sea Slug Hi-Tops' => '',
     'Anchor Life Vest' => '',
     'Anchor Sweat' => '',
+    'Angry Rain Boots' => '',
     'Annaki Beret' => '',
     'Annaki Blue Cuff' => '',
     'Annaki Drive Tee' => '',

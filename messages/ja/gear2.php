@@ -391,4 +391,5 @@ return [
     'White Laceless Dakroniks' => '',
     'Yellow Iromaki 750s' => '',
     'Zombie Hi-Horses' => 'シーホースHi ゾンビ',
+    'Angry Rain Boots' => 'マッドラバー',
 ];
