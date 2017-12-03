@@ -1,5 +1,6 @@
 <?php
 use app\assets\BattleEditAsset;
+use app\assets\SwipeboxRunnerAsset;
 use app\models\Battle2;
 use yii\bootstrap\Html;
 use yii\helpers\ArrayHelper;
@@ -657,11 +658,14 @@ $this->registerCss('#battle .progress{margin-bottom:0}');
           [
             Html::encode(Yii::t('app', 'Gear')),
             $battle->battleImageGear
-              ? Html::a(
-                Html::tag('span', '', ['class' => 'fa fa-image']),
-                $battle->battleImageGear->url,
-                ['class' => 'swipebox']
-              )
+              ? (function () use ($battle) {
+                SwipeboxRunnerAsset::register($this);
+                return Html::a(
+                  Html::tag('span', '', ['class' => 'fa fa-image']),
+                  $battle->battleImageGear->url,
+                  ['class' => 'swipebox']
+                );
+              })()
               : null,
           ],
           function ($value) : bool {

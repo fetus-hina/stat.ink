@@ -74,42 +74,13 @@ if ($battle->nextBattle) {
   </h1>
   <?= SnsWidget::widget() . "\n" ?>
 <?php /* トップ画像 {{{ */ ?>
-<?php if ($battle->battleImageJudge || $battle->battleImageResult): ?>
-<?php SwipeboxRunnerAsset::register($this); ?>
-  <div class="row">
-<?php if ($battle->battleImageJudge): ?>
-    <div class="col-xs-12 col-md-6 image-container">
-      <?= Html::a(
-        Html::img(
-          $battle->battleImageJudge->url,
-          ['style' => [
-            'width' => '100%',
-            'height' => 'auto',
-          ]]
-        ),
-        $battle->battleImageJudge->url,
-        ['class' => 'swipebox']
-      ) . "\n" ?>
-    </div>
-<?php endif; ?>
-<?php if ($battle->battleImageResult): ?>
-    <div class="col-xs-12 col-md-6 image-container">
-      <?= Html::a(
-        Html::img(
-          $battle->battleImageResult->url,
-          ['style' => [
-            'width' => '100%',
-            'height' => 'auto',
-          ]]
-        ),
-        $battle->battleImageResult->url,
-        ['class' => 'swipebox']
-      ) . "\n" ?>
-    </div>
-<?php $this->registerMetaTag(['name' => 'twitter:image', 'content' => $battle->battleImageResult->url]); ?>
-<?php endif; ?>
-  </div>
-<?php endif; ?>
+  <?= $this->render('_battle_details_top_images', [
+    'images' => [
+      $battle->battleImageJudge,
+      $battle->battleImageResult,
+      $battle->battleImageGear,
+    ],
+  ]) . "\n" ?>
 <?php /* }}} */ ?>
   <div class="row">
     <div class="col-xs-12 col-sm-8 col-lg-9">
