@@ -25,7 +25,7 @@
 /resources/dseg/*.tar.gz
 /resources/dseg/*.zip
 /vendor
-/views/includes/sponsored.tpl
+/views/includes/sponsored.php
 /web/images
 /web/profile-images
 /web/static-assets/cc

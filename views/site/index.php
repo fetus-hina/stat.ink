@@ -93,8 +93,8 @@ PaintballAsset::register($this);
       </p>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-<?php if (file_exists(Yii::getAlias('@app/views/includes/sponsored.tpl'))): ?>
-        <?= $this->render('/includes/sponsored.tpl') . "\n" ?>
+<?php if (file_exists(Yii::getAlias('@app/views/includes/sponsored.php'))): ?>
+        <?= $this->render('/includes/sponsored') . "\n" ?>
 <?php endif; ?>
     </div>
   </div>
