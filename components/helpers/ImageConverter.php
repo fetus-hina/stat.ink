@@ -12,10 +12,10 @@ use Yii;
 
 class ImageConverter
 {
-    const OUT_WIDTH = 640;
-    const OUT_HEIGHT = 360;
+    const OUT_WIDTH = 1280;
+    const OUT_HEIGHT = 720;
 
-    const JPEG_QUALITY = 90;
+    const JPEG_QUALITY = 85;
 
     public static function convert($binary, $outPathJpeg, $blackoutPosList = false, $outPathArchivePng = null)
     {
@@ -54,20 +54,31 @@ class ImageConverter
             if (!$in->get()) {
                 throw new Exception();
             }
-            $out = new Resource(imagecreatetruecolor(self::OUT_WIDTH, self::OUT_HEIGHT), 'imagedestroy');
-            if (!$out->get()) {
-                throw new Exception();
-            }
             $inW = imagesx($in->get());
             $inH = imagesy($in->get());
             if ($inW < 100 || $inH < 100) {
                 throw new Exception();
             }
-            $scale = min(self::OUT_WIDTH / $inW, self::OUT_HEIGHT / $inH);
-            $cpW = (int)round($inW * $scale);
-            $cpH = (int)round($inH * $scale);
-            $cpX = (int)round(self::OUT_WIDTH / 2 - $cpW / 2);
-            $cpY = (int)round(self::OUT_HEIGHT / 2 - $cpH / 2);
+
+            if ($inW > static::OUT_WIDTH || $inH > static::OUT_HEIGHT) {
+                $scale = min(static::OUT_WIDTH / $inW, static::OUT_HEIGHT / $inH);
+                $cpW = (int)round($inW * $scale);
+                $cpH = (int)round($inH * $scale);
+                $canvasW = static::OUT_WIDTH;
+                $canvasH = static::OUT_HEIGHT;
+            } else {
+                $scale = 1.0;
+                $cpW = $inW;
+                $cpH = $inH;
+                $canvasW = max($inW, (int)round($inH * 16 / 9));
+                $canvasH = max($inH, (int)round($inW * 9 / 16));
+            }
+            $cpX = (int)round($canvasW / 2 - $cpW / 2);
+            $cpY = (int)round($canvasH / 2 - $cpH / 2);
+            $out = new Resource(imagecreatetruecolor($canvasW, $canvasH), 'imagedestroy');
+            if (!$out->get()) {
+                throw new Exception();
+            }
             imagealphablending($out->get(), false);
             imagefill($out->get(), 0, 0, 0xffffff);
             imagealphablending($out->get(), true);
@@ -89,13 +100,13 @@ class ImageConverter
                         continue;
                     }
 
-                    $y = ($i < 4 ? 50 : 215) + (($i % 4) * 33);
+                    $y = ($i < 4 ? 100 : 430) + (($i % 4) * 66);
                     imagefilledrectangle(
                         $out->get(),
-                        406, //x1
+                        812, //x1
                         $y,
-                        406 + 86,
-                        $y + 19,
+                        812 + 172,
+                        $y + 38,
                         0x000000
                     );
                 }
