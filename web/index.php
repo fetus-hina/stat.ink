@@ -1,10 +1,5 @@
 <?php
-if (preg_match(
-        '/^test|dev/',
-        isset($_SERVER['SERVER_NAME'])
-            ? $_SERVER['SERVER_NAME']
-            : php_uname('n'))
-) {
+if (!file_exists(__DIR__ . '/../.production')) {
     defined('YII_DEBUG') or define('YII_DEBUG', true);
     defined('YII_ENV') or define('YII_ENV', 'dev');
 }

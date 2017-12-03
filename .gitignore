@@ -3,6 +3,8 @@
 .idea
 .project
 .settings
+/.maintenance
+/.production
 /config/amazon-s3.php
 /config/backup-gpg.php
 /config/backup-s3.php
