@@ -650,7 +650,25 @@ $this->registerCss('#battle .progress{margin-bottom:0}');
     ],
     // cash
     [
-      'label' => Yii::t('app', 'Gear'), // FIXME {{{
+      // Gear {{{
+      'label' => implode(
+        ' ',
+        array_filter(
+          [
+            Html::encode(Yii::t('app', 'Gear')),
+            $battle->battleImageGear
+              ? Html::a(
+                Html::tag('span', '', ['class' => 'fa fa-image']),
+                $battle->battleImageGear->url,
+                ['class' => 'swipebox']
+              )
+              : null,
+          ],
+          function ($value) : bool {
+            return $value !== null && $value !== '' && trim($value) !== '';
+          }
+        )
+      ),
       'format' => 'raw',
       'value' => function (Battle2 $model) : ?string {
         if ($model->headgear_id === null &&
@@ -659,6 +677,7 @@ $this->registerCss('#battle .progress{margin-bottom:0}');
         {
           return null;
         }
+
         return $this->render('_battle_gear', [
           'headgear' => $model->headgear,
           'clothing' => $model->clothing,
