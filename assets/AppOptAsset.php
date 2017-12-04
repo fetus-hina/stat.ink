@@ -15,7 +15,7 @@ class AppOptAsset extends AssetBundle
 {
     public $sourcePath = '@app/resources/.compiled/stat.ink';
     public $depends = [
-        __NAMESPACE__ . '\AppAsset',
+        AppAsset::class,
     ];
 
     public function registerCssFile($view, $filename, $options = [], $key = null)

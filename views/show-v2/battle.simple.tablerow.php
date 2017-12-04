@@ -4,7 +4,6 @@ use yii\helpers\Html;
 
 AppOptAsset::register($this)
   ->registerCssFile($this, 'battles-simple.css');
-
 ?>
 <?= Html::tag(
   'li',

@@ -12,6 +12,7 @@ use Yii;
 class Html extends BaseHtml
 {
     public static $enableServerPush = true;
+    private static $pushed = [];
 
     public static function cssFile($url, $options = [])
     {
@@ -20,16 +21,19 @@ class Html extends BaseHtml
             if ($resp && !$resp->isSent) {
                 $headers = $resp->getHeaders();
                 $href = Url::to($url);
-                if ($headers->has('Link')) {
-                    $headers->add('Link', sprintf(
-                      '<%s>; rel=preload; as=style',
-                      $href
-                    ));
-                } else {
-                    $headers->set('Link', sprintf(
-                      '<%s>; rel=preload; as=style',
-                      $href
-                    ));
+                if (strpos($href, '//') === false && !in_array($href, static::$pushed, true)) {
+                    static::$pushed[] = $href;
+                    if ($headers->has('Link')) {
+                        $headers->add('Link', sprintf(
+                          '<%s>; rel=preload; as=style',
+                          $href
+                        ));
+                    } else {
+                        $headers->set('Link', sprintf(
+                          '<%s>; rel=preload; as=style',
+                          $href
+                        ));
+                    }
                 }
             }
         }
@@ -43,16 +47,19 @@ class Html extends BaseHtml
             if ($resp && !$resp->isSent) {
                 $headers = $resp->getHeaders();
                 $href = Url::to($url);
-                if ($headers->has('Link')) {
-                    $headers->add('Link', sprintf(
-                      '<%s>; rel=preload; as=script',
-                      $href
-                    ));
-                } else {
-                    $headers->set('Link', sprintf(
-                      '<%s>; rel=preload; as=script',
-                      $href
-                    ));
+                if (strpos($href, '//') === false && !in_array($href, static::$pushed, true)) {
+                    static::$pushed[] = $href;
+                    if ($headers->has('Link')) {
+                        $headers->add('Link', sprintf(
+                          '<%s>; rel=preload; as=script',
+                          $href
+                        ));
+                    } else {
+                        $headers->set('Link', sprintf(
+                          '<%s>; rel=preload; as=script',
+                          $href
+                        ));
+                    }
                 }
             }
         }
