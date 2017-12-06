@@ -13,15 +13,13 @@ use yii\web\ViewAction as BaseAction;
 
 class IndexAction extends BaseAction
 {
-    // 将来的にはここにちゃんといい感じの一覧ページを作る
-    // とりあえず今月のステージランキングに飛ばす
     public function run()
     {
-        $time = (int)($_SERVER['REQUEST_TIME'] ?? time());
+        // イカリング1が2017-09に死んだのでそれを最終としてそこに飛ばす
         $this->controller->redirect([
             'stage/month',
-            'year' => (int)date('Y', $time),
-            'month' => (int)date('n', $time),
+            'year' => 2017,
+            'month' => 9
         ]);
     }
 }

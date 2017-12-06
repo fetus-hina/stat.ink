@@ -7,10 +7,12 @@
 
 namespace app\actions\stage;
 
+use DateInterval;
 use DateTimeImmutable;
 use DateTimeZone;
 use Yii;
 use app\components\helpers\Battle as BattleHelper;
+use app\components\helpers\Resource;
 use app\models\GameMode;
 use app\models\Map;
 use app\models\PeriodMap;
@@ -30,11 +32,6 @@ class MonthAction extends BaseAction
     public function init()
     {
         parent::init();
-
-        // タイムゾーンは UTC+6 にする
-        Yii::$app->timeZone = 'Etc/GMT-6';
-        Yii::$app->db->createCommand("SET timezone TO 'UTC-6'")->execute();
-
         $this->prepare();
     }
 
@@ -51,8 +48,23 @@ class MonthAction extends BaseAction
             static::http404();
             return;
         }
-        $this->periodS = BattleHelper::calcPeriod(mktime(0, 0, 0, $this->month, 1, $this->year));
-        $this->periodE = BattleHelper::calcPeriod(mktime(0, 0, -1, $this->month + 1, 1, $this->year));
+
+        $this->periodS = BattleHelper::calcPeriod(
+            (new DateTimeImmutable())
+                ->setTimezone(new DateTimeZone('Etc/GMT-6'))
+                ->setTime(0, 0, 0)
+                ->setDate($this->year, $this->month, 1)
+                ->getTimestamp()
+        );
+        $this->periodE = BattleHelper::calcPeriod(
+            (new DateTimeImmutable())
+                ->setTimezone(new DateTimeZone('Etc/GMT-6'))
+                ->setTime(0, 0, 0)
+                ->setDate($this->year, $this->month, 1)
+                ->add(new DateInterval('P1M')) // + 1 month
+                ->sub(new DateInterval('PT1S')) // - 1 second
+                ->getTimestamp()
+        );
     } // }}}
 
     public function run()
@@ -70,6 +82,8 @@ class MonthAction extends BaseAction
 
     public function buildData() : array // {{{
     {
+        $raiiTimeZone = static::setTimeZoneToFavorable();
+
         $rules = $this->getRules();
         $maps = $this->getMaps();
         $counts = $this->getCountData();
@@ -215,4 +229,27 @@ class MonthAction extends BaseAction
 
         return true;
     } // }}}
+
+    // 集計のために都合のいいタイムゾーンに一時的に変更する
+    // 戻り値が解放される時に自動的に元に戻る(RAII)
+    private static function setTimeZoneToFavorable() : Resource
+    {
+        $updateTZ = function (string $timezone) : void {
+            Yii::$app->timeZone = $timezone;
+            Yii::$app->db->createCommand(
+                // そのまま bind しようとすると、
+                //      SQLSTATE[42601]: Syntax error: 7 ERROR: syntax error at or near "$1"
+                //      LINE 1: SET timezone TO $1
+                // とかなるので一回エミュレートして埋め込む必要がある
+                Yii::$app->db
+                    ->createCommand("SET timezone TO :timezone")
+                    ->bindValue(':timezone', $timezone)
+                    ->rawSql
+            )->execute();
+        };
+
+        $raiiOldTimeZone = new Resource(Yii::$app->timeZone, $updateTZ);
+        $updateTZ('Etc/GMT-6');
+        return $raiiOldTimeZone;
+    }
 }
