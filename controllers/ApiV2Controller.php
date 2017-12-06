@@ -47,7 +47,7 @@ class ApiV2Controller extends Controller
         return [
             // 'battle'        => [ 'class' => $prefix . '\BattleAction' ],
             // 'death-reason'  => [ 'class' => $prefix . '\DeathReasonAction' ],
-            // 'gear'          => [ 'class' => $prefix . '\GearAction' ],
+            'gear'          => [ 'class' => $prefix . '\GearAction' ],
             'rule'          => [ 'class' => $prefix . '\RuleAction' ],
             'stage'         => [ 'class' => $prefix . '\StageAction' ],
             // 'user'          => [ 'class' => $prefix . '\UserAction' ],

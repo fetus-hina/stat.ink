@@ -46,8 +46,26 @@ SortableTableAsset::register($this);
       },
       GearType::find()->orderBy(['id' => SORT_ASC])->all()
     )),
-    ['class' => 'nav nav-pills']
+    ['class' => 'nav nav-pills', 'style' => 'margin-bottom:15px']
   ) . "\n" ?>
+  <p>
+    <?= Html::a(
+      implode('', [
+        Html::tag('span', '', ['class' => ['fa fa-file-code-o fa-fw']]),
+        Html::encode(Yii::t('app', 'JSON format')),
+      ]),
+      ['api-v2/gear', 'type' => $type->key],
+      ['class' => 'label label-default']
+    ) ."\n" ?>
+    <?= Html::a(
+      implode('', [
+        Html::tag('span', '', ['class' => ['fa fa-file-excel-o fa-fw']]),
+        Html::encode(Yii::t('app', 'CSV format')),
+      ]),
+      ['api-v2/gear', 'type' => $type->key, 'format' => 'csv'],
+      ['class' => 'label label-default']
+    ) ."\n" ?>
+  </p>
   <div class="table-responsive table-responsive-force" style="margin-top:15px":>
     <table class="table table-striped table-condensed table-sortable">
       <thead>
