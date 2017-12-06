@@ -1,0 +1,24 @@
+#!/usr/bin/env python2
+
+import dbs
+import json
+
+def swap_key_value(dic):
+    return dict((v, k) for k, v in dic.iteritems())
+
+def merge_dicts(*dicts):
+    ret = dict()
+    for d in dicts:
+        ret.update(d)
+    return ret
+
+print(json.dumps(
+    merge_dicts(
+        swap_key_value(dbs.headgears),
+        swap_key_value(dbs.clothes),
+        swap_key_value(dbs.shoes)
+    ),
+    sort_keys = True,
+    ensure_ascii = False,
+    indent = 2,
+))
