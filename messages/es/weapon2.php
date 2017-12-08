@@ -63,6 +63,7 @@ return [
     'Mini Splatling' => 'Tintralladora ligera',
     'Nozzlenose' => '',
     'N-ZAP \'85' => 'N-ZAP 85',
+    'N-ZAP \'89' => 'N-ZAP 89',
     'Octobrush' => 'Brocha',
     'Range Blaster' => 'Teledevastador',
     'Rapid Blaster' => 'Devastador exprés',

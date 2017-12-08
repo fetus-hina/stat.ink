@@ -63,6 +63,7 @@ return [
     'Mini Splatling' => '',
     'Nozzlenose' => '',
     'N-ZAP \'85' => '',
+    'N-ZAP \'89' => '',
     'Octobrush' => '',
     'Range Blaster' => '',
     'Rapid Blaster' => '',

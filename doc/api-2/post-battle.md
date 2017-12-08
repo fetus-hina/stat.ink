@@ -187,6 +187,7 @@ There is a listing page [here](https://stat.ink/api-info/weapon2).
 |`jetsweeper_custom`     |`91`                  |ジェットスイーパーカスタム<br>Custom Jet Squelcher   |                                                                                                     |
 |`momiji`                |`11`                  |もみじシューター<br>Custom Splattershot Jr.          |                                                                                                     |
 |`nzap85`                |`60`                  |N-ZAP85<br>N-ZAP '85                                 |                                                                                                     |
+|`nzap89`                |`61`                  |N-ZAP89<br>N-ZAP '89                                 |                                                                                                     |
 |`prime`                 |`70`                  |プライムシューター<br>Splattershot Pro               |                                                                                                     |
 |`prime_collabo`         |`71`                  |プライムシューターコラボ<br>Forge Splattershot Pro   |                                                                                                     |
 |`promodeler_mg`         |`30`                  |プロモデラーMG<br>Aerospray MG                       |                                                                                                     |

@@ -63,6 +63,7 @@ return [
     'Mini Splatling' => 'Badigeonneur XP',
     'Nozzlenose' => '',
     'N-ZAP \'85' => '',
+    'N-ZAP \'89' => '',
     'Octobrush' => '',
     'Range Blaster' => 'Éclablasteur LP',
     'Rapid Blaster' => 'Turboblasteur',

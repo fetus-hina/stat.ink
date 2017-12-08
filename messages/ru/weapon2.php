@@ -63,6 +63,7 @@ return [
     'Mini Splatling' => 'Брызгомет-М',
     'Nozzlenose' => '',
     'N-ZAP \'85' => 'N-ZAP 85',
+    'N-ZAP \'89' => 'N-ZAP 89',
     'Octobrush' => 'Арт-кисть',
     'Range Blaster' => 'Дальнобластер',
     'Rapid Blaster' => 'Бластермат',

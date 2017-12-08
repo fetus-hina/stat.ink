@@ -42,6 +42,7 @@ return [
     'L-3 Nozzlenose' => 'L3リールガン',
     'Luna Blaster' => 'ノヴァブラスター',
     'N-ZAP \'85' => 'N-ZAP85',
+    'N-ZAP \'89' => 'N-ZAP89',
     'Range Blaster' => 'ロングブラスター',
     'Rapid Blaster Pro' => 'Rブラスターエリート',
     'Rapid Blaster' => 'ラピッドブラスター',
