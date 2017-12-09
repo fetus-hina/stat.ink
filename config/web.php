@@ -138,8 +138,8 @@ $config = [
         'autoAlias' => [
             'class' => 'app\components\AutoAlias',
             'aliases' => [
-                '@imageurl' => function () {
-                    return (\Yii::$app->request->hostInfo === 'https://stat.ink')
+                '@imageurl' => function () use ($params) : string {
+                    return ($params['useImgStatInk'] ?? false)
                         ? 'https://img.stat.ink'
                         : '@web/images';
                 },
