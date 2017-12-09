@@ -10,10 +10,10 @@ namespace app\components\widgets\battle\item;
 use DateTimeImmutable;
 use DateTimeZone;
 use Yii;
-use app\assets\AppAsset;
-use app\assets\JqueryLazyloadAsset;
-use app\components\widgets\JdenticonWidget;
+use app\assets\AppOptAsset;
+use app\assets\BattleThumbListAsset;
 use app\components\widgets\ActiveRelativeTimeWidget;
+use app\components\widgets\JdenticonWidget;
 use app\models\User;
 use yii\base\Widget;
 use yii\bootstrap\Html;
@@ -21,10 +21,26 @@ use yii\bootstrap\Html;
 abstract class BaseWidget extends Widget
 {
     public $model;
+    public static $img16x9;
 
     public function init()
     {
         parent::init();
+
+        if (!static::$img16x9) {
+            static::$img16x9 = sprintf(
+                'data:%s;base64,%s',
+                'image/png',
+                base64_encode(file_get_contents(
+                    implode(DIRECTORY_SEPARATOR, [
+                        Yii::getAlias('@app'),
+                        'resources',
+                        'stat.ink',
+                        '16x9.png',
+                    ])
+                ))
+            );
+        }
     }
 
     abstract public function getBattleEndAt() : ?DateTimeImmutable;
@@ -44,7 +60,7 @@ abstract class BaseWidget extends Widget
         if (!$ret) {
             $assetMgr = Yii::$app->getAssetManager();
             $ret = $assetMgr->getAssetUrl(
-                $assetMgr->getBundle(AppAsset::class),
+                $assetMgr->getBundle(AppOptAsset::class),
                 'no-image.png'
             );
         }
@@ -79,26 +95,40 @@ abstract class BaseWidget extends Widget
 
     public function run()
     {
-        JqueryLazyloadAsset::register($this->view);
-        $this->view->registerJs("!function(\$){\$('img.lazyload').lazyload()}(jQuery);");
+        BattleThumbListAsset::register($this->view);
 
         return Html::tag(
             'div',
             implode('', [
-                Html::tag('meta', '', ['itemprop' => 'description', 'content' => $this->getDescription()]),
+                Html::tag(
+                    'meta',
+                    '',
+                    [
+                        'itemprop' => 'description',
+                        'content' => $this->getDescription(),
+                    ]
+                ),
                 Html::a(
                     implode('', [
                         Html::img(
-                            $this->getImagePlaceholderUrl(),
+                            static::$img16x9,
                             [
-                                'class' => ['lazyload', 'auto-tooltip'],
+                                'class' => ['battle-item-image', 'auto-tooltip'],
                                 'data' => [
-                                    'original' => $this->getImageUrl(),
+                                    'src' => $this->getImageUrl(),
+                                    'fallback' => $this->getImagePlaceholderUrl(),
                                 ],
                                 'title' => $this->getDescription(),
                             ]
                         ),
-                        Html::tag('meta', '', ['itemprop' => 'url', 'content' => $this->getImageUrl()]),
+                        Html::tag(
+                            'meta',
+                            '',
+                            [
+                                'itemprop' => 'url',
+                                'content' => $this->getImageUrl(),
+                            ]
+                        ),
                     ]),
                     $this->getLinkRoute(),
                     ['itemprop' => 'url']

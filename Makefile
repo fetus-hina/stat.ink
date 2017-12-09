@@ -45,6 +45,7 @@ RESOURCE_TARGETS_MAIN := \
 	resources/.compiled/stat.ink/battle-input.css \
 	resources/.compiled/stat.ink/battle-input.js \
 	resources/.compiled/stat.ink/battle-thumb-list.css \
+	resources/.compiled/stat.ink/battle-thumb-list.js \
 	resources/.compiled/stat.ink/battle2-players-point-inked.js \
 	resources/.compiled/stat.ink/battles-simple.css \
 	resources/.compiled/stat.ink/blackout-hint.css \
@@ -225,6 +226,9 @@ resources/.compiled/stat.ink/main.css: resources/stat.ink/main.less $(GULP)
 
 resources/.compiled/stat.ink/battle-thumb-list.css: resources/stat.ink/battle-thumb-list.less $(GULP)
 	$(GULP) less --in $< --out $@
+
+resources/.compiled/stat.ink/battle-thumb-list.js: resources/stat.ink/battle-thumb-list.es $(GULP)
+	$(GULP) js --in $< --out $@
 
 resources/.compiled/stat.ink/user-miniinfo.css: resources/stat.ink/user-miniinfo.less $(GULP)
 	$(GULP) less --in $< --out $@

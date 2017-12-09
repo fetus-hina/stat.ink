@@ -12,6 +12,9 @@ use yii\web\AssetBundle;
 class BattleThumbListAsset extends AssetBundle
 {
     public $sourcePath = '@app/resources/.compiled/stat.ink';
+    public $js = [
+        'battle-thumb-list.js',
+    ];
     public $css = [
         'battle-thumb-list.css',
     ];
