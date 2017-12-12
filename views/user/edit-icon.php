@@ -51,7 +51,7 @@ $this->title = implode(' | ', [
           <p class="text-right">
             <?= Html::a(
               implode('', [
-                Html::tag('span', '', ['class' => 'fa fa-fw fa-twitter']),
+                Html::tag('span', '', ['class' => 'fab fa-fw fa-twitter']),
                 Html::encode(Yii::t('app', 'Use your profile icon')),
               ]),
               ['icon-twitter'],

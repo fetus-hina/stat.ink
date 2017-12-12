@@ -2,8 +2,6 @@
   {{use class="yii\helpers\Html"}}
   {{use class="yii\helpers\Url"}}
   {{use class="yii\bootstrap\ActiveForm" type="block"}}
-  {{use class="rmrevin\yii\fontawesome\FontAwesome" as="FA"}}
-  {{\rmrevin\yii\fontawesome\AssetBundle::register($this)|@void}}
   {{\app\assets\RemoteFollowAsset::register($this)|@void}}
 
   {{$_prefix = 'remote-follow-modal-internal'|sha1|substr:0:8}}
@@ -13,7 +11,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="{{'Close'|translate:'app'|escape}}">
-            <span aria-hidden="true">{{FA::icon('times')->tag('span')}}</span>
+            <span aria-hidden="true"><span class="fas fa-times"></span></span>
           </button>
           <h4 class="modal-title" id="remoteFollowModalLabel">
             <img src="{{$app->assetManager->getAssetUrl($_asset, 'ostatus.min.svg')|escape}}" style="width:auto;height:1em;vertical-align:baseline">&#32;

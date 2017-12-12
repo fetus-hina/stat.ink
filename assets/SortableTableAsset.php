@@ -17,7 +17,7 @@ class SortableTableAsset extends AssetBundle
     ];
     public $depends = [
         'yii\web\JqueryAsset',
-        'rmrevin\yii\fontawesome\AssetBundle',
-        'app\assets\JqueryStupidTableAsset',
+        JqueryStupidTableAsset::class,
+        FontAwesomeAsset::class,
     ];
 }

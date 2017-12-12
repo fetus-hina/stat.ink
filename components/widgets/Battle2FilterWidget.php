@@ -23,7 +23,6 @@ use app\models\Weapon2;
 use app\models\WeaponCategory2;
 use app\models\WeaponType2;
 use jp3cki\yii2\datetimepicker\BootstrapDateTimePickerAsset;
-use rmrevin\yii\fontawesome\FontAwesome;
 use yii\base\Widget;
 use yii\bootstrap\ActiveForm;
 use yii\db\ActiveQuery;
@@ -115,11 +114,10 @@ class Battle2FilterWidget extends Widget
             default:
                 $ret[] = Html::tag(
                     'button',
-                    sprintf(
-                        '%s%s',
-                        FontAwesome::icon('search')->tag('span')->addCssClass('left'),
-                        Yii::t('app', 'Search')
-                    ),
+                    implode('', [
+                        Html::tag('span', '', ['class' => 'fa fa-fw fa-search']),
+                        Html::encode(Yii::t('app', 'Search')),
+                    ]),
                     [
                         'type' => 'submit',
                         'class' => [ 'btn', 'btn-primary' ],

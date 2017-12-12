@@ -9,7 +9,7 @@
           {{'Profile and Settings'|translate:'app'|escape}}
 
           <a href="{{url route="user/edit-profile"}}" class="btn btn-primary" style="margin-left:30px">
-            <span class="fa fa-pencil left"></span>
+            <span class="fas fa-edit fa-fw"></span>
             {{'Update'|translate:'app'|escape}}
           </a>
         </h1>
@@ -61,7 +61,7 @@
                     </span>
                   {{/if}}
                   <a href="{{url route="user/edit-icon"}}" class="btn btn-default">
-                    <span class="fa fa-picture-o left"></span>
+                    <span class="far fa-image fa-fw"></span>
                     {{'Change Icon'|translate:'app'|escape}}
                   </a>
                 </div>
@@ -76,7 +76,7 @@
               <td>
                 <code>**********</code>&#32;
                 <a href="{{url route="user/edit-password"}}" class="btn btn-default">
-                  <span class="fa fa-repeat left"></span>
+                  <span class="fa fa-redo left"></span>
                   {{'Change Password'|translate:'app'|escape}}
                 </a>
               </td>
@@ -235,7 +235,7 @@
               <td>
                 {{if $user->twitter != ''}}
                   <a href="https://twitter.com/{{$user->twitter|escape:url}}">
-                    <span class="fa fa-twitter left"></span>@{{$user->twitter|escape}}
+                    <span class="fab fa-twitter left"></span>@{{$user->twitter|escape}}
                   </a>
                 {{else}}
                   -
@@ -273,7 +273,7 @@
           <tbody>
             <tr>
               <th>
-                <span class="fa fa-twitter left"></span>
+                <span class="fab fa-twitter left"></span>
                 Twitter
               </th>
               <td>
@@ -452,27 +452,31 @@
         </table>
       </div>
       <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
-        <h2>{{'Export'|translate:'app'|escape}}</h2>
+        <h2>{{'Export'|translate:'app'|escape}} (Splatoon 1)</h2>
         <p>
           <a href="{{url route="/user/download" type="ikalog-csv"}}" class="btn btn-default btn-block">
-            <span class="fa fa-file-excel-o left"></span>
+            <span class="far fa-file-excel fa-fw"></span>
             {{'CSV (IkaLog compat.)'|translate:'app'|escape}}
           </a>
           <a href="{{url route="/user/download" type="ikalog-json"}}" class="btn btn-default btn-block">
-            <span class="fa fa-file-code-o left"></span>
+            <span class="far fa-file-code fa-fw"></span>
             {{'JSON (IkaLog compat.)'|translate:'app'|escape}}
           </a>
           {{if $user->isUserJsonReady}}
             <a href="{{url route="/user/download" type="user-json"}}" class="btn btn-default btn-block">
-              <span class="fa fa-file-code-o left"></span>
+              <span class="far fa-file-code fa-fw"></span>
               {{'JSON (stat.ink format, gzipped)'|translate:'app'|escape}}
             </a>
           {{else}}
             <button class="btn btn-default btn-block" disabled>
-              <span class="fa fa-file-code-o left"></span>
+              <span class="far fa-file-code fa-fw"></span>
               {{'JSON (stat.ink format, gzipped)'|translate:'app'|escape}}
             </button>
           {{/if}}
+        </p>
+        <h2>{{'Export'|translate:'app'|escape}} (Splatoon 2)</h2>
+        <p>
+          Not implemented yet
         </p>
       </div>
     </div>

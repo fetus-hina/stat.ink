@@ -21,6 +21,6 @@ class BlackoutHintAsset extends AssetBundle
     public $depends = [
         'yii\web\JqueryAsset',
         'yii\bootstrap\BootstrapAsset',
-        'rmrevin\yii\fontawesome\AssetBundle',
+        FontAwesomeAsset::class,
     ];
 }

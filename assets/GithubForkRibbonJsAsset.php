@@ -20,7 +20,7 @@ class GithubForkRibbonJsAsset extends AssetBundle
     ];
     public $depends = [
         'yii\web\JqueryAsset',
-        'rmrevin\yii\fontawesome\AssetBundle',
-        'app\assets\GithubForkRibbonCssAsset',
+        FontAwesomeAsset::class,
+        GithubForkRibbonCssAsset::class,
     ];
 }

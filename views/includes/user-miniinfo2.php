@@ -464,21 +464,21 @@ $fmt = Yii::$app->formatter;
       <?= implode('<br>', [
         Html::a(
           implode('', [
-            Html::tag('span', '', ['class' => 'fa fa-fw fa-pie-chart']),
+            Html::tag('span', '', ['class' => 'fa fa-fw fa-chart-pie']),
             Html::encode(Yii::t('app', 'Stats (by Mode and Stage)')),
           ]),
           ['show-v2/user-stat-by-map-rule', 'screen_name' => $user->screen_name]
         ),
         Html::a(
           implode('', [
-            Html::tag('span', '', ['class' => 'fa fa-fw fa-pie-chart']),
+            Html::tag('span', '', ['class' => 'fa fa-fw fa-chart-pie']),
             Html::encode(Yii::t('app', 'Stats (by Weapon)')),
           ]),
           ['show-v2/user-stat-by-weapon', 'screen_name' => $user->screen_name]
         ),
         Html::a(
           implode('', [
-            Html::tag('span', '', ['class' => 'fa fa-fw fa-pie-chart']),
+            Html::tag('span', '', ['class' => 'fa fa-fw fa-chart-pie']),
             Html::encode(Yii::t('app', 'Daily Report')),
           ]),
           ['show-v2/user-stat-report', 'screen_name' => $user->screen_name]
@@ -488,7 +488,7 @@ $fmt = Yii::$app->formatter;
     <div class="miniinfo-databox">
 <?php if ($user->twitter != ''): ?>
       <div>
-        <span class="fa fa-twitter fa-fw"></span>
+        <span class="fab fa-twitter fa-fw"></span>
         <?= Html::a(
           Html::encode('@' . $user->twitter),
           sprintf('https://twitter.com/%s', rawurlencode($user->twitter)),

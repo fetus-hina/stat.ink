@@ -357,23 +357,23 @@
         <hr>
         <p class="miniinfo-databox">
           <a href="{{url route="show/user-stat-nawabari" screen_name=$user->screen_name}}">
-            <span class="fa fa-pie-chart left"></span>
+            <span class="fa fa-chart-pie left"></span>
             {{'Stats (Turf War)'|translate:'app'|escape}}
           </a><br>
           <a href="{{url route="show/user-stat-gachi" screen_name=$user->screen_name}}">
-            <span class="fa fa-pie-chart left"></span>
+            <span class="fa fa-chart-pie left"></span>
             {{'Stats (Ranked Battle)'|translate:'app'|escape}}
           </a><br>
           <a href="{{url route="show/user-stat-by-rule" screen_name=$user->screen_name}}">
-            <span class="fa fa-pie-chart left"></span>
+            <span class="fa fa-chart-pie left"></span>
             {{'Stats (by Mode)'|translate:'app'|escape}}
           </a><br>
           <a href="{{url route="show/user-stat-by-map" screen_name=$user->screen_name}}">
-            <span class="fa fa-pie-chart left"></span>
+            <span class="fa fa-chart-pie left"></span>
             {{'Stats (by Stage)'|translate:'app'|escape}}
           </a><br>
           <a href="{{url route="show/user-stat-by-map-rule" screen_name=$user->screen_name}}">
-            <span class="fa fa-pie-chart left"></span>
+            <span class="fa fa-chart-pie left"></span>
             {{'Stats (by Mode and Stage)'|translate:'app'|escape}}
           </a><br>
           <span style="padding-left:2em">
@@ -382,19 +382,19 @@
             </a>
           </span><br>
           <a href="{{url route="show/user-stat-by-weapon" screen_name=$user->screen_name}}">
-            <span class="fa fa-pie-chart left"></span>
+            <span class="fa fa-chart-pie left"></span>
             {{'Stats (by Weapon)'|translate:'app'|escape}}
           </a><br>
           <a href="{{url route="show/user-stat-vs-weapon" screen_name=$user->screen_name}}">
-            <span class="fa fa-pie-chart left"></span>
+            <span class="fa fa-chart-pie left"></span>
             {{'Stats (vs. Weapon)'|translate:'app'|escape}}
           </a><br>
           <a href="{{url route="show/user-stat-cause-of-death" screen_name=$user->screen_name}}">
-            <span class="fa fa-pie-chart left"></span>
+            <span class="fa fa-chart-pie left"></span>
             {{'Stats (Cause of Death)'|translate:'app'|escape}}
           </a><br>
           <a href="{{url route="show/user-stat-report" screen_name=$user->screen_name}}">
-            <span class="fa fa-pie-chart left"></span>
+            <span class="fa fa-chart-pie left"></span>
             {{'Daily Report'|translate:'app'|escape}}
           </a>
         </p>
@@ -412,7 +412,7 @@
       <div class="miniinfo-databox">
         {{if $user->twitter != ''}}
           <div>
-            <span class="fa fa-twitter fa-fw"></span>&#32;
+            <span class="fab fa-twitter fa-fw"></span>&#32;
             <a href="https://twitter.com/{{$user->twitter|escape:url}}" rel="nofollow" target="_blank">
               {{$user->twitter|escape}}
             </a>

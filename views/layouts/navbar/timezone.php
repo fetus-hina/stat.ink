@@ -8,7 +8,7 @@ $currentTZ = Yii::$app->timeZone;
 ?>
 <?= Html::a(
   implode('', [
-    Html::tag('span', '', ['class' => 'fa fa-fw fa-clock-o']),
+    Html::tag('span', '', ['class' => 'far fa-fw fa-clock']),
     Html::encode(Yii::t('app', 'Time Zone')),
     ' ',
     Html::tag('span', '', ['class' => 'caret']),

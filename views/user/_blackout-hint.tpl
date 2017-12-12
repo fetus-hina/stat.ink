@@ -54,7 +54,7 @@
                 {{if !$_catName@first}}
                   <br>
                 {{/if}}
-                <span class="blackout-info-icon fa fa-fw fa-square-o" data-mode="{{$_mode|escape}}" data-category="{{$_cat|escape}}"></span>
+                <span class="blackout-info-icon far fa-fw fa-square" data-mode="{{$_mode|escape}}" data-category="{{$_cat|escape}}"></span>
                 {{$_catName|escape}}
               {{/foreach}}
             </td>
@@ -64,9 +64,9 @@
     </table>
     <p id="blackout-info-legends">
       {{'Legends'|translate:'app'|escape}}:&#32;
-      <span class="fa fa-fw fa-square-o"></span>{{'No black out'|translate:'app'|escape}}
+      <span class="far fa-fw fa-square"></span>{{'No black out'|translate:'app'|escape}}
       &#32;/&#32;
-      <span class="fa fa-fw fa-check-square-o"></span>{{'Black out'|translate:'app'|escape}}
+      <span class="far fa-fw fa-check-square"></span>{{'Black out'|translate:'app'|escape}}
     </p>
   </div>
 {{/strip}}

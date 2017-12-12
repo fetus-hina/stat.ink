@@ -1,6 +1,4 @@
 {{strip}}
-  {{use class="rmrevin\yii\fontawesome\FontAwesome" as="FA"}}
-  {{\rmrevin\yii\fontawesome\AssetBundle::register($this)|@void}}
   {{\app\assets\BattleInputAsset::register($this)|@void}}
 
   {{$_prefix = 'input-modal2-internal'|sha1|substr:0:8}}
@@ -14,7 +12,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="{{'Close'|translate:'app'|escape}}">
-            <span aria-hidden="true">{{FA::icon('times')->tag('span')}}</span>
+            <span aria-hidden="true"><span class="fas fa-times"></span>
           </button>
           <h4 class="modal-title" id="inputModalLabel">
             {{'Input new battle results'|translate:'app'|escape}}&#32;
@@ -142,7 +140,7 @@
                   <input type="hidden" id="battle-input2-form--regular--uuid" name="uuid" value="">
                   <input type="hidden" id="battle-input2-form--regular--end_at" name="end_at" value="">
                   <button type="button" class="btn btn-primary" id="battle-input2-form--regular--submit" data-form="_{{$_prefix|escape}}_regular" disabled>
-                    {{FA::icon('floppy-o')->tag('span')}} {{'Save!'|translate:'app'|escape}}
+                    <span class="far fa-fw fa-save"></span>{{'Save!'|translate:'app'|escape}}
                   </button>
                 </div>
               </form>
@@ -282,7 +280,7 @@
                   <input type="hidden" id="battle-input2-form--ranked--uuid" name="uuid" value="">
                   <input type="hidden" id="battle-input2-form--ranked--end_at" name="end_at" value="">
                   <button type="button" class="btn btn-primary" id="battle-input2-form--ranked--submit" data-form="_{{$_prefix|escape}}_ranked" disabled>
-                    {{FA::icon('floppy-o')->tag('span')}} {{'Save!'|translate:'app'|escape}}
+                    <span class="far fa-save fa-fw"></span>{{'Save!'|translate:'app'|escape}}
                   </button>
                 </div>
               </form>
@@ -397,7 +395,7 @@
                   <input type="hidden" id="battle-input2-form--fest--uuid" name="uuid" value="">
                   <input type="hidden" id="battle-input2-form--fest--end_at" name="end_at" value="">
                   <button type="button" class="btn btn-primary" id="battle-input2-form--fest--submit" data-form="_{{$_prefix|escape}}_fest" disabled>
-                    {{FA::icon('floppy-o')->tag('span')}} {{'Save!'|translate:'app'|escape}}
+                    <span class="far fa-fw fa-save"></span>{{'Save!'|translate:'app'|escape}}
                   </button>
                 </div>
               </form>

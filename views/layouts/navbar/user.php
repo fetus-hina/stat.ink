@@ -68,7 +68,7 @@ $this->registerCss('.fa-twitter{color:#1da1f2}');
       Html::tag('li', '', ['class' => 'divider']),
       Html::tag('li', Html::a(
         implode('', [
-          Html::tag('span', '', ['class' => 'fa fa-fw fa-sign-out']),
+          Html::tag('span', '', ['class' => 'fa fa-fw fa-sign-out-alt']),
           Html::encode(Yii::t('app', 'Logout')),
         ]),
         ['/user/logout']
@@ -77,7 +77,7 @@ $this->registerCss('.fa-twitter{color:#1da1f2}');
     : [
       Html::tag('li', Html::a(
         implode('', [
-          Html::tag('span', '', ['class' => 'fa fa-fw fa-sign-in']),
+          Html::tag('span', '', ['class' => 'fa fa-fw fa-sign-in-alt']),
           Html::encode(Yii::t('app', 'Login')),
         ]),
         ['/user/login']
@@ -86,7 +86,7 @@ $this->registerCss('.fa-twitter{color:#1da1f2}');
         ? Html::tag('li', Html::a(
           implode('', [
             Html::tag('span', '┗', ['class' => 'fa fa-fw']),
-            Html::tag('span', '', ['class' => 'fa fa-fw fa-twitter']),
+            Html::tag('span', '', ['class' => 'fab fa-fw fa-twitter']),
             Html::encode(Yii::t('app', 'Log in with Twitter')),
           ]),
           ['/user/login-with-twitter']
@@ -104,7 +104,7 @@ $this->registerCss('.fa-twitter{color:#1da1f2}');
     Html::tag('li', '', ['class' => 'divider']),
     Html::tag('li', Html::a(
       implode('', [
-        Html::tag('span', '', ['class' => 'fa fa-fw']),
+        Html::tag('span', '', ['class' => 'far fa-fw']),
         Html::encode(Yii::t('app', 'Color-Blind Support')),
       ]),
       'javascript:;',
@@ -112,7 +112,7 @@ $this->registerCss('.fa-twitter{color:#1da1f2}');
     )),
     Html::tag('li', Html::a(
       implode('', [
-        Html::tag('span', '', ['class' => 'fa fa-fw']),
+        Html::tag('span', '', ['class' => 'far fa-fw']),
         Html::encode(Yii::t('app', 'Use full width of the screen')),
       ]),
       'javascript:;',

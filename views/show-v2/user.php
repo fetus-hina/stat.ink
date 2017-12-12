@@ -3,7 +3,6 @@ use app\components\widgets\AdWidget;
 use app\components\widgets\Battle2FilterWidget;
 use app\components\widgets\EmbedVideo;
 use app\components\widgets\SnsWidget;
-use rmrevin\yii\fontawesome\FontAwesome;
 use yii\bootstrap\ActiveForm;
 use yii\grid\GridView;
 use yii\helpers\Html;
@@ -121,7 +120,11 @@ if ($user->twitter != '') {
                   ['class' => 'btn btn-primary btn-xs']
                 ),
                 (!$model->link_url) ? '' : Html::a(
-                  FontAwesome::icon(EmbedVideo::isSupported($model->link_url) ? 'video-camera' : 'link')->fixedWidth(),
+                  Html::tag('span', '', ['class' => [
+                    'fa',
+                    'fa-fw',
+                    EmbedVideo::isSupported($model->link_url) ? 'fa-video' : 'fa-link',
+                  ]]),
                   $model->link_url,
                   ['class' => 'btn btn-default btn-xs', 'rel' => 'nofollow']
                 ),

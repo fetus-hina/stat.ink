@@ -71,7 +71,7 @@ $list = [
   [
     // Twitter {{{
     'name' => implode('', [
-      Html::tag('span', '', ['class' => 'fa fa-fw fa-twitter']),
+      Html::tag('span', '', ['class' => 'fab fa-fw fa-twitter']),
       Html::encode(Yii::t('app', 'Official Twitter')),
     ]),
     'sub' => [
@@ -92,14 +92,14 @@ $list = [
       [
         'url' => 'https://play.google.com/store/apps/details?id=com.nintendo.znca',
         'name' => implode('', [
-          Html::tag('span', '', ['class' => 'fa fa-fw fa-android']),
+          Html::tag('span', '', ['class' => 'fab fa-fw fa-android']),
           Html::encode(Yii::t('app', 'Android')),
         ]),
       ],
       [
         'url' => 'https://itunes.apple.com/app/nintendo-switch-online/id1234806557',
         'name' => implode('', [
-          Html::tag('span', '', ['class' => 'fa fa-fw fa-apple']),
+          Html::tag('span', '', ['class' => 'fab fa-fw fa-apple']),
           Html::encode(Yii::t('app', 'iOS (iPhone/iPad)')),
         ]),
       ],
@@ -112,9 +112,9 @@ $list = [
     'name' => implode('', [
       $icon->ikalog,
       Html::encode(Yii::t('app', 'IkaLog')),
-      Html::tag('span', '', ['class' => 'fa fa-fw fa-windows']),
-      Html::tag('span', '', ['class' => 'fa fa-fw fa-apple']),
-      Html::tag('span', '', ['class' => 'fa fa-fw fa-linux']),
+      Html::tag('span', '', ['class' => 'fab fa-fw fa-windows']),
+      Html::tag('span', '', ['class' => 'fab fa-fw fa-apple']),
+      Html::tag('span', '', ['class' => 'fab fa-fw fa-linux']),
     ]),
     'sub' => [
       [
@@ -148,7 +148,7 @@ $list = [
     'name' => implode('', [
       $icon->ikarecJa,
       Html::encode(Yii::t('app', 'IkaRec')),
-      Html::tag('span', '', ['class' => 'fa fa-fw fa-android']),
+      Html::tag('span', '', ['class' => 'fab fa-fw fa-android']),
     ]),
     'sub' => [
       [
@@ -191,9 +191,9 @@ $list = [
     'name' => implode('', [
       $icon->squidTracks,
       Html::encode(Yii::t('app', 'SquidTracks')),
-      Html::tag('span', '', ['class' => 'fa fa-fw fa-windows']),
-      Html::tag('span', '', ['class' => 'fa fa-fw fa-apple']),
-      Html::tag('span', '', ['class' => 'fa fa-fw fa-linux']),
+      Html::tag('span', '', ['class' => 'fab fa-fw fa-windows']),
+      Html::tag('span', '', ['class' => 'fab fa-fw fa-apple']),
+      Html::tag('span', '', ['class' => 'fab fa-fw fa-linux']),
     ]),
     // }}}
   ],
@@ -203,9 +203,9 @@ $list = [
     'name' => implode('', [
       Html::tag('span', '', ['class' => 'fa fa-fw']),
       Html::encode(Yii::t('app', 'splatnet2statink')),
-      Html::tag('span', '', ['class' => 'fa fa-fw fa-windows']),
-      Html::tag('span', '', ['class' => 'fa fa-fw fa-apple']),
-      Html::tag('span', '', ['class' => 'fa fa-fw fa-linux']),
+      Html::tag('span', '', ['class' => 'fab fa-fw fa-windows']),
+      Html::tag('span', '', ['class' => 'fab fa-fw fa-apple']),
+      Html::tag('span', '', ['class' => 'fab fa-fw fa-linux']),
     ]),
     // }}}
   ],
@@ -235,14 +235,14 @@ $list = [
   [
     'url' => 'https://blog.fetus.jp/',
     'name' => implode('', [
-      Html::tag('span', '', ['class' => 'fa fa-fw fa-wordpress']),
+      Html::tag('span', '', ['class' => 'fab fa-fw fa-wordpress']),
       Html::encode(Yii::t('app', 'Blog')),
     ]),
   ],
   [
     'url' => 'https://github.com/fetus-hina/stat.ink',
     'name' => implode('', [
-      Html::tag('span', '', ['class' => 'fa fa-fw fa-github-alt']),
+      Html::tag('span', '', ['class' => 'fab fa-fw fa-github-alt']),
       Html::encode(Yii::t('app', 'Source Code')),
     ]),
   ],

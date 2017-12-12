@@ -1,7 +1,7 @@
 window.useContainerFluid = window.localStorage.getItem('useFluid') == 1;
 $(function () {
   var $elem = $('#toggle-use-fluid');
-  var $icon = $('.fa', $elem);
+  var $icon = $('.fa-fw', $elem);
   var update = () => {
     var $container = $([
       'body>main>.container',
@@ -12,11 +12,11 @@ $(function () {
       'footer>.container-fluid',
     ].join(','))
     if (window.useContainerFluid) {
-      $icon.removeClass('fa-square-o').addClass('fa-check-square-o');
+      $icon.removeClass('fa-square').addClass('fa-check-square');
       $container.removeClass('container').addClass('container-fluid');
       $('body').addClass('use-fluid');
     } else {
-      $icon.removeClass('fa-check-square-o').addClass('fa-square-o');
+      $icon.removeClass('fa-check-square').addClass('fa-square');
       $container.removeClass('container-fluid').addClass('container');
       $('body').removeClass('use-fluid');
     }

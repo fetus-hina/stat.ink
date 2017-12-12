@@ -11,7 +11,6 @@ use Yii;
 use yii\base\Widget;
 use yii\helpers\Html;
 use jp3cki\yii2\twitter\widget\TweetButton;
-use rmrevin\yii\fontawesome\FontAwesome;
 use app\assets\ClipboardJsAsset;
 
 class SnsWidget extends Widget
@@ -109,11 +108,10 @@ class SnsWidget extends Widget
             $this->view->registerJs(sprintf('jQuery("#%s").permaLink();', $id));
             return Html::tag(
                 'span',
-                sprintf(
-                    '%s %s',
-                    FontAwesome::icon('anchor')->tag('span')->render(),
-                    Html::encode(Yii::t('app', 'Permalink'))
-                ),
+                implode(' ', [
+                    Html::tag('span', '', ['class' => 'fa fa-fw fa-anchor']),
+                    Html::encode(Yii::t('app', 'Permalink')),
+                ]),
                 [
                     'id' => $id,
                     'class' => [
@@ -135,11 +133,11 @@ class SnsWidget extends Widget
             ));
             return Html::tag(
                 'span',
-                sprintf(
+                implode(' ', [
                     '%s %s',
-                    FontAwesome::icon('anchor')->tag('span')->render(),
-                    Html::encode(Yii::t('app', 'Permalink'))
-                ),
+                    Html::tag('span', '', ['class' => 'fa fa-fw fa-anchor']),
+                    Html::encode(Yii::t('app', 'Permalink')),
+                ]),
                 [
                     'id' => $id,
                     'class' => [
@@ -178,7 +176,7 @@ class SnsWidget extends Widget
         ));
         return Html::tag(
             'a',
-            FontAwesome::icon('rss')->tag('span')->render(),
+            Html::tag('span', '', ['class' => 'fa fa-fw fa-rss']),
             [
                 'id' => $id,
                 'class' => [

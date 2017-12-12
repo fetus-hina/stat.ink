@@ -1,13 +1,12 @@
 <?php
 use app\assets\AppLinkAsset;
 use app\components\widgets\battle\PanelListWidget;
-use rmrevin\yii\fontawesome\FA;
 use yii\bootstrap\Html;
 use yii\helpers\Url;
 
-function fa($icon) : string
+function fa(string $icon, string $category = 'fa') : string
 {
-    return FA::icon($icon)->fixedWidth()->tag('span')->__toString();
+    return Html::tag('span', '', ['class' => [$category, 'fa-fw', 'fa-' . $icon]]);
 }
 
 $title = Yii::t('app', "{0}'s Splat Log", [$user->name]);
@@ -92,7 +91,7 @@ $this->registerCss(implode('', array_map(
       <ul>
 <?php if ($user->twitter): ?>
         <li>
-          <?= fa('twitter') ?><?= Html::a(
+          <?= fa('twitter', 'fab') ?><?= Html::a(
             '@' . Html::encode($user->twitter),
             sprintf('https://twitter.com/%s', rawurlencode($user->twitter)),
             ['rel' => 'nofollow', 'target' => '_blank']

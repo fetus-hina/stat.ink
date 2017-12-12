@@ -6,15 +6,14 @@
       </a>
       {{if $model->link_url}}
         {{use class="app\components\widgets\EmbedVideo"}}
-        {{use class="rmrevin\yii\fontawesome\FontAwesome"}}
         &#32;
         {{if EmbedVideo::isSupported($model->link_url)}}
           <a href="{{$model->link_url|escape}}" class="btn btn-default btn-xs" rel="nofollow">
-            {{FontAwesome::icon('video-camera')->fixedWidth()}}
+            <span class="fa fa-fw fa-video"></span>
           </a>
         {{else}}
           <a href="{{$model->link_url|escape}}" class="btn btn-default btn-xs" rel="nofollow">
-            {{FontAwesome::icon('link')->fixedWidth()}}
+            <span class="fa fa-fw fa-link"></span>
           </a>
         {{/if}}
       {{/if}}

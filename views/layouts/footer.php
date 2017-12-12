@@ -48,7 +48,7 @@ $commited = Version::getLastCommited();
           $commited ? $commited->format('Y') : 2017
         )),
         Html::a(
-          Html::tag('span', '', ['class' => 'fa fa-twitter']),
+          Html::tag('span', '', ['class' => 'fab fa-twitter']),
           'https://twitter.com/fetus_hina',
           [
             'title' => 'Twitter: fetus_hina',
@@ -56,7 +56,7 @@ $commited = Version::getLastCommited();
           ]
         ),
         Html::a(
-          Html::tag('span', '', ['class' => 'fa fa-github']),
+          Html::tag('span', '', ['class' => 'fab fa-github']),
           'https://github.com/fetus-hina',
           [
             'title' => 'GitHub: fetus-hina',
@@ -95,7 +95,7 @@ $commited = Version::getLastCommited();
             Yii::t('app', 'This website is an open source project. It is under the MIT License. The source code is available on GitHub.')
           ),
           Html::a(
-            Html::tag('span', '', ['class' => 'fa fa-github']),
+            Html::tag('span', '', ['class' => 'fab fa-github']),
             'https://github.com/fetus-hina/stat.ink'
           ),
         ]),
@@ -104,11 +104,11 @@ $commited = Version::getLastCommited();
             Yii::t('app', 'Feedback or suggestions are welcome. Please contact me via GitHub or Twitter.')
           ),
           Html::a(
-            Html::tag('span', '', ['class' => 'fa fa-github']),
+            Html::tag('span', '', ['class' => 'fab fa-github']),
             'https://github.com/fetus-hina/stat.ink'
           ),
           Html::a(
-            Html::tag('span', '', ['class' => 'fa fa-twitter']),
+            Html::tag('span', '', ['class' => 'fab fa-twitter']),
             'https://twitter.com/fetus_hina'
           ),
         ]),

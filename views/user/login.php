@@ -51,7 +51,7 @@ $this->title = implode(' | ', [
 <?php if (Yii::$app->params['twitter']['read_enabled'] ?? false) { ?>
             <?= Html::a(
               implode(' ', [
-                Html::tag('span', '', ['class' => 'fa fa-fw fa-twitter']),
+                Html::tag('span', '', ['class' => 'fab fa-fw fa-twitter']),
                 Html::encode(Yii::t('app', 'Log in with Twitter')),
               ]),
               ['/user/login-with-twitter'],

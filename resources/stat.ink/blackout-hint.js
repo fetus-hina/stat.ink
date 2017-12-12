@@ -6,10 +6,10 @@
   global.updateBlackOutHint = function (newConfig, target_) {
     var target = target_ || '#blackout-info';
     var check = function ($e) {
-      $e.removeClass('fa-square-o').addClass('fa-check-square-o');
+      $e.removeClass('fa-square').addClass('fa-check-square');
     };
     var uncheck = function ($e) {
-      $e.addClass('fa-square-o').removeClass('fa-check-square-o');
+      $e.addClass('fa-square').removeClass('fa-check-square');
     };
 
     $(target + ' .blackout-info-icon').each(function (i, e) {

@@ -8,7 +8,6 @@
 namespace app\components\widgets\battle;
 
 use Yii;
-use rmrevin\yii\fontawesome\FA;
 use yii\base\Widget;
 use yii\bootstrap\Html;
 
@@ -93,7 +92,10 @@ class PanelListWidget extends Widget
             return '';
         }
         return Html::a(
-            FA::icon('search')->fixedWidth()->tag('span') . Html::encode($this->titleLinkText),
+            implode('', [
+                Html::tag('span', '', ['class' => 'fa fa-fw fa-search']),
+                Html::encode($this->titleLinkText),
+            ]),
             $this->titleLink,
             ['class' => 'pull-right btn btn-default btn-xs']
         );

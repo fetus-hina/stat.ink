@@ -171,7 +171,7 @@
     </p>
     <hr>
     <p>
-      This website was developed by AIZAWA Hina &lt;hina@bouhime.com&gt; (<span class="fa fa-twitter left"></span>fetus_hina, <span class="fa fa-github left"></span>fetus-hina) as a personal project.&#32;
+      This website was developed by AIZAWA Hina &lt;hina@bouhime.com&gt; (<span class="fab fa-twitter left"></span>fetus_hina, <span class="fab fa-github left"></span>fetus-hina) as a personal project.&#32;
       This project was not produced in association with Nintendo.&#32;
       Don't ask them about stat.ink or IkaLog, they won't know anything.
     </p>

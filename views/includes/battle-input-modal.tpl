@@ -1,6 +1,4 @@
 {{strip}}
-  {{use class="rmrevin\yii\fontawesome\FontAwesome" as="FA"}}
-  {{\rmrevin\yii\fontawesome\AssetBundle::register($this)|@void}}
   {{\app\assets\BattleInputAsset::register($this)|@void}}
 
   {{$_prefix = 'input-modal-internal'|sha1|substr:0:8}}
@@ -14,7 +12,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="{{'Close'|translate:'app'|escape}}">
-            <span aria-hidden="true">{{FA::icon('times')->tag('span')}}</span>
+            <span aria-hidden="true"><span class="fas fa-times"></span></span>
           </button>
           <h4 class="modal-title" id="inputModalLabel">
             {{'Input new battle results'|translate:'app'|escape}}&#32;
@@ -151,7 +149,7 @@
                   </span>
                   <input type="hidden" id="battle-input-form--regular--uuid" name="uuid" value="">
                   <button type="button" class="btn btn-primary" id="battle-input-form--regular--submit" data-form="_{{$_prefix|escape}}_regular" disabled>
-                    {{FA::icon('floppy-o')->tag('span')}} {{'Save!'|translate:'app'|escape}}
+                    <span class="far fa-fw fa-save"></span>{{'Save!'|translate:'app'|escape}}
                   </button>
                 </div>
               </form>
@@ -273,7 +271,7 @@
                   </span>
                   <input type="hidden" id="battle-input-form--gachi--uuid" name="uuid" value="">
                   <button type="button" class="btn btn-primary" id="battle-input-form--gachi--submit" data-form="_{{$_prefix|escape}}_gachi" disabled>
-                    {{FA::icon('floppy-o')->tag('span')}} {{'Save!'|translate:'app'|escape}}
+                    <span class="far fa-fw fa-save"></span>{{'Save!'|translate:'app'|escape}}
                   </button>
                 </div>
               </form>
