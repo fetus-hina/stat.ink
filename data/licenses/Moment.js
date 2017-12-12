@@ -1,1 +1,1 @@
-../../vendor/bower/moment/LICENSE
+../../vendor/bower-asset/moment/LICENSE

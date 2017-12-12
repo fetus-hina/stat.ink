@@ -1,1 +1,1 @@
-../../vendor/bower/emojify.js/LICENSE.md
+../../vendor/bower-asset/emojify.js/LICENSE.md
