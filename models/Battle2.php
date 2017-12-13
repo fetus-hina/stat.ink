@@ -975,7 +975,7 @@ class Battle2 extends ActiveRecord
 
     public function getInked() : ?int
     {
-        if ($this->is_win === null || $this->my_point === null) {
+        if ($this->is_win === null || $this->my_point === null || $this->rule === null) {
             return null;
         }
         if (!$this->is_win) {
@@ -995,7 +995,7 @@ class Battle2 extends ActiveRecord
 
     public function getElapsedTime() : ?int
     {
-        if (($this->rule->key ?? '') === 'nawabari') {
+        if ($this->rule && $this->rule->key === 'nawabari') {
             return 180;
         }
         if ($this->start_at === null || $this->end_at === null) {
