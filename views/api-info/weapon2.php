@@ -23,7 +23,7 @@ SortableTableAsset::register($this);
   <p>
     <?= Html::a(
       implode('', [
-        Html::tag('span', '', ['class' => ['fa fa-file-code-o fa-fw']]),
+        Html::tag('span', '', ['class' => ['fas fa-file-code fa-fw']]),
         Html::encode(Yii::t('app', 'JSON format')),
       ]),
       ['api-v2/weapon'],
@@ -31,7 +31,7 @@ SortableTableAsset::register($this);
     ) ."\n" ?>
     <?= Html::a(
       implode('', [
-        Html::tag('span', '', ['class' => ['fa fa-file-excel-o fa-fw']]),
+        Html::tag('span', '', ['class' => ['fas fa-file-excel fa-fw']]),
         Html::encode(Yii::t('app', 'CSV format')),
       ]),
       ['api-v2/weapon', 'format' => 'csv'],

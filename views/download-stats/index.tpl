@@ -33,7 +33,7 @@
 
     <ul>
       <li>
-        <span class="fa fa-file-excel-o"></span> ブキ・ルール・ステージ別にバトル数・勝率を集計したもの (CSV)
+        <span class="fas fa-file-excel"></span> ブキ・ルール・ステージ別にバトル数・勝率を集計したもの (CSV)
         {{include file="dl-langs.inc.tpl" route="download-stats/weapon-rule-map"}}
       </li>
     </ul>
