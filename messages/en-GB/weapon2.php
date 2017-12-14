@@ -71,6 +71,7 @@ return [
     'Rollers' => '',
     'Shooters' => '',
     'Slosher' => '',
+    'Slosher Deco' => '',
     'Sloshers' => '',
     'Sloshing Machine' => '',
     'Splash-o-matic' => '',

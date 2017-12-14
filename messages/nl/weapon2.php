@@ -71,6 +71,7 @@ return [
     'Rollers' => '',
     'Shooters' => '',
     'Slosher' => 'Morser',
+    'Slosher Deco' => '',
     'Sloshers' => '',
     'Sloshing Machine' => 'Klotstrommel',
     'Splash-o-matic' => 'Spetterspuit',

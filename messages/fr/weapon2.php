@@ -71,6 +71,7 @@ return [
     'Rollers' => 'Rouleau',
     'Shooters' => 'Lanceur',
     'Slosher' => 'Seauceur',
+    'Slosher Deco' => 'Seauceur chic',
     'Sloshers' => 'Seauceur',
     'Sloshing Machine' => 'Encrifugeur',
     'Splash-o-matic' => 'Marqueur léger',

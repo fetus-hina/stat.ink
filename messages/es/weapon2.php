@@ -71,6 +71,7 @@ return [
     'Rollers' => 'Rodillos',
     'Shooters' => 'Lanzatintas',
     'Slosher' => 'Derramatic',
+    'Slosher Deco' => 'Derramatic DX',
     'Sloshers' => 'Derramatics',
     'Sloshing Machine' => 'Derramatic centrífugo',
     'Splash-o-matic' => 'Marcador fino',

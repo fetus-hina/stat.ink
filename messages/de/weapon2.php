@@ -71,6 +71,7 @@ return [
     'Rollers' => '',
     'Shooters' => '',
     'Slosher' => 'Schwapper',
+    'Slosher Deco' => 'Schwapper Deko',
     'Sloshers' => '',
     'Sloshing Machine' => 'Trommel-Schwapper',
     'Splash-o-matic' => 'Fein-Disperser',

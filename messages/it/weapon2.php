@@ -71,6 +71,7 @@ return [
     'Rollers' => '',
     'Shooters' => '',
     'Slosher' => 'Secchiostro',
+    'Slosher Deco' => 'Secchiostro DX',
     'Sloshers' => '',
     'Sloshing Machine' => 'Secchiostro centrifuga',
     'Splash-o-matic' => 'Marker d\'assalto',

@@ -81,6 +81,7 @@ return [
     'Splatterscope' => 'スプラスコープ',
     // sloshers -----
     'Hero Slosher Replica' => 'ヒーロースロッシャー レプリカ',
+    'Slosher Deco' => 'バケットスロッシャーデコ',
     'Slosher' => 'バケットスロッシャー',
     'Sloshing Machine' => 'スクリュースロッシャー',
     'Tri-Slosher' => 'ヒッセン',

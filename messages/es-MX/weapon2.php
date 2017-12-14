@@ -72,6 +72,7 @@ return [
     'Rollers' => 'Rodillos',
     'Shooters' => 'Rociadors',
     'Slosher' => '',
+    'Slosher Deco' => 'Derramatic chic',
     'Sloshers' => 'Derramatics',
     'Sloshing Machine' => '',
     'Splash-o-matic' => '',

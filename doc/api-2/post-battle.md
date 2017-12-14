@@ -237,6 +237,7 @@ There is a listing page [here](https://stat.ink/api-info/weapon2).
 |`splatscope_collabo`    |`2021`                |スプラスコープコラボ<br>Firefin Splatterscope        |                                                                                                     |
 |`squiclean_a`           |`2000`                |スクイックリンα<br>Classic Squiffer                 |                                                                                                     |
 |`bucketslosher`         |`3000`                |バケットスロッシャー<br>Slosher                      |                                                                                                     |
+|`bucketslosher_deco`    |`3001`                |バケットスロッシャーデコ<br>Slosher Deco             |                                                                                                     |
 |`heroslosher_replica`   |`3005`                |ヒーロースロッシャー レプリカ<br>Hero Slosher Replica|                                                                                                     |
 |`hissen`                |`3010`                |ヒッセン<br>Tri-Slosher                              |                                                                                                     |
 |`screwslosher`          |`3020`                |スクリュースロッシャー<br>Sloshing Machine           |                                                                                                     |
