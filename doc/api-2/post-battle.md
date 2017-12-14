@@ -157,7 +157,7 @@ POST データは全体で 12MiB 以内である必要があります。
 |`engawa`                |`9`                   |エンガワ河川敷<br>Snapper Canal              |                                                                             |
 |`fujitsubo`             |`1`                   |フジツボスポーツクラブ<br>Musselforge Fitness|                                                                             |
 |`gangaze`               |`2`                   |ガンガゼ野外音楽堂<br>Starfish Mainstage     |                                                                             |
-|`hakofugu`              |                      |ハコフグ倉庫<br>Walleye Warehouse            |                                                                             |
+|`hakofugu`              |`14`                  |ハコフグ倉庫<br>Walleye Warehouse            |                                                                             |
 |`hokke`                 |`7`                   |ホッケふ頭<br>Port Mackerel                  |                                                                             |
 |`kombu`                 |`5`                   |コンブトラック<br>Humpback Pump Track        |互換性のため `combu` も受け付けます<br>Also accepts `combu` for compatibility|
 |`manta`                 |`6`                   |マンタマリア号<br>Manta Maria                |                                                                             |
