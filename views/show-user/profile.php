@@ -185,7 +185,7 @@ $this->registerCss(implode('', array_map(
                     ->with(['user', 'map', 'weapon'])
                     ->innerJoinWith(['mode', 'rule'])
                     ->andWhere(['and',
-                        ['rule2.key' => ['area', 'yagura', 'hoko']],
+                        ['<>', '{{rule2}}.[[key]]', 'nawabari'],
                     ])
                     ->orderBy(['battle2.id' => SORT_DESC])
                     ->limit(5)
