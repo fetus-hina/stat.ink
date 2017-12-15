@@ -113,7 +113,7 @@ foreach ($players as $i => $player) {
       Html::tag(
         'td',
         $player->is_me
-          ? Html::tag('span', '', ['class' => 'fa fa-fw fa-rotate-90 fa-level-up'])
+          ? Html::tag('span', '', ['class' => 'fas fa-fw fa-rotate-90 fa-level-up-alt'])
           : '',
         ['class' => ['bg-' . $teamKey, 'text-center']]
       ),
