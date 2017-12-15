@@ -392,4 +392,9 @@ return [
     'Yellow Iromaki 750s' => '',
     'Zombie Hi-Horses' => 'シーホースHi ゾンビ',
     'Angry Rain Boots' => 'マッドラバー',
+
+    // CoroCoro Gears
+    'Imperial Kaiser' => 'エンペリアルカイザー',
+    'Kaiser Cuff' => 'カイザーカフ',
+    'King Bench Kaiser' => 'キングベンチカイザー',
 ];
