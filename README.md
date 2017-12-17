@@ -7,27 +7,38 @@ stat.ink
 [![Dependency Status](https://www.versioneye.com/user/projects/5616700aa1933400190005db/badge.svg?style=flat)](https://www.versioneye.com/user/projects/5616700aa1933400190005db)
 [![StyleCI](https://styleci.io/repos/42917467/shield?branch=master)](https://styleci.io/repos/42917467)
 
-https://stat.ink/ のソースコードです。
+Source codes for https://stat.ink/
 
-[IkaLog](https://github.com/hasegaw/IkaLog) 等の対応ソフトウェア、または自作のソフトウェアと連携することで Splatoon の戦績を保存し、統計を取ります。
+[IkaLog](https://github.com/hasegaw/IkaLog), SquidTracks, splatnet2statink 等の対応ソフトウェア、または自作のソフトウェアと連携することで Splatoon の戦績を保存し、統計を取ります。
+
+バグレポート BUG REPORT
+----------------------
+
+- [GitHub で問題を報告する(要GitHubアカウント) Submit an issue on GitHub (Need an account)](https://github.com/fetus-hina/stat.ink/issues)
+- Contact to administrator with email or twitter.
+
+バグレポートは日本語で大丈夫です。開発者は日本語しかまともに使えない日本人です。
+
+I'll accept a bug report in English or Japanese.   
+The administrator not goot at English. Please use easy English.
 
 
-動作環境
---------
+REQUIREMENTS
+------------
 
 * PHP 7.1+
-    - 7.0 以下では動作しません（7.1 で追加された文法を使用しています）
-* PostgreSQL 9.5+
-    - 9.4 以下では動作しません（9.5 で追加された機能を使用しています）
+  - Doesn't work with 7.0 or lower. (Uses statements added in v7.1)
+* PostgreSQL 9.5+ (Recommended: 10+)
+  - Doesn't work with 9.4 or lower. (Uses features added in v9.5) 
 * Gearman
 * ImageMagick (`convert`)
 * Node.js (`npm`)
-    - 6.x または 7.x を推奨
+  - Recommended: 6.x or 7.x
 * `jpegoptim`
 * `pngcrush`
 * Brotli (`bro`)
 
-https://stat.ink/ は現在次の構成で動作しています。（Docker で用意しているものとほぼ同じです）
+https://stat.ink/ works with:
 
 - CentOS 7.4.1708 (x86-64)
 - EPEL
@@ -64,8 +75,8 @@ https://stat.ink/ は現在次の構成で動作しています。（Docker で�
 　実際のサーバでは PgSQL 10 を使用していますが、現時点では 9.5 で充分動作するはずです。<br>
 　ただし、将来必要が生じた場合はためらわずに PgSQL 10 (以降) に依存させます。
 
-使い方
-------
+使い方 HOW TO USE (DEVELOPER)
+-----------------------------
 
 ### SETUP ###
 
@@ -125,13 +136,13 @@ stat.ink にデータを投稿する、または取得する API は次のペー
 - [API for Splatoon 1](https://github.com/fetus-hina/stat.ink/blob/master/API.md)
 
 
-ライセンス
-----------
+ライセンス LICENSE
+-----------------
 
 ```
 The MIT License (MIT)
 
-Copyright (c) 2015-2016 AIZAWA Hina <hina@bouhime.com>
+Copyright (c) 2015-2017 AIZAWA Hina <hina@bouhime.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -190,8 +201,8 @@ ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 POSSIBILITY OF SUCH DAMAGE.
 ```
 
-ライセンス（ドキュメント類）
-----------------------------
+ライセンス（ドキュメント類） LICENSE (DOCUMENTS)
+----------------------------------------------
 
 [![CC-BY 4.0](https://stat.ink/static-assets/cc/cc-by.svg)](http://creativecommons.org/licenses/by/4.0/deed.ja)
 
