@@ -19,8 +19,14 @@ Source codes for https://stat.ink/
 
 バグレポートは日本語で大丈夫です。開発者は日本語しかまともに使えない日本人です。
 
-I'll accept a bug report in English or Japanese.   
-The administrator not goot at English. Please use easy English.
+I'll accept your bug report in English or Japanese.   
+The administrator is not goot at English. Please use easy English.
+
+問題がセキュリティにかかわるものであれば、非公開の方法を利用してください。  
+Use a private channel if it is a security issue.
+
+- Use Direct Message of twitter. ツイッターのDMを使う
+- [Use an encrypted message with PGP(GPG). PGP(GPG)で暗号化して送信する](https://fetus.jp/about/pgp)
 
 
 REQUIREMENTS
