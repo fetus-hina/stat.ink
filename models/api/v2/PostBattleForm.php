@@ -400,7 +400,7 @@ class PostBattleForm extends Model
         $battle->fest_title_id  = $key2id($this->fest_title, FestTitle::class);
         $battle->fest_exp       = $intval($this->fest_exp);
         $battle->fest_title_after_id = $key2id($this->fest_title_after, FestTitle::class);
-        $battle->fest_exp_after = $intval($this->fest_exp);
+        $battle->fest_exp_after = $intval($this->fest_exp_after);
         $battle->fest_power     = $floatval($this->fest_power);
         $battle->my_team_estimate_fest_power = $intval($this->my_team_estimate_fest_power);
         $battle->his_team_estimate_fest_power = $intval($this->his_team_estimate_fest_power);
