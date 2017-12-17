@@ -97,17 +97,29 @@ POST データは全体で 12MiB 以内である必要があります。
 Note: Value-Types:
 
 - "文字列": "String"
+
   - "_N_ 文字以下": "_N_ characters or few"
+
 - "指定文字列": "Pre-defined string" (key-string)
+
 - "整数": "Integer"
-  - "整数(UNIX時間)": "Integer (UNIX time)"
+
+  - "整数(UNIX時間)": "Integer (UNIX time)" (Seconds from 1970-01-01T00:00:00+00:00 (Jan 1st 1970 00:00:00 GMT/UTC, British Time))
+
   - "_N_ ～": "_N_ or upper"
+
   - "_N_ ～ _M_": "_N_ ≤ (value) ≤ _M_"
+  
 - "数値": "Number"
+
 - "画像バイナリ": "Binary-data of image"
+
 - "構造体": "Structure"
+
 - "配列": "Array"
+
 - "マップ": "Map" (associative array)
+
 
 `lobby`, `mode`, `rule`
 -----------------------
