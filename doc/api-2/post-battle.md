@@ -6,7 +6,7 @@
 |Verb|`POST`|
 |URL|`https://stat.ink/api/v2/battle`|
 |Return-Type|成功した場合 `201 Created` (bodyなし)<br>失敗した場合 `application/json` または `text/html`|
-|認証|[必要](authorization.md)|
+|Auth|[Needed](authorization.md)|
 
 バトルデータをstat.inkに投稿します。
 
@@ -14,7 +14,7 @@
 
 投稿が成功したとき、結果はHTTPレスポンスヘッダに次のように返却されます。
 
-|レスポンスヘッダ|値の例|意味|
+|レスポンスヘッダ<br>Response Header|値の例<br>Example|意味<br>Meaning|
 |-|-|-|
 |`Location`|`https://stat.ink/@username/spl2/42`|ブラウザで表示するバトル詳細ページです|
 |`X-Api-Location`|`https://stat.ink/api/v2/battle/42`|APIで利用するためのURLです|
@@ -22,14 +22,14 @@
 |`X-Battle-Id`|`42`|バトルを識別する番号です|
 
 
-パラメータ
-----------
+Parameters パラメータ
+--------------------
 
 基本的に全てのパラメータは省略可能です。ただし、あまりに内容がない場合はエラーになります。
 
 POST データは全体で 12MiB 以内である必要があります。
 
-|キー|値の型||
+|キー<br>Param. name|値の型<br>Type||
 |-|-|-|
 |`uuid`|文字列(64文字以下)<br>推奨:[UUID](https://tools.ietf.org/html/rfc4122)|バトル重複のチェックに使用します。<br>同一UUIDのPOSTが一定期間内に行われた場合、サーバは保存せずに以前の情報を返します。<br>クライアントはバトルごとに任意のUUIDまたは文字列を生成して付与することができます。<br>クライアントが生成した文字列がUUIDに見えない時はサーバ側でそれを元に適当なUUIDに変換します。|
 |`splatnet_number`|整数(1～)|イカリング2(SplatNet 2)のバトル番号(`battle_number`)を指定します。|
@@ -94,6 +94,20 @@ POST データは全体で 12MiB 以内である必要があります。
 |`start_at`|整数(UNIX時間)|バトル開始日時をunix時間（単位は秒）で指定します。|
 |`end_at`|整数(UNIX時間)|バトル終了日時をunix時間（単位は秒）で指定します。|
 
+Note: Value-Types:
+
+- "文字列": "String"
+  - "_N_ 文字以下": "_N_ characters or few"
+- "指定文字列": "Pre-defined string" (key-string)
+- "整数": "Integer"
+  - "整数(UNIX時間)": "Integer (UNIX time)"
+  - "_N_ ～": "_N_ or upper"
+  - "_N_ ～ _M_": "_N_ ≤ (value) ≤ _M_"
+- "数値": "Number"
+- "画像バイナリ": "Binary-data of image"
+- "構造体": "Structure"
+- "配列": "Array"
+- "マップ": "Map" (associative array)
 
 `lobby`, `mode`, `rule`
 -----------------------
