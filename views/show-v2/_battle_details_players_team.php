@@ -143,73 +143,72 @@ foreach ($players as $i => $player) {
               // }}}
               // name {{{
               (function () use ($battle, $player, $teamKey) : string {
+                $anonymize = true;
                 if ($player->is_me) {
-                  return Html::encode(trim($player->name));
+                  $anonymize = false;
+                } else {
+                  $user = Yii::$app->user;
+                  if ($user->isGuest || $user->identity->id != $battle->user_id) {
+                    $blackoutMode = $battle->user->blackout_list ?? 'always';
+                    switch ($blackoutMode) {
+                      case User::BLACKOUT_NOT_BLACKOUT:
+                        $anonymize = false;
+                        break;
+
+                      case User::BLACKOUT_NOT_PRIVATE:
+                        if (($battle->lobby->key ?? '') === 'private' || ($battle->mode->key ?? '') === 'private') {
+                          $anonymize = false;
+                        } else {
+                          $anonymize = true;
+                        }
+                        break;
+
+                      case User::BLACKOUT_NOT_FRIEND:
+                        if (($battle->lobby->key ?? '') === 'private' || ($battle->mode->key ?? '') === 'private') {
+                          $anonymize = false;
+                        } elseif ($battle->isGachi && ($battle->lobby->key ?? '') === 'squad_4' && ($teamKey === 'my')) {
+                          $anonymize = false;
+                        } else {
+                          $anonymize = true;
+                        }
+                        break;
+
+                      case User::BLACKOUT_ALWAYS:
+                      default:
+                        $anonymize = true;
+                        break;
+                    }
+                  }
                 }
-                $user = Yii::$app->user;
-                if ($user->isGuest || $user->identity->id != $battle->user_id) {
-                  $blackoutMode = $battle->user->blackout_list ?? 'always';
-                  switch ($blackoutMode) {
-                    case User::BLACKOUT_NOT_BLACKOUT:
-                      return Html::encode(trim($player->name));
-
-                    case User::BLACKOUT_NOT_PRIVATE:
-                      if (($battle->lobby->key ?? '') === 'private' || ($battle->mode->key ?? '') === 'private') {
-                        return Html::encode(trim($player->name));
-                      }
-                      // blackout
-                      break;
-
-                    case User::BLACKOUT_NOT_FRIEND:
-                      if (($battle->lobby->key ?? '') === 'private' || ($battle->mode->key ?? '') === 'private') {
-                        return Html::encode(trim($player->name));
-                      }
-                      if ($battle->isGachi && ($battle->lobby->key ?? '') === 'squad_4' && ($teamKey === 'my')) {
-                        return Html::encode(trim($player->name));
-                      }
-                      // blackout
-                      break;
-
-                    case User::BLACKOUT_ALWAYS:
-                    default:
-                      // blackout
-                      break;
-                  }
-                  if (trim($player->splatnet_id) !== '') {
-                    NameAnonymizerAsset::register($this);
-                    return Html::tag(
-                      'span',
-                      Html::encode(str_repeat('*', 10)),
-                      [
-                        'title' => Yii::t('app', 'Anonymized'),
-                        'class' => 'auto-tooltip anonymize',
-                        'data' => [
-                          'anonymize' => (function (string $raw) : string {
-                            return substr(
-                              hash(
-                                'sha256',
-                                (preg_match('/^([0-9a-f]{2}+)[0-9a-f]?$/', $raw, $match))
-                                  ? hex2bin($match[1])
-                                  : $raw
-                              ),
-                              0,
-                              40
-                            );
-                          })(trim($player->splatnet_id)),
-                        ],
-                      ]
-                    );
-                  }
-                  if (trim($player->name) === '') {
-                    return '';
-                  }
+                if (!$anonymize) {
+                  return Html::encode(trim($player->name));
+                } elseif (trim($player->splatnet_id) !== '') {
+                  NameAnonymizerAsset::register($this);
                   return Html::tag(
                     'span',
                     Html::encode(str_repeat('*', 10)),
-                    ['title' => Yii::t('app', 'Masked'), 'class' => 'auto-tooltip']
+                    [
+                      'title' => Yii::t('app', 'Anonymized'),
+                      'class' => 'auto-tooltip anonymize',
+                      'data' => [
+                        'anonymize' => (function (string $raw) : string {
+                          return substr(
+                            hash(
+                              'sha256',
+                              (preg_match('/^([0-9a-f]{2}+)[0-9a-f]?$/', $raw, $match))
+                                ? hex2bin($match[1])
+                                : $raw
+                            ),
+                            0,
+                            40
+                          );
+                        })(trim($player->splatnet_id)),
+                      ],
+                    ]
                   );
+                } else {
+                  return '';
                 }
-                return Html::encode(trim($player->name));
               })(),
               // }}}
             ]));
