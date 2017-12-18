@@ -132,7 +132,9 @@ foreach ($players as $i => $player) {
                   $url,
                   [
                     'class' => 'auto-tooltip',
-                    'title' => sprintf('ID: %s', $player->splatnet_id),
+                    'title' => (trim($player->splatnet_id) !== '')
+                      ? sprintf('ID: %s', $player->splatnet_id)
+                      : '',
                     'style' => [
                       'width' => '1.2em',
                       'height' => 'auto',
@@ -147,7 +149,7 @@ foreach ($players as $i => $player) {
                 if ($player->is_me) {
                   // "me" always shown
                   $anonymize = false;
-                } elseif (trim($player->name) === '' && trim($player->splatnet_id) !== '') {
+                } elseif (trim($player->name) === '') {
                   // We can only show an anonymized name
                   $anonymize = true;
                 } else {
@@ -189,9 +191,9 @@ foreach ($players as $i => $player) {
                     }
                   }
                 }
-                if (!$anonymize) {
+                if (!$anonymize && trim($player->name) !== '') {
                   return Html::encode(trim($player->name));
-                } elseif (trim($player->splatnet_id) !== '') {
+                } else {
                   NameAnonymizerAsset::register($this);
                   return Html::tag(
                     'span',
@@ -211,12 +213,10 @@ foreach ($players as $i => $player) {
                             0,
                             40
                           );
-                        })(trim($player->splatnet_id)),
+                        })($player->anonymizeSeed),
                       ],
                     ]
                   );
-                } else {
-                  return '';
                 }
               })(),
               // }}}

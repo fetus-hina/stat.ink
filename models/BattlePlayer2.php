@@ -233,12 +233,9 @@ class BattlePlayer2 extends ActiveRecord
         return $fmt->asPercent($rate / 100, 2);
     }
 
-    public function getJdenticonHash() : ?string
+    public function getJdenticonHash() : string
     {
-        $id = $this->splatnet_id;
-        if ($id === null) {
-            return null;
-        }
+        $id = $this->getAnonymizeSeed();
         if (preg_match('/^([0-9a-f]{2}+)[0-9a-f]?$/', $id, $match)) {
             $id = hex2bin($match[1]);
         }
@@ -249,15 +246,12 @@ class BattlePlayer2 extends ActiveRecord
         );
     }
 
-    public function getIconUrl(string $ext = 'svg') : ?string
+    public function getIconUrl(string $ext = 'svg') : string
     {
         if ($user = $this->getUser()) {
             return $user->getIconUrl($ext);
         }
         $hash = $this->getJdenticonHash();
-        if ($hash === null) {
-            return null;
-        }
         return Yii::getAlias('@jdenticon') . '/' . $hash . '.' . $ext;
     }
 
@@ -267,6 +261,14 @@ class BattlePlayer2 extends ActiveRecord
             return false;
         }
         return ($this->point == 0);
+    }
+
+    public function getAnonymizeSeed() : string
+    {
+        $value = trim($this->splatnet_id);
+        return ($value !== '')
+            ? $value
+            : hash_hmac('sha256', $this->id, $this->battle_id);
     }
 
     public function toJsonArray()
