@@ -143,7 +143,7 @@ foreach ($players as $i => $player) {
               // }}}
               // name {{{
               (function () use ($battle, $player, $teamKey) : string {
-                $anonymize = true;
+                $anonymize = false;
                 if ($player->is_me) {
                   $anonymize = false;
                 } else {
