@@ -145,10 +145,19 @@ foreach ($players as $i => $player) {
               (function () use ($battle, $player, $teamKey) : string {
                 $anonymize = false;
                 if ($player->is_me) {
+                  // "me" always shown
                   $anonymize = false;
+                } elseif (trim($player->name) === '' && trim($player->splatnet_id) !== '') {
+                  // We can only show an anonymized name
+                  $anonymize = true;
                 } else {
                   $user = Yii::$app->user;
-                  if ($user->isGuest || $user->identity->id != $battle->user_id) {
+                  if (!$user->isGuest && $user->identity->id == $battle->user_id) {
+                    // Logged in user is also battle owner.
+                    // All users' name will be shown
+                    $anonymize = false;
+                  } else {
+                    // respect user's setting
                     $blackoutMode = $battle->user->blackout_list ?? 'always';
                     switch ($blackoutMode) {
                       case User::BLACKOUT_NOT_BLACKOUT:
