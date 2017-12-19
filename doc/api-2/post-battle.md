@@ -75,6 +75,8 @@ POST データは全体で 12MiB 以内である必要があります。
 |`fest_power`|数値(e.g. 1234.5)|フェスパワーを指定します。|
 |`my_team_estimate_fest_power`|整数|自チームの概算フェスパワーを指定します。|
 |`his_team_estimate_fest_power`|整数|敵チームの概算フェスパワーを指定します。|
+|`my_team_fest_theme`|文字列|フェスの自チームの名前を指定します。|
+|`his_team_fest_theme`|文字列|フェスの敵チームの名前を指定します。|
 |`gears`|構造体|プレーヤーのギア構成を指定します。（後述）<br>Specify gear configuration (the player)|
 |`players`|構造体|自分を含めた両チーム8人分のデータを指定します。（後述）|
 |`death_reasons`|マップ|自分が死んだ死因を指定します。（後述）|

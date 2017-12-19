@@ -91,6 +91,8 @@ use yii\helpers\Url;
  * @property integer $fest_power;
  * @property float $my_team_estimate_fest_power;
  * @property float $his_team_estimate_fest_power;
+ * @property integer $my_team_fest_theme_id
+ * @property integer $his_team_fest_theme_id
  * @property integer $headgear_id
  * @property integer $clothing_id
  * @property integer $shoes_id
@@ -553,6 +555,7 @@ class Battle2 extends ActiveRecord
             [['my_team_count', 'his_team_count', 'cash', 'cash_after', 'period', 'version_id', 'bonus_id'], 'integer'],
             [['env_id', 'agent_game_version_id', 'agent_id', 'remote_port', 'star_rank'], 'integer'],
             [['kill_or_assist', 'special', 'gender_id', 'fest_title_id', 'fest_title_after_id'], 'integer'],
+            [['my_team_fest_theme_id', 'his_team_fest_theme_id'], 'integer'],
             [['rank_exp', 'rank_after_exp'], 'integer', 'min' => 0, 'max' => 50],
             [['fest_exp', 'fest_exp_after'], 'integer', 'min' => 0, 'max' => 99],
             [['splatnet_number'], 'integer', 'min' => 1],
@@ -632,6 +635,10 @@ class Battle2 extends ActiveRecord
             ],
             [['fest_title_id', 'fest_title_after_id'], 'exist', 'skipOnError' => true,
                 'targetClass' => FestTitle::class,
+                'targetAttribute' => 'id',
+            ],
+            [['my_team_fest_theme_id', 'his_team_fest_theme_id'], 'exist', 'skipOnError' => true,
+                'targetClass' => Splatfest2Theme::class,
                 'targetAttribute' => 'id',
             ],
         ];
@@ -917,6 +924,16 @@ class Battle2 extends ActiveRecord
         return $this->hasOne(GearConfiguration2::class, ['id' => 'shoes_id']);
     }
 
+    public function getMyTeamFestTheme()
+    {
+        return $this->hasOne(Splatfest2Theme::class, ['id' => 'my_team_fest_theme_id']);
+    }
+
+    public function getHisTeamFestTheme()
+    {
+        return $this->hasOne(Splatfest2Theme::class, ['id' => 'his_team_fest_theme_id']);
+    }
+
     public function getIsMeaningful() : bool
     {
         $props = [
@@ -1152,6 +1169,8 @@ class Battle2 extends ActiveRecord
             'fest_power' => $this->fest_power,
             'my_team_estimate_fest_power' => $this->my_team_estimate_fest_power,
             'his_team_my_team_estimate_fest_power' => $this->his_team_estimate_fest_power,
+            'my_team_fest_theme' => $this->my_team_fest_theme_id ? $this->myTeamFestTheme->name : null,
+            'his_team_fest_theme' => $this->his_team_fest_theme_id ? $this->hisTeamFestTheme->name : null,
             'image_judge' => $this->battleImageJudge
                 ? Url::to(Yii::getAlias('@imageurl') . '/' . $this->battleImageJudge->filename, true)
                 : null,
