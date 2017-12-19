@@ -129,11 +129,13 @@ $this->registerCss('#battle .progress{margin-bottom:0}');
           return null;
         }
         $gender = $model->gender;
-        $format = function ($title, $exp) use ($model, $gender) : string {
+        $theme = $model->myTeamFestTheme;
+        $format = function ($title, $exp) use ($model, $gender, $theme) : string {
           if (!$title) {
             return '?';
           }
-          $name = Yii::t('app-fest', $title->getName($gender), ['***', '***']);
+          $themeName = $theme->name ?? '***';
+          $name = Yii::t('app-fest', $title->getName($gender), [$themeName, $themeName]);
           return ($title->key === 'king' || $exp === null)
             ? $name
             : "{$name} {$exp}";

@@ -394,6 +394,7 @@ return [
     'Team ID' => 'チームID',
     'Team Icon' => 'チームアイコン',
     'Team Inked' => 'チームで塗った面積',
+    'Team {theme}' => '{theme}チーム',
     'Team' => 'チーム',
     'Test' => 'テスト',
     'The address of the web site that linked here (aka "referer")' => '訪問元サイトのURL（リファラ）',

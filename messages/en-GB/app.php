@@ -433,6 +433,7 @@ return [
     'Team Icon' => '',
     'Team ID' => '',
     'Team Inked' => '',
+    'Team {theme}' => '',
     'Test' => '',
     'The address of the web site that linked here (aka "referer")' => '',
     'The icon will be:' => '',

@@ -436,6 +436,7 @@ return [
     'Team Icon' => '',
     'Team ID' => '',
     'Team Inked' => '',
+    'Team {theme}' => '',
     'Test' => 'Prueba',
     'The address of the web site that linked here (aka "referer")' => 'La dirección del sitio web que vincula aquí (también conocido como "referer")',
     'The icon will be:' => '',
