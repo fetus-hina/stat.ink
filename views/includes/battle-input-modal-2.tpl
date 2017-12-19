@@ -157,6 +157,7 @@
                         <option value="area">{{'Splat Zones'|translate:'app-rule2'|escape}}</option>
                         <option value="yagura">{{'Tower Control'|translate:'app-rule2'|escape}}</option>
                         <option value="hoko">{{'Rainmaker'|translate:'app-rule2'|escape}}</option>
+                        <option value="asari">{{'Clam Blitz'|translate:'app-rule2'|escape}}</option>
                       </select>
                       <input type="hidden" id="battle-input2-form--ranked--mode" name="mode" value="gachi">
                     </div>
