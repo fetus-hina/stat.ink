@@ -97,11 +97,11 @@ class FestTitle extends \yii\db\ActiveRecord
         return $this->getFestTitleGenders()->andWhere(['gender_id' => $gender->id])->one()->name;
     }
 
-    public function toJsonArray(Gender $gender = null)
+    public function toJsonArray(Gender $gender = null, string $theme = null)
     {
         return [
             'key' => $this->key,
-            'name' => (function () use ($gender) {
+            'name' => (function () use ($gender, $theme) {
                 if ($gender === null) {
                     return Translator::translateToAll('app-fest', $this->name);
                 }
@@ -111,7 +111,7 @@ class FestTitle extends \yii\db\ActiveRecord
                 if (count($genders) !== 1) {
                     return Translator::translateToAll('app-fest', $this->name);
                 }
-                return Translator::translateToAll('app-fest', array_shift($genders)->name, ['***', '***']);
+                return Translator::translateToAll('app-fest', array_shift($genders)->name, [$theme ?? '***', $theme ?? '***']);
             })(),
         ];
     }

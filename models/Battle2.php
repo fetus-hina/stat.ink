@@ -1162,9 +1162,19 @@ class Battle2 extends ActiveRecord
             'my_team_id' => $this->my_team_id,
             'his_team_id' => $this->his_team_id,
             'gender' => $this->gender ? $this->gender->toJsonArray() : null,
-            'fest_title' => $this->festTitle ? $this->festTitle->toJsonArray($this->gender) : null,
+            'fest_title' => $this->festTitle
+                ? $this->festTitle->toJsonArray(
+                    $this->gender,
+                    $this->my_team_fest_theme_id ? $this->myTeamFestTheme->name : null
+                )
+                : null,
             'fest_exp' => $this->fest_exp,
-            'fest_title_after' => $this->festTitleAfter ? $this->festTitleAfter->toJsonArray($this->gender) : null,
+            'fest_title_after' => $this->festTitleAfter
+                ? $this->festTitleAfter->toJsonArray(
+                    $this->gender,
+                    $this->my_team_fest_theme_id ? $this->myTeamFestTheme->name : null
+                )
+                : null,
             'fest_exp_after' => $this->fest_exp_after,
             'fest_power' => $this->fest_power,
             'my_team_estimate_fest_power' => $this->my_team_estimate_fest_power,
@@ -1203,7 +1213,7 @@ class Battle2 extends ActiveRecord
                 ? null
                 : array_map(
                     function ($model) {
-                        return $model->toJsonArray();
+                        return $model->toJsonArray($this);
                     },
                     $this->battlePlayers
                 ),

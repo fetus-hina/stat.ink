@@ -271,8 +271,11 @@ class BattlePlayer2 extends ActiveRecord
             : hash_hmac('sha256', $this->id, $this->battle_id);
     }
 
-    public function toJsonArray()
+    public function toJsonArray(?Battle2 $battle = null)
     {
+        if (!$battle && $this->fest_title_id) {
+            $battle = $this->battle;
+        }
         return [
             'team'          => $this->is_my_team ? 'my' : 'his',
             'is_me'         => !!$this->is_me,
@@ -289,7 +292,14 @@ class BattlePlayer2 extends ActiveRecord
             'point'         => (string)$this->point === '' ? null : (int)$this->point,
             'name'          => (string)$this->name === '' ? null : $this->name,
             'gender'        => $this->gender_id ? $this->gender->toJsonArray() : null,
-            'fest_title'    => $this->fest_title_id ? $this->festTitle->toJsonArray($this->gender) : null,
+            'fest_title'    => $this->fest_title_id
+                ? $this->festTitle->toJsonArray(
+                    $this->gender,
+                    ($battle && $battle->my_team_fest_theme_id && $battle->his_team_fest_theme_id)
+                        ? ($this->is_my_team ? $battle->myTeamFestTheme->name : $battle->hisTeamFestTheme->name)
+                        : null
+                )
+                : null,
             'splatnet_id'   => (string)$this->splatnet_id === '' ? null : $this->splatnet_id,
             'icon'          => $this->iconUrl,
         ];
