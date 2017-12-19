@@ -96,7 +96,7 @@
                     <input type="text" class="form-control" value="{{$user->api_key|escape}}" readonly>
                     <span class="input-group-btn">
                       {{Html::a(
-                        '<span class="fa fa-repeat"></span>',
+                        '<span class="fa fa-redo"></span>',
                         ['/user/regenerate-apikey'],
                         [
                           'id' => 'regenerate-apikey',
