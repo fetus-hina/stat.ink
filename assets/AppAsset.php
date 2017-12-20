@@ -21,6 +21,7 @@ class AppAsset extends AssetBundle
     public $depends = [
         'app\assets\BabelPolyfillAsset',
         'yii\web\JqueryAsset',
+        'yii\web\YiiAsset',
         'yii\bootstrap\BootstrapAsset',
         'yii\bootstrap\BootstrapPluginAsset',
         'jp3cki\yii2\jqueryColor\JqueryColorAsset',
