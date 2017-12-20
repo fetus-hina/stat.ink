@@ -18,8 +18,8 @@ trait VersionMigration
         string $groupName,
         string $versionTag,
         string $versionName,
-        DateTimeInterface $releasedAt) : int
-    {
+        DateTimeInterface $releasedAt
+    ) : int {
         $this->insert('splatoon_version2', [
             'tag' => $versionTag,
             'name' => $versionName,

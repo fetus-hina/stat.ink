@@ -111,7 +111,10 @@ class FestTitle extends \yii\db\ActiveRecord
                 if (count($genders) !== 1) {
                     return Translator::translateToAll('app-fest', $this->name);
                 }
-                return Translator::translateToAll('app-fest', array_shift($genders)->name, [$theme ?? '***', $theme ?? '***']);
+                return Translator::translateToAll('app-fest', array_shift($genders)->name, [
+                    $theme ?? '***',
+                    $theme ?? '***',
+                ]);
             })(),
         ];
     }

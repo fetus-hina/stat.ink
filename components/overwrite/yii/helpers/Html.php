@@ -25,13 +25,13 @@ class Html extends BaseHtml
                     static::$pushed[] = $href;
                     if ($headers->has('Link')) {
                         $headers->add('Link', sprintf(
-                          '<%s>; rel=preload; as=style',
-                          $href
+                            '<%s>; rel=preload; as=style',
+                            $href
                         ));
                     } else {
                         $headers->set('Link', sprintf(
-                          '<%s>; rel=preload; as=style',
-                          $href
+                            '<%s>; rel=preload; as=style',
+                            $href
                         ));
                     }
                 }
@@ -51,13 +51,13 @@ class Html extends BaseHtml
                     static::$pushed[] = $href;
                     if ($headers->has('Link')) {
                         $headers->add('Link', sprintf(
-                          '<%s>; rel=preload; as=script',
-                          $href
+                            '<%s>; rel=preload; as=script',
+                            $href
                         ));
                     } else {
                         $headers->set('Link', sprintf(
-                          '<%s>; rel=preload; as=script',
-                          $href
+                            '<%s>; rel=preload; as=script',
+                            $href
                         ));
                     }
                 }
