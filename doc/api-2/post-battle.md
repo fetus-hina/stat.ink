@@ -210,6 +210,7 @@ There is a listing page [here](https://stat.ink/api-info/weapon2).
 |`52gal`                 |`50`                  |.52ガロン<br>.52 Gal                                 |                                                                                                     |
 |`96gal`                 |`80`                  |.96ガロン<br>.96 Gal                                 |                                                                                                     |
 |`bold`                  |`0`                   |ボールドマーカー<br>Sploosh-o-matic                  |                                                                                                     |
+|`bottlegeyser`          |                      |ボトルガイザー<br>Squeezer                           |                                                                                                     |
 |`heroshooter_replica`   |`45`                  |ヒーローシューター レプリカ<br>Hero Shot Replica     |                                                                                                     |
 |`jetsweeper`            |`90`                  |ジェットスイーパー<br>Jet Squelcher                  |                                                                                                     |
 |`jetsweeper_custom`     |`91`                  |ジェットスイーパーカスタム<br>Custom Jet Squelcher   |                                                                                                     |

@@ -52,6 +52,7 @@ return [
     'Splattershot Pro' => 'プライムシューター',
     'Splattershot' => 'スプラシューター',
     'Sploosh-o-matic' => 'ボールドマーカー',
+    'Squeezer' => 'ボトルガイザー',
     'Tentatek Splattershot' => 'スプラシューターコラボ',
     // rollers -----
     'Carbon Roller' => 'カーボンローラー',

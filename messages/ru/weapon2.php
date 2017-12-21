@@ -85,6 +85,7 @@ return [
     'Splattershot Jr.' => 'Каплестрел-У',
     'Splattershot Pro' => 'Каплестрел ПРО',
     'Sploosh-o-matic' => 'Плюхотрон',
+    'Squeezer' => 'Бутылятор',
     'Tenta Brella' => 'Зонтент',
     'Tentatek Splattershot' => 'Каплестрел «Щуччи»',
     'Tri-Slosher' => 'Ведроган 3 в 1',

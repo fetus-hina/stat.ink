@@ -85,6 +85,7 @@ return [
     'Splattershot Jr.' => 'Superspetter jr.',
     'Splattershot Pro' => 'Superspetter Pro',
     'Sploosh-o-matic' => 'Spettertuit',
+    'Squeezer' => 'Floeper',
     'Tenta Brella' => 'Kampeerplenzer',
     'Tentatek Splattershot' => 'Tentatek Superspetter',
     'Tri-Slosher' => 'Triomorser',

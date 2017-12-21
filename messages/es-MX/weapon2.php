@@ -86,6 +86,7 @@ return [
     'Splattershot Jr.' => 'Rociador básico',
     'Splattershot Pro' => '',
     'Sploosh-o-matic' => 'Marcador grueso',
+    'Squeezer' => '',
     'Tenta Brella' => '',
     'Tentatek Splattershot' => 'Rociador Tentáctica',
     'Tri-Slosher' => '',

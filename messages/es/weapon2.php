@@ -85,6 +85,7 @@ return [
     'Splattershot Jr.' => 'Lanzatintas novato',
     'Splattershot Pro' => 'Lanzatintas plus',
     'Sploosh-o-matic' => 'Marcador',
+    'Squeezer' => 'Tintopresor',
     'Tenta Brella' => 'Paratintas maxi',
     'Tentatek Splattershot' => 'Lanzatintas B',
     'Tri-Slosher' => 'Derramatic triple',

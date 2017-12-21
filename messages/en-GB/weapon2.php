@@ -85,6 +85,7 @@ return [
     'Splattershot Jr.' => '',
     'Splattershot Pro' => '',
     'Sploosh-o-matic' => '',
+    'Squeezer' => '',
     'Tenta Brella' => '',
     'Tentatek Splattershot' => '',
     'Tri-Slosher' => '',

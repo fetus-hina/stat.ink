@@ -85,6 +85,7 @@ return [
     'Splattershot Jr.' => 'Liquéficateur ultra',
     'Splattershot Pro' => 'Liquéficateur pro',
     'Sploosh-o-matic' => '',
+    'Squeezer' => '',
     'Tenta Brella' => '',
     'Tentatek Splattershot' => 'Liquéficateur Tentatek',
     'Tri-Slosher' => 'Seauceur trio',

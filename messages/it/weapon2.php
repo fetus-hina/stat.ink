@@ -85,6 +85,7 @@ return [
     'Splattershot Jr.' => 'Sparacolore recluta',
     'Splattershot Pro' => 'Splasher élite',
     'Sploosh-o-matic' => 'Marker',
+    'Squeezer' => 'Strizzer',
     'Tenta Brella' => 'Sparatenda',
     'Tentatek Splattershot' => 'Splasher logo',
     'Tri-Slosher' => 'Secchiostro triplo',

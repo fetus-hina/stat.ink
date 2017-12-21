@@ -85,6 +85,7 @@ return [
     'Splattershot Jr.' => 'Junior-Kleckser',
     'Splattershot Pro' => 'Profi-Kleckser',
     'Sploosh-o-matic' => 'Disperser',
+    'Squeezer' => 'Quetscher',
     'Tenta Brella' => 'Camp-Pluviator',
     'Tentatek Splattershot' => 'Tentatek-Kleckser',
     'Tri-Slosher' => '3R-Schwapper',
