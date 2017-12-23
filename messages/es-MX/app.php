@@ -498,6 +498,7 @@ return [
     'User Name' => 'Nombre de Usuario',
     'Users' => 'Usuarios',
     'Use your profile icon' => '',
+    'Version' => '',
     'Version {0}' => '',
     'View Settings' => 'Ver la Configuración',
     'Weapon' => 'Arma',

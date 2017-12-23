@@ -491,6 +491,7 @@ return [
     'User Name' => '',
     'Users' => '',
     'Use your profile icon' => '',
+    'Version' => '',
     'Version {0}' => '',
     'View Settings' => '',
     'Weapon' => '',
