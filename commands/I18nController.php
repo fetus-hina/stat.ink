@@ -107,7 +107,7 @@ class I18nController extends Controller
         $file = [];
         $file[] = '<?php';
         $file[] = '/**';
-        $file[] = ' * @copyright Copyright (C) 2015-' . gmdate('Y', time() + 9 * 86400) . ' AIZAWA Hina';
+        $file[] = ' * @copyright Copyright (C) 2015-' . gmdate('Y', time() + 9 * 3600) . ' AIZAWA Hina';
         $file[] = ' * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT';
         foreach ($this->getContributors($outPath) as $contributor) {
             $file[] = ' * @author ' . $contributor;
