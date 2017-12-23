@@ -205,10 +205,28 @@ class PostBattleForm extends Model
             [['uuid'], 'string', 'max' => 64],
             [['automated'], 'boolean', 'trueValue' => 'yes', 'falseValue' => 'no'],
             [['automated'], 'filter',
-                'filter' => function ($value) {
-                    return ($value === 'yes' || $value === 'no')
-                        ? $value
-                        : ((strtolower($this->agent) === 'ikalog') ? 'yes' : 'no');
+                'filter' => function ($value) : string {
+                    if ($value === 'yes' || $value === 'no') {
+                        return $value;
+                    }
+                    $agent = strtolower((string)$this->agent);
+                    if (in_array($agent, ['ikalog', 'squidtracks', 'splatnet2statink'], true)) {
+                        return 'yes';
+                    }
+                    if ($this->splatnet_json) {
+                        try {
+                            $json = is_string($this->splatnet_json)
+                                ? Json::decode($this->splatnet_json)
+                                : $this->splatnet_json;
+                            if (is_array($json)) {
+                                return isset($json['battle_number']) ? 'yes' : 'no';
+                            } elseif ($json instanceof \stdClass) {
+                                return isset($json->battle_number) ? 'yes' : 'no';
+                            }
+                        } catch (\Exception $e) {
+                        }
+                    }
+                    return 'no';
                 },
             ],
             [['my_point'], 'integer', 'min' => 0],
