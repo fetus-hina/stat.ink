@@ -1245,6 +1245,108 @@ class Battle2 extends ActiveRecord
         ];
     }
 
+    public function toIkaLogCsv() : array
+    {
+        // https://github.com/hasegaw/IkaLog/blob/b2e3f3f1315719ad42837ffdb2362680ae09a5dc/ikalog/outputs/csv.py#L130
+        // t_unix, t_str, map, rule, won
+
+        // t_str = t.strftime("%Y,%m,%d,%H,%M")
+        // t_str を埋め込むときはそれぞれ別フィールドになるようにする（"" でくくって一つにしたりしない）
+        $t = strtotime($this->end_at ?: $this->at);
+        return [
+            (string)$t,
+            date('Y', $t),
+            date('m', $t),
+            date('d', $t),
+            date('H', $t),
+            date('i', $t),
+            $this->map ? Yii::t('app-map2', $this->map->name) : '?',
+            $this->rule ? Yii::t('app-rule2', $this->rule->name) : '?',
+            $this->is_win === true
+                ? Yii::t('app', 'Win')
+                : ($this->is_win === false
+                    ? Yii::t('app', 'Lose')
+                    : Yii::t('app', 'Unknown')
+                ),
+        ];
+    }
+
+    public function toCsvArray() : array
+    {
+        $t = strtotime($this->end_at ?: $this->at);
+        $mode = (function () : string {
+            if ($this->lobby && $this->lobby->key === 'private') {
+                return 'Private Battle';
+            }
+            if (!$this->mode) {
+                return '';
+            }
+            switch ($this->mode->key) {
+                case 'private':
+                    return 'Private Battle';
+                
+                case 'gachi':
+                    if (!$this->lobby) {
+                        return 'Ranked Battle';
+                    }
+                    switch ($this->lobby->key) {
+                        case 'squad_2':
+                            return 'League Battle (Twin)';
+
+                        case 'squad_4':
+                            return 'League Battle (Quad)';
+                    }
+                    return 'Ranked Battle';
+
+                case 'fest':
+                    if ($this->lobby && $this->lobby === 'squad_4') {
+                        return 'Splatfest (Team)';
+                    }
+                    return 'Splatfest';
+
+                default:
+                    return $this->mode->name;
+            }
+            return '';
+        })();
+
+        return [
+            $t,
+            date('Y/m/d H:i:s', $t),
+            Yii::t('app-rule2', $mode),
+            $this->rule ? Yii::t('app-rule2', $this->rule->name) : '',
+            $this->map ? Yii::t('app-map2', $this->map->name) : '',
+            $this->weapon ? Yii::t('app-weapon2', $this->weapon->name) : '',
+            $this->is_win === null ? '' : Yii::t('app', $this->is_win ? 'Win' : 'Lose'),
+            $this->is_knockout === null
+                ? ''
+                : Yii::t('app', $this->is_knockout ? 'Knockout' : 'Time is up' ),
+            $this->my_team_id,
+            $this->rank
+                ? trim(sprintf(
+                    '%s %s',
+                    Yii::t('app-rank2', $this->rank->name),
+                    $this->rank_exp !== null ? $this->rank_exp : ''
+                ))
+                : '',
+            $this->rankAfter
+                ? trim(sprintf(
+                    '%s %s',
+                    Yii::t('app-rank2', $this->rankAfter->name),
+                    $this->rank_after_exp !== null ? $this->rank_after_exp : ''
+                ))
+                : '',
+            $this->estimate_gachi_power,
+            $this->league_point,
+            $this->level,
+            $this->kill,
+            $this->death,
+            $this->kill_or_assist,
+            $this->special,
+            $this->inked,
+        ];
+    }
+
     public function getPrettyMode()
     {
         $key = implode('-', [

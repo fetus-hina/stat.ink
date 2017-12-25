@@ -97,6 +97,7 @@ class UserController extends Controller
         return [
             'clear-login-with-twitter' => [ 'class' => $prefix . '\ClearLoginWithTwitterAction' ],
             'download'      => [ 'class' => $prefix . '\DownloadAction' ],
+            'download2'     => [ 'class' => $prefix . '\Download2Action' ],
             'edit-icon'     => [ 'class' => $prefix . '\EditIconAction' ],
             'edit-password' => [ 'class' => $prefix . '\EditPasswordAction' ],
             'edit-profile'  => [ 'class' => $prefix . '\EditProfileAction' ],

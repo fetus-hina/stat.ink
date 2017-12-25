@@ -476,7 +476,14 @@
         </p>
         <h2>{{'Export'|translate:'app'|escape}} (Splatoon 2)</h2>
         <p>
-          Not implemented yet
+          <a href="{{url route="/user/download2" type="csv"}}" class="btn btn-default btn-block">
+            <span class="far fa-file-excel fa-fw"></span>
+            {{'CSV'|translate:'app'|escape}}
+          </a>
+          <a href="{{url route="/user/download2" type="ikalog-csv"}}" class="btn btn-default btn-block">
+            <span class="far fa-file-excel fa-fw"></span>
+            {{'CSV (IkaLog compat.)'|translate:'app'|escape}}
+          </a>
         </p>
       </div>
     </div>
