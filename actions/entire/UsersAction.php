@@ -277,7 +277,7 @@ class UsersAction extends BaseAction
     }
 
     private function getAgentVersion2(
-        string $name, 
+        string $name,
         DateTimeImmutable $startAt,
         DateTimeImmutable $endAt,
         int $minId,
