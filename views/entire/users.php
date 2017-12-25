@@ -44,7 +44,7 @@ FlotTimeAsset::register($this);
   </ul>
   <div class="tab-content">
     <div role="tabpanel" class="tab-pane active" id="spl2">
-      <?= $this->render('_users_2', []) . "\n" ?>
+      <?= $this->render('_users_2', ['agents' => $agents2]) . "\n" ?>
     </div>
     <div role="tabpanel" class="tab-pane" id="spl1">
       <?= $this->render('_users_1', compact('combineds', 'agentNames', 'agents')) . "\n" ?>

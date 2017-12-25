@@ -1,7 +1,6 @@
 <?php
-use app\models\Battle2;
-use yii\db\Query;
 use yii\helpers\Html;
+use yii\helpers\Json;
 
 $fmt = Yii::$app->formatter;
 ?>
@@ -20,26 +19,8 @@ $fmt = Yii::$app->formatter;
 <h2 id="agent-2">
   <?= Html::encode(Yii::t('app', 'User Agents in last 24 hours')) . "\n" ?>
 </h2>
-<?php
-$endAt = (new \DateTimeImmutable())
-  ->setTimeZone(new \DateTimeZone(Yii::$app->timeZone))
-  ->setTimestamp($_SERVER['REQUEST_TIME'] ?? time());
-$startAt = $endAt->sub(new \DateInterval('PT24H'));
-$query = Battle2::find()
-  ->innerJoinWith(['agent'], false)
-  ->where(['and',
-    ['>=', '{{battle2}}.[[created_at]]', $startAt->format(\DateTime::ATOM)],
-    ['<', '{{battle2}}.[[created_at]]', $endAt->format(\DateTime::ATOM)],
-  ])
-  ->select([
-    'name' => '{{agent}}.[[name]]',
-    'battles' => 'COUNT(*)',
-    'users' => 'COUNT(DISTINCT {{battle2}}.[[user_id]])',
-  ])
-  ->groupBy(['{{agent}}.[[name]]'])
-  ->orderBy(['[[battles]]' => SORT_DESC, '[[users]]' => SORT_DESC, '[[name]]' => SORT_DESC])
-  ->asArray();
-?>
+<?php /* Eli のスクリプトが簡単に取得できるように準API的にJSONを吐いておく */ ?>
+<?= Html::tag('script', Json::encode($agents), ['type' => 'application/json', 'id' => 'agents-2-data']) . "\n" ?>
 <div class="table-responsive">
   <table class="table table-striped">
     <thead>
@@ -53,45 +34,25 @@ $query = Battle2::find()
       </tr>
     </thead>
     <tbody>
-<?php foreach ($query->all() as $agent) { ?>
-<?php
-$versions = Battle2::find()
-  ->innerJoinWith(['agent'], false)
-  ->where(['and',
-    ['{{agent}}.[[name]]' => $agent['name']],
-    ['>=', '{{battle2}}.[[created_at]]', $startAt->format(\DateTime::ATOM)],
-    ['<', '{{battle2}}.[[created_at]]', $endAt->format(\DateTime::ATOM)],
-  ])
-  ->select([
-    'version' => 'MAX({{agent}}.[[version]])',
-    'battles' => 'COUNT(*)',
-    'users' => 'COUNT(DISTINCT {{battle2}}.[[user_id]])',
-  ])
-  ->groupBy(['{{battle2}}.[[agent_id]]'])
-  ->asArray()
-  ->all();
-usort($versions, function (array $a, array $b) : int {
-  return version_compare($b['version'], $a['version']);
-});
-?>
-<?php if (count($versions)) { ?>
-<?php foreach ($versions as $i => $version) { ?>
+<?php foreach ($agents['agents'] as $agent) { ?>
+<?php foreach ($agent['versions'] as $i => $version) { ?>
       <tr>
 <?php if ($i === 0) { ?>
+<?php $rowspan = count($agent['versions']) ?>
         <?= Html::tag(
           'th',
           Html::encode($agent['name']),
-          ['rowspan' => count($versions), 'scope' => 'row']
+          ['rowspan' => $rowspan, 'scope' => 'row']
         ) . "\n" ?>
         <?= Html::tag(
           'td',
           Html::encode($fmt->asInteger($agent['battles'])),
-          ['rowspan' => count($versions), 'class' => 'text-right']
+          ['rowspan' => $rowspan, 'class' => 'text-right']
         ) . "\n" ?>
         <?= Html::tag(
           'td',
           Html::encode($fmt->asInteger($agent['users'])),
-          ['rowspan' => count($versions), 'class' => 'text-right']
+          ['rowspan' => $rowspan, 'class' => 'text-right']
         ) . "\n" ?>
 <?php } ?>
         <?= Html::tag(
@@ -110,7 +71,6 @@ usort($versions, function (array $a, array $b) : int {
           ['class' => 'text-right']
         ) . "\n" ?>
       </tr>
-<?php } ?>
 <?php } ?>
 <?php } ?>
     </tbody>
