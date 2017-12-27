@@ -1320,7 +1320,7 @@ class Battle2 extends ActiveRecord
             $this->is_win === null ? '' : Yii::t('app', $this->is_win ? 'Win' : 'Lose'),
             $this->is_knockout === null
                 ? ''
-                : Yii::t('app', $this->is_knockout ? 'Knockout' : 'Time is up' ),
+                : Yii::t('app', $this->is_knockout ? 'Knockout' : 'Time is up'),
             $this->my_team_id,
             $this->rank
                 ? trim(sprintf(
