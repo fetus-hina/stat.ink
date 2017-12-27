@@ -134,7 +134,6 @@ class SnsWidget extends Widget
             return Html::tag(
                 'span',
                 implode(' ', [
-                    '%s %s',
                     Html::tag('span', '', ['class' => 'fa fa-fw fa-anchor']),
                     Html::encode(Yii::t('app', 'Permalink')),
                 ]),
