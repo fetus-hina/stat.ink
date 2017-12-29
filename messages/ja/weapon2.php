@@ -96,4 +96,5 @@ return [
     'Hero Brella Replica' => 'ヒーローシェルター レプリカ',
     'Splat Brella' => 'パラシェルター',
     'Tenta Brella' => 'キャンピングシェルター',
+    'Undercover Brella' => 'スパイガジェット',
 ];

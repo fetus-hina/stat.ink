@@ -89,4 +89,5 @@ return [
     'Tenta Brella' => 'Paratintas maxi',
     'Tentatek Splattershot' => 'Lanzatintas B',
     'Tri-Slosher' => 'Derramatic triple',
+    'Undercover Brella' => '',
 ];

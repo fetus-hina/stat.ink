@@ -89,4 +89,5 @@ return [
     'Tenta Brella' => 'Kampeerplenzer',
     'Tentatek Splattershot' => 'Tentatek Superspetter',
     'Tri-Slosher' => 'Triomorser',
+    'Undercover Brella' => '',
 ];
