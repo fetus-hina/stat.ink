@@ -278,7 +278,7 @@ There is a listing page [here](https://stat.ink/api-info/weapon2).
 |`campingshelter`        |`6010`                |キャンピングシェルター<br>Tenta Brella               |                                                                                                     |
 |`heroshelter_replica`   |`6005`                |ヒーローシェルター レプリカ<br>Hero Brella Replica   |                                                                                                     |
 |`parashelter`           |`6000`                |パラシェルター<br>Splat Brella                       |                                                                                                     |
-|`spygadget`             |                      |スパイガジェット<br>Undercover Brella                |                                                                                                     |
+|`spygadget`             |`6020`                |スパイガジェット<br>Undercover Brella                |                                                                                                     |
 <!--endreplace-->
 
 
