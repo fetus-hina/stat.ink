@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2015-2017 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2018 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  */
@@ -66,6 +66,7 @@ return [
     'Inkbrush' => 'パブロ',
     'Krak-On Splat Roller' => 'スプラローラーコラボ',
     'Octobrush' => 'ホクサイ',
+    'Octobrush Nouveau' => 'ホクサイ・ヒュー',
     'Splat Roller' => 'スプラローラー',
     // chargers -----
     'Bamboozler 14 Mk I' => '14式竹筒銃・甲',

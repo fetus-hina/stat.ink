@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2015-2017 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2018 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  */
@@ -65,7 +65,8 @@ return [
     'Nozzlenose' => '',
     'N-ZAP \'85' => '',
     'N-ZAP \'89' => '',
-    'Octobrush' => '',
+    'Octobrush' => 'Pincel caligrafía',
+    'Octobrush Nouveau' => 'Pincel caligrafía maestro',
     'Range Blaster' => 'Telelanzamotas',
     'Rapid Blaster' => 'Turbolanzamotas',
     'Rapid Blaster Pro' => 'Turbolanzamotas Pro',
