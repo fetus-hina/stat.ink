@@ -397,4 +397,6 @@ return [
     'Imperial Kaiser' => 'エンペリアルカイザー',
     'Kaiser Cuff' => 'カイザーカフ',
     'King Bench Kaiser' => 'キングベンチカイザー',
+
+    'Garden Gear' => 'マクレGT',
 ];
