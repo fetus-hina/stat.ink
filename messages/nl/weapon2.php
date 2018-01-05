@@ -59,6 +59,7 @@ return [
     'Jet Squelcher' => 'Straalplonzer',
     'Krak-On Splat Roller' => 'Krak-On Klodderroller',
     'L-3 Nozzlenose' => 'L-3 Stompsnuit',
+    'L-3 Nozzlenose D' => '',
     'Luna Blaster' => 'Lunablaster',
     'Mini Splatling' => 'Mini-Spetling',
     'Nozzlenose' => '',

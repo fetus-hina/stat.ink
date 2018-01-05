@@ -59,6 +59,7 @@ return [
     'Jet Squelcher' => 'Megabarredora',
     'Krak-On Splat Roller' => 'Rodillo básico B',
     'L-3 Nozzlenose' => 'Tintambor ligero',
+    'L-3 Nozzlenose D' => 'Tintambor ligero D',
     'Luna Blaster' => 'Ultradevastador',
     'Mini Splatling' => 'Tintralladora ligera',
     'Nozzlenose' => '',

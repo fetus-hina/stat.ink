@@ -60,6 +60,7 @@ return [
     'Jet Squelcher' => 'Megasoplador',
     'Krak-On Splat Roller' => 'Rodillo básico Meddux',
     'L-3 Nozzlenose' => 'Manguera ligera',
+    'L-3 Nozzlenose D' => 'Manguera ligera D',
     'Luna Blaster' => 'Lanzamotas Nova',
     'Mini Splatling' => 'Garabateador',
     'Nozzlenose' => '',

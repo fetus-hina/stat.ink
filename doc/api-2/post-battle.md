@@ -235,6 +235,7 @@ There is a listing page [here](https://stat.ink/api-info/weapon2).
 |`rapid_elite`           |`250`                 |Rブラスターエリート<br>Rapid Blaster Pro             |                                                                                                     |
 |`h3reelgun`             |`310`                 |H3リールガン<br>H-3 Nozzlenose                       |                                                                                                     |
 |`l3reelgun`             |`300`                 |L3リールガン<br>L-3 Nozzlenose                       |                                                                                                     |
+|`l3reelgun_d`           |`301`                 |L3リールガンD<br>L-3 Nozzlenose D                    |                                                                                                     |
 |`dualsweeper`           |`5030`                |デュアルスイーパー<br>Dualie Squelchers              |                                                                                                     |
 |`heromaneuver_replica`  |`5015`                |ヒーローマニューバー レプリカ<br>Hero Dualie Replicas|                                                                                                     |
 |`kelvin525`             |`5020`                |ケルビン525<br>Glooga Dualies                        |                                                                                                     |
@@ -251,6 +252,7 @@ There is a listing page [here](https://stat.ink/api-info/weapon2).
 |`variableroller_foil`   |`1031`                |ヴァリアブルローラーフォイル<br>Foil Flingza Roller  |                                                                                                     |
 |`herobrush_replica`     |`1115`                |ヒーローブラシ レプリカ<br>Herobrush Replica         |                                                                                                     |
 |`hokusai`               |`1110`                |ホクサイ<br>Octobrush                                |                                                                                                     |
+|`hokusai_hue`           |`1111`                |ホクサイ・ヒュー<br>Octobrush Nouveau                |                                                                                                     |
 |`pablo`                 |`1100`                |パブロ<br>Inkbrush                                   |                                                                                                     |
 |`pablo_hue`             |`1101`                |パブロ・ヒュー<br>Inkbrush Nouveau                   |互換性のため `publo_hue` も受け付けます<br>Also accepts `publo_hue` for compatibility                |
 |`bamboo14mk1`           |`2050`                |14式竹筒銃・甲<br>Bamboozler 14 Mk I                 |                                                                                                     |

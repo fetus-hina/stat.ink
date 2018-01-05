@@ -59,6 +59,7 @@ return [
     'Jet Squelcher' => 'Sweeper',
     'Krak-On Splat Roller' => 'Rullo splat logo',
     'L-3 Nozzlenose' => 'Triplete compatto',
+    'L-3 Nozzlenose D' => 'Triplete compatto D',
     'Luna Blaster' => 'Blaster lunar',
     'Mini Splatling' => 'Mini Splatling',
     'Nozzlenose' => '',

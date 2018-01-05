@@ -59,6 +59,7 @@ return [
     'Jet Squelcher' => 'Nettoyeur XL',
     'Krak-On Splat Roller' => 'Rouleau griffé',
     'L-3 Nozzlenose' => 'Arroseur léger',
+    'L-3 Nozzlenose D' => 'Arroseur léger Cétacé',
     'Luna Blaster' => 'Proxiblaster',
     'Mini Splatling' => 'Badigeonneur XS',
     'Nozzlenose' => '',

@@ -59,6 +59,7 @@ return [
     'Jet Squelcher' => 'Плескарь',
     'Krak-On Splat Roller' => 'Сплат-валик «Кра-Кен»',
     'L-3 Nozzlenose' => 'Каплетрон-компакт',
+    'L-3 Nozzlenose D' => '',
     'Luna Blaster' => 'Лунобластер',
     'Mini Splatling' => 'Брызгомет-М',
     'Nozzlenose' => '',

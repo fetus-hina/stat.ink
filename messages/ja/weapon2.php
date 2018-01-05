@@ -40,6 +40,7 @@ return [
     'Hero Shot Replica' => 'ヒーローシューター レプリカ',
     'Jet Squelcher' => 'ジェットスイーパー',
     'L-3 Nozzlenose' => 'L3リールガン',
+    'L-3 Nozzlenose D' => 'L3リールガンD',
     'Luna Blaster' => 'ノヴァブラスター',
     'N-ZAP \'85' => 'N-ZAP85',
     'N-ZAP \'89' => 'N-ZAP89',

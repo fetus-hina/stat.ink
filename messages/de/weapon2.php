@@ -59,6 +59,7 @@ return [
     'Jet Squelcher' => 'Platscher',
     'Krak-On Splat Roller' => 'Medusa-Klecksroller',
     'L-3 Nozzlenose' => 'L3 Tintenwerfer',
+    'L-3 Nozzlenose D' => 'L3 Tintenwerfer D',
     'Luna Blaster' => 'Luna-Blaster',
     'Mini Splatling' => 'Klecks-Splatling',
     'Nozzlenose' => '',
