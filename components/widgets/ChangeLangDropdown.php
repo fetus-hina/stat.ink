@@ -104,7 +104,7 @@ class ChangeLangDropdown extends Widget
                                     ]
                                 )
                             );
-                            // }}}
+                        // }}}
                         },
                         Language::find()->orderBy(['name' => SORT_ASC])->all()
                     )),
