@@ -27,6 +27,7 @@ return [
     'Custom Jet Squelcher' => 'Méganettoyeur modifié',
     'Custom Splattershot Jr.' => 'Liquéficateur ultra modifié',
     'Dapple Dualies' => '',
+    'Dapple Dualies Nouveau' => '',
     'Dualies' => '',
     'Dualie Squelchers' => '',
     'Dynamo Roller' => '',

@@ -27,6 +27,7 @@ return [
     'Custom Jet Squelcher' => 'Platscher SE',
     'Custom Splattershot Jr.' => 'Junior-Kleckser Plus',
     'Dapple Dualies' => 'Sprenkler',
+    'Dapple Dualies Nouveau' => '',
     'Dualies' => '',
     'Dualie Squelchers' => 'Dual-Platscher',
     'Dynamo Roller' => 'Dynaroller',

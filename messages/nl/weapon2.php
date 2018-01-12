@@ -27,6 +27,7 @@ return [
     'Custom Jet Squelcher' => 'Gemodde Straalplonzer',
     'Custom Splattershot Jr.' => 'Gemodde Superspetter jr.',
     'Dapple Dualies' => 'Dubbelspatters',
+    'Dapple Dualies Nouveau' => '',
     'Dualies' => '',
     'Dualie Squelchers' => 'Dubbelplonzers',
     'Dynamo Roller' => 'Dynamoroller',

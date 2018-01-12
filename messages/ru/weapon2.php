@@ -27,6 +27,7 @@ return [
     'Custom Jet Squelcher' => 'Плескарь «Понт»',
     'Custom Splattershot Jr.' => 'Каплестрел-У 2.0',
     'Dapple Dualies' => 'Трубастер',
+    'Dapple Dualies Nouveau' => '',
     'Dualies' => '',
     'Dualie Squelchers' => 'Спурт-плескари',
     'Dynamo Roller' => 'Мотовалик',

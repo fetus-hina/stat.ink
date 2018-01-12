@@ -27,6 +27,7 @@ return [
     'Custom Jet Squelcher' => '',
     'Custom Splattershot Jr.' => '',
     'Dapple Dualies' => '',
+    'Dapple Dualies Nouveau' => '',
     'Dualies' => '',
     'Dualie Squelchers' => '',
     'Dynamo Roller' => '',

@@ -27,6 +27,7 @@ return [
     'Custom Jet Squelcher' => 'Sweeper CM',
     'Custom Splattershot Jr.' => 'Sparacolore logo',
     'Dapple Dualies' => 'Ripolpella duplo',
+    'Dapple Dualies Nouveau' => '',
     'Dualies' => 'Armi "duplo"',
     'Dualie Squelchers' => 'Sweeper duplo',
     'Dynamo Roller' => 'Rullo dinamo',

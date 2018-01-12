@@ -27,6 +27,7 @@ return [
     'Custom Jet Squelcher' => 'Megasoplador adaptado',
     'Custom Splattershot Jr.' => 'Rociador básico adaptado',
     'Dapple Dualies' => '',
+    'Dapple Dualies Nouveau' => '',
     'Dualies' => '',
     'Dualie Squelchers' => '',
     'Dual Squelcher' => 'Soplador doble',

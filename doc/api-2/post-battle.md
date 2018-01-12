@@ -242,6 +242,7 @@ There is a listing page [here](https://stat.ink/api-info/weapon2).
 |`maneuver`              |`5010`                |スプラマニューバー<br>Splat Dualies                  |互換性のため `manueuver` も受け付けます<br>Also accepts `manueuver` for compatibility                |
 |`maneuver_collabo`      |`5011`                |スプラマニューバーコラボ<br>Enperry Splat Dualies    |互換性のため `manueuver_collabo` も受け付けます<br>Also accepts `manueuver_collabo` for compatibility|
 |`sputtery`              |`5000`                |スパッタリー<br>Dapple Dualies                       |                                                                                                     |
+|`sputtery_hue`          |`5001`                |スパッタリー・ヒュー<br>Dapple Dualies Nouveau       |                                                                                                     |
 |`carbon`                |`1000`                |カーボンローラー<br>Carbon Roller                    |                                                                                                     |
 |`dynamo`                |`1020`                |ダイナモローラー<br>Dynamo Roller                    |                                                                                                     |
 |`dynamo_tesla`          |`1021`                |ダイナモローラーテスラ<br>Gold Dynamo Roller         |                                                                                                     |

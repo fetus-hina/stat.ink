@@ -27,6 +27,7 @@ return [
     'Custom Jet Squelcher' => 'Nettoyeur XL modifié',
     'Custom Splattershot Jr.' => 'Liquidateur Sr.',
     'Dapple Dualies' => 'Double moucheteur',
+    'Dapple Dualies Nouveau' => '',
     'Dualies' => '',
     'Dualie Squelchers' => 'Double nettoyeur',
     'Dynamo Roller' => 'Dynamo-rouleau',

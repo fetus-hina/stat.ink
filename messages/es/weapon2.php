@@ -27,6 +27,7 @@ return [
     'Custom Jet Squelcher' => 'Megabarredora SP',
     'Custom Splattershot Jr.' => 'Lanzatintas novato B',
     'Dapple Dualies' => 'Atomizador dual',
+    'Dapple Dualies Nouveau' => '',
     'Dualies' => '',
     'Dualie Squelchers' => 'Barredora dual',
     'Dynamo Roller' => 'Dinamorrodillo',
