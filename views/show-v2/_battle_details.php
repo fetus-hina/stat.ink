@@ -408,7 +408,7 @@ $this->registerCss('#battle .progress{margin-bottom:0}');
             if ($model->my_team_point !== null && $model->his_team_point !== null) {
               $myPoint = Yii::t('app', '{point}p', ['point' => $model->my_team_point]);
               $hisPoint = Yii::t('app', '{point}p', ['point' => $model->his_team_point]);
-            } elseif ($model->map->area !== null) {
+            } elseif ($model->map && $model->map->area !== null) {
               $myPoint = Yii::t('app', '~{point}p', [
                 'point' => Yii::$app->formatter->asInteger(round($model->map->area * $myPct / 100)),
               ]);
