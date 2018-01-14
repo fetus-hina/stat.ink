@@ -58,7 +58,7 @@ if ($model->my_team_percent !== null && $model->his_team_percent !== null) {
         $hisTitle = Yii::t('app', '{point}p', [
             'point' => Yii::$app->formatter->asInteger((int)$model->his_team_point),
         ]);
-    } elseif ($model->map->area !== null) {
+    } elseif ($model->map && $model->map->area !== null) {
         $myTitle = Yii::t('app', '~{point}p', [
             'point' => Yii::$app->formatter->asInteger(round(
                 $model->my_team_percent * $model->map->area / 100
