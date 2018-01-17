@@ -164,7 +164,16 @@ class ApiV2BattleController extends Controller
                 'splatnet_asc',
                 'splatnet_desc',
             ]],
-            [['count'], 'integer', 'min' => 1, 'max' => 50],
+            [['count'], 'integer', 'min' => 1, 'max' => 50,
+                'when' => function ($model) : bool {
+                    return $model->only !== 'splatnet_number';
+                },
+            ],
+            [['count'], 'integer', 'min' => 1, 'max' => 1000,
+                'when' => function ($model) : bool {
+                    return $model->only === 'splatnet_number';
+                },
+            ],
         ]);
         if ($model->hasErrors()) {
             $res = Yii::$app->response;
