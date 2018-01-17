@@ -110,7 +110,16 @@ class ApiV2BattleController extends Controller
                 'splatnet_asc',
                 'splatnet_desc',
             ]],
-            [['count'], 'integer', 'min' => 1, 'max' => 50],
+            [['count'], 'integer', 'min' => 1, 'max' => 50,
+                'when' => function ($model) : bool {
+                    return $model->only !== 'splatnet_number';
+                },
+            ],
+            [['count'], 'integer', 'min' => 1, 'max' => 1000,
+                'when' => function ($model) : bool {
+                    return $model->only === 'splatnet_number';
+                },
+            ],
         ]);
         if ($model->hasErrors()) {
             $res = Yii::$app->response;
@@ -262,12 +271,12 @@ class ApiV2BattleController extends Controller
         $res = Yii::$app->response;
         $res->format = 'compact-json';
         if ($model->only === 'splatnet_number') {
-            return array_map(
-                function ($model) {
-                    return (int)$model->splatnet_number;
-                },
-                $query->all()
-            );
+            $query->select(['splatnet_number'])->asArray();
+            $result = [];
+            foreach ($query->each(100) as $row) {
+                $result[] = (int)$row['splatnet_number'];
+            }
+            return $result;
         } else {
             return array_map(
                 function ($model) {
