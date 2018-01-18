@@ -145,11 +145,13 @@ class Weapons2Action extends BaseAction
         foreach (Rule2::find()->orderBy(['id' => SORT_ASC])->all() as $rule) {
             $weapons = $this->getEntireWeaponsByRule($rule, $form);
             $rules[] = (object)[
-                'key' => $rule->key,
-                'name' => Yii::t('app-rule2', $rule->name),
-                'data' => $weapons,
-                'sub' => $this->convertWeapons2Sub($weapons),
-                'special' => $this->convertWeapons2Special($weapons),
+                'key'       => $rule->key,
+                'name'      => Yii::t('app-rule2', $rule->name),
+                'data'      => $weapons,
+                'sub'       => $this->convertWeapons2Sub($weapons),
+                'special'   => $this->convertWeapons2Special($weapons),
+                'type'      => $this->convertWeapons2Type($weapons),
+                'category'  => $this->convertWeapons2Category($weapons),
             ];
         }
         return $rules;
@@ -164,6 +166,10 @@ class Weapons2Action extends BaseAction
             'subweapon_name'    => 'MAX({{subweapon2}}.[[name]])',
             'special_key'       => 'MAX({{special2}}.[[key]])',
             'special_name'      => 'MAX({{special2}}.[[name]])',
+            'type_key'          => 'MAX({{weapon_type2}}.[[key]])',
+            'type_name'         => 'MAX({{weapon_type2}}.[[name]])',
+            'category_key'      => 'MAX({{weapon_category2}}.[[key]])',
+            'category_name'     => 'MAX({{weapon_category2}}.[[name]])',
             'count'             => 'SUM({{stat_weapon2_use_count}}.[[battles]])',
             'avg_kill'          => sprintf(
                 '(%s / NULLIF(%s, 0))',
@@ -222,6 +228,8 @@ class Weapons2Action extends BaseAction
                 'weapon',
                 'weapon.subweapon',
                 'weapon.special',
+                'weapon.type',
+                'weapon.type.category',
             ])
             ->andWhere(['{{stat_weapon2_use_count}}.[[rule_id]]' => $rule->id])
             ->groupBy('{{stat_weapon2_use_count}}.[[weapon_id]]');
@@ -314,6 +322,14 @@ class Weapons2Action extends BaseAction
                     'special'   => (object)[
                         'key'   => $model['special_key'],
                         'name'  => Yii::t('app-special2', $model['special_name']),
+                    ],
+                    'type'   => (object)[
+                        'key'   => $model['type_key'],
+                        'name'  => Yii::t('app-weapon2', $model['type_name']),
+                    ],
+                    'category'   => (object)[
+                        'key'   => $model['category_key'],
+                        'name'  => Yii::t('app-weapon2', $model['category_name']),
                     ],
                     'count'     => (int)$model['count'],
                     'avg_kill'  => (float)$model['avg_kill'],
@@ -463,6 +479,102 @@ class Weapons2Action extends BaseAction
                     $o->kill_ratio = ($o->sum_kill > 0 ? 99.99 : null);
                 } else {
                     $o->kill_ratio = $o->sum_kill / $o->sum_death;
+                }
+            }
+        }
+
+        usort($ret, function ($a, $b) {
+            foreach (['count', 'wp', 'avg_kill', 'avg_death'] as $key) {
+                $tmp = $b->$key - $a->$key;
+                if ($tmp != 0) {
+                    return $tmp;
+                }
+            }
+            return strnatcasecmp($a->name, $b->name);
+        });
+        return $ret;
+    }
+
+    private function convertWeapons2Type(\stdClass $in) : array
+    {
+        $weapons = $in->weapons;
+        $mergeKeys = [
+            'count',
+            'sum_kill',
+            'sum_death',
+            'sum_special',
+            'win_count',
+        ];
+        $ret = [];
+        foreach ($weapons as $weapon) {
+            if (!isset($ret[$weapon->type->key])) {
+                $tmp = clone $weapon;
+                $tmp->key = $weapon->type->key;
+                $tmp->name = $weapon->type->name;
+                unset($tmp->subweapon);
+                unset($tmp->special);
+                unset($tmp->type);
+                unset($tmp->category);
+                $ret[$weapon->type->key] = $tmp;
+            } else {
+                $tmp = $ret[$weapon->type->key];
+                foreach ($mergeKeys as $key) {
+                    $tmp->$key += $weapon->$key;
+                }
+
+                if ($tmp->count > 0) {
+                    $tmp->wp = $tmp->win_count * 100 / $tmp->count;
+                    $tmp->avg_kill = $tmp->sum_kill / $tmp->count;
+                    $tmp->avg_death = $tmp->sum_death / $tmp->count;
+                    $tmp->avg_special = $tmp->sum_special / $tmp->count;
+                }
+            }
+        }
+
+        usort($ret, function ($a, $b) {
+            foreach (['count', 'wp', 'avg_kill', 'avg_death'] as $key) {
+                $tmp = $b->$key - $a->$key;
+                if ($tmp != 0) {
+                    return $tmp;
+                }
+            }
+            return strnatcasecmp($a->name, $b->name);
+        });
+        return $ret;
+    }
+
+    private function convertWeapons2Category(\stdClass $in) : array
+    {
+        $weapons = $in->weapons;
+        $mergeKeys = [
+            'count',
+            'sum_kill',
+            'sum_death',
+            'sum_special',
+            'win_count',
+        ];
+        $ret = [];
+        foreach ($weapons as $weapon) {
+            if (!isset($ret[$weapon->category->key])) {
+                $tmp = clone $weapon;
+                $tmp->key = $weapon->category->key;
+                $tmp->name = $weapon->category->name;
+                unset($tmp->subweapon);
+                unset($tmp->special);
+                unset($tmp->type);
+                unset($tmp->category);
+                $ret[$weapon->category->key] = $tmp;
+            } else {
+                $tmp = $ret[$weapon->category->key];
+                foreach ($mergeKeys as $key) {
+                    $tmp->$key += $weapon->$key;
+                }
+
+                if ($tmp->count > 0) {
+                    $tmp->wp = $tmp->win_count * 100 / $tmp->count;
+                    $tmp->avg_kill = $tmp->sum_kill / $tmp->count;
+                    $tmp->avg_death = $tmp->sum_death / $tmp->count;
+                    $tmp->avg_special = $tmp->sum_special / $tmp->count;
                 }
             }
         }

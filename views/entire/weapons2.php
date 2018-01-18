@@ -82,7 +82,12 @@ END_JS
           '#weapon-' . $row->key
         );
       },
-      $entire
+      array_filter(
+        $entire,
+        function ($rule) : bool {
+          return $rule->data->player_count > 0;
+        }
+      )
     )) . "\n" ?>
   </p>
   <h3 id="trends">
@@ -386,6 +391,276 @@ END_JS
           },
           'value' => function ($model) : string {
             return Yii::$app->formatter->asDecimal($model->inked_per_min, 2);
+          },
+          // }}}
+        ],
+      ],
+      // }}}
+    ]) . "\n" ?>
+  </div>
+  <div class="table-responsive table-responsive-force">
+    <?= GridView::widget([
+      // {{{
+      'tableOptions' => ['class' => 'table table-striped table-condensed table-sortable'],
+      'layout' => '{items}',
+      'dataProvider' => new ArrayDataProvider([
+        'allModels' => $rule->type,
+        'pagination' => false,
+        'sort' => false,
+      ]),
+      'columns' => [
+        [
+          'label' => Yii::t('app', 'Category'), // {{{
+          'attribute' => 'name',
+          'headerOptions' => [
+            'data-sort' => 'string',
+          ],
+          // }}}
+        ],
+        [
+          'label' => Yii::t('app', 'Players'), // {{{
+          'attribute' => 'count',
+          'format' => 'integer',
+          'headerOptions' => [
+            'data-sort' => 'int',
+          ],
+          'contentOptions' => function ($model) use ($rule) {
+            return [
+              'class' => 'text-right auto-tooltip',
+              'title' => Yii::$app->formatter->asPercent($model->count / $rule->data->player_count, 2),
+              'data-sort-value' => $model->count,
+            ];
+          },
+          // }}}
+        ],
+        [
+          'label' => Yii::t('app', 'Win %'), // {{{
+          'headerOptions' => [
+            'data-sort' => 'float',
+          ],
+          'contentOptions' => function ($model) : array {
+            return [
+              'class' => 'text-right',
+              'data-sort-value' => $model->wp,
+            ];
+          },
+          'value' => function ($model) : string {
+            return Yii::$app->formatter->asPercent($model->wp / 100, 2);
+          },
+          // }}}
+        ],
+        [
+          'label' => Yii::t('app', 'Avg Kills'), // {{{
+          'headerOptions' => [
+            'data-sort' => 'float',
+          ],
+          'contentOptions' => function ($model) : array {
+            return [
+              'class' => 'text-right',
+              'data-sort-value' => $model->avg_kill ?? null,
+            ];
+          },
+          'value' => function ($model) : string {
+            if (($model->avg_kill ?? null) === null) {
+              return '';
+            }
+            return Yii::$app->formatter->asDecimal($model->avg_kill, 2);
+          },
+          // }}}
+        ],
+        [
+          'label' => Yii::t('app', 'Avg Deaths'), // {{{
+          'headerOptions' => [
+            'data-sort' => 'float',
+          ],
+          'contentOptions' => function ($model) : array {
+            return [
+              'class' => 'text-right',
+              'data-sort-value' => $model->avg_death ?? null,
+            ];
+          },
+          'value' => function ($model) : string {
+            if (($model->avg_death ?? null) === null) {
+              return '';
+            }
+            return Yii::$app->formatter->asDecimal($model->avg_death, 2);
+          },
+          // }}}
+        ],
+        [
+          'label' => Yii::t('app', 'Kill Ratio'), // {{{
+          'headerOptions' => [
+            'data-sort' => 'float',
+          ],
+          'contentOptions' => function ($model) : array {
+            return [
+              'class' => 'text-right',
+              'data-sort-value' => $model->kill_ratio ?? null,
+            ];
+          },
+          'format' => 'raw',
+          'value' => function ($model) : string {
+            if (($model->kill_ratio ?? null) === null) {
+              return '';
+            }
+            return implode(' ', [
+              Html::encode(Yii::$app->formatter->asDecimal($model->kill_ratio, 3)),
+              $this->render('/includes/kill_ratio_indicator', ['value' => $model->kill_ratio]),
+            ]);
+          },
+          // }}}
+        ],
+        [
+          'label' => Yii::t('app', 'Avg Specials'), // {{{
+          'headerOptions' => [
+            'data-sort' => 'float',
+          ],
+          'contentOptions' => function ($model) : array {
+            return [
+              'class' => 'text-right',
+              'data-sort-value' => $model->avg_special ?? null,
+            ];
+          },
+          'value' => function ($model) : string {
+            if (($model->avg_special ?? null) === null) {
+              return '';
+            }
+            return Yii::$app->formatter->asDecimal($model->avg_special, 2);
+          },
+          // }}}
+        ],
+      ],
+      // }}}
+    ]) . "\n" ?>
+  </div>
+  <div class="table-responsive table-responsive-force">
+    <?= GridView::widget([
+      // {{{
+      'tableOptions' => ['class' => 'table table-striped table-condensed table-sortable'],
+      'layout' => '{items}',
+      'dataProvider' => new ArrayDataProvider([
+        'allModels' => $rule->category,
+        'pagination' => false,
+        'sort' => false,
+      ]),
+      'columns' => [
+        [
+          'label' => Yii::t('app', 'Category'), // {{{
+          'attribute' => 'name',
+          'headerOptions' => [
+            'data-sort' => 'string',
+          ],
+          // }}}
+        ],
+        [
+          'label' => Yii::t('app', 'Players'), // {{{
+          'attribute' => 'count',
+          'format' => 'integer',
+          'headerOptions' => [
+            'data-sort' => 'int',
+          ],
+          'contentOptions' => function ($model) use ($rule) {
+            return [
+              'class' => 'text-right auto-tooltip',
+              'title' => Yii::$app->formatter->asPercent($model->count / $rule->data->player_count, 2),
+              'data-sort-value' => $model->count,
+            ];
+          },
+          // }}}
+        ],
+        [
+          'label' => Yii::t('app', 'Win %'), // {{{
+          'headerOptions' => [
+            'data-sort' => 'float',
+          ],
+          'contentOptions' => function ($model) : array {
+            return [
+              'class' => 'text-right',
+              'data-sort-value' => $model->wp,
+            ];
+          },
+          'value' => function ($model) : string {
+            return Yii::$app->formatter->asPercent($model->wp / 100, 2);
+          },
+          // }}}
+        ],
+        [
+          'label' => Yii::t('app', 'Avg Kills'), // {{{
+          'headerOptions' => [
+            'data-sort' => 'float',
+          ],
+          'contentOptions' => function ($model) : array {
+            return [
+              'class' => 'text-right',
+              'data-sort-value' => $model->avg_kill ?? null,
+            ];
+          },
+          'value' => function ($model) : string {
+            if (($model->avg_kill ?? null) === null) {
+              return '';
+            }
+            return Yii::$app->formatter->asDecimal($model->avg_kill, 2);
+          },
+          // }}}
+        ],
+        [
+          'label' => Yii::t('app', 'Avg Deaths'), // {{{
+          'headerOptions' => [
+            'data-sort' => 'float',
+          ],
+          'contentOptions' => function ($model) : array {
+            return [
+              'class' => 'text-right',
+              'data-sort-value' => $model->avg_death ?? null,
+            ];
+          },
+          'value' => function ($model) : string {
+            if (($model->avg_death ?? null) === null) {
+              return '';
+            }
+            return Yii::$app->formatter->asDecimal($model->avg_death, 2);
+          },
+          // }}}
+        ],
+        [
+          'label' => Yii::t('app', 'Kill Ratio'), // {{{
+          'headerOptions' => [
+            'data-sort' => 'float',
+          ],
+          'contentOptions' => function ($model) : array {
+            return [
+              'class' => 'text-right',
+              'data-sort-value' => $model->kill_ratio ?? null,
+            ];
+          },
+          'format' => 'raw',
+          'value' => function ($model) : string {
+            if (($model->kill_ratio ?? null) === null) {
+              return '';
+            }
+            return implode(' ', [
+              Html::encode(Yii::$app->formatter->asDecimal($model->kill_ratio, 3)),
+              $this->render('/includes/kill_ratio_indicator', ['value' => $model->kill_ratio]),
+            ]);
+          },
+          // }}}
+        ],
+        [
+          'label' => Yii::t('app', 'Avg Specials'), // {{{
+          'headerOptions' => [
+            'data-sort' => 'float',
+          ],
+          'contentOptions' => function ($model) : array {
+            return [
+              'class' => 'text-right',
+              'data-sort-value' => $model->avg_special ?? null,
+            ];
+          },
+          'value' => function ($model) : string {
+            if (($model->avg_special ?? null) === null) {
+              return '';
+            }
+            return Yii::$app->formatter->asDecimal($model->avg_special, 2);
           },
           // }}}
         ],
