@@ -7,6 +7,7 @@
 
 return [
     '.52 Gal' => '.52 Kaliter',
+    '.52 Gal Deco' => '.52 Kaliter Deco',
     '.96 Gal' => '.96 Kaliter',
     'Aerospray MG' => 'Kladderwerper',
     'Aerospray RG' => 'Kladderwerper Pro',
@@ -74,7 +75,7 @@ return [
     'Rollers' => '',
     'Shooters' => '',
     'Slosher' => 'Morser',
-    'Slosher Deco' => '',
+    'Slosher Deco' => 'Morser Deco',
     'Sloshers' => '',
     'Sloshing Machine' => 'Klotstrommel',
     'Splash-o-matic' => 'Spetterspuit',

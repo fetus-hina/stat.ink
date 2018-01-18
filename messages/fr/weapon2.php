@@ -7,6 +7,7 @@
 
 return [
     '.52 Gal' => 'Calibre 2000',
+    '.52 Gal Deco' => 'Calibre 2000 chic',
     '.96 Gal' => 'Calibre 3000',
     'Aerospray MG' => 'Aérogun',
     'Aerospray RG' => 'Aérogun premium',

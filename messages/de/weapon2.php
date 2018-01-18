@@ -7,6 +7,7 @@
 
 return [
     '.52 Gal' => '.52 Gallon',
+    '.52 Gal Deco' => '.52 Gallon Deko',
     '.96 Gal' => '.96 Gallon',
     'Aerospray MG' => 'Airbrush MG',
     'Aerospray RG' => 'Airbrush RG',

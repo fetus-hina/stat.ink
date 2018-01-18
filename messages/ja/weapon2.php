@@ -20,6 +20,7 @@ return [
     'Sloshers' => 'スロッシャー',
     'Splatlings' => 'スピナー',
     // shooters -----
+    '.52 Gal Deco' => '.52ガロンデコ',
     '.52 Gal' => '.52ガロン',
     '.96 Gal' => '.96ガロン',
     'Aerospray MG' => 'プロモデラーMG',

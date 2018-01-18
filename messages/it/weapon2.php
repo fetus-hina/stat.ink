@@ -7,6 +7,7 @@
 
 return [
     '.52 Gal' => 'Calibro 2000',
+    '.52 Gal Deco' => 'Calibro 2000 DX',
     '.96 Gal' => 'Calibro 3000',
     'Aerospray MG' => 'Aerografo',
     'Aerospray RG' => 'Aerografo élite',
