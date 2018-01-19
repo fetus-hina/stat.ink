@@ -31,7 +31,7 @@ POST データは全体で 12MiB 以内である必要があります。
 
 |キー<br>Param. name|値の型<br>Type||
 |-|-|-|
-|`uuid`|文字列(64文字以下)<br>推奨:[UUID](https://tools.ietf.org/html/rfc4122)|バトル重複のチェックに使用します。<br>同一UUIDのPOSTが一定期間内に行われた場合、サーバは保存せずに以前の情報を返します。<br>クライアントはバトルごとに任意のUUIDまたは文字列を生成して付与することができます。<br>クライアントが生成した文字列がUUIDに見えない時はサーバ側でそれを元に適当なUUIDに変換します。|
+|`uuid`|文字列(64文字以下)<br>推奨:[UUID](https://tools.ietf.org/html/rfc4122)|バトル重複のチェックに使用します。<br>同一UUIDのPOSTが一定期間内に行われた場合、サーバは保存せずに以前の情報を返します。（後述）|
 |`splatnet_number`|整数(1～)|イカリング2(SplatNet 2)のバトル番号(`battle_number`)を指定します。|
 |`lobby`|指定文字列|どのロビーからバトルを行ったかを指定します。（後述）|
 |`mode`|指定文字列|どのプレーモードでバトルを行ったかを指定します。（後述）|
@@ -121,6 +121,76 @@ Note: Value-Types:
 - "配列": "Array"
 
 - "マップ": "Map" (associative array)
+
+`uuid`
+------
+
+`uuid` が指定されるとき、サーバは次のように振る舞います。<br>
+If you set a `uuid`, stat.ink behaves as follows.
+
+```
+if already_has_same_uuid_battle?        // 同じUUIDのバトルがある?
+  then
+    if is_same_user? and is_recently?   // 同じユーザで最近投稿された?
+      then
+        [ skip_register_new_battle ]    // 新しいバトルを登録しない
+        return "HTTP 201 Created"
+
+[ register_new_battle ]                 // 新しいバトルを登録する
+return "HTTP 201 Created"
+```
+
+「最近」は現在の所、1日(86400秒)です。<br>
+"recently" means 1 day (86400 seconds) at this time. (There is no consideration for DST.)
+
+クライアントは次のように生成して送信することを推奨します。<br>
+I strongly recommend the client generate and transmit UUID as follows:
+
+- スタンドアロンアプリケーション / Standalone Application (like IkaLog, IkaRec or "stat.ink web client")
+
+  - ランダムなUUID(UUID v4)を生成する<br>Generate a random-based UUID (UUID version 4)
+
+  - 独自の名前空間を定義の上、UUID v5を生成する<br>Define your own namespace-UUID and generate UUID version 5 with that NS-UUID
+
+  - 何も送信しない<br>Nothing generate
+
+- イカリング2ベースのアプリケーション / SplatNet 2-based Application (like SquidTracks or splatnet2statink)
+
+  - 専用の名前空間 `73cf052a-fd0b-11e7-a5ee-001b21a098c2` を利用して UUID v5 を生成する<br>Generate a UUID version 5 with namespace `73cf052a-fd0b-11e7-a5ee-001b21a098c2`
+
+    - 値には `バトル番号(battle_number)` `@` `プレーヤーID(principal_id)` を使用します。（例: `42@abc123`）<br>
+      Use `battle_number` `@` `principal_id`. (Example: `42@abc123`)<br>
+      `uuid_v5("73cf052a-fd0b-11e7-a5ee-001b21a098c2", sprintf("%d@%s", battle_id, principal_id))`
+
+    - この名前空間はこのフォーマットにのみ利用してください。<br>
+      Please use this namespace-UUID for this format only.
+
+  - 独自の名前空間を定義の上、UUID v5を生成する<br>Define your own namespace-UUID and generate UUID version 5 with that NS-UUID
+
+
+| 種類<br>App type             | UUID version | 名前空間<br>Namespace                  | 生成元の値<br>generate from                          |
+|------------------------------|--------------|----------------------------------------|------------------------------------------------------|
+| スタンドアロン<br>Standalone | version 4    | N/A                                    | N/A (Random)                                         |
+| スタンドアロン<br>Standalone | version 5    | 独自<br>You defined                    | 独自<br>You defined (like `seqencial_id@install_id`) |
+| イカリング2<br>SplatNet 2    | version 5    | `73cf052a-fd0b-11e7-a5ee-001b21a098c2` | `battle_number@principal_id` (e.g. `42@abc123`)      |
+| イカリング2<br>SplatNet 2    | version 5    | 独自<br>You defined                    | 独自<br>You defined                                  |
+
+
+UUID v5 （名前空間 `73cf052a-fd0b-11e7-a5ee-001b21a098c2` を利用するとき）の生成値の例<br>
+Example for UUID v5 (if use namespace `73cf052a-fd0b-11e7-a5ee-001b21a098c2`):
+
+| `battle_number` | User's `principal_id` | UUID (generated)                       |
+|-----------------|-----------------------|----------------------------------------|
+| `1`             | `abc123`              | `adbeb6a9-c314-58f6-9396-293a06fb2d5b` |
+| `42`            | `abc123`              | `666cdcb7-aad2-5bc6-bb02-940d2c2f8301` |
+| `12345`         | `abc123`              | `8f9df1f6-bfdc-5852-99d2-2fce58326733` |
+| `1`             | `3f6fb10a91b0c551`    | `829040da-a42f-567f-bb12-d83626ef827b` |
+| `42`            | `3f6fb10a91b0c551`    | `fcf512db-63c0-590c-888b-6c1a5fc6ec3f` |
+| `12345`         | `3f6fb10a91b0c551`    | `52bfe526-b275-5873-8f8a-b0b374b070ba` |
+
+
+参考: [frozenpandaman/splatnet2statink#30](https://github.com/frozenpandaman/splatnet2statink/issues/30#issuecomment-358935305)
+
 
 
 `lobby`, `mode`, `rule`
