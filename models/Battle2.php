@@ -528,8 +528,8 @@ class Battle2 extends ActiveRecord
         if ($value === '') {
             return Uuid::v4()->formatAsString();
         }
-        if (preg_match('/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i', $value)) {
-            return strtolower($value);
+        if (preg_match('/^\{?[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\}?$/i', $value)) {
+            return strtolower(trim($value, '{}'));
         }
         return Uuid::v5(static::CLIENT_UUID_NAMESPACE, $value);
     }
