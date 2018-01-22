@@ -5,7 +5,7 @@
 |-|-|
 |Verb|`POST`|
 |URL|`https://stat.ink/api/v2/battle`|
-|Return-Type|成功した場合 `201 Created` (bodyなし)<br>失敗した場合 `application/json` または `text/html`|
+|Return-Type|成功した場合 `201 Created` (bodyなし)<br>失敗した場合 `application/json` または `text/html`<br>既に存在した場合 `302 Found`|
 |Auth|[Needed](authorization.md)|
 
 バトルデータをstat.inkに投稿します。
@@ -134,7 +134,7 @@ if already_has_same_uuid_battle?        // 同じUUIDのバトルがある?
     if is_same_user? and is_recently?   // 同じユーザで最近投稿された?
       then
         [ skip_register_new_battle ]    // 新しいバトルを登録しない
-        return "HTTP 201 Created"
+        return "HTTP 302 Found"
 
 [ register_new_battle ]                 // 新しいバトルを登録する
 return "HTTP 201 Created"
