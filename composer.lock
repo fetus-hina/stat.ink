@@ -93,7 +93,7 @@
             "version": "v1.7.1",
             "source": {
                 "type": "git",
-                "url": "git@github.com:zenorocha/clipboard.js.git",
+                "url": "https://github.com/zenorocha/clipboard.js.git",
                 "reference": "b6e6b80ab07eab03ce0d277515b3ed540773a330"
             },
             "dist": {
@@ -2784,7 +2784,6 @@
                 "MIT"
             ],
             "description": "Easy to use GIT wrapper for PHP.",
-            "abandoned": true,
             "time": "2017-03-09T03:08:46+00:00"
         },
         {
@@ -5085,12 +5084,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-debug.git",
-                "reference": "bddd214ca5567b2fa0fa1d64613417c75601bf76"
+                "reference": "dc4cedb465d5f6965d121200f1495727bfd7d543"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-debug/zipball/bddd214ca5567b2fa0fa1d64613417c75601bf76",
-                "reference": "bddd214ca5567b2fa0fa1d64613417c75601bf76",
+                "url": "https://api.github.com/repos/yiisoft/yii2-debug/zipball/dc4cedb465d5f6965d121200f1495727bfd7d543",
+                "reference": "dc4cedb465d5f6965d121200f1495727bfd7d543",
                 "shasum": ""
             },
             "require": {
@@ -5124,7 +5123,7 @@
                 "debugger",
                 "yii2"
             ],
-            "time": "2017-12-05T07:36:55+00:00"
+            "time": "2018-01-18T16:03:52+00:00"
         },
         {
             "name": "yiisoft/yii2-gii",
@@ -5132,12 +5131,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-gii.git",
-                "reference": "f15b8dce4ef577c250112cf06b4616cbb2aca4ea"
+                "reference": "eff0d4f859b4dce7947dc9ec74ca963024c3c188"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-gii/zipball/f15b8dce4ef577c250112cf06b4616cbb2aca4ea",
-                "reference": "f15b8dce4ef577c250112cf06b4616cbb2aca4ea",
+                "url": "https://api.github.com/repos/yiisoft/yii2-gii/zipball/eff0d4f859b4dce7947dc9ec74ca963024c3c188",
+                "reference": "eff0d4f859b4dce7947dc9ec74ca963024c3c188",
                 "shasum": ""
             },
             "require": {
@@ -5177,7 +5176,7 @@
                 "gii",
                 "yii2"
             ],
-            "time": "2017-12-22T23:53:40+00:00"
+            "time": "2018-01-23T11:15:52+00:00"
         }
     ],
     "aliases": [],
