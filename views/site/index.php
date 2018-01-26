@@ -99,11 +99,6 @@ PaintballAsset::register($this);
     </div>
   </div>
 <?php if (Yii::$app->language === 'ja-JP'): ?>
-  <div class="bg-danger" style="margin-bottom:15px;padding:15px;border-radius:10px">
-    <p style="margin-bottom:0">
-      ガチアサリ対応のため、SquidTracks 0.3.6以降・splatnet2statink 0.2.3以降にアップデートしてください。
-    </p>
-  </div>
   <div class="bg-warning" style="margin-bottom:15px;padding:15px;border-radius:10px">
     <p>
       イカリング2からの取り込みを検討されている方は、次のようなアプリをご利用ください。（自己責任）
@@ -124,11 +119,6 @@ PaintballAsset::register($this);
     </p>
   </div>
 <?php else: ?>
-  <div class="bg-danger" style="margin-bottom:15px;padding:15px;border-radius:10px">
-    <p style="margin-bottom:0">
-      Please update to SquidTracks 0.3.6 or newer, splatnet2statink 0.2.3 or newer to support Clam Blitz.
-    </p>
-  </div>
   <div class="bg-warning" style="margin-bottom:15px;padding:15px;border-radius:10px">
     <p>
       You can import automatically from SplatNet 2, use these apps: (USE AT YOUR OWN RISK)
