@@ -71,6 +71,7 @@ return [
     'Octobrush Nouveau' => 'Kalligraf Fresco',
     'Range Blaster' => 'Fern-Blaster',
     'Rapid Blaster' => 'Turbo-Blaster',
+    'Rapid Blaster Deco' => 'Turbo-Blaster Deko',
     'Rapid Blaster Pro' => 'Turbo-Blaster Plus',
     'Rollers' => '',
     'Shooters' => '',

@@ -71,6 +71,7 @@ return [
     'Octobrush Nouveau' => '',
     'Range Blaster' => 'Teleblaster',
     'Rapid Blaster' => 'Flitsblaster',
+    'Rapid Blaster Deco' => 'Flitsblaster Deco',
     'Rapid Blaster Pro' => 'Flitsblaster Pro',
     'Rollers' => '',
     'Shooters' => '',

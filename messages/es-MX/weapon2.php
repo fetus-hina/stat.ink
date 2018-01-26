@@ -72,6 +72,7 @@ return [
     'Octobrush Nouveau' => 'Pincel caligrafía maestro',
     'Range Blaster' => 'Telelanzamotas',
     'Rapid Blaster' => 'Turbolanzamotas',
+    'Rapid Blaster Deco' => 'Turbolanzamotas chic',
     'Rapid Blaster Pro' => 'Turbolanzamotas Pro',
     'Rollers' => 'Rodillos',
     'Shooters' => 'Rociadors',

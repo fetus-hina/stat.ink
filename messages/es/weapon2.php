@@ -71,6 +71,7 @@ return [
     'Octobrush Nouveau' => 'Brocha maestra',
     'Range Blaster' => 'Teledevastador',
     'Rapid Blaster' => 'Devastador exprés',
+    'Rapid Blaster Deco' => 'Devastador exprés DX',
     'Rapid Blaster Pro' => 'Superdevastador',
     'Rollers' => 'Rodillos',
     'Shooters' => 'Lanzatintas',

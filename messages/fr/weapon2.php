@@ -71,6 +71,7 @@ return [
     'Octobrush Nouveau' => 'Épinceau brosse nuancé',
     'Range Blaster' => 'Éclablaster XL',
     'Rapid Blaster' => 'Turboblaster',
+    'Rapid Blaster Deco' => 'Turboblaster chic',
     'Rapid Blaster Pro' => 'Turboblaster pro',
     'Rollers' => 'Rouleau',
     'Shooters' => 'Lanceur',

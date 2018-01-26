@@ -71,6 +71,7 @@ return [
     'Octobrush Nouveau' => 'Арт-кисть «НуВо»',
     'Range Blaster' => 'Дальнобластер',
     'Rapid Blaster' => 'Бластермат',
+    'Rapid Blaster Deco' => 'Бластермат «Деко»',
     'Rapid Blaster Pro' => 'Бластермат ПРО',
     'Rollers' => '',
     'Shooters' => '',

@@ -71,6 +71,7 @@ return [
     'Octobrush Nouveau' => '',
     'Range Blaster' => 'Éclablasteur LP',
     'Rapid Blaster' => 'Turboblasteur',
+    'Rapid Blaster Deco' => 'Turboblasteur chic',
     'Rapid Blaster Pro' => 'Turboblasteur pro',
     'Rollers' => '',
     'Shooters' => '',

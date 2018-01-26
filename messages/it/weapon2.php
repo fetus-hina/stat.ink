@@ -71,6 +71,7 @@ return [
     'Octobrush Nouveau' => 'Tinturicchio master',
     'Range Blaster' => 'Blaster a distanza',
     'Rapid Blaster' => 'Blaster rapido',
+    'Rapid Blaster Deco' => 'Blaster rapido DX',
     'Rapid Blaster Pro' => 'Blaster élite',
     'Rollers' => '',
     'Shooters' => '',

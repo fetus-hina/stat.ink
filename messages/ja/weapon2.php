@@ -47,6 +47,7 @@ return [
     'N-ZAP \'85' => 'N-ZAP85',
     'N-ZAP \'89' => 'N-ZAP89',
     'Range Blaster' => 'ロングブラスター',
+    'Rapid Blaster Deco' => 'ラピッドブラスターデコ',
     'Rapid Blaster Pro' => 'Rブラスターエリート',
     'Rapid Blaster' => 'ラピッドブラスター',
     'Splash-o-matic' => 'シャープマーカー',
