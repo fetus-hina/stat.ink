@@ -14,6 +14,6 @@ class IndexAction extends ViewAction
 {
     public function run()
     {
-        return $this->controller->render('index.tpl', []);
+        return $this->controller->render('index', []);
     }
 }
