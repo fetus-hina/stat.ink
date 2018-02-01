@@ -5,6 +5,7 @@ use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
 use jp3cki\yii2\flot\FlotAsset;
 use jp3cki\yii2\flot\FlotStackAsset;
+use jp3cki\yii2\flot\FlotSymbolAsset;
 use jp3cki\yii2\flot\FlotTimeAsset;
 use yii\bootstrap\ActiveForm;
 use yii\data\ArrayDataProvider;
@@ -23,6 +24,7 @@ $this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink']);
 FlotAsset::register($this);
 FlotTimeAsset::register($this);
 FlotStackAsset::register($this);
+FlotSymbolAsset::register($this);
 JqueryStupidTableAsset::register($this);
 
 $asset = AppOptAsset::register($this);
@@ -455,6 +457,46 @@ $this->registerCss('.progress{margin-bottom:0}');
       <?= Html::encode(Yii::t('app', 'Inking Performance')) ?>:
       <a href="https://twitter.com/splatoon_weapon/status/958523893878149121" target="_blank">https://twitter.com/splatoon_weapon/status/958523893878149121</a>
     </p>
+    <div>
+      <?= Html::tag(
+        'h5',
+        Html::encode(Yii::t('app', 'Inking Performance vs Win %')),
+        [
+          'id' => sprintf('ink-performance-%s', $rule->key),
+          'class' => 'text-center',
+        ]
+      ) . "\n" ?>
+<?php $_list = array_map(
+  function ($model) : array {
+    return [
+      (float)$model->ink_performance,
+      (float)$model->wp,
+      $model->name,
+      (int)$model->count
+    ];
+  },
+  $rule->data->weapons
+);
+usort($_list, function ($a, $b) {
+  return $a[0] <=> $b[0];
+});
+$jsonId = sprintf('inkperformance-%s-data', $rule->key);
+?>
+      <?= Html::tag(
+        'script',
+        Json::encode($_list),
+        [
+          'type' => 'application/json',
+          'id' => $jsonId,
+        ]
+      ) . "\n" ?>
+      <?= Html::tag('div', '', [
+        'class' => 'graph graph-inkperformance',
+        'data' => [
+          'source' => $jsonId,
+        ]
+      ]) . "\n" ?>
+    </div>
 <?php } ?>
   </div>
   <div class="table-responsive table-responsive-force">

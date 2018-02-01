@@ -192,6 +192,7 @@ return [
     'In session' => '開催中',
     'Inked' => '塗面積',
     'Inked/min' => '塗/分',
+    'Inking Performance vs Win %' => '塗り性能と勝率',
     'Inking Performance' => '塗り性能',
     'Input new battle results' => 'バトルの登録',
     'Integrate' => '連携',
