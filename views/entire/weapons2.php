@@ -159,6 +159,15 @@ END_JS
     ) . "\n" ?>
   </p>
   <div class="table-responsive table-responsive-force">
+<?php
+$maxWP = max(array_map(
+  function ($model) : float {
+    return (float)$model->wp;
+  },
+  $rule->data->weapons
+));
+$this->registerCss('.progress{margin-bottom:0}');
+?>
     <?= GridView::widget([
       // {{{
       'tableOptions' => ['class' => 'table table-striped table-condensed table-sortable'],
@@ -168,235 +177,285 @@ END_JS
         'pagination' => false,
         'sort' => false,
       ]),
-      'columns' => [
+      'columns' => array_merge(
         [
-          'label' => Yii::t('app', 'Weapon'), // {{{
-          'headerOptions' => [
-            'data-sort' => 'string',
+          [
+            'label' => Yii::t('app', 'Weapon'), // {{{
+            'headerOptions' => [
+              'data-sort' => 'string',
+            ],
+            'contentOptions' => function ($model) : array {
+              return [
+                'data-sort-value' => $model->name,
+              ];
+            },
+            'format' => 'raw',
+            'value' => function ($model) use ($rule) : string {
+              return Html::tag(
+                'span',
+                Html::a(
+                  Html::encode($model->name),
+                  ['weapon2', 'weapon' => $model->key, 'rule' => $rule->key]
+                ),
+                [
+                  'class' => 'auto-tooltip',
+                  'title' => vsprintf('%s%s / %s%s', [
+                    Yii::t('app', 'Sub:'),
+                    $model->subweapon->name,
+                    Yii::t('app', 'Special:'),
+                    $model->special->name,
+                  ]),
+                ]
+              );
+            },
+            // }}}
           ],
-          'contentOptions' => function ($model) : array {
-            return [
-              'data-sort-value' => $model->name,
-            ];
-          },
-          'format' => 'raw',
-          'value' => function ($model) use ($rule) : string {
-            return Html::tag(
-              'span',
-              Html::a(
-                Html::encode($model->name),
-                ['weapon2', 'weapon' => $model->key, 'rule' => $rule->key]
-              ),
-              [
-                'class' => 'auto-tooltip',
-                'title' => vsprintf('%s%s / %s%s', [
-                  Yii::t('app', 'Sub:'),
-                  $model->subweapon->name,
-                  Yii::t('app', 'Special:'),
-                  $model->special->name,
-                ]),
-              ]
-            );
-          },
-          // }}}
-        ],
-        [
-          'label' => Yii::t('app', 'Players'), // {{{
-          'headerOptions' => [
-            'data-sort' => 'int',
+          [
+            'label' => Yii::t('app', 'Players'), // {{{
+            'headerOptions' => [
+              'data-sort' => 'int',
+            ],
+            'contentOptions' => function ($model) : array {
+              return [
+                'class' => 'text-right',
+                'data-sort-value' => $model->count,
+              ];
+            },
+            'format' => 'raw',
+            'value' => function ($weapon) use ($rule) : string {
+              return Html::tag(
+                'span',
+                Html::encode(Yii::$app->formatter->asInteger($weapon->count)),
+                [
+                  'class' => 'auto-tooltip',
+                  'title' => Yii::$app->formatter->asPercent($weapon->count / $rule->data->player_count, 2),
+                ]
+              );
+            },
+            // }}}
           ],
-          'contentOptions' => function ($model) : array {
-            return [
-              'class' => 'text-right',
-              'data-sort-value' => $model->count,
-            ];
-          },
-          'format' => 'raw',
-          'value' => function ($weapon) use ($rule) : string {
-            return Html::tag(
-              'span',
-              Html::encode(Yii::$app->formatter->asInteger($weapon->count)),
-              [
-                'class' => 'auto-tooltip',
-                'title' => Yii::$app->formatter->asPercent($weapon->count / $rule->data->player_count, 2),
-              ]
-            );
-          },
-          // }}}
-        ],
-        [
-          'label' => Yii::t('app', 'Win %'), // {{{
-          'headerOptions' => [
-            'data-sort' => 'float',
+          [
+            'label' => Yii::t('app', 'Win %'), // {{{
+            'headerOptions' => [
+              'data-sort' => 'float',
+            ],
+            'contentOptions' => function ($model) : array {
+              return [
+                'class' => 'text-right',
+                'data-sort-value' => $model->wp,
+              ];
+            },
+            'format' => 'raw',
+            'value' => function ($model) use ($maxWP) : string {
+              return Html::tag(
+                'div',
+                Html::tag(
+                  'div',
+                  Html::encode(Yii::$app->formatter->asPercent($model->wp / 100, 2)),
+                  [
+                    'class' => 'progress-bar',
+                    'style' => [
+                      'width' => sprintf(
+                        '%f%%',
+                        ($maxWP > 0)
+                          ? $model->wp / $maxWP * 100
+                          : 0
+                      ),
+                    ],
+                  ]
+                ),
+                [
+                  'class' => 'progress',
+                  'style' => [
+                    'min-width' => '100px',
+                  ],
+                ]
+              );
+            },
+            // }}}
           ],
-          'contentOptions' => function ($model) : array {
-            return [
-              'class' => 'text-right',
-              'data-sort-value' => $model->wp,
-            ];
-          },
-          'format' => 'raw',
-          'value' => function ($model) : string {
-            return implode(' ', [
-              Html::encode(Yii::$app->formatter->asPercent($model->wp / 100, 2)),
-            ]);
-          },
-          // }}}
-        ],
-        [
-          'label' => Yii::t('app', 'Avg Kills'), // {{{
-          'headerOptions' => [
-            'data-sort' => 'float',
+          [
+            'label' => Yii::t('app', 'Avg Kills'), // {{{
+            'headerOptions' => [
+              'data-sort' => 'float',
+            ],
+            'contentOptions' => function ($model) : array {
+              return [
+                'class' => 'text-right',
+                'data-sort-value' => $model->avg_kill,
+              ];
+            },
+            'value' => function ($model) : string {
+              return Yii::$app->formatter->asDecimal($model->avg_kill, 2);
+            },
+            // }}}
           ],
-          'contentOptions' => function ($model) : array {
-            return [
-              'class' => 'text-right',
-              'data-sort-value' => $model->avg_kill,
-            ];
-          },
-          'value' => function ($model) : string {
-            return Yii::$app->formatter->asDecimal($model->avg_kill, 2);
-          },
-          // }}}
-        ],
-        [
-          'label' => Yii::t('app', 'Avg Deaths'), // {{{
-          'headerOptions' => [
-            'data-sort' => 'float',
+          [
+            'label' => Yii::t('app', 'Avg Deaths'), // {{{
+            'headerOptions' => [
+              'data-sort' => 'float',
+            ],
+            'contentOptions' => function ($model) : array {
+              return [
+                'class' => 'text-right',
+                'data-sort-value' => $model->avg_death,
+              ];
+            },
+            'value' => function ($model) : string {
+              return Yii::$app->formatter->asDecimal($model->avg_death, 2);
+            },
+            // }}}
           ],
-          'contentOptions' => function ($model) : array {
-            return [
-              'class' => 'text-right',
-              'data-sort-value' => $model->avg_death,
-            ];
-          },
-          'value' => function ($model) : string {
-            return Yii::$app->formatter->asDecimal($model->avg_death, 2);
-          },
-          // }}}
-        ],
-        [
-          'label' => Yii::t('app', 'Kill Ratio'), // {{{
-          'headerOptions' => [
-            'data-sort' => 'float',
+          [
+            'label' => Yii::t('app', 'Kill Ratio'), // {{{
+            'headerOptions' => [
+              'data-sort' => 'float',
+            ],
+            'contentOptions' => function ($model) : array {
+              return [
+                'class' => 'text-right',
+                'data-sort-value' => $model->kill_ratio,
+              ];
+            },
+            'format' => 'raw',
+            'value' => function ($model) : string {
+              if ($model->kill_ratio === null) {
+                return '';
+              }
+              return implode(' ', [
+                Html::encode(Yii::$app->formatter->asDecimal($model->kill_ratio, 3)),
+                $this->render('/includes/kill_ratio_indicator', ['value' => $model->kill_ratio]),
+              ]);
+            },
+            // }}}
           ],
-          'contentOptions' => function ($model) : array {
-            return [
-              'class' => 'text-right',
-              'data-sort-value' => $model->kill_ratio,
-            ];
-          },
-          'format' => 'raw',
-          'value' => function ($model) : string {
-            if ($model->kill_ratio === null) {
-              return '';
-            }
-            return implode(' ', [
-              Html::encode(Yii::$app->formatter->asDecimal($model->kill_ratio, 3)),
-              $this->render('/includes/kill_ratio_indicator', ['value' => $model->kill_ratio]),
-            ]);
-          },
-          // }}}
-        ],
-        [
-          'label' => Yii::t('app', 'Kills/min'), // {{{
-          'headerOptions' => [
-            'data-sort' => 'float',
+          [
+            'label' => Yii::t('app', 'Kills/min'), // {{{
+            'headerOptions' => [
+              'data-sort' => 'float',
+            ],
+            'contentOptions' => function ($model) : array {
+              return [
+                'class' => 'text-right',
+                'data-sort-value' => $model->kill_per_min,
+              ];
+            },
+            'value' => function ($model) : string {
+              return Yii::$app->formatter->asDecimal($model->kill_per_min, 3);
+            },
+            // }}}
           ],
-          'contentOptions' => function ($model) : array {
-            return [
-              'class' => 'text-right',
-              'data-sort-value' => $model->kill_per_min,
-            ];
-          },
-          'value' => function ($model) : string {
-            return Yii::$app->formatter->asDecimal($model->kill_per_min, 3);
-          },
-          // }}}
-        ],
-        [
-          'label' => Yii::t('app', 'Deaths/min'), // {{{
-          'headerOptions' => [
-            'data-sort' => 'float',
+          [
+            'label' => Yii::t('app', 'Deaths/min'), // {{{
+            'headerOptions' => [
+              'data-sort' => 'float',
+            ],
+            'contentOptions' => function ($model) : array {
+              return [
+                'class' => 'text-right',
+                'data-sort-value' => $model->death_per_min,
+              ];
+            },
+            'value' => function ($model) : string {
+              return Yii::$app->formatter->asDecimal($model->death_per_min, 3);
+            },
+            // }}}
           ],
-          'contentOptions' => function ($model) : array {
-            return [
-              'class' => 'text-right',
-              'data-sort-value' => $model->death_per_min,
-            ];
-          },
-          'value' => function ($model) : string {
-            return Yii::$app->formatter->asDecimal($model->death_per_min, 3);
-          },
-          // }}}
-        ],
-        [
-          'label' => Yii::t('app', 'Avg Specials'), // {{{
-          'headerOptions' => [
-            'data-sort' => 'float',
+          [
+            'label' => Yii::t('app', 'Avg Specials'), // {{{
+            'headerOptions' => [
+              'data-sort' => 'float',
+            ],
+            'contentOptions' => function ($model) : array {
+              return [
+                'class' => 'text-right',
+                'data-sort-value' => $model->avg_special,
+              ];
+            },
+            'value' => function ($model) : string {
+              return Yii::$app->formatter->asDecimal($model->avg_special, 2);
+            },
+            // }}}
           ],
-          'contentOptions' => function ($model) : array {
-            return [
-              'class' => 'text-right',
-              'data-sort-value' => $model->avg_special,
-            ];
-          },
-          'value' => function ($model) : string {
-            return Yii::$app->formatter->asDecimal($model->avg_special, 2);
-          },
-          // }}}
-        ],
-        [
-          'label' => Yii::t('app', 'Specials/min'), // {{{
-          'headerOptions' => [
-            'data-sort' => 'float',
+          [
+            'label' => Yii::t('app', 'Specials/min'), // {{{
+            'headerOptions' => [
+              'data-sort' => 'float',
+            ],
+            'contentOptions' => function ($model) : array {
+              return [
+                'class' => 'text-right',
+                'data-sort-value' => $model->special_per_min,
+              ];
+            },
+            'value' => function ($model) : string {
+              return Yii::$app->formatter->asDecimal($model->special_per_min, 3);
+            },
+            // }}}
           ],
-          'contentOptions' => function ($model) : array {
-            return [
-              'class' => 'text-right',
-              'data-sort-value' => $model->special_per_min,
-            ];
-          },
-          'value' => function ($model) : string {
-            return Yii::$app->formatter->asDecimal($model->special_per_min, 3);
-          },
-          // }}}
-        ],
-        [
-          'label' => Yii::t('app', 'Avg Inked'), // {{{
-          'headerOptions' => [
-            'data-sort' => 'float',
+          [
+            'label' => Yii::t('app', 'Avg Inked'), // {{{
+            'headerOptions' => [
+              'data-sort' => 'float',
+            ],
+            'contentOptions' => function ($model) : array {
+              return [
+                'class' => 'text-right',
+                'data-sort-value' => $model->avg_inked,
+              ];
+            },
+            'value' => function ($model) : string {
+              return Yii::$app->formatter->asDecimal($model->avg_inked, 1);
+            },
+            // }}}
           ],
-          'contentOptions' => function ($model) : array {
-            return [
-              'class' => 'text-right',
-              'data-sort-value' => $model->avg_inked,
-            ];
-          },
-          'value' => function ($model) : string {
-            return Yii::$app->formatter->asDecimal($model->avg_inked, 1);
-          },
-          // }}}
-        ],
-        [
-          'label' => Yii::t('app', 'Inked/min'), // {{{
-          'headerOptions' => [
-            'data-sort' => 'float',
+          [
+            'label' => Yii::t('app', 'Inked/min'), // {{{
+            'headerOptions' => [
+              'data-sort' => 'float',
+            ],
+            'contentOptions' => function ($model) : array {
+              return [
+                'class' => 'text-right',
+                'data-sort-value' => $model->inked_per_min,
+              ];
+            },
+            'value' => function ($model) : string {
+              return Yii::$app->formatter->asDecimal($model->inked_per_min, 2);
+            },
+            // }}}
           ],
-          'contentOptions' => function ($model) : array {
-            return [
-              'class' => 'text-right',
-              'data-sort-value' => $model->inked_per_min,
-            ];
-          },
-          'value' => function ($model) : string {
-            return Yii::$app->formatter->asDecimal($model->inked_per_min, 2);
-          },
-          // }}}
         ],
-      ],
+        ($rule->key === 'nawabari')
+          ? [
+            [
+              'label' => Yii::t('app', 'Inking Performance'), // {{{
+              'headerOptions' => [
+                'data-sort' => 'float',
+              ],
+              'contentOptions' => function ($model) : array {
+                return [
+                  'class' => 'text-right',
+                  'data-sort-value' => (float)$model->ink_performance,
+                ];
+              },
+              'value' => function ($model) : string {
+                return Yii::$app->formatter->asDecimal($model->ink_performance, 3);
+              },
+              // }}}
+            ],
+          ]
+          : [
+          ]
+      ),
       // }}}
     ]) . "\n" ?>
+<?php if ($rule->key === 'nawabari') { ?>
+    <p class="text-right">
+      <?= Html::encode(Yii::t('app', 'Inking Performance')) ?>:
+      <a href="https://twitter.com/splatoon_weapon/status/958523893878149121" target="_blank">https://twitter.com/splatoon_weapon/status/958523893878149121</a>
+    </p>
+<?php } ?>
   </div>
   <div class="table-responsive table-responsive-force">
     <?= GridView::widget([

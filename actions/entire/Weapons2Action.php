@@ -348,6 +348,9 @@ class Weapons2Action extends BaseAction
                     'avg_special' => (float)$model['avg_special'],
                     'special_per_min' => (float)$model['special_per_min'],
                     'sum_special' => (int)$model['sum_special'],
+                    'ink_performance' => ($model['avg_death'] == 0)
+                        ? null
+                        : ((float)$model['avg_inked'] / (9 * (20 - (float)$model['avg_death']))),
                 ];
             },
             $query->createCommand()->queryAll()
