@@ -350,6 +350,7 @@ return [
     'Vintage Check Shirt' => '',
     'Violet Trainers' => '',
     'Visor Skate Helmet' => '',
+    'Welding Mask' => '',
     'Wet Floor Band Tee' => '',
     'White 8-Bit FishFry' => '',
     'White Anchor Tee' => '',

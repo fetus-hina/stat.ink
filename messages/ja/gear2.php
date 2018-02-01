@@ -399,4 +399,5 @@ return [
     'King Bench Kaiser' => 'キングベンチカイザー',
 
     'Garden Gear' => 'マクレGT',
+    'Welding Mask' => 'アイアンマスカレイド',
 ];
