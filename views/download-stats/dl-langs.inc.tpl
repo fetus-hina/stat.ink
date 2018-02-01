@@ -20,7 +20,7 @@
             <span class="charset">
               <a href="{{url route=$route lang=$lang.lang charset=$charset.php_name}}" hreflang="{{$lang.lang|escape}}" rel="nofollow">
                 {{if $_charset.is_win_acp}}
-                  <span class="fa fa-windows"></span>&#32;
+                  <span class="fab fa-windows"></span>&#32;
                 {{/if}}
                 {{$charset.name|escape}}
               </a>
@@ -34,7 +34,7 @@
             {{elseif $charset.name === 'UTF-16LE'}}
               <span class="charset">
                 <a href="{{url route=$route lang=$lang.lang charset=$charset.php_name tsv=1}}" hreflang="{{$lang.lang|escape}}" rel="nofollow">
-                  <span class="fa fa-apple"></span>&#32;{{$charset.name|escape}}(TSV)
+                  <span class="fab fa-apple"></span>&#32;{{$charset.name|escape}}(TSV)
                 </a>
               </span>
             {{/if}}

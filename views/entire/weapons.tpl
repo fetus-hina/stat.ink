@@ -46,7 +46,7 @@
     </h3>
     <p>
       <a href="{{url route="entire/weapons-use"}}" class="btn btn-default">
-        <span class="fa fa-exchange fa-fw"></span>&#32;{{'Compare number of uses'|translate:'app'|escape}}
+        <span class="fas fa-exchange-alt fa-fw"></span>&#32;{{'Compare number of uses'|translate:'app'|escape}}
       </a>
     </p>
     <div id="graph-trends-legends"></div>

@@ -18,6 +18,13 @@
     {{SnsWidget}}
 
     <p>
+      Splatoon 2 用データはまだ準備がありません。<br>
+      There is no data available for Splatoon 2.
+    </p>
+
+    <hr>
+
+    <p>
       データファイルをその場で生成してからダウンロード処理が行われます。
       クリックしてからしばらく時間がかかりますが、連打しないでください。
     </p>
@@ -33,7 +40,7 @@
 
     <ul>
       <li>
-        <span class="fas fa-file-excel"></span> ブキ・ルール・ステージ別にバトル数・勝率を集計したもの (CSV)
+        <span class="far fa-file-excel"></span> ブキ・ルール・ステージ別にバトル数・勝率を集計したもの (CSV)
         {{include file="dl-langs.inc.tpl" route="download-stats/weapon-rule-map"}}
       </li>
     </ul>

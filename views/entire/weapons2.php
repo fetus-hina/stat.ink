@@ -98,7 +98,7 @@ END_JS
   <p>
     <?= Html::a(
       implode(' ', [
-        Html::tag('span', '', ['class' => 'fa fa-exchange fa-fw']),
+        Html::tag('span', '', ['class' => 'fas fa-exchange-alt fa-fw']),
         Html::encode(Yii::t('app', 'Compare number of uses')),
       ]),
       ['entire/weapons2-use'],
