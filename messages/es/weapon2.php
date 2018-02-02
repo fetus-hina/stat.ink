@@ -9,6 +9,7 @@ return [
     '.52 Gal' => 'Salpicadora 2000',
     '.52 Gal Deco' => 'Salpicadora 2000 DX',
     '.96 Gal' => 'Salpicadora 3000',
+    '.96 Gal Deco' => 'Salpicadora 3000 DX',
     'Aerospray MG' => 'Aerógrafo pro',
     'Aerospray RG' => 'Aerógrafo plus',
     'All of {0}' => 'Todos los {0}',

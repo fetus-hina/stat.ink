@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2015-2017 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2018 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  */
@@ -208,6 +208,8 @@ return [
     '(incomplete)' => '',
     'Inked' => '',
     'Inked/min' => '',
+    'Inking Performance' => '',
+    'Inking Performance vs Win %' => '',
     'Input new battle results' => '',
     'In session' => '',
     'Integrate' => '',
