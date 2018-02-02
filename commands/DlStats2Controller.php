@@ -169,9 +169,6 @@ class DlStats2Controller extends Controller
                     printf("      #%d %s\n", $battle->id, $battle->start_at);
 
                     $csv = static::csvRow([
-                        $battle->agent ? $battle->agent->name : '',
-                        $battle->agent ? $battle->agent->version : '',
-
                         gmdate(DateTime::ATOM, BattleHelper::periodToRange2($battle->period)[0]),
                         $battle->version->tag ?? '',
                         $battle->mode->key,
