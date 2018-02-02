@@ -12,6 +12,7 @@ use DateTime;
 use DateTimeImmutable;
 use DateTimeZone;
 use Yii;
+use ZipArchive;
 use app\components\helpers\Battle as BattleHelper;
 use app\models\Battle2;
 use app\models\BattlePlayer2;
@@ -54,10 +55,13 @@ class DlStats2Controller extends Controller
                 $this->createBattleResultsCsv($date, $file);
             }
         }
+
+        $this->createBattleResultsCsvZip();
     }
 
     private function createBattleResultsCsv(DateTimeImmutable $date, string $outPath) : bool
     {
+        // {{{
         $header = false;
         if (!$fh = tmpfile()) {
             echo "tmpfile() failed\n";
@@ -224,6 +228,48 @@ class DlStats2Controller extends Controller
         } finally {
             fclose($fh);
         }
+        // }}}
+    }
+
+    private function createBattleResultsCsvZip() : bool
+    {
+        // {{{
+        if (!$tmpFile = tempnam('/tmp', 'zip-')) {
+            return false;
+        }
+        try {
+            $zip = new ZipArchive();
+            if (!$zip->open($tmpFile, ZipArchive::CREATE)) {
+                return false;
+            }
+            if (!$zip->addEmptyDir(basename(Yii::getAlias(static::BASE_BATTLE_RESULTS_CSV)))) {
+                return false;
+            }
+            if (!$zip->addGlob(
+                Yii::getAlias(static::BASE_BATTLE_RESULTS_CSV) . '/*/*/*.csv',
+                0,
+                [
+                    'add_path' => basename(Yii::getAlias(static::BASE_BATTLE_RESULTS_CSV)) . '/',
+                    'remove_all_path' => true,
+                ]
+            )) {
+                return false;
+            }
+            if (!$zip->close()) {
+                return false;
+            }
+            copy(
+                $tmpFile,
+                implode('/', [
+                    Yii::getAlias(static::BASE_BATTLE_RESULTS_CSV),
+                    basename(Yii::getAlias(static::BASE_BATTLE_RESULTS_CSV)) . '.zip',
+                ])
+            );
+            return true;
+        } finally {
+            unlink($tmpFile);
+        }
+        // }}}
     }
 
     private static function startDay() : DateTimeImmutable
