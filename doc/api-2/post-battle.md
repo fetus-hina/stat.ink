@@ -280,6 +280,7 @@ There is a listing page [here](https://stat.ink/api-info/weapon2).
 |`52gal`                 |`50`                  |.52ガロン<br>.52 Gal                                 |                                                                                                     |
 |`52gal_deco`            |`51`                  |.52ガロンデコ<br>.52 Gal Deco                        |                                                                                                     |
 |`96gal`                 |`80`                  |.96ガロン<br>.96 Gal                                 |                                                                                                     |
+|`96gal_deco`            |`81`                  |.96ガロンデコ<br>.96 Gal Deco                        |                                                                                                     |
 |`bold`                  |`0`                   |ボールドマーカー<br>Sploosh-o-matic                  |                                                                                                     |
 |`bottlegeyser`          |`400`                 |ボトルガイザー<br>Squeezer                           |                                                                                                     |
 |`heroshooter_replica`   |`45`                  |ヒーローシューター レプリカ<br>Hero Shot Replica     |                                                                                                     |
@@ -535,6 +536,7 @@ Gear Ability
 |`fall`|場外転落<br>Out of bounds (fall)|
 |`drown`|水死<br>Out of bounds (water)|
 |`oob`|場外（詳細不明）<br>Out of bounds (details unknown)|
+|`cannon`|キャノン<br>Cannon|
 
 |指定文字列|死因|
 |-|-|
