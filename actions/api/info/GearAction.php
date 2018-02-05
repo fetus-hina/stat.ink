@@ -67,9 +67,9 @@ class GearAction extends BaseAction
             return strnatcasecmp($a['name'], $b['name']);
         });
 
-        return $this->controller->render('gear.tpl', [
+        return $this->controller->render('gear', [
             'type'  => $type,
-            'types' => GearType::find()->asArray()->orderBy('[[id]] ASC')->all(),
+            'types' => GearType::find()->asArray()->orderBy(['id' => SORT_ASC])->all(),
             'langs' => $langs,
             'gears' => $gears,
         ]);

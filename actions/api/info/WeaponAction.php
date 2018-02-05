@@ -32,13 +32,13 @@ class WeaponAction extends BaseAction
                         },
                         Weapon::find()
                             ->andWhere(['type_id' => $type['id']])
-                            ->orderBy('[[key]] ASC')
+                            ->orderBy(['key' => SORT_ASC])
                             ->asArray()
                             ->all()
                     ),
                 ];
             },
-            WeaponType::find()->orderBy('[[id]] ASC')->asArray()->all()
+            WeaponType::find()->orderBy(['id' => SORT_ASC])->asArray()->all()
         );
 
         $langs = Language::find()->asArray()->all();
@@ -53,7 +53,7 @@ class WeaponAction extends BaseAction
             return strnatcasecmp($a['name'], $b['name']);
         });
 
-        return $this->controller->render('weapon.tpl', [
+        return $this->controller->render('weapon', [
             'types' => $types,
             'langs' => $langs,
         ]);
