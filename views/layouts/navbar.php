@@ -71,21 +71,6 @@ PaintballAsset::register($this);
               ]
             ) . "\n" ?>
           </li>
-          <li>
-            <?= Html::tag(
-              'button',
-              implode('', [
-                Html::tag('span', '', ['class' => 'fas fa-fw fa-edit']),
-                Html::encode(Yii::t('app', 'Splatoon')),
-              ]),
-              [
-                'id' => 'battle-input-btn',
-                'class' => 'btn btn-primary navbar-btn',
-                'title' => Yii::t('app', 'New battle'),
-                'disabled' => true,
-              ]
-            ) . "\n" ?>
-          </li>
         </ul>
 <?php } ?>
       </div>

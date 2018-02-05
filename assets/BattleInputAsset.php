@@ -13,7 +13,6 @@ class BattleInputAsset extends AssetBundle
 {
     public $sourcePath = '@app/resources/.compiled/stat.ink';
     public $js = [
-        'battle-input.js',
         'battle-input-2.js',
     ];
     public $css = [

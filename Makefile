@@ -43,7 +43,6 @@ RESOURCE_TARGETS_MAIN := \
 	resources/.compiled/stat.ink/battle-edit.js \
 	resources/.compiled/stat.ink/battle-input-2.js \
 	resources/.compiled/stat.ink/battle-input.css \
-	resources/.compiled/stat.ink/battle-input.js \
 	resources/.compiled/stat.ink/battle-thumb-list.css \
 	resources/.compiled/stat.ink/battle-thumb-list.js \
 	resources/.compiled/stat.ink/battle2-players-point-inked.js \
@@ -243,9 +242,6 @@ resources/.compiled/stat.ink/active-reltime.js: resources/stat.ink/active-reltim
 	$(GULP) js --in $< --out $@
 
 resources/.compiled/stat.ink/battle-edit.js: resources/stat.ink/battle-edit.js $(GULP)
-	$(GULP) js --in $< --out $@
-
-resources/.compiled/stat.ink/battle-input.js: resources/stat.ink/battle-input.js $(GULP)
 	$(GULP) js --in $< --out $@
 
 resources/.compiled/stat.ink/battle-input.css: resources/stat.ink/battle-input.less $(GULP)
