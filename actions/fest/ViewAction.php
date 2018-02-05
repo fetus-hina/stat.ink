@@ -73,7 +73,7 @@ class ViewAction extends BaseAction
 
     public function run()
     {
-        return $this->controller->render('view.tpl', [
+        return $this->controller->render('view', [
             'fest'  => $this->fest,
             'alpha' => $this->alpha,
             'bravo' => $this->bravo,
@@ -85,7 +85,7 @@ class ViewAction extends BaseAction
     {
         $query = SplatfestBattleSummary::find()
             ->andWhere(['{{splatfest_battle_summary}}.[[fest_id]]' => $this->fest->id])
-            ->orderBy('{{splatfest_battle_summary}}.[[timestamp]] ASC');
+            ->orderBy(['{{splatfest_battle_summary}}.[[timestamp]]' => SORT_ASC]);
 
         return array_map(
             function ($a) {
