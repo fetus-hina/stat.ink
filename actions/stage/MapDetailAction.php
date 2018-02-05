@@ -39,7 +39,7 @@ class MapDetailAction extends BaseAction
 
     public function run()
     {
-        return $this->controller->render('map-detail.tpl', [
+        return $this->controller->render('map-detail', [
             'map' => $this->map,
             'maps' => $this->getMaps(),
             'rule' => $this->rule,

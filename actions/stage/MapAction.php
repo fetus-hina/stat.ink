@@ -55,7 +55,7 @@ class MapAction extends BaseAction
         }
         uasort($maps, 'strnatcasecmp');
 
-        return $this->controller->render('map.tpl', [
+        return $this->controller->render('map', [
             'map' => $this->map,
             'data' => $this->buildData(),
             'maps' => $maps,

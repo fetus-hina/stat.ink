@@ -69,7 +69,7 @@ class MonthAction extends BaseAction
 
     public function run()
     {
-        return $this->controller->render('month.tpl', [
+        return $this->controller->render('month', [
             'rules' => $this->buildData(),
             'prevUrl' => $this->prevMonthUrl,
             'nextUrl' => $this->nextMonthUrl,
