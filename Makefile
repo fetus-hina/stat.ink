@@ -40,6 +40,7 @@ RESOURCE_TARGETS_MAIN := \
 	resources/.compiled/sillyname/sillyname.js \
 	resources/.compiled/slack/slack.js \
 	resources/.compiled/stat.ink/active-reltime.js \
+	resources/.compiled/stat.ink/agent.js \
 	resources/.compiled/stat.ink/battle-edit.js \
 	resources/.compiled/stat.ink/battle-input-2.js \
 	resources/.compiled/stat.ink/battle-input.css \
@@ -291,6 +292,9 @@ resources/.compiled/stat.ink/name-anonymizer.js: resources/stat.ink/name-anonymi
 	$(GULP) js --in $< --out $@
 
 resources/.compiled/stat.ink/kd-win.js: resources/stat.ink/kd-win.js $(GULP)
+	$(GULP) js --in $< --out $@
+
+resources/.compiled/stat.ink/agent.js: resources/stat.ink/agent.es $(GULP)
 	$(GULP) js --in $< --out $@
 
 resources/.compiled/ostatus/remote-follow.js: resources/ostatus/remote-follow.js $(GULP)

@@ -58,7 +58,7 @@ class CombinedAgentAction extends BaseAction
 
     public function run()
     {
-        return $this->controller->render('combined-agent.tpl', [
+        return $this->controller->render('combined-agent', [
             'name' => Base32::decode($this->form->b32name),
             'group' => $this->agentGroup,
             'posts' => $this->postStats,
@@ -83,7 +83,7 @@ class CombinedAgentAction extends BaseAction
                 ),
             ])
             ->groupBy('{{t}}.[[date]]')
-            ->orderBy('[[date]] ASC');
+            ->orderBy(['[[date]]' => SORT_ASC]);
 
         $ret = [];
         foreach ($query->all() as $a) {
@@ -95,8 +95,8 @@ class CombinedAgentAction extends BaseAction
         }
 
         // 歯抜けデータの処理
-        $minDate = min(array_keys($ret));
-        $maxDate = max(array_keys($ret));
+        $minDate = $ret ? min(array_keys($ret)) : '1970-01-01';
+        $maxDate = $ret ? max(array_keys($ret)) : '1970-01-01';
         if ($minDate !== $maxDate) {
             $min = new \DateTime($minDate, new \DateTimeZone('Etc/GMT-6'));
             $max = new \DateTime($maxDate, new \DateTimeZone('Etc/GMT-6'));

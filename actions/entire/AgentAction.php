@@ -54,7 +54,7 @@ class AgentAction extends BaseAction
     public function run()
     {
         $name = Base32::decode($this->form->b32name);
-        return $this->controller->render('agent.tpl', [
+        return $this->controller->render('agent', [
             'name' => $name,
             'posts' => $this->postStats,
             'combineds' => $this->combineds,
@@ -65,7 +65,7 @@ class AgentAction extends BaseAction
     {
         $list = StatAgentUser::find()
             ->andWhere(['agent' => Base32::decode($this->form->b32name)])
-            ->orderBy('[[date]] ASC')
+            ->orderBy(['date' => SORT_ASC])
             ->asArray()
             ->all();
         $ret = [];
@@ -110,7 +110,7 @@ class AgentAction extends BaseAction
             ->where([
                 '{{agent_group_map}}.[[agent_name]]' => Base32::decode($this->form->b32name),
             ])
-            ->orderBy('{{agent_group}}.[[name]] ASC')
+            ->orderBy(['{{agent_group}}.[[name]]' => SORT_ASC])
             ->asArray()
             ->all();
     }

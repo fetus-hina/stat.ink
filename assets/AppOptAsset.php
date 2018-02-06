@@ -32,7 +32,9 @@ class AppOptAsset extends AssetBundle
         $view->registerJsFile(
             Yii::$app->assetManager->getAssetUrl($this, $filename),
             ArrayHelper::merge(
-                ['depends' => static::class],
+                ['depends' => [
+                    static::class,
+                ]],
                 $options
             ),
             $key
