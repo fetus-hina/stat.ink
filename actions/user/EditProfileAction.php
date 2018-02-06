@@ -45,7 +45,7 @@ class EditProfileAction extends BaseAction
             }
         }
 
-        return $this->controller->render('edit-profile.tpl', [
+        return $this->controller->render('edit-profile', [
             'user' => $ident,
             'form' => $form,
             'languages' => ArrayHelper::map(
