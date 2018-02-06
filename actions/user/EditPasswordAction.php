@@ -38,7 +38,7 @@ class EditPasswordAction extends BaseAction
             }
         }
 
-        return $this->controller->render('edit-password.tpl', [
+        return $this->controller->render('edit-password', [
             'user' => $ident,
             'form' => $form,
         ]);
