@@ -151,7 +151,7 @@
                   {{/if}}
                 </p>
                 <div>
-                  {{$this->render('_blackout-hint.tpl', ['id' => 'blackout-info'])}}
+                  {{$this->render('_blackout-hint', ['id' => 'blackout-info'])}}
                   {{registerJs}}
                     updateBlackOutHint('{{$user->blackout|escape:javascript}}', '#blackout-info');
                   {{/registerJs}}
@@ -178,7 +178,7 @@
                   {{/if}}
                 </p>
                 <div>
-                  {{$this->render('_blackout-hint.tpl', [
+                  {{$this->render('_blackout-hint', [
                       'mode' => 'splatoon2',
                       'id' => 'blackout-info2'
                     ]
