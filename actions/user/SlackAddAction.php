@@ -50,7 +50,7 @@ class SlackAddAction extends BaseAction
         }
         uasort($langs, 'strnatcasecmp');
 
-        return $this->controller->render('slack-add.tpl', [
+        return $this->controller->render('slack-add', [
             'form' => $form,
             'languages' => $langs,
         ]);
