@@ -36,7 +36,6 @@ class EntireWeapon2Form extends Model
                 'targetAttribute' => 'key',
             ],
         ];
-
     }
 
     public function attributeLabels()
