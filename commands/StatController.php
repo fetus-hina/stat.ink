@@ -1119,12 +1119,13 @@ class StatController extends Controller
     {
         $db = Yii::$app->db;
         // {{{
-        $maxCreatedPeriod = (int)StatWeapon2UseCount::find()->max('period');
+        // $maxCreatedPeriod = (int)StatWeapon2UseCount::find()->max('period');
         $select = Battle2::find()
             ->select([
                 'period' => '{{battle2}}.[[period]]',
                 'rule_id' => '{{battle2}}.[[rule_id]]',
                 'weapon_id' => '{{battle_player2}}.[[weapon_id]]',
+                'map_id' => '{{battle2}}.[[map_id]]',
                 'battles' => 'COUNT(*)',
                 'wins' => sprintf('SUM(CASE %s END)', implode(' ', [
                     'WHEN {{battle2}}.[[is_win]] = {{battle_player2}}.[[is_my_team]] THEN 1',
@@ -1305,7 +1306,7 @@ class StatController extends Controller
                 ['<>', '{{mode2}}.[[key]]', 'private'],
                 ['not', ['{{battle_player2}}.[[weapon_id]]' => null]],
                 ['{{battle_player2}}.[[is_me]]' => false],
-                ['>', '{{battle2}}.[[period]]', $maxCreatedPeriod],
+                // ['>', '{{battle2}}.[[period]]', $maxCreatedPeriod],
                 ['<', '{{battle2}}.[[period]]', BattleHelper::calcPeriod2(time())],
             ])
             // ルール別除外処理
@@ -1344,6 +1345,7 @@ class StatController extends Controller
                 '{{battle2}}.[[period]]',
                 '{{battle2}}.[[rule_id]]',
                 '{{battle_player2}}.[[weapon_id]]',
+                '{{battle2}}.[[map_id]]',
             ]))
             ->orderBy(null);
         $sql = $select->createCommand()->rawSql;
@@ -1355,6 +1357,45 @@ class StatController extends Controller
                 return "[[{$a}]]";
             }, array_keys($select->select))),
             $select->createCommand()->rawSql
+        );
+        $insert .= sprintf(
+            ' ON CONFLICT ( %s ) DO UPDATE SET %s',
+            implode(', ', array_map(
+                function ($column) {
+                    return '[[' . $column . ']]';
+                },
+                ['period', 'rule_id', 'weapon_id', 'map_id']
+            )),
+            implode(', ', array_map(
+                function ($column) {
+                    return sprintf('[[%1$s]] = {{excluded}}.[[%1$s]]', $column);
+                },
+                [
+                    'battles',
+                    'wins',
+                    'kills',
+                    'deaths',
+                    'kd_available',
+                    'kills_with_time',
+                    'deaths_with_time',
+                    'kd_time_available',
+                    'kd_time_seconds',
+                    'specials',
+                    'specials_available',
+                    'specials_with_time',
+                    'specials_time_available',
+                    'specials_time_seconds',
+                    'inked',
+                    'inked_available',
+                    'inked_with_time',
+                    'inked_time_available',
+                    'inked_time_seconds',
+                    'knockout_wins',
+                    'timeup_wins',
+                    'knockout_loses',
+                    'timeup_loses',
+                ]
+            ))
         );
         // }}}
 
@@ -1407,6 +1448,7 @@ class StatController extends Controller
                     'isoweek' => $isoWeek,
                     'rule_id' => '{{t}}.[[rule_id]]',
                     'weapon_id' => '{{t}}.[[weapon_id]]',
+                    'map_id' => '{{t}}.[[map_id]]',
                 ],
                 ArrayHelper::map(
                     $columns,
@@ -1424,6 +1466,7 @@ class StatController extends Controller
                 $isoWeek,
                 '{{t}}.[[rule_id]]',
                 '{{t}}.[[weapon_id]]',
+                '{{t}}.[[map_id]]',
             ])
             ->having(['or',
                 ['>', $isoYear, $maxWeek['isoyear']],
@@ -1441,7 +1484,7 @@ class StatController extends Controller
             $selectWeek->createCommand()->rawSql,
             implode(', ', array_map(function (string $a) : string {
                 return "[[{$a}]]";
-            }, ['isoyear', 'isoweek', 'rule_id', 'weapon_id'])),
+            }, ['isoyear', 'isoweek', 'rule_id', 'weapon_id', 'map_id'])),
             implode(', ', array_map(function (string $a) : string {
                 return sprintf('[[%1$s]] = {{excluded}}.[[%1$s]]', $a);
             }, ['battles', 'wins']))
@@ -1461,6 +1504,10 @@ class StatController extends Controller
 
         echo "Commiting...\n";
         $transaction->commit();
+
+        echo "Vacuum...\n";
+        $db->createCommand('VACUUM ANALYZE {{stat_weapon2_use_count}}')->execute();
+        $db->createCommand('VACUUM ANALYZE {{stat_weapon2_use_count_per_week}}')->execute();
         // }}}
     }
 

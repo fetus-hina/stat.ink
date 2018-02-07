@@ -237,6 +237,12 @@ class Weapons2Action extends BaseAction
             if ($form->hasErrors()) {
                 throw new \Exception();
             }
+            if ($form->map != '') {
+                $query->innerJoinWith('map');
+                $query->andWhere([
+                    '{{map2}}.[[key]]' => $form->map,
+                ]);
+            }
             if ($form->term == '') {
                 // nothing to do
             } elseif (preg_match('/^(\d{4})-(\d{2})$/', $form->term, $match)) {

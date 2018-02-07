@@ -16,6 +16,7 @@ use yii\db\ActiveRecord;
  * @property integer $period
  * @property integer $rule_id
  * @property integer $weapon_id
+ * @property integer $map_id
  * @property integer $battles
  * @property integer $wins
  * @property integer $kills
@@ -63,7 +64,7 @@ class StatWeapon2UseCount extends ActiveRecord
             [['kills_with_time', 'deaths_with_time', 'kd_time_available', 'kd_time_seconds', 'specials'], 'required'],
             [['specials_available', 'specials_with_time', 'specials_time_available'], 'required'],
             [['specials_time_seconds', 'inked', 'inked_available', 'inked_with_time'], 'required'],
-            [['inked_time_available', 'inked_time_seconds'], 'required'],
+            [['inked_time_available', 'inked_time_seconds', 'map_id'], 'required'],
             [['period', 'rule_id', 'weapon_id', 'battles', 'wins', 'kills', 'deaths', 'kd_available'], 'integer'],
             [['kills_with_time', 'deaths_with_time', 'kd_time_available', 'kd_time_seconds', 'specials'], 'integer'],
             [['specials_available', 'specials_with_time', 'specials_time_available'], 'integer'],
@@ -78,6 +79,10 @@ class StatWeapon2UseCount extends ActiveRecord
                 'targetClass' => Weapon2::class,
                 'targetAttribute' => ['weapon_id' => 'id'],
             ],
+            [['map_id'], 'exist', 'skipOnError' => true,
+                'targetClass' => Map2::class,
+                'targetAttribute' => ['map_id' => 'id'],
+            ],
         ];
     }
 
@@ -90,6 +95,7 @@ class StatWeapon2UseCount extends ActiveRecord
             'period' => 'Period',
             'rule_id' => 'Rule ID',
             'weapon_id' => 'Weapon ID',
+            'map_id' => 'Map ID',
             'battles' => 'Battles',
             'wins' => 'Wins',
             'kills' => 'Kills',
@@ -130,5 +136,13 @@ class StatWeapon2UseCount extends ActiveRecord
     public function getWeapon()
     {
         return $this->hasOne(Weapon2::class, ['id' => 'weapon_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getMap()
+    {
+        return $this->hasOne(Map2::class, ['id' => 'map_id']);
     }
 }

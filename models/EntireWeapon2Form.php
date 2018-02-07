@@ -11,11 +11,13 @@ use DateInterval;
 use DateTimeImmutable;
 use DateTimeZone;
 use Yii;
+use app\models\Map2;
 use yii\base\Model;
 
 class EntireWeapon2Form extends Model
 {
     public $term;
+    public $map;
 
     public function formName()
     {
@@ -25,17 +27,23 @@ class EntireWeapon2Form extends Model
     public function rules()
     {
         return [
-            [['term'], 'string'],
+            [['term', 'map'], 'string'],
             [['term'], 'in',
-                'range' => array_keys($this->getList()),
+                'range' => array_keys($this->getTermList()),
+            ],
+            [['map'], 'exist', 'skipOnError' => true,
+                'targetClass' => Map2::class,
+                'targetAttribute' => 'key',
             ],
         ];
+
     }
 
     public function attributeLabels()
     {
         return [
             'term' => 'Term',
+            'map' => 'Map',
         ];
     }
 
@@ -58,7 +66,7 @@ class EntireWeapon2Form extends Model
         return $ret;
     }
 
-    public function getList() : array
+    public function getTermList() : array
     {
         static $list;
         if (!$list) {

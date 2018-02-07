@@ -3,6 +3,7 @@ use app\assets\AppOptAsset;
 use app\assets\JqueryStupidTableAsset;
 use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
+use app\models\Map2;
 use jp3cki\yii2\flot\FlotAsset;
 use jp3cki\yii2\flot\FlotStackAsset;
 use jp3cki\yii2\flot\FlotSymbolAsset;
@@ -10,6 +11,7 @@ use jp3cki\yii2\flot\FlotTimeAsset;
 use yii\bootstrap\ActiveForm;
 use yii\data\ArrayDataProvider;
 use yii\grid\GridView;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Json;
 
@@ -143,9 +145,20 @@ END_JS
   ?>
     <?= $_form->field($form, 'term')
       ->label(false)
-      ->dropDownList($form->getList(), [
+      ->dropDownList($form->getTermList(), [
         'onchange' => 'document.getElementById("filter-form").submit()',
       ]) . "\n" ?>
+    <?= $_form->field($form, 'map')
+      ->label(false)
+      ->dropDownList(
+        ArrayHelper::merge(
+          ['' => Yii::t('app-map2', 'Any Stage')],
+          Map2::getSortedMap()
+        ),
+        [
+          'onchange' => 'document.getElementById("filter-form").submit()',
+        ]
+      ) . "\n" ?>
   <?php ActiveForm::end(); echo "\n"; ?>
 <?php foreach ($entire as $rule) if ($rule->data->player_count > 0) { ?>
   <?= Html::tag(
