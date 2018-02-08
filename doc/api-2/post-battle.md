@@ -336,6 +336,7 @@ There is a listing page [here](https://stat.ink/api-info/weapon2).
 |`liter4k_scope`         |`2040`                |4Kスコープ<br>E-liter 4K Scope                       |                                                                                                     |
 |`liter4k_scope_custom`  |`2041`                |4Kスコープカスタム<br>Custom E-liter 4K Scope        |                                                                                                     |
 |`soytuber`              |`2060`                |ソイチューバー<br>Goo Tuber                          |                                                                                                     |
+|`soytuber_custom`       |`2061`                |ソイチューバーカスタム<br>Custom Goo Tuber           |                                                                                                     |
 |`splatcharger`          |`2010`                |スプラチャージャー<br>Splat Charger                  |                                                                                                     |
 |`splatcharger_collabo`  |`2011`                |スプラチャージャーコラボ<br>Firefin Splat Charger    |                                                                                                     |
 |`splatscope`            |`2020`                |スプラスコープ<br>Splatterscope                      |                                                                                                     |

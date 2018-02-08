@@ -78,6 +78,7 @@ return [
     'Classic Squiffer' => 'スクイックリンα',
     'Custom E-liter 4K Scope' => '4Kスコープカスタム',
     'Custom E-liter 4K' => 'リッター4Kカスタム',
+    'Custom Goo Tuber' => 'ソイチューバーカスタム',
     'E-liter 4K Scope' => '4Kスコープ',
     'E-liter 4K' => 'リッター4K',
     'Firefin Splat Charger' => 'スプラチャージャーコラボ',

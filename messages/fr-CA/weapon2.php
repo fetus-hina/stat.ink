@@ -26,6 +26,7 @@ return [
     'Custom Blaster' => 'Éclablasteur modifié',
     'Custom E-liter 4K' => 'X-traceur + modifié',
     'Custom E-liter 4K Scope' => 'X-traceur + zoom modifié',
+    'Custom Goo Tuber' => '',
     'Custom Jet Squelcher' => 'Méganettoyeur modifié',
     'Custom Splattershot Jr.' => 'Liquéficateur ultra modifié',
     'Dapple Dualies' => '',

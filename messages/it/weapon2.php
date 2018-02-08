@@ -26,6 +26,7 @@ return [
     'Custom Blaster' => 'Blaster CM',
     'Custom E-liter 4K' => 'Tinter a carica 4K CM',
     'Custom E-liter 4K Scope' => 'Tinter con mirino 4K CM',
+    'Custom Goo Tuber' => 'Tintubator CM',
     'Custom Jet Squelcher' => 'Sweeper CM',
     'Custom Splattershot Jr.' => 'Sparacolore logo',
     'Dapple Dualies' => 'Ripolpella duplo',
