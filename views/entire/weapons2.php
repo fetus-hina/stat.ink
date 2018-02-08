@@ -507,6 +507,7 @@ $jsonId = sprintf('inkperformance-%s-data', $rule->key);
         'class' => 'graph graph-inkperformance',
         'data' => [
           'source' => $jsonId,
+          'label-correlation-coefficient' => Yii::t('app', 'Correlation Coefficient'),
         ]
       ]) . "\n" ?>
     </div>

@@ -95,6 +95,7 @@ return [
     'Compare number of uses' => '使用率を比較する',
     'Continue' => '継続',
     'Copied!' => 'コピーしました',
+    'Correlation Coefficient' => '相関係数',
     'Could not be updated.' => '更新できませんでした。',
     'Could not find specified battle.' => '指定されたバトルが見つかりませんでした。',
     'Could not get your twitter icon at this time.' => 'Twitterのアイコンを取得できませんでした。',

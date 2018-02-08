@@ -103,6 +103,7 @@ return [
     'Compare Number Of Uses' => '',
     'Continue' => '',
     'Copied!' => '',
+    'Correlation Coefficient' => '',
     'Could not be updated.' => '',
     'Could not find specified battle.' => '',
     'Could not get your twitter icon at this time.' => '',

@@ -1,4 +1,7 @@
 ($ => {
+  // polyfill
+  Number.isNaN = Number.isNaN || (value => typeof value === "number" && value !== value);
+
   function updateTrends() {
     // {{{
     const stack = !!$('#stack-trends').prop('checked');
@@ -101,65 +104,126 @@
       fontSize: '12px',
     }).appendTo('body');
 
-    // $('#placeholder").bind("plothover", function (event, pos, item) {
+    const calcCoefficients = (arrayA, arrayB) => {
+      // 算術平均の計算
+      const calcAverage = array => (array.reduce((val1, val2) => (val1 + val2)) / array.length);
 
-    //     if ($("#enablePosition:checked").length > 0) {
-    //     var str = "(" + pos.x.toFixed(2) + ", " + pos.y.toFixed(2) + ")";
-    //     $("#hoverdata").text(str);
-    //     }
+      // 偏差の計算
+      const calcDeviation = array => {
+        const average = calcAverage(array);
+        return array.map(value => value - average);
+      };
 
-    //     if ($("#enableTooltip:checked").length > 0) {
-    //     if (item) {
-    //     var x = item.datapoint[0].toFixed(2),
-    //     y = item.datapoint[1].toFixed(2);
+      // 標準偏差の計算
+      const calcStdDev = deviationArray => {
+        return Math.sqrt(
+          deviationArray
+            .map(dev => dev * dev)
+            .reduce((val1, val2) => val1 + val2) / deviationArray.length
+        );
+      };
+      
+      // 共分散の計算
+      const calcCovariance = (devArrayA, devArrayB) => {
+        return devArrayA
+          .map((valA, i) => valA * devArrayB[i])
+          .reduce((val1, val2) => (val1 + val2)) / devArrayA.length;
+      };
 
-    //     $("#tooltip").html(item.series.label + " of " + x + " = " + y)
-    //     .css({top: item.pageY+5, left: item.pageX+5})
-    //     .fadeIn(200);
-    //     } else {
-    //     $("#tooltip").hide();
-    //     }
-    //     }
-    //     });
+      const calcCorrelationCoefficient = (devArrayA, devArrayB, stdDevA, stdDevB) => {
+        const covariance = calcCovariance(devArrayA, devArrayB);
+        return covariance / (stdDevA * stdDevB);
+      };
+
+      if (arrayA.length < 1 || arrayA.length != arrayB.length) {
+        return null;
+      }
+
+      const devArrayA = calcDeviation(arrayA);
+      const devArrayB = calcDeviation(arrayB);
+      const stdDevA = calcStdDev(devArrayA);
+      const stdDevB = calcStdDev(devArrayB);
+      if (stdDevA == 0 || stdDevB == 0) {
+        return null;
+      }
+      const correlationCoefficient = calcCorrelationCoefficient(devArrayA, devArrayB, stdDevA, stdDevB);
+      const regressionCoefficient = correlationCoefficient * (stdDevB / stdDevA);
+      const intercept = calcAverage(arrayB) - (regressionCoefficient * calcAverage(arrayA)); // 切片
+
+      return {
+        stdDevA: stdDevA,
+        stdDevB: stdDevB,
+        correlationCoefficient: correlationCoefficient,
+        regressionCoefficient: regressionCoefficient,
+        intercept: intercept,
+      };
+    };
+
     $graphs.each((i, el) => {
       const $graph = $(el);
-      const source = JSON.parse($('#' + $graph.data('source')).text());
-
-      $.plot(
-        $graph,
-        [
+      let data = $graph.data('data');
+      if (!data) {
+        const source = JSON.parse($('#' + $graph.data('source')).text());
+        data = [
           {
-            data: source,
+            data: source.map(item => [item[0], item[1], `${item[2]}, n=${item[3]}`]),
             points: {
               symbol: "diamond",
             },
             color: window.colorScheme._accent.blue,
           },
-        ],
-        {
-          // xaxis:{
-          //   mode:'time',
-          //   minTickSize:[7,'day'],
-          //   tickFormatter: v => formatDate(new Date(v)),
-          // },
-          yaxis: {
-            tickFormatter: v => v.toFixed(1) + "%",
-          },
-          series: {
-            points: {
-              show: true,
-            },
-            lines: {
-              show: false,
-              steps: false,
-            }
-          },
-          grid: {
-            hoverable: true,
-            clickable: false,
-          },
+        ];
+
+        // 相関があれば回帰直線を表示
+        const coefficients = calcCoefficients(
+          source.map(weapon => weapon[0]),
+          source.map(weapon => weapon[1])
+        );
+        if (coefficients && Math.abs(coefficients.correlationCoefficient) >= 0.2) {
+          const line = (() => { 
+            const minX = Math.min.apply(null, source.map(weapon => weapon[0]));
+            const maxX = Math.max.apply(null, source.map(weapon => weapon[0]));
+            const calcValue = x => coefficients.intercept + (x * coefficients.regressionCoefficient);
+            const label = $graph.data('labelCorrelationCoefficient') + ' = ' + coefficients.correlationCoefficient.toFixed(3);
+
+            return {
+              data: [
+                [minX, calcValue(minX), label],
+                [maxX, calcValue(maxX), label],
+              ],
+              lines: {
+                show: true,
+              },
+              points: {
+                show: false,
+              },
+              color: window.colorScheme._accent.orange,
+            };
+          })();
+          data.unshift(line);
         }
-      );
+
+        $graph.data('data', data);
+      }
+
+      $.plot($graph, data, {
+        yaxis: {
+          tickFormatter: v => v.toFixed(1) + "%",
+        },
+        series: {
+          points: {
+            show: true,
+          },
+          lines: {
+            show: false,
+            steps: false,
+          }
+        },
+        grid: {
+          hoverable: true,
+          clickable: false,
+        },
+      });
 
       $graph.bind('plothover', (ev, pos, item) => {
         if (!item) {
@@ -167,8 +231,12 @@
           return;
         }
         const data = item.series.data[item.dataIndex];
+        if (!data || !data[2]) {
+          $tooltip.hide();
+          return;
+        }
         $tooltip
-          .text(`${data[2]}, n=${data[3]}`)
+          .text(data[2])
           .css({
             top: item.pageY + 5,
             left: item.pageX + 5,
