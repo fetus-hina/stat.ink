@@ -15,7 +15,7 @@ class ProfileAction extends BaseAction
     public function run()
     {
         $ident = Yii::$app->user->getIdentity();
-        return $this->controller->render('profile.tpl', [
+        return $this->controller->render('profile', [
             'user' => $ident,
         ]);
     }

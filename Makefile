@@ -67,6 +67,7 @@ RESOURCE_TARGETS_MAIN := \
 	resources/.compiled/stat.ink/weapon2.js \
 	resources/.compiled/stat.ink/weapons-use.js \
 	resources/.compiled/stat.ink/weapons.js \
+	resources/.compiled/twitter/web-intents.js \
 	resources/paintball/paintball.css \
 	web/static-assets/cc/cc-by.svg \
 	web/static-assets/cc/cc-by.svg.br \
@@ -332,6 +333,9 @@ resources/.compiled/counter/counter.js: resources/counter/counter.js $(GULP)
 
 resources/.compiled/counter/counter.css: resources/counter/counter.less $(GULP)
 	$(GULP) less --in $< --out $@
+
+resources/.compiled/twitter/web-intents.js: resources/twitter/web-intents.js $(GULP)
+	$(GULP) js --in $< --out $@
 
 DSEG_ARCHIVE := resources/dseg/dseg-$(DSEG_VERSION).tar.gz
 
