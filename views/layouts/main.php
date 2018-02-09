@@ -70,7 +70,7 @@ if ($_flashes) {
       </main>
       <?= $this->render('/layouts/footer') ?><?= "\n" ?>
 <?php if (!Yii::$app->user->isGuest) { ?>
-        <?= $this->render('/includes/battle-input-modal-2.tpl') ?><?= "\n" ?>
+        <?= $this->render('/includes/battle-input-modal-2') . "\n" ?>
 <?php } ?>
       <span id="event"></span>
 <?php if (Yii::$app->params['googleAnalytics'] ?? null) { ?>

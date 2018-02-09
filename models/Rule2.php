@@ -10,6 +10,7 @@ namespace app\models;
 use Yii;
 use app\components\helpers\Translator;
 use yii\db\ActiveRecord;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "rule2".
@@ -83,4 +84,25 @@ class Rule2 extends ActiveRecord
             'name' => Translator::translateToAll('app-rule2', $this->name),
         ];
     }
+
+    public static function getSortedAll(?string $mode, $callback = null) : array
+    {
+        $query = static::find()->orderBy(['rule2.id' => SORT_ASC])->asArray();
+        if ($mode) {
+            $query->innerJoinWith('modes')
+                ->andWhere(['mode2.key' => $mode]);
+        }
+        if ($callback && is_callable($callback)) {
+            call_user_func($callback, $query);
+        }
+        $list = ArrayHelper::map(
+            $query->all(),
+            'key',
+            function (array $row) : string {
+                return Yii::t('app-rule2', $row['name']);
+            }
+        );
+        return $list;
+    }
+
 }
