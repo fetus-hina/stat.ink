@@ -187,7 +187,7 @@
             "version": "2.9.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/lipis/flag-icon-css.git",
+                "url": "git@github.com:lipis/flag-icon-css.git",
                 "reference": "b3f81d10556e007c460444ec22489e68520eb79d"
             },
             "dist": {
@@ -348,7 +348,7 @@
             "version": "2.1.2",
             "source": {
                 "type": "git",
-                "url": "git@github.com:jquery/jquery-color.git",
+                "url": "https://github.com/jquery/jquery-color.git",
                 "reference": "9e5e04c1c4ee66427fbe04cfce8155b76748ca64"
             },
             "dist": {
@@ -2162,12 +2162,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-bootstrap.git",
-                "reference": "c84c84dcaf6d76f3b6c5fc4bce36e1173e042d81"
+                "reference": "30eee2b651453df49773d568713f7c9f9aa88053"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-bootstrap/zipball/c84c84dcaf6d76f3b6c5fc4bce36e1173e042d81",
-                "reference": "c84c84dcaf6d76f3b6c5fc4bce36e1173e042d81",
+                "url": "https://api.github.com/repos/yiisoft/yii2-bootstrap/zipball/30eee2b651453df49773d568713f7c9f9aa88053",
+                "reference": "30eee2b651453df49773d568713f7c9f9aa88053",
                 "shasum": ""
             },
             "require": {
@@ -2214,7 +2214,7 @@
                 "bootstrap",
                 "yii2"
             ],
-            "time": "2018-02-02T14:54:19+00:00"
+            "time": "2018-02-05T12:12:44+00:00"
         },
         {
             "name": "yiisoft/yii2-composer",
@@ -5115,12 +5115,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-debug.git",
-                "reference": "dc4cedb465d5f6965d121200f1495727bfd7d543"
+                "reference": "7311e6b0aeaf3eb59084300dd323e2c7dd81596d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-debug/zipball/dc4cedb465d5f6965d121200f1495727bfd7d543",
-                "reference": "dc4cedb465d5f6965d121200f1495727bfd7d543",
+                "url": "https://api.github.com/repos/yiisoft/yii2-debug/zipball/7311e6b0aeaf3eb59084300dd323e2c7dd81596d",
+                "reference": "7311e6b0aeaf3eb59084300dd323e2c7dd81596d",
                 "shasum": ""
             },
             "require": {
@@ -5154,7 +5154,7 @@
                 "debugger",
                 "yii2"
             ],
-            "time": "2018-01-18T16:03:52+00:00"
+            "time": "2018-02-07T14:46:34+00:00"
         },
         {
             "name": "yiisoft/yii2-gii",
