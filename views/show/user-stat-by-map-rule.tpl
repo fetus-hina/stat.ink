@@ -70,7 +70,7 @@
       </div>
       <div class="col-xs-12 col-sm-4 col-md-4 col-lg-3">
         {{BattleFilterWidget route="show/user-stat-by-map-rule" screen_name=$user->screen_name filter=$filter action="summarize" rule=false map=false result=false}}
-        {{include file="@app/views/includes/user-miniinfo.tpl" user=$user}}
+        {{$this->render("//includes/user-miniinfo", ["user" => $user])}}
         {{AdWidget}}
       </div>
     </div>

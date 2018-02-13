@@ -97,7 +97,7 @@
         {{/foreach}}
       </div>
       <div class="col-xs-12 col-sm-4 col-md-4 col-lg-3">
-        {{include file="@app/views/includes/user-miniinfo.tpl" user=$user}}
+        {{$this->render("//includes/user-miniinfo", ["user" => $user])}}
         {{AdWidget}}
       </div>
     </div>

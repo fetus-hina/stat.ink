@@ -83,4 +83,28 @@ class Rank extends \yii\db\ActiveRecord
             'name' => Translator::translateToAll('app-rank', $this->name),
         ];
     }
+
+    public static function integerToString(?int $intRank) : ?string
+    {
+        if ($intRank === null) {
+            return null;
+        }
+
+        $rank = static::find()
+            ->andWhere(['<=', '{{rank}}.[[int_base]]', $intRank])
+            ->orderBy(['int_base' => SORT_DESC])
+            ->limit(1)
+            ->asArray()
+            ->one();
+
+        if (!$rank) {
+            return null;
+        }
+
+        return sprintf(
+            '%s %d',
+            Yii::t('app-rank', $rank['name']),
+            $intRank - $rank['int_base']
+        );
+    }
 }
