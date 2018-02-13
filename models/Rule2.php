@@ -104,5 +104,4 @@ class Rule2 extends ActiveRecord
         );
         return $list;
     }
-
 }
