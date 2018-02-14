@@ -49,7 +49,7 @@
         "jp3cki/yii2-twitter-widget": "^1.0",
         "jp3cki/yii2-zxcvbn": "^1.0",
         "lusitanian/oauth": "^0.8.9",
-        "php-curl-class/php-curl-class": "^7.0",
+        "php-curl-class/php-curl-class": "^8.0",
         "phpseclib/phpseclib": "^2.0",
         "shakura/yii2-gearman": "dev-master",
         "smarty/smarty": "~3.1",
