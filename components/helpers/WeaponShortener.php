@@ -14,7 +14,7 @@ class WeaponShortener extends Component
 {
     public $dictionary;
 
-    static public function makeShorter(string $name) : string
+    public static function makeShorter(string $name) : string
     {
         $instance = Yii::createObject(['class' => static::class]);
         return $instance->get($name);
