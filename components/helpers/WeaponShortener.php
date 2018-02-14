@@ -1,17 +1,24 @@
 <?php
 /**
- * @copyright Copyright (C) 2015-2017 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2018 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  */
 
 namespace app\components\helpers;
 
+use Yii;
 use yii\base\Component;
 
 class WeaponShortener extends Component
 {
     public $dictionary;
+
+    static public function makeShorter(string $name) : string
+    {
+        $instance = Yii::createObject(['class' => static::class]);
+        return $instance->get($name);
+    }
 
     public function init()
     {
