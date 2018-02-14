@@ -207,27 +207,6 @@ if ($blogEntries):
     )) . "\n" ?>
   </p>
 <?php endif; ?>
-<?php /* ?>
-  <h2>
-    <?= Html::encode(Yii::t('app', 'Schedule')) . "\n" ?>
-  </h2>
-  <ul class="nav nav-tabs" role="tablist" id="schedule-tab">
-    <li role="presentation" class="active">
-      <a href="#schedule-spl2" data-toggle="tab">Splatoon 2</a>
-    </li>
-    <li role="presentation">
-      <a href="#schedule-spl1" data-toggle="tab">Splatoon</a>
-    </li>
-  </ul>
-  <div class="tab-content">
-    <div role="tabpanel" class="tab-pane active" id="schedule-spl2">
-      <?= $this->render('_index_stages2') . "\n" ?>
-    </div>
-    <div role="tabpanel" class="tab-pane" id="schedule-spl1">
-      <?= $this->render('_index_stages1.tpl') . "\n" ?>
-    </div>
-  </div>
-<?php */ ?>
 <?php if (!Yii::$app->user->isGuest): ?>
 <?php $ident = Yii::$app->user->identity ?>
 <?php $battles = CombinedBattles::getUserRecentBattles($ident, 12) ?>
