@@ -78,7 +78,7 @@ class EditBattleAction extends BaseAction
         } else {
             $form->attributes = $this->battle->attributes;
         }
-        return $this->controller->render('edit-battle.tpl', [
+        return $this->controller->render('edit-battle', [
             'user' => $this->battle->user,
             'battle' => $this->battle,
             'form' => $form,
