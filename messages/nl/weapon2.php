@@ -81,6 +81,7 @@ return [
     'Slosher Deco' => 'Morser Deco',
     'Sloshers' => '',
     'Sloshing Machine' => 'Klotstrommel',
+    'Sloshing Machine Neo' => 'Klotstrommel Neo',
     'Splash-o-matic' => 'Spetterspuit',
     'Splat Brella' => 'Plenzer',
     'Splat Charger' => 'Bloplader',

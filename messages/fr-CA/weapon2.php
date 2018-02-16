@@ -81,6 +81,7 @@ return [
     'Slosher Deco' => '',
     'Sloshers' => '',
     'Sloshing Machine' => '',
+    'Sloshing Machine Neo' => 'Encrifugeur néo',
     'Splash-o-matic' => '',
     'Splat Brella' => '',
     'Splat Charger' => '',

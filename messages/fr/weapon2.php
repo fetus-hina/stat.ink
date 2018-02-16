@@ -81,6 +81,7 @@ return [
     'Slosher Deco' => 'Seauceur chic',
     'Sloshers' => 'Seauceur',
     'Sloshing Machine' => 'Encrifugeur',
+    'Sloshing Machine Neo' => 'Encrifugeur Néo',
     'Splash-o-matic' => 'Marqueur léger',
     'Splat Brella' => '',
     'Splat Charger' => 'Concentraceur',

@@ -82,6 +82,7 @@ return [
     'Slosher Deco' => 'Derramatic chic',
     'Sloshers' => 'Derramatics',
     'Sloshing Machine' => '',
+    'Sloshing Machine Neo' => '',
     'Splash-o-matic' => '',
     'Splat Brella' => '',
     'Splat Charger' => '',

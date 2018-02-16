@@ -81,6 +81,7 @@ return [
     'Slosher Deco' => 'Ведроган «Деко»',
     'Sloshers' => '',
     'Sloshing Machine' => 'Центрифугер',
+    'Sloshing Machine Neo' => 'Центрифугер «Нео»',
     'Splash-o-matic' => 'Плюхомет',
     'Splat Brella' => 'Сплат-зонт',
     'Splat Charger' => 'Сплатган',

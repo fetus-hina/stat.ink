@@ -81,6 +81,7 @@ return [
     'Slosher Deco' => 'Schwapper Deko',
     'Sloshers' => '',
     'Sloshing Machine' => 'Trommel-Schwapper',
+    'Sloshing Machine Neo' => 'Trommel-Schwapper Neo',
     'Splash-o-matic' => 'Fein-Disperser',
     'Splat Brella' => 'Parapluviator',
     'Splat Charger' => 'Klecks-Konzentrator',
