@@ -109,8 +109,532 @@
       </div>
     {{/if}}
 
-    {{$this->render('_battle_detail', ['battle' => $battle])}}
+    <div class="row">
+      <div class="col-xs-12 col-sm-8 col-md-8 col-lg-9">
+        {{if $battle->previousBattle || $battle->nextBattle}}
+          <div class="row" style="margin-bottom:15px">
+            {{if $battle->previousBattle}}
+              <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                <a href="{{url route="show/battle" screen_name=$user->screen_name battle=$battle->previousBattle->id}}" class="btn btn-default">
+                  <span class="fa fa-angle-double-left left"></span>{{'Prev. Battle'|translate:'app'|escape}}
+                </a>
+              </div>
+            {{/if}}
+            {{if $battle->nextBattle}}
+              <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 pull-right text-right">
+                <a href="{{url route="show/battle" screen_name=$user->screen_name battle=$battle->nextBattle->id}}" class="btn btn-default">
+                  {{'Next Battle'|translate:'app'|escape}}<span class="fa fa-angle-double-right right"></span>
+                </a>
+              </div>
+            {{/if}}
+          </div>
+        {{/if}}
 
+        {{if $battle->link_url}}
+          {{use class="app\components\widgets\EmbedVideo"}}
+          {{if EmbedVideo::isSupported($battle->link_url)}}
+            {{EmbedVideo::widget(['url' => $battle->link_url])}}
+            {{registerCss}}.video{margin-bottom:15px}{{/registerCss}}
+          {{/if}}
+        {{/if}}
+
+        <table class="table table-striped" id="battle">
+          <tbody>
+            {{if $battle->lobby}}
+              <tr>
+                <th>
+                  {{'Lobby'|translate:'app'|escape}}
+                </th>
+                <td>
+                  {{$battle->lobby->name|translate:'app-rule'|escape}}
+                </td>
+              </tr>
+            {{/if}}
+            {{if $battle->rule}}
+              <tr>
+                <th>
+                  {{'Mode'|translate:'app'|escape}}&#32;
+                  <a href="{{url route="show/user-stat-by-rule" screen_name=$user->screen_name}}">
+                    <span class="fa fa-chart-pie"></span>
+                  </a>
+                </th>
+                <td>
+                  <a href="{{url route="show/user" screen_name=$user->screen_name}}?filter[rule]={{$battle->rule->key|escape:url}}">
+                    <span class="fa fa-search"></span>
+                  </a>&#32;
+                  {{$battle->rule->name|translate:'app-rule'|escape}}
+                </td>
+              </tr>
+            {{/if}}
+            {{if $battle->map}}
+              <tr>
+                <th>
+                  {{'Stage'|translate:'app'|escape}}&#32;
+                  <a href="{{url route="show/user-stat-by-map" screen_name=$user->screen_name}}">
+                    <span class="fa fa-chart-pie"></span>
+                  </a>
+                </th>
+                <td>
+                  <a href="{{url route="show/user" screen_name=$user->screen_name}}?filter[map]={{$battle->map->key|escape:url}}">
+                    <span class="fa fa-search"></span>
+                  </a>&#32;
+                  <span itemprop="contentLocation">
+                    {{$battle->map->name|translate:'app-map'|escape}}
+                  </span>
+                </td>
+              </tr>
+            {{/if}}
+            {{if $battle->weapon}}
+              <tr>
+                <th>{{'Weapon'|translate:'app'|escape}}</th>
+                <td>
+                  <a href="{{url route="show/user" screen_name=$user->screen_name}}?filter[weapon]={{$battle->weapon->key|escape:url}}">
+                    <span class="fa fa-search"></span>
+                  </a>&#32;
+                  {{$battle->weapon->name|translate:'app-weapon'|escape}}
+                  &#32;(
+                  {{$battle->weapon->subweapon->name|default:'?'|translate:'app-subweapon'|escape}} /&#32;
+                  {{$battle->weapon->special->name|default:'?'|translate:'app-special'|escape}}
+                  )
+                </td>
+              </tr>
+            {{/if}}
+            {{if $battle->rank || $battle->rankAfter}}
+              <tr>
+                <th>{{'Rank'|translate:'app'|escape}}</th>
+                <td>
+                  {{if $battle->rank}}
+                    {{$battle->rank->name|translate:'app-rank'|escape}}
+                    {{if $battle->rank_exp !== null}}
+                      &#32;{{$battle->rank_exp|escape}}
+                    {{/if}}
+                  {{else}}
+                    ?
+                  {{/if}}
+                  {{if $battle->rankAfter}}
+                    &#32;→ {{$battle->rankAfter->name|translate:'app-rank'|escape}}
+                    {{if $battle->rank_exp_after !== null}}
+                      &#32;{{$battle->rank_exp_after|escape}}
+                    {{/if}}
+                  {{/if}}
+                </td>
+              </tr>
+            {{/if}}
+            {{if $battle->level || $battle->level_after}}
+              <tr>
+                <th>{{'Level'|translate:'app'|escape}}</th>
+                <td>
+                  {{$battle->level|default:'?'|escape}}
+                  {{if $battle->level_after}}
+                    &#32;→ {{$battle->level_after|escape}}
+                  {{/if}}
+                </td>
+              </tr>
+            {{/if}}
+            {{if $battle->festTitle || $battle->festTitleAfter}}
+              <tr>
+                <th>{{'Splatfest Title'|translate:'app'|escape}}</th>
+                <td>
+                  {{if $battle->my_team_color_rgb}}
+                    <span style="color:#{{$battle->my_team_color_rgb|escape}}">
+                      ■
+                    </span>&#32;
+                  {{/if}}
+                  {{if $battle->festTitle}}
+                    {{$battle->festTitle->getName($battle->gender)|translate:'app-fest':['***','***']|escape}}
+                    {{if $battle->fest_exp !== null}}
+                      &#32;{{$battle->fest_exp|escape}}
+                    {{/if}}
+                  {{else}}
+                    ?
+                  {{/if}}
+                  {{if $battle->festTitleAfter}}
+                    &#32;→ {{$battle->festTitleAfter->getName($battle->gender)|translate:'app-fest':['***','***']|escape}}
+                    {{if $battle->fest_exp_after !== null}}
+                      &#32;{{$battle->fest_exp_after|escape}}
+                    {{/if}}
+                  {{/if}}
+                </td>
+              </tr>
+            {{/if}}
+            {{if $battle->fest_power}}
+              <tr>
+                <th>{{'Splatfest Power'|translate:'app'|escape}}</th>
+                <td>{{$battle->fest_power|escape}}</td>
+              </tr>
+            {{/if}}
+            {{if $battle->my_team_power || $battle->his_team_power}}
+              <tr>
+                <th>{{'My Team Splatfest Power'|translate:'app'|escape}}</th>
+                <td>{{$battle->my_team_power|default:'?'|escape}}</td>
+              </tr>
+              <tr>
+                <th>{{'Their Team Splatfest Power'|translate:'app'|escape}}</th>
+                <td>{{$battle->his_team_power|default:'?'|escape}}</td>
+              </tr>
+            {{/if}}
+            {{if $battle->is_win !== null}}
+              <tr>
+                <th>{{'Result'|translate:'app'|escape}}</th>
+                <td>
+                  {{if $battle->isGachi && $battle->is_knock_out !== null}}
+                    {{if $battle->is_knock_out}}
+                      <span class="label label-info">
+                        {{'Knockout'|translate:'app'|escape}}
+                      </span>
+                    {{else}}
+                      <span class="label label-warning">
+                        {{'Time is up'|translate:'app'|escape}}
+                      </span>
+                    {{/if}}
+                    &#32;
+                  {{/if}}
+                  {{if $battle->is_win === true}}
+                    <span class="label label-success">
+                      {{'Won'|translate:'app'|escape}}
+                    </span>
+                  {{elseif $battle->is_win === false}}
+                    <span class="label label-danger">
+                      {{'Lost'|translate:'app'|escape}}
+                    </span>
+                  {{else}}
+                    {{'?'|translate:'app'|escape}}
+                  {{/if}}
+                </td>
+              </tr>
+            {{/if}}
+            {{if $battle->rank_in_team}}
+              <tr>
+                <th>{{'Rank in Team'|translate:'app'|escape}}</th>
+                <td>{{$battle->rank_in_team|escape}}</td>
+              </tr>
+            {{/if}}
+            {{if $battle->kill !== null || $battle->death !== null}}
+              <tr>
+                <th>{{'Kills / Deaths'|translate:'app'|escape}}</th>
+                <td>
+                  {{if $battle->kill === null}}?{{else}}{{$battle->kill|escape}}{{/if}} / {{if $battle->death === null}}?{{else}}{{$battle->death|escape}}{{/if}}
+                  {{if $battle->kill !== null && $battle->death !== null}}
+                    &#32;
+                    {{if $battle->kill > $battle->death}}
+                      <span class="label label-success">
+                        &gt;
+                      </span>
+                    {{elseif $battle->kill < $battle->death}}
+                      <span class="label label-danger">
+                        &lt;
+                      </span>
+                    {{else}}
+                      <span class="label label-default">
+                        =
+                      </span>
+                    {{/if}}
+                  {{/if}}
+                </td>
+              </tr>
+            {{/if}}
+            {{if $battle->kill !== null && $battle->death !== null}}
+              <tr>
+                <th>{{'Kill Ratio'|translate:'app'|escape}}</th>
+                <td>
+                  {{if $battle->kill_ratio === null}}
+                    {{'N/A'|translate:'app'|escape}}
+                  {{else}}
+                    {{$battle->kill_ratio|number_format:2|escape}}
+                  {{/if}}
+                </td>
+              </tr>
+              <tr>
+                <th>{{'Kill Rate'|translate:'app'|escape}}</th>
+                <td>
+                  {{$_ = $battle->kill_rate}}
+                  {{if $_ === null}}
+                    {{'N/A'|translate:'app'|escape}}
+                  {{else}}
+                    {{$_|percent:1|escape}}
+                  {{/if}}
+                </td>
+              </tr>
+            {{/if}}
+            {{if $battle->max_kill_combo !== null}}
+              <tr>
+                <th>{{'Max Kill Combo'|translate:'app'|escape}}</th>
+                <td>{{$battle->max_kill_combo|escape}}
+              </tr>
+            {{/if}}
+            {{if $battle->max_kill_streak !== null}}
+              <tr>
+                <th>{{'Max Kill Streak'|translate:'app'|escape}}</th>
+                <td>{{$battle->max_kill_streak|escape}}
+              </tr>
+            {{/if}}
+            {{$deathReasons = $battle->getBattleDeathReasons()
+                ->with(['reason'])
+                ->orderBy('{{battle_death_reason}}.[[count]] DESC')
+                ->all()}}
+            {{if $deathReasons}}
+              <tr>
+                <th>{{'Cause of Death'|translate:'app'|escape}}</th>
+                <td>
+                  <table>
+                    <tbody>
+                      {{foreach $deathReasons as $deathReason}}
+                        <tr>
+                          <td>{{$deathReason->reason->translatedName|default:'?'|escape}}</td>
+                          <td style="padding:0 10px">:</td>
+                          <td>
+                            {{$params = ['n' => $deathReason->count, 'nFormatted' => $app->formatter->asDecimal($deathReason->count)]}}
+                            {{"{nFormatted} {n, plural, =1{time} other{times}}"|translate:'app':$params|escape}}
+                          </td>
+                        </tr>
+                      {{/foreach}}
+                    </tbody>
+                  </table>
+                </td>
+              </tr>
+            {{/if}}
+            {{if $battle->my_point}}
+              <tr>
+                <th>{{'Turf Inked + Bonus'|translate:'app'|escape}}</th>
+                <td>
+                  {{$_inked = $battle->inked}}
+                  {{if $_inked !== null}}
+                    {{$_inked|number_format|escape}}
+                    {{if $battle->is_win && $battle->bonus}}
+                      &#32;+ {{$battle->bonus->bonus|number_format|escape}}
+                    {{/if}}
+                  {{else}}
+                    {{$battle->my_point|number_format|escape}}
+                  {{/if}}
+                  &#32;P
+                </td>
+              </tr>
+            {{/if}}
+            {{if $battle->my_team_final_point || $battle->his_team_final_point}}
+              <tr>
+                <th>{{'My Team Score'|translate:'app'|escape}}</th>
+                <td>
+                  {{$battle->my_team_final_point|default:'?'|escape}} P (
+                  {{if $battle->my_team_final_percent === null}}
+                    ?
+                  {{else}}
+                    {{$battle->my_team_final_percent|number_format:1|escape}}
+                  {{/if}}
+                  %)
+                </td>
+              </tr>
+              <tr>
+                <th>{{'Their Team Score'|translate:'app'|escape}}</th>
+                <td>
+                  {{$battle->his_team_final_point|default:'?'|escape}} P (
+                  {{if $battle->his_team_final_percent === null}}
+                    ?
+                  {{else}}
+                    {{$battle->his_team_final_percent|number_format:1|escape}}
+                  {{/if}}
+                  %)
+                </td>
+              </tr>
+            {{/if}}
+            {{if $battle->my_team_count || $battle->his_team_count}}
+              <tr>
+                <th>{{'My Team Count'|translate:'app'|escape}}</th>
+                <td>{{$battle->my_team_count|default:'?'|escape}}</td>
+              </tr>
+              <tr>
+                <th>{{'Their Team Count'|translate:'app'|escape}}</th>
+                <td>{{$battle->his_team_count|default:'?'|escape}}</td>
+              </tr>
+            {{/if}}
+            {{if $battle->cash || $battle->cash_after}}
+              <tr>
+                <th>{{'Cash'|translate:'app'|escape}}</th>
+                <td>
+                  {{if $battle->cash === null}}
+                    ?
+                  {{else}}
+                    {{$battle->cash|number_format|escape}}
+                  {{/if}}
+                  {{if $battle->cash_after !== null}}
+                    &#32;→ {{$battle->cash_after|number_format|escape}}
+                  {{/if}}
+                </td>
+              </tr>
+            {{/if}}
+            {{if $battle->headgear || $battle->clothing || $battle->shoes}}
+              <tr>
+                <th>
+                  {{'Gear'|translate:'app'|escape}}
+                  {{if $battle->battleImageGear}}
+                    {{\app\assets\SwipeboxRunnerAsset::register($this)|@void}}
+                    &#32;
+                    <a href="{{$battle->battleImageGear->url}}" class="swipebox">
+                      <span class="fa fa-picture-o"></span>
+                    </a>
+                  {{/if}}
+                </th>
+                <td>
+                  {{$this->render('_battle_gear', ['battle' => $battle])}}
+                </td>
+              </tr>
+            {{/if}}
+            {{$_editable = (!$app->user->isGuest && $app->user->identity->id == $battle->user_id)}}
+            {{if $battle->link_url != '' || $_editable}}
+              {{if $_editable}}
+                {{\app\assets\BattleEditAsset::register($this)|@void}}
+              {{/if}}
+              <tr>
+                <th>{{'Link'|translate:'app'|escape}}</th>
+                <td id="link-cell">
+                  <div id="link-cell-display" data-post="{{url route="api-internal/patch-battle" id=$battle->id}}" data-url="{{$battle->link_url|escape}}">
+                    {{if $battle->link_url != ''}}
+                      <a href="{{$battle->link_url|escape}}" rel="nofollow">
+                        {{$battle->link_url|decode_idn|escape}}
+                      </a>&#32;
+                    {{/if}}
+                    {{if $_editable}}
+                      <button id="link-cell-start-edit" class="btn btn-default btn-xs" disabled>
+                        <span class="fas fa-pencil-alt fa-fw"></span>{{'Edit'|translate:'app'|escape}}
+                      </button>
+                    {{/if}}
+                  </div>
+                  {{if $_editable}}
+                    <div id="link-cell-edit" style="display:none">
+                      <div class="form-group-sm">
+                        <input type="url" value="" id="link-cell-edit-input" class="form-control" placeholder="https://www.youtube.com/watch?v=...">
+                      </div>
+                      <button type="button" id="link-cell-edit-apply" class="btn btn-primary btn-xs" disabled data-error="{{'Could not be updated.'|translate:'app'|escape}}">
+                        {{'Apply'|translate:'app'|escape}}
+                      </button>
+                    </div>
+                  {{/if}}
+                </td>
+              </tr>
+            {{/if}}
+            <tr>
+              <th>{{'Battle Start'|translate:'app'|escape}}</th>
+              <td>
+                {{if $battle->start_at}}
+                  <time datetime="{{$battle->start_at|as_isotime|escape}}">
+                    {{$battle->start_at|as_datetime|escape}}
+                  </time>
+                {{/if}}
+              </td>
+            </tr>
+            <tr>
+              <th>{{'Battle End'|translate:'app'|escape}}</th>
+              <td>
+                <time datetime="{{$battle->end_at|as_isotime|escape}}">
+                  {{$battle->end_at|as_datetime|escape}}
+                </time>
+              </td>
+            </tr>
+            <tr>
+              <th>{{'Data Sent'|translate:'app'|escape}}</th>
+              <td>
+                <time datetime="{{$battle->at|as_isotime|escape}}">
+                  {{$battle->at|as_datetime|escape}}
+                </time>
+              </td>
+              <meta itemprop="dateCreated" content="{{$battle->at|as_isotime|escape}}">
+              <meta itemprop="dateModified" content="{{$battle->at|as_isotime|escape}}">
+              <meta itemprop="datePublished" content="{{$battle->at|as_isotime|escape}}">
+            </tr>
+            {{if $battle->agent}}
+              <tr>
+                <th>{{'User Agent'|translate:'app'|escape}}</th>
+                <td>
+                  {{$_link = $battle->agent->productUrl}}
+                  {{if $_link}}<a href="{{$_link|escape}}" target="_blank" rel="nofollow">{{/if}}
+                  {{$battle->agent->name|escape}}
+                  {{if $_link}}</a>{{/if}}
+                  &#32;/&#32;
+                  {{$_link = $battle->agent->versionUrl}}
+                  {{if $_link}}<a href="{{$_link|escape}}" target="_blank" rel="nofollow">{{/if}}
+                  {{$battle->agent->version|escape}}
+                  {{if $_link}}</a>{{/if}}
+                </td>
+            {{/if}}
+            {{if $battle->ua_variables}}
+              <tr>
+                <th>{{'Extra Data'|translate:'app'|escape}}</th>
+                <td>
+                  <table class="table" style="margin-bottom:0">
+                    {{foreach $battle->extraData as $k => $v}}
+                      <tr>
+                        <th>{{$k|translate:'app-ua-vars'|escape}}</th>
+                        <td>{{$v|translate:'app-ua-vars-v'|escape}}</td>
+                      </tr>
+                    {{/foreach}}
+                  </table>
+                </td>
+              </tr>
+            {{/if}}
+            {{if $battle->note != ''}}
+              <tr>
+                <th>{{'Note'|translate:'app'|escape}}</th>
+                <td>
+                  {{$battle->note|escape|nl2br}}
+                </td>
+              </tr>
+            {{/if}}
+            {{if $battle->private_note != ''}}
+              {{if !$app->user->isGuest && $app->user->identity->id == $user->id}}
+                <tr>
+                  <th>{{'Note (private)'|translate:'app'|escape}}</th>
+                  <td>
+                    <button class="btn btn-default" id="private-note-show">
+                      <span class="fa fa-lock fa-fw"></span>
+                    </button>
+                    <div id="private-note">{{$battle->private_note|escape|nl2br}}</div>
+                    {{registerCss}}
+                      #private-note{display:none}
+                    {{/registerCss}}
+                    {{registerJs}}
+                      (function($){
+                        "use strict";
+                        var $btn = $('#private-note-show');
+                        var $txt = $('#private-note');
+                        var $i = $('.fa', $btn);
+                        $btn.hover(
+                          function() {
+                            $i.removeClass('fa-lock').addClass('fa-unlock-alt');
+                          },
+                          function() {
+                            $i.removeClass('fa-unlock-alt').addClass('fa-lock');
+                          }
+                        ).click(function () {
+                          $btn.hide();
+                          $txt.show();
+                        });
+                      })(jQuery);
+                    {{/registerJs}}
+                  </td>
+                </tr>
+              {{/if}}
+            {{/if}}
+            <tr>
+              <th>{{'Game Version'|translate:'app'|escape}}</th>
+              <td>
+                {{if $battle->splatoonVersion}}
+                  {{$battle->splatoonVersion->name|escape}}
+                {{else}}
+                  {{'Unknown'|translate:'app'|escape}}
+                {{/if}}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <p>
+          {{'Note: You can change the time zone via the navbar.'|translate:'app'|escape}}
+        </p>
+        {{if !$app->user->isGuest && $app->user->identity->id == $user->id}}
+          <p class="text-right">
+            <a href="{{url route="show/edit-battle" screen_name=$user->screen_name battle=$battle->id}}" class="btn btn-default">
+              {{'Edit'|translate:'app'|escape}}
+            </a>
+          </p>
+        {{/if}}
         {{$hasExtendedData = false}}
         {{if $battle->myTeamPlayers && $battle->hisTeamPlayers}}
           {{if $battle->my_team_color_rgb && $battle->his_team_color_rgb}}
