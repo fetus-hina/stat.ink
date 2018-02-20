@@ -134,6 +134,17 @@ if ($user->twitter != '') {
             // }}}
           ],
           [
+            // battle # {{{
+            'label' => Yii::t('app', '#'),
+            'headerOptions' => ['class' => 'cell-splatnet'],
+            'contentOptions' => ['class' => 'cell-splatnet'],
+            'value' => function ($model) : string {
+              $value = trim((string)$model->splatnet_number);
+              return $value === '' ? '' : Yii::$app->formatter->asInteger($value);
+            },
+            // }}}
+          ],
+          [
             // lobby {{{
             'label' => Yii::t('app', 'Lobby'),
             'headerOptions' => ['class' => 'cell-lobby'],
@@ -733,6 +744,7 @@ if ($user->twitter != '') {
       </div>
       <div class="row"><?php
         $_list = [
+          'cell-splatnet'             => Yii::t('app', 'SplatNet Battle #'),
           'cell-lobby'                => Yii::t('app', 'Lobby'),
           'cell-rule'                 => Yii::t('app', 'Mode'),
           'cell-rule-short'           => Yii::t('app', 'Mode (Short)'),

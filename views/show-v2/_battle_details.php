@@ -39,6 +39,16 @@ $this->registerCss('#battle .progress{margin-bottom:0}');
   },
   'attributes' => [
     [
+      'label' => Yii::t('app', 'SplatNet Battle #'),
+      'value' => function ($model) : ?string {
+        $value = trim((string)$model->splatnet_number);
+        if ($value === '') {
+          return null;
+        }
+        return Yii::$app->formatter->asInteger($value);
+      },
+    ],
+    [
       'label' => Yii::t('app', 'Mode'),
       'value' => function ($model) {
         if ($text = $model->getPrettyMode()) {

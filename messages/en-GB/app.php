@@ -403,6 +403,7 @@ return [
     'Splatfest Title' => '',
     'SplatNet' => '',
     'SplatNet 2' => '',
+    'SplatNet Battle #' => '',
     'Splatoon Official Website (Japan)' => '',
     'Splatoon Official Website (UK)' => '',
     'Splatoon Official Website (US/Canada)' => '',

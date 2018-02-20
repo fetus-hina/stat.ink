@@ -363,6 +363,7 @@ return [
     'Specials/min' => 'スペシャル/分',
     'Specify Period' => '期間を指定する',
     'SplatNet 2' => 'イカリング2',
+    'SplatNet Battle #' => 'イカリングのバトル番号',
     'SplatNet' => 'イカリング',
     'Splatfest Power' => 'フェスパワー',
     'Splatfest Title' => 'フェス称号',
