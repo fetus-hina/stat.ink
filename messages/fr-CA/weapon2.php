@@ -65,6 +65,7 @@ return [
     'L-3 Nozzlenose' => '',
     'L-3 Nozzlenose D' => 'Arroseur léger requin',
     'Luna Blaster' => 'Proxiblasteur',
+    'Luna Blaster Neo' => 'Proxiblasteur néo',
     'Mini Splatling' => 'Badigeonneur XP',
     'Nozzlenose' => '',
     'N-ZAP \'85' => '',

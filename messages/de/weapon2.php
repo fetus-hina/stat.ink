@@ -65,6 +65,7 @@ return [
     'L-3 Nozzlenose' => 'L3 Tintenwerfer',
     'L-3 Nozzlenose D' => 'L3 Tintenwerfer D',
     'Luna Blaster' => 'Luna-Blaster',
+    'Luna Blaster Neo' => 'Luna-Blaster Neo',
     'Mini Splatling' => 'Klecks-Splatling',
     'Nozzlenose' => '',
     'N-ZAP \'85' => 'N-ZAP85',

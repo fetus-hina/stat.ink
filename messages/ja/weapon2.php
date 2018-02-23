@@ -44,6 +44,7 @@ return [
     'Jet Squelcher' => 'ジェットスイーパー',
     'L-3 Nozzlenose D' => 'L3リールガンD',
     'L-3 Nozzlenose' => 'L3リールガン',
+    'Luna Blaster Neo' => 'ノヴァブラスターネオ',
     'Luna Blaster' => 'ノヴァブラスター',
     'N-ZAP \'85' => 'N-ZAP85',
     'N-ZAP \'89' => 'N-ZAP89',

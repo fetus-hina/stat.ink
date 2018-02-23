@@ -65,6 +65,7 @@ return [
     'L-3 Nozzlenose' => '',
     'L-3 Nozzlenose D' => '',
     'Luna Blaster' => '',
+    'Luna Blaster Neo' => '',
     'Mini Splatling' => '',
     'Nozzlenose' => '',
     'N-ZAP \'85' => '',

@@ -303,6 +303,7 @@ There is a listing page [here](https://stat.ink/api-info/weapon2).
 |`hotblaster_custom`     |`211`                 |ホットブラスターカスタム<br>Custom Blaster           |                                                                                                     |
 |`longblaster`           |`220`                 |ロングブラスター<br>Range Blaster                    |                                                                                                     |
 |`nova`                  |`200`                 |ノヴァブラスター<br>Luna Blaster                     |                                                                                                     |
+|`nova_neo`              |`201`                 |ノヴァブラスターネオ<br>Luna Blaster Neo             |                                                                                                     |
 |`rapid`                 |`240`                 |ラピッドブラスター<br>Rapid Blaster                  |                                                                                                     |
 |`rapid_deco`            |`241`                 |ラピッドブラスターデコ<br>Rapid Blaster Deco         |                                                                                                     |
 |`rapid_elite`           |`250`                 |Rブラスターエリート<br>Rapid Blaster Pro             |                                                                                                     |
