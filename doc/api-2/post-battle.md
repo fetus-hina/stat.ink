@@ -316,6 +316,7 @@ There is a listing page [here](https://stat.ink/api-info/weapon2).
 |`kelvin525`             |`5020`                |ケルビン525<br>Glooga Dualies                        |                                                                                                     |
 |`maneuver`              |`5010`                |スプラマニューバー<br>Splat Dualies                  |互換性のため `manueuver` も受け付けます<br>Also accepts `manueuver` for compatibility                |
 |`maneuver_collabo`      |`5011`                |スプラマニューバーコラボ<br>Enperry Splat Dualies    |互換性のため `manueuver_collabo` も受け付けます<br>Also accepts `manueuver_collabo` for compatibility|
+|`quadhopper_black`      |                      |クアッドホッパーブラック<br>Dark Tetra Dualies       |                                                                                                     |
 |`sputtery`              |`5000`                |スパッタリー<br>Dapple Dualies                       |                                                                                                     |
 |`sputtery_hue`          |`5001`                |スパッタリー・ヒュー<br>Dapple Dualies Nouveau       |                                                                                                     |
 |`carbon`                |`1000`                |カーボンローラー<br>Carbon Roller                    |                                                                                                     |

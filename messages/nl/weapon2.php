@@ -31,6 +31,7 @@ return [
     'Custom Splattershot Jr.' => 'Gemodde Superspetter jr.',
     'Dapple Dualies' => 'Dubbelspatters',
     'Dapple Dualies Nouveau' => '',
+    'Dark Tetra Dualies' => 'Quadhoppers Zwart',
     'Dualies' => '',
     'Dualie Squelchers' => 'Dubbelplonzers',
     'Dynamo Roller' => 'Dynamoroller',

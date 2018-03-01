@@ -33,6 +33,7 @@ return [
     'Custom Splattershot Jr.' => 'もみじシューター',
     'Dapple Dualies Nouveau' => 'スパッタリー・ヒュー',
     'Dapple Dualies' => 'スパッタリー',
+    'Dark Tetra Dualies' => 'クアッドホッパーブラック',
     'Dualie Squelchers' => 'デュアルスイーパー',
     'Enperry Splat Dualies' => 'スプラマニューバーコラボ',
     'Forge Splattershot Pro' => 'プライムシューターコラボ',

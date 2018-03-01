@@ -31,6 +31,7 @@ return [
     'Custom Splattershot Jr.' => 'Rociador básico adaptado',
     'Dapple Dualies' => '',
     'Dapple Dualies Nouveau' => '',
+    'Dark Tetra Dualies' => '',
     'Dualies' => '',
     'Dualie Squelchers' => '',
     'Dual Squelcher' => 'Soplador doble',

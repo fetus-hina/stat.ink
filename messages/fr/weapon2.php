@@ -31,6 +31,7 @@ return [
     'Custom Splattershot Jr.' => 'Liquidateur Sr.',
     'Dapple Dualies' => 'Double moucheteur',
     'Dapple Dualies Nouveau' => '',
+    'Dark Tetra Dualies' => 'Double voltigeur noir',
     'Dualies' => '',
     'Dualie Squelchers' => 'Double nettoyeur',
     'Dynamo Roller' => 'Dynamo-rouleau',

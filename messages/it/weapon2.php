@@ -31,6 +31,7 @@ return [
     'Custom Splattershot Jr.' => 'Sparacolore logo',
     'Dapple Dualies' => 'Ripolpella duplo',
     'Dapple Dualies Nouveau' => '',
+    'Dark Tetra Dualies' => 'Moscarpino duplo nero',
     'Dualies' => 'Armi "duplo"',
     'Dualie Squelchers' => 'Sweeper duplo',
     'Dynamo Roller' => 'Rullo dinamo',

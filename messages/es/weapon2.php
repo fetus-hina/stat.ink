@@ -31,6 +31,7 @@ return [
     'Custom Splattershot Jr.' => 'Lanzatintas novato B',
     'Dapple Dualies' => 'Atomizador dual',
     'Dapple Dualies Nouveau' => '',
+    'Dark Tetra Dualies' => 'Motatrónic dual negro',
     'Dualies' => '',
     'Dualie Squelchers' => 'Barredora dual',
     'Dynamo Roller' => 'Dinamorrodillo',

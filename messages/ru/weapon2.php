@@ -31,6 +31,7 @@ return [
     'Custom Splattershot Jr.' => 'Каплестрел-У 2.0',
     'Dapple Dualies' => 'Импрессиометы',
     'Dapple Dualies Nouveau' => 'Импрессиометы «НуВо»',
+    'Dark Tetra Dualies' => 'Черные спуртокроссы',
     'Dualies' => '',
     'Dualie Squelchers' => 'Спурт-плескари',
     'Dynamo Roller' => 'Мотовалик',

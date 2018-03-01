@@ -31,6 +31,7 @@ return [
     'Custom Splattershot Jr.' => '',
     'Dapple Dualies' => '',
     'Dapple Dualies Nouveau' => '',
+    'Dark Tetra Dualies' => '',
     'Dualies' => '',
     'Dualie Squelchers' => '',
     'Dynamo Roller' => '',

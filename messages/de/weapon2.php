@@ -31,6 +31,7 @@ return [
     'Custom Splattershot Jr.' => 'Junior-Kleckser Plus',
     'Dapple Dualies' => 'Sprenkler',
     'Dapple Dualies Nouveau' => '',
+    'Dark Tetra Dualies' => 'Quadhopper Noir',
     'Dualies' => '',
     'Dualie Squelchers' => 'Dual-Platscher',
     'Dynamo Roller' => 'Dynaroller',
