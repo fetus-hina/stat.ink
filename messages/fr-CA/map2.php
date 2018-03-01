@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2015-2017 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2018 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  */
@@ -8,11 +8,13 @@
 return [
     'Academy' => 'Institut Calm\'arts',
     'Any Stage' => '',
+    'Arena' => '',
     'Arowana Mall' => '',
     'Blackbelly Skatepark' => 'Plancho Mako',
     'Canal' => '',
     'Dome' => '',
     'Fitness' => '',
+    'Goby Arena' => '',
     'Humpback Pump Track' => '',
     'Inkblot Art Academy' => 'Institut Calm\'arts',
     'Institute' => '',

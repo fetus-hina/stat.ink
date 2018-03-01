@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2015-2017 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2018 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  */
@@ -8,11 +8,13 @@
 return [
     'Academy' => 'Institut Calam\'arts',
     'Any Stage' => '',
+    'Arena' => '',
     'Arowana Mall' => 'Centre Arowana',
     'Blackbelly Skatepark' => 'Skatepark Mako',
     'Canal' => 'Canalamar',
     'Dome' => 'Serre Goémon',
     'Fitness' => 'Gymnase Ancrage',
+    'Goby Arena' => '',
     'Humpback Pump Track' => 'Piste Méroule',
     'Inkblot Art Academy' => 'Institut Calam\'arts',
     'Institute' => 'La Galerie des Abysses',

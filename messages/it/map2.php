@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2015-2017 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2018 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  */
@@ -8,11 +8,13 @@
 return [
     'Academy' => 'Campus Hippocampus',
     'Any Stage' => '',
+    'Arena' => '',
     'Arowana Mall' => 'Centro Commerciale',
     'Blackbelly Skatepark' => 'Pista Polposkate',
     'Canal' => 'Canale Cannolicchio',
     'Dome' => 'Serra di alghe',
     'Fitness' => 'Centro polpisportivo',
+    'Goby Arena' => '',
     'Humpback Pump Track' => 'Tintodromo Montecarpa',
     'Inkblot Art Academy' => 'Campus Hippocampus',
     'Institute' => '',

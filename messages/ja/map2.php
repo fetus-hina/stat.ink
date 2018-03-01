@@ -10,6 +10,7 @@ return [
 
     'Arowana Mall' => 'アロワナモール',
     'Blackbelly Skatepark' => 'Bバスパーク',
+    'Goby Arena' => 'アジフライスタジアム',
     'Humpback Pump Track' => 'コンブトラック',
     'Inkblot Art Academy' => '海女美術大学',
     'Kelp Dome' => 'モズク農園',
@@ -27,6 +28,7 @@ return [
     'Walleye Warehouse' => 'ハコフグ倉庫',
 
     'Academy' => 'アマビ',
+    'Arena' => 'アジフライ',
     'Canal' => 'エンガワ',
     'Dome' => 'モズク',
     'Fitness' => 'フジツボ',

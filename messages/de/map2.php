@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2015-2017 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2018 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  */
@@ -8,11 +8,13 @@
 return [
     'Academy' => 'Perlmutt-Akademie',
     'Any Stage' => '',
+    'Arena' => '',
     'Arowana Mall' => 'Arowana Center',
     'Blackbelly Skatepark' => 'Punkasius-Skatepark',
     'Canal' => 'Grätenkanal',
     'Dome' => 'Tümmlerkuppel',
     'Fitness' => 'Molluskelbude',
+    'Goby Arena' => '',
     'Humpback Pump Track' => 'Buckelwal-Piste',
     'Inkblot Art Academy' => 'Perlmutt-Akademie',
     'Institute' => '',
