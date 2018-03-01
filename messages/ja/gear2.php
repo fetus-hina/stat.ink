@@ -400,4 +400,5 @@ return [
 
     'Garden Gear' => 'マクレGT',
     'Welding Mask' => 'アイアンマスカレイド',
+    'Crustwear XXL' => 'アゲアゲ・10・プラーXXL',
 ];

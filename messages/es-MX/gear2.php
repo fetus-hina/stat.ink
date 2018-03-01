@@ -82,6 +82,7 @@ return [
     'Crazy Arrows' => '',
     'Cream Basics' => '',
     'Crimson Parashooter' => '',
+    'Crustwear XXL' => '',
     'Custom Painted F-3' => '',
     'Cyan Trainers' => '',
     'Cycle King Cap' => '',
