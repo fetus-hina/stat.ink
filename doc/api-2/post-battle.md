@@ -246,7 +246,7 @@ Example for UUID v5 (if use namespace `73cf052a-fd0b-11e7-a5ee-001b21a098c2`):
 <!--replace:stage-->
 |指定文字列<br>Key String|イカリング<br>SplatNet|ステージ<br>Stage Name                       |備考<br>Remarks                                                              |
 |------------------------|----------------------|---------------------------------------------|-----------------------------------------------------------------------------|
-|`ajifry`                |`16`                  |アジフライスタジアム<br>Goby Arena           |                                                                             |
+|`ajifry`                |`18`                  |アジフライスタジアム<br>Goby Arena           |                                                                             |
 |`ama`                   |`4`                   |海女美術大学<br>Inkblot Art Academy          |                                                                             |
 |`arowana`               |`15`                  |アロワナモール<br>Arowana Mall               |                                                                             |
 |`battera`               |`0`                   |バッテラストリート<br>The Reef               |                                                                             |
