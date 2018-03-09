@@ -10,6 +10,7 @@ return [
 
     'Arowana Mall' => 'アロワナモール',
     'Blackbelly Skatepark' => 'Bバスパーク',
+    'Camp Triggerfish' => 'モンガラキャンプ場',
     'Goby Arena' => 'アジフライスタジアム',
     'Humpback Pump Track' => 'コンブトラック',
     'Inkblot Art Academy' => '海女美術大学',
@@ -18,6 +19,7 @@ return [
     'Manta Maria' => 'マンタマリア号',
     'Moray Towers' => 'タチウオパーキング',
     'Musselforge Fitness' => 'フジツボスポーツクラブ',
+    'Piranha Pit' => 'ショッツル鉱山',
     'Port Mackerel' => 'ホッケふ頭',
     'Shellendorf Institute' => 'デボン海洋博物館',
     'Shifty Station' => 'ミステリーゾーン',
@@ -25,10 +27,12 @@ return [
     'Starfish Mainstage' => 'ガンガゼ野外音楽堂',
     'Sturgeon Shipyard' => 'チョウザメ造船',
     'The Reef' => 'バッテラストリート',
+    'Wahoo World' => 'スメーシーワールド',
     'Walleye Warehouse' => 'ハコフグ倉庫',
 
     'Academy' => 'アマビ',
     'Arena' => 'アジフライ',
+    'Camp' => 'モンガラ',
     'Canal' => 'エンガワ',
     'Dome' => 'モズク',
     'Fitness' => 'フジツボ',
@@ -37,6 +41,7 @@ return [
     'Mall' => 'アロワナ',
     'Manta' => 'マンタ',
     'Mart' => 'ザトウ',
+    'Pit' => 'ショッツル',
     'Port' => 'ホッケ',
     'Reef' => 'バッテラ',
     'Shifty' => 'ミステリー',
@@ -45,4 +50,5 @@ return [
     'Towers' => 'タチウオ',
     'Track' => 'コンブ',
     'Warehouse' => 'ハコフグ',
+    'World' => 'スメーシー',
 ];

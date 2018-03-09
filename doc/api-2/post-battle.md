@@ -260,7 +260,10 @@ Example for UUID v5 (if use namespace `73cf052a-fd0b-11e7-a5ee-001b21a098c2`):
 |`hokke`                 |`7`                   |ホッケふ頭<br>Port Mackerel                  |                                                                             |
 |`kombu`                 |`5`                   |コンブトラック<br>Humpback Pump Track        |互換性のため `combu` も受け付けます<br>Also accepts `combu` for compatibility|
 |`manta`                 |`6`                   |マンタマリア号<br>Manta Maria                |                                                                             |
+|`mongara`               |                      |モンガラキャンプ場<br>Camp Triggerfish       |                                                                             |
 |`mozuku`                |`10`                  |モズク農園<br>Kelp Dome                      |                                                                             |
+|`shottsuru`             |                      |ショッツル鉱山<br>Piranha Pit                |                                                                             |
+|`sumeshi`               |                      |スメーシーワールド<br>Wahoo World            |                                                                             |
 |`tachiuo`               |`8`                   |タチウオパーキング<br>Moray Towers           |                                                                             |
 |`zatou`                 |`13`                  |ザトウマーケット<br>MakoMart                 |                                                                             |
 |`mystery`               |`9999`                |ミステリーゾーン<br>Shifty Station           |フェス専用ステージ<br>For Splatfest                                          |
