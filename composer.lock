@@ -52,12 +52,12 @@
             "version": "1.4.6",
             "source": {
                 "type": "git",
-                "url": "https://github.com/lancedikson/bowser.git",
+                "url": "git@github.com:ded/bowser.git",
                 "reference": "7c8b159d7338cfe8e5053f1277d53a0cbde1258c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lancedikson/bowser/zipball/7c8b159d7338cfe8e5053f1277d53a0cbde1258c",
+                "url": "https://api.github.com/repos/ded/bowser/zipball/7c8b159d7338cfe8e5053f1277d53a0cbde1258c",
                 "reference": "7c8b159d7338cfe8e5053f1277d53a0cbde1258c",
                 "shasum": null
             },
@@ -444,16 +444,16 @@
         },
         {
             "name": "bower-asset/moment",
-            "version": "2.20.1",
+            "version": "2.21.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/moment/moment.git",
-                "reference": "03073778ec18ee38e179208cd1af899e8d1848dc"
+                "reference": "7c4c091bedb86ca6c1a5c5419ad5204ef3926347"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/moment/moment/zipball/03073778ec18ee38e179208cd1af899e8d1848dc",
-                "reference": "03073778ec18ee38e179208cd1af899e8d1848dc",
+                "url": "https://api.github.com/repos/moment/moment/zipball/7c4c091bedb86ca6c1a5c5419ad5204ef3926347",
+                "reference": "7c4c091bedb86ca6c1a5c5419ad5204ef3926347",
                 "shasum": null
             },
             "type": "bower-asset",
@@ -854,16 +854,16 @@
         },
         {
             "name": "himiklab/yii2-recaptcha-widget",
-            "version": "1.1.1",
+            "version": "1.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/himiklab/yii2-recaptcha-widget.git",
-                "reference": "21cbcf2483e29b520893709dbfeff9a12324f87c"
+                "reference": "980abb9e81227f4253ee65340a43dcb80851a75e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/himiklab/yii2-recaptcha-widget/zipball/21cbcf2483e29b520893709dbfeff9a12324f87c",
-                "reference": "21cbcf2483e29b520893709dbfeff9a12324f87c",
+                "url": "https://api.github.com/repos/himiklab/yii2-recaptcha-widget/zipball/980abb9e81227f4253ee65340a43dcb80851a75e",
+                "reference": "980abb9e81227f4253ee65340a43dcb80851a75e",
                 "shasum": ""
             },
             "require": {
@@ -893,7 +893,7 @@
                 "widget",
                 "yii2"
             ],
-            "time": "2018-01-25T16:15:09+00:00"
+            "time": "2018-02-27T12:55:43+00:00"
         },
         {
             "name": "hiqdev/yii2-asset-flag-icon-css",
@@ -1789,16 +1789,16 @@
         },
         {
             "name": "symfony/console",
-            "version": "v2.8.34",
+            "version": "v2.8.36",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "162ca7d0ea597599967aa63b23418e747da0896b"
+                "reference": "a6ff8b2ffa4eb43046828b303af2e3fedadacc27"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/162ca7d0ea597599967aa63b23418e747da0896b",
-                "reference": "162ca7d0ea597599967aa63b23418e747da0896b",
+                "url": "https://api.github.com/repos/symfony/console/zipball/a6ff8b2ffa4eb43046828b303af2e3fedadacc27",
+                "reference": "a6ff8b2ffa4eb43046828b303af2e3fedadacc27",
                 "shasum": ""
             },
             "require": {
@@ -1846,7 +1846,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2018-01-29T08:54:45+00:00"
+            "time": "2018-02-26T15:33:21+00:00"
         },
         {
             "name": "symfony/debug",
@@ -4672,7 +4672,7 @@
         },
         {
             "name": "symfony/browser-kit",
-            "version": "v4.0.4",
+            "version": "v4.0.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/browser-kit.git",
@@ -4729,16 +4729,16 @@
         },
         {
             "name": "symfony/css-selector",
-            "version": "v4.0.4",
+            "version": "v4.0.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/css-selector.git",
-                "reference": "f97600434e3141ef3cbb9ea42cf500fba88022b7"
+                "reference": "c69f1e93aa898fd9fec627ebef467188151c8dc2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/css-selector/zipball/f97600434e3141ef3cbb9ea42cf500fba88022b7",
-                "reference": "f97600434e3141ef3cbb9ea42cf500fba88022b7",
+                "url": "https://api.github.com/repos/symfony/css-selector/zipball/c69f1e93aa898fd9fec627ebef467188151c8dc2",
+                "reference": "c69f1e93aa898fd9fec627ebef467188151c8dc2",
                 "shasum": ""
             },
             "require": {
@@ -4778,20 +4778,20 @@
             ],
             "description": "Symfony CssSelector Component",
             "homepage": "https://symfony.com",
-            "time": "2018-01-03T07:38:00+00:00"
+            "time": "2018-02-03T14:58:37+00:00"
         },
         {
             "name": "symfony/dom-crawler",
-            "version": "v4.0.4",
+            "version": "v4.0.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/dom-crawler.git",
-                "reference": "39b785e1cf28e9f21bb601a5d62c4992a8e8a290"
+                "reference": "26726ddc01601dc9393f2afc3369ce1ca64e4537"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/dom-crawler/zipball/39b785e1cf28e9f21bb601a5d62c4992a8e8a290",
-                "reference": "39b785e1cf28e9f21bb601a5d62c4992a8e8a290",
+                "url": "https://api.github.com/repos/symfony/dom-crawler/zipball/26726ddc01601dc9393f2afc3369ce1ca64e4537",
+                "reference": "26726ddc01601dc9393f2afc3369ce1ca64e4537",
                 "shasum": ""
             },
             "require": {
@@ -4834,20 +4834,20 @@
             ],
             "description": "Symfony DomCrawler Component",
             "homepage": "https://symfony.com",
-            "time": "2018-01-03T07:38:00+00:00"
+            "time": "2018-02-22T10:50:29+00:00"
         },
         {
             "name": "symfony/event-dispatcher",
-            "version": "v4.0.4",
+            "version": "v4.0.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/event-dispatcher.git",
-                "reference": "74d33aac36208c4d6757807d9f598f0133a3a4eb"
+                "reference": "85eaf6a8ec915487abac52e133efc4a268204428"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/event-dispatcher/zipball/74d33aac36208c4d6757807d9f598f0133a3a4eb",
-                "reference": "74d33aac36208c4d6757807d9f598f0133a3a4eb",
+                "url": "https://api.github.com/repos/symfony/event-dispatcher/zipball/85eaf6a8ec915487abac52e133efc4a268204428",
+                "reference": "85eaf6a8ec915487abac52e133efc4a268204428",
                 "shasum": ""
             },
             "require": {
@@ -4897,20 +4897,20 @@
             ],
             "description": "Symfony EventDispatcher Component",
             "homepage": "https://symfony.com",
-            "time": "2018-01-03T07:38:00+00:00"
+            "time": "2018-02-14T14:11:10+00:00"
         },
         {
             "name": "symfony/finder",
-            "version": "v3.4.4",
+            "version": "v3.4.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/finder.git",
-                "reference": "613e26310776f49a1773b6737c6bd554b8bc8c6f"
+                "reference": "a479817ce0a9e4adfd7d39c6407c95d97c254625"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/finder/zipball/613e26310776f49a1773b6737c6bd554b8bc8c6f",
-                "reference": "613e26310776f49a1773b6737c6bd554b8bc8c6f",
+                "url": "https://api.github.com/repos/symfony/finder/zipball/a479817ce0a9e4adfd7d39c6407c95d97c254625",
+                "reference": "a479817ce0a9e4adfd7d39c6407c95d97c254625",
                 "shasum": ""
             },
             "require": {
@@ -4946,20 +4946,20 @@
             ],
             "description": "Symfony Finder Component",
             "homepage": "https://symfony.com",
-            "time": "2018-01-03T07:37:34+00:00"
+            "time": "2018-03-05T18:28:11+00:00"
         },
         {
             "name": "symfony/process",
-            "version": "v3.4.4",
+            "version": "v3.4.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/process.git",
-                "reference": "09a5172057be8fc677840e591b17f385e58c7c0d"
+                "reference": "cc4aea21f619116aaf1c58016a944e4821c8e8af"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/process/zipball/09a5172057be8fc677840e591b17f385e58c7c0d",
-                "reference": "09a5172057be8fc677840e591b17f385e58c7c0d",
+                "url": "https://api.github.com/repos/symfony/process/zipball/cc4aea21f619116aaf1c58016a944e4821c8e8af",
+                "reference": "cc4aea21f619116aaf1c58016a944e4821c8e8af",
                 "shasum": ""
             },
             "require": {
@@ -4995,7 +4995,7 @@
             ],
             "description": "Symfony Process Component",
             "homepage": "https://symfony.com",
-            "time": "2018-01-29T09:03:43+00:00"
+            "time": "2018-02-12T17:55:00+00:00"
         },
         {
             "name": "symfony/yaml",
@@ -5148,12 +5148,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-debug.git",
-                "reference": "04483b15745cd606a294b99eeed741b668b479a0"
+                "reference": "f49234bdb54a9a5baef52a1ac73b7e5f33fab7b3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-debug/zipball/04483b15745cd606a294b99eeed741b668b479a0",
-                "reference": "04483b15745cd606a294b99eeed741b668b479a0",
+                "url": "https://api.github.com/repos/yiisoft/yii2-debug/zipball/f49234bdb54a9a5baef52a1ac73b7e5f33fab7b3",
+                "reference": "f49234bdb54a9a5baef52a1ac73b7e5f33fab7b3",
                 "shasum": ""
             },
             "require": {
@@ -5187,7 +5187,7 @@
                 "debugger",
                 "yii2"
             ],
-            "time": "2018-02-25T15:24:20+00:00"
+            "time": "2018-02-28T23:27:35+00:00"
         },
         {
             "name": "yiisoft/yii2-gii",
@@ -5195,12 +5195,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-gii.git",
-                "reference": "67743f6a2d352ab51fd362ea8199b3cbe2c8598e"
+                "reference": "20046a84d9cfa275b2c5ca66bcb1423ed86e7c42"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-gii/zipball/67743f6a2d352ab51fd362ea8199b3cbe2c8598e",
-                "reference": "67743f6a2d352ab51fd362ea8199b3cbe2c8598e",
+                "url": "https://api.github.com/repos/yiisoft/yii2-gii/zipball/20046a84d9cfa275b2c5ca66bcb1423ed86e7c42",
+                "reference": "20046a84d9cfa275b2c5ca66bcb1423ed86e7c42",
                 "shasum": ""
             },
             "require": {
@@ -5240,7 +5240,7 @@
                 "gii",
                 "yii2"
             ],
-            "time": "2018-02-23T11:04:39+00:00"
+            "time": "2018-03-08T20:57:14+00:00"
         }
     ],
     "aliases": [],
