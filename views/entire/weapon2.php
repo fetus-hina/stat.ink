@@ -15,6 +15,8 @@ use jp3cki\yii2\flot\FlotAsset;
 use jp3cki\yii2\flot\FlotPieAsset;
 use jp3cki\yii2\flot\FlotTimeAsset;
 use yii\bootstrap\ActiveForm;
+use yii\data\ArrayDataProvider;
+use yii\grid\GridView;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Json;
@@ -328,199 +330,189 @@ $normalizedSeconds = ($rule->key == 'nawabari' ? 3 : 5) * 60;
 
   <div class="table-responsive table-responsive-force">
 <?php $_mapImage = MapImage2Asset::register($this) ?>
-    <table class="table table-condensed table-sortable graph-container">
-      <thead>
-        <tr>
-          <th data-sort="int"><?= Html::encode(Yii::t('app', 'Stage')) ?></th>
-          <th data-sort="float"><?= Html::encode(Yii::t('app', 'Win %')) ?></th>
-          <th data-sort="float"><?= Html::encode(Yii::t('app', 'Kills')) ?></th>
-          <th data-sort="float"><?= Html::encode(Yii::t('app', 'Deaths')) ?></th>
-          <th data-sort="float"><?= Html::encode(Yii::t('app', 'Specials')) ?></th>
-          <th data-sort="float"><?= Html::encode(Yii::t('app', 'Assist')) ?></th>
-        </tr>
-      </thead>
-      <tbody>
-<?php $_mapCnt = 0 ?>
-<?php foreach ($maps as $_mapKey => $_mapName) { ?>
-<?php $_imgFileName = "daytime/{$_mapKey}.jpg"; ?>
-        <tr>
-          <?= Html::tag(
-            'th',
-            implode('', [
-              Html::encode($_mapName) . '<br>',
-              (file_exists(Yii::$app->assetManager->getAssetPath($_mapImage, $_imgFileName))
+<?php $_getQ = function (array $list, int $nth) : ?int {
+  while (count($list) > 0 && $nth > 0) {
+    $row = array_shift($list);
+    if ($nth <= $row['battles']) {
+      return (int)$row['times'];
+    }
+    $nth -= $row['battles'];
+  }
+  return null;
+} ?>
+<?php $_dataColumn = function (string $label, string $type, array $data) use ($_getQ) : array {
+  return [
+    'label' => Html::encode($label),
+    'format' => 'raw',
+    'value' => function (array $map) use ($type, $data, $_getQ) : string {
+      if (!$list = $data[$map['key']] ?? null) {
+        return '';
+      }
+
+      $battles = array_sum(array_map(
+        function ($row) : int {
+          return (int)$row['battles'];
+        },
+        $list
+      ));
+      $additional = [];
+      if ($battles > 0) {
+        $total = array_sum(array_map(
+          function ($row) : int {
+            return (int)$row['battles'] * (int)$row['times'];
+          },
+          $list
+        ));
+        $average = $total / $battles;
+        $stddev = sqrt(
+          array_sum(
+            array_map(
+              function ($row) use ($average) : float {
+                return pow($row['times'] - $average, 2) * (int)$row['battles'];
+              },
+              $list
+            )
+          ) / $battles
+        );
+
+        $additional[Yii::t('app', 'Average')] = $average;
+        $additional[Yii::t('app', 'Minimum')] = min(array_map(function ($row) : int {
+          return (int)$row['times'];
+        }, $list));
+        if ($battles > 4) {
+          $additional['Q 1/4'] = $_getQ($list, round($battles / 4));
+          $additional[Yii::t('app', 'Median')] = $_getQ($list, round($battles / 2));
+          $additional['Q 3/4'] = $_getQ($list, round(3 * $battles / 4));
+        }
+        $additional[Yii::t('app', 'Maximum')] = max(array_map(function ($row) : int {
+          return (int)$row['times'];
+        }, $list));
+        $additional['σ'] = $stddev;
+      }
+
+      return implode('', [
+        Html::tag('div', '', [
+          'class' => 'bar-flot-container',
+          'data' => [
+            'type' => $type,
+            'json' => Json::encode(array_slice($data[$map['key']], 0)),
+          ],
+        ]),
+        Html::tag('div', implode('<br>', array_filter(array_map(
+          function (string $key, $value) : ?string {
+            if ($value === null || $value === false || is_nan($value)) {
+              return null;
+            }
+            if (is_int($value)) {
+              $value = Yii::$app->formatter->asInteger($value);
+            } elseif (is_float($value)) {
+              $value = Yii::$app->formatter->asDecimal($value, 2);
+            }
+            return Html::encode(sprintf('%s: %s', $key, $value));
+          },
+          array_keys($additional),
+          array_values($additional)
+        )))),
+      ]);
+    },
+    'headerOptions' => ['data' => ['sort' => 'float']],
+    'contentOptions' => function (array $map) use ($data) : array {
+      if (!$list = $data[$map['key']] ?? null) {
+        return ['data' => ['sort-value' => '-1.0']];
+      }
+      $battles = array_sum(array_map(
+        function ($row) : int {
+          return (int)$row['battles'];
+        },
+        $list
+      ));
+      $value = array_sum(array_map(
+        function ($row) : int {
+          return (int)$row['battles'] * (int)$row['times'];
+        },
+        $list
+      ));
+      return ['data' => [
+        'sort-value' => sprintf('%f', $battles > 0 ? ($value / $battles) : -0.1),
+      ]];
+    },
+  ];
+} ?>
+    <?= GridView::widget([
+      'dataProvider' => new ArrayDataProvider([
+        'allModels' => array_map(
+          function ($key, $name) : array {
+            return ['key' => $key, 'name' => $name];
+          },
+          array_keys($maps),
+          array_values($maps)
+        ),
+        'sort' => false,
+        'pagination' => false,
+      ]),
+      'tableOptions' => [
+        'class' => 'table table-striped table-condensed table-sortable graph-container',
+      ],
+      'summary' => false,
+      'columns' => [
+        [
+          'label' => Html::encode(Yii::t('app', 'Stage')), // {{{
+          'format' => 'raw',
+          'value' => function (array $map) use ($_mapImage) : string {
+            $imgFileName = sprintf('daytime/%s.jpg', $map['key']);
+            return implode('<br>', array_filter([
+              Html::tag('strong', Html::encode($map['name'])),
+              (file_exists(Yii::$app->assetManager->getAssetPath($_mapImage, $imgFileName))
                 ? Html::img(
-                  Yii::$app->assetManager->getAssetUrl($_mapImage, $_imgFileName),
+                  Yii::$app->assetManager->getAssetUrl($_mapImage, $imgFileName),
                   ['style' => [
                     'max-width' => '100%',
                   ]]
                 )
-                : ''
+                : false
               ),
-            ]),
-            [
+            ]));
+          },
+          'headerOptions' => ['data' => ['sort' => 'int']],
+          'contentOptions' => function ($model, $key, $index, $column) : array {
+            return ['data' => [
+              'sort-value' => $index,
+            ]];
+          },
+          // }}}
+        ],
+        [
+          'label' => Html::encode(Yii::t('app', 'Win %')), // {{{
+          'format' => 'raw',
+          'value' => function (array $map) use ($winRate) : string {
+            if (!isset($winRate[$map['key']])) {
+              return '';
+            }
+            return Html::tag('div', '', [
+              'class' => 'pie-flot-container',
               'data' => [
-                'sort-value' => $_mapCnt++,
-              ]
-            ]
-          ) . "\n" ?>
-          <?= Html::tag(
-            'td',
-            isset($winRate[$_mapKey])
-              ? Html::tag(
-                'div',
-                '',
-                [
-                  'class' => 'pie-flot-container',
-                  'data' => [
-                    'json' => Json::encode($winRate[$_mapKey]),
-                  ],
-                ]
-              )
-              : '',
-            [
-              'data' => [
-                'sort-value' => isset($winRate[$_mapKey])
-                  ? (function (array $data) : string {
-                    return sprintf(
-                      '%f',
-                      ($data['win'] + $data['lose'] > 0)
-                        ? ($data['win'] * 100 / ($data['win'] + $data['lose']))
-                        : -1.0
-                    );
-                  })($winRate[$_mapKey])
-                  : '-1.0',
+                'json' => Json::encode($winRate[$map['key']]),
               ],
-            ]
-          ) . "\n" ?>
-          <?= Html::tag(
-            'td',
-            isset($kills[$_mapKey])
-              ? Html::tag(
-                'div',
-                '',
-                [
-                  'class' => 'bar-flot-container',
-                  'data' => [
-                    'type' => 'kill',
-                    'json' => Json::encode(array_slice($kills[$_mapKey], 0)),
-                  ],
-                ]
-              )
-              : '',
-            [
-              'data' => [
-                'sort-value' => isset($kills[$_mapKey])
-                  ? (function (array $list) : string {
-                    $battles = 0;
-                    $kills = 0;
-                    foreach ($list as $row) {
-                      $battles += $row['battles'];
-                      $kills += $row['battles'] * $row['times'];
-                    }
-                    return sprintf('%f', $battles > 0 ? $kills / $battles : -0.1);
-                  })($kills[$_mapKey])
-                  : '-1.0',
-              ],
-            ]
-          ) . "\n" ?>
-          <?= Html::tag(
-            'td',
-            isset($deaths[$_mapKey])
-              ? Html::tag(
-                'div',
-                '',
-                [
-                  'class' => 'bar-flot-container',
-                  'data' => [
-                    'type' => 'death',
-                    'json' => Json::encode(array_slice($deaths[$_mapKey], 0)),
-                  ],
-                ]
-              )
-              : '',
-            [
-              'data' => [
-                'sort-value' => isset($deaths[$_mapKey])
-                  ? (function (array $list) : string {
-                    $battles = 0;
-                    $deaths = 0;
-                    foreach ($list as $row) {
-                      $battles += $row['battles'];
-                      $deaths += $row['battles'] * $row['times'];
-                    }
-                    return sprintf('%f', $battles > 0 ? $deaths / $battles : -0.1);
-                  })($deaths[$_mapKey])
-                  : '-1.0',
-              ],
-            ]
-          ) . "\n" ?>
-          <?= Html::tag(
-            'td',
-            isset($specials[$_mapKey])
-              ? Html::tag(
-                'div',
-                '',
-                [
-                  'class' => 'bar-flot-container',
-                  'data' => [
-                    'type' => 'special',
-                    'json' => Json::encode(array_slice($specials[$_mapKey], 0)),
-                  ],
-                ]
-              )
-              : '',
-            [
-              'data' => [
-                'sort-value' => isset($specials[$_mapKey])
-                  ? (function (array $list) : string {
-                    $battles = 0;
-                    $specials = 0;
-                    foreach ($list as $row) {
-                      $battles += $row['battles'];
-                      $specials += $row['battles'] * $row['times'];
-                    }
-                    return sprintf('%f', $battles > 0 ? $specials / $battles : -0.1);
-                  })($specials[$_mapKey])
-                  : '-1.0',
-              ],
-            ]
-          ) . "\n" ?>
-          <?= Html::tag(
-            'td',
-            isset($assists[$_mapKey])
-              ? Html::tag(
-                'div',
-                '',
-                [
-                  'class' => 'bar-flot-container',
-                  'data' => [
-                    'type' => 'assist',
-                    'json' => Json::encode(array_slice($assists[$_mapKey], 0)),
-                  ],
-                ]
-              )
-              : '',
-            [
-              'data' => [
-                'sort-value' => isset($assists[$_mapKey])
-                  ? (function (array $list) : string {
-                    $battles = 0;
-                    $assists = 0;
-                    foreach ($list as $row) {
-                      $battles += $row['battles'];
-                      $assists += $row['battles'] * $row['times'];
-                    }
-                    return sprintf('%f', $battles > 0 ? $assists / $battles : -0.1);
-                  })($assists[$_mapKey])
-                  : '-1.0',
-              ],
-            ]
-          ) . "\n" ?>
-        </tr>
-<?php } ?>
-      </tbody>
-    </table>
+            ]);
+          },
+          'headerOptions' => ['data' => ['sort' => 'float']],
+          'contentOptions' => function (array $map) use ($winRate) : array {
+            $data = $winRate[$map['key']] ?? null;
+            if (!$data || $data['win'] + $data['lose'] < 1) {
+              return ['data' => ['sort-value' => '-1.0']];
+            }
+            return ['data' => [
+              'sort-value' => sprintf('%f', ($data['win'] * 100.0 / ($data['win'] + $data['lose']))),
+            ]];
+          },
+          // }}}
+        ],
+        $_dataColumn(Yii::t('app', 'Kills'), 'kill', $kills),
+        $_dataColumn(Yii::t('app', 'Deaths'), 'death', $deaths),
+        $_dataColumn(Yii::t('app', 'Specials'), 'special', $specials),
+        $_dataColumn(Yii::t('app', 'Assist'), 'assist', $assists),
+      ],
+    ]) . "\n" ?>
   </div>
 </div>
 <?php
