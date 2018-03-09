@@ -68,6 +68,7 @@ return [
     'Luna Blaster' => 'Proxiblaster',
     'Luna Blaster Neo' => 'Proxiblaster Néo',
     'Mini Splatling' => 'Badigeonneur XS',
+    'Neo Sploosh-o-matic' => 'Marqueur lourd Néo',
     'Nozzlenose' => '',
     'N-ZAP \'85' => 'N-ZAP 85',
     'N-ZAP \'89' => 'N-ZAP 89',

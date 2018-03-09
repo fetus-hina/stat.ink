@@ -69,6 +69,7 @@ return [
     'Luna Blaster' => 'Lanzamotas Nova',
     'Luna Blaster Neo' => 'Lanzamotas Nova neo',
     'Mini Splatling' => 'Garabateador',
+    'Neo Sploosh-o-matic' => 'Marcador grueso neo',
     'Nozzlenose' => '',
     'N-ZAP \'85' => '',
     'N-ZAP \'89' => '',

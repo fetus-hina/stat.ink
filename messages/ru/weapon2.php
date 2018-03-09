@@ -68,6 +68,7 @@ return [
     'Luna Blaster' => 'Лунобластер',
     'Luna Blaster Neo' => 'Лунобластер «Нео»',
     'Mini Splatling' => 'Брызгомет-М',
+    'Neo Sploosh-o-matic' => 'Плюхотрон «Нео»',
     'Nozzlenose' => '',
     'N-ZAP \'85' => 'N-ZAP 85',
     'N-ZAP \'89' => 'N-ZAP 89',

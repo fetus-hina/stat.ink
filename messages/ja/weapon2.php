@@ -49,6 +49,7 @@ return [
     'Luna Blaster' => 'ノヴァブラスター',
     'N-ZAP \'85' => 'N-ZAP85',
     'N-ZAP \'89' => 'N-ZAP89',
+    'Neo Sploosh-o-matic' => 'ボールドマーカーネオ',
     'Range Blaster' => 'ロングブラスター',
     'Rapid Blaster Deco' => 'ラピッドブラスターデコ',
     'Rapid Blaster Pro' => 'Rブラスターエリート',
