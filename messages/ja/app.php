@@ -369,6 +369,7 @@ return [
     'SplatNet Battle #' => 'イカリングのバトル番号',
     'SplatNet' => 'イカリング',
     'Splatfest Power' => 'フェスパワー',
+    'Splatfest Title (After)' => 'フェス称号（後）',
     'Splatfest Title' => 'フェス称号',
     'Splatfest' => 'フェス',
     'Splatoon Official Website (Japan)' => 'スプラトゥーン公式サイト（日本）',

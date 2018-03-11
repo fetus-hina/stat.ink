@@ -411,6 +411,57 @@ if ($user->twitter != '') {
             // }}}
           ],
           [
+            // fest title {{{
+            'label' => Yii::t('app', 'Splatfest Title'),
+            'headerOptions' => ['class' => 'cell-fest-title'],
+            'contentOptions' => ['class' => 'cell-fest-title'],
+            'value' => function ($model) : ?string {
+              if (!$model->festTitle) {
+                return null;
+              }
+              $gender = $model->gender;
+              $theme = $model->myTeamFestTheme;
+              $themeName = $theme->name ?? '***';
+              $name = Yii::t('app-fest', $model->festTitle->getName($gender), [$themeName, $themeName]);
+              return ($model->festTitle->key === 'king' || $model->fest_exp === null)
+                ? $name
+                : "{$name} {$model->fest_exp}";
+            },
+            // }}}
+          ],
+          [
+            // fest title (after) {{{
+            'label' => Yii::t('app', 'Splatfest Title (After)'),
+            'headerOptions' => ['class' => 'cell-fest-title-after'],
+            'contentOptions' => ['class' => 'cell-fest-title-after'],
+            'value' => function ($model) : ?string {
+              if (!$model->festTitleAfter) {
+                return null;
+              }
+              $gender = $model->gender;
+              $theme = $model->myTeamFestTheme;
+              $themeName = $theme->name ?? '***';
+              $name = Yii::t('app-fest', $model->festTitleAfter->getName($gender), [$themeName, $themeName]);
+              return ($model->festTitleAfter->key === 'king' || $model->fest_exp_after === null)
+                ? $name
+                : "{$name} {$model->fest_exp_after}";
+            },
+            // }}}
+          ],
+          [
+            // fest power {{{
+            'label' => Yii::t('app', 'Splatfest Power'),
+            'headerOptions' => ['class' => 'cell-fest-power'],
+            'contentOptions' => ['class' => 'cell-fest-power text-right'],
+            'value' => function ($model) : string {
+              if ($model->fest_power < 1) {
+                return '';
+              }
+              return Yii::$app->formatter->asDecimal($model->fest_power, 1);
+            },
+            // }}}
+          ],
+          [
             // level {{{
             'label' => Yii::t('app', 'Level'),
             'headerOptions' => ['class' => 'cell-level'],
@@ -760,6 +811,9 @@ if ($user->twitter != '') {
           'cell-rank-after'           => Yii::t('app', 'Rank (After)'),
           'cell-gachi-power'          => Yii::t('app', 'Power Level'),
           'cell-league-power'         => Yii::t('app', 'League Power'),
+          'cell-fest-power'           => Yii::t('app', 'Splatfest Power'),
+          'cell-fest-title'           => Yii::t('app', 'Splatfest Title'),
+          'cell-fest-title-after'     => Yii::t('app', 'Splatfest Title (After)'),
           'cell-level'                => Yii::t('app', 'Level'),
           'cell-judge'                => Yii::t('app', 'Judge'),
           'cell-result'               => Yii::t('app', 'Result'),

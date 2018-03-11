@@ -404,6 +404,7 @@ return [
     'Splatfest' => '',
     'Splatfest Power' => '',
     'Splatfest Title' => '',
+    'Splatfest Title (After)' => '',
     'SplatNet' => '',
     'SplatNet 2' => '',
     'SplatNet Battle #' => '',

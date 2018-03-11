@@ -408,6 +408,7 @@ return [
     'Splatfest' => 'Festival temático',
     'Splatfest Power' => 'Energía',
     'Splatfest Title' => 'Splatfest Título',
+    'Splatfest Title (After)' => '',
     'SplatNet' => '',
     'SplatNet 2' => '',
     'SplatNet Battle #' => '',
