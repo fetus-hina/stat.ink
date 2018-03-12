@@ -54,18 +54,22 @@ class UserAction extends BaseAction
 
         $battle = Battle2::find()
             ->with([
-                'user',
-                'mode',
-                'lobby',
-                'rule',
-                'map',
-                'weapon',
-                'weapon.subweapon',
-                'weapon.special',
-                'rank',
-                'rankAfter',
                 'agent',
                 'battlePlayers',
+                'festTitle',
+                'festTitleAfter',
+                'gender',
+                'lobby',
+                'map',
+                'mode',
+                'myTeamFestTheme',
+                'rank',
+                'rankAfter',
+                'rule',
+                'user',
+                'weapon',
+                'weapon.special',
+                'weapon.subweapon',
             ])
             ->andWhere(['user_id' => $user->id])
             ->orderBy(['battle2.id' => SORT_DESC]);
