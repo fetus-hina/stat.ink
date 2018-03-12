@@ -9,6 +9,7 @@ namespace app\models;
 
 use Yii;
 use app\components\helpers\Translator;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "fest_title".
@@ -94,7 +95,27 @@ class FestTitle extends \yii\db\ActiveRecord
         if ($gender === null) {
             return $this->name;
         }
-        return $this->getFestTitleGenders()->andWhere(['gender_id' => $gender->id])->one()->name;
+        if (!$festTitleGender = $this->getFestTitleGender($gender)) {
+            return $this->name;
+        }
+        return $festTitleGender->name;
+    }
+
+    private function getFestTitleGender(Gender $gender) : ?FestTitleGender
+    {
+        // フェスの称号は全件とっても大した件数ではないので全部取得してキャッシュする
+        static $cache = null;
+        if (!$cache) {
+            $cache = ArrayHelper::map(
+                FestTitleGender::find()->orderBy(['title_id' => SORT_ASC, 'gender_id' => SORT_ASC])->all(),
+                'gender_id',
+                function (FestTitleGender $model) : FestTitleGender {
+                    return $model;
+                },
+                'title_id'
+            );
+        }
+        return $cache[$this->id][$gender->id] ?? null;
     }
 
     public function toJsonArray(Gender $gender = null, string $theme = null)
