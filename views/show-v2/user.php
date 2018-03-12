@@ -415,9 +415,9 @@ if ($user->twitter != '') {
             'label' => Yii::t('app', 'Splatfest Title'),
             'headerOptions' => ['class' => 'cell-fest-title'],
             'contentOptions' => ['class' => 'cell-fest-title'],
-            'value' => function ($model) : ?string {
+            'value' => function ($model) : string {
               if (!$model->festTitle) {
-                return null;
+                return '';
               }
               $gender = $model->gender;
               $theme = $model->myTeamFestTheme;
@@ -434,9 +434,9 @@ if ($user->twitter != '') {
             'label' => Yii::t('app', 'Splatfest Title (After)'),
             'headerOptions' => ['class' => 'cell-fest-title-after'],
             'contentOptions' => ['class' => 'cell-fest-title-after'],
-            'value' => function ($model) : ?string {
+            'value' => function ($model) : string {
               if (!$model->festTitleAfter) {
-                return null;
+                return '';
               }
               $gender = $model->gender;
               $theme = $model->myTeamFestTheme;
