@@ -55,7 +55,6 @@ class UserAction extends BaseAction
         $battle = Battle2::find()
             ->with([
                 'agent',
-                'battlePlayers',
                 'festTitle',
                 'festTitleAfter',
                 'gender',
@@ -70,6 +69,9 @@ class UserAction extends BaseAction
                 'weapon',
                 'weapon.special',
                 'weapon.subweapon',
+                'battlePlayers' => function ($query) {
+                    $query->orderBy(false);
+                },
             ])
             ->andWhere(['user_id' => $user->id])
             ->orderBy(['battle2.id' => SORT_DESC]);
