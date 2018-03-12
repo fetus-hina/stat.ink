@@ -152,6 +152,22 @@ class BattleSummarizer
                 ])
             )
         );
+        $column_battles_short = sprintf(
+            'SUM(CASE WHEN (%s) THEN 1 ELSE 0 END)',
+            implode(' AND ', [
+                $condResultPresent,
+                $cond24Hours,
+                '{{battle2}}.[[is_win]] IS NOT NULL',
+            ])
+        );
+        $column_win_short = sprintf(
+            'SUM(CASE WHEN (%s) THEN 1 ELSE 0 END)',
+            implode(' AND ', [
+                $condResultPresent,
+                $cond24Hours,
+                '{{battle2}}.[[is_win]] = TRUE',
+            ])
+        );
         $column_total_kill = sprintf(
             'SUM(CASE WHEN (%s) THEN {{battle2}}.[[kill]] ELSE 0 END)',
             implode(' AND ', [
@@ -177,6 +193,8 @@ class BattleSummarizer
             'battle_count' => 'COUNT(*)',
             'wp' => $column_wp,
             'wp_short' => $column_wp_short,
+            'battle_count_short' => $column_battles_short,
+            'win_short' => $column_win_short,
             'total_kill' => $column_total_kill,
             'total_death' => $column_total_death,
             'kd_present' => $column_kd_present,
@@ -186,6 +204,12 @@ class BattleSummarizer
             'min_death' => 'MIN({{battle2}}.[[death]])',
             'median_kill' => 'percentile_cont(0.5) WITHIN GROUP (ORDER BY {{battle2}}.[[kill]])',
             'median_death' => 'percentile_cont(0.5) WITHIN GROUP (ORDER BY {{battle2}}.[[death]])',
+            'q1_4_kill' => 'percentile_cont(1.0/4) WITHIN GROUP (ORDER BY {{battle2}}.[[kill]])',
+            'q1_4_death' => 'percentile_cont(1.0/4) WITHIN GROUP (ORDER BY {{battle2}}.[[death]])',
+            'q3_4_kill' => 'percentile_cont(3.0/4) WITHIN GROUP (ORDER BY {{battle2}}.[[kill]])',
+            'q3_4_death' => 'percentile_cont(3.0/4) WITHIN GROUP (ORDER BY {{battle2}}.[[death]])',
+            'stddev_kill' => 'stddev_pop({{battle2}}.[[kill]])',
+            'stddev_death' => 'stddev_pop({{battle2}}.[[death]])',
         ]);
         return (object)$query->createCommand()->queryOne();
     }

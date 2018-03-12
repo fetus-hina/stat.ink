@@ -44,6 +44,8 @@ RESOURCE_TARGETS_MAIN := \
 	resources/.compiled/stat.ink/battle-edit.js \
 	resources/.compiled/stat.ink/battle-input-2.js \
 	resources/.compiled/stat.ink/battle-input.css \
+	resources/.compiled/stat.ink/battle-summary-dialog.css \
+	resources/.compiled/stat.ink/battle-summary-dialog.js \
 	resources/.compiled/stat.ink/battle-thumb-list.css \
 	resources/.compiled/stat.ink/battle-thumb-list.js \
 	resources/.compiled/stat.ink/battle2-players-point-inked.js \
@@ -297,6 +299,12 @@ resources/.compiled/stat.ink/kd-win.js: resources/stat.ink/kd-win.js $(GULP)
 
 resources/.compiled/stat.ink/agent.js: resources/stat.ink/agent.es $(GULP)
 	$(GULP) js --in $< --out $@
+
+resources/.compiled/stat.ink/battle-summary-dialog.js: resources/stat.ink/battle-summary-dialog.es $(GULP)
+	$(GULP) js --in $< --out $@
+
+resources/.compiled/stat.ink/battle-summary-dialog.css: resources/stat.ink/battle-summary-dialog.less $(GULP)
+	$(GULP) less --in $< --out $@
 
 resources/.compiled/ostatus/remote-follow.js: resources/ostatus/remote-follow.js $(GULP)
 	$(GULP) js --in $< --out $@

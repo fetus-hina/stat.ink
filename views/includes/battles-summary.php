@@ -47,7 +47,16 @@ $fmt = Yii::$app->formatter;
       <?= Html::encode(Yii::t('app', '24H Win %')) . "\n" ?>
     </div>
     <div class="user-number">
-<?php if ($summary->wp_short === null): ?>
+<?php if (isset($summary->win_short) && isset($summary->battle_count_short) && $summary->battle_count_short > 0): ?>
+      <?= Html::tag(
+        'span',
+        Html::encode($fmt->asPercent($summary->win_short / $summary->battle_count_short, 1)),
+        [
+          'class' => 'auto-tooltip',
+          'title' => sprintf('%s / %s', $fmt->asInteger($summary->win_short), $fmt->asInteger($summary->battle_count_short)),
+        ]
+      ) . "\n" ?>
+<?php elseif ($summary->wp_short === null): ?>
       <?= Html::encode(Yii::t('app', 'N/A')) . "\n" ?>
 <?php else: ?>
       <?= Html::encode($fmt->asDecimal($summary->wp_short, 1)) . "%\n" ?>
@@ -59,36 +68,18 @@ $fmt = Yii::$app->formatter;
       <?= Html::encode(Yii::t('app', 'Avg Kills')) . "\n" ?>
     </div>
     <div class="user-number">
-<?php if ($summary->kd_present > 0): ?>
-      <?= Html::tag(
-        'span',
-        Html::encode(
-          $fmt->asDecimal(
-            $summary->total_kill / $summary->kd_present,
-            2
-          )
-        ),
-        [
-          'class' => 'auto-tooltip',
-          'title' => isset($summary->median_kill)
-            ? Yii::t('app', 'max={max} min={min} median={median}', [
-              'max' => $summary->max_kill === null ? '?' : $fmt->asInteger($summary->max_kill),
-              'min' => $summary->min_kill === null ? '?' : $fmt->asInteger($summary->min_kill),
-              'median' => $summary->median_kill === null ? '?' : $fmt->asDecimal($summary->median_kill, 1),
-            ])
-            : Yii::t(
-              'app',
-              '{number, plural, =1{1 kill} other{# kills}} in {battle, plural, =1{1 battle} other{# battles}}',
-              [
-                'number' => $summary->total_kill,
-                'battle' => $summary->kd_present,
-              ]
-            ),
-        ]
-      ) . "\n" ?>
-<?php else: ?>
-      <?= Html::encode(Yii::t('app', 'N/A')) . "\n" ?>
-<?php endif; ?>
+      <?= $this->render('/includes/_battles-summary-kill-death', [
+        'battles' => $summary->kd_present ?? null,
+        'total' => $summary->total_kill ?? null,
+        'min' => $summary->min_kill ?? null,
+        'max' => $summary->max_kill ?? null,
+        'median' => $summary->median_kill ?? null,
+        'q1' => $summary->q1_4_kill ?? null,
+        'q3' => $summary->q3_4_kill ?? null,
+        'stddev' => $summary->stddev_kill ?? null,
+        'tooltipText' => '{number, plural, =1{1 kill} other{# kills}} in {battle, plural, =1{1 battle} other{# battles}}',
+        'summary' => Yii::t('app', 'Kills'),
+      ]) . "\n" ?>
     </div>
   </div>
   <div class="col-xs-4 col-md-2">
@@ -96,36 +87,18 @@ $fmt = Yii::$app->formatter;
       <?= Html::encode(Yii::t('app', 'Avg Deaths')) . "\n" ?>
     </div>
     <div class="user-number">
-<?php if ($summary->kd_present > 0): ?>
-      <?= Html::tag(
-        'span',
-        Html::encode(
-          $fmt->asDecimal(
-            $summary->total_death / $summary->kd_present,
-            2
-          )
-        ),
-        [
-          'class' => 'auto-tooltip',
-          'title' => isset($summary->median_kill)
-            ? Yii::t('app', 'max={max} min={min} median={median}', [
-              'max' => $summary->max_kill === null ? '?' : $fmt->asInteger($summary->max_kill),
-              'min' => $summary->min_kill === null ? '?' : $fmt->asInteger($summary->min_kill),
-              'median' => $summary->median_kill === null ? '?' : $fmt->asDecimal($summary->median_kill, 1),
-            ])
-            : Yii::t(
-              'app',
-              '{number, plural, =1{1 death} other{# deaths}} in {battle, plural, =1{1 battle} other{# battles}}',
-              [
-                'number' => $summary->total_death,
-                'battle' => $summary->kd_present,
-              ]
-            ),
-        ]
-      ) . "\n" ?>
-<?php else: ?>
-      <?= Html::encode(Yii::t('app', 'N/A')) . "\n" ?>
-<?php endif; ?>
+      <?= $this->render('/includes/_battles-summary-kill-death', [
+        'battles' => $summary->kd_present ?? null,
+        'total' => $summary->total_death ?? null,
+        'min' => $summary->min_death ?? null,
+        'max' => $summary->max_death ?? null,
+        'median' => $summary->median_death ?? null,
+        'q1' => $summary->q1_4_death ?? null,
+        'q3' => $summary->q3_4_death ?? null,
+        'stddev' => $summary->stddev_death ?? null,
+        'tooltipText' => '{number, plural, =1{1 death} other{# deaths}} in {battle, plural, =1{1 battle} other{# battles}}',
+        'summary' => Yii::t('app', 'Deaths'),
+      ]) . "\n" ?>
     </div>
   </div>
   <div class="col-xs-4 col-md-2">

@@ -321,6 +321,8 @@ return [
     'Primary Ability' => 'メイン',
     'Privacy Policy' => 'プライバシーポリシー',
     'Profile and Settings' => 'プロフィールと設定',
+    'Q<sub>1/4</sub>' => '第1四分位数',
+    'Q<sub>3/4</sub>' => '第3四分位数',
     'Rank (After)' => 'ウデマエ(後)',
     'Rank (after the battle)' => 'ウデマエ（バトル後）',
     'Rank in Team' => 'チーム内順位',
