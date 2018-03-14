@@ -55,8 +55,11 @@ class MapImage2Controller extends Controller
             'devon' => 'https://pbs.twimg.com/media/DPOdfAvVAAArv3f.jpg:orig',
             'engawa' => 'https://pbs.twimg.com/media/DLXOzECUEAAyMkl.jpg:orig',
             'hakofugu' => 'https://pbs.twimg.com/media/DPNH39SVQAAIPiE.jpg:orig',
+            'mongara' => 'https://pbs.twimg.com/media/DYPMi-_VMAcHlzf.jpg:orig',
             'mozuku' => 'https://pbs.twimg.com/media/DJo7HTzUEAESeuF.jpg:orig',
             'mystery' => 'https://pbs.twimg.com/media/DGDTWhAUwAA4Bri.jpg:orig',
+            'shottsuru' => 'https://pbs.twimg.com/media/DYPMhr4UMAAkrG5.jpg:orig',
+            'sumeshi' => 'https://pbs.twimg.com/media/DYPMwDjVQAAyI2_.jpg:orig',
             'zatou' => 'https://pbs.twimg.com/media/DPKV9mCV4AExVBF.jpg:orig',
         ];
         foreach ($list as $stage => $url) {
