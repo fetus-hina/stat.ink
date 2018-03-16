@@ -1001,12 +1001,6 @@ class Battle2 extends ActiveRecord
         if ($this->rule->key === 'nawabari') {
             return ($this->my_point < 1000) ? null : ($this->my_point - 1000);
         }
-        if ($this->agent &&
-            $this->agent->name === 'SquidTracks' &&
-            version_compare($this->agent->version, '0.2.3', '<=')
-        ) {
-            return ($this->my_point < 1000) ? null : ($this->my_point - 1000);
-        }
         return $this->my_point;
     }
 

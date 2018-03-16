@@ -31,15 +31,7 @@ foreach ($players as $player) {
   if ($totalInked === null || !$hasRankedInked || $player->point === null) {
     $totalInked = null;
   } else {
-    if ((bool)$battle->is_win === ($teamKey === 'my') &&
-      $battle->agent &&
-      $battle->agent->name === 'SquidTracks' &&
-      version_compare($battle->agent->version, '0.2.3', '<=')
-    ) {
-      $totalInked += $player->point - 1000;
-    } else {
-      $totalInked += $player->point;
-    }
+    $totalInked += $player->point;
   }
   $totalKA = ($totalKA === null || $player->kill_or_assist === null) ? null : ($totalKA + $player->kill_or_assist);
   $totalSP = ($totalSP === null || $player->special === null) ? null : ($totalSP + $player->special);
@@ -305,15 +297,7 @@ foreach ($players as $i => $player) {
             Html::encode(
               $player->point === null
                 ? ''
-                : $fmt->asInteger(
-                  (function ($point) use ($battle, $teamKey) {
-                    return ((bool)$battle->is_win === ($teamKey === 'my') &&
-                      $battle->agent &&
-                      $battle->agent->name === 'SquidTracks' &&
-                      version_compare($battle->agent->version, '0.2.3', '<=')
-                    ) ? ($point - 1000) : $point;
-                  })($player->point)
-                )
+                : $fmt->asInteger($player->point)
             ),
             ['class' => 'col-point-inked']
           ),

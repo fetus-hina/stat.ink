@@ -95,13 +95,6 @@ class DlStats2Controller extends Controller
                         if ($b->rule->key === 'nawabari') {
                             return $point - 1000;
                         }
-                        if ($b->agent &&
-                            $b->agent->name === 'SquidTracks' &&
-                            version_compare($b->agent->version, '0.1.4', '>') &&
-                            version_compare($b->agent->version, '0.2.3', '<=')
-                        ) {
-                            return $point - 1000;
-                        }
                     }
 
                     return $point;

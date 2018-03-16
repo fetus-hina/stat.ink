@@ -8,10 +8,14 @@
 namespace app\commands;
 
 use Yii;
+use app\models\Agent;
 use app\models\Battle2;
+use app\models\BattlePlayer2;
 use app\models\User;
 use app\models\UserStat2;
 use yii\console\Controller;
+use yii\db\Expression as DbExpr;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Console;
 
 class Battle2Controller extends Controller
@@ -48,5 +52,87 @@ class Battle2Controller extends Controller
         $transaction->commit();
         $this->stderr("updated.\n");
         return 0;
+    }
+
+    public function actionFixSquidtracks()
+    {
+        $transaction = Yii::$app->db->beginTransaction();
+        $this->stderr("Getting target agents...\n");
+        $agentIds = array_filter(array_map(
+            function (array $agent) : ?int {
+                if (version_compare($agent['version'], '0.1.4', '>') &&
+                    version_compare($agent['version'], '0.2.3', '<=')
+                ) {
+                    $this->stderr(sprintf("  version=%s, id=%d\n", $agent['version'], $agent['id']));
+                    return $agent['id'];
+                }
+                return null;
+            },
+            Agent::find()->andWhere(['name' => 'SquidTracks'])->asArray()->all()
+        ));
+        $this->stderr("done. id = [" . implode(", ", $agentIds) . "]\n");
+
+        $query = Battle2::find()
+            ->innerJoinWith('rule', false)
+            ->with(['battlePlayers' => function ($query) {
+                $query->andWhere(['and',
+                    ['not', ['is_my_team' => null]],
+                    ['not', ['point' => null]]
+                ]);
+            }])
+            ->andWhere(['and',
+                ['battle2.agent_id' => $agentIds],
+                ['not', ['battle2.is_win' => null]],
+                ['<>', 'rule2.key', 'nawabari'],
+            ])
+            ->orderBy(['id' => SORT_ASC]);
+
+        $count = $query->count();
+        $this->stderr("Target battles = " . $count . "\n");
+
+        $i = -1;
+        foreach ($query->batch(200) as $batch) {
+            $myPointTargets = [];
+            $playersTargets = [];
+            foreach ($batch as $battle) {
+                ++$i;
+
+                printf("Working %d of %d, #%d\r", $i + 1, $count, $battle->id);
+
+                if ($battle->is_win && $battle->my_point >= 1000) {
+                    $myPointTargets[] = $battle->id;
+                }
+
+                foreach ($battle->battlePlayers as $player) {
+                    if ($battle->is_win === $player->is_my_team) {
+                        echo $player->point . "\n";
+                    }
+                    if ($battle->is_win === $player->is_my_team && $player->point >= 1000) {
+                        $playersTargets[] = $player->id;
+                    }
+                }
+            }
+
+            echo "\n";
+            if ($myPointTargets) {
+                echo "Updating battle2...\n";
+                Battle2::updateAll(
+                    ['my_point' => new DbExpr('my_point - 1000')],
+                    ['id' => $myPointTargets]
+                );
+            }
+
+            if ($playersTargets) {
+                echo "Updating battle_player2...\n";
+                BattlePlayer2::updateAll(
+                    ['point' => new DbExpr('point - 1000')],
+                    ['id' => $playersTargets]
+                );
+            }
+        }
+
+        echo "OK\n";
+
+        $transaction->commit();
     }
 }
