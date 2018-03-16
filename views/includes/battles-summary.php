@@ -63,6 +63,10 @@ $fmt = Yii::$app->formatter;
 <?php endif; ?>
     </div>
   </div>
+<?php if (($summary->assist_present ?? null) > 0 || ($summary->special_present ?? null) > 0 || ($summary->inked_present ?? null) > 0): ?>
+</div>
+<div class="row battles-summary">
+<?php endif ?>
   <div class="col-xs-4 col-md-2">
     <div class="user-label">
       <?= Html::encode(Yii::t('app', 'Avg Kills')) . "\n" ?>
@@ -151,4 +155,60 @@ $fmt = Yii::$app->formatter;
 <?php endif; ?>
     </div>
   </div>
+<?php if (($summary->assist_present ?? null) > 0 || ($summary->special_present ?? null) > 0 || ($summary->inked_present ?? null) > 0): ?>
+  <div class="col-xs-4 col-md-2">
+    <div class="user-label">
+      <?= Html::encode(Yii::t('app', 'Avg Assists')) . "\n" ?>
+    </div>
+    <div class="user-number">
+      <?= $this->render('/includes/_battles-summary-kill-death', [
+        'battles' => $summary->assist_present ?? null,
+        'total' => $summary->total_assist ?? null,
+        'min' => $summary->min_assist ?? null,
+        'max' => $summary->max_assist ?? null,
+        'median' => $summary->median_assist ?? null,
+        'q1' => $summary->q1_4_assist ?? null,
+        'q3' => $summary->q3_4_assist ?? null,
+        'stddev' => $summary->stddev_assist ?? null,
+        'summary' => Yii::t('app', 'Assists'),
+      ]) . "\n" ?>
+    </div>
+  </div>
+  <div class="col-xs-4 col-md-2">
+    <div class="user-label">
+      <?= Html::encode(Yii::t('app', 'Avg Specials')) . "\n" ?>
+    </div>
+    <div class="user-number">
+      <?= $this->render('/includes/_battles-summary-kill-death', [
+        'battles' => $summary->special_present ?? null,
+        'total' => $summary->total_special ?? null,
+        'min' => $summary->min_special ?? null,
+        'max' => $summary->max_special ?? null,
+        'median' => $summary->median_special ?? null,
+        'q1' => $summary->q1_4_special ?? null,
+        'q3' => $summary->q3_4_special ?? null,
+        'stddev' => $summary->stddev_special ?? null,
+        'summary' => Yii::t('app', 'Specials'),
+      ]) . "\n" ?>
+    </div>
+  </div>
+  <div class="col-xs-4 col-md-2">
+    <div class="user-label">
+      <?= Html::encode(Yii::t('app', 'Avg Inked')) . "\n" ?>
+    </div>
+    <div class="user-number">
+      <?= $this->render('/includes/_battles-summary-kill-death', [
+        'battles' => $summary->inked_present ?? null,
+        'total' => $summary->total_inked ?? null,
+        'min' => $summary->min_inked ?? null,
+        'max' => $summary->max_inked ?? null,
+        'median' => $summary->median_inked ?? null,
+        'q1' => $summary->q1_4_inked ?? null,
+        'q3' => $summary->q3_4_inked ?? null,
+        'stddev' => $summary->stddev_inked ?? null,
+        'summary' => Yii::t('app', 'Inked'),
+      ]) . "\n" ?>
+    </div>
+  </div>
+<?php endif ?>
 </div>
