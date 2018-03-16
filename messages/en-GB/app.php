@@ -353,6 +353,8 @@ return [
     'Primary Ability' => '',
     'Privacy Policy' => '',
     'Profile and Settings' => '',
+    'Q<sub>1/4</sub>' => '',
+    'Q<sub>3/4</sub>' => '',
     'Rank' => '',
     'Rank (After)' => '',
     'Rank (after the battle)' => '',

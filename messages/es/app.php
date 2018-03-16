@@ -357,6 +357,8 @@ return [
     'Primary Ability' => 'Potenciad primaria',
     'Privacy Policy' => 'Política de Privacidad',
     'Profile and Settings' => 'Perfil y Configuración',
+    'Q<sub>1/4</sub>' => '',
+    'Q<sub>3/4</sub>' => '',
     'Rank' => 'Rango',
     'Rank (After)' => 'Rango (Después)',
     'Rank (after the battle)' => 'Rango (después de la batalla)',
