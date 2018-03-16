@@ -7,8 +7,24 @@
 
 namespace app\models\api\v2;
 
+use app\components\behaviors\FixAttributesBehavior;
+
 class PostShoesForm extends BaseGearForm
 {
+    public function behaviors()
+    {
+        return array_merge(parent::behaviors(), [
+            [
+                'class' => FixAttributesBehavior::class,
+                'attributes' => [
+                    'gear' => [
+                        'sea_slug_volt_950s' => 'sea_slug_volt_95s',
+                    ],
+                ],
+            ],
+        ]);
+    }
+
     public function getType()
     {
         return 'shoes';
