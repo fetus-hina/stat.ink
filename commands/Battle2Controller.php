@@ -104,16 +104,12 @@ class Battle2Controller extends Controller
                 }
 
                 foreach ($battle->battlePlayers as $player) {
-                    if ($battle->is_win === $player->is_my_team) {
-                        echo $player->point . "\n";
-                    }
                     if ($battle->is_win === $player->is_my_team && $player->point >= 1000) {
                         $playersTargets[] = $player->id;
                     }
                 }
             }
 
-            echo "\n";
             if ($myPointTargets) {
                 echo "Updating battle2...\n";
                 Battle2::updateAll(
