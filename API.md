@@ -899,7 +899,7 @@ DELETE /api/v1/battle
 PATCH /api/v1/battle
 ---------------------
 
-[バトルの修正についてはこちらを参照してください](doc/api-1/delete-patch.md)
+[バトルの修正についてはこちらを参照してください](doc/api-1/patch-battle.md)
 
 ----
 
