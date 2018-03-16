@@ -274,6 +274,8 @@ return [
     'School Jersey' => 'スクールジャージー',
     'School Shoes' => 'スクールローファー',
     'School Uniform' => 'スクールブレザー',
+    'Sea Slug Volt 950s' => 'ウミウシボルト95',
+    'Sesame Salt 270s' => 'ゴマシオ270',
     'Shark Moccasins' => 'シャークモカシン',
     'Shirt & Tie' => 'タイシャツ',
     'Shirt with Blue Hoodie' => 'シャツノゾキブルー',
