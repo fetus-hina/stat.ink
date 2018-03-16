@@ -275,6 +275,8 @@ return [
     'School Jersey' => '',
     'School Shoes' => '',
     'School Uniform' => '',
+    'Sea Slug Volt 95s' => '',
+    'Sesame Salt 270s' => '',
     'Shark Moccasins' => '',
     'Shirt & Tie' => '',
     'Shirt with Blue Hoodie' => '',
