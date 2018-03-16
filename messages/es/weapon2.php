@@ -47,6 +47,7 @@ return [
     'Gold Dynamo Roller' => 'Dinamorrodillo T',
     'Goo Tuber' => 'Tubofusil',
     'H-3 Nozzlenose' => 'Tintambor pesado',
+    'H-3 Nozzlenose D' => 'Tintambor pesado D',
     'Heavy Splatling' => 'Tintralladora',
     'Heavy Splatling Deco' => 'Tintralladora DX',
     'Hero Blaster Replica' => 'Devastador de élite (réplica)',

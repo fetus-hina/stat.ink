@@ -47,6 +47,7 @@ return [
     'Gold Dynamo Roller' => 'Dynaroller Tesla',
     'Goo Tuber' => 'T-Tuber',
     'H-3 Nozzlenose' => 'S3 Tintenwerfer',
+    'H-3 Nozzlenose D' => 'S3 Tintenwerfer D',
     'Heavy Splatling' => 'Splatling',
     'Heavy Splatling Deco' => 'Splatling Deko',
     'Hero Blaster Replica' => 'Helden-Blaster Replik',

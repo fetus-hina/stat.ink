@@ -47,6 +47,7 @@ return [
     'Gold Dynamo Roller' => 'Мотовалик VIP',
     'Goo Tuber' => 'Трубастер',
     'H-3 Nozzlenose' => 'Тяжелый каплетрон',
+    'H-3 Nozzlenose D' => 'Тяжелый каплетрон 2.0',
     'Heavy Splatling' => 'Брызгомет XL',
     'Heavy Splatling Deco' => 'Брызгомет XL «Деко»',
     'Hero Blaster Replica' => 'Бластер-004 (клон)',

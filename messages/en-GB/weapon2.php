@@ -47,6 +47,7 @@ return [
     'Gold Dynamo Roller' => '',
     'Goo Tuber' => '',
     'H-3 Nozzlenose' => '',
+    'H-3 Nozzlenose D' => '',
     'Heavy Splatling' => '',
     'Heavy Splatling Deco' => '',
     'Hero Blaster Replica' => '',

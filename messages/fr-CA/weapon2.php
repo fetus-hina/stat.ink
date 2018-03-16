@@ -47,6 +47,7 @@ return [
     'Gold Dynamo Roller' => 'Dynamo-rouleau pro',
     'Goo Tuber' => '',
     'H-3 Nozzlenose' => '',
+    'H-3 Nozzlenose D' => 'Arroseur lourd requin',
     'Heavy Splatling' => '',
     'Heavy Splatling Deco' => '',
     'Hero Blaster Replica' => '',

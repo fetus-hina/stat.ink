@@ -48,6 +48,7 @@ return [
     'Gold Dynamo Roller' => 'Rodillo Pro dorado',
     'Goo Tuber' => '',
     'H-3 Nozzlenose' => 'Manguera pesada',
+    'H-3 Nozzlenose D' => 'Manguera pesada D',
     'Heavy Splatling' => 'Garabateador Pro',
     'Heavy Splatling Deco' => 'Garabateador Pro chic',
     'Hero Blaster Replica' => 'Lanzamotas de élite réplica',

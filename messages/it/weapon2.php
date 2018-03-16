@@ -47,6 +47,7 @@ return [
     'Gold Dynamo Roller' => 'Rullo dinamo dorato',
     'Goo Tuber' => 'Tintubator',
     'H-3 Nozzlenose' => 'Triplete',
+    'H-3 Nozzlenose D' => 'Triplete D',
     'Heavy Splatling' => 'Splatting a tanica',
     'Heavy Splatling Deco' => 'Splatling a tanica DX',
     'Hero Blaster Replica' => 'Blaster élite replica',

@@ -313,6 +313,7 @@ There is a listing page [here](https://stat.ink/api-info/weapon2).
 |`rapid_deco`            |`241`                 |ラピッドブラスターデコ<br>Rapid Blaster Deco         |                                                                                                     |
 |`rapid_elite`           |`250`                 |Rブラスターエリート<br>Rapid Blaster Pro             |                                                                                                     |
 |`h3reelgun`             |`310`                 |H3リールガン<br>H-3 Nozzlenose                       |                                                                                                     |
+|`h3reelgun_d`           |`311`                 |H3リールガンD<br>H-3 Nozzlenose D                    |                                                                                                     |
 |`l3reelgun`             |`300`                 |L3リールガン<br>L-3 Nozzlenose                       |                                                                                                     |
 |`l3reelgun_d`           |`301`                 |L3リールガンD<br>L-3 Nozzlenose D                    |                                                                                                     |
 |`dualsweeper`           |`5030`                |デュアルスイーパー<br>Dualie Squelchers              |                                                                                                     |

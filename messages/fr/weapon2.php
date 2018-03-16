@@ -47,6 +47,7 @@ return [
     'Gold Dynamo Roller' => 'Dynamo-rouleau tesla',
     'Goo Tuber' => 'Détubeur',
     'H-3 Nozzlenose' => 'Arroseur lourd',
+    'H-3 Nozzlenose D' => 'Arroseur lourd Cétacé',
     'Heavy Splatling' => 'Badigeonneur',
     'Heavy Splatling Deco' => 'Badigeonneur chic',
     'Hero Blaster Replica' => '',
