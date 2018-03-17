@@ -6,7 +6,7 @@
  */
 
 return [
-    'Cannon' => '',
+    'Cannon' => 'Kanone',
     'Drowning' => '',
     'Fall' => '',
     'Main Weapon' => '',
