@@ -63,6 +63,7 @@ RESOURCE_TARGETS_MAIN := \
 	resources/.compiled/stat.ink/no-image.png \
 	resources/.compiled/stat.ink/session-calendar.js \
 	resources/.compiled/stat.ink/sortable-table.js \
+	resources/.compiled/stat.ink/summary-legends.png \
 	resources/.compiled/stat.ink/swipebox-runner.js \
 	resources/.compiled/stat.ink/user-miniinfo.css \
 	resources/.compiled/stat.ink/user-stat-by-map-rule-detail.css \
@@ -335,6 +336,10 @@ resources/.compiled/stat.ink/no-image.png: resources/stat.ink/no-image.png
 resources/.compiled/stat.ink/favicon.png: resources/stat.ink/favicon.png
 	mkdir -p resources/.compiled/stat.ink || /bin/true
 	pngcrush -rem allb -l 9 resources/stat.ink/favicon.png resources/.compiled/stat.ink/favicon.png
+
+resources/.compiled/stat.ink/summary-legends.png: resources/stat.ink/summary-legends.png
+	mkdir -p resources/.compiled/stat.ink || /bin/true
+	pngcrush -rem allb -l 9 resources/stat.ink/summary-legends.png resources/.compiled/stat.ink/summary-legends.png
 
 resources/.compiled/counter/counter.js: resources/counter/counter.js $(GULP)
 	$(GULP) js --in $< --out $@
