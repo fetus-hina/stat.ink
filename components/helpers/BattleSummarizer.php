@@ -292,16 +292,20 @@ class BattleSummarizer
             'total_death' => $column_total_death,
 
             'min_kill' => 'MIN({{battle2}}.[[kill]])',
+            'pct5_kill' => 'percentile_cont(0.05) WITHIN GROUP (ORDER BY {{battle2}}.[[kill]])',
             'q1_4_kill' => 'percentile_cont(1.0/4) WITHIN GROUP (ORDER BY {{battle2}}.[[kill]])',
             'median_kill' => 'percentile_cont(0.5) WITHIN GROUP (ORDER BY {{battle2}}.[[kill]])',
             'q3_4_kill' => 'percentile_cont(3.0/4) WITHIN GROUP (ORDER BY {{battle2}}.[[kill]])',
+            'pct95_kill' => 'percentile_cont(0.95) WITHIN GROUP (ORDER BY {{battle2}}.[[kill]])',
             'max_kill' => 'MAX({{battle2}}.[[kill]])',
             'stddev_kill' => 'stddev_pop({{battle2}}.[[kill]])',
 
             'min_death' => 'MIN({{battle2}}.[[death]])',
+            'pct5_death' => 'percentile_cont(0.05) WITHIN GROUP (ORDER BY {{battle2}}.[[death]])',
             'q1_4_death' => 'percentile_cont(1.0/4) WITHIN GROUP (ORDER BY {{battle2}}.[[death]])',
             'median_death' => 'percentile_cont(0.5) WITHIN GROUP (ORDER BY {{battle2}}.[[death]])',
             'q3_4_death' => 'percentile_cont(3.0/4) WITHIN GROUP (ORDER BY {{battle2}}.[[death]])',
+            'pct95_death' => 'percentile_cont(0.95) WITHIN GROUP (ORDER BY {{battle2}}.[[death]])',
             'max_death' => 'MAX({{battle2}}.[[death]])',
             'stddev_death' => 'stddev_pop({{battle2}}.[[death]])',
 
@@ -309,9 +313,11 @@ class BattleSummarizer
             'total_special' => $column_total_specials,
 
             'min_special' => 'MIN({{battle2}}.[[special]])',
+            'pct5_special' => 'percentile_cont(0.05) WITHIN GROUP (ORDER BY {{battle2}}.[[special]])',
             'q1_4_special' => 'percentile_cont(1.0/4) WITHIN GROUP (ORDER BY {{battle2}}.[[special]])',
             'median_special' => 'percentile_cont(2.0/4) WITHIN GROUP (ORDER BY {{battle2}}.[[special]])',
             'q3_4_special' => 'percentile_cont(3.0/4) WITHIN GROUP (ORDER BY {{battle2}}.[[special]])',
+            'pct95_special' => 'percentile_cont(0.95) WITHIN GROUP (ORDER BY {{battle2}}.[[special]])',
             'max_special' => 'MAX({{battle2}}.[[special]])',
             'stddev_special' => 'stddev_pop({{battle2}}.[[special]])',
 
@@ -319,9 +325,11 @@ class BattleSummarizer
             'total_assist' => $column_total_assists,
 
             'min_assist' => "MIN({$assist})",
+            'pct5_assist' => "percentile_cont(0.05) WITHIN GROUP (ORDER BY {$assist})",
             'q1_4_assist' => "percentile_cont(1.0/4) WITHIN GROUP (ORDER BY {$assist})",
             'median_assist' => "percentile_cont(2.0/4) WITHIN GROUP (ORDER BY {$assist})",
             'q3_4_assist' => "percentile_cont(3.0/4) WITHIN GROUP (ORDER BY {$assist})",
+            'pct95_assist' => "percentile_cont(0.95) WITHIN GROUP (ORDER BY {$assist})",
             'max_assist' => "MAX({$assist})",
             'stddev_assist' => "stddev_pop({$assist})",
 
@@ -329,9 +337,11 @@ class BattleSummarizer
             'total_inked' => $column_total_inked,
 
             'min_inked' => "MIN({$inked})",
+            'pct5_inked' => "percentile_cont(0.05) WITHIN GROUP (ORDER BY {$inked})",
             'q1_4_inked' => "percentile_cont(1.0/4) WITHIN GROUP (ORDER BY {$inked})",
             'median_inked' => "percentile_cont(2.0/4) WITHIN GROUP (ORDER BY {$inked})",
             'q3_4_inked' => "percentile_cont(3.0/4) WITHIN GROUP (ORDER BY {$inked})",
+            'pct95_inked' => "percentile_cont(0.95) WITHIN GROUP (ORDER BY {$inked})",
             'max_inked' => "MAX({$inked})",
             'stddev_inked' => "stddev_pop({$inked})",
         ]);

@@ -10,6 +10,8 @@ use yii\helpers\Json;
 // $q1
 // $q3
 // $median
+// $pct5
+// $pct95
 // $stddev
 // $tooltipText
 // $summary
@@ -36,7 +38,7 @@ $fmt = Yii::$app->formatter;
       ]),
   ]
 ) ?>
-<?php if ($min !== null && $max !== null && $median !== null && $q1 !== null && $q3 !== null): ?>
+<?php if ($min !== null && $max !== null && $median !== null && $q1 !== null && $q3 !== null && $pct5 !== null && $pct95 !== null): ?>
   <?= Html::a($content, 'javascript:;', [
     'class' => 'summary-box-plot',
     'data' => [
@@ -46,17 +48,22 @@ $fmt = Yii::$app->formatter;
         'q2'  => (float)$median,
         'q3'  => (float)$q3,
         'max' => (int)$max,
+        'pct5' => (float)$pct5,
+        'pct95' => (float)$pct95,
         'avg' => $total / $battles,
-        'stddev' => $stddev ?? null,
+        'stddev' => isset($stddev) ? (float)$stddev : null,
       ]),
       'disp' => Json::encode([
         'min' => $fmt->asInteger((int)$min),
-        'q1'  => $fmt->asDecimal((float)$q1, 1),
-        'q2'  => $fmt->asDecimal((float)$median, 1),
-        'q3'  => $fmt->asDecimal((float)$q3, 1),
+        'q1'  => $fmt->asDecimal((float)$q1, 2),
+        'q2'  => $fmt->asDecimal((float)$median, 2),
+        'q3'  => $fmt->asDecimal((float)$q3, 2),
         'max' => $fmt->asInteger((int)$max),
+        'pct5' => $fmt->asDecimal((float)$pct5, 2),
+        'pct95' => $fmt->asDecimal((float)$pct95, 2),
         'avg' => $fmt->asDecimal($total / $battles, 2),
         'stddev' => $stddev ? $fmt->asDecimal($stddev, 3) : null,
+        'iqr' => $fmt->asDecimal($q3 - $q1, 2),
         'title' => $summary ?? null,
       ]),
     ],

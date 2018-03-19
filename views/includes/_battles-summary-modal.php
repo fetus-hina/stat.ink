@@ -28,13 +28,16 @@ use yii\helpers\Html;
         <div class="box-plot">
         </div>
 <?php $data = [
-  'min' => Html::encode(Yii::t('app', 'Minimum')),
-  'q1'  => Yii::t('app', 'Q<sub>1/4</sub>'),
-  'q2'  => Html::encode(Yii::t('app', 'Median')),
-  'q3'  => Yii::t('app', 'Q<sub>3/4</sub>'),
   'max' => Html::encode(Yii::t('app', 'Maximum')),
+  'pct95' => Html::encode(Yii::t('app', '{percentile} Percentile', ['percentile' => '95'])),
+  'q3'  => Yii::t('app', 'Q<sub>3/4</sub>'),
+  'q2'  => Html::encode(Yii::t('app', 'Median')),
+  'q1'  => Yii::t('app', 'Q<sub>1/4</sub>'),
+  'pct5' => Html::encode(Yii::t('app', '{percentile} Percentile', ['percentile' => '5'])),
+  'min' => Html::encode(Yii::t('app', 'Minimum')),
+  'iqr' => Html::encode(Yii::t('app', 'IQR')),
   'avg' => Html::encode(Yii::t('app', 'Average')),
-  'stddev' => Html::encode(Yii::t('app', 'σ')),
+  'stddev' => Html::encode(Yii::t('app', 'Std Dev')),
 ]; ?>
         <table class="table table-striped table-hover" style="width:auto!important;margin:15px auto">
           <tbody>

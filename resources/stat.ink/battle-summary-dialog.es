@@ -34,43 +34,28 @@
           : [
             {
               data: [
-                // max
-                [1, dataStats.max],
-                [2, dataStats.max],
-                [null, null],
-                [1.5, dataStats.max],
-                [1.5, dataStats.q3],
-                [null, null],
-                // Q3
-                [1, dataStats.q3],
-                [2, dataStats.q3],
-                [null, null],
-                // Q2 (median)
-                [1, dataStats.q2],
-                [2, dataStats.q2],
-                [null, null],
-                // Q1 line
-                [1, dataStats.q1],
-                [2, dataStats.q1],
-                [null, null],
                 // min
-                [1, dataStats.min],
-                [2, dataStats.min],
+                [1.5 - 0.25, dataStats.min],
+                [1.5 + 0.25, dataStats.min],
                 [null, null],
-                // max to Q3
+                [1.5, dataStats.min],
+                [1.5, dataStats.q1],
+                [null, null],
+
+                // max
+                [1.5 - 0.25, dataStats.max],
+                [1.5 + 0.25, dataStats.max],
+                [null, null],
                 [1.5, dataStats.max],
                 [1.5, dataStats.q3],
                 [null, null],
-                // Q1 to min
-                [1.5, dataStats.q1],
-                [1.5, dataStats.min],
-                [null, null],
-                // Q3 to Q1
+
+                // Q3-Q1 box
                 [1, dataStats.q3],
-                [1, dataStats.q1],
-                [null, null],
                 [2, dataStats.q3],
                 [2, dataStats.q1],
+                [1, dataStats.q1],
+                [1, dataStats.q3],
                 [null, null],
               ],
               color: colorScheme.graph1,
@@ -78,18 +63,81 @@
                 show: true,
               },
             },
-            {
+            { // median
+              data: [
+                [1, dataStats.q2],
+                [2, dataStats.q2],
+                [null, null],
+              ],
+              color: colorScheme.graph2,
+              lines: {
+                show: true,
+              },
+            },
+            { // bars
+              data: [
+                // 5% tile
+                [1.5 - 0.15, dataStats.pct5],
+                [1.5 + 0.15, dataStats.pct5],
+                [null, null],
+                // 95% tile
+                [1.5 - 0.15, dataStats.pct95],
+                [1.5 + 0.15, dataStats.pct95],
+                [null, null],
+                // 5% - Q1
+                [1.5, dataStats.pct5],
+                [1.5, dataStats.q1],
+                [null, null],
+                // 95% - Q3
+                [1.5, dataStats.pct95],
+                [1.5, dataStats.q3],
+                [null, null],
+              ],
+              color: colorScheme._gray.black,
+              lines: {
+                show: true,
+              },
+            },
+            { // avg
               data: [
                 [1.5, dataStats.avg],
               ],
               points: {
                 show: true,
                 symbol: 'cross',
-                radius: 5,
+                radius: 8,
               },
-              color: colorScheme.graph1,
+              color: colorScheme._accent.brown,
             },
           ];
+
+        if (dataStats.stddev) {
+          data.push({
+            // stddev
+            data: [
+              // vertical line avg±1σ
+              [2.4, dataStats.avg - dataStats.stddev],
+              [2.4, dataStats.avg + dataStats.stddev],
+              [null, null],
+              // horizontal line avg - 1σ
+              [2.4 - 0.075, dataStats.avg - dataStats.stddev],
+              [2.4 + 0.075, dataStats.avg - dataStats.stddev],
+              [null, null],
+              // horizontal line avg + 1σ
+              [2.4 - 0.075, dataStats.avg + dataStats.stddev],
+              [2.4 + 0.075, dataStats.avg + dataStats.stddev],
+              [null, null],
+              // horizontal line avg
+              [2.4 - 0.05, dataStats.avg],
+              [2.4 + 0.05, dataStats.avg],
+              [null, null],
+            ],
+            color: colorScheme._accent.sky,
+            lines: {
+              show: true,
+            },
+          });
+        }
 
         $.plot($plot, data, {
           yaxis: {
