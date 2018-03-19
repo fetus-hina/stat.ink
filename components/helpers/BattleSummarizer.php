@@ -103,6 +103,7 @@ class BattleSummarizer
     public static function getSummary2(Query $oldQuery)
     {
         $db = Yii::$app->db;
+        $turfWarId = Rule2::findOne(['key' => 'nawabari'])->id;
         $now = (new DateTimeImmutable())
             ->setTimeZone(new DateTimeZone(Yii::$app->timeZone))
             ->setTimestamp($_SERVER['REQUEST_TIME'] ?? time());
@@ -111,6 +112,10 @@ class BattleSummarizer
             $db->quoteValue($now->sub(new DateInterval('PT86399S'))->format(DateTime::ATOM)),
             $db->quoteValue($now->format(DateTime::ATOM))
         );
+        $condAfterSept2017 = sprintf('(%s)', implode(' AND ', [
+            '{{battle2}}.[[end_at]] IS NOT NULL',
+            '{{battle2}}.[[end_at]] >=' . $db->quoteValue('2017-09-01T00:00:00+00:00'),
+        ]));
         $condResultPresent = sprintf('(%s)', implode(' AND ', [
             '{{battle2}}.[[is_win]] IS NOT NULL',
         ]));
@@ -127,9 +132,26 @@ class BattleSummarizer
             '{{battle2}}.[[kill_or_assist]] - {{battle2}}.[[kill]] >= 0',
         ]));
         $condInkedPresent = sprintf('(%s)', implode(' AND ', [
+            $condAfterSept2017,
             '{{battle2}}.[[is_win]] IS NOT NULL',
             '{{battle2}}.[[my_point]] IS NOT NULL',
             '{{battle2}}.[[rule_id]] IS NOT NULL',
+            sprintf('((%s))', implode(') OR (', [
+                sprintf('(%s)', implode(' AND ', [
+                    '{{battle2}}.[[rule_id]] = ' . $db->quoteValue($turfWarId),
+                    '{{battle2}}.[[is_win]] = TRUE',
+                    '{{battle2}}.[[my_point]] >= 1000',
+                ])),
+                sprintf('(%s)', implode(' AND ', [
+                    '{{battle2}}.[[rule_id]] = ' . $db->quoteValue($turfWarId),
+                    '{{battle2}}.[[is_win]] = FALSE',
+                    '{{battle2}}.[[my_point]] >= 0',
+                ])),
+                sprintf('(%s)', implode(' AND ', [
+                    '{{battle2}}.[[rule_id]] <> ' . $db->quoteValue($turfWarId),
+                    '{{battle2}}.[[my_point]] >= 0',
+                ])),
+            ])),
         ]));
         // ------------------------------------------------------------------------------
         $column_wp = sprintf(
@@ -233,28 +255,28 @@ class BattleSummarizer
         $inked = sprintf('CASE %s END', implode(' ', [
             sprintf(
                 'WHEN %s AND {{battle2}}.[[is_win]] = TRUE AND {{battle2}}.[[rule_id]] = %d THEN {{battle2}}.[[my_point]] - 1000',
-                implode(' AND ', [$condAssistPresent]),
-                Rule2::findOne(['key' => 'nawabari'])->id
+                implode(' AND ', [$condInkedPresent]),
+                $turfWarId
             ),
             sprintf(
                 'WHEN %s THEN {{battle2}}.[[my_point]]',
-                implode(' AND ', [$condAssistPresent])
+                implode(' AND ', [$condInkedPresent])
             ),
             'ELSE NULL',
         ]));
         $column_total_inked = sprintf('SUM(CASE %s END)', implode(' ', [
             sprintf(
                 'WHEN %s AND {{battle2}}.[[is_win]] = TRUE AND {{battle2}}.[[rule_id]] = %d THEN {{battle2}}.[[my_point]] - 1000',
-                implode(' AND ', [$condAssistPresent]),
-                Rule2::findOne(['key' => 'nawabari'])->id
+                implode(' AND ', [$condInkedPresent]),
+                $turfWarId
             ),
             sprintf(
                 'WHEN %s THEN {{battle2}}.[[my_point]]',
-                implode(' AND ', [$condAssistPresent])
+                implode(' AND ', [$condInkedPresent])
             ),
             'ELSE 0',
         ]));
-        $column_inked_present = sprintf('SUM(CASE WHEN %s THEN 1 ELSE 0 END)', implode(' AND ', [$condAssistPresent]));
+        $column_inked_present = sprintf('SUM(CASE WHEN %s THEN 1 ELSE 0 END)', implode(' AND ', [$condInkedPresent]));
 
         $query = clone $oldQuery;
         $query->orderBy(null);
