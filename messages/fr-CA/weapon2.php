@@ -101,5 +101,6 @@ return [
     'Tenta Brella' => '',
     'Tentatek Splattershot' => 'Liquéficateur Tentatek',
     'Tri-Slosher' => 'Seauceur trio',
-    'Undercover Brella' => '',
+    'Undercover Brella' => 'Para-encre espion',
+    'Zink Mini Splatling' => 'Badigeonneur XP Leviathus',
 ];

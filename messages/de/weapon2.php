@@ -102,4 +102,5 @@ return [
     'Tentatek Splattershot' => 'Tentatek-Kleckser',
     'Tri-Slosher' => '3R-Schwapper',
     'Undercover Brella' => '',
+    'Zink Mini Splatling' => 'Sagitron-Klecks-Splatling',
 ];

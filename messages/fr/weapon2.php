@@ -101,5 +101,6 @@ return [
     'Tenta Brella' => 'Para-encre XL',
     'Tentatek Splattershot' => 'Liquidateur griffé',
     'Tri-Slosher' => 'Dépoteur',
-    'Undercover Brella' => '',
+    'Undercover Brella' => 'Para-encre espion',
+    'Zink Mini Splatling' => 'Badigeonneur XS griffé',
 ];

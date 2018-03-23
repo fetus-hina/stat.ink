@@ -104,6 +104,7 @@ return [
     'Hero Splatling Replica' => 'ヒーロースピナー レプリカ',
     'Hydra Splatling' => 'ハイドラント',
     'Mini Splatling' => 'スプラスピナー',
+    'Zink Mini Splatling' => 'スプラスピナーコラボ',
     // brellas ------
     'Hero Brella Replica' => 'ヒーローシェルター レプリカ',
     'Splat Brella' => 'パラシェルター',

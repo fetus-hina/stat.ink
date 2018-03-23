@@ -102,4 +102,5 @@ return [
     'Tentatek Splattershot' => 'Каплестрел «Щуччи»',
     'Tri-Slosher' => 'Ведроган 3 в 1',
     'Undercover Brella' => '',
+    'Zink Mini Splatling' => 'Брызгомет-М «Шпротус»',
 ];

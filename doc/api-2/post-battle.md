@@ -361,6 +361,7 @@ There is a listing page [here](https://stat.ink/api-info/weapon2).
 |`herospinner_replica`   |`4015`                |ヒーロースピナー レプリカ<br>Hero Splatling Replica  |                                                                                                     |
 |`hydra`                 |`4020`                |ハイドラント<br>Hydra Splatling                      |                                                                                                     |
 |`splatspinner`          |`4000`                |スプラスピナー<br>Mini Splatling                     |                                                                                                     |
+|`splatspinner_collabo`  |`4001`                |スプラスピナーコラボ<br>Zink Mini Splatling          |                                                                                                     |
 |`campingshelter`        |`6010`                |キャンピングシェルター<br>Tenta Brella               |                                                                                                     |
 |`heroshelter_replica`   |`6005`                |ヒーローシェルター レプリカ<br>Hero Brella Replica   |                                                                                                     |
 |`parashelter`           |`6000`                |パラシェルター<br>Splat Brella                       |                                                                                                     |
