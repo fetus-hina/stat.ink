@@ -1,5 +1,6 @@
 <?php
 use app\assets\SortableTableAsset;
+use app\components\helpers\WeaponShortener;
 use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
 use yii\bootstrap\Html;
@@ -13,6 +14,8 @@ $this->registerMetaTag(['name' => 'twitter:description', 'content' => $this->tit
 $this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink']);
 
 SortableTableAsset::register($this);
+
+$shortener = Yii::createObject(['class' => WeaponShortener::class]);
 ?>
 <div class="container">
   <h1>
@@ -59,6 +62,9 @@ SortableTableAsset::register($this);
             <?= Html::encode($lang['name']) . "\n" ?>
           </th>
 <?php if ($i === 0): ?>
+          <th data-sort="string">
+            <?= Html::encode(Yii::t('app', 'Weapon (Short)')) . "\n" ?>
+          </th>
           <th data-sort="string">
             <?= Html::encode(Yii::t('app', 'Sub Weapon')) . "\n" ?>
           </th>
@@ -115,6 +121,12 @@ SortableTableAsset::register($this);
             ],
           ]) . "\n" ?>
 <?php if ($j === 0): ?>
+          <td>
+<?php $short = $shortener->get($name) ?>
+<?php if ($short != '' && $short !== $name): ?>
+            <?= Html::encode($shortener->get($name)) . "\n" ?>
+<?php endif ?>
+          </td>
           <td>
             <?= Html::encode($weapon['sub']) . "\n" ?>
           </td>
