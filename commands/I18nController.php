@@ -32,6 +32,8 @@ class I18nController extends Controller
         foreach ($locales as $locale) {
             $status |= $this->actionMessage($locale->lang);
         }
+        $status |= $this->actionShortWeapon();
+
         return $status ? 1 : 0;
     }
 
