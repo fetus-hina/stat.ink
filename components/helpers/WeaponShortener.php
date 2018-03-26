@@ -50,17 +50,23 @@ class WeaponShortener extends Component
                 ]);
             },
             [
-                Yii::$app->language,
                 $match[1],
+                Yii::$app->language,
             ]
         );
 
+        $list = [];
         foreach ($paths as $path) {
             if (file_exists($path)) {
-                return include($path);
+                $list = array_merge($list, array_filter(
+                    include($path),
+                    function (string $value) : bool {
+                        return trim((string)$value) !== '';
+                    }
+                ));
             }
         }
 
-        return [];
+        return $list;
     }
 }
