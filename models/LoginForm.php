@@ -76,7 +76,10 @@ class LoginForm extends Model
     public function getUser()
     {
         if ($this->user === false) {
-            $this->user = User::findOne(['[[screen_name]]' => $this->screen_name]);
+            $this->user = User::find()
+                ->andWhere(['[[screen_name]]' => (string)$this->screen_name])
+                ->limit(1)
+                ->one();
         }
         return $this->user;
     }
