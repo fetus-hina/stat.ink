@@ -14,6 +14,8 @@ use yii\helpers\Console;
 
 class I18nController extends Controller
 {
+    use i18n\WeaponShortNameTrait;
+
     public function init()
     {
         parent::init();
