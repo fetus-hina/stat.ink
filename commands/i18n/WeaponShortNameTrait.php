@@ -66,7 +66,7 @@ trait WeaponShortNameTrait
             Console::FG_PURPLE
         );
         $this->stderr(
-            '[WeaponShortName] Please make a directory or edit $map of ' . "\n" . 
+            '[WeaponShortName] Please make a directory or edit $map of ' . "\n" .
             '                  app\commands\i18n\WeaponShortNameTrait::getLocaleDirectory()' . "\n",
             Console::FG_PURPLE
         );
@@ -185,7 +185,7 @@ trait WeaponShortNameTrait
         $file[] = '];';
 
         file_put_contents(
-            $path, 
+            $path,
             implode("\n", $file) . "\n"
         );
 
