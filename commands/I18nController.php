@@ -113,7 +113,7 @@ class I18nController extends Controller
         $file[] = '/**';
         $file[] = ' * @copyright Copyright (C) 2015-' . gmdate('Y', time() + 9 * 3600) . ' AIZAWA Hina';
         $file[] = ' * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT';
-        foreach ($this->getContributors($outPath) as $contributor) {
+        foreach ($this->getGitContributors($outPath) as $contributor) {
             $file[] = ' * @author ' . $contributor;
         }
         $file[] = ' */';
@@ -128,7 +128,7 @@ class I18nController extends Controller
         return true;
     }
 
-    private function getContributors(string $path) : array
+    private function getGitContributors(string $path) : array
     {
         // {{{
         $cmdline = sprintf(

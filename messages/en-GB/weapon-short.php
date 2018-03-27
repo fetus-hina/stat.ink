@@ -3,6 +3,7 @@
  * @copyright Copyright (C) 2015-2018 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
+ * @author clovervidia <clovervidia@gmail.com>
  */
 
 return [
@@ -30,8 +31,8 @@ return [
     'Custom Dual Squelcher' => '',
     'Custom E-liter 4K' => '',
     'Custom E-liter 4K Scope' => '',
-    'Custom E-Litre 3K' => '',
-    'Custom E-Litre 3K Scope' => '',
+    'Custom E-Litre 3K' => 'Custom E-Litre',
+    'Custom E-Litre 3K Scope' => 'Custom E-Litre Scope',
     'Custom Goo Tuber' => '',
     'Custom Hydra Splatling' => '',
     'Custom Jet Squelcher' => '',
@@ -45,8 +46,8 @@ return [
     'Dynamo Roller' => '',
     'E-liter 4K' => '',
     'E-liter 4K Scope' => '',
-    'E-Litre 3K' => '',
-    'E-Litre 3K Scope' => '',
+    'E-Litre 3K' => 'E-Litre',
+    'E-Litre 3K Scope' => 'E-Litre Scope',
     'Enperry Splat Dualies' => '',
     'Firefin Splat Charger' => '',
     'Firefin Splatterscope' => '',

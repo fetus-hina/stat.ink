@@ -191,4 +191,29 @@ trait WeaponShortNameTrait
 
         return true;
     }
+
+    protected function getContributors(string $path) : array
+    {
+        $map = [
+            '/en/' => [
+                'clovervidia <clovervidia@gmail.com>',
+            ],
+            '/en-GB/' => [
+                'clovervidia <clovervidia@gmail.com>',
+            ],
+        ];
+
+        $list = $this->getGitContributors($path);
+        foreach ($map as $locale => $authors) {
+            if (strpos($path, $locale) !== false) {
+                foreach ($authors as $author) {
+                    if (!in_array($author, $list, true)) {
+                        $list[] = $author;
+                    }
+                }
+            }
+        }
+        natcasesort($list);
+        return $list;
+    }
 }
