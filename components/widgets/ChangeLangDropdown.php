@@ -9,6 +9,7 @@ namespace app\components\widgets;
 
 use Yii;
 use app\models\Language;
+use app\models\SupportLevel;
 use hiqdev\assets\flagiconcss\FlagIconCssAsset;
 use yii\base\Widget;
 use yii\bootstrap\BootstrapPluginAsset;
@@ -92,6 +93,33 @@ class ChangeLangDropdown extends Widget
                                             ' / ' .
                                             $lang->name_en
                                         ),
+                                        (function (SupportLevel $level) : string {
+                                            switch ($level->id) {
+                                                case SupportLevel::FULL:
+                                                case SupportLevel::ALMOST:
+                                                    return '';
+
+                                                case SupportLevel::PARTIAL:
+                                                    return Html::tag(
+                                                        'span',
+                                                        Html::tag('span', '', ['class' => 'fas fa-fw fa-exclamation-circle']),
+                                                        [
+                                                            'class' => 'auto-tooltip',
+                                                            'title' => 'Partially supported',
+                                                        ]
+                                                    );
+
+                                                case SupportLevel::FEW:
+                                                    return Html::tag(
+                                                        'span',
+                                                        Html::tag('span', '', ['class' => 'fas fa-fw fa-exclamation-triangle']),
+                                                        [
+                                                            'class' => 'auto-tooltip',
+                                                            'title' => 'Proper-noun only',
+                                                        ]
+                                                    );
+                                            }
+                                        })($lang->supportLevel),
                                     ]),
                                     'javascript:;',
                                     [
@@ -106,7 +134,7 @@ class ChangeLangDropdown extends Widget
                             );
                         // }}}
                         },
-                        Language::find()->orderBy(['name' => SORT_ASC])->all()
+                        Language::find()->with('supportLevel')->orderBy(['name' => SORT_ASC])->all()
                     )),
                     ArrayHelper::merge(
                         [

@@ -7,6 +7,8 @@ use app\components\widgets\SnsWidget;
 use app\components\widgets\battle\BattleListWidget;
 use app\models\Battle;
 use app\models\BlogEntry;
+use app\models\Language;
+use app\models\SupportLevel;
 use app\models\User;
 use yii\helpers\Html;
 
@@ -136,10 +138,13 @@ PaintballAsset::register($this);
     </p>
   </div>
 <?php endif; ?>
-<?php if (!in_array(Yii::$app->language, ['ja-JP', 'en-US', 'en-GB'], true)): ?>
+<?php $lang = Language::findOne(['lang' => Yii::$app->language]) ?>
+<?php if ($lang && in_array((int)$lang->support_level_id, [SupportLevel::PARTIAL, SupportLevel::FEW], true)): ?>
     <p class="bg-danger" style="padding:15px;border-radius:10px">
       This language support is really limited at this time.<br>
+<?php if ($lang->support_level_id === SupportLevel::FEW): ?>
       Only proper nouns translated. (e.g. weapons, stages)<br>
+<?php endif ?>
       <a href="https://github.com/fetus-hina/stat.ink/wiki/Translation">We need your support!</a>
     </p>
 <?php endif; ?>

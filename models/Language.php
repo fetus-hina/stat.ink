@@ -16,10 +16,12 @@ use Yii;
  * @property string $lang
  * @property string $name
  * @property string $name_en
+ * @property integer $support_level_id
  *
  * @property LanguageCharset[] $languageCharsets
  * @property Charset[] $charsets
  * @property Slack[] $slacks
+ * @property SupportLevel $supportLevel
  */
 class Language extends \yii\db\ActiveRecord
 {
@@ -97,5 +99,13 @@ class Language extends \yii\db\ActiveRecord
     public function getSlacks()
     {
         return $this->hasMany(Slack::class, ['language_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getSupportLevel()
+    {
+        return $this->hasOne(SupportLevel::class, ['id' => 'support_level_id']);
     }
 }
