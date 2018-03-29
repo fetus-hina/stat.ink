@@ -156,7 +156,8 @@ PaintballAsset::register($this);
     より新しく安全な環境をご利用ください。<br>
     <br>
     なお、投稿アプリケーションもこの変更の影響を受けます。<br>
-    環境の特定はできていませんが、Windows XP, Vista, 8.0 といったサポート切れの環境を利用している場合、この影響を受けるものと思われます。
+    環境の特定はできていませんが、Windows XP, Vista, 8.0 といったサポート切れの環境を利用している場合、この影響を受けるものと思われます。<br>
+    （現在、観測している限りでは、特定の利用者以外は特に影響を受けないように見えます）
 <?php else: ?>
     We will enforce security (turn off TLS 1.0) after the <a href="https://en.wikipedia.org/wiki/Golden_Week_(Japan)">Golden Week</a> (early May).<br>
     You will not be able to connect in the following environment:<br>
