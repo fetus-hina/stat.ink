@@ -86,6 +86,7 @@ return [
     'Sloshers' => '',
     'Sloshing Machine' => 'Secchiostro centrifuga',
     'Sloshing Machine Neo' => 'Secchiostro centrifuga Neo',
+    'Sorella Brella' => 'Sparasole Solerra',
     'Splash-o-matic' => 'Marker d\'assalto',
     'Splat Brella' => 'Sparasole',
     'Splat Charger' => 'Splatter a carica',

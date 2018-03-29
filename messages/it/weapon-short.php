@@ -134,6 +134,7 @@ return [
     'Sparacolore logo' => '',
     'Sparacolore recluta' => '',
     'Sparasole' => '',
+    'Sparasole Solerra' => '',
     'Sparasole élite replica' => '',
     'Sparatenda' => '',
     'Splash-o-matic' => '',

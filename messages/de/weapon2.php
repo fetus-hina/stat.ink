@@ -86,6 +86,7 @@ return [
     'Sloshers' => '',
     'Sloshing Machine' => 'Trommel-Schwapper',
     'Sloshing Machine Neo' => 'Trommel-Schwapper Neo',
+    'Sorella Brella' => 'Sorella-Parapluviator',
     'Splash-o-matic' => 'Fein-Disperser',
     'Splat Brella' => 'Parapluviator',
     'Splat Charger' => 'Klecks-Konzentrator',

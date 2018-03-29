@@ -86,6 +86,7 @@ return [
     'Sloshers' => 'Derramatics',
     'Sloshing Machine' => 'Derramatic centrífugo',
     'Sloshing Machine Neo' => 'Derramatic centrífugo neo',
+    'Sorella Brella' => 'Paratintas B',
     'Splash-o-matic' => 'Marcador fino',
     'Splat Brella' => 'Paratintas',
     'Splat Charger' => 'Cargatintas',

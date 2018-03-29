@@ -107,6 +107,7 @@ return [
     'Zink Mini Splatling' => 'スプラスピナーコラボ',
     // brellas ------
     'Hero Brella Replica' => 'ヒーローシェルター レプリカ',
+    'Sorella Brella' => 'パラシェルターソレーラ',
     'Splat Brella' => 'パラシェルター',
     'Tenta Brella' => 'キャンピングシェルター',
     'Undercover Brella' => 'スパイガジェット',

@@ -74,6 +74,7 @@ return [
     'N-ZAP 85' => '',
     'N-ZAP 89' => '',
     'Paratintas' => '',
+    'Paratintas B' => '',
     'Paratintas clásico' => '',
     'Paratintas de élite réplica' => '',
     'Paratintas maxi' => '',

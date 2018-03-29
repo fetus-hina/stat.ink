@@ -106,6 +106,7 @@ return [
     'Sloshing Machine' => 'Sloshmo',
     'Sloshing Machine Neo' => 'Sloshmo Neo',
     'Soda Slosher' => 'Soda Slosher',
+    'Sorella Brella' => '',
     'Splash-o-matic' => 'Splash',
     'Splat Brella' => 'Brella',
     'Splat Charger' => 'Charger',

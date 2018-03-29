@@ -86,6 +86,7 @@ return [
     'Sloshers' => '',
     'Sloshing Machine' => 'Центрифугер',
     'Sloshing Machine Neo' => 'Центрифугер «Нео»',
+    'Sorella Brella' => 'Зонтган «Родиччи»',
     'Splash-o-matic' => 'Плюхомет',
     'Splat Brella' => 'Сплат-зонт',
     'Splat Charger' => 'Сплатган',
