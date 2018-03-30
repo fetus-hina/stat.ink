@@ -45,8 +45,8 @@ return [
     'The Reef' => 'Korallenviertel',
     'Towers' => 'Muränentürme',
     'Track' => 'Buckelwal-Piste',
-    'Wahoo World' => '',
+    'Wahoo World' => 'Flunder-Funpark',
     'Walleye Warehouse' => 'Kofferfisch-Lager',
     'Warehouse' => 'Kofferfisch-Lager',
-    'World' => '',
+    'World' => 'Flunder-Funpark',
 ];

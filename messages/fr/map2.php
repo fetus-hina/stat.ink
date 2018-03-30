@@ -45,8 +45,8 @@ return [
     'The Reef' => 'Allées salées',
     'Towers' => 'Tours Girelle',
     'Track' => 'Piste Méroule',
-    'Wahoo World' => '',
+    'Wahoo World' => 'Parc Carapince',
     'Walleye Warehouse' => 'Encrepôt',
     'Warehouse' => 'Encrepôt',
-    'World' => '',
+    'World' => 'Parc Carapince',
 ];

@@ -45,8 +45,8 @@ return [
     'The Reef' => 'Rione Storione',
     'Towers' => 'Torri cittadine',
     'Track' => 'Tintodromo Montecarpa',
-    'Wahoo World' => '',
+    'Wahoo World' => 'Soglioland',
     'Walleye Warehouse' => 'Magazzino',
     'Warehouse' => 'Magazzino',
-    'World' => '',
+    'World' => 'Soglioland',
 ];

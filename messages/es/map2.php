@@ -45,8 +45,8 @@ return [
     'The Reef' => 'Barrio Congrio',
     'Towers' => 'Torres Merluza',
     'Track' => 'Tiburódromo',
-    'Wahoo World' => '',
+    'Wahoo World' => 'Pirañalandia',
     'Walleye Warehouse' => 'Almacén Rodaballo',
     'Warehouse' => 'Almacén Rodaballo',
-    'World' => '',
+    'World' => 'Pirañalandia',
 ];
