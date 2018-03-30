@@ -9,46 +9,16 @@
   $(() => {
     const $badge = $('#tlstest-badge');
 
-    const updateBadge = (text, color) => {
-      const esc = param => {
-        param = String(param).trim();
-        return encodeURIComponent(param.replace(
-          /[ _-]/g,
-          match => {
-            switch (match) {
-              case ' ':
-                return '_';
-
-              case '_':
-                return '__';
-
-              case '-':
-                return '--';
-
-              default:
-                return match;
-            }
-          }
-        ));
-      };
-
-      $badge.empty().append(
-        $('<img>', {
-          src: 'https://img.shields.io/badge/' + esc('TLS Test') + '-' + esc(text) + '-' + esc(color) + '.svg',
-        })
-      );
-    };
-
     const updateBadgeTLS12 = () => {
-      updateBadge('OK (TLS 1.2)', 'brightgreen');
+      $badge.html('<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="140" height="20"><linearGradient id="b" x2="0" y2="100%"><stop offset="0" stop-color="#bbb" stop-opacity=".1"/><stop offset="1" stop-opacity=".1"/></linearGradient><clipPath id="a"><rect width="140" height="20" rx="3" fill="#fff"/></clipPath><g clip-path="url(#a)"><path fill="#555" d="M0 0h57v20H0z"/><path fill="#4c1" d="M57 0h83v20H57z"/><path fill="url(#b)" d="M0 0h140v20H0z"/></g><g fill="#fff" text-anchor="middle" font-family="DejaVu Sans,Verdana,Geneva,sans-serif" font-size="110"><text x="295" y="150" fill="#010101" fill-opacity=".3" transform="scale(.1)" textLength="470">TLS Test</text><text x="295" y="140" transform="scale(.1)" textLength="470">TLS Test</text><text x="975" y="150" fill="#010101" fill-opacity=".3" transform="scale(.1)" textLength="730">OK (TLS 1.2)</text><text x="975" y="140" transform="scale(.1)" textLength="730">OK (TLS 1.2)</text></g></svg>');
     };
 
     const updateBadgeToTLS11 = () => {
-      updateBadge('So-so (TLS 1.1)', 'yellowgreen');
+      $badge.html('<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="154" height="20"><linearGradient id="b" x2="0" y2="100%"><stop offset="0" stop-color="#bbb" stop-opacity=".1"/><stop offset="1" stop-opacity=".1"/></linearGradient><clipPath id="a"><rect width="154" height="20" rx="3" fill="#fff"/></clipPath><g clip-path="url(#a)"><path fill="#555" d="M0 0h57v20H0z"/><path fill="#a4a61d" d="M57 0h97v20H57z"/><path fill="url(#b)" d="M0 0h154v20H0z"/></g><g fill="#fff" text-anchor="middle" font-family="DejaVu Sans,Verdana,Geneva,sans-serif" font-size="110"><text x="295" y="150" fill="#010101" fill-opacity=".3" transform="scale(.1)" textLength="470">TLS Test</text><text x="295" y="140" transform="scale(.1)" textLength="470">TLS Test</text><text x="1045" y="150" fill="#010101" fill-opacity=".3" transform="scale(.1)" textLength="870">So-so (TLS 1.1)</text><text x="1045" y="140" transform="scale(.1)" textLength="870">So-so (TLS 1.1)</text></g> </svg>');
     };
 
     const updateBadgeToTLS10 = () => {
-      updateBadge('Outdated', 'red');
+      $badge.html('<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="174" height="20"><linearGradient id="b" x2="0" y2="100%"><stop offset="0" stop-color="#bbb" stop-opacity=".1"/><stop offset="1" stop-opacity=".1"/></linearGradient><clipPath id="a"><rect width="174" height="20" rx="3" fill="#fff"/></clipPath><g clip-path="url(#a)"><path fill="#555" d="M0 0h57v20H0z"/><path fill="#e05d44" d="M57 0h117v20H57z"/><path fill="url(#b)" d="M0 0h174v20H0z"/></g><g fill="#fff" text-anchor="middle" font-family="DejaVu Sans,Verdana,Geneva,sans-serif" font-size="110"><text x="295" y="150" fill="#010101" fill-opacity=".3" transform="scale(.1)" textLength="470">TLS Test</text><text x="295" y="140" transform="scale(.1)" textLength="470">TLS Test</text><text x="1145" y="150" fill="#010101" fill-opacity=".3" transform="scale(.1)" textLength="1070">Outdated (TLS 1.0)</text><text x="1145" y="140" transform="scale(.1)" textLength="1070">Outdated (TLS 1.0)</text></g> </svg>');
     };
 
     setTimeout(
