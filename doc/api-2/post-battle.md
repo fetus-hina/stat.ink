@@ -243,6 +243,9 @@ Example for UUID v5 (if use namespace `73cf052a-fd0b-11e7-a5ee-001b21a098c2`):
 
 [GET /api/v2/stage](get-stage.md)で詳細情報が取得可能です。
 
+また、実際のデータベースを参照した一覧ページが[ここにあります](https://stat.ink/api-info/stage2)。<br>
+There is a listing page [here](https://stat.ink/api-info/stage2).
+
 <!--replace:stage-->
 |指定文字列<br>Key String|イカリング<br>SplatNet|ステージ<br>Stage Name                       |備考<br>Remarks                                                              |
 |------------------------|----------------------|---------------------------------------------|-----------------------------------------------------------------------------|

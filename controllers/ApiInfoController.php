@@ -18,14 +18,15 @@ class ApiInfoController extends Controller
     {
         $prefix = 'app\actions\api\info';
         return [
-            'weapon'        => [ 'class' => $prefix . '\WeaponAction' ],
-            'weapon2'       => [ 'class' => $prefix . '\Weapon2Action' ],
-            'gear-headgear' => [ 'class' => $prefix . '\GearAction', 'type' => 'headgear'],
             'gear-clothing' => [ 'class' => $prefix . '\GearAction', 'type' => 'clothing'],
-            'gear-shoes'    => [ 'class' => $prefix . '\GearAction', 'type' => 'shoes'],
-            'gear2-headgear' => [ 'class' => $prefix . '\Gear2Action', 'type' => 'headgear'],
+            'gear-headgear' => [ 'class' => $prefix . '\GearAction', 'type' => 'headgear'],
+            'gear-shoes' => [ 'class' => $prefix . '\GearAction', 'type' => 'shoes'],
             'gear2-clothing' => [ 'class' => $prefix . '\Gear2Action', 'type' => 'clothing'],
-            'gear2-shoes'    => [ 'class' => $prefix . '\Gear2Action', 'type' => 'shoes'],
+            'gear2-headgear' => [ 'class' => $prefix . '\Gear2Action', 'type' => 'headgear'],
+            'gear2-shoes' => [ 'class' => $prefix . '\Gear2Action', 'type' => 'shoes'],
+            'stage2' => [ 'class' => $prefix . '\Stage2Action' ],
+            'weapon' => [ 'class' => $prefix . '\WeaponAction' ],
+            'weapon2' => [ 'class' => $prefix . '\Weapon2Action' ],
         ];
     }
 }
