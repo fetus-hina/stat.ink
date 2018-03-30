@@ -65,6 +65,7 @@ RESOURCE_TARGETS_MAIN := \
 	resources/.compiled/stat.ink/sortable-table.js \
 	resources/.compiled/stat.ink/summary-legends.png \
 	resources/.compiled/stat.ink/swipebox-runner.js \
+	resources/.compiled/stat.ink/tlstest.js \
 	resources/.compiled/stat.ink/user-miniinfo.css \
 	resources/.compiled/stat.ink/user-stat-by-map-rule-detail.css \
 	resources/.compiled/stat.ink/weapon2.js \
@@ -306,6 +307,9 @@ resources/.compiled/stat.ink/battle-summary-dialog.js: resources/stat.ink/battle
 
 resources/.compiled/stat.ink/battle-summary-dialog.css: resources/stat.ink/battle-summary-dialog.less $(GULP)
 	$(GULP) less --in $< --out $@
+
+resources/.compiled/stat.ink/tlstest.js: resources/stat.ink/tlstest.es $(GULP)
+	$(GULP) js --in $< --out $@
 
 resources/.compiled/ostatus/remote-follow.js: resources/ostatus/remote-follow.js $(GULP)
 	$(GULP) js --in $< --out $@

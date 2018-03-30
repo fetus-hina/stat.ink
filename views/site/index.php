@@ -1,4 +1,5 @@
 <?php
+use app\assets\AppOptAsset;
 use app\assets\CounterAsset;
 use app\assets\PaintballAsset;
 use app\components\helpers\CombinedBattles;
@@ -149,6 +150,8 @@ PaintballAsset::register($this);
     </p>
 <?php endif; ?>
   <p class="bg-danger" style="padding:15px;border-radius:10px">
+<?php $asset = AppOptAsset::register($this) ?>
+<?php $asset->registerJsFile($this, 'tlstest.js') ?>
 <?php if (Yii::$app->language === 'ja-JP'): ?>
     stat.ink では、ゴールデンウイーク明けを目安にセキュリティの強化（TLS 1.0 の無効化）を実施します。<br>
     Internet Explorer 11 未満（10 以前）、Android 5.0 未満（4.4.x 以前）、PlayStation Vita などから接続ができなくなります。<br>
@@ -157,7 +160,9 @@ PaintballAsset::register($this);
     <br>
     なお、投稿アプリケーションもこの変更の影響を受けます。<br>
     環境の特定はできていませんが、Windows XP, Vista, 8.0 といったサポート切れの環境を利用している場合、この影響を受けるものと思われます。<br>
-    （現在、観測している限りでは、特定の利用者以外は特に影響を受けないように見えます）
+    （現在、観測している限りでは、特定の利用者以外は特に影響を受けないように見えます）<br>
+    <br>
+    現在の環境の状態: <span id="tlstest-badge">接続テスト中...</span>
 <?php else: ?>
     We will enforce security (turn off TLS 1.0) after the <a href="https://en.wikipedia.org/wiki/Golden_Week_(Japan)">Golden Week</a> (early May).<br>
     You will not be able to connect in the following environment:<br>
@@ -170,7 +175,9 @@ PaintballAsset::register($this);
     Please use a new and safe environment (OS, browser).<br>
     <br>
     The application for POSTing will also be affected by this change.<br>
-    If you are running an application on Windows XP, Vista, 8.0 etc environment, you will not be able to post.
+    If you are running an application on Windows XP, Vista, 8.0 etc environment, you will not be able to post.<br>
+    <br>
+    Your current environment: <span id="tlstest-badge">Checking...</span>
 <?php endif ?>
   </p>
   <p>
