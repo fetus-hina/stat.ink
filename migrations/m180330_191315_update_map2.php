@@ -46,6 +46,6 @@ class m180330_191315_update_map2 extends Migration
                 'arowana',
             ]]
         );
-        $this->update('map2',['area' => null], ['key' => ['hakofugu', 'ajifry']]);
+        $this->update('map2', ['area' => null], ['key' => ['hakofugu', 'ajifry']]);
     }
 }
