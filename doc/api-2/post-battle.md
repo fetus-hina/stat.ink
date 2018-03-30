@@ -262,7 +262,7 @@ Example for UUID v5 (if use namespace `73cf052a-fd0b-11e7-a5ee-001b21a098c2`):
 |`manta`                 |`6`                   |マンタマリア号<br>Manta Maria                |                                                                             |
 |`mongara`               |                      |モンガラキャンプ場<br>Camp Triggerfish       |                                                                             |
 |`mozuku`                |`10`                  |モズク農園<br>Kelp Dome                      |                                                                             |
-|`shottsuru`             |                      |ショッツル鉱山<br>Piranha Pit                |                                                                             |
+|`shottsuru`             |`17`                  |ショッツル鉱山<br>Piranha Pit                |                                                                             |
 |`sumeshi`               |                      |スメーシーワールド<br>Wahoo World            |                                                                             |
 |`tachiuo`               |`8`                   |タチウオパーキング<br>Moray Towers           |                                                                             |
 |`zatou`                 |`13`                  |ザトウマーケット<br>MakoMart                 |                                                                             |
