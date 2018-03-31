@@ -153,7 +153,7 @@ PaintballAsset::register($this);
 <?php $asset = AppOptAsset::register($this) ?>
 <?php $asset->registerJsFile($this, 'tlstest.js') ?>
 <?php if (Yii::$app->language === 'ja-JP'): ?>
-    stat.ink では、ゴールデンウイーク明けを目安にセキュリティの強化（TLS 1.0 の無効化）を実施します。<br>
+    stat.ink では、ゴールデンウイーク明けを目安にセキュリティの強化（TLS 1.0, 1.1 の無効化）を実施します。<br>
     Internet Explorer 11 未満（10 以前）、Android 5.0 未満（4.4.x 以前）、PlayStation Vita などから接続ができなくなります。<br>
     これは業界全体の流れですので、それらの環境では今後、多数のサイトで接続不能になります（おおむね6月末までに）。<br>
     より新しく安全な環境をご利用ください。<br>
@@ -164,7 +164,7 @@ PaintballAsset::register($this);
     <br>
     現在の環境の状態: <span id="tlstest-badge">接続テスト中...</span>
 <?php else: ?>
-    We will enforce security (turn off TLS 1.0) after the <a href="https://en.wikipedia.org/wiki/Golden_Week_(Japan)">Golden Week</a> (early May).<br>
+    We will enforce security (turn off TLS 1.0 &amp; 1.1) after the <a href="https://en.wikipedia.org/wiki/Golden_Week_(Japan)">Golden Week</a> (early May).<br>
     You will not be able to connect in the following environment:<br>
     * Internet Explorer &lt; 11 (≤ 10)<br>
     * OS X &lt; v10.9 Mavericks (≤ 10.8 Mountain Lion)<br>
