@@ -33,8 +33,12 @@
           $label.addClass('label-warning');
         }
       } else {
-        $label.addClass('label-danger')
-          .append($('<span class="fas fa-fw fa-times">'));
+        $label.append($('<span class="fas fa-fw fa-times">'));
+        if (isRecommendedProto) {
+          $label.addClass('label-danger');
+        } else {
+          $label.addClass('label-success').css({'background-color': '#5cb85c'});
+        }
       }
       $holder.empty().append($label);
     };
