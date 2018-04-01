@@ -149,37 +149,68 @@ PaintballAsset::register($this);
       <a href="https://github.com/fetus-hina/stat.ink/wiki/Translation">We need your support!</a>
     </p>
 <?php endif; ?>
-  <p class="bg-danger" style="padding:15px;border-radius:10px">
+  <div class="bg-danger" style="padding:15px;border-radius:10px">
+    <style scope>
+      #tlstest-badge svg {
+        vertical-align: bottom;
+      }
+    </style>
+    <p>
 <?php $asset = AppOptAsset::register($this) ?>
 <?php $asset->registerJsFile($this, 'tlstest.js') ?>
 <?php if (Yii::$app->language === 'ja-JP'): ?>
-    stat.ink では、ゴールデンウイーク明けを目安にセキュリティの強化（TLS 1.0, 1.1 の無効化）を実施します。<br>
-    Internet Explorer 11 未満（10 以前）、Android 5.0 未満（4.4.x 以前）、PlayStation Vita などから接続ができなくなります。<br>
-    これは業界全体の流れですので、それらの環境では今後、多数のサイトで接続不能になります（おおむね6月末までに）。<br>
-    より新しく安全な環境をご利用ください。<br>
-    <br>
-    なお、投稿アプリケーションもこの変更の影響を受けます。<br>
-    環境の特定はできていませんが、Windows XP, Vista, 8.0 といったサポート切れの環境を利用している場合、この影響を受けるものと思われます。<br>
-    （現在、観測している限りでは、特定の利用者以外は特に影響を受けないように見えます）<br>
-    <br>
-    現在の環境の状態: <span id="tlstest-badge">接続テスト中...</span>
+      stat.ink では、ゴールデンウイーク明けを目安にセキュリティの強化（TLS 1.0, 1.1 の無効化）を実施します。<br>
+      Internet Explorer 11 未満（10 以前）、Android 5.0 未満（4.4.x 以前）、PlayStation Vita などから接続ができなくなります。<br>
+      これは業界全体の流れですので、それらの環境では今後、多数のサイトで接続不能になります（おおむね6月末までに）。<br>
+      より新しく安全な環境をご利用ください。<br>
+      <br>
+      なお、投稿アプリケーションもこの変更の影響を受けます。<br>
+      環境の特定はできていませんが、Windows XP, Vista, 8.0, CentOS 5 といったサポート切れの環境を利用している場合、この影響を受けるものと思われます。<br>
+      また、CentOS 6, Ubuntu 14.04 LTS 等、古いディストリビューションを利用している場合は適切なアップデートが必要なものと思われます。<br>
+      （現在、観測している限りでは、特定の利用者以外は特に影響を受けないように見えます）<br>
+      <br>
+      現在の環境の状態:
 <?php else: ?>
-    We will enforce security (turn off TLS 1.0 &amp; 1.1) after the <a href="https://en.wikipedia.org/wiki/Golden_Week_(Japan)">Golden Week</a> (early May).<br>
-    You will not be able to connect in the following environment:<br>
-    * Internet Explorer &lt; 11 (≤ 10)<br>
-    * OS X &lt; v10.9 Mavericks (≤ 10.8 Mountain Lion)<br>
-    * Android &lt; 5 (≤ 4.4.x)<br>
-    * iOS &lt; 5 (≤ 4)<br>
-    * PlayStation Vita<br>
-    Since this is a flow of the industry as a whole, it will be impossible to connect with many sites in the near future (by the end of June).<br>
-    Please use a new and safe environment (OS, browser).<br>
-    <br>
-    The application for POSTing will also be affected by this change.<br>
-    If you are running an application on Windows XP, Vista, 8.0 etc environment, you will not be able to post.<br>
-    <br>
-    Your current environment: <span id="tlstest-badge">Checking...</span>
+      We will enforce security (turn off TLS 1.0 &amp; 1.1) after the <a href="https://en.wikipedia.org/wiki/Golden_Week_(Japan)">Golden Week</a> (early May).<br>
+      You will not be able to connect in the following environment:<br>
+      * Internet Explorer &lt; 11 (≤ 10)<br>
+      * OS X &lt; v10.9 Mavericks (≤ 10.8 Mountain Lion)<br>
+      * Android &lt; 5 (≤ 4.4.x)<br>
+      * iOS &lt; 5 (≤ 4)<br>
+      * PlayStation Vita<br>
+      Since this is a flow of the industry as a whole, it will be impossible to connect with many sites in the near future (by the end of June).<br>
+      Please use a new and safe environment (OS, browser).<br>
+      <br>
+      The application for POSTing will also be affected by this change.<br>
+      If you are running an application on Windows XP, Vista, 8.0 etc environment, you will not be able to post.<br>
+      <br>
+      Your current environment:
 <?php endif ?>
-  </p>
+    </p>
+    <table border="1">
+      <thead>
+        <tr>
+          <th class="text-center" rowspan="2">Your environment</th>
+          <th class="text-center" colspan="3">TLS</th>
+        </tr>
+        <tr>
+          <th class="text-center">1.0</th>
+          <th class="text-center">1.1</th>
+          <th class="text-center">1.2</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="text-center">
+            <span id="tlstest-badge">Checking...</span>
+          </td>
+          <td class="text-center"><span class="tlstest" data-tls="1.0"><span class="label label-default"><span class="fas fa-fw fa-spin fa-spinner"></span></span></span></td>
+          <td class="text-center"><span class="tlstest" data-tls="1.1"><span class="label label-default"><span class="fas fa-fw fa-spin fa-spinner"></span></span></span></td>
+          <td class="text-center"><span class="tlstest" data-tls="1.2"><span class="label label-default"><span class="fas fa-fw fa-spin fa-spinner"></span></span></span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
   <p>
     <?= implode(' | ', [
       Yii::$app->user->isGuest
