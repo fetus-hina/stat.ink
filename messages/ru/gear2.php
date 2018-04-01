@@ -204,6 +204,7 @@ return [
     'N-Pacer Ag' => '',
     'N-Pacer Au' => '',
     'N-Pacer Sweat' => '',
+    'Oceanic Hard Hat' => '',
     'Octobowler Shirt' => '',
     'Octo Layered LS' => '',
     'Olive Ski Jacket' => '',
