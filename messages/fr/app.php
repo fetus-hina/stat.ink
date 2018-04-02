@@ -401,6 +401,7 @@ return [
     'Slack Integration' => '',
     'S/min' => '',
     'Source Code' => '',
+    'Source: {source}' => '',
     'Special' => 'Arme spéciale',
     'Special %' => '',
     'Special:' => '',

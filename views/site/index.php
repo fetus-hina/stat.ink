@@ -275,6 +275,9 @@ if ($blogEntries):
     )) . "\n" ?>
   </p>
 <?php endif; ?>
+
+  <?= $this->render('_index_schedule') . "\n" ?>
+
 <?php if (!Yii::$app->user->isGuest): ?>
 <?php $ident = Yii::$app->user->identity ?>
 <?php $battles = CombinedBattles::getUserRecentBattles($ident, 12) ?>

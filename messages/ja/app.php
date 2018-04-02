@@ -366,6 +366,7 @@ return [
     'Simplified List' => 'シンプルなリストで表示',
     'Slack Integration' => 'Slack連携',
     'Source Code' => 'ソースコード',
+    'Source: {source}' => 'ソース: {source}',
     'Special %' => 'スペシャルゲージ',
     'Special Charged' => 'スペシャル満タン',
     'Special' => 'スペシャル',
