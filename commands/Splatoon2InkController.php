@@ -33,7 +33,7 @@ class Splatoon2InkController extends Controller
         return $status === 0 ? 0 : 1;
     }
 
-    public function actionUpdateSchedule() : int 
+    public function actionUpdateSchedule() : int
     {
         $json = $this->queryJson('https://splatoon2.ink/data/schedules.json');
 
