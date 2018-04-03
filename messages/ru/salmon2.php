@@ -10,5 +10,6 @@ return [
     'Marooner\'s Bay' => 'Корабль «Дон Брак»',
     'Random' => '',
     'Salmonid Smokeyard' => 'Коптильня «УгарЪ»',
+    'Salmon Run' => '',
     'Spawning Grounds' => 'Самонидская ГЭС',
 ];

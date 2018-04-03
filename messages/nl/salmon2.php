@@ -10,5 +10,6 @@ return [
     'Marooner\'s Bay' => 'Wrak van de ms Grondel',
     'Random' => '',
     'Salmonid Smokeyard' => 'Visrokerij',
+    'Salmon Run' => '',
     'Spawning Grounds' => 'Salmonietendam',
 ];

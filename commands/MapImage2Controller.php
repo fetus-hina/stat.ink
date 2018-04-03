@@ -61,6 +61,11 @@ class MapImage2Controller extends Controller
             'shottsuru' => 'https://pbs.twimg.com/media/DYPMhr4UMAAkrG5.jpg:orig',
             'sumeshi' => 'https://pbs.twimg.com/media/DYPMwDjVQAAyI2_.jpg:orig',
             'zatou' => 'https://pbs.twimg.com/media/DPKV9mCV4AExVBF.jpg:orig',
+
+            'damu' => 'https://cdn.wikimg.net/splatoonwiki/images/2/29/S2_Stage_Spawning_Grounds.png',
+            'donburako' => 'https://cdn.wikimg.net/splatoonwiki/images/6/6c/S2_Stage_Marooner%27s_Bay.png',
+            'shaketoba' => 'https://cdn.wikimg.net/splatoonwiki/images/6/68/S2_Stage_Lost_Outpost.png',
+            'tokishirazu' => 'https://cdn.wikimg.net/splatoonwiki/images/c/c7/S2_Stage_Salmonid_Smokeyard.png',
         ];
         foreach ($list as $stage => $url) {
             $this->stderr("Processing " . $stage . " ...\n");

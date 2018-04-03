@@ -10,5 +10,6 @@ return [
     'Marooner\'s Bay' => 'Schiffswrack-Insel',
     'Random' => '',
     'Salmonid Smokeyard' => 'Räucherwerk',
+    'Salmon Run' => '',
     'Spawning Grounds' => 'Salmoniden-Damm',
 ];

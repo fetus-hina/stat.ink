@@ -74,6 +74,7 @@ class SalmonSchedule2 extends ActiveRecord
      */
     public function getWeapons()
     {
-        return $this->hasMany(SalmonWeapon2::class, ['schedule_id' => 'id']);
+        return $this->hasMany(SalmonWeapon2::class, ['schedule_id' => 'id'])
+            ->orderBy(['id' => SORT_ASC]);
     }
 }

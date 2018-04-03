@@ -10,5 +10,6 @@ return [
     'Marooner\'s Bay' => 'Isoletta del relitto',
     'Random' => '',
     'Salmonid Smokeyard' => 'Fortino Fumino',
+    'Salmon Run' => '',
     'Spawning Grounds' => 'Diga salmonoide',
 ];

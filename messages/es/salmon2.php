@@ -10,5 +10,6 @@ return [
     'Marooner\'s Bay' => 'Bahía Deriva',
     'Random' => '',
     'Salmonid Smokeyard' => 'Ensenada Ahumada',
+    'Salmon Run' => '',
     'Spawning Grounds' => 'Presa Salmónida',
 ];

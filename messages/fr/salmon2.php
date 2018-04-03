@@ -10,5 +10,6 @@ return [
     'Marooner\'s Bay' => 'Épave des braves',
     'Random' => '',
     'Salmonid Smokeyard' => 'Fumoir Sans-Espoir',
+    'Salmon Run' => '',
     'Spawning Grounds' => 'Barrage salmonoïde',
 ];

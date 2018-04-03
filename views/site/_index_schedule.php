@@ -1,6 +1,11 @@
 <?php
+use app\models\SalmonSchedule2;
 use app\models\Schedule2;
 use yii\helpers\Html;
+
+$now = (new DateTimeImmutable())
+    ->setTimestamp($_SERVER['REQUEST_TIME'])
+    ->setTimeZone(new DateTimeZone(Yii::$app->timeZone));
 
 $schedule = Schedule2::getInfo();
 $current = $schedule->current ?? null;
@@ -10,6 +15,13 @@ $currentScheduleAvailable = ($current && (
     ($current->gachi ?? null) ||
     ($current->league ?? null)
 ));
+
+$salmonSchedules = SalmonSchedule2::find()
+    ->with(['map', 'weapons.weapon'])
+    ->andWhere(['>=', 'end_at', $now->format(DateTime::ATOM)])
+    ->orderBy(['end_at' => SORT_ASC])
+    ->limit(2)
+    ->all();
 
 if ($currentScheduleAvailable): 
 ?>
@@ -32,6 +44,13 @@ if ($currentScheduleAvailable):
       Html::encode(Yii::t('app-rule2', 'League'))
     ?></a>
   </li>
+<?php if ($salmonSchedules): ?>
+  <li role="presentation">
+    <a href="#schedule-salmon" data-toggle="tab"><?=
+      Html::encode(Yii::t('app-salmon2', 'Salmon Run'))
+    ?></a>
+  </li>
+<?php endif ?>
 </ul>
 <div class="tab-content">
   <div role="tabpanel" class="tab-pane active" id="schedule-regular">
@@ -76,6 +95,13 @@ if ($currentScheduleAvailable):
       ],
     ]) . "\n" ?>
   </div>
+<?php if ($salmonSchedules): ?>
+  <div role="tabpanel" class="tab-pane" id="schedule-salmon">
+    <?= $this->render('_index_schedule_salmon', [
+      'schedules' => $salmonSchedules,
+    ]) . "\n" ?>
+  </div>
+<?php endif ?>
 </div>
 <p class="text-right">
   <?= Yii::t('app', 'Source: {source}', [
