@@ -8,13 +8,20 @@
 namespace app\commands;
 
 use Curl\Curl;
+use DateTime;
+use DateTimeImmutable;
+use DateTimeZone;
 use Yii;
 use app\components\helpers\Battle as BattleHelper;
 use app\models\Map2;
 use app\models\Rule2;
+use app\models\SalmonMap2;
+use app\models\SalmonSchedule2;
+use app\models\SalmonWeapon2;
 use app\models\Schedule2;
 use app\models\ScheduleMap2;
 use app\models\ScheduleMode2;
+use app\models\Weapon2;
 use stdClass;
 use yii\console\Controller;
 use yii\helpers\ArrayHelper;
@@ -29,11 +36,11 @@ class Splatoon2InkController extends Controller
     {
         $status = 0;
         $status |= $this->actionUpdateSchedule();
-        // $status |= $this->actionUpdateCoopSchedule();
+        $status |= $this->actionUpdateCoopSchedule();
         return $status === 0 ? 0 : 1;
     }
 
-    public function actionUpdateSchedule() : int 
+    public function actionUpdateSchedule() : int
     {
         $json = $this->queryJson('https://splatoon2.ink/data/schedules.json');
 
@@ -57,6 +64,7 @@ class Splatoon2InkController extends Controller
         }
     }
 
+    // スケジュール 実装 {{{
     private function importSchedules(ScheduleMode2 $mode, array $list)
     {
         usort($list, function (stdClass $a, stdClass $b) : int {
@@ -157,6 +165,156 @@ class Splatoon2InkController extends Controller
 
         $this->stderr("  => updated\n");
     }
+    // }}}
+
+    public function actionUpdateCoopSchedule() : int
+    {
+        $json = $this->queryJson('https://splatoon2.ink/data/coop-schedules.json');
+
+        $transaction = Yii::$app->db->beginTransaction();
+        try {
+            if ($this->importCoopSchedules($json->details)) {
+                $transaction->commit();
+                return 0;
+            }
+        } catch (\Exception $e) {
+            echo $e->getMessage() . "\n";
+            echo $e->getTraceAsString() . "\n";
+        }
+        $transaction->rollBack();
+        return 1;
+    }
+
+    // スケジュール 実装 {{{
+    private function importCoopSchedules(array $list) : bool
+    {
+        usort($list, function (stdClass $a, stdClass $b) : int {
+            return $a->start_time <=> $b->start_time;
+        });
+        $ret = true;
+        foreach ($list as $schedule) {
+            $ret &= $this->importCoopSchedule($schedule);
+        }
+        return $ret;
+    }
+
+    private function importCoopSchedule(stdClass $json) : bool
+    {
+        $startTime = $this->dateTimeFromTimestamp($json->start_time);
+        $endTime = $this->dateTimeFromTimestamp($json->end_time);
+
+        echo "Schedule: " . $startTime->format(DateTime::ATOM) . ' - ' . $endTime->format(DateTime::ATOM) . "\n";
+
+        // 期間の重なるスケジュールを全件取得
+        $schedules = SalmonSchedule2::find()
+            ->andWhere(['and',
+                ['<=', 'start_at', $endTime->format(DateTime::ATOM)],
+                ['>=', 'end_at', $startTime->format(DateTime::ATOM)],
+            ])
+            ->all();
+        $schedule = null; // 開始・終了が一致するスケジュール
+        if ($schedules) {
+            foreach ($schedules as $_) {
+                if (@strtotime($_['start_at']) === $startTime->getTimestamp() &&
+                    @strtotime($_['end_at']) === $endTime->getTimestamp()
+                ) {
+                    $schedule = $_;
+                    echo "Found same term schedule data, id = " . $_->id . "\n";
+                } else {
+                    // 開始・終了は一致しないが期間が重複しているのはおかしなデータ
+                    echo "Found invalid term schedule data, id = " . $_->id . "\n";
+                    if ($_->delete() === false) {
+                        echo "Could not delete the data.\n";
+                        return false;
+                    }
+                }
+            }
+        }
+
+        if (!$schedule) {
+            $schedule = Yii::createObject([
+                'class' => SalmonSchedule2::class,
+                'map_id' => null,
+                'start_at' => $startTime->format(DateTime::ATOM),
+                'end_at' => $endTime->format(DateTime::ATOM),
+            ]);
+        }
+
+        $map = SalmonMap2::findOne(['name' => $json->stage->name ?? '?']);
+        if (!$map) {
+            echo "Unknown stage: " . ($json->stage->name ?? '??') . "\n";
+            return false;
+        }
+
+        if ($schedule->map_id != $map->id) {
+            $schedule->map_id = $map->id;
+            if (!$schedule->save()) {
+                echo "Could not create/update schedule\n";
+                return false;
+            }
+            echo "Schedule created.\n";
+        }
+
+        $jsonWeapons = array_filter(
+            array_map(
+                function ($weapon) : ?int {
+                    $id = (is_object($weapon) && $weapon instanceof stdClass)
+                        ? ($weapon->id ?? null)
+                        : null;
+                    return ($id !== null && preg_match('/^\d+$/', $id))
+                        ? (int)$id
+                        : null;
+                },
+                $json->weapons
+            ),
+            function (?int $id) : bool {
+                return $id !== null;
+            }
+        );
+
+        $currentWeapons = array_map(
+            function (SalmonWeapon2 $weapon) : int {
+                return $weapon->weapon->splatnet;
+            },
+            SalmonWeapon2::find()
+                ->with('weapon')
+                ->andWhere(['schedule_id' => $schedule->id])
+                ->orderBy(['id' => SORT_ASC])
+                ->all()
+        );
+
+        if ($jsonWeapons === $currentWeapons) {
+            echo "Weapon data is up to date.\n";
+            return true;
+        }
+
+        echo "Create weapons data\n";
+        SalmonWeapon2::deleteAll(['schedule_id' => $schedule->id]);
+
+        foreach ($jsonWeapons as $weaponId) {
+            $weapon = Weapon2::findOne(['splatnet' => $weaponId]);
+            if (!$weapon) {
+                echo "Weapon not found (splatnet id = {$weaponId})\n";
+                return false;
+            }
+
+            echo "  {$weaponId} => {$weapon->id} ({$weapon->key})\n";
+
+            $model = Yii::createObject([
+                'class' => SalmonWeapon2::class,
+                'schedule_id' => $schedule->id,
+                'weapon_id' => $weapon->id,
+            ]);
+            if (!$model->save()) {
+                echo "  failed to save!\n";
+                return false;
+            }
+        }
+        echo "Updated.\n";
+
+        return true;
+    }
+    // }}}
 
     private function queryJson(string $url, array $data = [])
     {
@@ -173,5 +331,12 @@ class Splatoon2InkController extends Controller
             throw new \Exception("Request failed: url={$url}, code={$curl->errorCode}, msg={$curl->errorMessage}");
         }
         return Json::decode($curl->rawResponse, false);
+    }
+
+    private function dateTimeFromTimestamp(int $timestamp) : DateTimeImmutable
+    {
+        return (new DateTimeImmutable())
+            ->setTimestamp($timestamp)
+            ->setTimeZone(new DateTimeZone(Yii::$app->timeZone));
     }
 }
