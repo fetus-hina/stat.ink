@@ -24,6 +24,7 @@ return [
                 'app-reltime'   => 'reltime.php',
                 'app-rule'      => 'rule.php',
                 'app-rule2'     => 'rule2.php',
+                'app-salmon2'   => 'salmon2.php',
                 'app-slack'     => 'slack.php',
                 'app-special'   => 'special.php',
                 'app-special2'  => 'special2.php',
