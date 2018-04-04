@@ -43,26 +43,59 @@
       $holder.empty().append($label);
     };
 
-    const update = () => {
-      if (tls12 !== null) {
-        label($labelHolders.filter('[data-tls="1.2"]'), tls12, true);
-      }
-      if (tls11 !== null) {
-        label($labelHolders.filter('[data-tls="1.1"]'), tls11, false);
-      }
-      if (tls10 !== null) {
-        label($labelHolders.filter('[data-tls="1.0"]'), tls10, false);
-      }
+    const updateBadgeAndLabel = () => {
+      if ($badge.length && $labelHolders.length) {
+        if (tls12 !== null) {
+          label($labelHolders.filter('[data-tls="1.2"]'), tls12, true);
+        }
 
-      if (tls11 !== null && tls12 !== null) {
-        if (tls12) {
-          $badge.html(svgTls12);
-        } else if (tls11) {
-          $badge.html(svgTls11);
-        } else {
-          $badge.html(svgTls10);
+        if (tls11 !== null) {
+          label($labelHolders.filter('[data-tls="1.1"]'), tls11, false);
+        }
+
+        if (tls10 !== null) {
+          label($labelHolders.filter('[data-tls="1.0"]'), tls10, false);
+        }
+
+        if (tls11 !== null && tls12 !== null) {
+          if (tls12) {
+            $badge.html(svgTls12);
+          } else if (tls11) {
+            $badge.html(svgTls11);
+          } else {
+            $badge.html(svgTls10);
+          }
         }
       }
+    };
+
+    const sendGoogleAnalytics = () => {
+      if (tls10 !== null && tls11 !== null && tls12 !== null) {
+        const connection = tls12 ? 'TLSv1.2' : (tls11 ? 'TLSv1.1' : (tls10 ? 'TLSv1.0' : 'unknown'));
+        const connectionDetailsData = [
+          tls12 ? 'TLSv1.2' : null,
+          tls11 ? 'TLSv1.1' : null,
+          tls10 ? 'TLSv1.0' : null,
+        ];
+        const connectionDetails = connectionDetailsData
+          .filter(v => v !== null)
+          .join(', ');
+
+        if (console && console.log) {
+          console.log(`TLS connection: ${connection}`);
+          console.log(`TLS versions: ${connectionDetails}`);
+        }
+
+        if (window.ga) {
+          window.ga('set', 'dimension1', connection);
+          window.ga('set', 'dimension2', connectionDetails);
+        }
+      }
+    };
+
+    const update = () => {
+      updateBadgeAndLabel();
+      sendGoogleAnalytics();
     };
 
     setTimeout(

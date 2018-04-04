@@ -1,7 +1,7 @@
 <?php
-use app\assets\AppOptAsset;
 use app\assets\CounterAsset;
 use app\assets\PaintballAsset;
+use app\assets\TlsTestJsAsset;
 use app\components\helpers\CombinedBattles;
 use app\components\widgets\ChangeLangDropdown;
 use app\components\widgets\SnsWidget;
@@ -156,8 +156,7 @@ PaintballAsset::register($this);
       }
     </style>
     <p>
-<?php $asset = AppOptAsset::register($this) ?>
-<?php $asset->registerJsFile($this, 'tlstest.js') ?>
+<?php TlsTestJsAsset::register($this) ?>
 <?php if (Yii::$app->language === 'ja-JP'): ?>
       stat.ink では、ゴールデンウイーク明けを目安にセキュリティの強化（TLS 1.0, 1.1 の無効化）を実施します。<br>
       Internet Explorer 11 未満（10 以前）、Android 5.0 未満（4.4.x 以前）、PlayStation Vita などから接続ができなくなります。<br>
