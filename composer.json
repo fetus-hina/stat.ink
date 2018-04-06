@@ -74,6 +74,12 @@
         "yiisoft/yii2-debug": "2.0.x-dev",
         "yiisoft/yii2-gii": "2.0.x-dev"
     },
+    "config": {
+        "process-timeout": 1800,
+        "fxp-asset": {
+            "enabled": false
+        }
+    },
     "repositories": [
         {
             "type": "vcs",
