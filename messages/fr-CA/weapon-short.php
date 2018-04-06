@@ -25,6 +25,7 @@ return [
     'Calibre 2000 chic' => '',
     'Calibre 3000' => '',
     'Calibre 3000 chic' => '',
+    'Clash Blaster Neo' => '',
     'Compresseur' => '',
     'Conc. héroïque (rép.)' => '',
     'Concentraceur' => '',

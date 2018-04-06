@@ -20,6 +20,7 @@ return [
     'Cargatintas con mira' => '',
     'Cargatintas de élite réplica' => '',
     'Cargatintas Shachi' => '',
+    'Clash Blaster Neo' => '',
     'Dapple Dualies Nouveau' => '',
     'Delineador' => '',
     'Delineador X' => '',

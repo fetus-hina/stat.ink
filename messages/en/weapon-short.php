@@ -25,6 +25,7 @@ return [
     'Carbon Roller Deco' => 'Carbon Deco',
     'Cherry H-3 Nozzlenose' => 'Cherry H-3',
     'Clash Blaster' => 'Clash',
+    'Clash Blaster Neo' => 'Clash Neo',
     'Classic Squiffer' => 'Classic Squiffer',
     'CoroCoro Splat Roller' => 'CoroCoro Roller',
     'Custom Blaster' => 'Custom Blaster',

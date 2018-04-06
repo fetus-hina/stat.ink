@@ -28,6 +28,7 @@ return [
     'Cargatintas con mira picnic' => '',
     'Cargatintas de élite (réplica)' => '',
     'Cargatintas picnic' => '',
+    'Clash Blaster Neo' => '',
     'Dapple Dualies Nouveau' => '',
     'Derramatic' => '',
     'Derramatic centella' => '',

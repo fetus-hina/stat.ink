@@ -22,6 +22,7 @@ return [
     'Carbon Roller' => '',
     'Chargers' => '',
     'Clash Blaster' => '',
+    'Clash Blaster Neo' => '',
     'Classic Squiffer' => '',
     'Custom Blaster' => '',
     'Custom E-liter 4K' => '',

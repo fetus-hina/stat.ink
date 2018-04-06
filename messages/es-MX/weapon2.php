@@ -22,6 +22,7 @@ return [
     'Carbon Roller' => '',
     'Chargers' => 'Cargatintas',
     'Clash Blaster' => 'Hiperlanzamotas',
+    'Clash Blaster Neo' => 'Hiperlanzamotas neo',
     'Classic Squiffer' => 'Delineador X',
     'Custom Blaster' => 'Lanzamotas adaptado',
     'Custom E-liter 4K' => 'Entintador 4K adaptado',

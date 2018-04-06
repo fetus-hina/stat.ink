@@ -22,6 +22,7 @@ return [
     'Carbon Roller' => 'Rodillo de carbono',
     'Chargers' => 'Cargatintas',
     'Clash Blaster' => 'Turbodevastador',
+    'Clash Blaster Neo' => 'Turbodevastador neo',
     'Classic Squiffer' => 'Kalarrapid α',
     'Custom Blaster' => 'Devastador SP',
     'Custom E-liter 4K' => 'Entintador 4K SP',

@@ -27,6 +27,7 @@ return [
     'Aerospray MG' => 'プロモデラーMG',
     'Aerospray RG' => 'プロモデラーRG',
     'Blaster' => 'ホットブラスター',
+    'Clash Blaster Neo' => 'クラッシュブラスターネオ',
     'Clash Blaster' => 'クラッシュブラスター',
     'Custom Blaster' => 'ホットブラスターカスタム',
     'Custom Jet Squelcher' => 'ジェットスイーパーカスタム',

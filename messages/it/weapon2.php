@@ -22,6 +22,7 @@ return [
     'Carbon Roller' => 'Rullo di carbonio',
     'Chargers' => '',
     'Clash Blaster' => 'Blaster da mischia',
+    'Clash Blaster Neo' => 'Blaster da mischia neo',
     'Classic Squiffer' => 'Kalamarapid α',
     'Custom Blaster' => 'Blaster CM',
     'Custom E-liter 4K' => 'Tinter a carica 4K CM',

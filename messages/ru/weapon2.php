@@ -22,6 +22,7 @@ return [
     'Carbon Roller' => 'Валик ЛАЙТ',
     'Chargers' => '',
     'Clash Blaster' => 'Контрабластер',
+    'Clash Blaster Neo' => 'Контрабластер «Нео»',
     'Classic Squiffer' => 'Стиратель',
     'Custom Blaster' => 'Бластер «Понт»',
     'Custom E-liter 4K' => 'Э-литр 95 «Понт»',

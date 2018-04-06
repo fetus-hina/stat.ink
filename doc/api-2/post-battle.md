@@ -306,6 +306,7 @@ There is a listing page [here](https://stat.ink/api-info/weapon2).
 |`sshooter_collabo`      |`41`                  |スプラシューターコラボ<br>Tentatek Splattershot      |                                                                                                     |
 |`wakaba`                |`10`                  |わかばシューター<br>Splattershot Jr.                 |                                                                                                     |
 |`clashblaster`          |`230`                 |クラッシュブラスター<br>Clash Blaster                |                                                                                                     |
+|`clashblaster_neo`      |`231`                 |クラッシュブラスターネオ<br>Clash Blaster Neo        |                                                                                                     |
 |`heroblaster_replica`   |`215`                 |ヒーローブラスター レプリカ<br>Hero Blaster Replica  |                                                                                                     |
 |`hotblaster`            |`210`                 |ホットブラスター<br>Blaster                          |                                                                                                     |
 |`hotblaster_custom`     |`211`                 |ホットブラスターカスタム<br>Custom Blaster           |                                                                                                     |

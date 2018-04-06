@@ -22,6 +22,7 @@ return [
     'Carbon Roller' => 'Rouleau carbone',
     'Chargers' => 'Fusil',
     'Clash Blaster' => 'Rafablaster',
+    'Clash Blaster Neo' => 'Rafablaster Néo',
     'Classic Squiffer' => 'Décap\'express Alpha',
     'Custom Blaster' => 'Éclablaster modifié',
     'Custom E-liter 4K' => 'Extraceur + modifié',

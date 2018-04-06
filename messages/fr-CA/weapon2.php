@@ -22,6 +22,7 @@ return [
     'Carbon Roller' => '',
     'Chargers' => '',
     'Clash Blaster' => 'Rafalblasteur',
+    'Clash Blaster Neo' => 'Rafalblasteur néo',
     'Classic Squiffer' => 'Lignizateur alpha',
     'Custom Blaster' => 'Éclablasteur modifié',
     'Custom E-liter 4K' => 'X-traceur + modifié',
