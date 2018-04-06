@@ -164,9 +164,10 @@ PaintballAsset::register($this);
       より新しく安全な環境をご利用ください。<br>
       <br>
       なお、投稿アプリケーションもこの変更の影響を受けます。<br>
-      環境の特定はできていませんが、Windows XP, Vista, 8.0, CentOS 5 といったサポート切れの環境を利用している場合、この影響を受けるものと思われます。<br>
-      また、CentOS 6, Ubuntu 14.04 LTS 等、古いディストリビューションを利用している場合は適切なアップデートが必要なものと思われます。<br>
-      （現在、観測している限りでは、特定の利用者以外は特に影響を受けないように見えます）<br>
+      Windows XP, Vista, 8 (8.0), CentOS 5 といったサポート切れの環境では影響を受ける可能性が高いと思われます。<br>
+      CentOS 6, Ubuntu 14.04 LTS 等の古いディストリビューションの場合は適切なアップデートが必要だと思われます。<br>
+      また、<strong>Mac OS X と splatnet2statink の組み合わせで問題が起きる可能性がある</strong>ことがわかっています。<br>
+      <a href="https://blog.fetus.jp/201804/827.html">Mac OS X と splatnet2statink を組み合わせて利用している場合はこちらをお読みください。</a><br>
       <br>
       現在の環境の状態:
 <?php else: ?>
@@ -182,6 +183,8 @@ PaintballAsset::register($this);
       <br>
       The application for POSTing will also be affected by this change.<br>
       If you are running an application on Windows XP, Vista, 8.0 etc environment, you will not be able to post.<br>
+      If you use <strong>splatnet2statink on Mac OS X</strong>, we've confirmed the possibility of problem.<br>
+      <a href="https://blog.fetus.jp/201804/827.html">Please read this blog entry (Japanese) if you using splatnet2statink on Mac OS X</a>.<br>
       <br>
       Your current environment:
 <?php endif ?>
