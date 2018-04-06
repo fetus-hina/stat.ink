@@ -109,7 +109,6 @@ all: init migrate-db
 init: \
 	composer.phar \
 	composer-update \
-	composer-plugin \
 	vendor \
 	vendor/smarty/smarty/libs/sysplugins/smarty_internal_templatecompilerbase.php \
 	node_modules \
@@ -121,7 +120,6 @@ init: \
 init-by-archive: \
 	composer.phar \
 	composer-update \
-	composer-plugin \
 	vendor-by-archive \
 	node_modules \
 	$(SIMPLE_CONFIG_TARGETS) \
@@ -146,11 +144,6 @@ resource: $(RESOURCE_TARGETS) $(ADDITIONAL_LICENSES)
 composer-update: composer.phar
 	./composer.phar self-update
 	touch -r composer.json composer.phar
-
-composer-plugin: composer.phar
-	grep '"fxp/composer-asset-plugin"' ~/.composer/composer.json >/dev/null || ./composer.phar global require 'fxp/composer-asset-plugin:^1.1'
-	grep '"hirak/prestissimo"' ~/.composer/composer.json >/dev/null && ./composer.phar global remove 'hirak/prestissimo' || true
-	./composer.phar global update -vvv
 
 vendor: composer.phar composer.lock
 	php composer.phar install --prefer-dist --profile
@@ -565,4 +558,4 @@ $(SUB_RESOURCES):
 	$(MAKE) -C $@
 .PHONY: $(SUB_RESOURCES)
 
-.PHONY: FORCE all check-style clean clean-resource composer-plugin composer-update fix-style ikalog init migrate-db resource vendor-archive vendor-by-archive download-vendor-archive
+.PHONY: FORCE all check-style clean clean-resource composer-update fix-style ikalog init migrate-db resource vendor-archive vendor-by-archive download-vendor-archive
