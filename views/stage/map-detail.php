@@ -128,7 +128,7 @@ JS
   },
   $weapons
 )) ?>
-<?php $max = max(array_map(
+<?php $max = count($weapons) === 0 ? 0 : max(array_map(
   function ($_) {
     return $_->battles;
   },
