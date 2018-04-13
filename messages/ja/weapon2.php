@@ -98,6 +98,7 @@ return [
     'Slosher' => 'バケットスロッシャー',
     'Sloshing Machine Neo' => 'スクリュースロッシャーネオ',
     'Sloshing Machine' => 'スクリュースロッシャー',
+    'Tri-Slosher Nouveau' => 'ヒッセン・ヒュー',
     'Tri-Slosher' => 'ヒッセン',
     // splatlings ----
     'Heavy Splatling Deco' => 'バレルスピナーデコ',

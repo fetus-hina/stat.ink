@@ -103,6 +103,7 @@ return [
     'Tenta Brella' => 'Kampeerplenzer',
     'Tentatek Splattershot' => 'Tentatek Superspetter',
     'Tri-Slosher' => 'Triomorser',
+    'Tri-Slosher Nouveau' => 'Triomorser Nouveau',
     'Undercover Brella' => 'Sorella Plenzer',
     'Zink Mini Splatling' => 'Zink Mini-Spetling',
 ];

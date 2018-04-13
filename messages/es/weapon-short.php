@@ -28,7 +28,6 @@ return [
     'Cargatintas con mira picnic' => '',
     'Cargatintas de élite (réplica)' => '',
     'Cargatintas picnic' => '',
-    'Clash Blaster Neo' => '',
     'Dapple Dualies Nouveau' => '',
     'Derramatic' => '',
     'Derramatic centella' => '',
@@ -125,6 +124,7 @@ return [
     'Tubofusil' => '',
     'Tubofusil SP' => '',
     'Turbodevastador' => '',
+    'Turbodevastador neo' => '',
     'Ultradevastador' => '',
     'Ultradevastador neo' => '',
 ];

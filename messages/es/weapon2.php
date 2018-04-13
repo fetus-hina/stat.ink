@@ -103,6 +103,7 @@ return [
     'Tenta Brella' => 'Paratintas maxi',
     'Tentatek Splattershot' => 'Lanzatintas B',
     'Tri-Slosher' => 'Derramatic triple',
+    'Tri-Slosher Nouveau' => 'Derramatic triple maestro',
     'Undercover Brella' => 'Paratintas clásico',
     'Zink Mini Splatling' => 'Tintralladora ligera B',
 ];

@@ -103,6 +103,7 @@ return [
     'Tenta Brella' => 'Camp-Pluviator',
     'Tentatek Splattershot' => 'Tentatek-Kleckser',
     'Tri-Slosher' => '3R-Schwapper',
+    'Tri-Slosher Nouveau' => '3R-Schwapper Fresco',
     'Undercover Brella' => '',
     'Zink Mini Splatling' => 'Sagitron-Klecks-Splatling',
 ];

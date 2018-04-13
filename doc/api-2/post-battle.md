@@ -358,6 +358,7 @@ There is a listing page [here](https://stat.ink/api-info/weapon2).
 |`bucketslosher_deco`    |`3001`                |バケットスロッシャーデコ<br>Slosher Deco             |                                                                                                     |
 |`heroslosher_replica`   |`3005`                |ヒーロースロッシャー レプリカ<br>Hero Slosher Replica|                                                                                                     |
 |`hissen`                |`3010`                |ヒッセン<br>Tri-Slosher                              |                                                                                                     |
+|`hissen_hue`            |`3011`                |ヒッセン・ヒュー<br>Tri-Slosher Nouveau              |                                                                                                     |
 |`screwslosher`          |`3020`                |スクリュースロッシャー<br>Sloshing Machine           |                                                                                                     |
 |`screwslosher_neo`      |`3021`                |スクリュースロッシャーネオ<br>Sloshing Machine Neo   |                                                                                                     |
 |`barrelspinner`         |`4010`                |バレルスピナー<br>Heavy Splatling                    |                                                                                                     |

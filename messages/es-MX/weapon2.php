@@ -104,6 +104,7 @@ return [
     'Tenta Brella' => '',
     'Tentatek Splattershot' => 'Rociador Tentáctica',
     'Tri-Slosher' => '',
+    'Tri-Slosher Nouveau' => '',
     'Undercover Brella' => '',
     'Zink Mini Splatling' => 'Garabateador Tintaz',
 ];
