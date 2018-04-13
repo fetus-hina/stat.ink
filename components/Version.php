@@ -41,10 +41,33 @@ class Version
         return self::$lastCommited ?: null;
     }
 
-    public static function getFullHash(string $shortHash)
+    public static function getFullHash(string $shortHash) : ?string
     {
         $lines = static::doGit(sprintf('git rev-parse %s -q', escapeshellarg($shortHash)));
         return $lines ? array_shift($lines) : null;
+    }
+
+    public static function getVersionTags(?string $hash = null) : array
+    {
+        $revision = $hash ?? static::getRevision();
+
+        if (!preg_match('/^[0-9a-f]+$/', $revision)) {
+            return [];
+        }
+
+        if (!$lines = static::doGit(sprintf('git tag --points-at %s', escapeshellarg($revision)))) {
+            return [];
+        }
+
+        $lines = array_filter($lines, function (string $line) : bool {
+            return !!preg_match('/^v?\d+\.\d+\.\d+/', $line);
+        });
+
+        usort($lines, function (string $a, string $b) : int {
+            return version_compare($b, $a);
+        });
+
+        return $lines;
     }
 
     private static function fetchRevision()
@@ -55,6 +78,7 @@ class Version
         ) {
             return;
         }
+
         try {
             if (!$line = self::getGitLog('%H:%h:%cd')) {
                 throw new Exception();
@@ -63,6 +87,7 @@ class Version
             if (count($revisions) !== 3) {
                 throw new Exception();
             }
+
             self::$revision = $revisions[0];
             self::$shortRevision = $revisions[1];
             self::$lastCommited = (new DateTimeImmutable())
