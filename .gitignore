@@ -12,12 +12,14 @@
 /config/cookie-secret.php
 /config/db.php
 /config/debug-ips.php
+/config/git-revision.php
 /config/google-adsense.php
 /config/google-analytics.php
 /config/google-recaptcha.php
 /config/img-s3.php
 /config/lepton.php
 /config/twitter.php
+/config/version.php
 /node_modules
 /phpunit.xml
 /resources/.compiled

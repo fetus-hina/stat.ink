@@ -2,10 +2,16 @@
 use app\components\Version;
 use yii\helpers\Html;
 
-$ver = Version::getVersion();
-$revL = Version::getRevision();
-$revS = Version::getShortRevision();
-$commited = Version::getLastCommited();
+$params = Yii::$app->params;
+
+$ver = Yii::$app->version;
+$revL = $params['gitRevision']['longHash'] ?? null;
+$revS = $params['gitRevision']['shortHash'] ?? null;
+if ($tmp = ($params['gitRevision']['lastCommitted'] ?? null)) {
+    $committed = (new DateTimeImmutable($tmp))->setTimeZone(new DateTimeZone(Yii::$app->timeZone));
+} else {
+    $committed = null;
+}
 ?>
 <footer class="footer">
   <div class="container text-muted">
@@ -25,17 +31,17 @@ $commited = Version::getLastCommited();
             )
           )
           : null,
-        $commited
+        $committed
           ? Html::tag(
             'time',
             Html::encode(
               Yii::$app->formatter->asRelativeTime(
-                $commited,
+                $committed,
                 (int)($_SERVER['REQUEST_TIME'] ?? time())
               )
             ),
             [
-              'datetime' => $commited->setTimeZone(new DateTimeZone('Etc/UTC'))->format(DateTime::ATOM),
+              'datetime' => $committed->setTimeZone(new DateTimeZone('Etc/UTC'))->format(DateTime::ATOM),
             ]
           )
           : null
@@ -45,7 +51,7 @@ $commited = Version::getLastCommited();
       <?= implode(' ', [
         Html::encode(sprintf(
           'Copyright © 2015-%d AIZAWA Hina.',
-          $commited ? $commited->format('Y') : 2017
+          $committed ? $committed->format('Y') : 2017
         )),
         Html::a(
           Html::tag('span', '', ['class' => 'fab fa-twitter']),

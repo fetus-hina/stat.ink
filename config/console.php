@@ -6,7 +6,9 @@ $db = file_exists(__DIR__ . '/db.php') ? require(__DIR__ . '/db.php') : [ 'class
 
 return [
     'name' => 'stat.ink',
-    'version' => require(__DIR__ . '/version.php'),
+    'version' => @file_exists(__DIR__ . '/version.php')
+        ? require(__DIR__ . '/version.php')
+        : 'UNKNOWN',
     'id' => 'statink-console',
     'timeZone' => 'Asia/Tokyo',
     'basePath' => dirname(__DIR__),

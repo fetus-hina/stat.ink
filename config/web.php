@@ -2,7 +2,9 @@
 $params = require(__DIR__ . '/params.php');
 $config = [
     'name' => 'stat.ink',
-    'version' => require(__DIR__ . '/version.php'),
+    'version' => @file_exists(__DIR__ . '/version.php')
+        ? require(__DIR__ . '/version.php')
+        : 'UNKNOWN',
     'id' => 'statink',
     'language' => 'ja-JP',
     'timeZone' => 'Asia/Tokyo',
