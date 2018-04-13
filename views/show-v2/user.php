@@ -210,7 +210,7 @@ if ($user->twitter != '') {
               return Html::tag(
                 'span',
                 Html::encode(Yii::t('app-rule2', $model->rule->short_name ?? '?')),
-                ['class' => 'auto-tooltip', 'title' => $model->rule->name ?? '?']
+                ['class' => 'auto-tooltip', 'title' => Yii::t('app-rule2', $model->rule->name ?? '?')]
               );
             },
             // }}}
@@ -230,8 +230,13 @@ if ($user->twitter != '') {
             'label' => Yii::t('app', 'Stage'),
             'headerOptions' => ['class' => 'cell-map-short'],
             'contentOptions' => ['class' => 'cell-map-short'],
+            'format' => 'raw',
             'value' => function ($model) : string {
-              return Yii::t('app-map2', $model->map->short_name ?? '?');
+              return Html::tag(
+                'span',
+                Html::encode(Yii::t('app-map2', $model->map->short_name ?? '?')),
+                ['class' => 'auto-tooltip', 'title' => Yii::t('app-map2', $model->map->name ?? '?')]
+              );
             },
             // }}}
           ],
@@ -757,7 +762,11 @@ if ($user->twitter != '') {
                 : Html::tag(
                   'time',
                   Html::encode(Yii::$app->formatter->asRelativeTime($model->end_at)),
-                  ['datetime' => Yii::$app->formatter->asDateTime($model->end_at, 'yyyy-MM-dd\'T\'HH:mm:ssZZZZZ')]
+                  [ 
+                    'datetime' => Yii::$app->formatter->asDateTime($model->end_at, 'yyyy-MM-dd\'T\'HH:mm:ssZZZZZ'),
+                    'class' => 'auto-tooltip',
+                    'title' => Yii::$app->formatter->asDateTime($model->end_at),
+                  ]
                 );
             },
             // }}}
