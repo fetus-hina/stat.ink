@@ -113,6 +113,7 @@ init: \
 	vendor/smarty/smarty/libs/sysplugins/smarty_internal_templatecompilerbase.php \
 	node_modules \
 	$(SIMPLE_CONFIG_TARGETS) \
+	config/version.php \
 	config/cookie-secret.php \
 	config/db.php \
 	resource
@@ -123,6 +124,7 @@ init-by-archive: \
 	vendor-by-archive \
 	node_modules \
 	$(SIMPLE_CONFIG_TARGETS) \
+	config/version.php \
 	config/cookie-secret.php \
 	config/db.php \
 	resource
@@ -531,6 +533,10 @@ config/lepton.php:
 
 config/twitter.php:
 	cp config/twitter.sample.php $@
+
+.PHONY: config/version.php
+config/version.php: vendor
+	./yii revision-data/update
 
 runtime/ikalog:
 	mkdir -p runtime/ikalog
