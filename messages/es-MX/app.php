@@ -46,6 +46,7 @@ return [
     'API Info: Weapons (Splatoon 2)' => '',
     'API Token' => 'Token API',
     'Apply' => '',
+    'Apps for {version}' => '',
     'Area' => '',
     'Are you sure you want to regenerate your API token?' => '',
     'Assist' => '',
