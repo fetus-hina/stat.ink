@@ -82,6 +82,30 @@ $list = [
           Html::encode(Yii::t('app', 'Japan')),
         ]),
       ],
+      [
+        'url' => 'https://twitter.com/NintendoAmerica',
+        'name' => implode(' ', [
+          Html::tag('span', '', ['class' => 'flag-icon flag-icon-us']),
+          Html::encode(Yii::t('app', 'North America')),
+          Html::encode('(Nintendo)'),
+        ]),
+      ],
+      [
+        'url' => 'https://twitter.com/NintendoVS',
+        'name' => implode(' ', [
+          Html::tag('span', '', ['class' => 'flag-icon flag-icon-us']),
+          Html::encode(Yii::t('app', 'North America')),
+          Html::encode('(Nintendo VS)'),
+        ]),
+      ],
+      [
+        'url' => 'https://twitter.com/NintendoEurope',
+        'name' => implode(' ', [
+          Html::tag('span', '', ['class' => 'flag-icon flag-icon-eu']),
+          Html::encode(Yii::t('app', 'Europe')),
+          Html::encode('(Nintendo)'),
+        ]),
+      ],
     ],
     // }}}
   ],
