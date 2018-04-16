@@ -36,6 +36,7 @@ return [
     'Another account' => '別のアカウント',
     'Any Time' => 'すべての期間',
     'Apply' => '適用',
+    'Apps for {version}' => '{version}用アプリ',
     'Are you sure you want to regenerate your API token?' => 'APIキーを再生成してもよろしいですか？（連携したアプリ[IkaLog, IkaRec etc.]が動作しなくなります）',
     'Area' => '面積',
     'Assist' => 'アシスト',

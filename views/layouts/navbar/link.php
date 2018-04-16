@@ -108,84 +108,6 @@ $list = [
   ],
   [],
   [
-    // IkaLog {{{
-    'name' => implode('', [
-      $icon->ikalog,
-      Html::encode(Yii::t('app', 'IkaLog')),
-      Html::tag('span', '', ['class' => 'fab fa-fw fa-windows']),
-      Html::tag('span', '', ['class' => 'fab fa-fw fa-apple']),
-      Html::tag('span', '', ['class' => 'fab fa-fw fa-linux']),
-    ]),
-    'sub' => [
-      [
-        'url' => 'https://github.com/hasegaw/IkaLog/wiki/ja_WinIkaLog',
-        'name' => implode(' ', [
-          Html::tag('span', '', ['class' => 'flag-icon flag-icon-jp']),
-          Html::encode('日本語'),
-        ]),
-      ],
-      [
-        'url' => 'https://github.com/hasegaw/IkaLog/wiki/en_Home',
-        'name' => implode(' ', [
-          Html::tag('span', '', ['class' => 'flag-icon flag-icon-us']),
-          Html::encode('English'),
-        ]),
-      ],
-      [],
-      [
-        'url' => 'https://hasegaw.github.io/IkaLog/',
-        'name' => implode('', [
-          Html::tag('span', '', ['class' => 'fa fa-fw fa-download']),
-          Html::encode(Yii::t('app', 'IkaLog Download Page')),
-          '(' . Html::encode(Yii::t('app', 'Windows')) . ')',
-        ]),
-      ],
-    ],
-    // }}}
-  ],
-  [
-    // IkaRec {{{
-    'name' => implode('', [
-      $icon->ikarecJa,
-      Html::encode(Yii::t('app', 'IkaRec')),
-      Html::tag('span', '', ['class' => 'fab fa-fw fa-android']),
-    ]),
-    'sub' => [
-      [
-        'url' => 'https://play.google.com/store/apps/details?id=com.syanari.merluza.ikarec2',
-        'name' => implode('', [
-          $icon->ikarecJa,
-          Html::encode(Yii::t('app', 'IkaRec 2')),
-          '(' . Html::encode(Yii::t('app', 'for {title}', [
-            'title' => Yii::t('app', 'Splatoon 2'),
-          ])) . ')',
-        ]),
-      ],
-      [],
-      [
-        'url' => 'https://play.google.com/store/apps/details?id=com.syanari.merluza.ikarec',
-        'name' => implode('', [
-          $icon->ikarecJa,
-          Html::encode(Yii::t('app', 'IkaRec')),
-          '(' . Html::encode(Yii::t('app', 'for {title}', [
-            'title' => Yii::t('app', 'Splatoon'),
-          ])) . ' / 日本語)',
-        ]),
-      ],
-      [
-        'url' => 'https://play.google.com/store/apps/details?id=ink.pocketgopher.ikarec',
-        'name' => implode('', [
-          $icon->ikarecEn,
-          Html::encode(Yii::t('app', 'IkaRec')),
-          '(' . Html::encode(Yii::t('app', 'for {title}', [
-            'title' => Yii::t('app', 'Splatoon'),
-          ])) . ' / English)',
-        ]),
-      ],
-    ],
-    // }}}
-  ],
-  [
     // SquidTracks {{{
     'url' => 'https://github.com/hymm/squid-tracks/',
     'name' => implode('', [
@@ -208,6 +130,87 @@ $list = [
       Html::tag('span', '', ['class' => 'fab fa-fw fa-linux']),
     ]),
     // }}}
+  ],
+  [
+    // IkaRec 2 {{{
+    'name' => implode('', [
+      $icon->ikarecJa,
+      Html::encode(Yii::t('app', 'IkaRec 2')),
+      Html::tag('span', '', ['class' => 'fab fa-fw fa-android']),
+    ]),
+    'url' => 'https://play.google.com/store/apps/details?id=com.syanari.merluza.ikarec2',
+    // }}}
+  ],
+  [],
+  [
+    'name' => implode('', [
+      Html::tag('span', '', ['class' => 'fa fa-fw']),
+      Html::encode(Yii::t('app', 'Apps for {version}', ['version' => Yii::t('app', 'Splatoon 1')])),
+    ]),
+    'sub' => [
+      [
+        // IkaLog {{{
+        'name' => implode('', [
+          $icon->ikalog,
+          Html::encode(Yii::t('app', 'IkaLog')),
+          Html::tag('span', '', ['class' => 'fab fa-fw fa-windows']),
+          Html::tag('span', '', ['class' => 'fab fa-fw fa-apple']),
+          Html::tag('span', '', ['class' => 'fab fa-fw fa-linux']),
+        ]),
+        'sub' => [
+          [
+            'url' => 'https://github.com/hasegaw/IkaLog/wiki/ja_WinIkaLog',
+            'name' => implode(' ', [
+              Html::tag('span', '', ['class' => 'flag-icon flag-icon-jp']),
+              Html::encode('日本語'),
+            ]),
+          ],
+          [
+            'url' => 'https://github.com/hasegaw/IkaLog/wiki/en_Home',
+            'name' => implode(' ', [
+              Html::tag('span', '', ['class' => 'flag-icon flag-icon-us']),
+              Html::encode('English'),
+            ]),
+          ],
+          [],
+          [
+            'url' => 'https://hasegaw.github.io/IkaLog/',
+            'name' => implode('', [
+              Html::tag('span', '', ['class' => 'fa fa-fw fa-download']),
+              Html::encode(Yii::t('app', 'IkaLog Download Page')),
+              '(' . Html::encode(Yii::t('app', 'Windows')) . ')',
+            ]),
+          ],
+        ],
+        // }}}
+      ],
+      [
+        // IkaRec {{{
+        'url' => 'https://play.google.com/store/apps/details?id=com.syanari.merluza.ikarec',
+        'name' => implode('', [
+          $icon->ikarecJa,
+          Html::tag('span', '', ['class' => 'flag-icon flag-icon-jp']),
+          Html::encode(Yii::t('app', 'IkaRec')),
+          '(' . Html::encode(Yii::t('app', 'for {title}', [
+            'title' => Yii::t('app', 'Splatoon'),
+          ])) . ' / 日本語)',
+          Html::tag('span', '', ['class' => 'fab fa-fw fa-android']),
+        ]),
+      ],
+      [
+        'url' => 'https://play.google.com/store/apps/details?id=ink.pocketgopher.ikarec',
+        'name' => implode('', [
+          $icon->ikarecEn,
+          Html::tag('span', '', ['class' => 'flag-icon flag-icon-us']),
+          Html::encode(Yii::t('app', 'IkaRec')),
+          '(' . Html::encode(Yii::t('app', 'for {title}', [
+            'title' => Yii::t('app', 'Splatoon'),
+          ])) . ' / English)',
+          Html::tag('span', '', ['class' => 'fab fa-fw fa-android']),
+        ]),
+        // }}}
+      ],
+    ],
   ],
   [],
   [
