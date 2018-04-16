@@ -67,6 +67,10 @@ RESOURCE_TARGETS_MAIN := \
 	resources/.compiled/stat.ink/swipebox-runner.js \
 	resources/.compiled/stat.ink/tlstest.js \
 	resources/.compiled/stat.ink/user-miniinfo.css \
+	resources/.compiled/stat.ink/user-stat-2-nawabari-inked.js \
+	resources/.compiled/stat.ink/user-stat-2-nawabari-runner.js \
+	resources/.compiled/stat.ink/user-stat-2-nawabari-stats.js \
+	resources/.compiled/stat.ink/user-stat-2-nawabari-winpct.js \
 	resources/.compiled/stat.ink/user-stat-by-map-rule-detail.css \
 	resources/.compiled/stat.ink/weapon2.js \
 	resources/.compiled/stat.ink/weapons-use.js \
@@ -274,6 +278,18 @@ resources/.compiled/stat.ink/knockout.js: resources/stat.ink/knockout.js $(GULP)
 	$(GULP) js --in $< --out $@
 
 resources/.compiled/stat.ink/session-calendar.js: resources/stat.ink/session-calendar.js $(GULP)
+	$(GULP) js --in $< --out $@
+
+resources/.compiled/stat.ink/user-stat-2-nawabari-inked.js: resources/stat.ink/user-stat-2-nawabari-inked.es $(GULP)
+	$(GULP) js --in $< --out $@
+
+resources/.compiled/stat.ink/user-stat-2-nawabari-winpct.js: resources/stat.ink/user-stat-2-nawabari-winpct.es $(GULP)
+	$(GULP) js --in $< --out $@
+
+resources/.compiled/stat.ink/user-stat-2-nawabari-stats.js: resources/stat.ink/user-stat-2-nawabari-stats.es $(GULP)
+	$(GULP) js --in $< --out $@
+
+resources/.compiled/stat.ink/user-stat-2-nawabari-runner.js: resources/stat.ink/user-stat-2-nawabari-runner.es $(GULP)
 	$(GULP) js --in $< --out $@
 
 resources/.compiled/stat.ink/user-stat-by-map-rule-detail.css: resources/stat.ink/user-stat-by-map-rule-detail.less $(GULP)

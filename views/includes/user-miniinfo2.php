@@ -465,6 +465,13 @@ $fmt = Yii::$app->formatter;
         Html::a(
           implode('', [
             Html::tag('span', '', ['class' => 'fa fa-fw fa-chart-pie']),
+            Html::encode(Yii::t('app', 'Stats (Turf War)')),
+          ]),
+          ['show-v2/user-stat-nawabari', 'screen_name' => $user->screen_name]
+        ),
+        Html::a(
+          implode('', [
+            Html::tag('span', '', ['class' => 'fa fa-fw fa-chart-pie']),
             Html::encode(Yii::t('app', 'Stats (by Mode and Stage)')),
           ]),
           ['show-v2/user-stat-by-map-rule', 'screen_name' => $user->screen_name]
