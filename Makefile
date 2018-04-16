@@ -439,13 +439,13 @@ resources/.compiled/app-link-logos/festink.png: resources/app-link-logos/festink
 	convert $<[3] -trim +repage -unsharp 1.5x1+0.7+0.02 -scale x28 $@
 	touch -r $< $@
 
-resources/.compiled/app-link-logos/squidtracks.png: resources/app-link-logos/squidtracks.ico
+resources/.compiled/app-link-logos/squidtracks.png: resources/app-link-logos/squidtracks.png
 	mkdir -p resources/.compiled/app-link-logos
 	convert $<[3] -trim +repage -unsharp 1.5x1+0.7+0.02 -scale x28 $@
 	touch -r $< $@
 
-resources/app-link-logos/squidtracks.ico:
-	curl -sSL -o $@ 'https://github.com/hymm/squid-tracks/raw/master/public/favicon.ico'
+resources/app-link-logos/squidtracks.png:
+	curl -sSL -o $@ 'https://github.com/hymm/squid-tracks/raw/master/public/icon.png'
 
 resources/.compiled/app-link-logos/nnid.svg: resources/app-link-logos/nnid.svg
 	xmllint --format $< > $@
