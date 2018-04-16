@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b3eaa4a2e5979043a842dc89244a1c38",
+    "content-hash": "0e11dd2fe5d6cbafb962581dcffa7235",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -382,48 +382,6 @@
             ]
         },
         {
-            "name": "bower-asset/jquery-stupid-table",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/joequery/Stupid-Table-Plugin.git",
-                "reference": "0cb581c7d25911d2d8cb508ec37760f624d32892"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/joequery/Stupid-Table-Plugin/zipball/0cb581c7d25911d2d8cb508ec37760f624d32892",
-                "reference": "0cb581c7d25911d2d8cb508ec37760f624d32892",
-                "shasum": ""
-            },
-            "require": {
-                "bower-asset/jquery": ">=1.7.0"
-            },
-            "type": "bower-asset-library",
-            "extra": {
-                "bower-asset-main": "stupidtable.js",
-                "bower-asset-ignore": [
-                    "**/.*",
-                    "node_modules",
-                    "bower_components",
-                    "test",
-                    "tests"
-                ],
-                "branch-alias": {
-                    "dev-master": "1.1.3-dev"
-                }
-            },
-            "license": [
-                "MIT"
-            ],
-            "description": "A stupidly small and simple jQuery table sorter plugin",
-            "keywords": [
-                "jquery",
-                "sort",
-                "table"
-            ],
-            "time": "2017-10-12T13:32:21+00:00"
-        },
-        {
             "name": "bower-asset/jquery.lazyload",
             "version": "1.9.7",
             "source": {
@@ -444,16 +402,16 @@
         },
         {
             "name": "bower-asset/moment",
-            "version": "2.22.0",
+            "version": "2.22.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/moment/moment.git",
-                "reference": "db71a655fc51fe58009675608a400d0d4cd0ca87"
+                "reference": "c58511b94eba1000c1d66b23e9a9ff963ff1cc89"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/moment/moment/zipball/db71a655fc51fe58009675608a400d0d4cd0ca87",
-                "reference": "db71a655fc51fe58009675608a400d0d4cd0ca87",
+                "url": "https://api.github.com/repos/moment/moment/zipball/c58511b94eba1000c1d66b23e9a9ff963ff1cc89",
+                "reference": "c58511b94eba1000c1d66b23e9a9ff963ff1cc89",
                 "shasum": null
             },
             "type": "bower-asset",
@@ -1395,17 +1353,31 @@
             "time": "2016-07-12T22:15:40+00:00"
         },
         {
+            "name": "npm-asset/stupid-table-plugin",
+            "version": "1.1.3",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/stupid-table-plugin/-/stupid-table-plugin-1.1.3.tgz",
+                "reference": null,
+                "shasum": null
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
             "name": "php-curl-class/php-curl-class",
-            "version": "8.0.1",
+            "version": "8.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-curl-class/php-curl-class.git",
-                "reference": "bdfe1fcca0c32562050c84e01e3a4cbdc31e22fd"
+                "reference": "75597b28c454acd9767e6182371376916cdb8531"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-curl-class/php-curl-class/zipball/bdfe1fcca0c32562050c84e01e3a4cbdc31e22fd",
-                "reference": "bdfe1fcca0c32562050c84e01e3a4cbdc31e22fd",
+                "url": "https://api.github.com/repos/php-curl-class/php-curl-class/zipball/75597b28c454acd9767e6182371376916cdb8531",
+                "reference": "75597b28c454acd9767e6182371376916cdb8531",
                 "shasum": ""
             },
             "require": {
@@ -1449,20 +1421,20 @@
                 "web service",
                 "xml"
             ],
-            "time": "2018-01-27T15:40:39+00:00"
+            "time": "2018-04-09T08:28:13+00:00"
         },
         {
             "name": "phpseclib/phpseclib",
-            "version": "2.0.10",
+            "version": "2.0.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpseclib/phpseclib.git",
-                "reference": "d305b780829ea4252ed9400b3f5937c2c99b51d4"
+                "reference": "7053f06f91b3de78e143d430e55a8f7889efc08b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpseclib/phpseclib/zipball/d305b780829ea4252ed9400b3f5937c2c99b51d4",
-                "reference": "d305b780829ea4252ed9400b3f5937c2c99b51d4",
+                "url": "https://api.github.com/repos/phpseclib/phpseclib/zipball/7053f06f91b3de78e143d430e55a8f7889efc08b",
+                "reference": "7053f06f91b3de78e143d430e55a8f7889efc08b",
                 "shasum": ""
             },
             "require": {
@@ -1541,7 +1513,7 @@
                 "x.509",
                 "x509"
             ],
-            "time": "2018-02-19T04:29:13+00:00"
+            "time": "2018-04-15T16:55:05+00:00"
         },
         {
             "name": "psr/container",
@@ -2525,16 +2497,16 @@
         },
         {
             "name": "zendframework/zend-stdlib",
-            "version": "3.1.0",
+            "version": "3.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/zend-stdlib.git",
-                "reference": "debedcfc373a293f9250cc9aa03cf121428c8e78"
+                "reference": "10ef03144902d1955f935fff5346ed52f7d99bcc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zend-stdlib/zipball/debedcfc373a293f9250cc9aa03cf121428c8e78",
-                "reference": "debedcfc373a293f9250cc9aa03cf121428c8e78",
+                "url": "https://api.github.com/repos/zendframework/zend-stdlib/zipball/10ef03144902d1955f935fff5346ed52f7d99bcc",
+                "reference": "10ef03144902d1955f935fff5346ed52f7d99bcc",
                 "shasum": ""
             },
             "require": {
@@ -2543,7 +2515,7 @@
             "require-dev": {
                 "athletic/athletic": "~0.1",
                 "phpunit/phpunit": "~4.0",
-                "squizlabs/php_codesniffer": "^2.6.2"
+                "zendframework/zend-coding-standard": "~1.0.0"
             },
             "type": "library",
             "extra": {
@@ -2566,36 +2538,36 @@
                 "stdlib",
                 "zf2"
             ],
-            "time": "2016-09-13T14:38:50+00:00"
+            "time": "2018-04-12T16:05:42+00:00"
         },
         {
             "name": "zendframework/zend-uri",
-            "version": "2.5.2",
+            "version": "2.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/zend-uri.git",
-                "reference": "0bf717a239432b1a1675ae314f7c4acd742749ed"
+                "reference": "fb998b9487ea8c5f4aaac0e536190709bdd5353b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zend-uri/zipball/0bf717a239432b1a1675ae314f7c4acd742749ed",
-                "reference": "0bf717a239432b1a1675ae314f7c4acd742749ed",
+                "url": "https://api.github.com/repos/zendframework/zend-uri/zipball/fb998b9487ea8c5f4aaac0e536190709bdd5353b",
+                "reference": "fb998b9487ea8c5f4aaac0e536190709bdd5353b",
                 "shasum": ""
             },
             "require": {
-                "php": "^5.5 || ^7.0",
+                "php": "^5.6 || ^7.0",
                 "zendframework/zend-escaper": "^2.5",
                 "zendframework/zend-validator": "^2.5"
             },
             "require-dev": {
-                "fabpot/php-cs-fixer": "1.7.*",
-                "phpunit/phpunit": "~4.0"
+                "phpunit/phpunit": "^6.2.1 || ^5.7.15",
+                "zendframework/zend-coding-standard": "~1.0.0"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.5-dev",
-                    "dev-develop": "2.6-dev"
+                    "dev-master": "2.6.x-dev",
+                    "dev-develop": "2.7.x-dev"
                 }
             },
             "autoload": {
@@ -2613,7 +2585,7 @@
                 "uri",
                 "zf2"
             ],
-            "time": "2016-02-17T22:38:51+00:00"
+            "time": "2018-04-10T17:08:10+00:00"
         },
         {
             "name": "zendframework/zend-validator",
@@ -2900,21 +2872,21 @@
         },
         {
             "name": "codeception/phpunit-wrapper",
-            "version": "7.0.6",
+            "version": "7.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Codeception/phpunit-wrapper.git",
-                "reference": "e8528cb777cf5a5ccea1cf57a3522b142625d1b5"
+                "reference": "cde840638d021804ce93e8f98bcb7edbf6935423"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/phpunit-wrapper/zipball/e8528cb777cf5a5ccea1cf57a3522b142625d1b5",
-                "reference": "e8528cb777cf5a5ccea1cf57a3522b142625d1b5",
+                "url": "https://api.github.com/repos/Codeception/phpunit-wrapper/zipball/cde840638d021804ce93e8f98bcb7edbf6935423",
+                "reference": "cde840638d021804ce93e8f98bcb7edbf6935423",
                 "shasum": ""
             },
             "require": {
                 "phpunit/php-code-coverage": "^6.0",
-                "phpunit/phpunit": "^7.0",
+                "phpunit/phpunit": "^7.1",
                 "sebastian/comparator": "^2.0",
                 "sebastian/diff": "^3.0"
             },
@@ -2939,7 +2911,7 @@
                 }
             ],
             "description": "PHPUnit classes used by Codeception",
-            "time": "2018-03-31T18:49:51+00:00"
+            "time": "2018-04-10T09:05:14+00:00"
         },
         {
             "name": "codeception/specify",
@@ -3880,16 +3852,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "7.1.1",
+            "version": "7.1.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "f7fe5127889519e421600fe0feeb113a5e210f20"
+                "reference": "a7834993ddbf4b0ed2c3b2dc1f3b1d093ef910a9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/f7fe5127889519e421600fe0feeb113a5e210f20",
-                "reference": "f7fe5127889519e421600fe0feeb113a5e210f20",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/a7834993ddbf4b0ed2c3b2dc1f3b1d093ef910a9",
+                "reference": "a7834993ddbf4b0ed2c3b2dc1f3b1d093ef910a9",
                 "shasum": ""
             },
             "require": {
@@ -3907,7 +3879,7 @@
                 "phpunit/php-file-iterator": "^1.4.3",
                 "phpunit/php-text-template": "^1.2.1",
                 "phpunit/php-timer": "^2.0",
-                "phpunit/phpunit-mock-objects": "^6.1",
+                "phpunit/phpunit-mock-objects": "^6.1.1",
                 "sebastian/comparator": "^2.1",
                 "sebastian/diff": "^3.0",
                 "sebastian/environment": "^3.1",
@@ -3956,20 +3928,20 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2018-04-06T12:39:30+00:00"
+            "time": "2018-04-13T02:28:50+00:00"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
-            "version": "6.1.0",
+            "version": "6.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit-mock-objects.git",
-                "reference": "3f5ca97eee66a07951d018f6726017629c85c86d"
+                "reference": "70c740bde8fd9ea9ea295be1cd875dd7b267e157"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit-mock-objects/zipball/3f5ca97eee66a07951d018f6726017629c85c86d",
-                "reference": "3f5ca97eee66a07951d018f6726017629c85c86d",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit-mock-objects/zipball/70c740bde8fd9ea9ea295be1cd875dd7b267e157",
+                "reference": "70c740bde8fd9ea9ea295be1cd875dd7b267e157",
                 "shasum": ""
             },
             "require": {
@@ -4012,7 +3984,7 @@
                 "mock",
                 "xunit"
             ],
-            "time": "2018-04-06T08:14:40+00:00"
+            "time": "2018-04-11T04:50:36+00:00"
         },
         {
             "name": "psr/http-message",
@@ -5156,12 +5128,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-debug.git",
-                "reference": "ad32bff2411d798c5d58c687bd8815c64f4ab9bf"
+                "reference": "15526e95239fcd53316866f9f32cd5daf3a087e5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-debug/zipball/ad32bff2411d798c5d58c687bd8815c64f4ab9bf",
-                "reference": "ad32bff2411d798c5d58c687bd8815c64f4ab9bf",
+                "url": "https://api.github.com/repos/yiisoft/yii2-debug/zipball/15526e95239fcd53316866f9f32cd5daf3a087e5",
+                "reference": "15526e95239fcd53316866f9f32cd5daf3a087e5",
                 "shasum": ""
             },
             "require": {
@@ -5195,7 +5167,7 @@
                 "debugger",
                 "yii2"
             ],
-            "time": "2018-04-04T16:40:28+00:00"
+            "time": "2018-04-12T21:42:03+00:00"
         },
         {
             "name": "yiisoft/yii2-gii",
@@ -5203,12 +5175,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-gii.git",
-                "reference": "563fde754533b67ff04f934d7a236c76decb0305"
+                "reference": "21436e931e99f8a00c8f286f11e71a0e12441d49"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-gii/zipball/563fde754533b67ff04f934d7a236c76decb0305",
-                "reference": "563fde754533b67ff04f934d7a236c76decb0305",
+                "url": "https://api.github.com/repos/yiisoft/yii2-gii/zipball/21436e931e99f8a00c8f286f11e71a0e12441d49",
+                "reference": "21436e931e99f8a00c8f286f11e71a0e12441d49",
                 "shasum": ""
             },
             "require": {
@@ -5248,13 +5220,12 @@
                 "gii",
                 "yii2"
             ],
-            "time": "2018-04-04T12:06:01+00:00"
+            "time": "2018-04-12T21:51:36+00:00"
         }
     ],
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "bower-asset/jquery-stupid-table": 20,
         "shakura/yii2-gearman": 20,
         "yiisoft/yii2-bootstrap": 20,
         "yiisoft/yii2-debug": 20,

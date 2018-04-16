@@ -11,7 +11,7 @@ use yii\web\AssetBundle;
 
 class JqueryStupidTableAsset extends AssetBundle
 {
-    public $sourcePath = '@bower/jquery-stupid-table';
+    public $sourcePath = '@npm/stupid-table-plugin';
     public $js = [
         'stupidtable.min.js',
     ];
