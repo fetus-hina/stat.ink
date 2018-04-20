@@ -157,6 +157,7 @@ vendor: composer.phar composer.lock
 
 node_modules: package.json
 	npm install
+	touch $@
 
 check-style: vendor
 	vendor/bin/phpcs --standard=phpcs-customize.xml --encoding=UTF-8 --runtime-set ignore_warnings_on_exit 1 $(STYLE_TARGETS)
