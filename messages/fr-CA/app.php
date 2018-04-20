@@ -339,6 +339,7 @@ return [
     'Players:' => '',
     'Please check the reCAPTCHA.' => '',
     'Please copy an API key below and paste to IkaLog, IkaRec or other apps that compatible with {0}.' => '',
+    'Please copy this URL:' => '',
     'Please do not use this feature to destroy evidence.' => '',
     'Please keep it secret.' => '',
     'Please tell us about your capture environment and communication between your Wii U and User Agent (e.g. IkaLog). This information will be public.' => '',

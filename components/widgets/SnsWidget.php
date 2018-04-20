@@ -8,10 +8,10 @@
 namespace app\components\widgets;
 
 use Yii;
+use app\assets\PermalinkDialogAsset;
+use jp3cki\yii2\twitter\widget\TweetButton;
 use yii\base\Widget;
 use yii\helpers\Html;
-use jp3cki\yii2\twitter\widget\TweetButton;
-use app\assets\ClipboardJsAsset;
 
 class SnsWidget extends Widget
 {
@@ -84,6 +84,7 @@ class SnsWidget extends Widget
 
     protected function procPermaLink()
     {
+        PermalinkDialogAsset::register($this->view);
         $id = $this->id . '-permalink';
         $this->view->registerCss(sprintf(
             '.label-permalink{%s}',
@@ -97,58 +98,32 @@ class SnsWidget extends Widget
                 'vertical-align'    => 'top',
             ])
         ));
-        if ($this->looksClipboardWorks) {
-            ClipboardJsAsset::register($this->view);
-            $this->view->registerCss(sprintf(
-                '.label-permalink:hover{%s}',
-                Html::cssStyleFromArray([
-                    'background-color'  => '#1b3a63',
-                ])
-            ));
-            $this->view->registerJs(sprintf('jQuery("#%s").permaLink();', $id));
-            return Html::tag(
-                'span',
-                implode(' ', [
-                    Html::tag('span', '', ['class' => 'fa fa-fw fa-anchor']),
-                    Html::encode(Yii::t('app', 'Permalink')),
-                ]),
-                [
-                    'id' => $id,
-                    'class' => [
-                        'label',
-                        'label-success',
-                        'label-permalink',
-                        'auto-tooltip',
-                    ],
-                    'title' => Yii::t('app', 'Click to copy'),
-                ]
-            );
-        } else {
-            $this->view->registerCss(sprintf(
-                '.label-permalink{%s}',
-                Html::cssStyleFromArray([
-                    'background-color' => '#ccc',
-                    'cursor' => 'not-allowed',
-                ])
-            ));
-            return Html::tag(
-                'span',
-                implode(' ', [
-                    Html::tag('span', '', ['class' => 'fa fa-fw fa-anchor']),
-                    Html::encode(Yii::t('app', 'Permalink')),
-                ]),
-                [
-                    'id' => $id,
-                    'class' => [
-                        'label',
-                        'label-default',
-                        'label-permalink',
-                        'auto-tooltip',
-                    ],
-                    'title' => Yii::t('app', 'Your browser does not support this action.'),
-                ]
-            );
-        }
+        $this->view->registerCss(sprintf(
+            '.label-permalink:hover{%s}',
+            Html::cssStyleFromArray([
+                'background-color'  => '#1b3a63',
+            ])
+        ));
+        return Html::tag(
+            'span',
+            implode(' ', [
+                Html::tag('span', '', ['class' => 'fa fa-fw fa-anchor']),
+                Html::encode(Yii::t('app', 'Permalink')),
+            ]),
+            [
+                'id' => $id,
+                'class' => [
+                    'label',
+                    'label-success',
+                    'label-permalink',
+                    'auto-tooltip',
+                ],
+                'data' => [
+                    'dialog-title' => Yii::t('app', 'Permalink'),
+                    'dialog-hint' => Yii::t('app', 'Please copy this URL:'),
+                ],
+            ]
+        );
     }
 
     protected function procFeed()
@@ -187,20 +162,5 @@ class SnsWidget extends Widget
                 'href' => $this->feedUrl,
             ]
         );
-    }
-
-    public function getLooksClipboardWorks()
-    {
-        $ua = (string)Yii::$app->request->userAgent;
-
-        if (preg_match('/iPhone|iP[ao]d/', $ua)) {
-            return false;
-        }
-
-        if (strpos($ua, 'Safari/') !== false && strpos($ua, ' Chrome/') === false) {
-            return false;
-        }
-
-        return true;
     }
 }
