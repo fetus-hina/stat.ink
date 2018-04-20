@@ -52,6 +52,21 @@ class UserStatByWeaponAction extends BaseAction
             'ELSE {{battle2}}.[[death]]',
         ]));
 
+        $mkColumns = function (string $name, string $param) : array {
+            return [
+                "min_{$name}" => "MIN({$param})",
+                "p5_{$name}"  => "PERCENTILE_CONT(0.05) WITHIN GROUP (ORDER BY {$param})",
+                "q1_{$name}"  => "PERCENTILE_CONT(0.25) WITHIN GROUP (ORDER BY {$param})",
+                "med_{$name}" => "PERCENTILE_CONT(0.50) WITHIN GROUP (ORDER BY {$param})",
+                "q3_{$name}"  => "PERCENTILE_CONT(0.75) WITHIN GROUP (ORDER BY {$param})",
+                "p95_{$name}" => "PERCENTILE_CONT(0.95) WITHIN GROUP (ORDER BY {$param})",
+                "max_{$name}" => "MAX({$param})",
+                "avg_{$name}" => "AVG({$param})",
+                "sd_{$name}"  => "STDDEV_POP({$param})",
+                "mod_{$name}" => "mode() WITHIN GROUP (ORDER BY {$param})",
+            ];
+        };
+
         $query = Battle2::find() // {{{
             ->innerJoinWith(['weapon'], false)
             ->andWhere(['and',
@@ -64,37 +79,23 @@ class UserStatByWeaponAction extends BaseAction
                 'win_rate' => SORT_DESC,
                 '{{battle2}}.[[weapon_id]]' => SORT_DESC,
             ])
-            ->select([
-                'weapon_id'     => '{{battle2}}.[[weapon_id]]',
-                'weapon_key'    => 'MAX({{weapon2}}.[[key]])',
-                'weapon_name'   => 'MAX({{weapon2}}.[[name]])',
-                'battles'       => 'COUNT(*)',
-                'win_rate'      => sprintf(
-                    '(%s::double precision / NULLIF(%s::double precision, 0.0))',
-                    'SUM(CASE WHEN {{battle2}}.[[is_win]] = TRUE THEN 1 ELSE 0 END)',
-                    'SUM(CASE WHEN {{battle2}}.[[is_win]] IS NOT NULL THEN 1 ELSE 0 END)'
-                ),
-                'avg_kill'      => "AVG({$kill})",
-                'min_kill'      => "MIN({$kill})",
-                'max_kill'      => "MAX({$kill})",
-                'med_kill'      => "PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY {$kill})",
-                'mod_kill'      => "MODE() WITHIN GROUP (ORDER BY {$kill})",
-                'avg_death'     => "AVG({$death})",
-                'min_death'     => "MIN({$death})",
-                'max_death'     => "MAX({$death})",
-                'med_death'     => "PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY {$death})",
-                'mod_death'     => "MODE() WITHIN GROUP (ORDER BY {$death})",
-                'avg_ka'        => "AVG({{battle2}}.[[kill_or_assist]])",
-                'min_ka'        => "MIN({{battle2}}.[[kill_or_assist]])",
-                'max_ka'        => "MAX({{battle2}}.[[kill_or_assist]])",
-                'med_ka'        => "PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY {{battle2}}.[[kill_or_assist]])",
-                'mod_ka'        => "MODE() WITHIN GROUP (ORDER BY {{battle2}}.[[kill_or_assist]])",
-                'avg_sp'        => "AVG({{battle2}}.[[special]])",
-                'min_sp'        => "MIN({{battle2}}.[[special]])",
-                'max_sp'        => "MAX({{battle2}}.[[special]])",
-                'med_sp'        => "PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY {{battle2}}.[[special]])",
-                'mod_sp'        => "MODE() WITHIN GROUP (ORDER BY {{battle2}}.[[special]])",
-            ]);
+            ->select(array_merge(
+                [
+                    'weapon_id'     => '{{battle2}}.[[weapon_id]]',
+                    'weapon_key'    => 'MAX({{weapon2}}.[[key]])',
+                    'weapon_name'   => 'MAX({{weapon2}}.[[name]])',
+                    'battles'       => 'COUNT(*)',
+                    'win_rate'      => sprintf(
+                        '(%s::double precision / NULLIF(%s::double precision, 0.0))',
+                        'SUM(CASE WHEN {{battle2}}.[[is_win]] = TRUE THEN 1 ELSE 0 END)',
+                        'SUM(CASE WHEN {{battle2}}.[[is_win]] IS NOT NULL THEN 1 ELSE 0 END)'
+                    ),
+                ],
+                $mkColumns('kill', $kill),
+                $mkColumns('death', $death),
+                $mkColumns('ka', '{{battle2}}.[[kill_or_assist]]'),
+                $mkColumns('sp', '{{battle2}}.[[special]]')
+            ));
         // }}}
 
         if ($filter && !$filter->hasErrors()) {

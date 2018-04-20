@@ -31,8 +31,11 @@ SortableTableAsset::register($this);
   <div class="row">
     <div class="col-xs-12 col-sm-8 col-lg-9">
 <?php
-$dataColumn = function (string $label, string $colKey) : array {
+$dataColumn = function (string $label, string $colKey, ?string $longLabel = null) : array {
   // {{{
+  if ($longLabel === null) {
+    $longLabel = $label;
+  }
   return [
     'label' => Yii::t('app', $label),
     'headerOptions' => [
@@ -47,29 +50,34 @@ $dataColumn = function (string $label, string $colKey) : array {
       ];
     },
     'format' => 'raw',
-    'value' => function (array $row) use ($colKey) : string {
+    'value' => function (array $row) use ($colKey, $longLabel) : string {
       if ($row['avg_' . $colKey] === null) {
         return '';
       }
+
       $f = function (?float $value, int $dec) : string {
         return $value === null
           ? '?'
           : Yii::$app->formatter->asDecimal($value, $dec);
       };
-      return Html::tag(
-        'span',
-        Html::encode(Yii::$app->formatter->asDecimal($row['avg_' . $colKey], 2)),
-        [
-          'class' => 'auto-tooltip',
-          'title' => Yii::t('app', 'max={max} min={min} average={avg} median={median} mode={mode}', [
-            'max' => $f($row['max_' . $colKey], 2),
-            'min' => $f($row['min_' . $colKey], 2),
-            'avg' => $f($row['avg_' . $colKey], 2),
-            'median' => $f($row['med_' . $colKey], 1),
-            'mode' => $f($row['mod_' . $colKey], 0),
-          ]),
-        ]
-      );
+
+      return $this->render('//includes/_battles-summary-kill-death', [
+        'battles'   => $row['battles'],
+        'total'     => (int)round($row['battles'] * $row["avg_{$colKey}"]),
+        'min'       => $row["min_{$colKey}"],
+        'max'       => $row["max_{$colKey}"],
+        'q1'        => $row["q1_{$colKey}"],
+        'q3'        => $row["q3_{$colKey}"],
+        'median'    => $row["med_{$colKey}"],
+        'pct5'      => $row["p5_{$colKey}"],
+        'pct95'     => $row["p95_{$colKey}"],
+        'stddev'    => $row["sd_{$colKey}"],
+        'tooltipText' => null,
+        'summary'   => vsprintf('%s - %s', [
+          $row['weapon_name'],
+          Yii::t('app', $longLabel),
+        ]),
+      ]);
     },
   ];
   // }}}
@@ -159,10 +167,10 @@ $dataColumn = function (string $label, string $colKey) : array {
             },
             // }}}
           ],
-          $dataColumn('k', 'kill'),
-          $dataColumn('d', 'death'),
-          $dataColumn('k+a', 'ka'),
-          $dataColumn('sp', 'sp'),
+          $dataColumn('k', 'kill', 'Kills'),
+          $dataColumn('d', 'death', 'Deaths'),
+          $dataColumn('k+a', 'ka', 'Kill or Assist'),
+          $dataColumn('sp', 'sp', 'Specials'),
           [
             // Kill Ratio {{{
             'label' => Yii::t('app', 'Ratio'),
