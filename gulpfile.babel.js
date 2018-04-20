@@ -15,12 +15,10 @@ gulp.task('css', () => {
     .pipe($.postcss([
       autoprefixer({
         browers: [
-          'IE >= 9',
-          'iOS >= 8',
-          'Android >= 4.0',
-          'Firefox ESR',
           'last 2 versions',
-          '> 5%',
+          'Firefox ESR',
+          '> 1%',
+          'not dead',
         ],
       }),
       cssMqpacker(),
@@ -36,12 +34,10 @@ gulp.task('less', () => {
     .pipe($.postcss([
       autoprefixer({
         browers: [
-          'IE >= 9',
-          'iOS >= 8',
-          'Android >= 4.0',
-          'Firefox ESR',
           'last 2 versions',
-          '> 5%',
+          'Firefox ESR',
+          '> 1%',
+          'not dead',
         ],
       }),
       cssMqpacker(),
@@ -59,11 +55,9 @@ gulp.task('js', () => {
         ['env', {
           'targets': {
             "browsers": [
-              'ie >= 9',
-              'ios >= 8',
-              'android >= 4.0',
-              'firefox esr',
               'last 2 versions',
+              'firefox esr',
+              '> 1%',
             ],
           },
         }],
