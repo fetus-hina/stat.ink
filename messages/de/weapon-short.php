@@ -58,6 +58,7 @@ return [
     'Enperry-Klecks-Doppler' => '',
     'Fein-Disperser' => '',
     'Fern-Blaster' => '',
+    'Fern-Blaster SE' => '',
     'Flex-Roller' => '',
     'Flex-Roller Fol' => '',
     'Focus-Profi-Kleckser' => '',

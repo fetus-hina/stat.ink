@@ -70,6 +70,7 @@ return [
     'Gemodde Spetbuizer' => '',
     'Gemodde Straalplonzer' => '',
     'Gemodde Superspetter jr.' => '',
+    'Gemodde Teleblaster' => '',
     'Gold Dynamo Roller' => '',
     'Gouden Dynamoroller' => '',
     'Grim Range Blaster' => '',

@@ -29,6 +29,7 @@ return [
     'Custom E-liter 4K Scope' => 'Tinter con mirino 4K CM',
     'Custom Goo Tuber' => 'Tintubator CM',
     'Custom Jet Squelcher' => 'Sweeper CM',
+    'Custom Range Blaster' => 'Blaster a distanza CM',
     'Custom Splattershot Jr.' => 'Sparacolore logo',
     'Dapple Dualies' => 'Ripolpella duplo',
     'Dapple Dualies Nouveau' => '',

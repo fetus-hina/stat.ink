@@ -24,6 +24,7 @@ return [
     'Bimbamboom 14-I' => '',
     'Blaster' => '',
     'Blaster a distanza' => '',
+    'Blaster a distanza CM' => '',
     'Blaster CM' => '',
     'Blaster da mischia' => '',
     'Blaster da mischia neo' => '',

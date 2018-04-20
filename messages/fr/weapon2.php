@@ -29,6 +29,7 @@ return [
     'Custom E-liter 4K Scope' => 'Extraceur + zoom modifié',
     'Custom Goo Tuber' => 'Détubeur modifié',
     'Custom Jet Squelcher' => 'Nettoyeur XL modifié',
+    'Custom Range Blaster' => 'Éclablaster XL griffé',
     'Custom Splattershot Jr.' => 'Liquidateur Sr.',
     'Dapple Dualies' => 'Double moucheteur',
     'Dapple Dualies Nouveau' => '',

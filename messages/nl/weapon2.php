@@ -29,6 +29,7 @@ return [
     'Custom E-liter 4K Scope' => 'Gemodde E-liter 4K met vizier',
     'Custom Goo Tuber' => 'Gemodde Spetbuizer',
     'Custom Jet Squelcher' => 'Gemodde Straalplonzer',
+    'Custom Range Blaster' => 'Gemodde Teleblaster',
     'Custom Splattershot Jr.' => 'Gemodde Superspetter jr.',
     'Dapple Dualies' => 'Dubbelspatters',
     'Dapple Dualies Nouveau' => '',

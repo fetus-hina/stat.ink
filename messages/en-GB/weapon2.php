@@ -29,6 +29,7 @@ return [
     'Custom E-liter 4K Scope' => '',
     'Custom Goo Tuber' => '',
     'Custom Jet Squelcher' => '',
+    'Custom Range Blaster' => '',
     'Custom Splattershot Jr.' => '',
     'Dapple Dualies' => '',
     'Dapple Dualies Nouveau' => '',

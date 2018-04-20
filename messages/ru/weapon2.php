@@ -29,6 +29,7 @@ return [
     'Custom E-liter 4K Scope' => 'Снайп-э-литр 95 «Понт»',
     'Custom Goo Tuber' => 'Импрессиометы «Понт»',
     'Custom Jet Squelcher' => 'Плескарь «Понт»',
+    'Custom Range Blaster' => 'Дальнобластер «Понт»',
     'Custom Splattershot Jr.' => 'Каплестрел-У 2.0',
     'Dapple Dualies' => 'Импрессиометы',
     'Dapple Dualies Nouveau' => 'Импрессиометы «НуВо»',

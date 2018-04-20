@@ -29,6 +29,7 @@ return [
     'Custom E-liter 4K Scope' => 'Telentintador 4K SP',
     'Custom Goo Tuber' => 'Tubofusil SP',
     'Custom Jet Squelcher' => 'Megabarredora SP',
+    'Custom Range Blaster' => 'Teledevastador SP',
     'Custom Splattershot Jr.' => 'Lanzatintas novato B',
     'Dapple Dualies' => 'Atomizador dual',
     'Dapple Dualies Nouveau' => '',

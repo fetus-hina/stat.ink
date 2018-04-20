@@ -31,6 +31,7 @@ return [
     'Clash Blaster' => 'クラッシュブラスター',
     'Custom Blaster' => 'ホットブラスターカスタム',
     'Custom Jet Squelcher' => 'ジェットスイーパーカスタム',
+    'Custom Range Blaster' => 'ロングブラスターカスタム',
     'Custom Splattershot Jr.' => 'もみじシューター',
     'Dapple Dualies Nouveau' => 'スパッタリー・ヒュー',
     'Dapple Dualies' => 'スパッタリー',

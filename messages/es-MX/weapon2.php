@@ -29,6 +29,7 @@ return [
     'Custom E-liter 4K Scope' => 'Telentintador 4K adaptado',
     'Custom Goo Tuber' => 'Tubofusil adaptado',
     'Custom Jet Squelcher' => 'Megasoplador adaptado',
+    'Custom Range Blaster' => 'Telelanzamotas adaptado',
     'Custom Splattershot Jr.' => 'Rociador básico adaptado',
     'Dapple Dualies' => '',
     'Dapple Dualies Nouveau' => '',
