@@ -10,6 +10,7 @@
     "babel-core": "^6.26.0",
     "babel-polyfill": "^6.23.0",
     "babel-preset-env": "^1.2.2",
+    "babel-register": "^6.26.0",
     "css-mqpacker": "^6.0",
     "csswring": "^6.0",
     "gulp": "^3.9",
