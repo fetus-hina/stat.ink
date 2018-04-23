@@ -2,6 +2,7 @@
 use app\assets\BattleEditAsset;
 use app\assets\SwipeboxRunnerAsset;
 use app\models\Battle2;
+use app\models\Rank2;
 use yii\bootstrap\Html;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
@@ -91,17 +92,41 @@ $this->registerCss('#battle .progress{margin-bottom:0}');
         if ($model->rank_id === null && $model->rank_after_id === null) {
           return null;
         }
-        return sprintf(
-          '%s%s → %s%s',
-          Yii::t('app-rank2', $model->rank->name ?? '?'),
-          ($model->rank_exp !== null && ($model->rank->key ?? '') === 's+')
-            ? (' ' . $model->rank_exp)
-            : '',
-          Yii::t('app-rank2', $model->rankAfter->name ?? '?'),
-          ($model->rank_after_exp !== null && ($model->rankAfter->key ?? '') === 's+')
-            ? (' ' . $model->rank_after_exp)
-            : ''
-        );
+
+        $renderRank = function (?Rank2 $rank, ?int $rankExp, ?float $xPower) : string {
+            // {{{
+            switch ($rank->key ?? '') {
+                case '':
+                    return '?';
+
+                case 's+':
+                    if ($rankExp !== null) {
+                        return implode(' ', [
+                            Yii::t('app-rank2', $rank->name),
+                            (string)(int)$rankExp,
+                        ]);
+                    }
+                    break;
+
+                case 'x':
+                    if ($xPower !== null) {
+                        return vsprintf('%s (%s)', [
+                            Yii::t('app-rank2', $rank->name),
+                            Yii::$app->formatter->asDecimal($xPower, 1),
+                        ]);
+                    }
+                    break;
+            }
+
+            return Yii::t('app-rank2', $rank->name);
+            // }}}
+        };
+
+        return implode(' ', [
+            $renderRank($model->rank, $model->rank_exp, $model->x_power),
+            '→',
+            $renderRank($model->rankAfter, $model->rank_after_exp, $model->x_power_after),
+        ]);
       },
       // }}}
     ],

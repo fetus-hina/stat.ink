@@ -370,6 +370,21 @@ if ($user->twitter != '') {
             // }}}
           ],
           [
+            // x power {{{
+            'label' => Yii::t('app', 'X Power'),
+            'headerOptions' => ['class' => 'cell-x-power'],
+            'contentOptions' => ['class' => 'cell-x-power'],
+            'value' => function ($model) : string {
+              $rank = $model->rank;
+              if ($rank && $rank->key === 'x' && $model->x_power !== null) {
+                return Yii::$app->formatter->asDecimal($model->x_power, 1);
+              }
+
+              return '';
+            },
+            // }}}
+          ],
+          [
             // rank (after) {{{
             'label' => Yii::t('app', 'Rank (After)'),
             'headerOptions' => ['class' => 'cell-rank-after'],
@@ -386,6 +401,21 @@ if ($user->twitter != '') {
                 );
               }
               return Yii::t('app-rank2', $rank->name);
+            },
+            // }}}
+          ],
+          [
+            // x power (after) {{{
+            'label' => Yii::t('app', 'X Power (after)'),
+            'headerOptions' => ['class' => 'cell-x-power'],
+            'contentOptions' => ['class' => 'cell-x-power'],
+            'value' => function ($model) : string {
+              $rank = $model->rankAfter;
+              if ($rank && $rank->key === 'x' && $model->x_power_after !== null) {
+                return Yii::$app->formatter->asDecimal($model->x_power_after, 1);
+              }
+
+              return '';
             },
             // }}}
           ],
@@ -818,6 +848,7 @@ if ($user->twitter != '') {
           'cell-team-id'              => Yii::t('app', 'Team ID'),
           'cell-rank'                 => Yii::t('app', 'Rank'),
           'cell-rank-after'           => Yii::t('app', 'Rank (After)'),
+          'cell-x-power'              => Yii::t('app', 'X Power'),
           'cell-gachi-power'          => Yii::t('app', 'Power Level'),
           'cell-league-power'         => Yii::t('app', 'League Power'),
           'cell-fest-power'           => Yii::t('app', 'Splatfest Power'),

@@ -493,6 +493,8 @@ return [
     'Winning Percentage' => '勝率',
     'Won / Lost' => '勝敗を気にしない',
     'Won' => '勝利',
+    'X Power (after)' => 'Xパワー(後)',
+    'X Power' => 'Xパワー',
     'Yes' => 'はい',
     'Yesterday' => '昨日',
     'You can delete this battle.' => 'このバトルを削除できます。',

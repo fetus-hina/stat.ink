@@ -533,6 +533,8 @@ return [
     'won' => '',
     'Won' => '',
     'Won / Lost' => '',
+    'X Power' => '',
+    'X Power (after)' => '',
     'Yes' => '',
     'Yesterday' => '',
     'You' => '',
