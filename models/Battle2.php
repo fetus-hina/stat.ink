@@ -42,6 +42,8 @@ use yii\helpers\Url;
  * @property integer $rank_exp
  * @property integer $rank_after_id
  * @property integer $rank_after_exp
+ * @property float $x_power
+ * @property float $x_power_after
  * @property integer $rank_in_team
  * @property integer $kill
  * @property integer $death
@@ -573,6 +575,7 @@ class Battle2 extends ActiveRecord
             [['league_point'], 'number', 'min' => 0],
             [['fest_power'], 'number', 'min' => 0],
             [['my_team_estimate_fest_power', 'his_team_estimate_fest_power'], 'integer', 'min' => 0],
+            [['x_power', 'x_power_after'], 'number', 'min' => 0],
             [['client_uuid'], 'string'],
             [['client_uuid'], 'match',
                 'pattern' => '/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i',
@@ -721,6 +724,8 @@ class Battle2 extends ActiveRecord
             'league_point' => Yii::t('app', 'League Power'),
             'my_team_estimate_league_point' => Yii::t('app', 'My team\'s league power'),
             'his_team_estimate_league_point' => Yii::t('app', 'Their team\'s league power'),
+            'x_power' => Yii::t('app', 'X Power'),
+            'x_power_after' => Yii::t('app', 'X Power (After the battle)'),
         ];
     }
 
@@ -1110,6 +1115,8 @@ class Battle2 extends ActiveRecord
             'rank_exp' => $this->rank_exp,
             'rank_after' => $this->rankAfter ? $this->rankAfter->toJsonArray() : null,
             'rank_exp_after' => $this->rank_after_exp,
+            'x_power' => $this->x_power,
+            'x_power_after' => $this->x_power_after,
             'level' => $this->level,
             'level_after' => $this->level_after,
             'star_rank' => $this->star_rank,

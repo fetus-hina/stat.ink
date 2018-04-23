@@ -11,4 +11,5 @@ return [
     'B zone' => 'B帯',
     'C zone' => 'C帯',
     'S zone' => 'S帯',
+    'X zone' => 'X帯',
 ];

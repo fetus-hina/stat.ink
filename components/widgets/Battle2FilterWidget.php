@@ -369,7 +369,7 @@ class Battle2FilterWidget extends Widget
         $list = [];
         $list[''] = Yii::t('app-rank', 'Any Rank');
         foreach ($groups as $group) {
-            $list['~' . $group['key']] = Yii::t('app-rank', $group['name']);
+            $list['~' . $group['key']] = Yii::t('app-rank2', $group['name']);
             foreach ($group['ranks'] as $i => $rank) {
                 $list[$rank['key']] = sprintf(
                     '%s %s',
