@@ -293,6 +293,7 @@ There is a listing page [here](https://stat.ink/api-info/weapon2).
 |`bold`                  |`0`                   |ボールドマーカー<br>Sploosh-o-matic                  |                                                                                                     |
 |`bold_neo`              |`1`                   |ボールドマーカーネオ<br>Neo Sploosh-o-matic          |                                                                                                     |
 |`bottlegeyser`          |`400`                 |ボトルガイザー<br>Squeezer                           |                                                                                                     |
+|`bottlegeyser_foil`     |`401`                 |ボトルガイザーフォイル<br>Foil Squeezer              |                                                                                                     |
 |`heroshooter_replica`   |`45`                  |ヒーローシューター レプリカ<br>Hero Shot Replica     |                                                                                                     |
 |`jetsweeper`            |`90`                  |ジェットスイーパー<br>Jet Squelcher                  |                                                                                                     |
 |`jetsweeper_custom`     |`91`                  |ジェットスイーパーカスタム<br>Custom Jet Squelcher   |                                                                                                     |
@@ -304,6 +305,7 @@ There is a listing page [here](https://stat.ink/api-info/weapon2).
 |`promodeler_mg`         |`30`                  |プロモデラーMG<br>Aerospray MG                       |                                                                                                     |
 |`promodeler_rg`         |`31`                  |プロモデラーRG<br>Aerospray RG                       |                                                                                                     |
 |`sharp`                 |`20`                  |シャープマーカー<br>Splash-o-matic                   |                                                                                                     |
+|`sharp_neo`             |`21`                  |シャープマーカーネオ<br>Neo Splash-o-matic           |                                                                                                     |
 |`sshooter`              |`40`                  |スプラシューター<br>Splattershot                     |                                                                                                     |
 |`sshooter_collabo`      |`41`                  |スプラシューターコラボ<br>Tentatek Splattershot      |                                                                                                     |
 |`wakaba`                |`10`                  |わかばシューター<br>Splattershot Jr.                 |                                                                                                     |
@@ -313,6 +315,7 @@ There is a listing page [here](https://stat.ink/api-info/weapon2).
 |`hotblaster`            |`210`                 |ホットブラスター<br>Blaster                          |                                                                                                     |
 |`hotblaster_custom`     |`211`                 |ホットブラスターカスタム<br>Custom Blaster           |                                                                                                     |
 |`longblaster`           |`220`                 |ロングブラスター<br>Range Blaster                    |                                                                                                     |
+|`longblaster_custom`    |`221`                 |ロングブラスターカスタム<br>Custom Range Blaster     |                                                                                                     |
 |`nova`                  |`200`                 |ノヴァブラスター<br>Luna Blaster                     |                                                                                                     |
 |`nova_neo`              |`201`                 |ノヴァブラスターネオ<br>Luna Blaster Neo             |                                                                                                     |
 |`rapid`                 |`240`                 |ラピッドブラスター<br>Rapid Blaster                  |                                                                                                     |
@@ -325,6 +328,7 @@ There is a listing page [here](https://stat.ink/api-info/weapon2).
 |`dualsweeper`           |`5030`                |デュアルスイーパー<br>Dualie Squelchers              |                                                                                                     |
 |`heromaneuver_replica`  |`5015`                |ヒーローマニューバー レプリカ<br>Hero Dualie Replicas|                                                                                                     |
 |`kelvin525`             |`5020`                |ケルビン525<br>Glooga Dualies                        |                                                                                                     |
+|`kelvin525_deco`        |`5021`                |ケルビン525デコ<br>Glooga Dualies Deco               |                                                                                                     |
 |`maneuver`              |`5010`                |スプラマニューバー<br>Splat Dualies                  |互換性のため `manueuver` も受け付けます<br>Also accepts `manueuver` for compatibility                |
 |`maneuver_collabo`      |`5011`                |スプラマニューバーコラボ<br>Enperry Splat Dualies    |互換性のため `manueuver_collabo` も受け付けます<br>Also accepts `manueuver_collabo` for compatibility|
 |`quadhopper_black`      |`5040`                |クアッドホッパーブラック<br>Dark Tetra Dualies       |                                                                                                     |
@@ -356,6 +360,7 @@ There is a listing page [here](https://stat.ink/api-info/weapon2).
 |`splatscope`            |`2020`                |スプラスコープ<br>Splatterscope                      |                                                                                                     |
 |`splatscope_collabo`    |`2021`                |スプラスコープコラボ<br>Firefin Splatterscope        |                                                                                                     |
 |`squiclean_a`           |`2000`                |スクイックリンα<br>Classic Squiffer                 |                                                                                                     |
+|`squiclean_b`           |`2001`                |スクイックリンβ<br>New Squiffer                     |                                                                                                     |
 |`bucketslosher`         |`3000`                |バケットスロッシャー<br>Slosher                      |                                                                                                     |
 |`bucketslosher_deco`    |`3001`                |バケットスロッシャーデコ<br>Slosher Deco             |                                                                                                     |
 |`heroslosher_replica`   |`3005`                |ヒーロースロッシャー レプリカ<br>Hero Slosher Replica|                                                                                                     |
