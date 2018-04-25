@@ -35,6 +35,7 @@ class PostBattlePlayerForm extends Model
     public $gender;
     public $fest_title;
     public $splatnet_id;
+    public $top_500;
 
     public function behaviors()
     {
@@ -87,6 +88,7 @@ class PostBattlePlayerForm extends Model
                 'targetAttribute' => 'key',
             ],
             [['splatnet_id'], 'string', 'max' => 16],
+            [['top_500'], 'boolean', 'trueValue' => 'yes', 'falseValue' => 'no'],
         ];
     }
 
