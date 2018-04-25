@@ -160,6 +160,7 @@ return [
     'Enable noise reduction (position of the objective)' => '',
     'Encounter Ratio' => 'Relación de Encuentro',
     'Enemy Weapon' => '',
+    'Estimate X Power' => '',
     'Europe' => '',
     'European Time (Central)' => 'Hora de Europa (Central)',
     'European Time (East)' => 'Hora de Europa (Este)',

@@ -71,6 +71,7 @@ class PostBattleForm extends Model
     public $rank_exp_after;
     public $x_power;
     public $x_power_after;
+    public $estimate_x_power;
     public $my_point;
     public $estimate_gachi_power;
     public $my_team_estimate_league_point;
@@ -287,6 +288,7 @@ class PostBattleForm extends Model
             [['fest_power'], 'number', 'min' => 0],
             [['my_team_estimate_fest_power', 'his_team_estimate_fest_power'], 'integer', 'min' => 0],
             [['x_power', 'x_power_after'], 'number', 'min' => 0],
+            [['estimate_x_power'], 'integer', 'min' => 0],
         ];
     }
 
@@ -413,6 +415,7 @@ class PostBattleForm extends Model
         $battle->rank_after_exp = $intval($this->rank_exp_after);
         $battle->x_power        = $floatval($this->x_power);
         $battle->x_power_after  = $floatval($this->x_power_after);
+        $battle->estimate_x_power = $intval($this->estimate_x_power);
         $battle->my_point       = $intval($this->my_point);
         $battle->my_team_point  = $intval($this->my_team_point);
         $battle->his_team_point = $intval($this->his_team_point);
@@ -562,6 +565,17 @@ class PostBattleForm extends Model
                     ? null
                     : FestTitle::findOne(['key' => $form->fest_title]);
 
+                $top500 = (function ($v) : ?bool {
+                    switch (trim((string)$v)) {
+                        case 'yes':
+                            return true;
+                        case 'no':
+                            return false;
+                        default:
+                            return null;
+                    }
+                })($form->top_500);
+
                 yield Yii::createObject([
                     'class'         => BattlePlayer2::class,
                     'battle_id'     => $battle->id,
@@ -582,6 +596,7 @@ class PostBattleForm extends Model
                     'gender_id'     => $gender,
                     'fest_title_id' => $festTitle->id ?? null,
                     'splatnet_id'   => $form->splatnet_id,
+                    'top_500'       => $top500,
                 ]);
             }
         }

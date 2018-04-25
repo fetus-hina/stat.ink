@@ -141,6 +141,17 @@ foreach ($players as $i => $player) {
                 );
               })(),
               // }}}
+              // top player {{{
+              (function () use ($player) : string {
+                if (!$player->top_500) {
+                  return '';
+                }
+
+                return Html::tag('span', '', [
+                  'class' => 'fas fa-fw fa-chess-queen',
+                ]);
+              })(),
+              // }}}
               // name {{{
               (function () use ($battle, $player, $teamKey) : string {
                 $anonymize = false;
@@ -231,15 +242,30 @@ foreach ($players as $i => $player) {
       Html::tag(
         'td',
         $player->weapon
-          ? Html::tag('span', Html::encode(Yii::t('app-weapon2', $player->weapon->name)), [
-            'class' => 'auto-tooltip',
-            'title' => Html::encode(sprintf(
-              '%s %s / %s %s',
-              Yii::t('app', 'Sub:'),
-              Yii::t('app-subweapon2', $player->weapon->subweapon->name ?? '?'),
-              Yii::t('app', 'Special:'),
-              Yii::t('app-special2', $player->weapon->special->name ?? '?')
-            )),
+          ? implode(' ', [
+            $hasName
+              ? ''
+              : (function () use ($player) : string {
+                // top player {{{
+                if (!$player->top_500) {
+                  return '';
+                }
+
+                return Html::tag('span', '', [
+                  'class' => 'fas fa-fw fa-chess-queen',
+                ]);
+                // }}}
+              })(),
+            Html::tag('span', Html::encode(Yii::t('app-weapon2', $player->weapon->name)), [
+              'class' => 'auto-tooltip',
+              'title' => Html::encode(sprintf(
+                '%s %s / %s %s',
+                Yii::t('app', 'Sub:'),
+                Yii::t('app-subweapon2', $player->weapon->subweapon->name ?? '?'),
+                Yii::t('app', 'Special:'),
+                Yii::t('app-special2', $player->weapon->special->name ?? '?')
+              )),
+            ]),
           ])
           : '',
         ['class' => 'col-weapon']

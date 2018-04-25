@@ -33,6 +33,7 @@ use yii\db\ActiveRecord;
  * @property integer $gender_id
  * @property integer $fest_title_id
  * @property string $splatnet_id
+ * @property boolean $top_500
  *
  * @property Battle2 $battle
  * @property Weapon2 $weapon
@@ -75,6 +76,7 @@ class BattlePlayer2 extends ActiveRecord
             [['is_my_team', 'is_me'], 'boolean'],
             [['name'], 'string', 'max' => 10],
             [['splatnet_id'], 'string', 'max' => 16],
+            [['top_500'], 'boolean'],
             [['battle_id'], 'exist', 'skipOnError' => true,
                 'targetClass' => Battle2::class,
                 'targetAttribute' => ['battle_id' => 'id'],
@@ -123,6 +125,7 @@ class BattlePlayer2 extends ActiveRecord
             'gender_id' => 'Gender',
             'fest_title_id' => 'Fest Title',
             'splatnet_id' => 'SplatNet ID',
+            'top_500' => 'Is Top 500',
         ];
     }
 
@@ -301,6 +304,7 @@ class BattlePlayer2 extends ActiveRecord
                 )
                 : null,
             'splatnet_id'   => (string)$this->splatnet_id === '' ? null : $this->splatnet_id,
+            'top_500'       => $this->top_500,
             'icon'          => $this->iconUrl,
         ];
     }

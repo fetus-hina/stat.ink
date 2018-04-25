@@ -283,13 +283,44 @@ $this->registerCss('#battle .progress{margin-bottom:0}');
       // }}}
     ],
     [
-      'attribute' => 'league_point',
+      'attribute' => 'league_point', // {{{
       'value' => function ($model) : ?string {
         if ($model->league_point < 1) {
           return null;
         }
         return Yii::$app->formatter->asDecimal($model->league_point, 1);
-      }
+      },
+      // }}}
+    ],
+    [
+      'attribute' => 'estimate_x_power', // {{{
+      'value' => function ($model) : ?string {
+        if ($model->estimate_x_power === null) {
+          return null;
+        }
+
+        return Yii::$app->formatter->asInteger($model->estimate_x_power);
+      },
+      // }}}
+    ],
+    [
+      'attribute' => 'x_power', // {{{
+      'format' => 'raw',
+      'value' => function ($model) : ?string {
+        if ($model->x_power < 1) {
+          if ($model->x_power_after < 1) {
+            return null;
+          }
+
+          return Yii::$app->formatter->asDecimal($model->x_power_after, 1);
+        }
+
+        return implode(' → ', [
+          Yii::$app->formatter->asDecimal($model->x_power, 1),
+          Yii::$app->formatter->asDecimal($model->x_power_after, 1),
+        ]);
+      },
+      // }}}
     ],
     [
       'attribute' => 'estimate_gachi_power', // {{{

@@ -143,6 +143,7 @@ return [
     'Enabled' => '有効',
     'Encounter Ratio' => '敵遭遇率',
     'Enemy Weapon' => '相手のブキ',
+    'Estimate X Power' => '概算Xパワー',
     'Europe' => 'ヨーロッパ',
     'Europe/Oceania' => '欧州・オセアニア',
     'European Time (Central)' => 'ヨーロッパ時間（中央）',
