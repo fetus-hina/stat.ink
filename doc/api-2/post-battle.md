@@ -266,7 +266,7 @@ There is a listing page [here](https://stat.ink/api-info/stage2).
 |`hokke`                 |`7`                   |ホッケふ頭<br>Port Mackerel                  |                                                                             |
 |`kombu`                 |`5`                   |コンブトラック<br>Humpback Pump Track        |互換性のため `combu` も受け付けます<br>Also accepts `combu` for compatibility|
 |`manta`                 |`6`                   |マンタマリア号<br>Manta Maria                |                                                                             |
-|`mongara`               |                      |モンガラキャンプ場<br>Camp Triggerfish       |                                                                             |
+|`mongara`               |`16`                  |モンガラキャンプ場<br>Camp Triggerfish       |                                                                             |
 |`mozuku`                |`10`                  |モズク農園<br>Kelp Dome                      |                                                                             |
 |`shottsuru`             |`17`                  |ショッツル鉱山<br>Piranha Pit                |                                                                             |
 |`sumeshi`               |                      |スメーシーワールド<br>Wahoo World            |                                                                             |
