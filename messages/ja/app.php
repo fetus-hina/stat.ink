@@ -352,6 +352,8 @@ return [
     'Reskin of' => '同一性能',
     'Result' => '結果',
     'Results of {0}\'s Battle' => '{0}さんのバトル結果',
+    'Room info (Private)' => '部屋情報（プラベ）',
+    'Room' => '部屋',
     'Russia' => 'ロシア',
     'S/min' => 'スペ/分',
     'Save!' => '保存',

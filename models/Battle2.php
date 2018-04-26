@@ -778,6 +778,11 @@ class Battle2 extends ActiveRecord
         return $query;
     }
 
+    public function getBattlePlayersPure() : \yii\db\ActiveQuery
+    {
+        return $this->hasMany(BattlePlayer2::class, ['battle_id' => 'id']);
+    }
+
     public function getMyTeamPlayers() : \yii\db\ActiveQuery
     {
         return $this->getBattlePlayers()
@@ -1413,6 +1418,58 @@ class Battle2 extends ActiveRecord
             }
         }
         return false;
+    }
+
+    public function getPrivateRoomId() : ?string
+    {
+        return $this->getPrivateTeamId($this->battlePlayersPure);
+    }
+
+    public function getPrivateMyTeamId() : ?string
+    {
+        return $this->getPrivateTeamId(array_filter(
+            $this->battlePlayersPure,
+            function ($model) : bool {
+                return $model->is_my_team === true;
+            }
+        ));
+    }
+
+    public function getPrivateHisTeamId() : ?string
+    {
+        return $this->getPrivateTeamId(array_filter(
+            $this->battlePlayersPure,
+            function ($model) : bool {
+                return $model->is_my_team === false;
+            }
+        ));
+    }
+
+    private function getPrivateTeamId(array $players) : ?string
+    {
+        if (!$this->lobby || $this->lobby->key !== 'private') {
+            return null;
+        }
+
+        $playerIds = array_map(
+            function ($player) : ?string {
+                $id =  trim($player->splatnet_id);
+                return preg_match('/^[0-9a-f]{16}$/u', $id)
+                    ? $id
+                    : null;
+            },
+            $players
+        );
+        if (count($playerIds) < 1 ||
+            count($playerIds) > 8 ||
+            in_array(null, $playerIds, true)
+        ) {
+            return null;
+        }
+
+        sort($playerIds);
+
+        return hash('sha256', implode('&', $playerIds));
     }
 
     public function adjustUserWeapon($weaponIds, ?int $excludeBattle = null) : void

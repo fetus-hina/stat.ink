@@ -191,6 +191,74 @@ if ($user->twitter != '') {
             // }}}
           ],
           [
+            // private room id (icon) {{{
+            'label' => Yii::t('app', 'Room'),
+            'headerOptions' => ['class' => 'cell-room cell-room-id'],
+            'contentOptions' => ['class' => 'cell-room cell-room-id text-center'],
+            'format' => 'raw',
+            'value' => function ($model) : string {
+              if (!$model->lobby || $model->lobby->key !== 'private') {
+                return '';
+              }
+
+              if (!$roomId = $model->privateRoomId) {
+                return '';
+              }
+
+              return Html::img(
+                sprintf('%s/%s.svg', Yii::getAlias('@jdenticon'), $model->privateRoomId),
+                [
+                  'title' => substr($roomId, 0, 16),
+                  'class' => 'auto-tooltip',
+                  'style' => [
+                    'width' => 'auto',
+                    'height' => '1.5em',
+                  ],
+                ]
+              );
+            },
+            // }}}
+          ],
+          [
+            // private room id (icon) {{{
+            'label' => Yii::t('app', 'Team'),
+            'headerOptions' => ['class' => 'cell-room cell-room-team'],
+            'contentOptions' => ['class' => 'cell-room cell-room-team text-center'],
+            'format' => 'raw',
+            'value' => function ($model) : string {
+              if (!$model->lobby || $model->lobby->key !== 'private') {
+                return '';
+              }
+
+              $id1 = $model->getPrivateMyTeamId();
+              $id2 = $model->getPrivateHisTeamId();
+              if (!$id1 || !$id2) {
+                return '';
+              }
+
+              return implode(
+                ' ',
+                array_map(
+                  function (string $id) : string {
+                    return Html::img(
+                      sprintf('%s/%s.svg', Yii::getAlias('@jdenticon'), rawurlencode($id)),
+                      [
+                        'title' => substr($id, 0, 16),
+                        'class' => 'auto-tooltip',
+                        'style' => [
+                          'width' => 'auto',
+                          'height' => '1.5em',
+                        ],
+                      ]
+                    );
+                  },
+                  [$id1, $id2]
+                )
+              );
+            },
+            // }}}
+          ],
+          [
             // mode {{{
             'label' => Yii::t('app', 'Mode'),
             'headerOptions' => ['class' => 'cell-rule'],
@@ -836,6 +904,7 @@ if ($user->twitter != '') {
         $_list = [
           'cell-splatnet'             => Yii::t('app', 'SplatNet Battle #'),
           'cell-lobby'                => Yii::t('app', 'Lobby'),
+          'cell-room'                 => Yii::t('app', 'Room info (Private)'),
           'cell-rule'                 => Yii::t('app', 'Mode'),
           'cell-rule-short'           => Yii::t('app', 'Mode (Short)'),
           'cell-map'                  => Yii::t('app', 'Stage'),

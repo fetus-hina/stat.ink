@@ -72,6 +72,7 @@ class UserAction extends BaseAction
                 'battlePlayers' => function ($query) {
                     $query->orderBy(false);
                 },
+                'battlePlayersPure',
             ])
             ->andWhere(['user_id' => $user->id])
             ->orderBy(['battle2.id' => SORT_DESC]);

@@ -389,6 +389,8 @@ return [
     'Reskin of' => '',
     'Result' => 'Resultado',
     'Results of {0}\'s Battle' => 'Resultado de la Batalla de {0}',
+    'Room' => '',
+    'Room info (Private)' => '',
     '{rule}: Peak' => '',
     'Russia' => '',
     'Save!' => '',
