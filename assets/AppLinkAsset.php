@@ -65,6 +65,11 @@ class AppLinkAsset extends AssetBundle
         return $this->image('switch.min.svg');
     }
 
+    public function getInkipedia() : string
+    {
+        return $this->image('inkipedia.png');
+    }
+
     protected function image(string $file) : string
     {
         return Html::tag(

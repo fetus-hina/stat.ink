@@ -1,4 +1,5 @@
 <?php
+use app\assets\AppLinkAsset;
 use app\assets\SortableTableAsset;
 use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
@@ -16,6 +17,9 @@ $this->registerMetaTag(['name' => 'twitter:description', 'content' => $title]);
 $this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink']);
 
 SortableTableAsset::register($this);
+
+$icon = AppLinkAsset::register($this);
+$inkipediaIcon = $icon->inkipedia;
 ?>
 <div class="container">
   <h1>
@@ -70,6 +74,7 @@ SortableTableAsset::register($this);
     <table class="table table-striped table-condensed table-sortable">
       <thead>
         <tr>
+          <th></th>
           <?= Html::tag(
             'th',
             Html::encode(Yii::t('app', 'Brand')),
@@ -105,6 +110,13 @@ SortableTableAsset::register($this);
           'tr',
           implode("\n", array_merge(
             [
+              Html::tag(
+                'td',
+                Html::linkInkipedia(
+                  $inkipediaIcon,
+                  $_gear->name
+                )
+              ),
               Html::tag(
                 'td',
                 Html::encode(Yii::t('app-brand2', $_gear->brand->name)),

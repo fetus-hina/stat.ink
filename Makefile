@@ -11,6 +11,7 @@ RESOURCE_TARGETS_MAIN := \
 	resources/.compiled/app-link-logos/ikanakama.png \
 	resources/.compiled/app-link-logos/ikarec-en.png \
 	resources/.compiled/app-link-logos/ikarec-ja.png \
+	resources/.compiled/app-link-logos/inkipedia.png \
 	resources/.compiled/app-link-logos/nnid.min.svg \
 	resources/.compiled/app-link-logos/nnid.min.svg.br \
 	resources/.compiled/app-link-logos/nnid.min.svg.gz \
@@ -473,6 +474,14 @@ resources/.compiled/app-link-logos/nnid.svg: resources/app-link-logos/nnid.svg
 
 resources/.compiled/app-link-logos/switch.svg: resources/app-link-logos/switch.svg
 	xmllint --format $< > $@
+
+resources/.compiled/app-link-logos/inkipedia.png: resources/app-link-logos/inkipedia.ico
+	mkdir -p resources/.compiled/app-link-logos
+	convert $< $@
+	touch -r $< $@
+
+resources/app-link-logos/inkipedia.ico:
+	curl -o $@ $(shell php resources/app-link-logos/favicon.php 'https://splatoonwiki.org/')
 
 migrate-db: vendor config/db.php
 	./yii migrate/up --interactive=0

@@ -14,6 +14,25 @@ class Html extends BaseHtml
     public static $enableServerPush = true;
     private static $pushed = [];
 
+    public static function linkInkipedia(
+        string $text,
+        string $page,
+        array $options = []) : string
+    {
+        return static::a(
+            $text,
+            sprintf(
+                'https://splatoonwiki.org/wiki/%s',
+                str_replace(
+                    ['%20', '%3a'],
+                    ['_', ':'],
+                    rawurlencode($page)
+                )
+            ),
+            $options
+        );
+    }
+
     public static function cssFile($url, $options = [])
     {
         if (static::$enableServerPush && !isset($options['condition'])) {
