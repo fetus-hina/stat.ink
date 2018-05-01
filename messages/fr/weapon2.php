@@ -32,7 +32,7 @@ return [
     'Custom Range Blaster' => 'Éclablaster XL griffé',
     'Custom Splattershot Jr.' => 'Liquidateur Sr.',
     'Dapple Dualies' => 'Double moucheteur',
-    'Dapple Dualies Nouveau' => '',
+    'Dapple Dualies Nouveau' => 'Double moucheteur nuancé',
     'Dark Tetra Dualies' => 'Double voltigeur noir',
     'Dualies' => '',
     'Dualie Squelchers' => 'Double nettoyeur',
