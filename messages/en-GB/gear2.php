@@ -201,6 +201,7 @@ return [
     'Neon Delta Straps' => '',
     'Neon Sea Slugs' => '',
     'Noise Cancelers' => '',
+    'Non-slip Senseis' => '',
     'N-Pacer Ag' => '',
     'N-Pacer Au' => '',
     'N-Pacer Sweat' => '',

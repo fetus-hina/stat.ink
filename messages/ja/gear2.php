@@ -203,6 +203,7 @@ return [
     'Neon Delta Straps' => 'デルタストラップ ネオン',
     'Neon Sea Slugs' => 'ウミウシ イエロー',
     'Noise Cancelers' => 'イヤーマフ',
+    'Non-slip Senseis' => 'ノンスリップタクミ',
     'Oceanic Hard Hat' => 'オーシャンズヘルム',
     'Octo Layered LS' => 'オクトガサネ',
     'Octobowler Shirt' => 'タコボウラーシャツ',
