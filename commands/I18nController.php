@@ -14,6 +14,7 @@ use yii\helpers\Console;
 
 class I18nController extends Controller
 {
+    use i18n\GearNameTrait;
     use i18n\WeaponShortNameTrait;
 
     public function init()
@@ -29,6 +30,7 @@ class I18nController extends Controller
         $locales = Language::find()
             ->andWhere(['not', ['lang' => ['ja-JP', 'en-US']]])
             ->all();
+        $status |= $this->actionJapaneseGear2();
         foreach ($locales as $locale) {
             $status |= $this->actionMessage($locale->lang);
         }
