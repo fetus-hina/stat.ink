@@ -21,7 +21,7 @@ $gears = [$headgear, $clothing, $shoes];
     <tr>
       <th><?= Html::encode(Yii::t('app', 'Gear')) ?></th>
 <?php foreach ($gears as $gear): ?>
-      <td><?= Html::encode($gear->gear_id ? Yii::t('app-gear', $gear->name) : '?') ?></td>
+      <td><?= Html::encode($gear->gear_id ? Yii::t('app-gear', $gear->gear->name) : '?') ?></td>
 <?php endforeach ?>
     </tr>
 <?php endif ?>
