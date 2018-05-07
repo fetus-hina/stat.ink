@@ -158,60 +158,18 @@ PaintballAsset::register($this);
     <p>
 <?php TlsTestJsAsset::register($this) ?>
 <?php if (Yii::$app->language === 'ja-JP'): ?>
-      stat.ink では、ゴールデンウイーク明けを目安にセキュリティの強化（TLS 1.0, 1.1 の無効化）を実施します。<br>
-      Internet Explorer 11 未満（10 以前）、Android 5.0 未満（4.4.x 以前）、PlayStation Vita などから接続ができなくなります。<br>
-      これは業界全体の流れですので、それらの環境では今後、多数のサイトで接続不能になります（おおむね6月末までに）。<br>
-      より新しく安全な環境をご利用ください。<br>
+      stat.ink では、5/7 22時ころにセキュリティの強化のため、TLS 1.0, TLS 1.1 の無効化を実施しました。<br>
+      ほとんどの環境ではこの変更による影響はありませんが、一部の古い環境をご利用の場合アクセスできません。<br>
       <br>
-      なお、投稿アプリケーションもこの変更の影響を受けます。<br>
-      Windows XP, Vista, 8 (8.0), CentOS 5 といったサポート切れの環境では影響を受ける可能性が高いと思われます。<br>
-      CentOS 6, Ubuntu 14.04 LTS 等の古いディストリビューションの場合は適切なアップデートが必要だと思われます。<br>
-      また、<strong>Mac OS X と splatnet2statink の組み合わせで問題が起きる可能性がある</strong>ことがわかっています。<br>
-      <a href="https://blog.fetus.jp/201804/827.html">Mac OS X と splatnet2statink を組み合わせて利用している場合はこちらをお読みください。</a><br>
-      <br>
-      現在の環境の状態:
+      また、Mac OS + splatenet2statink の一部の環境が、ご利用の環境が古いためご利用いただけなくなっていることがわかっています。<a href="https://blog.fetus.jp/201804/827.html">Mac OS X と splatnet2statink を組み合わせて利用している場合はこちらをお読みください。</a>
 <?php else: ?>
-      We will enforce security (turn off TLS 1.0 &amp; 1.1) after the <a href="https://en.wikipedia.org/wiki/Golden_Week_(Japan)">Golden Week</a> (early May).<br>
-      You will not be able to connect in the following environment:<br>
-      * Internet Explorer &lt; 11 (≤ 10)<br>
-      * OS X &lt; v10.9 Mavericks (≤ 10.8 Mountain Lion)<br>
-      * Android &lt; 5 (≤ 4.4.x)<br>
-      * iOS &lt; 5 (≤ 4)<br>
-      * PlayStation Vita<br>
-      Since this is a flow of the industry as a whole, it will be impossible to connect with many sites in the near future (by the end of June).<br>
-      Please use a new and safe environment (OS, browser).<br>
+      We have stopped the TLS 1.0 and TLS 1.1 endpoints for security reasons. (@ <?= Html::encode(Yii::$app->formatter->asDateTime('2018-05-07T22:00:00+09:00', 'short')) ?>)<br>
+      Most environments are not affected by this change.<br>
       <br>
-      The application for POSTing will also be affected by this change.<br>
-      If you are running an application on Windows XP, Vista, 8.0 etc environment, you will not be able to post.<br>
-      If you use <strong>splatnet2statink on Mac OS X</strong>, we've confirmed the possibility of problem.<br>
+      If you are using Mac OS + splatnet2statink and you can not submit a battle suddenly, your environment may not be compatible.<br>
       <a href="https://blog.fetus.jp/201804/827.html">Please read this blog entry (Japanese) if you using splatnet2statink on Mac OS X</a>.<br>
-      <br>
-      Your current environment:
+      (Simply: Update OpenSSL in your environment and rebuild packages that depend on it.)
 <?php endif ?>
-    </p>
-    <table border="1">
-      <thead>
-        <tr>
-          <th class="text-center" rowspan="2">Your environment</th>
-          <th class="text-center" colspan="3">TLS</th>
-        </tr>
-        <tr>
-          <th class="text-center">1.0</th>
-          <th class="text-center">1.1</th>
-          <th class="text-center">1.2</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class="text-center">
-            <span id="tlstest-badge">Checking...</span>
-          </td>
-          <td class="text-center"><span class="tlstest" data-tls="1.0"><span class="label label-default"><span class="fas fa-fw fa-spin fa-spinner"></span></span></span></td>
-          <td class="text-center"><span class="tlstest" data-tls="1.1"><span class="label label-default"><span class="fas fa-fw fa-spin fa-spinner"></span></span></span></td>
-          <td class="text-center"><span class="tlstest" data-tls="1.2"><span class="label label-default"><span class="fas fa-fw fa-spin fa-spinner"></span></span></span></td>
-        </tr>
-      </tbody>
-    </table>
   </div>
   <p>
     <?= implode(' | ', [
