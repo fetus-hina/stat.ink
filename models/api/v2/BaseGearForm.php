@@ -27,11 +27,13 @@ abstract class BaseGearForm extends Model
             [['gear'], 'exist',
                 'targetClass' => Gear2::class,
                 'targetAttribute' => 'key',
+                'message' => 'Unknown key-string "{value}"',
             ],
             [['gear'], 'validateGearType'],
             [['primary_ability'], 'exist',
                 'targetClass' => Ability2::class,
                 'targetAttribute' => 'key',
+                'message' => 'Unknown key-string "{value}"',
             ],
             [['secondary_abilities'], 'validateSecondaryAbilities'],
         ];
