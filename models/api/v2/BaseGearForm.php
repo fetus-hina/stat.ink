@@ -8,9 +8,12 @@
 namespace app\models\api\v2;
 
 use Yii;
-use yii\base\Model;
+use app\components\behaviors\SplatnetNumberBehavior;
 use app\models\Ability2;
 use app\models\Gear2;
+use app\models\GearType;
+use yii\base\Model;
+use yii\db\Query;
 
 abstract class BaseGearForm extends Model
 {
@@ -20,6 +23,22 @@ abstract class BaseGearForm extends Model
 
     // subclass should return one of "headgear", "clothing" or "shoes".
     abstract public function getType();
+
+    public function behaviors()
+    {
+        $type = GearType::findOne(['key' => $this->getType()]);
+
+        return [
+            [
+                'class' => SplatnetNumberBehavior::class,
+                'attribute' => 'gear',
+                'tableName' => '{{gear2}}',
+                'modifier' => function (Query $query) use ($type) {
+                    $query->andWhere(['type_id' => $type->id]);
+                },
+            ],
+        ];
+    }
 
     public function rules()
     {

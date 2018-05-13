@@ -9,6 +9,7 @@ namespace app\models\api\v2;
 
 use Yii;
 use app\components\behaviors\FixAttributesBehavior;
+use app\components\behaviors\SplatnetNumberBehavior;
 use app\components\behaviors\TrimAttributesBehavior;
 use app\models\FestTitle;
 use app\models\Gender;
@@ -43,6 +44,11 @@ class PostBattlePlayerForm extends Model
             [
                 'class' => TrimAttributesBehavior::class,
                 'targets' => array_keys($this->attributes),
+            ],
+            [
+                'class' => SplatnetNumberBehavior::class,
+                'attribute' => 'weapon',
+                'tableName' => '{{weapon2}}',
             ],
             [
                 'class' => FixAttributesBehavior::class,

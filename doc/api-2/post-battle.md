@@ -249,6 +249,12 @@ Example for UUID v5 (if use namespace `73cf052a-fd0b-11e7-a5ee-001b21a098c2`):
 また、実際のデータベースを参照した一覧ページが[ここにあります](https://stat.ink/api-info/stage2)。<br>
 There is a listing page [here](https://stat.ink/api-info/stage2).
 
+APIへの送信時には、「指定文字列」に記載の文字列（例: `kombu`）を送信してください。<br>
+You should send "Key String" below (e.g. `kombu`).
+
+セカンダリオプションとして、`#5` と「`#` + 数字」を送信することもできます（推奨しません）。<br>
+You can also send "`#` + SplatNet-Number" like `#5` as a secondary option (not recommended).
+
 <!--replace:stage-->
 |指定文字列<br>Key String|イカリング<br>SplatNet|ステージ<br>Stage Name                       |備考<br>Remarks                                                              |
 |------------------------|----------------------|---------------------------------------------|-----------------------------------------------------------------------------|
@@ -283,6 +289,12 @@ There is a listing page [here](https://stat.ink/api-info/stage2).
 
 また、実際のデータベースを参照した一覧ページが[ここにあります](https://stat.ink/api-info/weapon2)。<br>
 There is a listing page [here](https://stat.ink/api-info/weapon2).
+
+APIへの送信時には、「指定文字列」に記載の文字列（例: `52gal`）を送信してください。<br>
+You should send "Key String" below (e.g. `52gal`).
+
+セカンダリオプションとして、`#50` と「`#` + 数字」を送信することもできます（推奨しません）。<br>
+You can also send "`#` + SplatNet-Number" like `#50` as a secondary option (not recommended).
 
 <!--replace:weapon-->
 |指定文字列<br>Key String|イカリング<br>SplatNet|ブキ<br>Weapon Name                                  |備考<br>Remarks                                                                                      |
@@ -455,6 +467,16 @@ Specifies structure like below:<br>
 [アタマ Headgear](https://stat.ink/api-info/gear2-headgear)<br>
 [フク Clothing](https://stat.ink/api-info/gear2-clothing)<br>
 [クツ Shoes](https://stat.ink/api-info/gear2-shoes)
+
+ギア種類をAPIへ送信する時には、「指定文字列」に記載の文字列（例: `white_headband`）を送信してください。<br>
+You should send "Key String" as "gear" below (e.g. `white_headband`).
+
+セカンダリオプションとして、`#42` と「`#` + 数字」を送信することもできます（推奨しません）。<br>
+You can also send "`#` + SplatNet-Number" like `#42` as a secondary option (not recommended).
+
+このセカンダリオプションはギア名指定の代替としては利用できますが、ギアパワーの代替としては利用できません。<br>
+You cannot use this secondary option to Gear Ability.
+
 
 ギアパワーはこの次のセクションにある一覧を参照してください。<br>
 For abilities, please refer the list in next section ("Gear Ability").

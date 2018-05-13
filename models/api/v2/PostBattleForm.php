@@ -9,6 +9,7 @@ namespace app\models\api\v2;
 
 use Yii;
 use app\components\behaviors\FixAttributesBehavior;
+use app\components\behaviors\SplatnetNumberBehavior;
 use app\components\behaviors\TrimAttributesBehavior;
 use app\components\helpers\CriticalSection;
 use app\components\helpers\db\Now;
@@ -121,6 +122,16 @@ class PostBattleForm extends Model
             [
                 'class' => TrimAttributesBehavior::class,
                 'targets' => array_keys($this->attributes),
+            ],
+            [
+                'class' => SplatnetNumberBehavior::class,
+                'attribute' => 'stage',
+                'tableName' => '{{map2}}',
+            ],
+            [
+                'class' => SplatnetNumberBehavior::class,
+                'attribute' => 'weapon',
+                'tableName' => '{{weapon2}}',
             ],
             [
                 'class' => FixAttributesBehavior::class,
