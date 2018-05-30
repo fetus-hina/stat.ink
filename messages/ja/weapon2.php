@@ -30,6 +30,7 @@ return [
     'Clash Blaster Neo' => 'クラッシュブラスターネオ',
     'Clash Blaster' => 'クラッシュブラスター',
     'Custom Blaster' => 'ホットブラスターカスタム',
+    'Custom Dualie Squelchers' => 'デュアルスイーパーカスタム',
     'Custom Jet Squelcher' => 'ジェットスイーパーカスタム',
     'Custom Range Blaster' => 'ロングブラスターカスタム',
     'Custom Splattershot Jr.' => 'もみじシューター',
@@ -58,6 +59,7 @@ return [
     'Neo Sploosh-o-matic' => 'ボールドマーカーネオ',
     'Range Blaster' => 'ロングブラスター',
     'Rapid Blaster Deco' => 'ラピッドブラスターデコ',
+    'Rapid Blaster Pro Deco' => 'Rブラスターエリートデコ',
     'Rapid Blaster Pro' => 'Rブラスターエリート',
     'Rapid Blaster' => 'ラピッドブラスター',
     'Splash-o-matic' => 'シャープマーカー',
@@ -69,6 +71,7 @@ return [
     'Squeezer' => 'ボトルガイザー',
     'Tentatek Splattershot' => 'スプラシューターコラボ',
     // rollers -----
+    'Carbon Roller Deco' => 'カーボンローラーデコ',
     'Carbon Roller' => 'カーボンローラー',
     'Dynamo Roller' => 'ダイナモローラー',
     'Flingza Roller' => 'ヴァリアブルローラー',
@@ -79,8 +82,8 @@ return [
     'Inkbrush Nouveau' => 'パブロ・ヒュー',
     'Inkbrush' => 'パブロ',
     'Krak-On Splat Roller' => 'スプラローラーコラボ',
-    'Octobrush' => 'ホクサイ',
     'Octobrush Nouveau' => 'ホクサイ・ヒュー',
+    'Octobrush' => 'ホクサイ',
     'Splat Roller' => 'スプラローラー',
     // chargers -----
     'Bamboozler 14 Mk I' => '14式竹筒銃・甲',
@@ -118,4 +121,5 @@ return [
     'Splat Brella' => 'パラシェルター',
     'Tenta Brella' => 'キャンピングシェルター',
     'Undercover Brella' => 'スパイガジェット',
+    'Undercover Sorella Brella' => 'スパイガジェットソレーラ',
 ];

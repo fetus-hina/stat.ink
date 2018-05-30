@@ -47,6 +47,7 @@ return [
     'CoroCoro Splat Roller' => '',
     'Custom Blaster' => '',
     'Custom Dual Squelcher' => '',
+    'Custom Dualie Squelchers' => '',
     'Custom E-liter 3K' => '',
     'Custom E-liter 3K Scope' => '',
     'Custom Hydra Splatling' => '',
@@ -186,6 +187,7 @@ return [
     'Triplete compatto D' => '',
     'Triplete D' => '',
     'Undercover Brella' => '',
+    'Undercover Sorella Brella' => '',
     'Wasabi Splattershot' => '',
     'Zink Mini Splatling' => '',
 ];

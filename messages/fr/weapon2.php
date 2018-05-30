@@ -2,6 +2,7 @@
 /**
  * @copyright Copyright (C) 2015-2018 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
+ * @author 7185 <7185@users.noreply.github.com>
  * @author AIZAWA Hina <hina@bouhime.com>
  */
 
@@ -20,11 +21,13 @@ return [
     'Brellas' => '',
     'Brushes' => 'Épinceau',
     'Carbon Roller' => 'Rouleau carbone',
+    'Carbon Roller Deco' => 'Rouleau carbone chic',
     'Chargers' => 'Fusil',
     'Clash Blaster' => 'Rafablaster',
     'Clash Blaster Neo' => 'Rafablaster Néo',
     'Classic Squiffer' => 'Décap\'express Alpha',
     'Custom Blaster' => 'Éclablaster modifié',
+    'Custom Dualie Squelchers' => 'Double nettoyeur modifié',
     'Custom E-liter 4K' => 'Extraceur + modifié',
     'Custom E-liter 4K Scope' => 'Extraceur + zoom modifié',
     'Custom Goo Tuber' => 'Détubeur modifié',
@@ -85,6 +88,7 @@ return [
     'Rapid Blaster' => 'Turboblaster',
     'Rapid Blaster Deco' => 'Turboblaster chic',
     'Rapid Blaster Pro' => 'Turboblaster pro',
+    'Rapid Blaster Pro Deco' => 'Turboblaster pro chic',
     'Rollers' => 'Rouleau',
     'Shooters' => 'Lanceur',
     'Slosher' => 'Seauceur',
@@ -110,5 +114,6 @@ return [
     'Tri-Slosher' => 'Dépoteur',
     'Tri-Slosher Nouveau' => 'Dépoteur nuancé',
     'Undercover Brella' => 'Para-encre espion',
+    'Undercover Sorella Brella' => 'Para-encre espion Sorella',
     'Zink Mini Splatling' => 'Badigeonneur XS griffé',
 ];
