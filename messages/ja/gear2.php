@@ -91,6 +91,7 @@ return [
     'Camo Zip Hoodie' => 'ジップアップ カモ',
     'Camping Hat' => 'キャンプハット',
     'Canary Trainers' => 'カナリアビーンズ',
+    'Cap of Legend' => 'レジェンドのぼうし',
     'Carnivore Tee' => 'ニクショクT',
     'Cherry Kicks' => 'ラバーソール チェリー',
     'Chili Octo Aloha' => '',

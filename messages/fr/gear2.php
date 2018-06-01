@@ -92,6 +92,7 @@ return [
     'Camo Zip Hoodie' => '',
     'Camping Hat' => 'Chapeau de camping',
     'Canary Trainers' => '',
+    'Cap of Legend' => '',
     'Carnivore Tee' => 'T-shirt prédateur',
     'Cherry Kicks' => '',
     'Chili Octo Aloha' => '',
