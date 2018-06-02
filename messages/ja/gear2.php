@@ -449,7 +449,7 @@ return [
     'Trail Boots' => 'トレッキングライト',
     'Treasure Hunter' => 'トレジャーメット',
     'Tricolor Rugby' => 'トリコロール ラガー',
-    'Truffle Canvas Hi-Tops' => '',
+    'Truffle Canvas Hi-Tops' => 'キャンバスHi トリュフ',
     'Tulip Parasol' => 'パラソルチューリップ',
     'Tumeric Zekko Coat' => 'エゾッココーチ ウコン',
     'Turquoise Kicks' => 'ラバーソール ターコイズ',
