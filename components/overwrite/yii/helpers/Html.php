@@ -17,8 +17,8 @@ class Html extends BaseHtml
     public static function linkInkipedia(
         string $text,
         string $page,
-        array $options = []) : string
-    {
+        array $options = []
+    ) : string {
         return static::a(
             $text,
             sprintf(

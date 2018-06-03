@@ -102,7 +102,9 @@ class ChangeLangDropdown extends Widget
                                                 case SupportLevel::PARTIAL:
                                                     return Html::tag(
                                                         'span',
-                                                        Html::tag('span', '', ['class' => 'fas fa-fw fa-exclamation-circle']),
+                                                        Html::tag('span', '', [
+                                                            'class' => 'fas fa-fw fa-exclamation-circle',
+                                                        ]),
                                                         [
                                                             'class' => 'auto-tooltip',
                                                             'title' => 'Partially supported',
@@ -112,7 +114,9 @@ class ChangeLangDropdown extends Widget
                                                 case SupportLevel::FEW:
                                                     return Html::tag(
                                                         'span',
-                                                        Html::tag('span', '', ['class' => 'fas fa-fw fa-exclamation-triangle']),
+                                                        Html::tag('span', '', [
+                                                            'class' => 'fas fa-fw fa-exclamation-triangle',
+                                                        ]),
                                                         [
                                                             'class' => 'auto-tooltip',
                                                             'title' => 'Proper-noun only',

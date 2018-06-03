@@ -97,7 +97,8 @@ class RevisionDataController extends Controller
                 if (is_int($key)) {
                     $result[] = $indent1 . static::format($value, $indentLevel + 1) . ',';
                 } else {
-                    $result[] = $indent1 . static::format($key) . ' => ' . static::format($value, $indentLevel + 1) . ',';
+                    $result[] = $indent1 . static::format($key) . ' => ' .
+                        static::format($value, $indentLevel + 1) . ',';
                 }
             }
             $result[] = $indent . ']';

@@ -254,7 +254,8 @@ class BattleSummarizer
         );
         $inked = sprintf('CASE %s END', implode(' ', [
             sprintf(
-                'WHEN %s AND {{battle2}}.[[is_win]] = TRUE AND {{battle2}}.[[rule_id]] = %d THEN {{battle2}}.[[my_point]] - 1000',
+                'WHEN %s AND {{battle2}}.[[is_win]] = TRUE AND {{battle2}}.[[rule_id]] = %d ' .
+                    'THEN {{battle2}}.[[my_point]] - 1000',
                 implode(' AND ', [$condInkedPresent]),
                 $turfWarId
             ),
@@ -266,7 +267,8 @@ class BattleSummarizer
         ]));
         $column_total_inked = sprintf('SUM(CASE %s END)', implode(' ', [
             sprintf(
-                'WHEN %s AND {{battle2}}.[[is_win]] = TRUE AND {{battle2}}.[[rule_id]] = %d THEN {{battle2}}.[[my_point]] - 1000',
+                'WHEN %s AND {{battle2}}.[[is_win]] = TRUE AND {{battle2}}.[[rule_id]] = %d ' .
+                    'THEN {{battle2}}.[[my_point]] - 1000',
                 implode(' AND ', [$condInkedPresent]),
                 $turfWarId
             ),
