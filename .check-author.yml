@@ -1,2 +1,8 @@
 mapping:
     "AIZAWA, Hina <hina@bouhime.com>": "AIZAWA Hina <hina@bouhime.com>"
+    "Unknown <wkoichi@gmail.com>": "wkoichi <wkoichi@gmail.com>"
+
+copy-left:
+    "clovervidia <clovervidia@gmail.com>":
+        - "messages/en-GB/weapon-short.php"
+        - "messages/en/weapon-short.php"
