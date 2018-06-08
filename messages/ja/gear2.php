@@ -351,6 +351,7 @@ return [
     'Rodeo Shirt' => 'イカスタンシャツ',
     'Round-Collar Shirt' => 'マルエリシャツ',
     'SV925 Circle Shades' => 'マルサンSV925',
+    'SWC Logo Tee' => 'SWCロゴT',
     'Safari Hat' => 'ロブスターブーニー',
     'Sage Polo' => 'よもぎポロ',
     'Sailor-Stripe Tee' => 'マリンボーダー',

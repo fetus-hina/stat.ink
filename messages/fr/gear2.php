@@ -430,6 +430,7 @@ return [
     'Sun & Shade Squidkid IV' => '',
     'Sun Visor' => '',
     'SV925 Circle Shades' => '',
+    'SWC Logo Tee' => '',
     'Swim Goggles' => '',
     'Takoroka Crazy Baseball LS' => '',
     'Takoroka Galactic Tie Dye' => '',

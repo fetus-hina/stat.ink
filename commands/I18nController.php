@@ -149,6 +149,7 @@ class I18nController extends Controller
 
         $authorMap = [
             'AIZAWA, Hina <hina@bouhime.com>' => 'AIZAWA Hina <hina@bouhime.com>',
+            'Unknown <wkoichi@gmail.com>' => 'wkoichi <wkoichi@gmail.com>',
         ];
         $list = array_unique(
             array_map(
