@@ -1,14 +1,12 @@
 <?php
 use app\assets\AppAsset;
 use app\assets\BootstrapNotifyAsset;
-use app\assets\TlsTestJsAsset;
 use app\components\helpers\I18n;
 use cybercog\yii\googleanalytics\widgets\GATracking;
 use yii\helpers\Html;
 use yii\helpers\Json;
 
 AppAsset::register($this);
-TlsTestJsAsset::register($this);
 
 $_flashes = Yii::$app->getSession()->getAllFlashes();
 if ($_flashes) {

@@ -1,7 +1,6 @@
 <?php
 use app\assets\CounterAsset;
 use app\assets\PaintballAsset;
-use app\assets\TlsTestJsAsset;
 use app\components\helpers\CombinedBattles;
 use app\components\widgets\ChangeLangDropdown;
 use app\components\widgets\SnsWidget;
@@ -55,37 +54,6 @@ PaintballAsset::register($this);
       ['class' => 'nobr']
     ) . "\n" ?>
   </p>
-<?php if ($enableAnniversary): ?>
-<?php $_emoji = Html::tag(
-  'span',
-  Html::encode(
-    mb_convert_encoding(hex2bin('0001F382'), 'UTF-8', 'UTF-32BE')
-  ),
-  ['class' => 'emoji']
-) ?>
-  <p class="text-center" style="font-size:150%">
-    <?= implode(' ', [
-      $_emoji,
-      sprintf(
-        'stat.ink: Happy Anniversary! %s',
-        (function () {
-          $locale = Yii::$app->language;
-          $dateFormat = (new IntlDateFormatter($locale, IntlDateFormatter::SHORT, IntlDateFormatter::NONE))->getPattern();
-          $dateFormat = preg_replace('!yy(?:yy)?!', '', $dateFormat);
-          $dateFormat = preg_replace('/^[^a-zA-Z]+/', '', $dateFormat);
-          $dateFormat = preg_replace('/[^a-zA-Z]+$/', '', $dateFormat);
-          $formatter = new IntlDateFormatter($locale, IntlDateFormatter::NONE, IntlDateFormatter::NONE, null, null, $dateFormat);
-          return $formatter->format(
-            (new DateTimeImmutable())
-              ->setTimeZone(new DateTimeZone(Yii::$app->timeZone))
-              ->setDate(2015, 9, 25)
-          );
-        })()
-      ),
-      $_emoji,
-    ]) . "\n" ?>
-  </p>
-<?php endif; ?>
   <div class="row">
     <div class="col-xs-12 col-sm-6 col-md-8 col-lg-9">
       <h1 class="paintball" style="font-size:42px;margin-top:0">
@@ -149,28 +117,6 @@ PaintballAsset::register($this);
       <a href="https://github.com/fetus-hina/stat.ink/wiki/Translation">We need your support!</a>
     </p>
 <?php endif; ?>
-  <div class="bg-danger" style="padding:15px;border-radius:10px">
-    <style scope>
-      #tlstest-badge svg {
-        vertical-align: bottom;
-      }
-    </style>
-    <p>
-<?php TlsTestJsAsset::register($this) ?>
-<?php if (Yii::$app->language === 'ja-JP'): ?>
-      stat.ink では、5/7 22時ころにセキュリティの強化のため、TLS 1.0, TLS 1.1 の無効化を実施しました。<br>
-      ほとんどの環境ではこの変更による影響はありませんが、一部の古い環境をご利用の場合アクセスできません。<br>
-      <br>
-      また、Mac OS + splatenet2statink の一部の環境が、ご利用の環境が古いためご利用いただけなくなっていることがわかっています。<a href="https://blog.fetus.jp/201804/827.html">Mac OS X と splatnet2statink を組み合わせて利用している場合はこちらをお読みください。</a>
-<?php else: ?>
-      We have stopped the TLS 1.0 and TLS 1.1 endpoints for security reasons. (@ <?= Html::encode(Yii::$app->formatter->asDateTime('2018-05-07T22:00:00+09:00', 'short')) ?>)<br>
-      Most environments are not affected by this change.<br>
-      <br>
-      If you are using Mac OS + splatnet2statink and you can not submit a battle suddenly, your environment may not be compatible.<br>
-      <a href="https://blog.fetus.jp/201804/827.html">Please read this blog entry (Japanese) if you using splatnet2statink on Mac OS X</a>.<br>
-      (Simply: Update OpenSSL in your environment and rebuild packages that depend on it.)
-<?php endif ?>
-  </div>
   <p>
     <?= implode(' | ', [
       Yii::$app->user->isGuest

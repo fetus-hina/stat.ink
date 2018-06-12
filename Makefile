@@ -67,7 +67,6 @@ RESOURCE_TARGETS_MAIN := \
 	resources/.compiled/stat.ink/sortable-table.js \
 	resources/.compiled/stat.ink/summary-legends.png \
 	resources/.compiled/stat.ink/swipebox-runner.js \
-	resources/.compiled/stat.ink/tlstest.js \
 	resources/.compiled/stat.ink/user-miniinfo.css \
 	resources/.compiled/stat.ink/user-stat-2-nawabari-inked.js \
 	resources/.compiled/stat.ink/user-stat-2-nawabari-runner.js \
@@ -321,9 +320,6 @@ resources/.compiled/stat.ink/battle-summary-dialog.js: resources/stat.ink/battle
 
 resources/.compiled/stat.ink/battle-summary-dialog.css: resources/stat.ink/battle-summary-dialog.less $(GULP)
 	$(GULP) less --in $< --out $@
-
-resources/.compiled/stat.ink/tlstest.js: resources/stat.ink/tlstest.es $(GULP)
-	$(GULP) js --in $< --out $@
 
 resources/.compiled/stat.ink/permalink-dialog.js: resources/stat.ink/permalink-dialog.es $(GULP)
 	$(GULP) js --in $< --out $@
