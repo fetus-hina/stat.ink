@@ -51,9 +51,9 @@ class EditIconAction extends BaseAction
                                 [['image'], 'required', 'message' => 'Please upload a file.'],
                                 [['image'], 'image',
                                     'extensions' => ['png', 'jpg'],
-                                    'maxSize' => 1024 * 1024,
-                                    'maxWidth' => 1000,
-                                    'maxHeight' => 1000,
+                                    'maxSize' => 2 * 1024 * 1024,
+                                    'maxWidth' => 2000,
+                                    'maxHeight' => 2000,
                                 ],
                             ]
                         );

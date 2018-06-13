@@ -71,12 +71,12 @@ $this->title = implode(' | ', [
             <ul>
               <li>
                 <?= Html::encode(
-                  Yii::t('app', 'PNG/JPEG file up to {0}', ['1 MiB'])
+                  Yii::t('app', 'PNG/JPEG file up to {0}', ['2 MiB'])
                 ) . "\n" ?>
               </li>
               <li>
                 <?= Html::encode(
-                  Yii::t('app', '{0}×{1} or less resolution', [1000, 1000])
+                  Yii::t('app', '{0}×{1} or less resolution', [2000, 2000])
                 ) . "\n" ?>
               </li>
             </ul>
