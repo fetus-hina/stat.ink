@@ -3,7 +3,7 @@
  * @copyright Copyright (C) 2015-2018 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
- * @author wkoichi <wkoichi@gmail.com>
+ * @author Koichi Watanabe <wkoichi@gmail.com>
  */
 
 return [
@@ -104,6 +104,7 @@ return [
     'Chocolate Dakroniks' => 'デカロニックチョコレート',
     'Classic Straw Boater' => 'イカンカン クラシック',
     'Clownfish Basics' => 'キャンバス クマノミ',
+    'Conductor Cap' => '',
     'Crazy Arrows' => 'クレイジーアローズ',
     'Cream Basics' => 'キャンバス ホワイト',
     'Cream Hi-Tops' => 'キャンバスHi マッシュルーム',
@@ -155,6 +156,7 @@ return [
     'Garden Gear' => 'マクレGT',
     'Gas Mask' => 'タコマスク',
     'Gold Hi-Horses' => 'シーホースHi ゴールド',
+    'Golden Toothpick' => '',
     'Golf Visor' => 'キャディ サンバイザー',
     'Grape Hoodie' => 'キングパーカーグレープ',
     'Grape Tee' => 'グレープT',
@@ -263,11 +265,16 @@ return [
     'Navy Red-Soled Wingtips' => 'ネイビーチップ レッドソール',
     'Navy Striped LS' => 'ボーダーネイビー',
     'Negative Longcuff Sweater' => 'ドロップスウェット ネガ',
+    'Neo Octoling Armor' => '',
+    'Neo Octoling Boots' => '',
     'Neon Delta Straps' => 'デルタストラップ ネオン',
     'Neon Sea Slugs' => 'ウミウシ イエロー',
     'New-Leaf Leather Boots' => 'シンリョクレザーブーツ',
     'Noise Cancelers' => 'イヤーマフ',
     'Non-slip Senseis' => 'ノンスリップタクミ',
+    'Null Armor Replica' => '',
+    'Null Boots Replica' => '',
+    'Null Visor Replica' => '',
     'Oceanic Hard Hat' => 'オーシャンズヘルム',
     'Octarian Retro' => 'オクタリアンレトロ',
     'Octo Layered LS' => 'オクトガサネ',
@@ -277,6 +284,11 @@ return [
     'Octoglasses' => 'オクタグラス',
     'Octoking Facemask' => 'キングタコスターマスク',
     'Octoking HK Jersey' => 'キングオクトHKシャツ',
+    'Octoleet Armor' => '',
+    'Octoleet Boots' => '',
+    'Octoling Shades' => '',
+    'Old-Timey Hat' => '',
+    'Old-Timey Shoes' => '',
     'Olive Ski Jacket' => 'マウンテンオリーブ',
     'Olive Zekko Parka' => 'エゾッコパーカー ウグイス',
     'Orange Arrows' => 'オレンジアローズ',
