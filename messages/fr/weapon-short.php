@@ -99,6 +99,7 @@ return [
     'Nettoyeur duo modifié' => '',
     'Nettoyeur XL' => '',
     'Nettoyeur XL modifié' => '',
+    'Octo Shot Replica' => '',
     'Para-encre' => '',
     'Para-encre espion' => '',
     'Para-encre espion Sorella' => '',

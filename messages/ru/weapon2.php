@@ -83,6 +83,7 @@ return [
     'N-ZAP \'89' => 'N-ZAP 89',
     'Octobrush' => 'Арт-кисть',
     'Octobrush Nouveau' => 'Арт-кисть «НуВо»',
+    'Octo Shot Replica' => '',
     'Range Blaster' => 'Дальнобластер',
     'Rapid Blaster' => 'Бластермат',
     'Rapid Blaster Deco' => 'Бластермат «Деко»',

@@ -83,6 +83,7 @@ return [
     'N-ZAP \'89' => 'N-ZAP89',
     'Octobrush' => 'Tinturicchio',
     'Octobrush Nouveau' => 'Tinturicchio master',
+    'Octo Shot Replica' => '',
     'Range Blaster' => 'Blaster a distanza',
     'Rapid Blaster' => 'Blaster rapido',
     'Rapid Blaster Deco' => 'Blaster rapido DX',

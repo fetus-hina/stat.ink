@@ -95,6 +95,7 @@ return [
     'Neo Splash-o-matic' => 'Neo Splash',
     'Neo Sploosh-o-matic' => 'Neo Sploosh',
     'New Squiffer' => 'New Squiffer',
+    'Octo Shot Replica' => '',
     'Octobrush' => 'Octo',
     'Octobrush Nouveau' => 'Octo Nouveau',
     'Octoshot Replica' => 'Octoshot',

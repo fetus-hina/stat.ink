@@ -84,6 +84,7 @@ return [
     'N-ZAP \'89' => 'N-ZAP 89',
     'Octobrush' => 'Épinceau brosse',
     'Octobrush Nouveau' => 'Épinceau brosse nuancé',
+    'Octo Shot Replica' => '',
     'Range Blaster' => 'Éclablaster XL',
     'Rapid Blaster' => 'Turboblaster',
     'Rapid Blaster Deco' => 'Turboblaster chic',

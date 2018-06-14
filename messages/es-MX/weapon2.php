@@ -84,6 +84,7 @@ return [
     'N-ZAP \'89' => '',
     'Octobrush' => 'Pincel caligrafía',
     'Octobrush Nouveau' => 'Pincel caligrafía maestro',
+    'Octo Shot Replica' => '',
     'Range Blaster' => 'Telelanzamotas',
     'Rapid Blaster' => 'Turbolanzamotas',
     'Rapid Blaster Deco' => 'Turbolanzamotas chic',

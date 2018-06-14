@@ -83,6 +83,7 @@ return [
     'N-ZAP \'89' => 'N-ZAP89',
     'Octobrush' => 'Kalligraf',
     'Octobrush Nouveau' => 'Kalligraf Fresco',
+    'Octo Shot Replica' => '',
     'Range Blaster' => 'Fern-Blaster',
     'Rapid Blaster' => 'Turbo-Blaster',
     'Rapid Blaster Deco' => 'Turbo-Blaster Deko',

@@ -103,6 +103,7 @@ return [
     'Neo Splash-o-matic' => '',
     'Neo Sploosh-o-matic' => '',
     'New Squiffer' => '',
+    'Octo Shot Replica' => '',
     'Octobrush' => '',
     'Octobrush Nouveau' => '',
     'Octoshot Replica' => '',

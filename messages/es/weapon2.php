@@ -83,6 +83,7 @@ return [
     'N-ZAP \'89' => 'N-ZAP 89',
     'Octobrush' => 'Brocha',
     'Octobrush Nouveau' => 'Brocha maestra',
+    'Octo Shot Replica' => '',
     'Range Blaster' => 'Teledevastador',
     'Rapid Blaster' => 'Devastador exprés',
     'Rapid Blaster Deco' => 'Devastador exprés DX',

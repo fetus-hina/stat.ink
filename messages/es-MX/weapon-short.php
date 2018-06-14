@@ -78,6 +78,7 @@ return [
     'N-ZAP 83' => '',
     'N-ZAP 85' => '',
     'N-ZAP 89' => '',
+    'Octo Shot Replica' => '',
     'Paratintas' => '',
     'Paratintas B' => '',
     'Paratintas clásico' => '',

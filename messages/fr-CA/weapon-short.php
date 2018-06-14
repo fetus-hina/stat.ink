@@ -86,6 +86,7 @@ return [
     'N-ZAP 89' => '',
     'Nettoyeur double' => '',
     'Nettoyeur double modifié' => '',
+    'Octo Shot Replica' => '',
     'Para-encre' => '',
     'Para-encre espion' => '',
     'Para-encre espion Sorella' => '',
