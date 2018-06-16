@@ -104,7 +104,7 @@ return [
     'Chocolate Dakroniks' => 'デカロニックチョコレート',
     'Classic Straw Boater' => 'イカンカン クラシック',
     'Clownfish Basics' => 'キャンバス クマノミ',
-    'Conductor Cap' => '',
+    'Conductor Cap' => 'メトロぼう',
     'Crazy Arrows' => 'クレイジーアローズ',
     'Cream Basics' => 'キャンバス ホワイト',
     'Cream Hi-Tops' => 'キャンバスHi マッシュルーム',
