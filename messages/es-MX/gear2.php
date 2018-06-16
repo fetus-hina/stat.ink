@@ -289,6 +289,7 @@ return [
     'Octoling Shades' => '',
     'Octo Tackle Helmet Deco' => '',
     'Octo Tee' => '',
+    'Old-Timey Clothes' => '',
     'Old-Timey Hat' => '',
     'Old-Timey Shoes' => '',
     'Olive Ski Jacket' => '',

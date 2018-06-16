@@ -289,6 +289,7 @@ return [
     'Octoleet Boots' => '',
     'Octoleet Goggles' => '',
     'Octoling Shades' => 'タコゾネスサングラス',
+    'Old-Timey Clothes' => 'グランパなフク',
     'Old-Timey Hat' => 'グランパなアタマ',
     'Old-Timey Shoes' => 'グランパなクツ',
     'Olive Ski Jacket' => 'マウンテンオリーブ',
