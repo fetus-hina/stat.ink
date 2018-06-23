@@ -34,6 +34,8 @@ RESOURCE_TARGETS_MAIN := \
 	resources/.compiled/gh-fork-ribbon/gh-fork-ribbon.css \
 	resources/.compiled/gh-fork-ribbon/gh-fork-ribbon.js \
 	resources/.compiled/ip-version/badge.css \
+	resources/.compiled/irasutoya/inkling.png \
+	resources/.compiled/irasutoya/octoling.png \
 	resources/.compiled/ostatus/ostatus.min.svg \
 	resources/.compiled/ostatus/ostatus.min.svg.br \
 	resources/.compiled/ostatus/ostatus.min.svg.gz \
@@ -478,6 +480,14 @@ resources/.compiled/app-link-logos/inkipedia.png: resources/app-link-logos/inkip
 
 resources/app-link-logos/inkipedia.ico:
 	curl -o $@ $(shell php resources/app-link-logos/favicon.php 'https://splatoonwiki.org/')
+
+resources/.compiled/irasutoya/inkling.png: resources/irasutoya/inkling.png
+	mkdir -p resources/.compiled/irasutoya
+	pngcrush -rem allb -l 9 $< $@
+
+resources/.compiled/irasutoya/octoling.png: resources/irasutoya/octoling.png
+	mkdir -p resources/.compiled/irasutoya
+	pngcrush -rem allb -l 9 $< $@
 
 migrate-db: vendor config/db.php
 	./yii migrate/up --interactive=0
