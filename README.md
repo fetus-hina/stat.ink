@@ -54,19 +54,19 @@ https://stat.ink/ works with:
   - [Brotli](https://github.com/google/brotli)
 - [Remi's RPM repository](http://rpms.famillecollet.com/)
   - `remi-safe` repository, it uses SCL mechanism
-      - PHP 7.1.*
-          - `php71-php-cli`
-          - `php71-php-fpm`
-          - `php71-php-gd`
-          - `php71-php-intl`
-          - `php71-php-mbstring`
-          - `php71-php-mcrypt`
-          - `php71-php-pdo`
-          - `php71-php-pecl-gearman`
-          - `php71-php-pecl-msgpack`
-          - `php71-php-pgsql`
+      - PHP 7.2.*
+          - `php72-php-cli`
+          - `php72-php-fpm`
+          - `php72-php-gd`
+          - `php72-php-intl`
+          - `php72-php-mbstring`
+          - `php72-php-mcrypt`
+          - `php72-php-pdo`
+          - `php72-php-pecl-gearman`
+          - `php72-php-pecl-msgpack`
+          - `php72-php-pgsql`
 * [Node.js Repository](https://nodejs.org/en/download/package-manager/#enterprise-linux-and-fedora)
-    - [Node.js](https://nodejs.org/) 7.x
+    - [Node.js](https://nodejs.org/)
         - `nodejs`
 * [PostgreSQL Official Repository](https://www.postgresql.org/download/linux/redhat/)
     - PostgreSQL 10.x
