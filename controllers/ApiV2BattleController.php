@@ -233,6 +233,7 @@ class ApiV2BattleController extends Controller
                 'rankAfter',
                 'rankAfter.group',
                 'rule',
+                'species',
                 'splatnetJson',
                 'user',
                 'user.env',
@@ -246,6 +247,15 @@ class ApiV2BattleController extends Controller
                 'weapon.type.category',
                 // }}}
             ]);
+
+            foreach (['headgear', 'clothing', 'shoes'] as $_) {
+                $query->with([
+                    $_,
+                    "{$_}.primaryAbility",
+                    "{$_}.secondaries",
+                    "{$_}.secondaries.ability",
+                ]);
+            }
         }
 
         if ($user) {

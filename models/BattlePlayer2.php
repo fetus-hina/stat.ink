@@ -30,6 +30,7 @@ use yii\db\ActiveRecord;
  * @property integer $point
  * @property integer $my_kill
  * @property string $name
+ * @property integer $species_id
  * @property integer $gender_id
  * @property integer $fest_title_id
  * @property string $splatnet_id
@@ -67,7 +68,7 @@ class BattlePlayer2 extends ActiveRecord
     {
         return [
             [['battle_id', 'is_my_team', 'is_me'], 'required'],
-            [['battle_id', 'weapon_id', 'rank_id', 'gender_id', 'fest_title_id', 'star_rank'], 'integer'],
+            [['battle_id', 'weapon_id', 'rank_id', 'species_id', 'gender_id', 'fest_title_id', 'star_rank'], 'integer'],
             [['level'], 'integer', 'min' => 1, 'max' => 99],
             [['rank_in_team'], 'integer', 'min' => 1, 'max' => 4],
             [['kill', 'death', 'my_kill'], 'integer', 'min' => 0],
@@ -88,6 +89,10 @@ class BattlePlayer2 extends ActiveRecord
             [['rank_id'], 'exist', 'skipOnError' => true,
                 'targetClass' => Rank2::class,
                 'targetAttribute' => ['rank_id' => 'id'],
+            ],
+            [['species_id'], 'exist', 'skipOnError' => true,
+                'targetClass' => Species2::class,
+                'targetAttribute' => ['species_id' => 'id'],
             ],
             [['gender_id'], 'exist', 'skipOnError' => true,
                 'targetClass' => Gender::class,
@@ -123,6 +128,7 @@ class BattlePlayer2 extends ActiveRecord
             'my_kill' => 'My Kill',
             'name' => 'Name',
             'gender_id' => 'Gender',
+            'species_id' => 'Species',
             'fest_title_id' => 'Fest Title',
             'splatnet_id' => 'SplatNet ID',
             'top_500' => 'Is Top 500',
@@ -156,6 +162,11 @@ class BattlePlayer2 extends ActiveRecord
     public function getGender()
     {
         return $this->hasOne(Gender::class, ['id' => 'gender_id']);
+    }
+
+    public function getSpecies()
+    {
+        return $this->hasOne(Species2::class, ['id' => 'species_id']);
     }
 
     public function getFestTitle()
@@ -294,6 +305,7 @@ class BattlePlayer2 extends ActiveRecord
             'my_kill'       => (string)$this->my_kill === '' ? null : (int)$this->my_kill,
             'point'         => (string)$this->point === '' ? null : (int)$this->point,
             'name'          => (string)$this->name === '' ? null : $this->name,
+            'species'       => $this->species_id ? $this->species->toJsonArray() : null,
             'gender'        => $this->gender_id ? $this->gender->toJsonArray() : null,
             'fest_title'    => $this->fest_title_id
                 ? $this->festTitle->toJsonArray(

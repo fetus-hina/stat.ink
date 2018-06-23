@@ -2,8 +2,8 @@
 /**
  * @copyright Copyright (C) 2015-2018 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
- * @author AIZAWA Hina <hina@bouhime.com>
  * @author 7185 <7185@users.noreply.github.com>
+ * @author AIZAWA Hina <hina@bouhime.com>
  */
 
 return [
@@ -218,6 +218,7 @@ return [
     'Inked/min' => '',
     'Inking Performance' => '',
     'Inking Performance vs Win %' => '',
+    'Inkling' => '',
     'Input new battle results' => '',
     'In session' => '',
     'Integrate' => '',
@@ -326,6 +327,7 @@ return [
     'Note: You can change the time zone via the navbar.' => '',
     '{number, plural, =1{1 death} other{# deaths}} in {battle, plural, =1{1 battle} other{# battles}}' => '',
     '{number, plural, =1{1 kill} other{# kills}} in {battle, plural, =1{1 battle} other{# battles}}' => '',
+    'Octoling' => '',
     'Official Twitter' => '',
     'Open Source Licenses' => '',
     'Others' => '',
@@ -414,6 +416,7 @@ return [
     'Special Charged' => '',
     'Specials' => '',
     'Specials/min' => '',
+    'Species' => '',
     'Specify Period' => '',
     'Splatfest' => '',
     'Splatfest Power' => '',

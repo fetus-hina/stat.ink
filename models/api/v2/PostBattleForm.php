@@ -32,6 +32,7 @@ use app\models\Map2;
 use app\models\Mode2;
 use app\models\Rank2;
 use app\models\Rule2;
+use app\models\Species2;
 use app\models\Splatfest2Theme;
 use app\models\SplatoonVersion2;
 use app\models\User;
@@ -86,6 +87,7 @@ class PostBattleForm extends Model
     public $his_team_count;
     public $my_team_id;
     public $his_team_id;
+    public $species;
     public $gender;
     public $fest_title;
     public $fest_exp;
@@ -250,6 +252,10 @@ class PostBattleForm extends Model
                 'max' => 100.0,
             ],
             [['my_team_count', 'his_team_count'], 'integer', 'min' => 0, 'max' => 100],
+            [['species'], 'exist', 'skipOnError' => true,
+                'targetClass' => Species2::class,
+                'targetAttribute' => 'key',
+            ],
             [['gender'], 'in', 'range' => ['boy', 'girl']],
             [['fest_title', 'fest_title_after'], 'string'],
             [['fest_title', 'fest_title_after'], 'exist', 'skipOnError' => true,
@@ -436,6 +442,7 @@ class PostBattleForm extends Model
         $battle->his_team_count = $intval($this->his_team_count);
         $battle->my_team_id     = $this->my_team_id;
         $battle->his_team_id    = $this->his_team_id;
+        $battle->species_id     = $key2id($this->species, Species2::class);
         $battle->gender_id      = (function ($v) : ?int {
             switch (trim((string)$v)) {
                 case 'boy':
@@ -562,6 +569,10 @@ class PostBattleForm extends Model
                     ? null
                     : Rank2::findOne(['key' => $form->rank]);
 
+                $species = ($form->species == '')
+                    ? null
+                    : Species2::findOne(['key' => $form->species]);
+
                 $gender = (function ($v) {
                     switch (trim((string)$v)) {
                         case 'boy':
@@ -604,6 +615,7 @@ class PostBattleForm extends Model
                     'point'         => $form->point,
                     'my_kill'       => $form->my_kill,
                     'name'          => $form->name,
+                    'species_id'    => $species->id ?? null,
                     'gender_id'     => $gender,
                     'fest_title_id' => $festTitle->id ?? null,
                     'splatnet_id'   => $form->splatnet_id,

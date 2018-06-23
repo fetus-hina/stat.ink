@@ -70,6 +70,7 @@ POST データは全体で 12MiB 以内である必要があります。
 |`his_team_count`|整数(0～100)|同様に敵チームのカウントを指定します。|
 |`my_team_id`|文字列|イカリング2(SplatNet 2)JSON中の自チームを特定するためのIDを指定します。(`tag_id` ?)|
 |`his_team_id`|文字列|同様に敵チームを特定するためのIDを指定しますが、おそらく取得できないと思います。|
+|`species`|指定文字列|イカまたはタコの種別を指定します。<br>Specify species (Inklings or Octolings)<br>`inkling` : イカ - Inklings<br>`octoling` : タコ (Octolings)|
 |`gender`|指定文字列|自分のイカの性別を指定します。この項目はフェスで使用します。<br>`boy` : ボーイ<br>`girl` : ガール|
 |`fest_title`|指定文字列|フェスの称号を指定します。|
 |`fest_exp`|整数(0～99)|フェスの経験値を指定します。「カリスマ 42/99」の 42|
@@ -556,6 +557,7 @@ Gear Ability
 |`point`|整数(0～)|そのプレーヤーのポイント(塗った面積+ボーナス)を指定します|
 |`my_kill`|整数(0～)|そのプレーヤーのデス数のうち、投稿プレーヤーが倒した数を指定します|
 |`name`|文字列(1～10文字)|そのプレーヤーの名前を指定します|
+|`species`|指定文字列|イカまたはタコの種別を指定します。<br>Specify species (Inklings or Octolings)<br>`inkling` : イカ - Inklings<br>`octoling` : タコ (Octolings)|
 |`gender`|指定文字列|そのプレーヤーの性別<br>`boy`: ボーイ<br>`girl`: ガール|
 |`fest_title`|指定文字列|そのプレーヤーのバトル中のフェス称号（指定する値は前述の通り）|
 |`top_500`|Boolean|`yes`: This player is ranked into the Top Players List<br>`no`: Not so.<br>(empty): unknown etc.|

@@ -87,6 +87,7 @@ use yii\helpers\Url;
  * @property integer $agent_id
  * @property boolean $is_automated
  * @property boolean $use_for_entire
+ * @property integer $species_id
  * @property integer $gender_id
  * @property integer $fest_title_id
  * @property integer $fest_exp
@@ -126,6 +127,7 @@ use yii\helpers\Url;
  * @property GearConfiguration2 $headgear
  * @property GearConfiguration2 $clothing
  * @property GearConfiguration2 $shoes
+ * @property Species2 $species
  */
 class Battle2 extends ActiveRecord
 {
@@ -559,7 +561,7 @@ class Battle2 extends ActiveRecord
             [['my_team_count', 'his_team_count', 'cash', 'cash_after', 'period', 'version_id', 'bonus_id'], 'integer'],
             [['env_id', 'agent_game_version_id', 'agent_id', 'remote_port', 'star_rank'], 'integer'],
             [['kill_or_assist', 'special', 'gender_id', 'fest_title_id', 'fest_title_after_id'], 'integer'],
-            [['my_team_fest_theme_id', 'his_team_fest_theme_id'], 'integer'],
+            [['my_team_fest_theme_id', 'his_team_fest_theme_id', 'species_id'], 'integer'],
             [['rank_exp', 'rank_after_exp'], 'integer', 'min' => 0, 'max' => 50],
             [['fest_exp', 'fest_exp_after'], 'integer', 'min' => 0, 'max' => 99],
             [['splatnet_number'], 'integer', 'min' => 1],
@@ -635,6 +637,10 @@ class Battle2 extends ActiveRecord
                 'targetClass' => Weapon2::class,
                 'targetAttribute' => ['weapon_id' => 'id'],
             ],
+            [['species_id'], 'exist', 'skipOnError' => true,
+                'targetClass' => Species2::class,
+                'targetAttribute' => ['species_id' => 'id'],
+            ],
             [['gender_id'], 'exist', 'skipOnError' => true,
                 'targetClass' => Gender::class,
                 'targetAttribute' => ['gender_id' => 'id'],
@@ -709,6 +715,7 @@ class Battle2 extends ActiveRecord
             'agent_id' => 'Agent ID',
             'is_automated' => 'Is Automated',
             'use_for_entire' => 'Use For Entire',
+            'species_id' => Yii::t('app', 'Species'),
             'gender_id' => 'Gender',
             'fest_title_id' => Yii::t('app', 'Splatfest Title'),
             'fest_exp' => 'Fest Exp',
@@ -771,7 +778,7 @@ class Battle2 extends ActiveRecord
     public function getBattlePlayers() : \yii\db\ActiveQuery
     {
         $query = $this->hasMany(BattlePlayer2::class, ['battle_id' => 'id'])
-            ->with(['weapon', 'weapon.type', 'weapon.subweapon', 'weapon.special'])
+            ->with(['species', 'weapon', 'weapon.type', 'weapon.subweapon', 'weapon.special'])
             ->orderBy('id');
         if (($this->rule->key ?? '') === 'nawabari') {
             $query->orderBy('[[point]] DESC NULLS LAST, [[id]] ASC');
@@ -906,6 +913,11 @@ class Battle2 extends ActiveRecord
     public function getWeapon()
     {
         return $this->hasOne(Weapon2::class, ['id' => 'weapon_id']);
+    }
+
+    public function getSpecies()
+    {
+        return $this->hasOne(Species2::class, ['id' => 'species_id']);
     }
 
     public function getGender()
@@ -1172,6 +1184,7 @@ class Battle2 extends ActiveRecord
             // ],
             'my_team_id' => $this->my_team_id,
             'his_team_id' => $this->his_team_id,
+            'species' => $this->species ? $this->species->toJsonArray() : null,
             'gender' => $this->gender ? $this->gender->toJsonArray() : null,
             'fest_title' => $this->festTitle
                 ? $this->festTitle->toJsonArray(
