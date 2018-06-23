@@ -63,6 +63,10 @@ class PostBattlePlayerForm extends Model
                     'fest_title' => [
                         'friend' => 'fiend', // issue #44
                     ],
+                    'species' => [
+                        'inklings' => 'inkling',
+                        'octolings' => 'octoling',
+                    ],
                 ],
             ],
         ];

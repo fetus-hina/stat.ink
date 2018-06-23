@@ -152,6 +152,10 @@ class PostBattleForm extends Model
                     'fest_title_after' => [
                         'friend' => 'fiend',
                     ],
+                    'species' => [
+                        'inklings' => 'inkling',
+                        'octolings' => 'octoling',
+                    ],
                 ],
             ],
         ];
