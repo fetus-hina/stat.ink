@@ -157,7 +157,7 @@ return [
     'Garden Gear' => 'マクレGT',
     'Gas Mask' => 'タコマスク',
     'Gold Hi-Horses' => 'シーホースHi ゴールド',
-    'Golden Toothpick' => '',
+    'Golden Toothpick' => '金のつまようじ',
     'Golf Visor' => 'キャディ サンバイザー',
     'Grape Hoodie' => 'キングパーカーグレープ',
     'Grape Tee' => 'グレープT',
