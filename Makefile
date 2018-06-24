@@ -483,11 +483,13 @@ resources/app-link-logos/inkipedia.ico:
 
 resources/.compiled/irasutoya/inkling.png: resources/irasutoya/inkling.png
 	mkdir -p resources/.compiled/irasutoya
-	pngcrush -rem allb -l 9 $< $@
+	convert $< -trim +repage -resize x100 -gravity center -background none -extent 100x100 $@
+	pngcrush -rem allb -l 9 -ow $@
 
 resources/.compiled/irasutoya/octoling.png: resources/irasutoya/octoling.png
 	mkdir -p resources/.compiled/irasutoya
-	pngcrush -rem allb -l 9 $< $@
+	convert $< -trim +repage -resize x100 -gravity center -background none -extent 100x100 $@
+	pngcrush -rem allb -l 9 -ow $@
 
 migrate-db: vendor config/db.php
 	./yii migrate/up --interactive=0

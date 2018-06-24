@@ -123,15 +123,24 @@ $namePart = $user
 $speciesIconInner = '';
 if ($player->species) {
     $asset = IrasutoyaAsset::register($this);
-    $speciesIconInner = $asset->img($player->species->key . '.png', [
+    $img = $asset->img($player->species->key . '.png', [
         'alt' => Yii::t('app', $player->species->name),
         'title' => Yii::t('app', $player->species->name),
         'class' => 'auto-tooltip',
         'style' => [
-            'height' => '1.2em',
+            'height' => 'calc(1.2em - 2px)',
+        ],
+    ]);
+    $speciesIconInner = Html::tag('span', $img, [
+        'style' => [
+            'display' => 'inline-block',
+            'line-height' => '1',
+            'padding' => '1px',
+            'background' => $player->species->key === 'inkling' ? '#333' : '#ddd',
+            'border-radius' => '4px',
         ],
     ]);
 }
 
 echo $namePart;
-echo "<span>{$speciesIconInner}</span>";
+echo '<span>' . $speciesIconInner . '</span>';
