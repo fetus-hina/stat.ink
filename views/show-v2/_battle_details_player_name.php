@@ -142,5 +142,14 @@ if ($player->species) {
     ]);
 }
 
-echo $namePart;
-echo '<span>' . $speciesIconInner . '</span>';
+echo Html::tag(
+    'div',
+    $namePart . '<span>' . $speciesIconInner . '</span>',
+    [
+        'style' => [
+            'display' => 'flex',
+            'align-items' => 'center',
+            'justify-content' => 'space-between',
+        ],
+    ]
+);

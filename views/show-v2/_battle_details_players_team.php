@@ -119,11 +119,6 @@ foreach ($players as $i => $player) {
           $this->render('_battle_details_player_name', compact('battle', 'player', 'teamKey')),
           [
             'class' => 'col-name',
-            'style' => [
-              'display' => 'flex',
-              'align-items' => 'center',
-              'justify-content' => 'space-between',
-            ],
           ]
         ) : '',
       Html::tag(
