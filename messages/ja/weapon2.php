@@ -88,6 +88,7 @@ return [
     'Splat Roller' => 'スプラローラー',
     // chargers -----
     'Bamboozler 14 Mk I' => '14式竹筒銃・甲',
+    'Bamboozler 14 Mk II' => '14式竹筒銃・乙',
     'Classic Squiffer' => 'スクイックリンα',
     'Custom E-liter 4K Scope' => '4Kスコープカスタム',
     'Custom E-liter 4K' => 'リッター4Kカスタム',
@@ -102,6 +103,7 @@ return [
     'Splat Charger' => 'スプラチャージャー',
     'Splatterscope' => 'スプラスコープ',
     // sloshers -----
+    'Explosher' => 'エクスプロッシャー',
     'Hero Slosher Replica' => 'ヒーロースロッシャー レプリカ',
     'Slosher Deco' => 'バケットスロッシャーデコ',
     'Slosher' => 'バケットスロッシャー',
@@ -110,6 +112,7 @@ return [
     'Tri-Slosher Nouveau' => 'ヒッセン・ヒュー',
     'Tri-Slosher' => 'ヒッセン',
     // splatlings ----
+    'Ballpoint Splatling' => 'クーゲルシュライバー',
     'Heavy Splatling Deco' => 'バレルスピナーデコ',
     'Heavy Splatling' => 'バレルスピナー',
     'Hero Splatling Replica' => 'ヒーロースピナー レプリカ',
@@ -121,6 +124,7 @@ return [
     'Sorella Brella' => 'パラシェルターソレーラ',
     'Splat Brella' => 'パラシェルター',
     'Tenta Brella' => 'キャンピングシェルター',
+    'Tenta Sorella Brella' => 'キャンピングシェルターソレーラ',
     'Undercover Brella' => 'スパイガジェット',
     'Undercover Sorella Brella' => 'スパイガジェットソレーラ',
 ];

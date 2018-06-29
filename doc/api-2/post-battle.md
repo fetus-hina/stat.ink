@@ -366,6 +366,7 @@ You can also send "`#` + SplatNet-Number" like `#50` as a secondary option (not 
 |`pablo`                 |`1100`                |パブロ<br>Inkbrush                                    |                                                                                                     |
 |`pablo_hue`             |`1101`                |パブロ・ヒュー<br>Inkbrush Nouveau                    |互換性のため `publo_hue` も受け付けます<br>Also accepts `publo_hue` for compatibility                |
 |`bamboo14mk1`           |`2050`                |14式竹筒銃・甲<br>Bamboozler 14 Mk I                  |                                                                                                     |
+|`bamboo14mk2`           |`2051`                |14式竹筒銃・乙<br>Bamboozler 14 Mk II                 |                                                                                                     |
 |`herocharger_replica`   |`2015`                |ヒーローチャージャー レプリカ<br>Hero Charger Replica |                                                                                                     |
 |`liter4k`               |`2030`                |リッター4K<br>E-liter 4K                              |                                                                                                     |
 |`liter4k_custom`        |`2031`                |リッター4Kカスタム<br>Custom E-liter 4K               |                                                                                                     |
@@ -381,6 +382,7 @@ You can also send "`#` + SplatNet-Number" like `#50` as a secondary option (not 
 |`squiclean_b`           |`2001`                |スクイックリンβ<br>New Squiffer                      |                                                                                                     |
 |`bucketslosher`         |`3000`                |バケットスロッシャー<br>Slosher                       |                                                                                                     |
 |`bucketslosher_deco`    |`3001`                |バケットスロッシャーデコ<br>Slosher Deco              |                                                                                                     |
+|`explosher`             |`3030`                |エクスプロッシャー<br>Explosher                       |                                                                                                     |
 |`heroslosher_replica`   |`3005`                |ヒーロースロッシャー レプリカ<br>Hero Slosher Replica |                                                                                                     |
 |`hissen`                |`3010`                |ヒッセン<br>Tri-Slosher                               |                                                                                                     |
 |`hissen_hue`            |`3011`                |ヒッセン・ヒュー<br>Tri-Slosher Nouveau               |                                                                                                     |
@@ -390,9 +392,11 @@ You can also send "`#` + SplatNet-Number" like `#50` as a secondary option (not 
 |`barrelspinner_deco`    |`4011`                |バレルスピナーデコ<br>Heavy Splatling Deco            |                                                                                                     |
 |`herospinner_replica`   |`4015`                |ヒーロースピナー レプリカ<br>Hero Splatling Replica   |                                                                                                     |
 |`hydra`                 |`4020`                |ハイドラント<br>Hydra Splatling                       |                                                                                                     |
+|`kugelschreiber`        |`4030`                |クーゲルシュライバー<br>Ballpoint Splatling           |                                                                                                     |
 |`splatspinner`          |`4000`                |スプラスピナー<br>Mini Splatling                      |                                                                                                     |
 |`splatspinner_collabo`  |`4001`                |スプラスピナーコラボ<br>Zink Mini Splatling           |                                                                                                     |
 |`campingshelter`        |`6010`                |キャンピングシェルター<br>Tenta Brella                |                                                                                                     |
+|`campingshelter_sorella`|`6011`                |キャンピングシェルターソレーラ<br>Tenta Sorella Brella|                                                                                                     |
 |`heroshelter_replica`   |`6005`                |ヒーローシェルター レプリカ<br>Hero Brella Replica    |                                                                                                     |
 |`parashelter`           |`6000`                |パラシェルター<br>Splat Brella                        |                                                                                                     |
 |`parashelter_sorella`   |`6001`                |パラシェルターソレーラ<br>Sorella Brella              |                                                                                                     |
