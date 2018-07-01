@@ -338,6 +338,7 @@ return [
     'Purple Iromaki 750s' => 'Tennis high-tech violettes',
     'Purple Sea Slugs' => '',
     'Rainy-Day Tee' => '',
+    'Record Shop Look EP' => '',
     'Red & Black Squidkid IV' => '',
     'Red-Check Shirt' => '',
     'Red Cuttlegear LS' => '',

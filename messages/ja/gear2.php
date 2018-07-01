@@ -337,6 +337,7 @@ return [
     'Purple Iromaki 750s' => 'イロマキ750 パープル',
     'Purple Sea Slugs' => 'ウミウシ パープ',
     'Rainy-Day Tee' => 'レイニーブルーT',
+    'Record Shop Look EP' => 'レコヤルックEP',
     'Red & Black Squidkid IV' => 'エギング4 アカクロ',
     'Red & White Squidkid V' => 'エギング5 シロアカ',
     'Red Cuttlegear LS' => 'タコロンT 赤',
