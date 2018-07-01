@@ -58,6 +58,7 @@ class MapImage2Controller extends Controller
             'mongara' => 'https://pbs.twimg.com/media/DbhDqsRVAAAgk3U.jpg:orig',
             'mozuku' => 'https://pbs.twimg.com/media/DJo7HTzUEAESeuF.jpg:orig',
             'mystery' => 'https://pbs.twimg.com/media/DGDTWhAUwAA4Bri.jpg:orig',
+            'otoro' => 'https://pbs.twimg.com/media/Dg09LC9V4AEpYc9.jpg:orig',
             'shottsuru' => 'https://pbs.twimg.com/media/DYPMhr4UMAAkrG5.jpg:orig',
             'sumeshi' => 'https://pbs.twimg.com/media/DYPMwDjVQAAyI2_.jpg:orig',
             'zatou' => 'https://pbs.twimg.com/media/DPKV9mCV4AExVBF.jpg:orig',
