@@ -383,7 +383,7 @@ You can also send "`#` + SplatNet-Number" like `#50` as a secondary option (not 
 |`squiclean_b`           |`2001`                |スクイックリンβ<br>New Squiffer                      |                                                                                                     |
 |`bucketslosher`         |`3000`                |バケットスロッシャー<br>Slosher                       |                                                                                                     |
 |`bucketslosher_deco`    |`3001`                |バケットスロッシャーデコ<br>Slosher Deco              |                                                                                                     |
-|`explosher`             |`3030`                |エクスプロッシャー<br>Explosher                       |                                                                                                     |
+|`explosher`             |`3040`                |エクスプロッシャー<br>Explosher                       |                                                                                                     |
 |`heroslosher_replica`   |`3005`                |ヒーロースロッシャー レプリカ<br>Hero Slosher Replica |                                                                                                     |
 |`hissen`                |`3010`                |ヒッセン<br>Tri-Slosher                               |                                                                                                     |
 |`hissen_hue`            |`3011`                |ヒッセン・ヒュー<br>Tri-Slosher Nouveau               |                                                                                                     |
