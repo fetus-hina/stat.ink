@@ -167,7 +167,7 @@ check-style: vendor
 	vendor/bin/check-author.php --php-files $(STYLE_TARGETS) messages migrations
 
 fix-style: vendor
-	vendor/bin/phpcbf --standard=PSR2 --encoding=UTF-8 $(STYLE_TARGETS)
+	vendor/bin/phpcbf --standard=PSR12 --encoding=UTF-8 $(STYLE_TARGETS)
 
 clean: clean-resource
 	rm -rf \

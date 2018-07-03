@@ -335,7 +335,7 @@ class PostBattleForm extends Model
         usort($newValues, function ($a, $b) {
             return $a->at - $b->at;
         });
-        $this->$attribute= $newValues;
+        $this->$attribute = $newValues;
     }
 
     public function validateTeamColor($attribute, $params)

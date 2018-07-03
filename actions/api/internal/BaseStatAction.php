@@ -48,11 +48,11 @@ abstract class BaseStatAction extends BaseAction
         $screenName = $request->get('screen_name');
 
         if (!is_scalar($screenName)) {
-            return ['error'=>['screen_name'=>['not found']]];
+            return ['error' => ['screen_name' => ['not found']]];
         }
 
         if (!$this->user = User::findOne(['screen_name' => $screenName])) {
-            return ['error'=>['screen_name'=>['not found']]];
+            return ['error' => ['screen_name' => ['not found']]];
         }
 
         return $this->decorate($this->makeDataOrLoadCache());
