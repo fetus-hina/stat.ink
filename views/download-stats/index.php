@@ -48,7 +48,7 @@ $this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink']);
       <div style="margin-left:2em">
         ルール等や勝敗、ブキ構成、キルデスなどが一覧になっています。<br>
         「A1」は投稿者であり、このプレーヤーを統計に含めると大きく偏ることに注意してください。<br>
-        各値の意味は<a href="https://github.com/fetus-hina/stat.ink/blob/master/doc/api-2/post-battle.md">投稿APIドキュメント</a>をなんとなく眺めて推測ください。<br>
+        <a href="https://github.com/fetus-hina/stat.ink/blob/master/doc/api-2/download-battle-csv.md">スキーマ Schema</a>
       </div>
     </li>
   </ul>
