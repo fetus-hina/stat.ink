@@ -7,6 +7,7 @@
 
 return [
     'Academy' => 'Campus Hippocampus',
+    'Ancho-V Games' => 'AcciuGames',
     'Any Stage' => '',
     'Arena' => 'Arena Sardina',
     'Arowana Mall' => 'Centro Commerciale',
@@ -16,6 +17,7 @@ return [
     'Canal' => 'Canale Cannolicchio',
     'Dome' => 'Serra di alghe',
     'Fitness' => 'Centro polpisportivo',
+    'Games' => 'AcciuGames',
     'Goby Arena' => 'Arena Sardina',
     'Hotel' => 'Hotel Tellina',
     'Humpback Pump Track' => 'Tintodromo Montecarpa',

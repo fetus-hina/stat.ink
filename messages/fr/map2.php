@@ -7,6 +7,7 @@
 
 return [
     'Academy' => 'Institut Calam\'arts',
+    'Ancho-V Games' => 'Tentatec Studio',
     'Any Stage' => '',
     'Arena' => 'Stade Bernique',
     'Arowana Mall' => 'Centre Arowana',
@@ -16,6 +17,7 @@ return [
     'Canal' => 'Canalamar',
     'Dome' => 'Serre Goémon',
     'Fitness' => 'Gymnase Ancrage',
+    'Games' => 'Tentatec Studio',
     'Goby Arena' => 'Stade Bernique',
     'Hotel' => 'Hôtel Atoll',
     'Humpback Pump Track' => 'Piste Méroule',

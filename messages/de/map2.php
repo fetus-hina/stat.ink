@@ -7,6 +7,7 @@
 
 return [
     'Academy' => 'Perlmutt-Akademie',
+    'Ancho-V Games' => 'Anchobit Games HQ',
     'Any Stage' => '',
     'Arena' => 'Backfisch-Stadion',
     'Arowana Mall' => 'Arowana Center',
@@ -16,6 +17,7 @@ return [
     'Canal' => 'Grätenkanal',
     'Dome' => 'Tümmlerkuppel',
     'Fitness' => 'Molluskelbude',
+    'Games' => 'Anchobit Games HQ',
     'Goby Arena' => 'Backfisch-Stadion',
     'Hotel' => 'Hotel Neothun',
     'Humpback Pump Track' => 'Buckelwal-Piste',

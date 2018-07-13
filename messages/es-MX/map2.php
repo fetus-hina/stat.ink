@@ -7,6 +7,7 @@
 
 return [
     'Academy' => '',
+    'Ancho-V Games' => '',
     'Any Stage' => '',
     'Arena' => '',
     'Arowana Mall' => '',
@@ -16,6 +17,7 @@ return [
     'Canal' => '',
     'Dome' => '',
     'Fitness' => '',
+    'Games' => '',
     'Goby Arena' => '',
     'Hotel' => '',
     'Humpback Pump Track' => '',

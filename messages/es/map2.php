@@ -7,6 +7,7 @@
 
 return [
     'Academy' => 'Instituto Coralino',
+    'Ancho-V Games' => 'Estudios Esturión',
     'Any Stage' => 'Cualquier Escenarios',
     'Arena' => 'Estadio Ajolote',
     'Arowana Mall' => 'Plazuela del Calamar',
@@ -16,6 +17,7 @@ return [
     'Canal' => 'Canal Cormorán',
     'Dome' => 'Jardín botánico',
     'Fitness' => 'Gimnasio Mejillón',
+    'Games' => 'Estudios Esturión',
     'Goby Arena' => 'Estadio Ajolote',
     'Hotel' => 'Gran Hotel Caviar',
     'Humpback Pump Track' => 'Tiburódromo',

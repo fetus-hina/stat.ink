@@ -7,6 +7,7 @@
 
 return [
     'Academy' => 'Koraalcampus',
+    'Ancho-V Games' => 'Ansjobit-gamestudio',
     'Any Stage' => '',
     'Arena' => 'Planktonstadion',
     'Arowana Mall' => 'Winkelcentrum',
@@ -16,6 +17,7 @@ return [
     'Canal' => 'Moeraalkanaal',
     'Dome' => 'Kelpwierkas',
     'Fitness' => 'Vinvis Fitness',
+    'Games' => 'Ansjobit-gamestudio',
     'Goby Arena' => 'Planktonstadion',
     'Hotel' => 'Hotel de Keizersvis',
     'Humpback Pump Track' => 'Lekkerbektrack',

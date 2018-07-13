@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2015-2017 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2018 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  */
@@ -8,6 +8,7 @@
 return [
     'Any Stage' => 'すべてのステージ',
 
+    'Ancho-V Games' => 'アンチョビットゲームズ',
     'Arowana Mall' => 'アロワナモール',
     'Blackbelly Skatepark' => 'Bバスパーク',
     'Camp Triggerfish' => 'モンガラキャンプ場',
@@ -37,6 +38,7 @@ return [
     'Canal' => 'エンガワ',
     'Dome' => 'モズク',
     'Fitness' => 'フジツボ',
+    'Games' => 'アンチョビ',
     'Hotel' => 'オートロ',
     'Institute' => 'デボン',
     'Mainstage' => 'ガンガゼ',
