@@ -49,16 +49,16 @@
         },
         {
             "name": "bower-asset/bowser",
-            "version": "1.9.3",
+            "version": "1.9.4",
             "source": {
                 "type": "git",
                 "url": "git@github.com:lancedikson/bowser.git",
-                "reference": "55f3736414405095f4500ddcae73013d0773aefa"
+                "reference": "1fb99ced0e8834fd9662604bad7e0f0c3eba2786"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lancedikson/bowser/zipball/55f3736414405095f4500ddcae73013d0773aefa",
-                "reference": "55f3736414405095f4500ddcae73013d0773aefa",
+                "url": "https://api.github.com/repos/lancedikson/bowser/zipball/1fb99ced0e8834fd9662604bad7e0f0c3eba2786",
+                "reference": "1fb99ced0e8834fd9662604bad7e0f0c3eba2786",
                 "shasum": null
             },
             "type": "bower-asset",
@@ -793,20 +793,20 @@
         },
         {
             "name": "himiklab/yii2-recaptcha-widget",
-            "version": "1.2.0",
+            "version": "1.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/himiklab/yii2-recaptcha-widget.git",
-                "reference": "35c9a4ae38ad20e0b4db8e9030c3744f2572dda7"
+                "reference": "cc8a023bf51db3b40f1b8532cd94fc00c532edf5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/himiklab/yii2-recaptcha-widget/zipball/35c9a4ae38ad20e0b4db8e9030c3744f2572dda7",
-                "reference": "35c9a4ae38ad20e0b4db8e9030c3744f2572dda7",
+                "url": "https://api.github.com/repos/himiklab/yii2-recaptcha-widget/zipball/cc8a023bf51db3b40f1b8532cd94fc00c532edf5",
+                "reference": "cc8a023bf51db3b40f1b8532cd94fc00c532edf5",
                 "shasum": ""
             },
             "require": {
-                "yiisoft/yii2": "*",
+                "yiisoft/yii2": "~2.0.11",
                 "yiisoft/yii2-httpclient": "*"
             },
             "type": "yii2-extension",
@@ -833,7 +833,7 @@
                 "widget",
                 "yii2"
             ],
-            "time": "2018-04-03T08:17:47+00:00"
+            "time": "2018-07-03T13:34:52+00:00"
         },
         {
             "name": "hiqdev/yii2-asset-flag-icon-css",
@@ -2174,16 +2174,16 @@
         },
         {
             "name": "yiisoft/yii2-composer",
-            "version": "2.0.6",
+            "version": "2.0.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-composer.git",
-                "reference": "163419f1f197e02f015713b0d4f85598d8f8aa80"
+                "reference": "1439e78be1218c492e6cde251ed87d3f128b9534"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-composer/zipball/163419f1f197e02f015713b0d4f85598d8f8aa80",
-                "reference": "163419f1f197e02f015713b0d4f85598d8f8aa80",
+                "url": "https://api.github.com/repos/yiisoft/yii2-composer/zipball/1439e78be1218c492e6cde251ed87d3f128b9534",
+                "reference": "1439e78be1218c492e6cde251ed87d3f128b9534",
                 "shasum": ""
             },
             "require": {
@@ -2224,7 +2224,7 @@
                 "extension installer",
                 "yii2"
             ],
-            "time": "2018-03-21T16:15:55+00:00"
+            "time": "2018-07-05T15:44:47+00:00"
         },
         {
             "name": "yiisoft/yii2-httpclient",
@@ -3325,27 +3325,27 @@
         },
         {
             "name": "phpcq/author-validation",
-            "version": "1.1.6",
+            "version": "1.1.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpcq/author-validation.git",
-                "reference": "a721d4c01c7bc69333502bf33e6e2a70d6f8b5d3"
+                "reference": "bc028a34a5f82b7d16bc02dc6f92d3261266a51b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpcq/author-validation/zipball/a721d4c01c7bc69333502bf33e6e2a70d6f8b5d3",
-                "reference": "a721d4c01c7bc69333502bf33e6e2a70d6f8b5d3",
+                "url": "https://api.github.com/repos/phpcq/author-validation/zipball/bc028a34a5f82b7d16bc02dc6f92d3261266a51b",
+                "reference": "bc028a34a5f82b7d16bc02dc6f92d3261266a51b",
                 "shasum": ""
             },
             "require": {
-                "bit3/git-php": "~1.0",
-                "php": "^5.4 | ^7.0",
-                "phpspec/php-diff": "~1.0",
-                "symfony/console": "~2.3 | ~3.0 | ~4.0",
-                "symfony/finder": "~2.3 | ~3.0 | ~4.0"
+                "bit3/git-php": "^1.0",
+                "php": "^5.4 || ^7.0",
+                "phpspec/php-diff": "^1.0",
+                "symfony/console": "^2.3 || ^3.0 || ^4.0",
+                "symfony/finder": "^2.3 || ^3.0 || ^4.0"
             },
             "require-dev": {
-                "phpcq/all-tasks": "~1.2"
+                "phpcq/all-tasks": "^1.2"
             },
             "bin": [
                 "bin/check-author.php"
@@ -3381,7 +3381,7 @@
                 }
             ],
             "description": "Check if all authors of a particular file are mentioned in the copyright header.",
-            "time": "2018-03-13T12:27:07+00:00"
+            "time": "2018-07-10T16:05:10+00:00"
         },
         {
             "name": "phpdocumentor/reflection-common",
@@ -4118,16 +4118,16 @@
         },
         {
             "name": "sebastian/comparator",
-            "version": "3.0.1",
+            "version": "3.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/comparator.git",
-                "reference": "591a30922f54656695e59b1f39501aec513403da"
+                "reference": "5de4fc177adf9bce8df98d8d141a7559d7ccf6da"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/comparator/zipball/591a30922f54656695e59b1f39501aec513403da",
-                "reference": "591a30922f54656695e59b1f39501aec513403da",
+                "url": "https://api.github.com/repos/sebastianbergmann/comparator/zipball/5de4fc177adf9bce8df98d8d141a7559d7ccf6da",
+                "reference": "5de4fc177adf9bce8df98d8d141a7559d7ccf6da",
                 "shasum": ""
             },
             "require": {
@@ -4178,7 +4178,7 @@
                 "compare",
                 "equality"
             ],
-            "time": "2018-06-14T15:05:28+00:00"
+            "time": "2018-07-12T15:12:46+00:00"
         },
         {
             "name": "sebastian/diff",
@@ -5266,12 +5266,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-gii.git",
-                "reference": "ee4d072af2788208edaed2b24b5acbc34b8631a1"
+                "reference": "60c53d399ebf12cac9b8daa1fa9d81b8b1ee9a91"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-gii/zipball/ee4d072af2788208edaed2b24b5acbc34b8631a1",
-                "reference": "ee4d072af2788208edaed2b24b5acbc34b8631a1",
+                "url": "https://api.github.com/repos/yiisoft/yii2-gii/zipball/60c53d399ebf12cac9b8daa1fa9d81b8b1ee9a91",
+                "reference": "60c53d399ebf12cac9b8daa1fa9d81b8b1ee9a91",
                 "shasum": ""
             },
             "require": {
@@ -5307,7 +5307,7 @@
                 "gii",
                 "yii2"
             ],
-            "time": "2018-06-12T19:29:12+00:00"
+            "time": "2018-07-11T19:23:16+00:00"
         }
     ],
     "aliases": [],
