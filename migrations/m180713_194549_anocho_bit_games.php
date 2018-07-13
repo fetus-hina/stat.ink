@@ -9,7 +9,6 @@ use app\components\db\Migration;
 
 class m180713_194549_anocho_bit_games extends Migration
 {
-
     public function safeUp()
     {
         $this->insert('map2', [
