@@ -68,7 +68,7 @@ use <?= $use ?>;
 
 class <?= $className ?> extends Migration
 {
-<?php if (isset($traits)) { ?>
+<?php if (isset($traits) && $traits) { ?>
 <?php foreach ($traits as $trait) { ?>
     use <?= StringHelper::basename($trait) ?>;
 <?php } ?>

@@ -54,7 +54,8 @@ $type = implode(', ', array_map(
         "}",
     ]),
     'extraCode' => implode("\n", [
-        "public function getWeapons(): array {",
+        "public function getWeapons(): array",
+        "{",
         "    // type: {$type}",
         "    // sub: {$sub}",
         "    // special: {$special}",

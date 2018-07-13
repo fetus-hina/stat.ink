@@ -41,7 +41,8 @@ $brand = implode(', ', array_map(
         "}",
     ]),
     'extraCode' => implode("\n", [
-        "public function getGears(): array {",
+        "public function getGears(): array",
+        "{",
         "    // types: headgear, clothing, shoes",
         "    // brands: {$brand}",
         "    // abilities: {$ability}",
