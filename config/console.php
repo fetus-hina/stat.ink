@@ -16,8 +16,7 @@ return [
     'controllerNamespace' => 'app\commands',
     'controllerMap' => [
         'migrate' => [
-            'class' => 'yii\console\controllers\MigrateController',
-            'templateFile' => '@app/views/migration/migration.php',
+            'class' => 'app\commands\MigrateController',
         ],
         'gearman' => [
             'class' => 'shakura\yii2\gearman\GearmanController',
