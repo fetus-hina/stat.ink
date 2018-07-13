@@ -50,6 +50,7 @@ class MapImage2Controller extends Controller
     {
         $list = [
             'ajifry' => 'https://pbs.twimg.com/media/DXLF40vUMAEQR_C.jpg:orig',
+            'anchovy' => 'https://pbs.twimg.com/media/Dh5A_61V4AA9Z5n.jpg:orig',
             'arowana' => 'https://pbs.twimg.com/media/DPSOeyvVoAAGnWL.jpg:orig',
             'bbass' => 'https://pbs.twimg.com/media/DNEAZ9cUIAAphwV.jpg:orig',
             'devon' => 'https://pbs.twimg.com/media/DPOdfAvVAAArv3f.jpg:orig',
