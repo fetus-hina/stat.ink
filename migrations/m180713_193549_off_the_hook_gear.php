@@ -26,7 +26,8 @@ class m180713_193549_off_the_hook_gear extends Migration
         }
     }
 
-    public function getGears(): array {
+    public function getGears(): array
+    {
         return [
             [
                 static::name2key('Pearlescent Crown'),
