@@ -97,8 +97,19 @@ class Slack extends \yii\db\ActiveRecord
         return $this->hasOne(User::className(), ['id' => 'user_id']);
     }
 
-    public function send(Battle $battle, bool $realSend = true) : ?string
+    public function send($battle, bool $realSend = true): ?string
     {
+        if ($battle instanceof Battle2) {
+            return $this->sendSplatoon2($battle, $realSend);
+        } elseif ($battle instanceof Battle) {
+            return $this->sendSplatoon1($battle, $realSend);
+        }
+        return null;
+    }
+
+    protected function sendSplatoon1(Battle $battle, bool $realSend = true): ?string
+    {
+        // {{{
         $lang = $this->language->lang ?? 'en-US';
         $i18n = Yii::$app->i18n;
         $formatter = Yii::$app->formatter;
@@ -187,6 +198,105 @@ class Slack extends \yii\db\ActiveRecord
                 $attachment,
             ],
         ], $realSend);
+        // }}}
+    }
+
+    protected function sendSplatoon2(Battle2 $battle, bool $realSend = true): ?string
+    {
+        // {{{
+        $lang = $this->language->lang ?? 'en-US';
+        $i18n = Yii::$app->i18n;
+        $formatter = Yii::$app->formatter;
+        $formatter->locale = $lang;
+        $formatter->timeZone = 'Etc/UTC';
+
+        $winlose = $i18n->translate(
+            'app-slack',
+            $battle->is_win === null
+                ? '???'
+                : ($battle->is_win ? 'won' : 'lost'),
+            [],
+            $lang
+        );
+        $rule = $i18n->translate(
+            'app-rule2',
+            $battle->rule->name ?? $i18n->translate('app-slack', 'unknown mode', [], $lang),
+            [],
+            $lang
+        );
+        $stage = $i18n->translate(
+            'app-map2',
+            $battle->map->name ?? $i18n->translate('app-slack', 'unknown stage', [], $lang),
+            [],
+            $lang
+        );
+        $url = Url::to(['show/battle2',
+                'screen_name' => $battle->user->screen_name,
+                'battle' => $battle->id
+            ], true
+        );
+
+        $attachment = [
+            'fallback' => $i18n->translate(
+                'app-slack',
+                '{name}: Just {winlose} {rule} at {stage}. {url}',
+                [
+                    'name'      => $battle->user->name,
+                    'winlose'   => $winlose,
+                    'rule'      => $rule,
+                    'stage'     => $stage,
+                    'url'       => $url,
+                ],
+                $lang
+            ),
+            'text' => $i18n->translate(
+                'app-slack',
+                '{name}: Just {winlose} {rule} at {stage}. <{url}|Detail>',
+                [
+                    'name'      => $battle->user->name,
+                    'winlose'   => $winlose,
+                    'rule'      => $rule,
+                    'stage'     => $stage,
+                    'url'       => $url,
+                    'id'        => $battle->id,
+                ],
+                $lang
+            ),
+            'fields' => [
+                [
+                    'title'     => $i18n->translate('app', 'Mode', [], $lang),
+                    'value'     => $rule,
+                    'short'     => true,
+                ],
+                [
+                    'title'     => $i18n->translate('app', 'Stage', [], $lang),
+                    'value'     => $stage,
+                    'short'     => true,
+                ],
+                [
+                    'title'     => $i18n->translate('app', 'Weapon', [], $lang),
+                    'value'     => $i18n->translate('app-weapon2', $battle->weapon->name ?? '???', [], $lang),
+                    'short'     => true,
+                ],
+                [
+                    'title'     => $i18n->translate('app', 'Kill / Death', [], $lang),
+                    'value'     => sprintf('%s / %s', $battle->kill ?? '?', $battle->death ?? '?'),
+                    'short'     => true,
+                ],
+            ],
+            'color' => $battle->is_win === null
+                ? '#cccccc'
+                : ($battle->is_win ? '#3969b3' : '#ec6110'),
+        ];
+        if ($battle->battleImageResult) {
+            $attachment['image_url'] = $battle->battleImageResult->url;
+        }
+        return $this->doSend([
+            'attachments' => [
+                $attachment,
+            ],
+        ], $realSend);
+        // }}}
     }
 
     public function sendTest() : bool

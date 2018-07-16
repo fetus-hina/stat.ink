@@ -11,6 +11,7 @@ use Yii;
 use app\models\Agent;
 use app\models\Battle2;
 use app\models\BattlePlayer2;
+use app\models\Slack;
 use app\models\User;
 use app\models\UserStat2;
 use yii\console\Controller;
@@ -130,5 +131,30 @@ class Battle2Controller extends Controller
         echo "OK\n";
 
         $transaction->commit();
+    }
+
+    public function actionTestSlack($id)
+    {
+        $battle = Battle2::findOne(['id' => (int)(string)$id]);
+        if (!$battle) {
+            $this->stderr("Could not find specified battle \"{$id}\"\n", Console::FG_RED);
+            return 1;
+        }
+
+        $list = Slack::find()
+            ->andWhere([
+                'user_id' => $battle->user->id,
+                'suspended' => false,
+            ])
+            ->orderBy('id')
+            ->all();
+        foreach ($list as $slack) {
+            printf(
+                "curl -v -H %s -X POST -d %s %s\n\n",
+                escapeshellarg('Content-Type: application/json'),
+                escapeshellarg($slack->send($battle, false)),
+                escapeshellarg($slack->webhook_url)
+            );
+        }
     }
 }

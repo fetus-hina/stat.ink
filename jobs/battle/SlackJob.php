@@ -12,6 +12,7 @@ use Yii;
 use app\models\Battle2;
 use app\models\Battle;
 use app\models\Slack;
+use app\models\User;
 use shakura\yii2\gearman\JobWorkload;
 
 class SlackJob extends BaseJob
@@ -24,16 +25,23 @@ class SlackJob extends BaseJob
         );
     }
 
-    public function battle1Job(Battle $battle, JobWorkload $workload, GearmanJob $job)
+    private function querySlackTask(User $user)
     {
         $query = Slack::find()
             ->with('user')
             ->andWhere([
-                'user_id' => $battle->user_id,
+                'user_id' => $user->id,
                 'suspended' => false,
             ])
             ->orderBy('id');
         foreach ($query->each() as $slack) {
+            yield $slack;
+        }
+    }
+
+    public function battle1Job(Battle $battle, JobWorkload $workload, GearmanJob $job)
+    {
+        foreach ($this->querySlackTask($battle->user) as $slack) {
             try {
                 $slack->send($battle);
             } catch (\Exception $e) {
@@ -43,6 +51,11 @@ class SlackJob extends BaseJob
 
     public function battle2Job(Battle2 $battle, JobWorkload $workload, GearmanJob $job)
     {
-        //FIXME
+        foreach ($this->querySlackTask($battle->user) as $slack) {
+            try {
+                $slack->send($battle);
+            } catch (\Exception $e) {
+            }
+        }
     }
 }
