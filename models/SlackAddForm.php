@@ -78,12 +78,36 @@ class SlackAddForm extends Model
             return;
         }
 
-        if (!preg_match('!^https://hooks.slack.com/services/!', $this->$attr)) {
-            $this->addError(
-                $attr,
-                Yii::t('yii', '{attribute} is not a valid URL.', ['attribute' => $this->getAttributeLabel($attr)])
-            );
+        $quote = function (string $regex): string {
+            return preg_quote($regex, '/');
+        };
+        $okUrls = [
+            // Slack
+            sprintf(
+                '/^%s/ui',
+                $quote('https://hooks.slack.com/services/')
+            ),
+
+            // Discord
+            sprintf('/^%s/ui', implode('', [
+                $quote('https://discordapp.com/api/webhooks/'),
+                '\d+', // snowflake
+                $quote('/'),
+                '[0-9A-Za-z_-]+',
+                $quote('/slack'),
+            ])),
+        ];
+
+        foreach ($okUrls as $regex) {
+            if (preg_match($regex, $this->$attr)) {
+                return;
+            }
         }
+
+        $this->addError(
+            $attr,
+            Yii::t('yii', '{attribute} is not a valid URL.', ['attribute' => $this->getAttributeLabel($attr)])
+        );
     }
 
     public function save(User $user)

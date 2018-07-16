@@ -24,8 +24,9 @@ $this->title = implode(' | ', [
   <?php $_ = ActiveForm::begin(['id' => 'add-form', 'action' => ['slack-add']]); echo "\n" ?>
     <?= $_->field($form, 'webhook_url')
       ->input('text', [
-        'placeholder' => 'https://hooks.slack.com/services/AAAAAAAAA/BBBBBBBBB/CCCCCCCCCCCCCCCCCCCCCCCC'
-      ]) . "\n" ?>
+        'placeholder' => 'https://hooks.slack.com/services/AAAAAAAAA/BBBBBBBBB/CCCCCCCCCCCCCCCCCCCCCCCC',
+      ])
+      ->hint('DiscordのSlack互換エンドポイントURLも指定できます。') . "\n" ?>
 
     <?= $_->field($form, 'username')
       ->hint('省略するとWebhookに設定された名前が使用されます。') . "\n" ?>
