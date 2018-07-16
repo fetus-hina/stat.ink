@@ -230,7 +230,7 @@ class Slack extends \yii\db\ActiveRecord
             [],
             $lang
         );
-        $url = Url::to(['show/battle2',
+        $url = Url::to(['show-v2/battle',
                 'screen_name' => $battle->user->screen_name,
                 'battle' => $battle->id
             ], true
