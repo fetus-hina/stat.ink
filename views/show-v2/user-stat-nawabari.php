@@ -141,7 +141,7 @@ foreach ($_query->batch(200) as $_i => $_rows) {
           'sp' => $battle->special,
           'sta' => $battle->map->key ?? null,
           'wea' => $battle->weapon->key ?? null,
-          'ver' => $battle->version->tag,
+          'ver' => $battle->version->tag ?? null,
         ];
       },
       $_rows
