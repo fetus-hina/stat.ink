@@ -3,7 +3,6 @@
  * @copyright Copyright (C) 2015-2018 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
- * @author mntone <sd8@live.jp>
  */
 
 return [
@@ -12,5 +11,5 @@ return [
     'B zone' => 'la zona B',
     'C zone' => 'la zona C',
     'S zone' => 'la zona S',
-    'X zone' => '',
+    'X zone' => 'la zona X',
 ];
