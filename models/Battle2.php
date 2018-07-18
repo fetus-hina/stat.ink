@@ -340,7 +340,7 @@ class Battle2 extends ActiveRecord
                                     ->asArray()
                                     ->column();
                             })(clone $this, $match[1])]);
-                        } elseif (preg_match('/^~v\d+/', $term)) {
+                        } elseif (preg_match('/^~?v\d+/', $term)) {
                             $versions = (function () use ($term) {
                                 $query = SplatoonVersion2::find()->asArray();
                                 if (substr($term, 0, 1) === '~') {
