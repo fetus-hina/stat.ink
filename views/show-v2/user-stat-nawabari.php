@@ -72,7 +72,7 @@ UserStat2NawabariAsset::register($this);
           <?= Html::tag('a', Html::tag('span', '', ['class' => 'fas fa-link']), [
             'href' => '#inked-' . $key,
           ]) . "\n" ?>
-          <?= Html::encode(Yii::t('app', 'Turf Inked')) ?> - <?= Html::encode($name) . "\n" ?>
+          <?= Html::encode($name) . "\n" ?>
         </h3>
         <?= Html::tag('div', '', [
           'class' => 'graph stat-inked',

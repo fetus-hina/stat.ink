@@ -1,13 +1,14 @@
 /*! Copyright (C) 2015-2018 AIZAWA Hina | MIT License */
 ($ => {
   const colorInked = window.colorScheme._accent.orange;
-  const colorWinPct = window.colorScheme._accent.blue;
+  const colorWinPct = window.colorScheme._accent.green;
+  const colorKills = window.colorScheme._accent.red;
+  const colorDeaths = window.colorScheme._accent.blue;
   
   $(() => {
     const strings = JSON.parse($('#json-strings').text());
     const data = JSON.parse($('#json-battles').text())
-      .filter(v => (v.sta !== null && v.ink !== null))
-      .map(v => [v.sta, v.ink, v.win]);
+      .filter(v => (v.sta !== null));
 
     const $containers = $('.stage-inked');
 
@@ -15,10 +16,10 @@
       const $this = $(el);
       const $graph = $('.stat-inked', $this);
       const stage = $graph.attr('data-filter');
-      const filter = stage ? (value => value[0] === stage) : (value => true);
-      const filteredData = data.filter(filter).map(v => [v[1], v[2]]);
+      const filter = stage ? (value => value.sta === stage) : (value => true);
+      const filteredData = data.filter(filter);
 
-      $graph.attr('data-data', JSON.stringify(filteredData));
+      $graph.data('data', filteredData);
       if (filteredData.length < 1) {
         $this.hide();
       }
@@ -42,11 +43,11 @@
           return;
         }
 
+        const rawData = $this.data('data');
         const data = [
           {
-            label: strings.inked.turfInked,
-            data: JSON.parse($this.attr('data-data'))
-              .map((v, i, arr) => [i - (arr.length - 1), v[0]]),
+            label: '<span class="fa fa-fw fa-angle-left"></span> ' + strings.inked.turfInked,
+            data: rawData.map((v, i, arr) => [i - (arr.length - 1), v.ink]),
             color: colorInked,
             lines: {
               show: true,
@@ -58,28 +59,78 @@
           },
         ];
         if ($this.attr('data-filter')) {
-          const winPct = (json => {
-            let battles = 0;
-            let wins = 0;
-            return json.map((v, i, arr) => {
-              if (v[1] === true || v[1] === false) {
-                ++battles;
-                if (v[1]) {
-                  ++wins;
-                }
-              }
-              return [
-                i - (arr.length - 1),
-                battles > 0 ? (wins * 100.0 / battles) : null,
-              ];
-            });
-          })(JSON.parse($this.attr('data-data')));
-
           data.push({
-            label: strings.wp.entire,
-            data: winPct,
+            label: '<span class="fa fa-fw fa-angle-double-left"></span> ' + strings.wp.entire,
+            data: (json => {
+              let battles = 0;
+              let wins = 0;
+              return json.map((v, i, arr) => {
+                if (v.win === true || v.win === false) {
+                  ++battles;
+                  if (v.win) {
+                    ++wins;
+                  }
+                }
+                return [
+                  i - (arr.length - 1),
+                  battles > 0 ? (wins * 100.0 / battles) : null,
+                ];
+              });
+            })(rawData),
             color: colorWinPct,
             yaxis: 2,
+            lines: {
+              show: true,
+              fill: false,
+            },
+            legend: {
+              show: false,
+            },
+          });
+          data.push({
+            label: '<span class="fa fa-fw fa-angle-right"></span> ' + strings.stats.avgKill,
+            data: (json => {
+              let battles = 0;
+              let total = 0;
+              return json.map((v, i, arr) => {
+                if (v.k !== null) {
+                  ++battles;
+                  total += v.k;
+                }
+                return [
+                  i - (arr.length - 1),
+                  battles > 0 ? (total / battles) : null,
+                ];
+              });
+            })(rawData),
+            color: colorKills,
+            yaxis: 3,
+            lines: {
+              show: true,
+              fill: false,
+            },
+            legend: {
+              show: false,
+            },
+          });
+          data.push({
+            label: '<span class="fa fa-fw fa-angle-right"></span> ' + strings.stats.avgDeath,
+            data: (json => {
+              let battles = 0;
+              let total = 0;
+              return json.map((v, i, arr) => {
+                if (v.d !== null) {
+                  ++battles;
+                  total += v.d;
+                }
+                return [
+                  i - (arr.length - 1),
+                  battles > 0 ? (total / battles) : null,
+                ];
+              });
+            })(rawData),
+            color: colorDeaths,
+            yaxis: 3,
             lines: {
               show: true,
               fill: false,
@@ -99,16 +150,26 @@
             {
               min: 0,
               minTickSize: 50,
+              position: 'left',
               tickFormatter: v => (v + 'p'),
             },
             {
-              min: 0,
               max: 100,
+              min: 0,
               minTickSize: 10,
-              position: 'right',
+              position: 'left',
               tickFormatter: v => (Number(v).toFixed(1) + '%'),
             },
+            {
+              min: 0,
+              minTickSize: 1,
+              position: 'right',
+              tickFormatter: v => (v + 'x'),
+            },
           ],
+          legend: {
+            position: 'nw',
+          },
         });
       });
 
