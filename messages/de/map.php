@@ -22,7 +22,7 @@ return [
     'Heights' => 'Siedlung',
     'Kelp Dome' => 'Tümmlerkuppel',
     'Mahi-Mahi' => 'Mahi-Mahi',
-    'Mahi-Mahi Resort' => 'Mahi-Mahi-Resort	',
+    'Mahi-Mahi Resort' => 'Mahi-Mahi-Resort',
     'Mall' => 'Center',
     'Moray Towers' => 'Muränentürme',
     'Museum' => 'Pinakoi',
