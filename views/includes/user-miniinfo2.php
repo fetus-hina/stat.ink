@@ -3,6 +3,7 @@ use app\assets\AppLinkAsset;
 use app\assets\UserMiniinfoAsset;
 use app\components\widgets\JdenticonWidget;
 use app\models\Rank2;
+use app\models\Rule2;
 use yii\bootstrap\Html;
 use yii\helpers\ArrayHelper;
 use yii\widgets\DetailView;
@@ -461,36 +462,60 @@ $fmt = Yii::$app->formatter;
     </div>
 <?php endif; ?>
     <div class="miniinfo-databox">
-      <?= implode('<br>', [
-        Html::a(
-          implode('', [
-            Html::tag('span', '', ['class' => 'fa fa-fw fa-chart-pie']),
-            Html::encode(Yii::t('app', 'Stats (Turf War)')),
-          ]),
-          ['show-v2/user-stat-nawabari', 'screen_name' => $user->screen_name]
+      <?= implode('<br>', array_merge(
+        [
+          Html::a(
+            implode('', [
+              Html::tag('span', '', ['class' => 'fa fa-fw fa-chart-pie']),
+              Html::encode(Yii::t('app', 'Stats ({rule})', [
+                'rule' => Yii::t('app-rule2', 'Turf War'),
+              ])),
+            ]),
+            ['show-v2/user-stat-nawabari',
+              'screen_name' => $user->screen_name,
+            ]
+          ),
+        ],
+        array_map(
+          function (Rule2 $rule) use ($user): string {
+            return Html::a(
+              implode('', [
+                Html::tag('span', '', ['class' => 'fa fa-fw fa-chart-pie']),
+                Html::encode(Yii::t('app', 'Stats ({rule})', [
+                  'rule' => Yii::t('app-rule2', $rule->name),
+                ])),
+              ]),
+              ['show-v2/user-stat-gachi',
+                'screen_name' => $user->screen_name,
+                'rule' => $rule->key,
+              ]
+            );
+          },
+          Rule2::find()->where(['not', ['key' => 'nawabari']])->orderBy(['id' => SORT_ASC])->all()
         ),
-        Html::a(
-          implode('', [
-            Html::tag('span', '', ['class' => 'fa fa-fw fa-chart-pie']),
-            Html::encode(Yii::t('app', 'Stats (by Mode and Stage)')),
-          ]),
-          ['show-v2/user-stat-by-map-rule', 'screen_name' => $user->screen_name]
-        ),
-        Html::a(
-          implode('', [
-            Html::tag('span', '', ['class' => 'fa fa-fw fa-chart-pie']),
-            Html::encode(Yii::t('app', 'Stats (by Weapon)')),
-          ]),
-          ['show-v2/user-stat-by-weapon', 'screen_name' => $user->screen_name]
-        ),
-        Html::a(
-          implode('', [
-            Html::tag('span', '', ['class' => 'fa fa-fw fa-chart-pie']),
-            Html::encode(Yii::t('app', 'Daily Report')),
-          ]),
-          ['show-v2/user-stat-report', 'screen_name' => $user->screen_name]
-        ),
-      ]) . "\n" ?>
+        [
+          Html::a(
+            implode('', [
+              Html::tag('span', '', ['class' => 'fa fa-fw fa-chart-pie']),
+              Html::encode(Yii::t('app', 'Stats (by Mode and Stage)')),
+            ]),
+            ['show-v2/user-stat-by-map-rule', 'screen_name' => $user->screen_name]
+          ),
+          Html::a(
+            implode('', [
+              Html::tag('span', '', ['class' => 'fa fa-fw fa-chart-pie']),
+              Html::encode(Yii::t('app', 'Stats (by Weapon)')),
+            ]),
+            ['show-v2/user-stat-by-weapon', 'screen_name' => $user->screen_name]
+          ),
+          Html::a(
+            implode('', [
+              Html::tag('span', '', ['class' => 'fa fa-fw fa-chart-pie']),
+              Html::encode(Yii::t('app', 'Daily Report')),
+            ]),
+            ['show-v2/user-stat-report', 'screen_name' => $user->screen_name]
+          ),
+        ])) . "\n" ?>
     </div>
     <div class="miniinfo-databox">
 <?php if ($user->twitter != ''): ?>

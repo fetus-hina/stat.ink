@@ -4,10 +4,13 @@
   let jsonBattles = null;
   let jsonDataWP = null;
   let jsonDataStats = null;
+  let ranked = false;
   let timerId = null;
   $(window).resize(() => {
     if (jsonBattles === null) {
-      jsonBattles = JSON.parse($('#json-battles').text());
+      const $json = $('#json-battles');
+      jsonBattles = JSON.parse($json.text());
+      ranked = $json.attr('data-has-rank') === 'true';
     }
     if (timerId !== null) {
       clearTimeout(timerId);
@@ -17,11 +20,11 @@
       $containers.height($containers.width() * 9 / 16);
 
       if (jsonDataWP === null) {
-        jsonDataWP = convertToWPData(jsonBattles);
+        jsonDataWP = convertToWPData(jsonBattles, ranked);
       }
 
       if (jsonDataStats === null) {
-        jsonDataStats = convertToStatsData(jsonBattles);
+        jsonDataStats = convertToStatsData(jsonBattles, ranked);
       }
 
       drawWPGraph($containers.filter('.stat-wp'), jsonDataWP);
