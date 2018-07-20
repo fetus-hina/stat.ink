@@ -6,10 +6,10 @@
  */
 
 return [
-    'amiibo' => '',
-    'Annaki' => '',
-    'Cuttlegear' => 'Kuttelkorps',
-    'Enperry' => '',
+    'amiibo' => 'Amiibo',
+    'Annaki' => 'Annaki',
+    'Cuttlegear' => 'Kuttel-Korps',
+    'Enperry' => 'Enperry',
     'Firefin' => 'Rilax',
     'Forge' => 'Focus',
     'Grizzco' => 'Bär GmbH',
@@ -20,8 +20,8 @@ return [
     'Splash Mob' => 'Gian',
     'SquidForce' => 'TintactiX',
     'Takoroka' => 'Kalamati',
-    'Tentatek' => '',
-    'Toni Kensa' => '',
-    'Zekko' => '',
+    'Tentatek' => 'Tentatek',
+    'Toni Kensa' => 'Toni Kensa',
+    'Zekko' => 'Zekko',
     'Zink' => 'Sagitron',
 ];
