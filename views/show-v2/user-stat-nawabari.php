@@ -4,6 +4,8 @@ use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
 use app\models\Battle2;
 use app\models\Map2;
+use app\models\Rule2;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Json;
 
@@ -31,6 +33,25 @@ UserStat2NawabariAsset::register($this);
   <?= SnsWidget::widget() . "\n" ?>
   <div class="row">
     <div class="col-xs-12 col-sm-8 col-md-8 col-lg-9">
+      <ul class="nav nav-tabs">
+        <li role="presentation" class="active">
+          <a href="javascript:;"><?= Html::encode(Yii::t('app-rule2', 'Turf War')) ?></a>
+        </li>
+<?php $_rules = ArrayHelper::map(
+  Rule2::find()->where(['not', ['key' => 'nawabari']])->asArray()->all(),
+  'key',
+  function (array $row): string {
+    return Yii::t('app-rule2', $row['name']);
+  }
+) ?>
+<?php asort($_rules) ?>
+<?php foreach ($_rules as $_k => $_n) { ?>
+        <li role="presentation"><?= Html::a(
+          Html::encode($_n),
+          ['show-v2/user-stat-gachi', 'screen_name' => $user->screen_name, 'rule' => $_k]
+        ) ?></li>
+<?php } ?>
+      </ul>
       <h2 id="wp">
         <?= Html::tag('a', Html::tag('span', '', ['class' => 'fas fa-link']), [
           'href' => '#wp',
