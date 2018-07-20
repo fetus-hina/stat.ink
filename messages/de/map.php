@@ -14,7 +14,7 @@ return [
     'Bluefin Depot' => 'Blauflossen-Depot',
     'Bridge' => 'Brücke',
     'Camp' => 'Camp',
-    'Camp Triggerfish' => '	Camp Schützenfisch',
+    'Camp Triggerfish' => 'Camp Schützenfisch',
     'Depot' => 'Depot',
     'Dome' => 'Kuppel',
     'Flounder Heights' => 'Schollensiedlung',
