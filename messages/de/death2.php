@@ -7,11 +7,11 @@
 
 return [
     'Cannon' => 'Kanone',
-    'Drowning' => '',
-    'Fall' => '',
-    'Main Weapon' => '',
-    'Out of Bounds' => '',
-    'Special Weapon' => '',
-    'Sub Weapon' => '',
-    'Unknown' => '',
+    'Drowning' => 'Ertrunken',
+    'Fall' => 'Heruntergefallen',
+    'Main Weapon' => 'Primärwaffe',
+    'Out of Bounds' => 'Ausserhalb der Karte',
+    'Special Weapon' => 'Spezialwaffe',
+    'Sub Weapon' => 'Sekundärwaffe',
+    'Unknown' => 'Unbekannt',
 ];
