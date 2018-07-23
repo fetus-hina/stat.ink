@@ -14,12 +14,12 @@ class StartAction extends BaseAction
 {
     public function run()
     {
-       switch (strtolower(Yii::$app->language)) {
-           case 'ja-jp':
-               return $this->controller->render('start.ja.php');
+        switch (strtolower(Yii::$app->language)) {
+            case 'ja-jp':
+                return $this->controller->render('start.ja.php');
 
-           default:
-               return $this->controller->render('start.en.tpl');
-       }
+            default:
+                return $this->controller->render('start.en.tpl');
+        }
     }
 }
