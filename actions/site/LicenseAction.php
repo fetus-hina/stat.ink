@@ -14,7 +14,7 @@ use yii\helpers\Html;
 
 class LicenseAction extends SimpleAction
 {
-    public $view = 'license.tpl';
+    public $view = 'license';
     private $mdParser;
 
     public function init()

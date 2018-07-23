@@ -8,7 +8,12 @@
 namespace app\controllers;
 
 use Yii;
+use app\actions\site\IndexAction;
+use app\actions\site\LicenseAction;
+use app\actions\site\SimpleAction;
+use app\actions\site\StartAction;
 use app\components\web\Controller;
+use yii\web\ErrorAction;
 
 class SiteController extends Controller
 {
@@ -16,37 +21,37 @@ class SiteController extends Controller
     {
         return [
             'error' => [
-                'class' => 'yii\web\ErrorAction',
+                'class' => ErrorAction::class,
                 'view' => 'error',
             ],
             'index' => [
-                'class' => 'app\actions\site\IndexAction',
+                'class' => IndexAction::class,
             ],
             'license' => [
-                'class' => 'app\actions\site\LicenseAction',
+                'class' => LicenseAction::class,
             ],
             'privacy' => [
-                'class' => 'app\actions\site\SimpleAction',
-                'view' => 'privacy.tpl',
+                'class' => SimpleAction::class,
+                'view' => 'privacy',
             ],
             'start' => [
-                'class' => 'app\actions\site\StartAction',
+                'class' => StartAction::class,
             ],
             'kamiup' => [
-                'class' => 'app\actions\site\SimpleAction',
-                'view' => 'kamiup.tpl',
+                'class' => SimpleAction::class,
+                'view' => 'kamiup',
             ],
             'faq' => [
-                'class' => 'app\actions\site\SimpleAction',
-                'view' => 'faq.tpl',
+                'class' => SimpleAction::class,
+                'view' => 'faq',
             ],
             'color' => [
-                'class' => 'app\actions\site\SimpleAction',
-                'view' => 'color.tpl',
+                'class' => SimpleAction::class,
+                'view' => 'color',
             ],
             'translate' => [
-                'class' => 'app\actions\site\SimpleAction',
-                'view' => 'translate.tpl',
+                'class' => SimpleAction::class,
+                'view' => 'translate',
             ],
         ];
     }

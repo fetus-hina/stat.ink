@@ -19,7 +19,7 @@ class StartAction extends BaseAction
                 return $this->controller->render('start.ja.php');
 
             default:
-                return $this->controller->render('start.en.tpl');
+                return $this->controller->render('start.en.php');
         }
     }
 }
