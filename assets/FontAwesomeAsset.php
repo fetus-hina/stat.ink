@@ -11,8 +11,14 @@ use yii\web\AssetBundle;
 
 class FontAwesomeAsset extends AssetBundle
 {
-    public $sourcePath = '@app/resources/fontawesome/fontawesome-free-5/web-fonts-with-css';
+    public $sourcePath = '@npm/fortawesome--fontawesome-free';
     public $css = [
-        'css/fontawesome-all.min.css',
+        'css/all.min.css',
+    ];
+    public $publishOptions = [
+        'only' => [
+            'css/*',
+            'webfonts/*',
+        ],
     ];
 }
