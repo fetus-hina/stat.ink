@@ -162,11 +162,13 @@ node_modules: package.json
 	npm install
 	touch $@
 
-check-style: vendor
+check-style: vendor node_modules
+	node_modules/.bin/updates
 	vendor/bin/phpcs --standard=phpcs-customize.xml --encoding=UTF-8 --runtime-set ignore_warnings_on_exit 1 $(STYLE_TARGETS)
 	vendor/bin/check-author.php --php-files $(STYLE_TARGETS) messages migrations
 
-fix-style: vendor
+fix-style: vendor node_modules
+	node_modules/.bin/updates -u
 	vendor/bin/phpcbf --standard=PSR12 --encoding=UTF-8 $(STYLE_TARGETS)
 
 clean: clean-resource

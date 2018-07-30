@@ -7,10 +7,10 @@
   },
   "dependencies": {
     "autoprefixer": "^7.1",
-    "babel-core": "^6.26.0",
-    "babel-polyfill": "^6.23.0",
-    "babel-preset-env": "^1.2.2",
-    "babel-register": "^6.26.0",
+    "babel-core": "^6.26",
+    "babel-polyfill": "^6.26",
+    "babel-preset-env": "^1.7",
+    "babel-register": "^6.26",
     "css-mqpacker": "^6.0",
     "csswring": "^6.0",
     "gulp": "^3.9",
@@ -22,8 +22,9 @@
     "gulp-rename": "^1.2",
     "gulp-uglify": "^3.0",
     "minimist": "^1.2",
-    "node-zopfli": "^2.0.2",
-    "svgo": "^0.7.2",
-    "ttf2woff2": "^2.0.3"
+    "node-zopfli": "^2.0",
+    "svgo": "^1.0",
+    "ttf2woff2": "^2.0",
+    "updates": "^4.1"
   }
 }
