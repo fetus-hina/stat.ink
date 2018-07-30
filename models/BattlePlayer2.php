@@ -301,7 +301,7 @@ class BattlePlayer2 extends ActiveRecord
             'kill'          => (string)$this->kill === '' ? null : (int)$this->kill,
             'death'         => (string)$this->death === '' ? null : (int)$this->death,
             'kill_or_assist' => (string)$this->kill_or_assist === '' ? null : (int)$this->kill_or_assist,
-            'special'       => (string)$this->special === '' ? null : (int)$this->kill_or_assist,
+            'special'       => (string)$this->special === '' ? null : (int)$this->special,
             'my_kill'       => (string)$this->my_kill === '' ? null : (int)$this->my_kill,
             'point'         => (string)$this->point === '' ? null : (int)$this->point,
             'name'          => (string)$this->name === '' ? null : $this->name,
