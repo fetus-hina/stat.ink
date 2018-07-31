@@ -261,6 +261,7 @@ You can also send "`#` + SplatNet-Number" like `#5` as a secondary option (not r
 |------------------------|----------------------|---------------------------------------------|-----------------------------------------------------------------------------|
 |`ajifry`                |`18`                  |アジフライスタジアム<br>Goby Arena           |                                                                             |
 |`ama`                   |`4`                   |海女美術大学<br>Inkblot Art Academy          |                                                                             |
+|`anchovy`               |`21`                  |アンチョビットゲームズ<br>Ancho-V Games      |                                                                             |
 |`arowana`               |`15`                  |アロワナモール<br>Arowana Mall               |                                                                             |
 |`battera`               |`0`                   |バッテラストリート<br>The Reef               |                                                                             |
 |`bbass`                 |`11`                  |Bバスパーク<br>Blackbelly Skatepark          |                                                                             |
