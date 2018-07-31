@@ -51,6 +51,7 @@ return [
     'Jet Squelcher' => 'ジェットスイーパー',
     'L-3 Nozzlenose D' => 'L3リールガンD',
     'L-3 Nozzlenose' => 'L3リールガン',
+    'Light Tetra Dualies' => 'クアッドホッパーホワイト',
     'Luna Blaster Neo' => 'ノヴァブラスターネオ',
     'Luna Blaster' => 'ノヴァブラスター',
     'N-ZAP \'85' => 'N-ZAP85',
@@ -103,6 +104,7 @@ return [
     'Splat Charger' => 'スプラチャージャー',
     'Splatterscope' => 'スプラスコープ',
     // sloshers -----
+    'Bloblobber' => 'オーバーフロッシャー',
     'Explosher' => 'エクスプロッシャー',
     'Hero Slosher Replica' => 'ヒーロースロッシャー レプリカ',
     'Slosher Deco' => 'バケットスロッシャーデコ',
@@ -113,11 +115,13 @@ return [
     'Tri-Slosher' => 'ヒッセン',
     // splatlings ----
     'Ballpoint Splatling' => 'クーゲルシュライバー',
+    'Custom Hydra Splatling' => 'ハイドラントカスタム',
     'Heavy Splatling Deco' => 'バレルスピナーデコ',
     'Heavy Splatling' => 'バレルスピナー',
     'Hero Splatling Replica' => 'ヒーロースピナー レプリカ',
     'Hydra Splatling' => 'ハイドラント',
     'Mini Splatling' => 'スプラスピナー',
+    'Nautilus 47' => 'ノーチラス47',
     'Zink Mini Splatling' => 'スプラスピナーコラボ',
     // brellas ------
     'Hero Brella Replica' => 'ヒーローシェルター レプリカ',

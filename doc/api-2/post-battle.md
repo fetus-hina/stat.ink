@@ -350,6 +350,7 @@ You can also send "`#` + SplatNet-Number" like `#50` as a secondary option (not 
 |`maneuver`              |`5010`                |スプラマニューバー<br>Splat Dualies                   |互換性のため `manueuver` も受け付けます<br>Also accepts `manueuver` for compatibility                |
 |`maneuver_collabo`      |`5011`                |スプラマニューバーコラボ<br>Enperry Splat Dualies     |互換性のため `manueuver_collabo` も受け付けます<br>Also accepts `manueuver_collabo` for compatibility|
 |`quadhopper_black`      |`5040`                |クアッドホッパーブラック<br>Dark Tetra Dualies        |                                                                                                     |
+|`quadhopper_white`      |`5041`                |クアッドホッパーホワイト<br>Light Tetra Dualies       |                                                                                                     |
 |`sputtery`              |`5000`                |スパッタリー<br>Dapple Dualies                        |                                                                                                     |
 |`sputtery_hue`          |`5001`                |スパッタリー・ヒュー<br>Dapple Dualies Nouveau        |                                                                                                     |
 |`carbon`                |`1000`                |カーボンローラー<br>Carbon Roller                     |                                                                                                     |
@@ -384,6 +385,7 @@ You can also send "`#` + SplatNet-Number" like `#50` as a secondary option (not 
 |`bucketslosher`         |`3000`                |バケットスロッシャー<br>Slosher                       |                                                                                                     |
 |`bucketslosher_deco`    |`3001`                |バケットスロッシャーデコ<br>Slosher Deco              |                                                                                                     |
 |`explosher`             |`3040`                |エクスプロッシャー<br>Explosher                       |                                                                                                     |
+|`furo`                  |`3030`                |オーバーフロッシャー<br>Bloblobber                    |                                                                                                     |
 |`heroslosher_replica`   |`3005`                |ヒーロースロッシャー レプリカ<br>Hero Slosher Replica |                                                                                                     |
 |`hissen`                |`3010`                |ヒッセン<br>Tri-Slosher                               |                                                                                                     |
 |`hissen_hue`            |`3011`                |ヒッセン・ヒュー<br>Tri-Slosher Nouveau               |                                                                                                     |
@@ -393,7 +395,9 @@ You can also send "`#` + SplatNet-Number" like `#50` as a secondary option (not 
 |`barrelspinner_deco`    |`4011`                |バレルスピナーデコ<br>Heavy Splatling Deco            |                                                                                                     |
 |`herospinner_replica`   |`4015`                |ヒーロースピナー レプリカ<br>Hero Splatling Replica   |                                                                                                     |
 |`hydra`                 |`4020`                |ハイドラント<br>Hydra Splatling                       |                                                                                                     |
+|`hydra_custom`          |`4021`                |ハイドラントカスタム<br>Custom Hydra Splatling        |                                                                                                     |
 |`kugelschreiber`        |`4030`                |クーゲルシュライバー<br>Ballpoint Splatling           |                                                                                                     |
+|`nautilus47`            |`4040`                |ノーチラス47<br>Nautilus 47                           |                                                                                                     |
 |`splatspinner`          |`4000`                |スプラスピナー<br>Mini Splatling                      |                                                                                                     |
 |`splatspinner_collabo`  |`4001`                |スプラスピナーコラボ<br>Zink Mini Splatling           |                                                                                                     |
 |`campingshelter`        |`6010`                |キャンピングシェルター<br>Tenta Brella                |                                                                                                     |
