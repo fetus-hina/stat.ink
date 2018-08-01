@@ -290,7 +290,7 @@ return [
     'Octoking HK Jersey' => 'キングオクトHKシャツ',
     'Octoleet Armor' => '',
     'Octoleet Boots' => '',
-    'Octoleet Goggles' => '',
+    'Octoleet Goggles' => 'ゾネスティックスコープ',
     'Octoling Shades' => 'タコゾネスサングラス',
     'Old-Timey Clothes' => 'グランパなフク',
     'Old-Timey Hat' => 'グランパなアタマ',
