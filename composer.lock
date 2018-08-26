@@ -52,7 +52,7 @@
             "version": "1.9.4",
             "source": {
                 "type": "git",
-                "url": "git@github.com:lancedikson/bowser.git",
+                "url": "https://github.com/lancedikson/bowser.git",
                 "reference": "1fb99ced0e8834fd9662604bad7e0f0c3eba2786"
             },
             "dist": {
@@ -145,7 +145,7 @@
             "version": "4.17.47",
             "source": {
                 "type": "git",
-                "url": "git@github.com:Eonasdan/bootstrap-datetimepicker.git",
+                "url": "https://github.com/Eonasdan/bootstrap-datetimepicker.git",
                 "reference": "25c11d79e614bc6463a87c3dd9cbf8280422e006"
             },
             "dist": {
@@ -240,7 +240,7 @@
             "version": "3.3.11",
             "source": {
                 "type": "git",
-                "url": "git@github.com:RobinHerbots/Inputmask.git",
+                "url": "https://github.com/RobinHerbots/Inputmask.git",
                 "reference": "5e670ad62f50c738388d4dcec78d2888505ad77b"
             },
             "dist": {
@@ -1364,16 +1364,16 @@
         },
         {
             "name": "php-curl-class/php-curl-class",
-            "version": "8.1.0",
+            "version": "8.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-curl-class/php-curl-class.git",
-                "reference": "0090c30b4348028cabf1d03427423460ca7dc4a4"
+                "reference": "d1e7f850452c244bb30cfe8163fba2b57ce5a497"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-curl-class/php-curl-class/zipball/0090c30b4348028cabf1d03427423460ca7dc4a4",
-                "reference": "0090c30b4348028cabf1d03427423460ca7dc4a4",
+                "url": "https://api.github.com/repos/php-curl-class/php-curl-class/zipball/d1e7f850452c244bb30cfe8163fba2b57ce5a497",
+                "reference": "d1e7f850452c244bb30cfe8163fba2b57ce5a497",
                 "shasum": ""
             },
             "require": {
@@ -1404,22 +1404,28 @@
             "description": "PHP Curl Class makes it easy to send HTTP requests and integrate with web APIs.",
             "homepage": "https://github.com/php-curl-class/php-curl-class",
             "keywords": [
+                "API-Client",
                 "api",
                 "class",
                 "client",
                 "curl",
                 "framework",
                 "http",
-                "http client",
+                "http-client",
+                "http-proxy",
                 "json",
                 "php",
+                "php-curl",
+                "php-curl-library",
+                "proxy",
                 "requests",
-                "rest",
                 "restful",
-                "web service",
+                "web-scraper",
+                "web-scraping ",
+                "web-service",
                 "xml"
             ],
-            "time": "2018-06-06T05:01:44+00:00"
+            "time": "2018-08-25T10:01:21+00:00"
         },
         {
             "name": "phpseclib/phpseclib",
@@ -1877,16 +1883,16 @@
         },
         {
             "name": "symfony/polyfill-mbstring",
-            "version": "v1.8.0",
+            "version": "v1.9.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-mbstring.git",
-                "reference": "3296adf6a6454a050679cde90f95350ad604b171"
+                "reference": "d0cd638f4634c16d8df4508e847f14e9e43168b8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/3296adf6a6454a050679cde90f95350ad604b171",
-                "reference": "3296adf6a6454a050679cde90f95350ad604b171",
+                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/d0cd638f4634c16d8df4508e847f14e9e43168b8",
+                "reference": "d0cd638f4634c16d8df4508e847f14e9e43168b8",
                 "shasum": ""
             },
             "require": {
@@ -1898,7 +1904,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.8-dev"
+                    "dev-master": "1.9-dev"
                 }
             },
             "autoload": {
@@ -1932,7 +1938,7 @@
                 "portable",
                 "shim"
             ],
-            "time": "2018-04-26T10:06:28+00:00"
+            "time": "2018-08-06T14:22:27+00:00"
         },
         {
             "name": "tpyo/amazon-s3-php-class",
@@ -1973,16 +1979,16 @@
         },
         {
             "name": "websightnl/gearman",
-            "version": "v1.0.0",
+            "version": "v1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/websightnl/gearman.git",
-                "reference": "14b1253eb0f66ace166c7aebbe5bd4258b42290e"
+                "reference": "e88a38c243d5940fd395d608d94246c6a02206b0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/websightnl/gearman/zipball/14b1253eb0f66ace166c7aebbe5bd4258b42290e",
-                "reference": "14b1253eb0f66ace166c7aebbe5bd4258b42290e",
+                "url": "https://api.github.com/repos/websightnl/gearman/zipball/e88a38c243d5940fd395d608d94246c6a02206b0",
+                "reference": "e88a38c243d5940fd395d608d94246c6a02206b0",
                 "shasum": ""
             },
             "require": {
@@ -2024,7 +2030,7 @@
                 "jobs",
                 "workers"
             ],
-            "time": "2017-02-07T17:13:25+00:00"
+            "time": "2018-08-03T14:50:31+00:00"
         },
         {
             "name": "yiisoft/yii2",
@@ -2442,16 +2448,16 @@
         },
         {
             "name": "zendframework/zend-http",
-            "version": "2.8.1",
+            "version": "2.8.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/zend-http.git",
-                "reference": "44197164a270259116162a442f639085ea24094a"
+                "reference": "2c8aed3d25522618573194e7cc51351f8cd4a45b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zend-http/zipball/44197164a270259116162a442f639085ea24094a",
-                "reference": "44197164a270259116162a442f639085ea24094a",
+                "url": "https://api.github.com/repos/zendframework/zend-http/zipball/2c8aed3d25522618573194e7cc51351f8cd4a45b",
+                "reference": "2c8aed3d25522618573194e7cc51351f8cd4a45b",
                 "shasum": ""
             },
             "require": {
@@ -2493,7 +2499,7 @@
                 "zend",
                 "zf"
             ],
-            "time": "2018-08-01T13:50:48+00:00"
+            "time": "2018-08-13T18:47:03+00:00"
         },
         {
             "name": "zendframework/zend-loader",
@@ -3586,16 +3592,16 @@
         },
         {
             "name": "phpspec/prophecy",
-            "version": "1.7.6",
+            "version": "1.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpspec/prophecy.git",
-                "reference": "33a7e3c4fda54e912ff6338c48823bd5c0f0b712"
+                "reference": "4ba436b55987b4bf311cb7c6ba82aa528aac0a06"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpspec/prophecy/zipball/33a7e3c4fda54e912ff6338c48823bd5c0f0b712",
-                "reference": "33a7e3c4fda54e912ff6338c48823bd5c0f0b712",
+                "url": "https://api.github.com/repos/phpspec/prophecy/zipball/4ba436b55987b4bf311cb7c6ba82aa528aac0a06",
+                "reference": "4ba436b55987b4bf311cb7c6ba82aa528aac0a06",
                 "shasum": ""
             },
             "require": {
@@ -3607,12 +3613,12 @@
             },
             "require-dev": {
                 "phpspec/phpspec": "^2.5|^3.2",
-                "phpunit/phpunit": "^4.8.35 || ^5.7 || ^6.5"
+                "phpunit/phpunit": "^4.8.35 || ^5.7 || ^6.5 || ^7.1"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.7.x-dev"
+                    "dev-master": "1.8.x-dev"
                 }
             },
             "autoload": {
@@ -3645,7 +3651,7 @@
                 "spy",
                 "stub"
             ],
-            "time": "2018-04-18T13:57:24+00:00"
+            "time": "2018-08-05T17:53:17+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -4925,25 +4931,28 @@
         },
         {
             "name": "symfony/polyfill-ctype",
-            "version": "v1.8.0",
+            "version": "v1.9.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-ctype.git",
-                "reference": "7cc359f1b7b80fc25ed7796be7d96adc9b354bae"
+                "reference": "e3d826245268269cd66f8326bd8bc066687b4a19"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-ctype/zipball/7cc359f1b7b80fc25ed7796be7d96adc9b354bae",
-                "reference": "7cc359f1b7b80fc25ed7796be7d96adc9b354bae",
+                "url": "https://api.github.com/repos/symfony/polyfill-ctype/zipball/e3d826245268269cd66f8326bd8bc066687b4a19",
+                "reference": "e3d826245268269cd66f8326bd8bc066687b4a19",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3"
             },
+            "suggest": {
+                "ext-ctype": "For best performance"
+            },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.8-dev"
+                    "dev-master": "1.9-dev"
                 }
             },
             "autoload": {
@@ -4976,7 +4985,7 @@
                 "polyfill",
                 "portable"
             ],
-            "time": "2018-04-30T19:57:29+00:00"
+            "time": "2018-08-06T14:22:27+00:00"
         },
         {
             "name": "symfony/process",
@@ -5178,12 +5187,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-debug.git",
-                "reference": "307736c478453cc4da6a8b164c480944a3e46d85"
+                "reference": "d729a2c8f959dbe34f4903039374687a3e64e32f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-debug/zipball/307736c478453cc4da6a8b164c480944a3e46d85",
-                "reference": "307736c478453cc4da6a8b164c480944a3e46d85",
+                "url": "https://api.github.com/repos/yiisoft/yii2-debug/zipball/d729a2c8f959dbe34f4903039374687a3e64e32f",
+                "reference": "d729a2c8f959dbe34f4903039374687a3e64e32f",
                 "shasum": ""
             },
             "require": {
@@ -5217,7 +5226,7 @@
                 "debugger",
                 "yii2"
             ],
-            "time": "2018-06-25T11:30:12+00:00"
+            "time": "2018-08-18T18:39:36+00:00"
         },
         {
             "name": "yiisoft/yii2-gii",
