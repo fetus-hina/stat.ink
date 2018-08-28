@@ -24,7 +24,7 @@ class I18nController extends Controller
         setlocale(LC_COLLATE, 'en_US');
     }
 
-    public function actionMessages() : int
+    public function actionMessages(): int
     {
         $status = 0;
         $locales = Language::find()
@@ -39,7 +39,7 @@ class I18nController extends Controller
         return $status ? 1 : 0;
     }
 
-    public function actionMessage(string $locale) : int
+    public function actionMessage(string $locale): int
     {
         if (!preg_match('/^[a-z]{2}-[A-Z]{2}$/', $locale)) {
             // Note: locale may have 3 characters part, but we currently unsupported yet
@@ -69,7 +69,7 @@ class I18nController extends Controller
         return $status ? 0 : 1;
     }
 
-    private function findJapaneseFiles() : \Iterator
+    private function findJapaneseFiles(): \Iterator
     {
         $it = new \DirectoryIterator(Yii::getAlias('@messages/ja'));
         foreach ($it as $item) {
@@ -85,28 +85,35 @@ class I18nController extends Controller
         }
     }
 
-    private function createTranslateFile(string $inPath, string $outPath) : bool
+    private function createTranslateFile(string $inPath, string $outPath): bool
     {
         if (!file_exists(dirname($outPath))) {
             mkdir(dirname($outPath), 0755, true);
         }
 
         $changed = false;
+        $inData = include($inPath);
         $current = file_exists($outPath) ? include($outPath) : [];
         $new = !file_exists($outPath);
-        foreach (array_keys(include($inPath)) as $enText) {
+        foreach (array_keys($inData) as $enText) {
             if (!isset($current[$enText])) {
                 $current[$enText] = '';
                 $changed = true;
             }
         }
+        $deleteKeys = array_diff(array_keys($current), array_keys($inData));
+        foreach ($deleteKeys as $k) {
+            unset($current[$k]);
+            $changed = true;
+        }
+
         if (!$changed && count($current) > 0) {
             $this->stderr("  => SKIP\n");
             return true;
         }
         uksort($current, 'strcoll');
 
-        $esc = function (string $text) : string {
+        $esc = function (string $text): string {
             return str_replace(["\\", "'"], ["\\\\", "\\'"], $text);
         };
 
@@ -130,7 +137,7 @@ class I18nController extends Controller
         return true;
     }
 
-    private function getGitContributors(string $path) : array
+    private function getGitContributors(string $path): array
     {
         // {{{
         $cmdline = sprintf(

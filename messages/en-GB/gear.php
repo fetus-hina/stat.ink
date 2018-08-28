@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2015-2017 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2018 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  */
@@ -210,7 +210,6 @@ return [
     'Squid-Stitch Slip-Ons' => 'Squid-Stitch Plimsolls',
     'Squid-Stitch Tee' => '',
     'Squidvader Cap' => '',
-    'Squink Wingtips' => 'Squid Ink Brogues',
     'Squink Wingtops' => '',
     'Stealth Goggles' => '',
     'Strapping Reds' => '',

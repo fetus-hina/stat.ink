@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2015-2017 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2018 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  * @author mntone <sd8@live.jp>
@@ -11,8 +11,11 @@ return [
     'Australia (Central, DST)' => 'Central, Australia (Hora de verano)',
     'Australia (East)' => 'Este, Australia',
     'Australia (East, DST)' => 'Este, Australia (Hora de verano)',
+    'Australia/Oceania' => '',
     'Australia (West)' => 'Oeste, Australia',
     'China & Taiwan Time' => 'China y Taiwán',
+    'East Asia' => '',
+    'Europe' => '',
     'European Time (Central)' => 'Central, Europa',
     'European Time (East)' => 'Este, Europa',
     'European Time (West)' => 'Oeste, Europa',
@@ -20,6 +23,8 @@ return [
     'Hawaii Time' => 'Hawaii',
     'Japan & Korea Time' => 'Japón y Corea',
     'Japan Time' => '',
+    'Latin America' => '',
+    'North America' => '',
     'North America (Adak)' => 'Adak, América del Norte',
     'North America (Alaska)' => 'Alaska, América del Norte',
     'North America (Arizona)' => 'Arizona, América del Norte',
@@ -30,6 +35,8 @@ return [
     'North America (Newfoundland)' => 'Terranova, América del Norte',
     'North America (PT)' => 'PT, América del Norte',
     'North America (Saskatchewan)' => 'Saskatchewan, América del Norte',
+    'Others' => '',
+    'Russia' => '',
     'Russia Time (Irkutsk)' => 'Irkutsk, Rusia',
     'Russia Time (Kaliningrad)' => 'Kaliningrad, Rusia',
     'Russia Time (Kamchatka)' => 'Kamchatka, Rusia',

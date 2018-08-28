@@ -76,7 +76,7 @@ $currentTZ = Yii::$app->timeZone;
           'li',
           implode('', [
             Html::a(
-              Html::encode(Yii::t('app', $group->name)),
+              Html::encode(Yii::t('app-tz', $group->name)),
               'javascript:;',
               ['data' => [
                 'toggle' => 'dropdown',

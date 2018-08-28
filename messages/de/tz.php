@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2015-2017 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2018 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  */
@@ -10,8 +10,11 @@ return [
     'Australia (Central, DST)' => '',
     'Australia (East)' => '',
     'Australia (East, DST)' => '',
+    'Australia/Oceania' => '',
     'Australia (West)' => '',
     'China & Taiwan Time' => '',
+    'East Asia' => '',
+    'Europe' => '',
     'European Time (Central)' => '',
     'European Time (East)' => '',
     'European Time (West)' => '',
@@ -19,6 +22,8 @@ return [
     'Hawaii Time' => '',
     'Japan & Korea Time' => '',
     'Japan Time' => '',
+    'Latin America' => '',
+    'North America' => '',
     'North America (Adak)' => '',
     'North America (Alaska)' => '',
     'North America (Arizona)' => '',
@@ -29,6 +34,8 @@ return [
     'North America (Newfoundland)' => '',
     'North America (PT)' => '',
     'North America (Saskatchewan)' => '',
+    'Others' => '',
+    'Russia' => '',
     'Russia Time (Irkutsk)' => '',
     'Russia Time (Kaliningrad)' => '',
     'Russia Time (Kamchatka)' => '',

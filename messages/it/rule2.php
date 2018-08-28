@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2015-2017 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2018 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  */
@@ -55,7 +55,6 @@ return [
     'Tower Control - League Battle (Twin)' => 'Torre Mobile - Partita di lega (Gemello)',
     'Tower Control - Private Battle' => 'Torre Mobile - Privata',
     'Tower Control - Ranked Battle' => 'Torre Mobile - Partita pro',
-    'Tower Contror - League Battle (Quad)' => 'Torre Mobile - Partita di lega (Quadrilatero)',
     'Turf War' => 'Mischie mollusche',
     'Turf War - Private Battle' => 'Mischie mollusche - Privata',
     'Turf War - Regular Battle' => 'Mischie mollusche - Partita amichevole',

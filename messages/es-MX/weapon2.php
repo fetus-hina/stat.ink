@@ -42,7 +42,6 @@ return [
     'Dark Tetra Dualies' => '',
     'Dualies' => '',
     'Dualie Squelchers' => '',
-    'Dual Squelcher' => 'Soplador doble',
     'Dynamo Roller' => '',
     'E-liter 4K' => '',
     'E-liter 4K Scope' => '',
