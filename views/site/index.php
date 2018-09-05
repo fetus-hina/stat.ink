@@ -75,7 +75,9 @@ PaintballAsset::register($this);
     stat.ink のサーバ群はさくらインターネット石狩データセンターに存在し、北海道では大規模な停電が発生していますが、現在のところ正常に動作しております。<br>
     停電が長期にわたりますと、サービスの提供を継続できなくなる可能性がありますがご了承ください。<br>
     <br>
-    ※本メッセージは stat.ink 独自の判断で掲載しております。さくらインターネット様への問い合わせなどはなさいませんようお願いします。
+    ※本メッセージは stat.ink 独自の判断で掲載しております。さくらインターネット様への問い合わせなどはなさいませんようお願いします。<br>
+    <br>
+    <a href="http://support.sakura.ad.jp/mainte/mainteentry.php?id=24776">さくらインターネット様公式情報</a>
   </div>
   <div class="bg-warning" style="margin-bottom:15px;padding:15px;border-radius:10px">
     <p>
@@ -98,11 +100,13 @@ PaintballAsset::register($this);
   </div>
 <?php else: ?>
   <div class="bg-danger" style="margin-bottom:15px;padding:15px;border-radius:10px">
-    There was a huge earthquake in Hokkaido Japan, at 2018-09-05 21:06 UTC (2018-09-06 03:06 Japan Standard Time).<br>
+    There was a huge earthquake in Hokkaido Japan, at 2018-09-05 18:08 UTC (2018-09-06 03:08 Japan Standard Time).<br>
     Our server is in Hokkaido, but there is no impact of blackout at this time.<br>
     If the blackout for a long time, our service may be shut down.<br>
     <br>
-    <i>This message is published at our own responsibility. Please DO NOT ask to Sakura internet Limited. Thank you.</i>
+    <i>This message is published at our own responsibility. Please DO NOT ask to Sakura internet Limited. Thank you.</i><br>
+    <br>
+    <a href="http://support.sakura.ad.jp/mainte/mainteentry.php?id=24776">An official information from Sakura internet (in Japanese)</a>
   </div>
   <div class="bg-warning" style="margin-bottom:15px;padding:15px;border-radius:10px">
     <p>
