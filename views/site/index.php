@@ -70,6 +70,13 @@ PaintballAsset::register($this);
     </div>
   </div>
 <?php if (Yii::$app->language === 'ja-JP'): ?>
+  <div class="bg-danger" style="margin-bottom:15px;padding:15px;border-radius:10px">
+    9/6 3時頃、北海道地方で大きな地震がありました。<br>
+    stat.ink のサーバ群はさくらインターネット石狩データセンターに存在し、北海道では大規模な停電が発生していますが、現在のところ正常に動作しております。<br>
+    停電が長期にわたりますと、サービスの提供を継続できなくなる可能性がありますがご了承ください。<br>
+    <br>
+    ※本メッセージは stat.ink 独自の判断で掲載しております。さくらインターネット様への問い合わせなどはなさいませんようお願いします。
+  </div>
   <div class="bg-warning" style="margin-bottom:15px;padding:15px;border-radius:10px">
     <p>
       イカリング2からの取り込みを検討されている方は、次のようなアプリをご利用ください。（自己責任）
@@ -90,6 +97,13 @@ PaintballAsset::register($this);
     </p>
   </div>
 <?php else: ?>
+  <div class="bg-danger" style="margin-bottom:15px;padding:15px;border-radius:10px">
+    There was a huge earthquake in Hokkaido Japan, at 2018-09-05 21:06 UTC (2018-09-06 03:06 Japan Standard Time).<br>
+    Our server is in Hokkaido, but there is no impact of blackout at this time.<br>
+    If the blackout for a long time, our service may be shut down.<br>
+    <br>
+    <i>This message is published at our own responsibility. Please DO NOT ask to Sakura internet Limited. Thank you.</i>
+  </div>
   <div class="bg-warning" style="margin-bottom:15px;padding:15px;border-radius:10px">
     <p>
       You can import automatically from SplatNet 2, use these apps: (USE AT YOUR OWN RISK)
