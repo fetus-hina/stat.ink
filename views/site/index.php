@@ -100,13 +100,13 @@ PaintballAsset::register($this);
   </div>
 <?php else: ?>
   <div class="bg-danger" style="margin-bottom:15px;padding:15px;border-radius:10px">
-    There was a huge earthquake in Hokkaido Japan, at 2018-09-05 18:08 UTC (2018-09-06 03:08 Japan Standard Time).<br>
-    Our server is in Hokkaido, but there is no impact of blackout at this time.<br>
-    If the blackout for a long time, our service may be shut down.<br>
+    There was <a href="https://www.jma.go.jp/jp/quake/20180905181257393-06030805.html">a huge earthquake</a> in Hokkaido Japan, at 2018-09-05 18:08 UTC (2018-09-06 03:08 Japan Standard Time), Magnitude (Mj) 6.7, <a href="https://en.wikipedia.org/wiki/Japan_Meteorological_Agency_seismic_intensity_scale">shindo</a> 6+.<br>
+    Our servers are in Hokkaido and a power outage has occurred in Hokkaido, but there is no impact of power outage at this time.<br>
+    If the power outage for a long time, our service may be shut down.<br>
     <br>
     <i>This message is published at our own responsibility. Please DO NOT ask to Sakura internet Limited. Thank you.</i><br>
     <br>
-    <a href="http://support.sakura.ad.jp/mainte/mainteentry.php?id=24776">An official information from Sakura internet (in Japanese)</a>
+    Note: <a href="http://support.sakura.ad.jp/mainte/mainteentry.php?id=24776">An official information from Sakura internet (in Japanese)</a>
   </div>
   <div class="bg-warning" style="margin-bottom:15px;padding:15px;border-radius:10px">
     <p>
