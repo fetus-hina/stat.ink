@@ -70,14 +70,21 @@ PaintballAsset::register($this);
     </div>
   </div>
 <?php if (Yii::$app->language === 'ja-JP'): ?>
-  <div class="bg-danger" style="margin-bottom:15px;padding:15px;border-radius:10px">
-    9/6 3時頃、北海道地方で大きな地震がありました。<br>
-    stat.ink のサーバ群はさくらインターネット石狩データセンターに存在し、北海道では大規模な停電が発生していますが、現在のところ正常に動作しております。<br>
-    停電が長期にわたりますと、サービスの提供を継続できなくなる可能性がありますがご了承ください。<br>
+  <div class="bg-success" style="margin-bottom:15px;padding:15px;border-radius:10px">
+    2018年9月6日午前3時頃、北海道地方で大きな地震があり、全道で停電が発生しました。<br>
+    stat.ink のサーバ群は、ほぼ全てがさくらインターネット社の石狩データセンターに存在します。<br>
+    現在はすでに北海道電力による電源は復旧しておりますが、停電中も、石狩データセンターのバックアップ電源等により問題なくサービスの提供ができていました。<br>
     <br>
-    ※本メッセージは stat.ink 独自の判断で掲載しております。さくらインターネット様への問い合わせなどはなさいませんようお願いします。<br>
+    今後、万一もう一度停電が発生し、バックアップ電源の燃料確保も困難となった場合には、さくらインターネット社の要請によりサービスの提供を中断する可能性があります。<br>
+    ご理解とご協力をお願いします。<br>
     <br>
-    <a href="http://support.sakura.ad.jp/mainte/mainteentry.php?id=24776">さくらインターネット様公式情報</a>
+    また、今回被災されました方々に心よりお見舞い申し上げますとともに、さくらインターネット社および北海道電力社、関係各所に感謝申し上げます。
+    <br>
+    <div class="text-right">
+      2018年9月8日 相沢陽菜
+    </div>
+    <br>
+    <a href="https://help.sakura.ad.jp/hc/ja/articles/360000146442">さくらインターネット様公式情報</a>
   </div>
   <div class="bg-warning" style="margin-bottom:15px;padding:15px;border-radius:10px">
     <p>
@@ -99,14 +106,28 @@ PaintballAsset::register($this);
     </p>
   </div>
 <?php else: ?>
-  <div class="bg-danger" style="margin-bottom:15px;padding:15px;border-radius:10px">
-    There was <a href="https://www.jma.go.jp/jp/quake/20180905181257393-06030805.html">a huge earthquake</a> in Hokkaido Japan, at 2018-09-05 18:08 UTC (2018-09-06 03:08 Japan Standard Time), Magnitude (Mj) 6.7, <a href="https://en.wikipedia.org/wiki/Japan_Meteorological_Agency_seismic_intensity_scale">shindo</a> 6+.<br>
-    Our servers are in Hokkaido and a power outage has occurred in Hokkaido, but there is no impact of power outage at this time.<br>
-    If the power outage for a long time, our service may be shut down.<br>
+  <div class="bg-success" style="margin-bottom:15px;padding:15px;border-radius:10px">
+    <b>Summary: Although there was a disaster, the service is provided normally at this time.</b><br>
     <br>
-    <i>This message is published at our own responsibility. Please DO NOT ask to Sakura internet Limited. Thank you.</i><br>
+<?php $_ = (new DateTimeImmutable('2018-09-06T03:08:00+09'))->setTimeZone(new DateTimeZone(Yii::$app->timeZone)) ?>
+    At <?= sprintf(
+      '<time datetime="%s">%s (%s)</time>',
+      $_->setTimezone(new DateTimeZone('Etc/UTC'))->format(DateTime::ATOM),
+      Yii::$app->formatter->asDateTime($_, 'short'),
+      $_->format('T')
+    ) ?>,  a huge earthquake (Magnitude [Mj] 6.7, <a href="https://en.wikipedia.org/wiki/Japan_Meteorological_Agency_seismic_intensity_scale"><i>shindo</i></a> 7) occured in <a href="https://en.wikipedia.org/wiki/Hokkaido"><i>Hokkaidō</i> Japan</a>.<br>
+    It caused power outages whole of Hokkaido island.<br>
     <br>
-    Note: <a href="http://support.sakura.ad.jp/mainte/mainteentry.php?id=24776">An official information from Sakura internet (in Japanese)</a>
+    Our phisical servers are in <i>Ishikari</i> datacenter, <i>SAKURA</i> Internet Inc. (<a href="https://en.wikipedia.org/wiki/Ishikari,_Hokkaido"><i>Ishikari</i>, <i>Hokkaidō</i></a>).<br>
+    Now, the datacenter has recovered from power outage (but may unstable).<br>
+    And during the power outage, the datacenter was provided by private power generators (has fuel more than 48 hours).<br>
+    <br>
+    If a power outage occurs again and problems occur in their private power generator, we will shut down the service.<br>
+    Thank you.<br>
+    <div class="text-right">
+      AIZAWA Hina, 2018-09-08 21:40 JST(UTC+9).
+    </div>
+    <a href="https://help.sakura.ad.jp/hc/ja/articles/360000146442">Official information from SAKURA Internet (Japanese)</a>
   </div>
   <div class="bg-warning" style="margin-bottom:15px;padding:15px;border-radius:10px">
     <p>
