@@ -21,7 +21,7 @@ class CounterAction extends BaseAction
 
         return [
             'users' => User::getRoughCount(),
-            'battles' => Battle::getRoughCount(),
+            'battles' => Battle::getTotalRoughCount(),
         ];
     }
 }
