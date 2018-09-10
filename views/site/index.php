@@ -110,22 +110,28 @@ PaintballAsset::register($this);
     <b>Summary: Although there was a disaster, the service is provided normally at this time.</b><br>
     <br>
 <?php $_ = (new DateTimeImmutable('2018-09-06T03:08:00+09'))->setTimeZone(new DateTimeZone(Yii::$app->timeZone)) ?>
-    At <?= sprintf(
+    On <?= sprintf(
       '<time datetime="%s">%s (%s)</time>',
       $_->setTimezone(new DateTimeZone('Etc/UTC'))->format(DateTime::ATOM),
       Yii::$app->formatter->asDateTime($_, 'short'),
       $_->format('T')
-    ) ?>,  a huge earthquake (Magnitude [Mj] 6.7, <a href="https://en.wikipedia.org/wiki/Japan_Meteorological_Agency_seismic_intensity_scale"><i>shindo</i></a> 7) occured in <a href="https://en.wikipedia.org/wiki/Hokkaido"><i>Hokkaidō</i> Japan</a>.<br>
-    It caused power outages whole of Hokkaido island.<br>
+    ) ?>,  a huge earthquake (Magnitude [M<sub>jma</sub>] 6.7, <a href="https://en.wikipedia.org/wiki/Japan_Meteorological_Agency_seismic_intensity_scale"><i>shindo</i></a> 7) occurred in <a href="https://en.wikipedia.org/wiki/Hokkaido"><i>Hokkaidō</i> Japan</a>.<br>
+    It caused power outages whole of Hokkaido Island.<br>
     <br>
-    Our phisical servers are in <i>Ishikari</i> datacenter, <i>SAKURA</i> Internet Inc. (<a href="https://en.wikipedia.org/wiki/Ishikari,_Hokkaido"><i>Ishikari</i>, <i>Hokkaidō</i></a>).<br>
-    Now, the datacenter has recovered from power outage (but may unstable).<br>
-    And during the power outage, the datacenter was provided by private power generators (has fuel more than 48 hours).<br>
+    Our physical servers are in <i>Ishikari</i> data center, <i>SAKURA</i> Internet Inc. (<a href="https://en.wikipedia.org/wiki/Ishikari,_Hokkaido"><i>Ishikari</i>, <i>Hokkaidō</i></a>).<br>
+    Now, the data center has recovered from power outage (but may unstable).<br>
+    And during the power outage, the data center was provided by private power generators (they have fuel more than 48 hours).<br>
     <br>
     If a power outage occurs again and problems occur in their private power generator, we will shut down the service.<br>
-    Thank you.<br>
+    <br>
     <div class="text-right">
-      AIZAWA Hina, 2018-09-08 21:40 JST(UTC+9).
+<?php $_ = (new DateTimeImmutable('2018-09-08T21:40:00+09'))->setTimeZone(new DateTimeZone(Yii::$app->timeZone)) ?>
+      AIZAWA Hina, <?= sprintf(
+        '<time datetime="%s">%s (%s)</time>',
+        $_->setTimezone(new DateTimeZone('Etc/UTC'))->format(DateTime::ATOM),
+        Yii::$app->formatter->asDateTime($_, 'short'),
+        $_->format('T')
+      ) . "\n" ?>
     </div>
     <a href="https://help.sakura.ad.jp/hc/ja/articles/360000146442">Official information from SAKURA Internet (Japanese)</a>
   </div>
