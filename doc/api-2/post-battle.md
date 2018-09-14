@@ -324,6 +324,7 @@ You can also send "`#` + SplatNet-Number" like `#50` as a secondary option (not 
 |`sharp`                 |`20`                  |シャープマーカー<br>Splash-o-matic                    |                                                                                                     |
 |`sharp_neo`             |`21`                  |シャープマーカーネオ<br>Neo Splash-o-matic            |                                                                                                     |
 |`sshooter`              |`40`                  |スプラシューター<br>Splattershot                      |                                                                                                     |
+|`sshooter_becchu`       |`42`                  |スプラシューターベッチュー<br>Kensa Splattershot      |                                                                                                     |
 |`sshooter_collabo`      |`41`                  |スプラシューターコラボ<br>Tentatek Splattershot       |                                                                                                     |
 |`wakaba`                |`10`                  |わかばシューター<br>Splattershot Jr.                  |                                                                                                     |
 |`clashblaster`          |`230`                 |クラッシュブラスター<br>Clash Blaster                 |                                                                                                     |
@@ -349,6 +350,7 @@ You can also send "`#` + SplatNet-Number" like `#50` as a secondary option (not 
 |`kelvin525`             |`5020`                |ケルビン525<br>Glooga Dualies                         |                                                                                                     |
 |`kelvin525_deco`        |`5021`                |ケルビン525デコ<br>Glooga Dualies Deco                |                                                                                                     |
 |`maneuver`              |`5010`                |スプラマニューバー<br>Splat Dualies                   |互換性のため `manueuver` も受け付けます<br>Also accepts `manueuver` for compatibility                |
+|`maneuver_becchu`       |`5012`                |スプラマニューバーベッチュー<br>Kensa Splat Dualies   |                                                                                                     |
 |`maneuver_collabo`      |`5011`                |スプラマニューバーコラボ<br>Enperry Splat Dualies     |互換性のため `manueuver_collabo` も受け付けます<br>Also accepts `manueuver_collabo` for compatibility|
 |`quadhopper_black`      |`5040`                |クアッドホッパーブラック<br>Dark Tetra Dualies        |                                                                                                     |
 |`quadhopper_white`      |`5041`                |クアッドホッパーホワイト<br>Light Tetra Dualies       |                                                                                                     |
@@ -360,6 +362,7 @@ You can also send "`#` + SplatNet-Number" like `#50` as a secondary option (not 
 |`dynamo_tesla`          |`1021`                |ダイナモローラーテスラ<br>Gold Dynamo Roller          |                                                                                                     |
 |`heroroller_replica`    |`1015`                |ヒーローローラー レプリカ<br>Hero Roller Replica      |                                                                                                     |
 |`splatroller`           |`1010`                |スプラローラー<br>Splat Roller                        |                                                                                                     |
+|`splatroller_becchu`    |`1012`                |スプラローラーベッチュー<br>Kensa Splat Roller        |                                                                                                     |
 |`splatroller_collabo`   |`1011`                |スプラローラーコラボ<br>Krak-On Splat Roller          |                                                                                                     |
 |`variableroller`        |`1030`                |ヴァリアブルローラー<br>Flingza Roller                |                                                                                                     |
 |`variableroller_foil`   |`1031`                |ヴァリアブルローラーフォイル<br>Foil Flingza Roller   |                                                                                                     |
@@ -378,8 +381,10 @@ You can also send "`#` + SplatNet-Number" like `#50` as a secondary option (not 
 |`soytuber`              |`2060`                |ソイチューバー<br>Goo Tuber                           |                                                                                                     |
 |`soytuber_custom`       |`2061`                |ソイチューバーカスタム<br>Custom Goo Tuber            |                                                                                                     |
 |`splatcharger`          |`2010`                |スプラチャージャー<br>Splat Charger                   |                                                                                                     |
+|`splatcharger_becchu`   |`2012`                |スプラチャージャーベッチュー<br>Kensa Charger         |                                                                                                     |
 |`splatcharger_collabo`  |`2011`                |スプラチャージャーコラボ<br>Firefin Splat Charger     |                                                                                                     |
 |`splatscope`            |`2020`                |スプラスコープ<br>Splatterscope                       |                                                                                                     |
+|`splatscope_becchu`     |`2022`                |スプラスコープベッチュー<br>Kensa Splatterscope       |                                                                                                     |
 |`splatscope_collabo`    |`2021`                |スプラスコープコラボ<br>Firefin Splatterscope         |                                                                                                     |
 |`squiclean_a`           |`2000`                |スクイックリンα<br>Classic Squiffer                  |                                                                                                     |
 |`squiclean_b`           |`2001`                |スクイックリンβ<br>New Squiffer                      |                                                                                                     |
