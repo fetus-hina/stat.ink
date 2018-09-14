@@ -143,6 +143,7 @@ return [
     'FishFry Visor' => 'ヤキフグ サンバイザー',
     'Fishing Vest' => 'フィッシャーズベスト オジ',
     'Five-Panel Cap' => 'セルブロウ',
+    'Flipper Floppers' => 'ゲソバタアシスト',
     'Forest Vest' => 'フォレストダウン',
     'Forge Inkling Parka' => 'F-190',
     'Forge Mask' => 'フォーリマスク',

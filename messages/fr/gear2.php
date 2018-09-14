@@ -143,6 +143,7 @@ return [
     'FishFry Visor' => 'Visière Friture',
     'Fishing Vest' => '',
     'Five-Panel Cap' => '',
+    'Flipper Floppers' => '',
     'Forest Vest' => '',
     'Forge Inkling Parka' => '',
     'Forge Mask' => '',
