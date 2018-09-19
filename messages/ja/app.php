@@ -356,6 +356,7 @@ return [
     'Source Code' => 'ソースコード',
     'Source: {source}' => 'ソース: {source}',
     'Special %' => 'スペシャルゲージ',
+    'Special Battle (Fest)' => 'レアバトル（フェス）',
     'Special Battle' => 'レアバトル',
     'Special Charged' => 'スペシャル満タン',
     'Special' => 'スペシャル',

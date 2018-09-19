@@ -396,6 +396,7 @@ return [
     'Special %' => '',
     'Special:' => '',
     'Special Battle' => '',
+    'Special Battle (Fest)' => '',
     'Special Charged' => '',
     'Specials' => '',
     'Specials/min' => '',

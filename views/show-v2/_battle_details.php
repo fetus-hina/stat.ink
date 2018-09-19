@@ -1,6 +1,7 @@
 <?php
 use app\assets\BattleEditAsset;
 use app\assets\SwipeboxRunnerAsset;
+use app\components\widgets\Label;
 use app\models\Battle2;
 use app\models\Rank2;
 use yii\bootstrap\Html;
@@ -152,6 +153,21 @@ $this->registerCss('#battle .progress{margin-bottom:0}');
             ])
             : ''
         );
+      },
+      // }}}
+    ],
+    [
+      'attribute' => 'special_battle_id', // {{{
+      'format' => 'raw',
+      'value' => function ($model) : ?string {
+        if (!$model->special_battle_id || !$model->specialBattle) {
+          return null;
+        }
+        $sp = $model->specialBattle;
+        return Label::widget([
+          'content' => Yii::t('app', $model->specialBattle->name),
+          'color' => 'primary',
+        ]);
       },
       // }}}
     ],
@@ -428,31 +444,27 @@ $this->registerCss('#battle .progress{margin-bottom:0}');
         $parts = [];
         if ($model->isGachi && $model->is_knockout !== null) {
           if ($model->is_knockout) {
-            $parts[] = Html::tag(
-              'span',
-              Html::encode(Yii::t('app', 'Knockout')),
-              ['class' => 'label label-info']
-            );
+            $parts[] = Label::widget([
+              'content' => Yii::t('app', 'Knockout'),
+              'color' => 'info',
+            ]);
           } else {
-            $parts[] = Html::tag(
-              'span',
-              Html::encode(Yii::t('app', 'Time was up')),
-              ['class' => 'label label-warning']
-            );
+            $parts[] = Label::widget([
+              'content' => Yii::t('app', 'Time was up'),
+              'color' => 'warning',
+            ]);
           }
         }
         if ($model->is_win !== null) {
           $parts[] = ($model->is_win)
-            ? Html::tag(
-              'span',
-              Html::encode(Yii::t('app', 'Won')),
-              ['class' => 'label label-success']
-            )
-            : Html::tag(
-              'span',
-              Html::encode(Yii::t('app', 'Lost')),
-              ['class' => 'label label-danger']
-            );
+            ? Label::widget([
+              'content' => Yii::t('app', 'Won'),
+              'color' => 'success',
+            ])
+            : Label::widget([
+              'content' => Yii::t('app', 'Lost'),
+              'color' => 'danger',
+            ]);
         } else {
           $parts[] = Html::encode('?');
         }
@@ -593,11 +605,11 @@ $this->registerCss('#battle .progress{margin-bottom:0}');
         ));
         if ($model->kill !== null && $model->death !== null) {
           if ($model->kill > $model->death) {
-            $parts[] = Html::tag('span', Html::encode('>'), ['class' => 'label label-success']);
+            $parts[] = Label::widget(['content' => '>', 'color' => 'success']);
           } elseif ($model->kill < $model->death) {
-            $parts[] = Html::tag('span', Html::encode('<'), ['class' => 'label label-danger']);
+            $parts[] = Label::widget(['content' => '<', 'color' => 'danger']);
           } else {
-            $parts[] = Html::tag('span', Html::encode('='), ['class' => 'label label-default']);
+            $parts[] = Label::widget(['content' => '=', 'color' => 'default']);
           }
         }
         return implode(' ', $parts);

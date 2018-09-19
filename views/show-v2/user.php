@@ -2,6 +2,7 @@
 use app\components\widgets\AdWidget;
 use app\components\widgets\Battle2FilterWidget;
 use app\components\widgets\EmbedVideo;
+use app\components\widgets\Label;
 use app\components\widgets\SnsWidget;
 use yii\bootstrap\ActiveForm;
 use yii\grid\GridView;
@@ -280,6 +281,23 @@ if ($user->twitter != '') {
                 Html::encode(Yii::t('app-rule2', $model->rule->short_name ?? '?')),
                 ['class' => 'auto-tooltip', 'title' => Yii::t('app-rule2', $model->rule->name ?? '?')]
               );
+            },
+            // }}}
+          ],
+          [
+            // special battle {{{
+            'label' => Yii::t('app', 'Special Battle'),
+            'headerOptions' => ['class' => 'cell-special-battle'],
+            'contentOptions' => ['class' => 'cell-special-battle'],
+            'format' => 'raw',
+            'value' => function ($model) : string {
+              if (!$model->special_battle_id || !$model->specialBattle) {
+                return '';
+              }
+              return Label::widget([
+                'content' => Yii::t('app', $model->specialBattle->name),
+                'color' => 'default',
+              ]);
             },
             // }}}
           ],
@@ -907,6 +925,7 @@ if ($user->twitter != '') {
           'cell-room'                 => Yii::t('app', 'Room info (Private)'),
           'cell-rule'                 => Yii::t('app', 'Mode'),
           'cell-rule-short'           => Yii::t('app', 'Mode (Short)'),
+          'cell-special-battle'       => Yii::t('app', 'Special Battle (Fest)'),
           'cell-map'                  => Yii::t('app', 'Stage'),
           'cell-map-short'            => Yii::t('app', 'Stage (Short)'),
           'cell-main-weapon'          => Yii::t('app', 'Weapon'),
