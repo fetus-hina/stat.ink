@@ -32,6 +32,7 @@ use app\models\Map2;
 use app\models\Mode2;
 use app\models\Rank2;
 use app\models\Rule2;
+use app\models\SpecialBattle2;
 use app\models\Species2;
 use app\models\Splatfest2Theme;
 use app\models\SplatoonVersion2;
@@ -98,6 +99,7 @@ class PostBattleForm extends Model
     public $his_team_estimate_fest_power;
     public $my_team_fest_theme;
     public $his_team_fest_theme;
+    public $special_battle;
     public $gears;
     public $players;
     public $death_reasons;
@@ -268,6 +270,11 @@ class PostBattleForm extends Model
             ],
             [['fest_exp', 'fest_exp_after'], 'integer', 'min' => 0, 'max' => 99],
             [['my_team_fest_theme', 'his_team_fest_theme'], 'string'],
+            [['special_battle'], 'string'],
+            [['special_battle'], 'exist', 'skipOnError' => true,
+                'targetClass' => SpecialBattle2::class,
+                'targetAttribute' => 'key',
+            ],
             [['gears'], 'validateGears'],
             [['players'], 'validatePlayers'],
             [['death_reasons'], 'validateDeathReasons'],
@@ -466,6 +473,7 @@ class PostBattleForm extends Model
         $battle->his_team_estimate_fest_power = $intval($this->his_team_estimate_fest_power);
         $battle->my_team_fest_theme_id = $festTheme($this->my_team_fest_theme);
         $battle->his_team_fest_theme_id = $festTheme($this->his_team_fest_theme);
+        $battle->special_battle_id = $key2id($this->special_battle, SpecialBattle2::class);
         $battle->estimate_gachi_power = $intval($this->estimate_gachi_power);
         $battle->my_team_estimate_league_point = $intval($this->my_team_estimate_league_point);
         $battle->his_team_estimate_league_point = $intval($this->his_team_estimate_league_point);
