@@ -15,7 +15,6 @@
         "ext-intl": "*",
         "ext-json": "*",
         "ext-mbstring": "*",
-        "ext-mcrypt": "*",
         "ext-openssl": "*",
         "ext-pcre": "*",
         "ext-pdo_pgsql": "*",
