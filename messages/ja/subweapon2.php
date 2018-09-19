@@ -9,6 +9,7 @@ return [
     'Autobomb' => 'ロボットボム',
     'Burst Bomb' => 'クイックボム',
     'Curling Bomb' => 'カーリングボム',
+    'Fizzy Bomb' => 'タンサンボム',
     'Ink Mine' => 'トラップ',
     'Point Sensor' => 'ポイントセンサー',
     'Splash Wall' => 'スプラッシュシールド',

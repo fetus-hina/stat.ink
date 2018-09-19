@@ -618,6 +618,7 @@ Gear Ability
 |`splashbomb`|スプラッシュボム<br>Splat Bomb|
 |`splashshield`|スプラッシュシールド<br>Splash Wall|
 |`sprinkler`|スプリンクラー<br>Sprinkler|
+|`tansanbomb`|タンサンボム<br>Fizzy Bomb|
 |`trap`|トラップ<br>Ink Mine|
 
 |指定文字列|死因|
