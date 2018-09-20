@@ -163,6 +163,7 @@ class User2Action extends BaseAction
                 'rank',
                 'rankAfter',
                 'mode',
+                'version',
             ])
             ->orderBy(['id' => SORT_DESC])
             ->all();
@@ -253,8 +254,18 @@ class User2Action extends BaseAction
 
                         case 'fest':
                             switch ($battle->lobby->key ?? '') {
+                                case 'fest_normal':
+                                    return Yii::t('app-rule2', 'Splatfest (Normal)', [], $lang);
+
                                 case 'standard':
-                                    return Yii::t('app-rule2', 'Splatfest (Solo)', [], $lang);
+                                    if ($battle->version) {
+                                        if (version_compare($battle->version->tag, '4.0.0', '<')) {
+                                            return Yii::t('app-rule2', 'Splatfest (Solo)', [], $lang);
+                                        } else {
+                                            return Yii::t('app-rule2', 'Splatfest (Pro)', [], $lang);
+                                        }
+                                    }
+                                    return Yii::t('app-rule2', 'Splatfest (Pro/Solo)', [], $lang);
 
                                 case 'squad_4':
                                     return Yii::t('app-rule2', 'Splatfest (Team)', [], $lang);

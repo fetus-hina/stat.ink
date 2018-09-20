@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2015-2017 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2018 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  */
@@ -41,6 +41,9 @@ return [
     '(Solo)' => '(Solo)',
     'Solo Queue' => '',
     'Splatfest' => 'Festival',
+    'Splatfest (Normal)' => '',
+    'Splatfest (Pro)' => '',
+    'Splatfest (Pro/Solo)' => '',
     'Splatfest (Solo)' => 'Festival (Solo)',
     'Splatfest (Team)' => 'Festival (Équipe)',
     'Splat Zones' => 'Défense de zone',
@@ -58,6 +61,9 @@ return [
     'Turf War' => 'Guerre de territoire',
     'Turf War - Private Battle' => 'Guerre de territoire - Match privé',
     'Turf War - Regular Battle' => 'Guerre de territoire - Match classique',
+    'Turf War - Splatfest (Normal)' => '',
+    'Turf War - Splatfest (Pro)' => '',
+    'Turf War - Splatfest (Pro/Solo)' => '',
     'Turf War - Splatfest (Solo)' => 'Guerre de territoire - Festival (Solo)',
     'Turf War - Splatfest (Team)' => 'Guerre de territoire - Festival (Équipe)',
     'TW' => 'Territoire',

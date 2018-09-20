@@ -213,10 +213,15 @@ Example for UUID v5 (if use namespace `73cf052a-fd0b-11e7-a5ee-001b21a098c2`):
 
 |指定文字列|内容|
 |-|-|
-|`standard`|ひとりプレー（野良、ソロ）<br>Solo Queue|
+|`standard`|ひとりプレー（野良、ソロ）、[v4]フェス（チャレンジ）、[v3]フェス（ソロ）<br>Solo Queue, [v4]Splatfest (Pro)|
 |`squad_2`|リーグ（2人）<br>League (Twin)|
-|`squad_4`|リーグ（4人）、フェス（チーム）<br>League (Quad), Splatfest (Team)|
+|`squad_4`|リーグ（4人）、[v3]フェス（チーム）<br>League (Quad), [v3]Splatfest (Team)|
+|`fest_normal`|フェス（レギュラー）<br>[v4] Splatfest (Normal)|
+|`fest_pro`|フェス（チャレンジ）<br>Splatfest (Pro)|
 |`private`|プライベートマッチ<br>Private battle|
+
+※`fest_pro` は利便性のために追加したもので、`standard` に読み替えられます（取得APIを利用すると `standard` になります）<br>
+　`fest_pro` has added for convinience. The canonical key is still `standard`. If you use GET API, you will get `standard`.
 
 `mode` は次のいずれかの値を取ります。
 
@@ -246,8 +251,10 @@ Example for UUID v5 (if use namespace `73cf052a-fd0b-11e7-a5ee-001b21a098c2`):
 |ガチマッチ<br>Ranked|1人<br>Solo|`standard`|`gachi`|`area`, `yagura`, `hoko`, `asari`|
 |ガチマッチ<br>Ranked|リーグ（2人）<br>League (Twin)|`squad_2`|`gachi`|`area`, `yagura`, `hoko`, `asari`|
 |ガチマッチ<br>Ranked|リーグ（4人）<br>League (Quad)|`squad_4`|`gachi`|`area`, `yagura`, `hoko`, `asari`|
-|フェス<br>Splatfest|ソロ<br>Solo|`standard`|`fest`|`nawabari`||
-|フェス<br>Splatfest|チーム<br>Team|`squad_4`|`fest`|`nawabari`||
+|v4 フェス<br>v4 Splatfest|レギュラー<br>Normal|`fest_normal`|`fest`|`nawabari`||
+|v4 フェス<br>v4 Splatfest|チャレンジ<br>Pro|`standard`<br>(or `fest_pro`)|`fest`|`nawabari`||
+|v1-3 フェス<br>v1-3 Splatfest|ソロ<br>Solo|`standard`|`fest`|`nawabari`|deprecated|
+|v1-3 フェス<br>v1-3 Splatfest|チーム<br>Team|`squad_4`|`fest`|`nawabari`|deprecated|
 |プラベ<br>Private|-|`private`|`private`|`nawabari`, `area`, `yagura`, `hoko`, `asari`|
 
 

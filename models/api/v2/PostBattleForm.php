@@ -167,6 +167,9 @@ class PostBattleForm extends Model
                         'inklings' => 'inkling',
                         'octolings' => 'octoling',
                     ],
+                    'lobby' => [
+                        'fest_pro' => 'standard',
+                    ],
                 ],
             ],
         ];

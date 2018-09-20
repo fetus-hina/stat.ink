@@ -161,7 +161,17 @@ if ($user->twitter != '') {
                 case 'fest':
                   switch ($model->lobby->key ?? '') {
                     case 'standard':
-                      return Yii::t('app-rule2', 'Splatfest (Solo)');
+                      if ($model->version) {
+                        if (version_compare($model->version->tag, '4.0.0', '<')) {
+                          return Yii::t('app-rule2', 'Splatfest (Solo)');
+                        } else {
+                          return Yii::t('app-rule2', 'Splatfest (Pro)');
+                        }
+                      }
+                      return Yii::t('app-rule2', 'Splatfest (Pro/Solo)');
+
+                    case 'fest_normal':
+                      return Yii::t('app-rule2', 'Splatfest (Normal)');
 
                     case 'squad_4':
                       return Yii::t('app-rule2', 'Splatfest (Team)');

@@ -1467,7 +1467,16 @@ class Battle2 extends ActiveRecord
             case 'squad_4-gachi-asari':
                 return Yii::t('app-rule2', 'Clam Blitz - League Battle (Quad)');
             case 'standard-fest-nawabari':
-                return Yii::t('app-rule2', 'Turf War - Splatfest (Solo)');
+                if ($this->version) {
+                    if (version_compare($this->version->tag, '4.0.0', '<')) {
+                        return Yii::t('app-rule2', 'Turf War - Splatfest (Solo)');
+                    } else {
+                        return Yii::t('app-rule2', 'Turf War - Splatfest (Pro)');
+                    }
+                }
+                return Yii::t('app-rule2', 'Turf War - Splatfest (Pro/Solo)');
+            case 'fest_normal-fest-nawabari':
+                return Yii::t('app-rule2', 'Turf War - Splatfest (Normal)');
             case 'squad_4-fest-nawabari':
                 return Yii::t('app-rule2', 'Turf War - Splatfest (Team)');
             case 'private-private-nawabari':
