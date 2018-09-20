@@ -412,7 +412,7 @@ class PostBattleForm extends Model
             $theme = Splatfest2Theme::findOrCreate($name);
             return $theme ? $theme->id : null;
         };
-        $nickname = function (string $name): ?int {
+        $nickname = function (?string $name): ?int {
             $name = trim((string)$name);
             if ($name === '') {
                 return null;
