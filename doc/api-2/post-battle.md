@@ -79,8 +79,17 @@ POST データは全体で 12MiB 以内である必要があります。
 |`fest_power`|数値(e.g. 1234.5)|フェスパワーを指定します。|
 |`my_team_estimate_fest_power`|整数|自チームの概算フェスパワーを指定します。|
 |`his_team_estimate_fest_power`|整数|敵チームの概算フェスパワーを指定します。|
-|`my_team_fest_theme`|文字列|フェスの自チームの名前を指定します。|
-|`his_team_fest_theme`|文字列|フェスの敵チームの名前を指定します。|
+|`my_team_fest_theme`|文字列<br>String|フェスの自チームのお題を指定します。<br>Player team's theme<br>例: たけのこの里<br>e.g. Ice Cream|
+|`his_team_fest_theme`|文字列<br>String|フェスの敵チームのお題を指定します。<br>Enemy team's theme|
+|`my_team_nickname`|文字列<br>String|フェスの自チームのニックネームを指定します。<br>Player team's nickname on Splatfest<br>例: メガネシューターイカグループ<br>e.g. The Nearsighted Shooter Squid Warriors|
+|`his_team_nickname`|文字列<br>String|フェスの敵チームのニックネームを指定します。<br>Enemy team's nickname on Splatfest|
+|`clout`|整数(0～)<br>Integer(0-)|フェスバトルで得た貢献度を指定します。<br>Obtained clout<br>Note: `total_clout` + `clout` = `total_clout_after`|
+|`total_clout`|整数(0～)<br>Integer(0-)|合計貢献度（バトル前）を指定します。<br>Total clout value (before the battle)|
+|`total_clout_after`|整数(0～)<br>Integer(0-)|合計貢献度（バトル後）を指定します。<br>Total clout value (after the battle)|
+|`synergy_bonus`|数値(1.0～9.9)<br>Number(1.0-9.9)|おそろいボーナスの倍率（1.0, 1.5など）を指定します。<br>Synergy bonus (e.g. 1.0, 1.5)|
+|`my_team_win_streak`|整数<br>Integer|自分のチームの連勝数を指定します。<br>Win streak (Good guys)|
+|`his_team_win_streak`|整数<br>Integer|敵のチームの連勝数を指定します。<br>Win streak (Bad guys)|
+|`special_battle`|指定文字列<br>Key|フェスのレアバトルの種類を指定します。<br>Specify special battle on Splatfest<br>`10x`: 10倍バトル - 10x Battle<br>`100x`: 100倍バトル - 100x Battle|
 |`gears`|構造体|プレーヤーのギア構成を指定します。（後述）<br>Specify gear configuration (the player)|
 |`players`|構造体|自分を含めた両チーム8人分のデータを指定します。（後述）|
 |`death_reasons`|マップ|自分が死んだ死因を指定します。（後述）|
@@ -204,10 +213,15 @@ Example for UUID v5 (if use namespace `73cf052a-fd0b-11e7-a5ee-001b21a098c2`):
 
 |指定文字列|内容|
 |-|-|
-|`standard`|ひとりプレー（野良、ソロ）<br>Solo Queue|
+|`standard`|ひとりプレー（野良、ソロ）、[v4]フェス（チャレンジ）、[v3]フェス（ソロ）<br>Solo Queue, [v4]Splatfest (Pro)|
 |`squad_2`|リーグ（2人）<br>League (Twin)|
-|`squad_4`|リーグ（4人）、フェス（チーム）<br>League (Quad), Splatfest (Team)|
+|`squad_4`|リーグ（4人）、[v3]フェス（チーム）<br>League (Quad), [v3]Splatfest (Team)|
+|`fest_normal`|フェス（レギュラー）<br>[v4] Splatfest (Normal)|
+|`fest_pro`|フェス（チャレンジ）<br>Splatfest (Pro)|
 |`private`|プライベートマッチ<br>Private battle|
+
+※`fest_pro` は利便性のために追加したもので、`standard` に読み替えられます（取得APIを利用すると `standard` になります）<br>
+　`fest_pro` has added for convinience. The canonical key is still `standard`. If you use GET API, you will get `standard`.
 
 `mode` は次のいずれかの値を取ります。
 
@@ -237,8 +251,10 @@ Example for UUID v5 (if use namespace `73cf052a-fd0b-11e7-a5ee-001b21a098c2`):
 |ガチマッチ<br>Ranked|1人<br>Solo|`standard`|`gachi`|`area`, `yagura`, `hoko`, `asari`|
 |ガチマッチ<br>Ranked|リーグ（2人）<br>League (Twin)|`squad_2`|`gachi`|`area`, `yagura`, `hoko`, `asari`|
 |ガチマッチ<br>Ranked|リーグ（4人）<br>League (Quad)|`squad_4`|`gachi`|`area`, `yagura`, `hoko`, `asari`|
-|フェス<br>Splatfest|ソロ<br>Solo|`standard`|`fest`|`nawabari`||
-|フェス<br>Splatfest|チーム<br>Team|`squad_4`|`fest`|`nawabari`||
+|v4 フェス<br>v4 Splatfest|レギュラー<br>Normal|`fest_normal`|`fest`|`nawabari`||
+|v4 フェス<br>v4 Splatfest|チャレンジ<br>Pro|`standard`<br>(or `fest_pro`)|`fest`|`nawabari`||
+|v1-3 フェス<br>v1-3 Splatfest|ソロ<br>Solo|`standard`|`fest`|`nawabari`|deprecated|
+|v1-3 フェス<br>v1-3 Splatfest|チーム<br>Team|`squad_4`|`fest`|`nawabari`|deprecated|
 |プラベ<br>Private|-|`private`|`private`|`nawabari`, `area`, `yagura`, `hoko`, `asari`|
 
 

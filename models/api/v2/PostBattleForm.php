@@ -32,9 +32,11 @@ use app\models\Map2;
 use app\models\Mode2;
 use app\models\Rank2;
 use app\models\Rule2;
+use app\models\SpecialBattle2;
 use app\models\Species2;
 use app\models\Splatfest2Theme;
 use app\models\SplatoonVersion2;
+use app\models\TeamNickname2;
 use app\models\User;
 use app\models\Weapon2;
 use yii\base\InvalidParamException;
@@ -98,6 +100,15 @@ class PostBattleForm extends Model
     public $his_team_estimate_fest_power;
     public $my_team_fest_theme;
     public $his_team_fest_theme;
+    public $my_team_nickname;
+    public $his_team_nickname;
+    public $special_battle;
+    public $clout;
+    public $total_clout;
+    public $total_clout_after;
+    public $my_team_win_streak;
+    public $his_team_win_streak;
+    public $synergy_bonus;
     public $gears;
     public $players;
     public $death_reasons;
@@ -155,6 +166,9 @@ class PostBattleForm extends Model
                     'species' => [
                         'inklings' => 'inkling',
                         'octolings' => 'octoling',
+                    ],
+                    'lobby' => [
+                        'fest_pro' => 'standard',
                     ],
                 ],
             ],
@@ -268,6 +282,15 @@ class PostBattleForm extends Model
             ],
             [['fest_exp', 'fest_exp_after'], 'integer', 'min' => 0, 'max' => 99],
             [['my_team_fest_theme', 'his_team_fest_theme'], 'string'],
+            [['my_team_nickname', 'his_team_nickname'], 'string'],
+            [['clout', 'total_clout', 'total_clout_after'], 'integer', 'min' => 0],
+            [['my_team_win_streak', 'his_team_win_streak'], 'integer', 'min' => 0],
+            [['synergy_bonus'], 'number', 'min' => 1.0, 'max' => 9.9],
+            [['special_battle'], 'string'],
+            [['special_battle'], 'exist', 'skipOnError' => true,
+                'targetClass' => SpecialBattle2::class,
+                'targetAttribute' => 'key',
+            ],
             [['gears'], 'validateGears'],
             [['players'], 'validatePlayers'],
             [['death_reasons'], 'validateDeathReasons'],
@@ -381,13 +404,21 @@ class PostBattleForm extends Model
             }
             return $obj->id;
         };
-        $festTheme = function ($name) : ?int {
+        $festTheme = function ($name): ?int {
             $name = trim((string)$name);
             if ($name === '') {
                 return null;
             }
             $theme = Splatfest2Theme::findOrCreate($name);
             return $theme ? $theme->id : null;
+        };
+        $nickname = function (string $name): ?int {
+            $name = trim((string)$name);
+            if ($name === '') {
+                return null;
+            }
+            $model = TeamNickname2::findOrCreate($name);
+            return $model ? $model->id : null;
         };
         $user = Yii::$app->user->identity;
         $battle = Yii::createObject(['class' => Battle2::class]);
@@ -466,6 +497,15 @@ class PostBattleForm extends Model
         $battle->his_team_estimate_fest_power = $intval($this->his_team_estimate_fest_power);
         $battle->my_team_fest_theme_id = $festTheme($this->my_team_fest_theme);
         $battle->his_team_fest_theme_id = $festTheme($this->his_team_fest_theme);
+        $battle->my_team_nickname_id = $nickname($this->my_team_nickname);
+        $battle->his_team_nickname_id = $nickname($this->his_team_nickname);
+        $battle->clout          = $intval($this->clout);
+        $battle->total_clout    = $intval($this->total_clout);
+        $battle->total_clout_after = $intval($this->total_clout_after);
+        $battle->my_team_win_streak = $intval($this->my_team_win_streak);
+        $battle->his_team_win_streak = $intval($this->his_team_win_streak);
+        $battle->synergy_bonus  = $floatval($this->synergy_bonus);
+        $battle->special_battle_id = $key2id($this->special_battle, SpecialBattle2::class);
         $battle->estimate_gachi_power = $intval($this->estimate_gachi_power);
         $battle->my_team_estimate_league_point = $intval($this->my_team_estimate_league_point);
         $battle->his_team_estimate_league_point = $intval($this->his_team_estimate_league_point);

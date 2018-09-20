@@ -23,6 +23,7 @@ use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
 use yii\helpers\Url;
+use yii\web\JsExpression;
 
 /**
  * This is the model class for table "battle2".
@@ -98,9 +99,18 @@ use yii\helpers\Url;
  * @property float $his_team_estimate_fest_power;
  * @property integer $my_team_fest_theme_id
  * @property integer $his_team_fest_theme_id
+ * @property integer $my_team_nickname_id
+ * @property integer $his_team_nickname_id
  * @property integer $headgear_id
  * @property integer $clothing_id
  * @property integer $shoes_id
+ * @property integer $special_battle_id
+ * @property integer $clout
+ * @property integer $total_clout
+ * @property integer $total_clout_after
+ * @property integer $my_team_win_streak
+ * @property integer $his_team_win_streak
+ * @property float $synergy_bonus
  * @property string $remote_addr
  * @property integer $remote_port
  * @property string $start_at
@@ -128,6 +138,9 @@ use yii\helpers\Url;
  * @property GearConfiguration2 $clothing
  * @property GearConfiguration2 $shoes
  * @property Species2 $species
+ * @property SpecialBattle2 $specialBattle
+ * @property TeamNickname2 $myTeamNickname
+ * @property TeamNickname2 $hisTeamNickname
  */
 class Battle2 extends ActiveRecord
 {
@@ -561,7 +574,8 @@ class Battle2 extends ActiveRecord
             [['my_team_count', 'his_team_count', 'cash', 'cash_after', 'period', 'version_id', 'bonus_id'], 'integer'],
             [['env_id', 'agent_game_version_id', 'agent_id', 'remote_port', 'star_rank'], 'integer'],
             [['kill_or_assist', 'special', 'gender_id', 'fest_title_id', 'fest_title_after_id'], 'integer'],
-            [['my_team_fest_theme_id', 'his_team_fest_theme_id', 'species_id'], 'integer'],
+            [['my_team_fest_theme_id', 'his_team_fest_theme_id', 'species_id', 'special_battle_id'], 'integer'],
+            [['my_team_nickname_id', 'his_team_nickname_id'], 'integer'],
             [['rank_exp', 'rank_after_exp'], 'integer', 'min' => 0, 'max' => 50],
             [['fest_exp', 'fest_exp_after'], 'integer', 'min' => 0, 'max' => 99],
             [['splatnet_number'], 'integer', 'min' => 1],
@@ -581,6 +595,9 @@ class Battle2 extends ActiveRecord
             [['my_team_estimate_fest_power', 'his_team_estimate_fest_power'], 'integer', 'min' => 0],
             [['x_power', 'x_power_after'], 'number', 'min' => 0],
             [['estimate_x_power'], 'integer', 'min' => 0],
+            [['clout', 'total_clout', 'total_clout_after'], 'integer', 'min' => 0],
+            [['my_team_win_streak', 'his_team_win_streak'], 'integer', 'min' => 0],
+            [['synergy_bonus'], 'number', 'min' => 1.0, 'max' => 9.9],
             [['client_uuid'], 'string'],
             [['client_uuid'], 'match',
                 'pattern' => '/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i',
@@ -651,6 +668,14 @@ class Battle2 extends ActiveRecord
             ],
             [['my_team_fest_theme_id', 'his_team_fest_theme_id'], 'exist', 'skipOnError' => true,
                 'targetClass' => Splatfest2Theme::class,
+                'targetAttribute' => 'id',
+            ],
+            [['special_battle_id'], 'exist', 'skipOnError' => true,
+                'targetClass' => SpecialBattle2::class,
+                'targetAttribute' => 'id',
+            ],
+            [['my_team_nickname_id', 'his_team_nickname_id'], 'exist', 'skipOnError' => true,
+                'targetClass' => TeamNickname2::class,
                 'targetAttribute' => 'id',
             ],
         ];
@@ -737,6 +762,15 @@ class Battle2 extends ActiveRecord
             'x_power' => Yii::t('app', 'X Power'),
             'x_power_after' => Yii::t('app', 'X Power (After the battle)'),
             'estimate_x_power' => Yii::t('app', 'Estimate X Power'),
+            'special_battle_id' => Yii::t('app', 'Special Battle'),
+            'my_team_nickname_id' => Yii::t('app', 'My team\'s nickname'),
+            'his_team_nickname_id' => Yii::t('app', 'Their team\'s nickname'),
+            'clout' => Yii::t('app', 'Clout'),
+            'total_clout' => Yii::t('app', 'Total Clout'),
+            'total_clout_after' => Yii::t('app', 'Total Clout (After the battle)'),
+            'my_team_win_streak' => Yii::t('app', 'Win streak (Good guys)'),
+            'his_team_win_streak' => Yii::t('app', 'Win streak (Bad guys)'),
+            'synergy_bonus' => Yii::t('app', 'Synergy Bonus'),
         ];
     }
 
@@ -958,6 +992,21 @@ class Battle2 extends ActiveRecord
     public function getHisTeamFestTheme()
     {
         return $this->hasOne(Splatfest2Theme::class, ['id' => 'his_team_fest_theme_id']);
+    }
+
+    public function getSpecialBattle()
+    {
+        return $this->hasOne(SpecialBattle2::class, ['id' => 'special_battle_id']);
+    }
+
+    public function getMyTeamNickname(): ActiveQuery
+    {
+        return $this->hasOne(TeamNickname2::class, ['id' => 'my_team_nickname_id']);
+    }
+
+    public function getHisTeamNickname(): ActiveQuery
+    {
+        return $this->hasOne(TeamNickname2::class, ['id' => 'his_team_nickname_id']);
     }
 
     public function getIsMeaningful() : bool
@@ -1205,6 +1254,17 @@ class Battle2 extends ActiveRecord
             'his_team_my_team_estimate_fest_power' => $this->his_team_estimate_fest_power,
             'my_team_fest_theme' => $this->my_team_fest_theme_id ? $this->myTeamFestTheme->name : null,
             'his_team_fest_theme' => $this->his_team_fest_theme_id ? $this->hisTeamFestTheme->name : null,
+            'my_team_nickname' => $this->my_team_nickname_id ? $this->myTeamNickname->name : null,
+            'his_team_nickname' => $this->his_team_nickname_id ? $this->hisTeamNickname->name : null,
+            'clout' => $this->clout,
+            'total_clout' => $this->total_clout,
+            'total_clout_after' => $this->total_clout_after,
+            'my_team_win_streak' => $this->my_team_win_streak,
+            'his_team_win_streak' => $this->his_team_win_streak,
+            'synergy_bonus' => ($this->synergy_bonus === null)
+                ? null
+                : new JsExpression(sprintf('%.1f', $this->synergy_bonus)),
+            'special_battle' => $this->special_battle_id ? $this->specialBattle->toJsonArray() : null,
             'image_judge' => $this->battleImageJudge
                 ? Url::to(Yii::getAlias('@imageurl') . '/' . $this->battleImageJudge->filename, true)
                 : null,
@@ -1407,7 +1467,16 @@ class Battle2 extends ActiveRecord
             case 'squad_4-gachi-asari':
                 return Yii::t('app-rule2', 'Clam Blitz - League Battle (Quad)');
             case 'standard-fest-nawabari':
-                return Yii::t('app-rule2', 'Turf War - Splatfest (Solo)');
+                if ($this->version) {
+                    if (version_compare($this->version->tag, '4.0.0', '<')) {
+                        return Yii::t('app-rule2', 'Turf War - Splatfest (Solo)');
+                    } else {
+                        return Yii::t('app-rule2', 'Turf War - Splatfest (Pro)');
+                    }
+                }
+                return Yii::t('app-rule2', 'Turf War - Splatfest (Pro/Solo)');
+            case 'fest_normal-fest-nawabari':
+                return Yii::t('app-rule2', 'Turf War - Splatfest (Normal)');
             case 'squad_4-fest-nawabari':
                 return Yii::t('app-rule2', 'Turf War - Splatfest (Team)');
             case 'private-private-nawabari':

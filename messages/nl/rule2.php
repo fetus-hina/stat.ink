@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2015-2017 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2018 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  */
@@ -41,6 +41,9 @@ return [
     '(Solo)' => '(Solo)',
     'Solo Queue' => 'Solo Wachtrij',
     'Splatfest' => 'Splatfest',
+    'Splatfest (Normal)' => '',
+    'Splatfest (Pro)' => '',
+    'Splatfest (Pro/Solo)' => '',
     'Splatfest (Solo)' => 'Splatfest (Solo)',
     'Splatfest (Team)' => 'Splatfest (Team)',
     'Splat Zones' => 'Spetterzones',
@@ -58,6 +61,9 @@ return [
     'Turf War' => 'Grondoorlog',
     'Turf War - Private Battle' => 'Grondoorlog - Privégevecht',
     'Turf War - Regular Battle' => 'Grondoorlog - Standart-gevecht',
+    'Turf War - Splatfest (Normal)' => '',
+    'Turf War - Splatfest (Pro)' => '',
+    'Turf War - Splatfest (Pro/Solo)' => '',
     'Turf War - Splatfest (Solo)' => 'Grondoorlog - Splatfest (Solo)',
     'Turf War - Splatfest (Team)' => 'Grondoorlog - Splatfest (Team)',
     'TW' => 'Grondoorlog',

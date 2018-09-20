@@ -16,6 +16,9 @@ return [
     '(Private)' => '（プラベ）',
 
     'Solo Queue' => '野良',
+    'Splatfest (Normal)' => 'フェス（レギュラー）',
+    'Splatfest (Pro)' => 'フェス（チャレンジ）',
+    'Splatfest (Pro/Solo)' => 'フェス（チャレンジ・ソロ）',
     'Splatfest (Solo)' => 'フェス（ソロ）',
     'Splatfest (Team)' => 'フェス（チーム）',
     'Private' => 'プライベート',
@@ -50,6 +53,9 @@ return [
     'CB' => 'アサリ',
 
     'Turf War - Regular Battle'             => 'ナワバリバトル - レギュラーマッチ',
+    'Turf War - Splatfest (Normal)'         => 'ナワバリバトル - フェス（レギュラー）',
+    'Turf War - Splatfest (Pro)'            => 'ナワバリバトル - フェス（チャレンジ）',
+    'Turf War - Splatfest (Pro/Solo)'       => 'ナワバリバトル - フェス（チャレンジ・ソロ）',
     'Turf War - Splatfest (Solo)'           => 'ナワバリバトル - フェス（ソロ）',
     'Turf War - Splatfest (Team)'           => 'ナワバリバトル - フェス（チーム）',
     'Turf War - Private Battle'             => 'ナワバリバトル - プライベートマッチ',

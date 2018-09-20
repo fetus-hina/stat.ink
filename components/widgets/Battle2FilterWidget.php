@@ -186,7 +186,8 @@ class Battle2FilterWidget extends Widget
             ],
             Yii::t('app-rule2', 'Splatfest') => [
                 'any-fest-nawabari' => Yii::t('app-rule2', 'Splatfest'),
-                'standard-fest-nawabari' => Yii::t('app-rule2', 'Splatfest (Solo)'),
+                'fest_normal-fest-nawabari' => Yii::t('app-rule2', 'Splatfest (Normal)'),
+                'standard-fest-nawabari' => Yii::t('app-rule2', 'Splatfest (Pro/Solo)'),
                 'squad_4-fest-nawabari' => Yii::t('app-rule2', 'Splatfest (Team)'),
             ],
             Yii::t('app-rule2', 'Private Battle') => [

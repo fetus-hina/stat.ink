@@ -1,4 +1,5 @@
 <?php
+use app\components\widgets\Label;
 use yii\bootstrap\Html;
 
 $fmt = Yii::$app->formatter;
@@ -51,6 +52,8 @@ if ($totalK !== null && $totalD !== null) {
 
 // チーム合計
 $teamId = trim($teamKey === 'my' ? $battle->my_team_id : $battle->his_team_id);
+$teamName = $teamKey === 'my' ? $battle->myTeamNickname : $battle->hisTeamNickname;
+$streak = $teamKey === 'my' ? $battle->my_team_win_streak : $battle->his_team_win_streak;
 echo Html::tag(
   'tr',
   '  ' . implode("\n  ", [
@@ -68,21 +71,31 @@ echo Html::tag(
         ),
         $teamId == ''
           ? ''
-          : Html::tag(
-            'code',
-            Html::encode($teamId),
-            [
+          : Label::widget([
+            'content' => $teamId,
+            'color' => 'default',
+            'options' => [
               'class' => 'auto-tooltip',
               'title' => Yii::t('app', 'Team ID'),
-              'style' => [
-                'font-weight' => '400',
-              ],
-            ]
-          ),
+            ],
+          ]),
+        $teamName
+          ? Label::widget([
+            'content' => $teamName->name,
+            'color' => 'default',
+          ])
+          : '',
+        $streak === null
+          ? ''
+          : Label::widget([
+            'content' => Yii::t('app', 'Win Streak: {count}', [
+              'count' => $fmt->asInteger($streak),
+            ]),
+            'color' => 'danger',
+          ]),
       ])),
-      ['colspan' => 2]
+      ['colspan' => 3]
     ),
-    !$hasName ? '' : Html::tag('td', ''),
     Html::tag('td', ''),
     $hideRank ? '' : Html::tag('td', ''),
     $hidePoint ? '' : Html::tag('td', Html::encode($totalP === null ? '' : $fmt->asInteger($totalP)), ['class' => 'text-right']),
@@ -113,31 +126,28 @@ foreach ($players as $i => $player) {
           : '',
         ['class' => ['bg-' . $teamKey, 'text-center']]
       ),
-      $hasName
-        ? Html::tag(
-          'td',
-          $this->render('_battle_details_player_name', compact('battle', 'player', 'teamKey')),
-          [
-            'class' => 'col-name',
-          ]
-        ) : '',
+      Html::tag(
+        'td',
+        $this->render('_battle_details_player_name', compact('battle', 'player', 'teamKey')),
+        [
+          'class' => 'col-name',
+        ]
+      ),
       Html::tag(
         'td',
         $player->weapon
           ? implode(' ', [
-            $hasName
-              ? ''
-              : (function () use ($player) : string {
-                // top player {{{
-                if (!$player->top_500) {
-                  return '';
-                }
+            (function () use ($player): string {
+              // top player {{{
+              if (!$player->top_500) {
+                return '';
+              }
 
-                return Html::tag('span', '', [
-                  'class' => 'fas fa-fw fa-chess-queen',
-                ]);
-                // }}}
-              })(),
+              return Html::tag('span', '', [
+                'class' => 'fas fa-fw fa-chess-queen',
+              ]);
+              // }}}
+            })(),
             Html::tag('span', Html::encode(Yii::t('app-weapon2', $player->weapon->name)), [
               'class' => 'auto-tooltip',
               'title' => Html::encode(sprintf(

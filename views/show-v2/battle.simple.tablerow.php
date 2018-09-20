@@ -1,5 +1,6 @@
 <?php
 use app\assets\AppOptAsset;
+use app\components\widgets\Label;
 use yii\helpers\Html;
 
 AppOptAsset::register($this)
@@ -49,7 +50,20 @@ AppOptAsset::register($this)
                 ),
                 Html::tag(
                   'div',
-                  Html::encode(Yii::t('app-rule2', $model->rule->name ?? '?')),
+                  implode(' ', array_filter(
+                    [
+                      Html::encode(Yii::t('app-rule2', $model->rule->name ?? '?')),
+                      $model->specialBattle
+                        ? Label::widget([
+                          'content' => Yii::t('app', $model->specialBattle->name),
+                          'color' => 'primary',
+                        ])
+                        : null,
+                    ],
+                    function (?string $value): bool {
+                      return $value !== null;
+                    }
+                  )),
                   ['class' => 'simple-battle-rule omit']
                 ),
                 Html::tag(

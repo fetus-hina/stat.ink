@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2015-2017 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2018 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  */
@@ -41,6 +41,9 @@ return [
     '(Solo)' => '(одна)',
     'Solo Queue' => 'одна очередь',
     'Splatfest' => 'Сплатфест',
+    'Splatfest (Normal)' => '',
+    'Splatfest (Pro)' => '',
+    'Splatfest (Pro/Solo)' => '',
     'Splatfest (Solo)' => 'Сплатфест (одна)',
     'Splatfest (Team)' => 'Сплатфест (командная)',
     'Splat Zones' => 'Бой за зоны',
@@ -58,6 +61,9 @@ return [
     'Turf War' => 'Бой за район',
     'Turf War - Private Battle' => 'Бой за район - Частный бой',
     'Turf War - Regular Battle' => 'Бой за район - Бой салаг',
+    'Turf War - Splatfest (Normal)' => '',
+    'Turf War - Splatfest (Pro)' => '',
+    'Turf War - Splatfest (Pro/Solo)' => '',
     'Turf War - Splatfest (Solo)' => 'Бой за район - Сплатфест (одна)',
     'Turf War - Splatfest (Team)' => 'Бой за район - Сплатфест (командная)',
     'TW' => 'район',
