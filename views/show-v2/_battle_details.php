@@ -200,6 +200,46 @@ $this->registerCss('#battle .progress{margin-bottom:0}');
       // }}}
     ],
     [
+      'attribute' => 'clout', // {{{
+      'format' => 'raw',
+      'value' => function ($model) : ?string {
+        if ($model->clout === null &&
+            $model->total_clout === null &&
+            $model->total_clout_after === null
+        ) {
+            return null;
+        }
+
+        $synergy = '';
+        if ($model->synergy_bonus > 1.0) {
+          $synergy = Label::widget([
+            'content' => sprintf(
+              '%s: ×%.1f',
+              Yii::t('app', 'Synergy Bonus'),
+              (float)$model->synergy_bonus
+            ),
+            'color' => 'warning',
+          ]);
+        }
+
+        $text = null;
+        if ($model->total_clout === null && $model->total_clout_after === null) {
+          $text = sprintf('+%s', Yii::$app->formatter->asInteger($model->clout));
+        } else {
+          $int = function (?int $value): string {
+            return ($value === null) ? '?' : Yii::$app->formatter->asInteger($value);
+          };
+          $text = sprintf('%s → %s', $int($model->total_clout), $int($model->total_clout_after));
+        }
+
+        return trim(implode(' ', [
+          Html::encode($text),
+          $synergy,
+        ]));
+      },
+      // }}}
+    ],
+    [
       'attribute' => 'fest_power', // {{{
       'format' => 'raw',
       'value' => function ($model) : ?string {

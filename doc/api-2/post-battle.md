@@ -83,6 +83,12 @@ POST データは全体で 12MiB 以内である必要があります。
 |`his_team_fest_theme`|文字列<br>String|フェスの敵チームのお題を指定します。<br>Enemy team's theme|
 |`my_team_nickname`|文字列<br>String|フェスの自チームのニックネームを指定します。<br>Player team's nickname on Splatfest<br>例: メガネシューターイカグループ<br>e.g. The Nearsighted Shooter Squid Warriors|
 |`his_team_nickname`|文字列<br>String|フェスの敵チームのニックネームを指定します。<br>Enemy team's nickname on Splatfest|
+|`clout`|整数(0～)<br>Integer(0-)|フェスバトルで得た貢献度を指定します。<br>Obtained clout<br>Note: `total_clout` + `clout` = `total_clout_after`|
+|`total_clout`|整数(0～)<br>Integer(0-)|合計貢献度（バトル前）を指定します。<br>Total clout value (before the battle)|
+|`total_clout_after`|整数(0～)<br>Integer(0-)|合計貢献度（バトル後）を指定します。<br>Total clout value (after the battle)|
+|`synergy_bonus`|数値(1.0～9.9)<br>Number(1.0-9.9)|おそろいボーナスの倍率（1.0, 1.5など）を指定します。<br>Synergy bonus (e.g. 1.0, 1.5)|
+|`my_team_win_streak`|整数<br>Integer|自分のチームの連勝数を指定します。<br>Win streak (Good guys)|
+|`his_team_win_streak`|整数<br>Integer|敵のチームの連勝数を指定します。<br>Win streak (Bad guys)|
 |`special_battle`|指定文字列<br>Key|フェスのレアバトルの種類を指定します。<br>Specify special battle on Splatfest<br>`10x`: 10倍バトル - 10x Battle<br>`100x`: 100倍バトル - 100x Battle|
 |`gears`|構造体|プレーヤーのギア構成を指定します。（後述）<br>Specify gear configuration (the player)|
 |`players`|構造体|自分を含めた両チーム8人分のデータを指定します。（後述）|

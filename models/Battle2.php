@@ -23,6 +23,7 @@ use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
 use yii\helpers\Url;
+use yii\web\JsExpression;
 
 /**
  * This is the model class for table "battle2".
@@ -104,6 +105,12 @@ use yii\helpers\Url;
  * @property integer $clothing_id
  * @property integer $shoes_id
  * @property integer $special_battle_id
+ * @property integer $clout
+ * @property integer $total_clout
+ * @property integer $total_clout_after
+ * @property integer $my_team_win_streak
+ * @property integer $his_team_win_streak
+ * @property float $synergy_bonus
  * @property string $remote_addr
  * @property integer $remote_port
  * @property string $start_at
@@ -588,6 +595,9 @@ class Battle2 extends ActiveRecord
             [['my_team_estimate_fest_power', 'his_team_estimate_fest_power'], 'integer', 'min' => 0],
             [['x_power', 'x_power_after'], 'number', 'min' => 0],
             [['estimate_x_power'], 'integer', 'min' => 0],
+            [['clout', 'total_clout', 'total_clout_after'], 'integer', 'min' => 0],
+            [['my_team_win_streak', 'his_team_win_streak'], 'integer', 'min' => 0],
+            [['synergy_bonus'], 'number', 'min' => 1.0, 'max' => 9.9],
             [['client_uuid'], 'string'],
             [['client_uuid'], 'match',
                 'pattern' => '/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i',
@@ -755,6 +765,12 @@ class Battle2 extends ActiveRecord
             'special_battle_id' => Yii::t('app', 'Special Battle'),
             'my_team_nickname_id' => Yii::t('app', 'My team\'s nickname'),
             'his_team_nickname_id' => Yii::t('app', 'Their team\'s nickname'),
+            'clout' => Yii::t('app', 'Clout'),
+            'total_clout' => Yii::t('app', 'Total Clout'),
+            'total_clout_after' => Yii::t('app', 'Total Clout (After the battle)'),
+            'my_team_win_streak' => Yii::t('app', 'Win streak (Good guys)'),
+            'his_team_win_streak' => Yii::t('app', 'Win streak (Bad guys)'),
+            'synergy_bonus' => Yii::t('app', 'Synergy Bonus'),
         ];
     }
 
@@ -1240,6 +1256,14 @@ class Battle2 extends ActiveRecord
             'his_team_fest_theme' => $this->his_team_fest_theme_id ? $this->hisTeamFestTheme->name : null,
             'my_team_nickname' => $this->my_team_nickname_id ? $this->myTeamNickname->name : null,
             'his_team_nickname' => $this->his_team_nickname_id ? $this->hisTeamNickname->name : null,
+            'clout' => $this->clout,
+            'total_clout' => $this->total_clout,
+            'total_clout_after' => $this->total_clout_after,
+            'my_team_win_streak' => $this->my_team_win_streak,
+            'his_team_win_streak' => $this->his_team_win_streak,
+            'synergy_bonus' => ($this->synergy_bonus === null)
+                ? null
+                : new JsExpression(sprintf('%.1f', $this->synergy_bonus)),
             'special_battle' => $this->special_battle_id ? $this->specialBattle->toJsonArray() : null,
             'image_judge' => $this->battleImageJudge
                 ? Url::to(Yii::getAlias('@imageurl') . '/' . $this->battleImageJudge->filename, true)
