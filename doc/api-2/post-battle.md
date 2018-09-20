@@ -79,9 +79,11 @@ POST データは全体で 12MiB 以内である必要があります。
 |`fest_power`|数値(e.g. 1234.5)|フェスパワーを指定します。|
 |`my_team_estimate_fest_power`|整数|自チームの概算フェスパワーを指定します。|
 |`his_team_estimate_fest_power`|整数|敵チームの概算フェスパワーを指定します。|
-|`my_team_fest_theme`|文字列|フェスの自チームの名前を指定します。|
-|`his_team_fest_theme`|文字列|フェスの敵チームの名前を指定します。|
-|`special_battle`|指定文字列<br>key|フェスのレアバトルの種類を指定します。<br>Specify special battle on Splatfest<br>`10x`: 10倍バトル - 10x Battle<br>`100x`: 100倍バトル - 100x Battle|
+|`my_team_fest_theme`|文字列<br>String|フェスの自チームのお題を指定します。<br>Player team's theme<br>例: たけのこの里<br>e.g. Ice Cream|
+|`his_team_fest_theme`|文字列<br>String|フェスの敵チームのお題を指定します。<br>Enemy team's theme|
+|`my_team_nickname`|文字列<br>String|フェスの自チームのニックネームを指定します。<br>Player team's nickname on Splatfest<br>例: メガネシューターイカグループ<br>e.g. The Nearsighted Shooter Squid Warriors|
+|`his_team_nickname`|文字列<br>String|フェスの敵チームのニックネームを指定します。<br>Enemy team's nickname on Splatfest|
+|`special_battle`|指定文字列<br>Key|フェスのレアバトルの種類を指定します。<br>Specify special battle on Splatfest<br>`10x`: 10倍バトル - 10x Battle<br>`100x`: 100倍バトル - 100x Battle|
 |`gears`|構造体|プレーヤーのギア構成を指定します。（後述）<br>Specify gear configuration (the player)|
 |`players`|構造体|自分を含めた両チーム8人分のデータを指定します。（後述）|
 |`death_reasons`|マップ|自分が死んだ死因を指定します。（後述）|

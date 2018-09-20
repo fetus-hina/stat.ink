@@ -98,6 +98,8 @@ use yii\helpers\Url;
  * @property float $his_team_estimate_fest_power;
  * @property integer $my_team_fest_theme_id
  * @property integer $his_team_fest_theme_id
+ * @property integer $my_team_nickname_id
+ * @property integer $his_team_nickname_id
  * @property integer $headgear_id
  * @property integer $clothing_id
  * @property integer $shoes_id
@@ -130,6 +132,8 @@ use yii\helpers\Url;
  * @property GearConfiguration2 $shoes
  * @property Species2 $species
  * @property SpecialBattle2 $specialBattle
+ * @property TeamNickname2 $myTeamNickname
+ * @property TeamNickname2 $hisTeamNickname
  */
 class Battle2 extends ActiveRecord
 {
@@ -564,6 +568,7 @@ class Battle2 extends ActiveRecord
             [['env_id', 'agent_game_version_id', 'agent_id', 'remote_port', 'star_rank'], 'integer'],
             [['kill_or_assist', 'special', 'gender_id', 'fest_title_id', 'fest_title_after_id'], 'integer'],
             [['my_team_fest_theme_id', 'his_team_fest_theme_id', 'species_id', 'special_battle_id'], 'integer'],
+            [['my_team_nickname_id', 'his_team_nickname_id'], 'integer'],
             [['rank_exp', 'rank_after_exp'], 'integer', 'min' => 0, 'max' => 50],
             [['fest_exp', 'fest_exp_after'], 'integer', 'min' => 0, 'max' => 99],
             [['splatnet_number'], 'integer', 'min' => 1],
@@ -659,6 +664,10 @@ class Battle2 extends ActiveRecord
                 'targetClass' => SpecialBattle2::class,
                 'targetAttribute' => 'id',
             ],
+            [['my_team_nickname_id', 'his_team_nickname_id'], 'exist', 'skipOnError' => true,
+                'targetClass' => TeamNickname2::class,
+                'targetAttribute' => 'id',
+            ],
         ];
     }
 
@@ -744,6 +753,8 @@ class Battle2 extends ActiveRecord
             'x_power_after' => Yii::t('app', 'X Power (After the battle)'),
             'estimate_x_power' => Yii::t('app', 'Estimate X Power'),
             'special_battle_id' => Yii::t('app', 'Special Battle'),
+            'my_team_nickname_id' => Yii::t('app', 'My team\'s nickname'),
+            'his_team_nickname_id' => Yii::t('app', 'Their team\'s nickname'),
         ];
     }
 
@@ -970,6 +981,16 @@ class Battle2 extends ActiveRecord
     public function getSpecialBattle()
     {
         return $this->hasOne(SpecialBattle2::class, ['id' => 'special_battle_id']);
+    }
+
+    public function getMyTeamNickname(): ActiveQuery
+    {
+        return $this->hasOne(TeamNickname2::class, ['id' => 'my_team_nickname_id']);
+    }
+
+    public function getHisTeamNickname(): ActiveQuery
+    {
+        return $this->hasOne(TeamNickname2::class, ['id' => 'his_team_nickname_id']);
     }
 
     public function getIsMeaningful() : bool
@@ -1217,6 +1238,8 @@ class Battle2 extends ActiveRecord
             'his_team_my_team_estimate_fest_power' => $this->his_team_estimate_fest_power,
             'my_team_fest_theme' => $this->my_team_fest_theme_id ? $this->myTeamFestTheme->name : null,
             'his_team_fest_theme' => $this->his_team_fest_theme_id ? $this->hisTeamFestTheme->name : null,
+            'my_team_nickname' => $this->my_team_nickname_id ? $this->myTeamNickname->name : null,
+            'his_team_nickname' => $this->his_team_nickname_id ? $this->hisTeamNickname->name : null,
             'special_battle' => $this->special_battle_id ? $this->specialBattle->toJsonArray() : null,
             'image_judge' => $this->battleImageJudge
                 ? Url::to(Yii::getAlias('@imageurl') . '/' . $this->battleImageJudge->filename, true)
