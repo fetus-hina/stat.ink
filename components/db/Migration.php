@@ -7,6 +7,7 @@
 
 namespace app\components\db;
 
+use yii\db\ColumnSchemaBuilder;
 use yii\db\Schema;
 
 class Migration extends \yii\db\Migration
@@ -57,6 +58,64 @@ class Migration extends \yii\db\Migration
                 (array)$columns
             ))
         );
+    }
+
+    public function addColumns(string $table, array $columns): void
+    {
+        $time = $this->beginCommand(sprintf(
+            'add columns %s to table %s',
+            implode(', ', array_keys($columns)),
+            $table
+        ));
+
+        $db = $this->db;
+        $alter = [];
+        $comments = [];
+        foreach ($columns as $column => $type) {
+            $alter[] = sprintf(
+                'ADD COLUMN %s %s',
+                $db->quoteColumnName($column),
+                $db->getQueryBuilder()->getColumnType($type)
+            );
+
+            if ($type instanceof ColumnSchemaBuilder && $type->comment !== null) {
+                $comments[] = $db->getQueryBuilder()->addCommentOnColumn($table, $column, $type->comment);
+            }
+        }
+
+        if (!empty($alter)) {
+            $sql = 'ALTER TABLE ' . $db->quoteTableName($table) . ' ' . implode(', ', $alter);
+            $db->createCommand($sql)->execute();
+        }
+
+        foreach ($comments as $comment) {
+            $db->createCommand($comment)->execute();
+        }
+
+        if (!empty($alter) || !empty($comments)) {
+            $db->getSchema()->refreshTableSchema($table);
+        }
+
+        $this->endCommand($time);
+    }
+
+    public function dropColumns(string $table, array $columns): void
+    {
+        $time = $this->beginCommand(sprintf(
+            "drop columns %s from table %s",
+            implode(', ', array_keys($columns)),
+            $table
+        ));
+
+        $db = $this->db;
+        $sql = 'ALTER TABLE ' . $db->quoteTableName($table) . ' ' . implode(', ', array_map(
+            function (string $column) use ($db): string {
+                return 'DROP COLUMN ' . $db->quoteColumnName($column);
+            },
+            $columns
+        ));
+        $db->createCommand($sql)->execute();
+        $this->endCommand($time);
     }
 
     public function analyze($table) : void
