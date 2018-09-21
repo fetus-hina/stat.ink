@@ -292,7 +292,7 @@ You can also send "`#` + SplatNet-Number" like `#5` as a secondary option (not r
 |`manta`                 |`6`                   |マンタマリア号<br>Manta Maria                |                                                                             |
 |`mongara`               |`16`                  |モンガラキャンプ場<br>Camp Triggerfish       |                                                                             |
 |`mozuku`                |`10`                  |モズク農園<br>Kelp Dome                      |                                                                             |
-|`mutsugoro`             |                      |ムツゴ楼<br>ムツゴ楼                         |                                                                             |
+|`mutsugoro`             |`22`                  |ムツゴ楼<br>Skipper Pavilion                 |                                                                             |
 |`otoro`                 |`19`                  |ホテルニューオートロ<br>New Albacore Hotel   |                                                                             |
 |`shottsuru`             |`17`                  |ショッツル鉱山<br>Piranha Pit                |                                                                             |
 |`sumeshi`               |`20`                  |スメーシーワールド<br>Wahoo World            |                                                                             |
