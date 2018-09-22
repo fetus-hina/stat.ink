@@ -280,7 +280,7 @@ class PostBattleForm extends Model
                 'targetClass' => FestTitle::class,
                 'targetAttribute' => 'key',
             ],
-            [['fest_exp', 'fest_exp_after'], 'integer', 'min' => 0, 'max' => 99],
+            [['fest_exp', 'fest_exp_after'], 'integer', 'min' => 0, 'max' => 999],
             [['my_team_fest_theme', 'his_team_fest_theme'], 'string'],
             [['my_team_nickname', 'his_team_nickname'], 'string'],
             [['clout', 'total_clout', 'total_clout_after'], 'integer', 'min' => 0],

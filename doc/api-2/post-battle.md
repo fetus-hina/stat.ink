@@ -73,9 +73,9 @@ POST データは全体で 12MiB 以内である必要があります。
 |`species`|指定文字列|イカまたはタコの種別を指定します。<br>Specify species (Inklings or Octolings)<br>`inkling` : イカ - Inklings<br>`octoling` : タコ (Octolings)|
 |`gender`|指定文字列|自分のイカの性別を指定します。この項目はフェスで使用します。<br>`boy` : ボーイ<br>`girl` : ガール|
 |`fest_title`|指定文字列|フェスの称号を指定します。|
-|`fest_exp`|整数(0～99)|フェスの経験値を指定します。「カリスマ 42/99」の 42|
+|`fest_exp`|整数(0～999)|フェスの経験値を指定します。「カリスマ 42/99」の 42|
 |`fest_title_after`|指定文字列|フェスの称号を指定します。（バトル後の値）|
-|`fest_exp_after`|整数(0～99)|フェスの経験値を指定します。（バトル後の値）|
+|`fest_exp_after`|整数(0～999)|フェスの経験値を指定します。（バトル後の値）|
 |`fest_power`|数値(e.g. 1234.5)|フェスパワーを指定します。|
 |`my_team_estimate_fest_power`|整数|自チームの概算フェスパワーを指定します。|
 |`his_team_estimate_fest_power`|整数|敵チームの概算フェスパワーを指定します。|

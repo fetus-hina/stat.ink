@@ -577,7 +577,7 @@ class Battle2 extends ActiveRecord
             [['my_team_fest_theme_id', 'his_team_fest_theme_id', 'species_id', 'special_battle_id'], 'integer'],
             [['my_team_nickname_id', 'his_team_nickname_id'], 'integer'],
             [['rank_exp', 'rank_after_exp'], 'integer', 'min' => 0, 'max' => 50],
-            [['fest_exp', 'fest_exp_after'], 'integer', 'min' => 0, 'max' => 99],
+            [['fest_exp', 'fest_exp_after'], 'integer', 'min' => 0, 'max' => 999],
             [['splatnet_number'], 'integer', 'min' => 1],
             [['my_team_id', 'his_team_id'], 'string', 'max' => 16],
             [['is_win', 'is_knockout', 'is_automated', 'use_for_entire'], 'boolean'],
