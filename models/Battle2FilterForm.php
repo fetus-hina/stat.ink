@@ -69,6 +69,7 @@ class Battle2FilterForm extends Model
                     'squad_4-gachi-hoko',
                     'squad_4-gachi-asari',
                     'any-fest-nawabari',
+                    'fest_normal-fest-nawabari',
                     'standard-fest-nawabari',
                     'squad_4-fest-nawabari',
                     'private-private-any',
