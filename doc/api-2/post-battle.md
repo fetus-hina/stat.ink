@@ -645,6 +645,7 @@ Gear Ability
 |`chakuchi`|スーパーチャクチ<br>Splashdown|
 |`jetpack`|ジェットパック<br>Inkjet|
 |`missile`|マルチミサイル<br>Tenta Missiles|
+|`nicedama`|ナイスダマ<br>Booyah Bomb|
 |`presser`|ハイパープレッサー<br>Sting Ray|
 |`sphere`|イカスフィア<br>Baller|
 
