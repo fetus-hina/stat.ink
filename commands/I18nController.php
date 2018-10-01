@@ -34,6 +34,7 @@ class I18nController extends Controller
         foreach ($locales as $locale) {
             $status |= $this->actionMessage($locale->lang);
         }
+        $status |= $this->kickSupportActions();
         $status |= $this->actionShortWeapon();
 
         return $status ? 1 : 0;
@@ -135,6 +136,16 @@ class I18nController extends Controller
         file_put_contents($outPath, implode("\n", $file) . "\n");
         $this->stderr("  => SAVED!\n");
         return true;
+    }
+
+    private function kickSupportActions(): int
+    {
+        $cmdline = sprintf(
+            '/usr/bin/env %s/yii splatoon2-ink-i18n/index',
+            Yii::getAlias('@app')
+        );
+        passthru($cmdline, $status);
+        return $status;
     }
 
     private function getGitContributors(string $path): array

@@ -6,7 +6,6 @@
  */
 
 return [
-    ' Octopoets Ultra' => '',
     '.52 Gal' => '',
     '.52 Gal Deco' => '',
     '.52 Kaliter' => '',
@@ -147,7 +146,9 @@ return [
     'Octokwast' => '',
     'Octokwast Nouveau' => '',
     'Octopoets' => '',
+    'Octopoets Ultra' => '',
     'Octoshot Replica' => '',
+    'Paraplenzer' => '',
     'Permanent Inkbrush' => '',
     'Plenzer' => '',
     'Quadhoppers Wit' => '',

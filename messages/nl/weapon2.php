@@ -89,7 +89,7 @@ return [
     'Nautilus 47' => 'Nautilus 47',
     'Neo Splash-o-matic' => 'Spetterspuit Neo',
     'Neo Sploosh-o-matic' => 'Spettertuit Neo',
-    'New Squiffer' => ' Octopoets Ultra',
+    'New Squiffer' => 'Octopoets Ultra',
     'Nozzlenose' => '',
     'N-ZAP \'85' => 'N-ZAP \'85',
     'N-ZAP \'89' => 'N-ZAP \'89',
@@ -126,7 +126,7 @@ return [
     'Tentatek Splattershot' => 'Tentatek Superspetter',
     'Tri-Slosher' => 'Triomorser',
     'Tri-Slosher Nouveau' => 'Triomorser Nouveau',
-    'Undercover Brella' => 'Sorella Plenzer',
+    'Undercover Brella' => 'Paraplenzer',
     'Undercover Sorella Brella' => 'Sorella Paraplenzer',
     'Zink Mini Splatling' => 'Zink Mini-Spetling',
 ];

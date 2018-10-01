@@ -112,7 +112,7 @@ return [
     'Splash-o-matic' => 'Marcador fino',
     'Splat Brella' => 'Paratintas',
     'Splat Charger' => 'Cargatintas',
-    'Splat Dualies' => 'Dual diffusor',
+    'Splat Dualies' => 'Difusor dual',
     'Splatlings' => 'Tintralladoras',
     'Splat Roller' => 'Rodillo básico',
     'Splatterscope' => 'Cargatintas con mira',

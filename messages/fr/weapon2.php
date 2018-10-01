@@ -15,7 +15,7 @@ return [
     'Aerospray RG' => 'Aérogun premium',
     'All of {0}' => '',
     'Any Weapon' => '',
-    'Ballpoint Splatling' => 'Babigeonneur stylo',
+    'Ballpoint Splatling' => 'Badigeonneur stylo',
     'Bamboozler 14 Mk I' => 'Bimbamboum Mk I',
     'Bamboozler 14 Mk II' => 'Bimbamboum Mk II',
     'Blaster' => 'Éclablaster',
