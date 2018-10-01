@@ -124,6 +124,7 @@ return [
     'Deep-Octo Satin Jacket' => '',
     'Deepsea Leather Boots' => '',
     'Designer Headphones' => '',
+    'Dev Uniform' => 'Chaqueta de programador',
     'Digi-Camo Forge Mask' => '',
     'Do-Rag, Cap, & Glasses' => '',
     'Dots-On-Dots Shirt' => '',

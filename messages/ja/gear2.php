@@ -125,6 +125,7 @@ return [
     'Deep-Octo Satin Jacket' => 'ウラタコスカジャン',
     'Deepsea Leather Boots' => 'シンカイレザーブーツ',
     'Designer Headphones' => 'オーロラヘッドホン',
+    'Dev Uniform' => 'デベロッパーズワークウエア',
     'Digi-Camo Forge Mask' => 'フォーリマスク デジカモ',
     'Do-Rag, Cap, & Glasses' => 'ドゥーラグキャップガサネ',
     'Dots-On-Dots Shirt' => 'レイヤードットシャツ',
