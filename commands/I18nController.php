@@ -144,8 +144,15 @@ class I18nController extends Controller
             '/usr/bin/env %s/yii splatoon2-ink-i18n/index',
             Yii::getAlias('@app')
         );
-        passthru($cmdline, $status);
-        return $status;
+        passthru($cmdline, $status1);
+
+        $cmdline = sprintf(
+            '/usr/bin/env %s/yii api2-markdown',
+            Yii::getAlias('@app')
+        );
+        passthru($cmdline, $status2);
+
+        return $status1 | $status2;
     }
 
     private function getGitContributors(string $path): array
