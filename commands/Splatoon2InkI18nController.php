@@ -13,6 +13,7 @@ use DateTimeZone;
 use Normalizer;
 use Yii;
 use Zend\Http\Client as HttpClient;
+use app\components\helpers\I18n as I18nHelper;
 use app\models\Map2;
 use app\models\Weapon2;
 use yii\console\Controller;
@@ -201,7 +202,7 @@ class Splatoon2InkI18nController extends Controller
                 fprintf(
                     STDERR,
                     "  %s => %s\n",
-                    $currentData[$englishName] ?: $englishName,
+                    $currentData[$englishName] ?? $englishName,
                     $splatNetName
                 );
                 $updated = true;
@@ -212,30 +213,9 @@ class Splatoon2InkI18nController extends Controller
             return 0;
         }
 
-        uksort($currentData, 'strcoll');
-        $now = new DateTimeImmutable('now', new DateTimeZone('Asia/Tokyo'));
-        $php = [];
-        $php[] = '<?php';
-        $php[] = '/**';
-        $php[] = ' * @copyright Copyright (C) 2015-' . $now->format('Y') . ' AIZAWA Hina';
-        $php[] = ' * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT';
-        foreach ($this->getGitContributors($filePath) as $author) {
-            $php[] = ' * @author ' . $author;
-        }
-        $php[] = ' */';
-        $php[] = '';
-        $php[] = 'return [';
-        foreach ($currentData as $englishName => $localName) {
-            $php[] = sprintf(
-                "    '%s' => '%s',",
-                static::addslashes($englishName),
-                static::addslashes($localName)
-            );
-        }
-        $php[] = '];';
-        $php[] = '';
+        $php = I18nHelper::createTranslateTableCode($filePath, $currentData);
+        file_put_contents($filePath, $php);
 
-        file_put_contents($filePath, implode("\n", $php));
         return 0;
         // }}}
     }
@@ -287,30 +267,9 @@ class Splatoon2InkI18nController extends Controller
             return 0;
         }
 
-        uksort($currentData, 'strcoll');
-        $now = new DateTimeImmutable('now', new DateTimeZone('Asia/Tokyo'));
-        $php = [];
-        $php[] = '<?php';
-        $php[] = '/**';
-        $php[] = ' * @copyright Copyright (C) 2015-' . $now->format('Y') . ' AIZAWA Hina';
-        $php[] = ' * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT';
-        foreach ($this->getGitContributors($filePath) as $author) {
-            $php[] = ' * @author ' . $author;
-        }
-        $php[] = ' */';
-        $php[] = '';
-        $php[] = 'return [';
-        foreach ($currentData as $englishName => $localName) {
-            $php[] = sprintf(
-                "    '%s' => '%s',",
-                static::addslashes($englishName),
-                static::addslashes($localName)
-            );
-        }
-        $php[] = '];';
-        $php[] = '';
+        $php = I18nHelper::createTranslateTableCode($filePath, $currentData);
+        file_put_contents($filePath, $php);
 
-        file_put_contents($filePath, implode("\n", $php));
         return 0;
         // }}}
     }
@@ -362,30 +321,9 @@ class Splatoon2InkI18nController extends Controller
             return 0;
         }
 
-        uksort($currentData, 'strcoll');
-        $now = new DateTimeImmutable('now', new DateTimeZone('Asia/Tokyo'));
-        $php = [];
-        $php[] = '<?php';
-        $php[] = '/**';
-        $php[] = ' * @copyright Copyright (C) 2015-' . $now->format('Y') . ' AIZAWA Hina';
-        $php[] = ' * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT';
-        foreach ($this->getGitContributors($filePath) as $author) {
-            $php[] = ' * @author ' . $author;
-        }
-        $php[] = ' */';
-        $php[] = '';
-        $php[] = 'return [';
-        foreach ($currentData as $englishName => $localName) {
-            $php[] = sprintf(
-                "    '%s' => '%s',",
-                static::addslashes($englishName),
-                static::addslashes($localName)
-            );
-        }
-        $php[] = '];';
-        $php[] = '';
+        $php = I18nHelper::createTranslateTableCode($filePath, $currentData);
+        file_put_contents($filePath, $php);
 
-        file_put_contents($filePath, implode("\n", $php));
         return 0;
         // }}}
     }
@@ -440,76 +378,11 @@ class Splatoon2InkI18nController extends Controller
             return 0;
         }
 
-        uksort($currentData, 'strcoll');
-        $now = new DateTimeImmutable('now', new DateTimeZone('Asia/Tokyo'));
-        $php = [];
-        $php[] = '<?php';
-        $php[] = '/**';
-        $php[] = ' * @copyright Copyright (C) 2015-' . $now->format('Y') . ' AIZAWA Hina';
-        $php[] = ' * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT';
-        foreach ($this->getGitContributors($filePath) as $author) {
-            $php[] = ' * @author ' . $author;
-        }
-        $php[] = ' */';
-        $php[] = '';
-        $php[] = 'return [';
-        foreach ($currentData as $englishName => $localName) {
-            $php[] = sprintf(
-                "    '%s' => '%s',",
-                static::addslashes($englishName),
-                static::addslashes($localName)
-            );
-        }
-        $php[] = '];';
-        $php[] = '';
+        $php = I18nHelper::createTranslateTableCode($filePath, $currentData);
+        file_put_contents($filePath, $php);
 
-        file_put_contents($filePath, implode("\n", $php));
         return 0;
         // }}}
-    }
-
-    private function getGitContributors(string $path): array
-    {
-        // {{{
-        $cmdline = sprintf(
-            '/usr/bin/env git log --pretty=%s -- %s | sort | uniq',
-            escapeshellarg('%an <%ae>%n%cn <%ce>'),
-            escapeshellarg($path)
-        );
-        $status = null;
-        $lines = [];
-        @exec($cmdline, $lines, $status);
-        if ($status !== 0) {
-            $this->stderr("Could not get contributors\n");
-            exit(1);
-        }
-        $lines[] = 'AIZAWA Hina <hina@bouhime.com>';
-
-        $authorMap = [
-            'AIZAWA, Hina <hina@bouhime.com>' => 'AIZAWA Hina <hina@bouhime.com>',
-            'Unknown <wkoichi@gmail.com>' => 'Koichi Watanabe <wkoichi@gmail.com>',
-        ];
-        $list = array_unique(
-            array_map(
-                function ($name) use ($authorMap) {
-                    $name = trim($name);
-                    return $authorMap[$name] ?? $name;
-                },
-                $lines
-            )
-        );
-        natcasesort($list);
-        return $list;
-        // }}}
-    }
-
-    private static function addslashes(string $string): string
-    {
-        return str_replace(
-            ["\\", "'"],
-            ["\\\\", "\\'"],
-            $string
-        );
     }
 
     private static function normalize(string $string): string
