@@ -54,9 +54,9 @@ class Splatoon2InkI18nController extends Controller
         ]);
     }
 
-    public function actionIndex(): int
+    public function actionIndex(bool $strongUpdate = true): int
     {
-        if ($this->actionDownloadAll(true) !== 0) {
+        if ($this->actionDownloadAll($strongUpdate) !== 0) {
             return 1;
         }
 

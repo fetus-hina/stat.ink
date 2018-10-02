@@ -24,7 +24,7 @@ class I18nController extends Controller
         setlocale(LC_COLLATE, 'en_US');
     }
 
-    public function actionMessages(): int
+    public function actionMessages(bool $strongUpdate = false): int
     {
         $status = 0;
         $locales = Language::find()
@@ -34,7 +34,7 @@ class I18nController extends Controller
         foreach ($locales as $locale) {
             $status |= $this->actionMessage($locale->lang);
         }
-        $status |= $this->kickSupportActions();
+        $status |= $this->kickSupportActions($strongUpdate);
         $status |= $this->actionShortWeapon();
 
         return $status ? 1 : 0;
@@ -138,11 +138,12 @@ class I18nController extends Controller
         return true;
     }
 
-    private function kickSupportActions(): int
+    private function kickSupportActions(bool $strongUpdate): int
     {
         $cmdline = sprintf(
-            '/usr/bin/env %s/yii splatoon2-ink-i18n/index',
-            Yii::getAlias('@app')
+            '/usr/bin/env %s/yii splatoon2-ink-i18n/index %d',
+            Yii::getAlias('@app'),
+            $strongUpdate ? 1 : 0
         );
         passthru($cmdline, $status1);
 
