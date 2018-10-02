@@ -8,8 +8,6 @@ declare(strict_types=1);
 
 namespace app\commands;
 
-use DateTimeImmutable;
-use DateTimeZone;
 use Normalizer;
 use Yii;
 use Zend\Http\Client as HttpClient;
@@ -28,7 +26,6 @@ class Splatoon2InkI18nController extends Controller
     {
         parent::init();
         Yii::setAlias('@messages', '@app/messages');
-        setlocale(LC_COLLATE, 'en_US');
     }
 
     public function getLocaleMap(): array
@@ -165,20 +162,7 @@ class Splatoon2InkI18nController extends Controller
 
     public function actionUpdateWeapon(string $locale): int
     {
-        // {{{
-        if (!$shortLocale = $this->localeMap[$locale] ?? null) {
-            fprintf(STDERR, "Unknown locale %s\n", $locale);
-            return 1;
-        }
-
-        $cachePath = $this->getCacheFilePath($shortLocale);
-        if (!file_exists($cachePath)) {
-            fprintf(STDERR, "JSON file does not exist: %s\n", $cachePath);
-            return 1;
-        }
-
-        fprintf(STDERR, "Checking translations (weapon, %s)\n", $locale);
-        $englishData = ArrayHelper::map(
+        $status = $this->update($locale, 'weapon2', 'weapons', ArrayHelper::map(
             Weapon2::find()
                 ->andWhere(['not', ['splatnet' => null]])
                 ->orderBy(['splatnet' => SORT_ASC])
@@ -186,164 +170,31 @@ class Splatoon2InkI18nController extends Controller
                 ->all(),
             'splatnet',
             'name'
-        );
-
-        $filePath = Yii::getAlias('@app/messages') . "/{$shortLocale}/weapon2.php";
-        $currentData = require($filePath);
-        $splatNetData = Json::decode(file_get_contents($cachePath))['weapons'];
-        $updated = false;
-        foreach ($englishData as $splatNetId => $englishName) {
-            $splatNetName = $splatNetData[$splatNetId]['name'] ?? null;
-            if (!$splatNetName) {
-                continue;
-            }
-            $splatNetName = static::normalize($splatNetName);
-            if (($currentData[$englishName] ?? null) !== $splatNetName) {
-                fprintf(
-                    STDERR,
-                    "  %s => %s\n",
-                    $currentData[$englishName] ?? $englishName,
-                    $splatNetName
-                );
-                $updated = true;
-                $currentData[$englishName] = $splatNetName;
-            }
-        }
-        if (!$updated) {
-            return 0;
-        }
-
-        $php = I18nHelper::createTranslateTableCode($filePath, $currentData);
-        file_put_contents($filePath, $php);
-
-        return 0;
-        // }}}
+        ));
+        return $status ? 0 : 1;
     }
 
     public function actionUpdateSubweapon(string $locale): int
     {
-        // {{{
-        if (!$shortLocale = $this->localeMap[$locale] ?? null) {
-            fprintf(STDERR, "Unknown locale %s\n", $locale);
+        if (!$enData = $this->getEnglishData('weapon_subs')) {
             return 1;
         }
-
-        $cachePath = $this->getCacheFilePath($shortLocale);
-        if (!file_exists($cachePath)) {
-            fprintf(STDERR, "JSON file does not exist: %s\n", $cachePath);
-            return 1;
-        }
-
-        fprintf(STDERR, "Checking translations (subweapon, %s)\n", $locale);
-        $enCachePath = $this->getCacheFilePath('en');
-        $json = Json::decode(file_get_contents($enCachePath))['weapon_subs'];
-        $englishData = [];
-        foreach ($json as $id => $value) {
-            $englishData[$id] = $value['name'];
-        }
-
-        $filePath = Yii::getAlias('@app/messages') . "/{$shortLocale}/subweapon2.php";
-        $currentData = require($filePath);
-        $splatNetData = Json::decode(file_get_contents($cachePath))['weapon_subs'];
-        $updated = false;
-        foreach ($englishData as $splatNetId => $englishName) {
-            $splatNetName = $splatNetData[$splatNetId]['name'] ?? null;
-            if (!$splatNetName) {
-                continue;
-            }
-            $splatNetName = static::normalize($splatNetName);
-            if (($currentData[$englishName] ?? null) !== $splatNetName) {
-                fprintf(
-                    STDERR,
-                    "  %s => %s\n",
-                    $currentData[$englishName] ?: $englishName,
-                    $splatNetName
-                );
-                $updated = true;
-                $currentData[$englishName] = $splatNetName;
-            }
-        }
-        if (!$updated) {
-            return 0;
-        }
-
-        $php = I18nHelper::createTranslateTableCode($filePath, $currentData);
-        file_put_contents($filePath, $php);
-
-        return 0;
-        // }}}
+        $status = $this->update($locale, 'subweapon2', 'weapon_subs', $enData);
+        return $status ? 0 : 1;
     }
 
     public function actionUpdateSpecial(string $locale): int
     {
-        // {{{
-        if (!$shortLocale = $this->localeMap[$locale] ?? null) {
-            fprintf(STDERR, "Unknown locale %s\n", $locale);
+        if (!$enData = $this->getEnglishData('weapon_specials')) {
             return 1;
         }
-
-        $cachePath = $this->getCacheFilePath($shortLocale);
-        if (!file_exists($cachePath)) {
-            fprintf(STDERR, "JSON file does not exist: %s\n", $cachePath);
-            return 1;
-        }
-
-        fprintf(STDERR, "Checking translations (special, %s)\n", $locale);
-        $enCachePath = $this->getCacheFilePath('en');
-        $json = Json::decode(file_get_contents($enCachePath))['weapon_specials'];
-        $englishData = [];
-        foreach ($json as $id => $value) {
-            $englishData[$id] = $value['name'];
-        }
-
-        $filePath = Yii::getAlias('@app/messages') . "/{$shortLocale}/special2.php";
-        $currentData = require($filePath);
-        $splatNetData = Json::decode(file_get_contents($cachePath))['weapon_specials'];
-        $updated = false;
-        foreach ($englishData as $splatNetId => $englishName) {
-            $splatNetName = $splatNetData[$splatNetId]['name'] ?? null;
-            if (!$splatNetName) {
-                continue;
-            }
-            $splatNetName = static::normalize($splatNetName);
-            if (($currentData[$englishName] ?? null) !== $splatNetName) {
-                fprintf(
-                    STDERR,
-                    "  %s => %s\n",
-                    $currentData[$englishName] ?? $englishName,
-                    $splatNetName
-                );
-                $updated = true;
-                $currentData[$englishName] = $splatNetName;
-            }
-        }
-        if (!$updated) {
-            return 0;
-        }
-
-        $php = I18nHelper::createTranslateTableCode($filePath, $currentData);
-        file_put_contents($filePath, $php);
-
-        return 0;
-        // }}}
+        $status = $this->update($locale, 'special2', 'weapon_specials', $enData);
+        return $status ? 0 : 1;
     }
 
     public function actionUpdateStage(string $locale): int
     {
-        // {{{
-        if (!$shortLocale = $this->localeMap[$locale] ?? null) {
-            fprintf(STDERR, "Unknown locale %s\n", $locale);
-            return 1;
-        }
-
-        $cachePath = $this->getCacheFilePath($shortLocale);
-        if (!file_exists($cachePath)) {
-            fprintf(STDERR, "JSON file does not exist: %s\n", $cachePath);
-            return 1;
-        }
-
-        fprintf(STDERR, "Checking translations (stage, %s)\n", $locale);
-        $englishData = ArrayHelper::map(
+        $status = $this->update($locale, 'map2', 'stages', ArrayHelper::map(
             Map2::find()
                 ->andWhere(['not', ['splatnet' => null]])
                 ->orderBy(['splatnet' => SORT_ASC])
@@ -351,11 +202,49 @@ class Splatoon2InkI18nController extends Controller
                 ->all(),
             'splatnet',
             'name'
-        );
+        ));
+        return $status ? 0 : 1;
+    }
 
-        $filePath = Yii::getAlias('@app/messages') . "/{$shortLocale}/map2.php";
+    private function getEnglishData(string $jsonKey): ?array
+    {
+        $cachePath = $this->getCacheFilePath('en');
+        if (!file_exists($cachePath)) {
+            fprintf(STDERR, "JSON file does not exist: %s\n", $cachePath);
+            return null;
+        }
+
+        $json = Json::decode(file_get_contents($cachePath))[$jsonKey];
+        $data = [];
+        foreach ($json as $id => $value) {
+            $data[$id] = $value['name'];
+        }
+        return $data;
+    }
+
+    private function update(
+        string $locale,     // "ja-JP"
+        string $fileName,   // "weapon2"
+        string $jsonKey,    // "weapons"
+        array $englishData  // [0 => "Sploosh-o-matic"]
+    ): bool {
+        // {{{
+        if (!$shortLocale = $this->localeMap[$locale] ?? null) {
+            fprintf(STDERR, "Unknown locale %s\n", $locale);
+            return false;
+        }
+
+        $cachePath = $this->getCacheFilePath($shortLocale);
+        if (!file_exists($cachePath)) {
+            fprintf(STDERR, "JSON file does not exist: %s\n", $cachePath);
+            return false;
+        }
+
+        fprintf(STDERR, "Checking translations (%s, %s)\n", $fileName, $locale);
+
+        $filePath = Yii::getAlias('@app/messages') . "/{$shortLocale}/{$fileName}.php";
         $currentData = require($filePath);
-        $splatNetData = Json::decode(file_get_contents($cachePath))['stages'];
+        $splatNetData = Json::decode(file_get_contents($cachePath))[$jsonKey];
         $updated = false;
         foreach ($englishData as $splatNetId => $englishName) {
             $splatNetName = $splatNetData[$splatNetId]['name'] ?? null;
@@ -363,25 +252,24 @@ class Splatoon2InkI18nController extends Controller
                 continue;
             }
             $splatNetName = static::normalize($splatNetName);
-            if (($currentData[$englishName] ?? null) !== $splatNetName) {
-                fprintf(
-                    STDERR,
-                    "  %s => %s\n",
-                    $currentData[$englishName] ?: $englishName,
-                    $splatNetName
-                );
+            $oldName = $currentData[$englishName] ?? null;
+            if ($oldName !== $splatNetName) {
+                fprintf(STDERR, "    %s => %s\n", $oldName ?: $englishName, $splatNetName);
                 $updated = true;
                 $currentData[$englishName] = $splatNetName;
             }
         }
+
         if (!$updated) {
-            return 0;
+            fwrite(STDERR, "  => NOT CHANGED\n");
+            return true;
         }
 
         $php = I18nHelper::createTranslateTableCode($filePath, $currentData);
         file_put_contents($filePath, $php);
+        fwrite(STDERR, "  => UPDATED.\n");
 
-        return 0;
+        return true;
         // }}}
     }
 

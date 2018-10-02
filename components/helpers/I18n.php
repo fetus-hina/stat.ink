@@ -89,6 +89,7 @@ class I18n
     private static function switchSystemLocale(int $category, string $locale): Resource
     {
         $oldLocale = setlocale($category, '0'); // get current locale
+        setlocale($category, $locale);
         return new Resource(
             [$category, $oldLocale],
             function (array $oldData): void {
