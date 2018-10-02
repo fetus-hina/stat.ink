@@ -6,13 +6,19 @@
  */
 
 return [
+    'Autobomb Launcher' => '',
     'Baller' => '',
     'Bomb Launcher' => '',
+    'Booyah Bomb' => '',
     'Bubble Blower' => '',
+    'Burst-Bomb Launcher' => '',
+    'Curling-Bomb Launcher' => '',
     'Ink Armor' => '',
     'Inkjet' => '',
     'Ink Storm' => '',
     'Splashdown' => '',
+    'Splat-Bomb Launcher' => '',
     'Sting Ray' => '',
+    'Suction-Bomb Launcher' => '',
     'Tenta Missiles' => '',
 ];

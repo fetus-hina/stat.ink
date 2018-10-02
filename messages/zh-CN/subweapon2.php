@@ -9,6 +9,7 @@ return [
     'Autobomb' => '',
     'Burst Bomb' => '',
     'Curling Bomb' => '',
+    'Fizzy Bomb' => '',
     'Ink Mine' => '',
     'Point Sensor' => '',
     'Splash Wall' => '',
