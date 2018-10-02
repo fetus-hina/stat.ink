@@ -13,6 +13,7 @@ use DateTimeZone;
 use Normalizer;
 use Yii;
 use Zend\Http\Client as HttpClient;
+use app\models\Map2;
 use app\models\Weapon2;
 use yii\console\Controller;
 use yii\helpers\ArrayHelper;
@@ -144,6 +145,10 @@ class Splatoon2InkI18nController extends Controller
             if ($this->actionUpdateWeapon($locale) !== 0) {
                 return 1;
             }
+
+            if ($this->actionUpdateStage($locale) !== 0) {
+                return 1;
+            }
         }
 
         return 0;
@@ -183,7 +188,7 @@ class Splatoon2InkI18nController extends Controller
             if (!$splatNetName) {
                 continue;
             }
-            $splatNetName = trim(Normalizer::normalize($splatNetName, Normalizer::FORM_C));
+            $splatNetName = static::normalize($splatNetName);
             if (($currentData[$englishName] ?? null) !== $splatNetName) {
                 fprintf(
                     STDERR,
@@ -215,8 +220,86 @@ class Splatoon2InkI18nController extends Controller
         foreach ($currentData as $englishName => $localName) {
             $php[] = sprintf(
                 "    '%s' => '%s',",
-                $this->addslashes($englishName),
-                $this->addslashes($localName)
+                static::addslashes($englishName),
+                static::addslashes($localName)
+            );
+        }
+        $php[] = '];';
+        $php[] = '';
+
+        file_put_contents($filePath, implode("\n", $php));
+        return 0;
+        // }}}
+    }
+
+    public function actionUpdateStage(string $locale): int
+    {
+        // {{{
+        if (!$shortLocale = $this->localeMap[$locale] ?? null) {
+            fprintf(STDERR, "Unknown locale %s\n", $locale);
+            return 1;
+        }
+
+        $cachePath = $this->getCacheFilePath($shortLocale);
+        if (!file_exists($cachePath)) {
+            fprintf(STDERR, "JSON file does not exist: %s\n", $cachePath);
+            return 1;
+        }
+
+        fprintf(STDERR, "Checking translations (stage, %s)\n", $locale);
+        $englishData = ArrayHelper::map(
+            Map2::find()
+                ->andWhere(['not', ['splatnet' => null]])
+                ->orderBy(['splatnet' => SORT_ASC])
+                ->asArray()
+                ->all(),
+            'splatnet',
+            'name'
+        );
+
+        $filePath = Yii::getAlias('@app/messages') . "/{$shortLocale}/map2.php";
+        $currentData = require($filePath);
+        $splatNetData = Json::decode(file_get_contents($cachePath))['stages'];
+        $updated = false;
+        foreach ($englishData as $splatNetId => $englishName) {
+            $splatNetName = $splatNetData[$splatNetId]['name'] ?? null;
+            if (!$splatNetName) {
+                continue;
+            }
+            $splatNetName = static::normalize($splatNetName);
+            if (($currentData[$englishName] ?? null) !== $splatNetName) {
+                fprintf(
+                    STDERR,
+                    "  %s => %s\n",
+                    $currentData[$englishName] ?: $englishName,
+                    $splatNetName
+                );
+                $updated = true;
+                $currentData[$englishName] = $splatNetName;
+            }
+        }
+        if (!$updated) {
+            return 0;
+        }
+
+        uksort($currentData, 'strcoll');
+        $now = new DateTimeImmutable('now', new DateTimeZone('Asia/Tokyo'));
+        $php = [];
+        $php[] = '<?php';
+        $php[] = '/**';
+        $php[] = ' * @copyright Copyright (C) 2015-' . $now->format('Y') . ' AIZAWA Hina';
+        $php[] = ' * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT';
+        foreach ($this->getGitContributors($filePath) as $author) {
+            $php[] = ' * @author ' . $author;
+        }
+        $php[] = ' */';
+        $php[] = '';
+        $php[] = 'return [';
+        foreach ($currentData as $englishName => $localName) {
+            $php[] = sprintf(
+                "    '%s' => '%s',",
+                static::addslashes($englishName),
+                static::addslashes($localName)
             );
         }
         $php[] = '];';
@@ -262,12 +345,20 @@ class Splatoon2InkI18nController extends Controller
         // }}}
     }
 
-    private function addslashes(string $string): string
+    private static function addslashes(string $string): string
     {
         return str_replace(
             ["\\", "'"],
             ["\\\\", "\\'"],
             $string
         );
+    }
+
+    private static function normalize(string $string): string
+    {
+        $string = Normalizer::normalize($string, Normalizer::FORM_C);
+        $string = mb_convert_kana($string, 'asKV', 'UTF-8');
+        $string = trim($string);
+        return $string;
     }
 }

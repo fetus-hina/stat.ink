@@ -10,7 +10,7 @@ return [
     'Ancho-V Games' => 'Ansjobit-gamestudio',
     'Any Stage' => '',
     'Arena' => 'Planktonstadion',
-    'Arowana Mall' => 'Winkelcentrum',
+    'Arowana Mall' => 'Piranha Plaza',
     'Blackbelly Skatepark' => 'Snoekduik-skatepark',
     'Camp' => 'Kamp Karper',
     'Camp Triggerfish' => 'Kamp Karper',
@@ -52,7 +52,7 @@ return [
     'Towers' => 'Tonijntorens',
     'Track' => 'Lekkerbektrack',
     'Wahoo World' => 'Waterwonderland',
-    'Walleye Warehouse' => '',
+    'Walleye Warehouse' => 'Zeeleeuwloods',
     'Warehouse' => '',
     'World' => 'Waterwonderland',
 ];

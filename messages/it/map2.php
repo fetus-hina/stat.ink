@@ -7,10 +7,10 @@
 
 return [
     'Academy' => 'Campus Hippocampus',
-    'Ancho-V Games' => 'AcciuGames',
+    'Ancho-V Games' => 'Acciugames',
     'Any Stage' => '',
     'Arena' => 'Arena Sardina',
-    'Arowana Mall' => 'Centro Commerciale',
+    'Arowana Mall' => 'Centro commerciale',
     'Blackbelly Skatepark' => 'Pista Polposkate',
     'Camp' => 'Campeggio Totan',
     'Camp Triggerfish' => 'Campeggio Totan',
@@ -39,7 +39,7 @@ return [
     'Port' => 'Porto Polpo',
     'Port Mackerel' => 'Porto Polpo',
     'Reef' => 'Rione Storione',
-    'Shellendorf Institute' => 'Il Museo paleontonnologico',
+    'Shellendorf Institute' => 'Museo paleontonnologico',
     'Shifty' => 'Zona mista',
     'Shifty Station' => 'Zona mista',
     'Shipyard' => 'Cantiere Pinnenere',
