@@ -8,7 +8,7 @@
 return [
     'Autobomb Launcher' => 'Lanciarobo-bombe',
     'Baller' => 'Cromosfera',
-    'Bomb Launcher' => '',
+    'Bomb Launcher' => 'Lanciabombe',
     'Booyah Bomb' => '',
     'Bubble Blower' => 'Soffiabolle',
     'Burst-Bomb Launcher' => 'Lanciagranate',

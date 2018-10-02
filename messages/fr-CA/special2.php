@@ -8,7 +8,7 @@
 return [
     'Autobomb Launcher' => 'Lance-bombes robots',
     'Baller' => 'Chromo-sphère',
-    'Bomb Launcher' => '',
+    'Bomb Launcher' => 'Lance-bombes',
     'Booyah Bomb' => '',
     'Bubble Blower' => 'Lance-bulles',
     'Burst-Bomb Launcher' => 'Lance-bombes ballons',

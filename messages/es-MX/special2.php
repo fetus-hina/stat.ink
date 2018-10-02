@@ -8,7 +8,7 @@
 return [
     'Autobomb Launcher' => 'Robobombardeo',
     'Baller' => 'Esfera tintera',
-    'Bomb Launcher' => '',
+    'Bomb Launcher' => 'Bombardeo',
     'Booyah Bomb' => '',
     'Bubble Blower' => 'Lanzaburbujas',
     'Burst-Bomb Launcher' => 'Bombardeo entintado',
