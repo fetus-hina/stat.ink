@@ -9,7 +9,7 @@ return [
     'Autobomb' => 'Robo-Bombe',
     'Burst Bomb' => 'Insta-Bombe',
     'Curling Bomb' => 'Curling-Bombe',
-    'Fizzy Bomb' => '',
+    'Fizzy Bomb' => 'Sprudel-Bombe',
     'Ink Mine' => 'Tintenmine',
     'Point Sensor' => 'Detektor',
     'Splash Wall' => 'Tintenwall',

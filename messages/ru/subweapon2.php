@@ -9,7 +9,7 @@ return [
     'Autobomb' => 'Робобомба',
     'Burst Bomb' => 'Разрывная бомба',
     'Curling Bomb' => 'Керлинг-бомба',
-    'Fizzy Bomb' => '',
+    'Fizzy Bomb' => 'Содовая бомба',
     'Ink Mine' => 'Мина',
     'Point Sensor' => 'Маркер движения',
     'Splash Wall' => 'Чернильный занавес',

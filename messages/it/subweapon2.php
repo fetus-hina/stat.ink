@@ -9,7 +9,7 @@ return [
     'Autobomb' => 'Robo-bomba',
     'Burst Bomb' => 'Granata',
     'Curling Bomb' => 'Bomba curling',
-    'Fizzy Bomb' => '',
+    'Fizzy Bomb' => 'Bomba a gassosa',
     'Ink Mine' => 'Mina',
     'Point Sensor' => 'Cimice',
     'Splash Wall' => 'Muro di colore',
