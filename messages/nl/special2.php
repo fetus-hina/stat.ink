@@ -6,14 +6,19 @@
  */
 
 return [
+    'Autobomb Launcher' => 'Robobomkanon',
     'Baller' => 'Barstbubbel',
     'Bomb Launcher' => 'Bomkanon',
     'Booyah Bomb' => '',
     'Bubble Blower' => 'Bellenblazer',
+    'Burst-Bomb Launcher' => 'Ballonbomkanon',
+    'Curling-Bomb Launcher' => 'Curlingbomkanon',
     'Ink Armor' => 'Inktharnas',
     'Inkjet' => 'Inktjet',
     'Ink Storm' => 'Spetterbui',
     'Splashdown' => 'Superlanding',
+    'Splat-Bomb Launcher' => 'Klodderbomkanon',
     'Sting Ray' => 'Magistraal',
+    'Suction-Bomb Launcher' => 'Kleefbomkanon',
     'Tenta Missiles' => 'Spetterraketten',
 ];

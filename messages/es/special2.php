@@ -6,14 +6,19 @@
  */
 
 return [
-    'Baller' => '',
+    'Autobomb Launcher' => 'Roborráfaga',
+    'Baller' => 'Esfera tintera',
     'Bomb Launcher' => '',
     'Booyah Bomb' => '',
-    'Bubble Blower' => '',
-    'Ink Armor' => '',
+    'Bubble Blower' => 'Lanzapompas',
+    'Burst-Bomb Launcher' => 'Ráfaga rápida',
+    'Curling-Bomb Launcher' => 'Ráfaga deslizante',
+    'Ink Armor' => 'Blindaje',
     'Inkjet' => 'Propulsor',
     'Ink Storm' => 'Atormentador',
     'Splashdown' => 'Salto explosivo',
+    'Splat-Bomb Launcher' => 'Ráfaga básica',
     'Sting Ray' => 'Rayo tintódico',
+    'Suction-Bomb Launcher' => 'Ráfaga ventosa',
     'Tenta Missiles' => 'Lanzamisiles',
 ];

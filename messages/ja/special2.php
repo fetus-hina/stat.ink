@@ -6,14 +6,19 @@
  */
 
 return [
+    'Autobomb Launcher' => 'ロボボムピッチャー',
     'Baller' => 'イカスフィア',
     'Bomb Launcher' => 'ボムピッチャー',
     'Booyah Bomb' => 'ナイスダマ',
     'Bubble Blower' => 'バブルランチャー',
+    'Burst-Bomb Launcher' => 'クイックボムピッチャー',
+    'Curling-Bomb Launcher' => 'カーリングボムピッチャー',
     'Ink Armor' => 'インクアーマー',
-    'Ink Storm' => 'アメフラシ',
     'Inkjet' => 'ジェットパック',
+    'Ink Storm' => 'アメフラシ',
     'Splashdown' => 'スーパーチャクチ',
+    'Splat-Bomb Launcher' => 'スプラッシュボムピッチャー',
     'Sting Ray' => 'ハイパープレッサー',
+    'Suction-Bomb Launcher' => 'キューバンボムピッチャー',
     'Tenta Missiles' => 'マルチミサイル',
 ];

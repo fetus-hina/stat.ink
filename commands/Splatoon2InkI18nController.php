@@ -150,6 +150,10 @@ class Splatoon2InkI18nController extends Controller
                 return 1;
             }
 
+            if ($this->actionUpdateSpecial($locale) !== 0) {
+                return 1;
+            }
+
             if ($this->actionUpdateStage($locale) !== 0) {
                 return 1;
             }
@@ -273,6 +277,81 @@ class Splatoon2InkI18nController extends Controller
                     STDERR,
                     "  %s => %s\n",
                     $currentData[$englishName] ?: $englishName,
+                    $splatNetName
+                );
+                $updated = true;
+                $currentData[$englishName] = $splatNetName;
+            }
+        }
+        if (!$updated) {
+            return 0;
+        }
+
+        uksort($currentData, 'strcoll');
+        $now = new DateTimeImmutable('now', new DateTimeZone('Asia/Tokyo'));
+        $php = [];
+        $php[] = '<?php';
+        $php[] = '/**';
+        $php[] = ' * @copyright Copyright (C) 2015-' . $now->format('Y') . ' AIZAWA Hina';
+        $php[] = ' * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT';
+        foreach ($this->getGitContributors($filePath) as $author) {
+            $php[] = ' * @author ' . $author;
+        }
+        $php[] = ' */';
+        $php[] = '';
+        $php[] = 'return [';
+        foreach ($currentData as $englishName => $localName) {
+            $php[] = sprintf(
+                "    '%s' => '%s',",
+                static::addslashes($englishName),
+                static::addslashes($localName)
+            );
+        }
+        $php[] = '];';
+        $php[] = '';
+
+        file_put_contents($filePath, implode("\n", $php));
+        return 0;
+        // }}}
+    }
+
+    public function actionUpdateSpecial(string $locale): int
+    {
+        // {{{
+        if (!$shortLocale = $this->localeMap[$locale] ?? null) {
+            fprintf(STDERR, "Unknown locale %s\n", $locale);
+            return 1;
+        }
+
+        $cachePath = $this->getCacheFilePath($shortLocale);
+        if (!file_exists($cachePath)) {
+            fprintf(STDERR, "JSON file does not exist: %s\n", $cachePath);
+            return 1;
+        }
+
+        fprintf(STDERR, "Checking translations (special, %s)\n", $locale);
+        $enCachePath = $this->getCacheFilePath('en');
+        $json = Json::decode(file_get_contents($enCachePath))['weapon_specials'];
+        $englishData = [];
+        foreach ($json as $id => $value) {
+            $englishData[$id] = $value['name'];
+        }
+
+        $filePath = Yii::getAlias('@app/messages') . "/{$shortLocale}/special2.php";
+        $currentData = require($filePath);
+        $splatNetData = Json::decode(file_get_contents($cachePath))['weapon_specials'];
+        $updated = false;
+        foreach ($englishData as $splatNetId => $englishName) {
+            $splatNetName = $splatNetData[$splatNetId]['name'] ?? null;
+            if (!$splatNetName) {
+                continue;
+            }
+            $splatNetName = static::normalize($splatNetName);
+            if (($currentData[$englishName] ?? null) !== $splatNetName) {
+                fprintf(
+                    STDERR,
+                    "  %s => %s\n",
+                    $currentData[$englishName] ?? $englishName,
                     $splatNetName
                 );
                 $updated = true;

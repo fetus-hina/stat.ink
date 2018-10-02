@@ -6,14 +6,19 @@
  */
 
 return [
+    'Autobomb Launcher' => 'Lance-bombes robots',
     'Baller' => 'Chromo-sphère',
     'Bomb Launcher' => 'Lanceur de bombes',
     'Booyah Bomb' => '',
     'Bubble Blower' => 'Lance-bulles',
+    'Burst-Bomb Launcher' => 'Lance-bombes ballons',
+    'Curling-Bomb Launcher' => 'Lance-bombes curling',
     'Ink Armor' => 'Armure d\'encre',
     'Inkjet' => 'Chromo-jet',
     'Ink Storm' => 'Pluie d\'encre',
     'Splashdown' => 'Choc chromatique',
+    'Splat-Bomb Launcher' => 'Lance-bombes splash',
     'Sting Ray' => 'Pigmalance',
+    'Suction-Bomb Launcher' => 'Lance-bombes gluantes',
     'Tenta Missiles' => 'Multi-missile',
 ];

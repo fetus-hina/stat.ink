@@ -6,14 +6,19 @@
  */
 
 return [
+    'Autobomb Launcher' => 'Lanciarobo-bombe',
     'Baller' => 'Cromosfera',
     'Bomb Launcher' => '',
     'Booyah Bomb' => '',
     'Bubble Blower' => 'Soffiabolle',
+    'Burst-Bomb Launcher' => 'Lanciagranate',
+    'Curling-Bomb Launcher' => 'Lanciabombe curling',
     'Ink Armor' => 'Armatura d\'inchiostro',
     'Inkjet' => 'Jet splat',
     'Ink Storm' => 'Pioggia di colore',
     'Splashdown' => 'Vernischianto',
+    'Splat-Bomb Launcher' => 'Lanciabombe splash',
     'Sting Ray' => 'Baccalaser',
+    'Suction-Bomb Launcher' => 'Lanciappiccibombe',
     'Tenta Missiles' => 'Lanciarazzi',
 ];
