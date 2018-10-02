@@ -6,16 +6,16 @@
  */
 
 return [
-    'Autobomb' => '',
-    'Burst Bomb' => '',
-    'Curling Bomb' => '',
+    'Autobomb' => 'Bombe robot',
+    'Burst Bomb' => 'Bombe ballon',
+    'Curling Bomb' => 'Bombe curling',
     'Fizzy Bomb' => '',
-    'Ink Mine' => '',
-    'Point Sensor' => '',
-    'Splash Wall' => '',
-    'Splat Bomb' => '',
-    'Sprinkler' => '',
-    'Squid Beakon' => '',
-    'Suction Bomb' => '',
-    'Toxic Mist' => '',
+    'Ink Mine' => 'Mine d\'encre',
+    'Point Sensor' => 'Détecteur',
+    'Splash Wall' => 'Mur d\'encre',
+    'Splat Bomb' => 'Bombe splash',
+    'Sprinkler' => 'Gicleur',
+    'Squid Beakon' => 'Balise de saut',
+    'Suction Bomb' => 'Bombe gluante',
+    'Toxic Mist' => 'Brume toxique',
 ];

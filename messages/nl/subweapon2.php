@@ -10,7 +10,7 @@ return [
     'Burst Bomb' => 'Ballonbom',
     'Curling Bomb' => 'Curlingbom',
     'Fizzy Bomb' => '',
-    'Ink Mine' => 'Inktmijnen',
+    'Ink Mine' => 'Inktmijn',
     'Point Sensor' => 'Detector',
     'Splash Wall' => 'Inktgordijn',
     'Splat Bomb' => 'Klodderbom',

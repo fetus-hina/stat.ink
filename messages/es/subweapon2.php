@@ -6,16 +6,16 @@
  */
 
 return [
-    'Autobomb' => '',
+    'Autobomb' => 'Robobomba',
     'Burst Bomb' => 'Bomba rápida',
     'Curling Bomb' => 'Bomba deslizante',
     'Fizzy Bomb' => '',
-    'Ink Mine' => 'Bomba Trampa',
+    'Ink Mine' => 'Bomba trampa',
     'Point Sensor' => 'Rastreador',
-    'Splash Wall' => '',
+    'Splash Wall' => 'Telón de tinta',
     'Splat Bomb' => 'Bomba básica',
     'Sprinkler' => 'Aspersor',
-    'Squid Beakon' => '',
+    'Squid Beakon' => 'Baliza transportadora',
     'Suction Bomb' => 'Bomba ventosa',
-    'Toxic Mist' => '',
+    'Toxic Mist' => 'Nebulizador',
 ];

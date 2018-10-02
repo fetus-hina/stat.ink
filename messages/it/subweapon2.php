@@ -6,7 +6,7 @@
  */
 
 return [
-    'Autobomb' => 'Robobomba',
+    'Autobomb' => 'Robo-bomba',
     'Burst Bomb' => 'Granata',
     'Curling Bomb' => 'Bomba curling',
     'Fizzy Bomb' => '',
