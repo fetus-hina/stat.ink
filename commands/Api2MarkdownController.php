@@ -11,6 +11,7 @@ namespace app\commands;
 use Yii;
 use app\models\Ability2;
 use app\models\Map2;
+use app\models\SalmonBoss2;
 use app\models\SalmonTitle2;
 use app\models\WeaponCategory2;
 use yii\console\Controller;
@@ -87,6 +88,15 @@ class Api2MarkdownController extends Controller
                     case 'title':
                         ob_start();
                         $status = $this->actionSalmonTitle();
+                        if ($status !== 0) {
+                            return $status;
+                        }
+                        $repl = ob_get_clean();
+                        return $match['start'] . "\n" . rtrim($repl) . "\n" . $match['end'];
+
+                    case 'boss':
+                        ob_start();
+                        $status = $this->actionSalmonBoss();
                         if ($status !== 0) {
                             return $status;
                         }
@@ -345,6 +355,67 @@ class Api2MarkdownController extends Controller
                 $title->splatnet !== null ? sprintf('`%d`', $title->splatnet) : '',
                 implode("<br>", [
                     Yii::t('app-salmon-title2', $title->name, [], 'ja-JP'),
+                    $title->name,
+                ]),
+                implode("<br>", $colRemarks),
+            ];
+            // }}}
+        }
+        echo static::createTable($data);
+        return 0;
+        // }}}
+    }
+
+    public function actionSalmonBoss(): int
+    {
+        // {{{
+        $compats = [];
+        $remarks = [];
+        $titles = SalmonBoss2::find()->orderBy(['key' => SORT_ASC])->all();
+
+        $data = [
+            [
+                "指定文字列<br>Key String",
+                "イカリング<br>SplatNet",
+                "名前<br>Name",
+                "備考<br>Remarks",
+            ],
+        ];
+        foreach ($titles as $title) {
+            // {{{
+            $colRemarks = $remarks[$title->key] ?? [];
+            if (isset($compats[$title->key])) {
+                $colRemarks[] = sprintf(
+                    '互換性のため %s も受け付けます',
+                    implode(', ', array_map(
+                        function (string $value): string {
+                            return '`' . $value . '`';
+                        },
+                        (array)$compats[$title->key]
+                    ))
+                );
+                $colRemarks[] = sprintf(
+                    'Also accepts %s for compatibility',
+                    implode(', ', array_map(
+                        function (string $value): string {
+                            return '`' . $value . '`';
+                        },
+                        (array)$compats[$title->key]
+                    ))
+                );
+            }
+            $data[] = [
+                sprintf('`%s`', $title->key),
+                implode('<br>', array_filter([
+                    $title->splatnet !== null
+                        ? sprintf('`%d`', $title->splatnet)
+                        : false,
+                    $title->splatnet_str !== null
+                        ? sprintf('`%s`', $title->splatnet_str)
+                        : false,
+                ])),
+                implode("<br>", [
+                    Yii::t('app-salmon-boss2', $title->name, [], 'ja-JP'),
                     $title->name,
                 ]),
                 implode("<br>", $colRemarks),

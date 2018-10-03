@@ -26,3 +26,20 @@ Post a salmon run shift to stat.ink.
 |`overachiever`          |`4`                   |じゅくれん<br>Overachiever|               |
 |`profreshional`         |`5`                   |たつじん<br>Profreshional |               |
 <!--endreplace-->
+
+Boss
+----
+
+<!--replace:boss-->
+|指定文字列<br>Key String|イカリング<br>SplatNet     |名前<br>Name         |備考<br>Remarks|
+|------------------------|---------------------------|---------------------|---------------|
+|`drizzler`              |`21`<br>`sakerocket`       |コウモリ<br>Drizzler |               |
+|`flyfish`               |`9`<br>`sakelien-cup-twins`|カタパッド<br>Flyfish|               |
+|`goldie`                |`3`<br>`sakelien-golden`   |キンシャケ<br>Goldie |               |
+|`griller`               |`16`<br>`sakedozer`        |グリル<br>Griller    |               |
+|`maws`                  |`15`<br>`sakediver`        |モグラ<br>Maws       |               |
+|`scrapper`              |`12`<br>`sakelien-shield`  |テッパン<br>Scrapper |               |
+|`steel_eel`             |`13`<br>`sakelien-snake`   |ヘビ<br>Steel Eel    |               |
+|`steelhead`             |`6`<br>`sakelien-bomber`   |バクダン<br>Steelhead|               |
+|`stinger`               |`14`<br>`sakelien-tower`   |タワー<br>Stinger    |               |
+<!--endreplace-->
