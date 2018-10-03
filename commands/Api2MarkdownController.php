@@ -1,15 +1,17 @@
 <?php
 /**
- * @copyright Copyright (C) 2015-2017 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2018 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  */
+declare(strict_types=1);
 
 namespace app\commands;
 
 use Yii;
 use app\models\Ability2;
 use app\models\Map2;
+use app\models\SalmonTitle2;
 use app\models\WeaponCategory2;
 use yii\console\Controller;
 use yii\helpers\Console;
@@ -18,8 +20,17 @@ class Api2MarkdownController extends Controller
 {
     public $defaultAction = 'update';
 
-    public function actionUpdate() : int
+    public function actionUpdate(): int
     {
+        $status = 0;
+        $status |= $this->actionUpdateBattle();
+        $status |= $this->actionUpdateSalmon();
+        return $status === 0 ? 0 : 1;
+    }
+
+    public function actionUpdateBattle(): int
+    {
+        // {{{
         $path = Yii::getAlias('@app/doc/api-2/post-battle.md');
         $markdown = preg_replace_callback(
             '/(?<start><!--replace:(?<kind>[\w-]+)-->)(?<oldvalue>.*?)(?<end><!--endreplace-->)/us',
@@ -62,9 +73,40 @@ class Api2MarkdownController extends Controller
         file_put_contents($path, $markdown);
         echo "Updated $path\n";
         return 0;
+        // }}}
     }
 
-    public function actionWeapon() : int
+    public function actionUpdateSalmon(): int
+    {
+        // {{{
+        $path = Yii::getAlias('@app/doc/api-2/post-salmon.md');
+        $markdown = preg_replace_callback(
+            '/(?<start><!--replace:(?<kind>[\w-]+)-->)(?<oldvalue>.*?)(?<end><!--endreplace-->)/us',
+            function (array $match) : string {
+                switch ($match['kind']) {
+                    case 'title':
+                        ob_start();
+                        $status = $this->actionSalmonTitle();
+                        if ($status !== 0) {
+                            return $status;
+                        }
+                        $repl = ob_get_clean();
+                        return $match['start'] . "\n" . rtrim($repl) . "\n" . $match['end'];
+
+                    default:
+                        $this->stderr("Unknown kind of replace tag: " . $match['kind'] . "\n");
+                        exit(1);
+                }
+            },
+            file_get_contents($path)
+        );
+        file_put_contents($path, $markdown);
+        echo "Updated $path\n";
+        return 0;
+        // }}}
+    }
+
+    public function actionWeapon(): int
     {
         // {{{
         $compats = [
@@ -134,7 +176,7 @@ class Api2MarkdownController extends Controller
         // }}}
     }
 
-    public function actionStage() : int
+    public function actionStage(): int
     {
         // {{{
         $compats = [
@@ -206,7 +248,7 @@ class Api2MarkdownController extends Controller
         // }}}
     }
 
-    public function actionAbility() : int
+    public function actionAbility(): int
     {
         // {{{
         $compats = [];
@@ -250,6 +292,60 @@ class Api2MarkdownController extends Controller
                 implode("<br>", [
                     Yii::t('app-ability2', $ability->name, [], 'ja-JP'),
                     $ability->name,
+                ]),
+                implode("<br>", $colRemarks),
+            ];
+            // }}}
+        }
+        echo static::createTable($data);
+        return 0;
+        // }}}
+    }
+
+    public function actionSalmonTitle(): int
+    {
+        // {{{
+        $compats = [];
+        $remarks = [];
+        $titles = SalmonTitle2::find()->orderBy(['id' => SORT_ASC])->all();
+
+        $data = [
+            [
+                "指定文字列<br>Key String",
+                "イカリング<br>SplatNet",
+                "名前<br>Name",
+                "備考<br>Remarks",
+            ],
+        ];
+        foreach ($titles as $title) {
+            // {{{
+            $colRemarks = $remarks[$title->key] ?? [];
+            if (isset($compats[$title->key])) {
+                $colRemarks[] = sprintf(
+                    '互換性のため %s も受け付けます',
+                    implode(', ', array_map(
+                        function (string $value): string {
+                            return '`' . $value . '`';
+                        },
+                        (array)$compats[$title->key]
+                    ))
+                );
+                $colRemarks[] = sprintf(
+                    'Also accepts %s for compatibility',
+                    implode(', ', array_map(
+                        function (string $value): string {
+                            return '`' . $value . '`';
+                        },
+                        (array)$compats[$title->key]
+                    ))
+                );
+            }
+            $data[] = [
+                sprintf('`%s`', $title->key),
+                $title->splatnet !== null ? sprintf('`%d`', $title->splatnet) : '',
+                implode("<br>", [
+                    Yii::t('app-salmon-title2', $title->name, [], 'ja-JP'),
+                    $title->name,
                 ]),
                 implode("<br>", $colRemarks),
             ];
