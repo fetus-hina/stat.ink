@@ -41,7 +41,7 @@ class SecretController extends Controller
         ];
 
         $options = [
-            'class'     => \yii\db\Connection::className(),
+            'class'     => \app\components\db\Connection::className(),
             'dsn'       => $this->makeDsn('pgsql', $dsnOptions),
             'username'  => 'statink',
             'password'  => $password,
