@@ -1,9 +1,11 @@
 <?php
 /**
- * @copyright Copyright (C) 2015-2017 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2018 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  */
+declare(strict_types=1);
+
 namespace app\components\db;
 
 use DateTimeInterface;
@@ -34,6 +36,18 @@ trait GearMigration
     protected function downGear2(string $key) : void
     {
         $this->delete('gear2', ['key' => $key]);
+    }
+
+    protected static function salmonGear2(string $name, string $type, ?int $splatnet): array
+    {
+        return [
+            static::name2key($name),
+            $name,
+            $type,
+            'grizzco',
+            null,
+            $splatnet,
+        ];
     }
 
     protected static function name2key(string $name) : string
