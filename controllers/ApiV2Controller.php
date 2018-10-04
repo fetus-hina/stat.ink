@@ -8,8 +8,9 @@
 namespace app\controllers;
 
 use Yii;
-use yii\filters\VerbFilter;
 use app\components\web\Controller;
+use yii\filters\VerbFilter;
+use yii\filters\auth\HttpBearerAuth;
 
 class ApiV2Controller extends Controller
 {
@@ -28,14 +29,14 @@ class ApiV2Controller extends Controller
             'verbs' => [
                 'class' => VerbFilter::class,
                 'actions' => [
-                    'battle' => [
-                        'delete',
-                        'get',
-                        'head',
-                        'patch',
-                        'post',
-                    ],
-                    '*' => [ 'head', 'get' ],
+                    'salmon-stats' => ['head', 'get', 'post'],
+                    '*' => ['head', 'get'],
+                ],
+            ],
+            'authenticator' => [
+                'class' => HttpBearerAuth::class,
+                'only' => [
+                    'salmon-stats',
                 ],
             ],
         ];
@@ -45,13 +46,13 @@ class ApiV2Controller extends Controller
     {
         $prefix = 'app\actions\api\v2';
         return [
-            // 'battle'        => [ 'class' => $prefix . '\BattleAction' ],
+            'gear' => [ 'class' => $prefix . '\GearAction' ],
+            'rule' => [ 'class' => $prefix . '\RuleAction' ],
+            'salmon-stats' => [ 'class' => $prefix . '\salmon\SalmonStatsAction' ],
+            'stage' => [ 'class' => $prefix . '\StageAction' ],
+            'weapon' => [ 'class' => $prefix . '\WeaponAction' ],
             // 'death-reason'  => [ 'class' => $prefix . '\DeathReasonAction' ],
-            'gear'          => [ 'class' => $prefix . '\GearAction' ],
-            'rule'          => [ 'class' => $prefix . '\RuleAction' ],
-            'stage'         => [ 'class' => $prefix . '\StageAction' ],
             // 'user'          => [ 'class' => $prefix . '\UserAction' ],
-            'weapon'        => [ 'class' => $prefix . '\WeaponAction' ],
             // 'weapon-trends' => [ 'class' => $prefix . '\WeaponTrendsAction' ],
         ];
     }
