@@ -11,6 +11,7 @@ namespace app\models;
 use DateTime;
 use Yii;
 use app\components\behaviors\TimestampBehavior;
+use app\components\helpers\DateTimeFormatter;
 use yii\db\ActiveRecord;
 
 /**
@@ -86,5 +87,37 @@ class SalmonStats2 extends ActiveRecord
     public function getUser()
     {
         return $this->hasOne(User::class, ['id' => 'user_id']);
+    }
+
+    public function toJsonArray(): array
+    {
+        $int = function ($value): ?int {
+            if ($value === null || $value === '') {
+                return null;
+            }
+            $value = filter_var($value, FILTER_VALIDATE_INT);
+            return ($value === false) ? null : (int)$value;
+        };
+
+        $timestamp = function ($value): ?array {
+            if ($value === null || $value === '') {
+                return null;
+            }
+            $value = strtotime((string)$value);
+            if ($value === false) {
+                return null;
+            }
+            return DateTimeFormatter::unixTimeToJsonArray($value);
+        };
+
+        return [
+            'work_count' => $int($this->work_count),
+            'total_golden_eggs' => $int($this->total_golden_eggs),
+            'total_eggs' => $int($this->total_eggs),
+            'total_rescued' => $int($this->total_rescued),
+            'total_point' => $int($this->total_point),
+            'as_of' => $timestamp($this->as_of),
+            'registered_at' => $timestamp($this->created_at),
+        ];
     }
 }

@@ -24,6 +24,8 @@ class PostSalmonStatsForm extends Model
     public $total_point;
     public $as_of;
 
+    public $created_id;
+
     public function behaviors()
     {
         return [
@@ -57,6 +59,7 @@ class PostSalmonStatsForm extends Model
             $model->attributes = $this->attributes;
             $model->user_id = Yii::$app->user->identity->id;
             if ($model->save()) {
+                $this->created_id = $model->id;
                 return true;
             }
 
