@@ -54,3 +54,19 @@ Water Level
 |`normal`                |`normal`              |普通<br>Mid Tide |               |
 |`high`                  |`high`                |満潮<br>High Tide|               |
 <!--endreplace-->
+
+Known Occurrence
+----------------
+
+<!--replace:event-->
+|指定文字列<br>Key String|イカリング<br>SplatNet|名前<br>Name                     |備考<br>Remarks|
+|------------------------|----------------------|---------------------------------|---------------|
+|`cohock_charge`         |`cohock-charge`       |ドスコイ大量発生<br>Cohock Charge|               |
+|`fog`                   |`fog`                 |霧<br>Fog                        |               |
+|`goldie_seeking`        |`goldie-seeking`      |キンシャケ探し<br>Goldie Seeking |               |
+|`griller`               |`griller`             |グリル発進<br>The Griller        |               |
+|`mothership`            |`the-mothership`      |ハコビヤ襲来<br>The Mothership   |               |
+|`rush`                  |`rush`                |ラッシュ<br>Rush                 |               |
+<!--endreplace-->
+
+Note: Water-levels is (and will) not defined.
