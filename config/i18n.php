@@ -25,6 +25,7 @@ return [
                 'app-rule'      => 'rule.php',
                 'app-rule2'     => 'rule2.php',
                 'app-salmon-boss2' => 'salmon-boss2.php',
+                'app-salmon-event2' => 'salmon-event2.php',
                 'app-salmon-title2' => 'salmon-title2.php',
                 'app-salmon2'   => 'salmon2.php',
                 'app-slack'     => 'slack.php',

@@ -12,6 +12,7 @@ use Yii;
 use app\models\Ability2;
 use app\models\Map2;
 use app\models\SalmonBoss2;
+use app\models\SalmonEvent2;
 use app\models\SalmonTitle2;
 use app\models\SalmonWaterLevel2;
 use app\models\WeaponCategory2;
@@ -85,6 +86,7 @@ class Api2MarkdownController extends Controller
 
         $actionMap = [
             'boss' => [$this, 'actionSalmonBoss'],
+            'event' => [$this, 'actionSalmonEvent'],
             'title' => [$this, 'actionSalmonTitle'],
             'water-level' => [$this, 'actionSalmonWaterLevel'],
         ];
@@ -468,6 +470,60 @@ class Api2MarkdownController extends Controller
                 sprintf('`%s`', $row->splatnet),
                 implode("<br>", [
                     Yii::t('app-salmon2', $row->name, [], 'ja-JP'),
+                    $row->name,
+                ]),
+                implode("<br>", $colRemarks),
+            ];
+            // }}}
+        }
+        echo static::createTable($data);
+        return 0;
+        // }}}
+    }
+
+    public function actionSalmonEvent(): int
+    {
+        // {{{
+        $compats = [];
+        $remarks = [];
+        $rows = SalmonEvent2::find()->orderBy(['id' => SORT_ASC])->all();
+
+        $data = [
+            [
+                "指定文字列<br>Key String",
+                "イカリング<br>SplatNet",
+                "名前<br>Name",
+                "備考<br>Remarks",
+            ],
+        ];
+        foreach ($rows as $row) {
+            // {{{
+            $colRemarks = $remarks[$row->key] ?? [];
+            if (isset($compats[$row->key])) {
+                $colRemarks[] = sprintf(
+                    '互換性のため %s も受け付けます',
+                    implode(', ', array_map(
+                        function (string $value): string {
+                            return '`' . $value . '`';
+                        },
+                        (array)$compats[$row->key]
+                    ))
+                );
+                $colRemarks[] = sprintf(
+                    'Also accepts %s for compatibility',
+                    implode(', ', array_map(
+                        function (string $value): string {
+                            return '`' . $value . '`';
+                        },
+                        (array)$compats[$row->key]
+                    ))
+                );
+            }
+            $data[] = [
+                sprintf('`%s`', $row->key),
+                sprintf('`%s`', $row->splatnet),
+                implode("<br>", [
+                    Yii::t('app-salmon-event2', $row->name, [], 'ja-JP'),
                     $row->name,
                 ]),
                 implode("<br>", $colRemarks),
