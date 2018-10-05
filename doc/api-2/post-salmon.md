@@ -70,3 +70,63 @@ Known Occurrence
 <!--endreplace-->
 
 Note: Water-levels is (and will) not defined.
+
+Main Weapon
+-----------
+
+<!--replace:weapon-->
+|指定文字列<br>Key String|イカリング<br>SplatNet|ブキ<br>Weapon Name                                      |備考<br>Remarks|
+|------------------------|----------------------|---------------------------------------------------------|---------------|
+|`kuma_blaster`          |                      |バイト専用 クマサン印のブラスター<br>Grizzco Blaster     |               |
+|`kuma_brella`           |                      |バイト専用 クマサン印のシェルター<br>Grizzco Brella      |               |
+|`kuma_charger`          |                      |バイト専用 クマサン印のチャージャー<br>Grizzco Charger   |               |
+|`kuma_slosher`          |                      |バイト専用 クマサン印のスロッシャー<br>Grizzco Slosher   |               |
+|`52gal`                 |`50`                  |バイト専用 .52ガロン<br>.52 Gal                          |               |
+|`96gal`                 |`80`                  |バイト専用 .96ガロン<br>.96 Gal                          |               |
+|`promodeler_rg`         |`31`                  |バイト専用 プロモデラーRG<br>Aerospray RG                |               |
+|`hotblaster`            |`210`                 |バイト専用 ホットブラスター<br>Blaster                   |               |
+|`clashblaster`          |`230`                 |バイト専用 クラッシュブラスター<br>Clash Blaster         |               |
+|`h3reelgun`             |`310`                 |バイト専用 H3リールガン<br>H-3 Nozzlenose                |               |
+|`jetsweeper`            |`90`                  |バイト専用 ジェットスイーパー<br>Jet Squelcher           |               |
+|`l3reelgun`             |`300`                 |バイト専用 L3リールガン<br>L-3 Nozzlenose                |               |
+|`nova`                  |`200`                 |バイト専用 ノヴァブラスター<br>Luna Blaster              |               |
+|`nzap85`                |`60`                  |バイト専用 N-ZAP85<br>N-ZAP '85                          |               |
+|`longblaster`           |`220`                 |バイト専用 ロングブラスター<br>Range Blaster             |               |
+|`rapid`                 |`240`                 |バイト専用 ラピッドブラスター<br>Rapid Blaster           |               |
+|`rapid_elite`           |`250`                 |バイト専用 Rブラスターエリート<br>Rapid Blaster Pro      |               |
+|`sharp`                 |`20`                  |バイト専用 シャープマーカー<br>Splash-o-matic            |               |
+|`sshooter`              |`40`                  |バイト専用 スプラシューター<br>Splattershot              |               |
+|`wakaba`                |`10`                  |バイト専用 わかばシューター<br>Splattershot Jr.          |               |
+|`prime`                 |`70`                  |バイト専用 プライムシューター<br>Splattershot Pro        |               |
+|`bold`                  |`0`                   |バイト専用 ボールドマーカー<br>Sploosh-o-matic           |               |
+|`bottlegeyser`          |`400`                 |バイト専用 ボトルガイザー<br>Squeezer                    |               |
+|`carbon`                |`1000`                |バイト専用 カーボンローラー<br>Carbon Roller             |               |
+|`dynamo`                |`1020`                |バイト専用 ダイナモローラー<br>Dynamo Roller             |               |
+|`variableroller`        |`1030`                |バイト専用 ヴァリアブルローラー<br>Flingza Roller        |               |
+|`pablo`                 |`1100`                |バイト専用 パブロ<br>Inkbrush                            |               |
+|`hokusai`               |`1110`                |バイト専用 ホクサイ<br>Octobrush                         |               |
+|`splatroller`           |`1010`                |バイト専用 スプラローラー<br>Splat Roller                |               |
+|`bamboo14mk1`           |`2050`                |バイト専用 14式竹筒銃・甲<br>Bamboozler 14 Mk I          |               |
+|`squiclean_a`           |`2000`                |バイト専用 スクイックリンα<br>Classic Squiffer          |               |
+|`liter4k`               |`2030`                |バイト専用 リッター4K<br>E-liter 4K                      |               |
+|`soytuber`              |`2060`                |バイト専用 ソイチューバー<br>Goo Tuber                   |               |
+|`splatcharger`          |`2010`                |バイト専用 スプラチャージャー<br>Splat Charger           |               |
+|`furo`                  |`3030`                |バイト専用 オーバーフロッシャー<br>Bloblobber            |               |
+|`explosher`             |`3040`                |バイト専用 エクスプロッシャー<br>Explosher               |               |
+|`bucketslosher`         |`3000`                |バイト専用 バケットスロッシャー<br>Slosher               |               |
+|`screwslosher`          |`3020`                |バイト専用 スクリュースロッシャー<br>Sloshing Machine    |               |
+|`hissen`                |`3010`                |バイト専用 ヒッセン<br>Tri-Slosher                       |               |
+|`kugelschreiber`        |`4030`                |バイト専用 クーゲルシュライバー<br>Ballpoint Splatling   |               |
+|`barrelspinner`         |`4010`                |バイト専用 バレルスピナー<br>Heavy Splatling             |               |
+|`hydra`                 |`4020`                |バイト専用 ハイドラント<br>Hydra Splatling               |               |
+|`splatspinner`          |`4000`                |バイト専用 スプラスピナー<br>Mini Splatling              |               |
+|`nautilus47`            |`4040`                |バイト専用 ノーチラス47<br>Nautilus 47                   |               |
+|`sputtery`              |`5000`                |バイト専用 スパッタリー<br>Dapple Dualies                |               |
+|`quadhopper_black`      |`5040`                |バイト専用 クアッドホッパーブラック<br>Dark Tetra Dualies|               |
+|`dualsweeper`           |`5030`                |バイト専用 デュアルスイーパー<br>Dualie Squelchers       |               |
+|`kelvin525`             |`5020`                |バイト専用 ケルビン525<br>Glooga Dualies                 |               |
+|`maneuver`              |`5010`                |バイト専用 スプラマニューバー<br>Splat Dualies           |               |
+|`parashelter`           |`6000`                |バイト専用 パラシェルター<br>Splat Brella                |               |
+|`campingshelter`        |`6010`                |バイト専用 キャンピングシェルター<br>Tenta Brella        |               |
+|`spygadget`             |`6020`                |バイト専用 スパイガジェット<br>Undercover Brella         |               |
+<!--endreplace-->

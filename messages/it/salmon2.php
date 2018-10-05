@@ -15,4 +15,5 @@ return [
     'Salmonid Smokeyard' => 'Fortino Fumino',
     'Salmon Run' => '',
     'Spawning Grounds' => 'Diga salmonoide',
+    '{weapon}' => '',
 ];

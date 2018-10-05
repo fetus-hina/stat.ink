@@ -15,4 +15,5 @@ return [
     'Salmonid Smokeyard' => 'Ensenada Ahumada',
     'Salmon Run' => '',
     'Spawning Grounds' => 'Presa Salmónida',
+    '{weapon}' => '',
 ];
