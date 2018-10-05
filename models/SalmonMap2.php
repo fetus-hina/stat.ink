@@ -16,6 +16,7 @@ use yii\db\ActiveRecord;
  * @property integer $id
  * @property string $key
  * @property string $name
+ * @property string $splatnet_hint
  *
  * @property SalmonSchedule2[] $schedules
  */
@@ -38,6 +39,7 @@ class SalmonMap2 extends ActiveRecord
             [['key', 'name'], 'required'],
             [['key'], 'string', 'max' => 16],
             [['name'], 'string', 'max' => 32],
+            [['splatnet_hint'], 'string', 'max' => 255],
             [['key'], 'unique'],
         ];
     }
@@ -51,6 +53,7 @@ class SalmonMap2 extends ActiveRecord
             'id' => 'ID',
             'key' => 'Key',
             'name' => 'Name',
+            'splatnet_hint' => 'Splatnet Hint',
         ];
     }
 

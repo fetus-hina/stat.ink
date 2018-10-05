@@ -13,8 +13,21 @@ UNDER DEVELOPMENT
 Post a salmon run shift to stat.ink.
 
 
-`title`
--------
+Stage ステージ
+--------------
+
+<!--replace:stage-->
+|指定文字列<br>Key String|名前<br>Name                              |イカリングヒント<br>SplatNet Hint                                |
+|------------------------|------------------------------------------|-----------------------------------------------------------------|
+|`shaketoba`             |海上集落シャケト場<br>Lost Outpost        |`/images/coop_stage/6d68f5baa75f3a94e5e9bfb89b82e7377e3ecd2c.png`|
+|`donburako`             |難破船ドン・ブラコ<br>Marooner's Bay      |`/images/coop_stage/e07d73b7d9f0c64e552b34a2e6c29b8564c63388.png`|
+|`tokishirazu`           |トキシラズいぶし工房<br>Salmonid Smokeyard|`/images/coop_stage/e9f7c7b35e6d46778cd3cbc0d89bd7e1bc3be493.png`|
+|`dam`                   |シェケナダム<br>Spawning Grounds          |`/images/coop_stage/65c68c6f0641cc5654434b78a6f10b0ad32ccdee.png`|
+<!--endreplace-->
+
+
+Title (Rank) 称号
+-----------------
 
 <!--replace:title-->
 |指定文字列<br>Key String|イカリング<br>SplatNet|名前<br>Name              |備考<br>Remarks|
@@ -27,8 +40,9 @@ Post a salmon run shift to stat.ink.
 |`profreshional`         |`5`                   |たつじん<br>Profreshional |               |
 <!--endreplace-->
 
-Boss
-----
+
+Boss オオモノシャケ
+-------------------
 
 <!--replace:boss-->
 |指定文字列<br>Key String|イカリング<br>SplatNet     |名前<br>Name         |備考<br>Remarks|
@@ -44,8 +58,9 @@ Boss
 |`stinger`               |`14`<br>`sakelien-tower`   |タワー<br>Stinger    |               |
 <!--endreplace-->
 
-Water Level
------------
+
+Water Level 海面の高さ
+----------------------
 
 <!--replace:water-level-->
 |指定文字列<br>Key String|イカリング<br>SplatNet|名前<br>Name     |備考<br>Remarks|
@@ -55,8 +70,9 @@ Water Level
 |`high`                  |`high`                |満潮<br>High Tide|               |
 <!--endreplace-->
 
-Known Occurrence
-----------------
+
+Known Occurrence イベント
+-------------------------
 
 <!--replace:event-->
 |指定文字列<br>Key String|イカリング<br>SplatNet|名前<br>Name                     |備考<br>Remarks|
@@ -69,10 +85,12 @@ Known Occurrence
 |`rush`                  |`rush`                |ラッシュ<br>Rush                 |               |
 <!--endreplace-->
 
-Note: Water-levels is (and will) not defined.
+Note: Water-levels is (and will) not defined.<br>
+メモ: 海面の高さはここでは定義されません。
 
-Main Weapon
------------
+
+Main Weapon 支給ブキ
+--------------------
 
 <!--replace:weapon-->
 |指定文字列<br>Key String|イカリング<br>SplatNet|ブキ<br>Weapon Name                                      |備考<br>Remarks|
@@ -131,8 +149,9 @@ Main Weapon
 |`spygadget`             |`6020`                |バイト専用 スパイガジェット<br>Undercover Brella         |               |
 <!--endreplace-->
 
-Special Weapon
---------------
+
+Special Weapon スペシャル
+-------------------------
 
 <!--replace:special-->
 |指定文字列<br>Key String|イカリング<br>SplatNet|名前<br>Name                                     |備考<br>Remarks|

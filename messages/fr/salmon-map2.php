@@ -6,10 +6,8 @@
  */
 
 return [
-    'High Tide' => '',
-    'Low Tide' => '',
-    'Mid Tide' => '',
-    'Random' => '',
-    'Salmon Run' => '',
-    '{weapon}' => '',
+    'Lost Outpost' => 'Baraque barracuda',
+    'Marooner\'s Bay' => 'Épave des braves',
+    'Salmonid Smokeyard' => 'Fumoir Sans-Espoir',
+    'Spawning Grounds' => 'Barrage salmonoïde',
 ];

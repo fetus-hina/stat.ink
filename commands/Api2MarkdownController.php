@@ -14,6 +14,7 @@ use app\models\Map2;
 use app\models\SalmonBoss2;
 use app\models\SalmonEvent2;
 use app\models\SalmonMainWeapon2;
+use app\models\SalmonMap2;
 use app\models\SalmonSpecial2;
 use app\models\SalmonTitle2;
 use app\models\SalmonWaterLevel2;
@@ -90,6 +91,7 @@ class Api2MarkdownController extends Controller
             'boss' => [$this, 'actionSalmonBoss'],
             'event' => [$this, 'actionSalmonEvent'],
             'special' => [$this, 'actionSalmonSpecial'],
+            'stage' => [$this, 'actionSalmonStage'],
             'title' => [$this, 'actionSalmonTitle'],
             'water-level' => [$this, 'actionSalmonWaterLevel'],
             'weapon' => [$this, 'actionSalmonWeapon'],
@@ -646,6 +648,36 @@ class Api2MarkdownController extends Controller
                     $weapon['name'],
                 ]),
                 implode('<br>', $remarks),
+            ];
+        }
+        echo static::createTable($data);
+        return 0;
+        // }}}
+    }
+
+    public function actionSalmonStage(): int
+    {
+        // {{{
+        $data = [
+            [
+                "指定文字列<br>Key String",
+                "名前<br>Name",
+                "イカリングヒント<br>SplatNet Hint",
+            ],
+        ];
+        $stages = SalmonMap2::find()
+            ->orderBy([
+                'name' => SORT_ASC,
+            ])
+            ->all();
+        foreach ($stages as $stage) {
+            $data[] = [
+                sprintf('`%s`', $stage['key']),
+                implode('<br>', [
+                    Yii::t('app-salmon-map2', $stage['name'], [], 'ja-JP'),
+                    $stage['name'],
+                ]),
+                sprintf('`%s`', $stage['splatnet_hint']),
             ];
         }
         echo static::createTable($data);

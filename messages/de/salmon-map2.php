@@ -6,10 +6,8 @@
  */
 
 return [
-    'High Tide' => '',
-    'Low Tide' => '',
-    'Mid Tide' => '',
-    'Random' => '',
-    'Salmon Run' => '',
-    '{weapon}' => '',
+    'Lost Outpost' => 'Siedlungsruine',
+    'Marooner\'s Bay' => 'Schiffswrack-Insel',
+    'Salmonid Smokeyard' => 'Räucherwerk',
+    'Spawning Grounds' => 'Salmoniden-Damm',
 ];

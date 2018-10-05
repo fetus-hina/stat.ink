@@ -6,12 +6,8 @@
  */
 
 return [
-    'Lost Outpost' => '海上集落シャケト場',
-    'Marooner\'s Bay' => '難破船ドン・ブラコ',
     'Random' => 'ランダム',
     'Salmon Run' => 'サーモンラン',
-    'Salmonid Smokeyard' => 'トキシラズいぶし工房',
-    'Spawning Grounds' => 'シェケナダム',
 
     'High Tide' => '満潮',
     'Low Tide' => '干潮',
