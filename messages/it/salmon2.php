@@ -7,13 +7,9 @@
 
 return [
     'High Tide' => '',
-    'Lost Outpost' => 'Barricata Barracuda',
     'Low Tide' => '',
-    'Marooner\'s Bay' => 'Isoletta del relitto',
     'Mid Tide' => '',
     'Random' => '',
-    'Salmonid Smokeyard' => 'Fortino Fumino',
     'Salmon Run' => '',
-    'Spawning Grounds' => 'Diga salmonoide',
     '{weapon}' => '',
 ];

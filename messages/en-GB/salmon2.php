@@ -7,13 +7,9 @@
 
 return [
     'High Tide' => '',
-    'Lost Outpost' => '',
     'Low Tide' => '',
-    'Marooner\'s Bay' => '',
     'Mid Tide' => '',
     'Random' => '',
-    'Salmonid Smokeyard' => '',
     'Salmon Run' => '',
-    'Spawning Grounds' => '',
     '{weapon}' => '',
 ];

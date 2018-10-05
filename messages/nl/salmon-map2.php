@@ -6,10 +6,8 @@
  */
 
 return [
-    'High Tide' => '',
-    'Low Tide' => '',
-    'Mid Tide' => '',
-    'Random' => '',
-    'Salmon Run' => '',
-    '{weapon}' => '',
+    'Lost Outpost' => 'Barracudabarak',
+    'Marooner\'s Bay' => 'Wrak van de ms Grondel',
+    'Salmonid Smokeyard' => 'Visrokerij',
+    'Spawning Grounds' => 'Salmonietendam',
 ];

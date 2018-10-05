@@ -34,7 +34,7 @@ $map2Asset = MapImage2Asset::register($this);
                 ['class' => 'img-responsive']
               ) . "\n" ?>
               <div class="battle-data">
-                <?= Html::encode(Yii::t('app-salmon2', $schedule->map->name)) . "\n" ?>
+                <?= Html::encode(Yii::t('app-salmon-map2', $schedule->map->name)) . "\n" ?>
               </div>
             </div>
             <div class="col-xs-6">
