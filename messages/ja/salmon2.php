@@ -12,4 +12,8 @@ return [
     'Salmon Run' => 'サーモンラン',
     'Salmonid Smokeyard' => 'トキシラズいぶし工房',
     'Spawning Grounds' => 'シェケナダム',
+
+    'High Tide' => '満潮',
+    'Low Tide' => '干潮',
+    'Mid Tide' => '普通',
 ];

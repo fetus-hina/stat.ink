@@ -6,8 +6,11 @@
  */
 
 return [
+    'High Tide' => '',
     'Lost Outpost' => 'Воблов Отшиб',
+    'Low Tide' => '',
     'Marooner\'s Bay' => 'Корабль «Дон Брак»',
+    'Mid Tide' => '',
     'Random' => '',
     'Salmonid Smokeyard' => 'Коптильня «УгарЪ»',
     'Salmon Run' => '',
