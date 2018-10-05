@@ -14,6 +14,7 @@ use app\models\Map2;
 use app\models\SalmonBoss2;
 use app\models\SalmonEvent2;
 use app\models\SalmonMainWeapon2;
+use app\models\SalmonSpecial2;
 use app\models\SalmonTitle2;
 use app\models\SalmonWaterLevel2;
 use app\models\WeaponCategory2;
@@ -88,6 +89,7 @@ class Api2MarkdownController extends Controller
         $actionMap = [
             'boss' => [$this, 'actionSalmonBoss'],
             'event' => [$this, 'actionSalmonEvent'],
+            'special' => [$this, 'actionSalmonSpecial'],
             'title' => [$this, 'actionSalmonTitle'],
             'water-level' => [$this, 'actionSalmonWaterLevel'],
             'weapon' => [$this, 'actionSalmonWeapon'],
@@ -588,6 +590,60 @@ class Api2MarkdownController extends Controller
                     Yii::t('app-salmon2', '{weapon}', [
                         'weapon' => $weapon['name'],
                     ], 'en-US'),
+                ]),
+                implode('<br>', $remarks),
+            ];
+        }
+        echo static::createTable($data);
+        return 0;
+        // }}}
+    }
+
+    public function actionSalmonSpecial(): int
+    {
+        // {{{
+        $compats = [];
+        $data = [
+            [
+                "指定文字列<br>Key String",
+                "イカリング<br>SplatNet",
+                "名前<br>Name",
+                "備考<br>Remarks",
+            ],
+        ];
+        $weapons = SalmonSpecial2::find()
+            ->orderBy([
+                'name' => SORT_ASC,
+            ])
+            ->all();
+        foreach ($weapons as $weapon) {
+            $remarks = [];
+            if (isset($compats[$weapon['key']])) {
+                $remarks[] = sprintf(
+                    '互換性のため %s も受け付けます',
+                    implode(', ', array_map(
+                        function (string $value) : string {
+                            return '`' . $value . '`';
+                        },
+                        (array)$compats[$weapon['key']]
+                    ))
+                );
+                $remarks[] = sprintf(
+                    'Also accepts %s for compatibility',
+                    implode(', ', array_map(
+                        function (string $value) : string {
+                            return '`' . $value . '`';
+                        },
+                        (array)$compats[$weapon['key']]
+                    ))
+                );
+            }
+            $data[] = [
+                sprintf('`%s`', $weapon['key']),
+                isset($weapon['splatnet']) ? sprintf('`%d`', $weapon['splatnet']) : '',
+                implode('<br>', [
+                    Yii::t('app-special2', $weapon['name'], [], 'ja-JP'),
+                    $weapon['name'],
                 ]),
                 implode('<br>', $remarks),
             ];

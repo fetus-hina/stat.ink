@@ -130,3 +130,15 @@ Main Weapon
 |`campingshelter`        |`6010`                |バイト専用 キャンピングシェルター<br>Tenta Brella        |               |
 |`spygadget`             |`6020`                |バイト専用 スパイガジェット<br>Undercover Brella         |               |
 <!--endreplace-->
+
+Special Weapon
+--------------
+
+<!--replace:special-->
+|指定文字列<br>Key String|イカリング<br>SplatNet|名前<br>Name                                     |備考<br>Remarks|
+|------------------------|----------------------|-------------------------------------------------|---------------|
+|`jetpack`               |`8`                   |ジェットパック<br>Inkjet                         |               |
+|`chakuchi`              |`9`                   |スーパーチャクチ<br>Splashdown                   |               |
+|`pitcher`               |`2`                   |スプラッシュボムピッチャー<br>Splat-Bomb Launcher|               |
+|`presser`               |`7`                   |ハイパープレッサー<br>Sting Ray                  |               |
+<!--endreplace-->
