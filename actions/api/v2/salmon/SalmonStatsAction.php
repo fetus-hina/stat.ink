@@ -25,6 +25,7 @@ class SalmonStatsAction extends \yii\web\ViewAction
     public function run()
     {
         Yii::$app->language = 'en-US';
+        Yii::$app->timeZone = 'Etc/UTC';
 
         if (Yii::$app->user->isGuest) {
             throw new UnauthorizedHttpException('Unauthorized');
@@ -47,7 +48,7 @@ class SalmonStatsAction extends \yii\web\ViewAction
     {
         $query = SalmonStats2::find()
             ->andWhere(['user_id' => Yii::$app->user->id])
-            ->orderBy(['created_at' => SORT_DESC])
+            ->orderBy(['as_of' => SORT_DESC])
             ->limit(1);
 
         $id = Yii::$app->request->get('id');
