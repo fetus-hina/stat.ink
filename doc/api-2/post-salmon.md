@@ -43,3 +43,14 @@ Boss
 |`steelhead`             |`6`<br>`sakelien-bomber`   |バクダン<br>Steelhead|               |
 |`stinger`               |`14`<br>`sakelien-tower`   |タワー<br>Stinger    |               |
 <!--endreplace-->
+
+Water Level
+-----------
+
+<!--replace:water-level-->
+|指定文字列<br>Key String|イカリング<br>SplatNet|名前<br>Name     |備考<br>Remarks|
+|------------------------|----------------------|-----------------|---------------|
+|`low`                   |`low`                 |干潮<br>Low Tide |               |
+|`normal`                |`normal`              |普通<br>Mid Tide |               |
+|`high`                  |`high`                |満潮<br>High Tide|               |
+<!--endreplace-->

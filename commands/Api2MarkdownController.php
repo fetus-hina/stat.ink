@@ -13,6 +13,7 @@ use app\models\Ability2;
 use app\models\Map2;
 use app\models\SalmonBoss2;
 use app\models\SalmonTitle2;
+use app\models\SalmonWaterLevel2;
 use app\models\WeaponCategory2;
 use yii\console\Controller;
 use yii\helpers\Console;
@@ -81,32 +82,29 @@ class Api2MarkdownController extends Controller
     {
         // {{{
         $path = Yii::getAlias('@app/doc/api-2/post-salmon.md');
+
+        $actionMap = [
+            'boss' => [$this, 'actionSalmonBoss'],
+            'title' => [$this, 'actionSalmonTitle'],
+            'water-level' => [$this, 'actionSalmonWaterLevel'],
+        ];
+
         $markdown = preg_replace_callback(
             '/(?<start><!--replace:(?<kind>[\w-]+)-->)(?<oldvalue>.*?)(?<end><!--endreplace-->)/us',
-            function (array $match) : string {
-                switch ($match['kind']) {
-                    case 'title':
-                        ob_start();
-                        $status = $this->actionSalmonTitle();
-                        if ($status !== 0) {
-                            return $status;
-                        }
-                        $repl = ob_get_clean();
-                        return $match['start'] . "\n" . rtrim($repl) . "\n" . $match['end'];
-
-                    case 'boss':
-                        ob_start();
-                        $status = $this->actionSalmonBoss();
-                        if ($status !== 0) {
-                            return $status;
-                        }
-                        $repl = ob_get_clean();
-                        return $match['start'] . "\n" . rtrim($repl) . "\n" . $match['end'];
-
-                    default:
-                        $this->stderr("Unknown kind of replace tag: " . $match['kind'] . "\n");
-                        exit(1);
+            function (array $match) use ($actionMap): string {
+                $kind = $match['kind'];
+                if (!isset($actionMap[$kind])) {
+                    $this->stderr("Unknown kind of replace tag: " . $kind . "\n");
+                    exit(1);
                 }
+
+                ob_start();
+                $status = call_user_func($actionMap[$kind]);
+                $repl = ob_get_clean();
+                if ($status !== 0) {
+                    exit($status);
+                }
+                return $match['start'] . "\n" . rtrim($repl) . "\n" . $match['end'];
             },
             file_get_contents($path)
         );
@@ -417,6 +415,60 @@ class Api2MarkdownController extends Controller
                 implode("<br>", [
                     Yii::t('app-salmon-boss2', $title->name, [], 'ja-JP'),
                     $title->name,
+                ]),
+                implode("<br>", $colRemarks),
+            ];
+            // }}}
+        }
+        echo static::createTable($data);
+        return 0;
+        // }}}
+    }
+
+    public function actionSalmonWaterLevel(): int
+    {
+        // {{{
+        $compats = [];
+        $remarks = [];
+        $rows = SalmonWaterLevel2::find()->orderBy(['id' => SORT_ASC])->all();
+
+        $data = [
+            [
+                "指定文字列<br>Key String",
+                "イカリング<br>SplatNet",
+                "名前<br>Name",
+                "備考<br>Remarks",
+            ],
+        ];
+        foreach ($rows as $row) {
+            // {{{
+            $colRemarks = $remarks[$row->key] ?? [];
+            if (isset($compats[$row->key])) {
+                $colRemarks[] = sprintf(
+                    '互換性のため %s も受け付けます',
+                    implode(', ', array_map(
+                        function (string $value): string {
+                            return '`' . $value . '`';
+                        },
+                        (array)$compats[$row->key]
+                    ))
+                );
+                $colRemarks[] = sprintf(
+                    'Also accepts %s for compatibility',
+                    implode(', ', array_map(
+                        function (string $value): string {
+                            return '`' . $value . '`';
+                        },
+                        (array)$compats[$row->key]
+                    ))
+                );
+            }
+            $data[] = [
+                sprintf('`%s`', $row->key),
+                sprintf('`%s`', $row->splatnet),
+                implode("<br>", [
+                    Yii::t('app-salmon2', $row->name, [], 'ja-JP'),
+                    $row->name,
                 ]),
                 implode("<br>", $colRemarks),
             ];
