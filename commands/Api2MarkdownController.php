@@ -13,6 +13,7 @@ use app\models\Ability2;
 use app\models\Map2;
 use app\models\SalmonBoss2;
 use app\models\SalmonEvent2;
+use app\models\SalmonMainWeapon2;
 use app\models\SalmonTitle2;
 use app\models\SalmonWaterLevel2;
 use app\models\WeaponCategory2;
@@ -89,6 +90,7 @@ class Api2MarkdownController extends Controller
             'event' => [$this, 'actionSalmonEvent'],
             'title' => [$this, 'actionSalmonTitle'],
             'water-level' => [$this, 'actionSalmonWaterLevel'],
+            'weapon' => [$this, 'actionSalmonWeapon'],
         ];
 
         $markdown = preg_replace_callback(
@@ -529,6 +531,66 @@ class Api2MarkdownController extends Controller
                 implode("<br>", $colRemarks),
             ];
             // }}}
+        }
+        echo static::createTable($data);
+        return 0;
+        // }}}
+    }
+
+    public function actionSalmonWeapon(): int
+    {
+        // {{{
+        $compats = [];
+        $data = [
+            [
+                "指定文字列<br>Key String",
+                "イカリング<br>SplatNet",
+                "ブキ<br>Weapon Name",
+                "備考<br>Remarks",
+            ],
+        ];
+        $weapons = SalmonMainWeapon2::find()
+            ->orderBy([
+                "SUBSTRING(key from 1 for 5) = 'kuma_'" => SORT_DESC, // kuma-san first
+                'FLOOR(splatnet / 1000)' => SORT_ASC, // category
+                'name' => SORT_ASC,
+            ])
+            ->all();
+        foreach ($weapons as $weapon) {
+            $remarks = [];
+            if (isset($compats[$weapon['key']])) {
+                $remarks[] = sprintf(
+                    '互換性のため %s も受け付けます',
+                    implode(', ', array_map(
+                        function (string $value) : string {
+                            return '`' . $value . '`';
+                        },
+                        (array)$compats[$weapon['key']]
+                    ))
+                );
+                $remarks[] = sprintf(
+                    'Also accepts %s for compatibility',
+                    implode(', ', array_map(
+                        function (string $value) : string {
+                            return '`' . $value . '`';
+                        },
+                        (array)$compats[$weapon['key']]
+                    ))
+                );
+            }
+            $data[] = [
+                sprintf('`%s`', $weapon['key']),
+                isset($weapon['splatnet']) ? sprintf('`%d`', $weapon['splatnet']) : '',
+                implode('<br>', [
+                    Yii::t('app-salmon2', '{weapon}', [
+                        'weapon' => Yii::t('app-weapon2', $weapon['name'], [], 'ja-JP'),
+                    ], 'ja-JP'),
+                    Yii::t('app-salmon2', '{weapon}', [
+                        'weapon' => $weapon['name'],
+                    ], 'en-US'),
+                ]),
+                implode('<br>', $remarks),
+            ];
         }
         echo static::createTable($data);
         return 0;

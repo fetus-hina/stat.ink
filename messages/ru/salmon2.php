@@ -15,4 +15,5 @@ return [
     'Salmonid Smokeyard' => 'Коптильня «УгарЪ»',
     'Salmon Run' => '',
     'Spawning Grounds' => 'Самонидская ГЭС',
+    '{weapon}' => '',
 ];

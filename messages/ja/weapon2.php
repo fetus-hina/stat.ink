@@ -135,4 +135,9 @@ return [
     'Undercover Brella' => 'スパイガジェット',
     'Undercover Sorella Brella' => 'スパイガジェットソレーラ',
     'Zink Mini Splatling' => 'スプラスピナーコラボ',
+
+    'Grizzco Blaster' => 'クマサン印のブラスター',
+    'Grizzco Brella' => 'クマサン印のシェルター',
+    'Grizzco Charger' => 'クマサン印のチャージャー',
+    'Grizzco Slosher' => 'クマサン印のスロッシャー',
 ];
