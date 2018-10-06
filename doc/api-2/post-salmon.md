@@ -95,10 +95,10 @@ Main Weapon 支給ブキ
 <!--replace:weapon-->
 |指定文字列<br>Key String|イカリング<br>SplatNet|ブキ<br>Weapon Name                                      |備考<br>Remarks|
 |------------------------|----------------------|---------------------------------------------------------|---------------|
-|`kuma_blaster`          |                      |バイト専用 クマサン印のブラスター<br>Grizzco Blaster     |               |
-|`kuma_brella`           |                      |バイト専用 クマサン印のシェルター<br>Grizzco Brella      |               |
-|`kuma_charger`          |                      |バイト専用 クマサン印のチャージャー<br>Grizzco Charger   |               |
-|`kuma_slosher`          |                      |バイト専用 クマサン印のスロッシャー<br>Grizzco Slosher   |               |
+|`kuma_blaster`          |`20000`               |バイト専用 クマサン印のブラスター<br>Grizzco Blaster     |               |
+|`kuma_brella`           |`20010`               |バイト専用 クマサン印のシェルター<br>Grizzco Brella      |               |
+|`kuma_charger`          |`20020`               |バイト専用 クマサン印のチャージャー<br>Grizzco Charger   |               |
+|`kuma_slosher`          |`20030`               |バイト専用 クマサン印のスロッシャー<br>Grizzco Slosher   |               |
 |`52gal`                 |`50`                  |バイト専用 .52ガロン<br>.52 Gal                          |               |
 |`96gal`                 |`80`                  |バイト専用 .96ガロン<br>.96 Gal                          |               |
 |`promodeler_rg`         |`31`                  |バイト専用 プロモデラーRG<br>Aerospray RG                |               |
