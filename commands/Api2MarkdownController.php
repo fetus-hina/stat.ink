@@ -475,7 +475,7 @@ class Api2MarkdownController extends Controller
                 sprintf('`%s`', $row->key),
                 sprintf('`%s`', $row->splatnet),
                 implode("<br>", [
-                    Yii::t('app-salmon2', $row->name, [], 'ja-JP'),
+                    Yii::t('app-salmon-tide2', $row->name, [], 'ja-JP'),
                     $row->name,
                 ]),
                 implode("<br>", $colRemarks),
