@@ -6,9 +6,6 @@
  */
 
 return [
-    'High Tide' => '',
-    'Low Tide' => '',
-    'Mid Tide' => '',
     'Random' => '',
     'Salmon Run' => '',
     '{weapon}' => '',

@@ -6,8 +6,7 @@
  */
 
 return [
-    'Random' => 'ランダム',
-    'Salmon Run' => 'サーモンラン',
-
-    '{weapon}' => 'バイト専用 {weapon}',
+    'High Tide' => '',
+    'Low Tide' => '',
+    'Mid Tide' => '',
 ];
