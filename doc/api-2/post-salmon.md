@@ -33,6 +33,58 @@ All parameters are optional.
 |`start_at`|integer|UNIX time| |
 |`end_at`|integer|UNIX time| |
 
+Full example:
+
+```js
+{
+  "splatnet_number": 3527,
+  "stage": "donburako",
+  "clear_waves": 2, // failed on Wave 3
+  "title": "profreshional",
+  "title_exp": 370,
+  "title_after": "profreshional",
+  "title_exp_after": 370,
+  "danger_rate": 170.4,
+  "boss_appearances": {
+    "drizzler": 6,
+    "flyfish": 7,
+    "maws": 10,
+    "scrapper": 6,
+    "steel_eel": 8,
+    "steelhead": 5,
+    "stinger": 15
+  },
+  "waves": [
+    { // wave 1
+      "known_occurrence": null,
+      "water_level": "normal",
+      "golden_egg_quota": 18,
+      "golden_egg_appearances": 45,
+      "golden_egg_delivered": 29,
+      "power_egg_collected": 706
+    },
+    { // wave 2
+      "known_occurrence": null,
+      "water_level": "low",
+      "golden_egg_quota": 20,
+      "golden_egg_appearances": 54,
+      "golden_egg_delivered": 40,
+      "power_egg_collected": 1457
+    },
+    { // wave 3 (failed)
+      "known_occurrence": null,
+      "water_level": "normal",
+      "golden_egg_quota": 22,
+      "golden_egg_appearances": 51,
+      "golden_egg_delivered": 17,
+      "power_egg_collected": 820
+    }
+  ],
+  "start_at": 1538836518, // 2018-10-06T23:35:18+09:00
+  "end_at": null // may not be presented in SplatNet JSON
+}
+```
+
 `boss_appearances`
 ------------------
 
@@ -68,8 +120,8 @@ See also: [§Boss](#Boss)
 
 |パラメータ<br>Parameter|型<br>Type|値<br>Value| |
 |-|-|-|-|
-|`known_occurrence`|key string|e.g. `fog`|[§Known Occurrence](#Known Occurrence). `null` or empty-string if "standard" work|
-|`water_level`|key string|e.g. `high`|[§Water Level](#Water Level)|
+|`known_occurrence`|key string|e.g. `fog`|[§Known Occurrence](#Known%20Occurrence). `null` or empty-string if "standard" work|
+|`water_level`|key string|e.g. `high`|[§Water Level](#Water%20Level)|
 |`golden_egg_quota`|integer|1-25|Players should deliver golden eggs|
 |`golden_egg_appearances`|integer|0-|Golden Egg appearances, "pops"|
 |`golden_egg_delivered`|integer|0-|Golden Egg delivered, "collected"|
