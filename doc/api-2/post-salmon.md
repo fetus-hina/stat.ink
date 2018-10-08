@@ -23,15 +23,17 @@ All parameters are optional.
 |`splatnet_number`|integer|1-|SplatNet `job_id`|
 |`stage`|key string|e.g. `dam`|[§Stage](#Stage)|
 |`clear_waves`|integer|0-3|`3` if cleared. `0` if failed in wave 1|
+|`fail_reason`|key string|`null` if cleared<br>`annihilated`: Dead all players<br>`time_up`: Time was up|
 |`title`|key string|e.g. `profreshional`|[§Title](#Title), befor the work|
 |`title_exp`|integer|0-999|Profreshional "40"/999, before the work|
 |`title_after`|key string|After the work|
 |`title_exp_after`|integer|0-999|After the work|
-|`danger_rate`|number|0.0-999.9| |
+|`danger_rate`|number|0.0-999.9?|?|
 |`boss_appearances`|key-value|See below|Number of bosses|
 |`waves`|array of `wave` structure|See below|Wave data, 1-3 elements|
-|`start_at`|integer|UNIX time| |
-|`end_at`|integer|UNIX time| |
+|`shift_start_at`|integer|UNIX time|Play window started at|
+|`start_at`|integer|UNIX time|This work started at|
+|`end_at`|integer|UNIX time|(May not be presented in SplatNet JSON)|
 
 Full example:
 
@@ -40,6 +42,7 @@ Full example:
   "splatnet_number": 3527,
   "stage": "donburako",
   "clear_waves": 2, // failed on Wave 3
+  "fail_reason": "time_up",
   "title": "profreshional",
   "title_exp": 370,
   "title_after": "profreshional",
@@ -80,6 +83,7 @@ Full example:
       "power_egg_collected": 820
     }
   ],
+  "shift_start_at": 1538762400, // 2018-10-06T03:00:00+09:00
   "start_at": 1538836518, // 2018-10-06T23:35:18+09:00
   "end_at": null // may not be presented in SplatNet JSON
 }
