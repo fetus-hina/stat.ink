@@ -13,8 +13,71 @@ UNDER DEVELOPMENT
 Post a salmon run shift to stat.ink.
 
 
-Stage ステージ
---------------
+Request Structure
+-----------------
+
+All parameters are optional.
+
+|パラメータ<br>Parameter|型<br>Type|値<br>Value| |
+|-----------------------|----------|-----------|-|
+|`splatnet_number`|integer|1-|SplatNet `job_id`|
+|`stage`|key string|e.g. `dam`|[§Stage](#Stage)|
+|`clear_waves`|integer|0-3|`3` if cleared. `0` if failed in wave 1|
+|`title`|key string|e.g. `profreshional`|[§Title](#Title), befor the work|
+|`title_exp`|integer|0-999|Profreshional "40"/999, before the work|
+|`title_after`|key string|After the work|
+|`title_exp_after`|integer|0-999|After the work|
+|`danger_rate`|number|0.0-999.9| |
+|`boss_appearances`|key-value|See below|Number of bosses|
+|`waves`|array of `wave` structure|See below|Wave data, 1-3 elements|
+|`start_at`|integer|UNIX time| |
+|`end_at`|integer|UNIX time| |
+
+`boss_appearances`
+------------------
+
+When 2 Stingers and 4 Steelheads appearances, the key-value map should be:
+
+```js
+{
+  // ...
+  "boss_appearances": {
+    "stinger": 2,
+    "steelhead": 4
+  },
+  // ...
+}
+```
+
+See also: [§Boss](#Boss)
+
+`wave` structure
+----------------
+
+```js
+{
+  // ...
+  "waves": [
+    { /* wave 1 */ },
+    { /* wave 2 */ },
+    { /* wave 3 */ }
+  ],
+  // ...
+}
+```
+
+|パラメータ<br>Parameter|型<br>Type|値<br>Value| |
+|-|-|-|-|
+|`known_occurrence`|key string|e.g. `fog`|[§Known Occurrence](#Known Occurrence). `null` or empty-string if "standard" work|
+|`water_level`|key string|e.g. `high`|[§Water Level](#Water Level)|
+|`golden_egg_quota`|integer|1-25|Players should deliver golden eggs|
+|`golden_egg_appearances`|integer|0-|Golden Egg appearances, "pops"|
+|`golden_egg_delivered`|integer|0-|Golden Egg delivered, "collected"|
+|`power_egg_collected`|integer|0-|Power Egg collected|
+
+
+Stage
+-----
 
 <!--replace:stage-->
 |指定文字列<br>Key String|名前<br>Name                              |イカリングヒント<br>SplatNet Hint                                |
@@ -26,8 +89,10 @@ Stage ステージ
 <!--endreplace-->
 
 
-Title (Rank) 称号
------------------
+Title
+-----
+
+a.k.a "Rank" or "Grade"
 
 <!--replace:title-->
 |指定文字列<br>Key String|イカリング<br>SplatNet|名前<br>Name              |備考<br>Remarks|
@@ -41,8 +106,8 @@ Title (Rank) 称号
 <!--endreplace-->
 
 
-Boss オオモノシャケ
--------------------
+Boss
+----
 
 <!--replace:boss-->
 |指定文字列<br>Key String|イカリング<br>SplatNet     |名前<br>Name         |備考<br>Remarks|
@@ -71,8 +136,8 @@ Water Level 海面の高さ
 <!--endreplace-->
 
 
-Known Occurrence イベント
--------------------------
+Known Occurrence
+----------------
 
 <!--replace:event-->
 |指定文字列<br>Key String|イカリング<br>SplatNet|名前<br>Name                     |備考<br>Remarks|
