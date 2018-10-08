@@ -20,6 +20,7 @@ All parameters are optional.
 
 |パラメータ<br>Parameter|型<br>Type|値<br>Value| |
 |-----------------------|----------|-----------|-|
+|`client_uuid`|UUID or string|See below| |
 |`splatnet_number`|integer|1-|SplatNet `job_id`|
 |`stage`|key string|e.g. `dam`|[§Stage](#Stage)|
 |`clear_waves`|integer|0-3|`3` if cleared. `0` if failed in wave 1|
@@ -34,6 +35,13 @@ All parameters are optional.
 |`shift_start_at`|integer|UNIX time|Play window started at|
 |`start_at`|integer|UNIX time|This work started at|
 |`end_at`|integer|UNIX time|(May not be presented in SplatNet JSON)|
+|`note`|string| |Note (public)|
+|`note_private`|string| |Note (private)|
+|`link_url`|URL| | |
+|`is_automated`|boolean|`yes` or `no`|`yes` if by automated program.<br>`no` if manual input.|
+|`agent`|string (≤64 chars)|e.g. `my awesome client`|User-agent name.|
+|`agent_version`|string (≤ 255 chars)|e.g. `1.0.0 (Windows 10)`|User-agent version, can include user environment such as OS|
+
 
 Full example:
 
@@ -88,6 +96,25 @@ Full example:
   "end_at": null // may not be presented in SplatNet JSON
 }
 ```
+
+`uuid`
+------
+
+Client application should specify a UUID to detect duplicated "work".
+
+- SplatNet 2-based Application
+
+  - Generate a UUID version 5 with namespace `418fe150-cb33-11e8-8816-d050998473ba`.
+
+    Use `splatnet_number` @ `principal_id`. (Example: `42@abc123`)<br>
+    `uuid_v5("418fe150-cb33-11e8-8816-d050998473ba", sprintf("%d@%s", number, principal_id))`
+
+- Standalone Application
+
+  - Nothing send
+  - Generate a UUID version 4
+  - Generate a UUID version 3 or 5 with your own namespace
+
 
 `boss_appearances`
 ------------------
