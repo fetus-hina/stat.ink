@@ -25,7 +25,7 @@ class m181008_190719_salmon2 extends Migration
             'id' => $this->primaryKey(),
             'user_id' => $this->pkRef('user')->notNull(),
             'uuid' => 'UUID NOT NULL',
-            'platnet_number' => $this->integer()->null(),
+            'splatnet_number' => $this->integer()->null(),
             'stage_id' => $this->pkRef('salmon_map2')->null(),
             'clear_waves' => $this->integer()->null(),
             'fail_reason_id' => $this->pkRef('salmon_fail_reason2')->null(),
