@@ -22,12 +22,12 @@ All parameters are optional.
 |-----------------------|----------|-----------|-|
 |`client_uuid`|UUID or string|See below| |
 |`splatnet_number`|integer|1-|SplatNet `job_id`|
-|`stage`|key string|e.g. `dam`|[§Stage](#Stage)|
+|`stage`|key string|e.g. `dam`|[§Stage](#stage)|
 |`clear_waves`|integer|0-3|`3` if cleared. `0` if failed in wave 1|
 |`fail_reason`|key string|`null` if cleared<br>`annihilated`: Dead all players<br>`time_up`: Time was up|
-|`title`|key string|e.g. `profreshional`|[§Title](#Title), befor the work|
+|`title`|key string|e.g. `profreshional`|[§Title](#title), befor the work|
 |`title_exp`|integer|0-999|Profreshional "40"/999, before the work|
-|`title_after`|key string|After the work|
+|`title_after`|key string| |After the work|
 |`title_exp_after`|integer|0-999|After the work|
 |`danger_rate`|number|0.0-999.9?|?|
 |`boss_appearances`|key-value|See below|Number of bosses|
@@ -132,7 +132,7 @@ When 2 Stingers and 4 Steelheads appearances, the key-value map should be:
 }
 ```
 
-See also: [§Boss](#Boss)
+See also: [§Boss](#boss)
 
 `wave` structure
 ----------------
@@ -151,8 +151,8 @@ See also: [§Boss](#Boss)
 
 |パラメータ<br>Parameter|型<br>Type|値<br>Value| |
 |-|-|-|-|
-|`known_occurrence`|key string|e.g. `fog`|[§Known Occurrence](#Known%20Occurrence). `null` or empty-string if "standard" work|
-|`water_level`|key string|e.g. `high`|[§Water Level](#Water%20Level)|
+|`known_occurrence`|key string|e.g. `fog`|[§Known Occurrence](#known%20occurrence). `null` or empty-string if "standard" work|
+|`water_level`|key string|e.g. `high`|[§Water Level](#water%20level)|
 |`golden_egg_quota`|integer|1-25|Players should deliver golden eggs|
 |`golden_egg_appearances`|integer|0-|Golden Egg appearances, "pops"|
 |`golden_egg_delivered`|integer|0-|Golden Egg delivered, "collected"|
