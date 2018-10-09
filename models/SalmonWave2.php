@@ -43,7 +43,6 @@ class SalmonWave2 extends ActiveRecord
     {
         return [
             [['salmon_id', 'wave'], 'required'],
-                                                                                                   |
             [['salmon_id', 'wave', 'event_id', 'water_id', 'golden_egg_quota'], 'default',
                 'value' => null,
             ],
