@@ -43,7 +43,10 @@ class SalmonSpecial2 extends ActiveRecord
             [['key'], 'string', 'max' => 16],
             [['name'], 'string', 'max' => 32],
             [['key'], 'unique'],
-            [['special_id'], 'exist', 'skipOnError' => true, 'targetClass' => Special2::class, 'targetAttribute' => ['special_id' => 'id']],
+            [['special_id'], 'exist', 'skipOnError' => true,
+                'targetClass' => Special2::class,
+                'targetAttribute' => ['special_id' => 'id'],
+            ],
         ];
     }
 

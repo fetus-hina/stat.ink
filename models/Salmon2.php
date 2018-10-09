@@ -65,18 +65,41 @@ class Salmon2 extends ActiveRecord
     {
         return [
             [['user_id', 'uuid', 'created_at', 'updated_at'], 'required'],
-            [['user_id', 'splatnet_number', 'stage_id', 'clear_waves', 'fail_reason_id', 'title_before_id', 'title_before_exp', 'title_after_id', 'title_after_exp', 'shift_period', 'agent_id', 'remote_port'], 'default', 'value' => null],
-            [['user_id', 'splatnet_number', 'stage_id', 'clear_waves', 'fail_reason_id', 'title_before_id', 'title_before_exp', 'title_after_id', 'title_after_exp', 'shift_period', 'agent_id', 'remote_port'], 'integer'],
+            [['user_id', 'splatnet_number', 'stage_id', 'clear_waves'], 'default', 'value' => null],
+            [['fail_reason_id', 'title_before_id', 'title_before_exp'], 'default', 'value' => null],
+            [['title_after_id', 'title_after_exp', 'shift_period'], 'default', 'value' => null],
+            [['agent_id', 'remote_port'], 'default', 'value' => null],
+            [['user_id', 'splatnet_number', 'stage_id', 'clear_waves'], 'integer'],
+            [['fail_reason_id', 'title_before_id', 'title_before_exp', 'title_after_id'], 'integer'],
+            [['title_after_exp', 'shift_period', 'agent_id', 'remote_port'], 'integer'],
             [['uuid', 'note', 'private_note', 'link_url', 'remote_addr'], 'string'],
             [['danger_rate'], 'number'],
             [['start_at', 'end_at', 'created_at', 'updated_at'], 'safe'],
             [['is_automated'], 'boolean'],
-            [['agent_id'], 'exist', 'skipOnError' => true, 'targetClass' => Agent::class, 'targetAttribute' => ['agent_id' => 'id']],
-            [['fail_reason_id'], 'exist', 'skipOnError' => true, 'targetClass' => SalmonFailReason2::class, 'targetAttribute' => ['fail_reason_id' => 'id']],
-            [['stage_id'], 'exist', 'skipOnError' => true, 'targetClass' => SalmonMap2::class, 'targetAttribute' => ['stage_id' => 'id']],
-            [['title_before_id'], 'exist', 'skipOnError' => true, 'targetClass' => SalmonTitle2::class, 'targetAttribute' => ['title_before_id' => 'id']],
-            [['title_after_id'], 'exist', 'skipOnError' => true, 'targetClass' => SalmonTitle2::class, 'targetAttribute' => ['title_after_id' => 'id']],
-            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id']],
+            [['agent_id'], 'exist', 'skipOnError' => true,
+                'targetClass' => Agent::class,
+                'targetAttribute' => ['agent_id' => 'id'],
+            ],
+            [['fail_reason_id'], 'exist', 'skipOnError' => true,
+                'targetClass' => SalmonFailReason2::class,
+                'targetAttribute' => ['fail_reason_id' => 'id'],
+            ],
+            [['stage_id'], 'exist', 'skipOnError' => true,
+                'targetClass' => SalmonMap2::class,
+                'targetAttribute' => ['stage_id' => 'id'],
+            ],
+            [['title_before_id'], 'exist', 'skipOnError' => true,
+                'targetClass' => SalmonTitle2::class,
+                'targetAttribute' => ['title_before_id' => 'id'],
+            ],
+            [['title_after_id'], 'exist', 'skipOnError' => true,
+                'targetClass' => SalmonTitle2::class,
+                'targetAttribute' => ['title_after_id' => 'id'],
+            ],
+            [['user_id'], 'exist', 'skipOnError' => true,
+                'targetClass' => User::class,
+                'targetAttribute' => ['user_id' => 'id'],
+            ],
         ];
     }
 
@@ -174,7 +197,8 @@ class Salmon2 extends ActiveRecord
      */
     public function getBosses()
     {
-        return $this->hasMany(SalmonBoss2::class, ['id' => 'boss_id'])->viaTable('salmon_boss_appearance2', ['salmon_id' => 'id']);
+        return $this->hasMany(SalmonBoss2::class, ['id' => 'boss_id'])
+            ->viaTable('salmon_boss_appearance2', ['salmon_id' => 'id']);
     }
 
     /**

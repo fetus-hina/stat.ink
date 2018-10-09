@@ -43,7 +43,10 @@ class SalmonMainWeapon2 extends ActiveRecord
             [['key'], 'string', 'max' => 16],
             [['name'], 'string', 'max' => 32],
             [['key'], 'unique'],
-            [['weapon_id'], 'exist', 'skipOnError' => true, 'targetClass' => Weapon2::class, 'targetAttribute' => ['weapon_id' => 'id']],
+            [['weapon_id'], 'exist', 'skipOnError' => true,
+                'targetClass' => Weapon2::class,
+                'targetAttribute' => ['weapon_id' => 'id'],
+            ],
         ];
     }
 

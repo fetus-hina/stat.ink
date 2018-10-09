@@ -43,12 +43,28 @@ class SalmonWave2 extends ActiveRecord
     {
         return [
             [['salmon_id', 'wave'], 'required'],
-            [['salmon_id', 'wave', 'event_id', 'water_id', 'golden_egg_quota', 'golden_egg_appearances', 'golden_egg_delivered', 'power_egg_collected'], 'default', 'value' => null],
-            [['salmon_id', 'wave', 'event_id', 'water_id', 'golden_egg_quota', 'golden_egg_appearances', 'golden_egg_delivered', 'power_egg_collected'], 'integer'],
+                                                                                                   |
+            [['salmon_id', 'wave', 'event_id', 'water_id', 'golden_egg_quota'], 'default',
+                'value' => null,
+            ],
+            [['golden_egg_appearances', 'golden_egg_delivered', 'power_egg_collected'], 'default',
+                'value' => null,
+            ],
+            [['salmon_id', 'wave', 'event_id', 'water_id', 'golden_egg_quota'], 'integer'],
+            [['golden_egg_appearances', 'golden_egg_delivered', 'power_egg_collected'], 'integer'],
             [['salmon_id', 'wave'], 'unique', 'targetAttribute' => ['salmon_id', 'wave']],
-            [['salmon_id'], 'exist', 'skipOnError' => true, 'targetClass' => Salmon2::class, 'targetAttribute' => ['salmon_id' => 'id']],
-            [['event_id'], 'exist', 'skipOnError' => true, 'targetClass' => SalmonEvent2::class, 'targetAttribute' => ['event_id' => 'id']],
-            [['water_id'], 'exist', 'skipOnError' => true, 'targetClass' => SalmonWaterLevel2::class, 'targetAttribute' => ['water_id' => 'id']],
+            [['salmon_id'], 'exist', 'skipOnError' => true,
+                'targetClass' => Salmon2::class,
+                'targetAttribute' => ['salmon_id' => 'id'],
+            ],
+            [['event_id'], 'exist', 'skipOnError' => true,
+                'targetClass' => SalmonEvent2::class,
+                'targetAttribute' => ['event_id' => 'id'],
+            ],
+            [['water_id'], 'exist', 'skipOnError' => true,
+                'targetClass' => SalmonWaterLevel2::class,
+                'targetAttribute' => ['water_id' => 'id'],
+            ],
         ];
     }
 
