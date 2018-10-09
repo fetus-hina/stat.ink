@@ -151,8 +151,8 @@ See also: [§Boss](#boss)
 
 |パラメータ<br>Parameter|型<br>Type|値<br>Value| |
 |-|-|-|-|
-|`known_occurrence`|key string|e.g. `fog`|[§Known Occurrence](#known%20occurrence). `null` or empty-string if "standard" work|
-|`water_level`|key string|e.g. `high`|[§Water Level](#water%20level)|
+|`known_occurrence`|key string|e.g. `fog`|[§Known Occurrence](#known-occurrence). `null` or empty-string if "standard" work|
+|`water_level`|key string|e.g. `high`|[§Water Level](#water-level)|
 |`golden_egg_quota`|integer|1-25|Players should deliver golden eggs|
 |`golden_egg_appearances`|integer|0-|Golden Egg appearances, "pops"|
 |`golden_egg_delivered`|integer|0-|Golden Egg delivered, "collected"|
@@ -207,8 +207,8 @@ Boss
 <!--endreplace-->
 
 
-Water Level 海面の高さ
-----------------------
+Water Level
+-----------
 
 <!--replace:water-level-->
 |指定文字列<br>Key String|イカリング<br>SplatNet|名前<br>Name     |備考<br>Remarks|
@@ -237,8 +237,8 @@ Note: Water-levels is (and will) not defined.<br>
 メモ: 海面の高さはここでは定義されません。
 
 
-Main Weapon 支給ブキ
---------------------
+Main Weapon
+-----------
 
 <!--replace:weapon-->
 |指定文字列<br>Key String|イカリング<br>SplatNet|ブキ<br>Weapon Name                                      |備考<br>Remarks|
@@ -298,8 +298,8 @@ Main Weapon 支給ブキ
 <!--endreplace-->
 
 
-Special Weapon スペシャル
--------------------------
+Special Weapon
+--------------
 
 <!--replace:special-->
 |指定文字列<br>Key String|イカリング<br>SplatNet|名前<br>Name                                     |備考<br>Remarks|
