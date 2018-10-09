@@ -16,7 +16,7 @@ use yii\db\ActiveRecord;
  * @property integer $id
  * @property integer $user_id
  * @property string $uuid
- * @property integer $platnet_number
+ * @property integer $splatnet_number
  * @property integer $stage_id
  * @property integer $clear_waves
  * @property integer $fail_reason_id
@@ -65,8 +65,8 @@ class Salmon2 extends ActiveRecord
     {
         return [
             [['user_id', 'uuid', 'created_at', 'updated_at'], 'required'],
-            [['user_id', 'platnet_number', 'stage_id', 'clear_waves', 'fail_reason_id', 'title_before_id', 'title_before_exp', 'title_after_id', 'title_after_exp', 'shift_period', 'agent_id', 'remote_port'], 'default', 'value' => null],
-            [['user_id', 'platnet_number', 'stage_id', 'clear_waves', 'fail_reason_id', 'title_before_id', 'title_before_exp', 'title_after_id', 'title_after_exp', 'shift_period', 'agent_id', 'remote_port'], 'integer'],
+            [['user_id', 'splatnet_number', 'stage_id', 'clear_waves', 'fail_reason_id', 'title_before_id', 'title_before_exp', 'title_after_id', 'title_after_exp', 'shift_period', 'agent_id', 'remote_port'], 'default', 'value' => null],
+            [['user_id', 'splatnet_number', 'stage_id', 'clear_waves', 'fail_reason_id', 'title_before_id', 'title_before_exp', 'title_after_id', 'title_after_exp', 'shift_period', 'agent_id', 'remote_port'], 'integer'],
             [['uuid', 'note', 'private_note', 'link_url', 'remote_addr'], 'string'],
             [['danger_rate'], 'number'],
             [['start_at', 'end_at', 'created_at', 'updated_at'], 'safe'],
@@ -89,7 +89,7 @@ class Salmon2 extends ActiveRecord
             'id' => 'ID',
             'user_id' => 'User ID',
             'uuid' => 'Uuid',
-            'platnet_number' => 'Platnet Number',
+            'splatnet_number' => 'Splatnet Number',
             'stage_id' => 'Stage ID',
             'clear_waves' => 'Clear Waves',
             'fail_reason_id' => 'Fail Reason ID',
