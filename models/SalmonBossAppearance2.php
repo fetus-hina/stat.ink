@@ -40,8 +40,14 @@ class SalmonBossAppearance2 extends ActiveRecord
             [['salmon_id', 'boss_id', 'count'], 'default', 'value' => null],
             [['salmon_id', 'boss_id', 'count'], 'integer'],
             [['salmon_id', 'boss_id'], 'unique', 'targetAttribute' => ['salmon_id', 'boss_id']],
-            [['salmon_id'], 'exist', 'skipOnError' => true, 'targetClass' => Salmon2::class, 'targetAttribute' => ['salmon_id' => 'id']],
-            [['boss_id'], 'exist', 'skipOnError' => true, 'targetClass' => SalmonBoss2::class, 'targetAttribute' => ['boss_id' => 'id']],
+            [['salmon_id'], 'exist', 'skipOnError' => true,
+                'targetClass' => Salmon2::class,
+                'targetAttribute' => ['salmon_id' => 'id'],
+            ],
+            [['boss_id'], 'exist', 'skipOnError' => true,
+                'targetClass' => SalmonBoss2::class,
+                'targetAttribute' => ['boss_id' => 'id'],
+            ],
         ];
     }
 
