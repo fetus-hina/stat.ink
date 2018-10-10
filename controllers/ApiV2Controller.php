@@ -29,6 +29,7 @@ class ApiV2Controller extends Controller
             'verbs' => [
                 'class' => VerbFilter::class,
                 'actions' => [
+                    'salmon' => ['head', 'get', 'post'],
                     'salmon-stats' => ['head', 'get', 'post'],
                     '*' => ['head', 'get'],
                 ],
@@ -36,6 +37,7 @@ class ApiV2Controller extends Controller
             'authenticator' => [
                 'class' => HttpBearerAuth::class,
                 'only' => [
+                    'salmon',
                     'salmon-stats',
                 ],
             ],
@@ -46,11 +48,24 @@ class ApiV2Controller extends Controller
     {
         $prefix = 'app\actions\api\v2';
         return [
-            'gear' => [ 'class' => $prefix . '\GearAction' ],
-            'rule' => [ 'class' => $prefix . '\RuleAction' ],
-            'salmon-stats' => [ 'class' => $prefix . '\salmon\SalmonStatsAction' ],
-            'stage' => [ 'class' => $prefix . '\StageAction' ],
-            'weapon' => [ 'class' => $prefix . '\WeaponAction' ],
+            'gear' => [
+                'class' => $prefix . '\GearAction',
+            ],
+            'rule' => [
+                'class' => $prefix . '\RuleAction',
+            ],
+            'post salmon' => [
+                'class' => $prefix . '\salmon\PostSalmonAction',
+            ],
+            'salmon-stats' => [
+                'class' => $prefix . '\salmon\SalmonStatsAction',
+            ],
+            'stage' => [
+                'class' => $prefix . '\StageAction',
+            ],
+            'weapon' => [ 
+                'class' => $prefix . '\WeaponAction',
+            ],
             // 'death-reason'  => [ 'class' => $prefix . '\DeathReasonAction' ],
             // 'user'          => [ 'class' => $prefix . '\UserAction' ],
             // 'weapon-trends' => [ 'class' => $prefix . '\WeaponTrendsAction' ],
@@ -63,5 +78,36 @@ class ApiV2Controller extends Controller
             array_merge(Yii::$app->request->get(), ['/api-v2/stage']),
             301
         );
+    }
+
+    public function createAction($id)
+    {
+        if ($id === '') {
+            $id = $this->defaultAction;
+        }
+
+        $method = strtolower(Yii::$app->getRequest()->getMethod());
+
+        $actionMap = $this->actions();
+        if (isset($actionMap["{$method} {$id}"])) {
+            return Yii::createObject(
+                $actionMap["{$method} {$id}"],
+                [$id, $this]
+            );
+        } elseif (isset($actionMap[$id])) {
+            return Yii::createObject($actionMap[$id], [$id, $this]);
+        } elseif (preg_match('/^[a-z0-9\\-_]+$/', $id) &&
+            strpos($id, '--') === false &&
+            trim($id, '-') === $id
+        ) {
+            $methodName = 'action' . str_replace(' ', '', ucwords(str_replace('-', ' ', $id)));
+            if (method_exists($this, $methodName)) {
+                $method = new \ReflectionMethod($this, $methodName);
+                if ($method->isPublic() && $method->getName() === $methodName) {
+                    return new InlineAction($id, $this, $methodName);
+                }
+            }
+        }
+        return null;
     }
 }

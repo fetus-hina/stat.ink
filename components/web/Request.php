@@ -23,7 +23,9 @@ class Request extends Base
                     stripos($type, 'application/x-msgpack') !== false
             ) {
                 $params = $this->getBodyParams();
-                if (@isset($params[$this->methodParam])) {
+                if (is_object($params) && isset($params->{$this->methodParam})) {
+                    return strtoupper($params->{$this->methodParam});
+                } elseif (is_array($params) && isset($params[$this->methodParam])) {
                     return strtoupper($params[$this->methodParam]);
                 }
             }
