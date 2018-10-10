@@ -50,7 +50,7 @@ class PostForm extends Model
     public $start_at;
     public $end_at;
     public $note;
-    public $note_private;
+    public $private_note;
     public $link_url;
     public $is_automated;
     public $agent;
@@ -69,7 +69,7 @@ class PostForm extends Model
     {
         return [
             [['client_uuid', 'stage', 'fail_reason', 'title', 'title_after'], 'string'],
-            [['note', 'note_private', 'agent', 'agent_version'], 'string'],
+            [['note', 'private_note', 'agent', 'agent_version'], 'string'],
             [['splatnet_number'], 'integer'],
             [['clear_waves'], 'integer', 'min' => 0, 'max' => 3],
             [['title_exp', 'title_exp_after'], 'integer', 'min' => 0, 'max' => 999],
@@ -85,7 +85,8 @@ class PostForm extends Model
 
             [['agent', 'agent_version'], 'required',
                 'when' => function (self $model, string $attrName): bool {
-                    return trim($model->agent) !== '' || trim($model->agent_version) !== '';
+                    return trim((string)$model->agent) !== '' ||
+                        trim((string)$model->agent_version) !== '';
                 },
             ],
             [['stage'], 'exist', 'skipOnError' => true,
@@ -94,7 +95,7 @@ class PostForm extends Model
             ],
             [['title', 'title_after'], 'exist', 'skipOnError' => true,
                 'targetClass' => SalmonTitle2::class,
-                'targetAttribute' => ['stage' => 'key'],
+                'targetAttribute' => 'key',
             ],
             [['boss_appearances'], 'validateBossAppearances'],
             [['waves'], 'validateWaves'],
@@ -163,18 +164,18 @@ class PostForm extends Model
             return;
         }
 
-        if (!ArrayHelper::isIndexed($this->wave)) {
+        if (!ArrayHelper::isIndexed($this->waves)) {
             $this->addError('waves', 'waves should be an array (not associative array)');
             return;
         }
 
-        if (count($this->wave) > 3) {
+        if (count($this->waves) > 3) {
             $this->addError('waves', 'too many waves');
             return;
         }
 
         for ($i = 0; $i < 3; ++$i) {
-            $wave = $this->wave[$i] ?? null;
+            $wave = $this->waves[$i] ?? null;
             if (!$wave) {
                 break;
             }
@@ -218,17 +219,20 @@ class PostForm extends Model
     {
         return Yii::$app->db->transactionEx(function (): ?Salmon2 {
             $agent = $this->getAgent();
-            $model = Yii::createObject([
-                'class' => Salmon2::class,
+            $model = Yii::createObject(Salmon2::class);
+            $model->attributes = [
                 'user_id' => Yii::$app->user->id,
                 'uuid' => $this->getUuid(),
-                'splatnet_number' => $this->platnet_number,
-                'stage_id' => static::findRelatedId(SalmonMap2::class, 'stage'),
+                'splatnet_number' => $this->splatnet_number,
+                'stage_id' => static::findRelatedId(SalmonMap2::class, $this->stage),
                 'clear_waves' => $this->clear_waves,
-                'fail_reason_id' => static::findRelatedId(SalmonFailReason2::class, 'fail_reason'),
-                'title_before_id' => static::findRelatedId(SalmonTitle2::class, 'title'),
+                'fail_reason_id' => static::findRelatedId(
+                    SalmonFailReason2::class,
+                    $this->fail_reason
+                ),
+                'title_before_id' => static::findRelatedId(SalmonTitle2::class, $this->title),
                 'title_before_exp' => $this->title_exp,
-                'title_after_id' => static::findRelatedId(SalmonTitle2::class, 'title_after'),
+                'title_after_id' => static::findRelatedId(SalmonTitle2::class, $this->title_after),
                 'title_after_exp' => $this->title_exp_after,
                 'danger_rate' => ($this->danger_rate == '')
                     ? null
@@ -251,8 +255,11 @@ class PostForm extends Model
                 'agent_id' => $agent->id ?? null,
                 'remote_addr' => $_SERVER['REMOTE_ADDR'] ?? '127.0.0.2',
                 'remote_port' => (int)($_SERVER['REMOTE_PORT'] ?? 0),
-            ]);
+            ];
             if (!$model->save()) {
+                var_dump($model->attributes);
+                var_dump($model->getErrors());
+                exit;
                 return null;
             }
 
@@ -354,6 +361,8 @@ class PostForm extends Model
                 )
             );
         }
+
+        return Uuid::v4();
     }
 
     private function getAgent(): ?Agent

@@ -8,6 +8,7 @@
 namespace app\models;
 
 use Yii;
+use app\components\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 
 /**
@@ -58,13 +59,20 @@ class Salmon2 extends ActiveRecord
         return 'salmon2';
     }
 
+    public function behaviors()
+    {
+        return [
+            TimestampBehavior::class,
+        ];
+    }
+
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['user_id', 'uuid', 'created_at', 'updated_at'], 'required'],
+            [['user_id', 'uuid'], 'required'],
             [['user_id', 'splatnet_number', 'stage_id', 'clear_waves'], 'default', 'value' => null],
             [['fail_reason_id', 'title_before_id', 'title_before_exp'], 'default', 'value' => null],
             [['title_after_id', 'title_after_exp', 'shift_period'], 'default', 'value' => null],

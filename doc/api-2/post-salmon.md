@@ -36,7 +36,7 @@ All parameters are optional.
 |`start_at`|integer|UNIX time|This work started at|
 |`end_at`|integer|UNIX time|(May not be presented in SplatNet JSON)|
 |`note`|string| |Note (public)|
-|`note_private`|string| |Note (private)|
+|`private_note`|string| |Note (private)|
 |`link_url`|URL| | |
 |`is_automated`|boolean|`yes` or `no`|`yes` if by automated program.<br>`no` if manual input.|
 |`agent`|string (≤64 chars)|e.g. `my awesome client`|User-agent name.|
