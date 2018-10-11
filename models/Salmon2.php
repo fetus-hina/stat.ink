@@ -216,4 +216,23 @@ class Salmon2 extends ActiveRecord
     {
         return $this->hasMany(SalmonWave2::class, ['salmon_id' => 'id']);
     }
+
+    public function getIsCleared(): ?bool
+    {
+        if ($this->clear_waves === null) {
+            return null;
+        }
+
+        return $this->clear_waves >= 3;
+    }
+
+    public function getIsFailed(): ?bool
+    {
+        $cleared = $this->getIsCleared();
+        if ($cleared === null) {
+            return null;
+        }
+
+        return !$cleared;
+    }
 }

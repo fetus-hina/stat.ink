@@ -34,8 +34,9 @@
         "bower-asset/swipebox": "^1.4",
         "bower-asset/uuid.js": "^3.3",
 
-        "npm-asset/stupid-table-plugin": "^1.1",
         "npm-asset/fortawesome--fontawesome-free": "^5.2",
+        "npm-asset/rpg-awesome": "^1.0",
+        "npm-asset/stupid-table-plugin": "^1.1",
 
         "christian-riesen/base32": "^1.2",
         "cybercog/yii2-google-analytics": "^0.3.1",

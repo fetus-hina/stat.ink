@@ -46,6 +46,9 @@ return [
         '@<screen_name:\w+>/spl2/' => 'show-v2/user',
         '@<screen_name:\w+>.2.<lang:[\w-]+>.<type:rss|atom>' => 'feed/user-v2',
 
+        '@<screen_name:\w+>/salmon' => 'salmon/index',
+        '@<screen_name:\w+>/salmon/<id:\d+>' => 'salmon/view',
+
         'fest/<region:\w+>/<order:\d+>' => 'fest/view',
         'entire/weapons/<weapon:\w+>/<rule:\w+>' => 'entire/weapon',
         'entire/weapons/<weapon:\w+>' => 'entire/weapon',

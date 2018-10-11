@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2015 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2018 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  */
@@ -8,15 +8,17 @@
 namespace app\components\web;
 
 use Yii;
+use app\models\Language;
+use app\models\Timezone;
 use yii\base\Event;
 use yii\base\View;
 use yii\web\Controller as Base;
 use yii\web\Cookie;
-use app\models\Language;
-use app\models\Timezone;
 
 class Controller extends Base
 {
+    use HttpErrorTrait;
+
     public function init()
     {
         parent::init();
@@ -24,7 +26,7 @@ class Controller extends Base
         $this->setTimezone();
     }
 
-    private function setLanguage()
+    private function setLanguage(): void
     {
         $lang = (function () {
             if ($val = $this->detectLanguageByParam()) {
