@@ -1,0 +1,1 @@
+../../vendor/npm-asset/rpg-awesome/LICENSE.md

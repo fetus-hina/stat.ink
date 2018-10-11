@@ -11,6 +11,7 @@ use DateTimeZone;
 use Yii;
 use app\components\helpers\DateTimeFormatter;
 use app\components\helpers\Password;
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\helpers\Url;
 use yii\web\IdentityInterface;
@@ -306,6 +307,12 @@ class User extends ActiveRecord implements IdentityInterface
             ->viaTable('user_weapon', ['user_id' => 'id'], function ($query) {
                 $query->orderBy('{{user_weapon}}.[[count]] DESC')->limit(1);
             });
+    }
+
+    public function getSalmonResults(): ActiveQuery
+    {
+        return $this->hasMany(Salmon2::class, ['user_id' => 'id'])
+            ->orderBy(['id' => SORT_DESC]);
     }
 
     public function getLatestBattle()

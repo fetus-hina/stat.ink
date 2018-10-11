@@ -8,6 +8,11 @@
 return [
     'Random' => 'ランダム',
     'Salmon Run' => 'サーモンラン',
+    
+    'Cleared' => 'クリア',
+    'Failed in wave {waveNumber}' => '失敗 (Wave {waveNumber})',
+    'Dead all players' => '全滅',
+    'Time was up' => '時間切れ',
 
     '{weapon}' => 'バイト専用 {weapon}',
 ];

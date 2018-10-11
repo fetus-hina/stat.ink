@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "75f8e110c4497b2b608c8b0b11daffc5",
+    "content-hash": "49cd4fcbe47470baeddf3e2e3dd6c5db",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -1347,6 +1347,22 @@
             "license": [
                 "(CC-BY-4.0 AND OFL-1.1 AND MIT)"
             ]
+        },
+        {
+            "name": "npm-asset/rpg-awesome",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nagoshiashumari/Rpg-Awesome.git",
+                "reference": "404b72d6ef5ab454f188917735d013d50ba8eec5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nagoshiashumari/Rpg-Awesome/zipball/404b72d6ef5ab454f188917735d013d50ba8eec5",
+                "reference": "404b72d6ef5ab454f188917735d013d50ba8eec5",
+                "shasum": null
+            },
+            "type": "npm-asset"
         },
         {
             "name": "npm-asset/stupid-table-plugin",
