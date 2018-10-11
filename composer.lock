@@ -1336,10 +1336,10 @@
         },
         {
             "name": "npm-asset/fortawesome--fontawesome-free",
-            "version": "5.3.1",
+            "version": "5.4.0",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/@fortawesome/fontawesome-free/-/fontawesome-free-5.3.1.tgz",
+                "url": "https://registry.npmjs.org/@fortawesome/fontawesome-free/-/fontawesome-free-5.4.0.tgz",
                 "reference": null,
                 "shasum": null
             },
