@@ -63,7 +63,7 @@ class ApiV2Controller extends Controller
             'stage' => [
                 'class' => $prefix . '\StageAction',
             ],
-            'weapon' => [ 
+            'weapon' => [
                 'class' => $prefix . '\WeaponAction',
             ],
             // 'death-reason'  => [ 'class' => $prefix . '\DeathReasonAction' ],
