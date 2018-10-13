@@ -6,6 +6,7 @@ use app\components\grid\SalmonActionColumn;
 use app\components\widgets\AdWidget;
 use app\components\widgets\EmbedVideo;
 use app\components\widgets\Label;
+use app\components\widgets\SalmonUserInfo;
 use app\components\widgets\SnsWidget;
 use app\models\Salmon2;
 use yii\bootstrap\ActiveForm;
@@ -15,7 +16,7 @@ use yii\helpers\Url;
 use yii\i18n\Formatter;
 use yii\widgets\ListView;
 
-$title = Yii::t('app', "{name}'s Salmon Log", ['name' => $user->name]);
+$title = Yii::t('app-salmon2', "{name}'s Salmon Log", ['name' => $user->name]);
 $this->title = sprintf('%s | %s', Yii::$app->name, $title);
 
 // $this->registerLinkTag(['rel' => 'canonical', 'href' => $permLink]);
@@ -215,7 +216,7 @@ $this->title = sprintf('%s | %s', Yii::$app->name, $title);
       </div>
     </div>
     <div class="col-xs-12 col-sm-4 col-lg-3">
-      <?= $this->render('/includes/user-miniinfo2', ['user' => $user]) . "\n" ?>
+      <?= SalmonUserInfo::widget(['user' => $user]) . "\n" ?>
       <?= AdWidget::widget() . "\n" ?>
     </div>
   </div>

@@ -25,4 +25,35 @@ class Formatter extends \yii\i18n\Formatter
             ['datetime' => gmdate(Datetime::ATOM, $timestamp)]
         );
     }
+
+    public function asMetricPrefixed($value, int $decimal = 1): ?string
+    {
+        if ($value === null) {
+            return $this->nullDisplay;
+        }
+
+        $prefixes = [
+            'Y' => pow(10, 24),
+            'Z' => pow(10, 21),
+            'E' => pow(10, 18),
+            'P' => pow(10, 15),
+            'T' => pow(10, 12),
+            'G' => pow(10, 9),
+            'M' => pow(10, 6),
+            'k' => pow(10, 3),
+        ];
+        foreach ($prefixes as $prefix => $weight) {
+            if ($value >= $weight) {
+                return sprintf(
+                    '%s%s',
+                    $this->asDecimal($value / $weight, $decimal),
+                    $prefix
+                );
+            }
+        }
+
+        return is_int($value)
+            ? $this->asInteger($value)
+            : $this->asDecimal($value, $decimal);
+    }
 }
