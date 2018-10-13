@@ -26,7 +26,7 @@ class Formatter extends \yii\i18n\Formatter
         );
     }
 
-    public function asMetricPrefixed($value, int $decimal = 1): ?string
+    public function asMetricPrefixed($value, int $decimal = 0): ?string
     {
         if ($value === null) {
             return $this->nullDisplay;

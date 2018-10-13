@@ -111,60 +111,65 @@ class SalmonUserInfo extends Widget
         $data = [
             [
                 'label' => Yii::t('app-salmon2', 'Works'),
-                'value' => $fmt->asInteger($stats->work_count),
-                'class' => 'col-xs-4',
+                'value' => $stats->work_count,
+                'valueFormat' => 'integer',
+                'formatter' => $fmt,
             ],
             [
                 'label' => Yii::t('app-salmon2', 'Ttl. Pts.'),
                 'labelTitle' => Yii::t('app-salmon2', 'Total Points'),
-                'value' => $fmt->asMetricPrefixed($stats->total_point, 0),
+                'value' => $stats->total_point,
                 'valueTitle' => $fmt->asInteger($stats->total_point),
-                'class' => 'col-xs-4',
+                'valueFormat' => 'metricPrefixed',
+                'formatter' => $fmt,
             ],
             [
                 'label' => Yii::t('app-salmon2', 'Avg. Pts.'),
                 'labelTitle' => Yii::t('app-salmon2', 'Average Points'),
                 'value' => $avg($stats->total_point, 1),
-                'class' => 'col-xs-4',
+                'formatter' => $fmt,
             ],
             [
                 'label' => Yii::t('app-salmon2', 'Golden'),
                 'labelTitle' => Yii::t('app-salmon2', 'Average Golden Eggs'),
                 'value' => $avg($stats->total_golden_eggs),
-                'class' => 'col-xs-4',
+                'formatter' => $fmt,
             ],
             [
                 'label' => Yii::t('app-salmon2', 'Pwr Eggs'),
                 'labelTitle' => Yii::t('app-salmon2', 'Average Power Eggs'),
                 'value' => $avg($stats->total_eggs),
-                'class' => 'col-xs-4',
+                'formatter' => $fmt,
             ],
             [
                 'label' => Yii::t('app-salmon2', 'Rescued'),
                 'labelTitle' => Yii::t('app-salmon2', 'Average Rescued'),
                 'value' => $avg($stats->total_rescued),
-                'class' => 'col-xs-4',
+                'formatter' => $fmt,
             ],
             [
                 'label' => Yii::t('app-salmon2', 'Ttl. Gold'),
                 'labelTitle' => Yii::t('app-salmon2', 'Total Golden Eggs'),
-                'value' => $fmt->asMetricPrefixed($stats->total_golden_eggs, 0),
+                'value' => $stats->total_golden_eggs,
                 'valueTitle' => $fmt->asInteger($stats->total_golden_eggs),
-                'class' => 'col-xs-4',
+                'valueFormat' => 'metricPrefixed',
+                'formatter' => $fmt,
             ],
             [
                 'label' => Yii::t('app-salmon2', 'Ttl. Eggs'),
                 'labelTitle' => Yii::t('app-salmon2', 'Total Power Eggs'),
-                'value' => $fmt->asMetricPrefixed($stats->total_eggs, 0),
+                'value' => $stats->total_eggs,
                 'valueTitle' => $fmt->asInteger($stats->total_eggs),
-                'class' => 'col-xs-4',
+                'valueFormat' => 'metricPrefixed',
+                'formatter' => $fmt,
             ],
             [
                 'label' => Yii::t('app-salmon2', 'Ttl. Rescued'),
                 'labelTitle' => Yii::t('app-salmon2', 'Total Rescued'),
-                'value' => $fmt->asMetricPrefixed($stats->total_rescued, 0),
+                'value' => $stats->total_rescued,
                 'valueTitle' => $fmt->asInteger($stats->total_rescued),
-                'class' => 'col-xs-4',
+                'valueFormat' => 'metricPrefixed',
+                'formatter' => $fmt,
             ],
         ];
         $datetime = ($stats->as_of !== null)
@@ -189,38 +194,7 @@ class SalmonUserInfo extends Widget
             'div',
             implode('', array_map(
                 function (array $item): string {
-                    return Html::tag(
-                        'div',
-                        implode('', [
-                            Html::tag(
-                                'div',
-                                Html::encode($item['label']),
-                                [
-                                    'class' => 'user-label auto-tooltip',
-                                    'title' => $item['labelTitle'] ?? '',
-                                ]
-                            ),
-                            Html::tag(
-                                'div',
-                                Html::encode($item['value']),
-                                [
-                                    'class' => [
-                                        'user-number',
-                                        'text-right',
-                                        ($item['valueTitle'] ?? null) != $item['value']
-                                            ? 'auto-tooltip'
-                                            : '',
-                                    ],
-                                    'title' => ($item['valueTitle'] ?? null) != $item['value']
-                                        ? ($item['valueTitle'] ?? '')
-                                        : '',
-                                ]
-                            ),
-                        ]),
-                        [
-                            'class' => $item['class'],
-                        ]
-                    );
+                    return MiniinfoData::widget($item);
                 },
                 $data
             )) . $datetime,
