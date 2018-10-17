@@ -45,7 +45,7 @@ use yii\db\ActiveRecord;
  * @property SalmonTitle2 $titleBefore
  * @property SalmonTitle2 $titleAfter
  * @property User $user
- * @property SalmonBossAppearance2[] $salmonBossAppearance2s
+ * @property SalmonBossAppearance2[] $bossAppearances
  * @property SalmonBoss2[] $bosses
  * @property SalmonWave2[] $salmonWave2s
  */
@@ -192,10 +192,7 @@ class Salmon2 extends ActiveRecord
         return $this->hasOne(User::class, ['id' => 'user_id']);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getSalmonBossAppearance2s()
+    public function getBossAppearances()
     {
         return $this->hasMany(SalmonBossAppearance2::class, ['salmon_id' => 'id']);
     }

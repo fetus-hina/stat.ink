@@ -6,6 +6,9 @@
  */
 
 return [
+    'Appearances' => '出現数',
+    'Boss Salmonid' => 'オオモノシャケ',
+    'Boss Salmonids' => 'オオモノシャケ',
     'From {shiftStart}' => '{shiftStart}～',
     'Hazard Level' => 'キケン度',
     'Quota: {wave1} - {wave2} - {wave3}' => 'ノルマ: {wave1} - {wave2} - {wave3}',
