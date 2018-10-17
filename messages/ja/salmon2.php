@@ -6,8 +6,16 @@
  */
 
 return [
+    'From {shiftStart}' => '{shiftStart}～',
+    'Hazard Level' => 'キケン度',
+    'Quota: {wave1} - {wave2} - {wave3}' => 'ノルマ: {wave1} - {wave2} - {wave3}',
     'Random' => 'ランダム',
+    'Results of {userName}\'s Work' => '{userName}のバイト結果',
     'Salmon Run' => 'サーモンラン',
+    'Shift' => 'スケジュール',
+    'URL related to this work' => '関連URL',
+    'Work Ended' => 'バイト終了',
+    'Work Started' => 'バイト開始',
     
     'Cleared' => 'クリア',
     'Failed in wave {waveNumber}' => '失敗 (Wave {waveNumber})',

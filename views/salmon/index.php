@@ -93,13 +93,17 @@ $this->title = sprintf('%s | %s', Yii::$app->name, $title);
             'user' => $user,
           ],
           [
+            'headerOptions' => ['class' => 'cell-splatnet'],
+            'contentOptions' => ['class' => 'cell-splatnet'],
             'attribute' => 'splatnet_number',
             'label' => '#',
             'format' => 'integer',
           ],
           [
             'attribute' => 'stage_id',
-            'label' => Yii::t('app', 'Stage'),
+            'headerOptions' => ['class' => 'cell-map'],
+            'contentOptions' => ['class' => 'cell-map'],
+            'label' => Yii::t('app-app', 'Stage'),
             'value' => function (Salmon2 $model): ?string {
               return $model->stage_id
                 ? Yii::t('app-salmon-map2', $model->stage->name)
@@ -108,6 +112,8 @@ $this->title = sprintf('%s | %s', Yii::$app->name, $title);
           ],
           [
             'label' => Yii::t('app', 'Result'),
+            'headerOptions' => ['class' => 'cell-result'],
+            'contentOptions' => ['class' => 'cell-result'],
             'format' => 'raw',
             'value' => function (Salmon2 $model): ?string {
               $isCleared = $model->getIsCleared();
@@ -138,6 +144,8 @@ $this->title = sprintf('%s | %s', Yii::$app->name, $title);
           ],
           [
             'label' => Yii::t('app', 'Title'),
+            'headerOptions' => ['class' => 'cell-title'],
+            'contentOptions' => ['class' => 'cell-title'],
             'value' => function (Salmon2 $model): ?string {
               if (!$model->title_before_id) {
                 return null;
@@ -153,6 +161,8 @@ $this->title = sprintf('%s | %s', Yii::$app->name, $title);
           ],
           [
             'label' => Yii::t('app', 'Title (After)'),
+            'headerOptions' => ['class' => 'cell-title-after'],
+            'contentOptions' => ['class' => 'cell-title-after'],
             'value' => function (Salmon2 $model): ?string {
               if (!$model->title_after_id) {
                 return null;
@@ -230,44 +240,13 @@ $this->title = sprintf('%s | %s', Yii::$app->name, $title);
       </div>
       <div class="row"><?php
         $_list = [
-          'cell-splatnet'             => Yii::t('app', 'SplatNet Battle #'),
-          'cell-lobby'                => Yii::t('app', 'Lobby'),
-          'cell-room'                 => Yii::t('app', 'Room info (Private)'),
-          'cell-rule'                 => Yii::t('app', 'Mode'),
-          'cell-rule-short'           => Yii::t('app', 'Mode (Short)'),
-          'cell-special-battle'       => Yii::t('app', 'Special Battle (Fest)'),
-          'cell-map'                  => Yii::t('app', 'Stage'),
-          'cell-map-short'            => Yii::t('app', 'Stage (Short)'),
-          'cell-main-weapon'          => Yii::t('app', 'Weapon'),
-          'cell-main-weapon-short'    => Yii::t('app', 'Weapon (Short)'),
-          'cell-sub-weapon'           => Yii::t('app', 'Sub Weapon'),
-          'cell-special'              => Yii::t('app', 'Special'),
-          'cell-team-icon'            => Yii::t('app', 'Team Icon'),
-          'cell-team-id'              => Yii::t('app', 'Team ID'),
-          'cell-rank'                 => Yii::t('app', 'Rank'),
-          'cell-rank-after'           => Yii::t('app', 'Rank (After)'),
-          'cell-x-power'              => Yii::t('app', 'X Power'),
-          'cell-gachi-power'          => Yii::t('app', 'Power Level'),
-          'cell-league-power'         => Yii::t('app', 'League Power'),
-          'cell-fest-power'           => Yii::t('app', 'Splatfest Power'),
-          'cell-fest-title'           => Yii::t('app', 'Splatfest Title'),
-          'cell-fest-title-after'     => Yii::t('app', 'Splatfest Title (After)'),
-          'cell-level'                => Yii::t('app', 'Level'),
-          'cell-judge'                => Yii::t('app', 'Judge'),
-          'cell-result'               => Yii::t('app', 'Result'),
-          'cell-kd'                   => Yii::t('app', 'k') . '/' . Yii::t('app', 'd'),
-          'cell-kill-min'             => Yii::t('app', 'Kills/min'),
-          'cell-death-min'            => Yii::t('app', 'Deaths/min'),
-          'cell-kill-ratio'           => Yii::t('app', 'Kill Ratio'),
-          'cell-kill-rate'            => Yii::t('app', 'Kill Rate'),
-          'cell-kill-or-assist'       => Yii::t('app', 'Kill or Assist'),
-          'cell-specials'             => Yii::t('app', 'Specials'),
-          'cell-specials-min'         => Yii::t('app', 'Specials/min'),
-          'cell-point'                => Yii::t('app', 'Turf Inked'),
-          'cell-inked-min'            => Yii::t('app', 'Inked/min'),
-          'cell-rank-in-team'         => Yii::t('app', 'Rank in Team'),
-          'cell-datetime'             => Yii::t('app', 'Date Time'),
-          'cell-reltime'              => Yii::t('app', 'Relative Time'),
+          'cell-splatnet' => Yii::t('app', 'SplatNet #'),
+          'cell-map' => Yii::t('app', 'Stage'),
+          'cell-result' => Yii::t('app', 'Result'),
+          'cell-title' => Yii::t('app', 'Title'),
+          'cell-title-after' => Yii::t('app', 'Title (After)'),
+          'cell-datetime' => Yii::t('app', 'Date Time'),
+          'cell-reltime' => Yii::t('app', 'Relative Time'),
         ];
         foreach ($_list as $k => $v) {
           echo Html::tag(
@@ -288,5 +267,6 @@ $this->title = sprintf('%s | %s', Yii::$app->name, $title);
   </div>
 </div>
 <?php
+//FIXME
 $this->registerJs('window.battleList();window.battleListConfig();');
 ?>
