@@ -272,7 +272,7 @@ class Salmon2 extends ActiveRecord
         ];
 
         foreach ($data as $_) {
-            list ($minDanger, $quota) = $_;
+            list($minDanger, $quota) = $_;
             if ($minDanger <= $danger) {
                 return $quota;
             }
