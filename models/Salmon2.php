@@ -120,26 +120,26 @@ class Salmon2 extends ActiveRecord
             'id' => 'ID',
             'user_id' => 'User ID',
             'uuid' => 'Uuid',
-            'splatnet_number' => 'Splatnet Number',
-            'stage_id' => 'Stage ID',
+            'splatnet_number' => Yii::t('app', 'SplatNet #'),
+            'stage_id' => Yii::t('app', 'Stage'),
             'clear_waves' => 'Clear Waves',
             'fail_reason_id' => 'Fail Reason ID',
             'title_before_id' => 'Title Before ID',
             'title_before_exp' => 'Title Before Exp',
             'title_after_id' => 'Title After ID',
             'title_after_exp' => 'Title After Exp',
-            'danger_rate' => 'Danger Rate',
-            'shift_period' => 'Shift Period',
-            'start_at' => 'Start At',
-            'end_at' => 'End At',
-            'note' => 'Note',
-            'private_note' => 'Private Note',
-            'link_url' => 'Link Url',
+            'danger_rate' => Yii::t('app-salmon2', 'Hazard Level'),
+            'shift_period' => Yii::t('app-salmon2', 'Shift'),
+            'start_at' => Yii::t('app-salmon2', 'Work Started'),
+            'end_at' => Yii::t('app-salmon2', 'Work Ended'),
+            'note' => Yii::t('app', 'Note'),
+            'private_note' => Yii::t('app', 'Note (private)'),
+            'link_url' => Yii::t('app-salmon2', 'URL related to this work'),
             'is_automated' => 'Is Automated',
-            'agent_id' => 'Agent ID',
+            'agent_id' => Yii::t('app', 'User Agent'),
             'remote_addr' => 'Remote Addr',
             'remote_port' => 'Remote Port',
-            'created_at' => 'Created At',
+            'created_at' => Yii::t('app', 'Data Sent'),
             'updated_at' => 'Updated At',
         ];
     }
@@ -234,5 +234,54 @@ class Salmon2 extends ActiveRecord
         }
 
         return !$cleared;
+    }
+
+    public function getQuota(): ?array
+    {
+        if ($this->danger_rate === null) {
+            return null;
+        }
+        $danger = (float)$this->danger_rate;
+        $data = [
+            [200,   [21, 23, 25]],
+            [189,   [20, 22, 24]],
+            [187.6, [20, 21, 23]],
+            [177.8, [19, 21, 23]],
+            [175,   [19, 20, 22]],
+            [166.8, [18, 20, 22]],
+            [162.6, [18, 19, 21]],
+            [155.6, [17, 19, 21]],
+            [150,   [17, 18, 20]],
+            [144.6, [16, 18, 20]],
+            [137.6, [16, 17, 19]],
+            [133.4, [15, 17, 19]],
+            [125,   [15, 16, 18]],
+            [122.4, [14, 16, 18]],
+            [112.6, [14, 15, 17]],
+            [111.2, [13, 15, 17]],
+            [100,   [13, 14, 16]],
+            [ 93.4, [12, 13, 15]],
+            [ 86.8, [11, 12, 14]],
+            [ 80,   [10, 11, 13]],
+            [ 70,   [ 9, 10, 12]],
+            [ 60,   [ 8,  9, 11]],
+            [ 40,   [ 7,  8, 10]],
+            [ 30,   [ 6,  7,  9]],
+            [ 20,   [ 6,  7,  8]],
+            [ 14,   [ 5,  6,  7]],
+            [  8,   [ 4,  5,  6]],
+            [  4,   [ 3,  4,  5]],
+            [  0,   [ 2,  3,  4]],
+        ];
+
+        foreach ($data as $_) {
+            list ($minDanger, $quota) = $_;
+            if ($minDanger <= $danger) {
+                return $quota;
+            }
+        }
+
+        // Why!?
+        return null;
     }
 }

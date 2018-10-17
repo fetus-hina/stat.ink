@@ -18,7 +18,7 @@ class Html extends BaseHtml
         string $text,
         string $page,
         array $options = []
-    ) : string {
+    ): string {
         return static::a(
             $text,
             sprintf(

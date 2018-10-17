@@ -9,6 +9,7 @@ namespace app\controllers;
 
 use Yii;
 use app\components\web\Controller;
+use app\models\Salmon2;
 use app\models\User;
 use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
@@ -69,6 +70,27 @@ class SalmonController extends Controller
             'dataProvider' => new ActiveDataProvider([
                 'query' => $query,
             ]),
+        ]);
+    }
+
+    public function actionView(string $screen_name, int $id): ?string
+    {
+        $model = Salmon2::findOne(['id' => $id]);
+        if (!$model || !$model->user) {
+            static::error404();
+            return null;
+        }
+
+        if ($model->user->screen_name !== $screen_name) {
+            $this->redirect(
+                ['salmon/view', 'id' => $model->id, 'screen_name' => $model->user->screen_name],
+                301
+            );
+            return null;
+        }
+
+        return $this->render('view', [
+            'model' => $model,
         ]);
     }
 }

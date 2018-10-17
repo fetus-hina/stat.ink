@@ -65,6 +65,7 @@ RESOURCE_TARGETS_MAIN := \
 	resources/.compiled/stat.ink/name-anonymizer.js \
 	resources/.compiled/stat.ink/no-image.png \
 	resources/.compiled/stat.ink/permalink-dialog.js \
+	resources/.compiled/stat.ink/private-note.js \
 	resources/.compiled/stat.ink/session-calendar.js \
 	resources/.compiled/stat.ink/sortable-table.js \
 	resources/.compiled/stat.ink/summary-legends.png \
@@ -326,6 +327,9 @@ resources/.compiled/stat.ink/battle-summary-dialog.css: resources/stat.ink/battl
 	$(GULP) less --in $< --out $@
 
 resources/.compiled/stat.ink/permalink-dialog.js: resources/stat.ink/permalink-dialog.es $(GULP)
+	$(GULP) js --in $< --out $@
+
+resources/.compiled/stat.ink/private-note.js: resources/stat.ink/private-note.es $(GULP)
 	$(GULP) js --in $< --out $@
 
 resources/.compiled/ostatus/remote-follow.js: resources/ostatus/remote-follow.js $(GULP)
