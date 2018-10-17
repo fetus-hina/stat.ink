@@ -125,7 +125,6 @@ $widget = Yii::createObject([
     [
       'attribute' => 'link_url',
       'format' => 'url',
-      'value' => 'http://example.com',
     ],
     [
       'attribute' => 'shift_period',
