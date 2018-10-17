@@ -82,10 +82,4 @@ class PrivateNote extends Widget
     {
         return $this->id . '-text';
     }
-
-    // $this->registerJs(
-    //         '!function(a){"use strict";var o=a("#private-note-show"),e=a("#private-note"),n=a(".fa",o);' .
-    //         'o.hover(function(){n.removeClass("fa-lock").addClass("fa-unlock-alt")},function(){' .
-    //             'n.removeClass("fa-unlock-alt").addClass("fa-lock")}).click(function(){o.hide(),e.show()})}(jQuery);'
-    //         );
 }
