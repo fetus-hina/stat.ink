@@ -37,11 +37,13 @@ $namePartInner = trim(implode(' ', [
   })(),
   // }}}
   // name {{{
-  (function () use ($battle, $player, $teamKey) : string {
+  (function () use ($battle, $player, $teamKey): string {
     $anonymize = false;
     if ($player->is_me) {
       // "me" always shown
       $anonymize = false;
+    } elseif ($player->isForceBlackouted) {
+      $anonymize = true;
     } elseif (trim($player->name) === '') {
       // We can only show an anonymized name
       $anonymize = true;

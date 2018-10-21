@@ -174,6 +174,16 @@ class BattlePlayer2 extends ActiveRecord
         return $this->hasOne(FestTitle::class, ['id' => 'fest_title_id']);
     }
 
+    public function getForceBlackout()
+    {
+        return $this->hasOne(ForceBlackout2::class, ['splatnet_id' => 'splatnet_id']);
+    }
+
+    public function getIsForceBlackouted(): bool
+    {
+        return $this->forceBlackout !== null;
+    }
+
     public function getUser() : ?User
     {
         if ($this->user === false) {
