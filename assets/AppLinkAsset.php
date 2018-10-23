@@ -14,6 +14,9 @@ use yii\web\AssetBundle;
 class AppLinkAsset extends AssetBundle
 {
     public $sourcePath = '@app/resources/.compiled/app-link-logos';
+    public $depends = [
+        FontAwesomeAsset::class,
+    ];
 
     public function getIkaLog() : string
     {
@@ -83,7 +86,7 @@ class AppLinkAsset extends AssetBundle
                     ],
                 ]
             ),
-            ['class' => 'fa fa-fw']
+            ['class' => 'fas fa-fw']
         );
     }
 }

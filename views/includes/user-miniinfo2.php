@@ -2,6 +2,7 @@
 use app\assets\AppLinkAsset;
 use app\assets\UserMiniinfoAsset;
 use app\components\widgets\JdenticonWidget;
+use app\components\widgets\MiniinfoUserLink;
 use app\models\Rank2;
 use app\models\Rule2;
 use yii\bootstrap\Html;
@@ -517,54 +518,6 @@ $fmt = Yii::$app->formatter;
           ),
         ])) . "\n" ?>
     </div>
-    <div class="miniinfo-databox">
-<?php if ($user->twitter != ''): ?>
-      <div>
-        <span class="fab fa-twitter fa-fw"></span>
-        <?= Html::a(
-          Html::encode('@' . $user->twitter),
-          sprintf('https://twitter.com/%s', rawurlencode($user->twitter)),
-          ['rel' => 'nofollow', 'target' => '_blank']
-        ) . "\n" ?>
-      </div>
-<?php endif; ?>
-<?php if ($user->nnid != ''): ?>
-      <div>
-        <span class="fa fa-fw"><?=
-          $_icon->nnid;
-        ?></span>
-        <?= Html::encode($user->nnid) . "\n" ?>
-      </div>
-<?php endif; ?>
-<?php if ($user->sw_friend_code != ''): ?>
-      <div>
-        <span class="fa fa-fw"><?=
-          $_icon->switch
-        ?></span>
-        <?= Html::tag(
-          'span',
-          Html::encode(sprintf(
-            'SW-%s-%s-%s',
-            substr($user->sw_friend_code, 0, 4),
-            substr($user->sw_friend_code, 4, 4),
-            substr($user->sw_friend_code, 8, 4)
-          )),
-          ['style' => ['white-space' => 'nowrap']]
-        ) . "\n" ?>
-      </div>
-<?php endif; ?>
-<?php if ($user->ikanakama2 != ''): ?>
-      <div>
-        <span class="fa fa-fw"><?=
-          $_icon->ikanakama
-        ?></span>
-        <?= Html::a(
-          Html::encode(Yii::t('app', 'Ika-Nakama 2')),
-          sprintf('https://ikanakama.ink/users/%d', $user->ikanakama2),
-          ['rel' => 'nofollow', 'target' => '_blank']
-        ) . "\n" ?>
-      </div>
-<?php endif; ?>
-    </div>
+    <?= MiniinfoUserLink::widget(['user' => $user]) . "\n" ?>
   </div>
 </div>

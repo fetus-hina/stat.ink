@@ -44,6 +44,7 @@ class SalmonUserInfo extends Widget
                 implode('', [
                     $this->renderIconAndName(),
                     $this->renderData(),
+                    $this->renderLinks(),
                 ]),
                 ['id' => 'user-miniinfo-box']
             ),
@@ -203,6 +204,13 @@ class SalmonUserInfo extends Widget
             )) . $datetime,
             ['class' => 'row']
         );
+    }
+
+    protected function renderLinks(): string
+    {
+        return MiniinfoUserLink::widget([
+            'user' => $this->user,
+        ]);
     }
 
     protected function getUserStats(): SalmonStats2
