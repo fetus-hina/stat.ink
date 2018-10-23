@@ -6,6 +6,9 @@
  */
 
 return [
+    'Known Occurrence' => '過去に観測された特殊な状況',
+    'Event' => 'イベント',
+
     'Cohock Charge' => 'ドスコイ大量発生',
     'Fog' => '霧',
     'Goldie Seeking' => 'キンシャケ探し',

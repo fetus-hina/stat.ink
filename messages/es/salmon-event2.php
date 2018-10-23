@@ -7,8 +7,10 @@
 
 return [
     'Cohock Charge' => 'Attaques de escamacarras',
+    'Event' => '',
     'Fog' => 'Niebla',
     'Goldie Seeking' => 'Detección de salmóreos',
+    'Known Occurrence' => '',
     'Rush' => 'Avalanchas',
     'The Griller' => 'Chaparrillas',
     'The Mothership' => 'Aerocriaderos',

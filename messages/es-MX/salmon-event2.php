@@ -7,8 +7,10 @@
 
 return [
     'Cohock Charge' => 'Ataques de agallones',
+    'Event' => '',
     'Fog' => 'Niebla',
     'Goldie Seeking' => 'Detección de orónidos',
+    'Known Occurrence' => '',
     'Rush' => 'Frenesíes',
     'The Griller' => 'Brasaletas',
     'The Mothership' => 'Salmondrizas',

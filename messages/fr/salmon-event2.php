@@ -7,8 +7,10 @@
 
 return [
     'Cohock Charge' => 'Charges de Sumoches',
+    'Event' => '',
     'Fog' => 'Brouillard',
     'Goldie Seeking' => 'Chasse aux Dorax',
+    'Known Occurrence' => '',
     'Rush' => 'Ruées',
     'The Griller' => 'Barbeurks',
     'The Mothership' => 'Vaisseaux mères',

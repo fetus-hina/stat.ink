@@ -9,4 +9,5 @@ return [
     'High Tide' => '',
     'Low Tide' => '',
     'Mid Tide' => '',
+    'Water Level' => '',
 ];

@@ -9,6 +9,7 @@ namespace app\models;
 
 use Yii;
 use app\components\behaviors\TimestampBehavior;
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
 /**
@@ -184,34 +185,31 @@ class Salmon2 extends ActiveRecord
         return $this->hasOne(SalmonTitle2::class, ['id' => 'title_after_id']);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getUser()
+    public function getUser(): ActiveQuery
     {
         return $this->hasOne(User::class, ['id' => 'user_id']);
     }
 
-    public function getBossAppearances()
+    public function getBossAppearances(): ActiveQuery
     {
         return $this->hasMany(SalmonBossAppearance2::class, ['salmon_id' => 'id']);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getBosses()
+    public function getBosses(): ActiveQuery
     {
         return $this->hasMany(SalmonBoss2::class, ['id' => 'boss_id'])
             ->viaTable('salmon_boss_appearance2', ['salmon_id' => 'id']);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getSalmonWave2s()
+    public function getWaves(): ActiveQuery
     {
-        return $this->hasMany(SalmonWave2::class, ['salmon_id' => 'id']);
+        return $this->hasMany(SalmonWave2::class, ['salmon_id' => 'id'])
+            ->orderBy(['salmon_wave2.wave' => SORT_ASC]);
+    }
+
+    public function getSalmonWave2s(): ActiveQuery
+    {
+        return $this->getWaves();
     }
 
     public function getIsCleared(): ?bool

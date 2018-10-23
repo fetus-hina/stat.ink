@@ -7,8 +7,10 @@
 
 return [
     'Cohock Charge' => 'Brocken-Sturmanfall',
+    'Event' => '',
     'Fog' => 'Nebel',
     'Goldie Seeking' => 'Goldie-Suche',
+    'Known Occurrence' => '',
     'Rush' => 'Ansturm',
     'The Griller' => 'Killgrills',
     'The Mothership' => 'Das Mutterschiff',

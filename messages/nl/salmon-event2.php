@@ -7,8 +7,10 @@
 
 return [
     'Cohock Charge' => 'Storm van Sallogs',
+    'Event' => '',
     'Fog' => 'Mist',
     'Goldie Seeking' => 'Het zoeken van Goldies',
+    'Known Occurrence' => '',
     'Rush' => 'Stormloop',
     'The Griller' => 'Grillers',
     'The Mothership' => 'Het moederschip',

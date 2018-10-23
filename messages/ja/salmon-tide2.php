@@ -6,6 +6,8 @@
  */
 
 return [
+    'Water Level' => '水位',
+
     'High Tide' => '満潮',
     'Low Tide' => '干潮',
     'Mid Tide' => '普通',

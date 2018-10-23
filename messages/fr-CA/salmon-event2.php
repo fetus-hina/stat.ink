@@ -7,8 +7,10 @@
 
 return [
     'Cohock Charge' => '',
+    'Event' => '',
     'Fog' => '',
     'Goldie Seeking' => '',
+    'Known Occurrence' => '',
     'Rush' => '',
     'The Griller' => '',
     'The Mothership' => '',

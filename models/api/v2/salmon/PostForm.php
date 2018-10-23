@@ -305,13 +305,14 @@ class PostForm extends Model
             }
 
             for ($i = 0; $i < 3; ++$i) {
-                $wave = $this->wave[$i] ?? null;
+                $wave = $this->waves[$i] ?? null;
                 if (!$wave) {
                     return true;
                 }
 
                 $model = Yii::createObject(Wave::class);
                 $model->attributes = $wave;
+
                 if (!$model->save($salmon, $i + 1)) {
                     return false;
                 }
