@@ -41,7 +41,7 @@ class MiniinfoUserLink extends Widget
                 $this->renderSwitch(),
                 $this->renderIkanakama2(),
             ]),
-            [   
+            [
                 'id' => $id,
                 'class' => 'miniinfo-databox',
             ]
