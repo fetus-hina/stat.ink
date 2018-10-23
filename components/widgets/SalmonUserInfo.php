@@ -81,7 +81,7 @@ class SalmonUserInfo extends Widget
                     'height' => 48,
                     'alt' => '',
                     'itemprop' => 'image',
-                ],
+                ]
             ),
             ['class' => 'miniinfo-user-icon']
         );
