@@ -47,12 +47,8 @@ if ($user->twitter != '') {
         'model' => $model,
         'user' => $user,
       ]) . "\n" ?>
-      <?= $this->render('view/_boss', [
-        'model' => $model,
-      ]) . "\n" ?>
-      <?= $this->render('view/_waves', [
-        'model' => $model,
-      ]) . "\n" ?>
+      <?= $this->render('view/_waves', ['model' => $model]) . "\n" ?>
+      <?= $this->render('view/_boss', ['model' => $model]) . "\n" ?>
     </div>
     <div class="col-xs-12 col-sm-4 col-lg-3">
       <?= SalmonUserInfo::widget(['user' => $user]) . "\n" ?>
