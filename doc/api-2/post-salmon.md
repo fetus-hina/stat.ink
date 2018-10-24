@@ -29,7 +29,7 @@ All parameters are optional.
 |`title_exp`|integer|0-999|Profreshional "40"/999, before the work|
 |`title_after`|key string| |After the work|
 |`title_exp_after`|integer|0-999|After the work|
-|`danger_rate`|number|0.0-999.9?|?|
+|`danger_rate`|number|0.0-200.0|Hazard level|
 |`boss_appearances`|key-value|See below|Number of bosses|
 |`waves`|array of `wave` structure|See below|Wave data, 1-3 elements|
 |`shift_start_at`|integer|UNIX time|Play window started at|
@@ -157,6 +157,58 @@ See also: [§Boss](#boss)
 |`golden_egg_appearances`|integer|0-|Golden Egg appearances, "pops"|
 |`golden_egg_delivered`|integer|0-|Golden Egg delivered, "collected"|
 |`power_egg_collected`|integer|0-|Power Egg collected|
+
+
+`player` structure
+------------------
+
+|パラメータ<br>Parameter|型<br>Type|値<br>Value| |
+|-|-|-|-|
+|`splatnet_id`|string|≤ 16 chars|Principal-ID of SplatNet 2 (`pid`)|
+|`name`|string|≤ 10 chars|Player's name|
+|`special`|key string|e.g. `jetpack`|[§Special Weapon](#special-weapon)|
+|`rescue`|integer|0-|How many rescued other players|
+|`death`|integer|0-|How many dead|
+|`golden_egg_delivered`|integer|0-|How many Golden Eggs delivered|
+|`power_egg_collected`|integer|0-|How many Power Eggs collected|
+|`species`|key string|e.g. `inkling`|`inkling`: Inklings<br>`octoling`: Octolings<br>Note: no "s" in key-strings|
+|`gender`|key string|e.g. `girl`|`boy`: Boy, Male<br>`girl`: Girl, Female|
+|`special_uses`|array of integer|0-3 each|How many used special weapon for each wave<br>Example: `"special_uses": [0, 1, 2]`|
+|`weapons`|array of key-string| |What weapon loaned for each wave<br>[§Main Weapon](#main-weapon)<br>Example: `"weapons": ["wakaba", "sshooter", "splatcharger"]`|
+|`boss_kills`|key-value|See below|Number of bosses killed<br>[§Boss](#boss)|
+
+```js
+{
+  "splatnet_id": "abc123",
+  "name": "Hina",
+  "special": "jetpack",
+  "rescue": 5,
+  "death": 2,
+  "golden_egg_delivered": 25,
+  "power_egg_collected": 800,
+  "species": "inkling",
+  "gender": "girl",
+  "special_uses": [
+    0, // wave 1
+    2, // wave 2
+    1  // wave 3
+  ],
+  "weapons": [ // what weapon loaned
+    "bold",         // wave 1
+    "kuma_blaster", // wave 2
+    "splatcharger"  // wave 3
+  ],
+  "boss_kills": { // how many killed
+    "drizzler": 2,
+    "flyfish": 1,
+    "maws": 3,
+    "scrapper": 4,
+    "steel_eel": 2,
+    "steelhead": 4,
+    "stinger": 5
+  }
+}
+```
 
 
 Stage
