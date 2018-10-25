@@ -48,6 +48,7 @@ use yii\db\ActiveRecord;
  * @property User $user
  * @property SalmonBossAppearance2[] $bossAppearances
  * @property SalmonBoss2[] $bosses
+ * @property SalmonPlayer2[] $players
  * @property SalmonWave2[] $salmonWave2s
  */
 class Salmon2 extends ActiveRecord
@@ -210,6 +211,40 @@ class Salmon2 extends ActiveRecord
     public function getSalmonWave2s(): ActiveQuery
     {
         return $this->getWaves();
+    }
+
+    public function getPlayers(): ActiveQuery
+    {
+        return $this->hasMany(SalmonPlayer2::class, ['work_id' => 'id'])
+            ->with([
+                'gender',
+                'special',
+                'species',
+                'bossKills',
+                'specialUses',
+                'weapons',
+            ])
+            ->orderBy(['salmon_player2.id' => SORT_ASC]);
+    }
+
+    public function getMyData(): ?SalmonPlayer2
+    {
+        foreach ($this->players as $player) {
+            return $player;
+        }
+
+        return null;
+    }
+
+    public function getTeamMates(): ?array
+    {
+        if (!$list = $this->players) {
+            return null;
+        }
+
+        return array_filter($this->players, function (SalmonPlayer2 $player): bool {
+            return !$player->is_me;
+        });
     }
 
     public function getIsCleared(): ?bool

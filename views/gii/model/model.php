@@ -21,17 +21,23 @@
 /* @var $rules string[] list of validation rules */
 /* @var $relations array list of relations (name => relation declaration) */
 
+$now = (new \DateTimeImmutable('now', new \DateTimeZone('Asia/Tokyo')))
+    ->setTimestamp($_SERVER['REQUEST_TIME'] ?? time());
+
 echo "<?php\n";
 ?>
 /**
- * @copyright Copyright (C) 2015-<?= date('Y', time()); ?> AIZAWA Hina
+ * @copyright Copyright (C) 2015-<?= $now->format('Y') ?> AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  */
 
+declare(strict_types=1);
+
 namespace <?= $generator->ns ?>;
 
 use Yii;
+use yii\db\ActiveQuery;
 use <?= ltrim($generator->baseClass, '\\') ?>;
 
 /**
@@ -49,35 +55,23 @@ use <?= ltrim($generator->baseClass, '\\') ?>;
  */
 class <?= $className ?> extends <?= preg_replace('!^.+\x5c([^\x5c]+)!', '$1', $generator->baseClass) . "\n" ?>
 {
-    /**
-     * @inheritdoc
-     */
     public static function tableName()
     {
         return '<?= $generator->generateTableName($tableName) ?>';
     }
 <?php if ($generator->db !== 'db'): ?>
 
-    /**
-     * @return \yii\db\Connection the database connection used by this AR class.
-     */
     public static function getDb()
     {
         return Yii::$app->get('<?= $generator->db ?>');
     }
 <?php endif; ?>
 
-    /**
-     * @inheritdoc
-     */
     public function rules()
     {
         return [<?= "\n            " . preg_replace('/::className\(\)/', '::class', implode(",\n            ", $rules)) . ",\n        " ?>];
     }
 
-    /**
-     * @inheritdoc
-     */
     public function attributeLabels()
     {
         return [
@@ -88,10 +82,7 @@ class <?= $className ?> extends <?= preg_replace('!^.+\x5c([^\x5c]+)!', '$1', $g
     }
 <?php foreach ($relations as $name => $relation): ?>
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function get<?= $name ?>()
+    public function get<?= $name ?>(): ActiveQuery
     {
         <?= preg_replace('/::className\(\)/', '::class', $relation[0]) . "\n" ?>
     }
@@ -101,10 +92,6 @@ class <?= $className ?> extends <?= preg_replace('!^.+\x5c([^\x5c]+)!', '$1', $g
     $queryClassFullName = ($generator->ns === $generator->queryNs) ? $queryClassName : '\\' . $generator->queryNs . '\\' . $queryClassName;
     echo "\n";
 ?>
-    /**
-     * @inheritdoc
-     * @return <?= $queryClassFullName ?> the active query used by this AR class.
-     */
     public static function find()
     {
         return new <?= $queryClassFullName ?>(get_called_class());
