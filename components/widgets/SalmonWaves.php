@@ -53,7 +53,7 @@ class SalmonWaves extends Widget
             $this->renderHeader() . $this->renderBody(),
             [
                 'id' => $id,
-                'class' => 'table table-striped',
+                'class' => 'table table-striped table-bordered',
             ]
         );
     }

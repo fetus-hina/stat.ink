@@ -40,6 +40,9 @@ use yii\db\ActiveRecord;
  */
 class SalmonPlayer2 extends ActiveRecord
 {
+    public $top_500 = false; // compat with BattlePlayer2 and used by PlayerName2Widget
+    private $user;
+
     public static function tableName()
     {
         return 'salmon_player2';
@@ -157,5 +160,64 @@ class SalmonPlayer2 extends ActiveRecord
     public function getSalmonPlayerWeapon2s(): ActiveQuery
     {
         return $this->getWeapons();
+    }
+
+    public function getJdenticonHash(): string
+    {
+        $id = $this->getAnonymizeSeed();
+        if (preg_match('/^([0-9a-f]{2}+)[0-9a-f]?$/', $id, $match)) {
+            $id = hex2bin($match[1]);
+        }
+        return substr(
+            hash('sha256', $id, false),
+            0,
+            40
+        );
+    }
+
+    public function getAnonymizeSeed(): string
+    {
+        $value = trim($this->splatnet_id);
+        return ($value !== '')
+            ? $value
+            : hash_hmac('sha256', (string)$this->id, (string)$this->work_id);
+    }
+
+    public function getIconUrl(string $ext = 'svg'): string
+    {
+        if ($user = $this->getUser()) {
+            return $user->getIconUrl($ext);
+        }
+        $hash = $this->getJdenticonHash();
+        return Yii::getAlias('@jdenticon') . '/' . $hash . '.' . $ext;
+    }
+
+    public function getForceBlackout()
+    {
+        return $this->hasOne(ForceBlackout2::class, ['splatnet_id' => 'splatnet_id']);
+    }
+
+    public function getIsForceBlackouted(): bool
+    {
+        return $this->forceBlackout !== null;
+    }
+
+    public function getUser() : ?User
+    {
+        if ($this->user === false) {
+            $id = trim((string)$this->splatnet_id);
+            if ($id === '') {
+                $this->user = null;
+            } else {
+                $model = Splatnet2UserMap::find()
+                    ->with('user')
+                    ->andWhere(['splatnet_id' => $id])
+                    ->orderBy(['battles' => SORT_DESC])
+                    ->limit(1)
+                    ->one();
+                $this->user = $model->user ?? null;
+            }
+        }
+        return $this->user;
     }
 }

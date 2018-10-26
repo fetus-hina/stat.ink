@@ -217,11 +217,12 @@ class Salmon2 extends ActiveRecord
     {
         return $this->hasMany(SalmonPlayer2::class, ['work_id' => 'id'])
             ->with([
+                'bossKills',
+                'forceBlackout',
                 'gender',
                 'special',
-                'species',
-                'bossKills',
                 'specialUses',
+                'species',
                 'weapons',
             ])
             ->orderBy(['salmon_player2.id' => SORT_ASC]);
