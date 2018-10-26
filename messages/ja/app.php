@@ -541,6 +541,7 @@ return [
     '{nFormatted} {n, plural, =1{time} other{times}}' => '{nFormatted} 回',
     '{number, plural, =1{1 death} other{# deaths}} in {battle, plural, =1{1 battle} other{# battles}}' => '{number, plural, other{#回}} / {battle, plural, other{#戦}}',
     '{number, plural, =1{1 kill} other{# kills}} in {battle, plural, =1{1 battle} other{# battles}}' => '{number, plural, other{#回}} / {battle, plural, other{#戦}}',
+    '{number, plural, =1{1 kill} other{# kills}}' => '{# キル}',
     '{pct} % loss' => '{pct} % 減少',
     '{percentile} Percentile' => '{percentile}パーセンタイル',
     '{point, plural, =1{1 point} other{# points}} in {battle, plural, =1{1 battle} other{# battles}}' => '{point, plural, other{#p}} / {battle, plural, other{#戦}}',

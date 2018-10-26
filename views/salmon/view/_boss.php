@@ -26,13 +26,17 @@ if ($bosses->count() < 1) {
 }
 
 // 指定プレーヤー・オオモノシャケの組み合わせのキル数を取得する
-$playerKillCount = function (SalmonPlayer2 $player, SalmonBossAppearance2 $bossInfo) use ($formatter): string {
+$playerKillCount = function (SalmonPlayer2 $player, SalmonBossAppearance2 $bossInfo): string {
   foreach ($player->bossKills as $bossKill) {
     if ($bossKill->boss_id == $bossInfo->boss_id) {
-      return $formatter->asInteger($bossKill->count);
+      return Html::encode(
+        Yii::t('app', '{number, plural, =1{1 kill} other{# kills}}', ['number' => $bossKill->count])
+      );
     }
   }
-  return $formatter->asInteger(0);
+  return Html::encode(
+    Yii::t('app', '{number, plural, =1{1 kill} other{# kills}}', ['number' => 0])
+  );
 };
 
 $players = $model->players;
