@@ -187,7 +187,7 @@ class PlayerName2Widget extends Widget
         return Html::tag(
             'span',
             $asset->img(
-                $this->player->species->key . '.png', 
+                $this->player->species->key . '.png',
                 [
                     'alt' => Yii::t('app', $this->player->species->name),
                     'title' => Yii::t('app', $this->player->species->name),
