@@ -11,9 +11,19 @@ namespace app\models\api\v2\salmon;
 
 use Yii;
 use app\components\behaviors\AutoTrimAttributesBehavior;
+use app\components\helpers\ApiInputFormatter;
+use app\models\Salmon2;
+use app\models\SalmonBoss2;
 use app\models\SalmonMainWeapon2;
-use app\models\Special2;
+use app\models\SalmonPlayer2;
+use app\models\SalmonPlayerBossKill2;
+use app\models\SalmonPlayerSpecialUse2;
+use app\models\SalmonPlayerWeapon2;
+use app\models\SalmonSpecial2;
+use app\models\Species2;
 use yii\base\Model;
+use yii\helpers\ArrayHelper;
+use yii\validators\NumberValidator;
 
 class Player extends Model
 {
@@ -47,10 +57,10 @@ class Player extends Model
             [['special', 'species', 'gender'], 'string'],
             [['is_me'], 'boolean', 'trueValue' => 'yes', 'falseValue' => 'no'],
             [['rescue', 'death', 'golden_egg_delivered', 'power_egg_collected'], 'integer', 'min' => 0],
-            [['species'], 'range', 'in' => ['inkling', 'octoling']],
-            [['gender'], 'range', 'in' => ['boy', 'girl']],
+            [['species'], 'in', 'range' => ['inkling', 'octoling']],
+            [['gender'], 'in', 'range' => ['boy', 'girl']],
             [['special'], 'exist', 'skipOnError' => true,
-                'targetClass' => Special2::class,
+                'targetClass' => SalmonSpecial2::class,
                 'targetAttribute' => ['special' => 'key'],
             ],
             [['special_uses'], 'validateSpecialUses'],
@@ -196,5 +206,151 @@ class Player extends Model
             }
         }
         // }}}
+    }
+
+    public function save(Salmon2 $work): bool
+    {
+        return Yii::$app->db->transactionEx(function () use ($work): bool {
+            if (!$this->validate()) {
+                return false;
+            }
+
+            if (!$player = $this->savePlayer($work)) {
+                return false;
+            }
+
+            if (!$this->saveSpecialUses($player)) {
+                return false;
+            }
+
+            if (!$this->saveWeapons($player)) {
+                return false;
+            }
+
+            if (!$this->saveBossKills($player)) {
+                return false;
+            }
+
+            return true;
+        });
+    }
+
+    protected function savePlayer(Salmon2 $work): ?SalmonPlayer2
+    {
+        return Yii::$app->db->transactionEx(function () use ($work): ?SalmonPlayer2 {
+            $fmt = Yii::createObject(['class' => ApiInputFormatter::class]);
+            $model = Yii::createObject([
+                'class' => SalmonPlayer2::class,
+                'work_id' => $work->id,
+                'is_me' => $this->is_me === 'yes',
+                'splatnet_id' => $fmt->asString($this->splatnet_id),
+                'name' => $fmt->asString($this->name),
+                'special_id' => $fmt->asKeyId($this->special, SalmonSpecial2::class, 'key', 'splatnet'),
+                'rescue' => $fmt->asInteger($this->rescue),
+                'death' => $fmt->asInteger($this->death),
+                'golden_egg_delivered' => $fmt->asInteger($this->golden_egg_delivered),
+                'power_egg_collected' => $fmt->asInteger($this->power_egg_collected),
+                'species_id' => $fmt->asKeyId($this->species, Species2::class),
+                'gender_id' => (function () use ($fmt): ?int {
+                    switch ($fmt->asString($this->gender)) {
+                        case 'boy':
+                            return 1;
+
+                        case 'girl':
+                            return 2;
+
+                        default:
+                            return null;
+                    }
+                })(),
+            ]);
+            return $model->save() ? $model : null;
+        });
+    }
+
+    protected function saveSpecialUses(SalmonPlayer2 $player): bool
+    {
+        if (!$this->special_uses) {
+            return true;
+        }
+
+        return Yii::$app->db->transactionEx(function () use ($player): bool {
+            $fmt = Yii::createObject(['class' => ApiInputFormatter::class]);
+            for ($i = 0; $i < 3; ++$i) {
+                $data = $this->special_uses[$i] ?? null;
+                if ($data === null) {
+                    break;
+                }
+
+                $model = Yii::createObject([
+                    'class' => SalmonPlayerSpecialUse2::class,
+                    'player_id' => $player->id,
+                    'wave' => $i + 1,
+                    'count' => $fmt->asInteger($data),
+                ]);
+                if (!$model->save()) {
+                    return false;
+                }
+            }
+
+            return true;
+        });
+    }
+
+    protected function saveWeapons(SalmonPlayer2 $player): bool
+    {
+        if (!$this->weapons) {
+            return true;
+        }
+
+        return Yii::$app->db->transactionEx(function () use ($player): bool {
+            $fmt = Yii::createObject(['class' => ApiInputFormatter::class]);
+            for ($i = 0; $i < 3; ++$i) {
+                $data = $this->weapons[$i] ?? null;
+                if ($data === null) {
+                    break;
+                }
+
+                $model = Yii::createObject([
+                    'class' => SalmonPlayerWeapon2::class,
+                    'player_id' => $player->id,
+                    'wave' => $i + 1,
+                    'weapon_id' => $fmt->asKeyId($data, SalmonMainWeapon2::class, 'key', 'splatnet'),
+                ]);
+                if (!$model->save()) {
+                    return false;
+                }
+            }
+
+            return true;
+        });
+    }
+
+    protected function saveBossKills(SalmonPlayer2 $player): bool
+    {
+        if (!$this->boss_kills) {
+            return true;
+        }
+
+        return Yii::$app->db->transactionEx(function () use ($player): bool {
+            $fmt = Yii::createObject(['class' => ApiInputFormatter::class]);
+            foreach ($this->boss_kills as $bossKey => $count) {
+                if ($count < 1) {
+                    continue;
+                }
+
+                $model = Yii::createObject([
+                    'class' => SalmonPlayerBossKill2::class,
+                    'player_id' => $player->id,
+                    'boss_id' => $fmt->asKeyId($bossKey, SalmonBoss2::class),
+                    'count' => (int)$count,
+                ]);
+                if (!$model->save()) {
+                    return false;
+                }
+            }
+
+            return true;
+        });
     }
 }

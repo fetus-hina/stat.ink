@@ -46,6 +46,8 @@ class PostForm extends Model
     public $danger_rate;
     public $boss_appearances;
     public $waves;
+    public $my_data;
+    public $teammates;
     public $shift_start_at;
     public $start_at;
     public $end_at;
@@ -82,7 +84,6 @@ class PostForm extends Model
             [['is_automated'], 'in', 'range' => ['yes', 'no']],
             [['agent'], 'string', 'max' => 64],
             [['agent_version'], 'string', 'max' => 255],
-
             [['agent', 'agent_version'], 'required',
                 'when' => function (self $model, string $attrName): bool {
                     return trim((string)$model->agent) !== '' ||
@@ -99,6 +100,8 @@ class PostForm extends Model
             ],
             [['boss_appearances'], 'validateBossAppearances'],
             [['waves'], 'validateWaves'],
+            [['my_data'], 'validateMyData'],
+            [['teammates'], 'validateTeammates'],
         ];
     }
 
@@ -192,6 +195,93 @@ class PostForm extends Model
         }
     }
 
+    public function validateMyData(string $attribute, $params): void
+    {
+        if ($this->hasErrors($attribute)) {
+            return;
+        }
+
+        if ($this->$attribute === null || $this->$attribute == '') {
+            $this->$attribute = null;
+            return;
+        }
+
+        $this->validatePlayer($this->$attribute, $attribute, $attribute, true);
+    }
+
+    public function validateTeammates(string $attribute, $params): void
+    {
+        if ($this->hasErrors($attribute)) {
+            return;
+        }
+
+        if ($this->$attribute === null || $this->$attribute == '') {
+            $this->$attribute = null;
+            return;
+        }
+
+        if (empty($this->$attribute)) {
+            $this->$attribute = null;
+            return;
+        }
+
+        if (!ArrayHelper::isIndexed($this->$attribute)) {
+            $this->addError($attribute, "{$attribute} should be an array (not associative array)");
+            return;
+        }
+
+        if (count($this->$attribute) > 3) {
+            $this->addError($attribute, 'too many players');
+            return;
+        }
+
+        for ($i = 0; $i < 3; ++$i) {
+            if (!$data = $this->$attribute[$i] ?? null) {
+                return;
+            }
+
+            $this->validatePlayer($data, $attribute, "{$attribute}[{$i}]", false);
+        }
+    }
+
+    protected function validatePlayer(
+        $data, // array | stdclass
+        string $attribute, // "players"
+        string $attributeLabel, // "players[0]"
+        bool $isMe
+    ): void {
+        $model = $this->playerFormInstantiation($data, $isMe);
+        if (!$model) {
+            $this->addError(
+                $attribute,
+                "{$attributeLabel} should be an instance of player structure"
+            );
+            return;
+        }
+
+        if ($model->validate()) {
+            return;
+        }
+
+        foreach ($model->getErrors() as $attrName => $error) {
+            foreach ((array)$error as $_) {
+                $this->addError($attribute, "{$attributeLabel}.{$attrName}: {$_}");
+            }
+        }
+    }
+
+    protected function playerFormInstantiation($data, bool $isMe): ?Player
+    {
+        if (!is_array($data) && !is_object($data)) {
+            return null;
+        }
+
+        $model = Yii::createObject(['class' => Player::class]);
+        $model->attributes = $data;
+        $model->is_me = $isMe ? 'yes' : 'no';
+        return $model;
+    }
+
     public function save(): ?Salmon2
     {
         if (!$this->validate()) {
@@ -208,6 +298,10 @@ class PostForm extends Model
             }
 
             if (!$this->saveWaves($main)) {
+                return null;
+            }
+
+            if (!$this->savePlayers($main)) {
                 return null;
             }
 
@@ -257,9 +351,6 @@ class PostForm extends Model
                 'remote_port' => (int)($_SERVER['REMOTE_PORT'] ?? 0),
             ];
             if (!$model->save()) {
-                var_dump($model->attributes);
-                var_dump($model->getErrors());
-                exit;
                 return null;
             }
 
@@ -315,6 +406,39 @@ class PostForm extends Model
 
                 if (!$model->save($salmon, $i + 1)) {
                     return false;
+                }
+            }
+
+            return true;
+        });
+    }
+
+    private function savePlayers(Salmon2 $salmon): bool
+    {
+        return Yii::$app->db->transactionEx(function () use ($salmon): bool {
+            $transactPlayer = function ($data, bool $isMe) use ($salmon): bool {
+                if (!$form = $this->playerFormInstantiation($data, $isMe)) {
+                    return false;
+                }
+
+                return !!$form->save($salmon);
+            };
+
+            if ($this->my_data) {
+                if (!$transactPlayer($this->my_data, true)) {
+                    return false;
+                }
+            }
+
+            if ($this->teammates) {
+                for ($i = 0; $i < 3; ++$i) {
+                    if (!$data = $this->teammates[$i] ?? null) {
+                        break;
+                    }
+
+                    if (!$transactPlayer($data, false)) {
+                        return false;
+                    }
                 }
             }
 
