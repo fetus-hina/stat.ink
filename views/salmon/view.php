@@ -48,6 +48,7 @@ if ($user->twitter != '') {
         'user' => $user,
       ]) . "\n" ?>
       <?= $this->render('view/_waves', ['model' => $model]) . "\n" ?>
+      <?= $this->render('view/_users', ['model' => $model]) . "\n" ?>
       <?= $this->render('view/_boss', ['model' => $model]) . "\n" ?>
     </div>
     <div class="col-xs-12 col-sm-4 col-lg-3">

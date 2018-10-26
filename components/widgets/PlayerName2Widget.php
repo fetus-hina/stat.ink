@@ -31,6 +31,7 @@ class PlayerName2Widget extends Widget
                 'display' => 'flex',
                 'align-items' => 'center',
                 'justify-content' => 'space-between',
+                'white-space' => 'nowrap',
             ])
         ]));
 
@@ -115,6 +116,13 @@ class PlayerName2Widget extends Widget
                     'data' => [
                         'anonymize' => $anonId,
                     ],
+                    'style' => [
+                        'display' => 'inline-block',
+                        'white-space' => 'nowrap',
+                        'overflow' => 'hidden!important',
+                        'text-overflow' => 'ellipsis',
+                        'max-width' => 'calc(100% - 2.8rem)',
+                    ],
                 ]
             );
         } else {
@@ -139,7 +147,7 @@ class PlayerName2Widget extends Widget
         }
 
         $loggedInUser = Yii::$app->user;
-        if (!$loggedInUser->isGuest && $loggedInUser->identity->id == $this->user->user_id) {
+        if (!$loggedInUser->isGuest && $loggedInUser->identity->id == $this->user->id) {
             // このデータのオーナーがログインしているので全員表示
             return false;
         }

@@ -151,6 +151,7 @@ class SalmonPlayer2 extends ActiveRecord
     public function getWeapons(): ActiveQuery
     {
         return $this->hasMany(SalmonPlayerWeapon2::class, ['player_id' => 'id'])
+            ->with(['weapon'])
             ->orderBy([
                 'salmon_player_weapon2.player_id' => SORT_ASC,
                 'salmon_player_weapon2.wave' => SORT_ASC,
