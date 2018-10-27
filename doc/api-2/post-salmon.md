@@ -382,7 +382,7 @@ Main Weapon
 |`kuma_slosher`          |`20030`               |バイト専用 クマサン印のスロッシャー<br>Grizzco Slosher   |               |
 |`52gal`                 |`50`                  |バイト専用 .52ガロン<br>.52 Gal                          |               |
 |`96gal`                 |`80`                  |バイト専用 .96ガロン<br>.96 Gal                          |               |
-|`promodeler_rg`         |`31`                  |バイト専用 プロモデラーRG<br>Aerospray RG                |               |
+|`promodeler_mg`         |`30`                  |バイト専用 プロモデラーMG<br>Aerospray MG                |               |
 |`hotblaster`            |`210`                 |バイト専用 ホットブラスター<br>Blaster                   |               |
 |`clashblaster`          |`230`                 |バイト専用 クラッシュブラスター<br>Clash Blaster         |               |
 |`h3reelgun`             |`310`                 |バイト専用 H3リールガン<br>H-3 Nozzlenose                |               |
