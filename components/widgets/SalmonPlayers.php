@@ -67,7 +67,7 @@ class SalmonPlayers extends Widget
                     ]));
                 },
                 $this->players
-            )),
+            ))
         ));
     }
 
