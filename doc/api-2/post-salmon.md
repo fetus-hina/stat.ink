@@ -32,6 +32,8 @@ All parameters are optional.
 |`danger_rate`|number|0.0-200.0|Hazard level|
 |`boss_appearances`|key-value|See below|Number of bosses|
 |`waves`|array of `wave` structure|See below|Wave data, 1-3 elements|
+|`my_data`|`player` structure|See below|Player's data|
+|`teammates`|array of `player` structure|See below|Players (except "my_data") data, typically 3 elements|
 |`shift_start_at`|integer|UNIX time|Play window started at|
 |`start_at`|integer|UNIX time|This work started at|
 |`end_at`|integer|UNIX time|(May not be presented in SplatNet JSON)|
@@ -47,53 +49,163 @@ Full example:
 
 ```js
 {
-  "splatnet_number": 3527,
-  "stage": "donburako",
-  "clear_waves": 2, // failed on Wave 3
-  "fail_reason": "time_up",
-  "title": "profreshional",
-  "title_exp": 370,
+  "client_uuid": "6ad938a0-64a0-5edb-a224-2a63f7237fef",
+  "splatnet_number": 3550,
+  "stage": "dam",
+  "clear_waves": 3, // cleared
+  "fail_reason": null, // cleared
   "title_after": "profreshional",
-  "title_exp_after": 370,
-  "danger_rate": 170.4,
+  "title_exp_after": 400,
+  "danger_rate": 165.6,
   "boss_appearances": {
-    "drizzler": 6,
-    "flyfish": 7,
-    "maws": 10,
-    "scrapper": 6,
-    "steel_eel": 8,
-    "steelhead": 5,
-    "stinger": 15
+    "goldie": 14,
+    "steelhead": 3,
+    "stinger": 2,
+    "griller": 0,
+    "flyfish": 3,
+    "scrapper": 3,
+    "steel_eel": 2,
+    "maws": 5,
+    "drizzler": 2
   },
   "waves": [
     { // wave 1
-      "known_occurrence": null,
+      "known_occurrence": "mothership",
       "water_level": "normal",
       "golden_egg_quota": 18,
-      "golden_egg_appearances": 45,
-      "golden_egg_delivered": 29,
-      "power_egg_collected": 706
+      "golden_egg_appearances": 27,
+      "golden_egg_delivered": 23,
+      "power_egg_collected": 695
     },
     { // wave 2
-      "known_occurrence": null,
-      "water_level": "low",
-      "golden_egg_quota": 20,
-      "golden_egg_appearances": 54,
-      "golden_egg_delivered": 40,
-      "power_egg_collected": 1457
-    },
-    { // wave 3 (failed)
-      "known_occurrence": null,
+      "known_occurrence": "rush",
       "water_level": "normal",
-      "golden_egg_quota": 22,
-      "golden_egg_appearances": 51,
-      "golden_egg_delivered": 17,
-      "power_egg_collected": 820
+      "golden_egg_quota": 19,
+      "golden_egg_appearances": 36,
+      "golden_egg_delivered": 20,
+      "power_egg_collected": 1772
+    },
+    { // wave 3
+      "known_occurrence": null, // wave-level only
+      "water_level": "high",
+      "golden_egg_quota": 21,
+      "golden_egg_appearances": 36,
+      "golden_egg_delivered": 24,
+      "power_egg_collected": 887
     }
   ],
-  "shift_start_at": 1538762400, // 2018-10-06T03:00:00+09:00
-  "start_at": 1538836518, // 2018-10-06T23:35:18+09:00
-  "end_at": null // may not be presented in SplatNet JSON
+  "my_data": {
+    "splatnet_id": "3f6fb10a91b0c551",
+    "name": "あいざわひな(18)",
+    "special": "jetpack",
+    "rescue": 3,
+    "death": 3,
+    "golden_egg_delivered": 14,
+    "power_egg_collected": 826,
+    "species": "inkling",
+    "gender": "girl",
+    "special_uses": [
+      0, // wave 1
+      1, // wave 2
+      1  // wave 3
+    ],
+    "weapons": [
+      "nzap85", // wave 1
+      "sputtery", // wave 2
+      "campingshelter" // wave 3
+    ],
+    "boss_kills": {
+      "goldie": 5,
+      "maws": 2
+    }
+  },
+  "teammates": [
+    { // player 1
+      "splatnet_id": "532ce9609b00ebd9",
+      "name": "Player 7e",
+      "special": "pitcher",
+      "rescue": 7,
+      "death": 5,
+      "golden_egg_delivered": 19,
+      "power_egg_collected": 823,
+      "species": null,
+      "gender": null,
+      "special_uses": [
+        0,
+        1,
+        1
+      ],
+      "weapons": [
+        "sputtery",
+        "campingshelter",
+        "jetsweeper"
+      ],
+      "boss_kills": {
+        "drizzler": 1,
+        "steel_eel": 1
+      }
+    },
+    { // player 2
+      "splatnet_id": "52c31db71413b8f1",
+      "name": "Player 66",
+      "special": "presser",
+      "rescue": 5,
+      "death": 3,
+      "golden_egg_delivered": 17,
+      "power_egg_collected": 849,
+      "species": null,
+      "gender": null,
+      "special_uses": [
+        1,
+        0,
+        1
+      ],
+      "weapons": [
+        "campingshelter",
+        "jetsweeper",
+        "nzap85"
+      ],
+      "boss_kills": {
+        "goldie": 5,
+        "scrapper": 2,
+        "steelhead": 1,
+        "stinger": 1
+      }
+    },
+    { // player 3
+      "splatnet_id": "d7afd6496355f18a",
+      "name": "Player 84",
+      "special": "chakuchi",
+      "rescue": 2,
+      "death": 6,
+      "golden_egg_delivered": 18,
+      "power_egg_collected": 856,
+      "species": null,
+      "gender": null,
+      "special_uses": [
+        0,
+        0,
+        1
+      ],
+      "weapons": [
+        "jetsweeper",
+        "nzap85",
+        "sputtery"
+      ],
+      "boss_kills": {
+        "goldie": 2,
+        "maws": 1,
+        "scrapper": 1,
+        "steel_eel": 1,
+        "stinger": 1
+      }
+    }
+  ],
+  "shift_start_at": 1540339200,
+  "start_at": 1540402219,
+  "is_automated": "no",
+  "agent": "stat.ink development",
+  "agent_version": "9a0560cf"
 }
 ```
 
@@ -171,44 +283,13 @@ See also: [§Boss](#boss)
 |`death`|integer|0-|How many dead|
 |`golden_egg_delivered`|integer|0-|How many Golden Eggs delivered|
 |`power_egg_collected`|integer|0-|How many Power Eggs collected|
-|`species`|key string|e.g. `inkling`|`inkling`: Inklings<br>`octoling`: Octolings<br>Note: no "s" in key-strings|
-|`gender`|key string|e.g. `girl`|`boy`: Boy, Male<br>`girl`: Girl, Female|
+|`species`|key string|`inkling` or `octoling`|`inkling`: Inklings<br>`octoling`: Octolings<br>Note: no "s" in key-strings|
+|`gender`|key string|`boy` or `girl`|`boy`: Boy, Male<br>`girl`: Girl, Female|
 |`special_uses`|array of integer|0-3 each|How many used special weapon for each wave<br>Example: `"special_uses": [0, 1, 2]`|
 |`weapons`|array of key-string| |What weapon loaned for each wave<br>[§Main Weapon](#main-weapon)<br>Example: `"weapons": ["wakaba", "sshooter", "splatcharger"]`|
-|`boss_kills`|key-value|See below|Number of bosses killed<br>[§Boss](#boss)|
+|`boss_kills`|key-value| |Number of bosses killed<br>[§Boss](#boss)|
 
-```js
-{
-  "splatnet_id": "abc123",
-  "name": "Hina",
-  "special": "jetpack",
-  "rescue": 5,
-  "death": 2,
-  "golden_egg_delivered": 25,
-  "power_egg_collected": 800,
-  "species": "inkling",
-  "gender": "girl",
-  "special_uses": [
-    0, // wave 1
-    2, // wave 2
-    1  // wave 3
-  ],
-  "weapons": [ // what weapon loaned
-    "bold",         // wave 1
-    "kuma_blaster", // wave 2
-    "splatcharger"  // wave 3
-  ],
-  "boss_kills": { // how many killed
-    "drizzler": 2,
-    "flyfish": 1,
-    "maws": 3,
-    "scrapper": 4,
-    "steel_eel": 2,
-    "steelhead": 4,
-    "stinger": 5
-  }
-}
-```
+See "full example" above.
 
 
 Stage
