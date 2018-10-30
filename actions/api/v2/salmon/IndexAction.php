@@ -12,7 +12,6 @@ namespace app\actions\api\v2\salmon;
 use Yii;
 use app\models\Salmon2;
 use app\models\api\v2\salmon\IndexFilterForm;
-use yii\web\Response;
 use yii\web\UnauthorizedHttpException;
 use yii\web\ViewAction;
 
@@ -31,7 +30,7 @@ class IndexAction extends ViewAction
     public function run()
     {
         $resp = Yii::$app->getResponse();
-        $resp->format = Response::FORMAT_JSON;
+        $resp->format = 'compact-json';
 
         $form = Yii::createObject([
             'class' => IndexFilterForm::class,
