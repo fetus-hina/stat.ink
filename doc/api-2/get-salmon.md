@@ -24,7 +24,7 @@ All parameters are optional.
 |`stage`|key-string|e.g. `dam`. Filter by stage.|
 |`newer_than`|integer|Filter by stat.ink's ID. You will get `newer_than` < `id` < `older_than`.|
 |`older_than`|integer|See `newer_than`|
-|`order`|key-string|`asc`: older to newer<br>`desc`: newer to older<br>`splanet_asc`: SplatNet number small to big<br>`splatnet_desc`: SplatNet number big to small<br>Default (if `only` = `splatnet_number): `splatnet_desc`<br>Default (otherwise): `desc`|
+|`order`|key-string|`asc`: older to newer<br>`desc`: newer to older<br>`splanet_asc`: SplatNet number small to big<br>`splatnet_desc`: SplatNet number big to small<br>Default (if `only` = `splatnet_number`): `splatnet_desc`<br>Default (otherwise): `desc`|
 |`count`|integer|Max count to get.<br>Accepts (if `only` = `splatnet_number`): 1-1000<br>Accepts (otherwise): 1-50<br>Default: 50|
 
 Query example: `https://stat.ink/api/v2/salmon?screen_name=fetus_hina&stage=dam`
