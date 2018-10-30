@@ -5,10 +5,13 @@
  * @author AIZAWA Hina <hina@bouhime.com>
  */
 
+declare(strict_types=1);
+
 namespace app\models;
 
 use Yii;
 use yii\db\ActiveRecord;
+use app\components\helpers\Translator;
 
 /**
  * This is the model class for table "salmon_main_weapon2".
@@ -70,5 +73,14 @@ class SalmonMainWeapon2 extends ActiveRecord
     public function getWeapon()
     {
         return $this->hasOne(Weapon2::class, ['id' => 'weapon_id']);
+    }
+
+    public function toJsonArray(): array
+    {
+        return [
+            'key' => $this->key,
+            'splatnet' => $this->splatnet,
+            'name' => Translator::translateToAll('app-weapon2', $this->name),
+        ];
     }
 }

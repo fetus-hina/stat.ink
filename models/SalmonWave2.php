@@ -107,4 +107,16 @@ class SalmonWave2 extends ActiveRecord
     {
         return $this->hasOne(SalmonWaterLevel2::class, ['id' => 'water_id']);
     }
+
+    public function toJsonArray(): array
+    {
+        return [
+            'known_occurrence' => $this->event_id ? $this->event->toJsonArray() : null,
+            'water_level' => $this->water_id ? $this->water->toJsonArray() : null,
+            'golden_egg_quota' => $this->golden_egg_quota,
+            'golden_egg_appearances' => $this->golden_egg_appearances,
+            'golden_egg_delivered' => $this->golden_egg_delivered,
+            'power_egg_collected' => $this->power_egg_collected,
+        ];
+    }
 }

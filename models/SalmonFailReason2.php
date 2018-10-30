@@ -5,9 +5,12 @@
  * @author AIZAWA Hina <hina@bouhime.com>
  */
 
+declare(strict_types=1);
+
 namespace app\models;
 
 use Yii;
+use app\components\helpers\Translator;
 use yii\db\ActiveRecord;
 
 /**
@@ -60,5 +63,13 @@ class SalmonFailReason2 extends ActiveRecord
     public function getSalmon2s()
     {
         return $this->hasMany(Salmon2::class, ['fail_reason_id' => 'id']);
+    }
+
+    public function toJsonArray(): array
+    {
+        return [
+            'key' => $this->key,
+            'name' => Translator::translateToAll('app-salmon2', $this->name),
+        ];
     }
 }

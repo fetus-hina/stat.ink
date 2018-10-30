@@ -31,10 +31,23 @@ class PostSalmonAction extends \yii\web\ViewAction
         $resp = Yii::$app->response;
         $resp->statusCode = 201;
         $resp->statusText = 'Created';
-        $resp->headers->set(
-            'Location',
+
+        $headers = $resp->headers;
+        $headers->set(
+            'location',
+            Url::to(
+                ['salmon/view',
+                    'screen_name' => $model->user->screen_name,
+                    'id' => $model->id,
+                ],
+                true
+            )
+        );
+        $headers->set(
+            'x-api-location',
             Url::to(['api-v2/salmon', 'id' => $model->id], true)
         );
+
         return '';
     }
 

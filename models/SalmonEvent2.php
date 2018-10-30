@@ -4,10 +4,12 @@
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  */
+declare(strict_types=1);
 
 namespace app\models;
 
 use Yii;
+use app\components\helpers\Translator;
 use yii\db\ActiveRecord;
 
 /**
@@ -52,6 +54,15 @@ class SalmonEvent2 extends ActiveRecord
             'key' => 'Key',
             'name' => 'Name',
             'splatnet' => 'Splatnet',
+        ];
+    }
+
+    public function toJsonArray(): array
+    {
+        return [
+            'key' => $this->key,
+            'splatnet' => $this->splatnet,
+            'name' => Translator::translateToAll('app-salmon-event2', $this->name),
         ];
     }
 }

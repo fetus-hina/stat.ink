@@ -5,9 +5,12 @@
  * @author AIZAWA Hina <hina@bouhime.com>
  */
 
+declare(strict_types=1);
+
 namespace app\models;
 
 use Yii;
+use app\components\helpers\Translator;
 use yii\db\ActiveRecord;
 
 /**
@@ -53,6 +56,28 @@ class SalmonTitle2 extends ActiveRecord
             'key' => 'Key',
             'name' => 'Name',
             'splatnet' => 'Splatnet',
+        ];
+    }
+
+    public function toJsonArray(?Gender $gender = null): array
+    {
+        $text = $this->name;
+        if ($gender) {
+            if ($gender->id == 1) {
+                $text = "{boy}{$text}";
+            } else {
+                $text = "{girl}{$text}";
+            }
+        }
+
+        return [
+            'key' => $this->key,
+            'splatnet' => $this->splatnet,
+            'name' => Translator::translateToAll('app-salmon-title2', $text, [
+                'boy' => '',
+                'girl' => '',
+            ]),
+            'generic_name' => Translator::translateToAll('app-salmon-title2', $this->name),
         ];
     }
 }

@@ -66,4 +66,12 @@ class SalmonPlayerBossKill2 extends ActiveRecord
     {
         return $this->hasOne(SalmonPlayer2::class, ['id' => 'player_id']);
     }
+
+    public function toJsonArray(): array
+    {
+        return [
+            'boss' => $this->boss->toJsonArray(),
+            'count' => (int)$this->count,
+        ];
+    }
 }

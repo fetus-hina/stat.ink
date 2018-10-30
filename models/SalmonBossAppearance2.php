@@ -4,6 +4,7 @@
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  */
+declare(strict_types=1);
 
 namespace app\models;
 
@@ -77,5 +78,13 @@ class SalmonBossAppearance2 extends ActiveRecord
     public function getBoss()
     {
         return $this->hasOne(SalmonBoss2::class, ['id' => 'boss_id']);
+    }
+
+    public function toJsonArray(): array
+    {
+        return [
+            'boss' => $this->boss->toJsonArray(),
+            'count' => (int)$this->count,
+        ];
     }
 }

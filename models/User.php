@@ -435,6 +435,45 @@ class User extends ActiveRecord implements IdentityInterface
         ];
     }
 
+    public function toSalmonJsonArray(): array
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'screen_name' => $this->screen_name,
+            'url' => Url::to(['show-user/profile',
+                'screen_name' => $this->screen_name,
+            ], true),
+            'salmon_url' => Url::to(['salmon/index',
+                'screen_name' => $this->screen_name,
+            ], true),
+            'battle_url' => Url::to(['show-v2/user',
+                'screen_name' => $this->screen_name,
+            ], true),
+            'join_at' => DateTimeFormatter::unixTimeToJsonArray(
+                strtotime($this->join_at),
+                new DateTimeZone('Etc/UTC')
+            ),
+            'profile' => [
+                'nnid'          => (string)$this->nnid !== '' ? $this->nnid : null,
+                'friend_code'   => (string)$this->sw_friend_code !== ''
+                    ? implode('-', [
+                        'SW',
+                        substr((string)$this->sw_friend_code, 0, 4),
+                        substr((string)$this->sw_friend_code, 4, 4),
+                        substr((string)$this->sw_friend_code, 8, 4),
+                    ])
+                    : null,
+                'twitter'       => (string)$this->twitter != '' ? $this->twitter : null,
+                'ikanakama'     => null,
+                'ikanakama2'    => (string)$this->ikanakama2
+                    ? sprintf('https://ikanakama.ink/users/%d', $this->ikanakama2)
+                    : null,
+                'environment'   => $this->env ? $this->env->text : null,
+            ],
+        ];
+    }
+
     public function getUserJsonPath()
     {
         return Yii::getAlias('@app/runtime/user-json') . '/' . $this->id . '.json.gz';

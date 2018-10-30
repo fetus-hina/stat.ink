@@ -9,8 +9,11 @@ namespace app\models;
 
 use Yii;
 use app\components\behaviors\TimestampBehavior;
+use app\components\helpers\Battle as BattleHelper;
+use app\components\helpers\DateTimeFormatter;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
+use yii\helpers\Url;
 
 /**
  * This is the model class for table "salmon2".
@@ -193,7 +196,8 @@ class Salmon2 extends ActiveRecord
 
     public function getBossAppearances(): ActiveQuery
     {
-        return $this->hasMany(SalmonBossAppearance2::class, ['salmon_id' => 'id']);
+        return $this->hasMany(SalmonBossAppearance2::class, ['salmon_id' => 'id'])
+            ->with('boss');
     }
 
     public function getBosses(): ActiveQuery
@@ -205,7 +209,8 @@ class Salmon2 extends ActiveRecord
     public function getWaves(): ActiveQuery
     {
         return $this->hasMany(SalmonWave2::class, ['salmon_id' => 'id'])
-            ->orderBy(['salmon_wave2.wave' => SORT_ASC]);
+            ->orderBy(['salmon_wave2.wave' => SORT_ASC])
+            ->with(['event', 'water']);
     }
 
     public function getSalmonWave2s(): ActiveQuery
@@ -231,7 +236,9 @@ class Salmon2 extends ActiveRecord
     public function getMyData(): ?SalmonPlayer2
     {
         foreach ($this->players as $player) {
-            return $player;
+            if ($player->is_me) {
+                return $player;
+            }
         }
 
         return null;
@@ -314,5 +321,105 @@ class Salmon2 extends ActiveRecord
 
         // Why!?
         return null;
+    }
+
+    public function toJsonArray(): array
+    {
+        $isCleared = ($this->clear_waves === null) ? null : ($this->clear_waves >= 3);
+        $gender = null;
+        if ($myData = $this->getMyData()) {
+            $gender = $myData->gender;
+        }
+
+        return [
+            'id' => (int)$this->id,
+            'uuid' => $this->uuid,
+            'splatnet_number' => (int)$this->splatnet_number,
+            'url' => Url::to(['salmon/view',
+                'screen_name' => $this->user->screen_name,
+                'id' => $this->id,
+            ], true),
+            'api_endpoint' => Url::to(['api-v2-salmon/view',
+                'id' => $this->id
+            ], true),
+            'user' => $this->user->toSalmonJsonArray(),
+            'stage' => $this->stage_id ? $this->stage->toJsonArray() : null,
+            'is_cleared' => $isCleared,
+            'fail_reason' => ($isCleared === false && $this->fail_reason_id)
+                ? $this->failReason->toJsonArray()
+                : null,
+            'clear_waves' => $this->clear_waves,
+            'danger_rate' => $this->danger_rate,
+            'quota' => $this->getQuota(),
+            'title' => $this->title_before_id ? $this->titleBefore->toJsonArray($gender) : null,
+            'title_exp' => $this->title_before_exp,
+            'title_after' => $this->title_after_id ? $this->titleAfter->toJsonArray($gender) : null,
+            'title_exp_after' => $this->title_after_exp,
+            'boss_appearances' => $this->getBossAppearancesMap(),
+            'waves' => $this->getWavesMap(),
+            'my_data' => $myData ? $myData->toJsonArray() : null,
+            'teammates' => $this->getTeammatesMap(),
+            'agent' => [
+                'name' => $this->agent ? $this->agent->name : null,
+                'version' => $this->agent ? $this->agent->version : null,
+            ],
+            'automated' => !!$this->is_automated,
+            'note' => ((string)$this->note !== '') ? $this->note : null,
+            'link_url' => ((string)$this->link_url !== '') ? $this->link_url : null,
+            'shift_start_at' => $this->shift_period
+                ? DateTimeFormatter::unixTimeToJsonArray(
+                    BattleHelper::periodToRange2($this->shift_period)[0]
+                )
+                : null,
+            'start_at' => $this->start_at != ''
+                ? DateTimeFormatter::unixTimeToJsonArray(strtotime($this->start_at))
+                : null,
+            'end_at' => $this->end_at != ''
+                ? DateTimeFormatter::unixTimeToJsonArray(strtotime($this->end_at))
+                : null,
+            'register_at' => DateTimeFormatter::unixTimeToJsonArray(strtotime($this->created_at)),
+        ];
+    }
+
+    public function getBossAppearancesMap(): ?array
+    {
+        if (!$this->bossAppearances) {
+            return null;
+        }
+
+        return array_map(
+            function (SalmonBossAppearance2 $bossAppearance): array {
+                return $bossAppearance->toJsonArray();
+            },
+            $this->bossAppearances
+        );
+    }
+
+    public function getWavesMap(): ?array
+    {
+        if (!$this->waves) {
+            return null;
+        }
+
+        return array_map(
+            function (SalmonWave2 $wave): array {
+                return $wave->toJsonArray();
+            },
+            $this->waves
+        );
+    }
+
+    public function getTeammatesMap(): ?array
+    {
+        if (!$list = $this->getTeamMates()) {
+            return null;
+        }
+
+        return array_map(
+            function (SalmonPlayer2 $player): array {
+                return $player->toJsonArray();
+            },
+            array_values($list)
+        );
     }
 }

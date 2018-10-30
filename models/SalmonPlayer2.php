@@ -120,7 +120,8 @@ class SalmonPlayer2 extends ActiveRecord
 
     public function getBossKills(): ActiveQuery
     {
-        return $this->hasMany(SalmonPlayerBossKill2::class, ['player_id' => 'id']);
+        return $this->hasMany(SalmonPlayerBossKill2::class, ['player_id' => 'id'])
+            ->with('boss');
     }
 
     public function getSalmonPlayerBossKill2s(): ActiveQuery
@@ -220,5 +221,60 @@ class SalmonPlayer2 extends ActiveRecord
             }
         }
         return $this->user;
+    }
+
+    public function toJsonArray(): array
+    {
+        if ($this->is_me) {
+            $anonymize = false;
+        } elseif ($this->getIsForceBlackouted()) {
+            $anonymize = true;
+        } else {
+            $anonymize = false;
+        }
+
+        return [
+            'splatnet_id' => $this->splatnet_id,
+            'name' => $anonymize ? str_repeat('*', 10) : $this->name,
+            'special' => $this->special_id
+                ? $this->special->toJsonArray()
+                : null,
+            'rescue' => $this->rescue,
+            'death' => $this->death,
+            'golden_egg_delivered' => $this->golden_egg_delivered,
+            'power_egg_collected' => $this->power_egg_collected,
+            'species' => $this->species_id
+                ? $this->species->toJsonArray()
+                : null,
+            'gender' => $this->gender_id
+                ? $this->gender->toJsonArray()
+                : null,
+            'special_uses' => $this->specialUses
+                ? array_map(
+                    function (SalmonPlayerSpecialUse2 $model): int {
+                        return (int)$model->count;
+                    },
+                    $this->specialUses
+                )
+                : null,
+            'weapons' => $this->weapons
+                ? array_map(
+                    function (SalmonPlayerWeapon2 $model): ?array {
+                        return $model->weapon
+                            ? $model->weapon->toJsonArray()
+                            : null;
+                    },
+                    $this->weapons
+                )
+                : null,
+            'boss_kills' => $this->bossKills
+                ? array_map(
+                    function (SalmonPlayerBossKill2 $model): array {
+                        return $model->toJsonArray();
+                    },
+                    $this->bossKills
+                )
+                : null,
+        ];
     }
 }

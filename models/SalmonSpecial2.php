@@ -4,10 +4,12 @@
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  */
+declare(strict_types=1);
 
 namespace app\models;
 
 use Yii;
+use app\components\helpers\Translator;
 use yii\db\ActiveRecord;
 
 /**
@@ -70,5 +72,14 @@ class SalmonSpecial2 extends ActiveRecord
     public function getSpecial()
     {
         return $this->hasOne(Special2::class, ['id' => 'special_id']);
+    }
+
+    public function toJsonArray(): array
+    {
+        return [
+            'key' => $this->key,
+            'splatnet' => $this->splatnet,
+            'name' => Translator::translateToAll('app-special2', $this->name),
+        ];
     }
 }

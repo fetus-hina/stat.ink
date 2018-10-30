@@ -8,6 +8,7 @@
 namespace app\models;
 
 use Yii;
+use app\components\helpers\Translator;
 use yii\db\ActiveRecord;
 
 /**
@@ -64,4 +65,14 @@ class SalmonMap2 extends ActiveRecord
     {
         return $this->hasMany(SalmonSchedule2::class, ['map_id' => 'id']);
     }
+
+    public function toJsonArray(): array
+    {
+        return [
+            'key' => $this->key,
+            'splatnet' => $this->splatnet_hint,
+            'name' => Translator::translateToAll('app-salmon-map2', $this->name),
+        ];
+    }
+
 }
