@@ -74,5 +74,4 @@ class SalmonMap2 extends ActiveRecord
             'name' => Translator::translateToAll('app-salmon-map2', $this->name),
         ];
     }
-
 }
