@@ -1,12 +1,12 @@
 `POST /api/v2/***`
 ===================
 
-UNDER DEVELOPMENT
+UNDER DEVELOPMENT. DOES NOT WORK YET.
 
 | | |
 |-|-|
 |Verb|`POST`|
-|URL|`https://stat.ink/api/v2/TBD`|
+|URL|`https://stat.ink/api/v2/salmon`|
 |Return-Type|Succeed: `201 Created` (no body)<br>Failed: HTTP Error 4xx or 5xx with `application/json` or `text/html` data<br>Already exists: `302 Found` (no body)|
 |Auth|[Needed](authorization.md)|
 
