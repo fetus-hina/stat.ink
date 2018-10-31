@@ -148,7 +148,7 @@ $this->registerCss(implode('', array_map(
             ]
           ) . "\n" ?>
           <div class="row">
-<?php if ($user->getSalmonResults()->one()) { ?>
+<?php if ($user->getSalmonResults()->exists()) { ?>
             <div class="col-xs-12 col-sm-6">
               <?= PanelListWidget::widget([
                 'title' => Yii::t('app', 'Battles'),
@@ -174,6 +174,11 @@ $this->registerCss(implode('', array_map(
                 ],
                 'titleLinkText' => Yii::t('app', 'List'),
                 'models' => $user->getSalmonResults()
+                    ->with([
+                        'players',
+                        'stage',
+                        'user',
+                    ])
                     ->orderBy(['id' => SORT_DESC])
                     ->limit(5)
                     ->all(),
