@@ -21,18 +21,29 @@ class AdWidget extends Widget
 
     public function init()
     {
+        parent::init();
+
         $params = Yii::$app->params['googleAdsense'];
-        $this->adSense = Yii::createObject([
-            'class' => GoogleAdSense::class,
-            'slot' => @$params['slot'] ?: '',
-            'client' => @$params['client'] ?: '',
-            'responsive' => true,
-        ]);
-        return parent::init();
+        $slot = @$params['slot'] ?: '';
+        $client = @$params['client'] ?: '';
+        if ($slot == '' || $client == '') {
+            $this->adSense = null;
+        } else {
+            $this->adSense = Yii::createObject([
+                'class' => GoogleAdSense::class,
+                'slot' => $slot,
+                'client' => $client,
+                'responsive' => true,
+            ]);
+        }
     }
 
     public function run()
     {
+        if (!$this->adSense) {
+            return '';
+        }
+
         $replace = [
             'id' => $this->id,
             'adsense' => $this->adCode,
