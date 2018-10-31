@@ -29,7 +29,6 @@ class ApiV2Controller extends Controller
             'verbs' => [
                 'class' => VerbFilter::class,
                 'actions' => [
-                    'salmon' => ['head', 'get', 'post'],
                     'salmon-stats' => ['head', 'get', 'post'],
                     '*' => ['head', 'get'],
                 ],
@@ -37,7 +36,6 @@ class ApiV2Controller extends Controller
             'authenticator' => [
                 'class' => HttpBearerAuth::class,
                 'only' => [
-                    'salmon',
                     'salmon-stats',
                 ],
             ],
@@ -53,9 +51,6 @@ class ApiV2Controller extends Controller
             ],
             'rule' => [
                 'class' => $prefix . '\RuleAction',
-            ],
-            'post salmon' => [
-                'class' => $prefix . '\salmon\PostSalmonAction',
             ],
             'salmon-stats' => [
                 'class' => $prefix . '\salmon\SalmonStatsAction',

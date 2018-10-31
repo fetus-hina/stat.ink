@@ -45,7 +45,7 @@ class PostSalmonAction extends \yii\web\ViewAction
         );
         $headers->set(
             'x-api-location',
-            Url::to(['api-v2/salmon', 'id' => $model->id], true)
+            Url::to(['api-v2-salmon/view', 'id' => $model->id], true)
         );
 
         return '';
