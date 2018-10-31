@@ -1,8 +1,6 @@
 `GET /api/v2/salmon`, `GET /api/v2/user-salmon`
 ===============================================
 
-UNDER CONSTRUCTION. THIS API DOES NOT WORK YET.
-
 | |`/api/v2/battle`|`/api/v2/user-battle`|
 |-|-|-|
 |URL|`https://stat.ink/api/v2/salmon`|`https://stat.ink/api/v2/user-salmon`|

@@ -1,7 +1,5 @@
-`POST /api/v2/***`
+`POST /api/v2/salmon`
 ===================
-
-UNDER DEVELOPMENT. DOES NOT WORK YET.
 
 | | |
 |-|-|
