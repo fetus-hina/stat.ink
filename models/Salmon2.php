@@ -255,6 +255,30 @@ class Salmon2 extends ActiveRecord
         });
     }
 
+    public function getPrevious(): ?self
+    {
+        return static::find()
+            ->andWhere(['and',
+                ['user_id' => $this->user_id],
+                ['<', 'id', $this->id],
+            ])
+            ->orderBy(['id' => SORT_DESC])
+            ->limit(1)
+            ->one();
+    }
+
+    public function getNext(): ?self
+    {
+        return static::find()
+            ->andWhere(['and',
+                ['user_id' => $this->user_id],
+                ['>', 'id', $this->id],
+            ])
+            ->orderBy(['id' => SORT_ASC])
+            ->limit(1)
+            ->one();
+    }
+
     public function getIsCleared(): ?bool
     {
         if ($this->clear_waves === null) {

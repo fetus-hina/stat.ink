@@ -29,7 +29,6 @@ if ($user->twitter != '') {
         'content' => sprintf('@%s', $user->twitter),
     ]);
 }
-
 ?>
 <div class="container">
   <h1>
@@ -43,6 +42,12 @@ if ($user->twitter != '') {
   <?= SnsWidget::widget() . "\n" ?>
   <div class="row">
     <div class="col-xs-12 col-sm-8 col-lg-9">
+      <?= $this->render('view/_prev_next', [
+        'user' => $user,
+        'current' => $model,
+        'prev' => $model->getPrevious(),
+        'next' => $model->getNext(),
+      ]) . "\n" ?>
       <?= $this->render('view/_detail', [
         'model' => $model,
         'user' => $user,
