@@ -70,22 +70,6 @@ PaintballAsset::register($this);
     </div>
   </div>
 <?php if (Yii::$app->language === 'ja-JP'): ?>
-  <div class="bg-success" style="margin-bottom:15px;padding:15px;border-radius:10px">
-    2018年9月6日午前3時頃、北海道地方で大きな地震があり、全道で停電が発生しました。<br>
-    stat.ink のサーバ群は、ほぼ全てがさくらインターネット社の石狩データセンターに存在します。<br>
-    現在はすでに北海道電力による電源は復旧しておりますが、停電中も、石狩データセンターのバックアップ電源等により問題なくサービスの提供ができていました。<br>
-    <br>
-    今後、万一もう一度停電が発生し、バックアップ電源の燃料確保も困難となった場合には、さくらインターネット社の要請によりサービスの提供を中断する可能性があります。<br>
-    ご理解とご協力をお願いします。<br>
-    <br>
-    また、今回被災されました方々に心よりお見舞い申し上げますとともに、さくらインターネット社および北海道電力社、関係各所に感謝申し上げます。
-    <br>
-    <div class="text-right">
-      2018年9月8日 相沢陽菜
-    </div>
-    <br>
-    <a href="https://help.sakura.ad.jp/hc/ja/articles/360000146442">さくらインターネット様公式情報</a>
-  </div>
   <div class="bg-warning" style="margin-bottom:15px;padding:15px;border-radius:10px">
     <p>
       イカリング2からの取り込みを検討されている方は、次のようなアプリをご利用ください。（自己責任）
@@ -106,35 +90,6 @@ PaintballAsset::register($this);
     </p>
   </div>
 <?php else: ?>
-  <div class="bg-success" style="margin-bottom:15px;padding:15px;border-radius:10px">
-    <b>Summary: Although there was a disaster, the service is provided normally at this time.</b><br>
-    <br>
-<?php $_ = (new DateTimeImmutable('2018-09-06T03:08:00+09'))->setTimeZone(new DateTimeZone(Yii::$app->timeZone)) ?>
-    On <?= sprintf(
-      '<time datetime="%s">%s (%s)</time>',
-      $_->setTimezone(new DateTimeZone('Etc/UTC'))->format(DateTime::ATOM),
-      Yii::$app->formatter->asDateTime($_, 'short'),
-      $_->format('T')
-    ) ?>,  a huge earthquake (Magnitude [M<sub>jma</sub>] 6.7, <a href="https://en.wikipedia.org/wiki/Japan_Meteorological_Agency_seismic_intensity_scale"><i>shindo</i></a> 7) occurred in <a href="https://en.wikipedia.org/wiki/Hokkaido"><i>Hokkaidō</i> Japan</a>.<br>
-    It caused power outages whole of Hokkaido Island.<br>
-    <br>
-    Our physical servers are in <i>Ishikari</i> data center, <i>SAKURA</i> Internet Inc. (<a href="https://en.wikipedia.org/wiki/Ishikari,_Hokkaido"><i>Ishikari</i>, <i>Hokkaidō</i></a>).<br>
-    Now, the data center has recovered from power outage (but may unstable).<br>
-    And during the power outage, the data center was provided by private power generators (they have fuel more than 48 hours).<br>
-    <br>
-    If a power outage occurs again and problems occur in their private power generator, we will shut down the service.<br>
-    <br>
-    <div class="text-right">
-<?php $_ = (new DateTimeImmutable('2018-09-08T21:40:00+09'))->setTimeZone(new DateTimeZone(Yii::$app->timeZone)) ?>
-      AIZAWA Hina, <?= sprintf(
-        '<time datetime="%s">%s (%s)</time>',
-        $_->setTimezone(new DateTimeZone('Etc/UTC'))->format(DateTime::ATOM),
-        Yii::$app->formatter->asDateTime($_, 'short'),
-        $_->format('T')
-      ) . "\n" ?>
-    </div>
-    <a href="https://help.sakura.ad.jp/hc/ja/articles/360000146442">Official information from SAKURA Internet (Japanese)</a>
-  </div>
   <div class="bg-warning" style="margin-bottom:15px;padding:15px;border-radius:10px">
     <p>
       You can import automatically from SplatNet 2, use these apps: (USE AT YOUR OWN RISK)
