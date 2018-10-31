@@ -148,6 +148,38 @@ $this->registerCss(implode('', array_map(
             ]
           ) . "\n" ?>
           <div class="row">
+<?php if ($user->getSalmonResults()->one()) { ?>
+            <div class="col-xs-12 col-sm-6">
+              <?= PanelListWidget::widget([
+                'title' => Yii::t('app', 'Battles'),
+                'titleLink' => [
+                    '/show-v2/user',
+                    'screen_name' => $user->screen_name,
+                ],
+                'titleLinkText' => Yii::t('app', 'List'),
+                'models' => $user->getBattle2s()
+                    ->with(['user', 'map', 'weapon'])
+                    ->innerJoinWith(['mode', 'rule'])
+                    ->orderBy(['battle2.id' => SORT_DESC])
+                    ->limit(5)
+                    ->all(),
+              ]) . "\n" ?>
+            </div><!-- col -->
+            <div class="col-xs-12 col-sm-6">
+              <?= PanelListWidget::widget([
+                'title' => Yii::t('app-salmon2', 'Salmon Run'),
+                'titleLink' => [
+                    'salmon/index',
+                    'screen_name' => $user->screen_name,
+                ],
+                'titleLinkText' => Yii::t('app', 'List'),
+                'models' => $user->getSalmonResults()
+                    ->orderBy(['id' => SORT_DESC])
+                    ->limit(5)
+                    ->all(),
+              ]) . "\n" ?>
+            </div><!-- col -->
+<?php } else { ?>
             <div class="col-xs-12 col-sm-6">
               <?= PanelListWidget::widget([
                 'title' => Yii::t('app-rule2', 'Turf War'),
@@ -192,6 +224,7 @@ $this->registerCss(implode('', array_map(
                     ->all(),
               ]) . "\n" ?>
             </div><!-- col -->
+<?php } ?>
           </div><!-- row -->
         </div><!-- tabpanel -->
         <div role="tabpanel" class="tab-pane" id="splatoon">

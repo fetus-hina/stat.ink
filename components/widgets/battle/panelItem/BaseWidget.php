@@ -143,6 +143,7 @@ abstract class BaseWidget extends Widget
             [
               'datetime' => $datetime->format(DateTime::ATOM),
               'title' => Yii::$app->formatter->asDatetime($datetime, 'medium'),
+              'class' => 'auto-tooltip',
             ]
         );
     }
