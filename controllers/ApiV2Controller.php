@@ -10,7 +10,6 @@ namespace app\controllers;
 use Yii;
 use app\components\web\Controller;
 use yii\filters\VerbFilter;
-use yii\filters\auth\HttpBearerAuth;
 
 class ApiV2Controller extends Controller
 {
@@ -29,14 +28,7 @@ class ApiV2Controller extends Controller
             'verbs' => [
                 'class' => VerbFilter::class,
                 'actions' => [
-                    'salmon-stats' => ['head', 'get', 'post'],
                     '*' => ['head', 'get'],
-                ],
-            ],
-            'authenticator' => [
-                'class' => HttpBearerAuth::class,
-                'only' => [
-                    'salmon-stats',
                 ],
             ],
         ];
@@ -51,9 +43,6 @@ class ApiV2Controller extends Controller
             ],
             'rule' => [
                 'class' => $prefix . '\RuleAction',
-            ],
-            'salmon-stats' => [
-                'class' => $prefix . '\salmon\SalmonStatsAction',
             ],
             'stage' => [
                 'class' => $prefix . '\StageAction',
@@ -73,36 +62,5 @@ class ApiV2Controller extends Controller
             array_merge(Yii::$app->request->get(), ['/api-v2/stage']),
             301
         );
-    }
-
-    public function createAction($id)
-    {
-        if ($id === '') {
-            $id = $this->defaultAction;
-        }
-
-        $method = strtolower(Yii::$app->getRequest()->getMethod());
-
-        $actionMap = $this->actions();
-        if (isset($actionMap["{$method} {$id}"])) {
-            return Yii::createObject(
-                $actionMap["{$method} {$id}"],
-                [$id, $this]
-            );
-        } elseif (isset($actionMap[$id])) {
-            return Yii::createObject($actionMap[$id], [$id, $this]);
-        } elseif (preg_match('/^[a-z0-9\\-_]+$/', $id) &&
-            strpos($id, '--') === false &&
-            trim($id, '-') === $id
-        ) {
-            $methodName = 'action' . str_replace(' ', '', ucwords(str_replace('-', ' ', $id)));
-            if (method_exists($this, $methodName)) {
-                $method = new \ReflectionMethod($this, $methodName);
-                if ($method->isPublic() && $method->getName() === $methodName) {
-                    return new InlineAction($id, $this, $methodName);
-                }
-            }
-        }
-        return null;
     }
 }

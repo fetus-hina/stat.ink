@@ -12,7 +12,9 @@ namespace app\controllers;
 use Yii;
 use app\actions\api\v2\salmon\IndexAction;
 use app\actions\api\v2\salmon\PostSalmonAction;
+use app\actions\api\v2\salmon\PostStatsAction;
 use app\actions\api\v2\salmon\ViewAction;
+use app\actions\api\v2\salmon\ViewStatsAction;
 use yii\filters\ContentNegotiator;
 use yii\filters\auth\HttpBearerAuth;
 use yii\rest\Controller;
@@ -41,7 +43,11 @@ class ApiV2SalmonController extends Controller
             'authenticator' => [
                 'class' => HttpBearerAuth::class,
                 'except' => [ 'options' ],
-                'optional' => [ 'index', 'index-with-auth', 'view' ],
+                'optional' => [
+                    'index',
+                    'index-with-auth',
+                    'view',
+                ],
             ],
         ]);
     }
@@ -49,11 +55,13 @@ class ApiV2SalmonController extends Controller
     protected function verbs()
     {
         return [
+            'create'  => ['POST'],
+            'create-stats' => ['POST'],
             'index'   => ['GET', 'HEAD'],
             'index-with-auth' => ['GET', 'HEAD'],
-            'view'    => ['GET', 'HEAD'],
-            'create'  => ['POST'],
             'options' => ['OPTIONS'],
+            'view'    => ['GET', 'HEAD'],
+            'view-stats' => ['GET', 'HEAD'],
         ];
     }
 
@@ -62,6 +70,9 @@ class ApiV2SalmonController extends Controller
         return [
             'create' => [
                 'class' => PostSalmonAction::class,
+            ],
+            'create-stats' => [
+                'class' => PostStatsAction::class,
             ],
             'index' => [
                 'class' => IndexAction::class,
@@ -73,6 +84,9 @@ class ApiV2SalmonController extends Controller
             ],
             'view' => [
                 'class' => ViewAction::class,
+            ],
+            'view-stats' => [
+                'class' => ViewStatsAction::class,
             ],
         ];
     }

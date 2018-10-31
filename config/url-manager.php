@@ -70,12 +70,15 @@ return [
         'OPTIONS api/v2/battle/<id:\d+>' => 'api-v2-battle/options',
 
         // Splatoon 2 Salmon Run
+        'OPTIONS api/v2/salmon/<id:\d+>' => 'api-v2-salmon/options',
+        'OPTIONS api/v2/salmon-stats' => 'api-v2-salmon/options',
         'OPTIONS api/v2/salmon' => 'api-v2-salmon/options',
         'OPTIONS api/v2/user-salmon' => 'api-v2-salmon/options',
-        'OPTIONS api/v2/salmon/<id:\d+>' => 'api-v2-salmon/options',
+        'GET,HEAD api/v2/salmon/<id:\d+>' => 'api-v2-salmon/view',
+        'GET,HEAD api/v2/salmon-stats' => 'api-v2-salmon/view-stats',
         'GET,HEAD api/v2/salmon' => 'api-v2-salmon/index',
         'GET,HEAD api/v2/user-salmon' => 'api-v2-salmon/index-with-auth',
-        'GET,HEAD api/v2/salmon/<id:\d+>' => 'api-v2-salmon/view',
+        'POST api/v2/salmon-stats' => 'api-v2-salmon/create-stats',
         'POST api/v2/salmon' => 'api-v2-salmon/create',
 
         'api/v2/<action:[\w-]+>.<format:[\w]+>' => 'api-v2/<action>',
