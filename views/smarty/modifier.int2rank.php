@@ -1,5 +1,4 @@
 <?php
-use Yii;
 use app\models\Rank;
 
 function smarty_modifier_int2rank($int)

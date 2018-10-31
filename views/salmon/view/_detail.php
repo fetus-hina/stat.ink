@@ -118,7 +118,7 @@ $widget = Yii::createObject([
 
         return sprintf(
           '%s (%s)',
-          $widget->formatter->asDecimal($model->danger_rate, 1),
+          $widget->formatter->asDecimal($model->danger_rate, 1)
         );
       },
     ],
