@@ -15,13 +15,18 @@ use yii\helpers\Json;
 use yii\helpers\Url;
 use yii\web\UnauthorizedHttpException;
 
-class PostSalmonAction extends \yii\web\ViewAction
+class PostAction extends \yii\web\ViewAction
 {
-    public function run()
+    public function init()
     {
+        parent::init();
+
         Yii::$app->language = 'en-US';
         Yii::$app->timeZone = 'Etc/UTC';
+    }
 
+    public function run()
+    {
         $form = Yii::createObject(PostForm::class);
         $form->attributes = Yii::$app->request->post();
         if (!$model = $form->save()) {

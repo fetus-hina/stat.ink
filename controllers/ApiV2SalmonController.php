@@ -11,7 +11,7 @@ namespace app\controllers;
 
 use Yii;
 use app\actions\api\v2\salmon\IndexAction;
-use app\actions\api\v2\salmon\PostSalmonAction;
+use app\actions\api\v2\salmon\PostAction;
 use app\actions\api\v2\salmon\PostStatsAction;
 use app\actions\api\v2\salmon\ViewAction;
 use app\actions\api\v2\salmon\ViewStatsAction;
@@ -69,7 +69,7 @@ class ApiV2SalmonController extends Controller
     {
         return [
             'create' => [
-                'class' => PostSalmonAction::class,
+                'class' => PostAction::class,
             ],
             'create-stats' => [
                 'class' => PostStatsAction::class,
