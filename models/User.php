@@ -437,6 +437,18 @@ class User extends ActiveRecord implements IdentityInterface
 
     public function toSalmonJsonArray(): array
     {
+        static $statsCache = [];
+        $stats = $statsCache[$this->id] ?? null;
+        if ($stats === null) {
+            $tmp = SalmonStats2::find()
+                ->andWhere(['user_id' => $this->id])
+                ->orderBy(['as_of' => SORT_DESC])
+                ->limit(1)
+                ->one();
+            $stats = $tmp ? $tmp : false;
+            $statsCache[$this->id] = $stats;
+        }
+
         return [
             'id' => $this->id,
             'name' => $this->name,
@@ -471,6 +483,7 @@ class User extends ActiveRecord implements IdentityInterface
                     : null,
                 'environment'   => $this->env ? $this->env->text : null,
             ],
+            'stats' => $stats ? $stats->toJsonArray() : null,
         ];
     }
 
