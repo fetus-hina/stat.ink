@@ -7,6 +7,7 @@ use app\models\Rank2;
 use app\models\Rule2;
 use yii\bootstrap\Html;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Url;
 use yii\widgets\DetailView;
 
 UserMiniinfoAsset::register($this);
@@ -517,6 +518,18 @@ $fmt = Yii::$app->formatter;
             ['show-v2/user-stat-report', 'screen_name' => $user->screen_name]
           ),
         ])) . "\n" ?>
+    </div>
+    <div class="miniinfo-databox">
+      <?= Html::beginTag('a', [
+        'href' => Url::to(['salmon/index', 'screen_name' => $user->screen_name]),
+        'class' => 'btn btn-sm btn-block btn-default',
+      ]) . "\n" ?>
+        <span class="fas fa-fw fa-fish"></span>
+        <span><?= Html::encode(
+          Yii::t('app-salmon2', 'Salmon Run')
+        ) ?></span>
+        <span class="fas fa-fw fa-angle-right"></span>
+      </a>
     </div>
     <?= MiniinfoUserLink::widget(['user' => $user]) . "\n" ?>
   </div>

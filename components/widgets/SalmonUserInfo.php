@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace app\components\widgets;
 
 use Yii;
+use app\assets\RpgAwesomeAsset;
 use app\assets\UserMiniinfoAsset;
 use app\components\i18n\Formatter;
 use app\models\SalmonStats2;
@@ -44,6 +45,7 @@ class SalmonUserInfo extends Widget
                 implode('', [
                     $this->renderIconAndName(),
                     $this->renderData(),
+                    $this->renderLinkToBattles(),
                     $this->renderLinks(),
                 ]),
                 ['id' => 'user-miniinfo-box']
@@ -203,6 +205,27 @@ class SalmonUserInfo extends Widget
                 $data
             )) . $datetime,
             ['class' => 'row']
+        );
+    }
+
+    protected function renderLinkToBattles(): string
+    {
+        RpgAwesomeAsset::register($this->view);
+
+        return Html::tag(
+            'div',
+            Html::a(
+                implode('', [
+                    '<span class="ra ra-fw ra-crossed-swords"></span>',
+                    Html::tag('span', Html::encode(Yii::t('app', 'Battles'))),
+                    '<span class="fas fa-fw fa-angle-right"></span>',
+                ]),
+                ['show-v2/user', 'screen_name' => $this->user->screen_name],
+                [
+                    'class' => 'btn btn-sm btn-block btn-default',
+                ]
+            ),
+            ['class' => 'miniinfo-databox']
         );
     }
 
