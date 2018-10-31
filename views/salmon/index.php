@@ -1,6 +1,7 @@
 <?php
 declare(strict_types=1);
 
+use app\assets\AppOptAsset;
 use app\assets\RpgAwesomeAsset;
 use app\components\grid\SalmonActionColumn;
 use app\components\widgets\AdWidget;
@@ -103,7 +104,7 @@ $this->title = sprintf('%s | %s', Yii::$app->name, $title);
             'attribute' => 'stage_id',
             'headerOptions' => ['class' => 'cell-map'],
             'contentOptions' => ['class' => 'cell-map'],
-            'label' => Yii::t('app-app', 'Stage'),
+            'label' => Yii::t('app', 'Stage'),
             'value' => function (Salmon2 $model): ?string {
               return $model->stage_id
                 ? Yii::t('app-salmon-map2', $model->stage->name)
@@ -267,6 +268,8 @@ $this->title = sprintf('%s | %s', Yii::$app->name, $title);
   </div>
 </div>
 <?php
-//FIXME
-$this->registerJs('window.battleList();window.battleListConfig();');
+$asset = AppOptAsset::register($this);
+$asset->registerJsFile($this, 'salmon-work-list.js');
+$asset->registerJsFile($this, 'salmon-work-list-config.js');
+$this->registerJs('window.workList();window.workListConfig();');
 ?>
