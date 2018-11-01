@@ -49,6 +49,9 @@ $widget = Yii::createObject([
   ]),
   'formatter' => $formatter,
   'layout' => '{items}',
+  'options' => [
+    'class' => 'table-responsive grid-view',
+  ],
   'tableOptions' => [
     'class' => 'table table-striped table-bordered',
   ],
@@ -73,6 +76,7 @@ $widget = Yii::createObject([
         'label' => PlayerName2Widget::widget([
           'player' => $players[0],
           'user' => $model->user,
+          'nameOnly' => true,
         ]),
         'value' => function (SalmonBossAppearance2 $model) use ($players, $playerKillCount): ?string {
           return $playerKillCount($players[0], $model);
@@ -85,6 +89,7 @@ $widget = Yii::createObject([
         'label' => PlayerName2Widget::widget([
           'player' => $players[1],
           'user' => $model->user,
+          'nameOnly' => true,
         ]),
         'value' => function (SalmonBossAppearance2 $model) use ($players, $playerKillCount): ?string {
           return $playerKillCount($players[1], $model);
@@ -97,6 +102,7 @@ $widget = Yii::createObject([
         'label' => PlayerName2Widget::widget([
           'player' => $players[2],
           'user' => $model->user,
+          'nameOnly' => true,
         ]),
         'value' => function (SalmonBossAppearance2 $model) use ($players, $playerKillCount): ?string {
           return $playerKillCount($players[2], $model);
@@ -109,6 +115,7 @@ $widget = Yii::createObject([
         'label' => PlayerName2Widget::widget([
           'player' => $players[3],
           'user' => $model->user,
+          'nameOnly' => true,
         ]),
         'value' => function (SalmonBossAppearance2 $model) use ($players, $playerKillCount): ?string {
           return $playerKillCount($players[3], $model);

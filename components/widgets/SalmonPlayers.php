@@ -38,19 +38,50 @@ class SalmonPlayers extends Widget
 
     public function run(): string
     {
-        $id = $this->id;
         BootstrapAsset::register($this->view);
-        $this->view->registerCss(implode('', [
-            "#{$id} th:first-child{width:15em}",
-            "@media(max-width:30em){#{$id} th:first-child{width:auto}}",
-        ]));
+
+        $id = "#{$this->id}";
+        $this->view->registerCss(sprintf(
+            '%s@media(max-width:30em){%s}',
+            Html::renderCss([
+                "{$id}" => [
+                    'table-layout' => 'fixed',
+                    'width' => 'calc(100% - 1px)',
+                ],
+                "{$id} th" => [
+                    'width' => 'calc((100% - 15em) / 4)',
+                ],
+                "{$id} th:first-child" => [
+                    'width' => '15em',
+                ],
+            ]),
+
+            // min-display
+            Html::renderCss([
+                "{$id}" => [
+                    'table-layout' => 'auto',
+                ],
+                "{$id} th" => [
+                    'width' => 'auto',
+                ],
+                "{$id} th:first-child" => [
+                    'width' => 'auto',
+                ],
+            ])
+        ));
 
         return Html::tag(
-            'table',
-            $this->renderHeader() . $this->renderBody(),
+            'div',
+            Html::tag(
+                'table',
+                $this->renderHeader() . $this->renderBody(),
+                [
+                    'id' => $this->id,
+                    'class' => 'table table-striped table-bordered',
+                ]
+            ),
             [
-                'id' => $id,
-                'class' => 'table table-striped table-bordered',
+                'class' => 'table-responsive',
             ]
         );
     }
@@ -64,6 +95,7 @@ class SalmonPlayers extends Widget
                     return Html::tag('th', PlayerName2Widget::widget([
                         'player' => $player,
                         'user' => $this->work->user,
+                        'nameOnly' => true,
                     ]));
                 },
                 $this->players

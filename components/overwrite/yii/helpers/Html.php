@@ -84,4 +84,32 @@ class Html extends BaseHtml
         }
         return BaseHtml::jsFile($url, $options);
     }
+
+    public static function cssStyleFromArray(array $style)
+    {
+        $result = implode(';', array_filter(array_map(
+            function (string $name, string $value): ?string {
+                $name = trim($name);
+                $value = trim($value);
+                if ($name === '' || $value === '') {
+                    return null;
+                }
+                return "{$name}:{$value}";
+            },
+            array_keys($style),
+            array_values($style)
+        )));
+        return $result === '' ? null : rtrim($result);
+    }
+
+    public static function renderCss(array $styles): string
+    {
+        return implode('', array_map(
+            function (string $selector, array $style): string {
+                return sprintf('%s{%s}', $selector, static::cssStyleFromArray($style));
+            },
+            array_keys($styles),
+            array_values($styles)
+        ));
+    }
 }

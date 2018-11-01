@@ -20,6 +20,7 @@ class PlayerName2Widget extends Widget
 {
     public $player;
     public $user;
+    public $nameOnly = false;
     public $isMyTeam = false; // 自チームかつ4人チームマッチ
     public $isPrivate = false;
 
@@ -37,7 +38,9 @@ class PlayerName2Widget extends Widget
 
         return Html::tag(
             'div',
-            $this->renderNamePart() . $this->renderSpeciesPart(),
+            $this->nameOnly
+                ? ($this->renderName($this->player->user ?? null))
+                : ($this->renderNamePart() . $this->renderSpeciesPart()),
             ['id' => $this->id]
         );
     }
