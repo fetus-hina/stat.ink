@@ -59,6 +59,16 @@ AppOptAsset::register($this)
   ]) . "\n" ?>
   <div class="row">
     <div class="col-xs-12 col-sm-8 col-lg-9">
+      <p class="text-right">
+        <?= Html::beginTag('a', [
+          'class' => 'btn btn-default btn-xs',
+          'href' => Url::to(['salmon/index', 'screen_name' => $user->screen_name]),
+        ]) . "\n" ?>
+          <span class="fas fa-fw fa-fish"></span>
+          <?= Html::encode(Yii::t('app-salmon2', 'Salmon Run')) . "\n" ?>
+          <span class="fas fa-fw fa-angle-right"></span>
+        </a>
+      </p>
       <div class="text-center">
         <?= ListView::widget([
           'dataProvider' => $battleDataProvider,
