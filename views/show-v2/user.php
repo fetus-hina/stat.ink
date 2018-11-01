@@ -61,7 +61,7 @@ if ($user->twitter != '') {
   ]) . "\n" ?>
   <div class="row">
     <div class="col-xs-12 col-sm-8 col-lg-9">
-      <div class="text-right">
+      <div class="text-center">
         <?= ListView::widget([
           'dataProvider' => $battleDataProvider,
           'itemOptions' => [ 'tag' => false ],
@@ -899,7 +899,7 @@ if ($user->twitter != '') {
           ],
         ], // }}}
       ]) . "\n" ?>
-      <div class="text-right">
+      <div class="text-center">
         <?= ListView::widget([
           'dataProvider' => $battleDataProvider,
           'itemOptions' => [ 'tag' => false ],

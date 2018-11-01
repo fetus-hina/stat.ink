@@ -32,7 +32,7 @@ $this->registerJs('window.workList();');
     ['class' => 'btn btn-default', 'rel' => 'nofollow']
   ) . "\n" ?>
 </p>
-<div class="text-right">
+<div class="text-center">
   <?= ListView::widget([
     'dataProvider' => $dataProvider,
     'itemOptions' => [ 'tag' => false ],
@@ -198,7 +198,7 @@ $this->registerJs('window.workList();');
     ],
   ],
 ]) . "\n" ?>
-<div class="text-right">
+<div class="text-center">
   <?= ListView::widget([
     'dataProvider' => $dataProvider,
     'itemOptions' => [ 'tag' => false ],
