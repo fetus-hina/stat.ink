@@ -144,6 +144,13 @@ $this->title = sprintf('%s | %s', Yii::$app->name, $title);
             },
           ],
           [
+            'label' => Yii::t('app-salmon2', 'Hazard Level'),
+            'headerOptions' => ['class' => 'cell-danger-rate'],
+            'contentOptions' => ['class' => 'cell-danger-rate'],
+            'format' => ['decimal', 1],
+            'attribute' => 'danger_rate',
+          ],
+          [
             'label' => Yii::t('app', 'Title'),
             'headerOptions' => ['class' => 'cell-title'],
             'contentOptions' => ['class' => 'cell-title'],
@@ -244,6 +251,7 @@ $this->title = sprintf('%s | %s', Yii::$app->name, $title);
           'cell-splatnet' => Yii::t('app', 'SplatNet #'),
           'cell-map' => Yii::t('app', 'Stage'),
           'cell-result' => Yii::t('app', 'Result'),
+          'cell-danger-rate' => Yii::t('app-salmon2', 'Hazard Level'),
           'cell-title' => Yii::t('app', 'Title'),
           'cell-title-after' => Yii::t('app', 'Title (After)'),
           'cell-datetime' => Yii::t('app', 'Date Time'),

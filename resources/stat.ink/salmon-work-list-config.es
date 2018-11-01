@@ -10,6 +10,7 @@ window.workListConfig = () => {
       "cell-splatnet": true,
       "cell-map": true,
       "cell-result": true,
+      "cell-danger-rate": true,
       "cell-title": true,
       "cell-title-after": true,
       "cell-datetime": true,
