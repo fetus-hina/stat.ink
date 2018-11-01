@@ -17,5 +17,6 @@ return [
     'Sprinkler' => 'Aspersor',
     'Squid Beakon' => 'Baliza transportadora',
     'Suction Bomb' => 'Bomba ventosa',
+    'Torpedo' => '',
     'Toxic Mist' => 'Nebulizador',
 ];

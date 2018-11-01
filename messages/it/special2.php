@@ -21,4 +21,5 @@ return [
     'Sting Ray' => 'Baccalaser',
     'Suction-Bomb Launcher' => 'Lanciappiccibombe',
     'Tenta Missiles' => 'Lanciarazzi',
+    'Ultra Stamp' => 'Mega timbro',
 ];

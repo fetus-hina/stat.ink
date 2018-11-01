@@ -21,4 +21,5 @@ return [
     'Sting Ray' => 'Pigmalance',
     'Suction-Bomb Launcher' => 'Lance-bombes gluantes',
     'Tenta Missiles' => 'Multi-missile',
+    'Ultra Stamp' => 'Ultra-tamponneur',
 ];

@@ -21,4 +21,5 @@ return [
     'Sting Ray' => 'Magistraal',
     'Suction-Bomb Launcher' => 'Kleefbomkanon',
     'Tenta Missiles' => 'Spetterraketten',
+    'Ultra Stamp' => 'Ultrastempel',
 ];

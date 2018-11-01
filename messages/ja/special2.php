@@ -14,11 +14,12 @@ return [
     'Burst-Bomb Launcher' => 'クイックボムピッチャー',
     'Curling-Bomb Launcher' => 'カーリングボムピッチャー',
     'Ink Armor' => 'インクアーマー',
-    'Inkjet' => 'ジェットパック',
     'Ink Storm' => 'アメフラシ',
+    'Inkjet' => 'ジェットパック',
     'Splashdown' => 'スーパーチャクチ',
     'Splat-Bomb Launcher' => 'スプラッシュボムピッチャー',
     'Sting Ray' => 'ハイパープレッサー',
     'Suction-Bomb Launcher' => 'キューバンボムピッチャー',
     'Tenta Missiles' => 'マルチミサイル',
+    'Ultra Stamp' => 'ウルトラハンコ',
 ];

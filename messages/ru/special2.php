@@ -21,4 +21,5 @@ return [
     'Sting Ray' => 'Струятор',
     'Suction-Bomb Launcher' => 'Бомбомет (присоски)',
     'Tenta Missiles' => 'Каракатница',
+    'Ultra Stamp' => 'Припечать',
 ];
