@@ -69,6 +69,7 @@ class SalmonController extends Controller
             'user' => $user,
             'dataProvider' => new ActiveDataProvider([
                 'query' => $query,
+                'sort' => false,
             ]),
         ]);
     }
