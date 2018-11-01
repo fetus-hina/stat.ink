@@ -5,6 +5,7 @@ use app\components\helpers\Battle as BattleHelper;
 use app\components\i18n\Formatter;
 use app\components\widgets\Label;
 use app\components\widgets\PrivateNote;
+use app\components\widgets\SalmonHazardHistory;
 use app\models\Salmon2;
 use app\models\SalmonTitle2;
 use yii\bootstrap\Progress;
@@ -91,7 +92,7 @@ $widget = Yii::createObject([
     [
       'attribute' => 'danger_rate',
       'format' => 'raw',
-      'value' => function (Salmon2 $model, DetailView $widget): ?string {
+      'value' => function (Salmon2 $model, DetailView $widget) use ($user): ?string {
         if ($model->danger_rate === null) {
           return null;
         }
@@ -114,12 +115,16 @@ $widget = Yii::createObject([
             ])
           ));
         }
-        return implode(' ', $parts);
 
-        return sprintf(
-          '%s (%s)',
-          $widget->formatter->asDecimal($model->danger_rate, 1)
-        );
+        $graph = SalmonHazardHistory::widget([
+            'user' => $user,
+            'current' => $model,
+        ]);
+        if ($graph) {
+            $parts[] = $graph;
+        }
+
+        return implode(' ', $parts);
       },
     ],
     [
