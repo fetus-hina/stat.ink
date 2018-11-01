@@ -526,7 +526,7 @@ return [
     'White Urchin Rock Tee' => 'ガンガゼロックT シロ',
     'White V-Neck Tee' => 'イカホワイトV',
     'Woolly Urchins Classic' => 'ウールウーニーズクラシック',
-    'Worker\'s Head Towel' => '',
+    'Worker\'s Head Towel' => 'アセストップソシナ',
     'Yamagiri Beanie' => 'ヤマギリビーニー',
     'Yellow Fishfry Sandals' => 'ヤキフグシャワサン キ',
     'Yellow Iromaki 750s' => 'イロマキ750 イエロー',

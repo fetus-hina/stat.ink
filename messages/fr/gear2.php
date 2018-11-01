@@ -527,7 +527,7 @@ return [
     'White Urchin Rock Tee' => '',
     'White V-Neck Tee' => '',
     'Woolly Urchins Classic' => '',
-    'Worker\'s Head Towel' => '',
+    'Worker\'s Head Towel' => 'Bandana d\'ouvrier',
     'Yamagiri Beanie' => '',
     'Yellow Fishfry Sandals' => '',
     'Yellow Iromaki 750s' => 'Tennis high-tech jaunes',
