@@ -1,4 +1,5 @@
 <?php
+use app\assets\AppOptAsset;
 use app\components\widgets\AdWidget;
 use app\components\widgets\Battle2FilterWidget;
 use app\components\widgets\SnsWidget;
@@ -26,6 +27,9 @@ if ($user->twitter != '') {
     'content' => sprintf('@%s', $user->twitter),
   ]);
 }
+
+AppOptAsset::register($this)
+  ->registerCssFile($this, 'battles-simple.css');
 ?>
 <div class="container">
   <h1>
@@ -91,12 +95,6 @@ if ($user->twitter != '') {
             'layout' => '{items}'
           ]) . "\n" ?>
         </ul>
-<?php $this->registerCss(sprintf('.simple-battle-list{%s}', Html::cssStyleFromArray([
-  'display' => 'block',
-  'list-style-type' => '0',
-  'margin' => '0',
-  'padding' => '0',
-]))) ?>
       </div>
       <div class="text-center">
         <?= ListView::widget([

@@ -16,10 +16,20 @@ AppOptAsset::register($this)->registerJsFile($this, 'salmon-work-list.js');
 $this->registerJs('window.workList();');
 ?>
 <p>
+  <a href="#table-config" class="btn btn-default">
+    <span class="fa fa-cogs fa-fw"></span>
+    <?= Html::encode(Yii::t('app', 'View Settings')) . "\n" ?>
+  </a>
   <?= Html::a(
-    '<span class="ra ra-crossed-swords"></span> ' . Yii::t('app', 'Battles'),
-    ['show-v2/user', 'screen_name' => $user->screen_name],
-    ['class' => 'btn btn-default']
+    '<span class="fa fa-list fa-fw"></span> ' . Html::encode(Yii::t('app', 'Simplified List')),
+    array_merge(
+      [], // $filter->toQueryParams(),
+      ['salmon/index',
+        'screen_name' => $user->screen_name,
+        'v' => 'simple',
+      ]
+    ),
+    ['class' => 'btn btn-default', 'rel' => 'nofollow']
   ) . "\n" ?>
 </p>
 <div class="text-right">

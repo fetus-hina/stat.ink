@@ -15,6 +15,8 @@ use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
 use yii\filters\AccessRule;
 use yii\filters\VerbFilter;
+use yii\helpers\Url;
+use yii\web\Cookie;
 
 class SalmonController extends Controller
 {
@@ -57,6 +59,27 @@ class SalmonController extends Controller
             return null;
         }
 
+        // リスト表示モード切替
+        $request = Yii::$app->getRequest();
+        if ($request->get('v') != '') {
+            $view = $request->get('v');
+            if ($view === 'simple' || $view === 'standard') {
+                Yii::$app->response->cookies->add(
+                    new Cookie([
+                        'name' => 'work-list',
+                        'value' => $view,
+                        'expire' => time() + 86400 * 366,
+                    ])
+                );
+            }
+
+            $next = $_GET;
+            unset($next['v']);
+            $next[0] = 'salmon/index';
+            $this->redirect(Url::to($next));
+            return null;
+        }
+
         $query = $user->getSalmonResults()
             ->with([
                 'stage',
@@ -71,6 +94,7 @@ class SalmonController extends Controller
                 'query' => $query,
                 'sort' => false,
             ]),
+            'spMode' => $this->getIndexViewMode() === 'simple',
         ]);
     }
 
@@ -93,5 +117,33 @@ class SalmonController extends Controller
         return $this->render('view', [
             'model' => $model,
         ]);
+    }
+
+    public function getIndexViewMode(): string
+    {
+        $request = Yii::$app->getRequest();
+        $mode = null;
+        if ($cookie = $request->cookies->get('work-list')) {
+            $mode = $cookie->value;
+        }
+
+        if ($mode === 'simple' || $mode === 'standard') {
+            return $mode;
+        }
+
+        $ua = $request->userAgent;
+        if (strpos($ua, 'iPod') !== false || strpos($ua, 'iPhone') !== false) {
+            return 'simple';
+        }
+
+        if (strpos($ua, 'Android') !== false) {
+            return 'simple';
+        }
+
+        if (strpos($ua, 'Windows Phone') !== false) {
+            return 'simple';
+        }
+
+        return 'standard';
     }
 }

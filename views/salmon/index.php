@@ -37,12 +37,29 @@ $this->title = sprintf('%s | %s', Yii::$app->name, $title);
   <?= SnsWidget::widget() . "\n" ?>
   <div class="row">
     <div class="col-xs-12 col-sm-8 col-lg-9">
+      <p class="text-right">
+        <?= Html::a(
+          implode(' ', [
+            '<span class="ra ra-crossed-swords"></span>',
+            Yii::t('app', 'Battles'),
+            '<span class="fas fa-fw fa-angle-right"></span>',
+          ]),
+          ['show-v2/user', 'screen_name' => $user->screen_name],
+          ['class' => 'btn btn-default btn-xs']
+        ) . "\n" ?>
+      </p>
+<?php if ($spMode) { ?>
+      <?= $this->render('index/_list_sp', compact('user', 'dataProvider')) . "\n" ?>
+<?php } else { ?>
       <?= $this->render('index/_list_pc', compact('user', 'dataProvider')) . "\n" ?>
+<?php } ?>
     </div>
     <div class="col-xs-12 col-sm-4 col-lg-3">
       <?= SalmonUserInfo::widget(['user' => $user]) . "\n" ?>
       <?= AdWidget::widget() . "\n" ?>
     </div>
   </div>
+<?php if (!$spMode) { ?>
   <?= $this->render('index/_config_pc', compact('user', 'dataProvider')) . "\n" ?>
+<?php } ?>
 </div>
