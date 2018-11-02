@@ -34,7 +34,7 @@ class PostForm extends Model
     // If non-UUID
     const UUID_NAMESPACE_BY_FREETEXT = 'b007a6f6-cbae-11e8-aa3e-d050998473ba';
 
-    public $client_uuid;
+    public $uuid;
     public $splatnet_number;
     public $stage;
     public $clear_waves;
@@ -54,11 +54,11 @@ class PostForm extends Model
     public $note;
     public $private_note;
     public $link_url;
-    public $is_automated;
+    public $automated;
     public $agent;
     public $agent_version;
 
-    private $uuid;
+    private $uuid_formatted;
 
     public function behaviors()
     {
@@ -70,7 +70,7 @@ class PostForm extends Model
     public function rules()
     {
         return [
-            [['client_uuid', 'stage', 'fail_reason', 'title', 'title_after'], 'string'],
+            [['uuid', 'stage', 'fail_reason', 'title', 'title_after'], 'string'],
             [['note', 'private_note', 'agent', 'agent_version'], 'string'],
             [['splatnet_number'], 'integer'],
             [['clear_waves'], 'integer', 'min' => 0, 'max' => 3],
@@ -78,7 +78,7 @@ class PostForm extends Model
             [['danger_rate'], 'number', 'min' => 0, 'max' => 999.9],
             [['shift_start_at', 'start_at', 'end_at'], 'integer'],
             [['link_url'], 'url'],
-            [['is_automated'], 'in', 'range' => ['yes', 'no']],
+            [['automated'], 'in', 'range' => ['yes', 'no']],
             [['agent'], 'string', 'max' => 64],
             [['agent_version'], 'string', 'max' => 255],
             [['agent', 'agent_version'], 'required',
@@ -90,6 +90,10 @@ class PostForm extends Model
             [['stage'], 'exist', 'skipOnError' => true,
                 'targetClass' => SalmonMap2::class,
                 'targetAttribute' => ['stage' => 'key'],
+            ],
+            [['fail_reason'], 'exist', 'skipOnError' => true,
+                'targetClass' => SalmonFailReason2::class,
+                'targetAttribute' => 'key',
             ],
             [['title', 'title_after'], 'exist', 'skipOnError' => true,
                 'targetClass' => SalmonTitle2::class,
@@ -313,7 +317,7 @@ class PostForm extends Model
             $model = Yii::createObject(Salmon2::class);
             $model->attributes = [
                 'user_id' => Yii::$app->user->id,
-                'uuid' => $this->getUuid(),
+                'uuid' => $this->getUuidFormatted(),
                 'splatnet_number' => $this->splatnet_number,
                 'stage_id' => static::findRelatedId(SalmonMap2::class, $this->stage),
                 'clear_waves' => $this->clear_waves,
@@ -340,9 +344,9 @@ class PostForm extends Model
                 'note' => $this->note,
                 'private_note' => $this->private_note,
                 'link_url' => $this->link_url,
-                'is_automated' => ($this->is_automated == '')
+                'is_automated' => ($this->automated == '')
                     ? ($agent ? $agent->getIsAutomatedByDefault() : null)
-                    : ($this->is_automated === 'yes'),
+                    : ($this->automated === 'yes'),
                 'agent_id' => $agent->id ?? null,
                 'remote_addr' => $_SERVER['REMOTE_ADDR'] ?? '127.0.0.2',
                 'remote_port' => (int)($_SERVER['REMOTE_PORT'] ?? 0),
@@ -443,20 +447,20 @@ class PostForm extends Model
         });
     }
 
-    public function getUuid(): string
+    public function getUuidFormatted(): string
     {
-        if (!is_string($this->uuid)) {
-            $this->uuid = $this->getUuidImpl()->formatAsString();
+        if (!is_string($this->uuid_formatted)) {
+            $this->uuid_formatted = $this->getUuidImpl()->formatAsString();
         }
 
-        return $this->uuid;
+        return $this->uuid_formatted;
     }
 
     private function getUuidImpl(): Uuid
     {
-        if ($this->client_uuid != '') {
+        if ($this->uuid != '') {
             try {
-                $uuid = Uuid::fromString($this->client_uuid);
+                $uuid = Uuid::fromString($this->uuid);
                 switch ($uuid->getVersion()) {
                     case 1:
                     case 3:
@@ -470,7 +474,7 @@ class PostForm extends Model
             } catch (\Exception $e) {
             }
 
-            return Uuid::v5(static::UUID_NAMESPACE_BY_FREETEXT, $this->client_uuid);
+            return Uuid::v5(static::UUID_NAMESPACE_BY_FREETEXT, $this->uuid);
         }
 
         if ($this->splatnet_number != '') {
