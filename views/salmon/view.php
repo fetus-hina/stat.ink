@@ -9,7 +9,7 @@ use yii\helpers\Url;
 
 $user = $model->user;
 
-$title = Yii::t('app-salmon2', 'Results of {userName}\'s Work', [
+$title = Yii::t('app-salmon2', 'Results of {userName}\'s job', [
     'userName' => $user->name,
 ]);
 $canonicalUrl = Url::to(
@@ -32,7 +32,7 @@ if ($user->twitter != '') {
 ?>
 <div class="container">
   <h1>
-    <?= Yii::t('app-salmon2', 'Results of {userName}\'s Work', [
+    <?= Yii::t('app-salmon2', 'Results of {userName}\'s job', [
       'userName' => Html::a(
         Html::encode($user->name),
         ['salmon/index', 'screen_name' => $user->screen_name]

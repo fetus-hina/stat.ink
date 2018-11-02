@@ -33,7 +33,7 @@ if ($next) {
   <div class="col-xs-6 text-left">
 <?php if ($prev) { ?>
     <?= Html::a(
-      '<span class="fas fa-fw fa-angle-double-left"></span>' . Yii::t('app-salmon2', 'Prev. Work'),
+      '<span class="fas fa-fw fa-angle-double-left"></span>' . Yii::t('app-salmon2', 'Prev. Job'),
       ['salmon/view', 'screen_name' => $user->screen_name, 'id' => $prev->id],
       ['class' => 'btn btn-default']
     ) . "\n" ?>
@@ -44,7 +44,7 @@ if ($next) {
   <div class="col-xs-6 text-right">
 <?php if ($next) { ?>
     <?= Html::a(
-      Yii::t('app-salmon2', 'Next Work') . '<span class="fas fa-fw fa-angle-double-right"></span>',
+      Yii::t('app-salmon2', 'Next Job') . '<span class="fas fa-fw fa-angle-double-right"></span>',
       ['salmon/view', 'screen_name' => $user->screen_name, 'id' => $next->id],
       ['class' => 'btn btn-default']
     ) . "\n" ?>

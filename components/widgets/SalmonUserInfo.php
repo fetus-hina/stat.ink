@@ -113,7 +113,7 @@ class SalmonUserInfo extends Widget
         };
         $data = [
             [
-                'label' => Yii::t('app-salmon2', 'Works'),
+                'label' => Yii::t('app-salmon2', 'Jobs'),
                 'value' => Html::a(
                     Html::encode($fmt->asInteger($stats->work_count)),
                     ['salmon/index', 'screen_name' => $this->user->screen_name]
