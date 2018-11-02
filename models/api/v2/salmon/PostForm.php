@@ -76,10 +76,7 @@ class PostForm extends Model
             [['clear_waves'], 'integer', 'min' => 0, 'max' => 3],
             [['title_exp', 'title_exp_after'], 'integer', 'min' => 0, 'max' => 999],
             [['danger_rate'], 'number', 'min' => 0, 'max' => 999.9],
-            [['shift_start_at', 'start_at', 'end_at'], 'integer',
-                'min' => strtotime('2018-10-03T11:00:00+09:00'), // Splatoon 2 v4.1 released
-                'max' => time() + 3600, // クライアント側時計の誤差の受け入れのため余裕を持たせる
-            ],
+            [['shift_start_at', 'start_at', 'end_at'], 'integer'],
             [['link_url'], 'url'],
             [['is_automated'], 'in', 'range' => ['yes', 'no']],
             [['agent'], 'string', 'max' => 64],
