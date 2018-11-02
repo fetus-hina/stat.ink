@@ -55,6 +55,7 @@ $this->registerCss('.fa-twitter{color:#1da1f2}');
         implode('', [
           Html::tag('span', '┃', ['class' => 'fa fa-fw']),
           Html::tag('span', '┗', ['class' => 'fa fa-fw']),
+          Html::tag('span', '', ['class' => 'fas fa-fw fa-fish']),
           Html::encode(Yii::t('app-salmon2', 'Salmon Run')),
         ]),
         ['salmon/index', 'screen_name' => $user->screen_name]
