@@ -48,6 +48,8 @@ return [
 
         '@<screen_name:\w+>/salmon' => 'salmon/index',
         '@<screen_name:\w+>/salmon/<id:\d+>' => 'salmon/view',
+        '@<screen_name:\w+>/salmon/<id:\d+>/edit' => 'salmon/edit',
+        '@<screen_name:\w+>/salmon/<id:\d+>/delete' => 'salmon/delete',
 
         'fest/<region:\w+>/<order:\d+>' => 'fest/view',
         'entire/weapons/<weapon:\w+>/<rule:\w+>' => 'entire/weapon',

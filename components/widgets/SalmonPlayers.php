@@ -55,7 +55,6 @@ class SalmonPlayers extends Widget
                     'width' => '15em',
                 ],
             ]),
-
             // min-display
             Html::renderCss([
                 "{$id}" => [

@@ -446,4 +446,45 @@ class Salmon2 extends ActiveRecord
             array_values($list)
         );
     }
+
+    public function getIsEditable(): bool
+    {
+        if (!$loggedIn = Yii::$app->user->identity) {
+            return false;
+        }
+
+        return (int)$loggedIn->id === (int)$this->user_id;
+    }
+
+    public function delete()
+    {
+        return Yii::$app->db->transactionEx(function (): bool {
+            $profile = "Delete salmon2 (id={$this->id})";
+            Yii::beginProfile($profile, __METHOD__);
+
+            // delete related tables
+            foreach ($this->bossAppearances as $_) {
+                if (!$_->delete()) {
+                    return false;
+                }
+            }
+
+            foreach ($this->players as $_) {
+                if (!$_->delete()) {
+                    return false;
+                }
+            }
+
+            foreach ($this->waves as $_) {
+                if (!$_->delete()) {
+                    return false;
+                }
+            }
+
+            // delete me
+            $result = !!parent::delete();
+            Yii::endProfile($profile, __METHOD__);
+            return $result;
+        });
+    }
 }

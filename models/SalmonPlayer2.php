@@ -277,4 +277,34 @@ class SalmonPlayer2 extends ActiveRecord
                 : null,
         ];
     }
+
+    public function delete()
+    {
+        return Yii::$app->db->transactionEx(function (): bool {
+            $profile = "Delete salmon_player2 (id={$this->id})";
+            Yii::beginProfile($profile, __METHOD__);
+
+            foreach ($this->bossKills as $_) {
+                if (!$_->delete()) {
+                    return false;
+                }
+            }
+
+            foreach ($this->specialUses as $_) {
+                if (!$_->delete()) {
+                    return false;
+                }
+            }
+
+            foreach ($this->weapons as $_) {
+                if (!$_->delete()) {
+                    return false;
+                }
+            }
+
+            $result = !!parent::delete();
+            Yii::endProfile($profile, __METHOD__);
+            return $result;
+        });
+    }
 }

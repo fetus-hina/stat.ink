@@ -48,6 +48,9 @@ if ($user->twitter != '') {
         'prev' => $model->getPrevious(),
         'next' => $model->getNext(),
       ]) . "\n" ?>
+      <?= $this->render('view/_edit', [
+        'model' => $model,
+      ]) . "\n" ?>
       <?= $this->render('view/_detail', [
         'model' => $model,
         'user' => $user,

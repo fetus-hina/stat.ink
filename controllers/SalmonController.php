@@ -10,6 +10,7 @@ namespace app\controllers;
 use Yii;
 use app\components\web\Controller;
 use app\models\Salmon2;
+use app\models\Salmon2DeleteForm;
 use app\models\User;
 use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
@@ -28,26 +29,41 @@ class SalmonController extends Controller
             [
                 'class' => VerbFilter::class,
                 'actions' => [
+                    'delete' => ['post'],
+                    'edit' => ['head', 'get', 'post'],
                     '*' => ['head', 'get'],
                 ],
             ],
-            // [
-            //     'class' => AccessControl::class,
-            //     'only' => [ 'edit-battle' ],
-            //     'rules' => [
-            //         [
-            //             'actions' => [ 'edit-battle' ],
-            //             'roles' => ['@'],
-            //             'allow' => true,
-            //         ],
-            //     ],
-            //     'ruleConfig' => [
-            //         'class' => AccessRule::class,
-            //         'matchCallback' => function ($rule, $action) {
-            //             return $action->isEditable;
-            //         },
-            //     ],
-            // ],
+            [
+                'class' => AccessControl::class,
+                'only' => [
+                    'delete',
+                    'edit',
+                ],
+                'rules' => [
+                    [
+                        'actions' => [
+                            'delete',
+                            'edit',
+                        ],
+                        'roles' => ['@'],
+                        'allow' => true,
+                    ],
+                ],
+                'ruleConfig' => [
+                    'class' => AccessRule::class,
+                    'matchCallback' => function ($rule, $action): bool {
+                        $model = Salmon2::findOne([
+                          'id' => Yii::$app->getRequest()->get('id'),
+                        ]);
+                        if (!$model) {
+                            static::error404();
+                            return false;
+                        }
+                        return $model->isEditable;
+                    },
+                ],
+            ],
         ];
     }
 
@@ -145,5 +161,76 @@ class SalmonController extends Controller
         }
 
         return 'standard';
+    }
+
+    public function actionEdit(string $screen_name, int $id)
+    {
+        $model = Salmon2::findOne([
+            'id' => $id,
+        ]);
+        if (!$model || !$model->user) {
+            static::error404();
+            return null;
+        }
+        if ($model->user->screen_name !== $screen_name) {
+            $this->redirect(
+                ['salmon/view',
+                    'id' => $model->id,
+                    'screen_name' => $model->user->screen_name,
+                ]
+            );
+            return null;
+        }
+        if (!$model->isEditable) {
+            static::error403();
+            return null;
+        }
+
+        return $this->render('edit', [
+            'model' => $model,
+            'deleteForm' => Yii::createObject(Salmon2DeleteForm::class),
+        ]);
+    }
+
+    public function actionDelete(string $screen_name, int $id)
+    {
+        $model = Salmon2::findOne([
+            'id' => $id,
+        ]);
+        if (!$model || !$model->user) {
+            static::error404();
+            return null;
+        }
+        if ($model->user->screen_name !== $screen_name) {
+            $this->redirect(
+                ['salmon/view',
+                  'id' => $model->id,
+                  'screen_name' => $model->user->screen_name,
+                ]
+            );
+            return null;
+        }
+        if (!$model->isEditable) {
+            static::error403();
+            return null;
+        }
+
+        $form = Yii::createObject(Salmon2DeleteForm::class);
+        $form->load(Yii::$app->getRequest()->post());
+        $form->model = $model;
+        if ($form->delete()) {
+            $this->redirect(
+                ['salmon/index',
+                    'screen_name' => $model->user->screen_name,
+                ]
+            );
+            return null;
+        }
+
+        return $this->render('edit', [
+            'model' => $model,
+            'deleteForm' => $form,
+            //TODO: editForm
+        ]);
     }
 }
