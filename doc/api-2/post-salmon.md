@@ -18,11 +18,11 @@ All parameters are optional.
 
 |パラメータ<br>Parameter|型<br>Type|値<br>Value| |
 |-----------------------|----------|-----------|-|
-|`client_uuid`|UUID or string|See below| |
+|`uuid`|UUID or string|See below|UUID is recommended|
 |`splatnet_number`|integer|1-|SplatNet `job_id`|
 |`stage`|key string|e.g. `dam`|[§Stage](#stage)|
 |`clear_waves`|integer|0-3|`3` if cleared. `0` if failed in wave 1|
-|`fail_reason`|key string|`null` if cleared<br>`annihilated`: Dead all players<br>`time_up`: Time was up|
+|`fail_reason`|key string| |`null` if cleared (or unknown reason)<br>`wipe_out`: Dead all players<br>`time_limit`: Time was up|
 |`title`|key string|e.g. `profreshional`|[§Title](#title), befor the work|
 |`title_exp`|integer|0-999|Profreshional "40"/999, before the work|
 |`title_after`|key string| |After the work|
@@ -38,7 +38,7 @@ All parameters are optional.
 |`note`|string| |Note (public)|
 |`private_note`|string| |Note (private)|
 |`link_url`|URL| | |
-|`is_automated`|boolean|`yes` or `no`|`yes` if by automated program.<br>`no` if manual input.|
+|`automated`|boolean|`yes` or `no`|`yes` if by automated program.<br>`no` if manual input.|
 |`agent`|string (≤64 chars)|e.g. `my awesome client`|User-agent name.|
 |`agent_version`|string (≤ 255 chars)|e.g. `1.0.0 (Windows 10)`|User-agent version, can include user environment such as OS|
 
@@ -47,7 +47,7 @@ Full example:
 
 ```js
 {
-  "client_uuid": "6ad938a0-64a0-5edb-a224-2a63f7237fef",
+  "uuid": "6ad938a0-64a0-5edb-a224-2a63f7237fef",
   "splatnet_number": 3550,
   "stage": "dam",
   "clear_waves": 3, // cleared
@@ -201,7 +201,7 @@ Full example:
   ],
   "shift_start_at": 1540339200,
   "start_at": 1540402219,
-  "is_automated": "no",
+  "automated": "no",
   "agent": "stat.ink development",
   "agent_version": "9a0560cf"
 }
@@ -241,6 +241,8 @@ When 2 Stingers and 4 Steelheads appearances, the key-value map should be:
   // ...
 }
 ```
+
+If not appearances the boss, you can send `0` or omit the boss.
 
 See also: [§Boss](#boss)
 
@@ -282,7 +284,7 @@ See also: [§Boss](#boss)
 |`golden_egg_delivered`|integer|0-|How many Golden Eggs delivered|
 |`power_egg_collected`|integer|0-|How many Power Eggs collected|
 |`species`|key string|`inkling` or `octoling`|`inkling`: Inklings<br>`octoling`: Octolings<br>Note: no "s" in key-strings|
-|`gender`|key string|`boy` or `girl`|`boy`: Boy, Male<br>`girl`: Girl, Female|
+|`gender`|key string|`boy` or `girl`|`boy`: Boy, Male<br>`girl`: Girl, Female<br>This value used for switching gender of title, like "Jefe/Jefa".|
 |`special_uses`|array of integer|0-3 each|How many used special weapon for each wave<br>Example: `"special_uses": [0, 1, 2]`|
 |`weapons`|array of key-string| |What weapon loaned for each wave<br>[§Main Weapon](#main-weapon)<br>Example: `"weapons": ["wakaba", "sshooter", "splatcharger"]`|
 |`boss_kills`|key-value| |Number of bosses killed<br>[§Boss](#boss)|
