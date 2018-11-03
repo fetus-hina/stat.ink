@@ -28,6 +28,7 @@ class MigrateController extends BaseController
         $files = [
             'gear2' => "{$prefix}/gear2_migration.php",
             'map2' => "{$prefix}/map2_migration.php",
+            'salmon-weapon2' => "{$prefix}/salmon_weapon2_migration.php",
             'stage2' => "{$prefix}/map2_migration.php",
             'version2' => "{$prefix}/version2_migration.php",
             'weapon2' => "{$prefix}/weapon2_migration.php",
@@ -50,22 +51,15 @@ class MigrateController extends BaseController
 
     protected function generateMigrationSourceCode($params)
     {
-        switch ($this->template) {
-            case 'gear2':
-            case 'map2':
-            case 'stage2':
-            case 'version2':
-            case 'weapon2':
-                $this->templateFile = $this->generatorTemplateFiles[$this->template];
-                break;
+        if ($this->template !== 'default') {
+            if (!isset($this->generatorTemplateFiles[$this->template])) {
+                throw new InvalidConfigException(sprintf(
+                    'You must specify --template={%s,default}',
+                    implode(',', array_keys($this->generatorTemplateFiles))
+                ));
+            }
 
-            case 'default':
-                break;
-
-            default:
-                throw new InvalidConfigException(
-                    'You must specify --template={gear2,map2,(stage2),version2,weapon2,default}'
-                );
+            $this->templateFile = $this->generatorTemplateFiles[$this->template];
         }
 
         return parent::generateMigrationSourceCode($params);

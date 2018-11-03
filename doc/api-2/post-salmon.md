@@ -408,8 +408,10 @@ Main Weapon
 |`bamboo14mk1`           |`2050`                |バイト専用 14式竹筒銃・甲<br>Bamboozler 14 Mk I          |               |
 |`squiclean_a`           |`2000`                |バイト専用 スクイックリンα<br>Classic Squiffer          |               |
 |`liter4k`               |`2030`                |バイト専用 リッター4K<br>E-liter 4K                      |               |
+|`liter4k_scope`         |`2040`                |バイト専用 4Kスコープ<br>E-liter 4K Scope                |               |
 |`soytuber`              |`2060`                |バイト専用 ソイチューバー<br>Goo Tuber                   |               |
 |`splatcharger`          |`2010`                |バイト専用 スプラチャージャー<br>Splat Charger           |               |
+|`splatscope`            |`2020`                |バイト専用 スプラスコープ<br>Splatterscope               |               |
 |`furo`                  |`3030`                |バイト専用 オーバーフロッシャー<br>Bloblobber            |               |
 |`explosher`             |`3040`                |バイト専用 エクスプロッシャー<br>Explosher               |               |
 |`bucketslosher`         |`3000`                |バイト専用 バケットスロッシャー<br>Slosher               |               |
