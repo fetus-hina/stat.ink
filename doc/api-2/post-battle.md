@@ -333,6 +333,7 @@ You can also send "`#` + SplatNet-Number" like `#50` as a secondary option (not 
 |`momiji`                |`11`                  |もみじシューター<br>Custom Splattershot Jr.               |                                                                                                     |
 |`nzap85`                |`60`                  |N-ZAP85<br>N-ZAP '85                                      |                                                                                                     |
 |`nzap89`                |`61`                  |N-ZAP89<br>N-ZAP '89                                      |                                                                                                     |
+|`ochiba`                |`12`                  |おちばシューター<br>Kensa Splattershot Jr.                |                                                                                                     |
 |`octoshooter_replica`   |`46`                  |オクタシューター レプリカ<br>Octo Shot Replica            |                                                                                                     |
 |`prime`                 |`70`                  |プライムシューター<br>Splattershot Pro                    |                                                                                                     |
 |`prime_becchu`          |`72`                  |プライムシューターベッチュー<br>Kensa Splattershot Pro    |                                                                                                     |
@@ -362,6 +363,7 @@ You can also send "`#` + SplatNet-Number" like `#50` as a secondary option (not 
 |`h3reelgun`             |`310`                 |H3リールガン<br>H-3 Nozzlenose                            |                                                                                                     |
 |`h3reelgun_d`           |`311`                 |H3リールガンD<br>H-3 Nozzlenose D                         |                                                                                                     |
 |`l3reelgun`             |`300`                 |L3リールガン<br>L-3 Nozzlenose                            |                                                                                                     |
+|`l3reelgun_becchu`      |`302`                 |L3リールガンベッチュー<br>Kensa L-3 Nozzlenose            |                                                                                                     |
 |`l3reelgun_d`           |`301`                 |L3リールガンD<br>L-3 Nozzlenose D                         |                                                                                                     |
 |`dualsweeper`           |`5030`                |デュアルスイーパー<br>Dualie Squelchers                   |                                                                                                     |
 |`dualsweeper_custom`    |`5031`                |デュアルスイーパーカスタム<br>Custom Dualie Squelchers    |                                                                                                     |
@@ -388,6 +390,7 @@ You can also send "`#` + SplatNet-Number" like `#50` as a secondary option (not 
 |`variableroller_foil`   |`1031`                |ヴァリアブルローラーフォイル<br>Foil Flingza Roller       |                                                                                                     |
 |`herobrush_replica`     |`1115`                |ヒーローブラシ レプリカ<br>Herobrush Replica              |                                                                                                     |
 |`hokusai`               |`1110`                |ホクサイ<br>Octobrush                                     |                                                                                                     |
+|`hokusai_becchu`        |`1112`                |ホクサイベッチュー<br>Kensa Octobrush                     |                                                                                                     |
 |`hokusai_hue`           |`1111`                |ホクサイ・ヒュー<br>Octobrush Nouveau                     |                                                                                                     |
 |`pablo`                 |`1100`                |パブロ<br>Inkbrush                                        |                                                                                                     |
 |`pablo_hue`             |`1101`                |パブロ・ヒュー<br>Inkbrush Nouveau                        |互換性のため `publo_hue` も受け付けます<br>Also accepts `publo_hue` for compatibility                |
@@ -433,6 +436,7 @@ You can also send "`#` + SplatNet-Number" like `#50` as a secondary option (not 
 |`parashelter`           |`6000`                |パラシェルター<br>Splat Brella                            |                                                                                                     |
 |`parashelter_sorella`   |`6001`                |パラシェルターソレーラ<br>Sorella Brella                  |                                                                                                     |
 |`spygadget`             |`6020`                |スパイガジェット<br>Undercover Brella                     |                                                                                                     |
+|`spygadget_becchu`      |`6022`                |スパイガジェットベッチュー<br>Kensa Undercover Brella     |                                                                                                     |
 |`spygadget_sorella`     |`6021`                |スパイガジェットソレーラ<br>Undercover Sorella Brella     |                                                                                                     |
 <!--endreplace-->
 
