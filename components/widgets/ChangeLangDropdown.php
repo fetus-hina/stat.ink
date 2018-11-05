@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2015-2017 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2018 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  */
@@ -8,150 +8,34 @@
 namespace app\components\widgets;
 
 use Yii;
-use app\models\Language;
-use app\models\SupportLevel;
-use hiqdev\assets\flagiconcss\FlagIconCssAsset;
 use yii\base\Widget;
-use yii\bootstrap\BootstrapPluginAsset;
-use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 
 class ChangeLangDropdown extends Widget
 {
-    public $current = null;
-    public $buttonOptions = [
-        'class' => 'btn btn-default',
-    ];
-    public $dropdownOptions = [];
-
-    public function init()
-    {
-        parent::init();
-        BootstrapPluginAsset::register($this->view);
-        FlagIconCssAsset::register($this->view);
-        if ($this->current === null) {
-            $this->current = Yii::$app->language;
-        }
-    }
+    public $dialog = '#language-dialog';
 
     public function run()
     {
-        $id = $this->id;
+        $this->view->registerJs(sprintf(
+            'jQuery("#%s").click(function(){$("%s").modal()});',
+            $this->id,
+            $this->dialog
+        ));
         return Html::tag(
-            'div',
+            'button',
             implode('', [
-                Html::tag(
-                    'button',
-                    implode('', [
-                        Html::tag('span', '', ['class' => 'fa fa-fw fa-language']),
-                        implode(' / ', [
-                            'Switch Language',
-                            '言語切替',
-                        ]),
-                        ' ',
-                        Html::tag('span', '', ['class' => 'caret']),
-                    ]),
-                    ArrayHelper::merge(
-                        [
-                            'id' => $id . '-dropdown',
-                            'type' => 'button',
-                            'data' => [
-                                'toggle' => 'dropdown',
-                            ],
-                            'aria-haspopup' => 'true',
-                            'aria-expanded' => 'false',
-                        ],
-                        $this->buttonOptions
-                    )
-                ),
-                Html::tag(
-                    'ul',
-                    implode('', array_map(
-                        function (Language $lang) : string {
-                            // {{{
-                            return Html::tag(
-                                'li',
-                                Html::a(
-                                    implode(' ', [
-                                        Html::tag('span', '', [
-                                            'class' => [
-                                                'fa',
-                                                'fa-fw',
-                                                $lang->lang === $this->current
-                                                    ? 'fa-check'
-                                                    : '',
-                                            ],
-                                        ]),
-                                        Html::tag('span', '', [
-                                            'class' => [
-                                                'flag-icon',
-                                                'flag-icon-' . $lang->countryCode,
-                                            ],
-                                        ]),
-                                        Html::encode(
-                                            $lang->name .
-                                            ' / ' .
-                                            $lang->name_en
-                                        ),
-                                        (function (SupportLevel $level) : string {
-                                            switch ($level->id) {
-                                                case SupportLevel::FULL:
-                                                case SupportLevel::ALMOST:
-                                                    return '';
-
-                                                case SupportLevel::PARTIAL:
-                                                    return Html::tag(
-                                                        'span',
-                                                        Html::tag('span', '', [
-                                                            'class' => 'fas fa-fw fa-exclamation-circle',
-                                                        ]),
-                                                        [
-                                                            'class' => 'auto-tooltip',
-                                                            'title' => 'Partially supported',
-                                                        ]
-                                                    );
-
-                                                case SupportLevel::FEW:
-                                                    return Html::tag(
-                                                        'span',
-                                                        Html::tag('span', '', [
-                                                            'class' => 'fas fa-fw fa-exclamation-triangle',
-                                                        ]),
-                                                        [
-                                                            'class' => 'auto-tooltip',
-                                                            'title' => 'Proper-noun only',
-                                                        ]
-                                                    );
-                                            }
-                                        })($lang->supportLevel),
-                                    ]),
-                                    'javascript:;',
-                                    [
-                                        'class' => [
-                                            'language-change',
-                                        ],
-                                        'data' => [
-                                            'lang' => $lang->lang,
-                                        ],
-                                    ]
-                                )
-                            );
-                        // }}}
-                        },
-                        Language::find()->with('supportLevel')->orderBy(['name' => SORT_ASC])->all()
-                    )),
-                    ArrayHelper::merge(
-                        [
-                            'class' => 'dropdown-menu',
-                            'aria-labelledby' => $id . '-dropdown',
-                        ],
-                        $this->dropdownOptions
-                    )
-                ),
+                FA::fas('language')->fw()->__toString(),
+                implode(' / ', [
+                    'Switch Language',
+                    '言語切替',
+                ]),
+                ' ',
+                Html::tag('span', '', ['class' => 'caret']),
             ]),
             [
-                'id' => $id,
-                'class' => 'dropdown',
+                'id' => $this->id,
+                'class' => 'btn btn-default',
             ]
         );
     }

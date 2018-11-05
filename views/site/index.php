@@ -16,14 +16,7 @@ PaintballAsset::register($this);
 ?>
 <div class="container">
   <div class="text-right" style="margin-bottom:10px">
-    <?= ChangeLangDropdown::widget([
-      'dropdownOptions' => [
-        'style' => [
-          'left' => 'auto',
-          'right' => '0',
-        ],
-      ],
-    ]) . "\n" ?>
+    <?= ChangeLangDropdown::widget() . "\n" ?>
   </div>
   <?= $this->render('_index_counters') . "\n" ?>
   <div class="row">

@@ -28,6 +28,7 @@ RESOURCE_TARGETS_MAIN := \
 	resources/.compiled/dseg/fonts/DSEG7Classic-Italic.ttf \
 	resources/.compiled/dseg/fonts/DSEG7Classic-Italic.woff \
 	resources/.compiled/dseg/fonts/DSEG7Classic-Italic.woff2 \
+	resources/.compiled/flexbox/flexbox.css \
 	resources/.compiled/flot-graph-icon/jquery.flot.icon.js \
 	resources/.compiled/gears/calc.js \
 	resources/.compiled/gh-fork-ribbon/gh-fork-ribbon.css \
@@ -354,6 +355,9 @@ resources/.compiled/gh-fork-ribbon/gh-fork-ribbon.css: resources/gh-fork-ribbon/
 
 resources/.compiled/flot-graph-icon/jquery.flot.icon.js: resources/flot-graph-icon/jquery.flot.icon.js $(GULP)
 	$(GULP) js --in $< --out $@
+
+resources/.compiled/flexbox/flexbox.css: resources/flexbox/flexbox.less $(GULP)
+	$(GULP) less --in $< --out $@
 
 resources/.compiled/activity/activity.js: resources/activity/activity.js $(GULP)
 	$(GULP) js --in $< --out $@
