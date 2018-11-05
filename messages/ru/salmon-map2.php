@@ -8,6 +8,7 @@
 return [
     'Lost Outpost' => 'Воблов Отшиб',
     'Marooner\'s Bay' => 'Корабль «Дон Брак»',
+    'Ruins of Ark Polaris' => '',
     'Salmonid Smokeyard' => 'Коптильня «Угаръ»',
     'Spawning Grounds' => 'Самонидская ГЭС',
 ];

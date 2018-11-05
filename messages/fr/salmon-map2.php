@@ -8,6 +8,7 @@
 return [
     'Lost Outpost' => 'Baraque barracuda',
     'Marooner\'s Bay' => 'Épave des braves',
+    'Ruins of Ark Polaris' => '',
     'Salmonid Smokeyard' => 'Fumoir Sans-Espoir',
     'Spawning Grounds' => 'Barrage salmonoïde',
 ];

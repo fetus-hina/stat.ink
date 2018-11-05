@@ -296,12 +296,13 @@ Stage
 -----
 
 <!--replace:stage-->
-|指定文字列<br>Key String|名前<br>Name                              |イカリングヒント<br>SplatNet Hint                                |
-|------------------------|------------------------------------------|-----------------------------------------------------------------|
-|`shaketoba`             |海上集落シャケト場<br>Lost Outpost        |`/images/coop_stage/6d68f5baa75f3a94e5e9bfb89b82e7377e3ecd2c.png`|
-|`donburako`             |難破船ドン・ブラコ<br>Marooner's Bay      |`/images/coop_stage/e07d73b7d9f0c64e552b34a2e6c29b8564c63388.png`|
-|`tokishirazu`           |トキシラズいぶし工房<br>Salmonid Smokeyard|`/images/coop_stage/e9f7c7b35e6d46778cd3cbc0d89bd7e1bc3be493.png`|
-|`dam`                   |シェケナダム<br>Spawning Grounds          |`/images/coop_stage/65c68c6f0641cc5654434b78a6f10b0ad32ccdee.png`|
+|指定文字列<br>Key String|名前<br>Name                               |イカリングヒント<br>SplatNet Hint                                |
+|------------------------|-------------------------------------------|-----------------------------------------------------------------|
+|`shaketoba`             |海上集落シャケト場<br>Lost Outpost         |`/images/coop_stage/6d68f5baa75f3a94e5e9bfb89b82e7377e3ecd2c.png`|
+|`donburako`             |難破船ドン・ブラコ<br>Marooner's Bay       |`/images/coop_stage/e07d73b7d9f0c64e552b34a2e6c29b8564c63388.png`|
+|`polaris`               |朽ちた箱舟 ポラリス<br>Ruins of Ark Polaris|                                                                 |
+|`tokishirazu`           |トキシラズいぶし工房<br>Salmonid Smokeyard |`/images/coop_stage/e9f7c7b35e6d46778cd3cbc0d89bd7e1bc3be493.png`|
+|`dam`                   |シェケナダム<br>Spawning Grounds           |`/images/coop_stage/65c68c6f0641cc5654434b78a6f10b0ad32ccdee.png`|
 <!--endreplace-->
 
 

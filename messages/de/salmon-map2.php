@@ -8,6 +8,7 @@
 return [
     'Lost Outpost' => 'Siedlungsruine',
     'Marooner\'s Bay' => 'Schiffswrack-Insel',
+    'Ruins of Ark Polaris' => '',
     'Salmonid Smokeyard' => 'Räucherwerk',
     'Spawning Grounds' => 'Salmoniden-Damm',
 ];

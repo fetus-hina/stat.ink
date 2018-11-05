@@ -67,6 +67,7 @@ class MapImage2Controller extends Controller
 
             'dam' => 'https://cdn.wikimg.net/splatoonwiki/images/2/29/S2_Stage_Spawning_Grounds.png',
             'donburako' => 'https://cdn.wikimg.net/splatoonwiki/images/6/6c/S2_Stage_Marooner%27s_Bay.png',
+            'polaris' => 'https://pbs.twimg.com/media/DrJtQ2EVYAA_6kK.jpg:orig',
             'shaketoba' => 'https://cdn.wikimg.net/splatoonwiki/images/6/68/S2_Stage_Lost_Outpost.png',
             'tokishirazu' => 'https://cdn.wikimg.net/splatoonwiki/images/c/c7/S2_Stage_Salmonid_Smokeyard.png',
         ];

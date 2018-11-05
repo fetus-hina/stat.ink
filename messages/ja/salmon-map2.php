@@ -8,6 +8,7 @@
 return [
     'Lost Outpost' => '海上集落シャケト場',
     'Marooner\'s Bay' => '難破船ドン・ブラコ',
+    'Ruins of Ark Polaris' => '朽ちた箱舟 ポラリス',
     'Salmonid Smokeyard' => 'トキシラズいぶし工房',
     'Spawning Grounds' => 'シェケナダム',
 ];

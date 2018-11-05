@@ -677,7 +677,7 @@ class Api2MarkdownController extends Controller
                     Yii::t('app-salmon-map2', $stage['name'], [], 'ja-JP'),
                     $stage['name'],
                 ]),
-                sprintf('`%s`', $stage['splatnet_hint']),
+                $stage['splatnet_hint'] ? sprintf('`%s`', $stage['splatnet_hint']) : ' ',
             ];
         }
         echo static::createTable($data);
