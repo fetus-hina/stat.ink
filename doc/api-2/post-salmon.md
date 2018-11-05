@@ -23,17 +23,17 @@ All parameters are optional.
 |`stage`|key string|e.g. `dam`|[§Stage](#stage)|
 |`clear_waves`|integer|0-3|`3` if cleared. `0` if failed in wave 1|
 |`fail_reason`|key string| |`null` if cleared (or unknown reason)<br>`wipe_out`: Dead all players<br>`time_limit`: Time was up|
-|`title`|key string|e.g. `profreshional`|[§Title](#title), befor the work|
-|`title_exp`|integer|0-999|Profreshional "40"/999, before the work|
-|`title_after`|key string| |After the work|
-|`title_exp_after`|integer|0-999|After the work|
+|`title`|key string|e.g. `profreshional`|[§Title](#title), befor the job|
+|`title_exp`|integer|0-999|Profreshional "40"/999, before the job|
+|`title_after`|key string| |After the job|
+|`title_exp_after`|integer|0-999|After the job|
 |`danger_rate`|number|0.0-200.0|Hazard level|
 |`boss_appearances`|key-value|See below|Number of bosses|
 |`waves`|array of `wave` structure|See below|Wave data, 1-3 elements|
 |`my_data`|`player` structure|See below|Player's data|
 |`teammates`|array of `player` structure|See below|Players (except "my_data") data, typically 3 elements|
-|`shift_start_at`|integer|UNIX time|Play window started at|
-|`start_at`|integer|UNIX time|This work started at|
+|`shift_start_at`|integer|UNIX time|Rotation (play window) started at|
+|`start_at`|integer|UNIX time|This job started at|
 |`end_at`|integer|UNIX time|(May not be presented in SplatNet JSON)|
 |`note`|string| |Note (public)|
 |`private_note`|string| |Note (private)|
@@ -210,7 +210,7 @@ Full example:
 `uuid`
 ------
 
-Client application should specify a UUID to detect duplicated "work".
+Client application should specify a UUID to detect duplicated "job".
 
 - SplatNet 2-based Application
 
@@ -263,10 +263,10 @@ See also: [§Boss](#boss)
 
 |パラメータ<br>Parameter|型<br>Type|値<br>Value| |
 |-|-|-|-|
-|`known_occurrence`|key string|e.g. `fog`|[§Known Occurrence](#known-occurrence). `null` or empty-string if "standard" work|
+|`known_occurrence`|key string|e.g. `fog`|[§Known Occurrence](#known-occurrence). `null` or empty-string if "standard" job|
 |`water_level`|key string|e.g. `high`|[§Water Level](#water-level)|
 |`golden_egg_quota`|integer|1-25|Players should deliver golden eggs|
-|`golden_egg_appearances`|integer|0-|Golden Egg appearances, "pops"|
+|`golden_egg_appearances`|integer|0-|Golden Egg appearances, "poped"|
 |`golden_egg_delivered`|integer|0-|Golden Egg delivered, "collected"|
 |`power_egg_collected`|integer|0-|Power Egg collected|
 

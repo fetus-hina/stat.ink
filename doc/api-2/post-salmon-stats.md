@@ -12,7 +12,7 @@ Post salmon run stats (card data) to stat.ink.
 
 |パラメータ<br>Parameter|必須<br>Required|型<br>Type|値<br>Value|内容<br>Content      |
 |-----------------------|----------------|----------|-----------|---------------------|
-|`work_count`           |Practically     |integer   |0-         |Shifts worked        |
+|`work_count`           |Practically     |integer   |0-         |Shifts(jobs) worked  |
 |`total_golden_eggs`    |Practically     |integer   |0-         |Golden Eggs collected|
 |`total_eggs`           |Practically     |integer   |0-         |Power Eggs collected |
 |`total_rescued`        |Practically     |integer   |0-         |Crew members rescued |
