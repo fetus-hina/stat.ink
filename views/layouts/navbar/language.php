@@ -11,9 +11,13 @@ use yii\helpers\Html;
     ' ',
     Html::tag('span', '', ['class' => 'caret']),
   ]),
-  'javascript:$("#language-dialog").modal()',
+  'javascript:;',
   [
     'role' => 'button',
+    'data' => [
+      'toggle' => 'modal',
+      'target' => '#language-dialog',
+    ],
     'aria-haspopup' => 'true',
     'aria-expanded' => 'false',
   ]

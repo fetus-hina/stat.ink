@@ -3,6 +3,7 @@ use app\assets\AppAsset;
 use app\assets\BootstrapNotifyAsset;
 use app\components\helpers\I18n;
 use app\components\widgets\LanguageDialog;
+use app\components\widgets\TimezoneDialog;
 use cybercog\yii\googleanalytics\widgets\GATracking;
 use yii\helpers\Html;
 use yii\helpers\Json;
@@ -81,6 +82,9 @@ if ($_flashes) {
 <?php } ?>
       <?= LanguageDialog::widget([
         'id' => 'language-dialog',
+      ]) . "\n" ?>
+      <?= TimezoneDialog::widget([
+        'id' => 'timezone-dialog',
       ]) . "\n" ?>
     <?php $this->endBody() ?><?= "\n" ?>
   </body>

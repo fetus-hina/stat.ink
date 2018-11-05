@@ -1,8 +1,8 @@
 <?php
 use app\assets\PaintballAsset;
 use app\components\helpers\CombinedBattles;
-use app\components\widgets\ChangeLangDropdown;
 use app\components\widgets\DigitalCounter;
+use app\components\widgets\FA;
 use app\components\widgets\SnsWidget;
 use app\components\widgets\battle\BattleListWidget;
 use app\models\BlogEntry;
@@ -16,7 +16,10 @@ PaintballAsset::register($this);
 ?>
 <div class="container">
   <div class="text-right" style="margin-bottom:10px">
-    <?= ChangeLangDropdown::widget() . "\n" ?>
+    <button class="btn btn-default" data-toggle="modal" data-target="#language-dialog" aria-hidden="true" aria-role="button">
+      <?= FA::fas('language')->fw()->__toString() . "\n" ?>
+      Switch Language / 言語切替 <span class="caret"></span>
+    </button>
   </div>
   <?= $this->render('_index_counters') . "\n" ?>
   <div class="row">
