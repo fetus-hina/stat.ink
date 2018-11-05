@@ -228,7 +228,7 @@ class TimezoneDialog extends Dialog
             $isEast ? '+' : '-',
             floor($offset / 3600),
             floor(($offset % 3600) / 60),
-            $textOffset,
+            $textOffset
         ));
     }
 }
