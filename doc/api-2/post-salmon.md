@@ -314,7 +314,7 @@ a.k.a "Rank" or "Grade"
 <!--replace:title-->
 |指定文字列<br>Key String|イカリング<br>SplatNet|名前<br>Name              |備考<br>Remarks|
 |------------------------|----------------------|--------------------------|---------------|
-|`intern`                |`0`                   |けんしゅう<br>Intern      |               |
+|`intern`                |                      |けんしゅう<br>Intern      |               |
 |`apprentice`            |`1`                   |かけだし<br>Apprentice    |               |
 |`part_timer`            |`2`                   |はんにんまえ<br>Part-Timer|               |
 |`go_getter`             |`3`                   |いちにんまえ<br>Go-Getter |               |
