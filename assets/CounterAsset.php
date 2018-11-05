@@ -15,11 +15,7 @@ class CounterAsset extends AssetBundle
     public $css = [
         'counter.css',
     ];
-    public $js = [
-        'counter.js',
-    ];
     public $depends = [
         DsegFontAsset::class,
-        'yii\web\JqueryAsset',
     ];
 }

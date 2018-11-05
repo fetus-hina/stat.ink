@@ -13,6 +13,7 @@ use app\components\helpers\Battle as BattleHelper;
 use app\components\helpers\DateTimeFormatter;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
+use yii\db\Query;
 use yii\helpers\Url;
 
 /**
@@ -56,6 +57,18 @@ use yii\helpers\Url;
  */
 class Salmon2 extends ActiveRecord
 {
+    public static function getRoughCount(): ?int
+    {
+        try {
+            return (new Query())
+                ->select('[[last_value]]')
+                ->from('{{salmon2_id_seq}}')
+                ->scalar();
+        } catch (Exception $e) {
+            return null;
+        }
+    }
+
     /**
      * @inheritdoc
      */

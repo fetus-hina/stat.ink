@@ -1,20 +1,17 @@
 <?php
-use app\assets\CounterAsset;
 use app\assets\PaintballAsset;
 use app\components\helpers\CombinedBattles;
 use app\components\widgets\ChangeLangDropdown;
+use app\components\widgets\DigitalCounter;
 use app\components\widgets\SnsWidget;
 use app\components\widgets\battle\BattleListWidget;
-use app\models\Battle;
 use app\models\BlogEntry;
 use app\models\Language;
 use app\models\SupportLevel;
-use app\models\User;
 use yii\helpers\Html;
 
 $this->context->layout = 'main';
 
-CounterAsset::register($this);
 PaintballAsset::register($this);
 ?>
 <div class="container">
@@ -28,32 +25,7 @@ PaintballAsset::register($this);
       ],
     ]) . "\n" ?>
   </div>
-  <p class="text-right" style="margin-bottom:0">
-    <?= Html::tag(
-      'span',
-      sprintf(
-        'Users: %s',
-        Html::tag(
-          'span',
-          Html::encode(User::getRoughCount() ?? '?'),
-          ['class' => 'dseg-counter', 'data' => ['type' => 'users']]
-        )
-      ),
-      ['class' => 'nobr']
-    ) . "\n" ?>
-    <?= Html::tag(
-      'span',
-      sprintf(
-        'Battles: %s',
-        Html::tag(
-          'span',
-          Html::encode(Battle::getTotalRoughCount() ?? '?'),
-          ['class' => 'dseg-counter', 'data' => ['type' => 'battles']]
-        )
-      ),
-      ['class' => 'nobr']
-    ) . "\n" ?>
-  </p>
+  <?= $this->render('_index_counters') . "\n" ?>
   <div class="row">
     <div class="col-xs-12 col-sm-6 col-md-8 col-lg-9">
       <h1 class="paintball" style="font-size:42px;margin-top:0">

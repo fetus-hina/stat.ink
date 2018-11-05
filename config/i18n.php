@@ -8,6 +8,7 @@ return [
                 'app-ability2'  => 'ability2.php',
                 'app-brand'     => 'brand.php',
                 'app-brand2'    => 'brand2.php',
+                'app-counter'   => 'counter.php',
                 'app-death'     => 'death.php',
                 'app-death2'    => 'death2.php',
                 'app-event'     => 'event.php',

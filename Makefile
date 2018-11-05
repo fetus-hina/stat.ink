@@ -20,7 +20,6 @@ RESOURCE_TARGETS_MAIN := \
 	resources/.compiled/app-link-logos/switch.min.svg.br \
 	resources/.compiled/app-link-logos/switch.min.svg.gz \
 	resources/.compiled/counter/counter.css \
-	resources/.compiled/counter/counter.js \
 	resources/.compiled/dseg/dseg14.css \
 	resources/.compiled/dseg/dseg7.css \
 	resources/.compiled/dseg/fonts/DSEG14Classic-Italic.ttf \
@@ -373,9 +372,6 @@ resources/.compiled/stat.ink/favicon.png: resources/stat.ink/favicon.png
 resources/.compiled/stat.ink/summary-legends.png: resources/stat.ink/summary-legends.png
 	mkdir -p resources/.compiled/stat.ink || /bin/true
 	pngcrush -rem allb -l 9 resources/stat.ink/summary-legends.png resources/.compiled/stat.ink/summary-legends.png
-
-resources/.compiled/counter/counter.js: resources/counter/counter.js $(GULP)
-	$(GULP) js --in $< --out $@
 
 resources/.compiled/counter/counter.css: resources/counter/counter.less $(GULP)
 	$(GULP) less --in $< --out $@
