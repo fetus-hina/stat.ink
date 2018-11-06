@@ -506,6 +506,21 @@ class PostForm extends Model
         }
 
         if ($this->splatnet_number != '') {
+            if ($this->my_data) {
+                if ($myData = $this->playerFormInstantiation($this->my_data, true)) {
+                    if ($myData->splatnet_id) {
+                        return Uuid::v5(
+                            static::UUID_NAMESPACE_BY_PRINCIPAL_ID,
+                            sprintf(
+                                '%d@%s',
+                                (int)$this->splatnet_number,
+                                $myData->splatnet_id
+                            )
+                        );
+                    }
+                }
+            }
+
             return Uuid::v5(
                 static::UUID_NAMESPACE_BY_SPLATNET_AND_USER_ID,
                 sprintf(
