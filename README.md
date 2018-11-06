@@ -109,6 +109,8 @@ assets の中身や compile の中身は消さなくても動くことがあり�
 
 ### DOCKER ###
 
+**DOCKER IMAGE IS ABANDONED AND NO LONGER MAINTAINED.**
+
 テスト環境構築用の `Dockerfile` が同梱されています。あるいは、Docker Hub の [`jp3cki/statink`](https://hub.docker.com/r/jp3cki/statink/) でビルド済みのイメージが取得できます。
 
 主要なソフトウェアのバージョンが合わせてあるため、本番環境とほぼ同じ環境ができあがるはずです。
