@@ -8,6 +8,10 @@ declare(strict_types=1);
 
 namespace app\models\api\v2\salmon;
 
+use DateInterval;
+use DateTime;
+use DateTimeImmutable;
+use DateTimeZone;
 use Yii;
 use app\components\behaviors\AutoTrimAttributesBehavior;
 use app\components\helpers\Battle as BattleHelper;
@@ -58,6 +62,7 @@ class PostForm extends Model
     public $agent;
     public $agent_version;
 
+    public $is_found = false;
     private $uuid_formatted;
 
     public function behaviors()
@@ -290,6 +295,12 @@ class PostForm extends Model
         }
 
         return Yii::$app->db->transactionEx(function (): ?Salmon2 {
+            $this->is_found = false;
+            if ($main = $this->findByUuid()) {
+                $this->is_found = true;
+                return $main;
+            }
+
             if (!$main = $this->saveMain()) {
                 return null;
             }
@@ -308,6 +319,23 @@ class PostForm extends Model
 
             return $main;
         });
+    }
+
+    private function findByUuid(): ?Salmon2
+    {
+        $findThreshold = (new DateTimeImmutable())
+            ->setTimestamp($_SERVER['REQUEST_TIME'] ?? time())
+            ->setTimezone(new DateTimeZone('Etc/UTC'))
+            ->sub(new DateInterval('P1D')); // 24 hours, No DST because timezone is now UTC.
+
+        return Salmon2::find()
+            ->andWhere(['and',
+                ['user_id' => Yii::$app->user->id],
+                ['uuid' => $this->getUuidFormatted()],
+                ['>=', 'created_at', $findThreshold->format(DateTime::ATOM)]
+            ])
+            ->limit(1)
+            ->one();
     }
 
     private function saveMain(): ?Salmon2

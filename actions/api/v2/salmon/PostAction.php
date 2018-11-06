@@ -34,8 +34,13 @@ class PostAction extends \yii\web\ViewAction
         }
 
         $resp = Yii::$app->response;
-        $resp->statusCode = 201;
-        $resp->statusText = 'Created';
+        if ($form->is_found) {
+            $resp->statusCode = 302;
+            $resp->statusText = 'Found';
+        } else {
+            $resp->statusCode = 201;
+            $resp->statusText = 'Created';
+        }
 
         $headers = $resp->headers;
         $headers->set(
