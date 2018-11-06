@@ -16,7 +16,7 @@ class m170720_202358_weapon2 extends Migration
         $this->update('subweapon2', ['key' => 'robotbomb'], ['key' => 'rocketbomb']);
         $this->update('death_reason2', ['key' => 'robotbomb'], ['key' => 'rocketbomb']);
 
-        $this->upWeapon('jetsweeper', 'Jet Squelcher', 'shooter', 'poisonmist', 'jetpack');
+        $this->upWeapon('jetsweeper', 'Jet Squelcher', 'shooter', 'poisonmist', 'missile');
         $this->upWeapon('nzap85', 'N-ZAP \'85', 'shooter', 'kyubanbomb', 'armor');
         $this->upWeapon('promodeler_rg', 'Aerospray RG', 'shooter', 'sprinkler', 'sphere');
         $this->upWeapon('promodeler_mg', 'Aerospray MG', 'shooter', 'kyubanbomb', 'pitcher', 'promodeler_rg');
