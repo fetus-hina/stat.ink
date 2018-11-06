@@ -15,6 +15,7 @@ return [
     'Delivers' => '納品数',
     'Edit job #{jobNumber}' => 'バイト (#{jobNumber}) を編集',
     'Failed in wave {waveNumber}' => '失敗 (Wave {waveNumber})',
+    'Failed' => '失敗',
     'From {shiftStart}' => '{shiftStart}～',
     'Golden Eggs' => '金イクラ',
     'Hazard Level' => 'キケン度',

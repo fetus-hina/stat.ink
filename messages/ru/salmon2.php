@@ -22,6 +22,7 @@ return [
     'Deaths' => '',
     'Delivers' => '',
     'Edit job #{jobNumber}' => '',
+    'Failed' => '',
     'Failed in wave {waveNumber}' => '',
     'From {shiftStart}' => '',
     'Golden' => '',

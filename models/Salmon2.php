@@ -7,6 +7,8 @@
 
 namespace app\models;
 
+use DateTimeImmutable;
+use DateTimeZone;
 use Yii;
 use app\components\behaviors\TimestampBehavior;
 use app\components\helpers\Battle as BattleHelper;
@@ -467,6 +469,11 @@ class Salmon2 extends ActiveRecord
         }
 
         return (int)$loggedIn->id === (int)$this->user_id;
+    }
+
+    public function getCreatedAt(): int
+    {
+        return (new DateTimeImmutable($this->created_at))->getTimestamp();
     }
 
     public function delete()
