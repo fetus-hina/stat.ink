@@ -7,8 +7,10 @@
 
 return [
     'Appearances' => '出現数',
+    'Avg. Waves' => '平均クリアWAVE',
     'Boss Salmonid' => 'オオモノシャケ',
     'Boss Salmonids' => 'オオモノシャケ',
+    'Clear %' => 'クリア率',
     'Cleared' => 'クリア',
     'Dead all players' => '全滅',
     'Deaths' => 'やられた数',

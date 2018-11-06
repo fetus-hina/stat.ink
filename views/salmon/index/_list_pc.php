@@ -15,6 +15,19 @@ RpgAwesomeAsset::register($this);
 AppOptAsset::register($this)->registerJsFile($this, 'salmon-work-list.js');
 $this->registerJs('window.workList();');
 ?>
+<div class="text-center">
+  <?= ListView::widget([
+    'dataProvider' => $dataProvider,
+    'itemOptions' => [ 'tag' => false ],
+    'layout' => '{pager}',
+    'pager' => [
+      'maxButtonCount' => 5
+    ],
+  ]) . "\n" ?>
+</div>
+<?= $this->render('_summary', [
+    'summary' => $dataProvider->query->summary(),
+]) . "\n" ?>
 <p>
   <a href="#table-config" class="btn btn-default">
     <span class="fa fa-cogs fa-fw"></span>
@@ -32,16 +45,6 @@ $this->registerJs('window.workList();');
     ['class' => 'btn btn-default', 'rel' => 'nofollow']
   ) . "\n" ?>
 </p>
-<div class="text-center">
-  <?= ListView::widget([
-    'dataProvider' => $dataProvider,
-    'itemOptions' => [ 'tag' => false ],
-    'layout' => '{pager}',
-    'pager' => [
-      'maxButtonCount' => 5
-    ],
-  ]) . "\n" ?>
-</div>
 <?= GridView::widget([
   'options' => [
     'id' => 'battles',

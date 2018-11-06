@@ -96,7 +96,9 @@ class SalmonController extends Controller
             return null;
         }
 
-        $query = $user->getSalmonResults()
+        $query = Salmon2::find()
+            ->orderBy(['id' => SORT_DESC])
+            ->andWhere(['user_id' => $user->id])
             ->with([
                 'stage',
                 'failReason',

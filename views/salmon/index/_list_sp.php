@@ -22,6 +22,9 @@ AppOptAsset::register($this)
     ],
   ]) . "\n" ?>
 </div>
+<?= $this->render('_summary', [
+    'summary' => $dataProvider->query->summary(),
+]) . "\n" ?>
 <p>
   <?= Html::a(
     '<span class="fa fa-list fa-fw"></span> ' . Html::encode(Yii::t('app', 'Detailed List')),

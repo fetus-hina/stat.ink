@@ -71,6 +71,11 @@ class Salmon2 extends ActiveRecord
         }
     }
 
+    public static function find(): ActiveQuery
+    {
+        return new Salmon2Query(static::class);
+    }
+
     /**
      * @inheritdoc
      */
