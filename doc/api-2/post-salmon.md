@@ -5,11 +5,10 @@
 |-|-|
 |Verb|`POST`|
 |URL|`https://stat.ink/api/v2/salmon`|
-|Return-Type|Succeed: `201 Created` (no body)<br>Failed: HTTP Error 4xx or 5xx with `application/json` or `text/html` data<br>Already exists: `302 Found` (no body)|
+|Return-Type|Succeed: `201 Created` (no body)<br>Failed: HTTP Error 4xx or 5xx with `application/json` or `text/html` data<br>Already exists: `302 Found` (no body), see §uuid|
 |Auth|[Needed](authorization.md)|
 
 Post a salmon run shift to stat.ink.
-
 
 Request Structure
 -----------------
@@ -224,6 +223,19 @@ Client application should specify a UUID to detect duplicated "job".
   - Nothing send
   - Generate a UUID version 4
   - Generate a UUID version 3 or 5 with your own namespace
+
+
+The API endpoint will return `302 Found` if job has same UUID posted in last 24 hours.  
+This is helpful for unintended duplication, but it is helpless for complate detect duplication.
+
+
+We recommend posting by the following procedure:
+
+1. Call `GET /api/v2/user-salmon?only=splatnet` and retrieve already posted job number.
+
+2. Fetch data from SplatNet 2.
+
+3. Filter unposted jobs and post to us.
 
 
 `boss_appearances`
