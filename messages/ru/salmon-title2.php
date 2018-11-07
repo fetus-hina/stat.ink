@@ -6,24 +6,25 @@
  */
 
 return [
-    'Intern' => 'Стажер',
+    'Any Title' => '',
     'Apprentice' => 'Сотрудник/Сотрудница',
-    'Part-Timer' => 'Бригадир',
-    'Go-Getter' => 'Старший бригадир',
-    'Overachiever' => 'Зам. Начальника',
-    'Profreshional' => 'Начальник',
-
-    '{boy}Intern' => 'Стажер',
     '{boy}Apprentice' => 'Сотрудник',
-    '{boy}Part-Timer' => 'Бригадир',
     '{boy}Go-Getter' => 'Старший бригадир',
+    '{boy}Intern' => 'Стажер',
     '{boy}Overachiever' => 'Зам. Начальника',
+    '{boy}Part-Timer' => 'Бригадир',
     '{boy}Profreshional' => 'Начальник',
-
-    '{girl}Intern' => 'Стажер',
     '{girl}Apprentice' => 'Сотрудница',
-    '{girl}Part-Timer' => 'Бригадир',
     '{girl}Go-Getter' => 'Старший бригадир',
+    '{girl}Intern' => 'Стажер',
     '{girl}Overachiever' => 'Зам. Начальника',
+    '{girl}Part-Timer' => 'Бригадир',
     '{girl}Profreshional' => 'Начальник',
+    'Go-Getter' => 'Старший бригадир',
+    'Hazard Level MAX!!' => '',
+    'Intern' => 'Стажер',
+    'Overachiever' => 'Зам. Начальника',
+    'Part-Timer' => 'Бригадир',
+    'Profreshional' => 'Начальник',
+    'Profreshional (Avg. {from}-{to})' => '',
 ];

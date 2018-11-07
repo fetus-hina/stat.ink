@@ -6,12 +6,16 @@
  */
 
 return [
+    'Any Title' => 'すべての称号',
+    'Hazard Level MAX!!' => 'キケン度MAX!!',
+
     'Intern' => 'けんしゅう',
     'Apprentice' => 'かけだし',
     'Part-Timer' => 'はんにんまえ',
     'Go-Getter' => 'いちにんまえ',
     'Overachiever' => 'じゅくれん',
     'Profreshional' => 'たつじん',
+    'Profreshional (Avg. {from}-{to})' => 'たつじん（平均{from}-{to}）',
 
     '{boy}Intern' => 'けんしゅう',
     '{boy}Apprentice' => 'かけだし',

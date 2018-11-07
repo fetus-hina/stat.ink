@@ -6,24 +6,25 @@
  */
 
 return [
-    'Intern' => 'Stagiaire',
+    'Any Title' => '',
     'Apprentice' => 'Uitzendkracht',
-    'Part-Timer' => 'Parttimer',
-    'Go-Getter' => 'Vaste kracht',
-    'Overachiever' => 'Leidinggevende',
-    'Profreshional' => 'Baas',
-
-    '{boy}Intern' => 'Stagiaire',
     '{boy}Apprentice' => 'Uitzendkracht',
-    '{boy}Part-Timer' => 'Parttimer',
     '{boy}Go-Getter' => 'Vaste kracht',
+    '{boy}Intern' => 'Stagiaire',
     '{boy}Overachiever' => 'Leidinggevende',
+    '{boy}Part-Timer' => 'Parttimer',
     '{boy}Profreshional' => 'Baas',
-
-    '{girl}Intern' => 'Stagiaire',
     '{girl}Apprentice' => 'Uitzendkracht',
-    '{girl}Part-Timer' => 'Parttimer',
     '{girl}Go-Getter' => 'Vaste kracht',
+    '{girl}Intern' => 'Stagiaire',
     '{girl}Overachiever' => 'Leidinggevende',
+    '{girl}Part-Timer' => 'Parttimer',
     '{girl}Profreshional' => 'Baas',
+    'Go-Getter' => 'Vaste kracht',
+    'Hazard Level MAX!!' => '',
+    'Intern' => 'Stagiaire',
+    'Overachiever' => 'Leidinggevende',
+    'Part-Timer' => 'Parttimer',
+    'Profreshional' => 'Baas',
+    'Profreshional (Avg. {from}-{to})' => '',
 ];

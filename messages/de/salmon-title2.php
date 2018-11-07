@@ -6,24 +6,25 @@
  */
 
 return [
-    'Intern' => 'Aushilfe',
+    'Any Title' => '',
     'Apprentice' => 'Praktikant/Praktikantin',
-    'Part-Timer' => 'Lehrling',
-    'Go-Getter' => 'Mitarbeiter/Mitarbeiterin des Monats',
-    'Overachiever' => 'Führungskraft',
-    'Profreshional' => 'Boss',
-
-    '{boy}Intern' => 'Aushilfe',
     '{boy}Apprentice' => 'Praktikant',
-    '{boy}Part-Timer' => 'Lehrling',
     '{boy}Go-Getter' => 'Mitarbeiter des Monats',
+    '{boy}Intern' => 'Aushilfe',
     '{boy}Overachiever' => 'Führungskraft',
+    '{boy}Part-Timer' => 'Lehrling',
     '{boy}Profreshional' => 'Boss',
-
-    '{girl}Intern' => 'Aushilfe',
     '{girl}Apprentice' => 'Praktikantin',
-    '{girl}Part-Timer' => 'Lehrling',
     '{girl}Go-Getter' => 'Mitarbeiterin des Monats',
+    '{girl}Intern' => 'Aushilfe',
     '{girl}Overachiever' => 'Führungskraft',
+    '{girl}Part-Timer' => 'Lehrling',
     '{girl}Profreshional' => 'Boss',
+    'Go-Getter' => 'Mitarbeiter/Mitarbeiterin des Monats',
+    'Hazard Level MAX!!' => 'Maximale Gefahr!',
+    'Intern' => 'Aushilfe',
+    'Overachiever' => 'Führungskraft',
+    'Part-Timer' => 'Lehrling',
+    'Profreshional' => 'Boss',
+    'Profreshional (Avg. {from}-{to})' => 'Boss (Durchschn. {from}-{to})',
 ];

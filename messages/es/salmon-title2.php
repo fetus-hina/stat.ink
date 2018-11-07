@@ -6,24 +6,25 @@
  */
 
 return [
-    'Intern' => 'Becario/Becaria',
+    'Any Title' => '',
     'Apprentice' => 'Aprendiz',
-    'Part-Timer' => 'Subordinado/Subordinada',
-    'Go-Getter' => 'Capataz',
-    'Overachiever' => 'Gerente',
-    'Profreshional' => 'Jefe/Jefa',
-
-    '{boy}Intern' => 'Becario',
     '{boy}Apprentice' => 'Aprendiz',
-    '{boy}Part-Timer' => 'Subordinado',
     '{boy}Go-Getter' => 'Capataz',
+    '{boy}Intern' => 'Becario',
     '{boy}Overachiever' => 'Gerente',
+    '{boy}Part-Timer' => 'Subordinado',
     '{boy}Profreshional' => 'Jefe',
-
-    '{girl}Intern' => 'Becaria',
     '{girl}Apprentice' => 'Aprendiz',
-    '{girl}Part-Timer' => 'Subordinada',
     '{girl}Go-Getter' => 'Capataz',
+    '{girl}Intern' => 'Becaria',
     '{girl}Overachiever' => 'Gerente',
+    '{girl}Part-Timer' => 'Subordinada',
     '{girl}Profreshional' => 'Jefa',
+    'Go-Getter' => 'Capataz',
+    'Hazard Level MAX!!' => '¡Riesgo máximo!',
+    'Intern' => 'Becario/Becaria',
+    'Overachiever' => 'Gerente',
+    'Part-Timer' => 'Subordinado/Subordinada',
+    'Profreshional' => 'Jefe/Jefa',
+    'Profreshional (Avg. {from}-{to})' => 'Jefe/Jefa (prom. {from}-{to})',
 ];

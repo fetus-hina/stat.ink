@@ -6,24 +6,25 @@
  */
 
 return [
-    'Intern' => 'Prinicipiante',
+    'Any Title' => '',
     'Apprentice' => 'Apprendista',
-    'Part-Timer' => 'Tirocinante',
-    'Go-Getter' => 'Carrierista',
-    'Overachiever' => 'Promessa',
-    'Profreshional' => 'Professionista',
-
-    '{boy}Intern' => 'Ragazzo principiante',
     '{boy}Apprentice' => 'Ragazzo apprendista',
-    '{boy}Part-Timer' => 'Ragazzo tirocinante',
     '{boy}Go-Getter' => 'Ragazzo carrierista',
+    '{boy}Intern' => 'Ragazzo principiante',
     '{boy}Overachiever' => 'Ragazzo promessa',
+    '{boy}Part-Timer' => 'Ragazzo tirocinante',
     '{boy}Profreshional' => 'Ragazzo professionista',
-
-    '{girl}Intern' => 'Ragazza principiante',
     '{girl}Apprentice' => 'Ragazza apprendista',
-    '{girl}Part-Timer' => 'Ragazza tirocinante',
     '{girl}Go-Getter' => 'Ragazza carrierista',
+    '{girl}Intern' => 'Ragazza principiante',
     '{girl}Overachiever' => 'Ragazza promessa',
+    '{girl}Part-Timer' => 'Ragazza tirocinante',
     '{girl}Profreshional' => 'Ragazza professionista',
+    'Go-Getter' => 'Carrierista',
+    'Hazard Level MAX!!' => 'Rischio Massimo!',
+    'Intern' => 'Prinicipiante',
+    'Overachiever' => 'Promessa',
+    'Part-Timer' => 'Tirocinante',
+    'Profreshional' => 'Professionista',
+    'Profreshional (Avg. {from}-{to})' => 'Professionista (media {from}-{to})',
 ];

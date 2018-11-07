@@ -62,6 +62,7 @@ class SalmonFilterWidget extends Widget
         return implode('', [
             $this->renderStageField($form),
             $this->renderSpecialField($form),
+            $this->renderTitleField($form),
         ]);
     }
 
@@ -83,15 +84,30 @@ class SalmonFilterWidget extends Widget
 
     protected function renderSpecialField(ActiveForm $form): string
     {
-        $stages = [];
+        $specials = [];
         foreach (SalmonSpecial2::find()->asArray()->all() as $row) {
-            $stages[$row['key']] = Yii::t('app-special2', $row['name']);
+            $specials[$row['key']] = Yii::t('app-special2', $row['name']);
         }
-        asort($stages, SORT_STRING);
+        asort($specials, SORT_STRING);
 
         return $form->field($this->filter, 'special')
-            ->dropDownList($stages, [
+            ->dropDownList($specials, [
                 'prompt' => Yii::t('app-special2', 'Any Special'),
+            ])
+            ->label(false)
+            ->render();
+    }
+
+    protected function renderTitleField(ActiveForm $form): string
+    {
+        $titles = [];
+        foreach ($this->filter->getTitleList() as $key => $info) {
+            $titles[$key] = $info['name'];
+        }
+
+        return $form->field($this->filter, 'title')
+            ->dropDownList($titles, [
+                'prompt' => Yii::t('app-salmon-title2', 'Any Title'),
             ])
             ->label(false)
             ->render();

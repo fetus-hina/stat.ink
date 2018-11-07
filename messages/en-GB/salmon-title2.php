@@ -6,6 +6,7 @@
  */
 
 return [
+    'Any Title' => '',
     'Apprentice' => '',
     '{boy}Apprentice' => '',
     '{boy}Go-Getter' => '',
@@ -20,8 +21,10 @@ return [
     '{girl}Part-Timer' => '',
     '{girl}Profreshional' => '',
     'Go-Getter' => '',
+    'Hazard Level MAX!!' => '',
     'Intern' => '',
     'Overachiever' => '',
     'Part-Timer' => '',
     'Profreshional' => '',
+    'Profreshional (Avg. {from}-{to})' => '',
 ];
