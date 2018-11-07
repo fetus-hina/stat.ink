@@ -8,7 +8,7 @@
 return [
     'Lost Outpost' => 'Barracudabarak',
     'Marooner\'s Bay' => 'Wrak van de ms Grondel',
-    'Ruins of Ark Polaris' => '',
+    'Ruins of Ark Polaris' => 'Raketrustplaats',
     'Salmonid Smokeyard' => 'Visrokerij',
     'Spawning Grounds' => 'Salmonietendam',
 ];

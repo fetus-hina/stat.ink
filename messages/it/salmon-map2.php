@@ -8,7 +8,7 @@
 return [
     'Lost Outpost' => 'Barricata Barracuda',
     'Marooner\'s Bay' => 'Isoletta del relitto',
-    'Ruins of Ark Polaris' => '',
+    'Ruins of Ark Polaris' => 'Arca Polaris',
     'Salmonid Smokeyard' => 'Fortino Fumino',
     'Spawning Grounds' => 'Diga salmonoide',
 ];

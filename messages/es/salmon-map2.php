@@ -8,7 +8,7 @@
 return [
     'Lost Outpost' => 'Caserón Salitre',
     'Marooner\'s Bay' => 'Bahía Deriva',
-    'Ruins of Ark Polaris' => '',
+    'Ruins of Ark Polaris' => 'Ruinas de Ark Polaris',
     'Salmonid Smokeyard' => 'Ensenada Ahumada',
     'Spawning Grounds' => 'Presa Salmónida',
 ];
