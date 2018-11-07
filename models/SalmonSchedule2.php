@@ -77,4 +77,16 @@ class SalmonSchedule2 extends ActiveRecord
         return $this->hasMany(SalmonWeapon2::class, ['schedule_id' => 'id'])
             ->orderBy(['id' => SORT_ASC]);
     }
+
+    public function delete()
+    {
+        return $this->db->transactionEx(function (): bool {
+            foreach ($this->weapons as $weapon) {
+                if (!$weapon->delete()) {
+                    return false;
+                }
+            }
+            return parent::delete();
+        });
+    }
 }
