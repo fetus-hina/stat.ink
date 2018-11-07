@@ -6,6 +6,8 @@
  */
 
 return [
+    'Any Special' => 'すべてのスペシャル',
+
     'Autobomb Launcher' => 'ロボボムピッチャー',
     'Baller' => 'イカスフィア',
     'Bomb Launcher' => 'ボムピッチャー',

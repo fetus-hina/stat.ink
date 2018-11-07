@@ -11,6 +11,7 @@ use Yii;
 use app\components\web\Controller;
 use app\models\Salmon2;
 use app\models\Salmon2DeleteForm;
+use app\models\Salmon2FilterForm;
 use app\models\User;
 use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
@@ -96,6 +97,9 @@ class SalmonController extends Controller
             return null;
         }
 
+        $filter = Yii::createObject(Salmon2FilterForm::class);
+        $filter->load($_GET);
+
         $query = Salmon2::find()
             ->orderBy(['id' => SORT_DESC])
             ->andWhere(['user_id' => $user->id])
@@ -105,6 +109,7 @@ class SalmonController extends Controller
                 'titleBefore',
                 'titleAfter',
             ]);
+        $filter->decorateQuery($query);
 
         return $this->render('index', [
             'user' => $user,
@@ -113,6 +118,7 @@ class SalmonController extends Controller
                 'sort' => false,
             ]),
             'spMode' => $this->getIndexViewMode() === 'simple',
+            'filter' => $filter,
         ]);
     }
 

@@ -2,6 +2,7 @@
 declare(strict_types=1);
 
 use app\components\widgets\AdWidget;
+use app\components\widgets\SalmonFilterWidget;
 use app\components\widgets\SalmonUserInfo;
 use app\components\widgets\SnsWidget;
 use yii\helpers\Html;
@@ -55,6 +56,10 @@ $this->title = sprintf('%s | %s', Yii::$app->name, $title);
 <?php } ?>
     </div>
     <div class="col-xs-12 col-sm-4 col-lg-3">
+      <?= SalmonFilterWidget::widget([
+        'user' => $user,
+        'filter' => $filter,
+      ]) . "\n" ?>
       <?= SalmonUserInfo::widget(['user' => $user]) . "\n" ?>
       <?= AdWidget::widget() . "\n" ?>
     </div>

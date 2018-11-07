@@ -6,6 +6,7 @@
  */
 
 return [
+    'Any Special' => '',
     'Autobomb Launcher' => 'Roborráfaga',
     'Baller' => 'Esfera tintera',
     'Bomb Launcher' => 'Ráfaga',

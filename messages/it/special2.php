@@ -6,6 +6,7 @@
  */
 
 return [
+    'Any Special' => '',
     'Autobomb Launcher' => 'Lanciarobo-bombe',
     'Baller' => 'Cromosfera',
     'Bomb Launcher' => 'Lanciabombe',

@@ -6,6 +6,7 @@
  */
 
 return [
+    'Any Special' => '',
     'Autobomb Launcher' => 'Бомбомет (робобомбы)',
     'Baller' => 'Шарокат',
     'Bomb Launcher' => 'Бомбомет',
