@@ -35,7 +35,13 @@ $this->title = sprintf('%s | %s', Yii::$app->name, $title);
   <h1>
     <?= Html::encode($title) . "\n" ?>
   </h1>
-  <?= SnsWidget::widget() . "\n" ?>
+  <?= SnsWidget::widget([
+    'feedUrl' => ['salmon/feed',
+      'screen_name' => $user->screen_name,
+      'lang' => Yii::$app->language,
+      'type' => 'rss',
+    ],
+  ]) . "\n" ?>
   <div class="row">
     <div class="col-xs-12 col-sm-8 col-lg-9">
       <p class="text-right">

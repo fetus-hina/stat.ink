@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "49cd4fcbe47470baeddf3e2e3dd6c5db",
+    "content-hash": "8ae52b802269dea86b648edcf8546002",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -1034,6 +1034,44 @@
             ],
             "description": "Eonasdan's Bootstrap-Datetimepicker Assets for Yii Framework 2.",
             "time": "2015-12-29T11:26:44+00:00"
+        },
+        {
+            "name": "jp3cki/yii2-feed",
+            "version": "v0.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/fetus-hina/yii2-feed.git",
+                "reference": "cd7c3f739d006f9ce27f1fa3799d99817ceb067a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/fetus-hina/yii2-feed/zipball/cd7c3f739d006f9ce27f1fa3799d99817ceb067a",
+                "reference": "cd7c3f739d006f9ce27f1fa3799d99817ceb067a",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">= 7.1",
+                "yiisoft/yii2": "2.0.*",
+                "zendframework/zend-feed": "^2.10"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "jp3cki\\yii2\\feed\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "AIZAWA Hina",
+                    "email": "hina@bouhime.com"
+                }
+            ],
+            "description": "Zend Feed Writer wrapper for Yii Framework 2",
+            "time": "2018-08-21T11:21:45+00:00"
         },
         {
             "name": "jp3cki/yii2-flot",

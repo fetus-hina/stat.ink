@@ -13,6 +13,7 @@ use app\assets\PermalinkDialogAsset;
 use jp3cki\yii2\twitter\widget\TweetButton;
 use yii\base\Widget;
 use yii\helpers\Html;
+use yii\helpers\Url;
 
 class SnsWidget extends Widget
 {
@@ -160,7 +161,7 @@ class SnsWidget extends Widget
                     'label-feed',
                     'auto-tooltip',
                 ],
-                'href' => $this->feedUrl,
+                'href' => Url::to($this->feedUrl),
             ]
         );
     }
