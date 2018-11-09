@@ -93,7 +93,7 @@ $this->registerJs('window.workList();');
     [
       'label' => Yii::t('app', 'Result'),
       'headerOptions' => ['class' => 'cell-result'],
-      'contentOptions' => ['class' => 'cell-result'],
+      'contentOptions' => ['class' => 'cell-result nobr'],
       'format' => 'raw',
       'value' => function (Salmon2 $model): ?string {
         $isCleared = $model->getIsCleared();
@@ -114,8 +114,12 @@ $this->registerJs('window.workList();');
             ]),
             $model->fail_reason_id
               ? Label::widget([
-                'color' => 'warning',
-                'content' => Yii::t('app-salmon2', $model->failReason->name),
+                'color' => $model->failReason->color,
+                'content' => Yii::t('app-salmon2', $model->failReason->short_name),
+                'options' => [
+                  'class' => ['auto-tooltip'],
+                  'title' => Yii::t('app-salmon2', $model->failReason->name),
+                ],
               ])
               : '',
           ]);

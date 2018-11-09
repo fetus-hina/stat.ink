@@ -1,6 +1,7 @@
 <?php
 declare(strict_types=1);
 
+use app\components\widgets\Label;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
@@ -16,14 +17,28 @@ $myData = $model->myData;
     <div class="simple-battle-row-impl-main">
       <?= Html::tag(
         'div',
-        Html::encode(
-          $model->clear_waves === null
-            ? '?'
-            : ($model->clear_waves >= 3
-              ? Yii::t('app-salmon2', '✓')
-              : Yii::t('app-salmon2', '✗')
-            )
-        ),
+        $model->clear_waves === null
+          ? '?'
+          : ($model->clear_waves >= 3
+            ? Html::encode(Yii::t('app-salmon2', 'Cleared'))
+            : implode('', [
+              Yii::t('app-salmon2', 'Failed<br><small>in wave {waveNumber}</small>', [
+                'waveNumber' => $model->clear_waves + 1,
+              ]),
+              $model->fail_reason_id
+                ? Html::tag('div', Label::widget([
+                  'content' => Yii::t('app-salmon2', $model->failReason->short_name),
+                  'color' => $model->failReason->color,
+                  'options' => [
+                    'style' => [
+                      'font-size' => '11px',
+                      'font-weight' => 'normal',
+                    ],
+                  ],
+                ]))
+                : '',
+            ])
+          ),
         ['class' => [
           'simple-battle-result',
           $model->clear_waves === null
