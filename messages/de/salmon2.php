@@ -26,6 +26,7 @@ return [
     'Failed' => '',
     'Failed<br><small>in wave {waveNumber}</small>' => '',
     'Failed in wave {waveNumber}' => '',
+    'Fail Reason' => '',
     'From {shiftStart}' => '',
     'Golden' => '',
     'Golden Eggs' => '',

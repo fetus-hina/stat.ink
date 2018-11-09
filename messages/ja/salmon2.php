@@ -15,6 +15,7 @@ return [
     'Deaths' => 'やられた数',
     'Delivers' => '納品数',
     'Edit job #{jobNumber}' => 'バイト (#{jobNumber}) を編集',
+    'Fail Reason' => '失敗理由',
     'Failed in wave {waveNumber}' => '失敗 (Wave {waveNumber})',
     'Failed' => '失敗',
     'Failed<br><small>in wave {waveNumber}</small>' => '失敗<br><small>(WAVE {waveNumber})</small>',

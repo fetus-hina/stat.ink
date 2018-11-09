@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace app\components\widgets;
 
 use Yii;
+use app\models\SalmonFailReason2;
 use app\models\SalmonMap2;
 use app\models\SalmonSpecial2;
 use yii\base\Widget;
@@ -63,6 +64,8 @@ class SalmonFilterWidget extends Widget
             $this->renderStageField($form),
             $this->renderSpecialField($form),
             // $this->renderTitleField($form),
+            $this->renderResultField($form),
+            $this->renderReasonField($form),
         ]);
     }
 
@@ -108,6 +111,48 @@ class SalmonFilterWidget extends Widget
         return $form->field($this->filter, 'title')
             ->dropDownList($titles, [
                 'prompt' => Yii::t('app-salmon-title2', 'Any Title'),
+            ])
+            ->label(false)
+            ->render();
+    }
+
+    protected function renderResultField(ActiveForm $form): string
+    {
+        $list = [
+            'cleared'   => Yii::t('app-salmon2', 'Cleared'),
+            'failed' => Yii::t('app-salmon2', 'Failed'),
+            'failed-wave3' => Yii::t('app-salmon2', 'Failed in wave {waveNumber}', [
+                'waveNumber' => 3,
+            ]),
+            'failed-wave2' => Yii::t('app-salmon2', 'Failed in wave {waveNumber}', [
+                'waveNumber' => 2,
+            ]),
+            'failed-wave1' => Yii::t('app-salmon2', 'Failed in wave {waveNumber}', [
+                'waveNumber' => 1,
+            ]),
+        ];
+
+        return $form->field($this->filter, 'result')
+            ->dropDownList($list, [
+                'prompt' => vsprintf('%s / %s', [
+                    Yii::t('app-salmon2', 'Cleared'),
+                    Yii::t('app-salmon2', 'Failed'),
+                ]),
+            ])
+            ->label(false)
+            ->render();
+    }
+
+    protected function renderReasonField(ActiveForm $form): string
+    {
+        $reasons = [];
+        foreach (SalmonFailReason2::find()->orderBy(['id' => SORT_ASC])->asArray()->all() as $row) {
+            $reasons[$row['key']] = Yii::t('app-salmon2', $row['name']);
+        }
+
+        return $form->field($this->filter, 'reason')
+            ->dropDownList($reasons, [
+                'prompt' => Yii::t('app-salmon2', 'Fail Reason'),
             ])
             ->label(false)
             ->render();

@@ -20,6 +20,8 @@ class Salmon2FilterForm extends Model
     public $stage;
     public $special;
     public $title;
+    public $result;
+    public $reason;
 
     public function formName()
     {
@@ -29,7 +31,7 @@ class Salmon2FilterForm extends Model
     public function rules()
     {
         return [
-            [['stage', 'special', 'title'], 'string'],
+            [['stage', 'special', 'title', 'result', 'reason'], 'string'],
             [['stage'], 'exist', 'skipOnError' => true,
                 'targetClass' => SalmonMap2::class,
                 'targetAttribute' => 'key',
@@ -41,6 +43,19 @@ class Salmon2FilterForm extends Model
             [['title'], 'in',
                 'range' => array_keys($this->getTitleList()),
             ],
+            [['result'], 'in',
+                'range' => [
+                    'cleared',
+                    'failed',
+                    'failed-wave3',
+                    'failed-wave2',
+                    'failed-wave1',
+                ]
+            ],
+            [['reason'], 'exist', 'skipOnError' => true,
+                'targetClass' => SalmonFailReason2::class,
+                'targetAttribute' => 'key',
+            ],
         ];
     }
 
@@ -50,6 +65,8 @@ class Salmon2FilterForm extends Model
             'stage' => Yii::t('app', 'Stage'),
             'special' => Yii::t('app', 'Special'),
             'title' => Yii::t('app', 'Title'),
+            'result' => Yii::t('app', 'Result'),
+            'reason' => Yii::t('app', 'Fail Reason'),
         ];
     }
 
@@ -169,6 +186,35 @@ class Salmon2FilterForm extends Model
         //         ]);
         //     }
         // }
+
+        if ($this->result) {
+            switch ($this->result) {
+                case 'cleared':
+                    $query->andWhere(['{{salmon2}}.[[clear_waves]]' => 3]);
+                    break;
+
+                case 'failed':
+                    $query->andWhere(['<', '{{salmon2}}.[[clear_waves]]', 3]);
+                    break;
+
+                case 'failed-wave3':
+                    $query->andWhere(['{{salmon2}}.[[clear_waves]]' => 2]);
+                    break;
+
+                case 'failed-wave2':
+                    $query->andWhere(['{{salmon2}}.[[clear_waves]]' => 1]);
+                    break;
+
+                case 'failed-wave1':
+                    $query->andWhere(['{{salmon2}}.[[clear_waves]]' => 0]);
+                    break;
+            }
+        }
+
+        if ($this->reason) {
+            $reason = SalmonFailReason2::findOne(['key' => $this->reason]);
+            $query->andWhere(['{{salmon2}}.[[fail_reason_id]]' => $reason->id]);
+        }
 
         return $query;
     }
