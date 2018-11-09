@@ -62,7 +62,7 @@ class SalmonFilterWidget extends Widget
         return implode('', [
             $this->renderStageField($form),
             $this->renderSpecialField($form),
-            $this->renderTitleField($form),
+            // $this->renderTitleField($form),
         ]);
     }
 

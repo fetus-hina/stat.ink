@@ -152,23 +152,23 @@ class Salmon2FilterForm extends Model
                 ]);
         }
 
-        if ($this->title) {
-            $titles = $this->getTitleList();
-            if ($info = $titles[$this->title] ?? null) {
-                $query->andWhere(['and',
-                    [
-                        '>=',
-                        '{{salmon2}}.[[danger_rate]]',
-                        sprintf('%.1f', $info['danger_rate'][0]),
-                    ],
-                    [
-                        '<',
-                        '{{salmon2}}.[[danger_rate]]',
-                        sprintf('%.1f', $info['danger_rate'][1]),
-                    ],
-                ]);
-            }
-        }
+        // if ($this->title) {
+        //     $titles = $this->getTitleList();
+        //     if ($info = $titles[$this->title] ?? null) {
+        //         $query->andWhere(['and',
+        //             [
+        //                 '>=',
+        //                 '{{salmon2}}.[[danger_rate]]',
+        //                 sprintf('%.1f', $info['danger_rate'][0]),
+        //             ],
+        //             [
+        //                 '<',
+        //                 '{{salmon2}}.[[danger_rate]]',
+        //                 sprintf('%.1f', $info['danger_rate'][1]),
+        //             ],
+        //         ]);
+        //     }
+        // }
 
         return $query;
     }
