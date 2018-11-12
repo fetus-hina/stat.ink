@@ -458,15 +458,15 @@ resources/.compiled/app-link-logos/ikarec-en.png: resources/app-link-logos/ikare
 	touch -r $< $@
 
 resources/app-link-logos/ikarec-en.png:
-	curl -o $@ $(shell php resources/app-link-logos/googleplay.php ink.pocketgopher.ikarec)
+	curl -o $@ 'https://lh3.googleusercontent.com/HUy__vFnwLi32AL-L3KeJACQRkXIcq59PASgIbTscr2Ic-kP3fp4GeIrClAgKBWAlQq2'
 
 resources/.compiled/app-link-logos/ikarec-ja.png: resources/app-link-logos/ikarec-ja.png
 	mkdir -p resources/.compiled/app-link-logos
 	convert $<[1] -trim +repage -unsharp 1.5x1+0.7+0.02 -scale x28 $@
 	touch -r $< $@
 
-resources/app-link-logos/ikarec-ja.png:
-	curl -o $@ $(shell php resources/app-link-logos/googleplay.php com.syanari.merluza.ikarec)
+resources/app-link-logos/ikarec-ja.png: resources/app-link-logos/ikarec-en.png
+	cp $< $@
 
 resources/.compiled/app-link-logos/festink.png: resources/app-link-logos/festink.ico
 	mkdir -p resources/.compiled/app-link-logos
