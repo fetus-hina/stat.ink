@@ -33,7 +33,7 @@ trait WeaponMigration
             $canonical,
             $splatnet
         ): void {
-            $this->insert('weapon2', [
+            $this->insert('weapon2', array_filter([
                 'key' => $key,
                 'name' => $name,
                 'type_id' => $this->findId('weapon_type2', $type),
@@ -46,7 +46,7 @@ trait WeaponMigration
                     ? $this->findId('weapon2', $canonical)
                     : new Expression("currval('weapon2_id_seq'::regclass)"),
                 'splatnet' => $splatnet,
-            ]);
+            ]));
 
             $this->insert('death_reason2', [
                 'key' => $key,
@@ -55,7 +55,7 @@ trait WeaponMigration
                 'weapon_id' => $this->findId('weapon2', $key),
             ]);
 
-            if ($main === null) {
+            if ($main === null && $this->isTableExists('salmon_main_weapon2')) {
                 $this->insert('salmon_main_weapon2', [
                     'key' => $key,
                     'name' => $name,
@@ -69,7 +69,9 @@ trait WeaponMigration
     protected function downWeapon(string $key): void
     {
         $this->db->transaction(function () use ($key): void {
-            $this->delete('salmon_main_weapon2', ['key' => $key]);
+            if ($this->isTableExists('salmon_main_weapon2')) {
+                $this->delete('salmon_main_weapon2', ['key' => $key]);
+            }
             $this->delete('death_reason2', ['key' => $key]);
             $this->delete('weapon2', ['key' => $key]);
         });

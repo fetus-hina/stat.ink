@@ -7,6 +7,7 @@
 
 namespace app\components\db;
 
+use Yii;
 use yii\db\ColumnSchemaBuilder;
 use yii\db\Schema;
 
@@ -43,7 +44,7 @@ class Migration extends \yii\db\Migration
         ));
     }
 
-    public function tablePrimaryKey($columns) : string
+    public function tablePrimaryKey($columns): string
     {
         if (is_string($columns)) {
             $columns = preg_split('/\s*,\s*/', $columns, -1, PREG_SPLIT_NO_EMPTY);
@@ -118,8 +119,23 @@ class Migration extends \yii\db\Migration
         $this->endCommand($time);
     }
 
-    public function analyze($table) : void
+    public function analyze($table): void
     {
         $this->execute("VACUUM ANALYZE {{{$table}}}");
+    }
+
+    public function isTableExists(string $table, string $schema = 'public'): bool
+    {
+        $db = Yii::$app->db;
+        $sql = sprintf(
+            'SELECT to_regclass(%s)',
+            $db->quoteValue(sprintf(
+                '%s.%s',
+                $db->quoteTableName($schema),
+                $db->quoteTableName($table)
+            ))
+        );
+        $result = $db->createCommand($sql)->queryScalar();
+        return $result != '';
     }
 }
