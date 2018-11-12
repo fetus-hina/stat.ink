@@ -22,7 +22,6 @@
     "gulp-rename": "^1.2",
     "gulp-uglify": "^3.0",
     "minimist": "^1.2",
-    "node-zopfli": "^2.0",
     "svgo": "^1.0",
     "ttf2woff2": "^2.0",
     "updates": "^4.1"

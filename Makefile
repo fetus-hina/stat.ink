@@ -218,7 +218,7 @@ composer.lock: composer.json composer.phar
 
 %.gz: %
 	rm -f $@
-	./node_modules/.bin/zopfli -i 15 $<
+	zopfli -i 15 $<
 	chmod 644 $@
 
 %.min.svg: %.svg node_modules
