@@ -299,6 +299,36 @@ class Salmon2 extends ActiveRecord
             ->one();
     }
 
+    public function getPreviousBySplatNetNumber(): ?self
+    {
+        $subQuery = (new Query())
+            ->select([
+                'id' => 'salmon_old.id',
+            ])
+            ->from('salmon2 salmon_old')
+            ->innerJoin('salmon_player2 player_old', implode(' AND ', [
+                'salmon_old.id = player_old.work_id',
+                'player_old.is_me = TRUE',
+            ]))
+            ->innerJoin('salmon2 salmon_new', implode(' AND ', [
+                'salmon_old.user_id = salmon_new.user_id',
+                'salmon_old.splatnet_number + 1 = salmon_new.splatnet_number',
+                'salmon_old.stage_id = salmon_new.stage_id',
+                'salmon_old.shift_period = salmon_new.shift_period',
+            ]))
+            ->innerJoin('salmon_player2 player_new', implode(' AND ', [
+                'salmon_new.id = player_new.work_id',
+                'player_new.is_me = TRUE',
+                'player_old.splatnet_id = player_new.splatnet_id',
+            ]))
+            ->where(['salmon_new.id' => $this->id]);
+
+        return static::find()
+            ->andWhere(['id' => $subQuery])
+            ->limit(1)
+            ->one();
+    }
+
     public function getIsCleared(): ?bool
     {
         if ($this->clear_waves === null) {
