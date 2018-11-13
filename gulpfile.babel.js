@@ -11,7 +11,7 @@ const $ = gulpLoadPlugins();
 const argv = minimist(process.argv.slice(2));
 
 gulp.task('css', () => {
-  gulp.src(argv.in)
+  return gulp.src(argv.in)
     .pipe($.postcss([
       autoprefixer({
         browers: [
@@ -29,7 +29,7 @@ gulp.task('css', () => {
 });
 
 gulp.task('less', () => {
-  gulp.src(argv.in)
+  return gulp.src(argv.in)
     .pipe($.less())
     .pipe($.postcss([
       autoprefixer({
@@ -48,7 +48,7 @@ gulp.task('less', () => {
 });
 
 gulp.task('js', () => {
-  gulp.src(argv.in)
+  return gulp.src(argv.in)
     .pipe($.concat('tmp.js', {newLine:';'}))
     .pipe($.babel({
       presets:[
