@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8ae52b802269dea86b648edcf8546002",
+    "content-hash": "acc6cbce03cd0df2fcf0f20f63cb6034",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -794,26 +794,30 @@
         },
         {
             "name": "himiklab/yii2-recaptcha-widget",
-            "version": "1.2.1",
+            "version": "1.2.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/himiklab/yii2-recaptcha-widget.git",
-                "reference": "cc8a023bf51db3b40f1b8532cd94fc00c532edf5"
+                "reference": "30045aa93e6dd398ff4d0b919c0796984569b54d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/himiklab/yii2-recaptcha-widget/zipball/cc8a023bf51db3b40f1b8532cd94fc00c532edf5",
-                "reference": "cc8a023bf51db3b40f1b8532cd94fc00c532edf5",
+                "url": "https://api.github.com/repos/himiklab/yii2-recaptcha-widget/zipball/30045aa93e6dd398ff4d0b919c0796984569b54d",
+                "reference": "30045aa93e6dd398ff4d0b919c0796984569b54d",
                 "shasum": ""
             },
             "require": {
                 "yiisoft/yii2": "~2.0.11",
                 "yiisoft/yii2-httpclient": "*"
             },
+            "require-dev": {
+                "phpunit/phpunit": "^4.8.34"
+            },
             "type": "yii2-extension",
             "autoload": {
                 "psr-4": {
-                    "himiklab\\yii2\\recaptcha\\": ""
+                    "himiklab\\yii2\\recaptcha\\": "src/",
+                    "himiklab\\yii2\\recaptcha\\tests\\": "tests/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -834,7 +838,7 @@
                 "widget",
                 "yii2"
             ],
-            "time": "2018-07-03T13:34:52+00:00"
+            "time": "2018-11-08T09:49:58+00:00"
         },
         {
             "name": "hiqdev/yii2-asset-flag-icon-css",
@@ -1419,16 +1423,16 @@
         },
         {
             "name": "php-curl-class/php-curl-class",
-            "version": "8.3.2",
+            "version": "8.3.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-curl-class/php-curl-class.git",
-                "reference": "3193b41dcd19025ad579ea26eb48774421d84708"
+                "reference": "8f0a52bb17b444bf41c8c7e6953e6077e9158494"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-curl-class/php-curl-class/zipball/3193b41dcd19025ad579ea26eb48774421d84708",
-                "reference": "3193b41dcd19025ad579ea26eb48774421d84708",
+                "url": "https://api.github.com/repos/php-curl-class/php-curl-class/zipball/8f0a52bb17b444bf41c8c7e6953e6077e9158494",
+                "reference": "8f0a52bb17b444bf41c8c7e6953e6077e9158494",
                 "shasum": ""
             },
             "require": {
@@ -1480,7 +1484,7 @@
                 "web-service",
                 "xml"
             ],
-            "time": "2018-09-09T07:05:39+00:00"
+            "time": "2018-11-14T07:02:19+00:00"
         },
         {
             "name": "phpseclib/phpseclib",
@@ -1817,6 +1821,46 @@
                 "templating"
             ],
             "time": "2018-09-12T20:54:16+00:00"
+        },
+        {
+            "name": "statink/yii2-ip-badge",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/statink/yii2-ip-badge.git",
+                "reference": "eea98e79bab7845d0c8b95d1b299186f2c335c48"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/statink/yii2-ip-badge/zipball/eea98e79bab7845d0c8b95d1b299186f2c335c48",
+                "reference": "eea98e79bab7845d0c8b95d1b299186f2c335c48",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">= 7.1.0",
+                "yiisoft/yii2": "~2.0.15"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "statink\\yii2\\ipBadge\\": "src"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "AIZAWA Hina",
+                    "email": "hina@bouhime.com"
+                }
+            ],
+            "description": "IP version badge for stat.ink header",
+            "support": {
+                "source": "https://github.com/statink/yii2-ip-badge/tree/v1.0.0",
+                "issues": "https://github.com/statink/yii2-ip-badge/issues"
+            },
+            "time": "2018-11-14T12:40:22+00:00"
         },
         {
             "name": "symfony/console",
@@ -5294,12 +5338,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-gii.git",
-                "reference": "6d30fa9571379ffff98a31597dc5bbf26bb83248"
+                "reference": "26faa5ce575ff1e9d4700d756038660a4e8567f6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-gii/zipball/6d30fa9571379ffff98a31597dc5bbf26bb83248",
-                "reference": "6d30fa9571379ffff98a31597dc5bbf26bb83248",
+                "url": "https://api.github.com/repos/yiisoft/yii2-gii/zipball/26faa5ce575ff1e9d4700d756038660a4e8567f6",
+                "reference": "26faa5ce575ff1e9d4700d756038660a4e8567f6",
                 "shasum": ""
             },
             "require": {
@@ -5335,7 +5379,7 @@
                 "gii",
                 "yii2"
             ],
-            "time": "2018-10-12T13:45:34+00:00"
+            "time": "2018-11-12T21:54:34+00:00"
         }
     ],
     "aliases": [],

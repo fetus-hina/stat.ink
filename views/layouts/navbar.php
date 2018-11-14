@@ -1,6 +1,6 @@
 <?php
 use app\assets\PaintballAsset;
-use app\components\widgets\IpVersionBadgeWidget;
+use statink\yii2\ipBadge\IpBadgeWidget;
 use yii\helpers\Html;
 
 PaintballAsset::register($this);
@@ -34,9 +34,8 @@ PaintballAsset::register($this);
           ],
           'itemprop' => 'name',
         ]) . "\n" ?>
-        <span class="navbar-brand ip-via-badge">
-<?php $this->registerCss('.ip-via-badge{position:relative;top:-3px}') ?>
-          <?= IpVersionBadgeWidget::widget() . "\n" ?>
+        <span class="navbar-brand">
+          <?= IpBadgeWidget::widget(). "\n" ?>
         </span>
       </div>
       <div itemscope itemtype="http://schema.org/SiteNavigationElement" class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
