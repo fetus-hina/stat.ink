@@ -1,6 +1,6 @@
 <?php
-use app\assets\PaintballAsset;
 use statink\yii2\ipBadge\IpBadgeWidget;
+use statink\yii2\paintball\PaintballAsset;
 use yii\helpers\Html;
 
 PaintballAsset::register($this);

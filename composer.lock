@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "acc6cbce03cd0df2fcf0f20f63cb6034",
+    "content-hash": "f821c7c9b03fe1f77ef685136f6fa9fc",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -1861,6 +1861,46 @@
                 "issues": "https://github.com/statink/yii2-ip-badge/issues"
             },
             "time": "2018-11-14T12:40:22+00:00"
+        },
+        {
+            "name": "statink/yii2-paintball",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/statink/yii2-paintball.git",
+                "reference": "fee635359b13583bae5455e9b729f765b5152994"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/statink/yii2-paintball/zipball/fee635359b13583bae5455e9b729f765b5152994",
+                "reference": "fee635359b13583bae5455e9b729f765b5152994",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">= 7.1.0",
+                "yiisoft/yii2": "~2.0.15"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "statink\\yii2\\paintball\\": "src"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "AIZAWA Hina",
+                    "email": "hina@bouhime.com"
+                }
+            ],
+            "description": "Paintball asset bundle for stat.ink",
+            "support": {
+                "source": "https://github.com/statink/yii2-paintball/tree/v1.0.0",
+                "issues": "https://github.com/statink/yii2-paintball/issues"
+            },
+            "time": "2018-11-14T20:13:03+00:00"
         },
         {
             "name": "symfony/console",

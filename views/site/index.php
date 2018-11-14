@@ -1,5 +1,4 @@
 <?php
-use app\assets\PaintballAsset;
 use app\components\helpers\CombinedBattles;
 use app\components\widgets\DigitalCounter;
 use app\components\widgets\FA;
@@ -8,6 +7,7 @@ use app\components\widgets\battle\BattleListWidget;
 use app\models\BlogEntry;
 use app\models\Language;
 use app\models\SupportLevel;
+use statink\yii2\paintball\PaintballAsset;
 use yii\helpers\Html;
 
 $this->context->layout = 'main';
