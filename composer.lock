@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f821c7c9b03fe1f77ef685136f6fa9fc",
+    "content-hash": "ea89fb0bc42e8ff23fb327b92b769a6c",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -258,59 +258,11 @@
             ]
         },
         {
-            "name": "bower-asset/jdenticon",
-            "version": "1.8.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/dmester/jdenticon.git",
-                "reference": "e3351f556ecacb1d97b1eca7eafd685337233b80"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/dmester/jdenticon/zipball/e3351f556ecacb1d97b1eca7eafd685337233b80",
-                "reference": "e3351f556ecacb1d97b1eca7eafd685337233b80",
-                "shasum": ""
-            },
-            "type": "bower-asset-library",
-            "extra": {
-                "bower-asset-main": "dist/jdenticon.js",
-                "bower-asset-ignore": [
-                    "/jdenticon.js",
-                    ".npmignore",
-                    ".gitignore",
-                    ".vs",
-                    "*.bat",
-                    "*.nuspec",
-                    "bin",
-                    "build",
-                    "gulpfile.js",
-                    "node_modules",
-                    "obj",
-                    "releases",
-                    "src",
-                    "template.*",
-                    "test",
-                    "utils"
-                ]
-            },
-            "license": [
-                "zlib"
-            ],
-            "description": "Javascript identicon generator",
-            "keywords": [
-                "avatar",
-                "identicon",
-                "javascript",
-                "library"
-            ],
-            "time": "2017-12-27T20:30:35+00:00"
-        },
-        {
             "name": "bower-asset/jquery",
             "version": "2.2.4",
             "source": {
                 "type": "git",
-                "url": "https://github.com/jquery/jquery-dist.git",
+                "url": "git@github.com:jquery/jquery-dist.git",
                 "reference": "c0185ab7c75aab88762c5aae780b9d83b80eda72"
             },
             "dist": {
@@ -1378,6 +1330,20 @@
             "time": "2018-02-14T22:37:14+00:00"
         },
         {
+            "name": "npm-asset/canvas-renderer",
+            "version": "2.0.1",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/canvas-renderer/-/canvas-renderer-2.0.1.tgz",
+                "reference": null,
+                "shasum": null
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
             "name": "npm-asset/fortawesome--fontawesome-free",
             "version": "5.5.0-patch2",
             "dist": {
@@ -1389,6 +1355,23 @@
             "type": "npm-asset",
             "license": [
                 "(CC-BY-4.0 AND OFL-1.1 AND MIT)"
+            ]
+        },
+        {
+            "name": "npm-asset/jdenticon",
+            "version": "2.1.0",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/jdenticon/-/jdenticon-2.1.0.tgz",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "npm-asset/canvas-renderer": "~2.0.1"
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
             ]
         },
         {
@@ -1861,6 +1844,47 @@
                 "issues": "https://github.com/statink/yii2-ip-badge/issues"
             },
             "time": "2018-11-14T12:40:22+00:00"
+        },
+        {
+            "name": "statink/yii2-jdenticon",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/statink/yii2-jdenticon.git",
+                "reference": "206a57fb6226a40049936a63b3557515d410b9dc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/statink/yii2-jdenticon/zipball/206a57fb6226a40049936a63b3557515d410b9dc",
+                "reference": "206a57fb6226a40049936a63b3557515d410b9dc",
+                "shasum": ""
+            },
+            "require": {
+                "npm-asset/jdenticon": "^2.1.0",
+                "php": ">= 7.1.0",
+                "yiisoft/yii2": "~2.0.15"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "statink\\yii2\\jdenticon\\": "src"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "AIZAWA Hina",
+                    "email": "hina@bouhime.com"
+                }
+            ],
+            "description": "Jdenticon asset bundle for stat.ink",
+            "support": {
+                "source": "https://github.com/statink/yii2-jdenticon/tree/v1.0.0",
+                "issues": "https://github.com/statink/yii2-jdenticon/issues"
+            },
+            "time": "2018-11-15T12:12:21+00:00"
         },
         {
             "name": "statink/yii2-paintball",
@@ -5426,6 +5450,7 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "shakura/yii2-gearman": 20,
+        "statink/yii2-jdenticon": 20,
         "yiisoft/yii2-bootstrap": 20,
         "yiisoft/yii2-debug": 20,
         "yiisoft/yii2-gii": 20

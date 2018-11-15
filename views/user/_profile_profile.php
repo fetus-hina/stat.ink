@@ -1,6 +1,6 @@
 <?php
 use app\assets\TwitterWebIntentsAsset;
-use app\components\widgets\JdenticonWidget;
+use statink\yii2\jdenticon\Jdenticon;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
@@ -31,7 +31,7 @@ $f = Yii::$app->formatter;
         if ($user->userIcon) {
           $icon = Html::img($user->userIcon->url, ['width' => 48, 'height' => 48]);
         } else {
-          $icon = JdenticonWidget::widget([
+          $icon = Jdenticon::widget([
             'hash' => $user->identiconHash,
             'class' => 'identicon',
             'size' => 48,

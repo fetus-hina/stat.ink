@@ -13,8 +13,8 @@ use Yii;
 use app\assets\AppOptAsset;
 use app\assets\BattleThumbListAsset;
 use app\components\widgets\ActiveRelativeTimeWidget;
-use app\components\widgets\JdenticonWidget;
 use app\models\User;
+use statink\yii2\jdenticon\Jdenticon;
 use yii\base\Widget;
 use yii\bootstrap\Html;
 
@@ -83,7 +83,7 @@ abstract class BaseWidget extends Widget
                 ]
             );
         } else {
-            return JdenticonWidget::widget([
+            return Jdenticon::widget([
                 'hash' => $user->identiconHash,
                 'class' => 'identicon',
                 'size' => 48,

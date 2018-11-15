@@ -1,10 +1,10 @@
 <?php
 use app\assets\AppLinkAsset;
 use app\assets\UserMiniinfoAsset;
-use app\components\widgets\JdenticonWidget;
 use app\components\widgets\MiniinfoUserLink;
 use app\models\Rank2;
 use app\models\Rule2;
+use statink\yii2\jdenticon\Jdenticon;
 use yii\bootstrap\Html;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
@@ -28,7 +28,7 @@ $fmt = Yii::$app->formatter;
                 $user->userIcon->url,
                 ['width' => '48', 'height' => '48']
               )
-              : JdenticonWidget::widget([
+              : Jdenticon::widget([
                 'hash' => $user->identiconHash,
                 'class' => 'identicon',
                 'size' => '48',

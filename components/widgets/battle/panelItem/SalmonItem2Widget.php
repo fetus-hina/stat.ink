@@ -17,7 +17,6 @@ use app\assets\AppAsset;
 use app\assets\AppOptAsset;
 use app\assets\JqueryLazyloadAsset;
 use app\components\widgets\ActiveRelativeTimeWidget;
-use app\components\widgets\JdenticonWidget;
 use app\models\User;
 use yii\base\Widget;
 use yii\bootstrap\Html;

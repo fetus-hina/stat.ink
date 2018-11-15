@@ -1,6 +1,6 @@
 <?php
 use app\components\widgets\AdWidget;
-use app\components\widgets\JdenticonWidget;
+use statink\yii2\jdenticon\Jdenticon;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 
@@ -22,7 +22,7 @@ $this->title = implode(' | ', [
         'height' => 48,
       ]) . "\n" ?>
 <?php } else { ?>
-      <?= JdenticonWidget::widget([
+      <?= Jdenticon::widget([
         'hash' => $user->identiconHash,
         'class' => 'identicon',
         'size' => 48,
@@ -108,7 +108,7 @@ $this->title = implode(' | ', [
             </p>
             <p>
               <?= Html::encode(Yii::t('app', 'The icon will be:')) . "\n" ?>
-              <?= JdenticonWidget::widget([
+              <?= Jdenticon::widget([
                 'hash' => $user->identiconHash,
                 'class' => 'identicon',
                 'size' => 48,

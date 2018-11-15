@@ -33,7 +33,6 @@ RESOURCE_TARGETS_MAIN := \
 	resources/.compiled/gears/calc.js \
 	resources/.compiled/gh-fork-ribbon/gh-fork-ribbon.css \
 	resources/.compiled/gh-fork-ribbon/gh-fork-ribbon.js \
-	resources/.compiled/ip-version/badge.css \
 	resources/.compiled/irasutoya/inkling.png \
 	resources/.compiled/irasutoya/octoling.png \
 	resources/.compiled/ostatus/ostatus.min.svg \
@@ -82,7 +81,6 @@ RESOURCE_TARGETS_MAIN := \
 	resources/.compiled/stat.ink/weapons-use.js \
 	resources/.compiled/stat.ink/weapons.js \
 	resources/.compiled/twitter/web-intents.js \
-	resources/paintball/paintball.css \
 	web/static-assets/cc/cc-by.svg \
 	web/static-assets/cc/cc-by.svg.br \
 	web/static-assets/cc/cc-by.svg.gz
@@ -421,12 +419,6 @@ resources/.compiled/sillyname/sillyname.js: resources/sillyname/index.js $(GULP)
 
 resources/.compiled/slack/slack.js: resources/slack/slack.js $(GULP)
 	$(GULP) js --in $< --out $@
-
-resources/.compiled/ip-version/badge.css: resources/ip-version/badge.less $(GULP)
-	$(GULP) less --in $< --out $@
-
-resources/paintball/paintball.css: resources/paintball/paintball.less $(GULP)
-	$(GULP) less --in $< --out $@
 
 resources/app-link-logos/ikalog.png:
 	curl -o $@ 'https://cloud.githubusercontent.com/assets/2528004/17077116/6d613dca-50ff-11e6-9357-9ba894459444.png'

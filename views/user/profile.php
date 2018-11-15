@@ -1,6 +1,5 @@
 <?php
 use app\assets\TwitterWebIntentsAsset;
-use app\components\widgets\JdenticonWidget;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 

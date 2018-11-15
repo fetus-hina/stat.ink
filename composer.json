@@ -26,7 +26,6 @@
         "bower-asset/cal-heatmap": "^3.3",
         "bower-asset/emojify.js": "^1.1",
         "bower-asset/github-fork-ribbon-css": "^0.1.1",
-        "bower-asset/jdenticon": "^1.3",
         "bower-asset/jquery": "^2.1",
         "bower-asset/jquery-smooth-scroll": "^1.5",
         "bower-asset/jquery.lazyload": "^1.9",
@@ -58,6 +57,7 @@
         "shakura/yii2-gearman": "dev-master",
         "smarty/smarty": "~3.1",
         "statink/yii2-ip-badge": "^1.0",
+        "statink/yii2-jdenticon": "dev-master",
         "statink/yii2-paintball": "^1.0",
         "tpyo/amazon-s3-php-class": "^0.5.1",
         "websightnl/gearman": "^1.0",
@@ -98,6 +98,10 @@
         {
             "type": "vcs",
             "url": "https://github.com/statink/yii2-paintball.git"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/statink/yii2-jdenticon.git"
         },
         {
             "type": "composer",
