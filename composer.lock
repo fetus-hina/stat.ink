@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ea89fb0bc42e8ff23fb327b92b769a6c",
+    "content-hash": "3fb65480742964fdd04fa82d7f85bbd2",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -1847,7 +1847,7 @@
         },
         {
             "name": "statink/yii2-jdenticon",
-            "version": "dev-master",
+            "version": "v1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/statink/yii2-jdenticon.git",
@@ -5450,7 +5450,6 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "shakura/yii2-gearman": 20,
-        "statink/yii2-jdenticon": 20,
         "yiisoft/yii2-bootstrap": 20,
         "yiisoft/yii2-debug": 20,
         "yiisoft/yii2-gii": 20
