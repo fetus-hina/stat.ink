@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3fb65480742964fdd04fa82d7f85bbd2",
+    "content-hash": "f3c7e2f80845a5565c9892e270b05965",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -1925,6 +1925,49 @@
                 "issues": "https://github.com/statink/yii2-paintball/issues"
             },
             "time": "2018-11-14T20:13:03+00:00"
+        },
+        {
+            "name": "statink/yii2-sillyname",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/statink/yii2-sillyname.git",
+                "reference": "f78256fefdca47b5ef2b3aac5b65d66f14820e8f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/statink/yii2-sillyname/zipball/f78256fefdca47b5ef2b3aac5b65d66f14820e8f",
+                "reference": "f78256fefdca47b5ef2b3aac5b65d66f14820e8f",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">= 7.1.0",
+                "yiisoft/yii2": "~2.0.15"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "statink\\yii2\\sillyname\\": "src"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Geoff Wagstaff"
+                },
+                {
+                    "name": "AIZAWA Hina",
+                    "email": "hina@bouhime.com"
+                }
+            ],
+            "description": "Sillyname asset bundle for stat.ink",
+            "support": {
+                "source": "https://github.com/statink/yii2-sillyname/tree/v1.0.0",
+                "issues": "https://github.com/statink/yii2-sillyname/issues"
+            },
+            "time": "2018-11-16T09:54:37+00:00"
         },
         {
             "name": "symfony/console",

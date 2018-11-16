@@ -59,6 +59,7 @@
         "statink/yii2-ip-badge": "^1.0",
         "statink/yii2-jdenticon": "^1.0",
         "statink/yii2-paintball": "^1.0",
+        "statink/yii2-sillyname": "^1.0",
         "tpyo/amazon-s3-php-class": "^0.5.1",
         "websightnl/gearman": "^1.0",
         "yiisoft/yii2": "~2.0.13",
@@ -102,6 +103,10 @@
         {
             "type": "vcs",
             "url": "https://github.com/statink/yii2-jdenticon.git"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/statink/yii2-sillyname.git"
         },
         {
             "type": "composer",

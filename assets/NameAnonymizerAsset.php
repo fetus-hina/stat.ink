@@ -7,7 +7,9 @@
 
 namespace app\assets;
 
+use statink\yii2\sillyname\SillynameAsset;
 use yii\web\AssetBundle;
+use yii\web\JqueryAsset;
 
 class NameAnonymizerAsset extends AssetBundle
 {
@@ -19,7 +21,7 @@ class NameAnonymizerAsset extends AssetBundle
         'name-anonymizer.css',
     ];
     public $depends = [
-        'yii\web\JqueryAsset',
-        NpmSillyNameAsset::class,
+        JqueryAsset::class,
+        SillyNameAsset::class,
     ];
 }

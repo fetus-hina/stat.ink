@@ -39,7 +39,6 @@ RESOURCE_TARGETS_MAIN := \
 	resources/.compiled/ostatus/ostatus.min.svg.br \
 	resources/.compiled/ostatus/ostatus.min.svg.gz \
 	resources/.compiled/ostatus/remote-follow.js \
-	resources/.compiled/sillyname/sillyname.js \
 	resources/.compiled/slack/slack.js \
 	resources/.compiled/stat.ink/active-reltime.js \
 	resources/.compiled/stat.ink/agent.js \
@@ -413,9 +412,6 @@ resources/dseg/dseg-%.tar.gz:
 
 %.woff2: %.ttf node_modules
 	node_modules/.bin/ttf2woff2 < $< > $@
-
-resources/.compiled/sillyname/sillyname.js: resources/sillyname/index.js $(GULP)
-	$(GULP) js --in $< --out $@
 
 resources/.compiled/slack/slack.js: resources/slack/slack.js $(GULP)
 	$(GULP) js --in $< --out $@
