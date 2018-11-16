@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f3c7e2f80845a5565c9892e270b05965",
+    "content-hash": "9cfd41c52d22999c9736555cd16d8ed1",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -1804,6 +1804,47 @@
                 "templating"
             ],
             "time": "2018-09-12T20:54:16+00:00"
+        },
+        {
+            "name": "statink/yii2-anonymizer",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/statink/yii2-anonymizer.git",
+                "reference": "d007d01758e7f0e746abf19f98e492e71f49ea8c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/statink/yii2-anonymizer/zipball/d007d01758e7f0e746abf19f98e492e71f49ea8c",
+                "reference": "d007d01758e7f0e746abf19f98e492e71f49ea8c",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">= 7.1.0",
+                "statink/yii2-sillyname": "^1.0",
+                "yiisoft/yii2": "~2.0.15"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "statink\\yii2\\anonymizer\\": "src"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "AIZAWA Hina",
+                    "email": "hina@bouhime.com"
+                }
+            ],
+            "description": "Player name anonymizer for stat.ink",
+            "support": {
+                "source": "https://github.com/statink/yii2-anonymizer/tree/v1.0.0",
+                "issues": "https://github.com/statink/yii2-anonymizer/issues"
+            },
+            "time": "2018-11-16T13:33:59+00:00"
         },
         {
             "name": "statink/yii2-ip-badge",

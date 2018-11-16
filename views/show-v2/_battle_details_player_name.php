@@ -1,7 +1,7 @@
 <?php
 use app\assets\IrasutoyaAsset;
-use app\assets\NameAnonymizerAsset;
 use app\models\User;
+use statink\yii2\anonymizer\AnonymizerAsset;
 use yii\bootstrap\Html;
 
 $namePartInner = trim(implode(' ', [
@@ -89,7 +89,7 @@ $namePartInner = trim(implode(' ', [
     if (!$anonymize && trim($player->name) !== '') {
       return Html::encode(trim($player->name));
     } else {
-      NameAnonymizerAsset::register($this);
+      AnonymizerAsset::register($this);
       return Html::tag(
         'span',
         Html::encode(str_repeat('*', 10)),

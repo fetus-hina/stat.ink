@@ -11,8 +11,8 @@ namespace app\components\widgets;
 
 use Yii;
 use app\assets\IrasutoyaAsset;
-use app\assets\NameAnonymizerAsset;
 use app\models\User;
+use statink\yii2\anonymizer\AnonymizerAsset;
 use yii\base\Widget;
 use yii\bootstrap\Html;
 
@@ -101,7 +101,7 @@ class PlayerName2Widget extends Widget
         // {{{
         $anonymize = $this->shouldAnonymize($playerUser);
         if ($anonymize) {
-            NameAnonymizerAsset::register($this->view);
+            AnonymizerAsset::register($this->view);
             $anonId = substr(
                 hash(
                     'sha256',

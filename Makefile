@@ -59,8 +59,6 @@ RESOURCE_TARGETS_MAIN := \
 	resources/.compiled/stat.ink/knockout.js \
 	resources/.compiled/stat.ink/main.css \
 	resources/.compiled/stat.ink/main.js \
-	resources/.compiled/stat.ink/name-anonymizer.css \
-	resources/.compiled/stat.ink/name-anonymizer.js \
 	resources/.compiled/stat.ink/no-image.png \
 	resources/.compiled/stat.ink/permalink-dialog.js \
 	resources/.compiled/stat.ink/private-note.js \
@@ -305,12 +303,6 @@ resources/.compiled/stat.ink/sortable-table.js: resources/stat.ink/sortable-tabl
 	$(GULP) js --in $< --out $@
 
 resources/.compiled/stat.ink/battle2-players-point-inked.js: resources/stat.ink/battle2-players-point-inked.es $(GULP)
-	$(GULP) js --in $< --out $@
-
-resources/.compiled/stat.ink/name-anonymizer.css: resources/stat.ink/name-anonymizer.less $(GULP)
-	$(GULP) less --in $< --out $@
-
-resources/.compiled/stat.ink/name-anonymizer.js: resources/stat.ink/name-anonymizer.es $(GULP)
 	$(GULP) js --in $< --out $@
 
 resources/.compiled/stat.ink/kd-win.js: resources/stat.ink/kd-win.js $(GULP)
