@@ -31,7 +31,7 @@ class CombinedBattles
                     ->limit($num)
                     ->orderBy(['battle2.id' => SORT_DESC]),
                 Salmon2::find()
-                    ->with(['user', 'user.userIcon'])
+                    ->with(['user', 'user.userIcon', 'stage'])
                     ->limit($num)
                     ->orderBy(['salmon2.id' => SORT_DESC]),
             ],
