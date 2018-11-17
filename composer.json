@@ -93,28 +93,16 @@
             "url": "https://github.com/fetus-hina/yii2-gearman.git"
         },
         {
-            "type": "vcs",
-            "url": "https://github.com/statink/yii2-ip-badge.git"
-        },
-        {
-            "type": "vcs",
-            "url": "https://github.com/statink/yii2-paintball.git"
-        },
-        {
-            "type": "vcs",
-            "url": "https://github.com/statink/yii2-jdenticon.git"
-        },
-        {
-            "type": "vcs",
-            "url": "https://github.com/statink/yii2-anonymizer.git"
-        },
-        {
             "type": "composer",
             "url": "https://packagist.jp"
         },
         {
             "type": "composer",
             "url": "https://asset-packagist.org"
+        },
+        {
+            "type": "composer",
+            "url": "https://satis.stat.ink/"
         }
     ]
 }
