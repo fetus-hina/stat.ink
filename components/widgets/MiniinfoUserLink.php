@@ -12,7 +12,7 @@ namespace app\components\widgets;
 use Yii;
 use app\assets\AppLinkAsset;
 use app\assets\FontAwesomeAsset;
-use app\assets\TwitterWebIntentsAsset;
+use statink\yii2\twitter\webintents\TwitterWebIntentsAsset;
 use yii\base\Widget;
 use yii\helpers\Html;
 

@@ -1,5 +1,4 @@
 <?php
-use app\assets\TwitterWebIntentsAsset;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 

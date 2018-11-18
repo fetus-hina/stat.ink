@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1d7931c37f7d3d23ffe314248f146eaa",
+    "content-hash": "822c0e80d02359dc63d68128f7cf5da3",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -2009,6 +2009,46 @@
                 "issues": "https://github.com/statink/yii2-sillyname/issues"
             },
             "time": "2018-11-16T09:54:37+00:00"
+        },
+        {
+            "name": "statink/yii2-twitter-webintents",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/statink/yii2-twitter-webintents.git",
+                "reference": "c96bc37f66f9a42adf5c622d735a0b255d6cfa22"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/statink/yii2-twitter-webintents/zipball/c96bc37f66f9a42adf5c622d735a0b255d6cfa22",
+                "reference": "c96bc37f66f9a42adf5c622d735a0b255d6cfa22",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">= 7.1.0",
+                "yiisoft/yii2": "~2.0.15"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "statink\\yii2\\twitter\\webintents\\": "src"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "AIZAWA Hina",
+                    "email": "hina@bouhime.com"
+                }
+            ],
+            "description": "Twitter WebIntents asset bundle for stat.ink",
+            "support": {
+                "source": "https://github.com/statink/yii2-twitter-webintents/tree/v1.0.0",
+                "issues": "https://github.com/statink/yii2-twitter-webintents/issues"
+            },
+            "time": "2018-11-18T12:04:16+00:00"
         },
         {
             "name": "symfony/console",

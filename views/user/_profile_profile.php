@@ -1,6 +1,6 @@
 <?php
-use app\assets\TwitterWebIntentsAsset;
 use statink\yii2\jdenticon\Jdenticon;
+use statink\yii2\twitter\webintents\TwitterWebIntentsAsset;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 

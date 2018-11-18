@@ -1,5 +1,5 @@
 <?php
-use app\assets\TwitterWebIntentsAsset;
+use statink\yii2\twitter\webintents\TwitterWebIntentsAsset;
 use yii\helpers\Html;
 ?>
 <h2><?= Html::encode(Yii::t('app', 'Log in with other services')) ?></h2>

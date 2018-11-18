@@ -2,9 +2,9 @@
 use app\assets\ActivityAsset;
 use app\assets\AppLinkAsset;
 use app\assets\RemoteFollowAsset;
-use app\assets\TwitterWebIntentsAsset;
 use app\assets\UserMiniinfoAsset;
 use app\models\Rank;
+use statink\yii2\twitter\webintents\TwitterWebIntentsAsset;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
