@@ -49,15 +49,16 @@ class UserAction extends BaseAction
 
         $battle = Battle::find()
             ->with([
+                'bonus',
                 'lobby',
-                'rule',
-                'rule.mode',
                 'map',
-                'weapon',
-                'weapon.subweapon',
-                'weapon.special',
                 'rank',
                 'rankAfter',
+                'rule',
+                'rule.mode',
+                'weapon',
+                'weapon.special',
+                'weapon.subweapon',
             ]);
 
         $filter = new BattleFilterForm();
