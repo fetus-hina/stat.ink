@@ -1345,10 +1345,10 @@
         },
         {
             "name": "npm-asset/dseg",
-            "version": "0.45.0",
+            "version": "0.45.1",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/dseg/-/dseg-0.45.0.tgz",
+                "url": "https://registry.npmjs.org/dseg/-/dseg-0.45.1.tgz",
                 "reference": null,
                 "shasum": null
             },
