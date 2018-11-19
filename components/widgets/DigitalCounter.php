@@ -11,7 +11,6 @@ namespace app\components\widgets;
 
 use Yii;
 use app\assets\CounterAsset;
-use app\assets\DsegFontAsset;
 use yii\base\Widget;
 use yii\helpers\Html;
 
@@ -32,16 +31,10 @@ class DigitalCounter extends Widget
         ],
     ];
 
-    public function init()
-    {
-        parent::init();
-
-        DsegFontAsset::register($this->view);
-        CounterAsset::register($this->view);
-    }
-
     public function run()
     {
+        CounterAsset::register($this->view);
+
         $value = preg_replace(
             '/[^0-9.:A-Za-z -]/',
             ' ',

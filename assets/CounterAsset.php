@@ -7,6 +7,7 @@
 
 namespace app\assets;
 
+use statink\yii2\dseg\DsegAsset;
 use yii\web\AssetBundle;
 
 class CounterAsset extends AssetBundle
@@ -16,6 +17,6 @@ class CounterAsset extends AssetBundle
         'counter.css',
     ];
     public $depends = [
-        DsegFontAsset::class,
+        DsegAsset::class,
     ];
 }

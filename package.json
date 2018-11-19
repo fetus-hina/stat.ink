@@ -23,7 +23,6 @@
     "gulp-uglify": "^3.0",
     "minimist": "^1.2",
     "svgo": "^1.0",
-    "ttf2woff2": "^2.0",
     "updates": "^4.1"
   }
 }

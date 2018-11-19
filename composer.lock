@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "822c0e80d02359dc63d68128f7cf5da3",
+    "content-hash": "1a65cd4efa38558b42a0d02085f140b9",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -1344,6 +1344,20 @@
             ]
         },
         {
+            "name": "npm-asset/dseg",
+            "version": "0.45.0",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/dseg/-/dseg-0.45.0.tgz",
+                "reference": null,
+                "shasum": null
+            },
+            "type": "npm-asset",
+            "license": [
+                "OFL-1.1"
+            ]
+        },
+        {
             "name": "npm-asset/fortawesome--fontawesome-free",
             "version": "5.5.0-patch2",
             "dist": {
@@ -1845,6 +1859,47 @@
                 "issues": "https://github.com/statink/yii2-anonymizer/issues"
             },
             "time": "2018-11-16T13:33:59+00:00"
+        },
+        {
+            "name": "statink/yii2-dseg",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/statink/yii2-dseg.git",
+                "reference": "c0381caf07abe3badc7b906075e554e81ce66132"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/statink/yii2-dseg/zipball/c0381caf07abe3badc7b906075e554e81ce66132",
+                "reference": "c0381caf07abe3badc7b906075e554e81ce66132",
+                "shasum": ""
+            },
+            "require": {
+                "npm-asset/dseg": "^0.45",
+                "php": ">= 7.1.0",
+                "yiisoft/yii2": "~2.0.15"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "statink\\yii2\\dseg\\": "src"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "AIZAWA Hina",
+                    "email": "hina@bouhime.com"
+                }
+            ],
+            "description": "DSEG asset bundle",
+            "support": {
+                "source": "https://github.com/statink/yii2-dseg/tree/v1.0.0",
+                "issues": "https://github.com/statink/yii2-dseg/issues"
+            },
+            "time": "2018-11-19T10:45:09+00:00"
         },
         {
             "name": "statink/yii2-ip-badge",

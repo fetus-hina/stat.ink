@@ -20,14 +20,6 @@ RESOURCE_TARGETS_MAIN := \
 	resources/.compiled/app-link-logos/switch.min.svg.br \
 	resources/.compiled/app-link-logos/switch.min.svg.gz \
 	resources/.compiled/counter/counter.css \
-	resources/.compiled/dseg/dseg14.css \
-	resources/.compiled/dseg/dseg7.css \
-	resources/.compiled/dseg/fonts/DSEG14Classic-Italic.ttf \
-	resources/.compiled/dseg/fonts/DSEG14Classic-Italic.woff \
-	resources/.compiled/dseg/fonts/DSEG14Classic-Italic.woff2 \
-	resources/.compiled/dseg/fonts/DSEG7Classic-Italic.ttf \
-	resources/.compiled/dseg/fonts/DSEG7Classic-Italic.woff \
-	resources/.compiled/dseg/fonts/DSEG7Classic-Italic.woff2 \
 	resources/.compiled/flexbox/flexbox.css \
 	resources/.compiled/flot-graph-icon/jquery.flot.icon.js \
 	resources/.compiled/gears/calc.js \
@@ -103,11 +95,6 @@ SIMPLE_CONFIG_TARGETS := \
 	config/lepton.php \
 	config/twitter.php
 
-DSEG_VERSION := 0.41
-DSEG_RELEASE := https://github.com/keshikan/DSEG/archive/v$(DSEG_VERSION).tar.gz
-
-ADDITIONAL_LICENSES := resources/.compiled/dseg/LICENSE
-
 all: init migrate-db
 
 init: \
@@ -180,8 +167,7 @@ clean-resource:
 		resources/.compiled/* \
 		resources/maps2/*.png \
 		resources/maps2/assets \
-		web/assets/* \
-		$(ADDITIONAL_LICENSES)
+		web/assets/*
 
 vendor-archive: $(VENDOR_ARCHIVE_FILE) $(VENDOR_ARCHIVE_SIGN)
 	rsync -av --progress \
@@ -367,39 +353,6 @@ resources/.compiled/stat.ink/summary-legends.png: resources/stat.ink/summary-leg
 
 resources/.compiled/counter/counter.css: resources/counter/counter.less $(GULP)
 	$(GULP) less --in $< --out $@
-
-DSEG_ARCHIVE := resources/dseg/dseg-$(DSEG_VERSION).tar.gz
-
-resources/.compiled/dseg/fonts/DSEG14Classic-Italic.ttf: $(DSEG_ARCHIVE) resources/.compiled/dseg/fonts
-	tar -zx --to-stdout -f $< DSEG-$(DSEG_VERSION)/fonts/DSEG14-Classic/$(notdir $@) > $@
-	touch $@
-
-resources/.compiled/dseg/fonts/DSEG14Classic-Italic.woff: $(DSEG_ARCHIVE) resources/.compiled/dseg/fonts
-	tar -zx --to-stdout -f $< DSEG-$(DSEG_VERSION)/fonts/DSEG14-Classic/$(notdir $@) > $@
-	touch $@
-
-resources/.compiled/dseg/fonts/DSEG7Classic-Italic.ttf: $(DSEG_ARCHIVE) resources/.compiled/dseg/fonts
-	tar -zx --to-stdout -f $< DSEG-$(DSEG_VERSION)/fonts/DSEG7-Classic/$(notdir $@) > $@
-	touch $@
-resources/.compiled/dseg/fonts/DSEG7Classic-Italic.woff: $(DSEG_ARCHIVE) resources/.compiled/dseg/fonts
-	tar -zx --to-stdout -f $< DSEG-$(DSEG_VERSION)/fonts/DSEG7-Classic/$(notdir $@) > $@
-	touch $@
-
-resources/.compiled/dseg/%.css: resources/dseg/%.less $(GULP)
-	$(GULP) less --in $< --out $@
-
-resources/.compiled/dseg/fonts:
-	mkdir -p $@
-
-resources/.compiled/dseg/LICENSE: $(DSEG_ARCHIVE)
-	tar -zx --to-stdout -f $< DSEG-$(DSEG_VERSION)/DSEG-LICENSE.txt > $@
-
-resources/dseg/dseg-%.tar.gz:
-	mkdir -p $(dir $@)
-	curl -o $@ -sSL $(DSEG_RELEASE)
-
-%.woff2: %.ttf node_modules
-	node_modules/.bin/ttf2woff2 < $< > $@
 
 resources/.compiled/slack/slack.js: resources/slack/slack.js $(GULP)
 	$(GULP) js --in $< --out $@

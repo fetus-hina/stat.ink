@@ -7,7 +7,11 @@
 
 namespace app\assets;
 
+use statink\yii2\dseg\DsegAsset;
+use yii\bootstrap\BootstrapAsset;
+use yii\bootstrap\BootstrapPluginAsset;
 use yii\web\AssetBundle;
+use yii\web\JqueryAsset;
 
 class BattleInputAsset extends AssetBundle
 {
@@ -19,11 +23,11 @@ class BattleInputAsset extends AssetBundle
         'battle-input.css',
     ];
     public $depends = [
-        'yii\web\JqueryAsset',
-        'yii\bootstrap\BootstrapAsset',
-        'yii\bootstrap\BootstrapPluginAsset',
-        'app\assets\BowserAsset',
-        'app\assets\DsegFontAsset',
-        'app\assets\UuidJsAsset',
+        JqueryAsset::class,
+        BootstrapAsset::class,
+        BootstrapPluginAsset::class,
+        DsegAsset::class,
+        BowserAsset::class,
+        UuidJsAsset::class,
     ];
 }
