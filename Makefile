@@ -142,8 +142,12 @@ vendor: composer.phar composer.lock
 	php composer.phar install --prefer-dist --profile
 	touch -r composer.lock vendor
 
-node_modules: package.json
+node_modules: package-lock.json
 	npm install
+	touch $@
+
+package-lock.json: package.json
+	npm update
 	touch $@
 
 check-style: vendor node_modules

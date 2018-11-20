@@ -1862,20 +1862,20 @@
         },
         {
             "name": "statink/yii2-dseg",
-            "version": "v1.0.0",
+            "version": "v1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/statink/yii2-dseg.git",
-                "reference": "c0381caf07abe3badc7b906075e554e81ce66132"
+                "reference": "98a0363dcf845192b2e903e859a1e2dbc87909ac"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/statink/yii2-dseg/zipball/c0381caf07abe3badc7b906075e554e81ce66132",
-                "reference": "c0381caf07abe3badc7b906075e554e81ce66132",
+                "url": "https://api.github.com/repos/statink/yii2-dseg/zipball/98a0363dcf845192b2e903e859a1e2dbc87909ac",
+                "reference": "98a0363dcf845192b2e903e859a1e2dbc87909ac",
                 "shasum": ""
             },
             "require": {
-                "npm-asset/dseg": "^0.45",
+                "npm-asset/dseg": "^0.45.1",
                 "php": ">= 7.1.0",
                 "yiisoft/yii2": "~2.0.15"
             },
@@ -1896,10 +1896,10 @@
             ],
             "description": "DSEG asset bundle",
             "support": {
-                "source": "https://github.com/statink/yii2-dseg/tree/v1.0.0",
+                "source": "https://github.com/statink/yii2-dseg/tree/v1.0.1",
                 "issues": "https://github.com/statink/yii2-dseg/issues"
             },
-            "time": "2018-11-19T10:45:09+00:00"
+            "time": "2018-11-20T09:49:12+00:00"
         },
         {
             "name": "statink/yii2-ip-badge",
