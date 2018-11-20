@@ -828,7 +828,7 @@ $this->registerCss('#battle .progress{margin-bottom:0}');
       'format' => 'raw',
       'value' => function ($model): string {
         return TimestampColumnWidget::widget([
-          'value' => $model->start_at,
+          'value' => $model->end_at,
           'showRelative' => true,
         ]);
       },
@@ -839,7 +839,7 @@ $this->registerCss('#battle .progress{margin-bottom:0}');
       'format' => 'raw',
       'value' => function ($model): string {
         return TimestampColumnWidget::widget([
-          'value' => $model->start_at,
+          'value' => $model->created_at,
           'showRelative' => true,
         ]);
       },
