@@ -50,25 +50,112 @@ class SalmonHazardHistory extends Widget
             return '';
         }
 
-        $data1 = array_map(
-            function (Salmon2 $model, int $index): array {
-                return [$index, (float)$model->danger_rate];
-            },
-            array_reverse($history), // 古い順に取得
-            range(-1 * (count($history) - 1), 0) // 最新が 0 になるように
-        );
+        // line
         $series1 = [
-            'color' => '#ec6110',
-            'data' => $data1,
+            'color' => '#f5a101',
+            'data' => array_map(
+                function (Salmon2 $model, int $index): array {
+                    return [$index, (float)$model->danger_rate];
+                },
+                array_reverse($history), // 古い順に取得
+                range(-1 * (count($history) - 1), 0) // 最新が 0 になるように
+            ),
             'label' => Yii::t('app-salmon2', 'Hazard Level'),
             'lines' => [
                 'show' => true,
             ],
             'points' => [
-                'show' => true,
+                'show' => false,
             ],
         ];
 
+        // Japanese & Korean: 〇 ×
+        // Other regions: ✓ ✗
+        $japaneseStyle = in_array(Yii::$app->language, ['ja-JP', 'ko-KR', 'ko-KP']);
+
+        // cleared
+        $series2 = [
+            'color' => '#3169b3',
+            'data' => array_values(array_filter(array_map(
+                function (Salmon2 $model, int $index): ?array {
+                    return ($model->clear_waves >= 3)
+                        ? [$index, (float)$model->danger_rate]
+                        : null;
+                },
+                array_reverse($history), // 古い順に取得
+                range(-1 * (count($history) - 1), 0) // 最新が 0 になるように
+            ))),
+            'lines' => [
+                'show' => false,
+            ],
+            'points' => [
+                'show' => true,
+                'symbol' => $japaneseStyle ? 'clear_ja' : 'clear',
+            ],
+        ];
+
+        // failed
+        $series3 = [
+            'color' => '#ec6110',
+            'data' => array_values(array_filter(array_map(
+                function (Salmon2 $model, int $index): ?array {
+                    return ($model->clear_waves < 3)
+                        ? [$index, (float)$model->danger_rate]
+                        : null;
+                },
+                array_reverse($history), // 古い順に取得
+                range(-1 * (count($history) - 1), 0) // 最新が 0 になるように
+            ))),
+            'lines' => [
+                'show' => false,
+            ],
+            'points' => [
+                'show' => true,
+                'symbol' => 'fail',
+            ],
+        ];
+
+$js = <<<'EOF'
+(function ($) {
+  function processRawData(plot, series, datapoints) {
+    var handlers = {
+      clear_ja: function (ctx, x, y, radius, shadow) {
+        ctx.arc(x, y, radius * 1.5, 0, 2 * Math.PI);
+      },
+      clear: function (ctx, x, y, radius, shadow) {
+        var size = radius * Math.sqrt(Math.PI) / 2 * (1.5 * 1.2);
+        ctx.moveTo(x - size / 2, y);
+        ctx.lineTo(x, y + size);
+        ctx.moveTo(x, y + size);
+        ctx.lineTo(x + size, y - size);
+        ctx.moveTo(0, 0);
+      },
+      fail: function (ctx, x, y, radius, shadow) {
+        var size = radius * Math.sqrt(Math.PI) / 2 * (1.5 * 1.2);
+        ctx.moveTo(x - size, y - size);
+        ctx.lineTo(x + size, y + size);
+        ctx.moveTo(x - size, y + size);
+        ctx.lineTo(x + size, y - size);
+      },
+    };
+
+    var s = series.points.symbol;
+    if (handlers[s])
+      series.points.symbol = handlers[s];
+    }
+
+    function init(plot) {
+      plot.hooks.processDatapoints.push(processRawData);
+    }
+
+    $.plot.plugins.push({
+      init: init,
+      name: 'hazard-symbols',
+      version: '1.0'
+    });
+})(jQuery);
+EOF;
+        $this->view->registerJs($js);
         
         $flotOptions = <<<'EOF'
 {
@@ -92,7 +179,7 @@ class SalmonHazardHistory extends Widget
 EOF;
         $replMap = [
             '{selector}' => '#' . $this->id,
-            '{json}' => Json::encode([$series1], 0),
+            '{json}' => Json::encode([$series1, $series2, $series3], 0),
             '{options}' => $flotOptions,
         ];
 
