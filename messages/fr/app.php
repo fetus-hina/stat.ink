@@ -308,7 +308,6 @@ return [
     'Note' => '',
     'Note (private)' => '',
     'Note (public)' => '',
-    'Note: You can change the time zone via the navbar.' => '',
     '{number, plural, =1{1 death} other{# deaths}} in {battle, plural, =1{1 battle} other{# battles}}' => '',
     '{number, plural, =1{1 kill} other{# kills}}' => '',
     '{number, plural, =1{1 kill} other{# kills}} in {battle, plural, =1{1 battle} other{# battles}}' => '',

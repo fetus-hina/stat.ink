@@ -133,6 +133,7 @@ $widget = Yii::createObject([
     ],
     [
       'attribute' => 'shift_period',
+      'format' => 'raw',
       'value' => function (Salmon2 $model, DetailView $widget): ?string {
         $period = $model->shift_period;
         if ($period === null) {
@@ -140,21 +141,21 @@ $widget = Yii::createObject([
         }
         list ($periodStart, ) = BattleHelper::periodToRange2($period);
         return Yii::t('app-salmon2', 'From {shiftStart}', [
-          'shiftStart' => $widget->formatter->asDateTime($periodStart, 'short'),
+          'shiftStart' => $widget->formatter->asTimestampColumn($periodStart, false),
         ]);
       },
     ],
     [
       'attribute' => 'start_at',
-      'format' => 'datetime',
+      'format' => 'timestampColumn',
     ],
     [
       'attribute' => 'end_at',
-      'format' => 'datetime',
+      'format' => 'timestampColumn',
     ],
     [
       'attribute' => 'created_at',
-      'format' => 'datetime',
+      'format' => 'timestampColumn',
     ],
     [
       'attribute' => 'agent_id',

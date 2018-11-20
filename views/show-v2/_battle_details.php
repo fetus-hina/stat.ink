@@ -2,6 +2,7 @@
 use app\assets\BattleEditAsset;
 use app\assets\SwipeboxRunnerAsset;
 use app\components\widgets\Label;
+use app\components\widgets\TimestampColumnWidget;
 use app\models\Battle2;
 use app\models\Rank2;
 use yii\bootstrap\Html;
@@ -814,45 +815,33 @@ $this->registerCss('#battle .progress{margin-bottom:0}');
     [
       'attribute' => 'start_at', // {{{
       'format' => 'raw',
-      'value' => function ($model) {
-        if ($model->start_at === null) {
-          return null;
-        }
-        return sprintf(
-          '%s (%s)',
-          Yii::$app->formatter->asHtmlDatetime($model->start_at),
-          Html::encode(Yii::$app->formatter->asRelativeTime($model->start_at))
-        );
+      'value' => function ($model): string {
+        return TimestampColumnWidget::widget([
+          'value' => $model->start_at,
+          'showRelative' => true,
+        ]);
       },
       // }}}
     ],
     [
       'attribute' => 'end_at', // {{{
       'format' => 'raw',
-      'value' => function ($model) {
-        if ($model->end_at === null) {
-          return null;
-        }
-        return sprintf(
-          '%s (%s)',
-          Yii::$app->formatter->asHtmlDatetime($model->end_at),
-          Html::encode(Yii::$app->formatter->asRelativeTime($model->end_at))
-        );
+      'value' => function ($model): string {
+        return TimestampColumnWidget::widget([
+          'value' => $model->start_at,
+          'showRelative' => true,
+        ]);
       },
       // }}}
     ],
     [
       'attribute' => 'created_at', // {{{
       'format' => 'raw',
-      'value' => function ($model) {
-        if ($model->created_at === null) {
-          return null;
-        }
-        return sprintf(
-          '%s (%s)',
-          Yii::$app->formatter->asHtmlDatetime($model->created_at),
-          Html::encode(Yii::$app->formatter->asRelativeTime($model->created_at))
-        );
+      'value' => function ($model): string {
+        return TimestampColumnWidget::widget([
+          'value' => $model->start_at,
+          'showRelative' => true,
+        ]);
       },
       // }}}
     ],

@@ -284,7 +284,6 @@ return [
     'Note (private)' => 'メモ（非公開）',
     'Note (public)' => 'メモ（公開）',
     'Note' => 'メモ',
-    'Note: You can change the time zone via the navbar.' => 'Note: 日時のタイムゾーンを変更することができます。上部ナビゲーションの「タイムゾーン」をご使用ください。',
     'Octoling' => 'タコ',
     'Official Twitter' => '公式ツイッター',
     'Open Source Licenses' => 'オープンソースライセンス',

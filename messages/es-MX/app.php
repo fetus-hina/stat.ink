@@ -309,7 +309,6 @@ return [
     'Note' => 'Nota',
     'Note (private)' => 'Nota (privado)',
     'Note (public)' => 'Nota (público)',
-    'Note: You can change the time zone via the navbar.' => 'Nota: Puede cambiar la zona horaria a través de la barra de navegación.',
     '{number, plural, =1{1 death} other{# deaths}} in {battle, plural, =1{1 battle} other{# battles}}' => '{number} veces / {battle} batallas',
     '{number, plural, =1{1 kill} other{# kills}}' => '',
     '{number, plural, =1{1 kill} other{# kills}} in {battle, plural, =1{1 battle} other{# battles}}' => '{number} veces / {battle} batallas',

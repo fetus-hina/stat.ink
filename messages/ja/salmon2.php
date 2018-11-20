@@ -19,7 +19,7 @@ return [
     'Failed in wave {waveNumber}' => '失敗 (Wave {waveNumber})',
     'Failed' => '失敗',
     'Failed<br><small>in wave {waveNumber}</small>' => '失敗<br><small>(WAVE {waveNumber})</small>',
-    'From {shiftStart}' => '{shiftStart}～',
+    'From {shiftStart}' => '{shiftStart} から',
     'Golden Eggs' => '金イクラ',
     'Hazard Level' => 'キケン度',
     'I agree. Delete this job.' => '同意して削除します。',

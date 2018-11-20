@@ -2,6 +2,7 @@
   {{\app\assets\GearCalcAsset::register($this)|@void}}
   {{set layout="main"}}
   {{use class="yii\helpers\Url"}}
+  {{use class="app\components\widgets\TimestampColumnWidget"}}
   {{$user = $battle->user}}
   {{$canonicalUrl = Url::to(['show/battle', 'screen_name' => $user->screen_name, 'battle' => $battle->id], true)}}
   {{$title = "Results of {0}'s Battle"|translate:'app':$user->name}}
@@ -515,26 +516,33 @@
               <th>{{'Battle Start'|translate:'app'|escape}}</th>
               <td>
                 {{if $battle->start_at}}
-                  <time datetime="{{$battle->start_at|as_isotime|escape}}">
-                    {{$battle->start_at|as_datetime|escape}}
-                  </time>
+                  {{TimestampColumnWidget::widget([
+                    'value' => $battle->start_at,
+                    'showRelative' => true
+                  ])}}
                 {{/if}}
               </td>
             </tr>
             <tr>
               <th>{{'Battle End'|translate:'app'|escape}}</th>
               <td>
-                <time datetime="{{$battle->end_at|as_isotime|escape}}">
-                  {{$battle->end_at|as_datetime|escape}}
-                </time>
+                {{if $battle->end_at}}
+                  {{TimestampColumnWidget::widget([
+                    'value' => $battle->end_at,
+                    'showRelative' => true
+                  ])}}
+                {{/if}}
               </td>
             </tr>
             <tr>
               <th>{{'Data Sent'|translate:'app'|escape}}</th>
               <td>
-                <time datetime="{{$battle->at|as_isotime|escape}}">
-                  {{$battle->at|as_datetime|escape}}
-                </time>
+                {{if $battle->at}}
+                  {{TimestampColumnWidget::widget([
+                    'value' => $battle->at,
+                    'showRelative' => true
+                  ])}}
+                {{/if}}
               </td>
               <meta itemprop="dateCreated" content="{{$battle->at|as_isotime|escape}}">
               <meta itemprop="dateModified" content="{{$battle->at|as_isotime|escape}}">
@@ -625,9 +633,6 @@
             </tr>
           </tbody>
         </table>
-        <p>
-          {{'Note: You can change the time zone via the navbar.'|translate:'app'|escape}}
-        </p>
         {{if !$app->user->isGuest && $app->user->identity->id == $user->id}}
           <p class="text-right">
             <a href="{{url route="show/edit-battle" screen_name=$user->screen_name battle=$battle->id}}" class="btn btn-default">

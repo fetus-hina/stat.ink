@@ -134,11 +134,6 @@ if ($battle->nextBattle) {
       <?= $this->render('_battle_details', [
         'battle' => $battle,
       ]) . "\n" ?>
-      <p>
-        <?= Html::encode(
-          Yii::t('app', 'Note: You can change the time zone via the navbar.')
-        ) . "\n" ?>
-      </p>
 <?php if ($battle->getBattlePlayers()->exists()): ?>
       <?= $this->render('_battle_details_players', [
         'battle' => $battle,

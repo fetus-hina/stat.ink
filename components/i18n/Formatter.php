@@ -8,6 +8,7 @@
 namespace app\components\i18n;
 
 use DateTime;
+use app\components\widgets\TimestampColumnWidget;
 use yii\helpers\Html;
 
 class Formatter extends \yii\i18n\Formatter
@@ -24,6 +25,15 @@ class Formatter extends \yii\i18n\Formatter
             Html::encode($this->asDatetime($timestamp, $format)),
             ['datetime' => gmdate(Datetime::ATOM, $timestamp)]
         );
+    }
+
+    public function asTimestampColumn($value, bool $withReltime = true): ?string
+    {
+        return TimestampColumnWidget::widget([
+            'value' => $value,
+            'showRelative' => $withReltime,
+            'formatter' => $this,
+        ]);
     }
 
     public function asMetricPrefixed($value, int $decimal = 0): ?string
