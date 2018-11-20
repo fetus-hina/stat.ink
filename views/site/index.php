@@ -102,11 +102,12 @@ PaintballAsset::register($this);
     ]) . "\n" ?>
     <br>
     <?= implode(' | ', [
-      '[2] ' . Html::a(Html::encode(Yii::t('app', 'Stats: K/D vs Win %')), ['entire/kd-win2']),
-      '[2] ' . Html::a(Html::encode(Yii::t('app', 'Stats: Knockout Ratio')), ['entire/knockout2']),
-      '[2] ' . Html::a(Html::encode(Yii::t('app', 'Stats: Weapons')), ['entire/weapons2']),
-      '[1] ' . Html::a(Html::encode(Yii::t('app', 'Stats: Stages')), ['stage/index']),
-      '[2] ' . Html::a(Html::encode(Yii::t('app', 'Download Stats')), ['download-stats/index']),
+      Html::a(Html::encode(Yii::t('app', 'Stats: K/D vs Win %')), ['entire/kd-win2']),
+      Html::a(Html::encode(Yii::t('app', 'Stats: Knockout Ratio')), ['entire/knockout2']),
+      Html::a(Html::encode(Yii::t('app', 'Stats: Weapons')), ['entire/weapons2']),
+      Html::a(Html::encode(Yii::t('app-salmon2', 'Stats: Salmon Clear %')), ['entire/salmon-clear']),
+      Html::a(Html::encode(Yii::t('app', 'Stats: Stages') . '(Spl 1)'), ['stage/index']),
+      Html::a(Html::encode(Yii::t('app', 'Download Stats')), ['download-stats/index']),
     ]) . "\n" ?>
   </p>
   <p>

@@ -83,6 +83,7 @@ return [
         'GET,HEAD api/v2/user-salmon' => 'api-v2-salmon/index-with-auth',
         'POST api/v2/salmon-stats' => 'api-v2-salmon/create-stats',
         'POST api/v2/salmon' => 'api-v2-salmon/create',
+        'entire/salmon/<action:[\w-]+>' => 'entire/salmon-<action>',
 
         'api/v2/<action:[\w-]+>.<format:[\w]+>' => 'api-v2/<action>',
         'api/v2/<action:[\w-]+>' => 'api-v2/<action>',
