@@ -115,7 +115,7 @@ class SalmonHazardHistory extends Widget
             ],
         ];
 
-$js = <<<'EOF'
+        $js = <<<'EOF'
 (function ($) {
   function processRawData(plot, series, datapoints) {
     var handlers = {
