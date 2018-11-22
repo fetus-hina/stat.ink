@@ -37,16 +37,18 @@ REQUIREMENTS
 * Gearman
 * ImageMagick (`convert`)
 * Node.js (`npm`)
-  - Recommended: 6.x or 7.x
+  - Recommended: 10.x or 11.x
 * `jpegoptim`
 * `pngcrush`
 * Brotli (`bro`)
+* Zopfli
 
 https://stat.ink/ works with:
 
-- CentOS 7.4.1708 (x86-64)
+- CentOS 7.5.1804 (x86-64)
 - EPEL
   - `gearmand`
+  - Zopfli
 - [JP3CKI Repository](https://rpm.fetus.jp/)
   - [H2O](https://h2o.examp1e.net/) mainline
   - [Brotli](https://github.com/google/brotli)
@@ -84,15 +86,13 @@ https://stat.ink/ works with:
 
 ### SETUP ###
 
-[開発環境の作り方](https://github.com/fetus-hina/stat.ink/wiki/%E9%96%8B%E7%99%BA%E7%92%B0%E5%A2%83%E3%81%AE%E3%82%BB%E3%83%83%E3%83%88%E3%82%A2%E3%83%83%E3%83%97) /
-[How to setup a development environment](https://github.com/fetus-hina/stat.ink/wiki/How-to-setup-a-development-environment)
+Recommend: [Setup with Vagrant](https://github.com/statink/devenv-vagrant)
 
-Dockerfile を見ても構築の手順が記載されています（Dockerfile は自動化と docker の仕組みの都合上、かなり無理矢理やっている箇所があります）
+Another way: [How to setup a development environment](https://github.com/fetus-hina/stat.ink/wiki/How-to-setup-a-development-environment)
 
+Note: Docker way is abandoned.
 
 ### UPDATE ###
-
-こういうことをやればよさそうな気がします。何をやっているか確認したあと実行してください。
 
 ```sh
 git fetch --all && \
