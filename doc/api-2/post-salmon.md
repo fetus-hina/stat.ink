@@ -22,7 +22,7 @@ All parameters are optional.
 |`stage`|key string|e.g. `dam`|[§Stage](#stage)|
 |`clear_waves`|integer|0-3|`3` if cleared. `0` if failed in wave 1|
 |`fail_reason`|key string| |`null` if cleared (or unknown reason)<br>`wipe_out`: Dead all players<br>`time_limit`: Time was up|
-|`title`|key string|e.g. `profreshional`|[§Title](#title), befor the job|
+|`title`|key string|e.g. `profreshional`|[§Title](#title), before the job|
 |`title_exp`|integer|0-999|Profreshional "40"/999, before the job|
 |`title_after`|key string| |After the job|
 |`title_exp_after`|integer|0-999|After the job|
