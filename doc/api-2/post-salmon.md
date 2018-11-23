@@ -21,9 +21,9 @@ All parameters are optional.
 |`splatnet_number`|integer|1-|SplatNet `job_id`|
 |`stage`|key string|e.g. `dam`|[§Stage](#stage)|
 |`clear_waves`|integer|0-3|`3` if cleared. `0` if failed in wave 1|
-|`fail_reason`|key string| |`null` if cleared (or unknown reason)<br>`wipe_out`: Dead all players<br>`time_limit`: Time was up|
+|`fail_reason`|key string| |`null` or empty if cleared (or unknown reason)<br>`wipe_out`: Wiped out<br>`time_limit`: Time was up|
 |`title`|key string|e.g. `profreshional`|[§Title](#title), before the job|
-|`title_exp`|integer|0-999|Profreshional "40"/999, before the job|
+|`title_exp`|integer|0-999|e.g. `40` if Profreshional 40/999, before the job|
 |`title_after`|key string| |After the job|
 |`title_exp_after`|integer|0-999|After the job|
 |`danger_rate`|number|0.0-200.0|Hazard level|
@@ -231,7 +231,7 @@ This is helpful for unintended duplication, but it is helpless for complate dete
 
 We recommend posting by the following procedure:
 
-1. Call `GET /api/v2/user-salmon?only=splatnet` and retrieve already posted job number.
+1. Call `GET /api/v2/user-salmon?only=splatnet_number` and retrieve already posted job number.
 
 2. Fetch data from SplatNet 2.
 
@@ -297,7 +297,7 @@ See also: [§Boss](#boss)
 |`power_egg_collected`|integer|0-|How many Power Eggs collected|
 |`species`|key string|`inkling` or `octoling`|`inkling`: Inklings<br>`octoling`: Octolings<br>Note: no "s" in key-strings|
 |`gender`|key string|`boy` or `girl`|`boy`: Boy, Male<br>`girl`: Girl, Female<br>This value used for switching gender of title, like "Jefe/Jefa".|
-|`special_uses`|array of integer|0-3 each|How many used special weapon for each wave<br>Example: `"special_uses": [0, 1, 2]`|
+|`special_uses`|array of integer|0-2 each|How many used special weapon for each wave<br>Example: `"special_uses": [0, 1, 2]`|
 |`weapons`|array of key-string| |What weapon loaned for each wave<br>[§Main Weapon](#main-weapon)<br>Example: `"weapons": ["wakaba", "sshooter", "splatcharger"]`|
 |`boss_kills`|key-value| |Number of bosses killed<br>[§Boss](#boss)|
 
