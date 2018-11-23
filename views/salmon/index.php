@@ -11,19 +11,26 @@ use yii\helpers\Url;
 $title = Yii::t('app-salmon2', "{name}'s Salmon Log", ['name' => $user->name]);
 $this->title = sprintf('%s | %s', Yii::$app->name, $title);
 
+$humanReadableSummary = $dataProvider->query->getHumanReadableSummary($user);
+
 // $this->registerLinkTag(['rel' => 'canonical', 'href' => $permLink]);
-// $this->registerMetaTag(['name' => 'twitter:card', 'content' => 'summary']);
-// $this->registerMetaTag(['name' => 'twitter:title', 'content' => $title]);
-// $this->registerMetaTag(['name' => 'twitter:description', 'content' => $title]);
+$this->registerMetaTag(['name' => 'twitter:card', 'content' => 'summary']);
+$this->registerMetaTag(['name' => 'twitter:title', 'content' => $title]);
+$this->registerMetaTag([
+  'name' => 'twitter:description',
+  'content' => $humanReadableSummary
+    ? $humanReadableSummary
+    : $title,
+]);
 // $this->registerMetaTag(['name' => 'twitter:url', 'content' => $permLink]);
-// $this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink']);
-// $this->registerMetaTag([
-//   'name' => 'twitter:image',
-//   'content' => $user->iconUrl,
-// ]);
-// if ($user->twitter != '') {
-//   $this->registerMetaTag(['name' => 'twitter:creator', 'content' => sprintf('@%s', $user->twitter)]);
-// }
+$this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink']);
+$this->registerMetaTag([
+  'name' => 'twitter:image',
+  'content' => $user->iconUrl,
+]);
+if ($user->twitter != '') {
+  $this->registerMetaTag(['name' => 'twitter:creator', 'content' => sprintf('@%s', $user->twitter)]);
+}
 ?>
 <div class="container">
   <span itemscope itemtype="http://schema.org/BreadcrumbList">
@@ -41,6 +48,7 @@ $this->title = sprintf('%s | %s', Yii::$app->name, $title);
       'lang' => Yii::$app->language,
       'type' => 'rss',
     ],
+    'tweetText' => $humanReadableSummary,
   ]) . "\n" ?>
   <div class="row">
     <div class="col-xs-12 col-sm-8 col-lg-9">

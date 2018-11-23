@@ -48,6 +48,7 @@ return [
     'Wiped' => '全滅',
     'You can delete this job.' => 'このバイトを削除することができます。',
     'You must agree to the above to delete this job.' => 'このバイトを削除するには同意が必要です。',
+    'Jobs: {jobCount} / Clear %: {clearPct} / Golden Eggs: {avgGoldenEggs} / Power Eggs: {avgPowerEggs} / Deaths: {avgDeaths} / Rescues: {avgRescues}' => 'バイト: {jobCount} / クリア率: {clearPct} / 金イクラ: {avgGoldenEggs} / イクラ: {avgPowerEggs} / やられた: {avgDeaths} / たすけた: {avgRescues}',
     '✓' => 'クリア',
     '✗' => '失敗',
 

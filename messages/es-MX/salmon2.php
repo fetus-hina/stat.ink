@@ -36,6 +36,7 @@ return [
     'If you delete this job, it will be gone forever.' => '',
     'Job Ended' => '',
     'Jobs' => '',
+    'Jobs: {jobCount} / Clear %: {clearPct} / Golden Eggs: {avgGoldenEggs} / Power Eggs: {avgPowerEggs} / Deaths: {avgDeaths} / Rescues: {avgRescues}' => '',
     'Job Started' => '',
     '{name}\'s Salmon Log' => '',
     'Next Job' => '',
