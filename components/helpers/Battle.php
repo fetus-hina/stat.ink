@@ -7,6 +7,9 @@
 
 namespace app\components\helpers;
 
+use DateInterval;
+use DateTimeImmutable;
+use DateTimeZone;
 use app\models\Battle as BattleModel;
 use app\models\Battle2 as Battle2Model;
 use app\models\Battle2FilterForm;
@@ -92,5 +95,33 @@ class Battle
                 $subQuery->createCommand()->rawSql
             ));
         return $query->createCommand()->queryOne();
+    }
+
+    public static function getActivityDisplayRange(): array
+    {
+        $today = (new DateTimeImmutable())
+            ->setTimeZone(new DateTimeZone('Etc/UTC'))
+            ->setTimestamp(time())
+            ->setTime(23, 59, 59);
+
+        $aYearAgo = $today->sub(new DateInterval('P1Y'));
+        return [
+            (new DateTimeImmutable())
+                ->setTimezone(new DateTimeZone('Etc/UTC'))
+                ->setDate(
+                    (int)$aYearAgo->format('Y'),
+                    (int)$aYearAgo->format('n') + 1,
+                    1
+                )
+                ->setTime(0, 0, 0),
+            (new DateTimeImmutable())
+                ->setTimezone(new DateTimeZone('Etc/UTC'))
+                ->setDate(
+                    (int)$today->format('Y'),
+                    (int)$today->format('n'),
+                    (int)$today->format('t') + 1,
+                )
+                ->setTime(0, 0, -1),
+        ];
     }
 }

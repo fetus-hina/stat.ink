@@ -4,7 +4,6 @@ GULP := ./node_modules/.bin/gulp
 VENDOR_SHA256 := $(shell sha256sum -t composer.lock | awk '{print $$1}')
 
 RESOURCE_TARGETS_MAIN := \
-	resources/.compiled/activity/activity.js \
 	resources/.compiled/app-link-logos/festink.png \
 	resources/.compiled/app-link-logos/ikadenwa.png \
 	resources/.compiled/app-link-logos/ikalog.png \
@@ -56,7 +55,6 @@ RESOURCE_TARGETS_MAIN := \
 	resources/.compiled/stat.ink/private-note.js \
 	resources/.compiled/stat.ink/salmon-work-list-config.js \
 	resources/.compiled/stat.ink/salmon-work-list.js \
-	resources/.compiled/stat.ink/session-calendar.js \
 	resources/.compiled/stat.ink/sortable-table.js \
 	resources/.compiled/stat.ink/summary-legends.png \
 	resources/.compiled/stat.ink/swipebox-runner.js \
@@ -270,9 +268,6 @@ resources/.compiled/stat.ink/weapon2.js: $(WEAPON2_JS) $(GULP)
 resources/.compiled/stat.ink/knockout.js: resources/stat.ink/knockout.js $(GULP)
 	$(GULP) js --in $< --out $@
 
-resources/.compiled/stat.ink/session-calendar.js: resources/stat.ink/session-calendar.js $(GULP)
-	$(GULP) js --in $< --out $@
-
 resources/.compiled/stat.ink/user-stat-2-nawabari-inked.js: resources/stat.ink/user-stat-2-nawabari-inked.es $(GULP)
 	$(GULP) js --in $< --out $@
 
@@ -336,9 +331,6 @@ resources/.compiled/flot-graph-icon/jquery.flot.icon.js: resources/flot-graph-ic
 
 resources/.compiled/flexbox/flexbox.css: resources/flexbox/flexbox.less $(GULP)
 	$(GULP) less --in $< --out $@
-
-resources/.compiled/activity/activity.js: resources/activity/activity.js $(GULP)
-	$(GULP) js --in $< --out $@
 
 resources/.compiled/gears/calc.js: resources/gears/calc.js $(GULP)
 	$(GULP) js --in $< --out $@

@@ -15,6 +15,15 @@ use Yii;
 
 class Connection extends \yii\db\Connection
 {
+    public function setTimezone(string $timeZone): void
+    {
+        $this->createCommand(
+            $this->createCommand('SET TIMEZONE TO :tz')
+                ->bindValue(':tz', $timeZone)
+                ->rawSql
+        )->execute();
+    }
+
     public function transactionEx(
         callable $callback,
         $rollBack = null,

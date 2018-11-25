@@ -7,12 +7,16 @@
 
 namespace app\models;
 
+use DateInterval;
+use DateTime;
+use DateTimeImmutable;
 use DateTimeZone;
 use Yii;
 use app\components\helpers\DateTimeFormatter;
 use app\components\helpers\Password;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
+use yii\db\Query;
 use yii\helpers\Url;
 use yii\web\IdentityInterface;
 
@@ -533,5 +537,100 @@ class User extends ActiveRecord implements IdentityInterface
         return $this->userIcon
             ? $this->userIcon->url
             : $this->getJdenticonUrl($ext);
+    }
+
+    public function getActivitiesForSplatoon1(): array
+    {
+        try {
+            Yii::$app->db->setTimezone('Etc/UTC');
+            $date = sprintf('(CASE %s END)::date', implode(' ', [
+                'WHEN {{battle}}.[[start_at]] IS NOT NULL THEN {{battle}}.[[start_at]]',
+                "WHEN {{battle}}.[[end_at]] IS NOT NULL THEN {{battle}}.[[end_at]] - '3 minutes'::interval",
+                "ELSE {{battle}}.[[at]] - '4 minutes'::interval",
+            ]));
+            list($from, $to) = $this->getActivityDisplayRange();
+            $query = (new Query())
+                ->select([
+                    'date' => $date,
+                    'count' => 'COUNT(*)',
+                ])
+                ->from('battle')
+                ->andWhere(['user_id' => $this->id])
+                ->andWhere([
+                    'between',
+                    $date,
+                    $from->format(DateTime::ATOM),
+                    $to->format(DateTime::ATOM)
+                ])
+                ->groupBy([$date])
+                ->orderBy(['date' => SORT_ASC]);
+            return $query->all();
+        } finally {
+            Yii::$app->db->setTimezone(Yii::$app->timeZone);
+        }
+    }
+
+    public function getActivitiesForSplatoon2(): array
+    {
+        return $this->getActivitiesForSplatoon2Battles();
+    }
+
+    public function getActivitiesForSplatoon2Battles(): array
+    {
+        try {
+            Yii::$app->db->setTimezone('Etc/UTC');
+            $date = sprintf('(CASE %s END)::date', implode(' ', [
+                'WHEN {{battle2}}.[[start_at]] IS NOT NULL THEN {{battle2}}.[[start_at]]',
+                "WHEN {{battle2}}.[[end_at]] IS NOT NULL THEN {{battle2}}.[[end_at]] - '3 minutes'::interval",
+                "ELSE {{battle2}}.[[created_at]] - '4 minutes'::interval",
+            ]));
+            list($from, $to) = $this->getActivityDisplayRange();
+            $query = (new Query())
+                ->select([
+                    'date' => $date,
+                    'count' => 'COUNT(*)',
+                ])
+                ->from('battle2')
+                ->andWhere(['user_id' => $this->id])
+                ->andWhere([
+                    'between',
+                    $date,
+                    $from->format(DateTime::ATOM),
+                    $to->format(DateTime::ATOM)
+                ])
+                ->groupBy([$date])
+                ->orderBy(['date' => SORT_ASC]);
+            return $query->all();
+        } finally {
+            Yii::$app->db->setTimezone(Yii::$app->timeZone);
+        }
+    }
+
+    public function getActivityDisplayRange(): array
+    {
+        $today = (new DateTimeImmutable())
+            ->setTimeZone(new DateTimeZone('Etc/UTC'))
+            ->setTimestamp(time())
+            ->setTime(23, 59, 59);
+
+        $aYearAgo = $today->sub(new DateInterval('P1Y'));
+        return [
+            (new DateTimeImmutable())
+                ->setTimezone(new DateTimeZone('Etc/UTC'))
+                ->setDate(
+                    (int)$aYearAgo->format('Y'),
+                    (int)$aYearAgo->format('n') + 1,
+                    1
+                )
+                ->setTime(0, 0, 0),
+            (new DateTimeImmutable())
+                ->setTimezone(new DateTimeZone('Etc/UTC'))
+                ->setDate(
+                    (int)$today->format('Y'),
+                    (int)$today->format('n'),
+                    (int)$today->format('t') + 1,
+                )
+                ->setTime(0, 0, -1),
+        ];
     }
 }

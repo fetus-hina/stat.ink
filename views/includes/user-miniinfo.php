@@ -1,5 +1,4 @@
 <?php
-use app\assets\ActivityAsset;
 use app\assets\AppLinkAsset;
 use app\assets\RemoteFollowAsset;
 use app\assets\UserMiniinfoAsset;
@@ -9,7 +8,6 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 
 UserMiniinfoAsset::register($this);
-ActivityAsset::register($this);
 $remoteFollow = RemoteFollowAsset::register($this);
 $icons = AppLinkAsset::register($this);
 
@@ -233,20 +231,6 @@ $f = Yii::$app->formatter;
       ) . "\n" ?>
       <?= $box('Kills/min', $stat->gachi_total_time < 1 ? $na : $f->asDecimal($stat->gachi_kill2 * 60 / $stat->gachi_total_time, 2)) . "\n" ?>
       <?= $box('Deaths/min', $stat->gachi_total_time < 1 ? $na : $f->asDecimal($stat->gachi_death2 * 60 / $stat->gachi_total_time, 2)) . "\n" ?>
-    </div>
-    <hr>
-    <div class="miniinfo-databox">
-      <p class="user-label">
-        <?= Html::encode(Yii::t('app', 'Activity')) . "\n" ?>
-      </p>
-      <div class="text-center">
-        <?= Html::tag('div', '', [
-          'class' => 'activity',
-          'data' => [
-            'screen-name' => $user->screen_name,
-          ],
-        ]) . "\n" ?>
-      </div>
     </div>
     <hr>
     <p class="miniinfo-databox">

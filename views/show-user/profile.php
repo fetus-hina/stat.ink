@@ -1,8 +1,11 @@
 <?php
 use app\assets\AppLinkAsset;
 use app\components\widgets\battle\PanelListWidget;
+use statink\yii2\calHeatmap\CalHeatmapWidget;
 use yii\bootstrap\Html;
+use yii\helpers\Json;
 use yii\helpers\Url;
+use yii\web\JsExpression;
 
 function fa(string $icon, string $category = 'fa') : string
 {
@@ -57,6 +60,19 @@ $this->registerCss(implode('', array_map(
   array_keys($css),
   array_values($css)
 )));
+
+$activityDataFilter = new JsExpression(<<<'EOF'
+function (data) {
+  var result = {};
+  data.forEach(function (d) {
+    var t = new Date(d.date);
+    result[t.getTime() / 1000] = d.count;
+  });
+  return result;
+}
+EOF
+);
+$activityDataFrom = new JsExpression(sprintf('new Date("%s")', $activityFrom->format('Y-m-d')));
 ?>
 <div id="profile" class="container">
   <div class="row">
@@ -287,6 +303,58 @@ $this->registerCss(implode('', array_map(
             </div><!-- col -->
           </div><!-- row -->
         </div><!-- tabpanel -->
+        <div class="row"><!-- row -->
+          <div class="col-xs-12" id="activity">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <?= Html::encode(Yii::t('app', 'Activity')) . "\n" ?>
+              </div>
+              <div class="panel-body">
+                <div class="table-responsive">
+                  <?= CalHeatmapWidget::widget([
+                    'options' => [
+                      'style' => 'padding:5px 2px;',
+                    ],
+                    'jsOptions' => [
+                      'data' => sprintf(
+                        '/api/internal/activity?screen_name=%s&from={{t:start}}&to={{t:end}}',
+                        rawurlencode($user->screen_name)
+                      ),
+                      'afterLoadData' => $activityDataFilter,
+                      'start' => $activityDataFrom,
+                      'itemName' => [
+                        Yii::t('app', '{n,plural,=1{battle} other{battles}}', ['n' => 1]),
+                        Yii::t('app', '{n,plural,=1{battle} other{battles}}', ['n' => 42]),
+                      ],
+                      'legendTitleFormat' => [
+                        'lower' => Yii::t('app', 'less than {min} {name}'),
+                        'inner' => Yii::t('app', 'between {down} and {up} {name}'),
+                        'upper' => Yii::t('app', 'more than {max} {name}'),
+                      ],
+                      // month names
+                      'domainLabelFormat' => new JsExpression(sprintf(
+                        'function(d){return %s[d.getMonth()]}',
+                        Json::encode(array_map(
+                          function (int $m): string {
+                            // LLLL: "January"
+                            return Yii::$app->formatter->asDate(sprintf('2001-%02d-01', $m), 'LLLL');
+                          },
+                          range(1, 12)
+                        ))
+                      )),
+                      // hover
+                      'subDomainTitleFormat' => [
+                        'empty' => '{date}: ' . Yii::t('app', 'No battles'),
+                        'filled' => '{date}: {count} {name}',
+                      ],
+                      'subDomainDateFormat' => Yii::t('app', '%m/%d/%Y'),
+                    ],
+                  ]) . "\n" ?>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

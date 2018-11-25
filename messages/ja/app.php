@@ -6,7 +6,9 @@
  * @author eli fessler <eliwf8@gmail.com>
  * @author Allen Pestaluky <allenwp@live.ca>
  */
+
 return [
+    '%m/%d/%Y' => '%Y/%m/%d',
     '(For only Splatoon 1 at this time)' => '(現時点ではSplatoon1のみ)',
     '(combined)' => '(統合済み)',
     '(default)' => '(規定)',
@@ -278,6 +280,7 @@ return [
     'Nintendo Network ID' => 'ニンテンドーネットワークID',
     'Nintendo Switch Online app' => 'Nintendo Switch Online アプリ',
     'No Data' => 'データがありません',
+    'No battles' => 'バトルはありません',
     'No black out' => '黒塗りしない',
     'No one in control' => '中立',
     'No' => 'いいえ',
@@ -507,15 +510,18 @@ return [
     'Your profile icon has been updated.' => 'プロフィール画像を更新しました。',
     'Your uploaded data (battle stats, images, and modification history) will be shared with the IkaLog development team.' => '投稿されたデータや画像およびそれらの修正履歴は、 IkaLog の画像認識精度向上のために IkaLog の開発者（協力者を含む）と共有されます。',
     '[Outdated]' => '[古いバージョン]',
+    'between {down} and {up} {name}' => '{down}{name}から{up}{name}',
     'combos' => 'コンボ',
     'd' => '死',
     'e.g. YouTube video, like "{0}"' => 'YouTubeやニコニコ動画の動画URLを指定します（例えば「{0}」）',
     'fest.ink' => 'イカフェスレート',
     'for {title}' => '{title}用',
     'k' => '殺',
+    'less than {min} {name}' => '{min}{name}未満',
     'lost' => '負けました',
     'max={max} min={min} average={avg} median={median} mode={mode}' => '最大={max} 最小={min} 平均={avg} 中央値={median} 最頻値={mode}',
     'max={max} min={min} median={median}' => '最大={max} 最小={min} 中央値={median}',
+    'more than {max} {name}' => '{max}{name}をこえる',
     'more...' => '続きを見る...',
     'streak' => 'ストリーク',
     'won' => '勝ちました',
@@ -537,6 +543,7 @@ return [
     '{0}\'s Splat Log' => '{0}さんのイカログ',
     '{0}×{1} or less resolution' => '{0}×{1} ピクセル以下の画素数（解像度）',
     '{attribute} must be at most 15 alphanumeric or underscore characters.' => '{attribute}は半角英数とアンダースコア15文字以内で入力してください。',
+    '{n,plural,=1{battle} other{battles}}' => 'バトル',
     '{nFormatted} {n, plural, =1{time} other{times}}' => '{nFormatted} 回',
     '{number, plural, =1{1 death} other{# deaths}} in {battle, plural, =1{1 battle} other{# battles}}' => '{number, plural, other{#回}} / {battle, plural, other{#戦}}',
     '{number, plural, =1{1 kill} other{# kills}} in {battle, plural, =1{1 battle} other{# battles}}' => '{number, plural, other{#回}} / {battle, plural, other{#戦}}',

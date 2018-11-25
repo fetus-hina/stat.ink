@@ -1,5 +1,4 @@
 <?php
-use app\assets\SessionCalendarAsset;
 use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
 use yii\helpers\Html;
@@ -28,8 +27,6 @@ $this->registerCss(
   'td.range{width:1em;text-align:center;padding-left:0;padding-right:0}' .
   '.progress{margin-bottom:0;min-width:150px}'
 );
-
-SessionCalendarAsset::register($this);
 ?>
 <div class="container">
   <h1><?= Html::encode($title) ?></h1>
@@ -82,31 +79,6 @@ SessionCalendarAsset::register($this);
 JS
 ) ?>
   </p>
-
-  <h2 id="calendar">
-    <?= Html::encode(Yii::t('app', 'Calendar')) . "\n" ?>
-    <?= Html::a(
-      Html::encode(Yii::t('app', 'Session History')),
-      '#history',
-      ['class' => 'btn btn-default btn-sm']
-    ) . "\n" ?>
-  </h2>
-  <p>
-    <button id="cal-prev" class="btn btn-default btn-xs">
-      <span class="fa fa-chevron-left"></span>
-    </button>
-    <button id="cal-next" class="btn btn-default btn-xs">
-      <span class="fa fa-chevron-right"></span>
-    </button>
-  </p>
-  <?= Html::tag('div', '', [
-    'class' => 'calendar',
-    'data' => [
-      'url' => Url::to(['stage/map-history-json', 'map' => $map->key, 'rule' => $rule->key]),
-      'next' => '#cal-next',
-      'prev' => '#cal-prev',
-    ],
-  ]) . "\n" ?>
 
   <div class="row">
     <div class="col-xs-12 col-md-6">
