@@ -628,7 +628,7 @@ class User extends ActiveRecord implements IdentityInterface
                 ->setDate(
                     (int)$today->format('Y'),
                     (int)$today->format('n'),
-                    (int)$today->format('t') + 1,
+                    (int)$today->format('t') + 1
                 )
                 ->setTime(0, 0, -1),
         ];
