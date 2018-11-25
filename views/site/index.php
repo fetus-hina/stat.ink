@@ -38,6 +38,15 @@ PaintballAsset::register($this);
     </div>
   </div>
 <?php if (Yii::$app->language === 'ja-JP'): ?>
+  <div class="bg-danger" style="margin-bottom:15px;padding:15px;border-radius:10px">
+    <p>
+      SquidTracks や splatnet2statink をご利用の方は、必ず最新版にアップデートを行ってください。<br>
+      （どちらも定期的な再起動で更新が適用されるはずです）
+    </p>
+    <p>
+      最新版を利用しない場合、ブキやステージが登録されない場合や、データが誤って登録される場合があります。
+    </p>
+  </div>
   <div class="bg-warning" style="margin-bottom:15px;padding:15px;border-radius:10px">
     <p>
       イカリング2からの取り込みを検討されている方は、次のようなアプリをご利用ください。（自己責任）
@@ -58,6 +67,18 @@ PaintballAsset::register($this);
     </p>
   </div>
 <?php else: ?>
+  <div class="bg-danger" style="margin-bottom:15px;padding:15px;border-radius:10px">
+    <p>
+      For SquidTracks or splatnet2tatink users:
+    </p>
+    <p>
+      Please update your client software and use always latest version.<br>
+      (They will be updated to the latest version when restarted)
+    </p>
+    <p>
+      Incorrect data will be registered if you do not use the latest version.
+    </p>
+  </div>
   <div class="bg-warning" style="margin-bottom:15px;padding:15px;border-radius:10px">
     <p>
       You can import automatically from SplatNet 2, use these apps: (USE AT YOUR OWN RISK)
