@@ -8,6 +8,7 @@
 namespace app\actions\showUser;
 
 use Yii;
+use app\components\helpers\Battle as BattleHelper;
 use app\models\User;
 use yii\helpers\Url;
 use yii\web\NotFoundHttpException;
@@ -54,18 +55,13 @@ class ProfileAction extends BaseAction
             ->limit(5)
             ->all();
 
-        list($activityFrom, $activityTo) = $user->getActivityDisplayRange();
-        $activity1 = $user->getActivitiesForSplatoon1();
-        $activity2 = $user->getActivitiesForSplatoon2();
-
         $permLink = Url::to(['show-user/profile', 'screen_name' => $user->screen_name], true);
+        list($activityFrom, $activityTo) = BattleHelper::getActivityDisplayRange();
 
         return $this->controller->render('profile', [
             'user' => $user,
             'battles1' => $battles1,
             'battles2' => $battles2,
-            'activity1' => $activity1,
-            'activity2' => $activity2,
             'activityFrom' => $activityFrom,
             'activityTo' => $activityTo,
             'permLink'  => $permLink,
