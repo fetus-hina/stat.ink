@@ -1,10 +1,10 @@
 <?php
 use app\assets\AppLinkAsset;
-use app\assets\SortableTableAsset;
 use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
 use app\models\GearType;
 use app\models\Language;
+use statink\yii2\sortableTable\SortableTableAsset;
 use yii\helpers\Html;
 
 $title = Yii::t('app', 'API Info: Gears: {0}', [

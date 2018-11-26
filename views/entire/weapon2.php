@@ -1,7 +1,6 @@
 <?php
 use app\assets\AppOptAsset;
 use app\assets\MapImage2Asset;
-use app\assets\SortableTableAsset;
 use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
 use app\components\widgets\WinLoseLegend;
@@ -14,6 +13,7 @@ use app\models\WeaponCategory2;
 use jp3cki\yii2\flot\FlotAsset;
 use jp3cki\yii2\flot\FlotPieAsset;
 use jp3cki\yii2\flot\FlotTimeAsset;
+use statink\yii2\sortableTable\SortableTableAsset;
 use yii\bootstrap\ActiveForm;
 use yii\data\ArrayDataProvider;
 use yii\grid\GridView;

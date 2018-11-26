@@ -55,7 +55,6 @@ RESOURCE_TARGETS_MAIN := \
 	resources/.compiled/stat.ink/private-note.js \
 	resources/.compiled/stat.ink/salmon-work-list-config.js \
 	resources/.compiled/stat.ink/salmon-work-list.js \
-	resources/.compiled/stat.ink/sortable-table.js \
 	resources/.compiled/stat.ink/summary-legends.png \
 	resources/.compiled/stat.ink/swipebox-runner.js \
 	resources/.compiled/stat.ink/user-miniinfo.css \
@@ -282,9 +281,6 @@ resources/.compiled/stat.ink/user-stat-2-nawabari-runner.js: resources/stat.ink/
 
 resources/.compiled/stat.ink/user-stat-by-map-rule-detail.css: resources/stat.ink/user-stat-by-map-rule-detail.less $(GULP)
 	$(GULP) less --in $< --out $@
-
-resources/.compiled/stat.ink/sortable-table.js: resources/stat.ink/sortable-table.js $(GULP)
-	$(GULP) js --in $< --out $@
 
 resources/.compiled/stat.ink/battle2-players-point-inked.js: resources/stat.ink/battle2-players-point-inked.es $(GULP)
 	$(GULP) js --in $< --out $@

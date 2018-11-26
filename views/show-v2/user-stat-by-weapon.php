@@ -1,8 +1,8 @@
 <?php
-use app\assets\SortableTableAsset;
 use app\components\widgets\AdWidget;
 use app\components\widgets\Battle2FilterWidget;
 use app\components\widgets\SnsWidget;
+use statink\yii2\sortableTable\SortableTableAsset;
 use yii\data\ArrayDataProvider;
 use yii\grid\GridView;
 use yii\helpers\Html;

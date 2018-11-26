@@ -34,7 +34,6 @@
 
         "npm-asset/fortawesome--fontawesome-free": "^5.2",
         "npm-asset/rpg-awesome": "^1.0",
-        "npm-asset/stupid-table-plugin": "^1.1",
 
         "christian-riesen/base32": "^1.2",
         "cybercog/yii2-google-analytics": "^0.3.1",
@@ -61,6 +60,7 @@
         "statink/yii2-ip-badge": "^1.0",
         "statink/yii2-jdenticon": "^1.0",
         "statink/yii2-paintball": "^1.0",
+        "statink/yii2-sortable-table": "^1.0",
         "statink/yii2-twitter-webintents": "^1.0",
         "tpyo/amazon-s3-php-class": "^0.5.1",
         "websightnl/gearman": "^1.0",

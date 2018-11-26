@@ -1,8 +1,8 @@
 <?php
-use app\assets\SortableTableAsset;
 use app\components\helpers\WeaponShortener;
 use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
+use statink\yii2\sortableTable\SortableTableAsset;
 use yii\bootstrap\Html;
 
 $this->context->layout = 'main';

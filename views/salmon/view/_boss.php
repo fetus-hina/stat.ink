@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-use app\assets\SortableTableAsset;
 use app\components\i18n\Formatter;
 use app\components\widgets\PlayerName2Widget;
 use app\models\SalmonBossAppearance2;
 use app\models\SalmonPlayer2;
+use statink\yii2\sortableTable\SortableTableAsset;
 use yii\data\ActiveDataProvider;
 use yii\grid\GridView;
 use yii\helpers\Html;
