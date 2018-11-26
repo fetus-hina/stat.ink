@@ -6,6 +6,7 @@ import gulpLoadPlugins from 'gulp-load-plugins';
 import minimist from 'minimist';
 import path from 'path';
 import uglify from 'gulp-uglify';
+import touch from 'gulp-touch-cmd';
 
 const $ = gulpLoadPlugins();
 const argv = minimist(process.argv.slice(2));
@@ -25,7 +26,8 @@ gulp.task('css', () => {
       csswring(),
     ]))
     .pipe($.rename(path.basename(argv.out)))
-    .pipe(gulp.dest(path.dirname(argv.out)));
+    .pipe(gulp.dest(path.dirname(argv.out)))
+    .pipe(touch());
 });
 
 gulp.task('less', () => {
@@ -44,7 +46,8 @@ gulp.task('less', () => {
       csswring(),
     ]))
     .pipe($.rename(path.basename(argv.out)))
-    .pipe(gulp.dest(path.dirname(argv.out)));
+    .pipe(gulp.dest(path.dirname(argv.out)))
+    .pipe(touch());
 });
 
 gulp.task('js', () => {
@@ -75,5 +78,6 @@ gulp.task('js', () => {
       })
     )
     .pipe($.rename(path.basename(argv.out)))
-    .pipe(gulp.dest(path.dirname(argv.out)));
+    .pipe(gulp.dest(path.dirname(argv.out)))
+    .pipe(touch());
 });

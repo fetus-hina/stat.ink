@@ -20,6 +20,7 @@
     "gulp-load-plugins": "^1.0",
     "gulp-postcss": "^7.0",
     "gulp-rename": "^1.2",
+    "gulp-touch-cmd": "^0.0.1",
     "gulp-uglify": "^3.0",
     "minimist": "^1.2",
     "svgo": "^1.0",
