@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2015-2017 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2018 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  */
@@ -8,6 +8,7 @@
 return [
     'Ability Doubler' => '',
     'Bomb Defense Up' => 'Antiexplosivos',
+    'Bomb Defense Up DX' => '',
     'Cold-Blooded' => 'Sangre fría',
     'Comeback' => 'Remonte',
     'Drop Roller' => 'Aterrizaje rodante',
@@ -18,6 +19,7 @@ return [
     'Ink Saver (Sub)' => 'Ahorro tinta (sec.)',
     'Last-Ditch Effort' => 'Último recurso',
     '(Locked)' => '',
+    'Main Power Up' => '',
     'Ninja Squid' => '',
     'Object Shredder' => '',
     'Opening Gambit' => '',

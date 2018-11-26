@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2015-2017 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2018 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  */
@@ -8,6 +8,7 @@
 return [
     '(Locked)' => '(未開放)',
     'Ability Doubler' => '追加ギアパワー倍化',
+    'Bomb Defense Up DX' => '爆風ダメージ軽減・改',
     'Bomb Defense Up' => '爆風ダメージ軽減',
     'Cold-Blooded' => 'マーキング時間短縮',
     'Comeback' => 'カムバック',
@@ -18,6 +19,7 @@ return [
     'Ink Saver (Main)' => 'インク効率アップ（メイン）',
     'Ink Saver (Sub)' => 'インク効率アップ（サブ）',
     'Last-Ditch Effort' => 'ラストスパート',
+    'Main Power Up' => 'メイン性能アップ',
     'Ninja Squid' => 'イカニンジャ',
     'Object Shredder' => '対物攻撃力アップ',
     'Opening Gambit' => 'スタートダッシュ',
