@@ -45,29 +45,56 @@ class ActivityAction extends Action
 
         $user = User::findOne(['screen_name' => $form->screen_name]);
         list($from, $to) = BattleHelper::getActivityDisplayRange();
-        $this->resp->data = $this->makeData($user, $from, $to);
+        $this->resp->data = $this->makeData($user, $from, $to, $form->only);
     }
 
     private function getInputPseudoForm(): DynamicModel
     {
+        $req = Yii::$app->getRequest();
         $time = time();
-        return DynamicModel::validateData(Yii::$app->request->get(), [
-            [['screen_name'], 'required'],
-            [['screen_name'], 'string'],
-            [['screen_name'], 'exist', 'skipOnError' => true,
-                'targetClass' => User::class,
-                'targetAttribute' => 'screen_name',
+        return DynamicModel::validateData(
+            [
+                'screen_name' => $req->get('screen_name'),
+                'only' => $req->get('only'),
             ],
-        ]);
+            [
+                [['screen_name'], 'required'],
+                [['screen_name', 'only'], 'string'],
+                [['screen_name'], 'exist', 'skipOnError' => true,
+                    'targetClass' => User::class,
+                    'targetAttribute' => 'screen_name',
+                ],
+                [['only'], 'in', 'range' => ['spl1', 'spl2', 'salmon2']],
+            ]
+        );
     }
 
-    private function makeData(User $user, DateTimeImmutable $from, DateTimeImmutable $to): array
-    {
+    private function makeData(
+        User $user,
+        DateTimeImmutable $from,
+        DateTimeImmutable $to,
+        ?string $only
+    ): array {
         return $this->reformatData($this->mergeData([
-            $this->makeDataSplatoon1Battle($user, $from, $to),
-            $this->makeDataSplatoon2Battle($user, $from, $to),
-            $this->makeDataSplatoon2Salmon($user, $from, $to),
+            $this->isShow('spl1', $only)
+                ? $this->makeDataSplatoon1Battle($user, $from, $to)
+                : [],
+            $this->isShow('spl2', $only)
+                ? $this->makeDataSplatoon2Battle($user, $from, $to)
+                : [],
+            $this->isShow('salmon2', $only)
+                ? $this->makeDataSplatoon2Salmon($user, $from, $to)
+                : [],
         ]));
+    }
+
+    private function isShow(string $kind, ?string $only): bool
+    {
+        if ($only === null) {
+            return true;
+        }
+
+        return $kind === $only;
     }
 
     private function reformatData(array $inData): array

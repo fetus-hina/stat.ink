@@ -46,6 +46,9 @@ class SalmonUserInfo extends Widget
                     $this->renderIconAndName(),
                     $this->renderData(),
                     $this->renderLinkToBattles(),
+                    '<hr>',
+                    $this->renderActivity(),
+                    '<hr>',
                     $this->renderLinks(),
                 ]),
                 ['id' => 'user-miniinfo-box']
@@ -227,6 +230,28 @@ class SalmonUserInfo extends Widget
             ),
             ['class' => 'miniinfo-databox']
         );
+    }
+
+    protected function renderActivity(): string
+    {
+        return Html::tag('div', implode('', [
+            Html::tag(
+                'div',
+                Html::encode(Yii::t('app', 'Activity')),
+                ['class' => 'user-label']
+            ),
+            Html::tag(
+                'div',
+                ActivityWidget::widget([
+                    'user' => $this->user,
+                    'months' => 4,
+                    'longLabel' => false,
+                    'size' => 9,
+                    'only' => 'salmon2',
+                ]),
+                ['class' => 'table-responsive']
+            ),
+        ]), ['class' => 'miniinfo-databox']);
     }
 
     protected function renderLinks(): string

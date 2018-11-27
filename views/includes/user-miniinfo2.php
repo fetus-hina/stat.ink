@@ -1,6 +1,7 @@
 <?php
 use app\assets\AppLinkAsset;
 use app\assets\UserMiniinfoAsset;
+use app\components\widgets\ActivityWidget;
 use app\components\widgets\MiniinfoUserLink;
 use app\models\Rank2;
 use app\models\Rule2;
@@ -463,6 +464,22 @@ $fmt = Yii::$app->formatter;
 <?php // }}} ?>
     </div>
 <?php endif; ?>
+    <hr>
+    <div class="miniinfo-databox">
+      <div class="user-label">
+        <?= Html::encode(Yii::t('app', 'Activity')) . "\n" ?>
+      </div>
+      <div class="table-responsive">
+        <?= ActivityWidget::widget([
+          'user' => $user,
+          'months' => 4,
+          'longLabel' => false,
+          'size' => 9,
+          'only' => 'spl2',
+        ]) . "\n" ?>
+      </div>
+    </div>
+    <hr>
     <div class="miniinfo-databox">
       <?= implode('<br>', array_merge(
         [

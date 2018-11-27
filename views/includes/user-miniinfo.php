@@ -2,6 +2,7 @@
 use app\assets\AppLinkAsset;
 use app\assets\RemoteFollowAsset;
 use app\assets\UserMiniinfoAsset;
+use app\components\widgets\ActivityWidget;
 use app\models\Rank;
 use statink\yii2\twitter\webintents\TwitterWebIntentsAsset;
 use yii\helpers\Html;
@@ -231,6 +232,21 @@ $f = Yii::$app->formatter;
       ) . "\n" ?>
       <?= $box('Kills/min', $stat->gachi_total_time < 1 ? $na : $f->asDecimal($stat->gachi_kill2 * 60 / $stat->gachi_total_time, 2)) . "\n" ?>
       <?= $box('Deaths/min', $stat->gachi_total_time < 1 ? $na : $f->asDecimal($stat->gachi_death2 * 60 / $stat->gachi_total_time, 2)) . "\n" ?>
+    </div>
+    <hr>
+    <div class="miniinfo-databox">
+      <div class="user-label">
+        <?= Html::encode(Yii::t('app', 'Activity')) . "\n" ?>
+      </div>
+      <div class="table-responsive">
+        <?= ActivityWidget::widget([
+          'user' => $user,
+          'months' => 4,
+          'longLabel' => false,
+          'size' => 9,
+          'only' => 'spl1',
+        ]) . "\n" ?>
+      </div>
     </div>
     <hr>
     <p class="miniinfo-databox">
