@@ -257,7 +257,6 @@ class Splatoon2InkI18nController extends Controller
             'name'
         ));
         return $status ? 0 : 1;
-
     }
 
     private function getEnglishData(string $jsonKey): ?array
