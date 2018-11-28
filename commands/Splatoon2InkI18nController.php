@@ -12,6 +12,8 @@ use Normalizer;
 use Yii;
 use Zend\Http\Client as HttpClient;
 use app\components\helpers\I18n as I18nHelper;
+use app\models\Gear2;
+use app\models\GearType;
 use app\models\Map2;
 use app\models\Weapon2;
 use yii\console\Controller;
@@ -52,7 +54,7 @@ class Splatoon2InkI18nController extends Controller
         ]);
     }
 
-    public function actionIndex(bool $strongUpdate = true): int
+    public function actionIndex(bool $strongUpdate = false): int
     {
         if ($this->actionDownloadAll($strongUpdate) !== 0) {
             return 1;
@@ -152,6 +154,10 @@ class Splatoon2InkI18nController extends Controller
                 return 1;
             }
 
+            if ($this->actionUpdateGear($locale) !== 0) {
+                return 1;
+            }
+
             if ($this->actionUpdateStage($locale) !== 0) {
                 return 1;
             }
@@ -206,6 +212,54 @@ class Splatoon2InkI18nController extends Controller
         return $status ? 0 : 1;
     }
 
+    public function actionUpdateGear(string $locale): int
+    {
+        $status = 0;
+        $status |= $this->actionUpdateHeadgear($locale);
+        $status |= $this->actionUpdateClothing($locale);
+        $status |= $this->actionUpdateShoes($locale);
+        return $status === 0 ? 0 : 1;
+    }
+
+    public function actionUpdateHeadgear(string $locale): int
+    {
+        return $this->updateGear($locale, 'headgear', 'gear.head');
+    }
+
+    public function actionUpdateClothing(string $locale): int
+    {
+        return $this->updateGear($locale, 'clothing', 'gear.clothes');
+    }
+
+    public function actionUpdateShoes(string $locale): int
+    {
+        return $this->updateGear($locale, 'shoes', 'gear.shoes');
+    }
+
+    private function updateGear(string $locale, string $type, string $jsonKey): int
+    {
+        $type = GearType::findOne(['key' => $type]);
+        if (!$type) {
+            fprintf(STDERR, "Unknown type: %s\n", $type);
+            return 1;
+        }
+
+        $status = $this->update($locale, 'gear2', $jsonKey, ArrayHelper::map(
+            Gear2::find()
+                ->andWhere(['and',
+                    ['not', ['splatnet' => null]],
+                    ['type_id' => $type->id],
+                ])
+                ->orderBy(['splatnet' => SORT_ASC])
+                ->asArray()
+                ->all(),
+            'splatnet',
+            'name'
+        ));
+        return $status ? 0 : 1;
+
+    }
+
     private function getEnglishData(string $jsonKey): ?array
     {
         $cachePath = $this->getCacheFilePath('en');
@@ -214,7 +268,10 @@ class Splatoon2InkI18nController extends Controller
             return null;
         }
 
-        $json = Json::decode(file_get_contents($cachePath))[$jsonKey];
+        $json = ArrayHelper::getValue(
+            Json::decode(file_get_contents($cachePath)),
+            $jsonKey
+        );
         $data = [];
         foreach ($json as $id => $value) {
             $data[$id] = $value['name'];
@@ -244,7 +301,10 @@ class Splatoon2InkI18nController extends Controller
 
         $filePath = Yii::getAlias('@app/messages') . "/{$shortLocale}/{$fileName}.php";
         $currentData = require($filePath);
-        $splatNetData = Json::decode(file_get_contents($cachePath))[$jsonKey];
+        $splatNetData = ArrayHelper::getValue(
+            Json::decode(file_get_contents($cachePath)),
+            $jsonKey
+        );
         $updated = false;
         foreach ($englishData as $splatNetId => $englishName) {
             $splatNetName = $splatNetData[$splatNetId]['name'] ?? null;

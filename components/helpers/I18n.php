@@ -53,8 +53,8 @@ class I18n
 
     public static function createTranslateTableCode(string $filePath, array $data): string
     {
-        $localeHandler = static::switchSystemLocale(LC_COLLATE, 'en_US');
-        uksort($data, 'strcoll');
+        $localeHandler = static::switchSystemLocale(LC_COLLATE, 'C');
+        uksort($data, 'strnatcasecmp');
         unset($localeHandler);
 
         // The author lives in Japan!
