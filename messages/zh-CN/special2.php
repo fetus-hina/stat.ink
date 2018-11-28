@@ -6,6 +6,7 @@
  */
 
 return [
+    'Any Special' => '',
     'Autobomb Launcher' => '',
     'Baller' => '',
     'Bomb Launcher' => '',
@@ -21,4 +22,5 @@ return [
     'Sting Ray' => '',
     'Suction-Bomb Launcher' => '',
     'Tenta Missiles' => '',
+    'Ultra Stamp' => '',
 ];

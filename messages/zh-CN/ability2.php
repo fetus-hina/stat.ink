@@ -8,6 +8,7 @@
 return [
     'Ability Doubler' => '',
     'Bomb Defense Up' => '',
+    'Bomb Defense Up DX' => '',
     'Cold-Blooded' => '',
     'Comeback' => '',
     'Drop Roller' => '',
@@ -18,6 +19,7 @@ return [
     'Ink Saver (Sub)' => '',
     'Last-Ditch Effort' => '',
     '(Locked)' => '',
+    'Main Power Up' => '',
     'Ninja Squid' => '',
     'Object Shredder' => '',
     'Opening Gambit' => '',
