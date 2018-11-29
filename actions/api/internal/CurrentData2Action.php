@@ -8,7 +8,7 @@
 namespace app\actions\api\internal;
 
 use Yii;
-use app\assets\MapImageAsset;
+use app\assets\MapImage2Asset;
 use app\components\helpers\Battle as BattleHelper;
 use app\models\Map2;
 use app\models\Mode2;
@@ -75,25 +75,7 @@ class CurrentData2Action extends ViewAction
         $now = microtime(true);
         $period = BattleHelper::calcPeriod2((int)$now);
         $range = BattleHelper::periodToRange2($period);
-        if ($now < strtotime('2017-07-15T19:00:00+09:00')) {
-            // 日本フェス前半
-            $fest = $info2(['gangaze', 'ama']);
-        } elseif ($now <= strtotime('2017-07-15T21:00:00+09:00')) {
-            // 日本フェス後半
-            $fest = $info2(['kombu', 'tachiuo']);
-        } elseif ($now < strtotime('2017-07-16T03:00:00+09:00')) {
-            // 欧州フェス前半
-            $fest = $info2(['gangaze', 'ama']);
-        } elseif ($now <= strtotime('2017-07-16T05:00:00+09:00')) {
-            // 欧州フェス後半
-            $fest = $info2(['kombu', 'tachiuo']);
-        } elseif ($now < strtotime('2017-07-16T09:00:00+09:00')) {
-            // 米国フェス前半
-            $fest = $info2(['gangaze', 'ama']);
-        } else {
-            // 米国フェス後半
-            $fest = $info2(['kombu', 'tachiuo']);
-        }
+        $fest = false;
         return [
             'period' => [
                 'id' => $period,
@@ -128,7 +110,7 @@ class CurrentData2Action extends ViewAction
     public function getMaps()
     {
         $assetManager = Yii::$app->assetManager;
-        $asset = $assetManager->getBundle(MapImageAsset::class);
+        $asset = $assetManager->getBundle(MapImage2Asset::class);
 
         $ret = [];
         foreach (Map2::find()->asArray()->all() as $map) {

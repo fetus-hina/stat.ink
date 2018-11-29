@@ -62,6 +62,7 @@
         "statink/yii2-jdenticon": "^1.0",
         "statink/yii2-paintball": "^1.0",
         "statink/yii2-sortable-table": "^1.0",
+        "statink/yii2-spl1-stages": "^1.0",
         "statink/yii2-twitter-webintents": "^1.0",
         "tpyo/amazon-s3-php-class": "^0.5.1",
         "websightnl/gearman": "^1.0",

@@ -78,7 +78,6 @@
               </td>
             {{/foreach}}
           </tr>
-          {{\app\assets\MapImageAsset::register($this)|@void}}
           {{registerCss}}
             img.map-image {
               max-width: 15em;
@@ -90,11 +89,8 @@
             <tr>
               <th>
                 {{$map->name|escape}}<br>
-                {{$mapFile = 'daytime/'|cat:$map->key:'.jpg'}}
-                <img src="{{$app->assetManager->getAssetUrl(
-                    $app->assetManager->getBundle('app\assets\MapImageAsset'),
-                    $mapFile
-                  )}}" class="map-image">
+                {{use class="statink\yii2\stages\spl1\Spl1Stage"}}
+                {{Spl1Stage::img('daytime', $map->key, ['class' => 'map-image'])}}
               </th>
               {{foreach $rules as $ruleKey => $ruleName}}
                 <td>
