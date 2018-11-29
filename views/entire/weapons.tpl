@@ -9,6 +9,9 @@
   {{$this->registerMetaTag(['name' => 'twitter:description', 'content' => $title])|@void}}
   {{$this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink'])|@void}}
 
+  {{use class="statink\yii2\sortableTable\SortableTableAsset"}}
+  {{SortableTableAsset::register($this)|@void}}
+
   <div class="container">
     <h1>
       {{$title|escape}}
@@ -31,7 +34,6 @@
     <p>
       {{'* This exclusion is in attempt to minimize overcounting in weapon usage statistics.'|translate:'app'|escape}}
     </p>
-    {{\app\assets\JqueryStupidTableAsset::register($this)|@void}}
     {{foreach $entire as $rule}}
       {{if !$rule@first}} | {{/if}}
       <a href="#weapon-{{$rule->key|escape}}">{{$rule->name|escape}}</a>
@@ -356,23 +358,6 @@
         </table>
       {{/if}}
     {{/foreach}}
-    {{registerJs}}
-      (function(){
-        $('.table-sortable')
-          .stupidtable()
-          .on("aftertablesort",function(event,data){
-            var th = $(this).find("th");
-            th.find(".arrow").remove();
-            var dir = $.fn.stupidtable.dir;
-            var arrow = data.direction === dir.ASC ? "fa-angle-up" : "fa-angle-down";
-            th.eq(data.column)
-              .append(' ')
-              .append(
-                $('<span/>').addClass('arrow fa').addClass(arrow)
-              );
-          });
-      })();
-    {{/registerJs}}
 
     <h2>
       {{'Favorite Weapons of This Site Member'|translate:'app'|escape}}

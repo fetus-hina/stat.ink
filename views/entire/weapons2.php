@@ -1,6 +1,5 @@
 <?php
 use app\assets\AppOptAsset;
-use app\assets\JqueryStupidTableAsset;
 use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
 use app\models\Map2;
@@ -8,6 +7,7 @@ use jp3cki\yii2\flot\FlotAsset;
 use jp3cki\yii2\flot\FlotStackAsset;
 use jp3cki\yii2\flot\FlotSymbolAsset;
 use jp3cki\yii2\flot\FlotTimeAsset;
+use statink\yii2\sortableTable\SortableTableAsset;
 use yii\bootstrap\ActiveForm;
 use yii\data\ArrayDataProvider;
 use yii\grid\GridView;
@@ -27,30 +27,12 @@ FlotAsset::register($this);
 FlotTimeAsset::register($this);
 FlotStackAsset::register($this);
 FlotSymbolAsset::register($this);
-JqueryStupidTableAsset::register($this);
+SortableTableAsset::register($this);
 
 $asset = AppOptAsset::register($this);
 $asset->registerJsFile($this, 'weapons.js');
 
 $this->registerCss('.graph{height:300px}');
-$this->registerJs(<<<'END_JS'
-(function(){
-  $('.table-sortable')
-    .stupidtable()
-    .on("aftertablesort",function(event,data){
-      var th = $(this).find("th");
-      th.find(".arrow").remove();
-      var dir = $.fn.stupidtable.dir;
-      var arrow = data.direction === dir.ASC ? "fa-angle-up" : "fa-angle-down";
-      th.eq(data.column)
-        .append(' ')
-        .append(
-          $('<span/>').addClass('arrow fa').addClass(arrow)
-        );
-    });
-})();
-END_JS
-);
 ?>
 <div class="container">
   <h1>

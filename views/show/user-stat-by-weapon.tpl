@@ -14,31 +14,15 @@
     {{$this->registerMetaTag(['name' => 'twitter:creator', 'content' => '@'|cat:$user->twitter])|@void}}
   {{/if}}
 
+  {{use class="statink\yii2\sortableTable\SortableTableAsset"}}
+  {{SortableTableAsset::register($this)|@void}}
+
   <div class="container">
     <h1>
       {{$title|escape}}
     </h1>
 
     {{SnsWidget}}
-
-    {{\app\assets\JqueryStupidTableAsset::register($this)|@void}}
-    {{registerJs}}
-      (function(){
-        $('.table-sortable')
-          .stupidtable()
-          .on("aftertablesort",function(event,data){
-            var th = $(this).find("th");
-            th.find(".arrow").remove();
-            var dir = $.fn.stupidtable.dir;
-            var arrow = data.direction === dir.ASC ? "fa-angle-up" : "fa-angle-down";
-            th.eq(data.column)
-              .append(' ')
-              .append(
-                $('<span/>').addClass('arrow fa').addClass(arrow)
-              );
-          });
-      })();
-    {{/registerJs}}
 
     <div class="row">
       <div class="col-xs-12 col-sm-8 col-md-8 col-lg-9">
