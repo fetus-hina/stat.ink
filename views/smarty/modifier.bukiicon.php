@@ -1,8 +1,9 @@
 <?php
-function smarty_modifier_bukiicon(string $key) : string
+declare(strict_types=1);
+
+use statink\yii2\bukiicons\Bukiicons;
+
+function smarty_modifier_bukiicon(string $key): string
 {
-    return \Yii::$app->getAssetManager()->getAssetUrl(
-        \app\assets\BukiiconsAsset::register(\Yii::$app->view),
-        "{$key}.png"
-    );
+    return Bukiicons::url($key);
 }

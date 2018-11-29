@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "406e4b481f618578aa588fe6ba6f28d2",
+    "content-hash": "af5115364a648bf22ec3552c910b6642",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -1849,6 +1849,49 @@
                 "issues": "https://github.com/statink/yii2-anonymizer/issues"
             },
             "time": "2018-11-16T13:33:59+00:00"
+        },
+        {
+            "name": "statink/yii2-bukiicons",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/statink/yii2-bukiicons.git",
+                "reference": "9a5dfd286e3e179f658dd3e3dc15e17c1ef5eaf1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/statink/yii2-bukiicons/zipball/9a5dfd286e3e179f658dd3e3dc15e17c1ef5eaf1",
+                "reference": "9a5dfd286e3e179f658dd3e3dc15e17c1ef5eaf1",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">= 7.1.0",
+                "yiisoft/yii2": "~2.0.15"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "statink\\yii2\\bukiicons\\": "src"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "AIZAWA Hina",
+                    "email": "hina@bouhime.com"
+                },
+                {
+                    "name": "stylecase"
+                }
+            ],
+            "description": "bukiicons asset bundle for stat.ink",
+            "support": {
+                "source": "https://github.com/statink/yii2-bukiicons/tree/v1.0.0",
+                "issues": "https://github.com/statink/yii2-bukiicons/issues"
+            },
+            "time": "2018-11-29T11:12:19+00:00"
         },
         {
             "name": "statink/yii2-cal-heatmap",

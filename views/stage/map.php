@@ -1,7 +1,7 @@
 <?php
-use app\assets\BukiiconsAsset;
 use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
+use statink\yii2\bukiicons\Bukiicons;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -90,8 +90,6 @@ JS
       </h2>
 
 <?php if ($__rule->trends): ?>
-<?php $_asset = BukiiconsAsset::register($this) ?>
-<?php $_am = Yii::$app->assetManager ?>
 <?php $this->registerCss(<<<'CSS'
 .trends ul{list-style-type:none;display:block;overflow:hidden;margin:0;padding:0}
 .trends ul li{display:inline-block;width:20%;margin:0;padding:0}
@@ -103,19 +101,16 @@ CSS
       <div class="trends">
         <ul>
           <?= implode('', array_map(
-            function ($trend) use ($_asset, $_am, $formatter, $__rule) : string {
-              return Html::tag('li', Html::img(
-                $_am->getAssetUrl($_asset, $trend->weapon->key . '.png'),
-                [
-                  'class' => 'auto-tooltip',
-                  'alt' => Yii::t('app-weapon', $trend->weapon->name),
-                  'title' => sprintf(
-                    '%s / %s',
-                    Yii::t('app-weapon', $trend->weapon->name),
-                    $formatter->asPercent(($trend->battles / $__rule->trendTotalBattles), 2)
-                  ),
-                ]
-              ));
+            function ($trend) use ($formatter, $__rule) : string {
+              return Html::tag('li', Bukiicons::icon($trend->weapon->key, [
+                'class' => 'auto-tooltip',
+                'alt' => Yii::t('app-weapon', $trend->weapon->name),
+                'title' => sprintf(
+                  '%s / %s',
+                  Yii::t('app-weapon', $trend->weapon->name),
+                  $formatter->asPercent(($trend->battles / $__rule->trendTotalBattles), 2)
+                ),
+              ]));
             },
             $__rule->trends
           )) . "\n" ?>
