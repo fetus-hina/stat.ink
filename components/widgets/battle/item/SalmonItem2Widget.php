@@ -12,8 +12,8 @@ namespace app\components\widgets\battle\item;
 use DateTimeImmutable;
 use DateTimeZone;
 use Yii;
-use app\assets\MapImage2Asset;
 use app\models\User;
+use statink\yii2\stages\spl2\Spl2Stage;
 
 class SalmonItem2Widget extends BaseWidget
 {
@@ -56,14 +56,9 @@ class SalmonItem2Widget extends BaseWidget
     {
         $isCleared = $this->model->isCleared;
         if ($isCleared !== null && $this->model->stage) {
-            $asset = MapImage2Asset::register($this->view);
-            return Yii::$app->getAssetManager()->getAssetUrl(
-                $asset,
-                sprintf(
-                    '%s/%s.jpg',
-                    $isCleared ? 'daytime-blur' : 'gray-blur',
-                    $this->model->stage->key
-                )
+            return Spl2Stage::url(
+                $isCleared ? 'daytime-blur' : 'gray-blur',
+                $this->model->stage->key
             );
         }
 

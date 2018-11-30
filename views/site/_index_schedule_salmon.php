@@ -1,15 +1,6 @@
 <?php
-use app\assets\MapImage2Asset;
+use statink\yii2\stages\spl2\Spl2Stage;
 use yii\helpers\Html;
-
-$timeZone = new DateTimeZone(Yii::$app->timeZone);
-
-$timeFormat = (Yii::$app->language === 'en-US')
-  ? 'ga'
-  : 'H:i';
-
-$assetManager = Yii::$app->assetManager;
-$map2Asset = MapImage2Asset::register($this);
 ?>
 <div class="row">
 <?php foreach ($schedules as $schedule): ?>
@@ -29,10 +20,9 @@ $map2Asset = MapImage2Asset::register($this);
         <div class="thumbnail thumbnail-salmon">
           <div class="row">
             <div class="col-xs-6">
-              <?= Html::img(
-                $assetManager->getAssetUrl($map2Asset, 'daytime/' . $schedule->map->key . '.jpg'),
-                ['class' => 'img-responsive']
-              ) . "\n" ?>
+              <?= Spl2Stage::img('daytime', $schedule->map->key, [
+                'class' => 'img-responsive',
+              ]) . "\n" ?>
               <div class="battle-data">
                 <?= Html::encode(Yii::t('app-salmon-map2', $schedule->map->name)) . "\n" ?>
               </div>
@@ -52,4 +42,4 @@ $map2Asset = MapImage2Asset::register($this);
     </ul>
   </div>
 <?php endforeach ?>
-</div><?php
+</div>

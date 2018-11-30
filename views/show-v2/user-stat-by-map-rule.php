@@ -1,17 +1,16 @@
 <?php
-use app\assets\MapImage2Asset;
 use app\components\widgets\AdWidget;
 use app\components\widgets\Battle2FilterWidget;
 use app\components\widgets\SnsWidget;
 use app\components\widgets\WinLoseLegend;
 use jp3cki\yii2\flot\FlotPieAsset;
+use statink\yii2\stages\spl2\Spl2Stage;
 use yii\helpers\Html;
 use yii\helpers\Json;
 use yii\helpers\Url;
 
 $assetManager = Yii::$app->assetManager;
 FlotPieAsset::register($this);
-$mapImage = MapImage2Asset::register($this);
 
 $title = Yii::t('app', "{0}'s Battle Stats (by Mode and Stage)", [$user->name]);
 $this->title = sprintf('%s | %s', Yii::$app->name, $title);
@@ -92,18 +91,14 @@ $ruleMap = [
 <?php endforeach; ?>
           </tr>
 <?php foreach ($mapNames as $mapKey => $mapName): ?>
-<?php $imgFileName = "daytime/{$mapKey}.jpg"; ?>
           <tr>
             <th>
               <?= Html::a(
-                implode('', [
-                  Html::encode($mapName) . '<br>',
-                  file_exists($assetManager->getAssetPath($mapImage, $imgFileName))
-                    ? Html::img(
-                      $assetManager->getAssetUrl($mapImage, $imgFileName),
-                      ['style' => 'max-width:100%']
-                    )
-                    : '',
+                implode('<br>', [
+                  Html::encode($mapName),
+                  Spl2Stage::img('daytime', $mapKey, ['style' => [
+                    'max-width' => '100%',
+                  ]]),
                 ]),
                 ['show-v2/user',
                   'screen_name' => $user->screen_name,

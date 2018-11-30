@@ -8,7 +8,6 @@
 namespace app\actions\api\internal;
 
 use Yii;
-use app\assets\MapImage2Asset;
 use app\components\helpers\Battle as BattleHelper;
 use app\models\Map2;
 use app\models\Mode2;
@@ -17,6 +16,7 @@ use app\models\UserWeapon;
 use app\models\Weapon2;
 use app\models\WeaponCategory2;
 use app\models\WeaponType2;
+use statink\yii2\stages\spl2\Spl2Stage;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 use yii\web\BadRequestHttpException;
@@ -109,15 +109,12 @@ class CurrentData2Action extends ViewAction
 
     public function getMaps()
     {
-        $assetManager = Yii::$app->assetManager;
-        $asset = $assetManager->getBundle(MapImage2Asset::class);
-
         $ret = [];
         foreach (Map2::find()->asArray()->all() as $map) {
             $ret[$map['key']] = [
-                'name'      => Yii::t('app-map2', $map['name']),
+                'name' => Yii::t('app-map2', $map['name']),
                 'shortName' => Yii::t('app-map2', $map['short_name']),
-                'image'     => Url::to($assetManager->getAssetUrl($asset, "daytime/{$map['key']}.jpg"), true),
+                'image' => Url::to(Spl2Stage::url('daytime', $map['key']), true),
             ];
         }
         uasort($ret, function ($a, $b) {

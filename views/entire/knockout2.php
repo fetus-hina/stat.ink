@@ -1,12 +1,12 @@
 <?php
 use app\assets\AppOptAsset;
-use app\assets\MapImage2Asset;
 use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
 use app\models\Map2;
 use app\models\RankGroup2;
 use app\models\Rule2;
 use jp3cki\yii2\flot\FlotPieAsset;
+use statink\yii2\stages\spl2\Spl2Stage;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Json;
@@ -159,16 +159,12 @@ foreach ($data as $_map) {
           </td>
 <?php } ?>
         </tr>
-<?php $_mapAsset = MapImage2Asset::register($this) ?>
 <?php $this->registerCss('img.map-image{max-width:15em;height:auto}'); ?>
 <?php foreach ($maps as $_mapKey => $_mapName): ?>
         <tr>
           <th>
             <?= Html::encode($_mapName) ?><br>
-            <?= Html::img(
-              Yii::$app->assetManager->getAssetUrl($_mapAsset, sprintf('daytime/%s.jpg', $_mapKey)),
-              ['class' => 'map-image']
-            ) . "\n" ?>
+            <?= Spl2Stage::img('daytime', $_mapKey, ['class' => 'map-image']) . "\n" ?>
           </th>
 <?php foreach ($rules as $_ruleKey => $_ruleName): ?>
           <td>

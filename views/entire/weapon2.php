@@ -1,6 +1,5 @@
 <?php
 use app\assets\AppOptAsset;
-use app\assets\MapImage2Asset;
 use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
 use app\components\widgets\WinLoseLegend;
@@ -14,6 +13,7 @@ use jp3cki\yii2\flot\FlotAsset;
 use jp3cki\yii2\flot\FlotPieAsset;
 use jp3cki\yii2\flot\FlotTimeAsset;
 use statink\yii2\sortableTable\SortableTableAsset;
+use statink\yii2\stages\spl2\Spl2Stage;
 use yii\bootstrap\ActiveForm;
 use yii\data\ArrayDataProvider;
 use yii\grid\GridView;
@@ -329,7 +329,6 @@ $normalizedSeconds = ($rule->key == 'nawabari' ? 3 : 5) * 60;
   <?= WinLoseLegend::widget() . "\n" ?>
 
   <div class="table-responsive table-responsive-force">
-<?php $_mapImage = MapImage2Asset::register($this) ?>
 <?php $_getQ = function (array $list, int $nth) : ?int {
   while (count($list) > 0 && $nth > 0) {
     $row = array_shift($list);
@@ -458,20 +457,14 @@ $normalizedSeconds = ($rule->key == 'nawabari' ? 3 : 5) * 60;
         [
           'label' => Html::encode(Yii::t('app', 'Stage')), // {{{
           'format' => 'raw',
-          'value' => function (array $map) use ($_mapImage) : string {
+          'value' => function (array $map): string {
             $imgFileName = sprintf('daytime/%s.jpg', $map['key']);
-            return implode('<br>', array_filter([
+            return implode('<br>', [
               Html::tag('strong', Html::encode($map['name'])),
-              (file_exists(Yii::$app->assetManager->getAssetPath($_mapImage, $imgFileName))
-                ? Html::img(
-                  Yii::$app->assetManager->getAssetUrl($_mapImage, $imgFileName),
-                  ['style' => [
-                    'max-width' => '100%',
-                  ]]
-                )
-                : false
-              ),
-            ]));
+              Spl2Stage::img('daytime', $map['key'], ['style' => [
+                'max-width' => '100%',
+              ]]),
+            ]);
           },
           'headerOptions' => ['data' => ['sort' => 'int']],
           'contentOptions' => function ($model, $key, $index, $column) : array {

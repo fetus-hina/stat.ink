@@ -10,8 +10,8 @@ namespace app\components\widgets\battle\item;
 use DateTimeImmutable;
 use DateTimeZone;
 use Yii;
-use app\assets\MapImage2Asset;
 use app\models\User;
+use statink\yii2\stages\spl2\Spl2Stage;
 
 class BattleItem2Widget extends BaseWidget
 {
@@ -55,14 +55,9 @@ class BattleItem2Widget extends BaseWidget
         if ($this->model->battleImageResult) {
             return $this->model->battleImageResult->url;
         } elseif ($this->model->map && $this->model->is_win !== null) {
-            $asset = MapImage2Asset::register($this->view);
-            return Yii::$app->getAssetManager()->getAssetUrl(
-                $asset,
-                sprintf(
-                    '%s/%s.jpg',
-                    $this->model->is_win ? 'daytime-blur' : 'gray-blur',
-                    $this->model->map->key
-                )
+            return Spl2Stage::url(
+                $this->model->is_win ? 'daytime-blur' : 'gray-blur',
+                $this->model->map->key
             );
         } else {
             return $this->getImagePlaceholderUrl();

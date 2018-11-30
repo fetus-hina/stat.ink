@@ -1,5 +1,5 @@
 <?php
-use app\assets\MapImage2Asset;
+use statink\yii2\stages\spl2\Spl2Stage;
 use yii\helpers\Html;
 
 $timeZone = new DateTimeZone(Yii::$app->timeZone);
@@ -7,9 +7,6 @@ $timeZone = new DateTimeZone(Yii::$app->timeZone);
 $timeFormat = (Yii::$app->language === 'en-US')
   ? 'ga'
   : 'H:i';
-
-$assetManager = Yii::$app->assetManager;
-$map2Asset = MapImage2Asset::register($this);
 ?>
 <div class="row">
 <?php foreach ($data as $schedule): ?>
@@ -25,14 +22,9 @@ $map2Asset = MapImage2Asset::register($this);
 <?php foreach ($schedule['data']->maps as $map): ?>
       <li>
         <?= Html::beginTag('div', ['class' => ['thumbnail', 'thumbnail-' . $schedule['data']->rule->key]]) . "\n" ?>
-          <?= Html::img(
-            $assetManager->getAssetUrl($map2Asset, 'daytime/' . $map->key . '.jpg'),
-            []
-          ) . "\n" ?>
+          <?= Spl2Stage::img('daytime', $map->key) . "\n" ?>
           <div class="battle-data">
-            <?= Html::encode(
-              Yii::t('app-map2', $map->name)
-            ) . "\n" ?>
+            <?= Html::encode(Yii::t('app-map2', $map->name)) . "\n" ?>
           </div>
         </div>
       </li>
@@ -41,4 +33,4 @@ $map2Asset = MapImage2Asset::register($this);
   </div>
 <?php endif ?>
 <?php endforeach ?>
-</div><?php
+</div>
