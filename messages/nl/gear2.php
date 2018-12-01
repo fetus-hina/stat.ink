@@ -287,7 +287,7 @@ return [
     'New-Leaf Leather Boots' => 'Bladgroene laarzen',
     'Noise Cancelers' => 'Oorbeschermers',
     'Non-slip Senseis' => 'Antislipschoenen',
-    'North-Country Parka' => '',
+    'North-Country Parka' => 'Winterparka',
     'Null Armor Replica' => '',
     'Null Boots Replica' => '',
     'Null Visor Replica' => '',

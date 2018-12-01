@@ -288,7 +288,7 @@ return [
     'New-Leaf Leather Boots' => 'Bottines printanières',
     'Noise Cancelers' => 'Casque DJ',
     'Non-slip Senseis' => 'Souliers antidérapants',
-    'North-Country Parka' => '',
+    'North-Country Parka' => 'Parka nordique',
     'Null Armor Replica' => '',
     'Null Boots Replica' => '',
     'Null Visor Replica' => '',

@@ -287,7 +287,7 @@ return [
     'New-Leaf Leather Boots' => 'Bota alta forestal',
     'Noise Cancelers' => 'Cascos antirruido',
     'Non-slip Senseis' => 'Escarpín alto',
-    'North-Country Parka' => '',
+    'North-Country Parka' => 'Abrigo norteño',
     'Null Armor Replica' => '',
     'Null Boots Replica' => '',
     'Null Visor Replica' => '',

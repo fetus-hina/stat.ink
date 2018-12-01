@@ -287,7 +287,7 @@ return [
     'New-Leaf Leather Boots' => 'Frühlingsblatt-Stiefel',
     'Noise Cancelers' => 'Gehörschutz',
     'Non-slip Senseis' => 'Arbeiter-Tabi',
-    'North-Country Parka' => '',
+    'North-Country Parka' => 'Nordland-Parka',
     'Null Armor Replica' => '',
     'Null Boots Replica' => '',
     'Null Visor Replica' => '',

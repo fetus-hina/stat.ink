@@ -287,7 +287,7 @@ return [
     'New-Leaf Leather Boots' => 'Anfibi di pelle verde',
     'Noise Cancelers' => 'Cuffie antirumore',
     'Non-slip Senseis' => 'Antiscivolo master',
-    'North-Country Parka' => '',
+    'North-Country Parka' => 'Giaccone profondo nord',
     'Null Armor Replica' => '',
     'Null Boots Replica' => '',
     'Null Visor Replica' => '',

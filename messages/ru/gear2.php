@@ -287,7 +287,7 @@ return [
     'New-Leaf Leather Boots' => 'Темно-зеленые берцы',
     'Noise Cancelers' => 'Бесшумные наушники',
     'Non-slip Senseis' => 'Прорезиненные таби',
-    'North-Country Parka' => '',
+    'North-Country Parka' => 'Парка «Северная»',
     'Null Armor Replica' => '',
     'Null Boots Replica' => '',
     'Null Visor Replica' => '',

@@ -288,7 +288,7 @@ return [
     'New-Leaf Leather Boots' => 'シンリョクレザーブーツ',
     'Noise Cancelers' => 'イヤーマフ',
     'Non-slip Senseis' => 'ノンスリップタクミ',
-    'North-Country Parka' => '',
+    'North-Country Parka' => 'フロムキタグニ87',
     'Null Armor Replica' => 'ネルアーマー レプリカ',
     'Null Boots Replica' => 'ネルブーツ レプリカ',
     'Null Visor Replica' => 'ネルメット レプリカ',
