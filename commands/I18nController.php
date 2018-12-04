@@ -21,7 +21,6 @@ class I18nController extends Controller
     {
         parent::init();
         Yii::setAlias('@messages', '@app/messages');
-        setlocale(LC_COLLATE, 'en_US');
     }
 
     public function actionMessages(bool $strongUpdate = false): int
@@ -112,7 +111,9 @@ class I18nController extends Controller
             $this->stderr("  => SKIP\n");
             return true;
         }
-        uksort($current, 'strcoll');
+
+        setlocale(LC_COLLATE, 'C');
+        uksort($current, 'strnatcasecmp');
 
         $esc = function (string $text): string {
             return str_replace(["\\", "'"], ["\\\\", "\\'"], $text);

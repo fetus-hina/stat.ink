@@ -320,6 +320,7 @@ You can also send "`#` + SplatNet-Number" like `#50` as a secondary option (not 
 |指定文字列<br>Key String|イカリング<br>SplatNet|ブキ<br>Weapon Name                                        |備考<br>Remarks                                                                                      |
 |------------------------|----------------------|-----------------------------------------------------------|-----------------------------------------------------------------------------------------------------|
 |`52gal`                 |`50`                  |.52ガロン<br>.52 Gal                                       |                                                                                                     |
+|`52gal_becchu`          |`52`                  |.52ガロンベッチュー<br>Kensa .52 Gal                       |                                                                                                     |
 |`52gal_deco`            |`51`                  |.52ガロンデコ<br>.52 Gal Deco                              |                                                                                                     |
 |`96gal`                 |`80`                  |.96ガロン<br>.96 Gal                                       |                                                                                                     |
 |`96gal_deco`            |`81`                  |.96ガロンデコ<br>.96 Gal Deco                              |                                                                                                     |
@@ -357,6 +358,7 @@ You can also send "`#` + SplatNet-Number" like `#50` as a secondary option (not 
 |`nova_becchu`           |`202`                 |ノヴァブラスターベッチュー<br>Kensa Luna Blaster           |                                                                                                     |
 |`nova_neo`              |`201`                 |ノヴァブラスターネオ<br>Luna Blaster Neo                   |                                                                                                     |
 |`rapid`                 |`240`                 |ラピッドブラスター<br>Rapid Blaster                        |                                                                                                     |
+|`rapid_becchu`          |`242`                 |ラピッドブラスターベッチュー<br>Kensa Rapid Blaster        |                                                                                                     |
 |`rapid_deco`            |`241`                 |ラピッドブラスターデコ<br>Rapid Blaster Deco               |                                                                                                     |
 |`rapid_elite`           |`250`                 |Rブラスターエリート<br>Rapid Blaster Pro                   |                                                                                                     |
 |`rapid_elite_deco`      |`251`                 |Rブラスターエリートデコ<br>Rapid Blaster Pro Deco          |                                                                                                     |
@@ -369,6 +371,7 @@ You can also send "`#` + SplatNet-Number" like `#50` as a secondary option (not 
 |`dualsweeper_custom`    |`5031`                |デュアルスイーパーカスタム<br>Custom Dualie Squelchers     |                                                                                                     |
 |`heromaneuver_replica`  |`5015`                |ヒーローマニューバー レプリカ<br>Hero Dualie Replicas      |                                                                                                     |
 |`kelvin525`             |`5020`                |ケルビン525<br>Glooga Dualies                              |                                                                                                     |
+|`kelvin525_becchu`      |`5022`                |ケルビン525ベッチュー<br>Kensa Glooga Dualies              |                                                                                                     |
 |`kelvin525_deco`        |`5021`                |ケルビン525デコ<br>Glooga Dualies Deco                     |                                                                                                     |
 |`maneuver`              |`5010`                |スプラマニューバー<br>Splat Dualies                        |互換性のため `manueuver` も受け付けます<br>Also accepts `manueuver` for compatibility                |
 |`maneuver_becchu`       |`5012`                |スプラマニューバーベッチュー<br>Kensa Splat Dualies        |                                                                                                     |
@@ -433,6 +436,7 @@ You can also send "`#` + SplatNet-Number" like `#50` as a secondary option (not 
 |`nautilus47`            |`4040`                |ノーチラス47<br>Nautilus 47                                |                                                                                                     |
 |`nautilus79`            |`4041`                |ノーチラス79<br>Nautilus 79                                |                                                                                                     |
 |`splatspinner`          |`4000`                |スプラスピナー<br>Mini Splatling                           |                                                                                                     |
+|`splatspinner_becchu`   |`4002`                |スプラスピナーベッチュー<br>Kensa Mini Splatling           |                                                                                                     |
 |`splatspinner_collabo`  |`4001`                |スプラスピナーコラボ<br>Zink Mini Splatling                |                                                                                                     |
 |`campingshelter`        |`6010`                |キャンピングシェルター<br>Tenta Brella                     |                                                                                                     |
 |`campingshelter_sorella`|`6011`                |キャンピングシェルターソレーラ<br>Tenta Sorella Brella     |                                                                                                     |
