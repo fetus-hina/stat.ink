@@ -25,6 +25,7 @@ class AppOptAsset extends AssetBundle
             $options,
             $key
         );
+        return $this;
     }
 
     public function registerJsFile($view, $filename, $options = [], $key = null)
@@ -39,5 +40,6 @@ class AppOptAsset extends AssetBundle
             ),
             $key
         );
+        return $this;
     }
 }

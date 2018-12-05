@@ -54,6 +54,7 @@ RESOURCE_TARGETS_MAIN := \
 	resources/.compiled/stat.ink/permalink-dialog.js \
 	resources/.compiled/stat.ink/private-note.js \
 	resources/.compiled/stat.ink/salmon-work-list-config.js \
+	resources/.compiled/stat.ink/salmon-work-list-hazard.js \
 	resources/.compiled/stat.ink/salmon-work-list.js \
 	resources/.compiled/stat.ink/summary-legends.png \
 	resources/.compiled/stat.ink/swipebox-runner.js \
@@ -306,6 +307,9 @@ resources/.compiled/stat.ink/salmon-work-list-config.js: resources/stat.ink/salm
 	$(GULP) js --in $< --out $@
 
 resources/.compiled/stat.ink/salmon-work-list.js: resources/stat.ink/salmon-work-list.es $(GULP)
+	$(GULP) js --in $< --out $@
+
+resources/.compiled/stat.ink/salmon-work-list-hazard.js: resources/stat.ink/salmon-work-list-hazard.es $(GULP)
 	$(GULP) js --in $< --out $@
 
 resources/.compiled/ostatus/remote-follow.js: resources/ostatus/remote-follow.js $(GULP)

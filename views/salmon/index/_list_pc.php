@@ -6,13 +6,16 @@ use app\assets\RpgAwesomeAsset;
 use app\components\grid\SalmonActionColumn;
 use app\components\widgets\Label;
 use app\models\Salmon2;
+use yii\grid\Column;
 use yii\grid\GridView;
 use yii\helpers\Html;
 use yii\i18n\Formatter;
 use yii\widgets\ListView;
 
 RpgAwesomeAsset::register($this);
-AppOptAsset::register($this)->registerJsFile($this, 'salmon-work-list.js');
+AppOptAsset::register($this)
+  ->registerJsFile($this, 'salmon-work-list.js')
+  ->registerJsFile($this, 'salmon-work-list-hazard.js');
 $this->registerJs('window.workList();');
 ?>
 <div class="text-center">
@@ -110,7 +113,7 @@ $this->registerJs('window.workList();');
       'headerOptions' => ['class' => 'cell-result'],
       'contentOptions' => ['class' => 'cell-result nobr'],
       'format' => 'raw',
-      'value' => function (Salmon2 $model): ?string {
+      'value' => function (Salmon2 $model, $key, $index, Column $column): ?string {
         $isCleared = $model->getIsCleared();
         if ($isCleared === null) {
           return null;
@@ -124,7 +127,7 @@ $this->registerJs('window.workList();');
             Label::widget([
               'color' => 'danger',
               'content' => Yii::t('app-salmon2', 'Failed in wave {waveNumber}', [
-                'waveNumber' => Yii::$app->formatter->asInteger($model->clear_waves + 1),
+                'waveNumber' => $column->grid->formatter->asInteger($model->clear_waves + 1),
               ]),
             ]),
             $model->fail_reason_id
@@ -218,7 +221,17 @@ $this->registerJs('window.workList();');
     [
       'label' => Yii::t('app-salmon2', 'Hazard Level'),
       'headerOptions' => ['class' => 'cell-danger-rate'],
-      'contentOptions' => ['class' => 'cell-danger-rate'],
+      'contentOptions' => function (Salmon2 $model, $key, $index, Column $column): array {
+        return [
+          'class' => array_filter([
+            'cell-danger-rate',
+            ($model->danger_rate === null ? null : 'danger-rate-bg'),
+          ]),
+          'data' => [
+            'danger-rate' => $column->grid->formatter->asDecimal($model->danger_rate, 1),
+          ],
+        ];
+      },
       'format' => ['decimal', 1],
       'attribute' => 'danger_rate',
     ],
