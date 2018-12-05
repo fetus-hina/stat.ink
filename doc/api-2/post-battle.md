@@ -544,7 +544,7 @@ Gear Ability
 |------------------------|----------------------|----------------------------------------------|---------------|
 |`ability_doubler`       |`108`                 |追加ギアパワー倍化<br>Ability Doubler         |               |
 |`bomb_defense_up`       |`12`                  |爆風ダメージ軽減<br>Bomb Defense Up           |               |
-|`bomb_defense_up_dx`    |                      |爆風ダメージ軽減・改<br>Bomb Defense Up DX    |               |
+|`bomb_defense_up_dx`    |`200`                 |爆風ダメージ軽減・改<br>Bomb Defense Up DX    |               |
 |`cold_blooded`          |`13`                  |マーキング時間短縮<br>Cold-Blooded            |               |
 |`comeback`              |`103`                 |カムバック<br>Comeback                        |               |
 |`drop_roller`           |`111`                 |受け身術<br>Drop Roller                       |               |
@@ -554,7 +554,7 @@ Gear Ability
 |`ink_saver_main`        |`0`                   |インク効率アップ（メイン）<br>Ink Saver (Main)|               |
 |`ink_saver_sub`         |`1`                   |インク効率アップ（サブ）<br>Ink Saver (Sub)   |               |
 |`last_ditch_effort`     |`101`                 |ラストスパート<br>Last-Ditch Effort           |               |
-|`main_power_up`         |                      |メイン性能アップ<br>Main Power Up             |               |
+|`main_power_up`         |`201`                 |メイン性能アップ<br>Main Power Up             |               |
 |`ninja_squid`           |`104`                 |イカニンジャ<br>Ninja Squid                   |               |
 |`object_shredder`       |`110`                 |対物攻撃力アップ<br>Object Shredder           |               |
 |`opening_gambit`        |`100`                 |スタートダッシュ<br>Opening Gambit            |               |
