@@ -202,6 +202,20 @@ $this->registerJs('window.workList();');
       'attribute' => 'pwrEggsPerWave',
     ],
     [
+      'label' => Yii::t('app-salmon2', 'Rescued'),
+      'headerOptions' => ['class' => 'cell-rescue'],
+      'contentOptions' => ['class' => 'cell-rescue'],
+      'format' => 'integer',
+      'attribute' => 'myData.rescue',
+    ],
+    [
+      'label' => Yii::t('app-salmon2', 'Deaths'),
+      'headerOptions' => ['class' => 'cell-death'],
+      'contentOptions' => ['class' => 'cell-death'],
+      'format' => 'integer',
+      'attribute' => 'myData.death',
+    ],
+    [
       'label' => Yii::t('app-salmon2', 'Hazard Level'),
       'headerOptions' => ['class' => 'cell-danger-rate'],
       'contentOptions' => ['class' => 'cell-danger-rate'],
