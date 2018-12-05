@@ -206,7 +206,7 @@ return [
     'Tempered Dynamo Roller' => '',
     'Tentatek Splattershot' => '',
     'Termosecchiostro' => '',
-    'Termosecchiostro CM' => '',
+    'Termosecchiostro master' => '',
     'Tetrapenna' => '',
     'Tetrapenna master' => '',
     'Tinter a carica 4K' => '',

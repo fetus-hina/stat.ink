@@ -34,7 +34,7 @@ return [
     'Custom Dualie Squelchers' => 'Sweeper duplo CM',
     'Custom E-liter 4K' => 'Tinter a carica 4K CM',
     'Custom E-liter 4K Scope' => 'Tinter con mirino 4K CM',
-    'Custom Explosher' => 'Termosecchiostro CM',
+    'Custom Explosher' => 'Termosecchiostro master',
     'Custom Goo Tuber' => 'Tintubator CM',
     'Custom Hydra Splatling' => 'Idrante CM',
     'Custom Jet Squelcher' => 'Sweeper CM',
