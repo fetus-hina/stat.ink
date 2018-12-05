@@ -11,9 +11,11 @@ window.workListConfig = () => {
       "cell-map": true,
       "cell-special": false,
       "cell-result": true,
+      "cell-golden": true,
+      "cell-power": true,
       "cell-danger-rate": true,
       "cell-title": true,
-      "cell-title-after": true,
+      "cell-title-after": false,
       "cell-datetime": true,
       "cell-reltime": false,
     };

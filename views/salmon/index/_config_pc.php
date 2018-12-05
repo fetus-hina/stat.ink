@@ -18,6 +18,8 @@ use yii\helpers\Html;
         'cell-map' => Yii::t('app', 'Stage'),
         'cell-special' => Yii::t('app', 'Special'),
         'cell-result' => Yii::t('app', 'Result'),
+        'cell-golden' => Yii::t('app-salmon2', 'Golden Eggs'),
+        'cell-power' => Yii::t('app-salmon2', 'Power Eggs'),
         'cell-danger-rate' => Yii::t('app-salmon2', 'Hazard Level'),
         'cell-title' => Yii::t('app', 'Title'),
         'cell-title-after' => Yii::t('app', 'Title (After)'),

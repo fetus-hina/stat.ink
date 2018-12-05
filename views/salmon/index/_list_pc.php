@@ -142,6 +142,36 @@ $this->registerJs('window.workList();');
       },
     ],
     [
+      'label' => Html::tag(
+        'span',
+        Html::encode(Yii::t('app-salmon2', 'Golden')),
+        [
+          'class' => 'auto-tooltip',
+          'title' => Yii::t('app-salmon2', 'Golden Eggs'),
+        ]
+      ),
+      'encodeLabel' => false,
+      'headerOptions' => ['class' => 'cell-golden'],
+      'contentOptions' => ['class' => 'cell-golden'],
+      'format' => 'integer',
+      'attribute' => 'myData.golden_egg_delivered',
+    ],
+    [
+      'label' => Html::tag(
+        'span',
+        Html::encode(Yii::t('app-salmon2', 'Pwr Eggs')),
+        [
+          'class' => 'auto-tooltip',
+          'title' => Yii::t('app-salmon2', 'Power Eggs'),
+        ]
+      ),
+      'encodeLabel' => false,
+      'headerOptions' => ['class' => 'cell-power'],
+      'contentOptions' => ['class' => 'cell-power'],
+      'format' => 'integer',
+      'attribute' => 'myData.power_egg_collected',
+    ],
+    [
       'label' => Yii::t('app-salmon2', 'Hazard Level'),
       'headerOptions' => ['class' => 'cell-danger-rate'],
       'contentOptions' => ['class' => 'cell-danger-rate'],
