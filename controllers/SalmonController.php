@@ -113,10 +113,14 @@ class SalmonController extends Controller
             ->orderBy(['id' => SORT_DESC])
             ->andWhere(['user_id' => $user->id])
             ->with([
-                'stage',
                 'failReason',
-                'titleBefore',
+                'players',
+                'players.gender',
+                'players.special',
+                'players.species',
+                'stage',
                 'titleAfter',
+                'titleBefore',
             ]);
         $filter->decorateQuery($query);
 

@@ -16,6 +16,7 @@ use yii\helpers\Html;
       $_list = [
         'cell-splatnet' => Yii::t('app', 'SplatNet #'),
         'cell-map' => Yii::t('app', 'Stage'),
+        'cell-special' => Yii::t('app', 'Special'),
         'cell-result' => Yii::t('app', 'Result'),
         'cell-danger-rate' => Yii::t('app-salmon2', 'Hazard Level'),
         'cell-title' => Yii::t('app', 'Title'),

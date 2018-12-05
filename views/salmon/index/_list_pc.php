@@ -91,6 +91,21 @@ $this->registerJs('window.workList();');
       },
     ],
     [
+      'attribute' => 'myData.special_id',
+      'headerOptions' => ['class' => 'cell-special'],
+      'contentOptions' => ['class' => 'cell-special'],
+      'label' => Yii::t('app', 'Special'),
+      'value' => function (Salmon2 $model): ?string {
+        if (!$myData = $model->myData) {
+          return null;
+        }
+        if (!$special = $myData->special) {
+          return null;
+        }
+        return Yii::t('app-special2', $special->name);
+      },
+    ],
+    [
       'label' => Yii::t('app', 'Result'),
       'headerOptions' => ['class' => 'cell-result'],
       'contentOptions' => ['class' => 'cell-result nobr'],
