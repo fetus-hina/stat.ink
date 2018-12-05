@@ -159,6 +159,21 @@ $this->registerJs('window.workList();');
     [
       'label' => Html::tag(
         'span',
+        Html::encode(Yii::t('app-salmon2', 'Golden/W')),
+        [
+          'class' => 'auto-tooltip',
+          'title' => Yii::t('app-salmon2', 'Golden Eggs per Wave'),
+        ]
+      ),
+      'encodeLabel' => false,
+      'headerOptions' => ['class' => 'cell-golden-wave'],
+      'contentOptions' => ['class' => 'cell-golden-wave'],
+      'format' => ['decimal', 1],
+      'attribute' => 'goldenPerWave',
+    ],
+    [
+      'label' => Html::tag(
+        'span',
         Html::encode(Yii::t('app-salmon2', 'Pwr Eggs')),
         [
           'class' => 'auto-tooltip',
@@ -170,6 +185,21 @@ $this->registerJs('window.workList();');
       'contentOptions' => ['class' => 'cell-power'],
       'format' => 'integer',
       'attribute' => 'myData.power_egg_collected',
+    ],
+    [
+      'label' => Html::tag(
+        'span',
+        Html::encode(Yii::t('app-salmon2', 'Pwr E/W')),
+        [
+          'class' => 'auto-tooltip',
+          'title' => Yii::t('app-salmon2', 'Power Eggs per Wave'),
+        ]
+      ),
+      'encodeLabel' => false,
+      'headerOptions' => ['class' => 'cell-power-wave'],
+      'contentOptions' => ['class' => 'cell-power-wave'],
+      'format' => ['decimal', 1],
+      'attribute' => 'pwrEggsPerWave',
     ],
     [
       'label' => Yii::t('app-salmon2', 'Hazard Level'),

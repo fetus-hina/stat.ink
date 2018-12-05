@@ -348,6 +348,37 @@ class Salmon2 extends ActiveRecord
         return !$cleared;
     }
 
+    public function getPlayWaves(): ?int
+    {
+        if ($this->clear_waves === null) {
+            return null;
+        }
+
+        return min(3, $this->clear_waves + 1);
+    }
+
+    public function getGoldenPerWave(): ?float
+    {
+        $myData = $this->getMyData();
+        $waves = $this->getPlayWaves();
+        if (!$myData || !$waves) {
+            return null;
+        }
+
+        return (int)$myData->golden_egg_delivered / $waves;
+    }
+
+    public function getPwrEggsPerWave(): ?float
+    {
+        $myData = $this->getMyData();
+        $waves = $this->getPlayWaves();
+        if (!$myData || !$waves) {
+            return null;
+        }
+
+        return (int)$myData->power_egg_collected / $waves;
+    }
+
     public function getQuota(): ?array
     {
         if ($this->danger_rate === null) {
