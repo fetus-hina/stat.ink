@@ -69,7 +69,10 @@ RESOURCE_TARGETS_MAIN := \
 	resources/.compiled/stat.ink/weapons.js \
 	web/static-assets/cc/cc-by.svg \
 	web/static-assets/cc/cc-by.svg.br \
-	web/static-assets/cc/cc-by.svg.gz
+	web/static-assets/cc/cc-by.svg.gz \
+	web/static-assets/rect-danger.min.svg \
+	web/static-assets/rect-danger.min.svg.br \
+	web/static-assets/rect-danger.min.svg.gz
 
 RESOURCE_TARGETS := \
 	$(RESOURCE_TARGETS_MAIN) \
