@@ -94,6 +94,17 @@ $this->registerJs('window.workList();');
       },
     ],
     [
+      'attribute' => 'stage_id',
+      'headerOptions' => ['class' => 'cell-map-short'],
+      'contentOptions' => ['class' => 'cell-map-short'],
+      'label' => Yii::t('app', 'Stage'),
+      'value' => function (Salmon2 $model): ?string {
+        return $model->stage_id
+          ? Yii::t('app-salmon-map2', $model->stage->short_name)
+          : null;
+      },
+    ],
+    [
       'attribute' => 'myData.special_id',
       'headerOptions' => ['class' => 'cell-special'],
       'contentOptions' => ['class' => 'cell-special'],

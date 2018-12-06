@@ -6,9 +6,14 @@
  */
 
 return [
+    'Bay' => '',
+    'Grounds' => '',
     'Lost Outpost' => 'Воблов Отшиб',
     'Marooner\'s Bay' => 'Корабль «Дон Брак»',
+    'Outpost' => '',
+    'Polaris' => '',
     'Ruins of Ark Polaris' => 'Бульконурский остров',
     'Salmonid Smokeyard' => 'Коптильня «Угаръ»',
+    'Smokeyard' => '',
     'Spawning Grounds' => 'Самонидская ГЭС',
 ];

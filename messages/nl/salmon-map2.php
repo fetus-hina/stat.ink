@@ -6,9 +6,14 @@
  */
 
 return [
+    'Bay' => '',
+    'Grounds' => '',
     'Lost Outpost' => 'Barracudabarak',
     'Marooner\'s Bay' => 'Wrak van de ms Grondel',
+    'Outpost' => '',
+    'Polaris' => '',
     'Ruins of Ark Polaris' => 'Raketrustplaats',
     'Salmonid Smokeyard' => 'Visrokerij',
+    'Smokeyard' => '',
     'Spawning Grounds' => 'Salmonietendam',
 ];

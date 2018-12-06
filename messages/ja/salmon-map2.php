@@ -6,9 +6,14 @@
  */
 
 return [
+    'Bay' => 'ドンブラコ',
+    'Grounds' => 'ダム',
     'Lost Outpost' => '海上集落シャケト場',
     'Marooner\'s Bay' => '難破船ドン・ブラコ',
+    'Outpost' => 'シャケト場',
+    'Polaris' => 'ポラリス',
     'Ruins of Ark Polaris' => '朽ちた箱舟 ポラリス',
     'Salmonid Smokeyard' => 'トキシラズいぶし工房',
+    'Smokeyard' => 'トキシラズ',
     'Spawning Grounds' => 'シェケナダム',
 ];

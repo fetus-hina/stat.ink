@@ -6,9 +6,14 @@
  */
 
 return [
+    'Bay' => '',
+    'Grounds' => '',
     'Lost Outpost' => '',
     'Marooner\'s Bay' => '',
+    'Outpost' => '',
+    'Polaris' => '',
     'Ruins of Ark Polaris' => '',
     'Salmonid Smokeyard' => '',
+    'Smokeyard' => '',
     'Spawning Grounds' => '',
 ];

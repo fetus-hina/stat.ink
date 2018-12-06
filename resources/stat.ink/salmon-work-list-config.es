@@ -9,6 +9,7 @@ window.workListConfig = () => {
       "hscroll": false,
       "cell-splatnet": true,
       "cell-map": true,
+      "cell-map-short": false,
       "cell-special": false,
       "cell-result": true,
       "cell-golden": true,

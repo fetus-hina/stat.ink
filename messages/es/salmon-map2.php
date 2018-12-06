@@ -6,9 +6,14 @@
  */
 
 return [
+    'Bay' => '',
+    'Grounds' => '',
     'Lost Outpost' => 'Caserón Salitre',
     'Marooner\'s Bay' => 'Bahía Deriva',
+    'Outpost' => '',
+    'Polaris' => '',
     'Ruins of Ark Polaris' => 'Ruinas de Ark Polaris',
     'Salmonid Smokeyard' => 'Ensenada Ahumada',
+    'Smokeyard' => '',
     'Spawning Grounds' => 'Presa Salmónida',
 ];
