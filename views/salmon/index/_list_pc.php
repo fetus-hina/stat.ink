@@ -216,7 +216,7 @@ $this->registerJs('window.workList();');
       'attribute' => 'pwrEggsPerWave',
     ],
     [
-      'label' => Yii::t('app-salmon2', 'Rescued'),
+      'label' => Yii::t('app-salmon2', 'Rescues'),
       'headerOptions' => ['class' => 'cell-rescue'],
       'contentOptions' => ['class' => 'cell-rescue'],
       'format' => 'integer',

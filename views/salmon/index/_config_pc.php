@@ -23,7 +23,7 @@ use yii\helpers\Html;
         'cell-golden-wave' => Yii::t('app-salmon2', 'Golden Eggs per Wave'),
         'cell-power' => Yii::t('app-salmon2', 'Power Eggs'),
         'cell-power-wave' => Yii::t('app-salmon2', 'Power Eggs per Wave'),
-        'cell-rescue' => Yii::t('app-salmon2', 'Rescued'),
+        'cell-rescue' => Yii::t('app-salmon2', 'Rescues'),
         'cell-death' => Yii::t('app-salmon2', 'Deaths'),
         'cell-danger-rate' => Yii::t('app-salmon2', 'Hazard Level'),
         'cell-title' => Yii::t('app', 'Title'),
