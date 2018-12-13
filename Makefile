@@ -107,6 +107,7 @@ init: \
 	$(SIMPLE_CONFIG_TARGETS) \
 	config/version.php \
 	config/cookie-secret.php \
+	config/authkey-secret.php \
 	config/db.php \
 	resource
 
@@ -118,6 +119,7 @@ init-by-archive: \
 	$(SIMPLE_CONFIG_TARGETS) \
 	config/version.php \
 	config/cookie-secret.php \
+	config/authkey-secret.php \
 	config/db.php \
 	resource
 
@@ -439,6 +441,10 @@ migrate-db: vendor config/db.php
 config/cookie-secret.php: vendor $(SIMPLE_CONFIG_TARGETS)
 	test -f config/cookie-secret.php || ./yii secret/cookie
 	touch config/cookie-secret.php
+
+config/authkey-secret.php: vendor $(SIMPLE_CONFIG_TARGETS)
+	test -f config/authkey-secret.php || ./yii secret/authkey
+	touch config/authkey-secret.php
 
 config/db.php: vendor $(SIMPLE_CONFIG_TARGETS)
 	test -f config/db.php || ./yii secret/db

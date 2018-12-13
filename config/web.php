@@ -1,5 +1,8 @@
 <?php
 $params = require(__DIR__ . '/params.php');
+$authKeySecret = @file_exists(__DIR__ . '/authkey-secret.php')
+    ? include(__DIR__ . '/authkey-secret.php')
+    : null;
 $config = [
     'name' => 'stat.ink',
     'version' => @file_exists(__DIR__ . '/version.php')
@@ -106,8 +109,15 @@ $config = [
         ],
         'db' => require(__DIR__ . '/db.php'),
         'user' => [
+            'class' => 'app\components\web\User',
+            'identityFixedKey' => $authKeySecret,
             'identityClass' => 'app\models\User',
-            'enableAutoLogin' => true,
+            'identityCookie' => [
+                'name' => '_identity',
+                'httpOnly' => true,
+                'secure' => !!preg_match('/(?:^|\.)stat\.ink$/i', $_SERVER['HTTP_HOST'] ?? ''),
+            ],
+            'enableAutoLogin' => $authKeySecret !== null,
             'loginUrl' => ['user/login'],
         ],
         'i18n' => require(__DIR__ . '/i18n.php'),
@@ -159,5 +169,6 @@ if (YII_ENV_DEV) {
         'allowedIPs' => require(__DIR__ . '/debug-ips.php'),
     ];
 }
+unset($authKeySecret);
 
 return $config;

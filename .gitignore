@@ -6,6 +6,7 @@
 /.maintenance
 /.production
 /config/amazon-s3.php
+/config/authkey-secret.php
 /config/backup-gpg.php
 /config/backup-s3.php
 /config/backup-secret.php
