@@ -21,6 +21,9 @@ $this->title = implode(' | ', [
           <?php $_ = ActiveForm::begin(['id' => 'login-form']); echo "\n" ?>
             <?= $_->field($login, 'screen_name') . "\n" ?>
             <?= $_->field($login, 'password')->passwordInput() . "\n" ?>
+            <?= $_->field($login, 'remember_me')
+              ->checkbox() . "\n"
+            ?>
             <div class="form-group">
               <?= Html::submitButton(
                 Html::encode(Yii::t('app', 'Login')),

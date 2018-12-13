@@ -12,8 +12,10 @@ use DateTime;
 use DateTimeImmutable;
 use DateTimeZone;
 use Yii;
+use app\components\behaviors\UserAuthKeyBehavior;
 use app\components\helpers\DateTimeFormatter;
 use app\components\helpers\Password;
+use app\components\helpers\db\Now;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\db\Query;
@@ -380,13 +382,40 @@ class User extends ActiveRecord implements IdentityInterface
     // IdentityInterface
     public function getAuthKey()
     {
-        return null;
+        $newKeyModel = Yii::createObject([
+            'class' => UserAuthKey::class,
+            'user_id' => $this->id,
+        ]);
+        return $newKeyModel->save()
+            ? $newKeyModel->auth_key_raw
+            : null;
     }
 
     // IdentityInterface
     public function validateAuthKey($authKey)
     {
-        return false;
+        $authKey = trim((string)$authKey);
+
+        Yii::beginProfile($authKey, __METHOD__);
+        $query = UserAuthKey::find()
+            ->andWhere([
+                'user_id' => $this->id,
+                'auth_key_hint' => UserAuthKey::raw2hint($authKey),
+            ])
+            ->orderBy([
+                'id' => SORT_DESC,
+            ]);
+
+        $result = false;
+        foreach ($query->each() as $authModel) {
+            if ($authModel->validateHash($authKey)) {
+                $result = true;
+                break;
+            }
+        }
+        Yii::endProfile($authKey, __METHOD__);
+
+        return $result;
     }
 
     public function validatePassword($password)

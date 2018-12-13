@@ -107,7 +107,7 @@ $config = [
         'db' => require(__DIR__ . '/db.php'),
         'user' => [
             'identityClass' => 'app\models\User',
-            'enableAutoLogin' => false,
+            'enableAutoLogin' => true,
             'loginUrl' => ['user/login'],
         ],
         'i18n' => require(__DIR__ . '/i18n.php'),

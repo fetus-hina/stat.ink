@@ -333,6 +333,7 @@ return [
     'Register' => 'ユーザ登録',
     'Relative Time' => '相対時間',
     'Released' => 'リリース',
+    'Remember me' => '自動ログイン（共用PCではオフにしてください）',
     'Remote Follow' => 'リモートフォロー',
     'Reset icon' => 'アイコンを戻す',
     'Reset to default icon' => 'デフォルトアイコンに戻す',

@@ -14,11 +14,13 @@ class LoginForm extends Model
 {
     public $screen_name;
     public $password;
+    public $remember_me;
+
     private $user = false;
 
     public function rules()
     {
-        $rules = [
+        return [
             [['screen_name', 'password'], 'required'],
             [['screen_name'], 'string', 'max' => 15],
             [['screen_name'], 'match',
@@ -29,8 +31,8 @@ class LoginForm extends Model
                 ),
             ],
             [['password'], 'validatePassword'],
+            [['remember_me'], 'boolean'],
         ];
-        return $rules;
     }
 
     /**
@@ -39,8 +41,9 @@ class LoginForm extends Model
     public function attributeLabels()
     {
         return [
-            'screen_name'       => Yii::t('app', 'Screen Name (Login Name)'),
-            'password'          => Yii::t('app', 'Password'),
+            'screen_name' => Yii::t('app', 'Screen Name (Login Name)'),
+            'password' => Yii::t('app', 'Password'),
+            'remember_me' => Yii::t('app', 'Remember me'),
         ];
     }
 
@@ -49,6 +52,7 @@ class LoginForm extends Model
         if ($this->hasErrors()) {
             return;
         }
+
         $user = $this->getUser();
         if (!$user || !$user->validatePassword($this->password)) {
             $this->addError(
@@ -66,11 +70,18 @@ class LoginForm extends Model
         if (!$this->validate()) {
             return false;
         }
+
         $user = $this->getUser();
         if ($user->rehashPasswordIfNeeded($this->password)) {
             $user->save();
         }
-        return Yii::$app->user->login($user, 0);
+
+        return Yii::$app->user->login(
+            $user,
+            $this->remember_me
+                ? UserAuthKey::VALID_PERIOD
+                : 0
+        );
     }
 
     public function getUser()
