@@ -32,7 +32,7 @@ class UserAuthKeyBehavior extends Behavior
 
     public function fillAuthKeyAttributes(): void
     {
-        // "raw", but Base64'ed 
+        // "raw", but Base64'ed
         $raw_key = $this->generateRawKey();
 
         $this->owner->auth_key_raw = $raw_key;
