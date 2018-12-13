@@ -80,16 +80,7 @@ $config = [
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
-            'serializer' => extension_loaded('msgpack')
-                ? [
-                    function ($value) {
-                        return @gzencode(msgpack_pack($value), 1, FORCE_GZIP);
-                    },
-                    function ($value) {
-                        return @msgpack_unpack(gzdecode($value));
-                    },
-                ]
-                : null,
+            'cachePath' => '@runtime/cache-v2',
         ],
         'schemaCache' => [
             'class' => 'yii\caching\FileCache',
