@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a8f4b1fb1c22849d39d7aa9235ea0eae",
+    "content-hash": "de56c75110c5948ad96803b99846d552",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -3354,25 +3354,6 @@
             "time": "2018-08-27T14:53:06+00:00"
         },
         {
-            "name": "bower-asset/typeahead.js",
-            "version": "v0.11.1",
-            "source": {
-                "type": "git",
-                "url": "git@github.com:twitter/typeahead.js.git",
-                "reference": "588440f66559714280628a4f9799f0c4eb880a4a"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/twitter/typeahead.js/zipball/588440f66559714280628a4f9799f0c4eb880a4a",
-                "reference": "588440f66559714280628a4f9799f0c4eb880a4a",
-                "shasum": null
-            },
-            "require": {
-                "bower-asset/jquery": ">=1.7"
-            },
-            "type": "bower-asset"
-        },
-        {
             "name": "codeception/base",
             "version": "2.5.1",
             "source": {
@@ -5956,7 +5937,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">= 7.1.0",
+        "php": ">= 7.2.0",
         "ext-pdo": "*",
         "ext-curl": "*",
         "ext-date": "*",
@@ -5973,5 +5954,8 @@
         "ext-session": "*",
         "ext-zlib": "*"
     },
-    "platform-dev": []
+    "platform-dev": [],
+    "platform-overrides": {
+        "php": "7.2.13"
+    }
 }
