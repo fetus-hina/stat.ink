@@ -100,6 +100,16 @@ class Migration extends \yii\db\Migration
         $this->endCommand($time);
     }
 
+    public function dropTables(array $tables, bool $ifExists = true): void
+    {
+        foreach ($tables as $table) {
+            if ($ifExists && !$this->isTableExists($table)) {
+                continue;
+            }
+            $this->dropTable($table);
+        }
+    }
+
     public function dropColumns(string $table, array $columns): void
     {
         $time = $this->beginCommand(sprintf(

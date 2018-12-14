@@ -1,4 +1,8 @@
 <?php
+use app\models\LoginMethod;
+use app\models\UserLoginHistory;
+use yii\web\UserEvent;
+
 $params = require(__DIR__ . '/params.php');
 $authKeySecret = @file_exists(__DIR__ . '/authkey-secret.php')
     ? include(__DIR__ . '/authkey-secret.php')
@@ -110,6 +114,15 @@ $config = [
             ],
             'enableAutoLogin' => $authKeySecret !== null,
             'loginUrl' => ['user/login'],
+            'on afterLogin' => function (UserEvent $event): void {
+                if (!$event->cookieBased) {
+                    return;
+                }
+                UserLoginHistory::login(
+                    Yii::$app->user->identity,
+                    LoginMethod::METHOD_COOKIE
+                );
+            },
         ],
         'i18n' => require(__DIR__ . '/i18n.php'),
         'formatter' => [
