@@ -8,6 +8,7 @@
 namespace app\components\i18n;
 
 use DateTime;
+use Yii;
 use app\components\widgets\TimestampColumnWidget;
 use yii\helpers\Html;
 
@@ -24,6 +25,24 @@ class Formatter extends \yii\i18n\Formatter
             'time',
             Html::encode($this->asDatetime($timestamp, $format)),
             ['datetime' => gmdate(Datetime::ATOM, $timestamp)]
+        );
+    }
+
+    public function asHtmlRelative($value): string
+    {
+        if ($value === null) {
+            return $this->asRelativeTime($value, $format);
+        }
+
+        $timestamp = (int)$this->asTimestamp($value);
+        return Html::tag(
+            'time',
+            Html::encode($this->asRelativeTime($timestamp)),
+            [
+              'datetime' => gmdate(Datetime::ATOM, $timestamp),
+              'title' => $this->asDatetime($timestamp, 'medium'),
+              'class' => 'auto-tooltip',
+            ]
         );
     }
 
@@ -65,5 +84,15 @@ class Formatter extends \yii\i18n\Formatter
         return is_int($value)
             ? $this->asInteger($value)
             : $this->asDecimal($value, $decimal);
+    }
+
+    public function asTranslated(
+        string $value,
+        string $category = 'app',
+        array $options = [],
+        bool $escape = true
+    ): string {
+        $text = Yii::t($category, $value, $options);
+        return $escape ? $this->asText($text) : $text;
     }
 }

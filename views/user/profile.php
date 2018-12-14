@@ -1,4 +1,7 @@
 <?php
+declare(strict_types=1);
+
+use app\components\widgets\FA;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
@@ -29,19 +32,30 @@ $this->registerCss('.btn-block.text-left{text-align:left}');
       <?= $this->render('_profile_slack', ['user' => $user]) . "\n" ?>
     </div>
     <div class="col-xs-12 col-sm-3">
+      <h2><?= Html::encode(Yii::t('app', 'Login History')) ?></h2>
+      <p>
+        <?= Html::a(
+          implode(' ', [
+            FA::fas('user-clock')->fw(),
+            Html::encode(Yii::t('app', 'Login History')),
+          ]),
+          ['user/login-history'],
+          ['class' => 'btn btn-default btn-block text-left']
+        ) . "\n" ?>
+      </p>
       <h2><?= Html::encode(Yii::t('app', 'Export')) ?> (Splatoon 2)</h2>
       <p><?= implode('', [
         Html::a(
-          implode('', [
-            Html::tag('span', '', ['class' => 'far fa-fw fa-file-excel']),
+          implode(' ', [
+            FA::far('file-excel')->fw(),
             Html::encode(Yii::t('app', 'CSV')),
           ]),
           ['download2', 'type' => 'csv'],
           ['class' => 'btn btn-default btn-block text-left']
         ),
         Html::a(
-          implode('', [
-            Html::tag('span', '', ['class' => 'far fa-fw fa-file-excel']),
+          implode(' ', [
+            FA::far('file-excel')->fw(),
             Html::encode(Yii::t('app', 'CSV (IkaLog compat.)')),
           ]),
           ['download2', 'type' => 'ikalog-csv'],
@@ -51,16 +65,16 @@ $this->registerCss('.btn-block.text-left{text-align:left}');
       <h2><?= Html::encode(Yii::t('app', 'Export')) ?> (Splatoon 1)</h2>
       <p><?= implode('', [
         Html::a(
-          implode('', [
-            Html::tag('span', '', ['class' => 'far fa-fw fa-file-excel']),
+          implode(' ', [
+            FA::far('file-excel')->fw(),
             Html::encode(Yii::t('app', 'CSV (IkaLog compat.)')),
           ]),
           ['download', 'type' => 'ikalog-csv'],
           ['class' => 'btn btn-default btn-block text-left']
         ),
         Html::a(
-          implode('', [
-            Html::tag('span', '', ['class' => 'far fa-fw fa-file-code']),
+          implode(' ', [
+            FA::far('file-code')->fw(),
             Html::encode(Yii::t('app', 'JSON (IkaLog compat.)')),
           ]),
           ['download', 'type' => 'ikalog-json'],
@@ -68,8 +82,8 @@ $this->registerCss('.btn-block.text-left{text-align:left}');
         ),
         $user->isUserJsonReady
           ? Html::a(
-            implode('', [
-              Html::tag('span', '', ['class' => 'far fa-fw fa-file-code']),
+            implode(' ', [
+              FA::far('file-code')->fw(),
               Html::encode(Yii::t('app', 'JSON (stat.ink format, gzipped)')),
             ]),
             ['download', 'type' => 'user-json'],
@@ -77,8 +91,8 @@ $this->registerCss('.btn-block.text-left{text-align:left}');
           )
           : Html::tag(
             'button',
-            implode('', [
-              Html::tag('span', '', ['class' => 'far fa-fw fa-file-code']),
+            implode(' ', [
+              FA::far('file-code')->fw(),
               Html::encode(Yii::t('app', 'JSON (stat.ink format, gzipped)')),
             ]),
             ['class' => 'btn btn-default btn-block text-left', 'disabled ' => true]

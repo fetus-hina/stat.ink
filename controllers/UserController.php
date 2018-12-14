@@ -11,6 +11,7 @@ use Yii;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use app\components\web\Controller;
+use app\actions\user\LoginHistoryAction;
 
 class UserController extends Controller
 {
@@ -28,6 +29,7 @@ class UserController extends Controller
                     'edit-profile',
                     'icon-twitter',
                     'login',
+                    'login-history',
                     'login-with-twitter',
                     'logout',
                     'profile',
@@ -56,6 +58,7 @@ class UserController extends Controller
                             'edit-password',
                             'edit-profile',
                             'icon-twitter',
+                            'login-history',
                             'logout',
                             'profile',
                             'regenerate-apikey',
@@ -104,6 +107,7 @@ class UserController extends Controller
             'icon-twitter'  => [ 'class' => $prefix . '\IconTwitterAction' ],
             'language'      => [ 'class' => $prefix . '\LanguageAction' ],
             'login'         => [ 'class' => $prefix . '\LoginAction' ],
+            'login-history' => [ 'class' => LoginHistoryAction::class ],
             'login-with-twitter' => [ 'class' => $prefix . '\LoginWithTwitterAction' ],
             'logout'        => [ 'class' => $prefix . '\LogoutAction' ],
             'profile'       => [ 'class' => $prefix . '\ProfileAction' ],

@@ -349,6 +349,12 @@ class User extends ActiveRecord implements IdentityInterface
         return $this->hasOne(OstatusRsa::class, ['user_id' => 'id']);
     }
 
+    public function getLoginHistories(): ActiveQuery
+    {
+        return $this->hasMany(UserLoginHistory::class, ['user_id' => 'id'])
+            ->orderBy(['id' => SORT_DESC]);
+    }
+
     public static function generateNewApiKey()
     {
         while (true) {
