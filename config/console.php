@@ -64,7 +64,7 @@ return [
         ],
         'db' => $db,
         'urlManager' => array_merge(
-            require(__DIR__ . '/url-manager.php'),
+            require(__DIR__ . '/web/url-manager.php'),
             [
                 'baseUrl' => 'https://stat.ink/',
                 'hostInfo' => 'https://stat.ink',
