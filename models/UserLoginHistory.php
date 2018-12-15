@@ -150,4 +150,15 @@ class UserLoginHistory extends ActiveRecord
     {
         return $this->hasOne(User::class, ['id' => 'user_id']);
     }
+
+    public function getPseudoId(): ?string
+    {
+        static $counter = 0;
+
+        if ($this->id === null) {
+            return null;
+        }
+
+        return (string)(++$counter);
+    }
 }

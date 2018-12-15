@@ -30,6 +30,7 @@ class LoginHistoryAction extends ViewAction
                     'pageSize' => 50,
                 ],
                 'sort' => false,
+                'key' => 'pseudoId',
             ]),
         ]);
     }
