@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 use app\components\widgets\FA;
 use app\models\UserLoginHistory;
+use statink\yii2\jdenticon\Jdenticon;
 use yii\grid\GridView;
 use yii\helpers\Html;
 
@@ -42,13 +43,40 @@ $this->title = implode(' | ', [
           'label' => Yii::t('app', 'IP address'),
           'format' => 'raw',
           'value' => function (UserLoginHistory $model): string {
-            return $model->remote_host
-              ? Html::tag(
-                'span',
-                Html::encode(strtolower($model->remote_host)),
-                ['title' => $model->remote_addr, 'class' => 'auto-tooltip']
-              )
-              : Html::encode($model->remote_addr);
+            return Html::tag(
+              'div',
+              implode(' ', [
+                $model->remote_addr_masked
+                  ? Jdenticon::widget([
+                    'hash' => hash('sha256', $model->remote_addr_masked),
+                    'params' => [
+                      'style' => [
+                        'height' => '2em',
+                      ],
+                    ],
+                  ])
+                  : '',
+                $model->remote_host
+                  ? Html::tag(
+                    'span',
+                    Html::encode(strtolower($model->remote_host)),
+                    ['title' => $model->remote_addr, 'class' => 'auto-tooltip']
+                  )
+                  : (
+                    ($model->remote_addr_masked && strpos($model->remote_addr, ':') !== false)
+                      // IPv6 : display masked
+                      ? Html::tag(
+                        'span',
+                        Html::encode($model->remote_addr_masked),
+                        ['title' => $model->remote_addr, 'class' => 'auto-tooltip']
+                      )
+                      : Html::encode($model->remote_addr)
+                  )
+              ]),
+              [
+                'class' => 'd-flex align-items-center',
+              ]
+            );
           },
         ],
         [

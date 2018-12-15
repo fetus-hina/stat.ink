@@ -17,6 +17,7 @@ use app\components\behaviors\TimestampBehavior;
 use app\components\behaviors\UserAgentBehavior;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
+use yii\db\Expression as DbExpr;
 
 /**
  * This is the model class for table "user_login_history".
@@ -37,6 +38,8 @@ use yii\db\ActiveRecord;
  */
 class UserLoginHistory extends ActiveRecord
 {
+    public $remote_addr_masked;
+
     public static function login(User $user, int $methodId): ?self
     {
         $model = Yii::createObject([
@@ -45,6 +48,34 @@ class UserLoginHistory extends ActiveRecord
             'method_id' => $methodId,
         ]);
         return $model->save() ? $model : null;
+    }
+
+    public static function find(): ActiveQuery
+    {
+        $db = Yii::$app->db;
+
+        $makeMask = function (int $ipVer, int $maskLen) use ($db): string {
+            $column = $db->quoteColumnName('remote_addr');
+            return sprintf(
+                'WHEN %d THEN %s',
+                $ipVer,
+                "host(set_masklen({$column}::cidr, $maskLen))"
+            );
+        };
+        $remoteAddrMasked = new DbExpr(sprintf(
+            'CASE family(%s) %s END',
+            $db->quoteColumnName('remote_addr'),
+            implode(' ', [
+                $makeMask(4, 24),
+                $makeMask(6, 64),
+                'ELSE NULL',
+            ]),
+        ));
+        return parent::find()
+            ->select([
+                '{{user_login_history}}.*',
+                'remote_addr_masked' => $remoteAddrMasked,
+            ]);
     }
 
     public static function tableName()
