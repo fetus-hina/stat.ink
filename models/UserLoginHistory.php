@@ -69,7 +69,7 @@ class UserLoginHistory extends ActiveRecord
                 $makeMask(4, 24),
                 $makeMask(6, 64),
                 'ELSE NULL',
-            ]),
+            ])
         ));
         return parent::find()
             ->select([
