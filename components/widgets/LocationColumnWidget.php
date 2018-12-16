@@ -9,20 +9,29 @@ declare(strict_types=1);
 
 namespace app\components\widgets;
 
-use GeoIp2\Database\Reader as GeoDbReader;
+use GeoIp2\Model\City;
 use Yii;
+use hiqdev\assets\flagiconcss\FlagIconCssAsset;
 use statink\yii2\jdenticon\Jdenticon;
 use yii\base\Widget;
 use yii\helpers\Html;
 
 class LocationColumnWidget extends Widget
 {
-    public $dbCity = '@geoip/GeoLite2-City.mmdb';
-    // public $dbCountry = '@geoip/GeoLite2-Country.mmdb';
+    public $geoip;
+    private $cityInfo = false;
 
     public $remoteAddr;
     public $remoteAddrMasked;
     public $remoteHost;
+
+    public function init()
+    {
+        parent::init();
+        if (!$this->geoip) {
+            $this->geoip = Yii::$app->geoip;
+        }
+    }
 
     public function run()
     {
@@ -92,34 +101,54 @@ class LocationColumnWidget extends Widget
             return null;
         }
 
-        $dbPath = Yii::getAlias($this->dbCity);
-        if (!@file_exists($dbPath)) {
+        try {
+            $city = $this->getCityInfo();
+            if (!$city) {
+                return null;
+            }
+
+            return implode(' ', array_filter([
+                $this->renderLocationText($city),
+                $this->renderLocationIcon($city),
+            ]));
+        } catch (\Exception $e) {
+            return null;
+        }
+    }
+
+    protected function renderLocationText(City $city): ?string
+    {
+        $get = function ($obj): ?string {
+            if (!$obj) {
+                return null;
+            }
+
+            $lang = $this->geoip->lang;
+            return isset($obj->names[$lang])
+                ? $obj->names[$lang]
+                : $obj->name;
+        };
+
+        return Html::encode(implode(', ', array_filter([
+            $get($city->city),
+            $get($city->mostSpecificSubdivision),
+            $get($city->country),
+        ])));
+    }
+
+    protected function renderLocationIcon(City $city): ?string
+    {
+        if (!$country = $city->country) {
             return null;
         }
 
-        try {
-            $reader = new GeoDbReader($dbPath);
-            $data = $reader->city($this->remoteAddr);
-
-            $get = function ($obj): ?string {
-                if (!$obj) {
-                    return null;
-                }
-
-                $lang = static::getGeoIpLang();
-                return isset($obj->names[$lang])
-                    ? $obj->names[$lang]
-                    : $obj->name;
-            };
-
-            return Html::encode(implode(', ', array_filter([
-                $get($data->city),
-                $get($data->mostSpecificSubdivision),
-                $get($data->country),
-            ])));
-        } catch (\Exception $e) {
-        }
-        return null;
+        FlagIconCssAsset::register($this->view);
+        return Html::tag('span', '', [
+            'class' => [
+                'flag-icon',
+                'flag-icon-' . strtolower($country->isoCode),
+            ],
+        ]);
     }
 
     protected function renderIpAddress(): ?string
@@ -170,5 +199,19 @@ class LocationColumnWidget extends Widget
             default:
                 return 'en';
         }
+    }
+
+    private function getCityInfo(): ?City
+    {
+        if ($this->cityInfo === false) {
+            try {
+                $this->cityInfo = $this->geoip->city($this->remoteAddr);
+            } catch (\Exception $e) {
+                var_dump($e);
+                exit;
+                $this->cityInfo = null;
+            }
+        }
+        return $this->cityInfo;
     }
 }

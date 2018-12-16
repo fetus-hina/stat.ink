@@ -23,6 +23,7 @@ $config = [
         'errorHandler' => require(__DIR__ . '/web/error-handler.php'),
         'formatter' => require(__DIR__ . '/web/formatter.php'),
         'gearman' => require(__DIR__ . '/gearman.php'),
+        'geoip' => require(__DIR__ . '/web/geoip.php'),
         'i18n' => require(__DIR__ . '/i18n.php'),
         'imgS3' => require(__DIR__ . '/img-s3.php'),
         'log' => require(__DIR__ . '/web/log.php'),

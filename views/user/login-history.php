@@ -25,6 +25,14 @@ $this->title = implode(' | ', [
       ['class' => 'btn btn-default']
     ) . "\n" ?>
   </p>
+  <p>
+    <small><?= Html::encode(Yii::t('app', 'The estimation accuracy of the location is not so good.')) ?></small>
+  </p>
+  <p>
+    <small><?= Html::encode(Yii::t('app', 'Login history will be deleted in {term}.', [
+      'term' => Yii::$app->formatter->format('P30D', 'duration'),
+    ])) ?></small>
+  </p>
   <div class="table-responsive table-responsive-force nobr">
     <?= GridView::widget([
       'dataProvider' => $dataProvider,
