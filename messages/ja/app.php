@@ -245,6 +245,7 @@ return [
     'List' => '一覧',
     'Loading...' => '読み込み中',
     'Lobby' => 'ロビー',
+    'Location' => '場所',
     'Log in with Twitter' => 'Twitterでログイン',
     'Log in with other services' => '他のサービスのアカウントでログイン',
     'Login History' => 'ログイン履歴',

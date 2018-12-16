@@ -109,7 +109,8 @@ init: \
 	config/cookie-secret.php \
 	config/authkey-secret.php \
 	config/db.php \
-	resource
+	resource \
+	geoip
 
 init-by-archive: \
 	composer.phar \
@@ -164,6 +165,7 @@ fix-style: vendor node_modules
 clean: clean-resource
 	rm -rf \
 		composer.phar \
+		data/GeoIP \
 		node_modules \
 		runtime/ikalog \
 		vendor
@@ -434,6 +436,10 @@ resources/.compiled/irasutoya/octoling.png: resources/irasutoya/octoling.png
 	convert $< -trim +repage -resize x100 -gravity center -background none -extent 100x100 $@
 	pngcrush -rem allb -l 9 -ow $@
 
+data/geoip:
+	mkdir -p $@
+	geoipupdate -d $@
+
 migrate-db: vendor config/db.php
 	./yii migrate/up --interactive=0
 	./yii cache/flush-schema --interactive=0
@@ -545,8 +551,28 @@ $(VENDOR_ARCHIVE_FILE): vendor runtime/vendor-archive
 runtime/vendor-archive:
 	mkdir -p $@ || true
 
+geoip: \
+		data/GeoIP/COPYRIGHT.txt \
+		data/GeoIP/GeoLite2-City.mmdb \
+		data/GeoIP/GeoLite2-Country.mmdb \
+		data/GeoIP/LICENSE.txt
+
+data/GeoIP:
+	mkdir -p $@
+
+data/GeoIP/%.mmdb: data/GeoIP/%.tar.gz
+	tar -zxf $< --strip=1 -C data/GeoIP */$(notdir $@)
+
+data/GeoIP/%.txt: data/GeoIP/GeoLite2-Country.tar.gz
+	tar -zxf $< --strip=1 -C data/GeoIP */$(notdir $@)
+
+data/GeoIP/%.tar.gz: data/GeoIP
+	curl -sSL -o $@ https://geolite.maxmind.com/download/geoip/database/$(notdir $@)
+
+.PRECIOUS: data/GeoIP/%.tar.gz
+
 $(SUB_RESOURCES):
 	$(MAKE) -C $@
 .PHONY: $(SUB_RESOURCES)
 
-.PHONY: FORCE all check-style clean clean-resource composer-update fix-style ikalog init migrate-db resource vendor-archive vendor-by-archive download-vendor-archive
+.PHONY: FORCE all check-style clean clean-resource composer-update fix-style ikalog init migrate-db resource vendor-archive vendor-by-archive download-vendor-archive geoip

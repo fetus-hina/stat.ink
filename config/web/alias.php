@@ -6,6 +6,7 @@ return (function (): array {
 
     return [
         '@bower' => '@vendor/bower-asset',
+        '@geoip' => '@app/data/GeoIP',
         '@imageurl' => ($p['useImgStatInk'] ?? false) ? 'https://img.stat.ink' : '@web/images',
         '@jdenticon' => 'https://jdenticon.stat.ink',
         '@npm'   => '@vendor/npm-asset',

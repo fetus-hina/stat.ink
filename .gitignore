@@ -21,6 +21,7 @@
 /config/lepton.php
 /config/twitter.php
 /config/version.php
+/data/GeoIP
 /node_modules
 /phpunit.xml
 /resources/.compiled
