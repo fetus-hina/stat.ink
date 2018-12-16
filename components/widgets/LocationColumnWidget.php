@@ -85,7 +85,7 @@ class LocationColumnWidget extends Widget
                 array_filter([
                     $this->renderLocation(),
                     $this->renderIpAddress(),
-                ]),
+                ])
             )),
             [
                 'style' => [
