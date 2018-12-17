@@ -176,39 +176,12 @@ class LocationColumnWidget extends Widget
         return Html::tag('span', Html::encode($this->remoteAddr));
     }
 
-    private static function getGeoIpLang(): string
-    {
-        $lang = Yii::$app->language;
-        switch (substr($lang, 0, 2)) {
-            case 'de':
-            case 'en':
-            case 'es':
-            case 'fr':
-            case 'ja':
-            case 'ru':
-                return substr($lang, 0, 2);
-
-            case 'zh':
-                return ($lang === 'zh-CN')
-                    ? 'zh-CN'
-                    : 'en';
-
-            case 'pt':
-                return 'pt-BR';
-
-            default:
-                return 'en';
-        }
-    }
-
     private function getCityInfo(): ?City
     {
         if ($this->cityInfo === false) {
             try {
                 $this->cityInfo = $this->geoip->city($this->remoteAddr);
             } catch (\Exception $e) {
-                var_dump($e);
-                exit;
                 $this->cityInfo = null;
             }
         }
