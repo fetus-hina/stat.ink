@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "22391dfd92ceac63c42e1ddb914c8dad",
+    "content-hash": "b47b15cbebdf3e20b668911cdbd2f2b6",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -1499,6 +1499,22 @@
             "time": "2018-02-12T22:31:54+00:00"
         },
         {
+            "name": "npm-asset/browser-logos--chrome",
+            "version": "46.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/alrra/browser-logos.git",
+                "reference": "4d542709b6702bd1cc5c1402e72b948b6e8912e5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/alrra/browser-logos/zipball/4d542709b6702bd1cc5c1402e72b948b6e8912e5",
+                "reference": "4d542709b6702bd1cc5c1402e72b948b6e8912e5",
+                "shasum": null
+            },
+            "type": "npm-asset"
+        },
+        {
             "name": "npm-asset/cal-heatmap",
             "version": "3.6.2",
             "dist": {
@@ -1559,10 +1575,10 @@
         },
         {
             "name": "npm-asset/fortawesome--fontawesome-free",
-            "version": "5.6.0",
+            "version": "5.6.1",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/@fortawesome/fontawesome-free/-/fontawesome-free-5.6.0.tgz",
+                "url": "https://registry.npmjs.org/@fortawesome/fontawesome-free/-/fontawesome-free-5.6.1.tgz",
                 "reference": null,
                 "shasum": null
             },
@@ -1620,27 +1636,29 @@
         },
         {
             "name": "php-curl-class/php-curl-class",
-            "version": "8.3.3",
+            "version": "8.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-curl-class/php-curl-class.git",
-                "reference": "8f0a52bb17b444bf41c8c7e6953e6077e9158494"
+                "reference": "d45e6c17b61bbedf367bb37f35612e4526c07b29"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-curl-class/php-curl-class/zipball/8f0a52bb17b444bf41c8c7e6953e6077e9158494",
-                "reference": "8f0a52bb17b444bf41c8c7e6953e6077e9158494",
+                "url": "https://api.github.com/repos/php-curl-class/php-curl-class/zipball/d45e6c17b61bbedf367bb37f35612e4526c07b29",
+                "reference": "d45e6c17b61bbedf367bb37f35612e4526c07b29",
                 "shasum": ""
             },
             "require": {
                 "ext-curl": "*",
-                "ext-mbstring": "*",
                 "php": ">=5.3"
             },
             "require-dev": {
                 "ext-gd": "*",
                 "phpunit/phpunit": "*",
                 "squizlabs/php_codesniffer": "*"
+            },
+            "suggest": {
+                "ext-mbstring": "*"
             },
             "type": "library",
             "autoload": {
@@ -1681,20 +1699,20 @@
                 "web-service",
                 "xml"
             ],
-            "time": "2018-11-14T07:02:19+00:00"
+            "time": "2018-12-19T16:35:45+00:00"
         },
         {
             "name": "phpseclib/phpseclib",
-            "version": "2.0.12",
+            "version": "2.0.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpseclib/phpseclib.git",
-                "reference": "8814dc7841db159daed0b32c2b08fb7e03c6afe7"
+                "reference": "42603ce3f42a27f7e14e54feab95db7b680ad473"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpseclib/phpseclib/zipball/8814dc7841db159daed0b32c2b08fb7e03c6afe7",
-                "reference": "8814dc7841db159daed0b32c2b08fb7e03c6afe7",
+                "url": "https://api.github.com/repos/phpseclib/phpseclib/zipball/42603ce3f42a27f7e14e54feab95db7b680ad473",
+                "reference": "42603ce3f42a27f7e14e54feab95db7b680ad473",
                 "shasum": ""
             },
             "require": {
@@ -1773,7 +1791,7 @@
                 "x.509",
                 "x509"
             ],
-            "time": "2018-11-04T05:45:48+00:00"
+            "time": "2018-12-16T17:45:25+00:00"
         },
         {
             "name": "psr/container",

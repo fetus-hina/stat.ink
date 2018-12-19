@@ -1,8 +1,10 @@
 <?php
 declare(strict_types=1);
 
+use app\components\widgets\BrowserIconWidget;
 use app\components\widgets\FA;
 use app\components\widgets\LocationColumnWidget;
+use app\components\widgets\OsIconWidget;
 use app\models\UserLoginHistory;
 use yii\grid\GridView;
 use yii\helpers\Html;
@@ -55,6 +57,28 @@ $this->title = implode(' | ', [
               'remoteAddr' => $model->remote_addr,
               'remoteAddrMasked' => $model->remote_addr_masked,
               'remoteHost' => $model->remote_host,
+            ]);
+          },
+        ],
+        [
+          'label' => '',
+          'format' => 'raw',
+          'contentOptions' => ['class' => 'text-center'],
+          'value' => function (UserLoginHistory $model): string {
+            return BrowserIconWidget::widget([
+              'ua' => $model->userAgent->user_agent ?? null,
+              'size' => '2em',
+            ]);
+          },
+        ],
+        [
+          'label' => '',
+          'format' => 'raw',
+          'contentOptions' => ['class' => 'text-center'],
+          'value' => function (UserLoginHistory $model): string {
+            return OsIconWidget::widget([
+              'ua' => $model->userAgent->user_agent ?? null,
+              'size' => '2em',
             ]);
           },
         ],

@@ -44,6 +44,7 @@ RESOURCE_TARGETS_MAIN := \
 	resources/.compiled/stat.ink/battles-simple.css \
 	resources/.compiled/stat.ink/blackout-hint.css \
 	resources/.compiled/stat.ink/blackout-hint.js \
+	resources/.compiled/stat.ink/browser-icon-widget.js \
 	resources/.compiled/stat.ink/downloads.css \
 	resources/.compiled/stat.ink/favicon.png \
 	resources/.compiled/stat.ink/kd-win.js \
@@ -51,6 +52,7 @@ RESOURCE_TARGETS_MAIN := \
 	resources/.compiled/stat.ink/main.css \
 	resources/.compiled/stat.ink/main.js \
 	resources/.compiled/stat.ink/no-image.png \
+	resources/.compiled/stat.ink/os-icon-widget.js \
 	resources/.compiled/stat.ink/permalink-dialog.js \
 	resources/.compiled/stat.ink/private-note.js \
 	resources/.compiled/stat.ink/salmon-work-list-config.js \
@@ -74,12 +76,16 @@ RESOURCE_TARGETS_MAIN := \
 	web/static-assets/rect-danger.min.svg.br \
 	web/static-assets/rect-danger.min.svg.gz
 
+SUB_RESOURCES := \
+	resources/browser-logos
+
 RESOURCE_TARGETS := \
 	$(RESOURCE_TARGETS_MAIN) \
 	$(RESOURCE_TARGETS_MAIN:.css=.css.br) \
 	$(RESOURCE_TARGETS_MAIN:.css=.css.gz) \
 	$(RESOURCE_TARGETS_MAIN:.js=.js.br) \
 	$(RESOURCE_TARGETS_MAIN:.js=.js.gz) \
+	$(SUB_RESOURCES)
 
 VENDOR_ARCHIVE_FILE := runtime/vendor-archive/vendor-$(VENDOR_SHA256).tar.xz
 VENDOR_ARCHIVE_SIGN := runtime/vendor-archive/vendor-$(VENDOR_SHA256).tar.xz.asc
@@ -339,6 +345,12 @@ resources/.compiled/flexbox/flexbox.css: resources/flexbox/flexbox.less $(GULP)
 	$(GULP) less --in $< --out $@
 
 resources/.compiled/gears/calc.js: resources/gears/calc.js $(GULP)
+	$(GULP) js --in $< --out $@
+
+resources/.compiled/stat.ink/browser-icon-widget.js: resources/stat.ink/browser-icon-widget.es
+	$(GULP) js --in $< --out $@
+
+resources/.compiled/stat.ink/os-icon-widget.js: resources/stat.ink/os-icon-widget.es
 	$(GULP) js --in $< --out $@
 
 resources/.compiled/stat.ink/no-image.png: resources/stat.ink/no-image.png
