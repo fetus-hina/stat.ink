@@ -41,7 +41,7 @@
       return make('silk');
     }
     if (info.android) {
-      return 'android';
+      return make('android');
     }
     return '';
   };
