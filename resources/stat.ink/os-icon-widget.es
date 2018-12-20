@@ -2,37 +2,34 @@
 (($, bowser) => {
   const createIcon = options => {
     const info = bowser(options.ua);
-    // const base = options.logos;
-    // const make = key => {
-    //   const $img = $('<img>', {
-    //     src: `${base}/${key}.png`,
-    //   });
-    //   return $img.css({
-    //     height: options.size,
-    //     width: 'auto',
-    //   });
-    // };
+    const base = options.logos;
+    const make = key => {
+      const $img = $('<img>', {
+        src: `${base}/${key}.svg`,
+      });
+      return $img.css({
+        height: options.size,
+        width: 'auto',
+      });
+    };
 
     if (info.mac) {
-      return 'OSX';
+      return make('macosx');
     }
-    if (info.windows) {
-      return 'Windows';
-    }
-    if (info.windowsphone) {
-      return 'WinPhone';
+    if (info.windows || info.windowsphone) {
+      return make('microsoft-windows');
     }
     if (info.chromeos) {
-      return 'CrOS';
+      return make('chrome');
     }
     if (info.android) {
-      return 'Android';
+      return make('android-icon');
     }
     if (info.ios) {
-      return 'iOS';
+      return make('ios');
     }
     if (info.linux) {
-      return 'Linux';
+      return make('linux-tux');
     }
     return '';
   };
