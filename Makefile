@@ -77,7 +77,8 @@ RESOURCE_TARGETS_MAIN := \
 	web/static-assets/rect-danger.min.svg.gz
 
 SUB_RESOURCES := \
-	resources/browser-logos
+	resources/browser-logos \
+	resources/os-logos
 
 RESOURCE_TARGETS := \
 	$(RESOURCE_TARGETS_MAIN) \
