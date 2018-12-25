@@ -51,7 +51,7 @@ class PlayerName2Widget extends Widget
         return $playerUser
             ? Html::a(
                 $this->renderInnerNamePart($playerUser),
-                ['show-user/profile', 'screen_name' => $user->screen_name]
+                ['show-user/profile', 'screen_name' => $playerUser->screen_name]
             )
             : Html::tag('span', $this->renderInnerNamePart($playerUser));
     }

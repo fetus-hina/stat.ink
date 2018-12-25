@@ -94,7 +94,7 @@ class SalmonPlayers extends Widget
                     return Html::tag('th', PlayerName2Widget::widget([
                         'player' => $player,
                         'user' => $this->work->user,
-                        'nameOnly' => true,
+                        'nameOnly' => false,
                     ]));
                 },
                 $this->players

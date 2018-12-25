@@ -41,7 +41,7 @@ use yii\db\ActiveRecord;
 class SalmonPlayer2 extends ActiveRecord
 {
     public $top_500 = false; // compat with BattlePlayer2 and used by PlayerName2Widget
-    private $user;
+    private $user = false;
 
     public static function tableName()
     {

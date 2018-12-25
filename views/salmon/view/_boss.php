@@ -103,7 +103,6 @@ $widget = Yii::createObject([
         'label' => PlayerName2Widget::widget([
           'player' => $players[0],
           'user' => $model->user,
-          'nameOnly' => true,
         ]),
         'headerOptions' => [
           'data-sort' => 'int',
@@ -124,7 +123,6 @@ $widget = Yii::createObject([
         'label' => PlayerName2Widget::widget([
           'player' => $players[1],
           'user' => $model->user,
-          'nameOnly' => true,
         ]),
         'headerOptions' => [
           'data-sort' => 'int',
@@ -148,7 +146,6 @@ $widget = Yii::createObject([
         'label' => PlayerName2Widget::widget([
           'player' => $players[2],
           'user' => $model->user,
-          'nameOnly' => true,
         ]),
         'value' => function (SalmonBossAppearance2 $model) use ($players, $playerKillCount): ?string {
           return $playerKillCount($players[2], $model);
@@ -169,7 +166,6 @@ $widget = Yii::createObject([
         'label' => PlayerName2Widget::widget([
           'player' => $players[3],
           'user' => $model->user,
-          'nameOnly' => true,
         ]),
         'value' => function (SalmonBossAppearance2 $model) use ($players, $playerKillCount): ?string {
           return $playerKillCount($players[3], $model);
