@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b47b15cbebdf3e20b668911cdbd2f2b6",
+    "content-hash": "22391dfd92ceac63c42e1ddb914c8dad",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -1499,22 +1499,6 @@
             "time": "2018-02-12T22:31:54+00:00"
         },
         {
-            "name": "npm-asset/browser-logos--chrome",
-            "version": "46.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/alrra/browser-logos.git",
-                "reference": "4d542709b6702bd1cc5c1402e72b948b6e8912e5"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/alrra/browser-logos/zipball/4d542709b6702bd1cc5c1402e72b948b6e8912e5",
-                "reference": "4d542709b6702bd1cc5c1402e72b948b6e8912e5",
-                "shasum": null
-            },
-            "type": "npm-asset"
-        },
-        {
             "name": "npm-asset/cal-heatmap",
             "version": "3.6.2",
             "dist": {
@@ -1533,10 +1517,10 @@
         },
         {
             "name": "npm-asset/canvas-renderer",
-            "version": "2.0.1",
+            "version": "2.1.1",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/canvas-renderer/-/canvas-renderer-2.0.1.tgz",
+                "url": "https://registry.npmjs.org/canvas-renderer/-/canvas-renderer-2.1.1.tgz",
                 "reference": null,
                 "shasum": null
             },
@@ -1589,15 +1573,15 @@
         },
         {
             "name": "npm-asset/jdenticon",
-            "version": "2.1.0",
+            "version": "2.1.1",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/jdenticon/-/jdenticon-2.1.0.tgz",
+                "url": "https://registry.npmjs.org/jdenticon/-/jdenticon-2.1.1.tgz",
                 "reference": null,
                 "shasum": null
             },
             "require": {
-                "npm-asset/canvas-renderer": "~2.0.1"
+                "npm-asset/canvas-renderer": "~2.1.1"
             },
             "type": "npm-asset",
             "license": [
@@ -5396,16 +5380,16 @@
         },
         {
             "name": "squizlabs/php_codesniffer",
-            "version": "3.3.2",
+            "version": "3.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/squizlabs/PHP_CodeSniffer.git",
-                "reference": "6ad28354c04b364c3c71a34e4a18b629cc3b231e"
+                "reference": "379deb987e26c7cd103a7b387aea178baec96e48"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/6ad28354c04b364c3c71a34e4a18b629cc3b231e",
-                "reference": "6ad28354c04b364c3c71a34e4a18b629cc3b231e",
+                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/379deb987e26c7cd103a7b387aea178baec96e48",
+                "reference": "379deb987e26c7cd103a7b387aea178baec96e48",
                 "shasum": ""
             },
             "require": {
@@ -5443,7 +5427,7 @@
                 "phpcs",
                 "standards"
             ],
-            "time": "2018-09-23T23:08:17+00:00"
+            "time": "2018-12-19T23:57:18+00:00"
         },
         {
             "name": "symfony/browser-kit",
