@@ -12,6 +12,7 @@ use DateTimeImmutable;
 use DateTimeZone;
 use Yii;
 use app\assets\IrasutoyaAsset;
+use statink\yii2\paintball\PaintballAsset;
 use yii\base\Widget;
 use yii\helpers\Html;
 
@@ -56,8 +57,10 @@ class HappyNewYearWidget extends Widget
 
     protected function renderIcon(int $eto): string
     {
+        PaintballAsset::register($this->view);
         $asset = IrasutoyaAsset::register($this->view);
         $am = Yii::$app->assetManager;
+
         $img = Html::img(
             $am->getAssetUrl(
                 $asset,
