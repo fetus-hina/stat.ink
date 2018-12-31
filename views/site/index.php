@@ -2,6 +2,7 @@
 use app\components\helpers\CombinedBattles;
 use app\components\widgets\DigitalCounter;
 use app\components\widgets\FA;
+use app\components\widgets\HappyNewYearWidget;
 use app\components\widgets\SnsWidget;
 use app\components\widgets\battle\BattleListWidget;
 use app\models\BlogEntry;
@@ -37,6 +38,7 @@ PaintballAsset::register($this);
 <?php endif; ?>
     </div>
   </div>
+  <?= HappyNewYearWidget::widget() . "\n" ?>
 <?php if (Yii::$app->language === 'ja-JP'): ?>
   <div class="bg-danger" style="margin-bottom:15px;padding:15px;border-radius:10px">
     <p>

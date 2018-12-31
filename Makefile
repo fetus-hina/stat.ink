@@ -26,6 +26,18 @@ RESOURCE_TARGETS_MAIN := \
 	resources/.compiled/gh-fork-ribbon/gh-fork-ribbon.js \
 	resources/.compiled/irasutoya/inkling.png \
 	resources/.compiled/irasutoya/octoling.png \
+	resources/.compiled/irasutoya/eto/0.png \
+	resources/.compiled/irasutoya/eto/1.png \
+	resources/.compiled/irasutoya/eto/2.png \
+	resources/.compiled/irasutoya/eto/3.png \
+	resources/.compiled/irasutoya/eto/4.png \
+	resources/.compiled/irasutoya/eto/5.png \
+	resources/.compiled/irasutoya/eto/6.png \
+	resources/.compiled/irasutoya/eto/7.png \
+	resources/.compiled/irasutoya/eto/8.png \
+	resources/.compiled/irasutoya/eto/9.png \
+	resources/.compiled/irasutoya/eto/10.png \
+	resources/.compiled/irasutoya/eto/11.png \
 	resources/.compiled/ostatus/ostatus.min.svg \
 	resources/.compiled/ostatus/ostatus.min.svg.br \
 	resources/.compiled/ostatus/ostatus.min.svg.gz \
@@ -446,6 +458,11 @@ resources/.compiled/irasutoya/inkling.png: resources/irasutoya/inkling.png
 
 resources/.compiled/irasutoya/octoling.png: resources/irasutoya/octoling.png
 	mkdir -p resources/.compiled/irasutoya
+	convert $< -trim +repage -resize x100 -gravity center -background none -extent 100x100 $@
+	pngcrush -rem allb -l 9 -ow $@
+
+resources/.compiled/irasutoya/eto/%.png: resources/irasutoya/eto/%.png
+	mkdir -p resources/.compiled/irasutoya/eto
 	convert $< -trim +repage -resize x100 -gravity center -background none -extent 100x100 $@
 	pngcrush -rem allb -l 9 -ow $@
 
