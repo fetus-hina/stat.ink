@@ -463,7 +463,7 @@ resources/.compiled/irasutoya/octoling.png: resources/irasutoya/octoling.png
 
 resources/.compiled/irasutoya/eto/%.png: resources/irasutoya/eto/%.png
 	mkdir -p resources/.compiled/irasutoya/eto
-	convert $< -trim +repage -resize x100 -gravity center -background none -extent 100x100 $@
+	convert $< -trim +repage -resize x100 -gravity center -background none $@
 	pngcrush -rem allb -l 9 -ow $@
 
 data/geoip:
