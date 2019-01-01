@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2015-2018 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  */
@@ -538,7 +538,7 @@ return [
     'White Tee' => 'T-shirt blanc',
     'White Urchin Rock Tee' => 'T-shirt blanc oursin rock',
     'White V-Neck Tee' => 'T-shirt col en V blanc',
-    'Wooden Sandals' => '',
+    'Wooden Sandals' => 'Sandales de bois',
     'Woolly Urchins Classic' => 'Casquette classique',
     'Worker\'s Head Towel' => 'Bandana d\'ouvrier',
     'Yamagiri Beanie' => 'Tuque zigzags',

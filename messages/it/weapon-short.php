@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2015-2018 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  */
@@ -105,8 +105,8 @@ return [
     'Marker d\'assalto' => '',
     'Marker d\'assalto Neo' => '',
     'Marker Neo' => '',
-    'Mini splatling' => '',
     'Mini Splatling' => '',
+    'Mini splatling' => '',
     'Mini splatling logo' => '',
     'Mini splatling Nero Marlin' => '',
     'Moscarpino duplo bianco' => '',

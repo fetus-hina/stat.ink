@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2015-2018 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  */
@@ -538,7 +538,7 @@ return [
     'White Tee' => 'Белая майка',
     'White Urchin Rock Tee' => 'Белая майка «Ежрок»',
     'White V-Neck Tee' => 'Белая майка с вырезом',
-    'Wooden Sandals' => '',
+    'Wooden Sandals' => 'Гэта',
     'Woolly Urchins Classic' => 'Теплая кепка БК «Ежи»',
     'Worker\'s Head Towel' => 'Бандана рабочего',
     'Yamagiri Beanie' => 'Шапочка с узором',

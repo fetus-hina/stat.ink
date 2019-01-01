@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2015-2018 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  * @author Koichi Watanabe <wkoichi@gmail.com>
@@ -539,7 +539,7 @@ return [
     'White Tee' => 'イカホワイト',
     'White Urchin Rock Tee' => 'ガンガゼロックT シロ',
     'White V-Neck Tee' => 'イカホワイトV',
-    'Wooden Sandals' => '',
+    'Wooden Sandals' => 'バンカラコロン',
     'Woolly Urchins Classic' => 'ウールウーニーズクラシック',
     'Worker\'s Head Towel' => 'アセストップソシナ',
     'Yamagiri Beanie' => 'ヤマギリビーニー',
