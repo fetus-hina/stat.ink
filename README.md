@@ -30,7 +30,7 @@ Use a private channel if it is a security issue.
 REQUIREMENTS
 ------------
 
-* PHP 7.2+
+* PHP 7.2+ (Recommended: 7.3+)
   - Doesn't work with 7.0 or lower. (Uses statements and constants added in v7.2)
 * PostgreSQL 9.5+ (Recommended: 10+)
   - Doesn't work with 9.4 or lower. (Uses features added in v9.5) 
@@ -45,7 +45,7 @@ REQUIREMENTS
 
 https://stat.ink/ works with:
 
-- CentOS 7.5.1804 (x86-64)
+- CentOS 7.6 (x86-64)
 - EPEL
   - `gearmand`
   - Zopfli
@@ -74,7 +74,8 @@ https://stat.ink/ works with:
       - `postgresql10-server`
 
 ※CentOS 7 の標準 PHP は 5.4.16 です。このバージョンでは動作しません。<br>
-　PHP 7.2 までで追加された機能を使用しています。
+　PHP 7.2 までで追加された機能を使用しています。<br>
+　時々 PHP 7.3 の構文が紛れ込んで 7.2 で文法エラーを引き起こします。（現状では本番系が 7.2 なので修正しますが、近いうちに修正しなくなります）
 
 ※CentOS 7 の標準 PostgreSQL のバージョンは 9.2.14 です。このバージョンでは動作しません。<br>
 　PgSQL 9.5 で追加された機能を使用しています（jsonb 型、UPSERT など）<br>
@@ -148,7 +149,7 @@ stat.ink にデータを投稿する、または取得する API は次のペー
 ```
 The MIT License (MIT)
 
-Copyright (c) 2015-2017 AIZAWA Hina <hina@bouhime.com>
+Copyright (c) 2015-2019 AIZAWA Hina <hina@bouhime.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
