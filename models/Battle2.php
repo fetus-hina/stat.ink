@@ -283,6 +283,12 @@ class Battle2 extends ActiveRecord
                     ->setTimestamp($_SERVER['REQUEST_TIME'] ?? time())
                     ->setTimezone($tz);
                 $currentPeriod = BattleHelper::calcPeriod2($now->getTimestamp());
+                $date = sprintf('(CASE %s END)::date', implode(' ', [
+                    'WHEN {{battle2}}.[[start_at]] IS NOT NULL THEN {{battle2}}.[[start_at]]',
+                    "WHEN {{battle2}}.[[end_at]] IS NOT NULL THEN {{battle2}}.[[end_at]] - '3 minutes'::interval",
+                    'WHEN {{battle2}}.[[period]] IS NOT NULL THEN PERIOD2_TO_TIMESTAMP({{battle2}}.[[period]])',
+                    "ELSE {{battle2}}.[[created_at]] - '4 minutes'::interval",
+                ]));
 
                 switch ($term) {
                     case 'this-period':
@@ -296,7 +302,7 @@ class Battle2 extends ActiveRecord
                     case '24h':
                         $t = $now->sub(new \DateInterval('PT24H'));
                         $this->andWhere(
-                            ['>', 'battle2.created_at', $t->format(\DateTime::ATOM)]
+                            ['>', $date, $t->format(\DateTime::ATOM)]
                         );
                         break;
 
@@ -304,8 +310,8 @@ class Battle2 extends ActiveRecord
                         $today = $now->setTime(0, 0, 0);
                         $tomorrow = $today->add(new \DateInterval('P1D'));
                         $this->andWhere(['and',
-                            ['>=', 'battle2.created_at', $today->format(\DateTime::ATOM)],
-                            ['<', 'battle2.created_at', $tomorrow->format(\DateTime::ATOM)],
+                            ['>=', $date, $today->format(\DateTime::ATOM)],
+                            ['<', $date, $tomorrow->format(\DateTime::ATOM)],
                         ]);
                         break;
 
@@ -313,8 +319,8 @@ class Battle2 extends ActiveRecord
                         $today = $now->setTime(0, 0, 0);
                         $yesterday = $today->sub(new \DateInterval('P1D'));
                         $this->andWhere(['and',
-                            ['>=', 'battle2.created_at', $yesterday->format(\DateTime::ATOM)],
-                            ['<', 'battle2.created_at', $today->format(\DateTime::ATOM)],
+                            ['>=', $date, $yesterday->format(\DateTime::ATOM)],
+                            ['<', $date, $today->format(\DateTime::ATOM)],
                         ]);
                         break;
 
@@ -328,12 +334,12 @@ class Battle2 extends ActiveRecord
                                 : null;
                             if ($from) {
                                 $this->andWhere(
-                                    ['>=', 'battle2.created_at', $from->format(\DateTime::ATOM)]
+                                    ['>=', $date, $from->format(\DateTime::ATOM)]
                                 );
                             }
                             if ($to) {
                                 $this->andWhere(
-                                    ['<', 'battle2.created_at', $to->format(\DateTime::ATOM)]
+                                    ['<', $date, $to->format(\DateTime::ATOM)]
                                 );
                             }
                         } catch (\Exception $e) {
