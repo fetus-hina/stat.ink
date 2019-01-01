@@ -80,7 +80,7 @@ class HappyNewYearWidget extends Widget
                 return $img;
 
             default:
-                return Html::a($img, 'https://en.wikipedia.org/wiki/Earthly_Branches');
+                return Html::a($img, 'https://en.wikipedia.org/wiki/Sexagenary_cycle');
         }
     }
 
