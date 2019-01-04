@@ -329,9 +329,17 @@ class Battle2FilterForm extends Model
                 break;
 
             case 'term':
+                $from = strtotime($this->term_from);
+                if ($from === false) {
+                    $from = 0; // 1970-01-01 00:00:00 UTC
+                }
+                $to = strtotime($this->term_to);
+                if ($to === false) {
+                    $to = $_SERVER['REQUEST_TIME'] ?? time();
+                }
                 $push('term', 'term');
-                $push('term_from', date('Y-m-d H:i:s', strtotime($this->term_from)));
-                $push('term_to', date('Y-m-d H:i:s', strtotime($this->term_to)));
+                $push('term_from', date('Y-m-d H:i:s', $from));
+                $push('term_to', date('Y-m-d H:i:s', $to));
                 $push('timezone', $tz);
                 break;
 
