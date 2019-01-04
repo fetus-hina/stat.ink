@@ -1,6 +1,8 @@
 <?php
 use app\assets\BattleEditAsset;
 use app\assets\SwipeboxRunnerAsset;
+use app\components\helpers\Battle as BattleHelper;
+use app\components\widgets\FA;
 use app\components\widgets\Label;
 use app\components\widgets\TimestampColumnWidget;
 use app\models\Battle2;
@@ -816,10 +818,77 @@ $this->registerCss('#battle .progress{margin-bottom:0}');
       'attribute' => 'start_at', // {{{
       'format' => 'raw',
       'value' => function ($model): string {
-        return TimestampColumnWidget::widget([
-          'value' => $model->start_at,
-          'showRelative' => true,
-        ]);
+        if ($model->start_at === null) {
+          return '';
+        }
+
+        $periodFrom = null;
+        $periodTo = null;
+        if ($model->period) {
+            list($intFrom, $intTo) = BattleHelper::periodToRange2($model->period);
+            $periodFrom = (new DateTimeImmutable())
+                ->setTimezone(new DateTimeZone(Yii::$app->timeZone))
+                ->setTimestamp($intFrom);
+
+            $periodTo = $periodFrom->setTimestamp($intTo);
+        }
+
+        $dayFrom = (new DateTimeImmutable(
+                $model->start_at,
+                new DateTimeZone(Yii::$app->timeZone)
+            ))
+            ->setTime(0, 0, 0); // set to 00:00:00 (midnight)
+
+        $dayTo = $dayFrom
+            ->add(new DateInterval('P1D')) // move to next day's 00:00:00
+            ->sub(new DateInterval('PT1S')); // back 1 second (23:59:59)
+
+        $fmt = Yii::$app->formatter;
+        return implode(' ', array_filter([
+          TimestampColumnWidget::widget([
+            'value' => $model->start_at,
+            'showRelative' => true,
+          ]),
+          $periodFrom && $periodTo
+            ? Html::a(
+              (string)FA::fas('calendar-day')->fw(),
+              ['show-v2/user',
+                'screen_name' => $model->user->screen_name,
+                'filter' => [
+                  'term' => 'term',
+                  'term_from' => $periodFrom->format('Y-m-d H:i:s'),
+                  'term_to' => $periodTo->format('Y-m-d H:i:s'),
+                  'timezone' => Yii::$app->timeZone,
+                ],
+              ],
+              [
+                'class' => 'auto-tooltip',
+                'title' => Yii::t('app', 'Search {from} - {to}', [
+                  'from' => $fmt->asDateTime($periodFrom, 'short'),
+                  'to' => $fmt->asDateTime($periodTo, 'short'),
+                ])
+              ]
+            )
+            : null,
+          Html::a(
+            (string)FA::fas('calendar-alt')->fw(),
+            ['show-v2/user',
+              'screen_name' => $model->user->screen_name,
+              'filter' => [
+                'term' => 'term',
+                'term_from' => $dayFrom->format('Y-m-d H:i:s'),
+                'term_to' => $dayTo->format('Y-m-d H:i:s'),
+                'timezone' => Yii::$app->timeZone,
+              ],
+            ],
+            [
+              'class' => 'auto-tooltip',
+              'title' => Yii::t('app', 'Search {date}', [
+                'date' => Yii::$app->formatter->asDate($dayFrom, 'medium'),
+              ]),
+            ]
+          ),
+        ]));
       },
       // }}}
     ],

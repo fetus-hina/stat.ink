@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2015-2018 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  * @author Allen Pestaluky <allenwp@live.ca>
@@ -364,6 +364,8 @@ return [
     'Screen Name' => 'Nombre de la Pantalla',
     'Screen Name (Login Name)' => 'Nombre de la Pantalla',
     'Search' => 'Búsqueda',
+    'Search {date}' => '',
+    'Search {from} - {to}' => '',
     'Secondary Abilities' => 'Potenciadors secundarias',
     'Session History' => '',
     'Settings' => 'Configuración',

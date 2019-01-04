@@ -283,7 +283,7 @@ class Battle2 extends ActiveRecord
                     ->setTimestamp($_SERVER['REQUEST_TIME'] ?? time())
                     ->setTimezone($tz);
                 $currentPeriod = BattleHelper::calcPeriod2($now->getTimestamp());
-                $date = sprintf('(CASE %s END)::date', implode(' ', [
+                $date = sprintf('(CASE %s END)::timestamp with time zone', implode(' ', [
                     'WHEN {{battle2}}.[[start_at]] IS NOT NULL THEN {{battle2}}.[[start_at]]',
                     "WHEN {{battle2}}.[[end_at]] IS NOT NULL THEN {{battle2}}.[[end_at]] - '3 minutes'::interval",
                     'WHEN {{battle2}}.[[period]] IS NOT NULL THEN PERIOD2_TO_TIMESTAMP({{battle2}}.[[period]])',
