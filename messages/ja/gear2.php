@@ -43,7 +43,7 @@ return [
     'Banana Basics' => 'キャンバス バナナ',
     'Baseball Jersey' => 'ミスターベースボール',
     'Basic Tee' => 'わかばイカT',
-    'Beekeeper Hat' => '',
+    'Beekeeper Hat' => 'ガーディアンアーミーハット',
     'Berry Ski Jacket' => 'マウンテンベリー',
     'Bike Helmet' => 'サイクルメット',
     'Birch Climbing Shoes' => 'ボルダーシューズ ハザクラ',
