@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2015-2018 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  */
@@ -234,6 +234,7 @@ return [
     'King Flip Mesh' => '',
     'King Jersey' => '',
     'Knitted Hat' => '',
+    'Koshien Bandana' => '',
     'Krak-On 528' => '',
     'Kung-Fu Zip-Up' => '',
     'Kyonshi Hat' => '',
@@ -306,8 +307,10 @@ return [
     'Octoleet Boots' => '',
     'Octoleet Goggles' => '',
     'Octoling Shades' => '',
+    'Octo Support Hoodie' => '',
     'Octo Tackle Helmet Deco' => '',
     'Octo Tee' => '',
+    'Office Attire' => '',
     'Old-Timey Clothes' => '',
     'Old-Timey Hat' => '',
     'Old-Timey Shoes' => '',
