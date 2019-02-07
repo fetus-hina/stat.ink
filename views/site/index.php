@@ -71,7 +71,7 @@ PaintballAsset::register($this);
 <?php else: ?>
   <div class="bg-danger" style="margin-bottom:15px;padding:15px;border-radius:10px">
     <p>
-      For SquidTracks or splatnet2tatink users:
+      For SquidTracks or splatnet2statink users:
     </p>
     <p>
       Please update your client software and use always latest version.<br>
