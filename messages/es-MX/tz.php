@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2015-2018 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  * @author mntone <sd8@live.jp>
@@ -11,8 +11,8 @@ return [
     'Australia (Central, DST)' => 'Australia (Central, Horario de verano)',
     'Australia (East)' => 'Australia (Este)',
     'Australia (East, DST)' => 'Australia (Este, Horario de verano)',
-    'Australia/Oceania' => '',
     'Australia (West)' => 'Australia (Oeste)',
+    'Australia/Oceania' => '',
     'China (PRC)' => '',
     'East Asia' => '',
     'Europe' => '',
@@ -24,6 +24,7 @@ return [
     'Japan' => '',
     'Korea' => '',
     'Latin America' => '',
+    'Lord Howe Island' => '',
     'North America' => '',
     'North America (Adak)' => 'América del Norte (Adak)',
     'North America (Alaska)' => 'América del Norte (Alaska)',

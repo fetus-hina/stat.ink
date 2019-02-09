@@ -23,6 +23,7 @@ return [
     'Japan' => '日本時間',
     'Korea' => '韓国時間',
     'Latin America' => 'ラテンアメリカ',
+    'Lord Howe Island' => 'ロード・ハウ島',
     'North America (AT)' => '北米時間（大西洋）',
     'North America (Adak)' => '北米時間（アダック）',
     'North America (Alaska)' => '北米時間（アラスカ州）',
