@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2015-2018 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  */
@@ -12,6 +12,12 @@ return [
     'Australia (East, DST)' => 'オーストラリア（東部・夏時間あり）',
     'Australia (West)' => 'オーストラリア（西部）',
     'Australia/Oceania' => 'オーストラリア・オセアニア',
+    'Brazil (Brasília)' => 'ブラジル時間（ブラジリア）',
+    'Brazil (Eastern Amazonas)' => 'ブラジル時間（アマゾナス・東部）',
+    'Brazil (Fernando de Noronha)' => 'ブラジル時間（フェルナンド・デ・ノローニャ）',
+    'Brazil (Mato Grosso)' => 'ブラジル時間（マットグロッソ）',
+    'Brazil (Northeastern)' => 'ブラジル時間（北東）',
+    'Brazil (Weastern Amazonas)' => 'ブラジル時間（アマゾナス・西部）',
     'Central America' => '中央アメリカ',
     'China (PRC)' => '中国時間',
     'East Asia' => '東アジア',
