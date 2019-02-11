@@ -358,19 +358,23 @@ $_agentRevision = Version::getShortRevision();
               <div class="row">
                 <div class="col-xs-6">
                   <div class="form-group">
-                    <input type="hidden" id="battle-input2-form--fest--rule" name="rule" value="">
+                    <input type="hidden" id="battle-input2-form--fest--rule" name="rule" value="nawabari">
                     <input type="hidden" id="battle-input2-form--fest--mode" name="mode" value="fest">
-                    <input type="text" id="battle-input2-form--fest--rule--label" value="" class="form-control" readonly>
+                    <?= Html::textInput('', Yii::t('app-rule2', 'Turf War'), [
+                      'id' => 'battle-input2-form--fest--rule--label',
+                      'class' => 'form-control',
+                      'readonly' => true,
+                    ]) . "\n" ?>
                   </div>
                 </div>
                 <div class="col-xs-6">
                   <div class="form-group">
                     <select id="battle-input2-form--fest--lobby" name="lobby" class="form-control">
-                      <option value="standard">
-                        <?= Html::encode(Yii::t('app-rule2', 'Splatfest (Solo)')) . "\n" ?>
+                      <option value="fest_normal">
+                        <?= Html::encode(Yii::t('app-rule2', 'Splatfest (Normal)')) . "\n" ?>
                       </option>
-                      <option value="squad_4">
-                        <?= Html::encode(Yii::t('app-rule2', 'Splatfest (Team)')) . "\n" ?>
+                      <option value="fest_pro">
+                        <?= Html::encode(Yii::t('app-rule2', 'Splatfest (Pro)')) . "\n" ?>
                       </option>
                     </select>
                   </div>
