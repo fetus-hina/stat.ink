@@ -124,13 +124,20 @@ if ($prev) {
             switch ($row['lobby_key']) {
               case 'standard':
                 if ($row['mode_key'] === 'fest') {
-                  return Yii::t('app-rule2', 'Splatfest (Solo)');
+                  if (version_compare($row['version_tag'], '4.0.0', '>=')) {
+                    return Yii::t('app-rule2', 'Splatfest (Pro)');
+                  } else {
+                    return Yii::t('app-rule2', 'Splatfest (Solo)');
+                  }
                 } elseif ($row['rule_key'] === 'nawabari') {
                   return Yii::t('app-rule2', 'Regular Battle');
                 } else {
                   return Yii::t('app-rule2', 'Ranked Battle');
                 }
                 break;
+
+              case 'fest_normal':
+                return Yii::t('app-rule2', 'Splatfest (Normal)');
 
               case 'squad_2':
                 return Yii::t('app-rule2', 'League Battle (Twin)');

@@ -136,6 +136,7 @@ class UserStatReportAction extends BaseAction
                 'rule',
                 'map',
                 'weapon',
+                'version',
             ], false)
             ->where(['and',
                 ['{{battle2}}.[[user_id]]' => $this->user->id],
@@ -156,6 +157,7 @@ class UserStatReportAction extends BaseAction
                 '{{battle2}}.[[my_team_id]]',
                 '{{battle2}}.[[map_id]]',
                 '{{battle2}}.[[weapon_id]]',
+                '{{battle2}}.[[version_id]]',
             ])
             ->select([
                 'date'          => $date,
@@ -171,6 +173,8 @@ class UserStatReportAction extends BaseAction
                 'map_name'      => 'MAX({{map2}}.[[name]])',
                 'weapon_key'    => 'MAX({{weapon2}}.[[key]])',
                 'weapon_name'   => 'MAX({{weapon2}}.[[name]])',
+                'version_tag'   => 'MAX({{splatoon_version2}}.[[tag]])',
+                'version_name'  => 'MAX({{splatoon_version2}}.[[name]])',
                 'battles'       => 'COUNT(*)',
                 'wins'          => 'SUM(CASE WHEN {{battle2}}.[[is_win]] THEN 1 ELSE 0 END)',
                 'kills_for_ratio'   => sprintf('SUM(CASE %s END)', implode(' ', [
