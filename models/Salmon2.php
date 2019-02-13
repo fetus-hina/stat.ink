@@ -16,6 +16,7 @@ use app\components\helpers\DateTimeFormatter;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\db\Query;
+use yii\helpers\Html;
 use yii\helpers\Url;
 
 /**
@@ -377,6 +378,57 @@ class Salmon2 extends ActiveRecord
         }
 
         return (int)$myData->power_egg_collected / $waves;
+    }
+
+    public function getTeamTotalGoldenEggs(): ?int
+    {
+        if (!$this->waves) {
+            return null;
+        }
+
+        return array_reduce(
+            $this->waves,
+            function (?int $carry, SalmonWave2 $item): ?int {
+                if ($carry === null || $item->golden_egg_delivered === null) {
+                    return null;
+                }
+                return $carry + $item->golden_egg_delivered;
+            },
+            0
+        );
+    }
+
+    // returns HTML
+    public function getTeamTotalGoldenEggsPerWave(): ?string
+    {
+        if (!$this->waves) {
+            return null;
+        }
+
+        return implode(' - ', array_map(
+            function (SalmonWave2 $item): string {
+                if ($item->golden_egg_delivered === null) {
+                    return '?';
+                }
+
+                if ($item->golden_egg_quota === null) {
+                    return Html::encode((string)$item->golden_egg_delivered);
+                }
+
+                return Html::tag(
+                    'span',
+                    Html::encode((string)$item->golden_egg_delivered),
+                    [
+                        'title' => vsprintf('%d / %d', [
+                            $item->golden_egg_delivered,
+                            $item->golden_egg_quota,
+                        ]),
+                        'class' => 'auto-tooltip',
+                    ]
+                );
+            },
+            $this->waves
+        ));
     }
 
     public function getQuota(): ?array

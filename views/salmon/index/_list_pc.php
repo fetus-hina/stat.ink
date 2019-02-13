@@ -188,6 +188,36 @@ $this->registerJs('window.workList();');
     [
       'label' => Html::tag(
         'span',
+        Html::encode(Yii::t('app-salmon2', 'Ttl. Golden')),
+        [
+          'class' => 'auto-tooltip',
+          'title' => Yii::t('app-salmon2', 'Team total Golden Eggs'),
+        ]
+      ),
+      'encodeLabel' => false,
+      'headerOptions' => ['class' => 'cell-golden-total'],
+      'contentOptions' => ['class' => 'cell-golden-total text-right'],
+      'format' => 'integer',
+      'attribute' => 'teamTotalGoldenEggs',
+    ],
+    [
+      'label' => Html::tag(
+        'span',
+        Html::encode(Yii::t('app-salmon2', 'Ttl. Golden (Wave)')),
+        [
+          'class' => 'auto-tooltip',
+          'title' => Yii::t('app-salmon2', 'Team total Golden Eggs'),
+        ]
+      ),
+      'encodeLabel' => false,
+      'headerOptions' => ['class' => 'cell-golden-total-wave'],
+      'contentOptions' => ['class' => 'cell-golden-total-wave'],
+      'format' => 'raw',
+      'attribute' => 'teamTotalGoldenEggsPerWave',
+    ],
+    [
+      'label' => Html::tag(
+        'span',
         Html::encode(Yii::t('app-salmon2', 'Pwr Eggs')),
         [
           'class' => 'auto-tooltip',
