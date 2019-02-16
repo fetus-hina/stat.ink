@@ -72,6 +72,7 @@ RESOURCE_TARGETS_MAIN := \
 	resources/.compiled/stat.ink/salmon-work-list.js \
 	resources/.compiled/stat.ink/summary-legends.png \
 	resources/.compiled/stat.ink/swipebox-runner.js \
+	resources/.compiled/stat.ink/theme.js \
 	resources/.compiled/stat.ink/user-miniinfo.css \
 	resources/.compiled/stat.ink/user-stat-2-nawabari-inked.js \
 	resources/.compiled/stat.ink/user-stat-2-nawabari-runner.js \
@@ -336,6 +337,9 @@ resources/.compiled/stat.ink/salmon-work-list.js: resources/stat.ink/salmon-work
 	$(GULP) js --in $< --out $@
 
 resources/.compiled/stat.ink/salmon-work-list-hazard.js: resources/stat.ink/salmon-work-list-hazard.es $(GULP)
+	$(GULP) js --in $< --out $@
+
+resources/.compiled/stat.ink/theme.js: resources/stat.ink/theme.es
 	$(GULP) js --in $< --out $@
 
 resources/.compiled/ostatus/remote-follow.js: resources/ostatus/remote-follow.js $(GULP)

@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2015-2016 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  * @author eli fessler <eliwf8@gmail.com>
@@ -95,6 +95,7 @@ return [
     'Click to copy' => 'クリックしてURLをコピー',
     'Close' => '閉じる',
     'Clout' => '貢献度',
+    'Color Scheme' => 'カラースキーム',
     'Color-Blind Support' => '色覚サポート',
     'Compare Number Of Uses' => '使用率の比較',
     'Compare number of uses' => '使用率を比較する',
@@ -123,6 +124,7 @@ return [
     'Deaths' => 'デス数',
     'Deaths/min' => 'デス/分',
     'Deaths/min' => 'デス/分',
+    'Default Color' => '既定のテーマ',
     'Delete' => '削除',
     'Detail' => '詳細',
     'Detailed List' => '詳細なリストで表示',
@@ -566,6 +568,7 @@ return [
     '{sec} seconds ({pct} %)' => '{sec} 秒 ({pct} %)',
     '{sec} seconds' => '{sec} 秒',
     '{sec} seconds, {cnt} times' => '{sec} 秒, 最大 {cnt} 回',
+    '{theme} Theme' => '{theme}テーマ',
     '{title} Official Website' => '{title} 公式サイト',
     '~{point}p' => '約{point}p',
 ];
