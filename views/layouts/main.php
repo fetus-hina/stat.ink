@@ -1,6 +1,7 @@
 <?php
 use app\assets\AppAsset;
 use app\assets\BootstrapNotifyAsset;
+use app\assets\BootswatchAsset;
 use app\components\helpers\I18n;
 use app\components\widgets\LanguageDialog;
 use app\components\widgets\TimezoneDialog;
@@ -9,6 +10,10 @@ use yii\helpers\Html;
 use yii\helpers\Json;
 
 AppAsset::register($this);
+Yii::$app->theme->registerAssets($this);
+
+// $bootswatch = BootswatchAsset::register($this);
+// $bootswatch->theme = 'darkly';
 
 $_flashes = Yii::$app->getSession()->getAllFlashes();
 if ($_flashes) {
@@ -62,7 +67,13 @@ if ($_flashes) {
     <?= I18n::languageLinkTags() ?>
     <?php $this->head(); echo "\n" ?>
   </head>
-  <body itemprop proptype="http://schema.org/WebPage">
+  <?= Html::beginTag('body', [
+    'itemprop' => true,
+    'proptype' => 'http://schema.org/WebPage',
+    'data' => [
+      'theme' => Yii::$app->theme->theme,
+    ],
+  ]) . "\n" ?>
     <?php $this->beginBody() ?><?= "\n" ?>
       <header>
         <?= $this->render('/layouts/navbar') ?><?= "\n" ?>

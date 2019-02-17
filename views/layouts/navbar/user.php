@@ -2,8 +2,24 @@
 use yii\helpers\Html;
 
 $user = Yii::$app->user->identity ?? null;
+$placeholder = function (string $theme): string {
+    return Html::tag('span', '', ['class' => [
+      'fas',
+      'fa-fw',
+      $theme === Yii::$app->theme->theme ? 'fa-check' : '',
+    ]]) . ' ';
+};
 
 $this->registerCss('.fa-twitter{color:#1da1f2}');
+
+$themes = [
+    'bootswatch-cosmo' => 'Cosmo',
+    'bootswatch-cyborg' => 'Cyborg',
+    'bootswatch-darkly' => 'Darkly',
+    'bootswatch-flatly' => 'Flatly',
+    'bootswatch-paper' => 'Paper',
+    'bootswatch-slate' => 'Slate',
+];
 ?>
 <?= Html::a(
   implode('', [
@@ -111,14 +127,33 @@ $this->registerCss('.fa-twitter{color:#1da1f2}');
     ],
   [
     Html::tag('li', '', ['class' => 'divider']),
-    Html::tag('li', Html::a(
-      implode('', [
-        Html::tag('span', '', ['class' => 'far fa-fw']),
-        Html::encode(Yii::t('app', 'Color-Blind Support')),
-      ]),
-      'javascript:;',
-      ['id' => 'toggle-color-lock']
-    )),
+    Html::tag('li', implode('', [
+      Html::a(Yii::t('app', 'Color Scheme'), 'javascript:;', ['data-toggle' => 'dropdown']),
+      Html::tag('ul', implode('', [
+        Html::tag('li', Html::a(
+          $placeholder('default') . Yii::t('app', 'Default Color'),
+          'javascript:;',
+          ['class' => 'theme-switcher', 'data-theme' => 'default']
+        )),
+        Html::tag('li', Html::a(
+          $placeholder('color-blind') . Yii::t('app', 'Color-Blind Support'),
+          'javascript:;',
+          ['class' => 'theme-switcher', 'data-theme' => 'color-blind']
+        )),
+        Html::tag('li', '', ['class' => 'divider']),
+        implode('', array_map(
+          function (string $themeId, string $themeName) use ($placeholder): string {
+            return Html::tag('li', Html::a(
+              $placeholder($themeId) . Yii::t('app', '{theme} Theme', ['theme' => $themeName]),
+              'javascript:;',
+              ['class' => 'theme-switcher', 'data-theme' => $themeId]
+            ));
+          },
+          array_keys($themes),
+          array_values($themes)
+        )),
+      ]), ['class' => 'dropdown-menu']),
+    ]), ['class' => 'dropdown-submenu']),
     Html::tag('li', Html::a(
       implode('', [
         Html::tag('span', '', ['class' => 'far fa-fw']),

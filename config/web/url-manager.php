@@ -91,6 +91,7 @@ return [
 
         'api/v2/<action:[\w-]+>.<format:[\w]+>' => 'api-v2/<action>',
         'api/v2/<action:[\w-]+>' => 'api-v2/<action>',
+        'api/internal/theme' => 'api-theme/set',
         'api/internal/<action:[\w-]+>' => 'api-internal/<action>',
         '.well-known/host-meta' => 'ostatus/host-meta',
         '.well-known/webfinger' => 'ostatus/webfinger',
