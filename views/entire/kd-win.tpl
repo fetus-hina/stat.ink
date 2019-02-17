@@ -11,7 +11,7 @@
 
   {{use class="app\assets\AppOptAsset"}}
   {{$optAsset = AppOptAsset::register($this)}}
-  {{$optAsset->registerJsFile($this, 'kd-win.js')}}
+  {{$optAsset->registerJsFile($this, 'kd-win.js')|@void}}
 
   <div class="container">
     <h1>
