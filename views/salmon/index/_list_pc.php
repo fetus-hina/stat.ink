@@ -188,6 +188,66 @@ $this->registerJs('window.workList();');
     [
       'label' => Html::tag(
         'span',
+        Html::encode(Yii::t('app-salmon2', 'Ttl. Golden')),
+        [
+          'class' => 'auto-tooltip',
+          'title' => Yii::t('app-salmon2', 'Team total Golden Eggs'),
+        ]
+      ),
+      'encodeLabel' => false,
+      'headerOptions' => ['class' => 'cell-golden-total'],
+      'contentOptions' => ['class' => 'cell-golden-total text-right'],
+      'format' => 'integer',
+      'attribute' => 'teamTotalGoldenEggs',
+    ],
+    [
+      'label' => Html::tag(
+        'span',
+        Html::encode(Yii::t('app-salmon2', 'Ttl. Golden (Wave)')),
+        [
+          'class' => 'auto-tooltip',
+          'title' => Yii::t('app-salmon2', 'Team total Golden Eggs'),
+        ]
+      ),
+      'encodeLabel' => false,
+      'headerOptions' => ['class' => 'cell-golden-total-wave'],
+      'contentOptions' => ['class' => 'cell-golden-total-wave'],
+      'format' => 'raw',
+      'value' => function ($model): ?string {
+        $waves = $model->teamTotalGoldenEggsPerWave;
+        if ($waves === null) {
+          return null;
+        }
+        return implode(' - ', array_map(
+          function (?\stdClass $wave): string {
+            if ($wave === null) {
+              return '?';
+            }
+
+            $f = Yii::$app->formatter;
+            if ($wave->quota === null) {
+              return Html::encode($f->asInteger($wave->delivered));
+            }
+
+            return Html::tag(
+              'span',
+              Html::encode($f->asInteger($wave->delivered)),
+              [
+                'class' => 'auto-tooltip',
+                'title' => vsprintf('%s / %s', [
+                  $f->asInteger($wave->delivered),
+                  $f->asInteger($wave->quota),
+                ]),
+              ]
+            );
+          },
+          $waves
+        ));
+      },
+    ],
+    [
+      'label' => Html::tag(
+        'span',
         Html::encode(Yii::t('app-salmon2', 'Pwr Eggs')),
         [
           'class' => 'auto-tooltip',
@@ -214,6 +274,50 @@ $this->registerJs('window.workList();');
       'contentOptions' => ['class' => 'cell-power-wave text-right'],
       'format' => ['decimal', 1],
       'attribute' => 'pwrEggsPerWave',
+    ],
+    [
+      'label' => Html::tag(
+        'span',
+        Html::encode(Yii::t('app-salmon2', 'Ttl. Pwr. E.')),
+        [
+          'class' => 'auto-tooltip',
+          'title' => Yii::t('app-salmon2', 'Team total Power Eggs'),
+        ]
+      ),
+      'encodeLabel' => false,
+      'headerOptions' => ['class' => 'cell-power-total'],
+      'contentOptions' => ['class' => 'cell-power-total text-right'],
+      'format' => 'integer',
+      'attribute' => 'teamTotalPowerEggs',
+    ],
+    [
+      'label' => Html::tag(
+        'span',
+        Html::encode(Yii::t('app-salmon2', 'Ttl. Pwr. E. (Wave)')),
+        [
+          'class' => 'auto-tooltip',
+          'title' => Yii::t('app-salmon2', 'Team total Power Eggs per Wave'),
+        ]
+      ),
+      'encodeLabel' => false,
+      'headerOptions' => ['class' => 'cell-power-total-wave'],
+      'contentOptions' => ['class' => 'cell-power-total-wave'],
+      'value' => function ($model): ?string {
+        $waves = $model->teamTotalPowerEggsPerWave;
+        if ($waves === null) {
+          return null;
+        }
+        return implode(' - ', array_map(
+          function (?int $wave): string {
+            if ($wave === null) {
+              return '?';
+            }
+
+            return Yii::$app->formatter->asInteger($wave);
+          },
+          $waves
+        ));
+      },
     ],
     [
       'label' => Yii::t('app-salmon2', 'Rescues'),

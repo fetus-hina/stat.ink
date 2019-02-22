@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2015-2018 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  */
@@ -54,6 +54,8 @@ return [
     'Salmon Run' => '',
     'Special Use' => '',
     'Stats: Salmon Clear %' => '',
+    'Team total Golden Eggs' => '',
+    'Team total Golden Eggs per Wave' => '',
     'Time' => '',
     'Time is up' => '',
     'Total Golden Eggs' => '',
@@ -62,6 +64,8 @@ return [
     'Total Rescued' => '',
     'Ttl. Eggs' => '',
     'Ttl. Gold' => '',
+    'Ttl. Golden' => '',
+    'Ttl. Golden (Wave)' => '',
     'Ttl. Pts.' => '',
     'Ttl. Rescued' => '',
     'URL related to this work' => '',

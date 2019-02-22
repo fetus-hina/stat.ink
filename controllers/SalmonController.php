@@ -121,6 +121,7 @@ class SalmonController extends Controller
                 'stage',
                 'titleAfter',
                 'titleBefore',
+                'waves',
             ]);
         $filter->decorateQuery($query);
 

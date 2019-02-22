@@ -98,6 +98,9 @@ class SalmonWaves extends Widget
             Html::tag('th', Html::encode(
                 Yii::t('app-salmon2', 'Wave {waveNumber}', ['waveNumber' => 3])
             )),
+            Html::tag('th', Html::encode(
+                Yii::t('app', 'Total')
+            )),
         ])));
     }
 
@@ -108,6 +111,7 @@ class SalmonWaves extends Widget
                 ? [
                     'label' => '',
                     'format' => 'raw',
+                    'total' => null,
                     'value' => function (SalmonWave2 $wave, int $waveNumber, self $widget): string {
                         $clearWaves = $widget->work->clear_waves;
                         if ($clearWaves >= $waveNumber) {
@@ -131,36 +135,86 @@ class SalmonWaves extends Widget
             [
                 'label' => Yii::t('app-salmon-event2', 'Event'),
                 'format' => 'text',
+                'total' => null,
                 'value' => function (SalmonWave2 $wave, int $waveNumber, self $widget): ?string {
                     return Yii::t('app-salmon-event2', $wave->event->name ?? null);
                 },
             ],
             [
                 'label' => Yii::t('app-salmon-tide2', 'Water Level'),
-                'format' => 'text',
+                'format' => 'raw',
+                'total' => null,
                 'value' => function (SalmonWave2 $wave, int $waveNumber, self $widget): string {
-                    return Yii::t('app-salmon-tide2', $wave->water->name ?? null);
+                    $options = [
+                        'low' => [
+                            'width' => '33.333%',
+                            'color' => 'info',
+                        ],
+                        'normal' => [
+                            'width' => '66.667%',
+                            'color' => 'success',
+                        ],
+                        'high' => [
+                            'width' => '100%',
+                            'color' => 'danger',
+                        ],
+                    ];
+
+                    if (!isset($options[$wave->water->key])) {
+                        return Html::encode(
+                            Yii::t('app-salmon-tide2', $wave->water->name ?? null)
+                        );
+                    }
+
+                    $opt = $options[$wave->water->key];
+                    return Html::tag(
+                        'div',
+                        Html::tag(
+                            'div',
+                            Html::encode(Yii::t('app-salmon-tide2', $wave->water->name ?? null)),
+                            [
+                                'class' => [
+                                    'progress-bar',
+                                    "progress-bar-{$opt['color']}",
+                                ],
+                                'role' => 'progressbar',
+                                'style' => [
+                                    'width' => $opt['width'],
+                                ],
+                            ]
+                        ),
+                        [
+                            'class' => 'progress',
+                            'style' => [
+                                'margin-bottom' => '0',
+                            ],
+                        ]
+                    );
                 },
             ],
             [
                 'label' => Yii::t('app-salmon2', 'Quota'),
                 'attribute' => 'golden_egg_quota',
                 'format' => 'integer',
+                'total' => '+',
             ],
             [
                 'label' => Yii::t('app-salmon2', 'Delivers'),
                 'attribute' => 'golden_egg_delivered',
                 'format' => 'integer',
+                'total' => '+',
             ],
             [
                 'label' => Yii::t('app-salmon2', 'Appearances'),
                 'attribute' => 'golden_egg_appearances',
                 'format' => 'integer',
+                'total' => '+',
             ],
             [
                 'label' => Yii::t('app-salmon2', 'Power Eggs'),
                 'attribute' => 'power_egg_collected',
                 'format' => 'integer',
+                'total' => '+',
             ],
         ]);
         return Html::tag('tbody', implode('', array_map(
@@ -178,6 +232,7 @@ class SalmonWaves extends Widget
             $this->renderCellData($rowInfo, $this->wave1, 1),
             $this->renderCellData($rowInfo, $this->wave2, 2),
             $this->renderCellData($rowInfo, $this->wave3, 3),
+            $this->renderTotalData($rowInfo),
         ]));
     }
 
@@ -217,5 +272,48 @@ class SalmonWaves extends Widget
         }
 
         return $value;
+    }
+
+    protected function renderTotalData(array $rowInfo): string
+    {
+        return Html::tag('td', $this->renderTotalDataValue($rowInfo));
+    }
+
+    protected function renderTotalDataValue(array $rowInfo)
+    {
+        $waves = [
+            $this->wave1,
+            $this->wave2,
+            $this->wave3,
+        ];
+        $method = ArrayHelper::getValue($rowInfo, 'total');
+        switch ($method) {
+            case null:
+            default:
+                return '';
+
+            case '+':
+            case 'add':
+                $total = 0;
+                foreach ($waves as $wave) {
+                    if (!$wave) {
+                        continue;
+                    }
+                    $value = ArrayHelper::getValue($rowInfo, 'value');
+                    if ($value === null && isset($rowInfo['attribute'])) {
+                        $value = ArrayHelper::getValue($wave, $rowInfo['attribute']);
+                    }
+                    if (is_callable($value)) {
+                        $value = call_user_func($value, $wave, $waveNumber, $this);
+                    }
+                    if ($value !== null) {
+                        $total += $value;
+                    }
+                }
+                return $this->formatter->format(
+                    $total,
+                    ArrayHelper::getValue($rowInfo, 'format', 'text')
+                );
+        }
     }
 }
