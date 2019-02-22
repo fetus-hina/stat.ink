@@ -142,10 +142,54 @@ class SalmonWaves extends Widget
             ],
             [
                 'label' => Yii::t('app-salmon-tide2', 'Water Level'),
-                'format' => 'text',
+                'format' => 'raw',
                 'total' => null,
                 'value' => function (SalmonWave2 $wave, int $waveNumber, self $widget): string {
-                    return Yii::t('app-salmon-tide2', $wave->water->name ?? null);
+                    $options = [
+                        'low' => [
+                            'width' => '33.333%',
+                            'color' => 'info',
+                        ],
+                        'normal' => [
+                            'width' => '66.667%',
+                            'color' => 'success',
+                        ],
+                        'high' => [
+                            'width' => '100%',
+                            'color' => 'danger',
+                        ],
+                    ];
+
+                    if (!isset($options[$wave->water->key])) {
+                        return Html::encode(
+                            Yii::t('app-salmon-tide2', $wave->water->name ?? null)
+                        );
+                    }
+
+                    $opt = $options[$wave->water->key];
+                    return Html::tag(
+                        'div',
+                        Html::tag(
+                            'div',
+                            Html::encode(Yii::t('app-salmon-tide2', $wave->water->name ?? null)),
+                            [
+                                'class' => [
+                                    'progress-bar',
+                                    "progress-bar-{$opt['color']}",
+                                ],
+                                'role' => 'progressbar',
+                                'style' => [
+                                    'width' => $opt['width'],
+                                ],
+                            ]
+                        ),
+                        [
+                            'class' => 'progress',
+                            'style' => [
+                                'margin-bottom' => '0',
+                            ],
+                        ]
+                    );
                 },
             ],
             [
