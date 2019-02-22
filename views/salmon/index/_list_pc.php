@@ -213,7 +213,37 @@ $this->registerJs('window.workList();');
       'headerOptions' => ['class' => 'cell-golden-total-wave'],
       'contentOptions' => ['class' => 'cell-golden-total-wave'],
       'format' => 'raw',
-      'attribute' => 'teamTotalGoldenEggsPerWave',
+      'value' => function ($model): ?string {
+        $waves = $model->teamTotalGoldenEggsPerWave;
+        if ($waves === null) {
+          return null;
+        }
+        return implode(' - ', array_map(
+          function (?\stdClass $wave): string {
+            if ($wave === null) {
+              return '?';
+            }
+
+            $f = Yii::$app->formatter;
+            if ($wave->quota === null) {
+              return Html::encode($f->asInteger($wave->delivered));
+            }
+
+            return Html::tag(
+              'span',
+              Html::encode($f->asInteger($wave->delivered)),
+              [
+                'class' => 'auto-tooltip',
+                'title' => vsprintf('%s / %s', [
+                  $f->asInteger($wave->delivered),
+                  $f->asInteger($wave->quota),
+                ]),
+              ]
+            );
+          },
+          $waves
+        ));
+      },
     ],
     [
       'label' => Html::tag(

@@ -398,37 +398,25 @@ class Salmon2 extends ActiveRecord
         );
     }
 
-    // returns HTML
-    public function getTeamTotalGoldenEggsPerWave(): ?string
+    public function getTeamTotalGoldenEggsPerWave(): array
     {
         if (!$this->waves) {
             return null;
         }
 
-        return implode(' - ', array_map(
-            function (SalmonWave2 $item): string {
+        return array_map(
+            function (SalmonWave2 $item): ?\stdClass {
                 if ($item->golden_egg_delivered === null) {
-                    return '?';
+                    return null;
                 }
 
-                if ($item->golden_egg_quota === null) {
-                    return Html::encode((string)$item->golden_egg_delivered);
-                }
-
-                return Html::tag(
-                    'span',
-                    Html::encode((string)$item->golden_egg_delivered),
-                    [
-                        'title' => vsprintf('%d / %d', [
-                            $item->golden_egg_delivered,
-                            $item->golden_egg_quota,
-                        ]),
-                        'class' => 'auto-tooltip',
-                    ]
-                );
+                return (object)[
+                    'quota' => $item->golden_egg_quota,
+                    'delivered' => $item->golden_egg_delivered,
+                ];
             },
             $this->waves
-        ));
+        );
     }
 
     public function getQuota(): ?array
