@@ -25,6 +25,8 @@ use yii\helpers\Html;
         'cell-golden-total-wave' => Yii::t('app-salmon2', 'Team total Golden Eggs per Wave'),
         'cell-power' => Yii::t('app-salmon2', 'Power Eggs'),
         'cell-power-wave' => Yii::t('app-salmon2', 'Power Eggs per Wave'),
+        'cell-power-total' => Yii::t('app-salmon2', 'Team total Power Eggs'),
+        'cell-power-total-wave' => Yii::t('app-salmon2', 'Team total Power Eggs per Wave'),
         'cell-rescue' => Yii::t('app-salmon2', 'Rescues'),
         'cell-death' => Yii::t('app-salmon2', 'Deaths'),
         'cell-danger-rate' => Yii::t('app-salmon2', 'Hazard Level'),

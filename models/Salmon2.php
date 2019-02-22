@@ -419,6 +419,38 @@ class Salmon2 extends ActiveRecord
         );
     }
 
+    public function getTeamTotalPowerEggs(): ?int
+    {
+        if (!$this->waves) {
+            return null;
+        }
+
+        return array_reduce(
+            $this->waves,
+            function (?int $carry, SalmonWave2 $item): ?int {
+                if ($carry === null || $item->power_egg_collected === null) {
+                    return null;
+                }
+                return $carry + $item->power_egg_collected;
+            },
+            0
+        );
+    }
+
+    public function getTeamTotalPowerEggsPerWave(): array
+    {
+        if (!$this->waves) {
+            return null;
+        }
+
+        return array_map(
+            function (SalmonWave2 $item): ?int {
+                return $item->power_egg_collected;
+            },
+            $this->waves
+        );
+    }
+
     public function getQuota(): ?array
     {
         if ($this->danger_rate === null) {
