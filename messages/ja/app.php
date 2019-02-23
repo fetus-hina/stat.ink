@@ -431,6 +431,7 @@ return [
     'Their Team Splatfest Power' => '相手のチームのフェスパワー',
     'Their team\'s league power' => '敵チーム概算ガチパワー',
     'Their team\'s splatfest power' => '敵チームフェスパワー',
+    'Themes from {name}' => '{name}からのテーマ',
     'There are no data.' => 'データがありません。',
     'There is no user associated with the specified twitter account.' => '指定されたTwitterアカウントに関連づけられたユーザが見つかりません。',
     'These battles were recorded with an outdated version of IkaLog. Please upgrade to the latest version.' => '古いIkaLogで記録されました。情報が正しく解析されないため、最新のIkaLogへアップデートしてください。',

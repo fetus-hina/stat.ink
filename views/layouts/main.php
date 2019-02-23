@@ -3,6 +3,7 @@ use app\assets\AppAsset;
 use app\assets\BootstrapNotifyAsset;
 use app\assets\BootswatchAsset;
 use app\components\helpers\I18n;
+use app\components\widgets\ColorSchemeDialog;
 use app\components\widgets\LanguageDialog;
 use app\components\widgets\TimezoneDialog;
 use cybercog\yii\googleanalytics\widgets\GATracking;
@@ -91,6 +92,9 @@ if ($_flashes) {
           'trackingId' => Yii::$app->params['googleAnalytics'],
         ]) . "\n" ?>
 <?php } ?>
+      <?= ColorSchemeDialog::widget([
+        'id' => 'color-scheme-dialog',
+      ]) . "\n" ?>
       <?= LanguageDialog::widget([
         'id' => 'language-dialog',
       ]) . "\n" ?>

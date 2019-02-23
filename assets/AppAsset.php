@@ -17,7 +17,6 @@ class AppAsset extends AssetBundle
     ];
     public $js = [
         'main.js',
-        'theme.js',
     ];
     public $depends = [
         'app\assets\BabelPolyfillAsset',
