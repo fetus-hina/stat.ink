@@ -1,6 +1,7 @@
 STYLE_TARGETS := actions assets commands components controllers models
 JS_SRCS := $(shell ls -1 resources/stat.ink/main.js/*.js)
 GULP := ./node_modules/.bin/gulp
+SASS := ./node_modules/.bin/sass
 VENDOR_SHA256 := $(shell sha256sum -t composer.lock | awk '{print $$1}')
 
 RESOURCE_TARGETS_MAIN := \
@@ -235,6 +236,9 @@ composer.lock: composer.json composer.phar
 $(GULP): node_modules
 	touch $(GULP)
 
+$(SASS): node_modules
+	touch $(SASS)
+
 web/static-assets/cc/cc-by.svg:
 	mkdir -p `dirname $@` || true
 	curl -o $@ http://mirrors.creativecommons.org/presskit/buttons/88x31/svg/by.svg
@@ -382,8 +386,8 @@ resources/.compiled/stat.ink/summary-legends.png: resources/stat.ink/summary-leg
 	mkdir -p resources/.compiled/stat.ink || /bin/true
 	pngcrush -rem allb -l 9 resources/stat.ink/summary-legends.png resources/.compiled/stat.ink/summary-legends.png
 
-resources/.compiled/counter/counter.css: resources/counter/counter.less $(GULP)
-	$(GULP) less --in $< --out $@
+resources/.compiled/counter/counter.css: resources/counter/counter.scss $(SASS)
+	$(SASS) --style=compressed --no-source-map $< $@
 
 resources/.compiled/slack/slack.js: resources/slack/slack.js $(GULP)
 	$(GULP) js --in $< --out $@

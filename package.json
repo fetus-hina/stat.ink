@@ -23,6 +23,7 @@
     "gulp-touch-cmd": "^0.0.1",
     "gulp-uglify": "^3.0",
     "minimist": "^1.2",
+    "sass": "^1.17.2",
     "svgo": "^1.0",
     "updates": "^4.1"
   }
