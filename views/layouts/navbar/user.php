@@ -114,7 +114,7 @@ $this->registerCss('.fa-twitter{color:#1da1f2}');
     Html::tag('li', implode('', [
       Html::a(
         FA::fas('palette')->fw() . ' ' . Yii::t('app', 'Color Scheme'),
-        "javascript:jQuery('#color-scheme-dialog').modal()",
+        "javascript:jQuery('#color-scheme-dialog').modal()"
       ),
     ]), ['class' => 'dropdown-submenu']),
     Html::tag('li', Html::a(
