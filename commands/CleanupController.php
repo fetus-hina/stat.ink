@@ -22,9 +22,9 @@ class CleanupController extends Controller
     public function actionLoginHistory(): int
     {
         $time = (new DateTimeImmutable(
-                'now',
-                new DateTimeZone(Yii::$app->timeZone)
-            ))
+            'now',
+            new DateTimeZone(Yii::$app->timeZone)
+        ))
             ->sub(new DateInterval('P30D'));
 
         UserLoginHistory::deleteAll(['and',
