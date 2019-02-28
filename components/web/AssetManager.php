@@ -11,7 +11,9 @@
 
 namespace app\components\web;
 
+use Base32\Base32;
 use Yii;
+use yii\helpers\Json;
 use yii\helpers\Url;
 
 /**
@@ -51,5 +53,37 @@ class AssetManager extends \yii\web\AssetManager
             }
         }
         return "$baseUrl/$asset";
+    }
+
+    /**
+     * @inheritdoc
+     */
+    protected function hash($path)
+    {
+        if (is_callable($this->hashCallback)) {
+            return call_user_func($this->hashCallback, $path);
+        }
+
+        $options = [
+            'linkAssets' => !!$this->linkAssets,
+        ];
+
+        $appPath = dirname(Yii::getAlias('@webroot'));
+        $path = (is_file($path) ? dirname($path) : $path);
+        if (strncmp($path, $appPath, strlen($appPath)) === 0) {
+            $path = '@app/' . ltrim(substr($path, strlen($appPath)), '/');
+        }
+
+        Yii::info("Asset path = {$path}", __METHOD__);
+        $profile = "Calc hash ({$path})";
+        Yii::beginProfile($profile, __METHOD__);
+        $hash = strtolower(substr(
+            Base32::encode(hash_hmac('sha256', $path, Json::encode($options), true)),
+            0,
+            8
+        ));
+        Yii::endProfile($profile, __METHOD__);
+        Yii::info("Asset path hash = {$hash}", __METHOD__);
+        return $hash;
     }
 }
