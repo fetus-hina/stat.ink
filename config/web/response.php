@@ -5,6 +5,7 @@ use app\components\web\CsvResponseFormatter;
 use app\components\web\IkalogJsonResponseFormatter;
 use app\components\web\PrettyJsonResponseFormatter;
 use app\components\web\Response;
+use app\components\web\YamlResponseFormatter;
 use yii\web\JsonResponseFormatter;
 
 return [
@@ -14,5 +15,6 @@ return [
         'csv' => CsvResponseFormatter::class,
         'ikalog-json' => IkalogJsonResponseFormatter::class,
         'json' => PrettyJsonResponseFormatter::class,
+        'yaml' => YamlResponseFormatter::class,
     ],
 ];

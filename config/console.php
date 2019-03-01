@@ -1,4 +1,8 @@
 <?php
+use app\commands\AssetController;
+use app\commands\MigrateController;
+use shakura\yii2\gearman\GearmanController;
+
 Yii::setAlias('@tests', dirname(__DIR__) . '/tests');
 
 $params = require(__DIR__ . '/params.php');
@@ -15,11 +19,10 @@ return [
     'bootstrap' => ['log', 'gii'],
     'controllerNamespace' => 'app\commands',
     'controllerMap' => [
-        'migrate' => [
-            'class' => 'app\commands\MigrateController',
-        ],
+        'asset' => AssetController::class,
+        'migrate' => MigrateController::class,
         'gearman' => [
-            'class' => 'shakura\yii2\gearman\GearmanController',
+            'class' => GearmanController::class,
             'gearmanComponent' => 'gearman'
         ],
     ],

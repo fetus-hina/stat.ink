@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2015 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  */
@@ -12,17 +12,38 @@ use app\actions\site\IndexAction;
 use app\actions\site\LicenseAction;
 use app\actions\site\SimpleAction;
 use app\actions\site\StartAction;
+use app\components\web\AssetPublishAction;
 use app\components\web\Controller;
+use yii\filters\AccessControl;
 use yii\web\ErrorAction;
 
 class SiteController extends Controller
 {
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => AccessControl::class,
+                'only' => ['asset-publish'],
+                'rules' => [
+                    [
+                        'ips' => ['127.*', '::1'],
+                        'allow' => true,
+                    ],
+                ],
+            ],
+        ];
+    }
+
     public function actions()
     {
         return [
             'error' => [
                 'class' => ErrorAction::class,
                 'view' => 'error',
+            ],
+            'asset-publish' => [
+                'class' => AssetPublishAction::class,
             ],
             'index' => [
                 'class' => IndexAction::class,
