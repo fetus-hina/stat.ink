@@ -44,6 +44,27 @@ class SiteController extends Controller
             ],
             'asset-publish' => [
                 'class' => AssetPublishAction::class,
+                //FIXME!!!!!!!!!!!!!!!!
+                'classes' => [
+                    'hiqdev\assets\flagiconcss\FlagIconCssAsset',
+                    'jp3cki\yii2\datetimepicker\BootstrapDateTimePickerAsset',
+                    'jp3cki\yii2\flot\FlotAsset',
+                    'jp3cki\yii2\flot\FlotPieAsset',
+                    'jp3cki\yii2\flot\FlotResizeAsset',
+                    'jp3cki\yii2\flot\FlotStackAsset',
+                    'jp3cki\yii2\flot\FlotSymbolAsset',
+                    'jp3cki\yii2\flot\FlotTimeAsset',
+                    'jp3cki\yii2\zxcvbn\ZxcvbnAsset',
+                    'statink\yii2\anonymizer\AnonymizerAsset',
+                    'statink\yii2\paintball\PaintballAsset',
+                    'statink\yii2\sortableTable\SortableTableAsset',
+                    'statink\yii2\twitter\webintents\TwitterWebIntentsAsset',
+                    'yii\bootstrap\BootstrapAsset',
+                    'yii\bootstrap\BootstrapPluginAsset',
+                    'yii\web\JqueryAsset',
+                    'yii\web\Response',
+                    'yii\web\YiiAsset',
+                ],
             ],
             'index' => [
                 'class' => IndexAction::class,
