@@ -310,7 +310,7 @@ return [
     'Octo Support Hoodie' => '',
     'Octo Tackle Helmet Deco' => 'Casco rugby decorado',
     'Octo Tee' => 'Camiseta pulpo',
-    'Office Attire' => '',
+    'Office Attire' => 'Atuendo de oficinista',
     'Old-Timey Clothes' => '',
     'Old-Timey Hat' => '',
     'Old-Timey Shoes' => '',

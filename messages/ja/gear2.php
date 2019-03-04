@@ -311,7 +311,7 @@ return [
     'Octoleet Boots' => '',
     'Octoleet Goggles' => 'ゾネスティックスコープ',
     'Octoling Shades' => 'タコゾネスサングラス',
-    'Office Attire' => '',
+    'Office Attire' => 'ジムパーソンアーマー',
     'Old-Timey Clothes' => 'グランパなフク',
     'Old-Timey Hat' => 'グランパなアタマ',
     'Old-Timey Shoes' => 'グランパなクツ',

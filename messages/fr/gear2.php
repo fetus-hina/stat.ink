@@ -311,7 +311,7 @@ return [
     'Octo Support Hoodie' => '',
     'Octo Tackle Helmet Deco' => 'Casque de football Octa',
     'Octo Tee' => 'T-shirt octarien',
-    'Office Attire' => '',
+    'Office Attire' => 'Tenue de bureau',
     'Old-Timey Clothes' => '',
     'Old-Timey Hat' => '',
     'Old-Timey Shoes' => '',

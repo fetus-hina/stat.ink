@@ -310,7 +310,7 @@ return [
     'Octo Support Hoodie' => '',
     'Octo Tackle Helmet Deco' => 'Футбольный осьмошлем',
     'Octo Tee' => 'Осьмомайка',
-    'Office Attire' => '',
+    'Office Attire' => 'Комплект «Счетовод»',
     'Old-Timey Clothes' => '',
     'Old-Timey Hat' => '',
     'Old-Timey Shoes' => '',
