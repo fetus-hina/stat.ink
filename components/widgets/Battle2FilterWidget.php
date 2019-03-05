@@ -42,6 +42,7 @@ class Battle2FilterWidget extends Widget
     public $rank = true;
     public $result = true;
     public $term = true;
+    public $filterText = false;
     public $action = 'search'; // search or summarize
 
     public function run()
@@ -98,6 +99,9 @@ class Battle2FilterWidget extends Widget
                 Yii::$app->timeZone
             );
         }
+        if ($this->filterText) {
+            $ret[] = $this->drawFilter($form);
+        }
         switch ($this->action) {
             case 'summarize':
                 $ret[] = Html::tag(
@@ -127,7 +131,7 @@ class Battle2FilterWidget extends Widget
         return implode('', $ret);
     }
 
-    protected function drawRule(ActiveForm $form) : string
+    protected function drawRule(ActiveForm $form): string
     {
         $regular    = Yii::t('app-rule2', 'Regular');
         $gachi      = Yii::t('app-rule2', 'Ranked');
@@ -211,7 +215,7 @@ class Battle2FilterWidget extends Widget
         $list = ArrayHelper::map(
             Map2::find()->asArray()->all(),
             'key',
-            function (array $map) : string {
+            function (array $map): string {
                 return Yii::t('app-map2', $map['name']);
             }
         );
@@ -257,10 +261,10 @@ class Battle2FilterWidget extends Widget
         $q = WeaponCategory2::find()
             ->orderBy(['id' => SORT_ASC])
             ->with([
-                'weaponTypes' => function (ActiveQuery $query) : void {
+                'weaponTypes' => function (ActiveQuery $query): void {
                     $query->orderBy(['id' => SORT_ASC]);
                 },
-                'weaponTypes.weapons' => function (ActiveQuery $query) use ($weaponIdList) : void {
+                'weaponTypes.weapons' => function (ActiveQuery $query) use ($weaponIdList): void {
                     $query->andWhere(['id' => $weaponIdList]);
                 },
             ]);
@@ -274,7 +278,7 @@ class Battle2FilterWidget extends Widget
                 $weapons = ArrayHelper::map(
                     $type->weapons, // already filtered (see "with" above)
                     'key',
-                    function (Weapon2 $weapon) : string {
+                    function (Weapon2 $weapon): string {
                         return Yii::t('app-weapon2', $weapon->name);
                     }
                 );
@@ -309,7 +313,9 @@ class Battle2FilterWidget extends Widget
                     ->asArray()
                     ->all();
                 foreach ($list as $item) {
-                    $ret['~' . $item['key']] = Yii::t('app', '{0} etc.', Yii::t('app-weapon2', $item['name']));
+                    $ret['~' . $item['key']] = Yii::t('app', '{0} etc.', [
+                        Yii::t('app-weapon2', $item['name']),
+                    ]);
                 }
                 uasort($ret, 'strnatcasecmp');
                 return $ret;
@@ -393,6 +399,15 @@ class Battle2FilterWidget extends Widget
         return $form->field($this->filter, 'result')->dropDownList($list)->label(false);
     }
 
+    protected function drawFilter(ActiveForm $form): string
+    {
+        return $form->field($this->filter, 'filter')
+            ->textInput([
+              'placeholder' => Yii::t('app', 'Filter Query'),
+            ])
+            ->label(false);
+    }
+
     protected function drawTerm(ActiveForm $form)
     {
         return $this->drawTermMain($form) . $this->drawTermPeriod($form);
@@ -415,10 +430,10 @@ class Battle2FilterWidget extends Widget
         ];
 
 
-        $versions = (function () : array {
+        $versions = (function (): array {
             $result = [];
             $groups = SplatoonVersionGroup2::find()->with('versions')->asArray()->all();
-            usort($groups, function (array $a, array $b) : int {
+            usort($groups, function (array $a, array $b): int {
                 return version_compare($b['tag'], $a['tag']);
             });
             foreach ($groups as $group) {
@@ -436,7 +451,7 @@ class Battle2FilterWidget extends Widget
                         'Version {0}',
                         Yii::t('app-version2', $group['name'])
                     );
-                    usort($group['versions'], function (array $a, array $b) : int {
+                    usort($group['versions'], function (array $a, array $b): int {
                         return version_compare($b['tag'], $a['tag']);
                     });
                     foreach ($group['versions'] as $i => $version) {

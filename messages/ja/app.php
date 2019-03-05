@@ -156,6 +156,8 @@ return [
     'Favorite Weapons' => 'よく使っているブキ',
     'Feedback or suggestions are welcome. Please contact me via GitHub or Twitter.' => 'バグの報告・改善の提案などがありましたら、 GitHubのプロジェクトに報告・提案するか、ツイッターアカウントへご連絡ください。',
     'Few' => '少',
+    'Filter Query' => 'フィルタクエリ',
+    'Filter' => 'フィルタ',
     'Final Count' => '最終カウント',
     'Friend Code (Switch)' => 'フレンドコード (Switch)',
     'Friend Code' => 'フレンドコード',

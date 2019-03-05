@@ -428,14 +428,22 @@ if ($user->twitter != '') {
             'value' => function ($model) : string {
               return trim($model->my_team_id) === ''
                 ? ''
-                : Html::img(
-                  $model->myTeamIcon,
-                  [
-                    'title' => $model->my_team_id,
-                    'class' => 'auto-tooltip',
-                    'style' => [
-                      'width' => 'auto',
-                      'height' => '1.5em',
+                : Html::a(
+                  Html::img(
+                    $model->myTeamIcon,
+                    [
+                      'title' => $model->my_team_id,
+                      'class' => 'auto-tooltip',
+                      'style' => [
+                        'width' => 'auto',
+                        'height' => '1.5em',
+                      ],
+                    ]
+                  ),
+                  ['show-v2/user',
+                    'screen_name' => $model->user->screen_name,
+                    'filter' => [
+                      'filter' => "team:{$model->my_team_id}",
                     ],
                   ]
                 );
@@ -451,7 +459,15 @@ if ($user->twitter != '') {
             'value' => function ($model) : string {
               return trim($model->my_team_id) === ''
                 ? ''
-                : Html::tag('code', Html::encode(trim($model->my_team_id)));
+                : Html::a(
+                  Html::tag('code', Html::encode(trim($model->my_team_id))),
+                  ['show-v2/user',
+                    'screen_name' => $model->user->screen_name,
+                    'filter' => [
+                      'filter' => "team:{$model->my_team_id}",
+                    ],
+                  ]
+                );
             },
             // }}}
           ],
@@ -925,6 +941,7 @@ if ($user->twitter != '') {
         'route' => 'show-v2/user',
         'screen_name' => $user->screen_name,
         'filter' => $filter,
+        'filterText' => $filter->filter != '',
       ]) . "\n" ?>
       <?= $this->render('/includes/user-miniinfo2', ['user' => $user]) . "\n" ?>
       <?= AdWidget::widget() . "\n" ?>

@@ -158,18 +158,26 @@ if ($prev) {
           <td><?=
             ($row['team_id'] == '')
               ? ''
-              : implode('', [
-                Html::img(
-                  Battle2::teamIcon($row['team_id']),
-                  [
-                    'style' => [
-                      'width' => 'auto',
-                      'height' => '1.5em',
-                    ],
-                  ]
-                ),
-                Html::tag('code', Html::encode($row['team_id'])),
-              ])
+              : Html::a(
+                implode('', [
+                  Html::img(
+                    Battle2::teamIcon($row['team_id']),
+                    [
+                      'style' => [
+                        'width' => 'auto',
+                        'height' => '1.5em',
+                      ],
+                    ]
+                  ),
+                  Html::tag('code', Html::encode($row['team_id'])),
+                ]),
+                ['show-v2/user',
+                  'screen_name' => $user->screen_name,
+                  'filter' => [
+                    'filter' => "team:{$row['team_id']}",
+                  ],
+                ]
+              )
           ?></td>
           <td><?= Html::encode($row['map_name']) ?></td>
           <td><?= Html::encode($row['weapon_name']) ?></td>

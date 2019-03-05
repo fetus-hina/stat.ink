@@ -53,6 +53,7 @@ if ($totalK !== null && $totalD !== null) {
 // チーム合計
 $teamId = trim($teamKey === 'my' ? $battle->my_team_id : $battle->his_team_id);
 $teamName = $teamKey === 'my' ? $battle->myTeamNickname : $battle->hisTeamNickname;
+$teamIcon = $teamKey === 'my' ? $battle->myTeamIcon : $battle->hisTeamIcon;
 $streak = $teamKey === 'my' ? $battle->my_team_win_streak : $battle->his_team_win_streak;
 echo Html::tag(
   'tr',
@@ -71,14 +72,43 @@ echo Html::tag(
         ),
         $teamId == ''
           ? ''
-          : Label::widget([
-            'content' => $teamId,
-            'color' => 'default',
-            'options' => [
-              'class' => 'auto-tooltip',
-              'title' => Yii::t('app', 'Team ID'),
-            ],
-          ]),
+          : Html::a(
+            Html::img(
+              $teamIcon,
+              [
+                'title' => $teamId,
+                'class' => 'auto-tooltip',
+                'style' => [
+                  'width' => 'auto',
+                  'height' => '1.5em',
+                ],
+              ]
+            ),
+            ['show-v2/user',
+              'screen_name' => $battle->user->screen_name,
+              'filter' => [
+                'filter' => "team:{$teamId}",
+              ],
+            ]
+          ),
+        $teamId == ''
+          ? ''
+          : Html::a(
+            Label::widget([
+              'content' => $teamId,
+              'color' => 'default',
+              'options' => [
+                'class' => 'auto-tooltip',
+                'title' => Yii::t('app', 'Team ID'),
+              ],
+            ]),
+            ['show-v2/user',
+              'screen_name' => $battle->user->screen_name,
+              'filter' => [
+                'filter' => "team:{$teamId}",
+              ],
+            ]
+          ),
         $teamName
           ? Label::widget([
             'content' => $teamName->name,

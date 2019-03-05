@@ -27,6 +27,9 @@ class Battle2FilterForm extends Model
     public $timezone;
     public $id_from;
     public $id_to;
+    public $filter;
+
+    private $filterTeam;
 
     public function formName()
     {
@@ -173,6 +176,7 @@ class Battle2FilterForm extends Model
             [['term_from', 'term_to'], 'datetime', 'format' => 'php:Y-m-d H:i:s'],
             [['timezone'], 'validateTimezone', 'skipOnEmpty' => false],
             [['id_from', 'id_to'], 'integer', 'min' => 1],
+            [['filter'], 'validateFilter', 'skipOnEmpty' => true],
         ];
     }
 
@@ -190,6 +194,7 @@ class Battle2FilterForm extends Model
             'term_to'       => Yii::t('app', 'Period To'),
             'id_from'       => Yii::t('app', 'ID From'),
             'id_to'         => Yii::t('app', 'ID To'),
+            'filter'        => Yii::t('app', 'Filter'),
         ];
     }
 
@@ -266,6 +271,43 @@ class Battle2FilterForm extends Model
         $this->$attr = Yii::$app->timeZone;
     }
 
+    public function validateFilter($attr, $params)
+    {
+        $value = trim((string)($this->$attr));
+        if ($value === '' || $this->hasErrors($attr)) {
+            return;
+        }
+
+        try {
+            $pos = strpos($value, ':');
+            if ($pos === false || $pos < 1) {
+                throw new \Exception();
+            }
+
+            switch (substr($value, 0, $pos)) {
+                case 'team':
+                    $v = substr($value, $pos + 1);
+                    if (!$this->isValidTeamFilter($v)) {
+                        throw new \Exception();
+                    }
+                    $this->filterTeam = $v;
+                    return;
+
+                default:
+                    throw new \Exception();
+            }
+        } catch (\Exception $e) {
+            $this->addError($attr, Yii::t('yii', '{attribute} is invalid.', [
+                'attribute' => $this->getAttributeLabel($attr),
+            ]));
+        }
+    }
+
+    protected function isValidTeamFilter(string $value): bool
+    {
+        return !!preg_match('/^[0-9a-zA-Z]+$/', $value);
+    }
+
     public function toPermLink($formName = false)
     {
         if ($formName === false) {
@@ -280,7 +322,17 @@ class Battle2FilterForm extends Model
             $ret[$key] = $value;
         };
 
-        foreach (['rule', 'map', 'weapon', 'rank', 'result', 'id_from', 'id_to'] as $key) {
+        $copyKeys = [
+            'rule',
+            'map',
+            'weapon',
+            'rank',
+            'result',
+            'id_from',
+            'id_to',
+            'filter',
+        ];
+        foreach ($copyKeys as $key) {
             $value = $this->$key;
             if ((string)$value !== '') {
                 $push($key, $value);
@@ -395,5 +447,10 @@ class Battle2FilterForm extends Model
         }
 
         return $ret;
+    }
+
+    public function getFilterTeam(): ?string
+    {
+        return $this->filterTeam;
     }
 }

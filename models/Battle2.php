@@ -262,6 +262,9 @@ class Battle2 extends ActiveRecord
                 if ($form->id_to != '' && $form->id_to > 0) {
                     $and[] = ['>=', 'battle2.id', (int)$form->id_to];
                 }
+                if ($form->filterTeam) {
+                    $and[] = ['battle2.my_team_id' => $form->filterTeam];
+                }
                 if (count($and) > 1) {
                     $this->andWhere($and);
                 }
