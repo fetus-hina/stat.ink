@@ -594,151 +594,30 @@ GET /api/v1/battle
 GET /api/v1/rule
 ----------------
 
-ルールの一覧をJSON形式で返します。 `key` が他のAPIで利用するときの値です。
+Moved to the new API doc.
 
-ルールの出現順や構造の中の順番は特に決まっていません。（必要であれば利用者側で並び替えてください。ナワバリが真ん中に出現する可能性もあります）
-
-```js
-[
-    {
-        // この値が battle API に送信する値です
-        "key": "nawabari",
-
-        // ゲームモードの情報を示す構造です
-        "mode": {
-            // レギュラーマッチの場合はこの key が "regular" と一致します
-            "key": "regular",
-            "name": {
-                "en_US": "Regular Battle",
-                "ja_JP": "レギュラーマッチ"
-            }
-        },
-
-        // ルールの名前 
-        "name": {
-            "en_US": "Turf War",
-            "ja_JP": "ナワバリバトル"
-        }
-    },
-    {
-        "key": "area",
-        "mode": {
-            // ガチバトルの場合はこの key が "gachi" と一致します
-            "key": "gachi",
-            "name": {
-                "en_US": "Ranked Battle",
-                "ja_JP": "ガチマッチ"
-            }
-        },
-        "name": {
-            "en_US": "Splat Zones",
-            "ja_JP": "ガチエリア"
-        }
-    },
-    // ...
-]
-```
+- [English](https://stat.ink/apidoc/v1.en.html#operation/getRule)
+- [日本語](https://stat.ink/apidoc/v1.ja.html#operation/getRule)
 
 ----
 
 GET /api/v1/map
 ----------------
 
-マップの一覧をJSON形式で返します。 `key` が他のAPIで利用するときの値です。
+Moved to the new API doc.
 
-マップの出現順や構造の中の順番は特に決まっていません。（必要であれば利用者側で並び替えてください）
-
-```js
-[
-    {
-        // この値が battle API に送信する値です
-        "key": "arowana",
-
-        // マップの名前
-        "name": {
-            "en_US": "Arowana Mall",
-            "ja_JP": "アロワナモール"
-        }
-
-        // マップの広さ(nullの可能性あり)
-        "area": 2021,
-
-        // このマップの公開日時(nullの可能性あり)
-        "release_at": {
-            "time": 1432738800,
-            "iso8601": "2015-05-27T15:00:00+00:00"
-        }
-    },
-    // ...
-]
-```
+- [English](https://stat.ink/apidoc/v1.en.html#operation/getMap)
+- [日本語](https://stat.ink/apidoc/v1.ja.html#operation/getMap)
 
 ----
 
 GET /api/v1/weapon
 ----------------
 
-ブキの一覧をJSON形式で返します。 `key` が他のAPIで利用するときの値です。
+Moved to the new API doc.
 
-ブキの出現順やブキ構造の中の順番は特に決まっていません。（必要であれば利用者側で並び替えてください）
-
-```js
-[
-    {
-        // この値が battle API に送信する値です
-        "key": "wakaba",
-
-        // ブキの種別とその名前
-        "type": {
-            "key": "shooter",
-            "name": {
-                "en_US": "Shooters",
-                "ja_JP": "シューター"
-            }
-        },
-
-        // ブキの名前
-        "name": {
-            "en_US": "Splattershot Jr.",
-            "ja_JP": "わかばシューター"
-        },
-
-        // サブウェポンの種類と名前
-        "sub": {
-            "key": "splashbomb",
-            "name": {
-                "en_US": "Splat Bomb",
-                "ja_JP": "スプラッシュボム"
-            }
-        },
-
-        // スペシャルの種類と名前
-        "special": {
-            "key": "barrier",
-            "name": {
-                "en_US": "Bubbler",
-                "ja_JP": "バリア"
-            }
-        }
-    },
-    // ...
-]
-```
-
-### パラメータ ###
-
-複数のパラメータを指定したときは論理積(AND)になります。
-
-それぞれの値が `key` として妥当でない場合はエラーが、論理積を求めた結果該当するものがないときは空の配列が返ります。
-
-* `weapon` : ブキの `key` を指定します。該当するブキが一件だけ返ります。例: `/api/v1/weapon?weapon=wakaba`
-
-* `type` : ブキ種類の `key` を指定します。該当する種類のブキがフィルタリングされて返ります。例: `/api/v1/weapon?type=charger`
-
-* `sub` : サブウェポンの `key` を指定します。該当するサブウェポンのブキがフィルタリングされて返ります。例: `/api/v1/weapon?sub=poison`
-
-* `special` : スペシャルの `key` を指定します。該当するスペシャルのブキがフィルタリングされて返ります。例: `/api/v1/weapon?special=daioika`
-
+- [English](https://stat.ink/apidoc/v1.en.html#operation/getWeapon)
+- [日本語](https://stat.ink/apidoc/v1.ja.html#operation/getWeapon)
 
 ----
 

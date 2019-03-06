@@ -1,11 +1,14 @@
 <?php
+use yii\i18n\PhpMessageSource;
+
 return [
     'translations' => [
         'app*' => [
-            'class' => 'yii\i18n\PhpMessageSource',
+            'class' => PhpMessageSource::class,
             'fileMap' => [
                 'app-ability'   => 'ability.php',
                 'app-ability2'  => 'ability2.php',
+                'app-apidoc1'   => 'apidoc1.php',
                 'app-brand'     => 'brand.php',
                 'app-brand2'    => 'brand2.php',
                 'app-counter'   => 'counter.php',
