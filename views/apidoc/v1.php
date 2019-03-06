@@ -2,7 +2,10 @@
 declare(strict_types=1);
 
 use Symfony\Component\Yaml\Yaml;
+use app\models\Ability;
+use app\models\Brand;
 use app\models\GameMode;
+use app\models\GearType;
 use app\models\Map;
 use app\models\Rule;
 use app\models\Special;
@@ -17,8 +20,6 @@ $_langs = [
   'en_US' => Yii::t('app-apidoc1', 'English name (NA)'),
   'es_ES' => Yii::t('app-apidoc1', 'Spanish name (EU)'),
   'es_MX' => Yii::t('app-apidoc1', 'Spanish name (Latin America)'),
-  'fr_CA' => Yii::t('app-apidoc1', 'French name (NA)'),
-  'fr_FR' => Yii::t('app-apidoc1', 'French name (EU)'),
 ];
 
 $_name = function (int $indent, string $category, string $text, array $params = []) use ($_langs): string {
@@ -102,6 +103,21 @@ $_subWeapons = Subweapon::find()
   ->all();
 
 $_specials = Special::find()
+  ->orderBy(['key' => SORT_ASC])
+  ->asArray()
+  ->all();
+
+$_gearTypes = GearType::find()
+  ->orderBy(['id' => SORT_ASC])
+  ->asArray()
+  ->all();
+
+$_brands = Brand::find()
+  ->orderBy(['key' => SORT_ASC])
+  ->asArray()
+  ->all();
+
+$_abilities = Ability::find()
   ->orderBy(['key' => SORT_ASC])
   ->asArray()
   ->all();
@@ -248,6 +264,84 @@ paths:
                       key: barrier
                       name:
                         <?= $_name(24, 'app-special', 'Bubbler') . "\n" ?>
+
+  /api/v1/gear:
+    get:
+      operationId: getGear
+      summary: <?= Yaml::dump(Yii::t('app-apidoc1', 'Get gears')) . "\n" ?>
+      description: <?= Yaml::dump(Yii::t('app-apidoc1', 'Returns an array of gears information')) . "\n" ?>
+      tags:
+        - general
+      parameters:
+        - name: type
+          in: query
+          description: |
+            <?= Html::encode(Yii::t('app-apidoc1', 'Filter by key-string of gear type')) . "  \n" ?>
+
+            <?= $_keyValueTable(12, Yii::t('app-apidoc1', 'Gear Type'), 'app-gear', $_gearTypes) . "\n" ?>
+          schema:
+            type: string
+            enum:
+<?php foreach ($_gearTypes as $_) { ?>
+              - <?= Yaml::dump($_['key']) . "\n" ?>
+<?php } ?>
+        - name: brand
+          in: query
+          description: |
+            <?= Html::encode(Yii::t('app-apidoc1', 'Filter by key-string of brand')) . "  \n" ?>
+
+            <?= $_keyValueTable(12, Yii::t('app-apidoc1', 'Brand Name'), 'app-brand', $_brands) . "\n" ?>
+          schema:
+            type: string
+            enum:
+<?php foreach ($_brands as $_) { ?>
+              - <?= Yaml::dump($_['key']) . "\n" ?>
+<?php } ?>
+        - name: ability
+          in: query
+          description: |
+            <?= Html::encode(Yii::t('app-apidoc1', 'Filter by key-string of ability')) . "  \n" ?>
+
+            <?= $_keyValueTable(12, Yii::t('app-apidoc1', 'Ability Name'), 'app-ability', $_abilities) . "\n" ?>
+          schema:
+            type: string
+            enum:
+<?php foreach ($_abilities as $_) { ?>
+              - <?= Yaml::dump($_['key']) . "\n" ?>
+<?php } ?>
+      responses:
+        '200':
+          description: <?= Yaml::dump(Yii::t('app-apidoc1', 'Successful')) . "\n" ?>
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Gear'
+                example:
+                  - key: corocoro_cap
+                    type:
+                      key: headgear
+                      name:
+                        <?= $_name(24, 'app-gear', 'Headgear') . "\n" ?>
+                    name:
+                      <?= $_name(22, 'app-gear', 'CoroCoro Cap') . "\n" ?>
+                    brand:
+                      key: zekko
+                      name:
+                        <?= $_name(24, 'app-brand', 'Zekko') . "\n" ?>
+                      strength:
+                        key: special_saver
+                        name:
+                          <?= $_name(26, 'app-ability', 'Special Saver') . "\n" ?>
+                      weakness:
+                        key: special_charge_up
+                        name:
+                          <?= $_name(26, 'app-ability', 'Special Charge Up') . "\n" ?>
+                    primary_ability:
+                      key: damage_up
+                      name:
+                        <?= $_name(24, 'app-ability', 'Damage Up') . "\n" ?>
 
 components:
   schemas:
@@ -423,6 +517,78 @@ components:
             <?= $_keyValueTable(12, Yii::t('app-apidoc1', 'Special Weapon Name'), 'app-special', $_specials) . "\n" ?>
         name:
           $ref: '#/components/schemas/Name'
+
+    Ability: &schemasAbility
+      type: object
+      description: <?= Yaml::dump(Yii::t('app-apidoc1', 'Ability information')) . "\n" ?>
+      properties:
+        key:
+          type: string
+          pattern: ^[a-z0-9_]+$
+          enum:
+<?php foreach ($_abilities as $_) { ?>
+            - <?= Yaml::dump($_['key']) . "\n" ?>
+<?php } ?>
+          description: <?= Yaml::dump(Yii::t('app-apidoc1', 'Identification string for use with other API')) . "\n" ?>
+        name:
+          $ref: '#/components/schemas/Name'
+
+    Gear:
+      type: object
+      description: <?= Yaml::dump(Yii::t('app-apidoc1', 'Gear information')) . "\n" ?>
+      properties:
+        key:
+          type: string
+          pattern: ^[a-z0-9_]+$
+          description: <?= Yaml::dump(Yii::t('app-apidoc1', 'Identification string for use with other API')) . "\n" ?>
+        name:
+          $ref: '#/components/schemas/Name'
+        type:
+          $ref: '#/components/schemas/GearType'
+        brand:
+          $ref: '#/components/schemas/Brand'
+        primary_ability:
+          <<: *schemasAbility
+          nullable: true
+          description: <?= Yaml::dump(Yii::t('app-apidoc1', 'Primary ability information')) . "\n" ?>
+
+    GearType:
+      type: object
+      description: <?= Yaml::dump(Yii::t('app-apidoc1', 'Gear type information')) . "\n" ?>
+      properties:
+        key:
+          type: string
+          pattern: ^[a-z0-9_]+$
+          enum:
+<?php foreach ($_gearTypes as $_) { ?>
+            - <?= Yaml::dump($_['key']) . "\n" ?>
+<?php } ?>
+          description: <?= Yaml::dump(Yii::t('app-apidoc1', 'Identification string for use with other API')) . "\n" ?>
+        name:
+          $ref: '#/components/schemas/Name'
+
+    Brand:
+      type: object
+      description: <?= Yaml::dump(Yii::t('app-apidoc1', 'Brand information')) . "\n" ?>
+      properties:
+        key:
+          type: string
+          pattern: ^[a-z0-9_]+$
+          enum:
+<?php foreach ($_brands as $_) { ?>
+            - <?= Yaml::dump($_['key']) . "\n" ?>
+<?php } ?>
+          description: <?= Yaml::dump(Yii::t('app-apidoc1', 'Identification string for use with other API')) . "\n" ?>
+        name:
+          $ref: '#/components/schemas/Name'
+        strength:
+          <<: *schemasAbility
+          nullable: true
+          description: <?= Yaml::dump(Yii::t('app-apidoc1', 'Common ability')) . "\n" ?>
+        weakness:
+          <<: *schemasAbility
+          nullable: true
+          description: <?= Yaml::dump(Yii::t('app-apidoc1', 'Uncommon ability')) . "\n" ?>
 
 tags:
   - name: general
