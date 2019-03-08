@@ -83,7 +83,7 @@ trait Util
             '</table>';
     }
 
-    static private function oapiKeyValueTableThead(string $valueLabel): string
+    private static function oapiKeyValueTableThead(string $valueLabel): string
     {
         return Html::tag('thead', Html::tag('tr', implode('', [
             Html::tag('th', Html::tag('code', Html::encode('key'))),
@@ -91,7 +91,7 @@ trait Util
         ])));
     }
 
-    static private function oapiKeyValueTableTbody(
+    private static function oapiKeyValueTableTbody(
         array $keys,
         array $values
     ): string {
