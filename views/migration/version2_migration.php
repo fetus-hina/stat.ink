@@ -5,6 +5,13 @@
  */
 /* @var $className string the new migration class name without namespace */
 /* @var $namespace string the new migration class namespace */
+
+use app\models\SplatoonVersion2;
+
+$latestVersion = SplatoonVersion2::find()
+    ->orderBy(['id' => SORT_DESC])
+    ->limit(1)
+    ->one();
 ?>
 <?= $this->renderFile(__DIR__ . '/migration.php', [
     'className' => $className,
@@ -23,6 +30,6 @@
         ');',
     ]),
     'downCode' => implode("\n", [
-        '$this->downVersion2(\'NEW.VER.SION\', \'OLD.VER.SION\');',
+        '$this->downVersion2(\'NEW.VER.SION\', \'' . addslashes($latestVersion->tag) . '\');',
     ]),
 ]) ?>
