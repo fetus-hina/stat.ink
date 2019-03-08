@@ -11,6 +11,7 @@ use DateTimeZone;
 use Yii;
 use app\components\helpers\DateTimeFormatter;
 use app\components\helpers\Translator;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "map".
@@ -29,6 +30,7 @@ use app\components\helpers\Translator;
 class Map extends \yii\db\ActiveRecord
 {
     use SafeFindOneTrait;
+    use openapi\Util;
 
     /**
      * @inheritdoc
@@ -107,5 +109,58 @@ class Map extends \yii\db\ActiveRecord
                 )
                 : null,
         ];
+    }
+
+    public static function openApiSchema(): array
+    {
+        $values = static::find()
+            ->orderBy(['key' => SORT_ASC])
+            ->all();
+        return [
+            'type' => 'object',
+            'description' => Yii::t('app-apidoc1', 'Mode information'),
+            'properties' => [
+                'key' => static::oapiKey(
+                    static::oapiKeyValueTable(
+                        Yii::t('app-apidoc1', 'Stage'),
+                        'app-map',
+                        $values
+                    ),
+                    ArrayHelper::getColumn($values, 'key', false)
+                ),
+                'name' => static::oapiRef(openapi\Name::class),
+                'area' => [
+                    'type' => 'integer',
+                    'format' => 'int32',
+                    'nullable' => true,
+                    'description' => Yii::t('app-apidoc1', 'Total area'),
+                ],
+                'release_at' => array_merge(openapi\DateTime::openApiSchema(), [
+                    'description' => Yii::t('app-apidoc1', 'Date and time when ready to play'),
+                    'nullable' => true,
+                ]),
+            ],
+            'example' => $values[0]->toJsonArray(),
+        ];
+    }
+
+    public static function openApiDepends(): array
+    {
+        return [
+            openapi\Name::class,
+        ];
+    }
+
+    public static function openapiExample(): array
+    {
+        $values = static::find()
+            ->orderBy(['key' => SORT_ASC])
+            ->all();
+        return array_map(
+            function (self $model): array {
+                return $model->toJsonArray();
+            },
+            $values
+        );
     }
 }

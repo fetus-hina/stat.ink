@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2015-2016 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  */
@@ -9,6 +9,8 @@ namespace app\models;
 
 use Yii;
 use app\components\helpers\Translator;
+use yii\db\ActiveQuery;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "weapon".
@@ -34,6 +36,20 @@ use app\components\helpers\Translator;
 class Weapon extends \yii\db\ActiveRecord
 {
     use SafeFindOneTrait;
+    use openapi\Util;
+
+    public static function find()
+    {
+        return new class(static::class) extends ActiveQuery {
+            public function naturalOrder(): ActiveQuery
+            {
+                return $this->orderBy([
+                    'type_id' => SORT_ASC,
+                    'key' => SORT_ASC,
+                ]);
+            }
+        };
+    }
 
     /**
      * @inheritdoc
@@ -49,7 +65,8 @@ class Weapon extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['type_id', 'key', 'name', 'subweapon_id', 'special_id', 'canonical_id', 'main_group_id'], 'required'],
+            [['type_id', 'key', 'name', 'subweapon_id', 'special_id'], 'required'],
+            [['canonical_id', 'main_group_id'], 'required'],
             [['type_id', 'subweapon_id', 'special_id', 'canonical_id', 'main_group_id'], 'integer'],
             [['key', 'name'], 'string', 'max' => 32],
             [['key'], 'unique'],
@@ -117,7 +134,9 @@ class Weapon extends \yii\db\ActiveRecord
      */
     public function getUsers()
     {
-        return $this->hasMany(User::class, ['id' => 'user_id'])->viaTable('user_weapon', ['weapon_id' => 'id']);
+        return $this
+            ->hasMany(User::class, ['id' => 'user_id'])
+            ->viaTable('user_weapon', ['weapon_id' => 'id']);
     }
 
     public function getCanonical()
@@ -134,13 +153,57 @@ class Weapon extends \yii\db\ActiveRecord
     {
         return [
             'key' => $this->key,
-            'type' => [
-                'key' => $this->type->key,
-                'name' => Translator::translateToAll('app-weapon', $this->type->name),
-            ],
+            'type' => $this->type->toJsonArray(),
             'name' => Translator::translateToAll('app-weapon', $this->name),
             'sub' => $this->subweapon->toJsonArray(),
             'special' => $this->special->toJsonArray(),
+        ];
+    }
+
+    public static function openApiSchema(): array
+    {
+        $values = static::find()
+            ->naturalOrder()
+            ->all();
+        return [
+            'type' => 'object',
+            'description' => Yii::t('app-apidoc1', 'Weapon information'),
+            'properties' => [
+                'key' => static::oapiKey(
+                    static::oapiKeyValueTable(
+                        Yii::t('app-apidoc1', 'Weapon'),
+                        'app-weapon',
+                        $values
+                    ),
+                    ArrayHelper::getColumn($values, 'key', false)
+                ),
+                'name' => static::oapiRef(openapi\Name::class),
+                'type' => static::oapiRef(WeaponType::class),
+                'sub' => static::oapiRef(Subweapon::class),
+                'special' => static::oapiRef(Special::class),
+            ],
+            'example' => $values[0]->toJsonArray(),
+        ];
+    }
+
+    public static function openApiDepends(): array
+    {
+        return [
+            Special::class,
+            Subweapon::class,
+            WeaponType::class,
+            openapi\Name::class,
+        ];
+    }
+
+    public static function openapiExample(): array
+    {
+        $model = static::find()
+            ->where(['key' => 'wakaba'])
+            ->limit(1)
+            ->one();
+        return [
+            $model->toJsonArray(),
         ];
     }
 }
