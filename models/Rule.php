@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2015 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  */
@@ -9,6 +9,7 @@ namespace app\models;
 
 use Yii;
 use app\components\helpers\Translator;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "rule".
@@ -28,6 +29,7 @@ use app\components\helpers\Translator;
 class Rule extends \yii\db\ActiveRecord
 {
     use SafeFindOneTrait;
+    use openapi\Util;
 
     /**
      * @inheritdoc
@@ -113,15 +115,50 @@ class Rule extends \yii\db\ActiveRecord
         return $this->hasOne(StatWeaponBattleCount::className(), ['rule_id' => 'id']);
     }
 
-    public function toJsonArray()
+    public function toJsonArray(): array
     {
         return [
             'key' => $this->key,
-            'mode' => [
-                'key' => $this->mode->key,
-                'name' => Translator::translateToAll('app-rule', $this->mode->name),
-            ],
+            'mode' => $this->mode->toJsonArray(),
             'name' => Translator::translateToAll('app-rule', $this->name),
+        ];
+    }
+
+    public static function openApiSchema(): array
+    {
+        $values = static::find()
+            ->with('mode')
+            ->orderBy(['id' => SORT_ASC])
+            ->all();
+        return [
+            'type' => 'object',
+            'description' => Yii::t('app-apidoc1', 'Rule information'),
+            'properties' => [
+                'key' => static::oapiKey(
+                    static::oapiKeyValueTable(
+                        Yii::t('app-apidoc1', 'Rule Name'),
+                        'app-rule',
+                        $values
+                    ),
+                    ArrayHelper::getColumn($values, 'key', false)
+                ),
+                'mode' => static::oapiRef(GameMode::class),
+                'name' => static::oapiRef(openapi\Name::class),
+            ],
+            'example' => array_map(
+                function (self $model): array {
+                    return $model->toJsonArray();
+                },
+                $values
+            ),
+        ];
+    }
+
+    public static function openApiDepends(): array
+    {
+        return [
+            GameMode::class,
+            openapi\Name::class,
         ];
     }
 }

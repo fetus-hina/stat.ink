@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2015 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  */
@@ -8,6 +8,8 @@
 namespace app\models;
 
 use Yii;
+use app\components\helpers\Translator;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "game_mode".
@@ -21,6 +23,7 @@ use Yii;
 class GameMode extends \yii\db\ActiveRecord
 {
     use SafeFindOneTrait;
+    use openapi\Util;
 
     /**
      * @inheritdoc
@@ -62,5 +65,51 @@ class GameMode extends \yii\db\ActiveRecord
     public function getRules()
     {
         return $this->hasMany(Rule::className(), ['mode_id' => 'id']);
+    }
+
+    public function toJsonArray(): array
+    {
+        return [
+            'key' => $this->key,
+            'name' => Translator::translateToAll('app-rule', $this->name),
+        ];
+    }
+
+    public static function openApiSchema(): array
+    {
+        $values = static::find()
+            ->orderBy(['id' => SORT_ASC])
+            ->all();
+        return [
+            'type' => 'object',
+            'description' => Yii::t('app-apidoc1', 'Lobby information'),
+            'properties' => [
+                'key' => static::oapiKey(
+                    static::oapiKeyValueTable(
+                        Yii::t('app-apidoc1', 'Lobby Name'),
+                        'app-rule',
+                        $values
+                    ),
+                    ArrayHelper::getColumn($values, 'key', false)
+                ),
+                'name' => static::oapiRef(openapi\Name::class),
+            ],
+            'example' => array_map(
+                function (self $model): array {
+                    return [
+                        'key' => $model->key,
+                        'name' => openapi\Name::example('app-rule', $model->name),
+                    ];
+                },
+                $values
+            ),
+        ];
+    }
+
+    public static function openApiDepends(): array
+    {
+        return [
+            openapi\Name::class,
+        ];
     }
 }
