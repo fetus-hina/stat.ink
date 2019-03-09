@@ -596,8 +596,8 @@ GET /api/v1/rule
 
 Moved to the new API doc.
 
-- [English](https://stat.ink/apidoc/v1.en.html#operation/getRule)
-- [日本語](https://stat.ink/apidoc/v1.ja.html#operation/getRule)
+- [English](https://apidoc.stat.ink/v1.en.html#operation/getRule)
+- [日本語](https://apidoc.stat.ink/v1.ja.html#operation/getRule)
 
 ----
 
@@ -606,8 +606,8 @@ GET /api/v1/map
 
 Moved to the new API doc.
 
-- [English](https://stat.ink/apidoc/v1.en.html#operation/getMap)
-- [日本語](https://stat.ink/apidoc/v1.ja.html#operation/getMap)
+- [English](https://apidoc.stat.ink/v1.en.html#operation/getMap)
+- [日本語](https://apidoc.stat.ink/v1.ja.html#operation/getMap)
 
 ----
 
@@ -616,8 +616,8 @@ GET /api/v1/weapon
 
 Moved to the new API doc.
 
-- [English](https://stat.ink/apidoc/v1.en.html#operation/getWeapon)
-- [日本語](https://stat.ink/apidoc/v1.ja.html#operation/getWeapon)
+- [English](https://apidoc.stat.ink/v1.en.html#operation/getWeapon)
+- [日本語](https://apidoc.stat.ink/v1.ja.html#operation/getWeapon)
 
 ----
 
@@ -626,8 +626,8 @@ GET /api/v1/gear
 
 Moved to the new API doc.
 
-- [English](https://stat.ink/apidoc/v1.en.html#operation/getGear)
-- [日本語](https://stat.ink/apidoc/v1.ja.html#operation/getGear)
+- [English](https://apidoc.stat.ink/v1.en.html#operation/getGear)
+- [日本語](https://apidoc.stat.ink/v1.ja.html#operation/getGear)
 
 ----
 
