@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace app\commands;
 
 use Yii;
+use app\components\openapi\doc\V1 as V1Generator;
 use yii\console\Controller;
 use yii\helpers\FileHelper;
 
@@ -45,32 +46,34 @@ class ApidocController extends Controller
 
     private function createV1(string $langCode): bool
     {
-        $this->stderr(__METHOD__ . "(): {$langCode}: Creating YAML...\n");
-        $yamlPath = vsprintf('%s/runtime/apidoc/%s.yaml', [
+        $generator = Yii::createObject([
+            'class' => V1Generator::class,
+        ]);
+
+        $this->stderr(__METHOD__ . "(): {$langCode}: Creating JSON...\n");
+        $jsonPath = vsprintf('%s/runtime/apidoc/%s.json', [
             Yii::getAlias('@app'),
             vsprintf('%d-%08x', [
                 time(),
                 mt_rand(0, 0xffffffff),
             ]),
         ]);
-        FileHelper::createDirectory(dirname($yamlPath));
-        $yaml = $this->render('//apidoc/v1', [
-            'langCode' => $langCode,
-        ]);
-        if (@file_put_contents($yamlPath, $yaml) === false) {
-            $this->stderr(__METHOD__ . "(): {$langCode}: Failed to create a YAML file!\n");
+        FileHelper::createDirectory(dirname($jsonPath));
+        $json = $generator->render();
+        if (@file_put_contents($jsonPath, $json) === false) {
+            $this->stderr(__METHOD__ . "(): {$langCode}: Failed to create a json file!\n");
             return false;
         }
 
         $this->stderr(__METHOD__ . "(): {$langCode}: Checking syntax...\n");
         $cmdline = vsprintf('/usr/bin/env %s lint %s', [
             escapeshellarg(Yii::getAlias('@app/node_modules/.bin/speccy')),
-            escapeshellarg($yamlPath),
+            escapeshellarg($jsonPath),
         ]);
         @exec($cmdline, $lines, $status);
         if ($status !== 0) {
             $this->stderr(__METHOD__ . "(): {$langCode}: Lint failed (status={$status}).\n");
-            $this->stderr("YAML: {$yamlPath}\n");
+            $this->stderr("json: {$jsonPath}\n");
             $this->stderr(implode("\n", $lines) . "\n");
             return false;
         }
@@ -84,12 +87,12 @@ class ApidocController extends Controller
             escapeshellarg(Yii::getAlias('@app/node_modules/.bin/redoc-cli')),
             escapeshellarg($outPath),
             escapeshellarg(Yii::t('app-apidoc1', 'stat.ink API for Splatoon 1')),
-            escapeshellarg($yamlPath),
+            escapeshellarg($jsonPath),
         ]);
         @exec($cmdline, $lines, $status);
         if ($status !== 0) {
             $this->stderr(__METHOD__ . "(): {$langCode}: Create failed (status={$status}).\n");
-            $this->stderr("YAML: {$yamlPath}\n");
+            $this->stderr("json: {$jsonPath}\n");
             $this->stderr(implode("\n", $lines) . "\n");
             return false;
         }

@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2015 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  */
@@ -8,6 +8,8 @@
 namespace app\models;
 
 use Yii;
+use app\components\helpers\Translator;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "weapon_type".
@@ -20,6 +22,8 @@ use Yii;
  */
 class WeaponType extends \yii\db\ActiveRecord
 {
+    use openapi\Util;
+
     /**
      * @inheritdoc
      */
@@ -59,5 +63,56 @@ class WeaponType extends \yii\db\ActiveRecord
     public function getWeapons()
     {
         return $this->hasMany(Weapon::className(), ['type_id' => 'id']);
+    }
+
+    public function toJsonArray(): array
+    {
+        return [
+            'key' => $this->key,
+            'name' => Translator::translateToAll('app-weapon', $this->name),
+        ];
+    }
+
+    public static function openApiSchema(): array
+    {
+        $values = static::find()
+            ->orderBy(['id' => SORT_ASC])
+            ->all();
+        return [
+            'type' => 'object',
+            'description' => Yii::t('app-apidoc1', 'Weapon type (category) information'),
+            'properties' => [
+                'key' => static::oapiKey(
+                    static::oapiKeyValueTable(
+                        Yii::t('app-apidoc1', 'Weapon Type'),
+                        'app-weapon',
+                        $values
+                    ),
+                    ArrayHelper::getColumn($values, 'key', false)
+                ),
+                'name' => static::oapiRef(openapi\Name::class),
+            ],
+            'example' => $values[0]->toJsonArray(),
+        ];
+    }
+
+    public static function openApiDepends(): array
+    {
+        return [
+            openapi\Name::class,
+        ];
+    }
+
+    public static function openapiExample(): array
+    {
+        $models = static::find()
+            ->orderBy(['id' => SORT_ASC])
+            ->all();
+        return array_map(
+            function ($model) {
+                return $model->toJsonArray();
+            },
+            $models
+        );
     }
 }

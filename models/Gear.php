@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2015 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  */
@@ -9,6 +9,7 @@ namespace app\models;
 
 use Yii;
 use app\components\helpers\Translator;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "gear".
@@ -26,6 +27,8 @@ use app\components\helpers\Translator;
  */
 class Gear extends \yii\db\ActiveRecord
 {
+    use openapi\Util;
+
     /**
      * @inheritdoc
      */
@@ -94,6 +97,47 @@ class Gear extends \yii\db\ActiveRecord
             'brand' => $this->brand ? $this->brand->toJsonArray() : null,
             'name' => Translator::translateToAll('app-gear', $this->name),
             'primary_ability' => $this->ability ? $this->ability->toJsonArray() : null,
+        ];
+    }
+
+    public static function openApiSchema(): array
+    {
+        return [
+            'type' => 'object',
+            'description' => Yii::t('app-apidoc1', 'Gear information'),
+            'properties' => [
+                'key' => static::oapiKey(),
+                'name' => static::oapiRef(openapi\Name::class),
+                'type' => static::oapiRef(GearType::class),
+                'brand' => array_merge(Brand::openApiSchema(), [
+                    'description' => Yii::t('app-apidoc1', 'Brand information'),
+                    'nullable' => true,
+                ]),
+                'primary_ability' => array_merge(Ability::openApiSchema(), [
+                    'description' => Yii::t('app-apidoc1', 'Primary ability information'),
+                    'nullable' => true,
+                ]),
+            ],
+            'example' => static::openapiExample(),
+        ];
+    }
+
+    public static function openApiDepends(): array
+    {
+        return [
+            GearType::class,
+            openapi\Name::class,
+        ];
+    }
+
+    public static function openapiExample(): array
+    {
+        $model = static::find()
+            ->andWhere(['key' => 'basic_tee'])
+            ->limit(1)
+            ->one();
+        return [
+            $model->toJsonArray(),
         ];
     }
 }
