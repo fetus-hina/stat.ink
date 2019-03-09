@@ -17,8 +17,8 @@ abstract class Base extends Component
 {
     private $renderer;
 
-    abstract function getTitle(): string;
-    abstract function getPaths(): array;
+    abstract public function getTitle(): string;
+    abstract public function getPaths(): array;
 
     public function render(): string
     {
