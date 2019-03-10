@@ -57,7 +57,7 @@ trait Util
 
     public static function oapiKeyValueTable(
         string $valueLabel,
-        string $category,
+        /* string|callable */ $category,
         array $items,
         string $keyColumn = 'key',
         string $valueColumn = 'name'
@@ -73,8 +73,12 @@ trait Util
                 ArrayHelper::getColumn(
                     $items,
                     function ($item) use ($category, $valueColumn): string {
+                        $_category = is_callable($category)
+                            ? $category($item)
+                            : $category;
+
                         return Yii::t(
-                            $category,
+                            $_category,
                             ArrayHelper::getValue($item, $valueColumn)
                         );
                     }
