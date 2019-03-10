@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2015 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  */
@@ -9,6 +9,8 @@ namespace app\models;
 
 use Yii;
 use app\components\helpers\Translator;
+use yii\helpers\ArrayHelper;
+use yii\helpers\Html;
 
 /**
  * This is the model class for table "death_reason".
@@ -26,6 +28,8 @@ use app\components\helpers\Translator;
  */
 class DeathReason extends \yii\db\ActiveRecord
 {
+    use openapi\Util;
+
     public static function find()
     {
         return parent::find()->with('type');
@@ -147,5 +151,60 @@ class DeathReason extends \yii\db\ActiveRecord
             }
         }
         return Yii::t('app-death', $this->name);
+    }
+
+    public static function openApiSchema(): array
+    {
+        $values = static::find()
+            ->orderBy([
+                'type_id' => SORT_ASC,
+                'key' => SORT_ASC,
+            ])
+            ->all();
+        return [
+            'type' => 'object',
+            'description' => Yii::t('app-apidoc1', 'Death reason information'),
+            'properties' => [
+                'key' => static::oapiKey(
+                    static::oapiKeyValueTable(
+                        Yii::t('app-apidoc1', 'Death Reason'),
+                        function (self $model): string {
+                            $map = [
+                                'main' => 'app-weapon',
+                                'sub' => 'app-subweapon',
+                                'special' => 'app-special',
+                            ];
+                            $type = ArrayHelper::getValue($model, 'type.key');
+                            return $map[$type] ?? 'app-death';
+                        },
+                        $values
+                    ),
+                    ArrayHelper::getColumn($values, 'key', false)
+                ),
+                'name' => static::oapiRef(openapi\Name::class),
+                'type' => array_merge(DeathReasonType::openApiSchema(), [
+                    'nullable' => true,
+                ]),
+            ],
+            'example' => $values[0]->toJsonArray(),
+        ];
+    }
+
+    public static function openApiDepends(): array
+    {
+        return [
+            openapi\Name::class,
+        ];
+    }
+
+    public static function openapiExample(): array
+    {
+        $model = static::find()
+            ->where(['key' => 'hoko_shot'])
+            ->limit(1)
+            ->one();
+        return [
+            $model->toJsonArray(),
+        ];
     }
 }

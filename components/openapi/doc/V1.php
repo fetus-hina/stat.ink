@@ -12,6 +12,8 @@ namespace app\components\openapi\doc;
 use Yii;
 use app\models\Ability;
 use app\models\Brand;
+use app\models\DeathReason;
+use app\models\DeathReasonType;
 use app\models\Gear;
 use app\models\GearType;
 use app\models\Map;
@@ -33,10 +35,13 @@ class V1 extends Base
     public function getPaths(): array
     {
         return [
+            // general
             '/api/v1/gear' => $this->getPathInfoGear(),
             '/api/v1/map' => $this->getPathInfoMap(),
             '/api/v1/rule' => $this->getPathInfoRule(),
             '/api/v1/weapon' => $this->getPathInfoWeapon(),
+            // stat.ink spec
+            '/api/v1/death-reason' => $this->getPathInfoDeathReason(),
         ];
     }
 
@@ -371,6 +376,71 @@ class V1 extends Base
                                     'items' => Weapon::oapiRef(),
                                 ],
                                 'example' => Weapon::openapiExample(),
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ];
+        // }}}
+    }
+
+    protected function getPathInfoDeathReason(): array
+    {
+        // {{{
+        $this->registerSchema(DeathReason::class);
+        $this->registerTag('statink');
+        return [
+            'get' => [
+                'operationId' => 'getDeathReason',
+                'summary' => Yii::t('app-apidoc1', 'Get death reasons'),
+                'description' => Yii::t(
+                    'app-apidoc1',
+                    'Returns an array of death reason information'
+                ),
+                'tags' => [
+                    'statink',
+                ],
+                'parameters' => [
+                    [
+                        'name' => 'type',
+                        'in' => 'query',
+                        'description' => implode("\n", [
+                            Yii::t(
+                                'app-apidoc1',
+                                'Filter by key-string of death reason category'
+                            ),
+                            '',
+                            WeaponType::oapiKeyValueTable(
+                                Yii::t('app-apidoc1', 'Category'),
+                                'app-death',
+                                DeathReasonType::find()
+                                    ->orderBy(['id' => SORT_ASC])
+                                    ->all()
+                            ),
+                        ]),
+                        'schema' => [
+                            'type' => 'string',
+                            'enum' => ArrayHelper::getColumn(
+                                DeathReasonType::find()
+                                    ->orderBy(['id' => SORT_ASC])
+                                    ->asArray()
+                                    ->all(),
+                                'key'
+                            ),
+                        ],
+                    ],
+                ],
+                'responses' => [
+                    '200' => [
+                        'description' => Yii::t('app-apidoc1', 'Successful'),
+                        'content' => [
+                            'application/json' => [
+                                'schema' => [
+                                    'type' => 'array',
+                                    'items' => DeathReason::oapiRef(),
+                                ],
+                                'example' => DeathReason::openapiExample(),
                             ],
                         ],
                     ],

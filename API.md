@@ -634,38 +634,10 @@ Moved to the new API doc.
 GET /api/v1/death-reason
 ----------------
 
-死因の一覧をJSON形式で返します。 `key` が他のAPIで利用するときの値です。
+Moved to the new API doc.
 
-死因の出現順や死因構造の中の順番は特に決まっていません。（必要であれば利用者側で並び替えてください）
-
-```js
-[
-    {
-        // この値が battle API に送信する値です
-        "key": "hoko_shot",
-
-        "name": {
-            "en_US": "Rainmaker Shot",
-            "ja_JP": "ガチホコショット"
-        },
-
-        "type": {
-            "key": "hoko",
-            "name": {
-                "en_US": "Rainmaker",
-                "ja_JP": "ガチホコ"
-            }
-        }
-    },
-    // ...
-]
-```
-
-### パラメータ ###
-
-値が `key` として妥当でない場合はエラーが返ります。
-
-* `type` : 死因の type の `key` を指定します。該当する種類の死因がフィルタリングされて返ります。例: `/api/v1/death-reason?type=hoko`
+- [English](https://apidoc.stat.ink/v1.en.html#operation/getDeathReason)
+- [日本語](https://apidoc.stat.ink/v1.ja.html#operation/getDeathReason)
 
 ----
 
