@@ -904,6 +904,21 @@ $this->registerCss('#battle .progress{margin-bottom:0}');
       // }}}
     ],
     [
+      'label' => Yii::t('app', 'Elapsed Time'), // {{{
+      'value' => function ($model): ?string {
+        if (!$value = $model->elapsedTime) {
+          return null;
+        }
+
+        return vsprintf('%d:%02d (%s)', [
+          (int)floor($value / 60),
+          $value % 60,
+          Yii::t('app', '{sec,plural,=1{# second} other{# seconds}}', ['sec' => $value]),
+        ]);
+      },
+      // }}}
+    ],
+    [
       'attribute' => 'created_at', // {{{
       'format' => 'raw',
       'value' => function ($model): string {

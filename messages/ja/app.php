@@ -571,6 +571,7 @@ return [
     '{point, plural, other{#p}}' => '{point, plural, other{#ポイント}}',
     '{point}p' => '{point} p',
     '{rule}: Peak' => '{rule}: 最高',
+    '{sec,plural,=1{# second} other{# seconds}}' => '{sec} 秒',
     '{sec} seconds ({pct} %)' => '{sec} 秒 ({pct} %)',
     '{sec} seconds' => '{sec} 秒',
     '{sec} seconds, {cnt} times' => '{sec} 秒, 最大 {cnt} 回',
