@@ -4,6 +4,7 @@ use app\components\widgets\Battle2FilterWidget;
 use app\components\widgets\EmbedVideo;
 use app\components\widgets\Label;
 use app\components\widgets\SnsWidget;
+use app\models\Battle2;
 use yii\bootstrap\ActiveForm;
 use yii\grid\GridView;
 use yii\helpers\Html;
@@ -886,6 +887,31 @@ if ($user->twitter != '') {
             // }}}
           ],
           [
+            // elapsed (mm:ss) {{{
+            'label' => Yii::t('app', 'Elapsed'),
+            'headerOptions' => ['class' => 'cell-elapsed'],
+            'contentOptions' => ['class' => 'cell-elapsed text-right'],
+            'value' => function (Battle2 $model): string {
+              if (!$value = $model->elapsedTime) {
+                  return '';
+              }
+              return vsprintf('%d:%02d', [
+                (int)floor($value / 60),
+                ($value % 60),
+              ]);
+            },
+            // }}}
+          ],
+          [
+            // elapsed (sec) {{{
+            'label' => Yii::t('app', 'Elapsed'),
+            'headerOptions' => ['class' => 'cell-elapsed-sec'],
+            'contentOptions' => ['class' => 'cell-elapsed-sec text-right'],
+            'format' => 'integer',
+            'attribute' => 'elapsedTime',
+            // }}}
+          ],
+          [
             // datetime {{{
             'label' => Yii::t('app', 'Date Time'),
             'headerOptions' => ['class' => 'cell-datetime'],
@@ -993,6 +1019,8 @@ if ($user->twitter != '') {
           'cell-point'                => Yii::t('app', 'Turf Inked'),
           'cell-inked-min'            => Yii::t('app', 'Inked/min'),
           'cell-rank-in-team'         => Yii::t('app', 'Rank in Team'),
+          'cell-elapsed'              => Yii::t('app', 'Elapsed Time'),
+          'cell-elapsed-sec'          => Yii::t('app', 'Elapsed Time (seconds)'),
           'cell-datetime'             => Yii::t('app', 'Date Time'),
           'cell-reltime'              => Yii::t('app', 'Relative Time'),
         ];
