@@ -644,7 +644,10 @@ Moved to the new API doc.
 GET /api/v1/weapon-trends
 -------------------------
 
-[ルール・マップ別のブキトレンドデータ取得についてはこちらを参照してください](doc/api-1/get-weapon-trends.md)
+Moved to the new API doc.
+
+- [English](https://apidoc.stat.ink/v1.en.html#operation/getWeaponTrends)
+- [日本語](https://apidoc.stat.ink/v1.ja.html#operation/getWeaponTrends)
 
 ----
 

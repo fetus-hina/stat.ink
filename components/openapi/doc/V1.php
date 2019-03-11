@@ -19,6 +19,7 @@ use app\models\GearType;
 use app\models\Map;
 use app\models\Rule;
 use app\models\Special;
+use app\models\StatWeaponMapTrend;
 use app\models\Subweapon;
 use app\models\Weapon;
 use app\models\WeaponType;
@@ -42,6 +43,7 @@ class V1 extends Base
             '/api/v1/weapon' => $this->getPathInfoWeapon(),
             // stat.ink spec
             '/api/v1/death-reason' => $this->getPathInfoDeathReason(),
+            '/api/v1/weapon-trends' => $this->getPathInfoWeaponTrends(),
         ];
     }
 
@@ -441,6 +443,87 @@ class V1 extends Base
                                     'items' => DeathReason::oapiRef(),
                                 ],
                                 'example' => DeathReason::openapiExample(),
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ];
+        // }}}
+    }
+
+    protected function getPathInfoWeaponTrends(): array
+    {
+        // {{{
+        $this->registerSchema(StatWeaponMapTrend::class);
+        $this->registerTag('statink');
+        return [
+            'get' => [
+                'operationId' => 'getWeaponTrends',
+                'summary' => Yii::t('app-apidoc1', 'Get trends of weapon'),
+                'description' => Yii::t(
+                    'app-apidoc1',
+                    'Returns an array of trend information'
+                ),
+                'tags' => [
+                    'statink',
+                ],
+                'parameters' => [
+                    [
+                        'name' => 'rule',
+                        'in' => 'query',
+                        'required' => true,
+                        'description' => Rule::oapiKeyValueTable(
+                            Yii::t('app-apidoc1', 'Mode'),
+                            'app-rule',
+                            Rule::find()
+                                ->orderBy(['id' => SORT_ASC])
+                                ->all()
+                        ),
+                        'schema' => [
+                            'type' => 'string',
+                            'enum' => ArrayHelper::getColumn(
+                                Rule::find()
+                                    ->orderBy(['id' => SORT_ASC])
+                                    ->asArray()
+                                    ->all(),
+                                'key'
+                            ),
+                        ],
+                    ],
+                    [
+                        'name' => 'map',
+                        'in' => 'query',
+                        'required' => true,
+                        'description' => Map::oapiKeyValueTable(
+                            Yii::t('app-apidoc1', 'Stage'),
+                            'app-map',
+                            Map::find()
+                                ->orderBy(['key' => SORT_ASC])
+                                ->all()
+                        ),
+                        'schema' => [
+                            'type' => 'string',
+                            'enum' => ArrayHelper::getColumn(
+                                Map::find()
+                                    ->orderBy(['key' => SORT_ASC])
+                                    ->asArray()
+                                    ->all(),
+                                'key'
+                            ),
+                        ],
+                    ],
+                ],
+                'responses' => [
+                    '200' => [
+                        'description' => Yii::t('app-apidoc1', 'Successful'),
+                        'content' => [
+                            'application/json' => [
+                                'schema' => [
+                                    'type' => 'array',
+                                    'items' => StatWeaponMapTrend::oapiRef(),
+                                ],
+                                'example' => StatWeaponMapTrend::openapiExample(),
                             ],
                         ],
                     ],

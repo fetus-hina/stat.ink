@@ -8,6 +8,7 @@
 namespace app\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "stat_weapon_map_trend".
@@ -23,6 +24,8 @@ use Yii;
  */
 class StatWeaponMapTrend extends \yii\db\ActiveRecord
 {
+    use openapi\Util;
+
     /**
      * @inheritdoc
      */
@@ -89,5 +92,59 @@ class StatWeaponMapTrend extends \yii\db\ActiveRecord
     public function getWeapon()
     {
         return $this->hasOne(Weapon::className(), ['id' => 'weapon_id']);
+    }
+
+    public static function openApiSchema(): array
+    {
+        return [
+            'type' => 'object',
+            'description' => implode("\n", [
+                Yii::t('app-apidoc1', 'Trend information'),
+                '',
+                Yii::t('app-apidoc1', 'Weapons that were not used will not be output.'),
+            ]),
+            'properties' => [
+                'rank' => [
+                    'type' => 'integer',
+                    'format' => 'int32',
+                    'description' => Yii::t(
+                        'app-apidoc1',
+                        'Set in order from 1 in descending order of usage'
+                    ),
+                ],
+                'use_pct' => [
+                    'type' => 'number',
+                    'description' => Yii::t(
+                        'app-apidoc1',
+                        'Use rate (%)',
+                    ),
+                ],
+                'weapon' => static::oapiRef(Weapon::class),
+            ],
+            'example' => [
+                static::openapiExample(),
+            ],
+        ];
+    }
+
+    public static function openApiDepends(): array
+    {
+        return [
+            Weapon::class,
+            openapi\Name::class,
+        ];
+    }
+
+    public static function openapiExample(): array
+    {
+        $weapon = Weapon::find()
+            ->where(['key' => 'wakaba'])
+            ->limit(1)
+            ->one();
+        return [
+            'rank' => 1,
+            'use_pct' => 1.23,
+            'weapon' => $weapon->toJsonArray(),
+        ];
     }
 }
