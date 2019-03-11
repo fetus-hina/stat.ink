@@ -116,7 +116,7 @@ class StatWeaponMapTrend extends \yii\db\ActiveRecord
                     'type' => 'number',
                     'description' => Yii::t(
                         'app-apidoc1',
-                        'Use rate (%)',
+                        'Use rate (%)'
                     ),
                 ],
                 'weapon' => static::oapiRef(Weapon::class),
