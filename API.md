@@ -654,7 +654,10 @@ Moved to the new API doc.
 DELETE /api/v1/battle
 ---------------------
 
-[バトルの削除についてはこちらを参照してください](doc/api-1/delete-battle.md)
+Moved to the new API doc.
+
+- [English](https://apidoc.stat.ink/v1.en.html#operation/deleteBattle)
+- [日本語](https://apidoc.stat.ink/v1.ja.html#operation/deleteBattle)
 
 ----
 

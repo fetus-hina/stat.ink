@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2015 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  */
@@ -8,13 +8,18 @@
 namespace app\models\api\v1;
 
 use Yii;
-use yii\base\Model;
 use app\components\helpers\db\Now;
 use app\models\Battle;
 use app\models\User;
+use app\models\openapi\Apikey;
+use app\models\openapi\Util;
+use yii\base\Model;
+use yii\helpers\ArrayHelper;
 
 class DeleteBattleForm extends Model
 {
+    use Util;
+
     // API
     public $apikey;
     public $test;
@@ -135,5 +140,75 @@ class DeleteBattleForm extends Model
         }
 
         return true;
+    }
+
+    public static function openApiSchema(): array
+    {
+        return [
+            'type' => 'object',
+            'description' => Yii::t('app-apidoc1', 'Delete information'),
+            'properties' => [
+                'apikey' => static::oapiRef(Apikey::class),
+                'id' => [
+                    'description' => Yii::t('app-apidoc1', 'ID(s) to be deleted'),
+                    'oneOf' => [
+                        [
+                            'type' => 'integer',
+                            'format' => 'int64',
+                        ],
+                        [
+                            'type' => 'array',
+                            'items' => [
+                                'type' => 'integer',
+                                'format' => 'int64',
+                            ],
+                        ],
+                    ],
+                ],
+                'test' => [
+                    'type' => 'string',
+                    'description' => implode("\n", [
+                        Yii::t('app-apidoc1', 'For testing'),
+                        '',
+                        static::oapiKeyValueTable(
+                            Yii::t('app-apidoc1', 'Action'),
+                            'app-apidoc1',
+                            [
+                                [
+                                    'key' => 'validate',
+                                    'name' => 'Validate only. Returns simple result.',
+                                ],
+                                [
+                                    'key' => 'dry_run',
+                                    'name' => 'Do more action but not to be deleted.',
+                                ],
+                            ]
+                        ),
+                    ]),
+                    'enum' => [
+                        'validate',
+                        'dry_run',
+                    ],
+                ],
+            ],
+            'example' => [
+                'apikey' => 'fw50hytJKRe91FHuL4-K_SnzQ9Fwgwf2t_It3mQSuBU',
+                'id' => [42, 100, 101],
+                'test' => null,
+            ],
+        ];
+    }
+
+    public static function openApiDepends(): array
+    {
+        return [
+            Apikey::class,
+        ];
+    }
+
+    public static function openapiExample(): array
+    {
+        return [
+        ];
     }
 }

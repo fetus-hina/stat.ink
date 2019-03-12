@@ -23,6 +23,7 @@ use app\models\StatWeaponMapTrend;
 use app\models\Subweapon;
 use app\models\Weapon;
 use app\models\WeaponType;
+use app\models\api\v1\DeleteBattleForm;
 use app\models\openapi\Name;
 use yii\helpers\ArrayHelper;
 
@@ -44,6 +45,8 @@ class V1 extends Base
             // stat.ink spec
             '/api/v1/death-reason' => $this->getPathInfoDeathReason(),
             '/api/v1/weapon-trends' => $this->getPathInfoWeaponTrends(),
+            // battle
+            '/api/v1/battle' => $this->getPathInfoBattle(),
         ];
     }
 
@@ -524,6 +527,148 @@ class V1 extends Base
                                     'items' => StatWeaponMapTrend::oapiRef(),
                                 ],
                                 'example' => StatWeaponMapTrend::openapiExample(),
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ];
+        // }}}
+    }
+
+    protected function getPathInfoBattle(): array
+    {
+        // {{{
+        return [
+            'delete' => $this->getPathInfoBattleDelete(),
+        ];
+        //}}}
+    }
+
+    protected function getPathInfoBattleDelete(): array
+    {
+        // {{{
+        $this->registerSchema(DeleteBattleForm::class);
+        $this->registerTag('battle');
+        return [
+            'operationId' => 'deleteBattle',
+            'summary' => Yii::t('app-apidoc1', 'Delete a battle'),
+            'description' => Yii::t('app-apidoc1', 'Delete a battle'),
+            'tags' => [
+                'battle',
+            ],
+            'requestBody' => [
+                'required' => true,
+                'content' => [
+                    'application/json' => [
+                        'schema' => DeleteBattleForm::oapiRef(),
+                    ],
+                    'application/x-msgpack' => [
+                        'schema' => DeleteBattleForm::oapiRef(),
+                    ],
+                ],
+            ],
+            'responses' => [
+                '200' => [
+                    'description' => Yii::t('app-apidoc1', 'Deleted'),
+                    'content' => [
+                        'application/json' => [
+                            'schema' => [
+                                'oneOf' => [
+                                    [
+                                        'type' => 'object',
+                                        'title' => Yii::t('app-apidoc1', 'Deleted'),
+                                        'properties' => [
+                                            'deleted' => [
+                                                'type' => 'array',
+                                                'items' => [
+                                                    'type' => 'object',
+                                                    'properties' => [
+                                                        'id' => [
+                                                            'type' => 'integer',
+                                                            'format' => 'int64',
+                                                            'description' => Yii::t(
+                                                                'app-apidoc1',
+                                                                'Deleted ID'
+                                                            ),
+                                                        ],
+                                                        'error' => [
+                                                            'type' => 'string',
+                                                            'nullable' => true,
+                                                            'description' => Yii::t(
+                                                                'app-apidoc1',
+                                                                'Should be null'
+                                                            ),
+                                                        ],
+                                                    ],
+                                                ],
+                                            ],
+                                            'not-deleted' => [
+                                                'type' => 'array',
+                                                'items' => [
+                                                    'type' => 'object',
+                                                    'properties' => [
+                                                        'id' => [
+                                                            'type' => 'integer',
+                                                            'format' => 'int64',
+                                                            'description' => Yii::t(
+                                                                'app-apidoc1',
+                                                                'ID that failed to delete'
+                                                            ),
+                                                        ],
+                                                        'error' => [
+                                                            'type' => 'string',
+                                                            'description' => Yii::t(
+                                                                'app-apidoc1',
+                                                                'Error identifier'
+                                                            ),
+                                                            'enum' => [
+                                                                'not found',
+                                                                'user not match',
+                                                                'automated result',
+                                                            ],
+                                                        ],
+                                                    ],
+                                                ],
+                                            ],
+                                        ],
+                                    ],
+                                    [
+                                        'type' => 'object',
+                                        'title' => Yii::t(
+                                            'app-apidoc1',
+                                            'When test=validate'
+                                        ),
+                                        'properties' => [
+                                            'validate' => [
+                                                'type' => 'boolean',
+                                                'description' => Yii::t(
+                                                    'app-apidoc1',
+                                                    'Should be true'
+                                                ),
+                                                'example' => true,
+                                            ],
+                                        ],
+                                    ],
+                                ],
+                            ],
+                            'example' => [
+                                'deleted' => [
+                                    [
+                                        'id' => 42,
+                                        'error' => null,
+                                    ],
+                                ],
+                                'not-deleted' => [
+                                    [
+                                        'id' => 100,
+                                        'error' => 'not found',
+                                    ],
+                                    [
+                                        'id' => 101,
+                                        'error' => 'automated result',
+                                    ],
+                                ],
                             ],
                         ],
                     ],
