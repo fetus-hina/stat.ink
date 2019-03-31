@@ -45,7 +45,7 @@ trait WeaponMigration
                 'canonical_id' => ($canonical !== null)
                     ? $this->findId('weapon2', $canonical)
                     : new Expression("currval('weapon2_id_seq'::regclass)"),
-                'splatnet' => $splatnet,
+                'splatnet' => $this->splatnetId($splatnet, $main),
             ]));
 
             $this->insert('death_reason2', [
@@ -80,6 +80,25 @@ trait WeaponMigration
     protected function findWeaponId(string $key): int
     {
         return $this->findId('weapon2', $key);
+    }
+
+    // if $splatnet is negative, returns ($main->splatnet + abs $splatnet)
+    private function splatnetId(?int $splatnet, ?string $main): ?int
+    {
+        if ($splatnet === null || $splatnet >= 0 || $main === null) {
+            return $splatnet;
+        }
+
+        $parentId = (new Query())
+            ->select('splatnet')
+            ->from('weapon2')
+            ->where(['key' => $main])
+            ->limit(1)
+            ->scalar();
+        if ($parentId === null) {
+            throw new \Exception("Could not found {$main} in weapon2");
+        }
+        return ((int)$parentId) + -1 * $splatnet;
     }
 
     private function findId(string $table, string $key): int

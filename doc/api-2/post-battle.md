@@ -325,6 +325,7 @@ You can also send "`#` + SplatNet-Number" like `#50` as a secondary option (not 
 |`96gal`                 |`80`                  |.96ガロン<br>.96 Gal                                       |                                                                                                     |
 |`96gal_deco`            |`81`                  |.96ガロンデコ<br>.96 Gal Deco                              |                                                                                                     |
 |`bold`                  |`0`                   |ボールドマーカー<br>Sploosh-o-matic                        |                                                                                                     |
+|`bold_7`                |`2`                   |ボールドマーカー7<br>Sploosh-o-matic 7                     |                                                                                                     |
 |`bold_neo`              |`1`                   |ボールドマーカーネオ<br>Neo Sploosh-o-matic                |                                                                                                     |
 |`bottlegeyser`          |`400`                 |ボトルガイザー<br>Squeezer                                 |                                                                                                     |
 |`bottlegeyser_foil`     |`401`                 |ボトルガイザーフォイル<br>Foil Squeezer                    |                                                                                                     |
@@ -332,6 +333,7 @@ You can also send "`#` + SplatNet-Number" like `#50` as a secondary option (not 
 |`jetsweeper`            |`90`                  |ジェットスイーパー<br>Jet Squelcher                        |                                                                                                     |
 |`jetsweeper_custom`     |`91`                  |ジェットスイーパーカスタム<br>Custom Jet Squelcher         |                                                                                                     |
 |`momiji`                |`11`                  |もみじシューター<br>Custom Splattershot Jr.                |                                                                                                     |
+|`nzap83`                |`62`                  |N-ZAP83<br>N-ZAP '83                                       |                                                                                                     |
 |`nzap85`                |`60`                  |N-ZAP85<br>N-ZAP '85                                       |                                                                                                     |
 |`nzap89`                |`61`                  |N-ZAP89<br>N-ZAP '89                                       |                                                                                                     |
 |`ochiba`                |`12`                  |おちばシューター<br>Kensa Splattershot Jr.                 |                                                                                                     |
@@ -340,6 +342,7 @@ You can also send "`#` + SplatNet-Number" like `#50` as a secondary option (not 
 |`prime_becchu`          |`72`                  |プライムシューターベッチュー<br>Kensa Splattershot Pro     |                                                                                                     |
 |`prime_collabo`         |`71`                  |プライムシューターコラボ<br>Forge Splattershot Pro         |                                                                                                     |
 |`promodeler_mg`         |`30`                  |プロモデラーMG<br>Aerospray MG                             |                                                                                                     |
+|`promodeler_pg`         |`32`                  |プロモデラーPG<br>Aerospray PG                             |                                                                                                     |
 |`promodeler_rg`         |`31`                  |プロモデラーRG<br>Aerospray RG                             |                                                                                                     |
 |`sharp`                 |`20`                  |シャープマーカー<br>Splash-o-matic                         |                                                                                                     |
 |`sharp_neo`             |`21`                  |シャープマーカーネオ<br>Neo Splash-o-matic                 |                                                                                                     |
@@ -354,6 +357,7 @@ You can also send "`#` + SplatNet-Number" like `#50` as a secondary option (not 
 |`hotblaster_custom`     |`211`                 |ホットブラスターカスタム<br>Custom Blaster                 |                                                                                                     |
 |`longblaster`           |`220`                 |ロングブラスター<br>Range Blaster                          |                                                                                                     |
 |`longblaster_custom`    |`221`                 |ロングブラスターカスタム<br>Custom Range Blaster           |                                                                                                     |
+|`longblaster_necro`     |`222`                 |ロングブラスターネクロ<br>Grim Range Blaster               |                                                                                                     |
 |`nova`                  |`200`                 |ノヴァブラスター<br>Luna Blaster                           |                                                                                                     |
 |`nova_becchu`           |`202`                 |ノヴァブラスターベッチュー<br>Kensa Luna Blaster           |                                                                                                     |
 |`nova_neo`              |`201`                 |ノヴァブラスターネオ<br>Luna Blaster Neo                   |                                                                                                     |
@@ -363,6 +367,7 @@ You can also send "`#` + SplatNet-Number" like `#50` as a secondary option (not 
 |`rapid_elite`           |`250`                 |Rブラスターエリート<br>Rapid Blaster Pro                   |                                                                                                     |
 |`rapid_elite_deco`      |`251`                 |Rブラスターエリートデコ<br>Rapid Blaster Pro Deco          |                                                                                                     |
 |`h3reelgun`             |`310`                 |H3リールガン<br>H-3 Nozzlenose                             |                                                                                                     |
+|`h3reelgun_cherry`      |`312`                 |H3リールガンチェリー<br>Cherry H-3 Nozzlenose              |                                                                                                     |
 |`h3reelgun_d`           |`311`                 |H3リールガンD<br>H-3 Nozzlenose D                          |                                                                                                     |
 |`l3reelgun`             |`300`                 |L3リールガン<br>L-3 Nozzlenose                             |                                                                                                     |
 |`l3reelgun_becchu`      |`302`                 |L3リールガンベッチュー<br>Kensa L-3 Nozzlenose             |                                                                                                     |
@@ -379,6 +384,7 @@ You can also send "`#` + SplatNet-Number" like `#50` as a secondary option (not 
 |`quadhopper_black`      |`5040`                |クアッドホッパーブラック<br>Dark Tetra Dualies             |                                                                                                     |
 |`quadhopper_white`      |`5041`                |クアッドホッパーホワイト<br>Light Tetra Dualies            |                                                                                                     |
 |`sputtery`              |`5000`                |スパッタリー<br>Dapple Dualies                             |                                                                                                     |
+|`sputtery_clear`        |`5002`                |スパッタリークリア<br>Clear Dapple Dualies                 |                                                                                                     |
 |`sputtery_hue`          |`5001`                |スパッタリー・ヒュー<br>Dapple Dualies Nouveau             |                                                                                                     |
 |`carbon`                |`1000`                |カーボンローラー<br>Carbon Roller                          |                                                                                                     |
 |`carbon_deco`           |`1001`                |カーボンローラーデコ<br>Carbon Roller Deco                 |                                                                                                     |
@@ -397,8 +403,10 @@ You can also send "`#` + SplatNet-Number" like `#50` as a secondary option (not 
 |`hokusai_hue`           |`1111`                |ホクサイ・ヒュー<br>Octobrush Nouveau                      |                                                                                                     |
 |`pablo`                 |`1100`                |パブロ<br>Inkbrush                                         |                                                                                                     |
 |`pablo_hue`             |`1101`                |パブロ・ヒュー<br>Inkbrush Nouveau                         |互換性のため `publo_hue` も受け付けます<br>Also accepts `publo_hue` for compatibility                |
+|`pablo_permanent`       |`1102`                |パーマネント・パブロ<br>Permanent Inkbrush                 |                                                                                                     |
 |`bamboo14mk1`           |`2050`                |14式竹筒銃・甲<br>Bamboozler 14 Mk I                       |                                                                                                     |
 |`bamboo14mk2`           |`2051`                |14式竹筒銃・乙<br>Bamboozler 14 Mk II                      |                                                                                                     |
+|`bamboo14mk3`           |`2052`                |14式竹筒銃・丙<br>Bamboozler 14 Mk III                     |                                                                                                     |
 |`herocharger_replica`   |`2015`                |ヒーローチャージャー レプリカ<br>Hero Charger Replica      |                                                                                                     |
 |`liter4k`               |`2030`                |リッター4K<br>E-liter 4K                                   |                                                                                                     |
 |`liter4k_custom`        |`2031`                |リッター4Kカスタム<br>Custom E-liter 4K                    |                                                                                                     |
@@ -414,8 +422,10 @@ You can also send "`#` + SplatNet-Number" like `#50` as a secondary option (not 
 |`splatscope_collabo`    |`2021`                |スプラスコープコラボ<br>Firefin Splatterscope              |                                                                                                     |
 |`squiclean_a`           |`2000`                |スクイックリンα<br>Classic Squiffer                       |                                                                                                     |
 |`squiclean_b`           |`2001`                |スクイックリンβ<br>New Squiffer                           |                                                                                                     |
+|`squiclean_g`           |`2002`                |スクイックリンγ<br>Fresh Squiffer                         |                                                                                                     |
 |`bucketslosher`         |`3000`                |バケットスロッシャー<br>Slosher                            |                                                                                                     |
 |`bucketslosher_deco`    |`3001`                |バケットスロッシャーデコ<br>Slosher Deco                   |                                                                                                     |
+|`bucketslosher_soda`    |`3002`                |バケットスロッシャーソーダ<br>Soda Slosher                 |                                                                                                     |
 |`explosher`             |`3040`                |エクスプロッシャー<br>Explosher                            |                                                                                                     |
 |`explosher_custom`      |`3041`                |エクスプロッシャーカスタム<br>Custom Explosher             |                                                                                                     |
 |`furo`                  |`3030`                |オーバーフロッシャー<br>Bloblobber                         |                                                                                                     |
@@ -428,6 +438,7 @@ You can also send "`#` + SplatNet-Number" like `#50` as a secondary option (not 
 |`screwslosher_neo`      |`3021`                |スクリュースロッシャーネオ<br>Sloshing Machine Neo         |                                                                                                     |
 |`barrelspinner`         |`4010`                |バレルスピナー<br>Heavy Splatling                          |                                                                                                     |
 |`barrelspinner_deco`    |`4011`                |バレルスピナーデコ<br>Heavy Splatling Deco                 |                                                                                                     |
+|`barrelspinner_remix`   |`4012`                |バレルスピナーリミックス<br>Heavy Splatling Remix          |                                                                                                     |
 |`herospinner_replica`   |`4015`                |ヒーロースピナー レプリカ<br>Hero Splatling Replica        |                                                                                                     |
 |`hydra`                 |`4020`                |ハイドラント<br>Hydra Splatling                            |                                                                                                     |
 |`hydra_custom`          |`4021`                |ハイドラントカスタム<br>Custom Hydra Splatling             |                                                                                                     |
@@ -439,6 +450,7 @@ You can also send "`#` + SplatNet-Number" like `#50` as a secondary option (not 
 |`splatspinner_becchu`   |`4002`                |スプラスピナーベッチュー<br>Kensa Mini Splatling           |                                                                                                     |
 |`splatspinner_collabo`  |`4001`                |スプラスピナーコラボ<br>Zink Mini Splatling                |                                                                                                     |
 |`campingshelter`        |`6010`                |キャンピングシェルター<br>Tenta Brella                     |                                                                                                     |
+|`campingshelter_camo`   |`6012`                |キャンピングシェルターカーモ<br>Tenta Camo Brella          |                                                                                                     |
 |`campingshelter_sorella`|`6011`                |キャンピングシェルターソレーラ<br>Tenta Sorella Brella     |                                                                                                     |
 |`heroshelter_replica`   |`6005`                |ヒーローシェルター レプリカ<br>Hero Brella Replica         |                                                                                                     |
 |`parashelter`           |`6000`                |パラシェルター<br>Splat Brella                             |                                                                                                     |
