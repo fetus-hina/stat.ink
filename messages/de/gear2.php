@@ -407,6 +407,7 @@ return [
     'Safari Hat' => 'Hummer-Tropenhut',
     'Sage Polo' => 'Hellgrünes Polohemd',
     'Sailor-Stripe Tee' => 'Marine-Shirt',
+    'Sailor Cap' => 'Emblem-Matrosenmütze',
     'Samurai Helmet' => '',
     'Samurai Jacket' => '',
     'Samurai Shoes' => '',

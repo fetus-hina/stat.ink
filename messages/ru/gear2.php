@@ -407,6 +407,7 @@ return [
     'Safari Hat' => 'Панама для сафари',
     'Sage Polo' => 'Светло-зеленое поло',
     'Sailor-Stripe Tee' => 'Майка «Морячка»',
+    'Sailor Cap' => 'Шапочка моряка',
     'Samurai Helmet' => '',
     'Samurai Jacket' => '',
     'Samurai Shoes' => '',
