@@ -407,6 +407,7 @@ return [
     'Safari Hat' => 'Safarihoed',
     'Sage Polo' => 'Grasgroene polo',
     'Sailor-Stripe Tee' => 'Gestreept matrozen-T-shirt',
+    'Sailor Cap' => 'Matrozenmuts',
     'Samurai Helmet' => '',
     'Samurai Jacket' => '',
     'Samurai Shoes' => '',

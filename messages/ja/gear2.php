@@ -409,6 +409,7 @@ return [
     'SWC Logo Tee' => 'SWCロゴT',
     'Safari Hat' => 'ロブスターブーニー',
     'Sage Polo' => 'よもぎポロ',
+    'Sailor Cap' => 'マリリンハットウィズピンズ',
     'Sailor-Stripe Tee' => 'マリンボーダー',
     'Samurai Helmet' => 'サムライヘルメット',
     'Samurai Jacket' => 'サムライジャケット',

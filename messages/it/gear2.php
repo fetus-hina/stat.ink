@@ -407,6 +407,7 @@ return [
     'Safari Hat' => 'Cappello giungla',
     'Sage Polo' => 'Polo verde chiaro',
     'Sailor-Stripe Tee' => 'T-shirt da marinaio',
+    'Sailor Cap' => 'Cappello da marinaio',
     'Samurai Helmet' => '',
     'Samurai Jacket' => '',
     'Samurai Shoes' => '',
