@@ -407,6 +407,7 @@ return [
     'Safari Hat' => 'Sombrero camuflaje',
     'Sage Polo' => 'Polo lima',
     'Sailor-Stripe Tee' => 'Camiseta marinera',
+    'Sailor Cap' => 'Gorra de marinero',
     'Samurai Helmet' => '',
     'Samurai Jacket' => '',
     'Samurai Shoes' => '',

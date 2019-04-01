@@ -407,6 +407,7 @@ return [
     'Safari Hat' => '',
     'Sage Polo' => '',
     'Sailor-Stripe Tee' => '',
+    'Sailor Cap' => '',
     'Samurai Helmet' => '',
     'Samurai Jacket' => '',
     'Samurai Shoes' => '',
