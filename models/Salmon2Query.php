@@ -18,24 +18,44 @@ class Salmon2Query extends ActiveQuery
     public function summary(): array
     {
         if (!$this->summaryCache) {
+            $stats = function (
+                string $suffix, // 'golden' => 'avg_golden'
+                string $attribute // '{{salmon_player2}}.[[golden_egg_delivered]]
+            ): array {
+                return [
+                    "avail_$suffix" => "SUM(CASE WHEN $attribute IS NULL THEN 0 ELSE 1 END)",
+                    "total_$suffix" => "SUM($attribute)",
+                    "avg_$suffix" => "AVG($attribute)",
+                    "min_$suffix" => "MIN($attribute)",
+                    "pct5_$suffix" => "percentile_cont(0.05) WITHIN GROUP (ORDER BY $attribute)",
+                    "q1_4_$suffix" => "percentile_cont(1.0/4) WITHIN GROUP (ORDER BY $attribute)",
+                    "median_$suffix" => "percentile_cont(0.5) WITHIN GROUP (ORDER BY $attribute)",
+                    "q3_4_$suffix" => "percentile_cont(3.0/4) WITHIN GROUP (ORDER BY $attribute)",
+                    "pct95_$suffix" => "percentile_cont(0.95) WITHIN GROUP (ORDER BY $attribute)",
+                    "max_$suffix" => "MAX($attribute)",
+                    "stddev_$suffix" => "stddev_pop($attribute)",
+                ];
+            };
             $query = Salmon2::find()
                 ->leftJoin('salmon_player2', '(' . implode(' AND ', [
                     'salmon_player2.work_id = salmon2.id',
                     'salmon_player2.is_me = TRUE',
                 ]) . ')')
                 ->where($this->where)
-                ->select([
-                    'count' => 'COUNT(*)',
-                    'has_result' => 'SUM(CASE WHEN [[clear_waves]] IS NULL THEN 0 ELSE 1 END)',
-                    'w3_cleared' => 'SUM(CASE WHEN [[clear_waves]] >= 3 THEN 1 ELSE 0 END)',
-                    'w2_cleared' => 'SUM(CASE WHEN [[clear_waves]] >= 2 THEN 1 ELSE 0 END)',
-                    'w1_cleared' => 'SUM(CASE WHEN [[clear_waves]] >= 1 THEN 1 ELSE 0 END)',
-                    'avg_waves' => 'AVG([[clear_waves]])',
-                    'avg_golden' => 'AVG({{salmon_player2}}.[[golden_egg_delivered]])',
-                    'avg_power' => 'AVG({{salmon_player2}}.[[power_egg_collected]])',
-                    'avg_rescue' => 'AVG({{salmon_player2}}.[[rescue]])',
-                    'avg_death' => 'AVG({{salmon_player2}}.[[death]])',
-                ]);
+                ->select(array_merge(
+                    [
+                        'count' => 'COUNT(*)',
+                        'has_result' => 'SUM(CASE WHEN [[clear_waves]] IS NULL THEN 0 ELSE 1 END)',
+                        'w3_cleared' => 'SUM(CASE WHEN [[clear_waves]] >= 3 THEN 1 ELSE 0 END)',
+                        'w2_cleared' => 'SUM(CASE WHEN [[clear_waves]] >= 2 THEN 1 ELSE 0 END)',
+                        'w1_cleared' => 'SUM(CASE WHEN [[clear_waves]] >= 1 THEN 1 ELSE 0 END)',
+                        'avg_waves' => 'AVG([[clear_waves]])',
+                    ],
+                    $stats('golden', '{{salmon_player2}}.[[golden_egg_delivered]]'),
+                    $stats('power', '{{salmon_player2}}.[[power_egg_collected]]'),
+                    $stats('rescue', '{{salmon_player2}}.[[rescue]]'),
+                    $stats('death', '{{salmon_player2}}.[[death]]')
+                ));
             $this->summaryCache = $query->asArray()->one();
         }
 
