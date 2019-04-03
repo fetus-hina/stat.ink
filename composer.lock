@@ -5475,7 +5475,7 @@
         },
         {
             "name": "symfony/browser-kit",
-            "version": "v4.2.4",
+            "version": "v4.2.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/browser-kit.git",
@@ -5600,7 +5600,7 @@
         },
         {
             "name": "symfony/css-selector",
-            "version": "v4.2.4",
+            "version": "v4.2.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/css-selector.git",
@@ -5653,7 +5653,7 @@
         },
         {
             "name": "symfony/dom-crawler",
-            "version": "v4.2.4",
+            "version": "v4.2.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/dom-crawler.git",
@@ -5710,16 +5710,16 @@
         },
         {
             "name": "symfony/event-dispatcher",
-            "version": "v4.2.4",
+            "version": "v4.2.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/event-dispatcher.git",
-                "reference": "3354d2e6af986dd71f68b4e5cf4a933ab58697fb"
+                "reference": "ca5af306fbc37f3cf597e91bc9cfa0c7d3f33544"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/event-dispatcher/zipball/3354d2e6af986dd71f68b4e5cf4a933ab58697fb",
-                "reference": "3354d2e6af986dd71f68b4e5cf4a933ab58697fb",
+                "url": "https://api.github.com/repos/symfony/event-dispatcher/zipball/ca5af306fbc37f3cf597e91bc9cfa0c7d3f33544",
+                "reference": "ca5af306fbc37f3cf597e91bc9cfa0c7d3f33544",
                 "shasum": ""
             },
             "require": {
@@ -5770,11 +5770,11 @@
             ],
             "description": "Symfony EventDispatcher Component",
             "homepage": "https://symfony.com",
-            "time": "2019-02-23T15:17:42+00:00"
+            "time": "2019-03-30T15:58:42+00:00"
         },
         {
             "name": "symfony/finder",
-            "version": "v4.2.4",
+            "version": "v4.2.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/finder.git",
@@ -5881,16 +5881,16 @@
         },
         {
             "name": "symfony/process",
-            "version": "v4.2.4",
+            "version": "v4.2.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/process.git",
-                "reference": "6c05edb11fbeff9e2b324b4270ecb17911a8b7ad"
+                "reference": "1e6cbb41dadcaf29e0db034d6ad0d039a9df06e6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/process/zipball/6c05edb11fbeff9e2b324b4270ecb17911a8b7ad",
-                "reference": "6c05edb11fbeff9e2b324b4270ecb17911a8b7ad",
+                "url": "https://api.github.com/repos/symfony/process/zipball/1e6cbb41dadcaf29e0db034d6ad0d039a9df06e6",
+                "reference": "1e6cbb41dadcaf29e0db034d6ad0d039a9df06e6",
                 "shasum": ""
             },
             "require": {
@@ -5926,7 +5926,7 @@
             ],
             "description": "Symfony Process Component",
             "homepage": "https://symfony.com",
-            "time": "2019-01-24T22:05:03+00:00"
+            "time": "2019-03-10T20:07:02+00:00"
         },
         {
             "name": "theseer/tokenizer",
