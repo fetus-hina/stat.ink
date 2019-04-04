@@ -30,8 +30,8 @@ Use a private channel if it is a security issue.
 REQUIREMENTS
 ------------
 
-* PHP 7.2+ (Recommended: 7.3+)
-  - Doesn't work with 7.0 or lower. (Uses statements and constants added in v7.2)
+* PHP 7.3+
+  - Doesn't work with 7.2 or lower. (Uses statements and constants added in v7.3)
 * PostgreSQL 9.5+ (Recommended: 10+)
   - Doesn't work with 9.4 or lower. (Uses features added in v9.5) 
 * Gearman
@@ -54,17 +54,17 @@ https://stat.ink/ works with:
   - [Brotli](https://github.com/google/brotli)
 - [Remi's RPM repository](http://rpms.famillecollet.com/)
   - `remi-safe` repository, it uses SCL mechanism
-      - PHP 7.2.*
-          - `php72-php-cli`
-          - `php72-php-fpm`
-          - `php72-php-gd`
-          - `php72-php-intl`
-          - `php72-php-mbstring`
-          - `php72-php-mcrypt`
-          - `php72-php-pdo`
-          - `php72-php-pecl-gearman`
-          - `php72-php-pecl-msgpack`
-          - `php72-php-pgsql`
+      - PHP 7.3.*
+          - `php73-php-cli`
+          - `php73-php-fpm`
+          - `php73-php-gd`
+          - `php73-php-intl`
+          - `php73-php-mbstring`
+          - `php73-php-mcrypt`
+          - `php73-php-pdo`
+          - `php73-php-pecl-gearman`
+          - `php73-php-pecl-msgpack`
+          - `php73-php-pgsql`
 * [Node.js Repository](https://nodejs.org/en/download/package-manager/#enterprise-linux-and-fedora)
     - [Node.js](https://nodejs.org/)
         - `nodejs`
@@ -74,8 +74,7 @@ https://stat.ink/ works with:
       - `postgresql10-server`
 
 ※CentOS 7 の標準 PHP は 5.4.16 です。このバージョンでは動作しません。<br>
-　PHP 7.2 までで追加された機能を使用しています。<br>
-　時々 PHP 7.3 の構文が紛れ込んで 7.2 で文法エラーを引き起こします。（現状では本番系が 7.2 なので修正しますが、近いうちに修正しなくなります）
+　PHP 7.3 までで追加された機能を使用しています。<br>
 
 ※CentOS 7 の標準 PostgreSQL のバージョンは 9.2.14 です。このバージョンでは動作しません。<br>
 　PgSQL 9.5 で追加された機能を使用しています（jsonb 型、UPSERT など）<br>

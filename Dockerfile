@@ -34,22 +34,22 @@ RUN rpm --import \
         make \
         nodejs \
         patch \
-        php72-php-cli \
-        php72-php-fpm \
-        php72-php-gd \
-        php72-php-intl \
-        php72-php-json \
-        php72-php-mbstring \
-        php72-php-mcrypt \
-        php72-php-opcache \
-        php72-php-pdo \
-        php72-php-pecl-gearman \
-        php72-php-pecl-msgpack \
-        php72-php-pecl-zip \
-        php72-php-pgsql \
-        php72-php-process \
-        php72-php-xml \
-        php72-runtime \
+        php73-php-cli \
+        php73-php-fpm \
+        php73-php-gd \
+        php73-php-intl \
+        php73-php-json \
+        php73-php-mbstring \
+        php73-php-mcrypt \
+        php73-php-opcache \
+        php73-php-pdo \
+        php73-php-pecl-gearman \
+        php73-php-pecl-msgpack \
+        php73-php-pecl-zip \
+        php73-php-pgsql \
+        php73-php-process \
+        php73-php-xml \
+        php73-runtime \
         pngcrush \
         rh-postgresql95-postgresql \
         rh-postgresql95-postgresql-server \
@@ -75,7 +75,7 @@ USER postgres
 RUN scl enable rh-postgresql95 'initdb --pgdata=/var/opt/rh/rh-postgresql95/lib/pgsql/data --encoding=UNICODE --locale=en_US.UTF8'
 ADD docker/database/pg_hba.conf /var/opt/rh/rh-postgresql95/lib/pgsql/data/pg_hba.conf
 ADD docker/database/password.php /var/opt/rh/rh-postgresql95/lib/pgsql/
-RUN scl enable rh-postgresql95 php72 ' \
+RUN scl enable rh-postgresql95 php73 ' \
         /opt/rh/rh-postgresql95/root/usr/libexec/postgresql-ctl start -D /var/opt/rh/rh-postgresql95/lib/pgsql/data -s -w && \
         createuser -DRS statink && \
         createdb -E UNICODE -O statink -T template0 statink && \
@@ -91,7 +91,7 @@ RUN cd ~statink/stat.ink && \
         su postgres -c "/opt/rh/rh-postgresql95/root/usr/libexec/postgresql-ctl stop -D /var/opt/rh/rh-postgresql95/lib/pgsql/data -s -m fast"'
 
 ADD docker/php/php-config.diff /tmp/
-RUN patch -p1 -d /etc/opt/remi/php72 < /tmp/php-config.diff && rm /tmp/php-config.diff
+RUN patch -p1 -d /etc/opt/remi/php73 < /tmp/php-config.diff && rm /tmp/php-config.diff
 
 ADD docker/h2o/h2o.conf /etc/h2o/h2o.conf
 
