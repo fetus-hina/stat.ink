@@ -15,4 +15,4 @@ else
 fi
 
 git push origin master $1
-ssh statink@app1.stat.ink 'pushd stat.ink && git fetch origin && git merge --ff-only origin/master && scl enable php72 make && touch .maintenance && rm -rfv web/assets/* runtime/Smarty/compile/* && rm -f .maintenance'
+ssh statink@app1.stat.ink 'pushd stat.ink && git fetch origin && git merge --ff-only origin/master && scl enable php73 make && touch .maintenance && rm -rfv web/assets/* runtime/Smarty/compile/* && rm -f .maintenance'
