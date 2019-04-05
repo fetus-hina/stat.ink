@@ -40,16 +40,18 @@ class SecretController extends Controller
         $this->stdout("Done.\n", Console::FG_GREEN);
     }
 
-    public function actionDb()
+    public function actionDb(string $host = 'localhost', ?string $password = null)
     {
         $this->stdout("Creating \"config/db.php\"... ", Console::FG_YELLOW);
-        $passwordBits = 128;
-        $length = (int)ceil($passwordBits / 8);
-        $binary = random_bytes($length); // PHP 7 native random_bytes() or compat-lib's one
-        $password = substr(strtr(base64_encode($binary), '+/=', '_-.'), 0, $length);
+        if ($password == '') {
+            $passwordBits = 128;
+            $length = (int)ceil($passwordBits / 8);
+            $binary = random_bytes($length); // PHP 7 native random_bytes() or compat-lib's one
+            $password = substr(strtr(base64_encode($binary), '+/=', '_-.'), 0, $length);
+        }
 
         $dsnOptions = [
-            'host' => 'localhost',
+            'host' => $host,
             'port' => '5432',
             'dbname' => 'statink',
         ];
