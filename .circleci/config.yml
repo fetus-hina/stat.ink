@@ -1,0 +1,76 @@
+version: 2
+jobs:
+  build:
+    working_directory: /app
+    docker:
+      - image: centos:7
+      - image: postgres:11
+        environment:
+          POSTGRES_USER: statink
+          POSTGRES_PASSWORD: statink
+          POSTGRES_DB: statink
+          POSTGRES_INITDB_ARGS: "--encoding=UTF8 --locale=en_US.UTF8"
+
+    steps:
+      - setup_remote_docker
+      - checkout
+      - run: |
+          sudo yum update -y
+          sudo yum install -y 
+            @core
+            @base
+            epel-release
+            gcc-c++
+            make
+            scl-utils
+          sudo yum install -y 
+            'http://rpms.famillecollet.com/enterprise/remi-release-7.rpm'
+          sudo yum install -y
+            php73-php-cli 
+            php73-php-fpm 
+            php73-php-gd 
+            php73-php-intl 
+            php73-php-json 
+            php73-php-mbstring 
+            php73-php-opcache 
+            php73-php-pdo 
+            php73-php-pecl-gearman 
+            php73-php-pecl-msgpack 
+            php73-php-pecl-zip 
+            php73-php-pgsql 
+            php73-php-process 
+            php73-php-xml 
+            php73-runtime
+
+      # # Download and cache dependencies
+      # - restore_cache:
+      #     keys:
+      #       # "composer.lock" can be used if it is committed to the repo
+      #       - v1-dependencies-{{ checksum "composer.json" }}
+      #       # fallback to using the latest cache if no exact match is found
+      #       - v1-dependencies-
+
+      # - run: composer install -n --prefer-dist
+
+      # - save_cache:
+      #     key: v1-dependencies-{{ checksum "composer.json" }}
+      #     paths:
+      #       - ./vendor
+      # - restore_cache:
+      #     keys:
+      #       - node-v1-{{ checksum "package.json" }}
+      #       - node-v1-
+      # - run: yarn install
+      # - save_cache:
+      #     key: node-v1-{{ checksum "package.json" }}
+      #     paths:
+      #       - node_modules
+
+      # # prepare the database
+      # - run: touch storage/testing.sqlite
+      # - run: php artisan migrate --env=testing --database=sqlite_testing --force
+
+      # # run tests with phpunit or codecept
+      # #- run: ./vendor/bin/phpunit
+      # - run: ./vendor/bin/codecept build
+      # - run: ./vendor/bin/codecept run
