@@ -3,7 +3,7 @@ stat.ink
 
 [![Yii2](https://img.shields.io/badge/Powered_by-Yii_Framework-green.svg?style=flat)](http://www.yiiframework.com/)
 [![MIT License](https://img.shields.io/github/license/fetus-hina/stat.ink.svg)](https://github.com/fetus-hina/stat.ink/blob/master/LICENSE)
-[![StyleCI](https://styleci.io/repos/42917467/shield?branch=master)](https://styleci.io/repos/42917467)
+[![CircleCI](https://circleci.com/gh/fetus-hina/stat.ink/tree/master.svg?style=svg)](https://circleci.com/gh/fetus-hina/stat.ink/tree/master)
 
 Source codes for https://stat.ink/
 
