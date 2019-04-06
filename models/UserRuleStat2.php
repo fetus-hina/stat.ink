@@ -424,20 +424,12 @@ class UserRuleStat2 extends ActiveRecord
                     'WHEN battle2.is_win THEN battle2.my_point - 1000',
                     'ELSE battle2.my_point',
                 ]))),
-                $stats('rank', sprintf('(CASE %s END)', implode(' ', [
-                    sprintf('WHEN battle2.rule_id = %d THEN NULL', $turfWar->id),
-                    sprintf(
-                        "WHEN rule2b.key === 'x' THEN rule2b.int_base + 
-                        'WHEN %1$s IS NOT NULL THEN LEAST(%1$s, 1100)',
-
-                    '(rule2b.int_base + battle2.rank_exp)'
-                ]))),
-                $stats('power', 'NULL'),
-                [
-                    'rank_current' => '(NULL)',
-                    'power_current' => '(NULL)',
-                    'updated_at' => new Now(),
-                ],
+                // $stats('power', 'NULL'),
+                // [
+                //     'rank_current' => '(NULL)',
+                //     'power_current' => '(NULL)',
+                //     'updated_at' => new Now(),
+                // ],
             ));
         if ($user) {
             $select->andWhere(['battle2.user_id' => $user->id]);
