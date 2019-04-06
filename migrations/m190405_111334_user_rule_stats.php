@@ -13,33 +13,18 @@ class m190405_111334_user_rule_stats extends Migration
     public function safeUp()
     {
         $stats = function (string $baseName): array {
-            // {{{
-            $keys = [
-                "have_{$baseName}",
-                "total_{$baseName}",
-                "seconds_{$baseName}",
-                "min_{$baseName}",
-                "pct5_{$baseName}",
-                "q1_4_{$baseName}",
-                "median_{$baseName}",
-                "q3_4_{$baseName}",
-                "pct95_{$baseName}",
-                "max_{$baseName}",
+            return [
+                "avg_{$baseName}" => $this->double(),
+                "min_{$baseName}" => $this->integer(),
+                "pct5_{$baseName}" => $this->double(),
+                "q1_4_{$baseName}" => $this->double(),
+                "median_{$baseName}" => $this->double(),
+                "q3_4_{$baseName}" => $this->double(),
+                "pct95_{$baseName}" => $this->double(),
+                "max_{$baseName}" => $this->integer(),
+                "stddev_{$baseName}" => $this->double(),
+                "{$baseName}_per_min" =>$this->double(),
             ];
-            return array_merge(
-                array_combine(
-                    $keys,
-                    array_fill(
-                        0,
-                        count($keys),
-                        $this->bigInteger()->null(),
-                    )
-                ),
-                [
-                    "stddev_{$baseName}" => $this->double()->null(),
-                ],
-            );
-            // }}}
         };
 
         $this->createTable('user_rule_stat2', array_merge(
@@ -55,12 +40,12 @@ class m190405_111334_user_rule_stats extends Migration
             $stats('death'),
             $stats('assist'),
             $stats('inked'),
+            $stats('power'),
             [
                 'rank_peak' => $this->integer()->null(),
                 'rank_current' => $this->integer()->null(),
+                'power_current' => $this->integer()->null(),
                 'updated_at' => $this->timestampTZ()->notNull(),
-            ],
-            [
                 'PRIMARY KEY ([[user_id]], [[mode_id]], [[rule_id]])',
             ],
         ));
