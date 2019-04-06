@@ -174,6 +174,9 @@ package-lock.json: package.json
 	npm update
 	touch $@
 
+check-syntax:
+	find . \( -type d \( -name '.git' -or -name 'vendor' -or -name 'node_modules' -or -name 'runtime' \) -prune \) -or \( -type f -name '*.php' -print \) | xargs -n 1 php -l
+
 check-style: vendor node_modules
 	node_modules/.bin/updates
 	vendor/bin/phpcs --standard=phpcs-customize.xml --encoding=UTF-8 --runtime-set ignore_warnings_on_exit 1 $(STYLE_TARGETS)
@@ -613,4 +616,4 @@ $(SUB_RESOURCES):
 	$(MAKE) -C $@
 .PHONY: $(SUB_RESOURCES)
 
-.PHONY: FORCE all check-style clean clean-resource composer-update fix-style ikalog init migrate-db resource vendor-archive vendor-by-archive download-vendor-archive geoip
+.PHONY: FORCE all check-style clean clean-resource composer-update fix-style ikalog init migrate-db resource vendor-archive vendor-by-archive download-vendor-archive geoip check-syntax
