@@ -345,7 +345,7 @@ class UserRuleStat2 extends ActiveRecord
             };
 
             $toUnixTime = function (string $attr): string {
-                return "EXTRACT(EPOCH FROM {$attr})"; 
+                return "EXTRACT(EPOCH FROM {$attr})";
             };
 
             $battleTimeConditions = [
