@@ -68,12 +68,12 @@
             "version": "1.1.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/emojione/emojify.js.git",
+                "url": "https://github.com/joypixels/emojify.js.git",
                 "reference": "230b992b2754000b52da2542fa7a4fa730dc9a24"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/emojione/emojify.js/zipball/230b992b2754000b52da2542fa7a4fa730dc9a24",
+                "url": "https://api.github.com/repos/joypixels/emojify.js/zipball/230b992b2754000b52da2542fa7a4fa730dc9a24",
                 "reference": "230b992b2754000b52da2542fa7a4fa730dc9a24",
                 "shasum": ""
             },
