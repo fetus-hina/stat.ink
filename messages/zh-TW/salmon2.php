@@ -1,13 +1,11 @@
 <?php
 /**
- * @copyright Copyright (C) 2015-2018 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  */
 
 return [
-    '✓' => '',
-    '✗' => '',
     'Appearances' => '',
     'As of {datetime}' => '',
     'Average Golden Eggs' => '',
@@ -30,7 +28,9 @@ return [
     'Fail Reason' => '',
     'From {shiftStart}' => '',
     'Golden' => '',
+    'Golden/W' => '',
     'Golden Eggs' => '',
+    'Golden Eggs per Wave' => '',
     'Hazard Level' => '',
     'I agree. Delete this job.' => '',
     'If you delete this job, it will be gone forever.' => '',
@@ -38,10 +38,11 @@ return [
     'Jobs' => '',
     'Jobs: {jobCount} / Clear %: {clearPct} / Golden Eggs: {avgGoldenEggs} / Power Eggs: {avgPowerEggs} / Deaths: {avgDeaths} / Rescues: {avgRescues}' => '',
     'Job Started' => '',
-    '{name}\'s Salmon Log' => '',
     'Next Job' => '',
     'Power Eggs' => '',
+    'Power Eggs per Wave' => '',
     'Prev. Job' => '',
+    'Pwr E/W' => '',
     'Pwr Eggs' => '',
     'Quota' => '',
     'Quota: {wave1} - {wave2} - {wave3}' => '',
@@ -53,6 +54,10 @@ return [
     'Salmon Run' => '',
     'Special Use' => '',
     'Stats: Salmon Clear %' => '',
+    'Team total Golden Eggs' => '',
+    'Team total Golden Eggs per Wave' => '',
+    'Team total Power Eggs' => '',
+    'Team total Power Eggs per Wave' => '',
     'Time' => '',
     'Time is up' => '',
     'Total Golden Eggs' => '',
@@ -61,14 +66,21 @@ return [
     'Total Rescued' => '',
     'Ttl. Eggs' => '',
     'Ttl. Gold' => '',
+    'Ttl. Golden' => '',
+    'Ttl. Golden (Wave)' => '',
     'Ttl. Pts.' => '',
+    'Ttl. Pwr. E.' => '',
+    'Ttl. Pwr. E. (Wave)' => '',
     'Ttl. Rescued' => '',
     'URL related to this work' => '',
     'Waves' => '',
     'Wave {waveNumber}' => '',
-    '{weapon}' => '',
     'Wiped' => '',
     'Wipe out' => '',
     'You can delete this job.' => '',
     'You must agree to the above to delete this job.' => '',
+    '{name}\'s Salmon Log' => '',
+    '{weapon}' => '',
+    '✓' => '',
+    '✗' => '',
 ];

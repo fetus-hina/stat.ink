@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2015-2018 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  */
@@ -30,6 +30,7 @@ return [
     'Clash Blaster' => '',
     'Clash Blaster Neo' => '',
     'Classic Squiffer' => '',
+    'Clear Dapple Dualies' => '',
     'CoroCoro Splat Roller' => '',
     'Custom Blaster' => '',
     'Custom Dual Squelcher' => '',
@@ -92,11 +93,15 @@ return [
     'Jet Squelcher' => '',
     'Kelp Splat Charger' => '',
     'Kelp Splatterscope' => '',
+    'Kensa .52 Gal' => '',
     'Kensa Charger' => '',
     'Kensa Dynamo Roller' => '',
+    'Kensa Glooga Dualies' => '',
     'Kensa L-3 Nozzlenose' => '',
     'Kensa Luna Blaster' => '',
+    'Kensa Mini Splatling' => '',
     'Kensa Octobrush' => '',
+    'Kensa Rapid Blaster' => '',
     'Kensa Sloshing Machine' => '',
     'Kensa Splat Dualies' => '',
     'Kensa Splat Roller' => '',
@@ -151,6 +156,7 @@ return [
     'Squeezer' => '',
     'Tempered Dynamo Roller' => '',
     'Tenta Brella' => '',
+    'Tenta Camo Brella' => '',
     'Tenta Sorella Brella' => '',
     'Tentatek Splattershot' => '',
     'Tri-Slosher' => '',
