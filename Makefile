@@ -1,6 +1,5 @@
 STYLE_TARGETS := actions assets commands components controllers models
 JS_SRCS := $(shell ls -1 resources/stat.ink/main.js/*.js)
-GULP := ./node_modules/.bin/gulp
 SASS := ./node_modules/.bin/sass
 VENDOR_SHA256 := $(shell sha256sum -t composer.lock | awk '{print $$1}')
 
@@ -236,22 +235,27 @@ composer.lock: composer.json composer.phar
 %.min.svg: %.svg node_modules
 	./node_modules/.bin/svgo --output $@ --input $< -q
 
-$(GULP): node_modules
-	touch $(GULP)
-
 $(SASS): node_modules
 	touch $(SASS)
 
 define less2css
+	mkdir -p $(dir $(1))
 	npx lessc $(2) | npx postcss --no-map -o $(1)
+endef
+
+define es2js
+	mkdir -p $(dir $(1))
+	cat $(2) | \
+		npx babel -s false -f jsfile | \
+		npx uglifyjs -c -m -b beautify=false,ascii_only=true --comments '/license|copyright/i' -o $(1)
 endef
 
 web/static-assets/cc/cc-by.svg:
 	mkdir -p `dirname $@` || true
 	curl -o $@ http://mirrors.creativecommons.org/presskit/buttons/88x31/svg/by.svg
 
-resources/.compiled/stat.ink/main.js: $(JS_SRCS) $(GULP)
-	$(GULP) js --in 'resources/stat.ink/main.js/*.js' --out $@
+resources/.compiled/stat.ink/main.js: $(JS_SRCS) node_modules
+	$(call es2js,$@,$(JS_SRCS))
 
 resources/.compiled/stat.ink/main.css: resources/stat.ink/main.less node_modules
 	$(call less2css,$@,$<)
@@ -259,32 +263,32 @@ resources/.compiled/stat.ink/main.css: resources/stat.ink/main.less node_modules
 resources/.compiled/stat.ink/battle-thumb-list.css: resources/stat.ink/battle-thumb-list.less node_modules
 	$(call less2css,$@,$<)
 
-resources/.compiled/stat.ink/battle-thumb-list.js: resources/stat.ink/battle-thumb-list.es $(GULP)
-	$(GULP) js --in $< --out $@
+resources/.compiled/stat.ink/battle-thumb-list.js: resources/stat.ink/battle-thumb-list.es node_modules
+	$(call es2js,$@,$<)
 
 resources/.compiled/stat.ink/user-miniinfo.css: resources/stat.ink/user-miniinfo.less node_modules
 	$(call less2css,$@,$<)
 
-resources/.compiled/stat.ink/swipebox-runner.js: resources/stat.ink/swipebox-runner.es $(GULP)
-	$(GULP) js --in $< --out $@
+resources/.compiled/stat.ink/swipebox-runner.js: resources/stat.ink/swipebox-runner.es node_modules
+	$(call es2js,$@,$<)
 
 resources/.compiled/stat.ink/battles-simple.css: resources/stat.ink/battles-simple.less node_modules
 	$(call less2css,$@,$<)
 
-resources/.compiled/stat.ink/active-reltime.js: resources/stat.ink/active-reltime.js $(GULP)
-	$(GULP) js --in $< --out $@
+resources/.compiled/stat.ink/active-reltime.js: resources/stat.ink/active-reltime.js node_modules
+	$(call es2js,$@,$<)
 
-resources/.compiled/stat.ink/battle-edit.js: resources/stat.ink/battle-edit.js $(GULP)
-	$(GULP) js --in $< --out $@
+resources/.compiled/stat.ink/battle-edit.js: resources/stat.ink/battle-edit.js node_modules
+	$(call es2js,$@,$<)
 
 resources/.compiled/stat.ink/battle-input.css: resources/stat.ink/battle-input.less node_modules
 	$(call less2css,$@,$<)
 
-resources/.compiled/stat.ink/battle-input-2.js: resources/stat.ink/battle-input-2.es $(GULP)
-	$(GULP) js --in $< --out $@
+resources/.compiled/stat.ink/battle-input-2.js: resources/stat.ink/battle-input-2.es node_modules
+	$(call es2js,$@,$<)
 
-resources/.compiled/stat.ink/blackout-hint.js: resources/stat.ink/blackout-hint.js $(GULP)
-	$(GULP) js --in $< --out $@
+resources/.compiled/stat.ink/blackout-hint.js: resources/stat.ink/blackout-hint.js node_modules
+	$(call es2js,$@,$<)
 
 resources/.compiled/stat.ink/blackout-hint.css: resources/stat.ink/blackout-hint.less node_modules
 	$(call less2css,$@,$<)
@@ -292,94 +296,94 @@ resources/.compiled/stat.ink/blackout-hint.css: resources/stat.ink/blackout-hint
 resources/.compiled/stat.ink/downloads.css: resources/stat.ink/downloads.less node_modules
 	$(call less2css,$@,$<)
 
-resources/.compiled/stat.ink/weapons-use.js: resources/stat.ink/weapons-use.js $(GULP)
-	$(GULP) js --in $< --out $@
+resources/.compiled/stat.ink/weapons-use.js: resources/stat.ink/weapons-use.js node_modules
+	$(call es2js,$@,$<)
 
-resources/.compiled/stat.ink/weapons.js: resources/stat.ink/weapons.js $(GULP)
-	$(GULP) js --in $< --out $@
+resources/.compiled/stat.ink/weapons.js: resources/stat.ink/weapons.js node_modules
+	$(call es2js,$@,$<)
 
-WEAPON2_JS := $(shell ls -1 resources/stat.ink/weapon2.js/*.js)
-resources/.compiled/stat.ink/weapon2.js: $(WEAPON2_JS) $(GULP)
-	$(GULP) js --in 'resources/stat.ink/weapon2.js/*.js' --out $@
+WEAPON2_JS := $(wildcard resources/stat.ink/weapon2.js/*.js)
+resources/.compiled/stat.ink/weapon2.js: $(WEAPON2_JS) node_modules
+	$(call es2js,$@,$(WEAPON2_JS))
 
-resources/.compiled/stat.ink/knockout.js: resources/stat.ink/knockout.js $(GULP)
-	$(GULP) js --in $< --out $@
+resources/.compiled/stat.ink/knockout.js: resources/stat.ink/knockout.js node_modules
+	$(call es2js,$@,$<)
 
-resources/.compiled/stat.ink/user-stat-2-nawabari-inked.js: resources/stat.ink/user-stat-2-nawabari-inked.es $(GULP)
-	$(GULP) js --in $< --out $@
+resources/.compiled/stat.ink/user-stat-2-nawabari-inked.js: resources/stat.ink/user-stat-2-nawabari-inked.es node_modules
+	$(call es2js,$@,$<)
 
-resources/.compiled/stat.ink/user-stat-2-nawabari-winpct.js: resources/stat.ink/user-stat-2-nawabari-winpct.es $(GULP)
-	$(GULP) js --in $< --out $@
+resources/.compiled/stat.ink/user-stat-2-nawabari-winpct.js: resources/stat.ink/user-stat-2-nawabari-winpct.es node_modules
+	$(call es2js,$@,$<)
 
-resources/.compiled/stat.ink/user-stat-2-nawabari-stats.js: resources/stat.ink/user-stat-2-nawabari-stats.es $(GULP)
-	$(GULP) js --in $< --out $@
+resources/.compiled/stat.ink/user-stat-2-nawabari-stats.js: resources/stat.ink/user-stat-2-nawabari-stats.es node_modules
+	$(call es2js,$@,$<)
 
-resources/.compiled/stat.ink/user-stat-2-nawabari-runner.js: resources/stat.ink/user-stat-2-nawabari-runner.es $(GULP)
-	$(GULP) js --in $< --out $@
+resources/.compiled/stat.ink/user-stat-2-nawabari-runner.js: resources/stat.ink/user-stat-2-nawabari-runner.es node_modules
+	$(call es2js,$@,$<)
 
 resources/.compiled/stat.ink/user-stat-by-map-rule-detail.css: resources/stat.ink/user-stat-by-map-rule-detail.less node_modules
 	$(call less2css,$@,$<)
 
-resources/.compiled/stat.ink/battle2-players-point-inked.js: resources/stat.ink/battle2-players-point-inked.es $(GULP)
-	$(GULP) js --in $< --out $@
+resources/.compiled/stat.ink/battle2-players-point-inked.js: resources/stat.ink/battle2-players-point-inked.es node_modules
+	$(call es2js,$@,$<)
 
-resources/.compiled/stat.ink/kd-win.js: resources/stat.ink/kd-win.js $(GULP)
-	$(GULP) js --in $< --out $@
+resources/.compiled/stat.ink/kd-win.js: resources/stat.ink/kd-win.js node_modules
+	$(call es2js,$@,$<)
 
-resources/.compiled/stat.ink/agent.js: resources/stat.ink/agent.es $(GULP)
-	$(GULP) js --in $< --out $@
+resources/.compiled/stat.ink/agent.js: resources/stat.ink/agent.es node_modules
+	$(call es2js,$@,$<)
 
-resources/.compiled/stat.ink/battle-summary-dialog.js: resources/stat.ink/battle-summary-dialog.es $(GULP)
-	$(GULP) js --in $< --out $@
+resources/.compiled/stat.ink/battle-summary-dialog.js: resources/stat.ink/battle-summary-dialog.es node_modules
+	$(call es2js,$@,$<)
 
 resources/.compiled/stat.ink/battle-summary-dialog.css: resources/stat.ink/battle-summary-dialog.less node_modules
 	$(call less2css,$@,$<)
 
-resources/.compiled/stat.ink/permalink-dialog.js: resources/stat.ink/permalink-dialog.es $(GULP)
-	$(GULP) js --in $< --out $@
+resources/.compiled/stat.ink/permalink-dialog.js: resources/stat.ink/permalink-dialog.es node_modules
+	$(call es2js,$@,$<)
 
-resources/.compiled/stat.ink/private-note.js: resources/stat.ink/private-note.es $(GULP)
-	$(GULP) js --in $< --out $@
+resources/.compiled/stat.ink/private-note.js: resources/stat.ink/private-note.es node_modules
+	$(call es2js,$@,$<)
 
-resources/.compiled/stat.ink/salmon-work-list-config.js: resources/stat.ink/salmon-work-list-config.es $(GULP)
-	$(GULP) js --in $< --out $@
+resources/.compiled/stat.ink/salmon-work-list-config.js: resources/stat.ink/salmon-work-list-config.es node_modules
+	$(call es2js,$@,$<)
 
-resources/.compiled/stat.ink/salmon-work-list.js: resources/stat.ink/salmon-work-list.es $(GULP)
-	$(GULP) js --in $< --out $@
+resources/.compiled/stat.ink/salmon-work-list.js: resources/stat.ink/salmon-work-list.es node_modules
+	$(call es2js,$@,$<)
 
-resources/.compiled/stat.ink/salmon-work-list-hazard.js: resources/stat.ink/salmon-work-list-hazard.es $(GULP)
-	$(GULP) js --in $< --out $@
+resources/.compiled/stat.ink/salmon-work-list-hazard.js: resources/stat.ink/salmon-work-list-hazard.es node_modules
+	$(call es2js,$@,$<)
 
 resources/.compiled/stat.ink/theme.js: resources/stat.ink/theme.es
-	$(GULP) js --in $< --out $@
+	$(call es2js,$@,$<)
 
-resources/.compiled/ostatus/remote-follow.js: resources/ostatus/remote-follow.js $(GULP)
-	$(GULP) js --in $< --out $@
+resources/.compiled/ostatus/remote-follow.js: resources/ostatus/remote-follow.js node_modules
+	$(call es2js,$@,$<)
 
 resources/.compiled/ostatus/ostatus.svg:
 	mkdir -p $(dir $@)
 	curl -sSL -o $@ 'https://github.com/OStatus/assets/raw/master/ostatus.svg'
 
-resources/.compiled/gh-fork-ribbon/gh-fork-ribbon.js: resources/gh-fork-ribbon/gh-fork-ribbon.js $(GULP)
-	$(GULP) js --in $< --out $@
+resources/.compiled/gh-fork-ribbon/gh-fork-ribbon.js: resources/gh-fork-ribbon/gh-fork-ribbon.js node_modules
+	$(call es2js,$@,$<)
 
 resources/.compiled/gh-fork-ribbon/gh-fork-ribbon.css: resources/gh-fork-ribbon/gh-fork-ribbon.css node_modules
 	$(call less2css,$@,$<)
 
-resources/.compiled/flot-graph-icon/jquery.flot.icon.js: resources/flot-graph-icon/jquery.flot.icon.js $(GULP)
-	$(GULP) js --in $< --out $@
+resources/.compiled/flot-graph-icon/jquery.flot.icon.js: resources/flot-graph-icon/jquery.flot.icon.js node_modules
+	$(call es2js,$@,$<)
 
 resources/.compiled/flexbox/flexbox.css: resources/flexbox/flexbox.less node_modules
 	$(call less2css,$@,$<)
 
-resources/.compiled/gears/calc.js: resources/gears/calc.js $(GULP)
-	$(GULP) js --in $< --out $@
+resources/.compiled/gears/calc.js: resources/gears/calc.js node_modules
+	$(call es2js,$@,$<)
 
 resources/.compiled/stat.ink/browser-icon-widget.js: resources/stat.ink/browser-icon-widget.es
-	$(GULP) js --in $< --out $@
+	$(call es2js,$@,$<)
 
 resources/.compiled/stat.ink/os-icon-widget.js: resources/stat.ink/os-icon-widget.es
-	$(GULP) js --in $< --out $@
+	$(call es2js,$@,$<)
 
 resources/.compiled/stat.ink/no-image.png: resources/stat.ink/no-image.png
 	mkdir -p resources/.compiled/stat.ink || /bin/true
@@ -396,8 +400,8 @@ resources/.compiled/stat.ink/summary-legends.png: resources/stat.ink/summary-leg
 resources/.compiled/counter/counter.css: resources/counter/counter.scss $(SASS)
 	$(SASS) --style=compressed --no-source-map $< $@
 
-resources/.compiled/slack/slack.js: resources/slack/slack.js $(GULP)
-	$(GULP) js --in $< --out $@
+resources/.compiled/slack/slack.js: resources/slack/slack.js node_modules
+	$(call es2js,$@,$<)
 
 resources/app-link-logos/ikalog.png:
 	curl -o $@ 'https://cloud.githubusercontent.com/assets/2528004/17077116/6d613dca-50ff-11e6-9357-9ba894459444.png'
