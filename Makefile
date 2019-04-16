@@ -1,6 +1,5 @@
 STYLE_TARGETS := actions assets commands components controllers models
 JS_SRCS := $(shell ls -1 resources/stat.ink/main.js/*.js)
-SASS := ./node_modules/.bin/sass
 VENDOR_SHA256 := $(shell sha256sum -t composer.lock | awk '{print $$1}')
 
 RESOURCE_TARGETS_MAIN := \
@@ -235,9 +234,6 @@ composer.lock: composer.json composer.phar
 %.min.svg: %.svg node_modules
 	./node_modules/.bin/svgo --output $@ --input $< -q
 
-$(SASS): node_modules
-	touch $(SASS)
-
 define less2css
 	mkdir -p $(dir $(1))
 	npx lessc $(2) | npx postcss --no-map -o $(1)
@@ -397,8 +393,8 @@ resources/.compiled/stat.ink/summary-legends.png: resources/stat.ink/summary-leg
 	mkdir -p resources/.compiled/stat.ink || /bin/true
 	pngcrush -rem allb -l 9 resources/stat.ink/summary-legends.png resources/.compiled/stat.ink/summary-legends.png
 
-resources/.compiled/counter/counter.css: resources/counter/counter.scss $(SASS)
-	$(SASS) --style=compressed --no-source-map $< $@
+resources/.compiled/counter/counter.css: resources/counter/counter.less node_modules
+	$(call less2css,$@,$<)
 
 resources/.compiled/slack/slack.js: resources/slack/slack.js node_modules
 	$(call es2js,$@,$<)
