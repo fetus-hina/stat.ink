@@ -22,7 +22,6 @@
         "ext-zlib": "*",
 
         "bower-asset/bootstrap-toggle": "^2.2",
-        "bower-asset/bowser": "^1.9",
         "bower-asset/emojify.js": "^1.1",
         "bower-asset/github-fork-ribbon-css": "^0.1.1",
         "bower-asset/jquery": "^2.1",
@@ -32,9 +31,9 @@
         "bower-asset/swipebox": "^1.4",
         "bower-asset/uuid.js": "^3.3",
 
+        "npm-asset/bootswatch" : "3.*",
         "npm-asset/fortawesome--fontawesome-free": "^5.2",
         "npm-asset/rpg-awesome": "^1.0",
-        "npm-asset/bootswatch" : "3.*",
 
         "christian-riesen/base32": "^1.2",
         "cybercog/yii2-google-analytics": "^0.3.1",

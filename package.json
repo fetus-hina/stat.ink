@@ -6,11 +6,13 @@
     "email": "hina@bouhime.com"
   },
   "dependencies": {
+    "@babel/polyfill": "^7.4.3",
     "autoprefixer": "^7.1",
     "babel-core": "^6.26",
     "babel-polyfill": "^6.26",
     "babel-preset-env": "^1.7",
     "babel-register": "^6.26",
+    "bowser": "^2.3.0",
     "css-mqpacker": "^6.0",
     "csswring": "^6.0",
     "gulp": "^4.0.0",
