@@ -1,6 +1,3 @@
-import autoprefixer from 'autoprefixer';
-import cssMqpacker from 'css-mqpacker';
-import csswring from 'csswring';
 import gulp from 'gulp';
 import gulpLoadPlugins from 'gulp-load-plugins';
 import minimist from 'minimist';
@@ -10,45 +7,6 @@ import touch from 'gulp-touch-cmd';
 
 const $ = gulpLoadPlugins();
 const argv = minimist(process.argv.slice(2));
-
-gulp.task('css', () => {
-  return gulp.src(argv.in)
-    .pipe($.postcss([
-      autoprefixer({
-        browers: [
-          'last 2 versions',
-          'Firefox ESR',
-          '> 1%',
-          'not dead',
-        ],
-      }),
-      cssMqpacker(),
-      csswring(),
-    ]))
-    .pipe($.rename(path.basename(argv.out)))
-    .pipe(gulp.dest(path.dirname(argv.out)))
-    .pipe(touch());
-});
-
-gulp.task('less', () => {
-  return gulp.src(argv.in)
-    .pipe($.less())
-    .pipe($.postcss([
-      autoprefixer({
-        browers: [
-          'last 2 versions',
-          'Firefox ESR',
-          '> 1%',
-          'not dead',
-        ],
-      }),
-      cssMqpacker(),
-      csswring(),
-    ]))
-    .pipe($.rename(path.basename(argv.out)))
-    .pipe(gulp.dest(path.dirname(argv.out)))
-    .pipe(touch());
-});
 
 gulp.task('js', () => {
   return gulp.src(argv.in)

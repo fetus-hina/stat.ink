@@ -242,6 +242,10 @@ $(GULP): node_modules
 $(SASS): node_modules
 	touch $(SASS)
 
+define less2css
+	npx lessc $(2) | npx postcss --no-map -o $(1)
+endef
+
 web/static-assets/cc/cc-by.svg:
 	mkdir -p `dirname $@` || true
 	curl -o $@ http://mirrors.creativecommons.org/presskit/buttons/88x31/svg/by.svg
@@ -249,23 +253,23 @@ web/static-assets/cc/cc-by.svg:
 resources/.compiled/stat.ink/main.js: $(JS_SRCS) $(GULP)
 	$(GULP) js --in 'resources/stat.ink/main.js/*.js' --out $@
 
-resources/.compiled/stat.ink/main.css: resources/stat.ink/main.less $(GULP)
-	$(GULP) less --in $< --out $@
+resources/.compiled/stat.ink/main.css: resources/stat.ink/main.less node_modules
+	$(call less2css,$@,$<)
 
-resources/.compiled/stat.ink/battle-thumb-list.css: resources/stat.ink/battle-thumb-list.less $(GULP)
-	$(GULP) less --in $< --out $@
+resources/.compiled/stat.ink/battle-thumb-list.css: resources/stat.ink/battle-thumb-list.less node_modules
+	$(call less2css,$@,$<)
 
 resources/.compiled/stat.ink/battle-thumb-list.js: resources/stat.ink/battle-thumb-list.es $(GULP)
 	$(GULP) js --in $< --out $@
 
-resources/.compiled/stat.ink/user-miniinfo.css: resources/stat.ink/user-miniinfo.less $(GULP)
-	$(GULP) less --in $< --out $@
+resources/.compiled/stat.ink/user-miniinfo.css: resources/stat.ink/user-miniinfo.less node_modules
+	$(call less2css,$@,$<)
 
 resources/.compiled/stat.ink/swipebox-runner.js: resources/stat.ink/swipebox-runner.es $(GULP)
 	$(GULP) js --in $< --out $@
 
-resources/.compiled/stat.ink/battles-simple.css: resources/stat.ink/battles-simple.less $(GULP)
-	$(GULP) less --in $< --out $@
+resources/.compiled/stat.ink/battles-simple.css: resources/stat.ink/battles-simple.less node_modules
+	$(call less2css,$@,$<)
 
 resources/.compiled/stat.ink/active-reltime.js: resources/stat.ink/active-reltime.js $(GULP)
 	$(GULP) js --in $< --out $@
@@ -273,8 +277,8 @@ resources/.compiled/stat.ink/active-reltime.js: resources/stat.ink/active-reltim
 resources/.compiled/stat.ink/battle-edit.js: resources/stat.ink/battle-edit.js $(GULP)
 	$(GULP) js --in $< --out $@
 
-resources/.compiled/stat.ink/battle-input.css: resources/stat.ink/battle-input.less $(GULP)
-	$(GULP) less --in $< --out $@
+resources/.compiled/stat.ink/battle-input.css: resources/stat.ink/battle-input.less node_modules
+	$(call less2css,$@,$<)
 
 resources/.compiled/stat.ink/battle-input-2.js: resources/stat.ink/battle-input-2.es $(GULP)
 	$(GULP) js --in $< --out $@
@@ -282,11 +286,11 @@ resources/.compiled/stat.ink/battle-input-2.js: resources/stat.ink/battle-input-
 resources/.compiled/stat.ink/blackout-hint.js: resources/stat.ink/blackout-hint.js $(GULP)
 	$(GULP) js --in $< --out $@
 
-resources/.compiled/stat.ink/blackout-hint.css: resources/stat.ink/blackout-hint.less $(GULP)
-	$(GULP) less --in $< --out $@
+resources/.compiled/stat.ink/blackout-hint.css: resources/stat.ink/blackout-hint.less node_modules
+	$(call less2css,$@,$<)
 
-resources/.compiled/stat.ink/downloads.css: resources/stat.ink/downloads.less $(GULP)
-	$(GULP) less --in $< --out $@
+resources/.compiled/stat.ink/downloads.css: resources/stat.ink/downloads.less node_modules
+	$(call less2css,$@,$<)
 
 resources/.compiled/stat.ink/weapons-use.js: resources/stat.ink/weapons-use.js $(GULP)
 	$(GULP) js --in $< --out $@
@@ -313,8 +317,8 @@ resources/.compiled/stat.ink/user-stat-2-nawabari-stats.js: resources/stat.ink/u
 resources/.compiled/stat.ink/user-stat-2-nawabari-runner.js: resources/stat.ink/user-stat-2-nawabari-runner.es $(GULP)
 	$(GULP) js --in $< --out $@
 
-resources/.compiled/stat.ink/user-stat-by-map-rule-detail.css: resources/stat.ink/user-stat-by-map-rule-detail.less $(GULP)
-	$(GULP) less --in $< --out $@
+resources/.compiled/stat.ink/user-stat-by-map-rule-detail.css: resources/stat.ink/user-stat-by-map-rule-detail.less node_modules
+	$(call less2css,$@,$<)
 
 resources/.compiled/stat.ink/battle2-players-point-inked.js: resources/stat.ink/battle2-players-point-inked.es $(GULP)
 	$(GULP) js --in $< --out $@
@@ -328,8 +332,8 @@ resources/.compiled/stat.ink/agent.js: resources/stat.ink/agent.es $(GULP)
 resources/.compiled/stat.ink/battle-summary-dialog.js: resources/stat.ink/battle-summary-dialog.es $(GULP)
 	$(GULP) js --in $< --out $@
 
-resources/.compiled/stat.ink/battle-summary-dialog.css: resources/stat.ink/battle-summary-dialog.less $(GULP)
-	$(GULP) less --in $< --out $@
+resources/.compiled/stat.ink/battle-summary-dialog.css: resources/stat.ink/battle-summary-dialog.less node_modules
+	$(call less2css,$@,$<)
 
 resources/.compiled/stat.ink/permalink-dialog.js: resources/stat.ink/permalink-dialog.es $(GULP)
 	$(GULP) js --in $< --out $@
@@ -359,14 +363,14 @@ resources/.compiled/ostatus/ostatus.svg:
 resources/.compiled/gh-fork-ribbon/gh-fork-ribbon.js: resources/gh-fork-ribbon/gh-fork-ribbon.js $(GULP)
 	$(GULP) js --in $< --out $@
 
-resources/.compiled/gh-fork-ribbon/gh-fork-ribbon.css: resources/gh-fork-ribbon/gh-fork-ribbon.css $(GULP)
-	$(GULP) css --in $< --out $@
+resources/.compiled/gh-fork-ribbon/gh-fork-ribbon.css: resources/gh-fork-ribbon/gh-fork-ribbon.css node_modules
+	$(call less2css,$@,$<)
 
 resources/.compiled/flot-graph-icon/jquery.flot.icon.js: resources/flot-graph-icon/jquery.flot.icon.js $(GULP)
 	$(GULP) js --in $< --out $@
 
-resources/.compiled/flexbox/flexbox.css: resources/flexbox/flexbox.less $(GULP)
-	$(GULP) less --in $< --out $@
+resources/.compiled/flexbox/flexbox.css: resources/flexbox/flexbox.less node_modules
+	$(call less2css,$@,$<)
 
 resources/.compiled/gears/calc.js: resources/gears/calc.js $(GULP)
 	$(GULP) js --in $< --out $@
