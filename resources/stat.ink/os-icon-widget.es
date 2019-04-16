@@ -1,7 +1,7 @@
-/*! Copyright (C) 2015-2018 AIZAWA Hina | MIT License */
+/*! Copyright (C) 2015-2019 AIZAWA Hina | MIT License */
 (($, bowser) => {
   const createIcon = options => {
-    const info = bowser(options.ua);
+    const info = bowser.parse(options.ua);
     const base = options.logos;
     const make = key => {
       const $img = $('<img>', {
@@ -13,23 +13,25 @@
       });
     };
 
-    if (info.mac) {
-      return make('macosx');
-    }
-    if (info.windows || info.windowsphone) {
-      return make('microsoft-windows');
-    }
-    if (info.chromeos) {
-      return make('chrome');
-    }
-    if (info.android) {
-      return make('android-icon');
-    }
-    if (info.ios) {
-      return make('ios');
-    }
-    if (info.linux) {
-      return make('linux-tux');
+    switch (info.os.name) {
+      case 'macOS':
+        return make('macosx');
+
+      case 'Windows':
+      case 'Windows Phone':
+        return make('microsoft-windows');
+
+      case 'Chrome OS':
+        return make('chrome');
+
+      case 'Android':
+        return make('android-icon');
+
+      case 'iOS':
+        return make('ios');
+
+      case 'Linux':
+        return make('linux-tux');
     }
     return '';
   };
@@ -40,4 +42,4 @@
       $this.empty().append(createIcon(options));
     });
   };
-})(jQuery, bowser.detect);
+})(jQuery, bowser);

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "26b0d82cec9ec62d1972aca6b128db69",
+    "content-hash": "ea1441a773abd7ca5589e77c6e8a46bb",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -39,24 +39,6 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/minhur/bootstrap-toggle/zipball/187e332b7431afe3d0c07eeef92782ce59a77d66",
                 "reference": "187e332b7431afe3d0c07eeef92782ce59a77d66"
-            },
-            "type": "bower-asset",
-            "license": [
-                "MIT"
-            ]
-        },
-        {
-            "name": "bower-asset/bowser",
-            "version": "1.9.4",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/lancedikson/bowser.git",
-                "reference": "1fb99ced0e8834fd9662604bad7e0f0c3eba2786"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/lancedikson/bowser/zipball/1fb99ced0e8834fd9662604bad7e0f0c3eba2786",
-                "reference": "1fb99ced0e8834fd9662604bad7e0f0c3eba2786"
             },
             "type": "bower-asset",
             "license": [
