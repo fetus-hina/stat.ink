@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 use app\assets\DownloadsPageAsset;
 use app\models\Language;
 use hiqdev\assets\flagiconcss\FlagIconCssAsset;
@@ -15,7 +17,8 @@ $langs = Language::find()
   ->all();
 ?>
 <ul class="dl-langs">
-<?php foreach ($langs as $lang): ?>
+<?php foreach ($langs as $lang) { ?>
+<?php if ($lang['languageCharsets']) { ?>
   <li>
     <?= Html::tag(
       'span',
@@ -29,7 +32,7 @@ $langs = Language::find()
       ['class' => 'lang']
     ) . "\n" ?>
     <span class="charsets">
-<?php foreach ($lang['languageCharsets'] as $_charset): ?>
+<?php foreach ($lang['languageCharsets'] as $_charset) { ?>
 <?php $charset = $_charset['charset'] ?>
       <span class="charset">
         <?= Html::a(
@@ -49,7 +52,7 @@ $langs = Language::find()
           ]
         ) . "\n" ?>
       </span>
-<?php if ($charset['name'] === 'UTF-8'): ?>
+<?php if ($charset['name'] === 'UTF-8') { ?>
         <span class="charset">
           <?= Html::a(
             Html::encode($charset['name']) . '(BOM)',
@@ -64,7 +67,7 @@ $langs = Language::find()
             ]
           ) . "\n" ?>
         </span>
-<?php elseif ($charset['name'] === 'UTF-16LE'): ?>
+<?php } elseif ($charset['name'] === 'UTF-16LE') { ?>
         <span class="charset">
           <?= Html::a(
             Html::encode($charset['name']) . '(TSV)',
@@ -79,9 +82,10 @@ $langs = Language::find()
             ]
           ) . "\n" ?>
         </span>
-<?php endif ?>
-<?php endforeach ?>
+<?php } ?>
+<?php } ?>
     </span>
   </li>
-<?php endforeach ?>
+<?php } ?>
+<?php } ?>
 </ul>
