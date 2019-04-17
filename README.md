@@ -4,6 +4,7 @@ stat.ink
 [![Yii2](https://img.shields.io/badge/Powered_by-Yii_Framework-green.svg?style=flat)](http://www.yiiframework.com/)
 [![MIT License](https://img.shields.io/github/license/fetus-hina/stat.ink.svg)](https://github.com/fetus-hina/stat.ink/blob/master/LICENSE)
 [![CircleCI](https://circleci.com/gh/fetus-hina/stat.ink/tree/master.svg?style=svg)](https://circleci.com/gh/fetus-hina/stat.ink/tree/master)
+[![Greenkeeper badge](https://badges.greenkeeper.io/fetus-hina/stat.ink.svg)](https://greenkeeper.io/)
 
 Source codes for https://stat.ink/
 

@@ -10,7 +10,7 @@
     "@babel/core": "^7.4.3",
     "@babel/polyfill": "^7.4.3",
     "@babel/preset-env": "^7.4.3",
-    "autoprefixer": "^7.1",
+    "autoprefixer": "^9.5.1",
     "bowser": "^2.3.0",
     "cssnano": "^4.1.10",
     "less": "^3.9.0",
@@ -19,6 +19,6 @@
     "speccy": "^0.9.0",
     "svgo": "^1.2.2",
     "uglify-js": "^3.5.4",
-    "updates": "^4.1"
+    "updates": "^8.0.1"
   }
 }
