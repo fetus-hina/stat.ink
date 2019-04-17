@@ -210,7 +210,7 @@ POSSIBILITY OF SUCH DAMAGE.
 ライセンス（ドキュメント類） LICENSE (DOCUMENTS)
 ----------------------------------------------
 
-[![CC-BY 4.0](https://stat.ink/static-assets/cc/cc-by.svg)](http://creativecommons.org/licenses/by/4.0/deed.ja)
+[![CC-BY 4.0](https://stat.ink/static-assets/cc/cc-by.svg)](http://creativecommons.org/licenses/by/4.0/deed.ja) [![Greenkeeper badge](https://badges.greenkeeper.io/fetus-hina/stat.ink.svg)](https://greenkeeper.io/)
 
 ドキュメント類のライセンスは[Creative Commons - 表示 4.0 国際](http://creativecommons.org/licenses/by/4.0/deed.ja)の下にライセンスされています。
 
