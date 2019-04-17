@@ -4,6 +4,7 @@ stat.ink
 [![Yii2](https://img.shields.io/badge/Powered_by-Yii_Framework-green.svg?style=flat)](http://www.yiiframework.com/)
 [![MIT License](https://img.shields.io/github/license/fetus-hina/stat.ink.svg)](https://github.com/fetus-hina/stat.ink/blob/master/LICENSE)
 [![CircleCI](https://circleci.com/gh/fetus-hina/stat.ink/tree/master.svg?style=svg)](https://circleci.com/gh/fetus-hina/stat.ink/tree/master)
+[![Greenkeeper badge](https://badges.greenkeeper.io/fetus-hina/stat.ink.svg)](https://greenkeeper.io/)
 
 Source codes for https://stat.ink/
 
@@ -210,7 +211,7 @@ POSSIBILITY OF SUCH DAMAGE.
 ライセンス（ドキュメント類） LICENSE (DOCUMENTS)
 ----------------------------------------------
 
-[![CC-BY 4.0](https://stat.ink/static-assets/cc/cc-by.svg)](http://creativecommons.org/licenses/by/4.0/deed.ja) [![Greenkeeper badge](https://badges.greenkeeper.io/fetus-hina/stat.ink.svg)](https://greenkeeper.io/)
+[![CC-BY 4.0](https://stat.ink/static-assets/cc/cc-by.svg)](http://creativecommons.org/licenses/by/4.0/deed.ja)
 
 ドキュメント類のライセンスは[Creative Commons - 表示 4.0 国際](http://creativecommons.org/licenses/by/4.0/deed.ja)の下にライセンスされています。
 
