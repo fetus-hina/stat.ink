@@ -163,7 +163,11 @@ if ($blogEntries):
               Html::encode(
                 Yii::$app->formatter->asRelativeTime($t)
               ),
-              ['datetime' => $t->format(DateTime::ATOM)]
+              [
+                'datetime' => $t->format(DateTime::ATOM),
+                'title' => Yii::$app->formatter->asDateTime($t, 'medium'),
+                'class' => 'auto-tooltip',
+              ]
             ),
           ]),
           []

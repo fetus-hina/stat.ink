@@ -1,13 +1,17 @@
 <?php
 /**
- * @copyright Copyright (C) 2015-2016 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  */
 
+declare(strict_types=1);
+
 namespace app\models;
 
 use Yii;
+use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "language".
@@ -17,40 +21,39 @@ use Yii;
  * @property string $name
  * @property string $name_en
  * @property integer $support_level_id
+ * @property array $di
  *
+ * @property SupportLevel $supportLevel
  * @property LanguageCharset[] $languageCharsets
  * @property Charset[] $charsets
  * @property Slack[] $slacks
- * @property SupportLevel $supportLevel
+ * @property User[] $users
  */
-class Language extends \yii\db\ActiveRecord
+class Language extends ActiveRecord
 {
-    /**
-     * @inheritdoc
-     */
     public static function tableName()
     {
         return 'language';
     }
 
-    /**
-     * @inheritdoc
-     */
     public function rules()
     {
         return [
-            [['lang', 'name', 'name_en'], 'required'],
-            [['lang'], 'string', 'max' => 5],
-            [['name', 'name_en'], 'string', 'max' => 32],
+            [['lang', 'name', 'name_en', 'support_level_id'], 'required'],
+            [['support_level_id'], 'default', 'value' => null],
+            [['support_level_id'], 'integer'],
+            [['di'], 'safe'],
+            [['lang', 'name', 'name_en'], 'string', 'max' => 32],
             [['lang'], 'unique'],
             [['name_en'], 'unique'],
             [['name'], 'unique'],
+            [['support_level_id'], 'exist', 'skipOnError' => true,
+                'targetClass' => SupportLevel::class,
+                'targetAttribute' => ['support_level_id' => 'id'],
+            ],
         ];
     }
 
-    /**
-     * @inheritdoc
-     */
     public function attributeLabels()
     {
         return [
@@ -58,54 +61,61 @@ class Language extends \yii\db\ActiveRecord
             'lang' => 'Lang',
             'name' => 'Name',
             'name_en' => 'Name En',
+            'support_level_id' => 'Support Level ID',
+            'di' => 'Di',
         ];
     }
 
-    public function getLanguageCode() : string
+    public function getLanguageId(): string
+    {
+        return vsprintf('%s-%s', $this->splitLangId());
+    }
+
+    public function getLanguageCode(): string
     {
         return $this->splitLangId()[0];
     }
 
-    public function getCountryCode() : string
+    public function getCountryCode(): string
     {
         return strtolower($this->splitLangId()[1]);
     }
 
-    private function splitLangId() : array
+    private function splitLangId(): array
     {
-        return explode('-', $this->lang);
+        if (!preg_match('/^(\w+)[-_](\w+)/', $this->lang, $match)) {
+            throw new \Exception('Invalid language format: ' . $this->lang);
+        }
+
+        return [
+            $match[1],
+            $match[2],
+        ];
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getLanguageCharsets()
+    public function getSupportLevel(): ActiveQuery
+    {
+        return $this->hasOne(SupportLevel::class, ['id' => 'support_level_id']);
+    }
+
+    public function getLanguageCharsets(): ActiveQuery
     {
         return $this->hasMany(LanguageCharset::class, ['language_id' => 'id']);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getCharsets()
+    public function getCharsets(): ActiveQuery
     {
         return $this->hasMany(Charset::class, ['id' => 'charset_id'])
             ->viaTable('language_charset', ['language_id' => 'id']);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getSlacks()
+    public function getSlacks(): ActiveQuery
     {
         return $this->hasMany(Slack::class, ['language_id' => 'id']);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getSupportLevel()
+    public function getUsers(): ActiveQuery
     {
-        return $this->hasOne(SupportLevel::class, ['id' => 'support_level_id']);
+        return $this->hasMany(User::class, ['default_language_id' => 'id']);
     }
 }

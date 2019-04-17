@@ -710,25 +710,6 @@ $this->registerCss('#battle .progress{margin-bottom:0}');
           return null;
         }
         return null;
-        // <tr>
-        //   <th>{{'Cause of Death'|translate:'app'|escape}}</th>
-        //   <td>
-        //     <table>
-        //       <tbody>
-        //         {{foreach $deathReasons as $deathReason}}
-        //           <tr>
-        //             <td>{{$deathReason->reason->translatedName|default:'?'|escape}}</td>
-        //             <td style="padding:0 10px">:</td>
-        //             <td>
-        //               {{$params = ['n' => $deathReason->count, 'nFormatted' => $app->formatter->asDecimal($deathReason->count)]}}
-        //               {{"{nFormatted} {n, plural, =1{time} other{times}}"|translate:'app':$params|escape}}
-        //             </td>
-        //           </tr>
-        //         {{/foreach}}
-        //       </tbody>
-        //     </table>
-        //   </td>
-        // </tr>
       },
       // }}}
     ],
@@ -848,6 +829,7 @@ $this->registerCss('#battle .progress{margin-bottom:0}');
           TimestampColumnWidget::widget([
             'value' => $model->start_at,
             'showRelative' => true,
+            'formatter' => $fmt,
           ]),
           $periodFrom && $periodTo
             ? Html::a(

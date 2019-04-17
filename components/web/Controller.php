@@ -28,32 +28,48 @@ class Controller extends Base
 
     private function setLanguage(): void
     {
-        $lang = (function () {
+        $lang = (function (): ?Language {
             if ($val = $this->detectLanguageByParam()) {
                 return $val;
             }
+
             if ($val = $this->detectLanguageByCookie()) {
                 return $val;
             }
+
             if ($val = $this->detectLanguageByHeader()) {
                 return $val;
             }
+
             return null;
         })();
+
         if ($lang) {
-            Yii::$app->language = $lang;
+            Yii::$app->language = $lang->lang;
+            if ($lang->di) {
+                $di = is_string($lang->di) ? json_decode($lang->di, true) : $lang->di;
+                if (is_array($di)) {
+                    foreach ($di as $component => $data) {
+                        foreach ($data as $key => $value) {
+                            Yii::$app->$component->$key = $value;
+                        }
+                    }
+                }
+            }
         }
     }
 
-    private function detectLanguageByParam()
+    private function detectLanguageByParam(): ?Language
     {
         $param = Yii::$app->request->get('_lang_');
         if (!is_scalar($param)) {
-            return false;
+            return null;
         }
+
         if (!$lang = Language::findOne(['lang' => (string)$param])) {
-            return false;
+            return null;
         }
+
         if ($this->detectLanguageByCookie() === false) {
             Yii::$app->response->cookies->add(
                 new Cookie([
@@ -63,22 +79,25 @@ class Controller extends Base
                 ])
             );
         }
-        return $lang->lang;
+
+        return $lang;
     }
 
-    private function detectLanguageByCookie()
+    private function detectLanguageByCookie(): ?Language
     {
         $cookie = Yii::$app->request->cookies->get('language');
         if (!$cookie) {
-            return false;
+            return null;
         }
+
         if (!$lang = Language::findOne(['lang' => $cookie->value])) {
-            return false;
+            return null;
         }
-        return $lang->lang;
+
+        return $lang;
     }
 
-    private function detectLanguageByHeader()
+    private function detectLanguageByHeader(): ?Language
     {
         $request = Yii::$app->request;
         $userAgent   = trim($request->userAgent);
@@ -91,7 +110,7 @@ class Controller extends Base
                 stripos($userAgent, 'http://') !== false ||
                 stripos($userAgent, 'https://') !== false
         ) {
-            return false;
+            return null;
         }
 
         //FIXME
@@ -99,30 +118,36 @@ class Controller extends Base
         $firstLangShort = substr($firstLang, 0, 2);
         switch ($firstLangShort) {
             case 'ja':
-                return 'ja-JP';
+                return Language::findOne(['lang' => 'ja-JP']);
 
             case 'en':
-                return ($firstLang === 'en-gb' || $firstLang === 'en-au')
-                    ? 'en-GB'
-                    : 'en-US';
+                return Language::findOne([
+                    'lang' => ($firstLang === 'en-gb' || $firstLang === 'en-au')
+                        ? 'en-GB'
+                        : 'en-US',
+                ]);
 
             case 'es':
-                return $firstLang === 'es-es' ? 'es-ES' : 'es-MX';
+                return Language::findOne([
+                    'lang' => $firstLang === 'es-es' ? 'es-ES' : 'es-MX',
+                ]);
 
             case 'fr':
-                return $firstLang === 'fr-ca' ? 'fr-CA' : 'fr-FR';
+                return Language::findOne([
+                    'lang' => $firstLang === 'fr-ca' ? 'fr-CA' : 'fr-FR',
+                ]);
 
             case 'it':
-                return 'it-IT';
+                return Language::findOne(['lang' => 'it-IT']);
 
             case 'ru':
-                return 'ru-RU';
+                return Language::findOne(['lang' => 'ru-RU']);
 
             case 'nl':
-                return 'nl-NL';
+                return Language::findOne(['lang' => 'nl-NL']);
 
             default:
-                return false;
+                return null;
         }
     }
 

@@ -14,10 +14,8 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\DetailView;
 
-$formatter = Yii::createObject([
-  'class' => Formatter::class,
-  'nullDisplay' => '',
-]);
+$formatter = clone Yii::$app->formatter;
+$formatter->nullDisplay = '';
 
 $widget = Yii::createObject([
   'class' => DetailView::class,
