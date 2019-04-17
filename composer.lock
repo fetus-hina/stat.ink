@@ -3016,20 +3016,23 @@
         },
         {
             "name": "yiisoft/yii2-httpclient",
-            "version": "2.0.7",
+            "version": "2.0.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-httpclient.git",
-                "reference": "360b0f9c0855709b3370d486a4de435022fb3926"
+                "reference": "4a41e008aa571bce690e4a992dedb61275d31a35"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-httpclient/zipball/360b0f9c0855709b3370d486a4de435022fb3926",
-                "reference": "360b0f9c0855709b3370d486a4de435022fb3926",
+                "url": "https://api.github.com/repos/yiisoft/yii2-httpclient/zipball/4a41e008aa571bce690e4a992dedb61275d31a35",
+                "reference": "4a41e008aa571bce690e4a992dedb61275d31a35",
                 "shasum": ""
             },
             "require": {
                 "yiisoft/yii2": "~2.0.13"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.8.27|~5.7.21|^6.2"
             },
             "type": "yii2-extension",
             "extra": {
@@ -3059,25 +3062,29 @@
                 "httpclient",
                 "yii2"
             ],
-            "time": "2018-09-23T21:53:35+00:00"
+            "time": "2019-04-16T12:34:40+00:00"
         },
         {
             "name": "yiisoft/yii2-smarty",
-            "version": "2.0.7",
+            "version": "2.0.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-smarty.git",
-                "reference": "f4bfa622f48ed6333fd4e2eb27990b2082c51008"
+                "reference": "930c2525e1d1e198a2cec998b235b3d0eaa67f23"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-smarty/zipball/f4bfa622f48ed6333fd4e2eb27990b2082c51008",
-                "reference": "f4bfa622f48ed6333fd4e2eb27990b2082c51008",
+                "url": "https://api.github.com/repos/yiisoft/yii2-smarty/zipball/930c2525e1d1e198a2cec998b235b3d0eaa67f23",
+                "reference": "930c2525e1d1e198a2cec998b235b3d0eaa67f23",
                 "shasum": ""
             },
             "require": {
                 "smarty/smarty": "~3.1.0",
                 "yiisoft/yii2": "~2.0.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "<7",
+                "yiisoft/yii2-coding-standards": "~2.0"
             },
             "type": "yii2-extension",
             "extra": {
@@ -3106,7 +3113,7 @@
                 "smarty",
                 "yii2"
             ],
-            "time": "2018-04-24T23:07:14+00:00"
+            "time": "2019-04-16T10:17:14+00:00"
         },
         {
             "name": "zendframework/zend-escaper",
