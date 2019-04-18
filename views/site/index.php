@@ -1,5 +1,6 @@
 <?php
 use app\components\helpers\CombinedBattles;
+use app\components\widgets\BlogEntryWidget;
 use app\components\widgets\DigitalCounter;
 use app\components\widgets\FA;
 use app\components\widgets\HappyNewYearWidget;
@@ -140,43 +141,7 @@ PaintballAsset::register($this);
     ]) . "\n" ?>
   </p>
   <?= SnsWidget::widget() . "\n" ?>
-<?php $blogEntries = BlogEntry::find()
-  ->orderBy(['at' => SORT_DESC])
-  ->limit(3)
-  ->asArray()
-  ->all();
-if ($blogEntries):
-?>
-  <p class="bg-success" style="padding:15px;border-radius:10px">
-    <?= implode(' | ', array_map(
-      function (array $entry) : string {
-        $t = (new DateTimeImmutable($entry['at']))->setTimeZone(new DateTimeZone(Yii::$app->timeZone));
-        return Html::tag(
-          'span',
-          vsprintf('%s (%s)', [
-            Html::a(
-              Html::encode($entry['title']),
-              $entry['url']
-            ),
-            Html::tag(
-              'time',
-              Html::encode(
-                Yii::$app->formatter->asRelativeTime($t)
-              ),
-              [
-                'datetime' => $t->format(DateTime::ATOM),
-                'title' => Yii::$app->formatter->asDateTime($t, 'medium'),
-                'class' => 'auto-tooltip',
-              ]
-            ),
-          ]),
-          []
-        );
-      },
-      $blogEntries
-    )) . "\n" ?>
-  </p>
-<?php endif; ?>
+  <?= BlogEntryWidget::widget() . "\n" ?>
 
   <?= $this->render('_index_schedule') . "\n" ?>
 

@@ -23,10 +23,10 @@ RESOURCE_TARGETS_MAIN := \
 	resources/.compiled/gears/calc.js \
 	resources/.compiled/gh-fork-ribbon/gh-fork-ribbon.css \
 	resources/.compiled/gh-fork-ribbon/gh-fork-ribbon.js \
-	resources/.compiled/irasutoya/inkling.png \
-	resources/.compiled/irasutoya/octoling.png \
 	resources/.compiled/irasutoya/eto/0.png \
 	resources/.compiled/irasutoya/eto/1.png \
+	resources/.compiled/irasutoya/eto/10.png \
+	resources/.compiled/irasutoya/eto/11.png \
 	resources/.compiled/irasutoya/eto/2.png \
 	resources/.compiled/irasutoya/eto/3.png \
 	resources/.compiled/irasutoya/eto/4.png \
@@ -35,8 +35,8 @@ RESOURCE_TARGETS_MAIN := \
 	resources/.compiled/irasutoya/eto/7.png \
 	resources/.compiled/irasutoya/eto/8.png \
 	resources/.compiled/irasutoya/eto/9.png \
-	resources/.compiled/irasutoya/eto/10.png \
-	resources/.compiled/irasutoya/eto/11.png \
+	resources/.compiled/irasutoya/inkling.png \
+	resources/.compiled/irasutoya/octoling.png \
 	resources/.compiled/ostatus/ostatus.min.svg \
 	resources/.compiled/ostatus/ostatus.min.svg.br \
 	resources/.compiled/ostatus/ostatus.min.svg.gz \
@@ -55,6 +55,7 @@ RESOURCE_TARGETS_MAIN := \
 	resources/.compiled/stat.ink/battles-simple.css \
 	resources/.compiled/stat.ink/blackout-hint.css \
 	resources/.compiled/stat.ink/blackout-hint.js \
+	resources/.compiled/stat.ink/blog-entries.css \
 	resources/.compiled/stat.ink/browser-icon-widget.js \
 	resources/.compiled/stat.ink/downloads.css \
 	resources/.compiled/stat.ink/favicon.png \
@@ -261,6 +262,9 @@ resources/.compiled/stat.ink/battle-thumb-list.css: resources/stat.ink/battle-th
 
 resources/.compiled/stat.ink/battle-thumb-list.js: resources/stat.ink/battle-thumb-list.es node_modules
 	$(call es2js,$@,$<)
+
+resources/.compiled/stat.ink/blog-entries.css: resources/stat.ink/blog-entries.less node_modules
+	$(call less2css,$@,$<)
 
 resources/.compiled/stat.ink/user-miniinfo.css: resources/stat.ink/user-miniinfo.less node_modules
 	$(call less2css,$@,$<)
