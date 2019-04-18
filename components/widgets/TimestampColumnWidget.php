@@ -28,10 +28,8 @@ class TimestampColumnWidget extends Widget
         parent::init();
 
         if (!$this->formatter) {
-            $this->formatter = Yii::createObject([
-                'class' => Formatter::class,
-                'nullDisplay' => '',
-            ]);
+            $this->formatter = clone Yii::$app->formatter;
+            $this->formatter->nullDisplay = '';
         } elseif (is_array($this->formatter)) {
             $this->formatter = Yii::createObject($this->formatter);
         }

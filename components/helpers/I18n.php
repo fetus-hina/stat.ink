@@ -33,9 +33,9 @@ class I18n
 
 
         $ret = [];
-        foreach (Language::find()->asArray()->all() as $lang) {
+        foreach (Language::find()->all() as $lang) {
             $newParams = array_merge(
-                [$route, '_lang_' => $lang['lang']],
+                [$route, '_lang_' => $lang->lang],
                 $params
             );
             $ret[] = Html::tag(
@@ -43,7 +43,7 @@ class I18n
                 '',
                 [
                     'rel' => 'alternate',
-                    'hreflang' => $lang['lang'],
+                    'hreflang' => $lang->languageId,
                     'href' => Url::to($newParams, true),
                 ]
             );

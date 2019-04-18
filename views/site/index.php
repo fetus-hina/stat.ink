@@ -1,5 +1,6 @@
 <?php
 use app\components\helpers\CombinedBattles;
+use app\components\widgets\BlogEntryWidget;
 use app\components\widgets\DigitalCounter;
 use app\components\widgets\FA;
 use app\components\widgets\HappyNewYearWidget;
@@ -39,7 +40,7 @@ PaintballAsset::register($this);
     </div>
   </div>
   <?= HappyNewYearWidget::widget() . "\n" ?>
-<?php if (Yii::$app->language === 'ja-JP'): ?>
+<?php if (substr(Yii::$app->language, 0, 2) === 'ja'): ?>
   <div class="bg-danger" style="margin-bottom:15px;padding:15px;border-radius:10px">
     <p>
       SquidTracks や splatnet2statink をご利用の方は、必ず最新版にアップデートを行ってください。<br>
@@ -140,39 +141,7 @@ PaintballAsset::register($this);
     ]) . "\n" ?>
   </p>
   <?= SnsWidget::widget() . "\n" ?>
-<?php $blogEntries = BlogEntry::find()
-  ->orderBy(['at' => SORT_DESC])
-  ->limit(3)
-  ->asArray()
-  ->all();
-if ($blogEntries):
-?>
-  <p class="bg-success" style="padding:15px;border-radius:10px">
-    <?= implode(' | ', array_map(
-      function (array $entry) : string {
-        $t = (new DateTimeImmutable($entry['at']))->setTimeZone(new DateTimeZone(Yii::$app->timeZone));
-        return Html::tag(
-          'span',
-          vsprintf('%s (%s)', [
-            Html::a(
-              Html::encode($entry['title']),
-              $entry['url']
-            ),
-            Html::tag(
-              'time',
-              Html::encode(
-                Yii::$app->formatter->asRelativeTime($t)
-              ),
-              ['datetime' => $t->format(DateTime::ATOM)]
-            ),
-          ]),
-          []
-        );
-      },
-      $blogEntries
-    )) . "\n" ?>
-  </p>
-<?php endif; ?>
+  <?= BlogEntryWidget::widget() . "\n" ?>
 
   <?= $this->render('_index_schedule') . "\n" ?>
 

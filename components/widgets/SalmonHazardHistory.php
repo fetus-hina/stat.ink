@@ -71,7 +71,11 @@ class SalmonHazardHistory extends Widget
 
         // Japanese & Korean: 〇 ×
         // Other regions: ✓ ✗
-        $japaneseStyle = in_array(Yii::$app->language, ['ja-JP', 'ko-KR', 'ko-KP']);
+        $japaneseStyle = in_array(
+            preg_replace('/@.+$/', '', Yii::$app->language),
+            ['ja-JP', 'ko-KR', 'ko-KP'],
+            true
+        );
 
         // cleared
         $series2 = [
