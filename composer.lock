@@ -2475,7 +2475,7 @@
         },
         {
             "name": "symfony/console",
-            "version": "v2.8.49",
+            "version": "v2.8.50",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
@@ -5464,7 +5464,7 @@
         },
         {
             "name": "symfony/browser-kit",
-            "version": "v4.2.6",
+            "version": "v4.2.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/browser-kit.git",
@@ -5589,7 +5589,7 @@
         },
         {
             "name": "symfony/css-selector",
-            "version": "v4.2.6",
+            "version": "v4.2.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/css-selector.git",
@@ -5642,7 +5642,7 @@
         },
         {
             "name": "symfony/dom-crawler",
-            "version": "v4.2.6",
+            "version": "v4.2.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/dom-crawler.git",
@@ -5699,7 +5699,7 @@
         },
         {
             "name": "symfony/event-dispatcher",
-            "version": "v4.2.6",
+            "version": "v4.2.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/event-dispatcher.git",
@@ -5763,7 +5763,7 @@
         },
         {
             "name": "symfony/finder",
-            "version": "v4.2.6",
+            "version": "v4.2.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/finder.git",
@@ -5870,7 +5870,7 @@
         },
         {
             "name": "symfony/process",
-            "version": "v4.2.6",
+            "version": "v4.2.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/process.git",
@@ -6014,12 +6014,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-debug.git",
-                "reference": "f786f665066ad003f806fb164e0ab21f5d3ee6e1"
+                "reference": "0465d9f719b204e258d42f6b8522b3fb2182fd07"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-debug/zipball/f786f665066ad003f806fb164e0ab21f5d3ee6e1",
-                "reference": "f786f665066ad003f806fb164e0ab21f5d3ee6e1",
+                "url": "https://api.github.com/repos/yiisoft/yii2-debug/zipball/0465d9f719b204e258d42f6b8522b3fb2182fd07",
+                "reference": "0465d9f719b204e258d42f6b8522b3fb2182fd07",
                 "shasum": ""
             },
             "require": {
@@ -6063,7 +6063,7 @@
                 "debugger",
                 "yii2"
             ],
-            "time": "2019-03-30T20:34:19+00:00"
+            "time": "2019-04-17T18:36:16+00:00"
         },
         {
             "name": "yiisoft/yii2-gii",
