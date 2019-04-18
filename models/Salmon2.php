@@ -398,7 +398,7 @@ class Salmon2 extends ActiveRecord
         );
     }
 
-    public function getTeamTotalGoldenEggsPerWave(): array
+    public function getTeamTotalGoldenEggsPerWave(): ?array
     {
         if (!$this->waves) {
             return null;
@@ -437,7 +437,7 @@ class Salmon2 extends ActiveRecord
         );
     }
 
-    public function getTeamTotalPowerEggsPerWave(): array
+    public function getTeamTotalPowerEggsPerWave(): ?array
     {
         if (!$this->waves) {
             return null;

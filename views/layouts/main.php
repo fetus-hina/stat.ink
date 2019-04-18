@@ -53,7 +53,7 @@ if ($_flashes) {
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
-<?= Html::beginTag('html', ['lang' => Yii::$app->language]) . "\n" ?>
+<?= Html::beginTag('html', ['lang' => preg_replace('/@.+$/', '', Yii::$app->language)]) . "\n" ?>
   <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
