@@ -39,7 +39,7 @@ PaintballAsset::register($this);
     </div>
   </div>
   <?= HappyNewYearWidget::widget() . "\n" ?>
-<?php if (Yii::$app->language === 'ja-JP'): ?>
+<?php if (substr(Yii::$app->language, 0, 2) === 'ja'): ?>
   <div class="bg-danger" style="margin-bottom:15px;padding:15px;border-radius:10px">
     <p>
       SquidTracks や splatnet2statink をご利用の方は、必ず最新版にアップデートを行ってください。<br>
