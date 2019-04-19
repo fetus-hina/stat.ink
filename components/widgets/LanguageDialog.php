@@ -11,6 +11,7 @@ namespace app\components\widgets;
 
 use Yii;
 use app\assets\FlexboxAsset;
+use app\assets\LanguageDialogAsset;
 use app\models\Language;
 use app\models\SupportLevel;
 use hiqdev\assets\flagiconcss\FlagIconCssAsset;
@@ -21,8 +22,6 @@ class LanguageDialog extends Dialog
     public function init()
     {
         parent::init();
-
-        FlexboxAsset::register($this->view);
 
         $this->title = implode(' ', [
             FA::fas('language')->fw(),
@@ -60,6 +59,7 @@ class LanguageDialog extends Dialog
                         ],
                     ]);
                 } else {
+                    LanguageDialogAsset::register($this->view);
                     return Html::a($this->renderLanguageItem($lang), 'javascript:;', [
                         'class' => [
                             'list-group-item',
@@ -80,7 +80,6 @@ class LanguageDialog extends Dialog
     private function renderLanguageItem(Language $lang): string
     {
         FlagIconCssAsset::register($this->view);
-
         $flag =  Html::tag('span', '', ['class' => [
             'flag-icon',
             'flag-icon-' . strtolower(substr($lang->lang, 3, 2)),
@@ -102,6 +101,7 @@ class LanguageDialog extends Dialog
             $levelIcon,
         ]));
 
+        FlexboxAsset::register($this->view);
         return Html::tag(
             'div',
             $left . $right,
