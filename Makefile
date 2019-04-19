@@ -61,6 +61,7 @@ RESOURCE_TARGETS_MAIN := \
 	resources/.compiled/stat.ink/favicon.png \
 	resources/.compiled/stat.ink/kd-win.js \
 	resources/.compiled/stat.ink/knockout.js \
+	resources/.compiled/stat.ink/language-dialog.css \
 	resources/.compiled/stat.ink/language-dialog.js \
 	resources/.compiled/stat.ink/main.css \
 	resources/.compiled/stat.ink/main.js \
@@ -383,11 +384,14 @@ resources/.compiled/gears/calc.js: resources/gears/calc.js node_modules
 resources/.compiled/stat.ink/browser-icon-widget.js: resources/stat.ink/browser-icon-widget.es
 	$(call es2js,$@,$<)
 
-resources/.compiled/stat.ink/os-icon-widget.js: resources/stat.ink/os-icon-widget.es
+resources/.compiled/stat.ink/os-icon-widget.js: resources/stat.ink/os-icon-widget.es node_modules
 	$(call es2js,$@,$<)
 
 resources/.compiled/stat.ink/language-dialog.js: resources/stat.ink/language-dialog.es node_modules
 	$(call es2js,$@,$<)
+
+resources/.compiled/stat.ink/language-dialog.css: resources/stat.ink/language-dialog.less node_modules
+	$(call less2css,$@,$<)
 
 resources/.compiled/stat.ink/no-image.png: resources/stat.ink/no-image.png
 	mkdir -p resources/.compiled/stat.ink || /bin/true

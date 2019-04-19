@@ -52,10 +52,9 @@ class LanguageDialog extends Dialog
             function (Language $lang): string {
                 if ($lang->lang === Yii::$app->language) {
                     return Html::tag('div', $this->renderLanguageItem($lang), [
-                        'class' => 'list-group-item',
-                        'style' => [
-                            'background-color' => '#337ab7',
-                            'color' => '#fff',
+                        'class' => [
+                            'list-group-item',
+                            'current',
                         ],
                     ]);
                 } else {
@@ -64,7 +63,6 @@ class LanguageDialog extends Dialog
                         'class' => [
                             'list-group-item',
                             'language-change',
-                            'text-dark',
                         ],
                         'data' => [
                             'lang' => $lang->lang,
@@ -149,23 +147,22 @@ class LanguageDialog extends Dialog
                     ]
                 ),
                 [
-                    'class' => 'list-group-item d-flex',
-                    'style' => [
-                        'color' => '#fff',
-                        'background-color' => '#868e96',
-                        'font-size' => '75%',
+                    'class' => [
+                        'list-group-item',
+                        'hint',
+                        'd-flex',
                     ],
                 ]
             ),
             Html::a(
                 FA::fas('question-circle')->fw() . ' About Translation',
                 ['site/translate'],
-                ['class' => 'list-group-item text-dark']
+                ['class' => 'list-group-item']
             ),
             Html::a(
                 FA::fas('sync')->fw() . ' How to update',
                 'https://github.com/fetus-hina/stat.ink/wiki/Translation',
-                ['class' => 'list-group-item text-dark']
+                ['class' => 'list-group-item']
             ),
         ];
     }
