@@ -11,6 +11,7 @@ FlagIconCssAsset::register($this);
 DownloadsPageAsset::register($this);
 
 $langs = Language::find()
+  ->standard()
   ->with('languageCharsets')
   ->orderBy(['name' => SORT_ASC])
   ->asArray()

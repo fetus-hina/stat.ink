@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2016 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  * @author Yoshiyuki Kawashima <ykawashi7@gmail.com>
@@ -10,6 +10,7 @@ namespace app\components\widgets;
 
 use Yii;
 use app\assets\PermalinkDialogAsset;
+use app\components\widgets\FA;
 use jp3cki\yii2\twitter\widget\TweetButton;
 use yii\base\Widget;
 use yii\helpers\Html;
@@ -109,7 +110,7 @@ class SnsWidget extends Widget
         return Html::tag(
             'span',
             implode(' ', [
-                Html::tag('span', '', ['class' => 'fa fa-fw fa-anchor']),
+                (string)FA::fas('anchor')->fw(),
                 Html::encode(Yii::t('app', 'Permalink')),
             ]),
             [
@@ -152,7 +153,7 @@ class SnsWidget extends Widget
         ));
         return Html::tag(
             'a',
-            Html::tag('span', '', ['class' => 'fa fa-fw fa-rss']),
+            (string)FA::fas('rss')->fw(),
             [
                 'id' => $id,
                 'class' => [

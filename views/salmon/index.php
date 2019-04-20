@@ -45,7 +45,7 @@ if ($user->twitter != '') {
   <?= SnsWidget::widget([
     'feedUrl' => ['salmon/feed',
       'screen_name' => $user->screen_name,
-      'lang' => Yii::$app->language,
+      'lang' => preg_replace('/@.+$/', '',Yii::$app->language),
       'type' => 'rss',
     ],
     'tweetText' => $humanReadableSummary,
