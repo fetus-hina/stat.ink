@@ -12,7 +12,9 @@ BattleInputAsset::register($this);
 $_prefix = substr(hash('sha1', __FILE__), 0, 8);
 
 $_agentName = sprintf('%s web client', Yii::$app->name);
-$_agentVersion = sprintf('v%s', Yii::$app->version);
+$_agentVersion = Yii::$app->version === 'DEVELOPMENT'
+  ? Yii::$app->version
+  : sprintf('v%s', Yii::$app->version);
 $_agentRevision = Version::getShortRevision();
 ?>
 <div class="modal fade" id="inputModal2" tabindex="-1" role="dialog" aria-labelledby="inputModalLabel">
