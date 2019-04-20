@@ -319,46 +319,21 @@ console.log($empty);
         const comments = [
           $input.attr('data-revision'),
         ];
-        if (detect.mac) {
-          comments.push('macOS');
-        } else if (detect.windows) {
-          comments.push('Windows');
-        } else if (detect.windowsphone) {
-          comments.push('Windows Phone');
-        } else if (detect.linux) {
-          comments.push('Linux');
-        } else if (detect.chromeos) {
-          comments.push('Chrome OS');
-        } else if (detect.android) {
-          comments.push('Android');
-        } else if (detect.ios) {
-          comments.push('iOS');
-          if (detect.iphone) {
-            comments.push('iPhone');
-          } else if (detect.ipad) {
-            comments.push('iPad');
-          } else if (detect.ipod) {
-            comments.push('iPod');
+
+        if (detect.os && detect.os.name) {
+          comments.push(detect.os.name);
+          if (detect.os.name === 'iOS' && detect.platform && detect.platform.model) {
+            comments.push(detect.platform.model);
           }
-        } else if (detect.blackberry) {
-          comments.push('BlackBerry');
-        } else if (detect.firefoxos) {
-          comments.push('Firefox OS');
-        } else if (detect.webos) {
-          comments.push('webOS');
-        } else if (detect.bada) {
-          comments.push('Bada');
-        } else if (detect.tizen) {
-          comments.push('Tizen');
-        } else if (detect.sailfish) {
-          comments.push('Sailfish OS');
         }
-        if (detect.name) {
-          comments.push(detect.name);
+
+        if (detect.browser && detect.browser.name) {
+          comments.push(detect.browser.name);
         }
+
         return $input.attr('data-version') + ' (' + comments.join(', ') + ')';
         // }}}
-      })(window.bowser._detect(window.navigator.userAgent || '')));
+      })(window.bowser.parse(window.navigator.userAgent || '')));
     };
 
     // 表示時に（必要であれば）通信をして画面要素を更新する
