@@ -11,6 +11,7 @@ namespace app\components\widgets;
 
 use Yii;
 use app\assets\FlexboxAsset;
+use app\assets\LanguageDialogAsset;
 use app\models\Language;
 use app\models\SupportLevel;
 use hiqdev\assets\flagiconcss\FlagIconCssAsset;
@@ -21,8 +22,6 @@ class LanguageDialog extends Dialog
     public function init()
     {
         parent::init();
-
-        FlexboxAsset::register($this->view);
 
         $this->title = implode(' ', [
             FA::fas('language')->fw(),
@@ -53,18 +52,17 @@ class LanguageDialog extends Dialog
             function (Language $lang): string {
                 if ($lang->lang === Yii::$app->language) {
                     return Html::tag('div', $this->renderLanguageItem($lang), [
-                        'class' => 'list-group-item',
-                        'style' => [
-                            'background-color' => '#337ab7',
-                            'color' => '#fff',
+                        'class' => [
+                            'list-group-item',
+                            'current',
                         ],
                     ]);
                 } else {
+                    LanguageDialogAsset::register($this->view);
                     return Html::a($this->renderLanguageItem($lang), 'javascript:;', [
                         'class' => [
                             'list-group-item',
                             'language-change',
-                            'text-dark',
                         ],
                         'data' => [
                             'lang' => $lang->lang,
@@ -80,7 +78,6 @@ class LanguageDialog extends Dialog
     private function renderLanguageItem(Language $lang): string
     {
         FlagIconCssAsset::register($this->view);
-
         $flag =  Html::tag('span', '', ['class' => [
             'flag-icon',
             'flag-icon-' . strtolower(substr($lang->lang, 3, 2)),
@@ -102,6 +99,7 @@ class LanguageDialog extends Dialog
             $levelIcon,
         ]));
 
+        FlexboxAsset::register($this->view);
         return Html::tag(
             'div',
             $left . $right,
@@ -149,23 +147,22 @@ class LanguageDialog extends Dialog
                     ]
                 ),
                 [
-                    'class' => 'list-group-item d-flex',
-                    'style' => [
-                        'color' => '#fff',
-                        'background-color' => '#868e96',
-                        'font-size' => '75%',
+                    'class' => [
+                        'list-group-item',
+                        'hint',
+                        'd-flex',
                     ],
                 ]
             ),
             Html::a(
                 FA::fas('question-circle')->fw() . ' About Translation',
                 ['site/translate'],
-                ['class' => 'list-group-item text-dark']
+                ['class' => 'list-group-item']
             ),
             Html::a(
                 FA::fas('sync')->fw() . ' How to update',
                 'https://github.com/fetus-hina/stat.ink/wiki/Translation',
-                ['class' => 'list-group-item text-dark']
+                ['class' => 'list-group-item']
             ),
         ];
     }

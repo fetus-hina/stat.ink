@@ -1,0 +1,38 @@
+@charset "UTF-8";
+@import (reference) "../../vendor/bower-asset/bootstrap/less/variables.less";
+
+/*! Copyright (C) 2015-2019 AIZAWA Hina */
+
+.make(@textColor, @bgColor, @primaryTextColor, @primaryBgColor) {
+  #language-dialog {
+    .list-group-item {
+      background-color: @bgColor;
+      color: @textColor;
+
+      &.current {
+        background-color: @primaryBgColor;
+        color: @primaryTextColor;
+      }
+
+      &.hint {
+        font-size: @font-size-small;
+        color: @bgColor;
+        background-color: @textColor;
+      }
+    }
+  }
+}
+
+.make(@text-color, @body-bg, @btn-primary-color, @btn-primary-bg);
+
+body[data-theme="bootswatch-cyborg"] {
+  .make(#888, #060606, #fff, #2A9FD6);
+}
+
+body[data-theme="bootswatch-darkly"] {
+  .make(#fff, lighten(#303030, 13.5%), #fff, #375a7f);
+}
+
+body[data-theme="bootswatch-slate"] {
+  .make(#C8C8C8, #272B30, #fff, #7A8288);
+}

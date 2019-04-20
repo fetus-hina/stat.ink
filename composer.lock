@@ -283,16 +283,16 @@
         },
         {
             "name": "bower-asset/moment-timezone",
-            "version": "0.5.23",
+            "version": "0.5.25",
             "source": {
                 "type": "git",
                 "url": "https://github.com/moment/moment-timezone.git",
-                "reference": "d0bcdcad01acece5df6988603e8cec146d78bd12"
+                "reference": "c377ac8fd7ff6c2fc52e2f432034ac5727dba1d8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/moment/moment-timezone/zipball/d0bcdcad01acece5df6988603e8cec146d78bd12",
-                "reference": "d0bcdcad01acece5df6988603e8cec146d78bd12"
+                "url": "https://api.github.com/repos/moment/moment-timezone/zipball/c377ac8fd7ff6c2fc52e2f432034ac5727dba1d8",
+                "reference": "c377ac8fd7ff6c2fc52e2f432034ac5727dba1d8"
             },
             "require": {
                 "bower-asset/moment": ">=2.9.0"
@@ -2903,12 +2903,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-bootstrap.git",
-                "reference": "454552b7a90e2a803def733e4d1f612b850158da"
+                "reference": "1fd918d9fa46ae34059086b3711e34e451aba42d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-bootstrap/zipball/454552b7a90e2a803def733e4d1f612b850158da",
-                "reference": "454552b7a90e2a803def733e4d1f612b850158da",
+                "url": "https://api.github.com/repos/yiisoft/yii2-bootstrap/zipball/1fd918d9fa46ae34059086b3711e34e451aba42d",
+                "reference": "1fd918d9fa46ae34059086b3711e34e451aba42d",
                 "shasum": ""
             },
             "require": {
@@ -2958,7 +2958,7 @@
                 "bootstrap",
                 "yii2"
             ],
-            "time": "2019-02-17T13:23:56+00:00"
+            "time": "2019-04-18T12:59:55+00:00"
         },
         {
             "name": "yiisoft/yii2-composer",
@@ -4673,16 +4673,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "7.5.8",
+            "version": "7.5.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "c29c0525cf4572c11efe1db49a8b8aee9dfac58a"
+                "reference": "134669cf0eeac3f79bc7f0c793efbc158bffc160"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/c29c0525cf4572c11efe1db49a8b8aee9dfac58a",
-                "reference": "c29c0525cf4572c11efe1db49a8b8aee9dfac58a",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/134669cf0eeac3f79bc7f0c793efbc158bffc160",
+                "reference": "134669cf0eeac3f79bc7f0c793efbc158bffc160",
                 "shasum": ""
             },
             "require": {
@@ -4753,7 +4753,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2019-03-26T13:23:54+00:00"
+            "time": "2019-04-19T15:50:46+00:00"
         },
         {
             "name": "psr/http-message",

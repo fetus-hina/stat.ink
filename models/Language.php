@@ -31,6 +31,18 @@ use yii\db\ActiveRecord;
  */
 class Language extends ActiveRecord
 {
+    public static function find(): ActiveQuery
+    {
+        return new class(static::class) extends ActiveQuery {
+            public function standard(): self
+            {
+                return $this->andWhere(['and',
+                    ['not', ['like', '{{language}}.[[lang]]', '%@%', false]],
+                ]);
+            }
+        };
+    }
+
     public static function tableName()
     {
         return 'language';

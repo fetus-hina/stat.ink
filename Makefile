@@ -61,6 +61,8 @@ RESOURCE_TARGETS_MAIN := \
 	resources/.compiled/stat.ink/favicon.png \
 	resources/.compiled/stat.ink/kd-win.js \
 	resources/.compiled/stat.ink/knockout.js \
+	resources/.compiled/stat.ink/language-dialog.css \
+	resources/.compiled/stat.ink/language-dialog.js \
 	resources/.compiled/stat.ink/main.css \
 	resources/.compiled/stat.ink/main.js \
 	resources/.compiled/stat.ink/no-image.png \
@@ -211,11 +213,11 @@ vendor-by-archive: download-vendor-archive
 	touch -r composer.lock vendor
 
 download-vendor-archive: runtime/vendor-archive
-	test -e $(VENDOR_ARCHIVE_FILE) || curl -o $(VENDOR_ARCHIVE_FILE) -sS https://src-archive.stat.ink/vendor/vendor-$(VENDOR_SHA256).tar.xz
-	test -e $(VENDOR_ARCHIVE_SIGN) || curl -o $(VENDOR_ARCHIVE_SIGN) -sS https://src-archive.stat.ink/vendor/vendor-$(VENDOR_SHA256).tar.xz.asc
+	test -e $(VENDOR_ARCHIVE_FILE) || curl -o $(VENDOR_ARCHIVE_FILE) -fsSL https://src-archive.stat.ink/vendor/vendor-$(VENDOR_SHA256).tar.xz
+	test -e $(VENDOR_ARCHIVE_SIGN) || curl -o $(VENDOR_ARCHIVE_SIGN) -fsSL https://src-archive.stat.ink/vendor/vendor-$(VENDOR_SHA256).tar.xz.asc
 
 composer.phar:
-	curl -sS https://getcomposer.org/installer | php
+	curl -fsSL https://getcomposer.org/installer | php
 	touch -r composer.json composer.phar
 
 composer.lock: composer.json composer.phar
@@ -249,7 +251,7 @@ endef
 
 web/static-assets/cc/cc-by.svg:
 	mkdir -p `dirname $@` || true
-	curl -o $@ http://mirrors.creativecommons.org/presskit/buttons/88x31/svg/by.svg
+	curl -fsSL -o $@ http://mirrors.creativecommons.org/presskit/buttons/88x31/svg/by.svg
 
 resources/.compiled/stat.ink/main.js: $(JS_SRCS) node_modules
 	$(call es2js,$@,$(JS_SRCS))
@@ -362,7 +364,7 @@ resources/.compiled/ostatus/remote-follow.js: resources/ostatus/remote-follow.js
 
 resources/.compiled/ostatus/ostatus.svg:
 	mkdir -p $(dir $@)
-	curl -sSL -o $@ 'https://github.com/OStatus/assets/raw/master/ostatus.svg'
+	curl -fsSL -o $@ 'https://github.com/OStatus/assets/raw/master/ostatus.svg'
 
 resources/.compiled/gh-fork-ribbon/gh-fork-ribbon.js: resources/gh-fork-ribbon/gh-fork-ribbon.js node_modules
 	$(call es2js,$@,$<)
@@ -382,8 +384,14 @@ resources/.compiled/gears/calc.js: resources/gears/calc.js node_modules
 resources/.compiled/stat.ink/browser-icon-widget.js: resources/stat.ink/browser-icon-widget.es
 	$(call es2js,$@,$<)
 
-resources/.compiled/stat.ink/os-icon-widget.js: resources/stat.ink/os-icon-widget.es
+resources/.compiled/stat.ink/os-icon-widget.js: resources/stat.ink/os-icon-widget.es node_modules
 	$(call es2js,$@,$<)
+
+resources/.compiled/stat.ink/language-dialog.js: resources/stat.ink/language-dialog.es node_modules
+	$(call es2js,$@,$<)
+
+resources/.compiled/stat.ink/language-dialog.css: resources/stat.ink/language-dialog.less node_modules
+	$(call less2css,$@,$<)
 
 resources/.compiled/stat.ink/no-image.png: resources/stat.ink/no-image.png
 	mkdir -p resources/.compiled/stat.ink || /bin/true
@@ -404,7 +412,7 @@ resources/.compiled/slack/slack.js: resources/slack/slack.js node_modules
 	$(call es2js,$@,$<)
 
 resources/app-link-logos/ikalog.png:
-	curl -o $@ 'https://cloud.githubusercontent.com/assets/2528004/17077116/6d613dca-50ff-11e6-9357-9ba894459444.png'
+	curl -fsSL -o $@ 'https://cloud.githubusercontent.com/assets/2528004/17077116/6d613dca-50ff-11e6-9357-9ba894459444.png'
 
 resources/.compiled/app-link-logos/ikalog.png: resources/app-link-logos/ikalog.png
 	mkdir -p resources/.compiled/app-link-logos
@@ -412,7 +420,7 @@ resources/.compiled/app-link-logos/ikalog.png: resources/app-link-logos/ikalog.p
 	touch -r $< $@
 
 resources/app-link-logos/ikadenwa.png:
-	curl -o $@ 'https://ikadenwa.ink/static/img/ika-mark.png'
+	curl -fsSL -o $@ 'https://ikadenwa.ink/static/img/ika-mark.png'
 
 resources/.compiled/app-link-logos/ikadenwa.png: resources/app-link-logos/ikadenwa.png
 	mkdir -p resources/.compiled/app-link-logos
@@ -425,7 +433,7 @@ resources/.compiled/app-link-logos/ikanakama.png: resources/app-link-logos/ikana
 	touch -r $< $@
 
 resources/app-link-logos/ikanakama.ico:
-	curl -o $@ $(shell php resources/app-link-logos/favicon.php 'https://ikanakama.ink/')
+	curl -fsSL -o $@ $(shell php resources/app-link-logos/favicon.php 'https://ikanakama.ink/')
 
 resources/.compiled/app-link-logos/ikarec-en.png: resources/app-link-logos/ikarec-en.png
 	mkdir -p resources/.compiled/app-link-logos
@@ -433,7 +441,7 @@ resources/.compiled/app-link-logos/ikarec-en.png: resources/app-link-logos/ikare
 	touch -r $< $@
 
 resources/app-link-logos/ikarec-en.png:
-	curl -o $@ 'https://lh3.googleusercontent.com/HUy__vFnwLi32AL-L3KeJACQRkXIcq59PASgIbTscr2Ic-kP3fp4GeIrClAgKBWAlQq2'
+	curl -fsSL -o $@ 'https://lh3.googleusercontent.com/HUy__vFnwLi32AL-L3KeJACQRkXIcq59PASgIbTscr2Ic-kP3fp4GeIrClAgKBWAlQq2'
 
 resources/.compiled/app-link-logos/ikarec-ja.png: resources/app-link-logos/ikarec-ja.png
 	mkdir -p resources/.compiled/app-link-logos
@@ -454,7 +462,7 @@ resources/.compiled/app-link-logos/squidtracks.png: resources/app-link-logos/squ
 	touch -r $< $@
 
 resources/app-link-logos/squidtracks.png:
-	curl -sSL -o $@ 'https://github.com/hymm/squid-tracks/raw/master/public/icon.png'
+	curl -fsSL -sSL -o $@ 'https://github.com/hymm/squid-tracks/raw/master/public/icon.png'
 
 resources/.compiled/app-link-logos/nnid.svg: resources/app-link-logos/nnid.svg
 	xmllint --format $< > $@
@@ -468,7 +476,7 @@ resources/.compiled/app-link-logos/inkipedia.png: resources/app-link-logos/inkip
 	touch -r $< $@
 
 resources/app-link-logos/inkipedia.ico:
-	curl -o $@ $(shell php resources/app-link-logos/favicon.php 'https://splatoonwiki.org/')
+	curl -fsSL -o $@ $(shell php resources/app-link-logos/favicon.php 'https://splatoonwiki.org/')
 
 resources/.compiled/irasutoya/inkling.png: resources/irasutoya/inkling.png
 	mkdir -p resources/.compiled/irasutoya
@@ -585,7 +593,7 @@ runtime/ikalog/repo:
 	git clone --recursive -o origin https://github.com/hasegaw/IkaLog.git $@
 
 runtime/ikalog/winikalog.html: FORCE
-	curl -o $@ 'https://hasegaw.github.io/IkaLog/'
+	curl -fsSL -o $@ 'https://hasegaw.github.io/IkaLog/'
 
 vendor/smarty/smarty/libs/sysplugins/smarty_internal_templatecompilerbase.php: vendor FORCE
 	head -n 815 vendor/smarty/smarty/libs/sysplugins/smarty_internal_templatecompilerbase.php | tail -n 10 | grep '\\1 \\2' > /dev/null && \
@@ -606,17 +614,20 @@ geoip: \
 		data/GeoIP/GeoLite2-Country.mmdb \
 		data/GeoIP/LICENSE.txt
 
-data/GeoIP:
-	mkdir -p $@
-
 data/GeoIP/%.mmdb: data/GeoIP/%.tar.gz
+	@mkdir -p $(dir $@)
 	tar -zxf $< --strip=1 -C data/GeoIP */$(notdir $@)
+	@touch $@
 
 data/GeoIP/%.txt: data/GeoIP/GeoLite2-Country.tar.gz
+	@mkdir -p $(dir $@)
 	tar -zxf $< --strip=1 -C data/GeoIP */$(notdir $@)
+	@touch $@
 
-data/GeoIP/%.tar.gz: data/GeoIP
-	curl -sSL -o $@ https://geolite.maxmind.com/download/geoip/database/$(notdir $@)
+data/GeoIP/%.tar.gz:
+	@mkdir -p $(dir $@)
+	curl -fsSL -o $@ https://geolite.maxmind.com/download/geoip/database/$(notdir $@)
+	@touch $@
 
 .PRECIOUS: data/GeoIP/%.tar.gz
 
