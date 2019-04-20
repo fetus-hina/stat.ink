@@ -1,9 +1,11 @@
 <?php
 /**
- * @copyright Copyright (C) 2015 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  */
+
+declare(strict_types=1);
 
 namespace app\components\helpers;
 
@@ -14,15 +16,23 @@ class Translator
 {
     private static $langs = null;
 
-    public function translateToAll($category, $message, $params = [])
-    {
+    public function translateToAll(
+        string $category,
+        string $message,
+        array $params = []
+    ): array {
         if (self::$langs === null) {
-            self::$langs = Language::find()->all();
+            self::$langs = Language::find()
+                ->standard()
+                ->orderBy(['lang' => SORT_ASC])
+                ->all();
         }
+
         $i18n = Yii::$app->i18n;
         $ret = [];
         foreach (self::$langs as $lang) {
-            $ret[strtr($lang->lang, '-', '_')] = $i18n->translate($category, $message, $params, $lang->lang);
+            $key = strtr($lang->getLanguageId(), '-', '_');
+            $ret[$key] = $i18n->translate($category, $message, $params, $lang->lang);
         }
         return $ret;
     }
