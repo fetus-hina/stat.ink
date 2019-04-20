@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2015-2018 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  */
@@ -11,13 +11,25 @@ use app\models\Language;
 use app\models\SupportLevel;
 use yii\helpers\ArrayHelper;
 
-class m180826_212102_chinese extends Migration
+class m190420_203000_chinese extends Migration
 {
     public function safeUp()
     {
-        $this->batchInsert('language', ['lang', 'name', 'name_en', 'support_level_id'], [
-            ['zh-CN', '简体中文', 'Chinese (Simplified)', SupportLevel::PARTIAL],
-            ['zh-TW', '繁體中文', 'Chinese (Traditional)', SupportLevel::PARTIAL],
+        $this->batchInsert('language', ['lang', 'name', 'name_en', 'support_level_id', 'di'], [
+            ['zh-CN', '简体中文', 'Chinese (Simplified)', SupportLevel::PARTIAL, null],
+            ['zh-TW', '繁體中文', 'Chinese (Traditional)', SupportLevel::PARTIAL, null],
+            [
+                'zh-TW@calendar=roc',
+                '繁體中文（民國紀年）',
+                'Chinese (Traditional, ROC Era)',
+                SupportLevel::PARTIAL,
+                json_encode([
+                    'formatter' => [
+                        'locale' => 'zh_TW@calendar=roc',
+                        'calendar' => IntlDateFormatter::TRADITIONAL,
+                    ],
+                ]),
+            ],
         ]);
         $this->batchInsert('charset', ['name', 'php_name', 'substitute', 'is_unicode', 'order'], [
             ['GB 2312', 'EUC-CN', 63, false, 14],
@@ -45,11 +57,11 @@ class m180826_212102_chinese extends Migration
 
     public function safeDown()
     {
-        $cn = Language::findOne(['lang' => 'zh-CN'])->id;
-        $tw = Language::findOne(['lang' => 'zh-TW'])->id;
-
-        $this->delete('language_charset', ['language_id' => [$cn, $tw]]);
-        $this->delete('language', ['id' => [$cn, $tw]]);
+        foreach (['zh-CN', 'zh-TW', 'zh-TW@calendar=roc'] as $langId) {
+            $lang = Language::findOne(['lang' => $langId])->id;
+            $this->delete('language_charset', ['language_id' => $lang]);
+            $this->delete('language', ['id' => $lang]);
+        }
         $this->delete('charset', ['php_name' => ['EUC-CN', 'BIG-5']]);
     }
 }
