@@ -1,37 +1,12 @@
-/*! Copyright (C) 2017 AIZAWA Hina | MIT License */
+/*! Copyright (C) 2015-2019 AIZAWA Hina | MIT License */
 ($ => {
   $(() => {
     let initialized = false;
     let nextStageArrives = undefined;
     let stageTimerId = undefined;
-
-    const translate = text => {
-      const lang = $('html').attr('lang');
-      switch (text) {
-        case 'Favorite Weapons':
-          switch (lang) {
-            case 'ja-JP':
-              return 'よく使うブキ';
-
-            case 'es-ES':
-            case 'es-MX':
-              return 'Armas Favoritas';
-
-            case 'fr-FR':
-            case 'fr-CA':
-                return 'Armes préférées';
-
-            default:
-              return text;
-          }
-          break;
-
-        default:
-          return text;
-      }
-    };
-
     const $modal = $('#inputModal2');
+    const translateTable = $modal.data('translate');
+    const translate = text => (translateTable[text] || text);
     const $selectWeapons = $('.battle-input2-form--weapons', $modal);
     const $buttonStages = $('.battle-input2-form--stages', $modal);
     const $buttonResults = $('.battle-input2-form--result', $modal);

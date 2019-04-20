@@ -17,7 +17,19 @@ $_agentVersion = Yii::$app->version === 'DEVELOPMENT'
   : sprintf('v%s', Yii::$app->version);
 $_agentRevision = Version::getShortRevision();
 ?>
-<div class="modal fade" id="inputModal2" tabindex="-1" role="dialog" aria-labelledby="inputModalLabel">
+<?= Html::beginTag('div', [
+  'aria-labelledby' => 'inputModalLabel',
+  'aria-modal' => 'true',
+  'class' => ['modal', 'fade'],
+  'id' => 'inputModal2',
+  'role' => 'dialog',
+  'tabindex' => '-1',
+  'data' => [
+    'translate' => [
+      'Favorite Weapons' => Yii::t('app', 'Favorite Weapons'),
+    ],
+  ],
+]) . "\n" ?>
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
