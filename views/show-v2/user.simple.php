@@ -55,7 +55,14 @@ AppOptAsset::register($this)
         ])
       );
     })(),
-    'feedUrl' => Url::to(['feed/user-v2', 'screen_name' => $user->screen_name, 'type' => 'rss', 'lang' => Yii::$app->language], true),
+    'feedUrl' => Url::to(
+      ['feed/user-v2',
+        'screen_name' => $user->screen_name,
+        'type' => 'rss',
+        'lang' => preg_replace('/@.+$/', '', Yii::$app->language),
+      ],
+      true
+    ),
   ]) . "\n" ?>
   <div class="row">
     <div class="col-xs-12 col-sm-8 col-lg-9">

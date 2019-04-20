@@ -26,20 +26,34 @@ if ($user->twitter != '') {
   $this->registerMetaTag(['name' => 'twitter:creator', 'content' => '@' . $user->twitter]);
 }
 
-foreach (Language::find()->asArray()->all() as $lang) {
+foreach (Language::find()->standard()->all() as $lang) {
   $this->registerLinkTag([
-    'rel'       => 'alternate',
-    'type'      => 'application/rss+xml',
-    'title'     => sprintf('%s - RSS Feed (%s)', $title, $lang['name']),
-    'href'      => Url::to(['feed/user', 'screen_name' => $user->screen_name, 'type' => 'rss', 'lang' => $lang['lang']], true),
-    'hreflang'  => $lang['lang']
+    'rel' => 'alternate',
+    'type' => 'application/rss+xml',
+    'title' => sprintf('%s - RSS Feed (%s)', $title, $lang->name),
+    'href' => Url::to(
+      ['feed/user',
+        'screen_name' => $user->screen_name,
+        'type' => 'rss',
+        'lang' => $lang->lang,
+      ],
+      true
+    ),
+    'hreflang'  => $lang->lang,
   ]);
   $this->registerLinkTag([
-    'rel'       => 'alternate',
-    'type'      => 'application/atom+xml',
-    'title'     => sprintf('%s - Atom Feed (%s)', $title, $lang['name']),
-    'href'      => Url::to(['feed/user', 'screen_name' => $user->screen_name, 'type' => 'atom', 'lang' => $lang['lang']], true),
-    'hreflang'  => $lang['lang']
+    'rel' => 'alternate',
+    'type' => 'application/atom+xml',
+    'title' => sprintf('%s - Atom Feed (%s)', $title, $lang->name),
+    'href' => Url::to(
+      ['feed/user',
+        'screen_name' => $user->screen_name,
+        'type' => 'atom',
+        'lang' => $lang->lang,
+      ],
+      true
+    ),
+    'hreflang'  => $lang->lang,
   ]);
 }
 
@@ -49,30 +63,59 @@ $f = Yii::$app->formatter;
 <div class="container">
   <h1><?= Html::encode($title) ?></h1>
   
-<?php if ($battle && $battle->agent && $battle->agent->isIkaLog && $battle->agent->getIsOldIkalogAsAtTheTime($battle->at)): ?>
+<?php
+if ($battle &&
+    $battle->agent &&
+    $battle->agent->isIkaLog &&
+    $battle->agent->getIsOldIkalogAsAtTheTime($battle->at)
+) { ?>
 <?php $this->registerCss('.old-ikalog{font-weight:bold;color:#f00}') ?>
   <p class="old-ikalog">
-    <?= Html::encode(Yii::t('app', 'These battles were recorded with an outdated version of IkaLog. Please upgrade to the latest version.')) . "\n" ?>
+    <?= Html::encode(
+      Yii::t(
+        'app',
+        'These battles were recorded with an outdated version of IkaLog. Please upgrade to the latest version.'
+      )
+    ) . "\n" ?>
   </p>
-<?php endif ?>
+<?php } ?>
 
   <?= SnsWidget::widget([
-    'feedUrl' => Url::to(['feed/user', 'screen_name' => $user->screen_name, 'type' => 'rss', 'lang' => Yii::$app->language], true),
-    'tweetText' => sprintf('%s [ %s ]', $title, Yii::t('app', 'Battles:{0} / Win %:{1} / Avg Kills:{2} / Avg Deaths:{3} / Kill Ratio:{4}', [
-      $f->asInteger($summary->battle_count),
-      $summary->wp === null ? '-' : $f->asPercent($summary->wp / 100, 1),
-      $summary->kd_present > 0 ? $f->asDecimal($summary->total_kill / $summary->kd_present, 2) : '-',
-      $summary->kd_present > 0 ? $f->asDecimal($summary->total_death / $summary->kd_present, 2) : '-',
-      $summary->kd_present > 0
-        ? ($summary->total_death > 0
-          ? $f->asDecimal($summary->total_kill / $summary->total_death, 2)
-          : ($summary->total_kill > 0
-            ? '∞'
-            : '-'
-          )
-        )
-        : '-',
-    ])),
+    'feedUrl' => Url::to(
+      ['feed/user',
+        'screen_name' => $user->screen_name,
+        'type' => 'rss',
+        'lang' => Yii::$app->language,
+      ],
+      true
+    ),
+    'tweetText' => sprintf(
+      '%s [ %s ]',
+      $title,
+      Yii::t(
+        'app',
+        'Battles:{0} / Win %:{1} / Avg Kills:{2} / Avg Deaths:{3} / Kill Ratio:{4}',
+        [
+          $f->asInteger($summary->battle_count),
+          $summary->wp === null ? '-' : $f->asPercent($summary->wp / 100, 1),
+          $summary->kd_present > 0
+            ? $f->asDecimal($summary->total_kill / $summary->kd_present, 2)
+            : '-',
+          $summary->kd_present > 0
+            ? $f->asDecimal($summary->total_death / $summary->kd_present, 2)
+            : '-',
+          $summary->kd_present > 0
+            ? ($summary->total_death > 0
+              ? $f->asDecimal($summary->total_kill / $summary->total_death, 2)
+              : ($summary->total_kill > 0
+                ? '∞'
+                : '-'
+              )
+            )
+            : '-',
+        ]
+      )
+    ),
   ]) . "\n" ?>
 
   <div class="row">
