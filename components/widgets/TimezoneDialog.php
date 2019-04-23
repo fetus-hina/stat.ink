@@ -12,11 +12,13 @@ namespace app\components\widgets;
 use DateTimeImmutable;
 use DateTimeZone;
 use Yii;
+use app\assets\TimezoneDialogAsset;
 use app\models\Country;
 use app\models\Timezone;
 use app\models\TimezoneGroup;
 use hiqdev\assets\flagiconcss\FlagIconCssAsset;
 use yii\helpers\Html;
+use yii\helpers\Json;
 
 class TimezoneDialog extends Dialog
 {
@@ -32,28 +34,15 @@ class TimezoneDialog extends Dialog
         $this->footer = Dialog::FOOTER_CLOSE;
         $this->body = $this->createBody();
         $this->wrapBody = false;
+        TimezoneDialogAsset::register($this->view);
     }
 
     private function createBody(): string
     {
-        $jsCode = implode("\n", [
-            '$(\'#{ID} [data-toggle="collapse"]\').each(function(){',
-            '  var $parent = $(this);',
-            '  var $icon = $(".fa-chevron-down", $parent);',
-            '  $($parent.data("target"))',
-            '    .on("hidden.bs.collapse", function(){',
-            '      $icon.removeClass("fa-chevron-up");',
-            '      $icon.addClass("fa-chevron-down");',
-            '    })',
-            '    .on("shown.bs.collapse", function(){',
-            '      $icon.removeClass("fa-chevron-down");',
-            '      $icon.addClass("fa-chevron-up");',
-            '    });',
-            '});',
-        ]);
-        $this->view->registerJs(
-            str_replace('{ID}', $this->id, $jsCode)
-        );
+        $this->view->registerJs(sprintf(
+            '$(%s).timezoneDialog();',
+            Json::encode(sprintf('#%s', $this->id)),
+        ));
         return Html::tag(
             'div',
             $this->currentTimezone() . $this->renderZoneGroups(),

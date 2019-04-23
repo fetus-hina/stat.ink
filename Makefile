@@ -75,6 +75,7 @@ RESOURCE_TARGETS_MAIN := \
 	resources/.compiled/stat.ink/summary-legends.png \
 	resources/.compiled/stat.ink/swipebox-runner.js \
 	resources/.compiled/stat.ink/theme.js \
+	resources/.compiled/stat.ink/timezone-dialog.js \
 	resources/.compiled/stat.ink/user-miniinfo.css \
 	resources/.compiled/stat.ink/user-stat-2-nawabari-inked.js \
 	resources/.compiled/stat.ink/user-stat-2-nawabari-runner.js \
@@ -398,6 +399,9 @@ resources/.compiled/stat.ink/language-dialog.js: resources/stat.ink/language-dia
 
 resources/.compiled/stat.ink/language-dialog.css: resources/stat.ink/language-dialog.less node_modules
 	$(call less2css,$@,$<)
+
+resources/.compiled/stat.ink/timezone-dialog.js: resources/stat.ink/timezone-dialog.es node_modules
+	$(call es2js,$@,$<)
 
 resources/.compiled/stat.ink/no-image.png: resources/stat.ink/no-image.png
 	mkdir -p resources/.compiled/stat.ink || /bin/true
