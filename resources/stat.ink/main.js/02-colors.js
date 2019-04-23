@@ -1,6 +1,6 @@
 // Copyright (C) 2015 AIZAWA Hina | MIT License
 
-(function (window, $) {
+(window => {
   // http://jfly.iam.u-tokyo.ac.jp/colorset/
   var accentColors = {
     red:        '#ec6110',
@@ -53,4 +53,4 @@
     moving1:    '#7fffbb',
     moving2:    '#fff57f',
   };
-})(window, jQuery);
+})(window);

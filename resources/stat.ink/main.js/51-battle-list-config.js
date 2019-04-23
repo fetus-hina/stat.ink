@@ -95,7 +95,7 @@ window.battleListConfig = function () {
     changeCellVisibility(klass, enable);
     updateConfig(klass, enable);
   });
-  $(window).on('storage', function ($ev) {
+  $(window).on('storage', () => {
     loadConfigAndUpdateUI();
   });
 };

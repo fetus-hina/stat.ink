@@ -17,7 +17,6 @@
     const json = JSON.parse($('#trends-json').text());
     const data = [];
     for (let i = 0; i < json[0].weapons.length; ++i) {
-      const weapon = json[0].weapons[i];
       data.push({
         label: json[0].weapons[i].name,
         data: json.map(week => [

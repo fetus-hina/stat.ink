@@ -16,7 +16,7 @@
       return window.location.href;
     })();
     $this.attr('data-clipboard-text', href);
-    var clipboard = new Clipboard($this.get(0));
+    new Clipboard($this.get(0));
     return $this;
   };
 })(window);

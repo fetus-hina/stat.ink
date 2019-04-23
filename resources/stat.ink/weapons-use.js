@@ -1,7 +1,5 @@
 /*! Copyright (C) 2016 AIZAWA Hina | MIT License */
-(function ($, undefined) {
-  'use strict';
-
+($ => {
   var stack = false;
   function update() {
     var formatDate = function (date) {

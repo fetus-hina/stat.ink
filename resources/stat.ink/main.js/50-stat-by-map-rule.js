@@ -47,7 +47,7 @@ window.statByMapRule = function () {
           },
         });
         if (click_href != '') {
-          $container.bind('plotclick', function (event, pos, obj) {
+          $container.bind('plotclick', () => {
             window.location.href = click_href;
           });
         }

@@ -1,7 +1,6 @@
 $(document).ready(function () {
   $('a.timezone-change').click(function () {
     var $this = $(this);
-    var newTZ = $this.attr('data-tz');
     $.ajax({
       method: 'POST',
       url: '/user/timezone',

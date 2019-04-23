@@ -49,8 +49,8 @@ window.statByMap = function () {
       return a.name.localeCompare(b.name);
     });
     var $maps = $('<div>').addClass('row');
-    for (var i = 0; i < maps.length; ++i) {
-      $maps.append(maps[i].dom);
+    for (var j = 0; j < maps.length; ++j) {
+      $maps.append(maps[j].dom);
     }
     return $root.append($maps);
   };
@@ -100,7 +100,7 @@ window.statByMap = function () {
           clickable: true
         },
       });
-      $container.bind('plotclick', function (event, pos, obj) {
+      $container.bind('plotclick', function () {
         window.location.href = $(this).attr('data-url');
       });
     });

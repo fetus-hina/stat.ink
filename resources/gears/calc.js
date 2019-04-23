@@ -64,11 +64,11 @@
     return 120 * (1 - y) / 60;
   };
 
-  window.getJumpPullDownTime = function (mainCount, subCount) {
+  window.getJumpPullDownTime = function (/*mainCount, subCount*/) {
     return 40 / 60;
   };
 
-  window.getJumpRigidTime = function (mainCount, subCount) {
+  window.getJumpRigidTime = function (/*mainCount, subCount*/) {
     return 10 / 60;
   };
 

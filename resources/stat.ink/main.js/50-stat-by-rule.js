@@ -49,7 +49,7 @@ window.statByRule = function () {
       return a.name.localeCompare(b.name);
     });
     var $rules = $('<div>').addClass('row');
-    for (var i = 0; i < rules.length; ++i) {
+    for (var j = 0; j < rules.length; ++j) {
       $rules.append(rules[i].dom);
     }
     return $root.append($rules);
@@ -100,7 +100,7 @@ window.statByRule = function () {
           clickable: true
         },
       });
-      $container.bind('plotclick', function (event, pos, obj) {
+      $container.bind('plotclick', function () {
         window.location.href = $(this).attr('data-url');
       });
     });

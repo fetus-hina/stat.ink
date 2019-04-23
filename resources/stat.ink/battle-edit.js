@@ -1,7 +1,6 @@
 /*! Copyright (C) 2016 AIZAWA Hina | MIT License */
-(function ($, undefined) {
-  'use strict';
-  $(function () {
+($ => {
+  $(() => {
     var urlRegex = /^https?:\/\/[^\/]+.*$/;
     var $td = $('#link-cell');
     var $displayGroup = $('#link-cell-display', $td);
