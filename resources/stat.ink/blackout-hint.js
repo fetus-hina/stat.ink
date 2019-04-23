@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 /*! Copyright (C) 2016 AIZAWA Hina | MIT License */
 

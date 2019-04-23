@@ -1,12 +1,12 @@
 window.statByMap = function () {
   var $stat = $('#stat');
   var make = function (json, screen_name, filter) {
-    var battlesUrl = (function(map) {
+    var battlesUrl = (function (map) {
       var params = [];
       for (var k in filter) {
         if ((k + '').match(/^filter\[/)) {
           params.push(
-           encodeURIComponent(k) + '=' + encodeURIComponent(filter[k])
+            encodeURIComponent(k) + '=' + encodeURIComponent(filter[k])
           );
         }
       }
@@ -23,8 +23,8 @@ window.statByMap = function () {
       }
       var map = json[i];
       var flotData = [
-        { label: "Won", data: map.win },
-        { label: "Lost", data: map.lose }
+        { label: 'Won', data: map.win },
+        { label: 'Lost', data: map.lose }
       ];
 
       var $map = $('<div>').addClass('col-xs-12 col-sm-6 col-md-4 col-lg-4')
@@ -41,8 +41,8 @@ window.statByMap = function () {
         );
 
       maps.push({
-        "name": (map.name + ""),
-        "dom": $map,
+        'name': (map.name + ''),
+        'dom': $map,
       });
     }
     maps.sort(function (a, b) {
@@ -65,9 +65,9 @@ window.statByMap = function () {
             show: true,
             radius: 1,
             label: {
-              show: "auto",
+              show: 'auto',
               radius: .618,
-              formatter: function(label, slice) {
+              formatter: function (label, slice) {
                 return $('<div>').append(
                   $('<div>').css({
                     'fontSize': '1em',

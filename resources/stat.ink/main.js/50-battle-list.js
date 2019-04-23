@@ -1,7 +1,7 @@
 window.battleList = function () {
-  "use strict";
+  'use strict';
   var lastPeriodId = null;
-  $('.battle-row').each(function(){
+  $('.battle-row').each(function () {
     var $row = $(this);
     if ($row.attr('data-period') === lastPeriodId) {
       return;
@@ -18,16 +18,16 @@ window.battleList = function () {
       var colorMid  = $.Color("#9c9c9c"); // H:  0, S: 0, V:98 / S: 0, L:61
       var colorLow  = $.Color("#fa833e"); // H: 22, S:75, V:98 / S:95, L:61
     */
-    var ratio2 = (function() {
-        if (ratio >= 4.0) {
-            return 1.0;
-        } else if (ratio <= 0.25) {
-            return 0.0;
-        } else if (ratio >= 1.0) {
-            return (ratio - 1.0) / 3.0 * 0.5 + 0.5;
-        } else {
-            return (ratio - 0.25) / 0.75 * 0.5;
-        }
+    var ratio2 = (function () {
+      if (ratio >= 4.0) {
+        return 1.0;
+      } else if (ratio <= 0.25) {
+        return 0.0;
+      } else if (ratio >= 1.0) {
+        return (ratio - 1.0) / 3.0 * 0.5 + 0.5;
+      } else {
+        return (ratio - 0.25) / 0.75 * 0.5;
+      }
     })() * 100;
 
     if (window.colorLock) {
@@ -37,7 +37,7 @@ window.battleList = function () {
           saturation: 0.95 * ((ratio2 - 50) * 2 / 100),
           lightness: 0.61, //0.53 + 0.08 * ((ratio2 - 50) * 2 / 100),
         })
-        .toRgbaString();
+          .toRgbaString();
       } else {
         return $.Color({
           hue: 22,
@@ -60,7 +60,7 @@ window.battleList = function () {
     return y > 153 ? '#000' : '#fff';
   };
 
-  $('.kill-ratio,.kill-rate').each(function() {
+  $('.kill-ratio,.kill-rate').each(function () {
     var $this = $(this);
     var kr = parseFloat($this.attr('data-kill-ratio'));
     $this.css('background-color', calcColor(kr));

@@ -1,7 +1,7 @@
 window.statByRule = function () {
   var $stat = $('#stat');
   var make = function (json, screen_name, filter) {
-    var battlesUrl = (function(rule) {
+    var battlesUrl = (function (rule) {
       var params = [];
       for (var k in filter) {
         if ((k + '').match(/^filter\[/)) {
@@ -23,8 +23,8 @@ window.statByRule = function () {
       }
       var rule = json.rules[i];
       var flotData = [
-        { label: "Won", data: rule.win },
-        { label: "Lost", data: rule.lose }
+        { label: 'Won', data: rule.win },
+        { label: 'Lost', data: rule.lose }
       ];
 
       var $rule = $('<div>').addClass('col-xs-12 col-sm-6 col-md-4 col-lg-4')
@@ -41,8 +41,8 @@ window.statByRule = function () {
             .attr('data-url', battlesUrl(i))
         );
       rules.push({
-        "name": (rule.name + ""),
-        "dom": $rule,
+        'name': (rule.name + ''),
+        'dom': $rule,
       });
     }
     rules.sort(function (a, b) {
@@ -65,9 +65,9 @@ window.statByRule = function () {
             show: true,
             radius: 1,
             label: {
-              show: "auto",
+              show: 'auto',
               radius: .618,
-              formatter: function(label, slice) {
+              formatter: function (label, slice) {
                 return $('<div>').append(
                   $('<div>').css({
                     'fontSize': '1em',

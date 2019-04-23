@@ -11,9 +11,9 @@ window.statByMapRule = function () {
               show: true,
               radius: 1,
               label: {
-                show: "auto",
+                show: 'auto',
                 radius: .618,
-                formatter: function(label, slice) {
+                formatter: function (label, slice) {
                   return $('<div>').append(
                     $('<div>').css({
                       'fontSize': '0.8em',
@@ -63,11 +63,11 @@ window.statByMapRule = function () {
     } else {
       var data = [
         {
-          label: "Won",
+          label: 'Won',
           data: json.win
         },
         {
-          label: "Lost",
+          label: 'Lost',
           data: json.lose
         }
       ];

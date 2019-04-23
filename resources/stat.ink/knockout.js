@@ -10,7 +10,7 @@
               show: true,
               radius: 1,
               label: {
-                show: "auto",
+                show: 'auto',
                 radius: .618,
                 formatter: (label, slice) => {
                   return $('<div>').append(
@@ -54,11 +54,11 @@
     } else {
       const data = [
         {
-          label: "KO",
+          label: 'KO',
           data: json.ko
         },
         {
-          label: "Time Up",
+          label: 'Time Up',
           data: json.battle - json.ko
         }
       ];
