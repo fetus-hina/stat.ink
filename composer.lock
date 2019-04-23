@@ -1581,16 +1581,16 @@
         },
         {
             "name": "php-curl-class/php-curl-class",
-            "version": "8.5.0",
+            "version": "8.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-curl-class/php-curl-class.git",
-                "reference": "2b387e3ef1c8a1d6116a1459c0e3e71643f86806"
+                "reference": "ff95a3c56f94f3bb91e5ac6aaa94b27f39d2a2b1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-curl-class/php-curl-class/zipball/2b387e3ef1c8a1d6116a1459c0e3e71643f86806",
-                "reference": "2b387e3ef1c8a1d6116a1459c0e3e71643f86806",
+                "url": "https://api.github.com/repos/php-curl-class/php-curl-class/zipball/ff95a3c56f94f3bb91e5ac6aaa94b27f39d2a2b1",
+                "reference": "ff95a3c56f94f3bb91e5ac6aaa94b27f39d2a2b1",
                 "shasum": ""
             },
             "require": {
@@ -1644,7 +1644,7 @@
                 "web-service",
                 "xml"
             ],
-            "time": "2019-01-07T06:43:45+00:00"
+            "time": "2019-04-20T05:57:47+00:00"
         },
         {
             "name": "phpseclib/phpseclib",
