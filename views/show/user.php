@@ -1,4 +1,5 @@
 <?php
+use app\assets\BattleListAsset;
 use app\components\widgets\AdWidget;
 use app\components\widgets\BattleFilterWidget;
 use app\components\widgets\SnsWidget;
@@ -7,6 +8,8 @@ use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\ListView;
+
+BattleListAsset::register($this);
 
 $title = Yii::t('app', '{0}\'s Splat Log', [$user->name]);
 $this->title = implode(' | ', [
@@ -310,4 +313,4 @@ if ($battle &&
     </div>
   </div>
 </div>
-<?php $this->registerJs('battleList();battleListConfig();'); ?>
+<?php $this->registerJs('battleList();'); ?>

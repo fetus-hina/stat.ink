@@ -1,8 +1,7 @@
-// Copyright (C) 2015 AIZAWA Hina | MIT License
-
-(window => {
+/*! Copyright (C) 2015-2018 AIZAWA Hina | MIT License */
+(() => {
   // http://jfly.iam.u-tokyo.ac.jp/colorset/
-  var accentColors = {
+  const accentColors = {
     red:        '#ec6110',
     yellow:     '#fff001',
     green:      '#07af7b',
@@ -17,7 +16,7 @@
     altGreen:   '#78c496',
   };
 
-  var bgColors = {
+  const bgColors = {
     red:        '#f7c7c7',
     yellow:     '#fef4ad',
     green:      '#87c9a5',
@@ -27,7 +26,7 @@
     yg:         '#cede4a',
   };
     
-  var gray = {
+  const gray = {
     white:      '#ffffff',
     lightGray:  '#dde1e4',
     darkGray:   '#7d818d',
@@ -53,4 +52,4 @@
     moving1:    '#7fffbb',
     moving2:    '#fff57f',
   };
-})(window);
+})();

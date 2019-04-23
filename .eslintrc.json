@@ -5,7 +5,6 @@
   "extends": "eslint:recommended",
   "globals": {
     "$": false,
-    "Clipboard": false,
     "jQuery": false
   },
   "parser": "babel-eslint",

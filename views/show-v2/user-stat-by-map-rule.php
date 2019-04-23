@@ -1,4 +1,5 @@
 <?php
+use app\assets\TableResponsiveForceAsset;
 use app\components\widgets\AdWidget;
 use app\components\widgets\Battle2FilterWidget;
 use app\components\widgets\SnsWidget;
@@ -8,6 +9,8 @@ use statink\yii2\stages\spl2\Spl2Stage;
 use yii\helpers\Html;
 use yii\helpers\Json;
 use yii\helpers\Url;
+
+TableResponsiveForceAsset::register($this);
 
 $assetManager = Yii::$app->assetManager;
 FlotPieAsset::register($this);

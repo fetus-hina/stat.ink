@@ -1,5 +1,6 @@
 <?php
 use app\assets\AppOptAsset;
+use app\assets\TableResponsiveForceAsset;
 use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
 use app\components\widgets\WinLoseLegend;
@@ -21,6 +22,8 @@ use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Json;
 use yii\helpers\Url;
+
+TableResponsiveForceAsset::register($this);
 
 $weaponName = Yii::t('app-weapon2', $weapon->name);
 $ruleName = Yii::t('app-rule2', $rule->name);

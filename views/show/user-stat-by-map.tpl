@@ -13,7 +13,8 @@
     {{$this->registerMetaTag(['name' => 'twitter:creator', 'content' => '@'|cat:$user->twitter])|@void}}
   {{/if}}
 
-  {{\jp3cki\yii2\flot\FlotPieAsset::register($this)|@void}}
+  {{use class="app\assets\StatByMapAsset"}}
+  {{StatByMapAsset::register($this)|@void}}
   <div class="container">
     <h1>
       {{$title|escape}}
@@ -35,5 +36,4 @@
     </div>
   </div>
 {{/strip}}
-{{registerJs}}window.statByMap(){{/registerJs}}
 {{registerCss}}.pie-flot-container{height:200px}{{/registerCss}}
