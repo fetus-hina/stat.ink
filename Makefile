@@ -178,14 +178,20 @@ package-lock.json: package.json
 check-syntax:
 	find . \( -type d \( -name '.git' -or -name 'vendor' -or -name 'node_modules' -or -name 'runtime' \) -prune \) -or \( -type f -name '*.php' -print \) | xargs -n 1 php -l
 
-check-style: vendor node_modules
-	node_modules/.bin/updates
+check-style: check-style-php check-style-js
+
+check-style-php: vendor
 	vendor/bin/phpcs --standard=phpcs-customize.xml --encoding=UTF-8 --runtime-set ignore_warnings_on_exit 1 $(STYLE_TARGETS)
 	vendor/bin/check-author.php --php-files $(STYLE_TARGETS) messages migrations
+
+check-style-js: node_modules
+	node_modules/.bin/updates
+	npx eslint resources/
 
 fix-style: vendor node_modules
 	node_modules/.bin/updates -u
 	vendor/bin/phpcbf --standard=PSR12 --encoding=UTF-8 $(STYLE_TARGETS)
+	npx eslint --fix resources/
 
 clean: clean-resource
 	rm -rf \
@@ -635,4 +641,4 @@ $(SUB_RESOURCES):
 	$(MAKE) -C $@
 .PHONY: $(SUB_RESOURCES)
 
-.PHONY: FORCE all check-style clean clean-resource composer-update fix-style ikalog init migrate-db resource vendor-archive vendor-by-archive download-vendor-archive geoip check-syntax
+.PHONY: FORCE all check-style clean clean-resource composer-update fix-style ikalog init migrate-db resource vendor-archive vendor-by-archive download-vendor-archive geoip check-syntax check-style-php check-style-js
