@@ -1,0 +1,32 @@
+{
+  "env": {
+    "browser": true
+  },
+  "extends": "eslint:recommended",
+  "globals": {
+    "$": false,
+    "Clipboard": false,
+    "jQuery": false
+  },
+  "parser": "babel-eslint",
+  "rules": {
+    "indent": ["warn", 2, {
+      "SwitchCase": 1
+    }],
+    "prefer-const": "warn",
+    "space-before-function-paren": ["warn", {
+      "anonymous": "always",
+      "named": "never",
+      "asyncArrow": "always"
+    }],
+    "no-useless-escape": "off",
+    "no-extra-semi": "warn",
+    "no-undef": "warn",
+    "quotes": ["warn", "single"],
+    "space-before-blocks": ["warn", {
+      "functions": "always",
+      "keywords": "always",
+      "classes": "always"
+    }]
+  }
+}
