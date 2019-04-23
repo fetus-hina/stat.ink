@@ -45,7 +45,7 @@ class Controller extends Base
         })();
 
         if ($lang) {
-            Yii::$app->language = $lang->lang;
+            Yii::$app->language = $lang->getLanguageId();
             if ($lang->di) {
                 $di = is_string($lang->di) ? json_decode($lang->di, true) : $lang->di;
                 if (is_array($di)) {
