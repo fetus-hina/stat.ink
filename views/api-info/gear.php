@@ -1,8 +1,11 @@
 <?php
+use app\assets\TableResponsiveForceAsset;
 use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
 use statink\yii2\sortableTable\SortableTableAsset;
 use yii\helpers\Html;
+
+TableResponsiveForceAsset::register($this);
 
 $title = Yii::t('app', 'API Info: Gears: {0}', [
   Yii::t('app-gear', $type->name),

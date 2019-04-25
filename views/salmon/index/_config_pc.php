@@ -2,6 +2,7 @@
 declare(strict_types=1);
 
 use app\assets\AppOptAsset;
+use app\assets\TableResponsiveForceAsset;
 use yii\helpers\Html;
 ?>
 <div class="row">
@@ -56,4 +57,5 @@ use yii\helpers\Html;
 $asset = AppOptAsset::register($this);
 $asset->registerJsFile($this, 'salmon-work-list-config.js');
 $this->registerJs('window.workListConfig();');
+TableResponsiveForceAsset::register($this);
 ?>

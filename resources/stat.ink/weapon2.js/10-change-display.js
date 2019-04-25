@@ -1,5 +1,5 @@
 ($ => {
-  $('#change-weapon').change(function() {
+  $('#change-weapon').change(function () {
     const $select = $(this);
     const url = $select.attr('data-url').replace(
       'WEAPON_KEY',

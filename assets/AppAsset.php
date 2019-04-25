@@ -1,13 +1,19 @@
 <?php
 /**
- * @copyright Copyright (C) 2015 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  */
 
+declare(strict_types=1);
+
 namespace app\assets;
 
+use yii\bootstrap\BootstrapAsset;
+use yii\bootstrap\BootstrapPluginAsset;
 use yii\web\AssetBundle;
+use yii\web\JqueryAsset;
+use yii\web\YiiAsset;
 
 class AppAsset extends AssetBundle
 {
@@ -19,14 +25,18 @@ class AppAsset extends AssetBundle
         'main.js',
     ];
     public $depends = [
-        'app\assets\BabelPolyfillAsset',
-        'yii\web\JqueryAsset',
-        'yii\web\YiiAsset',
-        'yii\bootstrap\BootstrapAsset',
-        'yii\bootstrap\BootstrapPluginAsset',
-        'jp3cki\yii2\jqueryColor\JqueryColorAsset',
-        'app\assets\FontAwesomeAsset',
-        'app\assets\JquerySmoothScrollAsset',
+        AutoTooltipAsset::class,
+        BabelPolyfillAsset::class,
+        BootstrapAsset::class,
+        BootstrapPluginAsset::class,
+        ColorSchemeAsset::class,
+        FluidLayoutAsset::class,
+        FontAwesomeAsset::class,
+        JqueryAsset::class,
+        LinkPrevNextAsset::class,
+        RewriteLinkForIosAppAsset::class,
+        SmoothScrollAsset::class,
+        YiiAsset::class,
     ];
 
     public function registerAssetFiles($view)

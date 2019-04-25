@@ -8,6 +8,9 @@
   {{$this->registerMetaTag(['name' => 'twitter:description', 'content' => $title])|@void}}
   {{$this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink'])|@void}}
 
+  {{use class="app\assets\TableResponsiveForceAsset"}}
+  {{TableResponsiveForceAsset::register($this)|@void}}
+
   {{\jp3cki\yii2\flot\FlotPieAsset::register($this)|@void}}
   <div class="container">
     <h1>

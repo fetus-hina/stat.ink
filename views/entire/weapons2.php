@@ -1,5 +1,6 @@
 <?php
 use app\assets\AppOptAsset;
+use app\assets\TableResponsiveForceAsset;
 use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
 use app\models\Map2;
@@ -14,6 +15,8 @@ use yii\grid\GridView;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Json;
+
+TableResponsiveForceAsset::register($this);
 
 $title = Yii::t('app', 'Weapons');
 $this->title = Yii::$app->name . ' | ' . $title;

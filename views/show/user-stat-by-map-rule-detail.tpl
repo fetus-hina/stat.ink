@@ -1,6 +1,9 @@
 {{strip}}
   {{set layout="main"}}
 
+  {{use class="app\assets\TableResponsiveForceAsset"}}
+  {{TableResponsiveForceAsset::register($this)|@void}}
+
   {{$title = "{0}'s Battle Stats (by Mode and Stage)"|translate:'app':$user->name}}
   {{set title="{{$app->name}} | {{$title}}"}}
 
