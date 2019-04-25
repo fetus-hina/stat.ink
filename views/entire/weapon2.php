@@ -1,5 +1,6 @@
 <?php
 use app\assets\AppOptAsset;
+use app\assets\StatByMapRuleAsset;
 use app\assets\TableResponsiveForceAsset;
 use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
@@ -47,8 +48,16 @@ FlotAsset::register($this);
 FlotPieAsset::register($this);
 FlotTimeAsset::register($this);
 SortableTableAsset::register($this);
+StatByMapRuleAsset::register($this);
 
-$this->registerCss('.graph{height:300px}');
+$this->registerCss(implode('', [
+  '.graph{height:300px}',
+  '.pie-flot-container{height:200px}',
+  '.pie-flot-container .error{display:none}',
+  '.bar-flot-container{min-width:150px}',
+  '.graph-container thead tr:nth-child(1) th{width:17%;min-width:100px}',
+  '.graph-container thead tr:nth-child(1) th:nth-child(1){width:15%;min-width:80px}',
+]));
 ?>
 <div class="container">
   <h1>
@@ -511,15 +520,3 @@ $normalizedSeconds = ($rule->key == 'nawabari' ? 3 : 5) * 60;
     ]) . "\n" ?>
   </div>
 </div>
-<?php
-$this->registerCss(implode('', [
-  '.pie-flot-container{height:200px}',
-  '.pie-flot-container .error{display:none}',
-  '.bar-flot-container{min-width:150px}',
-  '.graph-container thead tr:nth-child(1) th{width:17%;min-width:100px}',
-  '.graph-container thead tr:nth-child(1) th:nth-child(1){width:15%;min-width:80px}',
-]));
-
-// update pie charts
-$this->registerJs('(function(){window.statByMapRule()})();');
-?>
