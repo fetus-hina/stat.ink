@@ -21,9 +21,6 @@ class AppAsset extends AssetBundle
     public $css = [
         'main.css',
     ];
-    public $js = [
-        'main.js',
-    ];
     public $depends = [
         AutoTooltipAsset::class,
         BabelPolyfillAsset::class,
