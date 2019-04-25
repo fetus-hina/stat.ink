@@ -2799,16 +2799,16 @@
         },
         {
             "name": "yiisoft/yii2",
-            "version": "2.0.17",
+            "version": "2.0.18",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-framework.git",
-                "reference": "b56159228c3b4990e38cf41ddd69af27ab015bea"
+                "reference": "b80830c5f8c221b8bd6a830c5b2f45544f82c4d7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/b56159228c3b4990e38cf41ddd69af27ab015bea",
-                "reference": "b56159228c3b4990e38cf41ddd69af27ab015bea",
+                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/b80830c5f8c221b8bd6a830c5b2f45544f82c4d7",
+                "reference": "b80830c5f8c221b8bd6a830c5b2f45544f82c4d7",
                 "shasum": ""
             },
             "require": {
@@ -2895,7 +2895,7 @@
                 "framework",
                 "yii2"
             ],
-            "time": "2019-03-22T21:26:26+00:00"
+            "time": "2019-04-16T14:27:26+00:00"
         },
         {
             "name": "yiisoft/yii2-bootstrap",
@@ -2903,12 +2903,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-bootstrap.git",
-                "reference": "1fd918d9fa46ae34059086b3711e34e451aba42d"
+                "reference": "fa476cf19c5637a8a497ad2222149be1569fad80"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-bootstrap/zipball/1fd918d9fa46ae34059086b3711e34e451aba42d",
-                "reference": "1fd918d9fa46ae34059086b3711e34e451aba42d",
+                "url": "https://api.github.com/repos/yiisoft/yii2-bootstrap/zipball/fa476cf19c5637a8a497ad2222149be1569fad80",
+                "reference": "fa476cf19c5637a8a497ad2222149be1569fad80",
                 "shasum": ""
             },
             "require": {
@@ -2958,7 +2958,7 @@
                 "bootstrap",
                 "yii2"
             ],
-            "time": "2019-04-18T12:59:55+00:00"
+            "time": "2019-04-23T13:18:59+00:00"
         },
         {
             "name": "yiisoft/yii2-composer",
@@ -3016,16 +3016,16 @@
         },
         {
             "name": "yiisoft/yii2-httpclient",
-            "version": "2.0.8",
+            "version": "2.0.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-httpclient.git",
-                "reference": "4a41e008aa571bce690e4a992dedb61275d31a35"
+                "reference": "d788e6783c76ef043a5bff1f2b47d82cf44bbe8c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-httpclient/zipball/4a41e008aa571bce690e4a992dedb61275d31a35",
-                "reference": "4a41e008aa571bce690e4a992dedb61275d31a35",
+                "url": "https://api.github.com/repos/yiisoft/yii2-httpclient/zipball/d788e6783c76ef043a5bff1f2b47d82cf44bbe8c",
+                "reference": "d788e6783c76ef043a5bff1f2b47d82cf44bbe8c",
                 "shasum": ""
             },
             "require": {
@@ -3062,7 +3062,7 @@
                 "httpclient",
                 "yii2"
             ],
-            "time": "2019-04-16T12:34:40+00:00"
+            "time": "2019-04-23T11:06:27+00:00"
         },
         {
             "name": "yiisoft/yii2-smarty",
@@ -3595,16 +3595,16 @@
         },
         {
             "name": "codeception/base",
-            "version": "2.5.5",
+            "version": "2.5.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Codeception/base.git",
-                "reference": "17c3e2fc627b18dceec393b4b42e47c45be31ac2"
+                "reference": "aace5bab5593c93d8473b620f70754135a1eb4f0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/base/zipball/17c3e2fc627b18dceec393b4b42e47c45be31ac2",
-                "reference": "17c3e2fc627b18dceec393b4b42e47c45be31ac2",
+                "url": "https://api.github.com/repos/Codeception/base/zipball/aace5bab5593c93d8473b620f70754135a1eb4f0",
+                "reference": "aace5bab5593c93d8473b620f70754135a1eb4f0",
                 "shasum": ""
             },
             "require": {
@@ -3681,7 +3681,7 @@
                 "functional testing",
                 "unit testing"
             ],
-            "time": "2019-03-23T18:30:45+00:00"
+            "time": "2019-04-24T11:36:34+00:00"
         },
         {
             "name": "codeception/phpunit-wrapper",
@@ -5012,16 +5012,16 @@
         },
         {
             "name": "sebastian/environment",
-            "version": "4.1.0",
+            "version": "4.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/environment.git",
-                "reference": "6fda8ce1974b62b14935adc02a9ed38252eca656"
+                "reference": "3095910f0f0fb155ac4021fc51a4a7a39ac04e8a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/environment/zipball/6fda8ce1974b62b14935adc02a9ed38252eca656",
-                "reference": "6fda8ce1974b62b14935adc02a9ed38252eca656",
+                "url": "https://api.github.com/repos/sebastianbergmann/environment/zipball/3095910f0f0fb155ac4021fc51a4a7a39ac04e8a",
+                "reference": "3095910f0f0fb155ac4021fc51a4a7a39ac04e8a",
                 "shasum": ""
             },
             "require": {
@@ -5036,7 +5036,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "4.1-dev"
+                    "dev-master": "4.2-dev"
                 }
             },
             "autoload": {
@@ -5061,7 +5061,7 @@
                 "environment",
                 "hhvm"
             ],
-            "time": "2019-02-01T05:27:49+00:00"
+            "time": "2019-04-25T07:55:20+00:00"
         },
         {
             "name": "sebastian/exporter",
@@ -6014,12 +6014,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-debug.git",
-                "reference": "0465d9f719b204e258d42f6b8522b3fb2182fd07"
+                "reference": "5a5dcd65a7a3dd1f95b0482f5d107af02188266d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-debug/zipball/0465d9f719b204e258d42f6b8522b3fb2182fd07",
-                "reference": "0465d9f719b204e258d42f6b8522b3fb2182fd07",
+                "url": "https://api.github.com/repos/yiisoft/yii2-debug/zipball/5a5dcd65a7a3dd1f95b0482f5d107af02188266d",
+                "reference": "5a5dcd65a7a3dd1f95b0482f5d107af02188266d",
                 "shasum": ""
             },
             "require": {
@@ -6063,7 +6063,7 @@
                 "debugger",
                 "yii2"
             ],
-            "time": "2019-04-17T18:36:16+00:00"
+            "time": "2019-04-23T13:17:41+00:00"
         },
         {
             "name": "yiisoft/yii2-gii",
