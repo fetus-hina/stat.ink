@@ -1,5 +1,4 @@
 STYLE_TARGETS := actions assets commands components controllers models
-JS_SRCS := $(shell ls -1 resources/stat.ink/main.js/*.js)
 VENDOR_SHA256 := $(shell sha256sum -t composer.lock | awk '{print $$1}')
 
 RESOURCE_TARGETS_MAIN := \
@@ -70,7 +69,6 @@ RESOURCE_TARGETS_MAIN := \
 	resources/.compiled/stat.ink/language-dialog.js \
 	resources/.compiled/stat.ink/link-prevnext.js \
 	resources/.compiled/stat.ink/main.css \
-	resources/.compiled/stat.ink/main.js \
 	resources/.compiled/stat.ink/no-image.png \
 	resources/.compiled/stat.ink/os-icon-widget.js \
 	resources/.compiled/stat.ink/permalink-dialog.js \
@@ -275,9 +273,6 @@ define es2js
 		npx babel -s false -f jsfile | \
 		npx uglifyjs -c -m -b beautify=false,ascii_only=true --comments '/license|copyright/i' -o $(1)
 endef
-
-resources/.compiled/stat.ink/main.js: $(JS_SRCS) node_modules
-	$(call es2js,$@,$(JS_SRCS))
 
 WEAPON2_JS := $(wildcard resources/stat.ink/weapon2.js/*.js)
 resources/.compiled/stat.ink/weapon2.js: $(WEAPON2_JS) node_modules
