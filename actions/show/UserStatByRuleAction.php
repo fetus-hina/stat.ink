@@ -30,7 +30,7 @@ class UserStatByRuleAction extends BaseAction
         $filter->screen_name = $user->screen_name;
         $filter->validate();
 
-        return $this->controller->render('user-stat-by-rule.tpl', [
+        return $this->controller->render('user-stat-by-rule', [
             'user' => $user,
             'filter' => $filter,
             'data' => $this->getData($user, $filter),

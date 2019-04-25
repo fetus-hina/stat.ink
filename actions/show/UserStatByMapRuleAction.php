@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2015 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  */
@@ -32,7 +32,7 @@ class UserStatByMapRuleAction extends BaseAction
         $filter->screen_name = $user->screen_name;
         $filter->validate();
 
-        return $this->controller->render('user-stat-by-map-rule.tpl', array_merge(
+        return $this->controller->render('user-stat-by-map-rule', array_merge(
             [
                 'user' => $user,
                 'filter' => $filter,
