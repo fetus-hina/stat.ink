@@ -22,6 +22,8 @@ body {
 }
 
 .cf() {
+    *zoom: 1;
+
     &:before, &:after {
         content: " ";
         display: table;
@@ -29,10 +31,6 @@ body {
 
     &:after {
         clear: both;
-    }
-
-    & {
-        *zoom: 1;
     }
 }
 

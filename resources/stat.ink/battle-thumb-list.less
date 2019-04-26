@@ -4,6 +4,8 @@
 /*! Copyright (C) 2015-2016 AIZAWA Hina | MIT License */
 
 .cf() {
+    *zoom: 1;
+
     &:before, &:after {
         content: " ";
         display: table;
@@ -12,9 +14,32 @@
     &:after {
         clear: both;
     }
+}
 
-    & {
-        *zoom: 1;
+.trends {
+    p {
+        font-size: 0.618;
+        margin: 0;
+    }
+    
+    ul {
+        display: inline-block;
+        margin: 0;
+        padding: 0 0 0 2em;
+        width: 100%;
+    }
+    
+    li {
+        display: inline-block!important;
+        width: 20%!important;
+        margin: 0!important;
+        padding: 0!important;
+        float: initial!important;
+
+        img {
+            width: 100%!important;
+            height: auto!important;
+        }
     }
 }
 
@@ -26,63 +51,6 @@ ul.battles {
     margin: 15px 0;
     padding: 0;
     box-sizing: border-box;
-
-    li {
-        display: block;
-        list-style-type: none;
-        width: 25%;
-        float: left;
-        padding: 10px;
-
-        @media (max-width: @screen-xs-max) {
-            width: 100%;
-        }
-        @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
-            width: 50%;
-        }
-        @media (min-width: @screen-md-min) and (max-width: @screen-md-max) {
-            width: (percentage(1/3));
-        }
-        @media (min-width: @screen-lg-min) {
-            width: 25%;
-        }
-    }
-
-    &.maps {
-        margin-bottom: 0;
-
-        li {
-            @media (min-width: @screen-lg-min) {
-                width: 50%;
-            }
-        }
-
-        .battle-data {
-            text-align: center;
-            font-weight: bold;
-        }
-
-        .thumbnail {
-            margin-bottom: 0;
-        }
-    }
-
-    &.maps.salmon-schedule {
-        li {
-            @media (max-width: @screen-xs-max) {
-                width: 100%;
-            }
-            @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
-                width: 100%;
-            }
-            @media (min-width: @screen-md-min) and (max-width: @screen-md-max) {
-                width: 100%;
-            }
-            @media (min-width: @screen-lg-min) {
-                width: 100%;
-            }
-        }
-    }
 
     .thumbnail {
         position: relative;
@@ -144,35 +112,65 @@ ul.battles {
         }
     }
 
+    li {
+        display: block;
+        list-style-type: none;
+        width: 25%;
+        float: left;
+        padding: 10px;
+
+        @media (max-width: @screen-xs-max) {
+            width: 100%;
+        }
+        @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
+            width: 50%;
+        }
+        @media (min-width: @screen-md-min) and (max-width: @screen-md-max) {
+            width: (percentage(1/3));
+        }
+        @media (min-width: @screen-lg-min) {
+            width: 25%;
+        }
+    }
+
+    &.maps {
+        margin-bottom: 0;
+
+        li {
+            @media (min-width: @screen-lg-min) {
+                width: 50%;
+            }
+        }
+
+        .battle-data {
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .thumbnail {
+            margin-bottom: 0;
+        }
+    }
+
+    &.maps.salmon-schedule {
+        li {
+            @media (max-width: @screen-xs-max) {
+                width: 100%;
+            }
+            @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
+                width: 100%;
+            }
+            @media (min-width: @screen-md-min) and (max-width: @screen-md-max) {
+                width: 100%;
+            }
+            @media (min-width: @screen-lg-min) {
+                width: 100%;
+            }
+        }
+    }
+
     .time {
         text-align: right;
-    }
-}
-
-.trends {
-    p {
-        font-size: 0.618;
-        margin: 0;
-    }
-    
-    ul {
-        display: inline-block;
-        margin: 0;
-        padding: 0 0 0 2em;
-        width: 100%;
-    }
-    
-    li {
-        display: inline-block!important;
-        width: 20%!important;
-        margin: 0!important;
-        padding: 0!important;
-        float: initial!important;
-
-        img {
-            width: 100%!important;
-            height: auto!important;
-        }
     }
 }
 
