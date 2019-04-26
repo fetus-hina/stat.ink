@@ -41,4 +41,4 @@ jobs:
             - ./node_modules
       - run: scl enable php73 -- ./yii secret/db postgres statink
       - run: scl enable php73 -- make
-      - run: scl enable php73 -- make check-style
+      - run: scl enable php73 -- make -j3 check-style
