@@ -189,7 +189,7 @@ package-lock.json: package.json
 check-syntax:
 	find . \( -type d \( -name '.git' -or -name 'vendor' -or -name 'node_modules' -or -name 'runtime' \) -prune \) -or \( -type f -name '*.php' -print \) | xargs -n 1 php -l
 
-check-style: check-style-php check-style-js
+check-style: check-style-js check-style-css check-style-php
 
 check-style-php: vendor
 	vendor/bin/phpcs --standard=phpcs-customize.xml --encoding=UTF-8 --runtime-set ignore_warnings_on_exit 1 $(STYLE_TARGETS)
@@ -198,6 +198,9 @@ check-style-php: vendor
 check-style-js: node_modules
 	node_modules/.bin/updates
 	npx eslint resources/
+
+check-style-css: node_modules
+	npx stylelint "resources/**/*.less" "resources/**/*.css"
 
 fix-style: vendor node_modules
 	node_modules/.bin/updates -u

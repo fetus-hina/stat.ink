@@ -1,9 +1,9 @@
 /*! Copyright (C) 2016 AIZAWA Hina | MIT License */
 @media screen and (max-width:1299px) {
-    .github-fork-ribbon-wrapper {
-        display: none!important;
-    }
+  .github-fork-ribbon-wrapper {
+    display: none !important;
+  }
 }
 body.use-fluid .github-fork-ribbon-wrapper {
-    display: none!important;
+  display: none !important;
 }
