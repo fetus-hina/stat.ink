@@ -1,6 +1,6 @@
 ($ => {
   // polyfill
-  Number.isNaN = Number.isNaN || (value => typeof value === "number" && value !== value);
+  Number.isNaN = Number.isNaN || (value => typeof value === 'number' && value !== value);
 
   function updateTrends() {
     // {{{
@@ -8,16 +8,15 @@
     const formatDate = date => {
       function zero(n) {
         n = String(n);
-        return (n.length== 1) ? "0" + n : n;
+        return (n.length== 1) ? '0' + n : n;
       }
-      return date.getUTCFullYear() + "-" + zero(date.getUTCMonth()+1) + "-" + zero(date.getUTCDate());
+      return date.getUTCFullYear() + '-' + zero(date.getUTCMonth()+1) + '-' + zero(date.getUTCDate());
     };
     const date2unixTime = d => ((new Date(String(d) + 'T00:00:00Z')).getTime());
     const $graphs = $('#graph-trends');
     const json = JSON.parse($('#trends-json').text());
     const data = [];
     for (let i = 0; i < json[0].weapons.length; ++i) {
-      const weapon = json[0].weapons[i];
       data.push({
         label: json[0].weapons[i].name,
         data: json.map(week => [
@@ -48,7 +47,7 @@
         yaxis: {
           min: 0,
           max: stack ? 100 : undefined,
-          tickFormatter: v => v.toFixed(1) + "%",
+          tickFormatter: v => v.toFixed(1) + '%',
         },
         series: {
           stack: stack,
@@ -62,8 +61,8 @@
           }
         },
         legend: {
-          sorted: stack ? "reverse" : false,
-          position: "nw",
+          sorted: stack ? 'reverse' : false,
+          position: 'nw',
           container: $('#graph-trends-legends'),
           noColumns: (() => {
             const width = $(window).width();
@@ -168,7 +167,7 @@
           {
             data: source.map(item => [item[0], item[1], `${item[2]}, n=${item[3]}`]),
             points: {
-              symbol: "diamond",
+              symbol: 'diamond',
             },
             color: window.colorScheme._accent.blue,
           },
@@ -208,7 +207,7 @@
 
       $.plot($graph, data, {
         yaxis: {
-          tickFormatter: v => v.toFixed(1) + "%",
+          tickFormatter: v => v.toFixed(1) + '%',
         },
         series: {
           points: {

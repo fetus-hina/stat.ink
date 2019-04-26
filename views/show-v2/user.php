@@ -1,4 +1,5 @@
 <?php
+use app\assets\BattleListAsset;
 use app\components\widgets\AdWidget;
 use app\components\widgets\Battle2FilterWidget;
 use app\components\widgets\EmbedVideo;
@@ -10,6 +11,8 @@ use yii\grid\GridView;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\ListView;
+
+BattleListAsset::register($this);
 
 $title = Yii::t('app', "{0}'s Splat Log", $user->name);
 $this->title = sprintf('%s | %s', Yii::$app->name, $title);
@@ -1050,5 +1053,5 @@ if ($user->twitter != '') {
   </div>
 </div>
 <?php
-$this->registerJs('window.battleList();window.battleListConfig();');
+$this->registerJs('window.battleList();');
 ?>

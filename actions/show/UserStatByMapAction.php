@@ -32,7 +32,7 @@ class UserStatByMapAction extends BaseAction
             //$battle->filter($filter);
         }
 
-        return $this->controller->render('user-stat-by-map.tpl', [
+        return $this->controller->render('user-stat-by-map', [
            'user' => $user,
            'filter' => $filter,
            'data' => $this->getData($user, $filter),

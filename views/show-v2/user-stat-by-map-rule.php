@@ -1,4 +1,6 @@
 <?php
+use app\assets\StatByMapRuleAsset;
+use app\assets\TableResponsiveForceAsset;
 use app\components\widgets\AdWidget;
 use app\components\widgets\Battle2FilterWidget;
 use app\components\widgets\SnsWidget;
@@ -8,6 +10,9 @@ use statink\yii2\stages\spl2\Spl2Stage;
 use yii\helpers\Html;
 use yii\helpers\Json;
 use yii\helpers\Url;
+
+TableResponsiveForceAsset::register($this);
+StatByMapRuleAsset::register($this);
 
 $assetManager = Yii::$app->assetManager;
 FlotPieAsset::register($this);
@@ -29,6 +34,12 @@ if ($user->twitter != '') {
         'content' => sprintf('@%s', $user->twitter),
     ]);
 }
+
+$this->registerCss(implode('', [
+  '.pie-flot-container{height:200px}',
+  '.pie-flot-container .error{display:none}',
+  '.graph-container thead tr:nth-child(1) th{width:16.6667%;min-width:100px}',
+]));
 
 $ruleMap = [
     'nawabari' => 'standard-regular-nawabari',
@@ -78,7 +89,7 @@ $ruleMap = [
                   'class' => 'pie-flot-container',
                   'data' => [
                     'json' => Json::encode($data['total'][$ruleKey]),
-                    'clink-href' => Url::to(['show-v2/user',
+                    'click-href' => Url::to(['show-v2/user',
                       'screen_name' => $user->screen_name,
                       'filter' => [
                         'rule' => $ruleMap[$ruleKey],
@@ -117,7 +128,7 @@ $ruleMap = [
                   'class' => 'pie-flot-container',
                   'data' => [
                     'json' => Json::encode($data[$mapKey][$ruleKey]),
-                    'clink-href' => Url::to(['show-v2/user',
+                    'click-href' => Url::to(['show-v2/user',
                       'screen_name' => $user->screen_name,
                       'filter' => [
                         'rule' => $ruleMap[$ruleKey],
@@ -152,12 +163,3 @@ $ruleMap = [
     </div>
   </div>
 </div>
-<?php
-$this->registerJs(
-  '(function(){window.statByMapRule()})();'
-);
-$this->registerCss(implode('', [
-  '.pie-flot-container{height:200px}',
-  '.pie-flot-container .error{display:none}',
-  '.graph-container thead tr:nth-child(1) th{width:16.6667%;min-width:100px}',
-]));

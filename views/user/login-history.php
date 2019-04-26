@@ -1,6 +1,7 @@
 <?php
 declare(strict_types=1);
 
+use app\assets\TableResponsiveForceAsset;
 use app\components\widgets\BrowserIconWidget;
 use app\components\widgets\FA;
 use app\components\widgets\LocationColumnWidget;
@@ -8,6 +9,8 @@ use app\components\widgets\OsIconWidget;
 use app\models\UserLoginHistory;
 use yii\grid\GridView;
 use yii\helpers\Html;
+
+TableResponsiveForceAsset::register($this);
 
 $title = Yii::t('app', 'Login History');
 $this->title = implode(' | ', [

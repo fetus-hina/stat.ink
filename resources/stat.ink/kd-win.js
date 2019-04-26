@@ -32,9 +32,9 @@
               saturation: 0.95 * ((ratio - 50) * 2 / 100),
               lightness: 0.53 + 0.08 * ((ratio - 50) * 2 / 100),
             })
-            .alpha(battleCountCoefficient)
-            .blend($.Color("#ffffff"))
-            .toRgbaString()
+              .alpha(battleCountCoefficient)
+              .blend($.Color('#ffffff'))
+              .toRgbaString()
           );
         } else {
           $cell.css(
@@ -44,9 +44,9 @@
               saturation: 0.95 * ((50 - ratio) * 2 / 100),
               lightness: 0.53 + 0.08 * ((50 - ratio) * 2 / 100)
             })
-            .alpha(battleCountCoefficient)
-            .blend($.Color("#ffffff"))
-            .toRgbaString()
+              .alpha(battleCountCoefficient)
+              .blend($.Color('#ffffff'))
+              .toRgbaString()
           );
         }
       } else {
@@ -57,9 +57,9 @@
             saturation: 0.95,
             lightness: 0.53
           })
-          .alpha(battleCountCoefficient)
-          .blend($.Color("#ffffff"))
-          .toRgbaString()
+            .alpha(battleCountCoefficient)
+            .blend($.Color('#ffffff'))
+            .toRgbaString()
         );
       }
 

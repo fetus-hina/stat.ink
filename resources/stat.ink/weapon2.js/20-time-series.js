@@ -16,7 +16,7 @@
         number = String(number);
         return (number.length > 1)
           ? number
-          : ("0" + number);
+          : ('0' + number);
       };
       return [
         date.getUTCFullYear(),
@@ -110,8 +110,8 @@
             .css({
               'top': item.pageY - 20,
               'left': (item.pageX <= $(window).width() / 2)
-                  ? (item.pageX + 10)
-                  : (item.pageX - ($tooltip.width() + 10)),
+                ? (item.pageX + 10)
+                : (item.pageX - ($tooltip.width() + 10)),
             })
             .show();
         }); // }}}
@@ -224,8 +224,8 @@
             .css({
               'top': item.pageY - 20,
               'left': (item.pageX <= $(window).width() / 2)
-                  ? (item.pageX + 10)
-                  : (item.pageX - ($tooltip.width() + 10)),
+                ? (item.pageX + 10)
+                : (item.pageX - ($tooltip.width() + 10)),
             })
             .show();
         }); // }}}

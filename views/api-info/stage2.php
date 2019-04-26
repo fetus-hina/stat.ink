@@ -1,9 +1,12 @@
 <?php
+use app\assets\TableResponsiveForceAsset;
 use app\components\helpers\WeaponShortener;
 use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
 use statink\yii2\sortableTable\SortableTableAsset;
 use yii\bootstrap\Html;
+
+TableResponsiveForceAsset::register($this);
 
 $this->context->layout = 'main';
 $this->title = Yii::t('app', 'API Info: Stages (Splatoon 2)');
