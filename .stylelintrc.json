@@ -15,7 +15,7 @@
     "declaration-colon-space-after": "always",
     "declaration-colon-space-before": "never",
     "declaration-empty-line-before": "never",
-    "font-family-name-quotes": "always-where-required",
+    "font-family-name-quotes": "always-where-recommended",
     "font-weight-notation": "named-where-possible",
     "function-calc-no-invalid": true,
     "function-comma-newline-after": "never-multi-line",
