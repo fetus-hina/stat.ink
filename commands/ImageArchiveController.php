@@ -155,12 +155,11 @@ class ImageArchiveController extends Controller
     private function startOptimizeSubProcess(\stdClass $task)
     {
         $this->stdout(sprintf("        %s: Optimizing\n", basename($task->input)));
-        $cmdline = sprintf(
-            '/usr/bin/env %s -rem allb -l 9 -fix %s %s >/dev/null 2>&1',
-            escapeshellarg('pngcrush'),
+        $cmdline = vsprintf('/usr/bin/env %s -quiet -strip all -o7 -out %s %s', [
+            escapeshellarg(__DIR__ . '/../node_modules/.bin/optipng'),
+            escapeshellarg($task->output),
             escapeshellarg($task->input),
-            escapeshellarg($task->output)
-        );
+        ]);
         $descSpec = [
             ['pipe', 'r'],
             ['pipe', 'w'],

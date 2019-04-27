@@ -50,7 +50,6 @@ RUN rpm --import \
         php73-php-process \
         php73-php-xml \
         php73-runtime \
-        pngcrush \
         rh-postgresql95-postgresql \
         rh-postgresql95-postgresql-server \
         supervisor \
