@@ -16,6 +16,8 @@
     "cssnano": "^4.1.10",
     "eslint": "^5.16.0",
     "less": "^3.9.0",
+    "node-zopfli": "^2.0.3",
+    "optipng-bin": "^5.1.0",
     "postcss-cli": "^6.1.2",
     "redoc-cli": "^0.8.3",
     "speccy": "^0.9.0",

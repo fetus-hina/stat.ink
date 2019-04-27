@@ -40,16 +40,13 @@ REQUIREMENTS
 * Node.js (`npm`)
   - Recommended: latest release or latest LTS
 * `jpegoptim`
-* `pngcrush`
 * Brotli (`bro`)
-* Zopfli
 
 https://stat.ink/ works with:
 
 - CentOS 7.6 (x86-64)
 - EPEL
   - `gearmand`
-  - Zopfli
 - [JP3CKI Repository](https://rpm.fetus.jp/)
   - [H2O](https://h2o.examp1e.net/) mainline
   - [Brotli](https://github.com/google/brotli)
