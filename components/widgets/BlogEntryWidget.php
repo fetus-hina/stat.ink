@@ -13,7 +13,6 @@ use Yii;
 use app\assets\BlogEntryAsset;
 use app\models\BlogEntry;
 use yii\base\Widget;
-use yii\bootstrap\Alert;
 use yii\helpers\Html;
 
 class BlogEntryWidget extends Widget
@@ -64,7 +63,8 @@ class BlogEntryWidget extends Widget
             '%s (%s)',
             Html::a(
                 Html::encode($entry->title),
-                $entry->url
+                $entry->url,
+                ['class' => 'alert-link'],
             ),
             Yii::$app->formatter->asHtmlRelative($entry->at),
         );

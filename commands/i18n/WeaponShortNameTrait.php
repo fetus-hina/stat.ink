@@ -20,6 +20,7 @@ trait WeaponShortNameTrait
     public function actionShortWeapon() : int
     {
         $locales = Language::find()
+            ->standard()
             ->orderBy(['lang' => SORT_ASC])
             ->all();
 

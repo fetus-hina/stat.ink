@@ -8,6 +8,7 @@ return [
             'fileMap' => [
                 'app-ability'   => 'ability.php',
                 'app-ability2'  => 'ability2.php',
+                'app-alert'     => 'alert.php',
                 'app-apidoc1'   => 'apidoc1.php',
                 'app-brand'     => 'brand.php',
                 'app-brand2'    => 'brand2.php',

@@ -7,18 +7,10 @@
 
 declare(strict_types=1);
 
-use yii\bootstrap\Alert;
 use yii\data\Pagination;
 use yii\helpers\Html;
 
 Yii::$classMap[Html::class] = __DIR__ . '/../components/overwrite/yii/helpers/Html.php';
-
-Yii::$container->set(Alert::class, [
-    'closeButton' => false,
-    'options' => [
-        'role' => 'alert',
-    ],
-]);
 
 Yii::$container->set(Pagination::class, [
     'defaultPageSize' => 100,
