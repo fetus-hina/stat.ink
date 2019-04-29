@@ -17,12 +17,6 @@ use yii\helpers\Html;
 
 class BlogEntryWidget extends Widget
 {
-    public function init()
-    {
-        parent::init();
-        $this->id = 'blog-entries';
-    }
-
     public function run()
     {
         $entries = $this->getEntries();
@@ -33,11 +27,15 @@ class BlogEntryWidget extends Widget
         BlogEntryAsset::register($this->view);
         return Html::tag(
             'aside',
-            Html::tag('nav', $this->renderEntries($entries)),
-            [
-                'id' => $this->id,
-                'class' => 'bg-success',
-            ]
+            Alert::widget([
+                'options' => [
+                    'class' => [
+                        'alert-success',
+                        'blog-entries',
+                    ],
+                ],
+                'body' => Html::tag('nav', $this->renderEntries($entries)),
+            ])
         );
     }
 
@@ -65,7 +63,8 @@ class BlogEntryWidget extends Widget
             '%s (%s)',
             Html::a(
                 Html::encode($entry->title),
-                $entry->url
+                $entry->url,
+                ['class' => 'alert-link'],
             ),
             Yii::$app->formatter->asHtmlRelative($entry->at),
         );

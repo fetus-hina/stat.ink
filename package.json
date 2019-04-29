@@ -6,10 +6,10 @@
     "email": "hina@bouhime.com"
   },
   "dependencies": {
-    "@babel/cli": "^7.4.3",
-    "@babel/core": "^7.4.3",
-    "@babel/polyfill": "^7.4.3",
-    "@babel/preset-env": "^7.4.3",
+    "@babel/cli": "^7.4.4",
+    "@babel/core": "^7.4.4",
+    "@babel/polyfill": "^7.4.4",
+    "@babel/preset-env": "^7.4.4",
     "autoprefixer": "^9.5.1",
     "babel-eslint": "^10.0.1",
     "bowser": "^2.3.0",
@@ -24,7 +24,7 @@
     "stylelint": "^10.0.1",
     "stylelint-config-recommended": "^2.2.0",
     "svgo": "^1.2.2",
-    "uglify-js": "^3.5.8",
+    "uglify-js": "^3.5.9",
     "updates": "^8.0.2"
   }
 }

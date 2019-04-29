@@ -27,6 +27,7 @@ class I18nController extends Controller
     {
         $status = 0;
         $locales = Language::find()
+            ->standard()
             ->andWhere(['not', ['lang' => ['ja-JP', 'en-US']]])
             ->all();
         $status |= $this->actionJapaneseGear2();

@@ -2,8 +2,16 @@
 IKA_URL := https://3.bp.blogspot.com/-cyF7po_IL_4/WYAx9EHo9DI/AAAAAAABFxA/zuPU_uVv-EIQm5uPgwgl4nGyDO1ZOysRwCLcBGAs/s800/character_fish_ika.png
 # https://www.irasutoya.com/2013/01/blog-post_31.html
 TAKO_URL := https://3.bp.blogspot.com/-eU_OyQeEmFU/UnXnKHxZdoI/AAAAAAAAaI4/AtK1-8NE9UQ/s800/fish_tako.png
+# https://www.irasutoya.com/2019/04/blog-post_34.html
+REIWA_URL := https://2.bp.blogspot.com/-c-Ws8qkxBq4/XKF92e4mmBI/AAAAAAABSHQ/YHiJQq1xOQwpQFXKHhrvZmPa4EhW6xCUQCLcBGAs/s800/gengou_happyou_reiwa.png
 
-all: inkling.png octoling.png eto
+TARGETS := \
+	eto \
+	inkling.png \
+	octoling.png \
+	reiwa.png
+
+all: $(TARGETS)
 .PHONY: all eto
 
 inkling.png:
@@ -11,6 +19,9 @@ inkling.png:
 
 octoling.png:
 	curl -fsSL -o $@ $(TAKO_URL)
+
+reiwa.png:
+	curl -fsSL -o $@ $(REIWA_URL)
 
 eto: eto/0.png eto/1.png eto/2.png eto/3.png eto/4.png eto/5.png eto/6.png eto/7.png eto/8.png eto/9.png eto/10.png eto/11.png
 
