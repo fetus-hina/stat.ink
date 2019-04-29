@@ -29,11 +29,13 @@ class PleaseUseLatest extends Alert
 
     private function renderBody(): string
     {
+        // phpcs:disable
         $messages = [
             'For SquidTracks or splatnet2statink users:',
             'Please update your client software and use always latest version (they will be updated to the latest version when restarted).',
             'Incorrect data will be registered if you do not use the latest version.',
         ];
+        // phpcs:enable
 
         return implode('', array_map(
             function (string $message): string {

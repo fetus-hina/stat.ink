@@ -33,7 +33,12 @@ class ImportFromSplatnet2 extends Alert
             Html::tag(
                 'p',
                 Html::encode(
-                    Yii::t('app-alert', 'You can import automatically from SplatNet 2, use these apps: (USE AT YOUR OWN RISK)')
+                    Yii::t(
+                        'app-alert',
+                        // phpcs:disable
+                        'You can import automatically from SplatNet 2, use these apps: (USE AT YOUR OWN RISK)'
+                        // phpcs:enable
+                    )
                 )
             ),
             Html::tag('ul', implode('', [
@@ -53,7 +58,9 @@ class ImportFromSplatnet2 extends Alert
                 Html::encode(
                     Yii::t(
                         'app-alert',
+                        // phpcs:disable
                         'We won\'t implement to import automatically to {appName} for security reasons.',
+                        // phpcs:enable
                         ['appName' => Yii::$app->name]
                     )
                 )
