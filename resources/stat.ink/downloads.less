@@ -2,35 +2,35 @@
 /*! Copyright (C) 2016 AIZAWA Hina | MIT License */
 
 ul.dl-langs {
-    display: block;
+  display: block;
+  list-style-type: none;
+  margin: 0 0 0 2em;
+  padding: 0;
+
+  li {
     list-style-type: none;
-    margin: 0 0 0 2em;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    margin: 0;
     padding: 0;
 
-    li {
-        list-style-type: none;
-        display: flex;
-        flex-direction: row;
-        flex-wrap: nowrap;
-        margin: 0;
-        padding: 0;
-
-        .lang {
-            width: 9em;
-            overflow: hidden;
-            margin-right: 0.5em;
-        }
-
-        .charsets {
-            display: flex;
-            flex-direction: row;
-            flex-wrap: wrap;
-            flex: 1;
-
-            .charset {
-                margin-right: 2ex;
-                white-space: nowrap;
-            }
-        }
+    .lang {
+      width: 9em;
+      overflow: hidden;
+      margin-right: 0.5em;
     }
+
+    .charsets {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      flex: 1;
+
+      .charset {
+        margin-right: 2ex;
+        white-space: nowrap;
+      }
+    }
+  }
 }

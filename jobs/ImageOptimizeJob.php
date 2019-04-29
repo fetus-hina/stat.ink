@@ -42,12 +42,11 @@ class ImageOptimizeJob extends BaseJob
             FileHelper::createDirectory(dirname($outPath));
         }
 
-        $cmdline = sprintf(
-            '/usr/bin/env %s -rem allb -l 9 -fix %s %s >/dev/null 2>&1',
-            escapeshellarg('pngcrush'),
+        $cmdline = vsprintf('/usr/bin/env %s -quiet -strip all -o7 -out %s %s', [
+            escapeshellarg(__DIR__ . '/../node_modules/.bin/optipng'),
+            escapeshellarg($outPath),
             escapeshellarg($inPath),
-            escapeshellarg($outPath)
-        );
+        ]);
         $lines = null;
         $status = null;
         @exec($cmdline, $lines, $status);

@@ -36,6 +36,7 @@ RESOURCE_TARGETS_MAIN := \
 	resources/.compiled/irasutoya/eto/9.png \
 	resources/.compiled/irasutoya/inkling.png \
 	resources/.compiled/irasutoya/octoling.png \
+	resources/.compiled/irasutoya/reiwa.png \
 	resources/.compiled/ostatus/ostatus.min.svg \
 	resources/.compiled/ostatus/ostatus.min.svg.br \
 	resources/.compiled/ostatus/ostatus.min.svg.gz \
@@ -169,27 +170,28 @@ ikalog: all runtime/ikalog runtime/ikalog/repo runtime/ikalog/winikalog.html
 	./yii ikalog/update-winikalog
 
 resource: $(RESOURCE_TARGETS) $(ADDITIONAL_LICENSES)
+	rm -rf web/assets/*
 
 composer-update: composer.phar
 	./composer.phar self-update
-	touch -r composer.json composer.phar
+	@touch -r composer.json composer.phar
 
 vendor: composer.phar composer.lock
 	php composer.phar install --prefer-dist --profile
-	touch -r composer.lock vendor
+	@touch -r composer.lock vendor
 
 node_modules: package-lock.json
 	npm install
-	touch $@
+	@touch $@
 
 package-lock.json: package.json
 	npm update
-	touch $@
+	@touch $@
 
 check-syntax:
 	find . \( -type d \( -name '.git' -or -name 'vendor' -or -name 'node_modules' -or -name 'runtime' \) -prune \) -or \( -type f -name '*.php' -print \) | xargs -n 1 php -l
 
-check-style: check-style-php check-style-js
+check-style: check-style-js check-style-css check-style-php
 
 check-style-php: vendor
 	vendor/bin/phpcs --standard=phpcs-customize.xml --encoding=UTF-8 --runtime-set ignore_warnings_on_exit 1 $(STYLE_TARGETS)
@@ -198,6 +200,9 @@ check-style-php: vendor
 check-style-js: node_modules
 	node_modules/.bin/updates
 	npx eslint resources/
+
+check-style-css: node_modules
+	npx stylelint "resources/**/*.less" "resources/**/*.css"
 
 fix-style: vendor node_modules
 	node_modules/.bin/updates -u
@@ -235,43 +240,49 @@ download-vendor-archive: runtime/vendor-archive
 
 composer.phar:
 	curl -fsSL https://getcomposer.org/installer | php
-	touch -r composer.json composer.phar
+	@touch -r composer.json composer.phar
 
 composer.lock: composer.json composer.phar
 	./composer.phar update -vvv
-	touch -r composer.json composer.lock
+	@touch -r composer.json composer.lock
 
 %.br: %
 	bro --quality 11 --force --input $< --output $@
-	chmod 644 $@
-	touch $@
+	@chmod 644 $@
+	@touch $@
 
-%.gz: %
-	rm -f $@
-	zopfli -i15 $<
-	chmod 644 $@
+%.gz: % node_modules
+	@rm -f $@
+	npx zopfli -i 15 $<
+	@chmod 644 $@
 
 %.min.svg: %.svg node_modules
 	./node_modules/.bin/svgo --output $@ --input $< -q
 
 resources/.compiled/ostatus/ostatus.svg:
-	mkdir -p $(dir $@)
+	@mkdir -p $(dir $@)
 	curl -fsSL -o $@ 'https://github.com/OStatus/assets/raw/master/ostatus.svg'
 
 web/static-assets/cc/cc-by.svg:
-	mkdir -p `dirname $@` || true
+	@mkdir -p $(dir $@)
 	curl -fsSL -o $@ http://mirrors.creativecommons.org/presskit/buttons/88x31/svg/by.svg
 
 define less2css
-	mkdir -p $(dir $(1))
+	@mkdir -p $(dir $(1))
 	npx lessc $(2) | npx postcss --no-map -o $(1)
 endef
 
 define es2js
-	mkdir -p $(dir $(1))
+	@mkdir -p $(dir $(1))
 	cat $(2) | \
 		npx babel -s false -f jsfile | \
 		npx uglifyjs -c -m -b beautify=false,ascii_only=true --comments '/license|copyright/i' -o $(1)
+endef
+
+define png
+	@mkdir -p $(dir $(1))
+	@rm -f $(1)
+	npx optipng -quiet -strip all -o7 -out $(1) $(2)
 endef
 
 WEAPON2_JS := $(wildcard resources/stat.ink/weapon2.js/*.js)
@@ -344,66 +355,63 @@ resources/.compiled/stat.ink/weapons.js: resources/stat.ink/weapons.js node_modu
 	$(call es2js,$@,$<)
 
 resources/.compiled/stat.ink/no-image.png: resources/stat.ink/no-image.png
-	mkdir -p resources/.compiled/stat.ink || /bin/true
-	pngcrush -rem allb -l 9 resources/stat.ink/no-image.png resources/.compiled/stat.ink/no-image.png
+	$(call png,$@,$<)
 
 resources/.compiled/stat.ink/favicon.png: resources/stat.ink/favicon.png
-	mkdir -p resources/.compiled/stat.ink || /bin/true
-	pngcrush -rem allb -l 9 resources/stat.ink/favicon.png resources/.compiled/stat.ink/favicon.png
+	$(call png,$@,$<)
 
 resources/.compiled/stat.ink/summary-legends.png: resources/stat.ink/summary-legends.png
-	mkdir -p resources/.compiled/stat.ink || /bin/true
-	pngcrush -rem allb -l 9 resources/stat.ink/summary-legends.png resources/.compiled/stat.ink/summary-legends.png
+	$(call png,$@,$<)
 
 resources/app-link-logos/ikalog.png:
 	curl -fsSL -o $@ 'https://cloud.githubusercontent.com/assets/2528004/17077116/6d613dca-50ff-11e6-9357-9ba894459444.png'
 
 resources/.compiled/app-link-logos/ikalog.png: resources/app-link-logos/ikalog.png
-	mkdir -p resources/.compiled/app-link-logos
+	@mkdir -p resources/.compiled/app-link-logos
 	convert $< -unsharp 1.5x1+0.7+0.02 -scale x28 $@
-	touch -r $< $@
+	@touch -r $< $@
 
 resources/app-link-logos/ikadenwa.png:
 	curl -fsSL -o $@ 'https://ikadenwa.ink/static/img/ika-mark.png'
 
 resources/.compiled/app-link-logos/ikadenwa.png: resources/app-link-logos/ikadenwa.png
-	mkdir -p resources/.compiled/app-link-logos
+	@mkdir -p resources/.compiled/app-link-logos
 	convert $< -trim +repage -unsharp 1.5x1+0.7+0.02 -scale x28 $@
-	touch -r $< $@
+	@touch -r $< $@
 
 resources/.compiled/app-link-logos/ikanakama.png: resources/app-link-logos/ikanakama.ico
-	mkdir -p resources/.compiled/app-link-logos
+	@mkdir -p resources/.compiled/app-link-logos
 	convert $< -trim +repage -unsharp 1.5x1+0.7+0.02 -scale x28 $@
-	touch -r $< $@
+	@touch -r $< $@
 
 resources/app-link-logos/ikanakama.ico:
 	curl -fsSL -o $@ $(shell php resources/app-link-logos/favicon.php 'https://ikanakama.ink/')
 
 resources/.compiled/app-link-logos/ikarec-en.png: resources/app-link-logos/ikarec-en.png
-	mkdir -p resources/.compiled/app-link-logos
+	@mkdir -p resources/.compiled/app-link-logos
 	convert $<[1] -trim +repage -unsharp 1.5x1+0.7+0.02 -scale x28 $@
-	touch -r $< $@
+	@touch -r $< $@
 
 resources/app-link-logos/ikarec-en.png:
 	curl -fsSL -o $@ 'https://lh3.googleusercontent.com/HUy__vFnwLi32AL-L3KeJACQRkXIcq59PASgIbTscr2Ic-kP3fp4GeIrClAgKBWAlQq2'
 
 resources/.compiled/app-link-logos/ikarec-ja.png: resources/app-link-logos/ikarec-ja.png
-	mkdir -p resources/.compiled/app-link-logos
+	@mkdir -p resources/.compiled/app-link-logos
 	convert $<[1] -trim +repage -unsharp 1.5x1+0.7+0.02 -scale x28 $@
-	touch -r $< $@
+	@touch -r $< $@
 
 resources/app-link-logos/ikarec-ja.png: resources/app-link-logos/ikarec-en.png
 	cp $< $@
 
 resources/.compiled/app-link-logos/festink.png: resources/app-link-logos/festink.ico
-	mkdir -p resources/.compiled/app-link-logos
+	@mkdir -p resources/.compiled/app-link-logos
 	convert $<[3] -trim +repage -unsharp 1.5x1+0.7+0.02 -scale x28 $@
-	touch -r $< $@
+	@touch -r $< $@
 
 resources/.compiled/app-link-logos/squidtracks.png: resources/app-link-logos/squidtracks.png
-	mkdir -p resources/.compiled/app-link-logos
+	@mkdir -p resources/.compiled/app-link-logos
 	convert $<[3] -trim +repage -unsharp 1.5x1+0.7+0.02 -scale x28 $@
-	touch -r $< $@
+	@touch -r $< $@
 
 resources/app-link-logos/squidtracks.png:
 	curl -fsSL -sSL -o $@ 'https://github.com/hymm/squid-tracks/raw/master/public/icon.png'
@@ -415,27 +423,36 @@ resources/.compiled/app-link-logos/switch.svg: resources/app-link-logos/switch.s
 	xmllint --format $< > $@
 
 resources/.compiled/app-link-logos/inkipedia.png: resources/app-link-logos/inkipedia.ico
-	mkdir -p resources/.compiled/app-link-logos
+	@mkdir -p resources/.compiled/app-link-logos
 	convert $< $@
-	touch -r $< $@
+	@touch -r $< $@
 
 resources/app-link-logos/inkipedia.ico:
 	curl -fsSL -o $@ $(shell php resources/app-link-logos/favicon.php 'https://splatoonwiki.org/')
 
-resources/.compiled/irasutoya/inkling.png: resources/irasutoya/inkling.png
-	mkdir -p resources/.compiled/irasutoya
-	convert $< -trim +repage -resize x100 -gravity center -background none -extent 100x100 $@
-	pngcrush -rem allb -l 9 -ow $@
+resources/.compiled/irasutoya/inkling.png: resources/irasutoya/inkling.png.tmp
+	$(call png,$@,$<)
 
-resources/.compiled/irasutoya/octoling.png: resources/irasutoya/octoling.png
-	mkdir -p resources/.compiled/irasutoya
+resources/irasutoya/inkling.png.tmp: resources/irasutoya/inkling.png
 	convert $< -trim +repage -resize x100 -gravity center -background none -extent 100x100 $@
-	pngcrush -rem allb -l 9 -ow $@
 
-resources/.compiled/irasutoya/eto/%.png: resources/irasutoya/eto/%.png
-	mkdir -p resources/.compiled/irasutoya/eto
+resources/.compiled/irasutoya/octoling.png: resources/irasutoya/octoling.png.tmp
+	$(call png,$@,$<)
+
+resources/irasutoya/octoling.png.tmp: resources/irasutoya/octoling.png
+	convert $< -trim +repage -resize x100 -gravity center -background none -extent 100x100 $@
+
+resources/.compiled/irasutoya/reiwa.png: resources/irasutoya/reiwa.png.tmp
+	$(call png,$@,$<)
+
+resources/irasutoya/reiwa.png.tmp: resources/irasutoya/reiwa.png
 	convert $< -trim +repage -resize x100 -gravity center -background none $@
-	pngcrush -rem allb -l 9 -ow $@
+
+resources/.compiled/irasutoya/eto/%.png: resources/irasutoya/eto/%.png.tmp
+	$(call png,$@,$<)
+
+resources/irasutoya/eto/%.png.tmp: resources/irasutoya/eto/%.png
+	convert $< -trim +repage -resize x100 -gravity center -background none $@
 
 data/geoip:
 	mkdir -p $@
@@ -447,15 +464,15 @@ migrate-db: vendor config/db.php
 
 config/cookie-secret.php: vendor $(SIMPLE_CONFIG_TARGETS)
 	test -f config/cookie-secret.php || ./yii secret/cookie
-	touch config/cookie-secret.php
+	@touch config/cookie-secret.php
 
 config/authkey-secret.php: vendor $(SIMPLE_CONFIG_TARGETS)
 	test -f config/authkey-secret.php || ./yii secret/authkey
-	touch config/authkey-secret.php
+	@touch config/authkey-secret.php
 
 config/db.php: vendor $(SIMPLE_CONFIG_TARGETS)
 	test -f config/db.php || ./yii secret/db
-	touch config/db.php
+	@touch config/db.php
 
 config/google-analytics.php:
 	echo '<?php' > config/google-analytics.php

@@ -19,7 +19,7 @@ jobs:
       - run: yum-config-manager --add-repo 'https://rpm.fetus.jp/jp3cki.repo'
       - run: yum-config-manager --disable jp3cki*
       - run: yum-config-manager --enable jp3cki jp3cki-h2o-mainline
-      - run: yum install -y ImageMagick brotli diff gcc-c++ gearmand git gzip h2o jpegoptim make nodejs patch php73-php-cli php73-php-fpm php73-php-gd php73-php-intl php73-php-json php73-php-mbstring php73-php-mcrypt php73-php-opcache php73-php-pdo php73-php-pecl-gearman php73-php-pecl-msgpack php73-php-pecl-zip php73-php-pgsql php73-php-process php73-php-xml php73-runtime pngcrush supervisor unzip zopfli
+      - run: yum install -y ImageMagick brotli diff gcc-c++ gearmand git gzip h2o jpegoptim make nodejs patch php73-php-cli php73-php-fpm php73-php-gd php73-php-intl php73-php-json php73-php-mbstring php73-php-mcrypt php73-php-opcache php73-php-pdo php73-php-pecl-gearman php73-php-pecl-msgpack php73-php-pecl-zip php73-php-pgsql php73-php-process php73-php-xml php73-runtime supervisor unzip
       - checkout
       - restore_cache:
           keys:
@@ -41,4 +41,4 @@ jobs:
             - ./node_modules
       - run: scl enable php73 -- ./yii secret/db postgres statink
       - run: scl enable php73 -- make
-      - run: scl enable php73 -- make check-style
+      - run: scl enable php73 -- make -j3 check-style
