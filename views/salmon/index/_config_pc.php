@@ -1,9 +1,10 @@
 <?php
 declare(strict_types=1);
 
-use app\assets\AppOptAsset;
-use app\assets\TableResponsiveForceAsset;
+use app\assets\SalmonWorkListConfigAsset;
 use yii\helpers\Html;
+
+SalmonWorkListConfigAsset::register($this);
 ?>
 <div class="row">
   <div class="col-xs-12" id="table-config">
@@ -53,9 +54,3 @@ use yii\helpers\Html;
     ?></div>
   </div>
 </div>
-<?php
-$asset = AppOptAsset::register($this);
-$asset->registerJsFile($this, 'salmon-work-list-config.js');
-$this->registerJs('window.workListConfig();');
-TableResponsiveForceAsset::register($this);
-?>

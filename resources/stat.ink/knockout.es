@@ -1,5 +1,5 @@
 ($ => {
-  const redrawFlot = function () {
+  const redrawFlot = () => {
     $('.pie-flot-container').each((i, el) => {
       const $container = $(el);
       const data = JSON.parse($container.attr('data-flot'));
@@ -79,7 +79,7 @@
     if (timerId) {
       window.clearTimeout(timerId);
     }
-    window.setTimeout(() => {
+    timerId = window.setTimeout(() => {
       timerId = null;
       onResize();
     }, 33);

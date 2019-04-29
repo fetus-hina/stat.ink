@@ -20,6 +20,7 @@ class AppAsset extends AssetBundle
     public $sourcePath = '@app/resources/.compiled/stat.ink';
     public $css = [
         'main.css',
+        'flot-support.css',
     ];
     public $depends = [
         AutoTooltipAsset::class,
