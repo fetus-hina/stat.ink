@@ -6,6 +6,7 @@ use app\components\widgets\BlogEntryWidget;
 use app\components\widgets\DigitalCounter;
 use app\components\widgets\FA;
 use app\components\widgets\HappyNewYearWidget;
+use app\components\widgets\Reiwa;
 use app\components\widgets\SnsWidget;
 use app\components\widgets\alerts\ImportFromSplatnet2;
 use app\components\widgets\alerts\LanguageSupportLevelWarning;
@@ -42,6 +43,7 @@ PaintballAsset::register($this);
     </div>
   </div>
   <?= HappyNewYearWidget::widget() . "\n" ?>
+  <?= Reiwa::widget() . "\n" ?>
   <?= PleaseUseLatest::widget() . "\n" ?>
   <?= ImportFromSplatnet2::widget() . "\n" ?>
   <?= LanguageSupportLevelWarning::widget() . "\n" ?>
