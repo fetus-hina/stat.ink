@@ -10,6 +10,7 @@ use app\components\widgets\Reiwa;
 use app\components\widgets\SnsWidget;
 use app\components\widgets\alerts\ImportFromSplatnet2;
 use app\components\widgets\alerts\LanguageSupportLevelWarning;
+use app\components\widgets\alerts\MaintenanceInfo;
 use app\components\widgets\alerts\PleaseUseLatest;
 use app\components\widgets\battle\BattleListWidget;
 use statink\yii2\paintball\PaintballAsset;
@@ -44,6 +45,7 @@ PaintballAsset::register($this);
   </div>
   <?= HappyNewYearWidget::widget() . "\n" ?>
   <?= Reiwa::widget() . "\n" ?>
+  <?= MaintenanceInfo::widget() . "\n" ?>
   <?= PleaseUseLatest::widget() . "\n" ?>
   <?= ImportFromSplatnet2::widget() . "\n" ?>
   <?= LanguageSupportLevelWarning::widget() . "\n" ?>
