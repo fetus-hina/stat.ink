@@ -2803,12 +2803,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-framework.git",
-                "reference": "b80830c5f8c221b8bd6a830c5b2f45544f82c4d7"
+                "reference": "be563f0211bd5d4424680d0fcdef578090f08e41"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/b80830c5f8c221b8bd6a830c5b2f45544f82c4d7",
-                "reference": "b80830c5f8c221b8bd6a830c5b2f45544f82c4d7",
+                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/be563f0211bd5d4424680d0fcdef578090f08e41",
+                "reference": "be563f0211bd5d4424680d0fcdef578090f08e41",
                 "shasum": ""
             },
             "require": {
@@ -3016,16 +3016,16 @@
         },
         {
             "name": "yiisoft/yii2-httpclient",
-            "version": "2.0.9",
+            "version": "2.0.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-httpclient.git",
-                "reference": "d788e6783c76ef043a5bff1f2b47d82cf44bbe8c"
+                "reference": "d3d780d37bc8aa092e9ae555ed38645464587a07"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-httpclient/zipball/d788e6783c76ef043a5bff1f2b47d82cf44bbe8c",
-                "reference": "d788e6783c76ef043a5bff1f2b47d82cf44bbe8c",
+                "url": "https://api.github.com/repos/yiisoft/yii2-httpclient/zipball/d3d780d37bc8aa092e9ae555ed38645464587a07",
+                "reference": "d3d780d37bc8aa092e9ae555ed38645464587a07",
                 "shasum": ""
             },
             "require": {
@@ -3062,7 +3062,7 @@
                 "httpclient",
                 "yii2"
             ],
-            "time": "2019-04-23T11:06:27+00:00"
+            "time": "2019-04-30T14:57:35+00:00"
         },
         {
             "name": "yiisoft/yii2-smarty",
@@ -4222,16 +4222,16 @@
         },
         {
             "name": "phpdocumentor/reflection-docblock",
-            "version": "4.3.0",
+            "version": "4.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpDocumentor/ReflectionDocBlock.git",
-                "reference": "94fd0001232e47129dd3504189fa1c7225010d08"
+                "reference": "bdd9f737ebc2a01c06ea7ff4308ec6697db9b53c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpDocumentor/ReflectionDocBlock/zipball/94fd0001232e47129dd3504189fa1c7225010d08",
-                "reference": "94fd0001232e47129dd3504189fa1c7225010d08",
+                "url": "https://api.github.com/repos/phpDocumentor/ReflectionDocBlock/zipball/bdd9f737ebc2a01c06ea7ff4308ec6697db9b53c",
+                "reference": "bdd9f737ebc2a01c06ea7ff4308ec6697db9b53c",
                 "shasum": ""
             },
             "require": {
@@ -4269,7 +4269,7 @@
                 }
             ],
             "description": "With this component, a library can provide support for annotations via DocBlocks or otherwise retrieve information that is embedded in a DocBlock.",
-            "time": "2017-11-30T07:14:17+00:00"
+            "time": "2019-04-30T17:48:53+00:00"
         },
         {
             "name": "phpdocumentor/type-resolver",
@@ -5464,7 +5464,7 @@
         },
         {
             "name": "symfony/browser-kit",
-            "version": "v4.2.7",
+            "version": "v4.2.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/browser-kit.git",
@@ -5589,7 +5589,7 @@
         },
         {
             "name": "symfony/css-selector",
-            "version": "v4.2.7",
+            "version": "v4.2.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/css-selector.git",
@@ -5642,7 +5642,7 @@
         },
         {
             "name": "symfony/dom-crawler",
-            "version": "v4.2.7",
+            "version": "v4.2.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/dom-crawler.git",
@@ -5699,7 +5699,7 @@
         },
         {
             "name": "symfony/event-dispatcher",
-            "version": "v4.2.7",
+            "version": "v4.2.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/event-dispatcher.git",
@@ -5763,7 +5763,7 @@
         },
         {
             "name": "symfony/finder",
-            "version": "v4.2.7",
+            "version": "v4.2.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/finder.git",
@@ -5870,7 +5870,7 @@
         },
         {
             "name": "symfony/process",
-            "version": "v4.2.7",
+            "version": "v4.2.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/process.git",
@@ -6014,12 +6014,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-debug.git",
-                "reference": "5a5dcd65a7a3dd1f95b0482f5d107af02188266d"
+                "reference": "5d4020c5734cbfaa686afe4ddf438bd5ee51ee53"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-debug/zipball/5a5dcd65a7a3dd1f95b0482f5d107af02188266d",
-                "reference": "5a5dcd65a7a3dd1f95b0482f5d107af02188266d",
+                "url": "https://api.github.com/repos/yiisoft/yii2-debug/zipball/5d4020c5734cbfaa686afe4ddf438bd5ee51ee53",
+                "reference": "5d4020c5734cbfaa686afe4ddf438bd5ee51ee53",
                 "shasum": ""
             },
             "require": {
@@ -6063,7 +6063,7 @@
                 "debugger",
                 "yii2"
             ],
-            "time": "2019-04-23T13:17:41+00:00"
+            "time": "2019-04-30T15:21:55+00:00"
         },
         {
             "name": "yiisoft/yii2-gii",
