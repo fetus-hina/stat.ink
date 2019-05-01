@@ -408,6 +408,7 @@ return [
     'Rockin\' Leather Jacket' => 'ロッケンブレイクジャケット',
     'Rodeo Shirt' => 'イカスタンシャツ',
     'Round-Collar Shirt' => 'マルエリシャツ',
+    'SRL Coat' => 'アカシックコート',
     'SV925 Circle Shades' => 'マルサンSV925',
     'SWC Logo Tee' => 'SWCロゴT',
     'Safari Hat' => 'ロブスターブーニー',
