@@ -186,6 +186,7 @@ class Controller extends Base
         })();
         if ($tz) {
             Yii::$app->setTimeZone($tz->identifier);
+            Yii::$app->formatter->timeZone = $tz->identifier;
             Yii::$app->setSplatoonRegion($tz->region_id);
         }
     }
