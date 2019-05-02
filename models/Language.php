@@ -21,7 +21,6 @@ use yii\db\ActiveRecord;
  * @property string $name
  * @property string $name_en
  * @property integer $support_level_id
- * @property array $di
  *
  * @property SupportLevel $supportLevel
  * @property LanguageCharset[] $languageCharsets
@@ -54,7 +53,6 @@ class Language extends ActiveRecord
             [['lang', 'name', 'name_en', 'support_level_id'], 'required'],
             [['support_level_id'], 'default', 'value' => null],
             [['support_level_id'], 'integer'],
-            [['di'], 'safe'],
             [['lang', 'name', 'name_en'], 'string', 'max' => 32],
             [['lang'], 'unique'],
             [['name_en'], 'unique'],
@@ -74,7 +72,6 @@ class Language extends ActiveRecord
             'name' => 'Name',
             'name_en' => 'Name En',
             'support_level_id' => 'Support Level ID',
-            'di' => 'Di',
         ];
     }
 
