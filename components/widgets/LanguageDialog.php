@@ -50,7 +50,7 @@ class LanguageDialog extends Dialog
     {
         return array_map(
             function (Language $lang): string {
-                if ($lang->lang === Yii::$app->language) {
+                if ($lang->lang === Yii::$app->locale) {
                     return Html::tag('div', $this->renderLanguageItem($lang), [
                         'class' => [
                             'list-group-item',
