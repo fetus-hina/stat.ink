@@ -9,7 +9,7 @@ namespace app\components\web;
 
 use Yii;
 use app\components\helpers\UserLanguage;
-use app\models\Timezone;
+use app\components\helpers\UserTimeZone;
 use yii\base\Event;
 use yii\base\View;
 use yii\web\Controller as Base;
@@ -42,50 +42,16 @@ class Controller extends Base
 
     private function setTimezone()
     {
-        $tz = (function () {
-            $cookie = Yii::$app->request->cookies->get('timezone');
-            if ($cookie) {
-                $tz = Timezone::findOne(['identifier' => $cookie->value]);
-                if ($tz) {
-                    return $tz;
-                }
-            }
-            switch (strtolower(Yii::$app->language)) {
-                case 'en':
-                case 'en-us':
-                    return Timezone::findOne(['identifier' => 'America/Los_Angeles']);
-
-                case 'en-gb':
-                    return Timezone::findOne(['identifier' => 'Europe/London']);
-
-                case 'es':
-                case 'es-ES':
-                case 'fr':
-                case 'fr-FR':
-                case 'it':
-                case 'it-IT':
-                case 'nl':
-                case 'nl-NL':
-                    return Timezone::findOne(['identifier' => 'Europe/Paris']);
-
-                case 'es-MX':
-                    return Timezone::findOne(['identifier' => 'America/Chicago']);
-
-                case 'fr-CA':
-                    return Timezone::findOne(['identifier' => 'America/Halifax']);
-
-                case 'ru':
-                case 'ru-RU':
-                    return Timezone::findOne(['identifier' => 'Europe/Moscow']);
-
-                default:
-                    return Timezone::findOne(['identifier' => 'Asia/Tokyo']);
-            }
-        })();
+        $tz = UserTimeZone::guess();
         if ($tz) {
             Yii::$app->setTimeZone($tz->identifier);
             Yii::$app->formatter->timeZone = $tz->identifier;
             Yii::$app->setSplatoonRegion($tz->region_id);
+            Yii::$app->response->cookies->add(new Cookie([
+                'name' => UserTimeZone::COOKIE_KEY,
+                'value' => $tz->identifier,
+                'expire' => time() + 86400 * 366,
+            ]));
         }
     }
 }
