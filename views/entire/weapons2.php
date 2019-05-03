@@ -1,7 +1,11 @@
 <?php
+declare(strict_types=1);
+
 use app\assets\AppOptAsset;
+use app\assets\EntireWeaponsAsset;
 use app\assets\TableResponsiveForceAsset;
 use app\components\widgets\AdWidget;
+use app\components\widgets\FA;
 use app\components\widgets\SnsWidget;
 use app\models\Map2;
 use jp3cki\yii2\flot\FlotAsset;
@@ -26,16 +30,8 @@ $this->registerMetaTag(['name' => 'twitter:title', 'content' => $title]);
 $this->registerMetaTag(['name' => 'twitter:description', 'content' => $title]);
 $this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink']);
 
-FlotAsset::register($this);
-FlotTimeAsset::register($this);
-FlotStackAsset::register($this);
-FlotSymbolAsset::register($this);
 SortableTableAsset::register($this);
-
-$asset = AppOptAsset::register($this);
-$asset->registerJsFile($this, 'weapons.js');
-
-$this->registerCss('.graph{height:300px}');
+EntireWeaponsAsset::register($this);
 ?>
 <div class="container">
   <h1>
@@ -79,13 +75,14 @@ $this->registerCss('.graph{height:300px}');
       )
     )) . "\n" ?>
   </p>
+<?php if ($uses) { ?>
   <h3 id="trends">
     <?= Html::encode(Yii::t('app', 'Trends')) . "\n" ?>
   </h3>
   <p>
     <?= Html::a(
       implode(' ', [
-        Html::tag('span', '', ['class' => 'fas fa-exchange-alt fa-fw']),
+        (string)FA::fas('exchange-alt')->fw(),
         Html::encode(Yii::t('app', 'Compare number of uses')),
       ]),
       ['entire/weapons2-use'],
@@ -111,6 +108,7 @@ $this->registerCss('.graph{height:300px}');
     Json::encode($uses),
     ['id' => 'trends-json', 'type' => 'application/json']
   ) . "\n" ?>
+<?php } ?>
   <h3 id="stats">
     <?= Html::encode(Yii::t('app', 'Stats')) . "\n" ?>
   </h3>

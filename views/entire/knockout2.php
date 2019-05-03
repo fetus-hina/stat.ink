@@ -1,11 +1,12 @@
 <?php
-use app\assets\AppOptAsset;
+declare(strict_types=1);
+
+use app\assets\EntireKnockoutAsset;
 use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
 use app\models\Map2;
 use app\models\RankGroup2;
 use app\models\Rule2;
-use jp3cki\yii2\flot\FlotPieAsset;
 use statink\yii2\stages\spl2\Spl2Stage;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
@@ -20,10 +21,7 @@ $this->registerMetaTag(['name' => 'twitter:title', 'content' => $title]);
 $this->registerMetaTag(['name' => 'twitter:description', 'content' => $title]);
 $this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink']);
 
-FlotPieAsset::register($this);
-AppOptAsset::register($this)
-    ->registerJsFile($this, 'knockout.js');
-$this->registerCss('.pie-flot-container{height:200px}.pie-flot-container .error{display:none}');
+EntireKnockoutAsset::register($this);
 
 $rules = ArrayHelper::map(
     Rule2::find()

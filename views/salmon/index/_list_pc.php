@@ -1,22 +1,18 @@
 <?php
 declare(strict_types=1);
 
-use app\assets\AppOptAsset;
-use app\assets\RpgAwesomeAsset;
+use app\assets\SalmonWorkListAsset;
 use app\components\grid\SalmonActionColumn;
+use app\components\i18n\Formatter;
+use app\components\widgets\FA;
 use app\components\widgets\Label;
 use app\models\Salmon2;
 use yii\grid\Column;
 use yii\grid\GridView;
 use yii\helpers\Html;
-use yii\i18n\Formatter;
 use yii\widgets\ListView;
 
-RpgAwesomeAsset::register($this);
-AppOptAsset::register($this)
-  ->registerJsFile($this, 'salmon-work-list.js')
-  ->registerJsFile($this, 'salmon-work-list-hazard.js');
-$this->registerJs('window.workList();');
+SalmonWorkListAsset::register($this);
 ?>
 <div class="text-center">
   <?= ListView::widget([
@@ -32,12 +28,19 @@ $this->registerJs('window.workList();');
     'summary' => $dataProvider->query->summary(),
 ]) . "\n" ?>
 <p>
-  <a href="#table-config" class="btn btn-default">
-    <span class="fa fa-cogs fa-fw"></span>
-    <?= Html::encode(Yii::t('app', 'View Settings')) . "\n" ?>
-  </a>
   <?= Html::a(
-    '<span class="fa fa-list fa-fw"></span> ' . Html::encode(Yii::t('app', 'Simplified List')),
+    implode(' ', [
+      (string)FA::fas('cogs')->fw(),
+      Html::encode(Yii::t('app', 'View Settings')),
+    ]),
+    '#table-config',
+    ['class' => 'btn btn-default']
+  ) . "\n" ?>
+  <?= Html::a(
+    implode(' ', [
+      (string)FA::fas('list')->fw(),
+      Html::encode(Yii::t('app', 'Simplified List')),
+    ]),
     array_merge(
       [], // $filter->toQueryParams(),
       ['salmon/index',
@@ -389,37 +392,15 @@ $this->registerJs('window.workList();');
       'label' => Yii::t('app', 'Date Time'),
       'headerOptions' => ['class' => 'cell-datetime'],
       'contentOptions' => ['class' => 'cell-datetime'],
-      'format' => 'raw',
-      'value' => function (Salmon2 $model): ?string {
-        return $model->start_at === null
-          ? null
-          : Html::tag(
-            'time',
-            Html::encode(Yii::$app->formatter->asDateTime($model->start_at, 'short')),
-            ['datetime' => Yii::$app->formatter->asDateTime($model->start_at, 'yyyy-MM-dd\'T\'HH:mm:ssZZZZZ')]
-          );
-      },
+      'attribute' => 'start_at',
+      'format' => 'htmlDatetime',
     ],
     [
-      // reltime {{{
       'label' => Yii::t('app', 'Relative Time'),
       'headerOptions' => ['class' => 'cell-reltime'],
       'contentOptions' => ['class' => 'cell-reltime'],
-      'format' => 'raw',
-      'value' => function (Salmon2 $model): ?string {
-        return $model->start_at === null
-          ? null
-          : Html::tag(
-            'time',
-            Html::encode(Yii::$app->formatter->asRelativeTime($model->start_at)),
-            [ 
-              'datetime' => Yii::$app->formatter->asDateTime($model->start_at, 'yyyy-MM-dd\'T\'HH:mm:ssZZZZZ'),
-              'class' => 'auto-tooltip',
-              'title' => Yii::$app->formatter->asDateTime($model->start_at),
-            ]
-          );
-      },
-      // }}}
+      'attribute' => 'start_at',
+      'format' => 'htmlRelative',
     ],
   ],
 ]) . "\n" ?>

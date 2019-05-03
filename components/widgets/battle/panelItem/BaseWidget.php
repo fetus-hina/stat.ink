@@ -1,9 +1,11 @@
 <?php
 /**
- * @copyright Copyright (C) 2017 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  */
+
+declare(strict_types=1);
 
 namespace app\components\widgets\battle\panelItem;
 
@@ -11,9 +13,7 @@ use DateTime;
 use DateTimeImmutable;
 use DateTimeZone;
 use Yii;
-use app\assets\AppAsset;
-use app\assets\AppOptAsset;
-use app\assets\JqueryLazyloadAsset;
+use app\assets\SimpleBattleListAsset;
 use app\components\widgets\ActiveRelativeTimeWidget;
 use app\models\User;
 use yii\base\Widget;
@@ -23,18 +23,18 @@ abstract class BaseWidget extends Widget
 {
     public $model;
 
-    abstract public function getBattleEndAt() : ?DateTimeImmutable;
-    abstract public function getIsKO() : ?bool;
-    abstract public function getIsWin() : ?bool;
-    abstract public function getKillDeath() : array;
-    abstract public function getLinkRoute() : array;
-    abstract public function getMapName() : string;
-    abstract public function getRuleName() : string;
-    abstract public function getWeaponName() : string;
+    abstract public function getBattleEndAt(): ?DateTimeImmutable;
+    abstract public function getIsKO(): ?bool;
+    abstract public function getIsWin(): ?bool;
+    abstract public function getKillDeath(): array;
+    abstract public function getLinkRoute(): array;
+    abstract public function getMapName(): string;
+    abstract public function getRuleName(): string;
+    abstract public function getWeaponName(): string;
 
     public function run()
     {
-        AppOptAsset::register($this->view)->registerCssFile($this->view, 'battles-simple.css');
+        SimpleBattleListAsset::register($this->view);
         return Html::tag(
             'tr',
             Html::tag(
@@ -66,7 +66,7 @@ abstract class BaseWidget extends Widget
         );
     }
 
-    protected function renderResultHtml() : string
+    protected function renderResultHtml(): string
     {
         $result = $this->getIsWin();
         $isKO = $this->getIsKO();
@@ -92,7 +92,7 @@ abstract class BaseWidget extends Widget
         );
     }
 
-    protected function renderDataHtml() : string
+    protected function renderDataHtml(): string
     {
         return Html::tag('div', implode('', [
             Html::tag('div', $this->getMapName(), ['class' => 'simple-battle-map omit']),
@@ -106,7 +106,7 @@ abstract class BaseWidget extends Widget
         ]), ['class' => 'simple-battle-data']);
     }
 
-    protected function renderKillDeathHtml() : string
+    protected function renderKillDeathHtml(): string
     {
         list($kill, $death) = $this->getKillDeath();
         return implode('', [
@@ -116,7 +116,7 @@ abstract class BaseWidget extends Widget
                 $death === null ? '?' : (string)(int)$death
             ),
             ' ',
-            (function () use ($kill, $death) : string {
+            (function () use ($kill, $death): string {
                 if ($kill === null || $death === null) {
                     return '';
                 }
@@ -131,7 +131,7 @@ abstract class BaseWidget extends Widget
         ]);
     }
 
-    protected function renderDatetimeHtml() : string
+    protected function renderDatetimeHtml(): string
     {
         if (!$datetime = $this->getBattleEndAt()) {
             return '';

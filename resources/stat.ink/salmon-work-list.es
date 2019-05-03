@@ -1,18 +1,20 @@
-/*! Copyright (C) 2018 AIZAWA Hina | MIT License */
+/*! Copyright (C) 2015-2019 AIZAWA Hina | MIT License */
 
-window.workList = () => {
-  let lastPeriodId = null;
-  $('.battle-row').each(function() {
-    const $row = $(this);
+((window, $) => {
+  $(() => {
+    let lastPeriodId = null;
+    $('.battle-row').each(function() {
+      const $row = $(this);
 
-    if ($row.attr('data-period') === lastPeriodId) {
-      return;
-    }
+      if ($row.attr('data-period') === lastPeriodId) {
+        return;
+      }
 
-    if (lastPeriodId !== null) {
-      $row.css('border-top', '2px solid grey');
-    }
+      if (lastPeriodId !== null) {
+        $row.css('border-top', '2px solid grey');
+      }
 
-    lastPeriodId = $row.attr('data-period');
+      lastPeriodId = $row.attr('data-period');
+    });
   });
-};
+})(window, jQuery);

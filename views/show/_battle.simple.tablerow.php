@@ -1,21 +1,35 @@
 <?php
-use app\assets\AppOptAsset;
+declare(strict_types=1);
+
+use app\assets\SimpleBattleListAsset;
 use app\components\widgets\KillRatioBadgeWidget;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
-$asset = AppOptAsset::register($this);
-$asset->registerCssFile($this, 'battles-simple.css');
+SimpleBattleListAsset::register($this);
 
 $f = Yii::$app->formatter;
 ?>
-<?= Html::beginTag('li', ['class' => 'simple-battle-row', 'data-period' => $model->period]) . "\n" ?>
-  <?= Html::beginTag('a', ['href' => Url::to(['show/battle', 'screen_name' => $model->user->screen_name, 'battle' => $model->id])]) . "\n" ?>
+<?= Html::beginTag('li', [
+    'class' => 'simple-battle-row',
+    'data' => [
+      'period' => $model->period,
+    ],
+  ]
+) . "\n" ?>
+  <?= Html::beginTag('a', [
+      'href' => Url::to([
+        'show/battle',
+          'screen_name' => $model->user->screen_name,
+          'battle' => $model->id,
+      ]),
+    ]
+  ) . "\n" ?>
     <div class="simple-battle-row-impl">
       <div class="simple-battle-row-impl-main">
-<?php if ($model->is_win === null): ?>
+<?php if ($model->is_win === null) { ?>
         <div class="simple-battle-result simple-battle-result-unk">?</div>
-<?php else: ?>
+<?php } else { ?>
         <?= Html::tag(
           'div',
           implode('<br>', array_filter([
@@ -31,7 +45,7 @@ $f = Yii::$app->formatter;
               : 'simple-battle-result-lost',
           ]]
         ) . "\n" ?>
-<?php endif ?>
+<?php } ?>
         <div class="simple-battle-data">
           <div class="simple-battle-map omit"><?=
             Html::encode($model->map ? Yii::t('app-map', $model->map->name) : '?')
@@ -59,17 +73,9 @@ $f = Yii::$app->formatter;
           ?></div>
         </div>
       </div>
-      <div class="simple-battle-at">
-<?php if ($model->end_at): ?>
-<?php $t = new DateTimeImmutable($model->end_at, new DateTimeZone(Yii::$app->timeZone)) ?>
-        <?= Html::tag(
-          'time', 
-          Html::encode($f->asDateTime($t, 'short')),
-          ['datetime' => $t->setTimeZone(new DateTimeZone('Etc/UTC'))->format(DateTime::ATOM)]
-        ) . "\n" ?>
-<?php endif ?>
-      </div>
+      <div class="simple-battle-at"><?=
+        $model->end_at ? $f->asHtmlDatetime($model->end_at, 'short') : ''
+      ?></div>
     </div>
   </a>
-</li><?php
-?>
+</li>

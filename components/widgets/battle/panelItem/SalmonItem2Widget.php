@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2015-2018 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  */
@@ -13,9 +13,7 @@ use DateTime;
 use DateTimeImmutable;
 use DateTimeZone;
 use Yii;
-use app\assets\AppAsset;
-use app\assets\AppOptAsset;
-use app\assets\JqueryLazyloadAsset;
+use app\assets\SimpleBattleListAsset;
 use app\components\widgets\ActiveRelativeTimeWidget;
 use app\models\User;
 use yii\base\Widget;
@@ -31,8 +29,7 @@ class SalmonItem2Widget extends Widget
     {
         parent::init();
 
-        AppOptAsset::register($this->view)
-            ->registerCssFile($this->view, 'battles-simple.css');
+        SimpleBattleListAsset::register($this->view);
 
         if (!$this->user) {
             $this->user = $this->model->user;

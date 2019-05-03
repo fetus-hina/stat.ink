@@ -1,16 +1,16 @@
 <?php
 declare(strict_types=1);
 
-use app\assets\AppOptAsset;
 use app\assets\RpgAwesomeAsset;
+use app\assets\SimpleBattleListAsset;
 use app\components\i18n\Formatter;
+use app\components\widgets\FA;
 use app\models\Salmon2;
 use yii\helpers\Html;
 use yii\widgets\ListView;
 
 RpgAwesomeAsset::register($this);
-AppOptAsset::register($this)
-  ->registerCssFile($this, 'battles-simple.css');
+SimpleBattleListAsset::register($this);
 ?>
 <div class="text-center">
   <?= ListView::widget([
@@ -27,7 +27,10 @@ AppOptAsset::register($this)
 ]) . "\n" ?>
 <p>
   <?= Html::a(
-    '<span class="fa fa-list fa-fw"></span> ' . Html::encode(Yii::t('app', 'Detailed List')),
+    implode(' ', [
+      (string)FA::fas('list')->fw(),
+      Html::encode(Yii::t('app', 'Detailed List')),
+    ]),
     array_merge(
       [], // $filter->toQueryParams(),
       ['salmon/index',

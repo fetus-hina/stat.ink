@@ -1,7 +1,10 @@
 <?php
-use app\assets\AppOptAsset;
+declare(strict_types=1);
+
+use app\assets\SimpleBattleListAsset;
 use app\components\widgets\AdWidget;
 use app\components\widgets\Battle2FilterWidget;
+use app\components\widgets\FA;
 use app\components\widgets\SnsWidget;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
@@ -28,8 +31,7 @@ if ($user->twitter != '') {
   ]);
 }
 
-AppOptAsset::register($this)
-  ->registerCssFile($this, 'battles-simple.css');
+SimpleBattleListAsset::register($this);
 ?>
 <div class="container">
   <h1>
@@ -71,9 +73,9 @@ AppOptAsset::register($this)
           'class' => 'btn btn-default btn-xs',
           'href' => Url::to(['salmon/index', 'screen_name' => $user->screen_name]),
         ]) . "\n" ?>
-          <span class="fas fa-fw fa-fish"></span>
+          <?= FA::fas('fish')->fw() . "\n" ?>
           <?= Html::encode(Yii::t('app-salmon2', 'Salmon Run')) . "\n" ?>
-          <span class="fas fa-fw fa-angle-right"></span>
+          <?= FA::fas('angle-right')->fw() . "\n" ?>
         </a>
       </p>
       <div class="text-center">
@@ -94,11 +96,19 @@ AppOptAsset::register($this)
         ]
       ) . "\n" ?>
       <div>
-        <a href="#filter-form" class="visible-xs-inline-block btn btn-info">
-          <span class="fa fa-search fa-fw"></span><?= Html::encode(Yii::t('app', 'Search')) . "\n" ?>
-        </a>
         <?= Html::a(
-          '<span class="fa fa-list fa-fw"></span> ' . Html::encode(Yii::t('app', 'Detailed List')),
+          implode(' ', [
+            (string)FA::fas('search')->fw(),
+            Html::encode(Yii::t('app', 'Search')),
+          ]),
+          '#filter-form',
+          ['class' => 'visible-xs-inline-block btn btn-info']
+        ) . "\n" ?>
+        <?= Html::a(
+          implode(' ', [
+            (string)FA::fas('list')->fw(),
+            Html::encode(Yii::t('app', 'Detailed List')),
+          ]),
           array_merge($filter->toQueryParams(), ['show-v2/user', 'screen_name' => $user->screen_name, 'v' => 'standard']),
           ['class' => 'btn btn-default', 'rel' => 'nofollow']
         ) . "\n" ?>

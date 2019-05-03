@@ -1,8 +1,9 @@
 <?php
-use app\assets\AppOptAsset;
-use yii\helpers\Html;
+declare(strict_types=1);
 
-$opt = AppOptAsset::register($this);
+use app\assets\AppAsset;
+use app\components\widgets\FA;
+use yii\helpers\Html;
 ?>
 <?= Html::beginTag('div', [
   'id' => 'battles-summary-modal',
@@ -15,7 +16,7 @@ $opt = AppOptAsset::register($this);
       <div class="modal-header">
         <?= Html::tag(
           'button',
-          Html::tag('span', '', ['class' => ['fa', 'fa-fw', 'fa-times'], 'aria-hidden' => 'true']),
+          (string)FA::fas('times')->fw(),
           [
             'type' => 'button',
             'class' => 'close',
@@ -59,7 +60,10 @@ $opt = AppOptAsset::register($this);
             <p>
               <?= Html::encode(Yii::t('app', 'Legends')) ?>:<br>
               <?= Html::img(
-                Yii::$app->assetManager->getAssetUrl($opt, 'summary-legends.png'),
+                Yii::$app->assetManager->getAssetUrl(
+                  Yii::$app->assetManager->getBundle(AppAsset::class),
+                  'summary-legends.png'
+                ),
                 [
                   'style' => [
                     'width' => '100%',

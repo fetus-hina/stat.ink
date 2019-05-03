@@ -1,10 +1,10 @@
 <?php
+declare(strict_types=1);
+
 use Base32\Base32;
-use app\assets\AppOptAsset;
+use app\assets\EntireAgentAsset;
 use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
-use jp3cki\yii2\flot\FlotAsset;
-use jp3cki\yii2\flot\FlotTimeAsset;
 use yii\helpers\Html;
 use yii\helpers\Json;
 
@@ -23,13 +23,7 @@ $this->registerMetaTag(['name' => 'twitter:title', 'content' => $title]);
 $this->registerMetaTag(['name' => 'twitter:description', 'content' => $title]);
 $this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink']);
 
-FlotAsset::register($this);
-FlotTimeAsset::register($this);
-
-$asset = AppOptAsset::register($this);
-$asset->registerJsFile($this, 'agent.js', [
-  'depends' => [FlotAsset::class],
-]);
+EntireAgentAsset::register($this);
 
 $this->registerCss('#graph{height:300px}');
 ?>
