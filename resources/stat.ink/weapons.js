@@ -88,7 +88,7 @@
       // }}}
     }
 
-    function updateInkPerformance() {
+    const updateInkPerformance = () => {
       const $graphs = $('.graph-inkperformance');
       $graphs.height($graphs.width() * 9 / 16);
 
