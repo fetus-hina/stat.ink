@@ -9,9 +9,8 @@
   {{$this->registerMetaTag(['name' => 'twitter:description', 'content' => $title])|@void}}
   {{$this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink'])|@void}}
 
-  {{use class="app\assets\AppOptAsset"}}
-  {{$optAsset = AppOptAsset::register($this)}}
-  {{$optAsset->registerJsFile($this, 'kd-win.js')|@void}}
+  {{use class="app\assets\EntireKDWinAsset"}}
+  {{EntireKDWinAsset::register($this)|@void}}
 
   {{use class="app\assets\TableResponsiveForceAsset"}}
   {{TableResponsiveForceAsset::register($this)|@void}}

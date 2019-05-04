@@ -1,6 +1,8 @@
 <?php
+declare(strict_types=1);
+
 use app\actions\entire\KDWin2Action;
-use app\assets\AppOptAsset;
+use app\assets\EntireKDWinAsset;
 use app\assets\TableResponsiveForceAsset;
 use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
@@ -11,13 +13,10 @@ use app\models\SplatoonVersion2;
 use app\models\SplatoonVersionGroup2;
 use app\models\Weapon2;
 use app\models\WeaponCategory2;
-use jp3cki\yii2\jqueryColor\JqueryColorAsset;
 use yii\bootstrap\ActiveForm;
 use yii\db\ActiveQuery;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
-
-TableResponsiveForceAsset::register($this);
 
 $title = Yii::t('app', 'Winning Percentage based on K/D');
 $this->title = Yii::$app->name . ' | ' . $title;
@@ -27,9 +26,8 @@ $this->registerMetaTag(['name' => 'twitter:title', 'content' => $title]);
 $this->registerMetaTag(['name' => 'twitter:description', 'content' => $title]);
 $this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink']);
 
-$optAsset = AppOptAsset::register($this);
-$optAsset->registerJsFile($this, 'kd-win.js');
-JqueryColorAsset::register($this); // TODO: AppOpt を置き換えて吸収
+EntireKDWinAsset::register($this);
+TableResponsiveForceAsset::register($this);
 
 $this->registerCss(implode('', [
   '.kdcell{width:' . (100 / (KDWin2Action::KD_LIMIT + 2)) . '%!important}',
