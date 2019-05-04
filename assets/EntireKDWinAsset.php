@@ -11,16 +11,21 @@ namespace app\assets;
 
 use Yii;
 use jp3cki\yii2\jqueryColor\JqueryColorAsset;
+use yii\bootstrap\BootstrapAsset;
 use yii\web\AssetBundle;
 use yii\web\JqueryAsset;
 
 class EntireKDWinAsset extends AssetBundle
 {
     public $sourcePath = '@app/resources/.compiled/stat.ink';
+    public $css = [
+        'kd-win.css',
+    ];
     public $js = [
         'kd-win.js',
     ];
     public $depends = [
+        BootstrapAsset::class,
         ColorSchemeAsset::class,
         JqueryAsset::class,
         JqueryColorAsset::class,

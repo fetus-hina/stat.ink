@@ -105,7 +105,8 @@ class KDWinAction extends BaseAction
                         break;
 
                     case '@':
-                        $query->innerJoin(
+                        $query
+                            ->innerJoin(
                                 'weapon_type',
                                 '{{weapon}}.[[type_id]] = {{weapon_type}}.[[id]]'
                             )
@@ -115,7 +116,8 @@ class KDWinAction extends BaseAction
                         break;
 
                     case '+':
-                        $query->innerJoin(
+                        $query
+                            ->innerJoin(
                                 'subweapon',
                                 '{{weapon}}.[[subweapon_id]] = {{subweapon}}.[[id]]'
                             )
@@ -125,7 +127,8 @@ class KDWinAction extends BaseAction
                         break;
 
                     case '*':
-                        $query->innerJoin(
+                        $query
+                            ->innerJoin(
                                 'special',
                                 '{{weapon}}.[[special_id]] = {{special}}.[[id]]'
                             )
@@ -160,12 +163,9 @@ class KDWinAction extends BaseAction
         foreach (WeaponType::find()->orderBy('id ASC')->all() as $type) {
             $ret[Yii::t('app-weapon', $type->name)] = array_merge(
                 [
-                    "@{$type->key}" => Yii::t(
-                        'app-weapon',
-                        'All of {0}', [
-                            Yii::t('app-weapon', $type->name),
-                        ]
-                    ),
+                    "@{$type->key}" => Yii::t('app-weapon', 'All of {0}', [
+                        Yii::t('app-weapon', $type->name),
+                    ]),
                 ],
                 (function () use ($type): array {
                     $list = [];

@@ -6,6 +6,7 @@ use app\assets\EntireKDWinAsset;
 use app\assets\TableResponsiveForceAsset;
 use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
+use app\components\widgets\kdWin\LegendWidget;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 
@@ -24,15 +25,6 @@ $this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink']);
 
 EntireKDWinAsset::register($this);
 TableResponsiveForceAsset::register($this);
-
-$this->registerCss(Html::renderCss([
-  '.kdcell' => [
-    'width' => (100 / (KDWinAction::KD_LIMIT + 2)) . '% !important',
-  ],
-  '.percent-cell' => [
-    'font-size' => '61.803398875%',
-  ],
-]));
 
 $fmt = Yii::$app->formatter;
 ?>
@@ -75,76 +67,7 @@ $fmt = Yii::$app->formatter;
     ]) . "\n" ?>
   <?php ActiveForm::end(); echo "\n" ?>
 
-  <h3><?= Html::encode(Yii::t('app', 'Legend')) ?></h3>
-  <div class="table-responsive" style="max-width:8em;margin-right:2em;float:left">
-    <table class="table table-bordered table-condensed rule-table">
-      <tbody>
-        <tr>
-          <td class="text-center kdcell percent-cell" data-battle="1" data-percent="90">
-          <td class="text-center kdcell">90%</td>
-        </tr>
-        <tr>
-          <td class="text-center kdcell percent-cell" data-battle="1" data-percent="<?= (10+(90-10)*5/6) ?>">
-          <td class="text-center kdcell">:</td>
-        </tr>
-        <tr>
-          <td class="text-center kdcell percent-cell" data-battle="1" data-percent="<?= (10+(90-10)*4/6) ?>">
-          <td class="text-center kdcell">:</td>
-        </tr>
-        <tr>
-          <td class="text-center kdcell percent-cell" data-battle="1" data-percent="<?= (10+(90-10)*3/6) ?>">
-          <td class="text-center kdcell">50%</td>
-        </tr>
-        <tr>
-          <td class="text-center kdcell percent-cell" data-battle="1" data-percent="<?= (10+(90-10)*2/6) ?>">
-          <td class="text-center kdcell">:</td>
-        </tr>
-        <tr>
-          <td class="text-center kdcell percent-cell" data-battle="1" data-percent="<?= (10+(90-10)*1/6) ?>">
-          <td class="text-center kdcell">:</td>
-        </tr>
-        <tr>
-          <td class="text-center kdcell percent-cell" data-battle="1" data-percent="10">
-          <td class="text-center kdcell">10%</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  <div class="table-responsive" style="max-width:8em;margin-right:2em;float:left">
-    <table class="table table-bordered table-condensed rule-table">
-      <tbody>
-        <tr>
-          <td class="text-center kdcell percent-cell" data-battle="100" data-percent="100">
-          <td class="text-center kdcell"><?= Html::encode(Yii::t('app', 'Many')) ?></td>
-        </tr>
-        <tr>
-          <td class="text-center kdcell percent-cell" data-battle="42" data-percent="100">
-          <td class="text-center kdcell">:</td>
-        </tr>
-        <tr>
-          <td class="text-center kdcell percent-cell" data-battle="33" data-percent="100">
-          <td class="text-center kdcell">:</td>
-        </tr>
-        <tr>
-          <td class="text-center kdcell percent-cell" data-battle="25" data-percent="100">
-          <td class="text-center kdcell">:</td>
-        </tr>
-        <tr>
-          <td class="text-center kdcell percent-cell" data-battle="17" data-percent="100">
-          <td class="text-center kdcell">:</td>
-        </tr>
-        <tr>
-          <td class="text-center kdcell percent-cell" data-battle="8" data-percent="100">
-          <td class="text-center kdcell">:</td>
-        </tr>
-        <tr>
-          <td class="text-center kdcell percent-cell" data-battle="0" data-percent="100">
-          <td class="text-center kdcell"><?= Html::encode(Yii::t('app', 'Few')) ?></td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  <div style="clear:left"></div>
+  <?= LegendWidget::widget() . "\n" ?>
 
 <?php foreach ($rules as $rule) { ?>
   <div class="row">
