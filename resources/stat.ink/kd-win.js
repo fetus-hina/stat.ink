@@ -1,3 +1,4 @@
+/*! Copyright (C) 2015-2019 AIZAWA Hina | MIT License */
 /*
   var colorHigh = $.Color("#3e8ffa"); // H:214, S:75, V:98 / S:95, L:61
   var colorMid  = $.Color("#888888"); // H:  0, S: 0, V:53 / S: 0, L:53

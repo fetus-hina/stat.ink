@@ -1,9 +1,12 @@
 <?php
+declare(strict_types=1);
+
 use app\actions\entire\KDWin2Action;
-use app\assets\AppOptAsset;
+use app\assets\EntireKDWinAsset;
 use app\assets\TableResponsiveForceAsset;
 use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
+use app\components\widgets\kdWin\LegendWidget;
 use app\models\Map2;
 use app\models\RankGroup2;
 use app\models\Rule2;
@@ -11,13 +14,10 @@ use app\models\SplatoonVersion2;
 use app\models\SplatoonVersionGroup2;
 use app\models\Weapon2;
 use app\models\WeaponCategory2;
-use jp3cki\yii2\jqueryColor\JqueryColorAsset;
 use yii\bootstrap\ActiveForm;
 use yii\db\ActiveQuery;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
-
-TableResponsiveForceAsset::register($this);
 
 $title = Yii::t('app', 'Winning Percentage based on K/D');
 $this->title = Yii::$app->name . ' | ' . $title;
@@ -27,15 +27,8 @@ $this->registerMetaTag(['name' => 'twitter:title', 'content' => $title]);
 $this->registerMetaTag(['name' => 'twitter:description', 'content' => $title]);
 $this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink']);
 
-$optAsset = AppOptAsset::register($this);
-$optAsset->registerJsFile($this, 'kd-win.js');
-JqueryColorAsset::register($this); // TODO: AppOpt を置き換えて吸収
-
-$this->registerCss(implode('', [
-  '.kdcell{width:' . (100 / (KDWin2Action::KD_LIMIT + 2)) . '%!important}',
-  '.percent-cell{font-size:61.8%}',
-  '.center{text-align:center!important}',
-]));
+EntireKDWinAsset::register($this);
+TableResponsiveForceAsset::register($this);
 ?>
 <div class="container">
   <h1>
@@ -182,78 +175,7 @@ $this->registerCss(implode('', [
   <?php ActiveForm::end(); echo "\n" ?>
 <?php // }}} ?>
 
-  <h3>
-    <?= Html::encode(Yii::t('app', 'Legend')) . "\n" ?>
-  </h3>
-  <div class="table-responsive" style="max-width:8em;margin-right:2em;float:left">
-    <table class="table table-bordered table-condensed rule-table">
-      <tbody>
-        <tr>
-          <td class="text-center kdcell percent-cell" data-battle="1" data-percent="90">
-          <td class="text-center kdcell">90%</td>
-        </tr>
-        <tr>
-          <td class="text-center kdcell percent-cell" data-battle="1" data-percent="<?= (10+(90-10)*5/6) ?>">
-          <td class="text-center kdcell">:</td>
-        </tr>
-        <tr>
-          <td class="text-center kdcell percent-cell" data-battle="1" data-percent="<?= (10+(90-10)*4/6) ?>">
-          <td class="text-center kdcell">:</td>
-        </tr>
-        <tr>
-          <td class="text-center kdcell percent-cell" data-battle="1" data-percent="<?= (10+(90-10)*3/6) ?>">
-          <td class="text-center kdcell">50%</td>
-        </tr>
-        <tr>
-          <td class="text-center kdcell percent-cell" data-battle="1" data-percent="<?= (10+(90-10)*2/6) ?>">
-          <td class="text-center kdcell">:</td>
-        </tr>
-        <tr>
-          <td class="text-center kdcell percent-cell" data-battle="1" data-percent="<?= (10+(90-10)*1/6) ?>">
-          <td class="text-center kdcell">:</td>
-        </tr>
-        <tr>
-          <td class="text-center kdcell percent-cell" data-battle="1" data-percent="10">
-          <td class="text-center kdcell">10%</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  <div class="table-responsive" style="max-width:8em;margin-right:2em;float:left">
-    <table class="table table-bordered table-condensed rule-table">
-      <tbody>
-        <tr>
-          <td class="text-center kdcell percent-cell" data-battle="100" data-percent="100">
-          <td class="text-center kdcell"><?= Html::encode(Yii::t('app', 'Many')) ?></td>
-        </tr>
-        <tr>
-          <td class="text-center kdcell percent-cell" data-battle="42" data-percent="100">
-          <td class="text-center kdcell">:</td>
-        </tr>
-        <tr>
-          <td class="text-center kdcell percent-cell" data-battle="33" data-percent="100">
-          <td class="text-center kdcell">:</td>
-        </tr>
-        <tr>
-          <td class="text-center kdcell percent-cell" data-battle="25" data-percent="100">
-          <td class="text-center kdcell">:</td>
-        </tr>
-        <tr>
-          <td class="text-center kdcell percent-cell" data-battle="17" data-percent="100">
-          <td class="text-center kdcell">:</td>
-        </tr>
-        <tr>
-          <td class="text-center kdcell percent-cell" data-battle="8" data-percent="100">
-          <td class="text-center kdcell">:</td>
-        </tr>
-        <tr>
-          <td class="text-center kdcell percent-cell" data-battle="0" data-percent="100">
-          <td class="text-center kdcell"><?= Html::encode(Yii::t('app', 'Few')) ?></td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  <div style="clear:left"></div>
+  <?= LegendWidget::widget() . "\n" ?>
 
 <?php
 $_q = Rule2::find()->orderBy(['id' => SORT_ASC]);

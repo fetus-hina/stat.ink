@@ -1,0 +1,28 @@
+@charset "UTF-8";
+@import (reference) "../../vendor/bower-asset/bootstrap/less/variables.less";
+
+/*! Copyright (C) 2015-2019 AIZAWA Hina */
+
+#kdwin-legend {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 17em;
+
+  .table-responsive {
+    display: inline-block;
+    flex: 0 1 8em;
+  }
+
+  .kdcell {
+    width: 66.67% !important;
+
+    &.percent-cell {
+      width: 33.33% !important;
+    }
+  }
+}
+
+.percent-cell {
+  font-size: 0.61803398875em;
+}
