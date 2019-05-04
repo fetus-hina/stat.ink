@@ -65,6 +65,7 @@ RESOURCE_TARGETS_MAIN := \
 	resources/.compiled/stat.ink/favicon.png \
 	resources/.compiled/stat.ink/flot-support.css \
 	resources/.compiled/stat.ink/fluid-layout.js \
+	resources/.compiled/stat.ink/kd-win.css \
 	resources/.compiled/stat.ink/kd-win.js \
 	resources/.compiled/stat.ink/knockout.js \
 	resources/.compiled/stat.ink/language-dialog.css \
@@ -320,6 +321,7 @@ resources/.compiled/stat.ink/color-scheme.js: resources/stat.ink/color-scheme.es
 resources/.compiled/stat.ink/downloads.css: resources/stat.ink/downloads.less node_modules
 resources/.compiled/stat.ink/flot-support.css: resources/stat.ink/flot-support.less node_modules
 resources/.compiled/stat.ink/fluid-layout.js: resources/stat.ink/fluid-layout.es node_modules
+resources/.compiled/stat.ink/kd-win.css: resources/stat.ink/kd-win.less node_modules
 resources/.compiled/stat.ink/kd-win.js: resources/stat.ink/kd-win.js node_modules
 resources/.compiled/stat.ink/knockout.js: resources/stat.ink/knockout.es node_modules
 resources/.compiled/stat.ink/language-dialog.css: resources/stat.ink/language-dialog.less node_modules

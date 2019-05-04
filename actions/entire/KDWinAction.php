@@ -1,20 +1,22 @@
 <?php
 /**
- * @copyright Copyright (C) 2015 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  */
 
+declare(strict_types=1);
+
 namespace app\actions\entire;
 
 use Yii;
-use yii\web\ViewAction as BaseAction;
 use app\models\BattleFilterForm;
 use app\models\GameMode;
 use app\models\Map;
 use app\models\Rule;
 use app\models\StatWeaponKDWinRate;
 use app\models\WeaponType;
+use yii\web\ViewAction as BaseAction;
 
 class KDWinAction extends BaseAction
 {
@@ -37,13 +39,13 @@ class KDWinAction extends BaseAction
                     'data' => $this->makeData($rule, $filter),
                 ];
             }
-            usort($tmpData, function ($a, $b) {
+            usort($tmpData, function (\stdClass $a, \stdClass $b): int {
                 return strcmp($a->name, $b->name);
             });
             $data = array_merge($data, $tmpData);
         }
 
-        return $this->controller->render('kd-win.tpl', [
+        return $this->controller->render('kd-win', [
             'rules' => $data,
             'maps' => $this->maps,
             'weapons' => $this->weapons,
@@ -51,7 +53,7 @@ class KDWinAction extends BaseAction
         ]);
     }
 
-    private function makeData(Rule $rule, BattleFilterForm $filter)
+    private function makeData(Rule $rule, BattleFilterForm $filter): array
     {
         $ret = [];
         foreach (range(0, static::KD_LIMIT) as $i) {
@@ -76,7 +78,7 @@ class KDWinAction extends BaseAction
         return $ret;
     }
 
-    private function query(Rule $rule, BattleFilterForm $filter)
+    private function query(Rule $rule, BattleFilterForm $filter): array
     {
         $t = StatWeaponKDWinRate::tableName();
         $query = (new \yii\db\Query())
@@ -103,18 +105,36 @@ class KDWinAction extends BaseAction
                         break;
 
                     case '@':
-                        $query->innerJoin('weapon_type', '{{weapon}}.[[type_id]] = {{weapon_type}}.[[id]]')
-                            ->andWhere(['{{weapon_type}}.[[key]]' => substr($filter->weapon, 1)]);
+                        $query
+                            ->innerJoin(
+                                'weapon_type',
+                                '{{weapon}}.[[type_id]] = {{weapon_type}}.[[id]]'
+                            )
+                            ->andWhere([
+                                '{{weapon_type}}.[[key]]' => substr($filter->weapon, 1),
+                            ]);
                         break;
 
                     case '+':
-                        $query->innerJoin('subweapon', '{{weapon}}.[[subweapon_id]] = {{subweapon}}.[[id]]')
-                            ->andWhere(['{{subweapon}}.[[key]]' => substr($filter->weapon, 1)]);
+                        $query
+                            ->innerJoin(
+                                'subweapon',
+                                '{{weapon}}.[[subweapon_id]] = {{subweapon}}.[[id]]'
+                            )
+                            ->andWhere([
+                                '{{subweapon}}.[[key]]' => substr($filter->weapon, 1),
+                            ]);
                         break;
 
                     case '*':
-                        $query->innerJoin('special', '{{weapon}}.[[special_id]] = {{special}}.[[id]]')
-                            ->andWhere(['{{special}}.[[key]]' => substr($filter->weapon, 1)]);
+                        $query
+                            ->innerJoin(
+                                'special',
+                                '{{weapon}}.[[special_id]] = {{special}}.[[id]]'
+                            )
+                            ->andWhere([
+                                '{{special}}.[[key]]' => substr($filter->weapon, 1),
+                            ]);
                         break;
                 }
             }
@@ -122,7 +142,7 @@ class KDWinAction extends BaseAction
         return $query->all();
     }
 
-    public function getMaps()
+    public function getMaps(): array
     {
         $ret = [];
         foreach (Map::find()->all() as $map) {
@@ -130,20 +150,24 @@ class KDWinAction extends BaseAction
         }
         asort($ret);
         return array_merge(
-            [ '' => Yii::t('app-map', 'Any Stage') ],
+            ['' => Yii::t('app-map', 'Any Stage')],
             $ret
         );
     }
 
-    public function getWeapons()
+    public function getWeapons(): array
     {
         $ret = [
             '' => Yii::t('app-weapon', 'Any Weapon'),
         ];
         foreach (WeaponType::find()->orderBy('id ASC')->all() as $type) {
             $ret[Yii::t('app-weapon', $type->name)] = array_merge(
-                ["@{$type->key}" => Yii::t('app-weapon', 'All of {0}', [Yii::t('app-weapon', $type->name)])],
-                (function () use ($type) {
+                [
+                    "@{$type->key}" => Yii::t('app-weapon', 'All of {0}', [
+                        Yii::t('app-weapon', $type->name),
+                    ]),
+                ],
+                (function () use ($type): array {
                     $list = [];
                     foreach ($type->weapons as $weapon) {
                         $list[$weapon->key] = Yii::t('app-weapon', $weapon->name);
