@@ -2,10 +2,10 @@
 declare(strict_types=1);
 
 use app\actions\entire\KDWin2Action;
-use app\assets\EntireKDWinAsset;
 use app\assets\TableResponsiveForceAsset;
 use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
+use app\components\widgets\kdWin\KDWinTable;
 use app\components\widgets\kdWin\LegendWidget;
 use app\models\Map2;
 use app\models\RankGroup2;
@@ -27,7 +27,6 @@ $this->registerMetaTag(['name' => 'twitter:title', 'content' => $title]);
 $this->registerMetaTag(['name' => 'twitter:description', 'content' => $title]);
 $this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink']);
 
-EntireKDWinAsset::register($this);
 TableResponsiveForceAsset::register($this);
 ?>
 <div class="container">
@@ -193,73 +192,10 @@ if ($filter->rank) {
     ['id' => $rule->key]
   ) . "\n" ?>
   <div class="table-responsive table-responsive-force">
-    <table class="table table-bordered table-condensed rule-table">
-      <thead>
-        <tr>
-          <?= Html::tag(
-            'th',
-            implode('', [
-              Html::encode(Yii::t('app', 'd')),
-              '＼',
-              Html::encode(Yii::t('app', 'k')),
-            ]),
-            ['class' => 'text-center kdcell']
-          ) . "\n" ?>
-<?php foreach (range(0, KDWin2Action::KD_LIMIT) as $v) { ?>
-          <?= Html::tag(
-            'th',
-            Html::encode(($v === KDWin2Action::KD_LIMIT)
-              ? $v . '+'
-              : $v),
-            ['class' => 'text-center kdcell']
-          ) . "\n" ?>
-<?php } ?>
-        </tr>
-      </thead>
-      <tbody>
-<?php foreach (range(0, KDWin2Action::KD_LIMIT) as $d) { ?>
-        <tr>
-          <?= Html::tag(
-            'th',
-            Html::encode(
-              ($d === KDWin2Action::KD_LIMIT)
-                ? $d . '+'
-                : $d
-            ),
-            ['class' => 'text-center kdcell']
-          ) . "\n" ?>
-<?php foreach (range(0, KDWin2Action::KD_LIMIT) as $k) { ?>
-          <?= (function () use ($k, $d, $data, $rule) {
-            $v = $data[$rule->key][$k][$d] ?? null;
-            $rate = ($v && ($v['battles'] ?? 0) > 0)
-              ? $v['wins'] / $v['battles']
-              : null;
-            return Html::tag(
-              'td',
-              implode('<br>', [
-                Html::encode(sprintf(
-                  '%d / %d',
-                  ($v && $v['wins'] ?? 0) ? $v['wins'] : 0,
-                  ($v && $v['battles'] ?? 0) ? $v['battles'] : 0
-                )),
-                $rate === null
-                  ? '-'
-                  : Html::encode(Yii::$app->formatter->asPercent($rate, 1))
-              ]),
-              [
-                'class' => 'text-center kdcell percent-cell',
-                'data' => [
-                  'battle' => ($v && $v['battles'] ?? 0) ? $v['battles'] : 0,
-                  'percent' => sprintf('%f', $rate * 100),
-                ],
-              ]
-            );
-          })() . "\n" ?>
-<?php } ?>
-        </tr>
-<?php } ?>
-      </tbody>
-    </table>
+    <?= KDWinTable::widget([
+      'data' => $data[$rule->key],
+      'limit' => KDWin2Action::KD_LIMIT,
+    ]) . "\n" ?>
   </div>
 <?php } ?>
 </div>

@@ -40,8 +40,8 @@ class KDWin2Action extends BaseAction
               'rule'    => 'MAX(rule2.key)',
               'kill'    => 'stat_weapon2_result.kill',
               'death'   => 'stat_weapon2_result.death',
-              'battles' => 'SUM(stat_weapon2_result.battles)',
-              'wins'    => 'SUM(stat_weapon2_result.wins)',
+              'battle'  => 'SUM(stat_weapon2_result.battles)',
+              'win'     => 'SUM(stat_weapon2_result.wins)',
             ])
             ->groupBy([
                 'stat_weapon2_result.rule_id',
@@ -62,12 +62,12 @@ class KDWin2Action extends BaseAction
             }
             if (!isset($result[$rule][$k][$d])) {
                 $result[$rule][$k][$d] = [
-                    'battles' => 0,
-                    'wins' => 0,
+                    'battle' => 0,
+                    'win' => 0,
                 ];
             }
-            $result[$rule][$k][$d]['battles'] += (int)$row['battles'];
-            $result[$rule][$k][$d]['wins'] += (int)$row['wins'];
+            $result[$rule][$k][$d]['battle'] += (int)$row['battle'];
+            $result[$rule][$k][$d]['win'] += (int)$row['win'];
         }
         return $result;
     }
