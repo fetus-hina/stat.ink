@@ -473,6 +473,7 @@ return [
     'Squinja Mask' => '',
     'Squinja Suit' => '',
     'Squink Wingtips' => '',
+    'SRL Coat' => '',
     'Stealth Goggles' => '',
     'Steel Greaves' => '',
     'Steel Helm' => '',
