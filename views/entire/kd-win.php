@@ -6,6 +6,7 @@ use app\assets\EntireKDWinAsset;
 use app\assets\TableResponsiveForceAsset;
 use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
+use app\components\widgets\kdWin\KDWinCell;
 use app\components\widgets\kdWin\LegendWidget;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
@@ -112,34 +113,10 @@ $fmt = Yii::$app->formatter;
               ])) ?></th>
 <?php foreach (range(0, KDWinAction::KD_LIMIT) as $k) { ?>
 <?php $data = $rule->data[$k][$d] ?>
-              <?= Html::tag(
-                'td',
-                implode('<br>', [
-                  Html::encode(sprintf(
-                    '%s / %s',
-                    $fmt->asInteger($data->win),
-                    $fmt->asInteger($data->battle),
-                  )),
-                  Html::encode(
-                    ($data->battle > 0)
-                      ? $fmt->asPercent($data->win / $data->battle, 1)
-                      : '-'
-                  ),
-                ]),
-                [
-                  'class' => [
-                    'text-center',
-                    'kdcell',
-                    'percent-cell',
-                  ],
-                  'data' => [
-                    'battle' => (string)(int)$data->battle,
-                    'percent' => ($data->battle > 0)
-                      ? ($data->win * 100 / $data->battle)
-                      : '',
-                  ],
-                ]
-              ) . "\n" ?>
+              <?= KDWinCell::widget([
+                'battles' => $data->battle,
+                'win' => $data->win,
+              ]) . "\n" ?>
 <?php } ?>
             </tr>
 <?php } ?>

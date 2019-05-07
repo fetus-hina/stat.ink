@@ -6,6 +6,7 @@ use app\assets\EntireKDWinAsset;
 use app\assets\TableResponsiveForceAsset;
 use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
+use app\components\widgets\kdWin\KDWinCell;
 use app\components\widgets\kdWin\LegendWidget;
 use app\models\Map2;
 use app\models\RankGroup2;
@@ -229,32 +230,10 @@ if ($filter->rank) {
             ['class' => 'text-center kdcell']
           ) . "\n" ?>
 <?php foreach (range(0, KDWin2Action::KD_LIMIT) as $k) { ?>
-          <?= (function () use ($k, $d, $data, $rule) {
-            $v = $data[$rule->key][$k][$d] ?? null;
-            $rate = ($v && ($v['battles'] ?? 0) > 0)
-              ? $v['wins'] / $v['battles']
-              : null;
-            return Html::tag(
-              'td',
-              implode('<br>', [
-                Html::encode(sprintf(
-                  '%d / %d',
-                  ($v && $v['wins'] ?? 0) ? $v['wins'] : 0,
-                  ($v && $v['battles'] ?? 0) ? $v['battles'] : 0
-                )),
-                $rate === null
-                  ? '-'
-                  : Html::encode(Yii::$app->formatter->asPercent($rate, 1))
-              ]),
-              [
-                'class' => 'text-center kdcell percent-cell',
-                'data' => [
-                  'battle' => ($v && $v['battles'] ?? 0) ? $v['battles'] : 0,
-                  'percent' => sprintf('%f', $rate * 100),
-                ],
-              ]
-            );
-          })() . "\n" ?>
+          <?= KDWinCell::widget([
+            'battles' => $data[$rule->key][$k][$d]['battles'] ?? 0,
+            'win' => $data[$rule->key][$k][$d]['wins'] ?? 0,
+          ]) . "\n" ?>
 <?php } ?>
         </tr>
 <?php } ?>
