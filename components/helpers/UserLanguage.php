@@ -11,6 +11,7 @@ namespace app\components\helpers;
 
 use Jaybizzle\CrawlerDetect\CrawlerDetect;
 use Yii;
+use app\models\AcceptLanguage;
 use app\models\Language;
 use yii\helpers\StringHelper;
 
@@ -97,40 +98,25 @@ class UserLanguage
         try {
             Yii::beginProfile(__FUNCTION__, __METHOD__);
             $request = Yii::$app->request;
-            $acceptLangs = $request->acceptableLanguages;
-            if (empty($acceptLangs) || static::isUABot((string)trim($request->userAgent))) {
+            $userLangs = $request->acceptableLanguages;
+            if (empty($userLangs) || static::isUABot((string)trim($request->userAgent))) {
                 return null;
             }
 
-            $map = [
-                'en-au' => 'en-GB',
-                'en-gb' => 'en-GB',
-                'en*'   => 'en-US',
-                'es-es' => 'es-ES',
-                'es*'   => 'es-MX',
-                'fr-ca' => 'fr-CA',
-                'fr*'   => 'fr-FR',
-                'it*'   => 'it-IT',
-                'ja*'   => 'ja-JP',
-                'nl*'   => 'nl-NL',
-                'ru*'   => 'ru-RU',
-            ];
-
-            $wildcardOptions = [
-                'caseSensitive' => false,
-                'filePath' => false,
-            ];
-            foreach ($acceptLangs as $acceptLang) {
-                foreach ($map as $match => $ourLang) {
-                    if (StringHelper::matchWildcard($match, $acceptLang, $wildcardOptions)) {
-                        $lang = Language::findOne(['lang' => $ourLang]);
-                        if ($lang) {
-                            Yii::info(
-                                "Detected language by accept-language, " . $lang->lang,
-                                __METHOD__
-                            );
-                            return $lang;
-                        }
+            foreach ($userLangs as $userLang) {
+                if ($model = AcceptLanguage::findMatched($userLang)) {
+                    if ($lang = $model->language) {
+                        Yii::info(
+                            sprintf(
+                                'Detected language %s by accept-language with rule #%d %s by %s',
+                                $lang->lang,
+                                $model->id,
+                                $model->rule,
+                                $userLang,
+                            ),
+                            __METHOD__
+                        );
+                        return $lang;
                     }
                 }
             }
