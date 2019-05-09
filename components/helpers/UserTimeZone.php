@@ -76,6 +76,7 @@ class UserTimeZone
             Yii::beginProfile(__FUNCTION__, __METHOD__);
 
             $map = [
+                'de*'   => 'Europe/Paris',
                 'en-GB' => 'Europe/London',
                 'en*'   => 'America/Los_Angeles',
                 'es-MX' => 'America/Mexico_City',
