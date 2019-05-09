@@ -114,6 +114,7 @@ return [
     'Current Password' => 'Contraseña actual',
     'Current Period' => 'Período actual',
     'Current Stages' => 'Escenario actual',
+    'Current Time:' => '',
     'd' => 'd',
     'D/min' => '',
     'Daily Report' => 'Informe diario',
