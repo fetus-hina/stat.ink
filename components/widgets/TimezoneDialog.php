@@ -31,7 +31,6 @@ class TimezoneDialog extends Dialog
         ]);
         $this->titleFormat = 'raw';
         $this->hasClose = true;
-        $this->footer = Dialog::FOOTER_CLOSE;
         $this->body = $this->createBody();
         $this->wrapBody = false;
         TimezoneDialogAsset::register($this->view);
@@ -219,5 +218,82 @@ class TimezoneDialog extends Dialog
             floor(($offset % 3600) / 60),
             $textOffset
         ));
+    }
+
+    protected function renderFooter(): string
+    {
+        $close = Html::tag(
+            'button',
+            FA::fas('times') . ' ' . Html::encode(Yii::t('app', 'Close')),
+            [
+                'type' => 'button',
+                'class' => 'btn btn-default',
+                'data-dismiss' => 'modal',
+            ]
+        );
+        return Html::tag(
+            'div',
+            Html::tag(
+                'div',
+                implode('', [
+                    Html::tag(
+                        'span',
+                        implode('', [
+                            Html::encode(Yii::t('app', 'Guessed by your IP:')),
+                            ' ',
+                            Html::tag(
+                                'span',
+                                Html::encode(Yii::t('app', 'Unknown')),
+                                [
+                                    'class' => 'guessed-timezone',
+                                    'data' => [
+                                        'error' => Yii::t('app', 'Error'),
+                                        'loading' => Yii::t('app', 'Loading...'),
+                                        'tooltip' => Yii::t('app', 'GeoIP guessed {timezone}'),
+                                        'unknown' => Yii::t('app', 'Unknown'),
+                                    ],
+                                ]
+                            ),
+                            ' ',
+                            Html::a(
+                                (string)FA::fas('question-circle'),
+                                'https://github.com/fetus-hina/stat.ink/wiki/Time-Zone-Detection',
+                                [
+                                    'rel' => 'external',
+                                    'target' => '_blank',
+                                ]
+                            ),
+                            '<br>',
+                            Html::tag(
+                                'span',
+                                implode('', [
+                                    'This product includes GeoLite2 data created by MaxMind, ',
+                                    'available from ',
+                                    Html::a(
+                                        'https://www.maxmind.com/',
+                                        'https://www.maxmind.com/',
+                                        [
+                                            'rel' => 'external nofollow',
+                                            'target' => '_blank',
+                                        ]
+                                    ),
+                                ]),
+                                ['class' => 'very-small']
+                            ),
+                        ])
+                    ),
+                    $close,
+                ]),
+                ['class' => [
+                    'd-flex',
+                    'justify-content-between',
+                    'align-items-center', // vertical middle
+                ]]
+            ),
+            ['class' => [
+                'modal-footer',
+                'text-left-important',
+            ]],
+        );
     }
 }

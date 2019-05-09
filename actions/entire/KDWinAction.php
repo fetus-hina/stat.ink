@@ -59,7 +59,7 @@ class KDWinAction extends BaseAction
         foreach (range(0, static::KD_LIMIT) as $i) {
             $tmp = [];
             foreach (range(0, static::KD_LIMIT) as $j) {
-                $tmp[] = (object)[
+                $tmp[] = [
                     'battle' => 0,
                     'win' => 0,
                 ];
@@ -71,8 +71,8 @@ class KDWinAction extends BaseAction
         foreach ($this->query($rule, $filter) as $row) {
             $i = $row['kill'] > static::KD_LIMIT ? static::KD_LIMIT : (int)$row['kill'];
             $j = $row['death'] > static::KD_LIMIT ? static::KD_LIMIT : (int)$row['death'];
-            $ret[$i][$j]->battle += $row['count'];
-            $ret[$i][$j]->win += $row['win'];
+            $ret[$i][$j]['battle'] += $row['count'];
+            $ret[$i][$j]['win'] += $row['win'];
         }
 
         return $ret;
