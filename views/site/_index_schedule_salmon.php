@@ -1,9 +1,11 @@
 <?php
+declare(strict_types=1);
+
 use statink\yii2\stages\spl2\Spl2Stage;
 use yii\helpers\Html;
 ?>
 <div class="row">
-<?php foreach ($schedules as $schedule): ?>
+<?php foreach ($schedules as $schedule) { ?>
 <?php $weapons = array_slice(
     array_merge($schedule->weapons, [null, null, null, null]),
     0,
@@ -28,18 +30,18 @@ use yii\helpers\Html;
               </div>
             </div>
             <div class="col-xs-6">
-<?php foreach ($weapons as $weapon): ?>
-<?php if ($weapon): ?>
+<?php foreach ($weapons as $weapon) { ?>
+<?php if ($weapon) { ?>
                 * <?= Html::encode(Yii::t('app-weapon2', $weapon->weapon->name)) ?><br>
-<?php else: ?>
+<?php } else { ?>
                 * <?= Html::encode(Yii::t('app-salmon2', 'Random')) ?><br>
-<?php endif ?>
-<?php endforeach ?>
+<?php } ?>
+<?php } ?>
             </div>
           </div>
         </div>
       </li>
     </ul>
   </div>
-<?php endforeach ?>
+<?php } ?>
 </div>

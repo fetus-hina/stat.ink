@@ -111,6 +111,7 @@ return [
     'Current Password' => '現在のパスワード',
     'Current Period' => '現在のステージ',
     'Current Stages' => '現在のステージ',
+    'Current Time:' => '現在日時:',
     'Current' => '現在',
     'D/min' => '死/分',
     'Daily Report' => '日報',
