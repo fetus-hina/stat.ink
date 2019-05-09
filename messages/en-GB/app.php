@@ -112,6 +112,7 @@ return [
     'Current Password' => '',
     'Current Period' => '',
     'Current Stages' => '',
+    'Current Time:' => '',
     'd' => '',
     'D/min' => '',
     'Daily Report' => '',
