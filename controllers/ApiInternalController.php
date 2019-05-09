@@ -1,15 +1,23 @@
 <?php
 /**
- * @copyright Copyright (C) 2015 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  */
+declare(strict_types=1);
 
 namespace app\controllers;
 
 use Yii;
-use yii\filters\VerbFilter;
+use app\actions\api\internal\ActivityAction;
+use app\actions\api\internal\CounterAction;
+use app\actions\api\internal\CurrentData2Action;
+use app\actions\api\internal\CurrentDataAction;
+use app\actions\api\internal\GuessTimezoneAction;
+use app\actions\api\internal\PatchBattleAction;
+use app\actions\api\internal\RecentBattlesAction;
 use app\components\web\Controller;
+use yii\filters\VerbFilter;
 
 class ApiInternalController extends Controller
 {
@@ -19,7 +27,7 @@ class ApiInternalController extends Controller
     {
         return [
             'verbs' => [
-                'class' => VerbFilter::className(),
+                'class' => VerbFilter::class,
                 'actions' => [
                     'patch-battle' => [ 'patch' ],
                     '*' => [ 'get' ],
@@ -32,12 +40,13 @@ class ApiInternalController extends Controller
     {
         $prefix = 'app\actions\api\internal';
         return [
-            'activity' => [ 'class' => $prefix . '\ActivityAction' ],
-            'counter' => [ 'class' => $prefix . '\CounterAction' ],
-            'current-data' => [ 'class' => $prefix . '\CurrentDataAction' ],
-            'current-data2' => [ 'class' => $prefix . '\CurrentData2Action' ],
-            'patch-battle' => [ 'class' => $prefix . '\PatchBattleAction' ],
-            'recent-battles' => [ 'class' => $prefix . '\RecentBattlesAction' ],
+            'activity'          => [ 'class' => ActivityAction::class ],
+            'counter'           => [ 'class' => CounterAction::class ],
+            'current-data'      => [ 'class' => CurrentDataAction::class ],
+            'current-data2'     => [ 'class' => CurrentData2Action::class ],
+            'guess-timezone'    => [ 'class' => GuessTimezoneAction::class ],
+            'patch-battle'      => [ 'class' => PatchBattleAction::class ],
+            'recent-battles'    => [ 'class' => RecentBattlesAction::class ],
         ];
     }
 }
