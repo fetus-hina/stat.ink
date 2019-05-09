@@ -116,6 +116,15 @@ class UserTimeZone
 
     public static function guessByGeoIP(): ?Timezone
     {
+        if (!$result = static::guessByGeoIPEx()) {
+            return null;
+        }
+
+        return $result[0];
+    }
+
+    public static function guessByGeoIPEx(): ?array
+    {
         try {
             Yii::beginProfile(__FUNCTION__, __METHOD__);
             $ipAddr = Yii::$app->request->getUserIP();
@@ -133,7 +142,7 @@ class UserTimeZone
                     "Detected timezone by geoip, " . $tz->identifier,
                     __METHOD__
                 );
-                return $tz;
+                return [$tz, $identifier];
             }
 
             Yii::info(
@@ -152,7 +161,7 @@ class UserTimeZone
                 );
             }
 
-            return $tz;
+            return [$tz, $identifier];
         } finally {
             Yii::endProfile(__FUNCTION__, __METHOD__);
         }
