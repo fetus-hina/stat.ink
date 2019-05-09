@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 use app\assets\CounterAsset;
 use app\assets\RpgAwesomeAsset;
 use app\components\widgets\DigitalCounter;
@@ -42,8 +44,9 @@ $values = [
   ],
 ];
 ?>
-<p class="text-right" style="margin-bottom:0">
-  <?= implode('<br>', array_map(
+<?= Html::tag(
+  'p',
+  implode('<br>',array_map(
     function (array $item) use ($maxLen): string {
       return sprintf(
         '%s %s: %s',
@@ -57,5 +60,9 @@ $values = [
       );
     },
     $values
-  )) . "\n" ?>
-</p>
+  )),
+  ['class' => [
+    'text-right',
+    'mb-0',
+  ]]
+) . "\n" ?>

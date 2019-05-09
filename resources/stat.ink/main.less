@@ -1,7 +1,7 @@
 @charset "UTF-8";
 @import (reference) "../../vendor/bower-asset/bootstrap/less/variables.less";
 
-/*! Copyright (C) 2015-2016 AIZAWA Hina | MIT License */
+/*! Copyright (C) 2015-2019 AIZAWA Hina | MIT License */
 
 @goldenRatio: 1.61803398875;
 
@@ -213,3 +213,42 @@ tr.disconnected,
     border-radius: 6px 0;
   }
 }
+
+/* stylelint-disable */
+.sizes() {
+  0: (0 * 5px);
+  1: (1 * 5px);
+  2: (2 * 5px);
+  3: (3 * 5px);
+  4: (4 * 5px);
+  auto: auto;
+}
+
+.props() {
+  m: margin;
+  p: padding;
+}
+
+.positions() {
+  t: top;
+  r: right;
+  b: bottom;
+  l: left;
+}
+/* stylelint-enable */
+
+each(.props(), .(@propLong, @propShort, @propIndex) {
+  each(.sizes(), .(@sizeValue, @sizeKey, @sizeIndex) {
+    .@{propShort}-@{sizeKey} {
+      @{propLong}: @sizeValue !important;
+    }
+  });
+
+  each(.positions(), .(@posLong, @posShort, @posIndex) {
+    each(.sizes(), .(@sizeValue, @sizeKey, @sizeIndex) {
+      .@{propShort}@{posShort}-@{sizeKey} {
+        @{propLong}-@{posLong}: @sizeValue !important;
+      }
+    });
+  });
+});
