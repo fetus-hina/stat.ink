@@ -214,6 +214,7 @@ tr.disconnected,
   }
 }
 
+/* stylelint-disable */
 .sizes() {
   0: (0 * 5px);
   1: (1 * 5px);
@@ -234,6 +235,7 @@ tr.disconnected,
   b: bottom;
   l: left;
 }
+/* stylelint-enable */
 
 each(.props(), .(@propLong, @propShort, @propIndex) {
   each(.sizes(), .(@sizeValue, @sizeKey, @sizeIndex) {
