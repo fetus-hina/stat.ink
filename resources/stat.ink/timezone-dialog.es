@@ -10,7 +10,7 @@
         '"': '&quot;',
         "'": '&#39;',
       };
-      return tablee[match];
+      return table[match];
     });
   };
 
