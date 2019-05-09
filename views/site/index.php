@@ -6,6 +6,7 @@ use app\components\widgets\BlogEntryWidget;
 use app\components\widgets\DigitalCounter;
 use app\components\widgets\FA;
 use app\components\widgets\HappyNewYearWidget;
+use app\components\widgets\IndexI18nButtons;
 use app\components\widgets\Reiwa;
 use app\components\widgets\SnsWidget;
 use app\components\widgets\alerts\ImportFromSplatnet2;
@@ -21,11 +22,8 @@ $this->context->layout = 'main';
 PaintballAsset::register($this);
 ?>
 <div class="container">
-  <div class="text-right" style="margin-bottom:10px">
-    <button class="btn btn-default" data-toggle="modal" data-target="#language-dialog" aria-hidden="true" aria-role="button">
-      <?= FA::fas('language')->fw()->__toString() . "\n" ?>
-      Switch Language / 言語切替 <span class="caret"></span>
-    </button>
+  <div class="text-right">
+    <?= IndexI18nButtons::widget() . "\n" ?>
   </div>
   <?= $this->render('_index_counters') . "\n" ?>
   <div class="row">
