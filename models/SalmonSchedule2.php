@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2015-2018 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  */
@@ -8,6 +8,8 @@
 namespace app\models;
 
 use Yii;
+use app\components\helpers\db\Now;
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
 /**
@@ -23,6 +25,27 @@ use yii\db\ActiveRecord;
  */
 class SalmonSchedule2 extends ActiveRecord
 {
+    public static function find(): ActiveQuery
+    {
+        return new class(static::class) extends ActiveQuery {
+            public function init()
+            {
+                parent::init();
+                $this->orderBy([
+                    '{{salmon_schedule2}}.[[start_at]]' => SORT_ASC,
+                ]);
+            }
+
+            public function nowOrFuture(): self
+            {
+                $this->andWhere(['and',
+                    ['>=', '{{salmon_schedule2}}.[[end_at]]', new Now()],
+                ]);
+                return $this;
+            }
+        };
+    }
+
     /**
      * @inheritdoc
      */
