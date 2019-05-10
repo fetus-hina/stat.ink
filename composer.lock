@@ -6135,12 +6135,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-debug.git",
-                "reference": "5d4020c5734cbfaa686afe4ddf438bd5ee51ee53"
+                "reference": "235ee01043764d3d11a5198a4ff746c5e858a963"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-debug/zipball/5d4020c5734cbfaa686afe4ddf438bd5ee51ee53",
-                "reference": "5d4020c5734cbfaa686afe4ddf438bd5ee51ee53",
+                "url": "https://api.github.com/repos/yiisoft/yii2-debug/zipball/235ee01043764d3d11a5198a4ff746c5e858a963",
+                "reference": "235ee01043764d3d11a5198a4ff746c5e858a963",
                 "shasum": ""
             },
             "require": {
@@ -6184,7 +6184,7 @@
                 "debugger",
                 "yii2"
             ],
-            "time": "2019-04-30T15:21:55+00:00"
+            "time": "2019-05-09T20:58:00+00:00"
         },
         {
             "name": "yiisoft/yii2-gii",
