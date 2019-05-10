@@ -7,6 +7,7 @@ use app\components\widgets\DigitalCounter;
 use app\components\widgets\FA;
 use app\components\widgets\HappyNewYearWidget;
 use app\components\widgets\IndexI18nButtons;
+use app\components\widgets\IndexSchedule;
 use app\components\widgets\Reiwa;
 use app\components\widgets\SnsWidget;
 use app\components\widgets\alerts\ImportFromSplatnet2;
@@ -80,8 +81,7 @@ PaintballAsset::register($this);
   </p>
   <?= SnsWidget::widget() . "\n" ?>
   <?= BlogEntryWidget::widget() . "\n" ?>
-
-  <?= $this->render('_index_schedule') . "\n" ?>
+  <?= IndexSchedule::widget() . "\n" ?>
 
 <?php if (!Yii::$app->user->isGuest): ?>
 <?php $ident = Yii::$app->user->identity ?>
