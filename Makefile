@@ -45,6 +45,7 @@ RESOURCE_TARGETS_MAIN := \
 	resources/.compiled/stat.ink/active-reltime.js \
 	resources/.compiled/stat.ink/agent.js \
 	resources/.compiled/stat.ink/auto-tooltip.js \
+	resources/.compiled/stat.ink/battle-detail.css \
 	resources/.compiled/stat.ink/battle-edit.js \
 	resources/.compiled/stat.ink/battle-input-2.js \
 	resources/.compiled/stat.ink/battle-input.css \
@@ -305,6 +306,7 @@ resources/.compiled/slack/slack.js: resources/slack/slack.js node_modules
 resources/.compiled/stat.ink/active-reltime.js: resources/stat.ink/active-reltime.js node_modules
 resources/.compiled/stat.ink/agent.js: resources/stat.ink/agent.es node_modules
 resources/.compiled/stat.ink/auto-tooltip.js: resources/stat.ink/auto-tooltip.es node_modules
+resources/.compiled/stat.ink/battle-detail.css: resources/stat.ink/battle-detail.less node_modules
 resources/.compiled/stat.ink/battle-edit.js: resources/stat.ink/battle-edit.js node_modules
 resources/.compiled/stat.ink/battle-input-2.js: resources/stat.ink/battle-input-2.es node_modules
 resources/.compiled/stat.ink/battle-input.css: resources/stat.ink/battle-input.less node_modules

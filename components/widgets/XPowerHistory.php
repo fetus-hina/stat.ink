@@ -40,8 +40,15 @@ class XPowerHistory extends Widget
         }
 
         XPowerHistoryAsset::register($this->view);
-        $this->view->registerJs(vsprintf('$(%s).xPowerHistory(%s,%s);', [
+        $this->view->registerJs(vsprintf('$(%s).xPowerHistory(%s,%s,%s,%s,%s);', [
             Json::encode('#' . $this->id),
+            Json::encode('#' . $this->id . '-legends'),
+            Json::encode([
+                'estimate' => Yii::t('app', 'Estimate X Power'),
+                'lose' => Yii::t('app', 'Lose'),
+                'win' => Yii::t('app', 'Win'),
+                'xPower' => Yii::t('app', 'X Power'),
+            ]),
             Json::encode(array_map(
                 function (Battle2 $model): ?float {
                     return $model->x_power_after < 1 ? null : (float)$model->x_power_after;
@@ -54,14 +61,36 @@ class XPowerHistory extends Widget
                 },
                 $history
             )),
+            Json::encode(array_map(
+                function (Battle2 $model): ?bool {
+                    return $model->is_win;
+                },
+                $history
+            )),
         ]));
 
-        return Html::tag('div', '', [
-            'id' => $this->id,
-            'class' => [
-                'xpower-history',
-            ],
-        ]);
+        return Html::tag(
+            'div',
+            implode('', [
+                Html::tag(
+                    'div',
+                    Html::tag('div', '', [
+                        'id' => $this->id,
+                        'class' => [
+                            'xpower-history',
+                            'mb-1',
+                        ]
+                    ]),
+                    ['class' => 'table-responsive']
+                ),
+                Html::tag('div', '', [
+                    'id' => $this->id . '-legends',
+                ]),
+            ]),
+            ['class' => [
+                'xpower-history-container',
+            ]],
+        );
     }
 
     public function getHistory(): ?array
