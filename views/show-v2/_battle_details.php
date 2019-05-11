@@ -1,8 +1,11 @@
 <?php
+declare(strict_types=1);
+
 use app\assets\BattleEditAsset;
 use app\assets\SwipeboxRunnerAsset;
 use app\components\helpers\Battle as BattleHelper;
 use app\components\widgets\FA;
+use app\components\widgets\FestPowerHistory;
 use app\components\widgets\Label;
 use app\components\widgets\TimestampColumnWidget;
 use app\components\widgets\XPowerHistory;
@@ -12,8 +15,6 @@ use yii\bootstrap\Html;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 use yii\widgets\DetailView;
-
-$this->registerCss('#battle .progress{margin-bottom:0}');
 ?>
 <?= DetailView::widget([
   'model' => $battle,
@@ -339,6 +340,17 @@ $this->registerCss('#battle .progress{margin-bottom:0}');
           ),
           ['class' => 'progress', 'style' => 'width:100%;max-width:400px']
         );
+      },
+      // }}}
+    ],
+    [
+      'attribute' => 'fest_power', // {{{
+      'format' => 'raw',
+      'value' => function (Battle2 $model): ?string {
+        $html = FestPowerHistory::widget([
+          'current' => $model,
+        ]);
+        return $html ?: null;
       },
       // }}}
     ],
