@@ -45,7 +45,7 @@ return [
     'Lord Howe Island' => 'ロード・ハウ島',
     'Mexico (Central)' => 'メキシコ時間（中央）',
     'Mexico (East)' => 'メキシコ時間（東部）',
-    'Mexico (Northwest)' => 'メキシコ時間（北東部）',
+    'Mexico (Northwest)' => 'メキシコ時間（北西部）',
     'Mexico (Pacific)' => 'メキシコ時間（太平洋）',
     'Mexico (Sonora)' => 'メキシコ時間（ソノラ）',
     'Nicaragua' => 'ニカラグア時間',

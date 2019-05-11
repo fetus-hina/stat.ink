@@ -5,6 +5,7 @@ use app\components\helpers\Battle as BattleHelper;
 use app\components\widgets\FA;
 use app\components\widgets\Label;
 use app\components\widgets\TimestampColumnWidget;
+use app\components\widgets\XPowerHistory;
 use app\models\Battle2;
 use app\models\Rank2;
 use yii\bootstrap\Html;
@@ -378,6 +379,17 @@ $this->registerCss('#battle .progress{margin-bottom:0}');
           Yii::$app->formatter->asDecimal($model->x_power, 1),
           Yii::$app->formatter->asDecimal($model->x_power_after, 1),
         ]);
+      },
+      // }}}
+    ],
+    [
+      'attribute' => 'x_power', // {{{
+      'format' => 'raw',
+      'value' => function (Battle2 $model): ?string {
+        $html = XPowerHistory::widget([
+          'current' => $model,
+        ]);
+        return $html ?: null;
       },
       // }}}
     ],

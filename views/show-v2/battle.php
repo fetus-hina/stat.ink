@@ -1,4 +1,7 @@
 <?php
+declare(strict_types=1);
+
+use app\assets\BattleDetailAsset;
 use app\assets\SwipeboxRunnerAsset;
 use app\components\widgets\AdWidget;
 use app\components\widgets\EmbedVideo;
@@ -62,6 +65,8 @@ if ($battle->nextBattle) {
   ]);
 }
 // }}}
+
+BattleDetailAsset::register($this);
 ?>
 <div class="container">
   <h1>
@@ -187,8 +192,3 @@ if ($battle->nextBattle) {
     </div>
   </div>
 </div>
-<?php $this->registerCss(implode('', [
-  '#battle th{width:15em}',
-  '@media(max-width:30em){#battle th{width:auto}}',
-  '.image-container{margin-bottom:15px}',
-])) ?>
