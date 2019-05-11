@@ -208,7 +208,8 @@ class Battle2 extends ActiveRecord
                     // {{{
                     switch (substr($form->weapon, 0, 1)) {
                         default:
-                            $and[] = ['battle2.weapon_id' => Weapon2::findOne(['key' => $form->weapon])->id];
+                            $weapon = Weapon2::findOne(['key' => $form->weapon]);
+                            $and[] = ['battle2.weapon_id' => $weapon->id];
                             break;
 
                         case '@': // type
@@ -246,7 +247,22 @@ class Battle2 extends ActiveRecord
                     }
                 }
                 if ($form->result != '' || is_bool($form->result)) {
-                    $and[] = ['battle2.is_win' => ($form->result === 'win' || $form->result === true)];
+                    $and[] = [
+                        'battle2.is_win' => ($form->result === 'win' || $form->result === true)
+                    ];
+                }
+                if ($form->id_from != '' && $form->id_from > 0) {
+                    $and[] = ['>=', 'battle2.id', (int)$form->id_from];
+                }
+                if ($form->id_to != '' && $form->id_to > 0) {
+                    $and[] = ['<=', 'battle2.id', (int)$form->id_to];
+                }
+                if ($form->filterTeam) {
+                    $and[] = ['battle2.my_team_id' => $form->filterTeam];
+                }
+                if (count($and) > 1) {
+                    $this->andWhere($and);
+                    $and = ['and'];
                 }
                 if ($form->term != '') {
                     $this->filterTerm($form->term, [
@@ -255,18 +271,6 @@ class Battle2 extends ActiveRecord
                         'filter' => $form,
                         'timeZone' => $form->timezone,
                     ]);
-                }
-                if ($form->id_from != '' && $form->id_from > 0) {
-                    $and[] = ['<=', 'battle2.id', (int)$form->id_from];
-                }
-                if ($form->id_to != '' && $form->id_to > 0) {
-                    $and[] = ['>=', 'battle2.id', (int)$form->id_to];
-                }
-                if ($form->filterTeam) {
-                    $and[] = ['battle2.my_team_id' => $form->filterTeam];
-                }
-                if (count($and) > 1) {
-                    $this->andWhere($and);
                 }
                 return $this;
             }
@@ -350,24 +354,29 @@ class Battle2 extends ActiveRecord
                         break;
 
                     default:
-                        if (isset($options['filter']) && preg_match('/^last-(\d+)-battles$/', $term, $match)) {
-                            $this->andWhere(['battle2.id' => (function ($q, $limit) : array {
-                                return $q->select(['id' => 'battle2.id'])
-                                    ->groupBy(null)
-                                    ->orderBy(sprintf('(CASE %s END) DESC, battle2.id DESC', implode(' ', [
-                                        'WHEN battle2.end_at IS NOT NULL THEN battle2.end_at',
-                                        'ELSE battle2.created_at',
-                                    ])))
-                                    ->limit($limit)
-                                    ->asArray()
-                                    ->column();
-                            })(clone $this, $match[1])]);
+                        if (isset($options['filter']) &&
+                            preg_match('/^last-(\d+)-battles$/', $term, $match)
+                        ) {
+                            $range = BattleHelper::getNBattlesRange2(
+                                $options['filter'],
+                                (int)$match[1]
+                            );
+                            if ($range && $range['min_id'] && $range['max_id']) {
+                                $this->andWhere([
+                                    'between',
+                                    'battle2.id',
+                                    (int)$range['min_id'],
+                                    (int)$range['max_id']
+                                ]);
+                            }
                         } elseif (preg_match('/^~?v\d+/', $term)) {
                             $versions = (function () use ($term) {
                                 $query = SplatoonVersion2::find()->asArray();
                                 if (substr($term, 0, 1) === '~') {
                                     $query->innerJoinWith('group', false)
-                                        ->andWhere(['splatoon_version_group2.tag' => substr($term, 2)]);
+                                        ->andWhere([
+                                            'splatoon_version_group2.tag' => substr($term, 2),
+                                        ]);
                                 } else {
                                     $query->andWhere(['tag' => substr($term, 1)]);
                                 }

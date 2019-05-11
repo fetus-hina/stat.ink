@@ -80,6 +80,9 @@ class Battle
                 'at' => '{{battle2}}.[[created_at]]',
             ])
             ->applyFilter($filter)
+            ->orderBy([
+                '{{battle2}}.[[id]]' => SORT_DESC,
+            ])
             ->offset(0)
             ->limit($num);
 
@@ -94,6 +97,7 @@ class Battle
                 '(%s) {{t}}',
                 $subQuery->createCommand()->rawSql
             ));
+
         return $query->createCommand()->queryOne();
     }
 
