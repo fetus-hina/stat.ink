@@ -80,10 +80,14 @@ class UserAction extends BaseAction
             ->orderBy(['battle2.id' => SORT_DESC]);
 
         $filter = Yii::createObject(Battle2FilterForm::class);
+        $filter->screen_name = $user->screen_name;
         if ($filter->load($_GET) && $filter->validate()) {
             $battle->applyFilter($filter);
             $permLink = Url::to(
-                array_merge($filter->toPermLink(), ['show-v2/user', 'screen_name' => $user->screen_name]),
+                array_merge(
+                    $filter->toPermLink(),
+                    ['show-v2/user', 'screen_name' => $user->screen_name]
+                ),
                 true
             );
         }
