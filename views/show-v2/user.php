@@ -1052,6 +1052,3 @@ if ($user->twitter != '') {
     </div>
   </div>
 </div>
-<?php
-$this->registerJs('window.battleList();');
-?>

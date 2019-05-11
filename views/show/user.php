@@ -313,4 +313,3 @@ if ($battle &&
     </div>
   </div>
 </div>
-<?php $this->registerJs('battleList();'); ?>
