@@ -246,101 +246,17 @@ use yii\widgets\DetailView;
     ],
     [
       'attribute' => 'fest_power', // {{{
-      'format' => 'raw',
-      'value' => function ($model) : ?string {
-        if ($model->fest_power < 1) {
-          return null;
-        }
-        $max = max(
-          (float)$model->fest_power,
-          (int)$model->my_team_estimate_fest_power,
-          (int)$model->his_team_estimate_fest_power
-        );
-        return Html::tag(
-          'div',
-          Html::tag(
-            'div',
-            Html::encode((string)$model->fest_power),
-            [
-              'class' => [
-                'progress-bar',
-                'progress-bar-success',
-                'progress-bar-striped',
-              ],
-              'style' => [
-                'width' => sprintf('%.2f%%', $model->fest_power * 100 / $max),
-              ],
-            ]
-          ),
-          ['class' => 'progress', 'style' => 'width:100%;max-width:400px']
-        );
-      },
+      'format' => ['decimal', 1],
       // }}}
     ],
     [
       'attribute' => 'my_team_estimate_fest_power', // {{{
-      'format' => 'raw',
-      'value' => function ($model) : ?string {
-        if ($model->my_team_estimate_fest_power < 1) {
-          return null;
-        }
-        $max = max(
-          (float)$model->fest_power,
-          (int)$model->my_team_estimate_fest_power,
-          (int)$model->his_team_estimate_fest_power
-        );
-        return Html::tag(
-          'div',
-          Html::tag(
-            'div',
-            Html::encode((string)$model->my_team_estimate_fest_power),
-            [
-              'class' => [
-                'progress-bar',
-                'progress-bar-info',
-                'progress-bar-striped',
-              ],
-              'style' => [
-                'width' => sprintf('%.2f%%', $model->my_team_estimate_fest_power * 100 / $max),
-              ],
-            ]
-          ),
-          ['class' => 'progress', 'style' => 'width:100%;max-width:400px']
-        );
-      },
+      'format' => 'integer',
       // }}}
     ],
     [
       'attribute' => 'his_team_estimate_fest_power', // {{{
-      'format' => 'raw',
-      'value' => function ($model) : ?string {
-        if ($model->his_team_estimate_fest_power < 1) {
-          return null;
-        }
-        $max = max(
-          (float)$model->fest_power,
-          (int)$model->my_team_estimate_fest_power,
-          (int)$model->his_team_estimate_fest_power
-        );
-        return Html::tag(
-          'div',
-          Html::tag(
-            'div',
-            Html::encode((string)$model->his_team_estimate_fest_power),
-            [
-              'class' => [
-                'progress-bar',
-                'progress-bar-danger',
-                'progress-bar-striped',
-              ],
-              'style' => [
-                'width' => sprintf('%.2f%%', $model->his_team_estimate_fest_power * 100 / $max),
-              ],
-            ]
-          ),
-          ['class' => 'progress', 'style' => 'width:100%;max-width:400px']
-        );
-      },
+      'format' => 'integer',
       // }}}
     ],
     [
