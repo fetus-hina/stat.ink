@@ -17,7 +17,17 @@
       },
       yaxis: {
         minTickSize: 10,
-        tickFormatter: value => Number(value).toFixed(1),
+        tickFormatter: value => {
+          return Number(value).toFixed(1).replace(
+            /^(\d+)\.(\d+)$/,
+            (_, i, f) => {
+              return i.replace(
+                /(\d)(?=(\d\d\d)+(?!\d))/g,
+                '$1' + numberFormat.thousand
+              ) + numberFormat.decimal + f;
+            }
+          );
+        },
       },
     };
 

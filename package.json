@@ -24,7 +24,7 @@
     "stylelint": "^10.0.1",
     "stylelint-config-recommended": "^2.2.0",
     "svgo": "^1.2.2",
-    "uglify-js": "^3.5.11",
+    "uglify-js": "^3.5.12",
     "updates": "^8.0.3"
   }
 }
