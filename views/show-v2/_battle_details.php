@@ -247,16 +247,29 @@ use yii\widgets\DetailView;
     [
       'attribute' => 'fest_power', // {{{
       'format' => ['decimal', 1],
+      'value' => function (Battle2 $model): ?float {
+        return $model->fest_power < 1 ? null : (float)$model->fest_power;
+      },
       // }}}
     ],
     [
       'attribute' => 'my_team_estimate_fest_power', // {{{
       'format' => 'integer',
+      'value' => function (Battle2 $model): ?int {
+        return $model->my_team_estimate_fest_power < 1
+            ? null
+            : (int)$model->my_team_estimate_fest_power;
+      },
       // }}}
     ],
     [
       'attribute' => 'his_team_estimate_fest_power', // {{{
       'format' => 'integer',
+      'value' => function (Battle2 $model): ?int {
+        return $model->his_team_estimate_fest_power < 1
+            ? null
+            : (int)$model->his_team_estimate_fest_power;
+      },
       // }}}
     ],
     [
