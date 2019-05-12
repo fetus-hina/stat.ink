@@ -69,7 +69,7 @@ class Theme extends Component
         $themeId = $this->getTheme();
 
         $view->registerJs(
-            vsprintf('window.colorLock = %s', [
+            vsprintf('window.colorLock = %s;', [
                 Json::encode($themeId === 'color-blind'),
             ]),
             View::POS_HEAD
