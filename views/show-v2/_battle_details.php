@@ -1,6 +1,4 @@
 <?php
-declare(strict_types=1);
-
 use app\assets\BattleEditAsset;
 use app\assets\SwipeboxRunnerAsset;
 use app\components\helpers\Battle as BattleHelper;

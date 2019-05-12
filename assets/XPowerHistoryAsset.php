@@ -28,5 +28,6 @@ class XPowerHistoryAsset extends AssetBundle
         FlotAsset::class,
         FlotResizeAsset::class,
         JqueryAsset::class,
+        NumberFormatAsset::class,
     ];
 }
