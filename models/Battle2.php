@@ -260,6 +260,20 @@ class Battle2 extends ActiveRecord
                 if ($form->filterTeam) {
                     $and[] = ['battle2.my_team_id' => $form->filterTeam];
                 }
+                if ($form->filterIdRange) {
+                    $and[] = ['between',
+                        'battle2.id',
+                        (int)$form->filterIdRange[0],
+                        (int)$form->filterIdRange[1]
+                    ];
+                }
+                if ($form->filterPeriod) {
+                    $and[] = ['between',
+                        'battle2.period',
+                        (int)$form->filterPeriod[0],
+                        (int)$form->filterPeriod[1]
+                    ];
+                }
                 if (count($and) > 1) {
                     $this->andWhere($and);
                     $and = ['and'];
