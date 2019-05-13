@@ -7,6 +7,8 @@
 
 namespace app\models;
 
+use DateTimeImmutable;
+use DateTimeZone;
 use Yii;
 use app\components\helpers\Battle as BattleHelper;
 use app\components\helpers\db\Now;
@@ -25,11 +27,13 @@ class Battle2FilterForm extends Model
     public $term_from;
     public $term_to;
     public $timezone;
-    public $id_from;
-    public $id_to;
+    public $id_from; // old, for compatibility. Use filterIdRange.
+    public $id_to;   // old, for compatibility. Use filterIdRange.
     public $filter;
 
     private $filterTeam;
+    private $filterIdRange; // [ from, to ]
+    private $filterPeriod; // [ from, to ]
 
     public function formName()
     {
@@ -145,14 +149,20 @@ class Battle2FilterForm extends Model
                     [
                         'this-period',
                         'last-period',
+                        'last-2-periods',
+                        'last-3-periods',
+                        'last-4-periods',
                         '24h',
                         'today',
                         'yesterday',
+                        'this-month-utc',
+                        'last-month-utc',
                         'last-10-battles',
                         'last-20-battles',
                         'last-50-battles',
                         'last-100-battles',
                         'last-200-battles',
+                        'this-fest',
                         'term',
                     ],
                     array_map(
@@ -279,22 +289,53 @@ class Battle2FilterForm extends Model
         }
 
         try {
-            $pos = strpos($value, ':');
-            if ($pos === false || $pos < 1) {
-                throw new \Exception();
-            }
+            foreach (explode(' ', $value) as $v) {
+                $v = trim($v);
+                if ($v === '') {
+                    continue;
+                }
 
-            switch (substr($value, 0, $pos)) {
-                case 'team':
-                    $v = substr($value, $pos + 1);
-                    if (!$this->isValidTeamFilter($v)) {
-                        throw new \Exception();
-                    }
-                    $this->filterTeam = $v;
-                    return;
-
-                default:
+                $pos = strpos($v, ':');
+                if ($pos === false || $pos < 1) {
                     throw new \Exception();
+                }
+
+                switch (substr($v, 0, $pos)) {
+                    case 'team':
+                        $v = substr($v, $pos + 1);
+                        if (!$this->isValidTeamFilter($v)) {
+                            throw new \Exception();
+                        }
+                        $this->filterTeam = $v;
+                        return;
+
+                    case 'id':
+                        if (!preg_match('/^(\d+)-(\d+)$/', substr($v, $pos + 1), $match)) {
+                            throw new \Exception();
+                        }
+                        $this->filterIdRange = [
+                            (int)$match[1],
+                            (int)$match[2],
+                        ];
+                        return;
+
+                    case 'period':
+                        $v = substr($v, $pos + 1);
+                        if (preg_match('/^\d+$/', $v)) {
+                            $this->filterPeriod = [(int)$v, (int)$v];
+                        } elseif (preg_match('/^(\d+)-(\d+)$/', $v, $match)) {
+                            $this->filterPeriod = [
+                                (int)$match[1],
+                                (int)$match[2],
+                            ];
+                        } else {
+                            throw new \Exception();
+                        }
+                        return;
+
+                    default:
+                        throw new \Exception();
+                }
             }
         } catch (\Exception $e) {
             $this->addError($attr, Yii::t('yii', '{attribute} is invalid.', [
@@ -315,11 +356,30 @@ class Battle2FilterForm extends Model
         }
 
         $ret = [];
-        $push = function ($key, $value) use ($formName, &$ret) {
+        $push = function ($key, $value) use ($formName, &$ret): void {
             if ($formName != '') {
                 $key = sprintf('%s[%s]', $formName, $key);
             }
             $ret[$key] = $value;
+        };
+
+        $pushFilter = function ($key, $value) use ($formName, &$ret): void {
+            $formKey = 'filter';
+            if ($formName != '') {
+                $formKey = sprintf('%s[filter]', $formName);
+            }
+
+            $values = array_filter(
+                explode(' ', (string)($ret[$formKey] ?? ''))
+            );
+            $values = array_filter(
+                $values,
+                function (string $_) use ($key): bool {
+                    return substr($_, 0, strlen($key) + 1) !== $key . ':';
+                }
+            );
+            $values[] = $key . ':' . $value;
+            $ret[$formKey] = implode(' ', $values);
         };
 
         $copyKeys = [
@@ -343,19 +403,11 @@ class Battle2FilterForm extends Model
         $tz = Yii::$app->timeZone;
         switch ($this->term) {
             case 'this-period':
-                $t = BattleHelper::periodToRange2(BattleHelper::calcPeriod2($now), 180);
-                $push('term', 'term');
-                $push('term_from', date('Y-m-d H:i:s', $t[0]));
-                $push('term_to', date('Y-m-d H:i:s', $now));
-                $push('timezone', $tz);
+                $pushFilter('period', (string)BattleHelper::calcPeriod2($now));
                 break;
 
             case 'last-period':
-                $t = BattleHelper::periodToRange2(BattleHelper::calcPeriod2($now) - 1, 180);
-                $push('term', 'term');
-                $push('term_from', date('Y-m-d H:i:s', $t[0]));
-                $push('term_to', date('Y-m-d H:i:s', $t[1] - 1));
-                $push('timezone', $tz);
+                $pushFilter('period', (string)BattleHelper::calcPeriod2($now) - 1);
                 break;
 
             case '24h':
@@ -380,6 +432,55 @@ class Battle2FilterForm extends Model
                 $push('timezone', $tz);
                 break;
 
+            case 'this-month-utc':
+                $utcNow = (new DateTimeImmutable())
+                    ->setTimezone(new DateTimeZone('Etc/UTC'))
+                    ->setTimestamp($now);
+                $thisMonth = (new DateTimeImmutable())
+                    ->setTimezone(new DateTimeZone('Etc/UTC'))
+                    ->setDate($utcNow->format('Y'), $utcNow->format('n'), 1)
+                    ->setTime(0, 0, 0);
+                $pushFilter('period', vsprintf('%d-%d', [
+                    BattleHelper::calcPeriod2($thisMonth->getTimestamp()),
+                    BattleHelper::calcPeriod2($utcNow->getTimestamp()),
+                ]));
+                break;
+
+            case 'last-month-utc':
+                $utcNow = (new DateTimeImmutable())
+                    ->setTimezone(new DateTimeZone('Etc/UTC'))
+                    ->setTimestamp($now);
+
+                $lastMonthPeriod = BattleHelper::calcPeriod2(
+                    (new DateTimeImmutable())
+                        ->setTimezone(new DateTimeZone('Etc/UTC'))
+                        ->setDate($utcNow->format('Y'), $utcNow->format('n') - 1, 1)
+                        ->setTime(0, 0, 0)
+                        ->getTimestamp()
+                );
+
+                $thisMonthPeriod = BattleHelper::calcPeriod2(
+                    (new DateTimeImmutable())
+                        ->setTimezone(new DateTimeZone('Etc/UTC'))
+                        ->setDate($utcNow->format('Y'), $utcNow->format('n'), 1)
+                        ->setTime(0, 0, 0)
+                        ->getTimestamp()
+                );
+                $pushFilter('period', vsprintf('%d-%d', [
+                    $lastMonthPeriod,
+                    $thisMonthPeriod - 1,
+                ]));
+                break;
+
+            case 'this-fest':
+                $user = User::findOne(['screen_name' => $this->screen_name]);
+                if ($user && ($_ = BattleHelper::getLastPlayedSplatfestPeriodRange2($user))) {
+                    $pushFilter('period', vsprintf('%d-%d', $_));
+                } else {
+                    $pushFilter('period', '0');
+                }
+                break;
+
             case 'term':
                 $from = strtotime($this->term_from);
                 if ($from === false) {
@@ -401,10 +502,16 @@ class Battle2FilterForm extends Model
                     if (!$range || $range['min_id'] < 1 || $range['max_id'] < 1) {
                         break;
                     }
-                    $push('term', 'term');
-                    $push('term_from', date('Y-m-d H:i:s', strtotime($range['min_at'])));
-                    $push('term_to', date('Y-m-d H:i:s', strtotime($range['max_at'])));
-                    $push('timezone', $tz);
+                    $pushFilter(
+                        'id',
+                        sprintf('%d-%d', (int)$range['min_id'], (int)$range['max_id'])
+                    );
+                } elseif (preg_match('/^last-(\d+)-periods/', $this->term, $match)) {
+                    $currentPeriod = BattleHelper::calcPeriod2($now);
+                    $pushFilter(
+                        'period',
+                        sprintf('%d-%d', $currentPeriod - $match[1] + 1, $currentPeriod)
+                    );
                 } elseif (preg_match('/^~?v\d+/', $this->term)) {
                     $push('term', $this->term);
                 }
@@ -452,5 +559,15 @@ class Battle2FilterForm extends Model
     public function getFilterTeam(): ?string
     {
         return $this->filterTeam;
+    }
+
+    public function getFilterIdRange(): ?array
+    {
+        return $this->filterIdRange;
+    }
+
+    public function getFilterPeriod(): ?array
+    {
+        return $this->filterPeriod;
     }
 }

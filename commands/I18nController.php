@@ -114,7 +114,9 @@ class I18nController extends Controller
         }
 
         setlocale(LC_COLLATE, 'C');
-        uksort($current, 'strnatcasecmp');
+        uksort($current, function (string $a, string $b): int {
+            return strnatcasecmp($a, $b) ?: strcmp($a, $b);
+        });
 
         $esc = function (string $text): string {
             return str_replace(["\\", "'"], ["\\\\", "\\'"], $text);
