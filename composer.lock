@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0946693369bd5fd30d131a4bedddf1e2",
+    "content-hash": "6815c4e9a57cd518bfc2771f95e69a87",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -6131,16 +6131,16 @@
         },
         {
             "name": "yiisoft/yii2-debug",
-            "version": "dev-master",
+            "version": "2.1.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-debug.git",
-                "reference": "3c0a35d9b208230280f1614c5b887f6238ff7d64"
+                "reference": "27e36a045069e6e195a28cd4314b6e125ddcc0f9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-debug/zipball/3c0a35d9b208230280f1614c5b887f6238ff7d64",
-                "reference": "3c0a35d9b208230280f1614c5b887f6238ff7d64",
+                "url": "https://api.github.com/repos/yiisoft/yii2-debug/zipball/27e36a045069e6e195a28cd4314b6e125ddcc0f9",
+                "reference": "27e36a045069e6e195a28cd4314b6e125ddcc0f9",
                 "shasum": ""
             },
             "require": {
@@ -6184,20 +6184,20 @@
                 "debugger",
                 "yii2"
             ],
-            "time": "2019-05-12T10:39:43+00:00"
+            "time": "2019-04-30T15:21:32+00:00"
         },
         {
             "name": "yiisoft/yii2-gii",
-            "version": "dev-master",
+            "version": "2.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-gii.git",
-                "reference": "eff1dc599f577420d569bdc67d8cc689148e9818"
+                "reference": "d1c18f0dcbd72ab285acd320c56b1aa2554e06fa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-gii/zipball/eff1dc599f577420d569bdc67d8cc689148e9818",
-                "reference": "eff1dc599f577420d569bdc67d8cc689148e9818",
+                "url": "https://api.github.com/repos/yiisoft/yii2-gii/zipball/d1c18f0dcbd72ab285acd320c56b1aa2554e06fa",
+                "reference": "d1c18f0dcbd72ab285acd320c56b1aa2554e06fa",
                 "shasum": ""
             },
             "require": {
@@ -6235,16 +6235,14 @@
                 "gii",
                 "yii2"
             ],
-            "time": "2019-03-22T15:08:43+00:00"
+            "time": "2019-03-17T19:23:15+00:00"
         }
     ],
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "shakura/yii2-gearman": 20,
-        "yiisoft/yii2-bootstrap": 20,
-        "yiisoft/yii2-debug": 20,
-        "yiisoft/yii2-gii": 20
+        "yiisoft/yii2-bootstrap": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
