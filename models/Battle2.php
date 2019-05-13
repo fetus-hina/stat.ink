@@ -8,6 +8,10 @@
 
 namespace app\models;
 
+use DateInterval;
+use DateTime;
+use DateTimeImmutable;
+use DateTimeZone;
 use Yii;
 use app\components\behaviors\RemoteAddrBehavior;
 use app\components\behaviors\RemotePortBehavior;
@@ -294,13 +298,13 @@ class Battle2 extends ActiveRecord
                 // DateTimeZone
                 $tz = (function (?string $tzIdent) {
                     if ($tzIdent && ($model = Timezone::findOne(['identifier' => (string)$tzIdent]))) {
-                        return new \DateTimeZone($model->identifier);
+                        return new DateTimeZone($model->identifier);
                     }
-                    return new \DateTimeZone(Yii::$app->timeZone);
+                    return new DateTimeZone(Yii::$app->timeZone);
                 })($options['timeZone'] ?? null);
 
                 // DateTimeImmutable
-                $now = (new \DateTimeImmutable())
+                $now = (new DateTimeImmutable())
                     ->setTimestamp($_SERVER['REQUEST_TIME'] ?? time())
                     ->setTimezone($tz);
                 $currentPeriod = BattleHelper::calcPeriod2($now->getTimestamp());
@@ -321,46 +325,89 @@ class Battle2 extends ActiveRecord
                         break;
                 
                     case '24h':
-                        $t = $now->sub(new \DateInterval('PT24H'));
+                        $t = $now->sub(new DateInterval('PT24H'));
                         $this->andWhere(
-                            ['>', $date, $t->format(\DateTime::ATOM)]
+                            ['>', $date, $t->format(DateTime::ATOM)]
                         );
                         break;
 
                     case 'today':
                         $today = $now->setTime(0, 0, 0);
-                        $tomorrow = $today->add(new \DateInterval('P1D'));
+                        $tomorrow = $today->add(new DateInterval('P1D'));
                         $this->andWhere(['and',
-                            ['>=', $date, $today->format(\DateTime::ATOM)],
-                            ['<', $date, $tomorrow->format(\DateTime::ATOM)],
+                            ['>=', $date, $today->format(DateTime::ATOM)],
+                            ['<', $date, $tomorrow->format(DateTime::ATOM)],
                         ]);
                         break;
 
                     case 'yesterday':
                         $today = $now->setTime(0, 0, 0);
-                        $yesterday = $today->sub(new \DateInterval('P1D'));
+                        $yesterday = $today->sub(new DateInterval('P1D'));
                         $this->andWhere(['and',
-                            ['>=', $date, $yesterday->format(\DateTime::ATOM)],
-                            ['<', $date, $today->format(\DateTime::ATOM)],
+                            ['>=', $date, $yesterday->format(DateTime::ATOM)],
+                            ['<', $date, $today->format(DateTime::ATOM)],
+                        ]);
+                        break;
+
+                    case 'this-month-utc':
+                        $utcNow = (new DateTimeImmutable())
+                            ->setTimezone(new DateTimeZone('Etc/UTC'))
+                            ->setTimestamp($now->getTimestamp());
+                        $thisMonth = (new DateTimeImmutable())
+                            ->setTimezone(new DateTimeZone('Etc/UTC'))
+                            ->setDate($utcNow->format('Y'), $utcNow->format('n'), 1)
+                            ->setTime(0, 0, 0);
+                        $this->andWhere([
+                            'between',
+                            'battle2.period',
+                            BattleHelper::calcPeriod2($thisMonth->getTimestamp()),
+                            BattleHelper::calcPeriod2($now->getTimestamp())
+                        ]);
+                        break;
+
+                    case 'last-month-utc':
+                        $utcNow = (new DateTimeImmutable())
+                            ->setTimezone(new DateTimeZone('Etc/UTC'))
+                            ->setTimestamp($now->getTimestamp());
+
+                        $lastMonthPeriod = BattleHelper::calcPeriod2(
+                            (new DateTimeImmutable())
+                                ->setTimezone(new DateTimeZone('Etc/UTC'))
+                                ->setDate($utcNow->format('Y'), $utcNow->format('n') - 1, 1)
+                                ->setTime(0, 0, 0)
+                                ->getTimestamp()
+                        );
+
+                        $thisMonthPeriod = BattleHelper::calcPeriod2(
+                            (new DateTimeImmutable())
+                                ->setTimezone(new DateTimeZone('Etc/UTC'))
+                                ->setDate($utcNow->format('Y'), $utcNow->format('n'), 1)
+                                ->setTime(0, 0, 0)
+                                ->getTimestamp()
+                        );
+                        
+                        $this->andWhere(['and',
+                            ['>=', 'battle2.period', $lastMonthPeriod],
+                            ['<', 'battle2.period', $thisMonthPeriod],
                         ]);
                         break;
 
                     case 'term':
                         try {
                             $from = (($options['from'] ?? '') != '')
-                                ? (new \DateTimeImmutable($options['from']))->setTimezone($tz)
+                                ? (new DateTimeImmutable($options['from']))->setTimezone($tz)
                                 : null;
                             $to = (($options['to'] ?? '') != '')
-                                ? (new \DateTimeImmutable($options['to']))->setTimezone($tz)
+                                ? (new DateTimeImmutable($options['to']))->setTimezone($tz)
                                 : null;
                             if ($from) {
                                 $this->andWhere(
-                                    ['>=', $date, $from->format(\DateTime::ATOM)]
+                                    ['>=', $date, $from->format(DateTime::ATOM)]
                                 );
                             }
                             if ($to) {
                                 $this->andWhere(
-                                    ['<', $date, $to->format(\DateTime::ATOM)]
+                                    ['<', $date, $to->format(DateTime::ATOM)]
                                 );
                             }
                         } catch (\Exception $e) {
@@ -383,6 +430,14 @@ class Battle2 extends ActiveRecord
                                     (int)$range['max_id']
                                 ]);
                             }
+                        } elseif (preg_match('/^last-(\d+)-periods$/', $term, $match)) {
+                            $currentPeriod = BattleHelper::calcPeriod2($now->getTimestamp());
+                            $this->andWhere([
+                                'between',
+                                'battle2.period',
+                                $currentPeriod - $match[1] + 1,
+                                $currentPeriod
+                            ]);
                         } elseif (preg_match('/^~?v\d+/', $term)) {
                             $versions = (function () use ($term) {
                                 $query = SplatoonVersion2::find()->asArray();
@@ -579,7 +634,10 @@ class Battle2 extends ActiveRecord
         if ($value === '') {
             return Uuid::v4()->formatAsString();
         }
-        if (preg_match('/^\{?[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\}?$/i', $value)) {
+        if (preg_match(
+            '/^\{?[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\}?$/i',
+            $value
+        )) {
             return strtolower(trim($value, '{}'));
         }
         return Uuid::v5(static::CLIENT_UUID_NAMESPACE, $value);
@@ -1148,17 +1206,17 @@ class Battle2 extends ActiveRecord
         return ($this->mode->key ?? null) === $key;
     }
 
-    public function getVirtualStartTime() : \DateTimeImmutable
+    public function getVirtualStartTime() : DateTimeImmutable
     {
         if ($this->start_at) {
-            return new \DateTimeImmutable($this->start_at);
+            return new DateTimeImmutable($this->start_at);
         }
         if ($this->end_at) {
-            return (new \DateTimeImmutable($this->end_at))
-                ->sub(new \DateInterval('PT3M'));
+            return (new DateTimeImmutable($this->end_at))
+                ->sub(new DateInterval('PT3M'));
         }
-        return (new \DateTimeImmutable($this->created_at))
-            ->sub(new \DateInterval('PT3M15S'));
+        return (new DateTimeImmutable($this->created_at))
+            ->sub(new DateInterval('PT3M15S'));
     }
 
     public function getMyTeamIcon(string $ext = 'svg') : ?string
@@ -1321,8 +1379,8 @@ class Battle2 extends ActiveRecord
                 list($from, $to) = BattleHelper::periodToRange2($this->period);
                 return sprintf(
                     '%s/%s',
-                    gmdate(\DateTime::ATOM, $from),
-                    gmdate(\DateTime::ATOM, $to)
+                    gmdate(DateTime::ATOM, $from),
+                    gmdate(DateTime::ATOM, $to)
                 );
             })(),
             'players' => (in_array('players', $skips, true) || count($this->battlePlayers) === 0)

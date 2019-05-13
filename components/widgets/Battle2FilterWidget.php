@@ -419,16 +419,21 @@ class Battle2FilterWidget extends Widget
             ''                  => Yii::t('app', 'Any Time'),
             'this-period'       => Yii::t('app', 'Current Period'),
             'last-period'       => Yii::t('app', 'Previous Period'),
+            'last-2-periods'    => Yii::t('app', 'Last {n} Periods', ['n' => 2]),
+            'last-3-periods'    => Yii::t('app', 'Last {n} Periods', ['n' => 3]),
+            'last-4-periods'    => Yii::t('app', 'Last {n} Periods', ['n' => 4]),
             '24h'               => Yii::t('app', 'Last 24 Hours'),
             'today'             => Yii::t('app', 'Today'),
             'yesterday'         => Yii::t('app', 'Yesterday'),
+            'this-month-utc'    => Yii::t('app', 'This Month (UTC)'),
+            'last-month-utc'    => Yii::t('app', 'Last Month (UTC)'),
             'last-10-battles'   => Yii::t('app', 'Last {n} Battles', ['n' =>  10]),
             'last-20-battles'   => Yii::t('app', 'Last {n} Battles', ['n' =>  20]),
             'last-50-battles'   => Yii::t('app', 'Last {n} Battles', ['n' =>  50]),
             'last-100-battles'  => Yii::t('app', 'Last {n} Battles', ['n' => 100]),
             'last-200-battles'  => Yii::t('app', 'Last {n} Battles', ['n' => 200]),
+            'term'              => Yii::t('app', 'Specify Period'),
         ];
-
 
         $versions = (function (): array {
             $result = [];
@@ -471,8 +476,6 @@ class Battle2FilterWidget extends Widget
             return $result;
         })();
         $list = array_merge($list, $versions);
-
-        $list['term'] = Yii::t('app', 'Specify Period');
 
         return $form->field($this->filter, 'term')->dropDownList($list)->label(false);
     }

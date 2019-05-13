@@ -7,6 +7,8 @@
 
 namespace app\models;
 
+use DateTimeImmutable;
+use DateTimeZone;
 use Yii;
 use app\components\helpers\Battle as BattleHelper;
 use app\components\helpers\db\Now;
@@ -147,9 +149,14 @@ class Battle2FilterForm extends Model
                     [
                         'this-period',
                         'last-period',
+                        'last-2-periods',
+                        'last-3-periods',
+                        'last-4-periods',
                         '24h',
                         'today',
                         'yesterday',
+                        'this-month-utc',
+                        'last-month-utc',
                         'last-10-battles',
                         'last-20-battles',
                         'last-50-battles',
@@ -315,7 +322,7 @@ class Battle2FilterForm extends Model
                         $v = substr($v, $pos + 1);
                         if (preg_match('/^\d+$/', $v)) {
                             $this->filterPeriod = [(int)$v, (int)$v];
-                        } elseif (preg_match('/^(\d+)-(\d+)$', $v, $match)) {
+                        } elseif (preg_match('/^(\d+)-(\d+)$/', $v, $match)) {
                             $this->filterPeriod = [
                                 (int)$match[1],
                                 (int)$match[2],
@@ -424,6 +431,46 @@ class Battle2FilterForm extends Model
                 $push('timezone', $tz);
                 break;
 
+            case 'this-month-utc':
+                $utcNow = (new DateTimeImmutable())
+                    ->setTimezone(new DateTimeZone('Etc/UTC'))
+                    ->setTimestamp($now);
+                $thisMonth = (new DateTimeImmutable())
+                    ->setTimezone(new DateTimeZone('Etc/UTC'))
+                    ->setDate($utcNow->format('Y'), $utcNow->format('n'), 1)
+                    ->setTime(0, 0, 0);
+                $pushFilter('period', vsprintf('%d-%d', [
+                    BattleHelper::calcPeriod2($thisMonth->getTimestamp()),
+                    BattleHelper::calcPeriod2($utcNow->getTimestamp()),
+                ]));
+                break;
+
+            case 'last-month-utc':
+                $utcNow = (new DateTimeImmutable())
+                    ->setTimezone(new DateTimeZone('Etc/UTC'))
+                    ->setTimestamp($now);
+
+                $lastMonthPeriod = BattleHelper::calcPeriod2(
+                    (new DateTimeImmutable())
+                        ->setTimezone(new DateTimeZone('Etc/UTC'))
+                        ->setDate($utcNow->format('Y'), $utcNow->format('n') - 1, 1)
+                        ->setTime(0, 0, 0)
+                        ->getTimestamp()
+                );
+
+                $thisMonthPeriod = BattleHelper::calcPeriod2(
+                    (new DateTimeImmutable())
+                        ->setTimezone(new DateTimeZone('Etc/UTC'))
+                        ->setDate($utcNow->format('Y'), $utcNow->format('n'), 1)
+                        ->setTime(0, 0, 0)
+                        ->getTimestamp()
+                );
+                $pushFilter('period', vsprintf('%d-%d', [
+                    $lastMonthPeriod,
+                    $thisMonthPeriod - 1,
+                ]));
+                break;
+
             case 'term':
                 $from = strtotime($this->term_from);
                 if ($from === false) {
@@ -448,6 +495,12 @@ class Battle2FilterForm extends Model
                     $pushFilter(
                         'id',
                         sprintf('%d-%d', (int)$range['min_id'], (int)$range['max_id'])
+                    );
+                } elseif (preg_match('/^last-(\d+)-periods/', $this->term, $match)) {
+                    $currentPeriod = BattleHelper::calcPeriod2($now);
+                    $pushFilter(
+                        'period',
+                        sprintf('%d-%d', $currentPeriod - $match[1] + 1, $currentPeriod)
                     );
                 } elseif (preg_match('/^~?v\d+/', $this->term)) {
                     $push('term', $this->term);
