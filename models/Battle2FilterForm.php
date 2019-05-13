@@ -162,6 +162,7 @@ class Battle2FilterForm extends Model
                         'last-50-battles',
                         'last-100-battles',
                         'last-200-battles',
+                        'this-fest',
                         'term',
                     ],
                     array_map(
@@ -469,6 +470,15 @@ class Battle2FilterForm extends Model
                     $lastMonthPeriod,
                     $thisMonthPeriod - 1,
                 ]));
+                break;
+
+            case 'this-fest':
+                $user = User::findOne(['screen_name' => $this->screen_name]);
+                if ($user && ($_ = BattleHelper::getLastPlayedSplatfestPeriodRange2($user))) {
+                    $pushFilter('period', vsprintf('%d-%d', $_));
+                } else {
+                    $pushFilter('period', '0');
+                }
                 break;
 
             case 'term':

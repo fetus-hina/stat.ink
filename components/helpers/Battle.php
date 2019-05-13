@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2015 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  */
@@ -14,6 +14,7 @@ use app\models\Battle as BattleModel;
 use app\models\Battle2 as Battle2Model;
 use app\models\Battle2FilterForm;
 use app\models\BattleFilterForm;
+use app\models\User;
 
 class Battle
 {
@@ -126,6 +127,60 @@ class Battle
                     (int)$today->format('t') + 1
                 )
                 ->setTime(0, 0, -1),
+        ];
+    }
+
+    public static function getLastPlayedSplatfestPeriodRange2(User $user): ?array
+    {
+        // 一番最後に登録されたフェスバトルを取得
+        $lastBattle = Battle2Model::find()
+            ->innerJoinWith([
+                'lobby',
+                'mode',
+                'rule',
+            ], false)
+            ->andWhere([
+                'battle2.user_id' => $user->id,
+                'lobby2.key' => ['standard', 'fest_normal'],
+                'mode2.key' => 'fest',
+                'rule2.key' => 'nawabari',
+            ])
+            ->orderBy(['battle2.id' => SORT_DESC])
+            ->limit(1)
+            ->one();
+        if (!$lastBattle || !$lastBattle->period) {
+            return null;
+        }
+
+        // そのバトルから4日以内の一番最初のフェスバトルを取得
+        $firstBattle = Battle2Model::find()
+            ->innerJoinWith([
+                'lobby',
+                'mode',
+                'rule',
+            ], false)
+            ->andWhere([
+                'battle2.user_id' => $user->id,
+                'lobby2.key' => ['standard', 'fest_normal'],
+                'mode2.key' => 'fest',
+                'rule2.key' => 'nawabari',
+            ])
+            ->andWhere([
+                'between',
+                'battle2.period',
+                $lastBattle->period - 47,
+                $lastBattle->period
+            ])
+            ->orderBy(['battle2.id' => SORT_ASC])
+            ->limit(1)
+            ->one();
+        if (!$firstBattle || !$firstBattle->period) {
+            return null;
+        }
+
+        return [
+            (int)$firstBattle->period,
+            (int)$lastBattle->period,
         ];
     }
 }

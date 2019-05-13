@@ -392,6 +392,26 @@ class Battle2 extends ActiveRecord
                         ]);
                         break;
 
+                    case 'this-fest':
+                        try {
+                            if (!$form = $options['filter']) {
+                                throw new \Exception();
+                            }
+
+                            if (!$user = User::findOne(['screen_name' => $form->screen_name])) {
+                                throw new \Exception();
+                            }
+
+                            if (!$range = BattleHelper::getLastPlayedSplatfestPeriodRange2($user)) {
+                                throw new \Exception();
+                            }
+
+                            $this->andWhere(['between', 'battle2.period', $range[0], $range[1]]);
+                        } catch (\Exception $e) {
+                            $this->andWhere('0 = 1');
+                        }
+                        break;
+
                     case 'term':
                         try {
                             $from = (($options['from'] ?? '') != '')

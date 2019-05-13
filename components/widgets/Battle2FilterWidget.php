@@ -432,6 +432,7 @@ class Battle2FilterWidget extends Widget
             'last-50-battles'   => Yii::t('app', 'Last {n} Battles', ['n' =>  50]),
             'last-100-battles'  => Yii::t('app', 'Last {n} Battles', ['n' => 100]),
             'last-200-battles'  => Yii::t('app', 'Last {n} Battles', ['n' => 200]),
+            'this-fest'         => Yii::t('app', 'Current/Last Splatfest'),
             'term'              => Yii::t('app', 'Specify Period'),
         ];
 

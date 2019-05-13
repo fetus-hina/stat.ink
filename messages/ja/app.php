@@ -113,6 +113,7 @@ return [
     'Current Stages' => '現在のステージ',
     'Current Time:' => '現在日時:',
     'Current' => '現在',
+    'Current/Last Splatfest' => '現在/前回のフェス期間',
     'D/min' => '死/分',
     'Daily Report' => '日報',
     'Data Sent' => 'データ送信',
