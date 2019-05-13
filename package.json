@@ -19,7 +19,7 @@
     "node-zopfli": "^2.0.3",
     "optipng-bin": "^5.1.0",
     "postcss-cli": "^6.1.2",
-    "redoc-cli": "^0.8.3",
+    "redoc-cli": "^0.8.4",
     "speccy": "^0.9.0",
     "stylelint": "^10.0.1",
     "stylelint-config-recommended": "^2.2.0",
