@@ -754,16 +754,11 @@ use yii\widgets\DetailView;
           return '';
         }
 
-        $periodFrom = null;
-        $periodTo = null;
-        if ($model->period) {
-            list($intFrom, $intTo) = BattleHelper::periodToRange2($model->period);
-            $periodFrom = (new DateTimeImmutable())
-                ->setTimezone(new DateTimeZone(Yii::$app->timeZone))
-                ->setTimestamp($intFrom);
-
-            $periodTo = $periodFrom->setTimestamp($intTo);
-        }
+        list($intFrom, $intTo) = BattleHelper::periodToRange2($model->period);
+        $periodFrom = (new DateTimeImmutable())
+            ->setTimezone(new DateTimeZone(Yii::$app->timeZone))
+            ->setTimestamp($intFrom);
+        $periodTo = $periodFrom->setTimestamp($intTo);
 
         $dayFrom = (new DateTimeImmutable(
                 $model->start_at,
@@ -782,27 +777,22 @@ use yii\widgets\DetailView;
             'showRelative' => true,
             'formatter' => $fmt,
           ]),
-          $periodFrom && $periodTo
-            ? Html::a(
-              (string)FA::fas('calendar-day')->fw(),
-              ['show-v2/user',
-                'screen_name' => $model->user->screen_name,
-                'filter' => [
-                  'term' => 'term',
-                  'term_from' => $periodFrom->format('Y-m-d H:i:s'),
-                  'term_to' => $periodTo->format('Y-m-d H:i:s'),
-                  'timezone' => Yii::$app->timeZone,
-                ],
+          Html::a(
+            (string)FA::fas('calendar-day')->fw(),
+            ['show-v2/user',
+              'screen_name' => $model->user->screen_name,
+              'filter' => [
+                'filter' => sprintf('period:%d', $model->period),
               ],
-              [
-                'class' => 'auto-tooltip',
-                'title' => Yii::t('app', 'Search {from} - {to}', [
-                  'from' => $fmt->asDateTime($periodFrom, 'short'),
-                  'to' => $fmt->asDateTime($periodTo, 'short'),
-                ])
-              ]
-            )
-            : null,
+            ],
+            [
+              'class' => 'auto-tooltip',
+              'title' => Yii::t('app', 'Search {from} - {to}', [
+                'from' => $fmt->asDateTime($periodFrom, 'short'),
+                'to' => $fmt->asDateTime($periodTo, 'short'),
+              ])
+            ]
+          ),
           Html::a(
             (string)FA::fas('calendar-alt')->fw(),
             ['show-v2/user',

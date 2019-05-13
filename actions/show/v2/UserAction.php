@@ -81,7 +81,34 @@ class UserAction extends BaseAction
 
         $filter = Yii::createObject(Battle2FilterForm::class);
         $filter->screen_name = $user->screen_name;
-        if ($filter->load($_GET) && $filter->validate()) {
+        $filter->load($_GET);
+        if ($filter->validate()) {
+            // id_from, id_to が指定されているときは filter に id:<from>-<to> をセットして
+            // リダイレクトする
+            if ($filter->id_from && $filter->id_to) {
+                $tmp = explode(' ', (string)$filter->filter);
+                $tmp = array_filter($tmp);
+                $tmp = array_filter($tmp, function (string $value): bool {
+                    return substr($value, 0, 3) !== 'id:';
+                });
+                $tmp[] = sprintf('id:%d-%d', (int)$filter->id_from, (int)$filter->id_to);
+                $filter->filter = implode(' ', $tmp);
+
+                $next = [
+                    'show-v2/user',
+                    'screen_name' => $user->screen_name,
+                    'filter' => array_filter(
+                        $filter->attributes,
+                        function (string $key): bool {
+                            return !in_array($key, ['screen_name', 'id_from', 'id_to'], true);
+                        },
+                        ARRAY_FILTER_USE_KEY
+                    ),
+                ];
+                $this->controller->redirect(Url::to($next, true));
+                return;
+            }
+
             $battle->applyFilter($filter);
             $permLink = Url::to(
                 array_merge(
