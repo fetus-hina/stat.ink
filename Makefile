@@ -69,6 +69,7 @@ RESOURCE_TARGETS_MAIN := \
 	resources/.compiled/stat.ink/fest-power-history.js \
 	resources/.compiled/stat.ink/flot-support.css \
 	resources/.compiled/stat.ink/fluid-layout.js \
+	resources/.compiled/stat.ink/game-modes.css \
 	resources/.compiled/stat.ink/kd-win.css \
 	resources/.compiled/stat.ink/kd-win.js \
 	resources/.compiled/stat.ink/knockout.js \
@@ -84,6 +85,7 @@ RESOURCE_TARGETS_MAIN := \
 	resources/.compiled/stat.ink/salmon-work-list-config.js \
 	resources/.compiled/stat.ink/salmon-work-list-hazard.js \
 	resources/.compiled/stat.ink/salmon-work-list.js \
+	resources/.compiled/stat.ink/schedule.css \
 	resources/.compiled/stat.ink/smooth-scroll.js \
 	resources/.compiled/stat.ink/stat-by-map-rule.js \
 	resources/.compiled/stat.ink/stat-by-map.js \
@@ -331,6 +333,7 @@ resources/.compiled/stat.ink/fest-power-history.css: resources/stat.ink/fest-pow
 resources/.compiled/stat.ink/fest-power-history.js: resources/stat.ink/fest-power-history.es node_modules
 resources/.compiled/stat.ink/flot-support.css: resources/stat.ink/flot-support.less node_modules
 resources/.compiled/stat.ink/fluid-layout.js: resources/stat.ink/fluid-layout.es node_modules
+resources/.compiled/stat.ink/game-modes.css: resources/stat.ink/game-modes.less node_modules
 resources/.compiled/stat.ink/kd-win.css: resources/stat.ink/kd-win.less node_modules
 resources/.compiled/stat.ink/kd-win.js: resources/stat.ink/kd-win.js node_modules
 resources/.compiled/stat.ink/knockout.js: resources/stat.ink/knockout.es node_modules
@@ -345,6 +348,7 @@ resources/.compiled/stat.ink/rewrite-link-for-ios-app.js: resources/stat.ink/rew
 resources/.compiled/stat.ink/salmon-work-list-config.js: resources/stat.ink/salmon-work-list-config.es node_modules
 resources/.compiled/stat.ink/salmon-work-list-hazard.js: resources/stat.ink/salmon-work-list-hazard.es node_modules
 resources/.compiled/stat.ink/salmon-work-list.js: resources/stat.ink/salmon-work-list.es node_modules
+resources/.compiled/stat.ink/schedule.css: resources/stat.ink/schedule.less node_modules
 resources/.compiled/stat.ink/smooth-scroll.js: resources/stat.ink/smooth-scroll.es node_modules
 resources/.compiled/stat.ink/stat-by-map-rule.js: resources/stat.ink/stat-by-map-rule.es node_modules
 resources/.compiled/stat.ink/stat-by-map.js: resources/stat.ink/stat-by-map.es node_modules

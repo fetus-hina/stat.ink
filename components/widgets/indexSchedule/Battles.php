@@ -12,6 +12,7 @@ namespace app\components\widgets\indexSchedule;
 use DateTimeImmutable;
 use DateTimeZone;
 use Yii;
+use app\components\widgets\GameModeIcon;
 use app\models\Map2;
 use app\models\Rule2;
 use statink\yii2\stages\spl2\Spl2Stage;
@@ -65,11 +66,14 @@ class Battles extends Widget
             ? 'g a'
             : 'H:i';
 
-        return Html::tag('h3', Html::encode(vsprintf('[%s-%s] %s', [
+        return Html::tag('h3', implode(' ', [
+          Html::encode(vsprintf('[%s-%s]', [
             $t1->format($timeFormat),
             $t2->format($timeFormat),
-            Yii::t('app-rule2', $schedule->data->rule->name),
-        ])));
+          ])),
+          GameModeIcon::spl2($schedule->data->rule->key),
+          Html::encode(Yii::t('app-rule2', $schedule->data->rule->name)),
+        ]));
     }
 
     public function renderMaps(Rule2 $rule, array $maps): string
