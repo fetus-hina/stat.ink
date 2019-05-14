@@ -1,16 +1,19 @@
 <?php
 /**
- * @copyright Copyright (C) 2015-2016 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  */
 
+declare(strict_types=1);
+
 namespace app\actions\entire;
 
 use Yii;
-use yii\web\ViewAction as BaseAction;
-use app\models\Rule;
 use app\models\Knockout;
+use app\models\Rule;
+use yii\web\ViewAction as BaseAction;
+use stdClass;
 
 class KnockoutAction extends BaseAction
 {
@@ -33,7 +36,7 @@ class KnockoutAction extends BaseAction
                 $row->map->name = Yii::t('app-map', $row->map->name);
                 $data[$map] = (object)[
                     'map' => $row->map,
-                    'rules' => new \stdClass(),
+                    'rules' => new stdClass(),
                 ];
             }
             $data[$map]->rules->{$rule} = (object)[
@@ -42,11 +45,11 @@ class KnockoutAction extends BaseAction
             ];
         }
 
-        uasort($data, function ($a, $b) {
+        uasort($data, function (stdClass $a, stdClass $b): int {
             return strnatcasecmp($a->map->name, $b->map->name);
         });
 
-        return $this->controller->render('knockout.tpl', [
+        return $this->controller->render('knockout', [
             'rules' => $rules,
             'data' => $data,
         ]);

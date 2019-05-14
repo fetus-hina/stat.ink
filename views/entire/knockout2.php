@@ -59,6 +59,15 @@ foreach ($data as $_map) {
   }
 }
 // }}}
+
+$this->registerCss(Html::renderCss([
+  'table' => [
+    'min-width' => sprintf('%dpx', 220 * (count($rules) + 1)),
+  ],
+  'th,td' => [
+    'width' => sprintf('%.f%%', 100 / (count($rules) + 1)),
+  ],
+]));
 ?>
 <div class="container">
   <h1>
@@ -157,7 +166,6 @@ foreach ($data as $_map) {
           </td>
 <?php } ?>
         </tr>
-<?php $this->registerCss('img.map-image{max-width:15em;height:auto}'); ?>
 <?php foreach ($maps as $_mapKey => $_mapName): ?>
         <tr>
           <th>

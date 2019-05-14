@@ -9,28 +9,25 @@ declare(strict_types=1);
 
 namespace app\assets;
 
-use Yii;
+use app\assets\FlotIconAsset;
 use jp3cki\yii2\flot\FlotAsset;
-use jp3cki\yii2\flot\FlotPieAsset;
-use jp3cki\yii2\flot\FlotResizeAsset;
-use yii\helpers\ArrayHelper;
+use jp3cki\yii2\flot\FlotStackAsset;
+use jp3cki\yii2\flot\FlotTimeAsset;
 use yii\web\AssetBundle;
 use yii\web\JqueryAsset;
 
-class EntireKnockoutAsset extends AssetBundle
+class EntireWeaponsUseAsset extends AssetBundle
 {
     public $sourcePath = '@app/resources/.compiled/stat.ink';
     public $js = [
-        'knockout.js',
-    ];
-    public $css = [
-        'knockout.css',
+        'weapons-use.js',
     ];
     public $depends = [
-        ColorSchemeAsset::class,
+        AppAsset::class,
         FlotAsset::class,
-        FlotPieAsset::class,
-        FlotResizeAsset::class,
+        FlotIconAsset::class,
+        FlotStackAsset::class,
+        FlotTimeAsset::class,
         JqueryAsset::class,
     ];
 }
