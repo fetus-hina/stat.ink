@@ -1,9 +1,10 @@
 <?php
 /**
- * @copyright Copyright (C) 2016 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  */
+declare(strict_types=1);
 
 namespace app\actions\entire;
 
@@ -37,7 +38,7 @@ class WeaponsUseAction extends BaseAction
             $form->weapon5 = '@splatling';
         }
 
-        return $this->controller->render('weapons-use.tpl', [
+        return $this->controller->render('weapons-use', [
             'form' => $form,
             'weapons' => $this->weapons,
             'rules' => $this->rules,
@@ -91,7 +92,9 @@ class WeaponsUseAction extends BaseAction
                         ->asArray()
                         ->all();
                     foreach ($weapons as $weapon) {
-                        $ret['~' . $weapon['key']] = Yii::t('app', '{0} etc.', [Yii::t('app-weapon', $weapon['name'])]);
+                        $ret['~' . $weapon['key']] = Yii::t('app', '{0} etc.', [
+                            Yii::t('app-weapon', $weapon['name']),
+                        ]);
                     }
                     uasort($ret, 'strnatcasecmp');
                     return $ret;
@@ -164,7 +167,11 @@ class WeaponsUseAction extends BaseAction
                     function (array $row) use ($columnKey, $bColumnKey) : array {
                         $battles = (int)$row[$bColumnKey];
                         return [
-                            date('Y-m-d', strtotime(sprintf('%04d-W%02d', $row['isoyear'], $row['isoweek']))),
+                            date('Y-m-d', strtotime(sprintf(
+                                '%04d-W%02d',
+                                $row['isoyear'],
+                                $row['isoweek']
+                            ))),
                             $battles > 0 ? $row[$columnKey] * 100 / $battles : null,
                         ];
                     },
@@ -181,7 +188,11 @@ class WeaponsUseAction extends BaseAction
         $last  = strtotime(sprintf('%04d-W%02d', $lastData['isoyear'], $lastData['isoweek']));
 
         $query = Event::find()
-            ->andWhere(['between', 'date', date('Y-m-d\TH:i:sO', $first), date('Y-m-d\TH:i:sO', $last)])
+            ->andWhere(['between',
+                'date',
+                date('Y-m-d\TH:i:sO', $first),
+                date('Y-m-d\TH:i:sO', $last)
+            ])
             ->orderBy('[[date]] ASC');
 
         return array_map(function (array $row) : array {
@@ -199,7 +210,9 @@ class WeaponsUseAction extends BaseAction
             switch (substr($key, 0, 1)) {
                 case WeaponKeyValidator::PREFIX_WEAPON_GROUP:
                     $type = WeaponType::findOne(['key' => substr($key, 1)]);
-                    return Yii::t('app-weapon', 'All of {0}', [Yii::t('app-weapon', $type->name ?? $key)]);
+                    return Yii::t('app-weapon', 'All of {0}', [
+                        Yii::t('app-weapon', $type->name ?? $key),
+                    ]);
 
                 case WeaponKeyValidator::PREFIX_MAIN_WEAPON:
                     $weapon = Weapon::findOne(['key' => substr($key, 1)]);
