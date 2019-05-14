@@ -12,6 +12,7 @@ namespace app\components\widgets\battle\item;
 use DateTimeImmutable;
 use DateTimeZone;
 use Yii;
+use app\components\widgets\GameModeIcon;
 use app\models\User;
 use statink\yii2\stages\spl2\Spl2Stage;
 
@@ -71,6 +72,13 @@ class SalmonItem2Widget extends BaseWidget
         return ['salmon/view',
             'screen_name' => $user->screen_name,
             'id' => $this->model->id,
+        ];
+    }
+
+    public function getModeIcons(): array
+    {
+        return [
+            GameModeIcon::spl2('salmon'),
         ];
     }
 

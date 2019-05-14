@@ -1,26 +1,29 @@
 <?php
 /**
- * @copyright Copyright (C) 2017 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  */
+
+declare(strict_types=1);
 
 namespace app\components\widgets\battle\item;
 
 use DateTimeImmutable;
 use DateTimeZone;
 use Yii;
+use app\components\widgets\GameModeIcon;
 use app\models\User;
 use statink\yii2\stages\spl2\Spl2Stage;
 
 class BattleItem2Widget extends BaseWidget
 {
-    public function getHasBattleEndAt() : bool
+    public function getHasBattleEndAt(): bool
     {
         return !!$this->model->end_at;
     }
 
-    public function getBattleEndAt() : ?DateTimeImmutable
+    public function getBattleEndAt(): ?DateTimeImmutable
     {
         if (!$endAt = $this->model->end_at) {
             return null;
@@ -29,7 +32,7 @@ class BattleItem2Widget extends BaseWidget
             ->setTimezone(new DateTimeZone(Yii::$app->timeZone));
     }
 
-    public function getDescription() : string
+    public function getDescription(): string
     {
         $rule   = '?';
         $map    = '?';
@@ -50,7 +53,7 @@ class BattleItem2Widget extends BaseWidget
         ]);
     }
 
-    public function getImageUrl() : string
+    public function getImageUrl(): string
     {
         if ($this->model->battleImageResult) {
             return $this->model->battleImageResult->url;
@@ -64,7 +67,7 @@ class BattleItem2Widget extends BaseWidget
         }
     }
 
-    public function getLinkRoute() : array
+    public function getLinkRoute(): array
     {
         $user = $this->getUser();
         return [
@@ -74,7 +77,43 @@ class BattleItem2Widget extends BaseWidget
         ];
     }
 
-    public function getRuleKey() : string
+    public function getModeIcons(): array
+    {
+        $icons = [];
+        if ($this->model->mode) {
+            switch ($this->model->mode->key) {
+                case 'regular':
+                    $icons[] = GameModeIcon::spl2('nawabari');
+                    return $icons;
+
+                case 'fest':
+                    $icons[] = GameModeIcon::spl2('fest');
+                    return $icons;
+
+                case 'gachi':
+                    if ($this->model->lobby) {
+                        if ($this->model->lobby->key === 'standard') {
+                            $icons[] = GameModeIcon::spl2('gachi');
+                        } else {
+                            $icons[] = GameModeIcon::spl2('league');
+                        }
+                    }
+                    break;
+
+                case 'private':
+                    $icons[] = GameModeIcon::spl2('private');
+                    break;
+            }
+        }
+
+        if ($this->model->rule) {
+            $icons[] = GameModeIcon::spl2($this->model->rule->key);
+        }
+
+        return $icons;
+    }
+
+    public function getRuleKey(): string
     {
         if (!$rule = $this->model->rule) {
             return 'unknown';
@@ -82,7 +121,7 @@ class BattleItem2Widget extends BaseWidget
         return $rule->key;
     }
 
-    public function getRuleName() : string
+    public function getRuleName(): string
     {
         if (!$rule = $this->model->rule) {
             return Yii::t('app', 'Unknown');
@@ -90,12 +129,12 @@ class BattleItem2Widget extends BaseWidget
         return Yii::t('app-rule', $rule->name);
     }
 
-    public function getUser() : User
+    public function getUser(): User
     {
         return $this->model->user;
     }
 
-    public function getUserLinkRoute() : array
+    public function getUserLinkRoute(): array
     {
         $user = $this->getUser();
         return [

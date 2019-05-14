@@ -12,6 +12,7 @@ namespace app\components\widgets;
 use Yii;
 use app\assets\AppAsset;
 use app\assets\CurrentTimeAsset;
+use app\assets\ScheduleAsset;
 use app\models\SalmonSchedule2;
 use app\models\Schedule2;
 use stdClass;
@@ -59,6 +60,7 @@ class IndexSchedule extends Widget
             [
                 [
                     'key' => 'regular',
+                    'icon' => GameModeIcon::spl2('nawabari'),
                     'label' => Yii::t('app-rule2', 'Regular'),
                     'enabled' => !!$this->getCurrentRegular(),
                     'contentClass' => indexSchedule\Battles::class,
@@ -69,6 +71,7 @@ class IndexSchedule extends Widget
                 ],
                 [
                     'key' => 'gachi',
+                    'icon' => GameModeIcon::spl2('gachi'),
                     'label' => Yii::t('app-rule2', 'Ranked'),
                     'enabled' => !!$this->getCurrentRanked(),
                     'contentClass' => indexSchedule\Battles::class,
@@ -79,6 +82,7 @@ class IndexSchedule extends Widget
                 ],
                 [
                     'key' => 'league',
+                    'icon' => GameModeIcon::spl2('league'),
                     'label' => Yii::t('app-rule2', 'League'),
                     'enabled' => !!$this->getCurrentLeague(),
                     'contentClass' => indexSchedule\Battles::class,
@@ -89,6 +93,7 @@ class IndexSchedule extends Widget
                 ],
                 [
                     'key' => 'salmon',
+                    'icon' => GameModeIcon::spl2('salmon'),
                     'label' => Yii::t('app-salmon2', 'Salmon Run'),
                     'enabled' => !!$this->salmon,
                     'contentClass' => indexSchedule\SalmonShifts::class,
@@ -101,6 +106,7 @@ class IndexSchedule extends Widget
         );
 
         AppAsset::register($this->view);
+        ScheduleAsset::register($this->view);
         return Html::tag(
             'aside',
             implode('', [
@@ -111,7 +117,10 @@ class IndexSchedule extends Widget
             ]),
             [
                 'id' => $this->id,
-                'class' => 'mb-3',
+                'class' => [
+                    'mb-3',
+                    'index-schedule',
+                ],
             ]
         );
         // }}}
@@ -168,7 +177,10 @@ class IndexSchedule extends Widget
                         return Html::tag(
                             'li',
                             Html::a(
-                                Html::encode($info['label']),
+                                trim(implode(' ', [
+                                    $info['icon'] ?? '',
+                                    Html::encode($info['label']),
+                                ])),
                                 sprintf('#%s-tab-%s', $this->id, $info['key']),
                                 [
                                     'data-toggle' => 'tab',

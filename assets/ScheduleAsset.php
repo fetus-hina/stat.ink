@@ -9,19 +9,19 @@ declare(strict_types=1);
 
 namespace app\assets;
 
+use yii\bootstrap\BootstrapAsset;
+use yii\bootstrap\BootstrapPluginAsset;
 use yii\web\AssetBundle;
 
-class BattleThumbListAsset extends AssetBundle
+class ScheduleAsset extends AssetBundle
 {
     public $sourcePath = '@app/resources/.compiled/stat.ink';
-    public $js = [
-        'battle-thumb-list.js',
-    ];
     public $css = [
-        'battle-thumb-list.css',
-        'game-modes.css',
+        'schedule.css',
     ];
     public $depends = [
         AppAsset::class,
+        BootstrapAsset::class,
+        BootstrapPluginAsset::class,
     ];
 }
