@@ -1,9 +1,11 @@
 <?php
 /**
- * @copyright Copyright (C) 2017 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  */
+
+declare(strict_types=1);
 
 namespace app\components\widgets\battle\item;
 
@@ -43,17 +45,18 @@ abstract class BaseWidget extends Widget
         }
     }
 
-    abstract public function getBattleEndAt() : ?DateTimeImmutable;
-    abstract public function getDescription() : string;
-    abstract public function getHasBattleEndAt() : bool;
-    abstract public function getImageUrl() : string;
-    abstract public function getLinkRoute() : array;
-    abstract public function getRuleKey() : string;
-    abstract public function getRuleName() : string;
-    abstract public function getUser() : User;
-    abstract public function getUserLinkRoute() : array;
+    abstract public function getBattleEndAt(): ?DateTimeImmutable;
+    abstract public function getDescription(): string;
+    abstract public function getHasBattleEndAt(): bool;
+    abstract public function getImageUrl(): string;
+    abstract public function getLinkRoute(): array;
+    abstract public function getModeIcons(): array;
+    abstract public function getRuleKey(): string;
+    abstract public function getRuleName(): string;
+    abstract public function getUser(): User;
+    abstract public function getUserLinkRoute(): array;
 
-    public function getImagePlaceholderUrl() : string
+    public function getImagePlaceholderUrl(): string
     {
         // {{{
         static $ret;
@@ -68,7 +71,7 @@ abstract class BaseWidget extends Widget
         // }}}
     }
 
-    public function getUserIconHtml() : string
+    public function getUserIconHtml(): string
     {
         // {{{
         $user = $this->getUser();
@@ -160,6 +163,13 @@ abstract class BaseWidget extends Widget
                                 'itemscope' => true,
                                 'itemtype' => 'http://schema.org/Person',
                             ]
+                        ),
+                        Html::tag(
+                            'span',
+                            implode(' ', $this->getModeIcons()),
+                            ['class' => [
+                                'mode-icons',
+                            ]]
                         ),
                         $this->getHasBattleEndAt()
                             ? Html::a(
