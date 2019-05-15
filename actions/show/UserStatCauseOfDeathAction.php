@@ -1,21 +1,23 @@
 <?php
 /**
- * @copyright Copyright (C) 2015 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  */
 
+declare(strict_types=1);
+
 namespace app\actions\show;
 
 use Yii;
-use yii\db\Query;
-use yii\web\NotFoundHttpException;
-use yii\web\ViewAction as BaseAction;
 use app\models\BattleFilterForm;
 use app\models\CauseOfDeathGroupForm;
 use app\models\DeathReason;
 use app\models\User;
 use app\models\Weapon;
+use yii\db\Query;
+use yii\web\NotFoundHttpException;
+use yii\web\ViewAction as BaseAction;
 
 class UserStatCauseOfDeathAction extends BaseAction
 {
@@ -38,7 +40,7 @@ class UserStatCauseOfDeathAction extends BaseAction
         $group->load($_GET);
         $group->validate();
 
-        return $this->controller->render('user-stat-cause-of-death.tpl', [
+        return $this->controller->render('user-stat-cause-of-death', [
             'user' => $user,
             'list' => $this->getList($user, $filter, $group),
             'filter' => $filter,
@@ -46,12 +48,21 @@ class UserStatCauseOfDeathAction extends BaseAction
         ]);
     }
 
-    public function getList(User $user, BattleFilterForm $filter, CauseOfDeathGroupForm $group)
-    {
+    public function getList(
+        User $user,
+        BattleFilterForm $filter,
+        CauseOfDeathGroupForm $group
+    ): array {
         $query = (new Query())
             ->from('battle')
-            ->innerJoin('battle_death_reason', '{{battle}}.[[id]] = {{battle_death_reason}}.[[battle_id]]')
-            ->innerJoin('death_reason', '{{battle_death_reason}}.[[reason_id]] = {{death_reason}}.[[id]]')
+            ->innerJoin(
+                'battle_death_reason',
+                '{{battle}}.[[id]] = {{battle_death_reason}}.[[battle_id]]'
+            )
+            ->innerJoin(
+                'death_reason',
+                '{{battle_death_reason}}.[[reason_id]] = {{death_reason}}.[[id]]'
+            )
             ->leftJoin('rule', '{{battle}}.[[rule_id]] = {{rule}}.[[id]]')
             ->leftJoin('game_mode', '{{rule}}.[[mode_id]] = {{game_mode}}.[[id]]')
             ->leftJoin('lobby', '{{battle}}.[[lobby_id]] = {{lobby}}.[[id]]')
@@ -82,7 +93,7 @@ class UserStatCauseOfDeathAction extends BaseAction
         }
     }
 
-    protected function getListAsIs(Query $query)
+    protected function getListAsIs(Query $query): array
     {
         $query
             ->select([
@@ -119,17 +130,17 @@ class UserStatCauseOfDeathAction extends BaseAction
         return $ret;
     }
 
-    protected function getListCanonical(Query $query)
+    protected function getListCanonical(Query $query): array
     {
         return $this->getListMainWeaponImpl($query, 'canonical_id');
     }
 
-    protected function getListMainWeapon(Query $query)
+    protected function getListMainWeapon(Query $query): array
     {
         return $this->getListMainWeaponImpl($query, 'main_group_id');
     }
 
-    private function getListMainWeaponImpl(Query $query, $column)
+    private function getListMainWeaponImpl(Query $query, $column): array
     {
         $query
             ->select([
@@ -138,7 +149,10 @@ class UserStatCauseOfDeathAction extends BaseAction
                 'main_group_id' => 'MAX({{deadly_weapon}}.[[main_group_id]])',
                 'count'         => 'SUM({{battle_death_reason}}.[[count]])',
             ])
-            ->leftJoin('{{weapon}} {{deadly_weapon}}', '{{death_reason}}.[[weapon_id]] = {{deadly_weapon}}.[[id]]')
+            ->leftJoin(
+                '{{weapon}} {{deadly_weapon}}',
+                '{{death_reason}}.[[weapon_id]] = {{deadly_weapon}}.[[id]]'
+            )
             ->groupBy('{{death_reason}}.[[id]]');
 
         $list = $query->createCommand()->queryAll();
@@ -194,7 +208,7 @@ class UserStatCauseOfDeathAction extends BaseAction
         return $ret;
     }
 
-    protected function getListType(Query $query)
+    protected function getListType(Query $query): array
     {
         $query
             ->select([
