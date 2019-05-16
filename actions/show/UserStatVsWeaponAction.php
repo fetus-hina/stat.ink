@@ -1,16 +1,18 @@
 <?php
 /**
- * @copyright Copyright (C) 2016 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  */
+
+declare(strict_types=1);
 
 namespace app\actions\show;
 
 use Yii;
 use app\models\BattleFilterForm;
-use app\models\User;
 use app\models\DeathReason;
+use app\models\User;
 use yii\db\Query;
 use yii\helpers\ArrayHelper;
 use yii\web\NotFoundHttpException;
@@ -70,10 +72,11 @@ class UserStatVsWeaponAction extends BaseAction
             if ($b['win_pct'] === null) {
                 return -1;
             }
-            return $b['win_pct'] <=> $a['win_pct'] ?: strcasecmp($a['weapon_name'], $b['weapon_name']);
+            return $b['win_pct'] <=> $a['win_pct']
+                ?: strcasecmp($a['weapon_name'], $b['weapon_name']);
         });
 
-        return $this->controller->render('user-stat-vs-weapon.tpl', [
+        return $this->controller->render('user-stat-vs-weapon', [
             'user' => $this->user,
             'filter' => $this->filter,
             'data' => $data,
@@ -178,7 +181,10 @@ class UserStatVsWeaponAction extends BaseAction
                 'wins' => 'SUM(CASE WHEN {{battle}}.[[is_win]] THEN 1 ELSE 0 END)',
             ])
             ->from('tmp_battle')
-            ->innerJoin('battle_player', '{{tmp_battle}}.[[battle_id]] = {{battle_player}}.[[battle_id]]')
+            ->innerJoin(
+                'battle_player',
+                '{{tmp_battle}}.[[battle_id]] = {{battle_player}}.[[battle_id]]'
+            )
             ->innerJoin('weapon', '{{battle_player}}.[[weapon_id]] = {{weapon}}.[[id]]')
             ->innerJoin('subweapon', '{{weapon}}.[[subweapon_id]] = {{subweapon}}.[[id]]')
             ->innerJoin('special', '{{weapon}}.[[special_id]] = {{special}}.[[id]]')
@@ -231,8 +237,14 @@ class UserStatVsWeaponAction extends BaseAction
                 'deaths' => 'SUM({{battle_death_reason}}.[[count]])',
             ])
             ->from('tmp_battle')
-            ->innerJoin('battle_death_reason', '{{tmp_battle}}.[[battle_id]] = {{battle_death_reason}}.[[battle_id]]')
-            ->innerJoin('death_reason', '{{battle_death_reason}}.[[reason_id]] = {{death_reason}}.[[id]]')
+            ->innerJoin(
+                'battle_death_reason',
+                '{{tmp_battle}}.[[battle_id]] = {{battle_death_reason}}.[[battle_id]]'
+            )
+            ->innerJoin(
+                'death_reason',
+                '{{battle_death_reason}}.[[reason_id]] = {{death_reason}}.[[id]]'
+            )
             ->groupBy('{{battle_death_reason}}.[[reason_id]]');
         foreach ($query->createCommand($db)->queryAll() as $row) {
             $row['weapon_name'] = $names[$row['weapon_key']] ?? $row['weapon_key'];
