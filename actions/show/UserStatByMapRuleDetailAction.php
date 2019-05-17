@@ -1,19 +1,22 @@
 <?php
 /**
- * @copyright Copyright (C) 2015-2016 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  */
 
+declare(strict_types=1);
+
 namespace app\actions\show;
 
 use Yii;
-use yii\web\NotFoundHttpException;
-use yii\web\ViewAction as BaseAction;
 use app\models\BattleFilterForm;
 use app\models\Map;
 use app\models\Rule;
 use app\models\User;
+use yii\db\Query;
+use yii\web\NotFoundHttpException;
+use yii\web\ViewAction as BaseAction;
 
 class UserStatByMapRuleDetailAction extends BaseAction
 {
@@ -32,7 +35,7 @@ class UserStatByMapRuleDetailAction extends BaseAction
         $filter->screen_name = $user->screen_name;
         $filter->validate();
 
-        return $this->controller->render('user-stat-by-map-rule-detail.tpl', array_merge(
+        return $this->controller->render('user-stat-by-map-rule-detail', array_merge(
             [
                 'user' => $user,
                 'filter' => $filter,
@@ -44,7 +47,7 @@ class UserStatByMapRuleDetailAction extends BaseAction
     private function getData(User $user, BattleFilterForm $filter)
     {
         $nawabari = Rule::findOne(['key' => 'nawabari'])->id;
-        $query = (new \yii\db\Query())
+        $query = (new Query())
             ->select([
                 'map_key'   => 'MAX({{map}}.[[key]])',
                 'rule_key'  => 'MAX({{rule}}.[[key]])',
