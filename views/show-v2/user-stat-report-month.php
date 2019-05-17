@@ -1,4 +1,7 @@
 <?php
+declare(strict_types=1);
+
+use app\assets\UserStatReportAsset;
 use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
 use app\models\Battle2;
@@ -21,6 +24,7 @@ if ($next) {
 if ($prev) {
   $this->registerLinkTag(['rel' => 'prev', 'href' => $prev]);
 }
+UserStatReportAsset::register($this);
 ?>
 <div class="container">
   <h1>
@@ -81,7 +85,6 @@ if ($prev) {
 <?php foreach ($list as $row) { ?>
 <?php if ($_lastDate !== $row['date']) { ?>
 <?php $_lastDate = $row['date'] ?>
-<?php $this->registerCss('.row-date{background-color:#444!important;color:#ddd!important}') ?>
         <tr class="row-date">
           <?= Html::tag(
             'th',
