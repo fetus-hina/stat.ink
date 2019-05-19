@@ -1,107 +1,142 @@
-{{strip}}
-  {{set layout="main"}}
+<?php
+declare(strict_types=1);
 
-  {{$title = "{0}'s Battle Stats (Ranked Battle)"|translate:'app':$user->name}}
-  {{set title="{{$app->name}} | {{$title}}"}}
+use app\assets\UserStatGachiAsset;
+use app\components\widgets\AdWidget;
+use app\components\widgets\SnsWidget;
+use yii\helpers\Html;
+use yii\helpers\Json;
 
-  {{$this->registerMetaTag(['name' => 'twitter:card', 'content' => 'summary'])|@void}}
-  {{$this->registerMetaTag(['name' => 'twitter:title', 'content' => $title])|@void}}
-  {{$this->registerMetaTag(['name' => 'twitter:description', 'content' => $title])|@void}}
-  {{$this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink'])|@void}}
-  {{$this->registerMetaTag(['name' => 'twitter:image', 'content' => $user->userIcon->absUrl|default:$user->jdenticonPngUrl])|@void}}
-  {{if $user->twitter != ''}}
-    {{$this->registerMetaTag(['name' => 'twitter:creator', 'content' => '@'|cat:$user->twitter])|@void}}
-  {{/if}}
+$this->context->layout = 'main';
+$title = Yii::t('app', '{0}\'s Battle Stats (Ranked Battle)', [
+  $user->name,
+]);
+$this->title = $title;
 
-  {{\jp3cki\yii2\flot\FlotAsset::register($this)|@void}}
-  <div class="container">
-    <h1>
-      {{$title|escape}}
-    </h1>
+$this->registerMetaTag(['name' => 'twitter:card', 'content' => 'summary']);
+$this->registerMetaTag(['name' => 'twitter:title', 'content' => $title]);
+$this->registerMetaTag(['name' => 'twitter:description', 'content' => $title]);
+$this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink']);
+$this->registerMetaTag(['name' => 'twitter:image', 'content' => $user->iconUrl]);
+if ($user->twitter != '') {
+  $this->registerMetaTag(['name' => 'twitter:creator', 'content' => '@' . $user->twitter]);
+}
 
-    {{SnsWidget}}
+UserStatGachiAsset::register($this);
+?>
+<div class="container">
+  <h1><?= Html::encode($title) ?></h1>
 
-    <div class="row">
-      <div class="col-xs-12 col-sm-8 col-md-8 col-lg-9">
-        <h2 id="exp">
-          {{'Rank'|translate:'app'|escape}}
-        </h2>
-        <div style="margin-bottom:15px">
-          <div class="row">
-            <div class="col-xs-4 col-sm-4 col-md-2 col-lg-2">
-              <div class="user-label">{{'Current'|translate:'app'|escape}}</div>
-              <div class="user-number">
-                {{if $userRankStat}}
-                  {{$userRankStat->rank|escape}} {{$userRankStat->rankExp}}
-                {{else}}
-                  ?
-                {{/if}}
-              </div>
-            </div>
+  <?= SnsWidget::widget() . "\n" ?>
+
+  <div class="row">
+    <div class="col-xs-12 col-sm-8 col-md-8 col-lg-9">
+      <h2 id="exp"><?= Html::encode(Yii::t('app', 'Rank')) ?></h2>
+      <div style="margin-bottom:15px">
+        <div class="row">
+          <div class="col-xs-4 col-sm-4 col-md-2 col-lg-2">
+            <div class="user-label"><?= Html::encode(Yii::t('app', 'Current')) ?></div>
+            <div class="user-number"><?= $userRankStat
+              ? Html::encode(sprintf('%s %s', $userRankStat->rank, $userRankStat->rankExp))
+              : Html::encode(Yii::t('app', 'N/A'))
+            ?></div>
           </div>
         </div>
-        <p>
-          {{'Excluded: Private Battles and Squad Battles (when Rank S or S+)'|translate:'app'|escape}}
-        </p>
-        <script>
-          window._rankData = {{$recentRank|json_encode}};
-        </script>
-        <div id="stat-rank-legend"></div>
-        <div class="graph stat-rank"></div>
-        <div class="graph stat-rank" data-limit="200"></div>
-        <div class="text-right">
-          <label>
-            <input type="checkbox" id="show-rank-moving-avg" value="1" checked> {{'Show moving averages'|translate:'app'|escape}}
-          </label>
-        </div>
+      </div>
+      <p><?= Html::encode(
+        Yii::t('app', 'Excluded: Private Battles and Squad Battles (when Rank S or S+)')
+      ) ?></p>
 
-        <hr>
+<?php $this->registerJs(vsprintf('$(%s).rankHistory($(%s), $(%s), %s, %s);', [
+  Json::encode('.stat-rank'),
+  Json::encode('#stat-rank-legend'),
+  Json::encode('#show-rank-moving-avg'),
+  Json::encode($recentRank),
+  Json::encode([
+    'area' => sprintf('%s (%s)', Yii::t('app', 'Rank'), Yii::t('app-rule', 'Splat Zones')),
+    'yagura' => sprintf('%s (%s)', Yii::t('app', 'Rank'), Yii::t('app-rule', 'Tower Control')),
+    'hoko' => sprintf('%s (%s)', Yii::t('app', 'Rank'), Yii::t('app-rule', 'Rainmaker')),
+    'movingAvg10' => Yii::t('app', 'Moving Avg. ({0} Battles)', [10]),
+    'movingAvg50' => Yii::t('app', 'Moving Avg. ({0} Battles)', [50]),
+  ]),
+])) ?>
+      <div id="stat-rank-legend"></div>
+      <div class="graph stat-rank"></div>
+      <div class="graph stat-rank" data-limit="200"></div>
+      <div class="text-right"><?php
+        echo Html::tag('label', implode(' ', [
+          Html::tag('input', '', [
+            'type' => 'checkbox',
+            'id' => 'show-rank-moving-avg',
+            'value' => '1',
+            'checked' => true,
+          ]),
+          Html::encode(Yii::t('app', 'Show moving averages')),
+        ]));
+      ?></div>
+      <hr>
+      <h2 id="wp"><?= Html::encode(Yii::t('app', 'Winning Percentage')) ?></h2>
+      <p><?= Html::encode(Yii::t('app', 'Excluded: Private Battles')) ?></p>
+      <aside>
+        <nav>
+          <ul class="inline-list"><?= implode('', array_map(
+            function (string $key, string $name): string {
+              return Html::tag('li', Html::a(
+                Html::encode($name),
+                '#wp-' . $key
+              ));
+            },
+            array_keys($maps),
+            array_values($maps)
+          )) ?></ul>
+        </nav>
+      </aside>
+      <script>
+        /* window._maps = {{$maps|array_keys|json_encode}}; */
+        /* window._wpData = {{$recentWP|json_encode}}; */
+      </script>
+      <div id="stat-wp-legend"></div>
+      <div class="graph stat-wp"></div>
+      <div class="graph stat-wp" data-limit="200"></div>
 
-        <h2 id="wp">
-          {{'Winning Percentage'|translate:'app'|escape}}
-        </h2>
-        <p>
-          {{'Excluded: Private Battles'|translate:'app'|escape}}
-        </p>
-        <p>
-          {{foreach $maps as $mapKey => $mapName}}
-            {{if !$mapName@first}}
-              &#32;|&#32;
-            {{/if}}
-            <a href="#wp-{{$mapKey|escape}}">
-              {{$mapName|escape}}
-            </a>
-          {{/foreach}}
-        </p>
-        <script>
-          window._maps = {{$maps|array_keys|json_encode}};
-          window._wpData = {{$recentWP|json_encode}};
-        </script>
-        <div id="stat-wp-legend"></div>
-        <div class="graph stat-wp"></div>
-        <div class="graph stat-wp" data-limit="200"></div>
-
-        {{foreach $maps as $mapKey => $mapName}}
-          <h3 id="wp-{{$mapKey|escape}}">
-            {{$filter = [
+<?php foreach ($maps as $mapKey => $mapName) { ?>
+      <?= Html::tag(
+        'h3',
+        implode('', [
+          Html::tag('span', Html::encode(Yii::t('app', 'Winning Percentage') . ' - '), [
+            'clas' => 'hidden-xs',
+          ]),
+          Html::a(
+            Html::encode($mapName),
+            ['show/user',
+              'screen_name' => $user->screen_name,
+              'filter' => [
                 'rule' => '@gachi',
-                'map' => $mapKey
-              ]}}
-            <span class="hidden-xs">{{'Winning Percentage'|translate:'app'|escape}} - </span>
-            <a href="{{url route="show/user" screen_name=$user->screen_name filter=$filter}}">
-              {{$mapName|escape}}
-            </a>
-          </h3>
-          <div class="graph stat-map-wp" data-map="{{$mapKey|escape}}"></div>
-          <div class="graph stat-map-wp" data-map="{{$mapKey|escape}}" data-limit="200"></div>
-        {{/foreach}}
-      </div>
-      <div class="col-xs-12 col-sm-4 col-md-4 col-lg-3">
-        {{$this->render("//includes/user-miniinfo", ["user" => $user])}}
-        {{AdWidget}}
-      </div>
+                'map' => $mapKey,
+              ],
+            ]
+          ),
+        ]),
+        ['id' => 'wp-' . $mapKey]
+      ) . "\n" ?>
+<?php foreach ([null, 200] as $limit) { ?>
+      <?= Html::tag('div', '', [
+        'class' => 'graph stat-map-wp',
+        'data' => array_filter([
+          'map' => $mapKey,
+          'limit' => $limit,
+        ]),
+      ]) . "\n" ?>
+<?php } ?>
+<?php } ?>
+    </div>
+    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-3">
+      <?= $this->render("//includes/user-miniinfo", ["user" => $user]) . "\n" ?>
+      <?= AdWidget::widget() . "\n" ?>
     </div>
   </div>
+</div>
+<?php __halt_compiler();
 {{/strip}}
 {{registerCss}}
   .stat-rank{height:300px}
@@ -117,105 +152,6 @@
     moving1:  colorLock ? window.colorScheme.moving1: 'rgba(64,237,64,.5)',
     moving2:  colorLock ? window.colorScheme.moving2: 'rgba(148,64,237,.5)'
   };
-
-  function drawRankGraph(json) {
-    var $graph_ = $graphs.filter('.stat-rank');
-
-    var rules = (function(json) {
-      var ret = {
-        area: [],
-        yagura: [],
-        hoko: []
-      };
-      var prevIndex = null;
-      var prevRule = null;
-      var prevValue = null;
-      for (var i = 0; i < json.length; ++i) {
-        var data = json[i];
-        if (prevRule !== data.rule && prevRule !== null) {
-          ret[prevRule].push([data.index, null]);
-          ret[data.rule].push([prevIndex, prevValue]);
-        }
-        ret[data.rule].push([data.index, data.exp]);
-        prevIndex = data.index;
-        prevRule = data.rule;
-        prevValue = data.exp;
-      }
-      return ret;
-    })(json);
-
-    var data = [
-      {
-        label: "{{'Rank'|translate:'app'|escape:'javascript'}} ({{'Splat Zones'|translate:'app-rule'|escape:'javascript'}})",
-        data: rules.area,
-        color: colorScheme.area
-      },
-      {
-        label: "{{'Rank'|translate:'app'|escape:'javascript'}} ({{'Tower Control'|translate:'app-rule'|escape:'javascript'}})",
-        data: rules.yagura,
-        color: colorScheme.yagura
-      },
-      {
-        label: "{{'Rank'|translate:'app'|escape:'javascript'}} ({{'Rainmaker'|translate:'app-rule'|escape:'javascript'}})",
-        data: rules.hoko,
-        color: colorScheme.hoko
-      }
-    ];
-
-    if ($('#show-rank-moving-avg').prop('checked')) {
-      data.push({
-        label: "{{'Moving Avg. ({0} Battles)'|translate:'app':10|escape}}",
-        data: json.map(function(v) {
-          return [v.index, v.movingAvg];
-        }),
-        color: colorScheme.moving1
-      });
-      data.push({
-        label: "{{'Moving Avg. ({0} Battles)'|translate:'app':50|escape}}",
-        data: json.map(function(v) {
-          return [v.index, v.movingAvg50];
-        }),
-        color: colorScheme.moving2
-      });
-    }
-
-    $graph_.each(function() {
-      var $graph = $(this);
-      var limit = ~~$graph.attr('data-limit');
-      if (limit > 0 && json.length <= limit) {
-        $graph.hide();
-        return;
-      }
-
-      $.plot($graph, data, {
-        xaxis: {
-          minTickSize: 1,
-          min: limit > 0 ? -limit : null,
-          tickFormatter: function (v) {
-            return ~~v;
-          }
-        },
-        yaxis: {
-          minTickSize: 10,
-          tickFormatter: function (v) {
-            if (v >= 1100) {
-              return v > 1100 ? '' : 'S+ 99';
-            } else if (v < 0) {
-              return '';
-            }
-
-            var rank = Math.floor(v / 100);
-            var exp = v % 100;
-            var ranks = ['C-', 'C', 'C+', 'B-', 'B', 'B+', 'A-', 'A', 'A+', 'S', 'S+'];
-            return ranks[rank] + " " + exp;
-          }
-        },
-        legend: {
-          container: $('#stat-rank-legend')
-        }
-      });
-    });
-  }
 
   function drawWPGraph(json) {
     var $graph_ = $graphs.filter('.stat-wp');
@@ -426,7 +362,6 @@
     }
     timerId = window.setTimeout(function() {
       $graphs.height($graphs.width() * 9 / 16);
-      drawRankGraph(window._rankData);
       drawWPGraph(window._wpData);
       $.each(window._maps, function () {
         drawMapWPGraph(this, window._wpData);
