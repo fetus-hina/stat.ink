@@ -362,6 +362,7 @@ return [
     'Room info (Private)' => '部屋情報（プラベ）',
     'Room' => '部屋',
     'S/min' => 'スペ/分',
+    'Salmon Run CSV' => 'サーモンランCSV',
     'Save!' => '保存',
     'Schedule' => 'スケジュール',
     'Scheduled' => '開催予定',

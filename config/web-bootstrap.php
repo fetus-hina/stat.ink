@@ -8,8 +8,10 @@
 declare(strict_types=1);
 
 use yii\data\Pagination;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 
+Yii::$classMap[ArrayHelper::class] = __DIR__ . '/../components/overwrite/yii/helpers/ArrayHelper.php';
 Yii::$classMap[Html::class] = __DIR__ . '/../components/overwrite/yii/helpers/Html.php';
 
 Yii::$container->set(Pagination::class, [

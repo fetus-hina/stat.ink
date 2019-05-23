@@ -372,6 +372,7 @@ return [
     'Room' => '',
     'Room info (Private)' => '',
     'S/min' => '',
+    'Salmon Run CSV' => '',
     'Save!' => '¡Salvar!',
     'Schedule' => '',
     'Scheduled' => '',

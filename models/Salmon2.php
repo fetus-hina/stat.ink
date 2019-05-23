@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2015-2018 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  */
@@ -16,6 +16,7 @@ use app\components\helpers\DateTimeFormatter;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\db\Query;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
@@ -556,6 +557,152 @@ class Salmon2 extends ActiveRecord
                 : null,
             'register_at' => DateTimeFormatter::unixTimeToJsonArray(strtotime($this->created_at)),
         ];
+    }
+
+    public static function csvArraySchema(): array
+    {
+        return ArrayHelper::toFlatten(array_merge(
+            [
+                'statink_id',
+                'rotation_period',
+                'shift_start',
+                'shift_start',
+                'splatnet_number',
+                'stage_key',
+                'stage_name',
+                'clear_wave',
+                'fail_reason',
+                'fail_reason',
+                'hazard_level',
+                'title_before',
+                'title_before',
+                'title_before',
+                'title_after',
+                'title_after',
+                'title_after',
+            ],
+            array_map(function (int $wave): array {
+                return [
+                    "w{$wave}_event",
+                    "w{$wave}_event",
+                    "w{$wave}_water",
+                    "w{$wave}_water",
+                    "w{$wave}_quota",
+                    "w{$wave}_delivers",
+                    "w{$wave}_appearances",
+                    "w{$wave}_pwr_eggs",
+                ];
+            }, range(1, 3)),
+            array_map(function (int $i): array {
+                $prefix = $i === 0 ? 'player' : "mate{$i}";
+                return [
+                    "{$prefix}_id",
+                    "{$prefix}_name",
+                    "{$prefix}_w1_weapon",
+                    "{$prefix}_w1_weapon",
+                    "{$prefix}_w2_weapon",
+                    "{$prefix}_w2_weapon",
+                    "{$prefix}_w3_weapon",
+                    "{$prefix}_w3_weapon",
+                    "{$prefix}_special",
+                    "{$prefix}_special",
+                    "{$prefix}_w1_sp_use",
+                    "{$prefix}_w2_sp_use",
+                    "{$prefix}_w3_sp_use",
+                    "{$prefix}_rescues",
+                    "{$prefix}_rescued",
+                    "{$prefix}_golden_eggs",
+                    "{$prefix}_power_eggs",
+                ];
+            }, range(0, 3)),
+        ));
+    }
+
+    public function toCSVArray(): array
+    {
+        $gender = null;
+        if ($myData = $this->getMyData()) {
+            $gender = $myData->gender;
+        }
+
+        return ArrayHelper::toFlatten(array_merge(
+            [
+                (string)$this->id,
+                (string)$this->shift_period,
+                $this->start_at ? (string)strtotime($this->start_at) : '',
+                $this->start_at ? date(DATE_ATOM, strtotime($this->start_at)) : '',
+                (string)$this->splatnet_number,
+                $this->stage_id ? $this->stage->key : '',
+                $this->stage_id ? Yii::t('app-salmon-map2', $this->stage->name) : '',
+                (string)$this->clear_waves,
+                ($this->clear_waves === null || $this->clear_waves >= 3 || !$this->fail_reason_id)
+                    ? ''
+                    : $this->failReason->key,
+                ($this->clear_waves === null || $this->clear_waves >= 3 || !$this->fail_reason_id)
+                    ? ''
+                    : Yii::t('app-salmon2', $this->failReason->name),
+                $this->danger_rate ? sprintf('%.1f', $this->danger_rate) : '',
+                $this->title_before_id ? $this->titleBefore->key : '',
+                $this->title_before_id ? $this->titleBefore->getTranslatedName($gender) : '',
+                $this->title_before_exp,
+                $this->title_after_id ? $this->titleAfter->key : '',
+                $this->title_after_id ? $this->titleAfter->getTranslatedName($gender) : '',
+                $this->title_after_exp,
+            ],
+            array_map(function (int $w): array {
+                if (!$wave = $this->waves[$w - 1] ?? null) {
+                    $quotas = $this->getQuota();
+                    return [
+                        '', // event
+                        '', // event
+                        '', // water
+                        '', // water
+                        $quotas ? $quotas[$w - 1] : '',
+                        '', // delivers
+                        '', // appearances
+                        '', // power eggs
+                    ];
+                }
+
+                return [
+                    $wave->event_id ? $wave->event->key : '',
+                    $wave->event_id ? Yii::t('app-salmon-event2', $wave->event->name) : '',
+                    $wave->water_id ? $wave->water->key : '',
+                    $wave->water_id ? Yii::t('app-salmon-tide2', $wave->water->name) : '',
+                    $wave->golden_egg_quota,
+                    $wave->golden_egg_appearances,
+                    $wave->golden_egg_delivered,
+                    $wave->power_egg_collected,
+                ];
+            }, range(1, 3)),
+            array_map(function (int $i): array {
+                $p = ($i === 0)
+                    ? $this->myData
+                    : $this->teamMates[$i] ?? null;
+                $weapons = $p ? $p->weapons : [];
+                $spUses = $p ? $p->specialUses : [];
+
+                return [
+                    $p->splatnet_id ?? '',
+                    $p->name ?? '',
+                    $weapons[0]->weapon->key ?? '',
+                    Yii::t('app-weapon2', $weapons[0]->weapon->name ?? ''),
+                    $weapons[1]->weapon->key ?? '',
+                    Yii::t('app-weapon2', $weapons[1]->weapon->name ?? ''),
+                    $weapons[2]->weapon->key ?? '',
+                    Yii::t('app-weapon2', $weapons[2]->weapon->name ?? ''),
+                    $p->special->key ?? '',
+                    Yii::t('app-special2', $p->special->name ?? ''),
+                    $spUses[0]->count ?? '',
+                    $spUses[1]->count ?? '',
+                    $spUses[2]->count ?? '',
+                    $p->rescue ?? '',
+                    $p->death ?? '',
+                    $p->golden_egg_delivered ?? '',
+                    $p->power_egg_collected ?? '',
+                ];
+            }, range(0, 3)),
+        ));
     }
 
     public function getBossAppearancesMap(): ?array
