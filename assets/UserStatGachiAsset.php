@@ -17,6 +17,7 @@ class UserStatGachiAsset extends AssetBundle
     public $sourcePath = '@app/resources/.compiled/stat.ink';
     public $js = [
         'user-stat-gachi-rank.js',
+        'user-stat-gachi-winpct.js',
     ];
     public $depends = [
         BabelPolyfillAsset::class,
