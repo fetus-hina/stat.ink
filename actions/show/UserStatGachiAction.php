@@ -1,18 +1,23 @@
 <?php
 /**
- * @copyright Copyright (C) 2015 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  */
 
+declare(strict_types=1);
+
 namespace app\actions\show;
 
 use Yii;
-use yii\web\NotFoundHttpException;
-use yii\web\ViewAction as BaseAction;
 use app\models\Battle;
 use app\models\Map;
 use app\models\User;
+use stdClass;
+use yii\db\Query;
+use yii\helpers\ArrayHelper;
+use yii\web\NotFoundHttpException;
+use yii\web\ViewAction as BaseAction;
 
 class UserStatGachiAction extends BaseAction
 {
@@ -21,12 +26,14 @@ class UserStatGachiAction extends BaseAction
     public function run()
     {
         $request = Yii::$app->getRequest();
-        $this->user = User::findOne(['screen_name' => $request->get('screen_name')]);
+        $this->user = User::findOne([
+            'screen_name' => $request->get('screen_name'),
+        ]);
         if (!$this->user) {
             throw new NotFoundHttpException(Yii::t('app', 'Could not find user'));
         }
 
-        return $this->controller->render('user-stat-gachi.tpl', [
+        return $this->controller->render('user-stat-gachi', [
             'user' => $this->user,
             'userRankStat' => $this->userRankStat,
             'recentRank' => $this->recentRankData,
@@ -39,29 +46,44 @@ class UserStatGachiAction extends BaseAction
     {
         $query = Battle::find()
             ->with(['rankAfter', 'rule', 'lobby']) // eager loading
-            ->innerJoinWith(['rule', 'rule.mode',
-                'rankAfter' => function ($q) {
-                    return $q->from('rank rank_after');
-                }])
-            ->joinWith(['lobby', 'rank' => function ($q) {
-                return $q->from('rank rank_before');
-            }])
+            ->innerJoinWith([
+                'rule',
+                'rule.mode',
+                'rankAfter' => function (Query $q): void {
+                    $q->from('rank rank_after');
+                },
+            ])
+            ->joinWith([
+                'lobby',
+                'rank' => function (Query $q): void {
+                    $q->from('rank rank_before');
+                },
+            ])
             ->andWhere([
                 '{{battle}}.[[user_id]]' => $this->user->id,
                 '{{game_mode}}.[[key]]' => 'gachi',
             ])
             ->andWhere(['or',
                 ['{{battle}}.[[lobby_id]]' => null],
-                ['{{lobby}}.[[key]]' => 'standard' ],
+                ['{{lobby}}.[[key]]' => 'standard'],
                 ['and',
-                    ['in', '{{lobby}}.[[key]]', [ 'squad_2', 'squad_3', 'squad_4' ]],
+                    ['{{lobby}}.[[key]]' => [
+                        'squad_2',
+                        'squad_3',
+                        'squad_4',
+                    ]],
                     ['or',
                         ['{{battle}}.[[rank_id]]' => null],
-                        ['not in', '{{rank_before}}.[[key]]', [ 's', 's+' ]],
+                        ['not', ['{{rank_before}}.[[key]]' => [
+                            's',
+                            's+',
+                        ]]],
                     ],
                 ],
             ])
-            ->orderBy('{{battle}}.[[id]] DESC');
+            ->orderBy([
+                '{{battle}}.[[id]]' => SORT_DESC,
+            ]);
 
         $index = 0;
         $ret = [];
@@ -69,7 +91,10 @@ class UserStatGachiAction extends BaseAction
             $ret[] = (object)[
                 'index'         => $index--,
                 'rule'          => $model['rule']['key'],
-                'exp'           => $this->calcGraphExp($model['rankAfter']['key'], $model['rank_exp_after']),
+                'exp'           => $this->calcGraphExp(
+                    $model['rankAfter']['key'],
+                    $model['rank_exp_after']
+                ),
                 'movingAvg'     => null,
                 'movingAvg50'   => null,
             ];
@@ -99,22 +124,22 @@ class UserStatGachiAction extends BaseAction
         return $ret;
     }
 
-    public function getRecentWPData()
+    public function getRecentWPData(): array
     {
         $query = Battle::find()
             ->with(['rule', 'map', 'lobby'])
             ->innerJoinWith(['rule', 'rule.mode'])
             ->joinWith(['lobby'])
-            ->andWhere([
-                '{{battle}}.[[user_id]]' => $this->user->id,
-                '{{game_mode}}.[[key]]' => 'gachi',
+            ->andWhere(['and',
+                ['{{battle}}.[[user_id]]' => $this->user->id],
+                ['{{game_mode}}.[[key]]' => 'gachi'],
+                ['not', ['{{battle}}.[[is_win]]' => null]],
+                ['or',
+                    ['{{battle}}.[[lobby_id]]' => null],
+                    ['<>', '{{lobby}}.[[key]]', 'private'],
+                ],
             ])
-            ->andWhere(['not', ['{{battle}}.[[is_win]]' => null]])
-            ->andWhere(['or',
-                ['{{battle}}.[[lobby_id]]' => null],
-                ['<>', '{{lobby}}.[[key]]', 'private'],
-            ])
-            ->orderBy('{{battle}}.[[id]] DESC');
+            ->orderBy(['{{battle}}.[[id]]' => SORT_DESC]);
 
         $battles = [];
         foreach ($query->asArray()->each(200) as $battle) {
@@ -133,14 +158,14 @@ class UserStatGachiAction extends BaseAction
         }
 
         $battles = array_reverse($battles);
-        $fMoving = function ($range, $currentIndex) use (&$battles) {
+        $fMoving = function (int $range, int $currentIndex) use (&$battles): ?float {
             if ($currentIndex + 1 < $range) {
                 return null;
             }
 
             $tmp = array_slice($battles, $currentIndex + 1 - $range, $range);
-            $win = count(array_filter($tmp, function ($a) {
-                return $a->is_win;
+            $win = count(array_filter($tmp, function (stdClass $a): bool {
+                return (bool)$a->is_win;
             }));
             return $win * 100 / $range;
         };
@@ -161,12 +186,14 @@ class UserStatGachiAction extends BaseAction
 
     public function getUserRankStat()
     {
-        $subQuery = (new \yii\db\Query())
+        $subQuery = (new Query())
             ->select(['id' => 'MAX({{battle}}.[[id]])'])
             ->from('battle')
-            ->andWhere(['not', ['{{battle}}.[[rank_after_id]]' => null]])
-            ->andWhere(['not', ['{{battle}}.[[rank_exp_after]]' => null]])
-            ->andWhere(['{{battle}}.[[user_id]]' => $this->user->id]);
+            ->andWhere(['and',
+                ['not', ['{{battle}}.[[rank_after_id]]' => null]],
+                ['not', ['{{battle}}.[[rank_exp_after]]' => null]],
+                ['{{battle}}.[[user_id]]' => $this->user->id],
+            ]);
         
         if (!$battle = Battle::findOne(['id' => $subQuery])) {
             return null;
@@ -234,16 +261,18 @@ class UserStatGachiAction extends BaseAction
         return $exp;
     }
 
-    private function getEntireRankStat()
+    private function getEntireRankStat(): stdClass
     {
-        $subQuery = (new \yii\db\Query())
+        $subQuery = (new Query())
             ->select(['id' => 'MAX({{battle}}.[[id]])'])
             ->from('battle')
-            ->andWhere(['not', ['{{battle}}.[[rank_after_id]]' => null]])
-            ->andWhere(['not', ['{{battle}}.[[rank_exp_after]]' => null]])
+            ->andWhere(['and',
+                ['not', ['{{battle}}.[[rank_after_id]]' => null]],
+                ['not', ['{{battle}}.[[rank_exp_after]]' => null]],
+            ])
             ->groupBy('{{battle}}.[[user_id]]');
 
-        $query = (new \yii\db\Query())
+        $query = (new Query())
             ->select([
                 'rank_key' => '{{rank}}.[[key]]',
                 'rank_exp' => '{{battle}}.[[rank_exp_after]]',
@@ -267,13 +296,16 @@ class UserStatGachiAction extends BaseAction
         ];
     }
 
-    public function getMaps()
+    public function getMaps(): array
     {
-        $ret = [];
-        foreach (Map::find()->all() as $map) {
-            $ret[$map->key] = Yii::t('app-map', $map->name);
-        }
-        uasort($ret, 'strnatcasecmp');
-        return $ret;
+        $list = ArrayHelper::map(
+            Map::find()->all(),
+            'key',
+            function (Map $map): string {
+                return Yii::t('app-map', $map->name);
+            }
+        );
+        uasort($list, 'strnatcasecmp');
+        return $list;
     }
 }

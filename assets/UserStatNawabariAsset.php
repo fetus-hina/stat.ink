@@ -5,32 +5,25 @@
  * @author AIZAWA Hina <hina@bouhime.com>
  */
 
-declare(strict_types=1);
-
 namespace app\assets;
 
-use Yii;
 use jp3cki\yii2\flot\FlotAsset;
-use jp3cki\yii2\flot\FlotPieAsset;
 use jp3cki\yii2\flot\FlotResizeAsset;
-use yii\helpers\ArrayHelper;
 use yii\web\AssetBundle;
 use yii\web\JqueryAsset;
 
-class EntireKnockoutAsset extends AssetBundle
+class UserStatNawabariAsset extends AssetBundle
 {
     public $sourcePath = '@app/resources/.compiled/stat.ink';
     public $js = [
-        'knockout.js',
-    ];
-    public $css = [
-        'knockout.css',
+        'user-stat-nawabari-inked.js',
+        'user-stat-nawabari-wp.js',
     ];
     public $depends = [
         ColorSchemeAsset::class,
         FlotAsset::class,
-        FlotPieAsset::class,
         FlotResizeAsset::class,
         JqueryAsset::class,
+        NumberFormatAsset::class,
     ];
 }

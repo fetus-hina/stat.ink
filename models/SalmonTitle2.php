@@ -59,6 +59,23 @@ class SalmonTitle2 extends ActiveRecord
         ];
     }
 
+    public function getTranslatedName(?Gender $gender = null): string
+    {
+        $text = $this->name;
+        if ($gender) {
+            if ($gender->id == 1) {
+                $text = "{boy}{$text}";
+            } else {
+                $text = "{girl}{$text}";
+            }
+        }
+
+        return Yii::t('app-salmon-title2', $text, [
+            'boy' => '',
+            'girl' => '',
+        ]);
+    }
+
     public function toJsonArray(?Gender $gender = null): array
     {
         $text = $this->name;

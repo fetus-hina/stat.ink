@@ -61,6 +61,15 @@ $this->registerCss('.btn-block.text-left{text-align:left}');
           ['download2', 'type' => 'ikalog-csv'],
           ['class' => 'btn btn-default btn-block text-left']
         ),
+        Html::a(
+          implode(' ', [
+            FA::far('file-excel')->fw(),
+            FA::fas('fish')->fw(),
+            Html::encode(Yii::t('app', 'Salmon Run CSV')),
+          ]),
+          ['download-salmon', 'type' => 'csv'],
+          ['class' => 'btn btn-default btn-block text-left']
+        ),
       ]) ?></p>
       <h2><?= Html::encode(Yii::t('app', 'Export')) ?> (Splatoon 1)</h2>
       <p><?= implode('', [

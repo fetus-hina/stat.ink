@@ -1,5 +1,7 @@
-/*! Copyright (C) 2015-2018 AIZAWA Hina | MIT License */
-(() => {
+/*! Copyright (C) 2015-2019 AIZAWA Hina | MIT License */
+(window => {
+  const colorLock = !!window.colorLock;
+
   // http://jfly.iam.u-tokyo.ac.jp/colorset/
   const accentColors = {
     red:        '#ec6110',
@@ -43,13 +45,13 @@
     ko:         accentColors.sky,
     time:       accentColors.orange,
 
-    area:       accentColors.orange,
-    yagura:     accentColors.blue,
-    hoko:       accentColors.brown,
+    area:       colorLock ? accentColors.orange : '#edc240',
+    yagura:     colorLock ? accentColors.blue   : '#40a2ed',
+    hoko:       colorLock ? accentColors.brown  : '#ed4040',
 
     graph1:     accentColors.orange,
     graph2:     accentColors.blue,
-    moving1:    '#7fffbb',
-    moving2:    '#fff57f',
+    moving1:    colorLock ? '#7fffbb' : 'rgba(64, 237, 64, 0.5)',
+    moving2:    colorLock ? '#fff57f' : 'rgba(148, 64, 237, 0.5)',
   };
-})();
+})(window);

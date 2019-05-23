@@ -1,18 +1,22 @@
 <?php
 /**
- * @copyright Copyright (C) 2015 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  */
 
+declare(strict_types=1);
+
 namespace app\actions\show;
 
 use Yii;
-use yii\web\NotFoundHttpException;
-use yii\web\ViewAction as BaseAction;
 use app\models\Battle;
 use app\models\Map;
 use app\models\User;
+use stdClass;
+use yii\helpers\ArrayHelper;
+use yii\web\NotFoundHttpException;
+use yii\web\ViewAction as BaseAction;
 
 class UserStatNawabariAction extends BaseAction
 {
@@ -21,20 +25,61 @@ class UserStatNawabariAction extends BaseAction
     public function run()
     {
         $request = Yii::$app->getRequest();
-        $this->user = User::findOne(['screen_name' => $request->get('screen_name')]);
+        $this->user = User::findOne([
+            'screen_name' => $request->get('screen_name'),
+        ]);
         if (!$this->user) {
             throw new NotFoundHttpException(Yii::t('app', 'Could not find user'));
         }
 
-        return $this->controller->render('user-stat-nawabari.tpl', [
+        return $this->controller->render('user-stat-nawabari', [
             'user' => $this->user,
             'inked' => $this->inkedData,
             'wp' => $this->wpData,
         ]);
     }
 
-    public function getInkedData()
+    public function getInkedData(): array
     {
+        $inked = sprintf('(CASE %s END)', implode(' ', [
+            'WHEN battle.is_win THEN (battle.my_point - turfwar_win_bonus.bonus)',
+            'ELSE battle.my_point',
+        ]));
+        $stats = Battle::find()
+            ->innerJoinWith(['rule', 'bonus', 'map'])
+            ->joinWith(['lobby'])
+            ->andWhere([
+                '{{battle}}.[[user_id]]' => $this->user->id,
+                '{{rule}}.[[key]]' => 'nawabari',
+            ])
+            ->andWhere(['not', ['{{battle}}.[[is_win]]' => null]])
+            ->andWhere(['not', ['{{battle}}.[[my_point]]' => null]])
+            ->andWhere(['or',
+                ['{{battle}}.[[lobby_id]]' => null],
+                ['<>', '{{lobby}}.[[key]]', 'private'],
+            ])
+            ->groupBy(['{{battle}}.[[map_id]]'])
+            ->orderBy(false)
+            ->select([
+                'map'   => 'MAX({{map}}.[[key]])',
+                'pct5'  => "PERCENTILE_CONT(0.05) WITHIN GROUP (ORDER BY {$inked})",
+                'pct50' => "PERCENTILE_CONT(0.50) WITHIN GROUP (ORDER BY {$inked})",
+                'pct95' => "PERCENTILE_CONT(0.95) WITHIN GROUP (ORDER BY {$inked})",
+                'avg'   => "AVG({$inked})",
+            ])
+            ->asArray()
+            ->createCommand()
+            ->queryAll();
+        $stats = ArrayHelper::map($stats, 'map', function (array $row): array {
+            $result = [];
+            foreach ($row as $k => $v) {
+                if ($k !== 'map') {
+                    $result[$k] = ($v === null) ? null : (float)$v;
+                }
+            }
+            return $result;
+        });
+
         $query = Battle::find()
             ->with(['rule', 'map', 'bonus'])
             ->innerJoinWith(['rule', 'map', 'bonus'])
@@ -58,7 +103,8 @@ class UserStatNawabariAction extends BaseAction
                 'name' => Yii::t('app-map', $map['name']),
                 'area' => $map['area'],
                 'battles' => [],
-                'avgInked' => null,
+                'stats' => $stats[$map['key']],
+                'avgInked' => $stats[$map['key']]['avg'],
             ];
         }
 
@@ -66,25 +112,21 @@ class UserStatNawabariAction extends BaseAction
             $tmp = $maps[$battle['map']['key']];
             $tmp->battles[] = (object)[
                 'index' => -1 * count($tmp->battles),
-                'inked' => max(0, $battle['my_point'] - ($battle['is_win'] ? $battle['bonus']['bonus'] : 0)),
+                'inked' => max(
+                    0,
+                    $battle['my_point'] - ($battle['is_win'] ? $battle['bonus']['bonus'] : 0)
+                ),
             ];
         }
 
         foreach ($maps as $map) {
             if (!empty($map->battles)) {
-                $sum = array_sum(
-                    array_map(
-                        function ($a) {
-                            return $a->inked;
-                        },
-                        $map->battles
-                    )
-                );
+                $sum = array_sum(ArrayHelper::getColumn($map->battles, 'inked', false));
                 $map->avgInked = $sum / count($map->battles);
             }
         }
 
-        uasort($maps, function ($a, $b) {
+        uasort($maps, function (stdClass $a, stdClass $b): int {
             return strnatcasecmp($a->name, $b->name);
         });
 
@@ -124,14 +166,14 @@ class UserStatNawabariAction extends BaseAction
         }
 
         $battles = array_reverse($battles);
-        $fMoving = function ($range, $currentIndex) use (&$battles) {
+        $fMoving = function ($range, $currentIndex) use (&$battles): ?float {
             if ($currentIndex + 1 < $range) {
                 return null;
             }
 
             $tmp = array_slice($battles, $currentIndex + 1 - $range, $range);
-            $win = count(array_filter($tmp, function ($a) {
-                return $a->is_win;
+            $win = count(array_filter($tmp, function ($a): bool {
+                return (bool)$a->is_win;
             }));
             return $win * 100 / $range;
         };

@@ -72,6 +72,7 @@ RESOURCE_TARGETS_MAIN := \
 	resources/.compiled/stat.ink/game-modes.css \
 	resources/.compiled/stat.ink/kd-win.css \
 	resources/.compiled/stat.ink/kd-win.js \
+	resources/.compiled/stat.ink/knockout.css \
 	resources/.compiled/stat.ink/knockout.js \
 	resources/.compiled/stat.ink/language-dialog.css \
 	resources/.compiled/stat.ink/language-dialog.js \
@@ -101,6 +102,11 @@ RESOURCE_TARGETS_MAIN := \
 	resources/.compiled/stat.ink/user-stat-2-nawabari-stats.js \
 	resources/.compiled/stat.ink/user-stat-2-nawabari-winpct.js \
 	resources/.compiled/stat.ink/user-stat-by-map-rule-detail.css \
+	resources/.compiled/stat.ink/user-stat-gachi-rank.js \
+	resources/.compiled/stat.ink/user-stat-gachi-winpct.js \
+	resources/.compiled/stat.ink/user-stat-nawabari-inked.js \
+	resources/.compiled/stat.ink/user-stat-nawabari-wp.js \
+	resources/.compiled/stat.ink/user-stat-report.css \
 	resources/.compiled/stat.ink/weapon2.js \
 	resources/.compiled/stat.ink/weapons-use.js \
 	resources/.compiled/stat.ink/weapons.js \
@@ -336,6 +342,7 @@ resources/.compiled/stat.ink/fluid-layout.js: resources/stat.ink/fluid-layout.es
 resources/.compiled/stat.ink/game-modes.css: resources/stat.ink/game-modes.less node_modules
 resources/.compiled/stat.ink/kd-win.css: resources/stat.ink/kd-win.less node_modules
 resources/.compiled/stat.ink/kd-win.js: resources/stat.ink/kd-win.js node_modules
+resources/.compiled/stat.ink/knockout.css: resources/stat.ink/knockout.less node_modules
 resources/.compiled/stat.ink/knockout.js: resources/stat.ink/knockout.es node_modules
 resources/.compiled/stat.ink/language-dialog.css: resources/stat.ink/language-dialog.less node_modules
 resources/.compiled/stat.ink/language-dialog.js: resources/stat.ink/language-dialog.es node_modules
@@ -363,6 +370,11 @@ resources/.compiled/stat.ink/user-stat-2-nawabari-runner.js: resources/stat.ink/
 resources/.compiled/stat.ink/user-stat-2-nawabari-stats.js: resources/stat.ink/user-stat-2-nawabari-stats.es node_modules
 resources/.compiled/stat.ink/user-stat-2-nawabari-winpct.js: resources/stat.ink/user-stat-2-nawabari-winpct.es node_modules
 resources/.compiled/stat.ink/user-stat-by-map-rule-detail.css: resources/stat.ink/user-stat-by-map-rule-detail.less node_modules
+resources/.compiled/stat.ink/user-stat-gachi-rank.js: resources/stat.ink/user-stat-gachi-rank.es node_modules
+resources/.compiled/stat.ink/user-stat-gachi-winpct.js: resources/stat.ink/user-stat-gachi-winpct.es node_modules
+resources/.compiled/stat.ink/user-stat-nawabari-inked.js: resources/stat.ink/user-stat-nawabari-inked.es node_modules
+resources/.compiled/stat.ink/user-stat-nawabari-wp.js: resources/stat.ink/user-stat-nawabari-wp.es node_modules
+resources/.compiled/stat.ink/user-stat-report.css: resources/stat.ink/user-stat-report.less node_modules
 resources/.compiled/stat.ink/weapons-use.js: resources/stat.ink/weapons-use.js node_modules
 resources/.compiled/stat.ink/weapons.js: resources/stat.ink/weapons.js node_modules
 resources/.compiled/stat.ink/xpower-history.css: resources/stat.ink/xpower-history.less node_modules
@@ -597,12 +609,12 @@ geoip: \
 
 data/GeoIP/%.mmdb: data/GeoIP/%.tar.gz
 	@mkdir -p $(dir $@)
-	tar -zxf $< --strip=1 -C data/GeoIP */$(notdir $@)
+	tar -zxf $< --strip=1 --no-same-owner -C data/GeoIP */$(notdir $@)
 	@touch $@
 
 data/GeoIP/%.txt: data/GeoIP/GeoLite2-Country.tar.gz
 	@mkdir -p $(dir $@)
-	tar -zxf $< --strip=1 -C data/GeoIP */$(notdir $@)
+	tar -zxf $< --strip=1 --no-same-owner -C data/GeoIP */$(notdir $@)
 	@touch $@
 
 data/GeoIP/%.tar.gz:
