@@ -609,12 +609,12 @@ geoip: \
 
 data/GeoIP/%.mmdb: data/GeoIP/%.tar.gz
 	@mkdir -p $(dir $@)
-	tar -zxf $< --strip=1 -C data/GeoIP */$(notdir $@)
+	tar -zxf $< --strip=1 --no-same-owner -C data/GeoIP */$(notdir $@)
 	@touch $@
 
 data/GeoIP/%.txt: data/GeoIP/GeoLite2-Country.tar.gz
 	@mkdir -p $(dir $@)
-	tar -zxf $< --strip=1 -C data/GeoIP */$(notdir $@)
+	tar -zxf $< --strip=1 --no-same-owner -C data/GeoIP */$(notdir $@)
 	@touch $@
 
 data/GeoIP/%.tar.gz:
