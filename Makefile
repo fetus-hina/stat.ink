@@ -102,6 +102,11 @@ RESOURCE_TARGETS_MAIN := \
 	resources/.compiled/stat.ink/user-stat-2-nawabari-stats.js \
 	resources/.compiled/stat.ink/user-stat-2-nawabari-winpct.js \
 	resources/.compiled/stat.ink/user-stat-by-map-rule-detail.css \
+	resources/.compiled/stat.ink/user-stat-gachi-rank.js \
+	resources/.compiled/stat.ink/user-stat-gachi-winpct.js \
+	resources/.compiled/stat.ink/user-stat-nawabari-inked.js \
+	resources/.compiled/stat.ink/user-stat-nawabari-wp.js \
+	resources/.compiled/stat.ink/user-stat-report.css \
 	resources/.compiled/stat.ink/weapon2.js \
 	resources/.compiled/stat.ink/weapons-use.js \
 	resources/.compiled/stat.ink/weapons.js \
@@ -365,6 +370,11 @@ resources/.compiled/stat.ink/user-stat-2-nawabari-runner.js: resources/stat.ink/
 resources/.compiled/stat.ink/user-stat-2-nawabari-stats.js: resources/stat.ink/user-stat-2-nawabari-stats.es node_modules
 resources/.compiled/stat.ink/user-stat-2-nawabari-winpct.js: resources/stat.ink/user-stat-2-nawabari-winpct.es node_modules
 resources/.compiled/stat.ink/user-stat-by-map-rule-detail.css: resources/stat.ink/user-stat-by-map-rule-detail.less node_modules
+resources/.compiled/stat.ink/user-stat-gachi-rank.js: resources/stat.ink/user-stat-gachi-rank.es node_modules
+resources/.compiled/stat.ink/user-stat-gachi-winpct.js: resources/stat.ink/user-stat-gachi-winpct.es node_modules
+resources/.compiled/stat.ink/user-stat-nawabari-inked.js: resources/stat.ink/user-stat-nawabari-inked.es node_modules
+resources/.compiled/stat.ink/user-stat-nawabari-wp.js: resources/stat.ink/user-stat-nawabari-wp.es node_modules
+resources/.compiled/stat.ink/user-stat-report.css: resources/stat.ink/user-stat-report.less node_modules
 resources/.compiled/stat.ink/weapons-use.js: resources/stat.ink/weapons-use.js node_modules
 resources/.compiled/stat.ink/weapons.js: resources/stat.ink/weapons.js node_modules
 resources/.compiled/stat.ink/xpower-history.css: resources/stat.ink/xpower-history.less node_modules

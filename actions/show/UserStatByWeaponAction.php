@@ -1,9 +1,11 @@
 <?php
 /**
- * @copyright Copyright (C) 2016 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  */
+
+declare(strict_types=1);
 
 namespace app\actions\show;
 
@@ -32,14 +34,14 @@ class UserStatByWeaponAction extends BaseAction
         $filter->screen_name = $user->screen_name;
         $filter->validate();
 
-        return $this->controller->render('user-stat-by-weapon.tpl', [
+        return $this->controller->render('user-stat-by-weapon', [
             'user' => $user,
             'list' => $this->getList($user, $filter),
             'filter' => $filter,
         ]);
     }
 
-    public function getList(User $user, BattleFilterForm $filter)
+    public function getList(User $user, BattleFilterForm $filter): array
     {
         $query = (new Query())
             ->select([
@@ -83,7 +85,7 @@ class UserStatByWeaponAction extends BaseAction
             $this->filter($query, $filter);
         }
         $list = $query->all();
-        usort($list, function ($a, $b) {
+        usort($list, function (array $a, array $b): int {
             return $b['battles'] <=> $a['battles'];
         });
         return $list;

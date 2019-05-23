@@ -568,6 +568,7 @@ return [
     '{0}\'s Splat Log' => '{0}さんのイカログ',
     '{0}×{1} or less resolution' => '{0}×{1} ピクセル以下の画素数（解像度）',
     '{attribute} must be at most 15 alphanumeric or underscore characters.' => '{attribute}は半角英数とアンダースコア15文字以内で入力してください。',
+    '{lower}-{upper} percentile' => '{lower}～{upper}パーセンタイル',
     '{n,plural,=1{battle} other{battles}}' => 'バトル',
     '{nFormatted} {n, plural, =1{time} other{times}}' => '{nFormatted} 回',
     '{number, plural, =1{1 death} other{# deaths}} in {battle, plural, =1{1 battle} other{# battles}}' => '{number, plural, other{#回}} / {battle, plural, other{#戦}}',

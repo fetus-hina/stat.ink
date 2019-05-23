@@ -1,18 +1,25 @@
 <?php
 /**
- * @copyright Copyright (C) 2016 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  */
 
+declare(strict_types=1);
+
 namespace app\actions\show;
 
+use DateInterval;
+use DateTime;
+use DateTimeImmutable;
+use DateTimeZone;
 use Yii;
+use app\models\User;
 use yii\base\DynamicModel;
+use yii\db\Query;
 use yii\helpers\Url;
 use yii\web\NotFoundHttpException;
 use yii\web\ViewAction as BaseAction;
-use app\models\User;
 
 class UserStatReportAction extends BaseAction
 {
@@ -35,7 +42,10 @@ class UserStatReportAction extends BaseAction
 
     public function run()
     {
-        $now = (int)($_SERVER['REQUEST_TIME'] ?? time());
+        $now = (new DateTimeImmutable())
+            ->setTimeZone(new DateTimeZone(Yii::$app->timeZone))
+            ->setTimestamp($_SERVER['REQUEST_TIME'] ?? time());
+
         $request = Yii::$app->request;
         $form = DynamicModel::validateData(
             [
@@ -44,15 +54,21 @@ class UserStatReportAction extends BaseAction
             ],
             [
                 [['year'], 'required'],
-                [['year'], 'integer', 'min' => 2015, 'max' => date('Y', $now)],
-                [['month'], 'integer', 'min' => 1, 'max' => 12]
+                [['year'], 'integer',
+                    'min' => 2015,
+                    'max' => (int)$now->format('Y'),
+                ],
+                [['month'], 'integer',
+                    'min' => 1,
+                    'max' => 12,
+                ]
             ]
         );
         if ($form->hasErrors()) {
             $this->controller->redirect(['show/user-stat-report',
                 'screen_name' => $this->user->screen_name,
-                'year' => date('Y', $now),
-                'month' => date('n', $now),
+                'year' => (int)$now->format('Y'),
+                'month' => (int)$now->format('n'),
             ]);
             return;
         }
@@ -63,32 +79,47 @@ class UserStatReportAction extends BaseAction
 
     protected function runMonth($form)
     {
-        $from = mktime(0, 0, 0, (int)$form->month, 1, (int)$form->year);
-        $to = mktime(0, 0, -1, (int)$form->month + 1, 1, (int)$form->year);
+        $tz = new DateTimeZone(Yii::$app->timeZone);
 
-        $next = mktime(24, 0, 0, date('n', $to), date('j', $to), date('Y', $to));
-        $prev = mktime(0, 0, -1, date('n', $from), date('j', $from), date('Y', $from));
-        $upperBound = $_SERVER['REQUEST_TIME'] ?? time();
-        $lowerBound = strtotime('2015-09-01T00:00:00+09:00');
-        return $this->controller->render('user-stat-report-month.tpl', [
+        $from = (new DateTimeImmutable())
+            ->setTimeZone($tz)
+            ->setDate((int)$form->year, (int)$form->month, 1)
+            ->setTime(0, 0, 0);
+
+        $next = (new DateTimeImmutable())
+            ->setTimeZone($tz)
+            ->setDate((int)$form->year, (int)$form->month + 1, 1)
+            ->setTime(0, 0, 0);
+
+        $to = $next->sub(new DateInterval('PT1S'));
+
+        $prev = $from->sub(new DateInterval('P1M'));
+
+        $upperBound = (new DateTimeImmutable())
+            ->setTimeZone($tz)
+            ->setTimestamp($_SERVER['REQUEST_TIME'] ?? time());
+
+        $lowerBound = (new DateTimeImmutable('2015-09-01T00:00:00', $tz));
+
+        return $this->controller->render('user-stat-report-month', [
             'user' => $this->user,
             'list' => $this->query(
-                date('Y-m-d\TH:i:sP', $from),
-                date('Y-m-d\TH:i:sP', $to),
+                $from->format(DateTime::ATOM),
+                $to->format(DateTime::ATOM),
                 '{{battle}}.[[at]]::date'
             ),
             'next' => $next <= $upperBound
                 ? Url::to(['show/user-stat-report',
                         'screen_name' => $this->user->screen_name,
-                        'year' => date('Y', $next),
-                        'month' => date('n', $next),
+                        'year' => $next->format('Y'),
+                        'month' => $next->format('n'),
                     ], true)
                 : null,
             'prev' => $prev >= $lowerBound
                 ? Url::to(['show/user-stat-report',
                         'screen_name' => $this->user->screen_name,
-                        'year' => date('Y', $prev),
-                        'month' => date('n', $prev),
+                        'year' => $prev->format('Y'),
+                        'month' => $prev->format('n'),
                     ], true)
                 : null,
         ]);
@@ -97,18 +128,11 @@ class UserStatReportAction extends BaseAction
     protected function runYear($form)
     {
         throw new NotFoundHttpException(Yii::t('yii', 'Page not found.'));
-        $from = mktime(0, 0, 0, 1, 1, (int)$form->year);
-        $to = mktime(0, 0, -1, 1, 1, (int)$form->year + 1);
-        $list = $this->query(
-            date('Y-m-d\TH:i:sP', $from),
-            date('Y-m-d\TH:i:sP', $to),
-            "TO_CHAR({{battle}}.[[at]], 'YYYY-MM')"
-        );
     }
 
     private function query($from, $to, $date)
     {
-        $query = (new \yii\db\Query())
+        $query = (new Query())
             ->select([
                 'date'          => $date,
                 'lobby_id'      => '{{battle}}.[[lobby_id]]',
