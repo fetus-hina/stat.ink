@@ -1,17 +1,20 @@
 <?php
 /**
- * @copyright Copyright (C) 2015 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  */
 
+declare(strict_types=1);
+
 namespace app\controllers;
 
 use Yii;
+use app\actions\user\DownloadSalmon2Action;
+use app\actions\user\LoginHistoryAction;
+use app\components\web\Controller;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
-use app\components\web\Controller;
-use app\actions\user\LoginHistoryAction;
 
 class UserController extends Controller
 {
@@ -21,7 +24,7 @@ class UserController extends Controller
     {
         return [
             'access' => [
-                'class' => AccessControl::className(),
+                'class' => AccessControl::class,
                 'only' => [
                     'clear-login-with-twitter',
                     'edit-icon',
@@ -74,7 +77,7 @@ class UserController extends Controller
                 ],
             ],
             'verbs' => [
-                'class' => VerbFilter::className(),
+                'class' => VerbFilter::class,
                 'actions' => [
                     'edit-icon'     => [ 'get', 'post' ],
                     'edit-password' => [ 'get', 'post' ],
@@ -100,6 +103,7 @@ class UserController extends Controller
         return [
             'clear-login-with-twitter' => [ 'class' => $prefix . '\ClearLoginWithTwitterAction' ],
             'download'      => [ 'class' => $prefix . '\DownloadAction' ],
+            'download-salmon' => [ 'class' => DownloadSalmon2Action::class ],
             'download2'     => [ 'class' => $prefix . '\Download2Action' ],
             'edit-icon'     => [ 'class' => $prefix . '\EditIconAction' ],
             'edit-password' => [ 'class' => $prefix . '\EditPasswordAction' ],
