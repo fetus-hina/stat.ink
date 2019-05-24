@@ -1,6 +1,9 @@
 Exported Salmon Run CSV
 =======================
 
+- "Rotation": Play window. Have some shifts.
+- "Shift": The play. 1-3 waves.
+
 Schema
 ------
 
@@ -11,7 +14,7 @@ Schema
 | # | column| column name | type | example | meaning |
 |---|-------|-------------|------|---------|---------|
 |   0 |  A | `statink_id` | integer | `73172` | Our internal ID<br>stat.inkの内部番号 |
-|   1 |  B | `rotation_period | integer | `216441` | Same value if same rotation.<br>同じスケジュールなら同じ値<br>Internal: `rotation_start` = unixtime(`value` * 7200) |
+|   1 |  B | `rotation_period` | integer | `216441` | Same value if same rotation.<br>同じスケジュールなら同じ値<br>Internal: `rotation_start` = unixtime(`value` * 7200) |
 |   2 |  C | `shift_start` | integer | `1558452561` | UNIX time. This shift (job) started at this time. |
 |   3 |  D | `shift_start` | datetime | `2019-05-22T00:29:21+09:00` | ISO 8601 formatted. |
 |   4 |  E | `splatnet_number` | integer | `4589` | SplatNet Internal ID<br>イカリングの内部番号 |
