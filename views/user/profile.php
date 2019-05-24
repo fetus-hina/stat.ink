@@ -61,14 +61,30 @@ $this->registerCss('.btn-block.text-left{text-align:left}');
           ['download2', 'type' => 'ikalog-csv'],
           ['class' => 'btn btn-default btn-block text-left']
         ),
-        Html::a(
-          implode(' ', [
-            FA::far('file-excel')->fw(),
-            FA::fas('fish')->fw(),
-            Html::encode(Yii::t('app', 'Salmon Run CSV')),
+        Html::tag(
+          'div',
+          implode('', [
+            Html::a(
+              implode(' ', [
+                FA::far('file-excel')->fw(),
+                FA::fas('fish')->fw(),
+                Html::encode(Yii::t('app', 'Salmon Run CSV')),
+                ' ',
+                Html::tag('small', Html::encode('(β)')),
+              ]),
+              ['download-salmon', 'type' => 'csv'],
+              ['class' => 'btn btn-default text-left-important flex-grow-1']
+            ),
+            Html::a(
+              FA::fas('info')->fw(),
+              'https://github.com/fetus-hina/stat.ink/blob/master/doc/api-2/export-salmon-csv.md',
+              [
+                'class' => 'btn btn-default auto-tooltip',
+                'title' => Yii::t('app', 'Schema information'),
+              ]
+            ),
           ]),
-          ['download-salmon', 'type' => 'csv'],
-          ['class' => 'btn btn-default btn-block text-left']
+          ['class' => 'btn-group d-flex']
         ),
       ]) ?></p>
       <h2><?= Html::encode(Yii::t('app', 'Export')) ?> (Splatoon 1)</h2>

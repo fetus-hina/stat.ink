@@ -366,6 +366,7 @@ return [
     'Save!' => '保存',
     'Schedule' => 'スケジュール',
     'Scheduled' => '開催予定',
+    'Schema information' => 'スキーマ情報',
     'Screen Name (Login Name)' => 'ログイン名',
     'Screen Name' => 'ログイン名',
     'Search {date}' => '{date}を検索',
