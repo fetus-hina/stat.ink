@@ -376,6 +376,7 @@ return [
     'Save!' => '¡Salvar!',
     'Schedule' => '',
     'Scheduled' => '',
+    'Schema information' => '',
     'Screen Name' => 'Nombre de la Pantalla',
     'Screen Name (Login Name)' => 'Nombre de la Pantalla',
     'Search' => 'Búsqueda',

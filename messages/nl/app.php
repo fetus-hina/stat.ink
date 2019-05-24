@@ -374,6 +374,7 @@ return [
     'Save!' => '',
     'Schedule' => '',
     'Scheduled' => '',
+    'Schema information' => '',
     'Screen Name' => '',
     'Screen Name (Login Name)' => '',
     'Search' => '',
