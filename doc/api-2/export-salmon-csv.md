@@ -78,9 +78,9 @@ Schema
 |  65 | BN | `mate1_w3_weapon` | localized | | |
 |  66 | BO | `mate1_special` | key | | |
 |  67 | BP | `mate1_special` | localized | | |
-|  68 | BQ | `mate1_w1_sp_use` integer | | |
-|  69 | BR | `mate1_w2_sp_use` integer | | |
-|  70 | BS | `mate1_w3_sp_use` integer | | |
+|  68 | BQ | `mate1_w1_sp_use` | integer | | |
+|  69 | BR | `mate1_w2_sp_use` | integer | | |
+|  70 | BS | `mate1_w3_sp_use` | integer | | |
 |  71 | BT | `mate1_rescues` | integer | | |
 |  72 | BU | `mate1_rescued` | integer | | |
 |  73 | BV | `mate1_golden_eggs` | integer | | |
@@ -95,9 +95,9 @@ Schema
 |  82 | CE | `mate2_w3_weapon` | localized | | |
 |  83 | CF | `mate2_special` | key | | |
 |  84 | CG | `mate2_special` | localized | | |
-|  85 | CH | `mate2_w1_sp_use` integer | | |
-|  86 | CI | `mate2_w2_sp_use` integer | | |
-|  87 | CJ | `mate2_w3_sp_use` integer | | |
+|  85 | CH | `mate2_w1_sp_use` | integer | | |
+|  86 | CI | `mate2_w2_sp_use` | integer | | |
+|  87 | CJ | `mate2_w3_sp_use` | integer | | |
 |  88 | CK | `mate2_rescues` | integer | | |
 |  89 | CL | `mate2_rescued` | integer | | |
 |  90 | CM | `mate2_golden_eggs` | integer | | |
@@ -112,9 +112,9 @@ Schema
 |  99 | CV | `mate3_w3_weapon` | localized | | |
 | 100 | CW | `mate3_special` | key | | |
 | 101 | CX | `mate3_special` | localized | | |
-| 102 | CY | `mate3_w1_sp_use` integer | | |
-| 103 | CZ | `mate3_w2_sp_use` integer | | |
-| 104 | DA | `mate3_w3_sp_use` integer | | |
+| 102 | CY | `mate3_w1_sp_use` | integer | | |
+| 103 | CZ | `mate3_w2_sp_use` | integer | | |
+| 104 | DA | `mate3_w3_sp_use` | integer | | |
 | 105 | DB | `mate3_rescues` | integer | | |
 | 106 | DC | `mate3_rescued` | integer | | |
 | 107 | DD | `mate3_golden_eggs` | integer | | |
