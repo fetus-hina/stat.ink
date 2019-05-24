@@ -67,8 +67,8 @@ Schema
 |  51 | AZ | `player_w1_sp_use` | integer | `0` | How many times used special weapon in Wave 1 |
 |  52 | BA | `player_w2_sp_use` | integer | `0` | |
 |  53 | BB | `player_w3_sp_use` | integer | `2` | |
-|  54 | BC | `player_rescues | integer | `1` | "Helps"; Number of times the player helped other players |
-|  55 | BD | `player_rescued | integer | `1` | "Deaths"; Number of times the player helped *by* other players |
+|  54 | BC | `player_rescues` | integer | `1` | "Helps"; Number of times the player helped other players |
+|  55 | BD | `player_rescued` | integer | `1` | "Deaths"; Number of times the player helped *by* other players |
 |  56 | BE | `player_golden_eggs` | integer | `26` | How many delivered Golden Eggs |
 |  57 | BF | `player_power_eggs` | integer | `806` | How many collected Power Eggs |
 |  58 | BG | `mate1_id` | string | | |
