@@ -21,8 +21,8 @@ Schema
 |   5 |  F | `stage` | key | `tokishirazu` | `dam`: Grounds / シェケナダム<br>`donburako`: Bay / ドン・ブラコ<br>`shaketoba`: Outpost / シャケト場<br>`tokishirazu`: Smokeyard / トキシラズ<br>`polaris`: Polaris / ポラリス |
 |   6 |  G | `stage` | localized | `トキシラズいぶし工房` | Localized |
 |   7 |  H | `clear_wave` | integer | `3` | `0`: Failed in Wave 1<br>`1`: Failed in Wave 2<br>`2`: Failed in Wave 3<br>`3`: Cleared the shift |
-|   8 |  I | `fail_reason` | key | `wipe_out`: Wiped / ゼンメツ<br>`time_limit`: Time is up / 時間切れ |
-|   9 |  J | `fail_reason` | localized | Localized |
+|   8 |  I | `fail_reason` | key | | `wipe_out`: Wiped / ゼンメツ<br>`time_limit`: Time is up / 時間切れ |
+|   9 |  J | `fail_reason` | localized | | Localized |
 |  10 |  K | `hazard_level` | decimal (3.1) | `200.0` | `0.0`..`200.0`, `200.0`=Hazard Level Max |
 |  11 |  L | `title_before` | key | `profreshional` | `apprentice`: Apprentice / かけだし<br>`part_timer`: Part-Timer / はんにんまえ<br>`go_getter`: Go-Getter / いちにんまえ<br>`overachiever`: Overachiever / じゅくれん<br>`profreshional`: Profreshional / たつじん |
 |  12 |  M | `title_before` | localized | `たつじん` | Localized |
