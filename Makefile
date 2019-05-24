@@ -36,7 +36,6 @@ RESOURCE_TARGETS_MAIN := \
 	resources/.compiled/irasutoya/eto/9.png \
 	resources/.compiled/irasutoya/inkling.png \
 	resources/.compiled/irasutoya/octoling.png \
-	resources/.compiled/irasutoya/reiwa.png \
 	resources/.compiled/ostatus/ostatus.min.svg \
 	resources/.compiled/ostatus/ostatus.min.svg.br \
 	resources/.compiled/ostatus/ostatus.min.svg.gz \
@@ -473,12 +472,6 @@ resources/.compiled/irasutoya/octoling.png: resources/irasutoya/octoling.png.tmp
 
 resources/irasutoya/octoling.png.tmp: resources/irasutoya/octoling.png
 	convert $< -trim +repage -resize x100 -gravity center -background none -extent 100x100 $@
-
-resources/.compiled/irasutoya/reiwa.png: resources/irasutoya/reiwa.png.tmp
-	$(call png,$@,$<)
-
-resources/irasutoya/reiwa.png.tmp: resources/irasutoya/reiwa.png
-	convert $< -trim +repage -resize x100 -gravity center -background none $@
 
 resources/.compiled/irasutoya/eto/%.png: resources/irasutoya/eto/%.png.tmp
 	$(call png,$@,$<)
