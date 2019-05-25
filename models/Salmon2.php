@@ -615,6 +615,16 @@ class Salmon2 extends ActiveRecord
                     "{$prefix}_power_eggs",
                 ];
             }, range(0, 3)),
+            array_map(function (SalmonBoss2 $boss): array {
+                $prefix = preg_replace('/[^a-z0-9]+/', '_', strtolower($boss->name));
+                return [
+                    "{$prefix}_appearances",
+                    "{$prefix}_player_kills",
+                    "{$prefix}_mate1_kills",
+                    "{$prefix}_mate2_kills",
+                    "{$prefix}_mate3_kills",
+                ];
+            }, SalmonBoss2::find()->orderBy(['name' => SORT_ASC])->all()),
         ));
     }
 
@@ -623,6 +633,16 @@ class Salmon2 extends ActiveRecord
         $gender = null;
         if ($myData = $this->getMyData()) {
             $gender = $myData->gender;
+        }
+
+        static $bosses = null;
+        if (!$bosses) {
+            $bosses = SalmonBoss2::find()->orderBy(['name' => SORT_ASC])->all();
+        }
+        if (!$this->bossAppearances) {
+            $bossAppearances = [];
+        } else {
+            $bossAppearances = ArrayHelper::map($this->bossAppearances, 'boss_id', 'count');
         }
 
         return ArrayHelper::toFlatten(array_merge(
@@ -702,6 +722,15 @@ class Salmon2 extends ActiveRecord
                     $p->power_egg_collected ?? '',
                 ];
             }, range(0, 3)),
+            array_map(function (SalmonBoss2 $boss) use ($bossAppearances): array {
+                return [
+                    (int)ArrayHelper::getValue($bossAppearances, $boss->id, 0),
+                    '', // player
+                    '', // mate1
+                    '', // mate2
+                    '', // mate3
+                ];
+            }, $bosses),
         ));
     }
 
