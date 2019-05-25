@@ -257,6 +257,10 @@ class Salmon2 extends ActiveRecord
 
     public function getMyData(): ?SalmonPlayer2
     {
+        if (!$list = $this->players) {
+            return null;
+        }
+
         foreach ($this->players as $player) {
             if ($player->is_me) {
                 return $player;
@@ -275,6 +279,34 @@ class Salmon2 extends ActiveRecord
         return array_filter($this->players, function (SalmonPlayer2 $player): bool {
             return !$player->is_me;
         });
+    }
+
+    private $sortedPlayersCache = false;
+
+    public function getSortedPlayers(): ?array
+    {
+        if ($this->sortedPlayersCache === false) {
+            if (!$list = $this->players) {
+                $this->sortedPlayersCache = null;
+                return null;
+            }
+
+            usort($list, function (SalmonPlayer2 $player1, SalmonPlayer2 $player2): int {
+                if ($player1->is_me) {
+                    return -1;
+                }
+
+                if ($player2->is_me) {
+                    return 1;
+                }
+
+                return $player1->id <=> $player2->id;
+            });
+
+            $this->sortedPlayersCache = $list;
+        }
+
+        return $this->sortedPlayersCache;
     }
 
     public function getPrevious(): ?self
@@ -615,6 +647,16 @@ class Salmon2 extends ActiveRecord
                     "{$prefix}_power_eggs",
                 ];
             }, range(0, 3)),
+            array_map(function (SalmonBoss2 $boss): array {
+                $prefix = preg_replace('/[^a-z0-9]+/', '_', strtolower($boss->name));
+                return [
+                    "{$prefix}_appearances",
+                    "{$prefix}_player_kills",
+                    "{$prefix}_mate1_kills",
+                    "{$prefix}_mate2_kills",
+                    "{$prefix}_mate3_kills",
+                ];
+            }, SalmonBoss2::find()->orderBy(['name' => SORT_ASC])->all()),
         ));
     }
 
@@ -624,6 +666,19 @@ class Salmon2 extends ActiveRecord
         if ($myData = $this->getMyData()) {
             $gender = $myData->gender;
         }
+
+        static $bosses = null;
+        if (!$bosses) {
+            $bosses = SalmonBoss2::find()->orderBy(['name' => SORT_ASC])->all();
+        }
+        if (!$this->bossAppearances) {
+            $bossAppearances = [];
+        } else {
+            $bossAppearances = ArrayHelper::map($this->bossAppearances, 'boss_id', 'count');
+        }
+
+        $players = $this->getSortedPlayers() ?: [];
+        $bossKillMap = $this->getBossKillMap();
 
         return ArrayHelper::toFlatten(array_merge(
             [
@@ -675,10 +730,8 @@ class Salmon2 extends ActiveRecord
                     $wave->power_egg_collected,
                 ];
             }, range(1, 3)),
-            array_map(function (int $i): array {
-                $p = ($i === 0)
-                    ? $this->myData
-                    : $this->teamMates[$i] ?? null;
+            array_map(function (int $i) use ($players): array {
+                $p = $players[$i] ?? null;
                 $weapons = $p ? $p->weapons : [];
                 $spUses = $p ? $p->specialUses : [];
 
@@ -702,6 +755,15 @@ class Salmon2 extends ActiveRecord
                     $p->power_egg_collected ?? '',
                 ];
             }, range(0, 3)),
+            array_map(function (SalmonBoss2 $boss) use ($bossAppearances, $bossKillMap): array {
+                return [
+                    (int)ArrayHelper::getValue($bossAppearances, $boss->id, 0),
+                    $bossKillMap[0][$boss->id] ?? null,
+                    $bossKillMap[1][$boss->id] ?? null,
+                    $bossKillMap[2][$boss->id] ?? null,
+                    $bossKillMap[3][$boss->id] ?? null,
+                ];
+            }, $bosses),
         ));
     }
 
@@ -716,6 +778,21 @@ class Salmon2 extends ActiveRecord
                 return $bossAppearance->toJsonArray();
             },
             $this->bossAppearances
+        );
+    }
+
+    public function getBossKillMap(): array
+    {
+        // $pks[player_index][boss_id] = count
+        return array_map(
+            function (SalmonPlayer2 $player): array {
+                return ArrayHelper::map(
+                    $player->bossKills,
+                    'boss_id',
+                    'count'
+                );
+            },
+            $this->getSortedPlayers() ?: []
         );
     }
 
