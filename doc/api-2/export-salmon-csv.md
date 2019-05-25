@@ -122,6 +122,51 @@ Schema
 | 106 | DC | `mate3_rescued` | integer | | |
 | 107 | DD | `mate3_golden_eggs` | integer | | |
 | 108 | DE | `mate3_power_eggs` | integer | | |
+| 109 | DF | `drizzler_appearances` | integer | | Number of Drizzler appearances<br>コウモリの出現数 |
+| 110 | DG | `drizzler_player_kills` | integer | | Number of killed by the player |
+| 111 | DH | `drizzler_mate1_kills` | integer | | Number of killed by teammate 1 |
+| 112 | DI | `drizzler_mate2_kills` | integer | | Number of killed by teammate 2 |
+| 113 | DJ | `drizzler_mate3_kills` | integer | | Number of killed by teammate 3 |
+| 114 | DK | `flyfish_appearances` | integer | | Number of Flyfish appearances<br>カタパッドの出現数 |
+| 115 | DL | `flyfish_player_kills` | integer | | |
+| 116 | DM | `flyfish_mate1_kills` | integer | | |
+| 117 | DN | `flyfish_mate2_kills` | integer | | |
+| 118 | DO | `flyfish_mate3_kills` | integer | | |
+| 119 | DP | `goldie_appearances` | integer | | Number of Goldie appearances<br>キンシャケの出現数 |
+| 120 | DQ | `goldie_player_kills` | integer | | |
+| 121 | DR | `goldie_mate1_kills` | integer | | |
+| 122 | DS | `goldie_mate2_kills` | integer | | |
+| 123 | DT | `goldie_mate3_kills` | integer | | |
+| 124 | DU | `griller_appearances` | integer | | Number of Griller appearances<br>グリルの出現数 |
+| 125 | DV | `griller_player_kills` | integer | | |
+| 126 | DW | `griller_mate1_kills` | integer | | |
+| 127 | DX | `griller_mate2_kills` | integer | | |
+| 128 | DY | `griller_mate3_kills` | integer | | |
+| 129 | DZ | `maws_appearances` | integer | | Number of Maws appearances<br>モグラの出現数 |
+| 130 | EA | `maws_player_kills` | integer | | |
+| 131 | EB | `maws_mate1_kills` | integer | | |
+| 132 | EC | `maws_mate2_kills` | integer | | |
+| 133 | ED | `maws_mate3_kills` | integer | | |
+| 134 | EE | `scrapper_appearances` | integer | | Number of Scrapper appearances<br>テッパンの出現数 |
+| 135 | EF | `scrapper_player_kills` | integer | | |
+| 136 | EG | `scrapper_mate1_kills` | integer | | |
+| 137 | EH | `scrapper_mate2_kills` | integer | | |
+| 138 | EI | `scrapper_mate3_kills` | integer | | |
+| 139 | EJ | `steel_eel_appearances` | integer | | Number of Steel Eel appearances<br>ヘビの出現数 |
+| 140 | EK | `steel_eel_player_kills` | integer | | |
+| 141 | EL | `steel_eel_mate1_kills` | integer | | |
+| 142 | EM | `steel_eel_mate2_kills` | integer | | |
+| 143 | EN | `steel_eel_mate3_kills` | integer | | |
+| 144 | EO | `steelhead_appearances` | integer | | Number of Steelhead appearances<br>バクダンの出現数 |
+| 145 | EP | `steelhead_player_kills` | integer | | |
+| 146 | EQ | `steelhead_mate1_kills` | integer | | |
+| 147 | ER | `steelhead_mate2_kills` | integer | | |
+| 148 | ES | `steelhead_mate3_kills` | integer | | |
+| 149 | ET | `stinger_appearances` | integer | | Number of Stinger appearances<br>タワーの出現数 |
+| 150 | EU | `stinger_player_kills` | integer | | |
+| 151 | EV | `stinger_mate1_kills` | integer | | |
+| 152 | EW | `stinger_mate2_kills` | integer | | |
+| 153 | EX | `stinger_mate3_kills` | integer | | |
 
 ----
 

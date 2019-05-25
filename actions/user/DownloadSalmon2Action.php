@@ -50,8 +50,10 @@ class DownloadSalmon2Action extends ViewAction
         $resp->format = 'csv';
         $query = $this->user->getSalmonResults()
             ->with([
+                'bossAppearances',
                 'failReason',
                 'players',
+                'players.bossKills',
                 'players.special',
                 'players.specialUses',
                 'players.weapons',
