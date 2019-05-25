@@ -53,6 +53,7 @@ class DownloadSalmon2Action extends ViewAction
                 'bossAppearances',
                 'failReason',
                 'players',
+                'players.bossKills',
                 'players.special',
                 'players.specialUses',
                 'players.weapons',
