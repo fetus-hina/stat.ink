@@ -54,4 +54,4 @@
       $this.empty().append(createIcon(options));
     });
   };
-})(jQuery, bowser);
+})(jQuery, window.bowser);

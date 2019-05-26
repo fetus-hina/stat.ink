@@ -16,7 +16,7 @@
       const $this = $(el);
       const $graph = $('.stat-inked', $this);
       const stage = $graph.attr('data-filter');
-      const filter = stage ? (value => value.sta === stage) : (value => true);
+      const filter = stage ? (value => value.sta === stage) : (() => true);
       const filteredData = data.filter(filter);
 
       $graph.data('data', filteredData);

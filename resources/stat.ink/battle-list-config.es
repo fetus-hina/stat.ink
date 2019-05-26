@@ -38,7 +38,7 @@
         'cell-team-id': false,
         'hscroll': false,
       };
-      for (let i in defaults) {
+      for (const i in defaults) {
         if (defaults.hasOwnProperty(i)) {
           if (config[i] === undefined) {
             config[i] = defaults[i];

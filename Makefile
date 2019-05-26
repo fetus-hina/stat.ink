@@ -214,7 +214,7 @@ check-style-php: vendor
 
 check-style-js: node_modules
 	node_modules/.bin/updates
-	npx eslint resources/
+	npx eslint "resources/**/*.es" "resources/**/*.js"
 
 check-style-css: node_modules
 	npx stylelint "resources/**/*.less" "resources/**/*.css"
@@ -222,7 +222,7 @@ check-style-css: node_modules
 fix-style: vendor node_modules
 	node_modules/.bin/updates -u
 	vendor/bin/phpcbf --standard=PSR12 --encoding=UTF-8 $(STYLE_TARGETS)
-	npx eslint --fix resources/
+	npx eslint --fix "resources/**/*.es" "resources/**/*.js"
 
 clean: clean-resource
 	rm -rf \

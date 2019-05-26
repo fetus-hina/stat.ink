@@ -34,7 +34,6 @@
           results[i].movingWP50 = 100 * winCount50 / 50;
         }
       });
-      console.log(results);
 
       return results;
     };
@@ -65,7 +64,7 @@
       const map = $graph.data('map');
       const list = map
         ? filter(rawData, row => row.map === map)
-        : filter(rawData, row => true);
+        : filter(rawData, () => true);
 
       const limit = Number($graph.data('limit'));
       if (limit > 0 && list.length <= limit) {

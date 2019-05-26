@@ -1,4 +1,4 @@
-/*! Copyright (C) 2015-2018 AIZAWA Hina | MIT License */
+/*! Copyright (C) 2015-2019 AIZAWA Hina | MIT License */
 ($ => {
   const $containers = $('.graph');
   let jsonBattles = null;
@@ -20,15 +20,15 @@
       $containers.height($containers.width() * 9 / 16);
 
       if (jsonDataWP === null) {
-        jsonDataWP = convertToWPData(jsonBattles, ranked);
+        jsonDataWP = window.convertToWPData(jsonBattles, ranked);
       }
 
       if (jsonDataStats === null) {
-        jsonDataStats = convertToStatsData(jsonBattles, ranked);
+        jsonDataStats = window.convertToStatsData(jsonBattles, ranked);
       }
 
-      drawWPGraph($containers.filter('.stat-wp'), jsonDataWP);
-      drawStatsGraph($containers.filter('.stat-stats'), jsonDataStats);
+      window.drawWPGraph($containers.filter('.stat-wp'), jsonDataWP);
+      window.drawStatsGraph($containers.filter('.stat-stats'), jsonDataStats);
     }, 33);
   }).resize();
 })(jQuery);

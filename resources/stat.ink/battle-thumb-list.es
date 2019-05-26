@@ -8,11 +8,11 @@
 
     const src = $this.attr('data-src');
     if (src) {
-        const img = new Image();
-        img.src = src;
-        img.onload = () => {
-            $this.css('background-image', `url(${img.src})`);
-        };
+      const img = new Image();
+      img.src = src;
+      img.onload = () => {
+        $this.css('background-image', `url(${img.src})`);
+      };
     }
   });
 })(jQuery);

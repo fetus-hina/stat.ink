@@ -3,7 +3,7 @@
 ((window, $) => {
   $(() => {
     let lastPeriodId = null;
-    $('.battle-row').each(function() {
+    $('.battle-row').each(function () {
       const $row = $(this);
 
       if ($row.attr('data-period') === lastPeriodId) {

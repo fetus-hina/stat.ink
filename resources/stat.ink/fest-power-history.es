@@ -1,6 +1,8 @@
 /*! Copyright (C) 2015-2019 AIZAWA Hina | MIT License */
 
 ($ => {
+  const numberFormat = window.numberFormat;
+
   $.fn.festPowerHistory = function (
     $legend,
     translations,
@@ -15,7 +17,7 @@
         labelFormatter: label => `<span class="mr-2">${label}</span>`,
         noColumns: 3,
         show: true,
-        sorted: "reverse",
+        sorted: 'reverse',
       },
       xaxis: {
         minTickSize: 1,

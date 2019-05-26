@@ -28,7 +28,7 @@
       )
     );
 
-    $dialog.on('shown.bs.modal', ev => {
+    $dialog.on('shown.bs.modal', () => {
       $input.focus();
     });
 

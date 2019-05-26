@@ -1,6 +1,7 @@
 /*! Copyright (C) 2015-2019 AIZAWA Hina | MIT License */
 
 ($ => {
+  const colorScheme = window.colorScheme;
   const thousandSep = window.numberFormat.thousand;
   const avg = data => data.length ? (data.reduce((a, b) => a + b) / data.length) : null;
 

@@ -1,5 +1,5 @@
 /*! Copyright (C) 2015-2019 AIZAWA Hina | MIT License */
-($ => {
+(($, UUID) => {
   $(() => {
     let initialized = false;
     let nextStageArrives = undefined;
@@ -60,7 +60,7 @@
         let value = obj.value;
         if (name && value !== null && value !== undefined) {
           value = String(value).trim();
-          if (value !== "") {
+          if (value !== '') {
             ret[name] = value;
           }
         }
@@ -78,12 +78,14 @@
           runStageTimer();
 
           // ステージ変更時にinitializedフラグを落とす仕込み
+          let timerId;
           (() => {
-            let timerId;
             if (timerId) {
-              window.clearTimeout(timerId);
+              clearTimeout(timerId);
+              timerId = null;
             }
-            timerId = window.setTimeout(() => {
+            timerId = setTimeout(() => {
+              timerId = null;
               initialized = false;
             }, json.current.period.next * 1000);
           })();
@@ -213,8 +215,6 @@
         return $(this).val() == '';
       });
       if ($empty.length) {
-console.log("empty");
-console.log($empty);
         return false;
       }
 
@@ -263,7 +263,7 @@ console.log($empty);
       var value;
 
       $elem = $('#battle-input2-form--fest--kill-or-assist', $form);
-      value = ($elem.val() + "").trim();
+      value = ($elem.val() + '').trim();
       if (value !== '') {
         if (!value.match(/^\d+$/)) {
           return false;
@@ -275,7 +275,7 @@ console.log($empty);
       }
 
       $elem = $('#battle-input2-form--fest--special', $form);
-      value = ($elem.val() + "").trim();
+      value = ($elem.val() + '').trim();
       if (value !== '') {
         if (!value.match(/^\d+$/)) {
           return false;
@@ -312,7 +312,7 @@ console.log($empty);
     };
 
     // 表示時に（必要であれば）通信をして画面要素を更新する
-    $modal.on('show.bs.modal', function (event) {
+    $modal.on('show.bs.modal', () => {
       if (!initialized) {
         refresh();
         updateAgentVersion();
@@ -376,7 +376,6 @@ console.log($empty);
     $regularSubmit.click(function () {
       const $this = $(this);
       const $form = $('#' + $this.attr('data-form') + ' form');
-      console.log($form);
       if (!$form.length) {
         return;
       }
@@ -424,7 +423,6 @@ console.log($empty);
     $rankedSubmit.click(function () {
       const $this = $(this);
       const $form = $('#' + $this.attr('data-form') + ' form');
-      console.log($form);
       if (!$form.length) {
         return;
       }
@@ -620,4 +618,4 @@ console.log($empty);
         });
     }
   });
-})(jQuery);
+})(jQuery, window.UUID);
