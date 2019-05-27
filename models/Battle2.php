@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2015-2017 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  * @author Yoshiyuki Kawashima <ykawashi7@gmail.com>
@@ -12,11 +12,13 @@ use DateInterval;
 use DateTime;
 use DateTimeImmutable;
 use DateTimeZone;
+use Exception;
 use Yii;
 use app\components\behaviors\RemoteAddrBehavior;
 use app\components\behaviors\RemotePortBehavior;
 use app\components\behaviors\TimestampBehavior;
 use app\components\helpers\Battle as BattleHelper;
+use app\components\helpers\BattleSummarizer;
 use app\components\helpers\DateTimeFormatter;
 use app\jobs\UserStatsJob;
 use jp3cki\uuid\Uuid;
@@ -24,6 +26,7 @@ use shakura\yii2\gearman\JobWorkload;
 use yii\behaviors\AttributeBehavior;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
+use yii\db\Query;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
 use yii\helpers\Url;
@@ -153,7 +156,7 @@ class Battle2 extends ActiveRecord
     public static function getRoughCount()
     {
         try {
-            return (new \yii\db\Query())
+            return (new Query())
                 ->select('[[last_value]]')
                 ->from('{{battle2_id_seq}}')
                 ->scalar();
@@ -164,8 +167,8 @@ class Battle2 extends ActiveRecord
 
     public static function find()
     {
-        return new class(get_called_class()) extends \yii\db\ActiveQuery {
-            public function applyFilter(Battle2FilterForm $form) : self
+        return new class(get_called_class()) extends ActiveQuery {
+            public function applyFilter(Battle2FilterForm $form): self
             {
                 $and = ['and'];
                 if ($form->screen_name != '') {
@@ -293,7 +296,7 @@ class Battle2 extends ActiveRecord
                 return $this;
             }
 
-            public function filterTerm(string $term, array $options) : self
+            public function filterTerm(string $term, array $options): self
             {
                 // DateTimeZone
                 $tz = (function (?string $tzIdent) {
@@ -395,19 +398,19 @@ class Battle2 extends ActiveRecord
                     case 'this-fest':
                         try {
                             if (!$form = $options['filter']) {
-                                throw new \Exception();
+                                throw new Exception();
                             }
 
                             if (!$user = User::findOne(['screen_name' => $form->screen_name])) {
-                                throw new \Exception();
+                                throw new Exception();
                             }
 
                             if (!$range = BattleHelper::getLastPlayedSplatfestPeriodRange2($user)) {
-                                throw new \Exception();
+                                throw new Exception();
                             }
 
                             $this->andWhere(['between', 'battle2.period', $range[0], $range[1]]);
-                        } catch (\Exception $e) {
+                        } catch (Exception $e) {
                             $this->andWhere('0 = 1');
                         }
                         break;
@@ -430,7 +433,7 @@ class Battle2 extends ActiveRecord
                                     ['<', $date, $to->format(DateTime::ATOM)]
                                 );
                             }
-                        } catch (\Exception $e) {
+                        } catch (Exception $e) {
                         }
                         break;
 
@@ -470,7 +473,7 @@ class Battle2 extends ActiveRecord
                                     $query->andWhere(['tag' => substr($term, 1)]);
                                 }
                                 return array_map(
-                                    function (array $version) : int {
+                                    function (array $version): int {
                                         return $version['id'];
                                     },
                                     $query->all()
@@ -489,7 +492,7 @@ class Battle2 extends ActiveRecord
 
             public function getSummary()
             {
-                return \app\components\helpers\BattleSummarizer::getSummary2($this);
+                return BattleSummarizer::getSummary2($this);
             }
         };
     }
@@ -576,12 +579,12 @@ class Battle2 extends ActiveRecord
                 'attributes' => [
                     ActiveRecord::EVENT_BEFORE_INSERT => 'version_id',
                 ],
-                'value' => function ($event) : ?int {
+                'value' => function ($event): ?int {
                     $battle = $event->sender;
                     if ($battle->version_id) {
                         return (int)$battle->version_id;
                     }
-                    $time = (function () use ($battle) : ?int {
+                    $time = (function () use ($battle): ?int {
                         if (is_string($battle->end_at) && trim($battle->end_at) !== '') {
                             return strtotime($battle->end_at);
                         }
@@ -645,7 +648,7 @@ class Battle2 extends ActiveRecord
         ];
     }
 
-    public static function createClientUuid($value) : string
+    public static function createClientUuid($value): string
     {
         if (!is_scalar($value)) {
             return Uuid::v4()->formatAsString();
@@ -892,7 +895,7 @@ class Battle2 extends ActiveRecord
         return $this->hasOne(Agent::class, ['id' => 'agent_id']);
     }
 
-    public function getBattleDeathReasons() : \yii\db\ActiveQuery
+    public function getBattleDeathReasons(): ActiveQuery
     {
         return $this->hasMany(BattleDeathReason2::class, ['battle_id' => 'id'])
             ->orderBy([
@@ -919,7 +922,7 @@ class Battle2 extends ActiveRecord
             ->andWhere(['type_id' => BattleImageType::ID_GEAR]);
     }
 
-    public function getBattlePlayers() : \yii\db\ActiveQuery
+    public function getBattlePlayers(): ActiveQuery
     {
         $query = $this->hasMany(BattlePlayer2::class, ['battle_id' => 'id'])
             ->with(['species', 'weapon', 'weapon.type', 'weapon.subweapon', 'weapon.special'])
@@ -930,18 +933,18 @@ class Battle2 extends ActiveRecord
         return $query;
     }
 
-    public function getBattlePlayersPure() : \yii\db\ActiveQuery
+    public function getBattlePlayersPure(): ActiveQuery
     {
         return $this->hasMany(BattlePlayer2::class, ['battle_id' => 'id']);
     }
 
-    public function getMyTeamPlayers() : \yii\db\ActiveQuery
+    public function getMyTeamPlayers(): ActiveQuery
     {
         return $this->getBattlePlayers()
             ->andWhere(['{{battle_player2}}.[[is_my_team]]' => true]);
     }
 
-    public function getHisTeamPlayers() : \yii\db\ActiveQuery
+    public function getHisTeamPlayers(): ActiveQuery
     {
         return $this->getBattlePlayers()
             ->andWhere(['{{battle_player2}}.[[is_my_team]]' => false]);
@@ -950,7 +953,7 @@ class Battle2 extends ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getEnv()
+    public function getEnv(): ActiveQuery
     {
         return $this->hasOne(Environment::class, ['id' => 'env_id']);
     }
@@ -958,7 +961,7 @@ class Battle2 extends ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getEvents() : \yii\db\ActiveQuery
+    public function getEvents(): ActiveQuery
     {
         return $this->hasOne(BattleEvents2::class, ['id' => 'id']);
     }
@@ -966,7 +969,7 @@ class Battle2 extends ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getLobby()
+    public function getLobby(): ActiveQuery
     {
         return $this->hasOne(Lobby2::class, ['id' => 'lobby_id']);
     }
@@ -974,7 +977,7 @@ class Battle2 extends ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getMap()
+    public function getMap(): ActiveQuery
     {
         return $this->hasOne(Map2::class, ['id' => 'map_id']);
     }
@@ -982,7 +985,7 @@ class Battle2 extends ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getMode()
+    public function getMode(): ActiveQuery
     {
         return $this->hasOne(Mode2::class, ['id' => 'mode_id']);
     }
@@ -990,7 +993,7 @@ class Battle2 extends ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getRank()
+    public function getRank(): ActiveQuery
     {
         return $this->hasOne(Rank2::class, ['id' => 'rank_id']);
     }
@@ -998,7 +1001,7 @@ class Battle2 extends ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getRankAfter()
+    public function getRankAfter(): ActiveQuery
     {
         return $this->hasOne(Rank2::class, ['id' => 'rank_after_id']);
     }
@@ -1006,7 +1009,7 @@ class Battle2 extends ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getRule()
+    public function getRule(): ActiveQuery
     {
         return $this->hasOne(Rule2::class, ['id' => 'rule_id']);
     }
@@ -1014,7 +1017,7 @@ class Battle2 extends ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getVersion()
+    public function getVersion(): ActiveQuery
     {
         return $this->hasOne(SplatoonVersion2::class, ['id' => 'version_id']);
     }
@@ -1022,7 +1025,7 @@ class Battle2 extends ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getAgentGameVersion()
+    public function getAgentGameVersion(): ActiveQuery
     {
         return $this->hasOne(SplatoonVersion2::class, ['id' => 'agent_game_version_id']);
     }
@@ -1030,7 +1033,7 @@ class Battle2 extends ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getBonus()
+    public function getBonus(): ActiveQuery
     {
         return $this->hasOne(TurfwarWinBonus2::class, ['id' => 'bonus_id']);
     }
@@ -1038,7 +1041,7 @@ class Battle2 extends ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getSplatnetJson()
+    public function getSplatnetJson(): ActiveQuery
     {
         return $this->hasOne(Battle2Splatnet::class, ['id' => 'id']);
     }
@@ -1046,7 +1049,7 @@ class Battle2 extends ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getUser()
+    public function getUser(): ActiveQuery
     {
         return $this->hasOne(User::class, ['id' => 'user_id']);
     }
@@ -1054,57 +1057,57 @@ class Battle2 extends ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getWeapon()
+    public function getWeapon(): ActiveQuery
     {
         return $this->hasOne(Weapon2::class, ['id' => 'weapon_id']);
     }
 
-    public function getSpecies()
+    public function getSpecies(): ActiveQuery
     {
         return $this->hasOne(Species2::class, ['id' => 'species_id']);
     }
 
-    public function getGender()
+    public function getGender(): ActiveQuery
     {
         return $this->hasOne(Gender::class, ['id' => 'gender_id']);
     }
 
-    public function getFestTitle()
+    public function getFestTitle(): ActiveQuery
     {
         return $this->hasOne(FestTitle::class, ['id' => 'fest_title_id']);
     }
 
-    public function getFestTitleAfter()
+    public function getFestTitleAfter(): ActiveQuery
     {
         return $this->hasOne(FestTitle::class, ['id' => 'fest_title_after_id']);
     }
 
-    public function getHeadgear()
+    public function getHeadgear(): ActiveQuery
     {
         return $this->hasOne(GearConfiguration2::class, ['id' => 'headgear_id']);
     }
 
-    public function getClothing()
+    public function getClothing(): ActiveQuery
     {
         return $this->hasOne(GearConfiguration2::class, ['id' => 'clothing_id']);
     }
 
-    public function getShoes()
+    public function getShoes(): ActiveQuery
     {
         return $this->hasOne(GearConfiguration2::class, ['id' => 'shoes_id']);
     }
 
-    public function getMyTeamFestTheme()
+    public function getMyTeamFestTheme(): ActiveQuery
     {
         return $this->hasOne(Splatfest2Theme::class, ['id' => 'my_team_fest_theme_id']);
     }
 
-    public function getHisTeamFestTheme()
+    public function getHisTeamFestTheme(): ActiveQuery
     {
         return $this->hasOne(Splatfest2Theme::class, ['id' => 'his_team_fest_theme_id']);
     }
 
-    public function getSpecialBattle()
+    public function getSpecialBattle(): ActiveQuery
     {
         return $this->hasOne(SpecialBattle2::class, ['id' => 'special_battle_id']);
     }
@@ -1119,21 +1122,21 @@ class Battle2 extends ActiveRecord
         return $this->hasOne(TeamNickname2::class, ['id' => 'his_team_nickname_id']);
     }
 
-    public function getIsMeaningful() : bool
+    public function getIsMeaningful(): bool
     {
         $props = [
             'rule_id', 'map_id', 'weapon_id', 'is_win', 'rank_in_team',
             'kill', 'death', 'kill_or_assist', 'special',
         ];
         foreach ($props as $prop) {
-            if ($this->$prop !== null) {
+            if ($this->$prop !== null && $this->$prop !== '') {
                 return true;
             }
         }
         return false;
     }
 
-    public function getPreviousBattle() : ActiveQuery
+    public function getPreviousBattle(): ActiveQuery
     {
         return $this->hasOne(static::class, ['user_id' => 'user_id'])
             ->andWhere(['<', 'id', $this->id])
@@ -1141,7 +1144,7 @@ class Battle2 extends ActiveRecord
             ->limit(1);
     }
 
-    public function getNextBattle() : ActiveQuery
+    public function getNextBattle(): ActiveQuery
     {
         return $this->hasOne(static::class, ['user_id' => 'user_id'])
             ->andWhere(['>', 'id', $this->id])
@@ -1149,14 +1152,14 @@ class Battle2 extends ActiveRecord
             ->limit(1);
     }
 
-    public function getExtraData() : array
+    public function getExtraData(): array
     {
         $json = $this->ua_variables;
         if ($json == '') {
             return [];
         }
         try {
-            return (function () use ($json) {
+            return (function () use ($json): array {
                 $decoded = Json::decode($json);
                 if (!$decoded) {
                     return [];
@@ -1170,12 +1173,12 @@ class Battle2 extends ActiveRecord
                 ksort($ret, SORT_STRING);
                 return $ret;
             })();
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return [];
         }
     }
 
-    public function getInked() : ?int
+    public function getInked(): ?int
     {
         if ($this->is_win === null || $this->my_point === null || $this->rule === null) {
             return null;
@@ -1189,7 +1192,7 @@ class Battle2 extends ActiveRecord
         return $this->my_point;
     }
 
-    public function getElapsedTime() : ?int
+    public function getElapsedTime(): ?int
     {
         if ($this->rule && $this->rule->key === 'nawabari') {
             return 180;
@@ -1205,28 +1208,28 @@ class Battle2 extends ActiveRecord
         return $e - $s;
     }
 
-    public function getCreatedAt() : int
+    public function getCreatedAt(): int
     {
         return strtotime($this->created_at);
     }
 
-    public function getIsNawabari() : bool
+    public function getIsNawabari(): bool
     {
         return $this->getIsThisGameMode('regular');
     }
 
-    public function getIsGachi() : bool
+    public function getIsGachi(): bool
     {
         return $this->getIsThisGameMode('gachi') ||
             in_array($this->rule->key ?? null, ['area', 'yagura', 'hoko', 'asari'], true);
     }
 
-    private function getIsThisGameMode(string $key) : bool
+    private function getIsThisGameMode(string $key): bool
     {
         return ($this->mode->key ?? null) === $key;
     }
 
-    public function getVirtualStartTime() : DateTimeImmutable
+    public function getVirtualStartTime(): DateTimeImmutable
     {
         if ($this->start_at) {
             return new DateTimeImmutable($this->start_at);
@@ -1239,17 +1242,17 @@ class Battle2 extends ActiveRecord
             ->sub(new DateInterval('PT3M15S'));
     }
 
-    public function getMyTeamIcon(string $ext = 'svg') : ?string
+    public function getMyTeamIcon(string $ext = 'svg'): ?string
     {
         return static::teamIcon($this->my_team_id, $ext);
     }
 
-    public function getHisTeamIcon(string $ext = 'svg') : ?string
+    public function getHisTeamIcon(string $ext = 'svg'): ?string
     {
         return static::teamIcon($this->his_team_id, $ext);
     }
 
-    public static function teamIcon(?string $id, string $ext = 'svg') : ?string
+    public static function teamIcon(?string $id, string $ext = 'svg'): ?string
     {
         $id = trim((string)$id);
         if ($id === '') {
@@ -1263,7 +1266,7 @@ class Battle2 extends ActiveRecord
         return Yii::getAlias('@jdenticon') . '/' . $hash . '.' . $ext;
     }
 
-    public function toJsonArray(array $skips = []) : array
+    public function toJsonArray(array $skips = []): array
     {
         $events = null;
         if ($this->events && !in_array('events', $skips, true)) {
@@ -1285,7 +1288,9 @@ class Battle2 extends ActiveRecord
                 'screen_name' => $this->user->screen_name,
                 'battle' => $this->id
             ], true),
-            'user' => !in_array('user', $skips, true) && $this->user ? $this->user->toJsonArray() : null,
+            'user' => !in_array('user', $skips, true) && $this->user
+                ? $this->user->toJsonArray()
+                : null,
             'lobby' => $this->lobby ? $this->lobby->toJsonArray() : null,
             'mode' => $this->mode ? $this->mode->toJsonArray(false) : null,
             'rule' => $this->rule ? $this->rule->toJsonArray() : null,
@@ -1362,10 +1367,18 @@ class Battle2 extends ActiveRecord
             'fest_power' => $this->fest_power,
             'my_team_estimate_fest_power' => $this->my_team_estimate_fest_power,
             'his_team_my_team_estimate_fest_power' => $this->his_team_estimate_fest_power,
-            'my_team_fest_theme' => $this->my_team_fest_theme_id ? $this->myTeamFestTheme->name : null,
-            'his_team_fest_theme' => $this->his_team_fest_theme_id ? $this->hisTeamFestTheme->name : null,
-            'my_team_nickname' => $this->my_team_nickname_id ? $this->myTeamNickname->name : null,
-            'his_team_nickname' => $this->his_team_nickname_id ? $this->hisTeamNickname->name : null,
+            'my_team_fest_theme' => $this->my_team_fest_theme_id
+                ? $this->myTeamFestTheme->name
+                : null,
+            'his_team_fest_theme' => $this->his_team_fest_theme_id
+                ? $this->hisTeamFestTheme->name
+                : null,
+            'my_team_nickname' => $this->my_team_nickname_id
+                ? $this->myTeamNickname->name
+                : null,
+            'his_team_nickname' => $this->his_team_nickname_id
+                ? $this->hisTeamNickname->name
+                : null,
             'clout' => $this->clout,
             'total_clout' => $this->total_clout,
             'total_clout_after' => $this->total_clout_after,
@@ -1374,15 +1387,26 @@ class Battle2 extends ActiveRecord
             'synergy_bonus' => ($this->synergy_bonus === null)
                 ? null
                 : new JsExpression(sprintf('%.1f', $this->synergy_bonus)),
-            'special_battle' => $this->special_battle_id ? $this->specialBattle->toJsonArray() : null,
+            'special_battle' => $this->special_battle_id
+                ? $this->specialBattle->toJsonArray()
+                : null,
             'image_judge' => $this->battleImageJudge
-                ? Url::to(Yii::getAlias('@imageurl') . '/' . $this->battleImageJudge->filename, true)
+                ? Url::to(
+                    Yii::getAlias('@imageurl') . '/' . $this->battleImageJudge->filename,
+                    true
+                )
                 : null,
             'image_result' => $this->battleImageResult
-                ? Url::to(Yii::getAlias('@imageurl') . '/' . $this->battleImageResult->filename, true)
+                ? Url::to(
+                    Yii::getAlias('@imageurl') . '/' . $this->battleImageResult->filename,
+                    true
+                )
                 : null,
             'image_gear' => $this->battleImageGear
-                ? Url::to(Yii::getAlias('@imageurl') . '/' . $this->battleImageGear->filename, true)
+                ? Url::to(
+                    Yii::getAlias('@imageurl') . '/' . $this->battleImageGear->filename,
+                    true
+                )
                 : null,
             'gears' => in_array('gears', $skips, true)
                 ? null
@@ -1419,7 +1443,12 @@ class Battle2 extends ActiveRecord
                 'game_version' => $this->agentGameVersion->name ?? null,
                 'game_version_date' => $this->agent_game_version_date,
                 'custom' => $this->ua_custom,
-                'variables' => $this->ua_variables ? @json_decode($this->ua_variables, false) : null,
+                'variables' => $this->ua_variables
+                    ? (is_string($this->ua_variables)
+                        ? Json::decode($this->ua_variables, false)
+                        : $this->ua_variables
+                    )
+                    : null,
             ],
             'automated' => !!$this->is_automated,
             'environment' => $this->env ? $this->env->text : null,
@@ -1439,7 +1468,7 @@ class Battle2 extends ActiveRecord
         ];
     }
 
-    public function toIkaLogCsv() : array
+    public function toIkaLogCsv(): array
     {
         // https://github.com/hasegaw/IkaLog/blob/b2e3f3f1315719ad42837ffdb2362680ae09a5dc/ikalog/outputs/csv.py#L130
         // t_unix, t_str, map, rule, won
@@ -1465,10 +1494,10 @@ class Battle2 extends ActiveRecord
         ];
     }
 
-    public function toCsvArray() : array
+    public function toCsvArray(): array
     {
         $t = strtotime($this->end_at ?: $this->at);
-        $mode = (function () : string {
+        $mode = (function (): string {
             if ($this->lobby && $this->lobby->key === 'private') {
                 return 'Private Battle';
             }
@@ -1603,7 +1632,7 @@ class Battle2 extends ActiveRecord
         return null;
     }
 
-    public function getHasDisconnectedPlayer() : bool
+    public function getHasDisconnectedPlayer(): bool
     {
         foreach ($this->battlePlayers as $player) {
             if ($player->getIsDisconnected()) {
@@ -1613,39 +1642,39 @@ class Battle2 extends ActiveRecord
         return false;
     }
 
-    public function getPrivateRoomId() : ?string
+    public function getPrivateRoomId(): ?string
     {
         return $this->getPrivateTeamId($this->battlePlayersPure);
     }
 
-    public function getPrivateMyTeamId() : ?string
+    public function getPrivateMyTeamId(): ?string
     {
         return $this->getPrivateTeamId(array_filter(
             $this->battlePlayersPure,
-            function ($model) : bool {
+            function ($model): bool {
                 return $model->is_my_team === true;
             }
         ));
     }
 
-    public function getPrivateHisTeamId() : ?string
+    public function getPrivateHisTeamId(): ?string
     {
         return $this->getPrivateTeamId(array_filter(
             $this->battlePlayersPure,
-            function ($model) : bool {
+            function ($model): bool {
                 return $model->is_my_team === false;
             }
         ));
     }
 
-    private function getPrivateTeamId(array $players) : ?string
+    private function getPrivateTeamId(array $players): ?string
     {
         if (!$this->lobby || $this->lobby->key !== 'private') {
             return null;
         }
 
         $playerIds = array_map(
-            function ($player) : ?string {
+            function ($player): ?string {
                 $id =  trim($player->splatnet_id);
                 return preg_match('/^[0-9a-f]{16}$/u', $id)
                     ? $id
@@ -1665,7 +1694,7 @@ class Battle2 extends ActiveRecord
         return hash('sha256', implode('&', $playerIds));
     }
 
-    public function adjustUserWeapon($weaponIds, ?int $excludeBattle = null) : void
+    public function adjustUserWeapon($weaponIds, ?int $excludeBattle = null): void
     {
         $weaponIds = array_unique(array_filter((array)$weaponIds, function ($value) {
             return $value > 0;
@@ -1717,7 +1746,7 @@ class Battle2 extends ActiveRecord
         }
     }
 
-    public function updateUserStats() : void
+    public function updateUserStats(): void
     {
         UserStat2::getLock($this->user_id);
         Yii::$app->gearman->getDispatcher()->background(
@@ -1731,7 +1760,7 @@ class Battle2 extends ActiveRecord
         );
     }
 
-    public function deleteRelated() : void
+    public function deleteRelated(): void
     {
         $queries = [
             $this->getBattleDeathReasons(),

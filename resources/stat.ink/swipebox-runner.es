@@ -6,14 +6,13 @@
       .on(
         'click touchend',
         '#swipebox-slider .current img',
-        e => false
+        () => false
       )
       .on(
         'click touchend',
         '#swipebox-slider .current',
-        e => {
-          $('#swipebox-close')
-            .trigger('click');
+        () => {
+          $('#swipebox-close').trigger('click');
         }
       );
   });

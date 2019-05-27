@@ -41,7 +41,7 @@ class WeaponAction extends BaseAction
             WeaponType::find()->orderBy(['id' => SORT_ASC])->asArray()->all()
         );
 
-        $langs = Language::find()->asArray()->all();
+        $langs = Language::find()->standard()->asArray()->all();
         $sysLang = Yii::$app->language;
         usort($langs, function (array $a, array $b) use ($sysLang) : int {
             if ($a['lang'] === $sysLang) {

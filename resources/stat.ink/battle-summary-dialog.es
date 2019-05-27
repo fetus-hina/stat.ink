@@ -1,4 +1,8 @@
+/*! Copyright (C) 2015-2019 AIZAWA Hina | MIT License */
+
 ($ => {
+  const colorScheme = window.colorScheme;
+
   $(() => {
     const $modal = $('#battles-summary-modal');
     const $anchors = $('.summary-box-plot');

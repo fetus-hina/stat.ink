@@ -10,9 +10,9 @@
     const formatDate = date => {
       const zeroPad = n => {
         n = String(n);
-        return (n.length == 1) ? "0" + n : n;
+        return (n.length == 1) ? `0${n}` : n;
       };
-      return date.getUTCFullYear() + "-" + zeroPad(date.getUTCMonth() + 1) + "-" + zeroPad(date.getUTCDate());
+      return date.getUTCFullYear() + '-' + zeroPad(date.getUTCMonth() + 1) + '-' + zeroPad(date.getUTCDate());
     };
 
     const json = JSON.parse($graph.attr('data-data'));
@@ -22,7 +22,7 @@
         data: json.map(v => [dateToUnixTime(v.date), v.battle]),
         bars:{
           show: true,
-          align: "center",
+          align: 'center',
           barWidth: 86400 * 1000 * .8,
           lineWidth: 1,
         },
@@ -53,7 +53,7 @@
         position: 'right',
       },
       legend: {
-        position: "nw",
+        position: 'nw',
       },
     });
     // }}}

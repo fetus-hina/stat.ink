@@ -6,7 +6,7 @@
     const make = function (json, screen_name, filter) {
       const battlesUrl = map => {
         const params = [];
-        for (let k in filter) {
+        for (const k in filter) {
           if (String(k).match(/^filter\[/)) {
             params.push(encodeURIComponent(k) + '=' + encodeURIComponent(filter[k]));
           }
@@ -16,7 +16,7 @@
       };
       const $root = $('<div>').append($('<h2>').text(json.name));
       const maps = [];
-      for (let i in json) {
+      for (const i in json) {
         if (!json.hasOwnProperty(i)) {
           continue;
         }
@@ -65,22 +65,22 @@
                 show: 'auto',
                 radius: .61803398875,
                 formatter: (label, slice) => $('<div>').append(
-                    $('<div>').css({
-                      'fontSize': '1em',
-                      'lineHeight': '1.1em',
-                      'textAlign': 'center',
-                      'padding': '2px',
-                      'color': '#fff',
-                      'textShadow': '0px 0px 3px #000',
-                    }).append(
-                      slice.data[0][1] + ' / ' +
+                  $('<div>').css({
+                    'fontSize': '1em',
+                    'lineHeight': '1.1em',
+                    'textAlign': 'center',
+                    'padding': '2px',
+                    'color': '#fff',
+                    'textShadow': '0px 0px 3px #000',
+                  }).append(
+                    slice.data[0][1] + ' / ' +
                       Math.round(slice.data[0][1] / (slice.percent / 100)) // FIXME
-                    ).append(
-                      $('<br>')
-                    ).append(
-                      slice.percent.toFixed(1) + '%'
-                    )
+                  ).append(
+                    $('<br>')
+                  ).append(
+                    slice.percent.toFixed(1) + '%'
                   )
+                )
                   .html(),
               },
             },

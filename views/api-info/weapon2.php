@@ -1,4 +1,5 @@
 <?php
+use app\assets\TableResponsiveForceAsset;
 use app\components\helpers\WeaponShortener;
 use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
@@ -13,6 +14,7 @@ $this->registerMetaTag(['name' => 'twitter:title', 'content' => $this->title]);
 $this->registerMetaTag(['name' => 'twitter:description', 'content' => $this->title]);
 $this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink']);
 
+TableResponsiveForceAsset::register($this);
 SortableTableAsset::register($this);
 
 $shortener = Yii::createObject(['class' => WeaponShortener::class]);

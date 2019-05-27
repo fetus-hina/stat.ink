@@ -1,6 +1,6 @@
 /*! Copyright (C) 2015-2019 AIZAWA Hina | MIT License */
 
-($ => {
+(($, numberFormat) => {
   $.fn.xPowerHistory = function ($legend, translations, xPowers, estimateXPowers, results) {
     const options = {
       legend: {
@@ -8,7 +8,7 @@
         labelFormatter: label => `<span class="mr-2">${label}</span>`,
         noColumns: 4,
         show: true,
-        sorted: "reverse",
+        sorted: 'reverse',
       },
       xaxis: {
         minTickSize: 1,
@@ -99,4 +99,4 @@
 
     return this;
   };
-})(jQuery);
+})(jQuery, window.numberFormat);

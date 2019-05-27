@@ -6,7 +6,7 @@
     const make = (json, screen_name, filter) => {
       const battlesUrl = rule => {
         const params = [];
-        for (let k in filter) {
+        for (const k in filter) {
           if (String(k).match(/^filter\[/)) {
             params.push(encodeURIComponent(k) + '=' + encodeURIComponent(filter[k]));
           }
@@ -16,7 +16,7 @@
       };
       const $root = $('<div>').append($('<h2>').text(json.name));
       const rules = [];
-      for (let i in json.rules) {
+      for (const i in json.rules) {
         if (!json.rules.hasOwnProperty(i)) {
           continue;
         }
@@ -130,7 +130,7 @@
 
     let timerId = null;
     const onResize = () => {
-       $elem = $('.pie-flot-container');
+      const $elem = $('.pie-flot-container');
       if ($elem.length) {
         $elem.height(Math.min($elem.width(), 200));
       }
@@ -148,6 +148,6 @@
       },
       33
     )
-    .resize();
+      .resize();
   });
 })(window, jQuery);

@@ -26,7 +26,7 @@
       let prevIndex = null;
       let prevRule = null;
       let prevValue = null;
-      data.forEach((item, i) => {
+      data.forEach(item => {
         if (prevRule !== item.rule && prevRule !== null) {
           ret[prevRule].push([item.index, null]);
           ret[item.rule].push([prevIndex, prevValue]);

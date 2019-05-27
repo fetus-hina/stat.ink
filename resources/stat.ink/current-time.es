@@ -1,5 +1,6 @@
 /*! Copyright (C) 2015-2019 AIZAWA Hina | MIT License */
 ($ => {
+  const moment = window.moment;
   const htmlEncode = str => {
     return String(str).replace(/[<>&"']/g, match => {
       const table = {
@@ -7,7 +8,7 @@
         '>': '&gt;',
         '&': '&amp;',
         '"': '&quot;',
-        "'": '&#39;',
+        '\'': '&#39;',
       };
       return table[match];
     });

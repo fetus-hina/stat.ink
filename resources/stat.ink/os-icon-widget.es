@@ -41,5 +41,6 @@
       const $this = $(el);
       $this.empty().append(createIcon(options));
     });
+    return this;
   };
-})(jQuery, bowser);
+})(jQuery, window.bowser);
