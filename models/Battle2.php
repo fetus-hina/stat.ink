@@ -1664,46 +1664,66 @@ class Battle2 extends ActiveRecord
 
     public static function fullCsvArraySchema(): array
     {
-        return ArrayHelper::toFlatten(array_merge(
-            [
-                'statink_id',
-                'splatnet_number',
-                'version',
-                'period',
-                'start_at',
-                'start_at',
-                'end_at',
-                'end_at',
-                'lobby',
-                'lobby',
-                'mode',
-                'mode',
-                'stage',
-                'stage',
-                'room_id',
-                'team_id',
-                'is_win',
-                'is_knockout',
-                'star',
-                'level_before',
-                'level_after',
-                'rank_before',
-                'rank_before',
-                'rank_after',
-                'rank_after',
-                'x_power_before',
-                'x_power_after',
-                'estimate_x_power',
-                'weapon',
-                'weapon',
-            ],
-        ));
+        return ArrayHelper::toFlatten([
+            'statink_id',
+            'splatnet_number',
+            'version',
+            'period',
+            'start_at',
+            'start_at',
+            'end_at',
+            'end_at',
+            'lobby',
+            'lobby',
+            'mode',
+            'mode',
+            'stage',
+            'stage',
+            'room_id',
+            'team_id',
+            'is_win',
+            'is_knockout',
+            'species',
+            'species',
+            'gender',
+            'gender',
+            'star',
+            'level_before',
+            'level_after',
+            'rank_before',
+            'rank_before',
+            'rank_after',
+            'rank_after',
+            'x_power_before',
+            'x_power_after',
+            'estimate_x_power',
+            'weapon',
+            'weapon',
+            array_map(
+                function (string $pos): array {
+                    return [
+                        $pos,
+                        $pos,
+                        array_map(
+                            function (string $aPos) use ($pos): array {
+                                return [
+                                    "{$pos}_{$aPos}",
+                                    "{$pos}_{$aPos}",
+                                ];
+                            },
+                            ['main', 'sub1', 'sub2', 'sub3']
+                        ),
+                    ];
+                },
+                ['headgear', 'clothing', 'shoes']
+            ),
+        ]);
     }
 
     public function toFullCsvArray(): array
     {
         $modes = $this->resolveMode();
-        return [
+        return ArrayHelper::toFlatten([
             (string)$this->id,
             (string)$this->splatnet_number,
             $this->version_id ? Yii::t('app-version2', $this->version->name) : '',
@@ -1726,6 +1746,10 @@ class Battle2 extends ActiveRecord
                 : (string)$this->my_team_id,
             $this->is_win !== null ? ($this->is_win ? 'TRUE' : 'FALSE') : '',
             $this->is_knockout !== null ? ($this->is_knockout ? 'TRUE' : 'FALSE') : '',
+            $this->species_id ? $this->species->key : '',
+            $this->species_id ? Yii::t('app', $this->species->name) : '',
+            $this->gender_id ? $this->gender_id : '',
+            $this->gender_id ? Yii::t('app', $this->gender->name) : '',
             (string)$this->star_rank,
             (string)$this->level,
             (string)$this->level_after,
@@ -1738,7 +1762,41 @@ class Battle2 extends ActiveRecord
             (string)$this->estimate_x_power,
             $this->weapon ? $this->weapon->key : '',
             $this->weapon ? Yii::t('app-weapon2', $this->weapon->name) : '',
-        ];
+            array_map(
+                function (string $gearKey): array {
+                    if (!$conf = $this->$gearKey) {
+                        return ['', '', '', '', '', '', '', '', '', ''];
+                    }
+                    $secondaries = $conf->secondaries;
+                    return [
+                        $conf->gear_id ? $conf->gear->key : '',
+                        $conf->gear_id ? Yii::t('app-gear2', $conf->gear->name) : '',
+                        $conf->primary_ability_id ? $conf->primaryAbility->key : '',
+                        $conf->primary_ability_id
+                            ? Yii::t('app-ability2', $conf->primaryAbility->name)
+                            : '',
+                        array_map(
+                            function (int $i) use ($secondaries): array {
+                                if (!isset($secondaries[$i])) {
+                                    return ['', ''];
+                                }
+                                $ability = $secondaries[$i]->ability;
+                                if (!$ability) {
+                                    return ['', ''];
+                                }
+
+                                return [
+                                    $ability->key,
+                                    Yii::t('app-ability2', $ability->name),
+                                ];
+                            },
+                            [0, 1, 2]
+                        ),
+                    ];
+                },
+                ['headgear', 'clothing', 'shoes']
+            ),
+        ]);
     }
 
     public function getPrettyMode(): ?string

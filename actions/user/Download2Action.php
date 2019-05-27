@@ -12,6 +12,7 @@ namespace app\actions\user;
 
 use Yii;
 use app\models\Battle2;
+use yii\helpers\ArrayHelper;
 use yii\web\BadRequestHttpException;
 use yii\web\ServerErrorHttpException;
 use yii\web\ViewAction as BaseAction;
@@ -141,17 +142,31 @@ class Download2Action extends BaseAction
         $resp->setDownloadHeaders('statink-2.csv', 'text/cvs; charset=UTF-8', false, null);
         $resp->format = 'csv';
         $battles = $this->user->getBattle2s()
-            ->with([
+            ->with(ArrayHelper::toFlatten([
                 'battlePlayersPure',
+                'gender',
                 'lobby',
                 'map',
                 'mode',
                 'rank',
                 'rankAfter',
                 'rule',
+                'species',
                 'version',
                 'weapon',
-            ])
+                array_map(
+                    function (string $gear): array {
+                        return [
+                            $gear,
+                            "{$gear}.gear",
+                            "{$gear}.primaryAbility",
+                            "{$gear}.secondaries",
+                            "{$gear}.secondaries.ability",
+                        ];
+                    },
+                    ['headgear', 'clothing', 'shoes']
+                ),
+            ]))
             ->orderBy(['{{battle2}}.[[id]]' => SORT_ASC]);
         $generator =  function () use ($battles) {
             $schema = Battle2::fullCsvArraySchema();
