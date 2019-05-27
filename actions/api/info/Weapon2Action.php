@@ -74,7 +74,7 @@ class Weapon2Action extends BaseAction
                 ->all()
         );
 
-        $langs = Language::find()->asArray()->all();
+        $langs = Language::find()->standard()->asArray()->all();
         $sysLang = Yii::$app->language;
         usort($langs, function (array $a, array $b) use ($sysLang) : int {
             if ($a['lang'] === $sysLang) {
