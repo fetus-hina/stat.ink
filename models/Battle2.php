@@ -1662,7 +1662,95 @@ class Battle2 extends ActiveRecord
         ];
     }
 
-    public function getPrettyMode()
+    public static function fullCsvArraySchema(): array
+    {
+        return ArrayHelper::toFlatten(array_merge(
+            [
+                'statink_id',
+                'splatnet_number',
+                'version',
+                'period',
+                'start_at',
+                'start_at',
+                'end_at',
+                'end_at',
+                'lobby',
+                'lobby',
+                'mode',
+                'mode',
+                'stage',
+                'stage',
+                'room_id',
+                'team_id',
+                'is_win',
+                'is_knockout',
+                'star',
+                'level_before',
+                'level_after',
+                'rank_before',
+                'rank_before',
+                'rank_after',
+                'rank_after',
+                'x_power_before',
+                'x_power_after',
+                'estimate_x_power',
+                'weapon',
+                'weapon',
+            ],
+        ));
+    }
+
+    public function toFullCsvArray(): array
+    {
+        $modes = $this->resolveMode();
+        return [
+            (string)$this->id,
+            (string)$this->splatnet_number,
+            $this->version_id ? Yii::t('app-version2', $this->version->name) : '',
+            (string)$this->period,
+            $this->start_at ? strtotime($this->start_at) : '',
+            $this->start_at ? date(DateTime::ATOM, strtotime($this->start_at)) : '',
+            $this->end_at ? strtotime($this->end_at) : '',
+            $this->end_at ? date(DateTime::ATOM, strtotime($this->end_at)) : '',
+            $modes ? $modes[1] : '',
+            $modes ? Yii::t('app-rule2', $modes[1]) : '',
+            $modes ? $modes[0] : '',
+            $modes ? Yii::t('app-rule2', $modes[0]) : '',
+            $this->map ? $this->map->key : '',
+            $this->map ? Yii::t('app-map2', $this->map->name) : '',
+            ($this->lobby && $this->lobby->key === 'private')
+                ? substr($this->privateRoomId, 0, 8)
+                : '',
+            ($this->lobby && $this->lobby->key === 'private')
+                ? sprintf('private:%s', substr($this->privateMyTeamId, 0, 8))
+                : (string)$this->my_team_id,
+            $this->is_win !== null ? ($this->is_win ? 'TRUE' : 'FALSE') : '',
+            $this->is_knockout !== null ? ($this->is_knockout ? 'TRUE' : 'FALSE') : '',
+            (string)$this->star_rank,
+            (string)$this->level,
+            (string)$this->level_after,
+            $this->rank ? $this->rank->name : '',
+            $this->rank ? (string)$this->rank_exp : '',
+            $this->rankAfter ? $this->rankAfter->name : '',
+            $this->rankAfter ? (string)$this->rank_after_exp : '',
+            (string)$this->x_power,
+            (string)$this->x_power_after,
+            (string)$this->estimate_x_power,
+            $this->weapon ? $this->weapon->key : '',
+            $this->weapon ? Yii::t('app-weapon2', $this->weapon->name) : '',
+        ];
+    }
+
+    public function getPrettyMode(): ?string
+    {
+        if (!$mode = $this->resolveMode()) {
+            return null;
+        }
+
+        return Yii::t('app-rule2', sprintf('%s - %s', $mode[0], $mode[1]));
+    }
+
+    public function resolveMode(): ?array
     {
         $key = implode('-', [
             $this->lobby->key ?? '?',
@@ -1672,54 +1760,54 @@ class Battle2 extends ActiveRecord
 
         switch ($key) {
             case 'standard-regular-nawabari':
-                return Yii::t('app-rule2', 'Turf War - Regular Battle');
+                return ['Turf War', 'Regular Battle'];
             case 'standard-gachi-area':
-                return Yii::t('app-rule2', 'Splat Zones - Ranked Battle');
+                return ['Splat Zones', 'Ranked Battle'];
             case 'standard-gachi-yagura':
-                return Yii::t('app-rule2', 'Tower Control - Ranked Battle');
+                return ['Tower Control', 'Ranked Battle'];
             case 'standard-gachi-hoko':
-                return Yii::t('app-rule2', 'Rainmaker - Ranked Battle');
+                return ['Rainmaker', 'Ranked Battle'];
             case 'standard-gachi-asari':
-                return Yii::t('app-rule2', 'Clam Blitz - Ranked Battle');
+                return ['Clam Blitz', 'Ranked Battle'];
             case 'squad_2-gachi-area':
-                return Yii::t('app-rule2', 'Splat Zones - League Battle (Twin)');
+                return ['Splat Zones', 'League Battle (Twin)'];
             case 'squad_2-gachi-yagura':
-                return Yii::t('app-rule2', 'Tower Control - League Battle (Twin)');
+                return ['Tower Control', 'League Battle (Twin)'];
             case 'squad_2-gachi-hoko':
-                return Yii::t('app-rule2', 'Rainmaker - League Battle (Twin)');
+                return ['Rainmaker', 'League Battle (Twin)'];
             case 'squad_2-gachi-asari':
-                return Yii::t('app-rule2', 'Clam Blitz - League Battle (Twin)');
+                return ['Clam Blitz', 'League Battle (Twin)'];
             case 'squad_4-gachi-area':
-                return Yii::t('app-rule2', 'Splat Zones - League Battle (Quad)');
+                return ['Splat Zones', 'League Battle (Quad)'];
             case 'squad_4-gachi-yagura':
-                return Yii::t('app-rule2', 'Tower Control - League Battle (Quad)');
+                return ['Tower Control', 'League Battle (Quad)'];
             case 'squad_4-gachi-hoko':
-                return Yii::t('app-rule2', 'Rainmaker - League Battle (Quad)');
+                return ['Rainmaker', 'League Battle (Quad)'];
             case 'squad_4-gachi-asari':
-                return Yii::t('app-rule2', 'Clam Blitz - League Battle (Quad)');
+                return ['Clam Blitz', 'League Battle (Quad)'];
             case 'standard-fest-nawabari':
                 if ($this->version) {
                     if (version_compare($this->version->tag, '4.0.0', '<')) {
-                        return Yii::t('app-rule2', 'Turf War - Splatfest (Solo)');
+                        return ['Turf War', 'Splatfest (Solo)'];
                     } else {
-                        return Yii::t('app-rule2', 'Turf War - Splatfest (Pro)');
+                        return ['Turf War', 'Splatfest (Pro)'];
                     }
                 }
-                return Yii::t('app-rule2', 'Turf War - Splatfest (Pro/Solo)');
+                return ['Turf War', 'Splatfest (Pro/Solo)'];
             case 'fest_normal-fest-nawabari':
-                return Yii::t('app-rule2', 'Turf War - Splatfest (Normal)');
+                return ['Turf War', 'Splatfest (Normal)'];
             case 'squad_4-fest-nawabari':
-                return Yii::t('app-rule2', 'Turf War - Splatfest (Team)');
+                return ['Turf War', 'Splatfest (Team)'];
             case 'private-private-nawabari':
-                return Yii::t('app-rule2', 'Turf War - Private Battle');
+                return ['Turf War', 'Private Battle'];
             case 'private-private-area':
-                return Yii::t('app-rule2', 'Splat Zones - Private Battle');
+                return ['Splat Zones', 'Private Battle'];
             case 'private-private-yagura':
-                return Yii::t('app-rule2', 'Tower Control - Private Battle');
+                return ['Tower Control', 'Private Battle'];
             case 'private-private-hoko':
-                return Yii::t('app-rule2', 'Rainmaker - Private Battle');
+                return ['Rainmaker', 'Private Battle'];
             case 'private-private-asari':
-                return Yii::t('app-rule2', 'Clam Blitz - Private Battle');
+                return ['Clam Blitz', 'Private Battle'];
         }
         return null;
     }

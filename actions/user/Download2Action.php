@@ -1,15 +1,17 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2017 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
 
+declare(strict_types=1);
+
 namespace app\actions\user;
 
 use Yii;
-use app\models\Battle;
+use app\models\Battle2;
 use yii\web\BadRequestHttpException;
 use yii\web\ServerErrorHttpException;
 use yii\web\ViewAction as BaseAction;
@@ -35,8 +37,8 @@ class Download2Action extends BaseAction
                 case 'csv':
                     return $this->runCsv();
 
-                // case 'ikalog-json':
-                //     return $this->runIkaLogJson();
+                case 'full-csv':
+                    return $this->runFullCsv();
             }
         }
         throw new BadRequestHttpException(
@@ -133,25 +135,40 @@ class Download2Action extends BaseAction
         ];
     }
 
-    // private function runIkaLogJson()
-    // {
-    //     $resp = Yii::$app->response;
-    //     $resp->setDownloadHeaders('statink-ikalog.json', 'application/octet-stream', false, null);
-    //     $resp->format = 'ikalog-json';
-    //     $battles = $this->user->getBattles()
-    //         ->with([
-    //             'rule', 'map', 'weapon', 'rank', 'rankAfter',
-    //             'battlePlayers', 'battlePlayers.rank', 'battlePlayers.weapon',
-    //         ])
-    //         ->orderBy('{{battle}}.[[id]] ASC');
-    //     $generator =  function () use ($battles) {
-    //         foreach ($battles->each() as $battle) {
-    //             yield $battle->toIkaLogJson();
-    //         }
-    //     };
+    private function runFullCsv()
+    {
+        $resp = Yii::$app->response;
+        $resp->setDownloadHeaders('statink-2.csv', 'text/cvs; charset=UTF-8', false, null);
+        $resp->format = 'csv';
+        $battles = $this->user->getBattle2s()
+            ->with([
+                'battlePlayersPure',
+                'lobby',
+                'map',
+                'mode',
+                'rank',
+                'rankAfter',
+                'rule',
+                'version',
+                'weapon',
+            ])
+            ->orderBy(['{{battle2}}.[[id]]' => SORT_ASC]);
+        $generator =  function () use ($battles) {
+            $schema = Battle2::fullCsvArraySchema();
+            $schema[0] = '# ' . $schema[0];
+            yield $schema;
+            unset($schema);
 
-    //     return [
-    //         'rows' => $generator(),
-    //     ];
-    // }
+            foreach ($battles->each(250) as $battle) {
+                yield $battle->toFullCsvArray();
+            }
+        };
+
+        return [
+            'inputCharset' => 'UTF-8',
+            'outputCharset' => 'UTF-8',
+            'appendBOM' => true,
+            'rows' => $generator(),
+        ];
+    }
 }

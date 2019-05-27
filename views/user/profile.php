@@ -44,14 +44,38 @@ $this->registerCss('.btn-block.text-left{text-align:left}');
         ) . "\n" ?>
       </p>
       <h2><?= Html::encode(Yii::t('app', 'Export')) ?> (Splatoon 2)</h2>
-      <p><?= implode('', [
+      <?= implode('', [
         Html::a(
           implode(' ', [
             FA::far('file-excel')->fw(),
             Html::encode(Yii::t('app', 'CSV')),
           ]),
           ['download2', 'type' => 'csv'],
-          ['class' => 'btn btn-default btn-block text-left']
+          ['class' => 'btn btn-default btn-block text-left mb-1']
+        ),
+        Html::tag(
+          'div',
+          implode('', [
+            Html::a(
+              implode(' ', [
+                FA::far('file-excel')->fw(),
+                Html::encode(Yii::t('app', 'Detailed CSV')),
+                ' ',
+                Html::tag('small', Html::encode('(α)')),
+              ]),
+              ['download2', 'type' => 'full-csv'],
+              ['class' => 'btn btn-default text-left-important flex-grow-1']
+            ),
+            Html::a(
+              FA::fas('info')->fw(),
+              'https://github.com/fetus-hina/stat.ink/blob/master/doc/api-2/export-battle-full-csv.md',
+              [
+                'class' => 'btn btn-default auto-tooltip',
+                'title' => Yii::t('app', 'Schema information'),
+              ]
+            ),
+          ]),
+          ['class' => 'btn-group d-flex mb-1']
         ),
         Html::a(
           implode(' ', [
@@ -59,7 +83,7 @@ $this->registerCss('.btn-block.text-left{text-align:left}');
             Html::encode(Yii::t('app', 'CSV (IkaLog compat.)')),
           ]),
           ['download2', 'type' => 'ikalog-csv'],
-          ['class' => 'btn btn-default btn-block text-left']
+          ['class' => 'btn btn-default btn-block text-left mb-1']
         ),
         Html::tag(
           'div',
@@ -85,9 +109,9 @@ $this->registerCss('.btn-block.text-left{text-align:left}');
               ]
             ),
           ]),
-          ['class' => 'btn-group d-flex']
+          ['class' => 'btn-group d-flex mb-1']
         ),
-      ]) ?></p>
+      ]) . "\n" ?>
       <h2><?= Html::encode(Yii::t('app', 'Export')) ?> (Splatoon 1)</h2>
       <p><?= implode('', [
         Html::a(
