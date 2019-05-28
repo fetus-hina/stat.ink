@@ -428,6 +428,7 @@ return [
     'Stats (vs. Weapon)' => '統計（敵のブキ）',
     'Stats ({rule})' => '統計（{rule}）',
     'Stats' => '統計',
+    'Stats: FestPwr diff vs Win %' => '統計: フェスパワー差と勝率',
     'Stats: K/D vs Win %' => '統計: KDと勝率',
     'Stats: Knockout Ratio' => '統計: ノックアウト率',
     'Stats: Stages' => '統計: ステージ',

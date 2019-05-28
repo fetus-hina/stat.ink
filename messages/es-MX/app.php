@@ -438,6 +438,7 @@ return [
     'Stats (Turf War)' => 'Estadística (Territorial)',
     'Stats (vs. Weapon)' => '',
     'Stats ({rule})' => '',
+    'Stats: FestPwr diff vs Win %' => '',
     'Stats: K/D vs Win %' => 'Estadística: K/D vs Ganar %',
     'Stats: Knockout Ratio' => 'Estadística: Palizón la Relación',
     'Stats: Stages' => '',

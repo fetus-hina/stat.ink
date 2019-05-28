@@ -436,6 +436,7 @@ return [
     'Stats (Turf War)' => '',
     'Stats (vs. Weapon)' => '',
     'Stats ({rule})' => '',
+    'Stats: FestPwr diff vs Win %' => '',
     'Stats: K/D vs Win %' => '',
     'Stats: Knockout Ratio' => '',
     'Stats: Stages' => '',
