@@ -33,7 +33,7 @@ REQUIREMENTS
 
 * PHP 7.3+
   - Doesn't work with 7.2 or lower. (Uses statements and constants added in v7.3)
-* PostgreSQL 9.5+ (Recommended: 10+)
+* PostgreSQL 9.5+ (Recommended: 11+)
   - Doesn't work with 9.4 or lower. (Uses features added in v9.5) 
 * Gearman
 * ImageMagick (`convert`)
@@ -67,16 +67,16 @@ https://stat.ink/ works with:
     - [Node.js](https://nodejs.org/)
         - `nodejs`
 * [PostgreSQL Official Repository](https://www.postgresql.org/download/linux/redhat/)
-    - PostgreSQL 10.x
-      - `postgresql10`
-      - `postgresql10-server`
+    - PostgreSQL 11.x
+      - `postgresql11`
+      - `postgresql11-server`
 
 ※CentOS 7 の標準 PHP は 5.4.16 です。このバージョンでは動作しません。<br>
 　PHP 7.3 までで追加された機能を使用しています。<br>
 
 ※CentOS 7 の標準 PostgreSQL のバージョンは 9.2.14 です。このバージョンでは動作しません。<br>
 　PgSQL 9.5 で追加された機能を使用しています（jsonb 型、UPSERT など）<br>
-　実際のサーバでは PgSQL 10 を使用していますが、現時点では 9.5 で充分動作するはずです。<br>
+　実際のサーバでは PgSQL 11 を使用していますが、現時点では 9.5 で充分動作するはずです。<br>
 　ただし、将来必要が生じた場合はためらわずに PgSQL 10 (以降) に依存させます。
 
 使い方 HOW TO USE (DEVELOPER)
