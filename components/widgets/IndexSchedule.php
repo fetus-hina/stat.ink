@@ -267,7 +267,9 @@ class IndexSchedule extends Widget
             return false;
         }
 
-        return $current->regular || $current->gachi || $current->league;
+        return ($current->regular ?? false) ||
+            ($current->gachi ?? false) ||
+            ($current->league ?? false);
     }
 
     public function getCurrentSchedule(): ?stdClass

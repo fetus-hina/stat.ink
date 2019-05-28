@@ -1,14 +1,29 @@
 <?php
 /**
- * @copyright Copyright (C) 2015-2018 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  */
 
+declare(strict_types=1);
+
 namespace app\controllers;
 
 use Yii;
+use app\actions\entire\AgentAction;
+use app\actions\entire\CombinedAgentAction;
+use app\actions\entire\Festpower2Action;
+use app\actions\entire\KDWin2Action;
+use app\actions\entire\KDWinAction;
+use app\actions\entire\Knockout2Action;
+use app\actions\entire\KnockoutAction;
 use app\actions\entire\SalmonClearAction;
+use app\actions\entire\UsersAction;
+use app\actions\entire\Weapon2Action;
+use app\actions\entire\WeaponAction;
+use app\actions\entire\Weapons2Action;
+use app\actions\entire\WeaponsAction;
+use app\actions\entire\WeaponsUseAction;
 use app\components\web\Controller;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
@@ -21,7 +36,7 @@ class EntireController extends Controller
     {
         return [
             'verbs' => [
-                'class' => VerbFilter::className(),
+                'class' => VerbFilter::class,
                 'actions' => [
                     '*' => [ 'head', 'get' ],
                 ],
@@ -31,21 +46,21 @@ class EntireController extends Controller
 
     public function actions()
     {
-        $prefix = 'app\actions\entire';
         return [
-            'agent'     => [ 'class' => $prefix . '\AgentAction' ],
-            'combined-agent' => [ 'class' => $prefix . '\CombinedAgentAction' ],
-            'kd-win'    => [ 'class' => $prefix . '\KDWinAction' ],
-            'kd-win2'   => [ 'class' => $prefix . '\KDWin2Action' ],
-            'knockout'  => [ 'class' => $prefix . '\KnockoutAction' ],
-            'knockout2' => [ 'class' => $prefix . '\Knockout2Action' ],
+            'agent' => [ 'class' => AgentAction::class ],
+            'combined-agent' => [ 'class' => CombinedAgentAction::class ],
+            'festpower2' => [ 'class' => Festpower2Action::class ],
+            'kd-win' => [ 'class' => KDWinAction::class ],
+            'kd-win2' => [ 'class' => KDWin2Action::class ],
+            'knockout' => [ 'class' => KnockoutAction::class ],
+            'knockout2' => [ 'class' => Knockout2Action::class ],
             'salmon-clear' => [ 'class' => SalmonClearAction::class ],
-            'users'     => [ 'class' => $prefix . '\UsersAction' ],
-            'weapon'    => [ 'class' => $prefix . '\WeaponAction' ],
-            'weapon2'   => [ 'class' => $prefix . '\Weapon2Action' ],
-            'weapons'   => [ 'class' => $prefix . '\WeaponsAction' ],
-            'weapons-use' => [ 'class' => $prefix . '\WeaponsUseAction' ],
-            'weapons2'  => [ 'class' => $prefix . '\Weapons2Action' ],
+            'users' => [ 'class' => UsersAction::class ],
+            'weapon' => [ 'class' => WeaponAction::class ],
+            'weapon2' => [ 'class' => Weapon2Action::class ],
+            'weapons' => [ 'class' => WeaponsAction::class ],
+            'weapons-use' => [ 'class' => WeaponsUseAction::class ],
+            'weapons2' => [ 'class' => Weapons2Action::class ],
         ];
     }
 }
