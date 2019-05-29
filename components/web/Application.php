@@ -79,7 +79,7 @@ class Application extends Base
         $lang = UserLanguage::guess();
         if ($lang) {
             Yii::$app->language = $lang->getLanguageId();
-            Yii::$app->locale = $lang->lang;
+            Yii::$app->setLocale($lang->lang);
             Yii::$app->response->cookies->add(new Cookie([
                 'name' => UserLanguage::COOKIE_KEY,
                 'value' => $lang->lang,
