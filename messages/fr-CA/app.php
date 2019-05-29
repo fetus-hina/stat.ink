@@ -6,7 +6,7 @@
  */
 
 return [
-    '"mistaken": On {date}, <a href="{url}">Nintendo misconfigure the matching server and ran the fest.</a>' => '',
+    '"mistaken": On {date}, <a href="{url}" class="alert-link">Nintendo misconfigure the matching server and ran the fest.</a>' => '',
     '%m/%d/%Y' => '%m/%d/%Y',
     '(combined)' => '',
     '(default)' => '',

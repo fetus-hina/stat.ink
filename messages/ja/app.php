@@ -8,7 +8,7 @@
  */
 
 return [
-    '"mistaken": On {date}, <a href="{url}">Nintendo misconfigure the matching server and ran the fest.</a>' => '「ミス」: {date}は<a href="{url}">サーバの設定を間違えて開催されています。</a>',
+    '"mistaken": On {date}, <a href="{url}" class="alert-link">Nintendo misconfigure the matching server and ran the fest.</a>' => '「ミス」: {date}は<a href="{url}" class="alert-link">サーバの設定を間違えて開催されています。</a>',
     '%m/%d/%Y' => '%Y/%m/%d',
     '(For only Splatoon 1 at this time)' => '(現時点ではSplatoon1のみ)',
     '(combined)' => '(統合済み)',

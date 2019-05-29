@@ -21,19 +21,6 @@ $this->registerMetaTag(['name' => 'twitter:card', 'content' => 'summary']);
 $this->registerMetaTag(['name' => 'twitter:title', 'content' => $title]);
 $this->registerMetaTag(['name' => 'twitter:description', 'content' => $title]);
 $this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink']);
-
-$totalBattles = array_sum(array_map(
-  function (array $row): int {
-    return (int)$row['battles'];
-  },
-  $data
-));
-$totalMistakeBattles = array_sum(array_map(
-  function (array $row): int {
-    return (int)$row['mistake_battles'];
-  },
-  $data
-));
 ?>
 <div class="container">
   <h1>
@@ -48,7 +35,7 @@ $totalMistakeBattles = array_sum(array_map(
     ],
     'body' => Yii::t(
       'app',
-      '"mistaken": On {date}, <a href="{url}">Nintendo misconfigure the matching server and ran the fest.</a>',
+      '"mistaken": On {date}, <a href="{url}" class="alert-link">Nintendo misconfigure the matching server and ran the fest.</a>',
       [
         'url' => 'https://twitter.com/splatoonjp/status/998369650986569728',
         'date' => Yii::$app->formatter->asDate('2018-05-19', 'long'),
