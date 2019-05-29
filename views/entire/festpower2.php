@@ -42,6 +42,64 @@ $this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink']);
       ]
     ),
   ]) . "\n" ?>
+  <p><?= implode('<br>', [
+    implode(' / ', [
+      sprintf(
+        '<i>N<sub>all</sub></i> = %s',
+        Html::encode(Yii::$app->formatter->asInteger($totalBattles)),
+      ),
+      sprintf(
+        '<i>N<sub>normal</sub></i> = %s',
+        Html::encode(Yii::$app->formatter->asInteger($totalBattles - $totalMistakeBattles)),
+      ),
+      sprintf(
+        '<i>N<sub>mistake</sub></i> = %s',
+        Html::encode(Yii::$app->formatter->asInteger($totalMistakeBattles)),
+      ),
+    ]),
+    implode(' / ', [
+      sprintf(
+        '<i>avg<sub>all</sub></i> = %s',
+        Html::encode(Yii::$app->formatter->asDecimal($avgAll, 1)),
+      ),
+      sprintf(
+        '<i>avg<sub>normal</sub></i> = %s',
+        Html::encode(Yii::$app->formatter->asDecimal($avgNormal, 1)),
+      ),
+      sprintf(
+        '<i>avg<sub>mistake</sub></i> = %s',
+        Html::encode(Yii::$app->formatter->asDecimal($avgMistake, 1)),
+      ),
+    ]),
+    implode(' / ', [
+      sprintf(
+        '<i>med<sub>all</sub></i> = %s',
+        Html::encode(Yii::$app->formatter->asInteger($medianAll)),
+      ),
+      sprintf(
+        '<i>med<sub>normal</sub></i> = %s',
+        Html::encode(Yii::$app->formatter->asInteger($medianNormal)),
+      ),
+      sprintf(
+        '<i>med<sub>mistake</sub></i> = %s',
+        Html::encode(Yii::$app->formatter->asInteger($medianMistake)),
+      ),
+    ]),
+    implode(' / ', [
+      sprintf(
+        '<i>σ<sub>all</sub></i> = %s',
+        Html::encode(Yii::$app->formatter->asDecimal($stddevAll, 2)),
+      ),
+      sprintf(
+        '<i>σ<sub>normal</sub></i> = %s',
+        Html::encode(Yii::$app->formatter->asDecimal($stddevNormal, 2)),
+      ),
+      sprintf(
+        '<i>σ<sub>mistake</sub></i> = %s',
+        Html::encode(Yii::$app->formatter->asDecimal($stddevMistake, 2)),
+      ),
+    ]),
+  ]) ?></p>
   <?= GridView::widget([
     'dataProvider' => Yii::createObject([
       'class' => ArrayDataProvider::class,

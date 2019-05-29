@@ -102,6 +102,23 @@ class Festpower2Action extends ViewAction
         $his = '{{battle2}}.[[his_team_estimate_fest_power]]';
         $mistakeBegin = (int)floor(strtotime(static::MISTAKE_BEGIN) / 7200);
         $mistakeEnd = (int)ceil(strtotime(static::MISTAKE_END) / 7200);
+        $diff = sprintf('ABS(%s - %s)', $my, $his);
+        $diffMistake = sprintf('CASE %s END', implode(' ', [
+            vsprintf('WHEN {{battle2}}.[[period]] BETWEEN %d AND %d THEN %s', [
+                $mistakeBegin,
+                $mistakeEnd,
+                $diff,
+            ]),
+            'ELSE NULL',
+        ]));
+        $diffNormal = sprintf('CASE %s END', implode(' ', [
+            vsprintf('WHEN NOT({{battle2}}.[[period]] BETWEEN %d AND %d) THEN %s', [
+                $mistakeBegin,
+                $mistakeEnd,
+                $diff,
+            ]),
+            'ELSE NULL',
+        ]));
         $query = (new Query())
             ->select([
                 'totalBattles' => 'COUNT(*)',
@@ -112,6 +129,15 @@ class Festpower2Action extends ViewAction
                     ]),
                     'ELSE 0',
                 ])),
+                'avgAll' => "AVG({$diff})",
+                'medianAll' => "PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY {$diff})",
+                'stddevAll' => "STDDEV_SAMP({$diff})",
+                'avgMistake' => "AVG({$diffMistake})",
+                'medianMistake' => "PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY {$diffMistake})",
+                'stddevMistake' => "STDDEV_SAMP({$diffMistake})",
+                'avgNormal' => "AVG({$diffNormal})",
+                'medianNormal' => "PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY {$diffNormal})",
+                'stddevNormal' => "STDDEV_SAMP({$diffNormal})",
             ])
             ->from('battle2')
             ->andWhere(['and',
