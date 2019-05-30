@@ -1,10 +1,12 @@
 <?php
 /**
- * @copyright Copyright (C) 2015-2017 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  * @author TheJanzap <jannis.tschan@gmail.com>
  */
+
+declare(strict_types=1);
 
 return [
     'Bamboozler 14 Mk II' => 'Klotzer 14-B',
@@ -21,12 +23,12 @@ return [
     'Sloshing Machine Neo' => 'Trommel-Schwapper Neo',
     'Splatfest #11' => 'Splatfest #11',
     'Splatfest #14' => 'Splatfest #14',
+    'Splatfest JP #8' => 'Splatfest JP #8',
+    'Splatfest JP #9' => 'Splatfest JP #9',
     'Splatfest JP #10' => 'Splatfest JP #10',
     'Splatfest JP #12' => 'Splatfest JP #12',
     'Splatfest JP #13' => 'Splatfest JP #13',
     'Splatfest JP #15' => 'Splatfest JP #15',
-    'Splatfest JP #8' => 'Splatfest JP #8',
-    'Splatfest JP #9' => 'Splatfest JP #9',
     'Tri-Slosher Nouveau' => '3R-Schwapper Fresco',
     'Zink Mini Splatling' => 'Sagitron-Klecks-Splatling',
 ];

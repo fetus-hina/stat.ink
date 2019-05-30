@@ -7,6 +7,8 @@
  * @author Allen Pestaluky <allenwp@live.ca>
  */
 
+declare(strict_types=1);
+
 return [
     '%m/%d/%Y' => '%Y/%m/%d',
     '(For only Splatoon 1 at this time)' => '(現時点ではSplatoon1のみ)',

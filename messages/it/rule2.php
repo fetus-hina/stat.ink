@@ -1,11 +1,17 @@
 <?php
 /**
- * @copyright Copyright (C) 2015-2018 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  */
 
+declare(strict_types=1);
+
 return [
+    '(Private)' => '(Privata)',
+    '(Quad)' => '(Quadrilatero)',
+    '(Solo)' => '(Assolo)',
+    '(Twin)' => '(Gemello)',
     'All of {0}' => '',
     'Any Lobby' => '',
     'Any Mode' => '',
@@ -17,28 +23,25 @@ return [
     'Clam Blitz - Ranked Battle' => '',
     'Fest' => 'Festival',
     'League' => 'Lega',
+    'League (Quad)' => 'Lega (Quadrilatero)',
+    'League (Twin)' => 'Lega (Gemello)',
     'League Battle' => 'Partita di lega',
     'League Battle (Quad)' => 'Partita di lega (Quadrilatero)',
     'League Battle (Twin)' => 'Partita di lega (Gemello)',
-    'League (Quad)' => 'Lega (Quadrilatero)',
-    'League (Twin)' => 'Lega (Gemello)',
     'Private' => 'Privata',
-    '(Private)' => '(Privata)',
     'Private Battle' => 'Privata',
-    '(Quad)' => '(Quadrilatero)',
     'Rainmaker' => 'Mission Bazookarp',
     'Rainmaker - League Battle (Quad)' => 'Mission Bazookarp - Partita di lega (Quadrilatero)',
     'Rainmaker - League Battle (Twin)' => 'Mission Bazookarp - Partita di lega (Gemello)',
     'Rainmaker - Private Battle' => 'Mission Bazookarp - Privata',
     'Rainmaker - Ranked Battle' => 'Mission Bazookarp - Partita pro',
     'Ranked' => 'Pro',
+    'Ranked + League' => 'Pro + Lega',
     'Ranked Battle' => 'Partita pro',
     'Ranked Battle (Solo)' => 'Partita pro (Assol)',
-    'Ranked + League' => 'Pro + Lega',
     'Regular' => 'Amichevole',
     'Regular Battle' => 'Partita amichevole',
     'RM' => 'MB',
-    '(Solo)' => '(Assolo)',
     'Solo Queue' => 'Coda solo',
     'Splatfest' => 'Festival',
     'Splatfest (Normal)' => '',
@@ -67,5 +70,4 @@ return [
     'Turf War - Splatfest (Solo)' => 'Mischie mollusche - Festival (Assolo)',
     'Turf War - Splatfest (Team)' => 'Mischie mollusche - Festival (Squadra)',
     'TW' => 'MM',
-    '(Twin)' => '(Gemello)',
 ];

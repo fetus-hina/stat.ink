@@ -1,11 +1,17 @@
 <?php
 /**
- * @copyright Copyright (C) 2015-2018 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  */
 
+declare(strict_types=1);
+
 return [
+    '(Private)' => '(Privégevecht)',
+    '(Quad)' => '(Quad)',
+    '(Solo)' => '(Solo)',
+    '(Twin)' => '(Twin)',
     'All of {0}' => '',
     'Any Lobby' => '',
     'Any Mode' => '',
@@ -17,28 +23,25 @@ return [
     'Clam Blitz - Ranked Battle' => 'Clam Blitz - Profgevecht',
     'Fest' => 'Splatfest',
     'League' => 'Toernooigevecht',
+    'League (Quad)' => 'Toernooigevecht (Quad)',
+    'League (Twin)' => 'Toernooigevecht (Twin)',
     'League Battle' => 'Toernooigevecht',
     'League Battle (Quad)' => 'Toernooigevecht (Quad)',
     'League Battle (Twin)' => 'Toernooigevecht (Twin)',
-    'League (Quad)' => 'Toernooigevecht (Quad)',
-    'League (Twin)' => 'Toernooigevecht (Twin)',
     'Private' => 'Privégevecht',
-    '(Private)' => '(Privégevecht)',
     'Private Battle' => 'Privégevecht',
-    '(Quad)' => '(Quad)',
     'Rainmaker' => 'Bazookarper',
     'Rainmaker - League Battle (Quad)' => 'Bazookarper - Toernooigevecht (Quad)',
     'Rainmaker - League Battle (Twin)' => 'Bazookarper - Toernooigevecht (Twin)',
     'Rainmaker - Private Battle' => 'Bazookarper - Privégevecht',
     'Rainmaker - Ranked Battle' => 'Bazookarper - Profgevecht',
     'Ranked' => 'Profgevecht',
+    'Ranked + League' => 'Profgevecht + Toernooigevecht',
     'Ranked Battle' => 'Profgevecht',
     'Ranked Battle (Solo)' => 'Profgevecht (Solo)',
-    'Ranked + League' => 'Profgevecht + Toernooigevecht',
     'Regular' => 'Standart',
     'Regular Battle' => 'Standart-gevecht',
     'RM' => 'Bazookarper',
-    '(Solo)' => '(Solo)',
     'Solo Queue' => 'Solo Wachtrij',
     'Splatfest' => 'Splatfest',
     'Splatfest (Normal)' => '',
@@ -67,5 +70,4 @@ return [
     'Turf War - Splatfest (Solo)' => 'Grondoorlog - Splatfest (Solo)',
     'Turf War - Splatfest (Team)' => 'Grondoorlog - Splatfest (Team)',
     'TW' => 'Grondoorlog',
-    '(Twin)' => '(Twin)',
 ];

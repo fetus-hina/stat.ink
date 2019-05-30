@@ -1,11 +1,17 @@
 <?php
 /**
- * @copyright Copyright (C) 2015-2018 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  */
 
+declare(strict_types=1);
+
 return [
+    '(Private)' => '(Частный)',
+    '(Quad)' => '(четверка)',
+    '(Solo)' => '(одна)',
+    '(Twin)' => '(близнец)',
     'All of {0}' => '',
     'Any Lobby' => '',
     'Any Mode' => '',
@@ -17,28 +23,25 @@ return [
     'Clam Blitz - Ranked Battle' => 'Clam Blitz - Бой элиты',
     'Fest' => 'Сплатфест',
     'League' => 'лиги',
+    'League (Quad)' => 'лиги (четверка)',
+    'League (Twin)' => 'лиги (близнец)',
     'League Battle' => 'Бой лиги',
     'League Battle (Quad)' => 'Бой лиги (четверка)',
     'League Battle (Twin)' => 'Бой лиги (близнец)',
-    'League (Quad)' => 'лиги (четверка)',
-    'League (Twin)' => 'лиги (близнец)',
     'Private' => 'Частный',
-    '(Private)' => '(Частный)',
     'Private Battle' => 'Частный бой',
-    '(Quad)' => '(четверка)',
     'Rainmaker' => 'Мегакарп',
     'Rainmaker - League Battle (Quad)' => 'Мегакарп - Бой лиги (четверка)',
     'Rainmaker - League Battle (Twin)' => 'Мегакарп - Бой лиги (близнец)',
     'Rainmaker - Private Battle' => 'Мегакарп - Частный бой',
     'Rainmaker - Ranked Battle' => 'Мегакарп -  Бой элиты',
     'Ranked' => 'элиты',
+    'Ranked + League' => 'элиты + лиги',
     'Ranked Battle' => 'Бой элиты',
     'Ranked Battle (Solo)' => 'Бой элиты (одна)',
-    'Ranked + League' => 'элиты + лиги',
     'Regular' => 'Бой салаг',
     'Regular Battle' => 'Бой салаг',
     'RM' => 'Мегакарп',
-    '(Solo)' => '(одна)',
     'Solo Queue' => 'одна очередь',
     'Splatfest' => 'Сплатфест',
     'Splatfest (Normal)' => '',
@@ -67,5 +70,4 @@ return [
     'Turf War - Splatfest (Solo)' => 'Бой за район - Сплатфест (одна)',
     'Turf War - Splatfest (Team)' => 'Бой за район - Сплатфест (командная)',
     'TW' => 'район',
-    '(Twin)' => '(близнец)',
 ];

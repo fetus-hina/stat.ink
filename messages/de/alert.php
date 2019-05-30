@@ -5,6 +5,8 @@
  * @author AIZAWA Hina <hina@bouhime.com>
  */
 
+declare(strict_types=1);
+
 return [
     'Due to: {reason}' => '',
     'For SquidTracks or splatnet2statink users:' => '',

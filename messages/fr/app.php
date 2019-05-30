@@ -6,6 +6,8 @@
  * @author AIZAWA Hina <hina@bouhime.com>
  */
 
+declare(strict_types=1);
+
 return [
     '%m/%d/%Y' => '%d/%m/%Y',
     '(combined)' => '',

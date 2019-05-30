@@ -1,12 +1,15 @@
 <?php
 /**
- * @copyright Copyright (C) 2015-2017 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  * @author TheJanzap <jannis.tschan@gmail.com>
  */
 
+declare(strict_types=1);
+
 return [
+    '(Locked)' => '(Gesperrt)',
     'Bomb Range Up' => 'Bombenreichweite +',
     'Bomb Sniffer' => 'Bombenschnüffler',
     'Cold-Blooded' => 'Phantom',
@@ -19,7 +22,6 @@ return [
     'Ink Saver (Main)' => 'Hauptverbrauch',
     'Ink Saver (Sub)' => 'Sekundärverbrauch',
     'Last-Ditch Effort' => 'Endspurt',
-    '(Locked)' => '(Gesperrt)',
     'Ninja Squid' => 'Tintenfisch-Ninja',
     'Opening Gambit' => 'Startvorteil',
     'Quick Respawn' => 'Schnelle Rückkehr',

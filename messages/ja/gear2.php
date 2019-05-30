@@ -6,6 +6,8 @@
  * @author Koichi Watanabe <wkoichi@gmail.com>
  */
 
+declare(strict_types=1);
+
 return [
     '18K Aviators' => 'タレサン18K',
     'Acerola Rain Boots' => 'レイニーアセロラ',

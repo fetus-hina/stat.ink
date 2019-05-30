@@ -5,6 +5,8 @@
  * @author AIZAWA Hina <hina@bouhime.com>
  */
 
+declare(strict_types=1);
+
 return [
     '.52 Gal' => 'Calibro 2000',
     '.52 Gal Deco' => 'Calibro 2000 DX',

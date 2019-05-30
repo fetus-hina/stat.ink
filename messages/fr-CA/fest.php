@@ -1,11 +1,18 @@
 <?php
 /**
- * @copyright Copyright (C) 2015-2017 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  */
 
+declare(strict_types=1);
+
 return [
+    'Champion' => '',
+    'Defender' => '',
+    'Fanboy/Fangirl' => '',
+    'Fiend' => '',
+    'King/Queen' => '',
     '{0} Champion' => '',
     '{0} Defender' => '',
     '{0} Fanboy' => '',
@@ -16,9 +23,4 @@ return [
     '{1} Fangirl' => '',
     '{1} Fiend' => '',
     '{1} Queen' => '',
-    'Champion' => '',
-    'Defender' => '',
-    'Fanboy/Fangirl' => '',
-    'Fiend' => '',
-    'King/Queen' => '',
 ];

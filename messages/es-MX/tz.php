@@ -6,6 +6,8 @@
  * @author mntone <sd8@live.jp>
  */
 
+declare(strict_types=1);
+
 return [
     'Argentina' => '',
     'Australia (Central)' => 'Australia (Central)',

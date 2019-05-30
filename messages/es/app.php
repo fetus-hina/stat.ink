@@ -7,6 +7,8 @@
  * @author mntone <sd8@live.jp>
  */
 
+declare(strict_types=1);
+
 return [
     '%m/%d/%Y' => '%d/%m/%Y',
     '(combined)' => '(conjunto)',

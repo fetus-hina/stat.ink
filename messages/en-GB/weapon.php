@@ -1,9 +1,11 @@
 <?php
 /**
- * @copyright Copyright (C) 2015-2017 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  */
+
+declare(strict_types=1);
 
 return [
     '.52 Gal' => '',
@@ -64,12 +66,12 @@ return [
     'Luna Blaster' => '',
     'Luna Blaster Neo' => '',
     'Mini Splatling' => '',
-    'Neo Splash-o-matic' => '',
-    'Neo Sploosh-o-matic' => '',
-    'New Squiffer' => '',
     'N-ZAP \'83' => '',
     'N-ZAP \'85' => '',
     'N-ZAP \'89' => '',
+    'Neo Splash-o-matic' => '',
+    'Neo Sploosh-o-matic' => '',
+    'New Squiffer' => '',
     'Octobrush' => '',
     'Octobrush Nouveau' => '',
     'Octoshot Replica' => '',

@@ -5,6 +5,8 @@
  * @author AIZAWA Hina <hina@bouhime.com>
  */
 
+declare(strict_types=1);
+
 return [
     '18K Aviators' => 'Золотые «авиаторы»',
     'Acerola Rain Boots' => 'Вишневые сапоги',
