@@ -261,8 +261,13 @@ composer.lock: composer.json composer.phar
 	./composer.phar update -vvv
 	@touch -r composer.json composer.lock
 
+BROTLI := $(shell if [ -e /usr/bin/brotli ]; then echo brotli; else echo bro; fi )
 %.br: %
+ifeq ($(BROTLI),bro)
 	bro --quality 11 --force --input $< --output $@
+else
+	brotli -Zfo $@ $<
+endif
 	@chmod 644 $@
 	@touch $@
 
