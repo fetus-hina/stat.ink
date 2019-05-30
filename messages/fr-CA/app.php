@@ -6,7 +6,6 @@
  */
 
 return [
-    '"mistaken": On {date}, <a href="{url}" class="alert-link">Nintendo misconfigure the matching server and ran the fest.</a>' => '',
     '%m/%d/%Y' => '%m/%d/%Y',
     '(combined)' => '',
     '(default)' => '',
@@ -65,9 +64,6 @@ return [
     'Battle Count' => '',
     'Battle End' => '',
     'Battles' => '',
-    'Battles (all)' => '',
-    'Battles (mistaken)' => '',
-    'Battles (normal)' => '',
     'Battles:' => '',
     'Battles:{0} / Win %:{1} / Avg Kills:{2} / Avg Deaths:{3} / Kill Ratio:{4}' => '',
     'Battles and Users' => '',
@@ -184,9 +180,6 @@ return [
     'Good Guys' => '',
     'Good guys are in control' => '',
     'Good guys winning' => '',
-    'Greater Win % (all)' => '',
-    'Greater Win % (mistaken)' => '',
-    'Greater Win % (normal)' => '',
     'Group by main weapon' => '',
     'Group by reskins' => '',
     'Group by weapon type' => '',
@@ -342,7 +335,6 @@ return [
     'PNG/JPEG file up to {0}' => '',
     'Points' => '',
     'Position' => '',
-    'Power Diff' => '',
     'Powered by' => '',
     'Power Level' => '',
     'Prev. Battle' => '',
@@ -410,7 +402,6 @@ return [
     'Specify Period' => '',
     'Splatfest' => '',
     'Splatfest Power' => '',
-    'Splatfest Power vs Win %' => '',
     'Splatfest Title' => '',
     'Splatfest Title (After)' => '',
     'SplatNet' => '',

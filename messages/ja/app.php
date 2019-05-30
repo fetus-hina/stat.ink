@@ -8,7 +8,6 @@
  */
 
 return [
-    '"mistaken": On {date}, <a href="{url}" class="alert-link">Nintendo misconfigure the matching server and ran the fest.</a>' => '「ミス」: {date}は<a href="{url}" class="alert-link">サーバの設定を間違えて開催されています。</a>',
     '%m/%d/%Y' => '%Y/%m/%d',
     '(For only Splatoon 1 at this time)' => '(現時点ではSplatoon1のみ)',
     '(combined)' => '(統合済み)',
@@ -67,9 +66,6 @@ return [
     'Battle Count' => 'バトル数',
     'Battle End' => 'バトル終了',
     'Battle Start' => 'バトル開始',
-    'Battles (all)' => 'バトル数（全体）',
-    'Battles (mistaken)' => 'バトル数（ミス）',
-    'Battles (normal)' => 'バトル数（通常）',
     'Battles and Users' => 'バトルとユーザ',
     'Battles' => 'バトル',
     'Battles:' => 'バトル:',
@@ -181,9 +177,6 @@ return [
     'Good Guys' => '自分のチーム',
     'Good guys are in control' => '自分のチームが確保',
     'Good guys winning' => '自分のチームが優勢',
-    'Greater Win % (all)' => '強い側の勝率（全体）',
-    'Greater Win % (mistaken)' => '強い側の勝率（ミス）',
-    'Greater Win % (normal)' => '強い側の勝率（通常）',
     'Group by main weapon' => 'メインの性能でまとめる',
     'Group by reskins' => 'おなじブキをまとめる',
     'Group by weapon type' => '種類でまとめる',
@@ -334,7 +327,6 @@ return [
     'Please wait.' => 'しばらくおまちください。',
     'Points' => 'ポイント',
     'Position' => '位置',
-    'Power Diff' => 'パワー差',
     'Power Level' => 'ガチパワー',
     'Powered by' => 'Powered by',
     'Prev. Battle' => '前のバトル',
@@ -404,7 +396,6 @@ return [
     'SplatNet 2' => 'イカリング2',
     'SplatNet Battle #' => 'イカリングのバトル番号',
     'SplatNet' => 'イカリング',
-    'Splatfest Power vs Win %' => 'フェスパワー差と勝率',
     'Splatfest Power' => 'フェスパワー',
     'Splatfest Title (After)' => 'フェス称号（後）',
     'Splatfest Title' => 'フェス称号',
