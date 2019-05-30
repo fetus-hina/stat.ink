@@ -271,3 +271,20 @@ each(.props(), .(@propLong, @propShort, @propIndex) {
     });
   });
 });
+
+.h-auto {
+  height: auto !important;
+}
+
+.w-auto {
+  width: auto !important;
+}
+
+.makeWidth(@pct: 0) when (@pct <= 100) {
+  .w-@{pct} {
+    width: unit(@pct, %) !important;
+  }
+
+  .makeWidth((@pct + 5));
+}
+.makeWidth();
