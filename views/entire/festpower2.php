@@ -1,9 +1,11 @@
 <?php
 declare(strict_types=1);
 
+use app\assets\EntireFestpower2Asset;
 use app\assets\TableResponsiveForceAsset;
 use app\components\widgets\AdWidget;
 use app\components\widgets\Alert;
+use app\components\widgets\FA;
 use app\components\widgets\SnsWidget;
 use yii\data\ArrayDataProvider;
 use yii\grid\GridView;
@@ -12,6 +14,7 @@ use yii\helpers\Html;
 use yii\helpers\Json;
 use yii\widgets\ActiveForm;
 
+EntireFestpower2Asset::register($this);
 TableResponsiveForceAsset::register($this);
 
 $title = Yii::t('app-festpower2', 'Splatfest Power vs Win %');
@@ -28,18 +31,28 @@ function winRateColumn(int $diff, int $battles, int $win): ?string
   if ($diff === 0) {
     return $f->asPercent(0.5, 2);
   }
+
   if ($battles < 1) {
     return null;
   }
-  $stdError = calcError($battles, $win);
-  if (!$stdError) {
+
+  $error = getErrorPoint($battles, $win);
+  if ($error === null) {
     return $f->asPercent($win / $battles, 2);
   }
 
   return vsprintf('%s±%s%%', [
     $f->asDecimal($win / $battles * 100, 2),
-    $f->asDecimal($stdError * 100 * 3, 2),
+    $f->asDecimal($error, 2),
   ]);
+}
+
+function getErrorPoint(int $battles, int $wins): ?float
+{
+  $stdError = calcError($battles, $wins);
+  return ($stdError === null)
+    ? null
+    : $stdError * 100 * 3;
 }
 
 function calcError(int $battles, int $wins): ?float
@@ -47,11 +60,81 @@ function calcError(int $battles, int $wins): ?float
   if ($battles < 1 || $wins < 0) {
     return null;
   }
+
   // ref. http://lfics81.techblog.jp/archives/2982884.html
   $winRate = $wins / $battles;
   $s = sqrt(($battles / ($battles - 1.5)) * $winRate * (1.0 - $winRate));
   return $s / sqrt($battles);
 }
+
+function getWinPctChartData(int $diff, int $battles, int $wins): array
+{
+  if ($diff === 0) {
+    return [0, 50, 0];
+  }
+
+  if ($battles < 1) {
+    return [$diff, null, null];
+  }
+
+  $error = getErrorPoint($battles, $wins);
+  $winPct = 100 * $wins / $battles;
+  return [$diff, $winPct, $error];
+}
+
+$chartData = [
+  'all_battles' => array_values(array_map(
+    function (array $row): array {
+      return [(int)$row['diff'], (int)$row['battles']];
+    },
+    $data
+  )),
+  'all_pct' => array_values(array_map(
+    function (array $row): array {
+      return getWinPctChartData(
+        $row['diff'],
+        $row['battles'],
+        $row['higher_wins']
+      );
+    },
+    $data
+  )),
+  'normal_battles' => array_values(array_map(
+    function (array $row): array {
+      return [
+        (int)$row['diff'],
+        (int)($row['battles'] - $row['mistake_battles']),
+      ];
+    },
+    $data
+  )),
+  'normal_pct' => array_values(array_map(
+    function (array $row): array {
+      return getWinPctChartData(
+        $row['diff'],
+        $row['battles'] - $row['mistake_battles'],
+        $row['higher_wins'] - $row['mistake_higher_wins'],
+      );
+    },
+    $data
+  )),
+  'mistake_battles' => array_values(array_map(
+    function (array $row): array {
+      return [(int)$row['diff'], (int)$row['mistake_battles']];
+    },
+    $data
+  )),
+  'mistake_pct' => array_values(array_map(
+    function (array $row): array {
+      return getWinPctChartData(
+        $row['diff'],
+        $row['mistake_battles'],
+        $row['mistake_higher_wins'],
+      );
+    },
+    $data
+  )),
+];
 ?>
 <div class="container">
   <h1>
@@ -109,6 +192,23 @@ function calcError(int $battles, int $wins): ?float
       </tr>
     </tbody>
   </table>
+  <div id="winpct" class="graph_ w-100"></div>
+<?php $this->registerJs(vsprintf('$(%s).festpowerDiffWinPct(%s);', [
+  Json::encode('#winpct'),
+  implode(', ', [
+    Json::encode($chartData),
+    Json::encode([
+      'normal_battles' => implode(' ', [
+        (string)FA::fas('angle-right')->fw(),
+        Html::encode(Yii::t('app-festpower2', 'Battles (normal)')),
+      ]),
+      'normal_pct' => implode(' ', [
+        (string)FA::fas('angle-left')->fw(),
+        Html::encode(Yii::t('app-festpower2', 'Greater Win % (normal)')),
+      ]),
+    ]),
+  ]),
+])) ?>
   <?= GridView::widget([
     'dataProvider' => Yii::createObject([
       'class' => ArrayDataProvider::class,

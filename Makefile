@@ -66,6 +66,7 @@ RESOURCE_TARGETS_MAIN := \
 	resources/.compiled/stat.ink/favicon.png \
 	resources/.compiled/stat.ink/fest-power-history.css \
 	resources/.compiled/stat.ink/fest-power-history.js \
+	resources/.compiled/stat.ink/festpower2-diff-winpct.js \
 	resources/.compiled/stat.ink/flot-support.css \
 	resources/.compiled/stat.ink/fluid-layout.js \
 	resources/.compiled/stat.ink/game-modes.css \
@@ -341,6 +342,7 @@ resources/.compiled/stat.ink/current-time.js: resources/stat.ink/current-time.es
 resources/.compiled/stat.ink/downloads.css: resources/stat.ink/downloads.less node_modules
 resources/.compiled/stat.ink/fest-power-history.css: resources/stat.ink/fest-power-history.less node_modules
 resources/.compiled/stat.ink/fest-power-history.js: resources/stat.ink/fest-power-history.es node_modules
+resources/.compiled/stat.ink/festpower2-diff-winpct.js: resources/stat.ink/festpower2-diff-winpct.es node_modules
 resources/.compiled/stat.ink/flot-support.css: resources/stat.ink/flot-support.less node_modules
 resources/.compiled/stat.ink/fluid-layout.js: resources/stat.ink/fluid-layout.es node_modules
 resources/.compiled/stat.ink/game-modes.css: resources/stat.ink/game-modes.less node_modules
