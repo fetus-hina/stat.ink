@@ -40,16 +40,16 @@ REQUIREMENTS
 * Node.js (`npm`)
   - Recommended: latest release or latest LTS
 * `jpegoptim`
-* Brotli (`bro`)
+* Brotli (`brotli` or `bro`)
 
 https://stat.ink/ works with:
 
 - CentOS 7.6 (x86-64)
 - EPEL
+  - `brotli`
   - `gearmand`
 - [JP3CKI Repository](https://rpm.fetus.jp/)
   - [H2O](https://h2o.examp1e.net/) mainline
-  - [Brotli](https://github.com/google/brotli)
 - [Remi's RPM repository](http://rpms.famillecollet.com/)
   - `remi-safe` repository, it uses SCL mechanism
       - PHP 7.3.*
