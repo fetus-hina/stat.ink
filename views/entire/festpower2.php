@@ -21,6 +21,37 @@ $this->registerMetaTag(['name' => 'twitter:card', 'content' => 'summary']);
 $this->registerMetaTag(['name' => 'twitter:title', 'content' => $title]);
 $this->registerMetaTag(['name' => 'twitter:description', 'content' => $title]);
 $this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink']);
+
+function winRateColumn(int $diff, int $battles, int $win): ?string
+{
+  $f = Yii::$app->formatter;
+  if ($diff === 0) {
+    return $f->asPercent(0.5, 2);
+  }
+  if ($battles < 1) {
+    return null;
+  }
+  $stdError = calcError($battles, $win);
+  if (!$stdError) {
+    return $f->asPercent($win / $battles, 2);
+  }
+
+  return vsprintf('%s±%s%%', [
+    $f->asDecimal($win / $battles * 100, 2),
+    $f->asDecimal($stdError * 100 * 3, 2),
+  ]);
+}
+
+function calcError(int $battles, int $wins): ?float
+{
+  if ($battles < 1 || $wins < 0) {
+    return null;
+  }
+  // ref. http://lfics81.techblog.jp/archives/2982884.html
+  $winRate = $wins / $battles;
+  $s = sqrt(($battles / ($battles - 1.5)) * $winRate * (1.0 - $winRate));
+  return $s / sqrt($battles);
+}
 ?>
 <div class="container">
   <h1>
@@ -120,15 +151,12 @@ $this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink']);
         'contentOptions' => [
           'class' => 'text-right',
         ],
-        'format' => ['percent', 2],
-        'value' => function (array $row): ?float {
-          if ($row['diff'] === 0) {
-            return 0.5;
-          }
-          if ($row['battles'] < 1) {
-            return null;
-          }
-          return $row['higher_wins'] / $row['battles'];
+        'value' => function (array $row): ?string {
+          return winRateColumn(
+            (int)$row['diff'],
+            (int)$row['battles'],
+            (int)$row['higher_wins']
+          );
         },
       ],
       [
@@ -152,17 +180,12 @@ $this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink']);
         'contentOptions' => [
           'class' => 'text-right',
         ],
-        'format' => ['percent', 2],
-        'value' => function (array $row): ?float {
-          if ($row['diff'] === 0) {
-            return 0.5;
-          }
-          $win = $row['higher_wins'] - $row['mistake_higher_wins'];
-          $battles = $row['battles'] - $row['mistake_battles'];
-          if ($battles < 1) {
-            return null;
-          }
-          return $win / $battles;
+        'value' => function (array $row): ?string {
+          return winRateColumn(
+            (int)$row['diff'],
+            $row['battles'] - $row['mistake_battles'],
+            $row['higher_wins'] - $row['mistake_higher_wins']
+          );
         },
       ],
       [
@@ -184,15 +207,12 @@ $this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink']);
         'contentOptions' => [
           'class' => 'text-right',
         ],
-        'format' => ['percent', 2],
-        'value' => function (array $row): ?float {
-          if ($row['diff'] === 0) {
-            return 0.5;
-          }
-          if ($row['mistake_battles'] < 1) {
-            return null;
-          }
-          return $row['mistake_higher_wins'] / $row['mistake_battles'];
+        'value' => function (array $row): ?string {
+          return winRateColumn(
+            (int)$row['diff'],
+            $row['mistake_battles'],
+            $row['mistake_higher_wins']
+          );
         },
       ],
     ],
