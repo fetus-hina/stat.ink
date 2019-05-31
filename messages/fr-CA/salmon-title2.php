@@ -1,13 +1,22 @@
 <?php
 /**
- * @copyright Copyright (C) 2015-2018 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  */
 
+declare(strict_types=1);
+
 return [
     'Any Title' => '',
     'Apprentice' => 'Débutant/Débutante',
+    'Go-Getter' => 'Semi-pro',
+    'Hazard Level MAX!!' => '',
+    'Intern' => 'Apprenti/Apprentie',
+    'Overachiever' => 'Pro',
+    'Part-Timer' => 'Connaisseur/Connoisseuse',
+    'Profreshional' => 'Prodige',
+    'Profreshional (Avg. {from}-{to})' => '',
     '{boy}Apprentice' => 'Débutant',
     '{boy}Go-Getter' => 'Semi-pro',
     '{boy}Intern' => 'Apprenti',
@@ -20,11 +29,4 @@ return [
     '{girl}Overachiever' => 'Pro',
     '{girl}Part-Timer' => 'Connoisseuse',
     '{girl}Profreshional' => 'Prodige',
-    'Go-Getter' => 'Semi-pro',
-    'Hazard Level MAX!!' => '',
-    'Intern' => 'Apprenti/Apprentie',
-    'Overachiever' => 'Pro',
-    'Part-Timer' => 'Connaisseur/Connoisseuse',
-    'Profreshional' => 'Prodige',
-    'Profreshional (Avg. {from}-{to})' => '',
 ];

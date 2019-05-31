@@ -1,44 +1,44 @@
 <?php
 /**
- * @copyright Copyright (C) 2015-2017 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  */
 
-return [
-    'Any Stage' => '',
+declare(strict_types=1);
 
+return [
+    'Ancho-V' => 'Tentatec Studio',
     'Ancho-V Games' => 'Tentatec Studio',
-    'Arowana Mall'  => 'Centre Arowana',
+    'Any Stage' => '',
+    'Arowana Mall' => 'Centre Arowana',
     'Blackbelly Skatepark' => 'Skatepark Mako',
     'Bluefin Depot' => 'Mine Marine',
-    'Camp Triggerfish' => 'Hippo-Camping',
-    'Flounder Heights' => 'Lotissement Filament',
-    'Hammerhead Bridge' => 'Pont Esturgeon',
-    'Kelp Dome' => 'Serre Goémon',
-    'Mahi-Mahi Resort' => 'Club Ca$halot',
-    'Moray Towers' => 'Tours Girelle',
-    'Museum d\'Alfonsino' => 'Galeries Guppy',
-    'Piranha Pit' => 'Carrières Caviar',
-    'Port Mackerel' => 'Docks Haddock',
-    'Saltspray Rig' => 'Station Doucebrise',
-    'Urchin Underpass' => 'Passage Turbot',
-    'Walleye Warehouse' => 'Encrepôt',
-
-    'Ancho-V' => 'Tentatec Studio',
     'Bridge' => 'Pont Esturgeon',
     'Camp' => 'Hippo-Camping',
+    'Camp Triggerfish' => 'Hippo-Camping',
     'Depot' => 'Mine Marine',
     'Dome' => 'Serre Goémon',
+    'Flounder Heights' => 'Lotissement Filament',
+    'Hammerhead Bridge' => 'Pont Esturgeon',
     'Heights' => 'Lotissement Filament',
+    'Kelp Dome' => 'Serre Goémon',
     'Mahi-Mahi' => 'Club Ca$halot',
-    'Mall'  => 'Centre Arowana',
+    'Mahi-Mahi Resort' => 'Club Ca$halot',
+    'Mall' => 'Centre Arowana',
+    'Moray Towers' => 'Tours Girelle',
     'Museum' => 'Galeries Guppy',
+    'Museum d\'Alfonsino' => 'Galeries Guppy',
+    'Piranha Pit' => 'Carrières Caviar',
     'Pit' => 'Carrières Caviar',
     'Port' => 'Docks Haddock',
+    'Port Mackerel' => 'Docks Haddock',
     'Rig' => 'Station Doucebrise',
+    'Saltspray Rig' => 'Station Doucebrise',
     'Skatepark' => 'Skatepark Mako',
     'Towers' => 'Tours Girelle',
     'Underpass' => 'Passage Turbot',
+    'Urchin Underpass' => 'Passage Turbot',
+    'Walleye Warehouse' => 'Encrepôt',
     'Warehouse' => 'Encrepôt',
 ];

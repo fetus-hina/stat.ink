@@ -132,6 +132,8 @@ class I18nController extends Controller
         }
         $file[] = ' */';
         $file[] = '';
+        $file[] = 'declare(strict_types=1);';
+        $file[] = '';
         $file[] = 'return [';
         foreach ($current as $key => $value) {
             $file[] = sprintf("    '%s' => '%s',", $esc($key), $esc($value));

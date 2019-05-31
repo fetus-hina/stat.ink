@@ -5,6 +5,8 @@
  * @author AIZAWA Hina <hina@bouhime.com>
  */
 
+declare(strict_types=1);
+
 return [
     '.52 Gal' => 'Струевик .52',
     '.52 Gal Deco' => 'Струевик .52 «Деко»',

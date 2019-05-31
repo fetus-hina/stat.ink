@@ -1,11 +1,17 @@
 <?php
 /**
- * @copyright Copyright (C) 2015-2018 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  */
 
+declare(strict_types=1);
+
 return [
+    '(Private)' => '',
+    '(Quad)' => '',
+    '(Solo)' => '',
+    '(Twin)' => '',
     'All of {0}' => '',
     'Any Lobby' => '',
     'Any Mode' => '',
@@ -17,28 +23,25 @@ return [
     'Clam Blitz - Ranked Battle' => '',
     'Fest' => '',
     'League' => '',
+    'League (Quad)' => '',
+    'League (Twin)' => '',
     'League Battle' => '',
     'League Battle (Quad)' => '',
     'League Battle (Twin)' => '',
-    'League (Quad)' => '',
-    'League (Twin)' => '',
     'Private' => '',
-    '(Private)' => '',
     'Private Battle' => '',
-    '(Quad)' => '',
     'Rainmaker' => '',
     'Rainmaker - League Battle (Quad)' => '',
     'Rainmaker - League Battle (Twin)' => '',
     'Rainmaker - Private Battle' => '',
     'Rainmaker - Ranked Battle' => '',
     'Ranked' => '',
+    'Ranked + League' => '',
     'Ranked Battle' => '',
     'Ranked Battle (Solo)' => '',
-    'Ranked + League' => '',
     'Regular' => '',
     'Regular Battle' => '',
     'RM' => '',
-    '(Solo)' => '',
     'Solo Queue' => '',
     'Splatfest' => 'Dyeing Festival',
     'Splatfest (Normal)' => '',
@@ -67,5 +70,4 @@ return [
     'Turf War - Splatfest (Solo)' => '',
     'Turf War - Splatfest (Team)' => '',
     'TW' => '',
-    '(Twin)' => '',
 ];

@@ -1,11 +1,17 @@
 <?php
 /**
- * @copyright Copyright (C) 2015-2018 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  */
 
+declare(strict_types=1);
+
 return [
+    '(Private)' => '(Privater)',
+    '(Quad)' => '(Quad)',
+    '(Solo)' => '(Solo)',
+    '(Twin)' => '(Zwilling)',
     'All of {0}' => '',
     'Any Lobby' => '',
     'Any Mode' => '',
@@ -17,28 +23,25 @@ return [
     'Clam Blitz - Ranked Battle' => '',
     'Fest' => 'Fest',
     'League' => 'Liga',
+    'League (Quad)' => 'Liga (Quad)',
+    'League (Twin)' => 'Liga (Zwilling)',
     'League Battle' => 'Ligakampf',
     'League Battle (Quad)' => 'Ligakampf (Quad)',
     'League Battle (Twin)' => 'Ligakampf (Zwilling)',
-    'League (Quad)' => 'Liga (Quad)',
-    'League (Twin)' => 'Liga (Zwilling)',
     'Private' => 'Privater',
-    '(Private)' => '(Privater)',
     'Private Battle' => 'Privater Kampf',
-    '(Quad)' => '(Quad)',
     'Rainmaker' => 'Operation Goldfisch',
     'Rainmaker - League Battle (Quad)' => 'Operation Goldfisch - Ligakampf (Quad)',
     'Rainmaker - League Battle (Twin)' => 'Operation Goldfisch - Ligakampf (Zwilling)',
     'Rainmaker - Private Battle' => 'Operation Goldfisch - Privater Kampf',
     'Rainmaker - Ranked Battle' => 'Operation Goldfisch - Rangkampf',
     'Ranked' => 'Rang',
+    'Ranked + League' => 'Rang + Liga',
     'Ranked Battle' => 'Rangkampf',
     'Ranked Battle (Solo)' => 'Rangkampf (Solo)',
-    'Ranked + League' => 'Rang + Liga',
     'Regular' => 'Standard',
     'Regular Battle' => 'Standard-kampf',
     'RM' => 'Goldfisch',
-    '(Solo)' => '(Solo)',
     'Solo Queue' => 'Solo-Warteschlange',
     'Splatfest' => 'Splatfest',
     'Splatfest (Normal)' => '',
@@ -67,5 +70,4 @@ return [
     'Turf War - Splatfest (Solo)' => 'Revierkampf - Splatfest (Solo)',
     'Turf War - Splatfest (Team)' => 'Revierkampf - Splatfest (Team)',
     'TW' => 'Revierkampf',
-    '(Twin)' => '(Zwilling)',
 ];

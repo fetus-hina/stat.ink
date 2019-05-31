@@ -5,6 +5,8 @@
  * @author AIZAWA Hina <hina@bouhime.com>
  */
 
+declare(strict_types=1);
+
 return [
     '18K Aviators' => 'Gafas aviador retro',
     'Acerola Rain Boots' => 'Botas de lluvia rojas',
