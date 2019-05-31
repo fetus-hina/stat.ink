@@ -1,17 +1,19 @@
 <?php
 /**
- * @copyright Copyright (C) 2015-2016 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
- * @author mntone <sd8@live.jp>
  * @author AIZAWA Hina <hina@bouhime.com>
+ * @author mntone <sd8@live.jp>
  */
 
+declare(strict_types=1);
+
 return [
-    '{delta} yr' => '{delta} año',
-    '{delta} mo' => '{delta} mes',
+    'now' => 'ahora',
     '{delta} d' => '{delta} dia',
     '{delta} h' => '{delta} h',
     '{delta} m' => '{delta} min',
+    '{delta} mo' => '{delta} mes',
     '{delta} s' => '{delta} s',
-    'now' => 'ahora',
+    '{delta} yr' => '{delta} año',
 ];

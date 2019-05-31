@@ -5,6 +5,8 @@
  * @author AIZAWA Hina <hina@bouhime.com>
  */
 
+declare(strict_types=1);
+
 return [
     'Argentina' => 'アルゼンチン時間',
     'Australia (Central)' => 'オーストラリア（中央）',

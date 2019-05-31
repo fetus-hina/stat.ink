@@ -5,6 +5,8 @@
  * @author AIZAWA Hina <hina@bouhime.com>
  */
 
+declare(strict_types=1);
+
 return [
     '18K Aviators' => 'Lunettes de soleil 18 ct',
     'Acerola Rain Boots' => 'Bottes de pluie cerise',

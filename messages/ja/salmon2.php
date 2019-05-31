@@ -5,6 +5,8 @@
  * @author AIZAWA Hina <hina@bouhime.com>
  */
 
+declare(strict_types=1);
+
 return [
     'Appearances' => '出現数',
     'As of {datetime}' => '{datetime} 現在',

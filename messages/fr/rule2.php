@@ -1,11 +1,17 @@
 <?php
 /**
- * @copyright Copyright (C) 2015-2018 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  */
 
+declare(strict_types=1);
+
 return [
+    '(Private)' => '(Privé)',
+    '(Quad)' => '(Quad)',
+    '(Solo)' => '(Solo)',
+    '(Twin)' => '(Double)',
     'All of {0}' => '',
     'Any Lobby' => '',
     'Any Mode' => '',
@@ -17,28 +23,25 @@ return [
     'Clam Blitz - Ranked Battle' => 'Pluie de palourdes - Match pro',
     'Fest' => 'Festival',
     'League' => 'Ligue',
+    'League (Quad)' => 'Ligue (Quad)',
+    'League (Twin)' => 'Ligue (Double)',
     'League Battle' => 'Match de ligue',
     'League Battle (Quad)' => 'Match de ligue (Quad)',
     'League Battle (Twin)' => 'Match de ligue (Double)',
-    'League (Quad)' => 'Ligue (Quad)',
-    'League (Twin)' => 'Ligue (Double)',
     'Private' => 'Privé',
-    '(Private)' => '(Privé)',
     'Private Battle' => 'Match privé',
-    '(Quad)' => '(Quad)',
     'Rainmaker' => 'Mission Bazookarpe',
     'Rainmaker - League Battle (Quad)' => 'Mission Bazookarpe - Match de ligue (Quad)',
     'Rainmaker - League Battle (Twin)' => 'Mission Bazookarpe - Match de ligue (Double)',
     'Rainmaker - Private Battle' => 'Mission Bazookarpe - Match privé',
     'Rainmaker - Ranked Battle' => 'Mission Bazookarpe - Match pro',
     'Ranked' => 'Pro',
+    'Ranked + League' => 'Pro + Ligue',
     'Ranked Battle' => 'Match pro',
     'Ranked Battle (Solo)' => 'Match pro (Solo)',
-    'Ranked + League' => 'Pro + Ligue',
     'Regular' => 'Classique',
     'Regular Battle' => 'Match classique',
     'RM' => 'Bazookarpe',
-    '(Solo)' => '(Solo)',
     'Solo Queue' => '',
     'Splatfest' => 'Festival',
     'Splatfest (Normal)' => '',
@@ -67,5 +70,4 @@ return [
     'Turf War - Splatfest (Solo)' => 'Guerre de territoire - Festival (Solo)',
     'Turf War - Splatfest (Team)' => 'Guerre de territoire - Festival (Équipe)',
     'TW' => 'Territoire',
-    '(Twin)' => '(Double)',
 ];

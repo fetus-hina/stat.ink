@@ -5,6 +5,8 @@
  * @author AIZAWA Hina <hina@bouhime.com>
  */
 
+declare(strict_types=1);
+
 return [
     '.52ガロン' => '52',
     '.52ガロンデコ' => '52デコ',

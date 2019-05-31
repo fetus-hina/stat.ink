@@ -1,11 +1,14 @@
 <?php
 /**
- * @copyright Copyright (C) 2015-2018 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  */
 
+declare(strict_types=1);
+
 return [
+    '(Locked)' => '',
     'Ability Doubler' => 'Duplicador',
     'Bomb Defense Up' => 'Resistencia explosiva',
     'Bomb Defense Up DX' => '',
@@ -18,7 +21,6 @@ return [
     'Ink Saver (Main)' => 'Tintahorro (ppal.)',
     'Ink Saver (Sub)' => 'Tintahorro (sec.)',
     'Last-Ditch Effort' => 'Sprint Final',
-    '(Locked)' => '',
     'Main Power Up' => '',
     'Ninja Squid' => 'Ninjalamar',
     'Object Shredder' => 'Demolición',

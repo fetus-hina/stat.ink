@@ -7,8 +7,9 @@
  * @author mntone <sd8@live.jp>
  */
 
+declare(strict_types=1);
+
 return [
-    '"mistaken": On {date}, <a href="{url}">Nintendo misconfigure the matching server and ran the fest.</a>' => '',
     '%m/%d/%Y' => '%d/%m/%Y',
     '(combined)' => '(conjunto)',
     '(default)' => '(defecto)',
@@ -67,9 +68,6 @@ return [
     'Battle Count' => 'Cuenta de la Batalla',
     'Battle End' => 'Parada de la Batalla',
     'Battles' => 'Batallas',
-    'Battles (all)' => '',
-    'Battles (mistaken)' => '',
-    'Battles (normal)' => '',
     'Battles:' => 'Batallas:',
     'Battles:{0} / Win %:{1} / Avg Kills:{2} / Avg Deaths:{3} / Kill Ratio:{4}' => 'Batallas:{0}　Ganar %:{1}　Medio mata:{2}　Medio muerto:{3}　Matar la Relación:{4}',
     'Battles and Users' => 'Batallas y los Usuarios',
@@ -186,9 +184,6 @@ return [
     'Good Guys' => 'Tu equipo',
     'Good guys are in control' => 'Tu equipo están en control',
     'Good guys winning' => 'Tu equipo ganadores',
-    'Greater Win % (all)' => '',
-    'Greater Win % (mistaken)' => '',
-    'Greater Win % (normal)' => '',
     'Group by main weapon' => '',
     'Group by reskins' => '',
     'Group by weapon type' => '',
@@ -344,7 +339,6 @@ return [
     'PNG/JPEG file up to {0}' => '',
     'Points' => 'Puntos',
     'Position' => 'Posición',
-    'Power Diff' => '',
     'Powered by' => 'Desarrollado por',
     'Power Level' => '',
     'Prev. Battle' => 'Batalla anterior',
@@ -412,7 +406,6 @@ return [
     'Specify Period' => 'Especificar periodo de',
     'Splatfest' => 'Festival temático',
     'Splatfest Power' => 'Energía',
-    'Splatfest Power vs Win %' => '',
     'Splatfest Title' => 'Splatfest Título',
     'Splatfest Title (After)' => '',
     'SplatNet' => '',

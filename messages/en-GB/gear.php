@@ -1,9 +1,11 @@
 <?php
 /**
- * @copyright Copyright (C) 2015-2018 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  */
+
+declare(strict_types=1);
 
 return [
     '18K Aviators' => '',
@@ -13,15 +15,15 @@ return [
     'Armor Boot Replicas' => 'Armour Boot Replicas',
     'Armor Helmet Replica' => 'Armour Helmet Replica',
     'Armor Jacket Replica' => 'Armour Jacket Replica',
+    'B-ball Headband' => '',
+    'B-ball Jersey (Away)' => 'B-Ball Vest (Away)',
+    'B-ball Jersey (Home)' => 'B-Ball Vest (Home)',
     'Baby-Jelly Shirt' => '',
     'Backwards Cap' => '',
     'Bamboo Hat' => '',
     'Banana Basics' => '',
     'Baseball Jersey' => '',
     'Basic Tee' => '',
-    'B-ball Headband' => '',
-    'B-ball Jersey (Away)' => 'B-Ball Vest (Away)',
-    'B-ball Jersey (Home)' => 'B-Ball Vest (Home)',
     'Berry Ski Jacket' => '',
     'Bike Helmet' => 'Cycle Helmet',
     'Black 8-Bit FishFry' => '',
@@ -88,8 +90,8 @@ return [
     'Gray College Sweat' => 'Grey College Sweat',
     'Gray Mixed Shirt' => '',
     'Gray Vector Tee' => 'Grey Vector Tee',
-    'Green Cardigan' => '',
     'Green-Check Shirt' => '',
+    'Green Cardigan' => '',
     'Green Rain Boots' => 'Moss-Green Wellies',
     'Green Striped LS' => '',
     'Green Tee' => '',
@@ -196,6 +198,10 @@ return [
     'Splatfest Tee' => '',
     'Sporty Bobble Hat' => '',
     'Squash Headband' => '',
+    'Squid-Pattern Waistcoat' => 'Squid Pattern Waistcoat',
+    'Squid-Stitch Cap' => '',
+    'Squid-Stitch Slip-Ons' => 'Squid-Stitch Plimsolls',
+    'Squid-Stitch Tee' => '',
     'SQUID GIRL Hat' => '',
     'SQUID GIRL Shoes' => '',
     'SQUID GIRL Tunic' => '',
@@ -203,12 +209,8 @@ return [
     'Squidmark LS' => '',
     'Squidmark Sweat' => '',
     'Squid Nordic' => '',
-    'Squid-Pattern Waistcoat' => 'Squid Pattern Waistcoat',
     'Squid Satin Jacket' => '',
     'Squidstar Waistcoat' => '',
-    'Squid-Stitch Cap' => '',
-    'Squid-Stitch Slip-Ons' => 'Squid-Stitch Plimsolls',
-    'Squid-Stitch Tee' => '',
     'Squidvader Cap' => '',
     'Squink Wingtops' => '',
     'Stealth Goggles' => '',

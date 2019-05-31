@@ -1,20 +1,13 @@
 <?php
 /**
- * @copyright Copyright (C) 2015-2017 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  */
 
+declare(strict_types=1);
+
 return [
-    'All of {0}' => '',
-    'Any Weapon' => '',
-
-    'Chargers' => 'Fusil',
-    'Rollers' => 'Rouleau',
-    'Shooters' => 'Lanceur',
-    'Sloshers' => 'Seauceur',
-    'Splatlings' => 'Badigeonneur',
-
     '.52 Gal' => 'Calibre 2000',
     '.52 Gal Deco' => 'Calibre 2000 chic',
     '.96 Gal' => 'Calibre 3000',
@@ -22,6 +15,8 @@ return [
     'Aerospray MG' => 'Aérogun',
     'Aerospray PG' => 'Aérogun select',
     'Aerospray RG' => 'Aérogun premium',
+    'All of {0}' => '',
+    'Any Weapon' => '',
     'Bamboozler 14 Mk I' => 'Bimbamboum Mk I',
     'Bamboozler 14 Mk II' => 'Bimbamboum Mk II',
     'Bamboozler 14 Mk III' => 'Bimbamboum Mk III',
@@ -31,6 +26,7 @@ return [
     'Blaster' => 'Éclablaster',
     'Carbon Roller' => 'Rouleau carbone',
     'Carbon Roller Deco' => 'Rouleau carbone chic',
+    'Chargers' => 'Fusil',
     'Cherry H-3 Nozzlenose' => 'Arroseur lourd Cerise',
     'Classic Squiffer' => 'Décap\'express Alpha',
     'CoroCoro Splat Roller' => 'Rouleau CoroCoro',
@@ -70,12 +66,12 @@ return [
     'Luna Blaster' => 'Proxiblaster',
     'Luna Blaster Neo' => 'Proxiblaster Néo',
     'Mini Splatling' => 'Badigeonneur XS',
-    'Neo Splash-o-matic' => 'Marqueur léger Néo',
-    'Neo Sploosh-o-matic' => 'Marqueur lourd Néo',
-    'New Squiffer' => 'Décap\'express Bêta',
     'N-ZAP \'83' => 'N-ZAP 83',
     'N-ZAP \'85' => 'N-ZAP 85',
     'N-ZAP \'89' => 'N-ZAP 89',
+    'Neo Splash-o-matic' => 'Marqueur léger Néo',
+    'Neo Sploosh-o-matic' => 'Marqueur lourd Néo',
+    'New Squiffer' => 'Décap\'express Bêta',
     'Octobrush' => 'Épinceau brosse',
     'Octobrush Nouveau' => 'Épinceau brosse nuancé',
     'Octoshot Replica' => 'Lanceur Octaling (réplique)',
@@ -86,13 +82,17 @@ return [
     'Rapid Blaster Pro' => 'Turboblaster pro',
     'Rapid Blaster Pro Deco' => 'Turboblaster pro chic',
     'Refurbished Mini Splatling' => 'Badigeonneur XP Leviathus',
+    'Rollers' => 'Rouleau',
+    'Shooters' => 'Lanceur',
     'Slosher' => 'Seauceur',
     'Slosher Deco' => 'Seauceur chic',
+    'Sloshers' => 'Seauceur',
     'Sloshing Machine' => 'Encrifugeur',
     'Sloshing Machine Neo' => 'Encrifugeur Néo',
     'Soda Slosher' => 'Seauceur Diabolo',
     'Splash-o-matic' => 'Marqueur léger',
     'Splat Charger' => 'Concentraceur',
+    'Splatlings' => 'Badigeonneur',
     'Splat Roller' => 'Rouleau',
     'Splatterscope' => 'Concentraceur zoom',
     'Splattershot' => 'Liquidateur',
