@@ -179,10 +179,22 @@ $chartData = [
         <td class="text-right"><?= Yii::$app->formatter->asDecimal((float)$avgMistake, 1) ?></td>
       </tr>
       <tr>
+        <th class="text-right" scope="row"><?= Html::encode(Yii::t('app-festpower2', 'Q1/4')) ?></th>
+        <td class="text-right"><?= Yii::$app->formatter->asInteger((int)$q1All) ?></td>
+        <td class="text-right"><?= Yii::$app->formatter->asInteger((int)$q1Normal) ?></td>
+        <td class="text-right"><?= Yii::$app->formatter->asInteger((int)$q1Mistake) ?></td>
+      </tr>
+      <tr>
         <th class="text-right" scope="row"><?= Html::encode(Yii::t('app-festpower2', 'Median')) ?></th>
         <td class="text-right"><?= Yii::$app->formatter->asInteger((int)$medianAll) ?></td>
         <td class="text-right"><?= Yii::$app->formatter->asInteger((int)$medianNormal) ?></td>
         <td class="text-right"><?= Yii::$app->formatter->asInteger((int)$medianMistake) ?></td>
+      </tr>
+      <tr>
+        <th class="text-right" scope="row"><?= Html::encode(Yii::t('app-festpower2', 'Q3/4')) ?></th>
+        <td class="text-right"><?= Yii::$app->formatter->asInteger((int)$q3All) ?></td>
+        <td class="text-right"><?= Yii::$app->formatter->asInteger((int)$q3Normal) ?></td>
+        <td class="text-right"><?= Yii::$app->formatter->asInteger((int)$q3Mistake) ?></td>
       </tr>
       <tr>
         <th class="text-right" scope="row"><?= Html::encode(Yii::t('app-festpower2', 'Std. Dev.')) ?></th>

@@ -22,6 +22,8 @@ return [
     'Mistaken' => 'ミス',
     'Normal' => '通常',
     'Power Diff' => 'パワー差',
+    'Q1/4' => '第1四分位数',
+    'Q3/4' => '第3四分位数',
     'Splatfest Power vs Win %' => 'フェスパワー差と勝率',
     'Std. Dev.' => '標準偏差',
 ];

@@ -131,12 +131,18 @@ class Festpower2Action extends ViewAction
                 ])),
                 'avgAll' => "AVG({$diff})",
                 'medianAll' => "PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY {$diff})",
+                'q1All' => "PERCENTILE_CONT(0.25) WITHIN GROUP (ORDER BY {$diff})",
+                'q3All' => "PERCENTILE_CONT(0.75) WITHIN GROUP (ORDER BY {$diff})",
                 'stddevAll' => "STDDEV_SAMP({$diff})",
                 'avgMistake' => "AVG({$diffMistake})",
                 'medianMistake' => "PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY {$diffMistake})",
+                'q1Mistake' => "PERCENTILE_CONT(0.25) WITHIN GROUP (ORDER BY {$diffMistake})",
+                'q3Mistake' => "PERCENTILE_CONT(0.75) WITHIN GROUP (ORDER BY {$diffMistake})",
                 'stddevMistake' => "STDDEV_SAMP({$diffMistake})",
                 'avgNormal' => "AVG({$diffNormal})",
                 'medianNormal' => "PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY {$diffNormal})",
+                'q1Normal' => "PERCENTILE_CONT(0.25) WITHIN GROUP (ORDER BY {$diffNormal})",
+                'q3Normal' => "PERCENTILE_CONT(0.75) WITHIN GROUP (ORDER BY {$diffNormal})",
                 'stddevNormal' => "STDDEV_SAMP({$diffNormal})",
             ])
             ->from('battle2')
