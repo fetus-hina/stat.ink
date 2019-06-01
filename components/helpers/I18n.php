@@ -73,6 +73,8 @@ class I18n
         }
         $php[] = ' */';
         $php[] = '';
+        $php[] = 'declare(strict_types=1);';
+        $php[] = '';
         $php[] = 'return [';
         foreach ($data as $englishName => $localName) {
             $php[] = sprintf(

@@ -161,7 +161,7 @@ return [
     'Fresh Fish Gloves' => '',
     'Fresh Fish Head' => '',
     'Fresh Octo Tee' => '',
-    'Friendship Bracelet' => '',
+    'Friendship Bracelet' => 'Vriendschapsbandje',
     'Friend Tee' => 'Vrienden-T-shirt',
     'Fringed Loafers' => '',
     'Front Zip Vest' => 'Bodywarmer met rits',
