@@ -22,6 +22,8 @@ return [
     'Mistaken' => '',
     'Normal' => '',
     'Power Diff' => '',
+    'Q1/4' => '',
+    'Q3/4' => '',
     'Splatfest Power vs Win %' => '',
     'Std. Dev.' => '',
 ];

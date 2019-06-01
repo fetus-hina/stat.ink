@@ -1,8 +1,10 @@
 <?php
+use app\assets\Spl2WeaponAsset;
 use app\components\widgets\Label;
 use yii\bootstrap\Html;
 
 $fmt = Yii::$app->formatter;
+$icons = Spl2WeaponAsset::register($this);
 
 $totalK = 0;
 $totalD = 0;
@@ -178,16 +180,26 @@ foreach ($players as $i => $player) {
               ]);
               // }}}
             })(),
-            Html::tag('span', Html::encode(Yii::t('app-weapon2', $player->weapon->name)), [
-              'class' => 'auto-tooltip',
-              'title' => Html::encode(sprintf(
-                '%s %s / %s %s',
-                Yii::t('app', 'Sub:'),
-                Yii::t('app-subweapon2', $player->weapon->subweapon->name ?? '?'),
-                Yii::t('app', 'Special:'),
-                Yii::t('app-special2', $player->weapon->special->name ?? '?')
-              )),
-            ]),
+            Html::tag(
+              'span',
+              implode(' ', array_filter([
+                Html::img($icons->getIconUrl($player->weapon->key), ['class' => [
+                  'w-auto',
+                  'h-em',
+                ]]),
+                Html::encode(Yii::t('app-weapon2', $player->weapon->name)),
+              ])),
+              [
+                'class' => 'auto-tooltip',
+                'title' => Html::encode(sprintf(
+                  '%s %s / %s %s',
+                  Yii::t('app', 'Sub:'),
+                  Yii::t('app-subweapon2', $player->weapon->subweapon->name ?? '?'),
+                  Yii::t('app', 'Special:'),
+                  Yii::t('app-special2', $player->weapon->special->name ?? '?')
+                )),
+              ]
+            ),
           ])
           : '',
         ['class' => 'col-weapon']
