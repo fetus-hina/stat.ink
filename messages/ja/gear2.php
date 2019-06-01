@@ -163,7 +163,7 @@ return [
     'Fresh Fish Head' => 'ひれおくん',
     'Fresh Octo Tee' => 'わかばタコT',
     'Friend Tee' => 'フレンドT',
-    'Friendship Bracelet' => '',
+    'Friendship Bracelet' => 'チギリノヒモ',
     'Fringed Loafers' => 'キルトローファー',
     'Front Zip Vest' => 'フロントジップベスト',
     'Fugu Bell Hat' => 'フグベルベルハット',
