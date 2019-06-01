@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace app\components\widgets\indexSchedule;
 
 use Yii;
+use app\assets\Spl2WeaponAsset;
 use app\models\SalmonMap2;
 use app\models\SalmonSchedule2;
 use app\models\SalmonWeapon2;
@@ -116,17 +117,22 @@ class SalmonShifts extends Widget
 
     public function renderWeapons(array $weapons): string
     {
+        $icons = Spl2WeaponAsset::register($this->view);
         return Html::tag(
             'div',
             Html::tag('ul', implode('', array_map(
-                function (?SalmonWeapon2 $weapon): string {
+                function (?SalmonWeapon2 $weapon) use ($icons): string {
                     return Html::tag(
                         'li',
-                        Html::encode(
-                            $weapon
-                                ? Yii::t('app-weapon2', $weapon->weapon->name)
-                                : Yii::t('app-salmon2', 'Random')
-                        )
+                        $weapon
+                            ? implode(' ', [
+                                Html::img($icons->getIconUrl($weapon->weapon->key), ['class' => [
+                                    'w-auto',
+                                    'h-em',
+                                ]]),
+                                Html::encode(Yii::t('app-weapon2', $weapon->weapon->name)),
+                            ])
+                            : Html::encode(Yii::t('app-salmon2', 'Random'))
                     );
                 },
                 $weapons

@@ -1,5 +1,6 @@
 <?php
 use app\assets\BattleEditAsset;
+use app\assets\Spl2WeaponAsset;
 use app\assets\SwipeboxRunnerAsset;
 use app\components\helpers\Battle as BattleHelper;
 use app\components\widgets\FA;
@@ -79,14 +80,25 @@ use yii\widgets\DetailView;
     ],
     [
       'attribute' => 'weapon_id', // {{{
-      'value' => function ($model) {
+      'format' => 'raw',
+      'value' => function ($model): ?string {
         $weapon = $model->weapon;
-        return sprintf(
-          '%s (%s / %s)',
-          Yii::t('app-weapon2', $weapon->name ?? '?'),
-          Yii::t('app-subweapon2', $weapon->subweapon->name ?? '?'),
-          Yii::t('app-special2', $weapon->special->name ?? '?')
-        );
+        if (!$weapon) {
+          return null;
+        }
+
+        $icons = Spl2WeaponAsset::register($this);
+        return implode(' ', [
+          Html::img($icons->getIconUrl($weapon->key), ['class' => [
+            'w-auto',
+            'h-em',
+          ]]),
+          Html::encode(vsprintf('%s (%s / %s)', [
+            Yii::t('app-weapon2', $weapon->name),
+            Yii::t('app-subweapon2', $weapon->subweapon->name ?? '?'),
+            Yii::t('app-special2', $weapon->special->name ?? '?')
+          ])),
+        ]);
       },
       // }}}
     ],
