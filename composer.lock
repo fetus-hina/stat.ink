@@ -1576,10 +1576,10 @@
         },
         {
             "name": "npm-asset/fortawesome--fontawesome-free",
-            "version": "5.8.2",
+            "version": "5.10.0-patch2",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/@fortawesome/fontawesome-free/-/fontawesome-free-5.8.2.tgz"
+                "url": "https://registry.npmjs.org/@fortawesome/fontawesome-free/-/fontawesome-free-5.10.0-2.tgz"
             },
             "type": "npm-asset",
             "license": [
