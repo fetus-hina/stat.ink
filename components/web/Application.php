@@ -43,7 +43,10 @@ class Application extends Base
         Yii::$app->formatter->calendar = (strpos($additional, 'calendar=') !== false)
             ? IntlDateFormatter::TRADITIONAL
             : IntlDateFormatter::GREGORIAN;
-        
+        $sep = $this->getNumericSeparators();
+        Yii::$app->formatter->decimalSeparator = $sep['decimal'];
+        Yii::$app->formatter->thousandSeparator = $sep['thousand'];
+
         Yii::info('Language/Locale updated: ' . implode(', ', [
             'app.language=' . Yii::$app->language,
             'app.locale=' . $this->locale,
@@ -53,6 +56,10 @@ class Application extends Base
                     ? 'TRADITIONAL'
                     : 'GREGORIAN'
             ),
+            'fmt.numeric=' . vsprintf('1%s234%s5', [
+                Yii::$app->formatter->thousandSeparator,
+                Yii::$app->formatter->decimalSeparator,
+            ]),
         ]), __METHOD__);
 
         return $this;
@@ -101,5 +108,23 @@ class Application extends Base
                 'expire' => time() + 86400 * 366,
             ]));
         }
+    }
+
+    private function getNumericSeparators(): array
+    {
+        if (extension_loaded('intl')) {
+            $v = Yii::$app->formatter->asDecimal(1234.5, 1);
+            if (preg_match('/^1(.)?234(.)5$/', $v, $match)) {
+                return [
+                    'decimal' => $match[2],
+                    'thousand' => $match[1],
+                ];
+            }
+        }
+
+        return [
+            'decimal' => '.',
+            'thousand' => ',',
+        ];
     }
 }

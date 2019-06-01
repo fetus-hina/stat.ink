@@ -168,27 +168,27 @@ $chartData = [
     <tbody>
       <tr>
         <th class="text-right" scope="row"><?= Html::encode(Yii::t('app-festpower2', 'Battles')) ?></th>
-        <td class="text-right"><?= Yii::$app->formatter->asInteger($totalBattles) ?></td>
-        <td class="text-right"><?= Yii::$app->formatter->asInteger($totalBattles - $totalMistakeBattles) ?></td>
-        <td class="text-right"><?= Yii::$app->formatter->asInteger($totalMistakeBattles) ?></td>
+        <td class="text-right"><?= Yii::$app->formatter->asInteger((int)$totalBattles) ?></td>
+        <td class="text-right"><?= Yii::$app->formatter->asInteger((int)$totalBattles - (int)$totalMistakeBattles) ?></td>
+        <td class="text-right"><?= Yii::$app->formatter->asInteger((int)$totalMistakeBattles) ?></td>
       </tr>
       <tr>
         <th class="text-right" scope="row"><?= Html::encode(Yii::t('app-festpower2', 'Average')) ?></th>
-        <td class="text-right"><?= Yii::$app->formatter->asDecimal($avgAll, 1) ?></td>
-        <td class="text-right"><?= Yii::$app->formatter->asDecimal($avgNormal, 1) ?></td>
-        <td class="text-right"><?= Yii::$app->formatter->asDecimal($avgMistake, 1) ?></td>
+        <td class="text-right"><?= Yii::$app->formatter->asDecimal((float)$avgAll, 1) ?></td>
+        <td class="text-right"><?= Yii::$app->formatter->asDecimal((float)$avgNormal, 1) ?></td>
+        <td class="text-right"><?= Yii::$app->formatter->asDecimal((float)$avgMistake, 1) ?></td>
       </tr>
       <tr>
         <th class="text-right" scope="row"><?= Html::encode(Yii::t('app-festpower2', 'Median')) ?></th>
-        <td class="text-right"><?= Yii::$app->formatter->asInteger($medianAll) ?></td>
-        <td class="text-right"><?= Yii::$app->formatter->asInteger($medianNormal) ?></td>
-        <td class="text-right"><?= Yii::$app->formatter->asInteger($medianMistake) ?></td>
+        <td class="text-right"><?= Yii::$app->formatter->asInteger((int)$medianAll) ?></td>
+        <td class="text-right"><?= Yii::$app->formatter->asInteger((int)$medianNormal) ?></td>
+        <td class="text-right"><?= Yii::$app->formatter->asInteger((int)$medianMistake) ?></td>
       </tr>
       <tr>
         <th class="text-right" scope="row"><?= Html::encode(Yii::t('app-festpower2', 'Std. Dev.')) ?></th>
-        <td class="text-right"><?= Yii::$app->formatter->asDecimal($stddevAll, 3) ?></td>
-        <td class="text-right"><?= Yii::$app->formatter->asDecimal($stddevNormal, 3) ?></td>
-        <td class="text-right"><?= Yii::$app->formatter->asDecimal($stddevMistake, 3) ?></td>
+        <td class="text-right"><?= Yii::$app->formatter->asDecimal((float)$stddevAll, 3) ?></td>
+        <td class="text-right"><?= Yii::$app->formatter->asDecimal((float)$stddevNormal, 3) ?></td>
+        <td class="text-right"><?= Yii::$app->formatter->asDecimal((float)$stddevMistake, 3) ?></td>
       </tr>
     </tbody>
   </table>
