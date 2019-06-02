@@ -2,8 +2,8 @@
 declare(strict_types=1);
 
 use app\assets\DownloadsPageAsset;
+use app\assets\FlagIconCssAsset;
 use app\models\Language;
-use hiqdev\assets\flagiconcss\FlagIconCssAsset;
 use yii\helpers\Html;
 use yii\helpers\Url;
 

@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2015-2018 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  */
@@ -10,11 +10,11 @@ declare(strict_types=1);
 namespace app\components\widgets;
 
 use Yii;
+use app\assets\FlagIconCssAsset;
 use app\assets\FlexboxAsset;
 use app\assets\LanguageDialogAsset;
 use app\models\Language;
 use app\models\SupportLevel;
-use hiqdev\assets\flagiconcss\FlagIconCssAsset;
 use yii\helpers\Html;
 
 class LanguageDialog extends Dialog

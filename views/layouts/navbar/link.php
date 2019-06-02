@@ -1,6 +1,6 @@
 <?php
 use app\assets\AppLinkAsset;
-use hiqdev\assets\flagiconcss\FlagIconCssAsset;
+use app\assets\FlagIconCssAsset;
 use yii\helpers\Html;
 
 FlagIconCssAsset::register($this);

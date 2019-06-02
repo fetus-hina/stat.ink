@@ -10,11 +10,11 @@ declare(strict_types=1);
 namespace app\components\widgets\alerts;
 
 use Yii;
+use app\assets\FlagIconCssAsset;
 use app\components\widgets\Alert;
 use app\components\widgets\FA;
 use app\models\Language;
 use app\models\SupportLevel;
-use hiqdev\assets\flagiconcss\FlagIconCssAsset;
 use yii\base\Widget;
 use yii\helpers\Html;
 

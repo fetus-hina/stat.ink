@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fdcde9c8b19c41445d19a5bfc468fb7e",
+    "content-hash": "880d67d6f00f379779611170e89ee857",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -99,21 +99,6 @@
             "license": [
                 "MIT"
             ]
-        },
-        {
-            "name": "bower-asset/flag-icon-css",
-            "version": "2.9.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/lipis/flag-icon-css.git",
-                "reference": "b3f81d10556e007c460444ec22489e68520eb79d"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/lipis/flag-icon-css/zipball/b3f81d10556e007c460444ec22489e68520eb79d",
-                "reference": "b3f81d10556e007c460444ec22489e68520eb79d"
-            },
-            "type": "bower-asset"
         },
         {
             "name": "bower-asset/flot",
@@ -824,80 +809,6 @@
             "time": "2018-11-08T09:49:58+00:00"
         },
         {
-            "name": "hiqdev/yii2-asset-flag-icon-css",
-            "version": "2.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/hiqdev/yii2-asset-flag-icon-css.git",
-                "reference": "1bb27ea9afadf5fce9afa4fb46cc97531b769b70"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/hiqdev/yii2-asset-flag-icon-css/zipball/1bb27ea9afadf5fce9afa4fb46cc97531b769b70",
-                "reference": "1bb27ea9afadf5fce9afa4fb46cc97531b769b70",
-                "shasum": ""
-            },
-            "require": {
-                "bower-asset/flag-icon-css": "^2.0",
-                "yiisoft/yii2": "~2.0"
-            },
-            "require-dev": {
-                "hiqdev/hidev-hiqdev": "<2.0",
-                "hiqdev/hidev-php": "<2.0"
-            },
-            "type": "yii2-extension",
-            "extra": {
-                "asset-installer-paths": {
-                    "npm-asset-library": "vendor/npm",
-                    "bower-asset-library": "vendor/bower"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "hiqdev\\assets\\flagiconcss\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Andrii Vasyliev",
-                    "email": "sol@hiqdev.com",
-                    "homepage": "http://hipanel.com/",
-                    "role": "Project lead"
-                },
-                {
-                    "name": "Dmitry Naumenko",
-                    "email": "d.naumenko.a@gmail.com",
-                    "homepage": "http://silverfire.me/",
-                    "role": "Lead backend developer"
-                },
-                {
-                    "name": "Andrey Klochok",
-                    "email": "andreyklochok@gmail.com",
-                    "homepage": "http://hiqdev.com/",
-                    "role": "Lead frontend developer"
-                },
-                {
-                    "name": "Yuriy Myronchuk",
-                    "email": "bladeroot@gmail.com",
-                    "homepage": "http://hiqdev.com/",
-                    "role": "QA Lead"
-                }
-            ],
-            "description": "Yii2 asset for bower flag-icon-css",
-            "homepage": "https://github.com/hiqdev/yii2-asset-flag-icon-css",
-            "keywords": [
-                "asset",
-                "extension",
-                "flag-icon-css",
-                "yii2"
-            ],
-            "time": "2017-01-31T10:40:06+00:00"
-        },
-        {
             "name": "jaybizzle/crawler-detect",
             "version": "v1.2.82",
             "source": {
@@ -1573,6 +1484,15 @@
             "license": [
                 "OFL-1.1"
             ]
+        },
+        {
+            "name": "npm-asset/flag-icon-css",
+            "version": "3.3.0",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/flag-icon-css/-/flag-icon-css-3.3.0.tgz"
+            },
+            "type": "npm-asset"
         },
         {
             "name": "npm-asset/fortawesome--fontawesome-free",

@@ -10,12 +10,12 @@ namespace app\components\widgets;
 
 use Yii;
 use app\assets\AppAsset;
+use app\assets\FlagIconCssAsset;
 use app\assets\LanguageDialogAsset;
 use app\assets\TimezoneDialogAsset;
 use app\models\Country;
 use app\models\Language;
 use app\models\Timezone;
-use hiqdev\assets\flagiconcss\FlagIconCssAsset;
 use yii\base\Widget;
 use yii\helpers\Html;
 
