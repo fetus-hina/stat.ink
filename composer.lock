@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "601b4bfb22894881d377a94f332c9bbf",
+    "content-hash": "ae8c9f99d98fad73c3961551e514dcdc",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -44,39 +44,6 @@
             "license": [
                 "MIT"
             ]
-        },
-        {
-            "name": "bower-asset/emojify.js",
-            "version": "1.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/joypixels/emojify.js.git",
-                "reference": "230b992b2754000b52da2542fa7a4fa730dc9a24"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/joypixels/emojify.js/zipball/230b992b2754000b52da2542fa7a4fa730dc9a24",
-                "reference": "230b992b2754000b52da2542fa7a4fa730dc9a24",
-                "shasum": ""
-            },
-            "type": "bower-asset-library",
-            "extra": {
-                "bower-asset-main": "dist/js/emojify.js",
-                "bower-asset-ignore": [
-                    "src",
-                    "**/.*",
-                    "node_modules",
-                    "tests"
-                ]
-            },
-            "license": [
-                "MIT"
-            ],
-            "description": "A Javascript module to convert Emoji keywords to images http://hassankhan.github.io/emojify.js/",
-            "keywords": [
-                "emoji"
-            ],
-            "time": "2015-07-09T10:02:27+00:00"
         },
         {
             "name": "bower-asset/eonasdan-bootstrap-datetimepicker",
@@ -1331,6 +1298,18 @@
             "type": "npm-asset",
             "license": [
                 "OFL-1.1"
+            ]
+        },
+        {
+            "name": "npm-asset/emojify.js",
+            "version": "1.1.0",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/emojify.js/-/emojify.js-1.1.0.tgz"
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
             ]
         },
         {
