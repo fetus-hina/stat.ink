@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "543de908d5f884cfa96b0d90aa2a2a57",
+    "content-hash": "8797bee4d27188f888328ae4176977df",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -178,16 +178,16 @@
         },
         {
             "name": "bower-asset/jquery",
-            "version": "2.2.4",
+            "version": "3.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jquery/jquery-dist.git",
-                "reference": "c0185ab7c75aab88762c5aae780b9d83b80eda72"
+                "reference": "15bc73803f76bc53b654b9fdbbbc096f56d7c03d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jquery/jquery-dist/zipball/c0185ab7c75aab88762c5aae780b9d83b80eda72",
-                "reference": "c0185ab7c75aab88762c5aae780b9d83b80eda72"
+                "url": "https://api.github.com/repos/jquery/jquery-dist/zipball/15bc73803f76bc53b654b9fdbbbc096f56d7c03d",
+                "reference": "15bc73803f76bc53b654b9fdbbbc096f56d7c03d"
             },
             "type": "bower-asset",
             "license": [
@@ -6081,6 +6081,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
+        "bower-asset/jquery": 0,
         "shakura/yii2-gearman": 20,
         "yiisoft/yii2-bootstrap": 0,
         "yiisoft/yii2-smarty": 0
