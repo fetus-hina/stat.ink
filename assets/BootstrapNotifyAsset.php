@@ -1,21 +1,24 @@
 <?php
 /**
- * @copyright Copyright (C) 2016 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  */
 
+declare(strict_types=1);
+
 namespace app\assets;
 
+use yii\bootstrap\BootstrapAsset;
 use yii\web\AssetBundle;
 
 class BootstrapNotifyAsset extends AssetBundle
 {
-    public $sourcePath = '@bower/remarkable-bootstrap-notify';
+    public $sourcePath = '@npm/bootstrap-notify';
     public $js = [
         'bootstrap-notify.min.js',
     ];
     public $depends = [
-        \yii\bootstrap\BootstrapAsset::class,
+        BootstrapAsset::class,
     ];
 }

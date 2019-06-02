@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "87897211af238830d4bcaa83548f4940",
+    "content-hash": "bc62a19701080265fa9a4badb0bcd017",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -301,28 +301,6 @@
                 "reference": "38c8d3131a82567bfef18da09f7f4db68c84f8a3"
             },
             "type": "bower-asset"
-        },
-        {
-            "name": "bower-asset/remarkable-bootstrap-notify",
-            "version": "3.1.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/mouse0270/bootstrap-notify.git",
-                "reference": "c6a3e3acafda0815cce3703103499b6262500cd7"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/mouse0270/bootstrap-notify/zipball/c6a3e3acafda0815cce3703103499b6262500cd7",
-                "reference": "c6a3e3acafda0815cce3703103499b6262500cd7"
-            },
-            "require": {
-                "bower-asset/bootstrap": ">=2.0.0",
-                "bower-asset/jquery": ">=1.10.2"
-            },
-            "type": "bower-asset",
-            "license": [
-                "MIT"
-            ]
         },
         {
             "name": "bower-asset/swipebox",
@@ -1337,6 +1315,18 @@
             "description": "Internal MaxMind Web Service API",
             "homepage": "https://github.com/maxmind/web-service-common-php",
             "time": "2018-02-12T22:31:54+00:00"
+        },
+        {
+            "name": "npm-asset/bootstrap-notify",
+            "version": "3.1.3",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/bootstrap-notify/-/bootstrap-notify-3.1.3.tgz"
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
         },
         {
             "name": "npm-asset/bootswatch",
