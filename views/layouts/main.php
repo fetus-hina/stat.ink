@@ -1,20 +1,14 @@
 <?php
 use app\assets\AppAsset;
-use app\assets\BootstrapNotifyAsset;
-use app\assets\BootswatchAsset;
 use app\components\helpers\I18n;
 use app\components\widgets\ColorSchemeDialog;
 use app\components\widgets\LanguageDialog;
 use app\components\widgets\TimezoneDialog;
-use cybercog\yii\googleanalytics\widgets\GATracking;
 use yii\helpers\Html;
 use yii\helpers\Json;
 
 AppAsset::register($this);
 Yii::$app->theme->registerAssets($this);
-
-// $bootswatch = BootswatchAsset::register($this);
-// $bootswatch->theme = 'darkly';
 
 $_flashes = Yii::$app->getSession()->getAllFlashes();
 if ($_flashes) {
@@ -87,11 +81,6 @@ if ($_flashes) {
         <?= $this->render('/includes/battle-input-modal-2') . "\n" ?>
 <?php } ?>
       <span id="event"></span>
-<?php if (Yii::$app->params['googleAnalytics'] ?? null) { ?>
-        <?= GATracking::widget([
-          'trackingId' => Yii::$app->params['googleAnalytics'],
-        ]) . "\n" ?>
-<?php } ?>
       <?= ColorSchemeDialog::widget([
         'id' => 'color-scheme-dialog',
       ]) . "\n" ?>

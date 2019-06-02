@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "880d67d6f00f379779611170e89ee857",
+    "content-hash": "dc13d2baf8a2e93fb17c37d88a4f2818",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -616,50 +616,6 @@
             "description": "Promoting the interoperability of container objects (DIC, SL, etc.)",
             "homepage": "https://github.com/container-interop/container-interop",
             "time": "2017-02-14T19:40:03+00:00"
-        },
-        {
-            "name": "cybercog/yii2-google-analytics",
-            "version": "v0.3.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/cybercog/yii2-google-analytics.git",
-                "reference": "6331e592ea8ce89a201781e563a4cc8526045b09"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/cybercog/yii2-google-analytics/zipball/6331e592ea8ce89a201781e563a4cc8526045b09",
-                "reference": "6331e592ea8ce89a201781e563a4cc8526045b09",
-                "shasum": ""
-            },
-            "require": {
-                "yiisoft/yii2": "*"
-            },
-            "require-dev": {
-                "friendsofphp/php-cs-fixer": "^1.11"
-            },
-            "type": "yii2-extension",
-            "autoload": {
-                "psr-4": {
-                    "cybercog\\yii\\googleanalytics\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Anton Komarev",
-                    "email": "ell@cybercog.su"
-                }
-            ],
-            "description": "Google Analytics Widget for the Yii2 framework",
-            "keywords": [
-                "analytics",
-                "google",
-                "yii2"
-            ],
-            "time": "2016-06-23T20:28:23+00:00"
         },
         {
             "name": "ezyang/htmlpurifier",
