@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bc62a19701080265fa9a4badb0bcd017",
+    "content-hash": "543de908d5f884cfa96b0d90aa2a2a57",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -224,24 +224,6 @@
             },
             "require": {
                 "bower-asset/jquery": ">=1.4.2"
-            },
-            "type": "bower-asset",
-            "license": [
-                "MIT"
-            ]
-        },
-        {
-            "name": "bower-asset/jquery.lazyload",
-            "version": "1.9.7",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/tuupola/lazyload.git",
-                "reference": "218e50eb4999fe59ac94b939a65c8c988d1d420b"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/tuupola/lazyload/zipball/218e50eb4999fe59ac94b939a65c8c988d1d420b",
-                "reference": "218e50eb4999fe59ac94b939a65c8c988d1d420b"
             },
             "type": "bower-asset",
             "license": [
