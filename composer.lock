@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6815c4e9a57cd518bfc2771f95e69a87",
+    "content-hash": "fdcde9c8b19c41445d19a5bfc468fb7e",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -3017,16 +3017,16 @@
         },
         {
             "name": "yiisoft/yii2-bootstrap",
-            "version": "dev-master",
+            "version": "2.0.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-bootstrap.git",
-                "reference": "40a00e20b66057cd32d0c8bbc9377dc0223e541a"
+                "reference": "073c9ab0a4eb71f2485d84c96a1967130300d8fc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-bootstrap/zipball/40a00e20b66057cd32d0c8bbc9377dc0223e541a",
-                "reference": "40a00e20b66057cd32d0c8bbc9377dc0223e541a",
+                "url": "https://api.github.com/repos/yiisoft/yii2-bootstrap/zipball/073c9ab0a4eb71f2485d84c96a1967130300d8fc",
+                "reference": "073c9ab0a4eb71f2485d84c96a1967130300d8fc",
                 "shasum": ""
             },
             "require": {
@@ -3076,7 +3076,7 @@
                 "bootstrap",
                 "yii2"
             ],
-            "time": "2019-05-23T16:20:29+00:00"
+            "time": "2019-04-23T13:18:43+00:00"
         },
         {
             "name": "yiisoft/yii2-composer",
@@ -6262,7 +6262,8 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "shakura/yii2-gearman": 20,
-        "yiisoft/yii2-bootstrap": 20
+        "yiisoft/yii2-bootstrap": 0,
+        "yiisoft/yii2-smarty": 0
     },
     "prefer-stable": false,
     "prefer-lowest": false,

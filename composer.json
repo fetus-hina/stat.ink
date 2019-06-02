@@ -71,9 +71,9 @@
         "symfony/yaml": ">=2.7 <5.0",
         "tpyo/amazon-s3-php-class": "^0.5.1",
         "websightnl/gearman": "^1.0",
-        "yiisoft/yii2": "~2.0.13",
-        "yiisoft/yii2-bootstrap": "2.0.x-dev",
-        "yiisoft/yii2-smarty": "2.0.*",
+        "yiisoft/yii2": "2.0.*",
+        "yiisoft/yii2-bootstrap": "*@stable",
+        "yiisoft/yii2-smarty": "*@stable",
         "zendframework/zend-feed": "^2.6",
         "zendframework/zend-http": "^2.5",
         "zendframework/zend-uri": "^2.5"
