@@ -29,12 +29,12 @@
         "bower-asset/jquery.lazyload": "^1.9",
         "bower-asset/remarkable-bootstrap-notify": "^3.1",
         "bower-asset/swipebox": "^1.4",
-        "bower-asset/uuid.js": "^3.3",
 
         "npm-asset/bootswatch" : "3.*",
         "npm-asset/flag-icon-css": "^3.3",
         "npm-asset/fortawesome--fontawesome-free": "^5.2",
         "npm-asset/rpg-awesome": "^1.0",
+        "npm-asset/uuidjs": "^4.2.1",
 
         "christian-riesen/base32": "^1.2",
         "geoip2/geoip2": "^2.0",

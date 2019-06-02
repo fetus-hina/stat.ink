@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "dc13d2baf8a2e93fb17c37d88a4f2818",
+    "content-hash": "87897211af238830d4bcaa83548f4940",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -338,46 +338,6 @@
                 "reference": "c6227436cdeef6237652d9bf7d3cf3b6bd9fc252"
             },
             "type": "bower-asset"
-        },
-        {
-            "name": "bower-asset/uuid.js",
-            "version": "v3.6.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/LiosK/UUID.js.git",
-                "reference": "2fee98eda86cfca747fbac4b4667b2290e6b96c3"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/LiosK/UUID.js/zipball/2fee98eda86cfca747fbac4b4667b2290e6b96c3",
-                "reference": "2fee98eda86cfca747fbac4b4667b2290e6b96c3",
-                "shasum": ""
-            },
-            "type": "bower-asset-library",
-            "extra": {
-                "bower-asset-main": "src/uuid.js",
-                "bower-asset-ignore": [
-                    "**/.*",
-                    "doc",
-                    "test"
-                ]
-            },
-            "license": [
-                "MIT"
-            ],
-            "description": "UUID.js - RFC-compliant UUID Generator for JavaScript",
-            "keywords": [
-                "4122",
-                "globally",
-                "guid",
-                "identifier",
-                "library",
-                "rfc",
-                "unique",
-                "universally",
-                "uuid"
-            ],
-            "time": "2017-12-17T22:37:58+00:00"
         },
         {
             "name": "bower-asset/yii2-pjax",
@@ -1529,6 +1489,18 @@
             "type": "npm-asset",
             "license": [
                 "MIT"
+            ]
+        },
+        {
+            "name": "npm-asset/uuidjs",
+            "version": "4.2.1",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/uuidjs/-/uuidjs-4.2.1.tgz"
+            },
+            "type": "npm-asset",
+            "license": [
+                "Apache-2.0"
             ]
         },
         {
