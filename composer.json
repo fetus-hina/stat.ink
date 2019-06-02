@@ -23,7 +23,6 @@
 
         "bower-asset/bootstrap-toggle": "^2.2",
         "bower-asset/emojify.js": "^1.1",
-        "bower-asset/github-fork-ribbon-css": "^0.1.1",
         "bower-asset/jquery": "*@stable",
         "bower-asset/jquery-smooth-scroll": "^1.5",
         "bower-asset/swipebox": "^1.4",

@@ -20,8 +20,6 @@ RESOURCE_TARGETS_MAIN := \
 	resources/.compiled/flexbox/flexbox.css \
 	resources/.compiled/flot-graph-icon/jquery.flot.icon.js \
 	resources/.compiled/gears/calc.js \
-	resources/.compiled/gh-fork-ribbon/gh-fork-ribbon.css \
-	resources/.compiled/gh-fork-ribbon/gh-fork-ribbon.js \
 	resources/.compiled/irasutoya/eto/0.png \
 	resources/.compiled/irasutoya/eto/1.png \
 	resources/.compiled/irasutoya/eto/10.png \
@@ -313,8 +311,6 @@ resources/.compiled/counter/counter.css: resources/counter/counter.less node_mod
 resources/.compiled/flexbox/flexbox.css: resources/flexbox/flexbox.less node_modules
 resources/.compiled/flot-graph-icon/jquery.flot.icon.js: resources/flot-graph-icon/jquery.flot.icon.js node_modules
 resources/.compiled/gears/calc.js: resources/gears/calc.js node_modules
-resources/.compiled/gh-fork-ribbon/gh-fork-ribbon.css: resources/gh-fork-ribbon/gh-fork-ribbon.css node_modules
-resources/.compiled/gh-fork-ribbon/gh-fork-ribbon.js: resources/gh-fork-ribbon/gh-fork-ribbon.js node_modules
 resources/.compiled/ostatus/remote-follow.js: resources/ostatus/remote-follow.js node_modules
 resources/.compiled/slack/slack.js: resources/slack/slack.js node_modules
 resources/.compiled/stat.ink/active-reltime.js: resources/stat.ink/active-reltime.js node_modules

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8797bee4d27188f888328ae4176977df",
+    "content-hash": "601b4bfb22894881d377a94f332c9bbf",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -114,46 +114,6 @@
                 "reference": "453b017cc5acfd75e252b93e8635f57f4196d45d"
             },
             "type": "bower-asset"
-        },
-        {
-            "name": "bower-asset/github-fork-ribbon-css",
-            "version": "0.1.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/simonwhitaker/github-fork-ribbon-css.git",
-                "reference": "b3305a5555123a30502c1feb4ff23047030dc3f0"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/simonwhitaker/github-fork-ribbon-css/zipball/b3305a5555123a30502c1feb4ff23047030dc3f0",
-                "reference": "b3305a5555123a30502c1feb4ff23047030dc3f0",
-                "shasum": ""
-            },
-            "type": "bower-asset-library",
-            "extra": {
-                "bower-asset-main": [
-                    "gh-fork-ribbon.css",
-                    "gh-fork-ribbon.ie.css"
-                ],
-                "bower-asset-ignore": [
-                    "**/.*",
-                    "node_modules",
-                    "bower_components",
-                    "test",
-                    "tests"
-                ]
-            },
-            "license": [
-                "MIT"
-            ],
-            "description": "\"Fork me on GitHub\" CSS ribbon",
-            "keywords": [
-                "GitHub",
-                "css",
-                "fork",
-                "ribbon"
-            ],
-            "time": "2014-06-10T10:03:00+00:00"
         },
         {
             "name": "bower-asset/inputmask",
