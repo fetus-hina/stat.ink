@@ -10,7 +10,6 @@ namespace app\components\widgets;
 
 use Yii;
 use app\assets\AppAsset;
-use app\assets\FlagIconCssAsset;
 use app\assets\LanguageDialogAsset;
 use app\assets\TimezoneDialogAsset;
 use app\models\Country;
@@ -23,8 +22,6 @@ class IndexI18nButtons extends Widget
 {
     public function run()
     {
-        FlagIconCssAsset::register($this->view);
-
         return Html::tag(
             'div',
             $this->renderButtons(),
@@ -55,12 +52,7 @@ class IndexI18nButtons extends Widget
             (string)FA::fas('language')->fw(),
             $lang
                 ? [
-                    Html::tag('span', '', [
-                        'class' => [
-                            'flag-icon',
-                            'flag-icon-' . strtolower($lang->getCountryCode()),
-                        ],
-                    ]),
+                    (string)FlagIcon::fg(strtolower($lang->getCountryCode()))
                 ]
                 : [],
             $lang
@@ -87,12 +79,7 @@ class IndexI18nButtons extends Widget
             $tz
                 ? array_map(
                     function (Country $country): string {
-                        return Html::tag('span', '', [
-                            'class' => [
-                                'flag-icon',
-                                'flag-icon-' . strtolower($country->key),
-                            ],
-                        ]);
+                        return (string)FlagIcon::fg($country->key);
                     },
                     $tz->countries,
                 )

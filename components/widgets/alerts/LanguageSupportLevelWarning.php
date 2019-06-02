@@ -10,9 +10,9 @@ declare(strict_types=1);
 namespace app\components\widgets\alerts;
 
 use Yii;
-use app\assets\FlagIconCssAsset;
 use app\components\widgets\Alert;
 use app\components\widgets\FA;
+use app\components\widgets\FlagIcon;
 use app\models\Language;
 use app\models\SupportLevel;
 use yii\base\Widget;
@@ -82,17 +82,10 @@ class LanguageSupportLevelWarning extends Widget
             return '';
         }
 
-        FlagIconCssAsset::register($this->view);
-
         return Html::tag('p', implode(' ', [
             Html::tag('strong', implode('', [
                 Html::encode('Language: '),
-                Html::tag('span', '', [
-                    'class' => [
-                        'flag-icon',
-                        'flag-icon-' . $this->language->countryCode,
-                    ],
-                ]),
+                (string)FlagIcon::fg(strtolower($this->language->countryCode)),
                 ' ',
                 Html::encode($this->language->name),
             ])),

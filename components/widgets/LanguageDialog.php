@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace app\components\widgets;
 
 use Yii;
-use app\assets\FlagIconCssAsset;
 use app\assets\FlexboxAsset;
 use app\assets\LanguageDialogAsset;
 use app\models\Language;
@@ -77,12 +76,11 @@ class LanguageDialog extends Dialog
 
     private function renderLanguageItem(Language $lang): string
     {
-        FlagIconCssAsset::register($this->view);
-        $flag =  Html::tag('span', '', ['class' => [
-            'flag-icon',
-            'flag-icon-' . strtolower(substr($lang->lang, 3, 2)),
-            'mr-1',
-        ]]);
+        $flag = Html::tag(
+            'span',
+            FlagIcon::fg(strtolower($lang->countryCode)),
+            ['class' => 'mr-1']
+        );
 
         $label = ($lang->name === $lang->name_en)
             ? $lang->name

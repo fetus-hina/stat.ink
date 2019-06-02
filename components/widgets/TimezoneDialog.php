@@ -89,13 +89,11 @@ class TimezoneDialog extends Dialog
     {
         $flags = implode(' ', array_map(
             function (?Country $country): string {
-                $flag = $country
-                    ? Html::tag('span', '', ['class' => [
-                        'flag-icon',
-                        'flag-icon-' . $country->key,
-                    ]])
-                    : '';
-                return FA::hack($flag)->fw()->__toString();
+                if (!$country) {
+                    return (string)FlagIcon::fg('none');
+                }
+
+                return (string)FlagIcon::fg($country->key);
             },
             array_slice(array_merge($tz->countries, [null, null]), 0, 2) // always 2 elements
         ));
