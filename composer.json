@@ -22,7 +22,7 @@
         "ext-zlib": "*",
 
         "bower-asset/bootstrap-toggle": "^2.2",
-        "bower-asset/jquery": "*@stable",
+        "bower-asset/jquery": "<3.0",
         "bower-asset/jquery-smooth-scroll": "^1.5",
         "bower-asset/swipebox": "^1.4",
 
