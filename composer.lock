@@ -1819,16 +1819,16 @@
         },
         {
             "name": "statink/yii2-anonymizer",
-            "version": "v1.0.0",
+            "version": "v1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/statink/yii2-anonymizer.git",
-                "reference": "d007d01758e7f0e746abf19f98e492e71f49ea8c"
+                "reference": "25e12f426450d30482060c869e56727dd4dd6d7d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/statink/yii2-anonymizer/zipball/d007d01758e7f0e746abf19f98e492e71f49ea8c",
-                "reference": "d007d01758e7f0e746abf19f98e492e71f49ea8c",
+                "url": "https://api.github.com/repos/statink/yii2-anonymizer/zipball/25e12f426450d30482060c869e56727dd4dd6d7d",
+                "reference": "25e12f426450d30482060c869e56727dd4dd6d7d",
                 "shasum": ""
             },
             "require": {
@@ -1853,10 +1853,10 @@
             ],
             "description": "Player name anonymizer for stat.ink",
             "support": {
-                "source": "https://github.com/statink/yii2-anonymizer/tree/v1.0.0",
+                "source": "https://github.com/statink/yii2-anonymizer/tree/v1.0.1",
                 "issues": "https://github.com/statink/yii2-anonymizer/issues"
             },
-            "time": "2018-11-16T13:33:59+00:00"
+            "time": "2019-06-05T19:45:53+00:00"
         },
         {
             "name": "statink/yii2-bukiicons",
@@ -1985,16 +1985,16 @@
         },
         {
             "name": "statink/yii2-ip-badge",
-            "version": "v1.0.0",
+            "version": "v1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/statink/yii2-ip-badge.git",
-                "reference": "eea98e79bab7845d0c8b95d1b299186f2c335c48"
+                "reference": "f90df3a1097dd8a5d1488209adfdc2539cfdab02"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/statink/yii2-ip-badge/zipball/eea98e79bab7845d0c8b95d1b299186f2c335c48",
-                "reference": "eea98e79bab7845d0c8b95d1b299186f2c335c48",
+                "url": "https://api.github.com/repos/statink/yii2-ip-badge/zipball/f90df3a1097dd8a5d1488209adfdc2539cfdab02",
+                "reference": "f90df3a1097dd8a5d1488209adfdc2539cfdab02",
                 "shasum": ""
             },
             "require": {
@@ -2018,10 +2018,10 @@
             ],
             "description": "IP version badge for stat.ink header",
             "support": {
-                "source": "https://github.com/statink/yii2-ip-badge/tree/v1.0.0",
+                "source": "https://github.com/statink/yii2-ip-badge/tree/v1.0.1",
                 "issues": "https://github.com/statink/yii2-ip-badge/issues"
             },
-            "time": "2018-11-14T12:40:22+00:00"
+            "time": "2019-06-05T19:52:56+00:00"
         },
         {
             "name": "statink/yii2-jdenticon",
@@ -2108,16 +2108,16 @@
         },
         {
             "name": "statink/yii2-paintball",
-            "version": "v1.0.0",
+            "version": "v1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/statink/yii2-paintball.git",
-                "reference": "fee635359b13583bae5455e9b729f765b5152994"
+                "reference": "0227840f15bd1ccde55c4a0c51eb9173a1456cdf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/statink/yii2-paintball/zipball/fee635359b13583bae5455e9b729f765b5152994",
-                "reference": "fee635359b13583bae5455e9b729f765b5152994",
+                "url": "https://api.github.com/repos/statink/yii2-paintball/zipball/0227840f15bd1ccde55c4a0c51eb9173a1456cdf",
+                "reference": "0227840f15bd1ccde55c4a0c51eb9173a1456cdf",
                 "shasum": ""
             },
             "require": {
@@ -2141,23 +2141,23 @@
             ],
             "description": "Paintball asset bundle for stat.ink",
             "support": {
-                "source": "https://github.com/statink/yii2-paintball/tree/v1.0.0",
+                "source": "https://github.com/statink/yii2-paintball/tree/v1.0.1",
                 "issues": "https://github.com/statink/yii2-paintball/issues"
             },
-            "time": "2018-11-14T20:13:03+00:00"
+            "time": "2019-06-05T19:50:57+00:00"
         },
         {
             "name": "statink/yii2-sillyname",
-            "version": "v1.0.0",
+            "version": "v1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/statink/yii2-sillyname.git",
-                "reference": "f78256fefdca47b5ef2b3aac5b65d66f14820e8f"
+                "reference": "56c27dc338dc5aea8d42eee38acd88826378d930"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/statink/yii2-sillyname/zipball/f78256fefdca47b5ef2b3aac5b65d66f14820e8f",
-                "reference": "f78256fefdca47b5ef2b3aac5b65d66f14820e8f",
+                "url": "https://api.github.com/repos/statink/yii2-sillyname/zipball/56c27dc338dc5aea8d42eee38acd88826378d930",
+                "reference": "56c27dc338dc5aea8d42eee38acd88826378d930",
                 "shasum": ""
             },
             "require": {
@@ -2184,10 +2184,10 @@
             ],
             "description": "Sillyname asset bundle for stat.ink",
             "support": {
-                "source": "https://github.com/statink/yii2-sillyname/tree/v1.0.0",
+                "source": "https://github.com/statink/yii2-sillyname/tree/v1.0.1",
                 "issues": "https://github.com/statink/yii2-sillyname/issues"
             },
-            "time": "2018-11-16T09:54:37+00:00"
+            "time": "2019-06-05T19:39:18+00:00"
         },
         {
             "name": "statink/yii2-sortable-table",
