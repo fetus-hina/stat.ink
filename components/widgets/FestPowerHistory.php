@@ -179,7 +179,7 @@ class FestPowerHistory extends Widget
         );
 
         if (count($history) < 2) {
-            return '';
+            return null;
         }
 
         // old -> new

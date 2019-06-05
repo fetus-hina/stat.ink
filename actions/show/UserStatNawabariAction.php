@@ -103,8 +103,8 @@ class UserStatNawabariAction extends BaseAction
                 'name' => Yii::t('app-map', $map['name']),
                 'area' => $map['area'],
                 'battles' => [],
-                'stats' => $stats[$map['key']],
-                'avgInked' => $stats[$map['key']]['avg'],
+                'stats' => $stats[$map['key']] ?? [],
+                'avgInked' => $stats[$map['key']]['avg'] ?? null,
             ];
         }
 
