@@ -30,7 +30,7 @@
         "npm-asset/bootswatch" : "3.*",
         "npm-asset/emojify.js": "^1.1.0",
         "npm-asset/flag-icon-css": "^3.3",
-        "npm-asset/fortawesome--fontawesome-free": "^5.2",
+        "npm-asset/fortawesome--fontawesome-free": "^5.9",
         "npm-asset/rpg-awesome": "^1.0",
         "npm-asset/uuidjs": "^4.2.1",
 

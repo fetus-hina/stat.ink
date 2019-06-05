@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f3d91c9bc38d1d1b564db1228cf37cd1",
+    "content-hash": "da6df22d4e03fe96cf6389549aed5037",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -613,16 +613,16 @@
         },
         {
             "name": "jaybizzle/crawler-detect",
-            "version": "v1.2.82",
+            "version": "v1.2.83",
             "source": {
                 "type": "git",
                 "url": "https://github.com/JayBizzle/Crawler-Detect.git",
-                "reference": "48522d4b3495ac8eef2a7298f128f35d7ea3f49b"
+                "reference": "80f1357b431c605745eeb901fe4c32c8f25a5c52"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/JayBizzle/Crawler-Detect/zipball/48522d4b3495ac8eef2a7298f128f35d7ea3f49b",
-                "reference": "48522d4b3495ac8eef2a7298f128f35d7ea3f49b",
+                "url": "https://api.github.com/repos/JayBizzle/Crawler-Detect/zipball/80f1357b431c605745eeb901fe4c32c8f25a5c52",
+                "reference": "80f1357b431c605745eeb901fe4c32c8f25a5c52",
                 "shasum": ""
             },
             "require": {
@@ -658,7 +658,7 @@
                 "crawlerdetect",
                 "php crawler detect"
             ],
-            "time": "2019-05-21T20:51:49+00:00"
+            "time": "2019-06-04T19:56:51+00:00"
         },
         {
             "name": "jp3cki/mb_str_replace",
@@ -2676,16 +2676,16 @@
         },
         {
             "name": "yiisoft/yii2",
-            "version": "2.0.19",
+            "version": "2.0.20",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-framework.git",
-                "reference": "3e74c7338dd83cea6ffc6f5c25202b9f2f271f89"
+                "reference": "bd05e0e0ac353cb239997da78f459d0960a1fe9f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/3e74c7338dd83cea6ffc6f5c25202b9f2f271f89",
-                "reference": "3e74c7338dd83cea6ffc6f5c25202b9f2f271f89",
+                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/bd05e0e0ac353cb239997da78f459d0960a1fe9f",
+                "reference": "bd05e0e0ac353cb239997da78f459d0960a1fe9f",
                 "shasum": ""
             },
             "require": {
@@ -2772,7 +2772,7 @@
                 "framework",
                 "yii2"
             ],
-            "time": "2019-05-21T16:01:16+00:00"
+            "time": "2019-06-04T19:10:59+00:00"
         },
         {
             "name": "yiisoft/yii2-bootstrap",
@@ -5889,16 +5889,16 @@
         },
         {
             "name": "yiisoft/yii2-debug",
-            "version": "2.1.4",
+            "version": "2.1.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-debug.git",
-                "reference": "4cc407f34fd90e410d806ea3264781a9fb4fd1ef"
+                "reference": "a6bbf55093e154e2eeb2c778af8717989495270e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-debug/zipball/4cc407f34fd90e410d806ea3264781a9fb4fd1ef",
-                "reference": "4cc407f34fd90e410d806ea3264781a9fb4fd1ef",
+                "url": "https://api.github.com/repos/yiisoft/yii2-debug/zipball/a6bbf55093e154e2eeb2c778af8717989495270e",
+                "reference": "a6bbf55093e154e2eeb2c778af8717989495270e",
                 "shasum": ""
             },
             "require": {
@@ -5942,7 +5942,7 @@
                 "debugger",
                 "yii2"
             ],
-            "time": "2019-05-14T13:39:56+00:00"
+            "time": "2019-06-04T14:21:49+00:00"
         },
         {
             "name": "yiisoft/yii2-gii",
