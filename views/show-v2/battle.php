@@ -2,7 +2,6 @@
 declare(strict_types=1);
 
 use app\assets\BattleDetailAsset;
-use app\assets\SwipeboxRunnerAsset;
 use app\components\widgets\AdWidget;
 use app\components\widgets\EmbedVideo;
 use app\components\widgets\SnsWidget;

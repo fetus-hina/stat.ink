@@ -90,7 +90,6 @@ RESOURCE_TARGETS_MAIN := \
 	resources/.compiled/stat.ink/stat-by-map.js \
 	resources/.compiled/stat.ink/stat-by-rule.js \
 	resources/.compiled/stat.ink/summary-legends.png \
-	resources/.compiled/stat.ink/swipebox-runner.js \
 	resources/.compiled/stat.ink/table-responsive-force.css \
 	resources/.compiled/stat.ink/theme.js \
 	resources/.compiled/stat.ink/timezone-dialog.js \
@@ -361,7 +360,6 @@ resources/.compiled/stat.ink/smooth-scroll.js: resources/stat.ink/smooth-scroll.
 resources/.compiled/stat.ink/stat-by-map-rule.js: resources/stat.ink/stat-by-map-rule.es node_modules
 resources/.compiled/stat.ink/stat-by-map.js: resources/stat.ink/stat-by-map.es node_modules
 resources/.compiled/stat.ink/stat-by-rule.js: resources/stat.ink/stat-by-rule.es node_modules
-resources/.compiled/stat.ink/swipebox-runner.js: resources/stat.ink/swipebox-runner.es node_modules
 resources/.compiled/stat.ink/table-responsive-force.css: resources/stat.ink/table-responsive-force.less node_modules
 resources/.compiled/stat.ink/theme.js: resources/stat.ink/theme.es
 resources/.compiled/stat.ink/timezone-dialog.js: resources/stat.ink/timezone-dialog.es node_modules
