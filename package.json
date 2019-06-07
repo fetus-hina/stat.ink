@@ -21,7 +21,7 @@
     "postcss-cli": "^6.1.2",
     "redoc-cli": "^0.8.4",
     "speccy": "^0.10.1",
-    "stylelint": "^10.0.1",
+    "stylelint": "^10.1.0",
     "stylelint-config-recommended": "^2.2.0",
     "svgo": "^1.2.2",
     "uglify-js": "^3.6.0",
