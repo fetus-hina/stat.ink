@@ -86,11 +86,11 @@
     {{SnsWidget}}
 
     {{if $battle->battleImageJudge || $battle->battleImageResult}}
-      {{\app\assets\SwipeboxRunnerAsset::register($this)|@void}}
-      <div class="row">
+      {{\app\assets\PhotoSwipeSimplifyAsset::register($this)|@void}}
+      <div class="row" data-pswp="">
         {{if $battle->battleImageJudge}}
           <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 image-container">
-            <a itemscope itemprop="image" itemtype="http://schema.org/ImageObject" href="{{$battle->battleImageJudge->url|escape}}" class="swipebox">
+            <a itemscope itemprop="image" itemtype="http://schema.org/ImageObject" href="{{$battle->battleImageJudge->url|escape}}">
               <img itemprop="url" src="{{$battle->battleImageJudge->url|escape}}" style="width:100%;height:auto">
               <meta itemprop="width" content="640">
               <meta itemprop="height" content="360">
@@ -99,7 +99,7 @@
         {{/if}}
         {{if $battle->battleImageResult}}
           <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 image-container">
-            <a itemscope itemprop="image" itemtype="http://schema.org/ImageObject" href="{{$battle->battleImageResult->url|escape}}" class="swipebox">
+            <a itemscope itemprop="image" itemtype="http://schema.org/ImageObject" href="{{$battle->battleImageResult->url|escape}}">
               <img itemprop="url" src="{{$battle->battleImageResult->url|escape}}" style="width:100%;height:auto">
               <meta itemprop="width" content="640">
               <meta itemprop="height" content="360">
@@ -467,11 +467,13 @@
                 <th>
                   {{'Gear'|translate:'app'|escape}}
                   {{if $battle->battleImageGear}}
-                    {{\app\assets\SwipeboxRunnerAsset::register($this)|@void}}
                     &#32;
-                    <a href="{{$battle->battleImageGear->url}}" class="swipebox">
-                      <span class="fa fa-picture-o"></span>
-                    </a>
+                    <span data-pswp>
+                      <a href="{{$battle->battleImageGear->url}}">
+                        {{\app\components\widgets\FA::fas('image')}}
+                        <img src="{{$battle->battleImageGear->url}}" width="1" height="1" style="opacity:0">
+                      </a>
+                    </span>
                   {{/if}}
                 </th>
                 <td>

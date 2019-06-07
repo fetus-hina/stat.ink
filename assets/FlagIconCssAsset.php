@@ -11,10 +11,16 @@ namespace app\assets;
 
 use yii\web\AssetBundle;
 
-class UuidJsAsset extends AssetBundle
+class FlagIconCssAsset extends AssetBundle
 {
-    public $sourcePath = '@npm/uuidjs/src';
-    public $js = [
-        'uuid.js',
+    public $sourcePath = '@npm/flag-icon-css';
+    public $css = [
+        'css/flag-icon.min.css',
+    ];
+    public $publishOptions = [
+        'only' => [
+            'css/*',
+            'flags/*/*',
+        ],
     ];
 }

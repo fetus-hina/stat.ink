@@ -3,7 +3,6 @@ use app\components\widgets\FA;
 use yii\helpers\Html;
 
 $user = Yii::$app->user->identity ?? null;
-$this->registerCss('.fa-twitter{color:#1da1f2}');
 ?>
 <?= Html::a(
   implode('', [

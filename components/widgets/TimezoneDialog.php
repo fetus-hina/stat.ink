@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2015-2018 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  */
@@ -16,7 +16,6 @@ use app\assets\TimezoneDialogAsset;
 use app\models\Country;
 use app\models\Timezone;
 use app\models\TimezoneGroup;
-use hiqdev\assets\flagiconcss\FlagIconCssAsset;
 use yii\helpers\Html;
 use yii\helpers\Json;
 
@@ -90,13 +89,11 @@ class TimezoneDialog extends Dialog
     {
         $flags = implode(' ', array_map(
             function (?Country $country): string {
-                $flag = $country
-                    ? Html::tag('span', '', ['class' => [
-                        'flag-icon',
-                        'flag-icon-' . $country->key,
-                    ]])
-                    : '';
-                return FA::hack($flag)->fw()->__toString();
+                if (!$country) {
+                    return (string)FlagIcon::fg('none');
+                }
+
+                return (string)FlagIcon::fg($country->key);
             },
             array_slice(array_merge($tz->countries, [null, null]), 0, 2) // always 2 elements
         ));

@@ -46,7 +46,6 @@ class SiteController extends Controller
                 'class' => AssetPublishAction::class,
                 //FIXME!!!!!!!!!!!!!!!!
                 'classes' => [
-                    'hiqdev\assets\flagiconcss\FlagIconCssAsset',
                     'jp3cki\yii2\datetimepicker\BootstrapDateTimePickerAsset',
                     'jp3cki\yii2\flot\FlotAsset',
                     'jp3cki\yii2\flot\FlotPieAsset',

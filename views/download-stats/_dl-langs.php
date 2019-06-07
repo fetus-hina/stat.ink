@@ -2,12 +2,12 @@
 declare(strict_types=1);
 
 use app\assets\DownloadsPageAsset;
+use app\components\widgets\FA;
+use app\components\widgets\FlagIcon;
 use app\models\Language;
-use hiqdev\assets\flagiconcss\FlagIconCssAsset;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
-FlagIconCssAsset::register($this);
 DownloadsPageAsset::register($this);
 
 $langs = Language::find()
@@ -24,10 +24,7 @@ $langs = Language::find()
     <?= Html::tag(
       'span',
       implode(' ', [
-        Html::tag('span', '', ['class' => [
-          'flag-icon',
-          'flag-icon-' . strtolower(substr($lang['lang'], 3, 2)),
-        ]]),
+        (string)FlagIcon::fg(strtolower(substr($lang['lang'], 3, 2))),
         Html::encode($lang['name']),
       ]),
       ['class' => 'lang']
@@ -39,7 +36,7 @@ $langs = Language::find()
         <?= Html::a(
           trim(implode(' ', [
             $_charset['is_win_acp']
-              ? Html::tag('span', '', ['class' => 'fab fa-windows'])
+              ? (string)FA::fab('windows')
               : '',
             Html::encode($charset['name']),
           ])),

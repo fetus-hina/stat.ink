@@ -32,9 +32,9 @@ $this->title = $title;
     <?= Html::tag('li', Html::encode(Yii::t('app', $_))) . "\n" ?>
 <?php } ?>
   </ul>
-  <p>
-    <?= Html::encode(Yii::t('app', 'This site uses cookies, as well as Google Analytics for tracking user information.')) . "\n" ?>
-  </p>
+  <p><?= Html::encode(
+    Yii::t('app', 'This website uses cookies to track your session or save your configuration (e.g., language / time zone settings).')
+  ) ?></p>
   <p>
     <?= Html::encode(Yii::t('app', 'We don\'t release your collected information, like your IP address. However, statistical information will be released.')) . "\n" ?>
   </p>

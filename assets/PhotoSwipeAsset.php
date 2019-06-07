@@ -11,10 +11,15 @@ namespace app\assets;
 
 use yii\web\AssetBundle;
 
-class UuidJsAsset extends AssetBundle
+class PhotoSwipeAsset extends AssetBundle
 {
-    public $sourcePath = '@npm/uuidjs/src';
+    public $sourcePath = '@npm/photoswipe/dist';
     public $js = [
-        'uuid.js',
+        'photoswipe.min.js',
+        'photoswipe-ui-default.min.js',
+    ];
+    public $css = [
+        'photoswipe.css',
+        'default-skin/default-skin.css',
     ];
 }

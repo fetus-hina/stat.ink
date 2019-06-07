@@ -1,11 +1,19 @@
 <?php
 use app\assets\AppLinkAsset;
-use hiqdev\assets\flagiconcss\FlagIconCssAsset;
+use app\components\widgets\FA;
+use app\components\widgets\FlagIcon;
 use yii\helpers\Html;
 
-FlagIconCssAsset::register($this);
 $icon = AppLinkAsset::register($this);
-$this->registerCss('.fa-twitter{color:#1da1f2}');
+$jp = function (): string {
+  return (string)FlagIcon::fg('jp');
+};
+$eu = function (): string {
+  return (string)FlagIcon::fg('eu');
+};
+$us = function (): string {
+  return (String)FlagIcon::fg('us');
+};
 
 $list = [
   [
@@ -17,21 +25,21 @@ $list = [
       [
         'url' => 'https://www.nintendo.co.jp/switch/aab6a',
         'name' => implode(' ', [
-          Html::tag('span', '', ['class' => 'flag-icon flag-icon-jp']),
+          $jp(),
           Html::encode(Yii::t('app', 'Japan')),
         ]),
       ],
       [
         'url' => 'http://splatoon.nintendo.com/',
         'name' => implode(' ', [
-          Html::tag('span', '', ['class' => 'flag-icon flag-icon-us']),
+          $us(),
           Html::encode(Yii::t('app', 'North America')),
         ]),
       ],
       [
         'url' => 'https://www.nintendo.co.uk/Games/Nintendo-Switch/Splatoon-2-1173295.html',
         'name' => implode(' ', [
-          Html::tag('span', '', ['class' => 'flag-icon flag-icon-eu']),
+          $eu(),
           Html::encode(Yii::t('app', 'Europe')),
         ]),
       ],
@@ -47,21 +55,21 @@ $list = [
       [
         'url' => 'http://www.nintendo.co.jp/wiiu/agmj/',
         'name' => implode(' ', [
-          Html::tag('span', '', ['class' => 'flag-icon flag-icon-jp']),
+          $jp(),
           Html::encode(Yii::t('app', 'Japan')),
         ]),
       ],
       [
         'url' => 'http://splatoon.nintendo.com/splatoon/',
         'name' => implode(' ', [
-          Html::tag('span', '', ['class' => 'flag-icon flag-icon-us']),
+          $us(),
           Html::encode(Yii::t('app', 'North America')),
         ]),
       ],
       [
         'url' => 'https://www.nintendo.co.uk/Games/Wii-U/Splatoon-892510.html',
         'name' => implode(' ', [
-          Html::tag('span', '', ['class' => 'flag-icon flag-icon-eu']),
+          $eu(),
           Html::encode(Yii::t('app', 'Europe')),
         ]),
       ],
@@ -71,21 +79,21 @@ $list = [
   [
     // Twitter {{{
     'name' => implode('', [
-      Html::tag('span', '', ['class' => 'fab fa-fw fa-twitter']),
+      (string)FA::fab('twitter')->fw(),
       Html::encode(Yii::t('app', 'Official Twitter')),
     ]),
     'sub' => [
       [
         'url' => 'https://twitter.com/splatoonjp',
         'name' => implode(' ', [
-          Html::tag('span', '', ['class' => 'flag-icon flag-icon-jp']),
+          $jp(),
           Html::encode(Yii::t('app', 'Japan')),
         ]),
       ],
       [
         'url' => 'https://twitter.com/NintendoAmerica',
         'name' => implode(' ', [
-          Html::tag('span', '', ['class' => 'flag-icon flag-icon-us']),
+          $us(),
           Html::encode(Yii::t('app', 'North America')),
           Html::encode('(Nintendo)'),
         ]),
@@ -93,7 +101,7 @@ $list = [
       [
         'url' => 'https://twitter.com/NintendoVS',
         'name' => implode(' ', [
-          Html::tag('span', '', ['class' => 'flag-icon flag-icon-us']),
+          $us(),
           Html::encode(Yii::t('app', 'North America')),
           Html::encode('(Nintendo VS)'),
         ]),
@@ -101,7 +109,7 @@ $list = [
       [
         'url' => 'https://twitter.com/NintendoEurope',
         'name' => implode(' ', [
-          Html::tag('span', '', ['class' => 'flag-icon flag-icon-eu']),
+          $eu(),
           Html::encode(Yii::t('app', 'Europe')),
           Html::encode('(Nintendo)'),
         ]),
@@ -116,14 +124,14 @@ $list = [
       [
         'url' => 'https://play.google.com/store/apps/details?id=com.nintendo.znca',
         'name' => implode('', [
-          Html::tag('span', '', ['class' => 'fab fa-fw fa-android']),
+          (string)FA::fab('android')->fw(),
           Html::encode(Yii::t('app', 'Android')),
         ]),
       ],
       [
         'url' => 'https://itunes.apple.com/app/nintendo-switch-online/id1234806557',
         'name' => implode('', [
-          Html::tag('span', '', ['class' => 'fab fa-fw fa-apple']),
+          (string)FA::fab('apple')->fw(),
           Html::encode(Yii::t('app', 'iOS (iPhone/iPad)')),
         ]),
       ],
@@ -137,9 +145,9 @@ $list = [
     'name' => implode('', [
       $icon->squidTracks,
       Html::encode(Yii::t('app', 'SquidTracks')),
-      Html::tag('span', '', ['class' => 'fab fa-fw fa-windows']),
-      Html::tag('span', '', ['class' => 'fab fa-fw fa-apple']),
-      Html::tag('span', '', ['class' => 'fab fa-fw fa-linux']),
+      (string)FA::fab('windows')->fw(),
+      (string)FA::fab('apple')->fw(),
+      (string)FA::fab('linux')->fw(),
     ]),
     // }}}
   ],
@@ -149,9 +157,9 @@ $list = [
     'name' => implode('', [
       Html::tag('span', '', ['class' => 'fa fa-fw']),
       Html::encode(Yii::t('app', 'splatnet2statink')),
-      Html::tag('span', '', ['class' => 'fab fa-fw fa-windows']),
-      Html::tag('span', '', ['class' => 'fab fa-fw fa-apple']),
-      Html::tag('span', '', ['class' => 'fab fa-fw fa-linux']),
+      (string)FA::fab('windows')->fw(),
+      (string)FA::fab('apple')->fw(),
+      (string)FA::fab('linux')->fw(),
     ]),
     // }}}
   ],
@@ -177,22 +185,22 @@ $list = [
         'name' => implode('', [
           $icon->ikalog,
           Html::encode(Yii::t('app', 'IkaLog')),
-          Html::tag('span', '', ['class' => 'fab fa-fw fa-windows']),
-          Html::tag('span', '', ['class' => 'fab fa-fw fa-apple']),
-          Html::tag('span', '', ['class' => 'fab fa-fw fa-linux']),
+          (string)FA::fab('windows')->fw(),
+          (string)FA::fab('apple')->fw(),
+          (string)FA::fab('linux')->fw(),
         ]),
         'sub' => [
           [
             'url' => 'https://github.com/hasegaw/IkaLog/wiki/ja_WinIkaLog',
             'name' => implode(' ', [
-              Html::tag('span', '', ['class' => 'flag-icon flag-icon-jp']),
+              $jp(),
               Html::encode('日本語'),
             ]),
           ],
           [
             'url' => 'https://github.com/hasegaw/IkaLog/wiki/en_Home',
             'name' => implode(' ', [
-              Html::tag('span', '', ['class' => 'flag-icon flag-icon-us']),
+              $us(),
               Html::encode('English'),
             ]),
           ],
@@ -200,9 +208,9 @@ $list = [
           [
             'url' => 'https://hasegaw.github.io/IkaLog/',
             'name' => implode('', [
-              Html::tag('span', '', ['class' => 'fa fa-fw fa-download']),
+              (string)FA::fas('download')->fw(),
               Html::encode(Yii::t('app', 'IkaLog Download Page')),
-              '(' . Html::encode(Yii::t('app', 'Windows')) . ')',
+              '(' . FA::fab('windows')->fw() . Html::encode(Yii::t('app', 'Windows')) . ')',
             ]),
           ],
         ],
@@ -213,24 +221,24 @@ $list = [
         'url' => 'https://play.google.com/store/apps/details?id=com.syanari.merluza.ikarec',
         'name' => implode('', [
           $icon->ikarecJa,
-          Html::tag('span', '', ['class' => 'flag-icon flag-icon-jp']),
+          $jp(),
           Html::encode(Yii::t('app', 'IkaRec')),
           '(' . Html::encode(Yii::t('app', 'for {title}', [
             'title' => Yii::t('app', 'Splatoon'),
           ])) . ' / 日本語)',
-          Html::tag('span', '', ['class' => 'fab fa-fw fa-android']),
+          (string)FA::fab('android')->fw(),
         ]),
       ],
       [
         'url' => 'https://play.google.com/store/apps/details?id=ink.pocketgopher.ikarec',
         'name' => implode('', [
           $icon->ikarecEn,
-          Html::tag('span', '', ['class' => 'flag-icon flag-icon-us']),
+          $us(),
           Html::encode(Yii::t('app', 'IkaRec')),
           '(' . Html::encode(Yii::t('app', 'for {title}', [
             'title' => Yii::t('app', 'Splatoon'),
           ])) . ' / English)',
-          Html::tag('span', '', ['class' => 'fab fa-fw fa-android']),
+          (string)FA::fab('android')->fw(),
         ]),
         // }}}
       ],
@@ -262,14 +270,14 @@ $list = [
   [
     'url' => 'https://blog.fetus.jp/',
     'name' => implode('', [
-      Html::tag('span', '', ['class' => 'fab fa-fw fa-wordpress']),
+      (string)FA::fab('wordpress')->fw(),
       Html::encode(Yii::t('app', 'Blog')),
     ]),
   ],
   [
     'url' => 'https://github.com/fetus-hina/stat.ink',
     'name' => implode('', [
-      Html::tag('span', '', ['class' => 'fab fa-fw fa-github-alt']),
+      (string)FA::fab('github-alt')->fw(),
       Html::encode(Yii::t('app', 'Source Code')),
     ]),
   ],
@@ -300,7 +308,7 @@ $renderEntry = function (array $entry) use (&$renderEntry) : string {
 ?>
 <?= Html::a(
   implode('', [
-    Html::tag('span', '', ['class' => 'fa fa-fw fa-link']),
+    (string)FA::fas('link')->fw(),
     Html::encode(Yii::t('app', 'Links')),
     ' ',
     Html::tag('span', '', ['class' => 'caret']),

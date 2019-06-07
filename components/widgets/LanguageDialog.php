@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2015-2018 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  */
@@ -14,7 +14,6 @@ use app\assets\FlexboxAsset;
 use app\assets\LanguageDialogAsset;
 use app\models\Language;
 use app\models\SupportLevel;
-use hiqdev\assets\flagiconcss\FlagIconCssAsset;
 use yii\helpers\Html;
 
 class LanguageDialog extends Dialog
@@ -77,12 +76,11 @@ class LanguageDialog extends Dialog
 
     private function renderLanguageItem(Language $lang): string
     {
-        FlagIconCssAsset::register($this->view);
-        $flag =  Html::tag('span', '', ['class' => [
-            'flag-icon',
-            'flag-icon-' . strtolower(substr($lang->lang, 3, 2)),
-            'mr-1',
-        ]]);
+        $flag = Html::tag(
+            'span',
+            FlagIcon::fg(strtolower($lang->countryCode)),
+            ['class' => 'mr-1']
+        );
 
         $label = ($lang->name === $lang->name_en)
             ? $lang->name

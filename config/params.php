@@ -8,7 +8,6 @@ return [
       ? require(__DIR__ . '/git-revision.php')
       : null,
     'googleAdsense' => require(__DIR__ . '/google-adsense.php'),
-    'googleAnalytics' => require(__DIR__ . '/google-analytics.php'),
     'googleRecaptcha' => require(__DIR__ . '/google-recaptcha.php'),
     'lepton' => require(__DIR__ . '/lepton.php'),
     'minimumPHP' => '7.3.0',

@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2015-2018 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  */
@@ -11,7 +11,6 @@ namespace app\components\widgets;
 
 use GeoIp2\Model\City;
 use Yii;
-use hiqdev\assets\flagiconcss\FlagIconCssAsset;
 use statink\yii2\jdenticon\Jdenticon;
 use yii\base\Widget;
 use yii\helpers\Html;
@@ -142,13 +141,7 @@ class LocationColumnWidget extends Widget
             return null;
         }
 
-        FlagIconCssAsset::register($this->view);
-        return Html::tag('span', '', [
-            'class' => [
-                'flag-icon',
-                'flag-icon-' . strtolower($country->isoCode),
-            ],
-        ]);
+        return (string)FlagIcon::fg(strtolower($country->isoCode));
     }
 
     protected function renderIpAddress(): ?string

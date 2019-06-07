@@ -20,8 +20,6 @@ RESOURCE_TARGETS_MAIN := \
 	resources/.compiled/flexbox/flexbox.css \
 	resources/.compiled/flot-graph-icon/jquery.flot.icon.js \
 	resources/.compiled/gears/calc.js \
-	resources/.compiled/gh-fork-ribbon/gh-fork-ribbon.css \
-	resources/.compiled/gh-fork-ribbon/gh-fork-ribbon.js \
 	resources/.compiled/irasutoya/eto/0.png \
 	resources/.compiled/irasutoya/eto/1.png \
 	resources/.compiled/irasutoya/eto/10.png \
@@ -92,7 +90,6 @@ RESOURCE_TARGETS_MAIN := \
 	resources/.compiled/stat.ink/stat-by-map.js \
 	resources/.compiled/stat.ink/stat-by-rule.js \
 	resources/.compiled/stat.ink/summary-legends.png \
-	resources/.compiled/stat.ink/swipebox-runner.js \
 	resources/.compiled/stat.ink/table-responsive-force.css \
 	resources/.compiled/stat.ink/theme.js \
 	resources/.compiled/stat.ink/timezone-dialog.js \
@@ -140,7 +137,6 @@ SIMPLE_CONFIG_TARGETS := \
 	config/backup-s3.php \
 	config/debug-ips.php \
 	config/google-adsense.php \
-	config/google-analytics.php \
 	config/google-recaptcha.php \
 	config/img-s3.php \
 	config/lepton.php \
@@ -314,8 +310,6 @@ resources/.compiled/counter/counter.css: resources/counter/counter.less node_mod
 resources/.compiled/flexbox/flexbox.css: resources/flexbox/flexbox.less node_modules
 resources/.compiled/flot-graph-icon/jquery.flot.icon.js: resources/flot-graph-icon/jquery.flot.icon.js node_modules
 resources/.compiled/gears/calc.js: resources/gears/calc.js node_modules
-resources/.compiled/gh-fork-ribbon/gh-fork-ribbon.css: resources/gh-fork-ribbon/gh-fork-ribbon.css node_modules
-resources/.compiled/gh-fork-ribbon/gh-fork-ribbon.js: resources/gh-fork-ribbon/gh-fork-ribbon.js node_modules
 resources/.compiled/ostatus/remote-follow.js: resources/ostatus/remote-follow.js node_modules
 resources/.compiled/slack/slack.js: resources/slack/slack.js node_modules
 resources/.compiled/stat.ink/active-reltime.js: resources/stat.ink/active-reltime.js node_modules
@@ -366,7 +360,6 @@ resources/.compiled/stat.ink/smooth-scroll.js: resources/stat.ink/smooth-scroll.
 resources/.compiled/stat.ink/stat-by-map-rule.js: resources/stat.ink/stat-by-map-rule.es node_modules
 resources/.compiled/stat.ink/stat-by-map.js: resources/stat.ink/stat-by-map.es node_modules
 resources/.compiled/stat.ink/stat-by-rule.js: resources/stat.ink/stat-by-rule.es node_modules
-resources/.compiled/stat.ink/swipebox-runner.js: resources/stat.ink/swipebox-runner.es node_modules
 resources/.compiled/stat.ink/table-responsive-force.css: resources/stat.ink/table-responsive-force.less node_modules
 resources/.compiled/stat.ink/theme.js: resources/stat.ink/theme.es
 resources/.compiled/stat.ink/timezone-dialog.js: resources/stat.ink/timezone-dialog.es node_modules
@@ -505,10 +498,6 @@ config/authkey-secret.php: vendor $(SIMPLE_CONFIG_TARGETS)
 config/db.php: vendor $(SIMPLE_CONFIG_TARGETS)
 	test -f config/db.php || ./yii secret/db
 	@touch config/db.php
-
-config/google-analytics.php:
-	echo '<?php' > config/google-analytics.php
-	echo 'return "";' >> config/google-analytics.php
 
 config/google-recaptcha.php:
 	echo '<?php'                >  config/google-recaptcha.php

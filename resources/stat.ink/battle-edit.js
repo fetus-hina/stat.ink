@@ -60,7 +60,7 @@
               } else {
                 var $a = $('a', $displayGroup);
                 if (!$a.length) {
-                  $a = $('<a>', {'rel': 'nofollow', 'class': 'swipebox'});
+                  $a = $('<a>', {'rel': 'nofollow'});
                   $displayGroup.prepend($a);
                 }
                 $a.attr('href', url).text(url);

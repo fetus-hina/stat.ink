@@ -1,7 +1,7 @@
 <?php
 use app\assets\BattleEditAsset;
+use app\assets\PhotoSwipeSimplifyAsset;
 use app\assets\Spl2WeaponAsset;
-use app\assets\SwipeboxRunnerAsset;
 use app\components\helpers\Battle as BattleHelper;
 use app\components\widgets\FA;
 use app\components\widgets\FestPowerHistory;
@@ -726,11 +726,14 @@ use yii\widgets\DetailView;
             Html::encode(Yii::t('app', 'Gear')),
             $battle->battleImageGear
               ? (function () use ($battle) {
-                SwipeboxRunnerAsset::register($this);
-                return Html::a(
-                  Html::tag('span', '', ['class' => 'fa fa-image']),
-                  $battle->battleImageGear->url,
-                  ['class' => 'swipebox']
+                PhotoSwipeSimplifyAsset::register($this);
+                return Html::tag(
+                  'div',
+                  Html::a(
+                    (string)FA::fas('image'),
+                    $battle->battleImageGear->url
+                  ),
+                  ['data-pswp' => '']
                 );
               })()
               : null,
