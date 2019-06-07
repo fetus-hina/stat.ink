@@ -8,7 +8,10 @@
 
     $(window).keydown(ev => {
       // do nothing if modal is opened
-      if ($body.hasClass('modal-open') || ($.swipebox && $.swipebox.isOpen)) {
+      if ($body.hasClass('modal-open')) {
+        return false;
+      }
+      if ($('.pswp').hasClass('pswp--open')) {
         return false;
       }
 

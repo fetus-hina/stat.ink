@@ -1,5 +1,7 @@
 <?php
-use app\assets\SwipeboxRunnerAsset;
+declare(strict_types=1);
+
+use app\assets\PhotoSwipeSimplifyAsset;
 use yii\bootstrap\Html;
 use yii\helpers\Url;
 
@@ -19,8 +21,7 @@ $parts = array_filter(
               'height' => 'auto',
             ]]
           ),
-          $image->url,
-          ['class' => 'swipebox']
+          $image->url
         ),
         ['class' => 'col-xs-12 col-md-6 image-container']
       );
@@ -33,10 +34,13 @@ $parts = array_filter(
 );
 
 if ($parts) {
-  SwipeboxRunnerAsset::register($this);
+  PhotoSwipeSimplifyAsset::register($this);
   echo Html::tag(
     'div',
     implode('', array_slice($parts, 0, 2)),
-    ['class' => 'row']
+    [
+      'class' => 'row',
+      'data-pswp' => '',
+    ]
   );
 }
