@@ -515,6 +515,7 @@ return [
     'Version {0}' => '',
     'View Settings' => '',
     'Weapon' => '',
+    'Weapon (Icon)' => '',
     'Weapon (Short)' => '',
     'Weapon icons were created by {0}.' => '',
     'Weapons' => '',

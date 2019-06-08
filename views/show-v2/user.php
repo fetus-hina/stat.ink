@@ -1,5 +1,6 @@
 <?php
 use app\assets\BattleListAsset;
+use app\assets\Spl2WeaponAsset;
 use app\components\widgets\AdWidget;
 use app\components\widgets\Battle2FilterWidget;
 use app\components\widgets\EmbedVideo;
@@ -358,12 +359,38 @@ if ($user->twitter != '') {
             // }}}
           ],
           [
+            // weapon (icon) {{{
+            'label' => '', // Yii::t('app', 'Weapon'),
+            'headerOptions' => ['class' => 'cell-main-weapon-icon'],
+            'contentOptions' => ['class' => 'cell-main-weapon-icon'],
+            'format' => 'raw',
+            'value' => function ($model): string {
+              if (!$model->weapon) {
+                return '';
+              }
+
+              $icons = Spl2WeaponAsset::register($this);
+              return Html::img(
+                $icons->getIconUrl($model->weapon->key),
+                [
+                  'style' => [
+                    'height' => '1.5em',
+                    'width' => 'auto',
+                  ],
+                  'class' => 'auto-tooltip',
+                  'title' => Yii::t('app-weapon2', $model->weapon->name),
+                ]
+              );
+            },
+            // }}}
+          ],
+          [
             // weapon {{{
             'label' => Yii::t('app', 'Weapon'),
             'headerOptions' => ['class' => 'cell-main-weapon'],
             'contentOptions' => ['class' => 'cell-main-weapon'],
             'format' => 'raw',
-            'value' => function ($model) : string {
+            'value' => function ($model): string {
               $title = implode(' / ', [
                 implode(' ', [
                   Yii::t('app', 'Sub:'),
@@ -1001,6 +1028,7 @@ if ($user->twitter != '') {
           'cell-special-battle'       => Yii::t('app', 'Special Battle (Fest)'),
           'cell-map'                  => Yii::t('app', 'Stage'),
           'cell-map-short'            => Yii::t('app', 'Stage (Short)'),
+          'cell-main-weapon-icon'     => Yii::t('app', 'Weapon (Icon)'),
           'cell-main-weapon'          => Yii::t('app', 'Weapon'),
           'cell-main-weapon-short'    => Yii::t('app', 'Weapon (Short)'),
           'cell-sub-weapon'           => Yii::t('app', 'Sub Weapon'),

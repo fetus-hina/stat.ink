@@ -18,6 +18,7 @@
         'cell-level': false,
         'cell-level-after': false,
         'cell-lobby': false,
+        'cell-main-weapon-icon': true,
         'cell-main-weapon': true,
         'cell-main-weapon-short': false,
         'cell-map': true,

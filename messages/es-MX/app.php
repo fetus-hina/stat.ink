@@ -517,6 +517,7 @@ return [
     'Version {0}' => '',
     'View Settings' => 'Ver la Configuración',
     'Weapon' => 'Arma',
+    'Weapon (Icon)' => '',
     'Weapon (Short)' => '',
     'Weapon icons were created by {0}.' => '',
     'Weapons' => 'Armas',
