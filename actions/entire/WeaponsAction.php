@@ -1,9 +1,11 @@
 <?php
 /**
- * @copyright Copyright (C) 2015 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  */
+
+declare(strict_types=1);
 
 namespace app\actions\entire;
 
@@ -18,23 +20,24 @@ use app\models\StatWeapon;
 use app\models\StatWeaponBattleCount;
 use app\models\Subweapon;
 use app\models\Weapon;
+use stdClass;
 use yii\db\Query;
-use yii\web\ViewAction as BaseAction;
+use yii\web\ViewAction;
 
-class WeaponsAction extends BaseAction
+class WeaponsAction extends ViewAction
 {
     public function run()
     {
-        return $this->controller->render('weapons.tpl', [
+        return $this->controller->render('weapons', [
             'uses' => $this->weaponUses,
             'entire' => $this->entireWeapons,
             'users' => $this->userWeapons,
         ]);
     }
 
-    public function getWeaponUses()
+    public function getWeaponUses(): array
     {
-        $threshold = (function () {
+        $threshold = (function (): array {
             $date = (new DateTime('@' . $_SERVER['REQUEST_TIME']))
                 ->setTimezone(new DateTimeZone('Asia/Tokyo'))
                 ->sub(new DateInterval('P1W'));
@@ -67,7 +70,7 @@ class WeaponsAction extends BaseAction
         $query = (new Query())
             ->select(array_merge(
                 ['isoyear', 'isoweek', 'battles' => 'SUM([[battles]])'],
-                (function () use ($trends) {
+                (function () use ($trends): array {
                     $ret = [];
                     foreach ($trends as $trend) {
                         $key = sprintf('w%d', $trend['weapon_id']);
@@ -94,12 +97,12 @@ class WeaponsAction extends BaseAction
         }
 
         $weapons = Weapon::findAll([
-            'id' => array_map(function ($_) {
-                return $_['weapon_id'];
+            'id' => array_map(function ($_): int {
+                return (int)$_['weapon_id'];
             }, $trends),
         ]);
 
-        return array_map(function (array $_) use ($trends, $weapons) : array {
+        return array_map(function (array $_) use ($trends, $weapons): array {
             $w = [];
             $total = 0;
             foreach ($trends as $trend) {
@@ -122,19 +125,24 @@ class WeaponsAction extends BaseAction
                 $total += $count;
             }
             return [
-                'date' => date('Y-m-d', strtotime(sprintf('%04d-W%02d', $_['isoyear'], $_['isoweek']))),
+                'date' => date(
+                    'Y-m-d',
+                    strtotime(sprintf('%04d-W%02d', $_['isoyear'], $_['isoweek']))
+                ),
                 'battles' => (int)$_['battles'],
                 'weapons' => $w,
                 'others' => $_['battles'] - $total,
-                'others_pct' => $_['battles'] > 0 ? (($_['battles'] - $total) * 100 / $_['battles']) : null,
+                'others_pct' => ($_['battles'] > 0)
+                    ? (($_['battles'] - $total) * 100 / $_['battles'])
+                    : null,
             ];
         }, $baselist);
     }
 
-    public function getEntireWeapons()
+    public function getEntireWeapons(): array
     {
         $rules = [];
-        foreach (GameMode::find()->orderBy('id ASC')->all() as $mode) {
+        foreach (GameMode::find()->orderBy(['id' => SORT_ASC])->all() as $mode) {
             $tmp = [];
             foreach ($mode->rules as $rule) {
                 $weapons = $this->getEntireWeaponsByRule($rule);
@@ -146,7 +154,7 @@ class WeaponsAction extends BaseAction
                     'special' => $this->convertWeapons2Special($weapons),
                 ];
             }
-            usort($tmp, function ($a, $b) {
+            usort($tmp, function (stdClass $a, stdClass $b): int {
                 return strnatcasecmp($a->name, $b->name);
             });
             while (!empty($tmp)) {
@@ -156,7 +164,7 @@ class WeaponsAction extends BaseAction
         return $rules;
     }
 
-    private function getEntireWeaponsByRule(Rule $rule)
+    private function getEntireWeaponsByRule(Rule $rule): stdClass
     {
         $query = StatWeapon::find()
             ->with([
@@ -168,8 +176,17 @@ class WeaponsAction extends BaseAction
 
         $totalPlayers = 0;
         $list = array_map(
-            function ($model) use (&$totalPlayers) {
+            function ($model) use (&$totalPlayers): stdClass {
                 $totalPlayers += $model->players;
+                if ($model->total_death < 1) {
+                    if ($model->total_kill < 1) {
+                        $kr = null;
+                    } else {
+                        $kr = 99.99;
+                    }
+                } else {
+                    $kr = $model->total_kill / $model->total_death;
+                }
                 return (object)[
                     'key'       => $model->weapon->key,
                     'name'      => Yii::t('app-weapon', $model->weapon->name),
@@ -182,23 +199,32 @@ class WeaponsAction extends BaseAction
                         'name'  => Yii::t('app-special', $model->weapon->special->name),
                     ],
                     'count'     => (int)$model->players,
-                    'avg_kill'  => $model->players > 0 ? ($model->total_kill / $model->players) : null,
+                    'avg_kill'  => $model->players > 0
+                        ? ($model->total_kill / $model->players)
+                        : null,
                     'sum_kill'  => $model->total_kill,
-                    'avg_death' => $model->players > 0 ? ($model->total_death / $model->players) : null,
+                    'avg_death' => $model->players > 0
+                        ? ($model->total_death / $model->players)
+                        : null,
                     'sum_death' => $model->total_death,
-                    'wp'        => $model->players > 0 ? ($model->win_count * 100 / $model->players) : null,
+                    'kr' => $kr,
+                    'wp'        => $model->players > 0
+                        ? $model->win_count / $model->players
+                        : null,
                     'win_count' => $model->win_count,
-                    'avg_inked' => $model->point_available > 0 ? ($model->total_point / $model->point_available) : null,
+                    'avg_inked' => $model->point_available > 0
+                        ? ($model->total_point / $model->point_available)
+                        : null,
                 ];
             },
             $query->all()
         );
 
-        usort($list, function ($a, $b) {
+        usort($list, function (stdClass $a, stdClass $b): int {
             foreach (['count', 'wp', 'avg_kill', 'avg_death'] as $key) {
                 $tmp = $b->$key - $a->$key;
                 if ($tmp != 0) {
-                    return $tmp;
+                    return $tmp < 0 ? -1 : 1;
                 }
             }
             return strnatcasecmp($a->name, $b->name);
@@ -213,7 +239,7 @@ class WeaponsAction extends BaseAction
         ];
     }
 
-    public function getUserWeapons()
+    public function getUserWeapons(): array
     {
         $favWeaponQuery = (new Query())
             ->select('*')
@@ -237,20 +263,28 @@ class WeaponsAction extends BaseAction
             ->orderBy('COUNT(*) DESC');
 
         $list = $query->createCommand()->queryAll();
-        $weapons = $this->getWeapons(array_map(function ($row) {
-            return $row['weapon_id'];
-        }, $list));
+        $weapons = $this->getWeapons(
+            array_map(
+                function (array $row): int {
+                    return (int)$row['weapon_id'];
+                },
+                $list
+            )
+        );
 
-        return array_map(function ($row) use ($weapons) {
-            return (object)[
-                'weapon_id' => $row['weapon_id'],
-                'user_count' => $row['count'],
-                'weapon' => @$weapons[$row['weapon_id']] ?: null,
-            ];
-        }, $list);
+        return array_map(
+            function (array $row) use ($weapons): stdClass {
+                return (object)[
+                    'weapon_id' => $row['weapon_id'],
+                    'user_count' => $row['count'],
+                    'weapon' => $weapons[$row['weapon_id']] ?? null,
+                ];
+            },
+            $list
+        );
     }
 
-    public function getWeapons(array $weaponIdList)
+    public function getWeapons(array $weaponIdList): array
     {
         $list = Weapon::find()
             ->andWhere(['in', '{{weapon}}.[[id]]', $weaponIdList])
@@ -262,7 +296,7 @@ class WeaponsAction extends BaseAction
         return $ret;
     }
 
-    private function convertWeapons2Sub($in)
+    private function convertWeapons2Sub(stdClass $in): array
     {
         $ret = [];
         foreach (Subweapon::find()->all() as $sub) {
@@ -274,6 +308,7 @@ class WeaponsAction extends BaseAction
                 'win_count' => 0,
                 'avg_kill'  => null,
                 'avg_death' => null,
+                'kr'        => null,
                 'wp'        => null,
                 'encounter_3' => null,
                 'encounter_4' => null,
@@ -290,18 +325,27 @@ class WeaponsAction extends BaseAction
             if ($o->count > 0) {
                 $o->avg_kill  = $o->sum_kill / $o->count;
                 $o->avg_death = $o->sum_death / $o->count;
-                $o->wp = $o->win_count * 100 / $o->count;
+                $o->wp = $o->win_count / $o->count;
                 $encounterRate = $o->count / $in->player_count;
-                $o->encounter_3 = 100 * (1 - pow(1 - $encounterRate, 3));
-                $o->encounter_4 = 100 * (1 - pow(1 - $encounterRate, 4));
+                $o->encounter_3 = 1 - pow(1 - $encounterRate, 3);
+                $o->encounter_4 = 1 - pow(1 - $encounterRate, 4);
+                if ($o->sum_death < 1) {
+                    if ($o->sum_kill < 1) {
+                        $o->kr = null;
+                    } else {
+                        $o->kr = 99.99;
+                    }
+                } else {
+                    $o->kr = $o->sum_kill / $o->sum_death;
+                }
             }
         }
 
-        usort($ret, function ($a, $b) {
+        usort($ret, function (stdClass $a, stdClass $b): int {
             foreach (['count', 'wp', 'avg_kill', 'avg_death'] as $key) {
                 $tmp = $b->$key - $a->$key;
                 if ($tmp != 0) {
-                    return $tmp;
+                    return $tmp < 0 ? -1 : 1;
                 }
             }
             return strnatcasecmp($a->name, $b->name);
@@ -309,7 +353,7 @@ class WeaponsAction extends BaseAction
         return $ret;
     }
 
-    private function convertWeapons2Special($in)
+    private function convertWeapons2Special(stdClass $in): array
     {
         $ret = [];
         foreach (Special::find()->all() as $spe) {
@@ -321,6 +365,7 @@ class WeaponsAction extends BaseAction
                 'win_count' => 0,
                 'avg_kill'  => null,
                 'avg_death' => null,
+                'kr'        => null,
                 'wp'        => null,
                 'encounter_3' => null,
                 'encounter_4' => null,
@@ -337,19 +382,28 @@ class WeaponsAction extends BaseAction
             if ($o->count > 0) {
                 $o->avg_kill  = $o->sum_kill / $o->count;
                 $o->avg_death = $o->sum_death / $o->count;
-                $o->wp = $o->win_count * 100 / $o->count;
+                $o->wp = $o->win_count / $o->count;
                 $encounterRate = $o->count / $in->player_count;
-                $o->encounter_3 = 100 * (1 - pow(1 - $encounterRate, 3));
-                $o->encounter_4 = 100 * (1 - pow(1 - $encounterRate, 4));
-                $o->encounter_r = $encounterRate * 100;
+                $o->encounter_3 = (1 - pow(1 - $encounterRate, 3));
+                $o->encounter_4 = (1 - pow(1 - $encounterRate, 4));
+                $o->encounter_r = $encounterRate;
+                if ($o->sum_death < 1) {
+                    if ($o->sum_kill < 1) {
+                        $o->kr = null;
+                    } else {
+                        $o->kr = 99.99;
+                    }
+                } else {
+                    $o->kr = $o->sum_kill / $o->sum_death;
+                }
             }
         }
 
-        usort($ret, function ($a, $b) {
+        usort($ret, function (stdClass $a, stdClass $b): int {
             foreach (['count', 'wp', 'avg_kill', 'avg_death'] as $key) {
                 $tmp = $b->$key - $a->$key;
                 if ($tmp != 0) {
-                    return $tmp;
+                    return $tmp < 0 ? -1 : 1;
                 }
             }
             return strnatcasecmp($a->name, $b->name);
