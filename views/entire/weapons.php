@@ -4,9 +4,6 @@ declare(strict_types=1);
 use app\components\widgets\AdWidget;
 use app\components\widgets\FA;
 use app\components\widgets\SnsWidget;
-use jp3cki\yii2\flot\FlotAsset;
-use jp3cki\yii2\flot\FlotStackAsset;
-use jp3cki\yii2\flot\FlotTimeAsset;
 use statink\yii2\sortableTable\SortableTableAsset;
 use yii\bootstrap\Nav;
 use yii\bootstrap\Progress;
@@ -78,9 +75,6 @@ $this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink']);
     $entire
   )) ?></ul></nav>
 
-<?php FlotAsset::register($this) ?>
-<?php FlotStackAsset::register($this) ?>
-<?php FlotTimeAsset::register($this) ?>
   <h3 id="trends"><?= Html::encode(Yii::t('app', 'Trends')) ?></h3>
   <p><?= Html::a(
     implode(' ', [
@@ -90,139 +84,6 @@ $this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink']);
     ['entire/weapons-use'],
     ['class' => 'btn btn-default']
   ) ?></p>
-  <div id="graph-trends-legends"></div>
-  <div id="graph-trends" class="graph">
-  </div>
-  <p class="text-right">
-    <label><?= implode(' ', [
-      Html::tag('input', '', [
-        'type' => 'checkbox',
-        'id' => 'stack-trends',
-        'value' => 1,
-        'checked' => true,
-      ]),
-      Html::encode(Yii::t('app', 'Stack')),
-    ]) ?></label>
-  </p>
-  <?= Html::tag('script', Json::encode($uses), [
-    'id' => 'trends-json',
-    'type' => 'application/json',
-  ]) . "\n" ?>
-  {{registerJs}}
-    (function($){
-      "use strict";
-      var stack = true;
-      function update() {
-        var formatDate=function(date){
-          function zero(n){
-            n=n+"";
-            return(n.length== 1)?"0"+n:n;
-          }
-          return date.getUTCFullYear()+"-"+zero(date.getUTCMonth()+1)+"-"+zero(date.getUTCDate());
-        };
-        var date2unixTime=function(d){
-          return(new Date(d+'T00:00:00Z')).getTime();
-        };
-        var $graphs = $('#graph-trends');
-        var json = JSON.parse($('#trends-json').text());
-        var data = [];
-        for (var i = 0; i < json[0].weapons.length; ++i) {
-          var weapon = json[0].weapons[i];
-          data.push({
-            label: json[0].weapons[i].name,
-            data: json.map(function(week) {
-              return [
-                date2unixTime(week.date),
-                week.weapons[i].pct
-              ];
-            }),
-          });
-        }
-        if (stack) {
-          data.push({
-            label: "{{'Others'|translate:'app'|escape:javascript}}",
-            data: json.map(function(week){
-              return [
-                date2unixTime(week.date),
-                week.others_pct
-              ];
-            }),
-            color: '#cccccc'
-          });
-        }
-        $graphs.height($graphs.width() * 9 / 16);
-        $graphs.each(function(){
-          var $graph = $(this);
-          $.plot($graph, data, {
-            xaxis:{
-              mode:'time',
-              minTickSize:[7,'day'],
-              tickFormatter:function(v){
-                return formatDate(new Date(v));
-              }
-            },
-            yaxis: {
-              min: 0,
-              max: stack ? 100 : undefined,
-              tickFormatter:function(v){
-                return v.toFixed(1)+"%";
-              }
-            },
-            series: {
-              stack: stack,
-              points: {
-                show: !stack,
-              },
-              lines: {
-                show: true,
-                fill: stack,
-                steps: false,
-              }
-            },
-            legend: {
-              sorted: stack ? "reverse" : false,
-              position: "nw",
-              container: $('#graph-trends-legends'),
-              noColumns: (function() {
-                var width = $(window).width();
-                if (width < 768) {
-                  return 1;
-                } else if (width < 992) {
-                  return 2;
-                } else if (width < 1200) {
-                  return 4;
-                } else {
-                  return 5;
-                }
-              })()
-            }
-          });
-          window.setTimeout(function () {
-            var $labels = $('td.legendLabel', $('#graph-trends-legends'));
-            $labels.width(
-              Math.max.apply(null, $labels.map(function () {
-                return $(this).width('').width();
-              })) + 12
-            );
-          }, 1);
-        });
-      }
-      var timerId = null;
-      $(window).resize(function() {
-        if (timerId !== null) {
-          window.clearTimeout(timerId);
-        }
-        timerId = window.setTimeout(function() {
-          update();
-        }, 33);
-      }).resize();
-
-      $('#stack-trends').click(function () {
-        stack = !!$(this).prop('checked');
-        $(window).resize();
-      });
-    })(jQuery);
-  {{/registerJs}}
 
 <?php foreach ($entire as $rule) { ?>
 <?php if ($rule->data->battle_count > 0) { ?>
