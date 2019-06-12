@@ -1,22 +1,30 @@
 <?php
 /**
- * @copyright Copyright (C) 2015 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  */
 
 namespace app\commands;
 
+use DateInterval;
+use DateTimeImmutable;
+use DateTimeZone;
 use Yii;
 use app\components\helpers\Battle as BattleHelper;
+use app\components\helpers\db\Now;
 use app\models\Battle2;
 use app\models\BattlePlayer2;
 use app\models\BattlePlayer;
 use app\models\Knockout2;
 use app\models\Knockout;
+use app\models\Lobby2;
 use app\models\Lobby;
+use app\models\Mode2;
 use app\models\Rank2;
+use app\models\Rule2;
 use app\models\Rule;
+use app\models\SplatoonVersion2;
 use app\models\StatAgentUser2;
 use app\models\StatAgentUser;
 use app\models\StatEntireUser;
@@ -30,6 +38,8 @@ use app\models\StatWeaponUseCount;
 use app\models\StatWeaponUseCountPerWeek;
 use app\models\StatWeaponVsWeapon;
 use yii\console\Controller;
+use yii\db\Expression;
+use yii\db\Query;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Console;
 
@@ -1607,5 +1617,201 @@ class StatController extends Controller
         echo "VACUUM...\n";
         $db->createCommand('VACUUM ANALYZE {{splatnet2_user_map}}')->execute();
         echo "done.\n";
+    }
+
+    public function actionUpdateWeaponTier2(): void
+    {
+        Yii::$app->db->transaction(function ($db): void {
+            $lobby = Lobby2::findOne(['key' => 'standard']);
+            $mode = Mode2::findOne(['key' => 'gachi']);
+            $ruleIds = ArrayHelper::getColumn(
+                Rule2::findAll(['key' => ['area', 'yagura', 'hoko', 'asari']]),
+                'id'
+            );
+            $month = $this->createPeriodToMonthColumnForSplatoon2();
+            $per5min = function (string $column): string {
+                $battleSec = "EXTRACT(EPOCH FROM {{battle2}}.[[end_at]] - {{battle2}}.[[start_at]])";
+                return vsprintf('(%s::float * 300.0 / %s)', [
+                    $column,
+                    $battleSec,
+                ]);
+            };
+            $query = (new Query()) // {{{
+                ->from('battle2')
+                ->andWhere(['and',
+                    [
+                        '{{battle2}}.[[lobby_id]]' => $lobby->id,
+                        '{{battle2}}.[[mode_id]]' => $mode->id,
+                        '{{battle2}}.[[rule_id]]' => $ruleIds,
+                        '{{battle2}}.[[is_win]]' => [true, false],
+                        '{{battle2}}.[[is_automated]]' => true,
+                        '{{battle2}}.[[use_for_entire]]' => true,
+                    ],
+                    $this->createHighestRankFilter(),
+                    ['BETWEEN',
+                        "{{battle2}}.[[end_at]] - {{battle2}}.[[start_at]]",
+                        new Expression("'30 seconds'::interval"),
+                        new Expression("'600 seconds'::interval"),
+                    ],
+                ])
+                ->innerJoin('battle_player2', '{{battle2}}.[[id]] = {{battle_player2}}.[[battle_id]]')
+                ->andWhere(['and',
+                    ['{{battle_player2}}.[[is_me]]' => false],
+                    ['not', ['{{battle_player2}}.[[kill]]' => null]],
+                    ['not', ['{{battle_player2}}.[[death]]' => null]],
+                ])
+                ->innerJoin(['w' => 'weapon2'], '{{battle_player2}}.[[weapon_id]] = {{w}}.[[id]]')
+                ->innerJoin(['c' => 'weapon2'], '{{w}}.[[canonical_id]] = {{c}}.[[id]]')
+                ->innerJoin(['v' => 'splatoon_version2'], '{{battle2}}.[[version_id]] = {{v}}.[[id]]')
+                ->groupBy([
+                    '{{v}}.[[group_id]]',
+                    $month,
+                    '{{battle2}}.[[rule_id]]',
+                    '{{c}}.[[id]]',
+                ])
+                ->andHaving(['and',
+                    ['>=', 'COUNT(*)', 50],
+                ])
+                ->orderBy([
+                    '{{v}}.[[group_id]]' => SORT_ASC,
+                    '[[month]]' => SORT_ASC,
+                    '{{battle2}}.[[rule_id]]' => SORT_ASC,
+                    '[[win_percent]]' => SORT_DESC,
+                ])
+                ->select([
+                    'version_group_id' => '{{v}}.[[group_id]]',
+                    'month' => "($month)::date",
+                    'rule_id' => '{{battle2}}.[[rule_id]]',
+                    'weapon_id' => '{{c}}.[[id]]',
+                    'players_count' => 'COUNT(*)',
+                    'win_count' => sprintf('SUM(CASE %s END)', implode(' ', [
+                        'WHEN {{battle2}}.[[is_win]] = {{battle_player2}}.[[is_my_team]] THEN 1',
+                        'ELSE 0',
+                    ])),
+                    'win_percent' => vsprintf('(100.0 * %s / %s)', [
+                        sprintf('SUM(CASE %s END)', implode(' ', [
+                            'WHEN {{battle2}}.[[is_win]] = {{battle_player2}}.[[is_my_team]] THEN 1',
+                            'ELSE 0',
+                        ])),
+                        'COUNT(*)',
+                    ]),
+                    'avg_kill' => sprintf('AVG(%s)', $per5min('{{battle_player2}}.[[kill]]')),
+                    'med_kill' => sprintf(
+                        'PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY %s)',
+                        $per5min('{{battle_player2}}.[[kill]]')
+                    ),
+                    'stderr_kill' => sprintf(
+                        'STDDEV_SAMP(%s) / SQRT(COUNT(*))',
+                        $per5min('{{battle_player2}}.[[kill]]')
+                    ),
+                    'avg_death' => sprintf('AVG(%s)', $per5min('{{battle_player2}}.[[death]]')),
+                    'med_death' => sprintf(
+                        'PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY %s)',
+                        $per5min('{{battle_player2}}.[[death]]')
+                    ),
+                    'stderr_death' => sprintf(
+                        'STDDEV_SAMP(%s) / SQRT(COUNT(*))',
+                        $per5min('{{battle_player2}}.[[death]]')
+                    ),
+                    'updated_at' => 'NOW()',
+                ]);
+            // }}}
+            $db->createCommand('DELETE FROM {{stat_weapon2_tier}}')->execute();
+            $db->createCommand()->insert('stat_weapon2_tier', $query)->execute();
+        });
+    }
+
+    private function createHighestRankFilter(): array
+    {
+        // {{{
+        $result = ['or'];
+        foreach ($this->getHighestRankMap() as $rankId => $versionIds) {
+            $result[] = ['and', [
+                '{{battle2}}.[[rank_id]]' => $rankId,
+                '{{battle2}}.[[version_id]]' => $versionIds,
+            ]];
+        }
+        return $result;
+        // }}}
+    }
+
+    private function getHighestRankMap(): array
+    {
+        // {{{
+        $rankSP = Rank2::findOne(['key' => 's+']);
+        $rankX = Rank2::findOne(['key' => 'x']);
+        $xVersions = [];
+        $spVersions = [];
+        foreach ($this->getReleasedVersions() as $version) {
+            if (version_compare($version->tag, '3.0.0', '>=')) {
+                $xVersions[] = $version->id;
+            } else {
+                $spVersions[] = $version->id;
+            }
+        }
+        return [
+            $rankSP->id => $spVersions,
+            $rankX->id => $xVersions,
+        ];
+        // }}}
+    }
+
+    private function createPeriodToMonthColumnForSplatoon2(): string
+    {
+        $data = $this->getMonthlyPeriodRangeForSplatoon2();
+        return sprintf('(CASE %s END)', implode(' ', array_map(
+            function (string $month, array $period): string {
+                return vsprintf('WHEN {{battle2}}.[[period]] >= %d THEN %s', [
+                    $period[0],
+                    Yii::$app->db->quoteValue($month),
+                ]);
+            },
+            array_reverse(array_keys($data)),
+            array_reverse(array_values($data))
+        )));
+    }
+
+    private function getMonthlyPeriodRangeForSplatoon2(): array
+    {
+        // {{{
+        $now = new DateTimeImmutable('now', new DateTimeZone('Etc/UTC'));
+        $yMax = (int)$now->format('Y');
+        $mMax = (int)$now->format('n');
+
+        $results = [];
+        for ($y = 2017; $y <= $yMax; ++$y) {
+            for ($m = 1; $m <= 12; ++$m) {
+                if ($y === 2017 && $m < 7) {
+                    continue;
+                } elseif ($y === $yMax && $m > $mMax) {
+                    continue;
+                }
+
+                $month = $now->setDate($y, $m, 1)->setTime(0, 0, 0);
+                $next = $month->add(new DateInterval('P1M'));
+                $results[$month->format('Y-m-d')] = [
+                    (int)floor($month->getTimestamp() / 7200),
+                    (int)floor($next->getTimestamp() / 7200 - 1),
+                ];
+            }
+        }
+
+        return $results;
+        // }}}
+    }
+
+    private function getReleasedVersions(): array
+    {
+        // {{{
+        return array_filter(
+            SplatoonVersion2::find()
+                ->andWhere(['<', '{{splatoon_version2}}.[[released_at]]', new Now()])
+                ->orderBy(['{{splatoon_version2}}.[[released_at]]' => SORT_ASC])
+                ->all(),
+            function (SplatoonVersion2 $version): bool {
+                return !!version_compare($version->tag, '1.0', '>=');
+            }
+        );
+        // }}}
     }
 }
