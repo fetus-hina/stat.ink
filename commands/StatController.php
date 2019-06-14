@@ -1719,6 +1719,7 @@ class StatController extends Controller
             $db->createCommand('DELETE FROM {{stat_weapon2_tier}}')->execute();
             $db->createCommand()->insert('stat_weapon2_tier', $query)->execute();
         });
+        Yii::$app->db->createCommand('VACUUM ANALYZE {{stat_weapon2_tier}}')->execute();
     }
 
     private function createHighestRankFilter(): array
