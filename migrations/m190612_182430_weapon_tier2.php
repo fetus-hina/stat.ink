@@ -24,9 +24,11 @@ class m190612_182430_weapon_tier2 extends Migration
             'avg_kill' => $this->float()->notNull(),
             'med_kill' => $this->float()->notNull(),
             'stderr_kill' => $this->float()->notNull(),
+            'stddev_kill' => $this->float()->notNull(),
             'avg_death' => $this->float()->notNull(),
             'med_death' => $this->float()->notNull(),
             'stderr_death' => $this->float()->notNull(),
+            'stddev_death' => $this->float()->notNull(),
             'updated_at' => $this->timestampTZ(0)->notNull(),
             'UNIQUE ([[version_group_id]], [[month]], [[rule_id]], [[weapon_id]])',
         ]);

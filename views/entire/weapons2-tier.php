@@ -41,31 +41,7 @@ $weaponIcons = Spl2WeaponAsset::register($this);
   <?= AdWidget::widget() . "\n" ?>
   <?= SnsWidget::widget() . "\n" ?>
 
-  <nav class="mb-3"><?= Nav::widget([
-    'options' => ['class' => 'nav-tabs'],
-    'items' => array_map(
-        function (string $key, array $data) use ($versionGroup, $month, $rule): array {
-            return [
-                'label' => Yii::t('app-rule2', $data['name']),
-                'url' => ['entire/weapons2-tier',
-                    'version' => $versionGroup->tag,
-                    'month' => $month,
-                    'rule' => $key,
-                ],
-                'active' => $key === $rule->key,
-                'options' => [
-                    'class' => array_filter([
-                        $data['enabled'] ? null : 'disabled',
-                    ]),
-                ],
-            ];
-        },
-        array_keys($rules),
-        array_values($rules),
-    ),
-  ]) ?></nav>
-
-  <ul class="m-0">
+  <ul class="mb-3">
     <li>
       Targets:
       <ul>
@@ -90,6 +66,31 @@ $weaponIcons = Spl2WeaponAsset::register($this);
       </ul>
     </li>
   </ul>
+
+  <nav class="mb-3"><?= Nav::widget([
+    'options' => ['class' => 'nav-tabs'],
+    'items' => array_map(
+        function (string $key, array $data) use ($versionGroup, $month, $rule): array {
+            return [
+                'label' => Yii::t('app-rule2', $data['name']),
+                'url' => ['entire/weapons2-tier',
+                    'version' => $versionGroup->tag,
+                    'month' => $month,
+                    'rule' => $key,
+                ],
+                'active' => $key === $rule->key,
+                'options' => [
+                    'class' => array_filter([
+                        $data['enabled'] ? null : 'disabled',
+                    ]),
+                ],
+            ];
+        },
+        array_keys($rules),
+        array_values($rules),
+    ),
+  ]) ?></nav>
+
   <div class="table-responsive">
     <table class="table">
       <thead>
@@ -120,7 +121,7 @@ $weaponIcons = Spl2WeaponAsset::register($this);
                   implode('', [
                     Html::tag(
                       'div',
-                      Yii::$app->formatter->asPercent($_rate[1], 2),
+                      '',
                       [
                         'class' => 'progress-bar progress-bar-primary',
                         'style' => [
@@ -131,20 +132,14 @@ $weaponIcons = Spl2WeaponAsset::register($this);
                   ]),
                   ['class' => 'progress']
                 );
+                printf('%s±??.??%%', Yii::$app->formatter->asDecimal($_rate[1] * 100, 2));
               } else {
                 echo Html::tag(
                   'div',
                   implode('', [
                     Html::tag(
                       'div',
-                      Html::tag(
-                        'span',
-                        vsprintf('%s±%s%%', [
-                          Yii::$app->formatter->asDecimal($_rate[1] * 100, 2),
-                          Yii::$app->formatter->asDecimal(($_rate[2] - $_rate[0]) * 100 / 2, 2),
-                        ]),
-                        ['class' => 'pl-2']
-                      ),
+                      '',
                       [
                         'class' => 'progress-bar progress-bar-primary text-left-important',
                         'style' => [
@@ -177,6 +172,10 @@ $weaponIcons = Spl2WeaponAsset::register($this);
                   ]),
                   ['class' => 'progress']
                 );
+                vprintf('%s±%s%%', [
+                  Yii::$app->formatter->asDecimal($_rate[1] * 100, 2),
+                  Yii::$app->formatter->asDecimal(($_rate[2] - $_rate[0]) * 100 / 2, 2),
+                ]);
               }
             }
           ?></td>
@@ -195,6 +194,13 @@ $weaponIcons = Spl2WeaponAsset::register($this);
                 'class' => 'auto-tooltip',
               ]),
               Yii::$app->formatter->asDecimal($model->med_kill, 1),
+            ]) ?><br>
+            <?= vsprintf('%s=%s', [
+              Html::tag('span', Html::encode('σ'), [
+                'title' => Yii::t('app', 'Standard Deviation'),
+                'class' => 'auto-tooltip',
+              ]),
+              Yii::$app->formatter->asDecimal($model->stddev_kill, 3),
             ]) . "\n" ?>
           </td>
           <td>
@@ -212,6 +218,13 @@ $weaponIcons = Spl2WeaponAsset::register($this);
                 'class' => 'auto-tooltip',
               ]),
               Yii::$app->formatter->asDecimal($model->med_death, 1),
+            ]) ?><br>
+            <?= vsprintf('%s=%s', [
+              Html::tag('span', Html::encode('σ'), [
+                'title' => Yii::t('app', 'Standard Deviation'),
+                'class' => 'auto-tooltip',
+              ]),
+              Yii::$app->formatter->asDecimal($model->stddev_death, 3),
             ]) . "\n" ?>
           </td>
           <td>

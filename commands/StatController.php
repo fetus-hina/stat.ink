@@ -1704,6 +1704,10 @@ class StatController extends Controller
                         'STDDEV_SAMP(%s) / SQRT(COUNT(*))',
                         $per5min('{{battle_player2}}.[[kill]]')
                     ),
+                    'stddev_kill' => sprintf(
+                        'STDDEV_SAMP(%s)',
+                        $per5min('{{battle_player2}}.[[kill]]')
+                    ),
                     'avg_death' => sprintf('AVG(%s)', $per5min('{{battle_player2}}.[[death]]')),
                     'med_death' => sprintf(
                         'PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY %s)',
@@ -1711,6 +1715,10 @@ class StatController extends Controller
                     ),
                     'stderr_death' => sprintf(
                         'STDDEV_SAMP(%s) / SQRT(COUNT(*))',
+                        $per5min('{{battle_player2}}.[[death]]')
+                    ),
+                    'stddev_death' => sprintf(
+                        'STDDEV_SAMP(%s)',
                         $per5min('{{battle_player2}}.[[death]]')
                     ),
                     'updated_at' => 'NOW()',

@@ -27,9 +27,11 @@ use yii\db\ActiveRecord;
  * @property double $avg_kill
  * @property double $med_kill
  * @property double $stderr_kill
+ * @property double $stddev_kill
  * @property double $avg_death
  * @property double $med_death
  * @property double $stderr_death
+ * @property double $stddev_death
  * @property string $updated_at
  *
  * @property Rule2 $rule
@@ -58,9 +60,11 @@ class StatWeapon2Tier extends ActiveRecord
                     'avg_kill',
                     'med_kill',
                     'stderr_kill',
+                    'stddev_kill',
                     'avg_death',
                     'med_death',
                     'stderr_death',
+                    'stddev_death',
                     'updated_at',
                 ],
                 'required',
@@ -76,9 +80,11 @@ class StatWeapon2Tier extends ActiveRecord
                     'avg_kill',
                     'med_kill',
                     'stderr_kill',
+                    'stddev_kill',
                     'avg_death',
                     'med_death',
                     'stderr_death',
+                    'stddev_death',
                 ],
                 'number',
             ],
@@ -117,9 +123,11 @@ class StatWeapon2Tier extends ActiveRecord
             'avg_kill' => 'Avg Kill',
             'med_kill' => 'Med Kill',
             'stderr_kill' => 'Stderr Kill',
+            'stddev_kill' => 'Stddev Kill',
             'avg_death' => 'Avg Death',
             'med_death' => 'Med Death',
             'stderr_death' => 'Stderr Death',
+            'stddev_death' => 'Stddev Death',
             'updated_at' => 'Updated At',
         ];
     }
