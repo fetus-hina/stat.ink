@@ -30,7 +30,7 @@ class m190612_182430_weapon_tier2 extends Migration
             'stderr_death' => $this->float()->notNull(),
             'stddev_death' => $this->float()->notNull(),
             'updated_at' => $this->timestampTZ(0)->notNull(),
-            'UNIQUE ([[version_group_id]], [[month]], [[rule_id]], [[weapon_id]])',
+            'UNIQUE ([[rule_id]], [[month]], [[version_group_id]], [[weapon_id]])',
         ]);
     }
 

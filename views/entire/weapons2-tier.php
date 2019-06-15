@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 use app\assets\Spl2WeaponAsset;
 use app\components\widgets\AdWidget;
+use app\components\widgets\FA;
 use app\components\widgets\SnsWidget;
 use yii\bootstrap\Nav;
 use yii\helpers\ArrayHelper;
@@ -24,9 +25,14 @@ $this->registerMetaTag(['name' => 'twitter:card', 'content' => 'summary']);
 $this->registerMetaTag(['name' => 'twitter:title', 'content' => $title]);
 $this->registerMetaTag(['name' => 'twitter:description', 'content' => $title]);
 $this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink']);
+if ($prev) {
+  $this->registerLinkTag(['rel' => 'prev', 'href' => $prev]);
+}
+if ($next) {
+  $this->registerLinkTag(['rel' => 'next', 'href' => $next]);
+}
 
 $weaponIcons = Spl2WeaponAsset::register($this);
-
 ?>
 <div class="container">
   <h1><?= Html::encode(vsprintf('%s (%s, %s) - %s (alpha)', [
@@ -41,13 +47,48 @@ $weaponIcons = Spl2WeaponAsset::register($this);
   <?= AdWidget::widget() . "\n" ?>
   <?= SnsWidget::widget() . "\n" ?>
 
+  <nav>
+    <div class="row mb-3">
+      <div class="col-xs-6 text-left"><?php
+        if ($prev) {
+          echo Html::a(
+            implode(' ', [
+              (string)FA::fas('angle-double-left')->fw(),
+              Html::encode(Yii::t('app', 'Prev.')),
+            ]),
+            $prev,
+            ['class' => 'btn btn-default']
+          );
+        }
+      ?></div>
+      <div class="col-xs-6 text-right"><?php
+        if ($next) {
+          echo Html::a(
+            implode(' ', [
+              Html::encode(Yii::t('app', 'Next')),
+              (string)FA::fas('angle-double-right')->fw(),
+            ]),
+            $next,
+            ['class' => 'btn btn-default']
+          );
+        }
+      ?></div>
+    </div>
+  </nav>
+
   <ul class="mb-3">
     <li>
       Targets:
       <ul>
         <li>Ranked battles (not including League battles)</li>
-        <li>Rank X(v3.0-)/S+(-v2.x) only</li>
-        <li>Excluded the uploader (stat.ink's user)</li>
+        <li><?= Html::encode(vsprintf('Rank %s only', [
+          version_compare($versionGroup->tag, '3.0', '>=') ? 'X' : 'S+',
+        ])) ?></li>
+        <li>Excluded the uploader (<?= Html::encode(Yii::$app->name) ?>'s user)</li>
+        <li><?= Html::encode(vsprintf('Filtered: n%s%s', [
+          (substr(Yii::$app->language, 0, 3) === 'ja-') ? '≧' : '≥',
+          Yii::$app->formatter->asInteger(50),
+        ])) ?></li>
       </ul>
     </li>
     <li>
