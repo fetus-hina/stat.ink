@@ -138,4 +138,41 @@ class StatWeapon2Tier extends ActiveRecord
     {
         return $this->hasOne(Weapon2::class, ['id' => 'weapon_id']);
     }
+
+    public function getWinRates(): ?array
+    {
+        if ($this->players_count < 1) {
+            return null;
+        }
+        $rate = (int)$this->win_count / (int)$this->players_count;
+        $errorPctPt = $this->getErrorPoint();
+        return [
+            $errorPctPt === null ? null : max(0, $rate - $errorPctPt / 100),
+            $rate,
+            $errorPctPt === null ? null : min(1, $rate + $errorPctPt / 100),
+        ];
+    }
+
+    public function getErrorPoint(): ?float
+    {
+        $stdError = $this->calcError();
+        return ($stdError === null)
+            ? null
+            : $stdError * 100 * 2;
+    }
+
+    public function calcError(): ?float
+    {
+        $battles = (int)$this->players_count;
+        $wins = (int)$this->win_count;
+
+        if ($battles < 1 || $wins < 0) {
+            return null;
+        }
+
+        // ref. http://lfics81.techblog.jp/archives/2982884.html
+        $winRate = $wins / $battles;
+        $s = sqrt(($battles / ($battles - 1.5)) * $winRate * (1.0 - $winRate));
+        return $s / sqrt($battles);
+    }
 }
