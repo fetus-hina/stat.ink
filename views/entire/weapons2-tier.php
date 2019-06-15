@@ -29,7 +29,7 @@ $weaponIcons = Spl2WeaponAsset::register($this);
 
 ?>
 <div class="container">
-  <h1><?= Html::encode(vsprintf('%s (%s, %s) - %s', [
+  <h1><?= Html::encode(vsprintf('%s (%s, %s) - %s (alpha)', [
     Yii::t('app-rule2', $rule->name),
     $month,
     Yii::t('app', 'Version {0}', [
