@@ -22,6 +22,7 @@ use app\actions\entire\UsersAction;
 use app\actions\entire\Weapon2Action;
 use app\actions\entire\WeaponAction;
 use app\actions\entire\Weapons2Action;
+use app\actions\entire\Weapons2TierAction;
 use app\actions\entire\WeaponsAction;
 use app\actions\entire\WeaponsUseAction;
 use app\components\web\Controller;
@@ -61,6 +62,7 @@ class EntireController extends Controller
             'weapons' => [ 'class' => WeaponsAction::class ],
             'weapons-use' => [ 'class' => WeaponsUseAction::class ],
             'weapons2' => [ 'class' => Weapons2Action::class ],
+            'weapons2-tier' => ['class' => Weapons2TierAction::class ],
         ];
     }
 }

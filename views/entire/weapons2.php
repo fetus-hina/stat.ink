@@ -74,23 +74,30 @@ EntireWeaponsAsset::register($this);
     ) . "\n" ?>
   </p>
 
-  <nav><ul class="inline-list"><?= implode('', array_map(
-    function (stdClass $rule): string {
-      return Html::tag(
-        'li',
-        Html::a(
-          Html::encode($rule->name),
-          ['entire/weapons2', '#' => sprintf('weapon-%s', $rule->key)]
-        )
-      );
-    },
-    array_filter(
-      $entire,
-      function (stdClass $rule): bool {
-        return $rule->data->player_count > 0;
-      }
-    )
-  )) ?></ul></nav>
+  <nav>
+    <ul class="inline-list mb-3"><?= implode('', array_map(
+      function (stdClass $rule): string {
+        return Html::tag(
+          'li',
+          Html::a(
+            Html::encode($rule->name),
+            ['entire/weapons2', '#' => sprintf('weapon-%s', $rule->key)]
+          )
+        );
+      },
+      array_filter(
+        $entire,
+        function (stdClass $rule): bool {
+          return $rule->data->player_count > 0;
+        }
+      )
+    )) ?></ul>
+    <?= Html::a(
+      Html::encode('Tier (Rank X, Solo queue) <alpha>'),
+      ['entire/weapons2-tier'],
+      ['class' => 'btn btn-default']
+    ) . "\n" ?>
+  </nav>
 
 <?php if ($uses) { ?>
   <h3 id="trends">
