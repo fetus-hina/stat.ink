@@ -141,7 +141,7 @@ $weaponIcons = Spl2WeaponAsset::register($this);
       <thead>
         <tr>
           <th style="width:calc(3em + 16px)"></th>
-          <th style="width:calc(3em + 16px)"></th>
+          <th style="width:56px"></th>
           <th style="min-width:300px"><?= Html::encode(Yii::t('app', 'Win %')) ?></th>
           <th style="width:calc(8em + 16px)"><?= Html::encode(Yii::t('app', 'Kills')) ?></th>
           <th style="width:calc(8em + 16px)"><?= Html::encode(Yii::t('app', 'Deaths')) ?></th>
@@ -166,7 +166,7 @@ $weaponIcons = Spl2WeaponAsset::register($this);
               'title' => Yii::t('app-weapon2', $model->weapon->name),
               'class' => 'auto-tooltip',
               'style' => [
-                'width' => '3em',
+                'width' => '40px',
                 'height' => 'auto',
               ],
             ]),
@@ -175,7 +175,7 @@ $weaponIcons = Spl2WeaponAsset::register($this);
               'title' => Yii::t('app-subweapon2', $model->weapon->subweapon->name),
               'class' => 'auto-tooltip',
               'style' => [
-                'width' => '1.5em',
+                'width' => '18px',
                 'height' => 'auto',
               ],
             ]),
@@ -183,8 +183,9 @@ $weaponIcons = Spl2WeaponAsset::register($this);
               'title' => Yii::t('app-special2', $model->weapon->special->name),
               'class' => 'auto-tooltip',
               'style' => [
-                'width' => '1.5em',
+                'width' => '18px',
                 'height' => 'auto',
+                'margin-left' => '4px',
               ],
             ]),
           ]) ?></td>
