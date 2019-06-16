@@ -20,6 +20,7 @@ class FA extends Widget
     public $tag = 'span';
     public $isFW = false;
     public $icon = null;
+    public $size = null;
     public $type = 'fas';
     public $content = null;
     public $options = [];
@@ -78,6 +79,12 @@ class FA extends Widget
         return $this;
     }
 
+    public function size(?string $size): self
+    {
+        $this->size = $size;
+        return $this;
+    }
+
     public function __toString()
     {
         return $this->renderFA();
@@ -100,6 +107,7 @@ class FA extends Widget
                 $this->type,
                 $this->isFW ? 'fa-fw' : null,
                 $this->icon ? 'fa-' . $this->icon : null,
+                $this->size ? 'fa-' . $this->size : null,
             ]),
         ], $this->options));
     }
