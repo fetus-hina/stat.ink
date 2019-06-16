@@ -101,7 +101,7 @@ $weaponIcons = Spl2WeaponAsset::register($this);
       ±:
       <ul>
         <li>
-          Perhaps "the true value" is somewhere in this range.
+          Perhaps "the real value" is somewhere in the range.
           Don't too believe the representative (average) value.
         </li>
       </ul>
@@ -137,6 +137,7 @@ $weaponIcons = Spl2WeaponAsset::register($this);
       <thead>
         <tr>
           <th style="width:calc(3em + 16px)"></th>
+          <th style="width:calc(3em + 16px)"></th>
           <th style="min-width:300px"><?= Html::encode(Yii::t('app', 'Win %')) ?></th>
           <th style="width:calc(8em + 16px)"><?= Html::encode(Yii::t('app', 'Kills')) ?></th>
           <th style="width:calc(8em + 16px)"><?= Html::encode(Yii::t('app', 'Deaths')) ?></th>
@@ -145,8 +146,18 @@ $weaponIcons = Spl2WeaponAsset::register($this);
       </thead>
       <tbody>
 <?php foreach ($data as $model) { ?>
+<?php $_rate = $model->getWinRates() ?>
         <tr>
-          <td><?= Html::img($weaponIcons->getIconUrl($model->weapon->key), [
+          <td class="align-middle"><?php
+            if ($_rate && $_rate[0] !== null) {
+              if ($_rate[0] > 0.5) {
+                echo FA::far('smile')->size('2x')->fw();
+              } elseif ($_rate[2] < 0.5) {
+                echo FA::far('frown')->size('2x')->fw();
+              }
+            }
+          ?></td>
+          <td class="align-middle"><?= Html::img($weaponIcons->getIconUrl($model->weapon->key), [
             'title' => Yii::t('app-weapon2', $model->weapon->name),
             'class' => 'auto-tooltip',
             'style' => [
@@ -154,8 +165,8 @@ $weaponIcons = Spl2WeaponAsset::register($this);
               'height' => 'auto',
             ],
           ]) ?></td>
-          <td><?php
-            if ($_rate = $model->getWinRates()) {
+          <td class="align-middle"><?php
+            if ($_rate) {
               if ($_rate[0] === null) {
                 echo Html::tag(
                   'div',
@@ -220,7 +231,7 @@ $weaponIcons = Spl2WeaponAsset::register($this);
               }
             }
           ?></td>
-          <td>
+          <td class="align-middle">
             <?= vsprintf('%s=%s±%s', [
               Html::tag('span', Html::encode('μ'), [
                 'title' => Yii::t('app', 'Average'),
@@ -244,7 +255,7 @@ $weaponIcons = Spl2WeaponAsset::register($this);
               Yii::$app->formatter->asDecimal($model->stddev_kill, 3),
             ]) . "\n" ?>
           </td>
-          <td>
+          <td class="align-middle">
             <?= vsprintf('%s=%s±%s', [
               Html::tag('span', Html::encode('μ'), [
                 'title' => Yii::t('app', 'Average'),
@@ -268,13 +279,13 @@ $weaponIcons = Spl2WeaponAsset::register($this);
               Yii::$app->formatter->asDecimal($model->stddev_death, 3),
             ]) . "\n" ?>
           </td>
-          <td>
+          <td class="align-middle">
             <?= $model->avg_death > 0
               ? Yii::$app->formatter->asDecimal($model->avg_kill / $model->avg_death, 3)
               : '-'
             ?>
           </td>
-          <td><?= Yii::$app->formatter->asInteger($model->players_count) ?></td>
+          <td class="align-middle"><?= Yii::$app->formatter->asInteger($model->players_count) ?></td>
         </tr>
 <?php } ?>
       </tbody>
