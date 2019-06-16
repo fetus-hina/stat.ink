@@ -85,23 +85,27 @@ class Rule2 extends ActiveRecord
         ];
     }
 
-    public static function getSortedAll(?string $mode, $callback = null) : array
-    {
-        $query = static::find()->orderBy(['rule2.id' => SORT_ASC])->asArray();
+    public static function getSortedAll(
+        ?string $mode,
+        $queryCallback = null,
+        $valueCallback = null
+    ) : array {
+        $query = static::find()->orderBy(['rule2.id' => SORT_ASC]);
         if ($mode) {
             $query->innerJoinWith('modes')
                 ->andWhere(['mode2.key' => $mode]);
         }
-        if ($callback && is_callable($callback)) {
-            call_user_func($callback, $query);
+
+        if ($queryCallback && is_callable($queryCallback)) {
+            call_user_func($queryCallback, $query);
         }
-        $list = ArrayHelper::map(
-            $query->all(),
-            'key',
-            function (array $row) : string {
-                return Yii::t('app-rule2', $row['name']);
-            }
-        );
-        return $list;
+
+        if ($valueCallback === null) {
+            $valueCallback = function (self $row): string {
+                return Yii::t('app-rule2', ArrayHelper::getValue($row, 'name'));
+            };
+        }
+
+        return ArrayHelper::map($query->all(), 'key', $valueCallback);
     }
 }

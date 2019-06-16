@@ -14,6 +14,7 @@ use jp3cki\yii2\flot\FlotSymbolAsset;
 use jp3cki\yii2\flot\FlotTimeAsset;
 use statink\yii2\sortableTable\SortableTableAsset;
 use yii\bootstrap\ActiveForm;
+use yii\bootstrap\Nav;
 use yii\data\ArrayDataProvider;
 use yii\grid\GridView;
 use yii\helpers\ArrayHelper;
@@ -37,15 +38,28 @@ EntireWeaponsAsset::register($this);
   <h1>
     <?= Html::encode($title) . "\n" ?>
   </h1>
+
   <?= AdWidget::widget() . "\n" ?>  
   <?= SnsWidget::widget() . "\n" ?>
-  <ul class="nav nav-tabs">
-    <li class="active"><a href="javascript:;">Splatoon 2</a></li>
-    <li><?= Html::a('Splatoon', ['entire/weapons']) ?></li>
-  </ul>
-  <h2>
-    <?= Html::encode(Yii::t('app', 'Weapons')) . "\n" ?>
-  </h2>
+
+  <nav><?= Nav::widget([
+    'options' => [
+      'class' =>'nav-tabs',
+    ],
+    'items' => [
+      [
+        'label' => 'Splatoon 2',
+        'url' => ['entire/weapons2'],
+        'active' => true,
+      ],
+      [
+        'label' => 'Splatoon',
+        'url' => ['entire/weapons'],
+      ],
+    ],
+  ]) ?></nav>
+
+  <h2><?= Html::encode(Yii::t('app', 'Weapons')) ?></h2>
   <p>
     <?= Html::encode(
       Yii::t(
@@ -59,22 +73,32 @@ EntireWeaponsAsset::register($this);
       Yii::t('app', '* This exclusion is in attempt to minimize overcounting in weapon usage statistics.')
     ) . "\n" ?>
   </p>
-  <p>
-    <?= implode(' | ', array_map(
-      function ($row) : string {
-        return Html::a(
-          Html::encode($row->name),
-          '#weapon-' . $row->key
+
+  <nav>
+    <ul class="inline-list mb-3"><?= implode('', array_map(
+      function (stdClass $rule): string {
+        return Html::tag(
+          'li',
+          Html::a(
+            Html::encode($rule->name),
+            ['entire/weapons2', '#' => sprintf('weapon-%s', $rule->key)]
+          )
         );
       },
       array_filter(
         $entire,
-        function ($rule) : bool {
+        function (stdClass $rule): bool {
           return $rule->data->player_count > 0;
         }
       )
-    )) . "\n" ?>
-  </p>
+    )) ?></ul>
+    <?= Html::a(
+      Html::encode('Tier (Rank X, Solo queue) <alpha>'),
+      ['entire/weapons2-tier'],
+      ['class' => 'btn btn-default']
+    ) . "\n" ?>
+  </nav>
+
 <?php if ($uses) { ?>
   <h3 id="trends">
     <?= Html::encode(Yii::t('app', 'Trends')) . "\n" ?>
@@ -150,11 +174,32 @@ EntireWeaponsAsset::register($this);
     ['id' => 'weapon-' . $rule->key]
   ) . "\n" ?>
   <p>
-    <?= sprintf(
-      '%s %s',
+    <?= vsprintf('%s %s', [
       Html::encode(Yii::t('app', 'Players:')),
-      Html::encode(Yii::$app->formatter->asInteger($rule->data->player_count))
-    ) . "\n" ?>
+      Html::encode(Yii::$app->formatter->asInteger($rule->data->player_count)),
+    ]) ?><br>
+    <?= vsprintf('%s %s', [
+      Html::encode(Yii::t('app', 'Systematic error of win %') . ':'),
+      Html::encode(Yii::t('app', '{pct_point} percentage point', [
+        'pct_point' => Yii::$app->formatter->asDecimal(
+          (function () use ($rule): ?float {
+            $totalBattles = array_sum(ArrayHelper::getColumn($rule->data->weapons, 'count'));
+            if ($totalBattles < 1) {
+              return null;
+            }
+            $totalWins = array_sum(ArrayHelper::getColumn($rule->data->weapons, 'win_count'));
+            $rate = $totalWins / $totalBattles;
+            return ($rate - 0.5) * 100;
+          })(),
+          2,
+          [],
+          [
+            NumberFormatter::POSITIVE_PREFIX => '+',
+            NumberFormatter::NEGATIVE_PREFIX => '-',
+          ]
+        ),
+      ]))
+    ]) ?>
   </p>
   <div class="table-responsive table-responsive-force">
 <?php
