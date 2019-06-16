@@ -85,7 +85,11 @@ class Weapons2TierAction extends ViewAction
                 'rule_id' => $rule->id,
             ])
             ->orderBy(['id' => SORT_ASC])
-            ->with(['weapon'])
+            ->with([
+                'weapon',
+                'weapon.subweapon',
+                'weapon.special',
+            ])
             ->all();
         if (!$data) {
             $this->controller->error404();
