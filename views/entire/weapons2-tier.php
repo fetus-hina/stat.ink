@@ -104,6 +104,10 @@ $weaponIcons = Spl2WeaponAsset::register($this);
           Perhaps "the real value" is somewhere in the range.
           Don't too believe the representative (average) value.
         </li>
+        <li>
+          2&times;<i><abbr class="auto-tooltip" title="Standard Error">SE</abbr></i>
+          (∼95% CI)
+        </li>
       </ul>
     </li>
   </ul>
@@ -148,7 +152,7 @@ $weaponIcons = Spl2WeaponAsset::register($this);
 <?php foreach ($data as $model) { ?>
 <?php $_rate = $model->getWinRates() ?>
         <tr>
-          <td class="align-middle"><?php
+          <td class="text-center align-middle"><?php
             if ($_rate && $_rate[0] !== null) {
               if ($_rate[0] > 0.5) {
                 echo FA::far('smile')->size('2x')->fw();
@@ -157,13 +161,32 @@ $weaponIcons = Spl2WeaponAsset::register($this);
               }
             }
           ?></td>
-          <td class="align-middle"><?= Html::img($weaponIcons->getIconUrl($model->weapon->key), [
-            'title' => Yii::t('app-weapon2', $model->weapon->name),
-            'class' => 'auto-tooltip',
-            'style' => [
-              'width' => '3em',
-              'height' => 'auto',
-            ],
+          <td class="text-center align-middle"><?= implode('', [
+            Html::img($weaponIcons->getIconUrl($model->weapon->key), [
+              'title' => Yii::t('app-weapon2', $model->weapon->name),
+              'class' => 'auto-tooltip',
+              'style' => [
+                'width' => '3em',
+                'height' => 'auto',
+              ],
+            ]),
+            '<br>',
+            Html::img($weaponIcons->getIconUrl('sub/' . $model->weapon->subweapon->key), [
+              'title' => Yii::t('app-subweapon2', $model->weapon->subweapon->name),
+              'class' => 'auto-tooltip',
+              'style' => [
+                'width' => '1.5em',
+                'height' => 'auto',
+              ],
+            ]),
+            Html::img($weaponIcons->getIconUrl('sp/' . $model->weapon->special->key), [
+              'title' => Yii::t('app-special2', $model->weapon->special->name),
+              'class' => 'auto-tooltip',
+              'style' => [
+                'width' => '1.5em',
+                'height' => 'auto',
+              ],
+            ]),
           ]) ?></td>
           <td class="align-middle"><?php
             if ($_rate) {
