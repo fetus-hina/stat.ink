@@ -396,6 +396,7 @@ class Weapons2Action extends BaseAction
         foreach (Subweapon2::find()->all() as $sub) {
             $ret[$sub->key] = (object)[
                 'name'      => Yii::t('app-subweapon2', $sub->name),
+                'key'       => $sub->key,
                 'count'     => 0,
                 'sum_kill'  => 0,
                 'sum_death' => 0,
@@ -452,6 +453,7 @@ class Weapons2Action extends BaseAction
         foreach (Special2::find()->all() as $spe) {
             $ret[$spe->key] = (object)[
                 'name'      => Yii::t('app-special2', $spe->name),
+                'key'       => $spe->key,
                 'count'     => 0,
                 'sum_kill'  => 0,
                 'sum_death' => 0,

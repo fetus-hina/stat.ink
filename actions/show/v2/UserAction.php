@@ -126,9 +126,13 @@ class UserAction extends BaseAction
         return $this->controller->render($template, [
             'user'      => $user,
             'filter'    => $filter,
-            'battleDataProvider' => new ActiveDataProvider([
+            'battleDataProvider' => Yii::createObject([
+                'class' => ActiveDataProvider::class,
                 'query' => $battle,
-                'pagination' => ['pageSize' => 100 ]
+                'pagination' => [
+                    'pageSize' => 100,
+                ],
+                'sort' => false,
             ]),
             'summary'   => $summary,
             'permLink'  => $permLink,

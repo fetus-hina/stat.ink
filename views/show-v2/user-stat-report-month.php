@@ -1,6 +1,7 @@
 <?php
 declare(strict_types=1);
 
+use app\assets\Spl2WeaponAsset;
 use app\assets\UserStatReportAsset;
 use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
@@ -25,22 +26,21 @@ if ($prev) {
   $this->registerLinkTag(['rel' => 'prev', 'href' => $prev]);
 }
 UserStatReportAsset::register($this);
+$weapons = Spl2WeaponAsset::register($this);
 ?>
 <div class="container">
-  <h1>
-    <?= Yii::t('app', "{0}'s Battle Report", [
-        Html::a(
-          Html::encode($user->name),
-          ['show-v2/user', 'screen_name' => $user->screen_name]
-        ),
-    ]) . "\n" ?>
-  </h1>
+  <h1><?= Yii::t('app', "{0}'s Battle Report", [
+    Html::a(
+      Html::encode($user->name),
+      ['show-v2/user', 'screen_name' => $user->screen_name]
+    ),
+  ]) ?></h1>
 
   <?= AdWidget::widget() . "\n" ?>
   <?= SnsWidget::widget() . "\n" ?>
 
 <?php if ($next || $prev) { ?>
-  <div class="row">
+  <div class="row mb-3">
     <div class="col-xs-6">
 <?php if ($prev) { ?>
       <?= Html::a(
@@ -183,7 +183,14 @@ UserStatReportAsset::register($this);
               )
           ?></td>
           <td><?= Html::encode($row['map_name']) ?></td>
-          <td><?= Html::encode($row['weapon_name']) ?></td>
+          <td><?= implode(' ', [
+            Html::img($weapons->getIconUrl($row['weapon_key']), [
+              'style' => [
+                'height' => '1.5em',
+              ],
+            ]),
+            Html::encode($row['weapon_name']),
+          ]) ?></td>
           <td class="text-right"><?= Html::encode(Yii::$app->formatter->asInteger((int)$row['battles'])) ?></td>
           <td class="text-right"><?= Html::encode(
             ($row['battles'] < 1)

@@ -18,12 +18,14 @@ class GameModeIcon extends Widget
 {
     public $icon;
     public $path;
+    public $contentOptions;
 
-    public static function spl2(string $icon): string
+    public static function spl2(string $icon, array $contentOptions = []): string
     {
         return static::widget([
             'icon' => $icon,
-            'path' => "spl2/{$icon}.png"
+            'path' => "spl2/{$icon}.png",
+            'contentOptions' => $contentOptions,
         ]);
     }
 
@@ -34,13 +36,13 @@ class GameModeIcon extends Widget
                 GameModeIconsAsset::register($this->view),
                 $this->path
             ),
-            [
+            array_merge_recursive([
                 'id' => $this->id,
                 'class' => [
                     'game-mode',
                     'game-mode-' . $this->icon,
                 ],
-            ]
+            ], $this->contentOptions)
         );
     }
 }

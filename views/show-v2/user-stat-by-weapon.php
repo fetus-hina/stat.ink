@@ -1,4 +1,7 @@
 <?php
+declare(strict_types=1);
+
+use app\assets\Spl2WeaponAsset;
 use app\components\widgets\AdWidget;
 use app\components\widgets\Battle2FilterWidget;
 use app\components\widgets\SnsWidget;
@@ -100,9 +103,70 @@ $dataColumn = function (string $label, string $colKey, ?string $longLabel = null
         ],
         'columns' => [
           [
-            'attribute' => 'weapon_name',
-            'label' => Yii::t('app', 'Weapon'),
-            'headerOptions' => [ 'data-sort' => 'string' ],
+            'label' => Yii::t('app', 'Weapon'), // {{{
+            'headerOptions' => [
+              'data-sort' => 'string',
+            ],
+            'contentOptions' => function (array $model): array {
+              return [
+                'data-sort-value' => $model['weapon_name'],
+              ];
+            },
+            'format' => 'raw',
+            'value' => function (array $model): string {
+              $asset = Spl2WeaponAsset::register($this);
+              return implode(' ', [
+                Html::img($asset->getIconUrl($model['weapon_key']), [
+                  'style' => [
+                    'height' => '1.5em',
+                  ],
+                ]),
+                Html::encode($model['weapon_name']),
+              ]);
+            },
+            // }}}
+          ],
+          [
+            // Sub Weapon {{{
+            'label' => Html::tag(
+              'span',
+              Html::encode(Yii::t('app', 'Sub Weapon')),
+              ['class' => 'sr-only']
+            ),
+            'encodeLabel' => false,
+            'format' => 'raw',
+            'value' => function (array $model): string {
+              $asset = Spl2WeaponAsset::register($this);
+              return Html::img($asset->getIconUrl('sub/' . $model['subweapon_key']), [
+                'style' => [
+                  'height' => '1.333em',
+                ],
+                'title' => $model['subweapon_name'],
+                'class' => 'auto-tooltip',
+              ]);
+            },
+            // }}}
+          ],
+          [
+            // Special {{{
+            'label' => Html::tag(
+              'span',
+              Html::encode(Yii::t('app', 'Special')),
+              ['class' => 'sr-only']
+            ),
+            'encodeLabel' => false,
+            'format' => 'raw',
+            'value' => function (array $model): string {
+              $asset = Spl2WeaponAsset::register($this);
+              return Html::img($asset->getIconUrl('sp/' . $model['special_key']), [
+                'style' => [
+                  'height' => '1.333em',
+                ],
+                'title' => $model['special_name'],
+                'class' => 'auto-tooltip',
+              ]);
+            },
+            // }}}
           ],
           [
             // Battles {{{

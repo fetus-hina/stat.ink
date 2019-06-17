@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2015 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  *
@@ -13,6 +13,7 @@ namespace app\components\web;
 
 use Base32\Base32;
 use Yii;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
 use yii\helpers\Url;
 
@@ -65,8 +66,10 @@ class AssetManager extends \yii\web\AssetManager
         }
 
         $options = [
+            'assetRevision' => (int)ArrayHelper::getValue(Yii::$app->params, 'assetRevision', -1),
             'linkAssets' => !!$this->linkAssets,
         ];
+        Yii::info("Asset revision = {$options['assetRevision']}", __METHOD__);
 
         $appPath = dirname(Yii::getAlias('@webroot'));
         $path = (is_file($path) ? dirname($path) : $path);
@@ -80,7 +83,7 @@ class AssetManager extends \yii\web\AssetManager
         $hash = strtolower(substr(
             Base32::encode(hash_hmac('sha256', $path, Json::encode($options), true)),
             0,
-            8
+            16
         ));
         Yii::endProfile($profile, __METHOD__);
         Yii::info("Asset path hash = {$hash}", __METHOD__);

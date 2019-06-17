@@ -1,9 +1,11 @@
 <?php
 /**
- * @copyright Copyright (C) 2015-2017 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  */
+
+declare(strict_types=1);
 
 namespace app\actions\show\v2;
 
@@ -14,14 +16,16 @@ use app\models\User;
 use app\models\Weapon2;
 use yii\db\Query;
 use yii\web\NotFoundHttpException;
-use yii\web\ViewAction as BaseAction;
+use yii\web\ViewAction;
 
-class UserStatByWeaponAction extends BaseAction
+class UserStatByWeaponAction extends ViewAction
 {
     public function run()
     {
         $request = Yii::$app->getRequest();
-        $user = User::findOne(['screen_name' => $request->get('screen_name')]);
+        $user = User::findOne([
+            'screen_name' => $request->get('screen_name'),
+        ]);
         if (!$user) {
             throw new NotFoundHttpException(Yii::t('yii', 'Page not found.'));
         }
@@ -37,7 +41,7 @@ class UserStatByWeaponAction extends BaseAction
         ]);
     }
 
-    public function getList(User $user, Battle2FilterForm $filter)
+    public function getList(User $user, Battle2FilterForm $filter): array
     {
         // {{{
         $kill = sprintf('(CASE %s END)', implode(' ', [
@@ -68,7 +72,11 @@ class UserStatByWeaponAction extends BaseAction
         };
 
         $query = Battle2::find() // {{{
-            ->innerJoinWith(['weapon'], false)
+            ->innerJoinWith([
+                'weapon',
+                'weapon.subweapon',
+                'weapon.special',
+            ], false)
             ->andWhere(['and',
                 ['{{battle2}}.[[user_id]]' => $user->id],
                 ['not', ['{{battle2}}.[[weapon_id]]' => null]],
@@ -81,11 +89,15 @@ class UserStatByWeaponAction extends BaseAction
             ])
             ->select(array_merge(
                 [
-                    'weapon_id'     => '{{battle2}}.[[weapon_id]]',
-                    'weapon_key'    => 'MAX({{weapon2}}.[[key]])',
-                    'weapon_name'   => 'MAX({{weapon2}}.[[name]])',
-                    'battles'       => 'COUNT(*)',
-                    'win_rate'      => sprintf(
+                    'weapon_id' => '{{battle2}}.[[weapon_id]]',
+                    'weapon_key' => 'MAX({{weapon2}}.[[key]])',
+                    'weapon_name' => 'MAX({{weapon2}}.[[name]])',
+                    'subweapon_key' => 'MAX({{subweapon2}}.[[key]])',
+                    'subweapon_name' => 'MAX({{subweapon2}}.[[name]])',
+                    'special_key' => 'MAX({{special2}}.[[key]])',
+                    'special_name' => 'MAX({{special2}}.[[name]])',
+                    'battles' => 'COUNT(*)',
+                    'win_rate' => sprintf(
                         '(%s::double precision / NULLIF(%s::double precision, 0.0))',
                         'SUM(CASE WHEN {{battle2}}.[[is_win]] = TRUE THEN 1 ELSE 0 END)',
                         'SUM(CASE WHEN {{battle2}}.[[is_win]] IS NOT NULL THEN 1 ELSE 0 END)'
@@ -114,6 +126,10 @@ class UserStatByWeaponAction extends BaseAction
                         $row[$key] = (float)$value;
                     } elseif ($key === 'weapon_name') {
                         $row[$key] = Yii::t('app-weapon2', $row['weapon_name']);
+                    } elseif ($key === 'subweapon_name') {
+                        $row[$key] = Yii::t('app-subweapon2', $row['subweapon_name']);
+                    } elseif ($key === 'special_name') {
+                        $row[$key] = Yii::t('app-special2', $row['special_name']);
                     } else {
                         switch (substr($key, 0, 4)) {
                             case 'min_':
