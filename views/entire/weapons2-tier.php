@@ -5,7 +5,10 @@ use app\assets\Spl2WeaponAsset;
 use app\components\widgets\AdWidget;
 use app\components\widgets\FA;
 use app\components\widgets\SnsWidget;
+use app\models\StatWeapon2Tier;
 use yii\bootstrap\Nav;
+use yii\data\ArrayDataProvider;
+use yii\grid\GridView;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Json;
@@ -32,7 +35,32 @@ if ($next) {
   $this->registerLinkTag(['rel' => 'next', 'href' => $next]);
 }
 
-$weaponIcons = Spl2WeaponAsset::register($this);
+$kdCell = function (StatWeapon2Tier $model, string $column): ?string {
+  return implode('<br>', [
+    vsprintf('%s=%s±%s', [
+      Html::tag('span', Html::encode('μ'), [
+        'title' => Yii::t('app', 'Average'),
+        'class' => 'auto-tooltip',
+      ]),
+      Yii::$app->formatter->asDecimal($model->{"avg_{$column}"}, 2),
+      Yii::$app->formatter->asDecimal($model->{"stderr_{$column}"} * 2, 2),
+    ]),
+    vsprintf('%s=%s', [
+      Html::tag('span', Html::encode('Med'), [
+        'title' => Yii::t('app', 'Median'),
+        'class' => 'auto-tooltip',
+      ]),
+      Yii::$app->formatter->asDecimal($model->{"med_{$column}"}, 1),
+    ]),
+    vsprintf('%s=%s', [
+      Html::tag('span', Html::encode('σ'), [
+        'title' => Yii::t('app', 'Standard Deviation'),
+        'class' => 'auto-tooltip',
+      ]),
+      Yii::$app->formatter->asDecimal($model->{"stddev_{$column}"}, 3),
+    ]),
+  ]);
+};
 ?>
 <div class="container">
   <h1><?= Html::encode(vsprintf('%s (%s, %s) - %s (alpha)', [
@@ -123,68 +151,80 @@ $weaponIcons = Spl2WeaponAsset::register($this);
   <nav class="mb-1"><?= Nav::widget([
     'options' => ['class' => 'nav-tabs'],
     'items' => array_map(
-        function (string $key, array $data) use ($versionGroup, $month, $rule): array {
-            return [
-                'label' => Yii::t('app-rule2', $data['name']),
-                'url' => ['entire/weapons2-tier',
-                    'version' => $versionGroup->tag,
-                    'month' => $month,
-                    'rule' => $key,
-                ],
-                'active' => $key === $rule->key,
-                'options' => [
-                    'class' => array_filter([
-                        $data['enabled'] ? null : 'disabled',
-                    ]),
-                ],
-            ];
-        },
-        array_keys($rules),
-        array_values($rules),
+      function (string $key, array $data) use ($versionGroup, $month, $rule): array {
+        return [
+          'label' => Yii::t('app-rule2', $data['name']),
+          'url' => ['entire/weapons2-tier',
+            'version' => $versionGroup->tag,
+            'month' => $month,
+            'rule' => $key,
+          ],
+          'active' => $key === $rule->key,
+          'options' => [
+            'class' => array_filter([
+              $data['enabled'] ? null : 'disabled',
+            ]),
+          ],
+        ];
+      },
+      array_keys($rules),
+      array_values($rules),
     ),
   ]) ?></nav>
 
-  <div class="table-responsive">
-    <table class="table">
-      <thead>
-        <tr>
-          <th style="width:calc(3em + 16px)"></th>
-          <th style="width:56px"></th>
-          <th style="min-width:300px"><?= Html::encode(Yii::t('app', 'Win %')) ?></th>
-          <th style="width:calc(8em + 16px)"><?= Html::encode(Yii::t('app', 'Kills')) ?></th>
-          <th style="width:calc(8em + 16px)"><?= Html::encode(Yii::t('app', 'Deaths')) ?></th>
-          <th style="width:calc(4em + 16px)"><?= Html::encode(Yii::t('app', 'Ratio')) ?></th>
-          <th style="width:calc(2em + 16px)">n</th>
-      </thead>
-      <tbody>
-<?php foreach ($data as $model) { ?>
-<?php $_rate = $model->getWinRates() ?>
-        <tr>
-          <td class="text-center align-middle"><?php
-            if ($_rate && $_rate[0] !== null) {
-              if ($_rate[0] > 0.5) {
-                echo FA::far('smile')->size('2x')->fw();
-              } elseif ($_rate[2] < 0.5) {
-                echo FA::far('frown')->size('2x')->fw();
-              }
+  <div class="table-responsive"><?= GridView::widget([
+    'dataProvider' => Yii::createObject([
+      'class' => ArrayDataProvider::class,
+      'allModels' => $data,
+      'sort' => false,
+      'pagination' => false,
+    ]),
+    'tableOptions' => ['class' => 'table'],
+    'layout' => '{items}',
+    'columns' => [
+      [
+        // smile icon {{{
+        'label' => '',
+        'contentOptions' => ['class' => 'text-center align-middle'],
+        'headerOptions' => ['style' => ['width' => 'calc(3em + 16px)']],
+        'format' => 'raw',
+        'value' => function (StatWeapon2Tier $model): string {
+          $rate = $model->getWinRates();
+          if ($rate && $rate[0] !== null) {
+            if ($rate[0] > 0.5) {
+              return (string)FA::far('smile')->size('2x')->fw();
+            } elseif ($rate[2] < 0.5) {
+              return (string)FA::far('frown')->size('2x')->fw();
             }
-          ?></td>
-          <td class="text-center align-middle"><?= implode('', [
+          }
+          return '';
+        },
+        // }}}
+      ],
+      [
+        // Weapon {{{
+        'label' => Html::tag('span', Html::encode(Yii::t('app', 'Weapon')), ['class' => 'sr-only']),
+        'encodeLabel' => false,
+        'contentOptions' => ['class' => 'text-center align-middle'],
+        'headerOptions' => ['style' => ['width' => 'calc(40px + 16px)']],
+        'format' => 'raw',
+        'value' => function (StatWeapon2Tier $model): string {
+          $weaponIcons = Spl2WeaponAsset::register($this);
+          return vsprintf('<div>%s</div><div>%s%s</div>', [
             Html::img($weaponIcons->getIconUrl($model->weapon->key), [
               'title' => Yii::t('app-weapon2', $model->weapon->name),
               'class' => 'auto-tooltip',
               'style' => [
                 'width' => '40px',
-                'height' => 'auto',
+                'height' => '40px',
               ],
             ]),
-            '<br>',
             Html::img($weaponIcons->getIconUrl('sub/' . $model->weapon->subweapon->key), [
               'title' => Yii::t('app-subweapon2', $model->weapon->subweapon->name),
               'class' => 'auto-tooltip',
               'style' => [
                 'width' => '18px',
-                'height' => 'auto',
+                'height' => '18px',
               ],
             ]),
             Html::img($weaponIcons->getIconUrl('sp/' . $model->weapon->special->key), [
@@ -192,135 +232,142 @@ $weaponIcons = Spl2WeaponAsset::register($this);
               'class' => 'auto-tooltip',
               'style' => [
                 'width' => '18px',
-                'height' => 'auto',
+                'height' => '18px',
                 'margin-left' => '4px',
               ],
             ]),
-          ]) ?></td>
-          <td class="align-middle"><?php
-            if ($_rate) {
-              if ($_rate[0] === null) {
-                echo Html::tag(
+          ]);
+        },
+        // }}}
+      ],
+      [
+        'label' => Yii::t('app', 'Win %'), // {{{
+        'contentOptions' => ['class' => 'align-middle'],
+        'headerOptions' => ['style' => ['min-width' => '300px']],
+        'format' => 'raw',
+        'value' => function (StatWeapon2Tier $model): ?string {
+          if (!$rate = $model->getWinRates()) {
+            return null;
+          }
+
+          if ($rate[0] === null) {
+            // when cannot calc error {{{
+            return implode('', [
+              Html::tag(
+                'div',
+                implode('', [
+                  Html::tag(
+                    'div',
+                    '',
+                    [
+                      'class' => 'progress-bar progress-bar-primary',
+                      'style' => [
+                        'width' => sprintf('%f%%', $rate[1] * 100),
+                      ],
+                    ]
+                  ),
+                ]),
+                ['class' => 'progress']
+              ),
+              vsprintf('%s±??%s??%%', [
+                Yii::$app->formatter->asDecimal($rate[1] * 100, 2),
+                Yii::$app->formatter->decimalSeparator ?: '.',
+              ]),
+            ]);
+            // }}}
+          }
+
+          return implode('', [
+            Html::tag(
+              'div',
+              implode('', [
+                Html::tag(
                   'div',
-                  implode('', [
-                    Html::tag(
-                      'div',
-                      '',
-                      [
-                        'class' => 'progress-bar progress-bar-primary',
-                        'style' => [
-                          'width' => sprintf('%f%%', $_rate[1] * 100),
-                        ],
-                      ]
-                    ),
-                  ]),
-                  ['class' => 'progress']
-                );
-                printf('%s±??.??%%', Yii::$app->formatter->asDecimal($_rate[1] * 100, 2));
-              } else {
-                echo Html::tag(
+                  '',
+                  [
+                    'class' => 'progress-bar progress-bar-primary text-left-important',
+                    'style' => [
+                      'width' => sprintf('%f%%', $rate[0] * 100),
+                    ],
+                  ]
+                ),
+                Html::tag(
                   'div',
-                  implode('', [
-                    Html::tag(
-                      'div',
-                      '',
-                      [
-                        'class' => 'progress-bar progress-bar-primary text-left-important',
-                        'style' => [
-                          'width' => sprintf('%f%%', $_rate[0] * 100),
-                        ],
-                      ]
-                    ),
-                    Html::tag(
-                      'div',
-                      '',
-                      [
-                        'class' => 'progress-bar progress-bar-primary',
-                        'style' => [
-                          'width' => sprintf('%f%%', ($_rate[1] - $_rate[0]) * 100),
-                          'opacity' => '0.65',
-                        ],
-                      ]
-                    ),
-                    Html::tag(
-                      'div',
-                      '',
-                      [
-                        'class' => 'progress-bar progress-bar-primary',
-                        'style' => [
-                          'width' => sprintf('%f%%', ($_rate[2] - $_rate[1]) * 100),
-                          'opacity' => '0.3',
-                        ],
-                      ]
-                    ),
-                  ]),
-                  ['class' => 'progress']
-                );
-                vprintf('%s±%s%%', [
-                  Yii::$app->formatter->asDecimal($_rate[1] * 100, 2),
-                  Yii::$app->formatter->asDecimal(($_rate[2] - $_rate[0]) * 100 / 2, 2),
-                ]);
-              }
-            }
-          ?></td>
-          <td class="align-middle">
-            <?= vsprintf('%s=%s±%s', [
-              Html::tag('span', Html::encode('μ'), [
-                'title' => Yii::t('app', 'Average'),
-                'class' => 'auto-tooltip',
+                  '',
+                  [
+                    'class' => 'progress-bar progress-bar-primary',
+                    'style' => [
+                      'width' => sprintf('%f%%', ($rate[1] - $rate[0]) * 100),
+                      'opacity' => '0.65',
+                    ],
+                  ]
+                ),
+                Html::tag(
+                  'div',
+                  '',
+                  [
+                    'class' => 'progress-bar progress-bar-primary',
+                    'style' => [
+                      'width' => sprintf('%f%%', ($rate[2] - $rate[1]) * 100),
+                      'opacity' => '0.3',
+                    ],
+                  ]
+                ),
               ]),
-              Yii::$app->formatter->asDecimal($model->avg_kill, 2),
-              Yii::$app->formatter->asDecimal($model->stderr_kill * 2, 2),
-            ]) ?><br>
-            <?= vsprintf('%s=%s', [
-              Html::tag('span', Html::encode('Med'), [
-                'title' => Yii::t('app', 'Median'),
-                'class' => 'auto-tooltip',
-              ]),
-              Yii::$app->formatter->asDecimal($model->med_kill, 1),
-            ]) ?><br>
-            <?= vsprintf('%s=%s', [
-              Html::tag('span', Html::encode('σ'), [
-                'title' => Yii::t('app', 'Standard Deviation'),
-                'class' => 'auto-tooltip',
-              ]),
-              Yii::$app->formatter->asDecimal($model->stddev_kill, 3),
-            ]) . "\n" ?>
-          </td>
-          <td class="align-middle">
-            <?= vsprintf('%s=%s±%s', [
-              Html::tag('span', Html::encode('μ'), [
-                'title' => Yii::t('app', 'Average'),
-                'class' => 'auto-tooltip',
-              ]),
-              Yii::$app->formatter->asDecimal($model->avg_death, 2),
-              Yii::$app->formatter->asDecimal($model->stderr_death * 2, 2),
-            ]) ?><br>
-            <?= vsprintf('%s=%s', [
-              Html::tag('span', Html::encode('Med'), [
-                'title' => Yii::t('app', 'Median'),
-                'class' => 'auto-tooltip',
-              ]),
-              Yii::$app->formatter->asDecimal($model->med_death, 1),
-            ]) ?><br>
-            <?= vsprintf('%s=%s', [
-              Html::tag('span', Html::encode('σ'), [
-                'title' => Yii::t('app', 'Standard Deviation'),
-                'class' => 'auto-tooltip',
-              ]),
-              Yii::$app->formatter->asDecimal($model->stddev_death, 3),
-            ]) . "\n" ?>
-          </td>
-          <td class="align-middle">
-            <?= $model->avg_death > 0
-              ? Yii::$app->formatter->asDecimal($model->avg_kill / $model->avg_death, 3)
-              : '-'
-            ?>
-          </td>
-          <td class="align-middle"><?= Yii::$app->formatter->asInteger($model->players_count) ?></td>
-        </tr>
-<?php } ?>
-      </tbody>
-    </table>
-  </div>
+              ['class' => 'progress']
+            ),
+            vsprintf('%s±%s%%', [
+              Yii::$app->formatter->asDecimal($rate[1] * 100, 2),
+              Yii::$app->formatter->asDecimal(($rate[2] - $rate[0]) * 100 / 2, 2),
+            ]),
+          ]);
+        },
+        // }}}
+      ],
+      [
+        'label' => Yii::t('app', 'Kills'), // {{{
+        'contentOptions' => ['class' => 'align-middle'],
+        'headerOptions' => ['style' => ['width' => 'calc(7em + 16px)']],
+        'format' => 'raw',
+        'value' => function (StatWeapon2Tier $model) use ($kdCell): ?string {
+          return $kdCell($model, 'kill');
+        },
+        // }}}
+      ],
+      [
+        'label' => Yii::t('app', 'Deaths'), // {{{
+        'contentOptions' => ['class' => 'align-middle'],
+        'headerOptions' => ['style' => ['width' => 'calc(7em + 16px)']],
+        'format' => 'raw',
+        'value' => function (StatWeapon2Tier $model) use ($kdCell): ?string {
+          return $kdCell($model, 'death');
+        },
+        // }}}
+      ],
+      [
+        'label' => Yii::t('app', 'KR'), // {{{
+        'contentOptions' => ['class' => 'text-right align-middle'],
+        'headerOptions' => [
+          'class' => 'text-right',
+          'style' => ['width' => 'calc(4em + 16px)'],
+        ],
+        'format' => ['decimal', 3],
+        'value' => function (StatWeapon2Tier $model): ?float {
+          return $model->avg_death > 0 ? ($model->avg_kill / $model->avg_death) : null;
+        },
+        // }}}
+      ],
+      [
+        'label' => 'n', // {{{
+        'contentOptions' => ['class' => 'text-right align-middle'],
+        'headerOptions' => [
+          'class' => 'text-right',
+          'style' => ['width' => 'calc(4em + 16px)'],
+        ],
+        'format' => 'integer',
+        'attribute' => 'players_count',
+        // }}}
+      ],
+    ],
+  ]) ?></div>
 </div>
