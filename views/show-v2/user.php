@@ -1,9 +1,13 @@
 <?php
+declare(strict_types=1);
+
 use app\assets\BattleListAsset;
 use app\assets\Spl2WeaponAsset;
 use app\components\widgets\AdWidget;
 use app\components\widgets\Battle2FilterWidget;
 use app\components\widgets\EmbedVideo;
+use app\components\widgets\FA;
+use app\components\widgets\GameModeIcon;
 use app\components\widgets\Label;
 use app\components\widgets\SnsWidget;
 use app\models\Battle2;
@@ -51,8 +55,12 @@ if ($user->twitter != '') {
         Yii::t('app', 'Battles:{0} / Win %:{1} / Avg Kills:{2} / Avg Deaths:{3} / Kill Ratio:{4}', [
           $fmt->asInteger($summary->battle_count),
           $summary->wp === null ? '-' : $fmt->asPercent($summary->wp / 100, 1),
-          $summary->kd_present > 0 ? $fmt->asDecimal($summary->total_kill / $summary->kd_present, 2) : '-',
-          $summary->kd_present > 0 ? $fmt->asDecimal($summary->total_death / $summary->kd_present, 2) : '-',
+          $summary->kd_present > 0
+            ? $fmt->asDecimal($summary->total_kill / $summary->kd_present, 2)
+            : '-',
+          $summary->kd_present > 0
+            ? $fmt->asDecimal($summary->total_death / $summary->kd_present, 2)
+            : '-',
           $summary->kd_present > 0
             ? ($summary->total_death == 0
               ? ($summary->total_kill == 0 ? '-' : '∞')
@@ -74,19 +82,22 @@ if ($user->twitter != '') {
   <div class="row">
     <div class="col-xs-12 col-sm-8 col-lg-9">
       <p class="text-right">
-        <?= Html::beginTag('a', [
-          'class' => 'btn btn-default btn-xs',
-          'href' => Url::to(['salmon/index', 'screen_name' => $user->screen_name]),
-        ]) . "\n" ?>
-          <span class="fas fa-fw fa-fish"></span>
-          <?= Html::encode(Yii::t('app-salmon2', 'Salmon Run')) . "\n" ?>
-          <span class="fas fa-fw fa-angle-right"></span>
-        </a>
+        <?= Html::a(
+          implode(' ', [
+            FA::fas('fish')->fw(),
+            Html::encode(Yii::t('app-salmon2', 'Salmon Run')),
+            FA::fas('angle-right')->fw(),
+          ]),
+          ['salmon/index', 'screen_name' => $user->screen_name],
+          ['class' => 'btn btn-default btn-xs']
+        ) . "\n" ?>
       </p>
       <div class="text-center">
         <?= ListView::widget([
           'dataProvider' => $battleDataProvider,
-          'itemOptions' => [ 'tag' => false ],
+          'itemOptions' => [
+            'tag' => false,
+          ],
           'layout' => '{pager}',
           'pager' => [
             'maxButtonCount' => 5
@@ -99,16 +110,22 @@ if ($user->twitter != '') {
       ]) . "\n" ?>
       <div style="margin-bottom:10px">
         <a href="#filter-form" class="visible-xs-inline-block btn btn-info">
-          <span class="fa fa-search fa-fw"></span>
+          <?= FA::fas('search')->fw() . "\n" ?>
           <?= Html::encode(Yii::t('app', 'Search')) . "\n" ?>
         </a>
         <a href="#table-config" class="btn btn-default">
-          <span class="fa fa-cogs fa-fw"></span>
+          <?= FA::fas('cogs')->fw() . "\n" ?>
           <?= Html::encode(Yii::t('app', 'View Settings')) . "\n" ?>
         </a>
         <?= Html::a(
-          '<span class="fa fa-list fa-fw"></span> ' . Html::encode(Yii::t('app', 'Simplified List')),
-          array_merge($filter->toQueryParams(), ['show-v2/user', 'screen_name' => $user->screen_name, 'v' => 'simple']),
+          implode(' ', [
+            (string)FA::fas('list')->fw(),
+            Html::encode(Yii::t('app', 'Simplified List')),
+          ]),
+          array_merge(
+            $filter->toQueryParams(),
+            ['show-v2/user', 'screen_name' => $user->screen_name, 'v' => 'simple'],
+          ),
           ['class' => 'btn btn-default', 'rel' => 'nofollow']
         ) . "\n" ?>
       </div>
@@ -119,8 +136,10 @@ if ($user->twitter != '') {
         ],
         'layout' => '{items}',
         'dataProvider' => $battleDataProvider,
-        'tableOptions' => ['class' => 'table table-striped table-condensed'],
-        'rowOptions' => function ($model) : array {
+        'tableOptions' => [
+          'class' => 'table table-striped table-condensed'
+        ],
+        'rowOptions' => function ($model): array {
           return [
             'class' => [
               'battle-row',
@@ -135,22 +154,20 @@ if ($user->twitter != '') {
           [
             // button {{{
             'format' => 'raw',
-            'value' => function ($model) : string {
+            'value' => function ($model): string {
               return trim(implode(' ', [
                 Html::a(
                   Yii::t('app', 'Detail'),
                   ['show-v2/battle', 'screen_name' => $model->user->screen_name, 'battle' => $model->id],
                   ['class' => 'btn btn-primary btn-xs']
                 ),
-                (!$model->link_url) ? '' : Html::a(
-                  Html::tag('span', '', ['class' => [
-                    'fa',
-                    'fa-fw',
-                    EmbedVideo::isSupported($model->link_url) ? 'fa-video' : 'fa-link',
-                  ]]),
-                  $model->link_url,
-                  ['class' => 'btn btn-default btn-xs', 'rel' => 'nofollow']
-                ),
+                (!$model->link_url)
+                  ? ''
+                  : Html::a(
+                    (string)FA::fas(EmbedVideo::isSupported($model->link_url) ? 'video' : 'link')->fw(),
+                    $model->link_url,
+                    ['class' => 'btn btn-default btn-xs', 'rel' => 'nofollow']
+                  ),
               ]));
             },
             'contentOptions' => ['class' => 'nobr'],
@@ -159,11 +176,86 @@ if ($user->twitter != '') {
           [
             // battle # {{{
             'label' => Yii::t('app', '#'),
+            'attribute' => 'splatnet_number',
             'headerOptions' => ['class' => 'cell-splatnet'],
             'contentOptions' => ['class' => 'cell-splatnet'],
-            'value' => function ($model) : string {
-              $value = trim((string)$model->splatnet_number);
-              return $value === '' ? '' : Yii::$app->formatter->asInteger($value);
+            'format' => 'integer',
+            // }}}
+          ],
+          [
+            // lobby (icon) {{{
+            'label' => Html::tag(
+              'span',
+              Html::encode(Yii::t('app', 'Lobby')),
+              ['class' => 'sr-only']
+            ),
+            'encodeLabel' => false,
+            'headerOptions' => ['class' => 'cell-lobby-icon'],
+            'contentOptions' => ['class' => 'cell-lobby-icon'],
+            'format' => 'raw',
+            'value' => function (Battle2 $model): ?string {
+              $f = function (string $rule, string $icon): string {
+                return Html::tag(
+                  'span',
+                  GameModeIcon::spl2($icon, [
+                    'style' => [
+                      'height' => '1.2em',
+                    ],
+                  ]),
+                  [
+                    'class' => 'auto-tooltip',
+                    'title' => Yii::t('app-rule2', $rule),
+                  ]
+                );
+              };
+              switch ($model->mode->key ?? '') {
+                default:
+                  return null;
+
+                case 'regular':
+                  return $f($model->mode->name, 'nawabari');
+
+                case 'fest':
+                  switch ($model->lobby->key ?? '') {
+                    case 'standard':
+                      if ($model->version) {
+                        return $f(
+                          version_compare($model->version->tag, '4.0.0', '<')
+                            ? 'Splatfest (Solo)'
+                            : 'Splatfest (Pro)',
+                          'fest'
+                        );
+                      }
+                      return $f('Splatfest (Pro/Solo)', 'fest');
+
+                    case 'fest_normal':
+                      return $f('Splatfest (Normal)', 'fest');
+
+                    case 'squad_4':
+                      return $f('Splatfest (Team)', 'fest');
+                  
+                    default:
+                      return $f('Splatfest', 'fest');
+                  }
+
+                case 'gachi':
+                  switch ($model->lobby->key ?? '') {
+                    case 'standard':
+                      return $f('Ranked Battle (Solo)', 'gachi');
+
+                    case 'squad_2':
+                      return $f('League Battle (Twin)', 'league');
+
+                    case 'squad_4':
+                      return $f('League Battle (Quad)', 'league');
+
+                    default:
+                      return $f('Ranked Battle', 'gachi');
+                  }
+
+                case 'private':
+                  return $f('Private Battle', 'private');
+              }
             },
             // }}}
           ],
@@ -229,13 +321,13 @@ if ($user->twitter != '') {
             'headerOptions' => ['class' => 'cell-room cell-room-id'],
             'contentOptions' => ['class' => 'cell-room cell-room-id text-center'],
             'format' => 'raw',
-            'value' => function ($model) : string {
+            'value' => function ($model): ?string {
               if (!$model->lobby || $model->lobby->key !== 'private') {
-                return '';
+                return null;
               }
 
               if (!$roomId = $model->privateRoomId) {
-                return '';
+                return null;
               }
 
               return Html::img(
@@ -258,21 +350,21 @@ if ($user->twitter != '') {
             'headerOptions' => ['class' => 'cell-room cell-room-team'],
             'contentOptions' => ['class' => 'cell-room cell-room-team text-center'],
             'format' => 'raw',
-            'value' => function ($model) : string {
+            'value' => function ($model): ?string {
               if (!$model->lobby || $model->lobby->key !== 'private') {
-                return '';
+                return null;
               }
 
               $id1 = $model->getPrivateMyTeamId();
               $id2 = $model->getPrivateHisTeamId();
               if (!$id1 || !$id2) {
-                return '';
+                return null;
               }
 
               return implode(
                 ' ',
                 array_map(
-                  function (string $id) : string {
+                  function (string $id): string {
                     return Html::img(
                       sprintf('%s/%s.svg', Yii::getAlias('@jdenticon'), rawurlencode($id)),
                       [
@@ -292,13 +384,43 @@ if ($user->twitter != '') {
             // }}}
           ],
           [
+            // mode (icon) {{{
+            'label' => Html::tag(
+              'span',
+              Html::encode(Yii::t('app', 'Mode')),
+              ['class' => 'sr-only']
+            ),
+            'encodeLabel' => false,
+            'headerOptions' => ['class' => 'cell-rule-icon'],
+            'contentOptions' => ['class' => 'cell-rule-icon'],
+            'format' => 'raw',
+            'value' => function (Battle2 $model): ?string {
+              if (!$model->rule) {
+                return null;
+              }
+
+              return Html::tag(
+                'span',
+                GameModeIcon::spl2($model->rule->key, [
+                  'style' => [
+                    'height' => '1.2em',
+                  ],
+                ]),
+                [
+                  'class' => 'auto-tooltip',
+                  'title' => Yii::t('app-rule2', $model->rule->name),
+                ]
+              );
+            },
+            // }}}
+          ],
+          [
             // mode {{{
             'label' => Yii::t('app', 'Mode'),
+            'attribute' => 'rule.name',
             'headerOptions' => ['class' => 'cell-rule'],
             'contentOptions' => ['class' => 'cell-rule'],
-            'value' => function ($model) : string {
-              return Yii::t('app-rule2', $model->rule->name ?? '?');
-            },
+            'format' => ['translated', 'app-rule2'],
             // }}}
           ],
           [
@@ -307,11 +429,14 @@ if ($user->twitter != '') {
             'headerOptions' => ['class' => 'cell-rule-short'],
             'contentOptions' => ['class' => 'cell-rule-short'],
             'format' => 'raw',
-            'value' => function ($model) : string {
+            'value' => function ($model): string {
               return Html::tag(
                 'span',
                 Html::encode(Yii::t('app-rule2', $model->rule->short_name ?? '?')),
-                ['class' => 'auto-tooltip', 'title' => Yii::t('app-rule2', $model->rule->name ?? '?')]
+                [
+                  'class' => 'auto-tooltip',
+                  'title' => Yii::t('app-rule2', $model->rule->name ?? '?'),
+                ]
               );
             },
             // }}}
@@ -322,9 +447,9 @@ if ($user->twitter != '') {
             'headerOptions' => ['class' => 'cell-special-battle'],
             'contentOptions' => ['class' => 'cell-special-battle'],
             'format' => 'raw',
-            'value' => function ($model) : string {
+            'value' => function ($model): ?string {
               if (!$model->special_battle_id || !$model->specialBattle) {
-                return '';
+                return null;
               }
               return Label::widget([
                 'content' => Yii::t('app', $model->specialBattle->name),
@@ -336,11 +461,10 @@ if ($user->twitter != '') {
           [
             // stage {{{
             'label' => Yii::t('app', 'Stage'),
+            'attribute' => 'map.name',
             'headerOptions' => ['class' => 'cell-map'],
             'contentOptions' => ['class' => 'cell-map'],
-            'value' => function ($model) : string {
-              return Yii::t('app-map2', $model->map->name ?? '?');
-            },
+            'format' => ['translated', 'app-map2'],
             // }}}
           ],
           [
@@ -349,11 +473,14 @@ if ($user->twitter != '') {
             'headerOptions' => ['class' => 'cell-map-short'],
             'contentOptions' => ['class' => 'cell-map-short'],
             'format' => 'raw',
-            'value' => function ($model) : string {
+            'value' => function ($model): string {
               return Html::tag(
                 'span',
                 Html::encode(Yii::t('app-map2', $model->map->short_name ?? '?')),
-                ['class' => 'auto-tooltip', 'title' => Yii::t('app-map2', $model->map->name ?? '?')]
+                [
+                  'class' => 'auto-tooltip',
+                  'title' => Yii::t('app-map2', $model->map->name ?? '?'),
+                ]
               );
             },
             // }}}
@@ -364,9 +491,9 @@ if ($user->twitter != '') {
             'headerOptions' => ['class' => 'cell-main-weapon-icon'],
             'contentOptions' => ['class' => 'cell-main-weapon-icon'],
             'format' => 'raw',
-            'value' => function ($model): string {
+            'value' => function ($model): ?string {
               if (!$model->weapon) {
-                return '';
+                return null;
               }
 
               $icons = Spl2WeaponAsset::register($this);
@@ -415,7 +542,7 @@ if ($user->twitter != '') {
             'headerOptions' => ['class' => 'cell-main-weapon-short'],
             'contentOptions' => ['class' => 'cell-main-weapon-short'],
             'format' => 'raw',
-            'value' => function ($model) : string {
+            'value' => function ($model): string {
               $title = implode(' / ', [
                 Yii::t('app-weapon2', $model->weapon->name ?? '?'),
                 implode(' ', [
@@ -429,32 +556,95 @@ if ($user->twitter != '') {
               ]);
               return Html::tag(
                 'span',
-                Html::encode(
-                  Yii::$app->weaponShortener->get(Yii::t('app-weapon2', $model->weapon->name ?? '?'))
-                ),
-                ['class' => 'auto-tooltip', 'title' => $title]
+                Html::encode(Yii::$app->weaponShortener->get(
+                  Yii::t('app-weapon2', $model->weapon->name ?? '?')
+                )),
+                [
+                  'class' => 'auto-tooltip',
+                  'title' => $title,
+                ]
               );
             },
             // }}}
           ],
           [
+            // sub weapon (icon) {{{
+            'label' => Html::tag(
+              'span',
+              Html::encode(Yii::t('app', 'Sub Weapon')),
+              ['class' => 'sr-only']
+            ),
+            'encodeLabel' => false,
+            'headerOptions' => ['class' => 'cell-sub-weapon-icon'],
+            'contentOptions' => ['class' => 'cell-sub-weapon-icon'],
+            'format' => 'raw',
+            'value' => function (Battle2 $model): ?string {
+              if (!$model->weapon || !$model->weapon->subweapon) {
+                return null;
+              }
+
+              $icons = Spl2WeaponAsset::register($this);
+              return Html::img(
+                $icons->getIconUrl('sub/' . $model->weapon->subweapon->key),
+                [
+                  'style' => [
+                    'height' => '1.333em',
+                    'width' => 'auto',
+                  ],
+                  'class' => 'auto-tooltip',
+                  'title' => Yii::t('app-subweapon2', $model->weapon->subweapon->name),
+                ]
+              );
+            },
+            // }}} 
+          ],
+          [
             // sub weapon {{{
             'label' => Yii::t('app', 'Sub Weapon'),
+            'attribute' => 'weapon.subweapon.name',
             'headerOptions' => ['class' => 'cell-sub-weapon'],
             'contentOptions' => ['class' => 'cell-sub-weapon'],
-            'value' => function ($model) : string {
-              return Yii::t('app-subweapon2', $model->weapon->subweapon->name ?? '?');
+            'format' => ['translated', 'app-subweapon2'],
+            // }}} 
+          ],
+          [
+            // special weapon (icon) {{{
+            'label' => Html::tag(
+              'span',
+              Html::encode(Yii::t('app', 'Special Weapon')),
+              ['class' => 'sr-only']
+            ),
+            'encodeLabel' => false,
+            'headerOptions' => ['class' => 'cell-special-icon'],
+            'contentOptions' => ['class' => 'cell-special-icon'],
+            'format' => 'raw',
+            'value' => function (Battle2 $model): ?string {
+              if (!$model->weapon || !$model->weapon->special) {
+                return null;
+              }
+
+              $icons = Spl2WeaponAsset::register($this);
+              return Html::img(
+                $icons->getIconUrl('sp/' . $model->weapon->special->key),
+                [
+                  'style' => [
+                    'height' => '1.333em',
+                    'width' => 'auto',
+                  ],
+                  'class' => 'auto-tooltip',
+                  'title' => Yii::t('app-special2', $model->weapon->special->name),
+                ]
+              );
             },
             // }}} 
           ],
           [
             // special weapon {{{
             'label' => Yii::t('app', 'Special'),
+            'attribute' => 'weapon.special.name',
             'headerOptions' => ['class' => 'cell-special'],
             'contentOptions' => ['class' => 'cell-special'],
-            'value' => function ($model) : string {
-              return Yii::t('app-special2', $model->weapon->special->name ?? '?');
-            },
+            'format' => ['translated', 'app-special2'],
             // }}}
           ],
           [
@@ -463,9 +653,9 @@ if ($user->twitter != '') {
             'headerOptions' => ['class' => 'cell-team-icon'],
             'contentOptions' => ['class' => 'cell-team-icon text-center'],
             'format' => 'raw',
-            'value' => function ($model) : string {
-              return trim($model->my_team_id) === ''
-                ? ''
+            'value' => function ($model): ?string {
+              return trim((string)$model->my_team_id) === ''
+                ? null
                 : Html::a(
                   Html::img(
                     $model->myTeamIcon,
@@ -494,11 +684,11 @@ if ($user->twitter != '') {
             'headerOptions' => ['class' => 'cell-team-id'],
             'contentOptions' => ['class' => 'cell-team-id'],
             'format' => 'raw',
-            'value' => function ($model) : string {
-              return trim($model->my_team_id) === ''
-                ? ''
+            'value' => function ($model): ?string {
+              return trim((string)$model->my_team_id) === ''
+                ? null
                 : Html::a(
-                  Html::tag('code', Html::encode(trim($model->my_team_id))),
+                  Html::tag('code', Html::encode(trim((string)$model->my_team_id))),
                   ['show-v2/user',
                     'screen_name' => $model->user->screen_name,
                     'filter' => [
@@ -514,9 +704,9 @@ if ($user->twitter != '') {
             'label' => Yii::t('app', 'Rank'),
             'headerOptions' => ['class' => 'cell-rank'],
             'contentOptions' => ['class' => 'cell-rank'],
-            'value' => function ($model) : string {
+            'value' => function ($model): ?string {
               if (!$rank = $model->rank) {
-                return '';
+                return null;
               }
               if ($rank->key === 's+' && $model->rank_exp !== null) {
                 return sprintf(
@@ -534,13 +724,13 @@ if ($user->twitter != '') {
             'label' => Yii::t('app', 'X Power'),
             'headerOptions' => ['class' => 'cell-x-power'],
             'contentOptions' => ['class' => 'cell-x-power'],
-            'value' => function ($model) : string {
+            'value' => function ($model): ?string {
               $rank = $model->rank;
               if ($rank && $rank->key === 'x' && $model->x_power !== null) {
                 return Yii::$app->formatter->asDecimal($model->x_power, 1);
               }
 
-              return '';
+              return null;
             },
             // }}}
           ],
@@ -549,9 +739,9 @@ if ($user->twitter != '') {
             'label' => Yii::t('app', 'Rank (After)'),
             'headerOptions' => ['class' => 'cell-rank-after'],
             'contentOptions' => ['class' => 'cell-rank-after'],
-            'value' => function ($model) : string {
+            'value' => function ($model): ?string {
               if (!$rank = $model->rankAfter) {
-                return '';
+                return null;
               }
               if ($rank->key === 's+' && $model->rank_after_exp !== null) {
                 return sprintf(
@@ -569,13 +759,13 @@ if ($user->twitter != '') {
             'label' => Yii::t('app', 'X Power (after)'),
             'headerOptions' => ['class' => 'cell-x-power'],
             'contentOptions' => ['class' => 'cell-x-power'],
-            'value' => function ($model) : string {
+            'value' => function ($model): ?string {
               $rank = $model->rankAfter;
               if ($rank && $rank->key === 'x' && $model->x_power_after !== null) {
                 return Yii::$app->formatter->asDecimal($model->x_power_after, 1);
               }
 
-              return '';
+              return null;
             },
             // }}}
           ],
@@ -584,11 +774,12 @@ if ($user->twitter != '') {
             'label' => Yii::t('app', 'Power Level'),
             'headerOptions' => ['class' => 'cell-gachi-power'],
             'contentOptions' => ['class' => 'cell-gachi-power text-right'],
-            'value' => function ($model) : string {
+            'format' => 'integer',
+            'value' => function ($model): ?int {
               if ($model->estimate_gachi_power < 1) {
-                return '';
+                return null;
               }
-              return $model->estimate_gachi_power;
+              return (int)$model->estimate_gachi_power;
             },
             // }}}
           ],
@@ -597,9 +788,9 @@ if ($user->twitter != '') {
             'label' => Yii::t('app', 'League Power'),
             'headerOptions' => ['class' => 'cell-league-power'],
             'contentOptions' => ['class' => 'cell-league-power text-right'],
-            'value' => function ($model) : string {
+            'value' => function ($model): ?string {
               if ($model->league_point < 1) {
-                return '';
+                return null;
               }
               return $model->league_point;
             },
@@ -610,9 +801,9 @@ if ($user->twitter != '') {
             'label' => Yii::t('app', 'Splatfest Title'),
             'headerOptions' => ['class' => 'cell-fest-title'],
             'contentOptions' => ['class' => 'cell-fest-title'],
-            'value' => function ($model) : string {
+            'value' => function ($model): ?string {
               if (!$model->festTitle) {
-                return '';
+                return null;
               }
               $gender = $model->gender;
               $theme = $model->myTeamFestTheme;
@@ -629,9 +820,9 @@ if ($user->twitter != '') {
             'label' => Yii::t('app', 'Splatfest Title (After)'),
             'headerOptions' => ['class' => 'cell-fest-title-after'],
             'contentOptions' => ['class' => 'cell-fest-title-after'],
-            'value' => function ($model) : string {
+            'value' => function ($model): ?string {
               if (!$model->festTitleAfter) {
-                return '';
+                return null;
               }
               $gender = $model->gender;
               $theme = $model->myTeamFestTheme;
@@ -648,11 +839,9 @@ if ($user->twitter != '') {
             'label' => Yii::t('app', 'Splatfest Power'),
             'headerOptions' => ['class' => 'cell-fest-power'],
             'contentOptions' => ['class' => 'cell-fest-power text-right'],
-            'value' => function ($model) : string {
-              if ($model->fest_power < 1) {
-                return '';
-              }
-              return Yii::$app->formatter->asDecimal($model->fest_power, 1);
+            'format' => ['decimal', 1],
+            'value' => function (Battle2 $model): ?float {
+              return $model->fest_power < 0.1 ? null : (float)$model->fest_power;
             },
             // }}}
           ],
@@ -661,9 +850,8 @@ if ($user->twitter != '') {
             'label' => Yii::t('app', 'Level'),
             'headerOptions' => ['class' => 'cell-level'],
             'contentOptions' => ['class' => 'cell-level'],
-            'value' => function ($model) : string {
-              return $model->level ?? '';
-            },
+            'format' => 'integer',
+            'attribute' => 'level',
             // }}}
           ],
           [
@@ -672,7 +860,7 @@ if ($user->twitter != '') {
             'headerOptions' => ['class' => 'cell-judge'],
             'contentOptions' => ['class' => 'cell-judge'],
             'format' => 'raw',
-            'value' => function ($model) : string {
+            'value' => function ($model): string {
               return $this->render('_battle_judge', ['model' => $model]);
             },
             // }}}
@@ -683,7 +871,7 @@ if ($user->twitter != '') {
             'headerOptions' => ['class' => 'cell-result'],
             'contentOptions' => ['class' => 'cell-result'],
             'format' => 'raw',
-            'value' => function ($model) : string {
+            'value' => function ($model): string {
               $parts = [
                 ($model->is_win === null)
                   ? Html::encode('?')
@@ -704,8 +892,8 @@ if ($user->twitter != '') {
                   )
                   : ''
               ];
-              return implode('&nbsp', array_filter($parts, function (string $value) : bool {
-                return trim($value) != '';
+              return implode('&nbsp', array_filter($parts, function (string $value): bool {
+                return trim((string)$value) !== '';
               }));
             },
             // }}}
@@ -716,7 +904,7 @@ if ($user->twitter != '') {
             'headerOptions' => ['class' => 'cell-kd'],
             'contentOptions' => ['class' => 'cell-kd nobr'],
             'format' => 'raw',
-            'value' => function ($model) : string {
+            'value' => function ($model): string {
               return implode(' ', [
                 Html::tag(
                   'span', 
@@ -762,11 +950,11 @@ if ($user->twitter != '') {
             'headerOptions' => ['class' => 'cell-kill-min'],
             'contentOptions' => ['class' => 'cell-kill-min text-right'],
             'format' => 'raw',
-            'value' => function ($model) : string {
+            'value' => function ($model): ?string {
               $kill = $model->kill ?? null;
               $time = $model->elapsedTime ?? null;
               if ($kill === null || $time === null || $time < 1) {
-                return '';
+                return null;
               }
               $value = Yii::$app->formatter->asDecimal($kill * 60 / $time, 3);
               return ($model->death ?? 9999) <= $kill
@@ -781,11 +969,11 @@ if ($user->twitter != '') {
             'headerOptions' => ['class' => 'cell-death-min'],
             'contentOptions' => ['class' => 'cell-death-min text-right'],
             'format' => 'raw',
-            'value' => function ($model) : string {
+            'value' => function ($model): ?string {
               $death = $model->death ?? null;
               $time = $model->elapsedTime ?? null;
               if ($death === null || $time === null || $time < 1) {
-                return '';
+                return null;
               }
               $value = Yii::$app->formatter->asDecimal($death * 60 / $time, 3);
               return ($model->kill ?? 9999) <= $death
@@ -797,8 +985,9 @@ if ($user->twitter != '') {
           [
             // kill ratio {{{
             'label' => Yii::t('app', 'Ratio'),
+            'attribute' => 'kill_ratio',
             'headerOptions' => ['class' => 'cell-kill-ratio auto-tooltip', 'title' => Yii::t('app', 'Kill Ratio')],
-            'contentOptions' => function ($model) : array {
+            'contentOptions' => function ($model): array {
               return $model->kill_ratio === null
                 ? [
                   'class' => [
@@ -816,18 +1005,18 @@ if ($user->twitter != '') {
                   ],
                 ];
             },
-            'value' => function ($model) : string {
-              return ($model->kill_ratio !== null)
-                ? Yii::$app->formatter->asDecimal($model->kill_ratio, 2)
-                : '';
-            },
+            'format' => ['decimal', 2],
             // }}}
           ],
           [
             // kill rate {{{
             'label' => Yii::t('app', 'Rate'),
-            'headerOptions' => ['class' => 'cell-kill-rate auto-tooltip', 'title' => Yii::t('app', 'Kill Rate')],
-            'contentOptions' => function ($model) : array {
+            'attribute' => 'kill_rate',
+            'headerOptions' => [
+              'class' => 'cell-kill-rate auto-tooltip',
+              'title' => Yii::t('app', 'Kill Rate'),
+            ],
+            'contentOptions' => function ($model): array {
               return $model->kill_ratio === null
                 ? [
                   'class' => [
@@ -845,31 +1034,30 @@ if ($user->twitter != '') {
                   ],
                 ];
             },
-            'value' => function ($model) : string {
+            'format' => ['percent', 2],
+            'value' => function ($model): ?float {
               return ($model->kill_rate !== null)
-                ? Yii::$app->formatter->asPercent($model->kill_rate / 100, 2)
-                : '';
+                ? ($model->kill_rate / 100)
+                : null;
             },
             // }}}
           ],
           [
             // kill or assist {{{
             'label' => Yii::t('app', 'Kill or Assist'),
+            'attribute' => 'kill_or_assist',
             'headerOptions' => ['class' => 'cell-kill-or-assist'],
             'contentOptions' => ['class' => 'cell-kill-or-assist'],
-            'value' => function ($model) : string {
-              return $model->kill_or_assist ?? '';
-            },
+            'format' => 'integer',
             // }}}
           ],
           [
             // specials {{{
             'label' => Yii::t('app', 'Specials'),
+            'attribute' => 'special',
             'headerOptions' => ['class' => 'cell-specials'],
             'contentOptions' => ['class' => 'cell-specials text-right'],
-            'value' => function ($model) : string {
-              return $model->special ?? '';
-            },
+            'format' => 'integer',
             // }}}
           ],
           [
@@ -877,26 +1065,23 @@ if ($user->twitter != '') {
             'label' => Yii::t('app', 'S/min'),
             'headerOptions' => ['class' => 'cell-specials-min'],
             'contentOptions' => ['class' => 'cell-specials-min text-right'],
-            'value' => function ($model) : string {
+            'format' => ['decimal', 3],
+            'value' => function ($model): ?float {
               $specials = $model->special ?? null;
               $time = $model->elapsedTime ?? null;
               return ($specials === null || $time === null || $time < 1)
-                ? ''
-                : Yii::$app->formatter->asDecimal($specials * 60 / $time, 3);
+                ? null
+                : ($specials * 60 / $time);
             },
             // }}}
           ],
           [
             // inked {{{
             'label' => Yii::t('app', 'Inked'),
+            'attribute' => 'inked',
             'headerOptions' => ['class' => 'cell-point'],
             'contentOptions' => ['class' => 'cell-point text-right'],
-            'value' => function ($model) : string {
-              $value = $model->inked ?? null;
-              return ($value === null)
-                ? ''
-                : Yii::$app->formatter->asInteger($value);
-            },
+            'format' => 'integer',
             // }}}
           ],
           [
@@ -904,23 +1089,23 @@ if ($user->twitter != '') {
             'label' => Yii::t('app', 'Inked/min'),
             'headerOptions' => ['class' => 'cell-inked-min'],
             'contentOptions' => ['class' => 'cell-inked-min text-right'],
-            'value' => function ($model) : string {
+            'format' => ['decimal', 1],
+            'value' => function ($model): ?float {
               $inked = $model->inked ?? null;
               $time = $model->elapsedTime ?? null;
               return ($inked === null || $time === null || $time < 1)
-                ? ''
-                : Yii::$app->formatter->asDecimal($inked * 60 / $time, 1);
+                ? null
+                : ($inked * 60 / $time);
             },
             // }}}
           ],
           [
             // rank in team {{{
             'label' => Yii::t('app', 'Rank in Team'),
+            'attribute' => 'rank_in_team',
             'headerOptions' => ['class' => 'cell-rank-in-team'],
             'contentOptions' => ['class' => 'cell-rank-in-team'],
-            'value' => function ($model) : string {
-              return $model->rank_in_team ?? '';
-            },
+            'format' => 'integer',
             // }}}
           ],
           [
@@ -951,39 +1136,28 @@ if ($user->twitter != '') {
           [
             // datetime {{{
             'label' => Yii::t('app', 'Date Time'),
+            'attribute' => 'end_at',
             'headerOptions' => ['class' => 'cell-datetime'],
             'contentOptions' => ['class' => 'cell-datetime'],
-            'format' => 'raw',
-            'value' => function ($model) : string {
-              return $model->end_at === null
-                ? Html::encode(Yii::t('app', 'N/A'))
-                : Html::tag(
-                  'time',
-                  Html::encode(Yii::$app->formatter->asDateTime($model->end_at, 'short')),
-                  ['datetime' => Yii::$app->formatter->asDateTime($model->end_at, 'yyyy-MM-dd\'T\'HH:mm:ssZZZZZ')]
-                );
-            },
+            'format' => ['htmlDatetime', 'short'],
+            // }}}
+          ],
+          [
+            // timezone {{{
+            'label' => Yii::t('app', 'TZ'),
+            'attribute' => 'end_at',
+            'headerOptions' => ['class' => 'cell-datetime-timezone'],
+            'contentOptions' => ['class' => 'cell-datetime-timezone'],
+            'format' => ['datetime', 'zzz'],
             // }}}
           ],
           [
             // reltime {{{
             'label' => Yii::t('app', 'Relative Time'),
+            'attribute' => 'end_at',
             'headerOptions' => ['class' => 'cell-reltime'],
             'contentOptions' => ['class' => 'cell-reltime'],
-            'format' => 'raw',
-            'value' => function ($model) : string {
-              return $model->end_at === null
-                ? Html::encode(Yii::t('app', 'N/A'))
-                : Html::tag(
-                  'time',
-                  Html::encode(Yii::$app->formatter->asRelativeTime($model->end_at)),
-                  [ 
-                    'datetime' => Yii::$app->formatter->asDateTime($model->end_at, 'yyyy-MM-dd\'T\'HH:mm:ssZZZZZ'),
-                    'class' => 'auto-tooltip',
-                    'title' => Yii::$app->formatter->asDateTime($model->end_at),
-                  ]
-                );
-            },
+            'format' => 'htmlRelative',
             // }}}
           ],
         ], // }}}
@@ -1021,8 +1195,10 @@ if ($user->twitter != '') {
       <div class="row"><?php
         $_list = [
           'cell-splatnet'             => Yii::t('app', 'SplatNet Battle #'),
+          'cell-lobby-icon'           => Yii::t('app', 'Lobby (Icon)'),
           'cell-lobby'                => Yii::t('app', 'Lobby'),
           'cell-room'                 => Yii::t('app', 'Room info (Private)'),
+          'cell-rule-icon'            => Yii::t('app', 'Mode (Icon)'),
           'cell-rule'                 => Yii::t('app', 'Mode'),
           'cell-rule-short'           => Yii::t('app', 'Mode (Short)'),
           'cell-special-battle'       => Yii::t('app', 'Special Battle (Fest)'),
@@ -1031,7 +1207,9 @@ if ($user->twitter != '') {
           'cell-main-weapon-icon'     => Yii::t('app', 'Weapon (Icon)'),
           'cell-main-weapon'          => Yii::t('app', 'Weapon'),
           'cell-main-weapon-short'    => Yii::t('app', 'Weapon (Short)'),
+          'cell-sub-weapon-icon'      => Yii::t('app', 'Sub Weapon (Icon)'),
           'cell-sub-weapon'           => Yii::t('app', 'Sub Weapon'),
+          'cell-special-icon'         => Yii::t('app', 'Special (Icon)'),
           'cell-special'              => Yii::t('app', 'Special'),
           'cell-team-icon'            => Yii::t('app', 'Team Icon'),
           'cell-team-id'              => Yii::t('app', 'Team ID'),
@@ -1060,6 +1238,7 @@ if ($user->twitter != '') {
           'cell-elapsed'              => Yii::t('app', 'Elapsed Time'),
           'cell-elapsed-sec'          => Yii::t('app', 'Elapsed Time (seconds)'),
           'cell-datetime'             => Yii::t('app', 'Date Time'),
+          'cell-datetime-timezone'    => Yii::t('app', 'Time Zone'),
           'cell-reltime'              => Yii::t('app', 'Relative Time'),
         ];
         foreach ($_list as $k => $v) {
