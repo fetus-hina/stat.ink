@@ -112,7 +112,15 @@ $weaponIcons = Spl2WeaponAsset::register($this);
     </li>
   </ul>
 
-  <nav class="mb-3"><?= Nav::widget([
+<?php if ($data) { ?>
+  <p class="mb-3 text-right">
+    Last Updated:
+    <?= Yii::$app->formatter->asHtmlDatetime($data[0]->updated_at) ?>
+    (<?= Yii::$app->formatter->asHtmlRelative($data[0]->updated_at) ?>)
+  </p>
+<?php } ?>
+
+  <nav class="mb-1"><?= Nav::widget([
     'options' => ['class' => 'nav-tabs'],
     'items' => array_map(
         function (string $key, array $data) use ($versionGroup, $month, $rule): array {
