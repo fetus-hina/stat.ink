@@ -250,6 +250,7 @@ return [
     'Last Month (UTC)' => '先月（ガチマ集計期間）',
     'Last {n} Battles' => '最近{n}バトル',
     'Last {n} Periods' => '最近{n}ステージ',
+    'Latest' => '最新',
     'League Power' => 'リーグパワー',
     'Legend' => '凡例',
     'Legends' => '凡例',

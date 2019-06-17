@@ -252,6 +252,7 @@ return [
     'Last Month (UTC)' => '',
     'Last {n} Battles' => '',
     'Last {n} Periods' => '',
+    'Latest' => '',
     'League Power' => '',
     'Legend' => '',
     'Legends' => '',

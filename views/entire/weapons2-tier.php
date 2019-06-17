@@ -99,6 +99,17 @@ $kdCell = function (StatWeapon2Tier $model, string $column): ?string {
             $next,
             ['class' => 'btn btn-default']
           );
+
+          if ($latest && $next !== $latest) {
+            echo Html::a(
+              implode(' ', [
+                Html::encode(Yii::t('app', 'Latest')),
+                (string)FA::fas('angle-double-right')->fw(),
+              ]),
+              $latest,
+              ['class' => 'btn btn-default ml-2']
+            );
+          }
         }
       ?></div>
     </div>
@@ -115,7 +126,7 @@ $kdCell = function (StatWeapon2Tier $model, string $column): ?string {
         <li>Excluded the uploader (<?= Html::encode(Yii::$app->name) ?>'s user)</li>
         <li><?= Html::encode(vsprintf('Filtered: n%s%s', [
           (substr(Yii::$app->language, 0, 3) === 'ja-') ? '≧' : '≥',
-          Yii::$app->formatter->asInteger(50),
+          Yii::$app->formatter->asInteger(StatWeapon2Tier::PLAYERS_COUNT_THRESHOLD),
         ])) ?></li>
       </ul>
     </li>
