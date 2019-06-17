@@ -4,6 +4,7 @@ declare(strict_types=1);
 use app\assets\Spl2WeaponAsset;
 use app\components\widgets\AdWidget;
 use app\components\widgets\FA;
+use app\components\widgets\GameModeIcon;
 use app\components\widgets\SnsWidget;
 use app\models\StatWeapon2Tier;
 use yii\bootstrap\Nav;
@@ -161,10 +162,14 @@ $kdCell = function (StatWeapon2Tier $model, string $column): ?string {
 
   <nav class="mb-1"><?= Nav::widget([
     'options' => ['class' => 'nav-tabs'],
+    'encodeLabels' => false,
     'items' => array_map(
       function (string $key, array $data) use ($versionGroup, $month, $rule): array {
         return [
-          'label' => Yii::t('app-rule2', $data['name']),
+          'label' => implode(' ', [
+            GameModeIcon::spl2($key),
+            Html::encode(Yii::t('app-rule2', $data['name'])),
+          ]),
           'url' => ['entire/weapons2-tier',
             'version' => $versionGroup->tag,
             'month' => $month,
