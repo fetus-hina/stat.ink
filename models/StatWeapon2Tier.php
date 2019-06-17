@@ -40,6 +40,24 @@ use yii\db\ActiveRecord;
  */
 class StatWeapon2Tier extends ActiveRecord
 {
+    const PLAYERS_COUNT_THRESHOLD = 50;
+
+    public static function find(): ActiveQuery
+    {
+        return new class(static::class) extends ActiveQuery {
+            public function thresholded(): self
+            {
+                $this->andWhere(
+                    ['>=',
+                        '{{stat_weapon2_tier}}.[[players_count]]',
+                        StatWeapon2Tier::PLAYERS_COUNT_THRESHOLD
+                    ]
+                );
+                return $this;
+            }
+        };
+    }
+
     public static function tableName()
     {
         return 'stat_weapon2_tier';

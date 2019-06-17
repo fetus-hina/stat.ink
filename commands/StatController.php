@@ -1670,7 +1670,7 @@ class StatController extends Controller
                     '{{c}}.[[id]]',
                 ])
                 ->andHaving(['and',
-                    ['>=', 'COUNT(*)', 50],
+                    ['>=', 'COUNT(*)', 2],
                 ])
                 ->orderBy([
                     '{{v}}.[[group_id]]' => SORT_ASC,

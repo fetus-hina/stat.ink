@@ -38,6 +38,7 @@ class Weapons2TierAction extends ViewAction
         // redirect to default page if input is empty
         if (!$this->input['version'] || !$this->input['month'] || !$this->input['rule']) {
             $latest = StatWeapon2Tier::find()
+                ->thresholded()
                 ->orderBy(['id' => SORT_DESC])
                 ->limit(1)
                 ->one();
@@ -79,6 +80,7 @@ class Weapons2TierAction extends ViewAction
         }
 
         $data = StatWeapon2Tier::find()
+            ->thresholded()
             ->andWhere([
                 'version_group_id' => $vGroup->id,
                 'month' => $this->input['month'] . '-01',
@@ -104,6 +106,7 @@ class Weapons2TierAction extends ViewAction
             'rules' => $this->getRules($vGroup),
             'prev' => $this->getPrevious($vGroup, $rule),
             'next' => $this->getNext($vGroup, $rule),
+            'latest' => $this->getLatest($vGroup, $rule),
         ]);
     }
 
@@ -113,6 +116,7 @@ class Weapons2TierAction extends ViewAction
             return [
                 'name' => $rule->name,
                 'enabled' => StatWeapon2Tier::find()
+                    ->thresholded()
                     ->andWhere([
                         'version_group_id' => $version->id,
                         'month' => $this->input['month'] . '-01',
@@ -127,6 +131,7 @@ class Weapons2TierAction extends ViewAction
     private function getPrevious(SplatoonVersionGroup2 $curVersion, Rule2 $rule): ?string
     {
         $model = StatWeapon2Tier::find()
+            ->thresholded()
             ->andWhere(['and',
                 ['rule_id' => $rule->id],
                 ['<=', 'version_group_id', $curVersion->id],
@@ -152,6 +157,7 @@ class Weapons2TierAction extends ViewAction
     private function getNext(SplatoonVersionGroup2 $curVersion, Rule2 $rule): ?string
     {
         $model = StatWeapon2Tier::find()
+            ->thresholded()
             ->andWhere(['and',
                 ['rule_id' => $rule->id],
                 ['or',
@@ -180,6 +186,34 @@ class Weapons2TierAction extends ViewAction
             'month' => substr($model->month, 0, 7),
             'rule' => $rule->key,
         ]);
+        return null;
+    }
+
+    private function getLatest(SplatoonVersionGroup2 $curVersion, Rule2 $rule): ?string
+    {
+        $model = StatWeapon2Tier::find()
+            ->thresholded()
+            ->andWhere(['rule_id' => $rule->id])
+            ->orderBy([
+                'month' => SORT_DESC,
+                'version_group_id' => SORT_DESC,
+            ])
+            ->limit(1)
+            ->one();
+        if (!$model) {
+            return null;
+        }
+
+        if ($model->version_group_id > $curVersion->id ||
+            $model->month > $this->input['month'] . '-01'
+        ) {
+            return Url::to(['entire/weapons2-tier',
+                'version' => $model->versionGroup->tag,
+                'month' => substr($model->month, 0, 7),
+                'rule' => $rule->key,
+            ]);
+        }
+
         return null;
     }
 }
