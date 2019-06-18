@@ -1,7 +1,14 @@
 <?php
 declare(strict_types=1);
 
+use app\models\GearConfiguration2;
 use yii\helpers\Html;
+
+$gears = [
+    $headgear,
+    $clothing,
+    $shoes,
+];
 ?>
 <div class="table-responsive">
   <table class="table table-bordered table-condensed" style="margin-bottom:0">
@@ -17,59 +24,52 @@ use yii\helpers\Html;
 <?php if ($headgear->gear_id || $clothing->gear_id || $shoes->gear_id) { ?>
       <tr>
         <th scope="row"><?= Html::encode(Yii::t('app', 'Gear')) ?></th>
-        <td>
-          <?= Html::encode(Yii::t('app-gear2', $headgear->gear->name ?? '?')) . "\n" ?>
-        </td>
-        <td>
-          <?= Html::encode(Yii::t('app-gear2', $clothing->gear->name ?? '?')) . "\n" ?>
-        </td>
-        <td>
-          <?= Html::encode(Yii::t('app-gear2', $shoes->gear->name ?? '?')) . "\n" ?>
-        </td>
+        <?= implode('', array_map(
+          function (?GearConfiguration2 $gear): string {
+            return Html::tag('td', Html::encode(Yii::t('app-gear2', $gear->gear->name ?? '?')));
+          },
+          $gears
+        )) . "\n" ?>
       </tr>
 <?php } ?>
       <tr>
         <th scope="row"><?= Html::encode(Yii::t('app', 'Primary Ability')) ?></th>
-        <td>
-          <?= Html::encode(Yii::t('app-ability2', $headgear->primaryAbility->name ?? '?')) . "\n" ?>
-        </td>
-        <td>
-          <?= Html::encode(Yii::t('app-ability2', $clothing->primaryAbility->name ?? '?')) . "\n" ?>
-        </td>
-        <td>
-          <?= Html::encode(Yii::t('app-ability2', $shoes->primaryAbility->name ?? '?')) . "\n" ?>
-        </td>
+        <?= implode('', array_map(
+          function (?GearConfiguration2 $gear): string {
+            return Html::tag(
+              'td',
+              $this->render('_battle_gear_ability', [
+                'ability' => $gear->primaryAbility ?? null,
+                'lockedIfNull' => false,
+              ])
+            );
+          },
+          $gears
+        )) . "\n" ?>
       </tr>
-<?php for ($i = 0; $i < 3; ++$i) { ?>
       <tr>
-<?php if ($i === 0) { ?>
-        <th scope="row" rowspan="3">
+        <th scope="row">
           <?= Html::encode(Yii::t('app', 'Secondary Abilities')) . "\n" ?>
         </th>
-<?php } ?>
-        <td>
-          <?= Html::encode(
-            count($headgear->secondaries) >= $i
-              ? Yii::t('app-ability2', $headgear->secondaries[$i]->ability->name ?? '(Locked)')
-              : ''
-          ) . "\n" ?>
-        </td>
-        <td>
-          <?= Html::encode(
-            count($clothing->secondaries) >= $i
-              ? Yii::t('app-ability2', $clothing->secondaries[$i]->ability->name ?? '(Locked)')
-              : ''
-          ) . "\n" ?>
-        </td>
-        <td>
-          <?= Html::encode(
-            count($shoes->secondaries) >= $i
-              ? Yii::t('app-ability2', $shoes->secondaries[$i]->ability->name ?? '(Locked)')
-              : ''
-          ) . "\n" ?>
-        </td>
+        <?= implode('', array_map(
+          function (?GearConfiguration2 $gear): string {
+            return Html::tag(
+              'td',
+              implode(' ', array_map(
+                function (int $i) use ($gear): string {
+                  return (string)$this->render('_battle_gear_ability', [
+                    'ability' => $gear->secondaries[$i]->ability ?? null,
+                    'lockedIfNull' => count($gear->secondaries ?? []) >= $i,
+                  ]);
+                },
+                range(0, 2)
+              )),
+              ['class' => 'sub-ability']
+            );
+          },
+          $gears
+        )) . "\n" ?>
       </tr>
-<?php } ?>
     </tbody>
   </table>
 </div>
