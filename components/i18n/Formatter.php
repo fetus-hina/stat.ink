@@ -87,12 +87,16 @@ class Formatter extends \yii\i18n\Formatter
     }
 
     public function asTranslated(
-        string $value,
+        $value,
         string $category = 'app',
         array $options = [],
         bool $escape = true
     ): string {
-        $text = Yii::t($category, $value, $options);
+        if ($value === null) {
+            return $this->nullDisplay;
+        }
+
+        $text = Yii::t($category, (string)$value, $options);
         return $escape ? $this->asText($text) : $text;
     }
 }
