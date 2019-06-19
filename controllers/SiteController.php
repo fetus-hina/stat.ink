@@ -107,19 +107,22 @@ class SiteController extends Controller
         $resp = Yii::$app->response;
         $resp->format = 'raw';
         $resp->headers->set('Content-Type', 'text/plain; charset=UTF-8');
-        if (YII_ENV_DEV) {
-            $resp->content = implode("\n", [
-                'User-agent: *',
-                'Disallow: /'
-            ]);
-        } else {
-            $resp->content = implode("\n", [
-                'User-agent: *',
-                'Disallow:',
-                '',
-                'User-agent: Baiduspider',
-                'Disallow: /',
-            ]);
+        switch (defined('YII_ENV') ? YII_ENV : '') {
+            case 'prod':
+                $resp->content = implode("\n", [
+                    'User-agent: *',
+                    'Disallow:',
+                    '',
+                    'User-agent: Baiduspider',
+                    'Disallow: /',
+                ]);
+                break;
+
+            default:
+                $resp->content = implode("\n", [
+                    'User-agent: *',
+                    'Disallow: /'
+                ]);
         }
     }
 }
