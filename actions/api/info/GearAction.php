@@ -55,7 +55,7 @@ class GearAction extends BaseAction
             return strnatcasecmp($a['name'], $b['name']);
         });
 
-        $langs = Language::find()->asArray()->all();
+        $langs = Language::find()->standard()->asArray()->all();
         $sysLang = Yii::$app->language;
         usort($langs, function (array $a, array $b) use ($sysLang) : int {
             if ($a['lang'] === $sysLang) {

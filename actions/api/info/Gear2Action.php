@@ -42,7 +42,7 @@ class Gear2Action extends BaseAction
                 $b->translatedName
             );
         });
-        $langs = Language::find()->all();
+        $langs = Language::find()->standard()->all();
         $sysLang = Yii::$app->language;
         usort($langs, function (Language $a, Language $b) use ($sysLang) : int {
             if ($a->lang === $b->lang) {
