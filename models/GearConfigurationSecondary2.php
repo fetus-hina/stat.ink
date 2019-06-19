@@ -22,6 +22,11 @@ use yii\db\ActiveRecord;
  */
 class GearConfigurationSecondary2 extends ActiveRecord
 {
+    public static function find()
+    {
+        return parent::find()->orderBy(['gear_configuration_secondary2.config_id' => SORT_ASC]);
+    }
+
     /**
      * @inheritdoc
      */

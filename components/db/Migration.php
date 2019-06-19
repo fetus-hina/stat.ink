@@ -13,6 +13,42 @@ use yii\db\Schema;
 
 class Migration extends \yii\db\Migration
 {
+    public function up()
+    {
+        $this->beforeUp();
+        $result = parent::up();
+        if ($result !== false) {
+            $this->afterUp();
+        }
+        return $result;
+    }
+
+    public function down()
+    {
+        $this->beforeDown();
+        $result = parent::down();
+        if ($result !== false) {
+            $this->afterDown();
+        }
+        return $result;
+    }
+
+    protected function beforeUp()
+    {
+    }
+
+    protected function afterUp()
+    {
+    }
+
+    protected function beforeDown()
+    {
+    }
+
+    protected function afterDown()
+    {
+    }
+
     public function apiKey(int $length = 16)
     {
         return $this->string($length)->notNull()->unique();
