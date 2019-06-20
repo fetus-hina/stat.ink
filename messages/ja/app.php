@@ -471,6 +471,7 @@ return [
     'This is done automatically and the data will not be deleted even if the the battle is deleted.' => 'この動作は自動的に行われ、バトルの削除を行ったとしても取り消されません。',
     'This twitter account has already been integrated with another user.' => 'このTwitterアカウントはすでに別のユーザーに関連づけられています。',
     'This website ({0}) collects the following data:' => 'このサイト（{0}）では次の情報をログとして記録しています。',
+    'This website doesn\'t support Internet Explorer. Please use modern browser e.g., Chrome.' => 'Internet Explorer はサポートしていませんので、Chrome などのモダンブラウザを使用してください。',
     'This website has implemented support for color-blindness. Please check "Color-Blind Support" in the "User Name/Guest" menu of the navbar to enable it.' => '色覚サポートを実装しています。有効にするには上部ナビゲーションの「ユーザ名/ゲスト」部分から「色覚サポート」を選択してください。',
     'This website is an UNOFFICIAL SERVICE. It is not related to the Splatoon development team or Nintendo.' => 'このサイトは非公式(unofficial)サービスです。任天堂株式会社とは一切関係ありません。',
     'This website is an open source project. It is under the MIT License. The source code is available on GitHub.' => 'このサイトのソースコードはオープンソース(MIT License)で公開されています。',

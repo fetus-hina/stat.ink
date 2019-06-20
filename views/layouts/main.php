@@ -71,7 +71,9 @@ if ($_flashes) {
   ]) . "\n" ?>
     <?php $this->beginBody() ?><?= "\n" ?>
       <header>
-        <?= $this->render('/layouts/navbar') ?><?= "\n" ?>
+        <?= $this->render('/layouts/testsite') . "\n" ?>
+        <?= $this->render('/layouts/ie') . "\n" ?>
+        <?= $this->render('/layouts/navbar') . "\n" ?>
       </header>
       <main>
         <?= $content ?><?= "\n" ?>
