@@ -139,6 +139,14 @@ stat.ink にデータを投稿する、または取得する API は次のペー
 - [API for Splatoon 2](https://github.com/fetus-hina/stat.ink/blob/master/doc/api-2/)
 - [API for Splatoon 1](https://github.com/fetus-hina/stat.ink/blob/master/API.md)
 
+### Needs test site?
+
+You can use staging environment for POST API test.  
+URL: `https://test.stat.ink/` instead of `https://stat.ink/`.
+
+The database of statging environment will reset daily.  
+The maintenance process will be started at 23:00 UTC and will take 1.5 hours.
+
 
 ライセンス LICENSE
 -----------------
