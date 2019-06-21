@@ -257,7 +257,7 @@ composer.phar:
 	@touch -r composer.json composer.phar
 
 composer.lock: composer.json composer.phar
-	./composer.phar update -vvv
+	php -d memory_limit=-1 ./composer.phar update -vvv
 	@touch -r composer.json composer.lock
 
 BROTLI := $(shell if [ -e /usr/bin/brotli ]; then echo brotli; else echo bro; fi )

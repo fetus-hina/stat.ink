@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8f4aa7bc48cb9232ca94c9a91df96ed7",
+    "content-hash": "fea5a8dfb21d5122d9a4bf21ff1eb073",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -135,27 +135,6 @@
                 "reference": "9e5e04c1c4ee66427fbe04cfce8155b76748ca64"
             },
             "type": "bower-asset"
-        },
-        {
-            "name": "bower-asset/jquery-smooth-scroll",
-            "version": "1.7.2",
-            "source": {
-                "type": "git",
-                "url": "git@github.com:kswedberg/jquery-smooth-scroll.git",
-                "reference": "7c327265673e06234f7ae740cbcf3aaf984ffed3"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/kswedberg/jquery-smooth-scroll/zipball/7c327265673e06234f7ae740cbcf3aaf984ffed3",
-                "reference": "7c327265673e06234f7ae740cbcf3aaf984ffed3"
-            },
-            "require": {
-                "bower-asset/jquery": ">=1.4.2"
-            },
-            "type": "bower-asset",
-            "license": [
-                "MIT"
-            ]
         },
         {
             "name": "bower-asset/moment",
@@ -1370,6 +1349,33 @@
             },
             "require": {
                 "npm-asset/canvas-renderer": "~2.1.1"
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
+            "name": "npm-asset/jquery",
+            "version": "3.4.1",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/jquery/-/jquery-3.4.1.tgz"
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
+            "name": "npm-asset/jquery-smooth-scroll",
+            "version": "2.2.0",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/jquery-smooth-scroll/-/jquery-smooth-scroll-2.2.0.tgz"
+            },
+            "require": {
+                "npm-asset/jquery": ">=1.7.0"
             },
             "type": "npm-asset",
             "license": [
