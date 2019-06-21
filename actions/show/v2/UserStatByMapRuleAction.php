@@ -87,6 +87,10 @@ class UserStatByMapRuleAction extends BaseAction
             $row = (object)$row;
             $ret[$row->map_key][$row->rule_key][$row->result] = (int)$row->count;
             $ret['total'][$row->rule_key][$row->result] += (int)$row->count;
+
+            if (substr($row->map_key, 0, 8) === 'mystery_') {
+                $ret['mystery'][$row->rule_key][$row->result] += (int)$row->count;
+            }
         }
 
         $maps2 = ArrayHelper::map($maps, 'key', function (Map2 $map): string {
