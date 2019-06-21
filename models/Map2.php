@@ -125,4 +125,31 @@ class Map2 extends ActiveRecord
                 : null,
         ];
     }
+
+    public static function sort(array $list): array
+    {
+        usort($list, [static::class, 'compare']);
+        return $list;
+    }
+
+    public static function compare(self $a, self $b): int
+    {
+        return static::getCompareClass($a) <=> static::getCompareClass($b)
+            ?: strnatcasecmp(Yii::t('app-map2', $a->name), Yii::t('app-map2', $b->name))
+            ?: strnatcasecmp($a->name, $b->name)
+            ?: strcmp($a->key, $b->key);
+    }
+
+    private static function getCompareClass(self $self): int
+    {
+        if (substr($self->key, 0, 7) === 'mystery') {
+            if ($self->key === 'mystery') {
+                return 1;
+            }
+
+            return 1 + (int)substr($self->key, 8);
+        }
+
+        return 0;
+    }
 }

@@ -62,7 +62,7 @@ class UserStatByMapRuleAction extends BaseAction
                 '{{battle2}}.[[is_win]]',
             ]);
         
-        $maps = Map2::find()->all();
+        $maps = Map2::sort(Map2::find()->all());
         $rules = Rule2::find()->orderBy(['id' => SORT_ASC])->all();
 
         $ret = ['total' => []];
@@ -89,27 +89,14 @@ class UserStatByMapRuleAction extends BaseAction
             $ret['total'][$row->rule_key][$row->result] += (int)$row->count;
         }
 
-        $maps2 = ArrayHelper::map(
-            $maps,
-            'key',
-            function (Map2 $map) : string {
-                return Yii::t('app-map2', $map->name);
-            }
-        );
-        uksort($maps2, function (string $key1, string $key2) use ($maps2) : int {
-            if ($key1 === 'mystery') {
-                return 1;
-            }
-            if ($key2 === 'mystery') {
-                return -1;
-            }
-            return strnatcasecmp($maps2[$key1], $maps2[$key2]);
+        $maps2 = ArrayHelper::map($maps, 'key', function (Map2 $map): string {
+            return Yii::t('app-map2', $map->name);
         });
 
         $rules2 = ArrayHelper::map(
             $rules,
             'key',
-            function (Rule2 $rule) : string {
+            function (Rule2 $rule): string {
                 return Yii::t('app-rule2', $rule->name);
             }
         );
