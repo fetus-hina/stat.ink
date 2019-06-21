@@ -8,8 +8,8 @@
 return [
     '  Flexi-rouleau aluminium' => '',
     'Arroseur lourd' => '',
-    'Arroseur lourd Cerise' => '',
     'Arroseur lourd cerise' => '',
+    'Arroseur lourd Cerise' => '',
     'Arroseur lourd requin' => '',
     'Arroseur léger' => '',
     'Arroseur léger requin' => '',

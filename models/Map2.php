@@ -33,7 +33,9 @@ class Map2 extends ActiveRecord
         return new class(static::class) extends ActiveQuery {
             public function excludeMystery() : self
             {
-                return $this->andWhere(['<>', 'key', 'mystery']);
+                return $this->andWhere(['and',
+                    ['not', ['like', 'key', 'mystery%', false]],
+                ]);
             }
         };
     }
