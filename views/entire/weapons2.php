@@ -83,7 +83,7 @@ EntireWeaponsAsset::register($this);
           'li',
           Html::a(
             Html::encode($rule->name),
-            ['entire/weapons2', '#' => sprintf('weapon-%s', $rule->key)]
+            sprintf('#weapon-%s', $rule->key),
           )
         );
       },
