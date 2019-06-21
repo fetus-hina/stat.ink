@@ -1,13 +1,15 @@
 <?php
 /**
- * @copyright Copyright (C) 2015-2018 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  */
+
 declare(strict_types=1);
 
 namespace app\commands;
 
+use IntlChar;
 use Yii;
 use app\models\Ability2;
 use app\models\Map2;
@@ -21,6 +23,7 @@ use app\models\SalmonWaterLevel2;
 use app\models\WeaponCategory2;
 use yii\console\Controller;
 use yii\helpers\Console;
+use yii\helpers\StringHelper;
 
 class Api2MarkdownController extends Controller
 {
@@ -40,7 +43,7 @@ class Api2MarkdownController extends Controller
         $path = Yii::getAlias('@app/doc/api-2/post-battle.md');
         $markdown = preg_replace_callback(
             '/(?<start><!--replace:(?<kind>[\w-]+)-->)(?<oldvalue>.*?)(?<end><!--endreplace-->)/us',
-            function (array $match) : string {
+            function (array $match): string {
                 switch ($match['kind']) {
                     case 'weapon':
                         ob_start();
@@ -159,7 +162,7 @@ class Api2MarkdownController extends Controller
                         $remarks[] = sprintf(
                             '互換性のため %s も受け付けます',
                             implode(', ', array_map(
-                                function (string $value) : string {
+                                function (string $value): string {
                                     return '`' . $value . '`';
                                 },
                                 (array)$compats[$weapon['key']]
@@ -168,7 +171,7 @@ class Api2MarkdownController extends Controller
                         $remarks[] = sprintf(
                             'Also accepts %s for compatibility',
                             implode(', ', array_map(
-                                function (string $value) : string {
+                                function (string $value): string {
                                     return '`' . $value . '`';
                                 },
                                 (array)$compats[$weapon['key']]
@@ -205,7 +208,7 @@ class Api2MarkdownController extends Controller
             ],
         ];
         $maps = Map2::find()->all();
-        usort($maps, function (Map2 $a, Map2 $b) : int {
+        usort($maps, function (Map2 $a, Map2 $b): int {
             if ($a->key === $b->key) {
                 return 0;
             } elseif ($a->key === 'mystery') {
@@ -232,7 +235,7 @@ class Api2MarkdownController extends Controller
                 $colRemarks[] = sprintf(
                     '互換性のため %s も受け付けます',
                     implode(', ', array_map(
-                        function (string $value) : string {
+                        function (string $value): string {
                             return '`' . $value . '`';
                         },
                         (array)$compats[$map->key]
@@ -241,7 +244,7 @@ class Api2MarkdownController extends Controller
                 $colRemarks[] = sprintf(
                     'Also accepts %s for compatibility',
                     implode(', ', array_map(
-                        function (string $value) : string {
+                        function (string $value): string {
                             return '`' . $value . '`';
                         },
                         (array)$compats[$map->key]
@@ -286,7 +289,7 @@ class Api2MarkdownController extends Controller
                 $colRemarks[] = sprintf(
                     '互換性のため %s も受け付けます',
                     implode(', ', array_map(
-                        function (string $value) : string {
+                        function (string $value): string {
                             return '`' . $value . '`';
                         },
                         (array)$compats[$ability->key]
@@ -295,7 +298,7 @@ class Api2MarkdownController extends Controller
                 $colRemarks[] = sprintf(
                     'Also accepts %s for compatibility',
                     implode(', ', array_map(
-                        function (string $value) : string {
+                        function (string $value): string {
                             return '`' . $value . '`';
                         },
                         (array)$compats[$ability->key]
@@ -566,7 +569,7 @@ class Api2MarkdownController extends Controller
                 $remarks[] = sprintf(
                     '互換性のため %s も受け付けます',
                     implode(', ', array_map(
-                        function (string $value) : string {
+                        function (string $value): string {
                             return '`' . $value . '`';
                         },
                         (array)$compats[$weapon['key']]
@@ -575,7 +578,7 @@ class Api2MarkdownController extends Controller
                 $remarks[] = sprintf(
                     'Also accepts %s for compatibility',
                     implode(', ', array_map(
-                        function (string $value) : string {
+                        function (string $value): string {
                             return '`' . $value . '`';
                         },
                         (array)$compats[$weapon['key']]
@@ -624,7 +627,7 @@ class Api2MarkdownController extends Controller
                 $remarks[] = sprintf(
                     '互換性のため %s も受け付けます',
                     implode(', ', array_map(
-                        function (string $value) : string {
+                        function (string $value): string {
                             return '`' . $value . '`';
                         },
                         (array)$compats[$weapon['key']]
@@ -633,7 +636,7 @@ class Api2MarkdownController extends Controller
                 $remarks[] = sprintf(
                     'Also accepts %s for compatibility',
                     implode(', ', array_map(
-                        function (string $value) : string {
+                        function (string $value): string {
                             return '`' . $value . '`';
                         },
                         (array)$compats[$weapon['key']]
@@ -686,7 +689,7 @@ class Api2MarkdownController extends Controller
     }
 
     // Markdown Table {{{
-    private static function calcWidths(array $rows) : array
+    private static function calcWidths(array $rows): array
     {
         $widths = [];
         foreach ($rows as $row) {
@@ -698,18 +701,18 @@ class Api2MarkdownController extends Controller
         return $widths;
     }
 
-    private static function calcStringWidth(string $text, int $minWidth = 1) : int
+    private static function calcStringWidth(string $text, int $minWidth = 1): int
     {
         // {{{
         $lines = preg_split('/\x0d\x0a|\x0d|\x0a/s', $text);
         return array_reduce(
             array_map(
-                function (string $line) : int {
+                function (string $line): int {
                     return self::strwidth($line);
                 },
                 $lines
             ),
-            function (int $a, int $b) : int {
+            function (int $a, int $b): int {
                 return max($a, $b);
             },
             $minWidth
@@ -717,7 +720,7 @@ class Api2MarkdownController extends Controller
         // }}}
     }
 
-    private static function createTable(array $rows) : string
+    private static function createTable(array $rows): string
     {
         // {{{
         $widths = static::calcWidths($rows);
@@ -727,7 +730,7 @@ class Api2MarkdownController extends Controller
             $result .= static::createTableRow($row, $widths) . "\n";
             if ($i === 0) {
                 $result .= sprintf("|%s|\n", implode('|', array_map(
-                    function (int $cellWidth) : string {
+                    function (int $cellWidth): string {
                         return str_repeat('-', $cellWidth);
                     },
                     $widths
@@ -738,7 +741,7 @@ class Api2MarkdownController extends Controller
         // }}}
     }
 
-    private static function createTableRow(array $row, array $widths) : string
+    private static function createTableRow(array $row, array $widths): string
     {
         $outColumns = [];
         foreach (array_values($row) as $i => $colText) {
@@ -747,13 +750,27 @@ class Api2MarkdownController extends Controller
         return '|' . implode('|', $outColumns) . '|';
     }
 
-    private static function strwidth(string $text) : int
+    private static function strwidth(string $text): int
     {
         // mb_strwidth may returns wrong value for East Asian Ambiguous Width
-        $width = mb_strwidth($text, 'UTF-8');
-        $additional = 0;
-        $additional += preg_match_all('/[Α-Ωα-ω]/u', $text, $matches);
-        return $width + $additional;
+        $width = 0;
+        $current = 0;
+        $next = 0;
+        $size = StringHelper::byteLength($text);
+        while ($next < $size) {
+            $c = grapheme_extract($text, 1, GRAPHEME_EXTR_MAXCHARS, $current, $next);
+            $v = IntlChar::getIntPropertyValue($c, IntlChar::PROPERTY_EAST_ASIAN_WIDTH);
+            if ($v === IntlChar::EA_FULLWIDTH ||
+                $v === IntlChar::EA_WIDE ||
+                $v === IntlChar::EA_AMBIGUOUS
+            ) {
+                $width += 2;
+            } else {
+                $width += 1;
+            }
+            $current = $next;
+        }
+        return $width;
     }
     // }}}
 }
