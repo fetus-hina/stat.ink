@@ -11,6 +11,7 @@ return [
     'Cannon' => 'キャノン',
     'Drowning' => '水死',
     'Fall' => '転落死',
+    'Inkfurler' => 'ピロピロ',
     'Main Weapon' => 'メインウェポン',
     'Marina Bomb' => 'イイダボム',
     'Out of Bounds' => '場外',

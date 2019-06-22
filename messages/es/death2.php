@@ -11,6 +11,7 @@ return [
     'Cannon' => 'Cañón',
     'Drowning' => 'Ahogamiento',
     'Fall' => 'Caída',
+    'Inkfurler' => '',
     'Main Weapon' => 'Arma principal',
     'Marina Bomb' => '',
     'Out of Bounds' => 'Fuera de los Límites',

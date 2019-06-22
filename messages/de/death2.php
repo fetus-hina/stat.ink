@@ -12,6 +12,7 @@ return [
     'Cannon' => 'Kanone',
     'Drowning' => 'Ertrunken',
     'Fall' => 'Heruntergefallen',
+    'Inkfurler' => 'Schnalzbänder',
     'Main Weapon' => 'Primärwaffe',
     'Marina Bomb' => '',
     'Out of Bounds' => 'Ausserhalb der Karte',

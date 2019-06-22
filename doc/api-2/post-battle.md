@@ -679,6 +679,7 @@ Gear Ability
 |`drown`|水死<br>Out of bounds (water)|
 |`oob`|場外（詳細不明）<br>Out of bounds (details unknown)|
 |`cannon`|キャノン<br>Cannon|
+|`piropiro`|ピロピロ<br>Inkfurler|
 |`senpaicannon`|センパイキャノン<br>_Senpai Cannon_ (TBA)|
 |`iidabomb`|イイダボム<br>_Marina Bomb_ (TBA)|
 

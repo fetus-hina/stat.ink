@@ -11,6 +11,7 @@ return [
     'Cannon' => 'Kanon',
     'Drowning' => '',
     'Fall' => '',
+    'Inkfurler' => 'Inkttoeter',
     'Main Weapon' => '',
     'Marina Bomb' => '',
     'Out of Bounds' => '',
