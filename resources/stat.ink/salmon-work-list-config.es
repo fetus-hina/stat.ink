@@ -28,7 +28,7 @@
         'cell-reltime': false,
       };
       for (const i in defaults) {
-        if (defaults.hasOwnProperty(i)) {
+        if (Object.prototype.hasOwnProperty.call(defaults, i)) {
           if (config[i] === undefined) {
             config[i] = defaults[i];
           }
