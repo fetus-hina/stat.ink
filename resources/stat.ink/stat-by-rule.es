@@ -17,7 +17,7 @@
       const $root = $('<div>').append($('<h2>').text(json.name));
       const rules = [];
       for (const i in json.rules) {
-        if (!json.rules.hasOwnProperty(i)) {
+        if (!Object.prototype.hasOwnProperty.call(json.rules, i)) {
           continue;
         }
         const rule = json.rules[i];

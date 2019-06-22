@@ -17,7 +17,7 @@
       const $root = $('<div>').append($('<h2>').text(json.name));
       const maps = [];
       for (const i in json) {
-        if (!json.hasOwnProperty(i)) {
+        if (!Object.prototype.hasOwnProperty.call(json, i)) {
           continue;
         }
         const map = json[i];
