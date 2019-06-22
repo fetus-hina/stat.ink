@@ -672,39 +672,33 @@ Gear Ability
 
 キーとなる死因は、`weapon`のための指定文字列と、次の各値になります。
 
-|指定文字列|死因|
-|-|-|
-|`unknown`|死因不明<br>Unknown|
-|`fall`|場外転落<br>Out of bounds (fall)|
-|`drown`|水死<br>Out of bounds (water)|
-|`oob`|場外（詳細不明）<br>Out of bounds (details unknown)|
-|`cannon`|キャノン<br>Cannon|
-|`piropiro`|ピロピロ<br>Inkfurler|
-|`senpaicannon`|センパイキャノン<br>_Senpai Cannon_ (TBA)|
-|`iidabomb`|イイダボム<br>_Marina Bomb_ (TBA)|
+<!--replace:death-->
+|指定文字列<br>Key String|死因<br>Death Reason               |
+|------------------------|-----------------------------------|
+|`drown`                 |水死<br>Drowning                   |
+|`fall`                  |転落死<br>Fall                     |
+|`oob`                   |場外<br>Out of Bounds              |
+|`cannon`                |キャノン<br>Cannon                 |
+|`iidabomb`              |イイダボム<br>Marina Bomb          |
+|`piropiro`              |ピロピロ<br>Inkfurler              |
+|`senpaicannon`          |センパイキャノン<br>Senpai Cannon  |
+|`curlingbomb`           |カーリングボム<br>Curling Bomb     |
+|`kyubanbomb`            |キューバンボム<br>Suction Bomb     |
+|`quickbomb`             |クイックボム<br>Burst Bomb         |
+|`robotbomb`             |ロボットボム<br>Autobomb           |
+|`splashbomb`            |スプラッシュボム<br>Splat Bomb     |
+|`splashshield`          |スプラッシュシールド<br>Splash Wall|
+|`sprinkler`             |スプリンクラー<br>Sprinkler        |
+|`trap`                  |トラップ<br>Ink Mine               |
+|`amefurashi`            |アメフラシ<br>Ink Storm            |
+|`bubble`                |バブルランチャー<br>Bubble Blower  |
+|`chakuchi`              |スーパーチャクチ<br>Splashdown     |
+|`jetpack`               |ジェットパック<br>Inkjet           |
+|`missile`               |マルチミサイル<br>Tenta Missiles   |
+|`presser`               |ハイパープレッサー<br>Sting Ray    |
+|`sphere`                |イカスフィア<br>Baller             |
+<!--endreplace-->
 
-|指定文字列|死因|
-|-|-|
-|`curlingbomb`|カーリングボム<br>Curling Bomb|
-|`kyubanbomb`|キューバンボム<br>Suction Bomb|
-|`quickbomb`|クイックボム<br>Burst Bomb|
-|`robotbomb`|ロボットボム<br>Autobomb|
-|`splashbomb`|スプラッシュボム<br>Splat Bomb|
-|`splashshield`|スプラッシュシールド<br>Splash Wall|
-|`sprinkler`|スプリンクラー<br>Sprinkler|
-|`tansanbomb`|タンサンボム<br>Fizzy Bomb|
-|`trap`|トラップ<br>Ink Mine|
-
-|指定文字列|死因|
-|-|-|
-|`amefurashi`|アメフラシ<br>Ink Storm|
-|`bubble`|バブルランチャー<br>Bubble Blower|
-|`chakuchi`|スーパーチャクチ<br>Splashdown|
-|`jetpack`|ジェットパック<br>Inkjet|
-|`missile`|マルチミサイル<br>Tenta Missiles|
-|`nicedama`|ナイスダマ<br>Booyah Bomb|
-|`presser`|ハイパープレッサー<br>Sting Ray|
-|`sphere`|イカスフィア<br>Baller|
 
 `events`
 --------

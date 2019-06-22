@@ -12,6 +12,7 @@ namespace app\commands;
 use IntlChar;
 use Yii;
 use app\models\Ability2;
+use app\models\DeathReason2;
 use app\models\Map2;
 use app\models\SalmonBoss2;
 use app\models\SalmonEvent2;
@@ -66,6 +67,15 @@ class Api2MarkdownController extends Controller
                     case 'ability':
                         ob_start();
                         $status = $this->actionAbility();
+                        if ($status !== 0) {
+                            return $status;
+                        }
+                        $repl = ob_get_clean();
+                        return $match['start'] . "\n" . rtrim($repl) . "\n" . $match['end'];
+
+                    case 'death':
+                        ob_start();
+                        $status = $this->actionDeathReason();
                         if ($status !== 0) {
                             return $status;
                         }
@@ -313,6 +323,47 @@ class Api2MarkdownController extends Controller
                     $ability->name,
                 ]),
                 implode("<br>", $colRemarks),
+            ];
+            // }}}
+        }
+        echo static::createTable($data);
+        return 0;
+        // }}}
+    }
+
+    public function actionDeathReason(): int
+    {
+        // {{{
+        $db = Yii::$app->db;
+        $typeOrder = sprintf('(CASE {{death_reason_type2}}.[[key]] %s END)', implode(' ', [
+            sprintf('WHEN %s THEN 0', $db->quoteValue('oob')),
+            sprintf('WHEN %s THEN 1', $db->quoteValue('gadget')),
+            sprintf('WHEN %s THEN 2', $db->quoteValue('sub')),
+            sprintf('WHEN %s THEN 3', $db->quoteValue('special')),
+        ]));
+        $reasons = DeathReason2::find()
+            ->innerJoinWith('type')
+            ->andWhere(['death_reason2.weapon_id' => null])
+            ->orderBy([
+                $typeOrder => SORT_ASC,
+                'death_reason2.key' => SORT_ASC,
+            ])
+            ->all();
+
+        $data = [
+            [
+                "指定文字列<br>Key String",
+                "死因<br>Death Reason",
+            ],
+        ];
+        foreach ($reasons as $reason) {
+            // {{{
+            $data[] = [
+                sprintf('`%s`', $reason->key),
+                implode('<br>', [
+                    $reason->getTranslatedName('ja-JP'),
+                    $reason->name,
+                ]),
             ];
             // }}}
         }
