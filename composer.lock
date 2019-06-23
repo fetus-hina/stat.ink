@@ -1234,10 +1234,16 @@
         },
         {
             "name": "npm-asset/bootswatch",
-            "version": "3.4.1",
+            "version": "v3.4.1-patch1",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:thomaspark/bootswatch.git",
+                "reference": "c41a8f066feb8950c6f9c6bcf5a3c37d1085404e"
+            },
             "dist": {
-                "type": "tar",
-                "url": "https://registry.npmjs.org/bootswatch/-/bootswatch-3.4.1.tgz"
+                "type": "zip",
+                "url": "https://api.github.com/repos/thomaspark/bootswatch/zipball/c41a8f066feb8950c6f9c6bcf5a3c37d1085404e",
+                "reference": "c41a8f066feb8950c6f9c6bcf5a3c37d1085404e"
             },
             "type": "npm-asset",
             "license": [
@@ -1479,10 +1485,10 @@
         },
         {
             "name": "npm-asset/uuidjs",
-            "version": "4.2.1",
+            "version": "4.2.3",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/uuidjs/-/uuidjs-4.2.1.tgz"
+                "url": "https://registry.npmjs.org/uuidjs/-/uuidjs-4.2.3.tgz"
             },
             "type": "npm-asset",
             "license": [
