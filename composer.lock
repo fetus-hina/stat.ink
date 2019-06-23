@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8f4aa7bc48cb9232ca94c9a91df96ed7",
+    "content-hash": "27e643b51ce49552f77a07032cad99ea",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -135,27 +135,6 @@
                 "reference": "9e5e04c1c4ee66427fbe04cfce8155b76748ca64"
             },
             "type": "bower-asset"
-        },
-        {
-            "name": "bower-asset/jquery-smooth-scroll",
-            "version": "1.7.2",
-            "source": {
-                "type": "git",
-                "url": "git@github.com:kswedberg/jquery-smooth-scroll.git",
-                "reference": "7c327265673e06234f7ae740cbcf3aaf984ffed3"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/kswedberg/jquery-smooth-scroll/zipball/7c327265673e06234f7ae740cbcf3aaf984ffed3",
-                "reference": "7c327265673e06234f7ae740cbcf3aaf984ffed3"
-            },
-            "require": {
-                "bower-asset/jquery": ">=1.4.2"
-            },
-            "type": "bower-asset",
-            "license": [
-                "MIT"
-            ]
         },
         {
             "name": "bower-asset/moment",
@@ -1255,10 +1234,16 @@
         },
         {
             "name": "npm-asset/bootswatch",
-            "version": "3.4.1",
+            "version": "v3.4.1-patch1",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:thomaspark/bootswatch.git",
+                "reference": "c41a8f066feb8950c6f9c6bcf5a3c37d1085404e"
+            },
             "dist": {
-                "type": "tar",
-                "url": "https://registry.npmjs.org/bootswatch/-/bootswatch-3.4.1.tgz"
+                "type": "zip",
+                "url": "https://api.github.com/repos/thomaspark/bootswatch/zipball/c41a8f066feb8950c6f9c6bcf5a3c37d1085404e",
+                "reference": "c41a8f066feb8950c6f9c6bcf5a3c37d1085404e"
             },
             "type": "npm-asset",
             "license": [
@@ -1351,10 +1336,10 @@
         },
         {
             "name": "npm-asset/fortawesome--fontawesome-free",
-            "version": "5.10.0-patch2",
+            "version": "5.10.0-patch6",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/@fortawesome/fontawesome-free/-/fontawesome-free-5.10.0-2.tgz"
+                "url": "https://registry.npmjs.org/@fortawesome/fontawesome-free/-/fontawesome-free-5.10.0-6.tgz"
             },
             "type": "npm-asset",
             "license": [
@@ -1370,6 +1355,33 @@
             },
             "require": {
                 "npm-asset/canvas-renderer": "~2.1.1"
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
+            "name": "npm-asset/jquery",
+            "version": "3.4.1",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/jquery/-/jquery-3.4.1.tgz"
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
+            "name": "npm-asset/jquery-smooth-scroll",
+            "version": "2.2.0",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/jquery-smooth-scroll/-/jquery-smooth-scroll-2.2.0.tgz"
+            },
+            "require": {
+                "npm-asset/jquery": ">=1.7.0"
             },
             "type": "npm-asset",
             "license": [
@@ -1473,10 +1485,10 @@
         },
         {
             "name": "npm-asset/uuidjs",
-            "version": "4.2.1",
+            "version": "4.2.3",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/uuidjs/-/uuidjs-4.2.1.tgz"
+                "url": "https://registry.npmjs.org/uuidjs/-/uuidjs-4.2.3.tgz"
             },
             "type": "npm-asset",
             "license": [
@@ -1552,16 +1564,16 @@
         },
         {
             "name": "phpseclib/phpseclib",
-            "version": "2.0.18",
+            "version": "2.0.19",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpseclib/phpseclib.git",
-                "reference": "60519001db8d791215a822efd366d24cafee9e63"
+                "reference": "d2085db7b7394baa071a69c8f9159723c250f2ba"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpseclib/phpseclib/zipball/60519001db8d791215a822efd366d24cafee9e63",
-                "reference": "60519001db8d791215a822efd366d24cafee9e63",
+                "url": "https://api.github.com/repos/phpseclib/phpseclib/zipball/d2085db7b7394baa071a69c8f9159723c250f2ba",
+                "reference": "d2085db7b7394baa071a69c8f9159723c250f2ba",
                 "shasum": ""
             },
             "require": {
@@ -1640,7 +1652,7 @@
                 "x.509",
                 "x509"
             ],
-            "time": "2019-06-13T06:15:54+00:00"
+            "time": "2019-06-20T03:34:11+00:00"
         },
         {
             "name": "psr/container",
@@ -2341,16 +2353,16 @@
         },
         {
             "name": "statink/yii2-spl2-stages",
-            "version": "v1.0.0",
+            "version": "v1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/statink/yii2-spl2-stages.git",
-                "reference": "4ee9c378209514934e483d8af937e4d2063a9eed"
+                "reference": "53b24f3b2a4d9d5573acb6e05194a9b67c5c9f21"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/statink/yii2-spl2-stages/zipball/4ee9c378209514934e483d8af937e4d2063a9eed",
-                "reference": "4ee9c378209514934e483d8af937e4d2063a9eed",
+                "url": "https://api.github.com/repos/statink/yii2-spl2-stages/zipball/53b24f3b2a4d9d5573acb6e05194a9b67c5c9f21",
+                "reference": "53b24f3b2a4d9d5573acb6e05194a9b67c5c9f21",
                 "shasum": ""
             },
             "require": {
@@ -2374,10 +2386,10 @@
             ],
             "description": "stage images asset bundle for stat.ink",
             "support": {
-                "source": "https://github.com/statink/yii2-spl2-stages/tree/v1.0.0",
+                "source": "https://github.com/statink/yii2-spl2-stages/tree/v1.0.1",
                 "issues": "https://github.com/statink/yii2-spl2-stages/issues"
             },
-            "time": "2018-11-30T22:54:55+00:00"
+            "time": "2019-06-21T14:05:08+00:00"
         },
         {
             "name": "statink/yii2-twitter-webintents",
@@ -2745,16 +2757,16 @@
         },
         {
             "name": "yiisoft/yii2",
-            "version": "2.0.20",
+            "version": "2.0.21",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-framework.git",
-                "reference": "bd05e0e0ac353cb239997da78f459d0960a1fe9f"
+                "reference": "7e4622252c5f272373e1339a47d331e4a55e9591"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/bd05e0e0ac353cb239997da78f459d0960a1fe9f",
-                "reference": "bd05e0e0ac353cb239997da78f459d0960a1fe9f",
+                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/7e4622252c5f272373e1339a47d331e4a55e9591",
+                "reference": "7e4622252c5f272373e1339a47d331e4a55e9591",
                 "shasum": ""
             },
             "require": {
@@ -2841,7 +2853,7 @@
                 "framework",
                 "yii2"
             ],
-            "time": "2019-06-04T19:10:59+00:00"
+            "time": "2019-06-18T14:25:08+00:00"
         },
         {
             "name": "yiisoft/yii2-bootstrap",
@@ -4619,16 +4631,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "7.5.12",
+            "version": "7.5.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "9ba59817745b0fe0c1a5a3032dfd4a6d2994ad1c"
+                "reference": "b9278591caa8630127f96c63b598712b699e671c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/9ba59817745b0fe0c1a5a3032dfd4a6d2994ad1c",
-                "reference": "9ba59817745b0fe0c1a5a3032dfd4a6d2994ad1c",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/b9278591caa8630127f96c63b598712b699e671c",
+                "reference": "b9278591caa8630127f96c63b598712b699e671c",
                 "shasum": ""
             },
             "require": {
@@ -4699,7 +4711,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2019-05-28T11:59:40+00:00"
+            "time": "2019-06-19T12:01:51+00:00"
         },
         {
             "name": "psr/http-message",
@@ -5653,16 +5665,16 @@
         },
         {
             "name": "symfony/event-dispatcher-contracts",
-            "version": "v1.1.1",
+            "version": "v1.1.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/event-dispatcher-contracts.git",
-                "reference": "8fa2cf2177083dd59cf8e44ea4b6541764fbda69"
+                "reference": "c61766f4440ca687de1084a5c00b08e167a2575c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/event-dispatcher-contracts/zipball/8fa2cf2177083dd59cf8e44ea4b6541764fbda69",
-                "reference": "8fa2cf2177083dd59cf8e44ea4b6541764fbda69",
+                "url": "https://api.github.com/repos/symfony/event-dispatcher-contracts/zipball/c61766f4440ca687de1084a5c00b08e167a2575c",
+                "reference": "c61766f4440ca687de1084a5c00b08e167a2575c",
                 "shasum": ""
             },
             "require": {
@@ -5707,7 +5719,7 @@
                 "interoperability",
                 "standards"
             ],
-            "time": "2019-05-22T12:23:29+00:00"
+            "time": "2019-06-20T06:46:26+00:00"
         },
         {
             "name": "symfony/finder",

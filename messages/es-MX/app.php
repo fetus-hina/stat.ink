@@ -481,6 +481,7 @@ return [
     'This Month (UTC)' => '',
     'This twitter account has already been integrated with another user.' => '',
     'This website ({0}) collects the following data:' => '',
+    'This website doesn\'t support Internet Explorer. Please use modern browser e.g., Chrome.' => '',
     'This website has implemented support for color-blindness. Please check "Color-Blind Support" in the "User Name/Guest" menu of the navbar to enable it.' => '色覚サポートを実装しています。有効にするには上部ナビゲーションの「ユーザ名/ゲスト」部分から「色覚サポート」を選択してください。',
     'This website is an open source project. It is under the MIT License. The source code is available on GitHub.' => 'Este sitio web es un proyecto open source. Está bajo la licencia MIT. El código fuente está disponible en GitHub.',
     'This website is an UNOFFICIAL SERVICE. It is not related to the Splatoon development team or Nintendo.' => 'Este sitio web es UN SERVICIO NO OFICIAL. No está relacionado con el equipo de desarrollo de Splatoon o Nintendo.',

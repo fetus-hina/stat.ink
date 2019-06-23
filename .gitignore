@@ -6,6 +6,7 @@
 .settings
 /.maintenance
 /.production
+/.staging
 /config/amazon-s3.php
 /config/asset-revision.php
 /config/authkey-secret.php

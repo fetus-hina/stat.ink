@@ -480,6 +480,7 @@ return [
     'This Month (UTC)' => '',
     'This twitter account has already been integrated with another user.' => '',
     'This website ({0}) collects the following data:' => '',
+    'This website doesn\'t support Internet Explorer. Please use modern browser e.g., Chrome.' => '',
     'This website has implemented support for color-blindness. Please check "Color-Blind Support" in the "User Name/Guest" menu of the navbar to enable it.' => '',
     'This website is an open source project. It is under the MIT License. The source code is available on GitHub.' => '',
     'This website is an UNOFFICIAL SERVICE. It is not related to the Splatoon development team or Nintendo.' => '',

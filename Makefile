@@ -68,6 +68,8 @@ RESOURCE_TARGETS_MAIN := \
 	resources/.compiled/stat.ink/flot-support.css \
 	resources/.compiled/stat.ink/fluid-layout.js \
 	resources/.compiled/stat.ink/game-modes.css \
+	resources/.compiled/stat.ink/ie-warning.css \
+	resources/.compiled/stat.ink/ie-warning.js \
 	resources/.compiled/stat.ink/kd-win.css \
 	resources/.compiled/stat.ink/kd-win.js \
 	resources/.compiled/stat.ink/knockout.css \
@@ -255,7 +257,7 @@ composer.phar:
 	@touch -r composer.json composer.phar
 
 composer.lock: composer.json composer.phar
-	./composer.phar update -vvv
+	php -d memory_limit=-1 ./composer.phar update -vvv
 	@touch -r composer.json composer.lock
 
 BROTLI := $(shell if [ -e /usr/bin/brotli ]; then echo brotli; else echo bro; fi )
@@ -340,6 +342,8 @@ resources/.compiled/stat.ink/festpower2-diff-winpct.js: resources/stat.ink/festp
 resources/.compiled/stat.ink/flot-support.css: resources/stat.ink/flot-support.less node_modules
 resources/.compiled/stat.ink/fluid-layout.js: resources/stat.ink/fluid-layout.es node_modules
 resources/.compiled/stat.ink/game-modes.css: resources/stat.ink/game-modes.less node_modules
+resources/.compiled/stat.ink/ie-warning.css: resources/stat.ink/ie-warning.less node_modules
+resources/.compiled/stat.ink/ie-warning.js: resources/stat.ink/ie-warning.es node_modules
 resources/.compiled/stat.ink/kd-win.css: resources/stat.ink/kd-win.less node_modules
 resources/.compiled/stat.ink/kd-win.js: resources/stat.ink/kd-win.js node_modules
 resources/.compiled/stat.ink/knockout.css: resources/stat.ink/knockout.less node_modules

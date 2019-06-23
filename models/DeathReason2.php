@@ -146,20 +146,20 @@ class DeathReason2 extends ActiveRecord
         return Translator::translateToAll('app-death2', $this->name);
     }
 
-    public function getTranslatedName()
+    public function getTranslatedName(?string $language = null): string
     {
         if ($this->type) {
             switch ($this->type->key) {
                 case 'main':
-                    return Yii::t('app-weapon2', $this->name);
+                    return Yii::t('app-weapon2', $this->name, [], $language);
 
                 case 'sub':
-                    return Yii::t('app-subweapon2', $this->name);
+                    return Yii::t('app-subweapon2', $this->name, [], $language);
 
                 case 'special':
-                    return Yii::t('app-special2', $this->name);
+                    return Yii::t('app-special2', $this->name, [], $language);
             }
         }
-        return Yii::t('app-death2', $this->name);
+        return Yii::t('app-death2', $this->name, [], $language);
     }
 }

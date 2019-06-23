@@ -1,9 +1,11 @@
 <?php
 /**
- * @copyright Copyright (C) 2016 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  */
+
+declare(strict_types=1);
 
 namespace app\components\widgets;
 
@@ -210,21 +212,19 @@ class Battle2FilterWidget extends Widget
             ->label(false);
     }
 
-    protected function drawMap(ActiveForm $form)
+    protected function drawMap(ActiveForm $form): string
     {
-        $list = ArrayHelper::map(
-            Map2::find()->asArray()->all(),
-            'key',
-            function (array $map): string {
-                return Yii::t('app-map2', $map['name']);
-            }
-        );
-        uasort($list, 'strnatcasecmp');
-        return $form
+        return (string)$form
             ->field($this->filter, 'map')
             ->dropDownList(array_merge(
                 ['' => Yii::t('app-map2', 'Any Stage')],
-                $list
+                ArrayHelper::map(
+                    Map2::sort(Map2::find()->all()),
+                    'key',
+                    function (Map2 $map): string {
+                        return Yii::t('app-map2', $map->name);
+                    }
+                ),
             ))
             ->label(false);
     }

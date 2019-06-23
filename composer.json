@@ -23,13 +23,13 @@
 
         "bower-asset/bootstrap-toggle": "^2.2",
         "bower-asset/jquery": "*",
-        "bower-asset/jquery-smooth-scroll": "^1.5",
 
         "npm-asset/bootstrap-notify": "^3.1.3",
         "npm-asset/bootswatch" : "3.*",
         "npm-asset/emojify.js": "^1.1.0",
         "npm-asset/flag-icon-css": "^3.3",
         "npm-asset/fortawesome--fontawesome-free": "^5.9",
+        "npm-asset/jquery-smooth-scroll": "^2.2",
         "npm-asset/photoswipe": "^4.1.3",
         "npm-asset/photoswipe-simplify": "^0.0.3",
         "npm-asset/rpg-awesome": "^1.0",
@@ -64,7 +64,7 @@
         "statink/yii2-paintball": "^1.0",
         "statink/yii2-sortable-table": "^1.0",
         "statink/yii2-spl1-stages": "^1.0",
-        "statink/yii2-spl2-stages": "^1.0",
+        "statink/yii2-spl2-stages": "^1.0.1",
         "statink/yii2-twitter-webintents": "^1.0",
         "symfony/yaml": ">=2.7 <5.0",
         "tpyo/amazon-s3-php-class": "^0.5.1",

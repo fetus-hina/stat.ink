@@ -35,10 +35,21 @@ if ($user->twitter != '') {
     ]);
 }
 
-$this->registerCss(implode('', [
-  '.pie-flot-container{height:200px}',
-  '.pie-flot-container .error{display:none}',
-  '.graph-container thead tr:nth-child(1) th{width:16.6667%;min-width:100px}',
+$this->registerCss(Html::renderCss([
+  '.pie-flot-container .error' => [
+    'display' => 'none',
+  ],
+  'table.graph-container' => [
+    'table-layout' => 'fixed',
+  ],
+  'table.graph-container thead tr:nth-child(1) th' => [
+    'width' => '16.667%',
+  ],
+  'table.graph-container thead tr:nth-child(1) th:nth-child(1)' => [
+    'width' => '16.667%',
+    'min-width' => '120px',
+    'max-width' => '200px',
+  ],
 ]));
 
 $ruleMap = [

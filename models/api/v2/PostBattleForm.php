@@ -1,12 +1,14 @@
 <?php
 /**
- * @copyright Copyright (C) 2015-2017 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  */
 
 namespace app\models\api\v2;
 
+use DateInterval;
+use DateTimeImmutable;
 use Yii;
 use app\components\behaviors\FixAttributesBehavior;
 use app\components\behaviors\SplatnetNumberBehavior;
@@ -32,6 +34,7 @@ use app\models\Map2;
 use app\models\Mode2;
 use app\models\Rank2;
 use app\models\Rule2;
+use app\models\ShiftyMap2;
 use app\models\SpecialBattle2;
 use app\models\Species2;
 use app\models\Splatfest2Theme;
@@ -383,6 +386,41 @@ class PostBattleForm extends Model
         return $this->stage;
     }
 
+    public function resolveStage(): ?Map2
+    {
+        if ($this->stage === null) {
+            return null;
+        }
+
+        if (!$map = Map2::findOne(['key' => (string)$this->stage])) {
+            return null;
+        }
+
+        if ($map->key !== 'mystery') {
+            return $map;
+        }
+
+        // ミステリーゾーンが指定されていれば、期間からどのレイアウトか特定できるかもしれない
+        $time = $this->start_at
+            ? new DateTimeImmutable('@' . ((int)$this->start_at))
+            : ($this->end_at
+                ? (new DateTimeImmutable('@' . ((int)$this->end_at)))->sub(new DateInterval('PT3M'))
+                : (new DateTimeImmutable())->sub(new DateInterval('PT3M15S'))
+            );
+        $mapping = ShiftyMap2::find()
+            ->andWhere(vsprintf('(%s @> %d::integer)', [
+                Yii::$app->db->quoteColumnName('period_range'),
+                (int)floor($time->getTimestamp() / 7200),
+            ]))
+            ->limit(1)
+            ->one();
+        if ($mapping && $mapping->map) {
+            return $mapping->map;
+        }
+
+        return $map;
+    }
+
     public function toBattle() : Battle2
     {
         $intval = function ($string) : ?int {
@@ -420,6 +458,7 @@ class PostBattleForm extends Model
             $model = TeamNickname2::findOrCreate($name);
             return $model ? $model->id : null;
         };
+        $map = $this->resolveStage();
         $user = Yii::$app->user->identity;
         $battle = Yii::createObject(['class' => Battle2::class]);
         $battle->user_id        = $user->id;
@@ -429,7 +468,7 @@ class PostBattleForm extends Model
         $battle->lobby_id       = $key2id($this->lobby, Lobby2::class);
         $battle->mode_id        = $key2id($this->mode, Mode2::class);
         $battle->rule_id        = $key2id($this->rule, Rule2::class);
-        $battle->map_id         = $key2id($this->stage, Map2::class);
+        $battle->map_id         = $map ? $map->id : null;
         $battle->weapon_id      = $key2id($this->weapon, Weapon2::class);
         $battle->is_win = (function ($value) {
             switch ((string)$value) {
@@ -668,7 +707,6 @@ class PostBattleForm extends Model
             }
         }
     }
-
 
     public function toImageJudge(Battle2 $battle)
     {

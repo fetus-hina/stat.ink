@@ -4,6 +4,7 @@
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  */
+
 declare(strict_types=1);
 
 namespace app\assets;
@@ -11,18 +12,17 @@ namespace app\assets;
 use yii\web\AssetBundle;
 use yii\web\JqueryAsset;
 
-class JquerySmoothScrollAsset extends AssetBundle
+class IEWarningAsset extends AssetBundle
 {
-    public $sourcePath = '@npm/jquery-smooth-scroll';
+    public $sourcePath = '@app/resources/.compiled/stat.ink';
+    public $css = [
+        'ie-warning.css',
+    ];
     public $js = [
-        'jquery.smooth-scroll.min.js',
+        'ie-warning.js',
     ];
     public $depends = [
+        BowserAsset::class,
         JqueryAsset::class,
-    ];
-    public $publishOptions = [
-        'only' => [
-            '*.js',
-        ],
     ];
 }

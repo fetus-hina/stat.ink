@@ -1,5 +1,8 @@
 <?php
-if (!file_exists(__DIR__ . '/../.production')) {
+if (file_exists(__DIR__ . '/../.staging')) {
+    defined('YII_DEBUG') or define('YII_DEBUG', false);
+    defined('YII_ENV') or define('YII_ENV', 'test');
+} elseif (!file_exists(__DIR__ . '/../.production')) {
     defined('YII_DEBUG') or define('YII_DEBUG', true);
     defined('YII_ENV') or define('YII_ENV', 'dev');
 }
