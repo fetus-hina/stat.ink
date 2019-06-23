@@ -1,12 +1,15 @@
 <?php
 /**
- * @copyright Copyright (C) 2015-2017 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  */
 
+declare(strict_types=1);
+
 namespace app\actions\entire;
 
+use stdClass;
 use DateInterval;
 use DateTime;
 use DateTimeImmutable;
@@ -392,8 +395,13 @@ class Weapons2Action extends BaseAction
 
     private function convertWeapons2Sub($in)
     {
+        static $subs = null;
+        if ($subs === null) {
+            $subs = Subweapon2::find()->all();
+        }
+
         $ret = [];
-        foreach (Subweapon2::find()->all() as $sub) {
+        foreach ($subs as $sub) {
             $ret[$sub->key] = (object)[
                 'name'      => Yii::t('app-subweapon2', $sub->name),
                 'key'       => $sub->key,
@@ -435,22 +443,25 @@ class Weapons2Action extends BaseAction
             }
         }
 
-        usort($ret, function ($a, $b) {
-            foreach (['count', 'wp', 'avg_kill', 'avg_death'] as $key) {
-                $tmp = $b->$key - $a->$key;
-                if ($tmp != 0) {
-                    return $tmp;
-                }
-            }
-            return strnatcasecmp($a->name, $b->name);
+        usort($ret, function (stdClass $a, stdClass $b): int {
+            return $b->count <=> $a->count
+                ?: $b->wp <=> $a->wp
+                ?: $b->avg_kill <=> $a->avg_kill
+                ?: $b->avg_death <=> $b->avg_death
+                ?: strnatcasecmp($a->name, $b->name);
         });
         return $ret;
     }
 
     private function convertWeapons2Special($in)
     {
+        static $specials = null;
+        if ($specials === null) {
+            $specials = Special2::find()->all();
+        }
+
         $ret = [];
-        foreach (Special2::find()->all() as $spe) {
+        foreach ($specials as $spe) {
             $ret[$spe->key] = (object)[
                 'name'      => Yii::t('app-special2', $spe->name),
                 'key'       => $spe->key,
@@ -494,14 +505,12 @@ class Weapons2Action extends BaseAction
             }
         }
 
-        usort($ret, function ($a, $b) {
-            foreach (['count', 'wp', 'avg_kill', 'avg_death'] as $key) {
-                $tmp = $b->$key - $a->$key;
-                if ($tmp != 0) {
-                    return $tmp;
-                }
-            }
-            return strnatcasecmp($a->name, $b->name);
+        usort($ret, function (stdClass $a, stdClass $b): int {
+            return $b->count <=> $a->count
+                ?: $b->wp <=> $a->wp
+                ?: $b->avg_kill <=> $a->avg_kill
+                ?: $b->avg_death <=> $b->avg_death
+                ?: strnatcasecmp($a->name, $b->name);
         });
         return $ret;
     }
@@ -542,14 +551,12 @@ class Weapons2Action extends BaseAction
             }
         }
 
-        usort($ret, function ($a, $b) {
-            foreach (['count', 'wp', 'avg_kill', 'avg_death'] as $key) {
-                $tmp = $b->$key - $a->$key;
-                if ($tmp != 0) {
-                    return $tmp;
-                }
-            }
-            return strnatcasecmp($a->name, $b->name);
+        usort($ret, function (stdClass $a, stdClass $b): int {
+            return $b->count <=> $a->count
+                ?: $b->wp <=> $a->wp
+                ?: $b->avg_kill <=> $a->avg_kill
+                ?: $b->avg_death <=> $b->avg_death
+                ?: strnatcasecmp($a->name, $b->name);
         });
         return $ret;
     }

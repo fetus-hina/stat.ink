@@ -50,29 +50,17 @@ class Map2 extends ActiveRecord
 
     public static function getSortedMap($callback = null) : array
     {
-        $query = static::find()->asArray();
+        $query = static::find();
         if ($callback && is_callable($callback)) {
             call_user_func($callback, $query);
         }
-        $list = ArrayHelper::map(
-            $query->all(),
+        return ArrayHelper::map(
+            static::sort($query->all()),
             'key',
-            function (array $row) : string {
-                return Yii::t('app-map2', $row['name']);
+            function (self $row): string {
+                return Yii::t('app-map2', $row->name);
             }
         );
-        uksort($list, function ($a, $b) use ($list) {
-            if ($a === $b) {
-                return 0;
-            } elseif ($a === 'mystery') {
-                return 1;
-            } elseif ($b === 'mystery') {
-                return -1;
-            } else {
-                return strcmp($list[$a], $list[$b]);
-            }
-        });
-        return $list;
     }
 
     /**
