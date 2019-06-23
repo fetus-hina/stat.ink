@@ -16,6 +16,8 @@ $_agentVersion = Yii::$app->version === 'DEVELOPMENT'
   ? Yii::$app->version
   : sprintf('v%s', Yii::$app->version);
 $_agentRevision = Version::getShortRevision();
+
+$_maps = Map2::getSortedMap();
 ?>
 <?= Html::beginTag('div', [
   'aria-labelledby' => 'inputModalLabel',
@@ -118,11 +120,11 @@ $_agentRevision = Version::getShortRevision();
 
               <div class="form-group">
                 <select class="form-control" id="battle-input2-form--regular--stage" name="stage">
-<?php foreach (Map2::getSortedMap() as $_k => $_name): ?>
-<?php if ($_k !== 'mystery'): ?>
+<?php foreach ($_maps as $_k => $_name) { ?>
+<?php if (substr($_k, 0, 7) !== 'mystery'){ ?>
                   <?= Html::tag('option', Html::encode($_name), ['value' => $_k]) . "\n" ?>
-<?php endif ?>
-<?php endforeach ?>
+<?php } ?>
+<?php } ?>
                 </select>
               </div>
 
@@ -244,11 +246,11 @@ $_agentRevision = Version::getShortRevision();
 
               <div class="form-group">
                 <select class="form-control" id="battle-input2-form--ranked--stage" name="stage">
-<?php foreach (Map2::getSortedMap() as $_k => $_name): ?>
-<?php if ($_k !== 'mystery'): ?>
+<?php foreach ($_maps as $_k => $_name) { ?>
+<?php if (substr($_k, 0, 7) !== 'mystery') { ?>
                   <?= Html::tag('option', Html::encode($_name), ['value' => $_k]) . "\n" ?>
-<?php endif ?>
-<?php endforeach ?>
+<?php } ?>
+<?php } ?>
                 </select>
               </div>
 
@@ -402,9 +404,9 @@ $_agentRevision = Version::getShortRevision();
 
               <div class="form-group">
                 <select class="form-control" id="battle-input2-form--fest--stage" name="stage">
-<?php foreach (Map2::getSortedMap() as $_k => $_name): ?>
+<?php foreach ($_maps as $_k => $_name) { ?>
                   <?= Html::tag('option', Html::encode($_name), ['value' => $_k]) . "\n" ?>
-<?php endforeach ?>
+<?php } ?>
                 </select>
               </div>
 
