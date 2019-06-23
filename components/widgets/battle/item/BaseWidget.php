@@ -42,6 +42,7 @@ abstract class BaseWidget extends Widget
                     ])
                 ))
             );
+            BattleThumbListAsset::register($this->view);
         }
     }
 
@@ -98,111 +99,115 @@ abstract class BaseWidget extends Widget
 
     public function run()
     {
-        BattleThumbListAsset::register($this->view);
+        try {
+            Yii::beginProfile(__FUNCTION__, __METHOD__);
 
-        return Html::tag(
-            'div',
-            implode('', [
-                Html::tag(
-                    'meta',
-                    '',
-                    [
-                        'itemprop' => 'description',
-                        'content' => $this->getDescription(),
-                    ]
-                ),
-                Html::a(
-                    implode('', [
-                        Html::img(
-                            static::$img16x9,
-                            [
-                                'class' => ['battle-item-image', 'auto-tooltip'],
-                                'data' => [
-                                    'src' => $this->getImageUrl(),
-                                    'fallback' => $this->getImagePlaceholderUrl(),
-                                ],
-                                'title' => $this->getDescription(),
-                            ]
-                        ),
-                        Html::tag(
-                            'meta',
-                            '',
-                            [
-                                'itemprop' => 'url',
-                                'content' => $this->getImageUrl(),
-                            ]
-                        ),
-                    ]),
-                    $this->getLinkRoute(),
-                    ['itemprop' => 'url']
-                ),
-                Html::tag(
-                    'div',
-                    implode('', [
-                        Html::tag(
-                            'div',
-                            Html::a(
-                                implode('', [
-                                    Html::tag(
-                                        'span',
-                                        $this->getUserIconHtml(),
-                                        ['class' => 'thumblist-user-icon']
-                                    ),
-                                    Html::tag(
-                                        'span',
-                                        Html::encode($this->getUser()->name),
-                                        ['itemprop' => 'name', 'class' => 'thumblist-user-name']
-                                    ),
-                                ]),
-                                $this->getUserLinkRoute(),
-                                ['itemprop' => 'url']
-                            ),
-                            [
-                                'class' => 'caption-line',
-                                'itemprop' => 'author',
-                                'itemscope' => true,
-                                'itemtype' => 'http://schema.org/Person',
-                            ]
-                        ),
-                        Html::tag(
-                            'span',
-                            implode(' ', $this->getModeIcons()),
-                            ['class' => [
-                                'mode-icons',
-                            ]]
-                        ),
-                        $this->getHasBattleEndAt()
-                            ? Html::a(
-                                Html::tag(
-                                    'time',
-                                    ActiveRelativeTimeWidget::widget([
-                                        'datetime' => $this->getBattleEndAt(),
-                                        'mode' => 'short',
-                                    ]),
-                                    ['datetime' => $this->getBattleEndAt()->format(\DateTime::ATOM)]
-                                ),
-                                $this->getLinkRoute(),
+            return Html::tag(
+                'div',
+                implode('', [
+                    Html::tag(
+                        'meta',
+                        '',
+                        [
+                            'itemprop' => 'description',
+                            'content' => $this->getDescription(),
+                        ]
+                    ),
+                    Html::a(
+                        implode('', [
+                            Html::img(
+                                static::$img16x9,
                                 [
-                                    'title' => Yii::$app->getFormatter()->asDatetime(
-                                        $this->getBattleEndAt(),
-                                        'medium'
-                                    ),
-                                    'class' => ['auto-tooltip', 'thumblist-time'],
+                                    'class' => ['battle-item-image', 'auto-tooltip'],
+                                    'data' => [
+                                        'src' => $this->getImageUrl(),
+                                        'fallback' => $this->getImagePlaceholderUrl(),
+                                    ],
+                                    'title' => $this->getDescription(),
                                 ]
-                            )
-                            : '',
-                    ]),
-                    ['class' => 'caption']
-                ),
-            ]),
-            [
-                'itemscope' => true,
-                'itemtype' => 'http://schema.org/VideoGameClip',
-                'class' => [
-                    'thumbnail',
-                    'thumbnail-' . $this->getRuleKey(),
-                ],
-            ]
-        );
+                            ),
+                            Html::tag(
+                                'meta',
+                                '',
+                                [
+                                    'itemprop' => 'url',
+                                    'content' => $this->getImageUrl(),
+                                ]
+                            ),
+                        ]),
+                        $this->getLinkRoute(),
+                        ['itemprop' => 'url']
+                    ),
+                    Html::tag(
+                        'div',
+                        implode('', [
+                            Html::tag(
+                                'div',
+                                Html::a(
+                                    implode('', [
+                                        Html::tag(
+                                            'span',
+                                            $this->getUserIconHtml(),
+                                            ['class' => 'thumblist-user-icon']
+                                        ),
+                                        Html::tag(
+                                            'span',
+                                            Html::encode($this->getUser()->name),
+                                            ['itemprop' => 'name', 'class' => 'thumblist-user-name']
+                                        ),
+                                    ]),
+                                    $this->getUserLinkRoute(),
+                                    ['itemprop' => 'url']
+                                ),
+                                [
+                                    'class' => 'caption-line',
+                                    'itemprop' => 'author',
+                                    'itemscope' => true,
+                                    'itemtype' => 'http://schema.org/Person',
+                                ]
+                            ),
+                            Html::tag(
+                                'span',
+                                implode(' ', $this->getModeIcons()),
+                                ['class' => [
+                                    'mode-icons',
+                                ]]
+                            ),
+                            $this->getHasBattleEndAt()
+                                ? Html::a(
+                                    Html::tag(
+                                        'time',
+                                        ActiveRelativeTimeWidget::widget([
+                                            'datetime' => $this->getBattleEndAt(),
+                                            'mode' => 'short',
+                                        ]),
+                                        ['datetime' => $this->getBattleEndAt()->format(\DateTime::ATOM)]
+                                    ),
+                                    $this->getLinkRoute(),
+                                    [
+                                        'title' => Yii::$app->getFormatter()->asDatetime(
+                                            $this->getBattleEndAt(),
+                                            'medium'
+                                        ),
+                                        'class' => ['auto-tooltip', 'thumblist-time'],
+                                    ]
+                                )
+                                : '',
+                        ]),
+                        ['class' => 'caption']
+                    ),
+                ]),
+                [
+                    'itemscope' => true,
+                    'itemtype' => 'http://schema.org/VideoGameClip',
+                    'class' => [
+                        'thumbnail',
+                        'thumbnail-' . $this->getRuleKey(),
+                    ],
+                ]
+            );
+        } finally {
+            Yii::endProfile(__FUNCTION__, __METHOD__);
+        }
     }
 }

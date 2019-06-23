@@ -31,29 +31,39 @@ class BattleListWidget extends Widget
 
     public function run()
     {
-        BattleThumbListAsset::register($this->view);
+        try {
+            Yii::beginProfile(__FUNCTION__, __METHOD__);
+            BattleThumbListAsset::register($this->view);
 
-        $replace = [
-            '{items}' => $this->renderItems(),
-        ];
-        return preg_replace_callback(
-            '/\{\w+\}/',
-            function (array $match) use ($replace) : string {
-                return $replace[$match[0]] ?? $match[0];
-            },
-            $this->template
-        );
+            $replace = [
+                '{items}' => $this->renderItems(),
+            ];
+            return preg_replace_callback(
+                '/\{\w+\}/',
+                function (array $match) use ($replace): string {
+                    return $replace[$match[0]] ?? $match[0];
+                },
+                $this->template
+            );
+        } finally {
+            Yii::endProfile(__FUNCTION__, __METHOD__);
+        }
     }
 
-    protected function renderItems() : string
+    protected function renderItems(): string
     {
-        $ret = [];
-        foreach ($this->models as $model) {
-            $ret[] = Html::tag(
-                'li',
-                call_user_func([$this->itemClass, 'widget'], ['model' => $model])
-            );
+        try {
+            Yii::beginProfile(__FUNCTION__, __METHOD__);
+            $ret = [];
+            foreach ($this->models as $model) {
+                $ret[] = Html::tag(
+                    'li',
+                    call_user_func([$this->itemClass, 'widget'], ['model' => $model])
+                );
+            }
+            return implode('', $ret);
+        } finally {
+            Yii::endProfile(__FUNCTION__, __METHOD__);
         }
-        return implode('', $ret);
     }
 }
