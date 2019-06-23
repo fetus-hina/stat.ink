@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fea5a8dfb21d5122d9a4bf21ff1eb073",
+    "content-hash": "27e643b51ce49552f77a07032cad99ea",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -2347,16 +2347,16 @@
         },
         {
             "name": "statink/yii2-spl2-stages",
-            "version": "v1.0.0",
+            "version": "v1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/statink/yii2-spl2-stages.git",
-                "reference": "4ee9c378209514934e483d8af937e4d2063a9eed"
+                "reference": "53b24f3b2a4d9d5573acb6e05194a9b67c5c9f21"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/statink/yii2-spl2-stages/zipball/4ee9c378209514934e483d8af937e4d2063a9eed",
-                "reference": "4ee9c378209514934e483d8af937e4d2063a9eed",
+                "url": "https://api.github.com/repos/statink/yii2-spl2-stages/zipball/53b24f3b2a4d9d5573acb6e05194a9b67c5c9f21",
+                "reference": "53b24f3b2a4d9d5573acb6e05194a9b67c5c9f21",
                 "shasum": ""
             },
             "require": {
@@ -2380,10 +2380,10 @@
             ],
             "description": "stage images asset bundle for stat.ink",
             "support": {
-                "source": "https://github.com/statink/yii2-spl2-stages/tree/v1.0.0",
+                "source": "https://github.com/statink/yii2-spl2-stages/tree/v1.0.1",
                 "issues": "https://github.com/statink/yii2-spl2-stages/issues"
             },
-            "time": "2018-11-30T22:54:55+00:00"
+            "time": "2019-06-21T14:05:08+00:00"
         },
         {
             "name": "statink/yii2-twitter-webintents",

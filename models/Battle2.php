@@ -173,7 +173,7 @@ class Battle2 extends ActiveRecord
                 $and = ['and'];
                 if ($form->screen_name != '') {
                     $this->innerJoinWith('user');
-                    $and[] = ['user.screen_name' => $form->screen_name];
+                    $and[] = ['{{user}}.[[screen_name]]' => $form->screen_name];
                 }
                 if ($form->rule != '') {
                     // {{{
@@ -209,7 +209,20 @@ class Battle2 extends ActiveRecord
                     // }}}
                 }
                 if ($form->map != '') {
-                    $and[] = ['battle2.map_id' => Map2::findOne(['key' => $form->map])->id];
+                    if ($form->map !== 'mystery') {
+                        $this->innerJoinWith(['map']);
+                        $and[] = ['{{map2}}.[[key]]' => (string)$form->map];
+                    } else {
+                        $and[] = [
+                            '{{battle2}}.[[map_id]]' => ArrayHelper::getColumn(
+                                Map2::find()
+                                    ->andWhere(['like', 'key', 'mystery%', false])
+                                    ->asArray()
+                                    ->all(),
+                                'id'
+                            ),
+                        ];
+                    }
                 }
                 if ($form->weapon != '') {
                     // {{{
