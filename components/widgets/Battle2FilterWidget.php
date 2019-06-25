@@ -76,7 +76,7 @@ class Battle2FilterWidget extends Widget
         return ob_get_contents();
     }
 
-    protected function drawFields(ActiveForm $form)
+    protected function drawFields(ActiveForm $form): string
     {
         $ret = [];
         if ($this->rule) {
@@ -229,7 +229,7 @@ class Battle2FilterWidget extends Widget
             ->label(false);
     }
 
-    protected function drawWeapon(ActiveForm $form)
+    protected function drawWeapon(ActiveForm $form): string
     {
         $user = User::findOne(['screen_name' => $this->screen_name]);
         $weaponIdList = $this->getUsedWeaponIdList($user);
@@ -239,10 +239,10 @@ class Battle2FilterWidget extends Widget
             $this->createSubWeaponList($weaponIdList),
             $this->createSpecialWeaponList($weaponIdList)
         );
-        return $form->field($this->filter, 'weapon')->dropDownList($list)->label(false);
+        return (string)$form->field($this->filter, 'weapon')->dropDownList($list)->label(false);
     }
 
-    protected function getUsedWeaponIdList(User $user = null)
+    protected function getUsedWeaponIdList(User $user = null): ?array
     {
         if (!$user) {
             return null;
@@ -255,7 +255,7 @@ class Battle2FilterWidget extends Widget
         );
     }
 
-    protected function createMainWeaponList(array $weaponIdList)
+    protected function createMainWeaponList(array $weaponIdList): array
     {
         $ret = [];
         $q = WeaponCategory2::find()
@@ -299,10 +299,10 @@ class Battle2FilterWidget extends Widget
         );
     }
 
-    protected function createGroupedMainWeaponList(array $weaponIdList)
+    protected function createGroupedMainWeaponList(array $weaponIdList): array
     {
         return [
-            Yii::t('app', 'Main Weapon') => (function () use ($weaponIdList) {
+            Yii::t('app', 'Main Weapon') => (function () use ($weaponIdList): array {
                 $ret = [];
                 $subQuery = (new \yii\db\Query())
                     ->select(['id' => '{{weapon2}}.[[main_group_id]]'])
@@ -323,10 +323,10 @@ class Battle2FilterWidget extends Widget
         ];
     }
 
-    protected function createSubWeaponList(array $weaponIdList)
+    protected function createSubWeaponList(array $weaponIdList): array
     {
         return [
-            Yii::t('app', 'Sub Weapon') => (function () use ($weaponIdList) {
+            Yii::t('app', 'Sub Weapon') => (function () use ($weaponIdList): array {
                 $ret = [];
                 $list = SubWeapon2::find()
                     ->innerJoinWith('weapons')
@@ -361,7 +361,7 @@ class Battle2FilterWidget extends Widget
         ];
     }
 
-    protected function drawRank(ActiveForm $form)
+    protected function drawRank(ActiveForm $form): string
     {
         $groups = RankGroup2::find()
             ->with([
@@ -385,23 +385,23 @@ class Battle2FilterWidget extends Widget
                 );
             }
         }
-        return $form->field($this->filter, 'rank')->dropDownList($list)->label(false);
+        return (string)$form->field($this->filter, 'rank')->dropDownList($list)->label(false);
     }
 
 
-    protected function drawResult(ActiveForm $form)
+    protected function drawResult(ActiveForm $form): string
     {
         $list = [
             ''      => Yii::t('app', 'Won / Lost'),
             'win'   => Yii::t('app', 'Won'),
             'lose'  => Yii::t('app', 'Lost'),
         ];
-        return $form->field($this->filter, 'result')->dropDownList($list)->label(false);
+        return (string)$form->field($this->filter, 'result')->dropDownList($list)->label(false);
     }
 
     protected function drawFilter(ActiveForm $form): string
     {
-        return $form->field($this->filter, 'filter')
+        return (string)$form->field($this->filter, 'filter')
             ->textInput([
               'placeholder' => Yii::t('app', 'Filter Query'),
             ])
@@ -413,7 +413,7 @@ class Battle2FilterWidget extends Widget
         return $this->drawTermMain($form) . $this->drawTermPeriod($form);
     }
 
-    protected function drawTermMain(ActiveForm $form)
+    protected function drawTermMain(ActiveForm $form): string
     {
         $list = [
             ''                  => Yii::t('app', 'Any Time'),
@@ -478,10 +478,10 @@ class Battle2FilterWidget extends Widget
         })();
         $list = array_merge($list, $versions);
 
-        return $form->field($this->filter, 'term')->dropDownList($list)->label(false);
+        return (string)$form->field($this->filter, 'term')->dropDownList($list)->label(false);
     }
 
-    protected function drawTermPeriod(ActiveForm $form)
+    protected function drawTermPeriod(ActiveForm $form): string
     {
         $divId = $this->getId() . '-term';
         BootstrapDateTimePickerAsset::register($this->view);
