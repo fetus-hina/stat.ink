@@ -15,7 +15,7 @@ return [
     'Inkfurler' => 'ピロピロ',
     'Main Weapon' => 'メインウェポン',
     'Out of Bounds' => '場外',
-    'Senpai Cannon' => 'センパイキャノン',
+    'Princess Cannon' => 'センパイキャノン',
     'Special Weapon' => 'スペシャルウェポン',
     'Sub Weapon' => 'サブウェポン',
     'Unknown' => '不明',

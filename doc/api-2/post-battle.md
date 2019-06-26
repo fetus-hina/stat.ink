@@ -681,7 +681,7 @@ Gear Ability
 |`cannon`                |キャノン<br>Cannon                 |
 |`iidabomb`              |イイダボム<br>Hyperbomb            |
 |`piropiro`              |ピロピロ<br>Inkfurler              |
-|`senpaicannon`          |センパイキャノン<br>Senpai Cannon  |
+|`senpaicannon`          |センパイキャノン<br>Princess Cannon|
 |`curlingbomb`           |カーリングボム<br>Curling Bomb     |
 |`kyubanbomb`            |キューバンボム<br>Suction Bomb     |
 |`quickbomb`             |クイックボム<br>Burst Bomb         |

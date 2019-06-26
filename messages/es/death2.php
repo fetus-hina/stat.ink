@@ -15,7 +15,7 @@ return [
     'Inkfurler' => '',
     'Main Weapon' => 'Arma principal',
     'Out of Bounds' => 'Fuera de los Límites',
-    'Senpai Cannon' => '',
+    'Princess Cannon' => '',
     'Special Weapon' => 'Arma especial',
     'Sub Weapon' => 'Arma secundaria',
     'Unknown' => 'Desconocido',

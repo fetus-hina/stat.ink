@@ -16,7 +16,7 @@ return [
     'Inkfurler' => 'Schnalzbänder',
     'Main Weapon' => 'Primärwaffe',
     'Out of Bounds' => 'Ausserhalb der Karte',
-    'Senpai Cannon' => '',
+    'Princess Cannon' => '',
     'Special Weapon' => 'Spezialwaffe',
     'Sub Weapon' => 'Sekundärwaffe',
     'Unknown' => 'Unbekannt',

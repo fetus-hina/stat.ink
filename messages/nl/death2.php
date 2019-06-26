@@ -15,7 +15,7 @@ return [
     'Inkfurler' => 'Inkttoeter',
     'Main Weapon' => '',
     'Out of Bounds' => '',
-    'Senpai Cannon' => '',
+    'Princess Cannon' => '',
     'Special Weapon' => '',
     'Sub Weapon' => '',
     'Unknown' => '',
