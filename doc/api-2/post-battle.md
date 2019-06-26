@@ -679,7 +679,7 @@ Gear Ability
 |`fall`                  |転落死<br>Fall                     |
 |`oob`                   |場外<br>Out of Bounds              |
 |`cannon`                |キャノン<br>Cannon                 |
-|`iidabomb`              |イイダボム<br>Marina Bomb          |
+|`iidabomb`              |イイダボム<br>Hyperbomb            |
 |`piropiro`              |ピロピロ<br>Inkfurler              |
 |`senpaicannon`          |センパイキャノン<br>Senpai Cannon  |
 |`curlingbomb`           |カーリングボム<br>Curling Bomb     |
