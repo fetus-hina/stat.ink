@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2016 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@bouhime.com>
  */
@@ -37,24 +37,24 @@ class WeaponAction extends BaseAction
         }
 
         $key = Yii::$app->request->get('rule');
-        if ($key === '' || $key === null) {
-            $this->controller->redirect(
-                Url::to(['entire/weapon', 'weapon' => $this->weapon->key, 'rule' => 'nawabari'], 301)
-            );
-            return;
-        }
-        if (is_scalar($key)) {
+        if ($key !== '' && $key !== null && is_scalar($key)) {
             $this->rule = Rule::findOne(['key' => $key]);
-        }
-        if (!$this->rule) {
-            throw new NotFoundHttpException(
-                Yii::t('yii', 'Page not found.')
-            );
+            if (!$this->rule) {
+                throw new NotFoundHttpException(Yii::t('yii', 'Page not found.'));
+            }
         }
     }
 
     public function run()
     {
+        if (!$this->rule) {
+            $this->controller->redirect(['entire/weapon',
+                'weapon' => $this->weapon->key,
+                'rule' => 'nawabari',
+            ]);
+            return;
+        }
+
         return $this->controller->render('weapon.tpl', [
             'weapons' => $this->weapons,
             'weapon' => $this->weapon,

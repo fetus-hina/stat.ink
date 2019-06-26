@@ -47,7 +47,7 @@ class UserStatVsWeaponAction extends BaseAction
         $this->createTemporaryTables();
 
         $data = array_map(
-            function ($data) {
+            function (array $data): array {
                 $battles = $data['battles'] ?? null;
                 $wins = $data['wins'] ?? null;
                 $data['win_pct'] = (is_int($battles) && is_int($wins) && $battles > 0)
@@ -62,7 +62,7 @@ class UserStatVsWeaponAction extends BaseAction
             },
             ArrayHelper::merge($this->queryVersus(), $this->queryDeath())
         );
-        uasort($data, function ($a, $b) {
+        uasort($data, function (array $a, array $b): int {
             if ($a['win_pct'] === null) {
                 if ($b['win_pct'] === null) {
                     return strcasecmp($a['weapon_name'], $b['weapon_name']);
@@ -127,6 +127,7 @@ class UserStatVsWeaponAction extends BaseAction
         ))->execute();
 
         $query = (new Query())
+            ->distinct()
             ->select([
                 'battle_id' => '{{battle}}.[[id]]',
             ])
