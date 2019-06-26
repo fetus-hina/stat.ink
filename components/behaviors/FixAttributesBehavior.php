@@ -35,7 +35,14 @@ class FixAttributesBehavior extends Behavior
             $value = $this->owner->{$attrName};
             if (isset($fixData[trim($value)])) {
                 $this->owner->{$attrName} = $fixData[trim($value)];
-                Yii::warning("{$attrName} fixed {$value} to " . $fixData[trim($value)]);
+                Yii::info(
+                    vsprintf('%s fixed %s to %s', [
+                        $attrName,
+                        $value,
+                        $fixData[trim($value)],
+                    ]),
+                    __METHOD__
+                );
             }
         }
     }

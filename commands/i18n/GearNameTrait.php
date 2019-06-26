@@ -64,6 +64,7 @@ trait GearNameTrait
             $file[] = ' * @author ' . $contributor;
         }
         $file[] = ' */';
+        $file[] = 'declare(strict_types=1);';
         $file[] = '';
         $file[] = 'return [';
         foreach ($data as $k => $v) {

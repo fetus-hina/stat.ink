@@ -5,6 +5,7 @@
  * @author AIZAWA Hina <hina@bouhime.com>
  * @author Koichi Watanabe <wkoichi@gmail.com>
  */
+declare(strict_types=1);
 
 return [
     '18K Aviators' => 'タレサン18K',
@@ -138,12 +139,14 @@ return [
     'Enchanted Boots' => 'エンチャントブーツ',
     'Enchanted Hat' => 'エンチャントハット',
     'Enchanted Robe' => 'エンチャントローブ',
+    'Eye of Justice' => 'ジャスティスブレイン',
     'FA-01 Jacket' => 'FA-01オモテ',
     'FA-01 Reversed' => 'FA-01ウラ',
     'FC Albacore' => 'アオサドーレ',
     'Face Visor' => 'フェイスバイザー',
     'Fake Contacts' => 'ダテコンタクト',
     'Festive Party Cone' => 'パーティーコーンデコ',
+    'Fierce Fishskull' => 'ギガギョコツ',
     'Firefin Facemask' => 'マスクドホッコリー',
     'Firefin Navy Sweat' => 'ホッコリー ネイビー',
     'Firewave Tee' => 'ホットグラデT',
@@ -205,6 +208,7 @@ return [
     'Hero Snowboots Replicas' => 'ヒーローバインダー レプリカ',
     'Hickory Work Cap' => 'ヒッコリーワークキャップ',
     'Hightide Era Band Tee' => 'バンドT HIGHTIDEERA',
+    'Hivemind Antenna' => 'コズミックアンテナ',
     'Hockey Helmet' => 'イカロスHKメット',
     'Hockey Mask' => 'ホッケかめん',
     'Honey & Orange Squidkid V' => 'エギング5 ハニオレ',
@@ -225,6 +229,7 @@ return [
     'Ivory Peaks Tee' => 'ヤマビコT アイボリー',
     'Jellyvader Cap' => 'クラゲーダーキャップ',
     'Jet Cap' => 'ジェットキャップ',
+    'Jetflame Crest' => 'バーニングブロイラー',
     'Jogging Headband' => 'ランニングバンド',
     'Juice Parka' => 'フューエルブルゾン',
     'Jungle Hat' => 'サファリハット',
@@ -562,6 +567,7 @@ return [
     'White V-Neck Tee' => 'イカホワイトV',
     'Wooden Sandals' => 'バンカラコロン',
     'Woolly Urchins Classic' => 'ウールウーニーズクラシック',
+    'Worker\'s Cap' => '',
     'Worker\'s Head Towel' => 'アセストップソシナ',
     'Yamagiri Beanie' => 'ヤマギリビーニー',
     'Yellow Fishfry Sandals' => 'ヤキフグシャワサン キ',
