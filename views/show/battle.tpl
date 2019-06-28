@@ -1954,7 +1954,7 @@
           <meta itemprop="familyName" content="Aizawa">
           <meta itemprop="givenName" content="Hina">
           <meta itemprop="url" content="https://fetus.jp/">
-          <meta itemprop="email" content="hina@bouhime.com">
+          <meta itemprop="email" content="hina@fetus.jp">
         </span>
         <span itemscope itemprop="funder" itemtype="http://schema.org/Organization">
           <meta itemprop="name" content="さくらインターネット">

@@ -3,7 +3,7 @@
   "license": "MIT",
   "author": {
     "name": "AIZAWA Hina",
-    "email": "hina@bouhime.com"
+    "email": "hina@fetus.jp"
   },
   "dependencies": {
     "@babel/cli": "^7.4.4",
@@ -25,6 +25,6 @@
     "stylelint-config-recommended": "^2.2.0",
     "svgo": "^1.2.2",
     "uglify-js": "^3.6.0",
-    "updates": "^8.1.0"
+    "updates": "^8.1.3"
   }
 }

@@ -53,7 +53,7 @@ echo "<?php\n";
 echo "/**\n";
 echo " * @copyright Copyright (C) 2015-" . date('Y', time()) . " AIZAWA Hina\n";
 echo " * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT\n";
-echo " * @author AIZAWA Hina <hina@bouhime.com>\n";
+echo " * @author AIZAWA Hina <hina@fetus.jp>\n";
 echo " */\n";
 echo "declare(strict_types=1);\n";
 

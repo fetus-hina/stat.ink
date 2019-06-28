@@ -2,7 +2,7 @@
 /**
  * @copyright Copyright (C) 2015-2017 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
- * @author AIZAWA Hina <hina@bouhime.com>
+ * @author AIZAWA Hina <hina@fetus.jp>
  */
 
 namespace app\commands;
@@ -177,10 +177,10 @@ class I18nController extends Controller
             $this->stderr("Could not get contributors\n");
             exit(1);
         }
-        $lines[] = 'AIZAWA Hina <hina@bouhime.com>';
+        $lines[] = 'AIZAWA Hina <hina@fetus.jp>';
 
         $authorMap = [
-            'AIZAWA, Hina <hina@bouhime.com>' => 'AIZAWA Hina <hina@bouhime.com>',
+            'AIZAWA, Hina <hina@fetus.jp>' => 'AIZAWA Hina <hina@fetus.jp>',
             'Unknown <wkoichi@gmail.com>' => 'Koichi Watanabe <wkoichi@gmail.com>',
         ];
         $list = array_unique(
