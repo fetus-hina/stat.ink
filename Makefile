@@ -184,7 +184,6 @@ ikalog: all runtime/ikalog runtime/ikalog/repo runtime/ikalog/winikalog.html
 	./yii ikalog/update-winikalog
 
 resource: $(RESOURCE_TARGETS) $(ADDITIONAL_LICENSES)
-	rm -rf web/assets/*
 
 composer-update: composer.phar
 	./composer.phar self-update
