@@ -1,5 +1,5 @@
 FROM centos:7
-MAINTAINER AIZAWA Hina <hina@bouhime.com>
+MAINTAINER AIZAWA Hina <hina@fetus.jp>
 
 ADD docker/rpm-gpg/ /etc/pki/rpm-gpg/
 ADD docker/jp3cki/jp3cki.repo /etc/yum.repos.d/

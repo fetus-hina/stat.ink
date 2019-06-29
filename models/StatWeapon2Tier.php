@@ -2,7 +2,7 @@
 /**
  * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
- * @author AIZAWA Hina <hina@bouhime.com>
+ * @author AIZAWA Hina <hina@fetus.jp>
  */
 
 declare(strict_types=1);
@@ -12,6 +12,8 @@ namespace app\models;
 use Yii;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
+use yii\db\Query;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "stat_weapon2_tier".
@@ -200,5 +202,47 @@ class StatWeapon2Tier extends ActiveRecord
         $winRate = $wins / $battles;
         $s = sqrt(($battles / ($battles - 1.5)) * $winRate * (1.0 - $winRate));
         return $s / sqrt($battles);
+    }
+
+    public static function getDateVersionPatterns(Rule2 $rule): array
+    {
+        $list = (new Query())
+            ->select([
+                'vtag' => 'MAX({{v}}.[[tag]])',
+                'vname' => 'MAX({{v}}.[[name]])',
+                'month' => '{{t}}.[[month]]',
+            ])
+            ->from(['t' => static::tableName()])
+            ->innerJoin(
+                ['v' => SplatoonVersionGroup2::tableName()],
+                '{{t}}.[[version_group_id]] = {{v}}.[[id]]'
+            )
+            ->andWhere(['{{t}}.[[rule_id]]' => $rule->id])
+            ->groupBy([
+                't.version_group_id',
+                't.month',
+            ])
+            ->andHaving(['>=', 'MAX({{t}}.[[players_count]])', static::PLAYERS_COUNT_THRESHOLD])
+            ->all();
+        usort($list, function (array $a, array $b): int {
+            return version_compare($b['vtag'], $a['vtag'])
+                ?: strcmp($b['month'], $a['month']);
+        });
+        return ArrayHelper::map(
+            $list,
+            function (array $row): string {
+                return vsprintf('v%s@%s', [
+                    $row['vtag'],
+                    substr($row['month'], 0, 7),
+                ]);
+            },
+            function (array $row): array {
+                return [
+                    'month' => substr($row['month'], 0, 7),
+                    'vTag' => $row['vtag'],
+                    'vName' => $row['vname'],
+                ];
+            }
+        );
     }
 }

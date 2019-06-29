@@ -2,7 +2,7 @@
 /**
  * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
- * @author AIZAWA Hina <hina@bouhime.com>
+ * @author AIZAWA Hina <hina@fetus.jp>
  */
 
 declare(strict_types=1);
@@ -11,11 +11,11 @@ return [
     'Cannon' => 'Пушка',
     'Drowning' => '',
     'Fall' => '',
+    'Hyperbomb' => '',
     'Inkfurler' => '',
     'Main Weapon' => '',
-    'Marina Bomb' => '',
     'Out of Bounds' => '',
-    'Senpai Cannon' => '',
+    'Princess Cannon' => '',
     'Special Weapon' => '',
     'Sub Weapon' => '',
     'Unknown' => '',

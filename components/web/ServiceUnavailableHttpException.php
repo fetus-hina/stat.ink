@@ -3,7 +3,7 @@
  * @copyright Copyright (C) 2015 AIZAWA Hina
  * @copyright Copyright (c) 2008 Yii Software LLC
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
- * @author AIZAWA Hina <hina@bouhime.com>
+ * @author AIZAWA Hina <hina@fetus.jp>
  */
 
 namespace app\components\web;

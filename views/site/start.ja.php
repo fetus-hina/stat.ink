@@ -239,7 +239,7 @@ $iconAsset = AppLinkAsset::register($this);
   <hr>
 
   <p>
-    このサイトは、相沢陽菜 &lt;hina@bouhime.com&gt; (<span class="fab fa-twitter left"></span>fetus_hina, <span class="fab fa-github left"></span>fetus-hina) が個人的に作成したものです。
+    このサイトは、相沢陽菜 &lt;hina@fetus.jp&gt; (<span class="fab fa-twitter left"></span>fetus_hina, <span class="fab fa-github left"></span>fetus-hina) が個人的に作成したものです。
     任天堂株式会社とは一切関係はありません。
     任天堂株式会社へこのサイトやIkaLogのことを問い合わせたりはしないでください。単純に迷惑になります。
   </p>

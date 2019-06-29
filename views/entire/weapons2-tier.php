@@ -13,6 +13,7 @@ use yii\grid\GridView;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Json;
+use yii\helpers\Url;
 
 $title = implode(' | ', [
   Yii::$app->name,
@@ -29,12 +30,6 @@ $this->registerMetaTag(['name' => 'twitter:card', 'content' => 'summary']);
 $this->registerMetaTag(['name' => 'twitter:title', 'content' => $title]);
 $this->registerMetaTag(['name' => 'twitter:description', 'content' => $title]);
 $this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink']);
-if ($prev) {
-  $this->registerLinkTag(['rel' => 'prev', 'href' => $prev]);
-}
-if ($next) {
-  $this->registerLinkTag(['rel' => 'next', 'href' => $next]);
-}
 
 $kdCell = function (StatWeapon2Tier $model, string $column): ?string {
   return implode('<br>', [
@@ -75,46 +70,6 @@ $kdCell = function (StatWeapon2Tier $model, string $column): ?string {
 
   <?= AdWidget::widget() . "\n" ?>
   <?= SnsWidget::widget() . "\n" ?>
-
-  <nav>
-    <div class="row mb-3">
-      <div class="col-xs-6 text-left"><?php
-        if ($prev) {
-          echo Html::a(
-            implode(' ', [
-              (string)FA::fas('angle-double-left')->fw(),
-              Html::encode(Yii::t('app', 'Prev.')),
-            ]),
-            $prev,
-            ['class' => 'btn btn-default']
-          );
-        }
-      ?></div>
-      <div class="col-xs-6 text-right"><?php
-        if ($next) {
-          echo Html::a(
-            implode(' ', [
-              Html::encode(Yii::t('app', 'Next')),
-              (string)FA::fas('angle-double-right')->fw(),
-            ]),
-            $next,
-            ['class' => 'btn btn-default']
-          );
-
-          if ($latest && $next !== $latest) {
-            echo Html::a(
-              implode(' ', [
-                Html::encode(Yii::t('app', 'Latest')),
-                (string)FA::fas('angle-double-right')->fw(),
-              ]),
-              $latest,
-              ['class' => 'btn btn-default ml-2']
-            );
-          }
-        }
-      ?></div>
-    </div>
-  </nav>
 
   <ul class="mb-3">
     <li>
@@ -160,7 +115,7 @@ $kdCell = function (StatWeapon2Tier $model, string $column): ?string {
   </p>
 <?php } ?>
 
-  <nav class="mb-1"><?= Nav::widget([
+  <nav class="mb-3"><?= Nav::widget([
     'options' => ['class' => 'nav-tabs'],
     'encodeLabels' => false,
     'items' => array_map(
@@ -187,6 +142,40 @@ $kdCell = function (StatWeapon2Tier $model, string $column): ?string {
       array_values($rules),
     ),
   ]) ?></nav>
+
+  <nav class="mb-2">
+    <div class="form-group mb-0">
+      <select id="versionChanger" class="form-control"><?= implode('', array_map(
+        function (array $version) use ($month, $versionGroup, $rule): string {
+          return Html::tag(
+            'option',
+            vsprintf('%s, %s', [
+              substr($version['month'], 0, 7),
+              Yii::t('app', 'Version {0}', [
+                Yii::t('app-version2', $version['vName']),
+              ]),
+            ]),
+            [
+              'selected' => substr($version['month'], 0, 7) === substr($month, 0, 7) &&
+                $version['vTag'] === $versionGroup->tag,
+              'data' => [
+                'url' => Url::to(['entire/weapons2-tier',
+                  'version' => $version['vTag'],
+                  'month' => substr($version['month'], 0, 7),
+                  'rule' => $rule->key,
+                ], true),
+              ],
+            ]
+          );
+        },
+        $versions
+      )) ?></select>
+<?php $this->registerJs(sprintf(
+  '$(%s).change(function(){location.href=$("option:selected", this).data("url")});',
+  Json::encode('#versionChanger')
+)) ?>
+    </div>
+  </nav>
 
   <div class="table-responsive"><?= GridView::widget([
     'dataProvider' => Yii::createObject([
