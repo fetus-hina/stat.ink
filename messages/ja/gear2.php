@@ -567,7 +567,7 @@ return [
     'White V-Neck Tee' => 'イカホワイトV',
     'Wooden Sandals' => 'バンカラコロン',
     'Woolly Urchins Classic' => 'ウールウーニーズクラシック',
-    'Worker\'s Cap' => '',
+    'Worker\'s Cap' => 'スペボウ レプリカ',
     'Worker\'s Head Towel' => 'アセストップソシナ',
     'Yamagiri Beanie' => 'ヤマギリビーニー',
     'Yellow Fishfry Sandals' => 'ヤキフグシャワサン キ',

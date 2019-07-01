@@ -126,7 +126,8 @@ class I18n
         $lines[] = 'AIZAWA Hina <hina@fetus.jp>';
 
         $authorMap = [
-            'AIZAWA, Hina <hina@fetus.jp>' => 'AIZAWA Hina <hina@fetus.jp>',
+            'AIZAWA Hina <hina@bouhime.com>' => 'AIZAWA Hina <hina@fetus.jp>',
+            'AIZAWA, Hina <hina@bouhime.com>' => 'AIZAWA Hina <hina@fetus.jp>',
             'Unknown <wkoichi@gmail.com>' => 'Koichi Watanabe <wkoichi@gmail.com>',
         ];
         $list = array_unique(
