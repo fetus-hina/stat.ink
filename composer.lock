@@ -87,7 +87,7 @@
             "version": "3.3.11",
             "source": {
                 "type": "git",
-                "url": "git@github.com:RobinHerbots/Inputmask.git",
+                "url": "https://github.com/RobinHerbots/Inputmask.git",
                 "reference": "5e670ad62f50c738388d4dcec78d2888505ad77b"
             },
             "dist": {
@@ -1207,10 +1207,10 @@
         },
         {
             "name": "npm-asset/babel--runtime",
-            "version": "7.4.5",
+            "version": "7.5.0",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/@babel/runtime/-/runtime-7.4.5.tgz"
+                "url": "https://registry.npmjs.org/@babel/runtime/-/runtime-7.5.0.tgz"
             },
             "require": {
                 "npm-asset/regenerator-runtime": ">=0.13.2,<0.14.0"
@@ -1402,10 +1402,10 @@
         },
         {
             "name": "npm-asset/moment-timezone",
-            "version": "0.5.25",
+            "version": "0.5.26",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/moment-timezone/-/moment-timezone-0.5.25.tgz"
+                "url": "https://registry.npmjs.org/moment-timezone/-/moment-timezone-0.5.26.tgz"
             },
             "require": {
                 "npm-asset/moment": ">=2.9.0"
