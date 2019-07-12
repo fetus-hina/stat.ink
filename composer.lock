@@ -141,7 +141,7 @@
             "version": "2.24.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/moment/moment.git",
+                "url": "git@github.com:moment/moment.git",
                 "reference": "96d0d6791ab495859d09a868803d31a55c917de1"
             },
             "dist": {
@@ -1207,10 +1207,10 @@
         },
         {
             "name": "npm-asset/babel--runtime",
-            "version": "7.4.5",
+            "version": "7.5.0",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/@babel/runtime/-/runtime-7.4.5.tgz"
+                "url": "https://registry.npmjs.org/@babel/runtime/-/runtime-7.5.0.tgz"
             },
             "require": {
                 "npm-asset/regenerator-runtime": ">=0.13.2,<0.14.0"
@@ -1402,10 +1402,10 @@
         },
         {
             "name": "npm-asset/moment-timezone",
-            "version": "0.5.25",
+            "version": "0.5.26",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/moment-timezone/-/moment-timezone-0.5.25.tgz"
+                "url": "https://registry.npmjs.org/moment-timezone/-/moment-timezone-0.5.26.tgz"
             },
             "require": {
                 "npm-asset/moment": ">=2.9.0"
@@ -1900,16 +1900,16 @@
         },
         {
             "name": "statink/yii2-anonymizer",
-            "version": "v1.0.1",
+            "version": "v1.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/statink/yii2-anonymizer.git",
-                "reference": "25e12f426450d30482060c869e56727dd4dd6d7d"
+                "reference": "8768b75de4cbea38efb7804f2d824e2926754026"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/statink/yii2-anonymizer/zipball/25e12f426450d30482060c869e56727dd4dd6d7d",
-                "reference": "25e12f426450d30482060c869e56727dd4dd6d7d",
+                "url": "https://api.github.com/repos/statink/yii2-anonymizer/zipball/8768b75de4cbea38efb7804f2d824e2926754026",
+                "reference": "8768b75de4cbea38efb7804f2d824e2926754026",
                 "shasum": ""
             },
             "require": {
@@ -1934,10 +1934,10 @@
             ],
             "description": "Player name anonymizer for stat.ink",
             "support": {
-                "source": "https://github.com/statink/yii2-anonymizer/tree/v1.0.1",
+                "source": "https://github.com/statink/yii2-anonymizer/tree/v1.0.3",
                 "issues": "https://github.com/statink/yii2-anonymizer/issues"
             },
-            "time": "2019-06-05T19:45:53+00:00"
+            "time": "2019-07-12T07:42:21+00:00"
         },
         {
             "name": "statink/yii2-bukiicons",
@@ -2066,16 +2066,16 @@
         },
         {
             "name": "statink/yii2-ip-badge",
-            "version": "v1.0.1",
+            "version": "v1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/statink/yii2-ip-badge.git",
-                "reference": "f90df3a1097dd8a5d1488209adfdc2539cfdab02"
+                "reference": "61eb094907c31a4e7759cd4a0fee8f4fd21f8635"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/statink/yii2-ip-badge/zipball/f90df3a1097dd8a5d1488209adfdc2539cfdab02",
-                "reference": "f90df3a1097dd8a5d1488209adfdc2539cfdab02",
+                "url": "https://api.github.com/repos/statink/yii2-ip-badge/zipball/61eb094907c31a4e7759cd4a0fee8f4fd21f8635",
+                "reference": "61eb094907c31a4e7759cd4a0fee8f4fd21f8635",
                 "shasum": ""
             },
             "require": {
@@ -2099,10 +2099,10 @@
             ],
             "description": "IP version badge for stat.ink header",
             "support": {
-                "source": "https://github.com/statink/yii2-ip-badge/tree/v1.0.1",
+                "source": "https://github.com/statink/yii2-ip-badge/tree/v1.0.2",
                 "issues": "https://github.com/statink/yii2-ip-badge/issues"
             },
-            "time": "2019-06-05T19:52:56+00:00"
+            "time": "2019-07-12T08:03:38+00:00"
         },
         {
             "name": "statink/yii2-jdenticon",
@@ -2189,16 +2189,16 @@
         },
         {
             "name": "statink/yii2-paintball",
-            "version": "v1.0.1",
+            "version": "v1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/statink/yii2-paintball.git",
-                "reference": "0227840f15bd1ccde55c4a0c51eb9173a1456cdf"
+                "reference": "81937b631affdb18fb57c9521fad06bb77f37218"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/statink/yii2-paintball/zipball/0227840f15bd1ccde55c4a0c51eb9173a1456cdf",
-                "reference": "0227840f15bd1ccde55c4a0c51eb9173a1456cdf",
+                "url": "https://api.github.com/repos/statink/yii2-paintball/zipball/81937b631affdb18fb57c9521fad06bb77f37218",
+                "reference": "81937b631affdb18fb57c9521fad06bb77f37218",
                 "shasum": ""
             },
             "require": {
@@ -2222,23 +2222,23 @@
             ],
             "description": "Paintball asset bundle for stat.ink",
             "support": {
-                "source": "https://github.com/statink/yii2-paintball/tree/v1.0.1",
+                "source": "https://github.com/statink/yii2-paintball/tree/v1.0.2",
                 "issues": "https://github.com/statink/yii2-paintball/issues"
             },
-            "time": "2019-06-05T19:50:57+00:00"
+            "time": "2019-07-12T07:49:10+00:00"
         },
         {
             "name": "statink/yii2-sillyname",
-            "version": "v1.0.1",
+            "version": "v1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/statink/yii2-sillyname.git",
-                "reference": "56c27dc338dc5aea8d42eee38acd88826378d930"
+                "reference": "8724972453ebaa8ecf7ee121277bec9e70dd896d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/statink/yii2-sillyname/zipball/56c27dc338dc5aea8d42eee38acd88826378d930",
-                "reference": "56c27dc338dc5aea8d42eee38acd88826378d930",
+                "url": "https://api.github.com/repos/statink/yii2-sillyname/zipball/8724972453ebaa8ecf7ee121277bec9e70dd896d",
+                "reference": "8724972453ebaa8ecf7ee121277bec9e70dd896d",
                 "shasum": ""
             },
             "require": {
@@ -2265,23 +2265,23 @@
             ],
             "description": "Sillyname asset bundle for stat.ink",
             "support": {
-                "source": "https://github.com/statink/yii2-sillyname/tree/v1.0.1",
+                "source": "https://github.com/statink/yii2-sillyname/tree/v1.0.2",
                 "issues": "https://github.com/statink/yii2-sillyname/issues"
             },
-            "time": "2019-06-05T19:39:18+00:00"
+            "time": "2019-07-12T07:45:14+00:00"
         },
         {
             "name": "statink/yii2-sortable-table",
-            "version": "v1.0.0",
+            "version": "v1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/statink/yii2-sortable-table.git",
-                "reference": "c8ce272dd23ef3b60671d6cfdea6f7a18f306753"
+                "reference": "ebade4d442c34d51cbf605a9438fc82720915d91"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/statink/yii2-sortable-table/zipball/c8ce272dd23ef3b60671d6cfdea6f7a18f306753",
-                "reference": "c8ce272dd23ef3b60671d6cfdea6f7a18f306753",
+                "url": "https://api.github.com/repos/statink/yii2-sortable-table/zipball/ebade4d442c34d51cbf605a9438fc82720915d91",
+                "reference": "ebade4d442c34d51cbf605a9438fc82720915d91",
                 "shasum": ""
             },
             "require": {
@@ -2306,10 +2306,10 @@
             ],
             "description": "sortable-table asset bundle for stat.ink",
             "support": {
-                "source": "https://github.com/statink/yii2-sortable-table/tree/v1.0.0",
+                "source": "https://github.com/statink/yii2-sortable-table/tree/v1.0.1",
                 "issues": "https://github.com/statink/yii2-sortable-table/issues"
             },
-            "time": "2018-11-26T19:24:03+00:00"
+            "time": "2019-07-12T08:07:12+00:00"
         },
         {
             "name": "statink/yii2-spl1-stages",
@@ -2393,16 +2393,16 @@
         },
         {
             "name": "statink/yii2-twitter-webintents",
-            "version": "v1.0.0",
+            "version": "v1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/statink/yii2-twitter-webintents.git",
-                "reference": "c96bc37f66f9a42adf5c622d735a0b255d6cfa22"
+                "reference": "c1604220b5c8046f47714f95df6dc652c9e994c7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/statink/yii2-twitter-webintents/zipball/c96bc37f66f9a42adf5c622d735a0b255d6cfa22",
-                "reference": "c96bc37f66f9a42adf5c622d735a0b255d6cfa22",
+                "url": "https://api.github.com/repos/statink/yii2-twitter-webintents/zipball/c1604220b5c8046f47714f95df6dc652c9e994c7",
+                "reference": "c1604220b5c8046f47714f95df6dc652c9e994c7",
                 "shasum": ""
             },
             "require": {
@@ -2426,10 +2426,10 @@
             ],
             "description": "Twitter WebIntents asset bundle for stat.ink",
             "support": {
-                "source": "https://github.com/statink/yii2-twitter-webintents/tree/v1.0.0",
+                "source": "https://github.com/statink/yii2-twitter-webintents/tree/v1.0.1",
                 "issues": "https://github.com/statink/yii2-twitter-webintents/issues"
             },
-            "time": "2018-11-18T12:04:16+00:00"
+            "time": "2019-07-12T07:31:08+00:00"
         },
         {
             "name": "symfony/console",
@@ -2757,16 +2757,16 @@
         },
         {
             "name": "yiisoft/yii2",
-            "version": "2.0.21",
+            "version": "2.0.22",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-framework.git",
-                "reference": "7e4622252c5f272373e1339a47d331e4a55e9591"
+                "reference": "417299927ed14adcd51c69a9d75311c5fc33d227"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/7e4622252c5f272373e1339a47d331e4a55e9591",
-                "reference": "7e4622252c5f272373e1339a47d331e4a55e9591",
+                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/417299927ed14adcd51c69a9d75311c5fc33d227",
+                "reference": "417299927ed14adcd51c69a9d75311c5fc33d227",
                 "shasum": ""
             },
             "require": {
@@ -2853,7 +2853,7 @@
                 "framework",
                 "yii2"
             ],
-            "time": "2019-06-18T14:25:08+00:00"
+            "time": "2019-07-02T20:28:40+00:00"
         },
         {
             "name": "yiisoft/yii2-bootstrap",
@@ -3848,33 +3848,37 @@
         },
         {
             "name": "guzzlehttp/psr7",
-            "version": "1.5.2",
+            "version": "1.6.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/psr7.git",
-                "reference": "9f83dded91781a01c63574e387eaa769be769115"
+                "reference": "239400de7a173fe9901b9ac7c06497751f00727a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/psr7/zipball/9f83dded91781a01c63574e387eaa769be769115",
-                "reference": "9f83dded91781a01c63574e387eaa769be769115",
+                "url": "https://api.github.com/repos/guzzle/psr7/zipball/239400de7a173fe9901b9ac7c06497751f00727a",
+                "reference": "239400de7a173fe9901b9ac7c06497751f00727a",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.4.0",
                 "psr/http-message": "~1.0",
-                "ralouphie/getallheaders": "^2.0.5"
+                "ralouphie/getallheaders": "^2.0.5 || ^3.0.0"
             },
             "provide": {
                 "psr/http-message-implementation": "1.0"
             },
             "require-dev": {
+                "ext-zlib": "*",
                 "phpunit/phpunit": "~4.8.36 || ^5.7.27 || ^6.5.8"
+            },
+            "suggest": {
+                "zendframework/zend-httphandlerrunner": "Emit PSR-7 responses"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.5-dev"
+                    "dev-master": "1.6-dev"
                 }
             },
             "autoload": {
@@ -3911,7 +3915,7 @@
                 "uri",
                 "url"
             ],
-            "time": "2018-12-04T20:46:45+00:00"
+            "time": "2019-07-01T23:21:34+00:00"
         },
         {
             "name": "myclabs/deep-copy",
@@ -4582,16 +4586,16 @@
         },
         {
             "name": "phpunit/php-token-stream",
-            "version": "3.0.1",
+            "version": "3.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-token-stream.git",
-                "reference": "c99e3be9d3e85f60646f152f9002d46ed7770d18"
+                "reference": "c4a66b97f040e3e20b3aa2a243230a1c3a9f7c8c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-token-stream/zipball/c99e3be9d3e85f60646f152f9002d46ed7770d18",
-                "reference": "c99e3be9d3e85f60646f152f9002d46ed7770d18",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-token-stream/zipball/c4a66b97f040e3e20b3aa2a243230a1c3a9f7c8c",
+                "reference": "c4a66b97f040e3e20b3aa2a243230a1c3a9f7c8c",
                 "shasum": ""
             },
             "require": {
@@ -4627,7 +4631,7 @@
             "keywords": [
                 "tokenizer"
             ],
-            "time": "2018-10-30T05:52:18+00:00"
+            "time": "2019-07-08T05:24:54+00:00"
         },
         {
             "name": "phpunit/phpunit",
@@ -4765,24 +4769,24 @@
         },
         {
             "name": "ralouphie/getallheaders",
-            "version": "2.0.5",
+            "version": "3.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ralouphie/getallheaders.git",
-                "reference": "5601c8a83fbba7ef674a7369456d12f1e0d0eafa"
+                "reference": "120b605dfeb996808c31b6477290a714d356e822"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ralouphie/getallheaders/zipball/5601c8a83fbba7ef674a7369456d12f1e0d0eafa",
-                "reference": "5601c8a83fbba7ef674a7369456d12f1e0d0eafa",
+                "url": "https://api.github.com/repos/ralouphie/getallheaders/zipball/120b605dfeb996808c31b6477290a714d356e822",
+                "reference": "120b605dfeb996808c31b6477290a714d356e822",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3"
+                "php": ">=5.6"
             },
             "require-dev": {
-                "phpunit/phpunit": "~3.7.0",
-                "satooshi/php-coveralls": ">=1.0"
+                "php-coveralls/php-coveralls": "^2.1",
+                "phpunit/phpunit": "^5 || ^6.5"
             },
             "type": "library",
             "autoload": {
@@ -4801,7 +4805,7 @@
                 }
             ],
             "description": "A polyfill for getallheaders.",
-            "time": "2016-02-11T07:05:27+00:00"
+            "time": "2019-03-08T08:55:37+00:00"
         },
         {
             "name": "sebastian/code-unit-reverse-lookup",
