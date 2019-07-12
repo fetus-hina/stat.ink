@@ -1900,16 +1900,16 @@
         },
         {
             "name": "statink/yii2-anonymizer",
-            "version": "v1.0.1",
+            "version": "v1.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/statink/yii2-anonymizer.git",
-                "reference": "25e12f426450d30482060c869e56727dd4dd6d7d"
+                "reference": "8768b75de4cbea38efb7804f2d824e2926754026"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/statink/yii2-anonymizer/zipball/25e12f426450d30482060c869e56727dd4dd6d7d",
-                "reference": "25e12f426450d30482060c869e56727dd4dd6d7d",
+                "url": "https://api.github.com/repos/statink/yii2-anonymizer/zipball/8768b75de4cbea38efb7804f2d824e2926754026",
+                "reference": "8768b75de4cbea38efb7804f2d824e2926754026",
                 "shasum": ""
             },
             "require": {
@@ -1934,10 +1934,10 @@
             ],
             "description": "Player name anonymizer for stat.ink",
             "support": {
-                "source": "https://github.com/statink/yii2-anonymizer/tree/v1.0.1",
+                "source": "https://github.com/statink/yii2-anonymizer/tree/v1.0.3",
                 "issues": "https://github.com/statink/yii2-anonymizer/issues"
             },
-            "time": "2019-06-05T19:45:53+00:00"
+            "time": "2019-07-12T07:42:21+00:00"
         },
         {
             "name": "statink/yii2-bukiicons",
@@ -2066,16 +2066,16 @@
         },
         {
             "name": "statink/yii2-ip-badge",
-            "version": "v1.0.1",
+            "version": "v1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/statink/yii2-ip-badge.git",
-                "reference": "f90df3a1097dd8a5d1488209adfdc2539cfdab02"
+                "reference": "61eb094907c31a4e7759cd4a0fee8f4fd21f8635"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/statink/yii2-ip-badge/zipball/f90df3a1097dd8a5d1488209adfdc2539cfdab02",
-                "reference": "f90df3a1097dd8a5d1488209adfdc2539cfdab02",
+                "url": "https://api.github.com/repos/statink/yii2-ip-badge/zipball/61eb094907c31a4e7759cd4a0fee8f4fd21f8635",
+                "reference": "61eb094907c31a4e7759cd4a0fee8f4fd21f8635",
                 "shasum": ""
             },
             "require": {
@@ -2099,10 +2099,10 @@
             ],
             "description": "IP version badge for stat.ink header",
             "support": {
-                "source": "https://github.com/statink/yii2-ip-badge/tree/v1.0.1",
+                "source": "https://github.com/statink/yii2-ip-badge/tree/v1.0.2",
                 "issues": "https://github.com/statink/yii2-ip-badge/issues"
             },
-            "time": "2019-06-05T19:52:56+00:00"
+            "time": "2019-07-12T08:03:38+00:00"
         },
         {
             "name": "statink/yii2-jdenticon",
@@ -2189,16 +2189,16 @@
         },
         {
             "name": "statink/yii2-paintball",
-            "version": "v1.0.1",
+            "version": "v1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/statink/yii2-paintball.git",
-                "reference": "0227840f15bd1ccde55c4a0c51eb9173a1456cdf"
+                "reference": "81937b631affdb18fb57c9521fad06bb77f37218"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/statink/yii2-paintball/zipball/0227840f15bd1ccde55c4a0c51eb9173a1456cdf",
-                "reference": "0227840f15bd1ccde55c4a0c51eb9173a1456cdf",
+                "url": "https://api.github.com/repos/statink/yii2-paintball/zipball/81937b631affdb18fb57c9521fad06bb77f37218",
+                "reference": "81937b631affdb18fb57c9521fad06bb77f37218",
                 "shasum": ""
             },
             "require": {
@@ -2222,23 +2222,23 @@
             ],
             "description": "Paintball asset bundle for stat.ink",
             "support": {
-                "source": "https://github.com/statink/yii2-paintball/tree/v1.0.1",
+                "source": "https://github.com/statink/yii2-paintball/tree/v1.0.2",
                 "issues": "https://github.com/statink/yii2-paintball/issues"
             },
-            "time": "2019-06-05T19:50:57+00:00"
+            "time": "2019-07-12T07:49:10+00:00"
         },
         {
             "name": "statink/yii2-sillyname",
-            "version": "v1.0.1",
+            "version": "v1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/statink/yii2-sillyname.git",
-                "reference": "56c27dc338dc5aea8d42eee38acd88826378d930"
+                "reference": "8724972453ebaa8ecf7ee121277bec9e70dd896d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/statink/yii2-sillyname/zipball/56c27dc338dc5aea8d42eee38acd88826378d930",
-                "reference": "56c27dc338dc5aea8d42eee38acd88826378d930",
+                "url": "https://api.github.com/repos/statink/yii2-sillyname/zipball/8724972453ebaa8ecf7ee121277bec9e70dd896d",
+                "reference": "8724972453ebaa8ecf7ee121277bec9e70dd896d",
                 "shasum": ""
             },
             "require": {
@@ -2265,23 +2265,23 @@
             ],
             "description": "Sillyname asset bundle for stat.ink",
             "support": {
-                "source": "https://github.com/statink/yii2-sillyname/tree/v1.0.1",
+                "source": "https://github.com/statink/yii2-sillyname/tree/v1.0.2",
                 "issues": "https://github.com/statink/yii2-sillyname/issues"
             },
-            "time": "2019-06-05T19:39:18+00:00"
+            "time": "2019-07-12T07:45:14+00:00"
         },
         {
             "name": "statink/yii2-sortable-table",
-            "version": "v1.0.0",
+            "version": "v1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/statink/yii2-sortable-table.git",
-                "reference": "c8ce272dd23ef3b60671d6cfdea6f7a18f306753"
+                "reference": "ebade4d442c34d51cbf605a9438fc82720915d91"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/statink/yii2-sortable-table/zipball/c8ce272dd23ef3b60671d6cfdea6f7a18f306753",
-                "reference": "c8ce272dd23ef3b60671d6cfdea6f7a18f306753",
+                "url": "https://api.github.com/repos/statink/yii2-sortable-table/zipball/ebade4d442c34d51cbf605a9438fc82720915d91",
+                "reference": "ebade4d442c34d51cbf605a9438fc82720915d91",
                 "shasum": ""
             },
             "require": {
@@ -2306,10 +2306,10 @@
             ],
             "description": "sortable-table asset bundle for stat.ink",
             "support": {
-                "source": "https://github.com/statink/yii2-sortable-table/tree/v1.0.0",
+                "source": "https://github.com/statink/yii2-sortable-table/tree/v1.0.1",
                 "issues": "https://github.com/statink/yii2-sortable-table/issues"
             },
-            "time": "2018-11-26T19:24:03+00:00"
+            "time": "2019-07-12T08:07:12+00:00"
         },
         {
             "name": "statink/yii2-spl1-stages",
@@ -2393,16 +2393,16 @@
         },
         {
             "name": "statink/yii2-twitter-webintents",
-            "version": "v1.0.0",
+            "version": "v1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/statink/yii2-twitter-webintents.git",
-                "reference": "c96bc37f66f9a42adf5c622d735a0b255d6cfa22"
+                "reference": "c1604220b5c8046f47714f95df6dc652c9e994c7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/statink/yii2-twitter-webintents/zipball/c96bc37f66f9a42adf5c622d735a0b255d6cfa22",
-                "reference": "c96bc37f66f9a42adf5c622d735a0b255d6cfa22",
+                "url": "https://api.github.com/repos/statink/yii2-twitter-webintents/zipball/c1604220b5c8046f47714f95df6dc652c9e994c7",
+                "reference": "c1604220b5c8046f47714f95df6dc652c9e994c7",
                 "shasum": ""
             },
             "require": {
@@ -2426,10 +2426,10 @@
             ],
             "description": "Twitter WebIntents asset bundle for stat.ink",
             "support": {
-                "source": "https://github.com/statink/yii2-twitter-webintents/tree/v1.0.0",
+                "source": "https://github.com/statink/yii2-twitter-webintents/tree/v1.0.1",
                 "issues": "https://github.com/statink/yii2-twitter-webintents/issues"
             },
-            "time": "2018-11-18T12:04:16+00:00"
+            "time": "2019-07-12T07:31:08+00:00"
         },
         {
             "name": "symfony/console",
