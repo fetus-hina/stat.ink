@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "27e643b51ce49552f77a07032cad99ea",
+    "content-hash": "433a895d8281b297e8d8501fc7f031c3",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -1234,16 +1234,10 @@
         },
         {
             "name": "npm-asset/bootswatch",
-            "version": "v3.4.1-patch1",
-            "source": {
-                "type": "git",
-                "url": "git@github.com:thomaspark/bootswatch.git",
-                "reference": "c41a8f066feb8950c6f9c6bcf5a3c37d1085404e"
-            },
+            "version": "4.3.1",
             "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/thomaspark/bootswatch/zipball/c41a8f066feb8950c6f9c6bcf5a3c37d1085404e",
-                "reference": "c41a8f066feb8950c6f9c6bcf5a3c37d1085404e"
+                "type": "tar",
+                "url": "https://registry.npmjs.org/bootswatch/-/bootswatch-4.3.1.tgz"
             },
             "type": "npm-asset",
             "license": [
@@ -5819,7 +5813,7 @@
                 },
                 {
                     "name": "Gert de Pagter",
-                    "email": "backendtea@gmail.com"
+                    "email": "BackEndTea@gmail.com"
                 }
             ],
             "description": "Symfony polyfill for ctype functions",
