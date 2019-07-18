@@ -23,6 +23,7 @@ use app\components\helpers\DateTimeFormatter;
 use app\jobs\UserStatsJob;
 use jp3cki\uuid\Uuid;
 use shakura\yii2\gearman\JobWorkload;
+use stdClass;
 use yii\behaviors\AttributeBehavior;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
@@ -1283,15 +1284,35 @@ class Battle2 extends ActiveRecord
     {
         $events = null;
         if ($this->events && !in_array('events', $skips, true)) {
-            $events = Json::decode($this->events->events, false);
-            usort($events, function ($a, $b) {
-                return $a->at <=> $b->at;
-            });
+            if ($tmp = $this->events->events ?? null) {
+                if (is_array($tmp)) {
+                    $events = $tmp;
+                } elseif (is_string($tmp)) {
+                    $events = Json::decode($tmp);
+                }
+            }
+
+            if (is_array($events)) {
+                usort($events, function (stdClass $a, stdClass $b): int {
+                    return $a->at <=> $b->at;
+                });
+            } else {
+                $events = null;
+            }
         }
+
         $splatnetJson = null;
         if ($this->splatnetJson && !in_array('splatnet_json', $skips, true)) {
-            $splatnetJson = Json::decode($this->splatnetJson->json ?? 'null');
+            if ($tmp = $this->splatnetJson->json ?? null) {
+                if (is_object($tmp)) {
+                    $splatnetJson = $tmp;
+                } elseif (is_string($tmp)) {
+                    $splatnetJson = Json::decode($tmp);
+                }
+                unset($tmp);
+            }
         }
+
         return [
             'id' => $this->id,
             // 'uuid' => $this->client_uuid,
