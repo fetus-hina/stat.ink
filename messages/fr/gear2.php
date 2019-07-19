@@ -408,7 +408,7 @@ return [
     'Retro Gamer Jersey' => 'Blouson rétro',
     'Retro Specs' => 'Lunettes rétro',
     'Retro Sweat' => 'Sweat rétro',
-    'Rina Squidkid IV' => '',
+    'Rina Squidkid IV' => 'Egings IV coraliennes',
     'Roasted Brogues' => 'Richelieu classiques',
     'Rockenberg Black' => 'T-shirt Iormungand noir',
     'Rockenberg White' => 'T-shirt Iormungand blanc',
