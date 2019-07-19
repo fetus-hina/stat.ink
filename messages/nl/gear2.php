@@ -407,7 +407,7 @@ return [
     'Retro Gamer Jersey' => 'Retrojack',
     'Retro Specs' => 'Retrobril',
     'Retro Sweat' => 'Retrotrui',
-    'Rina Squidkid IV' => '',
+    'Rina Squidkid IV' => 'Mariana\'s Squidkid IV',
     'Roasted Brogues' => 'Klassieke schoenen',
     'Rockenberg Black' => 'Zwart Rockenberg-T-shirt',
     'Rockenberg White' => 'Wit Rockenberg-T-shirt',

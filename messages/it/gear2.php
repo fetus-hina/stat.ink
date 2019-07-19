@@ -407,7 +407,7 @@ return [
     'Retro Gamer Jersey' => 'Felpa rétro',
     'Retro Specs' => 'Occhiali rétro',
     'Retro Sweat' => 'Maglione vintage',
-    'Rina Squidkid IV' => '',
+    'Rina Squidkid IV' => 'Mitilik Noruccia',
     'Roasted Brogues' => 'Eleganti marroni',
     'Rockenberg Black' => 'Rockenburg nera',
     'Rockenberg White' => 'Rockenburg bianca',

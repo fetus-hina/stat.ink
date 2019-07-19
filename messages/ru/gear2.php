@@ -407,7 +407,7 @@ return [
     'Retro Gamer Jersey' => 'Куртка в стиле ретро',
     'Retro Specs' => 'Ретро-очки',
     'Retro Sweat' => 'Ретро-свитер',
-    'Rina Squidkid IV' => '',
+    'Rina Squidkid IV' => 'Осьмуряш-шузы',
     'Roasted Brogues' => 'Классические броги',
     'Rockenberg Black' => 'Черная майка «Угрок»',
     'Rockenberg White' => 'Белая майка «Угрок»',
