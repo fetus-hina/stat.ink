@@ -614,7 +614,10 @@
       $('#battle-input2-btn')
         .prop('disabled', false)
         .click(() => {
-          $modal.modal();
+          $modal.modal({
+            backdrop: 'static', // Do not close even clicked the background
+            keyboard: false, // Do not close even pressed Escape key
+          });
         });
     }
   });
