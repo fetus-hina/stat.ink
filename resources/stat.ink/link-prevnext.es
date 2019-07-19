@@ -9,10 +9,10 @@
     $(window).keydown(ev => {
       // do nothing if modal is opened
       if ($body.hasClass('modal-open')) {
-        return false;
+        return;
       }
       if ($('.pswp').hasClass('pswp--open')) {
-        return false;
+        return;
       }
 
       // 37: left
