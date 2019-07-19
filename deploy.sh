@@ -14,5 +14,5 @@ else
   exit 1
 fi
 
-git push origin master $1
+git push origin dev master $1
 ssh statink@app1.stat.ink 'pushd stat.ink && git fetch origin && git checkout composer.lock package-lock.json && touch -r composer.json composer.lock && touch -r package.json package-lock.json && git merge --ff-only origin/master && scl enable php73 make && scl enable php73 "./yii asset/up-revision" && rm -rfv runtime/Smarty/compile/*'
