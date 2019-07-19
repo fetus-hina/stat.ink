@@ -140,8 +140,9 @@ class Battle2Form extends Model
                 'squad_4-gachi-asari'   => "{$asari} {$quad}",
             ],
             Yii::t('app-rule2', 'Splatfest') => [
-                'standard-fest-nawabari' => Yii::t('app-rule2', 'Splatfest (Solo)'),
-                'squad_4-fest-nawabari'  => Yii::t('app-rule2', 'Splatfest (Team)'),
+                'fest_normal-fest-nawabari' => Yii::t('app-rule2', 'Splatfest (Normal)'),
+                'standard-fest-nawabari' => Yii::t('app-rule2', 'Splatfest (Pro/Solo)'),
+                'squad_4-fest-nawabari' => Yii::t('app-rule2', 'Splatfest (Team)'),
             ],
             $private => [
                 'private-private-nawabari'  => "{$nawabari} {$priv}",
@@ -173,7 +174,7 @@ class Battle2Form extends Model
         return Rule2::findOne(['id' => (int)$this->rule_id]);
     }
 
-    public function getXMode() : ?string
+    public function getXMode(): ?string
     {
         $rule = $this->getRule();
         $mode = $this->getMode();
@@ -183,11 +184,21 @@ class Battle2Form extends Model
                 ? null
                 : sprintf('private-private-%s', $rule->key);
         }
+
         if ($mode && $mode->key === 'fest') {
-            return ($lobby && $lobby->key === 'squad_4')
-                ? 'squad_4-fest-nawabari'
-                : 'standard-fest-nawabari';
+            if ($lobby) {
+                switch ($lobby->key) {
+                    case 'squad_4':
+                        return 'squad_4-fest-nawabari';
+
+                    case 'fest_normal':
+                        return 'fest_normal-fest-nawabari';
+                }
+            }
+
+            return 'standard-fest-nawabari';
         }
+
         if ($rule) {
             switch ($rule->key) {
                 case 'nawabari':
