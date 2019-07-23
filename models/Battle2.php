@@ -1293,8 +1293,8 @@ class Battle2 extends ActiveRecord
             }
 
             if (is_array($events)) {
-                usort($events, function (stdClass $a, stdClass $b): int {
-                    return $a->at <=> $b->at;
+                usort($events, function (array $a, array $b): int {
+                    return ($a['at'] ?? null) <=> ($b['at'] ?? null);
                 });
             } else {
                 $events = null;
@@ -1306,8 +1306,10 @@ class Battle2 extends ActiveRecord
             if ($tmp = $this->splatnetJson->json ?? null) {
                 if (is_object($tmp)) {
                     $splatnetJson = $tmp;
+                } elseif (is_array($tmp) && ArrayHelper::isAssociative($tmp)) {
+                    $splatnetJson = (object)$tmp;
                 } elseif (is_string($tmp)) {
-                    $splatnetJson = Json::decode($tmp);
+                    $splatnetJson = Json::decode($tmp, false);
                 }
                 unset($tmp);
             }
