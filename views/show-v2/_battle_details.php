@@ -1,5 +1,6 @@
 <?php
 use app\assets\BattleEditAsset;
+use app\assets\FontAwesomeAsset;
 use app\assets\PhotoSwipeSimplifyAsset;
 use app\assets\Spl2WeaponAsset;
 use app\components\helpers\Battle as BattleHelper;
@@ -753,12 +754,39 @@ use yii\widgets\DetailView;
           [
             Html::encode(Yii::t('app', 'Gear')),
             $battle->battleImageGear
-              ? (function () use ($battle) {
+              ? (function () use ($battle): ?string {
                 PhotoSwipeSimplifyAsset::register($this);
+                FontAwesomeAsset::register($this);
+                $id = 'img-gear-' . hash('crc32b', __FILE__ . ':' . __LINE__);
+                $this->registerCss(Html::renderCss([
+                  "#{$id}" => [
+                    'width' => '1em',
+                    'height' => '1em',
+                    'position' => 'relative',
+                  ],
+                  "#{$id} > *" => [
+                    'display' => 'inline-block',
+                    'position' => 'absolute',
+                    'left' => '0',
+                    'top' => '0',
+                    'width' => '1em',
+                    'height' => '1em',
+                  ],
+                ]));
                 return Html::tag(
                   'div',
                   Html::a(
-                    (string)FA::fas('image'),
+                    Html::tag(
+                      'span',
+                      implode('', [
+                        Html::img(vsprintf('data:%s,%s', [
+                          'image/gif;base64',
+                          'R0lGODlhAQABAIABAP///wAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==',
+                        ])),
+                        (string)FA::fas('image')->fw(),
+                      ]),
+                      ['id' => $id]
+                    ),
                     $battle->battleImageGear->url
                   ),
                   ['data-pswp' => '']
@@ -766,7 +794,7 @@ use yii\widgets\DetailView;
               })()
               : null,
           ],
-          function ($value) : bool {
+          function (?string $value): bool {
             return $value !== null && $value !== '' && trim($value) !== '';
           }
         )
