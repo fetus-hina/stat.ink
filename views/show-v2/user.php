@@ -78,6 +78,7 @@ if ($user->twitter != '') {
         ],
         true
     ),
+    'jsonUrl' => ['api-v2-battle/index', 'screen_name' => $user->screen_name],
   ]) . "\n" ?>
   <div class="row">
     <div class="col-xs-12 col-sm-8 col-lg-9">

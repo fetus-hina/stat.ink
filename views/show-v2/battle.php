@@ -76,7 +76,12 @@ BattleDetailAsset::register($this);
       ),
     ]) . "\n" ?>
   </h1>
-  <?= SnsWidget::widget() . "\n" ?>
+  <?= SnsWidget::widget([
+    'jsonUrl' => ['api-v2-battle/view',
+        'id' => $battle->id,
+        'format' => 'pretty',
+    ],
+  ]) . "\n" ?>
 <?php /* トップ画像 {{{ */ ?>
   <?= $this->render('_battle_details_top_images', [
     'images' => [
