@@ -6,6 +6,8 @@
  * @author Yoshiyuki Kawashima <ykawashi7@gmail.com>
  */
 
+declare(strict_types=1);
+
 namespace app\components\widgets;
 
 use Yii;
@@ -23,6 +25,7 @@ class SnsWidget extends Widget
 
     public $tweetButton;
     public $feedUrl;
+    public $jsonUrl;
 
     private $initialized = false;
 
@@ -36,7 +39,7 @@ class SnsWidget extends Widget
         parent::init();
 
         // <div id="{id}" class="sns">{tweet} {permalink}</div>
-        $this->template = Html::tag('div', '{tweet} {permalink} {feed}', [
+        $this->template = Html::tag('div', '{tweet} {permalink} {feed} {json}', [
             'id' => '{id}',
             'class' => [
                 'sns',
@@ -45,6 +48,20 @@ class SnsWidget extends Widget
         $this->tweetButton = Yii::createObject([
             'class' => TweetButton::class
         ]);
+
+        $this->view->registerCss(sprintf(
+            '#%s .label{%s}',
+            $this->id,
+            Html::cssStyleFromArray([
+                'cursor'            => 'pointer',
+                'display'           => 'inline-block',
+                'font-size'         => '11px',
+                'font-weight'       => '500',
+                'height'            => '20px',
+                'padding'           => '5px 8px 3px 6px',
+                'vertical-align'    => 'top',
+            ])
+        ));
     }
 
     public function __set($key, $value)
@@ -62,22 +79,25 @@ class SnsWidget extends Widget
     {
         $replace = [
             'id' => $this->id,
-            'tweet' => function () {
+            'tweet' => function (): ?string {
                 return $this->tweetButton->run();
             },
-            'permalink' => function () {
+            'permalink' => function (): ?string {
                 return $this->procPermaLink();
             },
-            'feed' => function () {
+            'feed' => function (): ?string {
                 return $this->procFeed();
+            },
+            'json' => function (): ?string {
+                return $this->procJson();
             },
         ];
         return preg_replace_callback(
             '/\{(\w+)\}/',
-            function ($match) use ($replace) {
+            function (array $match) use ($replace): string {
                 if (isset($replace[$match[1]])) {
                     $value = $replace[$match[1]];
-                    return is_callable($value) ? $value() : $value;
+                    return (string)(is_callable($value) ? $value() : $value);
                 }
                 return $match[0];
             },
@@ -85,24 +105,12 @@ class SnsWidget extends Widget
         );
     }
 
-    protected function procPermaLink()
+    protected function procPermaLink(): ?string
     {
         PermalinkDialogAsset::register($this->view);
         $id = $this->id . '-permalink';
         $this->view->registerCss(sprintf(
-            '.label-permalink{%s}',
-            Html::cssStyleFromArray([
-                'cursor'            => 'pointer',
-                'display'           => 'inline-block',
-                'font-size'         => '11px',
-                'font-weight'       => '500',
-                'height'            => '20px',
-                'padding'           => '5px 8px 1px 6px',
-                'vertical-align'    => 'top',
-            ])
-        ));
-        $this->view->registerCss(sprintf(
-            '.label-permalink:hover{%s}',
+            'body[data-theme="default"] .label-permalink:hover{%s}',
             Html::cssStyleFromArray([
                 'background-color'  => '#1b3a63',
             ])
@@ -129,7 +137,7 @@ class SnsWidget extends Widget
         );
     }
 
-    protected function procFeed()
+    protected function procFeed(): ?string
     {
         $id = $this->id . '-feed';
         if (!$this->feedUrl) {
@@ -138,13 +146,6 @@ class SnsWidget extends Widget
         $this->view->registerCss(sprintf(
             '.label-feed{%s}.label-feed[href]:hover{%s}',
             Html::cssStyleFromArray([
-                'cursor'            => 'pointer',
-                'display'           => 'inline-block',
-                'font-size'         => '11px',
-                'font-weight'       => '500',
-                'height'            => '20px',
-                'padding'           => '5px 6px 1px',
-                'vertical-align'    => 'top',
                 'background-color'  => '#ff7010',
             ]),
             Html::cssStyleFromArray([
@@ -163,6 +164,29 @@ class SnsWidget extends Widget
                     'auto-tooltip',
                 ],
                 'href' => Url::to($this->feedUrl),
+            ]
+        );
+    }
+
+    protected function procJson(): ?string
+    {
+        $id = $this->id . '-json';
+        if (!$this->jsonUrl) {
+            return null;
+        }
+        return Html::tag(
+            'a',
+            (string)FA::fas('code')->fw(),
+            [
+                'id' => $id,
+                'class' => [
+                    'label',
+                    'label-default',
+                    'auto-tooltip',
+                ],
+                'href' => Url::to($this->jsonUrl),
+                'rel' => 'nofollow',
+                'type' => 'application/json',
             ]
         );
     }

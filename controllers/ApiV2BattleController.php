@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2015-2017 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -131,7 +131,8 @@ class ApiV2BattleController extends Controller
             $model->screen_name != ''
                 ? User::findOne(['screen_name' => $model->screen_name])
                 : null,
-            $model
+            $model,
+            $req->get('format') === 'pretty' ? 'pretty' : null,
         );
     }
 
@@ -183,11 +184,12 @@ class ApiV2BattleController extends Controller
         }
         return $this->createList(
             Yii::$app->user->identity,
-            $model
+            $model,
+            $req->get('format') === 'pretty' ? 'pretty' : null,
         );
     }
 
-    private function createList(?User $user, DynamicModel $model) : array
+    private function createList(?User $user, DynamicModel $model, ?string $format = null): array
     {
         $query = Battle2::find()
             ->orderBy(['id' => SORT_DESC])
@@ -288,7 +290,7 @@ class ApiV2BattleController extends Controller
             $query->limit((int)$model->count);
         }
         $res = Yii::$app->response;
-        $res->format = 'compact-json';
+        $res->format = $format === 'pretty' ? 'json' : 'compact-json';
         if ($model->only === 'splatnet_number') {
             $query->select(['splatnet_number'])->asArray();
             $result = [];
@@ -306,7 +308,7 @@ class ApiV2BattleController extends Controller
         }
     }
 
-    public function actionView($id)
+    public function actionView($id, ?string $format = null)
     {
         if (!is_string($id) || !preg_match('/^\d+$/', $id)) {
             throw new NotFoundHttpException(Yii::t('yii', 'Page not found.'));
@@ -315,7 +317,7 @@ class ApiV2BattleController extends Controller
             throw new NotFoundHttpException(Yii::t('yii', 'Page not found.'));
         }
         $res = Yii::$app->response;
-        $res->format = 'compact-json';
+        $res->format = $format === 'pretty' ? 'json' : 'compact-json';
         return $model->toJsonArray();
     }
 
