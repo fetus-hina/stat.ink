@@ -132,6 +132,32 @@ use yii\widgets\DetailView;
       // }}}
     ],
     [
+      'attribute' => 'freshness_id', // {{{
+      'format' => 'raw',
+      'value' => function ($model): ?string {
+        if ($model->freshness === null) {
+            return null;
+        }
+
+        if (!$freshness = $model->freshnessModel) {
+            return null;
+        }
+
+        return implode(' ', [
+          Html::tag('span', (string)FA::fas('flag')->fw(), [
+            'class' => [
+              'freshness-flag',
+              'freshness-flag-' . $freshness->color,
+            ],
+          ]),
+          Html::encode(Yii::$app->formatter->asDecimal($model->freshness, 1)),
+          '/',
+          Html::encode(Yii::t('app-freshness2', $freshness->name)),
+        ]);
+      },
+      // }}}
+    ],
+    [
       'attribute' => 'rank_id', // {{{
       'value' => function ($model) : ?string {
         if ($model->rank_id === null && $model->rank_after_id === null) {

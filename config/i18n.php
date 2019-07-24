@@ -18,6 +18,7 @@ return [
                 'app-event'     => 'event.php',
                 'app-fest'      => 'fest.php',
                 'app-festpower2' => 'festpower2.php',
+                'app-freshness2' => 'freshness2.php',
                 'app-gear'      => 'gear.php',
                 'app-gear2'     => 'gear2.php',
                 'app-gearstat'  => 'gearstat.php',

@@ -167,6 +167,7 @@ return [
     'Filter Query' => 'フィルタクエリ',
     'Filter' => 'フィルタ',
     'Final Count' => '最終カウント',
+    'Freshness' => 'チョーシ',
     'Friend Code (Switch)' => 'フレンドコード (Switch)',
     'Friend Code' => 'フレンドコード',
     'GNU Social, Mastodon etc.' => 'マストドン他',
