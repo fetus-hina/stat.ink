@@ -1361,6 +1361,14 @@ class Battle2 extends ActiveRecord
             'rule' => $this->rule ? $this->rule->toJsonArray() : null,
             'map' => $this->map ? $this->map->toJsonArray() : null,
             'weapon' => $this->weapon ? $this->weapon->toJsonArray() : null,
+            'freshness' => $this->freshness
+                ? [
+                    'freshness' => floatval($this->freshness),
+                    'title' => $this->freshnessModel
+                        ? $this->freshnessModel->toJsonArray()
+                        : null,
+                ]
+                : null,
             'rank' => $this->rank ? $this->rank->toJsonArray() : null,
             'rank_exp' => $this->rank_exp,
             'rank_after' => $this->rankAfter ? $this->rankAfter->toJsonArray() : null,

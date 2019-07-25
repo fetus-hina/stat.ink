@@ -192,7 +192,9 @@ class ApiV2BattleController extends Controller
     private function createList(?User $user, DynamicModel $model, ?string $format = null): array
     {
         $query = Battle2::find()
-            ->orderBy(['id' => SORT_DESC])
+            ->withFreshness()
+            ->with(['freshnessModel'])
+            ->orderBy(['battle2.id' => SORT_DESC])
             ->limit(10);
 
         if ($model->only === 'splatnet_number') {
@@ -313,7 +315,12 @@ class ApiV2BattleController extends Controller
         if (!is_string($id) || !preg_match('/^\d+$/', $id)) {
             throw new NotFoundHttpException(Yii::t('yii', 'Page not found.'));
         }
-        if (!$model = Battle2::findOne(['id' => $id])) {
+        $model = Battle2::find()
+            ->withFreshness()
+            ->andWhere(['battle2.id' => $id])
+            ->limit(1)
+            ->one();
+        if (!$model) {
             throw new NotFoundHttpException(Yii::t('yii', 'Page not found.'));
         }
         $res = Yii::$app->response;

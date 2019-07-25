@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace app\models;
 
 use Yii;
+use app\components\helpers\Translator;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
@@ -46,5 +47,10 @@ class Freshness2 extends ActiveRecord
             'color' => 'Color',
             'range' => 'Range',
         ];
+    }
+
+    public function toJsonArray(): array
+    {
+        return Translator::translateToAll('app-freshness2', $this->name);
     }
 }
