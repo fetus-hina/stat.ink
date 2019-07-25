@@ -172,6 +172,7 @@ return [
     'Filter Query' => '',
     'Final Count' => '',
     'for {title}' => '',
+    'Freshness' => '',
     'Friend Code' => 'Clave de amigo',
     'Friend Code (Switch)' => 'Clave de amigo (Switch)',
     'Game Mode' => '',

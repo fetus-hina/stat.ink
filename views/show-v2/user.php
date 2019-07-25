@@ -569,6 +569,40 @@ if ($user->twitter != '') {
             // }}}
           ],
           [
+            // freshness {{{
+            'label' => Yii::t('app', 'Freshness'),
+            'headerOptions' => ['class' => 'cell-freshness'],
+            'contentOptions' => ['class' => 'cell-freshness nobr'],
+            'format' => 'raw',
+            'value' => function ($model): ?string {
+              if ($model->freshness === null) {
+                return null;
+              }
+
+              $flag = null;
+              if ($model->freshnessModel) {
+                $flag = Html::tag(
+                  'span',
+                  (string)FA::fas('flag')->fw(),
+                  [
+                    'class' => [
+                      'freshness-flag',
+                      'freshness-flag-' . $model->freshnessModel->color,
+                      'auto-tooltip',
+                    ],
+                    'title' => Yii::t('app-freshness2', $model->freshnessModel->name),
+                  ]
+                );
+              }
+
+              return trim(implode(' ', [
+                $flag,
+                Html::encode(Yii::$app->formatter->asDecimal($model->freshness, 1)),
+              ]));
+            },
+            // }}}
+          ],
+          [
             // sub weapon (icon) {{{
             'label' => Html::tag(
               'span',
@@ -1208,6 +1242,7 @@ if ($user->twitter != '') {
           'cell-main-weapon-icon'     => Yii::t('app', 'Weapon (Icon)'),
           'cell-main-weapon'          => Yii::t('app', 'Weapon'),
           'cell-main-weapon-short'    => Yii::t('app', 'Weapon (Short)'),
+          'cell-freshness'            => Yii::t('app', 'Freshness'),
           'cell-sub-weapon-icon'      => Yii::t('app', 'Sub Weapon (Icon)'),
           'cell-sub-weapon'           => Yii::t('app', 'Sub Weapon'),
           'cell-special-icon'         => Yii::t('app', 'Special (Icon)'),

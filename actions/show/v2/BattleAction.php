@@ -21,7 +21,8 @@ class BattleAction extends BaseAction
         $request = Yii::$app->getRequest();
 
         $battle = Battle2::find()
-            ->andWhere(['id' => $request->get('battle')])
+            ->withFreshness()
+            ->andWhere(['battle2.id' => $request->get('battle')])
             ->with([
                 'myTeamPlayers',
                 'myTeamPlayers.rank',

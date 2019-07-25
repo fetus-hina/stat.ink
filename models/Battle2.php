@@ -119,6 +119,7 @@ use yii\web\JsExpression;
  * @property integer $my_team_win_streak
  * @property integer $his_team_win_streak
  * @property float $synergy_bonus
+ * @property float $freshness
  * @property string $remote_addr
  * @property integer $remote_port
  * @property string $start_at
@@ -149,10 +150,13 @@ use yii\web\JsExpression;
  * @property SpecialBattle2 $specialBattle
  * @property TeamNickname2 $myTeamNickname
  * @property TeamNickname2 $hisTeamNickname
+ * @property Freshness2 $freshnessModel
  */
 class Battle2 extends ActiveRecord
 {
     const CLIENT_UUID_NAMESPACE = '15de9082-1c7b-11e7-8f94-001b21a098c2';
+
+    public $freshness_id;
 
     public static function getRoughCount()
     {
@@ -169,6 +173,21 @@ class Battle2 extends ActiveRecord
     public static function find()
     {
         return new class(get_called_class()) extends ActiveQuery {
+            public function withFreshness(): self
+            {
+                if (!$this->select) {
+                    list(, $alias) = $this->getTableNameAndAlias();
+                    $this->select = ["{$alias}.*"];
+                }
+                $this->select['freshness_id'] = 'freshness2.id';
+                $this->join[] = [
+                    'LEFT JOIN',
+                    'freshness2',
+                    "{$alias}.freshness <@ freshness2.range",
+                ];
+                return $this;
+            }
+
             public function applyFilter(Battle2FilterForm $form): self
             {
                 $and = ['and'];
@@ -307,6 +326,7 @@ class Battle2 extends ActiveRecord
                         'timeZone' => $form->timezone,
                     ]);
                 }
+
                 return $this;
             }
 
@@ -725,6 +745,7 @@ class Battle2 extends ActiveRecord
             [['clout', 'total_clout', 'total_clout_after'], 'integer', 'min' => 0],
             [['my_team_win_streak', 'his_team_win_streak'], 'integer', 'min' => 0],
             [['synergy_bonus'], 'number', 'min' => 1.0, 'max' => 9.9],
+            [['freshness'], 'number', 'min' => 0.0, 'max' => 99.9],
             [['client_uuid'], 'string'],
             [['client_uuid'], 'match',
                 'pattern' => '/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i',
@@ -898,6 +919,8 @@ class Battle2 extends ActiveRecord
             'my_team_win_streak' => Yii::t('app', 'Win streak (Good guys)'),
             'his_team_win_streak' => Yii::t('app', 'Win streak (Bad guys)'),
             'synergy_bonus' => Yii::t('app', 'Synergy Bonus'),
+            'freshness' => Yii::t('app', 'Freshness'),
+            'freshness_id' => Yii::t('app', 'Freshness'),
         ];
     }
 
@@ -1136,6 +1159,12 @@ class Battle2 extends ActiveRecord
         return $this->hasOne(TeamNickname2::class, ['id' => 'his_team_nickname_id']);
     }
 
+    // Call $query->withFreshness() to use this
+    public function getFreshnessModel(): ActiveQuery
+    {
+        return $this->hasOne(Freshness2::class, ['id' => 'freshness_id']);
+    }
+
     public function getIsMeaningful(): bool
     {
         $props = [
@@ -1332,6 +1361,14 @@ class Battle2 extends ActiveRecord
             'rule' => $this->rule ? $this->rule->toJsonArray() : null,
             'map' => $this->map ? $this->map->toJsonArray() : null,
             'weapon' => $this->weapon ? $this->weapon->toJsonArray() : null,
+            'freshness' => $this->freshness
+                ? [
+                    'freshness' => floatval($this->freshness),
+                    'title' => $this->freshnessModel
+                        ? $this->freshnessModel->toJsonArray()
+                        : null,
+                ]
+                : null,
             'rank' => $this->rank ? $this->rank->toJsonArray() : null,
             'rank_exp' => $this->rank_exp,
             'rank_after' => $this->rankAfter ? $this->rankAfter->toJsonArray() : null,
