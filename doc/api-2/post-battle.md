@@ -293,30 +293,30 @@ You can also send "`#` + SplatNet-Number" like `#5` as a secondary option (not r
 |`mongara`               |`16`                  |モンガラキャンプ場<br>Camp Triggerfish                                 |                                                                             |
 |`mozuku`                |`10`                  |モズク農園<br>Kelp Dome                                                |                                                                             |
 |`mutsugoro`             |`22`                  |ムツゴ楼<br>Skipper Pavilion                                           |                                                                             |
-|`mystery_01`            |                      |ミステリ: 追憶のスライド<br>Shifty: Wayslide Cool                      |                                                                             |
-|`mystery_02`            |                      |ミステリ: 約束の丘で会いましょう<br>Shifty: The Secret of S.P.L.A.T.   |                                                                             |
-|`mystery_03`            |                      |ミステリ: ハンサムなスポンジ<br>Shifty: Goosponge                      |                                                                             |
-|`mystery_04`            |                      |ミステリ: ウィンドミル・キス<br>Shifty: Windmill House on the Pearlie  |                                                                             |
-|`mystery_05`            |                      |ミステリ: バーの一族<br>Shifty: Fancy Spew                             |                                                                             |
-|`mystery_06`            |                      |ミステリ: トランスペアレント・ボーイ<br>Shifty: Zone of Glass          |                                                                             |
-|`mystery_07`            |                      |ミステリ: ヒメちゃんのキャノン<br>Shifty: Cannon Fire Pearl            |                                                                             |
-|`mystery_08`            |                      |ミステリ: トジトジ<br>Shifty: The Bunker Games                         |                                                                             |
-|`mystery_09`            |                      |ミステリ: イタズラなヒキヨセ<br>Shifty: Grapplink Girl                 |                                                                             |
-|`mystery_10`            |                      |ミステリ: あしたはデンデン<br>Shifty: Zappy Longshocking               |                                                                             |
-|`mystery_11`            |                      |ミステリ: 天秤ラヴァーズ<br>Shifty: A Swiftly Tilting Balance          |                                                                             |
-|`mystery_12`            |                      |ミステリ: たこあし注意報!<br>Shifty: Sweet Valley Tentacles            |                                                                             |
-|`mystery_13`            |                      |ミステリ: ヌリとスイッチの吐息<br>Shifty: The Switches                 |                                                                             |
-|`mystery_14`            |                      |ミステリ: ジャンプマットの詩<br>Shifty: The Bouncey Twins              |                                                                             |
-|`mystery_15`            |                      |ミステリ: キミのハートにライド・オン!<br>Shifty: Railway Chillin'      |                                                                             |
-|`mystery_16`            |                      |ミステリ: カンケツセンのばら<br>Shifty: Gusher Towns                   |                                                                             |
-|`mystery_17`            |                      |ミステリ: 恋はダッシュ×3<br>Shifty: The Maze Dasher                   |                                                                             |
-|`mystery_18`            |                      |ミステリ: ドーザームーン<br>Shifty: Flooders in the Attic              |                                                                             |
-|`mystery_19`            |                      |ミステリ: クイックバスケット<br>Shifty: The Splat in Our Zones         |                                                                             |
-|`mystery_20`            |                      |ミステリ: ヌリヌリトゥナイト<br>Shifty: The Ink is Spreading           |                                                                             |
-|`mystery_21`            |                      |ミステリ: ビッグ゠パネルが止まらない<br>Shifty: Bridge to Tentaswitchia|                                                                             |
-|`mystery_22`            |                      |ミステリ: 思い出コロガリウム<br>Shifty: The Chronicles of Rolonium     |                                                                             |
-|`mystery_23`            |                      |ミステリ: ピロピロなんかじゃない<br>Shifty: Furler in the Ashes        |                                                                             |
-|`mystery_24`            |                      |ミステリ: DEAR SENPAI<br>Shifty: MC.Princess Diaries                   |                                                                             |
+|`mystery_01`            |`101`                 |ミステリ: 追憶のスライド<br>Shifty: Wayslide Cool                      |                                                                             |
+|`mystery_02`            |`102`                 |ミステリ: 約束の丘で会いましょう<br>Shifty: The Secret of S.P.L.A.T.   |                                                                             |
+|`mystery_03`            |`103`                 |ミステリ: ハンサムなスポンジ<br>Shifty: Goosponge                      |                                                                             |
+|`mystery_04`            |`100`                 |ミステリ: ウィンドミル・キス<br>Shifty: Windmill House on the Pearlie  |                                                                             |
+|`mystery_05`            |`107`                 |ミステリ: バーの一族<br>Shifty: Fancy Spew                             |                                                                             |
+|`mystery_06`            |`106`                 |ミステリ: トランスペアレント・ボーイ<br>Shifty: Zone of Glass          |                                                                             |
+|`mystery_07`            |`105`                 |ミステリ: ヒメちゃんのキャノン<br>Shifty: Cannon Fire Pearl            |                                                                             |
+|`mystery_08`            |`110`                 |ミステリ: トジトジ<br>Shifty: The Bunker Games                         |                                                                             |
+|`mystery_09`            |`108`                 |ミステリ: イタズラなヒキヨセ<br>Shifty: Grapplink Girl                 |                                                                             |
+|`mystery_10`            |`109`                 |ミステリ: あしたはデンデン<br>Shifty: Zappy Longshocking               |                                                                             |
+|`mystery_11`            |`111`                 |ミステリ: 天秤ラヴァーズ<br>Shifty: A Swiftly Tilting Balance          |                                                                             |
+|`mystery_12`            |`113`                 |ミステリ: たこあし注意報!<br>Shifty: Sweet Valley Tentacles            |                                                                             |
+|`mystery_13`            |`112`                 |ミステリ: ヌリとスイッチの吐息<br>Shifty: The Switches                 |                                                                             |
+|`mystery_14`            |`114`                 |ミステリ: ジャンプマットの詩<br>Shifty: The Bouncey Twins              |                                                                             |
+|`mystery_15`            |`115`                 |ミステリ: キミのハートにライド・オン!<br>Shifty: Railway Chillin'      |                                                                             |
+|`mystery_16`            |`116`                 |ミステリ: カンケツセンのばら<br>Shifty: Gusher Towns                   |                                                                             |
+|`mystery_17`            |`117`                 |ミステリ: 恋はダッシュ×3<br>Shifty: The Maze Dasher                   |                                                                             |
+|`mystery_18`            |`118`                 |ミステリ: ドーザームーン<br>Shifty: Flooders in the Attic              |                                                                             |
+|`mystery_19`            |`119`                 |ミステリ: クイックバスケット<br>Shifty: The Splat in Our Zones         |                                                                             |
+|`mystery_20`            |`120`                 |ミステリ: ヌリヌリトゥナイト<br>Shifty: The Ink is Spreading           |                                                                             |
+|`mystery_21`            |`121`                 |ミステリ: ビッグ゠パネルが止まらない<br>Shifty: Bridge to Tentaswitchia|                                                                             |
+|`mystery_22`            |`122`                 |ミステリ: 思い出コロガリウム<br>Shifty: The Chronicles of Rolonium     |                                                                             |
+|`mystery_23`            |`123`                 |ミステリ: ピロピロなんかじゃない<br>Shifty: Furler in the Ashes        |                                                                             |
+|`mystery_24`            |`124`                 |ミステリ: DEAR SENPAI<br>Shifty: MC.Princess Diaries                   |                                                                             |
 |`otoro`                 |`19`                  |ホテルニューオートロ<br>New Albacore Hotel                             |                                                                             |
 |`shottsuru`             |`17`                  |ショッツル鉱山<br>Piranha Pit                                          |                                                                             |
 |`sumeshi`               |`20`                  |スメーシーワールド<br>Wahoo World                                      |                                                                             |
