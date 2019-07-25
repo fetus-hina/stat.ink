@@ -44,6 +44,8 @@ use app\models\User;
 use app\models\Weapon2;
 use yii\base\InvalidParamException;
 use yii\base\Model;
+use yii\behaviors\AttributeBehavior;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
 use yii\web\UploadedFile;
 
@@ -125,6 +127,7 @@ class PostBattleForm extends Model
     public $agent_version;
     public $agent_custom;
     public $agent_variables;
+    public $freshness;
     public $start_at;
     public $end_at;
 
@@ -174,6 +177,44 @@ class PostBattleForm extends Model
                         'fest_pro' => 'standard',
                     ],
                 ],
+            ],
+            [
+                'class' => AttributeBehavior::class,
+                'preserveNonEmptyValues' => true,
+                'attributes' => [
+                    Model::EVENT_BEFORE_VALIDATE => 'freshness',
+                ],
+                'value' => function ($event) {
+                    try {
+                        if ($this->freshness) {
+                            return $this->freshness;
+                        }
+
+                        if ($this->splatnet_json == '') {
+                            return null;
+                        }
+
+                        if (is_object($this->splatnet_json)) {
+                            $json = $this->splatnet_json;
+                        } elseif (is_array($this->splatnet_json)) {
+                            $json = $this->splatnet_json;
+                        } elseif (is_string($this->splatnet_json)) {
+                            $json = Json::decode($this->splatnet_json);
+                        } else {
+                            return null;
+                        }
+
+                        $value = filter_var(
+                            ArrayHelper::getValue($json, 'win_meter', null),
+                            FILTER_VALIDATE_FLOAT
+                        );
+                        if (is_float($value) && (0 <= $value && $value <= 99.9)) {
+                            return $value;
+                        }
+                    } catch (\Exception $e) {
+                    }
+                    return null;
+                }
             ],
         ];
     }
@@ -336,6 +377,7 @@ class PostBattleForm extends Model
             [['my_team_estimate_fest_power', 'his_team_estimate_fest_power'], 'integer', 'min' => 0],
             [['x_power', 'x_power_after'], 'number', 'min' => 0],
             [['estimate_x_power'], 'integer', 'min' => 0],
+            [['freshness'], 'number', 'min' => 0.0, 'max' => 99.9],
         ];
     }
 
@@ -553,6 +595,7 @@ class PostBattleForm extends Model
         $battle->link_url       = $this->link_url;
         $battle->note           = $this->note;
         $battle->private_note   = $this->private_note;
+        $battle->freshness      = $floatval($this->freshness);
         $battle->agent_id       = $this->getAgentId($this->agent, $this->agent_version);
         $battle->ua_custom      = $this->agent_custom;
         $battle->ua_variables   = $this->agent_variables
