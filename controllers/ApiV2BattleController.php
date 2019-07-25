@@ -192,8 +192,6 @@ class ApiV2BattleController extends Controller
     private function createList(?User $user, DynamicModel $model, ?string $format = null): array
     {
         $query = Battle2::find()
-            ->withFreshness()
-            ->with(['freshnessModel'])
             ->orderBy(['battle2.id' => SORT_DESC])
             ->limit(10);
 
@@ -202,55 +200,57 @@ class ApiV2BattleController extends Controller
                 ->andWhere(['not', ['{{battle2}}.[[splatnet_number]]' => null]])
                 ->orderBy(['{{battle2}}.[[splatnet_number]]' => SORT_DESC]);
         } else {
-            $query->with([
-                // {{{
-                'agent',
-                'agentGameVersion',
-                'battleDeathReasons',
-                'battleImageGear',
-                'battleImageJudge',
-                'battleImageResult',
-                'battlePlayers',
-                'battlePlayers.festTitle',
-                'battlePlayers.gender',
-                'battlePlayers.rank',
-                'battlePlayers.rank.group',
-                'battlePlayers.weapon',
-                'battlePlayers.weapon.canonical',
-                'battlePlayers.weapon.mainReference',
-                'battlePlayers.weapon.special',
-                'battlePlayers.weapon.subweapon',
-                'battlePlayers.weapon.type',
-                'battlePlayers.weapon.type.category',
-                'env',
-                'events',
-                'festTitle',
-                'festTitleAfter',
-                'gender',
-                'hisTeamFestTheme',
-                'lobby',
-                'map',
-                'mode',
-                'myTeamFestTheme',
-                'rank',
-                'rank.group',
-                'rankAfter',
-                'rankAfter.group',
-                'rule',
-                'species',
-                'splatnetJson',
-                'user',
-                'user.env',
-                'user.userStat',
-                'user.userStat2',
-                'version',
-                'weapon',
-                'weapon.special',
-                'weapon.subweapon',
-                'weapon.type',
-                'weapon.type.category',
-                // }}}
-            ]);
+            $query->withFreshness()
+                ->with([
+                    // {{{
+                    'agent',
+                    'agentGameVersion',
+                    'battleDeathReasons',
+                    'battleImageGear',
+                    'battleImageJudge',
+                    'battleImageResult',
+                    'battlePlayers',
+                    'battlePlayers.festTitle',
+                    'battlePlayers.gender',
+                    'battlePlayers.rank',
+                    'battlePlayers.rank.group',
+                    'battlePlayers.weapon',
+                    'battlePlayers.weapon.canonical',
+                    'battlePlayers.weapon.mainReference',
+                    'battlePlayers.weapon.special',
+                    'battlePlayers.weapon.subweapon',
+                    'battlePlayers.weapon.type',
+                    'battlePlayers.weapon.type.category',
+                    'env',
+                    'events',
+                    'festTitle',
+                    'festTitleAfter',
+                    'freshnessModel',
+                    'gender',
+                    'hisTeamFestTheme',
+                    'lobby',
+                    'map',
+                    'mode',
+                    'myTeamFestTheme',
+                    'rank',
+                    'rank.group',
+                    'rankAfter',
+                    'rankAfter.group',
+                    'rule',
+                    'species',
+                    'splatnetJson',
+                    'user',
+                    'user.env',
+                    'user.userStat',
+                    'user.userStat2',
+                    'version',
+                    'weapon',
+                    'weapon.special',
+                    'weapon.subweapon',
+                    'weapon.type',
+                    'weapon.type.category',
+                    // }}}
+                ]);
 
             foreach (['headgear', 'clothing', 'shoes'] as $_) {
                 $query->with([
