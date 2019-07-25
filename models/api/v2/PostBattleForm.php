@@ -44,6 +44,8 @@ use app\models\User;
 use app\models\Weapon2;
 use yii\base\InvalidParamException;
 use yii\base\Model;
+use yii\behaviors\AttributeBehavior;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
 use yii\web\UploadedFile;
 
@@ -175,6 +177,44 @@ class PostBattleForm extends Model
                         'fest_pro' => 'standard',
                     ],
                 ],
+            ],
+            [
+                'class' => AttributeBehavior::class,
+                'preserveNonEmptyValues' => true,
+                'attributes' => [
+                    Model::EVENT_BEFORE_VALIDATE => 'freshness',
+                ],
+                'value' => function ($event) {
+                    try {
+                        if ($this->freshness) {
+                            return $this->freshness;
+                        }
+
+                        if ($this->splatnet_json == '') {
+                            return null;
+                        }
+
+                        if (is_object($this->splatnet_json)) {
+                            $json = $this->splatnet_json;
+                        } elseif (is_array($this->splatnet_json)) {
+                            $json = $this->splatnet_json;
+                        } elseif (is_string($this->splatnet_json)) {
+                            $json = Json::decode($this->splatnet_json);
+                        } else {
+                            return null;
+                        }
+
+                        $value = filter_var(
+                            ArrayHelper::getValue($json, 'win_meter', null),
+                            FILTER_VALIDATE_FLOAT
+                        );
+                        if (is_float($value) && (0 <= $value && $value <= 99.9)) {
+                            return $value;
+                        }
+                    } catch (\Exception $e) {
+                    }
+                    return null;
+                }
             ],
         ];
     }
