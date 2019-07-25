@@ -35,10 +35,10 @@ class BugFixController extends Controller
         $indexName = 'tmp_ix_battle2_splatnet_' . hash('crc32b', __METHOD__);
         echo "Creating index ...\n";
         $db->createCommand(
-                "CREATE UNIQUE INDEX CONCURRENTLY IF NOT EXISTS " .
-                "[[{$indexName}]] ON {{battle2_splatnet}}([[id]]) " .
-                "WHERE (JSONB_TYPEOF([[json]]) = 'string')"
-            )
+            "CREATE UNIQUE INDEX CONCURRENTLY IF NOT EXISTS " .
+            "[[{$indexName}]] ON {{battle2_splatnet}}([[id]]) " .
+            "WHERE (JSONB_TYPEOF([[json]]) = 'string')"
+        )
             ->execute();
         echo "Created\n";
 
@@ -63,16 +63,16 @@ class BugFixController extends Controller
                     ->column();
                 echo min($idList) . "-" . max($idList) . " ";
                 $db->createCommand(
-                        "UPDATE {{battle2_splatnet}} " .
-                        "SET [[json]] = ([[json]]->>0)::JSONB " .
-                        "WHERE (JSONB_TYPEOF([[json]]) = 'string') " .
-                        "AND ([[id]] IN (" . implode(', ', array_map(
-                            function ($id) use ($db): string {
-                                return (string)$db->quoteValue($id);
-                            },
-                            $idList
-                        )) . "))"
-                    )
+                    "UPDATE {{battle2_splatnet}} " .
+                    "SET [[json]] = ([[json]]->>0)::JSONB " .
+                    "WHERE (JSONB_TYPEOF([[json]]) = 'string') " .
+                    "AND ([[id]] IN (" . implode(', ', array_map(
+                        function ($id) use ($db): string {
+                            return (string)$db->quoteValue($id);
+                        },
+                        $idList
+                    )) . "))"
+                )
                     ->execute();
                 echo "commit ...\n";
                 return 0;
