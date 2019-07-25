@@ -53,10 +53,13 @@ class UserAction extends BaseAction
         );
 
         $battle = Battle2::find()
+            ->withFreshness()
             ->with([
                 'agent',
+                'battlePlayersPure',
                 'festTitle',
                 'festTitleAfter',
+                'freshnessModel',
                 'gender',
                 'lobby',
                 'map',
@@ -65,16 +68,15 @@ class UserAction extends BaseAction
                 'rank',
                 'rankAfter',
                 'rule',
+                'specialBattle',
                 'user',
+                'version',
                 'weapon',
                 'weapon.special',
                 'weapon.subweapon',
                 'battlePlayers' => function ($query) {
                     $query->orderBy(false);
                 },
-                'battlePlayersPure',
-                'specialBattle',
-                'version',
             ])
             ->andWhere(['user_id' => $user->id])
             ->orderBy(['battle2.id' => SORT_DESC]);
