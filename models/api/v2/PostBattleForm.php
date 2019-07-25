@@ -125,6 +125,7 @@ class PostBattleForm extends Model
     public $agent_version;
     public $agent_custom;
     public $agent_variables;
+    public $freshness;
     public $start_at;
     public $end_at;
 
@@ -336,6 +337,7 @@ class PostBattleForm extends Model
             [['my_team_estimate_fest_power', 'his_team_estimate_fest_power'], 'integer', 'min' => 0],
             [['x_power', 'x_power_after'], 'number', 'min' => 0],
             [['estimate_x_power'], 'integer', 'min' => 0],
+            [['freshness'], 'number', 'min' => 0.0, 'max' => 99.9],
         ];
     }
 
@@ -553,6 +555,7 @@ class PostBattleForm extends Model
         $battle->link_url       = $this->link_url;
         $battle->note           = $this->note;
         $battle->private_note   = $this->private_note;
+        $battle->freshness      = $floatval($this->freshness);
         $battle->agent_id       = $this->getAgentId($this->agent, $this->agent_version);
         $battle->ua_custom      = $this->agent_custom;
         $battle->ua_variables   = $this->agent_variables
