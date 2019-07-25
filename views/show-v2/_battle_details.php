@@ -6,6 +6,7 @@ use app\assets\Spl2WeaponAsset;
 use app\components\helpers\Battle as BattleHelper;
 use app\components\widgets\FA;
 use app\components\widgets\FestPowerHistory;
+use app\components\widgets\FreshnessHistory;
 use app\components\widgets\Label;
 use app\components\widgets\TimestampColumnWidget;
 use app\components\widgets\XPowerHistory;
@@ -143,7 +144,7 @@ use yii\widgets\DetailView;
             return null;
         }
 
-        return implode(' ', [
+        $statusLine = implode(' ', [
           Html::tag('span', (string)FA::fas('flag')->fw(), [
             'class' => [
               'freshness-flag',
@@ -154,6 +155,13 @@ use yii\widgets\DetailView;
           '/',
           Html::encode(Yii::t('app-freshness2', $freshness->name)),
         ]);
+
+        $history = FreshnessHistory::widget(['current' => $model]);
+
+        return implode('<br>', array_filter([
+          $statusLine,
+          $history,
+        ]));
       },
       // }}}
     ],
