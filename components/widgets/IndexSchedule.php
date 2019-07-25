@@ -45,7 +45,7 @@ class IndexSchedule extends Widget
 
         $manip = function (?stdClass $schedule, string $key): ?stdClass {
             // {{{
-            if (!$schedule || !$schedule->$key) {
+            if (!$schedule || !($schedule->$key ?? null)) {
                 return null;
             }
 
