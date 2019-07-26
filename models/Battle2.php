@@ -20,9 +20,8 @@ use app\components\behaviors\TimestampBehavior;
 use app\components\helpers\Battle as BattleHelper;
 use app\components\helpers\BattleSummarizer;
 use app\components\helpers\DateTimeFormatter;
-use app\jobs\UserStatsJob;
+use app\components\jobs\UserStatsJob;
 use jp3cki\uuid\Uuid;
-use shakura\yii2\gearman\JobWorkload;
 use stdClass;
 use yii\behaviors\AttributeBehavior;
 use yii\db\ActiveQuery;
@@ -1822,15 +1821,10 @@ class Battle2 extends ActiveRecord
     public function updateUserStats(): void
     {
         UserStat2::getLock($this->user_id);
-        Yii::$app->gearman->getDispatcher()->background(
-            UserStatsJob::jobName(),
-            new JobWorkload([
-                'params' => [
-                    'version' => 2,
-                    'user' => $this->user_id,
-                ],
-            ])
-        );
+        Yii::$app->queue->push(new UserStatsJob([
+            'version' => 2,
+            'user' => $this->user_id,
+        ]));
     }
 
     public function deleteRelated(): void

@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2015 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -11,11 +11,11 @@ use DateTimeZone;
 use Yii;
 use app\components\helpers\DateTimeFormatter;
 use app\components\helpers\ImageConverter;
+use app\components\jobs\ImageOptimizeJob;
+use app\components\jobs\ImageS3Job;
+use app\components\jobs\OstatusJob;
+use app\components\jobs\SlackJob;
 use app\components\web\ServiceUnavailableHttpException;
-use app\jobs\ImageOptimizeJob;
-use app\jobs\ImageS3Job;
-use app\jobs\battle\OstatusJob;
-use app\jobs\battle\SlackJob;
 use app\models\Agent;
 use app\models\Battle;
 use app\models\OstatusPubsubhubbub;
@@ -24,7 +24,6 @@ use app\models\User;
 use app\models\api\v1\DeleteBattleForm;
 use app\models\api\v1\PatchBattleForm;
 use app\models\api\v1\PostBattleForm;
-use shakura\yii2\gearman\JobWorkload;
 use yii\base\DynamicModel;
 use yii\helpers\Url;
 use yii\web\MethodNotAllowedHttpException;
@@ -271,7 +270,10 @@ class BattleAction extends BaseAction
             ], 400);
         }
         if ($form->agent != '' || $form->agent_version != '') {
-            $agent = Agent::findOne(['name' => (string)$form->agent, 'version' => (string)$form->agent_version]);
+            $agent = Agent::findOne([
+                'name' => (string)$form->agent,
+                'version' => (string)$form->agent_version,
+            ]);
             if (!$agent) {
                 $agent = new Agent();
                 $agent->name = (string)$form->agent;
@@ -337,12 +339,18 @@ class BattleAction extends BaseAction
         }
         $imageOutputDir = Yii::getAlias('@webroot/images');
         $time = time();
-        $imageArchiveOutputDir = Yii::$app->params['amazonS3'] && Yii::$app->params['amazonS3'][0]['bucket'] != ''
-            ? (Yii::getAlias('@app/runtime/image-archive/queue') . '/' . gmdate('Ymd', $time + 9 * 3600)) // JST
-            : null;
-        $imageArchiveOptimizeDir = ($imageArchiveOutputDir === null)
-            ? null
-            : (Yii::getAlias('@app/runtime/image-archive/interim') . '/' . gmdate('Ymd', $time + 9 * 3600));
+        $imageArchiveOutputDir = null;
+        if (Yii::$app->params['amazonS3'] && Yii::$app->params['amazonS3'][0]['bucket'] != '') {
+            $imageArchiveOutputDir = Yii::getAlias('@app/runtime/image-archive/queue') .
+                '/' .
+                gmdate('Ymd', $time + 9 * 3600); // JST
+        }
+        $imageArchiveOptimizeDir = null;
+        if ($imageArchiveOutputDir !== null) {
+            $imageArchiveOptimizeDir = Yii::getAlias('@app/runtime/image-archive/interim') .
+                '/' .
+                gmdate('Ymd', $time + 9 * 3600);
+        }
         if ($image = $form->toImageJudge($battle)) {
             $binary = is_string($form->image_judge)
                 ? $form->image_judge
@@ -380,15 +388,10 @@ class BattleAction extends BaseAction
             }
             if ($imageArchiveOutputDir && $imageArchiveOptimizeDir) {
                 $basename = sprintf('%d-judge.png', $battle->id);
-                Yii::$app->gearman->getDispatcher()->background(
-                    ImageOptimizeJob::jobName(),
-                    new JobWorkload([
-                        'params' => [
-                            'inPath' => "{$imageArchiveOutputDir}/{$basename}",
-                            'outPath' => "{$imageArchiveOptimizeDir}-judge/{$basename}",
-                        ],
-                    ])
-                );
+                Yii::$app->queue->push(new ImageOptimizeJob([
+                    'inPath' => "{$imageArchiveOutputDir}/{$basename}",
+                    'outPath' => "{$imageArchiveOptimizeDir}-judge/{$basename}",
+                ]));
             }
         }
         if ($image = $form->toImageResult($battle)) {
@@ -441,15 +444,10 @@ class BattleAction extends BaseAction
             }
             if ($imageArchiveOutputDir && $imageArchiveOptimizeDir) {
                 $basename = sprintf('%d-result.png', $battle->id);
-                Yii::$app->gearman->getDispatcher()->background(
-                    ImageOptimizeJob::jobName(),
-                    new JobWorkload([
-                        'params' => [
-                            'inPath' => "{$imageArchiveOutputDir}/{$basename}",
-                            'outPath' => "{$imageArchiveOptimizeDir}-result/{$basename}",
-                        ],
-                    ])
-                );
+                Yii::$app->queue->push(new ImageOptimizeJob([
+                    'inPath' => "{$imageArchiveOutputDir}/{$basename}",
+                    'outPath' => "{$imageArchiveOptimizeDir}-result/{$basename}",
+                ]));
             }
         }
         if ($image = $form->toImageGear($battle)) {
@@ -489,15 +487,10 @@ class BattleAction extends BaseAction
             }
             if ($imageArchiveOutputDir && $imageArchiveOptimizeDir) {
                 $basename = sprintf('%d-gear.png', $battle->id);
-                Yii::$app->gearman->getDispatcher()->background(
-                    ImageOptimizeJob::jobName(),
-                    new JobWorkload([
-                        'params' => [
-                            'inPath' => "{$imageArchiveOutputDir}/{$basename}",
-                            'outPath' => "{$imageArchiveOptimizeDir}-gear/{$basename}",
-                        ],
-                    ])
-                );
+                Yii::$app->queue->push(new ImageOptimizeJob([
+                    'inPath' => "{$imageArchiveOutputDir}/{$basename}",
+                    'outPath' => "{$imageArchiveOptimizeDir}-gear/{$basename}",
+                ]));
             }
         }
 
@@ -569,24 +562,33 @@ class BattleAction extends BaseAction
     {
         return $this->runGetImpl2(
             $battle,
-            $battle->getBattleDeathReasons()->with(['reason', 'reason.type'])->all(),
+            $battle->getBattleDeathReasons()
+                ->with([
+                    'reason',
+                    'reason.type',
+                ])
+                ->all(),
             $battle->battlePlayers,
             $battle->agent
         );
     }
 
-    private function runGetImpl2(Battle $battle, array $deathReasons, array $players = null, Agent $agent = null)
-    {
+    private function runGetImpl2(
+        Battle $battle,
+        array $deathReasons,
+        ?array $players = null,
+        ?Agent $agent = null
+    ) {
         $ret = $battle->toJsonArray();
         $ret['death_reasons'] = array_map(
-            function ($model) {
+            function ($model): array {
                 return $model->toJsonArray();
             },
             $deathReasons
         );
         $ret['players'] = is_array($players) && !empty($players)
             ? array_map(
-                function ($model) {
+                function ($model): array {
                     return $model->toJsonArray();
                 },
                 $players
@@ -606,43 +608,28 @@ class BattleAction extends BaseAction
 
         // Slack 投稿
         if ($user && $user->isSlackIntegrated) {
-            Yii::$app->gearman->getDispatcher()->background(
-                SlackJob::jobName(),
-                new JobWorkload([
-                    'params' => [
-                        'hostInfo' => Yii::$app->getRequest()->getHostInfo(),
-                        'version' => 1,
-                        'battle' => $battle->id,
-                    ],
-                ])
-            );
+            Yii::$app->queue->push(new SlackJob([
+                'hostInfo' => Yii::$app->getRequest()->getHostInfo(),
+                'version' => 1,
+                'battle' => $battle->id,
+            ]));
         }
 
         // Ostatus 投稿
         if ($user && $user->isOstatusIntegrated) {
-            Yii::$app->gearman->getDispatcher()->background(
-                OstatusJob::jobName(),
-                new JobWorkload([
-                    'params' => [
-                        'hostInfo' => Yii::$app->getRequest()->getHostInfo(),
-                        'version' => 1,
-                        'battle' => $battle->id,
-                    ],
-                ])
-            );
+            Yii::$app->queue->push(new OstatusJob([
+                'hostInfo' => Yii::$app->getRequest()->getHostInfo(),
+                'version' => 1,
+                'battle' => $battle->id,
+            ]));
         }
 
         // S3 への画像アップロード
         if (Yii::$app->imgS3->enabled) {
             foreach ($battle->battleImages as $image) {
-                Yii::$app->gearman->getDispatcher()->background(
-                    ImageS3Job::jobName(),
-                    new JobWorkload([
-                        'params' => [
-                            'file' => $image->filename,
-                        ],
-                    ])
-                );
+                Yii::$app->queue->push(new ImageS3Job([
+                    'file' => $image->filename,
+                ]));
             }
         }
     }

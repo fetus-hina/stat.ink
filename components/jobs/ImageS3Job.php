@@ -1,37 +1,35 @@
 <?php
 /**
- * @copyright Copyright (C) 2015-2017 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
 
-namespace app\jobs;
+declare(strict_types=1);
 
-use GearmanJob;
+namespace app\components\jobs;
+
+use Exception;
 use Yii;
-use shakura\yii2\gearman\JobWorkload;
+use yii\base\BaseObject;
+use yii\queue\JobInterface;
 
-class ImageS3Job extends BaseJob
+class ImageS3Job extends BaseObject implements JobInterface
 {
-    public static function jobName() : string
-    {
-        return sprintf(
-            'statinkImageS3_%s',
-            substr(hash('sha256', __DIR__), 0, 8)
-        );
-    }
+    public $file;
 
-    public function job(JobWorkload $workload, GearmanJob $job)
+    public function execute($queue)
     {
-        if (!Yii::$app->imgS3->enabled) {
+        $s3 = Yii::$app->imgS3;
+        if (!$s3 || !$s3->enabled) {
             return;
         }
 
-        $params = $workload->getParams();
-        $file = $params['file'];
+        $file = (string)$this->file;
         if (!preg_match('/\b([a-z2-9]{26}\.jpg)$/', $file, $match)) {
             return;
         }
+
         $file = $match[1];
         $path = implode('/', [
             Yii::getAlias('@app/web/images'),
@@ -43,18 +41,18 @@ class ImageS3Job extends BaseJob
                 return;
             }
             try {
-                $ret = Yii::$app->imgS3->uploadFile(
+                $ret = $s3->uploadFile(
                     $path,
                     implode('/', [
                         substr($file, 0, 2),
-                        $file
+                        $file,
                     ])
                 );
                 if ($ret) {
                     @unlink($path);
                     return;
                 }
-            } catch (\Exception $e) {
+            } catch (Exception $e) {
             }
         }
     }

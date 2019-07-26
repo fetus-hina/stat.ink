@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2015-2017 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -9,8 +9,7 @@ namespace app\commands;
 
 use Yii;
 use app\components\ImageS3;
-use app\jobs\ImageS3Job;
-use shakura\yii2\gearman\JobWorkload;
+use app\components\jobs\ImageS3Job;
 use yii\console\Controller;
 use yii\helpers\Console;
 use yii\helpers\FileHelper;
@@ -75,14 +74,9 @@ class ImageS3Controller extends Controller
             }
             $this->stderr("SUCCESS!\n", Console::BOLD, Console::FG_GREEN);
         } else {
-            Yii::$app->gearman->getDispatcher()->background(
-                ImageS3Job::jobName(),
-                new JobWorkload([
-                    'params' => [
-                        'file' => $path,
-                    ],
-                ])
-            );
+            Yii::$app->queue->push(new ImageS3Job([
+                'file' => $path,
+            ]));
             $this->stderr(sprintf(
                 "%s: %s\n",
                 Console::ansiFormat("Queued", [Console::BOLD, Console::FG_GREEN]),
@@ -115,23 +109,6 @@ class ImageS3Controller extends Controller
             }
         };
         foreach ($iterator as $entry) {
-            $startTime = microtime(true);
-            while (true) {
-                $status = $this->shouldPushUploadQueue();
-                if ($status === null) {
-                    $this->stderr("Could not push to queue. Gearman working?\n", Console::FG_RED, Console::BOLD);
-                    return 1;
-                } elseif ($status) {
-                    // OK. ready to push
-                    break;
-                } elseif (microtime(true) - $startTime >= 30) {
-                    // Timeout
-                    $this->stderr("Queue timeout. Gearman working?\n", Console::FG_RED, Console::BOLD);
-                    return 1;
-                } else {
-                    usleep(100 * 1000);
-                }
-            }
             $status = $this->actionUpload($entry->getBasename(), true);
         }
         //}}}
@@ -149,39 +126,13 @@ class ImageS3Controller extends Controller
             return false;
         }
         if (!flock($lock, LOCK_EX | LOCK_NB)) {
-            $this->stderr("Could not get file lock. Another process running?\n", Console::FG_RED, Console::BOLD);
+            $this->stderr(
+                "Could not get file lock. Another process running?\n",
+                Console::FG_RED,
+                Console::BOLD
+            );
             return false;
         }
         return $lock;
-    }
-
-    private function shouldPushUploadQueue() : ?bool
-    {
-        if (!$status = $this->getGearmanQueueStatus(ImageS3Job::jobName())) {
-            return null;
-        }
-        $maxRun = (int)floor($status['workers'] * 0.75);
-        return $maxRun > $status['unfinished'];
-    }
-
-    private function getGearmanQueueStatus(string $jobName) : ?array
-    {
-        $lines = null;
-        $status = null;
-        @exec('/usr/bin/gearadmin --status', $lines, $status);
-        if ($status != 0) {
-            return null;
-        }
-        foreach ($lines as $line) {
-            $data = explode("\t", $line);
-            if (count($data) === 4 && $data[0] === $jobName) {
-                return [
-                    'unfinished' => (int)$data[1],
-                    'running' => (int)$data[2],
-                    'workers' => (int)$data[3],
-                ];
-            }
-        }
-        return null;
     }
 }
