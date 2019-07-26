@@ -1,7 +1,6 @@
 <?php
 declare(strict_types=1);
 
-use app\assets\AppOptAsset;
 use app\assets\EntireWeaponsAsset;
 use app\assets\Spl2WeaponAsset;
 use app\assets\TableResponsiveForceAsset;

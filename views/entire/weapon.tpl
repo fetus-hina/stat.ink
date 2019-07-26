@@ -86,7 +86,9 @@
           'rule5' => '@gachi'
         ]}}
       <a href="{{url route="entire/weapons-use" cmp=$_form}}" class="btn btn-default">
-        <span class="fa fa-exchange fa-fw"></span>&#32;{{'Compare number of uses'|translate:'app'|escape}}
+        {{use class="app\components\widgets\FA"}}
+        {{FA::fas('exchange-alt')->fw()}}
+        {{'Compare number of uses'|translate:'app'|escape}}
       </a>
     </p>
     <div class="graph stat-use-pct">
