@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 use app\assets\EntireWeapon2Asset;
 use app\components\widgets\AdWidget;
+use app\components\widgets\FA;
 use app\components\widgets\SnsWidget;
 use app\components\widgets\WinLoseLegend;
 use app\models\RankGroup2;
@@ -136,7 +137,7 @@ $this->registerCss(implode('', [
   <p>
     <?= Html::a(
       implode('', [
-        Html::tag('span', '', ['class' => 'fa fa-fw fa-exchange']),
+        FA::fas('exchange-alt')->fw(),
         Html::encode(Yii::t('app', 'Compare number of uses')),
       ]),
       ['weapons2-use',
