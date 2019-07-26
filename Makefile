@@ -209,7 +209,7 @@ check-syntax:
 check-style: check-style-js check-style-css check-style-php
 
 check-style-php: vendor
-	vendor/bin/phpcs --standard=phpcs-customize.xml --encoding=UTF-8 --runtime-set ignore_warnings_on_exit 1 $(STYLE_TARGETS)
+	php -d memory_limit=-1 vendor/bin/phpcs --standard=phpcs-customize.xml --encoding=UTF-8 --runtime-set ignore_warnings_on_exit 1 $(STYLE_TARGETS)
 
 check-style-js: node_modules
 	node_modules/.bin/updates
