@@ -1,9 +1,11 @@
 <?php
 /**
- * @copyright Copyright (C) 2015-2017 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
+
+declare(strict_types=1);
 
 namespace app\actions\entire;
 
@@ -17,9 +19,9 @@ use yii\db\ActiveQuery;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 use yii\web\NotFoundHttpException;
-use yii\web\ViewAction as BaseAction;
+use yii\web\ViewAction;
 
-class Weapon2Action extends BaseAction
+class Weapon2Action extends ViewAction
 {
     public $weapon;
     public $rule;
@@ -38,7 +40,7 @@ class Weapon2Action extends BaseAction
 
     public function run()
     {
-        $maps = Map2::getSortedMap(function (ActiveQuery $query) {
+        $maps = Map2::getSortedMap(function (ActiveQuery $query): void {
             if ($this->rule->key !== 'nawabari') {
                 $query->excludeMystery();
             }

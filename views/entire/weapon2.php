@@ -21,6 +21,18 @@ use yii\helpers\Html;
 use yii\helpers\Json;
 use yii\helpers\Url;
 
+function calcError(int $battles, int $wins): ?float
+{
+  if ($battles < 1 || $wins < 0) {
+    return null;
+  }
+
+  // ref. http://lfics81.techblog.jp/archives/2982884.html
+  $winRate = $wins / $battles;
+  $s = sqrt(($battles / ($battles - 1.5)) * $winRate * (1.0 - $winRate));
+  return $s / sqrt($battles) * 100.0;
+}
+
 EntireWeapon2Asset::register($this);
 
 $weaponName = Yii::t('app-weapon2', $weapon->name);
@@ -151,7 +163,9 @@ $this->registerCss(implode('', [
           'weapon4' => $weapon->key,
           'rule4' => 'hoko',
           'weapon5' => $weapon->key,
-          'rule5' => '@gachi'
+          'rule5' => 'asari',
+          'weapon6' => $weapon->key,
+          'rule6' => '@gachi',
         ],
       ],
       ['class' => 'btn btn-default', 'disabled' => true]
@@ -224,6 +238,9 @@ $normalizedSeconds = ($rule->key == 'nawabari' ? 3 : 5) * 60;
             : null,
           'win_pct' => ($row['weapon_battles'] > 0)
             ? $row['weapon_wins'] * 100 / $row['weapon_battles']
+            : null,
+          'win_pct_err' => ($row['weapon_battles'] > 0)
+            ? calcError((int)$row['weapon_battles'], (int)$row['weapon_wins'])
             : null,
           'kills' => ($row['kd_time'] > 0)
             ? $row['kills'] * $normalizedSeconds / $row['kd_time']

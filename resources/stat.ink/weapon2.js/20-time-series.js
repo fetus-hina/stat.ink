@@ -8,8 +8,8 @@
     opacity: '0.9',
     fontSize: '12px',
   }).appendTo('body');
-  const axis1 = '<span class="fa fa-fw fa-arrow-left"></span>';
-  const axis2 = '<span class="fa fa-fw fa-arrow-right"></span>';
+  const axis1 = '<span class="fas fa-fw fa-arrow-left"></span>';
+  const axis2 = '<span class="fas fa-fw fa-arrow-right"></span>';
   const update = () => {
     const formatDate = date => { // {{{
       const zeroPad = number => {
@@ -54,9 +54,20 @@
               'data': weekJson.map(v => [
                 date2unixTime(v.date),
                 v.win_pct,
+                v.win_pct_err * 2,
               ]),
               'color': window.colorScheme.graph2,
               'yaxis': 2,
+              'points': {
+                'errorbars': 'y',
+                'yerr': {
+                  'show': true,
+                  'asymmetric': false,
+                  'upperCap': '-',
+                  'lowerCap': '-',
+                  'color': colorScheme._gray.darkGray,
+                },
+              },
             },
           ],
           {
