@@ -1,7 +1,7 @@
 <?php
-use app\assets\AppOptAsset;
-use app\assets\StatByMapRuleAsset;
-use app\assets\TableResponsiveForceAsset;
+declare(strict_types=1);
+
+use app\assets\EntireWeapon2Asset;
 use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
 use app\components\widgets\WinLoseLegend;
@@ -11,10 +11,6 @@ use app\models\SplatoonVersion2;
 use app\models\StatWeapon2UseCountPerWeek;
 use app\models\Weapon2;
 use app\models\WeaponCategory2;
-use jp3cki\yii2\flot\FlotAsset;
-use jp3cki\yii2\flot\FlotPieAsset;
-use jp3cki\yii2\flot\FlotTimeAsset;
-use statink\yii2\sortableTable\SortableTableAsset;
 use statink\yii2\stages\spl2\Spl2Stage;
 use yii\bootstrap\ActiveForm;
 use yii\data\ArrayDataProvider;
@@ -24,7 +20,7 @@ use yii\helpers\Html;
 use yii\helpers\Json;
 use yii\helpers\Url;
 
-TableResponsiveForceAsset::register($this);
+EntireWeapon2Asset::register($this);
 
 $weaponName = Yii::t('app-weapon2', $weapon->name);
 $ruleName = Yii::t('app-rule2', $rule->name);
@@ -41,14 +37,6 @@ $this->registerMetaTag(['name' => 'twitter:card', 'content' => 'summary']);
 $this->registerMetaTag(['name' => 'twitter:title', 'content' => $title]);
 $this->registerMetaTag(['name' => 'twitter:description', 'content' => $title]);
 $this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink']);
-
-$optAsset = AppOptAsset::register($this);
-
-FlotAsset::register($this);
-FlotPieAsset::register($this);
-FlotTimeAsset::register($this);
-SortableTableAsset::register($this);
-StatByMapRuleAsset::register($this);
 
 $this->registerCss(implode('', [
   '.graph{height:300px}',
@@ -80,11 +68,10 @@ $this->registerCss(implode('', [
   ])
   ->orderBy(['id' => SORT_ASC]);
 ?>
-<?php $optAsset->registerJsFile($this, 'weapon2.js') ?>
     <?= Html::dropDownList(
       false,
       $weapon->key,
-      (function () use ($query) : array {
+      (function () use ($query): array {
         // {{{
         $ret = [];
         foreach ($query->all() as $category) {
@@ -99,7 +86,7 @@ $this->registerCss(implode('', [
               $weapons = ArrayHelper::map(
                 $weapons,
                 'key',
-                function (Weapon2 $weapon) : string {
+                function (Weapon2 $weapon): string {
                   return Yii::t('app-weapon2', $weapon->name);
                 }
               );
@@ -125,7 +112,7 @@ $this->registerCss(implode('', [
     <?= implode(
       ' | ',
       array_map(
-        function (Rule2 $tmp) use ($rule, $weapon) : string {
+        function (Rule2 $tmp) use ($rule, $weapon): string {
           return ($tmp->key === $rule->key)
             ? Html::encode(Yii::t('app-rule2', $tmp->name))
             : Html::a(
@@ -182,7 +169,7 @@ $this->registerCss(implode('', [
   ) . "\n"
   ?>
 <?php
-$sum = function (string $column) use ($weapon) : string {
+$sum = function (string $column) use ($weapon): string {
     return sprintf(
         'SUM(CASE %s END)',
         sprintf(
@@ -225,7 +212,7 @@ $normalizedSeconds = ($rule->key == 'nawabari' ? 3 : 5) * 60;
   <?= Html::tag(
     'script',
     Json::encode(array_map(
-      function (array $row) use ($normalizedSeconds) : array {
+      function (array $row) use ($normalizedSeconds): array {
         return [
           'date' => (new DateTimeImmutable())
             ->setTimeZone(new DateTimeZone(Yii::$app->timeZone))
@@ -309,7 +296,7 @@ $normalizedSeconds = ($rule->key == 'nawabari' ? 3 : 5) * 60;
         ArrayHelper::map(
           RankGroup2::find()->orderBy(['rank' => SORT_DESC])->asArray()->all(),
           'key',
-          function (array $group) : string {
+          function (array $group): string {
             return Yii::t('app-rank2', $group['name']);
           }
         )
@@ -324,11 +311,11 @@ $normalizedSeconds = ($rule->key == 'nawabari' ? 3 : 5) * 60;
           $list = ArrayHelper::map(
             SplatoonVersion2::find()->asArray()->all(),
             'tag',
-            function (array $version) : string {
+            function (array $version): string {
               return Yii::t('app-version2', $version['name']);
             }
           );
-          uksort($list, function (string $a, string $b) : int {
+          uksort($list, function (string $a, string $b): int {
             return version_compare($b, $a);
           });
           return $list;
@@ -341,7 +328,7 @@ $normalizedSeconds = ($rule->key == 'nawabari' ? 3 : 5) * 60;
   <?= WinLoseLegend::widget() . "\n" ?>
 
   <div class="table-responsive table-responsive-force">
-<?php $_getQ = function (array $list, int $nth) : ?int {
+<?php $_getQ = function (array $list, int $nth): ?int {
   while (count($list) > 0 && $nth > 0) {
     $row = array_shift($list);
     if ($nth <= $row['battles']) {
@@ -351,17 +338,17 @@ $normalizedSeconds = ($rule->key == 'nawabari' ? 3 : 5) * 60;
   }
   return null;
 } ?>
-<?php $_dataColumn = function (string $label, string $type, array $data) use ($_getQ) : array {
+<?php $_dataColumn = function (string $label, string $type, array $data) use ($_getQ): array {
   return [
     'label' => Html::encode($label),
     'format' => 'raw',
-    'value' => function (array $map) use ($type, $data, $_getQ) : string {
+    'value' => function (array $map) use ($type, $data, $_getQ): string {
       if (!$list = $data[$map['key']] ?? null) {
         return '';
       }
 
       $battles = array_sum(array_map(
-        function ($row) : int {
+        function (array $row): int {
           return (int)$row['battles'];
         },
         $list
@@ -369,7 +356,7 @@ $normalizedSeconds = ($rule->key == 'nawabari' ? 3 : 5) * 60;
       $additional = [];
       if ($battles > 0) {
         $total = array_sum(array_map(
-          function ($row) : int {
+          function (array $row): int {
             return (int)$row['battles'] * (int)$row['times'];
           },
           $list
@@ -378,7 +365,7 @@ $normalizedSeconds = ($rule->key == 'nawabari' ? 3 : 5) * 60;
         $stddev = sqrt(
           array_sum(
             array_map(
-              function ($row) use ($average) : float {
+              function ($row) use ($average): float {
                 return pow($row['times'] - $average, 2) * (int)$row['battles'];
               },
               $list
@@ -387,17 +374,23 @@ $normalizedSeconds = ($rule->key == 'nawabari' ? 3 : 5) * 60;
         );
 
         $additional[Yii::t('app', 'Average')] = $average;
-        $additional[Yii::t('app', 'Minimum')] = min(array_map(function ($row) : int {
-          return (int)$row['times'];
-        }, $list));
+        $additional[Yii::t('app', 'Minimum')] = min(array_map(
+          function (array $row): int {
+            return (int)$row['times'];
+          },
+          $list
+        ));
         if ($battles > 4) {
-          $additional['Q 1/4'] = $_getQ($list, round($battles / 4));
-          $additional[Yii::t('app', 'Median')] = $_getQ($list, round($battles / 2));
-          $additional['Q 3/4'] = $_getQ($list, round(3 * $battles / 4));
+          $additional['Q 1/4'] = $_getQ($list, (int)round($battles / 4));
+          $additional[Yii::t('app', 'Median')] = $_getQ($list, (int)round($battles / 2));
+          $additional['Q 3/4'] = $_getQ($list, (int)round(3 * $battles / 4));
         }
-        $additional[Yii::t('app', 'Maximum')] = max(array_map(function ($row) : int {
-          return (int)$row['times'];
-        }, $list));
+        $additional[Yii::t('app', 'Maximum')] = max(array_map(
+          function (array $row): int {
+            return (int)$row['times'];
+          },
+          $list
+        ));
         $additional['σ'] = $stddev;
       }
 
@@ -410,7 +403,7 @@ $normalizedSeconds = ($rule->key == 'nawabari' ? 3 : 5) * 60;
           ],
         ]),
         Html::tag('div', implode('<br>', array_filter(array_map(
-          function (string $key, $value) : ?string {
+          function (string $key, $value): ?string {
             if ($value === null || $value === false || is_nan($value)) {
               return null;
             }
@@ -427,18 +420,18 @@ $normalizedSeconds = ($rule->key == 'nawabari' ? 3 : 5) * 60;
       ]);
     },
     'headerOptions' => ['data' => ['sort' => 'float']],
-    'contentOptions' => function (array $map) use ($data) : array {
+    'contentOptions' => function (array $map) use ($data): array {
       if (!$list = $data[$map['key']] ?? null) {
         return ['data' => ['sort-value' => '-1.0']];
       }
       $battles = array_sum(array_map(
-        function ($row) : int {
+        function (array $row): int {
           return (int)$row['battles'];
         },
         $list
       ));
       $value = array_sum(array_map(
-        function ($row) : int {
+        function (array $row): int {
           return (int)$row['battles'] * (int)$row['times'];
         },
         $list
@@ -452,8 +445,11 @@ $normalizedSeconds = ($rule->key == 'nawabari' ? 3 : 5) * 60;
     <?= GridView::widget([
       'dataProvider' => new ArrayDataProvider([
         'allModels' => array_map(
-          function ($key, $name) : array {
-            return ['key' => $key, 'name' => $name];
+          function (string $key, string $name): array {
+            return [
+              'key' => $key,
+              'name' => $name,
+            ];
           },
           array_keys($maps),
           array_values($maps)
@@ -479,7 +475,7 @@ $normalizedSeconds = ($rule->key == 'nawabari' ? 3 : 5) * 60;
             ]);
           },
           'headerOptions' => ['data' => ['sort' => 'int']],
-          'contentOptions' => function ($model, $key, $index, $column) : array {
+          'contentOptions' => function ($model, $key, $index, $column): array {
             return ['data' => [
               'sort-value' => $index,
             ]];
@@ -489,7 +485,7 @@ $normalizedSeconds = ($rule->key == 'nawabari' ? 3 : 5) * 60;
         [
           'label' => Html::encode(Yii::t('app', 'Win %')), // {{{
           'format' => 'raw',
-          'value' => function (array $map) use ($winRate) : string {
+          'value' => function (array $map) use ($winRate): string {
             if (!isset($winRate[$map['key']])) {
               return '';
             }
@@ -501,7 +497,7 @@ $normalizedSeconds = ($rule->key == 'nawabari' ? 3 : 5) * 60;
             ]);
           },
           'headerOptions' => ['data' => ['sort' => 'float']],
-          'contentOptions' => function (array $map) use ($winRate) : array {
+          'contentOptions' => function (array $map) use ($winRate): array {
             $data = $winRate[$map['key']] ?? null;
             if (!$data || $data['win'] + $data['lose'] < 1) {
               return ['data' => ['sort-value' => '-1.0']];

@@ -12,7 +12,7 @@ namespace app\components\widgets\battle\item;
 use DateTimeImmutable;
 use DateTimeZone;
 use Yii;
-use app\assets\AppOptAsset;
+use app\assets\AppAsset;
 use app\assets\BattleThumbListAsset;
 use app\components\widgets\ActiveRelativeTimeWidget;
 use app\models\User;
@@ -64,7 +64,7 @@ abstract class BaseWidget extends Widget
         if (!$ret) {
             $assetMgr = Yii::$app->getAssetManager();
             $ret = $assetMgr->getAssetUrl(
-                $assetMgr->getBundle(AppOptAsset::class),
+                $assetMgr->getBundle(AppAsset::class),
                 'no-image.png'
             );
         }
