@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2015-2017 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -11,16 +11,15 @@ use DateTimeZone;
 use Yii;
 use app\components\helpers\DateTimeFormatter;
 use app\components\helpers\ImageConverter;
+use app\components\jobs\OstatusJob;
+use app\components\jobs\SlackJob;
 use app\components\web\ServiceUnavailableHttpException;
-use app\jobs\battle\OstatusJob;
-use app\jobs\battle\SlackJob;
 use app\models\Agent;
 use app\models\Battle2;
 use app\models\OstatusPubsubhubbub;
 use app\models\Slack;
 use app\models\User;
 use app\models\api\v2\PostBattleForm;
-use shakura\yii2\gearman\JobWorkload;
 use yii\base\DynamicModel;
 use yii\helpers\Url;
 use yii\web\MethodNotAllowedHttpException;
@@ -304,30 +303,20 @@ class CreateAction extends BaseAction
 
         // Slack 投稿
         if ($user && $user->isSlackIntegrated) {
-            Yii::$app->gearman->getDispatcher()->background(
-                SlackJob::jobName(),
-                new JobWorkload([
-                    'params' => [
-                        'hostInfo' => Yii::$app->getRequest()->getHostInfo(),
-                        'version' => 2,
-                        'battle' => $battle->id,
-                    ],
-                ])
-            );
+            Yii::$app->queue->push(new SlackJob([
+                'hostInfo' => Yii::$app->getRequest()->getHostInfo(),
+                'version' => 2,
+                'battle' => $battle->id,
+            ]));
         }
 
         // Ostatus 投稿
         if ($user && $user->isOstatusIntegrated) {
-            Yii::$app->gearman->getDispatcher()->background(
-                OstatusJob::jobName(),
-                new JobWorkload([
-                    'params' => [
-                        'hostInfo' => Yii::$app->getRequest()->getHostInfo(),
-                        'version' => 2,
-                        'battle' => $battle->id,
-                    ],
-                ])
-            );
+            Yii::$app->queue->push(new OstatusJob([
+                'hostInfo' => Yii::$app->getRequest()->getHostInfo(),
+                'version' => 2,
+                'battle' => $battle->id,
+            ]));
         }
     }
 

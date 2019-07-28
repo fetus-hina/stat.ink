@@ -1,12 +1,22 @@
 <?php
 use app\commands\AssetController;
 use app\commands\MigrateController;
-use shakura\yii2\gearman\GearmanController;
+use yii\caching\FileCache;
+use yii\db\Connection;
+use yii\gii\Module as GiiModule;
+use yii\gii\generators\model\Generator as GiiModelGenerator;
+use yii\log\FileTarget as FileLogTarget;
+use yii\mutex\PgsqlMutex;
 
 Yii::setAlias('@tests', dirname(__DIR__) . '/tests');
 
 $params = require(__DIR__ . '/params.php');
-$db = file_exists(__DIR__ . '/db.php') ? require(__DIR__ . '/db.php') : [ 'class' => 'yii\db\Connection' ];
+$db = @file_exists(__DIR__ . '/db.php')
+    ? require(__DIR__ . '/db.php')
+    : [
+        'class' => Connection::class,
+        'dsn' => 'pgsql:host=localhost;dbname=statink',
+    ];
 
 return [
     'name' => 'stat.ink',
@@ -16,22 +26,22 @@ return [
     'id' => 'statink-console',
     'timeZone' => 'Asia/Tokyo',
     'basePath' => dirname(__DIR__),
-    'bootstrap' => ['log', 'gii'],
+    'bootstrap' => [
+        'gii',
+        'log',
+        'queue',
+    ],
     'controllerNamespace' => 'app\commands',
     'controllerMap' => [
         'asset' => AssetController::class,
         'migrate' => MigrateController::class,
-        'gearman' => [
-            'class' => GearmanController::class,
-            'gearmanComponent' => 'gearman'
-        ],
     ],
     'modules' => [
         'gii' => [
-            'class' => 'yii\gii\Module',
+            'class' => GiiModule::class,
             'generators' => [
                 'model' => [
-                    'class' => 'yii\gii\generators\model\Generator',
+                    'class' => GiiModelGenerator::class,
                     'templates' => [
                         'default' => '@app/views/gii/model',
                     ],
@@ -40,32 +50,14 @@ return [
         ],
     ],
     'components' => [
-        'cache' => [
-            'class' => 'yii\caching\FileCache',
-            'serializer' => extension_loaded('msgpack')
-                ? [
-                    function ($value) {
-                        return @gzencode(msgpack_pack($value), 1, FORCE_GZIP);
-                    },
-                    function ($value) {
-                        return @msgpack_unpack(gzdecode($value));
-                    },
-                ]
-                : null,
-        ],
-        'schemaCache' => [
-            'class' => 'yii\caching\FileCache',
-            'cachePath' => '@runtime/schema-cache',
-        ],
         'log' => [
             'targets' => [
                 [
-                    'class' => 'yii\log\FileTarget',
+                    'class' => FileLogTarget::class,
                     'levels' => ['error', 'warning'],
                 ],
             ],
         ],
-        'db' => $db,
         'urlManager' => array_merge(
             require(__DIR__ . '/web/url-manager.php'),
             [
@@ -73,12 +65,13 @@ return [
                 'hostInfo' => 'https://stat.ink',
             ]
         ),
+        'cache' => require(__DIR__ . '/web/cache.php'),
+        'db' => $db,
         'i18n' => require(__DIR__ . '/i18n.php'),
-        'gearman' => require(__DIR__ . '/gearman.php'),
         'imgS3' => require(__DIR__ . '/img-s3.php'),
-        'pgMutex' => [
-            'class' => 'yii\mutex\PgsqlMutex',
-        ],
+        'pgMutex' => ['class' => PgsqlMutex::class],
+        'queue' => require(__DIR__ . '/queue.php'),
+        'schemaCache' => require(__DIR__ . '/web/schema-cache.php'),
     ],
     'params' => $params,
     'aliases' => [

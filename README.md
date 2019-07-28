@@ -35,7 +35,6 @@ REQUIREMENTS
   - Doesn't work with 7.2 or lower. (Uses statements and constants added in v7.3)
 * PostgreSQL 9.5+ (Recommended: 11+)
   - Doesn't work with 9.4 or lower. (Uses features added in v9.5) 
-* Gearman
 * ImageMagick (`convert`)
 * Node.js (`npm`)
   - Recommended: latest release or latest LTS
@@ -47,7 +46,6 @@ https://stat.ink/ works with:
 - CentOS 7.6 (x86-64)
 - EPEL
   - `brotli`
-  - `gearmand`
 - [JP3CKI Repository](https://rpm.fetus.jp/)
   - [H2O](https://h2o.examp1e.net/) mainline
 - [Remi's RPM repository](http://rpms.famillecollet.com/)
@@ -60,7 +58,6 @@ https://stat.ink/ works with:
           - `php73-php-mbstring`
           - `php73-php-mcrypt`
           - `php73-php-pdo`
-          - `php73-php-pecl-gearman`
           - `php73-php-pecl-msgpack`
           - `php73-php-pgsql`
 * [Node.js Repository](https://nodejs.org/en/download/package-manager/#enterprise-linux-and-fedora)
