@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "169c18176eaf1276e35b4b31b502ea22",
+    "content-hash": "536bbcdef3d4db5acb130064e0b90c50",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -529,16 +529,16 @@
         },
         {
             "name": "himiklab/yii2-recaptcha-widget",
-            "version": "1.2.2",
+            "version": "2.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/himiklab/yii2-recaptcha-widget.git",
-                "reference": "30045aa93e6dd398ff4d0b919c0796984569b54d"
+                "reference": "341ae7e19e12783f3dfd8984a49185e0a44021ea"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/himiklab/yii2-recaptcha-widget/zipball/30045aa93e6dd398ff4d0b919c0796984569b54d",
-                "reference": "30045aa93e6dd398ff4d0b919c0796984569b54d",
+                "url": "https://api.github.com/repos/himiklab/yii2-recaptcha-widget/zipball/341ae7e19e12783f3dfd8984a49185e0a44021ea",
+                "reference": "341ae7e19e12783f3dfd8984a49185e0a44021ea",
                 "shasum": ""
             },
             "require": {
@@ -565,7 +565,7 @@
                     "homepage": "https://github.com/himiklab/"
                 }
             ],
-            "description": "Yii2 Google reCAPTCHA widget",
+            "description": "Yii2 Google reCAPTCHA v2 and v3 widget",
             "keywords": [
                 "captcha",
                 "google",
@@ -573,7 +573,7 @@
                 "widget",
                 "yii2"
             ],
-            "time": "2018-11-08T09:49:58+00:00"
+            "time": "2019-05-14T07:40:36+00:00"
         },
         {
             "name": "jaybizzle/crawler-detect",
@@ -2347,7 +2347,7 @@
                 },
                 {
                     "name": "Gert de Pagter",
-                    "email": "backendtea@gmail.com"
+                    "email": "BackEndTea@gmail.com"
                 }
             ],
             "description": "Symfony polyfill for ctype functions",
