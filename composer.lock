@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "169c18176eaf1276e35b4b31b502ea22",
+    "content-hash": "6b494516de98fd789ab403cc9261f7c7",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -180,7 +180,7 @@
             "version": "v1.3.2",
             "source": {
                 "type": "git",
-                "url": "git@github.com:bestiejs/punycode.js.git",
+                "url": "https://github.com/bestiejs/punycode.js.git",
                 "reference": "38c8d3131a82567bfef18da09f7f4db68c84f8a3"
             },
             "dist": {
@@ -526,54 +526,6 @@
                 "maxmind"
             ],
             "time": "2018-04-10T15:32:59+00:00"
-        },
-        {
-            "name": "himiklab/yii2-recaptcha-widget",
-            "version": "1.2.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/himiklab/yii2-recaptcha-widget.git",
-                "reference": "30045aa93e6dd398ff4d0b919c0796984569b54d"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/himiklab/yii2-recaptcha-widget/zipball/30045aa93e6dd398ff4d0b919c0796984569b54d",
-                "reference": "30045aa93e6dd398ff4d0b919c0796984569b54d",
-                "shasum": ""
-            },
-            "require": {
-                "yiisoft/yii2": "~2.0.11",
-                "yiisoft/yii2-httpclient": "*"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^4.8.34"
-            },
-            "type": "yii2-extension",
-            "autoload": {
-                "psr-4": {
-                    "himiklab\\yii2\\recaptcha\\": "src/",
-                    "himiklab\\yii2\\recaptcha\\tests\\": "tests/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "HimikLab",
-                    "homepage": "https://github.com/himiklab/"
-                }
-            ],
-            "description": "Yii2 Google reCAPTCHA widget",
-            "keywords": [
-                "captcha",
-                "google",
-                "recaptcha",
-                "widget",
-                "yii2"
-            ],
-            "time": "2018-11-08T09:49:58+00:00"
         },
         {
             "name": "jaybizzle/crawler-detect",
@@ -2721,56 +2673,6 @@
                 "yii2"
             ],
             "time": "2018-07-05T15:44:47+00:00"
-        },
-        {
-            "name": "yiisoft/yii2-httpclient",
-            "version": "2.0.11",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/yiisoft/yii2-httpclient.git",
-                "reference": "cf532447447216bd8cb167689ac18f4e7dc1c1a7"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-httpclient/zipball/cf532447447216bd8cb167689ac18f4e7dc1c1a7",
-                "reference": "cf532447447216bd8cb167689ac18f4e7dc1c1a7",
-                "shasum": ""
-            },
-            "require": {
-                "yiisoft/yii2": "~2.0.13"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "4.8.27|~5.7.21|^6.2"
-            },
-            "type": "yii2-extension",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.0.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "yii\\httpclient\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Paul Klimov",
-                    "email": "klimov.paul@gmail.com"
-                }
-            ],
-            "description": "HTTP client extension for the Yii framework",
-            "keywords": [
-                "curl",
-                "http",
-                "httpclient",
-                "yii2"
-            ],
-            "time": "2019-05-14T13:33:37+00:00"
         },
         {
             "name": "yiisoft/yii2-queue",

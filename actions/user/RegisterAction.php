@@ -21,8 +21,6 @@ class RegisterAction extends BaseAction
         $form = new RegisterForm();
         if ($request->isPost) {
             $form->attributes = $request->post('RegisterForm');
-            $form->recaptcha_token    = $request->post('recaptcha');
-            $form->recaptcha_response = $request->post('g-recaptcha-response');
             if ($form->validate()) {
                 $user = $form->toUserModel();
                 if ($user->save()) {

@@ -1,6 +1,5 @@
 <?php
 use app\components\widgets\AdWidget;
-use himiklab\yii2\recaptcha\ReCaptcha;
 use jp3cki\yii2\zxcvbn\ZxcvbnAsset;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
@@ -32,15 +31,6 @@ ZxcvbnAsset::register($this);
         <?= $_->field($register, 'password')->passwordInput() . "\n" ?>
         <?= $_->field($register, 'password_repeat')->passwordInput() . "\n" ?>
         <div id="password-strength"></div>
-<?php if (Yii::$app->params['googleRecaptcha']['siteKey'] ?? null) { ?>
-        <div class="form-group">
-          <?= ReCaptcha::widget([
-            'name' => 'recaptcha',
-            'siteKey' => Yii::$app->params['googleRecaptcha']['siteKey'],
-            'secret' => Yii::$app->params['googleRecaptcha']['secret'],
-          ]) . "\n" ?>
-        </div>
-<?php } ?>
         <?= Html::submitButton(
           Html::encode(Yii::t('app', 'Register')),
           ['class' => 'btn btn-primary btn-block']
