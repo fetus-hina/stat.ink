@@ -79,6 +79,7 @@ class LoginForm extends Model
         $appUser = Yii::$app->user;
         $appUser->on(\yii\web\User::EVENT_AFTER_LOGIN, function ($event) use ($user): void {
             UserLoginHistory::login($user, LoginMethod::METHOD_PASSWORD);
+            User::onLogin($user, LoginMethod::METHOD_PASSWORD);
         });
         return $appUser->login(
             $user,

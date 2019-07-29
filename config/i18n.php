@@ -23,6 +23,7 @@ return [
                 'app-gear2'     => 'gear2.php',
                 'app-gearstat'  => 'gearstat.php',
                 'app-link'      => 'link.php',
+                'app-login'     => 'login.php',
                 'app-map'       => 'map.php',
                 'app-map2'      => 'map2.php',
                 'app-rank'      => 'rank.php',
