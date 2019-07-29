@@ -334,7 +334,6 @@ return [
     'Permalink' => 'Enlace permanente',
     'Players' => 'Jugadores',
     'Players:' => 'Jugadores:',
-    'Please check the reCAPTCHA.' => 'Por favor comprueba el reCAPTCHA.',
     'Please copy an API key below and paste to IkaLog, IkaRec or other apps that compatible with {0}.' => '',
     'Please copy this URL:' => '',
     'Please do not use this feature to destroy evidence.' => 'No utilice esta función para destruir pruebas.',

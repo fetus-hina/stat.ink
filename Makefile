@@ -141,7 +141,6 @@ SIMPLE_CONFIG_TARGETS := \
 	config/backup-s3.php \
 	config/debug-ips.php \
 	config/google-adsense.php \
-	config/google-recaptcha.php \
 	config/img-s3.php \
 	config/lepton.php \
 	config/twitter.php
@@ -505,13 +504,6 @@ config/authkey-secret.php: vendor $(SIMPLE_CONFIG_TARGETS)
 config/db.php: vendor $(SIMPLE_CONFIG_TARGETS)
 	test -f config/db.php || ./yii secret/db
 	@touch config/db.php
-
-config/google-recaptcha.php:
-	echo '<?php'                >  config/google-recaptcha.php
-	echo 'return ['             >> config/google-recaptcha.php
-	echo "    'siteKey' => ''," >> config/google-recaptcha.php
-	echo "    'secret'  => ''," >> config/google-recaptcha.php
-	echo '];'                   >> config/google-recaptcha.php
 
 config/google-adsense.php:
 	echo '<?php'                >  config/google-adsense.php
