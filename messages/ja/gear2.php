@@ -458,6 +458,7 @@ return [
     'Soccer Shoes' => 'ユデスパイカ',
     'Special Forces Beret' => 'モンゴウベレー',
     'Splash Goggles' => 'スプラッシュゴーグル',
+    'Splatfest Tee Replica' => 'フェスＴ レプリカ',
     'Splatfest Tee' => 'フェスＴ',
     'Sporty Bobble Hat' => 'ウインターボンボン',
     'Squash Headband' => 'スカッシュバンド',

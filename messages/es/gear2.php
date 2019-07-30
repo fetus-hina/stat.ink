@@ -456,6 +456,7 @@ return [
     'Special Forces Beret' => 'Boina fuerzas especiales',
     'Splash Goggles' => 'Gafas de buceo',
     'Splatfest Tee' => '',
+    'Splatfest Tee Replica' => '',
     'Sporty Bobble Hat' => 'Gorro con borla negro',
     'Squash Headband' => 'Cinta squash',
     'Squid-Pattern Waistcoat' => 'Chaleco con camisa',

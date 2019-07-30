@@ -456,6 +456,7 @@ return [
     'Special Forces Beret' => 'Берет ВДВ',
     'Splash Goggles' => 'Маска для ныряния',
     'Splatfest Tee' => '',
+    'Splatfest Tee Replica' => '',
     'Sporty Bobble Hat' => 'Спорт-шапка с помпоном',
     'Squash Headband' => 'Повязка (сквош)',
     'Squid-Pattern Waistcoat' => 'Жилет «Краш-кальмар»',
