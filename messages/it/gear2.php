@@ -456,6 +456,7 @@ return [
     'Special Forces Beret' => 'Berretto trote speciali',
     'Splash Goggles' => 'Maschera da sub',
     'Splatfest Tee' => '',
+    'Splatfest Tee Replica' => '',
     'Sporty Bobble Hat' => 'Pon-pon sportivo',
     'Squash Headband' => 'Fascia da squash',
     'Squid-Pattern Waistcoat' => 'Gilè calamaro',

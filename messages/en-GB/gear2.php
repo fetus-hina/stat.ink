@@ -456,6 +456,7 @@ return [
     'Special Forces Beret' => '',
     'Splash Goggles' => '',
     'Splatfest Tee' => '',
+    'Splatfest Tee Replica' => '',
     'Sporty Bobble Hat' => '',
     'Squash Headband' => '',
     'Squid-Pattern Waistcoat' => '',
