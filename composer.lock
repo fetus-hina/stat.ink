@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "20083e76e6e9457460b49bbd163b69b9",
+    "content-hash": "6b494516de98fd789ab403cc9261f7c7",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -180,7 +180,7 @@
             "version": "v1.3.2",
             "source": {
                 "type": "git",
-                "url": "git@github.com:bestiejs/punycode.js.git",
+                "url": "https://github.com/bestiejs/punycode.js.git",
                 "reference": "38c8d3131a82567bfef18da09f7f4db68c84f8a3"
             },
             "dist": {
@@ -526,54 +526,6 @@
                 "maxmind"
             ],
             "time": "2018-04-10T15:32:59+00:00"
-        },
-        {
-            "name": "himiklab/yii2-recaptcha-widget",
-            "version": "1.2.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/himiklab/yii2-recaptcha-widget.git",
-                "reference": "30045aa93e6dd398ff4d0b919c0796984569b54d"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/himiklab/yii2-recaptcha-widget/zipball/30045aa93e6dd398ff4d0b919c0796984569b54d",
-                "reference": "30045aa93e6dd398ff4d0b919c0796984569b54d",
-                "shasum": ""
-            },
-            "require": {
-                "yiisoft/yii2": "~2.0.11",
-                "yiisoft/yii2-httpclient": "*"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^4.8.34"
-            },
-            "type": "yii2-extension",
-            "autoload": {
-                "psr-4": {
-                    "himiklab\\yii2\\recaptcha\\": "src/",
-                    "himiklab\\yii2\\recaptcha\\tests\\": "tests/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "HimikLab",
-                    "homepage": "https://github.com/himiklab/"
-                }
-            ],
-            "description": "Yii2 Google reCAPTCHA widget",
-            "keywords": [
-                "captcha",
-                "google",
-                "recaptcha",
-                "widget",
-                "yii2"
-            ],
-            "time": "2018-11-08T09:49:58+00:00"
         },
         {
             "name": "jaybizzle/crawler-detect",
@@ -1207,10 +1159,10 @@
         },
         {
             "name": "npm-asset/babel--runtime",
-            "version": "7.5.0",
+            "version": "7.5.5",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/@babel/runtime/-/runtime-7.5.0.tgz"
+                "url": "https://registry.npmjs.org/@babel/runtime/-/runtime-7.5.5.tgz"
             },
             "require": {
                 "npm-asset/regenerator-runtime": ">=0.13.2,<0.14.0"
@@ -1348,13 +1300,14 @@
         },
         {
             "name": "npm-asset/jdenticon",
-            "version": "2.1.1",
+            "version": "2.2.0",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/jdenticon/-/jdenticon-2.1.1.tgz"
+                "url": "https://registry.npmjs.org/jdenticon/-/jdenticon-2.2.0.tgz"
             },
             "require": {
-                "npm-asset/canvas-renderer": "~2.1.1"
+                "npm-asset/canvas-renderer": "~2.1.1",
+                "npm-asset/types--node": "*"
             },
             "type": "npm-asset",
             "license": [
@@ -1446,10 +1399,10 @@
         },
         {
             "name": "npm-asset/regenerator-runtime",
-            "version": "0.13.2",
+            "version": "0.13.3",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/regenerator-runtime/-/regenerator-runtime-0.13.2.tgz"
+                "url": "https://registry.npmjs.org/regenerator-runtime/-/regenerator-runtime-0.13.3.tgz"
             },
             "type": "npm-asset",
             "license": [
@@ -1477,6 +1430,18 @@
             "dist": {
                 "type": "tar",
                 "url": "https://registry.npmjs.org/stupid-table-plugin/-/stupid-table-plugin-1.1.3.tgz"
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
+            "name": "npm-asset/types--node",
+            "version": "12.6.8",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/@types/node/-/node-12.6.8.tgz"
             },
             "type": "npm-asset",
             "license": [
@@ -1702,148 +1667,6 @@
                 "psr"
             ],
             "time": "2017-02-14T16:28:37+00:00"
-        },
-        {
-            "name": "psr/log",
-            "version": "1.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/php-fig/log.git",
-                "reference": "6c001f1daafa3a3ac1d8ff69ee4db8e799a654dd"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/log/zipball/6c001f1daafa3a3ac1d8ff69ee4db8e799a654dd",
-                "reference": "6c001f1daafa3a3ac1d8ff69ee4db8e799a654dd",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.0.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Psr\\Log\\": "Psr/Log/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "PHP-FIG",
-                    "homepage": "http://www.php-fig.org/"
-                }
-            ],
-            "description": "Common interface for logging libraries",
-            "homepage": "https://github.com/php-fig/log",
-            "keywords": [
-                "log",
-                "psr",
-                "psr-3"
-            ],
-            "time": "2018-11-20T15:27:04+00:00"
-        },
-        {
-            "name": "react/event-loop",
-            "version": "v0.4.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/reactphp/event-loop.git",
-                "reference": "8bde03488ee897dc6bb3d91e4e17c353f9c5252f"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/reactphp/event-loop/zipball/8bde03488ee897dc6bb3d91e4e17c353f9c5252f",
-                "reference": "8bde03488ee897dc6bb3d91e4e17c353f9c5252f",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.4.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "~4.8"
-            },
-            "suggest": {
-                "ext-event": "~1.0",
-                "ext-libev": "*",
-                "ext-libevent": ">=0.1.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "React\\EventLoop\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "Event loop abstraction layer that libraries can use for evented I/O.",
-            "keywords": [
-                "asynchronous",
-                "event-loop"
-            ],
-            "time": "2017-04-27T10:56:23+00:00"
-        },
-        {
-            "name": "shakura/yii2-gearman",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/fetus-hina/yii2-gearman.git",
-                "reference": "cd672fd065c6afb4ff2de54e8ac7c91f53f8dae0"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/fetus-hina/yii2-gearman/zipball/cd672fd065c6afb4ff2de54e8ac7c91f53f8dae0",
-                "reference": "cd672fd065c6afb4ff2de54e8ac7c91f53f8dae0",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.4.0",
-                "psr/log": "~1",
-                "react/event-loop": "0.4.*",
-                "yiisoft/yii2": "*"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "~4"
-            },
-            "suggest": {
-                "ext-gearman": "This library needs Gearman"
-            },
-            "type": "yii2-extension",
-            "autoload": {
-                "psr-4": {
-                    "shakura\\yii2\\gearman\\": ""
-                }
-            },
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Waclaw Shakura",
-                    "email": "waclaw@shakura.ru"
-                }
-            ],
-            "description": "Gearman handler for PHP",
-            "homepage": "https://github.com/shakura/yii2-gearman",
-            "keywords": [
-                "extension",
-                "yii"
-            ],
-            "support": {
-                "email": "waclaw@shakura.ru",
-                "source": "https://github.com/shakura/yii2-gearman"
-            },
-            "time": "2017-11-12T16:31:47+00:00"
         },
         {
             "name": "smarty/smarty",
@@ -2432,142 +2255,24 @@
             "time": "2019-07-12T07:31:08+00:00"
         },
         {
-            "name": "symfony/console",
-            "version": "v2.8.50",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/console.git",
-                "reference": "cbcf4b5e233af15cd2bbd50dee1ccc9b7927dc12"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/cbcf4b5e233af15cd2bbd50dee1ccc9b7927dc12",
-                "reference": "cbcf4b5e233af15cd2bbd50dee1ccc9b7927dc12",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.9",
-                "symfony/debug": "^2.7.2|~3.0.0",
-                "symfony/polyfill-mbstring": "~1.0"
-            },
-            "require-dev": {
-                "psr/log": "~1.0",
-                "symfony/event-dispatcher": "~2.1|~3.0.0",
-                "symfony/process": "~2.1|~3.0.0"
-            },
-            "suggest": {
-                "psr/log-implementation": "For using the console logger",
-                "symfony/event-dispatcher": "",
-                "symfony/process": ""
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.8-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Symfony\\Component\\Console\\": ""
-                },
-                "exclude-from-classmap": [
-                    "/Tests/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://symfony.com/contributors"
-                }
-            ],
-            "description": "Symfony Console Component",
-            "homepage": "https://symfony.com",
-            "time": "2018-11-20T15:55:20+00:00"
-        },
-        {
-            "name": "symfony/debug",
-            "version": "v3.0.9",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/debug.git",
-                "reference": "697c527acd9ea1b2d3efac34d9806bf255278b0a"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/debug/zipball/697c527acd9ea1b2d3efac34d9806bf255278b0a",
-                "reference": "697c527acd9ea1b2d3efac34d9806bf255278b0a",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.5.9",
-                "psr/log": "~1.0"
-            },
-            "conflict": {
-                "symfony/http-kernel": ">=2.3,<2.3.24|~2.4.0|>=2.5,<2.5.9|>=2.6,<2.6.2"
-            },
-            "require-dev": {
-                "symfony/class-loader": "~2.8|~3.0",
-                "symfony/http-kernel": "~2.8|~3.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "3.0-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Symfony\\Component\\Debug\\": ""
-                },
-                "exclude-from-classmap": [
-                    "/Tests/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://symfony.com/contributors"
-                }
-            ],
-            "description": "Symfony Debug Component",
-            "homepage": "https://symfony.com",
-            "time": "2016-07-30T07:22:48+00:00"
-        },
-        {
-            "name": "symfony/polyfill-mbstring",
+            "name": "symfony/polyfill-ctype",
             "version": "v1.11.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symfony/polyfill-mbstring.git",
-                "reference": "fe5e94c604826c35a32fa832f35bd036b6799609"
+                "url": "https://github.com/symfony/polyfill-ctype.git",
+                "reference": "82ebae02209c21113908c229e9883c419720738a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/fe5e94c604826c35a32fa832f35bd036b6799609",
-                "reference": "fe5e94c604826c35a32fa832f35bd036b6799609",
+                "url": "https://api.github.com/repos/symfony/polyfill-ctype/zipball/82ebae02209c21113908c229e9883c419720738a",
+                "reference": "82ebae02209c21113908c229e9883c419720738a",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3"
             },
             "suggest": {
-                "ext-mbstring": "For best performance"
+                "ext-ctype": "For best performance"
             },
             "type": "library",
             "extra": {
@@ -2577,7 +2282,7 @@
             },
             "autoload": {
                 "psr-4": {
-                    "Symfony\\Polyfill\\Mbstring\\": ""
+                    "Symfony\\Polyfill\\Ctype\\": ""
                 },
                 "files": [
                     "bootstrap.php"
@@ -2589,44 +2294,96 @@
             ],
             "authors": [
                 {
-                    "name": "Nicolas Grekas",
-                    "email": "p@tchwork.com"
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                },
+                {
+                    "name": "Gert de Pagter",
+                    "email": "backendtea@gmail.com"
+                }
+            ],
+            "description": "Symfony polyfill for ctype functions",
+            "homepage": "https://symfony.com",
+            "keywords": [
+                "compatibility",
+                "ctype",
+                "polyfill",
+                "portable"
+            ],
+            "time": "2019-02-06T07:57:58+00:00"
+        },
+        {
+            "name": "symfony/process",
+            "version": "v4.3.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/process.git",
+                "reference": "856d35814cf287480465bb7a6c413bb7f5f5e69c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/process/zipball/856d35814cf287480465bb7a6c413bb7f5f5e69c",
+                "reference": "856d35814cf287480465bb7a6c413bb7f5f5e69c",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "4.3-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Process\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
                 },
                 {
                     "name": "Symfony Community",
                     "homepage": "https://symfony.com/contributors"
                 }
             ],
-            "description": "Symfony polyfill for the Mbstring extension",
+            "description": "Symfony Process Component",
             "homepage": "https://symfony.com",
-            "keywords": [
-                "compatibility",
-                "mbstring",
-                "polyfill",
-                "portable",
-                "shim"
-            ],
-            "time": "2019-02-06T07:57:58+00:00"
+            "time": "2019-05-30T16:10:05+00:00"
         },
         {
             "name": "symfony/yaml",
-            "version": "v3.3.18",
+            "version": "v4.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "af615970e265543a26ee712c958404eb9b7ac93d"
+                "reference": "c60ecf5ba842324433b46f58dc7afc4487dbab99"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/af615970e265543a26ee712c958404eb9b7ac93d",
-                "reference": "af615970e265543a26ee712c958404eb9b7ac93d",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/c60ecf5ba842324433b46f58dc7afc4487dbab99",
+                "reference": "c60ecf5ba842324433b46f58dc7afc4487dbab99",
                 "shasum": ""
             },
             "require": {
-                "php": "^5.5.9|>=7.0.8"
+                "php": "^7.1.3",
+                "symfony/polyfill-ctype": "~1.8"
+            },
+            "conflict": {
+                "symfony/console": "<3.4"
             },
             "require-dev": {
-                "symfony/console": "~2.8|~3.0"
+                "symfony/console": "~3.4|~4.0"
             },
             "suggest": {
                 "symfony/console": "For validating YAML files using the lint command"
@@ -2634,7 +2391,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.3-dev"
+                    "dev-master": "4.3-dev"
                 }
             },
             "autoload": {
@@ -2661,7 +2418,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2018-01-20T15:04:53+00:00"
+            "time": "2019-04-06T14:04:46+00:00"
         },
         {
             "name": "tpyo/amazon-s3-php-class",
@@ -2699,61 +2456,6 @@
             "description": "A standalone Amazon S3 (REST) client for PHP 5.2.x using CURL that does not require PEAR.",
             "homepage": "https://github.com/tpyo/amazon-s3-php-class",
             "time": "2015-04-27T06:12:39+00:00"
-        },
-        {
-            "name": "websightnl/gearman",
-            "version": "v1.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/websightnl/gearman.git",
-                "reference": "e88a38c243d5940fd395d608d94246c6a02206b0"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/websightnl/gearman/zipball/e88a38c243d5940fd395d608d94246c6a02206b0",
-                "reference": "e88a38c243d5940fd395d608d94246c6a02206b0",
-                "shasum": ""
-            },
-            "require": {
-                "ext-gearman": "*",
-                "php": ">=5.4.0",
-                "psr/log": "~1",
-                "react/event-loop": "0.4.*",
-                "symfony/console": "2.*"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "~4"
-            },
-            "bin": [
-                "bin/gearman",
-                "bin/gearman.php"
-            ],
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Sinergi\\Gearman\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Eric Bus",
-                    "email": "software.support@websight.nl"
-                }
-            ],
-            "description": "PHP library for dispatching, handling and managing Gearman Workers",
-            "homepage": "https://github.com/websightnl/gearman",
-            "keywords": [
-                "Tasks",
-                "daemon",
-                "gearman",
-                "jobs",
-                "workers"
-            ],
-            "time": "2018-08-03T14:50:31+00:00"
         },
         {
             "name": "yiisoft/yii2",
@@ -2973,34 +2675,65 @@
             "time": "2018-07-05T15:44:47+00:00"
         },
         {
-            "name": "yiisoft/yii2-httpclient",
-            "version": "2.0.11",
+            "name": "yiisoft/yii2-queue",
+            "version": "2.3.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/yiisoft/yii2-httpclient.git",
-                "reference": "cf532447447216bd8cb167689ac18f4e7dc1c1a7"
+                "url": "https://github.com/yiisoft/yii2-queue.git",
+                "reference": "25c1142558768ec0e835171c972a4edc2fb59cf0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-httpclient/zipball/cf532447447216bd8cb167689ac18f4e7dc1c1a7",
-                "reference": "cf532447447216bd8cb167689ac18f4e7dc1c1a7",
+                "url": "https://api.github.com/repos/yiisoft/yii2-queue/zipball/25c1142558768ec0e835171c972a4edc2fb59cf0",
+                "reference": "25c1142558768ec0e835171c972a4edc2fb59cf0",
                 "shasum": ""
             },
             "require": {
-                "yiisoft/yii2": "~2.0.13"
+                "php": ">=5.5.0",
+                "symfony/process": "^3.3||^4.0",
+                "yiisoft/yii2": "~2.0.14"
             },
             "require-dev": {
-                "phpunit/phpunit": "4.8.27|~5.7.21|^6.2"
+                "aws/aws-sdk-php": ">=2.4",
+                "enqueue/amqp-lib": "^0.8||^0.9.10",
+                "enqueue/stomp": "^0.8.39",
+                "jeremeamia/superclosure": "*",
+                "pda/pheanstalk": "v3.*",
+                "php-amqplib/php-amqplib": "*",
+                "phpunit/phpunit": "~4.4",
+                "yiisoft/yii2-debug": "*",
+                "yiisoft/yii2-gii": "*",
+                "yiisoft/yii2-redis": "*"
+            },
+            "suggest": {
+                "aws/aws-sdk-php": "Need for aws SQS.",
+                "enqueue/amqp-lib": "Need for AMQP interop queue.",
+                "enqueue/stomp": "Need for Stomp queue.",
+                "ext-gearman": "Need for Gearman queue.",
+                "ext-pcntl": "Need for process signals.",
+                "pda/pheanstalk": "Need for Beanstalk queue.",
+                "php-amqplib/php-amqplib": "Need for AMQP queue.",
+                "yiisoft/yii2-redis": "Need for Redis queue."
             },
             "type": "yii2-extension",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.0.x-dev"
+                    "dev-master": "2.x-dev"
                 }
             },
             "autoload": {
                 "psr-4": {
-                    "yii\\httpclient\\": "src"
+                    "yii\\queue\\": "src",
+                    "yii\\queue\\amqp\\": "src/drivers/amqp",
+                    "yii\\queue\\amqp_interop\\": "src/drivers/amqp_interop",
+                    "yii\\queue\\beanstalk\\": "src/drivers/beanstalk",
+                    "yii\\queue\\db\\": "src/drivers/db",
+                    "yii\\queue\\file\\": "src/drivers/file",
+                    "yii\\queue\\gearman\\": "src/drivers/gearman",
+                    "yii\\queue\\redis\\": "src/drivers/redis",
+                    "yii\\queue\\sync\\": "src/drivers/sync",
+                    "yii\\queue\\sqs\\": "src/drivers/sqs",
+                    "yii\\queue\\stomp\\": "src/drivers/stomp"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -3009,18 +2742,24 @@
             ],
             "authors": [
                 {
-                    "name": "Paul Klimov",
-                    "email": "klimov.paul@gmail.com"
+                    "name": "Roman Zhuravlev",
+                    "email": "zhuravljov@gmail.com"
                 }
             ],
-            "description": "HTTP client extension for the Yii framework",
+            "description": "Yii2 Queue Extension which supported DB, Redis, RabbitMQ, Beanstalk, SQS and Gearman",
             "keywords": [
-                "curl",
-                "http",
-                "httpclient",
-                "yii2"
+                "async",
+                "beanstalk",
+                "db",
+                "gearman",
+                "gii",
+                "queue",
+                "rabbitmq",
+                "redis",
+                "sqs",
+                "yii"
             ],
-            "time": "2019-05-14T13:33:37+00:00"
+            "time": "2019-06-04T18:58:40+00:00"
         },
         {
             "name": "yiisoft/yii2-smarty",
@@ -3507,49 +3246,6 @@
                 "parser"
             ],
             "time": "2019-01-16T14:22:17+00:00"
-        },
-        {
-            "name": "bit3/git-php",
-            "version": "1.5.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/bit3/git-php.git",
-                "reference": "d1ef6e5671d877720c576e55cc8e0f6f965b47a7"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/bit3/git-php/zipball/d1ef6e5671d877720c576e55cc8e0f6f965b47a7",
-                "reference": "d1ef6e5671d877720c576e55cc8e0f6f965b47a7",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^5.6 || ^7.0",
-                "psr/log": "^1.0",
-                "symfony/process": "^3.4 || ^4.0"
-            },
-            "require-dev": {
-                "phpcq/all-tasks": "^1.1",
-                "symfony/filesystem": "^3.4 || ^4.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.5.x-dev",
-                    "dev-develop": "1.6.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Bit3\\GitPhp\\": "src",
-                    "Bit3\\GitPhp\\Test\\": "tests"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "Easy to use GIT wrapper for PHP.",
-            "time": "2018-08-27T14:53:06+00:00"
         },
         {
             "name": "codeception/base",
@@ -4617,67 +4313,6 @@
             ],
             "description": "Library for handling version information and constraints",
             "time": "2018-07-08T19:19:57+00:00"
-        },
-        {
-            "name": "phpcq/author-validation",
-            "version": "1.1.9",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/phpcq/author-validation.git",
-                "reference": "226a60345d72b598884f252b8f31c78a94904aff"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/phpcq/author-validation/zipball/226a60345d72b598884f252b8f31c78a94904aff",
-                "reference": "226a60345d72b598884f252b8f31c78a94904aff",
-                "shasum": ""
-            },
-            "require": {
-                "bit3/git-php": "^1.0",
-                "php": "^5.4 || ^7.0",
-                "phpspec/php-diff": "^1.0",
-                "symfony/console": "^2.3 || ^3.0 || ^4.0",
-                "symfony/finder": "^2.3 || ^3.0 || ^4.0",
-                "symfony/process": "^2.3 || ^3.0 || ^4.0"
-            },
-            "require-dev": {
-                "phpcq/all-tasks": "^1.2"
-            },
-            "bin": [
-                "bin/check-author.php"
-            ],
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.1.x-dev",
-                    "dev-develop": "1.2.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "PhpCodeQuality\\AuthorValidation\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Christian Schiffler",
-                    "email": "c.schiffler@cyberspectrum.de",
-                    "homepage": "http://www.cyberspectrum.de",
-                    "role": "Developer"
-                },
-                {
-                    "name": "Tristan Lins",
-                    "email": "tristan@lins.io",
-                    "homepage": "https://tristan.lins.io",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Check if all authors of a particular file are mentioned in the copyright header.",
-            "time": "2018-08-27T12:40:44+00:00"
         },
         {
             "name": "phpdocumentor/reflection-common",
@@ -6035,6 +5670,81 @@
             "time": "2019-06-11T15:41:59+00:00"
         },
         {
+            "name": "symfony/console",
+            "version": "v4.3.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/console.git",
+                "reference": "b592b26a24265a35172d8a2094d8b10f22b7cc39"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/console/zipball/b592b26a24265a35172d8a2094d8b10f22b7cc39",
+                "reference": "b592b26a24265a35172d8a2094d8b10f22b7cc39",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1.3",
+                "symfony/polyfill-mbstring": "~1.0",
+                "symfony/polyfill-php73": "^1.8",
+                "symfony/service-contracts": "^1.1"
+            },
+            "conflict": {
+                "symfony/dependency-injection": "<3.4",
+                "symfony/event-dispatcher": "<4.3",
+                "symfony/process": "<3.3"
+            },
+            "provide": {
+                "psr/log-implementation": "1.0"
+            },
+            "require-dev": {
+                "psr/log": "~1.0",
+                "symfony/config": "~3.4|~4.0",
+                "symfony/dependency-injection": "~3.4|~4.0",
+                "symfony/event-dispatcher": "^4.3",
+                "symfony/lock": "~3.4|~4.0",
+                "symfony/process": "~3.4|~4.0",
+                "symfony/var-dumper": "^4.3"
+            },
+            "suggest": {
+                "psr/log": "For using the console logger",
+                "symfony/event-dispatcher": "",
+                "symfony/lock": "",
+                "symfony/process": ""
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "4.3-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Console\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Console Component",
+            "homepage": "https://symfony.com",
+            "time": "2019-06-13T11:03:18+00:00"
+        },
+        {
             "name": "symfony/css-selector",
             "version": "v4.3.2",
             "source": {
@@ -6326,24 +6036,24 @@
             "time": "2019-06-13T11:03:18+00:00"
         },
         {
-            "name": "symfony/polyfill-ctype",
+            "name": "symfony/polyfill-mbstring",
             "version": "v1.11.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symfony/polyfill-ctype.git",
-                "reference": "82ebae02209c21113908c229e9883c419720738a"
+                "url": "https://github.com/symfony/polyfill-mbstring.git",
+                "reference": "fe5e94c604826c35a32fa832f35bd036b6799609"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-ctype/zipball/82ebae02209c21113908c229e9883c419720738a",
-                "reference": "82ebae02209c21113908c229e9883c419720738a",
+                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/fe5e94c604826c35a32fa832f35bd036b6799609",
+                "reference": "fe5e94c604826c35a32fa832f35bd036b6799609",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3"
             },
             "suggest": {
-                "ext-ctype": "For best performance"
+                "ext-mbstring": "For best performance"
             },
             "type": "library",
             "extra": {
@@ -6353,7 +6063,7 @@
             },
             "autoload": {
                 "psr-4": {
-                    "Symfony\\Polyfill\\Ctype\\": ""
+                    "Symfony\\Polyfill\\Mbstring\\": ""
                 },
                 "files": [
                     "bootstrap.php"
@@ -6365,53 +6075,57 @@
             ],
             "authors": [
                 {
-                    "name": "Symfony Community",
-                    "homepage": "https://symfony.com/contributors"
+                    "name": "Nicolas Grekas",
+                    "email": "p@tchwork.com"
                 },
                 {
-                    "name": "Gert de Pagter",
-                    "email": "BackEndTea@gmail.com"
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
                 }
             ],
-            "description": "Symfony polyfill for ctype functions",
+            "description": "Symfony polyfill for the Mbstring extension",
             "homepage": "https://symfony.com",
             "keywords": [
                 "compatibility",
-                "ctype",
+                "mbstring",
                 "polyfill",
-                "portable"
+                "portable",
+                "shim"
             ],
             "time": "2019-02-06T07:57:58+00:00"
         },
         {
-            "name": "symfony/process",
-            "version": "v4.3.2",
+            "name": "symfony/polyfill-php73",
+            "version": "v1.11.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symfony/process.git",
-                "reference": "856d35814cf287480465bb7a6c413bb7f5f5e69c"
+                "url": "https://github.com/symfony/polyfill-php73.git",
+                "reference": "d1fb4abcc0c47be136208ad9d68bf59f1ee17abd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/process/zipball/856d35814cf287480465bb7a6c413bb7f5f5e69c",
-                "reference": "856d35814cf287480465bb7a6c413bb7f5f5e69c",
+                "url": "https://api.github.com/repos/symfony/polyfill-php73/zipball/d1fb4abcc0c47be136208ad9d68bf59f1ee17abd",
+                "reference": "d1fb4abcc0c47be136208ad9d68bf59f1ee17abd",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.1.3"
+                "php": ">=5.3.3"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "4.3-dev"
+                    "dev-master": "1.11-dev"
                 }
             },
             "autoload": {
                 "psr-4": {
-                    "Symfony\\Component\\Process\\": ""
+                    "Symfony\\Polyfill\\Php73\\": ""
                 },
-                "exclude-from-classmap": [
-                    "/Tests/"
+                "files": [
+                    "bootstrap.php"
+                ],
+                "classmap": [
+                    "Resources/stubs"
                 ]
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -6420,17 +6134,81 @@
             ],
             "authors": [
                 {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
+                    "name": "Nicolas Grekas",
+                    "email": "p@tchwork.com"
                 },
                 {
                     "name": "Symfony Community",
                     "homepage": "https://symfony.com/contributors"
                 }
             ],
-            "description": "Symfony Process Component",
+            "description": "Symfony polyfill backporting some PHP 7.3+ features to lower PHP versions",
             "homepage": "https://symfony.com",
-            "time": "2019-05-30T16:10:05+00:00"
+            "keywords": [
+                "compatibility",
+                "polyfill",
+                "portable",
+                "shim"
+            ],
+            "time": "2019-02-06T07:57:58+00:00"
+        },
+        {
+            "name": "symfony/service-contracts",
+            "version": "v1.1.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/service-contracts.git",
+                "reference": "f391a00de78ec7ec8cf5cdcdae59ec7b883edb8d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/service-contracts/zipball/f391a00de78ec7ec8cf5cdcdae59ec7b883edb8d",
+                "reference": "f391a00de78ec7ec8cf5cdcdae59ec7b883edb8d",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1.3",
+                "psr/container": "^1.0"
+            },
+            "suggest": {
+                "symfony/service-implementation": ""
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.1-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Contracts\\Service\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nicolas Grekas",
+                    "email": "p@tchwork.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Generic abstractions related to writing services",
+            "homepage": "https://symfony.com",
+            "keywords": [
+                "abstractions",
+                "contracts",
+                "decoupling",
+                "interfaces",
+                "interoperability",
+                "standards"
+            ],
+            "time": "2019-06-13T11:15:36+00:00"
         },
         {
             "name": "theseer/tokenizer",
@@ -6634,11 +6412,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "shakura/yii2-gearman": 20,
-        "yiisoft/yii2-bootstrap": 0,
-        "yiisoft/yii2-smarty": 0
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
@@ -6648,7 +6422,6 @@
         "ext-date": "*",
         "ext-filter": "*",
         "ext-gd": "*",
-        "ext-gearman": "*",
         "ext-hash": "*",
         "ext-intl": "*",
         "ext-json": "*",
@@ -6661,6 +6434,6 @@
     },
     "platform-dev": [],
     "platform-overrides": {
-        "php": "7.3.4"
+        "php": "7.3.6"
     }
 }

@@ -141,7 +141,6 @@ SIMPLE_CONFIG_TARGETS := \
 	config/backup-s3.php \
 	config/debug-ips.php \
 	config/google-adsense.php \
-	config/google-recaptcha.php \
 	config/img-s3.php \
 	config/lepton.php \
 	config/twitter.php
@@ -209,8 +208,7 @@ check-syntax:
 check-style: check-style-js check-style-css check-style-php
 
 check-style-php: vendor
-	vendor/bin/phpcs --standard=phpcs-customize.xml --encoding=UTF-8 --runtime-set ignore_warnings_on_exit 1 $(STYLE_TARGETS)
-	vendor/bin/check-author.php --php-files $(STYLE_TARGETS) messages migrations
+	php -d memory_limit=-1 vendor/bin/phpcs --standard=phpcs-customize.xml --encoding=UTF-8 --runtime-set ignore_warnings_on_exit 1 $(STYLE_TARGETS)
 
 check-style-js: node_modules
 	node_modules/.bin/updates
@@ -492,6 +490,7 @@ data/geoip:
 
 migrate-db: vendor config/db.php
 	./yii migrate/up --interactive=0
+	./yii migrate/up --interactive=0 --migration-path="" --migration-namespaces=yii\\queue\\db\\migrations
 	./yii cache/flush-schema --interactive=0
 
 config/cookie-secret.php: vendor $(SIMPLE_CONFIG_TARGETS)
@@ -505,13 +504,6 @@ config/authkey-secret.php: vendor $(SIMPLE_CONFIG_TARGETS)
 config/db.php: vendor $(SIMPLE_CONFIG_TARGETS)
 	test -f config/db.php || ./yii secret/db
 	@touch config/db.php
-
-config/google-recaptcha.php:
-	echo '<?php'                >  config/google-recaptcha.php
-	echo 'return ['             >> config/google-recaptcha.php
-	echo "    'siteKey' => ''," >> config/google-recaptcha.php
-	echo "    'secret'  => ''," >> config/google-recaptcha.php
-	echo '];'                   >> config/google-recaptcha.php
 
 config/google-adsense.php:
 	echo '<?php'                >  config/google-adsense.php
@@ -572,7 +564,7 @@ config/twitter.php:
 	cp config/twitter.sample.php $@
 
 .PHONY: config/version.php
-config/version.php: vendor
+config/version.php: vendor config/db.php
 	./yii revision-data/update
 
 runtime/ikalog:

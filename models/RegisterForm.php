@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2015 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -8,10 +8,9 @@
 namespace app\models;
 
 use Yii;
-use yii\base\Model;
 use app\components\helpers\Password;
 use app\components\helpers\db\Now;
-use himiklab\yii2\recaptcha\ReCaptchaValidator;
+use yii\base\Model;
 
 class RegisterForm extends Model
 {
@@ -19,8 +18,6 @@ class RegisterForm extends Model
     public $password;
     public $password_repeat;
     public $name;
-    public $recaptcha_token;
-    public $recaptcha_response;
 
     public function rules()
     {
@@ -41,15 +38,6 @@ class RegisterForm extends Model
                 'compareAttribute' => 'password',
                 'operator' => '==='],
         ];
-        if (Yii::$app->params['googleRecaptcha']['siteKey'] != '') {
-            $rules[] = [
-                ['recaptcha_token', 'recaptcha_response'], 'required',
-                    'message' => Yii::t('app', 'Please check the reCAPTCHA.')
-            ];
-            $rules[] = [[], ReCaptchaValidator::className(),
-                'secret' => Yii::$app->params['googleRecaptcha']['secret'],
-            ];
-        }
         return $rules;
     }
 

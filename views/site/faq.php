@@ -1,6 +1,10 @@
 <?php
+declare(strict_types=1);
+
 use app\assets\AboutAsset;
 use app\components\widgets\AdWidget;
+use app\components\widgets\FA;
+use app\components\widgets\FlagIcon;
 use app\components\widgets\SnsWidget;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
@@ -45,18 +49,124 @@ $img = function (string $file, array $options = []) use ($aboutAsset): string {
   </p>
   <ul>
     <li>
-      <a href="https://github.com/hasegaw/IkaLog/blob/master/doc/IkaUI.md">IkaLog</a> (Windows, OS X, Linux / Japanese, English[NA/EU/OC])
+      Splatoon 2
       <ul>
         <li>
-          <a href="https://github.com/hasegaw/IkaLog/wiki/ja_WinIkaLog">WinIkaLog</a> (Windows / Japanese, English[NA/EU/OC])
+          <?= vsprintf('%s (%s / %s)', [
+            Html::a(
+              Html::encode('splatnet2statink'),
+              'https://github.com/frozenpandaman/splatnet2statink#splatnet2statink'
+            ),
+            FA::fab('python')->fw() . Html::encode('Python 3 & 2'),
+            implode(', ', [
+              FA::fab('windows')->fw() . 'Windows',
+              FA::fab('apple')->fw() . 'macOS',
+              FA::fab('linux')->fw() . 'Linux',
+            ]),
+          ]) . "\n" ?>
+        </li>
+        <li>
+          <?= vsprintf('%s (%s / %s)', [
+            Html::a(
+              Html::encode('SquidTracks'),
+              'https://github.com/hymm/squid-tracks#squidtracks'
+            ),
+            'Electron',
+            implode(', ', [
+              FA::fab('windows')->fw() . 'Windows',
+              FA::fab('apple')->fw() . 'macOS',
+              FA::fab('linux')->fw() . 'Linux',
+            ]),
+          ]) . "\n" ?>
+        </li>
+        <li>
+          <del>
+            <?= vsprintf('%s (%s / %s)', [
+              Html::a(
+                Html::encode('IkaRec 2'),
+                'https://play.google.com/store/apps/details?id=com.syanari.merluza.ikarec2'
+              ),
+              FA::fab('android')->fw() . 'Android',
+              implode(', ', [
+                FlagIcon::fg('jp') . '日本語',
+                vsprintf('%s%s', [
+                  implode(' ', [
+                    FlagIcon::fg('us'),
+                    FlagIcon::fg('gb'),
+                    FlagIcon::fg('au'),
+                  ]),
+                  'English',
+                ]),
+              ]),
+            ]) . "\n" ?>
+          </del>
+          （現在利用不可）
         </li>
       </ul>
     </li>
     <li>
-      <a href="https://play.google.com/store/apps/details?id=com.syanari.merluza.ikarec">イカレコ</a> (Android / Japanese)
+      Splatoon
       <ul>
         <li>
-          <a href="https://play.google.com/store/apps/details?id=ink.pocketgopher.ikarec">IkaRec</a> (Android / English[NA/EU/OC])
+          <?= vsprintf('%s (%s / %s)', [
+            Html::a(
+              Html::encode('IkaLog'),
+              'https://github.com/hasegaw/IkaLog/blob/master/doc/IkaUI.md'
+            ),
+            implode(', ', [
+              FA::fab('windows')->fw() . 'Windows',
+              FA::fab('apple')->fw() . 'macOS',
+              FA::fab('linux')->fw() . 'Linux',
+            ]),
+            implode(', ', [
+              FlagIcon::fg('jp') . '日本語',
+              vsprintf('%s%s', [
+                implode(' ', [
+                  FlagIcon::fg('us'),
+                  FlagIcon::fg('gb'),
+                  FlagIcon::fg('au'),
+                ]),
+                'English',
+              ]),
+            ]),
+          ]) . "\n" ?>
+        </li>
+        <li>
+          イカレコ/IkaRec
+          <ul>
+            <li>
+              <del>
+                <?= vsprintf('%s (%s / %s)', [
+                  Html::a(
+                    Html::encode('イカレコ'),
+                    'https://play.google.com/store/apps/details?id=com.syanari.merluza.ikarec'
+                  ),
+                  FA::fab('android')->fw() . 'Android',
+                  FlagIcon::fg('jp') . '日本語',
+                ]) . "\n" ?>
+              </del>
+              （現在利用不可）
+            </li>
+            <li>
+              <?= vsprintf('%s (%s / %s)', [
+                Html::a(
+                  Html::encode('IkaRec'),
+                  'https://play.google.com/store/apps/details?id=ink.pocketgopher.ikarec'
+                ),
+                FA::fab('android')->fw() . 'Android',
+                implode(', ', [
+                  vsprintf('%s%s', [
+                    implode(' ', [
+                      FlagIcon::fg('us'),
+                      FlagIcon::fg('gb'),
+                      FlagIcon::fg('au'),
+                    ]),
+                    'English',
+                  ]),
+                ]),
+              ]) . "\n" ?>
+            </li>
+          </ul>
         </li>
       </ul>
     </li>
@@ -69,15 +179,28 @@ $img = function (string $file, array $options = []) use ($aboutAsset): string {
   </p>
 
   <h2>
-    Q: stat.ink 自体に戦績登録機能はないのですか
+    Q: 対応ソフトについて教えてください(Splatoon 2)
   </h2>
   <p>
-    A: バージョン 1.83.0 (2016-09-01) から搭載しました。<br>
-    しかしながら、収集内容や入力の容易性から、利用可能な環境であれば対応アプリを使用することをおすすめします。
+    A: 現時点でこちらで把握している対応ソフトは、splatnet2statink、SquidTracks、イカレコです。
+    ただし、イカレコは現在利用不可能になっています。
   </p>
-
+  <ul>
+    <li>
+      splatnet2statink<br>
+      イカリング2の表示用データをstat.inkのデータに変換して送信するソフトウェアです。<br>
+      Python 3 または Python 2 環境で動作します。<br>
+      VPS などのサーバ環境をお持ちの方はこのプログラムを定期実行するのがおすすめです。<br>
+      Windows 環境でも利用可能です。
+    </li>
+    <li>
+      SquidTracks<br>
+      イカリング2の表示用データを、PCで閲覧するためのソフトウェアです。stat.ink への送信を行うこともできます。<br>
+      Electron 製のアプリケーションですので、一般的なデスクトップ環境 (Windows, macOS, Linux) で動作させられます。
+    </li>
+  </ul>
   <h2>
-    Q: 対応ソフトについて教えてください
+    Q: 対応ソフトについて教えてください(Splatoon)
   </h2>
   <p>
     A: 現時点でこちらで把握している対応ソフトはIkaLogとイカレコの二つのみです。環境や好みに応じて使ってください。
@@ -300,7 +423,7 @@ $img = function (string $file, array $options = []) use ($aboutAsset): string {
   </p>
   <ul>
     <li>
-      自動化された記録であること（現実にはIkaLogからの投稿であること）
+      自動化された記録であること（現実にはIkaLog, splatnet2statink, SquidTracks からの投稿であること）
     </li>
     <li>
       データが明らかに欠けていないこと（例えばルールが不明、キルデス数が不明など）
@@ -353,40 +476,10 @@ $img = function (string $file, array $options = []) use ($aboutAsset): string {
     Q: 対応アプリを開発したい
   </h2>
   <p>
-    A: <a href="https://github.com/fetus-hina/stat.ink/blob/master/API.md">APIを公開しています</a>。ご自由に開発をお願いします。許可とかは要りませんが、"agent" が既存のものとかぶらないようにしてください。<br>
+    A: <a href="https://github.com/fetus-hina/stat.ink/tree/master/doc/api-2">APIを公開しています</a>。
+    ご自由に開発をお願いします。
+    許可とかは要りませんが、"agent" が既存のものとかぶらないようにしてください。<br>
     （エラー系の情報や仕様の記述がいろいろ足りていません。すみません。）
-  </p>
-
-  <h2>
-    Q: 作者に還元したい
-  </h2>
-  <p>
-    A: IkaLog 作者 hasegaw さんへ還元したい場合は <a href="http://d.ballade.jp/2015/10/IkaLogStore.html">IkaLog Store</a> 経由で何か購入してください（リンクを踏んだあと別の商品を購入してもアフィリエイトは反映されます。
-  </p>
-  <p>
-    stat.ink の作者へ還元したい場合は <a href="http://www.amazon.co.jp/registry/wishlist/328GZTLVNILB3">何かください</a>。
-  </p>
-  <p>
-    商品購入以外の方法として、バグを修正するとか、みんなに役立つ機能を実装するとかもあります。
-  </p>
-  <p>
-    ※どちらのプロダクトも、商品を購入したからといって、バグを直してもらえる権利を得るとかそういうことはありません。ご理解の上でご購入ください。
-  </p>
-
-  <h2>
-    Q: なんでこんなの作ったの
-  </h2>
-  <p>
-    A: 自分で記録とるのめんどくさいじゃないですか。
-  </p>
-  <p>
-    <a href="http://gigazine.net/news/20150804-splatoon-result-raspberry-pi-opencv/">ラズパイとカメラでキャプチャして勝敗を記録するツールについての記事</a>をまず見ていて、「これは導入できそうにないなあ」と思っていたところ、IkaLogを知って「このデータを活用すれば統計情報とか出せるね」となり、「でもIkaLogにはそういう部分ないのね」ってことで「じゃあ作りますか」と。
-  </p>
-  <p>
-    「作るのは面倒じゃないのか」と言われると「プログラマは楽をするために全力を尽くす生き物」です。
-    少なくとも私には全部手入力とかExcelで管理とか無理です。
-    stat.inkについてる機能もいくつか「面倒でこんなの誰も使わないって」と思いながらつけたものがあります。
-    実際にはそこそこ使われてたりして「マメだなあ」とか思ってます。
   </p>
 </div>
 <?php $this->registerCss(<<<CSS

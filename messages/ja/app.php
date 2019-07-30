@@ -325,7 +325,6 @@ return [
     'Permalink' => '固定リンク',
     'Players' => 'プレーヤー',
     'Players:' => 'プレーヤー:',
-    'Please check the reCAPTCHA.' => 'reCAPTCHAをチェックしてください。',
     'Please copy an API key below and paste to IkaLog, IkaRec or other apps that compatible with {0}.' => 'IkaLog、イカレコ、その他の対応アプリと連携するには、このAPIキーをコピーしてアプリに登録してください。',
     'Please copy this URL:' => 'このURLをコピーしてください:',
     'Please do not use this feature to destroy evidence.' => '敗戦の記録を隠すために使用しないでください。',

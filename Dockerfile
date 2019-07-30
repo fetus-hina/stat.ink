@@ -26,7 +26,6 @@ RUN rpm --import \
         brotli \
         diff \
         gcc-c++ \
-        gearmand \
         git19-git \
         gzip \
         h2o \
@@ -43,7 +42,6 @@ RUN rpm --import \
         php73-php-mcrypt \
         php73-php-opcache \
         php73-php-pdo \
-        php73-php-pecl-gearman \
         php73-php-pecl-msgpack \
         php73-php-pecl-zip \
         php73-php-pgsql \

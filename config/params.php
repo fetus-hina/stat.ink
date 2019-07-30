@@ -11,7 +11,6 @@ return [
         ? require(__DIR__ . '/git-revision.php')
         : null,
     'googleAdsense' => require(__DIR__ . '/google-adsense.php'),
-    'googleRecaptcha' => require(__DIR__ . '/google-recaptcha.php'),
     'lepton' => require(__DIR__ . '/lepton.php'),
     'minimumPHP' => '7.3.0',
     'twitter' => require(__DIR__ . '/twitter.php'),
