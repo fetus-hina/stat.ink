@@ -18,5 +18,7 @@ return [
     'Rev. lookup:' => '',
     'There is a login on {site}.' => '',
     'Twitter' => '',
+    'Your password has been changed.' => '',
+    '[{site}] {name} (@{screen_name}): Changed your password' => '',
     '[{site}] {name} (@{screen_name}): Logged in' => '',
 ];

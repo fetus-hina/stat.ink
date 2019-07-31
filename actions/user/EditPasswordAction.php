@@ -1,16 +1,20 @@
 <?php
 /**
- * @copyright Copyright (C) 2015 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
 
+declare(strict_types=1);
+
 namespace app\actions\user;
 
+use Exception;
 use Yii;
-use yii\web\ViewAction as BaseAction;
 use app\components\helpers\Password;
 use app\models\PasswordForm;
+use app\models\User;
+use yii\web\ViewAction as BaseAction;
 
 class EditPasswordAction extends BaseAction
 {
@@ -29,10 +33,11 @@ class EditPasswordAction extends BaseAction
                     $ident->password = Password::hash($form->new_password);
                     if ($ident->save()) {
                         $transaction->commit();
+                        $this->sendEmail($ident);
                         $this->controller->redirect(['user/profile']);
                         return;
                     }
-                } catch (\Exception $e) {
+                } catch (Exception $e) {
                 }
                 $transaction->rollback();
             }
@@ -42,5 +47,31 @@ class EditPasswordAction extends BaseAction
             'user' => $ident,
             'form' => $form,
         ]);
+    }
+
+    private function sendEmail(User $user): void
+    {
+        if (!$user->email) {
+            return;
+        }
+
+        Yii::$app->mailer
+            ->compose(
+                ['text' => '@app/views/email/change-password'],
+                ['user' => $user]
+            )
+            ->setFrom(Yii::$app->params['notifyEmail'])
+            ->setTo([$user->email => $user->name])
+            ->setSubject(Yii::t(
+                'app-login',
+                '[{site}] {name} (@{screen_name}): Changed your password',
+                [
+                    'name' => $user->name,
+                    'screen_name' => $user->screen_name,
+                    'site' => Yii::$app->name,
+                ],
+                $user->emailLang->lang ?? 'en-US'
+            ))
+            ->send();
     }
 }

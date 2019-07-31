@@ -18,5 +18,7 @@ return [
     'Rev. lookup:' => '逆引き:',
     'There is a login on {site}.' => '{site}でログインがありました。',
     'Twitter' => 'Twitter',
+    'Your password has been changed.' => 'パスワードが更新されました。',
+    '[{site}] {name} (@{screen_name}): Changed your password' => '[{site}] {name} (@{screen_name}): パスワードが更新されました',
     '[{site}] {name} (@{screen_name}): Logged in' => '[{site}] {name} (@{screen_name}): ログインしました',
 ];
