@@ -608,7 +608,7 @@ class User extends ActiveRecord implements IdentityInterface
         $mail->setFrom(Yii::$app->params['notifyEmail'])
             ->setTo([$user->email => $user->name])
             ->setSubject(Yii::t(
-                'app-login',
+                'app-email',
                 '[{site}] {name} (@{screen_name}): Logged in',
                 [
                     'name' => $user->name,

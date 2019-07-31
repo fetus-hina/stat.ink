@@ -8,7 +8,7 @@ $lang = ($user->emailLang ? $user->emailLang->lang : null) ?? 'en-US';
 $t = function (
   string $message,
   array $params = [],
-  string $category = 'app-login'
+  string $category = 'app-email'
 ) use ($lang): string {
   return Yii::t($category, $message, $params, $lang);
 };

@@ -63,7 +63,7 @@ class EditPasswordAction extends BaseAction
             ->setFrom(Yii::$app->params['notifyEmail'])
             ->setTo([$user->email => $user->name])
             ->setSubject(Yii::t(
-                'app-login',
+                'app-email',
                 '[{site}] {name} (@{screen_name}): Changed your password',
                 [
                     'name' => $user->name,
