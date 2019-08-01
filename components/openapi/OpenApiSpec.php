@@ -108,8 +108,11 @@ class OpenApiSpec extends Component
 
     protected function renderTags(): array
     {
+        $tags = $this->tags;
+        ksort($tags);
+
         $result = [];
-        foreach ($this->tags as $key => $description) {
+        foreach ($tags as $key => $description) {
             $result[] = array_filter([
                 'name' => $key,
                 'description' => $description,
