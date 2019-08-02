@@ -7,6 +7,7 @@
 
 namespace app\commands;
 
+use FilterIterator;
 use Yii;
 use app\components\ImageS3;
 use app\components\jobs\ImageS3Job;
@@ -16,13 +17,15 @@ use yii\helpers\FileHelper;
 
 class ImageS3Controller extends Controller
 {
+    const AUTOUPLOAD_DELAY = 7 * 86400;
+
     public function init()
     {
         parent::init();
         Yii::setAlias('@image', Yii::getAlias('@app/web/images'));
     }
 
-    public function actionUpload(string $path, bool $queue = false) : int
+    public function actionUpload(string $path, bool $queue = false): int
     {
         // {{{
         if (!Yii::$app->imgS3->enabled) {
@@ -87,7 +90,7 @@ class ImageS3Controller extends Controller
         // }}}
     }
 
-    public function actionAutoUpload() : int
+    public function actionAutoUpload(): int
     {
         // {{{
         if (!$lock = $this->lockAutoUpload()) {
@@ -97,14 +100,14 @@ class ImageS3Controller extends Controller
         $innerIterator = new \RecursiveIteratorIterator(
             new \RecursiveDirectoryIterator(Yii::getAlias('@image'))
         );
-        $iterator = new class($innerIterator) extends \FilterIterator {
+        $iterator = new class($innerIterator) extends FilterIterator {
             public function accept()
             {
                 $entry = $this->getInnerIterator()->current();
                 return (
                     $entry->isFile() &&
                     preg_match('/^[a-z2-9]{26}\.jpg$/', $entry->getBasename()) &&
-                    time() - $entry->getMTime() >= 10
+                    time() - $entry->getMTime() >= ImageS3Controller::AUTOUPLOAD_DELAY
                 );
             }
         };
