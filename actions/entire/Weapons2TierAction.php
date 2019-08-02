@@ -37,8 +37,18 @@ class Weapons2TierAction extends ViewAction
     {
         // redirect to default page if input is empty
         if (!$this->input['version'] || !$this->input['month'] || !$this->input['rule']) {
+            $rule = null;
+            foreach ([$this->input['rule'], 'area'] as $ruleKey) {
+                if ($ruleKey) {
+                    if ($rule = Rule2::findOne(['key' => (string)$ruleKey])) {
+                        break;
+                    }
+                }
+            }
+
             $latest = StatWeapon2Tier::find()
                 ->thresholded()
+                ->andWhere(['rule_id' => $rule->id ?? null])
                 ->orderBy(['id' => SORT_DESC])
                 ->limit(1)
                 ->one();
