@@ -1414,7 +1414,7 @@
             "version": "1.0.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/nagoshiashumari/Rpg-Awesome.git",
+                "url": "git@github.com:nagoshiashumari/Rpg-Awesome.git",
                 "reference": "404b72d6ef5ab454f188917735d013d50ba8eec5"
             },
             "dist": {
@@ -1438,10 +1438,10 @@
         },
         {
             "name": "npm-asset/types--node",
-            "version": "12.6.8",
+            "version": "12.6.9",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/@types/node/-/node-12.6.8.tgz"
+                "url": "https://registry.npmjs.org/@types/node/-/node-12.6.9.tgz"
             },
             "type": "npm-asset",
             "license": [
@@ -2299,7 +2299,7 @@
                 },
                 {
                     "name": "Gert de Pagter",
-                    "email": "BackEndTea@gmail.com"
+                    "email": "backendtea@gmail.com"
                 }
             ],
             "description": "Symfony polyfill for ctype functions",
