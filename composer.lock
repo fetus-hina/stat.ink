@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "595adf792b11efaac1262ab9f2b35034",
+    "content-hash": "da385648fa2b1a3117c23e20992a2cc6",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -1288,10 +1288,10 @@
         },
         {
             "name": "npm-asset/fortawesome--fontawesome-free",
-            "version": "5.10.0-patch14",
+            "version": "5.10.1",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/@fortawesome/fontawesome-free/-/fontawesome-free-5.10.0-14.tgz"
+                "url": "https://registry.npmjs.org/@fortawesome/fontawesome-free/-/fontawesome-free-5.10.1.tgz"
             },
             "type": "npm-asset",
             "license": [
@@ -6497,6 +6497,6 @@
     },
     "platform-dev": [],
     "platform-overrides": {
-        "php": "7.3.6"
+        "php": "7.3.8"
     }
 }
