@@ -95,10 +95,6 @@
     "repositories": [
         {
             "type": "composer",
-            "url": "https://packagist.jp"
-        },
-        {
-            "type": "composer",
             "url": "https://asset-packagist.org"
         },
         {
