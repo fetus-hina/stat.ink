@@ -867,62 +867,15 @@ class PostBattleForm extends Model
             return false;
         }
 
-        // IkaLog 以外で automated が yes のものは使えることにする
-        if (strtolower(substr((string)$this->agent, 0, 6)) !== 'ikalog') {
-            return true;
+        $startAt = filter_var($this->start_at, FILTER_VALIDATE_INT);
+        if ($startAt === false) {
+            return false;
+        }
+        if ($startAt < time() - 86400) {
+            return false;
         }
 
-        //FIXME: とりあえず ikalog なら ok ということにする
         return true;
-
-        // // stat.ink の要求する最小IkaLogバージョンを取得
-        // $ikalogReq = IkalogRequirement::find()
-        //     ->andWhere(['<=','[[from]]', new Now()])
-        //     ->orderBy('[[from]] DESC')
-        //     ->limit(1)
-        //     ->one();
-        // if (!$ikalogReq) {
-        //     // 最小IkaLogバージョンの定義がなければokと見なす
-        //     return true;
-        // }
-
-        // // IkaLog では統計に利用するためには agent_game_version_date が必須になりました
-        // if (trim((string)$this->agent_game_version_date) == '') {
-        //     return false;
-        // }
-
-        // // "2016-06-08_00" => "2016.6.8.0" のような文字列に game_version_date を変換する
-        // // "." 区切りにするのはバージョン比較は version_compare に喰わせると楽だから
-        // //
-        // // 1. とりあえず数字以外を "." に置き換えて
-        // // 2. "." で分割して配列を作って
-        // // 3. 各要素の左側の "0" を取り去って
-        // // 4. 取り去った結果空文字列になる可能性があるのでそのときに "0" にするために int 経由して（黒魔術）
-        // // 5. "." で再結合する
-        // $fConvertVersionDate = function ($version_date) {
-        //     return implode(
-        //         '.',
-        //         array_map(
-        //             function ($a) {
-        //                 return (string)(int)ltrim($a, '0');
-        //             },
-        //             explode(
-        //                 '.',
-        //                 trim(preg_replace('/[^0-9]+/', '.', trim((string)$version_date)))
-        //             )
-        //         )
-        //     );
-        // };
-
-        // if (version_compare(
-        //     $fConvertVersionDate($this->agent_game_version_date),
-        //     $fConvertVersionDate($ikalogReq->version_date),
-        //     '>='
-        // )) {
-        //     return true;
-        // }
-
-        // return false;
     }
 
     public function getCriticalSectionName()
