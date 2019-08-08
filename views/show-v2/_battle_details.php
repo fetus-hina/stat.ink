@@ -1051,5 +1051,25 @@ use yii\widgets\DetailView;
       },
       // }}}
     ],
+    [
+      'label' => Yii::t('app', 'Stats'), // {{{
+      'format' => 'raw',
+      'value' => function (Battle2 $model): string {
+        $f = function (string $label, bool $value): string {
+          return vsprintf('%s: %s%s', [
+            Html::encode($label),
+            $value
+              ? Html::tag('span', (string)FA::fas('check')->fw(), ['class' => 'text-success'])
+              : Html::tag('span', (string)FA::fas('times')->fw(), ['class' => 'text-danger']),
+            Html::encode(Yii::t('yii', $value ? 'Yes' : 'No')),
+          ]);
+        };
+        return implode('<br>', [
+          $f(Yii::t('app', 'Automated'), $model->is_automated),
+          $f(Yii::t('app', 'Used in global stats'), $model->is_automated && $model->use_for_entire),
+        ]);
+      },
+      // }}}
+    ],
   ],
 ]) . "\n" ?>
