@@ -210,6 +210,7 @@ return [
     'IkaRec' => '',
     'IkaRec 2' => '',
     'Image Sharing' => '',
+    'Incomplete Data' => '',
     'Inked' => 'Encrée',
     'Inked/min' => '',
     'Inking Performance' => '',

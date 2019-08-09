@@ -211,6 +211,7 @@ return [
     'IkaRec' => '',
     'IkaRec 2' => '',
     'Image Sharing' => 'Compartir imagen',
+    'Incomplete Data' => '',
     'Inked' => '',
     'Inked/min' => '',
     'Inking Performance' => '',
