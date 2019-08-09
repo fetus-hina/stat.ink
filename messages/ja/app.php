@@ -209,6 +209,7 @@ return [
     'IkaRec' => 'イカレコ',
     'Image Sharing' => '画像の共有',
     'In session' => '開催中',
+    'Incomplete Data' => '不完全なデータ',
     'Inked' => '塗面積',
     'Inked/min' => '塗/分',
     'Inking Performance vs Win %' => '塗り性能と勝率',

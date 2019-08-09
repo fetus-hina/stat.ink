@@ -1055,6 +1055,22 @@ use yii\widgets\DetailView;
       'label' => Yii::t('app', 'Stats'), // {{{
       'format' => 'raw',
       'value' => function (Battle2 $model): string {
+        $lobby = $model->lobby->key ?? null;
+        $mode = $model->mode->key ?? null;
+        if (!$lobby || !$mode || !$model->weapon || !$model->map) {
+          return implode('', [
+            Html::tag('span', (string)FA::fas('times')->fw(), ['class' => 'text-danger']),
+            Html::encode(Yii::t('app', 'Incomplete Data')),
+          ]);
+        }
+
+        if ($lobby === 'private' || $mode === 'private') {
+          return implode('', [
+            Html::tag('span', (string)FA::fas('times')->fw(), ['class' => 'text-danger']),
+            Html::encode(Yii::t('app-rule2', 'Private Battle')),
+          ]);
+        }
+
         $f = function (string $label, bool $value): string {
           return vsprintf('%s: %s%s', [
             Html::encode($label),
