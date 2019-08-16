@@ -24,7 +24,7 @@ $f = Yii::$app->formatter;
     [
       'label' => Yii::t('app', 'Icon'),
       'format' => 'raw',
-      'value' => function () use ($user) : string {
+      'value' => function () use ($user): string {
         // {{{
         $icon = null;
         $text = null;
@@ -89,6 +89,11 @@ $f = Yii::$app->formatter;
       'value' => $this->render('_profile_apikey', ['user' => $user]),
     ],
     [
+      'attribute' => 'email',
+      'format' => 'raw',
+      'value' => $this->render('_profile_email', ['user' => $user]),
+    ],
+    [
       'label' => implode(' ', [
         Yii::t('app', 'Black out other players (images)'),
         Yii::t('app', '(For only Splatoon 1 at this time)'),
@@ -125,13 +130,13 @@ $f = Yii::$app->formatter;
     ],
     [
       'attribute' => 'nnid',
-      'visible' => (trim($user->nnid) !== ''),
+      'visible' => (trim((string)$user->nnid) !== ''),
     ],
     [
       'attribute' => 'sw_friend_code',
-      'visible' => (trim($user->sw_friend_code) !== ''),
+      'visible' => (trim((string)$user->sw_friend_code) !== ''),
       'value' => function () use ($user) : string {
-        $id = trim($user->sw_friend_code);
+        $id = trim((string)$user->sw_friend_code);
         return implode('-', [
           'SW',
           substr($id, 0, 4),
@@ -142,9 +147,9 @@ $f = Yii::$app->formatter;
     ],
     [
       'attribute' => 'twitter',
-      'visible' => (trim($user->twitter) !== ''),
+      'visible' => (trim((string)$user->twitter) !== ''),
       'format' => 'raw',
-      'value' => function () use ($user) : string {
+      'value' => function () use ($user): string {
         TwitterWebIntentsAsset::register($this);
         return Html::a(
           implode('', [
@@ -159,12 +164,12 @@ $f = Yii::$app->formatter;
     ],
     [
       'attribute' => 'ikanakama2',
-      'visible' => (trim($user->ikanakama2) !== ''),
+      'visible' => (trim((string)$user->ikanakama2) !== ''),
       'format' => 'raw',
-      'value' => function () use ($user) : string {
+      'value' => function () use ($user): string {
         return Html::a(
           '#' . Html::encode($user->ikanakama2),
-          sprintf('https://ikanakama.ink/users/%s', rawurlencode($user->ikanakama2))
+          sprintf('https://ikanakama.ink/users/%s', rawurlencode((string)$user->ikanakama2))
         );
       },
     ],

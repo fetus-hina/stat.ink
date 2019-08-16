@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2015 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -42,6 +42,7 @@ use yii\web\IdentityInterface;
  * @property integer $default_language_id
  * @property integer $region_id
  * @property integer $link_mode_id
+ * @property string $email
  *
  * @property Battle[] $battles
  * @property Battle2[] $battle2s
@@ -106,9 +107,10 @@ class User extends ActiveRecord implements IdentityInterface
             [['default_language_id', 'region_id', 'link_mode_id'], 'required'],
             [['join_at'], 'safe'],
             [['ikanakama', 'ikanakama2', 'env_id', 'default_language_id'], 'integer'],
-            [['link_mode_id'], 'integer'],
+            [['link_mode_id', 'email_lang_id'], 'integer'],
             [['name', 'screen_name', 'twitter'], 'string', 'max' => 15],
             [['password'], 'string', 'max' => 255],
+            [['email'], 'string', 'max' => 254],
             [['api_key'], 'string', 'max' => 43],
             [['nnid'], 'string', 'min' => 6, 'max' => 16],
             [['nnid'], 'match', 'pattern' => '/^[a-zA-Z0-9._-]{6,16}$/'],
@@ -135,6 +137,11 @@ class User extends ActiveRecord implements IdentityInterface
                     static::BLACKOUT_ALWAYS,
                 ],
             ],
+            [['email'], 'email',
+                'allowName' => false,
+                'checkDNS' => true,
+                'enableIDN' => false,
+            ],
             [['default_language_id'], 'exist', 'skipOnError' => true,
                 'targetClass' => Language::class,
                 'targetAttribute' => ['default_language_id' => 'id'],
@@ -146,6 +153,10 @@ class User extends ActiveRecord implements IdentityInterface
             [['link_mode_id'], 'exist', 'skipOnError' => true,
                 'targetClass' => LinkMode::class,
                 'targetAttribute' => ['link_mode_id' => 'id'],
+            ],
+            [['email_lang_id'], 'exist', 'skipOnError' => true,
+                'targetClass' => Language::class,
+                'targetAttribute' => ['email_lang_id' => 'id'],
             ],
         ];
     }
@@ -173,6 +184,8 @@ class User extends ActiveRecord implements IdentityInterface
             'default_language_id' => Yii::t('app', 'Language (used for OStatus)'),
             'region_id'     => Yii::t('app', 'Region (used for Splatfest)'),
             'link_mode_id'  => Yii::t('app', 'Link from other user\'s results'),
+            'email'         => Yii::t('app', 'Email'),
+            'email_lang_id' => Yii::t('app', 'Email Language'),
         ];
     }
 
@@ -353,6 +366,11 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return $this->hasMany(UserLoginHistory::class, ['user_id' => 'id'])
             ->orderBy(['id' => SORT_DESC]);
+    }
+
+    public function getEmailLang(): ActiveQuery
+    {
+        return $this->hasOne(Language::class, ['id' => 'email_lang_id']);
     }
 
     public static function generateNewApiKey()
@@ -572,5 +590,33 @@ class User extends ActiveRecord implements IdentityInterface
         return $this->userIcon
             ? $this->userIcon->url
             : $this->getJdenticonUrl($ext);
+    }
+    
+    public static function onLogin(self $user, int $loginMethod): void
+    {
+        if (!$user->email) {
+            return;
+        }
+
+        $mail = Yii::$app->mailer->compose(
+            ['text' => '@app/views/email/login'],
+            [
+                'method' => LoginMethod::findOne(['id' => $loginMethod]),
+                'user' => $user,
+            ]
+        );
+        $mail->setFrom(Yii::$app->params['notifyEmail'])
+            ->setTo([$user->email => $user->name])
+            ->setSubject(Yii::t(
+                'app-email',
+                '[{site}] {name} (@{screen_name}): Logged in',
+                [
+                    'name' => $user->name,
+                    'screen_name' => $user->screen_name,
+                    'site' => Yii::$app->name,
+                ],
+                $user->emailLang->lang ?? 'en-US'
+            ))
+            ->send();
     }
 }

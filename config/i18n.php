@@ -15,6 +15,7 @@ return [
                 'app-counter'   => 'counter.php',
                 'app-death'     => 'death.php',
                 'app-death2'    => 'death2.php',
+                'app-email'     => 'email.php',
                 'app-event'     => 'event.php',
                 'app-fest'      => 'fest.php',
                 'app-festpower2' => 'festpower2.php',

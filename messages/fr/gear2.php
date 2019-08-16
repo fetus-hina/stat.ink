@@ -134,7 +134,7 @@ return [
     'Do-Rag, Cap, & Glasses' => 'Trio estival',
     'Dots-On-Dots Shirt' => 'Chemise à pois',
     'Double Egg Shades' => 'Lunettes noires ovales',
-    'Dust Blocker 2000' => '',
+    'Dust Blocker 2000' => 'Masque antipoussière',
     'Eel-Cake Hat' => 'Chapeau festif anguilles',
     'Eggplant Mountain Coat' => 'Anorak salamandre',
     'Enchanted Boots' => '',
