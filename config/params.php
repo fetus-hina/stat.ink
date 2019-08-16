@@ -13,6 +13,7 @@ return [
     'googleAdsense' => require(__DIR__ . '/google-adsense.php'),
     'lepton' => require(__DIR__ . '/lepton.php'),
     'minimumPHP' => '7.3.0',
+    'notifyEmail' => 'noreply@stat.ink',
     'twitter' => require(__DIR__ . '/twitter.php'),
     'useImgStatInk' => strpos($_SERVER['HTTP_HOST'] ?? '', 'stat.ink') !== false,
 ];

@@ -26,6 +26,7 @@ $config = [
         'i18n' => require(__DIR__ . '/i18n.php'),
         'imgS3' => require(__DIR__ . '/img-s3.php'),
         'log' => require(__DIR__ . '/web/log.php'),
+        'mailer' => require(__DIR__ . '/web/mailer.php'),
         'mutex' => require(__DIR__ . '/web/mutex.php'),
         'pgMutex' => require(__DIR__ . '/web/mutex-pgsql.php'),
         'queue' => require(__DIR__ . '/queue.php'),

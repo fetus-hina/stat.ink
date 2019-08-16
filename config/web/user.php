@@ -38,6 +38,10 @@ return (function (): array {
                 Yii::$app->user->identity,
                 LoginMethod::METHOD_COOKIE
             );
+            UserModel::onLogin(
+                Yii::$app->user->identity,
+                LoginMethod::METHOD_COOKIE
+            );
         },
     ];
 })();

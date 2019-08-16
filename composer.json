@@ -68,7 +68,8 @@
         "yiisoft/yii2-smarty": "*",
         "zendframework/zend-feed": "^2.6",
         "zendframework/zend-http": "^2.5",
-        "zendframework/zend-uri": "^2.5"
+        "zendframework/zend-uri": "^2.5",
+        "yiisoft/yii2-swiftmailer": "^2.1"
     },
     "provides": [],
     "require-dev": {
