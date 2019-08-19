@@ -14,7 +14,7 @@
     "babel-eslint": "^10.0.2",
     "bowser": "^2.5.3",
     "cssnano": "^4.1.10",
-    "eslint": "^6.1.0",
+    "eslint": "<6.2.0||~6.2.1",
     "less": "^3.10.1",
     "node-zopfli": "^2.0.3",
     "optipng-bin": "^6.0.0",
