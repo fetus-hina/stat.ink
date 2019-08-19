@@ -65,7 +65,7 @@
                   'asymmetric': false,
                   'upperCap': '-',
                   'lowerCap': '-',
-                  'color': colorScheme._gray.darkGray,
+                  'color': window.colorScheme._gray.darkGray,
                 },
               },
             },
