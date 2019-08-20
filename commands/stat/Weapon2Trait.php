@@ -226,5 +226,8 @@ trait Weapon2Trait
 
         echo "INSERTing to stat_weapon2_kd_win_rate...\n";
         $db->createCommand($sql)->execute();
+
+        echo "VACUUMing stat_weapon2_kd_win_rate...\n";
+        $db->createCommand('VACUUM ANALYZE stat_weapon2_kd_win_rate')->execute();
     }
 }
