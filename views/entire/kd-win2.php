@@ -10,10 +10,8 @@ use app\components\widgets\kdWin\LegendWidget;
 use app\models\Map2;
 use app\models\RankGroup2;
 use app\models\Rule2;
-use app\models\SplatoonVersion2;
 use app\models\SplatoonVersionGroup2;
-use app\models\Weapon2;
-use app\models\WeaponCategory2;
+use app\models\WeaponType2;
 use yii\bootstrap\ActiveForm;
 use yii\db\ActiveQuery;
 use yii\helpers\ArrayHelper;
@@ -39,7 +37,7 @@ TableResponsiveForceAsset::register($this);
   <?= AdWidget::widget() . "\n" ?>
   <?= SnsWidget::widget() . "\n" ?>
 
-  <ul class="nav nav-tabs">
+  <ul class="nav nav-tabs" aria-role="navigation">
     <li class="active"><a href="javascript:;">Splatoon 2</a></li>
     <li><?= Html::a('Splatoon', ['entire/kd-win']) ?></li>
   </ul>
@@ -58,111 +56,67 @@ TableResponsiveForceAsset::register($this);
     ],
     'enableClientValidation' => false,
   ]); echo "\n" ?>
-    <?= $_form->field($filter, 'map')->label(false)->dropDownList(array_merge(
-      ['' => Yii::t('app-map2', 'Any Stage')],
-      Map2::getSortedMap()
-    )) . "\n" ?>
-    <?= $_form->field($filter, 'rank')->label(false)->dropDownList(array_merge(
-      ['' => Yii::t('app-rank2', 'Any Rank')],
-      ArrayHelper::map(
-        RankGroup2::find()->orderBy(['id' => SORT_DESC])->asArray()->all(),
-        function (array $row) : string {
-          return '~' . $row['key'];
-        },
-        function (array $row) : string {
-          return Yii::t('app-rank2', $row['name']);
-        }
-      )
-    )) . "\n" ?>
-    <?= $_form->field($filter, 'weapon')->label(false)->dropDownList(array_merge(
-      ['' => Yii::t('app-weapon2', 'Any Weapon')],
-      (function () {
-        // {{{
-        $ret = [];
-        $q = WeaponCategory2::find()
-          ->orderBy(['id' => SORT_ASC])
-          ->with([
-            'weaponTypes' => function (ActiveQuery $query) : void {
-              $query->orderBy([
-                'category_id' => SORT_ASC,
-                'rank' => SORT_ASC,
-                'id' => SORT_ASC,
-              ]);
-            },
-            'weaponTypes.weapons',
-          ]);
-        foreach ($q->all() as $category) {
-          $categoryName = Yii::t('app-weapon2', $category->name);
-          foreach ($category->weaponTypes as $type) {
-            $typeName = Yii::t('app-weapon2', $type->name);
-            $groupLabel = ($categoryName !== $typeName)
-              ? sprintf('%s » %s', $categoryName, $typeName)
-              : $typeName;
-            $weapons = ArrayHelper::map(
-              $type->weapons,
-              'key',
-              function (Weapon2 $weapon) : string {
-                return Yii::t('app-weapon2', $weapon->name);
-              }
-            );
-            if ($weapons) {
-              uasort($weapons, 'strnatcasecmp');
-              $ret[$groupLabel] = (count($weapons) > 1)
-                ? array_merge(
-                  ['@' . $type->key => Yii::t('app-weapon2', 'All of {0}', $typeName)],
-                  $weapons
-                )
-                : $weapons;
-            }
+    <?= $_form->field($filter, 'map')
+      ->label(false)
+      ->dropDownList(array_merge(
+        ['' => Yii::t('app-map2', 'Any Stage')],
+        Map2::getSortedMap()
+      )) . "\n"
+    ?>
+    <?= $_form->field($filter, 'rank')
+      ->label(false)
+      ->dropDownList(array_merge(
+        ['' => Yii::t('app-rank2', 'Any Rank')],
+        ArrayHelper::map(
+          RankGroup2::find()
+            ->orderBy(['id' => SORT_DESC])
+            ->asArray()
+            ->all(),
+          'key',
+          function (array $row): string {
+            return Yii::t('app-rank2', $row['name']);
           }
-        }
-        return $ret;
-        // }}}
-      })()
-    )) . "\n" ?>
-    <?= $_form->field($filter, 'term')->label(false)->dropDownList(array_merge(
-      ['' => Yii::t('app-version2', 'Any Version')],
-      (function () {
-        $list = [];
-        $g = SplatoonVersionGroup2::find()->with('versions')->asArray()->all();
-        usort($g, function (array $a, array $b) : int {
-          return version_compare($b['tag'], $a['tag']);
-        });
-        foreach ($g as $_g) {
-          switch (count($_g['versions'])) {
-            case 0:
-              break;
-
-            case 1:
-              $_v = array_shift($_g['versions']);
-              $list['v' . $_v['tag']] = Yii::t('app', 'Version {0}', [
-                Yii::t('app-version2', $_v['name']),
-              ]);
-              break;
-
-            default:
-              $list['~v' . $_g['tag']] = Yii::t('app', 'Version {0}', [
-                Yii::t('app-version2', $_g['name']),
-              ]);
-              usort($_g['versions'], function (array $a, array $b) : int {
-                return version_compare($b['tag'], $a['tag']);
-              });
-              foreach ($_g['versions'] as $i => $_v) {
-                $name = Yii::t('app', 'Version {0}', [
-                  Yii::t('app-version2', $_v['name']),
-                ]);
-                if ($i === count($_g['versions']) - 1) {
-                  $list['v' . $_v['tag']] = '┗ ' . $name;
-                } else {
-                  $list['v' . $_v['tag']] = '┣ ' . $name;
-                }
-              }
-              break;
+        )
+      )) . "\n"
+    ?>
+    <?= $_form->field($filter, 'weapon')
+      ->label(false)
+      ->dropDownList(array_merge(
+        ['' => Yii::t('app-weapon2', 'Any Weapon')],
+        ArrayHelper::map(
+          WeaponType2::find()
+            ->orderBy([
+              'category_id' => SORT_ASC,
+              'rank' => SORT_ASC,
+            ])
+            ->asArray()
+            ->all(),
+          'key',
+          function (array $row): string {
+            return Yii::t('app-weapon2', $row['name']);
           }
-        }
-        return $list;
-      })()
-    )) . "\n" ?>
+        )
+      )) . "\n"
+    ?>
+<?php $versions = SplatoonVersionGroup2::find()->asArray()->all() ?>
+<?php usort($versions, function (array $a, array $b): int {
+  return version_compare($b['tag'], $a['tag']);
+}) ?>
+    <?= $_form->field($filter, 'version')
+      ->label(false)
+      ->dropDownList(array_merge(
+        ['*' => Yii::t('app-version2', 'Any Version')],
+        ArrayHelper::map(
+          $versions,
+          'tag',
+          function (array $row): string {
+            return Yii::t('app', 'Version {0}', [
+              Yii::t('app-version2', $row['name']),
+            ]);
+          }
+        )
+      )) . "\n"
+    ?>
     <?= Html::tag(
       'div',
       Html::submitButton(
@@ -178,7 +132,7 @@ TableResponsiveForceAsset::register($this);
 
 <?php
 $_q = Rule2::find()->orderBy(['id' => SORT_ASC]);
-if ($filter->map === 'mystery') {
+if (substr($filter->map, 0, 7) === 'mystery') {
   $_q->andWhere(['key' => 'nawabari']);
 }
 if ($filter->rank) {
@@ -193,7 +147,7 @@ if ($filter->rank) {
   ) . "\n" ?>
   <div class="table-responsive table-responsive-force">
     <?= KDWinTable::widget([
-      'data' => $data[$rule->key],
+      'data' => $data[$rule->key] ?? [],
       'limit' => KDWin2Action::KD_LIMIT,
     ]) . "\n" ?>
   </div>

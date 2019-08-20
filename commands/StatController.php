@@ -45,6 +45,8 @@ use yii\helpers\Console;
 
 class StatController extends Controller
 {
+    use stat\Weapon2Trait;
+
     /**
      * 全体統計 - ブキ統計を更新します
      *
@@ -52,7 +54,7 @@ class StatController extends Controller
      */
     public function actionUpdateEntireWeapons()
     {
-        $this->updateEntireWeapons1();
+        // $this->updateEntireWeapons1();
         $this->updateEntireWeapons2();
     }
 
@@ -278,159 +280,6 @@ class StatController extends Controller
             ]);
         return $query;
         // }}}
-    }
-
-    private function updateEntireWeapons2()
-    {
-        $pointNormalize = 50;
-        $dummyRank = Rank2::findOne(['key' => 'c-'])->id;
-        $select = Battle2::find() // {{{
-            ->select([
-                'weapon_id'     => 'battle_player2.weapon_id',
-                'rule_id'       => 'battle2.rule_id',
-                'map_id'        => 'battle2.map_id',
-                'lobby_id'      => 'battle2.lobby_id',
-                'mode_id'       => 'battle2.mode_id',
-                'rank_id'       => sprintf('COALESCE(battle_player2.rank_id, %d)', $dummyRank),
-                'version_id'    => 'battle2.version_id',
-                'kill'          => 'battle_player2.kill',
-                'death'         => 'battle_player2.death',
-                'assist'        => sprintf(
-                    '(%s - %s)',
-                    'battle_player2.kill_or_assist',
-                    'battle_player2.kill'
-                ),
-                'special'       => 'battle_player2.special',
-                'points'        => sprintf(
-                    '(FLOOR((%s)::DOUBLE PRECISION / %2$.1f)::BIGINT * %2$d)',
-                    sprintf('(battle_player2.point - CASE %s END)', implode(' ', [
-                        "WHEN rule2.key <> 'nawabari' THEN 0",
-                        "WHEN battle2.is_win = battle_player2.is_my_team THEN 1000",
-                        "ELSE 0",
-                    ])),
-                    $pointNormalize
-                ),
-                'battles'       => 'COUNT(*)',
-                'wins'          => sprintf('SUM(CASE %s END)', implode(' ', [
-                    'WHEN battle2.is_win = battle_player2.is_my_team THEN 1',
-                    'ELSE 0'
-                ])),
-            ])
-            ->innerJoinWith([
-                'battlePlayers' => function ($q) {
-                    $q->orderBy(null);
-                },
-                'lobby',
-                'mode',
-                'rule',
-            ], false)
-            ->andWhere(['and',
-                ['battle2.is_automated' => true],
-                ['battle2.use_for_entire' => true],
-                ['not', ['battle2.is_win' => null]],
-                ['not', ['battle2.start_at' => null]],
-                ['not', ['battle2.end_at' => null]],
-                ['battle_player2.is_me' => false],
-                ['not', ['battle_player2.weapon_id' => null]],
-                ['not', ['battle2.rule_id' => null]],
-                ['not', ['battle2.map_id' => null]],
-                ['not', ['battle2.lobby_id' => null]],
-                ['not', ['battle2.mode_id' => null]],
-                ['not', ['battle2.version_id' => null]],
-                ['not', ['battle_player2.kill' => null]],
-                ['not', ['battle_player2.death' => null]],
-                ['not', ['battle_player2.kill_or_assist' => null]],
-                ['not', ['battle_player2.special' => null]],
-                ['not', ['battle_player2.point' => null]],
-                ['<>', 'lobby2.key', 'private'],
-                ['<>', 'mode2.key', 'private'],
-                ['or',
-                    ['and',
-                        ['rule2.key' => 'nawabari'],
-                        ['battle_player2.rank_id' => null],
-                    ],
-                    ['and',
-                        ['<>', 'rule2.key', 'nawabari'],
-                        ['not', ['battle_player2.rank_id' => null]],
-                    ],
-                ],
-            ])
-            ->andWhere("(battle2.end_at - battle2.start_at) >= '30 seconds'::interval")
-            ->groupBy([
-                'battle_player2.weapon_id',
-                'battle2.rule_id',
-                'battle2.map_id',
-                'battle2.lobby_id',
-                'battle2.mode_id',
-                'battle_player2.rank_id',
-                'battle2.version_id',
-                'battle_player2.kill',
-                'battle_player2.death',
-                sprintf(
-                    '(%s - %s)',
-                    'battle_player2.kill_or_assist',
-                    'battle_player2.kill'
-                ),
-                'battle_player2.special',
-                sprintf(
-                    '(FLOOR((%s)::DOUBLE PRECISION / %2$.1f)::BIGINT * %2$d)',
-                    sprintf('(battle_player2.point - CASE %s END)', implode(' ', [
-                        "WHEN rule2.key <> 'nawabari' THEN 0",
-                        "WHEN battle2.is_win = battle_player2.is_my_team THEN 1000",
-                        "ELSE 0",
-                    ])),
-                    $pointNormalize
-                ),
-            ])
-            ->having(['and',
-                ['>',
-                    sprintf(
-                        '(FLOOR((%s)::DOUBLE PRECISION / %2$.1f)::BIGINT * %2$d)',
-                        sprintf('(battle_player2.point - CASE %s END)', implode(' ', [
-                            "WHEN rule2.key <> 'nawabari' THEN 0",
-                            "WHEN battle2.is_win = battle_player2.is_my_team THEN 1000",
-                            "ELSE 0",
-                        ])),
-                        $pointNormalize
-                    ),
-                    0
-                ],
-            ])
-            ->orderBy(null);
-        // }}}
-        $insert = sprintf(
-            // {{{
-            'INSERT INTO stat_weapon2_result ( %s ) %s %s',
-            implode(', ', array_map(function (string $column) : string {
-                return "[[{$column}]]";
-            }, array_keys($select->select))),
-            $select->createCommand()->rawSql,
-            sprintf(
-                'ON CONFLICT ( %s ) DO UPDATE SET %s',
-                implode(', ', array_map(
-                    function (string $column) : string {
-                        return "[[{$column}]]";
-                    },
-                    array_filter(
-                        array_keys($select->select),
-                        function (string $column) : bool {
-                            return !in_array($column, ['battles', 'wins'], true);
-                        }
-                    )
-                )),
-                implode(', ', array_map(
-                    function (string $column) : string {
-                        return "[[{$column}]] = {{excluded}}.[[{$column}]]";
-                    },
-                    ['battles', 'wins']
-                ))
-            )
-            // }}}
-        );
-        echo "Updating stat_weapon2_result...\n";
-        Yii::$app->db->createCommand($insert)->execute();
-        echo "Vacuum...\n";
-        Yii::$app->db->createCommand('VACUUM ANALYZE stat_weapon2_result')->execute();
     }
 
     /**
