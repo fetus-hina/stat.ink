@@ -132,7 +132,7 @@ TableResponsiveForceAsset::register($this);
 
 <?php
 $_q = Rule2::find()->orderBy(['id' => SORT_ASC]);
-if (substr($filter->map, 0, 7) === 'mystery') {
+if (substr((string)$filter->map, 0, 7) === 'mystery') {
   $_q->andWhere(['key' => 'nawabari']);
 }
 if ($filter->rank) {
