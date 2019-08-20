@@ -1,28 +1,47 @@
 <?php
 /**
- * @copyright Copyright (C) 2015-2017 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
 
+declare(strict_types=1);
+
 namespace app\actions\entire;
 
 use Yii;
-use app\models\Battle2FilterForm;
-use app\models\Map2;
-use app\models\StatWeapon2Result;
-use app\models\WeaponType2;
+use app\models\KDWin2FilterForm;
+use app\models\SplatoonVersion2;
+use app\models\SplatoonVersionGroup2;
+use app\models\StatWeapon2KdWinRate;
 use yii\helpers\ArrayHelper;
-use yii\web\ViewAction as BaseAction;
+use yii\web\ViewAction;
 
-class KDWin2Action extends BaseAction
+class KDWin2Action extends ViewAction
 {
     const KD_LIMIT = 16;
 
     public function run()
     {
-        $filter = new Battle2FilterForm();
-        $filter->load($_GET) && $filter->validate();
+        $filter = Yii::createObject(KDWin2FilterForm::class);
+        $filter->load($_GET);
+        if ($filter->validate()) {
+            if ($filter->version == '') {
+                $latest = $this->getLatestVersionGroup();
+                $filter->version = $latest->tag;
+                $this->controller->redirect(
+                    ['entire/kd-win2',
+                        'filter' => array_filter(
+                            $filter->attributes,
+                            function (?string $value): bool {
+                                return trim((string)$value) !== '';
+                            }
+                        ),
+                    ]
+                );
+                return;
+            }
+        }
 
         return $this->controller->render('kd-win2', [
             'data' => $this->makeData($filter),
@@ -30,24 +49,26 @@ class KDWin2Action extends BaseAction
         ]);
     }
 
-    private function makeData($filter) : array
+    private function makeData(KDWin2FilterForm $filter): array
     {
-        $query = StatWeapon2Result::find()
+        $table = StatWeapon2KdWinRate::tableName();
+        $query = StatWeapon2KdWinRate::find()
             ->asArray()
             ->innerJoinWith('rule', false)
             ->applyFilter($filter)
             ->select([
-              'rule'    => 'MAX(rule2.key)',
-              'kill'    => 'stat_weapon2_result.kill',
-              'death'   => 'stat_weapon2_result.death',
-              'battle'  => 'SUM(stat_weapon2_result.battles)',
-              'win'     => 'SUM(stat_weapon2_result.wins)',
+                'rule' => 'MAX({{rule2}}.[[key]])',
+                'kill' => "{{{$table}}}.[[kill]]",
+                'death' => "{{{$table}}}.[[death]]",
+                'battle' => "SUM({{{$table}}}.[[battles]])",
+                'win' => "SUM({{{$table}}}.[[wins]])",
             ])
             ->groupBy([
-                'stat_weapon2_result.rule_id',
-                'stat_weapon2_result.kill',
-                'stat_weapon2_result.death',
+                "{{{$table}}}.[[rule_id]]",
+                "{{{$table}}}.[[kill]]",
+                "{{{$table}}}.[[death]]",
             ]);
+
         $result = [];
         foreach ($query->all() as $row) {
             $rule = $row['rule'];
@@ -57,9 +78,11 @@ class KDWin2Action extends BaseAction
             if (!isset($result[$rule])) {
                 $result[$rule] = [];
             }
+
             if (!isset($result[$rule][$k])) {
                 $result[$rule][$k] = [];
             }
+
             if (!isset($result[$rule][$k][$d])) {
                 $result[$rule][$k][$d] = [
                     'battle' => 0,
@@ -69,6 +92,19 @@ class KDWin2Action extends BaseAction
             $result[$rule][$k][$d]['battle'] += (int)$row['battle'];
             $result[$rule][$k][$d]['win'] += (int)$row['win'];
         }
+
         return $result;
+    }
+
+    public function getLatestVersionGroup(): SplatoonVersionGroup2
+    {
+        $version = SplatoonVersion2::findCurrentVersion();
+        if (!$version) {
+            throw new ServerErrorHttpException(
+                'Could not determinate current game version'
+            );
+        }
+
+        return $version->group;
     }
 }
