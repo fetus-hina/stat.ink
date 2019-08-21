@@ -195,11 +195,11 @@ vendor: composer.phar composer.lock
 	@touch -r composer.lock vendor
 
 node_modules: package-lock.json
-	npm install
+	npm install --unsafe-perm
 	@touch $@
 
 package-lock.json: package.json
-	npm update
+	npm update --unsafe-perm
 	@touch $@
 
 check-syntax:
