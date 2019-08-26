@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "737f90e769f379a7ced1fd78b22d3d95",
+    "content-hash": "71a809b6c7609315b55f3e07418904d4",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -21,24 +21,6 @@
             },
             "require": {
                 "bower-asset/jquery": ">=1.9.1,<4.0"
-            },
-            "type": "bower-asset",
-            "license": [
-                "MIT"
-            ]
-        },
-        {
-            "name": "bower-asset/bootstrap-toggle",
-            "version": "2.2.2",
-            "source": {
-                "type": "git",
-                "url": "git@github.com:minhur/bootstrap-toggle.git",
-                "reference": "187e332b7431afe3d0c07eeef92782ce59a77d66"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/minhur/bootstrap-toggle/zipball/187e332b7431afe3d0c07eeef92782ce59a77d66",
-                "reference": "187e332b7431afe3d0c07eeef92782ce59a77d66"
             },
             "type": "bower-asset",
             "license": [
@@ -101,24 +83,6 @@
             "type": "bower-asset",
             "license": [
                 "http://opensource.org/licenses/mit-license.php"
-            ]
-        },
-        {
-            "name": "bower-asset/jquery",
-            "version": "3.4.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/jquery/jquery-dist.git",
-                "reference": "15bc73803f76bc53b654b9fdbbbc096f56d7c03d"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/jquery/jquery-dist/zipball/15bc73803f76bc53b654b9fdbbbc096f56d7c03d",
-                "reference": "15bc73803f76bc53b654b9fdbbbc096f56d7c03d"
-            },
-            "type": "bower-asset",
-            "license": [
-                "MIT"
             ]
         },
         {
@@ -1428,18 +1392,6 @@
             "require": {
                 "npm-asset/canvas-renderer": "~2.1.1",
                 "npm-asset/types--node": "*"
-            },
-            "type": "npm-asset",
-            "license": [
-                "MIT"
-            ]
-        },
-        {
-            "name": "npm-asset/jquery",
-            "version": "3.4.1",
-            "dist": {
-                "type": "tar",
-                "url": "https://registry.npmjs.org/jquery/-/jquery-3.4.1.tgz"
             },
             "type": "npm-asset",
             "license": [

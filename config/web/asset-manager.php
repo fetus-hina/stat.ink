@@ -12,6 +12,7 @@ return [
     'appendTimestamp' => true,
     'bundles' => [
         JqueryAsset::class => [
+            'sourcePath' => '@node/jquery/dist',
             'js' => [
                 'jquery.min.js',
             ],
