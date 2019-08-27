@@ -13,5 +13,5 @@ use yii\web\AssetBundle;
 
 class EmojifyResourceAsset extends AssetBundle
 {
-    public $sourcePath = '@npm/emojify.js/dist/images/basic';
+    public $sourcePath = '@node/emojify.js/dist/images/basic';
 }

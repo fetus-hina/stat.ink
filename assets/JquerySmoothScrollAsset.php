@@ -13,7 +13,7 @@ use yii\web\JqueryAsset;
 
 class JquerySmoothScrollAsset extends AssetBundle
 {
-    public $sourcePath = '@npm/jquery-smooth-scroll';
+    public $sourcePath = '@node/jquery-smooth-scroll';
     public $js = [
         'jquery.smooth-scroll.min.js',
     ];

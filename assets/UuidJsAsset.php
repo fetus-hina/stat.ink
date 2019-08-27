@@ -13,7 +13,7 @@ use yii\web\AssetBundle;
 
 class UuidJsAsset extends AssetBundle
 {
-    public $sourcePath = '@npm/uuidjs/src';
+    public $sourcePath = '@node/uuidjs/src';
     public $js = [
         'uuid.js',
     ];
