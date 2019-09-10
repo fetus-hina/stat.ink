@@ -11,23 +11,24 @@
   font-size: 1.618em;
   font-weight: normal;
   font-style: italic;
-}
 
-.dseg-counter-bg {
-  display: none;
+  &::before {
+    display: none;
+    speak: none;
 
-  @media screen {
-    display: inline-block;
-    position: absolute;
-    left: 0;
-    top: 0;
-    color: #eee;
-    z-index: -1;
+    @media screen {
+      display: inline-block;
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: #eee;
+      z-index: -1;
 
-    body[data-theme="bootswatch-cyborg"] &,
-    body[data-theme="bootswatch-darkly"] &,
-    body[data-theme="bootswatch-slate"] & {
-      display: none;
+      body[data-theme="bootswatch-cyborg"] &,
+      body[data-theme="bootswatch-darkly"] &,
+      body[data-theme="bootswatch-slate"] & {
+        display: none;
+      }
     }
   }
 }

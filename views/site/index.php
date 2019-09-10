@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 use app\components\helpers\CombinedBattles;
 use app\components\widgets\BlogEntryWidget;
-use app\components\widgets\DigitalCounter;
 use app\components\widgets\FA;
 use app\components\widgets\HappyNewYearWidget;
 use app\components\widgets\IndexI18nButtons;
