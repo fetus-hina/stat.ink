@@ -1,1 +1,1 @@
-../../vendor/bower-asset/punycode/LICENSE-MIT.txt
+../../node_modules/punycode/LICENSE-MIT.txt

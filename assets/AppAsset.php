@@ -31,6 +31,7 @@ class AppAsset extends AssetBundle
         FluidLayoutAsset::class,
         FontAwesomeAsset::class,
         JqueryAsset::class,
+        LinkExternalAsset::class,
         LinkPrevNextAsset::class,
         RewriteLinkForIosAppAsset::class,
         SmoothScrollAsset::class,

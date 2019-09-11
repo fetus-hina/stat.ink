@@ -10,11 +10,15 @@ declare(strict_types=1);
 namespace app\assets;
 
 use yii\web\AssetBundle;
+use yii\web\JqueryAsset;
 
-class UuidJsAsset extends AssetBundle
+class LinkExternalAsset extends AssetBundle
 {
-    public $sourcePath = '@node/uuidjs/src';
+    public $sourcePath = '@app/resources/.compiled/stat.ink';
     public $js = [
-        'uuid.js',
+        'link-external.js',
+    ];
+    public $depends = [
+        JqueryAsset::class,
     ];
 }

@@ -13,7 +13,7 @@ use yii\web\AssetBundle;
 
 class FlagIconCssAsset extends AssetBundle
 {
-    public $sourcePath = '@npm/flag-icon-css';
+    public $sourcePath = '@node/flag-icon-css';
     public $css = [
         'css/flag-icon.min.css',
     ];

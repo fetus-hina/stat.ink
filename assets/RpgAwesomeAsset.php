@@ -13,7 +13,7 @@ use yii\web\AssetBundle;
 
 class RpgAwesomeAsset extends AssetBundle
 {
-    public $sourcePath = '@npm/rpg-awesome';
+    public $sourcePath = '@node/rpg-awesome';
     public $css = [
         'css/rpg-awesome.css',
     ];

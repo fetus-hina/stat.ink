@@ -78,6 +78,7 @@ RESOURCE_TARGETS_MAIN := \
 	resources/.compiled/stat.ink/knockout.js \
 	resources/.compiled/stat.ink/language-dialog.css \
 	resources/.compiled/stat.ink/language-dialog.js \
+	resources/.compiled/stat.ink/link-external.js \
 	resources/.compiled/stat.ink/link-prevnext.js \
 	resources/.compiled/stat.ink/main.css \
 	resources/.compiled/stat.ink/no-image.png \
@@ -195,11 +196,11 @@ vendor: composer.phar composer.lock
 	@touch -r composer.lock vendor
 
 node_modules: package-lock.json
-	npm install
+	npm install --unsafe-perm
 	@touch $@
 
 package-lock.json: package.json
-	npm update
+	npm update --unsafe-perm
 	@touch $@
 
 check-syntax:
@@ -211,14 +212,14 @@ check-style-php: vendor
 	php -d memory_limit=-1 vendor/bin/phpcs --standard=phpcs-customize.xml --encoding=UTF-8 --runtime-set ignore_warnings_on_exit 1 $(STYLE_TARGETS)
 
 check-style-js: node_modules
-	node_modules/.bin/updates
+	npx updates
 	npx eslint "resources/**/*.es" "resources/**/*.js"
 
 check-style-css: node_modules
 	npx stylelint "resources/**/*.less" "resources/**/*.css"
 
 fix-style: vendor node_modules
-	node_modules/.bin/updates -u
+	npx updates -u
 	vendor/bin/phpcbf --standard=PSR12 --encoding=UTF-8 $(STYLE_TARGETS)
 	npx eslint --fix "resources/**/*.es" "resources/**/*.js"
 
@@ -275,7 +276,7 @@ endif
 	@chmod 644 $@
 
 %.min.svg: %.svg node_modules
-	./node_modules/.bin/svgo --output $@ --input $< -q
+	npx svgo --output $@ --input $< -q
 
 resources/.compiled/ostatus/ostatus.svg:
 	@mkdir -p $(dir $@)
@@ -351,6 +352,7 @@ resources/.compiled/stat.ink/knockout.css: resources/stat.ink/knockout.less node
 resources/.compiled/stat.ink/knockout.js: resources/stat.ink/knockout.es node_modules
 resources/.compiled/stat.ink/language-dialog.css: resources/stat.ink/language-dialog.less node_modules
 resources/.compiled/stat.ink/language-dialog.js: resources/stat.ink/language-dialog.es node_modules
+resources/.compiled/stat.ink/link-external.js: resources/stat.ink/link-external.es node_modules
 resources/.compiled/stat.ink/link-prevnext.js: resources/stat.ink/link-prevnext.es node_modules
 resources/.compiled/stat.ink/main.css: resources/stat.ink/main.less node_modules
 resources/.compiled/stat.ink/os-icon-widget.js: resources/stat.ink/os-icon-widget.es node_modules

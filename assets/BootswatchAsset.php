@@ -13,7 +13,7 @@ use yii\web\AssetBundle;
 
 class BootswatchAsset extends AssetBundle
 {
-    public $sourcePath = '@npm/bootswatch';
+    public $sourcePath = '@node/bootswatch';
     public $css = [];
     public $depends = [
         BootstrapPluginAsset::class,

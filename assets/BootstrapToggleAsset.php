@@ -11,7 +11,7 @@ use yii\web\AssetBundle;
 
 class BootstrapToggleAsset extends AssetBundle
 {
-    public $sourcePath = '@bower/bootstrap-toggle';
+    public $sourcePath = '@node/bootstrap-toggle';
     public $js = [
         'js/bootstrap-toggle.min.js',
     ];

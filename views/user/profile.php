@@ -81,6 +81,7 @@ $this->registerCss('.btn-block.text-left{text-align:left}');
               [
                 'class' => 'btn btn-default auto-tooltip',
                 'title' => Yii::t('app', 'Schema information'),
+                'rel' => 'external',
               ]
             ),
           ]),

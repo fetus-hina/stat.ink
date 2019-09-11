@@ -1,5 +1,8 @@
 <?php
+declare(strict_types=1);
+
 use app\components\widgets\AdWidget;
+use app\components\widgets\FA;
 use jp3cki\yii2\zxcvbn\ZxcvbnAsset;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
@@ -24,6 +27,11 @@ ZxcvbnAsset::register($this);
       ) . "\n" ?>
       <p>
         <?= Html::encode(Yii::t('app', 'The password will be encrypted.')) . "\n" ?>
+        <?= Html::a(
+          (string)FA::fas('info-circle')->fw(),
+          'https://github.com/fetus-hina/stat.ink/wiki/Store-Your-Password',
+          ['rel' => 'external']
+        ) . "\n" ?>
       </p>
       <?php $_ = ActiveForm::begin(['id' => 'register-form']); echo "\n" ?>
         <?= $_->field($register, 'name') . "\n" ?>

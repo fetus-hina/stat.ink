@@ -27,8 +27,8 @@ jobs:
             - php-dependencies-v1-
       - restore_cache:
           keys:
-            - js-node10-dependencies-v1-{{ checksum "package-lock.json" }}
-            - js-node10-dependencies-v1-
+            - js-node10-dependencies-v2-{{ checksum "package-lock.json" }}
+            - js-node10-dependencies-v2-
       - run: scl enable php73 -- make check-syntax
       - run: scl enable php73 -- make init
       - save_cache:
@@ -70,8 +70,8 @@ jobs:
             - php-dependencies-v1-
       - restore_cache:
           keys:
-            - js-node11-dependencies-v1-{{ checksum "package-lock.json" }}
-            - js-node11-dependencies-v1-
+            - js-node11-dependencies-v2-{{ checksum "package-lock.json" }}
+            - js-node11-dependencies-v2-
       - run: scl enable php74 -- make check-syntax
       - run: scl enable php74 -- make init
       - save_cache:
