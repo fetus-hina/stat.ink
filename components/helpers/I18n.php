@@ -33,7 +33,7 @@ class I18n
 
 
         $ret = [];
-        foreach (Language::find()->all() as $lang) {
+        foreach (Language::find()->standard()->all() as $lang) {
             $newParams = array_merge(
                 [$route, '_lang_' => $lang->lang],
                 $params
