@@ -78,6 +78,7 @@ RESOURCE_TARGETS_MAIN := \
 	resources/.compiled/stat.ink/knockout.js \
 	resources/.compiled/stat.ink/language-dialog.css \
 	resources/.compiled/stat.ink/language-dialog.js \
+	resources/.compiled/stat.ink/link-external.js \
 	resources/.compiled/stat.ink/link-prevnext.js \
 	resources/.compiled/stat.ink/main.css \
 	resources/.compiled/stat.ink/no-image.png \
@@ -351,6 +352,7 @@ resources/.compiled/stat.ink/knockout.css: resources/stat.ink/knockout.less node
 resources/.compiled/stat.ink/knockout.js: resources/stat.ink/knockout.es node_modules
 resources/.compiled/stat.ink/language-dialog.css: resources/stat.ink/language-dialog.less node_modules
 resources/.compiled/stat.ink/language-dialog.js: resources/stat.ink/language-dialog.es node_modules
+resources/.compiled/stat.ink/link-external.js: resources/stat.ink/link-external.es node_modules
 resources/.compiled/stat.ink/link-prevnext.js: resources/stat.ink/link-prevnext.es node_modules
 resources/.compiled/stat.ink/main.css: resources/stat.ink/main.less node_modules
 resources/.compiled/stat.ink/os-icon-widget.js: resources/stat.ink/os-icon-widget.es node_modules
