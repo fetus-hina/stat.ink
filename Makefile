@@ -211,14 +211,14 @@ check-style-php: vendor
 	php -d memory_limit=-1 vendor/bin/phpcs --standard=phpcs-customize.xml --encoding=UTF-8 --runtime-set ignore_warnings_on_exit 1 $(STYLE_TARGETS)
 
 check-style-js: node_modules
-	node_modules/.bin/updates
+	npx updates
 	npx eslint "resources/**/*.es" "resources/**/*.js"
 
 check-style-css: node_modules
 	npx stylelint "resources/**/*.less" "resources/**/*.css"
 
 fix-style: vendor node_modules
-	node_modules/.bin/updates -u
+	npx updates -u
 	vendor/bin/phpcbf --standard=PSR12 --encoding=UTF-8 $(STYLE_TARGETS)
 	npx eslint --fix "resources/**/*.es" "resources/**/*.js"
 
@@ -275,7 +275,7 @@ endif
 	@chmod 644 $@
 
 %.min.svg: %.svg node_modules
-	./node_modules/.bin/svgo --output $@ --input $< -q
+	npx svgo --output $@ --input $< -q
 
 resources/.compiled/ostatus/ostatus.svg:
 	@mkdir -p $(dir $@)
