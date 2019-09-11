@@ -1,1 +1,1 @@
-../../vendor/npm-asset/uuidjs/LICENSE.txt
+../../node_modules/uuidjs/LICENSE.txt

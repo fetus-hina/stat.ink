@@ -14,7 +14,7 @@ use yii\web\AssetBundle;
 
 class BootstrapNotifyAsset extends AssetBundle
 {
-    public $sourcePath = '@npm/bootstrap-notify';
+    public $sourcePath = '@node/bootstrap-notify';
     public $js = [
         'bootstrap-notify.min.js',
     ];

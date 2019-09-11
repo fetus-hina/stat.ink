@@ -16,30 +16,23 @@ $battles = (string)(Battle::getTotalRoughCount() ?? '0');
 $jobs = (string)(Salmon2::getRoughCount() ?? '0');
 
 $maxLen = max(strlen($users), strlen($battles), strlen($jobs));
-$decorate = function (string $value) use ($maxLen): string {
-    return substr(
-        str_repeat('0', $maxLen) . $value,
-        -$maxLen
-    );
-};
-
 $values = [
   [
     'icon' => '<span class="fas fa-fw fa-user"></span>',
     'label' => Yii::t('app-counter', 'Users'),
-    'value' => $decorate($users),
+    'value' => $users,
     'type' => 'users',
   ],
   [
     'icon' => '<span class="ra ra-fw ra-crossed-swords"></span>',
     'label' => Yii::t('app-counter', 'Battles'),
-    'value' => $decorate($battles),
+    'value' => $battles,
     'type' => 'battles',
   ],
   [
     'icon' => '<span class="fas fa-fw fa-fish"></span>',
     'label' => Yii::t('app-counter', 'Jobs'),
-    'value' => $decorate($jobs),
+    'value' => $jobs,
     'type' => 'salmon',
   ],
 ];

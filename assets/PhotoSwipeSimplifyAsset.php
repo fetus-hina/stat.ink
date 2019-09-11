@@ -13,7 +13,7 @@ use yii\web\AssetBundle;
 
 class PhotoSwipeSimplifyAsset extends AssetBundle
 {
-    public $sourcePath = '@npm/photoswipe-simplify/dist/js';
+    public $sourcePath = '@node/photoswipe-simplify/dist/js';
     public $js = [
         'photoswipe-simplify.min.js',
     ];

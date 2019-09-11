@@ -1,1 +1,1 @@
-../../vendor/bower-asset/moment/LICENSE
+../../node_modules/moment/LICENSE

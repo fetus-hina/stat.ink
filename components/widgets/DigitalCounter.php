@@ -23,13 +23,6 @@ class DigitalCounter extends Widget
         'class' => 'dseg-counter',
     ];
     public $foregroundOptions = [];
-    public $backgroundOptions = [
-        'class' => 'dseg-counter-bg',
-        'aria-hidden' => 'true',
-        'style' => [
-            'speak' => 'none',
-        ],
-    ];
 
     public function run()
     {
@@ -57,18 +50,40 @@ class DigitalCounter extends Widget
     public function renderBackground(string $value): string
     {
         $digits = max($this->digits, strlen($value));
-        return Html::tag(
-            'span',
-            Html::encode(str_repeat('8', $digits)),
-            $this->backgroundOptions
-        );
+        $value = str_repeat('8', $digits);
+        $this->view->registerCss(Html::renderCss([
+            "#{$this->id}::before" => ($digits > 0)
+                ? ['content' => sprintf('"%s"', $value)]
+                : ['display' => 'none'],
+        ]));
+
+        return '';
     }
 
     public function renderForeground(string $value): string
     {
+        $renderDigits = max($this->digits, strlen($value));
+        $padDigits = max(0, $renderDigits - strlen($value));
+
+        if ($padDigits > 0) {
+            $this->view->registerCss(Html::renderCss([
+                '.dseg-counter-pad' => [
+                    'speak' => 'none',
+                ],
+            ]));
+        }
+
         return Html::tag(
             'span',
-            Html::encode($value),
+            implode('', [
+                $padDigits > 0
+                    ? Html::tag('span', str_repeat('!', $padDigits), [
+                        'class' => 'dseg-counter-pad',
+                        'aria-hidden' => 'true',
+                    ])
+                    : '',
+                Html::encode($value),
+            ]),
             $this->foregroundOptions
         );
     }
