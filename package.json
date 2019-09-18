@@ -52,7 +52,7 @@
     "uglify-js": "^3.6.0",
     "updates": "^9.0.0",
     "uuidjs": "^4.2.4",
-    "yii2-pjax": "^2.0.7",
+    "yii2-pjax": "git+https://github.com/yiisoft/jquery-pjax.git",
     "zxcvbn": "^4.4.2"
   },
   "scripts": {
