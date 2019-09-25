@@ -1,8 +1,12 @@
 <?php
+use app\assets\KillRatioColumnAsset;
 use app\components\helpers\WeaponShortener;
 use app\components\widgets\EmbedVideo;
 use app\components\widgets\KillRatioBadgeWidget;
 use yii\helpers\Html;
+
+KillRatioColumnAsset::register($this);
+$this->registerJs('jQuery(".kill-ratio").killRatioColumn();');
 
 $f = Yii::$app->formatter;
 ?>
@@ -188,5 +192,4 @@ $f = Yii::$app->formatter;
     ) . "\n" ?>
 <?php endif ?>
   </td>
-</tr><?php
-?>
+</tr>

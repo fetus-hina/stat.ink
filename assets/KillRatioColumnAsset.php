@@ -9,19 +9,19 @@ declare(strict_types=1);
 
 namespace app\assets;
 
+use jp3cki\yii2\jqueryColor\JqueryColorAsset;
 use yii\web\AssetBundle;
 use yii\web\JqueryAsset;
 
-class BattleListAsset extends AssetBundle
+class KillRatioColumnAsset extends AssetBundle
 {
     public $sourcePath = '@app/resources/.compiled/stat.ink';
     public $js = [
-        'battle-list.js',
-        'battle-list-config.js',
+        'kill-ratio-column.js',
     ];
     public $depends = [
-        AppAsset::class,
+        ColorSchemeAsset::class,
         JqueryAsset::class,
-        TableResponsiveForceAsset::class,
+        JqueryColorAsset::class,
     ];
 }
