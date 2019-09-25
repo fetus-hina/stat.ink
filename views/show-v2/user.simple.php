@@ -10,6 +10,7 @@ use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\ListView;
+use yii\widgets\Pjax;
 
 $title = Yii::t('app', "{0}'s Splat Log", $user->name);
 $this->title = sprintf('%s | %s', Yii::$app->name, $title);
@@ -78,16 +79,6 @@ SimpleBattleListAsset::register($this);
           <?= FA::fas('angle-right')->fw() . "\n" ?>
         </a>
       </p>
-      <div class="text-center">
-        <?= ListView::widget([
-          'dataProvider' => $battleDataProvider,
-          'itemOptions' => [ 'tag' => false ],
-          'layout' => '{pager}',
-          'pager' => [
-            'maxButtonCount' => 5
-          ]
-        ]) . "\n" ?>
-      </div>
       <?= $this->render(
         '/includes/battles-summary',
         [
@@ -113,26 +104,38 @@ SimpleBattleListAsset::register($this);
           ['class' => 'btn btn-default', 'rel' => 'nofollow']
         ) . "\n" ?>
       </div>
-      <div id="battles">
-        <ul class="simple-battle-list">
+      <?php Pjax::begin(); echo "\n" ?>
+        <div class="text-center">
           <?= ListView::widget([
             'dataProvider' => $battleDataProvider,
-            'itemView' => 'battle.simple.tablerow.php',
             'itemOptions' => [ 'tag' => false ],
-            'layout' => '{items}'
+            'layout' => '{pager}',
+            'pager' => [
+              'maxButtonCount' => 5
+            ]
           ]) . "\n" ?>
-        </ul>
-      </div>
-      <div class="text-center">
-        <?= ListView::widget([
-          'dataProvider' => $battleDataProvider,
-          'itemOptions' => [ 'tag' => false ],
-          'layout' => '{pager}',
-          'pager' => [
-            'maxButtonCount' => 5
-          ]
-        ]) . "\n" ?>
-      </div>
+        </div>
+        <div id="battles">
+          <ul class="simple-battle-list">
+            <?= ListView::widget([
+              'dataProvider' => $battleDataProvider,
+              'itemView' => 'battle.simple.tablerow.php',
+              'itemOptions' => [ 'tag' => false ],
+              'layout' => '{items}'
+            ]) . "\n" ?>
+          </ul>
+        </div>
+        <div class="text-center">
+          <?= ListView::widget([
+            'dataProvider' => $battleDataProvider,
+            'itemOptions' => [ 'tag' => false ],
+            'layout' => '{pager}',
+            'pager' => [
+              'maxButtonCount' => 5
+            ]
+          ]) . "\n" ?>
+        </div>
+      <?php Pjax::end(); echo "\n" ?>
     </div>
     <div class="col-xs-12 col-sm-4 col-lg-3">
       <?= Battle2FilterWidget::widget([

@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 use app\assets\BattleListAsset;
 use app\assets\Spl2WeaponAsset;
+use app\components\grid\KillRatioColumn;
+use app\components\helpers\Battle as BattleHelper;
 use app\components\widgets\AdWidget;
 use app\components\widgets\Battle2FilterWidget;
 use app\components\widgets\EmbedVideo;
@@ -140,16 +142,60 @@ if ($user->twitter != '') {
         'tableOptions' => [
           'class' => 'table table-striped table-condensed'
         ],
-        'rowOptions' => function ($model): array {
+        'rowOptions' => function (Battle2 $model): array {
           return [
             'class' => [
               'battle-row',
               $model->getHasDisconnectedPlayer() ? 'disconnected' : '',
             ],
-            'data' => [
-              'period' => $model->period,
-            ],
           ];
+        },
+        'beforeRow' => function (Battle2 $model, int $key, int $index, GridView $widget): ?string {
+          static $lastPeriod = null;
+          if ($lastPeriod !== $model->period) {
+            $lastPeriod = $model->period;
+            $fmt = Yii::$app->formatter;
+            list($from, $to) = BattleHelper::periodToRange2DT($model->period);
+            return Html::tag('tr', Html::tag(
+              'td',
+              implode(' - ', [
+                Html::tag(
+                  'time',
+                  Html::encode(implode(' ', array_filter([
+                    $fmt->asDate($from, 'medium'),
+                    $fmt->asTime($from, 'short'),
+                  ]))),
+                  [
+                    'datetime' => $from->setTimezone(new DateTimeZone('Etc/UTC'))
+                      ->format(DateTime::ATOM),
+                  ]
+                ),
+                Html::tag(
+                  'time',
+                  Html::encode(implode(' ', array_filter([
+                    $fmt->asDate($from, 'medium') !== $fmt->asDate($to, 'medium')
+                      ? $fmt->asDate($to, 'medium')
+                      : null,
+                    $fmt->asTime($to, 'short'),
+                  ]))),
+                  [
+                    'datetime' => $to->setTimezone(new DateTimeZone('Etc/UTC'))
+                      ->format(DateTime::ATOM),
+                  ]
+                ),
+              ]),
+              [
+                'class' => 'text-small',
+                'style' => [
+                  'color' => '#ddd',
+                  'background-color' => '#444',
+                  'font-weight' => '700',
+                ],
+                'colspan' => (string)count($widget->columns),
+              ]
+            ));
+          }
+          return null;
         },
         'columns' => [ // {{{
           [
@@ -1019,62 +1065,14 @@ if ($user->twitter != '') {
           ],
           [
             // kill ratio {{{
-            'label' => Yii::t('app', 'Ratio'),
-            'attribute' => 'kill_ratio',
-            'headerOptions' => ['class' => 'cell-kill-ratio auto-tooltip', 'title' => Yii::t('app', 'Kill Ratio')],
-            'contentOptions' => function ($model): array {
-              return $model->kill_ratio === null
-                ? [
-                  'class' => [
-                    'cell-kill-ratio',
-                  ],
-                ]
-                : [
-                  'class' => [
-                    'cell-kill-ratio',
-                    'kill-ratio',
-                    'text-right',
-                  ],
-                  'data' => [
-                    'kill-ratio' => $model->kill_ratio,
-                  ],
-                ];
-            },
-            'format' => ['decimal', 2],
+            'class' => KillRatioColumn::class,
+            'killRate' => false,
             // }}}
           ],
           [
             // kill rate {{{
-            'label' => Yii::t('app', 'Rate'),
-            'attribute' => 'kill_rate',
-            'headerOptions' => [
-              'class' => 'cell-kill-rate auto-tooltip',
-              'title' => Yii::t('app', 'Kill Rate'),
-            ],
-            'contentOptions' => function ($model): array {
-              return $model->kill_ratio === null
-                ? [
-                  'class' => [
-                    'cell-kill-rate',
-                  ],
-                ]
-                : [
-                  'class' => [
-                    'cell-kill-rate',
-                    'kill-rate',
-                    'text-right',
-                  ],
-                  'data' => [
-                    'kill-ratio' => $model->kill_ratio,
-                  ],
-                ];
-            },
-            'format' => ['percent', 2],
-            'value' => function ($model): ?float {
-              return ($model->kill_rate !== null)
-                ? ($model->kill_rate / 100)
-                : null;
-            },
+            'class' => KillRatioColumn::class,
+            'killRate' => true,
             // }}}
           ],
           [
