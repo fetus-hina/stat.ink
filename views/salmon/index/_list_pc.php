@@ -2,13 +2,19 @@
 declare(strict_types=1);
 
 use app\assets\SalmonWorkListAsset;
+use app\assets\Spl2WeaponAsset;
 use app\components\grid\SalmonActionColumn;
+use app\components\helpers\Battle as BattleHelper;
 use app\components\i18n\Formatter;
 use app\components\widgets\FA;
 use app\components\widgets\Label;
 use app\models\Salmon2;
+use app\models\SalmonSchedule2;
+use app\models\SalmonWeapon2;
+use app\models\Weapon2;
 use yii\grid\Column;
 use yii\grid\GridView;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\ListView;
 
@@ -67,9 +73,6 @@ SalmonWorkListAsset::register($this);
     return [
       'class' => [
         'battle-row',
-      ],
-      'data' => [
-        'period' => $model->shift_period,
       ],
     ];
   },
@@ -403,6 +406,76 @@ SalmonWorkListAsset::register($this);
       'format' => 'htmlRelative',
     ],
   ],
+  'beforeRow' => function (Salmon2 $model, int $key, int $index, GridView $widget): ?string {
+    static $lastPeriod = null;
+    if ($lastPeriod !== $model->shift_period) {
+      $lastPeriod = $model->shift_period;
+      $fmt = Yii::$app->formatter;
+      $from = $model->shift_period
+        ? (BattleHelper::periodToRange2DT($model->shift_period)[0])
+        : null;
+      $shift = $from
+        ? SalmonSchedule2::findOne(['start_at' => $from->format(DateTime::ATOM)])
+        : null;
+      return Html::tag('tr', Html::tag(
+        'td',
+        (function () use ($from, $shift, $fmt): string {
+          if ($shift) {
+            $weapons = ArrayHelper::getColumn(
+              $shift->getWeapons()->with('weapon')->all(),
+              'weapon'
+            );
+            $asset = $weapons ? Spl2WeaponAsset::register(Yii::$app->getView()) : null;
+
+            return vsprintf('%s - %s (%s)', [
+              $fmt->asHtmlDatetimeEx($from, 'medium', 'short'),
+              $fmt->asHtmlDatetimeEx($shift->end_at, 'medium', 'short'),
+              implode(' ', array_map(
+                function (?Weapon2 $weapon) use ($asset): string {
+                  if (!$weapon) {
+                    return Html::tag('span', (string)FA::fas('question')->fw(), [
+                      'class' => 'auto-tooltip',
+                      'title' => Yii::t('app-salmon2', 'Random'),
+                    ]);
+                  }
+
+                  return Html::img(
+                    $asset->getIconUrl($weapon->key),
+                    [
+                      'style' => ['height' => '1.2em'],
+                      'title' => Yii::t('app-weapon2', $weapon->name),
+                      'class' => 'auto-tooltip',
+                    ]
+                  );
+                },
+                array_slice(
+                  array_merge($weapons, [null, null, null, null]),
+                  0,
+                  4
+                )
+              )),
+            ]);
+          }
+
+          if ($from) {
+            return sprintf('%s -', $fmt->asHtmlDatetimeEx($from, 'medium', 'short'));
+          }
+
+          return Html::encode(Yii::t('app', 'Unknown'));
+        })(),
+        [
+          'class' => 'text-small',
+          'style' => [
+            'color' => '#ddd',
+            'background-color' => '#444',
+            'font-weight' => '700',
+          ],
+          'colspan' => (string)count($widget->columns),
+        ]
+      ));
+    }
+    return null;
+  },
 ]) . "\n" ?>
 <div class="text-center">
   <?= ListView::widget([
