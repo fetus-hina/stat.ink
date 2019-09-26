@@ -16,14 +16,22 @@ class Formatter extends \yii\i18n\Formatter
 {
     public function asHtmlDatetime($value, $format = null)
     {
+        return $this->asHtmlDatetimeEx($value, $format, $format);
+    }
+
+    public function asHtmlDatetimeEx($value, $formatD = null, $formatT = null)
+    {
         if ($value === null) {
-            return $this->asDatetime($value, $format);
+            return $this->asDatetime($value, $formatD);
         }
 
         $timestamp = (int)$this->asTimestamp($value);
         return Html::tag(
             'time',
-            Html::encode($this->asDatetime($timestamp, $format)),
+            Html::encode(implode(' ', [
+                $this->asDate($timestamp, $formatD),
+                $this->asTime($timestamp, $formatT),
+            ])),
             ['datetime' => gmdate(Datetime::ATOM, $timestamp)]
         );
     }
