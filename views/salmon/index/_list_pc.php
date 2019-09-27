@@ -407,7 +407,12 @@ SalmonWorkListAsset::register($this);
       'format' => 'htmlRelative',
     ],
   ],
-  'beforeRow' => function (Salmon2 $model, int $key, int $index, GridView $widget): ?string {
+  'beforeRow' => function (
+    Salmon2 $model,
+    int $key,
+    int $index,
+    GridView $widget
+  ) use ($user): ?string {
     static $lastPeriod = null;
     if ($lastPeriod !== $model->shift_period) {
       $lastPeriod = $model->shift_period;
@@ -421,7 +426,7 @@ SalmonWorkListAsset::register($this);
       BattleListGroupHeaderAsset::register($this);
       return Html::tag('tr', Html::tag(
         'td',
-        (function () use ($from, $shift, $fmt): string {
+        (function () use ($fmt, $from, $shift, $user): string {
           if ($shift) {
             $weapons = ArrayHelper::getColumn(
               $shift->getWeapons()->with('weapon')->all(),
@@ -429,7 +434,17 @@ SalmonWorkListAsset::register($this);
             );
             $asset = $weapons ? Spl2WeaponAsset::register(Yii::$app->getView()) : null;
 
-            return vsprintf('%s - %s (%s)', [
+            return vsprintf('%s %s - %s (%s)', [
+              Html::a(
+                (string)FA::fas('search')->fw(),
+                ['salmon/index',
+                  'screen_name' => $user->screen_name,
+                  'filter' => ArrayHelper::merge(
+                    (array)($_GET['filter'] ?? []),
+                    ['filter' => sprintf('rotation:%d', $shift->period)],
+                  ),
+                ]
+              ),
               $fmt->asHtmlDatetimeEx($from, 'medium', 'short'),
               $fmt->asHtmlDatetimeEx($shift->end_at, 'medium', 'short'),
               implode(' ', array_map(

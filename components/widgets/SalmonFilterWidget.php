@@ -64,9 +64,9 @@ class SalmonFilterWidget extends Widget
         return implode('', [
             $this->renderStageField($form),
             $this->renderSpecialField($form),
-            // $this->renderTitleField($form),
             $this->renderResultField($form),
             $this->renderReasonField($form),
+            $this->renderFilterField($form),
         ]);
     }
 
@@ -97,21 +97,6 @@ class SalmonFilterWidget extends Widget
         return $form->field($this->filter, 'special')
             ->dropDownList($specials, [
                 'prompt' => Yii::t('app-special2', 'Any Special'),
-            ])
-            ->label(false)
-            ->render();
-    }
-
-    protected function renderTitleField(ActiveForm $form): string
-    {
-        $titles = [];
-        foreach ($this->filter->getTitleList() as $key => $info) {
-            $titles[$key] = $info['name'];
-        }
-
-        return $form->field($this->filter, 'title')
-            ->dropDownList($titles, [
-                'prompt' => Yii::t('app-salmon-title2', 'Any Title'),
             ])
             ->label(false)
             ->render();
@@ -155,6 +140,17 @@ class SalmonFilterWidget extends Widget
             ->dropDownList($reasons, [
                 'prompt' => Yii::t('app-salmon2', 'Fail Reason'),
             ])
+            ->label(false)
+            ->render();
+    }
+
+    protected function renderFilterField(ActiveForm $form): string
+    {
+        if (trim((string)$this->filter->filter) === '') {
+            return '';
+        }
+
+        return $form->field($this->filter, 'filter')
             ->label(false)
             ->render();
     }
