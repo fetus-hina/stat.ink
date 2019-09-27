@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -42,11 +43,11 @@ use yii\helpers\ArrayHelper;
  */
 class StatWeapon2Tier extends ActiveRecord
 {
-    const PLAYERS_COUNT_THRESHOLD = 50;
+    public const PLAYERS_COUNT_THRESHOLD = 50;
 
     public static function find(): ActiveQuery
     {
-        return new class(static::class) extends ActiveQuery {
+        return new class (static::class) extends ActiveQuery {
             public function thresholded(): self
             {
                 $this->andWhere(

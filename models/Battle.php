@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -552,7 +553,8 @@ class Battle extends ActiveRecord
 
     public function getInked()
     {
-        if ($this->my_point === null ||
+        if (
+            $this->my_point === null ||
                 $this->is_win === null ||
                 !$this->bonus ||
                 !$this->rule ||
@@ -1169,7 +1171,7 @@ class Battle extends ActiveRecord
         }
     }
 
-    public function getCreatedAt() : int
+    public function getCreatedAt(): int
     {
         return strtotime($this->at);
     }

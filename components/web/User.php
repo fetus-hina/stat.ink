@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2018 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -15,9 +16,9 @@ use yii\web\IdentityInterface;
 
 class User extends \yii\web\User
 {
-    const CRYPT_KEY_BITS = 256;
-    const CRYPT_METHOD = 'aes-256-gcm';
-    const CRYPT_KEY_SALT_BYTES = 16;
+    public const CRYPT_KEY_BITS = 256;
+    public const CRYPT_METHOD = 'aes-256-gcm';
+    public const CRYPT_KEY_SALT_BYTES = 16;
 
     public $identityFixedKey;
 

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2017 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -68,7 +69,7 @@ class RankGroup2 extends ActiveRecord
         return $this->hasMany(Rank2::class, ['group_id' => 'id']);
     }
 
-    public function toJsonArray() : array
+    public function toJsonArray(): array
     {
         return [
             'key' => $this->key,

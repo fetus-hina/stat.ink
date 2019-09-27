@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -97,12 +98,12 @@ class ProfileForm extends Model
         ];
     }
 
-    public function getLinkModes() : array
+    public function getLinkModes(): array
     {
         return ArrayHelper::map(
             LinkMode::find()->orderBy(['rank' => SORT_ASC])->asArray()->all(),
             'id',
-            function (array $row) : string {
+            function (array $row): string {
                 return Yii::t('app', $row['name']);
             }
         );

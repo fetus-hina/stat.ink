@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2017 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -60,14 +61,14 @@ class PanelListWidget extends Widget
         ];
         return preg_replace_callback(
             '/\{\w+\}/',
-            function (array $match) use ($replace) : string {
+            function (array $match) use ($replace): string {
                 return $replace[$match[0]] ?? $match[0];
             },
             $this->template
         );
     }
 
-    protected function renderList() : string
+    protected function renderList(): string
     {
         $ret = [];
         foreach ($this->models as $model) {
@@ -86,7 +87,7 @@ class PanelListWidget extends Widget
         return $this->emptyText;
     }
 
-    protected function renderTitleLink() : string
+    protected function renderTitleLink(): string
     {
         if (!$this->titleLink || !$this->titleLinkText) {
             return '';

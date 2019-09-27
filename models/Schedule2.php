@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2017 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -102,12 +103,12 @@ class Schedule2 extends ActiveRecord
         return $this->hasMany(Map2::class, ['id' => 'map_id'])->viaTable('schedule_map2', ['schedule_id' => 'id']);
     }
 
-    public static function getInfo() : \stdClass
+    public static function getInfo(): \stdClass
     {
         $currentPeriod = \app\components\helpers\Battle::calcPeriod2(
             (int)($_SERVER['REQUEST_TIME'] ?? time())
         );
-        $formatter = function (int $period) : array {
+        $formatter = function (int $period): array {
             return array_merge(
                 ['_t' => \app\components\helpers\Battle::periodToRange2($period)],
                 ArrayHelper::map(

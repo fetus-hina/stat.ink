@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2016 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -65,7 +66,7 @@ class Knockout2Action extends BaseAction
         $data = ArrayHelper::map(
             $query->all(),
             'rule',
-            function (array $row) : array {
+            function (array $row): array {
                 return $row;
             },
             'map'

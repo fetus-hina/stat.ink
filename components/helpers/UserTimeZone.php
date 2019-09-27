@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -18,7 +19,7 @@ use yii\helpers\StringHelper;
 
 class UserTimeZone
 {
-    const COOKIE_KEY = 'timezone';
+    public const COOKIE_KEY = 'timezone';
 
     public static function guess(bool $getDefault = true): ?Timezone
     {

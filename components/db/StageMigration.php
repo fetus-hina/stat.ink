@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2017 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -12,14 +13,14 @@ use yii\db\Query;
 
 trait StageMigration
 {
-    protected function setArea(array $list) : void
+    protected function setArea(array $list): void
     {
         $db = Yii::$app->db;
         $value = new Expression(vsprintf('(CASE %s %s END)', [
             $db->quoteColumnName('key'),
-            (function () use ($list, $db) : string {
+            (function () use ($list, $db): string {
                 return implode(' ', array_map(
-                    function (string $key, ?int $area) use ($db) : string {
+                    function (string $key, ?int $area) use ($db): string {
                         return vsprintf('WHEN %s THEN %s', [
                             $db->quoteValue($key),
                             $area === null ? 'NULL' : $db->quoteValue($area),

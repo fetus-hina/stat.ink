@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -40,7 +41,7 @@ class Weapon extends \yii\db\ActiveRecord
 
     public static function find()
     {
-        return new class(static::class) extends ActiveQuery {
+        return new class (static::class) extends ActiveQuery {
             public function naturalOrder(): ActiveQuery
             {
                 return $this->orderBy([

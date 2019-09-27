@@ -47,6 +47,7 @@ RESOURCE_TARGETS_MAIN := \
 	resources/.compiled/stat.ink/battle-input-2.js \
 	resources/.compiled/stat.ink/battle-input.css \
 	resources/.compiled/stat.ink/battle-list-config.js \
+	resources/.compiled/stat.ink/battle-list-group-header.css \
 	resources/.compiled/stat.ink/battle-list.js \
 	resources/.compiled/stat.ink/battle-summary-dialog.css \
 	resources/.compiled/stat.ink/battle-summary-dialog.js \
@@ -323,6 +324,7 @@ resources/.compiled/stat.ink/battle-edit.js: resources/stat.ink/battle-edit.js n
 resources/.compiled/stat.ink/battle-input-2.js: resources/stat.ink/battle-input-2.es node_modules
 resources/.compiled/stat.ink/battle-input.css: resources/stat.ink/battle-input.less node_modules
 resources/.compiled/stat.ink/battle-list-config.js: resources/stat.ink/battle-list-config.es node_modules
+resources/.compiled/stat.ink/battle-list-group-header.css: resources/stat.ink/battle-list-group-header.less node_modules
 resources/.compiled/stat.ink/battle-list.js: resources/stat.ink/battle-list.es node_modules
 resources/.compiled/stat.ink/battle-summary-dialog.css: resources/stat.ink/battle-summary-dialog.less node_modules
 resources/.compiled/stat.ink/battle-summary-dialog.js: resources/stat.ink/battle-summary-dialog.es node_modules

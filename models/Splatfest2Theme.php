@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2017 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -21,7 +22,7 @@ use yii\db\ActiveRecord;
  */
 class Splatfest2Theme extends ActiveRecord
 {
-    public static function findOrCreate(string $name) : ?self
+    public static function findOrCreate(string $name): ?self
     {
         if ($model = static::findOne(['name' => $name])) {
             return $model;

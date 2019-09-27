@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2018 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -14,7 +15,7 @@ class WeaponShortener extends Component
 {
     public $dictionary;
 
-    public static function makeShorter(string $name) : string
+    public static function makeShorter(string $name): string
     {
         $instance = Yii::createObject(['class' => static::class]);
         return $instance->get($name);
@@ -28,12 +29,12 @@ class WeaponShortener extends Component
         }
     }
 
-    public function get(string $localizedName) : string
+    public function get(string $localizedName): string
     {
         return $this->dictionary[$localizedName] ?? $localizedName;
     }
 
-    protected function setupDictionary() : array
+    protected function setupDictionary(): array
     {
         if (!preg_match('/^([[:alnum:]]+)/', (string)Yii::$app->language, $match)) {
             return [];
@@ -41,7 +42,7 @@ class WeaponShortener extends Component
 
         // try to load "@app/messages/<lang>/weapon-short.php"
         $paths = array_map(
-            function (string $langCode) : string {
+            function (string $langCode): string {
                 return implode(DIRECTORY_SEPARATOR, [
                     Yii::getAlias('@app'),
                     'messages',
@@ -60,7 +61,7 @@ class WeaponShortener extends Component
             if (file_exists($path)) {
                 $list = array_merge($list, array_filter(
                     include($path),
-                    function (string $value) : bool {
+                    function (string $value): bool {
                         return trim((string)$value) !== '';
                     }
                 ));

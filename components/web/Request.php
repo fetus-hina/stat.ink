@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -19,7 +20,8 @@ class Request extends Base
         $method = @$_SERVER['REQUEST_METHOD'] ?: '?';
         if (strtoupper($method) === 'POST') {
             $type = $this->headers->get('Content-Type', '');
-            if (stripos($type, 'application/json') !== false ||
+            if (
+                stripos($type, 'application/json') !== false ||
                     stripos($type, 'application/x-msgpack') !== false
             ) {
                 $params = $this->getBodyParams();

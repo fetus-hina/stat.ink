@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -217,7 +218,8 @@ class UserDetailedStatsCell extends Widget
             return null;
         }
 
-        if ($this->data->battles_time < 1 ||
+        if (
+            $this->data->battles_time < 1 ||
             $this->data->time_sum < 1 ||
             $this->data->battles_kd < 1
         ) {
@@ -239,7 +241,8 @@ class UserDetailedStatsCell extends Widget
             return null;
         }
 
-        if ($this->data->battles_time < 1 ||
+        if (
+            $this->data->battles_time < 1 ||
             $this->data->time_sum < 1 ||
             $this->data->battles_kd < 1
         ) {

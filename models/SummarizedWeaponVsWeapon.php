@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2016 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -24,7 +25,7 @@ class SummarizedWeaponVsWeapon extends \yii\base\Model
         int $weapon_id,
         $rule_id = null,
         $version_id = null
-    ) : array {
+    ): array {
         $query = (new \yii\db\Query())
             ->select([
                 'wid1' => 'weapon_id_1',
@@ -74,7 +75,7 @@ class SummarizedWeaponVsWeapon extends \yii\base\Model
     }
 
     // イーガーローディングもどきとして全ブキリストを取得する
-    private static function getAllWeapons() : array
+    private static function getAllWeapons(): array
     {
         $list = Weapon::find()->with(['subweapon', 'special', 'type'])->all();
         $ret = [];
@@ -84,7 +85,7 @@ class SummarizedWeaponVsWeapon extends \yii\base\Model
         return $ret;
     }
 
-    public function getWinPct() : float
+    public function getWinPct(): float
     {
         return $this->battle_count < 1
             ? (float)'NaN' // OMG, It works on PHP 7!

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2017 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -28,10 +29,10 @@ use yii\helpers\ArrayHelper;
  */
 class Map2 extends ActiveRecord
 {
-    public static function find() : ActiveQuery
+    public static function find(): ActiveQuery
     {
-        return new class(static::class) extends ActiveQuery {
-            public function excludeMystery() : self
+        return new class (static::class) extends ActiveQuery {
+            public function excludeMystery(): self
             {
                 return $this->andWhere(['and',
                     ['not', ['like', 'key', 'mystery%', false]],
@@ -48,7 +49,7 @@ class Map2 extends ActiveRecord
         return 'map2';
     }
 
-    public static function getSortedMap($callback = null) : array
+    public static function getSortedMap($callback = null): array
     {
         $query = static::find();
         if ($callback && is_callable($callback)) {
@@ -96,7 +97,7 @@ class Map2 extends ActiveRecord
         ];
     }
 
-    public function toJsonArray() : array
+    public function toJsonArray(): array
     {
         $t = $this->release_at ? strtotime($this->release_at) : null;
         return [

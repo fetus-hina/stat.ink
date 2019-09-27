@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -46,7 +47,7 @@ class WeaponsUseAction extends BaseAction
         ]);
     }
 
-    public function getWeapons() : array
+    public function getWeapons(): array
     {
         return array_merge(
             [ '' => '-' ],
@@ -59,14 +60,14 @@ class WeaponsUseAction extends BaseAction
         );
     }
 
-    public function getWeaponGroups() : array
+    public function getWeaponGroups(): array
     {
         $ret = [];
         foreach (WeaponType::find()->orderBy('[[id]] ASC')->all() as $type) {
             $typeName = Yii::t('app-weapon', $type->name);
             $ret[$typeName] = array_merge(
                 [ "@{$type->key}" => Yii::t('app-weapon', 'All of {0}', $typeName) ],
-                (function (WeaponType $type) : array {
+                (function (WeaponType $type): array {
                     $ret = [];
                     foreach ($type->weapons as $weapon) {
                         $ret[$weapon->key] = Yii::t('app-weapon', $weapon->name);
@@ -79,13 +80,13 @@ class WeaponsUseAction extends BaseAction
         return $ret;
     }
 
-    public function getMainWeapon() : array
+    public function getMainWeapon(): array
     {
         $ret = [];
         foreach (WeaponType::find()->orderBy('[[id]] ASC')->all() as $type) {
             $ret = array_merge(
                 $ret,
-                (function (WeaponType $type) : array {
+                (function (WeaponType $type): array {
                     $ret = [];
                     $weapons = $type->getWeapons()
                         ->andWhere('[[id]] = [[main_group_id]]')
@@ -104,7 +105,7 @@ class WeaponsUseAction extends BaseAction
         return $ret;
     }
 
-    public function getSubWeapon() : array
+    public function getSubWeapon(): array
     {
         $ret = [];
         foreach (Subweapon::find()->asArray()->all() as $weapon) {
@@ -114,7 +115,7 @@ class WeaponsUseAction extends BaseAction
         return $ret;
     }
 
-    public function getSpecialWeapon() : array
+    public function getSpecialWeapon(): array
     {
         $ret = [];
         foreach (Special::find()->asArray()->all() as $weapon) {
@@ -124,7 +125,7 @@ class WeaponsUseAction extends BaseAction
         return $ret;
     }
 
-    public function getRules() : array
+    public function getRules(): array
     {
         $modes = [
             '' => Yii::t('app-rule', 'Any Mode'),
@@ -148,7 +149,7 @@ class WeaponsUseAction extends BaseAction
         return $modes;
     }
 
-    public function getData(WeaponCompareForm $form) : array
+    public function getData(WeaponCompareForm $form): array
     {
         $list = $this->queryData($form);
         $ret = [
@@ -164,7 +165,7 @@ class WeaponsUseAction extends BaseAction
             $ret['data'][] = [
                 'legend' => $this->makeLegend($form->{"weapon{$i}"}, $form->{"rule{$i}"}),
                 'data' => array_map(
-                    function (array $row) use ($columnKey, $bColumnKey) : array {
+                    function (array $row) use ($columnKey, $bColumnKey): array {
                         $battles = (int)$row[$bColumnKey];
                         return [
                             date('Y-m-d', strtotime(sprintf(
@@ -182,7 +183,7 @@ class WeaponsUseAction extends BaseAction
         return $ret;
     }
 
-    protected function getEventData($firstData, $lastData) : array
+    protected function getEventData($firstData, $lastData): array
     {
         $first = strtotime(sprintf('%04d-W%02d', $firstData['isoyear'], $firstData['isoweek']));
         $last  = strtotime(sprintf('%04d-W%02d', $lastData['isoyear'], $lastData['isoweek']));
@@ -195,7 +196,7 @@ class WeaponsUseAction extends BaseAction
             ])
             ->orderBy('[[date]] ASC');
 
-        return array_map(function (array $row) : array {
+        return array_map(function (array $row): array {
             return [
                 date('Y-m-d', strtotime(date('o-\WW', strtotime($row['date'])))),
                 Yii::t('app-event', $row['name']),
@@ -204,7 +205,7 @@ class WeaponsUseAction extends BaseAction
         }, $query->asArray()->all());
     }
 
-    protected function makeLegend($weapon, $rule) : string
+    protected function makeLegend($weapon, $rule): string
     {
         $weaponName = (function ($key) {
             switch (substr($key, 0, 1)) {
@@ -253,7 +254,7 @@ class WeaponsUseAction extends BaseAction
         return (string)$weaponName;
     }
 
-    protected function queryData(WeaponCompareForm $form) : array
+    protected function queryData(WeaponCompareForm $form): array
     {
         $db = Yii::$app->db;
         $query = (new Query())

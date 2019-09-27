@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2017 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -85,7 +86,7 @@ class Rank2 extends ActiveRecord
         return $this->hasOne(RankGroup2::class, ['id' => 'group_id']);
     }
 
-    public function toJsonArray() : array
+    public function toJsonArray(): array
     {
         return [
             'key' => $this->key,
@@ -94,7 +95,7 @@ class Rank2 extends ActiveRecord
         ];
     }
 
-    public static function renderRank(int $rankNumber) : ?string
+    public static function renderRank(int $rankNumber): ?string
     {
         $numberInRank = $rankNumber % 100;
         $rankNumber = $rankNumber - $numberInRank;

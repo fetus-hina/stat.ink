@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2017 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -39,10 +40,10 @@ use yii\db\ActiveRecord;
  */
 class StatWeapon2Result extends ActiveRecord
 {
-    public static function find() : ActiveQuery
+    public static function find(): ActiveQuery
     {
-        return new class(static::class) extends ActiveQuery {
-            public function applyFilter($filter) : self
+        return new class (static::class) extends ActiveQuery {
+            public function applyFilter($filter): self
             {
                 if ($filter instanceof Weapon2StageFilterForm) {
                     return $this->applyStageFilter($filter);
@@ -53,7 +54,7 @@ class StatWeapon2Result extends ActiveRecord
                 }
             }
 
-            private function applyStageFilter(Weapon2StageFilterForm $filter) : self
+            private function applyStageFilter(Weapon2StageFilterForm $filter): self
             {
                 if ($filter->hasErrors()) {
                     return $this;
@@ -75,7 +76,7 @@ class StatWeapon2Result extends ActiveRecord
                 return $this;
             }
 
-            private function applyBattleFilter(Battle2FilterForm $filter) : self
+            private function applyBattleFilter(Battle2FilterForm $filter): self
             {
                 if ($filter->hasErrors()) {
                     return $this;

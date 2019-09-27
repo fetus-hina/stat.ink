@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2017 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -60,8 +61,9 @@ class Battle2Controller extends Controller
         $transaction = Yii::$app->db->beginTransaction();
         $this->stderr("Getting target agents...\n");
         $agentIds = array_filter(array_map(
-            function (array $agent) : ?int {
-                if (version_compare($agent['version'], '0.1.4', '>') &&
+            function (array $agent): ?int {
+                if (
+                    version_compare($agent['version'], '0.1.4', '>') &&
                     version_compare($agent['version'], '0.2.3', '<=')
                 ) {
                     $this->stderr(sprintf("  version=%s, id=%d\n", $agent['version'], $agent['id']));

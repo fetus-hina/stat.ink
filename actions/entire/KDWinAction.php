@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -20,7 +21,7 @@ use yii\web\ViewAction as BaseAction;
 
 class KDWinAction extends BaseAction
 {
-    const KD_LIMIT = 16;
+    public const KD_LIMIT = 16;
 
     public function run()
     {

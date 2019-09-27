@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -811,7 +812,8 @@ class Api2MarkdownController extends Controller
         while ($next < $size) {
             $c = grapheme_extract($text, 1, GRAPHEME_EXTR_MAXCHARS, $current, $next);
             $v = IntlChar::getIntPropertyValue($c, IntlChar::PROPERTY_EAST_ASIAN_WIDTH);
-            if ($v === IntlChar::EA_FULLWIDTH ||
+            if (
+                $v === IntlChar::EA_FULLWIDTH ||
                 $v === IntlChar::EA_WIDE ||
                 $v === IntlChar::EA_AMBIGUOUS
             ) {

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2016 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -35,7 +36,7 @@ use app\models\Weapon;
 
 class PostBattleForm extends Model
 {
-    const SAME_BATTLE_THRESHOLD_TIME = 86400;
+    public const SAME_BATTLE_THRESHOLD_TIME = 86400;
 
     // API
     public $apikey;
@@ -834,11 +835,13 @@ class PostBattleForm extends Model
             );
         };
 
-        if (version_compare(
-            $fConvertVersionDate($this->agent_game_version_date),
-            $fConvertVersionDate($ikalogReq->version_date),
-            '>='
-        )) {
+        if (
+            version_compare(
+                $fConvertVersionDate($this->agent_game_version_date),
+                $fConvertVersionDate($ikalogReq->version_date),
+                '>='
+            )
+        ) {
             return true;
         }
 

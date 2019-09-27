@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2016 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -30,8 +31,11 @@ class Differ
             throw new \Exception('Could not create diff');
         }
 
-        if (isset($lines[0]) && preg_match('/^-{3} /', $lines[0]) &&
-            isset($lines[1]) && preg_match('/^\+{3} /', $lines[1])
+        if (
+            isset($lines[0])
+            && preg_match('/^-{3} /', $lines[0])
+            && isset($lines[1])
+            && preg_match('/^\+{3} /', $lines[1])
         ) {
             $time = gmdate('Y-m-d H:i:s', $_SERVER['REQUEST_TIME'] ?? time()) . '.000000000 +0000';
             $lines[0] = "--- $nameBefore\t$time";

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2017 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -77,7 +78,7 @@ class Rule2 extends ActiveRecord
         return $this->hasMany(Mode2::class, ['id' => 'mode_id'])->viaTable('mode_rule2', ['rule_id' => 'id']);
     }
 
-    public function toJsonArray() : array
+    public function toJsonArray(): array
     {
         return [
             'key' => $this->key,
@@ -89,7 +90,7 @@ class Rule2 extends ActiveRecord
         ?string $mode,
         $queryCallback = null,
         $valueCallback = null
-    ) : array {
+    ): array {
         $query = static::find()->orderBy(['rule2.id' => SORT_ASC]);
         if ($mode) {
             $query->innerJoinWith('modes')

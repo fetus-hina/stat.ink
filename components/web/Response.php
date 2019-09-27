@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -22,7 +23,8 @@ class Response extends Base
             if (headers_sent()) {
                 return;
             }
-            if (Yii::$app->controller->id ?? null === 'user' &&
+            if (
+                Yii::$app->controller->id ?? null === 'user' &&
                 Yii::$app->controller->action->id ?? null === 'download'
             ) {
                 return;

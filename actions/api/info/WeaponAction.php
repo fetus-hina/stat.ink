@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2016 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -19,12 +20,12 @@ class WeaponAction extends BaseAction
     public function run()
     {
         $types = array_map(
-            function (array $type) : array {
+            function (array $type): array {
                 return [
                     'key'   => $type['key'],
                     'name'  => Yii::t('app-weapon', $type['name']),
                     'weapons' => array_map(
-                        function (array $weapon) : array {
+                        function (array $weapon): array {
                             return [
                                 'key' => $weapon['key'],
                                 'names' => Translator::translateToAll('app-weapon', $weapon['name']),
@@ -43,7 +44,7 @@ class WeaponAction extends BaseAction
 
         $langs = Language::find()->standard()->asArray()->all();
         $sysLang = Yii::$app->language;
-        usort($langs, function (array $a, array $b) use ($sysLang) : int {
+        usort($langs, function (array $a, array $b) use ($sysLang): int {
             if ($a['lang'] === $sysLang) {
                 return -1;
             }

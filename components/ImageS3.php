@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2017 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -33,7 +34,7 @@ class ImageS3 extends Component
         }
     }
 
-    public function uploadFile(string $path, string $serverPath) : bool
+    public function uploadFile(string $path, string $serverPath): bool
     {
         if (!$this->enabled) {
             return false;
@@ -44,7 +45,7 @@ class ImageS3 extends Component
         return $this->doUpload($file, $serverPath);
     }
 
-    public function upload(string $data, string $serverPath) : bool
+    public function upload(string $data, string $serverPath): bool
     {
         if (!$this->enabled) {
             return false;
@@ -57,7 +58,7 @@ class ImageS3 extends Component
         return $this->doUpload($file, $serverPath);
     }
 
-    private function doUpload(array $file, string $serverPath) : bool
+    private function doUpload(array $file, string $serverPath): bool
     {
         S3::setEndpoint($this->endpoint);
         S3::setAuth($this->accessKey, $this->secret);

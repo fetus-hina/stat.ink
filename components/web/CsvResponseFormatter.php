@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -14,8 +15,8 @@ use app\components\helpers\Resource;
 
 class CsvResponseFormatter extends Component implements ResponseFormatterInterface
 {
-    const SEPARATOR_CSV = ',';
-    const SEPARATOR_TSV = "\t";
+    public const SEPARATOR_CSV = ',';
+    public const SEPARATOR_TSV = "\t";
 
     public $separator;
     public $inputCharset;

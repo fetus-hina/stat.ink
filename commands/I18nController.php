@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2017 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -77,7 +78,8 @@ class I18nController extends Controller
             if ($item->isFile() && !$item->isDot() && strtolower($item->getExtension()) === 'php') {
                 // skip weapon-*** files because it includes by weapon.php
                 // skip gear-*** files because it includes by gear.php
-                if (!preg_match('/^weapon-\w+\.php$/', $item->getBasename()) &&
+                if (
+                    !preg_match('/^weapon-\w+\.php$/', $item->getBasename()) &&
                     !preg_match('/^gear-\w+\.php$/', $item->getBasename())
                 ) {
                     yield $item->getBasename();

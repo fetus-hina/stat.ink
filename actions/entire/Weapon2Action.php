@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -67,7 +68,7 @@ class Weapon2Action extends ViewAction
                 ->asArray()
                 ->all(),
             'map',
-            function (array $row) : array {
+            function (array $row): array {
                 return [
                     'win' => (int)$row['wins'],
                     'lose' => (int)$row['battles'] - (int)$row['wins'],

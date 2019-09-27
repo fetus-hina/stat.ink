@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2017 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -18,7 +19,7 @@ class AutoTrimAttributesBehavior extends TrimAttributesBehavior
         ];
     }
 
-    public function trim() : void
+    public function trim(): void
     {
         $targets = array_keys($this->owner->attributes);
         foreach ($targets as $attrName) {

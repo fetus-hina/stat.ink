@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2018 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -30,13 +31,13 @@ use yii\validators\NumberValidator;
 class PostForm extends Model
 {
     // Recommended UUID NS, splatnetNumber@principalID
-    const UUID_NAMESPACE_BY_PRINCIPAL_ID = '418fe150-cb33-11e8-8816-d050998473ba';
+    public const UUID_NAMESPACE_BY_PRINCIPAL_ID = '418fe150-cb33-11e8-8816-d050998473ba';
     
     // If splatnet_number present
-    const UUID_NAMESPACE_BY_SPLATNET_AND_USER_ID = 'b03116da-cbae-11e8-a7fa-d050998473ba';
+    public const UUID_NAMESPACE_BY_SPLATNET_AND_USER_ID = 'b03116da-cbae-11e8-a7fa-d050998473ba';
 
     // If non-UUID
-    const UUID_NAMESPACE_BY_FREETEXT = 'b007a6f6-cbae-11e8-aa3e-d050998473ba';
+    public const UUID_NAMESPACE_BY_FREETEXT = 'b007a6f6-cbae-11e8-aa3e-d050998473ba';
 
     public $uuid;
     public $splatnet_number;

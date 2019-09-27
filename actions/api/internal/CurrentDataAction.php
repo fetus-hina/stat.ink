@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2016 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -44,7 +45,7 @@ class CurrentDataAction extends ViewAction
 
     public function getCurrentInfo()
     {
-        $info = function (array $periodMaps) : array {
+        $info = function (array $periodMaps): array {
             if (!$periodMaps) {
                 return [];
             }
@@ -54,7 +55,7 @@ class CurrentDataAction extends ViewAction
                     'name' => Yii::t('app-rule', $periodMaps[0]->rule->name),
                 ],
                 'maps' => array_map(
-                    function (PeriodMap $pm) : string {
+                    function (PeriodMap $pm): string {
                         return $pm->map->key;
                     },
                     $periodMaps
@@ -80,7 +81,7 @@ class CurrentDataAction extends ViewAction
     {
         $ret = [];
         foreach (GameMode::find()->with('rules')->asArray()->all() as $mode) {
-            $ret[$mode['key']] = (function (array $rules) : array {
+            $ret[$mode['key']] = (function (array $rules): array {
                 $tmp = [];
                 foreach ($rules as $rule) {
                     $tmp[$rule['key']] = [
@@ -118,7 +119,7 @@ class CurrentDataAction extends ViewAction
         foreach (WeaponType::find()->orderBy('[[id]]')->asArray()->all() as $type) {
             $ret[] = [
                 'name' => Yii::t('app-weapon', $type['name']),
-                'list' => (function (array $type) : array {
+                'list' => (function (array $type): array {
                     $tmp = [];
                     foreach (Weapon::find()->andWhere(['type_id' => $type['id']])->asArray()->all() as $_) {
                         $tmp[$_['key']] = [
@@ -146,7 +147,7 @@ class CurrentDataAction extends ViewAction
             ->limit(10)
             ->asArray()
             ->all();
-        return array_map(function (array $uw) : array {
+        return array_map(function (array $uw): array {
             return [
                 'key' => $uw['weapon']['key'],
                 'name' => Yii::t('app-weapon', $uw['weapon']['name']),

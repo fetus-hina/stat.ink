@@ -27,7 +27,7 @@
     "eslint": "^6.4.0",
     "flag-icon-css": "^3.4.0",
     "flot": "~0.8.3",
-    "inputmask": "^4.0.8",
+    "inputmask": "^4.0.9",
     "jdenticon": "^2.2.0",
     "jquery": "^3.4.1",
     "jquery-color": "git+https://github.com/jquery/jquery-color.git#2.1.2",

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2016 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -25,13 +26,13 @@ class TurfwarWinBonus extends \yii\db\ActiveRecord
 {
     public static function find()
     {
-        return new class(get_called_class()) extends ActiveQuery {
-            public function current() : self
+        return new class (get_called_class()) extends ActiveQuery {
+            public function current(): self
             {
                 return $this->at(new Now());
             }
 
-            public function at($time) : self
+            public function at($time): self
             {
                 return $this
                     ->orderBy('[[start_at]] DESC')

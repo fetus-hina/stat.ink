@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2018 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -204,7 +205,7 @@ class SalmonPlayer2 extends ActiveRecord
         return $this->forceBlackout !== null;
     }
 
-    public function getUser() : ?User
+    public function getUser(): ?User
     {
         if ($this->user === false) {
             $id = trim((string)$this->splatnet_id);

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2017 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -25,8 +26,8 @@ class UserWeapon2 extends ActiveRecord
 {
     public static function find()
     {
-        return new class(static::class) extends \yii\db\ActiveQuery {
-            public function favoriteOrder() : self
+        return new class (static::class) extends \yii\db\ActiveQuery {
+            public function favoriteOrder(): self
             {
                 return $this
                     ->andWhere(['>', 'battles', 0])

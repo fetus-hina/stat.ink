@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2018 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -17,7 +18,7 @@ use yii\helpers\Console;
 
 trait WeaponShortNameTrait
 {
-    public function actionShortWeapon() : int
+    public function actionShortWeapon(): int
     {
         $locales = Language::find()
             ->standard()
@@ -38,23 +39,23 @@ trait WeaponShortNameTrait
         return 0;
     }
 
-    private function checkLocaleDirectories(array $locales) : bool
+    private function checkLocaleDirectories(array $locales): bool
     {
         return array_reduce(
             array_map(
-                function (Language $locale) : bool {
+                function (Language $locale): bool {
                     return $this->checkLocaleDirectory($locale);
                 },
                 $locales
             ),
-            function (bool $old, bool $new) : bool {
+            function (bool $old, bool $new): bool {
                 return $old && $new;
             },
             true
         );
     }
 
-    private function checkLocaleDirectory(Language $locale) : bool
+    private function checkLocaleDirectory(Language $locale): bool
     {
         $this->stderr('[WeaponShortName] Checking locale directory for ' . $locale->lang . "\n");
 
@@ -76,7 +77,7 @@ trait WeaponShortNameTrait
         return false;
     }
 
-    private function getLocaleDirectory(Language $locale) : ?string
+    private function getLocaleDirectory(Language $locale): ?string
     {
         $map = [
             'de-DE' => 'de',
@@ -104,23 +105,23 @@ trait WeaponShortNameTrait
         return $path;
     }
 
-    private function createLocales(array $locales) : bool
+    private function createLocales(array $locales): bool
     {
         return array_reduce(
             array_map(
-                function (Language $locale) : bool {
+                function (Language $locale): bool {
                     return $this->createLocale($locale);
                 },
                 $locales
             ),
-            function (bool $old, bool $new) : bool {
+            function (bool $old, bool $new): bool {
                 return $old && $new;
             },
             true
         );
     }
 
-    private function createLocale(Language $locale) : bool
+    private function createLocale(Language $locale): bool
     {
         $path = implode(DIRECTORY_SEPARATOR, [
             $this->getLocaleDirectory($locale),
@@ -137,7 +138,7 @@ trait WeaponShortNameTrait
         // remove empty data
         $data = array_filter(
             $data,
-            function (string $value, string $key) : bool {
+            function (string $value, string $key): bool {
                 return $value !== '';
             },
             ARRAY_FILTER_USE_BOTH
@@ -171,7 +172,7 @@ trait WeaponShortNameTrait
 
         uksort($data, 'strcasecmp');
 
-        $esc = function (string $text) : string {
+        $esc = function (string $text): string {
             return str_replace(["\\", "'"], ["\\\\", "\\'"], $text);
         };
 
@@ -202,7 +203,7 @@ trait WeaponShortNameTrait
         return true;
     }
 
-    protected function getContributors(string $path) : array
+    protected function getContributors(string $path): array
     {
         $map = [
             '/en/' => [

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2017 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -85,7 +86,7 @@ class Ability2 extends ActiveRecord
         return $this->hasMany(Gear2::class, ['ability_id' => 'id']);
     }
 
-    public function toJsonArray() : array
+    public function toJsonArray(): array
     {
         return [
             'key' => $this->key,

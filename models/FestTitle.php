@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -101,7 +102,7 @@ class FestTitle extends \yii\db\ActiveRecord
         return $festTitleGender->name;
     }
 
-    private function getFestTitleGender(Gender $gender) : ?FestTitleGender
+    private function getFestTitleGender(Gender $gender): ?FestTitleGender
     {
         // フェスの称号は全件とっても大した件数ではないので全部取得してキャッシュする
         static $cache = null;
@@ -109,7 +110,7 @@ class FestTitle extends \yii\db\ActiveRecord
             $cache = ArrayHelper::map(
                 FestTitleGender::find()->orderBy(['title_id' => SORT_ASC, 'gender_id' => SORT_ASC])->all(),
                 'gender_id',
-                function (FestTitleGender $model) : FestTitleGender {
+                function (FestTitleGender $model): FestTitleGender {
                     return $model;
                 },
                 'title_id'

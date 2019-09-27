@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2017 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -104,7 +105,7 @@ class Battle2Form extends Model
         ];
     }
 
-    public function createModeList() : array
+    public function createModeList(): array
     {
         $solo       = Yii::t('app-rule2', '(Solo)');
         $twin       = Yii::t('app-rule2', '(Twin)');
@@ -154,22 +155,22 @@ class Battle2Form extends Model
         ];
     }
 
-    public function getLobby() : ?Lobby2
+    public function getLobby(): ?Lobby2
     {
         return Lobby2::findOne(['id' => (int)$this->lobby_id]);
     }
 
-    public function getMap() : ?Map2
+    public function getMap(): ?Map2
     {
         return Map2::findOne(['id' => (int)$this->map_id]);
     }
 
-    public function getMode() : ?Mode2
+    public function getMode(): ?Mode2
     {
         return Mode2::findOne(['id' => (int)$this->mode_id]);
     }
 
-    public function getRule() : ?Rule2
+    public function getRule(): ?Rule2
     {
         return Rule2::findOne(['id' => (int)$this->rule_id]);
     }
@@ -244,7 +245,7 @@ class Battle2Form extends Model
         }
     }
 
-    public function getIsWin() : ?bool
+    public function getIsWin(): ?bool
     {
         switch ($this->result) {
             case 'win':
@@ -258,7 +259,7 @@ class Battle2Form extends Model
         }
     }
 
-    public static function fromBattle(Battle2 $battle) : self
+    public static function fromBattle(Battle2 $battle): self
     {
         $model = Yii::createObject([
             'class' => static::class,

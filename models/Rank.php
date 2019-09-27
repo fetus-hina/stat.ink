@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -84,7 +85,7 @@ class Rank extends \yii\db\ActiveRecord
         ];
     }
 
-    public static function integerToString(?int $intRank) : ?string
+    public static function integerToString(?int $intRank): ?string
     {
         if ($intRank === null) {
             return null;

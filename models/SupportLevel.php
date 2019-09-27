@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2018 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -20,10 +21,10 @@ use yii\db\ActiveRecord;
  */
 class SupportLevel extends ActiveRecord
 {
-    const FULL    = 1;
-    const ALMOST  = 2;
-    const PARTIAL = 3;
-    const FEW     = 4;
+    public const FULL    = 1;
+    public const ALMOST  = 2;
+    public const PARTIAL = 3;
+    public const FEW     = 4;
 
     /**
      * @inheritdoc

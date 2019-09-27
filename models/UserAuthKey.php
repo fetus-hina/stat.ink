@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2018 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -35,7 +36,7 @@ use yii\db\ActiveRecord;
  */
 class UserAuthKey extends ActiveRecord
 {
-    const VALID_PERIOD = 30 * 86400;
+    public const VALID_PERIOD = 30 * 86400;
 
     public $auth_key_raw;
 

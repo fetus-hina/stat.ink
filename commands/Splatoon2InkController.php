@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2018 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -32,7 +33,7 @@ class Splatoon2InkController extends Controller
 {
     public $defaultAction = 'update';
 
-    public function actionUpdate() : int
+    public function actionUpdate(): int
     {
         $status = 0;
         $status |= $this->actionUpdateSchedule();
@@ -40,7 +41,7 @@ class Splatoon2InkController extends Controller
         return $status === 0 ? 0 : 1;
     }
 
-    public function actionUpdateSchedule() : int
+    public function actionUpdateSchedule(): int
     {
         $json = $this->queryJson('https://splatoon2.ink/data/schedules.json');
 
@@ -67,7 +68,7 @@ class Splatoon2InkController extends Controller
     // スケジュール 実装 {{{
     private function importSchedules(ScheduleMode2 $mode, array $list)
     {
-        usort($list, function (stdClass $a, stdClass $b) : int {
+        usort($list, function (stdClass $a, stdClass $b): int {
             return $a->start_time <=> $b->start_time;
         });
         foreach ($list as $schedule) {
@@ -132,7 +133,7 @@ class Splatoon2InkController extends Controller
         if ($exists == count($stages)) {
             $matches = $schedule->getScheduleMaps()
                 ->andWhere(['in', 'map_id', array_map(
-                    function (stdClass $stage) use ($maps) : int {
+                    function (stdClass $stage) use ($maps): int {
                         return $maps[$stage->id] ?? -1;
                     },
                     $stages
@@ -167,7 +168,7 @@ class Splatoon2InkController extends Controller
     }
     // }}}
 
-    public function actionUpdateCoopSchedule() : int
+    public function actionUpdateCoopSchedule(): int
     {
         $json = $this->queryJson('https://splatoon2.ink/data/coop-schedules.json');
 
@@ -186,9 +187,9 @@ class Splatoon2InkController extends Controller
     }
 
     // スケジュール 実装 {{{
-    private function importCoopSchedules(array $list) : bool
+    private function importCoopSchedules(array $list): bool
     {
-        usort($list, function (stdClass $a, stdClass $b) : int {
+        usort($list, function (stdClass $a, stdClass $b): int {
             return $a->start_time <=> $b->start_time;
         });
         $ret = true;
@@ -198,7 +199,7 @@ class Splatoon2InkController extends Controller
         return $ret;
     }
 
-    private function importCoopSchedule(stdClass $json) : bool
+    private function importCoopSchedule(stdClass $json): bool
     {
         $startTime = $this->dateTimeFromTimestamp($json->start_time);
         $endTime = $this->dateTimeFromTimestamp($json->end_time);
@@ -215,7 +216,8 @@ class Splatoon2InkController extends Controller
         $schedule = null; // 開始・終了が一致するスケジュール
         if ($schedules) {
             foreach ($schedules as $_) {
-                if (@strtotime($_['start_at']) === $startTime->getTimestamp() &&
+                if (
+                    @strtotime($_['start_at']) === $startTime->getTimestamp() &&
                     @strtotime($_['end_at']) === $endTime->getTimestamp()
                 ) {
                     $schedule = $_;
@@ -257,7 +259,7 @@ class Splatoon2InkController extends Controller
 
         $jsonWeapons = array_filter(
             array_map(
-                function ($weapon) : ?int {
+                function ($weapon): ?int {
                     $id = (is_object($weapon) && $weapon instanceof stdClass)
                         ? ($weapon->id ?? null)
                         : null;
@@ -267,13 +269,13 @@ class Splatoon2InkController extends Controller
                 },
                 $json->weapons
             ),
-            function (?int $id) : bool {
+            function (?int $id): bool {
                 return $id !== null;
             }
         );
 
         $currentWeapons = array_map(
-            function (SalmonWeapon2 $weapon) : int {
+            function (SalmonWeapon2 $weapon): int {
                 return $weapon->weapon->splatnet;
             },
             SalmonWeapon2::find()
@@ -333,7 +335,7 @@ class Splatoon2InkController extends Controller
         return Json::decode($curl->rawResponse, false);
     }
 
-    private function dateTimeFromTimestamp(int $timestamp) : DateTimeImmutable
+    private function dateTimeFromTimestamp(int $timestamp): DateTimeImmutable
     {
         return (new DateTimeImmutable())
             ->setTimestamp($timestamp)

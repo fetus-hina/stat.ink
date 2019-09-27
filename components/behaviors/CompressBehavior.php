@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2017 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -12,8 +13,8 @@ use yii\db\ActiveRecord;
 
 class CompressBehavior extends Behavior
 {
-    const PREFIX_PLAIN = '[{';
-    const PREFIX_GZIP = 'gz';
+    public const PREFIX_PLAIN = '[{';
+    public const PREFIX_GZIP = 'gz';
 
     public $attribute;
 
@@ -26,7 +27,7 @@ class CompressBehavior extends Behavior
         ];
     }
 
-    public function compress() : void
+    public function compress(): void
     {
         $attribute = $this->attribute;
         if (substr($this->owner->$attribute, 0, 2) !== static::PREFIX_PLAIN) {
@@ -44,7 +45,7 @@ class CompressBehavior extends Behavior
         $this->owner->$attribute = $gz;
     }
 
-    public function decompress() : void
+    public function decompress(): void
     {
         $attribute = $this->attribute;
         switch (substr($this->owner->$attribute, 0, 2)) {
@@ -61,7 +62,7 @@ class CompressBehavior extends Behavior
         }
     }
 
-    protected function compressGzip(string $plain) : ?string
+    protected function compressGzip(string $plain): ?string
     {
         $compressed = @gzencode($plain, 9, FORCE_GZIP);
         if ($compressed === false) {
@@ -74,7 +75,7 @@ class CompressBehavior extends Behavior
         return static::PREFIX_GZIP . $compressed;
     }
 
-    protected function decompressGzip(string $compressed) : ?string
+    protected function decompressGzip(string $compressed): ?string
     {
         $compressed = @base64_decode(substr($compressed, 2), true);
         if ($compressed === false) {

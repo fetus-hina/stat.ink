@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2017 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -45,7 +46,7 @@ class PubsubhubbubForm extends Model
         $this->addError('topic', 'Invalid topic URL');
     }
 
-    public function save() : bool
+    public function save(): bool
     {
         if ($this->hasErrors()) {
             return false;
@@ -55,7 +56,7 @@ class PubsubhubbubForm extends Model
             : $this->challenge() && $this->saveUnsubscribe();
     }
 
-    private function challenge() : bool
+    private function challenge(): bool
     {
         $code = strtr(base64_encode(random_bytes(21)), '+/', '-_');
         $curl = new Curl();
@@ -73,7 +74,7 @@ class PubsubhubbubForm extends Model
         return $curl->rawResponse === $code;
     }
 
-    private function saveSubscribe() : bool
+    private function saveSubscribe(): bool
     {
         $model = OstatusPubsubhubbub::find()
             ->andWhere([
@@ -93,7 +94,7 @@ class PubsubhubbubForm extends Model
         return !!$model->save();
     }
 
-    private function saveUnsubscribe() : bool
+    private function saveUnsubscribe(): bool
     {
         $model = OstatusPubsubhubbub::find()
             ->andWhere([
@@ -107,7 +108,7 @@ class PubsubhubbubForm extends Model
         return true;
     }
 
-    private function getUser() : ?User
+    private function getUser(): ?User
     {
         if ($this->screen_name === false) {
             return null;

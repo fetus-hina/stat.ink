@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -69,7 +70,7 @@ class Agent extends \yii\db\ActiveRecord
         return $this->hasOne(AgentAttribute::class, ['name' => 'name']);
     }
 
-    public function getIsAutomatedByDefault() : bool
+    public function getIsAutomatedByDefault(): bool
     {
         $attr = $this->agentAttribute;
         if ($attr && $attr->is_automated) {
@@ -78,7 +79,7 @@ class Agent extends \yii\db\ActiveRecord
         return false;
     }
 
-    public function getProductUrl() : ?string
+    public function getProductUrl(): ?string
     {
         if (!$attr = $this->agentAttribute) {
             return null;

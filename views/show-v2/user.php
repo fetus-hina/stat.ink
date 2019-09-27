@@ -2,6 +2,7 @@
 declare(strict_types=1);
 
 use app\assets\BattleListAsset;
+use app\assets\BattleListGroupHeaderAsset;
 use app\assets\Spl2WeaponAsset;
 use app\components\grid\KillRatioColumn;
 use app\components\helpers\Battle as BattleHelper;
@@ -156,6 +157,7 @@ if ($user->twitter != '') {
             $lastPeriod = $model->period;
             $fmt = Yii::$app->formatter;
             list($from, $to) = BattleHelper::periodToRange2DT($model->period);
+            BattleListGroupHeaderAsset::register($this);
             return Html::tag('tr', Html::tag(
               'td',
               implode(' - ', [
@@ -185,12 +187,7 @@ if ($user->twitter != '') {
                 ),
               ]),
               [
-                'class' => 'text-small',
-                'style' => [
-                  'color' => '#ddd',
-                  'background-color' => '#444',
-                  'font-weight' => '700',
-                ],
+                'class' => 'battle-row-group-header',
                 'colspan' => (string)count($widget->columns),
               ]
             ));

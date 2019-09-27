@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2016 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -53,17 +54,17 @@ class GearAction extends BaseAction
         }
     }
 
-    protected function formatJson(Query $query) : array
+    protected function formatJson(Query $query): array
     {
         return array_map(
-            function (Gear2 $gear) : array {
+            function (Gear2 $gear): array {
                 return $gear->toJsonArray();
             },
             $query->all()
         );
     }
 
-    protected function formatCsv(Query $query) : array
+    protected function formatCsv(Query $query): array
     {
         $resp = Yii::$app->response;
 
@@ -93,7 +94,7 @@ class GearAction extends BaseAction
         yield array_merge(
             ['type', 'brand', 'key', 'splatnet', 'primary_ability'],
             array_map(
-                function (string $lang) : string {
+                function (string $lang): string {
                     return sprintf('[%s]', $lang);
                 },
                 $langs

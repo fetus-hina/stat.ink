@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2018 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -32,7 +33,7 @@ class SplatnetNumberBehavior extends Behavior
         ];
     }
 
-    public function doExec() : void
+    public function doExec(): void
     {
         $attrName = $this->attribute;
         $value = trim((string)($this->owner->{$attrName}));

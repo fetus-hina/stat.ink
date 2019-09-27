@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -111,12 +112,12 @@ class ApiV2BattleController extends Controller
                 'splatnet_desc',
             ]],
             [['count'], 'integer', 'min' => 1, 'max' => 50,
-                'when' => function ($model) : bool {
+                'when' => function ($model): bool {
                     return $model->only !== 'splatnet_number';
                 },
             ],
             [['count'], 'integer', 'min' => 1, 'max' => 1000,
-                'when' => function ($model) : bool {
+                'when' => function ($model): bool {
                     return $model->only === 'splatnet_number';
                 },
             ],
@@ -166,12 +167,12 @@ class ApiV2BattleController extends Controller
                 'splatnet_desc',
             ]],
             [['count'], 'integer', 'min' => 1, 'max' => 50,
-                'when' => function ($model) : bool {
+                'when' => function ($model): bool {
                     return $model->only !== 'splatnet_number';
                 },
             ],
             [['count'], 'integer', 'min' => 1, 'max' => 1000,
-                'when' => function ($model) : bool {
+                'when' => function ($model): bool {
                     return $model->only === 'splatnet_number';
                 },
             ],

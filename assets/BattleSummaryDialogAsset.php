@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2018 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -38,7 +39,7 @@ class BattleSummaryDialogAsset extends AssetBundle
     {
         parent::init();
 
-        Yii::$app->view->on(View::EVENT_END_BODY, function ($event) : void {
+        Yii::$app->view->on(View::EVENT_END_BODY, function ($event): void {
             echo Yii::$app->view->render('//includes/_battles-summary-modal') . "\n";
         });
     }

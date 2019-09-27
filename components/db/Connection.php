@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2018 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -38,13 +39,15 @@ class Connection extends \yii\db\Connection
         try {
             $result = call_user_func($callback, $this, $transaction);
             if ($transaction->isActive && $transaction->level === $level) {
-                if (is_array($rollBack) &&
+                if (
+                    is_array($rollBack) &&
                     !is_callable($rollBack) &&
                     in_array($result, $rollBack, true)
                 ) {
                     $transaction->rollBack();
                     return $result;
-                } elseif (is_callable($rollBack) &&
+                } elseif (
+                    is_callable($rollBack) &&
                     call_user_func($rollBack, $result, $this)
                 ) {
                     $transaction->rollBack();

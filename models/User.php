@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -62,10 +63,10 @@ use yii\web\IdentityInterface;
  */
 class User extends ActiveRecord implements IdentityInterface
 {
-    const BLACKOUT_NOT_BLACKOUT = 'no';
-    const BLACKOUT_NOT_PRIVATE  = 'not-private';
-    const BLACKOUT_NOT_FRIEND   = 'not-friend';
-    const BLACKOUT_ALWAYS       = 'always';
+    public const BLACKOUT_NOT_BLACKOUT = 'no';
+    public const BLACKOUT_NOT_PRIVATE  = 'not-private';
+    public const BLACKOUT_NOT_FRIEND   = 'not-friend';
+    public const BLACKOUT_ALWAYS       = 'always';
 
     /**
      * @inheritdoc
@@ -221,7 +222,7 @@ class User extends ActiveRecord implements IdentityInterface
         return $this->hasMany(Slack::className(), ['user_id' => 'id']);
     }
 
-    public function getIsSlackIntegrated() : bool
+    public function getIsSlackIntegrated(): bool
     {
         $row = $this->getSlacks()
             ->andWhere(['suspended' => false])
@@ -231,7 +232,7 @@ class User extends ActiveRecord implements IdentityInterface
         return !!$row;
     }
 
-    public function getIsOstatusIntegrated() : bool
+    public function getIsOstatusIntegrated(): bool
     {
         $row = OstatusPubsubhubbub::find()
             ->active()
@@ -293,7 +294,7 @@ class User extends ActiveRecord implements IdentityInterface
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getUserStat2() : \yii\db\ActiveQuery
+    public function getUserStat2(): \yii\db\ActiveQuery
     {
         return $this->hasOne(UserStat2::class, ['user_id' => 'id']);
     }
@@ -307,7 +308,7 @@ class User extends ActiveRecord implements IdentityInterface
             ->with(['weapon']);
     }
 
-    public function getUserWeapon2s() : \yii\db\ActiveQuery
+    public function getUserWeapon2s(): \yii\db\ActiveQuery
     {
         return $this->hasMany(UserWeapon2::class, ['user_id' => 'id']);
     }
@@ -572,12 +573,12 @@ class User extends ActiveRecord implements IdentityInterface
         );
     }
 
-    public function getJdenticonPngUrl() : string
+    public function getJdenticonPngUrl(): string
     {
         return $this->getJdenticonUrl('png');
     }
 
-    public function getJdenticonUrl(string $ext = 'svg') : string
+    public function getJdenticonUrl(string $ext = 'svg'): string
     {
         return Url::to(
             Yii::getAlias('@jdenticon') . '/' . rawurlencode($this->identiconHash) . '.svg',
@@ -585,7 +586,7 @@ class User extends ActiveRecord implements IdentityInterface
         );
     }
 
-    public function getIconUrl(string $ext = 'svg') : string
+    public function getIconUrl(string $ext = 'svg'): string
     {
         return $this->userIcon
             ? $this->userIcon->url

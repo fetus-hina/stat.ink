@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2016 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -22,7 +23,7 @@ use app\models\BattlePlayer;
 
 class HasegawExportController extends Controller
 {
-    const EXPORT_CSV_VERSION = '1';
+    public const EXPORT_CSV_VERSION = '1';
 
     public $defaultAction = 'csv';
     public $outputDirectory = '@app/runtime/hasegaw-export';
@@ -174,7 +175,7 @@ class HasegawExportController extends Controller
         }
     }
 
-    private function parseDate($date) : DateTimeInterface
+    private function parseDate($date): DateTimeInterface
     {
         $date = trim($date);
         if ($date === '') {

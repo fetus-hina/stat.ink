@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -355,14 +356,16 @@ class BattleAction extends BaseAction
             $binary = is_string($form->image_judge)
                 ? $form->image_judge
                 : file_get_contents($form->image_judge->tempName, false);
-            if (!ImageConverter::convert(
-                $binary,
-                $imageOutputDir . '/' . $image->filename,
-                false,
-                ($imageArchiveOutputDir
+            if (
+                !ImageConverter::convert(
+                    $binary,
+                    $imageOutputDir . '/' . $image->filename,
+                    false,
+                    ($imageArchiveOutputDir
                     ? ($imageArchiveOutputDir . '/' . sprintf('%d-judge.png', $battle->id))
                     : null)
-            )) {
+                )
+            ) {
                 $this->logError([
                     'system' => [
                         Yii::t('app', 'Could not convert "{0}" image.', 'judge'),
@@ -400,9 +403,12 @@ class BattleAction extends BaseAction
                 : file_get_contents($form->image_result->tempName, false);
 
             $blackoutList = [];
-            if ((1 <= $form->rank_in_team && $form->rank_in_team <= 4) &&
-                    ($form->result === 'win' || $form->result === 'lose') &&
-                    ($form->lobby != '')
+            if (
+                (1 <= $form->rank_in_team
+                && $form->rank_in_team <= 4)
+                    && ($form->result === 'win'
+                    || $form->result === 'lose')
+                    && ($form->lobby != '')
             ) {
                 $blackoutList = \app\components\helpers\Blackout::getBlackoutTargetList(
                     $form->lobby,
@@ -411,14 +417,16 @@ class BattleAction extends BaseAction
                 );
             }
 
-            if (!ImageConverter::convert(
-                $binary,
-                $imageOutputDir . '/' . $image->filename,
-                $blackoutList,
-                $imageArchiveOutputDir
+            if (
+                !ImageConverter::convert(
+                    $binary,
+                    $imageOutputDir . '/' . $image->filename,
+                    $blackoutList,
+                    $imageArchiveOutputDir
                     ? ($imageArchiveOutputDir . '/' . sprintf('%d-result.png', $battle->id))
                     : null
-            )) {
+                )
+            ) {
                 $this->logError([
                     'system' => [
                         Yii::t('app', 'Could not convert "{0}" image.', 'result'),
@@ -454,14 +462,16 @@ class BattleAction extends BaseAction
             $binary = is_string($form->image_gear)
                 ? $form->image_gear
                 : file_get_contents($form->image_gear->tempName, false);
-            if (!ImageConverter::convert(
-                $binary,
-                $imageOutputDir . '/' . $image->filename,
-                [],
-                $imageArchiveOutputDir
+            if (
+                !ImageConverter::convert(
+                    $binary,
+                    $imageOutputDir . '/' . $image->filename,
+                    [],
+                    $imageArchiveOutputDir
                     ? ($imageArchiveOutputDir . '/' . sprintf('%d-gear.png', $battle->id))
                     : null
-            )) {
+                )
+            ) {
                 $this->logError([
                     'system' => [
                         Yii::t('app', 'Could not convert "{0}" image.', 'gear'),
@@ -602,7 +612,7 @@ class BattleAction extends BaseAction
         return $ret;
     }
 
-    private function registerBackgroundJob(Battle $battle) : void
+    private function registerBackgroundJob(Battle $battle): void
     {
         $user = $battle->user;
 

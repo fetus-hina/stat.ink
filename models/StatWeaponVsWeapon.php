@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2016 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -32,15 +33,15 @@ class StatWeaponVsWeapon extends \yii\db\ActiveRecord
      */
     public static function find()
     {
-        return new class(get_called_class()) extends ActiveQuery {
-            public function weapon($weapon) : ActiveQuery
+        return new class (get_called_class()) extends ActiveQuery {
+            public function weapon($weapon): ActiveQuery
             {
                 return $this->weaponImpl(
                     ($weapon instanceof Weapon) ? $weapon->id : (int)$weapon
                 );
             }
 
-            private function weaponImpl(int $weaponId) : ActiveQuery
+            private function weaponImpl(int $weaponId): ActiveQuery
             {
                 return $this->andWhere(['or', [
                     '{{stat_weapon_vs_weapon}}.[[weapon_id_1]]' => $weaponId,

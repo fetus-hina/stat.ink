@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -123,7 +124,7 @@ class UsersAction extends BaseAction
         );
     }
 
-    private function getPostStatsSummarized2() : array
+    private function getPostStatsSummarized2(): array
     {
         return StatEntireUser2::find()
             ->orderBy(['date' => SORT_ASC])
@@ -221,7 +222,7 @@ class UsersAction extends BaseAction
         return $list;
     }
 
-    public function getAgentStats2() : array
+    public function getAgentStats2(): array
     {
         $endAt = (new DateTimeImmutable())
             ->setTimeZone(new DateTimeZone(Yii::$app->timeZone))
@@ -243,7 +244,7 @@ class UsersAction extends BaseAction
             ->groupBy(['{{agent}}.[[name]]'])
             ->asArray()
             ->all();
-        usort($list, function (array $a, array $b) : int {
+        usort($list, function (array $a, array $b): int {
             foreach (['battles', 'users', 'min_id'] as $key) {
                 if ($a[$key] != $b[$key]) {
                     return $b[$key] <=> $a[$key];
@@ -257,7 +258,7 @@ class UsersAction extends BaseAction
                 'e' => DateTimeFormatter::unixTimeToJsonArray($endAt->getTimestamp() - 1),
             ],
             'agents' => array_map(
-                function (array $row) use ($startAt, $endAt) : array {
+                function (array $row) use ($startAt, $endAt): array {
                     return [
                         'name' => (string)$row['name'],
                         'battles' => (int)$row['battles'],
@@ -282,7 +283,7 @@ class UsersAction extends BaseAction
         DateTimeImmutable $endAt,
         int $minId,
         int $maxId
-    ) : array {
+    ): array {
         $versions = Battle2::find()
             ->innerJoinWith(['agent'], false)
             ->where(['and',
@@ -299,11 +300,11 @@ class UsersAction extends BaseAction
             ->groupBy(['{{battle2}}.[[agent_id]]'])
             ->asArray()
             ->all();
-        usort($versions, function (array $a, array $b) : int {
+        usort($versions, function (array $a, array $b): int {
             return version_compare($b['version'], $a['version']);
         });
         return array_map(
-            function (array $row) : array {
+            function (array $row): array {
                 return [
                     'version' => (string)$row['version'],
                     'battles' => (int)$row['battles'],

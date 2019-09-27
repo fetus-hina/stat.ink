@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -16,8 +17,8 @@ use app\components\helpers\Resource;
 
 class ImageArchiveController extends Controller
 {
-    const MAX_OPTIMIZE_PROC_COUNT = 4;
-    const ARCHIVE_SPLIT_AIM = 524288000; // 500 MiB
+    public const MAX_OPTIMIZE_PROC_COUNT = 4;
+    public const ARCHIVE_SPLIT_AIM = 524288000; // 500 MiB
 
     public function init()
     {
@@ -97,7 +98,8 @@ class ImageArchiveController extends Controller
         $error = false;
         while (!$error && !empty($queue)) {
             // 規定のプロセス数になるまでプロセスを作る
-            while (!$error &&
+            while (
+                !$error &&
                     !empty($queue) &&
                     count($procs) < self::MAX_OPTIMIZE_PROC_COUNT
             ) {
@@ -517,7 +519,8 @@ class ImageArchiveController extends Controller
     {
         $fileName = basename($file->path);
         $upInfo = $this->loadUploadedInfo($target);
-        if (isset($upInfo[$fileName]) &&
+        if (
+            isset($upInfo[$fileName]) &&
                 $upInfo[$fileName]['size'] == $file->size &&
                 $upInfo[$fileName]['sha256sum'] === $file->sha256sum
         ) {

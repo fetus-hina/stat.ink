@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -8,6 +9,7 @@
 namespace app\models;
 
 use Yii;
+use app\components\helpers\Battle as BattleHelper;
 use app\components\helpers\db\Now;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
@@ -27,7 +29,7 @@ class SalmonSchedule2 extends ActiveRecord
 {
     public static function find(): ActiveQuery
     {
-        return new class(static::class) extends ActiveQuery {
+        return new class (static::class) extends ActiveQuery {
             public function init()
             {
                 parent::init();
@@ -87,7 +89,7 @@ class SalmonSchedule2 extends ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getMap()
+    public function getMap(): ActiveQuery
     {
         return $this->hasOne(SalmonMap2::class, ['id' => 'map_id']);
     }
@@ -95,10 +97,15 @@ class SalmonSchedule2 extends ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getWeapons()
+    public function getWeapons(): ActiveQuery
     {
         return $this->hasMany(SalmonWeapon2::class, ['schedule_id' => 'id'])
             ->orderBy(['id' => SORT_ASC]);
+    }
+
+    public function getPeriod(): int
+    {
+        return BattleHelper::calcPeriod2(strtotime($this->start_at));
     }
 
     public function delete()

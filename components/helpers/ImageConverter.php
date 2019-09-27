@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -12,10 +13,9 @@ use Yii;
 
 class ImageConverter
 {
-    const OUT_WIDTH = 1280;
-    const OUT_HEIGHT = 720;
-
-    const JPEG_QUALITY = 85;
+    public const OUT_WIDTH = 1280;
+    public const OUT_HEIGHT = 720;
+    public const JPEG_QUALITY = 85;
 
     public static function convert($binary, $outPathJpeg, $blackoutPosList = false, $outPathArchivePng = null)
     {

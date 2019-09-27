@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2017 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -121,7 +122,7 @@ class UserStatReportAction extends BaseAction
         throw new NotFoundHttpException(Yii::t('yii', 'Page not found.'));
     }
 
-    private function query(DateTimeImmutable $from, DateTimeImmutable $to) : array
+    private function query(DateTimeImmutable $from, DateTimeImmutable $to): array
     {
         $date = sprintf('(CASE %s END)::date', implode(' ', [
             'WHEN {{battle2}}.[[start_at]] IS NOT NULL THEN {{battle2}}.[[start_at]]',
@@ -210,7 +211,7 @@ class UserStatReportAction extends BaseAction
             ]);
         // }}}
         $list = array_map(
-            function (array $row) : array {
+            function (array $row): array {
                 $row['rule_name']   = Yii::t('app-rule2', $row['rule_name']);
                 $row['map_name']    = Yii::t('app-map2', $row['map_name']);
                 $row['weapon_name'] = Yii::t('app-weapon2', $row['weapon_name']);
@@ -218,7 +219,7 @@ class UserStatReportAction extends BaseAction
             },
             $query->asArray()->all()
         );
-        usort($list, function (array $a, array $b) : int {
+        usort($list, function (array $a, array $b): int {
             return strcmp($b['date'], $a['date'])
                 ?: $a['lobby_id'] <=> $b['lobby_id']
                 ?: $a['mode_id'] <=> $b['mode_id']

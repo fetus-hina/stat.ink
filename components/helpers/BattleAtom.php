@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2017 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -22,13 +23,13 @@ use yii\helpers\Url;
 
 class BattleAtom
 {
-    public static function createUserFeed(User $user, array $only = []) : ?string
+    public static function createUserFeed(User $user, array $only = []): ?string
     {
         $raii = self::switchLanguage($user->defaultLanguage->lang);
         return static::renderAtom($user, $only);
     }
 
-    public static function createBattleFeed(User $user, Battle $battle) : ?string
+    public static function createBattleFeed(User $user, Battle $battle): ?string
     {
         $raii = self::switchLanguage($user->defaultLanguage->lang);
         return static::renderBattleAtom($user, $battle);
@@ -42,7 +43,7 @@ class BattleAtom
         Yii::$app->language = $lang;
         Yii::$app->timeZone = 'Etc/UTC';
 
-        return new class($oldLang, $oldTZ) {
+        return new class ($oldLang, $oldTZ) {
             private $oldLang;
             private $oldTZ;
 
@@ -60,7 +61,7 @@ class BattleAtom
         };
     }
 
-    protected static function renderAtom(User $user, array $only = []) : ?string
+    protected static function renderAtom(User $user, array $only = []): ?string
     {
         $doc = new DOMDocument('1.0', 'UTF-8');
         $root = $doc->appendChild($doc->createElementNS('http://www.w3.org/2005/Atom', 'feed'));
@@ -119,7 +120,7 @@ class BattleAtom
         return $doc->saveXML();
     }
 
-    protected static function renderBattleAtom(User $user, Battle $battle) : ?string
+    protected static function renderBattleAtom(User $user, Battle $battle): ?string
     {
         $doc = new DOMDocument('1.0', 'UTF-8');
         $doc->appendChild(static::createEntry($doc, $user, $battle));
@@ -132,12 +133,12 @@ class BattleAtom
         return htmlspecialchars($text, ENT_QUOTES, 'UTF-8');
     }
 
-    private static function urlUuid(string $url) : string
+    private static function urlUuid(string $url): string
     {
         return Uuid::v5(UuidNS::url(), $url)->formatAsUri();
     }
 
-    private static function datetime(int $time) : string
+    private static function datetime(int $time): string
     {
         return (new DateTimeImmutable("@{$time}"))
             ->setTimezone(new DateTimeZone('Etc/UTC'))
@@ -148,7 +149,7 @@ class BattleAtom
         DOMDocument $doc,
         string $name,
         array $attributes = []
-    ) : DOMElement {
+    ): DOMElement {
         $e = $doc->createElement($name);
         foreach ($attributes as $k => $v) {
             $e->setAttribute($k, $v);
@@ -156,7 +157,7 @@ class BattleAtom
         return $e;
     }
 
-    private function createAuthor(DOMDocument $doc, User $user) : DOMElement
+    private function createAuthor(DOMDocument $doc, User $user): DOMElement
     {
         $root = $doc->createElement('author');
         $root->appendChild($doc->createElement(
@@ -233,7 +234,7 @@ class BattleAtom
         User $user,
         Battle $battle,
         bool $includeUser = true
-    ) : DOMElement {
+    ): DOMElement {
         $root = $doc->createElementNS('http://www.w3.org/2005/Atom', 'entry');
         $root->appendChild($doc->createElement(
             'id',
@@ -304,7 +305,7 @@ class BattleAtom
         return $root;
     }
 
-    private static function createBattleHtml(User $user, Battle $battle) : string
+    private static function createBattleHtml(User $user, Battle $battle): string
     {
         $text = Yii::t('app', 'Just {result} {rule} at {stage}', [
             'result' => $battle->is_win === null
@@ -355,7 +356,7 @@ class BattleAtom
         ]));
     }
 
-    private static function get24hStats(Battle $battle) : ?array
+    private static function get24hStats(Battle $battle): ?array
     {
         try {
             $query = (new Query())
@@ -384,7 +385,7 @@ class BattleAtom
         return null;
     }
 
-    private static function getHostName() : string
+    private static function getHostName(): string
     {
         $hostInfo = Yii::$app->getUrlManager()->hostInfo;
         return parse_url($hostInfo, PHP_URL_HOST);

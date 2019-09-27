@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2016 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -35,13 +36,15 @@ class MonthAction extends BaseAction
         $this->prepare();
     }
 
-    private function prepare() // {{{
+    private function prepare()
     {
+        // {{{
         $req = Yii::$app->request;
 
         $this->year = $req->get('year');
         $this->month = $req->get('month');
-        if (!is_scalar($this->year) ||
+        if (
+            !is_scalar($this->year) ||
                 !is_scalar($this->month) ||
                 !static::isValidMonth($this->year, $this->month)
         ) {
@@ -65,7 +68,8 @@ class MonthAction extends BaseAction
                 ->sub(new DateInterval('PT1S')) // - 1 second
                 ->getTimestamp()
         );
-    } // }}}
+        // }}}
+    }
 
     public function run()
     {
@@ -80,8 +84,9 @@ class MonthAction extends BaseAction
         ]);
     }
 
-    public function buildData() : array // {{{
+    public function buildData(): array
     {
+        // {{{
         $raiiTimeZone = static::setTimeZoneToFavorable();
 
         $rules = $this->getRules();
@@ -116,10 +121,12 @@ class MonthAction extends BaseAction
             })();
         }
         return $data;
-    } // }}}
+        // }}}
+    }
 
-    public function getMaps() : array // {{{
+    public function getMaps(): array
     {
+        // {{{
         $q = Map::find()
             ->andWhere(['<=', 'release_at', date(
                 'Y-m-d\TH:i:sP',
@@ -131,10 +138,12 @@ class MonthAction extends BaseAction
             $ret[$_->id] = $_;
         }
         return $ret;
-    } // }}}
+        // }}}
+    }
 
-    public function getRules() : array // {{{
+    public function getRules(): array
     {
+        // {{{
         $ret = [];
         foreach (GameMode::find()->orderBy('id ASC')->all() as $mode) {
             $tmp = $mode->rules;
@@ -149,10 +158,12 @@ class MonthAction extends BaseAction
             }
         }
         return $ret;
-    } // }}}
+        // }}}
+    }
 
-    public function getCountData() : array // {{{
+    public function getCountData(): array
     {
+        // {{{
         $query = (new Query())
             ->select([
                 'rule_id' => '{{period_map}}.[[rule_id]]',
@@ -163,47 +174,54 @@ class MonthAction extends BaseAction
             ->where(['between', '{{period_map}}.[[period]]', $this->periodS, $this->periodE])
             ->groupBy(['{{period_map}}.[[rule_id]]', '{{period_map}}.[[map_id]]']);
         return $query->all();
-    } // }}}
+        // }}}
+    }
 
-    public function getPrevMonthUrl() // {{{
+    public function getPrevMonthUrl()
     {
         return $this->getRelativeMonthUrl(-1);
-    } // }}}
+    }
 
-    public function getNextMonthUrl() // {{{
+    public function getNextMonthUrl()
     {
         return $this->getRelativeMonthUrl(1);
-    } // }}}
+    }
 
-    public function getRelativeMonthUrl(int $rel) // {{{
+    public function getRelativeMonthUrl(int $rel)
     {
+        // {{{
         $t = mktime(0, 0, 0, $this->month + $rel, 1, $this->year);
         $y = (int)date('Y', $t);
         $m = (int)date('n', $t);
         return static::isValidMonth($y, $m)
             ? Url::to(['stage/month', 'year' => $y, 'month' => $m])
             : null;
-    } // }}}
+        // }}}
+    }
 
-    private static function hasStageData(int $periodS, int $periodE) : bool // {{{
+    private static function hasStageData(int $periodS, int $periodE): bool
     {
+        // {{{
         return !!PeriodMap::find()
             ->select(['id' => '{{period_map}}.[[id]]'])
             ->andWhere(['between', '{{period_map}}.[[period]]', $periodS, $periodE])
             ->asArray()
             ->one();
-    } // }}}
+        // }}}
+    }
 
     private static function http404()
     {
         throw new NotFoundHttpException(Yii::t('yii', 'Page not found.'));
     }
 
-    private static function isValidMonth($year, $month) : bool // {{{
+    private static function isValidMonth($year, $month): bool
     {
+        // {{{
         $now = (int)($_SERVER['REQUEST_TIME'] ?? time());
 
-        if (!preg_match('/^\d+$/', $year) ||
+        if (
+            !preg_match('/^\d+$/', $year) ||
                 !preg_match('/^\d+$/', $month) ||
                 $year < 2015 ||
                 $year > date('Y', $now) ||
@@ -214,7 +232,8 @@ class MonthAction extends BaseAction
         }
 
         // 今年なら今月以前のはず
-        if (((int)$year === (int)date('Y', $now)) &&
+        if (
+            ((int)$year === (int)date('Y', $now)) &&
                 ((int)$month > (int)date('n', $now))
         ) {
             return false;
@@ -228,13 +247,14 @@ class MonthAction extends BaseAction
         }
 
         return true;
-    } // }}}
+        // }}}
+    }
 
     // 集計のために都合のいいタイムゾーンに一時的に変更する
     // 戻り値が解放される時に自動的に元に戻る(RAII)
-    private static function setTimeZoneToFavorable() : Resource
+    private static function setTimeZoneToFavorable(): Resource
     {
-        $updateTZ = function (string $timezone) : void {
+        $updateTZ = function (string $timezone): void {
             Yii::$app->timeZone = $timezone;
             Yii::$app->db->createCommand(
                 // そのまま bind しようとすると、

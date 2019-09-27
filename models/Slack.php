@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2016 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -302,7 +303,7 @@ class Slack extends \yii\db\ActiveRecord
         // }}}
     }
 
-    public function sendTest() : bool
+    public function sendTest(): bool
     {
         $lang = $this->language->lang ?? 'en-US';
         $i18n = Yii::$app->i18n;
@@ -327,7 +328,7 @@ class Slack extends \yii\db\ActiveRecord
         ], true);
     }
 
-    protected function buildRealQuery(array $params) : array
+    protected function buildRealQuery(array $params): array
     {
         if (!isset($params['username']) && $this->username != '') {
             $params['username'] = $this->username;
@@ -345,7 +346,7 @@ class Slack extends \yii\db\ActiveRecord
         return $params;
     }
 
-    protected function doSend(array $params, bool $realSend) : ?string
+    protected function doSend(array $params, bool $realSend): ?string
     {
         $params = Json::encode($this->buildRealQuery($params));
         if (!$realSend) {

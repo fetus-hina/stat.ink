@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2016 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -46,7 +47,7 @@ class CurrentData2Action extends ViewAction
 
     public function getCurrentInfo()
     {
-        $info = function (array $periodMaps) : array {
+        $info = function (array $periodMaps): array {
             if (!$periodMaps) {
                 return [];
             }
@@ -56,14 +57,14 @@ class CurrentData2Action extends ViewAction
                     'name' => Yii::t('app-rule', $periodMaps[0]->rule->name),
                 ],
                 'maps' => array_map(
-                    function (PeriodMap $pm) : string {
+                    function (PeriodMap $pm): string {
                         return $pm->map->key;
                     },
                     $periodMaps
                 ),
             ];
         };
-        $info2 = function (array $keys) : array {
+        $info2 = function (array $keys): array {
             return [
                 'rule' => [
                     'key' => 'nawabari',
@@ -91,7 +92,7 @@ class CurrentData2Action extends ViewAction
     {
         $ret = [];
         foreach (Mode2::find()->with('rules')->asArray()->all() as $mode) {
-            $ret[$mode['key']] = (function (array $rules) : array {
+            $ret[$mode['key']] = (function (array $rules): array {
                 $tmp = [];
                 foreach ($rules as $rule) {
                     $tmp[$rule['key']] = [
@@ -139,11 +140,11 @@ class CurrentData2Action extends ViewAction
                                 Yii::t('app-weapon2', $category->name),
                                 Yii::t('app-weapon2', $type->name)
                             ),
-                        'list' => (function () use ($weapons) : array {
+                        'list' => (function () use ($weapons): array {
                             $tmp = ArrayHelper::map(
                                 $weapons,
                                 'key',
-                                function (array $weapon) : array {
+                                function (array $weapon): array {
                                     return [
                                         'name' => Yii::t('app-weapon2', $weapon['name']),
                                     ];
@@ -168,7 +169,7 @@ class CurrentData2Action extends ViewAction
         }
         $fmt = Yii::$app->formatter;
         return array_map(
-            function (array $row) use ($fmt) : array {
+            function (array $row) use ($fmt): array {
                 return [
                     'key' => $row['weapon']['key'],
                     'name' => sprintf(

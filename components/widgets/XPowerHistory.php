@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -106,11 +107,15 @@ class XPowerHistory extends Widget
             return null;
         }
 
-        if (!$this->current ||
+        if (
+            !$this->current ||
             $this->current->rule_id === null ||
-            (!$this->current->x_power_after && !$this->current->estimate_x_power) ||
-            $this->current->rank_id !== $rankX->id || // not Rank X
-            $this->current->lobby_id !== $standardLobby->id || // not Solo Queue
+            (!$this->current->x_power_after &&
+            !$this->current->estimate_x_power) ||
+            $this->current->rank_id !== $rankX->id ||
+            // not Rank X
+            $this->current->lobby_id !== $standardLobby->id ||
+            // not Solo Queue
             $this->current->mode_id !== $modeGachi->id // not Ranked
         ) {
             return null;
@@ -139,8 +144,10 @@ class XPowerHistory extends Widget
                     return false;
                 }
 
-                if ($battle->rank_id !== $rankX->id ||
-                    ($battle->x_power_after < 0 && $battle->estimate_x_power < 0)
+                if (
+                    $battle->rank_id !== $rankX->id ||
+                    ($battle->x_power_after < 0 &&
+                    $battle->estimate_x_power < 0)
                 ) {
                     $isLost = true;
                     return false;

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -56,7 +57,7 @@ class UserStatByWeaponAction extends ViewAction
             'ELSE {{battle2}}.[[death]]',
         ]));
 
-        $mkColumns = function (string $name, string $param) : array {
+        $mkColumns = function (string $name, string $param): array {
             return [
                 "min_{$name}" => "MIN({$param})",
                 "p5_{$name}"  => "PERCENTILE_CONT(0.05) WITHIN GROUP (ORDER BY {$param})",
@@ -115,7 +116,7 @@ class UserStatByWeaponAction extends ViewAction
         }
         
         $list = array_map(
-            function (array $row) : array {
+            function (array $row): array {
                 foreach ($row as $key => $value) {
                     if ($value === null) {
                         continue;

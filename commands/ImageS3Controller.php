@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -17,7 +18,7 @@ use yii\helpers\FileHelper;
 
 class ImageS3Controller extends Controller
 {
-    const AUTOUPLOAD_DELAY = 7 * 86400;
+    public const AUTOUPLOAD_DELAY = 7 * 86400;
 
     public function init()
     {
@@ -100,7 +101,7 @@ class ImageS3Controller extends Controller
         $innerIterator = new \RecursiveIteratorIterator(
             new \RecursiveDirectoryIterator(Yii::getAlias('@image'))
         );
-        $iterator = new class($innerIterator) extends FilterIterator {
+        $iterator = new class ($innerIterator) extends FilterIterator {
             public function accept()
             {
                 $entry = $this->getInnerIterator()->current();

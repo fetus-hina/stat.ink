@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2017 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -40,12 +41,12 @@ class WeaponTrendsGetForm extends Model
         ];
     }
 
-    public function getRuleId() : ?int
+    public function getRuleId(): ?int
     {
         return Rule::findOne(['key' => $this->rule])->id ?? null;
     }
 
-    public function getMapId() : ?int
+    public function getMapId(): ?int
     {
         return Map::findOne(['key' => $this->map])->id ?? null;
     }

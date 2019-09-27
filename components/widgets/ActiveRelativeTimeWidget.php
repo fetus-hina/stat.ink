@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2017 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -43,7 +44,7 @@ class ActiveRelativeTimeWidget extends Widget
         );
     }
 
-    protected function formatReltime() : string
+    protected function formatReltime(): string
     {
         $formatter = Yii::$app->getFormatter();
         $now = $_SERVER['REQUEST_TIME'] ?? time();
@@ -73,7 +74,7 @@ class ActiveRelativeTimeWidget extends Widget
         }
     }
 
-    protected function getFormats() : array
+    protected function getFormats(): array
     {
         // {{{
         return [
