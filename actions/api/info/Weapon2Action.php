@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2017 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -20,17 +21,17 @@ class Weapon2Action extends BaseAction
     public function run()
     {
         $categories = array_map(
-            function (WeaponCategory2 $category) : array {
+            function (WeaponCategory2 $category): array {
                 return [
                     'key' => $category->key,
                     'name' => Yii::t('app-weapon2', $category->name),
                     'types' => array_map(
-                        function (WeaponType2 $type) : array {
+                        function (WeaponType2 $type): array {
                             return [
                                 'key' => $type->key,
                                 'name' => Yii::t('app-weapon2', $type->name),
                                 'weapons' => array_map(
-                                    function (Weapon2 $weapon) : array {
+                                    function (Weapon2 $weapon): array {
                                         return [
                                             'key' => $weapon->key,
                                             'splatnet' => $weapon->splatnet,
@@ -76,7 +77,7 @@ class Weapon2Action extends BaseAction
 
         $langs = Language::find()->standard()->asArray()->all();
         $sysLang = Yii::$app->language;
-        usort($langs, function (array $a, array $b) use ($sysLang) : int {
+        usort($langs, function (array $a, array $b) use ($sysLang): int {
             if ($a['lang'] === $sysLang) {
                 return -1;
             }

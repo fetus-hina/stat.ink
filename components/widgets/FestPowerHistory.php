@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -115,7 +116,8 @@ class FestPowerHistory extends Widget
         if (!$modeFest = Mode2::findOne(['key' => 'fest'])) {
             return null;
         }
-        if (!$this->current ||
+        if (
+            !$this->current ||
             $this->current->rule_id !== $ruleTW->id ||
             $this->current->mode_id !== $modeFest->id ||
             $this->current->lobby_id === null
@@ -123,7 +125,8 @@ class FestPowerHistory extends Widget
             return null;
         }
 
-        if ($this->current->fest_power < 1 &&
+        if (
+            $this->current->fest_power < 1 &&
             $this->current->my_team_estimate_fest_power < 1 &&
             $this->current->his_team_estimate_fest_power < 1
         ) {
@@ -166,7 +169,8 @@ class FestPowerHistory extends Widget
 
                 // 5.5 日以上間あいたなら、別のフェスとみなす
                 $time = $battle->getVirtualStartTime();
-                if ($lastBattleTime !== null &&
+                if (
+                    $lastBattleTime !== null &&
                     $lastBattleTime->getTimestamp() - $time->getTimestamp() >= 5.5 * 86400
                 ) {
                     $isLost = true;

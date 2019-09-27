@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2016 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -11,7 +12,7 @@ use app\models\User;
 
 class Blackout
 {
-    public static function getBlackoutTargetList($lobbyKey, $blackoutConfigValue, $myPosition) : array
+    public static function getBlackoutTargetList($lobbyKey, $blackoutConfigValue, $myPosition): array
     {
         if ($myPosition === false) {
             return [];
@@ -50,7 +51,7 @@ class Blackout
         }
     }
 
-    private static function createList(array $except) : array
+    private static function createList(array $except): array
     {
         return array_filter(
             range(1, 8),

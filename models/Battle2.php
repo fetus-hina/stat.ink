@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -171,7 +172,7 @@ class Battle2 extends ActiveRecord
 
     public static function find()
     {
-        return new class(get_called_class()) extends ActiveQuery {
+        return new class (get_called_class()) extends ActiveQuery {
             public function withFreshness(): self
             {
                 if (!$this->select) {
@@ -471,7 +472,8 @@ class Battle2 extends ActiveRecord
                         break;
 
                     default:
-                        if (isset($options['filter']) &&
+                        if (
+                            isset($options['filter']) &&
                             preg_match('/^last-(\d+)-battles$/', $term, $match)
                         ) {
                             $range = BattleHelper::getNBattlesRange2(
@@ -690,10 +692,12 @@ class Battle2 extends ActiveRecord
         if ($value === '') {
             return Uuid::v4()->formatAsString();
         }
-        if (preg_match(
-            '/^\{?[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\}?$/i',
-            $value
-        )) {
+        if (
+            preg_match(
+                '/^\{?[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\}?$/i',
+                $value
+            )
+        ) {
             return strtolower(trim($value, '{}'));
         }
         return Uuid::v5(static::CLIENT_UUID_NAMESPACE, $value);
@@ -1754,7 +1758,8 @@ class Battle2 extends ActiveRecord
             },
             $players
         );
-        if (count($playerIds) < 1 ||
+        if (
+            count($playerIds) < 1 ||
             count($playerIds) > 8 ||
             in_array(null, $playerIds, true)
         ) {

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2017 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -65,7 +66,7 @@ class EntireWeapon2Form extends Model
         return $ret;
     }
 
-    public function getTermList() : array
+    public function getTermList(): array
     {
         static $list;
         if (!$list) {
@@ -78,11 +79,11 @@ class EntireWeapon2Form extends Model
         return $list;
     }
 
-    private function getVersionList() : array
+    private function getVersionList(): array
     {
         $result = [];
         $groups = SplatoonVersionGroup2::find()->with('versions')->asArray()->all();
-        usort($groups, function (array $a, array $b) : int {
+        usort($groups, function (array $a, array $b): int {
             return version_compare($b['tag'], $a['tag']);
         });
         foreach ($groups as $group) {
@@ -101,7 +102,7 @@ class EntireWeapon2Form extends Model
                     $result['~v' . $group['tag']] = Yii::t('app', 'Version {0}', [
                         Yii::t('app-version2', $group['name']),
                     ]);
-                    usort($group['versions'], function (array $a, array $b) : int {
+                    usort($group['versions'], function (array $a, array $b): int {
                         return version_compare($b['tag'], $a['tag']);
                     });
                     $n = count($group['versions']);
@@ -120,7 +121,7 @@ class EntireWeapon2Form extends Model
         return $result;
     }
 
-    private function getMonthList() : array
+    private function getMonthList(): array
     {
         $interval = new DateInterval('P1M');
         $date = (new DateTimeImmutable())

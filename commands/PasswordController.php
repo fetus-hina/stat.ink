@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2018 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -17,7 +18,7 @@ class PasswordController extends Controller
 
     public $defaultAction = 'generate';
 
-    public function actionGenerate(int $num = 1) : int
+    public function actionGenerate(int $num = 1): int
     {
         for ($i = 0; $i < $num; ++$i) {
             if ($i > 0) {
@@ -37,7 +38,7 @@ class PasswordController extends Controller
         return 0;
     }
 
-    protected function generate() : string
+    protected function generate(): string
     {
         $passwordChars = implode('', [
             '!%&()*+,-./:;<=>?_',
@@ -61,7 +62,8 @@ class PasswordController extends Controller
 
         $password = substr($password, 0, static::PASSWORD_LENGTH);
 
-        if (!preg_match('/[0-9]/', $password) ||
+        if (
+            !preg_match('/[0-9]/', $password) ||
             !preg_match('/[A-Z]/', $password) ||
             !preg_match('/[a-z]/', $password) ||
             !preg_match('/[^0-9A-Za-z]/', $password)

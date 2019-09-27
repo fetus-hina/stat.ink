@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2017 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -89,7 +90,7 @@ class Migration extends \yii\db\Migration
         return sprintf(
             'PRIMARY KEY ( %s )',
             implode(', ', array_map(
-                function (string $column) : string {
+                function (string $column): string {
                     return $this->db->quoteColumnName($column);
                 },
                 (array)$columns

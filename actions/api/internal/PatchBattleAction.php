@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2016 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -73,7 +74,7 @@ class PatchBattleAction extends ViewAction
         return $battle->toJsonArray();
     }
 
-    public function formatError(array $errors, int $code = 400) : array
+    public function formatError(array $errors, int $code = 400): array
     {
         $resp = Yii::$app->getResponse();
         $resp->format = 'json';

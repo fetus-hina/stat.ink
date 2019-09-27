@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -86,7 +87,8 @@ class FreshnessHistory extends Widget
             return null;
         }
 
-        if (!$this->current ||
+        if (
+            !$this->current ||
             $this->current->rule_id !== $ruleTW->id ||
             $this->current->mode_id === $modeFest->id ||
             $this->current->mode_id === $modePrivate->id ||

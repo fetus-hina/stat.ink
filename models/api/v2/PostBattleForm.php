@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -223,7 +224,7 @@ class PostBattleForm extends Model
     {
         return [
             [['mode'], 'default',
-                'value' => function ($model, $attribute) : ?string {
+                'value' => function ($model, $attribute): ?string {
                     if (!$model->rule) {
                         return null;
                     }
@@ -283,7 +284,7 @@ class PostBattleForm extends Model
             [['uuid'], 'string', 'max' => 64],
             [['automated'], 'boolean', 'trueValue' => 'yes', 'falseValue' => 'no'],
             [['automated'], 'filter',
-                'filter' => function ($value) : string {
+                'filter' => function ($value): string {
                     if ($value === 'yes' || $value === 'no') {
                         return $value;
                     }
@@ -390,7 +391,7 @@ class PostBattleForm extends Model
         ];
     }
 
-    public function getSameBattle() : ?Battle2
+    public function getSameBattle(): ?Battle2
     {
         if (trim($this->uuid) === '') {
             return null;
@@ -411,19 +412,19 @@ class PostBattleForm extends Model
             ->one();
     }
 
-    public function getIsTest() : bool
+    public function getIsTest(): bool
     {
         $value = (string)$this->test;
         return $value !== '' && $value !== 'no';
     }
 
-    public function setMap($key) : self
+    public function setMap($key): self
     {
         $this->stage = $key;
         return $this;
     }
 
-    public function getMap() : Map2
+    public function getMap(): Map2
     {
         return $this->stage;
     }
@@ -463,15 +464,15 @@ class PostBattleForm extends Model
         return $map;
     }
 
-    public function toBattle() : Battle2
+    public function toBattle(): Battle2
     {
-        $intval = function ($string) : ?int {
+        $intval = function ($string): ?int {
             return $string === null ? null : intval($string, 10);
         };
-        $floatval = function ($string) : ?float {
+        $floatval = function ($string): ?float {
             return $string === null ? null : floatval($string);
         };
-        $datetime = function ($value) use ($intval) : ?string {
+        $datetime = function ($value) use ($intval): ?string {
             $value = $intval($value);
             return $value === null ? null : gmdate('Y-m-d\TH:i:sP', $value);
         };
@@ -559,7 +560,7 @@ class PostBattleForm extends Model
         $battle->my_team_id     = $this->my_team_id;
         $battle->his_team_id    = $this->his_team_id;
         $battle->species_id     = $key2id($this->species, Species2::class);
-        $battle->gender_id      = (function ($v) : ?int {
+        $battle->gender_id      = (function ($v): ?int {
             switch (trim((string)$v)) {
                 case 'boy':
                     return 1;
@@ -624,7 +625,7 @@ class PostBattleForm extends Model
         return $battle;
     }
 
-    public function toEvents(Battle2 $battle) : ?BattleEvents2
+    public function toEvents(Battle2 $battle): ?BattleEvents2
     {
         if (!$this->events) {
             return null;
@@ -713,7 +714,7 @@ class PostBattleForm extends Model
                     ? null
                     : FestTitle::findOne(['key' => $form->fest_title]);
 
-                $top500 = (function ($v) : ?bool {
+                $top500 = (function ($v): ?bool {
                     switch (trim((string)$v)) {
                         case 'yes':
                             return true;
@@ -800,7 +801,7 @@ class PostBattleForm extends Model
         }
     }
 
-    protected function processGear($key) : ?int
+    protected function processGear($key): ?int
     {
         if ($this->isTest || !($this->gears instanceof PostGearsForm)) {
             return null;
@@ -996,7 +997,7 @@ class PostBattleForm extends Model
         }
     }
 
-    public function validateGears($attribute, $params) : void
+    public function validateGears($attribute, $params): void
     {
         if ($this->hasErrors($attribute)) {
             return;
@@ -1118,7 +1119,7 @@ class PostBattleForm extends Model
         }
     }
 
-    private function getAgentId(?string $name, ?string $version) : ?int
+    private function getAgentId(?string $name, ?string $version): ?int
     {
         $name = trim($name);
         $version = trim($version);

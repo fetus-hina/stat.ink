@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -110,7 +111,7 @@ class Weapons2Action extends BaseAction
             }, $trends),
         ]);
 
-        return array_map(function (array $_) use ($trends, $weapons) : array {
+        return array_map(function (array $_) use ($trends, $weapons): array {
             $w = [];
             $total = 0;
             foreach ($trends as $trend) {
@@ -142,7 +143,7 @@ class Weapons2Action extends BaseAction
         }, $baselist);
     }
 
-    public function getEntireWeapons(EntireWeapon2Form $form) : array
+    public function getEntireWeapons(EntireWeapon2Form $form): array
     {
         $rules = [];
         foreach (Rule2::find()->orderBy(['id' => SORT_ASC])->all() as $rule) {
@@ -515,7 +516,7 @@ class Weapons2Action extends BaseAction
         return $ret;
     }
 
-    private function convertWeapons2Type(\stdClass $in) : array
+    private function convertWeapons2Type(\stdClass $in): array
     {
         $weapons = $in->weapons;
         $mergeKeys = [
@@ -561,7 +562,7 @@ class Weapons2Action extends BaseAction
         return $ret;
     }
 
-    private function convertWeapons2Category(\stdClass $in) : array
+    private function convertWeapons2Category(\stdClass $in): array
     {
         $weapons = $in->weapons;
         $mergeKeys = [

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2017 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -47,7 +48,7 @@ class WeaponAction extends BaseAction
     protected function formatJson(ActiveQuery $query)
     {
         return array_map(
-            function (Weapon2 $weapon) : array {
+            function (Weapon2 $weapon): array {
                 return $weapon->toJsonArray();
             },
             $query->all()
@@ -77,7 +78,7 @@ class WeaponAction extends BaseAction
         yield array_merge(
             ['category1', 'category2', 'key', 'subweapon', 'special', 'mainweapon', 'reskin', 'splatnet'],
             array_map(
-                function (string $lang) : string {
+                function (string $lang): string {
                     return sprintf('[%s]', $lang);
                 },
                 $langs

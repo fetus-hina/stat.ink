@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2017 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -46,13 +47,13 @@ class FeedAction extends BaseAction
         }
     }
 
-    public function getUser() : ?User
+    public function getUser(): ?User
     {
         $screenName = trim((string)Yii::$app->getRequest()->get('screen_name'));
         return User::findOne(['screen_name' => $screenName]);
     }
 
-    public function http404() : Response
+    public function http404(): Response
     {
         $resp = Yii::$app->getResponse();
         $resp->format = 'json';

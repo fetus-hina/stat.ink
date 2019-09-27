@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2017 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -23,7 +24,7 @@ use yii\helpers\Json;
 
 class Splapi2Controller extends Controller
 {
-    public function actionUpdate() : int
+    public function actionUpdate(): int
     {
         $json = $this->queryJson('https://splapi2.stat.ink/schedule');
         $transaction = Yii::$app->db->beginTransaction();
@@ -80,7 +81,7 @@ class Splapi2Controller extends Controller
         if ($exists == count($info->stages)) {
             $matches = $schedule->getScheduleMaps()
                 ->andWhere(['in', 'map_id', array_map(
-                    function (stdClass $stage) use ($maps) : int {
+                    function (stdClass $stage) use ($maps): int {
                         return $maps[$stage->key];
                     },
                     $info->stages

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2016 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -171,7 +172,7 @@ class UserJsonController extends Controller
         return $this->user;
     }
 
-    public function getLastSavedBattleId() : string
+    public function getLastSavedBattleId(): string
     {
         $jsonPath = $this->jsonPath;
         if (!file_exists($jsonPath)) {
@@ -188,7 +189,7 @@ class UserJsonController extends Controller
         return (string)($last->id ?? 0);
     }
 
-    protected function getNextBattles(string $lastBattleId) : array
+    protected function getNextBattles(string $lastBattleId): array
     {
         $query = Battle::find()
             ->innerJoinWith('user')

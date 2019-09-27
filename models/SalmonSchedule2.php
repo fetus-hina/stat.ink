@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -27,7 +28,7 @@ class SalmonSchedule2 extends ActiveRecord
 {
     public static function find(): ActiveQuery
     {
-        return new class(static::class) extends ActiveQuery {
+        return new class (static::class) extends ActiveQuery {
             public function init()
             {
                 parent::init();

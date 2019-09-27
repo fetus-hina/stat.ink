@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2017 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -19,7 +20,7 @@ trait VersionMigration
         string $versionTag,
         string $versionName,
         DateTimeInterface $releasedAt
-    ) : int {
+    ): int {
         $this->insert('splatoon_version2', [
             'tag' => $versionTag,
             'name' => $versionName,
@@ -34,7 +35,7 @@ trait VersionMigration
         return $this->findId('splatoon_version2', $versionTag);
     }
 
-    protected function downVersion2(string $versionTag, string $oldVersionTag) : void
+    protected function downVersion2(string $versionTag, string $oldVersionTag): void
     {
         // グループを消すかどうか決めるために最初に探しておく
         $groupId = (new Query())
@@ -66,7 +67,7 @@ trait VersionMigration
         }
     }
 
-    private function upVersionGroup2(string $tag, string $name) : int
+    private function upVersionGroup2(string $tag, string $name): int
     {
         $id = $this->findId('splatoon_version_group2', $tag);
         if ($id === null) {
@@ -82,7 +83,7 @@ trait VersionMigration
         return $id;
     }
 
-    private function findId(string $table, string $tag) : ?int
+    private function findId(string $table, string $tag): ?int
     {
         $id = (new Query())
             ->select('id')

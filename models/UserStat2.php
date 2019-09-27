@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2017 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -185,7 +186,7 @@ class UserStat2 extends ActiveRecord
         return $this->hasOne(User::class, ['id' => 'user_id']);
     }
 
-    public function makeUpdate() : self
+    public function makeUpdate(): self
     {
         $excludeHaventWinLose = ['WHEN {{battle2}}.[[is_win]] IS NULL THEN 0'];
         $excludeHaventKillDeath = [
@@ -210,7 +211,7 @@ class UserStat2 extends ActiveRecord
         $excludeNonGachi = [
             "WHEN {{rule2}}.[[key]] NOT IN ('area', 'yagura', 'hoko', 'asari') THEN 0",
         ];
-        $timestamp = function (string $column) : string {
+        $timestamp = function (string $column): string {
             return sprintf('EXTRACT(EPOCH FROM %s)', $column);
         };
         $query = (new Query())

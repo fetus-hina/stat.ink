@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -65,7 +66,7 @@ class EditProfileAction extends BaseAction
             ),
             'regions' => ArrayHelper::map(
                 array_map(
-                    function (array $row) : array {
+                    function (array $row): array {
                         return [
                             'id' => $row['id'],
                             'name' => Yii::t('app-region', $row['name']),

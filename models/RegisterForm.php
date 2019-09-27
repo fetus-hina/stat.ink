@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -79,7 +80,7 @@ class RegisterForm extends Model
         return Region::findOne(['key' => 'jp'])->id;
     }
 
-    private function getDefaultLinkModeId() : int
+    private function getDefaultLinkModeId(): int
     {
         return LinkMode::findOne(['key' => 'in_game'])->id;
     }

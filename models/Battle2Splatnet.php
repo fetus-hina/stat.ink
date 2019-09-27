@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -89,7 +90,7 @@ class Battle2Splatnet extends ActiveRecord
         return $this->hasOne(Battle2::class, ['id' => 'id']);
     }
 
-    public function validateJson(string $attr, $params) : void
+    public function validateJson(string $attr, $params): void
     {
         if ($this->hasErrors($attr)) {
             return;

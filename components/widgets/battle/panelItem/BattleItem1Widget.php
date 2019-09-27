@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2017 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -13,7 +14,7 @@ use Yii;
 
 class BattleItem1Widget extends BaseWidget
 {
-    public function getBattleEndAt() : ?DateTimeImmutable
+    public function getBattleEndAt(): ?DateTimeImmutable
     {
         if (!$endAt = $this->model->end_at) {
             return null;
@@ -22,17 +23,17 @@ class BattleItem1Widget extends BaseWidget
             ->setTimezone(new DateTimeZone(Yii::$app->timeZone));
     }
 
-    public function getIsKO() : ?bool
+    public function getIsKO(): ?bool
     {
         return $this->model->is_knock_out;
     }
 
-    public function getIsWin() : ?bool
+    public function getIsWin(): ?bool
     {
         return $this->model->is_win;
     }
 
-    public function getKillDeath() : array
+    public function getKillDeath(): array
     {
         return [
             $this->model->kill,
@@ -40,7 +41,7 @@ class BattleItem1Widget extends BaseWidget
         ];
     }
 
-    public function getLinkRoute() : array
+    public function getLinkRoute(): array
     {
         return [
             'show/battle',
@@ -49,7 +50,7 @@ class BattleItem1Widget extends BaseWidget
         ];
     }
 
-    public function getMapName() : string
+    public function getMapName(): string
     {
         if (!$map = $this->model->map) {
             return Yii::t('app', 'Unknown');
@@ -57,7 +58,7 @@ class BattleItem1Widget extends BaseWidget
         return Yii::t('app-map', $map->name);
     }
 
-    public function getRuleName() : string
+    public function getRuleName(): string
     {
         if (!$rule = $this->model->rule) {
             return Yii::t('app', 'Unknown');
@@ -65,7 +66,7 @@ class BattleItem1Widget extends BaseWidget
         return Yii::t('app-rule', $rule->name);
     }
 
-    public function getWeaponName() : string
+    public function getWeaponName(): string
     {
         if (!$weapon = $this->model->weapon) {
             return Yii::t('app', 'Unknown');

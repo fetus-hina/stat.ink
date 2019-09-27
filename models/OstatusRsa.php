@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2017 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -29,9 +30,9 @@ use yii\db\ActiveRecord;
 class OstatusRsa extends ActiveRecord
 {
     // should call save() after return
-    public static function factory(int $user_id, int $bits = 2048) : self
+    public static function factory(int $user_id, int $bits = 2048): self
     {
-        $b64 = function (string $binary) : string {
+        $b64 = function (string $binary): string {
             return strtr(base64_encode($binary), '+/', '-_');
         };
 

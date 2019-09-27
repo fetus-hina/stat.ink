@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2016 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -41,7 +42,8 @@ class MonthAction extends BaseAction
 
         $this->year = $req->get('year');
         $this->month = $req->get('month');
-        if (!is_scalar($this->year) ||
+        if (
+            !is_scalar($this->year) ||
                 !is_scalar($this->month) ||
                 !static::isValidMonth($this->year, $this->month)
         ) {
@@ -80,7 +82,7 @@ class MonthAction extends BaseAction
         ]);
     }
 
-    public function buildData() : array // {{{
+    public function buildData(): array // {{{
     {
         $raiiTimeZone = static::setTimeZoneToFavorable();
 
@@ -118,7 +120,7 @@ class MonthAction extends BaseAction
         return $data;
     } // }}}
 
-    public function getMaps() : array // {{{
+    public function getMaps(): array // {{{
     {
         $q = Map::find()
             ->andWhere(['<=', 'release_at', date(
@@ -133,7 +135,7 @@ class MonthAction extends BaseAction
         return $ret;
     } // }}}
 
-    public function getRules() : array // {{{
+    public function getRules(): array // {{{
     {
         $ret = [];
         foreach (GameMode::find()->orderBy('id ASC')->all() as $mode) {
@@ -151,7 +153,7 @@ class MonthAction extends BaseAction
         return $ret;
     } // }}}
 
-    public function getCountData() : array // {{{
+    public function getCountData(): array // {{{
     {
         $query = (new Query())
             ->select([
@@ -185,7 +187,7 @@ class MonthAction extends BaseAction
             : null;
     } // }}}
 
-    private static function hasStageData(int $periodS, int $periodE) : bool // {{{
+    private static function hasStageData(int $periodS, int $periodE): bool // {{{
     {
         return !!PeriodMap::find()
             ->select(['id' => '{{period_map}}.[[id]]'])
@@ -199,11 +201,12 @@ class MonthAction extends BaseAction
         throw new NotFoundHttpException(Yii::t('yii', 'Page not found.'));
     }
 
-    private static function isValidMonth($year, $month) : bool // {{{
+    private static function isValidMonth($year, $month): bool // {{{
     {
         $now = (int)($_SERVER['REQUEST_TIME'] ?? time());
 
-        if (!preg_match('/^\d+$/', $year) ||
+        if (
+            !preg_match('/^\d+$/', $year) ||
                 !preg_match('/^\d+$/', $month) ||
                 $year < 2015 ||
                 $year > date('Y', $now) ||
@@ -214,7 +217,8 @@ class MonthAction extends BaseAction
         }
 
         // 今年なら今月以前のはず
-        if (((int)$year === (int)date('Y', $now)) &&
+        if (
+            ((int)$year === (int)date('Y', $now)) &&
                 ((int)$month > (int)date('n', $now))
         ) {
             return false;
@@ -232,9 +236,9 @@ class MonthAction extends BaseAction
 
     // 集計のために都合のいいタイムゾーンに一時的に変更する
     // 戻り値が解放される時に自動的に元に戻る(RAII)
-    private static function setTimeZoneToFavorable() : Resource
+    private static function setTimeZoneToFavorable(): Resource
     {
-        $updateTZ = function (string $timezone) : void {
+        $updateTZ = function (string $timezone): void {
             Yii::$app->timeZone = $timezone;
             Yii::$app->db->createCommand(
                 // そのまま bind しようとすると、

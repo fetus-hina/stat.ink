@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2017 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -105,7 +106,7 @@ class Gear2 extends ActiveRecord
         return $this->hasOne(GearType::class, ['id' => 'type_id']);
     }
 
-    public function getTranslatedName() : string
+    public function getTranslatedName(): string
     {
         if ($this->translatedName === null) {
             $this->translatedName = Yii::t('app-gear2', $this->name);

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2017 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -25,7 +26,7 @@ use yii\db\ActiveRecord;
  */
 class SplatoonVersion2 extends ActiveRecord
 {
-    public static function findCurrentVersion($at = null) : ?self
+    public static function findCurrentVersion($at = null): ?self
     {
         if ($at === null) {
             $at = (int)($_SERVER['REQUEST_TIME'] ?? time());

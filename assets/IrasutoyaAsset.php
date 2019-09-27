@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2018 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -18,7 +19,7 @@ class IrasutoyaAsset extends AssetBundle
     public $css = [];
     public $js = [];
 
-    public function img(string $file, array $options = []) : string
+    public function img(string $file, array $options = []): string
     {
         return Html::img(
             Yii::$app->assetManager->getAssetUrl($this, $file),

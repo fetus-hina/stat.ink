@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2017 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -13,7 +14,7 @@ use Yii;
 
 class BattleItem2Widget extends BaseWidget
 {
-    public function getBattleEndAt() : ?DateTimeImmutable
+    public function getBattleEndAt(): ?DateTimeImmutable
     {
         if (!$endAt = $this->model->end_at) {
             return null;
@@ -22,7 +23,7 @@ class BattleItem2Widget extends BaseWidget
             ->setTimezone(new DateTimeZone(Yii::$app->timeZone));
     }
 
-    public function getIsKO() : ?bool
+    public function getIsKO(): ?bool
     {
         if ($this->model->isGachi) {
             return $this->model->is_knockout;
@@ -30,12 +31,12 @@ class BattleItem2Widget extends BaseWidget
         return null;
     }
 
-    public function getIsWin() : ?bool
+    public function getIsWin(): ?bool
     {
         return $this->model->is_win;
     }
 
-    public function getKillDeath() : array
+    public function getKillDeath(): array
     {
         return [
             $this->model->kill,
@@ -43,7 +44,7 @@ class BattleItem2Widget extends BaseWidget
         ];
     }
 
-    public function getLinkRoute() : array
+    public function getLinkRoute(): array
     {
         return [
             'show-v2/battle',
@@ -52,7 +53,7 @@ class BattleItem2Widget extends BaseWidget
         ];
     }
 
-    public function getMapName() : string
+    public function getMapName(): string
     {
         if (!$map = $this->model->map) {
             return Yii::t('app', 'Unknown');
@@ -60,7 +61,7 @@ class BattleItem2Widget extends BaseWidget
         return Yii::t('app-map2', $map->name);
     }
 
-    public function getRuleName() : string
+    public function getRuleName(): string
     {
         if (!$rule = $this->model->rule) {
             return Yii::t('app', 'Unknown');
@@ -68,7 +69,7 @@ class BattleItem2Widget extends BaseWidget
         return Yii::t('app-rule2', $rule->name);
     }
 
-    public function getWeaponName() : string
+    public function getWeaponName(): string
     {
         if (!$weapon = $this->model->weapon) {
             return Yii::t('app', 'Unknown');
@@ -76,7 +77,7 @@ class BattleItem2Widget extends BaseWidget
         return Yii::t('app-weapon2', $weapon->name);
     }
 
-    protected function renderKillDeathHtml() : string
+    protected function renderKillDeathHtml(): string
     {
         if ($this->model->kill_or_assist !== null) {
             return sprintf(

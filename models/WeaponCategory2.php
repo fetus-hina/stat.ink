@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2017 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -64,7 +65,7 @@ class WeaponCategory2 extends ActiveRecord
         return $this->hasMany(WeaponType2::class, ['category_id' => 'id']);
     }
 
-    public function toJsonArray() : array
+    public function toJsonArray(): array
     {
         return [
             'key' => $this->key,

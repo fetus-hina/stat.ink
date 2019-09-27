@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2017 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -33,7 +34,7 @@ class BattleImage2 extends ActiveRecord
         return 'battle_image2';
     }
 
-    public static function generateFilename() : string
+    public static function generateFilename(): string
     {
         while (true) {
             $name = RandomFilename::generate('jpg');

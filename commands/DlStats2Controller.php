@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2018 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -59,7 +60,7 @@ class DlStats2Controller extends Controller
         $this->createBattleResultsCsvZip();
     }
 
-    private function createBattleResultsCsv(DateTimeImmutable $date, string $outPath) : bool
+    private function createBattleResultsCsv(DateTimeImmutable $date, string $outPath): bool
     {
         // {{{
         $header = false;
@@ -68,7 +69,7 @@ class DlStats2Controller extends Controller
             return false;
         }
         try {
-            $playerColumns = function (string $prefix) : array {
+            $playerColumns = function (string $prefix): array {
                 return [
                     $prefix . '-weapon',
                     $prefix . '-kill-assist',
@@ -81,12 +82,12 @@ class DlStats2Controller extends Controller
                     $prefix . '-level',
                 ];
             };
-            $playerCsv = function (Battle2 $b, ?BattlePlayer2 $p) : array {
+            $playerCsv = function (Battle2 $b, ?BattlePlayer2 $p): array {
                 if (!$p) {
                     return ['', '', '', '', '', '', '', '', ''];
                 }
 
-                $inked = (function (?int $point) use ($b, $p) : ?int {
+                $inked = (function (?int $point) use ($b, $p): ?int {
                     if ($point === null) {
                         return null;
                     }
@@ -224,7 +225,7 @@ class DlStats2Controller extends Controller
         // }}}
     }
 
-    private function createBattleResultsCsvZip() : bool
+    private function createBattleResultsCsvZip(): bool
     {
         // {{{
         if (!$tmpFile = tempnam('/tmp', 'zip-')) {
@@ -238,14 +239,16 @@ class DlStats2Controller extends Controller
             if (!$zip->addEmptyDir(basename(Yii::getAlias(static::BASE_BATTLE_RESULTS_CSV)))) {
                 return false;
             }
-            if (!$zip->addGlob(
-                Yii::getAlias(static::BASE_BATTLE_RESULTS_CSV) . '/*/*/*.csv',
-                0,
-                [
+            if (
+                !$zip->addGlob(
+                    Yii::getAlias(static::BASE_BATTLE_RESULTS_CSV) . '/*/*/*.csv',
+                    0,
+                    [
                     'add_path' => basename(Yii::getAlias(static::BASE_BATTLE_RESULTS_CSV)) . '/',
                     'remove_all_path' => true,
-                ]
-            )) {
+                    ]
+                )
+            ) {
                 return false;
             }
             if (!$zip->close()) {
@@ -265,7 +268,7 @@ class DlStats2Controller extends Controller
         // }}}
     }
 
-    private static function startDay() : DateTimeImmutable
+    private static function startDay(): DateTimeImmutable
     {
         return (new DateTimeImmutable())
             ->setTimeZone(new DateTimeZone('Asia/Tokyo'))
@@ -273,7 +276,7 @@ class DlStats2Controller extends Controller
             ->setTime(0, 0, 0);
     }
 
-    private static function today() : DateTimeImmutable
+    private static function today(): DateTimeImmutable
     {
         return (new DateTimeImmutable())
             ->setTimeZone(new DateTimeZone('Asia/Tokyo'))
@@ -281,11 +284,12 @@ class DlStats2Controller extends Controller
             ->setTime(0, 0, 0);
     }
 
-    private static function csvRow(array $cols) : string
+    private static function csvRow(array $cols): string
     {
         return implode(',', array_map(
-            function (string $col) : string {
-                if (strpos($col, ',') === false &&
+            function (string $col): string {
+                if (
+                    strpos($col, ',') === false &&
                     strpos($col, "\n") === false &&
                     strpos($col, '"') === false
                 ) {

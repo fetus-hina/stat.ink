@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2018 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -21,7 +22,7 @@ class Stage2Action extends BaseAction
         $stages = Map2::find()->all();
         $sysLang = Yii::$app->language;
 
-        usort($langs, function (Language $a, Language $b) use ($sysLang) : int {
+        usort($langs, function (Language $a, Language $b) use ($sysLang): int {
             if ($a->lang === $sysLang) {
                 return -1;
             }
@@ -31,7 +32,7 @@ class Stage2Action extends BaseAction
             return strnatcasecmp($a->name, $b->name);
         });
 
-        usort($stages, function (Map2 $a, Map2 $b) : int {
+        usort($stages, function (Map2 $a, Map2 $b): int {
             return strnatcasecmp(
                 Yii::t('app-map2', $a->name),
                 Yii::t('app-map2', $b->name)

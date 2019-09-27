@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2018 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -15,7 +16,7 @@ use yii\helpers\Json;
 
 class RevisionDataController extends Controller
 {
-    public function actionIndex() : int
+    public function actionIndex(): int
     {
         $data = [
             'Version' => Version::getVersion(),
@@ -34,7 +35,7 @@ class RevisionDataController extends Controller
         return 0;
     }
 
-    public function actionUpdate() : int
+    public function actionUpdate(): int
     {
         $success = true;
         $success &= $this->updateVersionConf();
@@ -42,7 +43,7 @@ class RevisionDataController extends Controller
         return $success ? 0 : 1;
     }
 
-    private function updateVersionConf() : bool
+    private function updateVersionConf(): bool
     {
         $version = '';
         if ($tags = Version::getVersionTags()) {
@@ -64,7 +65,7 @@ class RevisionDataController extends Controller
         return true;
     }
 
-    private function updateRevisionConf() : bool
+    private function updateRevisionConf(): bool
     {
         $commit = Version::getLastCommited();
 
@@ -85,7 +86,7 @@ class RevisionDataController extends Controller
         return true;
     }
 
-    private static function format($data, int $indentLevel = 0) : string
+    private static function format($data, int $indentLevel = 0): string
     {
         $indent = str_repeat(' ', $indentLevel * 4);
         $indent1 = $indent . '    ';

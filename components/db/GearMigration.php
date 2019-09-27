@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2018 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -22,7 +23,7 @@ trait GearMigration
         string $brand,
         ?string $ability,
         ?int $splatnet
-    ) : void {
+    ): void {
         $this->insert('gear2', [
             'key'           => $key,
             'name'          => $name,
@@ -33,7 +34,7 @@ trait GearMigration
         ]);
     }
 
-    protected function downGear2(string $key) : void
+    protected function downGear2(string $key): void
     {
         $this->delete('gear2', ['key' => $key]);
     }
@@ -50,7 +51,7 @@ trait GearMigration
         ];
     }
 
-    protected static function name2key(string $name) : string
+    protected static function name2key(string $name): string
     {
         $table = [
             // {{{
@@ -113,7 +114,7 @@ trait GearMigration
         return strtolower($name);
     }
 
-    private function findId(string $table, string $tag) : ?int
+    private function findId(string $table, string $tag): ?int
     {
         $id = (new Query())
             ->select('id')

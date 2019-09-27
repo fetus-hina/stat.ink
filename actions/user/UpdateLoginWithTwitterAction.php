@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2016 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -105,7 +106,7 @@ class UpdateLoginWithTwitterAction extends BaseAction
         throw new BadRequestHttpException('Bad request.');
     }
 
-    public function getTwitterService() : OAuthService
+    public function getTwitterService(): OAuthService
     {
         $credential = new OAuthCredentials(
             Yii::$app->params['twitter']['consumer_key'],
@@ -121,7 +122,7 @@ class UpdateLoginWithTwitterAction extends BaseAction
         );
     }
 
-    public function getTokenStorage() : OAuthStorage
+    public function getTokenStorage(): OAuthStorage
     {
         return new OAuthSessionStorage();
     }

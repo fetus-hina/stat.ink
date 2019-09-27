@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2017 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -73,7 +74,7 @@ class Mode2 extends ActiveRecord
         return $this->hasMany(Rule2::class, ['id' => 'rule_id'])->viaTable('mode_rule2', ['mode_id' => 'id']);
     }
 
-    public function toJsonArray($withRules = true) : array
+    public function toJsonArray($withRules = true): array
     {
         $ret = [
             'key' => $this->key,
@@ -81,7 +82,7 @@ class Mode2 extends ActiveRecord
         ];
         if ($withRules) {
             $ret['rules'] = array_map(
-                function (Rule2 $rule) : array {
+                function (Rule2 $rule): array {
                     return $rule->toJsonArray();
                 },
                 $this->rules

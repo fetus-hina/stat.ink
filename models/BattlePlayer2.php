@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2017 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -184,7 +185,7 @@ class BattlePlayer2 extends ActiveRecord
         return $this->forceBlackout !== null;
     }
 
-    public function getUser() : ?User
+    public function getUser(): ?User
     {
         if ($this->user === false) {
             $id = trim((string)$this->splatnet_id);
@@ -203,7 +204,7 @@ class BattlePlayer2 extends ActiveRecord
         return $this->user;
     }
 
-    public function getKillRatio() : ?float
+    public function getKillRatio(): ?float
     {
         if ($this->kill === null || $this->death === null) {
             return null;
@@ -217,7 +218,7 @@ class BattlePlayer2 extends ActiveRecord
         return $this->kill / $this->death;
     }
 
-    public function getFormattedKillRatio() : ?string
+    public function getFormattedKillRatio(): ?string
     {
         $ratio = $this->getKillRatio();
         if ($ratio === null) {
@@ -233,7 +234,7 @@ class BattlePlayer2 extends ActiveRecord
         return $fmt->asDecimal($ratio, 2);
     }
 
-    public function getKillRate() : ?float
+    public function getKillRate(): ?float
     {
         if ($this->kill === null || $this->death === null) {
             return null;
@@ -244,7 +245,7 @@ class BattlePlayer2 extends ActiveRecord
         return $this->kill * 100 / ($this->kill + $this->death);
     }
 
-    public function getFormattedKillRate() : ?string
+    public function getFormattedKillRate(): ?string
     {
         $rate = $this->getKillRate();
         if ($rate === null) {
@@ -257,7 +258,7 @@ class BattlePlayer2 extends ActiveRecord
         return $fmt->asPercent($rate / 100, 2);
     }
 
-    public function getJdenticonHash() : string
+    public function getJdenticonHash(): string
     {
         $id = $this->getAnonymizeSeed();
         if (preg_match('/^([0-9a-f]{2}+)[0-9a-f]?$/', $id, $match)) {
@@ -270,7 +271,7 @@ class BattlePlayer2 extends ActiveRecord
         );
     }
 
-    public function getIconUrl(string $ext = 'svg') : string
+    public function getIconUrl(string $ext = 'svg'): string
     {
         if ($user = $this->getUser()) {
             return $user->getIconUrl($ext);
@@ -279,7 +280,7 @@ class BattlePlayer2 extends ActiveRecord
         return Yii::getAlias('@jdenticon') . '/' . $hash . '.' . $ext;
     }
 
-    public function getIsDisconnected() : bool
+    public function getIsDisconnected(): bool
     {
         if ((string)$this->point === '') {
             return false;
@@ -287,7 +288,7 @@ class BattlePlayer2 extends ActiveRecord
         return ($this->point == 0);
     }
 
-    public function getAnonymizeSeed() : string
+    public function getAnonymizeSeed(): string
     {
         $value = trim($this->splatnet_id);
         return ($value !== '')

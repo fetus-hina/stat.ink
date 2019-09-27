@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2017 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -19,7 +20,7 @@ class Gear2Action extends BaseAction
 {
     public $type;
 
-    public function getType() : GearType
+    public function getType(): GearType
     {
         return GearType::findOne(['key' => (string)$this->type]);
     }
@@ -36,7 +37,7 @@ class Gear2Action extends BaseAction
     {
         $type = $this->getType();
         $gears = $type->getGear2s()->with(['brand', 'ability'])->all();
-        usort($gears, function (Gear2 $a, Gear2 $b) : int {
+        usort($gears, function (Gear2 $a, Gear2 $b): int {
             return strnatcasecmp(
                 $a->translatedName,
                 $b->translatedName
@@ -44,7 +45,7 @@ class Gear2Action extends BaseAction
         });
         $langs = Language::find()->standard()->all();
         $sysLang = Yii::$app->language;
-        usort($langs, function (Language $a, Language $b) use ($sysLang) : int {
+        usort($langs, function (Language $a, Language $b) use ($sysLang): int {
             if ($a->lang === $b->lang) {
                 return 0;
             } elseif ($a->lang === $sysLang) {

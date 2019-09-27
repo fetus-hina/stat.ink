@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -37,7 +38,7 @@ class StatWeapon2KdWinRate extends ActiveRecord
 {
     public static function find(): ActiveQuery
     {
-        return new class(static::class) extends ActiveQuery {
+        return new class (static::class) extends ActiveQuery {
             public function applyFilter(KDWin2FilterForm $form): self
             {
                 if ($form->hasErrors()) {

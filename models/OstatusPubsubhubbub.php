@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2017 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -33,8 +34,8 @@ class OstatusPubsubhubbub extends ActiveRecord
 {
     public static function find()
     {
-        $query = new class(get_called_class()) extends ActiveQuery {
-            public function active() : ActiveQuery
+        $query = new class (get_called_class()) extends ActiveQuery {
+            public function active(): ActiveQuery
             {
                 return $this->andWhere(['or',
                     ['lease_until' => null],
@@ -103,7 +104,7 @@ class OstatusPubsubhubbub extends ActiveRecord
         return $this->hasOne(User::class, ['id' => 'topic']);
     }
 
-    public function notify(Battle $battle) : ?string
+    public function notify(Battle $battle): ?string
     {
         $atom = BattleAtom::createUserFeed($battle->user, [$battle->id]);
         $hash = $this->secret != ''

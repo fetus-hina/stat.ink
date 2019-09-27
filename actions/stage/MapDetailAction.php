@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2016 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -54,7 +55,7 @@ class MapDetailAction extends BaseAction
         throw new NotFoundHttpException(Yii::t('yii', 'Page not found.'));
     }
 
-    private function getMaps() : array
+    private function getMaps(): array
     {
         $ret = [];
         foreach (Map::find()->asArray()->all() as $_) {
@@ -64,7 +65,7 @@ class MapDetailAction extends BaseAction
         return $ret;
     }
 
-    private function getRules() : array
+    private function getRules(): array
     {
         $ret = [];
         foreach (Rule::find()->asArray()->orderBy('id')->all() as $_) {
@@ -73,11 +74,11 @@ class MapDetailAction extends BaseAction
         return $ret;
     }
 
-    private function getHistory() : array
+    private function getHistory(): array
     {
         $endAt = null;
         return array_map(
-            function (PeriodMap $period) use (&$endAt) : \stdClass {
+            function (PeriodMap $period) use (&$endAt): \stdClass {
                 $times = BattleHelper::periodToRange($period->period);
                 $interval = ($endAt === null) ? null : ($times[0] - $endAt);
                 $endAt = $times[1];
@@ -95,7 +96,7 @@ class MapDetailAction extends BaseAction
         );
     }
 
-    private function getWeaponData() : array
+    private function getWeaponData(): array
     {
         return StatWeaponMapTrend::find()
             ->with('weapon')

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2016 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -174,7 +175,7 @@ class HasegawExportController extends Controller
         }
     }
 
-    private function parseDate($date) : DateTimeInterface
+    private function parseDate($date): DateTimeInterface
     {
         $date = trim($date);
         if ($date === '') {

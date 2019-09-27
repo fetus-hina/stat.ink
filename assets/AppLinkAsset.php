@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2016 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -18,62 +19,62 @@ class AppLinkAsset extends AssetBundle
         FontAwesomeAsset::class,
     ];
 
-    public function getIkaLog() : string
+    public function getIkaLog(): string
     {
         return $this->image('ikalog.png');
     }
 
-    public function getIkaDenwa() : string
+    public function getIkaDenwa(): string
     {
         return $this->image('ikadenwa.png');
     }
 
-    public function getIkaNakama() : string
+    public function getIkaNakama(): string
     {
         return $this->image('ikanakama.png');
     }
 
-    public function getFestInk() : string
+    public function getFestInk(): string
     {
         return $this->image('festink.png');
     }
 
-    public function getSplatNet() : string
+    public function getSplatNet(): string
     {
         return $this->image('splatnet.png');
     }
 
-    public function getIkaRecJa() : string
+    public function getIkaRecJa(): string
     {
         return $this->image('ikarec-ja.png');
     }
 
-    public function getIkaRecEn() : string
+    public function getIkaRecEn(): string
     {
         return $this->image('ikarec-en.png');
     }
 
-    public function getSquidTracks() : string
+    public function getSquidTracks(): string
     {
         return $this->image('squidtracks.png');
     }
 
-    public function getNnid() : string
+    public function getNnid(): string
     {
         return $this->image('nnid.min.svg');
     }
 
-    public function getSwitch() : string
+    public function getSwitch(): string
     {
         return $this->image('switch.min.svg');
     }
 
-    public function getInkipedia() : string
+    public function getInkipedia(): string
     {
         return $this->image('inkipedia.png');
     }
 
-    protected function image(string $file) : string
+    protected function image(string $file): string
     {
         return Html::tag(
             'span',

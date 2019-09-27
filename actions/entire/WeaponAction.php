@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -190,7 +191,7 @@ class WeaponAction extends BaseAction
             ->having(['>', 'SUM([[battles]])', 0])
             ->orderBy('isoyear, isoweek');
         return array_map(
-            function (array $row) : array {
+            function (array $row): array {
                 return [
                     'date'      => date('Y-m-d', strtotime(sprintf('%04d-W%02d', $row['isoyear'], $row['isoweek']))),
                     'battles'   => (int)$row['all_battles'],

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2016 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -16,7 +17,7 @@ class IkalogVersion
     const V2_7_0_MINIMUM_REVISION = '16bb777';
     const V2_8_0_MINIMUM_REVISION = '579408a';
 
-    public static function isOutdated(Battle $battle) : bool
+    public static function isOutdated(Battle $battle): bool
     {
         $agent = $battle->agent;
         if (!$agent || !static::isIkaLog($agent)) {
@@ -64,7 +65,7 @@ class IkalogVersion
         return false;
     }
 
-    public static function isIkaLog(Agent $agent) : bool
+    public static function isIkaLog(Agent $agent): bool
     {
         return $agent->name === 'IkaLog' || $agent->name === 'TakoLog';
     }

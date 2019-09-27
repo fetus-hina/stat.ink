@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2018 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -44,7 +45,7 @@ class KillRatioBadgeWidget extends Widget
         return Html::tag('span', Html::encode('<'), ['class' => 'label label-danger']);
     }
 
-    protected static function toInteger($value) : ?int
+    protected static function toInteger($value): ?int
     {
         if ($value === null || !is_scalar($value)) {
             return null;

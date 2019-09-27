@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2017 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -42,7 +43,7 @@ class StartRemoteFollowAction extends BaseAction
         }
     }
 
-    private function discoverRemote(string $thisName, string $accountName, string $remoteHostName) : ?string
+    private function discoverRemote(string $thisName, string $accountName, string $remoteHostName): ?string
     {
         try {
             if (!$webfinger = $this->discoverWebfingerPath($thisName, $accountName, $remoteHostName)) {
@@ -57,7 +58,7 @@ class StartRemoteFollowAction extends BaseAction
         }
     }
 
-    private function discoverWebfingerPath(string $thisName, string $accountName, string $remoteHostName) : ?string
+    private function discoverWebfingerPath(string $thisName, string $accountName, string $remoteHostName): ?string
     {
         foreach (['https', 'http'] as $scheme) {
             try {
@@ -72,7 +73,8 @@ class StartRemoteFollowAction extends BaseAction
                     $xpath->registerNamespace('xrd', 'http://docs.oasis-open.org/ns/xri/xrd-1.0');
                     foreach ($xpath->query('//xrd:Link') as $link) {
                         if ($link->getAttribute('rel') === 'lrdd') {
-                            if ($link->getAttribute('type') === 'application/xrd+xml' ||
+                            if (
+                                $link->getAttribute('type') === 'application/xrd+xml' ||
                                 $link->getAttribute('type') === 'application/lrd+json'
                             ) {
                                 if ($link->hasAttribute('href')) {
@@ -99,7 +101,7 @@ class StartRemoteFollowAction extends BaseAction
         string $thisName,
         string $accountName,
         string $remoteHostName
-    ) : ?string {
+    ): ?string {
         if (!$response = $this->get($url)) {
             return null;
         }
@@ -130,7 +132,7 @@ class StartRemoteFollowAction extends BaseAction
         return null;
     }
 
-    private function get(string $url) : ?string
+    private function get(string $url): ?string
     {
         $curl = new Curl();
         $curl->setOpt(CURLOPT_FOLLOWLOCATION, true);

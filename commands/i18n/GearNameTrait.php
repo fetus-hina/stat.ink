@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2018 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -12,7 +13,7 @@ use app\models\Gear2;
 
 trait GearNameTrait
 {
-    public function actionJapaneseGear2() : int
+    public function actionJapaneseGear2(): int
     {
         $path = implode(DIRECTORY_SEPARATOR, [
             dirname(dirname(__DIR__)),
@@ -27,7 +28,7 @@ trait GearNameTrait
         // remove empty data
         $data = array_filter(
             $data,
-            function (string $value, string $key) : bool {
+            function (string $value, string $key): bool {
                 return $value !== '';
             },
             ARRAY_FILTER_USE_BOTH
@@ -47,11 +48,11 @@ trait GearNameTrait
             return 0;
         }
 
-        uksort($data, function (string $a, string $b) : int {
+        uksort($data, function (string $a, string $b): int {
             return strcmp($a . "'", $b . "'");
         });
 
-        $esc = function (string $text) : string {
+        $esc = function (string $text): string {
             return str_replace(["\\", "'"], ["\\\\", "\\'"], $text);
         };
 

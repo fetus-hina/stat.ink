@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2016 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -36,7 +37,7 @@ class GearAction extends BaseAction
     {
         $type = $this->getType();
         $gears = array_map(
-            function (array $gear) : array {
+            function (array $gear): array {
                 return [
                     'key'   => $gear['key'],
                     'name'  => Yii::t('app-gear', $gear['name']),
@@ -51,13 +52,13 @@ class GearAction extends BaseAction
                 ->asArray()
                 ->all()
         );
-        usort($gears, function (array $a, array $b) : int {
+        usort($gears, function (array $a, array $b): int {
             return strnatcasecmp($a['name'], $b['name']);
         });
 
         $langs = Language::find()->standard()->asArray()->all();
         $sysLang = Yii::$app->language;
-        usort($langs, function (array $a, array $b) use ($sysLang) : int {
+        usort($langs, function (array $a, array $b) use ($sysLang): int {
             if ($a['lang'] === $sysLang) {
                 return -1;
             }

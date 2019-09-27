@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2017 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -33,7 +34,7 @@ class TrimAttributesBehavior extends Behavior
         ];
     }
 
-    public function trim() : void
+    public function trim(): void
     {
         foreach ($this->targets as $attrName) {
             $this->owner->{$attrName} = $this->doTrim($this->owner->{$attrName});

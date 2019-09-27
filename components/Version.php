@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -23,31 +24,31 @@ class Version
         return Yii::$app->version;
     }
 
-    public static function getRevision() : ?string
+    public static function getRevision(): ?string
     {
         self::fetchRevision();
         return self::$revision ?: null;
     }
 
-    public static function getShortRevision() : ?string
+    public static function getShortRevision(): ?string
     {
         self::fetchRevision();
         return self::$shortRevision ?: null;
     }
 
-    public static function getLastCommited() : ?DateTimeImmutable
+    public static function getLastCommited(): ?DateTimeImmutable
     {
         self::fetchRevision();
         return self::$lastCommited ?: null;
     }
 
-    public static function getFullHash(string $shortHash) : ?string
+    public static function getFullHash(string $shortHash): ?string
     {
         $lines = static::doGit(sprintf('git rev-parse %s -q', escapeshellarg($shortHash)));
         return $lines ? array_shift($lines) : null;
     }
 
-    public static function getVersionTags(?string $hash = null) : array
+    public static function getVersionTags(?string $hash = null): array
     {
         $revision = $hash ?? static::getRevision();
 
@@ -59,11 +60,11 @@ class Version
             return [];
         }
 
-        $lines = array_filter($lines, function (string $line) : bool {
+        $lines = array_filter($lines, function (string $line): bool {
             return !!preg_match('/^v?\d+\.\d+\.\d+/', $line);
         });
 
-        usort($lines, function (string $a, string $b) : int {
+        usort($lines, function (string $a, string $b): int {
             return version_compare($b, $a);
         });
 
@@ -72,7 +73,8 @@ class Version
 
     private static function fetchRevision()
     {
-        if (self::$revision !== null &&
+        if (
+            self::$revision !== null &&
                 self::$shortRevision !== null &&
                 self::$lastCommited !== null
         ) {
@@ -115,7 +117,8 @@ class Version
     private static function doGit($gitCommand)
     {
         // FIXME: scl git19 があればそれを、無ければpathの通ったgitを使うひどい場当たりhack
-        if (file_exists('/usr/bin/scl') &&
+        if (
+            file_exists('/usr/bin/scl') &&
                 is_executable('/usr/bin/scl') &&
                 file_exists('/opt/rh/git19/enable')
         ) {

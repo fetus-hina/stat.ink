@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2017 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -18,7 +19,7 @@ class RuleAction extends BaseAction
         $response = Yii::$app->getResponse();
         $response->format = 'json';
         return array_map(
-            function (Mode2 $mode) : array {
+            function (Mode2 $mode): array {
                 return $mode->toJsonArray();
             },
             Mode2::find()->with('rules')->all()

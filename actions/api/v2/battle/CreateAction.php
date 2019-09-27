@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -174,14 +175,16 @@ class CreateAction extends BaseAction
             $binary = is_string($form->image_judge)
                 ? $form->image_judge
                 : file_get_contents($form->image_judge->tempName, false);
-            if (!ImageConverter::convert(
-                $binary,
-                $imageOutputDir . '/' . $image->filename,
-                false,
-                ($imageArchiveOutputDir
+            if (
+                !ImageConverter::convert(
+                    $binary,
+                    $imageOutputDir . '/' . $image->filename,
+                    false,
+                    ($imageArchiveOutputDir
                     ? ($imageArchiveOutputDir . '/' . sprintf('%d-judge.png', $battle->id))
                     : null)
-            )) {
+                )
+            ) {
                 $this->logError([
                     'system' => [
                         Yii::t('app', 'Could not convert "{0}" image.', 'judge'),
@@ -224,14 +227,16 @@ class CreateAction extends BaseAction
             //     );
             // }
 
-            if (!ImageConverter::convert(
-                $binary,
-                $imageOutputDir . '/' . $image->filename,
-                $blackoutList,
-                $imageArchiveOutputDir
+            if (
+                !ImageConverter::convert(
+                    $binary,
+                    $imageOutputDir . '/' . $image->filename,
+                    $blackoutList,
+                    $imageArchiveOutputDir
                     ? ($imageArchiveOutputDir . '/' . sprintf('%d-result.png', $battle->id))
                     : null
-            )) {
+                )
+            ) {
                 $this->logError([
                     'system' => [
                         Yii::t('app', 'Could not convert "{0}" image.', 'result'),
@@ -260,14 +265,16 @@ class CreateAction extends BaseAction
             $binary = is_string($form->image_gear)
                 ? $form->image_gear
                 : file_get_contents($form->image_gear->tempName, false);
-            if (!ImageConverter::convert(
-                $binary,
-                $imageOutputDir . '/' . $image->filename,
-                [],
-                $imageArchiveOutputDir
+            if (
+                !ImageConverter::convert(
+                    $binary,
+                    $imageOutputDir . '/' . $image->filename,
+                    [],
+                    $imageArchiveOutputDir
                     ? ($imageArchiveOutputDir . '/' . sprintf('%d-gear.png', $battle->id))
                     : null
-            )) {
+                )
+            ) {
                 $this->logError([
                     'system' => [
                         Yii::t('app', 'Could not convert "{0}" image.', 'gear'),
@@ -297,7 +304,7 @@ class CreateAction extends BaseAction
         // }}}
     }
 
-    private function registerBackgroundJob(Battle2 $battle) : void
+    private function registerBackgroundJob(Battle2 $battle): void
     {
         $user = $battle->user;
 

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2016 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -19,7 +20,7 @@ class WeaponCompareForm extends Model
 
     private $attributes = [];
 
-    public function hasAttribute(string $name) : bool
+    public function hasAttribute(string $name): bool
     {
         if (!preg_match('/^(?:weapon|rule)(\d+)$/', $name, $match)) {
             return false;
@@ -38,7 +39,7 @@ class WeaponCompareForm extends Model
         return $this->attributes[$name] ?? null;
     }
 
-    public function setAttribute(string $name, $value) : self
+    public function setAttribute(string $name, $value): self
     {
         if (!$this->hasAttribute($name)) {
             throw new InvalidParamException(get_class($this) . ' has no attribute named "' . $name . '".');
@@ -65,7 +66,7 @@ class WeaponCompareForm extends Model
         }
     }
 
-    public function __isset($name) : bool
+    public function __isset($name): bool
     {
         if ($this->hasAttribute($name)) {
             return $this->getAttribute($name) !== null;

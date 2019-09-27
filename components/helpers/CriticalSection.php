@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2016 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -18,7 +19,7 @@ class CriticalSection extends Component
     public $timeout = 0;
     public $mutex;
 
-    public static function lock(string $name, int $timeout = 0) : Resource
+    public static function lock(string $name, int $timeout = 0): Resource
     {
         return Yii::createObject([
             'class' => static::class,
@@ -35,7 +36,7 @@ class CriticalSection extends Component
         }
     }
 
-    public function enter() : Resource
+    public function enter(): Resource
     {
         if (!$this->name) {
             throw new InvalidConfigException('$mutex->name does not specified.');

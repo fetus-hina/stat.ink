@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2017 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -29,12 +30,12 @@ class GearConfiguration2 extends ActiveRecord
         ?int $gearId,
         ?int $primaryAbilityId,
         array $secondaryAbitilyIdList
-    ) : string {
+    ): string {
         $data = [
             'gear'      => ($gearId > 0) ? (int)$gearId : null,
             'primary'   => ($primaryAbilityId > 0) ? (int)$primaryAbilityId : null,
             'secondary' => array_map(
-                function ($id) : ?int {
+                function ($id): ?int {
                     return ($id > 0) ? (int)$id : null;
                 },
                 $secondaryAbitilyIdList

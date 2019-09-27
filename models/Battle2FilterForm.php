@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2017 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -95,7 +96,7 @@ class Battle2FilterForm extends Model
             [['weapon'], 'exist',
                 'targetClass' => Weapon2::class,
                 'targetAttribute' => 'key',
-                'when' => function () : bool {
+                'when' => function (): bool {
                     return !in_array(substr($this->weapon, 0, 1), ['@', '+', '*', '~'], true);
                 },
             ],
@@ -103,7 +104,7 @@ class Battle2FilterForm extends Model
                 'params' => [
                     'modelClass' => WeaponType2::class,
                 ],
-                'when' => function () : bool {
+                'when' => function (): bool {
                     return substr($this->weapon, 0, 1) === '@';
                 },
             ],
@@ -111,7 +112,7 @@ class Battle2FilterForm extends Model
                 'params' => [
                     'modelClass' => Subweapon2::class,
                 ],
-                'when' => function () : bool {
+                'when' => function (): bool {
                     return substr($this->weapon, 0, 1) === '+';
                 },
             ],
@@ -119,19 +120,19 @@ class Battle2FilterForm extends Model
                 'params' => [
                     'modelClass' => Special2::class,
                 ],
-                'when' => function () : bool {
+                'when' => function (): bool {
                     return substr($this->weapon, 0, 1) === '*';
                 },
             ],
             [['weapon'], 'validateRepresentativeWeapon',
-                'when' => function () : bool {
+                'when' => function (): bool {
                     return substr($this->weapon, 0, 1) === '~';
                 },
             ],
             [['rank'], 'exist',
                 'targetClass' => Rank2::class,
                 'targetAttribute' => 'key',
-                'when' => function () : bool {
+                'when' => function (): bool {
                     return substr($this->rank, 0, 1) !== '~';
                 },
             ],
@@ -166,7 +167,7 @@ class Battle2FilterForm extends Model
                         'term',
                     ],
                     array_map(
-                        function (array $a) : string {
+                        function (array $a): string {
                             return '~v' . $a['tag'];
                         },
                         SplatoonVersionGroup2::find()
@@ -174,7 +175,7 @@ class Battle2FilterForm extends Model
                             ->all()
                     ),
                     array_map(
-                        function (array $a) : string {
+                        function (array $a): string {
                             return 'v' . $a['tag'];
                         },
                         SplatoonVersion2::find()
@@ -221,7 +222,7 @@ class Battle2FilterForm extends Model
         return parent::load($data, $formName);
     }
 
-    public function validateWeapon(string $attr, $params) : void
+    public function validateWeapon(string $attr, $params): void
     {
         $value = substr($this->$attr, 1);
         $method = [$params['modelClass'], 'findOne'];
@@ -236,7 +237,7 @@ class Battle2FilterForm extends Model
         }
     }
 
-    public function validateRepresentativeWeapon(string $attr, $params) : void
+    public function validateRepresentativeWeapon(string $attr, $params): void
     {
         $value = substr($this->$attr, 1);
         $count = Weapon2::find()
@@ -253,7 +254,7 @@ class Battle2FilterForm extends Model
         }
     }
 
-    public function validateRankGroup(string $attr, $params) : void
+    public function validateRankGroup(string $attr, $params): void
     {
         $value = substr($this->$attr, 1);
         $count = RankGroup2::find()

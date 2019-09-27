@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -123,7 +124,7 @@ class EditBattleAction extends BaseAction
                         Yii::t('app-weapon2', $category->name),
                         Yii::t('app-weapon2', $type->name)
                     );
-                $ret[$typeName] = (function (WeaponType2 $type) : array {
+                $ret[$typeName] = (function (WeaponType2 $type): array {
                     $tmp = [];
                     foreach ($type->weapons as $weapon) {
                         $tmp[$weapon->id] = Yii::t('app-weapon2', $weapon->name);
@@ -146,7 +147,7 @@ class EditBattleAction extends BaseAction
             ArrayHelper::map(
                 Rank2::find()->orderBy(['[[id]]' => SORT_DESC])->asArray()->all(),
                 'id',
-                function (array $row) : string {
+                function (array $row): string {
                     return Yii::t('app-rank2', $row['name']);
                 }
             )
