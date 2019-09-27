@@ -1,6 +1,7 @@
 <?php
 declare(strict_types=1);
 
+use app\assets\BattleListGroupHeaderAsset;
 use app\assets\SalmonWorkListAsset;
 use app\assets\Spl2WeaponAsset;
 use app\components\grid\SalmonActionColumn;
@@ -417,6 +418,7 @@ SalmonWorkListAsset::register($this);
       $shift = $from
         ? SalmonSchedule2::findOne(['start_at' => $from->format(DateTime::ATOM)])
         : null;
+      BattleListGroupHeaderAsset::register($this);
       return Html::tag('tr', Html::tag(
         'td',
         (function () use ($from, $shift, $fmt): string {
@@ -464,12 +466,7 @@ SalmonWorkListAsset::register($this);
           return Html::encode(Yii::t('app', 'Unknown'));
         })(),
         [
-          'class' => 'text-small',
-          'style' => [
-            'color' => '#ddd',
-            'background-color' => '#444',
-            'font-weight' => '700',
-          ],
+          'class' => 'battle-row-group-header',
           'colspan' => (string)count($widget->columns),
         ]
       ));
