@@ -20,9 +20,9 @@ use Yii;
  */
 class BattleImageType extends \yii\db\ActiveRecord
 {
-    const ID_JUDGE = 1;
-    const ID_RESULT = 2;
-    const ID_GEAR = 3;
+    public const ID_JUDGE = 1;
+    public const ID_RESULT = 2;
+    public const ID_GEAR = 3;
 
     /**
      * @inheritdoc

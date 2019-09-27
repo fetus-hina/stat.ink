@@ -17,7 +17,7 @@ use yii\helpers\StringHelper;
 
 class UserAuthKeyBehavior extends Behavior
 {
-    const RAW_KEY_BITS = 256;
+    public const RAW_KEY_BITS = 256;
 
     public static function raw2hint(string $input): string
     {

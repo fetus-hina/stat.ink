@@ -16,7 +16,7 @@ use yii\base\Model;
 
 class WeaponCompareForm extends Model
 {
-    const NUMBER = 20;
+    public const NUMBER = 20;
 
     private $attributes = [];
 

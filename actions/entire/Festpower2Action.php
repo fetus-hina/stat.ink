@@ -18,8 +18,8 @@ use yii\web\ViewAction;
 
 class Festpower2Action extends ViewAction
 {
-    const MISTAKE_BEGIN = '2018-05-19T04:00:00+00:00';
-    const MISTAKE_END   = '2018-05-20T14:00:00+00:00';
+    public const MISTAKE_BEGIN = '2018-05-19T04:00:00+00:00';
+    public const MISTAKE_END   = '2018-05-20T14:00:00+00:00';
 
     public function run()
     {

@@ -13,8 +13,8 @@ use yii\db\ActiveRecord;
 
 class CompressBehavior extends Behavior
 {
-    const PREFIX_PLAIN = '[{';
-    const PREFIX_GZIP = 'gz';
+    public const PREFIX_PLAIN = '[{';
+    public const PREFIX_GZIP = 'gz';
 
     public $attribute;
 

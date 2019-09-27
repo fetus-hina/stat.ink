@@ -19,7 +19,7 @@ use yii\helpers\StringHelper;
 
 class UserTimeZone
 {
-    const COOKIE_KEY = 'timezone';
+    public const COOKIE_KEY = 'timezone';
 
     public static function guess(bool $getDefault = true): ?Timezone
     {

@@ -24,9 +24,9 @@ use yii\db\ActiveRecord;
  */
 class LoginMethod extends ActiveRecord
 {
-    const METHOD_PASSWORD = 1;
-    const METHOD_COOKIE = 2;
-    const METHOD_TWITTER = 3;
+    public const METHOD_PASSWORD = 1;
+    public const METHOD_COOKIE = 2;
+    public const METHOD_TWITTER = 3;
 
     public static function tableName()
     {

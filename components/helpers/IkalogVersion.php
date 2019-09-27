@@ -14,8 +14,8 @@ use app\models\IkalogVersion as ARIkalogVersion;
 
 class IkalogVersion
 {
-    const V2_7_0_MINIMUM_REVISION = '16bb777';
-    const V2_8_0_MINIMUM_REVISION = '579408a';
+    public const V2_7_0_MINIMUM_REVISION = '16bb777';
+    public const V2_8_0_MINIMUM_REVISION = '579408a';
 
     public static function isOutdated(Battle $battle): bool
     {

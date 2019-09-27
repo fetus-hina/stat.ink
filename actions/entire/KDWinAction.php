@@ -21,7 +21,7 @@ use yii\web\ViewAction as BaseAction;
 
 class KDWinAction extends BaseAction
 {
-    const KD_LIMIT = 16;
+    public const KD_LIMIT = 16;
 
     public function run()
     {

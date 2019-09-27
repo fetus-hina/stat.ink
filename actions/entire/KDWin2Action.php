@@ -20,7 +20,7 @@ use yii\web\ViewAction;
 
 class KDWin2Action extends ViewAction
 {
-    const KD_LIMIT = 16;
+    public const KD_LIMIT = 16;
 
     public function run()
     {

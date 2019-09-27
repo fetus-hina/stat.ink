@@ -24,8 +24,8 @@ use yii\web\UploadedFile;
  */
 class UserIcon extends \yii\db\ActiveRecord
 {
-    const ICON_WIDTH = 500;
-    const ICON_HEIGHT = 500;
+    public const ICON_WIDTH = 500;
+    public const ICON_HEIGHT = 500;
 
     private $mode;
     private $imageResource;

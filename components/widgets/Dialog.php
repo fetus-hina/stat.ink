@@ -20,12 +20,11 @@ use yii\helpers\Html;
 
 class Dialog extends Widget
 {
-    const FOOTER_OK = '{ok}';
-    const FOOTER_CLOSE = '{close}';
-
-    const SIZE_SMALL = 'modal-sm';
-    const SIZE_MEDIUM = '';
-    const SIZE_LARGE = 'modal-lg';
+    public const FOOTER_OK = '{ok}';
+    public const FOOTER_CLOSE = '{close}';
+    public const SIZE_SMALL = 'modal-sm';
+    public const SIZE_MEDIUM = '';
+    public const SIZE_LARGE = 'modal-lg';
 
     public $title;
     public $hasClose = true;

@@ -13,10 +13,9 @@ use Yii;
 
 class ImageConverter
 {
-    const OUT_WIDTH = 1280;
-    const OUT_HEIGHT = 720;
-
-    const JPEG_QUALITY = 85;
+    public const OUT_WIDTH = 1280;
+    public const OUT_HEIGHT = 720;
+    public const JPEG_QUALITY = 85;
 
     public static function convert($binary, $outPathJpeg, $blackoutPosList = false, $outPathArchivePng = null)
     {

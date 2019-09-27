@@ -43,7 +43,7 @@ use yii\helpers\ArrayHelper;
  */
 class StatWeapon2Tier extends ActiveRecord
 {
-    const PLAYERS_COUNT_THRESHOLD = 50;
+    public const PLAYERS_COUNT_THRESHOLD = 50;
 
     public static function find(): ActiveQuery
     {

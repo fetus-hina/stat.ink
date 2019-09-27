@@ -17,10 +17,10 @@ use yii\validators\Validator;
 
 class WeaponKeyValidator extends Validator
 {
-    const PREFIX_WEAPON_GROUP   = '@';
-    const PREFIX_MAIN_WEAPON    = '~';
-    const PREFIX_SUB_WEAPON     = '+';
-    const PREFIX_SPECIAL_WEAPON = '*';
+    public const PREFIX_WEAPON_GROUP   = '@';
+    public const PREFIX_MAIN_WEAPON    = '~';
+    public const PREFIX_SUB_WEAPON     = '+';
+    public const PREFIX_SPECIAL_WEAPON = '*';
 
     public $enableWeaponGroup = true;
     public $enableMainWeapon = true;

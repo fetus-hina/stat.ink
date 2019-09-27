@@ -18,7 +18,7 @@ use yii\helpers\FileHelper;
 
 class ImageS3Controller extends Controller
 {
-    const AUTOUPLOAD_DELAY = 7 * 86400;
+    public const AUTOUPLOAD_DELAY = 7 * 86400;
 
     public function init()
     {

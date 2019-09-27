@@ -154,7 +154,7 @@ use yii\web\JsExpression;
  */
 class Battle2 extends ActiveRecord
 {
-    const CLIENT_UUID_NAMESPACE = '15de9082-1c7b-11e7-8f94-001b21a098c2';
+    protected const CLIENT_UUID_NAMESPACE = '15de9082-1c7b-11e7-8f94-001b21a098c2';
 
     public $freshness_id;
 

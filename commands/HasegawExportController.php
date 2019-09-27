@@ -23,7 +23,7 @@ use app\models\BattlePlayer;
 
 class HasegawExportController extends Controller
 {
-    const EXPORT_CSV_VERSION = '1';
+    public const EXPORT_CSV_VERSION = '1';
 
     public $defaultAction = 'csv';
     public $outputDirectory = '@app/runtime/hasegaw-export';

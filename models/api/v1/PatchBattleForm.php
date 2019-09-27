@@ -17,7 +17,7 @@ use yii\web\ServerErrorHttpException;
 
 class PatchBattleForm extends Model
 {
-    const DELETE_MARK = '<<DELETE>>';
+    public const DELETE_MARK = '<<DELETE>>';
 
     // API
     public $apikey;

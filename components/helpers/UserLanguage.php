@@ -18,8 +18,8 @@ use yii\helpers\StringHelper;
 
 class UserLanguage
 {
-    const PARAMETER_KEY = '_lang_';
-    const COOKIE_KEY = 'language';
+    public const PARAMETER_KEY = '_lang_';
+    public const COOKIE_KEY = 'language';
 
     public static function guess(bool $getDefault = true): ?Language
     {

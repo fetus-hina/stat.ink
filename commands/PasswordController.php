@@ -14,7 +14,7 @@ use yii\console\Controller;
 
 class PasswordController extends Controller
 {
-    const PASSWORD_LENGTH = 32;
+    public const PASSWORD_LENGTH = 32;
 
     public $defaultAction = 'generate';
 

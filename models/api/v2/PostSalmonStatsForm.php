@@ -16,7 +16,7 @@ use yii\base\Model;
 
 class PostSalmonStatsForm extends Model
 {
-    const SPLATOON2_4_1_RELEASED_AT = 1538528400;
+    public const SPLATOON2_4_1_RELEASED_AT = 1538528400;
 
     public $work_count;
     public $total_golden_eggs;

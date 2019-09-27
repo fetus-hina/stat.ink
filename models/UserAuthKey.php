@@ -36,7 +36,7 @@ use yii\db\ActiveRecord;
  */
 class UserAuthKey extends ActiveRecord
 {
-    const VALID_PERIOD = 30 * 86400;
+    public const VALID_PERIOD = 30 * 86400;
 
     public $auth_key_raw;
 

@@ -17,8 +17,8 @@ use app\components\helpers\Resource;
 
 class ImageArchiveController extends Controller
 {
-    const MAX_OPTIMIZE_PROC_COUNT = 4;
-    const ARCHIVE_SPLIT_AIM = 524288000; // 500 MiB
+    public const MAX_OPTIMIZE_PROC_COUNT = 4;
+    public const ARCHIVE_SPLIT_AIM = 524288000; // 500 MiB
 
     public function init()
     {

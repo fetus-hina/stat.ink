@@ -29,8 +29,9 @@ class MapAction extends BaseAction
         $this->prepare();
     }
 
-    private function prepare() // {{{
+    private function prepare()
     {
+        // {{{
         $req = Yii::$app->request;
 
         $model = DynamicModel::validateData(['map' => $req->get('map')], [
@@ -46,7 +47,8 @@ class MapAction extends BaseAction
         }
 
         $this->map = Map::findOne(['key' => $model->map]);
-    } // }}}
+        // }}}
+    }
 
     public function run()
     {
@@ -63,8 +65,9 @@ class MapAction extends BaseAction
         ]);
     }
 
-    private function buildData(): array // {{{
+    private function buildData(): array
     {
+        // {{{
         $rules = [];
         foreach (GameMode::find()->orderBy('id ASC')->all() as $mode) {
             $tmp = array_map(
@@ -121,7 +124,8 @@ class MapAction extends BaseAction
             $rules = array_merge($rules, $tmp);
         }
         return $rules;
-    } // }}}
+        // }}}
+    }
 
     private static function http404()
     {

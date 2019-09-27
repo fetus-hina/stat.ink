@@ -23,7 +23,7 @@ use yii\helpers\FileHelper;
 
 class DlStats2Controller extends Controller
 {
-    const BASE_BATTLE_RESULTS_CSV = '@app/runtime/dl-stats/splatoon-2/battle-results-csv';
+    public const BASE_BATTLE_RESULTS_CSV = '@app/runtime/dl-stats/splatoon-2/battle-results-csv';
 
     public $defaultAction = 'create';
 

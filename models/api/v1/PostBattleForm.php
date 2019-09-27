@@ -36,7 +36,7 @@ use app\models\Weapon;
 
 class PostBattleForm extends Model
 {
-    const SAME_BATTLE_THRESHOLD_TIME = 86400;
+    public const SAME_BATTLE_THRESHOLD_TIME = 86400;
 
     // API
     public $apikey;
