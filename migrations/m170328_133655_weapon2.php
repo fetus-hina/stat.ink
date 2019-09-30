@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2017 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -77,22 +78,22 @@ class m170328_133655_weapon2 extends Migration
         $this->dropTable('weapon2');
     }
 
-    protected function getTypes() : array
+    protected function getTypes(): array
     {
         return $this->getData('weapon_type2');
     }
 
-    protected function getSubweapons() : array
+    protected function getSubweapons(): array
     {
         return $this->getData('subweapon2');
     }
 
-    protected function getSpecials() : array
+    protected function getSpecials(): array
     {
         return $this->getData('special2');
     }
 
-    protected function getData(string $table, string $key = 'key', string $id = 'id') : array
+    protected function getData(string $table, string $key = 'key', string $id = 'id'): array
     {
         return ArrayHelper::map(
             (new Query())->select([$key, $id])->from($table)->all(),

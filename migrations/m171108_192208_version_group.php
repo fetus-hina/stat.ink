@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2017 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -39,7 +40,7 @@ class m171108_192208_version_group extends Migration
         $this->dropColumn('splatoon_version2', 'group_id');
     }
 
-    private function getData() : array
+    private function getData(): array
     {
         return [
             '0.0' => [
@@ -64,7 +65,7 @@ class m171108_192208_version_group extends Migration
         ];
     }
 
-    private function getGroups() : array
+    private function getGroups(): array
     {
         return ArrayHelper::map(
             (new Query())

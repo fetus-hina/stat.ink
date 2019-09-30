@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2016 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -23,7 +24,8 @@ class m151016_080823_gachi extends Migration
             implode(', ', array_map(
                 function ($col) {
                     return sprintf('[[%1$s]] = {{t}}.[[%1$s]]', $col);
-                }, [
+                },
+                [
                     'is_knock_out',
                     'my_team_count',
                     'his_team_count',

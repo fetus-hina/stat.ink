@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2017 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -31,7 +32,7 @@ class m170329_090419_mode_rule2 extends Migration
         $this->dropTable('mode_rule2');
     }
 
-    protected function getModes() : array
+    protected function getModes(): array
     {
         return ArrayHelper::map(
             ((new Query())->select(['key', 'id'])->from('mode2')->all()),
@@ -40,7 +41,7 @@ class m170329_090419_mode_rule2 extends Migration
         );
     }
 
-    protected function getRules() : array
+    protected function getRules(): array
     {
         return ArrayHelper::map(
             ((new Query())->select(['key', 'id'])->from('rule2')->all()),

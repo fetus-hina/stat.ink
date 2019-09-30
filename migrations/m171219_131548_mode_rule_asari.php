@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2017 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -28,7 +29,7 @@ class m171219_131548_mode_rule_asari extends Migration
         $this->delete('mode_rule2', ['rule_id' => $rules['asari']]);
     }
 
-    private function getModes() : array
+    private function getModes(): array
     {
         return ArrayHelper::map(
             (new Query())->select(['key', 'id'])->from('mode2')->all(),
@@ -37,7 +38,7 @@ class m171219_131548_mode_rule_asari extends Migration
         );
     }
 
-    private function getRules() : array
+    private function getRules(): array
     {
         return ArrayHelper::map(
             (new Query())->select(['key', 'id'])->from('rule2')->all(),

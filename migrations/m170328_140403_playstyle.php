@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2017 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -50,10 +51,14 @@ class m170328_140403_playstyle extends Migration
     protected function upPlaystyle()
     {
         $ns = ArrayHelper::map(
-            (new Query())->select(['key', 'id'])->from('ns_mode2')->all(), 'key', 'id'
+            (new Query())->select(['key', 'id'])->from('ns_mode2')->all(),
+            'key',
+            'id'
         );
         $ctl = ArrayHelper::map(
-            (new Query())->select(['key', 'id'])->from('controller_mode2')->all(), 'key', 'id'
+            (new Query())->select(['key', 'id'])->from('controller_mode2')->all(),
+            'key',
+            'id'
         );
         $this->createTable('playstyle2', [
             'ns_mode_id'            => $this->pkRef('ns_mode2'),

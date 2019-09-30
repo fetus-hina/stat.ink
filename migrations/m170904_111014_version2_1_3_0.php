@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2017 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -26,7 +27,7 @@ class m170904_111014_version2_1_3_0 extends Migration
         $this->delete('splatoon_version2', ['tag' => '1.3.0']);
     }
 
-    private function getid(string $tag) : int
+    private function getid(string $tag): int
     {
         return (new Query())
             ->select('id')

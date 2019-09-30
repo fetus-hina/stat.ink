@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2018 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -26,7 +27,7 @@ class m180530_175832_weapons_201806 extends Migration
         }
     }
 
-    public function getWeapons() : array
+    public function getWeapons(): array
     {
         return [
             ['dualsweeper_custom', 'Custom Dualie Squelchers', 'maneuver', 'splashbomb', 'amefurashi', 'dualsweeper', null, 5031],

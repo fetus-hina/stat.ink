@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2017 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -35,7 +36,7 @@ class m170710_121531_gachi2 extends Migration
             ->where(['key' => 'gachi'])
             ->scalar();
         $this->batchInsert('mode_rule2', ['mode_id', 'rule_id'], array_map(
-            function (int $ruleId) use ($modeId) : array {
+            function (int $ruleId) use ($modeId): array {
                 return [(int)$modeId, $ruleId];
             },
             (new Query())

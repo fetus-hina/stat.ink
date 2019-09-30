@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2017 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -23,7 +24,7 @@ class m171030_105641_asian_time extends Migration
     }
 
     // korea {{{
-    private function upKorea() : void
+    private function upKorea(): void
     {
         $this->update('timezone', ['name' => 'Japan & Korea Time'], ['identifier' => 'Asia/Tokyo']);
         $this->insert('country', ['key' => 'kr', 'name' => 'Korea']);
@@ -33,7 +34,7 @@ class m171030_105641_asian_time extends Migration
         ]);
     }
 
-    private function downKorea() : void
+    private function downKorea(): void
     {
         $this->delete('timezone_country', [
             'timezone_id' => $this->timezone('Asia/Tokyo'),
@@ -45,7 +46,7 @@ class m171030_105641_asian_time extends Migration
     // }}}
 
     // china and taiwan {{{
-    private function upChina() : void
+    private function upChina(): void
     {
         $this->batchInsert('country', ['key', 'name'], [['cn', 'China'], ['tw', 'Taiwan']]);
         $this->batchInsert('timezone', ['identifier', 'name', 'order', 'region_id', 'group_id'], [
@@ -59,7 +60,7 @@ class m171030_105641_asian_time extends Migration
         ]);
     }
 
-    private function downChina() : void
+    private function downChina(): void
     {
         $this->delete('timezone_country', ['country_id' => [
             $this->country('cn'),
@@ -71,22 +72,22 @@ class m171030_105641_asian_time extends Migration
     // }}}
 
     // get id {{{
-    private function timezone(string $key) : int
+    private function timezone(string $key): int
     {
         return $this->getIdByKey('timezone', $key, 'identifier');
     }
 
-    private function country(string $key) : int
+    private function country(string $key): int
     {
         return $this->getIdByKey('country', $key);
     }
 
-    private function region(string $key) : int
+    private function region(string $key): int
     {
         return $this->getIdByKey('region', $key);
     }
 
-    private function group(string $name) : int
+    private function group(string $name): int
     {
         return $this->getIdByKey('timezone_group', $name, 'name');
     }
@@ -95,8 +96,8 @@ class m171030_105641_asian_time extends Migration
         string $table,
         string $value,
         string $key = 'key',
-        string $id = 'id') : int
-    {
+        string $id = 'id'
+    ): int {
         $ret = (new Query())
             ->select(['id' => $id])
             ->from($table)

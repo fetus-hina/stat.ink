@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2017 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -21,7 +22,7 @@ class m171201_164553_gear_v2 extends Migration
         $brands = $this->brands;
         $abilities = $this->abilities;
         $insert = array_map(
-            function (array $row) use ($types, $brands, $abilities) : array {
+            function (array $row) use ($types, $brands, $abilities): array {
                 return [
                     $row['key'],
                     $types[$row['type']],
@@ -45,14 +46,14 @@ class m171201_164553_gear_v2 extends Migration
             return false;
         }
         $this->delete('gear2', ['key' => array_map(
-            function (array $row) : string {
+            function (array $row): string {
                 return $row['key'];
             },
             $data
         )]);
     }
 
-    public function getData() : ?array
+    public function getData(): ?array
     {
         $result = [];
         if (!$fh = fopen(__FILE__, 'r')) {
@@ -69,7 +70,7 @@ class m171201_164553_gear_v2 extends Migration
         return $result;
     }
 
-    public function getTypes() : array
+    public function getTypes(): array
     {
         return ArrayHelper::map(
             (new Query())->select(['id', 'key'])->from('gear_type')->all(),
@@ -78,7 +79,7 @@ class m171201_164553_gear_v2 extends Migration
         );
     }
 
-    public function getBrands() : array
+    public function getBrands(): array
     {
         return ArrayHelper::map(
             (new Query())->select(['id', 'key'])->from('brand2')->all(),
@@ -87,7 +88,7 @@ class m171201_164553_gear_v2 extends Migration
         );
     }
 
-    public function getAbilities() : array
+    public function getAbilities(): array
     {
         return ArrayHelper::map(
             (new Query())->select(['id', 'key'])->from('ability2')->all(),

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2017 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -23,7 +24,7 @@ class m171112_165011_gear_configuration2 extends Migration
             'ability_id'    => $this->pkRef('ability2')->null(),
         ]);
         $this->execute('ALTER TABLE {{battle2}} ' . implode(', ', array_map(
-            function (string $column) : string {
+            function (string $column): string {
                 return sprintf(
                     'ADD COLUMN [[%s]] INTEGER NULL REFERENCES {{%s}}([[%s]])',
                     $column,
@@ -38,7 +39,7 @@ class m171112_165011_gear_configuration2 extends Migration
     public function down()
     {
         $this->execute('ALTER TABLE {{battle2}} ' . implode(', ', array_map(
-            function (string $column) : string {
+            function (string $column): string {
                 return sprintf('DROP COLUMN [[%s]]', $column);
             },
             ['headgear_id', 'clothing_id', 'shoes_id']

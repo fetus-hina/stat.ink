@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2017 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -6,7 +7,6 @@
  */
 
 use app\components\db\Migration;
-
 use app\models\Gear2;
 use yii\helpers\Json;
 
@@ -19,7 +19,7 @@ class m171208_163630_gear2 extends Migration
             '(CASE %s %s END)',
             $this->db->quoteColumnName('key'),
             implode(' ', array_map(
-                function (string $key, int $value) : string {
+                function (string $key, int $value): string {
                     return sprintf(
                         'WHEN %s THEN %s',
                         $this->db->quoteValue($key),
@@ -47,7 +47,7 @@ class m171208_163630_gear2 extends Migration
         );
     }
 
-    public function getUpdateData() : array
+    public function getUpdateData(): array
     {
         return [
             'b_ball_headband' => 9001,

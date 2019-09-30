@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2017 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -49,7 +50,7 @@ class m171103_142752_brand2 extends Migration
         $this->dropTable('brand2');
     }
 
-    public function getAbilities() : \stdClass
+    public function getAbilities(): \stdClass
     {
         return (object)ArrayHelper::map(
             (new Query())->select(['id', 'key'])->from('ability2')->all(),

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2017 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -37,7 +38,7 @@ class m170922_201548_russian_time extends Migration
             'timezone_country',
             ['timezone_id', 'country_id'],
             array_map(
-                function (array $row) use ($russia) : array {
+                function (array $row) use ($russia): array {
                     return [
                         $row['id'],
                         $russia,
@@ -85,7 +86,7 @@ class m170922_201548_russian_time extends Migration
         $this->delete('country', ['id' => $russia]);
     }
 
-    private function getRussiaId() : int
+    private function getRussiaId(): int
     {
         return (new \yii\db\Query())
             ->select(['id'])

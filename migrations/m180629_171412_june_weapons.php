@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2018 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -26,7 +27,7 @@ class m180629_171412_june_weapons extends Migration
         }
     }
 
-    public function getWeapons() : array
+    public function getWeapons(): array
     {
         return [
             ['bamboo14mk2', 'Bamboozler 14 Mk II', 'charger', 'poisonmist', 'pitcher', 'bamboo14mk1', null, 2051],
