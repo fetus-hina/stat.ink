@@ -1,6 +1,8 @@
 <?php
+
 declare(strict_types=1);
 
+use app\assets\InlineListAsset;
 use app\components\helpers\CombinedBattles;
 use app\components\widgets\BlogEntryWidget;
 use app\components\widgets\FA;
@@ -45,38 +47,47 @@ PaintballAsset::register($this);
   <?= PleaseUseLatest::widget() . "\n" ?>
   <?= ImportFromSplatnet2::widget() . "\n" ?>
   <?= LanguageSupportLevelWarning::widget() . "\n" ?>
-  <p>
-    <?= implode(' | ', [
-      Yii::$app->user->isGuest
-        ? Html::a(
-          Html::encode(Yii::t('app', 'Join us')),
-          ['user/register']
-        )
-        : Html::a(
-          Html::encode(Yii::t('app', 'Your Battles')),
-          ['show-user/profile', 'screen_name' => Yii::$app->user->identity->screen_name]
-        ),
-      Html::a(Html::encode(Yii::t('app', 'Getting Started')), ['site/start']),
-      Html::a(Html::encode(Yii::t('app', 'FAQ')), ['site/faq']),
-      Html::a(Html::encode(Yii::t('app', 'Stats: User Activity')), ['entire/users']),
-    ]) . "\n" ?>
-    <br>
-    <?= implode(' | ', [
-      Html::a(Html::encode(Yii::t('app', 'Stats: K/D vs Win %')), ['entire/kd-win2']),
-      Html::a(Html::encode(Yii::t('app', 'Stats: Knockout Ratio')), ['entire/knockout2']),
-      Html::a(Html::encode(Yii::t('app', 'Stats: Weapons')), ['entire/weapons2']),
-      Html::a(Html::encode(Yii::t('app', 'Stats: FestPwr diff vs Win %')), ['entire/festpower2']),
-      Html::a(Html::encode(Yii::t('app-salmon2', 'Stats: Salmon Clear %')), ['entire/salmon-clear']),
-      Html::a(Html::encode(Yii::t('app', 'Stats: Stages') . '(Spl 1)'), ['stage/index']),
-      Html::a(Html::encode(Yii::t('app', 'Download Stats')), ['download-stats/index']),
-    ]) . "\n" ?>
-  </p>
-  <p>
-    <?= implode(' | ', [
-      Html::a(Html::encode(Yii::t('app', 'About support for color-blindness')), ['site/color']),
-      Html::a(Html::encode(Yii::t('app', 'About image sharing with the IkaLog team')), ['site/privacy']),
-    ]) . "\n" ?>
-  </p>
+
+<?php InlineListAsset::register($this) ?>
+  <nav class="mb-3"><?= implode('', array_map(
+    function (array $line): string {
+      return Html::tag(
+        'ul',
+        implode('', array_map(
+          function (string $html): string {
+            return Html::tag('li', $html);
+          },
+          $line
+        )),
+        ['class' => 'inline-list mb-1']
+      );
+    },
+    [
+      [
+        Yii::$app->user->isGuest
+          ? Html::a(Html::encode(Yii::t('app', 'Join us')), ['user/register'])
+          : Html::a(Html::encode(Yii::t('app', 'Your Battles')), ['show-user/profile',
+            'screen_name' => Yii::$app->user->identity->screen_name,
+          ]),
+        Html::a(Html::encode(Yii::t('app', 'Getting Started')), ['site/start']),
+        Html::a(Html::encode(Yii::t('app', 'FAQ')), ['site/faq']),
+        Html::a(Html::encode(Yii::t('app', 'Stats: User Activity')), ['entire/users']),
+      ],
+      [
+        Html::a(Html::encode(Yii::t('app', 'Stats: K/D vs Win %')), ['entire/kd-win2']),
+        Html::a(Html::encode(Yii::t('app', 'Stats: Knockout Ratio')), ['entire/knockout2']),
+        Html::a(Html::encode(Yii::t('app', 'Stats: Weapons')), ['entire/weapons2']),
+        Html::a(Html::encode(Yii::t('app', 'Stats: FestPwr diff vs Win %')), ['entire/festpower2']),
+        Html::a(Html::encode(Yii::t('app-salmon2', 'Stats: Salmon Clear %')), ['entire/salmon-clear']),
+        Html::a(Html::encode(Yii::t('app', 'Stats: Stages') . ' (Splatoon 1)'), ['stage/index']),
+        Html::a(Html::encode(Yii::t('app', 'Download Stats')), ['download-stats/index']),
+      ],
+      [
+        Html::a(Html::encode(Yii::t('app', 'About support for color-blindness')), ['site/color']),
+        Html::a(Html::encode(Yii::t('app', 'About image sharing with the IkaLog team')), ['site/privacy']),
+      ],
+    ]
+  )) ?></nav>
   <?= SnsWidget::widget() . "\n" ?>
   <?= BlogEntryWidget::widget() . "\n" ?>
   <?= IndexSchedule::widget() . "\n" ?>
