@@ -1,6 +1,7 @@
 <?php
 declare(strict_types=1);
 
+use app\assets\InlineListAsset;
 use app\assets\UserStatNawabariAsset;
 use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
@@ -35,6 +36,7 @@ UserStatNawabariAsset::register($this);
       <p><?= Html::encode(Yii::t('app', 'Excluded: Private Battles')) ?></p>
       <aside>
         <nav>
+<?php InlineListAsset::register($this) ?>
           <ul class="inline-list"><?= implode('', array_map(
             function (stdClass $map): string {
               return Html::tag('li', Html::a(
