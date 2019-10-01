@@ -1,6 +1,8 @@
 <?php
+
 declare(strict_types=1);
 
+use app\assets\InlineListAsset;
 use app\assets\UserStatGachiAsset;
 use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
@@ -79,6 +81,7 @@ UserStatGachiAsset::register($this);
       <p><?= Html::encode(Yii::t('app', 'Excluded: Private Battles')) ?></p>
       <aside>
         <nav>
+<?php InlineListAsset::register($this) ?>
           <ul class="inline-list"><?= implode('', array_map(
             function (string $key, string $name): string {
               return Html::tag('li', Html::a(
