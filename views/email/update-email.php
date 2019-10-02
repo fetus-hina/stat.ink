@@ -1,7 +1,9 @@
 <?php
+
 declare(strict_types=1);
 
 use app\components\helpers\IPHelper;
+use app\components\helpers\UserAgentHelper;
 
 $req = Yii::$app->request;
 $t = function (
@@ -23,5 +25,9 @@ echo implode("\n", [
   vsprintf('%s %s', [
     $t('Estimated location:'),
     IPHelper::getLocationByIP($req->userIP, $lang) ?: $t('(Unknown)'),
+  ]),
+  vsprintf('%s %s', [
+    $t('Terminal:'),
+    UserAgentHelper::summary($req->userAgent) ?: $t('(Unknown)'),
   ]),
 ]) . "\n";

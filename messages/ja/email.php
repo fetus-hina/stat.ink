@@ -21,6 +21,7 @@ return [
     'Password' => 'パスワード',
     'Please input this code to the browser. The code will be expired in {mins} minutes.' => '確認コードをブラウザに入力してください。コードは {mins} 分で期限切れになります。',
     'Rev. lookup:' => '逆引き:',
+    'Terminal:' => '端末:',
     'There is a login on {site}.' => '{site}でログインがありました。',
     'Twitter' => 'Twitter',
     'Verification Code:' => '確認コード:',
