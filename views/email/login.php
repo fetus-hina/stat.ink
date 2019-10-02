@@ -1,7 +1,9 @@
 <?php
+
 declare(strict_types=1);
 
 use app\components\helpers\IPHelper;
+use app\components\helpers\UserAgentHelper;
 
 $req = Yii::$app->request;
 $lang = ($user->emailLang ? $user->emailLang->lang : null) ?? 'en-US';
@@ -23,4 +25,8 @@ echo implode("\n", [
     IPHelper::getLocationByIP($req->userIP, $lang) ?: $t('(Unknown)'),
   ]),
   sprintf('%s %s', $t('Login method:'), $method ? $t($method->name) : $t('(Unknown)')),
+  vsprintf('%s %s', [
+    $t('Terminal:'),
+    UserAgentHelper::summary($req->userAgent) ?: $t('(Unknown)'),
+  ]),
 ]) . "\n";

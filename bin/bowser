@@ -1,0 +1,28 @@
+#!/usr/bin/env node
+
+function readUserAgent() {
+  return new Promise(ok => {
+    let result = '';
+    process.stdin.resume();
+    process.stdin.setEncoding('utf8');
+    process.stdin.on('data', chunk => {
+      result += chunk;
+    });
+    process.stdin.on('end', () => {
+      ok(result);
+    });
+  });
+}
+
+async function doMain() {
+  const bowser = require("bowser");
+  try {
+    const userAgent = await readUserAgent();
+    console.log(JSON.stringify(bowser.parse(userAgent), null, 2));
+    process.exit(0);
+  } catch (e) {
+    process.exit(1);
+  }
+}
+
+doMain();

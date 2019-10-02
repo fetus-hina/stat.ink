@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -295,6 +296,7 @@ return [
     'Max Kill Streak' => '',
     'Median' => '',
     'Minimum' => '',
+    'Mobile' => '',
     'Mode' => 'Mode',
     'Mode (Icon)' => '',
     'Mode (Short)' => 'Mode (court)',
@@ -332,6 +334,7 @@ return [
     'Others' => '',
     'Password' => '',
     'Password (again)' => '',
+    'PC' => '',
     'Peak' => '',
     'Period' => '',
     'Permalink' => 'Permalien',
@@ -456,6 +459,7 @@ return [
     'Summary: Based on the current filter' => '',
     'Synergy Bonus' => '',
     'Systematic error of win %' => '',
+    'Tablet' => '',
     'Team' => '',
     'Team Icon' => '',
     'Team ID' => '',
@@ -507,6 +511,7 @@ return [
     'Turf Inked' => 'Surface encrée',
     'Turf inked (including bonus)' => 'Surface encrée (y compris bonus)',
     'Turf Inked + Bonus' => 'Surface encrée + bonus',
+    'TV' => '',
     'Twitter @name' => '',
     'TZ' => '',
     'Unknown' => '',
