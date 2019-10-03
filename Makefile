@@ -73,6 +73,7 @@ RESOURCE_TARGETS_MAIN := \
 	resources/.compiled/stat.ink/game-modes.css \
 	resources/.compiled/stat.ink/ie-warning.css \
 	resources/.compiled/stat.ink/ie-warning.js \
+	resources/.compiled/stat.ink/inline-list.css \
 	resources/.compiled/stat.ink/kd-win.css \
 	resources/.compiled/stat.ink/kd-win.js \
 	resources/.compiled/stat.ink/kill-ratio-column.js \
@@ -349,6 +350,7 @@ resources/.compiled/stat.ink/freshness-history.js: resources/stat.ink/freshness-
 resources/.compiled/stat.ink/game-modes.css: resources/stat.ink/game-modes.less node_modules
 resources/.compiled/stat.ink/ie-warning.css: resources/stat.ink/ie-warning.less node_modules
 resources/.compiled/stat.ink/ie-warning.js: resources/stat.ink/ie-warning.es node_modules
+resources/.compiled/stat.ink/inline-list.css: resources/stat.ink/inline-list.less node_modules
 resources/.compiled/stat.ink/kd-win.css: resources/stat.ink/kd-win.less node_modules
 resources/.compiled/stat.ink/kd-win.js: resources/stat.ink/kd-win.js node_modules
 resources/.compiled/stat.ink/kill-ratio-column.js: resources/stat.ink/kill-ratio-column.es node_modules

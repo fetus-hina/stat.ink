@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -288,6 +289,7 @@ return [
     'Maximum' => '最大',
     'Median' => '中央値',
     'Minimum' => '最小',
+    'Mobile' => 'モバイル',
     'Mode (Icon)' => 'ルール（アイコン）',
     'Mode (Short)' => 'ルール（短）',
     'Mode' => 'ルール',
@@ -321,6 +323,7 @@ return [
     'Official Twitter' => '公式ツイッター',
     'Open Source Licenses' => 'オープンソースライセンス',
     'Others' => 'その他',
+    'PC' => 'PC',
     'PNG/JPEG file up to {0}' => '{0} までのPNGまたはJPEGファイル',
     'Password (again)' => 'パスワード（確認用）',
     'Password' => 'パスワード',
@@ -446,7 +449,9 @@ return [
     'Summary: Based on the current filter' => '現在のフィルタに基づくサマリ',
     'Synergy Bonus' => 'おそろいボーナス',
     'Systematic error of win %' => '勝率の系統誤差',
+    'TV' => 'テレビ',
     'TZ' => '時間帯',
+    'Tablet' => 'タブレット',
     'Team ID' => 'チームID',
     'Team Icon' => 'チームアイコン',
     'Team Inked' => 'チームで塗った面積',

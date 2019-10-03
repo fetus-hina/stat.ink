@@ -233,34 +233,6 @@ tr.disconnected,
   }
 }
 
-ul, ol {
-  &.inline-list {
-    display: block;
-
-    &, li {
-      list-style-type: none;
-      list-style-image: none;
-      margin: 0;
-      padding: 0;
-    }
-
-    li {
-      display: inline-block;
-      margin-right: 0.75ex;
-
-      &::after {
-        display: inline;
-        content: "|";
-        margin-left: 0.75ex;
-      }
-
-      &:last-child::after {
-        display: none;
-      }
-    }
-  }
-}
-
 /* stylelint-disable */
 .sizes() {
   0: (0 * 5px);

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2017 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -24,14 +25,14 @@ class m171104_130148_ability2_splatnet extends Migration
         $this->dropColumn('ability2', 'splatnet');
     }
 
-    public function createUpdate() : array
+    public function createUpdate(): array
     {
         return [
             'splatnet' => new Expression(sprintf(
                 '(CASE %s %s END)',
                 $this->db->quoteColumnName('key'),
                 implode(' ', array_map(
-                    function (string $key, int $value) : string {
+                    function (string $key, int $value): string {
                         return sprintf(
                             'WHEN %s THEN %d',
                             $this->db->quoteValue($key),
@@ -45,7 +46,7 @@ class m171104_130148_ability2_splatnet extends Migration
         ];
     }
 
-    public function getData() : array
+    public function getData(): array
     {
         return [
             'ability_doubler'   => 108,

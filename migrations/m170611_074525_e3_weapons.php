@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2017 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -29,7 +30,7 @@ class m170611_074525_e3_weapons extends Migration
         $this->unregisterTypes();
     }
 
-    private function registerSpecials() : array
+    private function registerSpecials(): array
     {
         $this->batchInsert('special2', [ 'key', 'name' ], [
             [ 'amefurashi', 'Ink Storm' ],
@@ -44,12 +45,12 @@ class m170611_074525_e3_weapons extends Migration
         );
     }
 
-    private function unregisterSpecials() : void
+    private function unregisterSpecials(): void
     {
         $this->delete('special2', ['key' => 'amefurashi']);
     }
 
-    private function registerSubs() : array
+    private function registerSubs(): array
     {
         $this->batchInsert('subweapon2', [ 'key', 'name' ], [
             [ 'jumpbeacon', 'Squid Beakon' ],
@@ -70,7 +71,7 @@ class m170611_074525_e3_weapons extends Migration
         );
     }
 
-    private function unregisterSubs() : void
+    private function unregisterSubs(): void
     {
         $this->delete('subweapon2', ['key' => [
             'jumpbeacon',
@@ -83,7 +84,7 @@ class m170611_074525_e3_weapons extends Migration
         ]]);
     }
 
-    private function registerWeapons(array $types, array $subs, array $specials) : void
+    private function registerWeapons(array $types, array $subs, array $specials): void
     {
         $this->insert('weapon2', [
             'key' => 'prime',
@@ -163,7 +164,7 @@ class m170611_074525_e3_weapons extends Migration
         ]);
     }
 
-    private function unregisterWeapons() : void
+    private function unregisterWeapons(): void
     {
         $this->delete('weapon2', ['key' => [
             'barrelspinner',
@@ -177,7 +178,7 @@ class m170611_074525_e3_weapons extends Migration
         ]]);
     }
 
-    private function registerTypes() : array
+    private function registerTypes(): array
     {
         $this->insert('weapon_type2', [
             'key' => 'slosher',
@@ -195,7 +196,7 @@ class m170611_074525_e3_weapons extends Migration
         );
     }
 
-    private function unregisterTypes() : void
+    private function unregisterTypes(): void
     {
         $this->delete('weapon_type2', ['key' => 'slosher']);
     }

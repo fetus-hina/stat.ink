@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2017 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -28,8 +29,8 @@ class m170720_112422_fix_weapon2 extends Migration
     private function fix(
         string $weapon,
         ?string $sub = null,
-        ?string $special = null) : void
-    {
+        ?string $special = null
+    ): void {
         $update = [
             'subweapon_id' => $this->findId('subweapon2', $sub),
             'special_id' => $this->findId('special2', $special),
@@ -41,7 +42,7 @@ class m170720_112422_fix_weapon2 extends Migration
         $this->update('weapon2', $update, ['key' => $weapon]);
     }
 
-    private function findId(string $table, ?string $key) : ?int
+    private function findId(string $table, ?string $key): ?int
     {
         if ($key === null) {
             return null;

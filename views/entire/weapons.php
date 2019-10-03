@@ -1,6 +1,8 @@
 <?php
+
 declare(strict_types=1);
 
+use app\assets\InlineListAsset;
 use app\components\widgets\AdWidget;
 use app\components\widgets\FA;
 use app\components\widgets\SnsWidget;
@@ -62,6 +64,7 @@ $this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink']);
     )
   ) ?></p>
   
+<?php InlineListAsset::register($this) ?>
   <nav><ul class="inline-list"><?= implode('', array_map(
     function (stdClass $rule): string {
       return Html::tag(

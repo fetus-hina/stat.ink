@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -24,7 +25,7 @@ class m190622_142314_death_reason_inkfurler extends Migration
             'key' => 'piropiro',
             'name' => 'Inkfurler',
             'type_id' => $type,
-            'weapon_id'=> null,
+            'weapon_id' => null,
         ]);
     }
 

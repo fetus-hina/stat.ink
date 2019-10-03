@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2017 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -22,7 +23,7 @@ class m171223_203717_update_automated_flag extends Migration
                 implode(
                     ', ',
                     array_map(
-                        function (string $name) : string {
+                        function (string $name): string {
                             return $this->db->quoteValue($name);
                         },
                         [

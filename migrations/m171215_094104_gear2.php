@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2017 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -20,7 +21,7 @@ class m171215_094104_gear2 extends Migration
             '(CASE %s %s END)',
             $this->db->quoteColumnName('key'),
             implode(' ', array_map(
-                function (string $key, int $value) : string {
+                function (string $key, int $value): string {
                     return sprintf(
                         'WHEN %s THEN %s',
                         $this->db->quoteValue($key),
@@ -48,7 +49,7 @@ class m171215_094104_gear2 extends Migration
         );
     }
 
-    private function makeUpdateData() : void
+    private function makeUpdateData(): void
     {
         $json = Json::decode(
             file_get_contents(__FILE__, false, null, __COMPILER_HALT_OFFSET__)
@@ -65,7 +66,7 @@ class m171215_094104_gear2 extends Migration
         }
     }
 
-    public function getUpdateData() : array
+    public function getUpdateData(): array
     {
         return [
             'sage_polo' => 4003,

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2017 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -29,8 +30,8 @@ class m170728_092851_weapon2_dual extends Migration
         string $sub,
         string $special,
         ?string $main = null,
-        ?string $canonical = null)
-    {
+        ?string $canonical = null
+    ) {
         $this->insert('weapon2', [
             'key'           => $key,
             'name'          => $name,
@@ -53,7 +54,7 @@ class m170728_092851_weapon2_dual extends Migration
         ]);
     }
 
-    private function findId(string $table, string $key) : int
+    private function findId(string $table, string $key): int
     {
         return (new Query())
             ->select('id')

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -21,6 +22,7 @@ return [
     'Password' => '',
     'Please input this code to the browser. The code will be expired in {mins} minutes.' => '',
     'Rev. lookup:' => '',
+    'Terminal:' => '',
     'There is a login on {site}.' => '',
     'Twitter' => '',
     'Verification Code:' => '',

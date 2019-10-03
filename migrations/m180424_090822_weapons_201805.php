@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2018 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -26,7 +27,7 @@ class m180424_090822_weapons_201805 extends Migration
         }
     }
 
-    public function getWeapons() : array
+    public function getWeapons(): array
     {
         return [
             ['sharp_neo', 'Neo Splash-o-matic', 'shooter', 'quickbomb', 'pitcher', 'sharp', null, 21],

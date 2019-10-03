@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2017 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -34,7 +35,7 @@ class m170810_040928_ua_attr_groups extends Migration
         $this->delete('agent_group', ['name' => 'SquidTracks']);
     }
 
-    private function getGroupId(string $name) : int
+    private function getGroupId(string $name): int
     {
         $ret = (new Query())
             ->select('id')

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2017 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -27,7 +28,7 @@ class m171015_172713_timezone_group_data extends Migration
         $this->dropColumn('timezone', 'group_id');
     }
 
-    private function upData() : void
+    private function upData(): void
     {
         $list = [
             // {{{
@@ -92,7 +93,7 @@ class m171015_172713_timezone_group_data extends Migration
         }
     }
 
-    private function getGroups() : array
+    private function getGroups(): array
     {
         return ArrayHelper::map(
             (new Query())

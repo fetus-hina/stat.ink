@@ -178,6 +178,7 @@ trait WeaponShortNameTrait
 
         $file = [];
         $file[] = '<?php';
+        $file[] = '';
         $file[] = '/**';
         $file[] = ' * @copyright Copyright (C) 2015-' . gmdate('Y', time() + 9 * 3600) . ' AIZAWA Hina';
         $file[] = ' * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT';

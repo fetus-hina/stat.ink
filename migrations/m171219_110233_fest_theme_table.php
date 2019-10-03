@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2017 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -26,10 +27,10 @@ class m171219_110233_fest_theme_table extends Migration
         $this->dropTable('splatfest2_theme');
     }
 
-    private function createData() : array
+    private function createData(): array
     {
         return array_map( // [ [name], [name], [name] ... ] ( for batchInsert )
-            function (string $name) : array {
+            function (string $name): array {
                 return [$name];
             },
             array_keys( // [ name, name, name ... ]
@@ -41,7 +42,7 @@ class m171219_110233_fest_theme_table extends Migration
         );
     }
 
-    private function queryData(string $field) : array
+    private function queryData(string $field): array
     {
         $db = Yii::$app->db;
         $qField = new DbExpr(sprintf(
@@ -75,7 +76,7 @@ class m171219_110233_fest_theme_table extends Migration
         );
     }
 
-    private function mergeData() : array
+    private function mergeData(): array
     {
         $args = func_get_args();
         $result = [];

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2017 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -23,7 +24,7 @@ class m171103_185043_gear2 extends Migration
         }
     }
 
-    public function getData() : array
+    public function getData(): array
     {
         return [
             ['baby_jelly_shirt_tie', 'baby_jelly_shirt_and_tie'],

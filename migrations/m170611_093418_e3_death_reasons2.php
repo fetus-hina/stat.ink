@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2017 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -24,7 +25,7 @@ class m170611_093418_e3_death_reasons2 extends Migration
         $this->unregisterWeapons();
     }
 
-    private function registerWeapons() : void
+    private function registerWeapons(): void
     {
         $this->register(
             (int)(new Query())->select('id')->from('death_reason_type2')->where(['key' => 'main'])->scalar(),
@@ -43,7 +44,7 @@ class m170611_093418_e3_death_reasons2 extends Migration
         );
     }
 
-    private function unregisterWeapons() : void
+    private function unregisterWeapons(): void
     {
         $this->unregister([
             'barrelspinner',
@@ -57,7 +58,7 @@ class m170611_093418_e3_death_reasons2 extends Migration
         ]);
     }
 
-    private function registerSubweapons() : void
+    private function registerSubweapons(): void
     {
         $this->register(
             (int)(new Query())->select('id')->from('death_reason_type2')->where(['key' => 'sub'])->scalar(),
@@ -72,7 +73,7 @@ class m170611_093418_e3_death_reasons2 extends Migration
         );
     }
 
-    private function unregisterSubweapons() : void
+    private function unregisterSubweapons(): void
     {
         $this->unregister([
             'rocketbomb',
@@ -82,7 +83,7 @@ class m170611_093418_e3_death_reasons2 extends Migration
         ]);
     }
 
-    private function registerSpecials() : void
+    private function registerSpecials(): void
     {
         $this->register(
             (int)(new Query())->select('id')->from('death_reason_type2')->where(['key' => 'special'])->scalar(),
@@ -92,12 +93,12 @@ class m170611_093418_e3_death_reasons2 extends Migration
         );
     }
 
-    private function unregisterSpecials() : void
+    private function unregisterSpecials(): void
     {
         $this->unregister(['amefurashi']);
     }
 
-    private function register(int $typeId, string $table, array $keys, string $idCol) : void
+    private function register(int $typeId, string $table, array $keys, string $idCol): void
     {
         $this->batchInsert(
             'death_reason2',
@@ -108,7 +109,7 @@ class m170611_093418_e3_death_reasons2 extends Migration
                 'name',
             ],
             array_map(
-                function (array $row) use ($typeId) : array {
+                function (array $row) use ($typeId): array {
                     return [
                         $row['key'],
                         $typeId,
@@ -126,7 +127,7 @@ class m170611_093418_e3_death_reasons2 extends Migration
         );
     }
 
-    private function unregister(array $key) : void
+    private function unregister(array $key): void
     {
         $this->delete('death_reason2', ['key' => $key]);
     }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2016 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -35,7 +36,7 @@ class m160802_183350_ua_combine_data extends Migration
         $this->delete('agent_group');
     }
 
-    private function findGroup(string $name) : int
+    private function findGroup(string $name): int
     {
         return (int)AgentGroup::findOne(['name' => $name])->id;
     }

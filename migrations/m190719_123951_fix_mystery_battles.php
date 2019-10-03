@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -31,7 +32,7 @@ class m190719_123951_fix_mystery_battles extends Migration
         $this->execute(
             'UPDATE {{battle2}} ' .
             'SET [[map_id]] = {{map2}}.[[id]] ' .
-            'FROM {{battle2_splatnet}} {{j}}, {{map2}} '.
+            'FROM {{battle2_splatnet}} {{j}}, {{map2}} ' .
             'WHERE ((' . implode(') AND (', [
                 '{{battle2}}.[[id]] = {{j}}.[[id]]',
                 "((({{j}}.[[json]]->>0)::JSONB)->'stage'->>'id')::INTEGER = {{map2}}.[[splatnet]]",

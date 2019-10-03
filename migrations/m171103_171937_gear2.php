@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2017 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -263,7 +264,7 @@ class m171103_171937_gear2 extends Migration
         $this->delete('gear2');
     }
 
-    public function getList(string $table) : \stdClass
+    public function getList(string $table): \stdClass
     {
         return (object)ArrayHelper::map(
             (new Query())->select(['id', 'key'])->from($table)->all(),

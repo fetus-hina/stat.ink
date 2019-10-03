@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2017 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -43,7 +44,7 @@ class m170918_095311_weapon2_use_count_update extends Migration
     {
         foreach (['stat_weapon2_use_count', 'stat_weapon2_use_count_per_week'] as $table) {
             $this->execute("ALTER TABLE {{{$table}}} " . implode(', ', array_map(
-                function (string $column) : string {
+                function (string $column): string {
                     return 'DROP COLUMN [[' . $column . ']]';
                 },
                 [

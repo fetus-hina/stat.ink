@@ -1,7 +1,9 @@
 <?php
+
 declare(strict_types=1);
 
 use app\assets\EntireWeaponsAsset;
+use app\assets\InlineListAsset;
 use app\assets\Spl2WeaponAsset;
 use app\assets\TableResponsiveForceAsset;
 use app\components\widgets\AdWidget;
@@ -75,6 +77,7 @@ EntireWeaponsAsset::register($this);
     ) . "\n" ?>
   </p>
 
+<?php InlineListAsset::register($this) ?>
   <nav>
     <ul class="inline-list mb-3"><?= implode('', array_map(
       function (stdClass $rule): string {
