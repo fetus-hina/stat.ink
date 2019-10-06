@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -29,6 +30,7 @@ return [
     'Failed in wave {waveNumber}' => '',
     'Fail Reason' => '',
     'From {shiftStart}' => '',
+    'Future' => 'Danach',
     'Golden' => '',
     'Golden/W' => '',
     'Golden Eggs' => '',
@@ -40,7 +42,9 @@ return [
     'Jobs' => '',
     'Jobs: {jobCount} / Clear %: {clearPct} / Golden Eggs: {avgGoldenEggs} / Power Eggs: {avgPowerEggs} / Deaths: {avgDeaths} / Rescues: {avgRescues}' => '',
     'Job Started' => '',
+    'Next' => 'Demnächst',
     'Next Job' => '',
+    'Open!' => 'Geöffnet!',
     'Power Eggs' => '',
     'Power Eggs per Wave' => '',
     'Prev. Job' => '',
@@ -54,6 +58,7 @@ return [
     'Results of {userName}\'s job' => '',
     'Rotation' => '',
     'Salmon Run' => '',
+    'Soon' => 'Demnächst',
     'Special Use' => '',
     'Stats: Salmon Clear %' => '',
     'Team total Golden Eggs' => '',
