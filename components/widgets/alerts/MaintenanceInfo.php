@@ -10,7 +10,11 @@ declare(strict_types=1);
 
 namespace app\components\widgets\alerts;
 
+use DateTime;
+use DateTimeImmutable;
+use DateTimeZone;
 use Yii;
+use app\assets\TimezoneDialogAsset;
 use app\components\widgets\Alert;
 use app\models\MaintenanceSchedule;
 use yii\base\Widget;
@@ -47,19 +51,19 @@ class MaintenanceInfo extends Widget
                         'We\'ll perform maintenance on the schedule below:'
                     ))
                 ),
-                sprintf(
-                    '<p>%s</p>',
-                    Html::encode(Yii::t(
+                Html::tag(
+                    'p',
+                    Yii::t(
                         'app-alert',
                         'Term: {startDate} - {endDate}',
                         [
-                            'startDate' => $fmt->asDateTime($model->start_at, 'short'),
-                            'endDate' => $fmt->asDateTime($model->end_at, 'short'),
+                            'startDate' => $this->formatTime($model->start_at),
+                            'endDate' => $this->formatTime($model->end_at),
                         ]
-                    ))
+                    )
                 ),
-                sprintf(
-                    '<p>%s</p>',
+                Html::tag(
+                    'p',
                     Html::encode(Yii::t(
                         'app-alert',
                         'Due to: {reason}',
@@ -68,8 +72,49 @@ class MaintenanceInfo extends Widget
                         ]
                     ))
                 ),
-                '<p>' . Html::encode(Yii::t('app-alert', 'Sorry for inconvenience.')) . '</p>',
+                Html::tag('p', Html::encode(Yii::t('app-alert', 'Sorry for inconvenience.'))),
             ]),
         ]);
+    }
+
+    protected function formatTime($time): string
+    {
+        $timestamp = filter_var(
+            Yii::$app->formatter->asTimestamp($time),
+            FILTER_VALIDATE_INT
+        );
+        if (!is_int($timestamp)) {
+            return Html::encode(Yii::t('app', 'Unknown'));
+        }
+
+        $dt = (new DateTimeImmutable())
+            ->setTimestamp($timestamp)
+            ->setTimezone(new DateTimeZone(Yii::$app->timeZone));
+
+        TimezoneDialogAsset::register($this->view);
+        return Html::tag(
+            'time',
+            vsprintf('%s %s', [
+                Html::encode(Yii::$app->formatter->asDateTime($dt, 'short')),
+                Html::a(
+                    Html::encode($dt->format('T')),
+                    'javascript:;',
+                    [
+                        'class' => 'alert-link',
+                        'role' => 'button',
+                        'aria-haspopup' => 'true',
+                        'aria-expanded' => 'false',
+                        'data' => [
+                            'toggle' => 'modal',
+                            'target' => '#timezone-dialog',
+                        ],
+                    ]
+                ),
+            ]),
+            [
+                'datetime' => $dt->setTimezone(new DateTimeZone('Etc/UTC'))
+                    ->format(DateTime::ATOM),
+            ]
+        );
     }
 }
