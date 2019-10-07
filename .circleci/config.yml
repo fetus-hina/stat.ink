@@ -94,13 +94,15 @@ jobs:
           POSTGRES_INITDB_ARGS: "-E UTF-8 --locale=en_US.UTF8 -k"
 
     steps:
+      # TODO: Should be updated to use Python 3.6
       - run: dnf update -y
       - run: dnf install -y epel-release 'dnf-command(config-manager)' 'https://rpms.remirepo.net/enterprise/remi-release-8.rpm'
-      - run: dnf module enable -y 'php:remi-7.3' 'nodejs:10'
+      - run: dnf module enable -y 'php:remi-7.3' 'nodejs:10' 'python27:2.7'
       - run: dnf config-manager --add-repo 'https://rpm.fetus.jp/jp3cki.repo'
       - run: dnf config-manager --save --disable jp3cki*
       - run: dnf config-manager --save --enable jp3cki-h2o-mainline
-      - run: dnf install -y ImageMagick brotli diffutils gcc-c++ git gzip h2o jpegoptim make nodejs patch php-cli php-fpm php-gd php-intl php-json php-mbstring php-mcrypt php-opcache php-pdo php-pecl-msgpack php-pecl-zip php-pgsql php-process php-xml unzip
+      - run: dnf install -y @python27 ImageMagick brotli diffutils gcc-c++ git gzip h2o jpegoptim make nodejs patch php-cli php-fpm php-gd php-intl php-json php-mbstring php-mcrypt php-opcache php-pdo php-pecl-msgpack php-pecl-zip php-pgsql php-process php-xml unzip
+      - run: alternatives --set python /usr/bin/python2
       - checkout
       - restore_cache:
           keys:
