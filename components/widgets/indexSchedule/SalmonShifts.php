@@ -29,21 +29,22 @@ class SalmonShifts extends Widget
         return Html::tag(
             'div',
             implode('', array_map(
-                function (SalmonSchedule2 $schedule): string {
-                    return $this->renderSchedule($schedule);
+                function (SalmonSchedule2 $schedule, int $index): string {
+                    return $this->renderSchedule($schedule, $index);
                 },
-                $this->data['data']
+                $this->data['data'],
+                range(0, count($this->data['data']) - 1),
             )),
             ['class' => 'row']
         );
     }
 
-    public function renderSchedule(SalmonSchedule2 $schedule): string
+    public function renderSchedule(SalmonSchedule2 $schedule, int $index): string
     {
         return Html::tag(
             'div',
             implode('', [
-                $this->renderHeading($schedule),
+                $this->renderHeading($schedule, $index),
                 $this->renderBody($schedule),
             ]),
             ['class' => [
@@ -53,13 +54,32 @@ class SalmonShifts extends Widget
         );
     }
 
-    public function renderHeading(SalmonSchedule2 $schedule): string
+    public function renderHeading(SalmonSchedule2 $schedule, int $index): string
     {
         $fmt = Yii::$app->formatter;
-        return Html::tag('h3', Html::encode(vsprintf('[%s - %s]', [
-            $fmt->asDateTime($schedule->start_at, 'short'),
-            $fmt->asDateTime($schedule->end_at, 'short'),
-        ])));
+        return Html::tag('h3', vsprintf('[%s - %s] %s', [
+            $fmt->asHtmlDateTime($schedule->start_at, 'short'),
+            $fmt->asHtmlDateTime($schedule->end_at, 'short'),
+            Html::encode($this->renderTimeHint($schedule, $index)),
+        ]));
+    }
+
+    protected function renderTimeHint(SalmonSchedule2 $schedule, int $index): string
+    {
+        switch ($index) {
+            case 0:
+                return $this->isOpened
+                    ? Yii::t('app-salmon2', 'Open!')
+                    : Yii::t('app-salmon2', 'Soon');
+
+            case 1:
+                return $this->isOpened
+                    ? Yii::t('app-salmon2', 'Next')
+                    : Yii::t('app-salmon2', 'Future');
+
+            default:
+                return Yii::t('app-salmon2', 'Future');
+        }
     }
 
     public function renderBody(SalmonSchedule2 $schedule): string
@@ -140,5 +160,17 @@ class SalmonShifts extends Widget
             ))),
             ['class' => 'col-xs-6']
         );
+    }
+
+    public function getIsOpened(): bool
+    {
+        if (!$schedule = ($this->data['data'][0] ?? null)) {
+            return false;
+        }
+
+        $t = (int)($_SERVER['REQUEST_TIME'] ?? time());
+        $s = strtotime($schedule->start_at);
+        $e = strtotime($schedule->end_at);
+        return ($s <= $t) && ($t < $e);
     }
 }

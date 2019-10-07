@@ -95,7 +95,20 @@ class IndexSchedule extends Widget
                 [
                     'key' => 'salmon',
                     'icon' => GameModeIcon::spl2('salmon'),
-                    'label' => Yii::t('app-salmon2', 'Salmon Run'),
+                    'labelFormat' => 'raw',
+                    'label' => vsprintf('%s%s', [
+                        $this->salmon && $this->salmonOpened
+                            ? Html::tag(
+                                'span',
+                                (string)FA::fas('certificate')->fw(),
+                                [
+                                    'class' => 'text-warning auto-tooltip',
+                                    'title' => Yii::t('app-salmon2', 'Open!'),
+                                ]
+                            )
+                            : '',
+                        Html::encode(Yii::t('app-salmon2', 'Salmon Run')),
+                    ]),
                     'enabled' => !!$this->salmon,
                     'contentClass' => indexSchedule\SalmonShifts::class,
                     'data' => $this->salmon,
@@ -180,7 +193,10 @@ class IndexSchedule extends Widget
                             Html::a(
                                 trim(implode(' ', [
                                     $info['icon'] ?? '',
-                                    Html::encode($info['label']),
+                                    Yii::$app->formatter->format(
+                                        $info['label'],
+                                        $info['labelFormat'] ?? 'text'
+                                    ),
                                 ])),
                                 sprintf('#%s-tab-%s', $this->id, $info['key']),
                                 [
@@ -300,5 +316,17 @@ class IndexSchedule extends Widget
         }
 
         return $current->$key ?? null;
+    }
+
+    public function getSalmonOpened(): ?bool
+    {
+        if (!$current = ($this->salmon[0] ?? null)) {
+            return null;
+        }
+
+        $t = (int)($_SERVER['REQUEST_TIME'] ?? time());
+        $s = strtotime($current->start_at);
+
+        return $s <= $t;
     }
 }

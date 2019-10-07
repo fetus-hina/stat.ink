@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -29,6 +30,7 @@ return [
     'Failed' => '失敗',
     'Failed<br><small>in wave {waveNumber}</small>' => '失敗<br><small>(WAVE {waveNumber})</small>',
     'From {shiftStart}' => '{shiftStart} から',
+    'Future' => 'そのつぎ',
     'Golden Eggs per Wave' => '金イクラ毎WAVE',
     'Golden Eggs' => '金イクラ',
     'Golden' => '金イクラ',
@@ -41,6 +43,8 @@ return [
     'Jobs' => '回数',
     'Jobs: {jobCount} / Clear %: {clearPct} / Golden Eggs: {avgGoldenEggs} / Power Eggs: {avgPowerEggs} / Deaths: {avgDeaths} / Rescues: {avgRescues}' => 'バイト: {jobCount} / クリア率: {clearPct} / 金イクラ: {avgGoldenEggs} / イクラ: {avgPowerEggs} / やられた: {avgDeaths} / たすけた: {avgRescues}',
     'Next Job' => '次のバイト',
+    'Next' => 'つぎ',
+    'Open!' => 'オープン!',
     'Power Eggs per Wave' => 'イクラ毎WAVE',
     'Power Eggs' => 'イクラ',
     'Prev. Job' => '前のバイト',
@@ -54,6 +58,7 @@ return [
     'Results of {userName}\'s job' => '{userName}さんのバイト結果',
     'Rotation' => 'スケジュール',
     'Salmon Run' => 'サーモンラン',
+    'Soon' => 'もうすぐ',
     'Special Use' => 'スペシャル使用',
     'Stats: Salmon Clear %' => '統計: 鮭クリア率',
     'Team total Golden Eggs per Wave' => 'WAVE毎のチーム合計納品数',
