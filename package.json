@@ -11,7 +11,7 @@
     "@babel/polyfill": "^7.6.0",
     "@babel/preset-env": "^7.6.3",
     "@fortawesome/fontawesome-free": "^5.11.2",
-    "autoprefixer": "^9.6.4",
+    "autoprefixer": "^9.6.5",
     "babel-eslint": "^10.0.3",
     "bootstrap": "^3.4.1",
     "bootstrap-notify": "^3.1.3",
