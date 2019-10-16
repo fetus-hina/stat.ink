@@ -429,16 +429,16 @@
         },
         {
             "name": "jaybizzle/crawler-detect",
-            "version": "v1.2.85",
+            "version": "v1.2.86",
             "source": {
                 "type": "git",
                 "url": "https://github.com/JayBizzle/Crawler-Detect.git",
-                "reference": "185ff3e00a5b7821eadfce8fe767fcd89193f578"
+                "reference": "1835311c4f458b2f59bbfec05ebfc64ac382b6ee"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/JayBizzle/Crawler-Detect/zipball/185ff3e00a5b7821eadfce8fe767fcd89193f578",
-                "reference": "185ff3e00a5b7821eadfce8fe767fcd89193f578",
+                "url": "https://api.github.com/repos/JayBizzle/Crawler-Detect/zipball/1835311c4f458b2f59bbfec05ebfc64ac382b6ee",
+                "reference": "1835311c4f458b2f59bbfec05ebfc64ac382b6ee",
                 "shasum": ""
             },
             "require": {
@@ -474,7 +474,7 @@
                 "crawlerdetect",
                 "php crawler detect"
             ],
-            "time": "2019-10-05T13:27:35+00:00"
+            "time": "2019-10-15T20:54:57+00:00"
         },
         {
             "name": "jp3cki/mb_str_replace",
