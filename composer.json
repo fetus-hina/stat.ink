@@ -106,10 +106,6 @@
         }
     },
     "repositories": {
-        "assets": {
-            "type": "composer",
-            "url": "https://asset-packagist.org"
-        },
         "private": {
             "type": "composer",
             "url": "https://satis.stat.ink"

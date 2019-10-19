@@ -33,6 +33,7 @@ class UserStatByWeaponAction extends ViewAction
 
         $filter = new Battle2FilterForm();
         $filter->load($_GET);
+        $filter->screen_name = $user->screen_name;
         $filter->validate();
 
         return $this->controller->render('user-stat-by-weapon', [
