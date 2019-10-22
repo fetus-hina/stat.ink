@@ -3179,16 +3179,16 @@
         },
         {
             "name": "codeception/base",
-            "version": "3.1.1",
+            "version": "3.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Codeception/base.git",
-                "reference": "d3b74b361f9d8457c4294b8e6f424db39f1a178f"
+                "reference": "fee95812d600523964ab0931beab937c1c7b8bb6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/base/zipball/d3b74b361f9d8457c4294b8e6f424db39f1a178f",
-                "reference": "d3b74b361f9d8457c4294b8e6f424db39f1a178f",
+                "url": "https://api.github.com/repos/Codeception/base/zipball/fee95812d600523964ab0931beab937c1c7b8bb6",
+                "reference": "fee95812d600523964ab0931beab937c1c7b8bb6",
                 "shasum": ""
             },
             "require": {
@@ -3218,6 +3218,7 @@
                 "pda/pheanstalk": "~3.0",
                 "php-amqplib/php-amqplib": "~2.4",
                 "predis/predis": "^1.0",
+                "ramsey/uuid-doctrine": "^1.5",
                 "squizlabs/php_codesniffer": "~2.0",
                 "symfony/process": ">=2.7 <5.0",
                 "vlucas/phpdotenv": "^3.0"
@@ -3267,7 +3268,7 @@
                 "functional testing",
                 "unit testing"
             ],
-            "time": "2019-09-14T20:26:12+00:00"
+            "time": "2019-10-19T13:50:52+00:00"
         },
         {
             "name": "codeception/phpunit-wrapper",
