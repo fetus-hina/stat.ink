@@ -3,7 +3,7 @@ PRODUCTS := \
 	chrome \
 	ios \
 	linux-tux \
-	macosx \
+	macOS \
 	microsoft-windows
 
 ICONS := $(addprefix logos/,$(addsuffix .svg, $(PRODUCTS)))
