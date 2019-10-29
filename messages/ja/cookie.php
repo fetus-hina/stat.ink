@@ -16,6 +16,7 @@ return [
     'Cookie ID (Name)' => 'Cookie の名前',
     'Cookies' => 'Cookie',
     'Expires' => '有効期限',
+    'I agree' => '了解',
     'Issued and used by Twitter' => 'Twitter によって発行され、利用されます',
     'Keep your input data while verifying email address' => 'メールアドレス確認中の入力の保持',
     'Origin' => 'オリジン',
@@ -24,5 +25,6 @@ return [
     'Saving the specified or default theme (color scheme) setting' => '指定された、または、デフォルトのテーマ（カラースキーム）設定の保持',
     'Their privacy policy' => 'プライバシーポリシー',
     'Track your login status' => 'ログイン状態の追跡',
+    'We use cookies to ensure you get the best experience on our website.' => 'このウェブサイトでは Cookie を利用しています。',
     'What to use' => '何に使用するか',
 ];

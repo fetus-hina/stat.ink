@@ -60,6 +60,8 @@ RESOURCE_TARGETS_MAIN := \
 	resources/.compiled/stat.ink/blog-entries.css \
 	resources/.compiled/stat.ink/browser-icon-widget.js \
 	resources/.compiled/stat.ink/color-scheme.js \
+	resources/.compiled/stat.ink/cookiealert.css \
+	resources/.compiled/stat.ink/cookiealert.js \
 	resources/.compiled/stat.ink/current-time.js \
 	resources/.compiled/stat.ink/downloads.css \
 	resources/.compiled/stat.ink/favicon.png \
@@ -338,6 +340,8 @@ resources/.compiled/stat.ink/blackout-hint.js: resources/stat.ink/blackout-hint.
 resources/.compiled/stat.ink/blog-entries.css: resources/stat.ink/blog-entries.less node_modules
 resources/.compiled/stat.ink/browser-icon-widget.js: resources/stat.ink/browser-icon-widget.es
 resources/.compiled/stat.ink/color-scheme.js: resources/stat.ink/color-scheme.es node_modules
+resources/.compiled/stat.ink/cookiealert.css: resources/stat.ink/cookiealert.less node_modules
+resources/.compiled/stat.ink/cookiealert.js: resources/stat.ink/cookiealert.es node_modules
 resources/.compiled/stat.ink/current-time.js: resources/stat.ink/current-time.es node_modules
 resources/.compiled/stat.ink/downloads.css: resources/stat.ink/downloads.less node_modules
 resources/.compiled/stat.ink/fest-power-history.css: resources/stat.ink/fest-power-history.less node_modules

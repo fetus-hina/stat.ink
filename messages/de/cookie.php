@@ -16,6 +16,7 @@ return [
     'Cookie ID (Name)' => '',
     'Cookies' => '',
     'Expires' => '',
+    'I agree' => '',
     'Issued and used by Twitter' => '',
     'Keep your input data while verifying email address' => '',
     'Origin' => '',
@@ -24,5 +25,6 @@ return [
     'Saving the specified or default theme (color scheme) setting' => '',
     'Their privacy policy' => '',
     'Track your login status' => '',
+    'We use cookies to ensure you get the best experience on our website.' => '',
     'What to use' => '',
 ];

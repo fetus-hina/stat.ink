@@ -1,7 +1,11 @@
 <?php
+
+declare(strict_types=1);
+
 use app\assets\AppAsset;
 use app\components\helpers\I18n;
 use app\components\widgets\ColorSchemeDialog;
+use app\components\widgets\CookieAlert;
 use app\components\widgets\LanguageDialog;
 use app\components\widgets\TimezoneDialog;
 use yii\helpers\Html;
@@ -57,7 +61,7 @@ if ($_flashes) {
     <?= Html::csrfMetaTags() ?>
     <?= Html::tag(
       'title',
-      Html::encode(trim($this->title) == '' ? Yii::$app->name : $this->title)
+      Html::encode(trim((string)$this->title) === '' ? Yii::$app->name : $this->title)
     ) . "\n" ?>
     <?= I18n::languageLinkTags() ?>
     <?php $this->head(); echo "\n" ?>
@@ -92,6 +96,7 @@ if ($_flashes) {
       <?= TimezoneDialog::widget([
         'id' => 'timezone-dialog',
       ]) . "\n" ?>
+      <?= CookieAlert::widget() . "\n" ?>
     <?php $this->endBody() ?><?= "\n" ?>
   </body>
 </html>
