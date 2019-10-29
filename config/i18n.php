@@ -12,6 +12,7 @@ return [
                 'app-apidoc1'   => 'apidoc1.php',
                 'app-brand'     => 'brand.php',
                 'app-brand2'    => 'brand2.php',
+                'app-cookie'    => 'cookie.php',
                 'app-counter'   => 'counter.php',
                 'app-death'     => 'death.php',
                 'app-death2'    => 'death2.php',
