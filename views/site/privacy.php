@@ -167,4 +167,46 @@ $this->title = $title;
   <p>
     <?= Html::encode(Yii::t('app', 'This behavior was started on 27 Oct 2015.')) . "\n" ?>
   </p>
+
+  <h2 id="location"><?= Html::encode(Yii::t('app-privacy', 'Locations and Law')) ?></h2>
+  <h3><?= Html::encode(Yii::t('app-privacy', 'Server Location')) ?></h3>
+  <p><?= Html::encode(Yii::t('app-privacy', 'Our servers are located in Ishikari Datacenter (Hokkaido, Japan), SAKURA internet inc.')) ?></p>
+  <p><?= Html::encode(Yii::t('app-privacy', 'SAKURA internet inc. is our sponsor.')) ?></p>
+  <p><?= Html::encode(Yii::t('app-privacy', 'They never have access to your private data.')) ?></p>
+
+  <h3><?= Html::encode(Yii::t('app-privacy', 'Author')) ?></h3>
+  <div class="table-responsive">
+    <table class="table table-striped w-auto">
+      <tbody>
+        <tr>
+          <th scope="row"><?= Html::encode(Yii::t('app-privacy', 'Handle Name')) ?></th>
+          <td>
+            <?= Html::encode(Yii::t('app-privacy', 'AIZAWA Hina (相沢 陽菜)')) . "\n" ?>
+            <?= Html::encode(Yii::t('app-privacy', '(It is not my real name)')) . "\n" ?>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row"><?= Html::encode(Yii::t('app-privacy', 'Address')) ?></th>
+          <td><?= Html::encode(Yii::t('app-privacy', 'Osaka, Japan')) ?></td>
+        </tr>
+        <tr>
+          <th scope="row"><?= Html::encode(Yii::t('app-privacy', 'SNS')) ?></th>
+          <td>
+            <?= Html::a('GitHub', 'https://github.com/fetus-hina/stat.ink') . "\n" ?>
+            <?= Html::a('Twitter', 'https://twitter.com/fetus_hina') . "\n" ?>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row"><?= Html::encode(Yii::t('app-privacy', 'PGP Key')) ?></th>
+          <td>
+            <?= Html::a('F6B887CD', 'https://pgp.mit.edu/pks/lookup?op=get&search=0x26CF8461F6B887CD') . "\n" ?>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3><?= Html::encode(Yii::t('app-privacy', 'Law')) ?></h3>
+  <p><?= Html::encode(Yii::t('app-privacy', 'We governed by Japanese law.')) ?></p>
+  <p><?= Html::encode(Yii::t('app-privacy', 'The parties hereby consent to and confer exclusive jurisdiction upon Osaka District Court or Hirakata Summary Court.')) ?></p>
 </div>

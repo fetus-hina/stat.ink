@@ -27,6 +27,7 @@ return [
                 'app-link'      => 'link.php',
                 'app-map'       => 'map.php',
                 'app-map2'      => 'map2.php',
+                'app-privacy'   => 'privacy.php',
                 'app-rank'      => 'rank.php',
                 'app-rank2'     => 'rank2.php',
                 'app-region'    => 'region.php',
