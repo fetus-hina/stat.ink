@@ -10,21 +10,21 @@ use yii\helpers\Url;
 
 $title = implode(' | ', [
   Yii::$app->name,
-  Yii::t('app', 'Privacy Policy'),
+  Yii::t('app-privacy', 'Privacy Policy'),
 ]);
 $this->context->layout = 'main';
 $this->title = $title;
 ?>
 <div class="container">
   <h1>
-    <?= Html::encode(Yii::t('app', 'Privacy Policy')) . "\n" ?>
+    <?= Html::encode(Yii::t('app-privacy', 'Privacy Policy')) . "\n" ?>
   </h1>
 
   <?= AdWidget::widget() . "\n" ?>
   <?= SnsWidget::widget() . "\n" ?>
 
   <p>
-    <?= Html::encode(Yii::t('app', 'This website ({0}) collects the following data:', [Yii::$app->name])) . "\n" ?>
+    <?= Html::encode(Yii::t('app-privacy', 'This website ({0}) collects the following data:', [Yii::$app->name])) . "\n" ?>
   </p>
   <ul>
 <?php $list = [
@@ -34,17 +34,17 @@ $this->title = $title;
   'Your OS, browser name, and version that you are using (aka "user agent")',
 ] ?>
 <?php foreach ($list as $_) { ?>
-    <?= Html::tag('li', Html::encode(Yii::t('app', $_))) . "\n" ?>
+    <?= Html::tag('li', Html::encode(Yii::t('app-privacy', $_))) . "\n" ?>
 <?php } ?>
   </ul>
   <p><?= Html::encode(
-    Yii::t('app', 'This website uses cookies to track your session or save your configuration (e.g., language / time zone settings).')
+    Yii::t('app-privacy', 'This website uses cookies to track your session or save your configuration (e.g., language / time zone settings).')
   ) ?></p>
   <p>
-    <?= Html::encode(Yii::t('app', 'We don\'t release your collected information, like your IP address. However, statistical information will be released.')) . "\n" ?>
+    <?= Html::encode(Yii::t('app-privacy', 'We don\'t release your collected information, like your IP address. However, statistical information will be released.')) . "\n" ?>
   </p>
   <p>
-    <?= Html::encode(Yii::t('app', 'If there is an investigation being conducted by the police or other authority, your information will be released.')) . "\n" ?>
+    <?= Html::encode(Yii::t('app-privacy', 'If there is an investigation being conducted by the police or other authority, your information will be released.')) . "\n" ?>
   </p>
 
   <h2 id="cookie">
@@ -156,15 +156,57 @@ $this->title = $title;
   </div>
 
   <h2 id="image">
-    <?= Html::encode(Yii::t('app', 'About image sharing with the IkaLog team')) . "\n" ?>
+    <?= Html::encode(Yii::t('app-privacy', 'About image sharing with the IkaLog team')) . "\n" ?>
   </h2>
   <p>
-    <?= Html::encode(Yii::t('app', 'Your uploaded data (battle stats, images, and modification history) will be shared with the IkaLog development team.')) . "\n" ?>
+    <?= Html::encode(Yii::t('app-privacy', 'Your uploaded data (battle stats, images, and modification history) will be shared with the IkaLog development team.')) . "\n" ?>
   </p>
   <p>
-    <?= Html::encode(Yii::t('app', 'This is done automatically and the data will not be deleted even if the the battle is deleted.')) . "\n" ?>
+    <?= Html::encode(Yii::t('app-privacy', 'This is done automatically and the data will not be deleted even if the the battle is deleted.')) . "\n" ?>
   </p>
   <p>
-    <?= Html::encode(Yii::t('app', 'This behavior was started on 27 Oct 2015.')) . "\n" ?>
+    <?= Html::encode(Yii::t('app-privacy', 'This behavior was started on 27 Oct 2015.')) . "\n" ?>
   </p>
+
+  <h2 id="location"><?= Html::encode(Yii::t('app-privacy', 'Locations and Law')) ?></h2>
+  <h3><?= Html::encode(Yii::t('app-privacy', 'Server Location')) ?></h3>
+  <p><?= Html::encode(Yii::t('app-privacy', 'Our servers are located in Ishikari Datacenter (Hokkaido, Japan), SAKURA internet inc.')) ?></p>
+  <p><?= Html::encode(Yii::t('app-privacy', 'SAKURA internet inc. is our sponsor.')) ?></p>
+  <p><?= Html::encode(Yii::t('app-privacy', 'They never have access to your private data.')) ?></p>
+
+  <h3><?= Html::encode(Yii::t('app-privacy', 'Author')) ?></h3>
+  <div class="table-responsive">
+    <table class="table table-striped w-auto">
+      <tbody>
+        <tr>
+          <th scope="row"><?= Html::encode(Yii::t('app-privacy', 'Handle Name')) ?></th>
+          <td>
+            <?= Html::encode(Yii::t('app-privacy', 'AIZAWA Hina (相沢 陽菜)')) . "\n" ?>
+            <?= Html::encode(Yii::t('app-privacy', '(It is not my real name)')) . "\n" ?>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row"><?= Html::encode(Yii::t('app-privacy', 'Address')) ?></th>
+          <td><?= Html::encode(Yii::t('app-privacy', 'Osaka, Japan')) ?></td>
+        </tr>
+        <tr>
+          <th scope="row"><?= Html::encode(Yii::t('app-privacy', 'SNS')) ?></th>
+          <td>
+            <?= Html::a('GitHub', 'https://github.com/fetus-hina/stat.ink') . "\n" ?>
+            <?= Html::a('Twitter', 'https://twitter.com/fetus_hina') . "\n" ?>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row"><?= Html::encode(Yii::t('app-privacy', 'PGP Key')) ?></th>
+          <td>
+            <?= Html::a('F6B887CD', 'https://pgp.mit.edu/pks/lookup?op=get&search=0x26CF8461F6B887CD') . "\n" ?>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3><?= Html::encode(Yii::t('app-privacy', 'Law')) ?></h3>
+  <p><?= Html::encode(Yii::t('app-privacy', 'We governed by Japanese law.')) ?></p>
+  <p><?= Html::encode(Yii::t('app-privacy', 'The parties hereby consent to and confer exclusive jurisdiction upon Osaka District Court or Hirakata Summary Court.')) ?></p>
 </div>

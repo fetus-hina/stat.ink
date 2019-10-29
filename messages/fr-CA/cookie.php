@@ -20,6 +20,7 @@ return [
     'Issued and used by Twitter' => '',
     'Keep your input data while verifying email address' => '',
     'Origin' => '',
+    'Privacy policy' => '',
     'Saving the specified or automatically detected language setting' => '',
     'Saving the specified or automatically detected time zone setting' => '',
     'Saving the specified or default theme (color scheme) setting' => '',

@@ -35,7 +35,7 @@ class CookieAlert extends Widget
                     'We use cookies to ensure you get the best experience on our website.'
                 )),
                 Html::a(
-                    Html::encode(Yii::t('app', 'Privacy Policy')),
+                    Html::encode(Yii::t('app-cookie', 'Privacy policy')),
                     ['site/privacy'],
                     [
                         'class' => 'alert-link',

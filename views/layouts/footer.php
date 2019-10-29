@@ -82,7 +82,7 @@ if ($tmp = ($params['gitRevision']['lastCommitted'] ?? null)) {
           ['/site/api']
         ),
         Html::a(
-          Html::encode(Yii::t('app', 'Privacy Policy')),
+          Html::encode(Yii::t('app-privacy', 'Privacy Policy')),
           ['/site/privacy']
         ),
         Html::a(
