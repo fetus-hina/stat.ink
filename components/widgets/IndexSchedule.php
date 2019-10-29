@@ -57,6 +57,18 @@ class IndexSchedule extends Widget
             // }}}
         };
 
+        $modeIcon = function (?stdClass $schedule, string $key): ?string {
+            if (!$schedule || !($schedule->$key ?? null)) {
+                return null;
+            }
+
+            $rule = $schedule->$key->rule;
+            if (!$rule) {
+                return null;
+            }
+            return (string)GameModeIcon::spl2($rule->key);
+        };
+
         $tabs = array_filter(
             [
                 [
@@ -72,7 +84,10 @@ class IndexSchedule extends Widget
                 ],
                 [
                     'key' => 'gachi',
-                    'icon' => GameModeIcon::spl2('gachi'),
+                    'icon' => implode(' ', array_filter([
+                        (string)GameModeIcon::spl2('gachi'),
+                        $modeIcon($this->battles->current ?? null, 'gachi'),
+                    ])),
                     'label' => Yii::t('app-rule2', 'Ranked'),
                     'enabled' => !!$this->getCurrentRanked(),
                     'contentClass' => indexSchedule\Battles::class,
@@ -83,7 +98,10 @@ class IndexSchedule extends Widget
                 ],
                 [
                     'key' => 'league',
-                    'icon' => GameModeIcon::spl2('league'),
+                    'icon' => implode(' ', array_filter([
+                        (string)GameModeIcon::spl2('league'),
+                        $modeIcon($this->battles->current ?? null, 'league'),
+                    ])),
                     'label' => Yii::t('app-rule2', 'League'),
                     'enabled' => !!$this->getCurrentLeague(),
                     'contentClass' => indexSchedule\Battles::class,

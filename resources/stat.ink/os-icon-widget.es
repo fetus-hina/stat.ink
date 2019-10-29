@@ -15,7 +15,7 @@
 
     switch (info.os.name) {
       case 'macOS':
-        return make('macosx');
+        return make('apple');
 
       case 'Windows':
       case 'Windows Phone':

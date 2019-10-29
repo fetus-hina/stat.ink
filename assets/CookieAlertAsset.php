@@ -10,15 +10,21 @@ declare(strict_types=1);
 
 namespace app\assets;
 
+use yii\bootstrap\BootstrapAsset;
 use yii\web\AssetBundle;
+use yii\web\JqueryAsset;
 
-class BattleListGroupHeaderAsset extends AssetBundle
+class CookieAlertAsset extends AssetBundle
 {
     public $sourcePath = '@app/resources/.compiled/stat.ink';
     public $css = [
-        'battle-list-group-header.css',
+        'cookiealert.css',
+    ];
+    public $js = [
+        'cookiealert.js',
     ];
     public $depends = [
-        AppAsset::class,
+        BootstrapAsset::class,
+        JqueryAsset::class,
     ];
 }
