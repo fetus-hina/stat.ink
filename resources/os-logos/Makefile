@@ -1,9 +1,9 @@
 PRODUCTS := \
 	android-icon \
+	apple \
 	chrome \
 	ios \
 	linux-tux \
-	macOS \
 	microsoft-windows
 
 ICONS := $(addprefix logos/,$(addsuffix .svg, $(PRODUCTS)))
@@ -18,5 +18,4 @@ clean:
 
 logos/%.svg:
 	mkdir -p logos
-	curl -fsSL -o $@ \
-		$(subst %,$(basename $(notdir $@)),https://github.com/gilbarbara/logos/raw/master/logos/%.svg)
+	curl -fsSL -o $@ $(subst %,$(basename $(notdir $@)),https://github.com/gilbarbara/logos/raw/master/logos/%.svg)
