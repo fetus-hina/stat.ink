@@ -1,0 +1,18 @@
+/* stylelint-disable */
+.colors() {
+  q1: #ebedf0;
+  q2: #ffee4a;
+  q3: #ffc501;
+  q4: #fe9600;
+  q5: #03001c;
+}
+/* stylelint-enable */
+
+.cal-heatmap-container {
+  each(.colors(), .(@color, @qClass, @index) {
+    .@{qClass} {
+      background-color: @color;
+      fill: @color;
+    }
+  });
+}
