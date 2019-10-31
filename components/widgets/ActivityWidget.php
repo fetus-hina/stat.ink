@@ -14,6 +14,7 @@ use DateTimeImmutable;
 use DateTimeZone;
 use Yii;
 use app\assets\BabelPolyfillAsset;
+use app\assets\CalHeatmapHalloweenAsset;
 use statink\yii2\calHeatmap\CalHeatmapWidget;
 use yii\helpers\Json;
 use yii\helpers\Url;
@@ -63,6 +64,15 @@ class ActivityWidget extends CalHeatmapWidget
         ];
     }
 
+    public function run()
+    {
+        if ($this->isHalloweenTerm()) {
+            CalHeatmapHalloweenAsset::register($this->view);
+        }
+
+        return parent::run();
+    }
+
     protected function renderDataConverter(): JsExpression
     {
         BabelPolyfillAsset::register($this->view);
@@ -86,7 +96,7 @@ class ActivityWidget extends CalHeatmapWidget
     {
         $today = (new DateTimeImmutable())
             ->setTimezone(new DateTimeZone('Etc/UTC'))
-            ->setTimestamp(time())
+            ->setTimestamp((int)($_SERVER['REQUEST_TIME'] ?? time()))
             ->setTime(0, 0, 0);
 
         $date = $today->setDate(
@@ -118,5 +128,17 @@ class ActivityWidget extends CalHeatmapWidget
                 range(1, 12)
             ))
         ));
+    }
+
+    private function isHalloweenTerm(): bool
+    {
+        $now = (new DateTimeImmutable())
+            ->setTimestamp((int)($_SERVER['REQUEST_TIME'] ?? time()))
+            ->setTimezone(new DateTimeZone(Yii::$app->timeZone));
+        $month = (int)$now->format('n');
+        $day = (int)$now->format('j');
+
+        // return ($month === 10 && $day === 31);
+        return ($month === 10 && $day > 24) || ($month === 11 && $day === 1);
     }
 }
