@@ -5,6 +5,7 @@ use app\components\web\User;
 use app\models\LoginMethod;
 use app\models\User as UserModel;
 use app\models\UserLoginHistory;
+use yii\web\ServerErrorHttpException;
 use yii\web\UserEvent;
 
 return (function (): array {
@@ -34,14 +35,14 @@ return (function (): array {
                 return;
             }
 
-            UserLoginHistory::login(
-                Yii::$app->user->identity,
-                LoginMethod::METHOD_COOKIE
-            );
-            UserModel::onLogin(
-                Yii::$app->user->identity,
-                LoginMethod::METHOD_COOKIE
-            );
+            $identity = Yii::$app->user->getIdentity();
+            if (!$identity) {
+                // なんでやねん
+                throw new ServerErrorHttpException('Internal error while auto-login process');
+            }
+
+            UserLoginHistory::login($identity, LoginMethod::METHOD_COOKIE);
+            UserModel::onLogin($identity, LoginMethod::METHOD_COOKIE);
         },
     ];
 })();
