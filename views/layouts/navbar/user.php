@@ -73,6 +73,13 @@ $user = Yii::$app->user->identity ?? null;
         ]),
         ['/user/profile']
       )),
+      Html::tag('li', Html::a(
+        implode('', [
+          Html::tag('span', '', ['class' => 'fa fa-fw fa-user-clock']),
+          Html::encode(Yii::t('app', 'Login History')),
+        ]),
+        ['/user/login-history']
+      )),
       Html::tag('li', '', ['class' => 'divider']),
       Html::tag('li', Html::a(
         implode('', [

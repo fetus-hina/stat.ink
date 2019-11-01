@@ -378,7 +378,7 @@ $fmt = Yii::$app->formatter;
           [
             'label' => Yii::t('app', 'Deaths/min'),
             'value' => function ($model) use ($fmt) : string {
-              return $model->gachi_kill_death_time < 1 || $model->total_seconds < 1
+              return $model->gachi_kill_death_time < 1 || $model->gachi_total_seconds < 1
                 ? Yii::t('app', 'N/A')
                 : $fmt->asDecimal($model->gachi_death_with_time * 60 / $model->gachi_total_seconds, 3);
             },
