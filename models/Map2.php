@@ -159,12 +159,7 @@ class Map2 extends ActiveRecord
                     ),
                     ArrayHelper::getColumn($values, 'key', false)
                 ),
-                'splatnet' => [
-                    'type' => 'integer',
-                    'format' => 'int32',
-                    'nullable' => true,
-                    'description' => Yii::t('app-apidoc2', 'SplatNet specified ID'),
-                ],
+                'splatnet' => static::oapiRef(openapi\SplatNet2ID::class),
                 'name' => static::oapiRef(openapi\Name::class),
                 'short_name' => static::oapiRef(openapi\ShortName::class),
                 'area' => [
@@ -196,7 +191,14 @@ class Map2 extends ActiveRecord
             function (self $model): array {
                 return $model->toJsonArray();
             },
-            static::sort(static::find()->all())
+            static::sort(
+                static::find()
+                    ->andWhere(['key' => [
+                        'battera',
+                        'kombu',
+                    ]])
+                    ->all()
+            )
         );
     }
 }

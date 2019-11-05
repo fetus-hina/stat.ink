@@ -13,6 +13,7 @@ namespace app\components\openapi\doc;
 use Yii;
 use app\models\Map2;
 use app\models\Mode2;
+use app\models\Weapon2;
 use yii\helpers\ArrayHelper;
 
 class V2 extends Base
@@ -28,6 +29,7 @@ class V2 extends Base
             // general
             '/api/v2/rule' => $this->getPathInfoMode(),
             '/api/v2/stage' => $this->getPathInfoStage(),
+            '/api/v2/weapon' => $this->getPathInfoWeapon(),
         ];
     }
 
@@ -92,6 +94,41 @@ class V2 extends Base
                                     'items' => Map2::oapiRef(),
                                 ],
                                 'example' => Map2::openapiExample(),
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ];
+        // }}}
+    }
+
+    protected function getPathInfoWeapon(): array
+    {
+        // {{{
+        $this->registerSchema(Weapon2::class);
+        $this->registerTag('general');
+        return [
+            'get' => [
+                'operationId' => 'getWeapon',
+                'summary' => Yii::t('app-apidoc2', 'Get weapons'),
+                'description' => Yii::t(
+                    'app-apidoc2',
+                    'Returns an array of weapon information'
+                ),
+                'tags' => [
+                    'general',
+                ],
+                'responses' => [
+                    '200' => [
+                        'description' => Yii::t('app-apidoc2', 'Successful'),
+                        'content' => [
+                            'application/json' => [
+                                'schema' => [
+                                    'type' => 'array',
+                                    'items' => Weapon2::oapiRef(),
+                                ],
+                                'example' => Weapon2::openapiExample(),
                             ],
                         ],
                     ],
