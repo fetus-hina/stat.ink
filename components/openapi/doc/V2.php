@@ -12,6 +12,7 @@ namespace app\components\openapi\doc;
 
 use Yii;
 use app\models\Map2;
+use app\models\Mode2;
 use yii\helpers\ArrayHelper;
 
 class V2 extends Base
@@ -25,8 +26,44 @@ class V2 extends Base
     {
         return [
             // general
+            '/api/v2/rule' => $this->getPathInfoMode(),
             '/api/v2/stage' => $this->getPathInfoStage(),
         ];
+    }
+
+    protected function getPathInfoMode(): array
+    {
+        // {{{
+        $this->registerSchema(Mode2::class);
+        $this->registerTag('general');
+        return [
+            'get' => [
+                'operationId' => 'getMode',
+                'summary' => Yii::t('app-apidoc2', 'Get modes'),
+                'description' => Yii::t(
+                    'app-apidoc2',
+                    'Returns an array of mode information'
+                ),
+                'tags' => [
+                    'general',
+                ],
+                'responses' => [
+                    '200' => [
+                        'description' => Yii::t('app-apidoc2', 'Successful'),
+                        'content' => [
+                            'application/json' => [
+                                'schema' => [
+                                    'type' => 'array',
+                                    'items' => Mode2::oapiRef(),
+                                ],
+                                'example' => Mode2::openapiExample(),
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ];
+        // }}}
     }
 
     protected function getPathInfoStage(): array

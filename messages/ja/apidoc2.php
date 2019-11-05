@@ -10,7 +10,11 @@ declare(strict_types=1);
 
 return [
     'Date and time when ready to play' => 'プレイ可能になった日時',
+    'Get game modes' => 'ルールを取得',
     'Get stages' => 'ステージを取得',
+    'Mode information' => 'ルール情報',
+    'Mode' => 'ルール',
+    'Returns an array of game mode information' => 'ルール情報を配列で返します',
     'Returns an array of stage information' => 'ステージ情報を配列で返します',
     'SplatNet specified ID' => 'イカリング定義のID',
     'Stage' => 'ステージ',
