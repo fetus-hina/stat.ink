@@ -29,6 +29,8 @@ use yii\helpers\ArrayHelper;
  */
 class Map2 extends ActiveRecord
 {
+    use openapi\Util;
+
     public static function find(): ActiveQuery
     {
         return new class (static::class) extends ActiveQuery {
@@ -140,5 +142,61 @@ class Map2 extends ActiveRecord
         }
 
         return 0;
+    }
+
+    public static function openApiSchema(): array
+    {
+        $values = static::sort(static::find()->all());
+        return [
+            'type' => 'object',
+            'description' => Yii::t('app-apidoc2', 'Stage information'),
+            'properties' => [
+                'key' => static::oapiKey(
+                    static::oapiKeyValueTable(
+                        Yii::t('app-apidoc2', 'Stage'),
+                        'app-map2',
+                        $values
+                    ),
+                    ArrayHelper::getColumn($values, 'key', false)
+                ),
+                'splatnet' => [
+                    'type' => 'integer',
+                    'format' => 'int32',
+                    'nullable' => true,
+                    'description' => Yii::t('app-apidoc2', 'SplatNet specified ID'),
+                ],
+                'name' => static::oapiRef(openapi\Name::class),
+                'short_name' => static::oapiRef(openapi\ShortName::class),
+                'area' => [
+                    'type' => 'integer',
+                    'format' => 'int32',
+                    'nullable' => true,
+                    'description' => Yii::t('app-apidoc2', 'Total area'),
+                ],
+                'release_at' => array_merge(openapi\DateTime::openApiSchema(), [
+                    'description' => Yii::t('app-apidoc2', 'Date and time when ready to play'),
+                    'nullable' => true,
+                ]),
+            ],
+            'example' => $values[0]->toJsonArray(),
+        ];
+    }
+
+    public static function openApiDepends(): array
+    {
+        return [
+            openapi\Name::class,
+            openapi\ShortName::class,
+        ];
+    }
+
+    public static function openapiExample(): array
+    {
+        return array_map(
+            function (self $model): array {
+                return $model->toJsonArray();
+            },
+            static::sort(static::find()->all())
+        );
     }
 }

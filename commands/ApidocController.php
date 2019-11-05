@@ -12,6 +12,7 @@ namespace app\commands;
 
 use Yii;
 use app\components\openapi\doc\V1 as V1Generator;
+use app\components\openapi\doc\V2 as V2Generator;
 use yii\console\Controller;
 use yii\helpers\FileHelper;
 
@@ -41,8 +42,66 @@ class ApidocController extends Controller
         Yii::$app->language = $langCodeLong;
 
         $successful = true;
+        $successful = $this->createV2($langCodeShort) && $successful;
         $successful = $this->createV1($langCodeShort) && $successful;
         return $successful;
+    }
+
+    private function createV2(string $langCode): bool
+    {
+        $generator = Yii::createObject([
+            'class' => V2Generator::class,
+        ]);
+
+        $this->stderr(__METHOD__ . "(): {$langCode}: Creating JSON...\n");
+        $jsonPath = vsprintf('%s/runtime/apidoc/%s.json', [
+            Yii::getAlias('@app'),
+            vsprintf('%d-%08x', [
+                time(),
+                mt_rand(0, 0xffffffff),
+            ]),
+        ]);
+        FileHelper::createDirectory(dirname($jsonPath));
+        $json = $generator->render();
+        if (@file_put_contents($jsonPath, $json) === false) {
+            $this->stderr(__METHOD__ . "(): {$langCode}: Failed to create a json file!\n");
+            return false;
+        }
+
+        $this->stderr(__METHOD__ . "(): {$langCode}: Checking syntax...\n");
+        $cmdline = vsprintf('/usr/bin/env npx %s lint %s', [
+            escapeshellarg('speccy'),
+            escapeshellarg($jsonPath),
+        ]);
+        @exec($cmdline, $lines, $status);
+        if ($status !== 0) {
+            $this->stderr(__METHOD__ . "(): {$langCode}: Lint failed (status={$status}).\n");
+            $this->stderr("json: {$jsonPath}\n");
+            $this->stderr(implode("\n", $lines) . "\n");
+            return false;
+        }
+
+        $this->stderr(__METHOD__ . "(): {$langCode}: Creating HTML...\n");
+        $outPath = vsprintf('%s/web/apidoc/v2.%s.html', [
+            Yii::getAlias('@app'),
+            $langCode,
+        ]);
+        $cmdline = vsprintf('/usr/bin/env npx %s bundle -o %s --title %s %s', [
+            escapeshellarg('redoc-cli'),
+            escapeshellarg($outPath),
+            escapeshellarg(Yii::t('app-apidoc2', 'stat.ink API for Splatoon 2')),
+            escapeshellarg($jsonPath),
+        ]);
+        @exec($cmdline, $lines, $status);
+        if ($status !== 0) {
+            $this->stderr(__METHOD__ . "(): {$langCode}: Create failed (status={$status}).\n");
+            $this->stderr("json: {$jsonPath}\n");
+            $this->stderr(implode("\n", $lines) . "\n");
+            return false;
+        }
+        $this->stderr(__METHOD__ . "(): OK\n");
+
+        return true;
     }
 
     private function createV1(string $langCode): bool

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 use yii\i18n\PhpMessageSource;
 
 return [
@@ -10,6 +13,7 @@ return [
                 'app-ability2'  => 'ability2.php',
                 'app-alert'     => 'alert.php',
                 'app-apidoc1'   => 'apidoc1.php',
+                'app-apidoc2'   => 'apidoc2.php',
                 'app-brand'     => 'brand.php',
                 'app-brand2'    => 'brand2.php',
                 'app-cookie'    => 'cookie.php',

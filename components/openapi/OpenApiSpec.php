@@ -62,6 +62,10 @@ class OpenApiSpec extends Component
                     'url' => rtrim(Url::to('/', true), '/'),
                     'description' => 'production',
                 ],
+                [
+                    'url' => 'https://test.stat.ink',
+                    'description' => 'staging',
+                ],
             ];
         }
         // }}}
