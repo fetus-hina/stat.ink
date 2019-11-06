@@ -94,16 +94,12 @@ class GameMode extends \yii\db\ActiveRecord
                     ArrayHelper::getColumn($values, 'key', false)
                 ),
                 'name' => static::oapiRef(openapi\Name::class),
+                'rules' => [
+                    'type' => 'array',
+                    'items' => static::oapiRef(Rule2::class),
+                ],
             ],
-            'example' => array_map(
-                function (self $model): array {
-                    return [
-                        'key' => $model->key,
-                        'name' => openapi\Name::example('app-rule', $model->name),
-                    ];
-                },
-                $values
-            ),
+            'example' => $values[0]->toJsonArray(),
         ];
     }
 
@@ -111,6 +107,7 @@ class GameMode extends \yii\db\ActiveRecord
     {
         return [
             openapi\Name::class,
+            Rule2::class,
         ];
     }
 }

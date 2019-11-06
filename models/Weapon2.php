@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2017 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -11,6 +11,7 @@ namespace app\models;
 use Yii;
 use app\components\helpers\Translator;
 use yii\db\ActiveRecord;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "weapon2".
@@ -33,6 +34,8 @@ use yii\db\ActiveRecord;
  */
 class Weapon2 extends ActiveRecord
 {
+    use openapi\Util;
+
     /**
      * @inheritdoc
      */
@@ -47,7 +50,8 @@ class Weapon2 extends ActiveRecord
     public function rules()
     {
         return [
-            [['key', 'type_id', 'subweapon_id', 'special_id', 'name', 'canonical_id', 'main_group_id'], 'required'],
+            [['key', 'type_id', 'subweapon_id', 'special_id', 'name'], 'required'],
+            [['canonical_id', 'main_group_id'], 'required'],
             [['type_id', 'subweapon_id', 'special_id', 'canonical_id', 'main_group_id'], 'integer'],
             [['key'], 'string', 'max' => 32],
             [['name'], 'string', 'max' => 32],
@@ -150,5 +154,74 @@ class Weapon2 extends ActiveRecord
                 ? $this->key
                 : $this->mainReference->key,
         ];
+    }
+
+    public static function openApiSchema(): array
+    {
+        $values = static::find()
+            ->orderBy(['key' => SORT_ASC])
+            ->all();
+
+        return [
+            'type' => 'object',
+            'description' => Yii::t('app-apidoc2', 'Weapon information'),
+            'properties' => [
+                'key' => static::oapiKey(
+                    static::oapiKeyValueTable(
+                        Yii::t('app-apidoc2', 'Weapon'),
+                        'app-weapon2',
+                        $values
+                    ),
+                    ArrayHelper::getColumn($values, 'key', false)
+                ),
+                'splatnet' => static::oapiRef(openapi\SplatNet2ID::class),
+                'type' => static::oapiRef(WeaponType2::class),
+                'name' => static::oapiRef(openapi\Name::class),
+                'sub' => static::oapiRef(Subweapon2::class),
+                'special' => static::oapiRef(Special2::class),
+                'reskin_of' => array_merge(static::oapiKey(), [
+                    'description' => Yii::t(
+                        'app-apidoc2',
+                        'If it is a weapon that only looks different, like the Hero series, ' .
+                        'this points to the original weapon.'
+                    ),
+                    'nullable' => true,
+                ]),
+                'main_ref' => array_merge(static::oapiKey(), [
+                    'description' => Yii::t('app-apidoc2', 'This points to the main weapon.'),
+                ]),
+            ],
+            'example' => $values[0]->toJsonArray(),
+        ];
+    }
+
+    public static function openApiDepends(): array
+    {
+        return [
+            Special2::class,
+            Subweapon2::class,
+            WeaponType2::class,
+            openapi\Name::class,
+            openapi\SplatNet2ID::class,
+        ];
+    }
+
+    public static function openapiExample(): array
+    {
+        return array_map(
+            function (self $model): array {
+                return $model->toJsonArray();
+            },
+            static::find()
+                ->andWhere(['key' => [
+                    'heroshooter_replica',
+                    'octoshooter_replica',
+                    'sshooter',
+                    'sshooter_becchu',
+                    'sshooter_collabo',
+                ]])
+                ->orderBy(['splatnet' => SORT_ASC])
+                ->all()
+        );
     }
 }

@@ -11,6 +11,7 @@ namespace app\models;
 use Yii;
 use app\components\helpers\Translator;
 use yii\db\ActiveRecord;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "gear2".
@@ -29,6 +30,8 @@ use yii\db\ActiveRecord;
  */
 class Gear2 extends ActiveRecord
 {
+    use openapi\Util;
+
     private $translatedName;
 
     /*
@@ -124,5 +127,55 @@ class Gear2 extends ActiveRecord
             'primary_ability' => $this->ability ? $this->ability->toJsonArray() : null,
             'splatnet' => $this->splatnet,
         ];
+    }
+
+    public static function openApiSchema(): array
+    {
+        $row = static::find()
+            ->orderBy(['key' => SORT_ASC])
+            ->limit(1)
+            ->one();
+
+        return [
+            'type' => 'object',
+            'description' => Yii::t('app-apidoc2', 'Gear information'),
+            'properties' => [
+                'key' => static::oapiKey(),
+                'type' => static::oapiRef(GearType::class),
+                'brand' => static::oapiRef(Brand2::class),
+                'name' => static::oapiRef(openapi\Name::class),
+                'primary_ability' => array_merge(Ability2::openApiSchema(), [
+                    'nullable' => true,
+                ]),
+                'splatnet' => static::oapiRef(openapi\SplatNet2ID::class),
+            ],
+            'example' => [
+                $row->toJsonArray(),
+            ],
+        ];
+    }
+
+    public static function openApiDepends(): array
+    {
+        return [
+            Ability2::class,
+            Brand2::class,
+            GearType::class,
+            openapi\Name::class,
+            openapi\SplatNet2ID::class,
+        ];
+    }
+
+    public static function openapiExample(): array
+    {
+        return array_map(
+            function (self $model): array {
+                return $model->toJsonArray();
+            },
+            static::find()
+                ->orderBy(['key' => SORT_ASC])
+                ->limit(5)
+                ->all()
+        );
     }
 }

@@ -49,7 +49,8 @@ class GearGetForm extends Model
     public function filterQuery(ActiveQuery $query)
     {
         return $query
-            ->joinWith(['type', 'brand', 'ability'])
+            ->innerJoinWith(['type', 'brand'])
+            ->joinWith(['ability'])
             ->andFilterWhere(['{{gear_type}}.[[key]]' => $this->type])
             ->andFilterWhere(['{{brand2}}.[[key]]' => $this->brand])
             ->andFilterWhere(['{{ability2}}.[[key]]' => $this->ability]);

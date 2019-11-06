@@ -52,6 +52,7 @@ return [
     'ID(s) to be deleted' => '削除するID',
     'Identification string for use with other API' => '他のAPIで指定するための識別文字列',
     'Internationalized name' => '国際化された名前',
+    'Internationalized short name' => '国際化された短縮名',
     'Japanese name' => '日本語名',
     'Lobby information' => 'ロビー情報',
     'Lobby' => 'ロビー',

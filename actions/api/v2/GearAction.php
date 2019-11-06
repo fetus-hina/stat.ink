@@ -32,15 +32,18 @@ class GearAction extends BaseAction
         }
 
         $query = Gear2::find()
-            ->with([
+            ->innerJoinWith([
                 'type',
-                'ability',
                 'brand',
+            ])
+            ->with([
+                'ability',
                 'brand.strength',
                 'brand.weakness',
             ])
             ->orderBy([
-                '{{gear2}}.[[id]]' => SORT_ASC,
+                '{{gear2}}.[[type_id]]' => SORT_ASC,
+                '{{gear2}}.[[key]]' => SORT_ASC,
             ]);
         $form->filterQuery($query);
 
@@ -100,13 +103,6 @@ class GearAction extends BaseAction
                 $langs
             )
         );
-        $query
-            ->innerJoinWith(['type', 'brand'])
-            ->joinWith(['ability'])
-            ->orderBy([
-                'gear2.type_id' => SORT_ASC,
-                'gear2.key' => SORT_ASC,
-            ]);
         $i18n = Yii::$app->i18n;
         foreach ($query->all() as $gear) {
             yield array_merge(

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -52,6 +53,7 @@ return [
     'Identification string for use with other API' => '',
     'ID that failed to delete' => '',
     'Internationalized name' => '',
+    'Internationalized short name' => '',
     'Japanese name' => '',
     'Lobby' => '',
     'Lobby information' => '',

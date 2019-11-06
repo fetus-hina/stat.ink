@@ -71,6 +71,7 @@ class WeaponAction extends BaseAction
     protected function formatCsvRows(ActiveQuery $query)
     {
         $langs = Language::find()
+            ->standard()
             ->orderBy(['lang' => SORT_ASC])
             ->asArray()
             ->select(['lang'])

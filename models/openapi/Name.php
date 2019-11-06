@@ -20,7 +20,7 @@ class Name extends Component
     {
         $props = [];
         foreach (static::languages() as $lang) {
-            $props[$lang->lang] = [
+            $props[static::langCode($lang->lang)] = [
                 'type' => 'string',
                 'description' => $lang->name,
             ];
@@ -41,7 +41,12 @@ class Name extends Component
     {
         $result = [];
         foreach (static::languages() as $lang) {
-            $result[$lang->lang] = Yii::t($category, $value, $options, $lang->lang);
+            $result[static::langCode($lang->lang)] = Yii::t(
+                $category,
+                $value,
+                $options,
+                $lang->lang
+            );
         }
         return $result;
     }
@@ -51,9 +56,15 @@ class Name extends Component
         static $cache = null;
         if (!$cache) {
             $cache = Language::find()
+                ->standard()
                 ->orderBy(['lang' => SORT_ASC])
                 ->all();
         }
         return $cache;
+    }
+
+    protected static function langCode(string $code): string
+    {
+        return strtr($code, '-', '_');
     }
 }

@@ -11,6 +11,7 @@ namespace app\models;
 use Yii;
 use app\components\helpers\Translator;
 use yii\db\ActiveRecord;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "weapon_category2".
@@ -23,6 +24,8 @@ use yii\db\ActiveRecord;
  */
 class WeaponCategory2 extends ActiveRecord
 {
+    use openapi\Util;
+
     /**
      * @inheritdoc
      */
@@ -71,5 +74,49 @@ class WeaponCategory2 extends ActiveRecord
             'key' => $this->key,
             'name' => Translator::translateToAll('app-weapon2', $this->name),
         ];
+    }
+
+    public static function openApiSchema(): array
+    {
+        $values = static::find()
+            ->orderBy(['id' => SORT_ASC])
+            ->all();
+
+        return [
+            'type' => 'object',
+            'description' => Yii::t('app-apidoc2', 'Weapon category information'),
+            'properties' => [
+                'key' => static::oapiKey(
+                    static::oapiKeyValueTable(
+                        Yii::t('app-apidoc2', 'Weapon category'),
+                        'app-weapon2',
+                        $values
+                    ),
+                    ArrayHelper::getColumn($values, 'key', false)
+                ),
+                'name' => static::oapiRef(openapi\Name::class),
+            ],
+            'example' => $values[0]->toJsonArray(),
+        ];
+    }
+
+    public static function openApiDepends(): array
+    {
+        return [
+            openapi\Name::class,
+        ];
+    }
+
+    public static function openapiExample(): array
+    {
+        return array_map(
+            function (self $model): array {
+                return $model->toJsonArray();
+            },
+            static::find()
+                ->orderBy(['id' => SORT_ASC])
+                ->limit(1)
+                ->all()
+        );
     }
 }
