@@ -37,4 +37,5 @@ return [
     'Total area' => '',
     'Weapon' => '',
     'Weapon category' => '',
+    'Weapon category information' => '',
 ];

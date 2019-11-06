@@ -34,6 +34,7 @@ return [
     'Successful' => '成功',
     'This points to the main weapon.' => 'メインウェポンを示します',
     'Total area' => '総面積',
+    'Weapon category information' => 'ブキカテゴリー情報',
     'Weapon category' => 'ブキカテゴリー',
     'Weapon' => 'ブキ',
     'stat.ink API for Splatoon 2' => 'Splatoon 2 用 stat.ink API',

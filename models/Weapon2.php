@@ -175,7 +175,7 @@ class Weapon2 extends ActiveRecord
                     ArrayHelper::getColumn($values, 'key', false)
                 ),
                 'splatnet' => static::oapiRef(openapi\SplatNet2ID::class),
-                // 'type' => static::oapiRef(WeaponType2::class),
+                'type' => static::oapiRef(WeaponType2::class),
                 'name' => static::oapiRef(openapi\Name::class),
                 'sub' => static::oapiRef(Subweapon2::class),
                 'special' => static::oapiRef(Special2::class),
@@ -198,9 +198,9 @@ class Weapon2 extends ActiveRecord
     public static function openApiDepends(): array
     {
         return [
-            // WeaponType2::class,
             Special2::class,
             Subweapon2::class,
+            WeaponType2::class,
             openapi\Name::class,
             openapi\SplatNet2ID::class,
         ];
