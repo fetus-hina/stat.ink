@@ -23,6 +23,7 @@ use app\models\Subweapon2;
 use app\models\Weapon2;
 use app\models\WeaponCategory2;
 use app\models\WeaponType2;
+use app\models\api\v2\GearGetForm;
 use app\models\openapi\SplatNet2ID;
 use app\models\openapi\Util as OpenApiUtil;
 use yii\helpers\ArrayHelper;
@@ -85,6 +86,7 @@ class V2 extends Base
                 'tags' => [
                     'general',
                 ],
+                'parameters' => GearGetForm::oapiParameters(),
                 'responses' => [
                     '200' => [
                         'description' => Yii::t('app-apidoc2', 'Successful'),
@@ -149,6 +151,7 @@ class V2 extends Base
                 'tags' => [
                     'general',
                 ],
+                'parameters' => GearGetForm::oapiParameters(),
                 'responses' => [
                     '200' => [
                         'description' => Yii::t('app-apidoc2', 'Successful'),

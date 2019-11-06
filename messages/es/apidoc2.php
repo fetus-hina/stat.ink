@@ -9,6 +9,7 @@
 declare(strict_types=1);
 
 return [
+    'Ability' => '',
     'Ability information' => '',
     'As the number of supported languages changes, the position of items may change.' => '',
     'Be sure to check the header on the first line (or use JSON version) if you use this data for automatic processing.' => '',
@@ -16,6 +17,9 @@ return [
     'Brand information' => '',
     'Common ability' => '',
     'Date and time when ready to play' => '',
+    'Filter by brand' => '',
+    'Filter by gear category' => '',
+    'Filter by primary ability' => '',
     'Gear category' => '',
     'Get gears' => '',
     'Get gears in CSV format' => '',

@@ -10,12 +10,16 @@ declare(strict_types=1);
 
 return [
     'Ability information' => 'ギアパワー情報',
+    'Ability' => 'ギアパワー',
     'As the number of supported languages changes, the position of items may change.' => 'サポートする言語が変化すると、項目の場所がずれる場合があります。',
     'Be sure to check the header on the first line (or use JSON version) if you use this data for automatic processing.' => '自動処理に使用する場合は、1行目のヘッダを確認してください。もしくは、JSON バージョンを利用してください。',
     'Brand information' => 'ブランド情報',
     'Brand' => 'ブランド',
     'Common ability' => 'つきやすいギアパワー',
     'Date and time when ready to play' => 'プレイ可能になった日時',
+    'Filter by brand' => 'ブランドでフィルタする',
+    'Filter by gear category' => 'ギア種類でフィルタする',
+    'Filter by primary ability' => 'メインギアパワーでフィルタする',
     'Gear category' => 'ギア種類',
     'Get gears in CSV format' => 'ギアをCSV形式で取得',
     'Get gears' => 'ギアを取得',
