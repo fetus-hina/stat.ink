@@ -11,6 +11,7 @@ declare(strict_types=1);
 namespace app\components\openapi\doc;
 
 use Yii;
+use app\models\Gear2;
 use app\models\Language;
 use app\models\Map2;
 use app\models\Mode2;
@@ -37,11 +38,66 @@ class V2 extends Base
     {
         return [
             // general
+            '/api/v2/gear' => $this->getPathInfoGear(),
             '/api/v2/rule' => $this->getPathInfoMode(),
             '/api/v2/stage' => $this->getPathInfoStage(),
             '/api/v2/weapon' => $this->getPathInfoWeapon(),
             '/api/v2/weapon.csv' => $this->getPathInfoWeaponCsv(),
         ];
+    }
+
+    protected function getPathInfoGear(): array
+    {
+        // {{{
+        $this->registerSchema(Gear2::class);
+        $this->registerTag('general');
+        return [
+            'get' => [
+                'operationId' => 'getGear',
+                'summary' => Yii::t('app-apidoc2', 'Get gears'),
+                'description' => implode("\n\n", [
+                    Html::encode(Yii::t(
+                        'app-apidoc2',
+                        'Returns an array of gear information'
+                    )),
+                    vsprintf('%s: %s', [
+                        Html::encode(Yii::t('app-apidoc2', 'HTML version')),
+                        implode(' / ', [
+                            Html::a(
+                                Html::encode(Yii::t('app-gear', 'Headgear')),
+                                'https://stat.ink/api-info/gear2-headgear'
+                            ),
+                            Html::a(
+                                Html::encode(Yii::t('app-gear', 'Clothing')),
+                                'https://stat.ink/api-info/gear2-clothing'
+                            ),
+                            Html::a(
+                                Html::encode(Yii::t('app-gear', 'Shoes')),
+                                'https://stat.ink/api-info/gear2-shoes'
+                            ),
+                        ]),
+                    ]),
+                ]),
+                'tags' => [
+                    'general',
+                ],
+                'responses' => [
+                    '200' => [
+                        'description' => Yii::t('app-apidoc2', 'Successful'),
+                        'content' => [
+                            'application/json' => [
+                                'schema' => [
+                                    'type' => 'array',
+                                    'items' => Gear2::oapiRef(),
+                                ],
+                                'example' => Gear2::openapiExample(),
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ];
+        // }}}
     }
 
     protected function getPathInfoMode(): array

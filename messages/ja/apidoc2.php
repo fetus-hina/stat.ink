@@ -9,6 +9,13 @@
 declare(strict_types=1);
 
 return [
+    'Get gears' => 'ギアを取得',
+    'Returns an array of gear information' => 'ギア情報を配列で返します',
+    'Brand information' => 'ブランド情報',
+    'Ability information' => 'ギアパワー情報',
+    'Brand' => 'ブランド',
+    'Common ability' => 'つきやすいギアパワー',
+    'Uncommon ability' => 'つきにくいギアパワー',
     'As the number of supported languages changes, the position of items may change.' => 'サポートする言語が変化すると、項目の場所がずれる場合があります。',
     'Be sure to check the header on the first line (or use JSON version) if you use this data for automatic processing.' => '自動処理に使用する場合は、1行目のヘッダを確認してください。もしくは、JSON バージョンを利用してください。',
     'Date and time when ready to play' => 'プレイ可能になった日時',

@@ -11,6 +11,7 @@ namespace app\models;
 use Yii;
 use app\components\helpers\Translator;
 use yii\db\ActiveRecord;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "ability2".
@@ -26,6 +27,8 @@ use yii\db\ActiveRecord;
  */
 class Ability2 extends ActiveRecord
 {
+    use openapi\Util;
+
     /**
      * @inheritdoc
      */
@@ -92,5 +95,48 @@ class Ability2 extends ActiveRecord
             'key' => $this->key,
             'name' => Translator::translateToAll('app-ability2', $this->name),
         ];
+    }
+
+    public static function openApiSchema(): array
+    {
+        $values = static::find()
+            ->orderBy(['key' => SORT_ASC])
+            ->all();
+        return [
+            'type' => 'object',
+            'description' => Yii::t('app-apidoc2', 'Ability information'),
+            'properties' => [
+                'key' => static::oapiKey(
+                    static::oapiKeyValueTable(
+                        Yii::t('app-apidoc2', 'Ability'),
+                        'app-ability2',
+                        $values
+                    ),
+                    ArrayHelper::getColumn($values, 'key', false)
+                ),
+                'name' => static::oapiRef(openapi\Name::class),
+            ],
+            'example' => $values[0]->toJsonArray(),
+        ];
+    }
+
+    public static function openApiDepends(): array
+    {
+        return [
+            openapi\Name::class,
+        ];
+    }
+
+    public static function openapiExample(): array
+    {
+        $models = static::find()
+            ->orderBy(['key' => SORT_ASC])
+            ->all();
+        return array_map(
+            function ($model) {
+                return $model->toJsonArray();
+            },
+            $models
+        );
     }
 }
