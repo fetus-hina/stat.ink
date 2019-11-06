@@ -40,16 +40,19 @@ trait Util
 
     public static function oapiKey(
         ?string $additionalDescription = null,
-        ?array $enumValues = null
+        ?array $enumValues = null,
+        bool $replaceDescription = false
     ): array {
         $result = [
             'type' => 'string',
             'pattern' => '^[a-z0-9_]+$',
-            'description' => trim(implode("\n", [
-                Yii::t('app-apidoc1', 'Identification string for use with other API'),
-                '',
-                (string)$additionalDescription,
-            ])),
+            'description' => $replaceDescription && $additionalDescription !== null
+                ? (string)$additionalDescription
+                : trim(implode("\n", [
+                    Yii::t('app-apidoc1', 'Identification string for use with other API'),
+                    '',
+                    (string)$additionalDescription,
+                ])),
         ];
         if ($enumValues) {
             $result['enum'] = $enumValues;
