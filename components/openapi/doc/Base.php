@@ -32,6 +32,12 @@ abstract class Base extends Component
         return $obj->renderJson();
     }
 
+    protected function registerSecurityScheme(string $className): self
+    {
+        $this->renderer->registerSecurityScheme($className);
+        return $this;
+    }
+
     protected function registerSchema(string $className): self
     {
         $this->renderer->registerSchema($className);

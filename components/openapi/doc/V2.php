@@ -18,6 +18,7 @@ use app\models\GearType;
 use app\models\Language;
 use app\models\Map2;
 use app\models\Mode2;
+use app\models\SalmonStats2;
 use app\models\Special2;
 use app\models\Subweapon2;
 use app\models\Weapon2;
@@ -26,6 +27,7 @@ use app\models\WeaponType2;
 use app\models\api\v2\GearGetForm;
 use app\models\openapi\SplatNet2ID;
 use app\models\openapi\Util as OpenApiUtil;
+use app\models\openapi\sec\ApiToken;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 
@@ -48,6 +50,9 @@ class V2 extends Base
             '/api/v2/stage' => $this->getPathInfoStage(),
             '/api/v2/weapon' => $this->getPathInfoWeapon(),
             '/api/v2/weapon.csv' => $this->getPathInfoWeaponCsv(),
+
+            // salmon
+            '/api/v2/salmon-stats' => $this->getPathInfoSalmonStats(),
         ];
     }
 
@@ -707,6 +712,86 @@ class V2 extends Base
                                 )),
                             ],
                         ],
+                    ],
+                ],
+            ],
+        ];
+        // }}}
+    }
+
+    protected function getPathInfoSalmonStats(): array
+    {
+        // {{{
+        $this->registerSchema(SalmonStats2::class);
+        $this->registerSecurityScheme(ApiToken::class);
+        $this->registerTag('salmon');
+        return [
+            'get' => [
+                'operationId' => 'getSalmonStats',
+                'summary' => Yii::t('app-apidoc2', 'Get Salmon Run stats (card data).'),
+                'description' => implode("\n\n", [
+                    Html::encode(Yii::t(
+                        'app-apidoc2',
+                        'Returns Salmon Run stats.'
+                    )),
+                    Html::encode(Yii::t(
+                        'app-apidoc2',
+                        'You can only get data for user who is authenticated by API token.'
+                    )),
+                ]),
+                'tags' => [
+                    'salmon',
+                ],
+                'security' => [
+                    ApiToken::oapiSecUse(),
+                ],
+                'parameters' => [
+                    [
+                        'in' => 'query',
+                        'name' => 'id',
+                        'required' => false,
+                        'schema' => [
+                            'type' => 'integer',
+                            'format' => 'int32',
+                            'minimum' => 1,
+                        ],
+                        'description' => implode("\n\n", [
+                            Html::encode(Yii::t('app-apidoc2', 'Permanent ID')),
+                            Yii::t(
+                                'app-apidoc2',
+                                'If you omitted the <code>id</code>, you will get a latest data.'
+                            ),
+                            Yii::t(
+                                'app-apidoc2',
+                                'The value of <code>id</code> is obtained in the Location header ' .
+                                'of the POST API.'
+                            ),
+                            Yii::t(
+                                'app-apidoc2',
+                                'If you specified other player\'s <code>id</code> value, you ' .
+                                'will get the 404 error.'
+                            )
+                        ]),
+                    ],
+                ],
+                'responses' => [
+                    '200' => [
+                        'description' => Yii::t('app-apidoc2', 'Successful'),
+                        'content' => [
+                            'application/json' => [
+                                'schema' => SalmonStats2::oapiRef(),
+                                'example' => SalmonStats2::openapiExample(),
+                            ],
+                        ],
+                    ],
+                    '400' => [
+                        'description' => Yii::t('app-apidoc2', 'Bad Request'),
+                    ],
+                    '401' => [
+                        'description' => Yii::t('app-apidoc2', 'Unauthorized'),
+                    ],
+                    '404' => [
+                        'description' => Yii::t('app-apidoc2', 'Not Found'),
                     ],
                 ],
             ],
