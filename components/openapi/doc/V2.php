@@ -18,6 +18,8 @@ use app\models\GearType;
 use app\models\Language;
 use app\models\Map2;
 use app\models\Mode2;
+use app\models\Salmon2;
+use app\models\SalmonMap2;
 use app\models\SalmonStats2;
 use app\models\Special2;
 use app\models\Subweapon2;
@@ -52,6 +54,8 @@ class V2 extends Base
             '/api/v2/weapon.csv' => $this->getPathInfoWeaponCsv(),
 
             // salmon
+            '/api/v2/salmon' => $this->getPathInfoSalmon(),
+            '/api/v2/user-salmon' => $this->getPathInfoUserSalmon(),
             '/api/v2/salmon-stats' => $this->getPathInfoSalmonStats(),
         ];
     }
@@ -716,6 +720,277 @@ class V2 extends Base
                 ],
             ],
         ];
+        // }}}
+    }
+
+    protected function getPathInfoSalmon(): array
+    {
+        // {{{
+        $this->registerSchema(Salmon2::class);
+        $this->registerTag('salmon');
+        return [
+            'get' => [
+                'operationId' => 'getSalmon',
+                'summary' => Yii::t('app-apidoc2', 'Get Salmon Run results'),
+                'description' => implode("\n\n", [
+                    Html::encode(Yii::t(
+                        'app-apidoc2',
+                        'Returns Salmon Run results.'
+                    )),
+                ]),
+                'tags' => [
+                    'salmon',
+                ],
+                'parameters' => [
+                    [
+                        'in' => 'query',
+                        'name' => 'screen_name',
+                        'required' => false,
+                        'schema' => [
+                            'type' => 'string',
+                            'pattern' => '[0-9a-zA-Z_]{1,15}',
+                        ],
+                        'description' => implode("\n", [
+                            Html::encode(Yii::t('app-apidoc2', 'Filter by user')),
+                            '',
+                            Html::encode(Yii::t(
+                                'app-apidoc2',
+                                'This parameter is required if you set `only` = `splatnet_number`.'
+                            )),
+                        ]),
+                    ],
+                    [
+                        'in' => 'query',
+                        'name' => 'only',
+                        'required' => false,
+                        'schema' => [
+                            'type' => 'string',
+                            'enum' => [
+                                'splatnet_number',
+                            ],
+                        ],
+                        'description' => implode("\n", [
+                            Html::encode(Yii::t('app-apidoc2', 'Change the result set')),
+                            '',
+                            static::oapiKeyValueTable(
+                                '',
+                                'app-apidoc2',
+                                [
+                                    [
+                                        'k' => 'splatnet_number',
+                                        'v' => 'Returns only SplatNet\'s ID Numbers',
+                                    ],
+                                ],
+                                'k',
+                                'v',
+                                Html::encode(Yii::t('app-apidoc2', 'Value'))
+                            ),
+                        ]),
+                    ],
+                    [
+                        'in' => 'query',
+                        'name' => 'stage',
+                        'required' => false,
+                        'schema' => static::oapiKey(
+                            '',
+                            ArrayHelper::getColumn(
+                                SalmonMap2::find()->orderBy(['key' => SORT_ASC])->asArray()->all(),
+                                'key',
+                                false
+                            ),
+                            true
+                        ),
+                        'description' => implode("\n", [
+                            Html::encode(Yii::t('app-apidoc2', 'Filter by stage')),
+                            '',
+                            static::oapiKeyValueTable(
+                                Yii::t('app-apidoc2', 'Stage'),
+                                'app-salmon-map2',
+                                SalmonMap2::find()
+                                    ->orderBy(['key' => SORT_ASC])
+                                    ->all()
+                            ),
+                        ]),
+                    ],
+                    [
+                        'in' => 'query',
+                        'name' => 'newer_than',
+                        'required' => false,
+                        'schema' => [
+                            'type' => 'integer',
+                            'format' => 'int32',
+                        ],
+                        'description' => implode("\n", [
+                            Html::encode(Yii::t('app-apidoc2', 'Filter by permanent ID')),
+                            '',
+                            Yii::t(
+                                'app-apidoc2',
+                                'You\'ll get `newer_than` &lt; `id` &lt; `older_than`.'
+                            ),
+                        ]),
+                    ],
+                    [
+                        'in' => 'query',
+                        'name' => 'older_than',
+                        'required' => false,
+                        'schema' => [
+                            'type' => 'integer',
+                            'format' => 'int32',
+                        ],
+                        'description' => implode("\n", [
+                            Html::encode(Yii::t('app-apidoc2', 'Filter by permanent ID')),
+                            '',
+                            Yii::t(
+                                'app-apidoc2',
+                                'You\'ll get `newer_than` &lt; `id` &lt; `older_than`.'
+                            ),
+                        ]),
+                    ],
+                    [
+                        'in' => 'query',
+                        'name' => 'order',
+                        'schema' => [
+                            'type' => 'string',
+                            'enum' => [
+                                'asc',
+                                'desc',
+                                'splatnet_asc',
+                                'splatnet_desc',
+                            ],
+                            'default' => 'desc',
+                        ],
+                        'description' => implode("\n", [
+                            Html::encode(Yii::t('app-apidoc2', 'Result order')),
+                            '',
+                            static::oapiKeyValueTable(
+                                '',
+                                'app-apidoc2',
+                                [
+                                    [
+                                        'k' => 'asc',
+                                        'v' => 'Older to newer',
+                                    ],
+                                    [
+                                        'k' => 'desc',
+                                        'v' => 'Newer to older (default in most case)',
+                                    ],
+                                    [
+                                        'k' => 'splatnet_asc',
+                                        'v' => 'SplatNet number small to big',
+                                    ],
+                                    [
+                                        'k' => 'splatnet_desc',
+                                        'v' => 'SplatNet number big to small (default if ' .
+                                            '"only" = "splatnet_number")',
+                                    ],
+                                ],
+                                'k',
+                                'v'
+                            ),
+                        ]),
+                    ],
+                    [
+                        'in' => 'query',
+                        'name' => 'count',
+                        'required' => false,
+                        'schema' => [
+                            'type' => 'integer',
+                            'format' => 'int32',
+                            'minimum' => 1,
+                            'maximum' => 1000,
+                            'default' => 50,
+                        ],
+                        'description' => implode("\n", [
+                            Html::encode(Yii::t('app-apidoc2', 'Max records to get')),
+                            '',
+                            implode("<br>\n", [
+                                Html::encode(Yii::t(
+                                    'app-apidoc2',
+                                    'Accepts `1`-`1000` (if `only` = `splatnet_number`)'
+                                )),
+                                Html::encode(Yii::t(
+                                    'app-apidoc2',
+                                    'Accepts `1`-`50` (otherwise)'
+                                )),
+                            ]),
+                        ]),
+                    ],
+                ],
+                'responses' => [
+                    '200' => [
+                        'description' => Yii::t('app-apidoc2', 'Successful'),
+                        'content' => [
+                            'application/json' => [
+                                'schema' => [
+                                    'type' => 'array',
+                                    'items' => [
+                                        'oneOf' => [
+                                            array_merge(Salmon2::openApiSchema(), [
+                                                'title' => Yii::t('app-apidoc2', 'Otherwise'),
+                                            ]),
+                                            [
+                                                'title' => 'only = splatnet_number',
+                                                'type' => 'integer',
+                                                'format' => 'int32',
+                                                'minimum' => 0,
+                                                'description' => Yii::t(
+                                                    'app-apidoc2',
+                                                    'Shift number in SplatNet 2'
+                                                ),
+                                                'example' => 42,
+                                            ],
+                                        ],
+                                    ],
+                                    'example' => [
+                                        Salmon2::openapiExample(),
+                                    ],
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ];
+        // }}}
+    }
+
+    protected function getPathInfoUserSalmon(): array
+    {
+        // {{{
+        $data = ArrayHelper::merge(static::getPathInfoSalmon(), [
+            'get' => [
+                'operationId' => 'getUserSalmon',
+                'summary' => Yii::t('app-apidoc2', 'Get Salmon Run results (with Auth)'),
+                'description' => implode("\n\n", [
+                    Html::encode(Yii::t(
+                        'app-apidoc2',
+                        'Returns Salmon Run results.'
+                    )),
+                    Html::encode(Yii::t(
+                        'app-apidoc2',
+                        'You can only get data for user who is authenticated by API token.'
+                    )),
+                ]),
+                'security' => [
+                    ApiToken::oapiSecUse(),
+                ],
+                'responses' => [
+                    '401' => [
+                        'description' => Yii::t('app-apidoc2', 'Unauthorized'),
+                    ],
+                ],
+            ],
+        ]);
+
+        // remove "screen_name" parameter
+        $data['get']['parameters'] = array_values(array_filter(
+            $data['get']['parameters'],
+            function (array $param): bool {
+                return $param['name'] !== 'screen_name';
+            }
+        ));
+
+        return $data;
         // }}}
     }
 

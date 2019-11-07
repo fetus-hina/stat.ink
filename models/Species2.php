@@ -11,6 +11,7 @@ namespace app\models;
 use Yii;
 use app\components\helpers\Translator;
 use yii\db\ActiveRecord;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "species2".
@@ -24,6 +25,8 @@ use yii\db\ActiveRecord;
  */
 class Species2 extends ActiveRecord
 {
+    use openapi\Util;
+
     /**
      * @inheritdoc
      */
@@ -79,5 +82,48 @@ class Species2 extends ActiveRecord
             'key' => $this->key,
             'name' => Translator::translateToAll('app', $this->name),
         ];
+    }
+
+    public static function openApiSchema(): array
+    {
+        $values = static::find()
+            ->orderBy(['key' => SORT_ASC])
+            ->all();
+
+        return [
+            'type' => 'object',
+            'description' => Yii::t('app-apidoc2', 'Species'),
+            'properties' => [
+                'key' => static::oapiKey(
+                    static::oapiKeyValueTable(
+                        Yii::t('app-apidoc2', 'Species'),
+                        'app',
+                        $values
+                    ),
+                    ArrayHelper::getColumn($values, 'key', false)
+                ),
+                'name' => static::oapiRef(openapi\Name::class),
+            ],
+            'example' => $values[0]->toJsonArray(),
+        ];
+    }
+
+    public static function openApiDepends(): array
+    {
+        return [
+            openapi\Name::class,
+        ];
+    }
+
+    public static function openApiExample(): array
+    {
+        return array_map(
+            function (self $model): array {
+                return $model->toJsonArray();
+            },
+            static::find()
+                ->orderBy(['key' => SORT_ASC])
+                ->all()
+        );
     }
 }

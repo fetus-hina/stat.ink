@@ -41,6 +41,8 @@ use yii\db\ActiveRecord;
  */
 class SalmonPlayer2 extends ActiveRecord
 {
+    use openapi\Util;
+
     public $top_500 = false; // compat with BattlePlayer2 and used by PlayerName2Widget
     private $user = false;
 
@@ -307,5 +309,111 @@ class SalmonPlayer2 extends ActiveRecord
             Yii::endProfile($profile, __METHOD__);
             return $result;
         });
+    }
+
+    public static function openApiSchema(): array
+    {
+        return [
+            'type' => 'object',
+            'description' => Yii::t('app-apidoc2', 'Player results'),
+            'properties' => [
+                'splatnet_id' => [
+                    'type' => 'string',
+                    'nullable' => true,
+                    'description' => Yii::t('app-apidoc2', 'Unique ID of the player'),
+                ],
+                'name' => [
+                    'type' => 'string',
+                    'nullable' => true,
+                    'description' => Yii::t('app-apidoc2', 'Player name'),
+                ],
+                'special' => array_merge(Special2::openApiSchema(), [
+                    'nullable' => true,
+                    'description' => Yii::t('app-apidoc2', 'What special weapon assigned'),
+                ]),
+                'rescue' => [
+                    'type' => 'integer',
+                    'format' => 'int32',
+                    'minimum' => 0,
+                    'nullable' => true,
+                    'description' => Yii::t('app-apidoc2', 'Number of times rescued other players'),
+                ],
+                'death' => [
+                    'type' => 'integer',
+                    'format' => 'int32',
+                    'minimum' => 0,
+                    'nullable' => true,
+                    'description' => Yii::t(
+                        'app-apidoc2',
+                        'Number of times rescued by other players'
+                    ),
+                ],
+                'golden_egg_delivered' => [
+                    'type' => 'integer',
+                    'format' => 'int32',
+                    'minimum' => 0,
+                    'nullable' => true,
+                    'description' => Yii::t('app-apidoc2', 'Golden Egg delivered'),
+                ],
+                'power_egg_collected' => [
+                    'type' => 'integer',
+                    'format' => 'int32',
+                    'minimum' => 0,
+                    'nullable' => true,
+                    'description' => Yii::t('app-apidoc2', 'Power Egg collected'),
+                ],
+                'species' => array_merge(Species2::openApiSchema(), [
+                    'nullable' => true,
+                ]),
+                'gender' => array_merge(Gender::openApiSchema(), [
+                    'nullable' => true,
+                ]),
+                'special_uses' => [
+                    'type' => 'array',
+                    'nullable' => true,
+                    'description' => Yii::t(
+                        'app-apidoc2',
+                        'How many times special weapon used in each wave'
+                    ),
+                    'items' => [
+                        'type' => 'integer',
+                        'format' => 'int32',
+                        'minimum' => 0,
+                        'maximum' => 2,
+                    ],
+                    'minItems' => 1,
+                    'maxItems' => 3,
+                ],
+                'weapons' => [
+                    'type' => 'array',
+                    'nullable' => true,
+                    'description' => Yii::t('app-apidoc2', 'Weapons loaned in each wave'),
+                    'items' => array_merge(SalmonMainWeapon2::openApiSchema(), [
+                        'nullable' => true,
+                    ]),
+                    'minItems' => 1,
+                    'maxItems' => 3,
+                ],
+                'boss_kills' => [
+                    'type' => 'array',
+                    'nullable' => true,
+                    'description' => Yii::t('app-apidoc2', 'Number of kills the boss salmonid'),
+                    'items' => static::oapiRef(SalmonPlayerBossKill2::class),
+                ],
+            ],
+            'example' => [],
+        ];
+    }
+
+    public static function openApiDepends(): array
+    {
+        return [
+            SalmonPlayerBossKill2::class,
+        ];
+    }
+
+    public static function openApiExample(): array
+    {
+        return [];
     }
 }

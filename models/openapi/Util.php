@@ -64,15 +64,20 @@ trait Util
         string $valueLabel,
         /* string|callable */ $category,
         array $items,
-        string $keyColumn = 'key',
-        string $valueColumn = 'name'
+        /* string|callable */ $keyColumn = 'key',
+        string $valueColumn = 'name',
+        ?string $keyLabelHtml = null
     ): ?string {
         if (!$items) {
             return null;
         }
 
+        if ($keyLabelHtml === null) {
+            $keyLabelHtml = Html::tag('code', Html::encode('key'));
+        }
+
         return "<table>\n" .
-            static::oapiKeyValueTableThead($valueLabel) . "\n" .
+            static::oapiKeyValueTableThead($keyLabelHtml, $valueLabel) . "\n" .
             static::oapiKeyValueTableTbody(
                 ArrayHelper::getColumn($items, $keyColumn),
                 ArrayHelper::getColumn(
@@ -92,18 +97,15 @@ trait Util
             '</table>';
     }
 
-    private static function oapiKeyValueTableThead(string $valueLabel): string
+    private static function oapiKeyValueTableThead(string $keyLabelHtml, string $valueLabel): string
     {
         return Html::tag('thead', Html::tag('tr', implode('', [
-            Html::tag('th', Html::tag('code', Html::encode('key'))),
+            Html::tag('th', $keyLabelHtml),
             Html::tag('th', Html::encode($valueLabel)),
         ])));
     }
 
-    private static function oapiKeyValueTableTbody(
-        array $keys,
-        array $values
-    ): string {
+    private static function oapiKeyValueTableTbody(array $keys, array $values): string {
         return Html::tag('tbody', "\n" . implode("\n", array_map(
             function (string $key, string $value): string {
                 return Html::tag('tr', implode('', [
