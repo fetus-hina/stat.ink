@@ -105,7 +105,8 @@ trait Util
         ])));
     }
 
-    private static function oapiKeyValueTableTbody(array $keys, array $values): string {
+    private static function oapiKeyValueTableTbody(array $keys, array $values): string
+    {
         return Html::tag('tbody', "\n" . implode("\n", array_map(
             function (string $key, string $value): string {
                 return Html::tag('tr', implode('', [

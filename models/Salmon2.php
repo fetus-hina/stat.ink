@@ -996,7 +996,7 @@ class Salmon2 extends ActiveRecord
                     'type' => 'array',
                     'items' => static::oapiRef(SalmonBossAppearance2::class),
                     'nullable' => true,
-                    'description'=> Yii::t('app-apidoc2', 'How many bosses appearances'),
+                    'description' => Yii::t('app-apidoc2', 'How many bosses appearances'),
                 ],
                 'waves' => [
                     'type' => 'array',
@@ -1004,7 +1004,7 @@ class Salmon2 extends ActiveRecord
                     'minItems' => 1,
                     'maxItems' => 3,
                     'nullable' => true,
-                    'description'=> Yii::t('app-apidoc2', 'Wave informations'),
+                    'description' => Yii::t('app-apidoc2', 'Wave informations'),
                 ],
                 'my_data' => array_merge(SalmonPlayer2::openApiSchema(), [
                     'nullable' => true,
