@@ -27,11 +27,13 @@ use app\models\Weapon2;
 use app\models\WeaponCategory2;
 use app\models\WeaponType2;
 use app\models\api\v2\GearGetForm;
+use app\models\api\v2\PostSalmonStatsForm;
 use app\models\openapi\SplatNet2ID;
 use app\models\openapi\Util as OpenApiUtil;
 use app\models\openapi\sec\ApiToken;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
+use yii\helpers\Url;
 
 class V2 extends Base
 {
@@ -996,6 +998,14 @@ class V2 extends Base
 
     protected function getPathInfoSalmonStats(): array
     {
+        return array_merge(
+            $this->getPathInfoSalmonStatsGet(),
+            $this->getPathInfoSalmonStatsPost(),
+        );
+    }
+
+    private function getPathInfoSalmonStatsGet(): array
+    {
         // {{{
         $this->registerSchema(SalmonStats2::class);
         $this->registerSecurityScheme(ApiToken::class);
@@ -1003,7 +1013,7 @@ class V2 extends Base
         return [
             'get' => [
                 'operationId' => 'getSalmonStats',
-                'summary' => Yii::t('app-apidoc2', 'Get Salmon Run stats (card data).'),
+                'summary' => Yii::t('app-apidoc2', 'Get Salmon Run stats (card data)'),
                 'description' => implode("\n\n", [
                     Html::encode(Yii::t(
                         'app-apidoc2',
@@ -1060,13 +1070,91 @@ class V2 extends Base
                         ],
                     ],
                     '400' => [
-                        'description' => Yii::t('app-apidoc2', 'Bad Request'),
+                        'description' => 'Bad Request',
                     ],
                     '401' => [
-                        'description' => Yii::t('app-apidoc2', 'Unauthorized'),
+                        'description' => 'Unauthorized',
                     ],
                     '404' => [
-                        'description' => Yii::t('app-apidoc2', 'Not Found'),
+                        'description' => 'Not Found',
+                    ],
+                ],
+            ],
+        ];
+        // }}}
+    }
+
+    private function getPathInfoSalmonStatsPost(): array
+    {
+        // {{{
+        $this->registerSecurityScheme(ApiToken::class);
+        $this->registerTag('salmon');
+        $this->registerSchema(PostSalmonStatsForm::class);
+        return [
+            'post' => [
+                'operationId' => 'postSalmonStats',
+                'summary' => Yii::t('app-apidoc2', 'Post Salmon Run stats (card data)'),
+                'description' => implode("\n\n", [
+                    Html::encode(Yii::t('app-apidoc2', 'Post Salmon Run stats (card data)')),
+                ]),
+                'tags' => [
+                    'salmon',
+                ],
+                'security' => [
+                    ApiToken::oapiSecUse(),
+                ],
+                'requestBody' => [
+                    'required' => true,
+                    'content' => [
+                        'appliation/json' => [
+                            'schema' => static::oapiRef(PostSalmonStatsForm::class),
+                        ],
+                        'application/x-msgpack' => [
+                            'schema' => static::oapiRef(PostSalmonStatsForm::class),
+                        ],
+                    ],
+                ],
+                'responses' => [
+                    '201' => [
+                        'description' => Yii::t('app-apidoc2', 'Created'),
+                        'headers' => [
+                            'Location' => [
+                                'schema' => [
+                                    'type' => 'string',
+                                    'format' => 'uri',
+                                ],
+                                'description' => Yii::t(
+                                    'app-apidoc2',
+                                    'URL for API call that created'
+                                ),
+                                'example' => Url::to(
+                                    ['api-v2-salmon/view-stats', 'id' => 42],
+                                    true
+                                ),
+                            ],
+                        ],
+                    ],
+                    '302' => [
+                        'description' => Yii::t('app-apidoc2', 'Found same data'),
+                        'headers' => [
+                            'Location' => [
+                                'schema' => [
+                                    'type' => 'string',
+                                    'format' => 'uri',
+                                ],
+                                'description' => Yii::t('app-apidoc2', 'URL for API call'),
+                                'example' => Url::to(
+                                    ['api-v2-salmon/view-stats', 'id' => 42],
+                                    true
+                                ),
+                            ],
+                        ],
+                    ],
+                    '400' => [
+                        'description' => 'Bad Request',
+                    ],
+                    '401' => [
+                        'description' => 'Unauthorized',
                     ],
                 ],
             ],
