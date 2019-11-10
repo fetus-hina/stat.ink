@@ -59,6 +59,9 @@ class V2 extends Base
             '/api/v2/salmon' => $this->getPathInfoSalmon(),
             '/api/v2/user-salmon' => $this->getPathInfoUserSalmon(),
             '/api/v2/salmon-stats' => $this->getPathInfoSalmonStats(),
+
+            // obsoleted
+            '/api/v2/map' => $this->getPathInfoMap(),
         ];
     }
 
@@ -1161,4 +1164,44 @@ class V2 extends Base
         ];
         // }}}
     }
+
+    protected function getPathInfoMap(): array
+    {
+        // {{{
+        $this->registerTag('general');
+        $this->registerTag('obsoleted');
+        return [
+            'get' => [
+                'operationId' => 'getMap',
+                'summary' => Yii::t('app-apidoc2', 'Get stages (obsoleted)'),
+                'description' => implode("\n\n", [
+                    Html::encode(Yii::t('app-apidoc2', 'This API has been obsoleted.')),
+                    Html::encode(Yii::t('app-apidoc2', 'Use [`{path}`]({link}) instead of this.', [
+                        'path' => '/api/v2/stage',
+                        'link' => '#operation/getStage',
+                    ])),
+                ]),
+                'tags' => [
+                    // 'general',
+                    'obsoleted',
+                ],
+                'responses' => [
+                    '301' => [
+                        'description' => Yii::t('app-apidoc2', 'Redirect'),
+                        'headers' => [
+                            'Location' => [
+                                'schema' => [
+                                    'type' => 'string',
+                                    'format' => 'uri',
+                                ],
+                                'example' => Url::to(['api-v2/stage'], true),
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ];
+        // }}}
+    }
+
 }
