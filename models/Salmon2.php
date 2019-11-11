@@ -1125,8 +1125,8 @@ class Salmon2 extends ActiveRecord
             'id' => 137857,
             'uuid' => '4c705dd6-7a22-5f04-865d-d87413b0970d',
             'splatnet_number' => 5436,
-            'url' => Url::to(['salmon/view', 'screen_name' => 'fetus_hina', 'id' => 42], true),
-            'api_endpoint' => Url::to(['api-v2-salmon/view', 'id' => 42], true),
+            'url' => Url::to(['salmon/view', 'screen_name' => 'fetus_hina', 'id' => 137857], true),
+            'api_endpoint' => Url::to(['api-v2-salmon/view', 'id' => 137857], true),
             // user
             'stage' => SalmonMap2::findOne(['key' => 'tokishirazu'])->toJsonArray(),
             'is_cleared' => false,

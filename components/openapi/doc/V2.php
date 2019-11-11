@@ -57,6 +57,7 @@ class V2 extends Base
 
             // salmon
             '/api/v2/salmon' => $this->getPathInfoSalmon(),
+            '/api/v2/salmon/{id}' => $this->getPathInfoSalmonWithID(),
             '/api/v2/user-salmon' => $this->getPathInfoUserSalmon(),
             '/api/v2/salmon-stats' => $this->getPathInfoSalmonStats(),
 
@@ -950,6 +951,52 @@ class V2 extends Base
                                         Salmon2::openapiExample(),
                                     ],
                                 ],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ];
+        // }}}
+    }
+
+    protected function getPathInfoSalmonWithID(): array
+    {
+        // {{{
+        $this->registerSchema(Salmon2::class);
+        $this->registerTag('salmon');
+        return [
+            'get' => [
+                'operationId' => 'getSalmonWithID',
+                'summary' => Yii::t('app-apidoc2', 'Get the Salmon Run results'),
+                'description' => implode("\n\n", [
+                    Html::encode(Yii::t(
+                        'app-apidoc2',
+                        'Returns the Salmon Run results.'
+                    )),
+                ]),
+                'tags' => [
+                    'salmon',
+                ],
+                'parameters' => [
+                    [
+                        'in' => 'path',
+                        'name' => 'id',
+                        'required' => true,
+                        'schema' => [
+                            'type' => 'integer',
+                            'format' => 'int32',
+                        ],
+                        'description' => Yii::t('app-apidoc2', 'Permanent ID of the results'),
+                    ],
+                ],
+                'responses' => [
+                    '200' => [
+                        'description' => Yii::t('app-apidoc2', 'Successful'),
+                        'content' => [
+                            'application/json' => [
+                                'schema' => static::oapiRef(Salmon2::class),
+                                'example' => Salmon2::openapiExample(),
                             ],
                         ],
                     ],
