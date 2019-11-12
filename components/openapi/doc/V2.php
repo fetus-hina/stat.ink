@@ -28,11 +28,13 @@ use app\models\WeaponCategory2;
 use app\models\WeaponType2;
 use app\models\api\v2\GearGetForm;
 use app\models\api\v2\PostSalmonStatsForm;
+use app\models\api\v2\salmon\PostForm as PostSalmonForm;
 use app\models\openapi\SplatNet2ID;
 use app\models\openapi\Util as OpenApiUtil;
 use app\models\openapi\sec\ApiToken;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
+use yii\helpers\UnsetArrayValue;
 use yii\helpers\Url;
 
 class V2 extends Base
@@ -731,6 +733,14 @@ class V2 extends Base
 
     protected function getPathInfoSalmon(): array
     {
+        return array_merge(
+            $this->getPathInfoSalmonGet(),
+            $this->getPathInfoSalmonPost(),
+        );
+    }
+
+    protected function getPathInfoSalmonGet(): array
+    {
         // {{{
         $this->registerSchema(Salmon2::class);
         $this->registerTag('salmon');
@@ -960,6 +970,115 @@ class V2 extends Base
         // }}}
     }
 
+    private function getPathInfoSalmonPost(): array
+    {
+        // {{{
+        $this->registerSecurityScheme(ApiToken::class);
+        $this->registerTag('salmon');
+        $this->registerSchema(PostSalmonForm::class);
+        return [
+            'post' => [
+                'operationId' => 'postSalmon',
+                'summary' => Yii::t('app-apidoc2', 'Post Salmon Run results'),
+                'description' => implode("\n\n", [
+                    Html::encode(Yii::t('app-apidoc2', 'Post Salmon Run results')),
+                ]),
+                'tags' => [
+                    'salmon',
+                ],
+                'security' => [
+                    ApiToken::oapiSecUse(),
+                ],
+                'requestBody' => [
+                    'required' => true,
+                    'content' => [
+                        'appliation/json' => [
+                            'schema' => static::oapiRef(PostSalmonForm::class),
+                        ],
+                        'application/x-msgpack' => [
+                            'schema' => static::oapiRef(PostSalmonForm::class),
+                        ],
+                    ],
+                ],
+                'responses' => [
+                    '201' => [
+                        'description' => Yii::t('app-apidoc2', 'Created'),
+                        'headers' => [
+                            'Location' => [
+                                'schema' => [
+                                    'type' => 'string',
+                                    'format' => 'uri',
+                                ],
+                                'description' => Yii::t('app-apidoc2', 'Public URL'),
+                                'example' => Url::to(
+                                    ['salmon/view',
+                                        'screen_name' => 'fetus_hina',
+                                        'id' => 137857,
+                                    ],
+                                    true
+                                ),
+                            ],
+                            'X-API-Location' => [
+                                'schema' => [
+                                    'type' => 'string',
+                                    'format' => 'uri',
+                                ],
+                                'description' => Yii::t(
+                                    'app-apidoc2',
+                                    'URL for API call that created'
+                                ),
+                                'example' => Url::to(
+                                    ['api-v2-salmon/view', 'id' => 137857],
+                                    true
+                                ),
+                            ],
+                        ],
+                    ],
+                    '302' => [
+                        'description' => Yii::t('app-apidoc2', 'Found same data'),
+                        'headers' => [
+                            'Location' => [
+                                'schema' => [
+                                    'type' => 'string',
+                                    'format' => 'uri',
+                                ],
+                                'description' => Yii::t('app-apidoc2', 'Public URL'),
+                                'example' => Url::to(
+                                    ['salmon/view',
+                                        'screen_name' => 'fetus_hina',
+                                        'id' => 137857,
+                                    ],
+                                    true
+                                ),
+                            ],
+                            'X-API-Location' => [
+                                'schema' => [
+                                    'type' => 'string',
+                                    'format' => 'uri',
+                                ],
+                                'description' => Yii::t(
+                                    'app-apidoc2',
+                                    'URL for API call that created'
+                                ),
+                                'example' => Url::to(
+                                    ['api-v2-salmon/view', 'id' => 137857],
+                                    true
+                                ),
+                            ],
+                        ],
+                    ],
+                    '400' => [
+                        'description' => 'Bad Request',
+                    ],
+                    '401' => [
+                        'description' => 'Unauthorized',
+                    ],
+                ],
+            ],
+        ];
+        // }}}
+    }
+
     protected function getPathInfoSalmonWithID(): array
     {
         // {{{
@@ -1032,6 +1151,7 @@ class V2 extends Base
                     ],
                 ],
             ],
+            'post' => new UnsetArrayValue(),
         ]);
 
         // remove "screen_name" parameter

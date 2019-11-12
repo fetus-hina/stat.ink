@@ -13,6 +13,7 @@ namespace app\models\api\v2\salmon;
 use Yii;
 use app\components\behaviors\AutoTrimAttributesBehavior;
 use app\components\helpers\ApiInputFormatter;
+use app\models\Gender;
 use app\models\Salmon2;
 use app\models\SalmonBoss2;
 use app\models\SalmonMainWeapon2;
@@ -22,12 +23,17 @@ use app\models\SalmonPlayerSpecialUse2;
 use app\models\SalmonPlayerWeapon2;
 use app\models\SalmonSpecial2;
 use app\models\Species2;
+use app\models\openapi\SplatNet2PrincipalID;
+use app\models\openapi\Util as OpenAPIUtil;
 use yii\base\Model;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Html;
 use yii\validators\NumberValidator;
 
 class Player extends Model
 {
+    use OpenAPIUtil;
+
     public $is_me;
     public $splatnet_id;
     public $name;
@@ -353,5 +359,253 @@ class Player extends Model
 
             return true;
         });
+    }
+
+    public static function openApiSchema(): array
+    {
+        return [
+            'type' => 'object',
+            'description' => Yii::t('app-apidoc2', 'Player\'s data'),
+            'properties' => [
+                'splatnet_id' => static::oapiRef(SplatNet2PrincipalID::class),
+                'name' => [
+                    'type' => 'string',
+                    'minLength' => 1,
+                    'maxLength' => 10,
+                    'description' => Yii::t('app-apidoc2', 'Player\'s in-game name'),
+                ],
+                'special' => static::oapiKey(
+                    implode("\n", [
+                        Html::encode(Yii::t('app-apidoc2', 'What special weapon assigned')),
+                        '',
+                        static::oapiKeyValueTable(
+                            Yii::t('app-apidoc2', 'Special weapon'),
+                            'app-special2',
+                            SalmonSpecial2::find()
+                                ->orderBy(['key' => SORT_ASC])
+                                ->all(),
+                            null,
+                            null,
+                            null,
+                            ['splatnet']
+                        ),
+                    ]),
+                    ArrayHelper::getColumn(
+                        SalmonSpecial2::find()
+                            ->orderBy(['key' => SORT_ASC])
+                            ->all(),
+                        'key',
+                        false
+                    ),
+                    true // replace description
+                ),
+                'rescue' => [
+                    'type' => 'integer',
+                    'format' => 'int32',
+                    'minimum' => 0,
+                    'description' => Yii::t('app-apidoc2', 'Number of times rescued other players'),
+                ],
+                'death' => [
+                    'type' => 'integer',
+                    'format' => 'int32',
+                    'minimum' => 0,
+                    'description' => Yii::t(
+                        'app-apidoc2',
+                        'Number of times rescued by other players'
+                    ),
+                ],
+                'golden_egg_delivered' => [
+                    'type' => 'integer',
+                    'format' => 'int32',
+                    'minimum' => 0,
+                    'description' => Yii::t('app-apidoc2', 'Golden Eggs delivered'),
+                ],
+                'power_egg_collected' => [
+                    'type' => 'integer',
+                    'format' => 'int32',
+                    'minimum' => 0,
+                    'description' => Yii::t('app-apidoc2', 'Power Eggs collected'),
+                ],
+                'species' => static::oapiKey(
+                    implode("\n", [
+                        Html::encode(Yii::t('app-apidoc2', 'Species')),
+                        '',
+                        Html::encode(Yii::t(
+                            'app-apidoc2',
+                            'If your client doesn\'t/cannot detect this data, omit this field or ' .
+                            'send just `null`.'
+                        )),
+                        '',
+                        static::oapiKeyValueTable(
+                            Yii::t('app-apidoc2', 'Species'),
+                            'app',
+                            Species2::find()
+                                ->orderBy(['id' => SORT_ASC])
+                                ->asArray()
+                                ->all(),
+                        ),
+                    ]),
+                    ArrayHelper::getColumn(
+                        Species2::find()
+                            ->orderBy(['id' => SORT_ASC])
+                            ->asArray()
+                            ->all(),
+                        'key',
+                        false
+                    ),
+                    true // replace description
+                ),
+                'gender' => static::oapiKey(
+                    implode("\n", [
+                        Html::encode(Yii::t('app-apidoc2', 'Gender')),
+                        '',
+                        Html::encode(Yii::t(
+                            'app-apidoc2',
+                            'If your client doesn\'t/cannot detect this data, omit this field or ' .
+                            'send just `null`.'
+                        )),
+                        '',
+                        static::oapiKeyValueTable(
+                            Yii::t('app-apidoc2', 'Gender'),
+                            'app',
+                            Gender::find()
+                                ->orderBy(['id' => SORT_ASC])
+                                ->all(),
+                            function (Gender $model): string {
+                                return strtolower($model->name);
+                            }
+                        ),
+                    ]),
+                    ArrayHelper::getColumn(
+                        Gender::find()
+                            ->orderBy(['id' => SORT_ASC])
+                            ->all(),
+                        function (Gender $model): string {
+                            return strtolower($model->name);
+                        },
+                        false
+                    ),
+                    true // replace description
+                ),
+                'special_uses' => [
+                    'type' => 'array',
+                    'minItems' => 1,
+                    'maxItems' => 3,
+                    'description' => implode("\n", [
+                        Html::encode(Yii::t(
+                            'app-apidoc2',
+                            'How many times the special weapon was used in each wave'
+                        )),
+                        '',
+                        '```js',
+                        '{',
+                        '  "special_uses": [',
+                        '    0, // WAVE 1',
+                        '    1, // WAVE 2',
+                        '    1  // WAVE 3',
+                        '  ],',
+                        '}',
+                        '```',
+                    ]),
+                    'items' => [
+                        'type' => 'integer',
+                        'format' => 'int32',
+                        'minimum' => 0,
+                        'maximum' => 2,
+                    ],
+                ],
+                'weapons' => [
+                    'type' => 'array',
+                    'minItems' => 1,
+                    'maxItems' => 3,
+                    'description' => implode("\n", [
+                        Html::encode(Yii::t('app-apidoc2', 'Weapons loaned in each wave')),
+                        '',
+                        static::oapiKeyValueTable(
+                            Yii::t('app-apidoc2', 'Weapon'),
+                            'app-weapon2',
+                            SalmonMainWeapon2::find()
+                                ->sorted()
+                                ->all(),
+                            null,
+                            null,
+                            null,
+                            ['splatnet']
+                        ),
+                    ]),
+                    'items' => static::oapiKey(
+                        implode("\n", [
+                            Html::encode(Yii::t('app-apidoc2', 'Weapon')),
+                        ]),
+                        ArrayHelper::getColumn(
+                            SalmonMainWeapon2::find()
+                                ->orderBy(['key' => SORT_ASC])
+                                ->all(),
+                            'key',
+                            false
+                        ),
+                        true // replace description
+                    ),
+                ],
+                'boss_kills' => [
+                    'type' => 'object',
+                    'description' => implode("\n", [
+                        Yii::t('app-apidoc2', 'Number of times the player kills each boss'),
+                        '',
+                        Yii::t(
+                            'app-apidoc2',
+                            'If not kills the boss, you can send `0` or omit the boss.'
+                        ),
+                    ]),
+                    'properties' => ArrayHelper::map(
+                        SalmonBoss2::find()->orderBy(['key' => SORT_ASC])->all(),
+                        'key',
+                        function (SalmonBoss2 $boss): array {
+                            return [
+                                'type' => 'integer',
+                                'format' => 'int32',
+                                'minimum' => 0,
+                                'description' => implode("\n", [
+                                    Html::encode(Yii::t(
+                                        'app-apidoc2',
+                                        'Number of times the player kills {boss}',
+                                        ['boss' => Yii::t('app-salmon-boss2', $boss->name)]
+                                    )),
+                                ]),
+                            ];
+                        },
+                    ),
+                ],
+            ],
+            'example' => static::openApiExample(),
+        ];
+    }
+
+    public static function openApiDepends(): array
+    {
+        return [
+            SplatNet2PrincipalID::class,
+        ];
+    }
+
+    public static function openApiExample(): array
+    {
+        return [
+            'splatnet_id' => '3f6fb10a91b0c551',
+            'name' => 'HINA',
+            'special' => 'presser',
+            'rescue' => 3,
+            'death' => 3,
+            'golden_egg_delivered' => 13,
+            'power_egg_collected' => 318,
+            'species' => 'inkling',
+            'gender' => 'girl',
+            'special_uses' => [0, 1],
+            'weapons' => ['wakaba', 'hydra'],
+            'boss_kills' => [
+                'maws' => 2,
+                'stinger' => 1,
+            ],
+        ];
     }
 }

@@ -12,6 +12,7 @@ namespace app\models;
 
 use Yii;
 use app\components\helpers\Translator;
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
 
@@ -29,6 +30,33 @@ use yii\helpers\ArrayHelper;
 class SalmonMainWeapon2 extends ActiveRecord
 {
     use openapi\Util;
+
+    public static function find()
+    {
+        return new class (static::class) extends ActiveQuery {
+            public function sorted(): self
+            {
+                $kumaFirst = sprintf('(CASE %s END)', implode(' ', [
+                    'WHEN {{salmon_main_weapon2}}.[[weapon_id]] IS NULL THEN 0',
+                    'ELSE 1',
+                ]));
+
+                $this
+                    ->joinWith([
+                        'weapon',
+                        'weapon.type',
+                    ])
+                    ->OrderBy([
+                        $kumaFirst => SORT_ASC,
+                        '{{weapon_type2}}.[[category_id]]' => SORT_ASC,
+                        '{{weapon_type2}}.[[rank]]' => SORT_ASC,
+                        '{{salmon_main_weapon2}}.[[key]]' => SORT_ASC,
+                    ]);
+
+                return $this;
+            }
+        };
+    }
 
     /**
      * @inheritdoc
@@ -132,6 +160,7 @@ class SalmonMainWeapon2 extends ActiveRecord
                     'sshooter',
                     'splatroller',
                 ]])
+                ->sorted()
                 ->orderBy(['splatnet' => SORT_ASC])
                 ->all()
         );

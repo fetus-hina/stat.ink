@@ -94,8 +94,8 @@ class SalmonPlayer2 extends ActiveRecord
             'special_id' => 'Special ID',
             'rescue' => 'Rescue',
             'death' => 'Death',
-            'golden_egg_delivered' => 'Golden Egg Delivered',
-            'power_egg_collected' => 'Power Egg Collected',
+            'golden_egg_delivered' => 'Golden Eggs Delivered',
+            'power_egg_collected' => 'Power Eggs Collected',
             'species_id' => 'Species ID',
             'gender_id' => 'Gender ID',
         ];
@@ -353,14 +353,14 @@ class SalmonPlayer2 extends ActiveRecord
                     'format' => 'int32',
                     'minimum' => 0,
                     'nullable' => true,
-                    'description' => Yii::t('app-apidoc2', 'Golden Egg delivered'),
+                    'description' => Yii::t('app-apidoc2', 'Golden Eggs delivered'),
                 ],
                 'power_egg_collected' => [
                     'type' => 'integer',
                     'format' => 'int32',
                     'minimum' => 0,
                     'nullable' => true,
-                    'description' => Yii::t('app-apidoc2', 'Power Egg collected'),
+                    'description' => Yii::t('app-apidoc2', 'Power Eggs collected'),
                 ],
                 'species' => array_merge(Species2::openApiSchema(), [
                     'nullable' => true,
