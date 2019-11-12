@@ -54,6 +54,41 @@ class PostSalmonStatsForm extends Model
         ];
     }
 
+    public function findPreviousStats(): ?SalmonStats2
+    {
+        if (!$this->validate()) {
+            return null;
+        }
+
+        $model = SalmonStats2::find()
+            ->andWhere(['user_id' => Yii::$app->user->identity->id])
+            ->orderBy(['id' => SORT_DESC])
+            ->limit(1)
+            ->one();
+        if (!$model) {
+            return null;
+        }
+
+        $params = [
+            'work_count',
+            'total_golden_eggs',
+            'total_eggs',
+            'total_rescued',
+            'total_point',
+        ];
+        $mismatchCount = (int)array_sum(array_map(
+            function (string $param) use ($model): int {
+                return $model->$param != $this->$param ? 1 : 0;
+            },
+            $params
+        ));
+        if ($mismatchCount > 0) {
+            return null;
+        }
+
+        return $model;
+    }
+
     public function save(): bool
     {
         return Yii::$app->db->transactionEx(function (): bool {
