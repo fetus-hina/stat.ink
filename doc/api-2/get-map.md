@@ -1,21 +1,14 @@
 `GET /api/v2/map`
 ===================
 
-| | |
-|-|-|
-|URL|`https://stat.ink/api/v2/map`|
-|Status|obsoluted|
+This API has been obsoleted.
 
-[GET `/api/v2/stage`](get-stage.md)に変更されました。
-（`/api/v2/map`にアクセスした場合もそれなりにリダイレクトされますが依存しないでください）
+Please use `/api/v2/stage` instead of this API.
 
-v1との差異
-----------
+  - [English](https://apidoc.stat.ink/v2.en.html#operation/getStage)
+  - [日本語](https://apidoc.stat.ink/v2.ja.html#operation/getStage)
 
-- `GET stage` APIに変更になりました。
+Nevertheless, refer to the documentation for this API:
 
-----
-
-[![CC-BY 4.0](https://stat.ink/static-assets/cc/cc-by.svg)](http://creativecommons.org/licenses/by/4.0/deed.ja)
-
-この文章は[Creative Commons - 表示 4.0 国際](http://creativecommons.org/licenses/by/4.0/deed.ja)の下にライセンスされています。
+  - [English](https://apidoc.stat.ink/v2.en.html#operation/getMap)
+  - [日本語](https://apidoc.stat.ink/v2.ja.html#operation/getMap)

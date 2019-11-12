@@ -16,10 +16,15 @@ use app\models\Salmon2;
 use app\models\SalmonEvent2;
 use app\models\SalmonWaterLevel2;
 use app\models\SalmonWave2;
+use app\models\openapi\Util as OpenAPIUtil;
 use yii\base\Model;
+use yii\helpers\ArrayHelper;
+use yii\helpers\Html;
 
 class Wave extends Model
 {
+    use OpenAPIUtil;
+
     public $known_occurrence;
     public $water_level;
     public $golden_egg_quota;
@@ -138,5 +143,117 @@ class Wave extends Model
             }
             return false;
         });
+    }
+
+    public static function openApiSchema(): array
+    {
+        return [
+            'type' => 'object',
+            'properties' => [
+                'known_occurrence' => static::oapiKey(
+                    implode("\n", [
+                        Html::encode(Yii::t('app-apidoc2', 'Event')),
+                        '',
+                        Html::encode(Yii::t(
+                            'app-apidoc2',
+                            'Set `null`, empty string or omit the field if no event.'
+                        )),
+                        '',
+                        static::oapiKeyValueTable(
+                            Yii::t('app-apidoc2', 'Event'),
+                            'app-salmon-event2',
+                            SalmonEvent2::find()
+                                ->orderBy(['key' => SORT_ASC])
+                                ->asArray()
+                                ->all(),
+                            null,
+                            null,
+                            null,
+                            ['splatnet']
+                        ),
+                    ]),
+                    ArrayHelper::getColumn(
+                        SalmonEvent2::find()
+                            ->orderBy(['key' => SORT_ASC])
+                            ->asArray()
+                            ->all(),
+                        'key',
+                        false
+                    ),
+                    true // replace description
+                ),
+                'water_level' => static::oapiKey(
+                    implode("\n", [
+                        Html::encode(Yii::t('app-apidoc2', 'Water level')),
+                        '',
+                        static::oapiKeyValueTable(
+                            Yii::t('app-apidoc2', 'Water level'),
+                            'app-salmon-tide2',
+                            SalmonWaterLevel2::find()
+                                ->orderBy(['id' => SORT_ASC])
+                                ->asArray()
+                                ->all(),
+                            null,
+                            null,
+                            null,
+                            ['splatnet']
+                        ),
+                    ]),
+                    ArrayHelper::getColumn(
+                        SalmonWaterLevel2::find()
+                            ->orderBy(['id' => SORT_ASC])
+                            ->asArray()
+                            ->all(),
+                        'key',
+                        false
+                    ),
+                    true // replace description
+                ),
+                'golden_egg_quota' => [
+                    'type' => 'integer',
+                    'format' => 'int32',
+                    'minimum' => 1,
+                    'maximum' => 25,
+                    'description' => Yii::t('app-apidoc2', 'Quota'),
+                ],
+                'golden_egg_appearances' => [
+                    'type' => 'integer',
+                    'format' => 'int32',
+                    'minimum' => 0,
+                    'description' => Yii::t('app-apidoc2', 'Golden Egg appearances'),
+                ],
+                'golden_egg_delivered' => [
+                    'type' => 'integer',
+                    'format' => 'int32',
+                    'minimum' => 0,
+                    'description' => Yii::t('app-apidoc2', 'Golden Egg delivered'),
+                ],
+                'power_egg_collected' => [
+                    'type' => 'integer',
+                    'format' => 'int32',
+                    'minimum' => 0,
+                    'description' => Yii::t('app-apidoc2', 'Power Egg collected'),
+                ],
+            ],
+            'example' => static::openApiExample(),
+        ];
+    }
+
+    public static function openApiDepends(): array
+    {
+        return [
+        ];
+    }
+
+    public static function openApiExample(): array
+    {
+        return [
+            'known_occurrence' => null,
+            'water_level' => 'high',
+            'golden_egg_quota' => 18,
+            'golden_egg_appearances' => 45,
+            'golden_egg_delivered' => 24,
+            'power_egg_collected' => 846,
+        ];
     }
 }

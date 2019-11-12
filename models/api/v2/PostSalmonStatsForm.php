@@ -13,10 +13,14 @@ namespace app\models\api\v2;
 use Yii;
 use app\components\behaviors\TrimAttributesBehavior;
 use app\models\SalmonStats2;
+use app\models\openapi\Util;
 use yii\base\Model;
+use yii\helpers\Html;
 
 class PostSalmonStatsForm extends Model
 {
+    use Util;
+
     public const SPLATOON2_4_1_RELEASED_AT = 1538528400;
 
     public $work_count;
@@ -50,6 +54,41 @@ class PostSalmonStatsForm extends Model
         ];
     }
 
+    public function findPreviousStats(): ?SalmonStats2
+    {
+        if (!$this->validate()) {
+            return null;
+        }
+
+        $model = SalmonStats2::find()
+            ->andWhere(['user_id' => Yii::$app->user->identity->id])
+            ->orderBy(['id' => SORT_DESC])
+            ->limit(1)
+            ->one();
+        if (!$model) {
+            return null;
+        }
+
+        $params = [
+            'work_count',
+            'total_golden_eggs',
+            'total_eggs',
+            'total_rescued',
+            'total_point',
+        ];
+        $mismatchCount = (int)array_sum(array_map(
+            function (string $param) use ($model): int {
+                return $model->$param != $this->$param ? 1 : 0;
+            },
+            $params
+        ));
+        if ($mismatchCount > 0) {
+            return null;
+        }
+
+        return $model;
+    }
+
     public function save(): bool
     {
         return Yii::$app->db->transactionEx(function (): bool {
@@ -68,5 +107,78 @@ class PostSalmonStatsForm extends Model
             $this->addErrors($model->getErrors());
             return false;
         });
+    }
+
+    public static function openApiSchema(): array
+    {
+        return [
+            'type' => 'object',
+            'description' => Yii::t('app-apidoc2', 'Salmon Run stats (Grizzco Point Card)'),
+            'properties' => [
+                'work_count' => [
+                    'type' => 'integer',
+                    'format' => 'int32',
+                    'minimum' => 0,
+                    'description' => Yii::t('app-apidoc2', 'Shifts (jobs) worked'),
+                ],
+                'total_golden_eggs' => [
+                    'type' => 'integer',
+                    'format' => 'int32',
+                    'minimum' => 0,
+                    'description' => Yii::t('app-apidoc2', 'Golden Eggs collected'),
+                ],
+                'total_eggs' => [
+                    'type' => 'integer',
+                    'format' => 'int32',
+                    'minimum' => 0,
+                    'description' => Yii::t('app-apidoc2', 'Power Eggs collected'),
+                ],
+                'total_rescued' => [
+                    'type' => 'integer',
+                    'format' => 'int32',
+                    'minimum' => 0,
+                    'description' => Yii::t('app-apidoc2', 'Crew members rescued'),
+                ],
+                'total_point' => [
+                    'type' => 'integer',
+                    'format' => 'int32',
+                    'minimum' => 0,
+                    'description' => Yii::t('app-apidoc2', 'Total points'),
+                ],
+                'as_of' => [
+                    'type' => 'integer',
+                    'format' => 'int64',
+                    'minimum' => static::SPLATOON2_4_1_RELEASED_AT,
+                    'description' => implode("\n", [
+                        Html::encode(
+                            Yii::t('app-apidoc2', 'When this data was acquired in Unix timestamp')
+                        ),
+                        '',
+                        Html::encode(
+                            Yii::t('app-apidoc2', 'Current date time will be used if omitted')
+                        ),
+                    ]),
+                ],
+            ],
+            'example' => static::openApiExample(),
+        ];
+    }
+
+    public static function openApiDepends(): array
+    {
+        return [
+        ];
+    }
+
+    public static function openApiExample(): array
+    {
+        return [
+            'work_count' => 5436,
+            'total_golden_eggs' => 77806,
+            'total_eggs' => 3042663,
+            'total_rescued' => 13258,
+            'total_point' => 966048,
+            'as_of' => strtotime('2019-11-08T04:08:05+09:00'),
+        ];
     }
 }

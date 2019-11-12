@@ -63,6 +63,8 @@ use yii\web\IdentityInterface;
  */
 class User extends ActiveRecord implements IdentityInterface
 {
+    use openapi\Util;
+
     public const BLACKOUT_NOT_BLACKOUT = 'no';
     public const BLACKOUT_NOT_PRIVATE  = 'not-private';
     public const BLACKOUT_NOT_FRIEND   = 'not-friend';
@@ -619,5 +621,20 @@ class User extends ActiveRecord implements IdentityInterface
                 $user->emailLang->lang ?? 'en-US'
             ))
             ->send();
+    }
+
+    public static function openApiSchema(): array
+    {
+        return [];
+    }
+
+    public static function openApiDepends(): array
+    {
+        return [];
+    }
+
+    public static function openapiExample(): array
+    {
+        return [];
     }
 }

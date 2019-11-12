@@ -32,6 +32,7 @@ class OpenApiSpec extends Component
     public $servers;
     public $paths;
     private $tags;
+    private $securitySchemes = [];
     private $schemas = [];
 
     public function init()
@@ -78,15 +79,33 @@ class OpenApiSpec extends Component
             'info' => $this->info,
             'servers' => $this->servers,
             'paths' => $this->paths,
-            'components' => [
+            'components' => array_filter([
+                'securitySchemes' => $this->renderSecuritySchemes(),
                 'schemas' => $this->renderSchemas(),
-            ],
+            ]),
             'tags' => $this->renderTags(),
         ];
         return Json::encode(
             $json,
             JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT
         );
+    }
+
+    protected function renderSecuritySchemes(): array
+    {
+        $result = [];
+        foreach ($this->securitySchemes as $className) {
+            $refName = call_user_func([$className, 'oapiSecName']);
+            $result[$refName] = call_user_func([$className, 'oapiSecurity']);
+        }
+        return $result;
+    }
+
+    public function registerSecurityScheme(string $className): void
+    {
+        if (!in_array($className, $this->securitySchemes, true)) {
+            $this->securitySchemes[] = $className;
+        }
     }
 
     protected function renderSchemas(): array

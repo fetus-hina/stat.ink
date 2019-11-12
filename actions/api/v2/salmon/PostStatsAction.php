@@ -34,16 +34,29 @@ class PostStatsAction extends \yii\web\ViewAction
 
         $form = Yii::createObject(PostSalmonStatsForm::class);
         $form->attributes = Yii::$app->request->post();
-        if (!$form->save()) {
+        if (!$form->validate()) {
             return $this->error($form->getErrors(), 400);
         }
 
-        $resp = Yii::$app->response;
-        $resp->statusCode = 201;
-        $resp->statusText = 'Created';
+        if ($prev = $form->findPreviousStats()) {
+            $resp = Yii::$app->response;
+            $resp->statusCode = 302;
+            $resp->statusText = 'Found';
+            $newId = $prev->id;
+        } else {
+            if (!$form->save()) {
+                return $this->error($form->getErrors(), 500);
+            }
+
+            $resp = Yii::$app->response;
+            $resp->statusCode = 201;
+            $resp->statusText = 'Created';
+            $newId = $form->created_id;
+        }
+
         $resp->headers->set(
             'location',
-            Url::to(['api-v2-salmon/view-stats', 'id' => $form->created_id], true)
+            Url::to(['api-v2-salmon/view-stats', 'id' => $newId], true)
         );
         return null;
     }

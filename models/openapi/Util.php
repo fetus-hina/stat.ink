@@ -64,15 +64,31 @@ trait Util
         string $valueLabel,
         /* string|callable */ $category,
         array $items,
-        string $keyColumn = 'key',
-        string $valueColumn = 'name'
+        /* ?string|callable */ $keyColumn = 'key',
+        ?string $valueColumn = 'name',
+        ?string $keyLabelHtml = null,
+        /* null|string|array */ $splatnetKeys = null
     ): ?string {
         if (!$items) {
             return null;
         }
 
-        return "<table>\n" .
-            static::oapiKeyValueTableThead($valueLabel) . "\n" .
+        if ($keyColumn === null) {
+            $keyColumn = 'key';
+        }
+
+        if ($valueColumn === null) {
+            $valueColumn = 'name';
+        }
+
+        if ($keyLabelHtml === null) {
+            $keyLabelHtml = Html::tag('code', Html::encode('key'));
+        }
+
+        $splatnetKeys = $splatnetKeys ? (array)$splatnetKeys : [];
+
+        return Html::tag('table', implode('', [
+            static::oapiKeyValueTableThead($keyLabelHtml, $valueLabel, $splatnetKeys),
             static::oapiKeyValueTableTbody(
                 ArrayHelper::getColumn($items, $keyColumn),
                 ArrayHelper::getColumn(
@@ -87,32 +103,64 @@ trait Util
                             ArrayHelper::getValue($item, $valueColumn)
                         );
                     }
+                ),
+                ArrayHelper::getColumn(
+                    $items,
+                    function ($item) use ($splatnetKeys): array {
+                        return array_map(
+                            function ($key) use ($item): string {
+                                return (string)ArrayHelper::getValue($item, $key);
+                            },
+                            $splatnetKeys
+                        );
+                    }
                 )
-            ) . "\n" .
-            '</table>';
+            ),
+        ]));
     }
 
-    private static function oapiKeyValueTableThead(string $valueLabel): string
-    {
+    private static function oapiKeyValueTableThead(
+        string $keyLabelHtml,
+        string $valueLabel,
+        array $splatnetKeys
+    ): string {
         return Html::tag('thead', Html::tag('tr', implode('', [
-            Html::tag('th', Html::tag('code', Html::encode('key'))),
+            Html::tag('th', $keyLabelHtml),
             Html::tag('th', Html::encode($valueLabel)),
+            $splatnetKeys
+                ? Html::tag(
+                    'th',
+                    Html::encode(Yii::t('app-apidoc2', 'SplatNet specified ID')),
+                    ['colspan' => (string)count($splatnetKeys)]
+                )
+                : '',
         ])));
     }
 
     private static function oapiKeyValueTableTbody(
         array $keys,
-        array $values
+        array $values,
+        array $splatnetValues
     ): string {
-        return Html::tag('tbody', "\n" . implode("\n", array_map(
-            function (string $key, string $value): string {
+        return Html::tag('tbody', implode('', array_map(
+            function (string $key, string $value, array $splatnetValues): string {
                 return Html::tag('tr', implode('', [
                     Html::tag('td', Html::tag('code', Html::encode($key))),
                     Html::tag('td', Html::encode($value)),
+                    implode('', array_map(
+                        function (string $value): string {
+                            return Html::tag(
+                                'td',
+                                $value === '' ? '' : Html::tag('code', Html::encode($value))
+                            );
+                        },
+                        $splatnetValues
+                    )),
                 ]));
             },
             $keys,
-            $values
-        )) . "\n");
+            $values,
+            $splatnetValues
+        )));
     }
 }

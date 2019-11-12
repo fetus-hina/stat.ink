@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2018 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -13,6 +13,7 @@ namespace app\models;
 use Yii;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "salmon_player_boss_kill2".
@@ -26,6 +27,8 @@ use yii\db\ActiveRecord;
  */
 class SalmonPlayerBossKill2 extends ActiveRecord
 {
+    use openapi\Util;
+
     public static function tableName()
     {
         return 'salmon_player_boss_kill2';
@@ -73,6 +76,38 @@ class SalmonPlayerBossKill2 extends ActiveRecord
         return [
             'boss' => $this->boss->toJsonArray(),
             'count' => (int)$this->count,
+        ];
+    }
+
+    public static function openApiSchema(): array
+    {
+        return [
+            'type' => 'object',
+            'properties' => [
+                'boss' => static::oapiRef(SalmonBoss2::class),
+                'count' => [
+                    'type' => 'integer',
+                    'format' => 'int32',
+                    'minimum' => 0,
+                    'description' => Yii::t('app-apidoc2', 'Number of kills the boss salmonid'),
+                ],
+            ],
+            'example' => static::openapiExample(),
+        ];
+    }
+
+    public static function openApiDepends(): array
+    {
+        return [
+            SalmonBoss2::class,
+        ];
+    }
+
+    public static function openapiExample(): array
+    {
+        return [
+            'boss' => SalmonBoss2::openapiExample(),
+            'count' => 42,
         ];
     }
 }

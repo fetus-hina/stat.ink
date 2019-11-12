@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2018 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -25,6 +25,8 @@ use yii\db\ActiveRecord;
  */
 class SalmonBossAppearance2 extends ActiveRecord
 {
+    use openapi\Util;
+
     /**
      * @inheritdoc
      */
@@ -87,6 +89,40 @@ class SalmonBossAppearance2 extends ActiveRecord
         return [
             'boss' => $this->boss->toJsonArray(),
             'count' => (int)$this->count,
+        ];
+    }
+
+    public static function openApiSchema(): array
+    {
+        return [
+            'type' => 'object',
+            'description' => Yii::t('app-apidoc2', 'Boss information'),
+            'properties' => [
+                'boss' => static::oapiRef(SalmonBoss2::class),
+                'count' => [
+                    'type' => 'integer',
+                    'format' => 'int32',
+                    'minimum' => 0,
+                    'description' => Yii::t('app-apidoc2', 'How many appearance'),
+                ],
+            ],
+            'example' => static::openapiExample(),
+        ];
+    }
+
+    public static function openApiDepends(): array
+    {
+        return [
+            SalmonBoss2::class,
+        ];
+    }
+
+    public static function openapiExample(): array
+    {
+        $boss = SalmonBoss2::findOne(['key' => 'steelhead']);
+        return [
+            'boss' => $boss->toJsonArray(),
+            'count' => 42,
         ];
     }
 }

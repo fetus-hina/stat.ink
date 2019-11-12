@@ -24,13 +24,19 @@ use app\models\SalmonBossAppearance2;
 use app\models\SalmonFailReason2;
 use app\models\SalmonMap2;
 use app\models\SalmonTitle2;
+use app\models\openapi\SplatNet2ID;
+use app\models\openapi\Util as OpenAPIUtil;
 use jp3cki\uuid\Uuid;
 use yii\base\Model;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Html;
+use yii\helpers\UnsetArrayValue;
 use yii\validators\NumberValidator;
 
 class PostForm extends Model
 {
+    use OpenAPIUtil;
+
     // Recommended UUID NS, splatnetNumber@principalID
     public const UUID_NAMESPACE_BY_PRINCIPAL_ID = '418fe150-cb33-11e8-8816-d050998473ba';
     
@@ -571,5 +577,496 @@ class PostForm extends Model
         }
 
         return (int)$model->id;
+    }
+
+    public static function openApiSchema(): array
+    {
+        return [
+            'type' => 'object',
+            'description' => Yii::t('app-apidoc2', 'Post the Salmon Run results'),
+            'properties' => [
+                'uuid' => [
+                    'type' => 'string',
+                    'description' => implode("\n", [
+                        Html::encode(Yii::t('app-apidoc2', 'A unique ID to identify the results')),
+                        '',
+                        Html::encode(Yii::t(
+                            'app-apidoc2',
+                            'Client application should specify a UUID to detect duplicated shift.'
+                        )),
+                        '',
+                        Html::encode(Yii::t('app-apidoc2', 'How to create the UUID:')),
+                        '',
+                        Html::encode(sprintf('- %s', Yii::t(
+                            'app-apidoc2',
+                            'SplatNet 2 based Application'
+                        ))),
+                        Html::encode(sprintf('  - %s', Yii::t(
+                            'app-apidoc2',
+                            'Generate a UUID version 5 with namespace `{ns}`.',
+                            ['ns' => static::UUID_NAMESPACE_BY_PRINCIPAL_ID]
+                        ))),
+                        '',
+                        Html::encode(sprintf('    %s', Yii::t(
+                            'app-apidoc2',
+                            'Use "`splatnet_number`@`principal_id`" format. (Example: `{example}`)',
+                            ['example' => sprintf('%d@%s', 5436, '3f6fb10a91b0c551')]
+                        ))) . '<br>',
+                        sprintf('    %s', sprintf(
+                            '`uuid_v5("%s", sprintf("%%d@%%s", number, principal_id))`',
+                            addslashes(static::UUID_NAMESPACE_BY_PRINCIPAL_ID),
+                        )),
+                        '',
+                        Html::encode(sprintf('- %s', Yii::t(
+                            'app-apidoc2',
+                            'Standalone Application (e.g., user\'s input or screen capture)'
+                        ))),
+                        Html::encode(sprintf('    - %s', Yii::t(
+                            'app-apidoc2',
+                            'Nothing send (Disabled duplicate detection)'
+                        ))),
+                        Html::encode(sprintf('    - %s', Yii::t(
+                            'app-apidoc2',
+                            'Generate a UUID version 4 on your side'
+                        ))),
+                        Html::encode(sprintf('    - %s', Yii::t(
+                            'app-apidoc2',
+                            'Generate a UUID version 3 or 5 on your side with your own namespace'
+                        ))),
+                        '',
+                        Html::encode(Yii::t(
+                            'app-apidoc2',
+                            'The API endpoint will return `302 Found` if job has same UUID ' .
+                            'posted in last 24 hours.'
+                        ) . '  '),
+                        Html::encode(Yii::t(
+                            'app-apidoc2',
+                            'This is helpful for unintended duplication, but it is helpless ' .
+                            'for complate detect duplication.'
+                        )),
+                        '',
+                        Html::encode(Yii::t(
+                            'app-apidoc2',
+                            'We recommend posting by the following procedure:'
+                        )),
+                        '',
+                        Html::encode('  1. ' . Yii::t(
+                            'app-apidoc2',
+                            'Call [`GET {url}`]({link}) and retrieve already posted shift numbers.',
+                            [
+                                'url' => '/api/v2/user-salmon?only=splatnet_number',
+                                'link' => '#operation/getUserSalmon',
+                            ]
+                        )),
+                        '',
+                        Html::encode('  2. ' . Yii::t(
+                            'app-apidoc2',
+                            'Fetch data from SplatNet 2.'
+                        )),
+                        '',
+                        Html::encode('  3. ' . Yii::t(
+                            'app-apidoc2',
+                            'Filter unposted shifts and post to us.'
+                        )),
+                        '',
+                        Html::encode(Yii::t(
+                            'app-apidoc2',
+                            'About UUID, refer [RFC 4122](https://tools.ietf.org/html/rfc4122).'
+                        )),
+                        '',
+                        Html::encode(Yii::t(
+                            'app-apidoc2',
+                            'If omitted, we will automatically generate a random UUID.'
+                        )),
+                        '',
+                        Html::encode(Yii::t(
+                            'app-apidoc2',
+                            'If the value is not correct as a UUID, we will use that value as a ' .
+                            'seed to generate a UUID.'
+                        )),
+                        Html::encode(Yii::t('app-apidoc2', 'Do not rely on this behavior.')),
+                    ]),
+                ],
+                'splatnet_number' => ArrayHelper::merge(SplatNet2ID::openApiSchema(), [
+                    'nullable' => new UnsetArrayValue(),
+                ]),
+                'stage' => static::oapiKey(
+                    implode("\n", [
+                        Html::encode(Yii::t('app-apidoc2', 'Stage')),
+                        '',
+                        static::oapiKeyValueTable(
+                            Yii::t('app-apidoc2', 'Stage'),
+                            'app-salmon-map2',
+                            SalmonMap2::find()->orderBy(['key' => SORT_ASC])->asArray()->all(),
+                            null, // key column
+                            null, // value column
+                            null, // key label
+                            'splatnet_hint'
+                        ),
+                    ]),
+                    ArrayHelper::getColumn(
+                        SalmonMap2::find()->orderBy(['key' => SORT_ASC])->asArray()->all(),
+                        'key',
+                        false
+                    ),
+                    true // replace description
+                ),
+                'clear_waves' => [
+                    'type' => 'integer',
+                    'format' => 'int32',
+                    'minimum' => 0,
+                    'maximum' => 3,
+                    'description' => implode("\n", [
+                        Html::encode(Yii::t('app-apidoc2', 'How many cleared waves')),
+                        '',
+                        Html::encode(Yii::t(
+                            'app-apidoc2',
+                            '`3` if cleared. `0` if failed in wave 1.'
+                        )),
+                    ]),
+                ],
+                'fail_reason' => static::oapiKey(
+                    implode("\n", [
+                        Html::encode(Yii::t('app-apidoc2', 'Fail reason')),
+                        '',
+                        Html::encode(Yii::t(
+                            'app-apidoc2',
+                            '`null` or empty string if cleared or unknown'
+                        )),
+                        '',
+                        static::oapiKeyValueTable(
+                            Yii::t('app-apidoc2', 'Reason'),
+                            'app-salmon2',
+                            SalmonFailReason2::find()
+                                ->orderBy(['key' => SORT_ASC])
+                                ->asArray()
+                                ->all()
+                        ),
+                    ]),
+                    ArrayHelper::getColumn(
+                        SalmonFailReason2::find()
+                            ->orderBy(['key' => SORT_ASC])
+                            ->asArray()
+                            ->all(),
+                        'key',
+                        false
+                    ),
+                    true // replace description
+                ),
+                'title' => static::oapiKey(
+                    implode("\n", [
+                        Html::encode(Yii::t('app-apidoc2', 'Title (before the shift)')),
+                        '',
+                        static::oapiKeyValueTable(
+                            Yii::t('app-apidoc2', 'Title'),
+                            'app-salmon-title2',
+                            SalmonTitle2::find()->orderBy(['id' => SORT_ASC])->asArray()->all(),
+                            null,
+                            null,
+                            null,
+                            'splatnet',
+                        ),
+                    ]),
+                    ArrayHelper::getColumn(
+                        SalmonTitle2::find()->orderBy(['id' => SORT_ASC])->asArray()->all(),
+                        'key',
+                        false
+                    ),
+                    true // replace description
+                ),
+                'title_exp' => [
+                    'type' => 'integer',
+                    'format' => 'int32',
+                    'minimum' => 0,
+                    'maximum' => 999,
+                    'description' => implode("\n", [
+                        Yii::t('app-apidoc2', 'Title points (before the shift)'),
+                        '',
+                        Yii::t('app-apidoc2', '`40` if Profreshional `40` of `999`'),
+                    ]),
+                ],
+                'title_after' => static::oapiKey(
+                    implode("\n", [
+                        Html::encode(Yii::t('app-apidoc2', 'Title (after the shift)')),
+                    ]),
+                    ArrayHelper::getColumn(
+                        SalmonTitle2::find()->orderBy(['id' => SORT_ASC])->asArray()->all(),
+                        'key',
+                        false
+                    ),
+                    true // replace description
+                ),
+                'title_exp_after' => [
+                    'type' => 'integer',
+                    'format' => 'int32',
+                    'minimum' => 0,
+                    'maximum' => 999,
+                    'description' => implode("\n", [
+                        Yii::t('app-apidoc2', 'Title points (after the shift)'),
+                        '',
+                        Yii::t('app-apidoc2', '`40` if Profreshional `40` of `999`'),
+                    ]),
+                ],
+                'danger_rate' => [
+                    'type' => 'number',
+                    'format' => 'float',
+                    'minimum' => 0.0,
+                    'maximum' => 200.0,
+                    'multipleOf' => 0.1,
+                    'description' => Yii::t(
+                        'app-apidoc2',
+                        'Hazard Level, 200.0 = "Hazard Level MAX!!"'
+                    ),
+                ],
+                'boss_appearances' => (function (): array {
+                    $models = SalmonBoss2::find()->orderBy(['key' => SORT_ASC])->all();
+
+                    return [
+                        'type' => 'object',
+                        'description' => implode("\n", [
+                            Yii::t('app-apidoc2', 'Boss appearances'),
+                            '',
+                            Html::encode(Yii::t(
+                                'app-apidoc2',
+                                'If your client doesn\'t/cannot detect this data, omit this ' .
+                                'field or send just `null`.'
+                            )),
+                            '',
+                            Yii::t(
+                                'app-apidoc2',
+                                'If not appearances the boss, you can send `0` or omit the boss.'
+                            ),
+                            '',
+                            '```js',
+                            '{',
+                            '  "boss_appearances": null, // OK',
+                            '}',
+                            '',
+                            '{',
+                            '  "boss_appearances": { // OK: you can omit bosses if not necessary.',
+                            '  },',
+                            '}',
+                            '',
+                            '{',
+                            '  "boss_appearances": {',
+                            '    "scrapper": 0, // OK: you can send 0',
+                            '  },',
+                            '}',
+                            '```',
+                            '',
+                            static::oapiKeyValueTable(
+                                Yii::t('app-apidoc2', 'Boss'),
+                                'app-salmon-boss2',
+                                $models,
+                                null, // key column
+                                null, // value column
+                                null, // key label
+                                ['splatnet', 'splatnet_str'],
+                            ),
+                        ]),
+                        'properties' => (function () use ($models): array {
+                            $ret = [];
+                            foreach ($models as $model) {
+                                $ret[$model->key] = [
+                                    'type' => 'integer',
+                                    'format' => 'int32',
+                                    'minimum' => 0,
+                                    'description' => Yii::t('app-apidoc2', '{boss} appearances', [
+                                        'boss' => Yii::t('app-salmon-boss2', $model->name),
+                                    ]),
+                                ];
+                            }
+                            return $ret;
+                        })(),
+                    ];
+                })(),
+                'waves' => [
+                    'type' => 'array',
+                    'minItems' => 1,
+                    'maxItems' => 3,
+                    'items' => static::oapiRef(Wave::class),
+                    'description' => implode("\n", [
+                        Html::encode(Yii::t('app-apidoc2', 'Information about each wave')),
+                        '',
+                        Html::encode(Yii::t(
+                            'app-apidoc2',
+                            'If your client doesn\'t/cannot detect this data, omit this field or ' .
+                            'send just `null`.'
+                        )),
+                    ]),
+                ],
+                'my_data' => static::oapiRef(Player::class),
+                'teammates' => [
+                    'type' => 'array',
+                    'minItems' => 1,
+                    'maxItems' => 3,
+                    'items' => static::oapiRef(Player::class),
+                    'description' => implode("\n", [
+                        Html::encode(Yii::t(
+                            'app-apidoc2',
+                            'Crew members\' (except `my_data`) data, typically have 3 elements'
+                        )),
+                    ]),
+                ],
+                'shift_start_at' => [
+                    'type' => 'integer',
+                    'format' => 'int64',
+                    'description' => Yii::t(
+                        'app-apidoc2',
+                        'The time when this rotation (play window) started in unix time format.'
+                    ),
+                ],
+                'start_at' => [
+                    'type' => 'integer',
+                    'format' => 'int64',
+                    'description' => Yii::t(
+                        'app-apidoc2',
+                        'The time when this shift started in unix time format.',
+                    ),
+                ],
+                'end_at' => [
+                    'type' => 'integer',
+                    'format' => 'int64',
+                    'description' => implode("\n", [
+                        Yii::t(
+                            'app-apidoc2',
+                            'The time when this shift ended in unix time format.'
+                        ),
+                        '',
+                        Yii::t(
+                            'app-apidoc2',
+                            'Note: this value may not be in SplatNet JSON.'
+                        ),
+                    ]),
+                ],
+                'note' => [
+                    'type' => 'string',
+                    'description' => Yii::t('app-apidoc2', 'User note'),
+                ],
+                'private_note' => [
+                    'type' => 'string',
+                    'description' => Yii::t('app-apidoc2', 'User\'s private note'),
+                ],
+                'link_url' => [
+                    'type' => 'string',
+                    'format' => 'uri',
+                    'description' => Yii::t(
+                        'app-apidoc2',
+                        'URL that related to this post. (e.g., YouTube video)'
+                    ),
+                ],
+                'automated' => [
+                    'type' => 'string',
+                    'enum' => ['yes', 'no'],
+                    'description' => implode("\n", [
+                        Yii::t('app-apidoc2', 'Is automated posting process?'),
+                        '',
+                        static::oapiKeyValueTable(
+                            '',
+                            'app-apidoc2',
+                            [
+                                ['key' => 'yes', 'name' => 'If automated.'],
+                                ['key' => 'no', 'name' => 'If manual input.'],
+                            ],
+                            null,
+                            null,
+                            'value',
+                        ),
+                        '',
+                        Yii::t(
+                            'app-apidoc2',
+                            'Choose `no` if this user\'s posts may be arbitrarily selected.'
+                        ),
+                    ]),
+                ],
+                'agent' => [
+                    'type' => 'string',
+                    'maxLength' => 64,
+                    'example' => 'MyAwesomeClient',
+                    'description' => implode("\n", [
+                        Yii::t('app-apidoc2', 'Name of your client'),
+                        '',
+                        Yii::t('app-apidoc2', 'This parameter is required if `{name}` set.', [
+                            'name' => 'agent_version',
+                        ]),
+                    ]),
+                ],
+                'agent_version' => [
+                    'type' => 'string',
+                    'maxLength' => 255,
+                    'example' => '1.0.0 (Windows 10)',
+                    'description' => implode("\n", [
+                        Yii::t('app-apidoc2', 'Version of your client'),
+                        '',
+                        Yii::t('app-apidoc2', 'This parameter is required if `{name}` set.', [
+                            'name' => 'agent',
+                        ]),
+                    ]),
+                ],
+            ],
+            'example' => static::openApiExample(),
+        ];
+    }
+
+    public static function openApiDepends(): array
+    {
+        return [
+            Player::class,
+            Wave::class,
+        ];
+    }
+
+    public static function openApiExample(): array
+    {
+        return [
+            'uuid' => '4c705dd6-7a22-5f04-865d-d87413b0970d',
+            'splatnet_number' => 5436,
+            'stage' => 'tokishirazu',
+            'clear_waves' => 1,
+            'fail_reason' => 'wipe_out',
+            'title' => 'profreshional',
+            'title_exp' => 410,
+            'title_after' => 'profreshional',
+            'title_exp_after' => 405,
+            'danger_rate' => 174.2,
+            'boss_appearances' => [
+                'drizzler' => 6,
+                'flyfish' => 7,
+                'maws' => 6,
+                'scrapper' => 3,
+                'steel_eel' => 4,
+                'steelhead' => 5,
+                'stinger' => 5,
+            ],
+            'waves' => [
+                [
+                    'known_occurrence' => null,
+                    'water_level' => 'high',
+                    'golden_egg_quota' => 18,
+                    'golden_egg_appearances' => 45,
+                    'golden_egg_delivered' => 24,
+                    'power_egg_collected' => 846,
+                ],
+                [
+                    'known_occurrence' => null,
+                    'water_level' => 'normal',
+                    'golden_egg_quota' => 20,
+                    'golden_egg_appearances' => 33,
+                    'golden_egg_delivered' => 19,
+                    'power_egg_collected' => 681,
+                ],
+            ],
+            'my_data' => Player::openApiExample(),
+            'teammates' => null,
+            'shift_start_at' => 1573106400,
+            'start_at' => 1573151096,
+            'end_at' => null,
+            'note' => null,
+            'private_note' => null,
+            'link_url' => null,
+            'automated' => 'yes',
+            'agent' => 'splatnet2statink',
+            'agent_version' => '1.5.3',
+        ];
     }
 }

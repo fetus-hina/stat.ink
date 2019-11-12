@@ -62,6 +62,8 @@ use yii\helpers\Url;
  */
 class Salmon2 extends ActiveRecord
 {
+    use openapi\Util;
+
     public static function getRoughCount(): ?int
     {
         try {
@@ -869,5 +871,340 @@ class Salmon2 extends ActiveRecord
             Yii::endProfile($profile, __METHOD__);
             return $result;
         });
+    }
+
+    public static function openApiSchema(): array
+    {
+        return [
+            'type' => 'object',
+            'description' => Yii::t('app-apidoc2', 'Salmon Run results'),
+            'properties' => [
+                'id' => static::oapiRef(openapi\PermanentID::class),
+                'uuid' => static::oapiRef(openapi\Uuid::class),
+                'splatnet_number' => [
+                    'type' => 'integer',
+                    'format' => 'int32',
+                    'minimum' => 1,
+                    'description' => Yii::t('app-apidoc2', 'Shift number in SplatNet 2'),
+                    'nullable' => true,
+                ],
+                'url' => [
+                    'type' => 'string',
+                    'format' => 'uri',
+                    'description' => Yii::t('app-apidoc2', 'Public URL'),
+                ],
+                'api_endpoint' => [
+                    'type' => 'string',
+                    'format' => 'uri',
+                    'description' => Yii::t('app-apidoc2', 'URL for API call'),
+                ],
+                'user' => static::oapiRef(openapi\UserForSalmon2::class),
+                'stage' => array_merge(SalmonMap2::openApiSchema(), [
+                    'nullable' => true,
+                ]),
+                'is_cleared' => [
+                    'type' => 'boolean',
+                    'nullable' => true,
+                    'description' => implode("\n", [
+                        Html::encode(Yii::t('app-apidoc2', 'Is player cleared the shift?')),
+                        '',
+                        static::oapiKeyValueTable(
+                            '',
+                            'app-apidoc2',
+                            [
+                                [
+                                    'k' => 'true',
+                                    'v' => 'Cleared the shift',
+                                ],
+                                [
+                                    'k' => 'false',
+                                    'v' => 'Failed the shift',
+                                ],
+                                [
+                                    'k' => 'null',
+                                    'v' => 'Unknown result',
+                                ],
+                            ],
+                            'k',
+                            'v',
+                            Html::encode(Yii::t('app-apidoc2', 'Value')),
+                        ),
+                    ]),
+                ],
+                'fail_reason' => static::oapiRef(SalmonFailReason2::class),
+                'clear_waves' => [
+                    'type' => 'integer',
+                    'format' => 'int32',
+                    'minimum' => 0,
+                    'maximum' => 3,
+                    'nullable' => true,
+                    'description' => Yii::t(
+                        'app-apidoc2',
+                        'Number of cleared waves. 3 if cleared, 0 if failed in wave 1.'
+                    ),
+                ],
+                'danger_rate' => [
+                    'type' => 'number',
+                    'format' => 'float',
+                    'minimum' => 0.0,
+                    'maximum' => 200.0,
+                    'multipleOf' => 0.1,
+                    'nullable' => true,
+                    'description' => Yii::t(
+                        'app-apidoc2',
+                        'Hazard Level, 200.0 = "Hazard Level MAX!!"'
+                    ),
+                ],
+                'quota' => [
+                    'type' => 'array',
+                    'minItems' => 3,
+                    'maxItems' => 3,
+                    'nullable' => true,
+                    'items' => [
+                      'type' => 'integer',
+                      'format' => 'int32',
+                      'minimum' => 1,
+                      'maximum' => 25,
+                    ],
+                    'description' => Yii::t('app-apidoc2', 'Quotas calculated by Hazard Level'),
+                ],
+                'title' => array_merge(SalmonTitle2::openApiSchema(), [
+                    'description' => Yii::t('app-apidoc2', 'Title (before the shift)'),
+                    'nullable' => true,
+                ]),
+                'title_exp' => [
+                    'type' => 'integer',
+                    'format' => 'int32',
+                    'minimum' => 0,
+                    'maximum' => 999,
+                    'nullable' => true,
+                    'description' => Yii::t('app-apidoc2', 'Title points (before the shift)'),
+                ],
+                'title_after' => array_merge(SalmonTitle2::openApiSchema(), [
+                    'description' => Yii::t('app-apidoc2', 'Title (after the shift)'),
+                    'nullable' => true,
+                ]),
+                'title_exp_after' => [
+                    'type' => 'integer',
+                    'format' => 'int32',
+                    'minimum' => 0,
+                    'maximum' => 999,
+                    'nullable' => true,
+                    'description' => Yii::t('app-apidoc2', 'Title points (before the shift)'),
+                ],
+                'boss_appearances' => [
+                    'type' => 'array',
+                    'items' => static::oapiRef(SalmonBossAppearance2::class),
+                    'nullable' => true,
+                    'description' => Yii::t('app-apidoc2', 'How many bosses appearances'),
+                ],
+                'waves' => [
+                    'type' => 'array',
+                    'items' => static::oapiRef(SalmonWave2::class),
+                    'minItems' => 1,
+                    'maxItems' => 3,
+                    'nullable' => true,
+                    'description' => Yii::t('app-apidoc2', 'Wave informations'),
+                ],
+                'my_data' => array_merge(SalmonPlayer2::openApiSchema(), [
+                    'nullable' => true,
+                    'description' => Yii::t('app-apidoc2', 'A play data of this post owner'),
+                ]),
+                'teammates' => [
+                    'type' => 'array',
+                    'nullable' => true,
+                    'description' => Yii::t('app-apidoc2', 'Teammates\' play data'),
+                    'items' => static::oapiRef(SalmonPlayer2::class),
+                    'minItems' => 1,
+                    'maxItems' => 3,
+                ],
+                'agent' => [
+                    'type' => 'object',
+                    'description' => Yii::t('app-apidoc2', 'User agent information'),
+                    'properties' => [
+                        'name' => [
+                            'type' => 'string',
+                            'nullable' => true,
+                            'description' => Yii::t('app-apidoc2', 'Name of the user agent'),
+                        ],
+                        'version' => [
+                            'type' => 'string',
+                            'nullable' => true,
+                            'description' => Yii::t('app-apidoc2', 'Version of the user agent'),
+                        ],
+                    ],
+                ],
+                'automated' => [
+                    'type' => 'boolean',
+                    'nullable' => false,
+                    'description' => Yii::t('app-apidoc2', 'Is the post with automated process?'),
+                ],
+                'note' => [
+                    'type' => 'string',
+                    'nullable' => true,
+                    'description' => Yii::t('app-apidoc2', 'User note'),
+                ],
+                'link_url' => [
+                    'type' => 'string',
+                    'format' => 'uri',
+                    'nullable' => true,
+                    'description' => Yii::t(
+                        'app-apidoc2',
+                        'URL that related to this post. (e.g., YouTube video)'
+                    ),
+                ],
+                'shift_start_at' => array_merge(openapi\DateTime::openApiSchema(), [
+                    'nullable' => true,
+                    'description' => Yii::t(
+                        'app-apidoc2',
+                        'Which rotation (play window, schedule)'
+                    ),
+                ]),
+                'start_at' => array_merge(openapi\DateTime::openApiSchema(), [
+                    'nullable' => true,
+                    'description' => Yii::t('app-apidoc2', 'Start time of this shift'),
+                ]),
+                'end_at' => array_merge(openapi\DateTime::openApiSchema(), [
+                    'nullable' => true,
+                    'description' => Yii::t('app-apidoc2', 'End time of this shift'),
+                ]),
+                'register_at' => array_merge(openapi\DateTime::openApiSchema(), [
+                    'nullable' => false,
+                    'description' => Yii::t('app-apidoc2', 'Posted time'),
+                ]),
+            ],
+            'example' => [],
+        ];
+    }
+
+    public static function openApiDepends(): array
+    {
+        return [
+            SalmonBossAppearance2::class,
+            SalmonFailReason2::class,
+            SalmonPlayer2::class,
+            SalmonPlayerBossKill2::class,
+            SalmonWave2::class,
+            openapi\PermanentID::class,
+            openapi\UserForSalmon2::class,
+            openapi\Uuid::class,
+        ];
+    }
+
+    public static function openapiExample(): array
+    {
+        $girl = Gender::findOne(['id' => 2]);
+        $title = SalmonTitle2::findOne(['key' => 'profreshional'])->toJsonArray($girl);
+        $bosses = ArrayHelper::map(
+            SalmonBoss2::find()->orderBy(['key' => SORT_ASC])->all(),
+            'key',
+            function (SalmonBoss2 $boss): array {
+                return $boss->toJsonArray();
+            }
+        );
+        $bossAppearances = [
+            'drizzler' => 6,
+            'flyfish' => 7,
+            'maws' => 6,
+            'scrapper' => 3,
+            'steel_eel' => 4,
+            'steelhead' => 5,
+            'stinger' => 5,
+        ];
+        $weapons = ArrayHelper::map(
+            SalmonMainWeapon2::find()
+                ->andWhere(['key' => ['splatroller', 'wakaba', 'explosher', 'hydra']])
+                ->all(),
+            'key',
+            function (SalmonMainWeapon2 $weapon): array {
+                return $weapon->toJsonArray();
+            }
+        );
+
+        return [
+            'id' => 137857,
+            'uuid' => '4c705dd6-7a22-5f04-865d-d87413b0970d',
+            'splatnet_number' => 5436,
+            'url' => Url::to(['salmon/view', 'screen_name' => 'fetus_hina', 'id' => 137857], true),
+            'api_endpoint' => Url::to(['api-v2-salmon/view', 'id' => 137857], true),
+            // user
+            'stage' => SalmonMap2::findOne(['key' => 'tokishirazu'])->toJsonArray(),
+            'is_cleared' => false,
+            'fail_reason' => SalmonFailReason2::findOne(['key' => 'wipe_out'])->toJsonArray(),
+            'clear_waves' => 1,
+            'danger_rate' => '174.2',
+            'quota' => [18, 20, 22],
+            'title' => $title,
+            'title_exp' => 410,
+            'title_after' => $title,
+            'title_exp_after' => 405,
+            'boss_appearances' => array_filter(array_map(
+                function (array $boss) use ($bossAppearances): ?array {
+                    return isset($bossAppearances[$boss['key']])
+                        ? [
+                            'boss' => $boss,
+                            'count' => $bossAppearances[$boss['key']],
+                        ]
+                        : null;
+                },
+                $bosses,
+            )),
+            'waves' => [
+                [
+                    'known_occurrence' => null,
+                    'water_level' => SalmonWaterLevel2::findOne(['key' => 'high'])->toJsonArray(),
+                    'golden_egg_quota' => 18,
+                    'golden_egg_appearances' => 45,
+                    'golden_egg_delivered' => 24,
+                    'power_egg_collected' => 846,
+                ],
+                [
+                    'known_occurrence' => null,
+                    'water_level' => SalmonWaterLevel2::findOne(['key' => 'normal'])->toJsonArray(),
+                    'golden_egg_quota' => 20,
+                    'golden_egg_appearances' => 33,
+                    'golden_egg_delivered' => 19,
+                    'power_egg_collected' => 681,
+                ],
+            ],
+            'my_data' => [
+                'splatnet_id' => '3f6fb10a91b0c551',
+                'name' => 'HINA',
+                'special' => Special2::findOne(['key' => 'presser'])->toJsonArray(),
+                'rescue' => 3,
+                'death' => 3,
+                'golden_egg_delivered' => 13,
+                'power_egg_collected' => 318,
+                'species' => Species2::findOne(['key' => 'inkling'])->toJsonArray(),
+                'gender' => $girl->toJsonArray(),
+                'special_uses' => [0, 1],
+                'weapons' => [
+                    $weapons['wakaba'],
+                    $weapons['hydra'],
+                ],
+                'boss_kills' => [
+                    [
+                        'boss' => $bosses['stinger'],
+                        'count' => 1,
+                    ],
+                    [
+                        'boss' => $bosses['maws'],
+                        'count' => 2,
+                    ],
+                ],
+            ],
+            'teammates' => null,
+            'agent' => [
+                'name' => 'splatnet2statink',
+                'version' => '1.5.3',
+            ],
+            'automated' => true,
+            'note' => null,
+            'link_url' => null,
+            'shift_start_at' => DateTimeFormatter::unixTimeToJsonArray(1573106400),
+            'start_at' => DateTimeFormatter::unixTimeToJsonArray(1573151096),
+            'end_at' => null,
+            'register_at' => DateTimeFormatter::unixTimeToJsonArray(1573153689),
+        ];
     }
 }

@@ -18,15 +18,24 @@ use app\models\GearType;
 use app\models\Language;
 use app\models\Map2;
 use app\models\Mode2;
+use app\models\Salmon2;
+use app\models\SalmonMap2;
+use app\models\SalmonStats2;
 use app\models\Special2;
 use app\models\Subweapon2;
 use app\models\Weapon2;
 use app\models\WeaponCategory2;
 use app\models\WeaponType2;
+use app\models\api\v2\GearGetForm;
+use app\models\api\v2\PostSalmonStatsForm;
+use app\models\api\v2\salmon\PostForm as PostSalmonForm;
 use app\models\openapi\SplatNet2ID;
 use app\models\openapi\Util as OpenApiUtil;
+use app\models\openapi\sec\ApiToken;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
+use yii\helpers\UnsetArrayValue;
+use yii\helpers\Url;
 
 class V2 extends Base
 {
@@ -47,6 +56,15 @@ class V2 extends Base
             '/api/v2/stage' => $this->getPathInfoStage(),
             '/api/v2/weapon' => $this->getPathInfoWeapon(),
             '/api/v2/weapon.csv' => $this->getPathInfoWeaponCsv(),
+
+            // salmon
+            '/api/v2/salmon' => $this->getPathInfoSalmon(),
+            '/api/v2/salmon/{id}' => $this->getPathInfoSalmonWithID(),
+            '/api/v2/user-salmon' => $this->getPathInfoUserSalmon(),
+            '/api/v2/salmon-stats' => $this->getPathInfoSalmonStats(),
+
+            // obsoleted
+            '/api/v2/map' => $this->getPathInfoMap(),
         ];
     }
 
@@ -85,6 +103,7 @@ class V2 extends Base
                 'tags' => [
                     'general',
                 ],
+                'parameters' => GearGetForm::oapiParameters(),
                 'responses' => [
                     '200' => [
                         'description' => Yii::t('app-apidoc2', 'Successful'),
@@ -149,6 +168,7 @@ class V2 extends Base
                 'tags' => [
                     'general',
                 ],
+                'parameters' => GearGetForm::oapiParameters(),
                 'responses' => [
                     '200' => [
                         'description' => Yii::t('app-apidoc2', 'Successful'),
@@ -702,6 +722,646 @@ class V2 extends Base
                                         ->orderBy(['splatnet' => SORT_ASC])
                                         ->all()
                                 )),
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ];
+        // }}}
+    }
+
+    protected function getPathInfoSalmon(): array
+    {
+        return array_merge(
+            $this->getPathInfoSalmonGet(),
+            $this->getPathInfoSalmonPost(),
+        );
+    }
+
+    protected function getPathInfoSalmonGet(): array
+    {
+        // {{{
+        $this->registerSchema(Salmon2::class);
+        $this->registerTag('salmon');
+        return [
+            'get' => [
+                'operationId' => 'getSalmon',
+                'summary' => Yii::t('app-apidoc2', 'Get Salmon Run results'),
+                'description' => implode("\n\n", [
+                    Html::encode(Yii::t(
+                        'app-apidoc2',
+                        'Returns Salmon Run results.'
+                    )),
+                ]),
+                'tags' => [
+                    'salmon',
+                ],
+                'parameters' => [
+                    [
+                        'in' => 'query',
+                        'name' => 'screen_name',
+                        'required' => false,
+                        'schema' => [
+                            'type' => 'string',
+                            'pattern' => '[0-9a-zA-Z_]{1,15}',
+                        ],
+                        'description' => implode("\n", [
+                            Html::encode(Yii::t('app-apidoc2', 'Filter by user')),
+                            '',
+                            Html::encode(Yii::t(
+                                'app-apidoc2',
+                                'This parameter is required if you set `only` = `splatnet_number`.'
+                            )),
+                        ]),
+                    ],
+                    [
+                        'in' => 'query',
+                        'name' => 'only',
+                        'required' => false,
+                        'schema' => [
+                            'type' => 'string',
+                            'enum' => [
+                                'splatnet_number',
+                            ],
+                        ],
+                        'description' => implode("\n", [
+                            Html::encode(Yii::t('app-apidoc2', 'Change the result set')),
+                            '',
+                            static::oapiKeyValueTable(
+                                '',
+                                'app-apidoc2',
+                                [
+                                    [
+                                        'k' => 'splatnet_number',
+                                        'v' => 'Returns only SplatNet\'s ID Numbers',
+                                    ],
+                                ],
+                                'k',
+                                'v',
+                                Html::encode(Yii::t('app-apidoc2', 'Value'))
+                            ),
+                        ]),
+                    ],
+                    [
+                        'in' => 'query',
+                        'name' => 'stage',
+                        'required' => false,
+                        'schema' => static::oapiKey(
+                            '',
+                            ArrayHelper::getColumn(
+                                SalmonMap2::find()->orderBy(['key' => SORT_ASC])->asArray()->all(),
+                                'key',
+                                false
+                            ),
+                            true
+                        ),
+                        'description' => implode("\n", [
+                            Html::encode(Yii::t('app-apidoc2', 'Filter by stage')),
+                            '',
+                            static::oapiKeyValueTable(
+                                Yii::t('app-apidoc2', 'Stage'),
+                                'app-salmon-map2',
+                                SalmonMap2::find()
+                                    ->orderBy(['key' => SORT_ASC])
+                                    ->all()
+                            ),
+                        ]),
+                    ],
+                    [
+                        'in' => 'query',
+                        'name' => 'newer_than',
+                        'required' => false,
+                        'schema' => [
+                            'type' => 'integer',
+                            'format' => 'int32',
+                        ],
+                        'description' => implode("\n", [
+                            Html::encode(Yii::t('app-apidoc2', 'Filter by permanent ID')),
+                            '',
+                            Yii::t(
+                                'app-apidoc2',
+                                'You\'ll get `newer_than` &lt; `id` &lt; `older_than`.'
+                            ),
+                        ]),
+                    ],
+                    [
+                        'in' => 'query',
+                        'name' => 'older_than',
+                        'required' => false,
+                        'schema' => [
+                            'type' => 'integer',
+                            'format' => 'int32',
+                        ],
+                        'description' => implode("\n", [
+                            Html::encode(Yii::t('app-apidoc2', 'Filter by permanent ID')),
+                            '',
+                            Yii::t(
+                                'app-apidoc2',
+                                'You\'ll get `newer_than` &lt; `id` &lt; `older_than`.'
+                            ),
+                        ]),
+                    ],
+                    [
+                        'in' => 'query',
+                        'name' => 'order',
+                        'schema' => [
+                            'type' => 'string',
+                            'enum' => [
+                                'asc',
+                                'desc',
+                                'splatnet_asc',
+                                'splatnet_desc',
+                            ],
+                            'default' => 'desc',
+                        ],
+                        'description' => implode("\n", [
+                            Html::encode(Yii::t('app-apidoc2', 'Result order')),
+                            '',
+                            static::oapiKeyValueTable(
+                                '',
+                                'app-apidoc2',
+                                [
+                                    [
+                                        'k' => 'asc',
+                                        'v' => 'Older to newer',
+                                    ],
+                                    [
+                                        'k' => 'desc',
+                                        'v' => 'Newer to older (default in most case)',
+                                    ],
+                                    [
+                                        'k' => 'splatnet_asc',
+                                        'v' => 'SplatNet number small to big',
+                                    ],
+                                    [
+                                        'k' => 'splatnet_desc',
+                                        'v' => 'SplatNet number big to small (default if ' .
+                                            '"only" = "splatnet_number")',
+                                    ],
+                                ],
+                                'k',
+                                'v'
+                            ),
+                        ]),
+                    ],
+                    [
+                        'in' => 'query',
+                        'name' => 'count',
+                        'required' => false,
+                        'schema' => [
+                            'type' => 'integer',
+                            'format' => 'int32',
+                            'minimum' => 1,
+                            'maximum' => 1000,
+                            'default' => 50,
+                        ],
+                        'description' => implode("\n", [
+                            Html::encode(Yii::t('app-apidoc2', 'Max records to get')),
+                            '',
+                            implode("<br>\n", [
+                                Html::encode(Yii::t(
+                                    'app-apidoc2',
+                                    'Accepts `1`-`1000` (if `only` = `splatnet_number`)'
+                                )),
+                                Html::encode(Yii::t(
+                                    'app-apidoc2',
+                                    'Accepts `1`-`50` (otherwise)'
+                                )),
+                            ]),
+                        ]),
+                    ],
+                ],
+                'responses' => [
+                    '200' => [
+                        'description' => Yii::t('app-apidoc2', 'Successful'),
+                        'content' => [
+                            'application/json' => [
+                                'schema' => [
+                                    'type' => 'array',
+                                    'items' => [
+                                        'oneOf' => [
+                                            array_merge(Salmon2::openApiSchema(), [
+                                                'title' => Yii::t('app-apidoc2', 'Otherwise'),
+                                            ]),
+                                            [
+                                                'title' => 'only = splatnet_number',
+                                                'type' => 'integer',
+                                                'format' => 'int32',
+                                                'minimum' => 0,
+                                                'description' => Yii::t(
+                                                    'app-apidoc2',
+                                                    'Shift number in SplatNet 2'
+                                                ),
+                                                'example' => 42,
+                                            ],
+                                        ],
+                                    ],
+                                    'example' => [
+                                        Salmon2::openapiExample(),
+                                    ],
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ];
+        // }}}
+    }
+
+    private function getPathInfoSalmonPost(): array
+    {
+        // {{{
+        $this->registerSecurityScheme(ApiToken::class);
+        $this->registerTag('salmon');
+        $this->registerSchema(PostSalmonForm::class);
+        return [
+            'post' => [
+                'operationId' => 'postSalmon',
+                'summary' => Yii::t('app-apidoc2', 'Post Salmon Run results'),
+                'description' => implode("\n\n", [
+                    Html::encode(Yii::t('app-apidoc2', 'Post Salmon Run results')),
+                ]),
+                'tags' => [
+                    'salmon',
+                ],
+                'security' => [
+                    ApiToken::oapiSecUse(),
+                ],
+                'requestBody' => [
+                    'required' => true,
+                    'content' => [
+                        'appliation/json' => [
+                            'schema' => static::oapiRef(PostSalmonForm::class),
+                        ],
+                        'application/x-msgpack' => [
+                            'schema' => static::oapiRef(PostSalmonForm::class),
+                        ],
+                    ],
+                ],
+                'responses' => [
+                    '201' => [
+                        'description' => Yii::t('app-apidoc2', 'Created'),
+                        'headers' => [
+                            'Location' => [
+                                'schema' => [
+                                    'type' => 'string',
+                                    'format' => 'uri',
+                                ],
+                                'description' => Yii::t('app-apidoc2', 'Public URL'),
+                                'example' => Url::to(
+                                    ['salmon/view',
+                                        'screen_name' => 'fetus_hina',
+                                        'id' => 137857,
+                                    ],
+                                    true
+                                ),
+                            ],
+                            'X-API-Location' => [
+                                'schema' => [
+                                    'type' => 'string',
+                                    'format' => 'uri',
+                                ],
+                                'description' => Yii::t(
+                                    'app-apidoc2',
+                                    'URL for API call that created'
+                                ),
+                                'example' => Url::to(
+                                    ['api-v2-salmon/view', 'id' => 137857],
+                                    true
+                                ),
+                            ],
+                        ],
+                    ],
+                    '302' => [
+                        'description' => Yii::t('app-apidoc2', 'Found same data'),
+                        'headers' => [
+                            'Location' => [
+                                'schema' => [
+                                    'type' => 'string',
+                                    'format' => 'uri',
+                                ],
+                                'description' => Yii::t('app-apidoc2', 'Public URL'),
+                                'example' => Url::to(
+                                    ['salmon/view',
+                                        'screen_name' => 'fetus_hina',
+                                        'id' => 137857,
+                                    ],
+                                    true
+                                ),
+                            ],
+                            'X-API-Location' => [
+                                'schema' => [
+                                    'type' => 'string',
+                                    'format' => 'uri',
+                                ],
+                                'description' => Yii::t(
+                                    'app-apidoc2',
+                                    'URL for API call that created'
+                                ),
+                                'example' => Url::to(
+                                    ['api-v2-salmon/view', 'id' => 137857],
+                                    true
+                                ),
+                            ],
+                        ],
+                    ],
+                    '400' => [
+                        'description' => 'Bad Request',
+                    ],
+                    '401' => [
+                        'description' => 'Unauthorized',
+                    ],
+                ],
+            ],
+        ];
+        // }}}
+    }
+
+    protected function getPathInfoSalmonWithID(): array
+    {
+        // {{{
+        $this->registerSchema(Salmon2::class);
+        $this->registerTag('salmon');
+        return [
+            'get' => [
+                'operationId' => 'getSalmonWithID',
+                'summary' => Yii::t('app-apidoc2', 'Get the Salmon Run results'),
+                'description' => implode("\n\n", [
+                    Html::encode(Yii::t(
+                        'app-apidoc2',
+                        'Returns the Salmon Run results.'
+                    )),
+                ]),
+                'tags' => [
+                    'salmon',
+                ],
+                'parameters' => [
+                    [
+                        'in' => 'path',
+                        'name' => 'id',
+                        'required' => true,
+                        'schema' => [
+                            'type' => 'integer',
+                            'format' => 'int32',
+                        ],
+                        'description' => Yii::t('app-apidoc2', 'Permanent ID of the results'),
+                    ],
+                ],
+                'responses' => [
+                    '200' => [
+                        'description' => Yii::t('app-apidoc2', 'Successful'),
+                        'content' => [
+                            'application/json' => [
+                                'schema' => static::oapiRef(Salmon2::class),
+                                'example' => Salmon2::openapiExample(),
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ];
+        // }}}
+    }
+
+    protected function getPathInfoUserSalmon(): array
+    {
+        // {{{
+        $data = ArrayHelper::merge(static::getPathInfoSalmon(), [
+            'get' => [
+                'operationId' => 'getUserSalmon',
+                'summary' => Yii::t('app-apidoc2', 'Get Salmon Run results (with Auth)'),
+                'description' => implode("\n\n", [
+                    Html::encode(Yii::t(
+                        'app-apidoc2',
+                        'Returns Salmon Run results.'
+                    )),
+                    Html::encode(Yii::t(
+                        'app-apidoc2',
+                        'You can only get data for user who is authenticated by API token.'
+                    )),
+                ]),
+                'security' => [
+                    ApiToken::oapiSecUse(),
+                ],
+                'responses' => [
+                    '401' => [
+                        'description' => Yii::t('app-apidoc2', 'Unauthorized'),
+                    ],
+                ],
+            ],
+            'post' => new UnsetArrayValue(),
+        ]);
+
+        // remove "screen_name" parameter
+        $data['get']['parameters'] = array_values(array_filter(
+            $data['get']['parameters'],
+            function (array $param): bool {
+                return $param['name'] !== 'screen_name';
+            }
+        ));
+
+        return $data;
+        // }}}
+    }
+
+    protected function getPathInfoSalmonStats(): array
+    {
+        return array_merge(
+            $this->getPathInfoSalmonStatsGet(),
+            $this->getPathInfoSalmonStatsPost(),
+        );
+    }
+
+    private function getPathInfoSalmonStatsGet(): array
+    {
+        // {{{
+        $this->registerSchema(SalmonStats2::class);
+        $this->registerSecurityScheme(ApiToken::class);
+        $this->registerTag('salmon');
+        return [
+            'get' => [
+                'operationId' => 'getSalmonStats',
+                'summary' => Yii::t('app-apidoc2', 'Get Salmon Run stats (card data)'),
+                'description' => implode("\n\n", [
+                    Html::encode(Yii::t(
+                        'app-apidoc2',
+                        'Returns Salmon Run stats.'
+                    )),
+                    Html::encode(Yii::t(
+                        'app-apidoc2',
+                        'You can only get data for user who is authenticated by API token.'
+                    )),
+                ]),
+                'tags' => [
+                    'salmon',
+                ],
+                'security' => [
+                    ApiToken::oapiSecUse(),
+                ],
+                'parameters' => [
+                    [
+                        'in' => 'query',
+                        'name' => 'id',
+                        'required' => false,
+                        'schema' => [
+                            'type' => 'integer',
+                            'format' => 'int32',
+                            'minimum' => 1,
+                        ],
+                        'description' => implode("\n\n", [
+                            Html::encode(Yii::t('app-apidoc2', 'Permanent ID')),
+                            Yii::t(
+                                'app-apidoc2',
+                                'If you omitted the <code>id</code>, you will get a latest data.'
+                            ),
+                            Yii::t(
+                                'app-apidoc2',
+                                'The value of <code>id</code> is obtained in the Location header ' .
+                                'of the POST API.'
+                            ),
+                            Yii::t(
+                                'app-apidoc2',
+                                'If you specified other player\'s <code>id</code> value, you ' .
+                                'will get the 404 error.'
+                            )
+                        ]),
+                    ],
+                ],
+                'responses' => [
+                    '200' => [
+                        'description' => Yii::t('app-apidoc2', 'Successful'),
+                        'content' => [
+                            'application/json' => [
+                                'schema' => SalmonStats2::oapiRef(),
+                                'example' => SalmonStats2::openapiExample(),
+                            ],
+                        ],
+                    ],
+                    '400' => [
+                        'description' => 'Bad Request',
+                    ],
+                    '401' => [
+                        'description' => 'Unauthorized',
+                    ],
+                    '404' => [
+                        'description' => 'Not Found',
+                    ],
+                ],
+            ],
+        ];
+        // }}}
+    }
+
+    private function getPathInfoSalmonStatsPost(): array
+    {
+        // {{{
+        $this->registerSecurityScheme(ApiToken::class);
+        $this->registerTag('salmon');
+        $this->registerSchema(PostSalmonStatsForm::class);
+        return [
+            'post' => [
+                'operationId' => 'postSalmonStats',
+                'summary' => Yii::t('app-apidoc2', 'Post Salmon Run stats (card data)'),
+                'description' => implode("\n\n", [
+                    Html::encode(Yii::t('app-apidoc2', 'Post Salmon Run stats (card data)')),
+                ]),
+                'tags' => [
+                    'salmon',
+                ],
+                'security' => [
+                    ApiToken::oapiSecUse(),
+                ],
+                'requestBody' => [
+                    'required' => true,
+                    'content' => [
+                        'appliation/json' => [
+                            'schema' => static::oapiRef(PostSalmonStatsForm::class),
+                        ],
+                        'application/x-msgpack' => [
+                            'schema' => static::oapiRef(PostSalmonStatsForm::class),
+                        ],
+                    ],
+                ],
+                'responses' => [
+                    '201' => [
+                        'description' => Yii::t('app-apidoc2', 'Created'),
+                        'headers' => [
+                            'Location' => [
+                                'schema' => [
+                                    'type' => 'string',
+                                    'format' => 'uri',
+                                ],
+                                'description' => Yii::t(
+                                    'app-apidoc2',
+                                    'URL for API call that created'
+                                ),
+                                'example' => Url::to(
+                                    ['api-v2-salmon/view-stats', 'id' => 42],
+                                    true
+                                ),
+                            ],
+                        ],
+                    ],
+                    '302' => [
+                        'description' => Yii::t('app-apidoc2', 'Found same data'),
+                        'headers' => [
+                            'Location' => [
+                                'schema' => [
+                                    'type' => 'string',
+                                    'format' => 'uri',
+                                ],
+                                'description' => Yii::t('app-apidoc2', 'URL for API call'),
+                                'example' => Url::to(
+                                    ['api-v2-salmon/view-stats', 'id' => 42],
+                                    true
+                                ),
+                            ],
+                        ],
+                    ],
+                    '400' => [
+                        'description' => 'Bad Request',
+                    ],
+                    '401' => [
+                        'description' => 'Unauthorized',
+                    ],
+                ],
+            ],
+        ];
+        // }}}
+    }
+
+    protected function getPathInfoMap(): array
+    {
+        // {{{
+        $this->registerTag('general');
+        $this->registerTag('obsoleted');
+        return [
+            'get' => [
+                'operationId' => 'getMap',
+                'summary' => Yii::t('app-apidoc2', 'Get stages (obsoleted)'),
+                'description' => implode("\n\n", [
+                    Html::encode(Yii::t('app-apidoc2', 'This API has been obsoleted.')),
+                    Html::encode(Yii::t('app-apidoc2', 'Use [`{path}`]({link}) instead of this.', [
+                        'path' => '/api/v2/stage',
+                        'link' => '#operation/getStage',
+                    ])),
+                ]),
+                'tags' => [
+                    // 'general',
+                    'obsoleted',
+                ],
+                'responses' => [
+                    '301' => [
+                        'description' => Yii::t('app-apidoc2', 'Redirect'),
+                        'headers' => [
+                            'Location' => [
+                                'schema' => [
+                                    'type' => 'string',
+                                    'format' => 'uri',
+                                ],
+                                'example' => Url::to(['api-v2/stage'], true),
                             ],
                         ],
                     ],

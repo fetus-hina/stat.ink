@@ -29,6 +29,8 @@ use yii\db\ActiveRecord;
  */
 class SalmonWave2 extends ActiveRecord
 {
+    use openapi\Util;
+
     /**
      * @inheritdoc
      */
@@ -78,10 +80,10 @@ class SalmonWave2 extends ActiveRecord
             'wave' => 'Wave',
             'event_id' => 'Event ID',
             'water_id' => 'Water ID',
-            'golden_egg_quota' => 'Golden Egg Quota',
-            'golden_egg_appearances' => 'Golden Egg Appearances',
-            'golden_egg_delivered' => 'Golden Egg Delivered',
-            'power_egg_collected' => 'Power Egg Collected',
+            'golden_egg_quota' => 'Quota',
+            'golden_egg_appearances' => 'Golden Eggs Appearances',
+            'golden_egg_delivered' => 'Golden Eggs Delivered',
+            'power_egg_collected' => 'Power Eggs Collected',
         ];
     }
 
@@ -118,6 +120,70 @@ class SalmonWave2 extends ActiveRecord
             'golden_egg_appearances' => $this->golden_egg_appearances,
             'golden_egg_delivered' => $this->golden_egg_delivered,
             'power_egg_collected' => $this->power_egg_collected,
+        ];
+    }
+
+    public static function openApiSchema(): array
+    {
+        return [
+            'type' => 'object',
+            'description' => Yii::t('app-apidoc2', 'Wave information'),
+            'properties' => [
+                'known_occurrence' => array_merge(SalmonEvent2::openApiSchema(), [
+                    'nullable' => true,
+                ]),
+                'water_level' => array_merge(SalmonWaterLevel2::openApiSchema(), [
+                    'nullable' => true,
+                ]),
+                'golden_egg_quota' => [
+                    'type' => 'integer',
+                    'format' => 'int32',
+                    'minimum' => 1,
+                    'maximum' => 25,
+                    'nullable' => true,
+                    'description' => Yii::t('app-apidoc2', 'Quota'),
+                ],
+                'golden_egg_appearances' => [
+                    'type' => 'integer',
+                    'format' => 'int32',
+                    'minimum' => 0,
+                    'nullable' => true,
+                    'description' => Yii::t('app-apidoc2', 'Golden Egg appearances'),
+                ],
+                'golden_egg_delivered' => [
+                    'type' => 'integer',
+                    'format' => 'int32',
+                    'minimum' => 0,
+                    'nullable' => true,
+                    'description' => Yii::t('app-apidoc2', 'Golden Eggs delivered'),
+                ],
+                'power_egg_collected' => [
+                    'type' => 'integer',
+                    'format' => 'int32',
+                    'minimum' => 0,
+                    'nullable' => true,
+                    'description' => Yii::t('app-apidoc2', 'Power Eggs collected'),
+                ],
+            ],
+            'example' => static::openapiExample(),
+        ];
+    }
+
+    public static function openApiDepends(): array
+    {
+        return [
+        ];
+    }
+
+    public static function openapiExample(): array
+    {
+        return [
+            'known_occurrence' => SalmonEvent2::openapiExample(),
+            'water_level' => SalmonWaterLevel2::openapiExample(),
+            'golden_egg_quota' => 21,
+            'golden_egg_appearances' => 30,
+            'golden_egg_delivered' => 24,
+            'power_egg_collected' => 1200,
         ];
     }
 }
