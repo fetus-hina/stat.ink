@@ -17,15 +17,19 @@ use yii\helpers\Html;
 
 trait Util
 {
-    /** @return array<string, string> */
-    public static function oapiRef(?string $className = null): array
+    /** @return array<string, mixed> */
+    public static function oapiRef(?string $className = null, bool $nullable = false): array
     {
         $className = $className ?? static::class;
-        return [
-            '$ref' => vsprintf('#/components/schemas/%s', [
-                call_user_func([$className, 'oapiRefName']),
-            ]),
-        ];
+        return $nullable
+            ? array_merge(call_user_func([$className, 'openApiSchema']), [
+                'nullable' => true,
+            ])
+            : [
+                '$ref' => vsprintf('#/components/schemas/%s', [
+                    call_user_func([$className, 'oapiRefName']),
+                ]),
+            ];
     }
 
     public static function oapiRefName(): string
@@ -163,7 +167,12 @@ trait Util
         return Html::tag('tbody', implode('', array_map(
             function (string $key, string $value, array $splatnetValues): string {
                 return Html::tag('tr', implode('', [
-                    Html::tag('td', Html::tag('code', Html::encode($key))),
+                    Html::tag(
+                        'td',
+                        $key === ''
+                            ? ''
+                            : Html::tag('code', Html::encode($key))
+                    ),
                     Html::tag('td', Html::encode($value)),
                     implode('', array_map(
                         function (string $value): string {

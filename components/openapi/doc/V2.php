@@ -12,6 +12,7 @@ namespace app\components\openapi\doc;
 
 use Yii;
 use app\models\Ability2;
+use app\models\Battle2;
 use app\models\Brand2;
 use app\models\Gear2;
 use app\models\GearType;
@@ -60,6 +61,7 @@ class V2 extends Base
 
             // battle
             '/api/v2/user-stats' => $this->getPathInfoUserStats(),
+            '/api/v2/battle/{id}' => $this->getPathInfoBattleWithID(),
 
             // salmon
             '/api/v2/salmon' => $this->getPathInfoSalmon(),
@@ -760,6 +762,78 @@ class V2 extends Base
                             'application/json' => [
                                 'schema' => UserStat2::oapiRef(),
                                 'example' => UserStat2::openapiExample(),
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ];
+        // }}}
+    }
+
+    protected function getPathInfoBattleWithID(): array
+    {
+        // {{{
+        $this->registerSchema(Battle2::class);
+        $this->registerTag('battle');
+        return [
+            'get' => [
+                'operationId' => 'getBattleWithID',
+                'summary' => Yii::t('app-apidoc2', 'Get the battle results'),
+                'description' => implode("\n\n", [
+                    Html::encode(Yii::t(
+                        'app-apidoc2',
+                        'Returns the battle results.'
+                    )),
+                ]),
+                'tags' => [
+                    'battle',
+                ],
+                'parameters' => [
+                    [
+                        'in' => 'path',
+                        'name' => 'id',
+                        'required' => true,
+                        'schema' => [
+                            'type' => 'integer',
+                            'format' => 'int32',
+                        ],
+                        'description' => Yii::t('app-apidoc2', 'Permanent ID of the results'),
+                    ],
+                    [
+                        'in' => 'query',
+                        'name' => 'format',
+                        'required' => false,
+                        'schema' => [
+                            'type' => 'string',
+                            'enum' => [
+                                'pretty',
+                            ],
+                        ],
+                        'description' => implode("\n", [
+                            Html::encode(Yii::t('app-apidoc2', 'Output formatting')),
+                            '',
+                            static::oapiKeyValueTable(
+                                '',
+                                'app-apidoc2',
+                                [
+                                    ['k' => '', 'v' => 'Returns minimum formatted JSON'],
+                                    ['k' => 'pretty', 'v' => 'Returns indented JSON'],
+                                ],
+                                'k',
+                                'v',
+                                Html::encode(Yii::t('app-apidoc2', 'Option'))
+                            ),
+                        ]),
+                    ],
+                ],
+                'responses' => [
+                    '200' => [
+                        'description' => Yii::t('app-apidoc2', 'Successful'),
+                        'content' => [
+                            'application/json' => [
+                                'schema' => static::oapiRef(Battle2::class),
+                                'example' => Battle2::openapiExample(),
                             ],
                         ],
                     ],

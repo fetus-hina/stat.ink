@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2019 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2020 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  * @author Yoshiyuki Kawashima <ykawashi7@gmail.com>
@@ -29,7 +29,9 @@ use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\db\Query;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Html;
 use yii\helpers\Json;
+use yii\helpers\UnsetArrayValue;
 use yii\helpers\Url;
 use yii\web\JsExpression;
 
@@ -155,6 +157,8 @@ use yii\web\JsExpression;
  */
 class Battle2 extends ActiveRecord
 {
+    use openapi\Util;
+
     protected const CLIENT_UUID_NAMESPACE = '15de9082-1c7b-11e7-8f94-001b21a098c2';
 
     public $freshness_id;
@@ -1930,5 +1934,801 @@ class Battle2 extends ActiveRecord
                 $model->delete();
             }
         }
+    }
+
+    public static function openApiSchema(): array
+    {
+        return [
+            'type' => 'object',
+            'description' => Yii::t('app-apidoc2', 'Battle information'),
+            'properties' => [
+                'id' => static::oapiRef(openapi\PermanentID::class),
+                'splatnet_number' => [
+                    'type' => 'integer',
+                    'format' => 'int32',
+                    'minimum' => 1,
+                    'nullable' => true,
+                    'description' => Yii::t('app-apidoc2', 'Battle number in SplatNet 2'),
+                ],
+                'url' => [
+                    'type' => 'string',
+                    'format' => 'uri',
+                    'description' => Yii::t('app-apidoc2', 'Public URL'),
+                ],
+                // 'user' => !in_array('user', $skips, true) && $this->user
+                //     ? $this->user->toJsonArray()
+                //     : null,
+                'lobby' => static::oapiRef(Lobby2::class, true),
+                'mode' => ArrayHelper::merge(static::oapiRef(Mode2::class, true), [
+                    'properties' => [
+                        'key' => [
+                            'description' => Yii::t(
+                                'app-apidoc2',
+                                'See `lobby` for details.'
+                            ),
+                        ],
+                        'rules' => new UnsetArrayValue(),
+                    ],
+                ]),
+                'rule' => static::oapiRef(Rule2::class, true),
+                'map' => static::oapiRef(Map2::class, true),
+                'weapon' => static::oapiRef(Weapon2::class, true),
+                'freshness' => [
+                    'type' => 'object',
+                    'nullable' => true,
+                    'description' => Yii::t('app-apidoc2', 'Freshness meter information'),
+                    'properties' => [
+                        'freshness' => [
+                            'type' => 'number',
+                            'format' => 'float',
+                            'minimum' => 0,
+                            'maximum' => 99,
+                            'description' => Yii::t('app-apidoc2', 'Freshness'),
+                        ],
+                        'title' => static::oapiRef(openapi\Name::class, true),
+                    ],
+                ],
+                'rank' => array_merge(static::oapiRef(Rank2::class, true), [
+                    'description' => implode("\n", [
+                        Yii::t('app-apidoc2', 'Rank information (before the battle)'),
+                    ]),
+                ]),
+                'rank_exp' => [
+                    'type' => 'integer',
+                    'format' => 'int32',
+                    'minimum' => 0,
+                    'maximum' => 50,
+                    'nullable' => true,
+                    'description' => implode("\n", [
+                        Yii::t('app-apidoc2', 'N of "S+ N" (before the battle)'),
+                    ]),
+                ],
+                'rank_after' => array_merge(static::oapiRef(Rank2::class, true), [
+                    'description' => implode("\n", [
+                        Yii::t('app-apidoc2', 'Rank information (after the battle)'),
+                    ]),
+                ]),
+                'rank_exp_after' => [
+                    'type' => 'integer',
+                    'format' => 'int32',
+                    'minimum' => 0,
+                    'maximum' => 50,
+                    'nullable' => true,
+                    'description' => implode("\n", [
+                        Yii::t('app-apidoc2', 'N of "S+ N" (after the battle)'),
+                    ]),
+                ],
+                'x_power' => [
+                    'type' => 'number',
+                    'format' => 'float',
+                    'nullable' => true,
+                    'description' => implode("\n", [
+                        Yii::t('app-apidoc2', 'X power (before the battle)'),
+                    ]),
+                ],
+                'x_power_after' => [
+                    'type' => 'number',
+                    'format' => 'float',
+                    'nullable' => true,
+                    'description' => implode("\n", [
+                        Yii::t('app-apidoc2', 'X power (after the battle)'),
+                    ]),
+                ],
+                'estimate_x_power' => [
+                    'type' => 'integer',
+                    'format' => 'int32',
+                    'nullable' => true,
+                    'description' => implode("\n", [
+                        Yii::t('app-apidoc2', 'Estimate X power'),
+                    ]),
+                ],
+                'level' => [
+                    'type' => 'integer',
+                    'format' => 'int32',
+                    'minimum' => 1,
+                    'maximum' => 99,
+                    'nullable' => true,
+                    'description' => implode("\n", [
+                        Yii::t('app-apidoc2', 'Level (before the battle)'),
+                    ]),
+                ],
+                'level_after' => [
+                    'type' => 'integer',
+                    'format' => 'int32',
+                    'minimum' => 1,
+                    'maximum' => 99,
+                    'nullable' => true,
+                    'description' => implode("\n", [
+                        Yii::t('app-apidoc2', 'Level (after the battle)'),
+                    ]),
+                ],
+                'star_rank' => [
+                    'type' => 'integer',
+                    'format' => 'int32',
+                    'minimum' => 0,
+                    'nullable' => true,
+                    'description' => implode("\n", [
+                        Yii::t('app-apidoc2', '★ of the level'),
+                        '',
+                        Yii::t(
+                            'app-apidoc2',
+                            'When players reach Level 99, they can talk to Judd to reset to ' .
+                            'level 1 and increment `star_rank`.'
+                        ),
+                    ]),
+                ],
+                'result' => [
+                    'type' => 'boolean',
+                    'nullable' => true,
+                    'description' => implode("\n", [
+                        Yii::t('app-apidoc2', 'Result (win/lose) of the battle'),
+                    ]),
+                ],
+                'knock_out' => [
+                    'type' => 'boolean',
+                    'nullable' => true,
+                    'description' => implode("\n", [
+                        Yii::t('app-apidoc2', 'Ended by knockout'),
+                        '',
+                        static::oapiKeyValueTable(
+                            '',
+                            'app-apidoc2',
+                            [
+                                [
+                                    'k' => 'true',
+                                    'v' => 'Knocked out',
+                                ],
+                                [
+                                    'k' => 'false',
+                                    'v' => 'Timed out or overtimed',
+                                ],
+                                [
+                                    'k' => 'null',
+                                    'v' => 'Unknown or Turf War',
+                                ],
+                            ],
+                            'k',
+                            'v',
+                            Html::encode(Yii::t('app-apidoc2', 'Value'))
+                        ),
+                        '',
+                        Yii::t('app-apidoc2', '`false` may be set in Turf War mode.'),
+                        Yii::t(
+                            'app-apidoc2',
+                            'Needless to say, this value doesn\'t make sense in that mode.'
+                        ),
+                    ]),
+                ],
+                'rank_in_team' => [
+                    'type' => 'integer',
+                    'format' => 'int32',
+                    'minimum' => 1,
+                    'maximum' => 4,
+                    'nullable' => true,
+                    'description' => Yii::t('app-apidoc2', 'Position on the scoreboard'),
+                ],
+                'kill' => [
+                    'type' => 'integer',
+                    'format' => 'int32',
+                    'minimum' => 0,
+                    'nullable' => true,
+                    'description' => Yii::t('app-apidoc2', 'Number of kills'),
+                ],
+                'death' => [
+                    'type' => 'integer',
+                    'format' => 'int32',
+                    'minimum' => 0,
+                    'nullable' => true,
+                    'description' => Yii::t('app-apidoc2', 'Number of deaths'),
+                ],
+                'kill_or_assist' => [
+                    'type' => 'integer',
+                    'format' => 'int32',
+                    'minimum' => 0,
+                    'nullable' => true,
+                    'description' => Yii::t('app-apidoc2', 'Number of kills+assists'),
+                ],
+                'special' => [
+                    'type' => 'integer',
+                    'format' => 'int32',
+                    'minimum' => 0,
+                    'nullable' => true,
+                    'description' => Yii::t('app-apidoc2', 'Number of special weapon uses'),
+                ],
+                'kill_ratio' => [
+                    'type' => 'number',
+                    'format' => 'float',
+                    'minimum' => 0.0,
+                    'maximum' => 99.9,
+                    'nullable' => true,
+                    'description' => implode("\n", [
+                        Yii::t('app-apidoc2', 'Kill ratio'),
+                        '',
+                        '`kill`/`death`.',
+                        Yii::t('app-apidoc2', 'It will be capped to 99.9.'),
+                    ]),
+                ],
+                'kill_rate' => [
+                    'type' => 'number',
+                    'format' => 'float',
+                    'minimum' => 0.0,
+                    'maximum' => 100.0,
+                    'nullable' => true,
+                    'description' => implode("\n", [
+                        Yii::t('app-apidoc2', 'Kill rate'),
+                        '',
+                        '`kill`/(`kill`+`death`).',
+                    ]),
+                ],
+                'max_kill_combo' => [
+                    'type' => 'integer',
+                    'format' => 'int32',
+                    'minimum' => 0,
+                    'nullable' => true,
+                    'description' => implode("\n", [
+                        Yii::t('app-apidoc2', 'Max kill combo'),
+                        '',
+                        Yii::t('app-apidoc2', 'This value is probably not used by anyone.'),
+                    ]),
+                ],
+                'max_kill_streak' => [
+                    'type' => 'integer',
+                    'format' => 'int32',
+                    'minimum' => 0,
+                    'nullable' => true,
+                    'description' => implode("\n", [
+                        Yii::t('app-apidoc2', 'Max kill streak'),
+                        '',
+                        Yii::t('app-apidoc2', 'This value is probably not used by anyone.'),
+                    ]),
+                ],
+                // 'death_reasons' => in_array('death_reasons', $skips, true)
+                //     ? null
+                //     : array_map(
+                //         function ($model) {
+                //             return $model->toJsonArray();
+                //         },
+                //         $this->battleDeathReasons
+                //     ),
+                'my_point' => [
+                    'type' => 'integer',
+                    'format' => 'int32',
+                    'minimum' => 0,
+                    'nullable' => true,
+                    'description' => implode("\n", [
+                        Yii::t('app-apidoc2', 'The earned points displayed on the scoreboard'),
+                        '',
+                        Yii::t('app-apidoc2', 'This value includes win-bonus.'),
+                        Yii::t(
+                            'app-apidoc2',
+                            'For example, in Turf War mode, it\'s "turf inked + 1000" points.'
+                        ),
+                    ]),
+                ],
+                'estimate_gachi_power' => [
+                    'type' => 'integer',
+                    'format' => 'int32',
+                    'minimum' => 0,
+                    'nullable' => true,
+                    'description' => Yii::t('app-apidoc2', 'Estimate power level'),
+                ],
+                'league_point' => [
+                    'type' => 'number',
+                    'format' => 'float',
+                    'minimum' => 0.0,
+                    'nullable' => true,
+                    'description' => Yii::t('app-apidoc2', 'League power'),
+                ],
+                'my_team_estimate_league_point' => [
+                    'type' => 'integer',
+                    'format' => 'int32',
+                    'minimum' => 0,
+                    'nullable' => true,
+                    'description' => Yii::t('app-apidoc2', 'Good guys\' estimate league power'),
+                ],
+                'his_team_estimate_league_point' => [
+                    'type' => 'integer',
+                    'format' => 'int32',
+                    'minimum' => 0,
+                    'nullable' => true,
+                    'description' => Yii::t('app-apidoc2', 'Bad guys\' estimate league power'),
+                ],
+                'my_team_point' => [
+                    'type' => 'integer',
+                    'format' => 'int32',
+                    'minimum' => 0,
+                    'nullable' => true,
+                    'description' => implode("\n", [
+                        Yii::t('app-apidoc2', 'Good guys\' final point (Turf War)'),
+                        '',
+                        Yii::t(
+                            'app-apidoc2',
+                            'In the case of [this result]({url}), it\'s `{points}`.',
+                            [
+                                'url' => 'https://twitter.com/fetus_hina/status/1193272085621030913',
+                                'points' => '1113',
+                            ]
+                        ),
+                    ]),
+                ],
+                'his_team_point' => [
+                    'type' => 'integer',
+                    'format' => 'int32',
+                    'minimum' => 0,
+                    'nullable' => true,
+                    'description' => implode("\n", [
+                        Yii::t('app-apidoc2', 'Bad guys\' final point (Turf War)'),
+                        '',
+                        Yii::t(
+                            'app-apidoc2',
+                            'In the case of [this result]({url}), it\'s `{points}`.',
+                            [
+                                'url' => 'https://twitter.com/fetus_hina/status/1193272085621030913',
+                                'points' => '1088',
+                            ]
+                        ),
+                    ]),
+                ],
+                'my_team_percent' => [
+                    'type' => 'number',
+                    'format' => 'float',
+                    'minimum' => 0,
+                    'maximum' => 100,
+                    'nullable' => true,
+                    'description' => implode("\n", [
+                        Yii::t('app-apidoc2', 'Good guys\' final percent (Turf War)'),
+                        '',
+                        Yii::t(
+                            'app-apidoc2',
+                            'In the case of [this result]({url}), it\'s `{points}`.',
+                            [
+                                'url' => 'https://twitter.com/fetus_hina/status/1193272085621030913',
+                                'points' => '45.5',
+                            ]
+                        ),
+                    ]),
+                ],
+                'his_team_percent' => [
+                    'type' => 'number',
+                    'format' => 'float',
+                    'minimum' => 0,
+                    'maximum' => 100,
+                    'nullable' => true,
+                    'description' => implode("\n", [
+                        Yii::t('app-apidoc2', 'Bad guys\' final percent (Turf War)'),
+                        '',
+                        Yii::t(
+                            'app-apidoc2',
+                            'In the case of [this result]({url}), it\'s `{points}`.',
+                            [
+                                'url' => 'https://twitter.com/fetus_hina/status/1193272085621030913',
+                                'points' => '44.5',
+                            ]
+                        ),
+                    ]),
+                ],
+                'my_team_count' => [
+                    'type' => 'integer',
+                    'format' => 'int32',
+                    'minimum' => 0,
+                    'maximum' => 100,
+                    'nullable' => true,
+                    'description' => implode("\n", [
+                        Yii::t('app-apidoc2', 'Good guys\' final count (Ranked/League)'),
+                        '',
+                        Yii::t('app-apidoc2', '`100` if knockout.'),
+                    ]),
+                ],
+                'his_team_count' => [
+                    'type' => 'integer',
+                    'format' => 'int32',
+                    'minimum' => 0,
+                    'maximum' => 100,
+                    'nullable' => true,
+                    'description' => implode("\n", [
+                        Yii::t('app-apidoc2', 'Bad guys\' final count (Ranked/League)'),
+                        '',
+                        Yii::t('app-apidoc2', '`100` if knockout.'),
+                    ]),
+                ],
+                'my_team_id' => [
+                    'type' => 'string',
+                    'maxLength' => 16,
+                    'nullable' => true,
+                    'description' => implode("\n", [
+                        Yii::t('app-apidoc2', 'Splatnet specified team ID.'),
+                        '',
+                        Yii::t('app-apidoc2', 'This may be set if league battle mode.'),
+                        '',
+                        Yii::t(
+                            'app-apidoc2',
+                            'Our value (in database) can be any value up to 16 characters.'
+                        ),
+                        Yii::t(
+                            'app-apidoc2',
+                            'The data that obtained from SplatNet will be in the following format:'
+                        ),
+                        '`^[0-9a-zA-Z]{11}$`',
+                    ]),
+                ],
+                'his_team_id' => [
+                    'type' => 'string',
+                    'maxLength' => 16,
+                    'nullable' => true,
+                    'description' => implode("\n", [
+                        Yii::t('app-apidoc2', 'Splatnet specified team ID.'),
+                        '',
+                        Yii::t('app-apidoc2', 'This may be set if league battle mode.'),
+                        '',
+                        Yii::t(
+                            'app-apidoc2',
+                            'Our value (in database) can be any value up to 16 characters.'
+                        ),
+                        Yii::t(
+                            'app-apidoc2',
+                            'The data that obtained from SplatNet will be in the following format:'
+                        ),
+                        '`^[0-9a-zA-Z]{11}$`',
+                        '',
+                        Yii::t('app-apidoc2', 'This value is probably not used by anyone.'),
+                    ]),
+                ],
+                'species' => static::oapiRef(Species2::class, true),
+                'gender' => static::oapiRef(Gender::class, true),
+                // 'fest_title' => $this->festTitle
+                //     ? $this->festTitle->toJsonArray(
+                //         $this->gender,
+                //         $this->my_team_fest_theme_id ? $this->myTeamFestTheme->name : null
+                //     )
+                //     : null,
+                // 'fest_exp' => $this->fest_exp,
+                // 'fest_title_after' => $this->festTitleAfter
+                //     ? $this->festTitleAfter->toJsonArray(
+                //         $this->gender,
+                //         $this->my_team_fest_theme_id ? $this->myTeamFestTheme->name : null
+                //     )
+                //     : null,
+                // 'fest_exp_after' => $this->fest_exp_after,
+                'fest_power' => [
+                    'type' => 'number',
+                    'format' => 'float',
+                    'nullable' => true,
+                    'description' => implode("\n", [
+                        Yii::t('app-apidoc2', 'Splatfest power'),
+                    ]),
+                ],
+                'my_team_estimate_fest_power' => [
+                    'type' => 'number',
+                    'format' => 'float',
+                    'nullable' => true,
+                    'description' => implode("\n", [
+                        Yii::t('app-apidoc2', 'Good guys\' estimated Splatfest power'),
+                    ]),
+                ],
+                'his_team_my_team_estimate_fest_power' => [
+                    'type' => 'number',
+                    'format' => 'float',
+                    'nullable' => true,
+                    'description' => implode("\n", [
+                        Yii::t('app-apidoc2', 'Bad guys\' estimated Splatfest power'),
+                    ]),
+                ],
+                'my_team_fest_theme' => [
+                    'type' => 'string',
+                    'maxLength' => 32,
+                    'nullable' => true,
+                    'description' => implode("\n", [
+                        Yii::t('app-apidoc2', 'Good guys\' Splatfest team name'),
+                        '',
+                        Yii::t('app-apidoc2', 'The name will be output in the player\'s language.'),
+                        Yii::t(
+                            'app-apidoc2',
+                            'If the player plays in "Chaos" team and Japanese user, ' .
+                            'this value will be `混沌`.'
+                        ),
+                    ]),
+                ],
+                'his_team_fest_theme' => [
+                    'type' => 'string',
+                    'maxLength' => 32,
+                    'nullable' => true,
+                    'description' => implode("\n", [
+                        Yii::t('app-apidoc2', 'Bad guys\' Splatfest team name'),
+                    ]),
+                ],
+                'my_team_nickname' => [
+                    'type' => 'string',
+                    'maxLength' => 128,
+                    'nullable' => true,
+                    'description' => implode("\n", [
+                        Yii::t('app-apidoc2', 'Good guys\' Splatfest team nickname'),
+                        '',
+                        Yii::t('app-apidoc2', 'The name will be output in the player\'s language.'),
+                        '',
+                        Yii::t('app-apidoc2', 'e.g., `{value}`', [
+                            'value' => 'The Tint-Shaded Marina-Loving Custom-Dualie-Squelcher Wave Gang',
+                        ]),
+                    ]),
+                ],
+                'his_team_nickname' => [
+                    'type' => 'string',
+                    'maxLength' => 128,
+                    'nullable' => true,
+                    'description' => implode("\n", [
+                        Yii::t('app-apidoc2', 'Bad guys\' Splatfest team nickname'),
+                    ]),
+                ],
+                'clout' => [
+                    'type' => 'integer',
+                    'minimum' => 0,
+                    'nullable' => true,
+                    'description' => implode("\n", [
+                        Yii::t('app-apidoc2', 'The clout value obtained in this battle (Δclout)'),
+                        '',
+                        Yii::t('app-apidoc2', 'The value including the synergy bonus is specified.'),
+                        '',
+                        Yii::t('app-apidoc2', 'Note: `clout` = `total_clout_after` - `total_clout`'),
+                    ]),
+                ],
+                'total_clout' => [
+                    'type' => 'integer',
+                    'minimum' => 0,
+                    'nullable' => true,
+                    'description' => implode("\n", [
+                        Yii::t('app-apidoc2', 'The clout value before the battle'),
+                    ]),
+                ],
+                'total_clout_after' => [
+                    'type' => 'integer',
+                    'minimum' => 0,
+                    'nullable' => true,
+                    'description' => implode("\n", [
+                        Yii::t('app-apidoc2', 'The clout value after the battle'),
+                    ]),
+                ],
+                'my_team_win_streak' => [
+                    'type' => 'integer',
+                    'minimum' => 0,
+                    'nullable' => true,
+                    'description' => implode("\n", [
+                        Yii::t('app-apidoc2', 'Good guys\' win streak'),
+                    ]),
+                ],
+                'his_team_win_streak' => [
+                    'type' => 'integer',
+                    'minimum' => 0,
+                    'nullable' => true,
+                    'description' => implode("\n", [
+                        Yii::t('app-apidoc2', 'Bad guys\' win streak'),
+                    ]),
+                ],
+                'synergy_bonus' => [
+                    'type' => 'number',
+                    'format' => 'float',
+                    'minimum' => 1.0,
+                    'maximum' => 2.0,
+                    'nullable' => true,
+                    'description' => implode("\n", [
+                        Yii::t('app-apidoc2', 'Synergy Bonus factor'),
+                    ]),
+                ],
+                'special_battle' => static::oapiRef(SpecialBattle2::class, true),
+                'image_judge' => [
+                    'type' => 'string',
+                    'format' => 'uri',
+                    'nullable' => true,
+                    'description' => implode("\n", [
+                        Yii::t('app-apidoc2', 'URL of screenshot of judgment'),
+                    ]),
+                ],
+                'image_result' => [
+                    'type' => 'string',
+                    'format' => 'uri',
+                    'nullable' => true,
+                    'description' => implode("\n", [
+                        Yii::t('app-apidoc2', 'URL of screenshot of results screen'),
+                    ]),
+                ],
+                'image_gear' => [
+                    'type' => 'string',
+                    'format' => 'uri',
+                    'nullable' => true,
+                    'description' => implode("\n", [
+                        Yii::t('app-apidoc2', 'URL of screenshot of gear information'),
+                    ]),
+                ],
+                // 'gears' => in_array('gears', $skips, true)
+                //     ? null
+                //     : [
+                //         'headgear' => $this->headgear_id ? $this->headgear->toJsonArray() : null,
+                //         'clothing' => $this->clothing_id ? $this->clothing->toJsonArray() : null,
+                //         'shoes'    => $this->shoes_id ? $this->shoes->toJsonArray() : null,
+                //     ],
+                'period' => [
+                    'type' => 'integer',
+                    'format' => 'int32',
+                    'minimum' => 0,
+                    'description' => implode("\n", [
+                        Yii::t('app-apidoc2', 'Which period the user played'),
+                        '',
+                        Yii::t(
+                            'app-apidoc2',
+                            'period: play window identifier, inclements every 2 hours.'
+                        ),
+                    ]),
+                ],
+                'period_range' => [
+                    'type' => 'string',
+                    'description' => implode("\n", [
+                        Yii::t('app-apidoc2', 'Period indicated by `period`'),
+                        '',
+                        Yii::t('app-apidoc2', 'The format is ISO 8601 Time interval format.'),
+                        '',
+                        Yii::t(
+                            'app-apidoc2',
+                            'For example, if `period` is `{period}`, the value will be `{dates}`.',
+                            [
+                                'period' => '217422',
+                                'dates' => '2019-08-10T12:00:00+00:00/2019-08-10T14:00:00+00:00',
+                            ]
+                        ),
+                    ]),
+                ],
+                // 'players' => (in_array('players', $skips, true) || count($this->battlePlayers) === 0)
+                //     ? null
+                //     : array_map(
+                //         function ($model) {
+                //             return $model->toJsonArray($this);
+                //         },
+                //         $this->battlePlayers
+                //     ),
+                // 'events' => $events,
+                'splatnet_json' => [
+                    'type' => 'object',
+                    'nullable' => true,
+                    'description' => Yii::t('app-apidoc2', 'Copy of SplatNet 2 JSON data'),
+                ],
+                'agent' => [
+                    'type' => 'object',
+                    'description' => Yii::t('app-apidoc2', 'User agent information'),
+                    'properties' => [
+                        'name' => [
+                            'type' => 'string',
+                            'nullable' => true,
+                            'description' => Yii::t('app-apidoc2', 'Name of the user agent'),
+                        ],
+                        'version' => [
+                            'type' => 'string',
+                            'nullable' => true,
+                            'description' => Yii::t('app-apidoc2', 'Version of the user agent'),
+                        ],
+                        'game_version' => [
+                            'type' => 'string',
+                            'nullable' => true,
+                            'description' => Yii::t(
+                                'app-apidoc2',
+                                'What game version that supported by the agent (e.g., `5.0.0`)'
+                            ),
+                        ],
+                        'game_version_date' => [
+                            'type' => 'string',
+                            'nullable' => true,
+                            'description' => implode("\n", [
+                                Yii::t(
+                                    'app-apidoc2',
+                                    'What game version that supported by the agent ' .
+                                    '(e.g., `2019-07-31_01`)'
+                                ),
+                                '',
+                                Yii::t('app-apidoc2', 'Details are application-specific.'),
+                            ]),
+                        ],
+                        'custom' => [
+                            'type' => 'string',
+                            'nullable' => true,
+                            'description' => Yii::t('app-apidoc2', 'App-specific agent information'),
+                        ],
+                        'variables' => [
+                            'type' => 'object',
+                            'nullable' => true,
+                            'description' => Yii::t(
+                                'app-apidoc2',
+                                'App-specific key-value information'
+                            ),
+                        ],
+                    ],
+                ],
+                'automated' => [
+                    'type' => 'boolean',
+                    'nullable' => false,
+                    'description' => Yii::t('app-apidoc2', 'Is the post with automated process?'),
+                ],
+                'environment' => [
+                    'type' => 'string',
+                    'nullable' => true,
+                    'description' => Yii::t(
+                        'app-apidoc2',
+                        'IkaLog environment. This probably doesn\'t make sense in Splatoon 2'
+                    ),
+                ],
+                'link_url' => [
+                    'type' => 'string',
+                    'format' => 'uri',
+                    'nullable' => true,
+                    'description' => Yii::t(
+                        'app-apidoc2',
+                        'URL that related to this post. (e.g., YouTube video)'
+                    ),
+                ],
+                'note' => [
+                    'type' => 'string',
+                    'nullable' => true,
+                    'description' => Yii::t('app-apidoc2', 'User note'),
+                ],
+                'game_version' => [
+                    'type' => 'string',
+                    'nullable' => true,
+                    'description' => Yii::t(
+                        'app-apidoc2',
+                        'Which game version did the user play'
+                    ),
+                ],
+                'nawabari_bonus' => [
+                    'type' => 'integer',
+                    'format' => 'int32',
+                    'minimum' => 0,
+                    'nullable' => true,
+                    'description' => Yii::t(
+                        'app-apidoc2',
+                        'Points added to winning team in Turf War mode. Always 1000 in Splatoon 2.'
+                    ),
+                ],
+                'start_at' => array_merge(openapi\DateTime::openApiSchema(), [
+                    'nullable' => true,
+                    'description' => Yii::t('app-apidoc2', 'Start time of this battle'),
+                ]),
+                'end_at' => array_merge(openapi\DateTime::openApiSchema(), [
+                    'nullable' => true,
+                    'description' => Yii::t('app-apidoc2', 'End time of this battle'),
+                ]),
+                'register_at' => array_merge(openapi\DateTime::openApiSchema(), [
+                    'nullable' => false,
+                    'description' => Yii::t('app-apidoc2', 'Posted time'),
+                ]),
+            ],
+            'example' => static::openapiExample(),
+        ];
+    }
+
+    public static function openApiDepends(): array
+    {
+        return [
+        ];
+    }
+
+    public static function openapiExample(): array
+    {
+        return [
+        ];
     }
 }
