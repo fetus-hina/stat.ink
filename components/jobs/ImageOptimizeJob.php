@@ -17,6 +17,8 @@ use yii\queue\JobInterface;
 
 class ImageOptimizeJob extends BaseObject implements JobInterface
 {
+    use JobPriority;
+
     public $inPath;
     public $outPath;
 

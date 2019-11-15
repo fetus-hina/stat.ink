@@ -21,6 +21,8 @@ use yii\queue\JobInterface;
 
 class OstatusJob extends BaseObject implements JobInterface
 {
+    use JobPriority;
+
     public $hostInfo;
     public $version;
     public $battle;

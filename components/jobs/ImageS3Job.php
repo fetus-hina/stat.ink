@@ -17,6 +17,8 @@ use yii\queue\JobInterface;
 
 class ImageS3Job extends BaseObject implements JobInterface
 {
+    use JobPriority;
+
     public $file;
 
     public function execute($queue)

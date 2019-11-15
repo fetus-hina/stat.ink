@@ -1826,10 +1826,12 @@ class Battle2 extends ActiveRecord
     public function updateUserStats(): void
     {
         UserStat2::getLock($this->user_id);
-        Yii::$app->queue->push(new UserStatsJob([
-            'version' => 2,
-            'user' => $this->user_id,
-        ]));
+        Yii::$app->queue
+            ->priority(UserStatsJob::getJobPriority())
+            ->push(new UserStatsJob([
+                'version' => 2,
+                'user' => $this->user_id,
+            ]));
     }
 
     public function deleteRelated(): void
