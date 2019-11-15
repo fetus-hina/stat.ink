@@ -310,20 +310,24 @@ class CreateAction extends BaseAction
 
         // Slack 投稿
         if ($user && $user->isSlackIntegrated) {
-            Yii::$app->queue->push(new SlackJob([
-                'hostInfo' => Yii::$app->getRequest()->getHostInfo(),
-                'version' => 2,
-                'battle' => $battle->id,
-            ]));
+            Yii::$app->queue
+                ->priority(SlackJob::getJobPriority())
+                ->push(new SlackJob([
+                    'hostInfo' => Yii::$app->getRequest()->getHostInfo(),
+                    'version' => 2,
+                    'battle' => $battle->id,
+                ]));
         }
 
         // Ostatus 投稿
         if ($user && $user->isOstatusIntegrated) {
-            Yii::$app->queue->push(new OstatusJob([
-                'hostInfo' => Yii::$app->getRequest()->getHostInfo(),
-                'version' => 2,
-                'battle' => $battle->id,
-            ]));
+            Yii::$app->queue
+                ->priority(OstatusJob::getJobPriority())
+                ->push(new OstatusJob([
+                    'hostInfo' => Yii::$app->getRequest()->getHostInfo(),
+                    'version' => 2,
+                    'battle' => $battle->id,
+                ]));
         }
     }
 

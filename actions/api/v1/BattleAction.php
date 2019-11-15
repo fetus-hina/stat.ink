@@ -391,10 +391,12 @@ class BattleAction extends BaseAction
             }
             if ($imageArchiveOutputDir && $imageArchiveOptimizeDir) {
                 $basename = sprintf('%d-judge.png', $battle->id);
-                Yii::$app->queue->push(new ImageOptimizeJob([
-                    'inPath' => "{$imageArchiveOutputDir}/{$basename}",
-                    'outPath' => "{$imageArchiveOptimizeDir}-judge/{$basename}",
-                ]));
+                Yii::$app->queue
+                    ->priority(ImageOptimizeJob::getJobPriority())
+                    ->push(new ImageOptimizeJob([
+                        'inPath' => "{$imageArchiveOutputDir}/{$basename}",
+                        'outPath' => "{$imageArchiveOptimizeDir}-judge/{$basename}",
+                    ]));
             }
         }
         if ($image = $form->toImageResult($battle)) {
@@ -452,10 +454,12 @@ class BattleAction extends BaseAction
             }
             if ($imageArchiveOutputDir && $imageArchiveOptimizeDir) {
                 $basename = sprintf('%d-result.png', $battle->id);
-                Yii::$app->queue->push(new ImageOptimizeJob([
-                    'inPath' => "{$imageArchiveOutputDir}/{$basename}",
-                    'outPath' => "{$imageArchiveOptimizeDir}-result/{$basename}",
-                ]));
+                Yii::$app->queue
+                    ->priority(ImageOptimizeJob::getJobPriority())
+                    ->push(new ImageOptimizeJob([
+                        'inPath' => "{$imageArchiveOutputDir}/{$basename}",
+                        'outPath' => "{$imageArchiveOptimizeDir}-result/{$basename}",
+                    ]));
             }
         }
         if ($image = $form->toImageGear($battle)) {
@@ -497,10 +501,12 @@ class BattleAction extends BaseAction
             }
             if ($imageArchiveOutputDir && $imageArchiveOptimizeDir) {
                 $basename = sprintf('%d-gear.png', $battle->id);
-                Yii::$app->queue->push(new ImageOptimizeJob([
-                    'inPath' => "{$imageArchiveOutputDir}/{$basename}",
-                    'outPath' => "{$imageArchiveOptimizeDir}-gear/{$basename}",
-                ]));
+                Yii::$app->queue
+                    ->priority(ImageOptimizeJob::getJobPriority())
+                    ->push(new ImageOptimizeJob([
+                        'inPath' => "{$imageArchiveOutputDir}/{$basename}",
+                        'outPath' => "{$imageArchiveOptimizeDir}-gear/{$basename}",
+                    ]));
             }
         }
 
@@ -627,19 +633,23 @@ class BattleAction extends BaseAction
 
         // Ostatus 投稿
         if ($user && $user->isOstatusIntegrated) {
-            Yii::$app->queue->push(new OstatusJob([
-                'hostInfo' => Yii::$app->getRequest()->getHostInfo(),
-                'version' => 1,
-                'battle' => $battle->id,
-            ]));
+            Yii::$app->queue
+                ->priority(OstatusJob::getJobPriority())
+                ->push(new OstatusJob([
+                    'hostInfo' => Yii::$app->getRequest()->getHostInfo(),
+                    'version' => 1,
+                    'battle' => $battle->id,
+                ]));
         }
 
         // S3 への画像アップロード
         if (Yii::$app->imgS3->enabled) {
             foreach ($battle->battleImages as $image) {
-                Yii::$app->queue->push(new ImageS3Job([
-                    'file' => $image->filename,
-                ]));
+                Yii::$app->queue
+                    ->priority(ImageS3Job::getJobPriority())
+                    ->push(new ImageS3Job([
+                        'file' => $image->filename,
+                    ]));
             }
         }
     }

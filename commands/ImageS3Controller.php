@@ -78,9 +78,11 @@ class ImageS3Controller extends Controller
             }
             $this->stderr("SUCCESS!\n", Console::BOLD, Console::FG_GREEN);
         } else {
-            Yii::$app->queue->push(new ImageS3Job([
-                'file' => $path,
-            ]));
+            Yii::$app->queue
+                ->priority(ImageS3Job::getJobPriority())
+                ->push(new ImageS3Job([
+                    'file' => $path,
+                ]));
             $this->stderr(sprintf(
                 "%s: %s\n",
                 Console::ansiFormat("Queued", [Console::BOLD, Console::FG_GREEN]),

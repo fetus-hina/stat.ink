@@ -18,6 +18,8 @@ use yii\queue\JobInterface;
 
 class UserStatsJob extends BaseObject implements JobInterface
 {
+    use JobPriority;
+
     public $user;
     public $version;
 
