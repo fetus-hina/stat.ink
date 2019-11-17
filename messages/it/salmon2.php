@@ -35,6 +35,7 @@ return [
     'Golden/W' => '',
     'Golden Eggs' => '',
     'Golden Eggs per Wave' => '',
+    'Grizzco Point Card' => '',
     'Hazard Level' => '',
     'I agree. Delete this job.' => '',
     'If you delete this job, it will be gone forever.' => '',

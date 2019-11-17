@@ -19,6 +19,8 @@ use yii\base\Widget;
 use yii\bootstrap\BootstrapAsset;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
+use yii\web\Event;
+use yii\web\View;
 
 class SalmonUserInfo extends Widget
 {
@@ -182,14 +184,31 @@ class SalmonUserInfo extends Widget
                 'formatter' => $fmt,
             ],
         ];
-        $datetime = ($stats->as_of !== null)
-            ? Html::tag(
+        $datetime = '';
+        if ($stats->as_of !== null) {
+            ob_start();
+            $historyWidget = SalmonStatsHistoryWidget::begin(['user' => $this->user]);
+            SalmonStatsHistoryWidget::end();
+            $historyWidgetHtml = ob_get_clean();
+
+            Yii::$app->view->on(
+                View::EVENT_END_BODY,
+                function (\yii\base\Event $event) use ($historyWidgetHtml): void {
+                    echo $historyWidgetHtml;
+                }
+            );
+
+            $datetime = Html::tag(
                 'div',
                 Html::tag(
                     'div',
-                    Yii::t('app-salmon2', 'As of {datetime}', [
-                        'datetime' => $fmt->asDatetime($stats->as_of, 'medium'),
-                    ]),
+                    Html::a(
+                        Html::encode(Yii::t('app-salmon2', 'As of {datetime}', [
+                            'datetime' => $fmt->asDatetime($stats->as_of, 'medium'),
+                        ])),
+                        sprintf('#%s', $historyWidget->id),
+                        ['data-toggle' => 'modal']
+                    ),
                     ['class' => 'user-label text-right']
                 ),
                 [
@@ -198,8 +217,8 @@ class SalmonUserInfo extends Widget
                         'margin-top' => '10px',
                     ],
                 ]
-            )
-            : '';
+            );
+        }
         return Html::tag(
             'div',
             implode('', array_map(
