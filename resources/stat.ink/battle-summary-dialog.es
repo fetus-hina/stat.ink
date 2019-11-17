@@ -33,7 +33,7 @@
           $this.text((dispData && dispData[key]) ? dispData[key] : '');
         });
 
-        const data = (!dispData)
+        const data = (!dispData || !dataStats)
           ? []
           : [
             {
@@ -115,7 +115,7 @@
             },
           ];
 
-        if (dataStats.stddev) {
+        if (dataStats && dataStats.stddev) {
           data.push({
             // stddev
             data: [
@@ -159,7 +159,7 @@
     };
 
     $modal.on('show.bs.modal', () => {
-      $('.modal-title').text(dispData.title);
+      $('.modal-title', $modal).text(dispData.title);
     });
 
     $modal.on('shown.bs.modal', () => {
