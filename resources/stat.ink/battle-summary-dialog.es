@@ -27,6 +27,10 @@
       timerId = setTimeout(() => {
         timerId = null;
 
+        if ($plot.width() < 1 || $plot.height() < 1) {
+          return;
+        }
+
         $dataFields.each((i, el) => {
           const $this = $(el);
           const key = $this.attr('data-key');
