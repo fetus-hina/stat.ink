@@ -27,13 +27,17 @@
       timerId = setTimeout(() => {
         timerId = null;
 
+        if ($plot.width() < 1 || $plot.height() < 1) {
+          return;
+        }
+
         $dataFields.each((i, el) => {
           const $this = $(el);
           const key = $this.attr('data-key');
           $this.text((dispData && dispData[key]) ? dispData[key] : '');
         });
 
-        const data = (!dispData)
+        const data = (!dispData || !dataStats)
           ? []
           : [
             {
@@ -115,7 +119,7 @@
             },
           ];
 
-        if (dataStats.stddev) {
+        if (dataStats && dataStats.stddev) {
           data.push({
             // stddev
             data: [
@@ -159,7 +163,7 @@
     };
 
     $modal.on('show.bs.modal', () => {
-      $('.modal-title').text(dispData.title);
+      $('.modal-title', $modal).text(dispData.title);
     });
 
     $modal.on('shown.bs.modal', () => {

@@ -35,6 +35,7 @@ return [
     'Golden Eggs' => '金イクラ',
     'Golden' => '金イクラ',
     'Golden/W' => '金イクラ/W',
+    'Grizzco Point Card' => 'クマサンポイントカード',
     'Hazard Level' => 'キケン度',
     'I agree. Delete this job.' => '同意して削除します。',
     'If you delete this job, it will be gone forever.' => 'この操作を元に戻すことはできません。',

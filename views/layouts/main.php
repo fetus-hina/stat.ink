@@ -48,10 +48,23 @@ if ($_flashes) {
     }
   }
 }
+
+$calendar = '';
+if (strpos(Yii::$app->locale, 'calendar=') !== false) {
+  if (preg_match('/^.*?calendar=(\w+).*$/', Yii::$app->locale, $match)) {
+    $calendar = $match[1];
+  }
+}
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
-<?= Html::beginTag('html', ['lang' => preg_replace('/@.+$/', '', Yii::$app->language)]) . "\n" ?>
+<?= Html::beginTag('html', [
+  'lang' => preg_replace('/@.+$/', '', Yii::$app->language),
+  'data' => [
+    'timezone' => Yii::$app->timeZone,
+    'calendar' => $calendar,
+  ],
+]) . "\n" ?>
   <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">

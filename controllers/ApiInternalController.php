@@ -18,6 +18,7 @@ use app\actions\api\internal\CurrentDataAction;
 use app\actions\api\internal\GuessTimezoneAction;
 use app\actions\api\internal\PatchBattleAction;
 use app\actions\api\internal\RecentBattlesAction;
+use app\actions\api\internal\SalmonStats2Action;
 use app\components\web\Controller;
 use yii\filters\VerbFilter;
 
@@ -40,15 +41,15 @@ class ApiInternalController extends Controller
 
     public function actions()
     {
-        $prefix = 'app\actions\api\internal';
         return [
-            'activity'          => [ 'class' => ActivityAction::class ],
-            'counter'           => [ 'class' => CounterAction::class ],
-            'current-data'      => [ 'class' => CurrentDataAction::class ],
-            'current-data2'     => [ 'class' => CurrentData2Action::class ],
-            'guess-timezone'    => [ 'class' => GuessTimezoneAction::class ],
-            'patch-battle'      => [ 'class' => PatchBattleAction::class ],
-            'recent-battles'    => [ 'class' => RecentBattlesAction::class ],
+            'activity' => [ 'class' => ActivityAction::class ],
+            'counter' => [ 'class' => CounterAction::class ],
+            'current-data' => [ 'class' => CurrentDataAction::class ],
+            'current-data2' => [ 'class' => CurrentData2Action::class ],
+            'guess-timezone' => [ 'class' => GuessTimezoneAction::class ],
+            'patch-battle' => [ 'class' => PatchBattleAction::class ],
+            'recent-battles' => [ 'class' => RecentBattlesAction::class ],
+            'salmon-stats2' => [ 'class' => SalmonStats2Action::class ],
         ];
     }
 }

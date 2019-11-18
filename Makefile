@@ -92,6 +92,7 @@ RESOURCE_TARGETS_MAIN := \
 	resources/.compiled/stat.ink/permalink-dialog.js \
 	resources/.compiled/stat.ink/private-note.js \
 	resources/.compiled/stat.ink/rewrite-link-for-ios-app.js \
+	resources/.compiled/stat.ink/salmon-stats-history.js \
 	resources/.compiled/stat.ink/salmon-work-list-config.js \
 	resources/.compiled/stat.ink/salmon-work-list-hazard.js \
 	resources/.compiled/stat.ink/salmon-work-list.js \
@@ -371,6 +372,7 @@ resources/.compiled/stat.ink/os-icon-widget.js: resources/stat.ink/os-icon-widge
 resources/.compiled/stat.ink/permalink-dialog.js: resources/stat.ink/permalink-dialog.es node_modules
 resources/.compiled/stat.ink/private-note.js: resources/stat.ink/private-note.es node_modules
 resources/.compiled/stat.ink/rewrite-link-for-ios-app.js: resources/stat.ink/rewrite-link-for-ios-app.es node_modules
+resources/.compiled/stat.ink/salmon-stats-history.js: resources/stat.ink/salmon-stats-history.es node_modules
 resources/.compiled/stat.ink/salmon-work-list-config.js: resources/stat.ink/salmon-work-list-config.es node_modules
 resources/.compiled/stat.ink/salmon-work-list-hazard.js: resources/stat.ink/salmon-work-list-hazard.es node_modules
 resources/.compiled/stat.ink/salmon-work-list.js: resources/stat.ink/salmon-work-list.es node_modules
