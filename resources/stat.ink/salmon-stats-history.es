@@ -70,7 +70,7 @@
         }
       };
 
-      $this.on('show.bs.modal', function (event) {
+      $this.on('show.bs.modal', function () {
         if (data === null) {
           $.getJSON(apiURL)
             .done(json => {
@@ -82,7 +82,7 @@
         }
       });
 
-      $this.on('shown.bs.modal', function (event) {
+      $this.on('shown.bs.modal', function () {
         $this.resize();
       });
 
@@ -100,7 +100,7 @@
       });
 
       // 表示タブが切り替わった時、グラフのサイズを適切に変更する
-      $('[data-toggle="tab"]', $this).on('shown.bs.tab', function (event) {
+      $('[data-toggle="tab"]', $this).on('shown.bs.tab', function () {
         $this.resize();
       });
     });
