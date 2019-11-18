@@ -241,6 +241,7 @@ class SalmonStatsHistoryWidget extends Widget
         }
     }
 }
+// phpcs:disable
 __halt_compiler();
 <div id="{id}" class="modal fade" tabindex="-1" role="dialog" data-url="{apiUrl}">
   <div class="modal-dialog" role="document">
