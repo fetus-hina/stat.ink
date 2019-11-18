@@ -185,7 +185,7 @@ class SalmonUserInfo extends Widget
             ],
         ];
         $datetime = '';
-        if ($stats->as_of !== null) {
+        if ($stats->as_of !== null && $stats->work_count) {
             ob_start();
             $historyWidget = SalmonStatsHistoryWidget::begin(['user' => $this->user]);
             SalmonStatsHistoryWidget::end();
@@ -202,13 +202,19 @@ class SalmonUserInfo extends Widget
                 'div',
                 Html::tag(
                     'div',
-                    Html::a(
+                    implode(' ', [
                         Html::encode(Yii::t('app-salmon2', 'As of {datetime}', [
                             'datetime' => $fmt->asDatetime($stats->as_of, 'medium'),
                         ])),
-                        sprintf('#%s', $historyWidget->id),
-                        ['data-toggle' => 'modal']
-                    ),
+                        Html::a(
+                            Html::encode(Yii::t('app', 'History')) . (string)FA::far('clone')->fw(),
+                            sprintf('#%s', $historyWidget->id),
+                            [
+                                'class' => 'btn btn-default btn-sm',
+                                'data-toggle' => 'modal',
+                            ]
+                        ),
+                    ]),
                     ['class' => 'user-label text-right']
                 ),
                 [
