@@ -500,10 +500,6 @@ resources/.compiled/irasutoya/eto/%.png: resources/irasutoya/eto/%.png.tmp
 resources/irasutoya/eto/%.png.tmp: resources/irasutoya/eto/%.png
 	convert $< -trim +repage -resize x100 -gravity center -background none $@
 
-data/geoip:
-	mkdir -p $@
-	geoipupdate -d $@
-
 migrate-db: vendor config/db.php
 	./yii migrate/up --interactive=0
 	./yii migrate/up --interactive=0 --migration-path="" --migration-namespaces=yii\\queue\\db\\migrations
@@ -605,28 +601,8 @@ $(VENDOR_ARCHIVE_FILE): vendor runtime/vendor-archive
 runtime/vendor-archive:
 	mkdir -p $@ || true
 
-geoip: \
-		data/GeoIP/COPYRIGHT.txt \
-		data/GeoIP/GeoLite2-City.mmdb \
-		data/GeoIP/GeoLite2-Country.mmdb \
-		data/GeoIP/LICENSE.txt
-
-data/GeoIP/%.mmdb: data/GeoIP/%.tar.gz
-	@mkdir -p $(dir $@)
-	tar -zxf $< --strip=1 --no-same-owner -C data/GeoIP */$(notdir $@)
-	@touch $@
-
-data/GeoIP/%.txt: data/GeoIP/GeoLite2-Country.tar.gz
-	@mkdir -p $(dir $@)
-	tar -zxf $< --strip=1 --no-same-owner -C data/GeoIP */$(notdir $@)
-	@touch $@
-
-data/GeoIP/%.tar.gz:
-	@mkdir -p $(dir $@)
-	curl -fsSL -o $@ https://geolite.maxmind.com/download/geoip/database/$(notdir $@)
-	@touch $@
-
-.PRECIOUS: data/GeoIP/%.tar.gz
+geoip: vendor $(SIMPLE_CONFIG_TARGETS)
+	./yii geoip/update
 
 $(SUB_RESOURCES):
 	$(MAKE) -C $@
