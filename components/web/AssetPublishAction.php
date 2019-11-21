@@ -16,7 +16,6 @@ use Yii;
 use yii\base\Action;
 use yii\web\AssetBundle;
 use yii\web\JqueryAsset;
-use yii\web\Response;
 use yii\web\YiiAsset;
 
 class AssetPublishAction extends Action
@@ -35,7 +34,13 @@ class AssetPublishAction extends Action
         $resp = Yii::$app->response;
         $resp->format = 'yaml';
 
-        return $this->enumerateClasses();
+        $classes = $this->enumerateClasses();
+        $manager = Yii::$app->assetManager;
+        foreach ($classes as $class) {
+            $manager->getBundle($class, true); // publish
+        }
+
+        return $classes;
     }
 
     protected function enumerateClasses(): array
@@ -87,7 +92,7 @@ class AssetPublishAction extends Action
                     }
 
                     $ref = new ReflectionClass($fqcn);
-                    if ($ref->isInstantiable()) {
+                    if ($ref->isInstantiable() && $ref->isSubclassOf(AssetBundle::class)) {
                         $result[] = $fqcn;
                     }
                 } catch (\Exception $e) {

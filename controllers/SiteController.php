@@ -62,7 +62,6 @@ class SiteController extends Controller
                     'yii\bootstrap\BootstrapAsset',
                     'yii\bootstrap\BootstrapPluginAsset',
                     'yii\web\JqueryAsset',
-                    'yii\web\Response',
                     'yii\web\YiiAsset',
                 ],
             ],
