@@ -54,10 +54,10 @@
         "yiisoft/yii2-bootstrap": "*",
         "yiisoft/yii2-queue": "*",
         "yiisoft/yii2-smarty": "*",
+        "yiisoft/yii2-swiftmailer": "^2.1",
         "zendframework/zend-feed": "^2.6",
         "zendframework/zend-http": "^2.5",
-        "zendframework/zend-uri": "^2.5",
-        "yiisoft/yii2-swiftmailer": "^2.1"
+        "zendframework/zend-uri": "^2.5"
     },
     "require-dev": {
         "codeception/base": "^3.0.0",
