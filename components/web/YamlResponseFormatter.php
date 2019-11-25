@@ -44,7 +44,7 @@ class YamlResponseFormatter extends Component implements ResponseFormatterInterf
 
     public function format($response)
     {
-        $response->getHeaders()->set('Content-Type', (string)($contentType ?? 'text/yaml'));
+        $response->getHeaders()->set('Content-Type', (string)($this->contentType ?: 'text/yaml'));
         $response->content = Yaml::dump(
             $response->data,
             (int)$this->inline,

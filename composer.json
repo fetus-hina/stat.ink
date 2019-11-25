@@ -48,16 +48,16 @@
         "statink/yii2-spl1-stages": "^1.0",
         "statink/yii2-spl2-stages": "^1.0.1",
         "statink/yii2-twitter-webintents": "^1.0",
-        "symfony/yaml": ">=2.7 <5.0",
+        "symfony/yaml": ">=2.7 <6.0",
         "tpyo/amazon-s3-php-class": "^0.5.1",
         "yiisoft/yii2": "*",
         "yiisoft/yii2-bootstrap": "*",
         "yiisoft/yii2-queue": "*",
         "yiisoft/yii2-smarty": "*",
+        "yiisoft/yii2-swiftmailer": "^2.1",
         "zendframework/zend-feed": "^2.6",
         "zendframework/zend-http": "^2.5",
-        "zendframework/zend-uri": "^2.5",
-        "yiisoft/yii2-swiftmailer": "^2.1"
+        "zendframework/zend-uri": "^2.5"
     },
     "require-dev": {
         "codeception/base": "^3.0.0",
