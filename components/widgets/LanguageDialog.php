@@ -59,10 +59,11 @@ class LanguageDialog extends Dialog
                     ]);
                 } else {
                     LanguageDialogAsset::register($this->view);
-                    return Html::a($this->renderLanguageItem($lang), 'javascript:;', [
+                    return Html::a($this->renderLanguageItem($lang), null, [
                         'class' => [
                             'list-group-item',
                             'language-change',
+                            'cursor-pointer',
                         ],
                         'data' => [
                             'lang' => $lang->lang,

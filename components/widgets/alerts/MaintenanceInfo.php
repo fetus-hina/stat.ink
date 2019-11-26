@@ -98,7 +98,7 @@ class MaintenanceInfo extends Widget
                 Html::encode(Yii::$app->formatter->asDateTime($dt, 'short')),
                 Html::a(
                     Html::encode($dt->format('T')),
-                    'javascript:;',
+                    '#timezone-dialog',
                     [
                         'class' => 'alert-link',
                         'role' => 'button',
@@ -106,7 +106,6 @@ class MaintenanceInfo extends Widget
                         'aria-expanded' => 'false',
                         'data' => [
                             'toggle' => 'modal',
-                            'target' => '#timezone-dialog',
                         ],
                     ]
                 ),

@@ -33,22 +33,14 @@ $this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink']);
   <?= AdWidget::widget() . "\n" ?>
   <?= SnsWidget::widget() . "\n" ?>
 
-  <nav><?= Nav::widget([
-    'options' => [
-      'class' =>'nav-tabs',
-    ],
-    'items' => [
-      [
-        'label' => 'Splatoon 2',
-        'url' => ['entire/weapons2'],
-      ],
-      [
-        'label' => 'Splatoon',
-        'url' => 'javascript:void(0);',
-        'active' => true,
-      ],
-    ],
-  ]) ?></nav>
+  <aside>
+    <nav>
+      <ul class="nav nav-tabs" aria-role="navigation">
+        <li><?= Html::a(Html::encode(Yii::t('app', 'Splatoon 2')), ['entire/weapons2']) ?></li>
+        <li class="active"><a><?= Html::encode(Yii::t('app', 'Splatoon')) ?></a></li>
+      </ul>
+    </nav>
+  </aside>
 
   <h2><?= Html::encode(Yii::t('app', 'Weapons')) ?></h2>
   <p><?= Html::encode(

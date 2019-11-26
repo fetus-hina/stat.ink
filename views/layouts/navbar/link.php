@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 use app\assets\AppLinkAsset;
 use app\components\widgets\FA;
 use app\components\widgets\FlagIcon;
@@ -290,7 +293,7 @@ $renderEntry = function (array $entry) use (&$renderEntry) : string {
       implode('', [
         Html::a(
           $entry['name'],
-          $entry['url'] ?? 'javascript:;',
+          $entry['url'] ?? '#',
           ($entry['sub'] ?? null) ? ['data-toggle' => 'dropdown'] : []
         ),
         ($entry['sub'] ?? null)
@@ -313,7 +316,7 @@ $renderEntry = function (array $entry) use (&$renderEntry) : string {
     ' ',
     Html::tag('span', '', ['class' => 'caret']),
   ]),
-  'javascript:;',
+  '#',
   [
     'class' => 'dropdown-toggle',
     'data' => [

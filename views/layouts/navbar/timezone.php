@@ -1,6 +1,10 @@
 <?php
+
+declare(strict_types=1);
+
 use app\components\widgets\FA;
 use yii\helpers\Html;
+
 ?>
 <?= Html::a(
   implode('', [
@@ -9,11 +13,10 @@ use yii\helpers\Html;
     ' ',
     Html::tag('span', '', ['class' => 'caret']),
   ]),
-  'javascript:;',
+  '#timezone-dialog',
   [
     'data' => [
       'toggle' => 'modal',
-      'target' => '#timezone-dialog',
     ],
     'role' => 'button',
     'aria-haspopup' => 'true',
