@@ -118,12 +118,13 @@ class ColorSchemeDialog extends Dialog
         } else {
             return Html::a(
                 Html::encode($name),
-                'javascript:;',
+                null,
                 [
                     'class' => [
                         'list-group-item',
                         'theme-switcher',
                         'text-dark',
+                        'cursor-pointer',
                     ],
                     'data' => [
                         'theme' => $key,

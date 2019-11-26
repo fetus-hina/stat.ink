@@ -42,10 +42,7 @@ TableResponsiveForceAsset::register($this);
         Html::encode('Splatoon 2'),
         ['entire/kd-win2'],
       ) ?></li>
-      <li class="active"><?= Html::a(
-        Html::encode('Splatoon'),
-        'javascript:;',
-      ) ?></li>
+      <li class="active"><a><?= Html::encode('Splatoon') ?></a></li>
     </ul>
   </nav>
 

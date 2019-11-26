@@ -38,7 +38,7 @@ TableResponsiveForceAsset::register($this);
   <?= SnsWidget::widget() . "\n" ?>
 
   <ul class="nav nav-tabs" aria-role="navigation">
-    <li class="active"><a href="javascript:;">Splatoon 2</a></li>
+    <li class="active"><a>Splatoon 2</a></li>
     <li><?= Html::a('Splatoon', ['entire/kd-win']) ?></li>
   </ul>
 

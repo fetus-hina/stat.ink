@@ -35,7 +35,7 @@ UserStat2NawabariAsset::register($this);
     <div class="col-xs-12 col-sm-8 col-md-8 col-lg-9">
       <ul class="nav nav-tabs">
         <li role="presentation" class="active">
-          <a href="javascript:;"><?= Html::encode(Yii::t('app-rule2', 'Turf War')) ?></a>
+          <a><?= Html::encode(Yii::t('app-rule2', 'Turf War')) ?></a>
         </li>
 <?php $_rules = ArrayHelper::map(
   Rule2::find()->where(['not', ['key' => 'nawabari']])->asArray()->all(),

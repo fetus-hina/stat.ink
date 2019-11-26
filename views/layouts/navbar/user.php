@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 use app\components\widgets\FA;
 use yii\helpers\Html;
 
@@ -22,7 +25,7 @@ $user = Yii::$app->user->identity ?? null;
     ' ',
     Html::tag('span', '', ['class' => 'caret']),
   ]),
-  'javascript:;',
+  '#',
   [
     'class' => 'dropdown-toggle',
     'data' => [
@@ -120,7 +123,11 @@ $user = Yii::$app->user->identity ?? null;
     Html::tag('li', implode('', [
       Html::a(
         FA::fas('palette')->fw() . ' ' . Yii::t('app', 'Color Scheme'),
-        "javascript:jQuery('#color-scheme-dialog').modal()"
+        '#color-scheme-dialog',
+        [
+          'data-toggle' => 'modal',
+          'aria-haspopup' => 'true',
+        ]
       ),
     ]), ['class' => 'dropdown-submenu']),
     Html::tag('li', Html::a(
@@ -128,7 +135,7 @@ $user = Yii::$app->user->identity ?? null;
         Html::tag('span', '', ['class' => 'far fa-fw']),
         Html::encode(Yii::t('app', 'Use full width of the screen')),
       ]),
-      'javascript:;',
+      '#',
       ['id' => 'toggle-use-fluid']
     )),
   ]

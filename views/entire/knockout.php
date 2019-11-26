@@ -64,7 +64,7 @@ $ruleTotal = function (string $ruleKey) use ($data): ?array {
     <nav>
       <ul class="nav nav-tabs">
         <li><a href="/entire/knockout2">Splatoon 2</a></li>
-        <li class="active"><a href="javascript:;">Splatoon</a></li>
+        <li class="active"><a>Splatoon</a></li>
       </ul>
     </nav>
   </aside>

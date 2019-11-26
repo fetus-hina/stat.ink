@@ -23,7 +23,7 @@
           .append(htmlEncode(momentInstance.format('l LT')))
           .append(' ')
           .append(
-            $('<a href="javascript:;" data-toggle="modal" data-target="#timezone-dialog">')
+            $('<a href="#timezone-dialog" data-toggle="modal">')
               .text(momentInstance.format('z'))
           );
       },
