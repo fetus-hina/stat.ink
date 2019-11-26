@@ -93,6 +93,32 @@ footer {
   font-size: 50%;
 }
 
+.text-link {
+  color: @link-color;
+  text-decoration: none;
+
+  a&, button& {
+    cursor: pointer;
+
+    &.disabled, &[disabled] {
+      cursor: not-allowed;
+    }
+
+    &:hover, &:focus {
+      color: @link-hover-color;
+      text-decoration: @link-hover-decoration;
+    }
+  }
+}
+
+.cursor-pointer {
+  cursor: pointer;
+
+  &.disabled, &[disabled] {
+    cursor: not-allowed;
+  }
+}
+
 .cell-lobby,
 .cell-sub-weapon,
 .cell-special,

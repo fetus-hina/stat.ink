@@ -75,9 +75,9 @@ class TimezoneDialog extends Dialog
         } else {
             return Html::a(
                 $this->renderTimezoneDetail($tz, $renderGroup),
-                'javascript:;',
+                null,
                 [
-                    'class' => 'list-group-item timezone-change text-dark',
+                    'class' => 'list-group-item timezone-change text-dark cursor-pointer',
                     'data' => [
                         'tz' => $tz->identifier,
                     ],
@@ -169,9 +169,9 @@ class TimezoneDialog extends Dialog
                 Html::encode(Yii::t('app-tz', $group->name)),
                 FA::fas('chevron-down')->fw()->__toString(),
             ]),
-            'javascript:;',
+            null,
             [
-                'class' => 'list-group-item d-flex justify-content-between',
+                'class' => 'list-group-item d-flex justify-content-between cursor-pointer',
                 'style' => [
                     'color' => '#fff',
                     'background-color' => '#868e96',

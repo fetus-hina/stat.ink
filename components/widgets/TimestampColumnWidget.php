@@ -54,14 +54,13 @@ class TimestampColumnWidget extends Widget
                             ->setTimezone(new DateTimeZone(Yii::$app->timeZone))
                             ->format('T')
                     ),
-                    'javascript:;',
+                    '#timezone-dialog',
                     [
                         'role' => 'button',
                         'aria-haspopup' => 'true',
                         'aria-expanded' => 'false',
                         'data' => [
                             'toggle' => 'modal',
-                            'target' => '#timezone-dialog',
                         ],
                     ]
                 )

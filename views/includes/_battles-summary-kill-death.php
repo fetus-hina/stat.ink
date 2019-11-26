@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 use app\assets\BattleSummaryDialogAsset;
 use yii\helpers\Html;
 use yii\helpers\Json;
@@ -20,7 +23,7 @@ BattleSummaryDialogAsset::register($this);
 
 $fmt = Yii::$app->formatter;
 ?>
-<?php if ($battles > 0): ?>
+<?php if ($battles > 0) { ?>
 <?php $content = Html::tag(
   'span',
   Html::encode($fmt->asDecimal($total / $battles, 2)),
@@ -38,9 +41,17 @@ $fmt = Yii::$app->formatter;
       ]),
   ]
 ) ?>
-<?php if ($min !== null && $max !== null && $median !== null && $q1 !== null && $q3 !== null && $pct5 !== null && $pct95 !== null): ?>
-  <?= Html::a($content, 'javascript:;', [
-    'class' => 'summary-box-plot',
+<?php if (
+  ($min !== null) &&
+  ($max !== null) &&
+  ($median !== null) &&
+  ($q1 !== null) &&
+  ($q3 !== null) &&
+  ($pct5 !== null) &&
+  ($pct95 !== null)
+) { ?>
+  <?= Html::a($content, null, [
+    'class' => 'summary-box-plot text-link',
     'data' => [
       'stats' => Json::encode([
         'min' => (int)$min,
@@ -68,9 +79,9 @@ $fmt = Yii::$app->formatter;
       ]),
     ],
   ]) . "\n" ?>
-<?php else: ?>
+<?php } else { ?>
   <?= $content . "\n" ?>
-<?php endif ?>
-<?php else: ?>
+<?php } ?>
+<?php } else { ?>
   <?= Html::encode(Yii::t('app', 'N/A')) . "\n" ?>
-<?php endif ?>
+<?php } ?>

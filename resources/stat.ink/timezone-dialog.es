@@ -60,7 +60,7 @@
             } else {
               $label.empty()
                 .append(
-                  $('<a href="javascript:;" class="timezone-change">')
+                  $('<a class="timezone-change text-link">')
                     .attr('data-tz', data.guessed.identifier)
                     .attr(
                       'title',

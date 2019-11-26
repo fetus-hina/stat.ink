@@ -79,7 +79,7 @@ $this->registerCss(Html::renderCss([
     <?= Html::encode(Yii::t('app', 'Excluded: Private Battles')) . "\n" ?>
   </p>
   <ul class="nav nav-tabs">
-    <li class="active"><a href="javascript:;">Splatoon 2</a></li>
+    <li class="active"><a>Splatoon 2</a></li>
     <li><?= Html::a('Splatoon', ['entire/knockout']) ?></li>
   </ul>
   <?php $_form = ActiveForm::begin([
