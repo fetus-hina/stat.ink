@@ -102,7 +102,7 @@
             "enabled": false
         },
         "platform": {
-            "php": "7.3.8"
+            "php": "7.3.12"
         }
     },
     "repositories": {
