@@ -2856,16 +2856,16 @@
         },
         {
             "name": "zendframework/zend-http",
-            "version": "2.10.1",
+            "version": "2.11.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/zend-http.git",
-                "reference": "d1906132bb0ba48124088721c4a5187af101037b"
+                "reference": "0fafa5029e87d9cfe8682e8d4b093df8f6d64d59"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zend-http/zipball/d1906132bb0ba48124088721c4a5187af101037b",
-                "reference": "d1906132bb0ba48124088721c4a5187af101037b",
+                "url": "https://api.github.com/repos/zendframework/zend-http/zipball/0fafa5029e87d9cfe8682e8d4b093df8f6d64d59",
+                "reference": "0fafa5029e87d9cfe8682e8d4b093df8f6d64d59",
                 "shasum": ""
             },
             "require": {
@@ -2886,8 +2886,8 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.10.x-dev",
-                    "dev-develop": "2.11.x-dev"
+                    "dev-master": "2.11.x-dev",
+                    "dev-develop": "2.12.x-dev"
                 }
             },
             "autoload": {
@@ -2907,7 +2907,7 @@
                 "zend",
                 "zf"
             ],
-            "time": "2019-12-02T16:17:25+00:00"
+            "time": "2019-12-03T11:02:51+00:00"
         },
         {
             "name": "zendframework/zend-loader",
