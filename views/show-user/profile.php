@@ -296,7 +296,7 @@ $this->registerCss(implode('', array_map(
               <div class="panel-heading">
                 <?= Html::encode(Yii::t('app', 'Activity')) . "\n" ?>
               </div>
-              <div class="panel-body">
+              <div class="panel-body bg-white">
                 <div class="table-responsive">
                   <?= ActivityWidget::widget([
                     'user' => $user,

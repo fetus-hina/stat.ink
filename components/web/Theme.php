@@ -52,6 +52,24 @@ class Theme extends Component
         return $this->theme ?? 'default';
     }
 
+    public function getIsDarkTheme(): bool
+    {
+        switch ($this->getTheme()) {
+            case 'bootswatch-cyborg':
+            case 'bootswatch-darkly':
+            case 'bootswatch-slate':
+                return true;
+
+            default:
+                return false;
+        }
+    }
+
+    public function getIsLightTheme(): bool
+    {
+        return !$this->getIsDarkTheme();
+    }
+
     public function isValidTheme(string $themeId): bool
     {
         if ($themeId === 'default' || $themeId === 'color-blind') {

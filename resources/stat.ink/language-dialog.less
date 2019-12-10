@@ -25,14 +25,15 @@
 
 .make(@text-color, @body-bg, @btn-primary-color, @btn-primary-bg);
 
-body[data-theme="bootswatch-cyborg"] {
+body.theme-dark {
+  /* bootswatch-cyborg */
   .make(#888, #060606, #fff, #2A9FD6);
-}
 
-body[data-theme="bootswatch-darkly"] {
-  .make(#fff, lighten(#303030, 13.5%), #fff, #375a7f);
-}
+  &[data-theme="bootswatch-darkly"] {
+    .make(#fff, lighten(#303030, 13.5%), #fff, #375a7f);
+  }
 
-body[data-theme="bootswatch-slate"] {
-  .make(#C8C8C8, #272B30, #fff, #7A8288);
+  &[data-theme="bootswatch-slate"] {
+    .make(#C8C8C8, #272B30, #fff, #7A8288);
+  }
 }
