@@ -186,9 +186,21 @@ tr.its-me {
   background-color: #ffc;
 }
 
-tr.disconnected,
+/* disconnected rows */
+tr.disconnected {
+  background-color: #fdd;
+}
+
+.theme-dark tr.disconnected {
+  background: #700808;
+}
+
 .table-striped>tbody>tr.disconnected:nth-of-type(odd) {
   background: #fdd;
+}
+
+.theme-dark .table-striped>tbody>tr.disconnected:nth-of-type(odd) {
+  background: #700808;
 }
 
 .align-baseline {
@@ -349,4 +361,8 @@ each(.props(), .(@propLong, @propShort, @propIndex) {
   &.freshness-flag-gold {
     color: #f0b700;
   }
+}
+
+.bg-white {
+  background-color: #fff;
 }

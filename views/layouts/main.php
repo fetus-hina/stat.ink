@@ -85,6 +85,9 @@ if (strpos(Yii::$app->locale, 'calendar=') !== false) {
     'data' => [
       'theme' => Yii::$app->theme->theme,
     ],
+    'class' => [
+      Yii::$app->theme->isDarkTheme ? 'theme-dark' : 'theme-light',
+    ],
   ]) . "\n" ?>
     <?php $this->beginBody() ?><?= "\n" ?>
       <header>

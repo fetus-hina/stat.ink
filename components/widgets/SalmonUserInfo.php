@@ -275,7 +275,7 @@ class SalmonUserInfo extends Widget
                     'size' => 9,
                     'only' => 'salmon2',
                 ]),
-                ['class' => 'table-responsive']
+                ['class' => 'table-responsive bg-white']
             ),
         ]), ['class' => 'miniinfo-databox']);
     }

@@ -469,7 +469,7 @@ $fmt = Yii::$app->formatter;
       <div class="user-label">
         <?= Html::encode(Yii::t('app', 'Activity')) . "\n" ?>
       </div>
-      <div class="table-responsive">
+      <div class="table-responsive bg-white">
         <?= ActivityWidget::widget([
           'user' => $user,
           'months' => 4,
