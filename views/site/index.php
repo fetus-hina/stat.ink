@@ -84,7 +84,7 @@ PaintballAsset::register($this);
       ],
       [
         Html::a(Html::encode(Yii::t('app', 'About support for color-blindness')), ['site/color']),
-        Html::a(Html::encode(Yii::t('app', 'About image sharing with the IkaLog team')), ['site/privacy']),
+        Html::a(Html::encode(Yii::t('app-privacy', 'About image sharing with the IkaLog team')), ['site/privacy']),
       ],
     ]
   )) ?></nav>
