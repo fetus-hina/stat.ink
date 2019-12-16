@@ -597,6 +597,7 @@ class PostBattleForm extends Model
         $battle->note           = $this->note;
         $battle->private_note   = $this->private_note;
         $battle->freshness      = $floatval($this->freshness);
+        $battle->has_disconnect = $this->getHasDisconnect();
         $battle->agent_id       = $this->getAgentId($this->agent, $this->agent_version);
         $battle->ua_custom      = $this->agent_custom;
         $battle->ua_variables   = $this->agent_variables
@@ -1142,5 +1143,21 @@ class PostBattleForm extends Model
             return null;
         }
         return (int)$model->id;
+    }
+
+    private function getHasDisconnect(): bool
+    {
+        if (is_array($this->players) && !empty($this->players)) {
+            foreach ($this->players as $form) {
+                if (
+                    $form instanceof PostBattlePlayerForm &&
+                    $form->point < 1 &&
+                    $form->point != ''
+                ) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }
