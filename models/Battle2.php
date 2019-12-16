@@ -292,6 +292,10 @@ class Battle2 extends ActiveRecord
                         'battle2.is_win' => ($form->result === 'win' || $form->result === true)
                     ];
                 }
+                if ($form->has_disconnect != '' || is_bool($form->has_disconnect)) {
+                    $value = $form->has_disconnect === 'yes' || $form->has_disconnect === true;
+                    $and[] = ['battle2.has_disconnect' => $value];
+                }
                 if ($form->id_from != '' && $form->id_from > 0) {
                     $and[] = ['>=', 'battle2.id', (int)$form->id_from];
                 }

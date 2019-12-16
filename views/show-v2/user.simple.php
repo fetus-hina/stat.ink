@@ -141,6 +141,7 @@ SimpleBattleListAsset::register($this);
       <?= Battle2FilterWidget::widget([
         'route' => 'show-v2/user',
         'screen_name' => $user->screen_name,
+        'connectivity' => true,
         'filter' => $filter,
       ]) . "\n" ?>
       <?= $this->render('/includes/user-miniinfo2', ['user' => $user]) . "\n" ?>

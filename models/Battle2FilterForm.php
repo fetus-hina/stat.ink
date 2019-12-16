@@ -24,6 +24,7 @@ class Battle2FilterForm extends Model
     public $weapon;
     public $rank;
     public $result;
+    public $has_disconnect;
     public $term;
     public $term_from;
     public $term_to;
@@ -145,6 +146,10 @@ class Battle2FilterForm extends Model
                 'trueValue' => 'win',
                 'falseValue' => 'lose',
             ],
+            [['has_disconnect'], 'boolean',
+                'trueValue' => 'yes',
+                'falseValue' => 'no',
+            ],
             [['term'], 'in',
                 'range' => array_merge(
                     [
@@ -194,18 +199,19 @@ class Battle2FilterForm extends Model
     public function attributeLabels()
     {
         return [
-            'screen_name'   => Yii::t('app', 'Screen Name'),
-            'rule'          => Yii::t('app', 'Mode'),
-            'map'           => Yii::t('app', 'Stage'),
-            'weapon'        => Yii::t('app', 'Weapon'),
-            'rank'          => Yii::t('app', 'Rank'),
-            'result'        => Yii::t('app', 'Result'),
-            'term'          => Yii::t('app', 'Term'),
-            'term_from'     => Yii::t('app', 'Period From'),
-            'term_to'       => Yii::t('app', 'Period To'),
-            'id_from'       => Yii::t('app', 'ID From'),
-            'id_to'         => Yii::t('app', 'ID To'),
-            'filter'        => Yii::t('app', 'Filter'),
+            'screen_name' => Yii::t('app', 'Screen Name'),
+            'rule' => Yii::t('app', 'Mode'),
+            'map' => Yii::t('app', 'Stage'),
+            'weapon' => Yii::t('app', 'Weapon'),
+            'rank' => Yii::t('app', 'Rank'),
+            'result' => Yii::t('app', 'Result'),
+            'has_disconnect' => Yii::t('app', 'Connectivity'),
+            'term' => Yii::t('app', 'Term'),
+            'term_from' => Yii::t('app', 'Period From'),
+            'term_to' => Yii::t('app', 'Period To'),
+            'id_from' => Yii::t('app', 'ID From'),
+            'id_to' => Yii::t('app', 'ID To'),
+            'filter' => Yii::t('app', 'Filter'),
         ];
     }
 
@@ -389,6 +395,7 @@ class Battle2FilterForm extends Model
             'weapon',
             'rank',
             'result',
+            'has_disconnect',
             'id_from',
             'id_to',
             'filter',
