@@ -120,6 +120,7 @@ use yii\web\JsExpression;
  * @property integer $his_team_win_streak
  * @property float $synergy_bonus
  * @property float $freshness
+ * @property boolean $has_disconnect
  * @property string $remote_addr
  * @property integer $remote_port
  * @property string $start_at
@@ -290,6 +291,10 @@ class Battle2 extends ActiveRecord
                     $and[] = [
                         'battle2.is_win' => ($form->result === 'win' || $form->result === true)
                     ];
+                }
+                if ($form->has_disconnect != '' || is_bool($form->has_disconnect)) {
+                    $value = $form->has_disconnect === 'yes' || $form->has_disconnect === true;
+                    $and[] = ['battle2.has_disconnect' => $value];
                 }
                 if ($form->id_from != '' && $form->id_from > 0) {
                     $and[] = ['>=', 'battle2.id', (int)$form->id_from];
@@ -731,6 +736,7 @@ class Battle2 extends ActiveRecord
             [['splatnet_number'], 'integer', 'min' => 1],
             [['my_team_id', 'his_team_id'], 'string', 'max' => 16],
             [['is_win', 'is_knockout', 'is_automated', 'use_for_entire'], 'boolean'],
+            [['has_disconnect'], 'boolean'],
             [['kill_ratio', 'kill_rate', 'my_team_percent', 'his_team_percent'], 'number'],
             [['my_team_color_hue', 'his_team_color_hue', 'note', 'private_note', 'link_url'], 'string'],
             [['ua_variables', 'ua_custom', 'remote_addr'], 'string'],
@@ -1710,12 +1716,7 @@ class Battle2 extends ActiveRecord
 
     public function getHasDisconnectedPlayer(): bool
     {
-        foreach ($this->battlePlayers as $player) {
-            if ($player->getIsDisconnected()) {
-                return true;
-            }
-        }
-        return false;
+        return (bool)$this->has_disconnect;
     }
 
     public function getPrivateRoomId(): ?string
