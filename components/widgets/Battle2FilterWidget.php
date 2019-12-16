@@ -44,6 +44,7 @@ class Battle2FilterWidget extends Widget
     public $weapon = true;
     public $rank = true;
     public $result = true;
+    public $connectivity = false;
     public $term = true;
     public $filterText = false;
     public $action = 'search'; // search or summarize
@@ -51,30 +52,31 @@ class Battle2FilterWidget extends Widget
     public function run()
     {
         ob_start();
-        $cleaner = new Resource(true, function () {
+        try {
+            $divId = $this->getId();
+            $this->view->registerCss(sprintf(
+                '#%s{%s}',
+                $divId,
+                Html::cssStyleFromArray([
+                    'border' => '1px solid #ccc',
+                    'border-radius' => '5px',
+                    'padding' => '15px',
+                    'margin-bottom' => '15px',
+                ])
+            ));
+            echo Html::beginTag('div', ['id' => $divId]);
+            $form = ActiveForm::begin([
+                'id' => $this->id,
+                'action' => [ $this->route, 'screen_name' => $this->screen_name ],
+                'method' => 'get',
+            ]);
+            echo $this->drawFields($form);
+            ActiveForm::end();
+            echo Html::endTag('div');
+            return ob_get_contents();
+        } finally {
             ob_end_clean();
-        });
-        $divId = $this->getId();
-        $this->view->registerCss(sprintf(
-            '#%s{%s}',
-            $divId,
-            Html::cssStyleFromArray([
-                'border' => '1px solid #ccc',
-                'border-radius' => '5px',
-                'padding' => '15px',
-                'margin-bottom' => '15px',
-            ])
-        ));
-        echo Html::beginTag('div', ['id' => $divId]);
-        $form = ActiveForm::begin([
-            'id' => $this->id,
-            'action' => [ $this->route, 'screen_name' => $this->screen_name ],
-            'method' => 'get',
-        ]);
-        echo $this->drawFields($form);
-        ActiveForm::end();
-        echo Html::endTag('div');
-        return ob_get_contents();
+        }
     }
 
     protected function drawFields(ActiveForm $form): string
@@ -94,6 +96,9 @@ class Battle2FilterWidget extends Widget
         }
         if ($this->result) {
             $ret[] = $this->drawResult($form);
+        }
+        if ($this->connectivity) {
+            $ret[] = $this->drawConnectivity($form);
         }
         if ($this->term) {
             $ret[] = $this->drawTerm($form);
@@ -389,7 +394,6 @@ class Battle2FilterWidget extends Widget
         return (string)$form->field($this->filter, 'rank')->dropDownList($list)->label(false);
     }
 
-
     protected function drawResult(ActiveForm $form): string
     {
         $list = [
@@ -398,6 +402,18 @@ class Battle2FilterWidget extends Widget
             'lose'  => Yii::t('app', 'Lost'),
         ];
         return (string)$form->field($this->filter, 'result')->dropDownList($list)->label(false);
+    }
+
+    protected function drawConnectivity(ActiveForm $form): string
+    {
+        $list = [
+            ''      => Yii::t('app', 'Connectivity'),
+            'yes'   => Yii::t('app', 'Has disconnected player'),
+            'no'    => Yii::t('app', 'Hasn\'t disconnected player'),
+        ];
+        return (string)$form->field($this->filter, 'has_disconnect')
+            ->dropDownList($list)
+            ->label(false);
     }
 
     protected function drawFilter(ActiveForm $form): string

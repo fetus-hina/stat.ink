@@ -1207,6 +1207,7 @@ if ($user->twitter != '') {
       <?= Battle2FilterWidget::widget([
         'route' => 'show-v2/user',
         'screen_name' => $user->screen_name,
+        'connectivity' => true,
         'filter' => $filter,
         'filterText' => $filter->filter != '',
       ]) . "\n" ?>
