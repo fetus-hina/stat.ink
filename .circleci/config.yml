@@ -62,7 +62,7 @@ jobs:
       - run: yum-config-manager --add-repo 'https://rpm.fetus.jp/jp3cki.repo'
       - run: yum-config-manager --disable jp3cki*
       - run: yum-config-manager --enable jp3cki-h2o-mainline
-      - run: yum install -y ImageMagick brotli diffutils gcc-c++ git gzip h2o jpegoptim make nodejs patch php74-php-cli php74-php-fpm php74-php-gd php74-php-intl php74-php-json php74-php-mbstring php74-php-mcrypt php74-php-opcache php74-php-pdo php74-php-pecl-msgpack php74-php-pecl-zip php74-php-pgsql php74-php-process php74-php-xml php74-runtime supervisor unzip
+      - run: yum install -y ImageMagick brotli diffutils gcc-c++ git gzip h2o jpegoptim make nodejs patch php74-php-cli php74-php-fpm php74-php-gd php74-php-intl php74-php-json php74-php-mbstring php74-php-mcrypt php74-php-opcache php74-php-pdo php74-php-pecl-msgpack php74-php-pecl-zip php74-php-pgsql php74-php-process php74-php-sodium php74-php-xml php74-runtime supervisor unzip
       - checkout
       - restore_cache:
           keys:
