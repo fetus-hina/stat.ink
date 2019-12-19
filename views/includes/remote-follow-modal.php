@@ -1,12 +1,11 @@
 <?php
-use app\assets\RemoteFollowAsset;
+
+declare(strict_types=1);
+
 use app\models\RemoteFollowModalForm;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 use yii\helpers\Url;
-
-$asset = RemoteFollowAsset::register($this);
-$prefix = substr(hash('sha256', 'remote-follow-modal-internal'), 0, 8);
 ?>
 <div class="modal fade" id="remoteFollowModal" tabindex="-1" role="dialog" aria-labelledby="remoteFollowModalLabel">
   <div class="modal-dialog" role="document">
@@ -24,7 +23,7 @@ $prefix = substr(hash('sha256', 'remote-follow-modal-internal'), 0, 8);
         ) . "\n" ?>
         <h4 class="modal-title" id="remoteFollowModalLabel">
           <?= Html::img(
-            Yii::$app->assetManager->getAssetUrl($asset, 'ostatus.min.svg'),
+            '@web/static-assets/ostatus/ostatus.min.svg',
             ['style' => [
               'height' => '1em',
               'width' => 'auto',

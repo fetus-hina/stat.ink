@@ -1,6 +1,8 @@
 <?php
+
+declare(strict_types=1);
+
 use app\assets\AppLinkAsset;
-use app\assets\RemoteFollowAsset;
 use app\assets\UserMiniinfoAsset;
 use app\components\widgets\ActivityWidget;
 use app\models\Rank;
@@ -9,7 +11,6 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 
 UserMiniinfoAsset::register($this);
-$remoteFollow = RemoteFollowAsset::register($this);
 $icons = AppLinkAsset::register($this);
 
 $stat = $user->userStat;
@@ -363,7 +364,7 @@ $f = Yii::$app->formatter;
         <span class="fa fa-fw"><?= $icons->ikanakama ?></span>
         <?= Html::a(
           Html::encode(Yii::t('app', 'Ika-Nakama 2')),
-          'https://ikanakama.ink/users/' . rawurlencode($user->ikanakama2),
+          'https://ikanakama.ink/users/' . rawurlencode((string)$user->ikanakama2),
           ['rel' => 'nofollow', 'target' => '_blank']
         ) . "\n" ?>
       </div>
@@ -375,8 +376,12 @@ $f = Yii::$app->formatter;
         implode('', [
           Html::tag(
             'span',
-            Html::img(Yii::$app->assetManager->getAssetUrl($remoteFollow, 'ostatus.min.svg'), [
-              'style' => 'width:auto;height:1em;vertical-align:baseline',
+            Html::img('@web/static-assets/ostatus/ostatus.min.svg', [
+              'style' => [
+                'width' => 'auto',
+                'height' => '1em',
+                'vertical-align' => 'baseline',
+              ],
             ]),
             ['class' => 'fa fa-fw']
           ),
@@ -385,7 +390,10 @@ $f = Yii::$app->formatter;
         [
           'id' => 'miniinfo-remote-follow',
           'class' => 'btn btn-default btn-xs',
-          'disabled' => true,
+          'data' => [
+            'target' => '#remoteFollowModal',
+            'toggle' => 'modal',
+          ],
         ]
       ) . "\n" ?>
       <?= $this->render('//includes/remote-follow-modal', ['user' => $user]) . "\n" ?>
