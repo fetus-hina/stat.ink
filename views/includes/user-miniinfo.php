@@ -5,10 +5,12 @@ declare(strict_types=1);
 use app\assets\AppLinkAsset;
 use app\assets\UserMiniinfoAsset;
 use app\components\widgets\ActivityWidget;
+use app\components\widgets\RemoteFollowDialog;
 use app\models\Rank;
 use statink\yii2\twitter\webintents\TwitterWebIntentsAsset;
 use yii\helpers\Html;
 use yii\helpers\Url;
+use yii\web\View;
 
 UserMiniinfoAsset::register($this);
 $icons = AppLinkAsset::register($this);
@@ -371,6 +373,15 @@ $f = Yii::$app->formatter;
 <?php endif ?>
     </div>
     <div class="miniinfo-databox">
+<?php
+$_remoteFollow = Yii::createObject([
+  '__class' => RemoteFollowDialog::class,
+  'user' => $user,
+]);
+$this->on(View::EVENT_END_BODY, function () use ($_remoteFollow): void {
+  echo $_remoteFollow->run() . "\n";
+});
+?>
       OStatus (<?= Html::encode(Yii::t('app', 'GNU Social, Mastodon etc.')) ?>):<br>
       <?= Html::button(
         implode('', [
@@ -391,12 +402,11 @@ $f = Yii::$app->formatter;
           'id' => 'miniinfo-remote-follow',
           'class' => 'btn btn-default btn-xs',
           'data' => [
-            'target' => '#remoteFollowModal',
+            'target' => '#' . $_remoteFollow->id,
             'toggle' => 'modal',
           ],
         ]
       ) . "\n" ?>
-      <?= $this->render('//includes/remote-follow-modal', ['user' => $user]) . "\n" ?>
     </div>
   </div>
 </div>
