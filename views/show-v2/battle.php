@@ -1,10 +1,12 @@
 <?php
+
 declare(strict_types=1);
 
 use app\assets\BattleDetailAsset;
 use app\components\widgets\AdWidget;
 use app\components\widgets\EmbedVideo;
 use app\components\widgets\SnsWidget;
+use app\components\widgets\UserMiniInfo2;
 use yii\bootstrap\Html;
 use yii\helpers\Url;
 
@@ -191,7 +193,7 @@ BattleDetailAsset::register($this);
 <?php /* }}} */ ?>
     </div>
     <div class="col-xs-12 col-sm-4 col-lg-3">
-      <?= $this->render('/includes/user-miniinfo2', ['user' => $user]) . "\n" ?>
+      <?= UserMiniInfo2::widget(['user' => $user]) . "\n" ?>
       <?= AdWidget::widget() . "\n" ?>
     </div>
   </div>

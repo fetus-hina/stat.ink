@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 use app\assets\BattleListAsset;
@@ -13,6 +14,7 @@ use app\components\widgets\FA;
 use app\components\widgets\GameModeIcon;
 use app\components\widgets\Label;
 use app\components\widgets\SnsWidget;
+use app\components\widgets\UserMiniInfo2;
 use app\models\Battle2;
 use yii\bootstrap\ActiveForm;
 use yii\grid\GridView;
@@ -1211,7 +1213,7 @@ if ($user->twitter != '') {
         'filter' => $filter,
         'filterText' => $filter->filter != '',
       ]) . "\n" ?>
-      <?= $this->render('/includes/user-miniinfo2', ['user' => $user]) . "\n" ?>
+      <?= UserMiniInfo2::widget(['user' => $user]) . "\n" ?>
       <?= AdWidget::widget() . "\n" ?>
     </div>
   </div>

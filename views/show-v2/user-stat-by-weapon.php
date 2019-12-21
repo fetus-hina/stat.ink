@@ -1,10 +1,12 @@
 <?php
+
 declare(strict_types=1);
 
 use app\assets\Spl2WeaponAsset;
 use app\components\widgets\AdWidget;
 use app\components\widgets\Battle2FilterWidget;
 use app\components\widgets\SnsWidget;
+use app\components\widgets\UserMiniInfo2;
 use statink\yii2\sortableTable\SortableTableAsset;
 use yii\data\ArrayDataProvider;
 use yii\grid\GridView;
@@ -278,7 +280,7 @@ $dataColumn = function (string $label, string $colKey, ?string $longLabel = null
         'weapon' => false,
         'result' => false,
       ]) . "\n" ?>
-      <?= $this->render('/includes/user-miniinfo2', ['user' => $user]) . "\n" ?>
+      <?= UserMiniInfo2::widget(['user' => $user]) . "\n" ?>
       <?= AdWidget::widget() . "\n" ?>
     </div>
   </div>
