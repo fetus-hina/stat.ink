@@ -24,7 +24,7 @@
     "dseg": "^0.45.1",
     "emojify.js": "^1.1.0",
     "eonasdan-bootstrap-datetimepicker": "^4.17.47",
-    "eslint": "^6.7.2",
+    "eslint": "^6.8.0",
     "flag-icon-css": "^3.4.5",
     "flot": "~0.8.3",
     "inputmask": "^5.0.1",
