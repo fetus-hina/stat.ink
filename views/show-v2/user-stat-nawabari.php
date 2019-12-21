@@ -1,7 +1,9 @@
 <?php
+
 use app\assets\UserStat2NawabariAsset;
 use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
+use app\components\widgets\UserMiniInfo2;
 use app\models\Battle2;
 use app\models\Map2;
 use app\models\Rule2;
@@ -105,7 +107,7 @@ UserStat2NawabariAsset::register($this);
 <?php endforeach; ?>
     </div>
     <div class="col-xs-12 col-sm-4 col-md-4 col-lg-3">
-      <?= $this->render('/includes/user-miniinfo2', ['user' => $user]) . "\n" ?>
+      <?= UserMiniInfo2::widget(['user' => $user]) . "\n" ?>
       <?= AdWidget::widget() . "\n" ?>
     </div>
   </div>

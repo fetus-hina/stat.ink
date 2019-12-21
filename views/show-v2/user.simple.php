@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 use app\assets\SimpleBattleListAsset;
@@ -6,6 +7,7 @@ use app\components\widgets\AdWidget;
 use app\components\widgets\Battle2FilterWidget;
 use app\components\widgets\FA;
 use app\components\widgets\SnsWidget;
+use app\components\widgets\UserMiniInfo2;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -144,7 +146,7 @@ SimpleBattleListAsset::register($this);
         'connectivity' => true,
         'filter' => $filter,
       ]) . "\n" ?>
-      <?= $this->render('/includes/user-miniinfo2', ['user' => $user]) . "\n" ?>
+      <?= UserMiniInfo2::widget(['user' => $user]) . "\n" ?>
       <?= AdWidget::widget() . "\n" ?>
     </div>
   </div>

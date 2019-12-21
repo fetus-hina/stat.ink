@@ -33,6 +33,7 @@ REQUIREMENTS
 
 * PHP 7.3+
   - Doesn't work with 7.2 or lower. (Uses statements and constants added in v7.3)
+  - You should build/install with Argon2. [Install `php-sodium` if you use remirepo's PHP 7.4](https://github.com/remicollet/remirepo/issues/132#issuecomment-566513636).
 * PostgreSQL 9.5+ (Recommended: 11+)
   - Doesn't work with 9.4 or lower. (Uses features added in v9.5) 
 * ImageMagick (`convert`)
@@ -43,7 +44,7 @@ REQUIREMENTS
 
 https://stat.ink/ works with:
 
-- CentOS 7.6 (x86-64)
+- CentOS 7.7 (x86-64)
 - EPEL
   - `brotli`
 - [JP3CKI Repository](https://rpm.fetus.jp/)

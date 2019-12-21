@@ -1,9 +1,11 @@
 <?php
+
 use app\assets\StatByMapRuleAsset;
 use app\assets\TableResponsiveForceAsset;
 use app\components\widgets\AdWidget;
 use app\components\widgets\Battle2FilterWidget;
 use app\components\widgets\SnsWidget;
+use app\components\widgets\UserMiniInfo2;
 use app\components\widgets\WinLoseLegend;
 use jp3cki\yii2\flot\FlotPieAsset;
 use statink\yii2\stages\spl2\Spl2Stage;
@@ -166,10 +168,7 @@ $ruleMap = [
         'map' => false,
         'result' => false,
       ]) . "\n" ?>
-      <?= $this->render(
-        '@app/views/includes/user-miniinfo2',
-        ['user' => $user]
-      ) . "\n" ?>
+      <?= UserMiniInfo2::widget(['user' => $user]) . "\n" ?>
       <?= AdWidget::widget() . "\n" ?>
     </div>
   </div>

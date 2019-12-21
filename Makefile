@@ -34,10 +34,6 @@ RESOURCE_TARGETS_MAIN := \
 	resources/.compiled/irasutoya/eto/9.png \
 	resources/.compiled/irasutoya/inkling.png \
 	resources/.compiled/irasutoya/octoling.png \
-	resources/.compiled/ostatus/ostatus.min.svg \
-	resources/.compiled/ostatus/ostatus.min.svg.br \
-	resources/.compiled/ostatus/ostatus.min.svg.gz \
-	resources/.compiled/ostatus/remote-follow.js \
 	resources/.compiled/slack/slack.js \
 	resources/.compiled/stat.ink/active-reltime.js \
 	resources/.compiled/stat.ink/agent.js \
@@ -65,6 +61,7 @@ RESOURCE_TARGETS_MAIN := \
 	resources/.compiled/stat.ink/cookiealert.js \
 	resources/.compiled/stat.ink/current-time.js \
 	resources/.compiled/stat.ink/downloads.css \
+	resources/.compiled/stat.ink/fallbackable-image.js \
 	resources/.compiled/stat.ink/favicon.png \
 	resources/.compiled/stat.ink/fest-power-history.css \
 	resources/.compiled/stat.ink/fest-power-history.js \
@@ -124,6 +121,9 @@ RESOURCE_TARGETS_MAIN := \
 	web/static-assets/cc/cc-by.svg \
 	web/static-assets/cc/cc-by.svg.br \
 	web/static-assets/cc/cc-by.svg.gz \
+	web/static-assets/ostatus/ostatus.min.svg \
+	web/static-assets/ostatus/ostatus.min.svg.br \
+	web/static-assets/ostatus/ostatus.min.svg.gz \
 	web/static-assets/rect-danger.min.svg \
 	web/static-assets/rect-danger.min.svg.br \
 	web/static-assets/rect-danger.min.svg.gz
@@ -285,7 +285,7 @@ endif
 %.min.svg: %.svg node_modules
 	npx svgo --output $@ --input $< -q
 
-resources/.compiled/ostatus/ostatus.svg:
+web/static-assets/ostatus/ostatus.svg:
 	@mkdir -p $(dir $@)
 	curl -fsSL -o $@ 'https://github.com/OStatus/assets/raw/master/ostatus.svg'
 
@@ -319,7 +319,6 @@ resources/.compiled/counter/counter.css: resources/counter/counter.less node_mod
 resources/.compiled/flexbox/flexbox.css: resources/flexbox/flexbox.less node_modules
 resources/.compiled/flot-graph-icon/jquery.flot.icon.js: resources/flot-graph-icon/jquery.flot.icon.js node_modules
 resources/.compiled/gears/calc.js: resources/gears/calc.js node_modules
-resources/.compiled/ostatus/remote-follow.js: resources/ostatus/remote-follow.js node_modules
 resources/.compiled/slack/slack.js: resources/slack/slack.js node_modules
 resources/.compiled/stat.ink/active-reltime.js: resources/stat.ink/active-reltime.js node_modules
 resources/.compiled/stat.ink/agent.js: resources/stat.ink/agent.es node_modules
@@ -347,6 +346,7 @@ resources/.compiled/stat.ink/cookiealert.css: resources/stat.ink/cookiealert.les
 resources/.compiled/stat.ink/cookiealert.js: resources/stat.ink/cookiealert.es node_modules
 resources/.compiled/stat.ink/current-time.js: resources/stat.ink/current-time.es node_modules
 resources/.compiled/stat.ink/downloads.css: resources/stat.ink/downloads.less node_modules
+resources/.compiled/stat.ink/fallbackable-image.js: resources/stat.ink/fallbackable-image.es node_modules
 resources/.compiled/stat.ink/fest-power-history.css: resources/stat.ink/fest-power-history.less node_modules
 resources/.compiled/stat.ink/fest-power-history.js: resources/stat.ink/fest-power-history.es node_modules
 resources/.compiled/stat.ink/festpower2-diff-winpct.js: resources/stat.ink/festpower2-diff-winpct.es node_modules
