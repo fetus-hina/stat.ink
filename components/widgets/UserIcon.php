@@ -30,7 +30,7 @@ class UserIcon extends Widget
                         $this->user->jdenticonUrl,
                     ],
                     function (?string $src): bool {
-                        return $src !== null;      
+                        return $src !== null;
                     }
                 ),
                 'options' => $this->options,
