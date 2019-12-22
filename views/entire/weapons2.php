@@ -9,6 +9,7 @@ use app\assets\TableResponsiveForceAsset;
 use app\components\widgets\AdWidget;
 use app\components\widgets\FA;
 use app\components\widgets\GameModeIcon;
+use app\components\widgets\KillRatioBadgeWidget;
 use app\components\widgets\SnsWidget;
 use app\models\Map2;
 use jp3cki\yii2\flot\FlotAsset;
@@ -403,20 +404,23 @@ $maxWP = max(array_map(
           'headerOptions' => [
             'data-sort' => 'float',
           ],
-          'contentOptions' => function ($model) : array {
+          'contentOptions' => function ($model): array {
             return [
               'class' => 'text-right',
               'data-sort-value' => $model->kill_ratio,
             ];
           },
           'format' => 'raw',
-          'value' => function ($model) : string {
+          'value' => function ($model): string {
             if ($model->kill_ratio === null) {
               return '';
             }
+
             return implode(' ', [
               Html::encode(Yii::$app->formatter->asDecimal($model->kill_ratio, 3)),
-              $this->render('/includes/kill_ratio_indicator', ['value' => $model->kill_ratio]),
+              KillRatioBadgeWidget::widget([
+                'killRatio' => $model->kill_ratio,
+              ]),
             ]);
           },
           // }}}
@@ -694,9 +698,12 @@ $jsonId = sprintf('inkperformance-%s-data', $rule->key);
           if (($model->kill_ratio ?? null) === null) {
             return '';
           }
+
           return implode(' ', [
             Html::encode(Yii::$app->formatter->asDecimal($model->kill_ratio, 3)),
-            $this->render('/includes/kill_ratio_indicator', ['value' => $model->kill_ratio]),
+            KillRatioBadgeWidget::widget([
+              'killRatio' => $model->kill_ratio,
+            ]),
           ]);
         },
         // }}}
@@ -830,7 +837,9 @@ $jsonId = sprintf('inkperformance-%s-data', $rule->key);
           }
           return implode(' ', [
             Html::encode(Yii::$app->formatter->asDecimal($model->kill_ratio, 3)),
-            $this->render('/includes/kill_ratio_indicator', ['value' => $model->kill_ratio]),
+            KillRatioBadgeWidget::widget([
+              'killRatio' => $model->kill_ratio,
+            ]),
           ]);
         },
         // }}}
@@ -983,7 +992,9 @@ $jsonId = sprintf('inkperformance-%s-data', $rule->key);
           }
           return implode(' ', [
             Html::encode(Yii::$app->formatter->asDecimal($model->kill_ratio, 3)),
-            $this->render('/includes/kill_ratio_indicator', ['value' => $model->kill_ratio]),
+            KillRatioBadgeWidget::widget([
+              'killRatio' => $model->kill_ratio,
+            ]),
           ]);
         },
         // }}}
@@ -1152,7 +1163,9 @@ $jsonId = sprintf('inkperformance-%s-data', $rule->key);
           }
           return implode(' ', [
             Html::encode(Yii::$app->formatter->asDecimal($model->kill_ratio, 3)),
-            $this->render('/includes/kill_ratio_indicator', ['value' => $model->kill_ratio]),
+            KillRatioBadgeWidget::widget([
+              'killRatio' => $model->kill_ratio,
+            ]),
           ]);
         },
         // }}}

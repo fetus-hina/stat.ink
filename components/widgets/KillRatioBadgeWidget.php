@@ -1,10 +1,12 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2018 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
+
+declare(strict_types=1);
 
 namespace app\components\widgets;
 
@@ -15,6 +17,7 @@ use yii\helpers\Html;
 
 class KillRatioBadgeWidget extends Widget
 {
+    public $killRatio;
     public $kill;
     public $death;
     public $defaultValue = '';
@@ -22,23 +25,37 @@ class KillRatioBadgeWidget extends Widget
     public function init()
     {
         parent::init();
-        $this->kill = static::toInteger($this->kill);
-        $this->death = static::toInteger($this->death);
+        $this->killRatio = static::toFloat($this->killRatio);
+        if ($this->killRatio === null) {
+            $this->kill = static::toInteger($this->kill);
+            $this->death = static::toInteger($this->death);
+            if ($this->kill !== null && $this->death !== null) {
+                if ($this->death === 0) {
+                    if ($this->kill === 0) {
+                        $this->killRatio = 1.0;
+                    } else {
+                        $this->killRatio = 99.99;
+                    }
+                } else {
+                    $this->killRatio = $this->kill / $this->death;
+                }
+            }
+        }
     }
 
     public function run()
     {
-        if (!is_int($this->kill) || !is_int($this->death)) {
+        if ($this->killRatio === null) {
             return $this->defaultValue;
         }
 
         BootstrapAsset::register($this->view);
 
-        if ($this->kill === $this->death) {
+        if (abs($this->killRatio - 1.0) < 0.0001) {
             return Html::tag('span', Html::encode('='), ['class' => 'label label-default']);
         }
 
-        if ($this->kill > $this->death) {
+        if ($this->killRatio > 1.0) {
             return Html::tag('span', Html::encode('>'), ['class' => 'label label-success']);
         }
 
@@ -55,6 +72,18 @@ class KillRatioBadgeWidget extends Widget
             'min_range' => 0,
             'max_range' => 99,
         ]);
+
+        return $value === false ? null : $value;
+    }
+
+    protected static function toFloat($value): ?float
+    {
+        if ($value === null || !is_scalar($value)) {
+            return null;
+        }
+
+        $value = filter_var((string)$value, FILTER_VALIDATE_FLOAT);
+
         return $value === false ? null : $value;
     }
 }
