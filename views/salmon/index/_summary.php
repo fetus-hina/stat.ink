@@ -6,8 +6,6 @@ use app\components\i18n\Formatter;
 use app\components\widgets\BattleSummaryItemWidget;
 use yii\helpers\Html;
 
-$this->registerCss('.battles-summary{margin-bottom:15px}');
-
 $fmt = Yii::createObject([
     'class' => Formatter::class,
     'nullDisplay' => 'N/A',
@@ -21,7 +19,7 @@ $cleared = function (?int $clearCount) use ($summary): ?float {
     return $clearCount / $summary['has_result'];
 };
 ?>
-<div class="row battles-summary">
+<div class="row battles-summary mb-3">
   <div class="col-xs-12">
     <div class="user-label"><?= Html::encode(Yii::t('app', 'Summary: Based on the current filter')) ?></div>
   </div>
@@ -46,7 +44,7 @@ $cleared = function (?int $clearCount) use ($summary): ?float {
     <div class="user-number"><?= $fmt->asPercent($cleared($summary['w1_cleared']), 1) ?></div>
   </div>
 </div>
-<div class="row battles-summary">
+<div class="row battles-summary mb-3">
   <div class="col-xs-4 col-md-2">
     <div class="user-label"><?= Html::encode(Yii::t('app-salmon2', 'Golden')) ?></div>
     <div class="user-number">

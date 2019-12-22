@@ -5,11 +5,10 @@ use app\components\widgets\BattleSummaryItemWidget;
 use yii\helpers\Html;
 
 AppAsset::register($this);
-$this->registerCss('.battles-summary{margin-bottom:15px}');
 
 $fmt = Yii::$app->formatter;
 ?>
-<div class="row battles-summary">
+<div class="row battles-summary mb-3">
 <?php if (isset($headingText) && $headingText != ''): ?>
   <div class="col-xs-12">
     <div class="user-label">
@@ -67,7 +66,7 @@ $fmt = Yii::$app->formatter;
   </div>
 <?php if (($summary->assist_present ?? null) > 0 || ($summary->special_present ?? null) > 0 || ($summary->inked_present ?? null) > 0): ?>
 </div>
-<div class="row battles-summary">
+<div class="row battles-summary mb-3">
 <?php endif ?>
   <div class="col-xs-4 col-md-2">
     <div class="user-label">
