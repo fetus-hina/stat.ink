@@ -1,6 +1,8 @@
 <?php
+
 use app\assets\AppLinkAsset;
 use app\components\widgets\ActivityWidget;
+use app\components\widgets\UserIcon;
 use app\components\widgets\battle\PanelListWidget;
 use yii\bootstrap\Html;
 use yii\helpers\Json;
@@ -64,17 +66,17 @@ $this->registerCss(implode('', array_map(
 <div id="profile" class="container">
   <div class="row">
     <div id="person-box" class="col-xs-12 col-md-3" itemscope itemtype="http://schema.org/Person">
-      <?= Html::img(
-            $user->iconUrl,
-            [
-              'class' => [
-                'img-responsive',
-                'img-thumbnail',
-                'img-rounded',
-              ],
-              'style' => ['width' => '100%'],
-            ]
-      ) . "\n" ?>
+      <?= UserIcon::widget([
+        'user' => $user,
+        'options' => [
+          'class' => [
+            'img-responsive',
+            'img-thumbnail',
+            'img-rounded',
+            'w-100',
+          ],
+        ],
+      ]) . "\n" ?>
       <h1 itemprop="name">
         <?= Html::encode($user->name) . "\n" ?>
       </h1>

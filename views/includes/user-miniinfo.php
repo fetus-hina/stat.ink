@@ -6,6 +6,7 @@ use app\assets\AppLinkAsset;
 use app\assets\UserMiniinfoAsset;
 use app\components\widgets\ActivityWidget;
 use app\components\widgets\RemoteFollowDialog;
+use app\components\widgets\UserIcon;
 use app\models\Rank;
 use statink\yii2\twitter\webintents\TwitterWebIntentsAsset;
 use yii\helpers\Html;
@@ -24,7 +25,17 @@ $f = Yii::$app->formatter;
     <h2>
       <?= Html::a(
         implode('', [
-          Html::tag('span', Html::img($user->iconUrl, ['width' => 48, 'height' => 48]), ['class' => 'miniinfo-user-icon']),
+          Html::tag(
+            'span',
+            UserIcon::widget([
+              'user' => $user,
+              'options' => [
+                'width' => '48',
+                'height' => '48',
+              ],
+            ]),
+            ['class' => 'miniinfo-user-icon']
+          ),
           Html::tag('span', Html::encode($user->name), [
             'itemprop' => 'name',
             'class' => 'miniinfo-user-name',
