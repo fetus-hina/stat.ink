@@ -312,6 +312,18 @@ each(.props(), .(@propLong, @propShort, @propIndex) {
       }
     });
   });
+
+  each(.sizes(), .(@sizeValue, @sizeKey, @sizeIndex) {
+    .@{propShort}h-@{sizeKey} {
+      @{propLong}-left: @sizeValue !important;
+      @{propLong}-right: @sizeValue !important;
+    }
+
+    .@{propShort}v-@{sizeKey} {
+      @{propLong}-top: @sizeValue !important;
+      @{propLong}-bottom: @sizeValue !important;
+    }
+  });
 });
 
 .h-auto {
