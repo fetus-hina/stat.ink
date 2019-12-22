@@ -1,5 +1,7 @@
 <?php
+
 use app\assets\AppAsset;
+use app\components\widgets\BattleSummaryItemWidget;
 use yii\helpers\Html;
 
 AppAsset::register($this);
@@ -72,7 +74,7 @@ $fmt = Yii::$app->formatter;
       <?= Html::encode(Yii::t('app', 'Avg Kills')) . "\n" ?>
     </div>
     <div class="user-number">
-      <?= $this->render('/includes/_battles-summary-kill-death', [
+      <?= BattleSummaryItemWidget::widget([
         'battles' => $summary->kd_present ?? null,
         'total' => $summary->total_kill ?? null,
         'min' => $summary->min_kill ?? null,
@@ -93,7 +95,7 @@ $fmt = Yii::$app->formatter;
       <?= Html::encode(Yii::t('app', 'Avg Deaths')) . "\n" ?>
     </div>
     <div class="user-number">
-      <?= $this->render('/includes/_battles-summary-kill-death', [
+      <?= BattleSummaryItemWidget::widget([
         'battles' => $summary->kd_present ?? null,
         'total' => $summary->total_death ?? null,
         'min' => $summary->min_death ?? null,
@@ -165,7 +167,7 @@ $fmt = Yii::$app->formatter;
       <?= Html::encode(Yii::t('app', 'Avg Assists')) . "\n" ?>
     </div>
     <div class="user-number">
-      <?= $this->render('/includes/_battles-summary-kill-death', [
+      <?= BattleSummaryItemWidget::widget([
         'battles' => $summary->assist_present ?? null,
         'total' => $summary->total_assist ?? null,
         'min' => $summary->min_assist ?? null,
@@ -185,7 +187,7 @@ $fmt = Yii::$app->formatter;
       <?= Html::encode(Yii::t('app', 'Avg Specials')) . "\n" ?>
     </div>
     <div class="user-number">
-      <?= $this->render('/includes/_battles-summary-kill-death', [
+      <?= BattleSummaryItemWidget::widget([
         'battles' => $summary->special_present ?? null,
         'total' => $summary->total_special ?? null,
         'min' => $summary->min_special ?? null,
@@ -205,7 +207,7 @@ $fmt = Yii::$app->formatter;
       <?= Html::encode(Yii::t('app', 'Avg Inked')) . "\n" ?>
     </div>
     <div class="user-number">
-      <?= $this->render('/includes/_battles-summary-kill-death', [
+      <?= BattleSummaryItemWidget::widget([
         'battles' => $summary->inked_present ?? null,
         'total' => $summary->total_inked ?? null,
         'min' => $summary->min_inked ?? null,

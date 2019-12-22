@@ -1,7 +1,9 @@
 <?php
+
 declare(strict_types=1);
 
 use app\components\i18n\Formatter;
+use app\components\widgets\BattleSummaryItemWidget;
 use yii\helpers\Html;
 
 $this->registerCss('.battles-summary{margin-bottom:15px}');
@@ -48,7 +50,7 @@ $cleared = function (?int $clearCount) use ($summary): ?float {
   <div class="col-xs-4 col-md-2">
     <div class="user-label"><?= Html::encode(Yii::t('app-salmon2', 'Golden')) ?></div>
     <div class="user-number">
-      <?= $this->render('/includes/_battles-summary-kill-death', [
+      <?= BattleSummaryItemWidget::widget([
         'battles' => $summary['avail_golden'],
         'total' => $summary['total_golden'],
         'min' => $summary['min_golden'],
@@ -67,7 +69,7 @@ $cleared = function (?int $clearCount) use ($summary): ?float {
   <div class="col-xs-4 col-md-2">
     <div class="user-label"><?= Html::encode(Yii::t('app-salmon2', 'Pwr Eggs')) ?></div>
     <div class="user-number">
-      <?= $this->render('/includes/_battles-summary-kill-death', [
+      <?= BattleSummaryItemWidget::widget([
         'battles' => $summary['avail_power'],
         'total' => $summary['total_power'],
         'min' => $summary['min_power'],
@@ -86,7 +88,7 @@ $cleared = function (?int $clearCount) use ($summary): ?float {
   <div class="col-xs-4 col-md-2">
     <div class="user-label"><?= Html::encode(Yii::t('app-salmon2', 'Rescued')) ?></div>
     <div class="user-number">
-      <?= $this->render('/includes/_battles-summary-kill-death', [
+      <?= BattleSummaryItemWidget::widget([
         'battles' => $summary['avail_rescue'],
         'total' => $summary['total_rescue'],
         'min' => $summary['min_rescue'],
@@ -105,7 +107,7 @@ $cleared = function (?int $clearCount) use ($summary): ?float {
   <div class="col-xs-4 col-md-2">
     <div class="user-label"><?= Html::encode(Yii::t('app-salmon2', 'Deaths')) ?></div>
     <div class="user-number">
-      <?= $this->render('/includes/_battles-summary-kill-death', [
+      <?= BattleSummaryItemWidget::widget([
         'battles' => $summary['avail_death'],
         'total' => $summary['total_death'],
         'min' => $summary['min_death'],

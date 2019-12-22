@@ -5,6 +5,7 @@ declare(strict_types=1);
 use app\assets\Spl2WeaponAsset;
 use app\components\widgets\AdWidget;
 use app\components\widgets\Battle2FilterWidget;
+use app\components\widgets\BattleSummaryItemWidget;
 use app\components\widgets\SnsWidget;
 use app\components\widgets\UserMiniInfo2;
 use statink\yii2\sortableTable\SortableTableAsset;
@@ -66,7 +67,7 @@ $dataColumn = function (string $label, string $colKey, ?string $longLabel = null
           : Yii::$app->formatter->asDecimal($value, $dec);
       };
 
-      return $this->render('//includes/_battles-summary-kill-death', [
+      return BattleSummaryItemWidget::widget([
         'battles'   => $row['battles'],
         'total'     => (int)round($row['battles'] * $row["avg_{$colKey}"]),
         'min'       => $row["min_{$colKey}"],
