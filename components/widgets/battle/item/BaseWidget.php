@@ -16,6 +16,7 @@ use Yii;
 use app\assets\AppAsset;
 use app\assets\BattleThumbListAsset;
 use app\components\widgets\ActiveRelativeTimeWidget;
+use app\components\widgets\UserIcon;
 use app\models\User;
 use statink\yii2\jdenticon\Jdenticon;
 use yii\base\Widget;
@@ -75,27 +76,13 @@ abstract class BaseWidget extends Widget
 
     public function getUserIconHtml(): string
     {
-        // {{{
-        $user = $this->getUser();
-        $icon = $user->userIcon;
-        if ($icon) {
-            return Html::img(
-                $icon->url,
-                [
-                    'width' => 46,
-                    'height' => 46,
-                    'itemprop' => 'image',
-                ]
-            );
-        } else {
-            return Jdenticon::widget([
-                'hash' => $user->identiconHash,
-                'class' => 'identicon',
-                'size' => 48,
-                'schema' => 'image',
-            ]);
-        }
-        // }}}
+        return UserIcon::widget([
+            'user' => $this->getUser(),
+            'options' => [
+                'width' => '48',
+                'height' => '48',
+            ]
+        ]);
     }
 
     public function run()

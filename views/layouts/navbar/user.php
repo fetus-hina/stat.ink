@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use app\components\widgets\FA;
+use app\components\widgets\UserIcon;
 use yii\helpers\Html;
 
 $user = Yii::$app->user->identity ?? null;
@@ -10,12 +11,14 @@ $user = Yii::$app->user->identity ?? null;
 <?= Html::a(
   implode('', [
     $user
-      ? Html::img($user->iconUrl, [
-        'class' => 'fa fa-fw',
-        'style' => [
-          'width' => '1em',
-          'height' => '1em',
-          'background-color' => '#fff',
+      ? UserIcon::widget([
+        'user' => $user,
+        'options' => [
+          'style' => [
+            'width' => 'auto',
+            'height' => '1em',
+            'background-color' => '#fff',
+          ],
         ],
       ])
       : Html::tag('span', '', ['class' => 'fa fa-fw fa-user']),

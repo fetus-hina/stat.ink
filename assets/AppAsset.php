@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace app\assets;
 
+use Yii;
 use yii\bootstrap\BootstrapAsset;
 use yii\bootstrap\BootstrapPluginAsset;
 use yii\web\AssetBundle;
@@ -38,6 +39,15 @@ class AppAsset extends AssetBundle
         SmoothScrollAsset::class,
         YiiAsset::class,
     ];
+
+    public function init()
+    {
+        parent::init();
+
+        if (substr(Yii::$app->language, 0, 3) === 'ja-') {
+            $this->depends[] = NotoSansJPAsset::class;
+        }
+    }
 
     public function registerAssetFiles($view)
     {

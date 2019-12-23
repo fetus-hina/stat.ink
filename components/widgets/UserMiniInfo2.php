@@ -71,26 +71,12 @@ class UserMiniInfo2 extends Widget
     {
         return Html::tag(
             'span',
-            implode('', [
-                FallbackableImage::widget([
-                    'srcs' => array_filter(
-                        [
-                            $this->user->userIcon->url ?? null,
-                            $this->user->jdenticonUrl,
-                        ],
-                        function (?string $src): bool {
-                            return $src !== null;
-                        }
-                    ),
-                    'options' => [
-                        'height' => '48',
-                        'width' => '48',
-                    ],
-                ]),
-                Html::tag('meta', '', [
-                    'itemprop' => 'image',
-                    'value' => Url::to($this->user->iconUrl, true),
-                ]),
+            UserIcon::widget([
+                'user' => $this->user,
+                'options' => [
+                    'height' => '48',
+                    'width' => '48',
+                ],
             ]),
             ['class' => 'miniinfo-user-icon']
         );
