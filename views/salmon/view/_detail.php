@@ -1,12 +1,15 @@
 <?php
+
 declare(strict_types=1);
 
 use app\components\helpers\Battle as BattleHelper;
 use app\components\i18n\Formatter;
+use app\components\widgets\FA;
 use app\components\widgets\Label;
 use app\components\widgets\PrivateNote;
 use app\components\widgets\SalmonHazardHistory;
 use app\models\Salmon2;
+use app\models\SalmonSchedule2;
 use app\models\SalmonTitle2;
 use yii\bootstrap\Progress;
 use yii\helpers\ArrayHelper;
@@ -133,13 +136,50 @@ $widget = Yii::createObject([
       'attribute' => 'shift_period',
       'format' => 'raw',
       'value' => function (Salmon2 $model, DetailView $widget): ?string {
-        $period = $model->shift_period;
-        if ($period === null) {
-          return null;
+        $schedule = SalmonSchedule2::find()
+            ->andWhere(['and',
+                ['<=', 'start_at', $model->start_at],
+                ['>', 'end_at', $model->start_at],
+            ])
+            ->limit(1)
+            ->one();
+
+        if (!$schedule) {
+          // 正規のスケジュールデータが見つからない場合、
+          // 持っているデータを元になんとなく表示する
+          $period = $model->shift_period;
+          if ($period === null) {
+            return null;
+          }
+
+          list ($periodStart, ) = BattleHelper::periodToRange2($period);
+          return Yii::t('app-salmon2', 'From {shiftStart}', [
+            'shiftStart' => $widget->formatter->asTimestampColumn($periodStart, false),
+          ]);
         }
-        list ($periodStart, ) = BattleHelper::periodToRange2($period);
-        return Yii::t('app-salmon2', 'From {shiftStart}', [
-          'shiftStart' => $widget->formatter->asTimestampColumn($periodStart, false),
+
+        // 正規のスケジュールデータから表示する
+        return implode(' ', [
+          Yii::t('app-salmon2', 'From {shiftStart} to {shiftEnd}', [
+            'shiftStart' => $widget->formatter->asTimestampColumn($schedule->start_at, false),
+            'shiftEnd' => $widget->formatter->asTimestampColumn($schedule->end_at, false),
+          ]),
+          Html::a(
+            (string)FA::fas('calendar-day')->fw(),
+            ['salmon/index',
+              'screen_name' => $model->user->screen_name,
+              'filter' => [
+                'filter' => sprintf('rotation:%d', $schedule->period),
+              ],
+            ],
+            [
+              'class' => 'auto-tooltip',
+              'title' => Yii::t('app', 'Search {from} - {to}', [
+                'from' => $widget->formatter->asDateTime($schedule->start_at, 'short'),
+                'to' => $widget->formatter->asDateTime($schedule->end_at, 'short'),
+              ])
+            ]
+          ),
         ]);
       },
     ],

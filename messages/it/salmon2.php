@@ -30,6 +30,7 @@ return [
     'Failed in wave {waveNumber}' => '',
     'Fail Reason' => '',
     'From {shiftStart}' => '',
+    'From {shiftStart} to {shiftEnd}' => '',
     'Future' => 'Successivi',
     'Golden' => '',
     'Golden/W' => '',

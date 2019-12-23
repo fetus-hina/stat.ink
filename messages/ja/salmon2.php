@@ -29,6 +29,7 @@ return [
     'Failed in wave {waveNumber}' => '失敗 (Wave {waveNumber})',
     'Failed' => '失敗',
     'Failed<br><small>in wave {waveNumber}</small>' => '失敗<br><small>(WAVE {waveNumber})</small>',
+    'From {shiftStart} to {shiftEnd}' => '{shiftStart} から {shiftEnd} まで',
     'From {shiftStart}' => '{shiftStart} から',
     'Future' => 'そのつぎ',
     'Golden Eggs per Wave' => '金イクラ毎WAVE',
