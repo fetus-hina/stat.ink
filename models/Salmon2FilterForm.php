@@ -12,8 +12,11 @@ namespace app\models;
 
 use Exception;
 use Yii;
+use app\components\helpers\Battle as BattleHelper;
+use app\components\helpers\db\Now;
 use yii\base\Model;
 use yii\db\ActiveQuery;
+use yii\helpers\ArrayHelper;
 
 class Salmon2FilterForm extends Model
 {
@@ -27,10 +30,17 @@ class Salmon2FilterForm extends Model
     public $filter;
 
     private $filterRotation;
+    private $versions;
 
     public function formName()
     {
         return 'filter';
+    }
+
+    public function init()
+    {
+        parent::init();
+        $this->versions = $this->initVersions();
     }
 
     public function rules()
@@ -59,10 +69,13 @@ class Salmon2FilterForm extends Model
                 'targetAttribute' => 'key',
             ],
             [['term'], 'in',
-                'range' => [
-                    'this-rotation',
-                    'prev-rotation',
-                ],
+                'range' => array_merge(
+                    [
+                        'this-rotation',
+                        'prev-rotation',
+                    ],
+                    array_keys($this->getValidVersions())
+                ),
             ],
             [['filter'], 'validateFilter', 'skipOnEmpty' => true],
         ];
@@ -188,6 +201,27 @@ class Salmon2FilterForm extends Model
                 } else {
                     $query->andWhere('0 = 1');
                 }
+            } elseif (substr($this->term, 0, 1) === 'v') {
+                $vID = substr($this->term, 1);
+                if (isset($this->versions[$vID])) {
+                    list ($date1, $date2) = $this->versions[$vID]->getAvailableDateRange();
+
+                    $query->andWhere([
+                        '>=',
+                        '{{salmon2}}.[[shift_period]]',
+                        BattleHelper::calcPeriod2($date1->getTimestamp())
+                    ]);
+
+                    if ($date2) {
+                        $query->andWhere([
+                            '<',
+                            '{{salmon2}}.[[shift_period]]',
+                            BattleHelper::calcPeriod2($date2->getTimestamp())
+                        ]);
+                    }
+                } else {
+                    $query->andWhere('0 = 1');
+                }
             } else {
                 $query->andWhere('0 = 1');
             }
@@ -249,5 +283,54 @@ class Salmon2FilterForm extends Model
             ->offset($this->term === 'this-rotation' ? 0 : 1)
             ->limit(1)
             ->one();
+    }
+
+    public function getValidVersions(): array
+    {
+        return ArrayHelper::map(
+            $this->versions,
+            function (SplatoonVersionGroup2 $v): string {
+                return 'v' . $v->tag;
+            },
+            function (SplatoonVersionGroup2 $v): string {
+                return Yii::t('app', 'Version {0}', [
+                    Yii::t('app-version2', $v->name),
+                ]);
+            }
+        );
+    }
+
+    private function initVersions(): array
+    {
+        $versionGroupIds = array_filter(
+            ArrayHelper::getColumn(
+                SplatoonVersion2::find()
+                    ->andWhere(['and',
+                        ['<=', 'released_at', new Now()],
+                    ])
+                    ->asArray()
+                    ->all(),
+                function (array $row): ?int {
+                    // サーモンランの記録に対応したのは v4.0.0 以降
+                    return (version_compare('4.0.0', $row['tag'], '<='))
+                        ? (int)$row['group_id']
+                        : null;
+                }
+            ),
+            function (?int $value): bool {
+                return $value !== null;
+            }
+        );
+
+        return ArrayHelper::map(
+            SplatoonVersionGroup2::find()
+                ->andWhere(['id' => $versionGroupIds])
+                ->orderBy(['tag' => SORT_DESC])
+                ->all(),
+            'tag',
+            function (SplatoonVersionGroup2 $row): SplatoonVersionGroup2 {
+                return $row;
+            }
+        );
     }
 }

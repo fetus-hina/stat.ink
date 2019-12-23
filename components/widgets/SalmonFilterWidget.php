@@ -161,10 +161,13 @@ class SalmonFilterWidget extends Widget
 
     protected function renderTermField(ActiveForm $form): string
     {
-        $list = [
-            'this-rotation' => Yii::t('app-salmon2', 'This/Last Rotation'),
-            'prev-rotation' => Yii::t('app-salmon2', 'Previous Rotation'),
-        ];
+        $list = array_merge(
+            [
+                'this-rotation' => Yii::t('app-salmon2', 'This/Last Rotation'),
+                'prev-rotation' => Yii::t('app-salmon2', 'Previous Rotation'),
+            ],
+            $this->filter->getValidVersions()
+        );
 
         return $form->field($this->filter, 'term')
             ->dropDownList($list, [

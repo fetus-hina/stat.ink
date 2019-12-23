@@ -6,8 +6,11 @@
  * @author AIZAWA Hina <hina@fetus.jp>
  */
 
+declare(strict_types=1);
+
 namespace app\models;
 
+use DateTimeImmutable;
 use Yii;
 use yii\db\ActiveRecord;
 
@@ -61,5 +64,40 @@ class SplatoonVersionGroup2 extends ActiveRecord
     public function getVersions()
     {
         return $this->hasMany(SplatoonVersion2::class, ['group_id' => 'id']);
+    }
+
+    public function getAvailableDateRange(): array
+    {
+        return [
+            $this->getReleaseDate(),
+            $this->getObsoleteDate(),
+        ];
+    }
+
+    public function getReleaseDate(): DateTimeImmutable
+    {
+        $model = $this->getVersions()
+            ->orderBy(['released_at' => SORT_ASC])
+            ->limit(1)
+            ->one();
+        return new DateTimeImmutable($model->released_at);
+    }
+
+    public function getObsoleteDate(): ?DateTimeImmutable
+    {
+        $lastVersionOfThisGroup = $this->getVersions()
+            ->orderBy(['released_at' => SORT_DESC])
+            ->limit(1)
+            ->one();
+
+        $nextVersion = SplatoonVersion2::find()
+            ->andWhere(['>', 'released_at', $lastVersionOfThisGroup->released_at])
+            ->orderBy(['released_at' => SORT_ASC])
+            ->limit(1)
+            ->one();
+
+        return $nextVersion
+            ? new DateTimeImmutable($nextVersion->released_at)
+            : null;
     }
 }
