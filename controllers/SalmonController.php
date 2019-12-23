@@ -134,6 +134,13 @@ class SalmonController extends Controller
             ]),
             'spMode' => $this->getIndexViewMode() === 'simple',
             'filter' => $filter,
+            'permLink' => Url::to(
+                ['salmon/index',
+                    'screen_name' => $user->screen_name,
+                    'filter' => $filter->toPermalinkParams(),
+                ],
+                true
+            ),
         ]);
     }
 

@@ -16,7 +16,7 @@ $this->title = sprintf('%s | %s', Yii::$app->name, $title);
 
 $humanReadableSummary = $dataProvider->query->getHumanReadableSummary($user);
 
-// $this->registerLinkTag(['rel' => 'canonical', 'href' => $permLink]);
+$this->registerLinkTag(['rel' => 'canonical', 'href' => $permLink]);
 $this->registerMetaTag(['name' => 'twitter:card', 'content' => 'summary']);
 $this->registerMetaTag(['name' => 'twitter:title', 'content' => $title]);
 $this->registerMetaTag([

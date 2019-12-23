@@ -23,6 +23,7 @@ class Salmon2FilterForm extends Model
     public $special;
     public $result;
     public $reason;
+    public $term;
     public $filter;
 
     private $filterRotation;
@@ -35,7 +36,7 @@ class Salmon2FilterForm extends Model
     public function rules()
     {
         return [
-            [['stage', 'special', 'result', 'reason', 'filter'], 'string'],
+            [['stage', 'special', 'result', 'reason', 'term', 'filter'], 'string'],
             [['stage'], 'exist', 'skipOnError' => true,
                 'targetClass' => SalmonMap2::class,
                 'targetAttribute' => 'key',
@@ -57,6 +58,12 @@ class Salmon2FilterForm extends Model
                 'targetClass' => SalmonFailReason2::class,
                 'targetAttribute' => 'key',
             ],
+            [['term'], 'in',
+                'range' => [
+                    'this-rotation',
+                    'prev-rotation',
+                ],
+            ],
             [['filter'], 'validateFilter', 'skipOnEmpty' => true],
         ];
     }
@@ -68,6 +75,7 @@ class Salmon2FilterForm extends Model
             'special' => Yii::t('app', 'Special'),
             'result' => Yii::t('app', 'Result'),
             'reason' => Yii::t('app', 'Fail Reason'),
+            'term' => Yii::t('app', 'Term'),
             'filter' => Yii::t('app', 'Filter'),
         ];
     }
@@ -173,6 +181,18 @@ class Salmon2FilterForm extends Model
             $query->andWhere(['{{salmon2}}.[[fail_reason_id]]' => $reason->id]);
         }
 
+        if ($this->term) {
+            if ($this->term === 'this-rotation' || $this->term === 'prev-rotation') {
+                if ($schedule = $this->getSchedule()) {
+                    $query->andWhere(['{{salmon2}}.[[shift_period]]' => $schedule->period]);
+                } else {
+                    $query->andWhere('0 = 1');
+                }
+            } else {
+                $query->andWhere('0 = 1');
+            }
+        }
+
         if ($this->filterRotation) {
             $query->andWhere(['BETWEEN', '{{salmon2}}.[[shift_period]]',
                 $this->filterRotation[0],
@@ -181,5 +201,53 @@ class Salmon2FilterForm extends Model
         }
 
         return $query;
+    }
+
+    public function toPermalinkParams(): array
+    {
+        $results = [];
+
+        if (!$this->validate()) {
+            return $this->attributes;
+        }
+
+        // 特殊な属性以外をそのままコピー
+        $filterAttributes = [
+            'term',
+        ];
+        foreach ($this->attributes as $attr => $value) {
+            if (in_array($attr, $filterAttributes, true)) {
+                continue;
+            }
+
+            $value = trim((string)$value);
+            if ($value !== '') {
+                $results[$attr] = $value;
+            }
+        }
+
+        if ($this->term) {
+            if ($this->term === 'this-rotation' || $this->term === 'prev-rotation') {
+                if ($schedule = $this->getSchedule()) {
+                    $results['filter'] = sprintf('rotation:%d', $schedule->period);
+                }
+            }
+        }
+
+        return $results;
+    }
+
+    private function getSchedule(): ?SalmonSchedule2
+    {
+        if ($this->term !== 'this-rotation' && $this->term !== 'prev-rotation') {
+            return null;
+        }
+
+        return SalmonSchedule2::find()
+            ->nowOrPast()
+            ->newerFirst()
+            ->offset($this->term === 'this-rotation' ? 0 : 1)
+            ->limit(1)
+            ->one();
     }
 }

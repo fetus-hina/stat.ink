@@ -33,17 +33,35 @@ class SalmonSchedule2 extends ActiveRecord
             public function init()
             {
                 parent::init();
-                $this->orderBy([
-                    '{{salmon_schedule2}}.[[start_at]]' => SORT_ASC,
-                ]);
+                $this->olderFirst();
             }
 
             public function nowOrFuture(): self
             {
-                $this->andWhere(['and',
+                return $this->andWhere(['and',
                     ['>=', '{{salmon_schedule2}}.[[end_at]]', new Now()],
                 ]);
-                return $this;
+            }
+
+            public function nowOrPast(): self
+            {
+                return $this->andWhere(['and',
+                    ['<=', '{{salmon_schedule2}}.[[start_at]]', new Now()],
+                ]);
+            }
+
+            public function olderFirst(): self
+            {
+                return $this->orderBy([
+                    '{{salmon_schedule2}}.[[start_at]]' => SORT_ASC,
+                ]);
+            }
+
+            public function newerFirst(): self
+            {
+                return $this->orderBy([
+                    '{{salmon_schedule2}}.[[start_at]]' => SORT_DESC,
+                ]);
             }
         };
     }
