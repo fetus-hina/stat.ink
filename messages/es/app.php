@@ -296,6 +296,7 @@ return [
     'Max Kill Streak' => '',
     'Median' => '',
     'Minimum' => '',
+    'MMMM y' => 'MMMM \'de\' y',
     'Mobile' => '',
     'Mode' => 'Estilo',
     'Mode (Icon)' => '',

@@ -131,23 +131,10 @@ class EntireWeapon2Form extends Model
         $limit = (new DateTimeImmutable())
             ->setTimeZone(new DateTimeZone('Etc/UTC'))
             ->setTimestamp($_SERVER['REQUEST_TIME'] ?? time());
-        $format = (function (string $locale) {
-            switch (strtolower(substr($locale, 0, 2))) {
-                case 'ja':
-                case 'zh':
-                    return "y'年'M'月'";
-                case 'ko':
-                    return "y'년'M'월'";
-                case 'es':
-                    return "MMMM 'de' y";
-                default:
-                    return 'MMMM y';
-            }
-        })(Yii::$app->language);
         $formatter = Yii::$app->formatter;
         $result = [];
         for (; $date <= $limit; $date = $date->add($interval)) {
-            $result[$date->format('Y-m')] = $formatter->asDate($date, $format);
+            $result[$date->format('Y-m')] = $formatter->asDate($date, Yii::t('app', 'MMMM y'));
         }
         return array_reverse($result, true);
     }

@@ -279,6 +279,7 @@ return [
     'Lose' => '敗北',
     'Lost' => '敗北',
     'Low ink' => 'インク切れ',
+    'MMMM y' => 'y\'年\'M\'月\'',
     'Main Weapon' => 'メインウェポン',
     'Many' => '多',
     'Masked' => '設定によって隠されています',

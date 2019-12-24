@@ -10,7 +10,12 @@ declare(strict_types=1);
 
 namespace app\components\widgets;
 
+use DateInterval;
+use DateTime;
+use DateTimeImmutable;
+use DateTimeZone;
 use Yii;
+use app\models\Salmon2;
 use app\models\SalmonFailReason2;
 use app\models\SalmonMap2;
 use app\models\SalmonSpecial2;
@@ -166,9 +171,9 @@ class SalmonFilterWidget extends Widget
                 'this-rotation' => Yii::t('app-salmon2', 'This/Last Rotation'),
                 'prev-rotation' => Yii::t('app-salmon2', 'Previous Rotation'),
             ],
-            $this->filter->getValidVersions()
+            $this->filter->getValidVersions(),
+            $this->getMonths(),
         );
-
         return $form->field($this->filter, 'term')
             ->dropDownList($list, [
                 'prompt' => Yii::t('app', 'Any Time'),
@@ -186,5 +191,27 @@ class SalmonFilterWidget extends Widget
         return $form->field($this->filter, 'filter')
             ->label(false)
             ->render();
+    }
+
+    private function getMonths(): array
+    {
+        $utc = new DateTimeZone('Etc/UTC');
+        $now = (new DateTimeImmutable())
+            ->setTimezone($utc)
+            ->setTimestamp((int)($_SERVER['REQUEST_TIME'] ?? time()));
+        $firstCreatedAt = Salmon2::find()->min('created_at') ?: $now->format(Date::ATOM);
+        $minDate = (new DateTimeImmutable($firstCreatedAt, $utc));
+        $minDate = $minDate
+            ->setTime(0, 0, 0)
+            ->setDate((int)$minDate->format('Y'), (int)$minDate->format('n'), 1);
+        $maxDate = (new DateTimeImmutable())
+            ->setTimezone($utc)
+            ->setTime(0, 0, 0)
+            ->setDate((int)$now->format('Y'), (int)$now->format('n'), 1);
+        $results = [];
+        for ($t = $maxDate; $t >= $minDate; $t = $t->sub(new DateInterval('P1M'))) {
+            $results[$t->format('Y-m')] = Yii::$app->formatter->asDate($t, Yii::t('app', 'MMMM y'));
+        }
+        return $results;
     }
 }
