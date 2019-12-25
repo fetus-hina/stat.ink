@@ -414,15 +414,14 @@ class UserMiniInfo2 extends Widget
                             ArrayHelper::getValue($attribute, 'contentOptions', [])
                         );
                         return strtr($html, [
-                                '{captionOptions}' => $captionOptions,
-                                '{contentOptions}' => $contentOptions,
-                                '{label}' => $attribute['label'],
-                                '{value}' => $widget->formatter->format(
-                                    $attribute['value'],
-                                    $attribute['format']
-                                ),
-                            ]
-                        );
+                            '{captionOptions}' => $captionOptions,
+                            '{contentOptions}' => $contentOptions,
+                            '{label}' => $attribute['label'],
+                            '{value}' => $widget->formatter->format(
+                                $attribute['value'],
+                                $attribute['format']
+                            ),
+                        ]);
                         // }}}
                     },
                     'attributes' => [
