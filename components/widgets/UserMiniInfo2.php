@@ -552,30 +552,34 @@ class UserMiniInfo2 extends Widget
         $rules = [
             [
                 'attribute' => 'area_current_rank',
+                'attributeX' => 'area_current_x_power',
                 'icon' => $am->getAssetUrl($asset, 'spl2/area.png'),
                 'label' => Yii::t('app', '{rule}: Current', ['rule' => Yii::t('app-rule2', 'SZ')]),
                 'ruleName' => Yii::t('app-rule2', 'SZ'),
             ],
             [
                 'attribute' => 'yagura_current_rank',
+                'attributeX' => 'yagura_current_x_power',
                 'icon' => $am->getAssetUrl($asset, 'spl2/yagura.png'),
                 'label' => Yii::t('app', '{rule}: Current', ['rule' => Yii::t('app-rule2', 'TC')]),
                 'ruleName' => Yii::t('app-rule2', 'TC'),
             ],
             [
                 'attribute' => 'hoko_current_rank',
+                'attributeX' => 'hoko_current_x_power',
                 'icon' => $am->getAssetUrl($asset, 'spl2/hoko.png'),
                 'label' => Yii::t('app', '{rule}: Current', ['rule' => Yii::t('app-rule2', 'RM')]),
                 'ruleName' => Yii::t('app-rule2', 'RM'),
             ],
             [
                 'attribute' => 'asari_current_rank',
+                'attributeX' => 'asari_current_x_power',
                 'icon' => $am->getAssetUrl($asset, 'spl2/asari.png'),
                 'label' => Yii::t('app', '{rule}: Current', ['rule' => Yii::t('app-rule2', 'CB')]),
                 'ruleName' => Yii::t('app-rule2', 'CB'),
             ],
         ];
-        return implode('', [
+        $rows = [
             Html::tag(
                 'div',
                 Html::tag(
@@ -645,7 +649,29 @@ class UserMiniInfo2 extends Widget
                     $rules
                 ),
             ]),
-        ]);
+        ];
+
+        $xPowerAvailable = count(array_filter($rules, function (array $rule) use ($model): bool {
+            return $model->{$rule['attributeX']} > 0;
+        }));
+        if ($xPowerAvailable > 0) {
+            $rows[] = implode('', array_map(
+                function (array $rule) use ($model): string {
+                    return Html::tag(
+                        'div',
+                        ($model->{$rule['attributeX']} > 0)
+                            ? Html::tag('small', Html::encode(
+                                Yii::$app->formatter->asDecimal($model->{$rule['attributeX']}, 1)
+                            ))
+                            : '&#8203;',
+                        ['class' => 'col-3 col-xs-3 nobr']
+                    );
+                },
+                $rules
+            ));
+        }
+
+        return implode('', $rows);
         // }}}
     }
 
@@ -657,30 +683,34 @@ class UserMiniInfo2 extends Widget
         $rules = [
             [
                 'attribute' => 'area_rank_peak',
+                'attributeX' => 'area_x_power_peak',
                 'icon' => $am->getAssetUrl($asset, 'spl2/area.png'),
                 'label' => Yii::t('app', '{rule}: Peak', ['rule' => Yii::t('app-rule2', 'SZ')]),
                 'ruleName' => Yii::t('app-rule2', 'SZ'),
             ],
             [
                 'attribute' => 'yagura_rank_peak',
+                'attributeX' => 'yagura_x_power_peak',
                 'icon' => $am->getAssetUrl($asset, 'spl2/yagura.png'),
                 'label' => Yii::t('app', '{rule}: Peak', ['rule' => Yii::t('app-rule2', 'TC')]),
                 'ruleName' => Yii::t('app-rule2', 'TC'),
             ],
             [
                 'attribute' => 'hoko_rank_peak',
+                'attributeX' => 'hoko_x_power_peak',
                 'icon' => $am->getAssetUrl($asset, 'spl2/hoko.png'),
                 'label' => Yii::t('app', '{rule}: Peak', ['rule' => Yii::t('app-rule2', 'RM')]),
                 'ruleName' => Yii::t('app-rule2', 'RM'),
             ],
             [
                 'attribute' => 'asari_rank_peak',
+                'attributeX' => 'asari_x_power_peak',
                 'icon' => $am->getAssetUrl($asset, 'spl2/asari.png'),
                 'label' => Yii::t('app', '{rule}: Peak', ['rule' => Yii::t('app-rule2', 'CB')]),
                 'ruleName' => Yii::t('app-rule2', 'CB'),
             ],
         ];
-        return implode('', [
+        $rows = [
             Html::tag(
                 'div',
                 Html::tag(
@@ -750,7 +780,29 @@ class UserMiniInfo2 extends Widget
                     $rules
                 ),
             ]),
-        ]);
+        ];
+
+        $xPowerAvailable = count(array_filter($rules, function (array $rule) use ($model): bool {
+            return $model->{$rule['attributeX']} > 0;
+        }));
+        if ($xPowerAvailable > 0) {
+            $rows[] = implode('', array_map(
+                function (array $rule) use ($model): string {
+                    return Html::tag(
+                        'div',
+                        ($model->{$rule['attributeX']} > 0)
+                            ? Html::tag('small', Html::encode(
+                                Yii::$app->formatter->asDecimal($model->{$rule['attributeX']}, 1)
+                            ))
+                            : '&#8203;',
+                        ['class' => 'col-3 col-xs-3 nobr']
+                    );
+                },
+                $rules
+            ));
+        }
+
+        return implode('', $rows);
         // }}}
     }
 
