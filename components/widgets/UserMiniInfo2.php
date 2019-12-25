@@ -11,6 +11,7 @@ declare(strict_types=1);
 namespace app\components\widgets;
 
 use Yii;
+use app\assets\GameModeIconsAsset;
 use app\assets\UserMiniinfoAsset;
 use app\models\Rank2;
 use app\models\Rule2;
@@ -229,6 +230,10 @@ class UserMiniInfo2 extends Widget
     private function renderStatsRegular(?UserStat2 $model): ?string
     {
         // {{{
+        if (!$model) {
+            return null;
+        }
+
         $fmt = Yii::$app->formatter;
         return Html::tag(
             'div',
@@ -369,6 +374,10 @@ class UserMiniInfo2 extends Widget
     private function renderStatsRanked(?UserStat2 $model): ?string
     {
         // {{{
+        if (!$model) {
+            return null;
+        }
+
         $fmt = Yii::$app->formatter;
         return Html::tag(
             'div',
@@ -387,54 +396,32 @@ class UserMiniInfo2 extends Widget
                     'model' => $model,
                     'template' => function ($attribute, $index, $widget): string {
                         // {{{
-                        static $standard = null;
-                        static $peak = null;
-                        if ($standard === null) {
-                            $standard = Html::tag(
-                                'div',
-                                implode('', [
-                                    Html::tag('div', '{label}', [
-                                        'class' => 'user-label auto-tooltip',
-                                        'title' => '{label}',
-                                    ]),
-                                    Html::tag('div', '{value}', ['class' => 'user-number']),
+                        $html = Html::tag(
+                            'div',
+                            implode('', [
+                                Html::tag('div', '{label}', [
+                                    'class' => 'user-label auto-tooltip',
+                                    'title' => '{label}',
                                 ]),
-                                ['class' => 'col-4 col-xs-4']
-                            );
-                        }
-                        if ($peak === null) {
-                            $peak = Html::tag(
-                                'div',
-                                implode('', [
-                                    Html::tag('div', '{label}', [
-                                        'class' => 'user-label auto-tooltip',
-                                        'title' => '{label}',
-                                    ]),
-                                    Html::tag('div', '{value}', ['class' => 'user-number']),
-                                ]),
-                                ['class' => 'col-6 col-xs-6']
-                            );
-                        }
+                                Html::tag('div', '{value}', ['class' => 'user-number']),
+                            ]),
+                            ['class' => 'col-4 col-xs-4']
+                        );
                         $captionOptions = Html::renderTagAttributes(
                             ArrayHelper::getValue($attribute, 'captionOptions', [])
                         );
                         $contentOptions = Html::renderTagAttributes(
                             ArrayHelper::getValue($attribute, 'contentOptions', [])
                         );
-                        return strtr(
-                            preg_match('/_rank_peak$/', $attribute['attribute'] ?? '')
-                                ? $peak
-                                : $standard,
-                            [
-                                '{captionOptions}' => $captionOptions,
-                                '{contentOptions}' => $contentOptions,
-                                '{label}' => $attribute['label'],
-                                '{value}' => $widget->formatter->format(
-                                    $attribute['value'],
-                                    $attribute['format']
-                                ),
-                            ]
-                        );
+                        return strtr($html, [
+                            '{captionOptions}' => $captionOptions,
+                            '{contentOptions}' => $contentOptions,
+                            '{label}' => $attribute['label'],
+                            '{value}' => $widget->formatter->format(
+                                $attribute['value'],
+                                $attribute['format']
+                            ),
+                        ]);
                         // }}}
                     },
                     'attributes' => [
@@ -547,75 +534,217 @@ class UserMiniInfo2 extends Widget
                                 );
                             },
                         ],
-                        [
-                            'attribute' => 'area_rank_peak',
-                            'label' => Yii::t('app', '{rule}: Peak', [
-                                'rule' => Yii::t('app-rule2', 'SZ'),
-                            ]),
-                            'value' => function (UserStat2 $model): string {
-                                if ($model->gachi_battles < 1) {
-                                    return Yii::t('app', 'N/A');
-                                }
-                                $string = Rank2::renderRank($model->area_rank_peak);
-                                if (!$string) {
-                                    return Yii::t('app', 'N/A');
-                                }
-                                return $string;
-                            },
-                        ],
-                        [
-                            'attribute' => 'yagura_rank_peak',
-                            'label' => Yii::t('app', '{rule}: Peak', [
-                                'rule' => Yii::t('app-rule2', 'TC'),
-                            ]),
-                            'value' => function (UserStat2 $model): string {
-                                if ($model->gachi_battles < 1) {
-                                    return Yii::t('app', 'N/A');
-                                }
-                                $string = Rank2::renderRank($model->yagura_rank_peak);
-                                if (!$string) {
-                                    return Yii::t('app', 'N/A');
-                                }
-                                return $string;
-                            },
-                        ],
-                        [
-                            'attribute' => 'hoko_rank_peak',
-                            'label' => Yii::t('app', '{rule}: Peak', [
-                                'rule' => Yii::t('app-rule2', 'RM'),
-                            ]),
-                            'value' => function (UserStat2 $model): string {
-                                if ($model->gachi_battles < 1) {
-                                    return Yii::t('app', 'N/A');
-                                }
-                                $string = Rank2::renderRank($model->hoko_rank_peak);
-                                if (!$string) {
-                                    return Yii::t('app', 'N/A');
-                                }
-                                return $string;
-                            },
-                        ],
-                        [
-                            'attribute' => 'asari_rank_peak',
-                            'label' => Yii::t('app', '{rule}: Peak', [
-                                'rule' => Yii::t('app-rule2', 'CB'),
-                            ]),
-                            'value' => function (UserStat2 $model): string {
-                                if ($model->gachi_battles < 1) {
-                                    return Yii::t('app', 'N/A');
-                                }
-                                $string = Rank2::renderRank($model->asari_rank_peak);
-                                if (!$string) {
-                                    return Yii::t('app', 'N/A');
-                                }
-                                return $string;
-                            },
-                        ],
                     ],
                 ]),
+                $this->renderStatsRankedCurrent($model),
+                $this->renderStatsRankedPeak($model),
             ]),
             ['class' => 'row']
         );
+        // }}}
+    }
+
+    private function renderStatsRankedCurrent(UserStat2 $model): string
+    {
+        // {{{
+        $am = Yii::$app->assetManager;
+        $asset = $am->getBundle(GameModeIconsAsset::class);
+        $rules = [
+            [
+                'attribute' => 'area_current_rank',
+                'icon' => $am->getAssetUrl($asset, 'spl2/area.png'),
+                'label' => Yii::t('app', '{rule}: Current', ['rule' => Yii::t('app-rule2', 'SZ')]),
+                'ruleName' => Yii::t('app-rule2', 'SZ'),
+            ],
+            [
+                'attribute' => 'yagura_current_rank',
+                'icon' => $am->getAssetUrl($asset, 'spl2/yagura.png'),
+                'label' => Yii::t('app', '{rule}: Current', ['rule' => Yii::t('app-rule2', 'TC')]),
+                'ruleName' => Yii::t('app-rule2', 'TC'),
+            ],
+            [
+                'attribute' => 'hoko_current_rank',
+                'icon' => $am->getAssetUrl($asset, 'spl2/hoko.png'),
+                'label' => Yii::t('app', '{rule}: Current', ['rule' => Yii::t('app-rule2', 'RM')]),
+                'ruleName' => Yii::t('app-rule2', 'RM'),
+            ],
+            [
+                'attribute' => 'asari_current_rank',
+                'icon' => $am->getAssetUrl($asset, 'spl2/asari.png'),
+                'label' => Yii::t('app', '{rule}: Current', ['rule' => Yii::t('app-rule2', 'CB')]),
+                'ruleName' => Yii::t('app-rule2', 'CB'),
+            ],
+        ];
+        return implode('', [
+            Html::tag(
+                'div',
+                Html::tag(
+                    'div',
+                    Html::encode(Yii::t('app', 'Rank: Current')),
+                    ['class' => 'user-label']
+                ),
+                ['class' => 'col-12 col-xs-12']
+            ),
+            DetailView::widget([
+                'options' => ['tag' => 'div'],
+                'model' => $model,
+                'template' => function ($attribute, $index, $widget): string {
+                    // {{{
+                    $html = Html::tag(
+                        'div',
+                        implode('', [
+                            Html::tag('div', '{label}', [
+                                'class' => 'user-label',
+                            ]),
+                            Html::tag('div', '{value}', ['class' => 'user-number']),
+                        ]),
+                        ['class' => 'col-3 col-xs-3']
+                    );
+                    $captionOptions = Html::renderTagAttributes(
+                        ArrayHelper::getValue($attribute, 'captionOptions', [])
+                    );
+                    $contentOptions = Html::renderTagAttributes(
+                        ArrayHelper::getValue($attribute, 'contentOptions', [])
+                    );
+                    return strtr($html, [
+                        '{captionOptions}' => $captionOptions,
+                        '{contentOptions}' => $contentOptions,
+                        '{label}' => $attribute['label'],
+                        '{value}' => $widget->formatter->format(
+                            $attribute['value'],
+                            $attribute['format']
+                        ),
+                    ]);
+                    // }}}
+                },
+                'attributes' => array_map(
+                    function (array $info): array {
+                        return [
+                            'attribute' => $info['attribute'],
+                            'label' => Html::img($info['icon'], [
+                                'alt' => $info['ruleName'],
+                                'class' => 'auto-tooltip',
+                                'title' => $info['label'],
+                            ]),
+                            'value' => function (UserStat2 $model) use ($info): string {
+                                $value = $model->{$info['attribute']};
+                                if ($model->gachi_battles < 1 || $value === null) {
+                                    return Yii::t('app', 'N/A');
+                                }
+                                $string = Rank2::renderRank($value);
+                                if (!$string) {
+                                    return Yii::t('app', 'N/A');
+                                }
+                                return $string;
+                            },
+                        ];
+                    },
+                    $rules
+                ),
+            ]),
+        ]);
+        // }}}
+    }
+
+    private function renderStatsRankedPeak(UserStat2 $model): string
+    {
+        // {{{
+        $am = Yii::$app->assetManager;
+        $asset = $am->getBundle(GameModeIconsAsset::class);
+        $rules = [
+            [
+                'attribute' => 'area_rank_peak',
+                'icon' => $am->getAssetUrl($asset, 'spl2/area.png'),
+                'label' => Yii::t('app', '{rule}: Peak', ['rule' => Yii::t('app-rule2', 'SZ')]),
+                'ruleName' => Yii::t('app-rule2', 'SZ'),
+            ],
+            [
+                'attribute' => 'yagura_rank_peak',
+                'icon' => $am->getAssetUrl($asset, 'spl2/yagura.png'),
+                'label' => Yii::t('app', '{rule}: Peak', ['rule' => Yii::t('app-rule2', 'TC')]),
+                'ruleName' => Yii::t('app-rule2', 'TC'),
+            ],
+            [
+                'attribute' => 'hoko_rank_peak',
+                'icon' => $am->getAssetUrl($asset, 'spl2/hoko.png'),
+                'label' => Yii::t('app', '{rule}: Peak', ['rule' => Yii::t('app-rule2', 'RM')]),
+                'ruleName' => Yii::t('app-rule2', 'RM'),
+            ],
+            [
+                'attribute' => 'asari_rank_peak',
+                'icon' => $am->getAssetUrl($asset, 'spl2/asari.png'),
+                'label' => Yii::t('app', '{rule}: Peak', ['rule' => Yii::t('app-rule2', 'CB')]),
+                'ruleName' => Yii::t('app-rule2', 'CB'),
+            ],
+        ];
+        return implode('', [
+            Html::tag(
+                'div',
+                Html::tag(
+                    'div',
+                    Html::encode(Yii::t('app', 'Rank: Peak')),
+                    ['class' => 'user-label']
+                ),
+                ['class' => 'col-12 col-xs-12']
+            ),
+            DetailView::widget([
+                'options' => ['tag' => 'div'],
+                'model' => $model,
+                'template' => function ($attribute, $index, $widget): string {
+                    // {{{
+                    $html = Html::tag(
+                        'div',
+                        implode('', [
+                            Html::tag('div', '{label}', [
+                                'class' => 'user-label',
+                            ]),
+                            Html::tag('div', '{value}', ['class' => 'user-number']),
+                        ]),
+                        ['class' => 'col-3 col-xs-3']
+                    );
+                    $captionOptions = Html::renderTagAttributes(
+                        ArrayHelper::getValue($attribute, 'captionOptions', [])
+                    );
+                    $contentOptions = Html::renderTagAttributes(
+                        ArrayHelper::getValue($attribute, 'contentOptions', [])
+                    );
+                    return strtr($html, [
+                        '{captionOptions}' => $captionOptions,
+                        '{contentOptions}' => $contentOptions,
+                        '{label}' => $attribute['label'],
+                        '{value}' => $widget->formatter->format(
+                            $attribute['value'],
+                            $attribute['format']
+                        ),
+                    ]);
+                    // }}}
+                },
+                'attributes' => array_map(
+                    function (array $info): array {
+                        return [
+                            'attribute' => $info['attribute'],
+                            'label' => Html::img($info['icon'], [
+                                'alt' => $info['ruleName'],
+                                'class' => 'auto-tooltip',
+                                'title' => $info['label'],
+                            ]),
+                            'value' => function (UserStat2 $model) use ($info): string {
+                                $value = $model->{$info['attribute']};
+                                if ($model->gachi_battles < 1 || $value === null) {
+                                    return Yii::t('app', 'N/A');
+                                }
+                                $string = Rank2::renderRank($value);
+                                if (!$string) {
+                                    return Yii::t('app', 'N/A');
+                                }
+                                return $string;
+                            },
+                        ];
+                    },
+                    $rules
+                ),
+            ]),
+        ]);
         // }}}
     }
 

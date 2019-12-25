@@ -10,6 +10,7 @@ namespace app\models;
 
 use Yii;
 use app\components\helpers\Resource;
+use app\components\helpers\db\Now;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\db\Query;
@@ -47,6 +48,18 @@ use yii\db\Query;
  * @property integer $yagura_rank_peak
  * @property integer $hoko_rank_peak
  * @property integer $asari_rank_peak
+ * @property integer $area_current_rank
+ * @property integer $yagura_current_rank
+ * @property integer $hoko_current_rank
+ * @property integer $asari_current_rank
+ * @property string $area_current_x_power
+ * @property string $yagura_current_x_power
+ * @property string $hoko_current_x_power
+ * @property string $asari_current_x_power
+ * @property string $area_x_power_peak
+ * @property string $yagura_x_power_peak
+ * @property string $hoko_x_power_peak
+ * @property string $asari_x_power_peak
  * @property string $updated_at
  *
  * @property User $user
@@ -109,16 +122,49 @@ class UserStat2 extends ActiveRecord
     {
         return [
             [['user_id'], 'required'],
-            [['user_id', 'battles', 'have_win_lose', 'win_battles', 'have_kill_death', 'kill', 'death'], 'integer'],
-            [['have_kill_death_time', 'total_seconds', 'turf_battles', 'turf_have_win_lose'], 'integer'],
-            [['turf_win_battles', 'turf_have_kill_death', 'turf_kill', 'turf_death'], 'integer'],
-            [['turf_have_inked', 'turf_total_inked'], 'integer'],
-            [['turf_max_inked', 'gachi_battles', 'gachi_have_win_lose', 'gachi_win_battles'], 'integer'],
-            [['gachi_have_kill_death', 'gachi_kill', 'gachi_death', 'gachi_kill_death_time'], 'integer'],
-            [['gachi_total_seconds', 'area_rank_peak', 'yagura_rank_peak', 'hoko_rank_peak'], 'integer'],
-            [['asari_rank_peak'], 'integer'],
+            [
+                [
+                    'user_id', 'battles', 'have_win_lose', 'win_battles', 'have_kill_death',
+                    'kill', 'death', 'have_kill_death_time', 'kill_with_time', 'death_with_time',
+                    'total_seconds', 'turf_battles', 'turf_have_win_lose', 'turf_win_battles',
+                    'turf_have_kill_death', 'turf_kill', 'turf_death', 'turf_have_inked',
+                    'turf_total_inked', 'turf_max_inked', 'gachi_battles', 'gachi_have_win_lose',
+                    'gachi_win_battles', 'gachi_have_kill_death', 'gachi_kill', 'gachi_death',
+                    'gachi_kill_death_time', 'gachi_kill_with_time', 'gachi_death_with_time',
+                    'gachi_total_seconds', 'area_rank_peak', 'yagura_rank_peak', 'hoko_rank_peak',
+                    'asari_rank_peak', 'area_current_rank', 'yagura_current_rank',
+                    'hoko_current_rank', 'asari_current_rank'
+                ],
+                'default',
+                'value' => null,
+            ],
+            [
+                [
+                    'user_id', 'battles', 'have_win_lose', 'win_battles', 'have_kill_death',
+                    'kill', 'death', 'have_kill_death_time', 'kill_with_time', 'death_with_time',
+                    'total_seconds', 'turf_battles', 'turf_have_win_lose', 'turf_win_battles',
+                    'turf_have_kill_death', 'turf_kill', 'turf_death', 'turf_have_inked',
+                    'turf_total_inked', 'turf_max_inked', 'gachi_battles', 'gachi_have_win_lose',
+                    'gachi_win_battles', 'gachi_have_kill_death', 'gachi_kill', 'gachi_death',
+                    'gachi_kill_death_time', 'gachi_kill_with_time', 'gachi_death_with_time',
+                    'gachi_total_seconds', 'area_rank_peak', 'yagura_rank_peak', 'hoko_rank_peak',
+                    'asari_rank_peak', 'area_current_rank', 'yagura_current_rank',
+                    'hoko_current_rank', 'asari_current_rank'
+                ],
+                'integer',
+            ],
             [['updated_at'], 'safe'],
-            [['user_id'], 'exist', 'skipOnError' => true,
+            [
+                [
+                    'area_current_x_power', 'yagura_current_x_power', 'hoko_current_x_power',
+                    'asari_current_x_power', 'area_x_power_peak', 'yagura_x_power_peak',
+                    'hoko_x_power_peak', 'asari_x_power_peak',
+                ],
+                'number'
+            ],
+            [['user_id'], 'unique'],
+            [['user_id'], 'exist',
+                'skipOnError' => true,
                 'targetClass' => User::class,
                 'targetAttribute' => ['user_id' => 'id'],
             ],
@@ -139,6 +185,8 @@ class UserStat2 extends ActiveRecord
             'kill' => 'Kill',
             'death' => 'Death',
             'have_kill_death_time' => 'Have Kill Death Time',
+            'kill_with_time' => 'Kill With Time',
+            'death_with_time' => 'Death With Time',
             'total_seconds' => 'Total Seconds',
             'turf_battles' => 'Turf Battles',
             'turf_have_win_lose' => 'Turf Have Win Lose',
@@ -156,12 +204,26 @@ class UserStat2 extends ActiveRecord
             'gachi_kill' => 'Gachi Kill',
             'gachi_death' => 'Gachi Death',
             'gachi_kill_death_time' => 'Gachi Kill Death Time',
+            'gachi_kill_with_time' => 'Gachi Kill With Time',
+            'gachi_death_with_time' => 'Gachi Death With Time',
             'gachi_total_seconds' => 'Gachi Total Seconds',
             'area_rank_peak' => 'Area Rank Peak',
             'yagura_rank_peak' => 'Yagura Rank Peak',
             'hoko_rank_peak' => 'Hoko Rank Peak',
-            'asari_rank_peak' => 'Asari Rank Peak',
             'updated_at' => 'Updated At',
+            'asari_rank_peak' => 'Asari Rank Peak',
+            'area_current_rank' => 'Area Current Rank',
+            'yagura_current_rank' => 'Yagura Current Rank',
+            'hoko_current_rank' => 'Hoko Current Rank',
+            'asari_current_rank' => 'Asari Current Rank',
+            'area_current_x_power' => 'Area Current X Power',
+            'yagura_current_x_power' => 'Yagura Current X Power',
+            'hoko_current_x_power' => 'Hoko Current X Power',
+            'asari_current_x_power' => 'Asari Current X Power',
+            'area_x_power_peak' => 'Area X Power Peak',
+            'yagura_x_power_peak' => 'Yagura X Power Peak',
+            'hoko_x_power_peak' => 'Hoko X Power Peak',
+            'asari_x_power_peak' => 'Asari X Power Peak',
         ];
     }
 
@@ -172,7 +234,7 @@ class UserStat2 extends ActiveRecord
                 'class' => TimestampBehavior::class,
                 'createdAtAttribute' => false,
                 'value' => function () {
-                    return date(\DateTime::ATOM, time());
+                    return new Now();
                 },
             ],
         ];
@@ -213,6 +275,58 @@ class UserStat2 extends ActiveRecord
         ];
         $timestamp = function (string $column): string {
             return sprintf('EXTRACT(EPOCH FROM %s)', $column);
+        };
+        $gachiRankPeak = function (string $ruleKey) use ($excludePrivate): string {
+            // {{{
+            $db = $this->getDb();
+            return sprintf('MAX(CASE %s END)', implode(' ', array_merge(
+                $excludePrivate,
+                [
+                    sprintf('WHEN {{rule2}}.[[key]] <> %s THEN 0', $db->quoteValue($ruleKey)),
+                    "WHEN {{rank2a}}.[[int_base]] IS NULL AND {{rank2b}}.[[int_base]] IS NULL THEN 0",
+                    sprintf(
+                        'ELSE GREATEST(%s + %s, %s + %s)',
+                        sprintf('(CASE %s END)', implode(' ', [
+                            'WHEN {{rank2a}}.[[int_base]] IS NULL THEN 0',
+                            'ELSE {{rank2a}}.[[int_base]]',
+                        ])),
+                        sprintf('(CASE %s END)', implode(' ', [
+                            'WHEN {{rank2a}}.[[int_base]] IS NULL THEN 0',
+                            'WHEN {{battle2}}.[[rank_exp]] IS NULL THEN 0',
+                            'ELSE {{battle2}}.[[rank_exp]]',
+                        ])),
+                        sprintf('(CASE %s END)', implode(' ', [
+                            'WHEN {{rank2b}}.[[int_base]] IS NULL THEN 0',
+                            'ELSE {{rank2b}}.[[int_base]]',
+                        ])),
+                        sprintf('(CASE %s END)', implode(' ', [
+                            'WHEN {{rank2b}}.[[int_base]] IS NULL THEN 0',
+                            'WHEN {{battle2}}.[[rank_after_exp]] IS NULL THEN 0',
+                            'ELSE {{battle2}}.[[rank_after_exp]]',
+                        ]))
+                    ),
+                ]
+            )));
+            // }}}
+        };
+        $xPowerPeak = function (string $ruleKey) use ($excludePrivate): string {
+            // {{{
+            $db = $this->getDb();
+            return sprintf('NULLIF(MAX(CASE %s END), 0.0)', implode(' ', array_merge(
+                $excludePrivate,
+                [
+                    sprintf('WHEN {{rule2}}.[[key]] <> %s THEN NULL', $db->quoteValue($ruleKey)),
+                    sprintf(
+                        'WHEN {{rank2a}}.[[key]] <> %1$s AND {{rank2b}}.[[key]] <> %1$s THEN NULL',
+                        $db->quoteValue('x')
+                    ),
+                    vsprintf('ELSE GREATEST(%s, %s)', [
+                        '{{battle2}}.[[x_power]]',
+                        '{{battle2}}.[[x_power_after]]',
+                    ]),
+                ]
+            )));
+            // }}}
         };
         $query = (new Query())
             ->select([
@@ -445,118 +559,14 @@ class UserStat2 extends ActiveRecord
                     ),
                     ]
                 ))),
-                'area_rank_peak' => sprintf('MAX(CASE %s END)', implode(' ', array_merge(
-                    $excludePrivate,
-                    [
-                        "WHEN {{rule2}}.[[key]] <> 'area' THEN 0",
-                        "WHEN {{rank2a}}.[[int_base]] IS NULL AND {{rank2b}}.[[int_base]] IS NULL THEN 0",
-                        sprintf(
-                            'ELSE GREATEST(%s + %s, %s + %s)',
-                            sprintf('(CASE %s END)', implode(' ', [
-                                'WHEN {{rank2a}}.[[int_base]] IS NULL THEN 0',
-                                'ELSE {{rank2a}}.[[int_base]]',
-                            ])),
-                            sprintf('(CASE %s END)', implode(' ', [
-                                'WHEN {{rank2a}}.[[int_base]] IS NULL THEN 0',
-                                'WHEN {{battle2}}.[[rank_exp]] IS NULL THEN 0',
-                                'ELSE {{battle2}}.[[rank_exp]]',
-                            ])),
-                            sprintf('(CASE %s END)', implode(' ', [
-                                'WHEN {{rank2b}}.[[int_base]] IS NULL THEN 0',
-                                'ELSE {{rank2b}}.[[int_base]]',
-                            ])),
-                            sprintf('(CASE %s END)', implode(' ', [
-                                'WHEN {{rank2b}}.[[int_base]] IS NULL THEN 0',
-                                'WHEN {{battle2}}.[[rank_after_exp]] IS NULL THEN 0',
-                                'ELSE {{battle2}}.[[rank_after_exp]]',
-                            ]))
-                        ),
-                    ]
-                ))),
-                'yagura_rank_peak' => sprintf('MAX(CASE %s END)', implode(' ', array_merge(
-                    $excludePrivate,
-                    [
-                        "WHEN {{rule2}}.[[key]] <> 'yagura' THEN 0",
-                        "WHEN {{rank2a}}.[[int_base]] IS NULL AND {{rank2b}}.[[int_base]] IS NULL THEN 0",
-                        sprintf(
-                            'ELSE GREATEST(%s + %s, %s + %s)',
-                            sprintf('(CASE %s END)', implode(' ', [
-                                'WHEN {{rank2a}}.[[int_base]] IS NULL THEN 0',
-                                'ELSE {{rank2a}}.[[int_base]]',
-                            ])),
-                            sprintf('(CASE %s END)', implode(' ', [
-                                'WHEN {{rank2a}}.[[int_base]] IS NULL THEN 0',
-                                'WHEN {{battle2}}.[[rank_exp]] IS NULL THEN 0',
-                                'ELSE {{battle2}}.[[rank_exp]]',
-                            ])),
-                            sprintf('(CASE %s END)', implode(' ', [
-                                'WHEN {{rank2b}}.[[int_base]] IS NULL THEN 0',
-                                'ELSE {{rank2b}}.[[int_base]]',
-                            ])),
-                            sprintf('(CASE %s END)', implode(' ', [
-                                'WHEN {{rank2b}}.[[int_base]] IS NULL THEN 0',
-                                'WHEN {{battle2}}.[[rank_after_exp]] IS NULL THEN 0',
-                                'ELSE {{battle2}}.[[rank_after_exp]]',
-                            ]))
-                        ),
-                    ]
-                ))),
-                'hoko_rank_peak' => sprintf('MAX(CASE %s END)', implode(' ', array_merge(
-                    $excludePrivate,
-                    [
-                        "WHEN {{rule2}}.[[key]] <> 'hoko' THEN 0",
-                        "WHEN {{rank2a}}.[[int_base]] IS NULL AND {{rank2b}}.[[int_base]] IS NULL THEN 0",
-                        sprintf(
-                            'ELSE GREATEST(%s + %s, %s + %s)',
-                            sprintf('(CASE %s END)', implode(' ', [
-                                'WHEN {{rank2a}}.[[int_base]] IS NULL THEN 0',
-                                'ELSE {{rank2a}}.[[int_base]]',
-                            ])),
-                            sprintf('(CASE %s END)', implode(' ', [
-                                'WHEN {{rank2a}}.[[int_base]] IS NULL THEN 0',
-                                'WHEN {{battle2}}.[[rank_exp]] IS NULL THEN 0',
-                                'ELSE {{battle2}}.[[rank_exp]]',
-                            ])),
-                            sprintf('(CASE %s END)', implode(' ', [
-                                'WHEN {{rank2b}}.[[int_base]] IS NULL THEN 0',
-                                'ELSE {{rank2b}}.[[int_base]]',
-                            ])),
-                            sprintf('(CASE %s END)', implode(' ', [
-                                'WHEN {{rank2b}}.[[int_base]] IS NULL THEN 0',
-                                'WHEN {{battle2}}.[[rank_after_exp]] IS NULL THEN 0',
-                                'ELSE {{battle2}}.[[rank_after_exp]]',
-                            ]))
-                        ),
-                    ]
-                ))),
-                'asari_rank_peak' => sprintf('MAX(CASE %s END)', implode(' ', array_merge(
-                    $excludePrivate,
-                    [
-                        "WHEN {{rule2}}.[[key]] <> 'asari' THEN 0",
-                        "WHEN {{rank2a}}.[[int_base]] IS NULL AND {{rank2b}}.[[int_base]] IS NULL THEN 0",
-                        sprintf(
-                            'ELSE GREATEST(%s + %s, %s + %s)',
-                            sprintf('(CASE %s END)', implode(' ', [
-                                'WHEN {{rank2a}}.[[int_base]] IS NULL THEN 0',
-                                'ELSE {{rank2a}}.[[int_base]]',
-                            ])),
-                            sprintf('(CASE %s END)', implode(' ', [
-                                'WHEN {{rank2a}}.[[int_base]] IS NULL THEN 0',
-                                'WHEN {{battle2}}.[[rank_exp]] IS NULL THEN 0',
-                                'ELSE {{battle2}}.[[rank_exp]]',
-                            ])),
-                            sprintf('(CASE %s END)', implode(' ', [
-                                'WHEN {{rank2b}}.[[int_base]] IS NULL THEN 0',
-                                'ELSE {{rank2b}}.[[int_base]]',
-                            ])),
-                            sprintf('(CASE %s END)', implode(' ', [
-                                'WHEN {{rank2b}}.[[int_base]] IS NULL THEN 0',
-                                'WHEN {{battle2}}.[[rank_after_exp]] IS NULL THEN 0',
-                                'ELSE {{battle2}}.[[rank_after_exp]]',
-                            ]))
-                        ),
-                    ]
-                ))),
+                'area_rank_peak' => $gachiRankPeak('area'),
+                'yagura_rank_peak' => $gachiRankPeak('yagura'),
+                'hoko_rank_peak' => $gachiRankPeak('hoko'),
+                'asari_rank_peak' => $gachiRankPeak('asari'),
+                'area_x_power_peak' => $xPowerPeak('area'),
+                'yagura_x_power_peak' => $xPowerPeak('yagura'),
+                'hoko_x_power_peak' => $xPowerPeak('hoko'),
+                'asari_x_power_peak' => $xPowerPeak('asari'),
                 // }}}
             ])
             ->from('battle2')
@@ -566,6 +576,8 @@ class UserStat2 extends ActiveRecord
             ->leftJoin(['rank2a' => 'rank2'], '{{battle2}}.[[rank_id]] = {{rank2a}}.[[id]]')
             ->leftJoin(['rank2b' => 'rank2'], '{{battle2}}.[[rank_after_id]] = {{rank2b}}.[[id]]')
             ->where(['{{battle2}}.[[user_id]]' => $this->user_id]);
+
+        // echo $query->createCommand()->rawSql . "\n";
         if (!$row = $query->one()) {
             foreach (array_keys($this->attributes) as $k) {
                 if ($k === 'user_id' || $k === 'updated_at') {
@@ -577,7 +589,60 @@ class UserStat2 extends ActiveRecord
             foreach ($row as $k => $v) {
                 $this->$k = (int)$v;
             }
+            $rules = ['area', 'yagura', 'hoko', 'asari'];
+            foreach ($rules as $rule) {
+                $_ = $this->getLastBattle($rule);
+                $this->{$rule . '_current_rank'} = $_['rank'] ?? null;
+                $this->{$rule . '_current_x_power'} = $_['xpower'] ?? null;
+            }
         }
         return $this;
+    }
+
+    private function getLastBattle(string $ruleKey): array
+    {
+        $query = (new Query())
+            ->from('battle2')
+            ->innerJoin('lobby2', '{{battle2}}.[[lobby_id]] = {{lobby2}}.[[id]]')
+            ->innerJoin('mode2', '{{battle2}}.[[mode_id]] = {{mode2}}.[[id]]')
+            ->innerJoin('rule2', '{{battle2}}.[[rule_id]] = {{rule2}}.[[id]]')
+            ->leftJoin(['rank2a' => 'rank2'], '{{battle2}}.[[rank_id]] = {{rank2a}}.[[id]]')
+            ->leftJoin(['rank2b' => 'rank2'], '{{battle2}}.[[rank_after_id]] = {{rank2b}}.[[id]]')
+            ->andWhere(['and',
+                ['{{battle2}}.[[user_id]]' => $this->user_id],
+                // ['<>', '{{lobby2}}.[[key]]', 'private'],
+                ['{{lobby2}}.[[key]]' => 'standard'],
+                ['<>', '{{mode2}}.[[key]]', 'private'],
+                ['{{rule2}}.[[key]]' => $ruleKey],
+            ])
+            ->orderBy(['{{battle2}}.[[id]]' => SORT_DESC])
+            ->limit(1)
+            ->select([
+                'rank' => vsprintf('GREATEST(%s + %s, %s + %s)', [
+                    sprintf('(CASE %s END)', implode(' ', [
+                        'WHEN {{rank2a}}.[[int_base]] IS NULL THEN 0',
+                        'ELSE {{rank2a}}.[[int_base]]',
+                    ])),
+                    sprintf('(CASE %s END)', implode(' ', [
+                        'WHEN {{rank2a}}.[[int_base]] IS NULL THEN 0',
+                        'WHEN {{battle2}}.[[rank_exp]] IS NULL THEN 0',
+                        'ELSE {{battle2}}.[[rank_exp]]',
+                    ])),
+                    sprintf('(CASE %s END)', implode(' ', [
+                        'WHEN {{rank2b}}.[[int_base]] IS NULL THEN 0',
+                        'ELSE {{rank2b}}.[[int_base]]',
+                    ])),
+                    sprintf('(CASE %s END)', implode(' ', [
+                        'WHEN {{rank2b}}.[[int_base]] IS NULL THEN 0',
+                        'WHEN {{battle2}}.[[rank_after_exp]] IS NULL THEN 0',
+                        'ELSE {{battle2}}.[[rank_after_exp]]',
+                    ])),
+                ]),
+                'xpower' => vsprintf('(CASE %s END)', [
+                    'WHEN {{battle2}}.[[x_power_after]] IS NOT NULL THEN {{battle2}}.[[x_power_after]]',
+                    'WHEN {{battle2}}.[[x_power]] IS NOT NULL THEN {{battle2}}.[[x_power]]',
+                ]),
+            ]);
+        return $query->one() ?: [];
     }
 }

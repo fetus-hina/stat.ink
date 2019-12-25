@@ -10,6 +10,9 @@ declare(strict_types=1);
 
 namespace app\models;
 
+use DateInterval;
+use DateTimeImmutable;
+use DateTimeZone;
 use Exception;
 use Yii;
 use app\components\helpers\Battle as BattleHelper;
@@ -68,14 +71,19 @@ class Salmon2FilterForm extends Model
                 'targetClass' => SalmonFailReason2::class,
                 'targetAttribute' => 'key',
             ],
-            [['term'], 'in',
-                'range' => array_merge(
-                    [
-                        'this-rotation',
-                        'prev-rotation',
-                    ],
-                    array_keys($this->getValidVersions())
-                ),
+            [['term'], 'match',
+                'pattern' => sprintf('/^(?:(?:%s))$/', implode(')|(?:', ArrayHelper::toFlatten([
+                    '\d{4}-\d{2}', // YYYY-MM
+                    array_map(
+                        function (string $fixedPattern): string {
+                            return preg_quote($fixedPattern, '/');
+                        },
+                        ArrayHelper::toFlatten([
+                            ['this-rotation', 'prev-rotation'],
+                            array_keys($this->getValidVersions()),
+                        ])
+                    ),
+                ]))),
             ],
             [['filter'], 'validateFilter', 'skipOnEmpty' => true],
         ];
@@ -88,7 +96,7 @@ class Salmon2FilterForm extends Model
             'special' => Yii::t('app', 'Special'),
             'result' => Yii::t('app', 'Result'),
             'reason' => Yii::t('app', 'Fail Reason'),
-            'term' => Yii::t('app', 'Term'),
+            'term' => Yii::t('app', 'Period'),
             'filter' => Yii::t('app', 'Filter'),
         ];
     }
@@ -219,6 +227,36 @@ class Salmon2FilterForm extends Model
                             BattleHelper::calcPeriod2($date2->getTimestamp())
                         ]);
                     }
+                } else {
+                    $query->andWhere('0 = 1');
+                }
+            } elseif (preg_match('/^(\d{4})-(\d{2})$/', $this->term, $match)) {
+                $now = (new DateTimeImmutable())
+                    ->setTimezone(new DateTimeZone('Etc/UTC'))
+                    ->setTimestamp((int)($_SERVER['REQUEST_TIME'] ?? time()));
+                $year = (int)$match[1];
+                $month = (int)$match[2];
+                if (
+                    (
+                        (2018 <= $year && $year < (int)$now->format('Y')) &&
+                        (1 <= $month && $month <= 12)
+                    ) || (
+                        ($year === (int)$now->format('Y')) &&
+                        (1 <= $month && $month <= (int)$now->format('n'))
+                    )
+                ) {
+                    // 開始日時基準で検索する
+                    $lowerLimit = (new DateTimeImmutable())
+                        ->setTimezone(new DateTimeZone('Etc/UTC'))
+                        ->setTime(0, 0, 0)
+                        ->setDate($year, $month, 1);
+                    $upperLimit = $lowerLimit->add(new DateInterval('P1M'));
+                    $query->andWhere([
+                        'BETWEEN',
+                        '{{salmon2}}.[[shift_period]]',
+                        BattleHelper::calcPeriod2($lowerLimit->getTimestamp()),
+                        BattleHelper::calcPeriod2($upperLimit->getTimestamp() - 1),
+                    ]);
                 } else {
                     $query->andWhere('0 = 1');
                 }
