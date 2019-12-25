@@ -592,8 +592,8 @@ class UserStat2 extends ActiveRecord
             $rules = ['area', 'yagura', 'hoko', 'asari'];
             foreach ($rules as $rule) {
                 $_ = $this->getLastBattle($rule);
-                $this->{$rule . '_current_rank'} = $_['rank'] ?: null;
-                $this->{$rule . '_current_x_power'} = $_['xpower'] ?: null;
+                $this->{$rule . '_current_rank'} = $_['rank'] ?? null;
+                $this->{$rule . '_current_x_power'} = $_['xpower'] ?? null;
             }
         }
         return $this;
