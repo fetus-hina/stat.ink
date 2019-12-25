@@ -94,22 +94,4 @@ class Rank2 extends ActiveRecord
             'name' => Translator::translateToAll('app-rank2', $this->name),
         ];
     }
-
-    public static function renderRank(int $rankNumber): ?string
-    {
-        $numberInRank = $rankNumber % 100;
-        $rankNumber = $rankNumber - $numberInRank;
-        $model = static::findOne(['int_base' => $rankNumber]);
-        if (!$model) {
-            return null;
-        }
-        if ($model->key !== 's+') {
-            return Yii::t('app-rank2', $model->name);
-        }
-        return sprintf(
-            '%s %d',
-            Yii::t('app-rank2', $model->name),
-            $numberInRank
-        );
-    }
 }

@@ -626,16 +626,19 @@ class UserMiniInfo2 extends Widget
                                 'class' => 'auto-tooltip',
                                 'title' => $info['label'],
                             ]),
+                            'format' => 'raw',
                             'value' => function (UserStat2 $model) use ($info): string {
                                 $value = $model->{$info['attribute']};
                                 if ($model->gachi_battles < 1 || $value === null) {
-                                    return Yii::t('app', 'N/A');
+                                    return Html::encode(Yii::t('app', 'N/A'));
                                 }
-                                $string = Rank2::renderRank($value);
-                                if (!$string) {
-                                    return Yii::t('app', 'N/A');
+
+                                $html = Html::rank2($value);
+                                if (!$html) {
+                                    return Html::encode(Yii::t('app', 'N/A'));
                                 }
-                                return $string;
+
+                                return Html::tag('span', $html, ['class' => 'nobr']);
                             },
                         ];
                     },
@@ -728,16 +731,19 @@ class UserMiniInfo2 extends Widget
                                 'class' => 'auto-tooltip',
                                 'title' => $info['label'],
                             ]),
+                            'format' => 'raw',
                             'value' => function (UserStat2 $model) use ($info): string {
                                 $value = $model->{$info['attribute']};
                                 if ($model->gachi_battles < 1 || $value === null) {
-                                    return Yii::t('app', 'N/A');
+                                    return Html::encode(Yii::t('app', 'N/A'));
                                 }
-                                $string = Rank2::renderRank($value);
-                                if (!$string) {
-                                    return Yii::t('app', 'N/A');
+
+                                $html = Html::rank2($value);
+                                if (!$html) {
+                                    return Html::encode(Yii::t('app', 'N/A'));
                                 }
-                                return $string;
+
+                                return Html::tag('span', $html, ['class' => 'nobr']);
                             },
                         ];
                     },

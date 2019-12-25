@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2017 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -9,6 +9,7 @@
 namespace yii\helpers;
 
 use Yii;
+use app\models\Rank2;
 
 class Html extends BaseHtml
 {
@@ -112,5 +113,24 @@ class Html extends BaseHtml
             array_keys($styles),
             array_values($styles)
         ));
+    }
+
+    public static function rank2(int $rankNumber): ?string
+    {
+        $numberInRank = $rankNumber % 100;
+        $rankNumber = $rankNumber - $numberInRank;
+        $model = Rank2::findOne(['int_base' => $rankNumber]);
+        if (!$model) {
+            return null;
+        }
+
+        if ($model->key !== 's+') {
+            return Html::encode(Yii::t('app-rank2', $model->name));
+        }
+
+        return vsprintf('%s%s', [
+            Html::encode(Yii::t('app-rank2', $model->name)),
+            Html::tag('small', Html::encode(' ' . (string)$numberInRank)),
+        ]);
     }
 }
