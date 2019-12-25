@@ -312,7 +312,7 @@ class UserStat2 extends ActiveRecord
         $xPowerPeak = function (string $ruleKey) use ($excludePrivate): string {
             // {{{
             $db = $this->getDb();
-            return sprintf('MAX(CASE %s END)', implode(' ', array_merge(
+            return sprintf('NULLIF(MAX(CASE %s END), 0.0)', implode(' ', array_merge(
                 $excludePrivate,
                 [
                     sprintf('WHEN {{rule2}}.[[key]] <> %s THEN NULL', $db->quoteValue($ruleKey)),
@@ -321,8 +321,8 @@ class UserStat2 extends ActiveRecord
                         $db->quoteValue('x')
                     ),
                     vsprintf('ELSE GREATEST(%s, %s)', [
-                        'NULLIF({{battle2}}.[[x_power]], 0.0)',
-                        'NULLIF({{battle2}}.[[x_power_after]], 0.0)',
+                        '{{battle2}}.[[x_power]]',
+                        '{{battle2}}.[[x_power_after]]',
                     ]),
                 ]
             )));
@@ -589,7 +589,60 @@ class UserStat2 extends ActiveRecord
             foreach ($row as $k => $v) {
                 $this->$k = (int)$v;
             }
+            $rules = ['area', 'yagura', 'hoko', 'asari'];
+            foreach ($rules as $rule) {
+                $_ = $this->getLastBattle($rule);
+                $this->{$rule . '_current_rank'} = $_['rank'] ?: null;
+                $this->{$rule . '_current_x_power'} = $_['xpower'] ?: null;
+            }
         }
         return $this;
+    }
+
+    private function getLastBattle(string $ruleKey): array
+    {
+        $query = (new Query())
+            ->from('battle2')
+            ->innerJoin('lobby2', '{{battle2}}.[[lobby_id]] = {{lobby2}}.[[id]]')
+            ->innerJoin('mode2', '{{battle2}}.[[mode_id]] = {{mode2}}.[[id]]')
+            ->innerJoin('rule2', '{{battle2}}.[[rule_id]] = {{rule2}}.[[id]]')
+            ->leftJoin(['rank2a' => 'rank2'], '{{battle2}}.[[rank_id]] = {{rank2a}}.[[id]]')
+            ->leftJoin(['rank2b' => 'rank2'], '{{battle2}}.[[rank_after_id]] = {{rank2b}}.[[id]]')
+            ->andWhere(['and',
+                ['{{battle2}}.[[user_id]]' => $this->user_id],
+                // ['<>', '{{lobby2}}.[[key]]', 'private'],
+                ['{{lobby2}}.[[key]]' => 'standard'],
+                ['<>', '{{mode2}}.[[key]]', 'private'],
+                ['{{rule2}}.[[key]]' => $ruleKey],
+            ])
+            ->orderBy(['{{battle2}}.[[id]]' => SORT_DESC])
+            ->limit(1)
+            ->select([
+                'rank' => vsprintf('GREATEST(%s + %s, %s + %s)', [
+                    sprintf('(CASE %s END)', implode(' ', [
+                        'WHEN {{rank2a}}.[[int_base]] IS NULL THEN 0',
+                        'ELSE {{rank2a}}.[[int_base]]',
+                    ])),
+                    sprintf('(CASE %s END)', implode(' ', [
+                        'WHEN {{rank2a}}.[[int_base]] IS NULL THEN 0',
+                        'WHEN {{battle2}}.[[rank_exp]] IS NULL THEN 0',
+                        'ELSE {{battle2}}.[[rank_exp]]',
+                    ])),
+                    sprintf('(CASE %s END)', implode(' ', [
+                        'WHEN {{rank2b}}.[[int_base]] IS NULL THEN 0',
+                        'ELSE {{rank2b}}.[[int_base]]',
+                    ])),
+                    sprintf('(CASE %s END)', implode(' ', [
+                        'WHEN {{rank2b}}.[[int_base]] IS NULL THEN 0',
+                        'WHEN {{battle2}}.[[rank_after_exp]] IS NULL THEN 0',
+                        'ELSE {{battle2}}.[[rank_after_exp]]',
+                    ])),
+                ]),
+                'xpower' => vsprintf('(CASE %s END)', [
+                    'WHEN {{battle2}}.[[x_power_after]] IS NOT NULL THEN {{battle2}}.[[x_power_after]]',
+                    'WHEN {{battle2}}.[[x_power]] IS NOT NULL THEN {{battle2}}.[[x_power]]',
+                ]),
+            ]);
+        return $query->one() ?: [];
     }
 }
