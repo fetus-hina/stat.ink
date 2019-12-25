@@ -44,7 +44,10 @@ class AppAsset extends AssetBundle
     {
         parent::init();
 
-        if (substr(Yii::$app->language, 0, 3) === 'ja-') {
+        if (
+            substr(Yii::$app->language, 0, 3) === 'ja-' &&
+            !static::isMobileAccess()
+        ) {
             $this->depends[] = NotoSansJPAsset::class;
         }
     }
@@ -59,5 +62,24 @@ class AppAsset extends AssetBundle
             'type' => 'image/png',
             'href' => $manager->getAssetUrl($this, 'favicon.png'),
         ]);
+    }
+
+    private function isMobileAccess(): bool
+    {
+        $ua = trim((string)($_SERVER['HTTP_USER_AGENT'] ?? ''));
+        if ($ua === '') {
+            return false;
+        }
+
+        if (
+            strpos($ua, 'Android') !== false ||
+            strpos($ua, 'iPhone') !== false ||
+            strpos($ua, 'iPad') !== false ||
+            strpos($ua, 'iPod') !== false
+        ) {
+            return true;
+        }
+
+        return false;
     }
 }
