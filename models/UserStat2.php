@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2017 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -9,11 +9,14 @@
 namespace app\models;
 
 use Yii;
+use app\components\helpers\DateTimeFormatter;
 use app\components\helpers\Resource;
 use app\components\helpers\db\Now;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\db\Query;
+use yii\helpers\ArrayHelper;
+use yii\web\JsExpression;
 
 /**
  * This is the model class for table "user_stat2".
@@ -644,5 +647,168 @@ class UserStat2 extends ActiveRecord
                 ]),
             ]);
         return $query->one() ?: [];
+    }
+
+    public function toJsonArray(): array
+    {
+        return [
+            'updated_at' => DateTimeFormatter::unixTimeToJsonArray(strtotime($this->updated_at)),
+            'entire' => [
+                'battles' => $this->battles,
+                'win_pct' => ($this->have_win_lose > 0)
+                    ? ($this->win_battles * 100 / $this->have_win_lose)
+                    : null,
+                'kill_ratio' => ($this->have_kill_death > 0)
+                    ? new JsExpression(
+                        // 小数点以下の精度を保証するために
+                        // 浮動小数点数をそのまま渡すのではなく、
+                        // あらかじめ規定の精度でフォーマットしたものをそのまま出力させる
+                        ($this->death > 0)
+                            ? sprintf('%.2f', $this->kill / $this->death)
+                            : (($this->kill > 0)
+                                ? '99.99'
+                                : 'null'
+                            )
+                    )
+                    : null,
+                'kill_total' => $this->kill,
+                'kill_avg' => ($this->have_kill_death > 0)
+                    ? $this->kill / $this->have_kill_death
+                    : null,
+                'kill_per_min' => ($this->have_kill_death_time > 0 && $this->total_seconds > 0)
+                    ? ($this->kill_with_time * 60 / $this->total_seconds)
+                    : null,
+                'death_total' => $this->death,
+                'death_avg' => ($this->have_kill_death > 0)
+                    ? $this->death / $this->have_kill_death
+                    : null,
+                'death_per_min' => ($this->have_kill_death_time > 0 && $this->total_seconds > 0)
+                    ? ($this->death_with_time * 60 / $this->total_seconds)
+                    : null,
+            ],
+            'nawabari' => [
+                'battles' => $this->turf_battles,
+                'win_pct' => ($this->turf_have_win_lose > 0)
+                    ? $this->turf_win_battles * 100 / $this->turf_have_win_lose
+                    : null,
+                'kill_ratio' => ($this->turf_have_kill_death > 0)
+                    ? new JsExpression(
+                        // 小数点以下の精度を保証するために
+                        // 浮動小数点数をそのまま渡すのではなく、
+                        // あらかじめ規定の精度でフォーマットしたものをそのまま出力させる
+                        ($this->turf_death > 0)
+                            ? sprintf('%.2f', $this->turf_kill / $this->turf_death)
+                            : (($this->turf_kill > 0)
+                                ? '99.99' // infinity が返したい
+                                : 'null'
+                            )
+                    )
+                    : null,
+                'kill_total' => $this->turf_kill,
+                'kill_avg' => ($this->turf_have_kill_death > 0)
+                    ? $this->turf_kill / $this->turf_have_kill_death
+                    : null,
+                'kill_per_min' => ($this->turf_have_kill_death > 0)
+                    ? $this->turf_kill / $this->turf_have_kill_death / 3.0
+                    : null,
+                'death_total' => $this->turf_death,
+                'death_avg' => ($this->turf_have_kill_death > 0)
+                    ? $this->turf_death / $this->turf_have_kill_death
+                    : null,
+                'death_per_min' => ($this->turf_have_kill_death > 0)
+                    ? $this->turf_death / $this->turf_have_kill_death / 3.0
+                    : null,
+                'total_inked' => $this->turf_total_inked,
+                'max_inked' => $this->turf_max_inked,
+                'avg_inked' => ($this->turf_have_inked > 0)
+                    ? $this->turf_total_inked / $this->turf_have_inked
+                    : null,
+            ],
+            'gachi' => [
+                'battles' => $this->gachi_battles,
+                'win_pct' => ($this->gachi_have_win_lose > 0)
+                    ? $this->gachi_win_battles * 100 / $this->gachi_have_win_lose
+                    : null,
+                'kill_ratio' => ($this->gachi_have_kill_death > 0)
+                    ? new JsExpression(
+                        // 小数点以下の精度を保証するために
+                        // 浮動小数点数をそのまま渡すのではなく、
+                        // あらかじめ規定の精度でフォーマットしたものをそのまま出力させる
+                        ($this->gachi_death > 0)
+                            ? sprintf('%.2f', $this->gachi_kill / $this->gachi_death)
+                            : (($this->gachi_kill > 0)
+                                ? '99.99' // infinity が返したい
+                                : 'null'
+                            )
+                    )
+                    : null,
+                'kill_total' => $this->gachi_kill,
+                'kill_avg' => ($this->gachi_have_kill_death > 0)
+                    ? $this->gachi_kill / $this->gachi_have_kill_death
+                    : null,
+                'kill_per_min' => ($this->gachi_kill_death_time > 0 && $this->gachi_total_seconds > 0)
+                    ? ($this->gachi_kill_with_time * 60 / $this->gachi_total_seconds)
+                    : null,
+                'death_total' => $this->gachi_death,
+                'death_avg' => ($this->gachi_have_kill_death > 0)
+                    ? $this->gachi_death / $this->gachi_have_kill_death
+                    : null,
+                'death_per_min' => ($this->gachi_kill_death_time > 0 && $this->gachi_total_seconds > 0)
+                    ? ($this->gachi_death_with_time * 60 / $this->gachi_total_seconds)
+                    : null,
+                'rules' => ArrayHelper::map(
+                    ['area', 'yagura', 'hoko', 'asari'],
+                    function (string $key): string {
+                        return $key;
+                    },
+                    function (string $key): array {
+                        return [
+                            'rank_peak' => $this->rankFormatForJson(
+                                $this->{$key . '_rank_peak'}
+                            ),
+                            'rank_current' => $this->rankFormatForJson(
+                                $this->{$key . '_current_rank'}
+                            ),
+                            'x_power_peak' => $this->xPowerFormatForJson(
+                                $this->{$key . '_x_power_peak'}
+                            ),
+                            'x_power_current' => $this->xPowerFormatForJson(
+                                $this->{$key . '_current_x_power'}
+                            ),
+                        ];
+                    }
+                ),
+            ],
+        ];
+    }
+
+    private function rankFormatForJson(?int $value): ?string
+    {
+        static $cache = [];
+
+        if ($value === null) {
+            return null;
+        }
+
+        if (!array_key_exists($value, $cache)) {
+            $cache[$value] = (function () use ($value) {
+                if (!$info = Rank2::parseRankNumber($value)) {
+                    return null;
+                }
+                return ($info[1] === null)
+                    ? $info[0] // S+ 以外
+                    : implode(' ', [$info[0], (string)$info[1]]); // e.g., "S+ 5"
+            })();
+        }
+
+        return $cache[$value];
+    }
+
+    private function xPowerFormatForJson($value): JsExpression
+    {
+        $value = filter_var($value, FILTER_VALIDATE_FLOAT);
+        return (is_float($value) && $value > 0.0)
+            ? new JsExpression(sprintf('%.1f', $value))
+            : new JsExpression('null');
     }
 }

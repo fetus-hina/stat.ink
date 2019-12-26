@@ -94,4 +94,20 @@ class Rank2 extends ActiveRecord
             'name' => Translator::translateToAll('app-rank2', $this->name),
         ];
     }
+
+    public static function parseRankNumber(int $rankNumber): ?array
+    {
+        $numberInRank = $rankNumber % 100;
+        $rankNumber = $rankNumber - $numberInRank;
+        $model = Rank2::findOne(['int_base' => $rankNumber]);
+        if (!$model) {
+            return null;
+        }
+
+        if ($model->key !== 's+') {
+            return [$model->name, null];
+        }
+
+        return [$model->name, $numberInRank];
+    }
 }

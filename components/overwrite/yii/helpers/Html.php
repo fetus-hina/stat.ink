@@ -117,20 +117,18 @@ class Html extends BaseHtml
 
     public static function rank2(int $rankNumber): ?string
     {
-        $numberInRank = $rankNumber % 100;
-        $rankNumber = $rankNumber - $numberInRank;
-        $model = Rank2::findOne(['int_base' => $rankNumber]);
-        if (!$model) {
+        $rankInfo = Rank2::parseRankNumber($rankNumber);
+        if (!$rankInfo) {
             return null;
         }
 
-        if ($model->key !== 's+') {
-            return Html::encode(Yii::t('app-rank2', $model->name));
+        if ($rankInfo[1] === null) {
+            return Html::encode(Yii::t('app-rank2', $rankInfo[0]));
         }
 
-        return vsprintf('%s%s', [
-            Html::encode(Yii::t('app-rank2', $model->name)),
-            Html::tag('small', Html::encode(' ' . (string)$numberInRank)),
+        return implode('', [
+            Html::encode(Yii::t('app-rank2', $rankInfo[0])),
+            Html::tag('small', Html::encode(' ' . (string)$rankInfo[1])),
         ]);
     }
 }
