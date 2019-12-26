@@ -23,6 +23,7 @@ use app\models\SalmonMap2;
 use app\models\SalmonStats2;
 use app\models\Special2;
 use app\models\Subweapon2;
+use app\models\UserStat2;
 use app\models\Weapon2;
 use app\models\WeaponCategory2;
 use app\models\WeaponType2;
@@ -56,6 +57,9 @@ class V2 extends Base
             '/api/v2/stage' => $this->getPathInfoStage(),
             '/api/v2/weapon' => $this->getPathInfoWeapon(),
             '/api/v2/weapon.csv' => $this->getPathInfoWeaponCsv(),
+
+            // battle
+            '/api/v2/user-stats' => $this->getPathInfoUserStats(),
 
             // salmon
             '/api/v2/salmon' => $this->getPathInfoSalmon(),
@@ -722,6 +726,40 @@ class V2 extends Base
                                         ->orderBy(['splatnet' => SORT_ASC])
                                         ->all()
                                 )),
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ];
+        // }}}
+    }
+
+    protected function getPathInfoUserStats(): array
+    {
+        // {{{
+        $this->registerSchema(UserStat2::class);
+        $this->registerTag('battle');
+        return [
+            'get' => [
+                'operationId' => 'getUserStats',
+                'summary' => Yii::t('app-apidoc2', 'Get user\'s battle stats'),
+                'description' => implode("\n", [
+                    Html::encode(Yii::t(
+                        'app-apidoc2',
+                        'Returns specified user\'s stats (e.g., how many kills)'
+                    )),
+                ]),
+                'tags' => [
+                    'battle',
+                ],
+                'responses' => [
+                    '200' => [
+                        'description' => Yii::t('app-apidoc2', 'Successful'),
+                        'content' => [
+                            'application/json' => [
+                                'schema' => UserStat2::oapiRef(),
+                                'example' => UserStat2::openapiExample(),
                             ],
                         ],
                     ],

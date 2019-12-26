@@ -59,13 +59,34 @@ class UserMiniInfo2 extends Widget
 
     private function renderHeading(): string
     {
-        return Html::tag('h2', Html::a(
+        return Html::tag(
+            'h2',
             implode('', [
-                $this->renderUserIcon(),
-                $this->renderUserName(),
+                Html::a(
+                    implode('', [
+                        $this->renderUserIcon(),
+                        $this->renderUserName(),
+                    ]),
+                    ['show-user/profile', 'screen_name' => $this->user->screen_name],
+                    ['class' => 'flex-grow-1']
+                ),
+                Html::tag(
+                    'span',
+                    Html::a(
+                        (string)FA::fas('code'),
+                        ['api-v2/user-stats', 'screen_name' => $this->user->screen_name],
+                        ['class' => 'label label-default']
+                    ),
+                    [
+                        'class' => 'ml-1 mr-1',
+                        'style' => [
+                            'font-size' => '14px',
+                        ],
+                    ]
+                ),
             ]),
-            ['show-user/profile', 'screen_name' => $this->user->screen_name]
-        ));
+            ['class' => 'd-flex']
+        );
     }
 
     private function renderUserIcon(): string

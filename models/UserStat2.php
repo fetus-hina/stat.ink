@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2017 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -9,11 +9,14 @@
 namespace app\models;
 
 use Yii;
+use app\components\helpers\DateTimeFormatter;
 use app\components\helpers\Resource;
 use app\components\helpers\db\Now;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\db\Query;
+use yii\helpers\ArrayHelper;
+use yii\web\JsExpression;
 
 /**
  * This is the model class for table "user_stat2".
@@ -66,6 +69,8 @@ use yii\db\Query;
  */
 class UserStat2 extends ActiveRecord
 {
+    use openapi\Util;
+
     public static function getLock(int $userId, float $timeout = 10.0, bool $autoRelease = true)
     {
         // {{{
@@ -644,5 +649,545 @@ class UserStat2 extends ActiveRecord
                 ]),
             ]);
         return $query->one() ?: [];
+    }
+
+    public function toJsonArray(): array
+    {
+        return [
+            'updated_at' => DateTimeFormatter::unixTimeToJsonArray(strtotime($this->updated_at)),
+            'entire' => [
+                'battles' => $this->battles,
+                'win_pct' => ($this->have_win_lose > 0)
+                    ? ($this->win_battles * 100 / $this->have_win_lose)
+                    : null,
+                'kill_ratio' => ($this->have_kill_death > 0)
+                    ? new JsExpression(
+                        // 小数点以下の精度を保証するために
+                        // 浮動小数点数をそのまま渡すのではなく、
+                        // あらかじめ規定の精度でフォーマットしたものをそのまま出力させる
+                        ($this->death > 0)
+                            ? sprintf('%.2f', $this->kill / $this->death)
+                            : (($this->kill > 0)
+                                ? '99.99'
+                                : 'null'
+                            )
+                    )
+                    : null,
+                'kill_total' => $this->kill,
+                'kill_avg' => ($this->have_kill_death > 0)
+                    ? $this->kill / $this->have_kill_death
+                    : null,
+                'kill_per_min' => ($this->have_kill_death_time > 0 && $this->total_seconds > 0)
+                    ? ($this->kill_with_time * 60 / $this->total_seconds)
+                    : null,
+                'death_total' => $this->death,
+                'death_avg' => ($this->have_kill_death > 0)
+                    ? $this->death / $this->have_kill_death
+                    : null,
+                'death_per_min' => ($this->have_kill_death_time > 0 && $this->total_seconds > 0)
+                    ? ($this->death_with_time * 60 / $this->total_seconds)
+                    : null,
+            ],
+            'nawabari' => [
+                'battles' => $this->turf_battles,
+                'win_pct' => ($this->turf_have_win_lose > 0)
+                    ? $this->turf_win_battles * 100 / $this->turf_have_win_lose
+                    : null,
+                'kill_ratio' => ($this->turf_have_kill_death > 0)
+                    ? new JsExpression(
+                        // 小数点以下の精度を保証するために
+                        // 浮動小数点数をそのまま渡すのではなく、
+                        // あらかじめ規定の精度でフォーマットしたものをそのまま出力させる
+                        ($this->turf_death > 0)
+                            ? sprintf('%.2f', $this->turf_kill / $this->turf_death)
+                            : (($this->turf_kill > 0)
+                                ? '99.99' // infinity が返したい
+                                : 'null'
+                            )
+                    )
+                    : null,
+                'kill_total' => $this->turf_kill,
+                'kill_avg' => ($this->turf_have_kill_death > 0)
+                    ? $this->turf_kill / $this->turf_have_kill_death
+                    : null,
+                'kill_per_min' => ($this->turf_have_kill_death > 0)
+                    ? $this->turf_kill / $this->turf_have_kill_death / 3.0
+                    : null,
+                'death_total' => $this->turf_death,
+                'death_avg' => ($this->turf_have_kill_death > 0)
+                    ? $this->turf_death / $this->turf_have_kill_death
+                    : null,
+                'death_per_min' => ($this->turf_have_kill_death > 0)
+                    ? $this->turf_death / $this->turf_have_kill_death / 3.0
+                    : null,
+                'total_inked' => $this->turf_total_inked,
+                'max_inked' => $this->turf_max_inked,
+                'avg_inked' => ($this->turf_have_inked > 0)
+                    ? $this->turf_total_inked / $this->turf_have_inked
+                    : null,
+            ],
+            'gachi' => [
+                'battles' => $this->gachi_battles,
+                'win_pct' => ($this->gachi_have_win_lose > 0)
+                    ? $this->gachi_win_battles * 100 / $this->gachi_have_win_lose
+                    : null,
+                'kill_ratio' => ($this->gachi_have_kill_death > 0)
+                    ? new JsExpression(
+                        // 小数点以下の精度を保証するために
+                        // 浮動小数点数をそのまま渡すのではなく、
+                        // あらかじめ規定の精度でフォーマットしたものをそのまま出力させる
+                        ($this->gachi_death > 0)
+                            ? sprintf('%.2f', $this->gachi_kill / $this->gachi_death)
+                            : (($this->gachi_kill > 0)
+                                ? '99.99' // infinity が返したい
+                                : 'null'
+                            )
+                    )
+                    : null,
+                'kill_total' => $this->gachi_kill,
+                'kill_avg' => ($this->gachi_have_kill_death > 0)
+                    ? $this->gachi_kill / $this->gachi_have_kill_death
+                    : null,
+                'kill_per_min' => ($this->gachi_kill_death_time > 0 && $this->gachi_total_seconds > 0)
+                    ? ($this->gachi_kill_with_time * 60 / $this->gachi_total_seconds)
+                    : null,
+                'death_total' => $this->gachi_death,
+                'death_avg' => ($this->gachi_have_kill_death > 0)
+                    ? $this->gachi_death / $this->gachi_have_kill_death
+                    : null,
+                'death_per_min' => ($this->gachi_kill_death_time > 0 && $this->gachi_total_seconds > 0)
+                    ? ($this->gachi_death_with_time * 60 / $this->gachi_total_seconds)
+                    : null,
+                'rules' => ArrayHelper::map(
+                    ['area', 'yagura', 'hoko', 'asari'],
+                    function (string $key): string {
+                        return $key;
+                    },
+                    function (string $key): array {
+                        return [
+                            'rank_peak' => $this->rankFormatForJson(
+                                $this->{$key . '_rank_peak'}
+                            ),
+                            'rank_current' => $this->rankFormatForJson(
+                                $this->{$key . '_current_rank'}
+                            ),
+                            'x_power_peak' => $this->xPowerFormatForJson(
+                                $this->{$key . '_x_power_peak'}
+                            ),
+                            'x_power_current' => $this->xPowerFormatForJson(
+                                $this->{$key . '_current_x_power'}
+                            ),
+                        ];
+                    }
+                ),
+            ],
+        ];
+    }
+
+    private function rankFormatForJson(?int $value): ?string
+    {
+        static $cache = [];
+
+        if ($value === null) {
+            return null;
+        }
+
+        if (!array_key_exists($value, $cache)) {
+            $cache[$value] = (function () use ($value) {
+                if (!$info = Rank2::parseRankNumber($value)) {
+                    return null;
+                }
+                return ($info[1] === null)
+                    ? $info[0] // S+ 以外
+                    : implode(' ', [$info[0], (string)$info[1]]); // e.g., "S+ 5"
+            })();
+        }
+
+        return $cache[$value];
+    }
+
+    private function xPowerFormatForJson($value): JsExpression
+    {
+        $value = filter_var($value, FILTER_VALIDATE_FLOAT);
+        return (is_float($value) && $value > 0.0)
+            ? new JsExpression(sprintf('%.1f', $value))
+            : new JsExpression('null');
+    }
+
+    public static function openApiSchema(): array
+    {
+        return [
+            'type' => 'object',
+            'description' => Yii::t('app-apidoc2', 'User stats'),
+            'properties' => [
+                'entire' => [
+                    'type' => 'object',
+                    'description' => Yii::t('app-apidoc2', 'All battle statistics'),
+                    'properties' => [
+                        'battles' => [
+                            'type' => 'integer',
+                            'format' => 'int64',
+                            'minimum' => 0,
+                            'description' => Yii::t('app-apidoc2', 'Number of battles'),
+                        ],
+                        'win_pct' => [
+                            'nullable' => true,
+                            'type' => 'number',
+                            'format' => 'float',
+                            'minimum' => 0.0,
+                            'maximum' => 100.0,
+                            'description' => Yii::t('app-apidoc2', 'Winning percentage'),
+                        ],
+                        'kill_ratio' => [
+                            'nullable' => true,
+                            'type' => 'number',
+                            'format' => 'float',
+                            'minimum' => 0.0,
+                            'maximum' => 100.0,
+                            'exclusiveMaximum' => true,
+                            'description' => Yii::t('app-apidoc2', 'Kill ratio'),
+                        ],
+                        'kill_total' => [
+                            'nullable' => true,
+                            'type' => 'integer',
+                            'format' => 'int64',
+                            'minimum' => 0,
+                            'description' => Yii::t('app-apidoc2', 'Total kills'),
+                        ],
+                        'kill_avg' => [
+                            'nullable' => true,
+                            'type' => 'number',
+                            'format' => 'float',
+                            'minimum' => 0.0,
+                            'maximum' => 100.0,
+                            'exclusiveMaximum' => true,
+                            'description' => Yii::t('app-apidoc2', 'Kills per battle'),
+                        ],
+                        'kill_per_min' => [
+                            'nullable' => true,
+                            'type' => 'number',
+                            'format' => 'float',
+                            'minimum' => 0.0,
+                            'maximum' => 100.0,
+                            'exclusiveMaximum' => true,
+                            'description' => Yii::t('app-apidoc2', 'Kills per minute'),
+                        ],
+                        'death_total' => [
+                            'nullable' => true,
+                            'type' => 'integer',
+                            'format' => 'int64',
+                            'minimum' => 0,
+                            'description' => Yii::t('app-apidoc2', 'Total deaths'),
+                        ],
+                        'death_avg' => [
+                            'nullable' => true,
+                            'type' => 'number',
+                            'format' => 'float',
+                            'minimum' => 0.0,
+                            'maximum' => 100.0,
+                            'exclusiveMaximum' => true,
+                            'description' => Yii::t('app-apidoc2', 'Deaths per battle'),
+                        ],
+                        'death_per_min' => [
+                            'nullable' => true,
+                            'type' => 'number',
+                            'format' => 'float',
+                            'minimum' => 0.0,
+                            'maximum' => 100.0,
+                            'exclusiveMaximum' => true,
+                            'description' => Yii::t('app-apidoc2', 'Deaths per minute'),
+                        ],
+                    ],
+                ],
+                'nawabari' => [
+                    'type' => 'object',
+                    'description' => Yii::t('app-apidoc2', 'Turf War statistics'),
+                    'properties' => [
+                        'battles' => [
+                            'type' => 'integer',
+                            'format' => 'int64',
+                            'minimum' => 0,
+                            'description' => Yii::t('app-apidoc2', 'Number of battles'),
+                        ],
+                        'win_pct' => [
+                            'nullable' => true,
+                            'type' => 'number',
+                            'format' => 'float',
+                            'minimum' => 0.0,
+                            'maximum' => 100.0,
+                            'description' => Yii::t('app-apidoc2', 'Winning percentage'),
+                        ],
+                        'kill_ratio' => [
+                            'nullable' => true,
+                            'type' => 'number',
+                            'format' => 'float',
+                            'minimum' => 0.0,
+                            'maximum' => 100.0,
+                            'exclusiveMaximum' => true,
+                            'description' => Yii::t('app-apidoc2', 'Kill ratio'),
+                        ],
+                        'kill_total' => [
+                            'nullable' => true,
+                            'type' => 'integer',
+                            'format' => 'int64',
+                            'minimum' => 0,
+                            'description' => Yii::t('app-apidoc2', 'Total kills'),
+                        ],
+                        'kill_avg' => [
+                            'nullable' => true,
+                            'type' => 'number',
+                            'format' => 'float',
+                            'minimum' => 0.0,
+                            'maximum' => 100.0,
+                            'exclusiveMaximum' => true,
+                            'description' => Yii::t('app-apidoc2', 'Kills per battle'),
+                        ],
+                        'kill_per_min' => [
+                            'nullable' => true,
+                            'type' => 'number',
+                            'format' => 'float',
+                            'minimum' => 0.0,
+                            'maximum' => 100.0,
+                            'exclusiveMaximum' => true,
+                            'description' => Yii::t('app-apidoc2', 'Kills per minute'),
+                        ],
+                        'death_total' => [
+                            'nullable' => true,
+                            'type' => 'integer',
+                            'format' => 'int64',
+                            'minimum' => 0,
+                            'description' => Yii::t('app-apidoc2', 'Total deaths'),
+                        ],
+                        'death_avg' => [
+                            'nullable' => true,
+                            'type' => 'number',
+                            'format' => 'float',
+                            'minimum' => 0.0,
+                            'maximum' => 100.0,
+                            'exclusiveMaximum' => true,
+                            'description' => Yii::t('app-apidoc2', 'Deaths per battle'),
+                        ],
+                        'death_per_min' => [
+                            'nullable' => true,
+                            'type' => 'number',
+                            'format' => 'float',
+                            'minimum' => 0.0,
+                            'maximum' => 100.0,
+                            'exclusiveMaximum' => true,
+                            'description' => Yii::t('app-apidoc2', 'Deaths per minute'),
+                        ],
+                        'total_inked' => [
+                            'nullable' => true,
+                            'type' => 'integer',
+                            'format' => 'int64',
+                            'minimum' => 0,
+                            'description' => Yii::t('app-apidoc2', 'Total inked'),
+                        ],
+                        'max_inked' => [
+                            'nullable' => true,
+                            'type' => 'integer',
+                            'format' => 'int64',
+                            'minimum' => 0,
+                            'description' => Yii::t('app-apidoc2', 'Maximum inked'),
+                        ],
+                        'avg_inked' => [
+                            'nullable' => true,
+                            'type' => 'number',
+                            'format' => 'float',
+                            'minimum' => 0.0,
+                            'description' => Yii::t('app-apidoc2', 'Average inked per battle'),
+                        ],
+                    ],
+                ],
+                'gachi' => [
+                    'type' => 'object',
+                    'description' => Yii::t('app-apidoc2', 'Ranked + league battle statistics'),
+                    'properties' => [
+                        'battles' => [
+                            'type' => 'integer',
+                            'format' => 'int64',
+                            'minimum' => 0,
+                            'description' => Yii::t('app-apidoc2', 'Number of battles'),
+                        ],
+                        'win_pct' => [
+                            'nullable' => true,
+                            'type' => 'number',
+                            'format' => 'float',
+                            'minimum' => 0.0,
+                            'maximum' => 100.0,
+                            'description' => Yii::t('app-apidoc2', 'Winning percentage'),
+                        ],
+                        'kill_ratio' => [
+                            'nullable' => true,
+                            'type' => 'number',
+                            'format' => 'float',
+                            'minimum' => 0.0,
+                            'maximum' => 100.0,
+                            'exclusiveMaximum' => true,
+                            'description' => Yii::t('app-apidoc2', 'Kill ratio'),
+                        ],
+                        'kill_total' => [
+                            'nullable' => true,
+                            'type' => 'integer',
+                            'format' => 'int64',
+                            'minimum' => 0,
+                            'description' => Yii::t('app-apidoc2', 'Total kills'),
+                        ],
+                        'kill_avg' => [
+                            'nullable' => true,
+                            'type' => 'number',
+                            'format' => 'float',
+                            'minimum' => 0.0,
+                            'maximum' => 100.0,
+                            'exclusiveMaximum' => true,
+                            'description' => Yii::t('app-apidoc2', 'Kills per battle'),
+                        ],
+                        'kill_per_min' => [
+                            'nullable' => true,
+                            'type' => 'number',
+                            'format' => 'float',
+                            'minimum' => 0.0,
+                            'maximum' => 100.0,
+                            'exclusiveMaximum' => true,
+                            'description' => Yii::t('app-apidoc2', 'Kills per minute'),
+                        ],
+                        'death_total' => [
+                            'nullable' => true,
+                            'type' => 'integer',
+                            'format' => 'int64',
+                            'minimum' => 0,
+                            'description' => Yii::t('app-apidoc2', 'Total deaths'),
+                        ],
+                        'death_avg' => [
+                            'nullable' => true,
+                            'type' => 'number',
+                            'format' => 'float',
+                            'minimum' => 0.0,
+                            'maximum' => 100.0,
+                            'exclusiveMaximum' => true,
+                            'description' => Yii::t('app-apidoc2', 'Deaths per battle'),
+                        ],
+                        'death_per_min' => [
+                            'nullable' => true,
+                            'type' => 'number',
+                            'format' => 'float',
+                            'minimum' => 0.0,
+                            'maximum' => 100.0,
+                            'exclusiveMaximum' => true,
+                            'description' => Yii::t('app-apidoc2', 'Deaths per minute'),
+                        ],
+                        'rule' => [
+                            'type' => 'object',
+                            'description' => Yii::t('app-apidoc2', 'Per rule information'),
+                            'properties' => [
+                                'area' => static::openApiSchemaRule('Splat Zones'),
+                                'yagura' => static::openApiSchemaRule('Tower Control'),
+                                'hoko' => static::openApiSchemaRule('Rainmaker'),
+                                'asari' => static::openApiSchemaRule('Clam Blitz'),
+                            ],
+                        ],
+                    ],
+                ],
+                'updated_at' => array_merge(openapi\DateTime::openApiSchema(), [
+                    'nullable' => true,
+                    'description' => Yii::t('app-apidoc2', 'Last updated at'),
+                ]),
+            ],
+            'example' => static::openapiExample(),
+        ];
+    }
+
+    private static function openApiSchemaRule(string $rule): array
+    {
+        return [
+            'type' => 'object',
+            'description' => Yii::t('app-apidoc2', 'Statistics for {rule}', [
+                'rule' => Yii::t('app-rule2', $rule),
+            ]),
+            'properties' => [
+                'rank_peak' => [
+                    'nullable' => true,
+                    'type' => 'string',
+                    'description' => Yii::t('app-apidoc2', 'Highest rank ever'),
+                ],
+                'rank_current' => [
+                    'nullable' => true,
+                    'type' => 'string',
+                    'description' => Yii::t('app-apidoc2', 'Current rank'),
+                ],
+                'x_power_peak' => [
+                    'nullable' => true,
+                    'type' => 'number',
+                    'format' => 'float',
+                    'description' => Yii::t('app-apidoc2', 'Highest X-power ever'),
+                ],
+                'x_power_current' => [
+                    'nullable' => true,
+                    'type' => 'number',
+                    'format' => 'float',
+                    'description' => Yii::t('app-apidoc2', 'Current X-power'),
+                ],
+            ],
+        ];
+    }
+
+    public static function openApiDepends(): array
+    {
+        return [
+        ];
+    }
+
+    public static function openapiExample(): array
+    {
+        $model = Yii::createObject([
+            '__class' => static::class,
+            'battles' => 9432,
+            'have_win_lose' => 9432,
+            'win_battles' => 5264,
+            'have_kill_death' => 9432,
+            'kill' => 25465,
+            'death' => 31435,
+            'have_kill_death_time' => 9432,
+            'kill_with_time' => 25465,
+            'death_with_time' => 31435,
+            'total_seconds' => 1711900,
+            'turf_battles' => 9201,
+            'turf_have_win_lose' => 9201,
+            'turf_win_battles' => 5151,
+            'turf_have_kill_death' => 9201,
+            'turf_kill' => 24551,
+            'turf_death' => 30080,
+            'turf_have_inked' => 9201,
+            'turf_total_inked' => 9640486,
+            'turf_max_inked' => 1890,
+            'gachi_battles' => 178,
+            'gachi_have_win_lose' => 178,
+            'gachi_win_battles' => 83,
+            'gachi_have_kill_death' => 178,
+            'gachi_kill' => 785,
+            'gachi_death' => 1136,
+            'gachi_kill_death_time' => 178,
+            'gachi_kill_with_time' => 785,
+            'gachi_death_with_time' => 1136,
+            'gachi_total_seconds' => 44941,
+            'area_rank_peak' => 400,
+            'yagura_rank_peak' => 400,
+            'hoko_rank_peak' => 300,
+            'updated_at' => '2019-12-26T06:44:42+09:00',
+            'asari_rank_peak' => 500,
+            'area_current_rank' => 400,
+            'yagura_current_rank' => 400,
+            'hoko_current_rank' => null,
+            'asari_current_rank' => 500,
+            'area_current_x_power' => null,
+            'yagura_current_x_power' => null,
+            'hoko_current_x_power' => null,
+            'asari_current_x_power' => null,
+            'area_x_power_peak' => '0.0',
+            'yagura_x_power_peak' => '0.0',
+            'hoko_x_power_peak' => '0.0',
+            'asari_x_power_peak' => '0.0',
+        ]);
+        return $model->toJsonArray();
     }
 }

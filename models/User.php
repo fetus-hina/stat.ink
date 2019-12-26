@@ -490,7 +490,7 @@ class User extends ActiveRecord implements IdentityInterface
             'stat' => $this->userStat ? $this->userStat->toJsonArray() : null,
             'stats' => [
                 'v1' => $this->userStat ? $this->userStat->toJsonArray() : null,
-                'v2' => null,
+                'v2' => $this->userStat2 ? $this->userStat2->toJsonArray() : null,
             ],
         ];
     }
