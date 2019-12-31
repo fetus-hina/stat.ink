@@ -152,7 +152,7 @@ The maintenance process will be started at 23:00 UTC and will take 1.5 hours.
 ```
 The MIT License (MIT)
 
-Copyright (c) 2015-2019 AIZAWA Hina <hina@fetus.jp>
+Copyright (c) 2015-2020 AIZAWA Hina <hina@fetus.jp>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

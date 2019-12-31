@@ -60,6 +60,11 @@ RESOURCE_TARGETS_MAIN := \
 	resources/.compiled/stat.ink/cookiealert.js \
 	resources/.compiled/stat.ink/current-time.js \
 	resources/.compiled/stat.ink/downloads.css \
+	resources/.compiled/stat.ink/entire-weapon-based-on-k-or-d.js \
+	resources/.compiled/stat.ink/entire-weapon-kd-stats.js \
+	resources/.compiled/stat.ink/entire-weapon-kd-summary.js \
+	resources/.compiled/stat.ink/entire-weapon-stage.js \
+	resources/.compiled/stat.ink/entire-weapon-usepct.js \
 	resources/.compiled/stat.ink/fallbackable-image.js \
 	resources/.compiled/stat.ink/favicon.png \
 	resources/.compiled/stat.ink/fest-power-history.css \
@@ -344,6 +349,11 @@ resources/.compiled/stat.ink/cookiealert.css: resources/stat.ink/cookiealert.les
 resources/.compiled/stat.ink/cookiealert.js: resources/stat.ink/cookiealert.es node_modules
 resources/.compiled/stat.ink/current-time.js: resources/stat.ink/current-time.es node_modules
 resources/.compiled/stat.ink/downloads.css: resources/stat.ink/downloads.less node_modules
+resources/.compiled/stat.ink/entire-weapon-based-on-k-or-d.js: resources/stat.ink/entire-weapon-based-on-k-or-d.es node_modules
+resources/.compiled/stat.ink/entire-weapon-kd-stats.js: resources/stat.ink/entire-weapon-kd-stats.es node_modules
+resources/.compiled/stat.ink/entire-weapon-kd-summary.js: resources/stat.ink/entire-weapon-kd-summary.es node_modules
+resources/.compiled/stat.ink/entire-weapon-stage.js: resources/stat.ink/entire-weapon-stage.es node_modules
+resources/.compiled/stat.ink/entire-weapon-usepct.js: resources/stat.ink/entire-weapon-usepct.es node_modules
 resources/.compiled/stat.ink/fallbackable-image.js: resources/stat.ink/fallbackable-image.es node_modules
 resources/.compiled/stat.ink/fest-power-history.css: resources/stat.ink/fest-power-history.less node_modules
 resources/.compiled/stat.ink/fest-power-history.js: resources/stat.ink/fest-power-history.es node_modules

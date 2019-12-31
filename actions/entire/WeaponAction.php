@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2019 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2020 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -56,7 +56,7 @@ class WeaponAction extends BaseAction
             return;
         }
 
-        return $this->controller->render('weapon.tpl', [
+        return $this->controller->render('weapon', [
             'weapons' => $this->weapons,
             'weapon' => $this->weapon,
             'rules' => $this->rules,

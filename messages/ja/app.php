@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2019 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2020 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  * @author eli fessler <eliwf8@gmail.com>
@@ -531,6 +531,7 @@ return [
     'Weapon (Short)' => 'ブキ（短）',
     'Weapon Trends' => 'ブキトレンド',
     'Weapon icons were created by {0}.' => 'ブキアイコンは{0}様が作成されたものを使用しています。',
+    'Weapon | {weapon} | {rule}' => 'ブキ | {weapon} | {rule}',
     'Weapon | {weapon}' => 'ブキ | {weapon}',
     'Weapon' => 'ブキ',
     'Weapons' => 'ブキ',
