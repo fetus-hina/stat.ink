@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2019 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2020 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -19,37 +19,49 @@ use yii\helpers\FileHelper;
 class GeoipController extends Controller
 {
     protected const BASE_DIR = '@app/data/GeoIP';
-    protected const TGZ_BASE_URL = 'https://geolite.maxmind.com/download/geoip/database/';
-
-    protected $saveFiles = [
-        'GeoLite2-City.tar.gz' => [
-            'COPYRIGHT.txt',
-            'GeoLite2-City.mmdb',
-            'LICENSE.txt',
-        ],
-        'GeoLite2-Country.tar.gz' => [
-            'GeoLite2-Country.mmdb',
-        ],
-    ];
-
-    // data/GeoIP/%.mmdb: data/GeoIP/%.tar.gz
-    //     @mkdir -p $(dir $@)
-    //     tar -zxf $< --strip=1 --no-same-owner -C data/GeoIP */$(notdir $@)
-    //     @touch $@
-
-    //     data/GeoIP/%.txt: data/GeoIP/GeoLite2-Country.tar.gz
-    //     @mkdir -p $(dir $@)
-    //     tar -zxf $< --strip=1 --no-same-owner -C data/GeoIP */$(notdir $@)
-    //     @touch $@
-
-    //     data/GeoIP/%.tar.gz:
-    //     @mkdir -p $(dir $@)
-    //     curl -fsSL -o $@ https://geolite.maxmind.com/download/geoip/database/$(notdir $@)
-    //     @touch $@
-
-    //     .PRECIOUS: data/GeoIP/%.tar.gz
 
     public $defaultAction = 'update';
+
+    // https://dev.maxmind.com/geoip/geoipupdate/#Direct_Downloads
+    protected $saveFiles = null;
+
+    public function init()
+    {
+        parent::init();
+
+        if (!$this->saveFiles) {
+            $this->saveFiles = [
+                'GeoLite2-City.tar.gz' => [
+                    'url' => vsprintf('%s?%s', [
+                        'https://download.maxmind.com/app/geoip_download',
+                        http_build_query([
+                            'edition_id' => 'GeoLite2-City',
+                            'license_key' => '[GEOIP_LICENSE_KEY]',
+                            'suffix' => 'tar.gz',
+                        ]),
+                    ]),
+                    'files' => [
+                        'COPYRIGHT.txt',
+                        'GeoLite2-City.mmdb',
+                        'LICENSE.txt',
+                    ],
+                ],
+                'GeoLite2-Country.tar.gz' => [
+                    'url' => vsprintf('%s?%s', [
+                        'https://download.maxmind.com/app/geoip_download',
+                        http_build_query([
+                            'edition_id' => 'GeoLite2-Country',
+                            'license_key' => '[GEOIP_LICENSE_KEY]',
+                            'suffix' => 'tar.gz',
+                        ]),
+                    ]),
+                    'files' => [
+                        'GeoLite2-Country.mmdb',
+                    ],
+                ],
+            ];
+        }
+    }
 
     public function actionUpdate(): int
     {
@@ -59,16 +71,14 @@ class GeoipController extends Controller
     protected function updateFiles(): bool
     {
         $success = true;
-        foreach ($this->saveFiles as $tgzFileName => $innerFiles) {
+        foreach ($this->saveFiles as $tgzFileName => $info) {
             $tgzFilePath = rtrim(Yii::getAlias(static::BASE_DIR), '/') . '/' . $tgzFileName;
-            $tgzURL = rtrim(Yii::getAlias(static::TGZ_BASE_URL), '/') . '/' . $tgzFileName;
-
-            if (!$this->downloadFile($tgzURL, $tgzFilePath)) {
+            if (!$this->downloadFile($this->rewriteEnvValue($info['url']), $tgzFilePath)) {
                 $success = false;
                 continue;
             }
 
-            if (!$this->extractFiles($tgzFilePath, $innerFiles)) {
+            if (!$this->extractFiles($tgzFilePath, $info['files'])) {
                 $success = false;
                 continue;
             }
@@ -88,7 +98,16 @@ class GeoipController extends Controller
                 }
             }
 
-            fprintf(STDERR, "Downloading %s from %s\n", basename($savePath), $url);
+            vfprintf(STDERR, "Downloading %s from %s\n", [
+                basename($savePath),
+                preg_replace_callback(
+                    '/\b(license_key=)([^&]+)/',
+                    function (array $match): string {
+                        return $match[1] . str_repeat('*', strlen($match[2]));
+                    },
+                    $url
+                ),
+            ]);
 
             $curl = new Curl();
             $curl->get($url);
@@ -140,5 +159,23 @@ class GeoipController extends Controller
 
         fwrite(STDERR, "Extracted.\n");
         return true;
+    }
+
+    protected function rewriteEnvValue(string $text): string
+    {
+        return preg_replace_callback(
+            '/(?:\[|%5[bB])([0-9A-Z_]+)(?:\]|%5[dD])/',
+            function (array $match): string {
+                $envName = $match[1];
+                if (!isset($_SERVER[$envName])) {
+                    throw new \Exception(vsprintf('The environment variable `%s` is not defined.', [
+                        $envName,
+                    ]));
+                }
+
+                return $_SERVER[$envName];
+            },
+            $text
+        );
     }
 }
