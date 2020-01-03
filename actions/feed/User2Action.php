@@ -1,15 +1,19 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2017 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2020 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
 
+declare(strict_types=1);
+
 namespace app\actions\feed;
 
+use DateTimeImmutable;
+use DateTimeZone;
+use Laminas\Feed\Writer\Feed as FeedWriter;
 use Yii;
-use Zend\Feed\Writer\Feed as FeedWriter;
 use app\models\Battle2;
 use app\models\Language;
 use app\models\User;
@@ -69,14 +73,18 @@ class User2Action extends BaseAction
             return ['error' => 'something happend'];
         }
 
+        $now = (new DateTimeImmutable())
+            ->setTimeZone(new DateTimeZone('Etc/UTC'))
+            ->setTimestamp((int)($_SERVER['REQUEST_TIME'] ?? time()));
+
         $feed = new FeedWriter();
         $feed->setGenerator(
             sprintf(
                 '%s/%s %s/%s',
                 Yii::$app->name,
                 Yii::$app->version,
-                'Zend-Feed-Writer',
-                \Zend\Feed\Writer\Version::VERSION
+                'Laminas-Feed-Writer',
+                \Laminas\Feed\Writer\Version::VERSION
             ),
             Yii::$app->version,
             Url::home(true)
@@ -98,8 +106,10 @@ class User2Action extends BaseAction
             )
         );
         $feed->setId(
-            Uuid::v5(UuidNS::url(), Url::to(['show-v2/user', 'screen_name' => $user->screen_name], true))
-                ->formatAsUri()
+            Uuid::v5(
+                UuidNS::url(),
+                Url::to(['show-v2/user', 'screen_name' => $user->screen_name], true)
+            )->formatAsUri()
         );
         $feed->setLink(
             Url::to(['show-v2/user', 'screen_name' => $user->screen_name], true)
@@ -129,12 +139,12 @@ class User2Action extends BaseAction
             ],
         ]);
         $feed->setCopyright(
-            sprintf('Copyright (C) 2015-%s AIZAWA Hina', date('Y', $_SERVER['REQUEST_TIME'] ?? time()))
+            sprintf('Copyright (C) 2015-%s AIZAWA Hina', $now->format('Y'))
         );
         $feed->setLanguage($model->lang);
         $feed->setEncoding('UTF-8');
-        $feed->setDateModified($_SERVER['REQUEST_TIME'] ?? time());
-        $feed->setLastBuildDate($_SERVER['REQUEST_TIME'] ?? time());
+        $feed->setDateModified((int)$now->getTimestamp());
+        $feed->setLastBuildDate((int)$now->getTimestamp());
         $feed->setBaseUrl(Url::home(true));
 
         //FIXME
@@ -179,7 +189,13 @@ class User2Action extends BaseAction
             $entry->setId(
                 Uuid::v5(
                     UuidNS::url(),
-                    Url::to(['show-v2/battle', 'screen_name' => $user->screen_name, 'battle' => $battle->id], true)
+                    Url::to(
+                        ['show-v2/battle',
+                            'screen_name' => $user->screen_name,
+                            'battle' => $battle->id,
+                        ],
+                        true
+                    )
                 )->formatAsUri()
             );
             $entry->setLink(
@@ -193,16 +209,19 @@ class User2Action extends BaseAction
                 )
             );
             $entry->setTitle(
-                sprintf(
-                    '%s / %s / %s - %s (#%d)',
-                    $battle->rule ? Yii::t('app-rule2', $battle->rule->name, [], $model->lang) : '???',
-                    $battle->map ? Yii::t('app-map2', $battle->map->name, [], $model->lang) : '???',
+                vsprintf('%s / %s / %s - %s (#%d)', [
+                    $battle->rule
+                        ? Yii::t('app-rule2', $battle->rule->name, [], $model->lang)
+                        : '???',
+                    $battle->map
+                        ? Yii::t('app-map2', $battle->map->name, [], $model->lang)
+                        : '???',
                     $battle->is_win !== null
                         ? Yii::t('app', $battle->is_win ? 'Won' : 'Lost', [], $model->lang)
                         : '???',
                     $user->name,
-                    $battle->id
-                )
+                    $battle->id,
+                ])
             );
             $entry->setContent($this->makeEntryContent($battle, $model->lang));
             $feed->addEntry($entry);
@@ -213,7 +232,10 @@ class User2Action extends BaseAction
             'rss' => 'application/rss+xml; charset=UTF-8',
         ];
         $resp->format = 'raw';
-        $resp->headers->set('Content-Type', $contentType[$model->type] ?? 'text/xml; charset=UTF-8');
+        $resp->headers->set(
+            'Content-Type',
+            $contentType[$model->type] ?? 'text/xml; charset=UTF-8'
+        );
         return $feed->export($model->type);
     }
 
@@ -221,14 +243,14 @@ class User2Action extends BaseAction
     {
         $html = '';
         if ($battle->battleImageResult || $battle->battleImageJudge) {
-            $html .= '<p>';
-            if ($battle->battleImageResult) {
-                $html .= sprintf('<img src="%s" />', Html::encode($battle->battleImageResult->url));
-            }
-            if ($battle->battleImageJudge) {
-                $html .= sprintf('<img src="%s" />', Html::encode($battle->battleImageJudge->url));
-            }
-            $html .= '</p>';
+            $html .= Html::tag('p', implode('', [
+                $battle->battleImageResult
+                    ? sprintf('<img src="%s" />', Html::encode($battle->battleImageResult->url))
+                    : '',
+                $battle->battleImageJudge
+                    ? sprintf('<img src="%s" />', Html::encode($battle->battleImageJudge->url))
+                    : '',
+            ]));
         }
         $dl = [];
         $_ = function ($label, $value) use (&$dl) {
@@ -330,10 +352,9 @@ class User2Action extends BaseAction
         if ($battle->is_win !== null) {
             $__('Result', $battle->is_win ? 'Won' : 'Lost', 'app');
             if ($battle->isGachi && $battle->is_knockout !== null) {
-                $dl[] = Html::tag(
-                    'dt',
-                    Html::encode(Yii::t('app', $battle->is_knockout ? 'Knockout' : 'Time is up', [], $lang))
-                );
+                $dl[] = Html::tag('dt', Html::encode(
+                    Yii::t('app', $battle->is_knockout ? 'Knockout' : 'Time is up', [], $lang)
+                ));
             }
         }
         if ($battle->kill !== null && $battle->death !== null) {

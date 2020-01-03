@@ -1,15 +1,20 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2017 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2020 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
 
+declare(strict_types=1);
+
 namespace app\controllers;
 
+use DOMDocument;
+use Laminas\Feed\Writer\Feed as FeedWriter;
 use Yii;
-use Zend\Feed\Writer\Feed as FeedWriter;
+use app\actions\ostatus\FeedAction;
+use app\actions\ostatus\StartRemoteFollowAction;
 use app\models\OstatusRsa;
 use app\models\User;
 use app\models\api\internal\PubsubhubbubForm;
@@ -52,9 +57,9 @@ class OstatusController extends Controller
     public function actions()
     {
         return [
-            'battle-atom' => 'app\actions\ostatus\FeedAction',
-            'feed' => 'app\actions\ostatus\FeedAction',
-            'start-remote-follow' => 'app\actions\ostatus\StartRemoteFollowAction',
+            'battle-atom' => FeedAction::class,
+            'feed' => FeedAction::class,
+            'start-remote-follow' => StartRemoteFollowAction::class,
         ];
     }
 
@@ -64,8 +69,10 @@ class OstatusController extends Controller
         $resp->format = 'raw';
         $resp->headers->set('Content-Type', 'text/plain');
 
-        $doc = new \DOMDocument('1.0', 'UTF-8');
-        $root = $doc->appendChild($doc->createElementNS('http://docs.oasis-open.org/ns/xri/xrd-1.0', 'XRD'));
+        $doc = new DOMDocument('1.0', 'UTF-8');
+        $root = $doc->appendChild(
+            $doc->createElementNS('http://docs.oasis-open.org/ns/xri/xrd-1.0', 'XRD')
+        );
 
         $elem = $root->appendChild($doc->createElement('Link'));
         $elem->setAttribute('rel', 'lrdd');
@@ -97,7 +104,10 @@ class OstatusController extends Controller
         $url = Url::to(['/show/user', 'screen_name' => $user->screen_name], true);
         $salmon = Url::to(['/ostatus/salmon', 'screen_name' => $user->screen_name], true);
         return [
-            'subject' => sprintf('acct:%s@%s', $user->screen_name, strtolower(Yii::$app->request->hostName)),
+            'subject' => vsprintf('acct:%s@%s', [
+                $user->screen_name,
+                strtolower(Yii::$app->request->hostName),
+            ]),
             'aliases' => [
                 $url,
             ],

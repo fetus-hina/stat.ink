@@ -32,6 +32,9 @@
         "jp3cki/yii2-momentjs": "^1.0",
         "jp3cki/yii2-twitter-widget": "^1.0",
         "jp3cki/yii2-zxcvbn": "^1.0",
+        "laminas/laminas-feed": "^2.12.0",
+        "laminas/laminas-http": "^2.11.0",
+        "laminas/laminas-uri": "^2.7",
         "lusitanian/oauth": "^0.8.9",
         "php-curl-class/php-curl-class": "^8.0",
         "phpseclib/phpseclib": "^2.0",
@@ -54,10 +57,7 @@
         "yiisoft/yii2-bootstrap": "*",
         "yiisoft/yii2-queue": "*",
         "yiisoft/yii2-smarty": "*",
-        "yiisoft/yii2-swiftmailer": "^2.1",
-        "zendframework/zend-feed": "^2.6",
-        "zendframework/zend-http": "^2.5",
-        "zendframework/zend-uri": "^2.5"
+        "yiisoft/yii2-swiftmailer": "^2.1"
     },
     "require-dev": {
         "codeception/base": "^3.0.0",

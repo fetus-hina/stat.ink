@@ -1,20 +1,23 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2016 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2020 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
 
+declare(strict_types=1);
+
 namespace app\commands;
 
+use Exception;
+use Laminas\Feed\Reader\Reader as FeedReader;
+use Laminas\Validator\Uri as UriValidator;
 use Yii;
-use Zend\Feed\Reader\Reader as FeedReader;
-use Zend\Validator\Uri as UriValidator;
+use app\models\BlogEntry;
 use jp3cki\uuid\NS as UuidNS;
 use jp3cki\uuid\Uuid;
 use yii\console\Controller;
-use app\models\BlogEntry;
 
 class BlogFeedController extends Controller
 {
@@ -78,7 +81,7 @@ class BlogFeedController extends Controller
             echo "Could not create new blog entry\n";
             var_dump($model->attributes);
             var_dump($model->getErrors());
-            throw new \Exception('Could not create new blog entry');
+            throw new Exception('Could not create new blog entry');
         }
         echo "Registered new blog entry\n";
         printf("  #%d, %s %s\n", $model->id, $model->url, $model->title);
