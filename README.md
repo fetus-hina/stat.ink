@@ -31,16 +31,17 @@ Use a private channel if it is a security issue.
 REQUIREMENTS
 ------------
 
-* PHP 7.3+
+- PHP 7.3+
   - Doesn't work with 7.2 or lower. (Uses statements and constants added in v7.3)
   - You should build/install with Argon2. [Install `php-sodium` if you use remirepo's PHP 7.4](https://github.com/remicollet/remirepo/issues/132#issuecomment-566513636).
-* PostgreSQL 9.5+ (Recommended: 11+)
+- PostgreSQL 9.5+ (Recommended: 11+)
   - Doesn't work with 9.4 or lower. (Uses features added in v9.5) 
-* ImageMagick (`convert`)
-* Node.js (`npm`)
+- ImageMagick (`convert`)
+- Node.js (`npm`)
   - Recommended: latest release or latest LTS
-* `jpegoptim`
-* Brotli (`brotli` or `bro`)
+- `jpegoptim`
+- Brotli (`brotli` or `bro`)
+- MaxMind's account
 
 https://stat.ink/ works with:
 
@@ -76,6 +77,27 @@ https://stat.ink/ works with:
 　PgSQL 9.5 で追加された機能を使用しています（jsonb 型、UPSERT など）<br>
 　実際のサーバでは PgSQL 11 を使用していますが、現時点では 9.5 で充分動作するはずです。<br>
 　ただし、将来必要が生じた場合はためらわずに PgSQL 10 (以降) に依存させます。
+
+
+### MaxMind's Account
+
+Stat.ink uses the GeoIP database for purposes such as detecting the user's time zone.  
+You need to register an account on MaxMind to download the database (No additional cost required).
+
+  1. [Sign up for MaxMind account](https://www.maxmind.com/en/geolite2/signup) (or just log in)
+  2. Access to "My License Key" page and click "Generate new license key."
+  3. Fill in "License key description" and issue a license key.
+  4. Note the license key. The license key won't be displayed again.
+
+After issuing the license key, set the license key to the environment variable "`GEOIP_LICENSE_KEY`".  
+If you are using bash, you may want to add the following to your `~/.bashrc`:
+
+```sh
+export GEOIP_LICENSE_KEY=ABCDEFGHIJKLMNOP
+```
+
+After editing `.bashrc`, reopen the shell or remember `source ~/.bashrc`.
+
 
 使い方 HOW TO USE (DEVELOPER)
 -----------------------------

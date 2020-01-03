@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2018 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2020 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -10,9 +10,9 @@ declare(strict_types=1);
 
 namespace app\commands;
 
+use Laminas\Http\Client as HttpClient;
 use Normalizer;
 use Yii;
-use Zend\Http\Client as HttpClient;
 use app\components\helpers\I18n as I18nHelper;
 use app\models\Gear2;
 use app\models\GearType;
@@ -245,7 +245,6 @@ class Splatoon2InkI18nController extends Controller
             fprintf(STDERR, "Unknown type: %s\n", $type);
             return 1;
         }
-
         $status = $this->update($locale, 'gear2', $jsonKey, ArrayHelper::map(
             Gear2::find()
                 ->andWhere(['and',

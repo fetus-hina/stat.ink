@@ -1,23 +1,26 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2016 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2020 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
 
+declare(strict_types=1);
+
 namespace app\components\widgets;
 
+use Exception;
+use Laminas\Uri\Http as HttpUri;
+use Laminas\Uri\UriFactory;
 use Yii;
-use Zend\Uri\UriFactory;
-use Zend\Uri\Http as HttpUri;
 use yii\base\Widget;
 
 class EmbedVideo extends Widget
 {
     public $url;
 
-    public static function isSupported($url)
+    public static function isSupported($url): bool
     {
         return !!static::factory($url);
     }
@@ -28,11 +31,12 @@ class EmbedVideo extends Widget
         return $instance ? $instance->run() : '';
     }
 
-    protected static function factory($url)
+    protected static function factory($url): ?Widget
     {
         if ($url == '') {
             return null;
         }
+
         try {
             $uri = UriFactory::factory($url);
             if (!$uri->isValid() || !$uri instanceof HttpUri) {
@@ -71,7 +75,7 @@ class EmbedVideo extends Widget
                     ]);
                 }
             }
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
         }
         return null;
     }

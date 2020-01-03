@@ -1,12 +1,14 @@
 <?php
+
 /**
- * @copyright Copyright (C) 2016 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2020 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
 
-use Zend\Uri\UriFactory;
-use Zend\Uri\Http;
+use Exception;
+use Laminas\Uri\Http;
+use Laminas\Uri\UriFactory;
 
 function smarty_modifier_decode_idn($url)
 {
@@ -26,7 +28,7 @@ function smarty_modifier_decode_idn($url)
         }
 
         return $uri->__toString();
-    } catch (\Exception $e) {
+    } catch (Exception $e) {
     }
     return $url;
 }

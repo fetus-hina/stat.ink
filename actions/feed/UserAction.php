@@ -1,16 +1,23 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2016 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2020 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  * @author Allen Pestaluky <allenwp@live.ca>
  */
 
+declare(strict_types=1);
+
 namespace app\actions\feed;
 
+use DateTimeImmutable;
+use DateTimeZone;
+use Laminas\Feed\Writer\Feed as FeedWriter;
 use Yii;
-use Zend\Feed\Writer\Feed as FeedWriter;
+use app\models\Battle;
+use app\models\Language;
+use app\models\User;
 use jp3cki\uuid\NS as UuidNS;
 use jp3cki\uuid\Uuid;
 use yii\base\DynamicModel;
@@ -18,9 +25,6 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\web\NotFoundHttpException;
 use yii\web\ViewAction as BaseAction;
-use app\models\Battle;
-use app\models\Language;
-use app\models\User;
 
 class UserAction extends BaseAction
 {
@@ -70,14 +74,18 @@ class UserAction extends BaseAction
             return ['error' => 'something happend'];
         }
 
+        $now = (new DateTimeImmutable())
+            ->setTimeZone(new DateTimeZone('Etc/UTC'))
+            ->setTimestamp((int)($_SERVER['REQUEST_TIME'] ?? time()));
+
         $feed = new FeedWriter();
         $feed->setGenerator(
             sprintf(
                 '%s/%s %s/%s',
                 Yii::$app->name,
                 Yii::$app->version,
-                'Zend-Feed-Writer',
-                \Zend\Feed\Writer\Version::VERSION
+                'Laminas-Feed-Writer',
+                \Laminas\Feed\Writer\Version::VERSION
             ),
             Yii::$app->version,
             Url::home(true)
@@ -99,8 +107,10 @@ class UserAction extends BaseAction
             )
         );
         $feed->setId(
-            Uuid::v5(UuidNS::url(), Url::to(['show-compat/user', 'screen_name' => $user->screen_name], true))
-                ->formatAsUri()
+            Uuid::v5(
+                UuidNS::url(),
+                Url::to(['show-compat/user', 'screen_name' => $user->screen_name], true)
+            )->formatAsUri()
         );
         $feed->setLink(
             Url::to(['show/user', 'screen_name' => $user->screen_name], true)
@@ -130,12 +140,12 @@ class UserAction extends BaseAction
             ],
         ]);
         $feed->setCopyright(
-            sprintf('Copyright (C) 2015-%s AIZAWA Hina', date('Y', $_SERVER['REQUEST_TIME'] ?? time()))
+            sprintf('Copyright (C) 2015-%s AIZAWA Hina', $now->format('Y'))
         );
         $feed->setLanguage($model->lang);
         $feed->setEncoding('UTF-8');
-        $feed->setDateModified($_SERVER['REQUEST_TIME'] ?? time());
-        $feed->setLastBuildDate($_SERVER['REQUEST_TIME'] ?? time());
+        $feed->setDateModified((int)$now->getTimestamp());
+        $feed->setLastBuildDate((int)$now->getTimestamp());
         $feed->setBaseUrl(Url::home(true));
 
         //FIXME

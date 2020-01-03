@@ -1,10 +1,12 @@
 <?php
+
 declare(strict_types=1);
 
 use app\assets\TableResponsiveForceAsset;
 use app\components\widgets\BrowserIconWidget;
 use app\components\widgets\FA;
 use app\components\widgets\LocationColumnWidget;
+use app\components\widgets\MaxmindMessage;
 use app\components\widgets\OsIconWidget;
 use app\models\UserLoginHistory;
 use yii\grid\GridView;
@@ -92,10 +94,10 @@ $this->title = implode(' | ', [
       ],
     ]) . "\n" ?>
   </div>
-  <p>
-    <small>
-      This product includes GeoLite2 data created by MaxMind, available from
-      <a href="https://www.maxmind.com">https://www.maxmind.com</a>.
-    </small>
-  </p>
+  <?= MaxmindMessage::widget([
+    'options' => [
+      'tag' => 'p',
+      'class' => 'small text-muted',
+    ],
+  ]) . "\n" ?>
 </div>
