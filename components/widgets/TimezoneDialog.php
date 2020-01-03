@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2019 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2020 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -235,49 +235,35 @@ class TimezoneDialog extends Dialog
                 'div',
                 implode('', [
                     Html::tag(
-                        'span',
+                        'div',
                         implode('', [
-                            Html::encode(Yii::t('app', 'Guessed by your IP:')),
-                            ' ',
-                            Html::tag(
-                                'span',
-                                Html::encode(Yii::t('app', 'Unknown')),
-                                [
-                                    'class' => 'guessed-timezone',
-                                    'data' => [
-                                        'error' => Yii::t('app', 'Error'),
-                                        'loading' => Yii::t('app', 'Loading...'),
-                                        'tooltip' => Yii::t('app', 'GeoIP guessed {timezone}'),
-                                        'unknown' => Yii::t('app', 'Unknown'),
-                                    ],
-                                ]
-                            ),
-                            ' ',
-                            Html::a(
-                                (string)FA::fas('question-circle'),
-                                'https://github.com/fetus-hina/stat.ink/wiki/Time-Zone-Detection',
-                                [
-                                    'rel' => 'external',
-                                    'target' => '_blank',
-                                ]
-                            ),
-                            '<br>',
-                            Html::tag(
-                                'span',
-                                implode('', [
-                                    'This product includes GeoLite2 data created by MaxMind, ',
-                                    'available from ',
-                                    Html::a(
-                                        'https://www.maxmind.com/',
-                                        'https://www.maxmind.com/',
-                                        [
-                                            'rel' => 'external nofollow',
-                                            'target' => '_blank',
-                                        ]
-                                    ),
-                                ]),
-                                ['class' => 'very-small']
-                            ),
+                            Html::tag('div', implode('', [
+                                Html::encode(Yii::t('app', 'Guessed by your IP:')),
+                                ' ',
+                                Html::tag(
+                                    'span',
+                                    Html::encode(Yii::t('app', 'Unknown')),
+                                    [
+                                        'class' => 'guessed-timezone',
+                                        'data' => [
+                                            'error' => Yii::t('app', 'Error'),
+                                            'loading' => Yii::t('app', 'Loading...'),
+                                            'tooltip' => Yii::t('app', 'GeoIP guessed {timezone}'),
+                                            'unknown' => Yii::t('app', 'Unknown'),
+                                        ],
+                                    ]
+                                ),
+                                ' ',
+                                Html::a(
+                                    (string)FA::fas('question-circle'),
+                                    'https://github.com/fetus-hina/stat.ink/wiki/Time-Zone-Detection',
+                                    [
+                                        'rel' => 'external',
+                                        'target' => '_blank',
+                                    ]
+                                ),
+                            ])),
+                            MaxmindMessage::widget(),
                         ])
                     ),
                     $close,
