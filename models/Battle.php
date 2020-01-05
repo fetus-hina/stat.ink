@@ -1093,17 +1093,19 @@ class Battle extends ActiveRecord
         return \app\components\ability\Effect::factory($this);
     }
 
-    public function getExtraData()
+    public function getExtraData(): array
     {
         $json = $this->ua_variables;
         if ($json == '') {
             return [];
         }
-        return (function () use ($json) {
-            $decoded = @json_decode($json, true);
+
+        return (function () use ($json): array {
+            $decoded = is_array($json) ? $json : @json_decode($json, true);
             if (!$decoded) {
                 return [];
             }
+
             $ret = [];
             foreach ($decoded as $key => $value) {
                 $key = str_replace('_', ' ', $key);

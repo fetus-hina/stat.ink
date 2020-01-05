@@ -45,9 +45,12 @@ RESOURCE_TARGETS_MAIN := \
 	resources/.compiled/stat.ink/battle-list-config.js \
 	resources/.compiled/stat.ink/battle-list-group-header.css \
 	resources/.compiled/stat.ink/battle-list.js \
+	resources/.compiled/stat.ink/battle-private-note.js \
+	resources/.compiled/stat.ink/battle-smooth.js \
 	resources/.compiled/stat.ink/battle-summary-dialog.js \
 	resources/.compiled/stat.ink/battle-thumb-list.css \
 	resources/.compiled/stat.ink/battle-thumb-list.js \
+	resources/.compiled/stat.ink/battle-timeline.js \
 	resources/.compiled/stat.ink/battle2-players-point-inked.js \
 	resources/.compiled/stat.ink/battles-simple.css \
 	resources/.compiled/stat.ink/blackout-hint.css \
@@ -75,6 +78,7 @@ RESOURCE_TARGETS_MAIN := \
 	resources/.compiled/stat.ink/freshness-history.css \
 	resources/.compiled/stat.ink/freshness-history.js \
 	resources/.compiled/stat.ink/game-modes.css \
+	resources/.compiled/stat.ink/hsv2rgb.js \
 	resources/.compiled/stat.ink/ie-warning.css \
 	resources/.compiled/stat.ink/ie-warning.js \
 	resources/.compiled/stat.ink/inline-list.css \
@@ -334,9 +338,12 @@ resources/.compiled/stat.ink/battle-input.css: resources/stat.ink/battle-input.l
 resources/.compiled/stat.ink/battle-list-config.js: resources/stat.ink/battle-list-config.es node_modules
 resources/.compiled/stat.ink/battle-list-group-header.css: resources/stat.ink/battle-list-group-header.less node_modules
 resources/.compiled/stat.ink/battle-list.js: resources/stat.ink/battle-list.es node_modules
+resources/.compiled/stat.ink/battle-private-note.js: resources/stat.ink/battle-private-note.es node_modules
+resources/.compiled/stat.ink/battle-smooth.js: resources/stat.ink/battle-smooth.es node_modules
 resources/.compiled/stat.ink/battle-summary-dialog.js: resources/stat.ink/battle-summary-dialog.es node_modules
 resources/.compiled/stat.ink/battle-thumb-list.css: resources/stat.ink/battle-thumb-list.less node_modules
 resources/.compiled/stat.ink/battle-thumb-list.js: resources/stat.ink/battle-thumb-list.es node_modules
+resources/.compiled/stat.ink/battle-timeline.js: resources/stat.ink/battle-timeline.es node_modules
 resources/.compiled/stat.ink/battle2-players-point-inked.js: resources/stat.ink/battle2-players-point-inked.es node_modules
 resources/.compiled/stat.ink/battles-simple.css: resources/stat.ink/battles-simple.less node_modules
 resources/.compiled/stat.ink/blackout-hint.css: resources/stat.ink/blackout-hint.less node_modules
@@ -363,6 +370,7 @@ resources/.compiled/stat.ink/fluid-layout.js: resources/stat.ink/fluid-layout.es
 resources/.compiled/stat.ink/freshness-history.css: resources/stat.ink/freshness-history.less node_modules
 resources/.compiled/stat.ink/freshness-history.js: resources/stat.ink/freshness-history.es node_modules
 resources/.compiled/stat.ink/game-modes.css: resources/stat.ink/game-modes.less node_modules
+resources/.compiled/stat.ink/hsv2rgb.js: resources/stat.ink/hsv2rgb.es node_modules
 resources/.compiled/stat.ink/ie-warning.css: resources/stat.ink/ie-warning.less node_modules
 resources/.compiled/stat.ink/ie-warning.js: resources/stat.ink/ie-warning.es node_modules
 resources/.compiled/stat.ink/inline-list.css: resources/stat.ink/inline-list.less node_modules
