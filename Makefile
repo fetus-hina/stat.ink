@@ -167,7 +167,6 @@ init: \
 	composer.phar \
 	composer-update \
 	vendor \
-	vendor/smarty/smarty/libs/sysplugins/smarty_internal_templatecompilerbase.php \
 	node_modules \
 	$(SIMPLE_CONFIG_TARGETS) \
 	config/version.php \
@@ -603,10 +602,6 @@ runtime/ikalog/repo:
 
 runtime/ikalog/winikalog.html: FORCE
 	curl -fsSL -o $@ 'https://hasegaw.github.io/IkaLog/'
-
-vendor/smarty/smarty/libs/sysplugins/smarty_internal_templatecompilerbase.php: vendor FORCE
-	head -n 815 vendor/smarty/smarty/libs/sysplugins/smarty_internal_templatecompilerbase.php | tail -n 10 | grep '\\1 \\2' > /dev/null && \
-		patch -d vendor/smarty/smarty -p1 -Nst < data/patch/smarty-strip.patch || /bin/true
 
 $(VENDOR_ARCHIVE_SIGN): $(VENDOR_ARCHIVE_FILE)
 	gpg -s -u 0xF6B887CD --detach-sign -a $<
