@@ -1,15 +1,18 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2017 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2020 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
+
+declare(strict_types=1);
 
 namespace app\models;
 
 use Yii;
 use app\components\helpers\Translator;
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
 
@@ -20,6 +23,7 @@ use yii\helpers\ArrayHelper;
  * @property string $key
  * @property string $name
  * @property integer $splatnet
+ * @property boolean $primary_only
  *
  * @property Brand2[] $strengthBrands
  * @property Brand2[] $weaknessBrands
@@ -46,6 +50,7 @@ class Ability2 extends ActiveRecord
             [['key', 'name'], 'required'],
             [['splatnet'], 'default', 'value' => null],
             [['splatnet'], 'integer'],
+            [['primary_only'], 'boolean'],
             [['key', 'name'], 'string', 'max' => 32],
             [['key'], 'unique'],
             [['splatnet'], 'unique'],
@@ -62,13 +67,14 @@ class Ability2 extends ActiveRecord
             'key' => 'Key',
             'name' => 'Name',
             'splatnet' => 'Splatnet',
+            'primary_only' => 'Primary Only',
         ];
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getStrengthBrands()
+    public function getStrengthBrands(): ActiveQuery
     {
         return $this->hasMany(Brand2::class, ['strength_id' => 'id']);
     }
@@ -76,7 +82,7 @@ class Ability2 extends ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getWeaknessBrands()
+    public function getWeaknessBrands(): ActiveQuery
     {
         return $this->hasMany(Brand2::class, ['weakness_id' => 'id']);
     }
@@ -84,7 +90,7 @@ class Ability2 extends ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getGears()
+    public function getGears(): ActiveQuery
     {
         return $this->hasMany(Gear2::class, ['ability_id' => 'id']);
     }

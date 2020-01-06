@@ -38,7 +38,7 @@ class BattleAction extends BaseAction
             ]);
         }
 
-        return $this->controller->render('battle.tpl', [
+        return $this->controller->render('battle', [
             'battle' => $battle,
         ]);
     }

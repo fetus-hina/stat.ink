@@ -1,19 +1,22 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2017 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2020 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
 
+declare(strict_types=1);
+
 namespace app\actions\show\v2;
 
 use Yii;
-use yii\web\NotFoundHttpException;
-use yii\web\ViewAction as BaseAction;
+use app\components\helpers\DateTimeFormatter;
 use app\models\Battle2;
 use app\models\User;
-use app\components\helpers\DateTimeFormatter;
+use yii\helpers\ArrayHelper;
+use yii\web\NotFoundHttpException;
+use yii\web\ViewAction as BaseAction;
 
 class BattleAction extends BaseAction
 {
@@ -30,6 +33,21 @@ class BattleAction extends BaseAction
                 'hisTeamPlayers',
                 'hisTeamPlayers.rank',
             ])
+            ->with(ArrayHelper::toFlatten(array_map(
+                function (string $base): array {
+                    return [
+                        "{$base}",
+                        "{$base}.primaryAbility",
+                        "{$base}.gear",
+                        "{$base}.secondaries.ability",
+                    ];
+                },
+                [
+                    'headgear',
+                    'clothing',
+                    'shoes',
+                ]
+            )))
             ->limit(1)
             ->one();
         if (!$battle || !$battle->user) {
