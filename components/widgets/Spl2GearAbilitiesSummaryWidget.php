@@ -91,14 +91,24 @@ class Spl2GearAbilitiesSummaryWidget extends Widget
                     ],
                     [
                         'label' => Yii::t('app', '5.7 Fmt'),
-                        'format' => ['decimal', 1],
-                        'value' => function (array $row): float {
-                            return $row['primary'] + $row['secondary'] * 0.3;
+                        'value' => function (array $row, $key, $index, Column $column): string {
+                            if ($row['ability']->primary_only) {
+                                return Yii::t('app', 'Set');
+                            }
+
+                            return $column->grid->formatter->asDecimal(
+                                $row['primary'] + $row['secondary'] * 0.3,
+                                1
+                            );
                         },
                     ],
                     [
                         'label' => Yii::t('app', '3,9 Fmt'),
                         'value' => function (array $row, $key, $index, Column $column): string {
+                            if ($row['ability']->primary_only) {
+                                return Yii::t('app', 'Set');
+                            }
+
                             $fmt = $column->grid->formatter;
                             $decimal = $fmt->asDecimal(0.5, 1);
                             return vsprintf('%s%s %s', [
@@ -110,9 +120,14 @@ class Spl2GearAbilitiesSummaryWidget extends Widget
                     ],
                     [
                         'label' => Yii::t('app', '57 Fmt'),
-                        'format' => 'integer',
-                        'value' => function (array $row): float {
-                            return $row['primary'] * 10 + $row['secondary'] * 3;
+                        'value' => function (array $row, $key, $index, Column $column): string {
+                            if ($row['ability']->primary_only) {
+                                return Yii::t('app', 'Set');
+                            }
+
+                            return $column->grid->formatter->asInteger(
+                                $row['primary'] * 10 + $row['secondary'] * 3
+                            );
                         },
                     ],
                 ],
@@ -168,6 +183,11 @@ class Spl2GearAbilitiesSummaryWidget extends Widget
         }
 
         usort($results, function (array $a, array $b): int {
+            // メインにしかつかないやつは後回し
+            if ($a['ability']->primary_only !== $b['ability']->primary_only) {
+                return $a['ability']->primary_only ? 1 : -1;
+            }
+
             $aPower = $a['primary'] * 10 + $a['secondary'];
             $bPower = $b['primary'] * 10 + $b['secondary'];
             return $bPower <=> $aPower

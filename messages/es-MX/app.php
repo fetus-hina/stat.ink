@@ -404,6 +404,7 @@ return [
     'Secondary Abilities' => 'Potenciadors secundarias',
     'Sent an email to your email address. Please check your mailbox and get the verification code.' => '',
     'Session History' => '',
+    'Set' => '',
     'Settings' => 'Configuración',
     'Show All Players' => 'Mostrar todos los jugadores',
     'Show moving averages' => 'Mostrar las medias móviles',
