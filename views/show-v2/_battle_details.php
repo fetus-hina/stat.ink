@@ -836,10 +836,11 @@ use yii\widgets\DetailView;
       ),
       'format' => 'raw',
       'value' => function (Battle2 $model) : ?string {
-        if ($model->headgear_id === null &&
+        if (
+          $model->headgear_id === null &&
           $model->clothing_id === null &&
-          $model->shoes_id === null)
-        {
+          $model->shoes_id === null
+        ) {
           return null;
         }
 

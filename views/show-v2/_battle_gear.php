@@ -2,17 +2,18 @@
 
 declare(strict_types=1);
 
+use app\components\widgets\Spl2GearAbilitiesSummaryWidget;
 use app\models\GearConfiguration2;
 use yii\helpers\Html;
 
 $gears = [
-    $headgear,
-    $clothing,
-    $shoes,
+  $headgear,
+  $clothing,
+  $shoes,
 ];
 ?>
 <div class="table-responsive">
-  <table class="table table-bordered table-condensed" style="margin-bottom:0">
+  <table class="table table-bordered table-condensed m-0">
     <thead>
       <tr>
         <th></th>
@@ -22,7 +23,7 @@ $gears = [
       </tr>
     </thead>
     <tbody>
-<?php if ($headgear->gear_id || $clothing->gear_id || $shoes->gear_id) { ?>
+<?php if ($headgear->gear || $clothing->gear || $shoes->gear) { ?>
       <tr>
         <th scope="row"><?= Html::encode(Yii::t('app', 'Gear')) ?></th>
         <?= implode('', array_map(
@@ -74,3 +75,8 @@ $gears = [
     </tbody>
   </table>
 </div>
+<?= Spl2GearAbilitiesSummaryWidget::widget([
+  'headgear' => $headgear,
+  'clothing' => $clothing,
+  'shoes' => $shoes,
+]) . "\n" ?>
