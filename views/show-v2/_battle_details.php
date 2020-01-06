@@ -1,4 +1,5 @@
 <?php
+
 use app\assets\BattleEditAsset;
 use app\assets\FontAwesomeAsset;
 use app\assets\PhotoSwipeSimplifyAsset;
