@@ -59,7 +59,7 @@ class Spl2GearAbilitiesSummaryWidget extends Widget
                 ],
                 'columns' => [
                     [
-                        'label' => Yii::t('app', 'Special'),
+                        'label' => Yii::t('app-gearstat', 'Gear Abilities'),
                         'format' => 'raw',
                         'value' => function (array $row): string {
                             return implode('', [
