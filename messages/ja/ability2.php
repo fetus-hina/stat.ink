@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2015-2019 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2020 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -16,6 +16,16 @@ return [
     'Comeback' => 'カムバック',
     'Drop Roller' => '受け身術',
     'Haunt' => 'リベンジ',
+    'Increase brella canopy durability' => 'カサ耐久力アップ',
+    'Increase bullet velocity' => '弾速アップ',
+    'Increase damage from higher grounds' => '高低差によるダメージ減衰の緩和',
+    'Increase damage' => 'ダメージアップ',
+    'Increase duration of firing' => '射撃継続時間アップ',
+    'Increase high-damage radius of explosions' => '大ダメージを与える爆発範囲アップ',
+    'Increase ink coverage' => '塗り性能アップ',
+    'Increase movement speed' => '塗りながら進むスピードアップ',
+    'Increase range' => '射程アップ',
+    'Increase shot accuracy' => 'ジャンプ時のブレ軽減',
     'Ink Recovery Up' => 'インク回復力アップ',
     'Ink Resistance Up' => '相手インク影響軽減',
     'Ink Saver (Main)' => 'インク効率アップ（メイン）',
@@ -32,6 +42,7 @@ return [
     'Special Charge Up' => 'スペシャル増加量アップ',
     'Special Power Up' => 'スペシャル性能アップ',
     'Special Saver' => 'スペシャル減少量ダウン',
+    'Speed up brella canopy regeneration' => 'カサ復活時間短縮',
     'Stealth Jump' => 'ステルスジャンプ',
     'Sub Power Up' => 'サブ性能アップ',
     'Swim Speed Up' => 'イカダッシュ速度アップ',

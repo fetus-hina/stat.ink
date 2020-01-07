@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2019 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2020 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -43,6 +43,7 @@ return [
     'Deaths per battle' => 'バトルあたりのデス数（平均デス）',
     'Deaths per minute' => '1分あたりのデス数',
     'Do not rely on this behavior.' => 'この挙動に依存しないでください。',
+    'Effects' => '効果',
     'End time of this shift' => 'このバイトの終了時間',
     'Event information' => 'イベント情報',
     'Event' => 'イベント',
@@ -109,6 +110,7 @@ return [
     'Kills per battle' => 'バトルあたりのキル数（平均キル）',
     'Kills per minute' => '1分あたりのキル数',
     'Last updated at' => '最終更新日時',
+    'Main Power Up effects information' => 'メイン性能アップの効果情報',
     'Max records to get' => '最大取得レコード数',
     'Maximum inked' => '最大塗った面積',
     'Mode information' => 'ルール情報',

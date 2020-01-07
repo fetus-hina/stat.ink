@@ -1,10 +1,12 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2017 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2020 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
+
+declare(strict_types=1);
 
 namespace app\actions\api\v2;
 
@@ -24,12 +26,13 @@ class WeaponAction extends BaseAction
 
         $query = Weapon2::find()
             ->with([
+                'canonical',
+                'mainPowerUp',
+                'mainReference',
+                'special',
+                'subweapon',
                 'type',
                 'type.category',
-                'subweapon',
-                'special',
-                'canonical',
-                'mainReference',
             ])
             ->orderBy('[[id]]');
 
@@ -45,7 +48,7 @@ class WeaponAction extends BaseAction
         }
     }
 
-    protected function formatJson(ActiveQuery $query)
+    protected function formatJson(ActiveQuery $query): array
     {
         return array_map(
             function (Weapon2 $weapon): array {
@@ -55,7 +58,7 @@ class WeaponAction extends BaseAction
         );
     }
 
-    protected function formatCsv(ActiveQuery $query)
+    protected function formatCsv(ActiveQuery $query): array
     {
         $resp = Yii::$app->response;
         $resp->setDownloadHeaders('statink-weapon2.csv', 'text/csv; charset=UTF-8');

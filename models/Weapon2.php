@@ -1,15 +1,18 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2019 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2020 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
+
+declare(strict_types=1);
 
 namespace app\models;
 
 use Yii;
 use app\components\helpers\Translator;
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
 
@@ -50,31 +53,47 @@ class Weapon2 extends ActiveRecord
     public function rules()
     {
         return [
-            [['key', 'type_id', 'subweapon_id', 'special_id', 'name'], 'required'],
-            [['canonical_id', 'main_group_id'], 'required'],
+            [['key', 'type_id', 'subweapon_id', 'special_id', 'name', 'canonical_id'], 'required'],
+            [['main_group_id', 'main_power_up_id'], 'required'],
+            [['type_id', 'subweapon_id', 'special_id', 'canonical_id', 'main_group_id'], 'default',
+                'value' => null,
+            ],
+            [['splatnet', 'main_power_up_id'], 'default',
+                'value' => null,
+            ],
             [['type_id', 'subweapon_id', 'special_id', 'canonical_id', 'main_group_id'], 'integer'],
-            [['key'], 'string', 'max' => 32],
-            [['name'], 'string', 'max' => 32],
+            [['splatnet', 'main_power_up_id'], 'integer'],
+            [['key', 'name'], 'string', 'max' => 32],
+            [['splatnet'], 'unique'],
             [['key'], 'unique'],
             [['name'], 'unique'],
-            [['splatnet'], 'integer'],
-            [['special_id'], 'exist', 'skipOnError' => true,
+            [['main_power_up_id'], 'exist',
+                'skipOnError' => true,
+                'targetClass' => MainPowerUp2::class,
+                'targetAttribute' => ['main_power_up_id' => 'id'],
+            ],
+            [['special_id'], 'exist',
+                'skipOnError' => true,
                 'targetClass' => Special2::class,
                 'targetAttribute' => ['special_id' => 'id'],
             ],
-            [['subweapon_id'], 'exist', 'skipOnError' => true,
+            [['subweapon_id'], 'exist',
+                'skipOnError' => true,
                 'targetClass' => Subweapon2::class,
                 'targetAttribute' => ['subweapon_id' => 'id'],
             ],
-            [['canonical_id'], 'exist', 'skipOnError' => true,
-                'targetClass' => Weapon2::class,
+            [['canonical_id'], 'exist',
+                'skipOnError' => true,
+                'targetClass' => self::class,
                 'targetAttribute' => ['canonical_id' => 'id'],
             ],
-            [['main_group_id'], 'exist', 'skipOnError' => true,
-                'targetClass' => Weapon2::class,
+            [['main_group_id'], 'exist',
+                'skipOnError' => true,
+                'targetClass' => self::class,
                 'targetAttribute' => ['main_group_id' => 'id'],
             ],
-            [['type_id'], 'exist', 'skipOnError' => true,
+            [['type_id'], 'exist',
+                'skipOnError' => true,
                 'targetClass' => WeaponType2::class,
                 'targetAttribute' => ['type_id' => 'id'],
             ],
@@ -95,50 +114,42 @@ class Weapon2 extends ActiveRecord
             'name' => 'Name',
             'canonical_id' => 'Canonical ID',
             'main_group_id' => 'Main Group ID',
+            'splatnet' => 'Splatnet',
+            'main_power_up_id' => 'Main Power Up ID',
         ];
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getSpecial()
+    public function getSpecial(): ActiveQuery
     {
         return $this->hasOne(Special2::class, ['id' => 'special_id']);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getSubweapon()
+    public function getSubweapon(): ActiveQuery
     {
         return $this->hasOne(Subweapon2::class, ['id' => 'subweapon_id']);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getCanonical()
+    public function getCanonical(): ActiveQuery
     {
         return $this->hasOne(Weapon2::class, ['id' => 'canonical_id']);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getMainReference()
+    public function getMainReference(): ActiveQuery
     {
         return $this->hasOne(Weapon2::class, ['id' => 'main_group_id']);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getType()
+    public function getType(): ActiveQuery
     {
         return $this->hasOne(WeaponType2::class, ['id' => 'type_id']);
     }
 
-    public function toJsonArray()
+    public function getMainPowerUp(): ActiveQuery
+    {
+        return $this->hasOne(MainPowerUp2::class, ['id' => 'main_power_up_id']);
+    }
+
+    public function toJsonArray(): array
     {
         return [
             'key' => $this->key,
@@ -153,6 +164,7 @@ class Weapon2 extends ActiveRecord
             'main_ref' => $this->id === $this->main_group_id
                 ? $this->key
                 : $this->mainReference->key,
+            'main_power_up' => $this->mainPowerUp->toJsonArray(),
         ];
     }
 
@@ -190,6 +202,7 @@ class Weapon2 extends ActiveRecord
                 'main_ref' => array_merge(static::oapiKey(), [
                     'description' => Yii::t('app-apidoc2', 'This points to the main weapon.'),
                 ]),
+                'main_power_up' => static::oapiRef(MainPowerUp2::class),
             ],
             'example' => $values[0]->toJsonArray(),
         ];
@@ -198,6 +211,7 @@ class Weapon2 extends ActiveRecord
     public static function openApiDepends(): array
     {
         return [
+            MainPowerUp2::class,
             Special2::class,
             Subweapon2::class,
             WeaponType2::class,
