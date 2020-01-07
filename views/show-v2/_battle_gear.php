@@ -7,9 +7,9 @@ use app\models\GearConfiguration2;
 use yii\helpers\Html;
 
 $gears = [
-  $headgear,
-  $clothing,
-  $shoes,
+  $battle->headgear,
+  $battle->clothing,
+  $battle->shoes,
 ];
 ?>
 <div class="table-responsive">
@@ -23,7 +23,7 @@ $gears = [
       </tr>
     </thead>
     <tbody>
-<?php if ($headgear->gear || $clothing->gear || $shoes->gear) { ?>
+<?php if ($battle->headgear->gear || $battle->clothing->gear || $battle->shoes->gear) { ?>
       <tr>
         <th scope="row"><?= Html::encode(Yii::t('app', 'Gear')) ?></th>
         <?= implode('', array_map(
@@ -76,7 +76,5 @@ $gears = [
   </table>
 </div>
 <?= Spl2GearAbilitiesSummaryWidget::widget([
-  'headgear' => $headgear,
-  'clothing' => $clothing,
-  'shoes' => $shoes,
+  'summary' => $battle->getGearAbilitySummary(),
 ]) . "\n" ?>
