@@ -43,6 +43,7 @@ return [
     'Deaths per battle' => '',
     'Deaths per minute' => '',
     'Do not rely on this behavior.' => '',
+    'Effects' => '',
     'End time of this shift' => '',
     'Event' => '',
     'Event information' => '',
