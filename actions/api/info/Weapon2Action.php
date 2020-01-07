@@ -1,10 +1,12 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2017 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2020 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
+
+declare(strict_types=1);
 
 namespace app\actions\api\info;
 
@@ -14,6 +16,7 @@ use app\models\Language;
 use app\models\Weapon2;
 use app\models\WeaponCategory2;
 use app\models\WeaponType2;
+use yii\db\Query;
 use yii\web\ViewAction as BaseAction;
 
 class Weapon2Action extends BaseAction
@@ -33,14 +36,19 @@ class Weapon2Action extends BaseAction
                                 'weapons' => array_map(
                                     function (Weapon2 $weapon): array {
                                         return [
+                                            'canonical' => Yii::t('app-weapon2', $weapon->canonical->name),
+                                            'canonicalKey' => $weapon->canonical->key,
                                             'key' => $weapon->key,
-                                            'splatnet' => $weapon->splatnet,
+                                            'mainPowerUp' => Yii::t('app-ability2', $weapon->mainPowerUp->name),
+                                            'mainReference' => Yii::t('app-weapon2', $weapon->mainReference->name),
+                                            'mainReferenceKey' => $weapon->mainReference->key,
                                             'name' => Yii::t('app-weapon2', $weapon->name),
                                             'names' => Translator::translateToAll('app-weapon2', $weapon->name),
-                                            'sub' => Yii::t('app-subweapon2', $weapon->subweapon->name),
                                             'special' => Yii::t('app-special2', $weapon->special->name),
-                                            'mainReference' => Yii::t('app-weapon2', $weapon->mainReference->name),
-                                            'canonical' => Yii::t('app-weapon2', $weapon->canonical->name),
+                                            'specialKey' => $weapon->special->key,
+                                            'splatnet' => $weapon->splatnet,
+                                            'sub' => Yii::t('app-subweapon2', $weapon->subweapon->name),
+                                            'subKey' => $weapon->subweapon->key,
                                         ];
                                     },
                                     $type->weapons
@@ -53,21 +61,22 @@ class Weapon2Action extends BaseAction
             },
             WeaponCategory2::find()
                 ->with([
-                    'weaponTypes' => function ($query) {
+                    'weaponTypes' => function (Query $query): void {
                         $query->orderBy([
                             'category_id' => SORT_ASC,
                             'rank' => SORT_ASC,
                         ]);
                     },
-                    'weaponTypes.weapons' => function ($query) {
+                    'weaponTypes.weapons' => function (Query $query): void {
                         $query->orderBy([
                             'key' => SORT_ASC,
                         ]);
                     },
-                    'weaponTypes.weapons.subweapon',
-                    'weaponTypes.weapons.special',
-                    'weaponTypes.weapons.mainReference',
                     'weaponTypes.weapons.canonical',
+                    'weaponTypes.weapons.mainPowerUp',
+                    'weaponTypes.weapons.mainReference',
+                    'weaponTypes.weapons.special',
+                    'weaponTypes.weapons.subweapon',
                 ])
                 ->orderBy([
                     'id' => SORT_ASC,

@@ -109,6 +109,7 @@ return [
     'Kills per battle' => '',
     'Kills per minute' => '',
     'Last updated at' => '',
+    'Main Power Up effects information' => '',
     'Maximum inked' => '',
     'Max records to get' => '',
     'Mode' => '',

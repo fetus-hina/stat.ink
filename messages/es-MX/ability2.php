@@ -1,6 +1,7 @@
 <?php
+
 /**
- * @copyright Copyright (C) 2015-2019 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2020 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -16,6 +17,16 @@ return [
     'Comeback' => 'Remonte',
     'Drop Roller' => 'Aterrizaje rodante',
     'Haunt' => 'Resentimiento',
+    'Increase brella canopy durability' => '',
+    'Increase bullet velocity' => '',
+    'Increase damage' => '',
+    'Increase damage from higher grounds' => '',
+    'Increase duration of firing' => '',
+    'Increase high-damage radius of explosions' => '',
+    'Increase ink coverage' => '',
+    'Increase movement speed' => '',
+    'Increase range' => '',
+    'Increase shot accuracy' => '',
     'Ink Recovery Up' => 'Mejor recarga tinta',
     'Ink Resistance Up' => '',
     'Ink Saver (Main)' => 'Ahorro tinta (ppal.)',
@@ -32,6 +43,7 @@ return [
     'Special Charge Up' => '',
     'Special Power Up' => 'Mejora especial',
     'Special Saver' => 'Ahorro en especial',
+    'Speed up brella canopy regeneration' => '',
     'Stealth Jump' => '',
     'Sub Power Up' => 'Mejora secundaria',
     'Swim Speed Up' => 'Nado acelerado',

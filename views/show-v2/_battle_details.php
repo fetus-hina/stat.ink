@@ -85,50 +85,8 @@ use yii\widgets\DetailView;
       'attribute' => 'weapon_id', // {{{
       'format' => 'raw',
       'value' => function ($model): ?string {
-        $weapon = $model->weapon;
-        if (!$weapon) {
-          return null;
-        }
-
-        $icons = Spl2WeaponAsset::register($this);
-        $value = function (?string $category, ?string $key, ?string $name) use ($icons): string {
-          if ($name === null) {
-            return '?';
-          }
-
-          $result = [];
-          if ($key) {
-            $icon = ltrim(sprintf('%s/%s', (string)$category, $key), '/');
-            $result[] = Html::img($icons->getIconUrl($icon), [
-              'title'=> (string)$name,
-              'class' => 'auto-tooltip',
-              'style' => [
-                'width' => $category ? '1.333em' : '1.5em',
-                'height' => $category ? '1.333em' : '1.5em',
-              ],
-            ]);
-          }
-
-          $result[] = Html::encode((string)$name);
-
-          return implode(' ', $result);
-        };
-        return vsprintf('%s (%s / %s)', [
-          $value(
-            null,
-            $weapon->key,
-            Yii::t('app-weapon2', $weapon->name)
-          ),
-          $value(
-            'sub',
-            $weapon->subweapon->key ?? null,
-            Yii::t('app-subweapon2', $weapon->subweapon->name ?? null)
-          ),
-          $value(
-            'sp',
-            $weapon->special->key ?? null,
-            Yii::t('app-special2', $weapon->special->name ?? null)
-          ),
+        return $this->render('_battle_details_weapon_name', [
+          'battle' => $model,
         ]);
       },
       // }}}
@@ -845,9 +803,7 @@ use yii\widgets\DetailView;
         }
 
         return $this->render('_battle_gear', [
-          'headgear' => $model->headgear,
-          'clothing' => $model->clothing,
-          'shoes' => $model->shoes,
+          'battle' => $model,
         ]);
       },
       // }}}

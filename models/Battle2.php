@@ -1772,6 +1772,79 @@ class Battle2 extends ActiveRecord
         return hash('sha256', implode('&', $playerIds));
     }
 
+    public function getGearAbilitySummary(): ?array
+    {
+        static $cache = false;
+        if ($cache === false) {
+            $cache = $this->getGearAbilitySummaryImpl();
+        }
+        return $cache;
+    }
+
+    private function getGearAbilitySummaryImpl(): ?array
+    {
+        $specials = ArrayHelper::map(
+            Special2::find()->all(),
+            'key',
+            function (Special2 $model): Special2 {
+                return $model;
+            }
+        );
+
+        $results = [];
+
+        $addAbility = function (
+            Ability2 $ability,
+            bool $isPrimary,
+            bool $haveDoubler
+        ) use (&$results): void {
+            if ($haveDoubler && $isPrimary) {
+                return;
+            }
+
+            $key = $ability->key;
+            if (!isset($results[$key])) {
+                $results[$key] = Yii::createObject([
+                    '__class' => Ability2Info::class,
+                    'ability' => $ability,
+                ]);
+            }
+            if ($isPrimary) {
+                $results[$key]->primary += 1;
+            } else {
+                $results[$key]->secondary += ($haveDoubler ? 2 : 1);
+            }
+        };
+
+        foreach ([$this->headgear, $this->clothing, $this->shoes] as $gearConf) {
+            if (!$gearConf || !$gearConf->primaryAbility) {
+                return null;
+            }
+
+            $haveDoubler = ($gearConf->primaryAbility->key === 'ability_doubler');
+            $addAbility($gearConf->primaryAbility, true, $haveDoubler);
+            foreach ($gearConf->secondaries as $secondary) {
+                if ($secondary->ability) {
+                    $addAbility($secondary->ability, false, $haveDoubler);
+                }
+            }
+        }
+
+        uasort($results, function (Ability2Info $a, Ability2Info $b): int {
+            // メインにしかつかないやつは後回し
+            if ($a->isPrimaryOnly !== $b->isPrimaryOnly) {
+                return $a->isPrimaryOnly ? 1 : -1;
+            }
+
+            return $b->get57Format() <=> $a->get57Format()
+                ?: $b->primary <=> $a->primary
+                ?: $b->secondary <=> $b->secondary
+                ?: strcmp($a->ability->name, $b->ability->name);
+        });
+
+        return $results;
+    }
+
     public function adjustUserWeapon($weaponIds, ?int $excludeBattle = null): void
     {
         $weaponIds = array_unique(array_filter((array)$weaponIds, function ($value) {

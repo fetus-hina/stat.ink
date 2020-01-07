@@ -1,6 +1,11 @@
 <?php
+
+declare(strict_types=1);
+
+use app\assets\Spl2WeaponAsset;
 use app\assets\TableResponsiveForceAsset;
 use app\components\helpers\WeaponShortener;
+use app\components\widgets\AbilityIcon;
 use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
 use statink\yii2\sortableTable\SortableTableAsset;
@@ -18,11 +23,10 @@ TableResponsiveForceAsset::register($this);
 SortableTableAsset::register($this);
 
 $shortener = Yii::createObject(['class' => WeaponShortener::class]);
+$icon = Spl2WeaponAsset::register($this);
 ?>
 <div class="container">
-  <h1>
-    <?= Html::encode($this->title) . "\n" ?>
-  </h1>
+  <h1><?= Html::encode($this->title) ?></h1>
   <?= AdWidget::widget() . "\n" ?>
   <?= SnsWidget::widget() . "\n" ?>
   <p>
@@ -59,11 +63,12 @@ $shortener = Yii::createObject(['class' => WeaponShortener::class]);
           <th data-sort="int">
             <?= Html::encode(Yii::t('app', 'SplatNet 2')) . "\n" ?>
           </th>
-<?php foreach ($langs as $i => $lang): ?>
+          <th></th>
+<?php foreach ($langs as $i => $lang) { ?>
           <th data-sort="string">
             <?= Html::encode($lang['name']) . "\n" ?>
           </th>
-<?php if ($i === 0): ?>
+<?php if ($i === 0) { ?>
           <th data-sort="string">
             <?= Html::encode(Yii::t('app', 'Weapon (Short)')) . "\n" ?>
           </th>
@@ -73,21 +78,27 @@ $shortener = Yii::createObject(['class' => WeaponShortener::class]);
           <th data-sort="string">
             <?= Html::encode(Yii::t('app', 'Special')) . "\n" ?>
           </th>
-          <th data-sort="string">
-            <?= Html::encode(Yii::t('app', 'Main Weapon')) . "\n" ?>
-          </th>
+          <th data-sort="string"><?=
+            Html::encode(Yii::t('app', 'Main Weapon'))
+          ?></th>
           <th data-sort="string">
             <?= Html::encode(Yii::t('app', 'Reskin of')) . "\n" ?>
           </th>
-<?php endif; ?>
-<?php endforeach; ?>
+          <th data-sort="string"><?= implode(' ', [
+            AbilityIcon::spl2('main_power_up', ['style' => [
+              'height' => '1.333em',
+            ]]),
+            Html::encode(Yii::t('app-ability2', 'Main Power Up')),
+          ]) ?></th>
+<?php } ?>
+<?php } ?>
         </tr>
       </thead>
       <tbody>
 <?php $i = 0; ?>
-<?php foreach ($categories as $category): ?>
-<?php foreach ($category['types'] as $type): ?>
-<?php foreach ($type['weapons'] as $weapon): ?>
+<?php foreach ($categories as $category) { ?>
+<?php foreach ($category['types'] as $type) { ?>
+<?php foreach ($type['weapons'] as $weapon) { ?>
 <?php ++$i; ?>
         <tr>
           <td data-sort-value="<?= Html::encode((string)$i) ?>">
@@ -115,36 +126,75 @@ $shortener = Yii::createObject(['class' => WeaponShortener::class]);
               ],
             ]
           ) . "\n" ?>
-<?php foreach ($langs as $j => $lang): ?>
+          <td><?= Html::img($icon->getIconUrl($weapon['key']), [
+            'style' => [
+              'height' => '1.333em',
+            ],
+          ]) ?></td>
+<?php foreach ($langs as $j => $lang) { ?>
 <?php $name = $weapon['names'][str_replace('-', '_', $lang['lang'])] ?>
           <?= Html::tag('td', Html::encode($name), [
             'data' => [
               'sort-value' => $name,
             ],
           ]) . "\n" ?>
-<?php if ($j === 0): ?>
+<?php if ($j === 0) { ?>
           <td>
 <?php $short = $shortener->get($name) ?>
-<?php if ($short != '' && $short !== $name): ?>
+<?php if ($short != '' && $short !== $name) { ?>
             <?= Html::encode($shortener->get($name)) . "\n" ?>
-<?php endif ?>
+<?php } ?>
           </td>
-          <td>
-            <?= Html::encode($weapon['sub']) . "\n" ?>
+          <?= Html::tag(
+            'td',
+            implode(' ', [
+              Html::img($icon->getIconUrl('sub/' . $weapon['subKey']), [
+                'style' => [
+                  'height' => '1.333em',
+                ],
+              ]),
+              Html::encode($weapon['sub']),
+            ]),
+            ['data-sort-value' => $weapon['sub']]
+          ) . "\n" ?>
+          <?= Html::tag(
+            'td',
+            implode(' ', [
+              Html::img($icon->getIconUrl('sp/' . $weapon['specialKey']), [
+                'style' => [
+                  'height' => '1.333em',
+                ],
+              ]),
+              Html::encode($weapon['special']),
+            ]),
+            ['data-sort-value' => $weapon['special']]
+          ) . "\n" ?>
+          <td data-sort-value="<?= Html::encode($weapon['mainReference']) ?>"><?= implode(' ', [
+            Html::img($icon->getIconUrl($weapon['mainReferenceKey']), [
+              'style' => [
+                'height' => '1.333em',
+              ],
+            ]),
+            Html::encode($weapon['mainReference']),
+          ]) ?></td>
           </td>
-          <td>
-            <?= Html::encode($weapon['special']) . "\n" ?>
+          <td data-sort-value="<?= Html::encode($weapon['canonical']) ?>"><?= implode(' ', [
+            Html::img($icon->getIconUrl($weapon['canonicalKey']), [
+              'style' => [
+                'height' => '1.333em',
+              ],
+            ]),
+            Html::encode($weapon['canonical']),
+          ]) ?></td>
+          <td data-sort-value="<?= Html::encode($weapon['mainPowerUp']) ?>">
+            <?= Html::encode($weapon['mainPowerUp']) . "\n" ?>
           </td>
-          <td data-sort-value="<?= Html::encode($weapon['mainReference']) ?>">
-            <?= Html::encode($weapon['mainReference']) . "\n" ?>
-          </td>
-          <td data-sort-value="<?= Html::encode($weapon['canonical']) ?>">
-            <?= Html::encode($weapon['canonical']) . "\n" ?>
-          </td>
-<?php endif ?>
-<?php endforeach ?>
+<?php } ?>
+<?php } ?>
         </tr>
-<?php endforeach; endforeach; endforeach; ?>
+<?php } ?>
+<?php } ?>
+<?php } ?>
       </tbody>
     </table>
   </div>

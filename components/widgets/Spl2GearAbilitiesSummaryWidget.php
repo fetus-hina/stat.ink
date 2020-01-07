@@ -12,7 +12,7 @@ namespace app\components\widgets;
 
 use Yii;
 use app\components\widgets\AbilityIcon;
-use app\models\Ability2;
+use app\models\Ability2Info;
 use app\models\Special2;
 use yii\base\Widget;
 use yii\data\ArrayDataProvider;
@@ -23,9 +23,7 @@ use yii\helpers\Html;
 
 class Spl2GearAbilitiesSummaryWidget extends Widget
 {
-    public $headgear;
-    public $clothing;
-    public $shoes;
+    public $summary;
 
     public function run()
     {
@@ -40,7 +38,7 @@ class Spl2GearAbilitiesSummaryWidget extends Widget
 
     private function renderTable(): ?string
     {
-        if (!$summary = $this->getSummary()) {
+        if (!$this->summary) {
             return null;
         }
 
@@ -49,7 +47,7 @@ class Spl2GearAbilitiesSummaryWidget extends Widget
             GridView::widget([
                 'dataProvider' => Yii::createObject([
                     '__class' => ArrayDataProvider::class,
-                    'allModels' => $summary,
+                    'allModels' => $this->summary,
                     'pagination' => false,
                     'sort' => false,
                 ]),
@@ -59,14 +57,14 @@ class Spl2GearAbilitiesSummaryWidget extends Widget
                 ],
                 'columns' => [
                     [
-                        'label' => Yii::t('app', 'Special'),
+                        'label' => Yii::t('app-gearstat', 'Gear Abilities'),
                         'format' => 'raw',
-                        'value' => function (array $row): string {
+                        'value' => function (Ability2Info $model): string {
                             return implode('', [
                                 Html::tag(
                                     'div',
-                                    AbilityIcon::spl2($row['ability']->key, [
-                                        'title' => Yii::t('app-ability2', $row['ability']->name),
+                                    AbilityIcon::spl2($model->ability->key, [
+                                        'title' => Yii::t('app-ability2', $model->ability->name),
                                         'class' => 'auto-tooltip',
                                         'style' => [
                                             'height' => '3em',
@@ -77,12 +75,12 @@ class Spl2GearAbilitiesSummaryWidget extends Widget
                                 Html::tag(
                                     'div',
                                     implode(' ', [
-                                        AbilityIcon::spl2($row['ability']->key, [
+                                        AbilityIcon::spl2($model->ability->key, [
                                             'style' => [
                                                 'height' => '1.667em',
                                             ],
                                         ]),
-                                        Html::encode(Yii::t('app-ability2', $row['ability']->name))
+                                        Html::encode(Yii::t('app-ability2', $model->ability->name))
                                     ]),
                                     ['class' => 'hidden-xs']
                                 ),
@@ -91,111 +89,75 @@ class Spl2GearAbilitiesSummaryWidget extends Widget
                     ],
                     [
                         'label' => Yii::t('app', '5.7 Fmt'),
-                        'value' => function (array $row, $key, $index, Column $column): string {
-                            if ($row['ability']->primary_only) {
-                                return Yii::t('app', 'Set');
+                        'format' => 'raw',
+                        'value' => function (
+                            Ability2Info $model,
+                            $key,
+                            $index,
+                            Column $column
+                        ): string {
+                            if ($model->ability->primary_only) {
+                                return Html::tag('span', (string)FA::fas('check'), [
+                                    'class' => 'text-success',
+                                ]);
                             }
 
-                            return $column->grid->formatter->asDecimal(
-                                $row['primary'] + $row['secondary'] * 0.3,
+                            return Html::encode($column->grid->formatter->asDecimal(
+                                $model->get57Format() / 10,
                                 1
-                            );
+                            ));
                         },
                     ],
                     [
                         'label' => Yii::t('app', '3,9 Fmt'),
-                        'value' => function (array $row, $key, $index, Column $column): string {
-                            if ($row['ability']->primary_only) {
-                                return Yii::t('app', 'Set');
+                        'format' => 'raw',
+                        'value' => function (
+                            Ability2Info $model,
+                            $key,
+                            $index,
+                            Column $column
+                        ): string {
+                            if ($model->ability->primary_only) {
+                                return Html::tag('span', (string)FA::fas('check'), [
+                                    'class' => 'text-success',
+                                ]);
                             }
 
                             $fmt = $column->grid->formatter;
                             $decimal = $fmt->asDecimal(0.5, 1);
-                            return vsprintf('%s%s %s', [
-                                $fmt->asInteger($row['primary']),
-                                (strpos($decimal, ',') === false) ? ',' : '.',
-                                $fmt->asInteger($row['secondary']),
-                            ]);
+                            return Html::encode(implode(
+                                // 小数点が "." なら "," で区切り、そうで無ければ "+" で区切る
+                                (strpos($decimal, '.') !== false) ? ', ' : ' + ',
+                                [
+                                    $fmt->asInteger($model->primary),
+                                    $fmt->asInteger($model->secondary),
+                                ]
+                            ));
                         },
                     ],
                     [
                         'label' => Yii::t('app', '57 Fmt'),
-                        'value' => function (array $row, $key, $index, Column $column): string {
-                            if ($row['ability']->primary_only) {
-                                return Yii::t('app', 'Set');
+                        'format' => 'raw',
+                        'value' => function (
+                            Ability2Info $model,
+                            $key,
+                            $index,
+                            Column $column
+                        ): string {
+                            if ($model->ability->primary_only) {
+                                return Html::tag('span', (string)FA::fas('check'), [
+                                    'class' => 'text-success',
+                                ]);
                             }
 
-                            return $column->grid->formatter->asInteger(
-                                $row['primary'] * 10 + $row['secondary'] * 3
-                            );
+                            return Html::encode($column->grid->formatter->asInteger(
+                                $model->get57Format()
+                            ));
                         },
                     ],
                 ],
             ]),
             ['class' => 'table-responsive']
         );
-    }
-
-    private function getSummary(): ?array
-    {
-        $specials = ArrayHelper::map(
-            Special2::find()->all(),
-            'key',
-            function (Special2 $model): Special2 {
-                return $model;
-            }
-        );
-
-        $results = [];
-        $addAbility = function (
-            Ability2 $ability,
-            bool $isPrimary,
-            bool $haveDoubler = false
-        ) use (&$results): void {
-            if ($haveDoubler && $isPrimary) {
-                return;
-            }
-
-            $key = $ability->key;
-            if (!isset($results[$key])) {
-                $results[$key] = [
-                    'ability' => $ability,
-                    'primary' => 0,
-                    'secondary' => 0,
-                ];
-            }
-
-            $results[$key][$isPrimary ? 'primary' : 'secondary'] += ($haveDoubler ? 2 : 1);
-        };
-
-        foreach ([$this->headgear, $this->clothing, $this->shoes] as $gear) {
-            if (!$gear || !$gear->primaryAbility) {
-                return null;
-            }
-
-            $haveDoubler = ($gear->primaryAbility->key === 'ability_doubler');
-            $addAbility($gear->primaryAbility, true, $haveDoubler);
-            foreach ($gear->secondaries as $secondary) {
-                if ($secondary->ability) {
-                    $addAbility($secondary->ability, false, $haveDoubler);
-                }
-            }
-        }
-
-        usort($results, function (array $a, array $b): int {
-            // メインにしかつかないやつは後回し
-            if ($a['ability']->primary_only !== $b['ability']->primary_only) {
-                return $a['ability']->primary_only ? 1 : -1;
-            }
-
-            $aPower = $a['primary'] * 10 + $a['secondary'];
-            $bPower = $b['primary'] * 10 + $b['secondary'];
-            return $bPower <=> $aPower
-                ?: $b['primary'] <=> $a['primary']
-                ?: $b['secondary'] <=> $b['secondary']
-                ?: strcmp($a['ability']->name, $b['ability']->name);
-        });
-
-        return $results;
     }
 }

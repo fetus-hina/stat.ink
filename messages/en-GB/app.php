@@ -402,7 +402,6 @@ return [
     'Secondary Abilities' => '',
     'Sent an email to your email address. Please check your mailbox and get the verification code.' => '',
     'Session History' => '',
-    'Set' => '',
     'Settings' => '',
     'Show All Players' => '',
     'Show moving averages' => '',

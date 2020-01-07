@@ -1,6 +1,7 @@
 <?php
+
 /**
- * @copyright Copyright (C) 2015-2019 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2020 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -16,6 +17,16 @@ return [
     'Comeback' => 'Ответный удар',
     'Drop Roller' => 'Акробат',
     'Haunt' => 'Вендетта',
+    'Increase brella canopy durability' => '',
+    'Increase bullet velocity' => '',
+    'Increase damage' => '',
+    'Increase damage from higher grounds' => '',
+    'Increase duration of firing' => '',
+    'Increase high-damage radius of explosions' => '',
+    'Increase ink coverage' => '',
+    'Increase movement speed' => '',
+    'Increase range' => '',
+    'Increase shot accuracy' => '',
     'Ink Recovery Up' => 'Быстрый баллон',
     'Ink Resistance Up' => 'Краскостойкость',
     'Ink Saver (Main)' => 'Основной баллон X',
@@ -32,6 +43,7 @@ return [
     'Special Charge Up' => 'Особый насос',
     'Special Power Up' => 'Особый подход',
     'Special Saver' => 'Особый резерв',
+    'Speed up brella canopy regeneration' => '',
     'Stealth Jump' => 'Десант',
     'Sub Power Up' => 'Про-Запас',
     'Swim Speed Up' => 'Плавунец',
