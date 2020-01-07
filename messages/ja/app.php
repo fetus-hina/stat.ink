@@ -394,7 +394,6 @@ return [
     'Secondary Abilities' => 'サブ',
     'Sent an email to your email address. Please check your mailbox and get the verification code.' => '指定されたメールアドレスにメールを送信しました。メールを確認して確認コードを取得してください。',
     'Session History' => '開催履歴',
-    'Set' => 'セット',
     'Settings' => '設定',
     'Show All Players' => '全員を表示',
     'Show moving averages' => '移動平均線を表示',

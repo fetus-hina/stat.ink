@@ -91,43 +91,55 @@ class Spl2GearAbilitiesSummaryWidget extends Widget
                     ],
                     [
                         'label' => Yii::t('app', '5.7 Fmt'),
+                        'format' => 'raw',
                         'value' => function (array $row, $key, $index, Column $column): string {
                             if ($row['ability']->primary_only) {
-                                return Yii::t('app', 'Set');
+                                return Html::tag('span', (string)FA::fas('check'), [
+                                    'class' => 'text-success',
+                                ]);
                             }
 
-                            return $column->grid->formatter->asDecimal(
+                            return Html::encode($column->grid->formatter->asDecimal(
                                 $row['primary'] + $row['secondary'] * 0.3,
                                 1
-                            );
+                            ));
                         },
                     ],
                     [
                         'label' => Yii::t('app', '3,9 Fmt'),
+                        'format' => 'raw',
                         'value' => function (array $row, $key, $index, Column $column): string {
                             if ($row['ability']->primary_only) {
-                                return Yii::t('app', 'Set');
+                                return Html::tag('span', (string)FA::fas('check'), [
+                                    'class' => 'text-success',
+                                ]);
                             }
 
                             $fmt = $column->grid->formatter;
                             $decimal = $fmt->asDecimal(0.5, 1);
-                            return vsprintf('%s%s %s', [
-                                $fmt->asInteger($row['primary']),
-                                (strpos($decimal, ',') === false) ? ',' : '.',
-                                $fmt->asInteger($row['secondary']),
-                            ]);
+                            return Html::encode(implode(
+                                // 小数点が "." なら "," で区切り、そうで無ければ "+" で区切る
+                                (strpos($decimal, '.') !== false) ? ', ' : ' + ',
+                                [
+                                    $fmt->asInteger($row['primary']),
+                                    $fmt->asInteger($row['secondary']),
+                                ]
+                            ));
                         },
                     ],
                     [
                         'label' => Yii::t('app', '57 Fmt'),
+                        'format' => 'raw',
                         'value' => function (array $row, $key, $index, Column $column): string {
                             if ($row['ability']->primary_only) {
-                                return Yii::t('app', 'Set');
+                                return Html::tag('span', (string)FA::fas('check'), [
+                                    'class' => 'text-success',
+                                ]);
                             }
 
-                            return $column->grid->formatter->asInteger(
+                            return Html::encode($column->grid->formatter->asInteger(
                                 $row['primary'] * 10 + $row['secondary'] * 3
-                            );
+                            ));
                         },
                     ],
                 ],
