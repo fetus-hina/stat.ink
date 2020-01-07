@@ -70,7 +70,7 @@ class Spl2GearAbilitiesSummaryWidget extends Widget
                                             'height' => '3em',
                                         ],
                                     ]),
-                                    ['class' => 'visible-xs-block']
+                                    ['class' => 'hidden-lg']
                                 ),
                                 Html::tag(
                                     'div',
@@ -82,7 +82,7 @@ class Spl2GearAbilitiesSummaryWidget extends Widget
                                         ]),
                                         Html::encode(Yii::t('app-ability2', $model->ability->name))
                                     ]),
-                                    ['class' => 'hidden-xs']
+                                    ['class' => 'visible-lg-block']
                                 ),
                             ]);
                         },
@@ -155,9 +155,21 @@ class Spl2GearAbilitiesSummaryWidget extends Widget
                             ));
                         },
                     ],
+                    [
+                        'label' => Yii::t('app', 'Effects'),
+                        'format' => 'ntext',
+                        'value' => function (
+                            Ability2Info $model,
+                            $key,
+                            $index,
+                            Column $column
+                        ): string {
+                            return (string)$model->coefficient;
+                        }
+                    ],
                 ],
             ]),
-            ['class' => 'table-responsive']
+            ['class' => 'table-responsive table-responsive-force nobr']
         );
     }
 }

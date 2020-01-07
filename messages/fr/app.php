@@ -150,6 +150,7 @@ return [
     'Earlier Turf-Inked data are currently wrong. It will be fixed in the near future.' => '',
     'Edit' => '',
     'Edit Your Battle: #{0}' => '',
+    'Effects' => '',
     'Elapsed' => '',
     'Elapsed Time' => '',
     'Elapsed Time (seconds)' => '',
