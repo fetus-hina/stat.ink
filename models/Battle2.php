@@ -1807,6 +1807,8 @@ class Battle2 extends ActiveRecord
                 $results[$key] = Yii::createObject([
                     '__class' => Ability2Info::class,
                     'ability' => $ability,
+                    'weapon' => $this->weapon,
+                    'version' => $this->version,
                 ]);
             }
             if ($isPrimary) {

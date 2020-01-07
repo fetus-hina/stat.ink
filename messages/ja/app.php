@@ -148,6 +148,7 @@ return [
     'Earlier Turf-Inked data are currently wrong. It will be fixed in the near future.' => '古い塗り面積データは現在間違って集計されています。この問題は近いうちに直します。',
     'Edit Your Battle: #{0}' => 'バトル詳細を編集: #{0}',
     'Edit' => '編集',
+    'Effects' => '効果',
     'Elapsed Time (seconds)' => '試合時間（秒）',
     'Elapsed Time' => '試合時間',
     'Elapsed' => '時間',

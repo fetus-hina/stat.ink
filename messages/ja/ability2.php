@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2020 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -14,6 +15,10 @@ return [
     'Bomb Defense Up' => '爆風ダメージ軽減',
     'Cold-Blooded' => 'マーキング時間短縮',
     'Comeback' => 'カムバック',
+    'Default×{pct}' => '基本値×{pct}',
+    'DoT Cap: {damage}' => 'スリップキャップ: {damage}',
+    'DoT Delay: {frame} frames' => 'スリップ無効時間: {frame} F',
+    'DoT: {perFrame} per frame' => 'スリップダメージ: {perFrame}/F',
     'Drop Roller' => '受け身術',
     'Haunt' => 'リベンジ',
     'Increase brella canopy durability' => 'カサ耐久力アップ',
@@ -33,12 +38,15 @@ return [
     'Last-Ditch Effort' => 'ラストスパート',
     'Main Power Up' => 'メイン性能アップ',
     'Ninja Squid' => 'イカニンジャ',
+    'Normal: {value}' => '通常: {value}',
     'Object Shredder' => '対物攻撃力アップ',
     'Opening Gambit' => 'スタートダッシュ',
     'Quick Respawn' => '復活時間短縮',
     'Quick Super Jump' => 'スーパージャンプ時間短縮',
     'Respawn Punisher' => '復活ペナルティアップ',
     'Run Speed Up' => 'ヒト移動速度アップ',
+    'Run Speed: {value}' => 'ヒト速: {value}',
+    'Shooting: {value}' => '射撃中: {value}',
     'Special Charge Up' => 'スペシャル増加量アップ',
     'Special Power Up' => 'スペシャル性能アップ',
     'Special Saver' => 'スペシャル減少量ダウン',
