@@ -46,24 +46,60 @@ class Ability2Info extends Model
                 if (!$values = $this->getInkResistanceUpCoefficient()) {
                     return null;
                 }
-                return $raw
-                    ? $values
-                    : implode("\n", [
-                        Yii::t('app-ability2', 'DoT: {perFrame} per frame', [
-                            'perFrame' => Yii::$app->formatter->asDecimal($values['slipPerFrame'], 1),
-                        ]),
-                        Yii::t('app-ability2', 'DoT Delay: {frame} frames', [
-                            'frame' => Yii::$app->formatter->asInteger($values['slipIgnoreFrame']),
-                        ]),
-                        Yii::t('app-ability2', 'DoT Cap: {damage}', [
-                            'damage' => Yii::$app->formatter->asDecimal($values['slipCap'], 1),
-                        ]),
-                        Yii::t('app-ability2', 'Run Speed: {value}', [
-                            'value' => Yii::t('app-ability2', 'Default×{pct}', [
-                                'pct' => Yii::$app->formatter->asPercent($values['runSpeed'], 1),
-                            ]),
+
+                if ($raw) {
+                    return $values;
+                }
+
+                $f = Yii::$app->formatter;
+                $rows = [];
+                if (($values['slipPerFrame'] ?? null) !== null) {
+                    $rows[] = Yii::t('app-ability2', 'DoT: {perFrame} per frame', [
+                        'perFrame' => $f->asDecimal($values['slipPerFrame'], 1),
+                    ]);
+                }
+                if (($values['slipIgnoreFrame'] ?? null) !== null) {
+                    $rows[] = Yii::t('app-ability2', 'DoT Delay: {frame} frames ({sec} sec.)', [
+                        'frame' => $f->asInteger($values['slipIgnoreFrame']),
+                        'sec' => $f->asDecimal($values['slipIgnoreFrame'] / 60, 3),
+                    ]);
+                }
+                if (($values['slipCap'] ?? null) !== null) {
+                    $rows[] = Yii::t('app-ability2', 'DoT Cap: {damage}', [
+                        'damage' => $f->asDecimal($values['slipCap'], 1),
+                    ]);
+                }
+                if (
+                    ($values['runSpeed'] ?? null) !== null &&
+                    ($values['runSpeedShoot'] ?? null) !== null
+                ) {
+                    $rows[] = Yii::t('app-ability2', 'Run Speed: {value}', [
+                        'value' => Yii::t('app-ability2', 'Default×{pct}', [
+                            'pct' => $f->asPercent($values['runSpeed'], 1),
                         ]),
                     ]);
+                    $rows[] = Yii::t('app-ability2', 'Shooting: {value}', [
+                        'value' => Yii::t('app-ability2', 'Default×{pct}', [
+                            'pct' => $f->asPercent($values['runSpeedShoot'], 1),
+                        ]),
+                    ]);
+                    if (($values['runSpeedCharge'] ?? null) !== null) {
+                        $rows[] = Yii::t('app-ability2', 'Charging: {value}', [
+                            'value' => Yii::t('app-ability2', 'Default×{pct}', [
+                                'pct' => $f->asPercent($values['runSpeedCharge'], 1),
+                            ]),
+                        ]);
+                    }
+                }
+
+                foreach ($rows as $row) {
+                    if (strpos($row, 'DoT') !== false) {
+                        $rows[] = Yii::t('app', '"DoT": "Damage over time"');
+                        break;
+                    }
+                }
+
+                return implode("\n", $rows);
                 // }}}
 
             case 'ink_saver_main': // {{{
@@ -138,17 +174,80 @@ class Ability2Info extends Model
     private function getInkResistanceUpCoefficient(): ?array
     {
         // {{{
-        $gp = $this->get57Format();
+        if (!$gp = $this->get57Format()) {
+            return null;
+        }
+
         $floor = function (float $value, int $precision): float {
             $fig = pow(10, $precision);
             return floor($value * $fig) / $fig;
         };
 
+        $vTag = $this->version->tag ?? '9999.999.999';
+        $slipIgnoreFrame = (function () use ($gp, $vTag): ?int {
+            // {{{
+            switch (true) {
+                case version_compare($vTag, '4.3.0', '<'):
+                    return null;
+
+                case version_compare($vTag, '4.4.0', '<'):
+                    return (int)ceil(static::calcCoefficient($gp, 30, 0, 2 / 3));
+
+                default:
+                    return (int)ceil(static::calcCoefficient($gp, 39, 0, 2 / 3));
+            }
+            // }}}
+        })();
+        $runSpeed = (function () use ($gp, $vTag): float {
+            // {{{
+            if (version_compare($vTag, '4.6.0', '<')) {
+                return (static::calcCoefficient($gp, 0.72, 0.24, 0.5)) / 0.24;
+            }
+            
+            return (static::calcCoefficient($gp, 0.769, 0.24, 0.6)) / 0.24;
+            // }}}
+        })();
+        $runSpeedShoot = (function () use ($gp, $vTag): float {
+            // {{{
+            if (version_compare($vTag, '4.6.0', '<')) {
+                return (static::calcCoefficient($gp, 0.40, 0.12, 0.5)) / 0.12;
+            }
+            
+            return (static::calcCoefficient($gp, 0.42, 0.12, 0.7)) / 0.12;
+            // }}}
+        })();
+        $runSpeedCharge = (function () use ($gp, $vTag): ?float {
+            // {{{
+            if (!$this->weapon || !$this->weapon->mainReference) {
+                return null;
+            }
+
+            switch ($this->weapon->mainReference->key) {
+                case 'splatspinner':
+                    return (0.7 * static::calcCoefficient($gp, 1, 0.5)) / (0.7 * 0.5);
+
+                case 'barrelspinner':
+                    return (0.6 * static::calcCoefficient($gp, 1, 0.5)) / (0.6 * 0.5);
+
+                case 'hydra':
+                case 'nautilus47':
+                    return (0.4 * static::calcCoefficient($gp, 1, 0.5)) / (0.4 * 0.5);
+
+                case 'kugelschreiber':
+                    return (0.96 * static::calcCoefficient($gp, 1, 0.5)) / (0.96 * 0.5);
+            }
+
+            return null;
+            // }}}
+        })();
+
         return [
             'slipPerFrame' => $floor(0.3 - static::calcCoefficient($gp, 0.15), 1),
-            'slipIgnoreFrame' => (int)ceil(static::calcCoefficient($gp, 39, 0, 2 / 3)),
+            'slipIgnoreFrame' => $slipIgnoreFrame,
             'slipCap' => round(40 - static::calcCoefficient($gp, 20), 1),
-            'runSpeed' => (0.24 + static::calcCoefficient($gp, 0.48)) / 0.24,
+            'runSpeed' => $runSpeed,
+            'runSpeedShoot' => $runSpeedShoot,
+            'runSpeedCharge' => $runSpeedCharge,
         ];
         // }}}
     }

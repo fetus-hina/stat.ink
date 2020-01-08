@@ -9,16 +9,18 @@
 declare(strict_types=1);
 
 return [
+    '"DoT": "Damage over time"' => '',
     '(Locked)' => '',
     'Ability Doubler' => '',
     'Bomb Defense Up' => '',
     'Bomb Defense Up DX' => '',
+    'Charging: {value}' => '',
     'Cold-Blooded' => '',
     'Comeback' => 'Retour',
     'Default×{pct}' => '',
     'DoT: {perFrame} per frame' => '',
     'DoT Cap: {damage}' => '',
-    'DoT Delay: {frame} frames' => '',
+    'DoT Delay: {frame} frames ({sec} sec.)' => '',
     'Drop Roller' => '',
     'Haunt' => '',
     'Increase brella canopy durability' => '',

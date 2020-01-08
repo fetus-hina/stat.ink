@@ -9,16 +9,18 @@
 declare(strict_types=1);
 
 return [
+    '"DoT": "Damage over time"' => '',
     '(Locked)' => '',
     'Ability Doubler' => 'Дупликатор',
     'Bomb Defense Up' => 'Бомбостойкость',
     'Bomb Defense Up DX' => '',
+    'Charging: {value}' => '',
     'Cold-Blooded' => 'Кальмар 004',
     'Comeback' => 'Ответный удар',
     'Default×{pct}' => '',
     'DoT: {perFrame} per frame' => '',
     'DoT Cap: {damage}' => '',
-    'DoT Delay: {frame} frames' => '',
+    'DoT Delay: {frame} frames ({sec} sec.)' => '',
     'Drop Roller' => 'Акробат',
     'Haunt' => 'Вендетта',
     'Increase brella canopy durability' => '',

@@ -9,15 +9,17 @@
 declare(strict_types=1);
 
 return [
+    '"DoT": "Damage over time"' => '"DoT": スリップダメージ',
     '(Locked)' => '(未開放)',
     'Ability Doubler' => '追加ギアパワー倍化',
     'Bomb Defense Up DX' => '爆風ダメージ軽減・改',
     'Bomb Defense Up' => '爆風ダメージ軽減',
+    'Charging: {value}' => 'チャージ中: {value}',
     'Cold-Blooded' => 'マーキング時間短縮',
     'Comeback' => 'カムバック',
     'Default×{pct}' => '基本値×{pct}',
     'DoT Cap: {damage}' => 'スリップキャップ: {damage}',
-    'DoT Delay: {frame} frames' => 'スリップ無効時間: {frame} F',
+    'DoT Delay: {frame} frames ({sec} sec.)' => 'スリップ無効時間: {frame} F（{sec}秒）',
     'DoT: {perFrame} per frame' => 'スリップダメージ: {perFrame}/F',
     'Drop Roller' => '受け身術',
     'Haunt' => 'リベンジ',
