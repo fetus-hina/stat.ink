@@ -56,9 +56,10 @@ class ApidocController extends Controller
         $this->stderr(__METHOD__ . "(): {$langCode}: Creating JSON...\n");
         $jsonPath = vsprintf('%s/runtime/apidoc/%s.json', [
             Yii::getAlias('@app'),
-            vsprintf('%d-%08x', [
+            vsprintf('%d-%04x%04x', [
                 time(),
-                mt_rand(0, 0xffffffff),
+                random_int(0, 0xffff),
+                random_int(0, 0xffff),
             ]),
         ]);
         FileHelper::createDirectory(dirname($jsonPath));
@@ -113,9 +114,10 @@ class ApidocController extends Controller
         $this->stderr(__METHOD__ . "(): {$langCode}: Creating JSON...\n");
         $jsonPath = vsprintf('%s/runtime/apidoc/%s.json', [
             Yii::getAlias('@app'),
-            vsprintf('%d-%08x', [
+            vsprintf('%d-%04x%04x', [
                 time(),
-                mt_rand(0, 0xffffffff),
+                random_int(0, 0xffff),
+                random_int(0, 0xffff),
             ]),
         ]);
         FileHelper::createDirectory(dirname($jsonPath));

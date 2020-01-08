@@ -9,17 +9,21 @@
 declare(strict_types=1);
 
 return [
+    '"DoT": "Damage over time"' => '',
     '(Locked)' => '',
     'Ability Doubler' => 'Duplicador',
     'Bomb Defense Up' => 'Resistencia explosiva',
     'Bomb Defense Up DX' => '',
+    'Charging: {value}' => '',
     'Cold-Blooded' => 'Invisibilidad',
     'Comeback' => 'Remontada',
     'Default×{pct}' => '',
     'DoT: {perFrame} per frame' => '',
     'DoT Cap: {damage}' => '',
-    'DoT Delay: {frame} frames' => '',
+    'DoT Delay: {frame} frames ({sec} sec.)' => '',
     'Drop Roller' => 'Amortiguador',
+    'Duration: {pct} ({sec} sec., {frames} frames)' => '',
+    'Duration: {sec} ({sec1}+{sec2}) sec' => '',
     'Haunt' => 'Represalia',
     'Increase brella canopy durability' => '',
     'Increase bullet velocity' => '',
@@ -44,6 +48,7 @@ return [
     'Quick Respawn' => 'Retorno exprés',
     'Quick Super Jump' => 'Supersalto rápido',
     'Respawn Punisher' => 'Castigo póstumo',
+    'Revised by {ability}' => '',
     'Run Speed: {value}' => '',
     'Run Speed Up' => 'Supercarrera',
     'Shooting: {value}' => '',
@@ -56,4 +61,5 @@ return [
     'Swim Speed Up' => 'Superbuceo',
     'Tenacity' => 'Ventaja',
     'Thermal Ink' => 'Señuelo',
+    '{pct} ({dupf} DU/f)' => '',
 ];

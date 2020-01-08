@@ -9,17 +9,21 @@
 declare(strict_types=1);
 
 return [
+    '"DoT": "Damage over time"' => '"DoT": スリップダメージ',
     '(Locked)' => '(未開放)',
     'Ability Doubler' => '追加ギアパワー倍化',
     'Bomb Defense Up DX' => '爆風ダメージ軽減・改',
     'Bomb Defense Up' => '爆風ダメージ軽減',
+    'Charging: {value}' => 'チャージ中: {value}',
     'Cold-Blooded' => 'マーキング時間短縮',
     'Comeback' => 'カムバック',
     'Default×{pct}' => '基本値×{pct}',
     'DoT Cap: {damage}' => 'スリップキャップ: {damage}',
-    'DoT Delay: {frame} frames' => 'スリップ無効時間: {frame} F',
-    'DoT: {perFrame} per frame' => 'スリップダメージ: {perFrame}/F',
+    'DoT Delay: {frame} frames ({sec} sec.)' => 'スリップ無効時間: {frame}f（{sec}秒）',
+    'DoT: {perFrame} per frame' => 'スリップダメージ: {perFrame}/f',
     'Drop Roller' => '受け身術',
+    'Duration: {pct} ({sec} sec., {frames} frames)' => '長さ: {pct}（{sec}秒, {frames}f）',
+    'Duration: {sec} ({sec1}+{sec2}) sec' => '長さ: {sec} ({sec1}+{sec2}) 秒',
     'Haunt' => 'リベンジ',
     'Increase brella canopy durability' => 'カサ耐久力アップ',
     'Increase bullet velocity' => '弾速アップ',
@@ -44,6 +48,7 @@ return [
     'Quick Respawn' => '復活時間短縮',
     'Quick Super Jump' => 'スーパージャンプ時間短縮',
     'Respawn Punisher' => '復活ペナルティアップ',
+    'Revised by {ability}' => '{ability}の考慮済み',
     'Run Speed Up' => 'ヒト移動速度アップ',
     'Run Speed: {value}' => 'ヒト速: {value}',
     'Shooting: {value}' => '射撃中: {value}',
@@ -56,4 +61,5 @@ return [
     'Swim Speed Up' => 'イカダッシュ速度アップ',
     'Tenacity' => '逆境強化',
     'Thermal Ink' => 'サーマルインク',
+    '{pct} ({dupf} DU/f)' => '{pct} ({dupf} DU/f)',
 ];

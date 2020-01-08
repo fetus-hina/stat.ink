@@ -9,17 +9,21 @@
 declare(strict_types=1);
 
 return [
+    '"DoT": "Damage over time"' => '',
     '(Locked)' => '',
     'Ability Doubler' => '',
     'Bomb Defense Up' => '',
     'Bomb Defense Up DX' => '',
+    'Charging: {value}' => '',
     'Cold-Blooded' => '',
     'Comeback' => '',
     'Default×{pct}' => '',
     'DoT: {perFrame} per frame' => '',
     'DoT Cap: {damage}' => '',
-    'DoT Delay: {frame} frames' => '',
+    'DoT Delay: {frame} frames ({sec} sec.)' => '',
     'Drop Roller' => '',
+    'Duration: {pct} ({sec} sec., {frames} frames)' => '',
+    'Duration: {sec} ({sec1}+{sec2}) sec' => '',
     'Haunt' => '',
     'Increase brella canopy durability' => '',
     'Increase bullet velocity' => '',
@@ -44,6 +48,7 @@ return [
     'Quick Respawn' => '',
     'Quick Super Jump' => '',
     'Respawn Punisher' => '',
+    'Revised by {ability}' => '',
     'Run Speed: {value}' => '',
     'Run Speed Up' => '',
     'Shooting: {value}' => '',
@@ -56,4 +61,5 @@ return [
     'Swim Speed Up' => '',
     'Tenacity' => '',
     'Thermal Ink' => '',
+    '{pct} ({dupf} DU/f)' => '',
 ];

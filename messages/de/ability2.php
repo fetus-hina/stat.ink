@@ -10,17 +10,21 @@
 declare(strict_types=1);
 
 return [
+    '"DoT": "Damage over time"' => '',
     '(Locked)' => '(Gesperrt)',
     'Ability Doubler' => 'Effektdoppelung',
     'Bomb Defense Up' => 'Bombenschutz',
     'Bomb Defense Up DX' => '',
+    'Charging: {value}' => '',
     'Cold-Blooded' => 'Phantom',
     'Comeback' => 'Rückkehr',
     'Default×{pct}' => '',
     'DoT: {perFrame} per frame' => '',
     'DoT Cap: {damage}' => '',
-    'DoT Delay: {frame} frames' => '',
+    'DoT Delay: {frame} frames ({sec} sec.)' => '',
     'Drop Roller' => 'Tricklandung',
+    'Duration: {pct} ({sec} sec., {frames} frames)' => '',
+    'Duration: {sec} ({sec1}+{sec2}) sec' => '',
     'Haunt' => 'Vergeltung',
     'Increase brella canopy durability' => '',
     'Increase bullet velocity' => '',
@@ -45,6 +49,7 @@ return [
     'Quick Respawn' => 'Schnelle Rückkehr',
     'Quick Super Jump' => 'Supersprung +',
     'Respawn Punisher' => 'Heimsuchung',
+    'Revised by {ability}' => '',
     'Run Speed: {value}' => '',
     'Run Speed Up' => 'Lauftempo +',
     'Shooting: {value}' => '',
@@ -57,4 +62,5 @@ return [
     'Swim Speed Up' => 'Schwimmtempo +',
     'Tenacity' => 'Zähigkeit',
     'Thermal Ink' => 'Markierfarbe',
+    '{pct} ({dupf} DU/f)' => '',
 ];

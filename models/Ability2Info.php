@@ -24,6 +24,7 @@ class Ability2Info extends Model
     public $ability;
     public $primary = 0;
     public $secondary = 0;
+    public $haveNinja = false;
 
     public function getIsPrimaryOnly(): bool
     {
@@ -38,7 +39,7 @@ class Ability2Info extends Model
         ));
     }
 
-    // https://wikiwiki.jp/splatoon2mix/%E6%A4%9C%E8%A8%BC/%E3%82%AE%E3%82%A2%E3%83%91%E3%83%AF%E3%83%BC
+    // https://mntone.minibird.jp/splw/%E3%82%AB%E3%83%86%E3%82%B4%E3%83%AA:%E3%82%AE%E3%82%A2%E3%83%91%E3%83%AF%E3%83%BC
     public function getCoefficient(bool $raw = false)
     {
         switch ($this->ability->key ?? null) {
@@ -46,24 +47,60 @@ class Ability2Info extends Model
                 if (!$values = $this->getInkResistanceUpCoefficient()) {
                     return null;
                 }
-                return $raw
-                    ? $values
-                    : implode("\n", [
-                        Yii::t('app-ability2', 'DoT: {perFrame} per frame', [
-                            'perFrame' => Yii::$app->formatter->asDecimal($values['slipPerFrame'], 1),
-                        ]),
-                        Yii::t('app-ability2', 'DoT Delay: {frame} frames', [
-                            'frame' => Yii::$app->formatter->asInteger($values['slipIgnoreFrame']),
-                        ]),
-                        Yii::t('app-ability2', 'DoT Cap: {damage}', [
-                            'damage' => Yii::$app->formatter->asDecimal($values['slipCap'], 1),
-                        ]),
-                        Yii::t('app-ability2', 'Run Speed: {value}', [
-                            'value' => Yii::t('app-ability2', 'Default×{pct}', [
-                                'pct' => Yii::$app->formatter->asPercent($values['runSpeed'], 1),
-                            ]),
+
+                if ($raw) {
+                    return $values;
+                }
+
+                $f = Yii::$app->formatter;
+                $rows = [];
+                if (($values['slipPerFrame'] ?? null) !== null) {
+                    $rows[] = Yii::t('app-ability2', 'DoT: {perFrame} per frame', [
+                        'perFrame' => $f->asDecimal($values['slipPerFrame'], 1),
+                    ]);
+                }
+                if (($values['slipIgnoreFrame'] ?? null) !== null) {
+                    $rows[] = Yii::t('app-ability2', 'DoT Delay: {frame} frames ({sec} sec.)', [
+                        'frame' => $f->asInteger($values['slipIgnoreFrame']),
+                        'sec' => $f->asDecimal($values['slipIgnoreFrame'] / 60, 3),
+                    ]);
+                }
+                if (($values['slipCap'] ?? null) !== null) {
+                    $rows[] = Yii::t('app-ability2', 'DoT Cap: {damage}', [
+                        'damage' => $f->asDecimal($values['slipCap'], 1),
+                    ]);
+                }
+                if (
+                    ($values['runSpeed'] ?? null) !== null &&
+                    ($values['runSpeedShoot'] ?? null) !== null
+                ) {
+                    $rows[] = Yii::t('app-ability2', 'Run Speed: {value}', [
+                        'value' => Yii::t('app-ability2', 'Default×{pct}', [
+                            'pct' => $f->asPercent($values['runSpeed'], 1),
                         ]),
                     ]);
+                    $rows[] = Yii::t('app-ability2', 'Shooting: {value}', [
+                        'value' => Yii::t('app-ability2', 'Default×{pct}', [
+                            'pct' => $f->asPercent($values['runSpeedShoot'], 1),
+                        ]),
+                    ]);
+                    if (($values['runSpeedCharge'] ?? null) !== null) {
+                        $rows[] = Yii::t('app-ability2', 'Charging: {value}', [
+                            'value' => Yii::t('app-ability2', 'Default×{pct}', [
+                                'pct' => $f->asPercent($values['runSpeedCharge'], 1),
+                            ]),
+                        ]);
+                    }
+                }
+
+                foreach ($rows as $row) {
+                    if (strpos($row, 'DoT') !== false) {
+                        $rows[] = Yii::t('app', '"DoT": "Damage over time"');
+                        break;
+                    }
+                }
+
+                return implode("\n", $rows);
                 // }}}
 
             case 'ink_saver_main': // {{{
@@ -73,7 +110,7 @@ class Ability2Info extends Model
                 return $raw
                     ? $value
                     : Yii::t('app-ability2', 'Default×{pct}', [
-                        'pct' => Yii::$app->formatter->asPercent($value, 1),
+                        'pct' => Yii::$app->formatter->asPercent($value, 2),
                     ]);
                 // }}}
 
@@ -84,7 +121,7 @@ class Ability2Info extends Model
                 return $raw
                     ? $value
                     : Yii::t('app-ability2', 'Default×{pct}', [
-                        'pct' => Yii::$app->formatter->asPercent($value, 1),
+                        'pct' => Yii::$app->formatter->asPercent($value, 2),
                     ]);
                 // }}}
 
@@ -92,20 +129,28 @@ class Ability2Info extends Model
                 if (!$values = $this->getRunSpeedUpCoefficient()) {
                     return null;
                 }
-                return $raw
-                    ? $values
-                    : implode("\n", [
-                        Yii::t('app-ability2', 'Normal: {value}', [
-                            'value' => Yii::t('app-ability2', 'Default×{pct}', [
-                                'pct' => Yii::$app->formatter->asPercent($values[0], 1),
+
+                if ($raw) {
+                    return $values;
+                }
+
+                $f = Yii::$app->formatter;
+                $rows = [];
+
+                if (($values['runSpeedRatio'] ?? null) !== null) {
+                    $rows[] = Yii::t('app-ability2', 'Normal: {value}', [
+                        'value' => (($values['runSpeedDUPF'] ?? null) !== null)
+                            ? Yii::t('app-ability2', '{pct} ({dupf} DU/f)', [
+                                'pct' => $f->asPercent($values['runSpeedRatio'], 1),
+                                'dupf' => $f->asDecimal($values['runSpeedDUPF'], 3),
+                            ])
+                            : Yii::t('app-ability2', 'Default×{pct}', [
+                                'pct' => $f->asPercent($values['runSpeedRatio'], 1),
                             ]),
-                        ]),
-                        Yii::t('app-ability2', 'Shooting: {value}', [
-                            'value' => Yii::t('app-ability2', 'Default×{pct}', [
-                                'pct' => Yii::$app->formatter->asPercent($values[1], 1),
-                            ]),
-                        ]),
                     ]);
+                }
+
+                return implode("\n", $rows);
                 // }}}
 
             case 'special_charge_up': // {{{
@@ -115,19 +160,83 @@ class Ability2Info extends Model
                 return $raw
                     ? $value
                     : Yii::t('app-ability2', 'Default×{pct}', [
-                        'pct' => Yii::$app->formatter->asPercent($value, 1),
+                        'pct' => Yii::$app->formatter->asPercent($value, 2),
                     ]);
                 // }}}
 
-            case 'swim_speed_up': // {{{
-                if (!$value = $this->getSwimSpeedUpCoefficient()) {
+            case 'special_power_up': // {{{
+                if (!$values = $this->getSpecialPowerUpCoefficient()) {
                     return null;
                 }
-                return $raw
-                    ? $value
-                    : Yii::t('app-ability2', 'Default×{pct}', [
-                        'pct' => Yii::$app->formatter->asPercent($value, 1),
+
+                if ($raw) {
+                    return $values;
+                }
+
+                $f = Yii::$app->formatter;
+                $rows = [];
+                if (
+                    (($values['durationFrames'] ?? null) !== null) &&
+                    (($values['durationRate'] ?? null) !== null)
+                ) {
+                    $rows[] = Yii::t('app-ability2', 'Duration: {pct} ({sec} sec., {frames} frames)', [
+                        'pct' => $f->asPercent($values['durationRate'], 1),
+                        'sec' => $f->asDecimal($values['durationFrames'] / 60, 3),
+                        'frames' => $f->asInteger($values['durationFrames']),
                     ]);
+                }
+
+                if (
+                    (($values['armorDurationFrames1'] ?? null) !== null) &&
+                    (($values['armorDurationFrames2'] ?? null) !== null)
+                ) {
+                    $rows[] = Yii::t('app-ability2', 'Duration: {sec} ({sec1}+{sec2}) sec', [
+                        'sec' => $f->asDecimal(
+                            ($values['armorDurationFrames1'] + $values['armorDurationFrames2']) / 60,
+                            3
+                        ),
+                        'sec1' => $f->asDecimal($values['armorDurationFrames1'] / 60, 3),
+                        'sec2' => $f->asDecimal($values['armorDurationFrames2'] / 60, 3),
+                        // 'frames1' => $f->asInteger($values['armorDurationFrames1']),
+                        // 'frames2' => $f->asInteger($values['armorDurationFrames2']),
+                    ]);
+                }
+
+                return implode("\n", $rows);
+                // }}}
+
+            case 'swim_speed_up': // {{{
+                if (!$values = $this->getSwimSpeedUpCoefficient()) {
+                    return null;
+                }
+
+                if ($raw) {
+                    return $values;
+                }
+
+                $f = Yii::$app->formatter;
+                $rows = [];
+
+                if (($values['swimSpeedRatio'] ?? null) !== null) {
+                    if (($values['swimSpeedDUPF'] ?? null) !== null) {
+                        $rows[] = Yii::t('app-ability2', '{pct} ({dupf} DU/f)', [
+                            'pct' => $f->asPercent($values['swimSpeedRatio'], 1),
+                            'dupf' => $f->asDecimal($values['swimSpeedDUPF'], 3),
+                        ]);
+                    } else {
+                        $rows[] = Yii::t('app-ability2', 'Default×{pct}', [
+                            'pct' => $f->asPercent($values['swimSpeedRatio'], 1),
+                        ]);
+                    }
+
+                    if ($this->haveNinja) {
+                        $rows[] = Yii::t('app-ability2', 'Revised by {ability}', [
+                            'ability' => Yii::t('app-ability2', 'Ninja Squid'),
+                        ]);
+                    }
+                }
+
+                return implode("\n", $rows);
                 // }}}
 
             default:
@@ -138,17 +247,80 @@ class Ability2Info extends Model
     private function getInkResistanceUpCoefficient(): ?array
     {
         // {{{
-        $gp = $this->get57Format();
+        if (!$gp = $this->get57Format()) {
+            return null;
+        }
+
         $floor = function (float $value, int $precision): float {
             $fig = pow(10, $precision);
             return floor($value * $fig) / $fig;
         };
 
+        $vTag = $this->version->tag ?? '9999.999.999';
+        $slipIgnoreFrame = (function () use ($gp, $vTag): ?int {
+            // {{{
+            switch (true) {
+                case version_compare($vTag, '4.3.0', '<'):
+                    return null;
+
+                case version_compare($vTag, '4.4.0', '<'):
+                    return (int)ceil(static::calcCoefficient($gp, 30, 0, 2 / 3));
+
+                default:
+                    return (int)ceil(static::calcCoefficient($gp, 39, 0, 2 / 3));
+            }
+            // }}}
+        })();
+        $runSpeed = (function () use ($gp, $vTag): float {
+            // {{{
+            if (version_compare($vTag, '4.6.0', '<')) {
+                return (static::calcCoefficient($gp, 0.72, 0.24, 0.5)) / 0.24;
+            }
+            
+            return (static::calcCoefficient($gp, 0.769, 0.24, 0.6)) / 0.24;
+            // }}}
+        })();
+        $runSpeedShoot = (function () use ($gp, $vTag): float {
+            // {{{
+            if (version_compare($vTag, '4.6.0', '<')) {
+                return (static::calcCoefficient($gp, 0.40, 0.12, 0.5)) / 0.12;
+            }
+            
+            return (static::calcCoefficient($gp, 0.42, 0.12, 0.7)) / 0.12;
+            // }}}
+        })();
+        $runSpeedCharge = (function () use ($gp, $vTag): ?float {
+            // {{{
+            if (!$this->weapon || !$this->weapon->mainReference) {
+                return null;
+            }
+
+            switch ($this->weapon->mainReference->key) {
+                case 'splatspinner':
+                    return (0.7 * static::calcCoefficient($gp, 1, 0.5)) / (0.7 * 0.5);
+
+                case 'barrelspinner':
+                    return (0.6 * static::calcCoefficient($gp, 1, 0.5)) / (0.6 * 0.5);
+
+                case 'hydra':
+                case 'nautilus47':
+                    return (0.4 * static::calcCoefficient($gp, 1, 0.5)) / (0.4 * 0.5);
+
+                case 'kugelschreiber':
+                    return (0.96 * static::calcCoefficient($gp, 1, 0.5)) / (0.96 * 0.5);
+            }
+
+            return null;
+            // }}}
+        })();
+
         return [
             'slipPerFrame' => $floor(0.3 - static::calcCoefficient($gp, 0.15), 1),
-            'slipIgnoreFrame' => (int)ceil(static::calcCoefficient($gp, 39, 0, 2 / 3)),
+            'slipIgnoreFrame' => $slipIgnoreFrame,
             'slipCap' => round(40 - static::calcCoefficient($gp, 20), 1),
-            'runSpeed' => (0.24 + static::calcCoefficient($gp, 0.48)) / 0.24,
+            'runSpeed' => $runSpeed,
+            'runSpeedShoot' => $runSpeedShoot,
+            'runSpeedCharge' => $runSpeedCharge,
         ];
         // }}}
     }
@@ -156,12 +328,15 @@ class Ability2Info extends Model
     private function getInkSaverMainCoefficient(): ?float
     {
         // {{{
-        if (!$this->weapon) {
+        if (!$this->weapon || !$this->weapon->mainReference) {
             return null;
         }
 
-        $gp = $this->get57Format();
-        switch ($this->weapon->mainReference->key ?? null) {
+        if (!$gp = $this->get57Format()) {
+            return null;
+        }
+
+        switch ($this->weapon->mainReference->key) {
             case 'campingshelter':
             case 'dynamo':
             case 'h3reelgun':
@@ -171,15 +346,15 @@ class Ability2Info extends Model
             case 'prime':
                 if (
                     $this->version &&
-                    version_compare($this->version->tag, '1.3.0', '<')
+                    version_compare($this->version->tag, '1.4.0', '<')
                 ) {
-                    return 1 - static::calcCoefficient($gp, 0.5);
+                    return static::calcCoefficient($gp, 0.5, 1, 0.5);
                 } else {
-                    return 1 - static::calcCoefficient($gp, 0.5, 0, 0.6);
+                    return static::calcCoefficient($gp, 0.5, 1, 0.6);
                 }
 
             default:
-                return 1 - static::calcCoefficient($gp, 0.45);
+                return static::calcCoefficient($gp, 0.55, 1, 0.5);
         }
         // }}}
     }
@@ -200,90 +375,28 @@ class Ability2Info extends Model
             $vTag = $this->version->tag;
             switch (true) {
                 case version_compare($vTag, '2.0.0', '<'):
-                    switch ($subKey) {
-                        case 'curlingbomb':
-                        case 'jumpbeacon':
-                        case 'kyubanbomb':
-                        case 'pointsensor':
-                        case 'poisonmist':
-                        case 'splashbomb':
-                        case 'splashshield':
-                        case 'sprinkler':
-                        case 'trap':
-                            return 1 - static::calcCoefficient($gp, 0.35);
-                        default:
-                            return 1 - static::calcCoefficient($gp, 0.3);
-                    }
-                    break;
-
                 case version_compare($vTag, '4.3.0', '<'):
-                    switch ($subKey) {
-                        case 'curlingbomb':
-                        case 'jumpbeacon':
-                        case 'kyubanbomb':
-                        case 'pointsensor':
-                        case 'splashbomb':
-                        case 'splashshield':
-                        case 'sprinkler':
-                        case 'tansanbomb':
-                        case 'trap':
-                            return 1 - static::calcCoefficient($gp, 0.35);
-
-                        case 'poisonmist':
-                        case 'robotbomb':
-                            return 1 - static::calcCoefficient($gp, 0.3);
-
-                        default:
-                            return 1 - static::calcCoefficient($gp, 0.2);
-                    }
-                    break;
-
-                case version_compare($vTag, '4.5.0', '<'):
-                    switch ($subKey) {
-                        case 'jumpbeacon':
-                        case 'pointsensor':
-                        case 'sprinkler':
-                        case 'trap':
-                            return 1 - static::calcCoefficient($gp, 0.4);
-
-                        case 'curlingbomb':
-                        case 'kyubanbomb':
-                        case 'splashbomb':
-                        case 'splashshield':
-                            return 1 - static::calcCoefficient($gp, 0.35);
-
-                        case 'poisonmist':
-                        case 'robotbomb':
-                        case 'tansanbomb':
-                            return 1 - static::calcCoefficient($gp, 0.3);
-
-                        default:
-                            return 1 - static::calcCoefficient($gp, 0.2);
-                    }
-                    break;
+                    // よくわからない
+                    return null;
             }
         }
 
         switch ($subKey) {
-            case 'jumpbeacon':
-            case 'sprinkler':
-            case 'trap':
-                return 1 - static::calcCoefficient($gp, 0.4);
+            case 'quickbomb':
+                return static::calcCoefficient($gp, 0.8, 1.0, 0.5);
 
-            case 'curlingbomb':
-            case 'kyubanbomb':
-            case 'splashbomb':
-            case 'splashshield':
-                return 1 - static::calcCoefficient($gp, 0.35);
-
-            case 'pointsensor':
             case 'poisonmist':
             case 'robotbomb':
             case 'tansanbomb':
-                return 1 - static::calcCoefficient($gp, 0.3);
+                return static::calcCoefficient($gp, 0.7, 1.0, 0.5);
+
+            case 'jumpbeacon':
+            case 'sprinkler':
+            case 'trap':
+                return static::calcCoefficient($gp, 0.6, 1.0, 0.5);
 
             default:
-                return 1 - static::calcCoefficient($gp, 0.2);
+                return static::calcCoefficient($gp, 0.65, 1.0, 0.5);
         }
         // }}}
     }
@@ -295,85 +408,202 @@ class Ability2Info extends Model
             return null;
         }
 
-        $gp = $this->get57Format();
-        $key = $this->weapon->mainReference->key;
-        switch ($key) {
-            case 'hydra':
-                return [
-                    1 + static::calcCoefficient($gp, 0.56),
-                    1 + static::calcCoefficient($gp, 0.35),
-                ];
-
-            case 'nautilus47':
-                return [
-                    1 + static::calcCoefficient($gp, 0.48),
-                    1 + static::calcCoefficient($gp, 0.3),
-                ];
-
-            case 'barrelspinner':
-                return [
-                    1 + static::calcCoefficient($gp, 0.48),
-                    1 + static::calcCoefficient($gp, 0.35),
-                ];
-
-            case 'splatspinner':
-                return [
-                    1 + static::calcCoefficient($gp, 0.48),
-                    1 + static::calcCoefficient($gp, 0.3),
-                ];
-
-            case 'kugelschreiber': // クーゲルはスピナーだが特殊扱いがない
-            default:
-                switch (static::weaponWeight($key)) {
-                    case static::WEIGHT_LIGHT:
-                        return [
-                            1 + static::calcCoefficient($gp, 0.4),
-                            1 + static::calcCoefficient($gp, 0.25),
-                        ];
-
-                    case static::WEIGHT_MEDIUM:
-                        return [
-                            1 + static::calcCoefficient($gp, 0.48),
-                            1 + static::calcCoefficient($gp, 0.25),
-                        ];
-
-                    case static::WEIGHT_HEAVY:
-                        return [
-                            1 + static::calcCoefficient($gp, 0.56),
-                            1 + static::calcCoefficient($gp, 0.25),
-                        ];
-                }
+        if (!$gp = $this->get57Format()) {
+            return null;
         }
 
-        return null;
+        $results = [];
+        $key = $this->weapon->mainReference->key;
+
+        $calcRunSpeed = function (float $defaultSpeed) use ($gp): array {
+            $c = static::calcCoefficient($gp, 1.44, $defaultSpeed);
+            return [
+                'runSpeedDUPF' => $c,
+                'runSpeedRatio' => $c / $defaultSpeed,
+            ];
+        };
+        switch (static::weaponWeight($key)) {
+            case static::WEIGHT_LIGHT:
+                $results = array_merge($results, $calcRunSpeed(1.04));
+                break;
+
+            case static::WEIGHT_MEDIUM:
+                $results = array_merge($results, $calcRunSpeed(0.96));
+                break;
+
+            case static::WEIGHT_HEAVY:
+                $results = array_merge($results, $calcRunSpeed(0.88));
+                break;
+        }
+
+        // TODO: 射撃中速度計算
+
+        return $results;
         // }}}
     }
 
     private function getSpecialChargeUpCoefficient(): ?float
     {
         // {{{
-        $gp = $this->get57Format();
-        return 1 - static::calcCoefficient($gp, 0.3);
+        if (!$gp = $this->get57Format()) {
+            return null;
+        }
+
+        return 1 / static::calcCoefficient($gp, 1.3, 1.0);
         // }}}
     }
 
-    private function getSwimSpeedUpCoefficient(): ?float
+    private function getSpecialPowerUpCoefficient(): ?array
+    {
+        if (!$this->weapon || !$this->weapon->special) {
+            return null;
+        }
+
+        if (!$gp = $this->get57Format()) {
+            return null;
+        }
+
+        $duration = function (int $baseFrames, int $maxExtends) use ($gp): array {
+            $c = (int)ceil(static::calcCoefficient($gp, $baseFrames + $maxExtends, $baseFrames));
+            return [
+                'durationFrames' => $c,
+                'durationRate' => $c / $baseFrames,
+            ];
+        };
+
+        $key = $this->weapon->special->key;
+        switch ($key) {
+            case 'amefurashi':
+                return $duration(480, 120);
+
+            case 'armor':
+                if ($this->version && version_compare($this->version->tag, '1.4.0', '<')) {
+                    return [
+                        'armorDurationFrames1' => 120,
+                        'armorDurationFrames2' => (int)ceil(static::calcCoefficient($gp, 540, 360)),
+                    ];
+                }
+                return [
+                    'armorDurationFrames1' => (int)ceil(static::calcCoefficient($gp, 60, 120)),
+                    'armorDurationFrames2' => (int)ceil(static::calcCoefficient($gp, 540, 360)),
+                ];
+
+            case 'bubble':
+                // TODO
+                break;
+
+            case 'chakuchi':
+                // TODO
+                break;
+
+            case 'curlingbomb_pitcher':
+                return $duration(400, 120);
+
+            case 'jetpack':
+                // TODO
+                return $duration(450, 60);
+
+            case 'kyubanbomb_pitcher':
+                return $duration(360, 120);
+
+            case 'missile':
+                // TODO
+                break;
+
+            case 'nicedama':
+                // TODO
+                break;
+
+            case 'presser':
+                return $duration(430, 80);
+
+            case 'quickbomb_pitcher':
+                return $duration(360, 120);
+
+            case 'robotbomb_pitcher':
+                return $duration(360, 120);
+
+            case 'sphere':
+                // TODO
+                break;
+
+            case 'splashbomb_pitcher':
+                return $duration(360, 120);
+
+            case 'ultrahanko':
+                return $duration(540, 120);
+        }
+
+        return null;
+    }
+
+    private function getSwimSpeedUpCoefficient(): ?array
     {
         // {{{
         if (!$this->weapon || !$this->weapon->mainReference) {
             return null;
         }
 
-        $gp = $this->get57Format();
-        switch (static::weaponWeight($this->weapon->mainReference->key)) {
+        if (!$gp = $this->get57Format()) {
+            return null;
+        }
+
+        $calcSpeed = function (
+            float $min,
+            float $maxDiff,
+            float $mid = 0.5,
+            float $afterK = 1.0
+        ) use ($gp): array {
+            $c = static::calcCoefficient($gp, $min + $maxDiff, $min, $mid) * $afterK;
+            return [
+                'swimSpeedDUPF' => $c,
+                'swimSpeedRatio' => $c / $min,
+            ];
+        };
+
+        $weight = static::weaponWeight($this->weapon->mainReference->key);
+        if ($this->version) {
+            // イカニンジャをつけていれば 2.3.x までの計算式が特殊になる
+            // そうでなければ以降の式と共通
+            if ($this->haveNinja && version_compare($this->version->tag, '2.4.0', '<')) {
+                switch ($weight) {
+                    case static::WEIGHT_LIGHT:
+                        return $calcSpeed(2.016, 0.384, 0.5, 0.9);
+
+                    case static::WEIGHT_MEDIUM:
+                        return $calcSpeed(1.92, 0.48, 0.5, 0.9);
+
+                    case static::WEIGHT_HEAVY:
+                        return $calcSpeed(1.728, 0.672, 0.5, 0.9);
+                }
+            }
+
+            // 4.2.x までで修正する必要があるのは重量級だけ
+            if (
+                version_compare($this->version->tag, '4.3.0', '<') &&
+                $weight === static::WEIGHT_HEAVY
+            ) {
+                return $this->haveNinja
+                    ? $calcSpeed(1.728, 0.5376, 0.5, 0.9)
+                    : $calcSpeed(1.728, 0.672, 0.5, 1.0);
+            }
+        }
+
+        switch ($weight) {
             case static::WEIGHT_LIGHT:
-                return 1 + static::calcCoefficient($gp, 0.384);
+                return $this->haveNinja
+                    ? $calcSpeed(2.016, 0.3072, 0.5, 0.9)
+                    : $calcSpeed(2.016, 0.384, 0.5, 1.0);
 
             case static::WEIGHT_MEDIUM:
-                return 1 + static::calcCoefficient($gp, 0.48);
+                return $this->haveNinja
+                    ? $calcSpeed(1.92, 0.384, 0.5, 0.9)
+                    : $calcSpeed(1.92, 0.48, 0.5, 1.0);
 
             case static::WEIGHT_HEAVY:
-                return 1 + static::calcCoefficient($gp, 0.672);
+                return $this->haveNinja
+                    ? $calcSpeed(1.728, 0.5376, 0.64285714285, 0.9)
+                    : $calcSpeed(1.728, 0.672, 0.64285714285, 1.0);
         }
 
         return null;
