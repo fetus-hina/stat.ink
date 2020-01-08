@@ -22,6 +22,8 @@ return [
     'DoT Cap: {damage}' => '',
     'DoT Delay: {frame} frames ({sec} sec.)' => '',
     'Drop Roller' => 'Акробат',
+    'Duration: {pct} ({sec} sec., {frames} frames)' => '',
+    'Duration: {sec} ({sec1}+{sec2}) sec' => '',
     'Haunt' => 'Вендетта',
     'Increase brella canopy durability' => '',
     'Increase bullet velocity' => '',
@@ -46,6 +48,7 @@ return [
     'Quick Respawn' => 'Феникс',
     'Quick Super Jump' => 'Суперпрыгун',
     'Respawn Punisher' => 'Кара',
+    'Revised by {ability}' => '',
     'Run Speed: {value}' => '',
     'Run Speed Up' => 'Спринтер',
     'Shooting: {value}' => '',
@@ -58,4 +61,5 @@ return [
     'Swim Speed Up' => 'Плавунец',
     'Tenacity' => 'Компенсатор',
     'Thermal Ink' => 'Клеймо',
+    '{pct} ({dupf} DU/f)' => '',
 ];

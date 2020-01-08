@@ -22,6 +22,8 @@ return [
     'DoT Cap: {damage}' => '',
     'DoT Delay: {frame} frames ({sec} sec.)' => '',
     'Drop Roller' => 'Aterrizaje rodante',
+    'Duration: {pct} ({sec} sec., {frames} frames)' => '',
+    'Duration: {sec} ({sec1}+{sec2}) sec' => '',
     'Haunt' => 'Resentimiento',
     'Increase brella canopy durability' => '',
     'Increase bullet velocity' => '',
@@ -46,6 +48,7 @@ return [
     'Quick Respawn' => 'Regeneración rápida',
     'Quick Super Jump' => '',
     'Respawn Punisher' => '',
+    'Revised by {ability}' => '',
     'Run Speed: {value}' => '',
     'Run Speed Up' => 'Carrera acelerada',
     'Shooting: {value}' => '',
@@ -58,4 +61,5 @@ return [
     'Swim Speed Up' => 'Nado acelerado',
     'Tenacity' => 'Tenacidad',
     'Thermal Ink' => 'Tinta rastreadora',
+    '{pct} ({dupf} DU/f)' => '',
 ];

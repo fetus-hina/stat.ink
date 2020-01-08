@@ -1832,6 +1832,13 @@ class Battle2 extends ActiveRecord
             }
         }
 
+        // イカニンジャが設定されていれば全アイテムにフラグを立てていく
+        if (isset($results['ninja_squid'])) {
+            foreach ($results as $info) {
+                $info->haveNinja = true;
+            }
+        }
+
         uasort($results, function (Ability2Info $a, Ability2Info $b): int {
             // メインにしかつかないやつは後回し
             if ($a->isPrimaryOnly !== $b->isPrimaryOnly) {

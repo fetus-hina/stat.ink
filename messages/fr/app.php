@@ -604,6 +604,7 @@ return [
     '{number, plural, =1{1 time} other{# times}} in {battle, plural, =1{1 shift} other{# shifts}}' => '',
     '{pct_point} percentage point' => '',
     '{pct} % loss' => '',
+    '{pct} ({dupf} DU/F)' => '',
     '{percentile} Percentile' => '',
     '{point, plural, =1{1 point} other{# points}} in {battle, plural, =1{1 battle} other{# battles}}' => '',
     '{point, plural, other{#p}}' => '',

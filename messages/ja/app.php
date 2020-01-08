@@ -608,6 +608,7 @@ return [
     '{number, plural, =1{1 time} other{# times}} in {battle, plural, =1{1 shift} other{# shifts}}' => '{number}回/{battle}回',
     '{pct_point} percentage point' => '{pct_point} パーセントポイント',
     '{pct} % loss' => '{pct} % 減少',
+    '{pct} ({dupf} DU/F)' => '{pct} ({dupf} DU/F)',
     '{percentile} Percentile' => '{percentile}パーセンタイル',
     '{point, plural, =1{1 point} other{# points}} in {battle, plural, =1{1 battle} other{# battles}}' => '{point, plural, other{#p}} / {battle, plural, other{#戦}}',
     '{point, plural, other{#p}}' => '{point, plural, other{#ポイント}}',
