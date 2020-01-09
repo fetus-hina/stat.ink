@@ -11,6 +11,7 @@ declare(strict_types=1);
 namespace app\components\widgets;
 
 use Yii;
+use app\assets\Spl2WeaponAsset;
 use app\components\widgets\AbilityIcon;
 use app\models\Ability2Info;
 use app\models\Special2;
@@ -60,31 +61,69 @@ class Spl2GearAbilitiesSummaryWidget extends Widget
                         'label' => Yii::t('app-gearstat', 'Gear Abilities'),
                         'format' => 'raw',
                         'value' => function (Ability2Info $model): string {
-                            return implode('', [
-                                Html::tag(
-                                    'div',
+                            $items = [];
+                            $items[] = Html::tag(
+                                'div',
+                                AbilityIcon::spl2($model->ability->key, [
+                                    'title' => Yii::t('app-ability2', $model->ability->name),
+                                    'class' => 'auto-tooltip',
+                                    'style' => [
+                                        'height' => '3em',
+                                    ],
+                                ]),
+                                ['class' => 'hidden-lg']
+                            );
+                            $items[] = Html::tag(
+                                'div',
+                                implode(' ', [
                                     AbilityIcon::spl2($model->ability->key, [
-                                        'title' => Yii::t('app-ability2', $model->ability->name),
-                                        'class' => 'auto-tooltip',
                                         'style' => [
-                                            'height' => '3em',
+                                            'height' => '1.667em',
                                         ],
                                     ]),
-                                    ['class' => 'hidden-lg']
-                                ),
-                                Html::tag(
+                                    Html::encode(Yii::t('app-ability2', $model->ability->name))
+                                ]),
+                                ['class' => 'visible-lg-block']
+                            );
+                            if (
+                                $model->ability->key === 'special_power_up' &&
+                                $model->weapon &&
+                                $model->weapon->special
+                            ) {
+                                $sp = $model->weapon->special;
+                                $icons = Spl2WeaponAsset::register($this->view);
+                                $items[] = Html::tag(
                                     'div',
-                                    implode(' ', [
-                                        AbilityIcon::spl2($model->ability->key, [
-                                            'style' => [
-                                                'height' => '1.667em',
-                                            ],
-                                        ]),
-                                        Html::encode(Yii::t('app-ability2', $model->ability->name))
+                                    implode('', [
+                                        Html::img(
+                                            $icons->getIconUrl('sp/' . $sp->key),
+                                            [
+                                                'style' => [
+                                                    'height' => '2em',
+                                                ],
+                                                'title' => Yii::t('app-special2', $sp->name),
+                                                'class' => 'auto-tooltip',
+                                            ]
+                                        ),
                                     ]),
-                                    ['class' => 'visible-lg-block']
-                                ),
-                            ]);
+                                    ['class' => 'hidden-lg pl-2']
+                                );
+                                $items[] = Html::tag(
+                                    'div',
+                                    implode('', [
+                                        Html::img(
+                                            $icons->getIconUrl('sp/' . $sp->key),
+                                            ['style' => [
+                                                'height' => '1.333em',
+                                            ]]
+                                        ),
+                                        Html::encode(Yii::t('app-special2', $sp->name)),
+                                    ]),
+                                    ['class' => 'visible-lg-block pl-4']
+                                );
+                            }
+
+                            return implode('', $items);
                         },
                     ],
                     [
