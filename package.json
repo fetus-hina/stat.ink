@@ -40,7 +40,7 @@
     "patch-package": "^6.2.0",
     "photoswipe": "^4.1.3",
     "photoswipe-simplify": "0.0.3",
-    "postcss-cli": "^7.0.0",
+    "postcss-cli": "^7.1.0",
     "punycode": "^2.1.1",
     "redoc-cli": "^0.9.4",
     "rpg-awesome": "git+https://github.com/nagoshiashumari/Rpg-Awesome.git",
