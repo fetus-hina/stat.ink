@@ -78,6 +78,7 @@ RESOURCE_TARGETS_MAIN := \
 	resources/.compiled/stat.ink/freshness-history.css \
 	resources/.compiled/stat.ink/freshness-history.js \
 	resources/.compiled/stat.ink/game-modes.css \
+	resources/.compiled/stat.ink/gear-ability-number-switcher.js \
 	resources/.compiled/stat.ink/hsv2rgb.js \
 	resources/.compiled/stat.ink/ie-warning.css \
 	resources/.compiled/stat.ink/ie-warning.js \
@@ -369,6 +370,7 @@ resources/.compiled/stat.ink/fluid-layout.js: resources/stat.ink/fluid-layout.es
 resources/.compiled/stat.ink/freshness-history.css: resources/stat.ink/freshness-history.less node_modules
 resources/.compiled/stat.ink/freshness-history.js: resources/stat.ink/freshness-history.es node_modules
 resources/.compiled/stat.ink/game-modes.css: resources/stat.ink/game-modes.less node_modules
+resources/.compiled/stat.ink/gear-ability-number-switcher.js: resources/stat.ink/gear-ability-number-switcher.es node_modules
 resources/.compiled/stat.ink/hsv2rgb.js: resources/stat.ink/hsv2rgb.es node_modules
 resources/.compiled/stat.ink/ie-warning.css: resources/stat.ink/ie-warning.less node_modules
 resources/.compiled/stat.ink/ie-warning.js: resources/stat.ink/ie-warning.es node_modules

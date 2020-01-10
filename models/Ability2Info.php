@@ -39,7 +39,9 @@ class Ability2Info extends Model
         ));
     }
 
+    // @codingStandardsIgnoreStart
     // https://mntone.minibird.jp/splw/%E3%82%AB%E3%83%86%E3%82%B4%E3%83%AA:%E3%82%AE%E3%82%A2%E3%83%91%E3%83%AF%E3%83%BC
+    // @codingStandardsIgnoreEnd
     public function getCoefficient(bool $raw = false)
     {
         switch ($this->ability->key ?? null) {
@@ -172,6 +174,7 @@ class Ability2Info extends Model
                 if ($raw) {
                     return $values;
                 }
+                // var_dump($values);
 
                 $f = Yii::$app->formatter;
                 $rows = [];
@@ -199,6 +202,36 @@ class Ability2Info extends Model
                         'sec2' => $f->asDecimal($values['armorDurationFrames2'] / 60, 3),
                         // 'frames1' => $f->asInteger($values['armorDurationFrames1']),
                         // 'frames2' => $f->asInteger($values['armorDurationFrames2']),
+                    ]);
+                }
+
+                if (
+                    (($values['blastAreaNear'] ?? null) !== null) &&
+                    (($values['blastAreaNearRate'] ?? null) !== null)
+                ) {
+                    $rows[] = Yii::t('app-ability2', 'Damage R. (near): {pct} ({radius})', [
+                        'pct' => $f->asPercent($values['blastAreaNearRate'], 1),
+                        'radius' => $f->asDecimal($values['blastAreaNear'], 2),
+                    ]);
+                }
+
+                if (
+                    (($values['blastAreaFar'] ?? null) !== null) &&
+                    (($values['blastAreaFarRate'] ?? null) !== null)
+                ) {
+                    $rows[] = Yii::t('app-ability2', 'Damage R. (far): {pct} ({radius})', [
+                        'pct' => $f->asPercent($values['blastAreaFarRate'], 1),
+                        'radius' => $f->asDecimal($values['blastAreaFar'], 2),
+                    ]);
+                }
+
+                if (
+                    (($values['inkRadius'] ?? null) !== null) &&
+                    (($values['inkRadiusRatio'] ?? null) !== null)
+                ) {
+                    $rows[] = Yii::t('app-ability2', 'Inking R.: {pct} ({radius})', [
+                        'pct' => $f->asPercent($values['inkRadiusRatio'], 1),
+                        'radius' => $f->asDecimal($values['inkRadius'], 2),
                     ]);
                 }
 
@@ -470,6 +503,19 @@ class Ability2Info extends Model
                 'durationRate' => $c / $baseFrames,
             ];
         };
+        $blastArea = function (
+            string $tag,
+            float $base,
+            float $maxExtends,
+            float $ratio = 0.5
+        ) use ($gp): array {
+            $c = static::calcCoefficient($gp, $base + $maxExtends, $base, $ratio);
+            $tag = ucfirst($tag);
+            return [
+                "blastArea{$tag}" => $c,
+                "blastArea{$tag}Rate" => $c / $base,
+            ];
+        };
 
         $key = $this->weapon->special->key;
         switch ($key) {
@@ -500,8 +546,41 @@ class Ability2Info extends Model
                 return $duration(400, 120);
 
             case 'jetpack':
-                // TODO
-                return $duration(450, 60);
+                $vTag = $this->version->tag ?? '9999.999.999';
+                $inkC = static::calcCoefficient($gp, 4.0, 3.2);
+                $ink = [
+                    'inkRadius' => $inkC,
+                    'inkRadiusRatio' => $inkC / 3.2,
+                ];
+                $results = $duration(450, 60);
+                if (version_compare($vTag, '1.3.0', '<')) {
+                    return array_merge(
+                        $duration(480, 120),
+                        $blastArea('near', 6, 0),
+                        $blastArea('far', 3, 0),
+                        $ink,
+                    );
+                } elseif (version_compare($vTag, '1.4.0', '<')) {
+                    return array_merge(
+                        $duration(480, 120),
+                        $blastArea('near', 5, 0),
+                        $blastArea('far', 3, 0),
+                        $ink,
+                    );
+                } elseif (version_compare($vTag, '4.0.0', '<')) {
+                    return array_merge(
+                        $duration(480, 60),
+                        $blastArea('near', 5, 1.5),
+                        $blastArea('far', 2.5, 0.75),
+                        $ink,
+                    );
+                }
+                return array_merge(
+                    $duration(450, 60),
+                    $blastArea('near', 5, 1.5),
+                    $blastArea('far', 2.5, 0.75),
+                    $ink,
+                );
 
             case 'kyubanbomb_pitcher':
                 return $duration(360, 120);
