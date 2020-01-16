@@ -1,0 +1,15 @@
+--- epel.repo
++++ epel.repo
+@@ -1,6 +1,11 @@
+ [epel]
+ name=Extra Packages for Enterprise Linux $releasever - $basearch
+ #baseurl=https://download.fedoraproject.org/pub/epel/$releasever/Everything/$basearch
+-metalink=https://mirrors.fedoraproject.org/metalink?repo=epel-$releasever&arch=$basearch&infra=$infra&content=$contentdir
++#metalink=https://mirrors.fedoraproject.org/metalink?repo=epel-$releasever&arch=$basearch&infra=$infra&content=$contentdir
++baseurl=https://download.fedoraproject.org/pub/epel/$releasever/Everything/$basearch
++        https://ewr.edge.kernel.org/fedora-buffet/epel/$releasever/Everything/$basearch/
++        https://sjc.edge.kernel.org/fedora-buffet/epel/$releasever/Everything/$basearch/
++        http://ftp.jaist.ac.jp/pub/Linux/Fedora/epel/$releasever/Everything/$basearch/
++        http://ftp.riken.jp/Linux/fedora/epel/$releasever/Everything/$basearch/
+ enabled=1
+ gpgcheck=1
