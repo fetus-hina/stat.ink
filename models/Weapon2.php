@@ -34,6 +34,7 @@ use yii\helpers\ArrayHelper;
  * @property Weapon2 $canonical
  * @property Weapon2 $mainReference
  * @property WeaponType2 $type
+ * @property WeaponAttack2[] $weaponAttacks
  */
 class Weapon2 extends ActiveRecord
 {
@@ -147,6 +148,26 @@ class Weapon2 extends ActiveRecord
     public function getMainPowerUp(): ActiveQuery
     {
         return $this->hasOne(MainPowerUp2::class, ['id' => 'main_power_up_id']);
+    }
+
+    public function getWeaponAttacks(): ActiveQuery
+    {
+        return $this->hasMany(WeaponAttack2::class, ['weapon_id' => 'id']);
+    }
+
+    public function getWeaponAttack(SplatoonVersion2 $version): ?WeaponAttack2
+    {
+        $attacks = $this->getWeaponAttacks()->with('version')->all();
+        $attacks = array_filter($attacks, function (WeaponAttack2 $model) use ($version): bool {
+            return version_compare($model->version->tag, $version->tag, '<=');
+        });
+        if (!$attacks) {
+            return null;
+        }
+        usort($attacks, function (WeaponAttack2 $a, WeaponAttack2 $b): int {
+            return version_compare($b->version->tag, $a->version->tag);
+        });
+        return array_shift($attacks);
     }
 
     public function toJsonArray(): array

@@ -68,6 +68,24 @@ if (
   );
 }
 
+// if (
+//   $battle->weapon &&
+//   $battle->version &&
+//   ($attack = $battle->weapon->getWeaponAttack($battle->version))
+// ) {
+//   $rows[] = Html::tag(
+//     'div',
+//     Html::encode(implode(', ', array_filter([
+//         $attack->damage,
+//         $attack->damage2,
+//         $attack->damage3,
+//     ]))),
+//     ['style' => [
+//       'margin-left' => '2.5em',
+//     ]]
+//   );
+// }
+
 echo Html::tag(
   'div',
   implode('', array_map(
