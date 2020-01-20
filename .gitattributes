@@ -1,1 +1,2 @@
+bin/* linguist-detectable=false
 web/apidoc/*.html linguist-documentation
