@@ -32,3 +32,25 @@ jobs:
             components \
             controllers \
             models
+
+  jsStyleCheck:
+    name: 'JS Coding Style'
+    runs-on: 'ubuntu-latest'
+    steps:
+      - uses: 'actions/checkout@v1'
+      - uses: 'actions/setup-node@v1'
+        with:
+          node-version: '12.x'
+      - run: 'npm ci'
+      - run: 'npx eslint "resources/**/*.es" "resources/**/*.js"'
+
+  cssStyleCheck:
+    name: 'CSS Coding Style'
+    runs-on: 'ubuntu-latest'
+    steps:
+      - uses: 'actions/checkout@v1'
+      - uses: 'actions/setup-node@v1'
+        with:
+          node-version: '12.x'
+      - run: 'npm ci'
+      - run: 'npx stylelint "resources/**/*.less" "resources/**/*.css"'
