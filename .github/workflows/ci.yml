@@ -1,0 +1,16 @@
+name: 'CI'
+on: ['push', 'pull_request']
+jobs:
+  phpSyntaxCheck:
+    name: 'PHP Syntax Check'
+    strategy:
+      matrix:
+        php_version:
+          - '7.3'
+          - '7.4'
+    runs-on: 'ubuntu-latest'
+    steps:
+      - uses: 'actions/checkout@v1'
+      - run: "php${{ matrix.php_version }} -v"
+      - run: |
+          find $GITHUB_WORKSPACE \( -type d \( -name '.git' -or -name 'vendor' -or -name 'runtime' \) -prune \) -or \( -type f -name '*.php' -print \) | LANG=C sort | xargs -n 1 php${{ matrix.php_version }} -l
