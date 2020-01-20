@@ -14,3 +14,21 @@ jobs:
       - run: "php${{ matrix.php_version }} -v"
       - run: |
           find $GITHUB_WORKSPACE \( -type d \( -name '.git' -or -name 'vendor' -or -name 'runtime' \) -prune \) -or \( -type f -name '*.php' -print \) | LANG=C sort | xargs -n 1 php${{ matrix.php_version }} -l
+
+  phpStyleCheck:
+    name: 'PHP Coding Style'
+    runs-on: 'ubuntu-latest'
+    steps:
+      - uses: 'actions/checkout@v1'
+      - run: 'curl -fsSL -o phpcs "https://squizlabs.github.io/PHP_CodeSniffer/phpcs.phar"'
+      - run: |
+          php7.4 -v
+          php7.4 phpcs --version
+      - run: |
+          php7.4 -d memory_limit=-1 phpcs --standard=phpcs-customize.xml --encoding=UTF-8 --runtime-set ignore_warnings_on_exit 1 \
+            actions \
+            assets \
+            commands \
+            components \
+            controllers \
+            models
