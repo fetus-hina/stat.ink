@@ -1,0 +1,14 @@
+name: Notify to Discord
+
+on:
+- push
+- pull_request
+
+jobs:
+  slackNotification:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Slack Notify
+      uses: rtCamp/action-slack-notify@v1.0.0
+      env:
+        SLACK_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
