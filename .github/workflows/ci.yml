@@ -33,6 +33,28 @@ jobs:
             controllers \
             models
 
+  phpCheckAuthor:
+    name: 'Check Author'
+    runs-on: 'ubuntu-latest'
+    steps:
+      - uses: 'actions/checkout@v1'
+      - run: |
+          sudo update-alternatives --set php /usr/bin/php7.4
+          rm -f composer.json composer.lock vendor
+          cp composer.check-author.json composer.json
+          make vendor
+          patch -p0 -d vendor/phpcq/author-validation < data/patch/check-author.nofollow.patch
+      - run: |
+          php7.4 -d memory_limit=-1 vendor/bin/check-author.php --php-files \
+            actions \
+            assets \
+            commands \
+            components \
+            controllers \
+            messages \
+            migrations \
+            models
+
   jsStyleCheck:
     name: 'JS Coding Style'
     runs-on: 'ubuntu-latest'

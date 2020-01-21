@@ -1,0 +1,14 @@
+--- src/AuthorExtractor/GitAuthorExtractor.php
++++ src/AuthorExtractor/GitAuthorExtractor.php
+@@ -605,8 +605,8 @@
+      */
+     private function fetchCommitCollectionByPath($path, GitRepository $git)
+     {
+-        // git log --follow --name-status --format='%H' -- $path
+-        $log = $git->log()->follow()->revisionRange('--name-status')->revisionRange('--format=%H')->execute($path);
++        // git log --name-status --format='%H' -- $path
++        $log = $git->log()->revisionRange('--name-status')->revisionRange('--format=%H')->execute($path);
+
+         \preg_match_all(
+             "/^(?'commit'.*)\n+(?'criteria'[RC])(?'index'[\d]{3})\t(?'from'.+)\t(?'to'.+)\n/m",
+
