@@ -563,15 +563,7 @@ config/backup-s3.php:
 	echo '];'                 	           >> config/backup-s3.php
 
 config/img-s3.php:
-	echo '<?php' > $@
-	echo 'return [' >> $@
-	echo "    'class' => 'app\components\ImageS3'," >> $@
-	echo "    'enabled' => false," >> $@
-	echo "    'endpoint' => 's3-ap-northeast-1.amazonaws.com'," >> $@
-	echo "    'accessKey' => ''," >> $@
-	echo "    'secret' => ''," >> $@
-	echo "    'bucket' => ''," >> $@
-	echo '];' >> $@
+	php config/_generator/img-s3.php > $@
 
 config/backup-gpg.php:
 	echo '<?php'                            >  $@

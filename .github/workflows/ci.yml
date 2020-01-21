@@ -54,3 +54,50 @@ jobs:
           node-version: '12.x'
       - run: 'npm ci'
       - run: 'npx stylelint "resources/**/*.less" "resources/**/*.css"'
+
+  phpUnit:
+    name: 'Build & Test'
+    needs:
+      - 'phpSyntaxCheck'
+    strategy:
+      matrix:
+        php_version:
+          - '7.3'
+          - '7.4'
+        pgsql_version:
+          - '9.5-alpine'    # minimum requirement
+          - 'alpine'        # latest version
+    services:
+      postgres:
+        image: "postgres:${{ matrix.pgsql_version }}"
+        ports:
+          - '5432:5432'
+        env:
+          POSTGRES_USER: 'statink'
+          POSTGRES_PASSWORD: 'statink'
+          POSTGRES_DB: 'statink'
+          POSTGRES_INITDB_ARGS: '-E UTF-8 --locale=en_US.UTF8 -k'
+        options: '--health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5'
+    env:
+      GEOIP_LICENSE_KEY: '${{ secrets.GEOIP_LICENSE_KEY }}'
+    runs-on: 'ubuntu-latest'
+    steps:
+      - run: 'sudo apt install -y brotli jpegoptim libxml2-utils php${{ matrix.php_version }}-intl'
+      - run: 'sudo update-alternatives --set php /usr/bin/php${{ matrix.php_version }}'
+      - uses: 'actions/checkout@v1'
+      - uses: 'actions/setup-node@v1'
+        with:
+          node-version: '12.x'
+      - run: |
+          # display versions
+          php --version
+          echo
+          echo -n "Node: "
+          node --version
+          echo
+          echo -n "NPM: "
+          npm --version
+      - run: 'make init'
+      - run: './yii secret/db localhost statink'
+      - run: 'make migrate-db'
+      - run: 'make test'
