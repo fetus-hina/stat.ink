@@ -127,7 +127,6 @@ RESOURCE_TARGETS_MAIN := \
 	resources/.compiled/stat.ink/weapons.js \
 	resources/.compiled/stat.ink/xpower-history.css \
 	resources/.compiled/stat.ink/xpower-history.js \
-	web/static-assets/cc/cc-by.svg \
 	web/static-assets/cc/cc-by.svg.br \
 	web/static-assets/cc/cc-by.svg.gz \
 	web/static-assets/ostatus/ostatus.min.svg \
@@ -137,17 +136,12 @@ RESOURCE_TARGETS_MAIN := \
 	web/static-assets/rect-danger.min.svg.br \
 	web/static-assets/rect-danger.min.svg.gz
 
-SUB_RESOURCES := \
-	resources/browser-logos \
-	resources/os-logos
-
 RESOURCE_TARGETS := \
 	$(RESOURCE_TARGETS_MAIN) \
 	$(RESOURCE_TARGETS_MAIN:.css=.css.br) \
 	$(RESOURCE_TARGETS_MAIN:.css=.css.gz) \
 	$(RESOURCE_TARGETS_MAIN:.js=.js.br) \
-	$(RESOURCE_TARGETS_MAIN:.js=.js.gz) \
-	$(SUB_RESOURCES)
+	$(RESOURCE_TARGETS_MAIN:.js=.js.gz)
 
 VENDOR_ARCHIVE_FILE := runtime/vendor-archive/vendor-$(VENDOR_SHA256).tar.xz
 VENDOR_ARCHIVE_SIGN := runtime/vendor-archive/vendor-$(VENDOR_SHA256).tar.xz.asc
@@ -579,9 +573,5 @@ runtime/vendor-archive:
 
 geoip: vendor $(SIMPLE_CONFIG_TARGETS)
 	./yii geoip/update
-
-$(SUB_RESOURCES):
-	$(MAKE) -C $@
-.PHONY: $(SUB_RESOURCES)
 
 .PHONY: FORCE all check-style clean clean-resource composer-update fix-style ikalog init migrate-db resource vendor-archive vendor-by-archive download-vendor-archive geoip check-syntax check-style-php check-style-js
