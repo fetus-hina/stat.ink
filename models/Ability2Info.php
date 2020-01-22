@@ -127,6 +127,34 @@ class Ability2Info extends Model
                     ]);
                 // }}}
 
+            case 'main_power_up':
+                if (!$values = $this->getMainPowerUpCoefficient()) {
+                    return null;
+                }
+
+                $f = Yii::$app->formatter;
+                $rows = [];
+                if (
+                    (($values['baseDamage'] ?? null) !== null) &&
+                    (($values['damage'] ?? null) !== null) &&
+                    (($values['damageRate'] ?? null) !== null) &&
+                    (($values['damageCap'] ?? null) !== null)
+                ) {
+                    $rows[] = Yii::t(
+                        'app-ability2',
+                        ($values['damageCap'] < $values['damage'])
+                            ? 'Damage: {damageCap} = {baseDamage}×{percent} ({damage}, capped)'
+                            : 'Damage: {damage} = {baseDamage}×{percent}',
+                        [
+                            'baseDamage' => $f->asDecimal($values['baseDamage'], 1),
+                            'damage' => $f->asDecimal($values['damage'], 1),
+                            'damageCap' => $f->asDecimal($values['damageCap'], 1),
+                            'percent' => $f->asPercent($values['damageRate'], 1),
+                        ]
+                    );
+                }
+                return implode("\n", $rows);
+
             case 'run_speed_up': // {{{
                 if (!$values = $this->getRunSpeedUpCoefficient()) {
                     return null;
@@ -432,6 +460,134 @@ class Ability2Info extends Model
                 return static::calcCoefficient($gp, 0.65, 1.0, 0.5);
         }
         // }}}
+    }
+
+    private function getMainPowerUpCoefficient(): ?array
+    {
+        if (!$this->weapon || !$this->weapon->mainPowerUp || !$this->version) {
+            return null;
+        }
+
+        switch ($this->weapon->mainPowerUp->key) {
+            case 'damage':
+                return $this->getMainPowerUpCoefficientIncreaseDamage(
+                    $this->weapon->mainReference,
+                    $this->weapon->getWeaponAttack($this->version),
+                    $this->version,
+                    $this->get57Format()
+                );
+
+            default:
+                return null;
+        }
+    }
+
+    private function getMainPowerUpCoefficientIncreaseDamage(
+        ?Weapon2 $weapon,
+        ?WeaponAttack2 $attack,
+        ?SplatoonVersion2 $version,
+        ?int $gp
+    ): ?array {
+        if (!$weapon || !$attack || !$version || !$gp) {
+            return null;
+        }
+
+        $getMaxDamage = function (float $baseDamage): float {
+            if ($baseDamage > 100.0) {
+                return 300.0;
+            }
+            for ($i = 1;; ++$i) {
+                if ($baseDamage > 100.0 / ($i + 1)) {
+                    return floor(((100.0 / $i) - 0.01) * 10) / 10;
+                }
+            }
+        };
+
+        $calcDamage = function (
+            float $baseDamage,
+            float $maxRate,
+            float $mid = 0.5
+        ) use ($gp, $attack, $getMaxDamage): array {
+            $maxDamage = $getMaxDamage($baseDamage);
+            $c = static::calcCoefficient($gp, $maxRate, 1.0);
+            $damage = floor($baseDamage * $c * 10.0) / 10.0;
+            return [
+                'baseDamage' => $baseDamage,
+                'damageRate' => $c,
+                'damage' => $damage,
+                'damageCap' => $maxDamage,
+            ];
+        };
+
+        $baseDamage = (float)$attack->damage;
+        switch ($weapon->key) {
+            case 'bold':
+                return $calcDamage(
+                    $baseDamage,
+                    version_compare($version->tag, '4.3.1', '<') ? 1.2 : 1.25
+                );
+
+            case 'prime':
+                if (version_compare($version->tag, '4.6.0', '<')) {
+                    return $calcDamage($baseDamage, 1.25);
+                } elseif (version_compare($version->tag, '5.0.0', '<')) {
+                    return $calcDamage($baseDamage, 1.216);
+                } else {
+                    return $calcDamage($baseDamage, 1.208);
+                }
+
+            case 'l3reelgun':
+                return $calcDamage(
+                    $baseDamage,
+                    version_compare($version->tag, '5.1.0', '<') ? 1.3 : 1.24
+                );
+
+            case 'h3reelgun':
+                return $calcDamage(
+                    $baseDamage,
+                    version_compare($version->tag, '4.5.0', '<') ? 1.25 : 1.24
+                );
+
+            case 'bottlegeyser':
+                return $calcDamage(
+                    $baseDamage,
+                    version_compare($version->tag, '4.3.1', '<') ? 1.2 : 1.3
+                );
+
+            case 'carbon':
+            case 'splatroller':
+            case 'dynamo':
+            case 'variableroller':
+                //TODO: rollers
+                return null;
+
+            case 'sputtery':
+            case 'kelvin525':
+            case 'dualsweeper':
+            case 'quadhopper_black':
+                return $calcDamage($baseDamage, 1.2);
+
+            case 'maneuver':
+                return $calcDamage(
+                    $baseDamage,
+                    version_compare($version->tag, '4.3.1', '<') ? 1.2 : 1.16,
+                    version_compare($version->tag, '4.3.1', '<') ? 0.5 : 0.375
+                );
+
+            case 'splatcharger':
+            case 'bamboo14mk1':
+            case 'soytuber':
+            case 'hydra':
+            case 'kugelschreiber':
+                return null;
+
+            case 'sharp':
+            case '96gal':
+            default:
+                return $calcDamage($baseDamage, 1.25);
+        }
+
+        return null;
     }
 
     private function getRunSpeedUpCoefficient(): ?array

@@ -19,6 +19,8 @@ return [
     'Comeback' => 'カムバック',
     'Damage R. (far): {pct} ({radius})' => 'ダメージ半径 遠: {pct} ({radius})',
     'Damage R. (near): {pct} ({radius})' => 'ダメージ半径 近: {pct} ({radius})',
+    'Damage: {damageCap} = {baseDamage}×{percent} ({damage}, capped)' => 'ダメージ: {damageCap} = {baseDamage}×{percent} ({damage}, キャップ)',
+    'Damage: {damage} = {baseDamage}×{percent}' => 'ダメージ: {damage} = {baseDamage}×{percent}',
     'Default×{pct}' => '基本値×{pct}',
     'DoT Cap: {damage}' => 'スリップキャップ: {damage}',
     'DoT Delay: {frame} frames ({sec} sec.)' => 'スリップ無効時間: {frame}f（{sec}秒）',
