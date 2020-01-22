@@ -1,6 +1,12 @@
 name: 'CI'
 on: ['push']
 jobs:
+  ciDoesNotSkip:
+    runs-on: 'ubuntu-latest'
+    if: "!contains(github.event.head_commit.message, '[ci skip]')"
+    steps:
+      - run: 'echo "CI Running"'
+
   phpSyntaxCheck:
     name: 'PHP Syntax Check'
     strategy:
@@ -36,6 +42,8 @@ jobs:
   phpCheckAuthor:
     name: 'Check Author'
     runs-on: 'ubuntu-latest'
+    needs:
+      - 'ciDoesNotSkip'
     steps:
       - uses: 'actions/checkout@v1'
       - run: |
@@ -80,6 +88,7 @@ jobs:
   phpUnit:
     name: 'Build & Test'
     needs:
+      - 'ciDoesNotSkip'
       - 'phpSyntaxCheck'
     strategy:
       matrix:
