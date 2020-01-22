@@ -507,7 +507,11 @@ class Ability2Info extends Model
             float $baseDamage,
             float $maxRate,
             float $mid = 0.5
-        ) use ($gp, $attack, $getMaxDamage): array {
+        ) use (
+            $gp,
+            $attack,
+            $getMaxDamage
+        ): array {
             $maxDamage = $getMaxDamage($baseDamage);
             $c = static::calcCoefficient($gp, $maxRate, 1.0);
             $damage = floor($baseDamage * $c * 10.0) / 10.0;
