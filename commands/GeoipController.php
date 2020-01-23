@@ -140,7 +140,7 @@ class GeoipController extends Controller
             implode(', ', $files),
         ]);
 
-        $cmdline = vsprintf('/usr/bin/env %s -z -x -f %s --strip=1 --no-same-owner -C %s %s', [
+        $cmdline = vsprintf('/usr/bin/env %s -zxf %s --strip=1 --no-same-owner --wildcards -C %s %s', [
             escapeshellarg('tar'),
             escapeshellarg($archivePath),
             escapeshellarg(rtrim(Yii::getAlias(static::BASE_DIR), '/')),

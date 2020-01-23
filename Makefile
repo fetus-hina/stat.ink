@@ -127,7 +127,6 @@ RESOURCE_TARGETS_MAIN := \
 	resources/.compiled/stat.ink/weapons.js \
 	resources/.compiled/stat.ink/xpower-history.css \
 	resources/.compiled/stat.ink/xpower-history.js \
-	web/static-assets/cc/cc-by.svg \
 	web/static-assets/cc/cc-by.svg.br \
 	web/static-assets/cc/cc-by.svg.gz \
 	web/static-assets/ostatus/ostatus.min.svg \
@@ -137,17 +136,12 @@ RESOURCE_TARGETS_MAIN := \
 	web/static-assets/rect-danger.min.svg.br \
 	web/static-assets/rect-danger.min.svg.gz
 
-SUB_RESOURCES := \
-	resources/browser-logos \
-	resources/os-logos
-
 RESOURCE_TARGETS := \
 	$(RESOURCE_TARGETS_MAIN) \
 	$(RESOURCE_TARGETS_MAIN:.css=.css.br) \
 	$(RESOURCE_TARGETS_MAIN:.css=.css.gz) \
 	$(RESOURCE_TARGETS_MAIN:.js=.js.br) \
-	$(RESOURCE_TARGETS_MAIN:.js=.js.gz) \
-	$(SUB_RESOURCES)
+	$(RESOURCE_TARGETS_MAIN:.js=.js.gz)
 
 VENDOR_ARCHIVE_FILE := runtime/vendor-archive/vendor-$(VENDOR_SHA256).tar.xz
 VENDOR_ARCHIVE_SIGN := runtime/vendor-archive/vendor-$(VENDOR_SHA256).tar.xz.asc
@@ -293,14 +287,6 @@ endif
 %.min.svg: %.svg node_modules
 	npx svgo --output $@ --input $< -q
 
-web/static-assets/ostatus/ostatus.svg:
-	@mkdir -p $(dir $@)
-	curl -fsSL -o $@ 'https://github.com/OStatus/assets/raw/master/ostatus.svg'
-
-web/static-assets/cc/cc-by.svg:
-	@mkdir -p $(dir $@)
-	curl -fsSL -o $@ http://mirrors.creativecommons.org/presskit/buttons/88x31/svg/by.svg
-
 define less2css
 	@mkdir -p $(dir $(1))
 	npx lessc $(2) | npx postcss --no-map -o $(1)
@@ -432,16 +418,10 @@ resources/.compiled/stat.ink/favicon.png: resources/stat.ink/favicon.png
 resources/.compiled/stat.ink/summary-legends.png: resources/stat.ink/summary-legends.png
 	$(call png,$@,$<)
 
-resources/app-link-logos/ikalog.png:
-	curl -fsSL -o $@ 'https://cloud.githubusercontent.com/assets/2528004/17077116/6d613dca-50ff-11e6-9357-9ba894459444.png'
-
 resources/.compiled/app-link-logos/ikalog.png: resources/app-link-logos/ikalog.png
 	@mkdir -p resources/.compiled/app-link-logos
 	convert $< -unsharp 1.5x1+0.7+0.02 -scale x28 $@
 	@touch -r $< $@
-
-resources/app-link-logos/ikadenwa.png:
-	curl -fsSL -o $@ 'https://ikadenwa.ink/static/img/ika-mark.png'
 
 resources/.compiled/app-link-logos/ikadenwa.png: resources/app-link-logos/ikadenwa.png
 	@mkdir -p resources/.compiled/app-link-logos
@@ -453,24 +433,15 @@ resources/.compiled/app-link-logos/ikanakama.png: resources/app-link-logos/ikana
 	convert $< -trim +repage -unsharp 1.5x1+0.7+0.02 -scale x28 $@
 	@touch -r $< $@
 
-resources/app-link-logos/ikanakama.ico:
-	curl -fsSL -o $@ $(shell php resources/app-link-logos/favicon.php 'https://ikanakama.ink/')
-
 resources/.compiled/app-link-logos/ikarec-en.png: resources/app-link-logos/ikarec-en.png
 	@mkdir -p resources/.compiled/app-link-logos
 	convert $<[1] -trim +repage -unsharp 1.5x1+0.7+0.02 -scale x28 $@
 	@touch -r $< $@
 
-resources/app-link-logos/ikarec-en.png:
-	curl -fsSL -o $@ 'https://lh3.googleusercontent.com/HUy__vFnwLi32AL-L3KeJACQRkXIcq59PASgIbTscr2Ic-kP3fp4GeIrClAgKBWAlQq2'
-
 resources/.compiled/app-link-logos/ikarec-ja.png: resources/app-link-logos/ikarec-ja.png
 	@mkdir -p resources/.compiled/app-link-logos
 	convert $<[1] -trim +repage -unsharp 1.5x1+0.7+0.02 -scale x28 $@
 	@touch -r $< $@
-
-resources/app-link-logos/ikarec-ja.png: resources/app-link-logos/ikarec-en.png
-	cp $< $@
 
 resources/.compiled/app-link-logos/festink.png: resources/app-link-logos/festink.ico
 	@mkdir -p resources/.compiled/app-link-logos
@@ -482,9 +453,6 @@ resources/.compiled/app-link-logos/squidtracks.png: resources/app-link-logos/squ
 	convert $<[3] -trim +repage -unsharp 1.5x1+0.7+0.02 -scale x28 $@
 	@touch -r $< $@
 
-resources/app-link-logos/squidtracks.png:
-	curl -fsSL -sSL -o $@ 'https://github.com/hymm/squid-tracks/raw/master/public/icon.png'
-
 resources/.compiled/app-link-logos/nnid.svg: resources/app-link-logos/nnid.svg
 	xmllint --format $< > $@
 
@@ -495,9 +463,6 @@ resources/.compiled/app-link-logos/inkipedia.png: resources/app-link-logos/inkip
 	@mkdir -p resources/.compiled/app-link-logos
 	convert $< $@
 	@touch -r $< $@
-
-resources/app-link-logos/inkipedia.ico:
-	curl -fsSL -o $@ $(shell php resources/app-link-logos/favicon.php 'https://splatoonwiki.org/')
 
 resources/.compiled/irasutoya/inkling.png: resources/irasutoya/inkling.png.tmp
 	$(call png,$@,$<)
@@ -563,15 +528,7 @@ config/backup-s3.php:
 	echo '];'                 	           >> config/backup-s3.php
 
 config/img-s3.php:
-	echo '<?php' > $@
-	echo 'return [' >> $@
-	echo "    'class' => 'app\components\ImageS3'," >> $@
-	echo "    'enabled' => false," >> $@
-	echo "    'endpoint' => 's3-ap-northeast-1.amazonaws.com'," >> $@
-	echo "    'accessKey' => ''," >> $@
-	echo "    'secret' => ''," >> $@
-	echo "    'bucket' => ''," >> $@
-	echo '];' >> $@
+	php config/_generator/img-s3.php > $@
 
 config/backup-gpg.php:
 	echo '<?php'                            >  $@
@@ -616,9 +573,5 @@ runtime/vendor-archive:
 
 geoip: vendor $(SIMPLE_CONFIG_TARGETS)
 	./yii geoip/update
-
-$(SUB_RESOURCES):
-	$(MAKE) -C $@
-.PHONY: $(SUB_RESOURCES)
 
 .PHONY: FORCE all check-style clean clean-resource composer-update fix-style ikalog init migrate-db resource vendor-archive vendor-by-archive download-vendor-archive geoip check-syntax check-style-php check-style-js
