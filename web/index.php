@@ -16,8 +16,8 @@ if (file_exists(__DIR__ . '/../.staging')) {
     defined('YII_DEBUG') or define('YII_DEBUG', true);
     defined('YII_ENV') or define('YII_ENV', 'dev');
 }
-ini_set('display_errors', 1);
-ini_set('serialize_precision', -1);
+ini_set('display_errors', (string)1);
+ini_set('serialize_precision', (string)-1);
 
 if (@file_exists(__DIR__ . '/../.maintenance')) {
     header('HTTP/1.1 503 Service Unavailable');
