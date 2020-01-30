@@ -153,6 +153,37 @@ class Ability2Info extends Model
                         ]
                     );
                 }
+
+                $list = [
+                    'H' => 'Horizontal',
+                    'V' => 'Vertical',
+                    'Sq' => 'Squish',
+                ];
+                foreach ($list as $suffix => $textPrefix) {
+                    if (
+                        (($values['baseDamage' . $suffix] ?? null) !== null) &&
+                        (($values['damage' . $suffix] ?? null) !== null) &&
+                        (($values['damageRate' . $suffix] ?? null) !== null) &&
+                        (($values['damageCap' . $suffix] ?? null) !== null)
+                    ) {
+                        $rows[] = vsprintf('(%s) %s', [
+                            Yii::t('app-ability2', $textPrefix),
+                            Yii::t(
+                                'app-ability2',
+                                ($values['damageCap' . $suffix] < $values['damage' . $suffix])
+                                    ? 'Damage: {damageCap} = {baseDamage}×{percent} ({damage}, capped)'
+                                    : 'Damage: {damage} = {baseDamage}×{percent}',
+                                [
+                                    'baseDamage' => $f->asDecimal($values['baseDamage' . $suffix], 1),
+                                    'damage' => $f->asDecimal($values['damage' . $suffix], 1),
+                                    'damageCap' => $f->asDecimal($values['damageCap' . $suffix], 1),
+                                    'percent' => $f->asPercent($values['damageRate' . $suffix], 1),
+                                ]
+                            ),
+                        ]);
+                    }
+                }
+
                 return implode("\n", $rows);
 
             case 'run_speed_up': // {{{
@@ -493,7 +524,7 @@ class Ability2Info extends Model
         }
 
         $getMaxDamage = function (float $baseDamage): float {
-            if ($baseDamage > 100.0) {
+            if ($baseDamage >= 100.0) {
                 return 300.0;
             }
             for ($i = 1;; ++$i) {
@@ -506,7 +537,8 @@ class Ability2Info extends Model
         $calcDamage = function (
             float $baseDamage,
             float $maxRate,
-            float $mid = 0.5
+            float $mid = 0.5,
+            ?string $suffix = null
         ) use (
             $gp,
             $attack,
@@ -515,11 +547,12 @@ class Ability2Info extends Model
             $maxDamage = $getMaxDamage($baseDamage);
             $c = static::calcCoefficient($gp, $maxRate, 1.0);
             $damage = floor($baseDamage * $c * 10.0) / 10.0;
+            $suffix = ucfirst(trim((string)$suffix));
             return [
-                'baseDamage' => $baseDamage,
-                'damageRate' => $c,
-                'damage' => $damage,
-                'damageCap' => $maxDamage,
+                'baseDamage' . $suffix => $baseDamage,
+                'damageRate' . $suffix => $c,
+                'damage' . $suffix => $damage,
+                'damageCap' . $suffix => $maxDamage,
             ];
         };
 
@@ -559,10 +592,20 @@ class Ability2Info extends Model
                 );
 
             case 'carbon':
-            case 'splatroller':
             case 'dynamo':
+                return array_merge(
+                    $calcDamage((float)$attack->damage, 1.15, 0.5, 'H'),
+                    $calcDamage((float)$attack->damage2, 1.15, 0.5, 'V'),
+                    $calcDamage((float)$attack->damage3, 1.15, 0.5, 'Sq'),
+                );
+
+            case 'splatroller':
             case 'variableroller':
-                //TODO: rollers
+                return array_merge(
+                    $calcDamage((float)$attack->damage, 1.15, 2 / 3, 'H'),
+                    $calcDamage((float)$attack->damage2, 1.15, 2 / 3, 'V'),
+                    $calcDamage((float)$attack->damage3, 1.15, 2 / 3, 'Sq'),
+                );
                 return null;
 
             case 'sputtery':
@@ -587,7 +630,6 @@ class Ability2Info extends Model
 
             case 'sharp':
             case '96gal':
-            default:
                 return $calcDamage($baseDamage, 1.25);
         }
 
