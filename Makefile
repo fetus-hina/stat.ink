@@ -218,7 +218,7 @@ check-syntax:
 check-style: check-style-js check-style-css check-style-php
 
 check-style-php: vendor
-	php -d memory_limit=-1 vendor/bin/phpcs --standard=phpcs-customize.xml --encoding=UTF-8 --runtime-set ignore_warnings_on_exit 1 $(STYLE_TARGETS)
+	php vendor/bin/phpcs -p
 
 check-style-js: node_modules
 	npx updates --minor bootstrap,bootswatch
@@ -229,7 +229,7 @@ check-style-css: node_modules
 
 fix-style: vendor node_modules
 	npx updates -u --minor bootstrap,bootswatch
-	vendor/bin/phpcbf --standard=PSR12 --encoding=UTF-8 $(STYLE_TARGETS)
+	vendor/bin/phpcbf -p
 	npx eslint --fix "resources/**/*.es" "resources/**/*.js"
 
 clean: clean-resource

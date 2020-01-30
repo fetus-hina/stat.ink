@@ -18,10 +18,11 @@ jobs:
     needs:
       - 'ciDoesNotSkip'
     steps:
-      - uses: 'actions/checkout@v1'
-      - run: "php${{ matrix.php_version }} -v"
+      - uses: 'actions/checkout@v2'
       - run: |
-          find $GITHUB_WORKSPACE \( -type d \( -name '.git' -or -name 'vendor' -or -name 'runtime' \) -prune \) -or \( -type f -name '*.php' -print \) | LANG=C sort | xargs -n 1 php${{ matrix.php_version }} -l
+          sudo update-alternatives --set php /usr/bin/php${{ matrix.php_version }}
+          php -v
+          find . \( -type d \( -name '.git' -or -name 'vendor' -or -name 'runtime' \) -prune \) -or \( -type f -name '*.php' -print \) | LANG=C sort | xargs -n 1 php -l
 
   phpStyleCheck:
     name: 'PHP Coding Style'
@@ -29,19 +30,12 @@ jobs:
     needs:
       - 'ciDoesNotSkip'
     steps:
-      - uses: 'actions/checkout@v1'
+      - uses: 'actions/checkout@v2'
       - run: 'curl -fsSL -o phpcs "https://squizlabs.github.io/PHP_CodeSniffer/phpcs.phar"'
       - run: |
-          php7.4 -v
-          php7.4 phpcs --version
-      - run: |
-          php7.4 -d memory_limit=-1 phpcs --standard=phpcs-customize.xml --encoding=UTF-8 --runtime-set ignore_warnings_on_exit 1 \
-            actions \
-            assets \
-            commands \
-            components \
-            controllers \
-            models
+          php -v
+          php phpcs --version
+          php phpcs -p
 
   phpCheckAuthor:
     name: 'Check Author'
@@ -57,7 +51,7 @@ jobs:
           make vendor
           patch -p0 -d vendor/phpcq/author-validation < data/patch/check-author.nofollow.patch
       - run: |
-          php7.4 -d memory_limit=-1 vendor/bin/check-author.php --php-files \
+          php -d memory_limit=-1 vendor/bin/check-author.php --php-files \
             actions \
             assets \
             commands \
@@ -73,10 +67,7 @@ jobs:
     needs:
       - 'ciDoesNotSkip'
     steps:
-      - uses: 'actions/checkout@v1'
-      - uses: 'actions/setup-node@v1'
-        with:
-          node-version: '12.x'
+      - uses: 'actions/checkout@v2'
       - run: 'npm ci'
       - run: 'npx eslint "resources/**/*.es" "resources/**/*.js"'
 
@@ -86,10 +77,7 @@ jobs:
     needs:
       - 'ciDoesNotSkip'
     steps:
-      - uses: 'actions/checkout@v1'
-      - uses: 'actions/setup-node@v1'
-        with:
-          node-version: '12.x'
+      - uses: 'actions/checkout@v2'
       - run: 'npm ci'
       - run: 'npx stylelint "resources/**/*.less" "resources/**/*.css"'
 

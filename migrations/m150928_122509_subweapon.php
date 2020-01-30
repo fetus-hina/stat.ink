@@ -72,6 +72,9 @@ class m150928_122509_subweapon extends Migration
         fclose($fh);
     }
 }
+
+// phpcs:disable
+
 __halt_compiler();
 chasebomb
     promodeler_mg

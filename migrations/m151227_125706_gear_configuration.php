@@ -26,8 +26,20 @@ class m151227_125706_gear_configuration extends Migration
             'config_id'  => 'BIGINT NOT NULL',
             'ability_id' => 'INTEGER NULL',
         ]);
-        $this->addForeignKey('fk_gear_configuration_secondary_1', 'gear_configuration_secondary', 'config_id', 'gear_configuration', 'id');
-        $this->addForeignKey('fk_gear_configuration_secondary_2', 'gear_configuration_secondary', 'ability_id', 'ability', 'id');
+        $this->addForeignKey(
+            'fk_gear_configuration_secondary_1',
+            'gear_configuration_secondary',
+            'config_id',
+            'gear_configuration',
+            'id'
+        );
+        $this->addForeignKey(
+            'fk_gear_configuration_secondary_2',
+            'gear_configuration_secondary',
+            'ability_id',
+            'ability',
+            'id'
+        );
     }
 
     public function down()

@@ -64,24 +64,11 @@ class m171208_163630_gear2 extends Migration
             'white_striped_ls' => 2000,
         ];
     }
-
-    // private function makeUpdateData() : void
-    // {
-    //     $json = Json::decode(
-    //         file_get_contents(__FILE__, false, null, __COMPILER_HALT_OFFSET__)
-    //     );
-    //     $upd = [];
-    //     foreach ($json as $key => $id) {
-    //         if ($gear = Gear2::findOne(['key' => $key])) {
-    //             if ((int)$id !== (int)$gear->splatnet) {
-    //                 printf("'%s' => %d,\n", $key, $id);
-    //             }
-    //         }
-    //     }
-    // }
 }
-__halt_compiler();
 
+// phpcs:disable
+
+__halt_compiler();
 {
   "18k_aviators": 3008, 
   "acerola_rain_boots": 6005, 

@@ -1,4 +1,14 @@
 <?php
+
+/**
+ * @copyright Copyright (C) 2015-2020 AIZAWA Hina
+ * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
+ * @author AIZAWA Hina <hina@fetus.jp>
+ * @codingStandardsIgnoreFile
+ */
+
+declare(strict_types=1);
+
 if (file_exists(__DIR__ . '/../.staging')) {
     defined('YII_DEBUG') or define('YII_DEBUG', false);
     defined('YII_ENV') or define('YII_ENV', 'test');

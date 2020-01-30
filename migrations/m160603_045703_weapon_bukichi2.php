@@ -78,13 +78,23 @@ class m160603_045703_weapon_bukichi2 extends Migration
         $type = DeathReasonType::findOne(['key' => 'main'])->id;
         $this->batchInsert(
             'death_reason',
-            [ 'type_id', 'key', 'name', 'weapon_id' ],
+            ['type_id', 'key', 'name', 'weapon_id'],
             [
-                [ $type, 'longblaster_necro', 'Grim Range Blaster', Weapon::findOne(['key' => 'longblaster_necro'])->id ],
-                [ $type, 'splatcharger_bento', 'Bento Splat Charger', Weapon::findOne(['key' => 'splatcharger_bento'])->id ],
-                [ $type, 'splatscope_bento', 'Bento Splatterscope', Weapon::findOne(['key' => 'splatscope_bento'])->id ],
-                [ $type, 'nzap83', 'N-ZAP \'83', Weapon::findOne(['key' => 'nzap83'])->id ],
-                [ $type, 'splatroller_corocoro', 'CoroCoro Splat Roller', Weapon::findOne(['key' => 'splatroller_corocoro'])->id ],
+                [$type, 'longblaster_necro', 'Grim Range Blaster', Weapon::findOne(['key' => 'longblaster_necro'])->id],
+                [
+                    $type,
+                    'splatcharger_bento',
+                    'Bento Splat Charger',
+                    Weapon::findOne(['key' => 'splatcharger_bento'])->id,
+                ],
+                [$type, 'splatscope_bento', 'Bento Splatterscope', Weapon::findOne(['key' => 'splatscope_bento'])->id],
+                [$type, 'nzap83', 'N-ZAP \'83', Weapon::findOne(['key' => 'nzap83'])->id],
+                [
+                    $type,
+                    'splatroller_corocoro',
+                    'CoroCoro Splat Roller',
+                    Weapon::findOne(['key' => 'splatroller_corocoro'])->id,
+                ],
             ]
         );
     }

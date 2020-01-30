@@ -5,6 +5,7 @@
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
+
 declare(strict_types=1);
 
 use app\components\db\Migration;
@@ -96,6 +97,8 @@ class m190622_180334_shifty_map2 extends Migration
         return (int)floor($ts->getTimestamp() / 7200);
     }
 }
+
+// phpcs:disable
 __halt_compiler();
 2017-08-04T06:00:00+00:00   2017-08-06T14:00:00+00:00   mystery_01
 2017-09-02T04:00:00+00:00   2017-09-03T14:00:00+00:00   mystery_02

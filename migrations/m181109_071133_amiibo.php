@@ -5,6 +5,7 @@
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
+
 declare(strict_types=1);
 
 use app\components\db\GearMigration;
@@ -66,6 +67,8 @@ class m181109_071133_amiibo extends Migration
         return explode(',', $line);
     }
 }
+
+// phpcs:disable
 __halt_compiler();
 Enchanted Hat,headgear,ink_saver_main,25008
 Steel Helm,headgear,special_charge_up,25009

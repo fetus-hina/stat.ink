@@ -16,7 +16,15 @@ class m170811_110211_weapon2_parashelter extends Migration
     public function safeUp()
     {
         $this->upWeapon('parashelter', 'Splat Brella', 'brella', 'sprinkler', 'amefurashi');
-        $this->upWeapon('heroshelter_replica', 'Hero Brella Replica', 'brella', 'sprinkler', 'amefurashi', 'parashelter', 'parashelter');
+        $this->upWeapon(
+            'heroshelter_replica',
+            'Hero Brella Replica',
+            'brella',
+            'sprinkler',
+            'amefurashi',
+            'parashelter',
+            'parashelter'
+        );
     }
 
     public function safeDown()

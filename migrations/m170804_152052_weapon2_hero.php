@@ -15,14 +15,78 @@ class m170804_152052_weapon2_hero extends Migration
 
     public function safeUp()
     {
-        $this->upWeapon('heroshooter_replica', 'Hero Shot Replica', 'shooter', 'quickbomb', 'chakuchi', 'sshooter', 'sshooter');
-        $this->upWeapon('heroblaster_replica', 'Hero Blaster Replica', 'blaster', 'poisonmist', 'chakuchi', 'hotblaster', 'hotblaster');
-        $this->upWeapon('heromaneuver_replica', 'Hero Dualies Replica', 'maneuver', 'quickbomb', 'missile', 'maneuver', 'maneuver');
-        $this->upWeapon('herocharger_replica', 'Hero Charger Replica', 'charger', 'splashbomb', 'presser', 'splatcharger', 'splatcharger');
-        $this->upWeapon('heroroller_replica', 'Hero Roller Replica', 'roller', 'curlingbomb', 'chakuchi', 'splatroller', 'splatroller');
-        $this->upWeapon('herobrush_replica', 'Hero Brush Replica', 'brush', 'robotbomb', 'jetpack', 'hokusai', 'hokusai');
-        $this->upWeapon('heroslosher_replica', 'Hero Slosher Replica', 'slosher', 'kyubanbomb', 'missile', 'bucketslosher', 'bucketslosher');
-        $this->upWeapon('herospinner_replica', 'Hero Splatling Replica', 'splatling', 'sprinkler', 'presser', 'barrelspinner', 'barrelspinner');
+        $this->upWeapon(
+            'heroshooter_replica',
+            'Hero Shot Replica',
+            'shooter',
+            'quickbomb',
+            'chakuchi',
+            'sshooter',
+            'sshooter'
+        );
+        $this->upWeapon(
+            'heroblaster_replica',
+            'Hero Blaster Replica',
+            'blaster',
+            'poisonmist',
+            'chakuchi',
+            'hotblaster',
+            'hotblaster'
+        );
+        $this->upWeapon(
+            'heromaneuver_replica',
+            'Hero Dualies Replica',
+            'maneuver',
+            'quickbomb',
+            'missile',
+            'maneuver',
+            'maneuver'
+        );
+        $this->upWeapon(
+            'herocharger_replica',
+            'Hero Charger Replica',
+            'charger',
+            'splashbomb',
+            'presser',
+            'splatcharger',
+            'splatcharger'
+        );
+        $this->upWeapon(
+            'heroroller_replica',
+            'Hero Roller Replica',
+            'roller',
+            'curlingbomb',
+            'chakuchi',
+            'splatroller',
+            'splatroller'
+        );
+        $this->upWeapon(
+            'herobrush_replica',
+            'Hero Brush Replica',
+            'brush',
+            'robotbomb',
+            'jetpack',
+            'hokusai',
+            'hokusai'
+        );
+        $this->upWeapon(
+            'heroslosher_replica',
+            'Hero Slosher Replica',
+            'slosher',
+            'kyubanbomb',
+            'missile',
+            'bucketslosher',
+            'bucketslosher'
+        );
+        $this->upWeapon(
+            'herospinner_replica',
+            'Hero Splatling Replica',
+            'splatling',
+            'sprinkler',
+            'presser',
+            'barrelspinner',
+            'barrelspinner'
+        );
     }
 
     public function safeDown()

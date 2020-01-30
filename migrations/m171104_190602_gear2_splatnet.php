@@ -47,6 +47,9 @@ class m171104_190602_gear2_splatnet extends Migration
         $this->update('gear2', ['splatnet' => null]);
     }
 }
+
+// phpcs:disable
+
 __halt_compiler();
 # from splatnet2statink db.py
 headgears = {

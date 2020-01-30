@@ -20,7 +20,7 @@ class m160606_083853_weapon_bukichi2_2 extends Migration
     {
         $this->batchInsert(
             'weapon',
-            [ 'id', 'type_id', 'key', 'name', 'subweapon_id', 'special_id', 'canonical_id', 'main_group_id' ],
+            ['id', 'type_id', 'key', 'name', 'subweapon_id', 'special_id', 'canonical_id', 'main_group_id'],
             [
                 [
                     new Expression("nextval('weapon_id_seq'::regclass)"),
@@ -48,10 +48,20 @@ class m160606_083853_weapon_bukichi2_2 extends Migration
         $type = DeathReasonType::findOne(['key' => 'main'])->id;
         $this->batchInsert(
             'death_reason',
-            [ 'type_id', 'key', 'name', 'weapon_id' ],
+            ['type_id', 'key', 'name', 'weapon_id'],
             [
-                [ $type, 'h3reelgun_cherry', 'Cherry H-3 Nozzlenose', Weapon::findOne(['key' => 'h3reelgun_cherry'])->id ],
-                [ $type, 'bold_7', 'Sploosh-o-matic 7', Weapon::findOne(['key' => 'bold'])->id ],
+                [
+                    $type,
+                    'h3reelgun_cherry',
+                    'Cherry H-3 Nozzlenose',
+                    Weapon::findOne(['key' => 'h3reelgun_cherry'])->id,
+                ],
+                [
+                    $type,
+                    'bold_7',
+                    'Sploosh-o-matic 7',
+                    Weapon::findOne(['key' => 'bold'])->id,
+                ],
             ]
         );
     }

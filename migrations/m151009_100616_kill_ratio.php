@@ -20,8 +20,13 @@ class m151009_100616_kill_ratio extends Migration
                 'ELSE ({{battle}}.[[kill]]::float / {{battle}}.[[death]]::float)::numeric(4,2)',
             'END'
         ]);
-        $select = "SELECT {{battle}}.[[id]], {$selectRatio} AS [[kill_ratio]] FROM {{battle}} WHERE ({{battle}}.[[kill]] IS NOT NULL AND {{battle}}.[[death]] IS NOT NULL)";
-        $update = "UPDATE {{battle}} SET [[kill_ratio]] = {{tmp}}.[[kill_ratio]] FROM ( {$select} ) AS [[tmp]] WHERE {{battle}}.[[id]] = [[tmp]].[[id]]";
+        $select = "SELECT {{battle}}.[[id]], {$selectRatio} AS [[kill_ratio]] " .
+            "FROM {{battle}} " .
+            "WHERE ({{battle}}.[[kill]] IS NOT NULL AND {{battle}}.[[death]] IS NOT NULL)";
+        $update = "UPDATE {{battle}} " .
+            "SET [[kill_ratio]] = {{tmp}}.[[kill_ratio]] " .
+            "FROM ( {$select} ) AS [[tmp]] " .
+            "WHERE {{battle}}.[[id]] = [[tmp]].[[id]]";
         $this->execute($update);
     }
 

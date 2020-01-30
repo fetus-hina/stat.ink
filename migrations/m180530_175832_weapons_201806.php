@@ -30,10 +30,46 @@ class m180530_175832_weapons_201806 extends Migration
     public function getWeapons(): array
     {
         return [
-            ['dualsweeper_custom', 'Custom Dualie Squelchers', 'maneuver', 'splashbomb', 'amefurashi', 'dualsweeper', null, 5031],
-            ['rapid_elite_deco', 'Rapid Blaster Pro Deco', 'blaster', 'splashshield', 'armor', 'rapid_elite', null, 251],
-            ['spygadget_sorella', 'Undercover Sorella Brella', 'brella', 'splashbomb', 'sphere', 'spygadget', null, 6021],
-            ['carbon_deco', 'Carbon Roller Deco', 'roller', 'quickbomb', 'pitcher', 'carbon', null, 1001],
+            [
+                'dualsweeper_custom',
+                'Custom Dualie Squelchers',
+                'maneuver',
+                'splashbomb',
+                'amefurashi',
+                'dualsweeper',
+                null,
+                5031,
+            ],
+            [
+                'rapid_elite_deco',
+                'Rapid Blaster Pro Deco',
+                'blaster',
+                'splashshield',
+                'armor',
+                'rapid_elite',
+                null,
+                251,
+            ],
+            [
+                'spygadget_sorella',
+                'Undercover Sorella Brella',
+                'brella',
+                'splashbomb',
+                'sphere',
+                'spygadget',
+                null,
+                6021,
+            ],
+            [
+                'carbon_deco',
+                'Carbon Roller Deco',
+                'roller',
+                'quickbomb',
+                'pitcher',
+                'carbon',
+                null,
+                1001,
+            ],
         ];
     }
 }
