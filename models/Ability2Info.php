@@ -158,6 +158,8 @@ class Ability2Info extends Model
                     'H' => 'Horizontal',
                     'V' => 'Vertical',
                     'Sq' => 'Squish',
+                    'Long' => 'Long',
+                    'Short' => 'Short',
                 ];
                 foreach ($list as $suffix => $textPrefix) {
                     if (
@@ -622,11 +624,30 @@ class Ability2Info extends Model
                 );
 
             case 'splatcharger':
+                return $calcDamage($baseDamage, 1.2);
+
             case 'bamboo14mk1':
+                return $calcDamage(
+                    $baseDamage,
+                    version_compare($version->tag, '5.1.0', '<') ? 1.2 : 1.19
+                );
+
             case 'soytuber':
+                return $calcDamage($baseDamage, 1.5);
+
             case 'hydra':
+                return $calcDamage($baseDamage, 1.2);
+
             case 'kugelschreiber':
-                return null;
+                if (version_compare($version->tag, '4.3.1', '<')) {
+                    return $calcDamage(32.0, 1.2);
+                } elseif (version_compare($version->tag, '4.4.0', '<')) {
+                    return $calcDamage(32.0, 1.1);
+                }
+                return array_merge(
+                    $calcDamage((float)$attack->damage, 1.1, 0.5, 'Long'),
+                    $calcDamage((float)$attack->damage2, 1.1, 0.5, 'Short'),
+                );
 
             case 'sharp':
             case '96gal':
