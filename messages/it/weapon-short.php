@@ -6,6 +6,8 @@
  * @author AIZAWA Hina <hina@fetus.jp>
  */
 
+declare(strict_types=1);
+
 return [
     '.52 Gal' => '',
     '.52 Gal Deco' => '',
@@ -112,8 +114,8 @@ return [
     'Marker d\'assalto Neo' => '',
     'Marker multi' => '',
     'Marker Neo' => '',
-    'Mini splatling' => '',
     'Mini Splatling' => '',
+    'Mini splatling' => '',
     'Mini splatling logo' => '',
     'Mini splatling Nero Marlin' => '',
     'Moscarpino duplo bianco' => '',

@@ -1,10 +1,12 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2018 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2020 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
+
+declare(strict_types=1);
 
 namespace app\commands\i18n;
 
@@ -170,7 +172,9 @@ trait WeaponShortNameTrait
             }
         }
 
-        uksort($data, 'strcasecmp');
+        uksort($data, function (string $a, string $b): int {
+            return strcasecmp($a, $b) ?: strcmp($a, $b);
+        });
 
         $esc = function (string $text): string {
             return str_replace(["\\", "'"], ["\\\\", "\\'"], $text);
@@ -186,6 +190,8 @@ trait WeaponShortNameTrait
             $file[] = ' * @author ' . $contributor;
         }
         $file[] = ' */';
+        $file[] = '';
+        $file[] = 'declare(strict_types=1);';
         $file[] = '';
         $file[] = 'return [';
         foreach ($data as $k => $v) {
