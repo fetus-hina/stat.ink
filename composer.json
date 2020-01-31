@@ -20,6 +20,7 @@
         "ext-session": "*",
         "ext-zlib": "*",
         "christian-riesen/base32": "^1.2",
+        "diegobanos/php-glicko2": "^1.4",
         "geoip2/geoip2": "^2.0",
         "jaybizzle/crawler-detect": "^1.2",
         "jp3cki/mb_str_replace": "^4.0",

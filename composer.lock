@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d73264dd6afc503dedea4409a8398bb5",
+    "content-hash": "e6634b9885ce93b312c8e2b535ca8719",
     "packages": [
         {
             "name": "cebe/markdown",
@@ -208,6 +208,48 @@
             "homepage": "https://github.com/container-interop/container-interop",
             "abandoned": "psr/container",
             "time": "2017-02-14T19:40:03+00:00"
+        },
+        {
+            "name": "diegobanos/php-glicko2",
+            "version": "1.4.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/diegobanos/php-glicko2.git",
+                "reference": "4a76df90fd90058e6756af9329cb0af2dbc71445"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/diegobanos/php-glicko2/zipball/4a76df90fd90058e6756af9329cb0af2dbc71445",
+                "reference": "4a76df90fd90058e6756af9329cb0af2dbc71445",
+                "shasum": ""
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^6.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Diegobanos\\": "src/"
+                }
+            },
+            "notification-url": "https://repo.packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Diego Banos",
+                    "email": "diegobanosfarinas@gmail.com"
+                }
+            ],
+            "description": "A PHP glicko2 implementation with an easy to use interface",
+            "keywords": [
+                "Rating",
+                "glicko",
+                "glicko2",
+                "ranking"
+            ],
+            "time": "2019-07-29T11:04:08+00:00"
         },
         {
             "name": "doctrine/lexer",
