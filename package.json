@@ -6,10 +6,10 @@
     "email": "hina@fetus.jp"
   },
   "dependencies": {
-    "@babel/cli": "^7.8.3",
-    "@babel/core": "^7.8.3",
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.8.4",
     "@babel/polyfill": "^7.8.3",
-    "@babel/preset-env": "^7.8.3",
+    "@babel/preset-env": "^7.8.4",
     "@fortawesome/fontawesome-free": "^5.12.0",
     "autoprefixer": "^9.7.4",
     "babel-eslint": "^10.0.3",
