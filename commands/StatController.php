@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2019 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2020 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -12,6 +12,7 @@ use DateInterval;
 use DateTimeImmutable;
 use DateTimeZone;
 use Yii;
+use app\commands\stat\Weapon2Glicko2Updator;
 use app\components\helpers\Battle as BattleHelper;
 use app\components\helpers\db\Now;
 use app\models\Battle2;
@@ -1578,6 +1579,12 @@ class StatController extends Controller
             $db->createCommand()->insert('stat_weapon2_tier', $query)->execute();
         });
         Yii::$app->db->createCommand('VACUUM ANALYZE {{stat_weapon2_tier}}')->execute();
+    }
+
+    public function actionUpdateWeaponGlicko2(): void
+    {
+        $obj = Yii::createObject(Weapon2Glicko2Updator::class);
+        $obj->update();
     }
 
     private function createHighestRankFilter(): array
