@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2019 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2020 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -85,7 +85,10 @@ class DeleteBattleForm extends Model
         }
 
         if (!empty($valueErrors)) {
-            $this->addError($attribute, "{$attribute} has non-integer value(s): " . implode(', ', $valueError));
+            $this->addError($attribute, vsprintf('%s has non-integer value(s): %s', [
+                $attribute,
+                implode(', ', $valueErrors),
+            ]));
             return;
         }
     }

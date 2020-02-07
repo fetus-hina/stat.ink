@@ -17,11 +17,13 @@ use yii\helpers\Html;
 
 trait Util
 {
+    /** @return array<string, string> */
     public static function oapiRef(?string $className = null): array
     {
+        $className = $className ?? static::class;
         return [
             '$ref' => vsprintf('#/components/schemas/%s', [
-                call_user_func([$className ?? static::class, 'oapiRefName']),
+                call_user_func([$className, 'oapiRefName']),
             ]),
         ];
     }
@@ -38,6 +40,10 @@ trait Util
         return '__' . $hash . '__' . $baseName;
     }
 
+    /**
+     * @param string[] $enumValues
+     * @return array<string, mixed>
+     */
     public static function oapiKey(
         ?string $additionalDescription = null,
         ?array $enumValues = null,
@@ -60,6 +66,12 @@ trait Util
         return $result;
     }
 
+    /**
+     * @param string|callable $category
+     * @param array<mixed> $items
+     * @param string|callable|null $keyColumn
+     * @param string|string[]|null $splatnetKeys
+     */
     public static function oapiKeyValueTable(
         string $valueLabel,
         /* string|callable */ $category,
@@ -119,6 +131,7 @@ trait Util
         ]));
     }
 
+    /** @param string[] $splatnetKeys */
     private static function oapiKeyValueTableThead(
         string $keyLabelHtml,
         string $valueLabel,
@@ -137,6 +150,11 @@ trait Util
         ])));
     }
 
+    /**
+     * @param string[] $keys
+     * @param string[] $values
+     * @param string[] $splatnetValues
+     */
     private static function oapiKeyValueTableTbody(
         array $keys,
         array $values,

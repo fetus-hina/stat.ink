@@ -25,17 +25,11 @@ class Gear2Action extends BaseAction
         return GearType::findOne(['key' => (string)$this->type]);
     }
 
-    public function init()
-    {
-        parent::init();
-        if (!$this->getType()) {
-            throw new NotFoundHttpException(Yii::t('yii', 'Page not found.'));
-        }
-    }
-
     public function run()
     {
-        $type = $this->getType();
+        if (!$type = $this->getType()) {
+            throw new NotFoundHttpException(Yii::t('yii', 'Page not found.'));
+        }
         $gears = $type->getGear2s()->with(['brand', 'ability'])->all();
         usort($gears, function (Gear2 $a, Gear2 $b): int {
             return strnatcasecmp(

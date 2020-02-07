@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d73264dd6afc503dedea4409a8398bb5",
+    "content-hash": "a80d161d076d9fff8ab2780d3a6836b4",
     "packages": [
         {
             "name": "cebe/markdown",
@@ -43,7 +43,7 @@
                     "cebe\\markdown\\": ""
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "notification-url": "https://repo.packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -99,7 +99,7 @@
                     "Base32\\": "src/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "notification-url": "https://repo.packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -200,7 +200,7 @@
                     "Interop\\Container\\": "src/Interop/Container/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "notification-url": "https://repo.packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -208,6 +208,50 @@
             "homepage": "https://github.com/container-interop/container-interop",
             "abandoned": "psr/container",
             "time": "2017-02-14T19:40:03+00:00"
+        },
+        {
+            "name": "cweagans/composer-patches",
+            "version": "1.6.7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/cweagans/composer-patches.git",
+                "reference": "2e6f72a2ad8d59cd7e2b729f218bf42adb14f590"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/cweagans/composer-patches/zipball/2e6f72a2ad8d59cd7e2b729f218bf42adb14f590",
+                "reference": "2e6f72a2ad8d59cd7e2b729f218bf42adb14f590",
+                "shasum": ""
+            },
+            "require": {
+                "composer-plugin-api": "^1.0",
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "composer/composer": "~1.0",
+                "phpunit/phpunit": "~4.6"
+            },
+            "type": "composer-plugin",
+            "extra": {
+                "class": "cweagans\\Composer\\Patches"
+            },
+            "autoload": {
+                "psr-4": {
+                    "cweagans\\Composer\\": "src"
+                }
+            },
+            "notification-url": "https://repo.packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Cameron Eagans",
+                    "email": "me@cweagans.net"
+                }
+            ],
+            "description": "Provides a way to patch Composer packages.",
+            "time": "2019-08-29T20:11:49+00:00"
         },
         {
             "name": "doctrine/lexer",
@@ -506,7 +550,7 @@
                     "src/mb_str_replace.function.php"
                 ]
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "notification-url": "https://repo.packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -552,7 +596,7 @@
                     "jp3cki\\uuid\\test\\": "test"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "notification-url": "https://repo.packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -590,7 +634,7 @@
                     "jp3cki\\yii2\\datetimepicker\\": "src/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "notification-url": "https://repo.packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -627,7 +671,7 @@
                     "jp3cki\\yii2\\flot\\": "src/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "notification-url": "https://repo.packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -667,7 +711,7 @@
                     "\\jp3cki\\yii2\\googleadsense\\": ""
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "notification-url": "https://repo.packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -712,7 +756,7 @@
                     "jp3cki\\yii2\\jqueryColor\\": "src/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "notification-url": "https://repo.packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -750,7 +794,7 @@
                     "jp3cki\\yii2\\momentjs\\": "src/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "notification-url": "https://repo.packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -786,7 +830,7 @@
                     "jp3cki\\yii2\\twitter\\widget\\": "src/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "notification-url": "https://repo.packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -823,7 +867,7 @@
                     "jp3cki\\yii2\\zxcvbn\\": "src/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "notification-url": "https://repo.packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -1331,7 +1375,7 @@
                     "OAuth\\Unit": "tests"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "notification-url": "https://repo.packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -1651,7 +1695,7 @@
                     "Psr\\Container\\": "src/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "notification-url": "https://repo.packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -2686,12 +2730,17 @@
                 "php": ">=5.2.0"
             },
             "type": "library",
+            "extra": {
+                "patches_applied": {
+                    "make static S3::setEndpoint": "data/patch/tpyo-s3-setendpoint-static.patch"
+                }
+            },
             "autoload": {
                 "classmap": [
                     "S3.php"
                 ]
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "notification-url": "https://repo.packagist.org/downloads/",
             "license": [
                 "BSD-2-Clause"
             ],
@@ -2837,7 +2886,7 @@
                     "yii\\bootstrap\\": "src"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "notification-url": "https://repo.packagist.org/downloads/",
             "license": [
                 "BSD-3-Clause"
             ],
@@ -2985,7 +3034,7 @@
                     "yii\\queue\\stomp\\": "src/drivers/stomp"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "notification-url": "https://repo.packagist.org/downloads/",
             "license": [
                 "BSD-3-Clause"
             ],
@@ -3098,7 +3147,7 @@
                     "Behat\\Gherkin": "src/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "notification-url": "https://repo.packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -3283,7 +3332,7 @@
                     "Codeception\\": "src/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "notification-url": "https://repo.packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -3466,7 +3515,7 @@
                     "src/functions_include.php"
                 ]
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "notification-url": "https://repo.packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -3541,6 +3590,58 @@
                 "object graph"
             ],
             "time": "2020-01-17T21:11:47+00:00"
+        },
+        {
+            "name": "nikic/php-parser",
+            "version": "v4.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nikic/PHP-Parser.git",
+                "reference": "9a9981c347c5c49d6dfe5cf826bb882b824080dc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/9a9981c347c5c49d6dfe5cf826bb882b824080dc",
+                "reference": "9a9981c347c5c49d6dfe5cf826bb882b824080dc",
+                "shasum": ""
+            },
+            "require": {
+                "ext-tokenizer": "*",
+                "php": ">=7.0"
+            },
+            "require-dev": {
+                "ircmaxell/php-yacc": "0.0.5",
+                "phpunit/phpunit": "^6.5 || ^7.0 || ^8.0"
+            },
+            "bin": [
+                "bin/php-parse"
+            ],
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "4.3-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "PhpParser\\": "lib/PhpParser"
+                }
+            },
+            "notification-url": "https://repo.packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Nikita Popov"
+                }
+            ],
+            "description": "A PHP parser written in PHP",
+            "keywords": [
+                "parser",
+                "php"
+            ],
+            "time": "2019-11-08T13:50:10+00:00"
         },
         {
             "name": "opis/closure",
@@ -3634,7 +3735,7 @@
                     "src/"
                 ]
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "notification-url": "https://repo.packagist.org/downloads/",
             "license": [
                 "BSD-3-Clause"
             ],
@@ -3681,7 +3782,7 @@
                     "src/"
                 ]
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "notification-url": "https://repo.packagist.org/downloads/",
             "license": [
                 "BSD-3-Clause"
             ],
@@ -3881,7 +3982,7 @@
                     "Diff": "lib/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "notification-url": "https://repo.packagist.org/downloads/",
             "license": [
                 "BSD-3-Clause"
             ],
@@ -3956,6 +4057,45 @@
                 "stub"
             ],
             "time": "2020-01-20T15:57:02+00:00"
+        },
+        {
+            "name": "phpstan/phpstan",
+            "version": "0.12.9",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/phpstan/phpstan.git",
+                "reference": "297cb2458a96ea96d5e9d6ef38f1b7305c071f32"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/297cb2458a96ea96d5e9d6ef38f1b7305c071f32",
+                "reference": "297cb2458a96ea96d5e9d6ef38f1b7305c071f32",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1"
+            },
+            "bin": [
+                "phpstan",
+                "phpstan.phar"
+            ],
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.12-dev"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "bootstrap.php"
+                ]
+            },
+            "notification-url": "https://repo.packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "PHPStan - PHP Static Analysis Tool",
+            "time": "2020-02-04T22:30:27+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -4051,7 +4191,7 @@
                     "src/"
                 ]
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "notification-url": "https://repo.packagist.org/downloads/",
             "license": [
                 "BSD-3-Clause"
             ],
@@ -4093,7 +4233,7 @@
                     "src/"
                 ]
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "notification-url": "https://repo.packagist.org/downloads/",
             "license": [
                 "BSD-3-Clause"
             ],
@@ -4142,7 +4282,7 @@
                     "src/"
                 ]
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "notification-url": "https://repo.packagist.org/downloads/",
             "license": [
                 "BSD-3-Clause"
             ],
@@ -4293,6 +4433,54 @@
             "time": "2020-01-08T08:49:49+00:00"
         },
         {
+            "name": "proget-hq/phpstan-yii2",
+            "version": "0.7.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/proget-hq/phpstan-yii2.git",
+                "reference": "37e2fa1ef16c4e398b3683e171505132f4e09b02"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/proget-hq/phpstan-yii2/zipball/37e2fa1ef16c4e398b3683e171505132f4e09b02",
+                "reference": "37e2fa1ef16c4e398b3683e171505132f4e09b02",
+                "shasum": ""
+            },
+            "require": {
+                "nikic/php-parser": "^4.1.0",
+                "php": "^7.2",
+                "phpstan/phpstan": "^0.12"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^2.13",
+                "phpstan/phpstan-phpunit": "^0.12",
+                "phpunit/phpunit": "^8.0",
+                "yiisoft/yii2": "^2.0.15"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Proget\\PHPStan\\Yii2\\": "src/"
+                }
+            },
+            "notification-url": "https://repo.packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Arkadiusz Kondas",
+                    "email": "arkadiusz.kondas@gmail.com"
+                },
+                {
+                    "name": "Marcin Michalski",
+                    "email": "marcin@michalski.dev"
+                }
+            ],
+            "description": "Yii2 extension for PHPStan",
+            "time": "2019-12-16T11:17:15+00:00"
+        },
+        {
             "name": "psr/http-message",
             "version": "1.0.1",
             "source": {
@@ -4320,7 +4508,7 @@
                     "Psr\\Http\\Message\\": "src/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "notification-url": "https://repo.packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -4369,7 +4557,7 @@
                     "src/getallheaders.php"
                 ]
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "notification-url": "https://repo.packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -4413,7 +4601,7 @@
                     "src/"
                 ]
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "notification-url": "https://repo.packagist.org/downloads/",
             "license": [
                 "BSD-3-Clause"
             ],
@@ -4460,7 +4648,7 @@
                     "src/"
                 ]
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "notification-url": "https://repo.packagist.org/downloads/",
             "license": [
                 "BSD-3-Clause"
             ],
@@ -4523,7 +4711,7 @@
                     "src/"
                 ]
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "notification-url": "https://repo.packagist.org/downloads/",
             "license": [
                 "BSD-3-Clause"
             ],
@@ -4754,7 +4942,7 @@
                     "src/"
                 ]
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "notification-url": "https://repo.packagist.org/downloads/",
             "license": [
                 "BSD-3-Clause"
             ],
@@ -4799,7 +4987,7 @@
                     "src/"
                 ]
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "notification-url": "https://repo.packagist.org/downloads/",
             "license": [
                 "BSD-3-Clause"
             ],
@@ -4844,7 +5032,7 @@
                     "src/"
                 ]
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "notification-url": "https://repo.packagist.org/downloads/",
             "license": [
                 "BSD-3-Clause"
             ],
@@ -4894,7 +5082,7 @@
                     "src/"
                 ]
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "notification-url": "https://repo.packagist.org/downloads/",
             "license": [
                 "BSD-3-Clause"
             ],
@@ -4946,8 +5134,8 @@
             "authors": [
                 {
                     "name": "Sebastian Bergmann",
-                    "role": "lead",
-                    "email": "sebastian@phpunit.de"
+                    "email": "sebastian@phpunit.de",
+                    "role": "lead"
                 }
             ],
             "description": "Collection of value objects that represent the types of the PHP type system",
@@ -4982,7 +5170,7 @@
                     "src/"
                 ]
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "notification-url": "https://repo.packagist.org/downloads/",
             "license": [
                 "BSD-3-Clause"
             ],
@@ -5616,7 +5804,7 @@
                     "src/"
                 ]
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "notification-url": "https://repo.packagist.org/downloads/",
             "license": [
                 "BSD-3-Clause"
             ],
