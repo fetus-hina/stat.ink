@@ -32,7 +32,7 @@
     "jquery": "^3.4.1",
     "jquery-color": "git+https://github.com/jquery/jquery-color.git#2.1.2",
     "jquery-smooth-scroll": "^2.2.0",
-    "less": "^3.11.0",
+    "less": "^3.11.1",
     "moment": "^2.24.0",
     "moment-timezone": "^0.5.27",
     "node-zopfli": "^2.1.3",
