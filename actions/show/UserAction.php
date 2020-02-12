@@ -79,12 +79,14 @@ class UserAction extends BaseAction
         );
 
         $isPjax = $request->isPjax;
-        $template = $this->viewMode === 'simple' ? 'user.simple.php' : 'user.php';
+        $template = $this->getViewMode() === 'simple' ? 'user.simple.php' : 'user.php';
         return $this->controller->render($template, [
             'user'      => $user,
             'battleDataProvider' => new ActiveDataProvider([
                 'query' => $battle,
-                'pagination' => ['pageSize' => 100 ]
+                'pagination' => [
+                    'pageSize' => 100,
+                ],
             ]),
             'summary'   => $summary,
             'filter'    => $filter,
@@ -92,26 +94,28 @@ class UserAction extends BaseAction
         ]);
     }
 
-    public function getViewMode()
+    public function getViewMode(): string
     {
         $request = Yii::$app->request;
         $mode = null;
         if ($cookie = $request->cookies->get('battle-list')) {
             $mode = $cookie->value;
         }
+
         if ($mode === 'simple' || $mode === 'standard') {
             return $mode;
         }
+
         $ua = $request->userAgent;
-        if (strpos($ua, 'iPod') !== false || strpos($ua, 'iPhone') !== false) {
+        if (
+            strpos($ua, 'iPhone') !== false ||
+            strpos($ua, 'Android') !== false ||
+            strpos($ua, 'Windows Phone') !== false ||
+            strpos($ua, 'iPod') !== false
+        ) {
             return 'simple';
         }
-        if (strpos($ua, 'Android') !== false) {
-            return 'simple';
-        }
-        if (strpos($ua, 'Windows Phone') !== false) {
-            return 'simple';
-        }
+
         return 'standard';
     }
 }

@@ -46,21 +46,6 @@ class m171206_113614_gear2id extends Migration
         );
     }
 
-    // private function makeUpdateData() : void
-    // {
-    //     $json = Json::decode(
-    //         file_get_contents(__FILE__, false, null, __COMPILER_HALT_OFFSET__)
-    //     );
-    //     $upd = [];
-    //     foreach ($json as $key => $id) {
-    //         if ($gear = Gear2::findOne(['key' => $key])) {
-    //             if ((int)$id !== (int)$gear->splatnet) {
-    //                 printf("'%s' => %d,\n", $key, $id);
-    //             }
-    //         }
-    //     }
-    // }
-
     public function getUpdateData(): array
     {
         // {{{
@@ -158,6 +143,8 @@ class m171206_113614_gear2id extends Migration
         // }}}
     }
 }
+
+// phpcs:disable
 
 // The json below is generated with @app/data/gear_id/run.sh
 // This migration script is sync to that DB.

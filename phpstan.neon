@@ -1,0 +1,33 @@
+includes:
+  - vendor/proget-hq/phpstan-yii2/extension.neon
+
+parameters:
+  paths:
+    - actions/
+    - assets/
+    - commands/
+    - components/
+    - controllers/
+    - messages/
+    - models/
+    - views/
+
+  autoload_files:
+    - vendor/yiisoft/yii2/Yii.php
+    - config/web-bootstrap.php
+
+  yii2:
+    config_path: %rootDir%/../../../config/web.php
+
+  ignoreErrors:
+    - /during method call all at/
+    - /during method call andWhere at/
+    - /during method call asArray at/
+    - /during method call innerJoinWith at/
+    - /during method call join at/
+    - /during method call joinWith at/
+    - /during method call limit at/
+    - /during method call one at/
+    - /during method call orderBy at/
+    - /during method call with at/
+    - /provided to createObject method/

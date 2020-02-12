@@ -32,8 +32,22 @@ class m170720_202358_weapon2 extends Migration
         $this->upWeapon('splatroller_collabo', 'Krak-On Splat Roller', 'roller', 'jumpbeacon', 'sphere', 'splatroller');
         $this->upWeapon('variableroller', 'Flingza Roller', 'roller', 'splashshield', 'pitcher');
         $this->upWeapon('carbon', 'Carbon Roller', 'roller', 'robotbomb', 'amefurashi');
-        $this->upWeapon('splatcharger_collabo', 'Firefin Splat Charger', 'charger', 'splashshield', 'pitcher', 'splatcharger');
-        $this->upWeapon('splatscope_collabo', 'Firefin Splatterscope', 'charger', 'splashshield', 'pitcher', 'splatcharger');
+        $this->upWeapon(
+            'splatcharger_collabo',
+            'Firefin Splat Charger',
+            'charger',
+            'splashshield',
+            'pitcher',
+            'splatcharger'
+        );
+        $this->upWeapon(
+            'splatscope_collabo',
+            'Firefin Splatterscope',
+            'charger',
+            'splashshield',
+            'pitcher',
+            'splatcharger'
+        );
         $this->upWeapon('liter4k', 'E-liter 4K', 'charger', 'trap', 'amefurashi');
         $this->upWeapon('liter4k_scope', 'E-liter 4K Scope', 'charger', 'trap', 'amefurashi', 'liter4k');
         $this->upWeapon('splatspinner', 'Mini Splatling', 'splatling', 'quickbomb', 'missile');

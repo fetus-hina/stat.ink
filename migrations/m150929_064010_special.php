@@ -69,6 +69,9 @@ class m150929_064010_special extends Migration
         fclose($fh);
     }
 }
+
+// phpcs:disable
+
 __halt_compiler();
 barrier
     hissen

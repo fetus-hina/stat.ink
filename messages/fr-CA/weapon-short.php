@@ -6,6 +6,8 @@
  * @author AIZAWA Hina <hina@fetus.jp>
  */
 
+declare(strict_types=1);
+
 return [
     '  Flexi-rouleau aluminium' => '',
     'Arroseur lourd' => '',

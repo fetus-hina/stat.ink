@@ -115,6 +115,7 @@ class LanguageDialog extends Dialog
         switch ($level->id) {
             case SupportLevel::FULL:
             case SupportLevel::ALMOST:
+            default:
                 return FA::fas(null)->fw()->__toString();
 
             case SupportLevel::PARTIAL:

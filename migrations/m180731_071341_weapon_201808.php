@@ -30,7 +30,16 @@ class m180731_071341_weapon_201808 extends Migration
     public function getWeapons(): array
     {
         return [
-            ['quadhopper_white', 'Light Tetra Dualies', 'maneuver', 'sprinkler', 'pitcher', 'quadhopper_black', null, 5041],
+            [
+                'quadhopper_white',
+                'Light Tetra Dualies',
+                'maneuver',
+                'sprinkler',
+                'pitcher',
+                'quadhopper_black',
+                null,
+                5041,
+            ],
             ['hydra_custom', 'Custom Hydra Splatling', 'splatling', 'trap', 'armor', 'hydra', null, 4021],
             ['furo', 'Bloblobber', 'slosher', 'splashshield', 'amefurashi', null, null, 3030],
             ['nautilus47', 'Nautilus 47', 'splatling', 'pointsensor', 'sphere', null, null, 4040],

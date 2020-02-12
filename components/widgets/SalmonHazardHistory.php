@@ -28,7 +28,7 @@ class SalmonHazardHistory extends Widget
         parent::init();
 
         if (!$this->user) {
-            $this->user = $current->user;
+            $this->user = $this->current->user;
         }
     }
 

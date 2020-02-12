@@ -31,7 +31,16 @@ class m180629_171412_june_weapons extends Migration
     {
         return [
             ['bamboo14mk2', 'Bamboozler 14 Mk II', 'charger', 'poisonmist', 'pitcher', 'bamboo14mk1', null, 2051],
-            ['campingshelter_sorella', 'Tenta Sorella Brella', 'brella', 'splashshield', 'pitcher', 'campingshelter', null, 6011],
+            [
+                'campingshelter_sorella',
+                'Tenta Sorella Brella',
+                'brella',
+                'splashshield',
+                'pitcher',
+                'campingshelter',
+                null,
+                6011,
+            ],
             ['kugelschreiber', 'Ballpoint Splatling', 'splatling', 'poisonmist', 'jetpack', null, null, 4030],
             ['explosher', 'Explosher', 'slosher', 'sprinkler', 'bubble', null, null, 3030],
         ];

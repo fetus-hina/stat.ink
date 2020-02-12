@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ruleset name="Customized-PSR2">
+  <description>A custom coding standard</description>
+
+  <ini name="memory_limit" value="-1" />
+  <arg name="extensions" value="php" />
+    
+  <rule ref="PSR12" />
+  <file>.</file>
+  <exclude-pattern>*/bin/</exclude-pattern>
+  <exclude-pattern>*/config/</exclude-pattern>
+  <exclude-pattern>*/data/</exclude-pattern>
+  <exclude-pattern>*/doc/</exclude-pattern>
+  <exclude-pattern>*/docker/</exclude-pattern>
+  <exclude-pattern>*/messages/</exclude-pattern>
+  <exclude-pattern>*/node_modules/</exclude-pattern>
+  <exclude-pattern>*/resources/</exclude-pattern>
+  <exclude-pattern>*/runtime/</exclude-pattern>
+  <exclude-pattern>*/tests/</exclude-pattern>
+  <exclude-pattern>*/vendor/</exclude-pattern>
+  <exclude-pattern>*/views/</exclude-pattern>
+
+  <rule ref="PSR12">
+    <file>*/components/ability/effect/*</file>
+    <exclude name="Squiz.Classes.ValidClassName.NotCamelCaps" />
+  </rule>
+
+  <rule ref="PSR12">
+    <file>*/migrations/*</file>
+    <exclude name="Squiz.Classes.ValidClassName.NotCamelCaps" />
+    <exclude name="PSR1.Classes.ClassDeclaration" />
+  </rule>
+</ruleset>

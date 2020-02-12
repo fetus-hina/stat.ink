@@ -68,12 +68,17 @@ class m160411_084738_weapon extends Migration
         $type = DeathReasonType::findOne(['key' => 'main'])->id;
         $this->batchInsert(
             'death_reason',
-            [ 'type_id', 'key', 'name', 'weapon_id' ],
+            ['type_id', 'key', 'name', 'weapon_id'],
             [
-                [ $type, 'bucketslosher_soda', 'Soda Slosher', Weapon::findOne(['key' => 'bucketslosher_soda'])->id ],
-                [ $type, 'bamboo14mk3', 'Bamboozler 14 Mk III', Weapon::findOne(['key' => 'bamboo14mk3'])->id ],
-                [ $type, 'dynamo_burned', 'Tempered Dynamo Roller', Weapon::findOne(['key' => 'dynamo_burned'])->id ],
-                [ $type, 'splatspinner_repair', 'Refurbished Mini Splatling', Weapon::findOne(['key' => 'splatspinner_repair'])->id ],
+                [$type, 'bucketslosher_soda', 'Soda Slosher', Weapon::findOne(['key' => 'bucketslosher_soda'])->id],
+                [$type, 'bamboo14mk3', 'Bamboozler 14 Mk III', Weapon::findOne(['key' => 'bamboo14mk3'])->id],
+                [$type, 'dynamo_burned', 'Tempered Dynamo Roller', Weapon::findOne(['key' => 'dynamo_burned'])->id],
+                [
+                    $type,
+                    'splatspinner_repair',
+                    'Refurbished Mini Splatling',
+                    Weapon::findOne(['key' => 'splatspinner_repair'])->id,
+                ],
             ]
         );
     }

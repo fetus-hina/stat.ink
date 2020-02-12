@@ -98,6 +98,8 @@ class m171201_164553_gear_v2 extends Migration
     }
 }
 
+// phpcs:disable
+
 __halt_compiler();
 {"key":"b_ball_headband","type":"headgear","brand":"zink","name":"B-ball Headband","ability":"opening_gambit"}
 {"key":"black_arrowbands","type":"headgear","brand":"zekko","name":"Black Arrowbands","ability":"tenacity"}

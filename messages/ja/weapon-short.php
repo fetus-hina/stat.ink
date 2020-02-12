@@ -6,6 +6,8 @@
  * @author AIZAWA Hina <hina@fetus.jp>
  */
 
+declare(strict_types=1);
+
 return [
     '.52ガロン' => '52',
     '.52ガロンデコ' => '52デコ',

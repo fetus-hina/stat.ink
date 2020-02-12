@@ -17,7 +17,9 @@ class m160819_094109_nawabari_bonus_update extends Migration
         $nawabari = Rule::findOne(['key' => 'nawabari'])->id;
 
         $this->execute('LOCK TABLE {{battle}} IN EXCLUSIVE MODE');
-        $this->execute('ALTER TABLE {{battle}} ADD COLUMN [[bonus_id]] INTEGER NULL REFERENCES {{turfwar_win_bonus}}([[id]])');
+        $this->execute(
+            'ALTER TABLE {{battle}} ADD COLUMN [[bonus_id]] INTEGER NULL REFERENCES {{turfwar_win_bonus}}([[id]])'
+        );
         $this->update(
             'battle',
             ['bonus_id' => TurfwarWinBonus::find()->at('2015-05-28T00:00:01+09:00')->one()->id],

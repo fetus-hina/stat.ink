@@ -40,7 +40,7 @@ class Formatter extends \yii\i18n\Formatter
     public function asHtmlRelative($value): string
     {
         if ($value === null) {
-            return $this->asRelativeTime($value, $format);
+            return $this->asRelativeTime($value);
         }
 
         $timestamp = (int)$this->asTimestamp($value);

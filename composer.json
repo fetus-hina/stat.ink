@@ -20,6 +20,7 @@
         "ext-session": "*",
         "ext-zlib": "*",
         "christian-riesen/base32": "^1.2",
+        "cweagans/composer-patches": "^1.6",
         "geoip2/geoip2": "^2.0",
         "jaybizzle/crawler-detect": "^1.2",
         "jp3cki/mb_str_replace": "^4.0",
@@ -60,6 +61,8 @@
         "codeception/base": "^3.0.0",
         "codeception/specify": "^1.1.0",
         "codeception/verify": "^1.0.0",
+        "phpstan/phpstan": "^0.12.8",
+        "proget-hq/phpstan-yii2": "^0.7.1",
         "squizlabs/php_codesniffer": "^3.5.0",
         "yiisoft/yii2-debug": "*",
         "yiisoft/yii2-gii": "*"
@@ -100,6 +103,18 @@
         },
         "platform": {
             "php": "7.3.12"
+        }
+    },
+    "extra": {
+        "patches": {
+            "tpyo/amazon-s3-php-class": {
+                "make static S3::setEndpoint": "data/patch/tpyo-s3-setendpoint-static.patch"
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "app\\": "."
         }
     },
     "repositories": {

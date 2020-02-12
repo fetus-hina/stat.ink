@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2018 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2020 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -36,19 +36,6 @@ class Dialog extends Widget
     public $titleFormat = 'text';
     public $headerOptions = [];
     public $wrapBody = true;
-
-    public static function begin($config = [])
-    {
-        $r = parent::begin($config);
-        ob_start();
-        return $r;
-    }
-
-    public static function end()
-    {
-        $this->body = ob_get_clean();
-        return parent::end();
-    }
 
     public function __toString()
     {

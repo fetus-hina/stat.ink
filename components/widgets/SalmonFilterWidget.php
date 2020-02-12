@@ -199,7 +199,7 @@ class SalmonFilterWidget extends Widget
         $now = (new DateTimeImmutable())
             ->setTimezone($utc)
             ->setTimestamp((int)($_SERVER['REQUEST_TIME'] ?? time()));
-        $firstCreatedAt = Salmon2::find()->min('created_at') ?: $now->format(Date::ATOM);
+        $firstCreatedAt = Salmon2::find()->min('created_at') ?: $now->format(DateTime::ATOM);
         $minDate = (new DateTimeImmutable($firstCreatedAt, $utc));
         $minDate = $minDate
             ->setTime(0, 0, 0)

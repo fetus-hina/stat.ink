@@ -20,7 +20,7 @@ class m160607_015542_weapon_bukichi2_3 extends Migration
     {
         $this->batchInsert(
             'weapon',
-            [ 'id', 'type_id', 'key', 'name', 'subweapon_id', 'special_id', 'canonical_id', 'main_group_id' ],
+            ['id', 'type_id', 'key', 'name', 'subweapon_id', 'special_id', 'canonical_id', 'main_group_id'],
             [
                 [
                     new Expression("nextval('weapon_id_seq'::regclass)"),
@@ -48,10 +48,20 @@ class m160607_015542_weapon_bukichi2_3 extends Migration
         $type = DeathReasonType::findOne(['key' => 'main'])->id;
         $this->batchInsert(
             'death_reason',
-            [ 'type_id', 'key', 'name', 'weapon_id' ],
+            ['type_id', 'key', 'name', 'weapon_id'],
             [
-                [ $type, 'promodeler_pg', 'Aerospray PG', Weapon::findOne(['key' => 'promodeler_mg'])->id ],
-                [ $type, 'barrelspinner_remix', 'Heavy Splatling Remix', Weapon::findOne(['key' => 'barrelspinner'])->id ],
+                [
+                    $type,
+                    'promodeler_pg',
+                    'Aerospray PG',
+                    Weapon::findOne(['key' => 'promodeler_mg'])->id,
+                ],
+                [
+                    $type,
+                    'barrelspinner_remix',
+                    'Heavy Splatling Remix',
+                    Weapon::findOne(['key' => 'barrelspinner'])->id,
+                ],
             ]
         );
     }

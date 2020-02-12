@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2019 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2020 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -16,6 +16,7 @@ use app\models\SplatoonVersion2;
 use app\models\SplatoonVersionGroup2;
 use app\models\StatWeapon2KdWinRate;
 use yii\helpers\ArrayHelper;
+use yii\web\ServerErrorHttpException;
 use yii\web\ViewAction;
 
 class KDWin2Action extends ViewAction

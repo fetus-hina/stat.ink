@@ -98,6 +98,8 @@ class m180427_125916_v3_gears extends Migration
         }
     }
 }
+
+// phpcs:disable
 __halt_compiler();
 !headgear
 1004;Squid-Stitch Cap;Skalop;Opening Gambit

@@ -5,6 +5,7 @@
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
+
 declare(strict_types=1);
 
 use app\components\db\Migration;
@@ -32,7 +33,16 @@ class m181126_075735_dec_weapons extends Migration
     {
         return [
             ['explosher_custom', 'Custom Explosher', 'slosher', 'pointsensor', 'sphere', 'explosher', null, 3041],
-            ['kugelschreiber_hue', 'Ballpoint Splatling Nouveau', 'splatling', 'jumpbeacon', 'amefurashi', 'kugelschreiber', null, 4031],
+            [
+                'kugelschreiber_hue',
+                'Ballpoint Splatling Nouveau',
+                'splatling',
+                'jumpbeacon',
+                'amefurashi',
+                'kugelschreiber',
+                null,
+                4031,
+            ],
             ['furo_deco', 'Bloblobber Deco', 'slosher', 'sprinkler', 'pitcher', 'furo', null, 3031],
             ['nautilus79', 'Nautilus 79', 'splatling', 'kyubanbomb', 'jetpack', 'nautilus47', null, 4041],
         ];

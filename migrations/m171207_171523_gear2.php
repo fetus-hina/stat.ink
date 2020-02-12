@@ -75,6 +75,9 @@ class m171207_171523_gear2 extends Migration
         ];
     }
 }
+
+// phpcs:disable
+
 __halt_compiler();
 {
   "18k_aviators": 3008, 

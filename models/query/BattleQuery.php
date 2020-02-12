@@ -1,15 +1,15 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2020 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
 
 namespace app\models\query;
 
-use yii\db\ActiveQuery;
 use app\components\helpers\Battle as BattleHelper;
+use app\components\helpers\BattleSummarizer;
 use app\components\helpers\Resource;
 use app\models\Battle;
 use app\models\BattleFilterForm;
@@ -17,10 +17,12 @@ use app\models\BattleImageType;
 use app\models\SplatoonVersion;
 use app\models\Timezone;
 use app\models\Weapon;
+use stdClass;
+use yii\db\ActiveQuery;
 
 class BattleQuery extends ActiveQuery
 {
-    public function hasResultImage()
+    public function hasResultImage(): self
     {
         return $this->innerJoinWith([
             'battleImages' => function ($query) {
@@ -29,7 +31,7 @@ class BattleQuery extends ActiveQuery
         ], false);
     }
 
-    public function filter(BattleFilterForm $filter)
+    public function filter(BattleFilterForm $filter): self
     {
         return $this
             ->filterByScreenName($filter->screen_name)
@@ -48,7 +50,7 @@ class BattleQuery extends ActiveQuery
             ->filterByIdRange($filter->id_from, $filter->id_to);
     }
 
-    public function filterByScreenName($value)
+    public function filterByScreenName(?string $value): self
     {
         $value = trim((string)$value);
         if ($value === '') {
@@ -57,7 +59,7 @@ class BattleQuery extends ActiveQuery
         return $this->innerJoinWith('user')->andWhere(['{{user}}.[[screen_name]]' => $value]);
     }
 
-    public function filterByLobby($value)
+    public function filterByLobby(?string $value): self
     {
         $value = trim((string)$value);
         if ($value === '') {
@@ -68,7 +70,7 @@ class BattleQuery extends ActiveQuery
         return $this;
     }
 
-    public function filterByRule($value)
+    public function filterByRule(?string $value): self
     {
         $value = trim((string)$value);
         if ($value === '') {
@@ -84,7 +86,7 @@ class BattleQuery extends ActiveQuery
         return $this;
     }
 
-    public function filterByMap($value)
+    public function filterByMap(?string $value): self
     {
         $value = trim((string)$value);
         if ($value === '') {
@@ -93,7 +95,7 @@ class BattleQuery extends ActiveQuery
         return $this->innerJoinWith('map')->andWhere(['{{map}}.[[key]]' => $value]);
     }
 
-    public function filterByWeapon($value)
+    public function filterByWeapon(?string $value): self
     {
         $value = trim((string)$value);
         if ($value === '') {
@@ -131,7 +133,7 @@ class BattleQuery extends ActiveQuery
         return $this;
     }
 
-    public function filterByRank($rank)
+    public function filterByRank(?string $rank): self
     {
         if (substr($rank, 0, 1) === '~') {
             $this->innerJoinWith(['rank', 'rank.group']);
@@ -143,7 +145,10 @@ class BattleQuery extends ActiveQuery
         return $this;
     }
 
-    public function filterByResult($result)
+    /**
+     * @param string|bool|null $result
+     */
+    public function filterByResult($result): self
     {
         if ($result === 'win' || $result === true) {
             $this->andWhere(['{{battle}}.[[is_win]]' => true]);
@@ -153,9 +158,9 @@ class BattleQuery extends ActiveQuery
         return $this;
     }
 
-    public function filterByTerm($value, array $options = [])
+    public function filterByTerm(?string $value, array $options = []): self
     {
-        $now = $_SERVER['REQUEST_TIME'] ?? time();
+        $now = (int)($_SERVER['REQUEST_TIME'] ?? time());
         $currentPeriod = BattleHelper::calcPeriod($now);
 
         // 指定されたタイムゾーンで処理する
@@ -166,7 +171,7 @@ class BattleQuery extends ActiveQuery
         }
         if ($tzModel) {
             $oldTz = date_default_timezone_get();
-            $raii = new Resource(true, function () use ($oldTz) {
+            $raii = new Resource(true, function () use ($oldTz): void {
                 date_default_timezone_set($oldTz);
             });
             date_default_timezone_set($tzModel->identifier);
@@ -233,7 +238,7 @@ class BattleQuery extends ActiveQuery
         return $this;
     }
 
-    public function filterByIdRange($idFrom, $idTo)
+    public function filterByIdRange(?int $idFrom, ?int $idTo): self
     {
         if ($idFrom != '' && $idFrom > 0) {
             $this->andWhere(['>=', '{{battle}}.[[id]]', (int)$idFrom]);
@@ -244,8 +249,8 @@ class BattleQuery extends ActiveQuery
         return $this;
     }
 
-    public function getSummary()
+    public function getSummary(): stdClass
     {
-        return \app\components\helpers\BattleSummarizer::getSummary($this);
+        return BattleSummarizer::getSummary($this);
     }
 }

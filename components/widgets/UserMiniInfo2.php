@@ -348,7 +348,7 @@ class UserMiniInfo2 extends Widget
                         [
                             'label' => Yii::t('app', 'Total Inked'),
                             'format' => 'raw',
-                            'value' => function (UserStat2 $model) use ($fmt): string {
+                            'value' => function (UserStat2 $model): string {
                                 if ($model->turf_have_inked < 1) {
                                     return Html::encode(Yii::t('app', 'N/A'));
                                 }
