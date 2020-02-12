@@ -13,7 +13,7 @@ return [
     '(Locked)' => '',
     'Ability Doubler' => 'Дупликатор',
     'Bomb Defense Up' => 'Бомбостойкость',
-    'Bomb Defense Up DX' => '',
+    'Bomb Defense Up DX' => 'Бомбостойкость М-2',
     'Charging: {value}' => '',
     'Cold-Blooded' => 'Кальмар 004',
     'Comeback' => 'Ответный удар',

@@ -14,7 +14,7 @@ return [
     '(Locked)' => '(Gesperrt)',
     'Ability Doubler' => 'Effektdoppelung',
     'Bomb Defense Up' => 'Bombenschutz',
-    'Bomb Defense Up DX' => '',
+    'Bomb Defense Up DX' => 'Bombenschutz 2.0',
     'Charging: {value}' => '',
     'Cold-Blooded' => 'Phantom',
     'Comeback' => 'Rückkehr',

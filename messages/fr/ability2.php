@@ -13,7 +13,7 @@ return [
     '(Locked)' => '',
     'Ability Doubler' => 'Bonus ×2',
     'Bomb Defense Up' => 'Filtre à explosions',
-    'Bomb Defense Up DX' => '',
+    'Bomb Defense Up DX' => 'Filtre à explosions II',
     'Charging: {value}' => '',
     'Cold-Blooded' => 'Furtivité',
     'Comeback' => 'Come-back',

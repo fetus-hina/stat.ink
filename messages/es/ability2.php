@@ -13,7 +13,7 @@ return [
     '(Locked)' => '',
     'Ability Doubler' => 'Duplicador',
     'Bomb Defense Up' => 'Resistencia explosiva',
-    'Bomb Defense Up DX' => '',
+    'Bomb Defense Up DX' => 'Resistencia explosiva II',
     'Charging: {value}' => '',
     'Cold-Blooded' => 'Invisibilidad',
     'Comeback' => 'Remontada',

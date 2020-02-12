@@ -13,7 +13,7 @@ return [
     '(Locked)' => '',
     'Ability Doubler' => 'Raddoppiatore',
     'Bomb Defense Up' => 'Antiesplosione',
-    'Bomb Defense Up DX' => '',
+    'Bomb Defense Up DX' => 'Antiesplosione 2.0',
     'Charging: {value}' => '',
     'Cold-Blooded' => 'Batteria difettosa',
     'Comeback' => 'Gran ritorno',
