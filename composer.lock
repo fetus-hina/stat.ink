@@ -2730,11 +2730,6 @@
                 "php": ">=5.2.0"
             },
             "type": "library",
-            "extra": {
-                "patches_applied": {
-                    "make static S3::setEndpoint": "data/patch/tpyo-s3-setendpoint-static.patch"
-                }
-            },
             "autoload": {
                 "classmap": [
                     "S3.php"
@@ -2752,7 +2747,12 @@
             ],
             "description": "A standalone Amazon S3 (REST) client for PHP 5.2.x using CURL that does not require PEAR.",
             "homepage": "https://github.com/tpyo/amazon-s3-php-class",
-            "time": "2015-04-27T06:12:39+00:00"
+            "time": "2015-04-27T06:12:39+00:00",
+            "extra": {
+                "patches_applied": {
+                    "make static S3::setEndpoint": "data/patch/tpyo-s3-setendpoint-static.patch"
+                }
+            }
         },
         {
             "name": "yiisoft/yii2",
@@ -3309,22 +3309,22 @@
         },
         {
             "name": "codeception/specify",
-            "version": "1.2.0",
+            "version": "1.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Codeception/Specify.git",
-                "reference": "e3fefa22f2304170024b9242b2bd8b01cf5a2ac0"
+                "reference": "fe4825cee9b608f9c97442d84168e3df0e18b73e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/Specify/zipball/e3fefa22f2304170024b9242b2bd8b01cf5a2ac0",
-                "reference": "e3fefa22f2304170024b9242b2bd8b01cf5a2ac0",
+                "url": "https://api.github.com/repos/Codeception/Specify/zipball/fe4825cee9b608f9c97442d84168e3df0e18b73e",
+                "reference": "fe4825cee9b608f9c97442d84168e3df0e18b73e",
                 "shasum": ""
             },
             "require": {
                 "myclabs/deep-copy": "~1.1",
                 "php": ">=7.1.0",
-                "phpunit/phpunit": ">=7.0 <9.0"
+                "phpunit/phpunit": ">=7.0 <10.0"
             },
             "type": "library",
             "autoload": {
@@ -3343,7 +3343,7 @@
                 }
             ],
             "description": "BDD code blocks for PHPUnit and Codeception",
-            "time": "2019-08-01T20:09:26+00:00"
+            "time": "2020-02-15T21:44:39+00:00"
         },
         {
             "name": "codeception/stub",
@@ -5821,16 +5821,16 @@
         },
         {
             "name": "webmozart/assert",
-            "version": "1.6.0",
+            "version": "1.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/webmozart/assert.git",
-                "reference": "573381c0a64f155a0d9a23f4b0c797194805b925"
+                "reference": "aed98a490f9a8f78468232db345ab9cf606cf598"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webmozart/assert/zipball/573381c0a64f155a0d9a23f4b0c797194805b925",
-                "reference": "573381c0a64f155a0d9a23f4b0c797194805b925",
+                "url": "https://api.github.com/repos/webmozart/assert/zipball/aed98a490f9a8f78468232db345ab9cf606cf598",
+                "reference": "aed98a490f9a8f78468232db345ab9cf606cf598",
                 "shasum": ""
             },
             "require": {
@@ -5865,7 +5865,7 @@
                 "check",
                 "validate"
             ],
-            "time": "2019-11-24T13:36:37+00:00"
+            "time": "2020-02-14T12:15:55+00:00"
         },
         {
             "name": "yiisoft/yii2-debug",
