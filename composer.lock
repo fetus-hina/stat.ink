@@ -475,16 +475,16 @@
         },
         {
             "name": "jaybizzle/crawler-detect",
-            "version": "v1.2.92",
+            "version": "v1.2.93",
             "source": {
                 "type": "git",
                 "url": "https://github.com/JayBizzle/Crawler-Detect.git",
-                "reference": "eb167049d7de1e5320138186b9dcb2e5f9df260d"
+                "reference": "608ec84bdf85fa8200c0f36f455483698b450ecd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/JayBizzle/Crawler-Detect/zipball/eb167049d7de1e5320138186b9dcb2e5f9df260d",
-                "reference": "eb167049d7de1e5320138186b9dcb2e5f9df260d",
+                "url": "https://api.github.com/repos/JayBizzle/Crawler-Detect/zipball/608ec84bdf85fa8200c0f36f455483698b450ecd",
+                "reference": "608ec84bdf85fa8200c0f36f455483698b450ecd",
                 "shasum": ""
             },
             "require": {
@@ -520,7 +520,7 @@
                 "crawlerdetect",
                 "php crawler detect"
             ],
-            "time": "2020-02-07T20:28:07+00:00"
+            "time": "2020-02-16T12:34:48+00:00"
         },
         {
             "name": "jp3cki/mb_str_replace",
@@ -3309,22 +3309,22 @@
         },
         {
             "name": "codeception/specify",
-            "version": "1.2.0",
+            "version": "1.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Codeception/Specify.git",
-                "reference": "e3fefa22f2304170024b9242b2bd8b01cf5a2ac0"
+                "reference": "fe4825cee9b608f9c97442d84168e3df0e18b73e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/Specify/zipball/e3fefa22f2304170024b9242b2bd8b01cf5a2ac0",
-                "reference": "e3fefa22f2304170024b9242b2bd8b01cf5a2ac0",
+                "url": "https://api.github.com/repos/Codeception/Specify/zipball/fe4825cee9b608f9c97442d84168e3df0e18b73e",
+                "reference": "fe4825cee9b608f9c97442d84168e3df0e18b73e",
                 "shasum": ""
             },
             "require": {
                 "myclabs/deep-copy": "~1.1",
                 "php": ">=7.1.0",
-                "phpunit/phpunit": ">=7.0 <9.0"
+                "phpunit/phpunit": ">=7.0 <10.0"
             },
             "type": "library",
             "autoload": {
@@ -3343,7 +3343,7 @@
                 }
             ],
             "description": "BDD code blocks for PHPUnit and Codeception",
-            "time": "2019-08-01T20:09:26+00:00"
+            "time": "2020-02-15T21:44:39+00:00"
         },
         {
             "name": "codeception/stub",
@@ -3377,20 +3377,20 @@
         },
         {
             "name": "codeception/verify",
-            "version": "1.2.0",
+            "version": "1.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Codeception/Verify.git",
-                "reference": "532e526b8b1ac2343bf799e6b36e3446896ff52a"
+                "reference": "4a4f006faac9f8e34495882ce578e1cde4b027cb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/Verify/zipball/532e526b8b1ac2343bf799e6b36e3446896ff52a",
-                "reference": "532e526b8b1ac2343bf799e6b36e3446896ff52a",
+                "url": "https://api.github.com/repos/Codeception/Verify/zipball/4a4f006faac9f8e34495882ce578e1cde4b027cb",
+                "reference": "4a4f006faac9f8e34495882ce578e1cde4b027cb",
                 "shasum": ""
             },
             "require": {
-                "codeception/phpunit-wrapper": ">6.0.16 <6.1.0 | ^6.7.0 | ^7.7.1 | ^8.0.4",
+                "codeception/phpunit-wrapper": ">6.0.16 <6.1.0 | ^6.7.0 | ^7.7.1 | ^8.0.4 | ^9.0.0",
                 "php": ">= 7.0",
                 "phpunit/phpunit": "> 6.0"
             },
@@ -3414,7 +3414,7 @@
                 }
             ],
             "description": "BDD assertion library for PHPUnit",
-            "time": "2019-08-24T13:58:30+00:00"
+            "time": "2020-02-15T23:17:35+00:00"
         },
         {
             "name": "doctrine/instantiator",
@@ -4061,16 +4061,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "0.12.10",
+            "version": "0.12.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "39004edc7fc308752f625b89b70ad1710708f45e"
+                "reference": "ca5f2b7cf81c6d8fba74f9576970399c5817e03b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/39004edc7fc308752f625b89b70ad1710708f45e",
-                "reference": "39004edc7fc308752f625b89b70ad1710708f45e",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/ca5f2b7cf81c6d8fba74f9576970399c5817e03b",
+                "reference": "ca5f2b7cf81c6d8fba74f9576970399c5817e03b",
                 "shasum": ""
             },
             "require": {
@@ -4096,7 +4096,7 @@
                 "MIT"
             ],
             "description": "PHPStan - PHP Static Analysis Tool",
-            "time": "2020-02-12T22:03:42+00:00"
+            "time": "2020-02-16T14:00:29+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -5821,16 +5821,16 @@
         },
         {
             "name": "webmozart/assert",
-            "version": "1.6.0",
+            "version": "1.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/webmozart/assert.git",
-                "reference": "573381c0a64f155a0d9a23f4b0c797194805b925"
+                "reference": "aed98a490f9a8f78468232db345ab9cf606cf598"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webmozart/assert/zipball/573381c0a64f155a0d9a23f4b0c797194805b925",
-                "reference": "573381c0a64f155a0d9a23f4b0c797194805b925",
+                "url": "https://api.github.com/repos/webmozart/assert/zipball/aed98a490f9a8f78468232db345ab9cf606cf598",
+                "reference": "aed98a490f9a8f78468232db345ab9cf606cf598",
                 "shasum": ""
             },
             "require": {
@@ -5865,7 +5865,7 @@
                 "check",
                 "validate"
             ],
-            "time": "2019-11-24T13:36:37+00:00"
+            "time": "2020-02-14T12:15:55+00:00"
         },
         {
             "name": "yiisoft/yii2-debug",
