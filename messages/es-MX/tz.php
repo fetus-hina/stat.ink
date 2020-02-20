@@ -11,11 +11,11 @@ declare(strict_types=1);
 
 return [
     'Argentina' => '',
-    'Australia (Central)' => 'Australia (Central)',
-    'Australia (Central, DST)' => 'Australia (Central, Horario de verano)',
-    'Australia (East)' => 'Australia (Este)',
-    'Australia (East, DST)' => 'Australia (Este, Horario de verano)',
-    'Australia (West)' => 'Australia (Oeste)',
+    'Australia (Central)' => '',
+    'Australia (Central, DST)' => '',
+    'Australia (East)' => '',
+    'Australia (East, DST)' => '',
+    'Australia (West)' => '',
     'Australia/Oceania' => '',
     'Belize' => '',
     'Bolivia' => '',
