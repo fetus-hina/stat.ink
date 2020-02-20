@@ -21,7 +21,7 @@ return [
     'Bolivia' => 'Bolivia',
     'Brazil (Brasília)' => 'Brasil (Brasilia)',
     'Brazil (Eastern Amazonas)' => 'Brasil (Amazonas del este)',
-    'Brazil (Fernando dn Noronha)' => 'Brasil (Fernando de Noronha)',
+    'Brazil (Fernando de Noronha)' => 'Brasil (Fernando de Noronha)',
     'Brazil (Mato Grosso)' => 'Brasil (Mato Grosso)',
     'Brazil (Northeastern)' => 'Brasil (del nordeste)',
     'Brazil (Western Amazonas)' => 'Brasil (Amazonas del oeste)',
