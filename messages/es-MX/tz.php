@@ -74,7 +74,7 @@ return [
     'Suriname' => '',
     'Taiwan' => '',
     'Uruguay' => '',
-    'UTC' => 'Tiempo Universal Coordinado (UTC)',
+    'UTC' => '',
     'Venezuela' => '',
     'Xinjiang' => '',
 ];
