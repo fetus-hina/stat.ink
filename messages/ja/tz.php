@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -42,6 +43,7 @@ return [
     'Guyana' => 'ガイアナ時間',
     'Hawaii' => 'ハワイ時間',
     'Honduras' => 'ホンジュラス時間',
+    'Iceland' => 'アイスランド時間',
     'Japan' => '日本時間',
     'Korea' => '韓国時間',
     'Lord Howe Island' => 'ロード・ハウ島',

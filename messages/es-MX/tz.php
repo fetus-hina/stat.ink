@@ -1,6 +1,7 @@
 <?php
+
 /**
- * @copyright Copyright (C) 2015-2019 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2020 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  * @author mntone <sd8@live.jp>
@@ -10,11 +11,11 @@ declare(strict_types=1);
 
 return [
     'Argentina' => '',
-    'Australia (Central)' => 'Australia (Central)',
-    'Australia (Central, DST)' => 'Australia (Central, Horario de verano)',
-    'Australia (East)' => 'Australia (Este)',
-    'Australia (East, DST)' => 'Australia (Este, Horario de verano)',
-    'Australia (West)' => 'Australia (Oeste)',
+    'Australia (Central)' => '',
+    'Australia (Central, DST)' => '',
+    'Australia (East)' => '',
+    'Australia (East, DST)' => '',
+    'Australia (West)' => '',
     'Australia/Oceania' => '',
     'Belize' => '',
     'Bolivia' => '',
@@ -43,6 +44,7 @@ return [
     'Guyana' => '',
     'Hawaii' => '',
     'Honduras' => '',
+    'Iceland' => '',
     'Japan' => '',
     'Korea' => '',
     'Lord Howe Island' => '',
@@ -53,16 +55,16 @@ return [
     'Mexico (Sonora)' => '',
     'Nicaragua' => '',
     'North America' => '',
-    'North America (Adak)' => 'América del Norte (Adak)',
-    'North America (Alaska)' => 'América del Norte (Alaska)',
-    'North America (Arizona)' => 'América del Norte (Arizona)',
-    'North America (AT)' => 'América del Norte (AT)',
-    'North America (CT)' => 'América del Norte (CT)',
-    'North America (ET)' => 'América del Norte (ET)',
-    'North America (MT)' => 'América del Norte (MT)',
-    'North America (Newfoundland)' => 'América del Norte (Newfoundland)',
-    'North America (PT)' => 'América del Norte (PT)',
-    'North America (Saskatchewan)' => 'América del Norte (Saskatchewan)',
+    'North America (Adak)' => '',
+    'North America (Alaska)' => '',
+    'North America (Arizona)' => '',
+    'North America (AT)' => '',
+    'North America (CT)' => '',
+    'North America (ET)' => '',
+    'North America (MT)' => '',
+    'North America (Newfoundland)' => '',
+    'North America (PT)' => '',
+    'North America (Saskatchewan)' => '',
     'Others' => '',
     'Panama' => '',
     'Paraguay' => '',
@@ -83,7 +85,7 @@ return [
     'Suriname' => '',
     'Taiwan' => '',
     'Uruguay' => '',
-    'UTC' => 'Tiempo Universal Coordinado (UTC)',
+    'UTC' => '',
     'Venezuela' => '',
     'Xinjiang' => '',
 ];
