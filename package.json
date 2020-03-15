@@ -21,7 +21,7 @@
     "cal-heatmap": "^3.6.2",
     "core-js": "^3.6.4",
     "cssnano": "^4.1.10",
-    "dseg": "^0.45.1",
+    "dseg": "^0.46.0",
     "emojify.js": "^1.1.0",
     "eonasdan-bootstrap-datetimepicker": "^4.17.47",
     "eslint": "^6.8.0",
