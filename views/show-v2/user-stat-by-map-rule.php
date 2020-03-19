@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use app\assets\StatByMapRuleAsset;
 use app\assets\TableResponsiveForceAsset;
 use app\components\widgets\AdWidget;
@@ -61,11 +63,47 @@ $ruleMap = [
     'hoko' => 'any-gachi-hoko',
     'asari' => 'any-gachi-asari',
 ];
+
+$fmt = Yii::$app->formatter;
+
+$_renderKD = function (int $kill, int $death, int $battles) use ($fmt): string {
+  $kr = ($death > 0) ? ($kill / $death) : ($kill > 0 ? 99.99 : 1.00);
+  return implode('', [
+    Html::tag(
+      'div',
+      Html::tag('span', $fmt->asDecimal($kr, 2), [
+        'title' => Yii::t('app', 'Kill Ratio'),
+        'class' => 'auto-tooltip',
+      ]),
+      ['class' => 'text-center']
+    ),
+    Html::tag(
+      'div',
+      implode(' / ', [
+        Html::tag(
+          'span',
+          $fmt->asDecimal($kill / $battles, 2) . 'k',
+          [
+            'title' => Yii::t('app', 'Kills'),
+            'class' => 'auto-tooltip',
+          ]
+        ),
+        Html::tag(
+          'span',
+          $fmt->asDecimal($death / $battles, 2) . 'd',
+          [
+            'title' => Yii::t('app', 'Deaths'),
+            'class' => 'auto-tooltip',
+          ]
+        ),
+      ]),
+      ['class' => 'text-center small text-muted']
+    ),
+  ]);
+};
 ?>
 <div class="container">
-  <h1>
-    <?= Html::encode($title) . "\n" ?>
-  </h1>
+  <h1><?= Html::encode($title) ?></h1>
   <?= SnsWidget::widget() . "\n" ?>
   <div class="row">
     <div class="col-xs-12 col-sm-8 col-lg-9 table-responsive table-responsive-force">
@@ -75,7 +113,7 @@ $ruleMap = [
             <th>
               <?= WinLoseLegend::widget() . "\n" ?>
             </th>
-<?php foreach ($ruleNames as $ruleKey => $ruleName): ?>
+<?php foreach ($ruleNames as $ruleKey => $ruleName) { ?>
             <th>
               <?= Html::a(
                 Html::encode($ruleName),
@@ -87,13 +125,13 @@ $ruleMap = [
                 ]
               ) . "\n" ?>
             </th>
-<?php endforeach; ?>
+<?php } ?>
           </tr>
         </thead>
         <tbody>
           <tr>
             <th></th>
-<?php foreach ($ruleNames as $ruleKey => $ruleName): ?>
+<?php foreach ($ruleNames as $ruleKey => $ruleName) { ?>
             <td>
               <?= Html::tag(
                 'div',
@@ -111,10 +149,17 @@ $ruleMap = [
                   ],
                 ]
               ) . "\n" ?>
+<?php if ($data['total'][$ruleKey]['kd_battle'] > 0) { ?>
+              <?= $_renderKD(
+                (int)$data['total'][$ruleKey]['kill'],
+                (int)$data['total'][$ruleKey]['death'],
+                $data['total'][$ruleKey]['kd_battle']
+              ) . "\n" ?>
+<?php } ?>
             </td>
-<?php endforeach; ?>
+<?php } ?>
           </tr>
-<?php foreach ($mapNames as $mapKey => $mapName): ?>
+<?php foreach ($mapNames as $mapKey => $mapName) { ?>
           <tr>
             <th>
               <?= Html::a(
@@ -132,7 +177,7 @@ $ruleMap = [
                 ]
               ) . "\n" ?>
             </th>
-<?php foreach ($ruleNames as $ruleKey => $ruleName): ?>
+<?php foreach ($ruleNames as $ruleKey => $ruleName) { ?>
             <td>
               <?= Html::tag(
                 'div',
@@ -151,10 +196,17 @@ $ruleMap = [
                   ],
                 ]
               ) . "\n" ?>
+<?php if ($data[$mapKey][$ruleKey]['kd_battle'] > 0) { ?>
+              <?= $_renderKD(
+                (int)$data[$mapKey][$ruleKey]['kill'],
+                (int)$data[$mapKey][$ruleKey]['death'],
+                $data[$mapKey][$ruleKey]['kd_battle']
+              ) . "\n" ?>
+<?php } ?>
             </td>
-<?php endforeach; ?>
+<?php } ?>
           </tr>
-<?php endforeach; ?>
+<?php } ?>
         </tbody>
       </table>
     </div>
