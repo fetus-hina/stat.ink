@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 use app\assets\EntireKnockoutAsset;
@@ -30,15 +31,21 @@ $rules = ArrayHelper::map(
         ->asArray()
         ->all(),
     'key',
-    function (array $row) : string {
+    function (array $row): string {
         return Yii::t('app-rule2', $row['name']);
     }
 );
 
 $maps = ArrayHelper::map(
-    Map2::find()->where(['<>', 'key', 'mystery'])->asArray()->all(),
+    Map2::find()
+        ->where(['and',
+            ['<>', 'key', 'mystery'],
+            ['not', ['like', 'key', 'mystery_%', false]],
+        ])
+        ->asArray()
+        ->all(),
     'key',
-    function (array $row) : string {
+    function (array $row): string {
         return Yii::t('app-map2', $row['name']);
     }
 );
@@ -166,16 +173,16 @@ $this->registerCss(Html::renderCss([
           </td>
 <?php } ?>
         </tr>
-<?php foreach ($maps as $_mapKey => $_mapName): ?>
+<?php foreach ($maps as $_mapKey => $_mapName) { ?>
         <tr>
           <th>
             <?= Html::encode($_mapName) ?><br>
             <?= Spl2Stage::img('daytime', $_mapKey, ['class' => 'map-image']) . "\n" ?>
           </th>
-<?php foreach ($rules as $_ruleKey => $_ruleName): ?>
+<?php foreach ($rules as $_ruleKey => $_ruleName) { ?>
           <td>
 <?php $_data = $data[$_mapKey][$_ruleKey] ?? null ?>
-<?php if ($_data && ($_data['battles'] ?? 0) > 0): ?>
+<?php if ($_data && ($_data['battles'] ?? 0) > 0) { ?>
             <?= Html::tag('div', '', [
               'class' => 'pie-flot-container',
               'data' => [
@@ -185,8 +192,24 @@ $this->registerCss(Html::renderCss([
                 ]),
               ],
             ]) . "\n" ?>
+<?php $_t = (int)round($_data['avg_game_time']); ?>
+<?php if ($_t > 0) { ?>
+            <?= Html::tag(
+              'p',
+              Html::encode(Yii::t(
+                'app',
+                'Avg. game in {time}',
+                [
+                  'time' => sprintf('%d:%02d', floor($_t / 60), $_t % 60),
+                ]
+              )),
+              [
+                'class' => 'text-center small m-0',
+              ]
+            ) . "\n" ?>
+<?php } ?>
 <?php $_t = (int)round($_data['avg_knockout_time'] ?? 300); ?>
-<?php if ($_t > 0 && $_t < 300): ?>
+<?php if ($_t > 0 && $_t < 300) { ?>
             <?= Html::tag(
               'p',
               Html::encode(Yii::t(
@@ -197,16 +220,15 @@ $this->registerCss(Html::renderCss([
                 ]
               )),
               [
-                'style' => ['font-size' => '0.8em', 'margin' => '0',],
-                'class' => 'text-center',
+                'class' => 'text-center small m-0',
               ]
             ) . "\n" ?>
-<?php endif; ?>
-<?php endif; ?>
+<?php } ?>
+<?php } ?>
           </td>
-<?php endforeach; ?>
+<?php } ?>
         </tr>
-<?php endforeach; ?>
+<?php } ?>
       </tbody>
     </table>
   </div>

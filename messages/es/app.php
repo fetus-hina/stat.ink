@@ -55,6 +55,7 @@ return [
     'Average' => 'Promedio',
     'Average:' => 'Promedio:',
     'Avg.' => '',
+    'Avg. game in {time}' => '',
     'Avg. K.O. in {time}' => '',
     'Avg Assists' => '',
     'Avg Deaths' => 'Medio muerto',

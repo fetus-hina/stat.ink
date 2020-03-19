@@ -54,6 +54,7 @@ return [
     'Average' => 'Moyenne',
     'Average:' => 'Moyenne:',
     'Avg.' => 'Moy.',
+    'Avg. game in {time}' => '',
     'Avg. K.O. in {time}' => '',
     'Avg Assists' => 'Moy Assists',
     'Avg Deaths' => 'Moy Morts',
