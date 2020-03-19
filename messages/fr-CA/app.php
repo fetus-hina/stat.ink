@@ -53,6 +53,7 @@ return [
     'Average' => '',
     'Average:' => '',
     'Avg.' => '',
+    'Avg. game in {time}' => '',
     'Avg. K.O. in {time}' => '',
     'Avg Assists' => '',
     'Avg Deaths' => '',
