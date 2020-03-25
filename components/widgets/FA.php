@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2018 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2020 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -25,6 +25,7 @@ class FA extends Widget
     public $type = 'fas';
     public $content = null;
     public $options = [];
+    public $contentOptions = [];
 
     private $asset;
 
@@ -86,6 +87,12 @@ class FA extends Widget
         return $this;
     }
 
+    public function contentOptions(array $contentOptions): self
+    {
+        $this->contentOptions = $contentOptions;
+        return $this;
+    }
+
     public function __toString()
     {
         return $this->renderFA();
@@ -102,14 +109,21 @@ class FA extends Widget
             $this->view->registerCss('.fa-twitter{color:#1da1f2}');
         }
 
-        return Html::tag($this->tag, $this->content ?? '', array_merge_recursive([
-            'id' => $this->id,
-            'class' => array_filter([
-                $this->type,
-                $this->isFW ? 'fa-fw' : null,
-                $this->icon ? 'fa-' . $this->icon : null,
-                $this->size ? 'fa-' . $this->size : null,
-            ]),
-        ], $this->options));
+        return Html::tag(
+            $this->tag,
+            $this->content ?? '',
+            ArrayHelper::merge(
+                [
+                    'id' => $this->id,
+                    'class' => array_filter([
+                        $this->type,
+                        $this->isFW ? 'fa-fw' : null,
+                        $this->icon ? 'fa-' . $this->icon : null,
+                        $this->size ? 'fa-' . $this->size : null,
+                    ]),
+                ],
+                $this->contentOptions
+            )
+        );
     }
 }
