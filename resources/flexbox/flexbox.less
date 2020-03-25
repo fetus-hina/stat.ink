@@ -8,12 +8,14 @@
  * Licensed under MIT
  */
 
+/* stylelint-disable */
 @displays: none inline inline-block block table table-row table-cell flex inline-flex;
 .breakpoints() {
   sm: 768px;
   md: 992px;
   lg: 1200px;
 }
+/* stylelint-enable */
 
 each(@displays, .(@display) {
   .d-@{display} {
