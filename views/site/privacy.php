@@ -127,18 +127,60 @@ $this->title = $title;
             </ul>
           </td>
         </tr>
-<?php $cookies = [
-    'eu_cn' => 365 * 86400,
-    'external_referer' => 7 * 86400,
-    'guest_id' => 365 * 2 * 86400,
-    'personalization_id' => 365 * 2 * 86400,
-    'tfw_exp' => 14 * 86400,
-] ?>
-<?php foreach ($cookies as $cookieName => $duration) { ?>
+        <tr>
+          <td><?= Html::encode('.stat.ink') ?></td>
+          <td><?= implode('<br>', array_map(
+            function (string $name): string {
+              return Html::tag('code', Html::encode($name));
+            },
+            [
+              '_cf_bm',
+              '_cfduid',
+              '_cflb',
+              'cf_ob_info',
+              'cf_use_ob',
+            ]
+          )) ?></td>
+          <td><?= Html::encode(Yii::t('app-cookie', '(3rd party defined)')) ?></td>
+          <td>
+            <ul>
+              <li>
+                <?= Html::encode(Yii::t('app-cookie', 'Issued and used by CloudFlare')) ?><br>
+                <?= Yii::t(
+                  'app-cookie',
+                  'Visit their {description} and/or {privacy} for get more details',
+                  [
+                      'description' => Html::a(
+                          Html::encode(Yii::t('app-cookie', 'descriptions')),
+                          'https://support.cloudflare.com/hc/en-us/articles/200170156-Understanding-the-Cloudflare-Cookies',
+                          ['rel' => 'nofollow external']
+                      ),
+                      'privacy' => Html::a(
+                          Html::encode(Yii::t('app-cookie', 'privacy policy')),
+                          'https://www.cloudflare.com/privacypolicy/',
+                          ['rel' => 'nofollow external']
+                      ),
+                  ]
+                ) . "\n" ?>
+              </li>
+            </ul>
+          </td>
+        </tr>
         <tr>
           <td><?= Html::encode(Yii::t('app-cookie', '(Twitter)')) ?></td>
-          <td><code><?= Html::encode($cookieName) ?></code></td>
-          <td><?= Html::encode(Yii::$app->formatter->asDuration($duration, ' ')) ?></td>
+          <td><?= implode('<br>', array_map(
+            function (string $name): string {
+              return Html::tag('code', Html::encode($name));
+            },
+            [
+              'eu_cn',
+              'external_referer',
+              'guest_id',
+              'personalization_id',
+              'tfw_exp',
+            ]
+          )) ?></td>
+          <td><?= Html::encode(Yii::t('app-cookie', '(3rd party defined)')) ?></td>
           <td>
             <ul>
               <li><?= Html::encode(Yii::t('app-cookie', 'Issued and used by Twitter')) ?></li>
@@ -150,7 +192,6 @@ $this->title = $title;
             </ul>
           </td>
         </tr>
-<?php } ?>
       </tbody>
     </table>
   </div>
