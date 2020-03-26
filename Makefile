@@ -168,6 +168,7 @@ init: \
 	config/cookie-secret.php \
 	config/authkey-secret.php \
 	config/db.php \
+	config/cloudflare/ip_ranges.php \
 	resource \
 	geoip
 
@@ -181,6 +182,7 @@ init-by-archive: \
 	config/cookie-secret.php \
 	config/authkey-secret.php \
 	config/db.php \
+	config/cloudflare/ip_ranges.php \
 	resource
 
 test: init
@@ -552,6 +554,10 @@ config/twitter.php:
 .PHONY: config/version.php
 config/version.php: vendor config/db.php
 	./yii revision-data/update
+
+.PHONY: config/cloudflare/ip_ranges.php
+config/cloudflare/ip_ranges.php: vendor config/db.php
+	./yii cloudflare/update-ip-ranges
 
 runtime/ikalog:
 	mkdir -p runtime/ikalog
