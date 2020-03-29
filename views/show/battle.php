@@ -1018,7 +1018,7 @@ foreach ($battle->$attr as $player) {
 <?php
 BattleTimelineAsset::register($this);
 $hasExtendedData = true;
-$this->registerJsVar('mySpecial', $battle->weapon->special->key);
+$this->registerJsVar('mySpecial', $battle->weapon->special->key ?? null);
 $this->registerJsVar('battleEvents', $events);
 $this->registerJsVar('deathReasons', $battle->getDeathReasonNamesFromEvents());
 ?>
