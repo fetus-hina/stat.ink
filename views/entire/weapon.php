@@ -234,7 +234,7 @@ EOF
           Html::tag('h4', Html::encode($map['name'])),
           Html::tag('div', '', [
             'class' => 'graph stat-map-wp',
-            'data-data' => Json::encode($mapWP[$map['key']]),//  ?? []),
+            'data-data' => Json::encode($mapWP[$map['key']] ?? []),
           ]),
         ]),
         ['class' => 'col-12 col-xs-12 col-sm-4 col-md-3']
