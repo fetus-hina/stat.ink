@@ -340,18 +340,6 @@ class BattleAction extends BaseAction
         }
         $imageOutputDir = Yii::getAlias('@webroot/images');
         $time = time();
-        $imageArchiveOutputDir = null;
-        if (Yii::$app->params['amazonS3'] && Yii::$app->params['amazonS3'][0]['bucket'] != '') {
-            $imageArchiveOutputDir = Yii::getAlias('@app/runtime/image-archive/queue') .
-                '/' .
-                gmdate('Ymd', $time + 9 * 3600); // JST
-        }
-        $imageArchiveOptimizeDir = null;
-        if ($imageArchiveOutputDir !== null) {
-            $imageArchiveOptimizeDir = Yii::getAlias('@app/runtime/image-archive/interim') .
-                '/' .
-                gmdate('Ymd', $time + 9 * 3600);
-        }
         if ($image = $form->toImageJudge($battle)) {
             $binary = is_string($form->image_judge)
                 ? $form->image_judge
@@ -361,9 +349,7 @@ class BattleAction extends BaseAction
                     $binary,
                     $imageOutputDir . '/' . $image->filename,
                     false,
-                    ($imageArchiveOutputDir
-                    ? ($imageArchiveOutputDir . '/' . sprintf('%d-judge.png', $battle->id))
-                    : null)
+                    null, // disable image-archive
                 )
             ) {
                 $this->logError([
@@ -388,15 +374,6 @@ class BattleAction extends BaseAction
                         Yii::t('app', 'Could not save {0}', 'battle_image(judge)'),
                     ]
                 ], 500);
-            }
-            if ($imageArchiveOutputDir && $imageArchiveOptimizeDir) {
-                $basename = sprintf('%d-judge.png', $battle->id);
-                Yii::$app->queue
-                    ->priority(ImageOptimizeJob::getJobPriority())
-                    ->push(new ImageOptimizeJob([
-                        'inPath' => "{$imageArchiveOutputDir}/{$basename}",
-                        'outPath' => "{$imageArchiveOptimizeDir}-judge/{$basename}",
-                    ]));
             }
         }
         if ($image = $form->toImageResult($battle)) {
@@ -424,9 +401,7 @@ class BattleAction extends BaseAction
                     $binary,
                     $imageOutputDir . '/' . $image->filename,
                     $blackoutList,
-                    $imageArchiveOutputDir
-                    ? ($imageArchiveOutputDir . '/' . sprintf('%d-result.png', $battle->id))
-                    : null
+                    null, // disable image-archive
                 )
             ) {
                 $this->logError([
@@ -451,15 +426,6 @@ class BattleAction extends BaseAction
                         Yii::t('app', 'Could not save {0}', 'battle_image(result)'),
                     ]
                 ], 500);
-            }
-            if ($imageArchiveOutputDir && $imageArchiveOptimizeDir) {
-                $basename = sprintf('%d-result.png', $battle->id);
-                Yii::$app->queue
-                    ->priority(ImageOptimizeJob::getJobPriority())
-                    ->push(new ImageOptimizeJob([
-                        'inPath' => "{$imageArchiveOutputDir}/{$basename}",
-                        'outPath' => "{$imageArchiveOptimizeDir}-result/{$basename}",
-                    ]));
             }
         }
         if ($image = $form->toImageGear($battle)) {
@@ -471,9 +437,7 @@ class BattleAction extends BaseAction
                     $binary,
                     $imageOutputDir . '/' . $image->filename,
                     [],
-                    $imageArchiveOutputDir
-                    ? ($imageArchiveOutputDir . '/' . sprintf('%d-gear.png', $battle->id))
-                    : null
+                    null, // disable image-archive
                 )
             ) {
                 $this->logError([
@@ -498,15 +462,6 @@ class BattleAction extends BaseAction
                         Yii::t('app', 'Could not save {0}', 'battle_image(gear)'),
                     ]
                 ], 500);
-            }
-            if ($imageArchiveOutputDir && $imageArchiveOptimizeDir) {
-                $basename = sprintf('%d-gear.png', $battle->id);
-                Yii::$app->queue
-                    ->priority(ImageOptimizeJob::getJobPriority())
-                    ->push(new ImageOptimizeJob([
-                        'inPath' => "{$imageArchiveOutputDir}/{$basename}",
-                        'outPath' => "{$imageArchiveOptimizeDir}-gear/{$basename}",
-                    ]));
             }
         }
 
