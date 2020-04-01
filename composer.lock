@@ -1206,16 +1206,16 @@
         },
         {
             "name": "laminas/laminas-validator",
-            "version": "2.13.3",
+            "version": "2.13.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-validator.git",
-                "reference": "a4e57af743eb751a8e6fa75460e439841c97833e"
+                "reference": "93593684e70b8ed1e870cacd34ca32b0c0ace185"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laminas/laminas-validator/zipball/a4e57af743eb751a8e6fa75460e439841c97833e",
-                "reference": "a4e57af743eb751a8e6fa75460e439841c97833e",
+                "url": "https://api.github.com/repos/laminas/laminas-validator/zipball/93593684e70b8ed1e870cacd34ca32b0c0ace185",
+                "reference": "93593684e70b8ed1e870cacd34ca32b0c0ace185",
                 "shasum": ""
             },
             "require": {
@@ -1281,7 +1281,7 @@
                 "laminas",
                 "validator"
             ],
-            "time": "2020-03-29T13:43:20+00:00"
+            "time": "2020-03-31T18:57:01+00:00"
         },
         {
             "name": "laminas/laminas-zendframework-bridge",
@@ -1898,16 +1898,16 @@
         },
         {
             "name": "statink/yii2-ip-badge",
-            "version": "v1.0.2",
+            "version": "v1.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/statink/yii2-ip-badge.git",
-                "reference": "61eb094907c31a4e7759cd4a0fee8f4fd21f8635"
+                "reference": "f0f0cd0d48306bd057743b617ae53a64eac87b76"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/statink/yii2-ip-badge/zipball/61eb094907c31a4e7759cd4a0fee8f4fd21f8635",
-                "reference": "61eb094907c31a4e7759cd4a0fee8f4fd21f8635",
+                "url": "https://api.github.com/repos/statink/yii2-ip-badge/zipball/f0f0cd0d48306bd057743b617ae53a64eac87b76",
+                "reference": "f0f0cd0d48306bd057743b617ae53a64eac87b76",
                 "shasum": ""
             },
             "require": {
@@ -1931,10 +1931,10 @@
             ],
             "description": "IP version badge for stat.ink header",
             "support": {
-                "source": "https://github.com/statink/yii2-ip-badge/tree/v1.0.2",
+                "source": "https://github.com/statink/yii2-ip-badge/tree/v1.0.3",
                 "issues": "https://github.com/statink/yii2-ip-badge/issues"
             },
-            "time": "2019-07-12T08:03:38+00:00"
+            "time": "2020-04-01T18:48:30+00:00"
         },
         {
             "name": "statink/yii2-jdenticon",
@@ -2021,16 +2021,16 @@
         },
         {
             "name": "statink/yii2-paintball",
-            "version": "v1.0.2",
+            "version": "v1.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/statink/yii2-paintball.git",
-                "reference": "81937b631affdb18fb57c9521fad06bb77f37218"
+                "reference": "103c3470a3046ab52f3aeba97a76489a5093f196"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/statink/yii2-paintball/zipball/81937b631affdb18fb57c9521fad06bb77f37218",
-                "reference": "81937b631affdb18fb57c9521fad06bb77f37218",
+                "url": "https://api.github.com/repos/statink/yii2-paintball/zipball/103c3470a3046ab52f3aeba97a76489a5093f196",
+                "reference": "103c3470a3046ab52f3aeba97a76489a5093f196",
                 "shasum": ""
             },
             "require": {
@@ -2054,10 +2054,10 @@
             ],
             "description": "Paintball asset bundle for stat.ink",
             "support": {
-                "source": "https://github.com/statink/yii2-paintball/tree/v1.0.2",
+                "source": "https://github.com/statink/yii2-paintball/tree/v1.0.3",
                 "issues": "https://github.com/statink/yii2-paintball/issues"
             },
-            "time": "2019-07-12T07:49:10+00:00"
+            "time": "2020-04-01T18:43:09+00:00"
         },
         {
             "name": "statink/yii2-sillyname",
@@ -5245,16 +5245,16 @@
         },
         {
             "name": "sebastian/environment",
-            "version": "5.0.1",
+            "version": "5.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/environment.git",
-                "reference": "9bffdefa7810031a165ddd6275da6a2c1f6f2dfb"
+                "reference": "c39c1db0a5cffc98173f3de5a17d489d1043fd7b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/environment/zipball/9bffdefa7810031a165ddd6275da6a2c1f6f2dfb",
-                "reference": "9bffdefa7810031a165ddd6275da6a2c1f6f2dfb",
+                "url": "https://api.github.com/repos/sebastianbergmann/environment/zipball/c39c1db0a5cffc98173f3de5a17d489d1043fd7b",
+                "reference": "c39c1db0a5cffc98173f3de5a17d489d1043fd7b",
                 "shasum": ""
             },
             "require": {
@@ -5294,7 +5294,13 @@
                 "environment",
                 "hhvm"
             ],
-            "time": "2020-02-19T13:40:20+00:00"
+            "funding": [
+                {
+                    "url": "https://github.com/sebastianbergmann",
+                    "type": "github"
+                }
+            ],
+            "time": "2020-03-31T12:14:15+00:00"
         },
         {
             "name": "sebastian/exporter",
