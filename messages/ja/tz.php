@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2019 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2020 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -9,6 +9,7 @@
 declare(strict_types=1);
 
 return [
+    'Afghanistan' => 'アフガニスタン',
     'Argentina' => 'アルゼンチン時間',
     'Australia (Central)' => 'オーストラリア（中央）',
     'Australia (Central, DST)' => 'オーストラリア（中央・夏時間あり）',
@@ -16,7 +17,9 @@ return [
     'Australia (East, DST)' => 'オーストラリア（東部・夏時間あり）',
     'Australia (West)' => 'オーストラリア（西部）',
     'Australia/Oceania' => 'オーストラリア・オセアニア',
+    'Bangladesh' => 'バングラデシュ',
     'Belize' => 'ベリーズ時間',
+    'Bhutan' => 'ブータン',
     'Bolivia' => 'ボリビア時間',
     'Brazil (Brasília)' => 'ブラジル時間（ブラジリア）',
     'Brazil (Eastern Amazonas)' => 'ブラジル時間（アマゾナス・東部）',
@@ -47,6 +50,7 @@ return [
     'Hawaii' => 'ハワイ時間',
     'Honduras' => 'ホンジュラス時間',
     'Iceland' => 'アイスランド時間',
+    'India' => 'インド',
     'Indonesia (Central; Bali)' => 'インドネシア（中央; バリ）',
     'Indonesia (East)' => 'インドネシア（東部）',
     'Indonesia (West; Jakarta)' => 'インドネシア（西部; ジャカルタ）',
@@ -55,12 +59,14 @@ return [
     'Laos' => 'ラオス',
     'Lord Howe Island' => 'ロード・ハウ島',
     'Malaysia' => 'マレーシア',
+    'Maldives' => 'モルディブ',
     'Mexico (Central)' => 'メキシコ時間（中央）',
     'Mexico (East)' => 'メキシコ時間（東部）',
     'Mexico (Northwest)' => 'メキシコ時間（北西部）',
     'Mexico (Pacific)' => 'メキシコ時間（太平洋）',
     'Mexico (Sonora)' => 'メキシコ時間（ソノラ）',
     'Myanmar' => 'ミャンマー',
+    'Nepal' => 'ネパール',
     'Nicaragua' => 'ニカラグア時間',
     'North America (AT)' => '北米時間（大西洋）',
     'North America (Adak)' => '北米時間（アダック）',
@@ -74,6 +80,7 @@ return [
     'North America (Saskatchewan)' => '北米時間（サスカチュワン州）',
     'North America' => '北アメリカ',
     'Others' => 'その他',
+    'Pakistan' => 'パキスタン',
     'Panama' => 'パナマ時間',
     'Paraguay' => 'パラグアイ時間',
     'Peru' => 'ペルー時間',
@@ -92,7 +99,9 @@ return [
     'Russia' => 'ロシア',
     'Singapore' => 'シンガポール',
     'South America' => '南アメリカ',
+    'South Asia' => '南アジア',
     'Southeast Asia' => '東南アジア',
+    'Sri Lanka' => 'スリランカ',
     'Suriname' => 'スリナム時間',
     'Taiwan' => '台湾時間',
     'Thailand' => 'タイ',
