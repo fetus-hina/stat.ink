@@ -80,6 +80,8 @@ return [
     'Mexico (Northwest)' => 'Мексика (северо-запад)',
     'Mexico (Pacific)' => 'Мексика (тихий)',
     'Mexico (Sonora)' => 'Мексика (Сонора)',
+    'Mongolia' => 'Монголия',
+    'Mongolia (West)' => 'Монголия (западная)',
     'Myanmar' => 'Мьянма',
     'Nepal' => 'Непал',
     'Nicaragua' => 'Никарагуа',

@@ -80,6 +80,8 @@ return [
     'Mexico (Northwest)' => '',
     'Mexico (Pacific)' => '',
     'Mexico (Sonora)' => '',
+    'Mongolia' => '',
+    'Mongolia (West)' => '',
     'Myanmar' => '',
     'Nepal' => '',
     'Nicaragua' => '',
