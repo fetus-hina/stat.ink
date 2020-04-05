@@ -168,9 +168,6 @@ class CreateAction extends BaseAction
             }
         }
         $imageOutputDir = Yii::getAlias('@webroot/images');
-        $imageArchiveOutputDir = Yii::$app->params['amazonS3'] && Yii::$app->params['amazonS3'][0]['bucket'] != ''
-            ? (Yii::getAlias('@app/runtime/image-archive2/queue') . '/' . gmdate('Ymd', time() + 9 * 3600)) // JST
-            : null;
         if ($image = $form->toImageJudge($battle)) {
             $binary = is_string($form->image_judge)
                 ? $form->image_judge
@@ -180,9 +177,7 @@ class CreateAction extends BaseAction
                     $binary,
                     $imageOutputDir . '/' . $image->filename,
                     false,
-                    ($imageArchiveOutputDir
-                    ? ($imageArchiveOutputDir . '/' . sprintf('%d-judge.png', $battle->id))
-                    : null)
+                    null, // disable image-archive
                 )
             ) {
                 $this->logError([
@@ -232,9 +227,7 @@ class CreateAction extends BaseAction
                     $binary,
                     $imageOutputDir . '/' . $image->filename,
                     $blackoutList,
-                    $imageArchiveOutputDir
-                    ? ($imageArchiveOutputDir . '/' . sprintf('%d-result.png', $battle->id))
-                    : null
+                    null, // disable image-archive
                 )
             ) {
                 $this->logError([
@@ -270,9 +263,7 @@ class CreateAction extends BaseAction
                     $binary,
                     $imageOutputDir . '/' . $image->filename,
                     [],
-                    $imageArchiveOutputDir
-                    ? ($imageArchiveOutputDir . '/' . sprintf('%d-gear.png', $battle->id))
-                    : null
+                    null, // disable image-archive
                 )
             ) {
                 $this->logError([

@@ -1,24 +1,27 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2020 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
 
 namespace app\commands;
 
+use DirectoryIterator;
 use S3;
 use Yii;
+use app\components\helpers\Resource;
 use yii\console\Controller;
 use yii\helpers\Console;
-use app\components\helpers\Resource;
 
 class BackupController extends Controller
 {
+    public const KEEP_ENTRIES = 7;
+
     public $defaultAction = 'save';
 
-    public function actionSave()
+    public function actionSave(bool $cleanup = true)
     {
         $outPath = sprintf(
             '%s/statink-%s.dump.xz.gpg',
@@ -58,6 +61,10 @@ class BackupController extends Controller
         }
         $this->stdout("SUCCESS\n", Console::FG_GREEN);
 
+        if ($cleanup) {
+            return $this->actionCleanup();
+        }
+
         return 0;
     }
 
@@ -70,7 +77,7 @@ class BackupController extends Controller
             return 0;
         }
         $files = [];
-        $it = new \DirectoryIterator(Yii::getAlias('@app/runtime/backup'));
+        $it = new DirectoryIterator(Yii::getAlias('@app/runtime/backup'));
         foreach ($it as $entry) {
             if ($entry->isDot() || !$entry->isFile()) {
                 continue;
@@ -115,6 +122,40 @@ class BackupController extends Controller
 
             unlink($path);
         }
+        return 0;
+    }
+
+    public function actionCleanup()
+    {
+        $dirPath = Yii::getAlias('@app/runtime/backup');
+        if (!file_exists($dirPath)) {
+            return 0;
+        }
+
+        $files = [];
+        $it = new DirectoryIterator($dirPath);
+        foreach ($it as $entry) {
+            if (
+                $entry->isFile() &&
+                preg_match(
+                    '/^statink-\d+\.dump\.xz\.(?:aes|gpg)$/',
+                    $entry->getBasename(),
+                    $match
+                )
+            ) {
+                $files[] = $entry->getPathname();
+            }
+        }
+
+        rsort($files);
+        if (count($files) > static::KEEP_ENTRIES) {
+            $targets = array_reverse(array_slice($files, static::KEEP_ENTRIES));
+            foreach ($targets as $path) {
+                $this->stderr("DELETE {$path}\n");
+                @unlink($path);
+            }
+        }
+
         return 0;
     }
 
