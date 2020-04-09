@@ -18,7 +18,7 @@ return [
     'Australia (East)' => 'オーストラリア（東部）',
     'Australia (East, DST)' => 'オーストラリア（東部・夏時間あり）',
     'Australia (West)' => 'オーストラリア（西部）',
-    'Australia/Oceania' => 'オーストラリア・オセアニア',
+    'Australia' => 'オーストラリア',
     'Azerbaijan' => 'アゼルバイジャン',
     'Bahrain' => 'バーレーン',
     'Bangladesh' => 'バングラデシュ',

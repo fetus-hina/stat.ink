@@ -18,7 +18,7 @@ return [
     'Australia (East)' => 'Australie (est)',
     'Australia (East, DST)' => 'Australie (est, heure d\'été)',
     'Australia (West)' => 'Australie (ouest)',
-    'Australia/Oceania' => 'Australie/Océanie',
+    'Australia' => 'Australie',
     'Azerbaijan' => 'Azerbaïdjan',
     'Bahrain' => 'Bahreïn',
     'Bangladesh' => 'Bangladesh',
