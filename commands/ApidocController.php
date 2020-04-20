@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2019 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2020 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -10,11 +10,16 @@ declare(strict_types=1);
 
 namespace app\commands;
 
+use DateTimeImmutable;
+use DateTimeZone;
 use Yii;
 use app\components\openapi\doc\V1 as V1Generator;
 use app\components\openapi\doc\V2 as V2Generator;
+use app\models\TimeZone;
+use app\models\TimezoneGroup;
 use yii\console\Controller;
 use yii\helpers\FileHelper;
+use yii\helpers\Html;
 
 class ApidocController extends Controller
 {
@@ -161,5 +166,81 @@ class ApidocController extends Controller
         $this->stderr(__METHOD__ . "(): OK\n");
 
         return true;
+    }
+
+    public function actionPutTimezoneTable(): int
+    {
+        $groups = TimezoneGroup::find()
+            ->andWhere(['<>', 'name', 'Others'])
+            ->all();
+        echo "<!-- ./yii apidoc/put-timezone-table -->\n";
+        echo Html::tag(
+            'table',
+            implode('', [
+                Html::tag(
+                    'thead',
+                    Html::tag('tr', implode('', [
+                        Html::tag('th', '&#x2003;'),
+                        Html::tag('th', Html::encode('stat.ink\'s display name')),
+                        Html::tag('th', Html::encode('IANA Identifier')),
+                        Html::tag('th', Html::encode('January')),
+                        Html::tag('th', Html::encode('July')),
+                    ]))
+                ),
+                Html::tag(
+                    'tbody',
+                    implode('', array_map(
+                        [$this, 'renderTimezoneTableGroup'],
+                        $groups,
+                    )),
+                ),
+            ]),
+            ['role' => 'table']
+        ) . "\n";
+
+        return 0;
+    }
+
+    private function renderTimezoneTableGroup(TimezoneGroup $group): string
+    {
+        if (count($group->timezones) < 1) {
+            return '';
+        }
+
+        return implode('', [
+            Html::tag('tr', Html::tag(
+                'td',
+                Html::tag('b', implode(' / ', [
+                    Html::encode($group->name),
+                    Html::encode(Yii::t('app-tz', $group->name, [], 'ja-JP')),
+                ])),
+                ['colspan' => 5]
+            )),
+            implode('', array_map(
+                function (Timezone $tz): string {
+                    $tz_ = new DateTimeZone($tz->identifier);
+                    $offsetJan = (new DateTimeImmutable('2020-01-08T00:00:00', $tz_))
+                        ->format('P');
+                    $offsetJul = (new DateTimeImmutable('2020-07-08T00:00:00', $tz_))
+                        ->format('P');
+
+                    return Html::tag('tr', implode('', [
+                        Html::tag('td', ''),
+                        Html::tag('td', implode('<br>', [
+                            Html::encode($tz->name),
+                            Html::encode(Yii::t('app-tz', $tz->name, [], 'ja-JP')),
+                        ])),
+                        Html::tag('td', Html::tag('code', Html::encode($tz->identifier))),
+                        ($offsetJan === $offsetJul)
+                            ? Html::tag('td', Html::encode($offsetJan), ['colspan' => 2])
+                            : implode('', [
+                                Html::tag('td', Html::encode($offsetJan)),
+                                Html::tag('td', HTml::encode($offsetJul)),
+                            ]),
+                    ]));
+                },
+                $group->timezones
+            )),
+        ]);
     }
 }
