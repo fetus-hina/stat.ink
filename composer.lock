@@ -2884,16 +2884,16 @@
         },
         {
             "name": "yiisoft/yii2",
-            "version": "2.0.34",
+            "version": "2.0.35",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-framework.git",
-                "reference": "ef2585379bc387433e150a62451a89a4b1e130d7"
+                "reference": "d42809e4969cdc0adb97197ba32774b3e4cd9e8e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/ef2585379bc387433e150a62451a89a4b1e130d7",
-                "reference": "ef2585379bc387433e150a62451a89a4b1e130d7",
+                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/d42809e4969cdc0adb97197ba32774b3e4cd9e8e",
+                "reference": "d42809e4969cdc0adb97197ba32774b3e4cd9e8e",
                 "shasum": ""
             },
             "require": {
@@ -2994,7 +2994,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-03-26T20:42:29+00:00"
+            "time": "2020-05-02T11:11:31+00:00"
         },
         {
             "name": "yiisoft/yii2-bootstrap",
@@ -4900,16 +4900,16 @@
         },
         {
             "name": "proget-hq/phpstan-yii2",
-            "version": "0.7.1",
+            "version": "0.7.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/proget-hq/phpstan-yii2.git",
-                "reference": "37e2fa1ef16c4e398b3683e171505132f4e09b02"
+                "reference": "7a48c4dc751cbe79150f293e119b378ad9b4508c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/proget-hq/phpstan-yii2/zipball/37e2fa1ef16c4e398b3683e171505132f4e09b02",
-                "reference": "37e2fa1ef16c4e398b3683e171505132f4e09b02",
+                "url": "https://api.github.com/repos/proget-hq/phpstan-yii2/zipball/7a48c4dc751cbe79150f293e119b378ad9b4508c",
+                "reference": "7a48c4dc751cbe79150f293e119b378ad9b4508c",
                 "shasum": ""
             },
             "require": {
@@ -4944,7 +4944,7 @@
                 }
             ],
             "description": "Yii2 extension for PHPStan",
-            "time": "2019-12-16T11:17:15+00:00"
+            "time": "2020-05-01T11:51:35+00:00"
         },
         {
             "name": "psr/event-dispatcher",
@@ -6591,16 +6591,16 @@
         },
         {
             "name": "yiisoft/yii2-gii",
-            "version": "2.2.0",
+            "version": "2.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-gii.git",
-                "reference": "7736b837da5cc0503cf15f482170e07eca9dd933"
+                "reference": "f3bb400b578b0a0ee737d267ebaffdaad7b32dee"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-gii/zipball/7736b837da5cc0503cf15f482170e07eca9dd933",
-                "reference": "7736b837da5cc0503cf15f482170e07eca9dd933",
+                "url": "https://api.github.com/repos/yiisoft/yii2-gii/zipball/f3bb400b578b0a0ee737d267ebaffdaad7b32dee",
+                "reference": "f3bb400b578b0a0ee737d267ebaffdaad7b32dee",
                 "shasum": ""
             },
             "require": {
@@ -6652,7 +6652,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-03-24T22:12:09+00:00"
+            "time": "2020-05-02T11:59:43+00:00"
         }
     ],
     "aliases": [],
