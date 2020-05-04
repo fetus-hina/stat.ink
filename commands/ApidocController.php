@@ -232,10 +232,17 @@ class ApidocController extends Controller
                         ])),
                         Html::tag('td', Html::tag('code', Html::encode($tz->identifier))),
                         ($offsetJan === $offsetJul)
-                            ? Html::tag('td', Html::encode($offsetJan), ['colspan' => 2])
+                            ? Html::tag('td', Html::encode($offsetJan), [
+                                'colspan' => 2,
+                                'align' => 'center',
+                            ])
                             : implode('', [
-                                Html::tag('td', Html::encode($offsetJan)),
-                                Html::tag('td', HTml::encode($offsetJul)),
+                                Html::tag('td', Html::encode($offsetJan), [
+                                    'align' => 'center',
+                                ]),
+                                Html::tag('td', HTml::encode($offsetJul), [
+                                    'align' => 'center',
+                                ]),
                             ]),
                     ]));
                 },
