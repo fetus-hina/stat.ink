@@ -71,4 +71,21 @@ class Country extends \yii\db\ActiveRecord
         return $this->hasMany(Timezone::className(), ['id' => 'timezone_id'])
             ->viaTable('timezone_country', ['country_id' => 'id']);
     }
+
+    public function getRegionalIndicatorSymbols(): ?array // ?int[]
+    {
+        if (strlen($this->key) !== 2) {
+            return null;
+        }
+
+        $results = [];
+        for ($i = 0; $i < 2; ++$i) {
+            $c = strtoupper(substr($this->key, $i, 1));
+            if ($c < 'A' || $c > 'Z') {
+                return null;
+            }
+            $results[] = 0x1f1e6 + (ord($c) - ord('A'));
+        }
+        return $results;
+    }
 }

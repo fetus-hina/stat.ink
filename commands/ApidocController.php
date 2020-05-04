@@ -15,6 +15,7 @@ use DateTimeZone;
 use Yii;
 use app\components\openapi\doc\V1 as V1Generator;
 use app\components\openapi\doc\V2 as V2Generator;
+use app\models\Country;
 use app\models\TimeZone;
 use app\models\TimezoneGroup;
 use yii\console\Controller;
@@ -23,6 +24,9 @@ use yii\helpers\Html;
 
 class ApidocController extends Controller
 {
+    private const FLAGICON_CDN = 'https://cdnjs.cloudflare.com/ajax/libs';
+    private const FLAGICON_URL = '{cdn}/flag-icon-css/{version}/flags/4x3/{cc}.svg';
+
     public $defaultAction = 'create';
     public $layout = false;
 
@@ -171,6 +175,7 @@ class ApidocController extends Controller
     public function actionPutTimezoneTable(): int
     {
         $groups = TimezoneGroup::find()
+            ->with(['timezones', 'timezones.countries'])
             ->andWhere(['<>', 'name', 'Others'])
             ->all();
         echo "<!-- ./yii apidoc/put-timezone-table -->\n";
@@ -179,13 +184,20 @@ class ApidocController extends Controller
             implode('', [
                 Html::tag(
                     'thead',
-                    Html::tag('tr', implode('', [
-                        Html::tag('th', '&#x2003;'),
-                        Html::tag('th', Html::encode('stat.ink\'s display name')),
-                        Html::tag('th', Html::encode('IANA Identifier')),
-                        Html::tag('th', Html::encode('January')),
-                        Html::tag('th', Html::encode('July')),
-                    ]))
+                    implode('', [
+                        Html::tag('tr', implode('', [
+                            Html::tag('th', '', ['rowspan' => 2]),
+                            Html::tag('th', Html::encode('stat.ink\'s display name'), [
+                                'rowspan' => 2,
+                            ]),
+                            Html::tag('th', Html::encode('IANA Identifier'), ['rowspan' => 2]),
+                            Html::tag('th', Html::encode('UTC Offset'), ['colspan' => 2]),
+                        ])),
+                        Html::tag('tr', implode('', [
+                            Html::tag('th', Html::encode('January')),
+                            Html::tag('th', Html::encode('July')),
+                        ])),
+                    ]),
                 ),
                 Html::tag(
                     'tbody',
@@ -225,22 +237,98 @@ class ApidocController extends Controller
                         ->format('P');
 
                     return Html::tag('tr', implode('', [
-                        Html::tag('td', ''),
+                        Html::tag(
+                            'td',
+                            implode('', array_map(
+                                function (Country $country): string {
+                                    return vsprintf('<img src="%s" height="%d" width="%d" alt="%s">', [
+                                        $this->getFlagIconUrl($country->key),
+                                        16,
+                                        round(16 * 4 / 3),
+                                        implode('', array_map(
+                                            function (int $codepoint): string {
+                                                return sprintf('&#x%x;', $codepoint);
+                                            },
+                                            $country->regionalIndicatorSymbols
+                                        )),
+                                    ]);
+                                },
+                                $tz->countries
+                            )),
+                            ['align' => 'center']
+                        ),
                         Html::tag('td', implode('<br>', [
                             Html::encode($tz->name),
                             Html::encode(Yii::t('app-tz', $tz->name, [], 'ja-JP')),
                         ])),
                         Html::tag('td', Html::tag('code', Html::encode($tz->identifier))),
                         ($offsetJan === $offsetJul)
-                            ? Html::tag('td', Html::encode($offsetJan), ['colspan' => 2])
+                            ? Html::tag('td', Html::encode($offsetJan), [
+                                'colspan' => 2,
+                                'align' => 'center',
+                            ])
                             : implode('', [
-                                Html::tag('td', Html::encode($offsetJan)),
-                                Html::tag('td', HTml::encode($offsetJul)),
+                                Html::tag('td', Html::encode($offsetJan), [
+                                    'align' => 'center',
+                                ]),
+                                Html::tag('td', HTml::encode($offsetJul), [
+                                    'align' => 'center',
+                                ]),
                             ]),
                     ]));
                 },
                 $group->timezones
             )),
         ]);
+    }
+
+    private function getFlagIconUrl(string $cc): string
+    {
+        static $flagIconCssVersion = false;
+        if ($flagIconCssVersion === false) {
+            if (!$flagIconCssVersion = $this->getFlagIconCssVersion()) {
+                throw new \Exception('Could not detect the version of flag-icon-css');
+            }
+        }
+
+        return preg_replace_callback(
+            '/\{\w+\}/',
+            function (array $match) use ($flagIconCssVersion, $cc): string {
+                switch ($match[0]) {
+                    case '{cdn}':
+                        return static::FLAGICON_CDN;
+
+                    case '{version}':
+                        return rawurlencode($flagIconCssVersion);
+
+                    case '{cc}':
+                        return rawurlencode($cc);
+
+                    default:
+                        return $match[0];
+                }
+            },
+            static::FLAGICON_URL
+        );
+    }
+
+    private function getFlagIconCssVersion(): ?string
+    {
+        $cwd = getcwd();
+        try {
+            chdir(dirname(__DIR__));
+            @exec('npm view flag-icon-css version', $lines, $status);
+            if ($status !== 0) {
+                return null;
+            }
+
+            if (!preg_match('/^v?(\d+\.\d+\.\d+)/is', (string)($lines[0] ?? null), $match)) {
+                return null;
+            }
+
+            return $match[1];
+        } finally {
+            @chdir($cwd);
+        }
     }
 }
