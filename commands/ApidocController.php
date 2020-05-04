@@ -179,13 +179,20 @@ class ApidocController extends Controller
             implode('', [
                 Html::tag(
                     'thead',
-                    Html::tag('tr', implode('', [
-                        Html::tag('th', '&#x2003;'),
-                        Html::tag('th', Html::encode('stat.ink\'s display name')),
-                        Html::tag('th', Html::encode('IANA Identifier')),
-                        Html::tag('th', Html::encode('January')),
-                        Html::tag('th', Html::encode('July')),
-                    ]))
+                    implode('', [
+                        Html::tag('tr', implode('', [
+                            Html::tag('th', '&#x2003;', ['rowspan' => 2]),
+                            Html::tag('th', Html::encode('stat.ink\'s display name'), [
+                                'rowspan' => 2,
+                            ]),
+                            Html::tag('th', Html::encode('IANA Identifier'), ['rowspan' => 2]),
+                            Html::tag('th', Html::encode('UTC Offset'), ['colspan' => 2]),
+                        ])),
+                        Html::tag('tr', implode('', [
+                            Html::tag('th', Html::encode('January')),
+                            Html::tag('th', Html::encode('July')),
+                        ])),
+                    ]),
                 ),
                 Html::tag(
                     'tbody',
