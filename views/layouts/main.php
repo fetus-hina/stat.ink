@@ -49,20 +49,14 @@ if ($_flashes) {
   }
 }
 
-$calendar = '';
-if (strpos(Yii::$app->locale, 'calendar=') !== false) {
-  if (preg_match('/^.*?calendar=(\w+).*$/', Yii::$app->locale, $match)) {
-    $calendar = $match[1];
-  }
-}
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
 <?= Html::beginTag('html', [
   'lang' => preg_replace('/@.+$/', '', Yii::$app->language),
   'data' => [
-    'timezone' => Yii::$app->timeZone,
-    'calendar' => $calendar,
+    'timezone' => (string)Yii::$app->timeZone,
+    'calendar' => (string)Yii::$app->localeCalendar,
   ],
 ]) . "\n" ?>
   <head>

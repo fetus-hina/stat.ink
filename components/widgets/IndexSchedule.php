@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2019 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2020 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -174,10 +174,11 @@ class IndexSchedule extends Widget
         $id = sprintf('%s-current-time', $this->id);
 
         CurrentTimeAsset::register($this->view);
-        $this->view->registerJs(vsprintf('$(%s).currentTime(%s, %s);', [
+        $this->view->registerJs(vsprintf('$(%s).currentTime(%s, %s, %s);', [
             Json::encode('#' . $id),
             Json::encode(Yii::$app->language), // not locale
-            Json::encode(Yii::$app->timeZone)
+            Json::encode(Yii::$app->timeZone),
+            Json::encode(Yii::$app->localeCalendar),
         ]));
         return Html::tag(
             'span',
