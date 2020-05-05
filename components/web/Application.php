@@ -71,6 +71,17 @@ class Application extends Base
         return $this->locale ?: Yii::$app->language;
     }
 
+    public function getLocaleCalendar(): ?string
+    {
+        if (strpos($this->locale, 'calendar=') !== false) {
+            if (preg_match('/^.*?calendar=(\w+).*$/', $this->locale, $match)) {
+                return $match[1];
+            }
+        }
+
+        return null;
+    }
+
     public function setSplatoonRegion($region)
     {
         $this->region = $region;

@@ -1,4 +1,4 @@
-/*! Copyright (C) 2015-2019 AIZAWA Hina | MIT License */
+/*! Copyright (C) 2015-2020 AIZAWA Hina | MIT License */
 ($ => {
   const moment = window.moment;
   const htmlEncode = str => {
@@ -13,18 +13,38 @@
       return table[match];
     });
   };
+  const getLocaleDateFormat = (locale, calendar) => {
+    locale = String(locale).toLowerCase();
 
-  $.fn.currentTime = function (locale, timeZone) {
+    if (
+      ((locale === 'ja' || locale === 'ja-jp') && calendar === 'japanese') ||
+      ((locale === 'zh' || locale === 'zh-tw') && calendar === 'roc')
+    ) {
+      return 'Ny/M/D'; // H30/4/1 23:59 (if japanese)
+    }
+
+    return 'l';
+  };
+
+  $.fn.currentTime = function (locale, timeZone, calendar) {
     const $this = this;
     window.setInterval(
       () => {
-        const momentInstance = moment().locale(locale).tz(timeZone);
         $this.empty()
-          .append(htmlEncode(momentInstance.format('l LT')))
+          .append(htmlEncode(
+            moment().locale(locale).tz(timeZone).format(
+              getLocaleDateFormat(locale, calendar)
+            )
+          ))
+          .append(' ')
+          .append(htmlEncode(
+            moment().locale(locale).tz(timeZone).format('LT')
+          ))
           .append(' ')
           .append(
-            $('<a href="#timezone-dialog" data-toggle="modal">')
-              .text(momentInstance.format('z'))
+            $('<a href="#timezone-dialog" data-toggle="modal">').text(
+              moment().locale(locale).tz(timeZone).format('z')
+            )
           );
       },
       1000
