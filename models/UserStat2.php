@@ -583,6 +583,7 @@ class UserStat2 extends ActiveRecord
             ->where(['{{battle2}}.[[user_id]]' => $this->user_id]);
 
         // echo $query->createCommand()->rawSql . "\n";
+
         if (!$row = $query->one()) {
             foreach (array_keys($this->attributes) as $k) {
                 if ($k === 'user_id' || $k === 'updated_at') {
@@ -592,7 +593,11 @@ class UserStat2 extends ActiveRecord
             }
         } else {
             foreach ($row as $k => $v) {
-                $this->$k = (int)$v;
+                if (strpos($k, 'x_power') !== false) {
+                    $this->$k = (float)$v;
+                } else {
+                    $this->$k = (int)$v;
+                }
             }
             $rules = ['area', 'yagura', 'hoko', 'asari'];
             foreach ($rules as $rule) {

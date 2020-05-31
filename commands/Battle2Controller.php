@@ -24,10 +24,16 @@ class Battle2Controller extends Controller
 {
     public function actionUserStat($id)
     {
-        if (!$user = User::findOne(['id' => (int)$id])) {
+        if (substr($id, 0, 1) === '@') {
+            $user = User::findOne(['screen_name' => substr($id, 1)]);
+        } else {
+            $user = User::findOne(['id' => (int)$id]);
+        }
+        if (!$user) {
             $this->stderr("Could not find user {$id}\n");
             return 1;
         }
+
         if (!$model = UserStat2::findOne(['user_id' => $user->id])) {
             $model = Yii::createObject([
                 'class' => UserStat2::class,
