@@ -39,7 +39,7 @@ class Password
         return password_needs_rehash($hash, static::currentAlgo());
     }
 
-    private static function preprocess(string $password, int $algo): string
+    private static function preprocess(string $password, $algo): string
     {
         if ($algo !== PASSWORD_BCRYPT) {
             return $password;
@@ -49,7 +49,7 @@ class Password
         return substr("{$hash}:{$password}", 0, 72);
     }
 
-    private static function detectAlgorithm(string $hash): int
+    private static function detectAlgorithm(string $hash)
     {
         foreach (static::algoList() as $algoInfo) {
             foreach ($algoInfo['prefixes'] as $prefix) {
@@ -62,7 +62,7 @@ class Password
         return PASSWORD_DEFAULT;
     }
 
-    private static function currentAlgo(): int
+    private static function currentAlgo()
     {
         // minimumPHP （最小バージョン実行環境）として定義された
         // バージョンで利用可能な最高のアルゴリズムを選択する
