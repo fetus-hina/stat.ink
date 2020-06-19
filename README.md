@@ -115,9 +115,6 @@ Changes are merged from the `dev` branch at irregular intervals.
 
 When you contribute to us, you should not request changes to this branch.
 
-Note: The author have not a plan to change the name of this branch at this time.
-Please DO NOT send a rename request.
-
 
 ### `dev` branch ###
 
