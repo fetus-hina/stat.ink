@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2020 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -48,13 +49,29 @@ class StatWeapon2EntireSpecial extends ActiveRecord
     public function rules()
     {
         return [
-            [['rule_id', 'special_id', 'battles', 'wins', 'avg_kill', 'med_kill', 'avg_death', 'med_death', 'avg_special', 'med_special', 'avg_point', 'med_point', 'avg_time', 'updated_at'], 'required'],
+            [['rule_id', 'special_id', 'battles', 'wins', 'avg_kill', 'med_kill', 'avg_death'], 'required'],
+            [['med_death', 'avg_special', 'med_special', 'avg_point', 'med_point', 'avg_time'], 'required'],
+            [['updated_at'], 'required'],
             [['rule_id', 'special_id', 'battles', 'wins'], 'default', 'value' => null],
             [['rule_id', 'special_id', 'battles', 'wins'], 'integer'],
-            [['avg_kill', 'med_kill', 'stddev_kill', 'avg_death', 'med_death', 'stddev_death', 'avg_special', 'med_special', 'stddev_special', 'avg_point', 'med_point', 'stddev_point', 'avg_time'], 'number'],
+            [['avg_kill', 'med_kill', 'stddev_kill', 'avg_death', 'med_death', 'stddev_death'], 'number'],
+            [['avg_special', 'med_special', 'stddev_special', 'avg_point', 'med_point', 'stddev_point'], 'number'],
+            [['avg_time'], 'number'],
             [['updated_at'], 'safe'],
-            [['rule_id'], 'exist', 'skipOnError' => true, 'targetClass' => Rule2::class, 'targetAttribute' => ['rule_id' => 'id']],
-            [['special_id'], 'exist', 'skipOnError' => true, 'targetClass' => Special2::class, 'targetAttribute' => ['special_id' => 'id']],
+            [['rule_id'], 'exist',
+                'skipOnError' => true,
+                'targetClass' => Rule2::class,
+                'targetAttribute' => [
+                    'rule_id' => 'id',
+                ],
+            ],
+            [['special_id'], 'exist',
+                'skipOnError' => true,
+                'targetClass' => Special2::class,
+                'targetAttribute' => [
+                    'special_id' => 'id',
+                ],
+            ],
         ];
     }
 
