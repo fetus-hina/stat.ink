@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This is the template for generating the model class of a specified table.
  *
@@ -26,6 +27,7 @@ $now = (new \DateTimeImmutable('now', new \DateTimeZone('Asia/Tokyo')))
 
 echo "<?php\n";
 ?>
+
 /**
  * @copyright Copyright (C) 2015-<?= $now->format('Y') ?> AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -69,7 +71,7 @@ class <?= $className ?> extends <?= preg_replace('!^.+\x5c([^\x5c]+)!', '$1', $g
 
     public function rules()
     {
-        return [<?= "\n            " . preg_replace('/::className\(\)/', '::class', implode(",\n            ", $rules)) . ",\n        " ?>];
+        return [<?= "\n            " . implode("\n            ", $rules) . "\n        " ?>];
     }
 
     public function attributeLabels()

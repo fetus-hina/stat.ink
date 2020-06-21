@@ -2,10 +2,10 @@
 
 use app\commands\AssetController;
 use app\commands\MigrateController;
+use app\components\gii\generators\model\Generator as GiiModelGenerator;
 use yii\caching\FileCache;
 use yii\db\Connection;
 use yii\gii\Module as GiiModule;
-use yii\gii\generators\model\Generator as GiiModelGenerator;
 use yii\helpers\ArrayHelper;
 use yii\log\FileTarget as FileLogTarget;
 use yii\mutex\PgsqlMutex;

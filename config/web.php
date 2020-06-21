@@ -2,7 +2,6 @@
 declare(strict_types=1);
 
 use yii\debug\Module as DebugModule;
-use yii\gii\Module as GiiModule;
 
 $params = require(__DIR__ . '/params.php');
 $config = [
@@ -44,9 +43,6 @@ $config = [
 ];
 
 if (defined('YII_ENV_DEV') && YII_ENV_DEV) {
-    $config['bootstrap'][] = 'gii';
-    $config['modules']['gii'] = GiiModule::class;
-
     $config['bootstrap'][] = 'debug';
     $config['modules']['debug'] = [
         'class' => DebugModule::class,
