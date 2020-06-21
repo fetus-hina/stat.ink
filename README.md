@@ -31,8 +31,8 @@ Use a private channel if it is a security issue.
 REQUIREMENTS
 ------------
 
-- PHP 7.3+ (Recommended: 7.4+)
-  - Doesn't work with 7.2 or lower. (Uses statements and constants added in v7.3)
+- PHP 7.4+
+  - Doesn't work with 7.3 or lower. (Uses statements and constants added in v7.4, such as arrow function and typed property)
   - You should build/install with Argon2. [Install `php-sodium` if you use remirepo's PHP 7.4](https://github.com/remicollet/remirepo/issues/132#issuecomment-566513636).
 - PostgreSQL 9.5+ (Recommended: 11+)
   - Doesn't work with 9.4 or lower. (Uses features added in v9.5) 
@@ -72,11 +72,8 @@ https://stat.ink/ works with:
 
 Notes:
 
-  - We will soon be changing the minimum requirement to PHP 7.4.  
-    The author wants to use the [typed properties](https://www.php.net/manual/en/migration74.new-features.php#migration74.new-features.core.typed-properties).
-
   - Default version of PHP on CentOS 7 is 5.4.16. This application doesn't work on it.  
-    We are using features and statements that were added up to PHP 7.3.
+    We are using features and statements that were added up to PHP 7.4.
 
   - Default version of PostgreSQL on CentOS 7 is 9.2.14. This application doesn't work with it.  
     We are using features added in PostgreSQL 9.5 (e.g., jsonb, UPSERT).  

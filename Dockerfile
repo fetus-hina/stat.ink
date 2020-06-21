@@ -33,21 +33,21 @@ RUN rpm --import \
         make \
         nodejs \
         patch \
-        php73-php-cli \
-        php73-php-fpm \
-        php73-php-gd \
-        php73-php-intl \
-        php73-php-json \
-        php73-php-mbstring \
-        php73-php-mcrypt \
-        php73-php-opcache \
-        php73-php-pdo \
-        php73-php-pecl-msgpack \
-        php73-php-pecl-zip \
-        php73-php-pgsql \
-        php73-php-process \
-        php73-php-xml \
-        php73-runtime \
+        php74-php-cli \
+        php74-php-fpm \
+        php74-php-gd \
+        php74-php-intl \
+        php74-php-json \
+        php74-php-mbstring \
+        php74-php-mcrypt \
+        php74-php-opcache \
+        php74-php-pdo \
+        php74-php-pecl-msgpack \
+        php74-php-pecl-zip \
+        php74-php-pgsql \
+        php74-php-process \
+        php74-php-xml \
+        php74-runtime \
         rh-postgresql95-postgresql \
         rh-postgresql95-postgresql-server \
         supervisor \
@@ -72,7 +72,7 @@ USER postgres
 RUN scl enable rh-postgresql95 'initdb --pgdata=/var/opt/rh/rh-postgresql95/lib/pgsql/data --encoding=UNICODE --locale=en_US.UTF8'
 ADD docker/database/pg_hba.conf /var/opt/rh/rh-postgresql95/lib/pgsql/data/pg_hba.conf
 ADD docker/database/password.php /var/opt/rh/rh-postgresql95/lib/pgsql/
-RUN scl enable rh-postgresql95 php73 ' \
+RUN scl enable rh-postgresql95 php74 ' \
         /opt/rh/rh-postgresql95/root/usr/libexec/postgresql-ctl start -D /var/opt/rh/rh-postgresql95/lib/pgsql/data -s -w && \
         createuser -DRS statink && \
         createdb -E UNICODE -O statink -T template0 statink && \
@@ -88,7 +88,7 @@ RUN cd ~statink/stat.ink && \
         su postgres -c "/opt/rh/rh-postgresql95/root/usr/libexec/postgresql-ctl stop -D /var/opt/rh/rh-postgresql95/lib/pgsql/data -s -m fast"'
 
 ADD docker/php/php-config.diff /tmp/
-RUN patch -p1 -d /etc/opt/remi/php73 < /tmp/php-config.diff && rm /tmp/php-config.diff
+RUN patch -p1 -d /etc/opt/remi/php74 < /tmp/php-config.diff && rm /tmp/php-config.diff
 
 ADD docker/h2o/h2o.conf /etc/h2o/h2o.conf
 

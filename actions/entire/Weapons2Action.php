@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2019 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2020 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -10,7 +10,6 @@ declare(strict_types=1);
 
 namespace app\actions\entire;
 
-use stdClass;
 use DateInterval;
 use DateTime;
 use DateTimeImmutable;
@@ -25,15 +24,20 @@ use app\models\SplatoonVersionGroup2;
 use app\models\StatWeapon2UseCount;
 use app\models\Subweapon2;
 use app\models\Weapon2;
+use stdClass;
 use yii\db\Query;
-use yii\web\ViewAction as BaseAction;
+use yii\web\ViewAction;
 
-class Weapons2Action extends BaseAction
+class Weapons2Action extends ViewAction
 {
     public function run()
     {
-        $form = Yii::createObject(['class' => EntireWeapon2Form::class]);
-        $form->load($_GET) && $form->validate();
+        $form = Yii::createObject([
+            '__class' => EntireWeapon2Form::class,
+        ]);
+        if (!$form->load($_GET) || !$form->validate()) {
+            $form->updateToDefault();
+        }
 
         return $this->controller->render('weapons2', [
             'form' => $form,
@@ -247,21 +251,12 @@ class Weapons2Action extends BaseAction
                     '{{map2}}.[[key]]' => $form->map,
                 ]);
             }
-            if ($form->term == '') {
+            if (
+                $form->term === null ||
+                $form->term === '' ||
+                $form->term === '*'
+            ) {
                 // nothing to do
-            } elseif (preg_match('/^(\d{4})-(\d{2})$/', $form->term, $match)) {
-                // [$start, $end)
-                $start = (new DateTimeImmutable())
-                    ->setTimeZone(new DateTimeZone('Etc/UTC'))
-                    ->setDate(intval($match[1], 10), intval($match[2], 10), 1)
-                    ->setTime(0, 0, 0);
-                $end = $start->add(new DateInterval('P1M'));
-                $startPeriod = BattleHelper::calcPeriod2($start->getTimestamp());
-                $endPeriod = BattleHelper::calcPeriod2($end->getTimestamp());
-                $query->andWhere(['and',
-                    ['>=', '{{stat_weapon2_use_count}}.[[period]]', $startPeriod],
-                    ['<', '{{stat_weapon2_use_count}}.[[period]]', $endPeriod],
-                ]);
             } elseif (substr($form->term, 0, 1) === 'v') {
                 if (!$v1 = SplatoonVersion2::findOne(['tag' => substr($form->term, 1)])) {
                     throw new \Exception();

@@ -1,14 +1,21 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2017 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2020 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
 
+declare(strict_types=1);
+
 namespace app\models;
 
+use DateTime;
+use DateTimeImmutable;
+use DateTimeInterface;
+use DateTimeZone;
 use Yii;
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
 /**
@@ -26,19 +33,45 @@ use yii\db\ActiveRecord;
  */
 class SplatoonVersion2 extends ActiveRecord
 {
+    public static function find(): ActiveQuery
+    {
+        return new class (static::class) extends ActiveQuery {
+            public function __construct(string $modelClass, array $config = [])
+            {
+                parent::__construct($modelClass, $config);
+
+                list(, $t) = $this->getTableNameAndAlias();
+                $this->orderBy([
+                    "{{{$t}}}.[[released_at]]" => SORT_DESC,
+                ]);
+            }
+
+            public function released(?DateTimeInterface $at = null): self
+            {
+                if (!$at) {
+                    $at = (new DateTimeImmutable())
+                        ->setTimeZone(new DateTimeZone(Yii::$app->timeZone))
+                        ->setTimestamp($_SERVER['REQUEST_TIME'] ?? time());
+                }
+
+                list(, $t) = $this->getTableNameAndAlias();
+                $this->andWhere(['<=', "{{{$t}}}.[[released_at]]", $at->format(DateTime::ATOM)]);
+                return $this;
+            }
+        };
+    }
+
     public static function findCurrentVersion($at = null): ?self
     {
-        if ($at === null) {
-            $at = (int)($_SERVER['REQUEST_TIME'] ?? time());
+        if ($at !== null && !($at instanceof DateTimeInterface)) {
+            $ts = Yii::$app->formatter->asTimestamp($at);
+            $at = (new DateTimeImmutable())
+                ->setTimeZone(new DateTimeZone(Yii::$app->timeZone))
+                ->setTimestamp((int)$ts);
         }
-        if (is_int($at)) {
-            $at = gmdate('Y-m-d\TH:i:sP', $at);
-        } elseif ($at instanceof \DateTimeInterface) {
-            $at = $at->format('Y-m-d\TH:i:sP');
-        }
+
         return static::find()
-            ->andWhere(['<=', 'released_at', $at])
-            ->orderBy('[[released_at]] DESC')
+            ->released($at)
             ->limit(1)
             ->one();
     }

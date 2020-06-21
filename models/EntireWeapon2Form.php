@@ -1,16 +1,15 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2017 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2020 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
 
+declare(strict_types=1);
+
 namespace app\models;
 
-use DateInterval;
-use DateTimeImmutable;
-use DateTimeZone;
 use Yii;
 use app\models\Map2;
 use yii\base\Model;
@@ -28,11 +27,13 @@ class EntireWeapon2Form extends Model
     public function rules()
     {
         return [
+            [['term'], 'required'],
             [['term', 'map'], 'string'],
             [['term'], 'in',
                 'range' => array_keys($this->getTermList()),
             ],
-            [['map'], 'exist', 'skipOnError' => true,
+            [['map'], 'exist',
+                'skipOnError' => true,
                 'targetClass' => Map2::class,
                 'targetAttribute' => 'key',
             ],
@@ -60,23 +61,27 @@ class EntireWeapon2Form extends Model
             }
             $ret[$key] = $value;
         };
+
         foreach ($this->attributes as $key => $value) {
             $push($key, $value);
         }
+
         return $ret;
     }
 
+    private $cachedTermList;
     public function getTermList(): array
     {
-        static $list;
-        if (!$list) {
-            $list = array_merge(
-                ['' => Yii::t('app', 'Any Time')],
+        if (!$this->cachedTermList) {
+            $this->cachedTermList = array_merge(
+                [
+                    '*' => Yii::t('app', 'Any Time'),
+                ],
                 $this->getVersionList(),
-                $this->getMonthList()
             );
         }
-        return $list;
+
+        return $this->cachedTermList;
     }
 
     private function getVersionList(): array
@@ -121,21 +126,18 @@ class EntireWeapon2Form extends Model
         return $result;
     }
 
-    private function getMonthList(): array
+    public function updateToDefault(): self
     {
-        $interval = new DateInterval('P1M');
-        $date = (new DateTimeImmutable())
-            ->setTimeZone(new DateTimeZone('Etc/UTC'))
-            ->setDate(2017, 7, 1)
-            ->setTime(0, 0, 0);
-        $limit = (new DateTimeImmutable())
-            ->setTimeZone(new DateTimeZone('Etc/UTC'))
-            ->setTimestamp($_SERVER['REQUEST_TIME'] ?? time());
-        $formatter = Yii::$app->formatter;
-        $result = [];
-        for (; $date <= $limit; $date = $date->add($interval)) {
-            $result[$date->format('Y-m')] = $formatter->asDate($date, Yii::t('app', 'MMMM y'));
-        }
-        return array_reverse($result, true);
+        $this->term = vsprintf('~v%s', [
+            $this->getLatestVersionGroup()->tag,
+        ]);
+        $this->map = '';
+        $this->clearErrors();
+        return $this;
+    }
+
+    private function getLatestVersionGroup(): SplatoonVersionGroup2
+    {
+        return SplatoonVersion2::findCurrentVersion()->group;
     }
 }
