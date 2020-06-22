@@ -58,6 +58,7 @@ class StatWeapon2EntireSpecial extends ActiveRecord
             [['avg_special', 'med_special', 'stddev_special', 'avg_point', 'med_point', 'stddev_point'], 'number'],
             [['avg_time'], 'number'],
             [['updated_at'], 'safe'],
+            [['rule_id', 'special_id'], 'unique', 'targetAttribute' => ['rule_id', 'special_id']],
             [['rule_id'], 'exist',
                 'skipOnError' => true,
                 'targetClass' => Rule2::class,

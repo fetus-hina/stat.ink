@@ -60,6 +60,15 @@ class StatWeapon2EntireMainByVersion extends ActiveRecord
             [['avg_special', 'med_special', 'stddev_special', 'avg_point', 'med_point', 'stddev_point'], 'number'],
             [['avg_time'], 'number'],
             [['updated_at'], 'safe'],
+            [
+                ['rule_id', 'version_id', 'weapon_id'],
+                'unique',
+                'targetAttribute' => [
+                    'rule_id',
+                    'version_id',
+                    'weapon_id',
+                ],
+            ],
             [['rule_id'], 'exist',
                 'skipOnError' => true,
                 'targetClass' => Rule2::class,

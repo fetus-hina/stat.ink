@@ -147,15 +147,20 @@ class Generator extends BaseGenerator
                         } else {
                             $tmp = [];
                             $tmp[] = '[';
-                            $tmp[] = '    [';
-                            foreach ($uniqueColumns as $_) {
-                                $tmp[] = "        '" . $_ . "',";
+                            $rule = "['{$columnsList}'],";
+                            if (strlen($rule) <= static::RULE_LIMIT - 4) {
+                                $tmp[] = '    ' . $rule;
+                            } else {
+                                $tmp[] = '    [';
+                                foreach ($uniqueColumns as $_) {
+                                    $tmp[] = "        '" . $_ . "',";
+                                }
+                                $tmp[] = '    ],';
                             }
-                            $tmp[] = '    ],';
                             $tmp[] = "    'unique',";
                             $tmp[] = "    'targetAttribute' => [";
                             foreach ($uniqueColumns as $_) {
-                                $tmp[] = "            '" . $_ . "',";
+                                $tmp[] = "        '" . $_ . "',";
                             }
                             $tmp[] = '    ],';
                             $tmp[] = '],';

@@ -71,7 +71,11 @@ class <?= $className ?> extends <?= preg_replace('!^.+\x5c([^\x5c]+)!', '$1', $g
 
     public function rules()
     {
-        return [<?= "\n            " . implode("\n            ", $rules) . "\n        " ?>];
+        return [
+<?php foreach (explode("\n", implode("\n", $rules)) as $line): ?>
+            <?= $line . "\n" ?>
+<?php endforeach ?>
+        ];
     }
 
     public function attributeLabels()

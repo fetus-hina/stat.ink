@@ -67,7 +67,17 @@ class m200621_120537_entire_weapon2 extends Migration
                         'stddev_point' => $this->double()->null(),
                         'avg_time' => $this->double()->notNull(),
                         'updated_at' => $this->timestampTZ()->notNull(),
-                    ]
+                    ],
+                    [
+                        vsprintf('PRIMARY KEY(%s)', implode(', ', array_map(
+                            fn ($_) => "[[{$_}]]",
+                            array_filter(array_merge(
+                                ['rule_id'],
+                                array_keys($vRefs ?? []),
+                                array_keys($wRefs ?? []),
+                            )),
+                        ))),
+                    ],
                 );
                 $tables[$tableName] = $def;
             }
