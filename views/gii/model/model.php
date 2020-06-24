@@ -22,16 +22,43 @@
 /* @var $rules string[] list of validation rules */
 /* @var $relations array list of relations (name => relation declaration) */
 
-$now = (new \DateTimeImmutable('now', new \DateTimeZone('Asia/Tokyo')))
+declare(strict_types=1);
+
+use app\components\helpers\GitHelper;
+
+$now = (new DateTimeImmutable('now', new DateTimeZone('Asia/Tokyo')))
     ->setTimestamp($_SERVER['REQUEST_TIME'] ?? time());
+
+$authors = array_filter(
+    [
+        [
+            'AIZAWA Hina',
+            'hina@fetus.jp',
+        ],
+        [
+            GitHelper::getUserName(),
+            GitHelper::getUserEmail(),
+        ],
+    ],
+    fn ($_) => ($_[0] !== null && $_[1] !== null)
+);
+
+$authorsFormatted = array_unique(array_map(
+    fn ($_) => sprintf('%s <%s>', $_[0], $_[1]),
+    $authors
+));
+
+$copyrightHolders = array_unique(array_map(fn ($_) => $_[0], $authors));
 
 echo "<?php\n";
 ?>
 
 /**
- * @copyright Copyright (C) 2015-<?= $now->format('Y') ?> AIZAWA Hina
+ * @copyright Copyright (C) 2015-<?= $now->format('Y') ?> <?= implode(', ', $copyrightHolders) . "\n" ?>
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
- * @author AIZAWA Hina <hina@fetus.jp>
+<?php foreach ($authorsFormatted as $author): ?>
+ * @author <?= $author . "\n" ?>
+<?php endforeach ?>
  */
 
 declare(strict_types=1);
