@@ -17,7 +17,7 @@ class m200621_120537_entire_weapon2 extends Migration
         $tables = $this->tables;
         array_walk($tables, fn ($def, $name) => $this->createTable($name, $def));
 
-        if (true) {
+        if (false) {
             echo "\n";
             foreach (array_keys($tables) as $name) {
                 vprintf("./yii gii/model --tableName=%s --modelClass=%s --interactive=0 --overwrite\n", [
