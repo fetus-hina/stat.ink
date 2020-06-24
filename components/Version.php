@@ -1,10 +1,12 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2020 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
+
+declare(strict_types=1);
 
 namespace app\components;
 
@@ -12,40 +14,41 @@ use DateTimeImmutable;
 use DateTimeZone;
 use Exception;
 use Yii;
+use app\components\helpers\GitHelper;
 
 class Version
 {
-    private static $revision = null;
-    private static $shortRevision = null;
-    private static $lastCommited = null;
+    private static ?string $revision = null;
+    private static ?string $shortRevision = null;
+    private static ?DateTimeImmutable $lastCommited = null;
 
-    public static function getVersion()
+    public static function getVersion(): ?string
     {
-        return Yii::$app->version;
+        $v = trim((string)Yii::$app->version);
+        return ($v !== '') ? $v : null;
     }
 
     public static function getRevision(): ?string
     {
-        self::fetchRevision();
-        return self::$revision ?: null;
+        static::fetchRevision();
+        return static::$revision ?: null;
     }
 
     public static function getShortRevision(): ?string
     {
-        self::fetchRevision();
-        return self::$shortRevision ?: null;
+        static::fetchRevision();
+        return static::$shortRevision ?: null;
     }
 
     public static function getLastCommited(): ?DateTimeImmutable
     {
-        self::fetchRevision();
-        return self::$lastCommited ?: null;
+        static::fetchRevision();
+        return static::$lastCommited ?: null;
     }
 
     public static function getFullHash(string $shortHash): ?string
     {
-        $lines = static::doGit(sprintf('git rev-parse %s -q', escapeshellarg($shortHash)));
-        return $lines ? array_shift($lines) : null;
+        return GitHelper::getLine(['rev-parse', $shortHash, '-q']);
     }
 
     public static function getVersionTags(?string $hash = null): array
@@ -56,88 +59,50 @@ class Version
             return [];
         }
 
-        if (!$lines = static::doGit(sprintf('git tag --points-at %s', escapeshellarg($revision)))) {
+        if (!$lines = GitHelper::get(['tag', '--points-at', $revision])) {
             return [];
         }
 
-        $lines = array_filter($lines, function (string $line): bool {
-            return !!preg_match('/^v?\d+\.\d+\.\d+/', $line);
-        });
-
-        usort($lines, function (string $a, string $b): int {
-            return version_compare($b, $a);
-        });
+        $lines = array_filter($lines, fn ($_) => (bool)preg_match('/^v?\d+\.\d+\.\d+/', $_));
+        usort($lines, fn ($a, $b) => version_compare($b, $a));
 
         return $lines;
     }
 
-    private static function fetchRevision()
+    private static function fetchRevision(): void
     {
         if (
-            self::$revision !== null &&
-                self::$shortRevision !== null &&
-                self::$lastCommited !== null
+            static::$revision !== null &&
+            static::$shortRevision !== null &&
+            static::$lastCommited !== null
         ) {
             return;
         }
 
         try {
-            if (!$line = self::getGitLog('%H:%h:%cd')) {
+            if (!$line = static::getGitLog('%H:%h:%cd')) {
                 throw new Exception();
             }
+
             $revisions = explode(':', $line);
             if (count($revisions) !== 3) {
                 throw new Exception();
             }
 
-            self::$revision = $revisions[0];
-            self::$shortRevision = $revisions[1];
-            self::$lastCommited = (new DateTimeImmutable())
+            static::$revision = $revisions[0];
+            static::$shortRevision = $revisions[1];
+            static::$lastCommited = (new DateTimeImmutable())
                 ->setTimeZone(new DateTimeZone(Yii::$app->timeZone))
                 ->setTimestamp((int)$revisions[2]);
         } catch (Exception $e) {
-            self::$revision = false;
-            self::$shortRevision = false;
-            self::$lastCommited = false;
+            static::$revision = null;
+            static::$shortRevision = null;
+            static::$lastCommited = null;
         }
     }
 
-    private static function getGitLog($format)
+    private static function getGitLog($format): ?string
     {
-        $gitCommand = sprintf(
-            'git log -n 1 --format=%s --date=raw',
-            escapeshellarg($format)
-        );
-        if (!$lines = static::doGit($gitCommand)) {
-            return false;
-        }
-        return trim(array_shift($lines));
-    }
-
-    private static function doGit($gitCommand)
-    {
-        // FIXME: scl git19 があればそれを、無ければpathの通ったgitを使うひどい場当たりhack
-        if (
-            file_exists('/usr/bin/scl') &&
-                is_executable('/usr/bin/scl') &&
-                file_exists('/opt/rh/git19/enable')
-        ) {
-            $cmdline = sprintf(
-                '/usr/bin/scl enable git19 %s',
-                escapeshellarg($gitCommand)
-            );
-        } else {
-            $cmdline = sprintf(
-                '/bin/bash -c %s',
-                escapeshellarg($gitCommand)
-            );
-        }
-
-        $lines = $status = null;
-        $line = exec($cmdline, $lines, $status);
-        if ($status !== 0) {
-            return false;
-        }
-        return $lines;
+        return GitHelper::getLine(['log', '-n', 1, '--format' => $format, '--date' => 'raw']);
     }
 }
