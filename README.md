@@ -31,7 +31,7 @@ Use a private channel if it is a security issue.
 REQUIREMENTS
 ------------
 
-- PHP 7.3+
+- PHP 7.3+ (Recommended: 7.4+)
   - Doesn't work with 7.2 or lower. (Uses statements and constants added in v7.3)
   - You should build/install with Argon2. [Install `php-sodium` if you use remirepo's PHP 7.4](https://github.com/remicollet/remirepo/issues/132#issuecomment-566513636).
 - PostgreSQL 9.5+ (Recommended: 11+)
@@ -45,23 +45,23 @@ REQUIREMENTS
 
 https://stat.ink/ works with:
 
-- CentOS 7.7 (x86-64)
+- CentOS 7.8 (x86-64)
 - EPEL
   - `brotli`
 - [JP3CKI Repository](https://rpm.fetus.jp/)
   - [H2O](https://h2o.examp1e.net/) mainline
 - [Remi's RPM repository](http://rpms.famillecollet.com/)
   - `remi-safe` repository, it uses SCL mechanism
-      - PHP 7.3.*
-          - `php73-php-cli`
-          - `php73-php-fpm`
-          - `php73-php-gd`
-          - `php73-php-intl`
-          - `php73-php-mbstring`
-          - `php73-php-mcrypt`
-          - `php73-php-pdo`
-          - `php73-php-pecl-msgpack`
-          - `php73-php-pgsql`
+      - PHP 7.4.*
+          - `php74-php-cli`
+          - `php74-php-fpm`
+          - `php74-php-gd`
+          - `php74-php-intl`
+          - `php74-php-mbstring`
+          - `php74-php-mcrypt`
+          - `php74-php-pdo`
+          - `php74-php-pecl-msgpack`
+          - `php74-php-pgsql`
 * [Node.js Repository](https://nodejs.org/en/download/package-manager/#enterprise-linux-and-fedora)
     - [Node.js](https://nodejs.org/)
         - `nodejs`
@@ -70,13 +70,17 @@ https://stat.ink/ works with:
       - `postgresql11`
       - `postgresql11-server`
 
-※CentOS 7 の標準 PHP は 5.4.16 です。このバージョンでは動作しません。<br>
-　PHP 7.3 までで追加された機能を使用しています。<br>
+Notes:
 
-※CentOS 7 の標準 PostgreSQL のバージョンは 9.2.14 です。このバージョンでは動作しません。<br>
-　PgSQL 9.5 で追加された機能を使用しています（jsonb 型、UPSERT など）<br>
-　実際のサーバでは PgSQL 11 を使用していますが、現時点では 9.5 で充分動作するはずです。<br>
-　ただし、将来必要が生じた場合はためらわずに PgSQL 10 (以降) に依存させます。
+  - We will soon be changing the minimum requirement to PHP 7.4.  
+    The author wants to use the [typed properties](https://www.php.net/manual/en/migration74.new-features.php#migration74.new-features.core.typed-properties).
+
+  - Default version of PHP on CentOS 7 is 5.4.16. This application doesn't work on it.  
+    We are using features and statements that were added up to PHP 7.3.
+
+  - Default version of PostgreSQL on CentOS 7 is 9.2.14. This application doesn't work with it.  
+    We are using features added in PostgreSQL 9.5 (e.g., jsonb, UPSERT).  
+    We use PostgreSQL 11 in our actual system, but 9.5 will work just fine.
 
 
 ### MaxMind's Account
@@ -99,6 +103,27 @@ export GEOIP_LICENSE_KEY=ABCDEFGHIJKLMNOP
 After editing `.bashrc`, reopen the shell or remember `source ~/.bashrc`.
 
 
+Branches
+--------
+
+We have 2 main branches. The one is `master` and the other is `dev`.
+
+### `master` branch ###
+
+This branch is deployed to the server.
+Changes are merged from the `dev` branch at irregular intervals.
+
+When you contribute to us, you should not request changes to this branch.
+
+
+### `dev` branch ###
+
+The development of the app takes place on this branch.
+
+If you think you're going to make a pull request, make the change from this branch.
+
+
+
 使い方 HOW TO USE (DEVELOPER)
 -----------------------------
 
@@ -115,12 +140,12 @@ Note: Docker way is abandoned.
 ```sh
 git fetch --all && \
   git merge --ff-only origin/master && \
-  ./composer.phar install && \
+  ./composer.phar install --prefer-dist && \
   make && \
-  rm -rfv web/assets/* runtime/Smarty/compile/*
+  rm -rfv web/assets/*
 ```
 
-assets の中身や compile の中身は消さなくても動くことがありますが、動かないこともあるので消す事をおすすめします。
+assets の中身は消さなくても動くことがありますが、動かないこともあるので消す事をおすすめします。
 
 なお、assets ディレクトリ自体を消してしまった場合は実行エラーが発生しますので中身だけ消してください。
 
