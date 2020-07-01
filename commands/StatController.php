@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2019 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2020 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -46,6 +46,7 @@ use yii\helpers\Console;
 
 class StatController extends Controller
 {
+    use stat\StatWeapon2EntireTrait;
     use stat\Weapon2Trait;
 
     /**
@@ -55,6 +56,9 @@ class StatController extends Controller
      */
     public function actionUpdateEntireWeapons()
     {
+        $this->updateStatWeapon2Entire();
+        return; //FIXME
+
         // $this->updateEntireWeapons1();
         $this->updateEntireWeapons2();
     }
