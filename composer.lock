@@ -2965,11 +2965,6 @@
                 "php": ">=5.2.0"
             },
             "type": "library",
-            "extra": {
-                "patches_applied": {
-                    "make static S3::setEndpoint": "data/patch/tpyo-s3-setendpoint-static.patch"
-                }
-            },
             "autoload": {
                 "classmap": [
                     "S3.php"
@@ -2987,7 +2982,12 @@
             ],
             "description": "A standalone Amazon S3 (REST) client for PHP 5.2.x using CURL that does not require PEAR.",
             "homepage": "https://github.com/tpyo/amazon-s3-php-class",
-            "time": "2015-04-27T06:12:39+00:00"
+            "time": "2015-04-27T06:12:39+00:00",
+            "extra": {
+                "patches_applied": {
+                    "make static S3::setEndpoint": "data/patch/tpyo-s3-setendpoint-static.patch"
+                }
+            }
         },
         {
             "name": "yiisoft/yii2",
@@ -5096,16 +5096,16 @@
         },
         {
             "name": "proget-hq/phpstan-yii2",
-            "version": "0.7.2",
+            "version": "0.7.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/proget-hq/phpstan-yii2.git",
-                "reference": "7a48c4dc751cbe79150f293e119b378ad9b4508c"
+                "reference": "a24ea3f9bb02cfe4e6985cc3c18f0e3e5719fa58"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/proget-hq/phpstan-yii2/zipball/7a48c4dc751cbe79150f293e119b378ad9b4508c",
-                "reference": "7a48c4dc751cbe79150f293e119b378ad9b4508c",
+                "url": "https://api.github.com/repos/proget-hq/phpstan-yii2/zipball/a24ea3f9bb02cfe4e6985cc3c18f0e3e5719fa58",
+                "reference": "a24ea3f9bb02cfe4e6985cc3c18f0e3e5719fa58",
                 "shasum": ""
             },
             "require": {
@@ -5140,7 +5140,7 @@
                 }
             ],
             "description": "Yii2 extension for PHPStan",
-            "time": "2020-05-01T11:51:35+00:00"
+            "time": "2020-07-13T15:51:26+00:00"
         },
         {
             "name": "psr/event-dispatcher",
