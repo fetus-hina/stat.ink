@@ -14,7 +14,7 @@ return [
     'Cold-Blooded' => '',
     'Comeback' => '',
     'Damage Up' => '',
-    'Defense Up' => '',
+    'Defense Up' => 'Defence Up',
     'Haunt' => '',
     'Ink Recovery Up' => '',
     'Ink Resistance Up' => '',

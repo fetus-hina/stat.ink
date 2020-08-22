@@ -15,6 +15,6 @@ return [
     'Sorry for inconvenience.' => '',
     'Term: {startDate} - {endDate}' => '',
     'We\'ll perform maintenance on the schedule below:' => '',
-    'We won\'t implement to import automatically to {appName} for security reasons.' => '',
+    'We won\'t implement to import automatically to {appName} for security reasons.' => 'We won\'t implement automatic importing to {appName} for security reasons.',
     'You can import automatically from SplatNet 2, use these apps: (USE AT YOUR OWN RISK)' => '',
 ];
