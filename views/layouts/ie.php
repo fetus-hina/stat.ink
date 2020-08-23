@@ -15,7 +15,7 @@ $this->registerJs(sprintf('jQuery(%s).ieWarning();', Json::encode('#ie-warning')
       <div class="container">
         <div class="navbar-header">
           <p class="navbar-text ml-0 mr-0 p-0 w-100"><?=
-            Html::encode(Yii::t('app', 'This website doesn\'t support Internet Explorer. Please use modern browser e.g., Chrome.'))
+            Html::encode(Yii::t('app', 'This website doesn\'t support Internet Explorer. Please use a modern browser, for example Chrome or Firefox.'))
           ?></p>
         </div>
       </div>

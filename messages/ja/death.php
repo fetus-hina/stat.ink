@@ -1,9 +1,12 @@
 <?php
+
 /**
- * @copyright Copyright (C) 2015-2016 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2020 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
+
+declare(strict_types=1);
 
 return [
     'Drowning' => '水死',
@@ -12,7 +15,7 @@ return [
     'Ink from a propeller' => 'プロペラからのインク',
     'Main Weapon' => 'メインウェポン',
     'Out of Bounds' => '場外',
-    'Rainmaker Inksplode' => 'ガチホコ爆発',
+    'Rainmaker Inksplosion' => 'ガチホコ爆発',
     'Rainmaker Shield' => 'ガチホコバリア',
     'Rainmaker Shot' => 'ガチホコショット',
     'Rainmaker' => 'ガチホコ',

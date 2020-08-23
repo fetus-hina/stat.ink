@@ -1,4 +1,5 @@
 <?php
+
 use app\assets\AboutAsset;
 use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
@@ -18,7 +19,7 @@ $aboutAsset = AboutAsset::register($this);
     Getting Started
   </h1>
   <p>
-    This website collect your Splatoon logs, and analyze it.
+    This website collects your Splatoon logs, and analyzes them.
   </p>
 
   <?= AdWidget::widget() . "\n" ?>

@@ -149,7 +149,7 @@ $chartData = [
     ],
     'body' => Yii::t(
       'app-festpower2',
-      '"Mistaken": On {date}, <a href="{url}" class="alert-link">Nintendo misconfigure the matching server and ran the fest.</a>',
+      '"Mistaken": On {date}, <a href="{url}" class="alert-link">Nintendo misconfigured the matching server and ran the fest.</a>',
       [
         'url' => 'https://twitter.com/splatoonjp/status/998369650986569728',
         'date' => Yii::$app->formatter->asDate('2018-05-19', 'long'),

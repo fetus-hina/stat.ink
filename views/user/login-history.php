@@ -33,7 +33,7 @@ $this->title = implode(' | ', [
     ) . "\n" ?>
   </p>
   <p>
-    <small><?= Html::encode(Yii::t('app', 'The estimation accuracy of the location is not so good.')) ?></small>
+    <small><?= Html::encode(Yii::t('app', 'The estimated location may be inaccurate.')) ?></small>
   </p>
   <p>
     <small><?= Html::encode(Yii::t('app', 'Login history will be deleted in {term}.', [

@@ -17,7 +17,7 @@ Schema
 |  1 | game-ver | `3.1.0` | ゲームバージョンを示します。<br>Indicates official game version. |
 |  2 | lobby-mode | `regular` | `regular`: レギュラーマッチ Regular battle<br>`gachi`: ガチマッチ Ranked battle<br>`fest`: フェスマッチ Splatfest |
 |  3 | lobby | `standard` | `standard`: ひとりプレー（野良） Solo Queue <br>`squad_2` `squad_4`: リーグマッチ/チームフェス League(Ranked)/Team(Splatfest)<br>`private`: プライベートマッチ Private battle |
-|  4 | mode | `nawabari` | `nawabari`: ナワバリバトル Turf War<br>`area`: ガチエリア Splat Zones<br>`yagura`: ガチヤグラ Tower Control<br>`hoko`: ガチホコバトル Raimaker<br>`asari`: ガチアサリ Clam Blitz |
+|  4 | mode | `nawabari` | `nawabari`: ナワバリバトル Turf War<br>`area`: ガチエリア Splat Zones<br>`yagura`: ガチヤグラ Tower Control<br>`hoko`: ガチホコバトル Rainmaker<br>`asari`: ガチアサリ Clam Blitz |
 |  5 | stage | `battera` | [ステージ Stage](https://stat.ink/api-info/stage2) |
 |  6 | time | `180` | 試合の長さ（秒）<br>Time length of the battle (seconds) |
 |  7 | win | `alpha` | `alpha`: Aチームが勝利した A team won<br>`bravo`: Bチームが勝利した B team won |

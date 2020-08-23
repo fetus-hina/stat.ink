@@ -15,8 +15,8 @@ $t = function (
 };
 
 echo implode("\n", [
-  $t('Here is email verification code.'),
-  $t('Please input this code to the browser. The code will be expired in {mins} minutes.', [
+  $t('Here is your email verification code.'),
+  $t('Please enter this code into the browser. The code will expire in {mins} minutes.', [
     'mins' => '60',
   ]),
   '',

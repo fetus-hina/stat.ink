@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 use app\actions\entire\KDWin2Action;
@@ -32,7 +33,10 @@ TableResponsiveForceAsset::register($this);
     <?= Html::encode($title) . "\n" ?>
   </h1>
   <p>
-    <?= Html::encode(Yii::t('app', 'This website has implemented support for color-blindness. Please check "Color-Blind Support" in the "User Name/Guest" menu of the navbar to enable it.')) . "\n" ?>
+    <?= Html::encode(Yii::t(
+      'app',
+      'This website has color-blind support. Please check "Color-Blind Support" in the "Username/Guest" menu of the navbar to enable it.'
+    )) . "\n" ?>
   </p>
   <?= AdWidget::widget() . "\n" ?>
   <?= SnsWidget::widget() . "\n" ?>

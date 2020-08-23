@@ -45,7 +45,7 @@ class XPowerHistory extends Widget
             Json::encode('#' . $this->id),
             Json::encode('#' . $this->id . '-legends'),
             Json::encode([
-                'estimate' => Yii::t('app', 'Estimate X Power'),
+                'estimate' => Yii::t('app', 'Estimated X Power'),
                 'lose' => Yii::t('app', 'Lose'),
                 'win' => Yii::t('app', 'Win'),
                 'xPower' => Yii::t('app', 'X Power'),

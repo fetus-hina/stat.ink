@@ -74,7 +74,7 @@ EntireWeaponsAsset::register($this);
   </p>
   <p>
     <?= Html::encode(
-      Yii::t('app', '* This exclusion is in attempt to minimize overcounting in weapon usage statistics.')
+      Yii::t('app', '* This exclusion is an attempt to minimize overcounting in weapon usage statistics.')
     ) . "\n" ?>
   </p>
 

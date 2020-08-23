@@ -60,7 +60,7 @@ class ImportFromSplatnet2 extends Alert
                     Yii::t(
                         'app-alert',
                         // phpcs:disable
-                        'We won\'t implement to import automatically to {appName} for security reasons.',
+                        'We won\'t implement automatic importing to {appName} for security reasons.',
                         // phpcs:enable
                         ['appName' => Yii::$app->name]
                     )

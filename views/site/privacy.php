@@ -30,8 +30,8 @@ $this->title = $title;
 <?php $list = [
   'Access time',
   'IP address',
-  'The address of the web site that linked here (aka "referer")',
-  'Your OS, browser name, and version that you are using (aka "user agent")',
+  'The address of the web site that linked here ("referer")',
+  'Your OS, browser name, and version that you are using ("user agent")',
 ] ?>
 <?php foreach ($list as $_) { ?>
     <?= Html::tag('li', Html::encode(Yii::t('app-privacy', $_))) . "\n" ?>
@@ -80,7 +80,7 @@ $this->title = $title;
           <td><?= Html::encode(Yii::t('app-cookie', '(Session)')) ?></td>
           <td>
             <ul>
-              <li><?= Html::encode(Yii::t('app-cookie', 'A token to avoid CSRF vulnerability')) ?></li>
+              <li><?= Html::encode(Yii::t('app-cookie', 'A token used to avoid CSRF vulnerability')) ?></li>
             </ul>
           </td>
         </tr>
@@ -148,7 +148,7 @@ $this->title = $title;
                 <?= Html::encode(Yii::t('app-cookie', 'Issued and used by CloudFlare')) ?><br>
                 <?= Yii::t(
                   'app-cookie',
-                  'Visit their {description} and/or {privacy} for get more details',
+                  'Visit their {description} and/or {privacy} for more details',
                   [
                       'description' => Html::a(
                           Html::encode(Yii::t('app-cookie', 'descriptions')),
@@ -248,6 +248,6 @@ $this->title = $title;
   </div>
 
   <h3><?= Html::encode(Yii::t('app-privacy', 'Law')) ?></h3>
-  <p><?= Html::encode(Yii::t('app-privacy', 'We governed by Japanese law.')) ?></p>
+  <p><?= Html::encode(Yii::t('app-privacy', 'We are governed by Japanese law.')) ?></p>
   <p><?= Html::encode(Yii::t('app-privacy', 'The parties hereby consent to and confer exclusive jurisdiction upon Osaka District Court or Hirakata Summary Court.')) ?></p>
 </div>

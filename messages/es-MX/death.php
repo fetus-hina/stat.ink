@@ -1,6 +1,7 @@
 <?php
+
 /**
- * @copyright Copyright (C) 2015-2019 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2020 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  * @author mntone <sd8@live.jp>
@@ -16,7 +17,7 @@ return [
     'Main Weapon' => 'Arma principal',
     'Out of Bounds' => 'Fuera de los Límites',
     'Rainmaker' => 'Pez dorado',
-    'Rainmaker Inksplode' => 'Burbuja del Pez dorado',
+    'Rainmaker Inksplosion' => 'Burbuja del Pez dorado',
     'Rainmaker Shield' => 'Burbuja del Pez dorado',
     'Rainmaker Shot' => 'Pez dorado',
     'Special' => 'Arma especial',

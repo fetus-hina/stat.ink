@@ -16,7 +16,7 @@ $t = function (
 };
 
 echo implode("\n", [
-  $t('There is a login on {site}.', ['site' => Yii::$app->name]),
+  $t('There was a new login on {site}.', ['site' => Yii::$app->name]),
   '',
   sprintf('%s %s', $t('IP Address:'), $req->userIP),
   sprintf('%s %s', $t('Rev. lookup:'), IPHelper::reverseLookup($req->userIP) ?: $t('(Failed)')),
