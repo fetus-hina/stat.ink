@@ -502,16 +502,16 @@
         },
         {
             "name": "jaybizzle/crawler-detect",
-            "version": "v1.2.97",
+            "version": "v1.2.98",
             "source": {
                 "type": "git",
                 "url": "https://github.com/JayBizzle/Crawler-Detect.git",
-                "reference": "6356ff2b4a534276d9b29f674cb59b97ba016f93"
+                "reference": "02b24e5d4dc347737577f48c688ee14c3b5dfd4f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/JayBizzle/Crawler-Detect/zipball/6356ff2b4a534276d9b29f674cb59b97ba016f93",
-                "reference": "6356ff2b4a534276d9b29f674cb59b97ba016f93",
+                "url": "https://api.github.com/repos/JayBizzle/Crawler-Detect/zipball/02b24e5d4dc347737577f48c688ee14c3b5dfd4f",
+                "reference": "02b24e5d4dc347737577f48c688ee14c3b5dfd4f",
                 "shasum": ""
             },
             "require": {
@@ -547,7 +547,7 @@
                 "crawlerdetect",
                 "php crawler detect"
             ],
-            "time": "2020-08-18T20:43:48+00:00"
+            "time": "2020-08-20T18:36:15+00:00"
         },
         {
             "name": "jp3cki/mb_str_replace",
@@ -3177,6 +3177,11 @@
                 "php": ">=5.2.0"
             },
             "type": "library",
+            "extra": {
+                "patches_applied": {
+                    "make static S3::setEndpoint": "data/patch/tpyo-s3-setendpoint-static.patch"
+                }
+            },
             "autoload": {
                 "classmap": [
                     "S3.php"
@@ -3194,12 +3199,7 @@
             ],
             "description": "A standalone Amazon S3 (REST) client for PHP 5.2.x using CURL that does not require PEAR.",
             "homepage": "https://github.com/tpyo/amazon-s3-php-class",
-            "time": "2015-04-27T06:12:39+00:00",
-            "extra": {
-                "patches_applied": {
-                    "make static S3::setEndpoint": "data/patch/tpyo-s3-setendpoint-static.patch"
-                }
-            }
+            "time": "2015-04-27T06:12:39+00:00"
         },
         {
             "name": "yiisoft/yii2",
@@ -4341,16 +4341,16 @@
         },
         {
             "name": "nikic/php-parser",
-            "version": "v4.8.0",
+            "version": "v4.9.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nikic/PHP-Parser.git",
-                "reference": "8c58eb4cd4f3883f82611abeac2efbc3dbed787e"
+                "reference": "aaee038b912e567780949787d5fe1977be11a778"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/8c58eb4cd4f3883f82611abeac2efbc3dbed787e",
-                "reference": "8c58eb4cd4f3883f82611abeac2efbc3dbed787e",
+                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/aaee038b912e567780949787d5fe1977be11a778",
+                "reference": "aaee038b912e567780949787d5fe1977be11a778",
                 "shasum": ""
             },
             "require": {
@@ -4358,7 +4358,7 @@
                 "php": ">=7.0"
             },
             "require-dev": {
-                "ircmaxell/php-yacc": "^0.0.6",
+                "ircmaxell/php-yacc": "^0.0.7",
                 "phpunit/phpunit": "^6.5 || ^7.0 || ^8.0 || ^9.0"
             },
             "bin": [
@@ -4367,7 +4367,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "4.8-dev"
+                    "dev-master": "4.9-dev"
                 }
             },
             "autoload": {
@@ -4389,7 +4389,7 @@
                 "parser",
                 "php"
             ],
-            "time": "2020-08-09T10:23:20+00:00"
+            "time": "2020-08-18T19:48:01+00:00"
         },
         {
             "name": "opis/closure",
@@ -4804,16 +4804,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "0.12.37",
+            "version": "0.12.38",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "5e16d83e6eb2dd784fbdaeaece5e2bca72e4f68a"
+                "reference": "ad606c5f1c641b465b739e79a3a0f1a5a57cf1b4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/5e16d83e6eb2dd784fbdaeaece5e2bca72e4f68a",
-                "reference": "5e16d83e6eb2dd784fbdaeaece5e2bca72e4f68a",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/ad606c5f1c641b465b739e79a3a0f1a5a57cf1b4",
+                "reference": "ad606c5f1c641b465b739e79a3a0f1a5a57cf1b4",
                 "shasum": ""
             },
             "require": {
@@ -4856,7 +4856,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-08-09T14:32:41+00:00"
+            "time": "2020-08-19T08:13:30+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
