@@ -57,7 +57,7 @@ POST データは全体で 12MiB 以内である必要があります。
 |`rank_exp_after`|整数(0～50)|S+, バトル終了時のウデマエの数字を指定します。|
 |`x_power`|Number(0.0～9999.9?)|X Power (before the battle)|
 |`x_power_after`|Number(0.0～9999.9?)|X Power (after the battle)|
-|`estimate_x_power`|Integer(0～)|Estimate X Power|
+|`estimate_x_power`|Integer(0～)|Estimated X Power|
 |`my_point`|整数(0～)|自分が塗ったポイントと勝利ボーナスを合計した数値を指定します。（画面に表示されるままのポイント）|
 |`estimate_gachi_power`|整数|推定ガチパワーを指定します。|
 |`league_point`|数値(e.g.1234.5)|リーグパワーを指定します。|

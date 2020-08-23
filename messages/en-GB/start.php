@@ -1,16 +1,16 @@
 <?php
+
 /**
- * @copyright Copyright (C) 2015-2019 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2020 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
+ * @author Starwort <tcphone93@gmail.com>
  */
 
 declare(strict_types=1);
 
 return [
     'Automatic (Recommended)' => '',
-    'How to collect your log' => 'How to collect your logs',
     'Manually' => '',
     'There are two ways. "Automatic" or "manually."' => '',
-    'This website collect your Splatoon logs, and analyze it.' => 'This website collects your Splatoon logs, and analyses them.',
 ];

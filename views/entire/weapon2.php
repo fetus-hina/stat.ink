@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 use app\assets\EntireWeapon2Asset;
@@ -279,10 +280,10 @@ $normalizedSeconds = ($rule->key == 'nawabari' ? 3 : 5) * 60;
   ?>
 <?php if ($rule->key !== 'nawabari') { ?>
   <p>
-    <?= Html::encode(Yii::t('app', 'These data were totaled after normalize to 5 minutes for each battle.')) . "\n" ?>
+    <?= Html::encode(Yii::t('app', 'This data was totaled after normalization to 5 minute intervals for each battle.')) . "\n" ?>
   </p>
   <p>
-    <?= Html::encode(Yii::t('app', 'Earlier Turf-Inked data are currently wrong. It will be fixed in the near future.')); ?>
+    <?= Html::encode(Yii::t('app', 'Earlier Turf-Inked data is currently wrong. It will be fixed in the near future.')); ?>
     <?= Html::a(
       Html::encode(Yii::t('app', 'Details')),
       'https://github.com/hymm/squid-tracks/issues/48'

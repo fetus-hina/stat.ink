@@ -52,7 +52,7 @@ $this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink']);
   <p><?= Html::encode(
     Yii::t(
       'app',
-      '* This exclusion is in attempt to minimize overcounting in weapon usage statistics.'
+      '* This exclusion is an attempt to minimize overcounting in weapon usage statistics.'
     )
   ) ?></p>
   

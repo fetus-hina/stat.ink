@@ -16,7 +16,7 @@ return [
     'Main Weapon' => 'Primärwaffe',
     'Out of Bounds' => 'Ausserhalb der Karte',
     'Rainmaker' => 'Goldfischkanone',
-    'Rainmaker Inksplode' => 'Explosion der Goldfischkanone',
+    'Rainmaker Inksplosion' => 'Explosion der Goldfischkanone',
     'Rainmaker Shield' => 'Barriere der Goldfischkanone',
     'Rainmaker Shot' => 'Schuss der Goldfischkanone',
     'Special' => 'Spezial',

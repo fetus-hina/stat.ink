@@ -160,7 +160,7 @@ $this->registerCss(implode('', [
         <strong style="color:#c9302c">
           <?= Html::encode(Yii::t('app', 'Please do not use this feature to destroy evidence.')) . "\n" ?>
         </strong>
-        <?= Html::encode(Yii::t('app', 'This action is provided for deleting a falsely-recognized battle.')) . "\n" ?>
+        <?= Html::encode(Yii::t('app', 'This option is provided for deleting an incorrectly-reported battle.')) . "\n" ?>
       </li>
       <li>
         <?= Html::encode(Yii::t('app', 'If you misuse this feature, you will be banned.')) . "\n" ?>

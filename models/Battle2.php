@@ -918,7 +918,7 @@ class Battle2 extends ActiveRecord
             'his_team_estimate_league_point' => Yii::t('app', 'Their team\'s league power'),
             'x_power' => Yii::t('app', 'X Power'),
             'x_power_after' => Yii::t('app', 'X Power (After the battle)'),
-            'estimate_x_power' => Yii::t('app', 'Estimate X Power'),
+            'estimate_x_power' => Yii::t('app', 'Estimated X Power'),
             'special_battle_id' => Yii::t('app', 'Special Battle'),
             'my_team_nickname_id' => Yii::t('app', 'My team\'s nickname'),
             'his_team_nickname_id' => Yii::t('app', 'Their team\'s nickname'),

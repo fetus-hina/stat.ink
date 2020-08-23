@@ -27,7 +27,7 @@ return [
     'SAKURA internet inc. is our sponsor.' => '',
     'Server Location' => '',
     'SNS' => '',
-    'The address of the web site that linked here (aka "referer")' => 'The address of the web site that linked here ("referrer")',
+    'The address of the web site that linked here ("referer")' => 'The address of the web site that linked here ("referrer")',
     'The parties hereby consent to and confer exclusive jurisdiction upon Osaka District Court or Hirakata Summary Court.' => '',
     'They never have access to your private data.' => '',
     'This behavior was started on 27 Oct 2015.' => 'This behaviour began on 27 Oct 2015.',
@@ -35,7 +35,7 @@ return [
     'This website ({0}) collects the following data:' => '',
     'This website uses cookies to track your session or save your configuration (e.g., language / time zone settings).' => '',
     'We don\'t release your collected information, like your IP address. However, statistical information will be released.' => '',
-    'We governed by Japanese law.' => 'We are governed by Japanese law.',
-    'Your OS, browser name, and version that you are using (aka "user agent")' => '',
+    'We are governed by Japanese law.' => 'We are governed by Japanese law.',
+    'Your OS, browser name, and version that you are using ("user agent")' => '',
     'Your uploaded data (battle stats, images, and modification history) will be shared with the IkaLog development team.' => '',
 ];

@@ -30,7 +30,7 @@ TableResponsiveForceAsset::register($this);
   <h1><?= Html::encode($title) ?></h1>
   <p><?= Html::encode(Yii::t(
     'app',
-    'This website has implemented support for color-blindness. Please check "Color-Blind Support" in the "User Name/Guest" menu of the navbar to enable it.'
+    'This website has color-blind support. Please check "Color-Blind Support" in the "Username/Guest" menu of the navbar to enable it.'
   )) ?></p>
 
   <?= AdWidget::widget() . "\n" ?>
