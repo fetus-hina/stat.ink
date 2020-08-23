@@ -1,9 +1,10 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2019 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2020 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
+ * @author Starwort <tcphone93@gmail.com>
  */
 
 declare(strict_types=1);
@@ -34,8 +35,8 @@ return [
     'This is done automatically and the data will not be deleted even if the the battle is deleted.' => '',
     'This website ({0}) collects the following data:' => '',
     'This website uses cookies to track your session or save your configuration (e.g., language / time zone settings).' => '',
-    'We don\'t release your collected information, like your IP address. However, statistical information will be released.' => '',
     'We are governed by Japanese law.' => 'We are governed by Japanese law.',
+    'We don\'t release your collected information, like your IP address. However, statistical information will be released.' => '',
     'Your OS, browser name, and version that you are using ("user agent")' => '',
     'Your uploaded data (battle stats, images, and modification history) will be shared with the IkaLog development team.' => '',
 ];
