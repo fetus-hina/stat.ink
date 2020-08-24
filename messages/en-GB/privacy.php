@@ -35,7 +35,7 @@ return [
     'This is done automatically and the data will not be deleted even if the the battle is deleted.' => '',
     'This website ({0}) collects the following data:' => '',
     'This website uses cookies to track your session or save your configuration (e.g., language / time zone settings).' => '',
-    'We are governed by Japanese law.' => 'We are governed by Japanese law.',
+    'We are governed by Japanese law.' => '',
     'We don\'t release your collected information, like your IP address. However, statistical information will be released.' => '',
     'Your OS, browser name, and version that you are using ("user agent")' => '',
     'Your uploaded data (battle stats, images, and modification history) will be shared with the IkaLog development team.' => '',
