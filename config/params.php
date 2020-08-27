@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 return [
@@ -7,6 +8,7 @@ return [
     'assetRevision' => @file_exists(__DIR__ . '/asset-revision.php')
         ? require(__DIR__ . '/asset-revision.php')
         : null,
+    'deepl' => null,
     'gitRevision' => @file_exists(__DIR__ . '/git-revision.php')
         ? require(__DIR__ . '/git-revision.php')
         : null,

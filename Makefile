@@ -151,6 +151,7 @@ SIMPLE_CONFIG_TARGETS := \
 	config/backup-gpg.php \
 	config/backup-s3.php \
 	config/debug-ips.php \
+	config/deepl.php \
 	config/google-adsense.php \
 	config/img-s3.php \
 	config/lepton.php \
@@ -545,6 +546,14 @@ config/debug-ips.php:
 	echo "    '127.0.0.1',"     >> config/debug-ips.php
 	echo "    '::1',"           >> config/debug-ips.php
 	echo '];'                   >> config/debug-ips.php
+
+config/deepl.php:
+	echo Creating $@
+	@echo '<?php' > $@
+	@echo '' >> $@
+	@echo 'declare(strict_types=1);' >> $@
+	@echo '' >> $@
+	@echo "return '';" >> $@
 
 config/lepton.php:
 	cp config/lepton.sample.php $@
