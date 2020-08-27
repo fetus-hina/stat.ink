@@ -129,6 +129,12 @@ class LanguageDialog extends Dialog
                     'class' => 'auto-tooltip',
                     'title' => 'Proper-noun only',
                 ]])->fw()->__toString();
+
+            case SupportLevel::MACHINE:
+                return FA::fas('robot', ['options' => [
+                    'class' => 'auto-tooltip',
+                    'title' => 'Machine-translated',
+                ]])->fw()->__toString();
         }
     }
 
@@ -164,6 +170,7 @@ class LanguageDialog extends Dialog
                         implode('<br>', [
                           FA::fas('exclamation-circle')->fw() . ' : Partically supported',
                           FA::fas('exclamation-triangle')->fw() . ' : Proper-noun only',
+                          FA::fas('robot')->fw() . ' : Almost machine-translated',
                         ]),
                         [
                             'class' => 'ml-auto',

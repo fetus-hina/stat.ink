@@ -40,7 +40,7 @@ class LanguageSupportLevelWarning extends Widget
 
         $needsRender = in_array(
             (int)$this->language->support_level_id,
-            [SupportLevel::PARTIAL, SupportLevel::FEW],
+            [SupportLevel::PARTIAL, SupportLevel::FEW, SupportLevel::MACHINE],
             true
         );
         if ($needsRender) {
@@ -64,7 +64,11 @@ class LanguageSupportLevelWarning extends Widget
                 ),
                 Html::tag(
                     'p',
-                    Html::encode('Only proper nouns (e.g., weapons, stages) translated.')
+                    Html::encode(
+                        ((int)$this->language->support_level_id === SupportLevel::MACHINE)
+                            ? 'Almost every text is machine translated.'
+                            : 'Only proper nouns (e.g., weapons, stages) translated.'
+                    )
                 ),
                 Html::tag(
                     'p',
@@ -75,6 +79,7 @@ class LanguageSupportLevelWarning extends Widget
                     )
                 ),
                 $this->renderMachineTranslate(),
+                $this->renderTraditionalChineseNotice(),
             ]),
         ]);
     }
@@ -131,6 +136,10 @@ class LanguageSupportLevelWarning extends Widget
 
     protected function renderMachineTranslateSwitch(bool $toEnable): string
     {
+        if (!$this->language || $this->language->lang === 'zh-CN') {
+            return '';
+        }
+
         LanguageDialogAsset::register($this->view);
 
         return Html::tag(
@@ -148,6 +157,22 @@ class LanguageSupportLevelWarning extends Widget
                 ],
                 'aria-role' => 'button',
             ]
+        );
+    }
+
+    private function renderTraditionalChineseNotice(): ?string
+    {
+        if (!$this->language || $this->language->lang !== 'zh-CN') {
+            return '';
+        }
+
+        return Html::tag(
+            'p',
+            Html::encode(
+                'We don\'t provide Traditional Chinese（繁体中文） ' .
+                'because DeepL is not supported at this time.'
+            ),
+            ['class' => 'text-muted small']
         );
     }
 }

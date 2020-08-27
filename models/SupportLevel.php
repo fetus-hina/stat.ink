@@ -21,10 +21,11 @@ use yii\db\ActiveRecord;
  */
 class SupportLevel extends ActiveRecord
 {
-    public const FULL    = 1;
-    public const ALMOST  = 2;
+    public const FULL = 1;
+    public const ALMOST = 2;
     public const PARTIAL = 3;
-    public const FEW     = 4;
+    public const FEW = 4;
+    public const MACHINE = 5;
 
     /**
      * @inheritdoc
