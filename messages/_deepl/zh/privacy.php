@@ -27,7 +27,7 @@ return [
     'SAKURA internet inc. is our sponsor.' => 'SAKURA internet inc.是我们的赞助商。',
     'Server Location' => '服务器位置',
     'SNS' => 'SNS',
-    'The address of the web site that linked here (\"referrer\" or \"referer\")' => '链接到这里的网站地址（\"推荐人\"或\"推荐人\"）。',
+    'The address of the web site that linked here ("referrer" or "referer")' => '链接到这里的网站地址（"推荐人"或"推荐人"）。',
     'The parties hereby consent to and confer exclusive jurisdiction upon Osaka District Court or Hirakata Summary Court.' => '当事人特此同意并赋予大阪地方法院或平方简易法院专属管辖权。',
     'They never have access to your private data.' => '他们永远不会接触到你的私人数据。',
     'This behavior was started on 27 Oct 2015.' => '这种行为始于2015年10月27日。',
@@ -36,6 +36,6 @@ return [
     'This website uses cookies to track your session or save your configuration (e.g., language / time zone settings).' => '本网站使用cookies来跟踪您的会话或保存您的配置（例如，语言/时区设置）。',
     'We are governed by Japanese law.' => '我们受日本法律管辖。',
     'We don\'t release your collected information, like your IP address. However, statistical information will be released.' => '我们不会公开您的IP地址等收集到的信息，但会公开统计信息。',
-    'Your OS, browser name, and version that you are using (\"user agent\")' => '您的操作系统、浏览器名称和您正在使用的版本（\"用户代理\"）。',
+    'Your OS, browser name, and version that you are using ("user agent")' => '您的操作系统、浏览器名称和您正在使用的版本（"用户代理"）。',
     'Your uploaded data (battle stats, images, and modification history) will be shared with the IkaLog development team.' => '您上传的数据（战斗统计、图像和修改历史）将与IkaLog开发团队共享。',
 ];

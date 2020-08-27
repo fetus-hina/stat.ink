@@ -11,5 +11,5 @@ declare(strict_types=1);
 return [
     'Automatic (Recommended)' => 'Автоматический (рекомендуемый)',
     'Manually' => 'Вручную',
-    'There are two ways. \"Automatic\" or \"manually.\"' => 'Есть два способа. \"Автоматический\" или \"ручной\".',
+    'There are two ways. "Automatic" or "manually."' => 'Есть два способа. "Автоматический" или "ручной".',
 ];

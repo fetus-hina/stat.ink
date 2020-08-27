@@ -23,7 +23,7 @@ return [
     'Please enter this code into the browser. The code will expire in {mins} minutes.' => 'Bitte geben Sie diesen Code in den Browser ein. Der Code läuft in {mins} wenigen Minuten ab.',
     'Rev. lookup:' => 'Rev. nachschlagen:',
     'Terminal:' => 'Terminal:',
-    'There was a new login on {site}.' => 'Es gab eine neue Anmeldung am {site} .',
+    'There was a new login on {site}.' => 'Es gab eine neue Anmeldung unter {site} .',
     'Twitter' => 'Twitter',
     'Verification Code:' => 'Verifizierungscode:',
     'Your email address has been changed.' => 'Ihre E-Mail-Adresse wurde geändert.',

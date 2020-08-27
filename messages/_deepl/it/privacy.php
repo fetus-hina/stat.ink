@@ -27,7 +27,7 @@ return [
     'SAKURA internet inc. is our sponsor.' => 'SAKURA internet inc. è il nostro sponsor.',
     'Server Location' => 'Posizione del server',
     'SNS' => 'SNS',
-    'The address of the web site that linked here (\"referrer\" or \"referer\")' => 'L\'indirizzo del sito web che si è collegato qui (\"referrer\" o \"referente\")',
+    'The address of the web site that linked here ("referrer" or "referer")' => 'L\'indirizzo del sito web che si è collegato qui ("referrer" o "referente")',
     'The parties hereby consent to and confer exclusive jurisdiction upon Osaka District Court or Hirakata Summary Court.' => 'Le parti acconsentono e conferiscono la giurisdizione esclusiva al tribunale distrettuale di Osaka o al tribunale di riassunto di Hirakata.',
     'They never have access to your private data.' => 'Non hanno mai accesso ai vostri dati privati.',
     'This behavior was started on 27 Oct 2015.' => 'Questo comportamento è iniziato il 27 ottobre 2015.',
@@ -36,6 +36,6 @@ return [
     'This website uses cookies to track your session or save your configuration (e.g., language / time zone settings).' => 'Questo sito web utilizza i cookie per tenere traccia della vostra sessione o salvare la vostra configurazione (ad esempio, le impostazioni di lingua / fuso orario).',
     'We are governed by Japanese law.' => 'Siamo governati dalla legge giapponese.',
     'We don\'t release your collected information, like your IP address. However, statistical information will be released.' => 'Non rilasciamo le informazioni raccolte, come l\'indirizzo IP, ma vengono rilasciate informazioni statistiche.',
-    'Your OS, browser name, and version that you are using (\"user agent\")' => 'Il vostro sistema operativo, il nome del browser e la versione che state utilizzando (\"user agent\")',
+    'Your OS, browser name, and version that you are using ("user agent")' => 'Il vostro sistema operativo, il nome del browser e la versione che state utilizzando ("user agent")',
     'Your uploaded data (battle stats, images, and modification history) will be shared with the IkaLog development team.' => 'I dati caricati (statistiche di battaglia, immagini e storia delle modifiche) saranno condivisi con il team di sviluppo IkaLog.',
 ];

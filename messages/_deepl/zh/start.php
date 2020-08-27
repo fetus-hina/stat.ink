@@ -11,5 +11,5 @@ declare(strict_types=1);
 return [
     'Automatic (Recommended)' => '自动（建议）',
     'Manually' => '手动',
-    'There are two ways. \"Automatic\" or \"manually.\"' => '有两种方式。\"自动\"或\"手动\"。',
+    'There are two ways. "Automatic" or "manually."' => '有两种方式。"自动"或"手动"。',
 ];

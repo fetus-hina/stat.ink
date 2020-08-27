@@ -11,5 +11,5 @@ declare(strict_types=1);
 return [
     'Automatic (Recommended)' => 'Automatique (recommandé)',
     'Manually' => 'Manuellement',
-    'There are two ways. \"Automatic\" or \"manually.\"' => 'Il y a deux possibilités : \"automatique\" ou \"manuelle\".',
+    'There are two ways. "Automatic" or "manually."' => 'Il y a deux possibilités : "automatique" ou "manuelle".',
 ];

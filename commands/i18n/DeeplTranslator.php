@@ -73,7 +73,9 @@ class DeeplTranslator extends Component
                 }
             );
 
-            natcasesort($englishTexts);
+            usort($englishTexts, function ($a, $b): int {
+                return strnatcasecmp($a, $b) ?: strcmp($a, $b);
+            });
             $englishTexts = array_values($englishTexts);
             $localizedTexts = array_map(
                 function (string $text): string {
@@ -95,6 +97,10 @@ class DeeplTranslator extends Component
             );
             $outputContents = array_combine($englishTexts, $localizedTexts);
 
+            $esc = function (string $text): string {
+                return str_replace(["\\", "'"], ["\\\\", "\\'"], $text);
+            };
+
             fwrite(STDERR, "Writing...\n");
             $fh = fopen($outputPath, 'wt');
             fwrite($fh, "<?php\n\n");
@@ -111,8 +117,8 @@ class DeeplTranslator extends Component
             fwrite($fh, "return [\n");
             foreach ($outputContents as $en => $localized) {
                 vfprintf($fh, "    '%s' => '%s',\n", [
-                    addslashes($en),
-                    addslashes($localized),
+                    $esc($en),
+                    $esc($localized),
                 ]);
             }
             fwrite($fh, "];\n");

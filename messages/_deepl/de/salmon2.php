@@ -21,7 +21,7 @@ return [
     'Boss Salmonids' => 'Chef-Salmoniden',
     'Clear %' => 'Löschen %',
     'Cleared' => 'Freigegeben',
-    'Clear rate of Salmon Run' => 'Klare Rate des Lachsdurchlaufs',
+    'Clear rate of Salmon Run' => 'Clear Rate des Lachsdurchlaufs',
     'Deaths' => 'Todesfälle',
     'Delivers' => 'Liefert',
     'Edit job #{jobNumber}' => 'Job bearbeiten # {jobNumber}',

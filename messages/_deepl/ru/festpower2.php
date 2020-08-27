@@ -9,7 +9,7 @@
 declare(strict_types=1);
 
 return [
-    '\"Mistaken\": On {date}, <a href=\"{url}\" class=\"alert-link\">Nintendo misconfigured the matching server and ran the fest.</a>' => '\"Ошибка\": {date} <a href=\" {url} \"Класс=\"тревожная ссылка\"&gt;Нинтендо неправильно настроила соответствующий сервер и запустила фестиваль.</a>',
+    '"Mistaken": On {date}, <a href="{url}" class="alert-link">Nintendo misconfigured the matching server and ran the fest.</a>' => '"Ошибка": {date} <a href=" {url} "Класс="тревожная ссылка"&gt;Нинтендо неправильно настроила соответствующий сервер и запустила фестиваль.</a>',
     'All' => 'Все',
     'Average' => 'Средний',
     'Battles' => 'Бои',
@@ -17,7 +17,7 @@ return [
     'Battles (mistaken)' => 'Сражения (ошибочные)',
     'Battles (normal)' => 'Бои (нормальные)',
     'Greater Win % (all)' => 'Большая победа % (все)',
-    'Greater Win % (mistaken)' => 'Большая победа % (ошибочно)',
+    'Greater Win % (mistaken)' => 'Больший выигрыш % (ошибочно)',
     'Greater Win % (normal)' => 'Больший выигрыш % (нормальный)',
     'Median' => 'Медиан',
     'Mistaken' => 'Ошибка',

@@ -27,7 +27,7 @@ return [
     'SAKURA internet inc. is our sponsor.' => 'SAKURA internet inc. is onze sponsor.',
     'Server Location' => 'Serverlocatie',
     'SNS' => 'SNS',
-    'The address of the web site that linked here (\"referrer\" or \"referer\")' => 'Het adres van de website die hier gelinkt is (\"referrer\" of \"verwijzer\")',
+    'The address of the web site that linked here ("referrer" or "referer")' => 'Het adres van de website die hier gelinkt is ("referrer" of "verwijzer")',
     'The parties hereby consent to and confer exclusive jurisdiction upon Osaka District Court or Hirakata Summary Court.' => 'De partijen stemmen in met en verlenen exclusieve bevoegdheid aan de districtsrechtbank van Osaka of de kortingsrechtbank van Hirakata.',
     'They never have access to your private data.' => 'Ze hebben nooit toegang tot uw privégegevens.',
     'This behavior was started on 27 Oct 2015.' => 'Dit gedrag is gestart op 27 oktober 2015.',
@@ -36,6 +36,6 @@ return [
     'This website uses cookies to track your session or save your configuration (e.g., language / time zone settings).' => 'Deze website gebruikt cookies om uw sessie bij te houden of uw configuratie op te slaan (bijv. taal/tijdzone-instellingen).',
     'We are governed by Japanese law.' => 'We zijn onderworpen aan de Japanse wet.',
     'We don\'t release your collected information, like your IP address. However, statistical information will be released.' => 'We geven uw verzamelde informatie niet vrij, zoals uw IP-adres. Statistische informatie wordt echter wel vrijgegeven.',
-    'Your OS, browser name, and version that you are using (\"user agent\")' => 'Uw besturingssysteem, browsernaam en versie die u gebruikt (\"user agent\")',
+    'Your OS, browser name, and version that you are using ("user agent")' => 'Uw besturingssysteem, browsernaam en versie die u gebruikt ("user agent")',
     'Your uploaded data (battle stats, images, and modification history) will be shared with the IkaLog development team.' => 'Uw geüploade gegevens (gevechtsstatistieken, afbeeldingen en wijzigingsgeschiedenis) worden gedeeld met het IkaLog-ontwikkelingsteam.',
 ];
