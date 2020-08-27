@@ -348,7 +348,7 @@ class DeeplTranslator extends Component
         return implode('', array_map(
             function ($token): string {
                 if (is_array($token)) {
-                    $parameter = '{' . implode('', $token) . '}';
+                    $parameter = '{' . implode(',', $token) . '}';
                     return sprintf(' <param data="%s"/> ', Base32::encode($parameter));
                 } else {
                     return $token;
