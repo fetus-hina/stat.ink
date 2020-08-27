@@ -493,7 +493,7 @@ return [
     'This option is provided for deleting an incorrectly-reported battle.' => '',
     'This twitter account has already been integrated with another user.' => '',
     'This website doesn\'t support Internet Explorer. Please use a modern browser, for example Chrome or Firefox.' => '',
-    'This website has color-blind support. Please check "Color-Blind Support" in the "Username/Guest" menu of the navbar to enable it.' => 'This website has implemented support for colour-blindness. Please check "Colour-Blind Support" in the "User Name/Guest" menu of the navbar to enable it.',
+    'This website has color-blind support. Please check "Color-Blind Support" in the "Username/Guest" menu of the navbar to enable it.' => 'This website has colour-blind support. Please check "Colour-Blind Support" in the "Username/Guest" menu of the navbar to enable it.',
     'This website is an open source project. It is under the MIT License. The source code is available on GitHub.' => 'This website is an open source project. It is under the MIT Licence. The source code is available on GitHub.',
     'This website is an UNOFFICIAL SERVICE. It is not related to the Splatoon development team or Nintendo.' => '',
     'This {attribute} is already in use.' => '',
