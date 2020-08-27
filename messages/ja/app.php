@@ -153,6 +153,7 @@ return [
     'Elapsed Time' => '試合時間',
     'Elapsed' => '時間',
     'Email' => 'Eメール',
+    'Enable machine-translation' => '機械翻訳を使用する',
     'Enable noise reduction (count)' => 'エリアのカウントにノイズ軽減を適用する',
     'Enable noise reduction (position of the objective)' => 'ヤグラ・ホコの位置のグラフにノイズ軽減を適用する',
     'Enabled' => '有効',

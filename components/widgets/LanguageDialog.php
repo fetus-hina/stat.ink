@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2019 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2020 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -134,19 +134,42 @@ class LanguageDialog extends Dialog
 
     private function createHintList(): array
     {
+        $enabledMachineTranslation = Yii::$app->isEnabledMachineTranslation;
+
         return [
             Html::tag(
                 'div',
-                Html::tag(
-                    'div',
-                    implode('<br>', [
-                      FA::fas('exclamation-circle')->fw() . ' : Partically supported',
-                      FA::fas('exclamation-triangle')->fw() . ' : Proper-noun only',
-                    ]),
-                    [
-                        'class' => 'ml-auto',
-                    ]
-                ),
+                implode('', [
+                    Html::tag(
+                        'a',
+                        implode(' ', [
+                            $enabledMachineTranslation
+                                ? FA::far('check-square')->fw()
+                                : FA::far('square')->fw(),
+                            Html::encode(Yii::t('app', 'Enable machine-translation')),
+                        ]),
+                        [
+                            'rel' => 'nofollow',
+                            'class' => [
+                                'language-change-machine-translation',
+                                'cursor-pointer',
+                            ],
+                            'data' => [
+                                'direction' => $enabledMachineTranslation ? 'disable' : 'enable',
+                            ],
+                        ]
+                    ),
+                    Html::tag(
+                        'div',
+                        implode('<br>', [
+                          FA::fas('exclamation-circle')->fw() . ' : Partically supported',
+                          FA::fas('exclamation-triangle')->fw() . ' : Proper-noun only',
+                        ]),
+                        [
+                            'class' => 'ml-auto',
+                        ]
+                    ),
+                ]),
                 [
                     'class' => [
                         'list-group-item',

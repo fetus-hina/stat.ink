@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2019 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2020 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -26,6 +26,7 @@ use app\actions\user\LoginAction;
 use app\actions\user\LoginHistoryAction;
 use app\actions\user\LoginWithTwitterAction;
 use app\actions\user\LogoutAction;
+use app\actions\user\MachineTranslationAction;
 use app\actions\user\ProfileAction;
 use app\actions\user\RegenerateApikeyAction;
 use app\actions\user\RegisterAction;
@@ -114,6 +115,7 @@ class UserController extends Controller
                     'edit-profile' => [ 'get', 'post' ],
                     'language' => [ 'post' ],
                     'login' => [ 'get', 'post' ],
+                    'machine-translation' => [ 'post' ],
                     'regenerate-apikey' => [ 'post' ],
                     'register' => [ 'get', 'post' ],
                     'slack-add' => [ 'get', 'post' ],
@@ -144,6 +146,7 @@ class UserController extends Controller
             'login-history' => [ 'class' => LoginHistoryAction::class ],
             'login-with-twitter' => [ 'class' => LoginWithTwitterAction::class ],
             'logout' => [ 'class' => LogoutAction::class ],
+            'machine-translation' => [ 'class' => MachineTranslationAction::class ],
             'profile' => [ 'class' => ProfileAction::class ],
             'regenerate-apikey' => [ 'class' => RegenerateApikeyAction::class ],
             'register' => [ 'class' => RegisterAction::class ],
