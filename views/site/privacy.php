@@ -30,7 +30,7 @@ $this->title = $title;
 <?php $list = [
   'Access time',
   'IP address',
-  'The address of the web site that linked here ("referer")',
+  'The address of the web site that linked here ("referrer" or "referer")',
   'Your OS, browser name, and version that you are using ("user agent")',
 ] ?>
 <?php foreach ($list as $_) { ?>

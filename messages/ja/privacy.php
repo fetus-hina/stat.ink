@@ -27,7 +27,7 @@ return [
     'SAKURA internet inc. is our sponsor.' => 'さくらインターネットはスポンサーで、このサイトのためにサーバを提供いただいています。',
     'SNS' => 'SNS',
     'Server Location' => 'サーバロケーション',
-    'The address of the web site that linked here ("referer")' => '訪問元サイトのURL（リファラ）',
+    'The address of the web site that linked here ("referrer" or "referer")' => '訪問元サイトのURL（リファラ）',
     'The parties hereby consent to and confer exclusive jurisdiction upon Osaka District Court or Hirakata Summary Court.' => '何か紛争が発生した場合は、大阪地方裁判所または枚方簡易裁判所を第一審の管轄とします。',
     'They never have access to your private data.' => 'さくらインターネット社は、あなたのデータへアクセスすることはできません。',
     'This behavior was started on 27 Oct 2015.' => 'この共有は2015-10-27に開始しました。',
