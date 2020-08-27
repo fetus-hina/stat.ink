@@ -32,6 +32,7 @@ return [
     'They never have access to your private data.' => 'Ze hebben nooit toegang tot uw privégegevens.',
     'This behavior was started on 27 Oct 2015.' => 'Dit gedrag is gestart op 27 oktober 2015.',
     'This is done automatically and the data will not be deleted even if the the battle is deleted.' => 'Dit gebeurt automatisch en de gegevens worden niet gewist, zelfs niet als het gevecht wordt gewist.',
+    'This website ({0}) collects the following data:' => 'Deze website ( {0} ) verzamelt de volgende gegevens:',
     'This website uses cookies to track your session or save your configuration (e.g., language / time zone settings).' => 'Deze website gebruikt cookies om uw sessie bij te houden of uw configuratie op te slaan (bijv. taal/tijdzone-instellingen).',
     'We are governed by Japanese law.' => 'We zijn onderworpen aan de Japanse wet.',
     'We don\'t release your collected information, like your IP address. However, statistical information will be released.' => 'We geven uw verzamelde informatie niet vrij, zoals uw IP-adres. Statistische informatie wordt echter wel vrijgegeven.',

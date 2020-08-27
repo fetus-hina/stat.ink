@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace app\commands\i18n;
 
+use Base32\Base32;
 use DirectoryIterator;
 use Exception;
 use Normalizer;
@@ -64,17 +65,34 @@ class DeeplTranslator extends Component
                 return false;
             }
 
-            $englishTexts = array_keys(include($japanesePath));
+            $englishTexts = array_filter(
+                array_keys(include($japanesePath)),
+                function (string $text): bool {
+                    // Ignore broken template
+                    return is_array(static::tokenizePattern($text));
+                }
+            );
 
-            // DeepL にパラメータがある文字列を渡すと悲劇を生むので、"{" を含むテキストは
-            // 除外する。 "{start}" を "{開始}" とか翻訳されても困る…
-            // ちゃんとやるには XML 要素に見えるように変換してやるのがいいのだと思われる…
-            $englishTexts = array_filter($englishTexts, function (string $text): bool {
-                return strpos($text, '{') === false;
-            });
             natcasesort($englishTexts);
             $englishTexts = array_values($englishTexts);
-            $localizedTexts = $this->translate($lang, $englishTexts);
+            $localizedTexts = array_map(
+                function (string $text): string {
+                    return static::xml2template($text);
+                },
+                $this->translate(
+                    $lang,
+                    array_map(
+                        // DeepL にパラメータがある文字列を渡すと悲劇を生むので、"{" を含むテキストは
+                        // テンプレート部分を XML の要素に押し込める
+                        // 当該部分は翻訳されないことになるが、 "{start}" が "{開始}" とかに変換される
+                        // 最悪の事態は避けられるし、不自然に翻訳が適用されない箇所も減らせるハズ
+                        function (string $text): string {
+                            return static::template2xml($text) ?? '';
+                        },
+                        $englishTexts
+                    )
+                )
+            );
             $outputContents = array_combine($englishTexts, $localizedTexts);
 
             fwrite(STDERR, "Writing...\n");
@@ -308,5 +326,90 @@ class DeeplTranslator extends Component
         }
 
         return $resp->getData();
+    }
+
+    private static function template2xml(string $text): ?string
+    {
+        if (strpos($text, '{') === false) {
+            return $text;
+        }
+
+        $tokens = static::tokenizePattern($text);
+        if ($tokens === false) {
+            return null;
+        }
+
+        return implode('', array_map(
+            function ($token): string {
+                if (is_array($token)) {
+                    $parameter = '{' . implode('', $token) . '}';
+                    return sprintf(' <param data="%s"/> ', Base32::encode($parameter));
+                } else {
+                    return $token;
+                }
+            },
+            $tokens
+        ));
+    }
+
+    private static function xml2template(string $text): string
+    {
+        $text = preg_replace_callback(
+            '#<param data="([2-7A-Za-z]+=*)"\s*/>#',
+            function (array $match): string {
+                return ' ' . Base32::decode($match[1]) . ' ';
+            },
+            $text
+        );
+        $text = preg_replace('/\x20{2,}/', ' ', $text);
+        return trim($text);
+    }
+
+    // Copied from MessageFormatter
+    // Copyright (C) Copyright (c) 2008 Yii Software LLC
+    private static function tokenizePattern($pattern)
+    {
+        $charset = Yii::$app ? Yii::$app->charset : 'UTF-8';
+        $depth = 1;
+        if (($start = $pos = mb_strpos($pattern, '{', 0, $charset)) === false) {
+            return [$pattern];
+        }
+        $tokens = [mb_substr($pattern, 0, $pos, $charset)];
+        while (true) {
+            $open = mb_strpos($pattern, '{', $pos + 1, $charset);
+            $close = mb_strpos($pattern, '}', $pos + 1, $charset);
+            if ($open === false && $close === false) {
+                break;
+            }
+            if ($open === false) {
+                $open = mb_strlen($pattern, $charset);
+            }
+            if ($close > $open) {
+                $depth++;
+                $pos = $open;
+            } else {
+                $depth--;
+                $pos = $close;
+            }
+            if ($depth === 0) {
+                $tokens[] = explode(
+                    ',',
+                    mb_substr($pattern, $start + 1, $pos - $start - 1, $charset),
+                    3
+                );
+                $start = $pos + 1;
+                $tokens[] = mb_substr($pattern, $start, $open - $start, $charset);
+                $start = $open;
+            }
+
+            if ($depth !== 0 && ($open === false || $close === false)) {
+                break;
+            }
+        }
+        if ($depth !== 0) {
+            return false;
+        }
+
+        return $tokens;
     }
 }

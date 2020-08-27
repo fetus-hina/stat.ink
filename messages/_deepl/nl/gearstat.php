@@ -25,7 +25,7 @@ return [
     'Ink Usage(Main)' => 'Inktgebruik (Hoofd)',
     'Ink Usage(Sub)' => 'Inktgebruik (Sub)',
     'Jump' => 'Ga naar',
-    'Prepare' => 'Bereid  voor.',
+    'Prepare' => 'Bereid voor.',
     'Respawn' => 'Respawn',
     'Run Speed' => 'Snelheid',
     'Special Charge' => 'Speciale kosten',

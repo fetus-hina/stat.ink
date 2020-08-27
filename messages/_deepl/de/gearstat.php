@@ -25,7 +25,7 @@ return [
     'Ink Usage(Main)' => 'Tintenverbrauch(Main)',
     'Ink Usage(Sub)' => 'Tintenverbrauch(Sub)',
     'Jump' => 'Springen',
-    'Prepare' => 'Bereiten Sie  vor.',
+    'Prepare' => 'Bereiten Sie vor.',
     'Respawn' => 'Respawn',
     'Run Speed' => 'Laufgeschwindigkeit',
     'Special Charge' => 'Sondergebühr',

@@ -131,7 +131,7 @@ return [
     'Mexico (Pacific)' => 'Mexico (Pacific)',
     'Mexico (Sonora)' => 'Mexico (Sonora)',
     'Micronesia' => 'Micronesië',
-    'Midway Island' => 'Midway-eiland',
+    'Midway Island' => 'Middenweg eiland',
     'Mongolia' => 'Mongolië',
     'Mongolia (West)' => 'Mongolië (West)',
     'Morocco' => 'Marokko',

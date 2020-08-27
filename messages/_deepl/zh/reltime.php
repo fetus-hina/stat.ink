@@ -10,4 +10,10 @@ declare(strict_types=1);
 
 return [
     'now' => '现在',
+    '{delta} d' => '{delta} d',
+    '{delta} h' => '{delta} h',
+    '{delta} m' => '{delta} m',
+    '{delta} mo' => '{delta} 莫',
+    '{delta} s' => '{delta} s',
+    '{delta} yr' => '{delta} 年',
 ];

@@ -29,6 +29,6 @@ return [
     'Splatfest JP #12' => 'Splatfest JP #12',
     'Splatfest JP #13' => 'Splatfest JP #13',
     'Splatfest JP #15' => 'Splatfest JP #15',
-    'Tri-Slosher Nouveau' => '新式三层发泡机(Tri-Slosher Nouveau)',
+    'Tri-Slosher Nouveau' => '新式三层发泡机',
     'Zink Mini Splatling' => '鋅合金迷你鐵釘',
 ];
