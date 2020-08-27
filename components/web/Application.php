@@ -14,6 +14,9 @@ use IntlDateFormatter;
 use Yii;
 use app\components\helpers\UserLanguage;
 use app\components\helpers\UserTimeZone;
+use app\components\i18n\MachineTranslateHelper;
+use yii\i18n\MessageSource;
+use yii\i18n\MissingTranslationEvent;
 use yii\web\Application as Base;
 use yii\web\Cookie;
 
@@ -29,6 +32,32 @@ class Application extends Base
         parent::init();
         $this->initLanguage();
         $this->initTimezone();
+
+        if ($this->getIsEnabledMachineTranslation()) {
+            $lang = substr(Yii::$app->language, 0, 2);
+            if ($lang !== 'ja' && $lang !== 'en') {
+                $i18n = Yii::$app->i18n;
+
+                foreach ($i18n->translations as $category => $msgSource) {
+                    $handler = function (MissingTranslationEvent $event): void {
+                        $result = MachineTranslateHelper::translate(
+                            $event->category,
+                            $event->message,
+                            $event->language
+                        );
+                        if (is_string($result)) {
+                            $event->translatedMessage = $result;
+                        }
+                    };
+
+                    if (is_array($msgSource)) {
+                        $i18n->translations[$category]['on missingTranslation'] = $handler;
+                    } else {
+                        $msgSource->on(MessageSource::EVENT_MISSING_TRANSLATION, $handler);
+                    }
+                }
+            }
+        }
     }
 
     public function setLocale(string $locale): self
