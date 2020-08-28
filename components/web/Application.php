@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2020 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -14,11 +14,16 @@ use IntlDateFormatter;
 use Yii;
 use app\components\helpers\UserLanguage;
 use app\components\helpers\UserTimeZone;
+use app\components\i18n\MachineTranslateHelper;
+use yii\i18n\MessageSource;
+use yii\i18n\MissingTranslationEvent;
 use yii\web\Application as Base;
 use yii\web\Cookie;
 
 class Application extends Base
 {
+    public const COOKIE_MACHINE_TRANSLATION = 'language-machine-translation';
+
     private $locale = null;
     private $region = 'jp';
 
@@ -27,6 +32,32 @@ class Application extends Base
         parent::init();
         $this->initLanguage();
         $this->initTimezone();
+
+        if ($this->getIsEnabledMachineTranslation()) {
+            $lang = substr(Yii::$app->language, 0, 2);
+            if ($lang !== 'ja' && $lang !== 'en') {
+                $i18n = Yii::$app->i18n;
+
+                foreach ($i18n->translations as $category => $msgSource) {
+                    $handler = function (MissingTranslationEvent $event): void {
+                        $result = MachineTranslateHelper::translate(
+                            $event->category,
+                            $event->message,
+                            $event->language
+                        );
+                        if (is_string($result)) {
+                            $event->translatedMessage = $result;
+                        }
+                    };
+
+                    if (is_array($msgSource)) {
+                        $i18n->translations[$category]['on missingTranslation'] = $handler;
+                    } else {
+                        $msgSource->on(MessageSource::EVENT_MISSING_TRANSLATION, $handler);
+                    }
+                }
+            }
+        }
     }
 
     public function setLocale(string $locale): self
@@ -138,5 +169,34 @@ class Application extends Base
             'decimal' => '.',
             'thousand' => ',',
         ];
+    }
+
+    private $isEnabledMT = null;
+
+    public function setEnabledMachineTranslation(bool $enabled): void
+    {
+        $this->isEnabledMT = $enabled;
+
+        $this->response->cookies->add(
+            new Cookie([
+                'name' => static::COOKIE_MACHINE_TRANSLATION,
+                'value' => $enabled ? 'enabled' : 'disabled',
+                'expire' => time() + 86400 * 366,
+            ])
+        );
+    }
+
+    public function getIsEnabledMachineTranslation(bool $defaultValue = true): bool
+    {
+        if ($this->isEnabledMT === null) {
+            $cookie = Yii::$app->request->cookies->get(static::COOKIE_MACHINE_TRANSLATION);
+            if (!$cookie) {
+                $this->isEnabledMT = $defaultValue;
+            } else {
+                $this->isEnabledMT = $cookie->value === 'enabled';
+            }
+        }
+
+        return $this->isEnabledMT;
     }
 }

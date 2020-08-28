@@ -18,6 +18,14 @@
         font-size: @font-size-small;
         color: @bgColor;
         background-color: @textColor;
+
+        a {
+          &, &:hover, &.hover {
+            color: @bgColor;
+            background-color: @textColor;
+            text-decoration: none;
+          }
+        }
       }
     }
   }

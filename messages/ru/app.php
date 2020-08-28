@@ -156,6 +156,7 @@ return [
     'Elapsed Time (seconds)' => '',
     'Email' => '',
     'Enabled' => '',
+    'Enable machine-translation' => '',
     'Enable noise reduction (count)' => '',
     'Enable noise reduction (position of the objective)' => '',
     'Encounter Ratio' => '',

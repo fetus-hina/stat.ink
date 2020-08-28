@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2019 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2020 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -11,6 +11,7 @@ declare(strict_types=1);
 namespace app\components\widgets\alerts;
 
 use Yii;
+use app\assets\LanguageDialogAsset;
 use app\components\widgets\Alert;
 use app\components\widgets\FA;
 use app\components\widgets\FlagIcon;
@@ -39,7 +40,7 @@ class LanguageSupportLevelWarning extends Widget
 
         $needsRender = in_array(
             (int)$this->language->support_level_id,
-            [SupportLevel::PARTIAL, SupportLevel::FEW],
+            [SupportLevel::PARTIAL, SupportLevel::FEW, SupportLevel::MACHINE],
             true
         );
         if ($needsRender) {
@@ -63,7 +64,11 @@ class LanguageSupportLevelWarning extends Widget
                 ),
                 Html::tag(
                     'p',
-                    Html::encode('Only proper nouns translated. (e.g. weapons, stages)')
+                    Html::encode(
+                        ((int)$this->language->support_level_id === SupportLevel::MACHINE)
+                            ? 'Almost every text is machine translated.'
+                            : 'Only proper nouns (e.g., weapons, stages) translated.'
+                    )
                 ),
                 Html::tag(
                     'p',
@@ -73,6 +78,8 @@ class LanguageSupportLevelWarning extends Widget
                         ['class' => 'alert-link']
                     )
                 ),
+                $this->renderMachineTranslate(),
+                $this->renderTraditionalChineseNotice(),
             ]),
         ]);
     }
@@ -106,5 +113,66 @@ class LanguageSupportLevelWarning extends Widget
                 ]
             ),
         ]));
+    }
+
+    protected function renderMachineTranslate(): string
+    {
+        if (!$this->language) {
+            return '';
+        }
+
+        if (Yii::$app->isEnabledMachineTranslation) {
+            return Html::tag('p', implode(' ', [
+                Html::encode('Currently displayed using machine translation (Powered by DeepL).'),
+                $this->renderMachineTranslateSwitch(false),
+            ]));
+        } else {
+            return Html::tag('p', implode(' ', [
+                Html::encode('The machine translation option is currently disabled.'),
+                $this->renderMachineTranslateSwitch(true),
+            ]));
+        }
+    }
+
+    protected function renderMachineTranslateSwitch(bool $toEnable): string
+    {
+        if (!$this->language || $this->language->lang === 'zh-CN') {
+            return '';
+        }
+
+        LanguageDialogAsset::register($this->view);
+
+        return Html::tag(
+            'a',
+            Html::encode($toEnable ? 'Enable machine-translation' : 'Disable machine-translation'),
+            [
+                'class' => [
+                    'btn',
+                    'btn-default',
+                    'btn-xs',
+                    'language-change-machine-translation',
+                ],
+                'data' => [
+                    'direction' => $toEnable ? 'enable' : 'disable',
+                ],
+                'aria-role' => 'button',
+            ]
+        );
+    }
+
+    private function renderTraditionalChineseNotice(): ?string
+    {
+        if (!$this->language || $this->language->lang !== 'zh-CN') {
+            return '';
+        }
+
+        return Html::tag(
+            'p',
+            Html::encode(
+                'We don\'t provide Traditional Chinese（繁体中文） ' .
+                'because DeepL is not supported at this time.'
+            ),
+            ['class' => 'text-muted small']
+        );
     }
 }

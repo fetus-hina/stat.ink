@@ -17,6 +17,7 @@
 /config/cookie-secret.php
 /config/db.php
 /config/debug-ips.php
+/config/deepl.php
 /config/git-revision.php
 /config/google-adsense.php
 /config/google-analytics.php

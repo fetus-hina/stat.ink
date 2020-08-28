@@ -27,7 +27,7 @@ return [
     'SAKURA internet inc. is our sponsor.' => '',
     'Server Location' => '',
     'SNS' => '',
-    'The address of the web site that linked here ("referer")' => '',
+    'The address of the web site that linked here ("referrer" or "referer")' => '',
     'The parties hereby consent to and confer exclusive jurisdiction upon Osaka District Court or Hirakata Summary Court.' => '',
     'They never have access to your private data.' => '',
     'This behavior was started on 27 Oct 2015.' => '',

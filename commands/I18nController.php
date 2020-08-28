@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2017 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2020 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -199,5 +199,11 @@ class I18nController extends Controller
         natcasesort($list);
         return $list;
         // }}}
+    }
+
+    public function actionMachineTranslation(): int
+    {
+        $model = Yii::createObject(['class' => i18n\DeeplTranslator::class]);
+        return $model->run() ? 0 : 1;
     }
 }

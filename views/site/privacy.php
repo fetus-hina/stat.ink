@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use app\components\web\Application;
 use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
 use app\models\UserAuthKey;
@@ -30,7 +31,7 @@ $this->title = $title;
 <?php $list = [
   'Access time',
   'IP address',
-  'The address of the web site that linked here ("referer")',
+  'The address of the web site that linked here ("referrer" or "referer")',
   'Your OS, browser name, and version that you are using ("user agent")',
 ] ?>
 <?php foreach ($list as $_) { ?>
@@ -104,6 +105,16 @@ $this->title = $title;
           <td>
             <ul>
               <li><?= Html::encode(Yii::t('app-cookie', 'Saving the specified or automatically detected language setting')) ?></li>
+            </ul>
+          </td>
+        </tr>
+        <tr>
+          <td><?= Html::encode($myOrigin) ?></td>
+          <td><code><?= Html::encode(Application::COOKIE_MACHINE_TRANSLATION) ?></code></td>
+          <td><?= Html::encode(Yii::$app->formatter->asDuration(86400 * 366, ' ')) ?></td>
+          <td>
+            <ul>
+              <li><?= Html::encode(Yii::t('app-cookie', 'Saving "Enable machine-translation" option state')) ?></li>
             </ul>
           </td>
         </tr>

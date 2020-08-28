@@ -23,6 +23,7 @@ return [
     'Keep your input data while verifying email address' => 'メールアドレス確認中の入力の保持',
     'Origin' => 'オリジン',
     'Privacy policy' => 'プライバシーポリシー',
+    'Saving "Enable machine-translation" option state' => '「機械翻訳を使用」設定の保持',
     'Saving the specified or automatically detected language setting' => '指定された、または、自動検出された言語設定の保持',
     'Saving the specified or automatically detected time zone setting' => '指定された、または、自動検出されたタイムゾーン設定の保持',
     'Saving the specified or default theme (color scheme) setting' => '指定された、または、デフォルトのテーマ（カラースキーム）設定の保持',
