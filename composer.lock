@@ -3187,11 +3187,6 @@
                 "php": ">=5.2.0"
             },
             "type": "library",
-            "extra": {
-                "patches_applied": {
-                    "make static S3::setEndpoint": "data/patch/tpyo-s3-setendpoint-static.patch"
-                }
-            },
             "autoload": {
                 "classmap": [
                     "S3.php"
@@ -3209,7 +3204,12 @@
             ],
             "description": "A standalone Amazon S3 (REST) client for PHP 5.2.x using CURL that does not require PEAR.",
             "homepage": "https://github.com/tpyo/amazon-s3-php-class",
-            "time": "2015-04-27T06:12:39+00:00"
+            "time": "2015-04-27T06:12:39+00:00",
+            "extra": {
+                "patches_applied": {
+                    "make static S3::setEndpoint": "data/patch/tpyo-s3-setendpoint-static.patch"
+                }
+            }
         },
         {
             "name": "yiisoft/yii2",
@@ -4097,16 +4097,16 @@
         },
         {
             "name": "codeception/specify",
-            "version": "1.3.0",
+            "version": "1.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Codeception/Specify.git",
-                "reference": "fe4825cee9b608f9c97442d84168e3df0e18b73e"
+                "reference": "17ae6d4d6cb201ef5461f6587ecfcff8c177f854"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/Specify/zipball/fe4825cee9b608f9c97442d84168e3df0e18b73e",
-                "reference": "fe4825cee9b608f9c97442d84168e3df0e18b73e",
+                "url": "https://api.github.com/repos/Codeception/Specify/zipball/17ae6d4d6cb201ef5461f6587ecfcff8c177f854",
+                "reference": "17ae6d4d6cb201ef5461f6587ecfcff8c177f854",
                 "shasum": ""
             },
             "require": {
@@ -4128,10 +4128,14 @@
                 {
                     "name": "Michael Bodnarchuk",
                     "email": "davert@codeception.com"
+                },
+                {
+                    "name": "Gustavo Nieves",
+                    "homepage": "https://medium.com/@ganieves"
                 }
             ],
             "description": "BDD code blocks for PHPUnit and Codeception",
-            "time": "2020-02-15T21:44:39+00:00"
+            "time": "2020-08-27T20:17:29+00:00"
         },
         {
             "name": "codeception/stub",
