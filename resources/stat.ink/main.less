@@ -1,7 +1,7 @@
 @charset "UTF-8";
 @import (reference) "../../node_modules/bootstrap/less/variables.less";
 
-/*! Copyright (C) 2015-2019 AIZAWA Hina | MIT License */
+/*! Copyright (C) 2015-2020 AIZAWA Hina | MIT License */
 
 @goldenRatio: 1.61803398875;
 
@@ -16,8 +16,24 @@ body {
   font-family: @fontFamily, sans-serif;
 }
 
-html[lang^="ja-"] body {
-  font-family: "Noto Sans JP", @fontFamily, sans-serif;
+html {
+  &[lang^="ja-"] {
+    body {
+      font-family: "Noto Sans JP", @fontFamily, sans-serif;
+    }
+  }
+
+  &[lang^="zh-CN"], &[lang^="zh-"][lang*="Hans"] {
+    body {
+      font-family: "Noto Sans SC", @fontFamily, sans-serif;
+    }
+  }
+
+  &[lang^="zh-TW"], &[lang^="zh-"][lang*="Hant"] {
+    body {
+      font-family: "Noto Sans ST", @fontFamily, sans-serif;
+    }
+  }
 }
 
 .navbar {

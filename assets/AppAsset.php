@@ -44,11 +44,25 @@ class AppAsset extends AssetBundle
     {
         parent::init();
 
-        if (
-            substr(Yii::$app->language, 0, 3) === 'ja-' &&
-            !static::isMobileAccess()
-        ) {
-            $this->depends[] = NotoSansJPAsset::class;
+        if (!static::isMobileAccess()) {
+            $lang = substr(Yii::$app->language, 0, 3);
+            switch ($lang) {
+                case 'ja-':
+                    $this->depends[] = NotoSansJPAsset::class;
+                    break;
+
+                case 'zh-':
+                    if (
+                        Yii::$app->language === 'zh-TW' ||
+                        Yii::$app->language === 'zh-HK' ||
+                        strpos(Yii::$app->language, 'Hant') !== false // e.g., zh-cmn-Hant
+                    ) {
+                        $this->depends[] = NotoSansTCAsset::class;
+                    } else {
+                        $this->depends[] = NotoSansSCAsset::class;
+                    }
+                    break;
+            }
         }
     }
 
