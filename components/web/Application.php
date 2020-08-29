@@ -40,6 +40,14 @@ class Application extends Base
 
                 foreach ($i18n->translations as $category => $msgSource) {
                     $handler = function (MissingTranslationEvent $event): void {
+                        if (
+                            $event->category === null ||
+                            $event->message === null ||
+                            $event->language === null
+                        ) {
+                            return;
+                        }
+
                         $result = MachineTranslateHelper::translate(
                             $event->category,
                             $event->message,

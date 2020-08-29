@@ -79,7 +79,6 @@ class LanguageSupportLevelWarning extends Widget
                     )
                 ),
                 $this->renderMachineTranslate(),
-                $this->renderTraditionalChineseNotice(),
             ]),
         ]);
     }
@@ -136,7 +135,7 @@ class LanguageSupportLevelWarning extends Widget
 
     protected function renderMachineTranslateSwitch(bool $toEnable): string
     {
-        if (!$this->language || $this->language->lang === 'zh-CN') {
+        if (!$this->language) {
             return '';
         }
 
@@ -157,22 +156,6 @@ class LanguageSupportLevelWarning extends Widget
                 ],
                 'aria-role' => 'button',
             ]
-        );
-    }
-
-    private function renderTraditionalChineseNotice(): ?string
-    {
-        if (!$this->language || $this->language->lang !== 'zh-CN') {
-            return '';
-        }
-
-        return Html::tag(
-            'p',
-            Html::encode(
-                'We don\'t provide Traditional Chinese（繁体中文） ' .
-                'because DeepL is not supported at this time.'
-            ),
-            ['class' => 'text-muted small']
         );
     }
 }

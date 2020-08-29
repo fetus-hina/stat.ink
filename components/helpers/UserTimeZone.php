@@ -88,6 +88,8 @@ class UserTimeZone
                 'ja*'   => 'Asia/Tokyo',
                 'nl*'   => 'Europe/Paris',
                 'ru*'   => 'Europe/Moscow',
+                'zh-TW' => 'Asia/Taipei',
+                'zh*'   => 'Asia/Shanghai',
             ];
 
             $wildcardOptions = [

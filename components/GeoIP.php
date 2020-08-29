@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2018 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2020 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -74,7 +74,7 @@ class GeoIP extends Component
             case 'zh':
                 return ($appLang === 'zh-CN')
                     ? 'zh-CN'
-                    : 'en'; // which is usual? : zh-CN or en
+                    : 'zh-TW';
 
             case 'pt':
                 return 'pt-BR';
