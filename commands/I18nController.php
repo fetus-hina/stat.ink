@@ -203,7 +203,13 @@ class I18nController extends Controller
 
     public function actionMachineTranslation(): int
     {
-        $model = Yii::createObject(['class' => i18n\DeeplTranslator::class]);
-        return $model->run() ? 0 : 1;
+        $result = 0;
+        $deepl = Yii::createObject(['class' => i18n\DeeplTranslator::class]);
+        $result |= $deepl->run() ? 0 : 1;
+
+        $opencc = Yii::createObject(['class' => i18n\OpenCCTranslator::class]);
+        $result |= $opencc->run() ? 0 : 1;
+
+        return $result;
     }
 }

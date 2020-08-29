@@ -1,6 +1,7 @@
 <?php
+
 /**
- * @copyright Copyright (C) 2015-2019 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2020 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  * @author TheJanzap <jannis.tschan@gmail.com>
@@ -9,11 +10,6 @@
 declare(strict_types=1);
 
 return [
-    ':pct% loss' => ':pct% Verlust',
-    ':p p (:pct%)' => ':p p (:pct%)',
-    ':sec seconds' => ':sec Sekunden',
-    ':sec seconds (:pct%)' => ':sec Sekunden (:pct%)',
-    ':sec seconds (:pct%), :count times' => ':sec Sekunden (:pct%), :count times',
     'Ascent' => 'Anstieg',
     'Bomb Throw' => 'Bombenwurf',
     'Damage' => 'Schaden',

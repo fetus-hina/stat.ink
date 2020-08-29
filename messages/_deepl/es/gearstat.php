@@ -9,11 +9,6 @@
 declare(strict_types=1);
 
 return [
-    ':pct% loss' => ':pct% de pérdida',
-    ':p p (:pct%)' => ':p p (:pct%)',
-    ':sec seconds' => ':sec segundos',
-    ':sec seconds (:pct%)' => ':sec segundos (:pct%)',
-    ':sec seconds (:pct%), :count times' => ':segundos de segundos (:pct%), :tiempos de conteo',
     'Ascent' => 'Ascenso',
     'Bomb Throw' => 'Lanzamiento de la bomba',
     'Damage' => 'Daños',

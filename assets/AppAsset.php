@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2019 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2020 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -22,6 +22,7 @@ class AppAsset extends AssetBundle
     public $sourcePath = '@app/resources/.compiled/stat.ink';
     public $css = [
         'main.css',
+        'font.css',
         'flot-support.css',
     ];
     public $depends = [
@@ -44,11 +45,28 @@ class AppAsset extends AssetBundle
     {
         parent::init();
 
-        if (
-            substr(Yii::$app->language, 0, 3) === 'ja-' &&
-            !static::isMobileAccess()
-        ) {
-            $this->depends[] = NotoSansJPAsset::class;
+        if (!static::isMobileAccess()) {
+            $lang = substr(Yii::$app->language, 0, 3);
+            switch ($lang) {
+                case 'ja-':
+                    $this->depends[] = NotoSansJPAsset::class;
+                    $this->css[] = 'font-ja.css';
+                    break;
+
+                case 'zh-':
+                    $this->depends[] = NotoSansSCAsset::class;
+                    $this->depends[] = NotoSansTCAsset::class;
+                    if (
+                        Yii::$app->language === 'zh-TW' ||
+                        Yii::$app->language === 'zh-HK' ||
+                        strpos(Yii::$app->language, 'Hant') !== false // e.g., zh-cmn-Hant
+                    ) {
+                        $this->css[] = 'font-zh-hant.css';
+                    } else {
+                        $this->css[] = 'font-zh-hans.css';
+                    }
+                    break;
+            }
         }
     }
 

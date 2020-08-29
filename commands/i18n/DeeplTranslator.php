@@ -106,7 +106,7 @@ class DeeplTranslator extends Component
             fwrite($fh, "<?php\n\n");
             fwrite($fh, "/**\n");
             vfprintf($fh, " * @copyright Copyright (C) 2015-%d AIZAWA Hina\n", [
-                gmdate('Y', time() + 9 * 86400), // JST
+                gmdate('Y', time() + 9 * 3600), // JST
             ]);
             vfprintf($fh, " * @license %s MIT\n", [
                 'https://github.com/fetus-hina/stat.ink/blob/master/LICENSE',
