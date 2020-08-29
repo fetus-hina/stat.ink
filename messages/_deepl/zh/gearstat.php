@@ -9,11 +9,6 @@
 declare(strict_types=1);
 
 return [
-    ':pct% loss' => '损失：百分比',
-    ':p p (:pct%)' => ':p p (:pct%)',
-    ':sec seconds' => '秒',
-    ':sec seconds (:pct%)' => '秒',
-    ':sec seconds (:pct%), :count times' => ':秒秒(:ppt%),:次数',
     'Ascent' => '上升',
     'Bomb Throw' => '炸弹投掷',
     'Damage' => '损害',
