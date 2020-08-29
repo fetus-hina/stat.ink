@@ -10,32 +10,6 @@
 @colorKO:   #68c8f2;
 @colorTime: #f5a101;
 
-@fontFamily: -apple-system, BlinkMacSystemFont, "Segoe UI", Tahoma, Roboto, "Helvetica Neue", Helvetica, "メイリオ", Meiryo, "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN";
-
-body {
-  font-family: @fontFamily, sans-serif;
-}
-
-html {
-  &[lang^="ja-"] {
-    body {
-      font-family: "Noto Sans JP", @fontFamily, sans-serif;
-    }
-  }
-
-  &[lang^="zh-CN"], &[lang^="zh-"][lang*="Hans"] {
-    body {
-      font-family: "Noto Sans SC", @fontFamily, sans-serif;
-    }
-  }
-
-  &[lang^="zh-TW"], &[lang^="zh-"][lang*="Hant"] {
-    body {
-      font-family: "Noto Sans ST", @fontFamily, sans-serif;
-    }
-  }
-}
-
 .navbar {
   border-radius: 0 !important;
 }
