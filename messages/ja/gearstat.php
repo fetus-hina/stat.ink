@@ -1,6 +1,7 @@
 <?php
+
 /**
- * @copyright Copyright (C) 2015-2019 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2020 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -8,11 +9,6 @@
 declare(strict_types=1);
 
 return [
-    ':p p (:pct%)' => ':p P (:pct%)',
-    ':pct% loss' => ':pct%減少',
-    ':sec seconds (:pct%)' => ':sec秒 (:pct%)',
-    ':sec seconds (:pct%), :count times' => ':sec秒 (:pct%), 最大:count回',
-    ':sec seconds' => ':sec秒',
     'Ascent' => '上昇',
     'Bomb Throw' => 'ボム飛距離',
     'Damage' => '攻撃力',
