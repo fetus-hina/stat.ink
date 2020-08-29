@@ -29,10 +29,12 @@ class OpenCCTranslator extends Component
 
         $status = true;
         foreach ($this->getTargetFiles() as $inputPath) {
-            if (!$this->translateFile(
-                $inputPath,
-                Yii::getAlias(static::OUTPUT_DIR) . '/' . basename($inputPath)
-            )) {
+            if (
+                !$this->translateFile(
+                    $inputPath,
+                    Yii::getAlias(static::OUTPUT_DIR) . '/' . basename($inputPath)
+                )
+            ) {
                 $status = false;
             }
         }
