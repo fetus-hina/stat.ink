@@ -21,7 +21,7 @@ class OpenCCTranslator extends Component
 {
     private const INPUT_DIR = '@app/messages/_deepl/zh';
     private const OUTPUT_DIR = '@app/messages/_deepl/zh-TW';
-    private const OPENCC_CONFIG = 'zhs2zht.ini';
+    private const OPENCC_CONFIG = 's2t.json';
 
     public function run(): bool
     {
@@ -29,10 +29,12 @@ class OpenCCTranslator extends Component
 
         $status = true;
         foreach ($this->getTargetFiles() as $inputPath) {
-            if (!$this->translateFile(
-                $inputPath,
-                Yii::getAlias(static::OUTPUT_DIR) . '/' . basename($inputPath)
-            )) {
+            if (
+                !$this->translateFile(
+                    $inputPath,
+                    Yii::getAlias(static::OUTPUT_DIR) . '/' . basename($inputPath)
+                )
+            ) {
                 $status = false;
             }
         }
@@ -68,6 +70,7 @@ class OpenCCTranslator extends Component
         $inputTexts = include($inputPath);
         $outputTexts = [];
         foreach ($inputTexts as $enText => $hansText) {
+            fwrite(STDERR, "  {$hansText}\n");
             $hantText = $this->translate($hansText);
             $outputTexts[$enText] = $hantText;
         }
@@ -105,7 +108,7 @@ class OpenCCTranslator extends Component
 
     private function translate(string $hansText): string
     {
-        $cmdline = vsprintf('/usr/bin/env %s --config=%s', [
+        $cmdline = vsprintf('/usr/bin/env %s -c %s', [
             escapeshellarg('opencc'),
             escapeshellarg(static::OPENCC_CONFIG),
         ]);

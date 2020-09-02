@@ -28,7 +28,7 @@
     "flag-icon-css": "^3.4.6",
     "flot": "~0.8.3",
     "inputmask": "^5.0.3",
-    "jdenticon": "^2.2.0",
+    "jdenticon": "^3.0.1",
     "jquery": "^3.5.1",
     "jquery-color": "git+https://github.com/jquery/jquery-color.git#2.1.2",
     "jquery-smooth-scroll": "^2.2.0",
