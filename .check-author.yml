@@ -10,3 +10,9 @@ copy-left:
   "clovervidia <clovervidia@gmail.com>":
     - "messages/en-GB/weapon-short.php"
     - "messages/en/weapon-short.php"
+
+  "Gosin <canling0@gmail.com>":
+    - "messages/zh-TW/ability.php"
+    - "messages/zh-TW/ability2.php"
+    - "messages/zh-TW/alert.php"
+    - "messages/zh-TW/apidoc1.php"
