@@ -4178,16 +4178,16 @@
         },
         {
             "name": "codeception/verify",
-            "version": "2.0.0",
+            "version": "2.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Codeception/Verify.git",
-                "reference": "66b075bb83b78798ae50a5b1cd9a958f702cb73e"
+                "reference": "11fa56c223ae7188174c4ba50c68454d83b254e9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/Verify/zipball/66b075bb83b78798ae50a5b1cd9a958f702cb73e",
-                "reference": "66b075bb83b78798ae50a5b1cd9a958f702cb73e",
+                "url": "https://api.github.com/repos/Codeception/Verify/zipball/11fa56c223ae7188174c4ba50c68454d83b254e9",
+                "reference": "11fa56c223ae7188174c4ba50c68454d83b254e9",
                 "shasum": ""
             },
             "require": {
@@ -4219,7 +4219,7 @@
                 }
             ],
             "description": "BDD assertion library for PHPUnit",
-            "time": "2020-08-31T12:24:17+00:00"
+            "time": "2020-09-03T04:43:01+00:00"
         },
         {
             "name": "doctrine/instantiator",
@@ -4937,16 +4937,16 @@
         },
         {
             "name": "phpunit/php-code-coverage",
-            "version": "9.1.6",
+            "version": "9.1.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "d25b24b1cd14772bde4d75daeb393dc17db9f6e6"
+                "reference": "2ef92bec3186a827faf7362ff92ae4e8ec2e49d2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/d25b24b1cd14772bde4d75daeb393dc17db9f6e6",
-                "reference": "d25b24b1cd14772bde4d75daeb393dc17db9f6e6",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/2ef92bec3186a827faf7362ff92ae4e8ec2e49d2",
+                "reference": "2ef92bec3186a827faf7362ff92ae4e8ec2e49d2",
                 "shasum": ""
             },
             "require": {
@@ -5006,7 +5006,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2020-08-31T06:31:46+00:00"
+            "time": "2020-09-03T07:09:19+00:00"
         },
         {
             "name": "phpunit/php-file-iterator",
