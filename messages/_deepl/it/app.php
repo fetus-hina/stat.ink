@@ -200,6 +200,8 @@ return [
     'Has disconnected player' => 'Ha scollegato il giocatore',
     'Hasn\'t disconnected player' => 'Non ha scollegato il giocatore',
     'Hawaii Time' => 'Hawaii Time',
+    'Highest (current period)' => 'Il più alto (periodo attuale)',
+    'Highest (this teammates)' => 'Il più alto (questo compagno di squadra)',
     'History' => 'Storia',
     'However, statistics information will be opened.' => 'Tuttavia, le informazioni statistiche saranno aperte.',
     'I agree. Delete this battle.' => 'Sono d\'accordo. Cancella questa battaglia.',

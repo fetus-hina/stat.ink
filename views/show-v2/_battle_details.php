@@ -9,6 +9,7 @@ use app\components\widgets\FA;
 use app\components\widgets\FestPowerHistory;
 use app\components\widgets\FreshnessHistory;
 use app\components\widgets\Label;
+use app\components\widgets\LeaguePowerHistory;
 use app\components\widgets\TimestampColumnWidget;
 use app\components\widgets\XPowerHistory;
 use app\models\Battle2;
@@ -322,6 +323,17 @@ use yii\widgets\DetailView;
           return null;
         }
         return Yii::$app->formatter->asDecimal($model->league_point, 1);
+      },
+      // }}}
+    ],
+    [
+      'attribute' => 'league_point', // {{{
+      'format' => 'raw',
+      'value' => function (Battle2 $model) : ?string {
+        $html = LeaguePowerHistory::widget([
+          'current' => $model,
+        ]);
+        return $html ?: null;
       },
       // }}}
     ],

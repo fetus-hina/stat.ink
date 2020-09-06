@@ -196,6 +196,8 @@ return [
     'Has disconnected player' => '切断プレーヤーあり',
     'Hasn\'t disconnected player' => '切断プレーヤーなし',
     'Hawaii Time' => 'ハワイ時間',
+    'Highest (current period)' => '最高値（現スケジュール）',
+    'Highest (this teammates)' => '最高値（現チームメイト）',
     'History' => '履歴',
     'However, statistics information will be opened.' => '一般的な統計情報については公開することがあります。',
     'I agree to the terms above.' => '文章を理解し、同意の上削除します',
