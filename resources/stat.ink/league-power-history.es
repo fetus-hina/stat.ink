@@ -61,7 +61,7 @@
     const makeWinLose = (legend, list, onlyThisValue, color) => ({
       label: legend,
       color: color,
-      data: list.map((value, index, list) => [
+      data: list.map(value => [
         value.time,
         value.isWin === onlyThisValue
           ? (value.value || 1500)
