@@ -200,6 +200,8 @@ return [
     'Has disconnected player' => '',
     'Hasn\'t disconnected player' => '',
     'Hawaii Time' => '',
+    'Highest (current period)' => '',
+    'Highest (this teammates)' => '',
     'History' => '',
     'However, statistics information will be opened.' => '',
     'I agree. Delete this battle.' => '',
