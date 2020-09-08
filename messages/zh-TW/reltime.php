@@ -9,11 +9,11 @@
 declare(strict_types=1);
 
 return [
-    'now' => '',
-    '{delta} d' => '',
-    '{delta} h' => '',
-    '{delta} m' => '',
-    '{delta} mo' => '',
-    '{delta} s' => '',
-    '{delta} yr' => '',
+    'now' => '剛纔',
+    '{delta} d' => '{delta}天',
+    '{delta} h' => '{delta}小時',
+    '{delta} m' => '{delta}分鐘',
+    '{delta} mo' => '{delta}個月',
+    '{delta} s' => '{delta}秒',
+    '{delta} yr' => '{delta}年',
 ];
