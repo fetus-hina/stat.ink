@@ -34,6 +34,7 @@ class ApidocController extends Controller
         'en' => 'en-US',
         'ja' => 'ja-JP',
         'zh-hans' => 'zh-CN',
+        'zh-hant' => 'zh-TW',
     ];
 
     public function actionCreate(): int
