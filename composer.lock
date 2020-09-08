@@ -1671,16 +1671,16 @@
         },
         {
             "name": "phpseclib/phpseclib",
-            "version": "2.0.28",
+            "version": "2.0.29",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpseclib/phpseclib.git",
-                "reference": "d1ca58cf33cb21046d702ae3a7b14fdacd9f3260"
+                "reference": "497856a8d997f640b4a516062f84228a772a48a8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpseclib/phpseclib/zipball/d1ca58cf33cb21046d702ae3a7b14fdacd9f3260",
-                "reference": "d1ca58cf33cb21046d702ae3a7b14fdacd9f3260",
+                "url": "https://api.github.com/repos/phpseclib/phpseclib/zipball/497856a8d997f640b4a516062f84228a772a48a8",
+                "reference": "497856a8d997f640b4a516062f84228a772a48a8",
                 "shasum": ""
             },
             "require": {
@@ -1689,7 +1689,6 @@
             "require-dev": {
                 "phing/phing": "~2.7",
                 "phpunit/phpunit": "^4.8.35|^5.7|^6.0",
-                "sami/sami": "~2.0",
                 "squizlabs/php_codesniffer": "~2.0"
             },
             "suggest": {
@@ -1773,7 +1772,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-07-08T09:08:33+00:00"
+            "time": "2020-09-08T04:24:43+00:00"
         },
         {
             "name": "psr/container",
@@ -4470,16 +4469,16 @@
         },
         {
             "name": "opis/closure",
-            "version": "3.5.6",
+            "version": "3.5.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/opis/closure.git",
-                "reference": "e8d34df855b0a0549a300cb8cb4db472556e8aa9"
+                "reference": "4531e53afe2fc660403e76fb7644e95998bff7bf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/opis/closure/zipball/e8d34df855b0a0549a300cb8cb4db472556e8aa9",
-                "reference": "e8d34df855b0a0549a300cb8cb4db472556e8aa9",
+                "url": "https://api.github.com/repos/opis/closure/zipball/4531e53afe2fc660403e76fb7644e95998bff7bf",
+                "reference": "4531e53afe2fc660403e76fb7644e95998bff7bf",
                 "shasum": ""
             },
             "require": {
@@ -4527,7 +4526,7 @@
                 "serialization",
                 "serialize"
             ],
-            "time": "2020-08-11T08:46:50+00:00"
+            "time": "2020-09-06T17:02:15+00:00"
         },
         {
             "name": "phar-io/manifest",
@@ -4937,16 +4936,16 @@
         },
         {
             "name": "phpunit/php-code-coverage",
-            "version": "9.1.7",
+            "version": "9.1.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "2ef92bec3186a827faf7362ff92ae4e8ec2e49d2"
+                "reference": "f98f8466126d83b55b924a94d2244c53c216b8fb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/2ef92bec3186a827faf7362ff92ae4e8ec2e49d2",
-                "reference": "2ef92bec3186a827faf7362ff92ae4e8ec2e49d2",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/f98f8466126d83b55b924a94d2244c53c216b8fb",
+                "reference": "f98f8466126d83b55b924a94d2244c53c216b8fb",
                 "shasum": ""
             },
             "require": {
@@ -5006,7 +5005,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2020-09-03T07:09:19+00:00"
+            "time": "2020-09-07T08:07:10+00:00"
         },
         {
             "name": "phpunit/php-file-iterator",

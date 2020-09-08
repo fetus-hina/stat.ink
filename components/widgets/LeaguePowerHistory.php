@@ -76,7 +76,7 @@ class LeaguePowerHistory extends Widget
         $this->view->registerJs(vsprintf('$(%s).leaguePowerHistory(%s);', [
             Json::encode('#' . $this->id),
             implode(',', [
-                Json::encode('#'  . $this->id . '-legends'), 
+                Json::encode('#' . $this->id . '-legends'),
                 Json::encode([
                     'highestCurrent' => $max
                         ? Html::a(
@@ -164,20 +164,20 @@ class LeaguePowerHistory extends Widget
         }
 
         $query = Battle2::find()
-          ->andWhere([
-            'user_id' => (int)$model->user_id,
-            'lobby_id' => (int)$model->lobby_id,
-            'mode_id' => (int)$model->mode_id,
-            'rule_id' => (int)$model->rule_id,
-            'period' => (int)$model->period,
-            'my_team_id' => $model->my_team_id,
-          ])
-          ->andWhere(['not', ['is_win' => null]]);
+            ->andWhere([
+                'user_id' => (int)$model->user_id,
+                'lobby_id' => (int)$model->lobby_id,
+                'mode_id' => (int)$model->mode_id,
+                'rule_id' => (int)$model->rule_id,
+                'period' => (int)$model->period,
+                'my_team_id' => $model->my_team_id,
+            ])
+            ->andWhere(['not', ['is_win' => null]]);
         if ($model->splatnet_number) {
-          $query->andWhere(['not', ['splatnet_number' => null]])
-            ->orderBy(['splatnet_number' => SORT_ASC]);
+            $query->andWhere(['not', ['splatnet_number' => null]])
+                ->orderBy(['splatnet_number' => SORT_ASC]);
         } else {
-          $query->orderBy(['id' => SORT_ASC]);
+            $query->orderBy(['id' => SORT_ASC]);
         }
 
         $list = $query->all();

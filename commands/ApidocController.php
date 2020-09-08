@@ -33,6 +33,7 @@ class ApidocController extends Controller
     public $languages = [
         'en' => 'en-US',
         'ja' => 'ja-JP',
+        'zh-hans' => 'zh-CN',
     ];
 
     public function actionCreate(): int
