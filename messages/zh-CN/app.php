@@ -490,7 +490,7 @@ return [
     'These battles were recorded with an outdated version of IkaLog. Please upgrade to the latest version.' => '这些对战是由旧版的IkaLog记录。 请更新到最新版本。',
     'This battle was recorded with an outdated version of IkaLog. Please upgrade to the latest version.' => '该对战是由旧版的IkaLog记录。请更新到最新版本。',
     'This data was totaled after normalization to 5 minute intervals for each battle.' => '该数据是根据每场对战五分钟的间隔做归一化处理后汇总的。',
-    'This document is under a <a href="http://creativecommons.org/licenses/by/4.0/deed.en">Creative Commons Attribution 4.0 International License</a>.' => '该文档基于<a href="http://creativecommons.org/licenses/by/4.0/deed.en">Creative Commons Attribution 4.0 International License</a>共享。',
+    'This document is under a <a href="http://creativecommons.org/licenses/by/4.0/deed.en">Creative Commons Attribution 4.0 International License</a>.' => '该文档基于<a href="http://creativecommons.org/licenses/by/4.0/deed.zh">Creative Commons Attribution 4.0 International License</a>共享。',
     'This information will be public. Integration for "log in with twitter" can be done from the profile page.' => '这些信息会被公开。可以从用户页面绑定Twitter帐号。',
     'This Month (UTC)' => '本月（UTC）',
     'This option is provided for deleting an incorrectly-reported battle.' => '该选项用于删除错误上传的对战。',
