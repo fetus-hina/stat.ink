@@ -294,6 +294,12 @@ You can also send "`#` + SplatNet-Number" like `#5` as a secondary option (not r
 |`mongara`               |`16`                  |モンガラキャンプ場<br>Camp Triggerfish               |                                                                             |
 |`mozuku`                |`10`                  |モズク農園<br>Kelp Dome                              |                                                                             |
 |`mutsugoro`             |`22`                  |ムツゴ楼<br>Skipper Pavilion                         |                                                                             |
+|`otoro`                 |`19`                  |ホテルニューオートロ<br>New Albacore Hotel           |                                                                             |
+|`shottsuru`             |`17`                  |ショッツル鉱山<br>Piranha Pit                        |                                                                             |
+|`sumeshi`               |`20`                  |スメーシーワールド<br>Wahoo World                    |                                                                             |
+|`tachiuo`               |`8`                   |タチウオパーキング<br>Moray Towers                   |                                                                             |
+|`zatou`                 |`13`                  |ザトウマーケット<br>MakoMart                         |                                                                             |
+|`mystery`               |`9999`                |ミステリーゾーン<br>Shifty Station                   |                                                                             |
 |`mystery_01`            |`101`                 |追憶のスライド<br>Wayslide Cool                      |                                                                             |
 |`mystery_02`            |`102`                 |約束の丘で会いましょう<br>The Secret of S.P.L.A.T.   |                                                                             |
 |`mystery_03`            |`103`                 |ハンサムなスポンジ<br>Goosponge                      |                                                                             |
@@ -318,12 +324,6 @@ You can also send "`#` + SplatNet-Number" like `#5` as a secondary option (not r
 |`mystery_22`            |`122`                 |思い出コロガリウム<br>The Chronicles of Rolonium     |                                                                             |
 |`mystery_23`            |`123`                 |ピロピロなんかじゃない<br>Furler in the Ashes        |                                                                             |
 |`mystery_24`            |`124`                 |DEAR SENPAI<br>MC.Princess Diaries                   |                                                                             |
-|`otoro`                 |`19`                  |ホテルニューオートロ<br>New Albacore Hotel           |                                                                             |
-|`shottsuru`             |`17`                  |ショッツル鉱山<br>Piranha Pit                        |                                                                             |
-|`sumeshi`               |`20`                  |スメーシーワールド<br>Wahoo World                    |                                                                             |
-|`tachiuo`               |`8`                   |タチウオパーキング<br>Moray Towers                   |                                                                             |
-|`zatou`                 |`13`                  |ザトウマーケット<br>MakoMart                         |                                                                             |
-|`mystery`               |`9999`                |ミステリーゾーン<br>Shifty Station                   |フェス専用ステージ<br>For Splatfest                                          |
 <!--endreplace-->
 
 
