@@ -13,7 +13,7 @@ return [
     'Any Title' => '所有稱號',
     'Apprentice' => '學徒',
     'Go-Getter' => '潛力股',
-    'Hazard Level MAX!!' => '最大危險悉數',
+    'Hazard Level MAX!!' => '最大危險係數',
     'Intern' => '實習生',
     'Overachiever' => '績優生',
     'Part-Timer' => '兼職員工',
