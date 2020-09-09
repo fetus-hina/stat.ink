@@ -32,7 +32,7 @@ return [
     'League Battle (Twin)' => '組隊比賽（雙人）',
     'Private' => '私房',
     'Private Battle' => '私房對戰',
-    'Rainmaker' => '運魚',
+    'Rainmaker' => '運魚對戰',
     'Rainmaker - League Battle (Quad)' => '運魚對戰-組隊排名（四人）',
     'Rainmaker - League Battle (Twin)' => '運魚對戰-組隊排名（雙人）',
     'Rainmaker - Private Battle' => '運魚對戰-私房模式',

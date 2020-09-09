@@ -13,7 +13,7 @@ return [
     'Average' => '平均',
     'Golden E.' => '金蛋数',
     'Points' => '分数',
-    'Power E.' => '蛋数',
+    'Power E.' => '普通蛋数',
     'Rescued' => '援救',
     'Shifts' => '打工次数',
     'Total' => '总计',

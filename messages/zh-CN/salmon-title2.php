@@ -13,7 +13,7 @@ return [
     'Any Title' => '所有称号',
     'Apprentice' => '学徒',
     'Go-Getter' => '潜力股',
-    'Hazard Level MAX!!' => '最大危险悉数',
+    'Hazard Level MAX!!' => '最大危险系数',
     'Intern' => '实习生',
     'Overachiever' => '绩优生',
     'Part-Timer' => '兼职员工',
