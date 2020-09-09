@@ -274,56 +274,56 @@ You should send "Key String" below (e.g. `kombu`).
 You can also send "`#` + SplatNet-Number" like `#5` as a secondary option (not recommended).
 
 <!--replace:stage-->
-|指定文字列<br>Key String|イカリング<br>SplatNet|ステージ<br>Stage Name                                                 |備考<br>Remarks                                                              |
-|------------------------|----------------------|-----------------------------------------------------------------------|-----------------------------------------------------------------------------|
-|`ajifry`                |`18`                  |アジフライスタジアム<br>Goby Arena                                     |                                                                             |
-|`ama`                   |`4`                   |海女美術大学<br>Inkblot Art Academy                                    |                                                                             |
-|`anchovy`               |`21`                  |アンチョビットゲームズ<br>Ancho-V Games                                |                                                                             |
-|`arowana`               |`15`                  |アロワナモール<br>Arowana Mall                                         |                                                                             |
-|`battera`               |`0`                   |バッテラストリート<br>The Reef                                         |                                                                             |
-|`bbass`                 |`11`                  |Bバスパーク<br>Blackbelly Skatepark                                    |                                                                             |
-|`chozame`               |`3`                   |チョウザメ造船<br>Sturgeon Shipyard                                    |                                                                             |
-|`devon`                 |`12`                  |デボン海洋博物館<br>Shellendorf Institute                              |                                                                             |
-|`engawa`                |`9`                   |エンガワ河川敷<br>Snapper Canal                                        |                                                                             |
-|`fujitsubo`             |`1`                   |フジツボスポーツクラブ<br>Musselforge Fitness                          |                                                                             |
-|`gangaze`               |`2`                   |ガンガゼ野外音楽堂<br>Starfish Mainstage                               |                                                                             |
-|`hakofugu`              |`14`                  |ハコフグ倉庫<br>Walleye Warehouse                                      |                                                                             |
-|`hokke`                 |`7`                   |ホッケふ頭<br>Port Mackerel                                            |                                                                             |
-|`kombu`                 |`5`                   |コンブトラック<br>Humpback Pump Track                                  |互換性のため `combu` も受け付けます<br>Also accepts `combu` for compatibility|
-|`manta`                 |`6`                   |マンタマリア号<br>Manta Maria                                          |                                                                             |
-|`mongara`               |`16`                  |モンガラキャンプ場<br>Camp Triggerfish                                 |                                                                             |
-|`mozuku`                |`10`                  |モズク農園<br>Kelp Dome                                                |                                                                             |
-|`mutsugoro`             |`22`                  |ムツゴ楼<br>Skipper Pavilion                                           |                                                                             |
-|`mystery_01`            |`101`                 |ミステリ: 追憶のスライド<br>Shifty: Wayslide Cool                      |                                                                             |
-|`mystery_02`            |`102`                 |ミステリ: 約束の丘で会いましょう<br>Shifty: The Secret of S.P.L.A.T.   |                                                                             |
-|`mystery_03`            |`103`                 |ミステリ: ハンサムなスポンジ<br>Shifty: Goosponge                      |                                                                             |
-|`mystery_04`            |`100`                 |ミステリ: ウィンドミル・キス<br>Shifty: Windmill House on the Pearlie  |                                                                             |
-|`mystery_05`            |`107`                 |ミステリ: バーの一族<br>Shifty: Fancy Spew                             |                                                                             |
-|`mystery_06`            |`106`                 |ミステリ: トランスペアレント・ボーイ<br>Shifty: Zone of Glass          |                                                                             |
-|`mystery_07`            |`105`                 |ミステリ: ヒメちゃんのキャノン<br>Shifty: Cannon Fire Pearl            |                                                                             |
-|`mystery_08`            |`110`                 |ミステリ: トジトジ<br>Shifty: The Bunker Games                         |                                                                             |
-|`mystery_09`            |`108`                 |ミステリ: イタズラなヒキヨセ<br>Shifty: Grapplink Girl                 |                                                                             |
-|`mystery_10`            |`109`                 |ミステリ: あしたはデンデン<br>Shifty: Zappy Longshocking               |                                                                             |
-|`mystery_11`            |`111`                 |ミステリ: 天秤ラヴァーズ<br>Shifty: A Swiftly Tilting Balance          |                                                                             |
-|`mystery_12`            |`113`                 |ミステリ: たこあし注意報!<br>Shifty: Sweet Valley Tentacles            |                                                                             |
-|`mystery_13`            |`112`                 |ミステリ: ヌリとスイッチの吐息<br>Shifty: The Switches                 |                                                                             |
-|`mystery_14`            |`114`                 |ミステリ: ジャンプマットの詩<br>Shifty: The Bouncey Twins              |                                                                             |
-|`mystery_15`            |`115`                 |ミステリ: キミのハートにライド・オン!<br>Shifty: Railway Chillin'      |                                                                             |
-|`mystery_16`            |`116`                 |ミステリ: カンケツセンのばら<br>Shifty: Gusher Towns                   |                                                                             |
-|`mystery_17`            |`117`                 |ミステリ: 恋はダッシュ×3<br>Shifty: The Maze Dasher                   |                                                                             |
-|`mystery_18`            |`118`                 |ミステリ: ドーザームーン<br>Shifty: Flooders in the Attic              |                                                                             |
-|`mystery_19`            |`119`                 |ミステリ: クイックバスケット<br>Shifty: The Splat in Our Zones         |                                                                             |
-|`mystery_20`            |`120`                 |ミステリ: ヌリヌリトゥナイト<br>Shifty: The Ink is Spreading           |                                                                             |
-|`mystery_21`            |`121`                 |ミステリ: ビッグ゠パネルが止まらない<br>Shifty: Bridge to Tentaswitchia|                                                                             |
-|`mystery_22`            |`122`                 |ミステリ: 思い出コロガリウム<br>Shifty: The Chronicles of Rolonium     |                                                                             |
-|`mystery_23`            |`123`                 |ミステリ: ピロピロなんかじゃない<br>Shifty: Furler in the Ashes        |                                                                             |
-|`mystery_24`            |`124`                 |ミステリ: DEAR SENPAI<br>Shifty: MC.Princess Diaries                   |                                                                             |
-|`otoro`                 |`19`                  |ホテルニューオートロ<br>New Albacore Hotel                             |                                                                             |
-|`shottsuru`             |`17`                  |ショッツル鉱山<br>Piranha Pit                                          |                                                                             |
-|`sumeshi`               |`20`                  |スメーシーワールド<br>Wahoo World                                      |                                                                             |
-|`tachiuo`               |`8`                   |タチウオパーキング<br>Moray Towers                                     |                                                                             |
-|`zatou`                 |`13`                  |ザトウマーケット<br>MakoMart                                           |                                                                             |
-|`mystery`               |`9999`                |ミステリーゾーン<br>Shifty Station                                     |フェス専用ステージ<br>For Splatfest                                          |
+|指定文字列<br>Key String|イカリング<br>SplatNet|ステージ<br>Stage Name                               |備考<br>Remarks                                                              |
+|------------------------|----------------------|-----------------------------------------------------|-----------------------------------------------------------------------------|
+|`ajifry`                |`18`                  |アジフライスタジアム<br>Goby Arena                   |                                                                             |
+|`ama`                   |`4`                   |海女美術大学<br>Inkblot Art Academy                  |                                                                             |
+|`anchovy`               |`21`                  |アンチョビットゲームズ<br>Ancho-V Games              |                                                                             |
+|`arowana`               |`15`                  |アロワナモール<br>Arowana Mall                       |                                                                             |
+|`battera`               |`0`                   |バッテラストリート<br>The Reef                       |                                                                             |
+|`bbass`                 |`11`                  |Bバスパーク<br>Blackbelly Skatepark                  |                                                                             |
+|`chozame`               |`3`                   |チョウザメ造船<br>Sturgeon Shipyard                  |                                                                             |
+|`devon`                 |`12`                  |デボン海洋博物館<br>Shellendorf Institute            |                                                                             |
+|`engawa`                |`9`                   |エンガワ河川敷<br>Snapper Canal                      |                                                                             |
+|`fujitsubo`             |`1`                   |フジツボスポーツクラブ<br>Musselforge Fitness        |                                                                             |
+|`gangaze`               |`2`                   |ガンガゼ野外音楽堂<br>Starfish Mainstage             |                                                                             |
+|`hakofugu`              |`14`                  |ハコフグ倉庫<br>Walleye Warehouse                    |                                                                             |
+|`hokke`                 |`7`                   |ホッケふ頭<br>Port Mackerel                          |                                                                             |
+|`kombu`                 |`5`                   |コンブトラック<br>Humpback Pump Track                |互換性のため `combu` も受け付けます<br>Also accepts `combu` for compatibility|
+|`manta`                 |`6`                   |マンタマリア号<br>Manta Maria                        |                                                                             |
+|`mongara`               |`16`                  |モンガラキャンプ場<br>Camp Triggerfish               |                                                                             |
+|`mozuku`                |`10`                  |モズク農園<br>Kelp Dome                              |                                                                             |
+|`mutsugoro`             |`22`                  |ムツゴ楼<br>Skipper Pavilion                         |                                                                             |
+|`otoro`                 |`19`                  |ホテルニューオートロ<br>New Albacore Hotel           |                                                                             |
+|`shottsuru`             |`17`                  |ショッツル鉱山<br>Piranha Pit                        |                                                                             |
+|`sumeshi`               |`20`                  |スメーシーワールド<br>Wahoo World                    |                                                                             |
+|`tachiuo`               |`8`                   |タチウオパーキング<br>Moray Towers                   |                                                                             |
+|`zatou`                 |`13`                  |ザトウマーケット<br>MakoMart                         |                                                                             |
+|`mystery`               |`9999`                |ミステリーゾーン<br>Shifty Station                   |                                                                             |
+|`mystery_01`            |`101`                 |追憶のスライド<br>Wayslide Cool                      |                                                                             |
+|`mystery_02`            |`102`                 |約束の丘で会いましょう<br>The Secret of S.P.L.A.T.   |                                                                             |
+|`mystery_03`            |`103`                 |ハンサムなスポンジ<br>Goosponge                      |                                                                             |
+|`mystery_04`            |`100`                 |ウィンドミル・キス<br>Windmill House on the Pearlie  |                                                                             |
+|`mystery_05`            |`107`                 |バーの一族<br>Fancy Spew                             |                                                                             |
+|`mystery_06`            |`106`                 |トランスペアレント・ボーイ<br>Zone of Glass          |                                                                             |
+|`mystery_07`            |`105`                 |ヒメちゃんのキャノン<br>Cannon Fire Pearl            |                                                                             |
+|`mystery_08`            |`110`                 |トジトジ<br>The Bunker Games                         |                                                                             |
+|`mystery_09`            |`108`                 |イタズラなヒキヨセ<br>Grapplink Girl                 |                                                                             |
+|`mystery_10`            |`109`                 |あしたはデンデン<br>Zappy Longshocking               |                                                                             |
+|`mystery_11`            |`111`                 |天秤ラヴァーズ<br>A Swiftly Tilting Balance          |                                                                             |
+|`mystery_12`            |`113`                 |たこあし注意報!<br>Sweet Valley Tentacles            |                                                                             |
+|`mystery_13`            |`112`                 |ヌリとスイッチの吐息<br>The Switches                 |                                                                             |
+|`mystery_14`            |`114`                 |ジャンプマットの詩<br>The Bouncey Twins              |                                                                             |
+|`mystery_15`            |`115`                 |キミのハートにライド・オン!<br>Railway Chillin'      |                                                                             |
+|`mystery_16`            |`116`                 |カンケツセンのばら<br>Gusher Towns                   |                                                                             |
+|`mystery_17`            |`117`                 |恋はダッシュ×3<br>The Maze Dasher                   |                                                                             |
+|`mystery_18`            |`118`                 |ドーザームーン<br>Flooders in the Attic              |                                                                             |
+|`mystery_19`            |`119`                 |クイックバスケット<br>The Splat in Our Zones         |                                                                             |
+|`mystery_20`            |`120`                 |ヌリヌリトゥナイト<br>The Ink is Spreading           |                                                                             |
+|`mystery_21`            |`121`                 |ビッグ゠パネルが止まらない<br>Bridge to Tentaswitchia|                                                                             |
+|`mystery_22`            |`122`                 |思い出コロガリウム<br>The Chronicles of Rolonium     |                                                                             |
+|`mystery_23`            |`123`                 |ピロピロなんかじゃない<br>Furler in the Ashes        |                                                                             |
+|`mystery_24`            |`124`                 |DEAR SENPAI<br>MC.Princess Diaries                   |                                                                             |
 <!--endreplace-->
 
 

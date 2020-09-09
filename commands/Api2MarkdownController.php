@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2019 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2020 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -213,21 +213,23 @@ class Api2MarkdownController extends Controller
             'kombu' => 'combu',
         ];
         $remarks = [
-            'mystery' => [
-                'フェス専用ステージ',
-                'For Splatfest',
-            ],
         ];
         $maps = Map2::find()->all();
         usort($maps, function (Map2 $a, Map2 $b): int {
             if ($a->key === $b->key) {
                 return 0;
-            } elseif ($a->key === 'mystery') {
+            } elseif (
+                substr($a->key, 0, strlen('mystery')) === 'mystery' &&
+                substr($b->key, 0, strlen('mystery')) !== 'mystery'
+            ) {
                 return 1;
-            } elseif ($b->key === 'mystery') {
+            } elseif (
+                substr($a->key, 0, strlen('mystery')) !== 'mystery' &&
+                substr($b->key, 0, strlen('mystery')) === 'mystery'
+            ) {
                 return -1;
             } else {
-                return strcmp($a->key, $b->key);
+                return strnatcasecmp($a->key, $b->key);
             }
         });
 
