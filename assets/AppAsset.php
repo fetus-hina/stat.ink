@@ -36,39 +36,11 @@ class AppAsset extends AssetBundle
         JqueryAsset::class,
         LinkExternalAsset::class,
         LinkPrevNextAsset::class,
+        NotoSansAsset::class,
         RewriteLinkForIosAppAsset::class,
         SmoothScrollAsset::class,
         YiiAsset::class,
     ];
-
-    public function init()
-    {
-        parent::init();
-
-        if (!static::isMobileAccess()) {
-            $lang = substr(Yii::$app->language, 0, 3);
-            switch ($lang) {
-                case 'ja-':
-                    $this->depends[] = NotoSansJPAsset::class;
-                    $this->css[] = 'font-ja.css';
-                    break;
-
-                case 'zh-':
-                    $this->depends[] = NotoSansSCAsset::class;
-                    $this->depends[] = NotoSansTCAsset::class;
-                    if (
-                        Yii::$app->language === 'zh-TW' ||
-                        Yii::$app->language === 'zh-HK' ||
-                        strpos(Yii::$app->language, 'Hant') !== false // e.g., zh-cmn-Hant
-                    ) {
-                        $this->css[] = 'font-zh-hant.css';
-                    } else {
-                        $this->css[] = 'font-zh-hans.css';
-                    }
-                    break;
-            }
-        }
-    }
 
     public function registerAssetFiles($view)
     {
@@ -80,24 +52,5 @@ class AppAsset extends AssetBundle
             'type' => 'image/png',
             'href' => $manager->getAssetUrl($this, 'favicon.png'),
         ]);
-    }
-
-    private function isMobileAccess(): bool
-    {
-        $ua = trim((string)($_SERVER['HTTP_USER_AGENT'] ?? ''));
-        if ($ua === '') {
-            return false;
-        }
-
-        if (
-            strpos($ua, 'Android') !== false ||
-            strpos($ua, 'iPhone') !== false ||
-            strpos($ua, 'iPad') !== false ||
-            strpos($ua, 'iPod') !== false
-        ) {
-            return true;
-        }
-
-        return false;
     }
 }
