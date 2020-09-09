@@ -50,7 +50,7 @@ class NotoSansAsset extends AssetBundle
                         $values,
                     ));
                 } else {
-                return rawurlencode($key) . '=' . rawurlencode($values);
+                    return rawurlencode($key) . '=' . rawurlencode($values);
                 }
             },
             array_keys($parameters),
