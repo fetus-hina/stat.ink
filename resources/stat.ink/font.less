@@ -9,6 +9,30 @@
   "Noto Sans SC",
   "Noto Sans TC";
 
+@fontFamilyHans: -apple-system,
+  Roboto,
+  "Noto Sans",
+  "Noto Sans SC",
+  "Noto Sans TC",
+  "Noto Sans JP";
+
+@fontFamilyHant: -apple-system,
+  Roboto,
+  "Noto Sans",
+  "Noto Sans TC",
+  "Noto Sans SC",
+  "Noto Sans JP";
+
 body {
   font-family: @fontFamily, sans-serif;
+}
+
+html[lang^="zh-"] body {
+  font-family: @fontFamilyHans, sans-serif;
+}
+
+html[lang="zh-TW"] body,
+html[lang="zh-HK"] body,
+html[lang="zh-MO"] body {
+  font-family: @fontFamilyHant, sans-serif;
 }
