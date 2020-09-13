@@ -10,7 +10,6 @@
 declare(strict_types=1);
 
 return [
-    '%m/%d/%Y' => '%Y/%m/%d',
     '(combined)' => '（组合）',
     '(default)' => '（默认）',
     '(For only Splatoon 1 at this time)' => '（目前仅支持Splatoon一代）',
@@ -470,6 +469,7 @@ return [
     'Synergy Bonus' => '整齐奖励',
     'Systematic error of win %' => '系统性胜率误差',
     'Tablet' => '平板',
+    'Target Player\'s Team' => '',
     'Team' => '队伍',
     'Team Icon' => '队伍（图标）',
     'Team ID' => '队伍ID',
@@ -601,7 +601,8 @@ return [
     '{decimal5_7} Format' => '{decimal5_7} 格式',
     '{lower}-{upper} percentile' => '{lower}-{upper} 百分位数',
     '{n,plural,=1{battle} other{battles}}' => '对战',
-    '{nFormatted} {n, plural, =1{time} other{times}}' => '{nFormatted} 次',
+    '{nFormatted} {n, plural, =1{battle} other{battles}}' => '{nFormatted}次对战',
+    '{nFormatted} {n, plural, =1{time} other{times}}' => '{nFormatted}次',
     '{number, plural, =1{1 death} other{# deaths}} in {battle, plural, =1{1 battle} other{# battles}}' => '{battle}次对战中死亡{number}次',
     '{number, plural, =1{1 egg} other{# eggs}} in {battle, plural, =1{1 shift} other{# shifts}}' => '{battle}次打工中收获{number}枚蛋',
     '{number, plural, =1{1 kill} other{# kills}}' => '{number}次击杀',

@@ -259,13 +259,18 @@ class DeeplTranslator extends Component
     {
         $resp = $this->httpPostJson(
             'https://api.deepl.com/v2/translate',
-            [
-                'auth_key' => Yii::$app->params['deepl'],
-                'source_lang' => 'EN',
-                'split_sentences' => '0',
-                'tag_handling' => 'xml',
-                'target_lang' => strtoupper($lang),
-            ],
+            array_merge(
+                [
+                    'auth_key' => Yii::$app->params['deepl'],
+                    'source_lang' => 'EN',
+                    'split_sentences' => '0',
+                    'tag_handling' => 'xml',
+                    'target_lang' => strtoupper($lang),
+                ],
+                in_array(strtoupper($lang), ['EN', 'EN-GB', 'EN-US', 'ES', 'JA', 'ZH'])
+                    ? []
+                    : ['formality' => 'more'],
+            ),
             implode('&', array_map(
                 function (string $text): string {
                     return 'text=' . rawurlencode($text);

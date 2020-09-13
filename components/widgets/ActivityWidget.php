@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2018 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2020 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -12,6 +12,7 @@ namespace app\components\widgets;
 
 use DateTimeImmutable;
 use DateTimeZone;
+use IntlDateFormatter;
 use Yii;
 use app\assets\BabelPolyfillAsset;
 use app\assets\CalHeatmapHalloweenAsset;
@@ -58,7 +59,7 @@ class ActivityWidget extends CalHeatmapWidget
                 'empty' => '{date}: ' . Yii::t('app', 'No battles'),
                 'filled' => '{date}: {count} {name}',
             ],
-            'subDomainDateFormat' => Yii::t('app', '%m/%d/%Y'),
+            'subDomainDateFormat' => $this->getDateFormat(),
             'displayLegend' => false,
             'cellSize' => $this->size,
         ];
@@ -140,5 +141,45 @@ class ActivityWidget extends CalHeatmapWidget
 
         // return ($month === 10 && $day === 31);
         return ($month === 10 && $day > 24) || ($month === 11 && $day === 1);
+    }
+
+    protected function getDateFormat(): string
+    {
+        $fmt = IntlDateFormatter::create(
+            Yii::$app->language,
+            IntlDateFormatter::SHORT,
+            IntlDateFormatter::NONE
+        );
+        $icuPattern = $fmt->getPattern();
+
+        // http://userguide.icu-project.org/formatparse/datetime#TOC-Producing-Relative-Date-Formats-for-a-Locale
+        // https://github.com/d3/d3-time-format/blob/v3.0.0/README.md#locale_format
+        $map = [
+            '%' => '%%',
+            'yyyy' => '%Y',
+            'yy' => '%Y',
+            'y' => '%Y',
+            'MMMMM' => '%m',
+            'MMMM' => '%m',
+            'MMM' => '%m',
+            'MM' => '%m',
+            'M' => '%m',
+            'dd' => '%d',
+            'd' =>  '%d',
+        ];
+        $regex = '/' . implode('|', array_map(
+            function (string $p): string {
+                return '(?:' . preg_quote($p, '/') . ')';
+            },
+            array_keys($map)
+        )) . '/';
+
+        return preg_replace_callback(
+            $regex,
+            function (array $match) use ($map): string {
+                return $map[$match[0]] ?? $match[0];
+            },
+            $icuPattern
+        );
     }
 }

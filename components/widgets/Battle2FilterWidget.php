@@ -47,6 +47,7 @@ class Battle2FilterWidget extends Widget
     public $connectivity = false;
     public $term = true;
     public $filterText = false;
+    public $withTeam = false;
     public $action = 'search'; // search or summarize
 
     public function run()
@@ -109,6 +110,9 @@ class Battle2FilterWidget extends Widget
         }
         if ($this->filterText) {
             $ret[] = $this->drawFilter($form);
+            if ($this->withTeam && $this->filter->filterWithPrincipalId) {
+                $ret[] = $this->drawWithTeam($form);
+            }
         }
         switch ($this->action) {
             case 'summarize':
@@ -422,6 +426,19 @@ class Battle2FilterWidget extends Widget
             ->textInput([
               'placeholder' => Yii::t('app', 'Filter Query'),
             ])
+            ->label(false);
+    }
+
+    protected function drawWithTeam(ActiveForm $form): string
+    {
+        return (string)$form->field($this->filter, 'with_team')
+            ->dropDownList(
+                [
+                    'good' => Yii::t('app', 'Good Guys'),
+                    'bad' => Yii::t('app', 'Bad Guys'),
+                ],
+                ['prompt' => Yii::t('app', 'Target Player\'s Team')]
+            )
             ->label(false);
     }
 

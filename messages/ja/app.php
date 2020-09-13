@@ -11,7 +11,6 @@
 declare(strict_types=1);
 
 return [
-    '%m/%d/%Y' => '%Y/%m/%d',
     '(For only Splatoon 1 at this time)' => '(現時点ではSplatoon1のみ)',
     '(combined)' => '(統合済み)',
     '(default)' => '(規定)',
@@ -459,6 +458,7 @@ return [
     'TV' => 'テレビ',
     'TZ' => '時間帯',
     'Tablet' => 'タブレット',
+    'Target Player\'s Team' => '指定プレーヤーのチーム',
     'Team ID' => 'チームID',
     'Team Icon' => 'チームアイコン',
     'Team Inked' => 'チームで塗った面積',
@@ -602,7 +602,8 @@ return [
     '{decimal5_7} Format' => '{decimal5_7}形式',
     '{lower}-{upper} percentile' => '{lower}～{upper}パーセンタイル',
     '{n,plural,=1{battle} other{battles}}' => 'バトル',
-    '{nFormatted} {n, plural, =1{time} other{times}}' => '{nFormatted} 回',
+    '{nFormatted} {n, plural, =1{battle} other{battles}}' => '{nFormatted}戦',
+    '{nFormatted} {n, plural, =1{time} other{times}}' => '{nFormatted}回',
     '{number, plural, =1{1 death} other{# deaths}} in {battle, plural, =1{1 battle} other{# battles}}' => '{number, plural, other{#回}} / {battle, plural, other{#戦}}',
     '{number, plural, =1{1 egg} other{# eggs}} in {battle, plural, =1{1 shift} other{# shifts}}' => '{number}個/{battle}回',
     '{number, plural, =1{1 kill} other{# kills}} in {battle, plural, =1{1 battle} other{# battles}}' => '{number, plural, other{#回}} / {battle, plural, other{#戦}}',

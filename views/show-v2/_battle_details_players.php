@@ -1,19 +1,25 @@
 <?php
+
+declare(strict_types=1);
+
 use app\assets\AppAsset;
+use app\models\BattlePlayer2;
 use yii\bootstrap\Html;
+use yii\db\Query;
+use yii\helpers\ArrayHelper;
 
 $assetMgr = Yii::$app->assetManager;
 if ($battle->my_team_color_rgb && $battle->his_team_color_rgb) {
   $this->registerCss(implode('', [
     sprintf('#players .bg-my{%s}', Html::cssStyleFromArray([
-        'background' => '#' . $battle->my_team_color_rgb,
-        'color' => '#fff',
-        'text-shadow' => '1px 1px 0 rgba(0,0,0,.8)',
+      'background' => '#' . $battle->my_team_color_rgb,
+      'color' => '#fff',
+      'text-shadow' => '1px 1px 0 rgba(0,0,0,.8)',
     ])),
     sprintf('#players .bg-his{%s}', Html::cssStyleFromArray([
-        'background' => '#' . $battle->his_team_color_rgb,
-        'color' => '#fff',
-        'text-shadow' => '1px 1px 0 rgba(0,0,0,.8)',
+      'background' => '#' . $battle->his_team_color_rgb,
+      'color' => '#fff',
+      'text-shadow' => '1px 1px 0 rgba(0,0,0,.8)',
     ])),
   ]));
 }
@@ -26,13 +32,46 @@ $hasRankedInked = false;
 if (!$battle->rule || $battle->rule->key !== 'nawabari') {
   $hideRank = false;
 }
-if (!$battle->rule || ($battle->rule->key === 'nawabari' && (!$battle->lobby || $battle->lobby->key !== 'fest'))) {
+if (
+  !$battle->rule ||
+  ($battle->rule->key === 'nawabari' && (!$battle->lobby || $battle->lobby->key !== 'fest'))
+) {
   $hidePoint = false;
 }
 
 $teams = ($battle->is_win === false)
   ? ['his' => $battle->hisTeamPlayers, 'my' => $battle->myTeamPlayers]
   : ['my' => $battle->myTeamPlayers, 'his' => $battle->hisTeamPlayers];
+
+$playerIds = ArrayHelper::getColumn(
+  array_filter(
+    array_merge($battle->myTeamPlayers, $battle->hisTeamPlayers),
+    function (BattlePlayer2 $player): bool {
+      return !$player->is_me &&
+        is_string($player->splatnet_id) &&
+        preg_match('/^[0-9a-f]{16}$/', $player->splatnet_id);
+    }
+  ),
+  'splatnet_id'
+);
+
+$historyCount = ArrayHelper::map(
+  (new Query())
+    ->select([
+      '{{battle_player2}}.[[splatnet_id]]',
+      'count' => 'COUNT(*)',
+    ])
+    ->from('battle2')
+    ->innerJoin('battle_player2', '{{battle2}}.[[id]] = {{battle_player2}}.[[battle_id]]')
+    ->andWhere([
+      '{{battle2}}.[[user_id]]' => $battle->user_id,
+      '{{battle_player2}}.[[splatnet_id]]' => $playerIds,
+    ])
+    ->groupBy(['{{battle_player2}}.[[splatnet_id]]'])
+    ->all(),
+  'splatnet_id',
+  'count'
+);
 
 $bonus = (int)($battle->bonus->bonus ?? 1000);
 
@@ -113,7 +152,8 @@ $this->registerJsFile(
         'hideRank',
         'hidePoint',
         'hasKD',
-        'hasRankedInked'
+        'hasRankedInked',
+        'historyCount',
       )) . "\n" ?>
 <?php endforeach; ?>
     </tbody>

@@ -10,7 +10,6 @@
 declare(strict_types=1);
 
 return [
-    '%m/%d/%Y' => '%d/%m/%Y',
     '(combined)' => '',
     '(default)' => '',
     '(For only Splatoon 1 at this time)' => '',
@@ -470,6 +469,7 @@ return [
     'Synergy Bonus' => '',
     'Systematic error of win %' => '',
     'Tablet' => '',
+    'Target Player\'s Team' => '',
     'Team' => '',
     'Team Icon' => '',
     'Team ID' => '',
@@ -601,6 +601,7 @@ return [
     '{decimal5_7} Format' => '',
     '{lower}-{upper} percentile' => '',
     '{n,plural,=1{battle} other{battles}}' => '',
+    '{nFormatted} {n, plural, =1{battle} other{battles}}' => '',
     '{nFormatted} {n, plural, =1{time} other{times}}' => '',
     '{number, plural, =1{1 death} other{# deaths}} in {battle, plural, =1{1 battle} other{# battles}}' => '',
     '{number, plural, =1{1 egg} other{# eggs}} in {battle, plural, =1{1 shift} other{# shifts}}' => '',

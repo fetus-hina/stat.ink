@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2017 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2020 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -10,6 +10,7 @@ namespace app\models;
 
 use DateTimeImmutable;
 use DateTimeZone;
+use Exception;
 use Yii;
 use app\components\helpers\Battle as BattleHelper;
 use app\components\helpers\db\Now;
@@ -32,10 +33,12 @@ class Battle2FilterForm extends Model
     public $id_from; // old, for compatibility. Use filterIdRange.
     public $id_to;   // old, for compatibility. Use filterIdRange.
     public $filter;
+    public $with_team; // "good" or "bad", refs $filterWithPrincipalId
 
     private $filterTeam;
     private $filterIdRange; // [ from, to ]
     private $filterPeriod; // [ from, to ]
+    private $filterWithPrincipalId;
 
     public function formName()
     {
@@ -193,6 +196,8 @@ class Battle2FilterForm extends Model
             [['timezone'], 'validateTimezone', 'skipOnEmpty' => false],
             [['id_from', 'id_to'], 'integer', 'min' => 1],
             [['filter'], 'validateFilter', 'skipOnEmpty' => true],
+            [['with_team'], 'string'],
+            [['with_team'], 'in', 'range' => ['good', 'bad']],
         ];
     }
 
@@ -212,6 +217,7 @@ class Battle2FilterForm extends Model
             'id_from' => Yii::t('app', 'ID From'),
             'id_to' => Yii::t('app', 'ID To'),
             'filter' => Yii::t('app', 'Filter'),
+            'with_team' => Yii::t('app', 'Target Player\'s Team'),
         ];
     }
 
@@ -304,21 +310,21 @@ class Battle2FilterForm extends Model
 
                 $pos = strpos($v, ':');
                 if ($pos === false || $pos < 1) {
-                    throw new \Exception();
+                    throw new Exception();
                 }
 
                 switch (substr($v, 0, $pos)) {
                     case 'team':
                         $v = substr($v, $pos + 1);
                         if (!$this->isValidTeamFilter($v)) {
-                            throw new \Exception();
+                            throw new Exception();
                         }
                         $this->filterTeam = $v;
                         return;
 
                     case 'id':
                         if (!preg_match('/^(\d+)-(\d+)$/', substr($v, $pos + 1), $match)) {
-                            throw new \Exception();
+                            throw new Exception();
                         }
                         $this->filterIdRange = [
                             (int)$match[1],
@@ -336,15 +342,24 @@ class Battle2FilterForm extends Model
                                 (int)$match[2],
                             ];
                         } else {
-                            throw new \Exception();
+                            throw new Exception();
+                        }
+                        return;
+
+                    case 'with':
+                        $v = substr($v, $pos + 1);
+                        if (preg_match('/^[0-9a-f]{16}$/', $v)) {
+                            $this->filterWithPrincipalId = $v;
+                        } else {
+                            throw new Exception();
                         }
                         return;
 
                     default:
-                        throw new \Exception();
+                        throw new Exception();
                 }
             }
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $this->addError($attr, Yii::t('yii', '{attribute} is invalid.', [
                 'attribute' => $this->getAttributeLabel($attr),
             ]));
@@ -405,6 +420,13 @@ class Battle2FilterForm extends Model
             if ((string)$value !== '') {
                 $push($key, $value);
             }
+        }
+
+        if (
+            preg_match('/^[0-9a-f]{16}$/', (string)$this->filterWithPrincipalId) &&
+            in_array((string)$this->with_team, ['good', 'bad'])
+        ) {
+            $push('with_team', $this->with_team);
         }
 
         $now = $_SERVER['REQUEST_TIME'] ?? time();
@@ -577,5 +599,10 @@ class Battle2FilterForm extends Model
     public function getFilterPeriod(): ?array
     {
         return $this->filterPeriod;
+    }
+
+    public function getFilterWithPrincipalId(): ?string
+    {
+        return $this->filterWithPrincipalId;
     }
 }

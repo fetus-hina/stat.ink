@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 use app\assets\Spl2WeaponAsset;
 use app\components\widgets\Label;
 use yii\bootstrap\Html;
@@ -53,7 +56,7 @@ if ($totalK !== null && $totalD !== null) {
 }
 
 // チーム合計
-$teamId = trim($teamKey === 'my' ? $battle->my_team_id : $battle->his_team_id);
+$teamId = trim((string)($teamKey === 'my' ? $battle->my_team_id : $battle->his_team_id));
 $teamName = $teamKey === 'my' ? $battle->myTeamNickname : $battle->hisTeamNickname;
 $teamIcon = $teamKey === 'my' ? $battle->myTeamIcon : $battle->hisTeamIcon;
 $streak = $teamKey === 'my' ? $battle->my_team_win_streak : $battle->his_team_win_streak;
@@ -160,7 +163,10 @@ foreach ($players as $i => $player) {
       ),
       Html::tag(
         'td',
-        $this->render('_battle_details_player_name', compact('battle', 'player', 'teamKey')),
+        $this->render('_battle_details_player_name', array_merge(
+          compact('battle', 'player', 'teamKey'),
+          ['historyCount' => $historyCount[$player->splatnet_id] ?? 0],
+        )),
         [
           'class' => 'col-name',
         ]
