@@ -1,12 +1,16 @@
 <?php
+
+declare(strict_types=1);
+
 use app\assets\IrasutoyaAsset;
+use app\components\widgets\FA;
 use app\models\User;
 use statink\yii2\anonymizer\AnonymizerAsset;
 use yii\bootstrap\Html;
 
 $namePartInner = trim(implode(' ', [
   // identicon {{{
-  (function () use ($player) : string {
+  (function () use ($player): string {
     if (!$url = $player->iconUrl) {
       return '';
     }
@@ -26,7 +30,7 @@ $namePartInner = trim(implode(' ', [
   })(),
   // }}}
   // top player {{{
-  (function () use ($player) : string {
+  (function () use ($player): string {
     if (!$player->top_500) {
       return '';
     }
@@ -124,34 +128,58 @@ $namePart = $user
 
 $speciesIconInner = '';
 if ($player->species) {
-    $asset = IrasutoyaAsset::register($this);
-    $img = $asset->img($player->species->key . '.png', [
-        'alt' => Yii::t('app', $player->species->name),
-        'title' => Yii::t('app', $player->species->name),
-        'class' => 'auto-tooltip',
-        'style' => [
-            'height' => 'calc(1.2em - 2px)',
-        ],
-    ]);
-    $speciesIconInner = Html::tag('span', $img, [
-        'style' => [
-            'display' => 'inline-block',
-            'line-height' => '1',
-            'padding' => '1px',
-            'background' => $player->species->key === 'inkling' ? '#333' : '#ddd',
-            'border-radius' => '4px',
-        ],
-    ]);
+  $asset = IrasutoyaAsset::register($this);
+  $img = $asset->img($player->species->key . '.png', [
+    'alt' => Yii::t('app', $player->species->name),
+    'title' => Yii::t('app', $player->species->name),
+    'class' => 'auto-tooltip',
+    'style' => [
+      'height' => 'calc(1.2em - 2px)',
+    ],
+  ]);
+  $speciesIconInner = Html::tag('span', $img, [
+    'style' => [
+      'display' => 'inline-block',
+      'line-height' => '1',
+      'padding' => '1px',
+      'background' => $player->species->key === 'inkling' ? '#333' : '#ddd',
+      'border-radius' => '4px',
+    ],
+  ]);
+}
+
+$playerBattleLink = [];
+if (
+  !$player->is_me &&
+  $player->splatnet_id !== null &&
+  preg_match('/^[0-9a-f]{16}$/', (string)$player->splatnet_id)
+) {
+  $playerBattleLink[] = Html::a(
+    (string)FA::fas('history'),
+    ['show-v2/user',
+      'screen_name' => $battle->user->screen_name,
+      'filter' => [
+        'filter' => sprintf('with:%s', (string)$player->splatnet_id),
+      ],
+    ],
+    ['class' => 'mr-1']
+  );
 }
 
 echo Html::tag(
-    'div',
-    $namePart . '<span>' . $speciesIconInner . '</span>',
-    [
-        'style' => [
-            'display' => 'flex',
-            'align-items' => 'center',
-            'justify-content' => 'space-between',
-        ],
-    ]
+  'div',
+  implode('', [
+    Html::tag('span', $namePart),
+    Html::tag('span', implode('', [
+      implode('', $playerBattleLink),
+      $speciesIconInner,
+    ])),
+  ]),
+  [
+    'style' => [
+      'display' => 'flex',
+      'align-items' => 'center',
+      'justify-content' => 'space-between',
+    ],
+  ]
 );

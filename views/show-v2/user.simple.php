@@ -145,6 +145,7 @@ SimpleBattleListAsset::register($this);
         'screen_name' => $user->screen_name,
         'connectivity' => true,
         'filter' => $filter,
+        'withTeam' => true,
       ]) . "\n" ?>
       <?= UserMiniInfo2::widget(['user' => $user]) . "\n" ?>
       <?= AdWidget::widget() . "\n" ?>

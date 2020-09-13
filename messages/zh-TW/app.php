@@ -470,6 +470,7 @@ return [
     'Synergy Bonus' => '整齊獎勵',
     'Systematic error of win %' => '系統性勝率誤差',
     'Tablet' => '平板',
+    'Target Player\'s Team' => '',
     'Team' => '隊伍',
     'Team Icon' => '隊伍（圖標）',
     'Team ID' => '隊伍ID',

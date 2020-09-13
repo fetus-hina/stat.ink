@@ -459,6 +459,7 @@ return [
     'TV' => 'テレビ',
     'TZ' => '時間帯',
     'Tablet' => 'タブレット',
+    'Target Player\'s Team' => '指定プレーヤーのチーム',
     'Team ID' => 'チームID',
     'Team Icon' => 'チームアイコン',
     'Team Inked' => 'チームで塗った面積',

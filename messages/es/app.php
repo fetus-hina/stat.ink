@@ -471,6 +471,7 @@ return [
     'Synergy Bonus' => '',
     'Systematic error of win %' => '',
     'Tablet' => '',
+    'Target Player\'s Team' => '',
     'Team' => '',
     'Team Icon' => '',
     'Team ID' => '',

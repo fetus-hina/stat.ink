@@ -319,6 +319,16 @@ class Battle2 extends ActiveRecord
                         (int)$form->filterPeriod[1]
                     ];
                 }
+                if ($form->filterWithPrincipalId) {
+                    $this->innerJoinWith('battlePlayersPure');
+                    $and[] = ['{{battle_player2}}.[[splatnet_id]]' => $form->filterWithPrincipalId];
+
+                    if (in_array((string)$form->with_team, ['good', 'bad'], true)) {
+                        $and[] = [
+                            '{{battle_player2}}.[[is_my_team]]' => $form->with_team === 'good',
+                        ];
+                    }
+                }
                 if (count($and) > 1) {
                     $this->andWhere($and);
                     $and = ['and'];

@@ -1212,6 +1212,7 @@ if ($user->twitter != '') {
         'connectivity' => true,
         'filter' => $filter,
         'filterText' => $filter->filter != '',
+        'withTeam' => true,
       ]) . "\n" ?>
       <?= UserMiniInfo2::widget(['user' => $user]) . "\n" ?>
       <?= AdWidget::widget() . "\n" ?>
