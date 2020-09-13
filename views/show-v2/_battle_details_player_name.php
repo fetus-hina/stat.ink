@@ -150,6 +150,7 @@ if ($player->species) {
 
 $playerBattleLink = [];
 if (
+  $historyCount > 1 &&
   !$player->is_me &&
   $player->splatnet_id !== null &&
   preg_match('/^[0-9a-f]{16}$/', (string)$player->splatnet_id)
@@ -162,7 +163,13 @@ if (
         'filter' => sprintf('with:%s', (string)$player->splatnet_id),
       ],
     ],
-    ['class' => 'mr-1']
+    [
+      'class' => 'mr-1 auto-tooltip',
+      'title' => Yii::t('app', '{nFormatted} {n, plural, =1{battle} other{battles}}', [
+        'n' => $historyCount,
+        'nFormatted' => Yii::$app->formatter->asInteger($historyCount),
+      ]),
+    ]
   );
 }
 
