@@ -9,7 +9,6 @@
 declare(strict_types=1);
 
 return [
-    '%m/%d/%Y' => 'm/%d/%Y',
     '(combined)' => '(combiné)',
     '(default)' => '(par défaut)',
     '(For only Splatoon 1 at this time)' => '(Pour seulement Splatoon 1 à l\'heure actuelle)',

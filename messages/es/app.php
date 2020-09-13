@@ -11,7 +11,6 @@
 declare(strict_types=1);
 
 return [
-    '%m/%d/%Y' => '%d/%m/%Y',
     '(combined)' => '(conjunto)',
     '(default)' => '(defecto)',
     '(For only Splatoon 1 at this time)' => '',

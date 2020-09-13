@@ -9,7 +9,6 @@
 declare(strict_types=1);
 
 return [
-    '%m/%d/%Y' => '%m/%d/%Y',
     '(combined)' => '(合併)',
     '(default)' => '(默認)',
     '(For only Splatoon 1 at this time)' => '(目前僅適用於Splatoon 1)',
