@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This view is used by console/controllers/MigrateController.php
  * The following variables are available in this view:
@@ -13,6 +16,6 @@
     'upCode' => '',
     'downCode' => implode("\n", [
         "echo \"" . addslashes($className) . " cannot be reverted.\\n\";",
-        "return false",
+        "return false;",
     ]),
 ]) ?>
