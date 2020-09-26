@@ -172,12 +172,14 @@ class SfItem extends Model
             }
         };
 
-        if (!preg_match(
-            "/\\A{$sfItem}(?<remains>.*)\\z/",
-            $encoded,
-            $match,
-            PREG_UNMATCHED_AS_NULL
-        )) {
+        if (
+            !preg_match(
+                "/\\A{$sfItem}(?<remains>.*)\\z/",
+                $encoded,
+                $match,
+                PREG_UNMATCHED_AS_NULL
+            )
+        ) {
             return null;
         }
         $paramsStr = (string)$match['params'];
@@ -187,12 +189,14 @@ class SfItem extends Model
 
         $paramsStr = ltrim($paramsStr, "; \t");
         while (strlen($paramsStr) > 0) {
-            if (!preg_match(
-                "/\\A(?<name>{$pname})(?:=(?<value>{$pvalue}))?/",
-                $paramsStr,
-                $match,
-                PREG_UNMATCHED_AS_NULL
-            )) {
+            if (
+                !preg_match(
+                    "/\\A(?<name>{$pname})(?:=(?<value>{$pvalue}))?/",
+                    $paramsStr,
+                    $match,
+                    PREG_UNMATCHED_AS_NULL
+                )
+            ) {
                 throw new LogicException('BUG');
             }
 
@@ -207,7 +211,7 @@ class SfItem extends Model
         return $remains;
     }
 
-    static public function compare(self $a, self $b): int
+    public static function compare(self $a, self $b): int
     {
         return strcmp((string)$a, (string)$b);
     }
