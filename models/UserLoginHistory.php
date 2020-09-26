@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2018 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2020 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -11,6 +11,7 @@ declare(strict_types=1);
 namespace app\models;
 
 use Yii;
+use app\components\behaviors\ClientHintBehavior;
 use app\components\behaviors\RemoteAddrBehavior;
 use app\components\behaviors\RemoteHostBehavior;
 use app\components\behaviors\RemotePortBehavior;
@@ -32,10 +33,12 @@ use yii\db\Expression as DbExpr;
  * @property integer $user_agent_id
  * @property string $created_at
  * @property string $updated_at
+ * @property integer $client_hint_id
  *
- * @property HttpUserAgent $userAgent
+ * @property HttpClientHint $clientHint
  * @property LoginMethod $method
  * @property User $user
+ * @property HttpUserAgent $userAgent
  */
 class UserLoginHistory extends ActiveRecord
 {
@@ -87,10 +90,11 @@ class UserLoginHistory extends ActiveRecord
     public function behaviors()
     {
         return [
-            TimestampBehavior::class,
+            ClientHintBehavior::class,
             RemoteAddrBehavior::class,
-            RemotePortBehavior::class,
             RemoteHostBehavior::class,
+            RemotePortBehavior::class,
+            TimestampBehavior::class,
             UserAgentBehavior::class,
         ];
     }
@@ -99,11 +103,18 @@ class UserLoginHistory extends ActiveRecord
     {
         return [
             [['user_id', 'method_id'], 'required'],
-            [['user_id', 'method_id', 'remote_port', 'user_agent_id'], 'default', 'value' => null],
-            [['user_id', 'method_id', 'remote_port', 'user_agent_id'], 'integer'],
+            [['user_id', 'method_id', 'remote_port', 'user_agent_id', 'client_hint_id'], 'default',
+                'value' => null,
+            ],
+            [['user_id', 'method_id', 'remote_port', 'user_agent_id', 'client_hint_id'], 'integer'],
             [['remote_addr'], 'string'],
             [['created_at', 'updated_at'], 'safe'],
             [['remote_host'], 'string', 'max' => 255],
+            [['client_hint_id'], 'exist',
+                'skipOnError' => true,
+                'targetClass' => HttpClientHint::class,
+                'targetAttribute' => ['client_hint_id' => 'id'],
+            ],
             [['user_agent_id'], 'exist',
                 'skipOnError' => true,
                 'targetClass' => HttpUserAgent::class,
@@ -134,12 +145,13 @@ class UserLoginHistory extends ActiveRecord
             'user_agent_id' => 'User Agent ID',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
+            'client_hint_id' => 'Client Hint ID',
         ];
     }
 
-    public function getUserAgent(): ActiveQuery
+    public function getClientHint(): ActiveQuery
     {
-        return $this->hasOne(HttpUserAgent::class, ['id' => 'user_agent_id']);
+        return $this->hasOne(HttpClientHint::class, ['id' => 'client_hint_id']);
     }
 
     public function getMethod(): ActiveQuery
@@ -150,6 +162,11 @@ class UserLoginHistory extends ActiveRecord
     public function getUser(): ActiveQuery
     {
         return $this->hasOne(User::class, ['id' => 'user_id']);
+    }
+
+    public function getUserAgent(): ActiveQuery
+    {
+        return $this->hasOne(HttpUserAgent::class, ['id' => 'user_agent_id']);
     }
 
     public function getPseudoId(): ?string

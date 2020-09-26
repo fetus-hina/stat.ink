@@ -190,7 +190,7 @@ init-by-archive: \
 	resource
 
 test: init
-	./composer.phar exec codecept run
+	./composer.phar exec codecept run -v
 
 docker: init-by-archive migrate-db
 	sudo docker build -t jp3cki/statink .
