@@ -1,5 +1,7 @@
 name: 'CI'
-on: ['push']
+on:
+  - 'push'
+  - 'pull_request'
 jobs:
   ciDoesNotSkip:
     runs-on: 'ubuntu-latest'
@@ -60,14 +62,36 @@ jobs:
             migrations \
             models
 
-  jsStyleCheck:
-    name: 'JS Coding Style'
+  setupNPM:
+    name: 'Setup NPM (install node_modules)'
     runs-on: 'ubuntu-latest'
     needs:
       - 'ciDoesNotSkip'
     steps:
       - uses: 'actions/checkout@v2'
-      - run: 'npm ci'
+      - uses: 'actions/cache@v2'
+        with:
+          path: |
+            node_modules
+            ~/.npm
+          key: npm-${{ hashFiles('package-lock.json') }}
+          restore-keys: npm-
+      - run: 'npm install'
+
+  jsStyleCheck:
+    name: 'JS Coding Style'
+    runs-on: 'ubuntu-latest'
+    needs:
+      - 'ciDoesNotSkip'
+      - 'setupNPM'
+    steps:
+      - uses: 'actions/checkout@v2'
+      - uses: 'actions/cache@v2'
+        with:
+          path: |
+            node_modules
+            ~/.npm
+          key: npm-${{ hashFiles('package-lock.json') }}
       - run: 'npx eslint "resources/**/*.es" "resources/**/*.js"'
 
   cssStyleCheck:
@@ -75,16 +99,48 @@ jobs:
     runs-on: 'ubuntu-latest'
     needs:
       - 'ciDoesNotSkip'
+      - 'setupNPM'
     steps:
       - uses: 'actions/checkout@v2'
-      - run: 'npm ci'
+      - uses: 'actions/cache@v2'
+        with:
+          path: |
+            node_modules
+            ~/.npm
+          key: npm-${{ hashFiles('package-lock.json') }}
       - run: 'npx stylelint "resources/**/*.less" "resources/**/*.css"'
+
+  setupComposer:
+    name: 'Setup Composer (install vendor)'
+    runs-on: 'ubuntu-latest'
+    needs:
+      - 'ciDoesNotSkip'
+      - 'phpSyntaxCheck'
+    steps:
+      - name: 'Setup PHP'
+        run: |
+          sudo apt install -y php7.4-intl
+          sudo update-alternatives --set php /usr/bin/php7.4
+      - uses: 'actions/checkout@v2'
+      - uses: 'actions/cache@v2'
+        with:
+          path: |
+            vendor
+            ~/.cache/composer/files
+          key: composer-${{ hashFiles('composer.lock') }}
+          restore-keys: composer-
+      - name: 'Install composer packages'
+        run: |
+          make composer.phar
+          make vendor
 
   phpUnit:
     name: 'Build & Test'
     needs:
       - 'ciDoesNotSkip'
       - 'phpSyntaxCheck'
+      - 'setupComposer'
+      - 'setupNPM'
     strategy:
       matrix:
         php_version:
@@ -107,21 +163,26 @@ jobs:
       GEOIP_LICENSE_KEY: '${{ secrets.GEOIP_LICENSE_KEY }}'
     runs-on: 'ubuntu-latest'
     steps:
-      - run: 'sudo apt install -y brotli jpegoptim libxml2-utils php${{ matrix.php_version }}-intl'
-      - run: 'sudo update-alternatives --set php /usr/bin/php${{ matrix.php_version }}'
-      - uses: 'actions/checkout@v1'
+      - name: 'Setup PHP env'
+        run: |
+          sudo apt install -y brotli jpegoptim libxml2-utils php${{ matrix.php_version }}-intl
+          sudo update-alternatives --set php /usr/bin/php${{ matrix.php_version }}
+      - uses: 'actions/checkout@v2'
       - uses: 'actions/setup-node@v1'
         with:
           node-version: '12.x'
-      - run: |
-          # display versions
-          php --version
-          echo
-          echo -n "Node: "
-          node --version
-          echo
-          echo -n "NPM: "
-          npm --version
+      - uses: 'actions/cache@v2'
+        with:
+          path: |
+            vendor
+            ~/.cache/composer/files
+          key: composer-${{ hashFiles('composer.lock') }}
+      - uses: 'actions/cache@v2'
+        with:
+          path: |
+            node_modules
+            ~/.npm
+          key: npm-${{ hashFiles('package-lock.json') }}
       - run: 'make init'
       - run: './yii secret/db localhost statink'
       - run: 'make migrate-db'
