@@ -10,10 +10,10 @@ declare(strict_types=1);
 
 return [
     'Average' => 'Media',
-    'Golden E.' => 'E d\'oro.',
+    'Golden E.' => 'Oro E.',
     'Points' => 'Punti',
     'Power E.' => 'Potenza E.',
     'Rescued' => 'Salvato',
-    'Shifts' => 'Turni',
+    'Shifts' => 'Turni di lavoro',
     'Total' => 'Totale',
 ];

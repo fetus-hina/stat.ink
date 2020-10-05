@@ -11,6 +11,6 @@ declare(strict_types=1);
 return [
     'High Tide' => 'Hoogwater',
     'Low Tide' => 'Laagwater',
-    'Mid Tide' => 'Midden-tij',
+    'Mid Tide' => 'Midden-tijd',
     'Water Level' => 'Waterstand',
 ];

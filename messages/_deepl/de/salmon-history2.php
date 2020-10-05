@@ -14,6 +14,6 @@ return [
     'Points' => 'Punkte',
     'Power E.' => 'Leistung E.',
     'Rescued' => 'Gerettet',
-    'Shifts' => 'Verschiebungen',
+    'Shifts' => 'Schichten',
     'Total' => 'Gesamt',
 ];

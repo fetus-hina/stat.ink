@@ -14,6 +14,6 @@ return [
     '{delta} h' => 'h {delta}',
     '{delta} m' => '{delta} m',
     '{delta} mo' => '{delta} мо',
-    '{delta} s' => 's {delta}',
+    '{delta} s' => '{delta} s',
     '{delta} yr' => '',
 ];

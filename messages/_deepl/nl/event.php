@@ -19,7 +19,7 @@ return [
     'Sheldon\'s Picks Vol.1' => 'Sheldon\'s Picks Vol.1',
     'Sheldon\'s Picks Vol.2' => 'Sheldon\'s Picks Vol.2',
     'Slosher Deco' => 'Sloshere Deco',
-    'Sloshing Machine' => 'Klotsmachine',
+    'Sloshing Machine' => 'Klotsen Machine',
     'Sloshing Machine Neo' => 'Sloshing Machine Neo',
     'Splatfest #11' => 'Splatfest #11',
     'Splatfest #14' => 'Splatfest #14',
