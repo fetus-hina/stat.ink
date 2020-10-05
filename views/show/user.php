@@ -11,7 +11,7 @@ use yii\widgets\ListView;
 
 BattleListAsset::register($this);
 
-$title = Yii::t('app', '{0}\'s Splat Log', [$user->name]);
+$title = Yii::t('app', '{name}\'s Splat Log', ['name' => $user->name]);
 $this->title = implode(' | ', [
   Yii::$app->name,
   $title,

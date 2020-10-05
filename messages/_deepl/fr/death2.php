@@ -16,8 +16,8 @@ return [
     'Inkfurler' => 'Inkfurler',
     'Main Weapon' => 'Arme principale',
     'Out of Bounds' => 'Hors limites',
-    'Princess Cannon' => 'Canon de la princesse',
-    'Special Weapon' => 'Armes spéciales',
+    'Princess Cannon' => 'Canon de princesse',
+    'Special Weapon' => 'Arme spéciale',
     'Sub Weapon' => 'Sous-arme',
     'Unknown' => 'Inconnu',
 ];

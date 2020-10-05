@@ -31,7 +31,7 @@ $canonicalUrl = Url::to(
   ['show/battle', 'screen_name' => $user->screen_name, 'battle' => $battle->id],
   true
 );
-$title = Yii::t('app', 'Results of {0}\'s Battle', [$user->name]);
+$title = Yii::t('app', 'Results of {name}\'s Battle', ['name' => $user->name]);
 $this->title = sprintf('%s | %s', Yii::$app->name, $title);
 
 $summary = [];
@@ -112,8 +112,8 @@ $specials = Special::find()->asArray()->all();
     </span>
   </span>
   <h1 itemprop="headline"><?=
-    Yii::t('app', 'Results of {0}\'s Battle', [
-      Html::a(
+    Yii::t('app', 'Results of {name}\'s Battle', [
+      'name' => Html::a(
         Html::encode($user->name),
         ['show/user', 'screen_name' => $user->screen_name]
       ),

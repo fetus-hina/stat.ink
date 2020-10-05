@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 use app\assets\UserStatReportAsset;
@@ -9,7 +10,7 @@ use yii\data\ArrayDataProvider;
 use yii\grid\GridView;
 use yii\helpers\Html;
 
-$title = Yii::t('app', '{0}\'s Battle Report', [$user->name]);
+$title = Yii::t('app', '{name}\'s Battle Report', ['name' => $user->name]);
 
 $this->context->layout = 'main';
 $this->title = implode(' | ', [
@@ -37,8 +38,8 @@ if ($prev) {
 UserStatReportAsset::register($this);
 ?>
 <div class="container">
-  <h1><?= Yii::t('app', '{0}\'s Battle Report', [
-    Html::a(
+  <h1><?= Yii::t('app', '{name}\'s Battle Report', [
+    'name' => Html::a(
       Html::encode($user->name),
       ['show/user', 'screen_name' => $user->screen_name],
     ),

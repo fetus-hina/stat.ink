@@ -13,7 +13,7 @@ use yii\helpers\Url;
 $user = $battle->user;
 
 // head-related {{{
-$title = Yii::t('app', 'Results of {0}\'s Battle', [$user->name]);
+$title = Yii::t('app', 'Results of {name}\'s Battle', ['name' => $user->name]);
 $canonicalUrl = Url::to(
   ['show-v2/battle', 'screen_name' => $user->screen_name, 'battle' => $battle->id],
   true
@@ -71,8 +71,8 @@ BattleDetailAsset::register($this);
 ?>
 <div class="container">
   <h1>
-    <?= Yii::t('app', 'Results of {0}\'s Battle', [
-      Html::a(
+    <?= Yii::t('app', 'Results of {name}\'s Battle', [
+      'name' => Html::a(
         Html::encode($user->name),
         ['show-v2/user', 'screen_name' => $user->screen_name]
       ),

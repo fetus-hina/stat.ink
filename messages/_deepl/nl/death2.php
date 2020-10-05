@@ -16,8 +16,8 @@ return [
     'Inkfurler' => 'Inkfurler',
     'Main Weapon' => 'Hoofdwapen',
     'Out of Bounds' => 'Buiten de grenzen',
-    'Princess Cannon' => 'Prinses Kanon',
+    'Princess Cannon' => 'Princess Cannon',
     'Special Weapon' => 'Speciaal Wapen',
-    'Sub Weapon' => 'Onderwapen',
+    'Sub Weapon' => 'Sub Wapen',
     'Unknown' => 'Onbekend',
 ];

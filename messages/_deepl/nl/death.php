@@ -16,10 +16,10 @@ return [
     'Main Weapon' => 'Hoofdwapen',
     'Out of Bounds' => 'Buiten de grenzen',
     'Rainmaker' => 'Regenmaker',
-    'Rainmaker Inksplosion' => 'Regenmaker Inksplosion',
+    'Rainmaker Inksplosion' => 'Regenmaker Inktsplosion',
     'Rainmaker Shield' => 'Regenmakersschild',
     'Rainmaker Shot' => 'Regenmakersschot',
     'Special' => 'Speciaal',
-    'Sub Weapon' => 'Onderwapen',
+    'Sub Weapon' => 'Sub Wapen',
     'Unknown' => 'Onbekend',
 ];

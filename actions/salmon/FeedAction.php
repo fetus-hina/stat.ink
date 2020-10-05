@@ -92,8 +92,12 @@ class FeedAction extends Action
             Yii::$app->version,
             Url::home(true)
         );
-        $feed->setTitle(Yii::t('app', '{0}\'s Salmon Log', [$user->name], $input->lang));
-        $feed->setDescription(Yii::t('app', '{0}\'s Salmon Log', [$user->name], $input->lang));
+        $feed->setTitle(
+            Yii::t('app', '{name}\'s Salmon Log', ['name' => $user->name], $input->lang)
+        );
+        $feed->setDescription(
+            Yii::t('app', '{name}\'s Salmon Log', ['name' => $user->name], $input->lang)
+        );
         $feed->setId(
             Uuid::v5(
                 UuidNS::url(),

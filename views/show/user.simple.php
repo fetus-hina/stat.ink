@@ -8,7 +8,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\ListView;
 
-$title = Yii::t('app', '{0}\'s Splat Log', [$user->name]);
+$title = Yii::t('app', '{name}\'s Splat Log', ['name' => $user->name]);
 $this->title = implode(' | ', [
   Yii::$app->name,
   $title,

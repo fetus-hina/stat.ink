@@ -16,7 +16,7 @@ return [
     'Main Weapon' => 'Hauptwaffe',
     'Out of Bounds' => 'Zutritt verboten',
     'Rainmaker' => 'Regenmacher',
-    'Rainmaker Inksplosion' => 'Regenmacher-Tintensprengung',
+    'Rainmaker Inksplosion' => 'Regenmacher-Tintenstrahldrucker',
     'Rainmaker Shield' => 'Regenmacher-Schild',
     'Rainmaker Shot' => 'Regenmacher-Schuss',
     'Special' => 'Spezial',

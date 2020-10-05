@@ -8,7 +8,7 @@ use app\components\widgets\SnsWidget;
 use app\models\Battle2;
 use yii\helpers\Html;
 
-$title = Yii::t('app', "{0}'s Battle Report", [$user->name]);
+$title = Yii::t('app', "{name}'s Battle Report", ['name' => $user->name]);
 $this->title = Yii::$app->name . ' | ' . $title;
 
 $this->registerMetaTag(['name' => 'twitter:card', 'content' => 'summary']);
@@ -29,7 +29,7 @@ UserStatReportAsset::register($this);
 $weapons = Spl2WeaponAsset::register($this);
 ?>
 <div class="container">
-  <h1><?= Yii::t('app', "{0}'s Battle Report", [
+  <h1><?= Yii::t('app', "{name}'s Battle Report", [
     Html::a(
       Html::encode($user->name),
       ['show-v2/user', 'screen_name' => $user->screen_name]

@@ -23,7 +23,7 @@ return [
     'Osaka, Japan' => '大阪',
     'Our servers are located in Ishikari Datacenter (Hokkaido, Japan), SAKURA internet inc.' => '我們的服務器位於石狩數據中心（日本北海道），SAKURA internet inc.',
     'PGP Key' => 'PGP密鑰',
-    'Privacy Policy' => '私隱政策',
+    'Privacy Policy' => '隱私權政策',
     'SAKURA internet inc. is our sponsor.' => 'SAKURA internet inc.是我們的贊助商。',
     'Server Location' => '服務器位置',
     'SNS' => 'SNS',

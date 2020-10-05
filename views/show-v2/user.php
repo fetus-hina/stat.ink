@@ -24,7 +24,7 @@ use yii\widgets\ListView;
 
 BattleListAsset::register($this);
 
-$title = Yii::t('app', "{0}'s Splat Log", $user->name);
+$title = Yii::t('app', "{name}'s Splat Log", ['name' => $user->name]);
 $this->title = sprintf('%s | %s', Yii::$app->name, $title);
 
 $this->registerLinkTag(['rel' => 'canonical', 'href' => $permLink]);

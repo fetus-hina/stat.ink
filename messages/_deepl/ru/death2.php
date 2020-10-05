@@ -11,7 +11,7 @@ declare(strict_types=1);
 return [
     'Cannon' => 'Cannon',
     'Drowning' => 'Утопление',
-    'Fall' => 'Падение',
+    'Fall' => 'Отправить',
     'Hyperbomb' => 'Гипербомба',
     'Inkfurler' => 'Inkfurler',
     'Main Weapon' => 'Главное оружие',

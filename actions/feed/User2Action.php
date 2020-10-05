@@ -92,16 +92,16 @@ class User2Action extends BaseAction
         $feed->setTitle(
             Yii::t(
                 'app',
-                '{0}\'s Splat Log',
-                [$user->name],
+                '{name}\'s Splat Log',
+                ['name' => $user->name],
                 $model->lang
             )
         );
         $feed->setDescription(
             Yii::t(
                 'app',
-                '{0}\'s Splat Log',
-                [$user->name],
+                '{name}\'s Splat Log',
+                ['name' => $user->name],
                 $model->lang
             )
         );

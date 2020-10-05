@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 use app\components\widgets\AdWidget;
@@ -11,8 +12,8 @@ use yii\helpers\Html;
 
 $this->context->layout = 'main';
 
-$title = Yii::t('app', '{0}\'s Battle Stats (vs. Weapon)', [
-  $user->name,
+$title = Yii::t('app', '{name}\'s Battle Stats (vs. Weapon)', [
+  'name' => $user->name,
 ]);
 $this->title = implode(' | ', [
   Yii::$app->name,

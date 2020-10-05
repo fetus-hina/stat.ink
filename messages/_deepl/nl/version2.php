@@ -13,5 +13,5 @@ return [
     'Initial Release' => 'Eerste uitgave',
     'Prerelease' => 'Prerelease',
     'Splatfest World Premiere' => 'Splatfest Wereld Première',
-    'Testfire' => 'Testvuur',
+    'Testfire' => 'Testfire',
 ];

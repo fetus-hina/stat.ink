@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 use app\assets\StatByMapRuleAsset;
@@ -12,7 +13,7 @@ use yii\helpers\Html;
 use yii\helpers\Json;
 use yii\helpers\Url;
 
-$title = Yii::t('app', "{0}'s Battle Stats (by Mode and Stage)", $user->name);
+$title = Yii::t('app', "{name}'s Battle Stats (by Mode and Stage)", ['name' => $user->name]);
 $this->title = implode(' | ', [Yii::$app->name, $title]);
 
 $this->registerMetaTag(['name' => 'twitter:card', 'content' => 'summary']);
