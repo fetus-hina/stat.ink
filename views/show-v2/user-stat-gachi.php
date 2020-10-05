@@ -11,7 +11,10 @@ use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Json;
 
-$title = Yii::t('app', "{0}'s Battle Stats ({1})", [$user->name, Yii::t('app-rule2', $rule->name)]);
+$title = Yii::t('app', "{name}'s Battle Stats ({rule})", [
+    'name' => $user->name,
+    'rule' => Yii::t('app-rule2', $rule->name),
+]);
 $this->title = implode(' | ', [
     Yii::$app->name,
     $title,

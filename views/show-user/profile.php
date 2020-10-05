@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use app\assets\AppLinkAsset;
 use app\components\widgets\ActivityWidget;
 use app\components\widgets\UserIcon;
@@ -14,7 +16,7 @@ function fa(string $icon, string $category = 'fa') : string
     return Html::tag('span', '', ['class' => [$category, 'fa-fw', 'fa-' . $icon]]);
 }
 
-$title = Yii::t('app', "{0}'s Splat Log", [$user->name]);
+$title = Yii::t('app', "{name}'s Splat Log", ['name' => $user->name]);
 
 $this->context->layout = 'main';
 $this->title = sprintf('%s | %s', Yii::$app->name, $title);

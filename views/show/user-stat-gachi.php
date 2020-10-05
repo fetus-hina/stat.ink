@@ -10,8 +10,8 @@ use yii\helpers\Html;
 use yii\helpers\Json;
 
 $this->context->layout = 'main';
-$title = Yii::t('app', '{0}\'s Battle Stats (Ranked Battle)', [
-  $user->name,
+$title = Yii::t('app', '{name}\'s Battle Stats (Ranked Battle)', [
+  'name' => $user->name,
 ]);
 $this->title = $title;
 

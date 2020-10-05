@@ -12,7 +12,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 
 $this->context->layout = 'main';
-$title = Yii::t('app', '{0}\'s Battle Stats (by Weapon)', [$user->name]);
+$title = Yii::t('app', '{name}\'s Battle Stats (by Weapon)', ['name' => $user->name]);
 $this->title = implode(' | ', [
   Yii::$app->name,
   $title,
