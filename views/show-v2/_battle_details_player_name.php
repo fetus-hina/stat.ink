@@ -18,7 +18,7 @@ $namePartInner = trim(implode(' ', [
       $url,
       [
         'class' => 'auto-tooltip',
-        'title' => (trim($player->splatnet_id) !== '')
+        'title' => (trim((string)$player->splatnet_id) !== '')
           ? sprintf('ID: %s', $player->splatnet_id)
           : '',
         'style' => [
@@ -48,7 +48,7 @@ $namePartInner = trim(implode(' ', [
       $anonymize = false;
     } elseif ($player->isForceBlackouted) {
       $anonymize = true;
-    } elseif (trim($player->name) === '') {
+    } elseif (trim((string)$player->name) === '') {
       // We can only show an anonymized name
       $anonymize = true;
     } else {
