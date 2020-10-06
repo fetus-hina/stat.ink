@@ -589,7 +589,6 @@ return [
     '{n,plural,=1{battle} other{battles}}' => 'バトル',
     '{nFormatted} {n, plural, =1{battle} other{battles}}' => '{nFormatted}戦',
     '{nFormatted} {n, plural, =1{time} other{times}}' => '{nFormatted}回',
-    '{name}-san' => '{name}さん',
     '{name}\'s Battle Report' => '{name}さんのバトルレポート',
     '{name}\'s Battle Stats (Cause of Death)' => '{name}さんの統計（死因）',
     '{name}\'s Battle Stats (Ranked Battle)' => '{name}さんの統計（ガチマッチ）',

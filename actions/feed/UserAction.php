@@ -209,7 +209,7 @@ class UserAction extends BaseAction
                     $battle->is_win !== null
                         ? Yii::t('app', $battle->is_win ? 'Won' : 'Lost', [], $model->lang)
                         : '???',
-                    Yii::t('app', '{name}-san', ['name' => $user->name], $model->lang),
+                    $user->name,
                     $battle->id
                 )
             );
