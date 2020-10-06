@@ -599,7 +599,6 @@ return [
     '{name}\'s Battle Stats ({rule})' => '.. {name} .de las estadísticas de batalla de la compañía. {rule} ..',
     '{name}\'s Favorite Weapon' => 'El arma {name} favorita del Sr. Kerry...',
     '{name}\'s Splat Log' => 'El registro {name} de salpicaduras',
-    '{name}-san' => '{name} -san',
     '{nFormatted} {n, plural, =1{battle} other{battles}}' => '{nFormatted} {n, plural, =1{battle} other{battles}}',
     '{nFormatted} {n, plural, =1{time} other{times}}' => '{nFormatted} {n, plural, =1{time} other{times}}',
     '{number, plural, =1{1 death} other{# deaths}} in {battle, plural, =1{1 battle} other{# battles}}' => '{number, plural, =1{1 death} other{# deaths}} en {battle, plural, =1{1 battle} other{# battles}}',

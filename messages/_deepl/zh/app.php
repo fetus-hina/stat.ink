@@ -599,7 +599,6 @@ return [
     '{name}\'s Battle Stats ({rule})' => '\' {name} 的战绩（ {rule} ）。',
     '{name}\'s Favorite Weapon' => '{name} 喜爱的武器',
     '{name}\'s Splat Log' => '的 {name} Splat日志',
-    '{name}-san' => '- {name} 珊',
     '{nFormatted} {n, plural, =1{battle} other{battles}}' => '{nFormatted} {n, plural, =1{battle} other{battles}}',
     '{nFormatted} {n, plural, =1{time} other{times}}' => '{nFormatted} {n, plural, =1{time} other{times}}',
     '{number, plural, =1{1 death} other{# deaths}} in {battle, plural, =1{1 battle} other{# battles}}' => '{number, plural, =1{1 death} other{# deaths}} 在 {battle, plural, =1{1 battle} other{# battles}}',

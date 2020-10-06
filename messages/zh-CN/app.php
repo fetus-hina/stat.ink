@@ -600,7 +600,6 @@ return [
     '{name}\'s Battle Stats ({rule})' => '{name}的对战统计（{rule}）',
     '{name}\'s Favorite Weapon' => '{name}的最爱的武器',
     '{name}\'s Splat Log' => '{name}的涂地记录',
-    '{name}-san' => '{name}先生',
     '{nFormatted} {n, plural, =1{battle} other{battles}}' => '{nFormatted}次对战',
     '{nFormatted} {n, plural, =1{time} other{times}}' => '{nFormatted}次',
     '{number, plural, =1{1 death} other{# deaths}} in {battle, plural, =1{1 battle} other{# battles}}' => '{battle}次对战中死亡{number}次',

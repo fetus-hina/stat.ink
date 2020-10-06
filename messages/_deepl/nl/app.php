@@ -599,7 +599,6 @@ return [
     '{name}\'s Battle Stats ({rule})' => '{name} \'s Battle Stats ( {rule} )',
     '{name}\'s Favorite Weapon' => '\'s {name} Favoriete Wapen',
     '{name}\'s Splat Log' => 's {name} Splat Logboek',
-    '{name}-san' => '{name} -san',
     '{nFormatted} {n, plural, =1{battle} other{battles}}' => '{nFormatted} {n, plural, =1{battle} other{battles}}',
     '{nFormatted} {n, plural, =1{time} other{times}}' => '{nFormatted} {n, plural, =1{time} other{times}}',
     '{number, plural, =1{1 death} other{# deaths}} in {battle, plural, =1{1 battle} other{# battles}}' => '{number, plural, =1{1 death} other{# deaths}} in {battle, plural, =1{1 battle} other{# battles}}',
