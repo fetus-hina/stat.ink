@@ -145,8 +145,16 @@ echo Html::tag(
       $totalK === null ? '?' : $fmt->asInteger($totalK),
       $totalD === null ? '?' : $fmt->asInteger($totalD)
     )), ['class' => 'text-center']),
-    !$hasKD ? '' : Html::tag('td', Html::encode($totalRatio), ['class' => 'text-right']),
-    !$hasKD ? '' : Html::tag('td', Html::encode($totalRate), ['class' => 'text-right']),
+    !$hasKD
+      ? '' :
+      Html::tag(
+        'td',
+        implode(Html::tag('br'), [
+          Html::encode($totalRatio),
+          Html::tag('small', $totalRate, ['class' => 'text-muted']),
+        ]),
+        ['class' => 'text-right']
+      ),
   ]),
   ['class' => 'bg-' . $teamKey]
 ) . "\n";
@@ -283,8 +291,19 @@ foreach ($players as $i => $player) {
         $player->kill === null ? '?' : $fmt->asInteger($player->kill),
         $player->death === null ? '?' : $fmt->asInteger($player->death)
       )), ['class' => ['col-kd', 'text-center']]),
-      !$hasKD ? '' : Html::tag('td', Html::encode($player->getFormattedKillRatio()), ['class' => ['col-kd', 'text-right']]),
-      !$hasKD ? '' : Html::tag('td', Html::encode($player->getFormattedKillRate()), ['class' => ['col-kd', 'text-right']]),
+      !$hasKD
+        ? ''
+        : Html::tag('td',
+          implode(Html::tag('br'), [
+            Html::encode($player->getFormattedKillRatio()),
+            Html::tag(
+              'small',
+              Html::encode($player->getFormattedKillRate()),
+              ['class' => 'text-muted']
+            ),
+          ]),
+          ['class' => ['col-kd', 'text-right']]
+        ),
     ]),
     ['class' => [
       $player->is_me ? 'its-me' : '',
