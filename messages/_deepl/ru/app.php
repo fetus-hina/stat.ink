@@ -248,7 +248,6 @@ return [
     'Kills' => 'Убивает',
     'Kills (average):' => 'Убивает (в среднем):',
     'Kills (median):' => 'Убивает (медиана):',
-    'Kills+Assist / Specials' => 'Убийства+Помощь/Спецпредложения',
     'Kills / Deaths' => 'Убийства / Смерть',
     'Kills/min' => 'Убийства/минуты',
     'Kills and Deaths' => 'Убийства и смерть',

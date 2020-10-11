@@ -248,7 +248,6 @@ return [
     'Kills' => 'Uccide',
     'Kills (average):' => 'Uccisioni (media):',
     'Kills (median):' => 'Uccide (mediana):',
-    'Kills+Assist / Specials' => 'Uccidete+Assistente / Offerte speciali',
     'Kills / Deaths' => 'Uccisioni / Morti',
     'Kills/min' => 'Uccisioni/min',
     'Kills and Deaths' => 'Uccisioni e decessi',
