@@ -5,6 +5,7 @@ use app\assets\FontAwesomeAsset;
 use app\assets\PhotoSwipeSimplifyAsset;
 use app\assets\Spl2WeaponAsset;
 use app\components\helpers\Battle as BattleHelper;
+use app\components\widgets\BattleKillDeathColumn;
 use app\components\widgets\FA;
 use app\components\widgets\FestPowerHistory;
 use app\components\widgets\FreshnessHistory;
@@ -632,69 +633,21 @@ use yii\widgets\DetailView;
       },
       // }}}
     ],
-    'rank_in_team',
+    'rank_in_team:integer',
     [
       'label' => Yii::t('app', 'Kills / Deaths'), // {{{
       'format' => 'raw',
       'value' => function ($model) {
-        $parts = [];
-        $parts[] = Html::encode(sprintf(
-          '%s / %s',
-          $model->kill === null ? '?' : $model->kill,
-          $model->death === null ? '?' : $model->death
-        ));
-        if ($model->kill !== null && $model->death !== null) {
-          if ($model->kill > $model->death) {
-            $parts[] = Label::widget(['content' => '>', 'color' => 'success']);
-          } elseif ($model->kill < $model->death) {
-            $parts[] = Label::widget(['content' => '<', 'color' => 'danger']);
-          } else {
-            $parts[] = Label::widget(['content' => '=', 'color' => 'default']);
-          }
-        }
-        return implode(' ', $parts);
+        return BattleKillDeathColumn::widget([
+          'assist' => $model->assist,
+          'death' => $model->death,
+          'kill' => $model->kill,
+          'kill_or_assist' => $model->kill_or_assist,
+        ]);
       },
       // }}}
     ],
-    [
-      'label' => Yii::t('app', 'Kills+Assist / Specials'), // {{{
-      'format' => 'raw',
-      'value' => function ($model) {
-        if ($model->kill_or_assist === null && $model->special === null) {
-          return null;
-        }
-        return sprintf(
-          '%s / %s',
-          $model->kill_or_assist === null ? '?' : $model->kill_or_assist,
-          $model->special === null ? '?' : $model->special
-        );
-      },
-      // }}}
-    ],
-    [
-      'attribute' => 'kill_ratio', // {{{
-      'value' => function ($model) {
-        if ($model->kill === null || $model->death === null) {
-          return null;
-        }
-        return $model->kill_ratio === null
-          ? Yii::t('app', 'N/A')
-          : Yii::$app->formatter->asDecimal($model->kill_ratio, 2);
-      },
-      // }}}
-    ],
-    [
-      'attribute' => 'kill_rate', // {{{
-      'value' => function ($model) {
-        if ($model->kill === null || $model->death === null) {
-          return null;
-        }
-        return $model->kill_rate === null
-          ? Yii::t('app', 'N/A')
-          : Yii::$app->formatter->asPercent($model->kill_rate / 100, 1);
-      },
-      // }}}
-    ],
+    'special:integer',
     'max_kill_combo:integer',
     'max_kill_streak:integer',
     [

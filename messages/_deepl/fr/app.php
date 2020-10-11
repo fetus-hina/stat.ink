@@ -248,7 +248,6 @@ return [
     'Kills' => 'Tue',
     'Kills (average):' => 'Tue (en moyenne) :',
     'Kills (median):' => 'Tue (médiane) :',
-    'Kills+Assist / Specials' => 'Kills+Assist / Spéciales',
     'Kills / Deaths' => 'Tue / Décès',
     'Kills/min' => 'Tue/mn',
     'Kills and Deaths' => 'Tueries et décès',

@@ -248,7 +248,6 @@ return [
     'Kills' => '杀人',
     'Kills (average):' => '杀害（平均）：',
     'Kills (median):' => '杀害（中位数）：',
-    'Kills+Assist / Specials' => '杀人+助攻/特技',
     'Kills / Deaths' => '杀害/死亡',
     'Kills/min' => '杀害/分钟',
     'Kills and Deaths' => '杀人和死亡',

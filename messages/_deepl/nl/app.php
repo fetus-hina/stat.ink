@@ -248,7 +248,6 @@ return [
     'Kills' => 'Doodt',
     'Kills (average):' => 'Doodt (gemiddeld):',
     'Kills (median):' => 'Doodt (mediaan):',
-    'Kills+Assist / Specials' => 'Kills+Assist / Specials',
     'Kills / Deaths' => 'Doodt / Doodt',
     'Kills/min' => 'Doodt/min',
     'Kills and Deaths' => 'Doodt en sterft',

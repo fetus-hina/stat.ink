@@ -248,7 +248,6 @@ return [
     'Kills' => 'Tötet',
     'Kills (average):' => 'Tötet (durchschnittlich):',
     'Kills (median):' => 'Tötungen (Median):',
-    'Kills+Assist / Specials' => 'Kills+Assist / Besonderheiten',
     'Kills / Deaths' => 'Tötungen/Todesfälle',
     'Kills/min' => 'Tötungen/Min.',
     'Kills and Deaths' => 'Tötungen und Todesfälle',

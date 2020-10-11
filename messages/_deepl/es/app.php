@@ -248,7 +248,6 @@ return [
     'Kills' => 'Mata a',
     'Kills (average):' => 'Muertes (promedio):',
     'Kills (median):' => 'Mata (mediana):',
-    'Kills+Assist / Specials' => 'Kills+Assist / Especiales',
     'Kills / Deaths' => 'Muertes / Muertes',
     'Kills/min' => 'Muertes/min',
     'Kills and Deaths' => 'Muertes y muertes',

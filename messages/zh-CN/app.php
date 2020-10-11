@@ -249,7 +249,6 @@ return [
     'Kills' => '杀敌数',
     'Kills (average):' => '杀敌数（平均）',
     'Kills (median):' => '杀敌数（中值）',
-    'Kills+Assist / Specials' => '杀敌+助攻/大招使用',
     'Kills / Deaths' => '杀敌数/死亡数',
     'Kills/min' => '杀敌数/分钟',
     'Kills and Deaths' => '杀敌数和死亡数',

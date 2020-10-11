@@ -248,7 +248,6 @@ return [
     'Kills' => '',
     'Kills (average):' => '',
     'Kills (median):' => '',
-    'Kills+Assist / Specials' => '',
     'Kills / Deaths' => '',
     'Kills/min' => '',
     'Kills and Deaths' => '',
