@@ -44,14 +44,25 @@ jobs:
     needs:
       - 'ciDoesNotSkip'
     steps:
-      - uses: 'actions/checkout@v1'
-      - run: |
-          sudo update-alternatives --set php /usr/bin/php7.4
+      - uses: 'actions/checkout@v2'
+
+      - uses: 'actions/cache@v2'
+        with:
+          path: ~/.cache/composer/files
+          key: author-composer-cache
+
+      - name: 'Set up PHP environment'
+        run: sudo update-alternatives --set php /usr/bin/php7.4
+
+      - name: 'Install phpcq/author-validation'
+        run: |
           rm -f composer.json composer.lock vendor
-          cp composer.check-author.json composer.json
+          mv composer.check-author.json composer.json
           make vendor
           patch -p0 -d vendor/phpcq/author-validation < data/patch/check-author.nofollow.patch
-      - run: |
+
+      - name: 'Execute check-author.php'
+        run: |
           php -d memory_limit=-1 vendor/bin/check-author.php --php-files \
             actions \
             assets \
