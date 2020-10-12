@@ -49,7 +49,7 @@
     "stylelint": "^13.7.2",
     "stylelint-config-recommended": "^3.0.0",
     "svgo": "^1.3.2",
-    "uglify-js": "^3.11.1",
+    "uglify-js": "^3.11.2",
     "updates": "^11.2.5",
     "uuidjs": "^4.2.6",
     "yii2-pjax": "git+https://github.com/yiisoft/jquery-pjax.git",
