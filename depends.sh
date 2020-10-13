@@ -31,4 +31,4 @@ if ! has_change; then
 fi
 
 git checkout -b updates-`date '+%Y%m%d'`
-git commit -a -m 'Update dependencies' -S
+git commit -a -m '[no author] Update dependencies' -S
