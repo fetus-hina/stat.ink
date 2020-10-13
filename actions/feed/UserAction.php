@@ -93,16 +93,16 @@ class UserAction extends BaseAction
         $feed->setTitle(
             Yii::t(
                 'app',
-                '{0}\'s Splat Log',
-                [$user->name],
+                '{name}\'s Splat Log',
+                ['name' => $user->name],
                 $model->lang
             )
         );
         $feed->setDescription(
             Yii::t(
                 'app',
-                '{0}\'s Splat Log',
-                [$user->name],
+                '{name}\'s Splat Log',
+                ['name' => $user->name],
                 $model->lang
             )
         );
@@ -209,7 +209,7 @@ class UserAction extends BaseAction
                     $battle->is_win !== null
                         ? Yii::t('app', $battle->is_win ? 'Won' : 'Lost', [], $model->lang)
                         : '???',
-                    Yii::t('app', '{0}-san', [$user->name], $model->lang),
+                    $user->name,
                     $battle->id
                 )
             );

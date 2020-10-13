@@ -73,8 +73,8 @@ return [
         'GET,HEAD api/v2/user-battle' => 'api-v2-battle/index-with-auth',
         'GET,HEAD api/v2/battle/<id:\d+>' => 'api-v2-battle/view',
         'POST api/v2/battle'     => 'api-v2-battle/create',
-        'OPTIONS api/v2/battle'  => 'api-v2-battle/options',
-        'OPTIONS api/v2/battle-with-auth' => 'api-v2-battle/options',
+        'OPTIONS api/v2/battle'  => 'api-v2-battle/postable-options',
+        'OPTIONS api/v2/user-battle' => 'api-v2-battle/options',
         'OPTIONS api/v2/battle/<id:\d+>' => 'api-v2-battle/options',
 
         // Splatoon 2 Salmon Run

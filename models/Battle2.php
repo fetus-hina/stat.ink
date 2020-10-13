@@ -871,10 +871,10 @@ class Battle2 extends ActiveRecord
             'rank_after_id' => Yii::t('app', 'Rank (after the battle)'),
             'rank_after_exp' => 'Rank Exp After',
             'rank_in_team' => Yii::t('app', 'Rank in Team'),
-            'kill' => 'Kill',
-            'death' => 'Death',
+            'kill' => Yii::t('app', 'Kills'),
+            'death' => Yii::t('app', 'Deaths'),
             'kill_or_assist' => 'Kill or Assist',
-            'special' => 'Special',
+            'special' => Yii::t('app', 'Specials'),
             'kill_ratio' => Yii::t('app', 'Kill Ratio'),
             'kill_rate' => Yii::t('app', 'Kill Rate'),
             'max_kill_combo' => Yii::t('app', 'Max Kill Combo'),
@@ -1780,6 +1780,15 @@ class Battle2 extends ActiveRecord
         sort($playerIds);
 
         return hash('sha256', implode('&', $playerIds));
+    }
+
+    public function getAssist(): ?int
+    {
+        if ($this->kill_or_assist === null || $this->kill === null) {
+            return null;
+        }
+
+        return $this->kill_or_assist - $this->kill;
     }
 
     public function getGearAbilitySummary(): ?array

@@ -9,7 +9,7 @@ use app\components\widgets\WinLoseLegend;
 use yii\helpers\Html;
 use yii\helpers\Json;
 
-$title = Yii::t('app', "{0}'s Battle Stats (by Mode)", $user->name);
+$title = Yii::t('app', "{name}'s Battle Stats (by Mode)", ['name' => $user->name]);
 $this->title = implode(' | ', [Yii::$app->name, $title]);
 
 $this->registerMetaTag(['name' => 'twitter:card', 'content' => 'summary']);

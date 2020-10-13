@@ -17,7 +17,7 @@ return [
     'Main Weapon' => 'Hauptwaffe',
     'Out of Bounds' => 'Zutritt verboten',
     'Princess Cannon' => 'Prinzessin Kanone',
-    'Special Weapon' => 'Sonderwaffe',
+    'Special Weapon' => 'Spezial-Waffe',
     'Sub Weapon' => 'Sub-Waffe',
     'Unknown' => 'Unbekannt',
 ];

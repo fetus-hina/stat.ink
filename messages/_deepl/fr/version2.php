@@ -10,7 +10,7 @@ declare(strict_types=1);
 
 return [
     'Any Version' => 'Toute version',
-    'Initial Release' => 'Première diffusion',
+    'Initial Release' => 'Sortie initiale',
     'Prerelease' => 'Communiqué de presse',
     'Splatfest World Premiere' => 'Première mondiale de Splatfest',
     'Testfire' => 'Testfire',

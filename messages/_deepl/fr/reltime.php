@@ -15,5 +15,5 @@ return [
     '{delta} m' => 'm {delta}',
     '{delta} mo' => '{delta} mo',
     '{delta} s' => 's {delta}',
-    '{delta} yr' => '{delta} yr',
+    '{delta} yr' => '{delta} an',
 ];

@@ -4,6 +4,7 @@ on:
   - 'pull_request'
 jobs:
   ciDoesNotSkip:
+    name: "Tag Check: `[ci skip]`"
     runs-on: 'ubuntu-latest'
     if: "!contains(github.event.head_commit.message, '[ci skip]')"
     steps:
@@ -18,40 +19,78 @@ jobs:
     runs-on: 'ubuntu-latest'
     needs:
       - 'ciDoesNotSkip'
+    if: "!contains(github.event.head_commit.message, '[no php]')"
     steps:
       - uses: 'actions/checkout@v2'
-      - run: |
+
+      - name: 'Set PHP environment (PHP ${{ matrix.php_version }})'
+        run: |
           sudo update-alternatives --set php /usr/bin/php${{ matrix.php_version }}
           php -v
-          find . \( -type d \( -name '.git' -or -name 'vendor' -or -name 'runtime' \) -prune \) -or \( -type f -name '*.php' -print \) | LANG=C sort | xargs -n 1 php -l
+
+      - name: 'Syntax Check'
+        run: find . \( -type d \( -name '.git' -or -name 'vendor' -or -name 'runtime' \) -prune \) -or \( -type f -name '*.php' -print \) | LANG=C sort | xargs -n 1 php -l
 
   phpStyleCheck:
     name: 'PHP Coding Style'
     runs-on: 'ubuntu-latest'
     needs:
       - 'ciDoesNotSkip'
+    if: "!contains(github.event.head_commit.message, '[no php]')"
     steps:
       - uses: 'actions/checkout@v2'
-      - run: 'curl -fsSL -o phpcs "https://squizlabs.github.io/PHP_CodeSniffer/phpcs.phar"'
-      - run: |
+
+      - name: 'Fetch Latest phpcs.phar'
+        run: 'curl -fsSL -o phpcs "https://squizlabs.github.io/PHP_CodeSniffer/phpcs.phar"'
+
+      - name: 'Set PHP Environment (PHP 7.4)'
+        run: 'sudo update-alternatives --set php /usr/bin/php7.4'
+
+      - name: 'Show Versions'
+        run: |
           php -v
           php phpcs --version
-          php phpcs -p
+
+      - name: 'Run PHPCS'
+        run: 'php phpcs -p'
 
   phpCheckAuthor:
     name: 'Check Author'
     runs-on: 'ubuntu-latest'
     needs:
       - 'ciDoesNotSkip'
+    if: "!contains(github.event.head_commit.message, '[no php]') && !contains(github.event.head_commit.message, '[no author]')"
     steps:
-      - uses: 'actions/checkout@v1'
-      - run: |
-          sudo update-alternatives --set php /usr/bin/php7.4
-          rm -f composer.json composer.lock vendor
-          cp composer.check-author.json composer.json
-          make vendor
+      - uses: 'actions/checkout@v2'
+        with:
+          fetch-depth: 0
+
+      - name: 'Composer cache'
+        uses: 'actions/cache@v2'
+        with:
+          path: ~/.cache/composer/files
+          key: author-composer-cache-${{ github.sha }}
+          restore-keys: author-composer-cache-
+
+      - name: 'Set up PHP environment'
+        run: sudo update-alternatives --set php /usr/bin/php7.4
+
+      - name: 'Prepare for phpcq/author-validation'
+        run: |
+          rm -f composer.json
+          mv composer.check-author.json composer.json
+
+      - name: 'Install phpcq/author-validation'
+        uses: nick-invision/retry@v2
+        with:
+          timeout_seconds: 300
+          max_attempts: 3
+          retry_on: error
+          command: 'rm -rf composer.lock vendor && make vendor'
+
+      - name: 'Execute check-author.php'
+        run: |
           patch -p0 -d vendor/phpcq/author-validation < data/patch/check-author.nofollow.patch
-      - run: |
           php -d memory_limit=-1 vendor/bin/check-author.php --php-files \
             actions \
             assets \
@@ -69,6 +108,7 @@ jobs:
       - 'ciDoesNotSkip'
     steps:
       - uses: 'actions/checkout@v2'
+
       - uses: 'actions/cache@v2'
         with:
           path: |
@@ -76,7 +116,9 @@ jobs:
             ~/.npm
           key: npm-${{ hashFiles('package-lock.json') }}
           restore-keys: npm-
-      - run: 'npm install'
+
+      - name: 'Install NPM packages'
+        run: 'npm install'
 
   jsStyleCheck:
     name: 'JS Coding Style'
@@ -86,13 +128,16 @@ jobs:
       - 'setupNPM'
     steps:
       - uses: 'actions/checkout@v2'
+
       - uses: 'actions/cache@v2'
         with:
           path: |
             node_modules
             ~/.npm
           key: npm-${{ hashFiles('package-lock.json') }}
-      - run: 'npx eslint "resources/**/*.es" "resources/**/*.js"'
+
+      - name: 'Run ESLint'
+        run: 'npx eslint "resources/**/*.es" "resources/**/*.js"'
 
   cssStyleCheck:
     name: 'CSS Coding Style'
@@ -102,13 +147,16 @@ jobs:
       - 'setupNPM'
     steps:
       - uses: 'actions/checkout@v2'
+
       - uses: 'actions/cache@v2'
         with:
           path: |
             node_modules
             ~/.npm
           key: npm-${{ hashFiles('package-lock.json') }}
-      - run: 'npx stylelint "resources/**/*.less" "resources/**/*.css"'
+
+      - name: 'Run StyleLint'
+        run: 'npx stylelint "resources/**/*.less" "resources/**/*.css"'
 
   setupComposer:
     name: 'Setup Composer (install vendor)'
@@ -116,12 +164,15 @@ jobs:
     needs:
       - 'ciDoesNotSkip'
       - 'phpSyntaxCheck'
+    if: "!contains(github.event.head_commit.message, '[no php]')"
     steps:
       - name: 'Setup PHP'
         run: |
           sudo apt install -y php7.4-intl
           sudo update-alternatives --set php /usr/bin/php7.4
+
       - uses: 'actions/checkout@v2'
+
       - uses: 'actions/cache@v2'
         with:
           path: |
@@ -129,6 +180,7 @@ jobs:
             ~/.cache/composer/files
           key: composer-${{ hashFiles('composer.lock') }}
           restore-keys: composer-
+
       - name: 'Install composer packages'
         run: |
           make composer.phar
@@ -141,6 +193,7 @@ jobs:
       - 'phpSyntaxCheck'
       - 'setupComposer'
       - 'setupNPM'
+    if: "!contains(github.event.head_commit.message, '[no php]')"
     strategy:
       matrix:
         php_version:
@@ -167,23 +220,35 @@ jobs:
         run: |
           sudo apt install -y brotli jpegoptim libxml2-utils php${{ matrix.php_version }}-intl
           sudo update-alternatives --set php /usr/bin/php${{ matrix.php_version }}
+
       - uses: 'actions/checkout@v2'
+
       - uses: 'actions/setup-node@v1'
         with:
           node-version: '12.x'
+
       - uses: 'actions/cache@v2'
         with:
           path: |
             vendor
             ~/.cache/composer/files
           key: composer-${{ hashFiles('composer.lock') }}
+
       - uses: 'actions/cache@v2'
         with:
           path: |
             node_modules
             ~/.npm
           key: npm-${{ hashFiles('package-lock.json') }}
-      - run: 'make init'
-      - run: './yii secret/db localhost statink'
-      - run: 'make migrate-db'
-      - run: 'make test'
+
+      - name: 'Basic setup the app'
+        run: 'make init'
+
+      - name: 'Reset DB config'
+        run: './yii secret/db localhost statink'
+
+      - name: 'Migrate DB'
+        run: 'make migrate-db'
+
+      - name: 'Run Unit test'
+        run: 'make test'

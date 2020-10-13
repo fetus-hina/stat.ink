@@ -101,7 +101,7 @@ PaintballAsset::register($this);
   <h2>
     <?= Html::a(
       Html::encode(
-        Yii::t('app', '{0}\'s Battles', $ident->name)
+        Yii::t('app', '{name}\'s Battles', ['name' => $ident->name])
       ),
       ['show-user/profile', 'screen_name' => $ident->screen_name]
     ) . "\n" ?>

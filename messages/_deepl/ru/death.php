@@ -10,12 +10,12 @@ declare(strict_types=1);
 
 return [
     'Drowning' => 'Утопление',
-    'Fall' => 'Падение',
+    'Fall' => 'Отправить',
     'Gadget' => 'Гаджет',
     'Ink from a propeller' => 'чернила с пропеллера',
     'Main Weapon' => 'Главное оружие',
     'Out of Bounds' => 'Вне пределов',
-    'Rainmaker' => 'Дождеватель',
+    'Rainmaker' => 'Rainmaker',
     'Rainmaker Inksplosion' => 'Чистка дождевика',
     'Rainmaker Shield' => 'Щит дождевика',
     'Rainmaker Shot' => 'Выстрел дождевика',

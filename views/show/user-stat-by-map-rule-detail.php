@@ -10,8 +10,8 @@ use app\components\widgets\UserDetailedStatsCell;
 use yii\helpers\Html;
 
 $this->context->layout = 'main';
-$title = Yii::t('app', '{0}\'s Battle Stats (by Mode and Stage)', [
-  $user->name,
+$title = Yii::t('app', '{name}\'s Battle Stats (by Mode and Stage)', [
+  'name' => $user->name,
 ]);
 $this->title = implode(' | ', [
   Yii::$app->name,

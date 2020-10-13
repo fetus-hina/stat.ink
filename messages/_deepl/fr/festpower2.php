@@ -9,14 +9,14 @@
 declare(strict_types=1);
 
 return [
-    '"Mistaken": On {date}, <a href="{url}" class="alert-link">Nintendo misconfigured the matching server and ran the fest.</a>' => '"Erreur" : Le {date} , <a href=" {url} " class="alert-link"&gt;Nintendo a mal configuré le serveur correspondant et a lancé la fête</a>.',
-    'All' => 'Tous',
+    '"Mistaken": On {date}, <a href="{url}" class="alert-link">Nintendo misconfigured the matching server and ran the fest.</a>' => '"Erreur" : Sur {date} , <a href=" " {url} class="alert-link"&gt;Nintendo a mal configuré le serveur correspondant et a lancé la fête.</a>',
+    'All' => 'Tout',
     'Average' => 'Moyenne',
     'Battles' => 'Batailles',
     'Battles (all)' => 'Batailles (toutes)',
-    'Battles (mistaken)' => 'Batailles (par erreur)',
+    'Battles (mistaken)' => 'Batailles (erreur)',
     'Battles (normal)' => 'Batailles (normal)',
-    'Greater Win % (all)' => 'Plus grand % de gains (tous)',
+    'Greater Win % (all)' => 'Plus grand % de gain (tous)',
     'Greater Win % (mistaken)' => 'Plus grand % de gain (erreur)',
     'Greater Win % (normal)' => 'Plus grand % de gain (normal)',
     'Median' => 'Médiane',
@@ -25,6 +25,6 @@ return [
     'Power Diff' => 'Différence de puissance',
     'Q1/4' => 'Q1/4',
     'Q3/4' => 'Q3/4',
-    'Splatfest Power vs Win %' => 'Splatfest : pouvoir et victoire',
+    'Splatfest Power vs Win %' => 'Splatfest Pouvoir vs Gain',
     'Std. Dev.' => 'Dev. std.',
 ];

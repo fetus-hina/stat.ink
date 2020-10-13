@@ -11,7 +11,7 @@ use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Json;
 
-$title = Yii::t('app', "{0}'s Battle Stats (Turf War)", [$user->name]);
+$title = Yii::t('app', "{name}'s Battle Stats (Turf War)", ['name' => $user->name]);
 $this->title = implode(' | ', [
     Yii::$app->name,
     $title,

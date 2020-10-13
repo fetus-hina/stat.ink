@@ -13,7 +13,7 @@ use yii\data\ArrayDataProvider;
 use yii\grid\GridView;
 use yii\helpers\Html;
 
-$title = Yii::t('app', "{0}'s Battle Stats (by Weapon)", [$user->name]);
+$title = Yii::t('app', "{name}'s Battle Stats (by Weapon)", ['name' => $user->name]);
 $this->title = Yii::$app->name . ' | ' . $title;
 
 $this->registerMetaTag(['name' => 'twitter:card', 'content' => 'summary']);

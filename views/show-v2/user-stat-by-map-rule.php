@@ -21,7 +21,7 @@ StatByMapRuleAsset::register($this);
 $assetManager = Yii::$app->assetManager;
 FlotPieAsset::register($this);
 
-$title = Yii::t('app', "{0}'s Battle Stats (by Mode and Stage)", [$user->name]);
+$title = Yii::t('app', "{name}'s Battle Stats (by Mode and Stage)", ['name' => $user->name]);
 $this->title = sprintf('%s | %s', Yii::$app->name, $title);
 
 $this->registerMetaTag(['name' => 'twitter:card', 'content' => 'summary']);

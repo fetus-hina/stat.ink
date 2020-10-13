@@ -68,7 +68,7 @@ return [
     'El Salvador' => 'Сальвадор',
     'Equatorial Guinea' => 'Экваториальная Гвинея',
     'Eritrea' => 'Эритрея',
-    'Eswatini' => 'Eswatini',
+    'Eswatini' => 'Эсватини',
     'Ethiopia' => 'Эфиопия',
     'Europe' => 'Европа',
     'Europe (Central)' => 'Европа (Центральная)',

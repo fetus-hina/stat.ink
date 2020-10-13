@@ -93,14 +93,14 @@ foreach ($teams as $team) {
   <table class="table table-bordered" id="players">
     <thead>
       <tr>
-        <th style="width:38px"><span class="fa fa-fw"></span></th>
-        <th class="col-name"><?= Html::encode(Yii::t('app', 'Name')) ?></th>
-        <th class="col-weapon"><?= Html::encode(Yii::t('app', 'Weapon')) ?></th>
-        <th class="col-level"><?= Html::encode(Yii::t('app', 'Level')) ?></th>
-<?php if (!$hideRank): ?>
-        <th class="col-rank"><?= Html::encode(Yii::t('app', 'Rank')) ?></th>
-<?php endif; ?>
-<?php if (!$hidePoint): ?>
+        <th class="text-nowrap" style="width:38px"><span class="fa fa-fw"></span></th>
+        <th class="text-nowrap col-name"><?= Html::encode(Yii::t('app', 'Name')) ?></th>
+        <th class="text-nowrap col-weapon"><?= Html::encode(Yii::t('app', 'Weapon')) ?></th>
+        <th class="text-nowrap col-level"><?= Html::encode(Yii::t('app', 'Level')) ?></th>
+<?php if (!$hideRank) { ?>
+        <th class="text-nowrap col-rank"><?= Html::encode(Yii::t('app', 'Rank')) ?></th>
+<?php } ?>
+<?php if (!$hidePoint) { ?>
 <?php
 $this->registerJsFile(
   $assetMgr->getAssetUrl(
@@ -110,7 +110,7 @@ $this->registerJsFile(
   ['depends' => AppAsset::class]
 );
 ?>
-        <th class="col-point">
+        <th class="text-nowrap col-point">
           <button id="players-swith-point-inked" class="btn btn-default btn-xs pull-right" disabled>
             <span class="fa fa-tint"></span>
           </button>
@@ -123,27 +123,36 @@ $this->registerJsFile(
             </span>
           </span>
         </th>
-<?php endif; ?>
-<?php if ($hasRankedInked): ?>
-        <th class="col-point">
+<?php } ?>
+<?php if ($hasRankedInked) { ?>
+        <th class="text-nowrap col-point">
             <span class="col-point-inked">
               <?= Html::encode(Yii::t('app', 'Inked')) . "\n" ?>
             </span>
           </span>
         </th>
-<?php endif; ?>
-        <th class="col-kasp"><?= Html::encode(Yii::t('app', 'k+a/sp')) ?></th>
-<?php if ($hasKD): ?>
-        <th class="col-kd">
+<?php } ?>
+        <th class="text-nowrap col-kasp"><?= Html::encode(Yii::t('app', 'k+a/sp')) ?></th>
+<?php if ($hasKD) { ?>
+        <th class="text-nowrap col-kd">
           <?= Html::encode(Yii::t('app', 'k')) ?>/<?= Html::encode(Yii::t('app', 'd')) . "\n" ?>
         </th>
-        <th class="col-kr auto-tooltip" title="<?= Html::encode(Yii::t('app', 'Kill Ratio')) ?>"><?= Html::encode(Yii::t('app', 'Ratio')) ?></th>
-        <th class="col-kr auto-tooltip" title="<?= Html::encode(Yii::t('app', 'Kill Rate')) ?>"><?= Html::encode(Yii::t('app', 'Rate')) ?></th>
-<?php endif ?>
+        <th class="text-nowrap col-kr">
+          <?= implode(Html::tag('br'), [
+            Html::tag('span', Html::encode(Yii::t('app', 'Ratio')), [
+              'class' => 'auto-tooltip',
+              'title' => Yii::t('app', 'Kill Ratio'),
+            ]) . '/',
+            Html::tag('span', Html::encode(Yii::t('app', 'Rate')), [
+              'class' => 'auto-tooltip',
+              'title' => Yii::t('app', 'Kill Rate'),
+            ]),
+          ]) . "\n" ?>
+<?php } ?>
       </tr>
     </thead>
     <tbody>
-<?php foreach ($teams as $teamKey => $players): ?>
+<?php foreach ($teams as $teamKey => $players) { ?>
       <?= $this->render('_battle_details_players_team', compact(
         'battle',
         'bonus',
@@ -155,7 +164,7 @@ $this->registerJsFile(
         'hasRankedInked',
         'historyCount',
       )) . "\n" ?>
-<?php endforeach; ?>
+<?php } ?>
     </tbody>
   </table>
 </div>
