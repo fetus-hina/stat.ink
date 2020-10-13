@@ -69,7 +69,8 @@ jobs:
         uses: 'actions/cache@v2'
         with:
           path: ~/.cache/composer/files
-          key: author-composer-cache
+          key: author-composer-cache-${{ github.sha }}
+          restore-keys: author-composer-cache-
 
       - name: 'Set up PHP environment'
         run: sudo update-alternatives --set php /usr/bin/php7.4
