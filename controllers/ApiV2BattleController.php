@@ -48,8 +48,15 @@ class ApiV2BattleController extends Controller
                     HttpBearerAuth::class,
                     ['class' => RequestBodyAuth::class, 'tokenParam' => 'apikey'],
                 ],
-                'except' => [ 'options' ],
-                'optional' => [ 'index', 'index-with-auth', 'view' ],
+                'except' => [
+                    'options',
+                    'postable-options',
+                ],
+                'optional' => [
+                    'index',
+                    'index-with-auth',
+                    'view',
+                ],
             ],
         ]);
     }
@@ -329,23 +336,33 @@ class ApiV2BattleController extends Controller
         return $model->toJsonArray();
     }
 
-    public function actionOptions($id = null)
+    public function actionPostableOptions(): Response
+    {
+        return $this->procOptionsRequest(true);
+    }
+
+    public function actionOptions(): Response
+    {
+        return $this->procOptionsRequest(false);
+    }
+
+    private function procOptionsRequest(bool $postable): Response
     {
         $res = Yii::$app->response;
         if (Yii::$app->request->method !== 'OPTIONS') {
             $res->statusCode = 405;
             return $res;
         }
+
+        $allowMethods = $postable
+            ? ['GET', 'HEAD', 'POST', 'OPTIONS']
+            : ['GET', 'HEAD', 'OPTIONS'];
+
         $res->statusCode = 200;
         $header = $res->getHeaders();
-        $header->set('Allow', implode(
-            ', ',
-            $id === null
-                ? [ 'GET', 'HEAD', 'POST', 'OPTIONS' ]
-                : [ 'GET', 'HEAD', /* 'PUT', 'PATCH', 'DELETE', */ 'OPTIONS']
-        ));
+        $header->set('Allow', implode(', ', $allowMethods));
         $header->set('Access-Control-Allow-Origin', '*');
-        $header->set('Access-Control-Allow-Methods', $header->get('Allow'));
+        $header->set('Access-Control-Allow-Methods', implode(', ', $allowMethods));
         $header->set('Access-Control-Allow-Headers', 'Content-Type, Authenticate');
         $header->set('Access-Control-Max-Age', '86400');
         return $res;
