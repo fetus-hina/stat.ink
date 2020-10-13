@@ -59,7 +59,7 @@ jobs:
     runs-on: 'ubuntu-latest'
     needs:
       - 'ciDoesNotSkip'
-    if: "!contains(github.event.head_commit.message, '[no php]') || !contains(github.event.head_commit.message, '[no author]')"
+    if: "!contains(github.event.head_commit.message, '[no php]') && !contains(github.event.head_commit.message, '[no author]')"
     steps:
       - uses: 'actions/checkout@v2'
         with:
