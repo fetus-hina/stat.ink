@@ -41,7 +41,7 @@ class Salmon2DeleteForm extends Model
         if (!$this->validate()) {
             return false;
         }
-    
+
         if (!$this->model->isEditable) {
             throw new ServerErrorHttpException('User mismatch and logic error');
         }

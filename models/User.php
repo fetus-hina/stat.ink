@@ -594,7 +594,7 @@ class User extends ActiveRecord implements IdentityInterface
             ? $this->userIcon->url
             : $this->getJdenticonUrl($ext);
     }
-    
+
     public static function onLogin(self $user, int $loginMethod): void
     {
         if (!$user->email) {

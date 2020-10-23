@@ -28,7 +28,7 @@ class ImageOptimizeJob extends BaseObject implements JobInterface
             Yii::error("File {$this->inPath} does not exist.", __METHOD__);
             return;
         }
-        
+
         if (@file_exists($this->outPath)) {
             Yii::error("File {$this->outPath} already exists.", __METHOD__);
             return;

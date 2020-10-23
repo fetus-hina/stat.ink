@@ -81,7 +81,7 @@ class UserStatByMapRuleAction extends BaseAction
                 '{{battle2}}.[[rule_id]]',
                 '{{battle2}}.[[is_win]]',
             ]);
-        
+
         $maps = Map2::sort(Map2::find()->all());
         $rules = Rule2::find()->orderBy(['id' => SORT_ASC])->all();
 

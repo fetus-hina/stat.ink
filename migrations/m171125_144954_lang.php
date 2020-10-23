@@ -35,7 +35,7 @@ class m171125_144954_lang extends Migration
             'php_name',
             'id'
         );
-            
+
         $this->batchInsert('language_charset', ['language_id', 'charset_id', 'is_win_acp'], [
             [ $nl, $c['UTF-8'],     false ],
             [ $nl, $c['UTF-16LE'],  false ],

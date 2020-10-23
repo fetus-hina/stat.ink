@@ -181,11 +181,11 @@ class BattleQuery extends ActiveQuery
             case 'this-period':
                 $this->andWhere(['{{battle}}.[[period]]' => $currentPeriod]);
                 break;
-                
+
             case 'last-period':
                 $this->andWhere(['{{battle}}.[[period]]' => $currentPeriod - 1]);
                 break;
-                
+
             case '24h':
                 $this->andWhere(['>=', '{{battle}}.[[at]]', gmdate('Y-m-d\TH:i:sP', $now - 86400)]);
                 break;

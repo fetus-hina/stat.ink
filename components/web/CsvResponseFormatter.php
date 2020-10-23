@@ -31,7 +31,7 @@ class CsvResponseFormatter extends Component implements ResponseFormatterInterfa
         $this->outputCharset = $response->data['outputCharset'] ?? Yii::$app->charset;
         $this->substituteCharacter = $response->data['substituteCharacter'] ?? 0x3013;
         $this->appendBOM = $response->data['appendBOM'] ?? false;
-        
+
         // 代替文字
         $substitute = new Resource(
             mb_substitute_character(),

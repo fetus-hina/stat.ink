@@ -73,7 +73,7 @@ class UpdateLoginWithTwitterAction extends BaseAction
                         $transaction->rollback();
                         return $response->redirect(Url::to(['user/profile'], true), 303);
                     }
-                    
+
                     // 新しい情報を登録する
                     $info = Yii::createObject([
                         'class' => LoginWithTwitter::class,

@@ -55,7 +55,7 @@ abstract class BaseGearForm extends Model
             ));
         }
     }
-    
+
     // ギアが明示された時に、メインのギアパワーを設定/修正する
     public function fixPrimaryAbility($attribute, $params)
     {

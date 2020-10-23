@@ -63,7 +63,7 @@ class UserStatByMapAction extends BaseAction
             ->andWhere(['{{battle}}.[[user_id]]' => $user->id])
             ->andWhere(['in', '{{battle}}.[[is_win]]', [ true, false ]])
             ->groupBy(['{{battle}}.[[map_id]]', '{{battle}}.[[is_win]]']);
-        
+
         if ($filter && !$filter->hasErrors()) {
             $this->filter($query, $filter);
         }

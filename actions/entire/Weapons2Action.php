@@ -125,7 +125,7 @@ class Weapons2Action extends BaseAction
                     }
                     return null;
                 })($trend['weapon_id']);
-                
+
                 $w[] = [
                     'name' => Yii::t('app-weapon2', $weapon->name ?? '?'),
                     'battles' => $count,

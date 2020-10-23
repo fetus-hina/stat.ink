@@ -130,11 +130,11 @@ trait UserStatFilterTrait
             case 'this-period':
                 $query->andWhere(['{{battle}}.[[period]]' => $currentPeriod]);
                 break;
-                
+
             case 'last-period':
                 $query->andWhere(['{{battle}}.[[period]]' => $currentPeriod - 1]);
                 break;
-                
+
             case '24h':
                 $query->andWhere(['>=', '{{battle}}.[[at]]', gmdate('Y-m-d\TH:i:sP', $now - 86400)]);
                 break;

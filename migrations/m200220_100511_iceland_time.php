@@ -48,7 +48,7 @@ class m200220_100511_iceland_time extends Migration
         $this->delete('timezone', ['id' => $timezone]);
         $this->delete('country', ['id' => $country]);
     }
-    
+
     private function getIcelandicTZID(): int
     {
         return filter_var(
@@ -61,7 +61,7 @@ class m200220_100511_iceland_time extends Migration
             FILTER_VALIDATE_INT
         );
     }
-    
+
     private function getIcelandID(): int
     {
         return filter_var(

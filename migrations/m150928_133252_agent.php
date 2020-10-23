@@ -37,7 +37,7 @@ class m150928_133252_agent extends Migration
             'WHERE ( {{battle}}.[[agent]] = {{t}}.[[name]] ) ' .
             'AND ( {{battle}}.[[agent_version]] = {{t}}.[[version]] ) '
         );
-        
+
         $this->dropColumn('battle', 'agent');
         $this->dropColumn('battle', 'agent_version');
     }
