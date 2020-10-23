@@ -41,7 +41,7 @@ class IndexAction extends ViewAction
             if (!$user = Yii::$app->getUser()->getIdentity()) {
                 throw new UnauthorizedHttpException('Unauthorized');
             }
-        
+
             $form->screen_name = $user->screen_name;
         }
 

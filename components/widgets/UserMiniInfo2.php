@@ -517,7 +517,7 @@ class UserMiniInfo2 extends Widget
                                 ) {
                                     return Yii::t('app', 'N/A');
                                 }
-                                
+
                                 return $fmt->asDecimal(
                                     $model->gachi_kill_with_time * 60 / $model->gachi_total_seconds,
                                     3
@@ -533,7 +533,7 @@ class UserMiniInfo2 extends Widget
                                 ) {
                                     return Yii::t('app', 'N/A');
                                 }
-                                
+
                                 return $fmt->asDecimal(
                                     $model->gachi_death_with_time * 60 / $model->gachi_total_seconds,
                                     3

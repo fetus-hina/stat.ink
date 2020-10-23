@@ -115,7 +115,7 @@ class UserStatByWeaponAction extends ViewAction
         if ($filter && !$filter->hasErrors()) {
             $query->applyFilter($filter);
         }
-        
+
         $list = array_map(
             function (array $row): array {
                 foreach ($row as $key => $value) {

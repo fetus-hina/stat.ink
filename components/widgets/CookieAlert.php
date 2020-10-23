@@ -64,7 +64,7 @@ class CookieAlert extends Widget
         if ($ua === '') {
             return null;
         }
-        
+
         return (bool)$crawlerDetect->isCrawler($ua);
     }
 }

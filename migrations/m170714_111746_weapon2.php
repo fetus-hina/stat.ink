@@ -66,7 +66,7 @@ class m170714_111746_weapon2 extends Migration
             ->scalar();
         $this->delete('death_reason2', ['special_id' => $bubble]);
         $this->delete('special2', ['id' => $bubble]);
-        
+
         // 一応壊れていた名前も戻す
         $this->update(
             'special2',

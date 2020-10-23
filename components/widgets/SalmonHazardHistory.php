@@ -161,7 +161,7 @@ class SalmonHazardHistory extends Widget
 })(jQuery);
 EOF;
         $this->view->registerJs($js);
-        
+
         $flotOptions = <<<'EOF'
 {
   legend: {

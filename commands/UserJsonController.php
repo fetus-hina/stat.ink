@@ -284,7 +284,7 @@ class UserJsonController extends Controller
         }
         flock($fh, LOCK_EX);
         $mtime = filemtime($mainPath);
-        
+
         // 再圧縮処理
         echo "Recompressing...\n";
         $cmdline = sprintf(

@@ -77,7 +77,7 @@ abstract class BaseGearForm extends Model
             ));
         }
     }
-    
+
     // サブのギアパワーを検証する。
     // 配列で0～3要素の Ability2::key になっていなければならない
     // ただし、nullは許容する(null=locked)

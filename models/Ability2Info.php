@@ -370,7 +370,7 @@ class Ability2Info extends Model
             if (version_compare($vTag, '4.6.0', '<')) {
                 return (static::calcCoefficient($gp, 0.72, 0.24, 0.5)) / 0.24;
             }
-            
+
             return (static::calcCoefficient($gp, 0.769, 0.24, 0.6)) / 0.24;
             // }}}
         })();
@@ -379,7 +379,7 @@ class Ability2Info extends Model
             if (version_compare($vTag, '4.6.0', '<')) {
                 return (static::calcCoefficient($gp, 0.40, 0.12, 0.5)) / 0.12;
             }
-            
+
             return (static::calcCoefficient($gp, 0.42, 0.12, 0.7)) / 0.12;
             // }}}
         })();

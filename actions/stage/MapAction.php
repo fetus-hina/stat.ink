@@ -41,7 +41,7 @@ class MapAction extends BaseAction
                 'targetAttribute' => 'key',
             ],
         ]);
-        
+
         if ($model->hasErrors()) {
             static::http404();
         }

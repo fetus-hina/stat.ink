@@ -22,7 +22,7 @@ class m151006_113327_profile extends Migration
         );
         $this->execute($sql);
     }
-    
+
     public function down()
     {
         $sql = sprintf(

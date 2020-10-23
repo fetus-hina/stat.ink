@@ -188,7 +188,7 @@ class BattleAction extends BaseAction
                     'validate' => true,
                 ];
             }
-    
+
             // dry_run
             // 整形用のダミーデータを準備
             $battle = $form->toBattle();

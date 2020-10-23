@@ -71,7 +71,7 @@ class WeaponRuleMapAction extends BaseAction
             'rule'   => $this->getRules(),
             'map'    => $this->getMaps(),
         ];
-        
+
         return (function ($rows) use ($dict) {
             // header
             yield [

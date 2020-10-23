@@ -156,7 +156,7 @@ class UserStatByMapRuleDetailAction extends BaseAction
             ->leftJoin('turfwar_win_bonus', '{{battle}}.[[bonus_id]] = {{turfwar_win_bonus}}.[[id]]')
             ->where(['{{battle}}.[[user_id]]' => $user->id])
             ->groupBy(['{{battle}}.[[map_id]]', '{{battle}}.[[rule_id]]']);
-        
+
         if ($filter && !$filter->hasErrors()) {
             $this->filter($query, $filter);
         }

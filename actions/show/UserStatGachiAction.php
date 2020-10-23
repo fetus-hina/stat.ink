@@ -195,7 +195,7 @@ class UserStatGachiAction extends BaseAction
                 ['not', ['{{battle}}.[[rank_exp_after]]' => null]],
                 ['{{battle}}.[[user_id]]' => $this->user->id],
             ]);
-        
+
         if (!$battle = Battle::findOne(['id' => $subQuery])) {
             return null;
         }
@@ -291,7 +291,7 @@ class UserStatGachiAction extends BaseAction
         }
 
         $avgExp = array_sum($exps) / count($exps);
-    
+
         return (object)[
             'average' => $avgExp,
         ];
