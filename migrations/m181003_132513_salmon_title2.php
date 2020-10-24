@@ -29,7 +29,7 @@ class m181003_132513_salmon_title2 extends Migration
             ['profreshional', 'Profreshional', 5],
         ]);
     }
-    
+
     public function down()
     {
         $this->dropTable('salmon_title2');

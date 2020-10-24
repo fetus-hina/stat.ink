@@ -39,7 +39,7 @@ class PostForm extends Model
 
     // Recommended UUID NS, splatnetNumber@principalID
     public const UUID_NAMESPACE_BY_PRINCIPAL_ID = '418fe150-cb33-11e8-8816-d050998473ba';
-    
+
     // If splatnet_number present
     public const UUID_NAMESPACE_BY_SPLATNET_AND_USER_ID = 'b03116da-cbae-11e8-a7fa-d050998473ba';
 

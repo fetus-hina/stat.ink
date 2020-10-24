@@ -49,7 +49,7 @@ class SplatfestController extends Controller
             return 1;
         }
         printf("Target #%d (Region=%s, Number=%d)\n", $fest->id, $region->key, $fest->order);
-        
+
         $alpha = SplatfestTeam::findOne(['fest_id' => $fest->id, 'team_id' => 1]);
         $bravo = SplatfestTeam::findOne(['fest_id' => $fest->id, 'team_id' => 2]);
         if (!$alpha || !$bravo || $alpha->color_hue === null || $bravo->color_hue === null) {

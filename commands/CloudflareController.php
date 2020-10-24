@@ -92,7 +92,7 @@ class CloudflareController extends Controller
                 fwrite(STDERR, "Failed to download from {$url}\n");
                 return null;
             }
-            
+
             $contentType = (string)($curl->responseHeaders['Content-Type'] ?? null);
             $contentType = strtolower($contentType);
             if (substr($contentType, 0, 10) !== 'text/plain') {

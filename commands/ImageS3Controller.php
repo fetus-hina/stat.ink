@@ -54,7 +54,7 @@ class ImageS3Controller extends Controller
             );
             return 2;
         }
-        
+
         if (!$queue) {
             $this->stderr(sprintf(
                 "%s file %s to S3 storage.\n",

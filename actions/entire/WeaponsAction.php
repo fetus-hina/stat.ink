@@ -117,7 +117,7 @@ class WeaponsAction extends ViewAction
                     }
                     return null;
                 })($trend['weapon_id']);
-                
+
                 $w[] = [
                     'name' => Yii::t('app-weapon', $weapon->name ?? '?'),
                     'battles' => $count,

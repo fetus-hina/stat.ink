@@ -26,7 +26,7 @@ class m160121_090220_jp10th_splatfest extends Migration
         if (!$model->save()) {
             return false;
         }
-        
+
         $team = new SplatfestTeam();
         $team->attributes = [
             'fest_id' => $model->id,

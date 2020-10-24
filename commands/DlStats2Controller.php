@@ -177,7 +177,7 @@ class DlStats2Controller extends Controller
                         $battle->is_win ? 'alpha' : 'bravo',
                         $battle->is_knockout === null ? '' : ($battle->is_knockout ? 'TRUE' : 'FALSE'),
                     ]);
-                    
+
                     $team = $battle->myTeamPlayers;
                     usort($team, function ($a, $b) {
                         if ($a->is_me) {
@@ -214,7 +214,7 @@ class DlStats2Controller extends Controller
             }
             fclose($out);
             echo "    done!\n";
-            
+
             return true;
         } catch (\Exception $e) {
             echo $e->getMessage() . "\n";

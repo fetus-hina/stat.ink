@@ -208,7 +208,7 @@ class Battle2 extends ActiveRecord
                             case 'any_squad':
                                 $and[] = ['lobby2.key' => ['squad_2', 'squad_4']];
                                 break;
-                            
+
                             default:
                                 $and[] = ['lobby2.key' => $parts[0]];
                                 break;
@@ -217,7 +217,7 @@ class Battle2 extends ActiveRecord
                         switch ($parts[2]) {
                             case 'any':
                                 break;
-                            
+
                             case 'gachi':
                                 $and[] = ['rule2.key' => ['area', 'yagura', 'hoko', 'asari']];
                                 break;
@@ -371,11 +371,11 @@ class Battle2 extends ActiveRecord
                     case 'this-period':
                         $this->andWhere(['battle2.period' => $currentPeriod]);
                         break;
-                
+
                     case 'last-period':
                         $this->andWhere(['battle2.period' => $currentPeriod - 1]);
                         break;
-                
+
                     case '24h':
                         $t = $now->sub(new DateInterval('PT24H'));
                         $this->andWhere(
@@ -437,7 +437,7 @@ class Battle2 extends ActiveRecord
                                 ->setTime(0, 0, 0)
                                 ->getTimestamp()
                         );
-                        
+
                         $this->andWhere(['and',
                             ['>=', 'battle2.period', $lastMonthPeriod],
                             ['<', 'battle2.period', $thisMonthPeriod],
@@ -1599,7 +1599,7 @@ class Battle2 extends ActiveRecord
             switch ($this->mode->key) {
                 case 'private':
                     return 'Private Battle';
-                
+
                 case 'gachi':
                     if (!$this->lobby) {
                         return 'Ranked Battle';

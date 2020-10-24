@@ -67,7 +67,7 @@ class PrivateNote extends Widget
     protected function renderText(): string
     {
         $this->view->registerCss("#{$this->textId}{display:none}");
-        
+
         return Html::tag(
             'div',
             $this->formatter->asNtext($this->text),

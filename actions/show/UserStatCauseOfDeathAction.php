@@ -85,7 +85,7 @@ class UserStatCauseOfDeathAction extends BaseAction
 
             case 'canonical':
                 return $this->getListCanonical($query);
-            
+
             case 'main-weapon':
                 return $this->getListMainWeapon($query);
 

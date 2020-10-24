@@ -436,7 +436,7 @@ class UserStat extends \yii\db\ActiveRecord
             ->andWhere(['{{battle}}.[[user_id]]' => $this->user_id]);
 
         $this->attributes = $query->createCommand()->queryOne();
-        
+
         $keys = [
             'battle_count', 'total_kill', 'total_death', 'total_kd_battle_count',
             'nawabari_count', 'nawabari_kill', 'nawabari_death',
