@@ -30,7 +30,7 @@ $weapons = Spl2WeaponAsset::register($this);
 ?>
 <div class="container">
   <h1><?= Yii::t('app', "{name}'s Battle Report", [
-    Html::a(
+    'name' => Html::a(
       Html::encode($user->name),
       ['show-v2/user', 'screen_name' => $user->screen_name]
     ),
