@@ -594,6 +594,6 @@ runtime/vendor-archive:
 	mkdir -p $@ || true
 
 geoip: vendor $(SIMPLE_CONFIG_TARGETS)
-	./yii geoip/update
+	./yii geoip/update || true
 
 .PHONY: FORCE all check-style clean clean-resource composer-update fix-style ikalog init migrate-db resource vendor-archive vendor-by-archive download-vendor-archive geoip check-syntax check-style-php check-style-js
