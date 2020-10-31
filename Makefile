@@ -203,7 +203,7 @@ ikalog: all runtime/ikalog runtime/ikalog/repo runtime/ikalog/winikalog.html
 resource: $(RESOURCE_TARGETS) $(ADDITIONAL_LICENSES)
 
 composer-update: composer.phar
-	./composer.phar self-update
+	./composer.phar self-update --2
 	@touch -r composer.json composer.phar
 
 vendor: composer.phar composer.lock
