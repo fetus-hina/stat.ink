@@ -125,10 +125,6 @@
         "private": {
             "type": "composer",
             "url": "https://satis.stat.ink"
-        },
-        "packagist": {
-            "type": "composer",
-            "url": "https://packagist.stat.ink"
         }
     }
 }
