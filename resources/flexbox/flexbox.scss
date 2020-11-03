@@ -9,49 +9,59 @@
  */
 
 /* stylelint-disable */
-@displays: none inline inline-block block table table-row table-cell flex inline-flex;
-.breakpoints() {
-  sm: 768px;
-  md: 992px;
-  lg: 1200px;
-}
+$displays: (
+  none,
+  inline,
+  inline-block,
+  block,
+  table,
+  table-row,
+  table-cell,
+  flex,
+  inline-flex,
+);
+
+$breakpoints: (
+  sm: 768px,
+  md: 992px,
+  lg: 1200px,
+);
+
 /* stylelint-enable */
 
-each(@displays, .(@display) {
-  .d-@{display} {
-    display: @display !important;
+@each $display in $displays {
+  .d-#{$display} {
+    display: $display !important;
   }
-});
+}
 
-each(@displays, .(@display) {
-  .d-xs-@{display} {
-    display: @display !important;
+@each $display in $displays {
+  .d-xs-#{$display} {
+    display: $display !important;
   }
-});
+}
 
-each(.breakpoints(), .(@minWidth, @sizeTag) {
-  @media (min-width: @minWidth) {
-    each(@displays, .(@display) {
-      .d-@{sizeTag}-@{display} {
-        display: @display !important;
+@each $sizeTag, $minWidth in $breakpoints {
+  @media (min-width: $minWidth) {
+    @each $display in $displays {
+      .d-#{$sizeTag}-#{$display} {
+        display: $display !important;
       }
-    });
+    }
   }
-});
+}
 
-@list: row column row-reverse column-reverse;
-each(@list, {
-  .flex-@{value} {
-    flex-direction: @value !important;
+$map: (
+  direction: (row column row-reverse column-reverse),
+  wrap: (wrap nowrap wrap-reverse),
+);
+@each $prop, $list in $map {
+  @each $value in $list {
+    .flex-#{$value} {
+      flex-#{$prop}: $value !important;
+    }
   }
-});
-
-@list: wrap nowrap wrap-reverse;
-each(@list, {
-  .flex-@{value} {
-    flex-wrap: @value !important;
-  }
-});
+}
 
 .flex-fill {
   flex: 1 1 auto !important;

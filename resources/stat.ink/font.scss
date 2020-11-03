@@ -2,37 +2,37 @@
 
 /*! Copyright (C) 2015-2020 AIZAWA Hina | MIT License */
 
-@fontFamily: -apple-system,
-  Roboto,
+$fontFamily: -apple-system,
+  "Roboto",
   "Noto Sans",
   "Noto Sans JP",
   "Noto Sans SC",
   "Noto Sans TC";
 
-@fontFamilyHans: -apple-system,
-  Roboto,
+$fontFamilyHans: -apple-system,
+  "Roboto",
   "Noto Sans",
   "Noto Sans SC",
   "Noto Sans TC",
   "Noto Sans JP";
 
-@fontFamilyHant: -apple-system,
-  Roboto,
+$fontFamilyHant: -apple-system,
+  "Roboto",
   "Noto Sans",
   "Noto Sans TC",
   "Noto Sans SC",
   "Noto Sans JP";
 
 body {
-  font-family: @fontFamily, sans-serif;
+  font-family: $fontFamily, sans-serif;
 }
 
 html[lang^="zh-"] body {
-  font-family: @fontFamilyHans, sans-serif;
+  font-family: $fontFamilyHans, sans-serif;
 }
 
 html[lang="zh-TW"] body,
 html[lang="zh-HK"] body,
 html[lang="zh-MO"] body {
-  font-family: @fontFamilyHant, sans-serif;
+  font-family: $fontFamilyHant, sans-serif;
 }

@@ -156,7 +156,7 @@ jobs:
           key: npm-${{ hashFiles('package-lock.json') }}
 
       - name: 'Run StyleLint'
-        run: 'npx stylelint "resources/**/*.less" "resources/**/*.css"'
+        run: 'npx stylelint "resources/**/*.scss" "resources/**/*.css"'
 
   setupComposer:
     name: 'Setup Composer (install vendor)'
