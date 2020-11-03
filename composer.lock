@@ -1655,16 +1655,16 @@
         },
         {
             "name": "maxmind/web-service-common",
-            "version": "v0.8.0",
+            "version": "v0.8.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/maxmind/web-service-common-php.git",
-                "reference": "ba67d9532cfaf499bd71774b8170d05df4f75fb7"
+                "reference": "32f274051c543fc865e5a84d3a2c703913641ea8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/maxmind/web-service-common-php/zipball/ba67d9532cfaf499bd71774b8170d05df4f75fb7",
-                "reference": "ba67d9532cfaf499bd71774b8170d05df4f75fb7",
+                "url": "https://api.github.com/repos/maxmind/web-service-common-php/zipball/32f274051c543fc865e5a84d3a2c703913641ea8",
+                "reference": "32f274051c543fc865e5a84d3a2c703913641ea8",
                 "shasum": ""
             },
             "require": {
@@ -1699,9 +1699,9 @@
             "homepage": "https://github.com/maxmind/web-service-common-php",
             "support": {
                 "issues": "https://github.com/maxmind/web-service-common-php/issues",
-                "source": "https://github.com/maxmind/web-service-common-php/tree/v0.8.0"
+                "source": "https://github.com/maxmind/web-service-common-php/tree/v0.8.1"
             },
-            "time": "2020-10-01T15:28:36+00:00"
+            "time": "2020-11-02T17:00:53+00:00"
         },
         {
             "name": "php-curl-class/php-curl-class",
