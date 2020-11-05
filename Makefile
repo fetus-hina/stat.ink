@@ -181,11 +181,6 @@ license: init
 docker: init migrate-db
 	sudo docker build -t jp3cki/statink .
 
-ikalog: all runtime/ikalog runtime/ikalog/repo runtime/ikalog/winikalog.html
-	cd runtime/ikalog/repo && git fetch --all --prune && git rebase origin/master
-	./yii ikalog/update-ikalog
-	./yii ikalog/update-winikalog
-
 resource: $(RESOURCE_TARGETS) $(ADDITIONAL_LICENSES)
 
 composer-update: composer.phar
@@ -230,7 +225,6 @@ clean: clean-resource
 		composer.phar \
 		data/GeoIP \
 		node_modules \
-		runtime/ikalog \
 		vendor
 
 clean-resource:
@@ -547,16 +541,7 @@ config/version.php: vendor config/db.php
 config/cloudflare/ip_ranges.php: vendor config/db.php
 	./yii cloudflare/update-ip-ranges
 
-runtime/ikalog:
-	mkdir -p runtime/ikalog
-
-runtime/ikalog/repo:
-	git clone --recursive -o origin https://github.com/hasegaw/IkaLog.git $@
-
-runtime/ikalog/winikalog.html: FORCE
-	curl -fsSL -o $@ 'https://hasegaw.github.io/IkaLog/'
-
 geoip: vendor $(SIMPLE_CONFIG_TARGETS)
 	./yii geoip/update || true
 
-.PHONY: FORCE all check-style clean clean-resource composer-update fix-style ikalog init migrate-db resource geoip check-syntax check-style-php check-style-js license
+.PHONY: FORCE all check-style clean clean-resource composer-update fix-style init migrate-db resource geoip check-syntax check-style-php check-style-js license
