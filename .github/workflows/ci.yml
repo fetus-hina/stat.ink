@@ -186,6 +186,43 @@ jobs:
           make composer.phar
           make vendor
 
+  licenseCheck:
+    name: 'Check license'
+    needs:
+      - 'ciDoesNotSkip'
+      - 'setupComposer'
+      - 'setupNPM'
+    runs-on: 'ubuntu-latest'
+    steps:
+      - name: 'Setup PHP env'
+        run: |
+          sudo apt install -y brotli jpegoptim libxml2-utils php7.4-intl
+          sudo update-alternatives --set php /usr/bin/php7.4
+
+      - uses: 'actions/checkout@v2'
+
+      - uses: 'actions/setup-node@v1'
+
+      - uses: 'actions/cache@v2'
+        with:
+          path: |
+            vendor
+            ~/.cache/composer/files
+          key: composer-${{ hashFiles('composer.lock') }}
+
+      - uses: 'actions/cache@v2'
+        with:
+          path: |
+            node_modules
+            ~/.npm
+          key: npm-${{ hashFiles('package-lock.json') }}
+
+      - name: 'Basic setup the app'
+        run: 'make init-no-resource'
+
+      - name: 'Check licenses'
+        run: './yii license'
+
   phpUnit:
     name: 'Build & Test'
     needs:
