@@ -158,7 +158,9 @@ SIMPLE_CONFIG_TARGETS := \
 
 all: init migrate-db
 
-init: \
+init: init-no-resource resource geoip
+
+init-no-resource: \
 	composer.phar \
 	composer-update \
 	vendor \
@@ -169,13 +171,11 @@ init: \
 	config/authkey-secret.php \
 	config/db.php \
 	config/cloudflare/ip_ranges.php \
-	resource \
-	geoip
 
-test: init
+test: init-no-resource
 	./composer.phar exec codecept run -v
 
-license: init
+license: init-no-resource
 	./yii license
 
 docker: init migrate-db
@@ -541,7 +541,7 @@ config/version.php: vendor config/db.php
 config/cloudflare/ip_ranges.php: vendor config/db.php
 	./yii cloudflare/update-ip-ranges
 
-geoip: vendor $(SIMPLE_CONFIG_TARGETS)
+geoip: init-no-resource
 	./yii geoip/update || true
 
-.PHONY: FORCE all check-style clean clean-resource composer-update fix-style init migrate-db resource geoip check-syntax check-style-php check-style-js license
+.PHONY: FORCE all check-style clean clean-resource composer-update fix-style init init-no-resource migrate-db resource geoip check-syntax check-style-php check-style-js license
