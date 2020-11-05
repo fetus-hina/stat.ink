@@ -1,5 +1,4 @@
 STYLE_TARGETS := actions assets commands components controllers models
-VENDOR_SHA256 := $(shell sha256sum -t composer.lock | awk '{print $$1}')
 
 RESOURCE_TARGETS_MAIN := \
 	resources/.compiled/app-link-logos/festink.png \
@@ -146,9 +145,6 @@ RESOURCE_TARGETS := \
 	$(RESOURCE_TARGETS_MAIN:.js=.js.br) \
 	$(RESOURCE_TARGETS_MAIN:.js=.js.gz)
 
-VENDOR_ARCHIVE_FILE := runtime/vendor-archive/vendor-$(VENDOR_SHA256).tar.xz
-VENDOR_ARCHIVE_SIGN := runtime/vendor-archive/vendor-$(VENDOR_SHA256).tar.xz.asc
-
 SIMPLE_CONFIG_TARGETS := \
 	config/amazon-s3.php \
 	config/backup-gpg.php \
@@ -176,23 +172,13 @@ init: \
 	resource \
 	geoip
 
-init-by-archive: \
-	composer.phar \
-	composer-update \
-	vendor-by-archive \
-	node_modules \
-	$(SIMPLE_CONFIG_TARGETS) \
-	config/version.php \
-	config/cookie-secret.php \
-	config/authkey-secret.php \
-	config/db.php \
-	config/cloudflare/ip_ranges.php \
-	resource
-
 test: init
 	./composer.phar exec codecept run -v
 
-docker: init-by-archive migrate-db
+license: init
+	./yii license
+
+docker: init migrate-db
 	sudo docker build -t jp3cki/statink .
 
 ikalog: all runtime/ikalog runtime/ikalog/repo runtime/ikalog/winikalog.html
@@ -253,20 +239,6 @@ clean-resource:
 		resources/maps2/*.png \
 		resources/maps2/assets \
 		web/assets/*
-
-vendor-archive: $(VENDOR_ARCHIVE_FILE) $(VENDOR_ARCHIVE_SIGN)
-	rsync -av --progress \
-		$(VENDOR_ARCHIVE_FILE) $(VENDOR_ARCHIVE_SIGN) \
-		statink-src-archive@src-archive.stat.ink:public_html/vendor/
-
-vendor-by-archive: download-vendor-archive
-	gpg --verify $(VENDOR_ARCHIVE_SIGN)
-	tar -Jxf $(VENDOR_ARCHIVE_FILE)
-	touch -r composer.lock vendor
-
-download-vendor-archive: runtime/vendor-archive
-	test -e $(VENDOR_ARCHIVE_FILE) || curl -o $(VENDOR_ARCHIVE_FILE) -fsSL https://src-archive.stat.ink/vendor/vendor-$(VENDOR_SHA256).tar.xz
-	test -e $(VENDOR_ARCHIVE_SIGN) || curl -o $(VENDOR_ARCHIVE_SIGN) -fsSL https://src-archive.stat.ink/vendor/vendor-$(VENDOR_SHA256).tar.xz.asc
 
 composer.phar:
 	curl -fsSL https://getcomposer.org/installer | php
@@ -584,16 +556,7 @@ runtime/ikalog/repo:
 runtime/ikalog/winikalog.html: FORCE
 	curl -fsSL -o $@ 'https://hasegaw.github.io/IkaLog/'
 
-$(VENDOR_ARCHIVE_SIGN): $(VENDOR_ARCHIVE_FILE)
-	gpg -s -u 0xF6B887CD --detach-sign -a $<
-
-$(VENDOR_ARCHIVE_FILE): vendor runtime/vendor-archive
-	tar -Jcf $@ $<
-
-runtime/vendor-archive:
-	mkdir -p $@ || true
-
 geoip: vendor $(SIMPLE_CONFIG_TARGETS)
 	./yii geoip/update || true
 
-.PHONY: FORCE all check-style clean clean-resource composer-update fix-style ikalog init migrate-db resource vendor-archive vendor-by-archive download-vendor-archive geoip check-syntax check-style-php check-style-js
+.PHONY: FORCE all check-style clean clean-resource composer-update fix-style ikalog init migrate-db resource geoip check-syntax check-style-php check-style-js license
