@@ -178,9 +178,6 @@ test: init-no-resource
 license: init-no-resource
 	./yii license
 
-docker: init migrate-db
-	sudo docker build -t jp3cki/statink .
-
 resource: $(RESOURCE_TARGETS) $(ADDITIONAL_LICENSES)
 
 composer-update: composer.phar
