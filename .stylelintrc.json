@@ -1,5 +1,8 @@
 {
-  "extends": "stylelint-config-recommended",
+  "plugins": [
+    "stylelint-scss"
+  ],
+  "extends": "stylelint-config-recommended-scss",
   "rules": {
     "block-closing-brace-empty-line-before": "never",
     "block-closing-brace-newline-after": "always",

@@ -1,0 +1,63 @@
+@charset "UTF-8";
+
+@use "sass:color";
+
+/*! Copyright (C) 2015-2020 AIZAWA Hina */
+
+// From node_modules/bootstrap/less/variables.less
+$fontSizeBase:      14px;
+$fontSizeSmall:     ceil(($fontSizeBase * 0.85)); // ~12px
+$grayBase:          #000;
+$grayDark:          color.adjust($grayBase, $lightness: 20%); // #333
+$bodyBg:            #fff;
+$textColor:         $grayDark;
+$btnPrimaryColor:   #fff;
+$btnPrimaryBg:      color.adjust(#428bca, $lightness: -6.5%); // #337ab7
+
+@mixin make($textColor, $bgColor, $primaryTextColor, $primaryBgColor) {
+  #language-dialog {
+    .list-group-item {
+      background-color: $bgColor;
+      color: $textColor;
+
+      &.current {
+        background-color: $primaryBgColor;
+        color: $primaryTextColor;
+      }
+
+      &.hint {
+        font-size: $fontSizeSmall;
+        color: $bgColor;
+        background-color: $textColor;
+
+        a {
+          &, &:hover, &.hover {
+            color: $bgColor;
+            background-color: $textColor;
+            text-decoration: none;
+          }
+        }
+      }
+    }
+  }
+}
+
+@include make($textColor, $bodyBg, $btnPrimaryColor, $btnPrimaryBg);
+
+body.theme-dark {
+  /* bootswatch-cyborg */
+  @include make(#888, #060606, #fff, #2A9FD6);
+
+  &[data-theme="bootswatch-darkly"] {
+    @include make(
+      #fff,
+      color.adjust(#303030, $lightness: 13.5%),
+      #fff,
+      #375a7f
+    );
+  }
+
+  &[data-theme="bootswatch-slate"] {
+    @include make(#C8C8C8, #272B30, #fff, #7A8288);
+  }
+}

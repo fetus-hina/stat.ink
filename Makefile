@@ -1,5 +1,4 @@
 STYLE_TARGETS := actions assets commands components controllers models
-VENDOR_SHA256 := $(shell sha256sum -t composer.lock | awk '{print $$1}')
 
 RESOURCE_TARGETS_MAIN := \
 	resources/.compiled/app-link-logos/festink.png \
@@ -146,9 +145,6 @@ RESOURCE_TARGETS := \
 	$(RESOURCE_TARGETS_MAIN:.js=.js.br) \
 	$(RESOURCE_TARGETS_MAIN:.js=.js.gz)
 
-VENDOR_ARCHIVE_FILE := runtime/vendor-archive/vendor-$(VENDOR_SHA256).tar.xz
-VENDOR_ARCHIVE_SIGN := runtime/vendor-archive/vendor-$(VENDOR_SHA256).tar.xz.asc
-
 SIMPLE_CONFIG_TARGETS := \
 	config/amazon-s3.php \
 	config/backup-gpg.php \
@@ -162,7 +158,9 @@ SIMPLE_CONFIG_TARGETS := \
 
 all: init migrate-db
 
-init: \
+init: init-no-resource resource geoip
+
+init-no-resource: \
 	composer.phar \
 	composer-update \
 	vendor \
@@ -173,37 +171,17 @@ init: \
 	config/authkey-secret.php \
 	config/db.php \
 	config/cloudflare/ip_ranges.php \
-	resource \
-	geoip
 
-init-by-archive: \
-	composer.phar \
-	composer-update \
-	vendor-by-archive \
-	node_modules \
-	$(SIMPLE_CONFIG_TARGETS) \
-	config/version.php \
-	config/cookie-secret.php \
-	config/authkey-secret.php \
-	config/db.php \
-	config/cloudflare/ip_ranges.php \
-	resource
-
-test: init
+test: init-no-resource
 	./composer.phar exec codecept run -v
 
-docker: init-by-archive migrate-db
-	sudo docker build -t jp3cki/statink .
-
-ikalog: all runtime/ikalog runtime/ikalog/repo runtime/ikalog/winikalog.html
-	cd runtime/ikalog/repo && git fetch --all --prune && git rebase origin/master
-	./yii ikalog/update-ikalog
-	./yii ikalog/update-winikalog
+license: init-no-resource
+	./yii license
 
 resource: $(RESOURCE_TARGETS) $(ADDITIONAL_LICENSES)
 
 composer-update: composer.phar
-	./composer.phar self-update
+	./composer.phar self-update --2
 	@touch -r composer.json composer.phar
 
 vendor: composer.phar composer.lock
@@ -232,7 +210,7 @@ check-style-js: node_modules
 	npx eslint "resources/**/*.es" "resources/**/*.js"
 
 check-style-css: node_modules
-	npx stylelint "resources/**/*.less" "resources/**/*.css"
+	npx stylelint "resources/**/*.scss" "resources/**/*.css"
 
 fix-style: vendor node_modules
 	npx updates -u --minor bootstrap,bootswatch
@@ -244,7 +222,6 @@ clean: clean-resource
 		composer.phar \
 		data/GeoIP \
 		node_modules \
-		runtime/ikalog \
 		vendor
 
 clean-resource:
@@ -253,20 +230,6 @@ clean-resource:
 		resources/maps2/*.png \
 		resources/maps2/assets \
 		web/assets/*
-
-vendor-archive: $(VENDOR_ARCHIVE_FILE) $(VENDOR_ARCHIVE_SIGN)
-	rsync -av --progress \
-		$(VENDOR_ARCHIVE_FILE) $(VENDOR_ARCHIVE_SIGN) \
-		statink-src-archive@src-archive.stat.ink:public_html/vendor/
-
-vendor-by-archive: download-vendor-archive
-	gpg --verify $(VENDOR_ARCHIVE_SIGN)
-	tar -Jxf $(VENDOR_ARCHIVE_FILE)
-	touch -r composer.lock vendor
-
-download-vendor-archive: runtime/vendor-archive
-	test -e $(VENDOR_ARCHIVE_FILE) || curl -o $(VENDOR_ARCHIVE_FILE) -fsSL https://src-archive.stat.ink/vendor/vendor-$(VENDOR_SHA256).tar.xz
-	test -e $(VENDOR_ARCHIVE_SIGN) || curl -o $(VENDOR_ARCHIVE_SIGN) -fsSL https://src-archive.stat.ink/vendor/vendor-$(VENDOR_SHA256).tar.xz.asc
 
 composer.phar:
 	curl -fsSL https://getcomposer.org/installer | php
@@ -294,9 +257,9 @@ endif
 %.min.svg: %.svg node_modules
 	npx svgo --output $@ --input $< -q
 
-define less2css
+define scss2css
 	@mkdir -p $(dir $(1))
-	npx lessc $(2) | npx postcss --no-map -o $(1)
+	npx sass $(2) | npx postcss --no-map -o $(1)
 endef
 
 define es2js
@@ -316,71 +279,71 @@ WEAPON2_JS := $(wildcard resources/stat.ink/weapon2.js/*.js)
 resources/.compiled/stat.ink/weapon2.js: $(WEAPON2_JS) node_modules
 	$(call es2js,$@,$(WEAPON2_JS))
 
-resources/.compiled/counter/counter.css: resources/counter/counter.less node_modules
-resources/.compiled/flexbox/flexbox.css: resources/flexbox/flexbox.less node_modules
+resources/.compiled/counter/counter.css: resources/counter/counter.scss node_modules
+resources/.compiled/flexbox/flexbox.css: resources/flexbox/flexbox.scss node_modules
 resources/.compiled/flot-graph-icon/jquery.flot.icon.js: resources/flot-graph-icon/jquery.flot.icon.js node_modules
 resources/.compiled/gears/calc.js: resources/gears/calc.js node_modules
 resources/.compiled/slack/slack.js: resources/slack/slack.js node_modules
 resources/.compiled/stat.ink/active-reltime.js: resources/stat.ink/active-reltime.js node_modules
 resources/.compiled/stat.ink/agent.js: resources/stat.ink/agent.es node_modules
 resources/.compiled/stat.ink/auto-tooltip.js: resources/stat.ink/auto-tooltip.es node_modules
-resources/.compiled/stat.ink/battle-detail.css: resources/stat.ink/battle-detail.less node_modules
+resources/.compiled/stat.ink/battle-detail.css: resources/stat.ink/battle-detail.scss node_modules
 resources/.compiled/stat.ink/battle-edit.js: resources/stat.ink/battle-edit.js node_modules
 resources/.compiled/stat.ink/battle-input-2.js: resources/stat.ink/battle-input-2.es node_modules
-resources/.compiled/stat.ink/battle-input.css: resources/stat.ink/battle-input.less node_modules
+resources/.compiled/stat.ink/battle-input.css: resources/stat.ink/battle-input.scss node_modules
 resources/.compiled/stat.ink/battle-list-config.js: resources/stat.ink/battle-list-config.es node_modules
-resources/.compiled/stat.ink/battle-list-group-header.css: resources/stat.ink/battle-list-group-header.less node_modules
+resources/.compiled/stat.ink/battle-list-group-header.css: resources/stat.ink/battle-list-group-header.scss node_modules
 resources/.compiled/stat.ink/battle-list.js: resources/stat.ink/battle-list.es node_modules
 resources/.compiled/stat.ink/battle-private-note.js: resources/stat.ink/battle-private-note.es node_modules
 resources/.compiled/stat.ink/battle-smooth.js: resources/stat.ink/battle-smooth.es node_modules
 resources/.compiled/stat.ink/battle-summary-dialog.js: resources/stat.ink/battle-summary-dialog.es node_modules
-resources/.compiled/stat.ink/battle-thumb-list.css: resources/stat.ink/battle-thumb-list.less node_modules
+resources/.compiled/stat.ink/battle-thumb-list.css: resources/stat.ink/battle-thumb-list.scss node_modules
 resources/.compiled/stat.ink/battle-thumb-list.js: resources/stat.ink/battle-thumb-list.es node_modules
 resources/.compiled/stat.ink/battle-timeline.js: resources/stat.ink/battle-timeline.es node_modules
 resources/.compiled/stat.ink/battle2-players-point-inked.js: resources/stat.ink/battle2-players-point-inked.es node_modules
-resources/.compiled/stat.ink/battles-simple.css: resources/stat.ink/battles-simple.less node_modules
-resources/.compiled/stat.ink/blackout-hint.css: resources/stat.ink/blackout-hint.less node_modules
+resources/.compiled/stat.ink/battles-simple.css: resources/stat.ink/battles-simple.scss node_modules
+resources/.compiled/stat.ink/blackout-hint.css: resources/stat.ink/blackout-hint.scss node_modules
 resources/.compiled/stat.ink/blackout-hint.js: resources/stat.ink/blackout-hint.js node_modules
-resources/.compiled/stat.ink/blog-entries.css: resources/stat.ink/blog-entries.less node_modules
+resources/.compiled/stat.ink/blog-entries.css: resources/stat.ink/blog-entries.scss node_modules
 resources/.compiled/stat.ink/browser-icon-widget.js: resources/stat.ink/browser-icon-widget.es
-resources/.compiled/stat.ink/cal-heatmap-halloween.css: resources/stat.ink/cal-heatmap-halloween.less node_modules
+resources/.compiled/stat.ink/cal-heatmap-halloween.css: resources/stat.ink/cal-heatmap-halloween.scss node_modules
 resources/.compiled/stat.ink/color-scheme.js: resources/stat.ink/color-scheme.es node_modules
-resources/.compiled/stat.ink/cookiealert.css: resources/stat.ink/cookiealert.less node_modules
+resources/.compiled/stat.ink/cookiealert.css: resources/stat.ink/cookiealert.scss node_modules
 resources/.compiled/stat.ink/cookiealert.js: resources/stat.ink/cookiealert.es node_modules
 resources/.compiled/stat.ink/current-time.js: resources/stat.ink/current-time.es node_modules
-resources/.compiled/stat.ink/downloads.css: resources/stat.ink/downloads.less node_modules
+resources/.compiled/stat.ink/downloads.css: resources/stat.ink/downloads.scss node_modules
 resources/.compiled/stat.ink/entire-weapon-based-on-k-or-d.js: resources/stat.ink/entire-weapon-based-on-k-or-d.es node_modules
 resources/.compiled/stat.ink/entire-weapon-kd-stats.js: resources/stat.ink/entire-weapon-kd-stats.es node_modules
 resources/.compiled/stat.ink/entire-weapon-kd-summary.js: resources/stat.ink/entire-weapon-kd-summary.es node_modules
 resources/.compiled/stat.ink/entire-weapon-stage.js: resources/stat.ink/entire-weapon-stage.es node_modules
 resources/.compiled/stat.ink/entire-weapon-usepct.js: resources/stat.ink/entire-weapon-usepct.es node_modules
 resources/.compiled/stat.ink/fallbackable-image.js: resources/stat.ink/fallbackable-image.es node_modules
-resources/.compiled/stat.ink/fest-power-history.css: resources/stat.ink/fest-power-history.less node_modules
+resources/.compiled/stat.ink/fest-power-history.css: resources/stat.ink/fest-power-history.scss node_modules
 resources/.compiled/stat.ink/fest-power-history.js: resources/stat.ink/fest-power-history.es node_modules
 resources/.compiled/stat.ink/festpower2-diff-winpct.js: resources/stat.ink/festpower2-diff-winpct.es node_modules
-resources/.compiled/stat.ink/flot-support.css: resources/stat.ink/flot-support.less node_modules
+resources/.compiled/stat.ink/flot-support.css: resources/stat.ink/flot-support.scss node_modules
 resources/.compiled/stat.ink/fluid-layout.js: resources/stat.ink/fluid-layout.es node_modules
-resources/.compiled/stat.ink/font.css: resources/stat.ink/font.less node_modules
-resources/.compiled/stat.ink/freshness-history.css: resources/stat.ink/freshness-history.less node_modules
+resources/.compiled/stat.ink/font.css: resources/stat.ink/font.scss node_modules
+resources/.compiled/stat.ink/freshness-history.css: resources/stat.ink/freshness-history.scss node_modules
 resources/.compiled/stat.ink/freshness-history.js: resources/stat.ink/freshness-history.es node_modules
-resources/.compiled/stat.ink/game-modes.css: resources/stat.ink/game-modes.less node_modules
+resources/.compiled/stat.ink/game-modes.css: resources/stat.ink/game-modes.scss node_modules
 resources/.compiled/stat.ink/gear-ability-number-switcher.js: resources/stat.ink/gear-ability-number-switcher.es node_modules
 resources/.compiled/stat.ink/hsv2rgb.js: resources/stat.ink/hsv2rgb.es node_modules
-resources/.compiled/stat.ink/ie-warning.css: resources/stat.ink/ie-warning.less node_modules
+resources/.compiled/stat.ink/ie-warning.css: resources/stat.ink/ie-warning.scss node_modules
 resources/.compiled/stat.ink/ie-warning.js: resources/stat.ink/ie-warning.es node_modules
-resources/.compiled/stat.ink/inline-list.css: resources/stat.ink/inline-list.less node_modules
-resources/.compiled/stat.ink/kd-win.css: resources/stat.ink/kd-win.less node_modules
+resources/.compiled/stat.ink/inline-list.css: resources/stat.ink/inline-list.scss node_modules
+resources/.compiled/stat.ink/kd-win.css: resources/stat.ink/kd-win.scss node_modules
 resources/.compiled/stat.ink/kd-win.js: resources/stat.ink/kd-win.js node_modules
 resources/.compiled/stat.ink/kill-ratio-column.js: resources/stat.ink/kill-ratio-column.es node_modules
-resources/.compiled/stat.ink/knockout.css: resources/stat.ink/knockout.less node_modules
+resources/.compiled/stat.ink/knockout.css: resources/stat.ink/knockout.scss node_modules
 resources/.compiled/stat.ink/knockout.js: resources/stat.ink/knockout.es node_modules
-resources/.compiled/stat.ink/language-dialog.css: resources/stat.ink/language-dialog.less node_modules
+resources/.compiled/stat.ink/language-dialog.css: resources/stat.ink/language-dialog.scss node_modules
 resources/.compiled/stat.ink/language-dialog.js: resources/stat.ink/language-dialog.es node_modules
-resources/.compiled/stat.ink/league-power-history.css: resources/stat.ink/league-power-history.less node_modules
+resources/.compiled/stat.ink/league-power-history.css: resources/stat.ink/league-power-history.scss node_modules
 resources/.compiled/stat.ink/league-power-history.js: resources/stat.ink/league-power-history.es node_modules
 resources/.compiled/stat.ink/link-external.js: resources/stat.ink/link-external.es node_modules
 resources/.compiled/stat.ink/link-prevnext.js: resources/stat.ink/link-prevnext.es node_modules
-resources/.compiled/stat.ink/main.css: resources/stat.ink/main.less node_modules
+resources/.compiled/stat.ink/main.css: resources/stat.ink/main.scss node_modules
 resources/.compiled/stat.ink/os-icon-widget.js: resources/stat.ink/os-icon-widget.es node_modules
 resources/.compiled/stat.ink/permalink-dialog.js: resources/stat.ink/permalink-dialog.es node_modules
 resources/.compiled/stat.ink/private-note.js: resources/stat.ink/private-note.es node_modules
@@ -389,32 +352,32 @@ resources/.compiled/stat.ink/salmon-stats-history.js: resources/stat.ink/salmon-
 resources/.compiled/stat.ink/salmon-work-list-config.js: resources/stat.ink/salmon-work-list-config.es node_modules
 resources/.compiled/stat.ink/salmon-work-list-hazard.js: resources/stat.ink/salmon-work-list-hazard.es node_modules
 resources/.compiled/stat.ink/salmon-work-list.js: resources/stat.ink/salmon-work-list.es node_modules
-resources/.compiled/stat.ink/schedule.css: resources/stat.ink/schedule.less node_modules
+resources/.compiled/stat.ink/schedule.css: resources/stat.ink/schedule.scss node_modules
 resources/.compiled/stat.ink/smooth-scroll.js: resources/stat.ink/smooth-scroll.es node_modules
 resources/.compiled/stat.ink/stat-by-map-rule.js: resources/stat.ink/stat-by-map-rule.es node_modules
 resources/.compiled/stat.ink/stat-by-map.js: resources/stat.ink/stat-by-map.es node_modules
 resources/.compiled/stat.ink/stat-by-rule.js: resources/stat.ink/stat-by-rule.es node_modules
-resources/.compiled/stat.ink/table-responsive-force.css: resources/stat.ink/table-responsive-force.less node_modules
+resources/.compiled/stat.ink/table-responsive-force.css: resources/stat.ink/table-responsive-force.scss node_modules
 resources/.compiled/stat.ink/theme.js: resources/stat.ink/theme.es
 resources/.compiled/stat.ink/timezone-dialog.js: resources/stat.ink/timezone-dialog.es node_modules
-resources/.compiled/stat.ink/user-miniinfo.css: resources/stat.ink/user-miniinfo.less node_modules
+resources/.compiled/stat.ink/user-miniinfo.css: resources/stat.ink/user-miniinfo.scss node_modules
 resources/.compiled/stat.ink/user-stat-2-nawabari-inked.js: resources/stat.ink/user-stat-2-nawabari-inked.es node_modules
 resources/.compiled/stat.ink/user-stat-2-nawabari-runner.js: resources/stat.ink/user-stat-2-nawabari-runner.es node_modules
 resources/.compiled/stat.ink/user-stat-2-nawabari-stats.js: resources/stat.ink/user-stat-2-nawabari-stats.es node_modules
 resources/.compiled/stat.ink/user-stat-2-nawabari-winpct.js: resources/stat.ink/user-stat-2-nawabari-winpct.es node_modules
-resources/.compiled/stat.ink/user-stat-by-map-rule-detail.css: resources/stat.ink/user-stat-by-map-rule-detail.less node_modules
+resources/.compiled/stat.ink/user-stat-by-map-rule-detail.css: resources/stat.ink/user-stat-by-map-rule-detail.scss node_modules
 resources/.compiled/stat.ink/user-stat-gachi-rank.js: resources/stat.ink/user-stat-gachi-rank.es node_modules
 resources/.compiled/stat.ink/user-stat-gachi-winpct.js: resources/stat.ink/user-stat-gachi-winpct.es node_modules
 resources/.compiled/stat.ink/user-stat-nawabari-inked.js: resources/stat.ink/user-stat-nawabari-inked.es node_modules
 resources/.compiled/stat.ink/user-stat-nawabari-wp.js: resources/stat.ink/user-stat-nawabari-wp.es node_modules
-resources/.compiled/stat.ink/user-stat-report.css: resources/stat.ink/user-stat-report.less node_modules
+resources/.compiled/stat.ink/user-stat-report.css: resources/stat.ink/user-stat-report.scss node_modules
 resources/.compiled/stat.ink/weapons-use.js: resources/stat.ink/weapons-use.js node_modules
 resources/.compiled/stat.ink/weapons.js: resources/stat.ink/weapons.js node_modules
-resources/.compiled/stat.ink/xpower-history.css: resources/stat.ink/xpower-history.less node_modules
+resources/.compiled/stat.ink/xpower-history.css: resources/stat.ink/xpower-history.scss node_modules
 resources/.compiled/stat.ink/xpower-history.js: resources/stat.ink/xpower-history.es node_modules
 
 %.css:
-	$(call less2css,$@,$<)
+	$(call scss2css,$@,$<)
 
 %.js:
 	$(call es2js,$@,$<)
@@ -575,25 +538,7 @@ config/version.php: vendor config/db.php
 config/cloudflare/ip_ranges.php: vendor config/db.php
 	./yii cloudflare/update-ip-ranges
 
-runtime/ikalog:
-	mkdir -p runtime/ikalog
-
-runtime/ikalog/repo:
-	git clone --recursive -o origin https://github.com/hasegaw/IkaLog.git $@
-
-runtime/ikalog/winikalog.html: FORCE
-	curl -fsSL -o $@ 'https://hasegaw.github.io/IkaLog/'
-
-$(VENDOR_ARCHIVE_SIGN): $(VENDOR_ARCHIVE_FILE)
-	gpg -s -u 0xF6B887CD --detach-sign -a $<
-
-$(VENDOR_ARCHIVE_FILE): vendor runtime/vendor-archive
-	tar -Jcf $@ $<
-
-runtime/vendor-archive:
-	mkdir -p $@ || true
-
-geoip: vendor $(SIMPLE_CONFIG_TARGETS)
+geoip: init-no-resource
 	./yii geoip/update || true
 
-.PHONY: FORCE all check-style clean clean-resource composer-update fix-style ikalog init migrate-db resource vendor-archive vendor-by-archive download-vendor-archive geoip check-syntax check-style-php check-style-js
+.PHONY: FORCE all check-style clean clean-resource composer-update fix-style init init-no-resource migrate-db resource geoip check-syntax check-style-php check-style-js license
