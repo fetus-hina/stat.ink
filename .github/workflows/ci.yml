@@ -196,7 +196,7 @@ jobs:
     steps:
       - name: 'Setup PHP env'
         run: |
-          sudo apt install -y brotli jpegoptim libxml2-utils php7.4-intl
+          sudo apt install -y jpegoptim libxml2-utils php7.4-intl
           sudo update-alternatives --set php /usr/bin/php7.4
 
       - uses: 'actions/checkout@v2'
@@ -255,7 +255,7 @@ jobs:
     steps:
       - name: 'Setup PHP env'
         run: |
-          sudo apt install -y brotli jpegoptim libxml2-utils php${{ matrix.php_version }}-intl
+          sudo apt install -y jpegoptim libxml2-utils php${{ matrix.php_version }}-intl
           sudo update-alternatives --set php /usr/bin/php${{ matrix.php_version }}
 
       - uses: 'actions/checkout@v2'
