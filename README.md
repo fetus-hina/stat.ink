@@ -39,14 +39,12 @@ REQUIREMENTS
 - Node.js (`npm`)
   - Recommended: latest release or latest LTS
 - `jpegoptim`
-- Brotli (`brotli` or `bro`)
 - MaxMind's account
 
 https://stat.ink/ works with:
 
 - CentOS 7.8 (x86-64)
 - EPEL
-  - `brotli`
 - [JP3CKI Repository](https://rpm.fetus.jp/)
   - [H2O](https://h2o.examp1e.net/) mainline
 - [Remi's RPM repository](http://rpms.famillecollet.com/)
