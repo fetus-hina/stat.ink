@@ -35,7 +35,6 @@
     "license-checker-rseidelsohn": "^1.1.2",
     "moment": "^2.29.1",
     "moment-timezone": "^0.5.31",
-    "node-zopfli": "^2.1.4",
     "optipng-bin": "^7.0.0",
     "patch-package": "^6.2.2",
     "photoswipe": "^4.1.3",

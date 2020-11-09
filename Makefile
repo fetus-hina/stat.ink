@@ -1,6 +1,6 @@
 STYLE_TARGETS := actions assets commands components controllers models
 
-RESOURCE_TARGETS_MAIN := \
+RESOURCE_TARGETS := \
 	resources/.compiled/app-link-logos/festink.png \
 	resources/.compiled/app-link-logos/ikadenwa.png \
 	resources/.compiled/app-link-logos/ikalog.png \
@@ -9,10 +9,8 @@ RESOURCE_TARGETS_MAIN := \
 	resources/.compiled/app-link-logos/ikarec-ja.png \
 	resources/.compiled/app-link-logos/inkipedia.png \
 	resources/.compiled/app-link-logos/nnid.min.svg \
-	resources/.compiled/app-link-logos/nnid.min.svg.gz \
 	resources/.compiled/app-link-logos/squidtracks.png \
 	resources/.compiled/app-link-logos/switch.min.svg \
-	resources/.compiled/app-link-logos/switch.min.svg.gz \
 	resources/.compiled/counter/counter.css \
 	resources/.compiled/flexbox/flexbox.css \
 	resources/.compiled/flot-graph-icon/jquery.flot.icon.js \
@@ -127,16 +125,8 @@ RESOURCE_TARGETS_MAIN := \
 	resources/.compiled/stat.ink/weapons.js \
 	resources/.compiled/stat.ink/xpower-history.css \
 	resources/.compiled/stat.ink/xpower-history.js \
-	web/static-assets/cc/cc-by.svg.gz \
 	web/static-assets/ostatus/ostatus.min.svg \
-	web/static-assets/ostatus/ostatus.min.svg.gz \
-	web/static-assets/rect-danger.min.svg \
-	web/static-assets/rect-danger.min.svg.gz
-
-RESOURCE_TARGETS := \
-	$(RESOURCE_TARGETS_MAIN) \
-	$(RESOURCE_TARGETS_MAIN:.css=.css.gz) \
-	$(RESOURCE_TARGETS_MAIN:.js=.js.gz)
+	web/static-assets/rect-danger.min.svg
 
 SIMPLE_CONFIG_TARGETS := \
 	config/amazon-s3.php \
@@ -231,11 +221,6 @@ composer.phar:
 composer.lock: composer.json composer.phar
 	php -d memory_limit=-1 ./composer.phar update -vvv
 	@touch -r composer.json composer.lock
-
-%.gz: % node_modules
-	@rm -f $@
-	npx zopfli -i 15 $<
-	@chmod 644 $@
 
 %.min.svg: %.svg node_modules
 	npx svgo --output $@ --input $< -q

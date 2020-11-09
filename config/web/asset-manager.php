@@ -1,7 +1,6 @@
 <?php
 declare(strict_types=1);
 
-use app\components\web\AssetConverter;
 use app\components\web\AssetManager;
 use jp3cki\yii2\datetimepicker\BootstrapDateTimePickerAsset;
 use jp3cki\yii2\flot\BasePluginAsset;
@@ -163,8 +162,5 @@ return [
         \statink\yii2\momentjs\MomentTimezoneAsset::class => [
             'sourcePath' => '@node/moment-timezone/builds',
         ],
-    ],
-    'converter' => [
-        'class' => AssetConverter::class,
     ],
 ];
