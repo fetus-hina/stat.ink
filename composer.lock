@@ -7304,16 +7304,16 @@
         },
         {
             "name": "yiisoft/yii2-debug",
-            "version": "2.1.14",
+            "version": "2.1.15",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-debug.git",
-                "reference": "7e2eac4a8d3ee604b29df0d10c41459f4e481981"
+                "reference": "317f85c1ac7a8c0b73eea345a49066b5570aa2c6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-debug/zipball/7e2eac4a8d3ee604b29df0d10c41459f4e481981",
-                "reference": "7e2eac4a8d3ee604b29df0d10c41459f4e481981",
+                "url": "https://api.github.com/repos/yiisoft/yii2-debug/zipball/317f85c1ac7a8c0b73eea345a49066b5570aa2c6",
+                "reference": "317f85c1ac7a8c0b73eea345a49066b5570aa2c6",
                 "shasum": ""
             },
             "require": {
@@ -7383,7 +7383,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-11-10T12:45:23+00:00"
+            "time": "2020-11-13T10:09:11+00:00"
         },
         {
             "name": "yiisoft/yii2-gii",
