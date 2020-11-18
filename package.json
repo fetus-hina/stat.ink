@@ -42,6 +42,7 @@
     "postcss": "^8.1.7",
     "postcss-cli": "^8.3.0",
     "punycode": "^2.1.1",
+    "redoc": "^2.0.0-rc.47",
     "redoc-cli": "^0.10.1",
     "rpg-awesome": "git+https://github.com/nagoshiashumari/Rpg-Awesome.git",
     "sass": "^1.29.0",
