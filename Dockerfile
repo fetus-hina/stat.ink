@@ -23,7 +23,6 @@ RUN rpm --import \
     curl -sS https://rpm.nodesource.com/setup_7.x | bash && \
     yum install -y \
         ImageMagick \
-        brotli \
         diff \
         gcc-c++ \
         git19-git \
