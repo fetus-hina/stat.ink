@@ -376,12 +376,12 @@ resources/.compiled/app-link-logos/ikanakama.png: resources/app-link-logos/ikana
 
 resources/.compiled/app-link-logos/ikarec-en.png: resources/app-link-logos/ikarec-en.png
 	@mkdir -p resources/.compiled/app-link-logos
-	convert $<[1] -trim +repage -unsharp 1.5x1+0.7+0.02 -scale x28 $@
+	convert $< -trim +repage -unsharp 1.5x1+0.7+0.02 -scale x28 $@
 	@touch -r $< $@
 
 resources/.compiled/app-link-logos/ikarec-ja.png: resources/app-link-logos/ikarec-ja.png
 	@mkdir -p resources/.compiled/app-link-logos
-	convert $<[1] -trim +repage -unsharp 1.5x1+0.7+0.02 -scale x28 $@
+	convert $< -trim +repage -unsharp 1.5x1+0.7+0.02 -scale x28 $@
 	@touch -r $< $@
 
 resources/.compiled/app-link-logos/festink.png: resources/app-link-logos/festink.ico
@@ -391,7 +391,7 @@ resources/.compiled/app-link-logos/festink.png: resources/app-link-logos/festink
 
 resources/.compiled/app-link-logos/squidtracks.png: resources/app-link-logos/squidtracks.png
 	@mkdir -p resources/.compiled/app-link-logos
-	convert $<[3] -trim +repage -unsharp 1.5x1+0.7+0.02 -scale x28 $@
+	convert $< -trim +repage -unsharp 1.5x1+0.7+0.02 -scale x28 $@
 	@touch -r $< $@
 
 resources/.compiled/app-link-logos/nnid.svg: resources/app-link-logos/nnid.svg
