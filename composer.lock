@@ -4319,21 +4319,21 @@
         },
         {
             "name": "codeception/verify",
-            "version": "2.1.0",
+            "version": "2.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Codeception/Verify.git",
-                "reference": "11fa56c223ae7188174c4ba50c68454d83b254e9"
+                "reference": "1cdac1867c33801ae8e4833015153766ef403c92"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/Verify/zipball/11fa56c223ae7188174c4ba50c68454d83b254e9",
-                "reference": "11fa56c223ae7188174c4ba50c68454d83b254e9",
+                "url": "https://api.github.com/repos/Codeception/Verify/zipball/1cdac1867c33801ae8e4833015153766ef403c92",
+                "reference": "1cdac1867c33801ae8e4833015153766ef403c92",
                 "shasum": ""
             },
             "require": {
                 "ext-dom": "*",
-                "php": "^7.3",
+                "php": "^7.3 || ^8.0",
                 "phpunit/phpunit": "^9.3"
             },
             "type": "library",
@@ -4362,9 +4362,9 @@
             "description": "BDD assertion library for PHPUnit",
             "support": {
                 "issues": "https://github.com/Codeception/Verify/issues",
-                "source": "https://github.com/Codeception/Verify/tree/master"
+                "source": "https://github.com/Codeception/Verify/tree/2.1.1"
             },
-            "time": "2020-09-03T04:43:01+00:00"
+            "time": "2020-12-18T16:18:31+00:00"
         },
         {
             "name": "doctrine/instantiator",
@@ -4751,16 +4751,16 @@
         },
         {
             "name": "phar-io/version",
-            "version": "3.0.3",
+            "version": "3.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phar-io/version.git",
-                "reference": "726c026815142e4f8677b7cb7f2249c9ffb7ecae"
+                "reference": "e4782611070e50613683d2b9a57730e9a3ba5451"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phar-io/version/zipball/726c026815142e4f8677b7cb7f2249c9ffb7ecae",
-                "reference": "726c026815142e4f8677b7cb7f2249c9ffb7ecae",
+                "url": "https://api.github.com/repos/phar-io/version/zipball/e4782611070e50613683d2b9a57730e9a3ba5451",
+                "reference": "e4782611070e50613683d2b9a57730e9a3ba5451",
                 "shasum": ""
             },
             "require": {
@@ -4796,9 +4796,9 @@
             "description": "Library for handling version information and constraints",
             "support": {
                 "issues": "https://github.com/phar-io/version/issues",
-                "source": "https://github.com/phar-io/version/tree/3.0.3"
+                "source": "https://github.com/phar-io/version/tree/3.0.4"
             },
-            "time": "2020-11-30T09:21:21+00:00"
+            "time": "2020-12-13T23:18:30+00:00"
         },
         {
             "name": "phpdocumentor/reflection-common",
