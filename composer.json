@@ -37,7 +37,7 @@
         "laminas/laminas-uri": "^2.7",
         "lusitanian/oauth": "^0.8.9",
         "php-curl-class/php-curl-class": "^8.0",
-        "phpseclib/phpseclib": "^2.0",
+        "phpseclib/phpseclib": "^3.0",
         "statink/yii2-anonymizer": "^1.0",
         "statink/yii2-bukiicons": "^1.0",
         "statink/yii2-cal-heatmap": "^1.0",
