@@ -3,8 +3,8 @@
 declare(strict_types=1);
 
 use app\assets\InlineListAsset;
+use app\assets\ReactIndexAppAsset;
 use app\components\helpers\CombinedBattles;
-use app\components\widgets\BlogEntryWidget;
 use app\components\widgets\FA;
 use app\components\widgets\HappyNewYearWidget;
 use app\components\widgets\IndexI18nButtons;
@@ -91,7 +91,10 @@ PaintballAsset::register($this);
     ]
   )) ?></nav>
   <?= SnsWidget::widget() . "\n" ?>
-  <?= BlogEntryWidget::widget() . "\n" ?>
+
+<?php ReactIndexAppAsset::register($this); ?>
+  <div id="index-app"></div>
+
   <?= IndexSchedule::widget() . "\n" ?>
 
 <?php if (!Yii::$app->user->isGuest): ?>

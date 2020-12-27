@@ -139,6 +139,8 @@ SIMPLE_CONFIG_TARGETS := \
 	config/lepton.php \
 	config/twitter.php
 
+REACT_SOURCES := $(shell find resources/react -type f)
+
 all: init migrate-db
 
 init: init-no-resource resource geoip
@@ -161,7 +163,11 @@ test: init-no-resource
 license: init-no-resource
 	./yii license
 
-resource: $(RESOURCE_TARGETS) $(ADDITIONAL_LICENSES)
+resource: $(RESOURCE_TARGETS) react $(ADDITIONAL_LICENSES)
+
+.PHONY: react
+react: node_modules $(REACT_SOURCES)
+	npx webpack-cli
 
 composer-update: composer.phar
 	./composer.phar self-update --2
