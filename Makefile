@@ -56,7 +56,6 @@ RESOURCE_TARGETS := \
 	resources/.compiled/stat.ink/color-scheme.js \
 	resources/.compiled/stat.ink/cookiealert.css \
 	resources/.compiled/stat.ink/cookiealert.js \
-	resources/.compiled/stat.ink/current-time.js \
 	resources/.compiled/stat.ink/downloads.css \
 	resources/.compiled/stat.ink/entire-weapon-based-on-k-or-d.js \
 	resources/.compiled/stat.ink/entire-weapon-kd-stats.js \
@@ -100,7 +99,6 @@ RESOURCE_TARGETS := \
 	resources/.compiled/stat.ink/salmon-work-list-config.js \
 	resources/.compiled/stat.ink/salmon-work-list-hazard.js \
 	resources/.compiled/stat.ink/salmon-work-list.js \
-	resources/.compiled/stat.ink/schedule.css \
 	resources/.compiled/stat.ink/smooth-scroll.js \
 	resources/.compiled/stat.ink/stat-by-map-rule.js \
 	resources/.compiled/stat.ink/stat-by-map.js \
@@ -284,7 +282,6 @@ resources/.compiled/stat.ink/cal-heatmap-halloween.css: resources/stat.ink/cal-h
 resources/.compiled/stat.ink/color-scheme.js: resources/stat.ink/color-scheme.es node_modules
 resources/.compiled/stat.ink/cookiealert.css: resources/stat.ink/cookiealert.scss node_modules
 resources/.compiled/stat.ink/cookiealert.js: resources/stat.ink/cookiealert.es node_modules
-resources/.compiled/stat.ink/current-time.js: resources/stat.ink/current-time.es node_modules
 resources/.compiled/stat.ink/downloads.css: resources/stat.ink/downloads.scss node_modules
 resources/.compiled/stat.ink/entire-weapon-based-on-k-or-d.js: resources/stat.ink/entire-weapon-based-on-k-or-d.es node_modules
 resources/.compiled/stat.ink/entire-weapon-kd-stats.js: resources/stat.ink/entire-weapon-kd-stats.es node_modules
@@ -326,7 +323,6 @@ resources/.compiled/stat.ink/salmon-stats-history.js: resources/stat.ink/salmon-
 resources/.compiled/stat.ink/salmon-work-list-config.js: resources/stat.ink/salmon-work-list-config.es node_modules
 resources/.compiled/stat.ink/salmon-work-list-hazard.js: resources/stat.ink/salmon-work-list-hazard.es node_modules
 resources/.compiled/stat.ink/salmon-work-list.js: resources/stat.ink/salmon-work-list.es node_modules
-resources/.compiled/stat.ink/schedule.css: resources/stat.ink/schedule.scss node_modules
 resources/.compiled/stat.ink/smooth-scroll.js: resources/stat.ink/smooth-scroll.es node_modules
 resources/.compiled/stat.ink/stat-by-map-rule.js: resources/stat.ink/stat-by-map-rule.es node_modules
 resources/.compiled/stat.ink/stat-by-map.js: resources/stat.ink/stat-by-map.es node_modules

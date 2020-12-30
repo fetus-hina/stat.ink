@@ -1,11 +1,11 @@
-import Impl from './blog/BlogEntries';
+import Impl from './schedule/Schedule';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { createUseStyles } from 'react-jss';
-import { fetchBlogEntry } from '../../actions/blog';
+import { fetchSchedule, scheduleTickTime } from '../../actions/schedule';
 
-class Blog extends Component {
+class Schedule extends Component {
   constructor(...args) {
     super(...args);
     this.state = {
@@ -26,7 +26,7 @@ class Blog extends Component {
   }
 }
 
-Blog.propTypes = {
+Schedule.propTypes = {
   expires: PropTypes.number.isRequired,
   onMount: PropTypes.func.isRequired,
   onTickTimer: PropTypes.func.isRequired,
@@ -35,7 +35,7 @@ Blog.propTypes = {
 
 function mapStateToProps(state) {
   return {
-    expires: state.blog.expires,
+    expires: state.schedule.expires,
   };
 }
 
@@ -48,10 +48,10 @@ function mapDispatchToProps(dispatch) {
           () => {
             timerFunc(self);
           },
-          500
+          1000 // every second
         ),
       });
-      dispatch(fetchBlogEntry());
+      dispatch(fetchSchedule());
     },
     onUnmount: (self) => {
       if (self.state.timer) {
@@ -64,13 +64,15 @@ function mapDispatchToProps(dispatch) {
     onTickTimer: (self) => {
       const { expires } = self.props;
 
+      dispatch(scheduleTickTime());
+
       if (expires > (new Date()).getTime()) {
         return;
       }
       
-      dispatch(fetchBlogEntry());
+      dispatch(fetchSchedule());
     },
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Blog);
+export default connect(mapStateToProps, mapDispatchToProps)(Schedule);

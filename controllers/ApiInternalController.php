@@ -19,6 +19,7 @@ use app\actions\api\internal\CurrentDataAction;
 use app\actions\api\internal\GuessTimezoneAction;
 use app\actions\api\internal\PatchBattleAction;
 use app\actions\api\internal\SalmonStats2Action;
+use app\actions\api\internal\ScheduleAction;
 use app\components\web\Controller;
 use yii\filters\VerbFilter;
 
@@ -50,6 +51,7 @@ class ApiInternalController extends Controller
             'guess-timezone' => [ 'class' => GuessTimezoneAction::class ],
             'patch-battle' => [ 'class' => PatchBattleAction::class ],
             'salmon-stats2' => [ 'class' => SalmonStats2Action::class ],
+            'schedule' => [ 'class' => ScheduleAction::class ],
         ];
     }
 }

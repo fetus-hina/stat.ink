@@ -8,7 +8,6 @@ use app\components\helpers\CombinedBattles;
 use app\components\widgets\FA;
 use app\components\widgets\HappyNewYearWidget;
 use app\components\widgets\IndexI18nButtons;
-use app\components\widgets\IndexSchedule;
 use app\components\widgets\SnsWidget;
 use app\components\widgets\WashHandsWidget;
 use app\components\widgets\alerts\ImportFromSplatnet2;
@@ -92,10 +91,8 @@ PaintballAsset::register($this);
   )) ?></nav>
   <?= SnsWidget::widget() . "\n" ?>
 
-<?php ReactIndexAppAsset::register($this); ?>
+  <?php ReactIndexAppAsset::register($this); ?>
   <div id="index-app"></div>
-
-  <?= IndexSchedule::widget() . "\n" ?>
 
 <?php if (!Yii::$app->user->isGuest): ?>
 <?php $ident = Yii::$app->user->identity ?>
