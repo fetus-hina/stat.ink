@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 use app\assets\InlineListAsset;
 use app\assets\ReactIndexAppAsset;
-use app\components\helpers\CombinedBattles;
 use app\components\widgets\FA;
 use app\components\widgets\HappyNewYearWidget;
 use app\components\widgets\IndexI18nButtons;
@@ -14,7 +13,6 @@ use app\components\widgets\alerts\ImportFromSplatnet2;
 use app\components\widgets\alerts\LanguageSupportLevelWarning;
 use app\components\widgets\alerts\MaintenanceInfo;
 use app\components\widgets\alerts\PleaseUseLatest;
-use app\components\widgets\battle\BattleListWidget;
 use statink\yii2\paintball\PaintballAsset;
 use yii\helpers\Html;
 
@@ -93,23 +91,4 @@ PaintballAsset::register($this);
 
   <?php ReactIndexAppAsset::register($this); ?>
   <div id="index-app"></div>
-
-<?php if (!Yii::$app->user->isGuest): ?>
-<?php $ident = Yii::$app->user->identity ?>
-<?php $battles = CombinedBattles::getUserRecentBattles($ident, 12) ?>
-<?php if ($battles): ?>
-  <h2>
-    <?= Html::a(
-      Html::encode(
-        Yii::t('app', '{name}\'s Battles', ['name' => $ident->name])
-      ),
-      ['show-user/profile', 'screen_name' => $ident->screen_name]
-    ) . "\n" ?>
-  </h2>
-  <?= BattleListWidget::widget(['models' => $battles]) . "\n" ?>
-<?php endif; endif; ?>
-  <h2>
-    <?= Html::encode(Yii::t('app', 'Recent Battles')) . "\n" ?>
-  </h2>
-  <?= BattleListWidget::widget(['models' => CombinedBattles::getRecentBattles(100)]) . "\n" ?>
 </div>

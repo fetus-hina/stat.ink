@@ -1,5 +1,7 @@
 import blogSaga from '../saga/blog';
 import createSagaMiddleware, { SagaMiddleware } from 'redux-saga';
+import latestBattlesSaga from '../saga/latestBattles';
+import myLatestBattlesSaga from '../saga/myLatestBattles';
 import reducer from '../reducers/indexApp';
 import scheduleSaga from '../saga/schedule';
 import { all } from 'redux-saga/effects';
@@ -8,6 +10,8 @@ import { applyMiddleware, createStore } from 'redux';
 function* rootSaga() {
   yield all([
     ...blogSaga,
+    ...latestBattlesSaga,
+    ...myLatestBattlesSaga,
     ...scheduleSaga,
   ]);
 }

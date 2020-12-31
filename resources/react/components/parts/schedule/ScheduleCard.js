@@ -51,7 +51,7 @@ const useStyles = createUseStyles({
     padding: '15px',
   },
   weapons: {
-    backgroundColor: 'rgba(0, 0, 0, 0.65)',
+    backgroundColor: 'rgba(255, 255, 255, 0.8)',
     borderTopLeftRadius: '4px',
     bottom: '0',
     color: '#ccc',
