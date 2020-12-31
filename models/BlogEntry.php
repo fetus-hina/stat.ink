@@ -1,15 +1,19 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2016 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2020 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
+
+declare(strict_types=1);
 
 namespace app\models;
 
 use Yii;
 use jp3cki\uuid\Uuid;
+use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "blog_entry".
@@ -20,8 +24,18 @@ use jp3cki\uuid\Uuid;
  * @property string $title
  * @property string $at
  */
-class BlogEntry extends \yii\db\ActiveRecord
+class BlogEntry extends ActiveRecord
 {
+    public static function find(): ActiveQuery
+    {
+        return new class (static::class) extends ActiveQuery {
+            public function latest(): ActiveQuery
+            {
+                return $this->orderBy(['{{blog_entry}}.[[at]]' => SORT_DESC]);
+            }
+        };
+    }
+
     /**
      * @inheritdoc
      */
