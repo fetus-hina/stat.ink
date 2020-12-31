@@ -43,8 +43,6 @@ RESOURCE_TARGETS := \
 	resources/.compiled/stat.ink/battle-private-note.js \
 	resources/.compiled/stat.ink/battle-smooth.js \
 	resources/.compiled/stat.ink/battle-summary-dialog.js \
-	resources/.compiled/stat.ink/battle-thumb-list.css \
-	resources/.compiled/stat.ink/battle-thumb-list.js \
 	resources/.compiled/stat.ink/battle-timeline.js \
 	resources/.compiled/stat.ink/battle2-players-point-inked.js \
 	resources/.compiled/stat.ink/battles-simple.css \
@@ -269,8 +267,6 @@ resources/.compiled/stat.ink/battle-list.js: resources/stat.ink/battle-list.es n
 resources/.compiled/stat.ink/battle-private-note.js: resources/stat.ink/battle-private-note.es node_modules
 resources/.compiled/stat.ink/battle-smooth.js: resources/stat.ink/battle-smooth.es node_modules
 resources/.compiled/stat.ink/battle-summary-dialog.js: resources/stat.ink/battle-summary-dialog.es node_modules
-resources/.compiled/stat.ink/battle-thumb-list.css: resources/stat.ink/battle-thumb-list.scss node_modules
-resources/.compiled/stat.ink/battle-thumb-list.js: resources/stat.ink/battle-thumb-list.es node_modules
 resources/.compiled/stat.ink/battle-timeline.js: resources/stat.ink/battle-timeline.es node_modules
 resources/.compiled/stat.ink/battle2-players-point-inked.js: resources/stat.ink/battle2-players-point-inked.es node_modules
 resources/.compiled/stat.ink/battles-simple.css: resources/stat.ink/battles-simple.scss node_modules
