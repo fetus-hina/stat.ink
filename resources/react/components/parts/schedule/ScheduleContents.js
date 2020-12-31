@@ -83,7 +83,7 @@ function extractMode(schedule, mode) {
   let current = Object.assign({}, schedule);
   while (current && ref.length > 0) {
     const curRef = ref.shift();
-    if (!current.hasOwnProperty(curRef)) {
+    if (!current[curRef]) {
       return null;
     }
     current = current[curRef];
@@ -97,7 +97,7 @@ function getDataSourceHTML(schedule, mode, translations) {
     !schedule.sources ||
     !mode ||
     !mode.source ||
-    !schedule.sources.hasOwnProperty(mode.source)
+    !schedule.sources[mode.source]
   ) {
     return '';
   }

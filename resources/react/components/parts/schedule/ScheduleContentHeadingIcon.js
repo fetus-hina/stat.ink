@@ -12,3 +12,7 @@ export default function ScheduleContentHeadingIcon(props) {
     <img src={schedule.rule.icon} className="mr-1" />
   );
 }
+
+ScheduleContentHeadingIcon.propTypes = {
+  schedule: PropTypes.object,
+};

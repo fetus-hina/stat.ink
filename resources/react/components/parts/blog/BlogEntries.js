@@ -88,6 +88,7 @@ function renderEntries(props, classes) {
           <a
             className={['alert-link', classes.alertLink].join(' ')}
             href={entry.url}
+            rel="noreferrer"
             target="_blank"
           >
             {entry.title} ({renderTime(entry.at)})

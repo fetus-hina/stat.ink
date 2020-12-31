@@ -85,7 +85,7 @@ function extractMode(schedule, tabItem) {
   let current = Object.assign({}, schedule);
   while (current && ref.length > 0) {
     const curRef = ref.shift();
-    if (!current.hasOwnProperty(curRef)) {
+    if (!current[curRef]) {
       return null;
     }
     current = current[curRef];

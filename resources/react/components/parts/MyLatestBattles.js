@@ -2,7 +2,6 @@ import Impl from './myLatestBattles/MyLatestBattles';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { createUseStyles } from 'react-jss';
 import { fetchMyLatestBattles } from '../../actions/myLatestBattles';
 
 class MyLatestBattles extends Component {

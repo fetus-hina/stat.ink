@@ -21,14 +21,14 @@ const initialState = {
   status: STATUS_EXPIRED,
 };
 
-function reduceFetch(oldState, action) {
+function reduceFetch(oldState) {
   const state = Object.assign({}, oldState); // copy
   state.status = STATUS_LOADING;
   state.expires = (new Date()).getTime() + SCHEDULE_MAX_LIFETIME;
   return state;
 }
 
-function reduceFetchFailed(oldState, action) {
+function reduceFetchFailed(oldState) {
   const state = Object.assign({}, oldState); // copy
   state.status = STATUS_FAILED;
   state.expires = (new Date()).getTime() + (1 * 60 * 1000);
@@ -44,7 +44,7 @@ function reduceFetchSuccess(oldState, action) {
   return state;
 }
 
-function reduceTick(oldState, action) {
+function reduceTick(oldState) {
   const state = Object.assign({}, oldState); // copy
   state.currentTime += 1000;
   return state;

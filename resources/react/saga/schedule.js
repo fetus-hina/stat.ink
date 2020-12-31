@@ -3,13 +3,11 @@ import axios from 'axios';
 import {
   call,
   put,
-  takeEvery,
   takeLatest,
 } from 'redux-saga/effects';
 
 import {
   FETCH_SCHEDULE,
-  fetchSchedule,
   fetchScheduleFailed,
   fetchScheduleSuccess,
 } from '../actions/schedule';
@@ -35,7 +33,7 @@ function* fetch() {
   if (data) {
     yield put(fetchScheduleSuccess(data));
   } else {
-    yield put(fetchScheduleFailed(data));
+    yield put(fetchScheduleFailed(error));
   }
 }
 

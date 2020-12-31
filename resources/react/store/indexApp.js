@@ -1,5 +1,5 @@
 import blogSaga from '../saga/blog';
-import createSagaMiddleware, { SagaMiddleware } from 'redux-saga';
+import createSagaMiddleware from 'redux-saga';
 import latestBattlesSaga from '../saga/latestBattles';
 import myLatestBattlesSaga from '../saga/myLatestBattles';
 import reducer from '../reducers/indexApp';

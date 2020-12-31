@@ -19,14 +19,14 @@ const initialState = {
   status: STATUS_EXPIRED,
 };
 
-function reduceFetch(oldState, action) {
+function reduceFetch(oldState) {
   const state = Object.assign({}, oldState); // copy
   state.status = STATUS_LOADING;
   state.expires = (new Date()).getTime() + (10 * 365 * 86400 * 1000);
   return state;
 }
 
-function reduceFetchFailed(oldState, action) {
+function reduceFetchFailed(oldState) {
   const state = Object.assign({}, oldState); // copy
   state.data = [];
   state.expires = (new Date()).getTime() + MY_LATEST_BATTLES_LIFETIME;

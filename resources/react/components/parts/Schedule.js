@@ -2,7 +2,6 @@ import Impl from './schedule/Schedule';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { createUseStyles } from 'react-jss';
 import { fetchSchedule, scheduleTickTime } from '../../actions/schedule';
 
 class Schedule extends Component {

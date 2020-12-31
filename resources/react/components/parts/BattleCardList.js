@@ -20,4 +20,5 @@ export default function BattleCardList(props) {
 
 BattleCardList.propTypes = {
   battles: PropTypes.array.isRequired,
+  reltime: PropTypes.object.isRequired,
 };

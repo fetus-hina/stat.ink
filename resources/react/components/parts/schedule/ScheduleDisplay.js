@@ -1,8 +1,6 @@
-import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import ScheduleContents from './ScheduleContents';
 import ScheduleTabs from './ScheduleTabs';
-import { connect } from 'react-redux';
 
 const data = [
   {
@@ -27,7 +25,7 @@ const data = [
   },
 ];
 
-function ScheduleDisplay() {
+export default function ScheduleDisplay() {
   const [ selected, setSelected ] = useState('regular2');
 
   return (
@@ -47,13 +45,3 @@ function ScheduleDisplay() {
 
 ScheduleDisplay.propTypes = {
 };
-
-function mapStateToProps(/* state */) {
-  return {};
-}
-
-function mapDispatchToProps(/* dispatch */) {
-  return {};
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(ScheduleDisplay);

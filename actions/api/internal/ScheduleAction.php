@@ -75,7 +75,8 @@ class ScheduleAction extends ViewAction
         ];
     }
 
-    private function getSources(): array {
+    private function getSources(): array
+    {
         return [
             's2ink' => [
                 'url' => 'https://splatoon2.ink/',

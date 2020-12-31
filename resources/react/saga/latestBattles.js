@@ -8,7 +8,6 @@ import {
 
 import {
   FETCH_LATEST_BATTLES,
-  fetchLatestBattles,
   fetchLatestBattlesFailed,
   fetchLatestBattlesSuccess,
 } from '../actions/latestBattles';
@@ -34,7 +33,7 @@ function* fetch() {
   if (data) {
     yield put(fetchLatestBattlesSuccess(data));
   } else {
-    yield put(fetchLatestBattlesFailed(data));
+    yield put(fetchLatestBattlesFailed(error));
   }
 }
 

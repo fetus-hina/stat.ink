@@ -387,5 +387,4 @@ abstract class BaseLatestBattlesAction extends ViewAction
             'variant' => 'splatoon1',
         ];
     }
-
 }
