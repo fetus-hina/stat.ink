@@ -27,6 +27,7 @@
 /config/twitter.php
 /config/version.php
 /data/GeoIP
+/data/licenses-npm
 /node_modules
 /phpunit.xml
 /resources/.compiled

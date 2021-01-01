@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 use yii\helpers\Html;
 
 $title = implode(' | ', [
@@ -8,13 +11,12 @@ $title = implode(' | ', [
 
 $this->context->layout = 'main';
 $this->title = $title;
+
 ?>
 <div class="container">
-  <h1 class="ikamodoki">
-    <?= Html::encode(Yii::t('app', 'Open Source Licenses')) . "\n" ?>
-  </h1>
+  <h1><?= Html::encode(Yii::t('app', 'Open Source Licenses')) ?></h1>
   <div>
-    <h2 class="ikamodoki">
+    <h2>
       <?= Html::encode($myself->name) . "\n" ?>
     </h2>
     <div class="license-body">
@@ -24,9 +26,7 @@ $this->title = $title;
   <hr>
 <?php foreach ($depends as $software) { ?>
   <div>
-    <h2 class="ikamodoki">
-      <?= Html::encode($software->name) . "\n" ?>
-    </h2>
+    <h2><?= Html::encode($software->name) ?></h2>
     <div class="license-body">
       <?= $software->html . "\n" ?>
     </div>
