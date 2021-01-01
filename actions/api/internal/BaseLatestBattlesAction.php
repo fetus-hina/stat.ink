@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2020 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2021 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -190,6 +190,53 @@ abstract class BaseLatestBattlesAction extends ViewAction
                 }
                 return sprintf('%s @%s', $result, $map);
             })(),
+            'summary2' => (function () use ($battle): ?string {
+                $lobby = $battle->lobby;
+                $mode = $battle->mode;
+                $rule = $battle->rule;
+                if (!$lobby || !$mode || !$rule) {
+                    return null;
+                }
+
+                switch ($mode->key) {
+                    case 'regular':
+                        if ($rule->key === 'nawabari') {
+                            return Yii::t('app-rule2', 'Turf War');
+                        }
+                        break;
+
+                    case 'gachi':
+                        if (
+                            in_array($rule->key, ['area', 'asari', 'hoko', 'yagura'], true) &&
+                            in_array($lobby->key, ['standard', 'squad_2', 'squad_4'], true)
+                        ) {
+                            return vsprintf('%s, %s', [
+                                Yii::t('app-rule2', $rule->name),
+                                (function () use ($lobby): string {
+                                    switch ($lobby->key) {
+                                        case 'squad_2':
+                                            return Yii::t('app-rule2', 'League (Twin)');
+
+                                        case 'squad_4':
+                                            return Yii::t('app-rule2', 'League (Quad)');
+
+                                        default:
+                                            return Yii::t('app-rule2', 'Ranked Battle');
+                                    }
+                                })(),
+                            ]);
+                        }
+                        break;
+
+                    case 'fest':
+                        return Yii::t('app-rule2', 'Splatfest');
+
+                    case 'private':
+                        return Yii::t('app-rule2', 'Private Battle');
+                }
+
+                return null;
+            })(),
             'time' => strtotime($battle->end_at ?: $battle->created_at),
             'rule' => $battle->rule
                 ? [
@@ -283,6 +330,7 @@ abstract class BaseLatestBattlesAction extends ViewAction
 
                 return sprintf('%s @%s', $result, $map);
             })(),
+            'summary2' => Yii::t('app-salmon2', 'Salmon Run'),
             'time' => strtotime($battle->end_at ?: $battle->created_at),
             'rule' => null,
             'url' => Url::to(
@@ -356,6 +404,7 @@ abstract class BaseLatestBattlesAction extends ViewAction
                 }
                 return sprintf('%s @%s', $result, $map);
             })(),
+            'summary2' => null,
             'time' => strtotime($battle->end_at ?: $battle->created_at),
             'rule' => $battle->rule
                 ? [
