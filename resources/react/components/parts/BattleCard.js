@@ -154,9 +154,18 @@ export default function BattleCard(props) {
             </a>
           </div>
           <div className={classes.contentData}>
-            <div className={['text-muted', 'small', classes.ellipsis].join(' ')}>
-              {battle.summary}
-            </div>
+            {battle.summary
+              ? <div className={['text-muted', 'small', classes.ellipsis].join(' ')}>
+                {battle.summary}
+              </div>
+              : null
+            }
+            {battle.summary2
+              ? <div className={['text-muted', 'small', classes.ellipsis].join(' ')}>
+                {battle.summary2}
+              </div>
+              : null
+            }
             <div className={classes.ellipsis}>
               <a href={battle.user.url}>
                 {battle.user.name}
