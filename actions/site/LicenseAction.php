@@ -18,6 +18,18 @@ use cebe\markdown\GithubMarkdown as Markdown;
 use stdClass;
 use yii\helpers\Html;
 
+use function array_merge;
+use function call_user_func;
+use function file_get_contents;
+use function ltrim;
+use function strcmp;
+use function strlen;
+use function strnatcasecmp;
+use function strtolower;
+use function substr;
+use function trim;
+use function usort;
+
 class LicenseAction extends SimpleAction
 {
     private const CATEGORY_COMPOSER = 0;
@@ -62,7 +74,8 @@ class LicenseAction extends SimpleAction
                 $bName = trim(preg_replace('/[^0-9A-Za-z]+/', ' ', $b->name));
                 $bName2 = ltrim($bName, '@');
                 return strnatcasecmp($aName2, $bName2)
-                    ?: strnatcasecmp($aName, $bName);
+                    ?: strnatcasecmp($aName, $bName)
+                    ?: strcmp($aName, $bName);
             }
         );
         return $ret;
@@ -115,23 +128,44 @@ class LicenseAction extends SimpleAction
             }
 
             $basename = substr($pathname, strlen($basedir));
-            $ret[] = (object)[
-                'category' => static::CATEGORY_NPM,
-                'name' => substr($basename, 0, strlen($basename) - 12),
-                'html' => $this->loadPlain($entry->getPathname()),
-            ];
+            $html = $this->loadPlain(
+                $entry->getPathname(),
+                fn(string $t): bool => (bool)preg_match('/copyright|licen[cs]e/i', $t),
+            );
+            if ($html) {
+                $ret[] = (object)[
+                    'category' => static::CATEGORY_NPM,
+                    'name' => substr($basename, 0, strlen($basename) - 12),
+                    'html' => $html,
+                ];
+            }
         }
 
         return $ret;
     }
 
-    private function loadPlain($path): string
+    private function loadPlain(string $path, ?callable $checker = null): ?string
     {
-        return '<pre>' . Html::encode(file_get_contents($path, false)) . '</pre>';
+        $text = $this->loadFile($path, $checker);
+        return ($text !== null)
+            ? Html::tag('pre', Html::encode($text))
+            : null;
     }
 
-    private function loadMarkdown($path): string
+    private function loadMarkdown($path, ?callable $checker = null): ?string
     {
-        return $this->mdParser->parse(file_get_contents($path, false));
+        $text = $this->loadFile($path, $checker);
+        return ($text !== null)
+            ? $this->mdParser->parse($text)
+            : null;
+    }
+
+    private function loadFile(string $path, ?callable $checker): ?string
+    {
+        $text = file_get_contents($path, false);
+        if ($checker && !call_user_func($checker, $text)) {
+            return null;
+        }
+        return $text;
     }
 }
