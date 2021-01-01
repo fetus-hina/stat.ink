@@ -106,7 +106,7 @@
             "enabled": false
         },
         "platform": {
-            "php": "7.4.9"
+            "php": "7.4.13"
         }
     },
     "extra": {

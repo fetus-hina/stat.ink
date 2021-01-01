@@ -1,1 +1,0 @@
-../../node_modules/punycode/LICENSE-MIT.txt

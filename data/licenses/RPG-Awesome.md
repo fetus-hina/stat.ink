@@ -1,1 +1,0 @@
-../../node_modules/rpg-awesome/LICENSE.md
