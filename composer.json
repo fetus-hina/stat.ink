@@ -116,6 +116,14 @@
             }
         }
     },
+    "scripts": {
+      "post-install-cmd": [
+        "bin/composer-postinstall.sh"
+      ],
+      "post-update-cmd": [
+        "bin/composer-postinstall.sh"
+      ]
+    },
     "autoload": {
         "psr-4": {
             "app\\": "."
