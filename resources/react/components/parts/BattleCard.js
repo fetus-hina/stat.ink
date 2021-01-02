@@ -3,6 +3,11 @@ import React from 'react';
 import RelTime from './RelTime';
 import { createUseStyles } from 'react-jss';
 
+const EMPTY_IMAGE_16_BY_9 =
+  'iVBORw0KGgoAAAANSUhEUgAAABAAAAAJAQMAAAAB5D5xAAAAA1BMVEX///+nxBvIAAAAAXRSTlMA' +
+  'QObYZgAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAApJREFUCB1jwA0AABsAAScKbaoAAAAASUVORK5C' +
+  'YII=';
+
 const useStyles = createUseStyles({
   root: {
     backgroundColor: '#fff',
@@ -89,9 +94,9 @@ const useStyles = createUseStyles({
 });
 
 export default function BattleCard(props) {
-  const { battle, reltime } = props;
+  const { battle, fallbackImage, reltime } = props;
   const classes = useStyles();
-  const bgImages = buildImages(battle);
+  const bgImages = buildImages(battle, fallbackImage);
 
   return (
     <div className="col-xs-12 col-sm-6 col-md-4 col-lg-3 mb-2">
@@ -180,10 +185,11 @@ export default function BattleCard(props) {
 
 BattleCard.propTypes = {
   battle: PropTypes.object.isRequired,
+  fallbackImage: PropTypes.string,
   reltime: PropTypes.object.isRequired,
 };
 
-function buildImages(battle) {
+function buildImages(battle, fallbackImage) {
   const results = [];
   if (battle.image) {
     results.push(`url(${battle.image})`);
@@ -197,6 +203,9 @@ function buildImages(battle) {
       results.push(`url(${battle.stage.image.normal})`);
     }
   }
-  // TODO: default
+  if (fallbackImage) {
+    results.push(`url(${fallbackImage})`);
+  }
+  results.push(`url(data:image/png;base64,${EMPTY_IMAGE_16_BY_9})`);
   return results;
 }

@@ -14,6 +14,7 @@ use DateTimeImmutable;
 use DateTimeZone;
 use Yii;
 use app\assets\GameModeIconsAsset;
+use app\assets\NoDependedAppAsset;
 use app\components\helpers\CombinedBattles;
 use app\models\Battle2;
 use app\models\Battle;
@@ -59,13 +60,15 @@ abstract class BaseLatestBattlesAction extends ViewAction
         if (!$this->isPrecheckOK()) {
             return [
                 'battles' => [],
-                'translations' => [],
+                'images' => (object)[],
+                'translations' => (object)[],
                 'user' => null,
             ];
         }
 
         return [
             'battles' => $this->getBattles(),
+            'images' => $this->getImages(),
             'translations' => $this->getTranslations(),
             'user' => null,
         ];
@@ -434,6 +437,16 @@ abstract class BaseLatestBattlesAction extends ViewAction
                 ),
             ],
             'variant' => 'splatoon1',
+        ];
+    }
+
+    private function getImages(): array
+    {
+        $am = Yii::$app->assetManager;
+        $bundle = $am->getBundle(NoDependedAppAsset::class, true);
+
+        return [
+            'noImage' => Url::to($am->getAssetUrl($bundle, 'no-image.png'), true),
         ];
     }
 }

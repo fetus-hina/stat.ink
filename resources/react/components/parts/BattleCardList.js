@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 export default function BattleCardList(props) {
-  const { battles, reltime } = props;
+  const { battles, fallbackImage, reltime } = props;
 
   return (
     <div className="row">
@@ -11,6 +11,7 @@ export default function BattleCardList(props) {
         <BattleCard
           key={`${battle.variant}-${battle.id}`}
           battle={battle}
+          fallbackImage={fallbackImage}
           reltime={reltime}
         />
       ))}
@@ -20,5 +21,6 @@ export default function BattleCardList(props) {
 
 BattleCardList.propTypes = {
   battles: PropTypes.array.isRequired,
+  fallbackImage: PropTypes.string,
   reltime: PropTypes.object.isRequired,
 };

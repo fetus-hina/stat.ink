@@ -5,13 +5,14 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 function MyLatestBattles(props) {
-  const { battles, reltime } = props;
+  const { battles, fallbackImage, reltime } = props;
 
   return (
     <div className="mb-3">
       <Heading />
       <BattleCardList
         battles={battles}
+        fallbackImage={fallbackImage}
         reltime={reltime}
       />
     </div>
@@ -20,6 +21,7 @@ function MyLatestBattles(props) {
 
 MyLatestBattles.propTypes = {
   battles: PropTypes.array.isRequired,
+  fallbackImage: PropTypes.string,
   reltime: PropTypes.object.isRequired,
 };
 
@@ -27,6 +29,7 @@ function mapStateToProps(state) {
   const data = state.myLatestBattles.data;
   return {
     battles: data.battles,
+    fallbackImage: data.images.noImage,
     reltime: data.translations.reltime,
   };
 }
