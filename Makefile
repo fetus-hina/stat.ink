@@ -167,19 +167,13 @@ react: node_modules $(REACT_SOURCES)
 
 composer-update: composer.phar
 	./composer.phar self-update --2
-	@touch -r composer.json composer.phar
 
-vendor: composer.phar composer.lock
-	php composer.phar install --prefer-dist --profile
-	@touch -r composer.lock vendor
+vendor: composer.lock composer.phar
+	php composer.phar install --prefer-dist
+	@touch vendor
 
 node_modules: package-lock.json
 	npm install --unsafe-perm
-	@touch $@
-
-package-lock.json: package.json
-	@rm -rf vendor package-lock.json
-	npm update --unsafe-perm
 	@touch $@
 
 check-syntax:
@@ -218,11 +212,6 @@ clean-resource:
 
 composer.phar:
 	curl -fsSL https://getcomposer.org/installer | php
-	@touch -r composer.json composer.phar
-
-composer.lock: composer.json composer.phar
-	php -d memory_limit=-1 ./composer.phar update -vvv
-	@touch -r composer.json composer.lock
 
 %.min.svg: %.svg node_modules
 	npx svgo --output $@ --input $< -q
