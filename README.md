@@ -7,18 +7,22 @@ stat.ink
 
 Source codes for https://stat.ink/
 
-[IkaLog](https://github.com/hasegaw/IkaLog), SquidTracks, splatnet2statink 等の対応ソフトウェア、または自作のソフトウェアと連携することで Splatoon の戦績を保存し、統計を取ります。
+SquidTracks, splatnet2statink, IkaLog 等の対応ソフトウェア、または自作のソフトウェアと連携することで Splatoon (2) の戦績を保存し、統計を取ります。
+
+This software will save your Splatoon (2) battle results and get statistics by integrating with "supported software" such as
+SquidTracks, splatnet2statink, IkaLog, etc., or your own app.
+
 
 バグレポート BUG REPORT
 ----------------------
 
-- [GitHub で問題を報告する(要GitHubアカウント) Submit an issue on GitHub (Need an account)](https://github.com/fetus-hina/stat.ink/issues)
+- (Recommend) [GitHub で問題を報告する(要GitHubアカウント) Submit an issue on GitHub (Need an account)](https://github.com/fetus-hina/stat.ink/issues)
 - Contact to administrator with email or twitter.
 
 バグレポートは日本語で大丈夫です。開発者は日本語しかまともに使えない日本人です。
 
 I'll accept your bug report in English or Japanese.   
-The administrator is not goot at English. Please use easy English.
+The administrator is not goot at English. Please use easy English and do not use idioms or slangs.
 
 問題がセキュリティにかかわるものであれば、非公開の方法を利用してください。  
 Use a private channel if it is a security issue.
@@ -33,6 +37,7 @@ REQUIREMENTS
 - PHP 7.4+
   - Doesn't work with 7.3 or lower. (Uses statements and constants added in v7.4)
   - You should build/install with Argon2. [Install `php-sodium` if you use remirepo's PHP 7.4](https://github.com/remicollet/remirepo/issues/132#issuecomment-566513636).
+  - At this time, we have not tested it with PHP 8.
 - PostgreSQL 9.5+ (Recommended: 11+)
   - Doesn't work with 9.4 or lower. (Uses features added in v9.5) 
 - ImageMagick (`convert`)
@@ -43,7 +48,7 @@ REQUIREMENTS
 
 https://stat.ink/ works with:
 
-- CentOS 7.8 (x86-64)
+- CentOS 7 (x86-64)
 - EPEL
 - [JP3CKI Repository](https://rpm.fetus.jp/)
   - [H2O](https://h2o.examp1e.net/) mainline
@@ -59,6 +64,7 @@ https://stat.ink/ works with:
           - `php74-php-pdo`
           - `php74-php-pecl-msgpack`
           - `php74-php-pgsql`
+          - `php74-php-sodium`
 * [Node.js Repository](https://nodejs.org/en/download/package-manager/#enterprise-linux-and-fedora)
     - [Node.js](https://nodejs.org/)
         - `nodejs`
@@ -68,9 +74,6 @@ https://stat.ink/ works with:
       - `postgresql11-server`
 
 Notes:
-
-  - We will soon be changing the minimum requirement to PHP 7.4.  
-    The author wants to use the [typed properties](https://www.php.net/manual/en/migration74.new-features.php#migration74.new-features.core.typed-properties).
 
   - Default version of PHP on CentOS 7 is 5.4.16. This application doesn't work on it.  
     We are using features and statements that were added up to PHP 7.4.
@@ -139,44 +142,14 @@ git fetch --all && \
   git merge --ff-only origin/master && \
   ./composer.phar install --prefer-dist && \
   make && \
-  rm -rfv web/assets/*
+  ./yii asset/up-revision
 ```
-
-assets の中身は消さなくても動くことがありますが、動かないこともあるので消す事をおすすめします。
-
-なお、assets ディレクトリ自体を消してしまった場合は実行エラーが発生しますので中身だけ消してください。
-
-
-### DOCKER ###
-
-**DOCKER IMAGE IS ABANDONED AND NO LONGER MAINTAINED.**
-
-テスト環境構築用の `Dockerfile` が同梱されています。あるいは、Docker Hub の [`jp3cki/statink`](https://hub.docker.com/r/jp3cki/statink/) でビルド済みのイメージが取得できます。
-
-主要なソフトウェアのバージョンが合わせてあるため、本番環境とほぼ同じ環境ができあがるはずです。
-
-データの永続化に関する配慮は一切ありません。つまり、コンテナを起動する度にユーザやバトルは全部消えます。
-
-自分でイメージを作成する場合、現在の作業ディレクトリの中身が `/home/statink/stat.ink` にデプロイされます。その際 `vendor` などは一度消され、再構成されます。
-
-コンテナを起動すると 80/TCP で H2O が待ち受けています。ここへ接続して使用します。必要であれば `docker run` する時に `-p 8080:80` のように任意のポートにマップしてください。
-
-
-※Docker の本来のポリシーに反して、1アプリケーション1コンテナの形式になっています（内部で複数のdaemonが動作します）。
-
-※永続化のためのヒント:
-
-  - /home/statink/stat.ink/config
-  - /home/statink/stat.ink/web/images
-  - /var/opt/rh/rh-postgresql95/lib/pgsql/data
-
-自分で永続化したことがないのでうまく行くかは知りません。
-
 
 API
 ---
 
-stat.ink にデータを投稿する、または取得する API は次のページを参照してください。
+stat.ink にデータを投稿する、または取得する API は次のページを参照してください。 
+See the pages below for APIs to post and retrieve data from stat.ink.
 
 - [API for Splatoon 2](https://github.com/fetus-hina/stat.ink/blob/master/doc/api-2/)
 - [API for Splatoon 1](https://github.com/fetus-hina/stat.ink/blob/master/API.md)
@@ -187,7 +160,17 @@ You can use staging environment for POST API test.
 URL: `https://test.stat.ink/` instead of `https://stat.ink/`.
 
 The database of statging environment will reset daily.  
-The maintenance process will be started at 23:00 UTC and will take 1.5 hours.
+The maintenance process will be started at 23:00 UTC(\*) and will take 1.5 hours.
+
+\*) 23:00 UTC is ...
+
+  | Place      | Local Time                          |
+  |------------|-------------------------------------|
+  | Tokyo      | 08:00 JST                           |
+  | Europe     | 00:00 CET / 01:00 CEST              |
+  | London     | 23:00 GMT / 00:00 BST               |
+  | New York   | 18:00 (6 pm) EST / 19:00 (7 pm) EDT |
+  | California | 15:00 (3 pm) PST / 16:00 (4 pm) PDT |
 
 
 ライセンス LICENSE
