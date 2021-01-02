@@ -178,7 +178,7 @@ node_modules: package-lock.json
 	@touch $@
 
 package-lock.json: package.json
-	@rm -rf vendor package-lock.json
+	@rm -rf node_modules package-lock.json
 	npm update --unsafe-perm
 	@touch $@
 
