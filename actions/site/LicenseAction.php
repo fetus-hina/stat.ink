@@ -32,7 +32,9 @@ use function usort;
 
 class LicenseAction extends SimpleAction
 {
-    private const CATEGORY_COMPOSER = 0;
+    private const CATEGORY_APP = 0;
+    private const CATEGORY_COMPOSER = 1;
+    private const CATEGORY_MANUAL = 1;
     private const CATEGORY_NPM = 1;
 
     public $view = 'license';
@@ -60,6 +62,7 @@ class LicenseAction extends SimpleAction
     {
         $ret = array_merge(
             $this->loadComposerDepends(),
+            $this->loadManualLicenses(),
             $this->loadNpmDepends(),
         );
         usort(
@@ -81,29 +84,75 @@ class LicenseAction extends SimpleAction
         return $ret;
     }
 
-    private function loadComposerDepends(): array
+    private function loadManualLicenses(): array
     {
+        $basedir = Yii::getAlias('@app/data/licenses/');
         $ret = [];
-        $it = new DirectoryIterator(Yii::getAlias('@app/data/licenses'));
+        $it = new RecursiveIteratorIterator(
+            new RecursiveDirectoryIterator($basedir)
+        );
         foreach ($it as $entry) {
-            if ($entry->isDot() || !$entry->isFile()) {
+            if (!$entry->isFile()) {
                 continue;
             }
-            $basename = $entry->getBasename();
+
+            $pathname = $entry->getPathname();
+            if (substr($pathname, 0, strlen($basedir)) !== $basedir) {
+                continue;
+            }
+            $basename = substr($pathname, strlen($basedir));
+
             if (strtolower(substr($basename, -3)) === '.md') {
                 $ret[] = (object)[
-                    'category' => static::CATEGORY_COMPOSER,
+                    'category' => static::CATEGORY_MANUAL,
                     'name' => substr($basename, 0, strlen($basename) - 3),
                     'html' => $this->loadMarkdown($entry->getPathname()),
                 ];
             } else {
                 $ret[] = (object)[
-                    'category' => static::CATEGORY_COMPOSER,
+                    'category' => static::CATEGORY_MANUAL,
                     'name' => $basename,
                     'html' => $this->loadPlain($entry->getPathname()),
                 ];
             }
         }
+        return $ret;
+    }
+
+    private function loadComposerDepends(): array
+    {
+        $basedir = Yii::getAlias('@app/data/licenses-composer/');
+        $ret = [];
+        $it = new RecursiveIteratorIterator(
+            new RecursiveDirectoryIterator($basedir)
+        );
+        foreach ($it as $entry) {
+            if (!$entry->isFile()) {
+                continue;
+            }
+
+            $pathname = $entry->getPathname();
+            if (substr($pathname, 0, strlen($basedir)) !== $basedir) {
+                continue;
+            }
+            if (substr($pathname, -12) !== '-LICENSE.txt') {
+                continue;
+            }
+
+            $basename = substr($pathname, strlen($basedir));
+            $html = $this->loadPlain(
+                $entry->getPathname(),
+                fn(string $t): bool => (bool)preg_match('/copyright|licen[cs]e/i', $t),
+            );
+            if ($html) {
+                $ret[] = (object)[
+                    'category' => static::CATEGORY_COMPOSER,
+                    'name' => substr($basename, 0, strlen($basename) - 12),
+                    'html' => $html,
+                ];
+            }
+        }
+
         return $ret;
     }
 
