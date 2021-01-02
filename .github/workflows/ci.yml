@@ -86,7 +86,10 @@ jobs:
           timeout_seconds: 300
           max_attempts: 3
           retry_on: error
-          command: 'rm -rf composer.lock vendor && make vendor'
+          command: |
+            rm -rf composer.lock vendor
+            make composer.phar
+            ./composer.phar update
 
       - name: 'Execute check-author.php'
         run: |
