@@ -28,7 +28,7 @@
     "emojify.js": "^1.1.0",
     "eonasdan-bootstrap-datetimepicker": "^4.17.49",
     "escape-html": "^1.0.3",
-    "eslint": "^7.16.0",
+    "eslint": "^7.17.0",
     "eslint-plugin-react": "^7.22.0",
     "flag-icon-css": "^3.5.0",
     "flot": "~0.8.3",
