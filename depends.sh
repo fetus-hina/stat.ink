@@ -19,7 +19,7 @@ if has_change; then
 fi
 
 make composer.phar
-./composer.phar update -vvv
+./composer.phar update
 
 npx updates -u -m
 rm -rf node_modules package-lock.json
