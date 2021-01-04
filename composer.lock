@@ -72,16 +72,16 @@
         },
         {
             "name": "christian-riesen/base32",
-            "version": "1.4.0",
+            "version": "1.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ChristianRiesen/base32.git",
-                "reference": "5777d962c9f55385eefd078a1bf623ce04a4f6ca"
+                "reference": "808e40ff290a085cc72a39a8b97c09b3cfc72273"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ChristianRiesen/base32/zipball/5777d962c9f55385eefd078a1bf623ce04a4f6ca",
-                "reference": "5777d962c9f55385eefd078a1bf623ce04a4f6ca",
+                "url": "https://api.github.com/repos/ChristianRiesen/base32/zipball/808e40ff290a085cc72a39a8b97c09b3cfc72273",
+                "reference": "808e40ff290a085cc72a39a8b97c09b3cfc72273",
                 "shasum": ""
             },
             "require": {
@@ -125,9 +125,9 @@
             ],
             "support": {
                 "issues": "https://github.com/ChristianRiesen/base32/issues",
-                "source": "https://github.com/ChristianRiesen/base32/tree/1.4.0"
+                "source": "https://github.com/ChristianRiesen/base32/tree/1.5.0"
             },
-            "time": "2020-12-29T20:09:51+00:00"
+            "time": "2021-01-04T14:32:20+00:00"
         },
         {
             "name": "composer/ca-bundle",
