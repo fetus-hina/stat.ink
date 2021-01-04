@@ -22,7 +22,7 @@
     "bootswatch": "^3.4.1",
     "bowser": "^2.11.0",
     "cal-heatmap": "^3.6.2",
-    "core-js": "^3.8.1",
+    "core-js": "^3.8.2",
     "cssnano": "^4.1.10",
     "dseg": "^0.46.0",
     "emojify.js": "^1.1.0",
