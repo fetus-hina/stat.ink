@@ -72,16 +72,16 @@
         },
         {
             "name": "christian-riesen/base32",
-            "version": "1.4.0",
+            "version": "1.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ChristianRiesen/base32.git",
-                "reference": "5777d962c9f55385eefd078a1bf623ce04a4f6ca"
+                "reference": "808e40ff290a085cc72a39a8b97c09b3cfc72273"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ChristianRiesen/base32/zipball/5777d962c9f55385eefd078a1bf623ce04a4f6ca",
-                "reference": "5777d962c9f55385eefd078a1bf623ce04a4f6ca",
+                "url": "https://api.github.com/repos/ChristianRiesen/base32/zipball/808e40ff290a085cc72a39a8b97c09b3cfc72273",
+                "reference": "808e40ff290a085cc72a39a8b97c09b3cfc72273",
                 "shasum": ""
             },
             "require": {
@@ -125,9 +125,9 @@
             ],
             "support": {
                 "issues": "https://github.com/ChristianRiesen/base32/issues",
-                "source": "https://github.com/ChristianRiesen/base32/tree/1.4.0"
+                "source": "https://github.com/ChristianRiesen/base32/tree/1.5.0"
             },
-            "time": "2020-12-29T20:09:51+00:00"
+            "time": "2021-01-04T14:32:20+00:00"
         },
         {
             "name": "composer/ca-bundle",
@@ -1057,16 +1057,16 @@
         },
         {
             "name": "laminas/laminas-feed",
-            "version": "2.13.0",
+            "version": "2.13.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-feed.git",
-                "reference": "fb89aac1984222227f37792dd193d34829a0762f"
+                "reference": "45d36702d09afd5d8ca01192ecd3b5afaf37126b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laminas/laminas-feed/zipball/fb89aac1984222227f37792dd193d34829a0762f",
-                "reference": "fb89aac1984222227f37792dd193d34829a0762f",
+                "url": "https://api.github.com/repos/laminas/laminas-feed/zipball/45d36702d09afd5d8ca01192ecd3b5afaf37126b",
+                "reference": "45d36702d09afd5d8ca01192ecd3b5afaf37126b",
                 "shasum": ""
             },
             "require": {
@@ -1133,7 +1133,7 @@
                     "type": "community_bridge"
                 }
             ],
-            "time": "2020-11-18T21:02:52+00:00"
+            "time": "2021-01-04T19:20:24+00:00"
         },
         {
             "name": "laminas/laminas-http",
