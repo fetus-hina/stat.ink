@@ -16,6 +16,7 @@ jobs:
       matrix:
         php_version:
           - '7.4'
+          - '8.0'
     runs-on: 'ubuntu-20.04'
     needs:
       - 'ciDoesNotSkip'
@@ -238,6 +239,7 @@ jobs:
       matrix:
         php_version:
           - '7.4'
+          - '8.0'
         pgsql_version:
           - '9.5-alpine'    # minimum requirement
           - 'alpine'        # latest version
