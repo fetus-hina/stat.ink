@@ -1,19 +1,22 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2021 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
 
 namespace app\models;
 
+use Throwable;
 use Yii;
-use yii\db\ActiveRecord;
-use yii\helpers\Json;
-use yii\helpers\Url;
 use app\components\helpers\DateTimeFormatter;
 use app\components\helpers\Differ;
+use app\models\query\BattleQuery;
+use yii\db\ActiveRecord;
+use yii\db\Query;
+use yii\helpers\Json;
+use yii\helpers\Url;
 
 /**
  * This is the model class for table "battle".
@@ -108,23 +111,30 @@ class Battle extends ActiveRecord
 {
     public $skipSaveHistory = false;
 
-    public static function find()
+    public static function find(): BattleQuery
     {
-        $query = new query\BattleQuery(get_called_class());
+        $query = new BattleQuery(static::class);
         $query->orderBy('{{battle}}.[[id]] DESC');
         return $query;
     }
 
-    public static function getRoughCount()
+    public static function getRoughCount(): ?int
     {
         try {
-            return (new \yii\db\Query())
-                ->select('[[last_value]]')
-                ->from('{{battle_id_seq}}')
-                ->scalar();
-        } catch (Exception $e) {
-            return false;
+            $count = filter_var(
+                (new Query())
+                    ->select('[[last_value]]')
+                    ->from('{{battle_id_seq}}')
+                    ->scalar(),
+                FILTER_VALIDATE_INT
+            );
+            if (is_int($count)) {
+                return $count;
+            }
+        } catch (Throwable $e) {
         }
+
+        return null;
     }
 
     public static function getTotalRoughCount()
@@ -1017,7 +1027,7 @@ class Battle extends ActiveRecord
                 $ret[$reason->key] = $reason->getTranslatedName();
             }
             return $ret;
-        } catch (\Exception $e) {
+        } catch (Throwable $e) {
             return [];
         }
     }
@@ -1168,7 +1178,7 @@ class Battle extends ActiveRecord
                 return true;
             }
             return !!$edit->save();
-        } catch (\Exception $e) {
+        } catch (Throwable $e) {
             return false;
         }
     }

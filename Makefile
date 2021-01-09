@@ -11,7 +11,6 @@ RESOURCE_TARGETS := \
 	resources/.compiled/app-link-logos/nnid.min.svg \
 	resources/.compiled/app-link-logos/squidtracks.png \
 	resources/.compiled/app-link-logos/switch.min.svg \
-	resources/.compiled/counter/counter.css \
 	resources/.compiled/flexbox/flexbox.css \
 	resources/.compiled/flot-graph-icon/jquery.flot.icon.js \
 	resources/.compiled/gears/calc.js \
@@ -238,7 +237,6 @@ WEAPON2_JS := $(wildcard resources/stat.ink/weapon2.js/*.js)
 resources/.compiled/stat.ink/weapon2.js: $(WEAPON2_JS) node_modules
 	$(call es2js,$@,$(WEAPON2_JS))
 
-resources/.compiled/counter/counter.css: resources/counter/counter.scss node_modules
 resources/.compiled/flexbox/flexbox.css: resources/flexbox/flexbox.scss node_modules
 resources/.compiled/flot-graph-icon/jquery.flot.icon.js: resources/flot-graph-icon/jquery.flot.icon.js node_modules
 resources/.compiled/gears/calc.js: resources/gears/calc.js node_modules

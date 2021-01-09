@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2020 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2021 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  * @author Yoshiyuki Kawashima <ykawashi7@gmail.com>
@@ -14,6 +14,7 @@ use DateTime;
 use DateTimeImmutable;
 use DateTimeZone;
 use Exception;
+use Throwable;
 use Yii;
 use app\components\behaviors\RemoteAddrBehavior;
 use app\components\behaviors\RemotePortBehavior;
@@ -159,16 +160,23 @@ class Battle2 extends ActiveRecord
 
     public $freshness_id;
 
-    public static function getRoughCount()
+    public static function getRoughCount(): ?int
     {
         try {
-            return (new Query())
-                ->select('[[last_value]]')
-                ->from('{{battle2_id_seq}}')
-                ->scalar();
-        } catch (Exception $e) {
-            return false;
+            $count = filter_var(
+                (new Query())
+                    ->select('[[last_value]]')
+                    ->from('{{battle2_id_seq}}')
+                    ->scalar(),
+                FILTER_VALIDATE_INT
+            );
+            if (is_int($count)) {
+                return $count;
+            }
+        } catch (Throwable $e) {
         }
+
+        return null;
     }
 
     public static function find()
@@ -459,7 +467,7 @@ class Battle2 extends ActiveRecord
                             }
 
                             $this->andWhere(['between', 'battle2.period', $range[0], $range[1]]);
-                        } catch (Exception $e) {
+                        } catch (Throwable $e) {
                             $this->andWhere('0 = 1');
                         }
                         break;
@@ -482,7 +490,7 @@ class Battle2 extends ActiveRecord
                                     ['<', $date, $to->format(DateTime::ATOM)]
                                 );
                             }
-                        } catch (Exception $e) {
+                        } catch (Throwable $e) {
                         }
                         break;
 
@@ -1235,7 +1243,7 @@ class Battle2 extends ActiveRecord
                 ksort($ret, SORT_STRING);
                 return $ret;
             })();
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             return [];
         }
     }
