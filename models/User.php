@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2019 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2021 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -12,6 +12,7 @@ use DateInterval;
 use DateTime;
 use DateTimeImmutable;
 use DateTimeZone;
+use Throwable;
 use Yii;
 use app\components\behaviors\UserAuthKeyBehavior;
 use app\components\helpers\DateTimeFormatter;
@@ -78,16 +79,23 @@ class User extends ActiveRecord implements IdentityInterface
         return 'user';
     }
 
-    public static function getRoughCount()
+    public static function getRoughCount(): ?int
     {
         try {
-            return (new \yii\db\Query())
-                ->select('[[last_value]]')
-                ->from('{{user_id_seq}}')
-                ->scalar();
-        } catch (Exception $e) {
-            return false;
+            $count = filter_var(
+                (new Query())
+                    ->select('[[last_value]]')
+                    ->from('{{user_id_seq}}')
+                    ->scalar(),
+                FILTER_VALIDATE_INT
+            );
+            if (is_int($count)) {
+                return $count;
+            }
+        } catch (Throwable $e) {
         }
+
+        return null;
     }
 
     public function init()

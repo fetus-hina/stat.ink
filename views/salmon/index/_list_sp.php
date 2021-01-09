@@ -1,7 +1,7 @@
 <?php
+
 declare(strict_types=1);
 
-use app\assets\RpgAwesomeAsset;
 use app\assets\SimpleBattleListAsset;
 use app\components\i18n\Formatter;
 use app\components\widgets\FA;
@@ -9,7 +9,6 @@ use app\models\Salmon2;
 use yii\helpers\Html;
 use yii\widgets\ListView;
 
-RpgAwesomeAsset::register($this);
 SimpleBattleListAsset::register($this);
 ?>
 <div class="text-center">

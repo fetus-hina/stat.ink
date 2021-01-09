@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2019 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2021 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -10,6 +10,7 @@ namespace app\models;
 
 use DateTimeImmutable;
 use DateTimeZone;
+use Throwable;
 use Yii;
 use app\components\behaviors\TimestampBehavior;
 use app\components\helpers\Battle as BattleHelper;
@@ -67,13 +68,20 @@ class Salmon2 extends ActiveRecord
     public static function getRoughCount(): ?int
     {
         try {
-            return (new Query())
-                ->select('[[last_value]]')
-                ->from('{{salmon2_id_seq}}')
-                ->scalar();
-        } catch (Exception $e) {
-            return null;
+            $count = filter_var(
+                (new Query())
+                    ->select('[[last_value]]')
+                    ->from('{{salmon2_id_seq}}')
+                    ->scalar(),
+                FILTER_VALIDATE_INT
+            );
+            if (is_int($count)) {
+                return $count;
+            }
+        } catch (Throwable $e) {
         }
+
+        return null;
     }
 
     public static function find(): ActiveQuery

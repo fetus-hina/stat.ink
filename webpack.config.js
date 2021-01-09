@@ -20,6 +20,7 @@ const forceAnalyze = false;
 module.exports = {
   mode: mode,
   entry: {
+    'counter-app.js': './resources/react/counter-app',
     'index-app.js': './resources/react/index-app',
   },
   output: {

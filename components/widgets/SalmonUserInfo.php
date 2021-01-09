@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2018 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2021 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -11,7 +11,6 @@ declare(strict_types=1);
 namespace app\components\widgets;
 
 use Yii;
-use app\assets\RpgAwesomeAsset;
 use app\assets\UserMiniinfoAsset;
 use app\components\i18n\Formatter;
 use app\models\SalmonStats2;
@@ -239,13 +238,11 @@ class SalmonUserInfo extends Widget
 
     protected function renderLinkToBattles(): string
     {
-        RpgAwesomeAsset::register($this->view);
-
         return Html::tag(
             'div',
             Html::a(
                 implode('', [
-                    '<span class="ra ra-fw ra-crossed-swords"></span>',
+                    '<span class="fas ra-fw fa-paint-roller"></span>',
                     Html::tag('span', Html::encode(Yii::t('app', 'Battles'))),
                     '<span class="fas fa-fw fa-angle-right"></span>',
                 ]),

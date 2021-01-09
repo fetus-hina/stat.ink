@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use app\assets\InlineListAsset;
+use app\assets\ReactCounterAppAsset;
 use app\assets\ReactIndexAppAsset;
 use app\components\widgets\FA;
 use app\components\widgets\HappyNewYearWidget;
@@ -24,7 +25,10 @@ PaintballAsset::register($this);
   <div class="text-right">
     <?= IndexI18nButtons::widget() . "\n" ?>
   </div>
-  <?= $this->render('_index_counters') . "\n" ?>
+
+  <div id="counter-app"></div>
+<?php ReactCounterAppAsset::register($this); ?>
+
   <div class="row">
     <div class="col-xs-12 col-sm-6 col-md-8 col-lg-9">
       <h1 class="paintball" style="font-size:42px;margin-top:0">
