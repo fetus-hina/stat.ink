@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2020 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2021 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  * @author Gosin <canling0@gmail.com>
@@ -69,6 +69,7 @@ return [
     'Team total Golden Eggs per Wave' => '每阶段小组金蛋总数',
     'Team total Power Eggs' => '小组总计普通蛋数',
     'Team total Power Eggs per Wave' => '每阶段小组普通蛋数',
+    'These statistics are based only on the results of games that have been cleared.' => '',
     'This/Last Rotation' => '这次/上次排班',
     'Time' => '时间',
     'Time is up' => '时间到',
