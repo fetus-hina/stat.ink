@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2020 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2021 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -42,7 +42,7 @@ return [
     'If you delete this job, it will be gone forever.' => 'Si vous supprimez ce poste, il disparaîtra à jamais.',
     'Job Ended' => 'Emploi terminé',
     'Jobs' => 'Emplois',
-    'Jobs: {jobCount} / Clear %: {clearPct} / Golden Eggs: {avgGoldenEggs} / Power Eggs: {avgPowerEggs} / Deaths: {avgDeaths} / Rescues: {avgRescues}' => 'Emplois : {jobCount} / Clair % : {clearPct} / Golden Eggs : {avgGoldenEggs} / Power Eggs : {avgPowerEggs} / Décès : {avgDeaths} / Sauvetages : {avgRescues}',
+    'Jobs: {jobCount} / Clear %: {clearPct} / Golden Eggs: {avgGoldenEggs} / Power Eggs: {avgPowerEggs} / Deaths: {avgDeaths} / Rescues: {avgRescues}' => 'Emplois : {jobCount} / Clear % : {clearPct} / Golden Eggs : {avgGoldenEggs} / Power Eggs : {avgPowerEggs} / Décès : {avgDeaths} / Sauvetages : {avgRescues}',
     'Job Started' => 'Travail commencé',
     'Next' => 'Suivant',
     'Next Job' => 'Prochain emploi',
@@ -58,7 +58,7 @@ return [
     'Random' => 'Aléatoire',
     'Rescued' => 'Sauvé',
     'Rescues' => 'Sauvetages',
-    'Results of {userName}\'s job' => 'Résultats de l\' {userName} emploi',
+    'Results of {userName}\'s job' => 'Résultats du travail de {userName}',
     'Rotation' => 'Rotation',
     'Salmon Run' => 'Course au saumon',
     'Soon' => 'Bientôt',
@@ -68,6 +68,7 @@ return [
     'Team total Golden Eggs per Wave' => 'Nombre total d\'œufs d\'or par vague',
     'Team total Power Eggs' => 'Total de l\'équipe Power Eggs',
     'Team total Power Eggs per Wave' => 'Total de l\'équipe Power Eggs par vague',
+    'These statistics are based only on the results of games that have been cleared.' => 'Ces statistiques sont basées uniquement sur les résultats des jeux qui ont été validés.',
     'This/Last Rotation' => 'Cette/dernière rotation',
     'Time' => 'Temps',
     'Time is up' => 'Le temps est écoulé',
@@ -90,7 +91,7 @@ return [
     'Wipe out' => 'Effacer',
     'You can delete this job.' => 'Vous pouvez supprimer ce poste.',
     'You must agree to the above to delete this job.' => 'Vous devez accepter ce qui précède pour supprimer ce poste.',
-    '{name}\'s Salmon Log' => 'Journal de bord du {name} saumon',
+    '{name}\'s Salmon Log' => '{name} \'s Salmon Log',
     '{weapon}' => '{weapon}',
     '✓' => '✓',
     '✗' => '✗',

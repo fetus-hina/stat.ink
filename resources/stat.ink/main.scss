@@ -1,7 +1,7 @@
 @charset "UTF-8";
 @use "sass:color";
 
-/*! Copyright (C) 2015-2020 AIZAWA Hina | MIT License */
+/*! Copyright (C) 2015-2021 AIZAWA Hina | MIT License */
 
 // From node_modules/bootstrap/less/variables.less
 $brandPrimary:          color.adjust(#428bca, $lightness: -6.5%);
@@ -96,6 +96,10 @@ footer {
 
 .very-small {
   font-size: 50%;
+}
+
+.font-italic {
+  font-style: italic;
 }
 
 .text-link {

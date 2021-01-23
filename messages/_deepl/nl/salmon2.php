@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2020 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2021 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -30,7 +30,7 @@ return [
     'Failed in wave {waveNumber}' => 'Mislukt in golf {waveNumber}',
     'Fail Reason' => 'Foutieve reden',
     'From {shiftStart}' => 'Van {shiftStart}',
-    'From {shiftStart} to {shiftEnd}' => 'Van {shiftStart} naar {shiftEnd}',
+    'From {shiftStart} to {shiftEnd}' => 'Van {shiftStart} tot {shiftEnd}',
     'Future' => 'Toekomstige',
     'Golden' => 'Gouden',
     'Golden/W' => 'Gouden/W',
@@ -42,7 +42,7 @@ return [
     'If you delete this job, it will be gone forever.' => 'Als u deze taak verwijdert, is deze voorgoed verdwenen.',
     'Job Ended' => 'Beëindigde baan',
     'Jobs' => 'Jobs',
-    'Jobs: {jobCount} / Clear %: {clearPct} / Golden Eggs: {avgGoldenEggs} / Power Eggs: {avgPowerEggs} / Deaths: {avgDeaths} / Rescues: {avgRescues}' => 'Jobs: {jobCount} / Clear %: {clearPct} / Golden Eggs: {avgGoldenEggs} / Power Eggs: {avgPowerEggs} / Deathhs: {avgDeaths} / Rescues: {avgRescues}',
+    'Jobs: {jobCount} / Clear %: {clearPct} / Golden Eggs: {avgGoldenEggs} / Power Eggs: {avgPowerEggs} / Deaths: {avgDeaths} / Rescues: {avgRescues}' => 'Jobs: {jobCount} / Duidelijk %: {clearPct} / Golden Eggs: {avgGoldenEggs} / Power Eggs: {avgPowerEggs} / Dood: {avgDeaths} / Redding: {avgRescues}',
     'Job Started' => 'Job gestart',
     'Next' => 'Volgende',
     'Next Job' => 'Volgende baan',
@@ -58,7 +58,7 @@ return [
     'Random' => 'Willekeurig',
     'Rescued' => 'Gereserveerd',
     'Rescues' => 'Redding',
-    'Results of {userName}\'s job' => 'Resultaten van \'s {userName} job',
+    'Results of {userName}\'s job' => 'Resultaten van {userName} \'s job',
     'Rotation' => 'Rotatie',
     'Salmon Run' => 'Zalmrun',
     'Soon' => 'Binnenkort',
@@ -68,6 +68,7 @@ return [
     'Team total Golden Eggs per Wave' => 'Team totaal Gouden Eieren per Golf',
     'Team total Power Eggs' => 'Team totaalvermogen Eieren',
     'Team total Power Eggs per Wave' => 'Team totaal vermogen Eieren per Wave',
+    'These statistics are based only on the results of games that have been cleared.' => 'Deze statistieken zijn alleen gebaseerd op de resultaten van games die zijn gewist.',
     'This/Last Rotation' => 'Deze/verlate rotatie',
     'Time' => 'Tijd',
     'Time is up' => 'De tijd is op',
@@ -90,7 +91,7 @@ return [
     'Wipe out' => 'Veeg uit',
     'You can delete this job.' => 'U kunt deze taak verwijderen.',
     'You must agree to the above to delete this job.' => 'U moet akkoord gaan met het bovenstaande om deze job te verwijderen.',
-    '{name}\'s Salmon Log' => '\'s {name} Zalmlogboek',
+    '{name}\'s Salmon Log' => '{name} \'s Zalmlogboek',
     '{weapon}' => '{weapon}',
     '✓' => '✓',
     '✗' => '✗',

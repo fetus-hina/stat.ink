@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2020 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2021 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -26,7 +26,7 @@ return [
     'Delivers' => '提供',
     'Edit job #{jobNumber}' => '編輯工作 # {jobNumber}',
     'Failed' => '失敗',
-    'Failed<br><small>in wave {waveNumber}</small>' => '失敗<br><small>縱橫馳騁 {waveNumber} </small>',
+    'Failed<br><small>in wave {waveNumber}</small>' => '失敗<br><small>縱橫 {waveNumber} </small>',
     'Failed in wave {waveNumber}' => '在波浪中失敗 {waveNumber}',
     'Fail Reason' => '失敗原因',
     'From {shiftStart}' => '來自 {shiftStart}',
@@ -42,7 +42,7 @@ return [
     'If you delete this job, it will be gone forever.' => '如果你刪除這個工作，它將永遠消失。',
     'Job Ended' => '工作結束',
     'Jobs' => '工作機會',
-    'Jobs: {jobCount} / Clear %: {clearPct} / Golden Eggs: {avgGoldenEggs} / Power Eggs: {avgPowerEggs} / Deaths: {avgDeaths} / Rescues: {avgRescues}' => '工作： {jobCount} /清除%： {clearPct} /金蛋： {avgGoldenEggs} /力量蛋： {avgPowerEggs} /死亡： {avgDeaths} /搶救。 {avgRescues}',
+    'Jobs: {jobCount} / Clear %: {clearPct} / Golden Eggs: {avgGoldenEggs} / Power Eggs: {avgPowerEggs} / Deaths: {avgDeaths} / Rescues: {avgRescues}' => '工作： {jobCount} / 清理%： {clearPct} / 金蛋： {avgGoldenEggs} / 動力蛋： {avgPowerEggs} / 死亡： {avgDeaths} / 搶救。 {avgRescues}',
     'Job Started' => '工作開始',
     'Next' => '下一個',
     'Next Job' => '下一份工作',
@@ -54,11 +54,11 @@ return [
     'Pwr E/W' => 'Pwr E/W',
     'Pwr Eggs' => 'Pwr雞蛋',
     'Quota' => '配額',
-    'Quota: {wave1} - {wave2} - {wave3}' => '配額： {wave1} - {wave2} - - {wave3}',
+    'Quota: {wave1} - {wave2} - {wave3}' => '配額： {wave1} - {wave2} - {wave3}',
     'Random' => '隨機',
     'Rescued' => '被救',
     'Rescues' => '搶救',
-    'Results of {userName}\'s job' => '{userName} 工作結果',
+    'Results of {userName}\'s job' => '{userName} 的工作結果',
     'Rotation' => '輪換',
     'Salmon Run' => '鮭魚流',
     'Soon' => '很快',
@@ -68,6 +68,7 @@ return [
     'Team total Golden Eggs per Wave' => '團隊每波金蛋總數',
     'Team total Power Eggs' => '團隊總動力蛋',
     'Team total Power Eggs per Wave' => '團隊每波總能量蛋',
+    'These statistics are based only on the results of games that have been cleared.' => '這些統計數字只根據已被清除的遊戲結果。',
     'This/Last Rotation' => '本次/上次輪換',
     'Time' => '時間',
     'Time is up' => '時間到了',
@@ -90,7 +91,7 @@ return [
     'Wipe out' => '抹掉',
     'You can delete this job.' => '你可以刪除這項工作。',
     'You must agree to the above to delete this job.' => '您必須同意以上內容才能刪除此工作。',
-    '{name}\'s Salmon Log' => '{name} 鮭魚原木',
+    '{name}\'s Salmon Log' => '{name} \'s Salmon Log',
     '{weapon}' => '{weapon}',
     '✓' => '✓',
     '✗' => '✗',

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2020 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2021 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -19,7 +19,7 @@ return [
     'Avg. Waves' => 'Onde medie',
     'Boss Salmonid' => 'Salmonide Boss',
     'Boss Salmonids' => 'Salmonidi Boss',
-    'Clear %' => 'Cancella %',
+    'Clear %' => 'Chiaro',
     'Cleared' => 'Cancellato',
     'Clear rate of Salmon Run' => 'Tasso di salmoni in chiaro',
     'Deaths' => 'Morti',
@@ -42,7 +42,7 @@ return [
     'If you delete this job, it will be gone forever.' => 'Se cancella questo lavoro, sarà cancellato per sempre.',
     'Job Ended' => 'Lavoro terminato',
     'Jobs' => 'Offerte di lavoro',
-    'Jobs: {jobCount} / Clear %: {clearPct} / Golden Eggs: {avgGoldenEggs} / Power Eggs: {avgPowerEggs} / Deaths: {avgDeaths} / Rescues: {avgRescues}' => 'Lavori: {jobCount} / Liquidazione %: {clearPct} / Uova d\'oro: {avgGoldenEggs} / Uova d\'oro: {avgPowerEggs} / Uova di potenza: / Morti: / Salvataggio: {avgDeaths} / Salvataggio: {avgRescues}',
+    'Jobs: {jobCount} / Clear %: {clearPct} / Golden Eggs: {avgGoldenEggs} / Power Eggs: {avgPowerEggs} / Deaths: {avgDeaths} / Rescues: {avgRescues}' => 'Lavoro: {jobCount} / Cancella %: {clearPct} / Uova d\'oro: {avgGoldenEggs} / Uova d\'oro: {avgPowerEggs} / Morti: {avgDeaths} / Salvataggio: {avgRescues}',
     'Job Started' => 'Lavoro iniziato',
     'Next' => 'Avanti',
     'Next Job' => 'Prossimo lavoro',
@@ -54,11 +54,11 @@ return [
     'Pwr E/W' => 'Pwr E/W',
     'Pwr Eggs' => 'Pwr Uova',
     'Quota' => 'Quota',
-    'Quota: {wave1} - {wave2} - {wave3}' => 'Quota: {wave1} - {wave2} - - {wave3}',
+    'Quota: {wave1} - {wave2} - {wave3}' => 'Quota: {wave1} - {wave2} - {wave3}',
     'Random' => 'Casuale',
     'Rescued' => 'Salvato',
     'Rescues' => 'Salvataggi',
-    'Results of {userName}\'s job' => 'Risultati del {userName} lavoro',
+    'Results of {userName}\'s job' => 'Risultati del lavoro di {userName}',
     'Rotation' => 'Rotazione',
     'Salmon Run' => 'Corsa al salmone',
     'Soon' => 'Presto',
@@ -68,6 +68,7 @@ return [
     'Team total Golden Eggs per Wave' => 'Totale Uova d\'Oro per Onda',
     'Team total Power Eggs' => 'Uova di potenza totale del team',
     'Team total Power Eggs per Wave' => 'Uova di potenza totale del team per onda',
+    'These statistics are based only on the results of games that have been cleared.' => 'Queste statistiche si basano solo sui risultati delle partite che sono state cancellate.',
     'This/Last Rotation' => 'Questo/L\'ultima rotazione',
     'Time' => 'Tempo',
     'Time is up' => 'Il tempo è scaduto',
@@ -90,7 +91,7 @@ return [
     'Wipe out' => 'Spazzare via',
     'You can delete this job.' => 'Può cancellare questo lavoro.',
     'You must agree to the above to delete this job.' => 'Deve accettare quanto sopra per cancellare questo lavoro.',
-    '{name}\'s Salmon Log' => 'Diario del {name} salmone',
+    '{name}\'s Salmon Log' => '{name} \'s Diario del salmone',
     '{weapon}' => '{weapon}',
     '✓' => '✓',
     '✗' => '✗',
