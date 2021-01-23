@@ -1378,16 +1378,16 @@
         },
         {
             "name": "laminas/laminas-validator",
-            "version": "2.14.0",
+            "version": "2.14.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-validator.git",
-                "reference": "8da5e20ed7b2b8101c1de68ca8dc0180210ed23e"
+                "reference": "270c210c5c2b589a4ce83ad422ad8a6698451344"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laminas/laminas-validator/zipball/8da5e20ed7b2b8101c1de68ca8dc0180210ed23e",
-                "reference": "8da5e20ed7b2b8101c1de68ca8dc0180210ed23e",
+                "url": "https://api.github.com/repos/laminas/laminas-validator/zipball/270c210c5c2b589a4ce83ad422ad8a6698451344",
+                "reference": "270c210c5c2b589a4ce83ad422ad8a6698451344",
                 "shasum": ""
             },
             "require": {
@@ -1466,7 +1466,7 @@
                     "type": "community_bridge"
                 }
             ],
-            "time": "2021-01-07T16:07:31+00:00"
+            "time": "2021-01-22T13:34:31+00:00"
         },
         {
             "name": "laminas/laminas-zendframework-bridge",
@@ -7925,12 +7925,12 @@
             "version": "1.9.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/webmozart/assert.git",
+                "url": "https://github.com/webmozarts/assert.git",
                 "reference": "bafc69caeb4d49c39fd0779086c03a3738cbb389"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webmozart/assert/zipball/bafc69caeb4d49c39fd0779086c03a3738cbb389",
+                "url": "https://api.github.com/repos/webmozarts/assert/zipball/bafc69caeb4d49c39fd0779086c03a3738cbb389",
                 "reference": "bafc69caeb4d49c39fd0779086c03a3738cbb389",
                 "shasum": ""
             },
@@ -7968,8 +7968,8 @@
                 "validate"
             ],
             "support": {
-                "issues": "https://github.com/webmozart/assert/issues",
-                "source": "https://github.com/webmozart/assert/tree/master"
+                "issues": "https://github.com/webmozarts/assert/issues",
+                "source": "https://github.com/webmozarts/assert/tree/1.9.1"
             },
             "time": "2020-07-08T17:02:28+00:00"
         },
