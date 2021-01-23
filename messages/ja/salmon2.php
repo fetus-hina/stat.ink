@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2019 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2021 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -16,7 +16,7 @@ return [
     'Average Power Eggs' => '平均イクラ',
     'Average Rescued' => '平均助けた数',
     'Avg. Pts.' => '平均Pt.',
-    'Avg. Waves' => '平均クリアWAVE',
+    'Avg. Waves' => '平均WAVE',
     'Boss Salmonid' => 'オオモノシャケ',
     'Boss Salmonids' => 'オオモノシャケ',
     'Clear %' => 'クリア率',
@@ -68,6 +68,7 @@ return [
     'Team total Golden Eggs' => 'チーム合計の金イクラ納品数',
     'Team total Power Eggs per Wave' => 'WAVE毎のチーム合計のイクラ収集数',
     'Team total Power Eggs' => 'チーム合計のイクラ収集数',
+    'These statistics are based only on the results of games that have been cleared.' => '統計データは、クリアしたゲームのデータのみを集計しています。',
     'This/Last Rotation' => '現在/直前のバイト',
     'Time is up' => '時間切れ',
     'Time' => '時間切れ',

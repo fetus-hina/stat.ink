@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2020 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2021 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -30,7 +30,7 @@ return [
     'Failed in wave {waveNumber}' => 'Волна неудачника {waveNumber}',
     'Fail Reason' => 'Неудача Причина',
     'From {shiftStart}' => 'С {shiftStart}',
-    'From {shiftStart} to {shiftEnd}' => 'От и {shiftStart} до {shiftEnd}',
+    'From {shiftStart} to {shiftEnd}' => 'С {shiftStart} по {shiftEnd}',
     'Future' => 'Будущее',
     'Golden' => 'Золотой',
     'Golden/W' => 'Золотой/Высокий',
@@ -42,7 +42,7 @@ return [
     'If you delete this job, it will be gone forever.' => 'Если Вы удалите эту работу, она исчезнет навсегда.',
     'Job Ended' => 'Работа закончена',
     'Jobs' => 'Вакансии',
-    'Jobs: {jobCount} / Clear %: {clearPct} / Golden Eggs: {avgGoldenEggs} / Power Eggs: {avgPowerEggs} / Deaths: {avgDeaths} / Rescues: {avgRescues}' => 'Рабочие места: {jobCount} / Чистые %: {clearPct} / Золотые яйца: {avgGoldenEggs} / Сильные яйца: {avgPowerEggs} / Смерть: {avgDeaths} / Спасение: {avgRescues}',
+    'Jobs: {jobCount} / Clear %: {clearPct} / Golden Eggs: {avgGoldenEggs} / Power Eggs: {avgPowerEggs} / Deaths: {avgDeaths} / Rescues: {avgRescues}' => 'Вакансии: {jobCount} / Чистые %: {clearPct} / Золотые яйца: {avgGoldenEggs} / Энергетические яйца: {avgPowerEggs} / Смерть: {avgDeaths} / Спасатели: {avgRescues}',
     'Job Started' => 'Работа Начата',
     'Next' => 'Следующий',
     'Next Job' => 'Следующая работа',
@@ -58,7 +58,7 @@ return [
     'Random' => 'Случайный',
     'Rescued' => 'Спасен',
     'Rescues' => 'Спасатели',
-    'Results of {userName}\'s job' => 'Результаты {userName} работы',
+    'Results of {userName}\'s job' => 'Результаты работы {userName}',
     'Rotation' => 'Ротация',
     'Salmon Run' => 'лососевый бег',
     'Soon' => 'Скоро',
@@ -68,6 +68,7 @@ return [
     'Team total Golden Eggs per Wave' => 'Общее количество золотых яиц за волну команды',
     'Team total Power Eggs' => 'Команда Всего Яйца Мощность',
     'Team total Power Eggs per Wave' => 'Общая численность команды Мощность Яйца на волну',
+    'These statistics are based only on the results of games that have been cleared.' => 'Эта статистика основана только на результатах игр, которые были очищены.',
     'This/Last Rotation' => 'Это/Последнее вращение',
     'Time' => 'Время',
     'Time is up' => 'Время вышло.',
@@ -90,7 +91,7 @@ return [
     'Wipe out' => 'Уничтожить',
     'You can delete this job.' => 'Вы можете удалить эту работу.',
     'You must agree to the above to delete this job.' => 'Вы должны согласиться с вышеизложенным, чтобы удалить эту работу.',
-    '{name}\'s Salmon Log' => '{name} лососевое бревно',
+    '{name}\'s Salmon Log' => '{name} \'s Salmon Log',
     '{weapon}' => '{weapon}',
     '✓' => '✓',
     '✗' => '✗',

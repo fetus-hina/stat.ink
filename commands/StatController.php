@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2019 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2021 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -46,6 +46,7 @@ use yii\helpers\Console;
 
 class StatController extends Controller
 {
+    use stat\Salmon2Trait;
     use stat\Weapon2Trait;
 
     /**
@@ -1672,5 +1673,11 @@ class StatController extends Controller
             }
         );
         // }}}
+    }
+
+    public function actionUpdateEntireSalmon2(): int
+    {
+        $this->updateEntireSalmon2();
+        return 0;
     }
 }

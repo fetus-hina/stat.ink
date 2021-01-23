@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2020 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2021 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -42,7 +42,7 @@ return [
     'If you delete this job, it will be gone forever.' => 'Si borras este trabajo, se irá para siempre.',
     'Job Ended' => 'El trabajo terminó',
     'Jobs' => 'Trabajos',
-    'Jobs: {jobCount} / Clear %: {clearPct} / Golden Eggs: {avgGoldenEggs} / Power Eggs: {avgPowerEggs} / Deaths: {avgDeaths} / Rescues: {avgRescues}' => 'Empleos: {jobCount} / Claro %: {clearPct} / Huevos de Oro: {avgGoldenEggs} / Huevos de Poder: {avgPowerEggs} / Muertes: {avgDeaths} / Rescates: {avgRescues}',
+    'Jobs: {jobCount} / Clear %: {clearPct} / Golden Eggs: {avgGoldenEggs} / Power Eggs: {avgPowerEggs} / Deaths: {avgDeaths} / Rescues: {avgRescues}' => 'Empleos: {jobCount} / % claro: {clearPct} / Huevos de Oro: {avgGoldenEggs} / Huevos de Poder: {avgPowerEggs} / Muertes: {avgDeaths} / Rescates: {avgRescues}',
     'Job Started' => 'El trabajo comenzó',
     'Next' => 'Siguiente',
     'Next Job' => 'Próximo trabajo',
@@ -58,7 +58,7 @@ return [
     'Random' => 'Al azar',
     'Rescued' => 'Rescatado',
     'Rescues' => 'Rescates',
-    'Results of {userName}\'s job' => 'Los resultados del {userName} trabajo de \'s',
+    'Results of {userName}\'s job' => 'Resultados del trabajo de {userName}',
     'Rotation' => 'Rotación',
     'Salmon Run' => 'Carrera del salmón',
     'Soon' => 'Pronto',
@@ -68,6 +68,7 @@ return [
     'Team total Golden Eggs per Wave' => 'Total del equipo Huevos de Oro por Ola',
     'Team total Power Eggs' => 'Huevos de poder total del equipo',
     'Team total Power Eggs per Wave' => 'Equipo total de Poder Huevos por Ola',
+    'These statistics are based only on the results of games that have been cleared.' => 'Estas estadísticas se basan sólo en los resultados de los juegos que han sido despejados.',
     'This/Last Rotation' => 'Esta/última rotación',
     'Time' => 'Tiempo',
     'Time is up' => 'Se acabó el tiempo',
@@ -90,7 +91,7 @@ return [
     'Wipe out' => 'Desaparece...',
     'You can delete this job.' => 'Puedes borrar este trabajo.',
     'You must agree to the above to delete this job.' => 'Debes estar de acuerdo con lo anterior para eliminar este trabajo.',
-    '{name}\'s Salmon Log' => '...de {name} Salmon Log...',
+    '{name}\'s Salmon Log' => '{name} \'s Salmon Log',
     '{weapon}' => '{weapon}',
     '✓' => '✓',
     '✗' => '✗',
