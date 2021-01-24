@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This is the template for generating the model class of a specified table.
  *
@@ -25,6 +26,7 @@ $now = (new \DateTimeImmutable('now', new \DateTimeZone('Asia/Tokyo')))
     ->setTimestamp($_SERVER['REQUEST_TIME'] ?? time());
 
 echo "<?php\n";
+echo "\n";
 ?>
 /**
  * @copyright Copyright (C) 2015-<?= $now->format('Y') ?> AIZAWA Hina

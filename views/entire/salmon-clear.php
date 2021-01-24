@@ -6,6 +6,7 @@ use app\assets\ChartJsAsset;
 use app\assets\ChartJsDataLabelsAsset;
 use app\assets\ColorSchemeAsset;
 use app\assets\PatternomalyAsset;
+use app\assets\Spl2WeaponAsset;
 use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
 use yii\helpers\Html;
@@ -24,6 +25,28 @@ ChartJsAsset::register($this);
 ChartJsDataLabelsAsset::register($this);
 ColorSchemeAsset::register($this);
 PatternomalyAsset::register($this);
+$wAsset = Spl2WeaponAsset::register($this);
+
+$this->registerCss(<<<'EOF'
+  .wStatsRoot {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -10px;
+  }
+  .wStats {
+    flex: 0 0 8em;
+    margin-bottom: 20px;
+    margin-right: 10px;
+    text-align: center;
+  }
+  .wStats img {
+    max-width: 100%;
+    height: auto;
+  }
+  .weapon-rate {
+    width: 8em;
+  }
+EOF);
 
 $this->registerJs(<<<'EOF'
   (function () {
@@ -138,6 +161,99 @@ $this->registerJs(<<<'EOF'
   })();
 EOF);
 
+$this->registerJs(<<<'EOF'
+  (function () {
+    var percentFormat = function (value) {
+      return (new Intl.NumberFormat(
+        document.documentElement.getAttribute('lang') || 'en-US',
+        {
+          style: 'percent',
+          minimumFractionDigits: 1,
+          maximumFractionDigits: 1,
+        }
+      )).format(value);
+    };
+
+    var pat = window.pattern;
+    var defBgColors = window.colorScheme._bg;
+    var bgColors = [
+      pat.draw('cross', defBgColors.red),
+      pat.draw('dot', defBgColors.green),
+    ];
+    $('.weapon-rate').each(function(_, elem) {
+      var canvas = elem.appendChild(document.createElement('canvas'));
+      var labels = JSON.parse(elem.getAttribute('data-labels'));
+      var values = JSON.parse(elem.getAttribute('data-values'));
+      var ctx = canvas.getContext('2d');
+      var chart = new Chart(ctx, {
+        plugins: [
+          window.ChartDataLabels,
+        ],
+        type: 'pie',
+        data: {
+          datasets: [
+            {
+              data: [
+                values.failed,
+                values.cleared,
+              ],
+              backgroundColor: bgColors,
+            },
+          ],
+          labels: [
+            labels.failed,
+            labels.cleared,
+          ],
+        },
+        options: {
+          aspectRatio: 1,
+          legend: {
+            display: false,
+          },
+          plugins: {
+            datalabels: {
+              backgroundColor: function (ctx) {
+                var value = ctx.dataset.data[ctx.dataIndex];
+                return (typeof value === 'number')
+                  ? 'rgba(255, 255, 255, 0.5)'
+                  : null;
+              },
+              font: {
+                weight: 'bold',
+              },
+              formatter: function (value, ctx) {
+                if (value === null || value === undefined) {
+                  return '';
+                }
+
+                var sum = ctx.dataset.data.reduce(
+                  function (acc, cur) {
+                    return (typeof(cur) === 'number')
+                      ? Number(acc) + Number(cur)
+                      : Number(acc);
+                  },
+                  0
+                );
+                if (sum < 1) {
+                  return '';
+                }
+
+                var label = ctx.chart.legend.legendItems[ctx.dataIndex].text;
+                return label + "\n" + percentFormat(value / sum);
+              }
+            },
+          },
+        },
+      });
+    });
+  })();
+EOF);
+
+$wLabels = [
+  'cleared' => Yii::t('app-salmon2', 'Cleared'),
+  'failed' => Yii::t('app-salmon2', 'Failed'),
+];
+
 ?>
 <div class="container">
   <h1>
@@ -180,12 +296,12 @@ EOF);
           ],
         ],
       ]) . "\n" ?>
-      <p class="small text-muted font-italic">
+      <p class="small text-muted font-italic text-center">
         n = <?= $fmt->asInteger($model->plays) . "\n" ?>
       </p>
     </div>
     <div class="col-12 col-xs-12 col-sm-7 col-lg-8">
-      <div class="table-responsive table-responsive-force mb-3">
+      <div class="table-responsive table-responsive-force">
         <table class="table table-bordered">
           <thead>
             <tr>
@@ -215,6 +331,41 @@ EOF);
             </tr>
           </tbody>
         </table>
+      </div>
+      <div class="wStatsRoot mb-2">
+<?php $wStats = $model->getWeaponStats()
+  ->with(['weapon'])
+  ->orderBy([
+    '([[cleared]]::double precision / [[plays]]::double precision)' => SORT_DESC,
+    '[[plays]]' => SORT_DESC,
+    '[[weapon_id]]' => SORT_ASC,
+  ])
+  ->all()
+?>
+<?php foreach ($wStats as $wStat) { ?>
+        <div class="wStats">
+          <p>
+            <?= Html::img(
+              $wAsset->getIconUrl($wStat->weapon->key),
+              [
+                'alt' => Yii::t('app-weapon2', $wStat->weapon->name),
+                'title' => Yii::t('app-weapon2', $wStat->weapon->name),
+                'class' => 'auto-tooltip',
+              ]
+            ) . "\n" ?>
+          </p>
+          <?= Html::tag('div', '', [
+            'class' => ['chart', 'weapon-rate'],
+            'data' => [
+              'values' => [
+                'cleared' => (int)$wStat->cleared,
+                'failed' => (int)$wStat->plays - (int)$wStat->cleared,
+              ],
+              'labels' => $wLabels,
+            ],
+          ]) . "\n" ?>
+        </div>
+<?php } ?>
       </div>
     </div>
   </div>
