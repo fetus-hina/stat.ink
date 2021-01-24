@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2020 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2021 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  * @author Allen Pestaluky <allenwp@live.ca>
@@ -19,10 +19,10 @@ return [
     '* This exclusion is an attempt to minimize overcounting in weapon usage statistics.' => '',
     '3+9 Format' => '',
     '3, 9 Format' => '',
-    '10x Battle' => '',
+    '10x Battle' => 'Combate ×10',
     '24H Win %' => '24H Ganar %',
     '57 Format' => '',
-    '100x Battle' => '',
+    '100x Battle' => 'Combate ×100',
     '<div class="input-group"><span class="input-group-addon">From:</span>{input}</div>' => '<div class="input-group"><span class="input-group-addon">De:</span>{input}</div>',
     '<div class="input-group"><span class="input-group-addon">To:</span>{input}</div>' => '<div class="input-group"><span class="input-group-addon">Para:</span>{input}</div>',
     'Ability Effect' => 'Efecto de la potenciad',
