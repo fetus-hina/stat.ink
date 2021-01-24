@@ -18,6 +18,7 @@ trait Salmon2Trait
     protected function updateEntireSalmon2(): void
     {
         $this->makeStatSalmon2ClearRate();
+        $this->makeStatSalmon2WeaponClearRate();
     }
 
     private function makeStatSalmon2ClearRate(): void
@@ -141,6 +142,53 @@ trait Salmon2Trait
                       [[sd_power_eggs]] = {{excluded}}.[[sd_power_eggs]],
                       [[avg_deaths]] = {{excluded}}.[[avg_deaths]],
                       [[sd_deaths]] = {{excluded}}.[[sd_deaths]],
+                      [[last_data_at]] = {{excluded}}.[[last_data_at]]
+                SQL_END)
+                ->execute();
+        });
+    }
+
+    private function makeStatSalmon2WeaponClearRate(): void
+    {
+        Yii::$app->db->transaction(function (Connection $db): void {
+            $db
+                ->createCommand(<<<'SQL_END'
+                    INSERT INTO {{stat_salmon2_weapon_clear_rate}}
+                    SELECT
+                      {{salmon2}}.[[stage_id]],
+                      {{salmon_weapon2}}.[[weapon_id]],
+                      COUNT(*) AS [[plays]],
+                      SUM(CASE WHEN {{salmon2}}.[[clear_waves]] = 3 THEN 1 ELSE 0 END) AS [[cleared]],
+                      MAX({{salmon2}}.[[updated_at]]) AS [[last_data_at]]
+                    FROM {{salmon2}}
+                    INNER JOIN {{salmon_schedule2}} ON
+                        TO_TIMESTAMP({{salmon2}}.[[shift_period]] * 7200) = {{salmon_schedule2}}.[[start_at]]
+                      AND
+                        {{salmon2}}.[[stage_id]] = {{salmon_schedule2}}.[[map_id]]
+                    INNER JOIN {{salmon_weapon2}} ON {{salmon_schedule2}}.[[id]] = {{salmon_weapon2}}.[[schedule_id]]
+                    WHERE {{salmon2}}.[[stage_id]] IS NOT NULL
+                    AND {{salmon2}}.[[shift_period]] IS NOT NULL
+                    AND {{salmon2}}.[[clear_waves]] BETWEEN 0 AND 3
+                    AND ({{salmon2}}.[[clear_waves]] = 3 OR {{salmon2}}.[[fail_reason_id]] IS NOT NULL)
+                    AND {{salmon2}}.[[is_automated]] = TRUE
+                    AND (
+                        (
+                            {{salmon2}}.[[start_at]] IS NOT NULL
+                          AND
+                            {{salmon2}}.[[created_at]] - {{salmon2}}.[[start_at]] <= '10 days'::interval
+                        )
+                      OR
+                        (
+                            {{salmon2}}.[[end_at]] IS NOT NULL
+                          AND
+                            {{salmon2}}.[[created_at]] - {{salmon2}}.[[end_at]] <= '10 days'::interval
+                        )
+                    )
+                    GROUP BY {{salmon2}}.[[stage_id]], {{salmon_weapon2}}.[[weapon_id]]
+                    ON CONFLICT ON CONSTRAINT {{stat_salmon2_weapon_clear_rate_pkey}} DO UPDATE
+                    SET
+                      [[plays]] = {{excluded}}.[[plays]],
+                      [[cleared]] = {{excluded}}.[[cleared]],
                       [[last_data_at]] = {{excluded}}.[[last_data_at]]
                 SQL_END)
                 ->execute();
