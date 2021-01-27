@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2020 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2021 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  * @author Allen Pestaluky <allenwp@live.ca>
@@ -19,10 +19,10 @@ return [
     '* This exclusion is an attempt to minimize overcounting in weapon usage statistics.' => '* Esta exclusión está en el intento de minimizar overcounting en estadísticas de uso de arma.',
     '3+9 Format' => '',
     '3, 9 Format' => '',
-    '10x Battle' => '',
+    '10x Battle' => 'Bonificación ×10',
     '24H Win %' => '24H Ganar %',
     '57 Format' => '',
-    '100x Battle' => '',
+    '100x Battle' => 'Bonificación ×100',
     '<div class="input-group"><span class="input-group-addon">From:</span>{input}</div>' => '<div class="input-group"><span class="input-group-addon">De:</span>{input}</div>',
     '<div class="input-group"><span class="input-group-addon">To:</span>{input}</div>' => '<div class="input-group"><span class="input-group-addon">Para:</span>{input}</div>',
     'Ability Effect' => 'Efecto de la potenciad',
@@ -99,6 +99,8 @@ return [
     'Click to copy' => 'Haga clic en copiar URL',
     'Close' => '',
     'Clout' => '',
+    'Clout (Normal)' => '',
+    'Clout (Pro)' => '',
     'Color-Blind Support' => 'Apoyo daltónico',
     'Color Scheme' => '',
     'combos' => '',
@@ -164,6 +166,7 @@ return [
     'Enemy Weapon' => 'Arma enemigo',
     'Error' => '',
     'Estimated X Power' => '',
+    'Europe' => '',
     'Europe/Oceania' => 'Europa/Oceanía',
     'Excluded: Private Battles' => 'Excluidos: Combate privado',
     'Excluded: Private Battles and Squad Battles (when Rank S or S+)' => 'Excluidos: Combate privado y Combate en equipo (cuando la fila S o S+)',
@@ -175,6 +178,9 @@ return [
     'Favorite Weapons of This Site Member' => 'Armas favoritas de los miembros de este sitio',
     'Feedback or suggestions are welcome. Please contact me via GitHub or Twitter.' => 'Comentarios o sugerencias son bienvenidos. Por favor en contacto conmigo a través de GitHub o Twitter.',
     'fest.ink' => '',
+    'Fest Power' => '',
+    'Fest Power (Normal)' => '',
+    'Fest Power (Pro)' => '',
     'Few' => 'Algunos',
     'Filter' => '',
     'Filter Query' => '',
@@ -196,7 +202,9 @@ return [
     'Group by main weapon' => '',
     'Group by reskins' => '',
     'Group by weapon type' => '',
+    'Guessed:' => '',
     'Guessed by your IP:' => '',
+    'Guess the region' => '',
     'Guest' => 'Huésped',
     'Has disconnected player' => '',
     'Hasn\'t disconnected player' => '',
@@ -332,6 +340,7 @@ return [
     'No black out' => '',
     'No Data' => 'No hay Datos',
     'No one in control' => 'Nadie tiene el control',
+    'North America/Oceania' => '',
     'Note' => 'Nota',
     'Note (private)' => 'Nota (privado)',
     'Note (public)' => 'Nota (público)',
@@ -428,6 +437,9 @@ return [
     'Specify Period' => 'Especificar periodo de',
     'Splatfest' => 'Festival temático',
     'Splatfest Power' => 'Energía',
+    'Splatfest Power (Normal)' => '',
+    'Splatfest Power (Pro)' => '',
+    'Splatfest Region:' => '',
     'Splatfest Title' => 'Splatfest Título',
     'Splatfest Title (After)' => '',
     'SplatNet' => '',
@@ -450,6 +462,7 @@ return [
     'Stats (by Weapon)' => 'Estadística (por Arma)',
     'Stats (Cause of Death)' => 'Estadística (Causa de la Muerte)',
     'Stats (Ranked Battle)' => 'Estadística (Combate competitivo)',
+    'Stats (Splatfest)' => '',
     'Stats (Turf War)' => 'Estadística (Territorial)',
     'Stats (vs. Weapon)' => 'Estadística (Armas enemiga)',
     'Stats ({rule})' => 'Estadística ({rule})',
@@ -595,6 +608,7 @@ return [
     '{name}\'s Battle Stats (by Weapon)' => 'Estadística de Batalla de {name} (por Arma)',
     '{name}\'s Battle Stats (Cause of Death)' => 'Estadística de Batalla de {name} (Causa de la Muerte)',
     '{name}\'s Battle Stats (Ranked Battle)' => 'Estadística de Batalla de {name} (Combate competitivo)',
+    '{name}\'s Battle Stats (Splatfest)' => '',
     '{name}\'s Battle Stats (Turf War)' => 'Estadística de Batalla de {name} (Territorial)',
     '{name}\'s Battle Stats (vs. Weapon)' => 'Estadística de Batalla de {name} (Armas enemiga)',
     '{name}\'s Battle Stats ({rule})' => '',
@@ -622,5 +636,6 @@ return [
     '{sec} seconds, {cnt} times' => '{sec} s, {cnt} veces',
     '{theme} Theme' => '',
     '{title} Official Website' => '',
+    '~{estPower}' => '',
     '~{point}p' => '',
 ];

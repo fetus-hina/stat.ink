@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2020 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2021 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -17,10 +17,10 @@ return [
     '* This exclusion is an attempt to minimize overcounting in weapon usage statistics.' => '',
     '3+9 Format' => '',
     '3, 9 Format' => '',
-    '10x Battle' => '',
+    '10x Battle' => '×10-strijd',
     '24H Win %' => '',
     '57 Format' => '',
-    '100x Battle' => '',
+    '100x Battle' => '×100-strijd',
     '<div class="input-group"><span class="input-group-addon">From:</span>{input}</div>' => '',
     '<div class="input-group"><span class="input-group-addon">To:</span>{input}</div>' => '',
     'Ability Effect' => '',
@@ -97,6 +97,8 @@ return [
     'Click to copy' => '',
     'Close' => '',
     'Clout' => '',
+    'Clout (Normal)' => '',
+    'Clout (Pro)' => '',
     'Color-Blind Support' => '',
     'Color Scheme' => '',
     'combos' => '',
@@ -162,6 +164,7 @@ return [
     'Enemy Weapon' => '',
     'Error' => '',
     'Estimated X Power' => '',
+    'Europe' => '',
     'Europe/Oceania' => '',
     'Excluded: Private Battles' => '',
     'Excluded: Private Battles and Squad Battles (when Rank S or S+)' => '',
@@ -173,6 +176,9 @@ return [
     'Favorite Weapons of This Site Member' => '',
     'Feedback or suggestions are welcome. Please contact me via GitHub or Twitter.' => '',
     'fest.ink' => '',
+    'Fest Power' => '',
+    'Fest Power (Normal)' => '',
+    'Fest Power (Pro)' => '',
     'Few' => '',
     'Filter' => '',
     'Filter Query' => '',
@@ -194,7 +200,9 @@ return [
     'Group by main weapon' => '',
     'Group by reskins' => '',
     'Group by weapon type' => '',
+    'Guessed:' => '',
     'Guessed by your IP:' => '',
+    'Guess the region' => '',
     'Guest' => '',
     'Has disconnected player' => '',
     'Hasn\'t disconnected player' => '',
@@ -330,6 +338,7 @@ return [
     'No black out' => '',
     'No Data' => '',
     'No one in control' => '',
+    'North America/Oceania' => '',
     'Note' => '',
     'Note (private)' => '',
     'Note (public)' => '',
@@ -426,6 +435,9 @@ return [
     'Specify Period' => '',
     'Splatfest' => '',
     'Splatfest Power' => '',
+    'Splatfest Power (Normal)' => '',
+    'Splatfest Power (Pro)' => '',
+    'Splatfest Region:' => '',
     'Splatfest Title' => '',
     'Splatfest Title (After)' => '',
     'SplatNet' => '',
@@ -448,6 +460,7 @@ return [
     'Stats (by Weapon)' => '',
     'Stats (Cause of Death)' => '',
     'Stats (Ranked Battle)' => '',
+    'Stats (Splatfest)' => '',
     'Stats (Turf War)' => '',
     'Stats (vs. Weapon)' => '',
     'Stats ({rule})' => '',
@@ -593,6 +606,7 @@ return [
     '{name}\'s Battle Stats (by Weapon)' => '',
     '{name}\'s Battle Stats (Cause of Death)' => '',
     '{name}\'s Battle Stats (Ranked Battle)' => '',
+    '{name}\'s Battle Stats (Splatfest)' => '',
     '{name}\'s Battle Stats (Turf War)' => '',
     '{name}\'s Battle Stats (vs. Weapon)' => '',
     '{name}\'s Battle Stats ({rule})' => '',
@@ -620,5 +634,6 @@ return [
     '{sec} seconds, {cnt} times' => '',
     '{theme} Theme' => '',
     '{title} Official Website' => '',
+    '~{estPower}' => '',
     '~{point}p' => '',
 ];

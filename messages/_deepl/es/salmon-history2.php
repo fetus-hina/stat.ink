@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2020 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2021 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -9,11 +9,11 @@
 declare(strict_types=1);
 
 return [
-    'Average' => 'Promedio',
-    'Golden E.' => 'E de oro.',
+    'Average' => 'Media',
+    'Golden E.' => 'Golden E.',
     'Points' => 'Puntos',
     'Power E.' => 'Poder E.',
     'Rescued' => 'Rescatado',
-    'Shifts' => 'Cambios',
+    'Shifts' => 'Turnos',
     'Total' => 'Total',
 ];

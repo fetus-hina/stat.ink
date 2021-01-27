@@ -115,6 +115,7 @@ RESOURCE_TARGETS := \
 	resources/.compiled/stat.ink/user-stat-nawabari-inked.js \
 	resources/.compiled/stat.ink/user-stat-nawabari-wp.js \
 	resources/.compiled/stat.ink/user-stat-report.css \
+	resources/.compiled/stat.ink/user-stat-splatfest.js \
 	resources/.compiled/stat.ink/weapon2.js \
 	resources/.compiled/stat.ink/weapons-use.js \
 	resources/.compiled/stat.ink/weapons.js \
@@ -324,6 +325,7 @@ resources/.compiled/stat.ink/user-stat-gachi-winpct.js: resources/stat.ink/user-
 resources/.compiled/stat.ink/user-stat-nawabari-inked.js: resources/stat.ink/user-stat-nawabari-inked.es node_modules
 resources/.compiled/stat.ink/user-stat-nawabari-wp.js: resources/stat.ink/user-stat-nawabari-wp.es node_modules
 resources/.compiled/stat.ink/user-stat-report.css: resources/stat.ink/user-stat-report.scss node_modules
+resources/.compiled/stat.ink/user-stat-splatfest.js: resources/stat.ink/user-stat-splatfest.es node_modules
 resources/.compiled/stat.ink/weapons-use.js: resources/stat.ink/weapons-use.js node_modules
 resources/.compiled/stat.ink/weapons.js: resources/stat.ink/weapons.js node_modules
 resources/.compiled/stat.ink/xpower-history.css: resources/stat.ink/xpower-history.scss node_modules

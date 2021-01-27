@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2020 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2021 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -16,6 +16,6 @@ return [
     'Sorry for inconvenience.' => '抱歉给您带来的不便。',
     'Term: {startDate} - {endDate}' => '术语： {startDate} - {endDate}',
     'We\'ll perform maintenance on the schedule below:' => '我们将按照以下时间表进行维护。',
-    'We won\'t implement automatic importing to {appName} for security reasons.' => '{appName} 出于安全考虑，我们不会实现自动导入。',
+    'We won\'t implement automatic importing to {appName} for security reasons.' => '出于安全考虑，我们不会实现自动导入到 {appName} 。',
     'You can import automatically from SplatNet 2, use these apps: (USE AT YOUR OWN RISK)' => '你可以从SplatNet 2自动导入，使用这些应用程序：（使用时请自行承担风险',
 ];

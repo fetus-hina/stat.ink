@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2020 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2021 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -20,16 +20,16 @@ return [
     'New:' => '新的。',
     'Old:' => '老。',
     'Password' => '密碼',
-    'Please enter this code into the browser. The code will expire in {mins} minutes.' => '請在瀏覽器中輸入此代碼，代碼將在 {mins} 幾分鐘後失效。',
+    'Please enter this code into the browser. The code will expire in {mins} minutes.' => '請在瀏覽器中輸入此代碼，代碼將在 {mins} 分鐘後失效。',
     'Rev. lookup:' => 'Rev. lookup:',
     'Terminal:' => '終端。',
-    'There was a new login on {site}.' => '有一個新的登錄上 {site} 。',
+    'There was a new login on {site}.' => '有一個新的登錄 {site} 。',
     'Twitter' => '推特',
     'Verification Code:' => '驗證碼：',
     'Your email address has been changed.' => '您的電子郵件地址已被更改。',
     'Your password has been changed.' => '您的密碼已被更改。',
-    '[{site}] {name} (@{screen_name}): Changed your password' => '[ {site} ] ( {name} @ {screen_name} ): 更改了你的密碼。',
-    '[{site}] {name} (@{screen_name}): Logged in' => '[ {site} ] ( {name} @ ) {screen_name} : 已登錄',
-    '[{site}] {name} (@{screen_name}): Verification code' => '[ {site} ] ( {name} @ ) {screen_name} ：驗證碼',
-    '[{site}] {name} (@{screen_name}): Your email address has been updated' => '[ {site} ] ( {name} @ {screen_name} ): 您的電子郵件地址已經更新。',
+    '[{site}] {name} (@{screen_name}): Changed your password' => '[ {site} ] {name} (@ {screen_name} )：更改了密碼。',
+    '[{site}] {name} (@{screen_name}): Logged in' => '[ {site} ] {name} (@ {screen_name} )：已登錄。',
+    '[{site}] {name} (@{screen_name}): Verification code' => '[ {site} ] {name} (@ {screen_name} )：驗證碼：',
+    '[{site}] {name} (@{screen_name}): Your email address has been updated' => '[ {site} ] {name} (@ {screen_name} )：您的電子郵件地址已經更新。',
 ];

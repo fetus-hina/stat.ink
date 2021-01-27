@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2020 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2021 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -9,23 +9,23 @@
 declare(strict_types=1);
 
 return [
-    'Ascent' => 'Beklimming',
-    'Bomb Throw' => 'Bom gooien',
+    'Ascent' => 'Opstijging',
+    'Bomb Throw' => 'Bommengooi',
     'Damage' => 'Schade',
     'Defense' => 'Verdediging',
     'Descent' => 'Afdaling',
     'Echolocator' => 'Echolocator',
-    'Gear Abilities' => 'Uitrusting',
-    'Ink Recovery' => 'Inktherstel',
+    'Gear Abilities' => 'Vistuig Vermogens',
+    'Ink Recovery' => 'Inkt herstel',
     'Ink Usage(Main)' => 'Inktgebruik (Hoofd)',
-    'Ink Usage(Sub)' => 'Inktgebruik (Sub)',
-    'Jump' => 'Ga naar',
-    'Prepare' => 'Bereid voor.',
+    'Ink Usage(Sub)' => 'Inkt Gebruik(Sub)',
+    'Jump' => 'Spring',
+    'Prepare' => 'Bereiden',
     'Respawn' => 'Respawn',
-    'Run Speed' => 'Loopsnelheid',
-    'Special Charge' => 'Speciale kosten',
-    'Special Duration' => 'Speciale duur',
+    'Run Speed' => 'Snelheid',
+    'Special Charge' => 'Speciale lading',
+    'Special Duration' => 'Speciale Duur',
     'Special Save' => 'Speciaal sparen',
-    'Stiffen' => 'Verstevigen',
+    'Stiffen' => 'Stijven',
     'Swim Speed' => 'Zwemsnelheid',
 ];
