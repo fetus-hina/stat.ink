@@ -21,7 +21,7 @@ class Session extends \yii\web\Session
         parent::open();
 
         if (!headers_sent()) {
-            header('Cache-Control: private, max-age=0, s-maxage=0', false); // false: do not replace
+            header('Cache-Control: no-store');
         }
     }
 }
