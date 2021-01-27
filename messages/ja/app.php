@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2020 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2021 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  * @author eli fessler <eliwf8@gmail.com>
@@ -99,6 +99,8 @@ return [
     'Channel' => 'チャンネル',
     'Click to copy' => 'クリックしてURLをコピー',
     'Close' => '閉じる',
+    'Clout (Normal)' => '貢献度(レギュラー)',
+    'Clout (Pro)' => '貢献度(チャレンジ)',
     'Clout' => '貢献度',
     'Color Scheme' => 'カラースキーム',
     'Color-Blind Support' => '色覚サポート',
@@ -160,6 +162,7 @@ return [
     'Enemy Weapon' => '相手のブキ',
     'Error' => 'エラー',
     'Estimated X Power' => '概算Xパワー',
+    'Europe' => '欧州',
     'Europe/Oceania' => '欧州・オセアニア',
     'Excluded: Private Battles and Squad Battles (when Rank S or S+)' => '集計除外: プライベートマッチと S, S+ 時のタッグマッチ',
     'Excluded: Private Battles' => '集計除外: プライベートマッチ',
@@ -170,6 +173,9 @@ return [
     'Favorite Weapons of This Site Member' => 'このサイトの登録者がよく使うブキ',
     'Favorite Weapons' => 'よく使っているブキ',
     'Feedback or suggestions are welcome. Please contact me via GitHub or Twitter.' => 'バグの報告・改善の提案などがありましたら、 GitHubのプロジェクトに報告・提案するか、ツイッターアカウントへご連絡ください。',
+    'Fest Power (Normal)' => 'パワー(レギュラー)',
+    'Fest Power (Pro)' => 'パワー(チャレンジ)',
+    'Fest Power' => 'パワー',
     'Few' => '少',
     'Filter Query' => 'フィルタクエリ',
     'Filter' => 'フィルタ',
@@ -190,7 +196,9 @@ return [
     'Group by main weapon' => 'メインの性能でまとめる',
     'Group by reskins' => 'おなじブキをまとめる',
     'Group by weapon type' => '種類でまとめる',
+    'Guess the region' => '地域を推定する',
     'Guessed by your IP:' => 'IPアドレスからの推測:',
+    'Guessed:' => '推定：',
     'Guest' => 'ゲスト',
     'Has disconnected player' => '切断プレーヤーあり',
     'Hasn\'t disconnected player' => '切断プレーヤーなし',
@@ -319,6 +327,7 @@ return [
     'No black out' => '黒塗りしない',
     'No one in control' => '中立',
     'No' => 'いいえ',
+    'North America/Oceania' => '北米・オセアニア',
     'Note (private)' => 'メモ（非公開）',
     'Note (public)' => 'メモ（公開）',
     'Note' => 'メモ',
@@ -417,7 +426,10 @@ return [
     'SplatNet 2' => 'イカリング2',
     'SplatNet Battle #' => 'イカリングのバトル番号',
     'SplatNet' => 'イカリング',
+    'Splatfest Power (Normal)' => 'フェスパワー(レギュラー)',
+    'Splatfest Power (Pro)' => 'フェスパワー(チャレンジ)',
     'Splatfest Power' => 'フェスパワー',
+    'Splatfest Region:' => 'フェス地域：',
     'Splatfest Title (After)' => 'フェス称号（後）',
     'Splatfest Title' => 'フェス称号',
     'Splatfest' => 'フェス',
@@ -432,6 +444,7 @@ return [
     'Standard Deviation' => '標準偏差',
     'Stats (Cause of Death)' => '統計（死因）',
     'Stats (Ranked Battle)' => '統計（ガチマッチ）',
+    'Stats (Splatfest)' => '統計（フェス）',
     'Stats (Turf War)' => '統計（ナワバリバトル）',
     'Stats (by Mode and Stage)' => '統計（ステージとルール）',
     'Stats (by Mode)' => '統計（ルール別）',
@@ -591,6 +604,7 @@ return [
     '{name}\'s Battle Report' => '{name}さんのバトルレポート',
     '{name}\'s Battle Stats (Cause of Death)' => '{name}さんの統計（死因）',
     '{name}\'s Battle Stats (Ranked Battle)' => '{name}さんの統計（ガチマッチ）',
+    '{name}\'s Battle Stats (Splatfest)' => '{name}さんの統計（フェス）',
     '{name}\'s Battle Stats (Turf War)' => '{name}さんの統計（ナワバリバトル）',
     '{name}\'s Battle Stats (by Mode and Stage)' => '{name}さんの統計（ステージとルール）',
     '{name}\'s Battle Stats (by Mode)' => '{name}さんの統計（ルール別）',
@@ -622,5 +636,6 @@ return [
     '{sec} seconds, {cnt} times' => '{sec} 秒, 最大 {cnt} 回',
     '{theme} Theme' => '{theme}テーマ',
     '{title} Official Website' => '{title} 公式サイト',
+    '~{estPower}' => '約{estPower}',
     '~{point}p' => '約{point}p',
 ];

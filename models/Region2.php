@@ -52,7 +52,8 @@ class Region2 extends ActiveRecord
 
     public function getFests(): ActiveQuery
     {
-        return $this->hasMany(Splatfest2::class, ['id' => 'fest_id'])->viaTable('splatfest2_region', ['region_id' => 'id']);
+        return $this->hasMany(Splatfest2::class, ['id' => 'fest_id'])
+            ->viaTable('splatfest2_region', ['region_id' => 'id']);
     }
 
     public function getSplatfest2Regions(): ActiveQuery

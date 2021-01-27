@@ -895,6 +895,13 @@ class UserMiniInfo2 extends Widget
                     Html::a(
                         implode('', [
                             (string)FA::fas('chart-pie')->fw(),
+                            Html::encode(Yii::t('app', 'Stats (Splatfest)')),
+                        ]),
+                        ['show-v2/user-stat-splatfest', 'screen_name' => $this->user->screen_name]
+                    ),
+                    Html::a(
+                        implode('', [
+                            (string)FA::fas('chart-pie')->fw(),
                             Html::encode(Yii::t('app', 'Stats (by Mode and Stage)')),
                         ]),
                         ['show-v2/user-stat-by-map-rule', 'screen_name' => $this->user->screen_name]

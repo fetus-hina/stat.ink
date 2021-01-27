@@ -603,6 +603,38 @@ class User extends ActiveRecord implements IdentityInterface
             : $this->getJdenticonUrl($ext);
     }
 
+    public function getGuessedSplatfest2Region(): Region2
+    {
+        $regionID = (new Query())
+            ->select([
+                'id' => '{{region2}}.[[id]]',
+            ])
+            ->from('battle2')
+            ->innerJoin('mode2', '{{battle2}}.[[mode_id]] = {{mode2}}.[[id]]')
+            ->innerJoin('lobby2', '{{battle2}}.[[lobby_id]] = {{lobby2}}.[[id]]')
+            ->innerJoin('rule2', '{{battle2}}.[[rule_id]] = {{rule2}}.[[id]]')
+            ->innerJoin('splatfest2', '{{battle2}}.[[end_at]] <@ {{splatfest2}}.[[query_term]]')
+            ->innerJoin('splatfest2_region', '{{splatfest2}}.[[id]] = {{splatfest2_region}}.[[fest_id]]')
+            ->innerJoin('region2', '{{splatfest2_region}}.[[region_id]] = {{region2}}.[[id]]')
+            ->andWhere([
+                '{{battle2}}.[[user_id]]' => (int)$this->id,
+                '{{mode2}}.[[key]]' => 'fest',
+                '{{rule2}}.[[key]]' => 'nawabari', // It should be Turf War
+                '{{lobby2}}.[[key]]' => ['standard', 'fest_normal', 'squad_4'],
+            ])
+            ->groupBy([
+                '{{region2}}.[[id]]',
+            ])
+            ->orderBy([
+                'COUNT(*)' => SORT_DESC,
+                '{{region2}}.[[id]]' => SORT_ASC,
+            ])
+            ->limit(1)
+            ->scalar();
+        return ($regionID ? Region2::findOne(['id' => (int)$regionID]) : null)
+            ?: Region2::findOne(['key' => 'jp']); // default
+    }
+
     public static function onLogin(self $user, int $loginMethod): void
     {
         if (!$user->email) {
