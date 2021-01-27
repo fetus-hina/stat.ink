@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2020 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2021 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -9,18 +9,18 @@
 declare(strict_types=1);
 
 return [
-    'Bamboozler 14 Mk II' => 'Bamboozler 14 Mk II',
-    'Custom Hydra Splatling' => 'Aangepaste Hydra Splatling',
+    'Bamboozler 14 Mk II' => 'Bamboezler 14 Mk II',
+    'Custom Hydra Splatling' => 'Hydra spatten op maat',
     'Final Splatfest' => 'Laatste Splatfest',
-    'Hydra Splatling' => 'Hydra Splatling',
+    'Hydra Splatling' => 'Hydra Spatten',
     'Neo Sploosh-o-matic' => 'Neo Sploosh-o-matic',
     'Octobrush Nouveau' => 'Octobrush Nouveau',
     'Rapid Blaster Pro Deco' => 'Rapid Blaster Pro Deco',
     'Sheldon\'s Picks Vol.1' => 'Sheldon\'s Picks Vol.1',
     'Sheldon\'s Picks Vol.2' => 'Sheldon\'s Picks Vol.2',
-    'Slosher Deco' => 'Sloshere Deco',
-    'Sloshing Machine' => 'Klotsen Machine',
-    'Sloshing Machine Neo' => 'Sloshing Machine Neo',
+    'Slosher Deco' => 'Slosher Deco',
+    'Sloshing Machine' => 'Klotsende machine',
+    'Sloshing Machine Neo' => 'Klotsmachine Neo',
     'Splatfest #11' => 'Splatfest #11',
     'Splatfest #14' => 'Splatfest #14',
     'Splatfest JP #8' => 'Splatfest JP #8',
@@ -30,5 +30,5 @@ return [
     'Splatfest JP #13' => 'Splatfest JP #13',
     'Splatfest JP #15' => 'Splatfest JP #15',
     'Tri-Slosher Nouveau' => 'Tri-Slosher Nouveau',
-    'Zink Mini Splatling' => 'Zink Mini Splatling',
+    'Zink Mini Splatling' => 'Zink Mini Spatel',
 ];

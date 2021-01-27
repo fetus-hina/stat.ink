@@ -23,6 +23,7 @@ return [
                 'app-email'     => 'email.php',
                 'app-event'     => 'event.php',
                 'app-fest'      => 'fest.php',
+                'app-fest2'     => 'fest2.php',
                 'app-festpower2' => 'festpower2.php',
                 'app-freshness2' => 'freshness2.php',
                 'app-gear'      => 'gear.php',

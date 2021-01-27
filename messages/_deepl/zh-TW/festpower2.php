@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2020 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2021 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -9,7 +9,7 @@
 declare(strict_types=1);
 
 return [
-    '"Mistaken": On {date}, <a href="{url}" class="alert-link">Nintendo misconfigured the matching server and ran the fest.</a>' => '"錯誤"：在 {date} ，<a href=" " {url} class="alert-link"&gt;任天堂錯誤地配置了匹配的服務器並運行了盛會。</a>',
+    '"Mistaken": On {date}, <a href="{url}" class="alert-link">Nintendo misconfigured the matching server and ran the fest.</a>' => '"弄錯了"：在 {date} ，<a href=" {url} </a>" class="alert-link"&gt;任天堂錯誤地配置了匹配的服務器，並運行了盛會。',
     'All' => '全部',
     'Average' => '平均值',
     'Battles' => '戰鬥',

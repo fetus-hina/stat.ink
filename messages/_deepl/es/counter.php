@@ -10,6 +10,6 @@ declare(strict_types=1);
 
 return [
     'Battles' => 'Batallas',
-    'Shifts' => 'Cambios',
+    'Shifts' => 'Turnos',
     'Users' => 'Usuarios',
 ];

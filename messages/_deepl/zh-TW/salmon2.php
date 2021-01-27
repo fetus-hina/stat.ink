@@ -26,7 +26,7 @@ return [
     'Delivers' => '提供',
     'Edit job #{jobNumber}' => '編輯工作 # {jobNumber}',
     'Failed' => '失敗',
-    'Failed<br><small>in wave {waveNumber}</small>' => '失敗<br><small>縱橫 {waveNumber} </small>',
+    'Failed<br><small>in wave {waveNumber}</small>' => '失敗<br><small>縱橫馳騁 {waveNumber} </small>',
     'Failed in wave {waveNumber}' => '在波浪中失敗 {waveNumber}',
     'Fail Reason' => '失敗原因',
     'From {shiftStart}' => '來自 {shiftStart}',

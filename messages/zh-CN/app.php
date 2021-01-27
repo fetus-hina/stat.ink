@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2020 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2021 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  * @author Gosin <canling0@gmail.com>
@@ -98,6 +98,8 @@ return [
     'Click to copy' => '点击复制',
     'Close' => '关闭',
     'Clout' => '影响力',
+    'Clout (Normal)' => '',
+    'Clout (Pro)' => '',
     'Color-Blind Support' => '色盲辅助',
     'Color Scheme' => '配色方案',
     'combos' => '组合',
@@ -163,6 +165,7 @@ return [
     'Enemy Weapon' => '敌方武器',
     'Error' => '错误',
     'Estimated X Power' => '预估X能力值',
+    'Europe' => '',
     'Europe/Oceania' => '欧洲/大洋洲',
     'Excluded: Private Battles' => '排除私房对战',
     'Excluded: Private Battles and Squad Battles (when Rank S or S+)' => '排除私房对战与小队作战（S或S+级别）',
@@ -174,6 +177,9 @@ return [
     'Favorite Weapons of This Site Member' => '该站用户最喜爱的武器',
     'Feedback or suggestions are welcome. Please contact me via GitHub or Twitter.' => '欢迎提供意见与建议，请通过Github或是Twitter联系。',
     'fest.ink' => '祭典墨水',
+    'Fest Power' => '',
+    'Fest Power (Normal)' => '',
+    'Fest Power (Pro)' => '',
     'Few' => '少量',
     'Filter' => '筛选器',
     'Filter Query' => '筛选标准',
@@ -195,7 +201,9 @@ return [
     'Group by main weapon' => '根据主武器分组',
     'Group by reskins' => '根据武器贴牌分组',
     'Group by weapon type' => '根据武器类型分组',
+    'Guessed:' => '',
     'Guessed by your IP:' => '根据你的IP地址猜测：',
+    'Guess the region' => '',
     'Guest' => '客人',
     'Has disconnected player' => '有玩家掉线',
     'Hasn\'t disconnected player' => '没有玩家掉线',
@@ -331,6 +339,7 @@ return [
     'No black out' => '没有黑化处理',
     'No Data' => '没有数据',
     'No one in control' => '无人控制',
+    'North America/Oceania' => '',
     'Note' => '备注',
     'Note (private)' => '备注（私密）',
     'Note (public)' => '备注（公开）',
@@ -427,6 +436,9 @@ return [
     'Specify Period' => '指定时间段',
     'Splatfest' => '祭典',
     'Splatfest Power' => '祭典能力值',
+    'Splatfest Power (Normal)' => '',
+    'Splatfest Power (Pro)' => '',
+    'Splatfest Region:' => '',
     'Splatfest Title' => '祭典称号',
     'Splatfest Title (After)' => '祭典称号（之后）',
     'SplatNet' => 'SplatNet',
@@ -449,6 +461,7 @@ return [
     'Stats (by Weapon)' => '统计（按武器）',
     'Stats (Cause of Death)' => '统计（死因）',
     'Stats (Ranked Battle)' => '统计（排名对战）',
+    'Stats (Splatfest)' => '',
     'Stats (Turf War)' => '统计（涂地对战)',
     'Stats (vs. Weapon)' => '统计（敌方武器）',
     'Stats ({rule})' => '统计（{rule}）',
@@ -594,6 +607,7 @@ return [
     '{name}\'s Battle Stats (by Weapon)' => '{name}的对战统计（按武器）',
     '{name}\'s Battle Stats (Cause of Death)' => '{name}的对战统计（死因）',
     '{name}\'s Battle Stats (Ranked Battle)' => '{name}的对战统计（排名模式）',
+    '{name}\'s Battle Stats (Splatfest)' => '',
     '{name}\'s Battle Stats (Turf War)' => '{name}的对战统计（涂地模式）',
     '{name}\'s Battle Stats (vs. Weapon)' => '{name}的对战统计（对方武器）',
     '{name}\'s Battle Stats ({rule})' => '{name}的对战统计（{rule}）',
@@ -621,5 +635,6 @@ return [
     '{sec} seconds, {cnt} times' => '{sec} 秒, {cnt} 次',
     '{theme} Theme' => '{theme}主题',
     '{title} Official Website' => '{title}官方站点',
+    '~{estPower}' => '',
     '~{point}p' => '约{point}点',
 ];

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2020 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2021 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -31,7 +31,7 @@ return [
     'Saving the specified or default theme (color scheme) setting' => 'Sauvegarde du thème spécifié ou par défaut (schéma de couleurs)',
     'Their privacy policy' => 'Leur politique de confidentialité',
     'Track your login status' => 'Suivez votre statut de connexion',
-    'Visit their {description} and/or {privacy} for more details' => 'Visitez leur {description} et/ou {privacy} pour plus de détails',
+    'Visit their {description} and/or {privacy} for more details' => 'Visitez leur {description} et/ou {privacy} pour plus de détails.',
     'We use cookies to ensure you get the best experience on our website.' => 'Nous utilisons des cookies pour nous assurer que vous bénéficiez de la meilleure expérience possible sur notre site Web.',
     'What to use' => 'Ce qu\'il faut utiliser',
 ];

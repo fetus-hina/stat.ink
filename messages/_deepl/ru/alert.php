@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2020 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2021 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -16,6 +16,6 @@ return [
     'Sorry for inconvenience.' => 'Приносим извинения за неудобства.',
     'Term: {startDate} - {endDate}' => 'Срок: {startDate} - {endDate}',
     'We\'ll perform maintenance on the schedule below:' => 'Мы выполним техническое обслуживание в соответствии с графиком, приведенным ниже:',
-    'We won\'t implement automatic importing to {appName} for security reasons.' => 'Мы не будем внедрять автоматический импорт {appName} по соображениям безопасности.',
+    'We won\'t implement automatic importing to {appName} for security reasons.' => 'Из соображений безопасности мы не будем внедрять автоматический импорт на {appName} .',
     'You can import automatically from SplatNet 2, use these apps: (USE AT YOUR OWN RISK)' => 'Вы можете автоматически импортировать с SplatNet 2, используйте следующие приложения: (ИСПОЛЬЗОВАНИЕ ВАШЕГО РИСКА).',
 ];

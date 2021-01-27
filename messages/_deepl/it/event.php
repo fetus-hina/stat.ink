@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2020 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2021 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -10,17 +10,17 @@ declare(strict_types=1);
 
 return [
     'Bamboozler 14 Mk II' => 'Bamboozler 14 Mk II',
-    'Custom Hydra Splatling' => 'Splatling personalizzato Hydra',
+    'Custom Hydra Splatling' => 'Splatling Hydra personalizzato',
     'Final Splatfest' => 'Splatfest finale',
-    'Hydra Splatling' => 'Hydra Splatling',
+    'Hydra Splatling' => 'Idra Splatling',
     'Neo Sploosh-o-matic' => 'Neo Sploosh-o-matic',
-    'Octobrush Nouveau' => 'Octobrush Nouveau',
+    'Octobrush Nouveau' => 'Spazzola Octobrush Nouveau',
     'Rapid Blaster Pro Deco' => 'Rapid Blaster Pro Deco',
     'Sheldon\'s Picks Vol.1' => 'Sheldon\'s Picks Vol.1',
     'Sheldon\'s Picks Vol.2' => 'Sheldon\'s Picks Vol.2',
     'Slosher Deco' => 'Slosher Deco',
-    'Sloshing Machine' => 'Macchina da sloshing',
-    'Sloshing Machine Neo' => 'Sloshing Machine Neo',
+    'Sloshing Machine' => 'Macchina che sbatte',
+    'Sloshing Machine Neo' => 'Macchina che sbatte Neo',
     'Splatfest #11' => 'Splatfest #11',
     'Splatfest #14' => 'Splatfest #14',
     'Splatfest JP #8' => 'Splatfest JP #8',
