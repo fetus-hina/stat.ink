@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2020 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2021 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -20,16 +20,16 @@ return [
     'New:' => 'Новое:',
     'Old:' => 'Старый:',
     'Password' => 'Пароль',
-    'Please enter this code into the browser. The code will expire in {mins} minutes.' => 'Пожалуйста, введите этот код в браузер. Срок действия кода истекает через {mins} несколько минут.',
+    'Please enter this code into the browser. The code will expire in {mins} minutes.' => 'Пожалуйста, введите этот код в браузер. Срок действия кода истекает через {mins} минут.',
     'Rev. lookup:' => 'Rev. lookup:',
     'Terminal:' => 'Терминал:',
-    'There was a new login on {site}.' => 'Был введен новый логин {site} .',
+    'There was a new login on {site}.' => 'На сайте {site} появился новый логин.',
     'Twitter' => 'Твиттер',
     'Verification Code:' => 'Код верификации:',
     'Your email address has been changed.' => 'Ваш адрес электронной почты был изменен.',
     'Your password has been changed.' => 'Ваш пароль был изменен.',
-    '[{site}] {name} (@{screen_name}): Changed your password' => '[ ] {site} {name} (@ {screen_name} ): Изменен пароль.',
-    '[{site}] {name} (@{screen_name}): Logged in' => '[ ] {site} {name} (@ {screen_name} ): Вход в систему',
-    '[{site}] {name} (@{screen_name}): Verification code' => '[ ] {site} {name} (@ {screen_name} ): Код верификации',
-    '[{site}] {name} (@{screen_name}): Your email address has been updated' => '[ ] {site} {name} (@ {screen_name} ): Ваш адрес электронной почты был обновлен.',
+    '[{site}] {name} (@{screen_name}): Changed your password' => '[ {site} ] {name} (@ {screen_name} ): Изменен пароль.',
+    '[{site}] {name} (@{screen_name}): Logged in' => '[ {site} ] {name} (@ {screen_name} ): Вход в систему',
+    '[{site}] {name} (@{screen_name}): Verification code' => '[ {site} ] {name} (@ {screen_name} ): Код верификации',
+    '[{site}] {name} (@{screen_name}): Your email address has been updated' => '[ {site} ] {name} (@ {screen_name} ): Ваш адрес электронной почты обновлен.',
 ];

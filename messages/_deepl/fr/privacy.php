@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2020 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2021 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -32,7 +32,7 @@ return [
     'They never have access to your private data.' => 'Ils n\'ont jamais accès à vos données privées.',
     'This behavior was started on 27 Oct 2015.' => 'Ce comportement a commencé le 27 octobre 2015.',
     'This is done automatically and the data will not be deleted even if the the battle is deleted.' => 'Cela se fait automatiquement et les données ne seront pas effacées même si la bataille est supprimée.',
-    'This website ({0}) collects the following data:' => 'Ce site Web ( {0} ) recueille les données suivantes :',
+    'This website ({0}) collects the following data:' => 'Ce site web ( {0} ) collecte les données suivantes :',
     'This website uses cookies to track your session or save your configuration (e.g., language / time zone settings).' => 'Ce site Web utilise des cookies pour suivre votre session ou enregistrer votre configuration (par exemple, les paramètres de langue / fuseau horaire).',
     'We are governed by Japanese law.' => 'Nous sommes régis par la loi japonaise.',
     'We don\'t release your collected information, like your IP address. However, statistical information will be released.' => 'Nous ne divulguons pas les informations que vous avez recueillies, comme votre adresse IP, mais des informations statistiques seront publiées.',

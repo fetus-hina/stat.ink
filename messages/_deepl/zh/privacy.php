@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2020 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2021 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -23,7 +23,7 @@ return [
     'Osaka, Japan' => '大阪',
     'Our servers are located in Ishikari Datacenter (Hokkaido, Japan), SAKURA internet inc.' => '我们的服务器位于石狩数据中心（日本北海道），SAKURA internet inc.',
     'PGP Key' => 'PGP密钥',
-    'Privacy Policy' => '隐私权政策',
+    'Privacy Policy' => '私隐政策',
     'SAKURA internet inc. is our sponsor.' => 'SAKURA internet inc.是我们的赞助商。',
     'Server Location' => '服务器位置',
     'SNS' => 'SNS',
@@ -32,7 +32,7 @@ return [
     'They never have access to your private data.' => '他们永远不会接触到你的私人数据。',
     'This behavior was started on 27 Oct 2015.' => '这种行为始于2015年10月27日。',
     'This is done automatically and the data will not be deleted even if the the battle is deleted.' => '这是自动完成的，即使战斗被删除，数据也不会被删除。',
-    'This website ({0}) collects the following data:' => '本网站( {0} )收集以下数据。',
+    'This website ({0}) collects the following data:' => '本网站（ {0} ）收集以下数据。',
     'This website uses cookies to track your session or save your configuration (e.g., language / time zone settings).' => '本网站使用cookies来跟踪您的会话或保存您的配置（例如，语言/时区设置）。',
     'We are governed by Japanese law.' => '我们受日本法律管辖。',
     'We don\'t release your collected information, like your IP address. However, statistical information will be released.' => '我们不会公开您的IP地址等收集到的信息，但会公开统计信息。',

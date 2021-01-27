@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2020 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2021 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -10,22 +10,22 @@ declare(strict_types=1);
 
 return [
     'Ascent' => 'Aufstieg',
-    'Bomb Throw' => 'Bombe werfen',
-    'Damage' => 'Schaden',
+    'Bomb Throw' => 'Bombenwurf',
+    'Damage' => 'Beschädigung',
     'Defense' => 'Verteidigung',
     'Descent' => 'Abstieg',
-    'Echolocator' => 'Echolokator',
-    'Gear Abilities' => 'Fähigkeiten der Ausrüstung',
-    'Ink Recovery' => 'Tinten-Rückgewinnung',
-    'Ink Usage(Main)' => 'Tintenverbrauch(Main)',
-    'Ink Usage(Sub)' => 'Tintenverbrauch(Sub)',
+    'Echolocator' => 'Echolocator',
+    'Gear Abilities' => 'Zahnrad-Fähigkeiten',
+    'Ink Recovery' => 'Tintenrückgewinnung',
+    'Ink Usage(Main)' => 'Tintenverwendung (Haupt)',
+    'Ink Usage(Sub)' => 'Tintenverwendung(Sub)',
     'Jump' => 'Springen',
-    'Prepare' => 'Bereiten Sie vor.',
-    'Respawn' => 'Respawnen',
+    'Prepare' => 'Vorbereiten',
+    'Respawn' => 'Respawn',
     'Run Speed' => 'Laufgeschwindigkeit',
-    'Special Charge' => 'Sondergebühr',
+    'Special Charge' => 'Spezial-Ladung',
     'Special Duration' => 'Besondere Dauer',
-    'Special Save' => 'Spezielles Speichern',
+    'Special Save' => 'Speziell speichern',
     'Stiffen' => 'Versteifen',
-    'Swim Speed' => 'Schwimmgeschwindigkeit',
+    'Swim Speed' => 'Geschwindigkeit schwimmen',
 ];
