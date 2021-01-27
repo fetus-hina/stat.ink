@@ -19,6 +19,7 @@ class m210124_202525_splatfest2 extends Migration
             'name_a' => $this->string(63)->notNull(),
             'name_b' => $this->string(63)->notNull(),
             'term' => 'TSTZRANGE NOT NULL',
+            'query_term' => 'TSTZRANGE NOT NULL',
         ]);
         $this->createTable('splatfest2_region', [
             'fest_id' => $this->pkRef('splatfest2')->notNull(),

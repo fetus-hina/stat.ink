@@ -1,4 +1,4 @@
-<?php
+<?php //phpcs:ignore PSR1.Files.SideEffects
 
 /**
  * @copyright Copyright (C) 2015-2021 AIZAWA Hina
@@ -16,6 +16,8 @@ class m210124_210928_splatfest2_data extends Migration
 {
     public function safeUp()
     {
+        $anHour = new DateInterval('PT1H');
+
         foreach ($this->createDataset() as $row) {
             $this->insert('splatfest2', [
                 'name_a' => $row->alpha,
@@ -23,6 +25,10 @@ class m210124_210928_splatfest2_data extends Migration
                 'term' => vsprintf('[%s, %s)', [
                     $row->start->format(DateTime::ATOM),
                     $row->end->format(DateTime::ATOM),
+                ]),
+                'query_term' => vsprintf('[%s, %s)', [
+                    $row->start->sub($anHour)->format(DateTime::ATOM),
+                    $row->end->add($anHour)->format(DateTime::ATOM),
                 ]),
             ]);
             $id = (int)$this->db->lastInsertID;
@@ -156,8 +162,8 @@ jp,2018-09-23T06:00Z,1,Tsubuan,Koshian
 jp,2018-10-19T08:00Z,2,Trick,Treat
 jp,2018-11-10T06:00Z,1,Pocky Chocolate,Pocky: Gokuboso
 jp,2018-12-15T06:00Z,1,Hero,Villain
-jp,2018-01-04T08:00Z,2,Fam,Friend
-jp,2018-02-02T06:00Z,1,Boke,Tsukkomi
+jp,2019-01-04T08:00Z,2,Fam,Friend
+jp,2019-02-02T06:00Z,1,Boke,Tsukkomi
 jp,2019-03-16T06:00Z,1,Knight,Wizard
 jp,2019-04-19T08:00Z,2,Hare,Tortoise
 jp,2019-05-11T06:00Z,1,Ce League,Pa League
