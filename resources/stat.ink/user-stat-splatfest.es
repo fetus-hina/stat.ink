@@ -11,6 +11,7 @@
     });
     return dt.toLocaleString(luxon.DateTime.DATETIME_SHORT);
   };
+  const powerFmt = (value) => (new Intl.NumberFormat(html.dataset.lang)).format(value);
 
   $('.chart-festpower').each(function (i, container) {
     const canvas = container.appendChild(document.createElement('canvas'));
@@ -53,7 +54,7 @@
           label: dataLabels.win,
           showLine: false,
           lineTension: 0,
-          pointRadius: 5,
+          pointRadius: 4,
           pointBorderWidth: 3,
           pointBackgroundColor: 'rgba(255, 255, 255, 0.8)',
         },
@@ -73,7 +74,7 @@
           label: dataLabels.lose,
           lineTension: 0,
           showLine: false,
-          pointRadius: 5,
+          pointRadius: 4,
           pointBackgroundColor: 'rgba(255, 255, 255, 0.8)',
           pointBorderWidth: 3,
         },
@@ -112,12 +113,50 @@
       ],
     };
 
-    new window.Chart(ctx, {
+    const chart = new window.Chart(ctx, {
       type: 'line',
       data: data,
       options: {
         aspectRatio: 1.61803398875,
+        layout: {
+          padding: {
+            right: 5,
+          },
+        },
+        scales: {
+          xAxes: [
+            {
+              display: false,
+            },
+          ],
+          yAxes: [
+            {
+              ticks: {
+                callback: (value) => powerFmt(value),
+              },
+            },
+          ],
+        },
       },
+    });
+
+    canvas.addEventListener('click', (ev) => {
+      const elements = chart.getElementsAtEvent(ev);
+      if (!elements.length) {
+        return;
+      }
+
+      const element = elements[0];
+      if (!element) {
+        return;
+      }
+
+      const dataValue = dataValues[element._index];
+      if (!dataValue) {
+        return;
+      }
+
+      window.open(dataValue.url);
     });
   });
 })(window.document, window.jQuery);
