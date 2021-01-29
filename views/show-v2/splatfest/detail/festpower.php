@@ -6,6 +6,7 @@ use app\assets\UserStatSplatfestAsset;
 use app\models\Battle2;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
+use yii\helpers\Url;
 
 $bool = fn($v) => is_bool($v) ? $v : null;
 $power = fn($v) => (float)$v > 0.1 ? (float)$v : null;
@@ -53,14 +54,15 @@ UserStatSplatfestAsset::register($this);
       ],
       'values' => ArrayHelper::getColumn(
         $query->asArray()->all(),
-        function (array $row) use ($bool, $power): array {
+        function (array $row) use ($bool, $power, $user): array {
           return [
+            'at' => strtotime($row['end_at']),
+            'bad' => $power($row['his_team_estimate_fest_power']),
+            'good' => $power($row['my_team_estimate_fest_power']),
             'id' => (int)$row['id'],
             'isWin' => $bool($row['is_win']),
             'my' => $power($row['fest_power']),
-            'good' => $power($row['my_team_estimate_fest_power']),
-            'bad' => $power($row['his_team_estimate_fest_power']),
-            'at' => strtotime($row['end_at']),
+            'url' => Url::to(['show-v2/battle', 'screen_name' => $user->screen_name, 'battle' => $row['id']], true),
           ];
         }
       ),
