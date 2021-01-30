@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2020 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2021 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -79,8 +79,6 @@ class BlogFeedController extends Controller
         ];
         if (!$model->save()) {
             echo "Could not create new blog entry\n";
-            var_dump($model->attributes);
-            var_dump($model->getErrors());
             throw new Exception('Could not create new blog entry');
         }
         echo "Registered new blog entry\n";
