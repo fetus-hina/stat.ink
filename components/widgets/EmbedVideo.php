@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2020 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2021 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -10,17 +10,23 @@ declare(strict_types=1);
 
 namespace app\components\widgets;
 
-use Exception;
-use Laminas\Uri\Http as HttpUri;
-use Laminas\Uri\UriFactory;
+use Throwable;
 use Yii;
 use yii\base\Widget;
 
+use function is_array;
+use function parse_str;
+use function parse_url;
+use function preg_match;
+use function strtolower;
+use function substr;
+use function trim;
+
 class EmbedVideo extends Widget
 {
-    public $url;
+    public ?string $url;
 
-    public static function isSupported($url): bool
+    public static function isSupported(string $url): bool
     {
         return !!static::factory($url);
     }
@@ -31,21 +37,31 @@ class EmbedVideo extends Widget
         return $instance ? $instance->run() : '';
     }
 
-    protected static function factory($url): ?Widget
+    protected static function factory(?string $url): ?Widget
     {
-        if ($url == '') {
+        if ($url === null || $url === '') {
             return null;
         }
 
         try {
-            $uri = UriFactory::factory($url);
-            if (!$uri->isValid() || !$uri instanceof HttpUri) {
+            $urlInfo = @parse_url((string)$url);
+            if (
+                !is_array($urlInfo) ||
+                !isset($urlInfo['scheme']) ||
+                !isset($urlInfo['host']) ||
+                !isset($urlInfo['path']) ||
+                ($urlInfo['scheme'] !== 'http' && $urlInfo['scheme'] !== 'https')
+            ) {
                 return null;
             }
-            $host = strtolower($uri->getHost());
-            $path = $uri->getPath();
+            $host = strtolower($urlInfo['host']);
+            $path = $urlInfo['path'];
+            $query = [];
+            $queryStr = trim((string)($urlInfo['query'] ?? ''));
+            if ($queryStr !== '') {
+                parse_str($queryStr, $query);
+            }
             if ($host === 'www.youtube.com' && $path === '/watch') {
-                $query = $uri->getQueryAsArray();
                 if (isset($query['v']) && static::isValidYoutubeId($query['v'])) {
                     return Yii::createObject([
                         'class' => embedVideo\Youtube::class,
@@ -54,7 +70,6 @@ class EmbedVideo extends Widget
                     ]);
                 }
             } elseif ($host === 'youtu.be' && static::isValidYoutubeId(substr($path, 1))) {
-                $query = $uri->getQueryAsArray();
                 return Yii::createObject([
                     'class' => embedVideo\Youtube::class,
                     'videoId' => substr($path, 1),
@@ -75,12 +90,12 @@ class EmbedVideo extends Widget
                     ]);
                 }
             }
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
         }
         return null;
     }
 
-    protected static function isValidYoutubeId($id)
+    protected static function isValidYoutubeId(string $id): bool
     {
         return !!preg_match('/^[A-Za-z0-9_-]+$/', $id);
     }

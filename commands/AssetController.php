@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2020 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2021 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -10,24 +10,27 @@ declare(strict_types=1);
 
 namespace app\commands;
 
-use Laminas\Uri\Http as HttpUri;
 use Yii;
 use yii\console\Controller;
 use yii\helpers\Url;
+
+use function escapeshellarg;
+use function file_exists;
+use function file_put_contents;
+use function fprintf;
+use function implode;
+use function is_array;
+use function parse_url;
+use function passthru;
+use function sprintf;
+use function strtolower;
 
 class AssetController extends Controller
 {
     public function actionPublish(): int
     {
         $url = Url::to(['site/asset-publish'], true);
-        $host = null;
-        $port = null;
-        try {
-            $uri = new HttpUri($url);
-            $host = $uri->getHost();
-            $port = $uri->getPort();
-        } catch (\Exception $e) {
-        }
+        list($host, $port) = $this->getHostAndPortFromURL($url);
         if (!$host || !$port) {
             fwrite(STDERR, "Unable to detect host name/port\n");
             return 1;
@@ -56,10 +59,11 @@ class AssetController extends Controller
         ++$version;
         $php = [];
         $php[] = '<?php';
-        $php[] = '// This config file is updated by `yii asset/up-revision`.';
-        $php[] = '// DO NOT EDIT';
         $php[] = '';
         $php[] = 'declare(strict_types=1);';
+        $php[] = '';
+        $php[] = '// This config file is updated by `yii asset/up-revision`.';
+        $php[] = '// DO NOT EDIT';
         $php[] = '';
         $php[] = sprintf('return %d;', $version);
         $php[] = '';
@@ -68,5 +72,24 @@ class AssetController extends Controller
         fprintf(STDERR, "Asset revision is updated to %d.\n", $version);
 
         return 0;
+    }
+
+    private function getHostAndPortFromURL(string $url): array
+    {
+        $urlInfo = @parse_url($url);
+        if (
+            is_array($urlInfo) &&
+            isset($urlInfo['scheme']) &&
+            isset($urlInfo['host']) &&
+            ($urlInfo['scheme'] === 'http' || $urlInfo['scheme'] === 'https')
+        ) {
+            return [
+                strtolower($urlInfo['host']),
+                (isset($urlInfo['port']))
+                    ? (int)$urlInfo['port']
+                    : ($urlInfo['scheme'] === 'http' ? 80 : 443),
+            ];
+        }
+        return [null, null];
     }
 }
