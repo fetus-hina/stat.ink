@@ -33,8 +33,7 @@
         "jp3cki/yii2-twitter-widget": "^1.0",
         "jp3cki/yii2-zxcvbn": "^1.0",
         "laminas/laminas-feed": "^2.12.0",
-        "laminas/laminas-http": "^2.11.0",
-        "laminas/laminas-uri": "^2.7",
+        "laminas/laminas-validator": "^2.14",
         "lusitanian/oauth": "^0.8.9",
         "php-curl-class/php-curl-class": "^8.0",
         "phpseclib/phpseclib": "^3.0",
@@ -50,13 +49,14 @@
         "statink/yii2-spl1-stages": "^1.0",
         "statink/yii2-spl2-stages": "^1.0.1",
         "statink/yii2-twitter-webintents": "^1.0",
+        "symfony/polyfill-php80": "^1.22",
         "symfony/yaml": ">=2.7 <6.0",
         "tpyo/amazon-s3-php-class": "^0.5.1",
         "yiisoft/yii2": "*",
         "yiisoft/yii2-bootstrap": "*",
         "yiisoft/yii2-httpclient": "*",
         "yiisoft/yii2-queue": "*",
-        "yiisoft/yii2-swiftmailer": "^2.1"
+        "yiisoft/yii2-swiftmailer": "*"
     },
     "require-dev": {
         "codeception/codeception": "^4.0",

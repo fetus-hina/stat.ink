@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2020 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2021 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -10,7 +10,6 @@ declare(strict_types=1);
 
 namespace app\commands;
 
-use Laminas\Http\Client as HttpClient;
 use Normalizer;
 use Yii;
 use app\components\helpers\I18n as I18nHelper;
@@ -23,6 +22,8 @@ use yii\helpers\ArrayHelper;
 use yii\helpers\Console;
 use yii\helpers\FileHelper;
 use yii\helpers\Json;
+use yii\httpclient\Client as HttpClient;
+use yii\httpclient\CurlTransport;
 
 class Splatoon2InkI18nController extends Controller
 {
@@ -105,19 +106,24 @@ class Splatoon2InkI18nController extends Controller
         fprintf(STDERR, "Downloading language data (%s) from splatoon2.ink\n", $locale);
 
         $url = sprintf('https://splatoon2.ink/data/locale/%s.json', $locales[$locale]);
-        $client = new HttpClient($url, [
-            'maxredirects' => 2,
-            'strict' => 1,
-            'timeout' => 15,
-            'useragent' => 'statink (+https://stat.ink/)',
+        $client = Yii::createObject([
+            '__class' => HttpClient::class,
+            'transport' => CurlTransport::class,
         ]);
-        $client->setMethod('GET');
-        $response = $client->send();
-        if (!$response->isSuccess()) {
-            fprintf(STDERR, "Fetch failed, %s\n", $response->renderStatusLine());
+        $request = $client->createRequest()
+            ->setOptions([
+                'timeout' => 15,
+                'userAgent' => 'statink (+https://stat.ink/)',
+                'maxRedirects' => 5,
+            ])
+            ->setMethod('get')
+            ->setUrl($url);
+        $response = $request->send();
+        if (!$response->isOk) {
+            fprintf(STDERR, "Fetch failed, HTTP %d\n", $response->statusCode);
             return 1;
         }
-        $body = $response->getBody();
+        $body = $response->content;
         try {
             Json::decode($body);
         } catch (\Exception $e) {

@@ -127,7 +127,7 @@ return [
     'Daily Report' => 'Dagelijks Verslag',
     'Data Sent' => 'Verzonden gegevens',
     'Date Time' => 'Datum Tijd',
-    'Dead' => 'Dead',
+    'Dead' => 'Dood',
     'Deaths' => 'Overleden',
     'Deaths (average):' => 'Sterfgevallen (gemiddeld):',
     'Deaths (median):' => 'Sterfgevallen (mediaan):',

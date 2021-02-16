@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2020 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2021 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -11,16 +11,69 @@ declare(strict_types=1);
 namespace app\commands\i18n;
 
 use Base32\Base32;
+use DOMDocument;
+use DOMNode;
+use DOMXPath;
+use DateTimeImmutable;
+use DateTimeZone;
 use DirectoryIterator;
 use Exception;
 use Normalizer;
+use Throwable;
 use Yii;
 use app\models\Language;
 use yii\base\Component;
 use yii\helpers\ArrayHelper;
 use yii\helpers\FileHelper;
+use yii\helpers\Html;
 use yii\httpclient\Client as HttpClient;
 use yii\httpclient\CurlTransport;
+
+use function array_combine;
+use function array_filter;
+use function array_keys;
+use function array_map;
+use function array_merge;
+use function array_slice;
+use function array_unique;
+use function array_values;
+use function ceil;
+use function count;
+use function dirname;
+use function explode;
+use function fclose;
+use function file_exists;
+use function fprintf;
+use function fwrite;
+use function gmdate;
+use function http_build_query;
+use function implode;
+use function in_array;
+use function is_array;
+use function is_string;
+use function mb_strlen;
+use function mb_strpos;
+use function mb_substr;
+use function natcasesort;
+use function preg_match;
+use function preg_replace;
+use function preg_replace_callback;
+use function rawurlencode;
+use function setlocale;
+use function sprintf;
+use function str_contains;
+use function str_replace;
+use function strcmp;
+use function strnatcasecmp;
+use function strpos;
+use function strtolower;
+use function strtoupper;
+use function substr;
+use function time;
+use function trim;
+use function usort;
+use function vfprintf;
+use function vsprintf;
 
 class DeeplTranslator extends Component
 {
@@ -34,17 +87,22 @@ class DeeplTranslator extends Component
             return false;
         }
 
-        setlocale(LC_ALL, 'C');
+        $oldLocale = setlocale(LC_ALL, '0');
+        try {
+            setlocale(LC_ALL, 'C');
 
-        $status = true;
-        $files = $this->getTargetFiles();
-        $langs = $this->getTargetLanguages();
-        foreach ($langs as $lang) {
-            if (!$this->runLanguage($lang, $files)) {
-                $status = false;
+            $status = true;
+            $files = $this->getTargetFiles();
+            $langs = $this->getTargetLanguages();
+            foreach ($langs as $lang) {
+                if (!$this->runLanguage($lang, $files)) {
+                    $status = false;
+                }
             }
+            return $status;
+        } finally {
+            setlocale(LC_ALL, $oldLocale);
         }
-        return $status;
     }
 
     private function runLanguage(string $lang, array $targetFileNames): bool
@@ -53,8 +111,11 @@ class DeeplTranslator extends Component
             fwrite(STDERR, "Processing machine-translation: {$lang} / {$targetFileName}\n");
 
             $japanesePath = Yii::getAlias(static::BASE_MESSAGE_DIR) . '/ja/' . $targetFileName;
-            $outputPath = Yii::getAlias(static::OUT_MESSAGE_DIR) . '/' . $lang . '/' .
-                $targetFileName;
+            $outputPath = implode('/', [
+                Yii::getAlias(static::OUT_MESSAGE_DIR),
+                $lang,
+                $targetFileName,
+            ]);
 
             if (!file_exists($japanesePath)) {
                 continue;
@@ -67,20 +128,16 @@ class DeeplTranslator extends Component
 
             $englishTexts = array_filter(
                 array_keys(include($japanesePath)),
-                function (string $text): bool {
-                    // Ignore broken template
-                    return is_array(static::tokenizePattern($text));
-                }
+                fn($text) => is_array(static::tokenizePattern($text))
             );
 
-            usort($englishTexts, function ($a, $b): int {
-                return strnatcasecmp($a, $b) ?: strcmp($a, $b);
-            });
+            // "Salmon Run" は翻訳対象から外す
+            $englishTexts = array_filter($englishTexts, fn($text) => $text !== 'Salmon Run');
+
+            usort($englishTexts, fn($a, $b) => strnatcasecmp($a, $b) ?: strcmp($a, $b));
             $englishTexts = array_values($englishTexts);
             $localizedTexts = array_map(
-                function (string $text): string {
-                    return static::xml2template($text);
-                },
+                fn($text) => static::xml2template($text),
                 $this->translate(
                     $lang,
                     array_map(
@@ -88,25 +145,21 @@ class DeeplTranslator extends Component
                         // テンプレート部分を XML の要素に押し込める
                         // 当該部分は翻訳されないことになるが、 "{start}" が "{開始}" とかに変換される
                         // 最悪の事態は避けられるし、不自然に翻訳が適用されない箇所も減らせるハズ
-                        function (string $text): string {
-                            return static::template2xml($text) ?? '';
-                        },
-                        $englishTexts
+                        fn($text) => static::template2xml($text) ?? '',
+                        $englishTexts,
                     )
                 )
             );
             $outputContents = array_combine($englishTexts, $localizedTexts);
-
-            $esc = function (string $text): string {
-                return str_replace(["\\", "'"], ["\\\\", "\\'"], $text);
-            };
+            $esc = fn($text) => str_replace(["\\", "'"], ["\\\\", "\\'"], $text);
+            $now = new DateTimeImmutable('now', new DateTimeZone('Asia/Tokyo')); // Japan Time
 
             fwrite(STDERR, "Writing...\n");
             $fh = fopen($outputPath, 'wt');
             fwrite($fh, "<?php\n\n");
             fwrite($fh, "/**\n");
             vfprintf($fh, " * @copyright Copyright (C) 2015-%d AIZAWA Hina\n", [
-                gmdate('Y', time() + 9 * 3600), // JST
+                $now->format('Y'),
             ]);
             vfprintf($fh, " * @license %s MIT\n", [
                 'https://github.com/fetus-hina/stat.ink/blob/master/LICENSE',
@@ -132,9 +185,7 @@ class DeeplTranslator extends Component
     private function getTargetLanguages(): array
     {
         $statinkLanguages = array_map(
-            function (Language $lang): string {
-                return $lang->lang;
-            },
+            fn(Language $lang) => $lang->lang,
             Language::find()
                 ->standard()
                 ->andWhere(['not like', 'lang', ['en%', 'ja%'], false])
@@ -272,16 +323,12 @@ class DeeplTranslator extends Component
                     : ['formality' => 'more'],
             ),
             implode('&', array_map(
-                function (string $text): string {
-                    return 'text=' . rawurlencode($text);
-                },
+                fn($text) => 'text=' . rawurlencode($text),
                 array_values($englishTexts)
             ))
         );
         return array_map(
-            function (array $data): string {
-                return Normalizer::normalize(trim($data['text']), Normalizer::FORM_C);
-            },
+            fn($data) => Normalizer::normalize(trim($data['text']), Normalizer::FORM_C),
             $resp['translations']
         );
     }
@@ -319,7 +366,7 @@ class DeeplTranslator extends Component
             ],
         ]);
         if ($params) {
-            $url .= (strpos($url, '?') === false) ? '?' : '&';
+            $url .= str_contains($url, '?') ? '&' : '?';
             $url .= http_build_query($params, '', '&');
         }
         $req = $client->createRequest()
@@ -341,10 +388,21 @@ class DeeplTranslator extends Component
 
     private static function template2xml(string $text): ?string
     {
-        if (strpos($text, '{') === false) {
+        if (!str_contains($text, '{')) {
             return $text;
         }
 
+        // HTMLタグの中にテンプレートが存在するときに、
+        // 通常の処理を行うと、テンプレート部分が XML に置換されて破壊される場合があるので
+        // タグのようなものを見つけたら XML として解釈できないか試行して、地の文だけ翻訳を試みる
+        // Ref. https://github.com/fetus-hina/stat.ink/issues/739
+        return (str_contains($text, '<'))
+            ? static::templateToXmlMayXml($text)
+            : static::templateToXmlSimple($text);
+    }
+
+    private static function templateToXmlSimple(string $text): ?string
+    {
         $tokens = static::tokenizePattern($text);
         if ($tokens === false) {
             return null;
@@ -363,13 +421,95 @@ class DeeplTranslator extends Component
         ));
     }
 
+    private static function templateToXmlMayXml(string $textMayXml): ?string
+    {
+        try {
+            $wrapped = vsprintf('%s<div id="wrap">%s</div>', [
+                '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">',
+                str_replace('<br>', '<br/>', $textMayXml)
+            ]);
+            $doc = new DOMDocument();
+            $doc->preserveWhiteSpace = true;
+            $doc->recover = true;
+            if ($doc->loadXML($wrapped, LIBXML_COMPACT | LIBXML_NOCDATA | LIBXML_NONET)) {
+                $replaced = static::processTemplateXml(
+                    $doc,
+                    (new DOMXPath($doc))
+                        ->query('/div[@id="wrap"]', $doc)
+                        ->item(0),
+                );
+                if ($replaced !== null) {
+                    return $replaced;
+                }
+            }
+        } catch (Throwable $e) {
+        }
+
+        return static::xml2template($textMayXml);
+    }
+
+    private static function processTemplateXml(
+        DOMDocument $doc,
+        DOMNode $node,
+        bool $isRoot = true
+    ): ?string {
+        if ($node->nodeType !== XML_ELEMENT_NODE) {
+            return null;
+        }
+
+        $startTag = Html::beginTag($node->nodeName, array_reduce(
+            ArrayHelper::getColumn(
+                $node->attributes,
+                function (DOMNode $attr): array {
+                    return [$attr->nodeName => $attr->nodeValue];
+                }
+            ),
+            fn(array $acc, array $cur) => array_merge($acc, $cur),
+            []
+        ));
+
+        // process empty element
+        if (isset(Html::$voidElements[strtolower($node->nodeName)])) {
+            return substr($startTag, 0, -1) . ' />';
+        }
+
+        $contents = [];
+        foreach ($node->childNodes as $child) {
+            switch ($child->nodeType) {
+                case XML_ELEMENT_NODE:
+                    if (!$tmp = static::processTemplateXml($doc, $child, false)) {
+                        return null;
+                    }
+                    $contents[] = $tmp;
+                    break;
+
+                case XML_TEXT_NODE:
+                    $tmp = static::templateToXmlSimple($child->nodeValue);
+                    if ($tmp === null) {
+                        return null;
+                    }
+                    $contents[] = $tmp;
+                    break;
+
+                default:
+                    return null;
+            }
+        }
+
+        return $isRoot
+            ? implode('', $contents)
+            : vsprintf('%s%s</%s>', [
+                $startTag,
+                implode('', $contents),
+                $node->nodeName,
+            ]);
+    }
+
     private static function xml2template(string $text): string
     {
         $text = preg_replace_callback(
             '#<param data="([2-7A-Za-z]+=*)"\s*/>#',
-            function (array $match): string {
-                return ' ' . Base32::decode($match[1]) . ' ';
-            },
+            fn($match) => ' ' . Base32::decode($match[1]) . ' ',
             $text
         );
         $text = preg_replace('/\x20{2,}/', ' ', $text);

@@ -508,7 +508,7 @@ return [
     'This twitter account has already been integrated with another user.' => '这个微博账号已经被另一个用户整合。',
     'This website doesn\'t support Internet Explorer. Please use a modern browser, for example Chrome or Firefox.' => '本网站不支持Internet Explorer，请使用现代浏览器，如Chrome或Firefox。',
     'This website has color-blind support. Please check "Color-Blind Support" in the "Username/Guest" menu of the navbar to enable it.' => '本网站支持色盲，请在导航栏的"用户名/客人"菜单中勾选"色盲支持"启用。',
-    'This website is an open source project. It is under the MIT License. The source code is available on GitHub.' => '本网站是一个开源项目，采用MIT许可协议，源码在GitHub上提供。',
+    'This website is an open source project. It is under the MIT License. The source code is available on GitHub.' => '本网站是一个开源项目，采用MIT许可，源码在GitHub上提供。',
     'This website is an UNOFFICIAL SERVICE. It is not related to the Splatoon development team or Nintendo.' => '本网站为非官方服务，与《Splatoon》开发团队和任天堂无关。',
     'This {attribute} is already in use.' => '这个 {attribute} 已经在使用了。',
     'Time' => '时间',

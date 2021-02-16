@@ -22,7 +22,7 @@ return [
     'Issued and used by CloudFlare' => '由CloudFlare发行和使用',
     'Issued and used by Twitter' => '由Twitter发行和使用',
     'Keep your input data while verifying email address' => '在验证电子邮件地址的同时，保留您的输入数据',
-    'Origin' => '原产地',
+    'Origin' => '起源',
     'Privacy policy' => '隐私权政策',
     'privacy policy' => '隐私政策',
     'Saving "Enable machine-translation" option state' => '保存"启用机器翻译"选项状态。',
