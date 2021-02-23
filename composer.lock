@@ -3886,16 +3886,16 @@
         },
         {
             "name": "codeception/codeception",
-            "version": "4.1.17",
+            "version": "4.1.18",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Codeception/Codeception.git",
-                "reference": "c153b1ab289b3e3109e685379aa8847c54ac2b68"
+                "reference": "f47547bac347dfb5ea5351ff91148cbcc08e6818"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/c153b1ab289b3e3109e685379aa8847c54ac2b68",
-                "reference": "c153b1ab289b3e3109e685379aa8847c54ac2b68",
+                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/f47547bac347dfb5ea5351ff91148cbcc08e6818",
+                "reference": "f47547bac347dfb5ea5351ff91148cbcc08e6818",
                 "shasum": ""
             },
             "require": {
@@ -3969,7 +3969,7 @@
             ],
             "support": {
                 "issues": "https://github.com/Codeception/Codeception/issues",
-                "source": "https://github.com/Codeception/Codeception/tree/4.1.17"
+                "source": "https://github.com/Codeception/Codeception/tree/4.1.18"
             },
             "funding": [
                 {
@@ -3977,7 +3977,7 @@
                     "type": "open_collective"
                 }
             ],
-            "time": "2021-02-01T07:30:47+00:00"
+            "time": "2021-02-23T17:11:42+00:00"
         },
         {
             "name": "codeception/lib-asserts",
@@ -4817,16 +4817,16 @@
         },
         {
             "name": "phar-io/version",
-            "version": "3.0.4",
+            "version": "3.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phar-io/version.git",
-                "reference": "e4782611070e50613683d2b9a57730e9a3ba5451"
+                "reference": "bae7c545bef187884426f042434e561ab1ddb182"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phar-io/version/zipball/e4782611070e50613683d2b9a57730e9a3ba5451",
-                "reference": "e4782611070e50613683d2b9a57730e9a3ba5451",
+                "url": "https://api.github.com/repos/phar-io/version/zipball/bae7c545bef187884426f042434e561ab1ddb182",
+                "reference": "bae7c545bef187884426f042434e561ab1ddb182",
                 "shasum": ""
             },
             "require": {
@@ -4862,9 +4862,9 @@
             "description": "Library for handling version information and constraints",
             "support": {
                 "issues": "https://github.com/phar-io/version/issues",
-                "source": "https://github.com/phar-io/version/tree/3.0.4"
+                "source": "https://github.com/phar-io/version/tree/3.1.0"
             },
-            "time": "2020-12-13T23:18:30+00:00"
+            "time": "2021-02-23T14:00:09+00:00"
         },
         {
             "name": "phpdocumentor/reflection-common",
@@ -5134,16 +5134,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "0.12.77",
+            "version": "0.12.78",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "1f10b8c8d118d01e7b492f9707999d456be5812c"
+                "reference": "eecce8d2ee3cac6769f37b4cb1998b2715f82984"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/1f10b8c8d118d01e7b492f9707999d456be5812c",
-                "reference": "1f10b8c8d118d01e7b492f9707999d456be5812c",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/eecce8d2ee3cac6769f37b4cb1998b2715f82984",
+                "reference": "eecce8d2ee3cac6769f37b4cb1998b2715f82984",
                 "shasum": ""
             },
             "require": {
@@ -5174,7 +5174,7 @@
             "description": "PHPStan - PHP Static Analysis Tool",
             "support": {
                 "issues": "https://github.com/phpstan/phpstan/issues",
-                "source": "https://github.com/phpstan/phpstan/tree/0.12.77"
+                "source": "https://github.com/phpstan/phpstan/tree/0.12.78"
             },
             "funding": [
                 {
@@ -5190,7 +5190,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-02-17T16:22:19+00:00"
+            "time": "2021-02-20T13:24:36+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
