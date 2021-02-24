@@ -12,7 +12,6 @@
   <exclude-pattern>*/data/</exclude-pattern>
   <exclude-pattern>*/doc/</exclude-pattern>
   <exclude-pattern>*/docker/</exclude-pattern>
-  <exclude-pattern>*/messages/</exclude-pattern>
   <exclude-pattern>*/node_modules/</exclude-pattern>
   <exclude-pattern>*/resources/</exclude-pattern>
   <exclude-pattern>*/runtime/</exclude-pattern>
@@ -29,5 +28,10 @@
     <file>*/migrations/*</file>
     <exclude name="Squiz.Classes.ValidClassName.NotCamelCaps" />
     <exclude name="PSR1.Classes.ClassDeclaration" />
+  </rule>
+
+  <rule ref="PSR12">
+    <file>*/messages/*</file>
+    <exclude name="Generic.Files.LineLength" />
   </rule>
 </ruleset>

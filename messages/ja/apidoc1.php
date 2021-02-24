@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
@@ -14,7 +15,7 @@ return [
     'Action' => 'アクション',
     'Brand information' => 'ブランド情報',
     'Brand' => 'ブランド',
-    'Category' =>'カテゴリ',
+    'Category' => 'カテゴリ',
     'Common ability' => 'つきやすいギアパワー',
     'Date and time expressed in ISO-8601 format' => 'ISO 8601 形式で表現した日時',
     'Date and time expressed in Unix Time' => 'Unix 時間で表現した日時',
