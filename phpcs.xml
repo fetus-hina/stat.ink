@@ -14,7 +14,6 @@
   <exclude-pattern>*/node_modules/</exclude-pattern>
   <exclude-pattern>*/resources/</exclude-pattern>
   <exclude-pattern>*/runtime/</exclude-pattern>
-  <exclude-pattern>*/tests/</exclude-pattern>
   <exclude-pattern>*/vendor/</exclude-pattern>
   <exclude-pattern>*/views/</exclude-pattern>
 

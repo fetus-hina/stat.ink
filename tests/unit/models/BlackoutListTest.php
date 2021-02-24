@@ -1,4 +1,5 @@
 <?php
+
 namespace tests\models;
 
 use app\models\User;
