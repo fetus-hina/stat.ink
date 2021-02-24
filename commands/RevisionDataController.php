@@ -58,6 +58,9 @@ class RevisionDataController extends Controller
             Yii::getAlias('@app/config/version.php'),
             implode("\n", [
                 '<?php',
+                '',
+                'declare(strict_types=1);',
+                '',
                 sprintf('return \'%s\';', addslashes($version)),
             ]) . "\n"
         );
@@ -76,7 +79,14 @@ class RevisionDataController extends Controller
             'lastCommitted' => $commit ? $commit->format(DateTime::ATOM) : null,
         ];
 
-        $contents = "<?php\nreturn " . static::format($data) . ";\n";
+        $contents = implode("\n", [
+            '<?php',
+            '',
+            'declare(strict_types=1);',
+            '',
+            'return ' . static::format($data) . ';',
+            '',
+        ]);
 
         file_put_contents(
             Yii::getAlias('@app/config/git-revision.php'),

@@ -8,7 +8,6 @@
   <rule ref="PSR12" />
   <file>.</file>
   <exclude-pattern>*/bin/</exclude-pattern>
-  <exclude-pattern>*/config/</exclude-pattern>
   <exclude-pattern>*/data/</exclude-pattern>
   <exclude-pattern>*/doc/</exclude-pattern>
   <exclude-pattern>*/docker/</exclude-pattern>
