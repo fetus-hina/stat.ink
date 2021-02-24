@@ -26,7 +26,7 @@ return [
     'Delivers' => 'Liefert',
     'Edit job #{jobNumber}' => 'Auftrag bearbeiten # {jobNumber}',
     'Failed' => 'Gescheitert',
-    'Failed<br><small>in wave {waveNumber}</small>' => 'Fehlgeschlagen<br><small>in Welle {WellenNummer}</small>',
+    'Failed<br><small>in wave {waveNumber}</small>' => 'Fehlgeschlagen<br /><small>in Welle </small><small> {waveNumber} </small>',
     'Failed in wave {waveNumber}' => 'Gescheitert in Welle {waveNumber}',
     'Fail Reason' => 'Fehlschlag Grund',
     'From {shiftStart}' => 'Von {shiftStart}',
