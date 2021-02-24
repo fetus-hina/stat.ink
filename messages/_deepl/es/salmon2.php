@@ -26,7 +26,7 @@ return [
     'Delivers' => 'Entrega',
     'Edit job #{jobNumber}' => 'Editar trabajo # {jobNumber}',
     'Failed' => 'Fallido',
-    'Failed<br><small>in wave {waveNumber}</small>' => 'Falló<br /><small>en la ola </small><small> {waveNumber} </small>',
+    'Failed<br><small>in wave {waveNumber}</small>' => 'Falló<br><small>en la onda {número de onda}</small>',
     'Failed in wave {waveNumber}' => 'Fracasado en la ola {waveNumber}',
     'Fail Reason' => 'Razón del fracaso',
     'From {shiftStart}' => 'Desde {shiftStart}',

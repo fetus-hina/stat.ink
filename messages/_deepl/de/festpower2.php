@@ -9,7 +9,7 @@
 declare(strict_types=1);
 
 return [
-    '"Mistaken": On {date}, <a href="{url}" class="alert-link">Nintendo misconfigured the matching server and ran the fest.</a>' => '"Irrtum": Auf {date} <a class="alert-link" href="{url}">hat Nintendo den passenden Server falsch konfiguriert und das Fest laufen lassen.</a>',
+    '"Mistaken": On {date}, <a href="{url}" class="alert-link">Nintendo misconfigured the matching server and ran the fest.</a>' => '"Irrtum": Am {Datum} <a href="{url}" class="alert-link">hat Nintendo den passenden Server falsch konfiguriert und das Fest ausgeführt.</a>',
     'All' => 'Alle',
     'Average' => 'Durchschnitt',
     'Battles' => 'Schlachten',
@@ -20,7 +20,7 @@ return [
     'Greater Win % (mistaken)' => 'Größerer Gewinn % (fehlerhaft)',
     'Greater Win % (normal)' => 'Größerer Gewinn % (normal)',
     'Median' => 'Median',
-    'Mistaken' => 'Irrtum',
+    'Mistaken' => 'Falsch',
     'Normal' => 'Normal',
     'Power Diff' => 'Leistung Diff',
     'Q1/4' => 'Q1/4',

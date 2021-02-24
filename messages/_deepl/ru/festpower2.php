@@ -9,7 +9,7 @@
 declare(strict_types=1);
 
 return [
-    '"Mistaken": On {date}, <a href="{url}" class="alert-link">Nintendo misconfigured the matching server and ran the fest.</a>' => '"Ошибка": На сайте {date} <a class="alert-link" href="{url}">компания Nintendo неправильно настроила соответствующий сервер и запустила фестиваль.</a>',
+    '"Mistaken": On {date}, <a href="{url}" class="alert-link">Nintendo misconfigured the matching server and ran the fest.</a>' => '"Ошибка": в {дате} <a href="{url}" class="alert-link">Nintendo неправильно настроила соответствующий сервер и запустила фестиваль.</a>',
     'All' => 'Все',
     'Average' => 'Средний',
     'Battles' => 'Бои',

@@ -26,7 +26,7 @@ return [
     'Delivers' => 'Поставщики',
     'Edit job #{jobNumber}' => 'Редактировать задание # {jobNumber}',
     'Failed' => 'Не удалось',
-    'Failed<br><small>in wave {waveNumber}</small>' => 'Провалился<br /><small>волной </small><small> {waveNumber} </small>',
+    'Failed<br><small>in wave {waveNumber}</small>' => 'Не удалось<br><small>в волне {waveNumber}</small>',
     'Failed in wave {waveNumber}' => 'Волна неудачника {waveNumber}',
     'Fail Reason' => 'Неудача Причина',
     'From {shiftStart}' => 'С {shiftStart}',
