@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2016 AIZAWA Hina
+ * @copyright Copyright (C) 2016-2021 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -10,6 +10,8 @@ namespace app\models;
 
 use Base32\Base32;
 use Yii;
+use yii\db\ActiveRecord;
+use yii\db\Connection;
 use yii\helpers\FileHelper;
 use yii\helpers\Url;
 use yii\web\UploadedFile;
@@ -20,9 +22,12 @@ use yii\web\UploadedFile;
  * @property integer $user_id
  * @property string $filename
  *
+ * @property string $url
+ * @property string $absUrl
+ *
  * @property User $user
  */
-class UserIcon extends \yii\db\ActiveRecord
+class UserIcon extends ActiveRecord
 {
     public const ICON_WIDTH = 500;
     public const ICON_HEIGHT = 500;
@@ -32,7 +37,6 @@ class UserIcon extends \yii\db\ActiveRecord
 
     public static function createNew(int $userId, string $binary)
     {
-        // {{{
         $gd = static::resizeImage($binary);
         $obj = Yii::createObject([
             'class' => static::class,
@@ -41,7 +45,7 @@ class UserIcon extends \yii\db\ActiveRecord
         ]);
         $obj->mode = 'new';
         $obj->imageResource = $gd;
-        $obj->db->on(\yii\db\Connection::EVENT_COMMIT_TRANSACTION, [$obj, 'onCommit']);
+        $obj->db->on(Connection::EVENT_COMMIT_TRANSACTION, [$obj, 'onCommit']);
         return $obj;
     }
 
@@ -142,7 +146,7 @@ class UserIcon extends \yii\db\ActiveRecord
     public function afterDelete()
     {
         $this->mode = 'delete';
-        $this->db->on(\yii\db\Connection::EVENT_COMMIT_TRANSACTION, [$this, 'onCommit']);
+        static::getDb()->on(Connection::EVENT_COMMIT_TRANSACTION, [$this, 'onCommit']);
         parent::afterDelete();
     }
 

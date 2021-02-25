@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2019 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2021 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -18,6 +18,7 @@ use app\components\helpers\CriticalSection;
 use app\components\helpers\db\Now;
 use app\models\Ability2;
 use app\models\Agent;
+use app\models\AgentAttribute;
 use app\models\Battle2;
 use app\models\Battle2Splatnet;
 use app\models\BattleDeathReason2;
@@ -614,7 +615,7 @@ class PostBattleForm extends Model
             $battle->clothing_id = $this->processGear('clothing');
             $battle->shoes_id    = $this->processGear('shoes');
         }
-        if ($this->isTest) {
+        if ($this->getIsTest()) {
             $now = (int)($_SERVER['REQUEST_TIME'] ?? time());
             $battle->id = 0;
             foreach ($battle->attributes as $k => $v) {
@@ -770,7 +771,7 @@ class PostBattleForm extends Model
 
     protected function toImage(Battle2 $battle, int $imageTypeId, string $attr)
     {
-        if ($this->isTest) {
+        if ($this->getIsTest()) {
             return null;
         }
         if ($this->$attr == '' && !$this->$attr instanceof UploadedFile) {
@@ -804,7 +805,7 @@ class PostBattleForm extends Model
 
     protected function processGear($key): ?int
     {
-        if ($this->isTest || !($this->gears instanceof PostGearsForm)) {
+        if ($this->getIsTest() || !($this->gears instanceof PostGearsForm)) {
             return null;
         }
 

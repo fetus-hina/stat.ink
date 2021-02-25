@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2016 AIZAWA Hina
+ * @copyright Copyright (C) 2016-2021 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -10,8 +10,9 @@ namespace app\models;
 
 use Yii;
 use yii\base\Model;
+use yii\db\Query;
 
-class SummarizedWeaponVsWeapon extends \yii\base\Model
+class SummarizedWeaponVsWeapon extends Model
 {
     public $lhs_weapon_id;
     public $rhs_weapon_id;
@@ -26,12 +27,12 @@ class SummarizedWeaponVsWeapon extends \yii\base\Model
         $rule_id = null,
         $version_id = null
     ): array {
-        $query = (new \yii\db\Query())
+        $query = (new Query())
             ->select([
                 'wid1' => 'weapon_id_1',
                 'wid2' => 'weapon_id_2',
                 'battle_count' => 'SUM([[battle_count]])',
-                'win_count'    => 'SUM([[win_count]])',
+                'win_count' => 'SUM([[win_count]])',
             ])
             ->from(StatWeaponVsWeapon::tableName())
             ->andWhere(['or',
@@ -54,13 +55,13 @@ class SummarizedWeaponVsWeapon extends \yii\base\Model
                 if ($weapon_id == $row['wid1']) {
                     $o->lhs_weapon_id = (int)$row['wid1'];
                     $o->rhs_weapon_id = (int)$row['wid2'];
-                    $o->win_count     = (int)$row['win_count'];
-                    $o->battle_count  = (int)$row['battle_count'];
+                    $o->win_count = (int)$row['win_count'];
+                    $o->battle_count = (int)$row['battle_count'];
                 } else {
                     $o->lhs_weapon_id = (int)$row['wid2'];
                     $o->rhs_weapon_id = (int)$row['wid1'];
-                    $o->win_count     = (int)$row['battle_count'] - (int)$row['win_count'];
-                    $o->battle_count  = (int)$row['battle_count'];
+                    $o->win_count = (int)$row['battle_count'] - (int)$row['win_count'];
+                    $o->battle_count = (int)$row['battle_count'];
                 }
                 $o->lhsWeapon = $weapons[$o->lhs_weapon_id] ?? null;
                 $o->rhsWeapon = $weapons[$o->rhs_weapon_id] ?? null;
@@ -68,16 +69,16 @@ class SummarizedWeaponVsWeapon extends \yii\base\Model
             },
             $query->all()
         );
-        usort($result, function ($a, $b) {
-            return $b->winPct <=> $a->winPct;
-        });
+        usort($result, fn($a, $b) => ($b->winPct <=> $a->winPct));
         return $result;
     }
 
     // イーガーローディングもどきとして全ブキリストを取得する
     private static function getAllWeapons(): array
     {
-        $list = Weapon::find()->with(['subweapon', 'special', 'type'])->all();
+        $list = Weapon::find()
+            ->with(['special', 'subweapon', 'type'])
+            ->all();
         $ret = [];
         foreach ($list as $weapon) {
             $ret[$weapon->id] = $weapon;
@@ -92,18 +93,18 @@ class SummarizedWeaponVsWeapon extends \yii\base\Model
             : (100 * $this->win_count / $this->battle_count);
     }
 
-    public function getLhsWeapon() // : ?Weapon
+    public function getLhsWeapon(): ?Weapon
     {
         if ($this->lhsWeapon === false) {
-            $this->lhsWeapon = $this->getWeapon($this->lhs_weapon_id);
+            $this->lhsWeapon = Weapon::findOne(['id' => $this->lhs_weapon_id]);
         }
         return $this->lhsWeapon;
     }
 
-    public function getRhsWeapon() // : ?Weapon
+    public function getRhsWeapon(): ?Weapon
     {
         if ($this->rhsWeapon === false) {
-            $this->rhsWeapon = $this->getWeapon($this->rhs_weapon_id);
+            $this->rhsWeapon = Weapon::findOne(['id' => $this->rhs_weapon_id]);
         }
         return $this->rhsWeapon;
     }

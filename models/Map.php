@@ -28,7 +28,7 @@ use yii\helpers\ArrayHelper;
  * @property PeriodMap[] $periodMaps
  * @property SplapiMap[] $splapiMaps
  */
-class Map extends \yii\db\ActiveRecord
+final class Map extends \yii\db\ActiveRecord
 {
     use SafeFindOneTrait;
     use openapi\Util;

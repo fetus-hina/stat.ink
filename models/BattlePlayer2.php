@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2017 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2021 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -21,24 +21,32 @@ use yii\db\ActiveRecord;
  * @property boolean $is_me
  * @property integer $weapon_id
  * @property integer $level
- * @property integer $star_rank
- * @property string $rank
  * @property integer $rank_in_team
  * @property integer $kill
  * @property integer $death
- * @property integer $kill_or_assist
- * @property integer $special
  * @property integer $point
  * @property integer $my_kill
+ * @property integer $kill_or_assist
+ * @property integer $special
+ * @property integer $rank_id
  * @property string $name
- * @property integer $species_id
  * @property integer $gender_id
  * @property integer $fest_title_id
  * @property string $splatnet_id
+ * @property integer $star_rank
  * @property boolean $top_500
+ * @property integer $species_id
  *
  * @property Battle2 $battle
+ * @property FestTitle $festTitle
+ * @property Gender $gender
+ * @property Rank2 $rank
+ * @property Species2 $species
  * @property Weapon2 $weapon
+ *
+ * @property-read ForceBlackout2 $forceBlackout
+ * @property-read bool $isForceBlackouted
+ * @property-read string $iconUrl
  */
 class BattlePlayer2 extends ActiveRecord
 {

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2018 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2021 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -30,14 +30,20 @@ use yii\db\ActiveRecord;
  * @property integer $species_id
  * @property integer $gender_id
  *
- * @property Gender $gender
- * @property Salmon2 $work
- * @property SalmonSpecial2 $special
- * @property Species2 $species
- * @property SalmonPlayerBossKill2[] $salmonPlayerBossKill2s
  * @property SalmonBoss2[] $bosses
+ * @property Gender $gender
+ * @property SalmonPlayerBossKill2[] $salmonPlayerBossKill2s
  * @property SalmonPlayerSpecialUse2[] $salmonPlayerSpecialUse2s
  * @property SalmonPlayerWeapon2[] $salmonPlayerWeapon2s
+ * @property SalmonSpecial2 $special
+ * @property Species2 $species
+ * @property Salmon2 $work
+ *
+ * @property-read ForceBlackout2 $forceBlackout
+ * @property-read SalmonPlayerBossKill2[] $bossKills
+ * @property-read SalmonPlayerSpecialUse2 $specialUses
+ * @property-read SalmonPlayerWeapon2[] $weapons
+ * @property-read bool $isForceBlackout
  */
 class SalmonPlayer2 extends ActiveRecord
 {
@@ -254,27 +260,19 @@ class SalmonPlayer2 extends ActiveRecord
                 : null,
             'special_uses' => $this->specialUses
                 ? array_map(
-                    function (SalmonPlayerSpecialUse2 $model): int {
-                        return (int)$model->count;
-                    },
+                    fn($model) => (int)$model->count,
                     $this->specialUses
                 )
                 : null,
             'weapons' => $this->weapons
                 ? array_map(
-                    function (SalmonPlayerWeapon2 $model): ?array {
-                        return $model->weapon
-                            ? $model->weapon->toJsonArray()
-                            : null;
-                    },
+                    fn($model) => $model->weapon ? $model->weapon->toJsonArray() : null,
                     $this->weapons
                 )
                 : null,
             'boss_kills' => $this->bossKills
                 ? array_map(
-                    function (SalmonPlayerBossKill2 $model): array {
-                        return $model->toJsonArray();
-                    },
+                    fn($model) => $model->toJsonArray(),
                     $this->bossKills
                 )
                 : null,

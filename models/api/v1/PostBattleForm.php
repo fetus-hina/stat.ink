@@ -591,7 +591,7 @@ class PostBattleForm extends Model
             $o->shoes_id    = $this->processGear('shoes');
         }
 
-        if ($this->isTest) {
+        if ($this->getIsTest()) {
             $now = isset($_SERVER['REQUEST_TIME']) ? $_SERVER['REQUEST_TIME'] : time();
             $o->id = 0;
             foreach ($o->attributes as $k => $v) {
@@ -662,23 +662,22 @@ class PostBattleForm extends Model
 
                 $player = new BattlePlayer();
                 $player->attributes = [
-                    'battle_id'     => $battle->id,
-                    'is_my_team'    => $form->team === 'my',
-                    'is_me'         => $form->is_me === 'yes',
-                    'weapon_id'     => $weapon ? $weapon->id : null,
-                    'rank_id'       => $rank ? $rank->id : null,
-                    'level'         => (string)$form->level === '' ? null : (int)$form->level,
-                    'rank_in_team'  => (string)$form->rank_in_team === '' ? null : (int)$form->rank_in_team,
-                    'kill'          => (string)$form->kill === '' ? null : (int)$form->kill,
-                    'death'         => (string)$form->death === '' ? null : (int)$form->death,
-                    'point'         => (string)$form->point === '' ? null : (int)$form->point,
-                    'my_kill'       => (string)$form->my_kill === '' ? null : (int)$form->my_kill,
+                    'battle_id' => $battle->id,
+                    'is_my_team' => $form->team === 'my',
+                    'is_me' => $form->is_me === 'yes',
+                    'weapon_id' => $weapon ? $weapon->id : null,
+                    'rank_id' => $rank ? $rank->id : null,
+                    'level' => (string)$form->level === '' ? null : (int)$form->level,
+                    'rank_in_team' => (string)$form->rank_in_team === '' ? null : (int)$form->rank_in_team,
+                    'kill' => (string)$form->kill === '' ? null : (int)$form->kill,
+                    'death' => (string)$form->death === '' ? null : (int)$form->death,
+                    'point' => (string)$form->point === '' ? null : (int)$form->point,
+                    'my_kill' => (string)$form->my_kill === '' ? null : (int)$form->my_kill,
                 ];
                 yield $player;
             }
         }
     }
-
 
     public function toImageJudge(Battle $battle)
     {
@@ -697,7 +696,7 @@ class PostBattleForm extends Model
 
     protected function toImage(Battle $battle, $imageTypeId, $attr)
     {
-        if ($this->isTest) {
+        if ($this->getIsTest()) {
             return null;
         }
         if ($this->$attr == '' && !$this->$attr instanceof UploadedFile) {
@@ -730,7 +729,7 @@ class PostBattleForm extends Model
 
     protected function processGear($key)
     {
-        if ($this->isTest || !($this->gears instanceof PostGearsForm)) {
+        if ($this->getIsTest() || !($this->gears instanceof PostGearsForm)) {
             return null;
         }
 

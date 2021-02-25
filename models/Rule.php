@@ -27,7 +27,7 @@ use yii\helpers\ArrayHelper;
  * @property Weapon[] $weapons
  * @property StatWeaponBattleCount $statWeaponBattleCount
  */
-class Rule extends \yii\db\ActiveRecord
+final class Rule extends \yii\db\ActiveRecord
 {
     use SafeFindOneTrait;
     use openapi\Util;

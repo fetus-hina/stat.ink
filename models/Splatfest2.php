@@ -23,9 +23,16 @@ use yii\db\ActiveRecord;
  * @property string $name_a
  * @property string $name_b
  * @property string $term
+ * @property string $query_term
  *
  * @property Region2[] $regions
  * @property Splatfest2Region[] $splatfest2Regions
+ *
+ * @property-read DateTimeImmutable $beginTime
+ * @property-read DateTimeImmutable $endTime
+ * @property-read DateTimeImmutable $queryBeginTime
+ * @property-read DateTimeImmutable $queryEndTime
+ * @property-read string $permaID
  */
 class Splatfest2 extends ActiveRecord
 {

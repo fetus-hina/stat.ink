@@ -21,7 +21,7 @@ use yii\helpers\ArrayHelper;
  *
  * @property Rule[] $rules
  */
-class GameMode extends \yii\db\ActiveRecord
+final class GameMode extends \yii\db\ActiveRecord
 {
     use SafeFindOneTrait;
     use openapi\Util;
