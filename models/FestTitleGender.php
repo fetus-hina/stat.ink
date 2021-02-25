@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2021 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -59,7 +59,7 @@ class FestTitleGender extends \yii\db\ActiveRecord
      */
     public function getTitle()
     {
-        return $this->hasOne(FestTitle::className(), ['id' => 'title_id']);
+        return $this->hasOne(FestTitle::class, ['id' => 'title_id']);
     }
 
     /**
@@ -67,6 +67,6 @@ class FestTitleGender extends \yii\db\ActiveRecord
      */
     public function getGender()
     {
-        return $this->hasOne(Gender::className(), ['id' => 'gender_id']);
+        return $this->hasOne(Gender::class, ['id' => 'gender_id']);
     }
 }

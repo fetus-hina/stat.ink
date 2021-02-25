@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2016 AIZAWA Hina
+ * @copyright Copyright (C) 2016-2021 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -44,15 +44,15 @@ class StatWeaponMapTrend extends \yii\db\ActiveRecord
             [['rule_id', 'map_id', 'weapon_id', 'battles'], 'required'],
             [['rule_id', 'map_id', 'weapon_id', 'battles'], 'integer'],
             [['map_id'], 'exist', 'skipOnError' => true,
-                'targetClass' => Map::className(),
+                'targetClass' => Map::class,
                 'targetAttribute' => ['map_id' => 'id']
             ],
             [['rule_id'], 'exist', 'skipOnError' => true,
-                'targetClass' => Rule::className(),
+                'targetClass' => Rule::class,
                 'targetAttribute' => ['rule_id' => 'id']
             ],
             [['weapon_id'], 'exist', 'skipOnError' => true,
-                'targetClass' => Weapon::className(),
+                'targetClass' => Weapon::class,
                 'targetAttribute' => ['weapon_id' => 'id']
             ],
         ];
@@ -76,7 +76,7 @@ class StatWeaponMapTrend extends \yii\db\ActiveRecord
      */
     public function getMap()
     {
-        return $this->hasOne(Map::className(), ['id' => 'map_id']);
+        return $this->hasOne(Map::class, ['id' => 'map_id']);
     }
 
     /**
@@ -84,7 +84,7 @@ class StatWeaponMapTrend extends \yii\db\ActiveRecord
      */
     public function getRule()
     {
-        return $this->hasOne(Rule::className(), ['id' => 'rule_id']);
+        return $this->hasOne(Rule::class, ['id' => 'rule_id']);
     }
 
     /**
@@ -92,7 +92,7 @@ class StatWeaponMapTrend extends \yii\db\ActiveRecord
      */
     public function getWeapon()
     {
-        return $this->hasOne(Weapon::className(), ['id' => 'weapon_id']);
+        return $this->hasOne(Weapon::class, ['id' => 'weapon_id']);
     }
 
     public static function openApiSchema(): array

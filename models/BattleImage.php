@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2021 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -9,9 +9,9 @@
 namespace app\models;
 
 use Yii;
+use app\components\helpers\RandomFilename;
 use yii\db\ActiveRecord;
 use yii\helpers\Url;
-use app\components\helpers\RandomFilename;
 
 /**
  * This is the model class for table "battle_image".
@@ -79,7 +79,7 @@ class BattleImage extends ActiveRecord
      */
     public function getBattle()
     {
-        return $this->hasOne(Battle::className(), ['id' => 'battle_id']);
+        return $this->hasOne(Battle::class, ['id' => 'battle_id']);
     }
 
     /**
@@ -87,7 +87,7 @@ class BattleImage extends ActiveRecord
      */
     public function getType()
     {
-        return $this->hasOne(BattleImageType::className(), ['id' => 'type_id']);
+        return $this->hasOne(BattleImageType::class, ['id' => 'type_id']);
     }
 
     public function getUrl()

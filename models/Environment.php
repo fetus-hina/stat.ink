@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2021 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -60,7 +60,7 @@ class Environment extends \yii\db\ActiveRecord
      */
     public function getBattles()
     {
-        return $this->hasMany(Battle::className(), ['env_id' => 'id']);
+        return $this->hasMany(Battle::class, ['env_id' => 'id']);
     }
 
     /**
@@ -68,6 +68,6 @@ class Environment extends \yii\db\ActiveRecord
      */
     public function getUsers()
     {
-        return $this->hasMany(User::className(), ['env_id' => 'id']);
+        return $this->hasMany(User::class, ['env_id' => 'id']);
     }
 }

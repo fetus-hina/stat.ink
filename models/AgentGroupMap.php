@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2016 AIZAWA Hina
+ * @copyright Copyright (C) 2016-2021 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -59,6 +59,6 @@ class AgentGroupMap extends \yii\db\ActiveRecord
      */
     public function getGroup()
     {
-        return $this->hasOne(AgentGroup::className(), ['id' => 'group_id']);
+        return $this->hasOne(AgentGroup::class, ['id' => 'group_id']);
     }
 }

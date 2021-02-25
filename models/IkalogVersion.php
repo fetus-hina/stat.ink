@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2021 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -70,6 +70,6 @@ class IkalogVersion extends \yii\db\ActiveRecord
      */
     public function getWinikalogVersions()
     {
-        return $this->hasMany(WinikalogVersion::className(), ['revision_id' => 'id']);
+        return $this->hasMany(WinikalogVersion::class, ['revision_id' => 'id']);
     }
 }

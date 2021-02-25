@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2021 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -82,7 +82,7 @@ class Splatfest extends \yii\db\ActiveRecord
      */
     public function getRegion()
     {
-        return $this->hasOne(Region::className(), ['id' => 'region_id']);
+        return $this->hasOne(Region::class, ['id' => 'region_id']);
     }
 
     /**
@@ -90,7 +90,7 @@ class Splatfest extends \yii\db\ActiveRecord
      */
     public function getSplatfestBattleSummaries()
     {
-        return $this->hasMany(SplatfestBattleSummary::className(), ['fest_id' => 'id']);
+        return $this->hasMany(SplatfestBattleSummary::class, ['fest_id' => 'id']);
     }
 
     /**
@@ -98,7 +98,7 @@ class Splatfest extends \yii\db\ActiveRecord
      */
     public function getSplatfestMaps()
     {
-        return $this->hasMany(SplatfestMap::className(), ['splatfest_id' => 'id']);
+        return $this->hasMany(SplatfestMap::class, ['splatfest_id' => 'id']);
     }
 
     /**
@@ -106,7 +106,7 @@ class Splatfest extends \yii\db\ActiveRecord
      */
     public function getSplatfestTeams()
     {
-        return $this->hasMany(SplatfestTeam::className(), ['fest_id' => 'id']);
+        return $this->hasMany(SplatfestTeam::class, ['fest_id' => 'id']);
     }
 
     /**
@@ -114,6 +114,6 @@ class Splatfest extends \yii\db\ActiveRecord
      */
     public function getTeams()
     {
-        return $this->hasMany(Team::className(), ['id' => 'team_id'])->viaTable('splatfest_team', ['fest_id' => 'id']);
+        return $this->hasMany(Team::class, ['id' => 'team_id'])->viaTable('splatfest_team', ['fest_id' => 'id']);
     }
 }

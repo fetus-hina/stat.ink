@@ -205,7 +205,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function getBattles()
     {
-        return $this->hasMany(Battle::className(), ['user_id' => 'id']);
+        return $this->hasMany(Battle::class, ['user_id' => 'id']);
     }
 
     /**
@@ -213,7 +213,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function getBattle2s()
     {
-        return $this->hasMany(Battle2::className(), ['user_id' => 'id']);
+        return $this->hasMany(Battle2::class, ['user_id' => 'id']);
     }
 
     /**
@@ -229,7 +229,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function getSlacks()
     {
-        return $this->hasMany(Slack::className(), ['user_id' => 'id']);
+        return $this->hasMany(Slack::class, ['user_id' => 'id']);
     }
 
     public function getIsSlackIntegrated(): bool
@@ -258,7 +258,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function getEnv()
     {
-        return $this->hasOne(Environment::className(), ['id' => 'env_id']);
+        return $this->hasOne(Environment::class, ['id' => 'env_id']);
     }
 
     /**
@@ -298,7 +298,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function getUserStat()
     {
-        return $this->hasOne(UserStat::className(), ['user_id' => 'id']);
+        return $this->hasOne(UserStat::class, ['user_id' => 'id']);
     }
 
     /**
@@ -314,7 +314,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function getUserWeapons()
     {
-        return $this->hasMany(UserWeapon::className(), ['user_id' => 'id'])
+        return $this->hasMany(UserWeapon::class, ['user_id' => 'id'])
             ->with(['weapon']);
     }
 
@@ -328,12 +328,12 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function getWeapons()
     {
-        return $this->hasMany(Weapon::className(), ['id' => 'weapon_id'])->viaTable('user_weapon', ['user_id' => 'id']);
+        return $this->hasMany(Weapon::class, ['id' => 'weapon_id'])->viaTable('user_weapon', ['user_id' => 'id']);
     }
 
     public function getMainWeapon()
     {
-        return $this->hasOne(Weapon::className(), ['id' => 'weapon_id'])
+        return $this->hasOne(Weapon::class, ['id' => 'weapon_id'])
             ->viaTable('user_weapon', ['user_id' => 'id'], function ($query) {
                 $query->orderBy('{{user_weapon}}.[[count]] DESC')->limit(1);
             });
@@ -347,7 +347,7 @@ class User extends ActiveRecord implements IdentityInterface
 
     public function getLatestBattle()
     {
-        return $this->hasOne(Battle::className(), ['user_id' => 'id'])
+        return $this->hasOne(Battle::class, ['user_id' => 'id'])
             ->orderBy('{{battle}}.[[id]] DESC')
             ->limit(1);
     }
@@ -355,7 +355,7 @@ class User extends ActiveRecord implements IdentityInterface
     public function getLatestBattleResultImage()
     {
         return $this
-            ->hasOne(BattleImage::className(), ['battle_id' => 'id'])
+            ->hasOne(BattleImage::class, ['battle_id' => 'id'])
             ->viaTable('battle', ['user_id' => 'id'], function ($query) {
                 $query->innerJoin(
                     'battle_image',

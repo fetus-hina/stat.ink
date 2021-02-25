@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2016 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2021 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -67,7 +67,7 @@ class Charset extends \yii\db\ActiveRecord
      */
     public function getLanguageCharsets()
     {
-        return $this->hasMany(LanguageCharset::className(), ['charset_id' => 'id']);
+        return $this->hasMany(LanguageCharset::class, ['charset_id' => 'id']);
     }
 
     /**
@@ -75,7 +75,7 @@ class Charset extends \yii\db\ActiveRecord
      */
     public function getLanguages()
     {
-        return $this->hasMany(Language::className(), ['id' => 'language_id'])
+        return $this->hasMany(Language::class, ['id' => 'language_id'])
             ->viaTable('language_charset', ['charset_id' => 'id']);
     }
 }

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2021 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -9,12 +9,12 @@
 namespace app\models\api\v1;
 
 use Yii;
-use yii\base\Model;
-use yii\db\ActiveQuery;
 use app\models\Special;
 use app\models\Subweapon;
 use app\models\Weapon;
 use app\models\WeaponType;
+use yii\base\Model;
+use yii\db\ActiveQuery;
 
 class WeaponGetForm extends Model
 {
@@ -27,16 +27,16 @@ class WeaponGetForm extends Model
     {
         return [
             [['weapon'], 'exist',
-                'targetClass' => Weapon::className(),
+                'targetClass' => Weapon::class,
                 'targetAttribute' => 'key'],
             [['type'], 'exist',
-                'targetClass' => WeaponType::className(),
+                'targetClass' => WeaponType::class,
                 'targetAttribute' => 'key'],
             [['sub'], 'exist',
-                'targetClass' => Subweapon::className(),
+                'targetClass' => Subweapon::class,
                 'targetAttribute' => 'key'],
             [['special'], 'exist',
-                'targetClass' => Special::className(),
+                'targetClass' => Special::class,
                 'targetAttribute' => 'key'],
         ];
     }

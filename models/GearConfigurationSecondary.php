@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2021 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -58,7 +58,7 @@ class GearConfigurationSecondary extends \yii\db\ActiveRecord
      */
     public function getAbility()
     {
-        return $this->hasOne(Ability::className(), ['id' => 'ability_id']);
+        return $this->hasOne(Ability::class, ['id' => 'ability_id']);
     }
 
     /**
@@ -66,7 +66,7 @@ class GearConfigurationSecondary extends \yii\db\ActiveRecord
      */
     public function getConfig()
     {
-        return $this->hasOne(GearConfiguration::className(), ['id' => 'config_id']);
+        return $this->hasOne(GearConfiguration::class, ['id' => 'config_id']);
     }
 
     public function toJsonArray()

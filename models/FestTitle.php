@@ -69,7 +69,7 @@ class FestTitle extends \yii\db\ActiveRecord
      */
     public function getBattles()
     {
-        return $this->hasMany(Battle::className(), ['fest_title_id' => 'id']);
+        return $this->hasMany(Battle::class, ['fest_title_id' => 'id']);
     }
 
     /**
@@ -77,7 +77,7 @@ class FestTitle extends \yii\db\ActiveRecord
      */
     public function getFestTitleGenders()
     {
-        return $this->hasMany(FestTitleGender::className(), ['title_id' => 'id']);
+        return $this->hasMany(FestTitleGender::class, ['title_id' => 'id']);
     }
 
     /**
@@ -86,7 +86,7 @@ class FestTitle extends \yii\db\ActiveRecord
     public function getGenders()
     {
         return $this
-            ->hasMany(Gender::className(), ['id' => 'gender_id'])
+            ->hasMany(Gender::class, ['id' => 'gender_id'])
             ->viaTable('fest_title_gender', ['title_id' => 'id']);
     }
 

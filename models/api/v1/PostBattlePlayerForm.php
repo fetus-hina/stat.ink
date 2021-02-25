@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2016 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2021 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -9,9 +9,9 @@
 namespace app\models\api\v1;
 
 use Yii;
-use yii\base\Model;
 use app\models\Rank;
 use app\models\Weapon;
+use yii\base\Model;
 
 class PostBattlePlayerForm extends Model
 {
@@ -33,10 +33,10 @@ class PostBattlePlayerForm extends Model
             [['team'], 'in', 'range' => [ 'my', 'his' ]],
             [['is_me'], 'boolean', 'trueValue' => 'yes', 'falseValue' => 'no'],
             [['weapon'], 'exist',
-                'targetClass' =>  Weapon::className(),
+                'targetClass' =>  Weapon::class,
                 'targetAttribute' => 'key'],
             [['rank'], 'exist',
-                'targetClass' => Rank::className(),
+                'targetClass' => Rank::class,
                 'targetAttribute' => 'key'],
             [['level'], 'integer', 'min' => 1, 'max' => 50],
             [['rank_in_team'], 'integer', 'min' => 1, 'max' => 4],

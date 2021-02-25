@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2016 AIZAWA Hina
+ * @copyright Copyright (C) 2016-2021 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -61,6 +61,6 @@ class BattleEditHistory extends \yii\db\ActiveRecord
      */
     public function getBattle()
     {
-        return $this->hasMany(Battle::className(), ['id' => 'battle_id']);
+        return $this->hasMany(Battle::class, ['id' => 'battle_id']);
     }
 }

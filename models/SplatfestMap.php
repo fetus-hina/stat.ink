@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2021 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -58,7 +58,7 @@ class SplatfestMap extends \yii\db\ActiveRecord
      */
     public function getMap()
     {
-        return $this->hasOne(Map::className(), ['id' => 'map_id']);
+        return $this->hasOne(Map::class, ['id' => 'map_id']);
     }
 
     /**
@@ -66,6 +66,6 @@ class SplatfestMap extends \yii\db\ActiveRecord
      */
     public function getSplatfest()
     {
-        return $this->hasOne(Splatfest::className(), ['id' => 'splatfest_id']);
+        return $this->hasOne(Splatfest::class, ['id' => 'splatfest_id']);
     }
 }

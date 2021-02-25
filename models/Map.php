@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2021 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -77,7 +77,7 @@ class Map extends \yii\db\ActiveRecord
      */
     public function getBattles()
     {
-        return $this->hasMany(Battle::className(), ['map_id' => 'id']);
+        return $this->hasMany(Battle::class, ['map_id' => 'id']);
     }
 
     /**
@@ -85,7 +85,7 @@ class Map extends \yii\db\ActiveRecord
      */
     public function getPeriodMaps()
     {
-        return $this->hasMany(PeriodMap::className(), ['map_id' => 'id']);
+        return $this->hasMany(PeriodMap::class, ['map_id' => 'id']);
     }
 
     /**
@@ -93,7 +93,7 @@ class Map extends \yii\db\ActiveRecord
      */
     public function getSplapiMaps()
     {
-        return $this->hasMany(SplapiMap::className(), ['map_id' => 'id']);
+        return $this->hasMany(SplapiMap::class, ['map_id' => 'id']);
     }
 
     public function toJsonArray()

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2021 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -59,7 +59,7 @@ class Team extends \yii\db\ActiveRecord
      */
     public function getSplatfestTeams()
     {
-        return $this->hasMany(SplatfestTeam::className(), ['team_id' => 'id']);
+        return $this->hasMany(SplatfestTeam::class, ['team_id' => 'id']);
     }
 
     /**
@@ -67,7 +67,7 @@ class Team extends \yii\db\ActiveRecord
      */
     public function getFests()
     {
-        return $this->hasMany(Splatfest::className(), ['id' => 'fest_id'])
+        return $this->hasMany(Splatfest::class, ['id' => 'fest_id'])
             ->viaTable('splatfest_team', ['team_id' => 'id']);
     }
 }

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2021 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -60,7 +60,7 @@ class Region extends \yii\db\ActiveRecord
      */
     public function getSplatfests()
     {
-        return $this->hasMany(Splatfest::className(), ['region_id' => 'id']);
+        return $this->hasMany(Splatfest::class, ['region_id' => 'id']);
     }
 
     /**
@@ -68,6 +68,6 @@ class Region extends \yii\db\ActiveRecord
      */
     public function getTimezones()
     {
-        return $this->hasMany(Timezone::className(), ['region_id' => 'id']);
+        return $this->hasMany(Timezone::class, ['region_id' => 'id']);
     }
 }
