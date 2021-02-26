@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2017 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2021 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -10,7 +10,7 @@ namespace app\models;
 
 use Yii;
 use app\components\behaviors\TimestampBehavior;
-use phpseclib\Crypt\RSA;
+use phpseclib3\Crypt\RSA;
 use yii\db\ActiveRecord;
 
 /**
@@ -32,21 +32,22 @@ class OstatusRsa extends ActiveRecord
     // should call save() after return
     public static function factory(int $user_id, int $bits = 2048): self
     {
-        $b64 = function (string $binary): string {
-            return strtr(base64_encode($binary), '+/', '-_');
-        };
+        $b64 = fn($binary) => strtr(base64_encode($binary), '+/', '-_');
 
-        $pair = (new RSA())->createKey($bits);
-        $pub = new RSA();
-        $pub->loadkey($pair['publickey']);
+        $privateKey = RSA::createKey($bits);
+        $publicKey = $privateKey->getPublicKey();
+
+        $osslPrivateKey = openssl_pkey_get_private($privateKey->toString('PKCS1'));
+        $osslInfo = openssl_pkey_get_details($osslPrivateKey);
+
         return Yii::createObject([
-            'class'     => static::class,
-            'user_id'   => $user_id,
-            'bits'      => $bits,
-            'privkey'   => $pair['privatekey'],
-            'pubkey'    => $pair['publickey'],
-            'modulus'   => $b64($pub->modulus->toBytes()),
-            'exponent'  => $b64($pub->exponent->toBytes()),
+            '__class' => static::class,
+            'user_id' => $user_id,
+            'bits' => $bits,
+            'privkey' => $privateKey->toString('PKCS1'),
+            'pubkey' => $publicKey->toString('PKCS1'),
+            'modulus' => $b64($osslInfo['rsa']['n']),
+            'exponent' => $b64($osslInfo['rsa']['e']),
         ]);
     }
 
