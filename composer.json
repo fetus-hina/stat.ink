@@ -19,7 +19,7 @@
         "ext-pdo_pgsql": "*",
         "ext-session": "*",
         "ext-zlib": "*",
-        "christian-riesen/base32": "^1.2",
+        "christian-riesen/base32": "^1.6",
         "cweagans/composer-patches": "^1.6",
         "geoip2/geoip2": "^2.0",
         "jaybizzle/crawler-detect": "^1.2",
