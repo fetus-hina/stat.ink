@@ -23,6 +23,8 @@ use yii\helpers\Url;
  *
  * @property Battle $battle
  * @property BattleImageType $type
+ *
+ * @property-read string $url
  */
 class BattleImage extends ActiveRecord
 {

@@ -87,7 +87,7 @@ class Agent extends \yii\db\ActiveRecord
         if (!$attr = $this->agentAttribute) {
             return null;
         }
-        if (trim($attr->link_url) === '') {
+        if (trim((string)$attr->link_url) === '') {
             return null;
         }
         return Yii::t('app-link', $attr->link_url);

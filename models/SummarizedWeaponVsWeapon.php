@@ -89,7 +89,7 @@ class SummarizedWeaponVsWeapon extends Model
     public function getWinPct(): float
     {
         return $this->battle_count < 1
-            ? (float)'NaN' // OMG, It works on PHP 7!
+            ? NAN
             : (100 * $this->win_count / $this->battle_count);
     }
 

@@ -1,14 +1,18 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2021 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
 
+declare(strict_types=1);
+
 namespace app\models;
 
 use Yii;
+use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "agent_attribute".
@@ -16,41 +20,33 @@ use Yii;
  * @property integer $id
  * @property string $name
  * @property boolean $is_automated
+ * @property string $link_url
  */
-class AgentAttribute extends \yii\db\ActiveRecord
+class AgentAttribute extends ActiveRecord
 {
-    /**
-     * @inheritdoc
-     */
     public static function tableName()
     {
         return 'agent_attribute';
     }
 
-    /**
-     * @inheritdoc
-     */
     public function rules()
     {
         return [
             [['name', 'is_automated'], 'required'],
             [['is_automated'], 'boolean'],
             [['name'], 'string', 'max' => 64],
-            [['name'], 'unique'],
             [['link_url'], 'string', 'max' => 256],
+            [['name'], 'unique'],
         ];
     }
 
-    /**
-     * @inheritdoc
-     */
     public function attributeLabels()
     {
         return [
             'id' => 'ID',
             'name' => 'Name',
             'is_automated' => 'Is Automated',
-            'link_url' => 'Link URL',
+            'link_url' => 'Link Url',
         ];
     }
 }

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2016 AIZAWA Hina
+ * @copyright Copyright (C) 2016-2021 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -11,6 +11,9 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 
+/**
+ * @property-read Weapon|null $weaponModel
+ */
 class BattleRerecognizePlayerForm extends Model
 {
     public $is_me;
@@ -41,7 +44,7 @@ class BattleRerecognizePlayerForm extends Model
         ];
     }
 
-    public function getWeaponModel()
+    public function getWeaponModel(): ?Weapon
     {
         return ($this->weapon)
             ? Weapon::findOne(['key' => $this->weapon])

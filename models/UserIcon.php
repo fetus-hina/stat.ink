@@ -45,7 +45,7 @@ class UserIcon extends ActiveRecord
         ]);
         $obj->mode = 'new';
         $obj->imageResource = $gd;
-        $obj->db->on(Connection::EVENT_COMMIT_TRANSACTION, [$obj, 'onCommit']);
+        static::getDb()->on(Connection::EVENT_COMMIT_TRANSACTION, [$obj, 'onCommit']);
         return $obj;
     }
 
