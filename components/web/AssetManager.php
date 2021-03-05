@@ -26,7 +26,7 @@ class AssetManager extends \yii\web\AssetManager
     /**
      * @inheritdoc
      */
-    public function getAssetUrl($bundle, $asset)
+    public function getAssetUrl($bundle, $asset, $appendTimestamp = null)
     {
         if (($actualAsset = $this->resolveAsset($bundle, $asset)) !== false) {
             if (strncmp($actualAsset, '@web/', 5) === 0) {
@@ -47,7 +47,7 @@ class AssetManager extends \yii\web\AssetManager
             return $asset;
         }
 
-        if ($this->appendTimestamp) {
+        if ($appendTimestamp) {
             foreach (['', '.gz'] as $appendExtension) {
                 if (($timestamp = @filemtime("$basePath/{$asset}{$appendExtension}")) > 0) {
                     return "$baseUrl/$asset?v=$timestamp";
