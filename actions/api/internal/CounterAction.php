@@ -35,7 +35,7 @@ class CounterAction extends ViewAction
             }
         }
 
-        throw HttpException(503, 'Fetch failed');
+        throw new HttpException(503, 'Fetch failed');
     }
 
     private function make(): array

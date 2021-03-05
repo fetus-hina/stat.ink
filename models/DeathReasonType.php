@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2019 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2021 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -63,7 +63,7 @@ class DeathReasonType extends \yii\db\ActiveRecord
      */
     public function getDeathReasons()
     {
-        return $this->hasMany(DeathReason::className(), ['type_id' => 'id']);
+        return $this->hasMany(DeathReason::class, ['type_id' => 'id']);
     }
 
     public function toJsonArray()

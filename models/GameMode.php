@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2019 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2021 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -21,7 +21,7 @@ use yii\helpers\ArrayHelper;
  *
  * @property Rule[] $rules
  */
-class GameMode extends \yii\db\ActiveRecord
+final class GameMode extends \yii\db\ActiveRecord
 {
     use SafeFindOneTrait;
     use openapi\Util;
@@ -65,7 +65,7 @@ class GameMode extends \yii\db\ActiveRecord
      */
     public function getRules()
     {
-        return $this->hasMany(Rule::className(), ['mode_id' => 'id']);
+        return $this->hasMany(Rule::class, ['mode_id' => 'id']);
     }
 
     public function toJsonArray(): array

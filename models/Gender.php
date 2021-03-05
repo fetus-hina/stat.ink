@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2019 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2021 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -63,7 +63,7 @@ class Gender extends \yii\db\ActiveRecord
      */
     public function getBattles()
     {
-        return $this->hasMany(Battle::className(), ['gender_id' => 'id']);
+        return $this->hasMany(Battle::class, ['gender_id' => 'id']);
     }
 
     /**
@@ -71,7 +71,7 @@ class Gender extends \yii\db\ActiveRecord
      */
     public function getFestTitleGenders()
     {
-        return $this->hasMany(FestTitleGender::className(), ['gender_id' => 'id']);
+        return $this->hasMany(FestTitleGender::class, ['gender_id' => 'id']);
     }
 
     /**
@@ -80,7 +80,7 @@ class Gender extends \yii\db\ActiveRecord
     public function getTitles()
     {
         return $this
-            ->hasMany(FestTitle::className(), ['id' => 'title_id'])
+            ->hasMany(FestTitle::class, ['id' => 'title_id'])
             ->viaTable('fest_title_gender', ['gender_id' => 'id']);
     }
 

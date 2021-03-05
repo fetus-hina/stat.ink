@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2016 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2021 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -85,7 +85,7 @@ class BattlePlayer extends \yii\db\ActiveRecord
      */
     public function getBattle()
     {
-        return $this->hasOne(Battle::className(), ['id' => 'battle_id']);
+        return $this->hasOne(Battle::class, ['id' => 'battle_id']);
     }
 
     /**
@@ -93,7 +93,7 @@ class BattlePlayer extends \yii\db\ActiveRecord
      */
     public function getRank()
     {
-        return $this->hasOne(Rank::className(), ['id' => 'rank_id']);
+        return $this->hasOne(Rank::class, ['id' => 'rank_id']);
     }
 
     /**
@@ -101,7 +101,7 @@ class BattlePlayer extends \yii\db\ActiveRecord
      */
     public function getWeapon()
     {
-        return $this->hasOne(Weapon::className(), ['id' => 'weapon_id']);
+        return $this->hasOne(Weapon::class, ['id' => 'weapon_id']);
     }
 
     public function toJsonArray()

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2018 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2021 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -123,7 +123,7 @@ class Player extends Model
 
             $error = null;
             if (!$countValidator->validate($value, $error)) {
-                $this->addError('special_uses', sprintf('%s: %s', $key, $error));
+                $this->addError('special_uses', sprintf('%d: %s', $i, $error));
                 continue;
             }
         }

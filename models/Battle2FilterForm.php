@@ -484,7 +484,7 @@ class Battle2FilterForm extends Model
                 $lastMonthPeriod = BattleHelper::calcPeriod2(
                     (new DateTimeImmutable())
                         ->setTimezone(new DateTimeZone('Etc/UTC'))
-                        ->setDate($utcNow->format('Y'), $utcNow->format('n') - 1, 1)
+                        ->setDate((int)$utcNow->format('Y'), (int)$utcNow->format('n') - 1, 1)
                         ->setTime(0, 0, 0)
                         ->getTimestamp()
                 );

@@ -1,4 +1,5 @@
 <?php
+
 return [
     // Path to Lepton 1.0 binary
     'bin'   => '/usr/bin/lepton',

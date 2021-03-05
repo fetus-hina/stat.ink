@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2021 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -68,7 +68,7 @@ class Brand extends \yii\db\ActiveRecord
      */
     public function getStrength()
     {
-        return $this->hasOne(Ability::className(), ['id' => 'strength_id']);
+        return $this->hasOne(Ability::class, ['id' => 'strength_id']);
     }
 
     /**
@@ -76,7 +76,7 @@ class Brand extends \yii\db\ActiveRecord
      */
     public function getWeakness()
     {
-        return $this->hasOne(Ability::className(), ['id' => 'weakness_id']);
+        return $this->hasOne(Ability::class, ['id' => 'weakness_id']);
     }
 
     public function toJsonArray()

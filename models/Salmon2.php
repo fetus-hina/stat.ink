@@ -60,6 +60,8 @@ use yii\helpers\Url;
  * @property SalmonBoss2[] $bosses
  * @property SalmonPlayer2[] $players
  * @property SalmonWave2[] $salmonWave2s
+ *
+ * @property-read SalmonWave2[] $waves
  */
 class Salmon2 extends ActiveRecord
 {

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2017 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2021 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -10,6 +10,7 @@ namespace app\models;
 
 use Yii;
 use yii\base\Model;
+use yii\web\ServerErrorHttpException;
 
 class Battle2DeleteForm extends Model
 {
@@ -48,7 +49,7 @@ class Battle2DeleteForm extends Model
             return false;
         }
         if ($model->user_id != Yii::$app->user->id) {
-            throw new \ServerErrorHttpException('User mismatch and logic error');
+            throw new ServerErrorHttpException('User mismatch and logic error');
         }
         return !!$model->delete();
     }

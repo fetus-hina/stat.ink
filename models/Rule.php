@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2019 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2021 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -27,7 +27,7 @@ use yii\helpers\ArrayHelper;
  * @property Weapon[] $weapons
  * @property StatWeaponBattleCount $statWeaponBattleCount
  */
-class Rule extends \yii\db\ActiveRecord
+final class Rule extends \yii\db\ActiveRecord
 {
     use SafeFindOneTrait;
     use openapi\Util;
@@ -73,7 +73,7 @@ class Rule extends \yii\db\ActiveRecord
      */
     public function getBattles()
     {
-        return $this->hasMany(Battle::className(), ['rule_id' => 'id']);
+        return $this->hasMany(Battle::class, ['rule_id' => 'id']);
     }
 
     /**
@@ -81,7 +81,7 @@ class Rule extends \yii\db\ActiveRecord
      */
     public function getMode()
     {
-        return $this->hasOne(GameMode::className(), ['id' => 'mode_id']);
+        return $this->hasOne(GameMode::class, ['id' => 'mode_id']);
     }
 
     /**
@@ -89,7 +89,7 @@ class Rule extends \yii\db\ActiveRecord
      */
     public function getSplapiRules()
     {
-        return $this->hasMany(SplapiRule::className(), ['rule_id' => 'id']);
+        return $this->hasMany(SplapiRule::class, ['rule_id' => 'id']);
     }
 
     /**
@@ -97,7 +97,7 @@ class Rule extends \yii\db\ActiveRecord
      */
     public function getStatWeapons()
     {
-        return $this->hasMany(StatWeapon::className(), ['rule_id' => 'id']);
+        return $this->hasMany(StatWeapon::class, ['rule_id' => 'id']);
     }
 
     /**
@@ -105,7 +105,7 @@ class Rule extends \yii\db\ActiveRecord
      */
     public function getWeapons()
     {
-        return $this->hasMany(Weapon::className(), ['id' => 'weapon_id'])->viaTable('stat_weapon', ['rule_id' => 'id']);
+        return $this->hasMany(Weapon::class, ['id' => 'weapon_id'])->viaTable('stat_weapon', ['rule_id' => 'id']);
     }
 
     /**
@@ -113,7 +113,7 @@ class Rule extends \yii\db\ActiveRecord
      */
     public function getStatWeaponBattleCount()
     {
-        return $this->hasOne(StatWeaponBattleCount::className(), ['rule_id' => 'id']);
+        return $this->hasOne(StatWeaponBattleCount::class, ['rule_id' => 'id']);
     }
 
     public function toJsonArray(): array

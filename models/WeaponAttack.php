@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2016 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2021 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -66,10 +66,10 @@ class WeaponAttack extends \yii\db\ActiveRecord
                 'targetAttribute' => ['main_weapon_id', 'version_id'],
                 'message' => 'The combination of Main Weapon ID and Version ID has already been taken.'],
             [['version_id'], 'exist', 'skipOnError' => true,
-                'targetClass' => SplatoonVersion::className(),
+                'targetClass' => SplatoonVersion::class,
                 'targetAttribute' => ['version_id' => 'id']],
             [['main_weapon_id'], 'exist', 'skipOnError' => true,
-                'targetClass' => Weapon::className(),
+                'targetClass' => Weapon::class,
                 'targetAttribute' => ['main_weapon_id' => 'id']],
         ];
     }
@@ -92,7 +92,7 @@ class WeaponAttack extends \yii\db\ActiveRecord
      */
     public function getVersion()
     {
-        return $this->hasOne(SplatoonVersion::className(), ['id' => 'version_id']);
+        return $this->hasOne(SplatoonVersion::class, ['id' => 'version_id']);
     }
 
     /**
@@ -100,7 +100,7 @@ class WeaponAttack extends \yii\db\ActiveRecord
      */
     public function getMainWeapon()
     {
-        return $this->hasOne(Weapon::className(), ['id' => 'main_weapon_id']);
+        return $this->hasOne(Weapon::class, ['id' => 'main_weapon_id']);
     }
 
     public function getHitToKill()

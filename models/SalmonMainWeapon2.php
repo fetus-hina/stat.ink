@@ -46,7 +46,7 @@ class SalmonMainWeapon2 extends ActiveRecord
                         'weapon',
                         'weapon.type',
                     ])
-                    ->OrderBy([
+                    ->orderBy([
                         $kumaFirst => SORT_ASC,
                         '{{weapon_type2}}.[[category_id]]' => SORT_ASC,
                         '{{weapon_type2}}.[[rank]]' => SORT_ASC,

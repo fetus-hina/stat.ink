@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2021 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -9,9 +9,9 @@
 namespace app\models\api\v1;
 
 use Yii;
+use app\models\DeathReasonType;
 use yii\base\Model;
 use yii\db\ActiveQuery;
-use app\models\DeathReasonType;
 
 class DeathReasonGetForm extends Model
 {
@@ -21,7 +21,7 @@ class DeathReasonGetForm extends Model
     {
         return [
             [['type'], 'exist',
-                'targetClass' => DeathReasonType::className(),
+                'targetClass' => DeathReasonType::class,
                 'targetAttribute' => 'key'],
         ];
     }

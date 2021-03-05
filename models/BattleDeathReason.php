@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2021 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -64,7 +64,7 @@ class BattleDeathReason extends \yii\db\ActiveRecord
      */
     public function getBattle()
     {
-        return $this->hasOne(Battle::className(), ['id' => 'battle_id']);
+        return $this->hasOne(Battle::class, ['id' => 'battle_id']);
     }
 
     /**
@@ -72,7 +72,7 @@ class BattleDeathReason extends \yii\db\ActiveRecord
      */
     public function getReason()
     {
-        return $this->hasOne(DeathReason::className(), ['id' => 'reason_id']);
+        return $this->hasOne(DeathReason::class, ['id' => 'reason_id']);
     }
 
     public function toJsonArray()

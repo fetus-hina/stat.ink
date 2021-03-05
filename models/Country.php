@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2016 AIZAWA Hina
+ * @copyright Copyright (C) 2016-2021 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -60,7 +60,7 @@ class Country extends \yii\db\ActiveRecord
      */
     public function getTimezoneCountries()
     {
-        return $this->hasMany(TimezoneCountry::className(), ['country_id' => 'id']);
+        return $this->hasMany(TimezoneCountry::class, ['country_id' => 'id']);
     }
 
     /**
@@ -68,7 +68,7 @@ class Country extends \yii\db\ActiveRecord
      */
     public function getTimezones()
     {
-        return $this->hasMany(Timezone::className(), ['id' => 'timezone_id'])
+        return $this->hasMany(Timezone::class, ['id' => 'timezone_id'])
             ->viaTable('timezone_country', ['country_id' => 'id']);
     }
 

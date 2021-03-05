@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2016 AIZAWA Hina
+ * @copyright Copyright (C) 2016-2021 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -78,6 +78,6 @@ class SplatoonVersion extends \yii\db\ActiveRecord
      */
     public function getBattles()
     {
-        return $this->hasMany(Battle::className(), ['version_id' => 'id']);
+        return $this->hasMany(Battle::class, ['version_id' => 'id']);
     }
 }

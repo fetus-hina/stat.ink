@@ -8,15 +8,12 @@
   <rule ref="PSR12" />
   <file>.</file>
   <exclude-pattern>*/bin/</exclude-pattern>
-  <exclude-pattern>*/config/</exclude-pattern>
   <exclude-pattern>*/data/</exclude-pattern>
   <exclude-pattern>*/doc/</exclude-pattern>
   <exclude-pattern>*/docker/</exclude-pattern>
-  <exclude-pattern>*/messages/</exclude-pattern>
   <exclude-pattern>*/node_modules/</exclude-pattern>
   <exclude-pattern>*/resources/</exclude-pattern>
   <exclude-pattern>*/runtime/</exclude-pattern>
-  <exclude-pattern>*/tests/</exclude-pattern>
   <exclude-pattern>*/vendor/</exclude-pattern>
   <exclude-pattern>*/views/</exclude-pattern>
 
@@ -29,5 +26,10 @@
     <file>*/migrations/*</file>
     <exclude name="Squiz.Classes.ValidClassName.NotCamelCaps" />
     <exclude name="PSR1.Classes.ClassDeclaration" />
+  </rule>
+
+  <rule ref="PSR12">
+    <file>*/messages/*</file>
+    <exclude name="Generic.Files.LineLength" />
   </rule>
 </ruleset>

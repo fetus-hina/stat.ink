@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2020 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2021 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -383,7 +383,7 @@ class Ability2Info extends Model
             return (static::calcCoefficient($gp, 0.42, 0.12, 0.7)) / 0.12;
             // }}}
         })();
-        $runSpeedCharge = (function () use ($gp, $vTag): ?float {
+        $runSpeedCharge = (function () use ($gp): ?float {
             // {{{
             if (!$this->weapon || !$this->weapon->mainReference) {
                 return null;
@@ -534,6 +534,7 @@ class Ability2Info extends Model
                     return floor(((100.0 / $i) - 0.01) * 10) / 10;
                 }
             }
+            return 0.0;
         };
 
         $calcDamage = function (
@@ -543,7 +544,6 @@ class Ability2Info extends Model
             ?string $suffix = null
         ) use (
             $gp,
-            $attack,
             $getMaxDamage
         ): array {
             $maxDamage = $getMaxDamage($baseDamage);

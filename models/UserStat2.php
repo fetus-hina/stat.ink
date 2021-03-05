@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2019 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2021 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -29,6 +29,8 @@ use yii\web\JsExpression;
  * @property integer $kill
  * @property integer $death
  * @property integer $have_kill_death_time
+ * @property integer $kill_with_time
+ * @property integer $death_with_time
  * @property integer $total_seconds
  * @property integer $turf_battles
  * @property integer $turf_have_win_lose
@@ -46,10 +48,13 @@ use yii\web\JsExpression;
  * @property integer $gachi_kill
  * @property integer $gachi_death
  * @property integer $gachi_kill_death_time
+ * @property integer $gachi_kill_with_time
+ * @property integer $gachi_death_with_time
  * @property integer $gachi_total_seconds
  * @property integer $area_rank_peak
  * @property integer $yagura_rank_peak
  * @property integer $hoko_rank_peak
+ * @property string $updated_at
  * @property integer $asari_rank_peak
  * @property integer $area_current_rank
  * @property integer $yagura_current_rank
@@ -63,7 +68,6 @@ use yii\web\JsExpression;
  * @property string $yagura_x_power_peak
  * @property string $hoko_x_power_peak
  * @property string $asari_x_power_peak
- * @property string $updated_at
  *
  * @property User $user
  */

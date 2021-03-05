@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2021 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -22,7 +22,7 @@ use app\components\helpers\Translator;
  * @property Battle[] $battles
  * @property RankGroup $group
  */
-class Rank extends \yii\db\ActiveRecord
+final class Rank extends \yii\db\ActiveRecord
 {
     use SafeFindOneTrait;
 

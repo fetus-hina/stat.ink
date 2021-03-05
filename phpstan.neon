@@ -12,7 +12,8 @@ parameters:
     - models/
     - views/
 
-  autoload_files:
+  bootstrapFiles:
+    - vendor/autoload.php
     - vendor/yiisoft/yii2/Yii.php
     - config/web-bootstrap.php
 

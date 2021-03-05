@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2021 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -24,6 +24,9 @@ use yii\helpers\ArrayHelper;
 use yii\web\NotFoundHttpException;
 use yii\web\ViewAction as BaseAction;
 
+/**
+ * @property-read bool $isEditable
+ */
 class EditBattleAction extends BaseAction
 {
     private $battle;

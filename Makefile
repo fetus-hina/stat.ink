@@ -428,48 +428,63 @@ config/db.php: vendor $(SIMPLE_CONFIG_TARGETS)
 	@touch config/db.php
 
 config/google-adsense.php:
-	echo '<?php'                >  config/google-adsense.php
-	echo 'return ['             >> config/google-adsense.php
-	echo "    'client' => '',"  >> config/google-adsense.php
-	echo "    'slot'   => '',"  >> config/google-adsense.php
-	echo '];'                   >> config/google-adsense.php
+	@echo '<?php' > $@
+	@echo '' >> $@
+	@echo 'declare(strict_types=1);' >> $@
+	@echo '' >> $@
+	@echo 'return [' >> $@
+	@echo "    'client' => ''," >> $@
+	@echo "    'slot'   => ''," >> $@
+	@echo '];' >> $@
 
 config/amazon-s3.php:
-	echo '<?php'                               >  config/amazon-s3.php
-	echo 'return ['                            >> config/amazon-s3.php
-	echo '    ['                               >> config/amazon-s3.php
-	echo "        'name'      => 'Amazon S3'," >> config/amazon-s3.php
-	echo "        'endpoint'  => 's3-ap-northeast-1.amazonaws.com'," >> config/amazon-s3.php
-	echo "        'accessKey' => '',"          >> config/amazon-s3.php
-	echo "        'secret'    => '',"          >> config/amazon-s3.php
-	echo "        'bucket'    => '',"          >> config/amazon-s3.php
-	echo '    ],'                 	           >> config/amazon-s3.php
-	echo '];'                     	           >> config/amazon-s3.php
+	@echo '<?php' > $@
+	@echo '' >> $@
+	@echo 'declare(strict_types=1);' >> $@
+	@echo '' >> $@
+	@echo 'return [' >> $@
+	@echo '    [' >> $@
+	@echo "        'name'      => 'Amazon S3'," >> $@
+	@echo "        'endpoint'  => 's3-ap-northeast-1.amazonaws.com'," >> $@
+	@echo "        'accessKey' => ''," >> $@
+	@echo "        'secret'    => ''," >> $@
+	@echo "        'bucket'    => ''," >> $@
+	@echo '    ],' >> $@
+	@echo '];' >> $@
 
 config/backup-s3.php:
-	echo '<?php'                           >  config/backup-s3.php
-	echo 'return ['                        >> config/backup-s3.php
-	echo "    'endpoint'  => 's3-ap-northeast-1.amazonaws.com'," >> config/backup-s3.php
-	echo "    'accessKey' => '',"          >> config/backup-s3.php
-	echo "    'secret'    => '',"          >> config/backup-s3.php
-	echo "    'bucket'    => '',"          >> config/backup-s3.php
-	echo '];'                 	           >> config/backup-s3.php
+	@echo '<?php' > $@
+	@echo '' >> $@
+	@echo 'declare(strict_types=1);' >> $@
+	@echo '' >> $@
+	@echo 'return [' >> $@
+	@echo "    'endpoint'  => 's3-ap-northeast-1.amazonaws.com'," >> $@
+	@echo "    'accessKey' => ''," >> $@
+	@echo "    'secret'    => ''," >> $@
+	@echo "    'bucket'    => ''," >> $@
+	@echo '];' >> $@
 
 config/img-s3.php:
 	php config/_generator/img-s3.php > $@
 
 config/backup-gpg.php:
-	echo '<?php'                            >  $@
-	echo 'return ['                         >> $@
-	echo "    'userId' => '0xBC77B5B8',"    >> $@
-	echo '];'                               >> $@
+	@echo '<?php' > $@
+	@echo '' >> $@
+	@echo 'declare(strict_types=1);' >> $@
+	@echo '' >> $@
+	@echo 'return [' >> $@
+	@echo "    'userId' => '0xBC77B5B8'," >> $@
+	@echo '];' >> $@
 
 config/debug-ips.php:
-	echo '<?php'                >  config/debug-ips.php
-	echo 'return ['             >> config/debug-ips.php
-	echo "    '127.0.0.1',"     >> config/debug-ips.php
-	echo "    '::1',"           >> config/debug-ips.php
-	echo '];'                   >> config/debug-ips.php
+	@echo '<?php' > $@
+	@echo '' >> $@
+	@echo 'declare(strict_types=1);' >> $@
+	@echo '' >> $@
+	@echo 'return [' >> $@
+	@echo "    '127.0.0.1'," >> $@
+	@echo "    '::1'," >> $@
+	@echo '];' >> $@
 
 config/deepl.php:
 	echo Creating $@

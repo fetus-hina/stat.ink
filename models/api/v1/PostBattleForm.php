@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2016 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2021 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -9,10 +9,8 @@
 namespace app\models\api\v1;
 
 use Yii;
-use yii\base\Model;
-use yii\web\UploadedFile;
-use app\components\helpers\db\Now;
 use app\components\helpers\CriticalSection;
+use app\components\helpers\db\Now;
 use app\models\Ability;
 use app\models\AgentAttribute;
 use app\models\Battle;
@@ -33,6 +31,8 @@ use app\models\Rule;
 use app\models\SplatoonVersion;
 use app\models\User;
 use app\models\Weapon;
+use yii\base\Model;
+use yii\web\UploadedFile;
 
 class PostBattleForm extends Model
 {
@@ -104,23 +104,23 @@ class PostBattleForm extends Model
         return [
             [['apikey'], 'required'],
             [['apikey'], 'exist',
-                'targetClass' => User::className(),
+                'targetClass' => User::class,
                 'targetAttribute' => 'api_key'],
             [['test'], 'in', 'range' => ['validate', 'dry_run']],
             [['lobby'], 'exist',
-                'targetClass' => Lobby::className(),
+                'targetClass' => Lobby::class,
                 'targetAttribute' => 'key'],
             [['rule'], 'exist',
-                'targetClass' => Rule::className(),
+                'targetClass' => Rule::class,
                 'targetAttribute' => 'key'],
             [['map'], 'exist',
-                'targetClass' => Map::className(),
+                'targetClass' => Map::class,
                 'targetAttribute' => 'key'],
             [['weapon'], 'exist',
-                'targetClass' =>  Weapon::className(),
+                'targetClass' =>  Weapon::class,
                 'targetAttribute' => 'key'],
             [['rank', 'rank_after'], 'exist',
-                'targetClass' => Rank::className(),
+                'targetClass' => Rank::class,
                 'targetAttribute' => 'key'],
             [['rank_exp', 'rank_exp_after'], 'integer', 'min' => 0, 'max' => 99],
             [['level', 'level_after'], 'integer', 'min' => 1, 'max' => 50],
@@ -145,7 +145,7 @@ class PostBattleForm extends Model
                     }
                 }],
             [['fest_title', 'fest_title_after'], 'exist',
-                'targetClass' => FestTitle::className(),
+                'targetClass' => FestTitle::class,
                 'targetAttribute' => 'key'],
             [['fest_exp', 'fest_exp_after'], 'integer', 'min' => 0, 'max' => 99],
             [['my_team_power', 'his_team_power', 'fest_power'], 'integer'],
@@ -591,7 +591,7 @@ class PostBattleForm extends Model
             $o->shoes_id    = $this->processGear('shoes');
         }
 
-        if ($this->isTest) {
+        if ($this->getIsTest()) {
             $now = isset($_SERVER['REQUEST_TIME']) ? $_SERVER['REQUEST_TIME'] : time();
             $o->id = 0;
             foreach ($o->attributes as $k => $v) {
@@ -662,23 +662,22 @@ class PostBattleForm extends Model
 
                 $player = new BattlePlayer();
                 $player->attributes = [
-                    'battle_id'     => $battle->id,
-                    'is_my_team'    => $form->team === 'my',
-                    'is_me'         => $form->is_me === 'yes',
-                    'weapon_id'     => $weapon ? $weapon->id : null,
-                    'rank_id'       => $rank ? $rank->id : null,
-                    'level'         => (string)$form->level === '' ? null : (int)$form->level,
-                    'rank_in_team'  => (string)$form->rank_in_team === '' ? null : (int)$form->rank_in_team,
-                    'kill'          => (string)$form->kill === '' ? null : (int)$form->kill,
-                    'death'         => (string)$form->death === '' ? null : (int)$form->death,
-                    'point'         => (string)$form->point === '' ? null : (int)$form->point,
-                    'my_kill'       => (string)$form->my_kill === '' ? null : (int)$form->my_kill,
+                    'battle_id' => $battle->id,
+                    'is_my_team' => $form->team === 'my',
+                    'is_me' => $form->is_me === 'yes',
+                    'weapon_id' => $weapon ? $weapon->id : null,
+                    'rank_id' => $rank ? $rank->id : null,
+                    'level' => (string)$form->level === '' ? null : (int)$form->level,
+                    'rank_in_team' => (string)$form->rank_in_team === '' ? null : (int)$form->rank_in_team,
+                    'kill' => (string)$form->kill === '' ? null : (int)$form->kill,
+                    'death' => (string)$form->death === '' ? null : (int)$form->death,
+                    'point' => (string)$form->point === '' ? null : (int)$form->point,
+                    'my_kill' => (string)$form->my_kill === '' ? null : (int)$form->my_kill,
                 ];
                 yield $player;
             }
         }
     }
-
 
     public function toImageJudge(Battle $battle)
     {
@@ -697,7 +696,7 @@ class PostBattleForm extends Model
 
     protected function toImage(Battle $battle, $imageTypeId, $attr)
     {
-        if ($this->isTest) {
+        if ($this->getIsTest()) {
             return null;
         }
         if ($this->$attr == '' && !$this->$attr instanceof UploadedFile) {
@@ -730,7 +729,7 @@ class PostBattleForm extends Model
 
     protected function processGear($key)
     {
-        if ($this->isTest || !($this->gears instanceof PostGearsForm)) {
+        if ($this->getIsTest() || !($this->gears instanceof PostGearsForm)) {
             return null;
         }
 

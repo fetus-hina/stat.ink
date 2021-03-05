@@ -48,36 +48,26 @@ use yii\web\JsExpression;
  * @property boolean $is_knockout
  * @property integer $level
  * @property integer $level_after
- * @property integer $star_rank
  * @property integer $rank_id
  * @property integer $rank_exp
  * @property integer $rank_after_id
  * @property integer $rank_after_exp
- * @property float $x_power
- * @property float $x_power_after
- * @property integer $estimate_x_power
  * @property integer $rank_in_team
  * @property integer $kill
  * @property integer $death
- * @property integer $kill_or_assist
- * @property integer $special
  * @property string $kill_ratio
  * @property string $kill_rate
  * @property integer $max_kill_combo
  * @property integer $max_kill_streak
  * @property integer $my_point
- * @property integer $estimate_gachi_power
- * @property float $league_point
- * @property integer $my_team_estimate_league_point
- * @property integer $his_team_estimate_league_point
  * @property integer $my_team_point
  * @property integer $his_team_point
  * @property string $my_team_percent
  * @property string $his_team_percent
  * @property integer $my_team_count
  * @property integer $his_team_count
- * @property string $my_team_color_hue
- * @property string $his_team_color_hue
+ * @property integer $my_team_color_hue
+ * @property integer $his_team_color_hue
  * @property string $my_team_color_rgb
  * @property string $his_team_color_rgb
  * @property integer $cash
@@ -90,69 +80,94 @@ use yii\web\JsExpression;
  * @property integer $bonus_id
  * @property integer $env_id
  * @property string $client_uuid
- * @property string $ua_variables
+ * @property array $ua_variables
  * @property string $ua_custom
  * @property integer $agent_game_version_id
  * @property string $agent_game_version_date
  * @property integer $agent_id
  * @property boolean $is_automated
  * @property boolean $use_for_entire
- * @property integer $species_id
- * @property integer $gender_id
- * @property integer $fest_title_id
- * @property integer $fest_exp
- * @property integer $fest_title_after_id
- * @property integer $fest_exp_after
- * @property integer $fest_power;
- * @property float $my_team_estimate_fest_power;
- * @property float $his_team_estimate_fest_power;
- * @property integer $my_team_fest_theme_id
- * @property integer $his_team_fest_theme_id
- * @property integer $my_team_nickname_id
- * @property integer $his_team_nickname_id
- * @property integer $headgear_id
- * @property integer $clothing_id
- * @property integer $shoes_id
- * @property integer $special_battle_id
- * @property integer $clout
- * @property integer $total_clout
- * @property integer $total_clout_after
- * @property integer $my_team_win_streak
- * @property integer $his_team_win_streak
- * @property float $synergy_bonus
- * @property float $freshness
- * @property boolean $has_disconnect
  * @property string $remote_addr
  * @property integer $remote_port
  * @property string $start_at
  * @property string $end_at
  * @property string $created_at
  * @property string $updated_at
+ * @property integer $kill_or_assist
+ * @property integer $special
+ * @property integer $gender_id
+ * @property integer $fest_title_id
+ * @property integer $fest_exp
+ * @property integer $fest_title_after_id
+ * @property integer $fest_exp_after
+ * @property integer $splatnet_number
+ * @property string $my_team_id
+ * @property string $his_team_id
+ * @property integer $estimate_gachi_power
+ * @property string $league_point
+ * @property integer $my_team_estimate_league_point
+ * @property integer $his_team_estimate_league_point
+ * @property string $fest_power
+ * @property integer $my_team_estimate_fest_power
+ * @property integer $his_team_estimate_fest_power
+ * @property integer $headgear_id
+ * @property integer $clothing_id
+ * @property integer $shoes_id
+ * @property integer $star_rank
+ * @property integer $my_team_fest_theme_id
+ * @property integer $his_team_fest_theme_id
+ * @property string $x_power
+ * @property string $x_power_after
+ * @property integer $estimate_x_power
+ * @property integer $species_id
+ * @property integer $special_battle_id
+ * @property integer $my_team_nickname_id
+ * @property integer $his_team_nickname_id
+ * @property integer $clout
+ * @property integer $total_clout
+ * @property integer $total_clout_after
+ * @property string $synergy_bonus
+ * @property integer $my_team_win_streak
+ * @property integer $his_team_win_streak
+ * @property string $freshness
+ * @property boolean $has_disconnect
  *
  * @property Agent $agent
- * @property BattleDeathReason2 $battleDeathReasons
- * @property BattlePlayer2 $battlePlayers
+ * @property SplatoonVersion2 $agentGameVersion
+ * @property Battle2Splatnet $battle2Splatnet
+ * @property BattleDeathReason2[] $battleDeathReason2s
+ * @property BattleEvents2 $battleEvents2
+ * @property BattleImage2[] $battleImage2s
+ * @property BattlePlayer2[] $battlePlayer2s
+ * @property TurfwarWinBonus2 $bonus
+ * @property GearConfiguration2 $clothing
  * @property Environment $env
+ * @property FestTitle $festTitle
+ * @property FestTitle $festTitleAfter
+ * @property Gender $gender
+ * @property GearConfiguration2 $headgear
+ * @property Splatfest2Theme $hisTeamFestTheme
+ * @property TeamNickname2 $hisTeamNickname
  * @property Lobby2 $lobby
  * @property Map2 $map
  * @property Mode2 $mode
+ * @property Splatfest2Theme $myTeamFestTheme
+ * @property TeamNickname2 $myTeamNickname
  * @property Rank2 $rank
  * @property Rank2 $rankAfter
+ * @property DeathReason2[] $reasons
  * @property Rule2 $rule
- * @property SplatoonVersion2 $version
- * @property SplatoonVersion2 $agentGameVersion
- * @property TurfwarWinBonus2 $bonus
- * @property Battle2Splatnet $splatnetJson
- * @property User $user
- * @property Weapon2 $weapon
- * @property GearConfiguration2 $headgear
- * @property GearConfiguration2 $clothing
  * @property GearConfiguration2 $shoes
- * @property Species2 $species
  * @property SpecialBattle2 $specialBattle
- * @property TeamNickname2 $myTeamNickname
- * @property TeamNickname2 $hisTeamNickname
- * @property Freshness2 $freshnessModel
+ * @property Species2 $species
+ * @property BattleImageType[] $types
+ * @property User $user
+ * @property SplatoonVersion2 $version
+ * @property Weapon2 $weapon
+ *
+ * @property-read BattleImage2|null $battleImageGear
+ * @property-read BattleImage2|null $battleImageJudge
+ * @property-read BattleImage2|null $battleImageResult
  */
 class Battle2 extends ActiveRecord
 {

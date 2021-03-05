@@ -1,4 +1,5 @@
 <?php
+
 return [
     'read_enabled' => false,
     'write_enabled' => false,
