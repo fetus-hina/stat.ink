@@ -1,7 +1,18 @@
 <?php
+
+declare(strict_types=1);
+
 use app\assets\BlackoutHintAsset;
 use app\models\User;
 use yii\helpers\Html;
+use yii\web\View;
+
+/**
+ * @var User $user
+ * @var View $this
+ * @var string $conf
+ * @var string $id
+ */
 
 BlackoutHintAsset::register($this);
 ?>

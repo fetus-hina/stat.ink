@@ -1,9 +1,19 @@
 <?php
+
+declare(strict_types=1);
+
 use app\assets\EmojifyResourceAsset;
 use app\assets\SlackAsset;
+use app\models\User;
 use yii\data\ActiveDataProvider;
 use yii\grid\GridView;
 use yii\helpers\Html;
+use yii\web\View;
+
+/**
+ * @var User $user
+ * @var View $this
+ */
 
 SlackAsset::register($this);
 ?>

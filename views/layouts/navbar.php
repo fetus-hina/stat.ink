@@ -1,9 +1,18 @@
 <?php
+
+declare(strict_types=1);
+
 use statink\yii2\ipBadge\IpBadgeWidget;
 use statink\yii2\paintball\PaintballAsset;
 use yii\helpers\Html;
+use yii\web\View;
+
+/**
+ * @var View $this
+ */
 
 PaintballAsset::register($this);
+
 ?>
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">

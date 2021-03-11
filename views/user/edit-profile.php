@@ -1,7 +1,19 @@
 <?php
+
+declare(strict_types=1);
+
+use app\models\ProfileForm;
 use app\models\User;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
+use yii\web\View;
+
+/**
+ * @var ProfileForm $form
+ * @var View $this
+ * @var array<int, string> $languages
+ * @var array<int, string> $regions
+ */
 
 $title = Yii::t('app', 'Update Your Profile');
 $this->title = implode(' | ', [

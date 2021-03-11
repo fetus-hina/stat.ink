@@ -1,9 +1,17 @@
 <?php
+
 declare(strict_types=1);
 
 use app\components\widgets\Alert;
+use app\models\EmailVerifyForm;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
+use yii\web\View;
+
+/**
+ * @var EmailVerifyForm $form
+ * @var View $this
+ */
 
 $title = Yii::t('app', 'Update Your Email Address');
 $this->title = implode(' | ', [

@@ -1,10 +1,22 @@
 <?php
+
+declare(strict_types=1);
+
 use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
+use app\models\Map;
 use statink\yii2\bukiicons\Bukiicons;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Url;
+use yii\web\View;
+
+/**
+ * @var Map $map
+ * @var View $this
+ * @var array<string, string> $maps
+ * @var object[] $data
+ */
 
 $formatter = Yii::$app->formatter;
 $now = (int)($_SERVER['REQUEST_TIME'] ?? time());
@@ -15,7 +27,7 @@ $title = sprintf(
   Yii::t('app-map', $map->name)
 );
 
-$this->title = sprintf(' | ', [
+$this->title = implode(' | ', [
   Yii::$app->name,
   $title,
 ]);

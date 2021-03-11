@@ -1,11 +1,19 @@
 <?php
+
 declare(strict_types=1);
 
 use app\components\widgets\AdWidget;
 use app\components\widgets\FA;
+use app\models\RegisterForm;
 use jp3cki\yii2\zxcvbn\ZxcvbnAsset;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
+use yii\web\View;
+
+/**
+ * @var RegisterForm $register
+ * @var View $this
+ */
 
 $this->title = implode(' | ', [
   Yii::$app->name,

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 use app\assets\AboutAsset;
@@ -8,6 +9,13 @@ use app\components\widgets\FlagIcon;
 use app\components\widgets\SnsWidget;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
+use yii\web\Controller;
+use yii\web\View;
+
+/**
+ * @var View $this
+ */
+assert($this->context instanceof Controller);
 
 $title = implode(' | ', [
     Yii::$app->name,

@@ -1,8 +1,18 @@
 <?php
+
+declare(strict_types=1);
+
 use app\components\widgets\AdWidget;
+use app\models\PasswordForm;
 use jp3cki\yii2\zxcvbn\ZxcvbnAsset;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
+use yii\web\View;
+
+/**
+ * @var PasswordForm $form
+ * @var View $this
+ */
 
 $title = Yii::t('app', 'Update Your Password');
 $this->title = implode(' | ', [

@@ -1,5 +1,16 @@
 <?php
+
+declare(strict_types=1);
+
+use app\models\User;
 use yii\helpers\Html;
+use yii\web\View;
+
+/**
+ * @var User $user
+ * @var View $this
+ */
+
 ?>
 <p>
   <?= Html::encode(Yii::t('app', 'Please copy an API key below and paste to IkaLog, IkaRec or other apps that are compatible with {0}.', [Yii::$app->name])) . "\n" ?>

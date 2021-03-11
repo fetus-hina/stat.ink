@@ -1,8 +1,24 @@
 <?php
+
+declare(strict_types=1);
+
 use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
+use app\models\Map;
+use app\models\Rule;
 use yii\helpers\Html;
 use yii\helpers\Url;
+use yii\web\View;
+
+/**
+ * @var Map $map
+ * @var Rule $rule
+ * @var View $this
+ * @var array<string, string> $maps
+ * @var array<string, string> $rules
+ * @var object[] $history
+ * @var object[] $weapons
+ */
 
 $formatter = Yii::$app->formatter;
 $now = (int)($_SERVER['REQUEST_TIME'] ?? time());
@@ -13,7 +29,7 @@ $title = implode(' - ', [
   Yii::t('app-rule', $rule->name),
 ]);
 
-$this->title = sprintf(' | ', [
+$this->title = implode(' | ', [
   Yii::$app->name,
   $title,
 ]);
