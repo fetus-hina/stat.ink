@@ -25,7 +25,7 @@ if [ $1 = "current" ]; then
   exit 0
 elif [ $1 = "minor" -o $1 = "patch" ]; then
   PREV=$(current_version)
-  TAG=$(npx semver -i $1 $PREV)
+  TAG=v$(npx semver -i $1 $PREV)
 elif [[ $1 =~ ^v[0-9]+\.[0-9]+\.[0-9]+ ]]; then
   TAG=$1
 fi
