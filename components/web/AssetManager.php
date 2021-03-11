@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2019 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2021 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  *
@@ -18,47 +18,11 @@ use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
 use yii\helpers\Url;
 
-/**
- * @inheritdoc
- */
 class AssetManager extends \yii\web\AssetManager
 {
     /**
-     * @inheritdoc
-     */
-    public function getAssetUrl($bundle, $asset, $appendTimestamp = null)
-    {
-        if (($actualAsset = $this->resolveAsset($bundle, $asset)) !== false) {
-            if (strncmp($actualAsset, '@web/', 5) === 0) {
-                $asset = substr($actualAsset, 5);
-                $basePath = Yii::getAlias("@webroot");
-                $baseUrl = Yii::getAlias("@web");
-            } else {
-                $asset = Yii::getAlias($actualAsset);
-                $basePath = $this->basePath;
-                $baseUrl = $this->baseUrl;
-            }
-        } else {
-            $basePath = $bundle->basePath;
-            $baseUrl = $bundle->baseUrl;
-        }
-
-        if (!Url::isRelative($asset) || strncmp($asset, '/', 1) === 0) {
-            return $asset;
-        }
-
-        if ($appendTimestamp) {
-            foreach (['', '.gz'] as $appendExtension) {
-                if (($timestamp = @filemtime("$basePath/{$asset}{$appendExtension}")) > 0) {
-                    return "$baseUrl/$asset?v=$timestamp";
-                }
-            }
-        }
-        return "$baseUrl/$asset";
-    }
-
-    /**
-     * @inheritdoc
+     * @param string $path
+     * @return string
      */
     protected function hash($path)
     {
