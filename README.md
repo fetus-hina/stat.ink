@@ -29,12 +29,13 @@ Use a private channel if it is a security issue.
 
 - Use Direct Message of twitter. ツイッターのDMを使う
 - [Use an encrypted message with PGP(GPG). PGP(GPG)で暗号化して送信する](https://fetus.jp/about/pgp)
+  - You can paste an encrypted message to our "issue."
 
 
 REQUIREMENTS
 ------------
 
-- PHP 7.4+
+- PHP 7.4.x
   - Doesn't work with 7.3 or lower. (Uses statements and constants added in v7.4)
   - You should build/install with Argon2. [Install `php-sodium` if you use remirepo's PHP 7.4](https://github.com/remicollet/remirepo/issues/132#issuecomment-566513636).
   - At this time, we have not tested it with PHP 8.
@@ -115,6 +116,8 @@ Changes are merged from the `dev` branch at irregular intervals.
 
 When you contribute to us, you should not request changes to this branch.
 
+The word `master` is just an identifier. There are no political or discriminatory intentions.
+
 
 ### `dev` branch ###
 
@@ -164,17 +167,17 @@ The maintenance process will be started at 23:00 UTC(\*) and will take 1.5 hours
 
 \*) 23:00 UTC is ...
 
-  | Place      | Local Time                          |
-  |------------|-------------------------------------|
-  | Tokyo      | 08:00 JST                           |
-  | Europe     | 00:00 CET / 01:00 CEST              |
-  | London     | 23:00 GMT / 00:00 BST               |
-  | New York   | 18:00 (6 pm) EST / 19:00 (7 pm) EDT |
-  | California | 15:00 (3 pm) PST / 16:00 (4 pm) PDT |
+  | Place                  | Local Time                          |
+  |------------------------|-------------------------------------|
+  | Tokyo                  | 08:00 JST                           |
+  | Europe (Paris, Berlin) | 00:00 CET / 01:00 CEST              |
+  | London                 | 23:00 GMT / 00:00 BST               |
+  | New York               | 18:00 (6 pm) EST / 19:00 (7 pm) EDT |
+  | California             | 15:00 (3 pm) PST / 16:00 (4 pm) PDT |
 
 
 ライセンス LICENSE
------------------
+------------------
 
 ```
 The MIT License (MIT)
@@ -200,8 +203,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ```
 
-ライセンス（アプリケーションテンプレート）
-------------------------------------------
+ライセンス（アプリケーションテンプレート） LICENSE (App Template)
+-----------------------------------------------------------------
 
 ```
 The Yii framework is free software. It is released under the terms of
@@ -239,7 +242,7 @@ POSSIBILITY OF SUCH DAMAGE.
 ```
 
 ライセンス（ドキュメント類） LICENSE (DOCUMENTS)
-----------------------------------------------
+------------------------------------------------
 
 [![CC-BY 4.0](https://stat.ink/static-assets/cc/cc-by.svg)](http://creativecommons.org/licenses/by/4.0/deed.ja)
 
