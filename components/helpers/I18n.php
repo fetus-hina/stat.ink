@@ -66,6 +66,7 @@ class I18n
         );
         $php = [
             '<?php',
+            '',
             '/**',
             ' * @copyright Copyright (C) 2015-' . $now->format('Y') . ' AIZAWA Hina',
             ' * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT',

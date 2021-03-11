@@ -1,7 +1,18 @@
 <?php
+
+declare(strict_types=1);
+
+use app\models\SlackAddForm;
+use yii\bootstrap\ActiveForm;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
-use yii\bootstrap\ActiveForm;
+use yii\web\View;
+
+/**
+ * @var SlackAddForm $form
+ * @var View $this
+ * @var array<int, string> $languages
+ */
 
 $title = Yii::t('app', 'Add Slack Integration');
 $this->title = implode(' | ', [
@@ -13,12 +24,22 @@ $this->title = implode(' | ', [
   <h1><?= Html::encode($title) ?></h1>
 
   <p>
-    Slack連携を利用するには、あらかじめSlackのIncoming Webhookを設定する必要があります。
-    （上級者向け）
+    <?= Html::encode(Yii::t('app', 'To use Slack integration, you need to configure Slack\'s "Incoming Webhook" first.')) . "\n" ?>
+    <?= Html::encode(Yii::t('app', '(For advanced users)')) . "\n" ?>
   </p>
   <p>
-    <a href="https://api.slack.com/incoming-webhooks" target="_blank">Incoming Webhookについて</a>,&#32;
-    <a href="https://my.slack.com/services/new/incoming-webhook/" target="_blank">新しいWebhookの作成</a>
+    <?= implode(', ', [
+      Html::a(
+        Html::encode(Yii::t('app', 'About Incoming Webhook')),
+        'https://api.slack.com/incoming-webhooks',
+        ['target' => '_blank']
+      ),
+      Html::a(
+        Html::encode(Yii::t('app', 'Create new webhook')),
+        'https://my.slack.com/services/new/incoming-webhook/',
+        ['target' => '_blank']
+      ),
+    ]) . "\n" ?>
   </p>
 
   <?php $_ = ActiveForm::begin(['id' => 'add-form', 'action' => ['slack-add']]); echo "\n" ?>
@@ -26,27 +47,27 @@ $this->title = implode(' | ', [
       ->input('text', [
         'placeholder' => 'https://hooks.slack.com/services/AAAAAAAAA/BBBBBBBBB/CCCCCCCCCCCCCCCCCCCCCCCC',
       ])
-      ->hint('DiscordのSlack互換エンドポイントURLも指定できます。') . "\n" ?>
-
+      ->hint(Yii::t('app', 'You can specify Discord\'s Slack compatible endpoint URL as well.')) . "\n"
+    ?>
     <?= $_->field($form, 'username')
-      ->hint('省略するとWebhookに設定された名前が使用されます。') . "\n" ?>
-
+      ->hint(Yii::t('app', 'If omitted, the name set in the webhook configuration will be used.')) . "\n"
+    ?>
     <?= $_->field($form, 'icon')
       ->input('text', [
         'placeholder' => ':emoji:'
       ])
-      ->hint('<a href="http://www.emoji-cheat-sheet.com/" target="_blank">チートシート</a>。省略するとデフォルトのアイコンが使用されます。') . "\n" ?>
-
+      ->hint(Yii::t('app', '<a href="http://www.emoji-cheat-sheet.com/" target="_blank">Cheat sheet</a>. If omitted, the default icon will be used.')) . "\n"
+    ?>
     <?= $_->field($form, 'channel')
       ->input('text', [
         'placeholder' => '#splatoon'
       ])
-      ->hint('省略するとWebhookに設定されたChannelが使用されます。') . "\n" ?>
-
+      ->hint(Yii::t('app', 'If omitted, the channel set in the webhook configuration will be used.')) . "\n"
+    ?>
     <?= $_->field($form, 'language_id')
       ->dropDownList($languages)
-      ->hint('ここで設定された言語で投稿されます。') . "\n" ?>
-
+      ->hint(Yii::t('app', 'The post will be in the language set here.')) . "\n"
+    ?>
     <?= Html::submitButton(
       Html::encode(Yii::t('app', 'Add')),
       ['class' => 'btn btn-lg btn-primary btn-block']

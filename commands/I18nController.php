@@ -182,6 +182,10 @@ class I18nController extends Controller
         }
         $lines[] = 'AIZAWA Hina <hina@fetus.jp>';
 
+        if ($this->isGosinInvolved($path)) {
+            $lines[] = 'Gosin <canling0@gmail.com>';
+        }
+
         $authorMap = [
             'AIZAWA Hina <hina@bouhime.com>' => 'AIZAWA Hina <hina@fetus.jp>',
             'AIZAWA, Hina <hina@bouhime.com>' => 'AIZAWA Hina <hina@fetus.jp>',
@@ -198,6 +202,68 @@ class I18nController extends Controller
         );
         natcasesort($list);
         return $list;
+        // }}}
+    }
+
+    private function isGosinInvolved(string $path): bool
+    {
+        // {{{
+        $appPath = Yii::getAlias('@app/');
+        if (substr($path, 0, strlen($appPath)) === $appPath) {
+            $localPath = substr($path, strlen($appPath));
+            if (
+                $localPath === 'messages/zh-TW/ability.php' ||
+                $localPath === 'messages/zh-TW/ability2.php' ||
+                $localPath === 'messages/zh-TW/alert.php' ||
+                $localPath === 'messages/zh-TW/apidoc1.php' ||
+                $localPath === 'messages/zh-TW/apidoc2.php' ||
+                $localPath === 'messages/zh-TW/app.php' ||
+                $localPath === 'messages/zh-TW/brand.php' ||
+                $localPath === 'messages/zh-TW/brand2.php' ||
+                $localPath === 'messages/zh-TW/cookie.php' ||
+                $localPath === 'messages/zh-TW/counter.php' ||
+                $localPath === 'messages/zh-TW/death.php' ||
+                $localPath === 'messages/zh-TW/death2.php' ||
+                $localPath === 'messages/zh-TW/email.php' ||
+                $localPath === 'messages/zh-TW/event.php' ||
+                $localPath === 'messages/zh-TW/fest.php' ||
+                $localPath === 'messages/zh-TW/festpower2.php' ||
+                $localPath === 'messages/zh-TW/freshness2.php' ||
+                $localPath === 'messages/zh-TW/gear.php' ||
+                $localPath === 'messages/zh-TW/gear2.php' ||
+                $localPath === 'messages/zh-TW/gearstat.php' ||
+                $localPath === 'messages/zh-TW/link.php' ||
+                $localPath === 'messages/zh-TW/map.php' ||
+                $localPath === 'messages/zh-TW/map2.php' ||
+                $localPath === 'messages/zh-TW/privacy.php' ||
+                $localPath === 'messages/zh-TW/rank.php' ||
+                $localPath === 'messages/zh-TW/rank2.php' ||
+                $localPath === 'messages/zh-TW/region.php' ||
+                $localPath === 'messages/zh-TW/rule.php' ||
+                $localPath === 'messages/zh-TW/rule2.php' ||
+                $localPath === 'messages/zh-TW/salmon-boss2.php' ||
+                $localPath === 'messages/zh-TW/salmon-event2.php' ||
+                $localPath === 'messages/zh-TW/salmon-history2.php' ||
+                $localPath === 'messages/zh-TW/salmon-map2.php' ||
+                $localPath === 'messages/zh-TW/salmon-tide2.php' ||
+                $localPath === 'messages/zh-TW/salmon-title2.php' ||
+                $localPath === 'messages/zh-TW/salmon2.php' ||
+                $localPath === 'messages/zh-TW/slack.php' ||
+                $localPath === 'messages/zh-TW/special.php' ||
+                $localPath === 'messages/zh-TW/special2.php' ||
+                $localPath === 'messages/zh-TW/start.php' ||
+                $localPath === 'messages/zh-TW/subweapon.php' ||
+                $localPath === 'messages/zh-TW/subweapon2.php' ||
+                $localPath === 'messages/zh-TW/ua_vars.php' ||
+                $localPath === 'messages/zh-TW/ua_vars_v.php' ||
+                $localPath === 'messages/zh-TW/version2.php' ||
+                $localPath === 'messages/zh-TW/weapon.php' ||
+                $localPath === 'messages/zh-TW/weapon2.php'
+            ) {
+                return true;
+            }
+        }
+        return false;
         // }}}
     }
 
