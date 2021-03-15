@@ -1653,16 +1653,16 @@
         },
         {
             "name": "php-curl-class/php-curl-class",
-            "version": "8.9.0",
+            "version": "8.9.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-curl-class/php-curl-class.git",
-                "reference": "a40cc77eb45bc6489240415197734ca747ce4820"
+                "reference": "eb57bdabbd71bc5a37b65f14389b0012aed80aa7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-curl-class/php-curl-class/zipball/a40cc77eb45bc6489240415197734ca747ce4820",
-                "reference": "a40cc77eb45bc6489240415197734ca747ce4820",
+                "url": "https://api.github.com/repos/php-curl-class/php-curl-class/zipball/eb57bdabbd71bc5a37b65f14389b0012aed80aa7",
+                "reference": "eb57bdabbd71bc5a37b65f14389b0012aed80aa7",
                 "shasum": ""
             },
             "require": {
@@ -1718,9 +1718,9 @@
             ],
             "support": {
                 "issues": "https://github.com/php-curl-class/php-curl-class/issues",
-                "source": "https://github.com/php-curl-class/php-curl-class/tree/8.9.0"
+                "source": "https://github.com/php-curl-class/php-curl-class/tree/8.9.1"
             },
-            "time": "2020-11-01T03:47:32+00:00"
+            "time": "2021-03-14T19:37:55+00:00"
         },
         {
             "name": "phpseclib/phpseclib",
