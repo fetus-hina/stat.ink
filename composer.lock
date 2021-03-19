@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "20e1a2217a7508c7e70e6a2a5071ee8b",
+    "content-hash": "19960e362c073e91316319213b6fdd19",
     "packages": [
         {
             "name": "cebe/markdown",
@@ -1653,21 +1653,21 @@
         },
         {
             "name": "php-curl-class/php-curl-class",
-            "version": "8.9.1",
+            "version": "9.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-curl-class/php-curl-class.git",
-                "reference": "eb57bdabbd71bc5a37b65f14389b0012aed80aa7"
+                "reference": "b1c882ec346d5db1a504aaf793d272d81e4331be"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-curl-class/php-curl-class/zipball/eb57bdabbd71bc5a37b65f14389b0012aed80aa7",
-                "reference": "eb57bdabbd71bc5a37b65f14389b0012aed80aa7",
+                "url": "https://api.github.com/repos/php-curl-class/php-curl-class/zipball/b1c882ec346d5db1a504aaf793d272d81e4331be",
+                "reference": "b1c882ec346d5db1a504aaf793d272d81e4331be",
                 "shasum": ""
             },
             "require": {
                 "ext-curl": "*",
-                "php": ">=5.3"
+                "php": ">=7.0"
             },
             "require-dev": {
                 "ext-gd": "*",
@@ -1718,9 +1718,9 @@
             ],
             "support": {
                 "issues": "https://github.com/php-curl-class/php-curl-class/issues",
-                "source": "https://github.com/php-curl-class/php-curl-class/tree/8.9.1"
+                "source": "https://github.com/php-curl-class/php-curl-class/tree/9.0.0"
             },
-            "time": "2021-03-14T19:37:55+00:00"
+            "time": "2021-03-19T12:52:30+00:00"
         },
         {
             "name": "phpseclib/phpseclib",
