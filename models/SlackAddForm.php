@@ -91,7 +91,7 @@ class SlackAddForm extends Model
 
             // Discord
             sprintf('/^%s/ui', implode('', [
-                $quote('https://discordapp.com/api/webhooks/'),
+                $quote('https://discord.com/api/webhooks/'),
                 '\d+', // snowflake
                 $quote('/'),
                 '[0-9A-Za-z_-]+',
