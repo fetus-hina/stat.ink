@@ -35,7 +35,7 @@
         "laminas/laminas-feed": "^2.12.0",
         "laminas/laminas-validator": "^2.14",
         "lusitanian/oauth": "^0.8.9",
-        "php-curl-class/php-curl-class": "^8.0",
+        "php-curl-class/php-curl-class": "^9.0",
         "phpseclib/phpseclib": "^3.0",
         "statink/yii2-anonymizer": "^1.0",
         "statink/yii2-bukiicons": "^1.0",
