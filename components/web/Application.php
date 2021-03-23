@@ -130,7 +130,7 @@ class Application extends Base
                 'expire' => time() + 86400 * 366,
                 'httpOnly' => true,
                 'name' => UserLanguage::COOKIE_KEY,
-                'sameSite' => Cookie::SAME_SITE_STRICT,
+                'sameSite' => Cookie::SAME_SITE_LAX,
                 'value' => $lang->lang,
             ]));
         }
@@ -146,7 +146,7 @@ class Application extends Base
                 'expire' => time() + 86400 * 366,
                 'httpOnly' => true,
                 'name' => UserTimeZone::COOKIE_KEY,
-                'sameSite' => Cookie::SAME_SITE_STRICT,
+                'sameSite' => Cookie::SAME_SITE_LAX,
                 'value' => $tz->identifier,
             ]));
         }
@@ -182,7 +182,7 @@ class Application extends Base
                 'expire' => time() + 86400 * 366,
                 'httpOnly' => true,
                 'name' => static::COOKIE_MACHINE_TRANSLATION,
-                'sameSite' => Cookie::SAME_SITE_STRICT,
+                'sameSite' => Cookie::SAME_SITE_LAX,
                 'value' => $enabled ? 'enabled' : 'disabled',
             ])
         );

@@ -24,7 +24,7 @@ return (function (): array {
         'identityCookie' => [
             'httpOnly' => true,
             'name' => YII_ENV_DEV ? '_identity_dev' : '_identity',
-            'sameSite' => Cookie::SAME_SITE_STRICT,
+            'sameSite' => Cookie::SAME_SITE_LAX,
             'secure' => (bool)preg_match(
                 '/(?:^|\.)stat\.ink$/i',
                 $_SERVER['HTTP_HOST'] ?? ''

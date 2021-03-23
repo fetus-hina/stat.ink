@@ -134,7 +134,7 @@ class Theme extends Component
             'expire' => $expires->getTimestamp(),
             'httpOnly' => true,
             'name' => $this->cookieName,
-            'sameSite' => Cookie::SAME_SITE_STRICT,
+            'sameSite' => Cookie::SAME_SITE_LAX,
             'value' => $this->getTheme(),
         ]));
 
