@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2020 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2021 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -51,7 +51,7 @@ return [
     'Pit' => '',
     'Port' => '',
     'Port Mackerel' => 'Puerto Jurel',
-    'Railway Chillin\'' => 'País del Raíl',
+    'Railway Chillin\'' => 'País del Riel',
     'Reef' => '',
     'Shellendorf Institute' => 'Galería Raspa',
     'Shifty' => '',

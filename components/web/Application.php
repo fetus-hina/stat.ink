@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2020 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2021 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -24,8 +24,7 @@ class Application extends Base
 {
     public const COOKIE_MACHINE_TRANSLATION = 'language-machine-translation';
 
-    private $locale = null;
-    private $region = 'jp';
+    private ?string $locale = null;
 
     public function init()
     {
@@ -121,17 +120,6 @@ class Application extends Base
         return null;
     }
 
-    public function setSplatoonRegion($region)
-    {
-        $this->region = $region;
-        return $this;
-    }
-
-    public function getSplatoonRegion()
-    {
-        return $this->region;
-    }
-
     protected function initLanguage(): void
     {
         $lang = UserLanguage::guess();
@@ -139,9 +127,11 @@ class Application extends Base
             Yii::$app->language = $lang->getLanguageId();
             Yii::$app->setLocale($lang->lang);
             Yii::$app->response->cookies->add(new Cookie([
-                'name' => UserLanguage::COOKIE_KEY,
-                'value' => $lang->lang,
                 'expire' => time() + 86400 * 366,
+                'httpOnly' => true,
+                'name' => UserLanguage::COOKIE_KEY,
+                'sameSite' => Cookie::SAME_SITE_STRICT,
+                'value' => $lang->lang,
             ]));
         }
     }
@@ -152,15 +142,17 @@ class Application extends Base
         if ($tz) {
             Yii::$app->setTimeZone($tz->identifier);
             Yii::$app->formatter->timeZone = $tz->identifier;
-            Yii::$app->setSplatoonRegion($tz->region_id);
             Yii::$app->response->cookies->add(new Cookie([
-                'name' => UserTimeZone::COOKIE_KEY,
-                'value' => $tz->identifier,
                 'expire' => time() + 86400 * 366,
+                'httpOnly' => true,
+                'name' => UserTimeZone::COOKIE_KEY,
+                'sameSite' => Cookie::SAME_SITE_STRICT,
+                'value' => $tz->identifier,
             ]));
         }
     }
 
+    /** @return array<string, string> */
     private function getNumericSeparators(): array
     {
         if (extension_loaded('intl')) {
@@ -179,7 +171,7 @@ class Application extends Base
         ];
     }
 
-    private $isEnabledMT = null;
+    private ?bool $isEnabledMT = null;
 
     public function setEnabledMachineTranslation(bool $enabled): void
     {
@@ -187,9 +179,11 @@ class Application extends Base
 
         $this->response->cookies->add(
             new Cookie([
-                'name' => static::COOKIE_MACHINE_TRANSLATION,
-                'value' => $enabled ? 'enabled' : 'disabled',
                 'expire' => time() + 86400 * 366,
+                'httpOnly' => true,
+                'name' => static::COOKIE_MACHINE_TRANSLATION,
+                'sameSite' => Cookie::SAME_SITE_STRICT,
+                'value' => $enabled ? 'enabled' : 'disabled',
             ])
         );
     }

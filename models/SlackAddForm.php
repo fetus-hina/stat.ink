@@ -1,23 +1,31 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2016 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2021 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
+ * @author Dog2puppy <Dog2puppy@users.noreply.github.com>
  */
+
+declare(strict_types=1);
 
 namespace app\models;
 
 use Yii;
-use yii\base\Model;
 use app\components\helpers\db\Now;
+use yii\base\Model;
 
 class SlackAddForm extends Model
 {
+    /** @var string */
     public $webhook_url;
+    /** @var string */
     public $username;
+    /** @var string */
     public $icon;
+    /** @var string */
     public $channel;
+    /** @var int */
     public $language_id;
 
     public function rules()
@@ -65,23 +73,25 @@ class SlackAddForm extends Model
     public function attributeLabels()
     {
         return [
-            'webhook_url'       => Yii::t('app', 'Webhook URL'),
-            'username'          => Yii::t('app', 'User Name'),
-            'icon'              => Yii::t('app', 'Icon'),
-            'channel'           => Yii::t('app', 'Channel'),
-            'language_id'       => Yii::t('app', 'Language'),
+            'webhook_url' => Yii::t('app', 'Webhook URL'),
+            'username' => Yii::t('app', 'User Name'),
+            'icon' => Yii::t('app', 'Icon'),
+            'channel' => Yii::t('app', 'Channel'),
+            'language_id' => Yii::t('app', 'Language'),
         ];
     }
 
-    public function validateWebhookUrl($attr, $params)
+    /**
+     * @param string $attr
+     * @param mixed $params
+     */
+    public function validateWebhookUrl($attr, $params): void
     {
         if ($this->hasErrors($attr)) {
             return;
         }
 
-        $quote = function (string $regex): string {
-            return preg_quote($regex, '/');
-        };
+        $quote = fn(string $regex) => preg_quote($regex, '/');
         $okUrls = [
             // Slack
             sprintf(
@@ -91,7 +101,12 @@ class SlackAddForm extends Model
 
             // Discord
             sprintf('/^%s/ui', implode('', [
-                $quote('https://discordapp.com/api/webhooks/'),
+                $quote('https://'),
+                sprintf('(?:%s)', implode('|', [
+                    $quote('discord.com'),
+                    $quote('discordapp.com'),
+                ])),
+                $quote('/api/webhooks/'),
                 '\d+', // snowflake
                 $quote('/'),
                 '[0-9A-Za-z_-]+',
@@ -107,10 +122,13 @@ class SlackAddForm extends Model
 
         $this->addError(
             $attr,
-            Yii::t('yii', '{attribute} is not a valid URL.', ['attribute' => $this->getAttributeLabel($attr)])
+            Yii::t('yii', '{attribute} is not a valid URL.', [
+                'attribute' => $this->getAttributeLabel($attr),
+            ])
         );
     }
 
+    /** @return bool */
     public function save(User $user)
     {
         $model = new Slack();

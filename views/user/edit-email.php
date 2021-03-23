@@ -1,7 +1,17 @@
 <?php
+
+declare(strict_types=1);
+
 use app\components\widgets\AdWidget;
+use app\models\EmailForm;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
+use yii\web\View;
+
+/**
+ * @var EmailForm $form
+ * @var View $this
+ */
 
 $title = Yii::t('app', 'Update Your Email Address');
 $this->title = implode(' | ', [

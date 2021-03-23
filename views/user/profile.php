@@ -1,9 +1,17 @@
 <?php
+
 declare(strict_types=1);
 
 use app\components\widgets\FA;
+use app\models\User;
 use yii\helpers\Html;
+use yii\web\View;
 use yii\widgets\DetailView;
+
+/**
+ * @var User $user
+ * @var View $this
+ */
 
 $title = Yii::t('app', 'Profile and Settings');
 $this->title = implode(' | ', [

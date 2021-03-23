@@ -3,6 +3,13 @@
 declare(strict_types=1);
 
 use yii\helpers\Html;
+use yii\web\View;
+
+/**
+ * @var View $this
+ * @var object $myself
+ * @var object[] $depends
+ */
 
 $title = implode(' | ', [
   Yii::$app->name,

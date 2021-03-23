@@ -1,7 +1,19 @@
 <?php
+
+declare(strict_types=1);
+
 use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
 use yii\helpers\Html;
+use yii\web\View;
+
+/**
+ * @var DateTimeInterface $month
+ * @var View $this
+ * @var object[] $rules
+ * @var string|array $nextUrl
+ * @var string|array $prevUrl
+ */
 
 $formatter = Yii::$app->formatter;
 
@@ -66,7 +78,7 @@ $this->registerCss('tr.max>td{font-weight:bold}');
 <?php } ?>
 
   <div class="row">
-<?php foreach ($rules as $_rule): ?>
+<?php foreach ($rules as $_rule) { ?>
 <?php $rule = $_rule->rule ?>
 <?php $maxCount = -1 ?>
     <div class="col-xs-12 col-sm-6 col-lg-3" id="<?= Html::encode($rule->key) ?>">
@@ -79,7 +91,7 @@ $this->registerCss('tr.max>td{font-weight:bold}');
         </thead>
         <tbody>
 <?php $total = 0 ?>
-<?php foreach ($_rule->maps as $_map): ?>
+<?php foreach ($_rule->maps as $_map) { ?>
 <?php $map = $_map->map ?>
 <?php $count = $_map->count ?>
 <?php $total += $count ?>
@@ -95,7 +107,7 @@ $this->registerCss('tr.max>td{font-weight:bold}');
               <?= Html::encode($formatter->asInteger($count)) . "\n" ?>
             </td>
           </tr>
-<?php endforeach ?>
+<?php } ?>
           <tr>
             <td><?= Html::encode(Yii::t('app', 'Total')) ?></td>
             <td class="text-right">
@@ -105,6 +117,6 @@ $this->registerCss('tr.max>td{font-weight:bold}');
         </tbody>
       </table>
     </div>
-<?php endforeach ?>
+<?php } ?>
   </div>
 </div>

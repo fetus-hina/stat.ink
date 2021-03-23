@@ -6,6 +6,11 @@ use app\assets\AppLinkAsset;
 use app\components\widgets\FA;
 use app\components\widgets\FlagIcon;
 use yii\helpers\Html;
+use yii\web\View;
+
+/**
+ * @var View $this
+ */
 
 $icon = AppLinkAsset::register($this);
 $jp = function (): string {

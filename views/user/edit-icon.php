@@ -1,8 +1,20 @@
 <?php
+
+declare(strict_types=1);
+
 use app\components\widgets\AdWidget;
+use app\models\User;
+use app\models\UserIcon;
 use statink\yii2\jdenticon\Jdenticon;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
+use yii\web\View;
+
+/**
+ * @var View $this
+ * @var User $user
+ * @var ?UserIcon $current
+ */
 
 $this->title = implode(' | ', [
   Yii::$app->name,

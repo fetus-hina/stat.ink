@@ -8,6 +8,14 @@ use app\components\widgets\SnsWidget;
 use app\models\UserAuthKey;
 use yii\helpers\Html;
 use yii\helpers\Url;
+use yii\web\Controller;
+use yii\web\View;
+
+/**
+ * @var View $this
+ */
+
+assert($this->context instanceof Controller);
 
 $title = implode(' | ', [
   Yii::$app->name,

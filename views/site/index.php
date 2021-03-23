@@ -16,7 +16,14 @@ use app\components\widgets\alerts\MaintenanceInfo;
 use app\components\widgets\alerts\PleaseUseLatest;
 use statink\yii2\paintball\PaintballAsset;
 use yii\helpers\Html;
+use yii\web\Controller;
+use yii\web\View;
 
+/**
+ * @var View $this
+ */
+
+assert($this->context instanceof Controller);
 $this->context->layout = 'main';
 
 PaintballAsset::register($this);

@@ -6,6 +6,7 @@ use app\components\web\User;
 use app\models\LoginMethod;
 use app\models\User as UserModel;
 use app\models\UserLoginHistory;
+use yii\web\Cookie;
 use yii\web\ServerErrorHttpException;
 use yii\web\UserEvent;
 
@@ -17,17 +18,19 @@ return (function (): array {
 
     return [
         'class' => User::class,
-        'identityFixedKey' => $authKeySecret,
+        'autoRenewCookie' => false,
+        'enableAutoLogin' => $authKeySecret !== null,
         'identityClass' => UserModel::class,
         'identityCookie' => [
-            'name' => '_identity',
             'httpOnly' => true,
+            'name' => YII_ENV_DEV ? '_identity_dev' : '_identity',
+            'samesite' => Cookie::SAME_SITE_STRICT,
             'secure' => (bool)preg_match(
                 '/(?:^|\.)stat\.ink$/i',
                 $_SERVER['HTTP_HOST'] ?? ''
             ),
         ],
-        'enableAutoLogin' => $authKeySecret !== null,
+        'identityFixedKey' => $authKeySecret,
         'loginUrl' => ['user/login'],
         'on afterLogin' => function (UserEvent $event): void {
             if (!$event->cookieBased) {

@@ -9,8 +9,15 @@ use app\components\widgets\LocationColumnWidget;
 use app\components\widgets\MaxmindMessage;
 use app\components\widgets\OsIconWidget;
 use app\models\UserLoginHistory;
+use yii\data\DataProviderInterface;
 use yii\grid\GridView;
 use yii\helpers\Html;
+use yii\web\View;
+
+/**
+ * @var DataProviderInterface $dataProvider
+ * @var View $this
+ */
 
 TableResponsiveForceAsset::register($this);
 

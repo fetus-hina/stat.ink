@@ -10,6 +10,7 @@ namespace app\models;
 
 use Yii;
 use app\components\helpers\RandomFilename;
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\helpers\Url;
 
@@ -20,8 +21,10 @@ use yii\helpers\Url;
  * @property integer $battle_id
  * @property integer $type_id
  * @property string $filename
+ * @property integer $bucket_id
  *
  * @property Battle2 $battle
+ * @property ImageBucket $bucket
  * @property BattleImageType $type
  *
  * @property-read string $url
@@ -58,20 +61,28 @@ class BattleImage2 extends ActiveRecord
     {
         return [
             [['battle_id', 'type_id', 'filename'], 'required'],
-            [['battle_id', 'type_id'], 'integer'],
+            [['bucket_id'], 'default', 'value' => null],
+            [['battle_id', 'type_id', 'bucket_id'], 'integer'],
             [['filename'], 'string', 'max' => 64],
             [['battle_id', 'type_id'], 'unique',
                 'targetAttribute' => ['battle_id', 'type_id'],
                 'message' => 'The combination of Battle ID and Type ID has already been taken.',
             ],
             [['filename'], 'unique'],
-            [['battle_id'], 'exist', 'skipOnError' => true,
+            [['battle_id'], 'exist',
+                'skipOnError' => true,
                 'targetClass' => Battle2::class,
                 'targetAttribute' => ['battle_id' => 'id'],
             ],
-            [['type_id'], 'exist', 'skipOnError' => true,
+            [['type_id'], 'exist',
+                'skipOnError' => true,
                 'targetClass' => BattleImageType::class,
                 'targetAttribute' => ['type_id' => 'id'],
+            ],
+            [['bucket_id'], 'exist',
+                'skipOnError' => true,
+                'targetClass' => ImageBucket::class,
+                'targetAttribute' => ['bucket_id' => 'id'],
             ],
         ];
     }
@@ -82,10 +93,11 @@ class BattleImage2 extends ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
             'battle_id' => 'Battle ID',
-            'type_id' => 'Type ID',
+            'bucket_id' => 'Bucket ID',
             'filename' => 'Filename',
+            'id' => 'ID',
+            'type_id' => 'Type ID',
         ];
     }
 
@@ -95,6 +107,11 @@ class BattleImage2 extends ActiveRecord
     public function getBattle()
     {
         return $this->hasOne(Battle2::class, ['id' => 'battle_id']);
+    }
+
+    public function getBucket(): ActiveQuery
+    {
+        return $this->hasOne(ImageBucket::class, ['id' => 'bucket_id']);
     }
 
     /**

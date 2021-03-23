@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2019 AIZAWA Hina
+ * @copyright Copyright (C) 2019-2021 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -24,9 +24,10 @@ use yii\web\View;
 
 class Theme extends Component
 {
-    private $theme;
-    public $cookieName = 'theme';
+    private string $theme = 'default';
+    public string $cookieName = 'theme';
 
+    /** @return void */
     public function init()
     {
         parent::init();
@@ -130,10 +131,11 @@ class Theme extends Component
 
         Yii::$app->response->cookies->add(Yii::createObject([
             'class' => Cookie::class,
-            'name' => $this->cookieName,
-            'value' => $this->getTheme(),
             'expire' => $expires->getTimestamp(),
             'httpOnly' => true,
+            'name' => $this->cookieName,
+            'sameSite' => Cookie::SAME_SITE_STRICT,
+            'value' => $this->getTheme(),
         ]));
 
         return $this;
