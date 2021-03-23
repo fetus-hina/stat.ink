@@ -10,7 +10,7 @@ return [
     'cacheLimiter' => 'nocache',
     'cookieParams' => [
         'httponly' => true,
-        'samesite' => Cookie::SAME_SITE_STRICT,
+        'sameSite' => Cookie::SAME_SITE_STRICT,
         'secure' => (bool)preg_match(
             '/(?:^|\.)stat\.ink$/i',
             $_SERVER['HTTP_HOST'] ?? ''
