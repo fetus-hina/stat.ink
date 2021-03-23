@@ -81,7 +81,8 @@ class ApidocController extends Controller
         }
 
         $this->stderr(__METHOD__ . "(): {$langCode}: Checking syntax...\n");
-        $cmdline = vsprintf('/usr/bin/env npx %s lint %s', [
+        $cmdline = vsprintf('/usr/bin/env %s %s lint %s', [
+            escapeshellarg('npx'),
             escapeshellarg('speccy'),
             escapeshellarg($jsonPath),
         ]);
@@ -139,8 +140,9 @@ class ApidocController extends Controller
         }
 
         $this->stderr(__METHOD__ . "(): {$langCode}: Checking syntax...\n");
-        $cmdline = vsprintf('/usr/bin/env %s lint %s', [
-            escapeshellarg(Yii::getAlias('@app/node_modules/.bin/speccy')),
+        $cmdline = vsprintf('/usr/bin/env %s %s lint %s', [
+            escapeshellarg('npx'),
+            escapeshellarg('speccy'),
             escapeshellarg($jsonPath),
         ]);
         @exec($cmdline, $lines, $status);
@@ -156,8 +158,9 @@ class ApidocController extends Controller
             Yii::getAlias('@app'),
             $langCode,
         ]);
-        $cmdline = vsprintf('/usr/bin/env %s bundle -o %s --title %s %s', [
-            escapeshellarg(Yii::getAlias('@app/node_modules/.bin/redoc-cli')),
+        $cmdline = vsprintf('/usr/bin/env %s %s bundle -o %s --title %s %s', [
+            escapeshellarg('npx'),
+            escapeshellarg('redoc-cli'),
             escapeshellarg($outPath),
             escapeshellarg(Yii::t('app-apidoc1', 'stat.ink API for Splatoon 1')),
             escapeshellarg($jsonPath),
