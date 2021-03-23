@@ -706,6 +706,7 @@ class PostBattleForm extends Model
         $o->battle_id = $battle->id;
         $o->type_id = $imageTypeId;
         $o->filename = BattleImage::generateFilename();
+        $o->bucket_id = 1;
         return $o;
     }
 

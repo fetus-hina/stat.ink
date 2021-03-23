@@ -782,6 +782,7 @@ class PostBattleForm extends Model
             'battle_id' => $battle->id,
             'type_id'   => $imageTypeId,
             'filename'  => BattleImage2::generateFilename(),
+            'bucket_id' => 1,
         ]);
     }
 
