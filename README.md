@@ -7,17 +7,19 @@ stat.ink
 
 Source codes for https://stat.ink/
 
-SquidTracks, splatnet2statink, IkaLog 等の対応ソフトウェア、または自作のソフトウェアと連携することで Splatoon (2) の戦績を保存し、統計を取ります。
+SquidTracks, splatnet2statink, IkaLog 等の対応ソフトウェア、または自作のソフトウェアと連携することで Splatoon 1, 2 の戦績を保存し、統計を取ります。
 
-This software will save your Splatoon (2) battle results and get statistics by integrating with "supported software" such as
+This software will save your Splatoon 1, 2 battle results and get statistics by integrating with "supported software" such as
 SquidTracks, splatnet2statink, IkaLog, etc., or your own app.
 
 
 バグレポート BUG REPORT
 ----------------------
 
-- (Recommend) [GitHub で問題を報告する(要GitHubアカウント) Submit an issue on GitHub (Need an account)](https://github.com/fetus-hina/stat.ink/issues)
-- Contact to administrator with email or twitter.
+- (推奨) [GitHub で問題を報告する(要GitHubアカウント)](https://github.com/fetus-hina/stat.ink/issues)  
+  (Recommend) [Submit an issue on GitHub (Need an account)](https://github.com/fetus-hina/stat.ink/issues)
+- メールかTwitterで連絡する  
+  Contact to administrator with email or twitter.
 
 バグレポートは日本語で大丈夫です。開発者は日本語しかまともに使えない日本人です。
 
@@ -27,20 +29,27 @@ The administrator is not goot at English. Please use easy English and do not use
 問題がセキュリティにかかわるものであれば、非公開の方法を利用してください。  
 Use a private channel if it is a security issue.
 
-- Use Direct Message of twitter. ツイッターのDMを使う
-- [Use an encrypted message with PGP(GPG). PGP(GPG)で暗号化して送信する](https://fetus.jp/about/pgp)
-  - You can paste an encrypted message to our "issue."
+- ツイッターのDMを使う  
+  Use Direct Message of twitter.
+- [PGP(GPG)で暗号化して送信する](https://fetus.jp/about/pgp)  
+  [Use an encrypted message with PGP(GPG)](https://fetus.jp/about/pgp)
+  - GitHubのissueに、暗号化したメッセージを貼り付けることができます。  
+    You can paste an encrypted message to our "issue."
 
 
 REQUIREMENTS
 ------------
 
 - PHP 7.4.x
-  - Doesn't work with 7.3 or lower. (Uses statements and constants added in v7.4)
-  - You should build/install with Argon2. [Install `php-sodium` if you use remirepo's PHP 7.4](https://github.com/remicollet/remirepo/issues/132#issuecomment-566513636).
-  - At this time, we have not tested it with PHP 8.
+  - PHP 7.3以下では動作しません。（7.4で追加された構文等を利用しています）  
+    Doesn't work with 7.3 or lower. (Uses statements and constants added in v7.4)
+  - Argon2が有効化されたPHPが必要です。RemirepoのPHP 7.4を利用している場合、`php-sodium`をインストールしてください。（[詳細](https://github.com/remicollet/remirepo/issues/132#issuecomment-566513636)）  
+    You should build/install with Argon2. [Install `php-sodium` if you use remirepo's PHP 7.4](https://github.com/remicollet/remirepo/issues/132#issuecomment-566513636).
+  - 現在のところ、PHP 8での動作は確認していません。  
+    At this time, we have not tested it with PHP 8.
 - PostgreSQL 9.5+ (Recommended: 11+)
-  - Doesn't work with 9.4 or lower. (Uses features added in v9.5) 
+  - PgSQL 9.4以下では動作しません（9.5で追加された機能を利用しています）  
+    Doesn't work with 9.4 or lower. (Uses features added in v9.5) 
 - ImageMagick (`convert`)
 - Node.js (`npm`)
   - Recommended: latest release or latest LTS
@@ -76,23 +85,35 @@ https://stat.ink/ works with:
 
 Notes:
 
-  - Default version of PHP on CentOS 7 is 5.4.16. This application doesn't work on it.  
-    We are using features and statements that were added up to PHP 7.4.
+  - CentOS 7のデフォルトのPHPバージョンは5.4.16です。このバージョンでは動作しません。PHP 7.4までで追加された機能を利用しています。  
+    Default version of PHP on CentOS 7 is 5.4.16. This application doesn't work on it. We are using features and statements that were added up to PHP 7.4.
 
-  - Default version of PostgreSQL on CentOS 7 is 9.2.14. This application doesn't work with it.  
-    We are using features added in PostgreSQL 9.5 (e.g., jsonb, UPSERT).  
-    We use PostgreSQL 11 in our actual system, but 9.5 will work just fine.
+  - CentOS 7のデフォルトのPostgreSQLバージョンは9.2.14です。このバージョンでは動作しません。PgSQL 9.5で追加された機能を利用しています（jsonb, UPSERT）。実際のシステムではPgSQL 11を利用していますが、9.5でも充分動作します。  
+    Default version of PostgreSQL on CentOS 7 is 9.2.14. This application doesn't work with it. We are using features added in PostgreSQL 9.5 (e.g., jsonb, UPSERT). We use PostgreSQL 11 in our actual system, but 9.5 will work just fine.
 
 
 ### MaxMind's Account
 
-Stat.ink uses the GeoIP database for purposes such as detecting the user's time zone.  
+stat.inkは利用者のタイムゾーンの検出等にGeoIPデータベースを利用します。
+データベースをダウンロードするには、MaxMindへの会員登録が必要です。（無料）
+
+Stat.ink uses the GeoIP database for purposes such as detecting the user's time zone.
 You need to register an account on MaxMind to download the database (No additional cost required).
 
-  1. [Sign up for MaxMind account](https://www.maxmind.com/en/geolite2/signup) (or just log in)
-  2. Access to "My License Key" page and click "Generate new license key."
-  3. Fill in "License key description" and issue a license key.
-  4. Note the license key. The license key won't be displayed again.
+  1. [MaxMindに会員登録します](https://www.maxmind.com/en/geolite2/signup)（またはログインします）  
+     [Sign up for MaxMind account](https://www.maxmind.com/en/geolite2/signup) (or just log in)
+
+  2. 「My License Key」ページにアクセスし、「Generate new license key」をクリックします。  
+     Access to "My License Key" page and click "Generate new license key."
+
+  3. 「License key description」を埋め、ライセンスキーを発行します。  
+     Fill in "License key description" and issue a license key.
+
+  4. ライセンスキーを記録します。ライセンスキーはこれを最後に表示されないので注意してください。  
+     Note the license key. The license key won't be displayed again.
+
+ライセンスキーを発行したら、環境変数 `GEOIP_LICENSE_KEY` に設定します。  
+bashを利用しているなら、`~/.bashrc` に追加するなどの方法があります。
 
 After issuing the license key, set the license key to the environment variable "`GEOIP_LICENSE_KEY`".  
 If you are using bash, you may want to add the following to your `~/.bashrc`:
@@ -101,27 +122,42 @@ If you are using bash, you may want to add the following to your `~/.bashrc`:
 export GEOIP_LICENSE_KEY=ABCDEFGHIJKLMNOP
 ```
 
+`.bashrc` を編集したら、シェルを再起動するか、`source ~/.bashrc` してください。
+
 After editing `.bashrc`, reopen the shell or remember `source ~/.bashrc`.
 
 
 Branches
 --------
 
+2つの主たるブランチがあります。 `master` と `dev` です。
+
 We have 2 main branches. The one is `master` and the other is `dev`.
 
 ### `master` branch ###
 
+このブランチがサーバにデプロイされます。
+`dev` ブランチから不定期に変更が取り込まれます。
+
 This branch is deployed to the server.
 Changes are merged from the `dev` branch at irregular intervals.
 
+コントリビュートいただく場合、このブランチへプルリクエストは行わないでください。
+
 When you contribute to us, you should not request changes to this branch.
+
+`master` はただの識別子です。政治的・差別的意図はありません。
 
 The word `master` is just an identifier. There are no political or discriminatory intentions.
 
 
 ### `dev` branch ###
 
+アプリの開発はこのブランチで行います。
+
 The development of the app takes place on this branch.
+
+プルリクエストを作成する場合、このブランチから/へ行ってください。
 
 If you think you're going to make a pull request, make the change from this branch.
 
