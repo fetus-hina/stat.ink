@@ -24,7 +24,7 @@ use yii\web\View;
 
 class Theme extends Component
 {
-    private string $theme = '';
+    private ?string $theme = null;
     public string $cookieName = 'theme';
 
     /** @return void */
