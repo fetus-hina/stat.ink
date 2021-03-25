@@ -24,7 +24,7 @@ use yii\web\View;
 
 class Theme extends Component
 {
-    private string $theme = 'default';
+    private ?string $theme = null;
     public string $cookieName = 'theme';
 
     /** @return void */
@@ -39,6 +39,8 @@ class Theme extends Component
 
     public function setTheme(string $themeId): self
     {
+        Yii::trace(sprintf('setTheme(%s)', Json::encode($themeId)), __METHOD__);
+
         if (!$this->isValidTheme($themeId)) {
             throw new InvalidConfigException("Unknown theme: {$themeId}");
         }
@@ -50,7 +52,9 @@ class Theme extends Component
 
     public function getTheme(): string
     {
-        return $this->theme ?? 'default';
+        $value = $this->theme ?? 'default';
+        Yii::trace(sprintf('getTheme() returns %s', Json::encode($value)), __METHOD__);
+        return $value;
     }
 
     public function getIsDarkTheme(): bool
@@ -59,28 +63,41 @@ class Theme extends Component
             case 'bootswatch-cyborg':
             case 'bootswatch-darkly':
             case 'bootswatch-slate':
+                Yii::trace('getIsDarkTheme() returns true', __METHOD__);
                 return true;
 
             default:
+                Yii::trace('getIsDarkTheme() returns false', __METHOD__);
                 return false;
         }
     }
 
     public function getIsLightTheme(): bool
     {
-        return !$this->getIsDarkTheme();
+        $value = !$this->getIsDarkTheme();
+        Yii::trace(sprintf('getIsLightTheme() returns %s', Json::encode($value)), __METHOD__);
+        return $value;
     }
 
     public function isValidTheme(string $themeId): bool
     {
         if ($themeId === 'default' || $themeId === 'color-blind') {
+            Yii::trace('isValidTheme() returns true', __METHOD__);
             return true;
         }
 
         if (preg_match('/^bootswatch-([a-z]+)$/', $themeId, $match)) {
-            return BootswatchAsset::isValidTheme($match[1]);
+            $value = BootswatchAsset::isValidTheme($match[1]);
+            Yii::trace(
+                vsprintf('isValidTheme() returns %s via BootswatchAsset::isValidTheme', [
+                    Json::encode($value),
+                ]),
+                __METHOD__
+            );
+            return $value;
         }
 
+        Yii::trace('isValidTheme() returns false', __METHOD__);
         return false;
     }
 
@@ -106,12 +123,15 @@ class Theme extends Component
     protected function loadFromCookie(): self
     {
         if (!$this->cookieName) {
+            Yii::trace('No cookie name set', __METHOD__);
             return $this;
         }
 
         $theme = Yii::$app->request->cookies->getValue($this->cookieName);
+        Yii::trace(sprintf('Theme %s loaded from cookie', Json::encode($theme)), __METHOD__);
         if (!$theme || !$this->isValidTheme($theme)) {
             $theme = 'default';
+            Yii::trace('Fallback to default theme', __METHOD__);
         }
 
         return $this->setTheme($theme);
