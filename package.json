@@ -6,8 +6,8 @@
     "email": "hina@fetus.jp"
   },
   "dependencies": {
-    "@babel/cli": "^7.13.10",
-    "@babel/core": "^7.13.13",
+    "@babel/cli": "^7.13.14",
+    "@babel/core": "^7.13.14",
     "@babel/polyfill": "^7.12.1",
     "@babel/preset-env": "^7.13.12",
     "@babel/preset-react": "^7.13.13",
@@ -68,8 +68,8 @@
     "stylelint": "^13.12.0",
     "stylelint-config-recommended-scss": "^4.2.0",
     "stylelint-scss": "^3.19.0",
-    "svgo": "^2.2.2",
-    "uglify-js": "^3.13.2",
+    "svgo": "^2.3.0",
+    "uglify-js": "^3.13.3",
     "updates": "^11.4.3",
     "uuidjs": "^4.2.8",
     "webpack": "^5.28.0",
