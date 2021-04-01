@@ -93,6 +93,8 @@ const useStyles = createUseStyles({
   },
 });
 
+const nbsp = '\u{00a0}';
+
 export default function BattleCard(props) {
   const { battle, fallbackImage, reltime } = props;
   const classes = useStyles();
@@ -159,18 +161,12 @@ export default function BattleCard(props) {
             </a>
           </div>
           <div className={classes.contentData}>
-            {battle.summary
-              ? <div className={['text-muted', 'small', classes.ellipsis].join(' ')}>
-                {battle.summary}
-              </div>
-              : null
-            }
-            {battle.summary2
-              ? <div className={['text-muted', 'small', classes.ellipsis].join(' ')}>
-                {battle.summary2}
-              </div>
-              : null
-            }
+            <div className={['text-muted', 'small', classes.ellipsis].join(' ')}>
+              {battle.summary || nbsp}
+            </div>
+            <div className={['text-muted', 'small', classes.ellipsis].join(' ')}>
+              {battle.summary2 || nbsp}
+            </div>
             <div className={classes.ellipsis}>
               <a href={battle.user.url}>
                 {battle.user.name}

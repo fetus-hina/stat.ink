@@ -407,7 +407,58 @@ abstract class BaseLatestBattlesAction extends ViewAction
                 }
                 return sprintf('%s @%s', $result, $map);
             })(),
-            'summary2' => null,
+            'summary2' => (function () use ($battle): ?string {
+                $lobby = $battle->lobby;
+                $rule = $battle->rule;
+                if (!$lobby || !$rule) {
+                    return null;
+                }
+
+                switch ($lobby->key) {
+                    case 'fest':
+                        return Yii::t('app-rule', 'Splatfest');
+
+                    case 'private':
+                        return Yii::t('app-rule', 'Private Battle');
+
+                    case 'squad_2':
+                    case 'squad_3':
+                    case 'squad_4':
+                        if (in_array($rule->key, ['area', 'yagura', 'hoko'], true)) {
+                            return vsprintf('%s, %s', [
+                                Yii::t('app-rule', $rule->name),
+                                (function () use ($lobby): string {
+                                    switch ($lobby->key) {
+                                        case 'squad_2':
+                                            return Yii::t('app-rule', 'Squad Battle (Twin)');
+
+                                        case 'squad_3':
+                                            return Yii::t('app-rule', 'Squad Battle (Tri)');
+
+                                        case 'squad_4':
+                                            return Yii::t('app-rule', 'Squad Battle (Quad)');
+
+                                        default:
+                                            return '';
+                                    }
+                                })(),
+                            ]);
+                        }
+                        break;
+
+                    case 'standard': // turf war or ranked battle
+                        if ($rule->key === 'nawabari') {
+                            return Yii::t('app-rule', 'Turf War');
+                        } elseif (in_array($rule->key, ['area', 'yagura', 'hoko'], true)) {
+                            return vsprintf('%s, %s', [
+                                Yii::t('app-rule', $rule->name),
+                                Yii::t('app-rule', 'Ranked Battle'),
+                            ]);
+                        }
+                        break;
+                }
+                return null;
+            })(),
             'time' => strtotime($battle->end_at ?: $battle->created_at),
             'rule' => $battle->rule
                 ? [
