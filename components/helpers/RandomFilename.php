@@ -1,28 +1,21 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2021 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
 
+declare(strict_types=1);
+
 namespace app\components\helpers;
 
-use Base32\Base32;
+use app\components\helpers\randomFilename\Generator;
 
 class RandomFilename
 {
-    public static function generate($ext = '')
+    public static function generate(string $ext = '', int $level = 0): string
     {
-        // Generate UUIDv4
-        $bytes = random_bytes(16);
-        $bytes[6] = chr((0x04 << 4) | (ord($bytes[6]) & 0x0f));
-        $bytes[8] = chr((ord($bytes[8]) & 0x3f) | 0x80);
-
-        $base32 = rtrim(Base32::encode($bytes), '=');
-        $base32 = strtolower($base32);
-
-        $filename = $base32 . (($ext != '') ? ('.' . $ext) : '');
-        return $filename;
+        return Generator::generate($ext, $level);
     }
 }

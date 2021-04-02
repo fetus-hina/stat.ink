@@ -39,16 +39,17 @@ class BattleImage2 extends ActiveRecord
         return 'battle_image2';
     }
 
-    public static function generateFilename(): string
+    public static function generateFilename(bool $checkDupe = true): string
     {
         while (true) {
-            $name = RandomFilename::generate('jpg');
-            $path = substr($name, 0, 2) . '/' . $name;
-            if (static::findOne(['filename' => $path])) {
-                continue;
-            }
-            if (BattleImage::findOne(['filename' => $path])) {
-                continue;
+            $path = RandomFilename::generate('jpg', 1);
+            if ($checkDupe) {
+                if (static::findOne(['filename' => $path])) {
+                    continue;
+                }
+                if (BattleImage::findOne(['filename' => $path])) {
+                    continue;
+                }
             }
             return $path;
         }
