@@ -207,10 +207,10 @@ $this->registerJs(<<<'EOF'
         },
         options: {
           aspectRatio: 1,
-          legend: {
-            display: false,
-          },
           plugins: {
+            legend: {
+              display: false,
+            },
             datalabels: {
               backgroundColor: function (ctx) {
                 var value = ctx.dataset.data[ctx.dataIndex];

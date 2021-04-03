@@ -50,7 +50,7 @@
               : battle.good
             : null
           ),
-          fill: true,
+          fill: false,
           label: dataLabels.win,
           showLine: false,
           lineTension: 0,
@@ -70,7 +70,7 @@
               : battle.good
             : null
           ),
-          fill: true,
+          fill: false,
           label: dataLabels.lose,
           lineTension: 0,
           showLine: false,
