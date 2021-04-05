@@ -10,6 +10,8 @@
  * @license http://www.yiiframework.com/license/
  */
 
+declare(strict_types=1);
+
 namespace app\components\web;
 
 use Base32\Base32;
@@ -17,8 +19,23 @@ use Yii;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
 use yii\helpers\Url;
+use yii\web\AssetManager as FWAssetManager;
 
-class AssetManager extends \yii\web\AssetManager
+use function call_user_func;
+use function dirname;
+use function gmdate;
+use function hash_hmac;
+use function is_callable;
+use function is_file;
+use function is_int;
+use function ltrim;
+use function strlen;
+use function strncmp;
+use function strtolower;
+use function substr;
+use function vsprintf;
+
+class AssetManager extends FWAssetManager
 {
     /**
      * @param string $path
@@ -52,6 +69,22 @@ class AssetManager extends \yii\web\AssetManager
         ));
         Yii::endProfile($profile, __METHOD__);
         Yii::info("Asset path hash = {$hash}", __METHOD__);
-        return $hash;
+
+        /** @var ?int */
+        $commitTime = ArrayHelper::getValue(Yii::$app->params, 'gitRevision.lastCommittedT');
+        if (!is_int($commitTime)) {
+            Yii::info('Commit time is unknown. No timestamp used', __METHOD__);
+            return $hash;
+        }
+
+        $result = vsprintf('%s-%s/%s', [
+            gmdate('Ymd', $commitTime),
+            ($options['assetRevision'] >= 0)
+                ? (string)$options['assetRevision']
+                : gmdate('His', $commitTime),
+            $hash,
+        ]);
+        Yii::info("Asset path = {$result}", __METHOD__);
+        return $result;
     }
 }
