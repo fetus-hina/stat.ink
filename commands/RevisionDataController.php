@@ -73,10 +73,11 @@ class RevisionDataController extends Controller
         $commit = Version::getLastCommited();
 
         $data = [
-            'shortHash' => Version::getShortRevision(),
-            'longHash' => Version::getRevision(),
-            'tags' => Version::getVersionTags(),
             'lastCommitted' => $commit ? $commit->format(DateTime::ATOM) : null,
+            'lastCommittedT' => $commit ? (int)$commit->format('U') : null,
+            'longHash' => Version::getRevision(),
+            'shortHash' => Version::getShortRevision(),
+            'tags' => Version::getVersionTags(),
         ];
 
         $contents = implode("\n", [

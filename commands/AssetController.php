@@ -11,6 +11,7 @@ declare(strict_types=1);
 namespace app\commands;
 
 use Yii;
+use app\commands\asset\CleanupAction;
 use yii\console\Controller;
 use yii\helpers\Url;
 
@@ -27,6 +28,14 @@ use function strtolower;
 
 class AssetController extends Controller
 {
+    /** @return array */
+    public function actions()
+    {
+        return [
+            'cleanup' => CleanupAction::class,
+        ];
+    }
+
     public function actionPublish(): int
     {
         $url = Url::to(['site/asset-publish'], true);
