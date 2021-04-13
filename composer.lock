@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "19960e362c073e91316319213b6fdd19",
+    "content-hash": "b0c0b2212879873d8040727459c776e5",
     "packages": [
         {
             "name": "cebe/markdown",
@@ -647,29 +647,26 @@
         },
         {
             "name": "jp3cki/uuid",
-            "version": "v0.1.1",
+            "version": "v1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fetus-hina/uuid.git",
-                "reference": "58364ab6d340c6200007f25b411a56ed08d90a64"
+                "reference": "315494baa35eb6849ec36eb9a32b080454c6ad5d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fetus-hina/uuid/zipball/58364ab6d340c6200007f25b411a56ed08d90a64",
-                "reference": "58364ab6d340c6200007f25b411a56ed08d90a64",
+                "url": "https://api.github.com/repos/fetus-hina/uuid/zipball/315494baa35eb6849ec36eb9a32b080454c6ad5d",
+                "reference": "315494baa35eb6849ec36eb9a32b080454c6ad5d",
                 "shasum": ""
             },
             "require": {
                 "ext-hash": "*",
                 "ext-pcre": "*",
-                "php": ">= 5.4"
+                "php": ">= 7.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "4.*|5.*",
-                "squizlabs/php_codesniffer": "^2.5"
-            },
-            "suggest": {
-                "paragonie/random_compat": "random_bytes() polyfill library for PHP 5.6 or earlier."
+                "phpunit/phpunit": "*",
+                "squizlabs/php_codesniffer": "*"
             },
             "type": "library",
             "autoload": {
@@ -685,14 +682,14 @@
             "authors": [
                 {
                     "name": "AIZAWA Hina",
-                    "email": "hina@bouhime.com"
+                    "email": "hina@fetus.jp"
                 }
             ],
             "support": {
                 "issues": "https://github.com/fetus-hina/uuid/issues",
-                "source": "https://github.com/fetus-hina/uuid/tree/master"
+                "source": "https://github.com/fetus-hina/uuid/tree/v1.0.0"
             },
-            "time": "2016-08-30T08:48:40+00:00"
+            "time": "2021-04-13T10:41:32+00:00"
         },
         {
             "name": "jp3cki/yii2-bs-datetimepicker",
