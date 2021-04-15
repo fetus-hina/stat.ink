@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2dd7abcbee4210024f36081ad329c681",
+    "content-hash": "757192b58a8fefe185e5a8348b91eaba",
     "packages": [
         {
             "name": "cebe/markdown",
@@ -647,24 +647,26 @@
         },
         {
             "name": "jp3cki/uuid",
-            "version": "v1.0.0",
+            "version": "v2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fetus-hina/uuid.git",
-                "reference": "315494baa35eb6849ec36eb9a32b080454c6ad5d"
+                "reference": "b8939c39c8d9afb03c9b87c2c16b7e72001774c0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fetus-hina/uuid/zipball/315494baa35eb6849ec36eb9a32b080454c6ad5d",
-                "reference": "315494baa35eb6849ec36eb9a32b080454c6ad5d",
+                "url": "https://api.github.com/repos/fetus-hina/uuid/zipball/b8939c39c8d9afb03c9b87c2c16b7e72001774c0",
+                "reference": "b8939c39c8d9afb03c9b87c2c16b7e72001774c0",
                 "shasum": ""
             },
             "require": {
                 "ext-hash": "*",
                 "ext-pcre": "*",
-                "php": ">= 7.0"
+                "php": ">= 7.0",
+                "php-64bit": ">= 7.0"
             },
             "require-dev": {
+                "phpstan/phpstan": "*",
                 "phpunit/phpunit": "*",
                 "squizlabs/php_codesniffer": "*"
             },
@@ -687,9 +689,9 @@
             ],
             "support": {
                 "issues": "https://github.com/fetus-hina/uuid/issues",
-                "source": "https://github.com/fetus-hina/uuid/tree/v1.0.0"
+                "source": "https://github.com/fetus-hina/uuid/tree/v2.0.0"
             },
-            "time": "2021-04-13T10:41:32+00:00"
+            "time": "2021-04-15T07:23:04+00:00"
         },
         {
             "name": "jp3cki/yii2-bs-datetimepicker",
