@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "19960e362c073e91316319213b6fdd19",
+    "content-hash": "757192b58a8fefe185e5a8348b91eaba",
     "packages": [
         {
             "name": "cebe/markdown",
@@ -647,29 +647,28 @@
         },
         {
             "name": "jp3cki/uuid",
-            "version": "v0.1.1",
+            "version": "v2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fetus-hina/uuid.git",
-                "reference": "58364ab6d340c6200007f25b411a56ed08d90a64"
+                "reference": "b8939c39c8d9afb03c9b87c2c16b7e72001774c0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fetus-hina/uuid/zipball/58364ab6d340c6200007f25b411a56ed08d90a64",
-                "reference": "58364ab6d340c6200007f25b411a56ed08d90a64",
+                "url": "https://api.github.com/repos/fetus-hina/uuid/zipball/b8939c39c8d9afb03c9b87c2c16b7e72001774c0",
+                "reference": "b8939c39c8d9afb03c9b87c2c16b7e72001774c0",
                 "shasum": ""
             },
             "require": {
                 "ext-hash": "*",
                 "ext-pcre": "*",
-                "php": ">= 5.4"
+                "php": ">= 7.0",
+                "php-64bit": ">= 7.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "4.*|5.*",
-                "squizlabs/php_codesniffer": "^2.5"
-            },
-            "suggest": {
-                "paragonie/random_compat": "random_bytes() polyfill library for PHP 5.6 or earlier."
+                "phpstan/phpstan": "*",
+                "phpunit/phpunit": "*",
+                "squizlabs/php_codesniffer": "*"
             },
             "type": "library",
             "autoload": {
@@ -685,14 +684,14 @@
             "authors": [
                 {
                     "name": "AIZAWA Hina",
-                    "email": "hina@bouhime.com"
+                    "email": "hina@fetus.jp"
                 }
             ],
             "support": {
                 "issues": "https://github.com/fetus-hina/uuid/issues",
-                "source": "https://github.com/fetus-hina/uuid/tree/master"
+                "source": "https://github.com/fetus-hina/uuid/tree/v2.0.0"
             },
-            "time": "2016-08-30T08:48:40+00:00"
+            "time": "2021-04-15T07:23:04+00:00"
         },
         {
             "name": "jp3cki/yii2-bs-datetimepicker",
@@ -1421,23 +1420,23 @@
         },
         {
             "name": "maxmind-db/reader",
-            "version": "v1.10.0",
+            "version": "v1.10.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/maxmind/MaxMind-DB-Reader-php.git",
-                "reference": "07f84d969cfc527ce49388558a366ad376f1f35c"
+                "reference": "569bd44d97d30a4ec12c7793a33004a76d4caf18"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/maxmind/MaxMind-DB-Reader-php/zipball/07f84d969cfc527ce49388558a366ad376f1f35c",
-                "reference": "07f84d969cfc527ce49388558a366ad376f1f35c",
+                "url": "https://api.github.com/repos/maxmind/MaxMind-DB-Reader-php/zipball/569bd44d97d30a4ec12c7793a33004a76d4caf18",
+                "reference": "569bd44d97d30a4ec12c7793a33004a76d4caf18",
                 "shasum": ""
             },
             "require": {
                 "php": ">=7.2"
             },
             "conflict": {
-                "ext-maxminddb": "<1.10.0,>=2.0.0"
+                "ext-maxminddb": "<1.10.1,>=2.0.0"
             },
             "require-dev": {
                 "friendsofphp/php-cs-fixer": "*",
@@ -1480,9 +1479,9 @@
             ],
             "support": {
                 "issues": "https://github.com/maxmind/MaxMind-DB-Reader-php/issues",
-                "source": "https://github.com/maxmind/MaxMind-DB-Reader-php/tree/v1.10.0"
+                "source": "https://github.com/maxmind/MaxMind-DB-Reader-php/tree/v1.10.1"
             },
-            "time": "2021-02-09T17:52:47+00:00"
+            "time": "2021-04-14T17:49:35+00:00"
         },
         {
             "name": "maxmind/web-service-common",
@@ -1724,16 +1723,16 @@
         },
         {
             "name": "phpseclib/phpseclib",
-            "version": "3.0.6",
+            "version": "3.0.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpseclib/phpseclib.git",
-                "reference": "906a5fafabe5e6ba51ef3dc65b2722a677908837"
+                "reference": "d369510df0ebd5e1a5d0fe3d4d23c55fa87a403d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpseclib/phpseclib/zipball/906a5fafabe5e6ba51ef3dc65b2722a677908837",
-                "reference": "906a5fafabe5e6ba51ef3dc65b2722a677908837",
+                "url": "https://api.github.com/repos/phpseclib/phpseclib/zipball/d369510df0ebd5e1a5d0fe3d4d23c55fa87a403d",
+                "reference": "d369510df0ebd5e1a5d0fe3d4d23c55fa87a403d",
                 "shasum": ""
             },
             "require": {
@@ -1815,7 +1814,7 @@
             ],
             "support": {
                 "issues": "https://github.com/phpseclib/phpseclib/issues",
-                "source": "https://github.com/phpseclib/phpseclib/tree/3.0.6"
+                "source": "https://github.com/phpseclib/phpseclib/tree/3.0.7"
             },
             "funding": [
                 {
@@ -1831,7 +1830,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-03-10T13:58:31+00:00"
+            "time": "2021-04-06T14:00:11+00:00"
         },
         {
             "name": "psr/container",
@@ -4032,16 +4031,16 @@
         },
         {
             "name": "codeception/lib-innerbrowser",
-            "version": "1.4.1",
+            "version": "1.4.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Codeception/lib-innerbrowser.git",
-                "reference": "693e116f81ef98eae98c43ef785a726faf87394e"
+                "reference": "4ffb91c18e4cacd073ff2914c07e5ccaf5efe449"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/lib-innerbrowser/zipball/693e116f81ef98eae98c43ef785a726faf87394e",
-                "reference": "693e116f81ef98eae98c43ef785a726faf87394e",
+                "url": "https://api.github.com/repos/Codeception/lib-innerbrowser/zipball/4ffb91c18e4cacd073ff2914c07e5ccaf5efe449",
+                "reference": "4ffb91c18e4cacd073ff2914c07e5ccaf5efe449",
                 "shasum": ""
             },
             "require": {
@@ -4086,9 +4085,9 @@
             ],
             "support": {
                 "issues": "https://github.com/Codeception/lib-innerbrowser/issues",
-                "source": "https://github.com/Codeception/lib-innerbrowser/tree/1.4.1"
+                "source": "https://github.com/Codeception/lib-innerbrowser/tree/1.4.2"
             },
-            "time": "2021-03-02T08:01:54+00:00"
+            "time": "2021-04-06T05:26:49+00:00"
         },
         {
             "name": "codeception/module-asserts",
@@ -4689,16 +4688,16 @@
         },
         {
             "name": "opis/closure",
-            "version": "3.6.1",
+            "version": "3.6.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/opis/closure.git",
-                "reference": "943b5d70cc5ae7483f6aff6ff43d7e34592ca0f5"
+                "reference": "06e2ebd25f2869e54a306dda991f7db58066f7f6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/opis/closure/zipball/943b5d70cc5ae7483f6aff6ff43d7e34592ca0f5",
-                "reference": "943b5d70cc5ae7483f6aff6ff43d7e34592ca0f5",
+                "url": "https://api.github.com/repos/opis/closure/zipball/06e2ebd25f2869e54a306dda991f7db58066f7f6",
+                "reference": "06e2ebd25f2869e54a306dda991f7db58066f7f6",
                 "shasum": ""
             },
             "require": {
@@ -4748,9 +4747,9 @@
             ],
             "support": {
                 "issues": "https://github.com/opis/closure/issues",
-                "source": "https://github.com/opis/closure/tree/3.6.1"
+                "source": "https://github.com/opis/closure/tree/3.6.2"
             },
-            "time": "2020-11-07T02:01:34+00:00"
+            "time": "2021-04-09T13:42:10+00:00"
         },
         {
             "name": "phar-io/manifest",
@@ -6775,16 +6774,16 @@
         },
         {
             "name": "squizlabs/php_codesniffer",
-            "version": "3.5.8",
+            "version": "3.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/squizlabs/PHP_CodeSniffer.git",
-                "reference": "9d583721a7157ee997f235f327de038e7ea6dac4"
+                "reference": "ffced0d2c8fa8e6cdc4d695a743271fab6c38625"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/9d583721a7157ee997f235f327de038e7ea6dac4",
-                "reference": "9d583721a7157ee997f235f327de038e7ea6dac4",
+                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/ffced0d2c8fa8e6cdc4d695a743271fab6c38625",
+                "reference": "ffced0d2c8fa8e6cdc4d695a743271fab6c38625",
                 "shasum": ""
             },
             "require": {
@@ -6827,7 +6826,7 @@
                 "source": "https://github.com/squizlabs/PHP_CodeSniffer",
                 "wiki": "https://github.com/squizlabs/PHP_CodeSniffer/wiki"
             },
-            "time": "2020-10-23T02:01:07+00:00"
+            "time": "2021-04-09T00:54:41+00:00"
         },
         {
             "name": "symfony/browser-kit",
