@@ -3304,16 +3304,16 @@
         },
         {
             "name": "yiisoft/yii2",
-            "version": "2.0.41.1",
+            "version": "2.0.42.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-framework.git",
-                "reference": "2ad0894a2ccbd3912b33de4419ad1ae3df0595c4"
+                "reference": "976e2e892af4df933831b5e0a05d0acf4b173d98"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/2ad0894a2ccbd3912b33de4419ad1ae3df0595c4",
-                "reference": "2ad0894a2ccbd3912b33de4419ad1ae3df0595c4",
+                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/976e2e892af4df933831b5e0a05d0acf4b173d98",
+                "reference": "976e2e892af4df933831b5e0a05d0acf4b173d98",
                 "shasum": ""
             },
             "require": {
@@ -3421,7 +3421,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-03-04T15:45:04+00:00"
+            "time": "2021-05-06T11:44:35+00:00"
         },
         {
             "name": "yiisoft/yii2-bootstrap",
@@ -3653,16 +3653,16 @@
         },
         {
             "name": "yiisoft/yii2-queue",
-            "version": "2.3.1",
+            "version": "2.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-queue.git",
-                "reference": "a6758a2b9c2d8aca9b949f4faa9e3cca0dfbc8be"
+                "reference": "7446216c87eff371245113b41f5a227d4d9182f7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-queue/zipball/a6758a2b9c2d8aca9b949f4faa9e3cca0dfbc8be",
-                "reference": "a6758a2b9c2d8aca9b949f4faa9e3cca0dfbc8be",
+                "url": "https://api.github.com/repos/yiisoft/yii2-queue/zipball/7446216c87eff371245113b41f5a227d4d9182f7",
+                "reference": "7446216c87eff371245113b41f5a227d4d9182f7",
                 "shasum": ""
             },
             "require": {
@@ -3755,7 +3755,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-12-23T17:04:23+00:00"
+            "time": "2021-05-05T22:59:45+00:00"
         },
         {
             "name": "yiisoft/yii2-swiftmailer",
