@@ -33,6 +33,7 @@
         "jp3cki/yii2-twitter-widget": "^1.0",
         "jp3cki/yii2-zxcvbn": "^1.0",
         "laminas/laminas-feed": "^2.12.0",
+        "laminas/laminas-http": "^2.14",
         "laminas/laminas-validator": "^2.14",
         "lusitanian/oauth": "^0.8.9",
         "php-curl-class/php-curl-class": "^9.0",
