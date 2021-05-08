@@ -2502,8 +2502,8 @@ trait UnitTesterActions
      *
      * Authenticates user for HTTP_AUTH
      *
-     * @param $username
-     * @param $password
+     * @param string $username
+     * @param string $password
      * @see \Codeception\Lib\InnerBrowser::amHttpAuthenticated()
      */
     public function amHttpAuthenticated($username, $password) {
@@ -2522,7 +2522,6 @@ trait UnitTesterActions
      * <?php
      * $I->haveHttpHeader('X-Requested-With', 'Codeception');
      * $I->amOnPage('test-headers.php');
-     * ?>
      * ```
      *
      * To use special chars in Header Key use HTML Character Entities:
@@ -2533,7 +2532,6 @@ trait UnitTesterActions
      * ```php
      * <?php
      * $I->haveHttpHeader('Client&#95;Id', 'Codeception');
-     * ?>
      * ```
      *
      * @param string $name the name of the request header
@@ -2560,7 +2558,6 @@ trait UnitTesterActions
      * // ...
      * $I->deleteHeader('X-Requested-With');
      * $I->amOnPage('some-other-page.php');
-     * ?>
      * ```
      *
      * @param string $name the name of the header to delete.
@@ -3932,7 +3929,7 @@ trait UnitTesterActions
      *     'task' => 'lorem ipsum',
      *     'category' => 'miscellaneous',
      * ]]);
-     * ```    
+     * ```
      *
      * @param string $uri
      * @param array $params
@@ -3956,7 +3953,7 @@ trait UnitTesterActions
      *
      * @param $method
      * @param $uri
-     * @param $params
+     * @param array $params
      * @see \Codeception\Lib\InnerBrowser::sendAjaxRequest()
      */
     public function sendAjaxRequest($method, $uri, $params = []) {
@@ -4103,7 +4100,6 @@ trait UnitTesterActions
      * Grabs current page source code.
      *
      * @throws ModuleException if no page was opened.
-     *
      * @return string Current page source code.
      * @see \Codeception\Lib\InnerBrowser::grabPageSource()
      */
@@ -4200,7 +4196,7 @@ trait UnitTesterActions
      * @return mixed
      * @see \Codeception\Lib\InnerBrowser::resetCookie()
      */
-    public function resetCookie($name, array $params = []) {
+    public function resetCookie($cookie, array $params = []) {
         return $this->getScenario()->runStep(new \Codeception\Step\Action('resetCookie', func_get_args()));
     }
 
@@ -4466,7 +4462,7 @@ trait UnitTesterActions
      * $I->seeResponseCodeIs(\Codeception\Util\HttpCode::OK);
      * ```
      *
-     * @param $code
+     * @param int $code
      * @see \Codeception\Lib\InnerBrowser::seeResponseCodeIs()
      */
     public function seeResponseCodeIs($code) {
@@ -4486,7 +4482,7 @@ trait UnitTesterActions
      * $I->seeResponseCodeIs(\Codeception\Util\HttpCode::OK);
      * ```
      *
-     * @param $code
+     * @param int $code
      * @see \Codeception\Lib\InnerBrowser::seeResponseCodeIs()
      */
     public function canSeeResponseCodeIs($code) {
@@ -4499,8 +4495,8 @@ trait UnitTesterActions
      *
      * Checks that response code is between a certain range. Between actually means [from <= CODE <= to]
      *
-     * @param $from
-     * @param $to
+     * @param int $from
+     * @param int $to
      * @see \Codeception\Lib\InnerBrowser::seeResponseCodeIsBetween()
      */
     public function seeResponseCodeIsBetween($from, $to) {
@@ -4512,8 +4508,8 @@ trait UnitTesterActions
      * [!] Conditional Assertion: Test won't be stopped on fail
      * Checks that response code is between a certain range. Between actually means [from <= CODE <= to]
      *
-     * @param $from
-     * @param $to
+     * @param int $from
+     * @param int $to
      * @see \Codeception\Lib\InnerBrowser::seeResponseCodeIsBetween()
      */
     public function canSeeResponseCodeIsBetween($from, $to) {
@@ -4533,7 +4529,7 @@ trait UnitTesterActions
      * // recommended \Codeception\Util\HttpCode
      * $I->dontSeeResponseCodeIs(\Codeception\Util\HttpCode::OK);
      * ```
-     * @param $code
+     * @param int $code
      * @see \Codeception\Lib\InnerBrowser::dontSeeResponseCodeIs()
      */
     public function dontSeeResponseCodeIs($code) {
@@ -4552,7 +4548,7 @@ trait UnitTesterActions
      * // recommended \Codeception\Util\HttpCode
      * $I->dontSeeResponseCodeIs(\Codeception\Util\HttpCode::OK);
      * ```
-     * @param $code
+     * @param int $code
      * @see \Codeception\Lib\InnerBrowser::dontSeeResponseCodeIs()
      */
     public function cantSeeResponseCodeIs($code) {
@@ -4760,7 +4756,6 @@ trait UnitTesterActions
      * ```php
      * $I->setServerParameters([]);
      * ```
-     * @param array $params
      * @see \Codeception\Lib\InnerBrowser::setServerParameters()
      */
     public function setServerParameters(array $params) {
@@ -4776,8 +4771,8 @@ trait UnitTesterActions
      * ```php
      * $I->haveServerParameter('name', 'value');
      * ```
-     * @param $name
-     * @param $value
+     * @param string $name
+     * @param string $value
      * @see \Codeception\Lib\InnerBrowser::haveServerParameter()
      */
     public function haveServerParameter($name, $value) {

@@ -55,7 +55,7 @@ SlackAsset::register($this);
     [
       'label' => Yii::t('app', 'User Name'),
       'value' => function ($model) : string {
-        $value = trim($model->username);
+        $value = trim((string)$model->username);
 
         if ($value === '') {
           return Yii::t('app', '(default)');
@@ -68,7 +68,7 @@ SlackAsset::register($this);
       'label' => Yii::t('app', 'Icon'),
       'format' => 'raw',
       'value' => function ($model) : string {
-        $value = trim($model->icon);
+        $value = trim((string)$model->icon);
 
         if ($value === '') {
           return Html::encode(Yii::t('app', '(default)'));
@@ -80,7 +80,7 @@ SlackAsset::register($this);
 
         if (preg_match('/^:[a-zA-Z0-9+._-]+:$/', $value)) {
           $asset = EmojifyResourceAsset::register($this);
-          $fileName = trim($value, ':') . '.png';
+          $fileName = trim((string)$value, ':') . '.png';
           return implode(' ', [
             Html::img(
               Yii::$app->assetManager->getAssetUrl($asset, $fileName),
@@ -96,7 +96,7 @@ SlackAsset::register($this);
     [
       'label' => Yii::t('app', 'Channel'),
       'value' => function ($model) : string {
-        $value = trim($model->channel);
+        $value = trim((string)$model->channel);
         if ($value === '') {
           return Yii::t('app', '(default)');
         }

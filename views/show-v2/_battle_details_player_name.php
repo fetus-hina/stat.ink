@@ -90,8 +90,8 @@ $namePartInner = trim(implode(' ', [
         }
       }
     }
-    if (!$anonymize && trim($player->name) !== '') {
-      return Html::encode(trim($player->name));
+    if (!$anonymize && trim((string)$player->name) !== '') {
+      return Html::encode(trim((string)$player->name));
     } else {
       AnonymizerAsset::register($this);
       return Html::tag(
