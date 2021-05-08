@@ -178,7 +178,7 @@ class SalmonController extends Controller
             return $mode;
         }
 
-        $ua = $request->userAgent;
+        $ua = (string)$request->userAgent;
         if (strpos($ua, 'iPod') !== false || strpos($ua, 'iPhone') !== false) {
             return 'simple';
         }
