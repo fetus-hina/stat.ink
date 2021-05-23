@@ -1,11 +1,11 @@
-window.hsv2rgb = function hsv2rgb(h, s, v) {
+window.hsv2rgb = function hsv2rgb (h, s, v) {
   let r, g, b;
   while (h < 0) {
     h += 360;
   }
   h = Math.floor(h) % 360;
   v = v * 255;
-  if (s == 0) {
+  if (s === 0) {
     r = g = b = v;
   } else {
     const i = Math.floor(h / 60) % 6;
@@ -55,6 +55,6 @@ window.hsv2rgb = function hsv2rgb(h, s, v) {
   return [
     Math.round(r),
     Math.round(g),
-    Math.round(b),
+    Math.round(b)
   ];
-}
+};

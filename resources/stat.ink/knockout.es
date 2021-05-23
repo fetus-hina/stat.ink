@@ -11,16 +11,16 @@
               radius: 1,
               label: {
                 show: 'auto',
-                radius: .618,
+                radius: 0.618,
                 formatter: (label, slice) => {
                   return $('<div>').append(
                     $('<div>').css({
-                      'fontSize': '0.8em',
-                      'lineHeight': '1.1em',
-                      'textAlign': 'center',
-                      'padding': '2px',
-                      'color': '#000',
-                      'textShadow': '0px 0px 3px #fff',
+                      fontSize: '0.8em',
+                      lineHeight: '1.1em',
+                      textAlign: 'center',
+                      padding: '2px',
+                      color: '#000',
+                      textShadow: '0px 0px 3px #fff'
                     }).append(
                       slice.data[0][1] + ' / ' +
                       Math.round(slice.data[0][1] / (slice.percent / 100)) // FIXME
@@ -30,9 +30,9 @@
                       slice.percent.toFixed(1) + '%'
                     )
                   ).html();
-                },
-              },
-            },
+                }
+              }
+            }
           },
           legend: {
             show: false
@@ -65,7 +65,7 @@
       $elem.attr('data-flot', JSON.stringify(data));
     }
   });
-  window.setTimeout(() => { redrawFlot() }, 1);
+  window.setTimeout(() => { redrawFlot(); }, 1);
 
   let timerId = null;
   const onResize = () => {

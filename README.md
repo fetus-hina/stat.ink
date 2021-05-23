@@ -212,6 +212,17 @@ The maintenance process will be started at 23:00 UTC(\*) and will take 1.5 hours
   | California             | 15:00 (3 pm) PST / 16:00 (4 pm) PDT |
 
 
+コーディング規約 CODING STANDARDS
+---------------------------------
+
+  | Language    | Coding Standards |
+  |-------------|------------------|
+  | PHP         | [PSR-12](https://www.php-fig.org/psr/psr-12/) |
+  | PHP (views) | Indent with 2 spaces |
+  | JavaScript  | [semistandard](https://github.com/standard/semistandard#rules) |
+  | SCSS / CSS  | See [.stylelintrc](https://github.com/fetus-hina/stat.ink/blob/dev/.stylelintrc.json) |
+
+
 ライセンス LICENSE
 ------------------
 

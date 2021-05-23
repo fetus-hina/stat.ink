@@ -3,31 +3,31 @@ import axios from 'axios';
 import {
   call,
   put,
-  takeLatest,
+  takeLatest
 } from 'redux-saga/effects';
 
 import {
   FETCH_BLOG_ENTRY,
   fetchBlogEntryFailed,
-  fetchBlogEntrySuccess,
+  fetchBlogEntrySuccess
 } from '../actions/blog';
 
-function requestGetApi() {
+function requestGetApi () {
   return axios
     .get('/api/internal/blog-entry')
     .then(response => {
       return {
-        data: response.data,
+        data: response.data
       };
     })
     .catch(error => {
       return {
-        error: error,
+        error: error
       };
     });
 }
 
-function* fetch() {
+function * fetch () {
   const { data, error } = yield call(requestGetApi);
 
   if (data) {

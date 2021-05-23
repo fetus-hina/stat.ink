@@ -1,6 +1,6 @@
 /*! Copyright (C) 2015-2018 AIZAWA Hina | MIT License */
 ($ => {
-  $.fn.privateNote = function privateNote() {
+  $.fn.privateNote = function privateNote () {
     const $this = this;
     const $label = $('.fas', $this);
     $this

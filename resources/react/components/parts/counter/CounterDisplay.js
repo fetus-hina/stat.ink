@@ -4,15 +4,15 @@ import { createUseStyles } from 'react-jss';
 
 const useStyles = createUseStyles({
   root: {
-    'display': 'inline-block',
-    'fontFamily': 'DSEG7-Classic, fantasy',
-    'fontSize': '1.618em',
-    'fontStyle': 'italic',
-    'fontWeight': '400',
-    'position': 'relative',
+    display: 'inline-block',
+    fontFamily: 'DSEG7-Classic, fantasy',
+    fontSize: '1.618em',
+    fontStyle: 'italic',
+    fontWeight: '400',
+    position: 'relative'
   },
   padding: {
-    color: 'transparent',
+    color: 'transparent'
   },
   bgNumber: {
     color: 'rgba(0, 0, 0, 0.1)',
@@ -23,27 +23,27 @@ const useStyles = createUseStyles({
     zIndex: '-1',
 
     'body.theme-dark &': {
-      color: 'rgba(255, 255, 255, 0.05)',
-    },
-  },
+      color: 'rgba(255, 255, 255, 0.05)'
+    }
+  }
 });
 
-export default function CounterDisplay(props) {
+export default function CounterDisplay (props) {
   const { value, digit } = props;
   const classes = useStyles();
 
   const strValue = String(value);
   const padding = (strValue.length < digit)
     ? (
-      <span className={classes.padding} aria-hidden="true">
+      <span className={classes.padding} aria-hidden='true'>
         {'!'.repeat(digit - strValue.length)}
       </span>
-    )
+      )
     : null;
 
   return (
     <span className={classes.root}>
-      <span className={classes.bgNumber} aria-hidden="true">
+      <span className={classes.bgNumber} aria-hidden='true'>
         {'8'.repeat(digit)}
       </span>
       <span>
@@ -55,5 +55,5 @@ export default function CounterDisplay(props) {
 
 CounterDisplay.propTypes = {
   digit: PropTypes.number.isRequired,
-  value: PropTypes.number.isRequired,
+  value: PropTypes.number.isRequired
 };

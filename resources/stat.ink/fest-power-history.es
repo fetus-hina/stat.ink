@@ -17,12 +17,12 @@
         labelFormatter: label => `<span class="mr-2">${label}</span>`,
         noColumns: 3,
         show: true,
-        sorted: 'reverse',
+        sorted: 'reverse'
       },
       xaxis: {
         minTickSize: 1,
         show: false,
-        tickSize: 1,
+        tickSize: 1
       },
       yaxis: {
         minTickSize: 10,
@@ -36,8 +36,8 @@
               ) + numberFormat.decimal + f;
             }
           );
-        },
-      },
+        }
+      }
     };
 
     const unknownFestPowerValue = (() => {
@@ -52,15 +52,15 @@
       color: color,
       data: list.map((value, index, list) => ([
         -1 * (list.length - 1) + index,
-        value,
+        value
       ])),
       lines: {
         show: true,
-        lineWidth: lineWidth,
+        lineWidth: lineWidth
       },
       points: {
-        show: false,
-      },
+        show: false
+      }
     }); // }}}
 
     const makeWinLose = (legend, list, festPowers, onlyThisValue, color) => ({ // {{{
@@ -70,20 +70,18 @@
         -1 * (list.length - 1) + index,
         list[index] === onlyThisValue
           ? festPowers[index]
-            ? festPowers[index]
-            : unknownFestPowerValue
-              ? unknownFestPowerValue
-              : estimateGoodGuysFestPowers[index]
+              ? festPowers[index]
+              : unknownFestPowerValue || (estimateGoodGuysFestPowers[index]
                 ? estimateGoodGuysFestPowers[index]
-                : 2000
-          : null,
+                : 2000)
+          : null
       ])),
       lines: {
-        show: false,
+        show: false
       },
       points: {
-        show: true,
-      },
+        show: true
+      }
     }); // }}}
 
     $.plot(
@@ -99,7 +97,7 @@
           translations.estimateGood,
           estimateGoodGuysFestPowers,
           window.colorScheme._accent.sky,
-          2 
+          2
         ),
         makeData(
           translations.festPower,
@@ -120,7 +118,7 @@
           festPowers,
           true,
           window.colorScheme.win
-        ),
+        )
       ],
       options
     );

@@ -3,31 +3,31 @@ import axios from 'axios';
 import {
   call,
   put,
-  takeLatest,
+  takeLatest
 } from 'redux-saga/effects';
 
 import {
   FETCH_MY_LATEST_BATTLES,
   fetchMyLatestBattlesFailed,
-  fetchMyLatestBattlesSuccess,
+  fetchMyLatestBattlesSuccess
 } from '../actions/myLatestBattles';
 
-function requestGetApi() {
+function requestGetApi () {
   return axios
     .get('/api/internal/my-latest-battles')
     .then(response => {
       return {
-        data: response.data,
+        data: response.data
       };
     })
     .catch(error => {
       return {
-        error: error,
+        error: error
       };
     });
 }
 
-function* fetch() {
+function * fetch () {
   const { data, error } = yield call(requestGetApi);
 
   if (data) {

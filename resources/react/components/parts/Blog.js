@@ -5,22 +5,22 @@ import { connect } from 'react-redux';
 import { fetchBlogEntry } from '../../actions/blog';
 
 class Blog extends Component {
-  constructor(...args) {
+  constructor (...args) {
     super(...args);
     this.state = {
-      timer: null,
+      timer: null
     };
   }
 
-  componentDidMount() {
+  componentDidMount () {
     this.props.onMount(this);
   }
 
-  componentWillUnmount() {
+  componentWillUnmount () {
     this.props.onUnmount(this);
   }
 
-  render() {
+  render () {
     return <Impl />;
   }
 }
@@ -29,16 +29,16 @@ Blog.propTypes = {
   expires: PropTypes.number.isRequired,
   onMount: PropTypes.func.isRequired,
   onTickTimer: PropTypes.func.isRequired,
-  onUnmount: PropTypes.func.isRequired,
+  onUnmount: PropTypes.func.isRequired
 };
 
-function mapStateToProps(state) {
+function mapStateToProps (state) {
   return {
-    expires: state.blog.expires,
+    expires: state.blog.expires
   };
 }
 
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps (dispatch) {
   return {
     onMount: (self) => {
       const timerFunc = self.props.onTickTimer.bind(self);
@@ -48,7 +48,7 @@ function mapDispatchToProps(dispatch) {
             timerFunc(self);
           },
           500
-        ),
+        )
       });
       dispatch(fetchBlogEntry());
     },
@@ -57,7 +57,7 @@ function mapDispatchToProps(dispatch) {
         window.clearInterval(self.state.timer);
       }
       self.setState({
-        timer: null,
+        timer: null
       });
     },
     onTickTimer: (self) => {
@@ -66,10 +66,10 @@ function mapDispatchToProps(dispatch) {
       if (expires > (new Date()).getTime()) {
         return;
       }
-      
+
       dispatch(fetchBlogEntry());
-    },
-  }
+    }
+  };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Blog);

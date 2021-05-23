@@ -4,9 +4,9 @@ import reducer from '../reducers/counterApp';
 import { all } from 'redux-saga/effects';
 import { applyMiddleware, createStore } from 'redux';
 
-function* rootSaga() {
+function * rootSaga () {
   yield all([
-    ...counterSaga,
+    ...counterSaga
   ]);
 }
 

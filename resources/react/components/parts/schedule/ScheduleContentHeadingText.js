@@ -1,7 +1,7 @@
 // import React from 'react';
 import PropTypes from 'prop-types';
 
-export default function ScheduleContentHeadingText(props) {
+export default function ScheduleContentHeadingText (props) {
   const { schedule } = props;
 
   if (!schedule || !schedule.rule) {
@@ -12,5 +12,5 @@ export default function ScheduleContentHeadingText(props) {
 }
 
 ScheduleContentHeadingText.propTypes = {
-  schedule: PropTypes.object.isRequired,
+  schedule: PropTypes.object.isRequired
 };

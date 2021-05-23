@@ -1,5 +1,5 @@
 ($ => {
-  function save(formatID) {
+  function save (formatID) {
     try {
       if (window.localStorage) {
         window.localStorage.setItem('gear-ability-number-format', formatID);
@@ -9,7 +9,7 @@
     }
   }
 
-  function load() {
+  function load () {
     try {
       if (window.localStorage) {
         const value = window.localStorage.getItem('gear-ability-number-format');
@@ -28,7 +28,7 @@
     return null;
   }
 
-  function changeFormat($targets, formatID) {
+  function changeFormat ($targets, formatID) {
     $targets.each(function () {
       const $target = $(this);
       const values = JSON.parse($target.attr('data-values'));
@@ -57,5 +57,4 @@
 
     return this;
   };
-
 })(jQuery);

@@ -1,18 +1,18 @@
 jQuery($ => {
-  function percentFormat(value, digit) {
+  function percentFormat (value, digit) {
     const locales = [
       $('html').attr('lang'),
-      'en-US',
+      'en-US'
     ];
     const formatter = new Intl.NumberFormat(locales, {
       style: 'percent',
       minimumFractionDigits: digit,
-      maximumFractionDigits: digit,
+      maximumFractionDigits: digit
     });
     return formatter.format(value);
   }
 
-  function update() {
+  function update () {
     const $graphs = $('.graph.stat-wp');
     $graphs.height($graphs.width() * 9 / 16);
     $graphs.each(function () {
@@ -48,34 +48,34 @@ jQuery($ => {
         {
           label: $graph.attr('data-legends-win'),
           data: win.map((v, i) => [i - 0.5, v]),
-          color: window.colorScheme.win,
+          color: window.colorScheme.win
         },
         {
           label: $graph.attr('data-legends-lose'),
           data: lose.map((v, i) => [i - 0.5, v]),
-          color: window.colorScheme.lose,
+          color: window.colorScheme.lose
         }
       ];
       $.plot($graph, data, {
         xaxis: {
           min: -0.5,
           minTickSize: 1,
-          tickFormatter: v => v + (kdKey === 'kill' ? ' K' : ' D'),
+          tickFormatter: v => v + (kdKey === 'kill' ? ' K' : ' D')
         },
         yaxis: {
           min: 0,
           max: scale ? 100 : undefined,
           tickFormatter: v => percentFormat(v / 100, 1),
-          show: scale,
+          show: scale
         },
         series: {
           stack: !!scale,
           lines: {
             show: true,
             fill: true,
-            steps: true,
-          },
-        },
+            steps: true
+          }
+        }
       });
     });
   }

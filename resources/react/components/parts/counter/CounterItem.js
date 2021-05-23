@@ -8,17 +8,17 @@ const useStyles = createUseStyles({
   item: {
   },
   icon: {
-    marginRight: '0.618ex',
+    marginRight: '0.618ex'
   },
   label: {
-    marginRight: '0.618ex',
+    marginRight: '0.618ex'
   },
   value: {
-    whiteSpace: 'nowrap',
-  },
+    whiteSpace: 'nowrap'
+  }
 });
 
-export default function CounterItem(props) {
+export default function CounterItem (props) {
   const classes = useStyles();
   const { digit, icon, label, popup, value } = props;
 
@@ -45,5 +45,5 @@ CounterItem.propTypes = {
   icon: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   popup: PropTypes.string,
-  value: PropTypes.number.isRequired,
+  value: PropTypes.number.isRequired
 };

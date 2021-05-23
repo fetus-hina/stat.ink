@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-export default function RelTime(props) {
+export default function RelTime (props) {
   const { now, time, translations } = props;
 
   const diffSec = Math.floor((now.getTime() - time.getTime()) / 1000);
@@ -15,7 +15,7 @@ export default function RelTime(props) {
 RelTime.propTypes = {
   now: PropTypes.object.isRequired,
   time: PropTypes.object.isRequired,
-  translations: PropTypes.object.isRequired,
+  translations: PropTypes.object.isRequired
 };
 
 const unitMap = [
@@ -24,10 +24,10 @@ const unitMap = [
   [86400, 'day'],
   [3600, 'hour'],
   [60, 'minute'],
-  [1, 'second'],
+  [1, 'second']
 ];
 
-function text(diffSec, translations) {
+function text (diffSec, translations) {
   if (diffSec < 5) {
     return translations.now;
   }

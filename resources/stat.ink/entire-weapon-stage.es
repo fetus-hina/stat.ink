@@ -1,23 +1,23 @@
 jQuery($ => {
-  function update() {
-    function htmlEscape(str) {
+  function update () {
+    function htmlEscape (str) {
       return $('<div>').text(String(str)).html();
     }
 
-    function intFormat(value) {
+    function intFormat (value) {
       const formatter = new Intl.NumberFormat(
         [$('html').attr('lang'), 'en-US']
       );
       return formatter.format(value);
     }
 
-    function percentFormat(value, digit) {
+    function percentFormat (value, digit) {
       const formatter = new Intl.NumberFormat(
         [$('html').attr('lang'), 'en-US'],
         {
           style: 'percent',
           minimumFractionDigits: digit,
-          maximumFractionDigits: digit,
+          maximumFractionDigits: digit
         }
       );
       return formatter.format(value);
@@ -31,8 +31,8 @@ jQuery($ => {
       const $graph = $(this);
       const jsonData = JSON.parse($graph.attr('data-data'));
       const data = [
-        {label: 'Won', data: jsonData.win},
-        {label: 'Lost', data: jsonData.battle - jsonData.win},
+        { label: 'Won', data: jsonData.win },
+        { label: 'Lost', data: jsonData.battle - jsonData.win }
       ];
       $.plot($graph, data, {
         series: {
@@ -45,12 +45,12 @@ jQuery($ => {
               formatter: function (label, slice) {
                 return $('<div>').append(
                   $('<div>').css({
-                    'fontSize': '1em',
-                    'lineHeight': '1.1em',
-                    'textAlign': 'center',
-                    'padding': '2px',
-                    'color': '#fff',
-                    'textShadow': '0px 0px 3px #000',
+                    fontSize: '1em',
+                    lineHeight: '1.1em',
+                    textAlign: 'center',
+                    padding: '2px',
+                    color: '#fff',
+                    textShadow: '0px 0px 3px #000'
                   }).append(
                     $('<div>')
                       .addClass('nobr')
@@ -63,17 +63,17 @@ jQuery($ => {
                     htmlEscape(percentFormat(slice.percent / 100, 1))
                   )
                 ).html();
-              },
-            },
-          },
+              }
+            }
+          }
         },
         legend: {
           show: false
         },
         colors: [
           window.colorScheme.win,
-          window.colorScheme.lose,
-        ],
+          window.colorScheme.lose
+        ]
       });
     });
   }

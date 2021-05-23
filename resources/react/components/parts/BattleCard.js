@@ -15,14 +15,14 @@ const useStyles = createUseStyles({
     boxShadow: [
       '0 2px 1px -1px rgb(0 0 0 / 20%)',
       '0 1px 1px 0 rgb(0 0 0 / 14%)',
-      '0 1px 3px 0 rgb(0 0 0 / 12%)',
+      '0 1px 3px 0 rgb(0 0 0 / 12%)'
     ].join(', '),
     color: '#333',
     overflow: 'hidden',
-    transition: 'box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms',
+    transition: 'box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms'
   },
   outlined: {
-    border: '1px solid #ddd',
+    border: '1px solid #ddd'
   },
   media: {
     backgroundClip: 'padding-box',
@@ -36,14 +36,14 @@ const useStyles = createUseStyles({
     overflow: 'hidden',
     padding: '0',
     position: 'relative',
-    width: '100%',
+    width: '100%'
   },
   media16x9: {
     '&::before': {
       display: 'block',
       paddingTop: 'calc(9 / 16 * 100%)',
-      content: '""',
-    },
+      content: '""'
+    }
   },
   mediaSplatnet2: {
     // scale: 1138 / 1024,
@@ -54,7 +54,7 @@ const useStyles = createUseStyles({
     left: '0',
     padding: '4px',
     position: 'absolute',
-    top: '0',
+    top: '0'
   },
   time: {
     backgroundColor: 'rgba(255, 255, 255, 0.8)',
@@ -64,13 +64,13 @@ const useStyles = createUseStyles({
     right: '0',
     padding: '4px',
     position: 'absolute',
-    top: '0',
+    top: '0'
   },
   content: {
     alignItems: 'flex-start',
     display: 'flex',
     overflowX: 'hidden',
-    padding: '10px 15px',
+    padding: '10px 15px'
   },
   userIcon: {
     backgroundColor: '#fff',
@@ -79,29 +79,29 @@ const useStyles = createUseStyles({
     flex: '0 0 48px',
     height: '48px',
     marginRight: '10px',
-    width: '48px',
+    width: '48px'
   },
   contentData: {
     display: 'flex',
     flex: '1 1 100%',
-    flexDirection: 'column',
+    flexDirection: 'column'
   },
   ellipsis: {
     overflow: 'hidden',
     textOverflow: 'ellipsis',
-    whiteSpace: 'nowrap',
-  },
+    whiteSpace: 'nowrap'
+  }
 });
 
 const nbsp = '\u{00a0}';
 
-export default function BattleCard(props) {
+export default function BattleCard (props) {
   const { battle, fallbackImage, reltime } = props;
   const classes = useStyles();
   const bgImages = buildImages(battle, fallbackImage);
 
   return (
-    <div className="col-xs-12 col-sm-6 col-md-4 col-lg-3 mb-2">
+    <div className='col-xs-12 col-sm-6 col-md-4 col-lg-3 mb-2'>
       <div className={[classes.root, classes.outlined].join(' ')}>
         <a href={battle.url} className={classes.link}>
           <div
@@ -109,36 +109,35 @@ export default function BattleCard(props) {
               [
                 classes.media,
                 classes.media16x9,
-                (battle.variant === 'splatoon2' && battle.image) ? classes.mediaSplatnet2 : null,
+                (battle.variant === 'splatoon2' && battle.image) ? classes.mediaSplatnet2 : null
               ].join(' ')
             }
             style={{
-              backgroundImage: bgImages.join(', '),
+              backgroundImage: bgImages.join(', ')
             }}
           >
             {((battle.mode && battle.mode.icon) || (battle.rule && battle.rule.icon))
-              ? <div className={classes.modeIcons}>
-                {battle.mode && battle.mode.icon
-                  ? <img
-                    alt={battle.mode.name}
-                    height={24}
-                    src={battle.mode.icon}
-                    title={battle.mode.name}
-                  />
-                  : null
-                }
-                {battle.rule && battle.rule.icon
-                  ? <img
-                    alt={battle.rule.name}
-                    height={24}
-                    src={battle.rule.icon}
-                    title={battle.rule.name}
-                  />
-                  : null
-                }
-              </div>
-              : null
-            }
+              ? (
+                <div className={classes.modeIcons}>
+                  {battle.mode && battle.mode.icon
+                    ? <img
+                        alt={battle.mode.name}
+                        height={24}
+                        src={battle.mode.icon}
+                        title={battle.mode.name}
+                      />
+                    : null}
+                  {battle.rule && battle.rule.icon
+                    ? <img
+                        alt={battle.rule.name}
+                        height={24}
+                        src={battle.rule.icon}
+                        title={battle.rule.name}
+                      />
+                    : null}
+                </div>
+                )
+              : null}
             <div className={classes.time}>
               <RelTime
                 translations={reltime}
@@ -155,7 +154,7 @@ export default function BattleCard(props) {
                 alt={battle.user.name}
                 height={46}
                 src={battle.user.icon[0]}
-                title=""
+                title=''
                 width={46}
               />
             </a>
@@ -182,10 +181,10 @@ export default function BattleCard(props) {
 BattleCard.propTypes = {
   battle: PropTypes.object.isRequired,
   fallbackImage: PropTypes.string,
-  reltime: PropTypes.object.isRequired,
+  reltime: PropTypes.object.isRequired
 };
 
-function buildImages(battle, fallbackImage) {
+function buildImages (battle, fallbackImage) {
   const results = [];
   if (battle.image) {
     results.push(`url(${battle.image})`);

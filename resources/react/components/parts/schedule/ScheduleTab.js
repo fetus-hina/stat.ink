@@ -5,17 +5,17 @@ import { createUseStyles } from 'react-jss';
 
 const useStyles = createUseStyles({
   pointer: {
-    cursor: 'pointer',
+    cursor: 'pointer'
   },
   modeIcon: {
     height: '1.1em',
     maxWidth: 'none',
     verticalAlign: 'baseline',
-    width: 'auto',
-  },
+    width: 'auto'
+  }
 });
 
-function ScheduleTab(props) {
+function ScheduleTab (props) {
   const { isSelected, item, onChanged, schedule } = props;
   const classes = useStyles();
   const mode = extractMode(schedule, item);
@@ -23,8 +23,8 @@ function ScheduleTab(props) {
   return (
     <li
       className={isSelected ? 'active' : null}
-      role="tab"
-      aria-controls="schedule-content"
+      role='tab'
+      aria-controls='schedule-content'
       aria-selected={isSelected}
     >
       <a className={classes.pointer} onClick={() => { onChanged(item.id); }}>
@@ -40,10 +40,10 @@ ScheduleTab.propTypes = {
   now: PropTypes.number.isRequired,
   onChanged: PropTypes.func.isRequired,
   schedule: PropTypes.object,
-  translations: PropTypes.object,
+  translations: PropTypes.object
 };
 
-function label(classes, mode, props) {
+function label (classes, mode, props) {
   const { item, now, translations } = props;
 
   if (!mode) {
@@ -52,35 +52,40 @@ function label(classes, mode, props) {
 
   const current = extractCurrent(mode, now);
 
-  return <>
-    {mode.image
-      ? <>
-        <img src={mode.image} className={classes.modeIcon} />
-        {' '}
-      </>
-      : null
-    }
-    {current && current.rule && current.rule.icon
-      ? <>
-        <img alt={current.rule.name} className={classes.modeIcon} src={current.rule.icon} title={current.rule.name} />
-        {' '}
-      </>
-      : null
-    }
-    {current && current.weapons
-      ? <>
-        <span className="text-warning" title={translations ? translations.salmon_open : 'Open!'}>
-          <span className="fas fa-fw fa-certificate" />
-        </span>
-        {' '}
-      </>
-      : null
-    }
-    {mode.name}
-  </>;
+  return (
+    <>
+      {mode.image
+        ? (
+          <>
+            <img src={mode.image} className={classes.modeIcon} />
+            {' '}
+          </>
+          )
+        : null}
+      {current && current.rule && current.rule.icon
+        ? (
+          <>
+            <img alt={current.rule.name} className={classes.modeIcon} src={current.rule.icon} title={current.rule.name} />
+            {' '}
+          </>
+          )
+        : null}
+      {current && current.weapons
+        ? (
+          <>
+            <span className='text-warning' title={translations ? translations.salmon_open : 'Open!'}>
+              <span className='fas fa-fw fa-certificate' />
+            </span>
+            {' '}
+          </>
+          )
+        : null}
+      {mode.name}
+    </>
+  );
 }
 
-function extractMode(schedule, tabItem) {
+function extractMode (schedule, tabItem) {
   const ref = tabItem.ref.slice(); // ["splatoon2", "regular"]
   let current = Object.assign({}, schedule);
   while (current && ref.length > 0) {
@@ -93,7 +98,7 @@ function extractMode(schedule, tabItem) {
   return current;
 }
 
-function extractCurrent(mode, now) {
+function extractCurrent (mode, now) {
   if (!mode || !mode.schedules) {
     return null;
   }
@@ -109,15 +114,15 @@ function extractCurrent(mode, now) {
   return current;
 }
 
-function mapStateToProps(state) {
+function mapStateToProps (state) {
   return {
     now: Math.floor(state.schedule.currentTime / 1000),
     schedule: state.schedule.data,
-    translations: state.schedule.data ? state.schedule.data.translations : null,
+    translations: state.schedule.data ? state.schedule.data.translations : null
   };
 }
 
-function mapDispatchToProps(/* dispatch */) {
+function mapDispatchToProps (/* dispatch */) {
   return {};
 }
 

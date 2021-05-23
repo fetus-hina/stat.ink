@@ -2,6 +2,6 @@
 
 ($ => {
   $(() => {
-    $('.auto-tooltip').tooltip({'container': 'body'});
+    $('.auto-tooltip').tooltip({ container: 'body' });
   });
 })(jQuery);

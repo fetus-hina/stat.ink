@@ -4,18 +4,18 @@
 
 (function ($, global) {
   global.updateBlackOutHint = function (newConfig, target_) {
-    var target = target_ || '#blackout-info';
-    var check = function ($e) {
+    const target = target_ || '#blackout-info';
+    const check = function ($e) {
       $e.removeClass('fa-square').addClass('fa-check-square');
     };
-    var uncheck = function ($e) {
+    const uncheck = function ($e) {
       $e.addClass('fa-square').removeClass('fa-check-square');
     };
 
     $(target + ' .blackout-info-icon').each(function (i, e) {
-      var $this = $(e);
-      var mode = $this.attr('data-mode');
-      var category = $this.attr('data-category');
+      const $this = $(e);
+      const mode = $this.attr('data-mode');
+      const category = $this.attr('data-category');
 
       // 自分はどんな設定でも塗らない
       if (category === 'user') {
@@ -64,7 +64,6 @@
         // 塗る
         case 'always':
           check($this);
-          return;
       }
     });
   };

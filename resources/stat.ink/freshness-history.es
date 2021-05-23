@@ -6,12 +6,12 @@
   $.fn.freshnessHistory = function (freshness) {
     const options = {
       legend: {
-        show: false,
+        show: false
       },
       xaxis: {
         minTickSize: 1,
         show: false,
-        tickSize: 1,
+        tickSize: 1
       },
       yaxis: {
         min: 0,
@@ -26,23 +26,23 @@
               ) + numberFormat.decimal + f;
             }
           );
-        },
-      },
+        }
+      }
     };
 
     const makeData = (list, color, lineWidth) => ({ // {{{
       color: color,
       data: list.map((value, index, list) => ([
         -1 * (list.length - 1) + index,
-        value,
+        value
       ])),
       lines: {
         show: true,
-        lineWidth: lineWidth,
+        lineWidth: lineWidth
       },
       points: {
-        show: true,
-      },
+        show: true
+      }
     }); // }}}
 
     $.plot(this, [makeData(freshness, window.colorScheme.graph1, 3)], options);

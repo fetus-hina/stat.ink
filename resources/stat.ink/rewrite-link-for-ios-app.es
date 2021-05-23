@@ -5,29 +5,29 @@
 if (window.navigator.standalone) {
   ($ => {
     $(() => {
-      function getOrigin(href) {
-        const match = (href + '').match(/^(https?):\/\/[^\/:]+(:\d+)?/i); // スキームからパスの直前まで
+      function getOrigin (href) {
+        const match = (href + '').match(/^(https?):\/\/[^/:]+(:\d+)?/i); // スキームからパスの直前まで
         if (!match) {
           return null;
         }
-      
+
         let origin = match[0];
         if (!match[2]) { // ポートなし
           const scheme = match[1].toLowerCase();
           if (scheme === 'http') {
             origin += ':80';
-          } else if(scheme === 'https') {
+          } else if (scheme === 'https') {
             origin += ':443';
           }
         }
         return origin;
       }
-      
+
       const myOrigin = getOrigin(window.location.href);
       if (!myOrigin) {
         return;
       }
-      
+
       $('a[href]').each(function () {
         const self = this;
         const $this = $(self);

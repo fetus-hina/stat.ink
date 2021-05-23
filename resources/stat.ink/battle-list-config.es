@@ -37,7 +37,7 @@
         'cell-sub-weapon': false,
         'cell-team-icon': false,
         'cell-team-id': false,
-        'hscroll': false,
+        hscroll: false
       };
       for (const i in defaults) {
         if (Object.prototype.hasOwnProperty.call(defaults, i)) {

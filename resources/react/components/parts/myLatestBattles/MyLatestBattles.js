@@ -4,11 +4,11 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 
-function MyLatestBattles(props) {
+function MyLatestBattles (props) {
   const { battles, fallbackImage, reltime } = props;
 
   return (
-    <div className="mb-3">
+    <div className='mb-3'>
       <Heading />
       <BattleCardList
         battles={battles}
@@ -22,19 +22,19 @@ function MyLatestBattles(props) {
 MyLatestBattles.propTypes = {
   battles: PropTypes.array.isRequired,
   fallbackImage: PropTypes.string,
-  reltime: PropTypes.object.isRequired,
+  reltime: PropTypes.object.isRequired
 };
 
-function mapStateToProps(state) {
+function mapStateToProps (state) {
   const data = state.myLatestBattles.data;
   return {
     battles: data.battles,
     fallbackImage: data.images.noImage,
-    reltime: data.translations.reltime,
+    reltime: data.translations.reltime
   };
 }
 
-function mapDispatchToProps(/* dispatch */) {
+function mapDispatchToProps (/* dispatch */) {
   return {};
 }
 

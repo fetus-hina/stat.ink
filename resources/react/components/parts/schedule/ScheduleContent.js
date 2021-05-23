@@ -9,22 +9,22 @@ const useStyles = createUseStyles({
   schedule: {
     flex: '1 1 100%',
     marginLeft: '15px',
-    marginRight: '15px',
+    marginRight: '15px'
   },
   cards: {
     display: 'flex',
     flexWrap: 'nowrap',
     marginLeft: '-15px',
-    marginRight: '-15px',
+    marginRight: '-15px'
   },
   card: {
     flex: '1 1 50%',
     marginLeft: '15px',
-    marginRight: '15px',
+    marginRight: '15px'
   }
 });
 
-function ScheduleContent(props) {
+function ScheduleContent (props) {
   const { mode } = props;
   const classes = useStyles();
   const schedules = getDisplayTargetSchedules(props);
@@ -51,24 +51,24 @@ ScheduleContent.propTypes = {
   locale: PropTypes.object,
   mode: PropTypes.string.isRequired,
   now: PropTypes.number.isRequired,
-  schedules: PropTypes.array.isRequired,
+  schedules: PropTypes.array.isRequired
 };
 
-function getDisplayTargetSchedules(props) {
+function getDisplayTargetSchedules (props) {
   const { now, schedules } = props;
   const tmpList = schedules.filter(item => item.time[1] > now);
   tmpList.sort((a, b) => a.time[1] - b.time[1]);
   return tmpList.slice(0, 2);
 }
 
-function mapStateToProps(state) {
+function mapStateToProps (state) {
   return {
     locale: state.schedule.data ? state.schedule.data.locale : null,
-    now: Math.floor(state.schedule.currentTime / 1000),
+    now: Math.floor(state.schedule.currentTime / 1000)
   };
 }
 
-function mapDispatchToProps(/* dispatch */) {
+function mapDispatchToProps (/* dispatch */) {
   return {};
 }
 
