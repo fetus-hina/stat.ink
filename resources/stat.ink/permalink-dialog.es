@@ -5,7 +5,7 @@
     const $title = $('<h4 class="modal-title">');
     const $hint = $('<p>').text('Please copy this URL:');
     const $input = $('<input class="form-control" type="text" readonly>');
-      
+
     const $dialog = $('<div class="modal fade" tabindex="-1" role="dialog">').append(
       $('<div class="modal-dialog" role="document">').append(
         $('<div class="modal-content">').append(

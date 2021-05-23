@@ -3,7 +3,7 @@ import React from 'react';
 import esc from 'escape-html';
 import { connect } from 'react-redux';
 
-function Heading(props) {
+function Heading (props) {
   const { template, user } = props;
 
   const linkHTML = `<a href="${esc(user.url)}">${esc(user.name)}</a>`;
@@ -11,25 +11,26 @@ function Heading(props) {
 
   return (
     <h2 dangerouslySetInnerHTML={{
-      __html: html,
-    }} />
+      __html: html
+    }}
+    />
   );
 }
 
 Heading.propTypes = {
   template: PropTypes.string.isRequired,
-  user: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired
 };
 
-function mapStateToProps(state) {
+function mapStateToProps (state) {
   const data = state.myLatestBattles.data;
   return {
     template: data && data.translations ? data.translations.heading : '{name}\'s Battles',
-    user: data.user,
+    user: data.user
   };
 }
 
-function mapDispatchToProps(/* dispatch */) {
+function mapDispatchToProps (/* dispatch */) {
   return {};
 }
 

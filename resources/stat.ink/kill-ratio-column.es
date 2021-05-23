@@ -18,20 +18,20 @@
         return $.Color({
           hue: 214,
           saturation: 0.95 * ((ratio2 - 50) * 2 / 100),
-          lightness: 0.61,
+          lightness: 0.61
         }).toRgbaString();
       } else {
         return $.Color({
           hue: 22,
           saturation: 0.95 * ((50 - ratio2) * 2 / 100),
-          lightness: 0.61,
+          lightness: 0.61
         }).toRgbaString();
       }
     } else {
       return $.Color({
         hue: 22 + (76 * ratio2 / 100),
         saturation: 0.80,
-        lightness: 0.55,
+        lightness: 0.55
       }).toRgbaString();
     }
   };
@@ -52,7 +52,7 @@
       const fgColor = calcFgColor(bgColor);
       $this.css({
         'background-color': bgColor,
-        'color': fgColor,
+        color: fgColor
       });
     });
     return this;

@@ -1,7 +1,7 @@
 import {
   FETCH_MY_LATEST_BATTLES,
   FETCH_MY_LATEST_BATTLES_SUCCESS,
-  FETCH_MY_LATEST_BATTLES_FAILED,
+  FETCH_MY_LATEST_BATTLES_FAILED
 } from '../../actions/myLatestBattles';
 
 import {
@@ -10,23 +10,23 @@ import {
   STATUS_EXPIRED,
   STATUS_FAILED,
   STATUS_LOADING,
-  STATUS_OK,
+  STATUS_OK
 } from '../../constants';
 
 const initialState = {
   data: [],
   expires: EXPIRED_TIMESTAMP,
-  status: STATUS_EXPIRED,
+  status: STATUS_EXPIRED
 };
 
-function reduceFetch(oldState) {
+function reduceFetch (oldState) {
   const state = Object.assign({}, oldState); // copy
   state.status = STATUS_LOADING;
   state.expires = (new Date()).getTime() + (10 * 365 * 86400 * 1000);
   return state;
 }
 
-function reduceFetchFailed(oldState) {
+function reduceFetchFailed (oldState) {
   const state = Object.assign({}, oldState); // copy
   state.data = [];
   state.expires = (new Date()).getTime() + MY_LATEST_BATTLES_LIFETIME;
@@ -34,7 +34,7 @@ function reduceFetchFailed(oldState) {
   return state;
 }
 
-function reduceFetchSuccess(oldState, action) {
+function reduceFetchSuccess (oldState, action) {
   const state = Object.assign({}, oldState); // copy
   state.data = action.value;
   state.expires = (new Date()).getTime() + MY_LATEST_BATTLES_LIFETIME;
@@ -42,11 +42,11 @@ function reduceFetchSuccess(oldState, action) {
   return state;
 }
 
-export default function reduce(state = initialState, action) {
+export default function reduce (state = initialState, action = {}) {
   switch (action.type) {
-    case FETCH_MY_LATEST_BATTLES:          return reduceFetch(state, action);
-    case FETCH_MY_LATEST_BATTLES_FAILED:   return reduceFetchFailed(state, action);
-    case FETCH_MY_LATEST_BATTLES_SUCCESS:  return reduceFetchSuccess(state, action);
+    case FETCH_MY_LATEST_BATTLES: return reduceFetch(state, action);
+    case FETCH_MY_LATEST_BATTLES_FAILED: return reduceFetchFailed(state, action);
+    case FETCH_MY_LATEST_BATTLES_SUCCESS: return reduceFetchSuccess(state, action);
     default: return state;
   }
 }

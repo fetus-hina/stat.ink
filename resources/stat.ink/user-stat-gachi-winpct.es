@@ -77,45 +77,45 @@
         {
           label: texts.area,
           data: rules.area,
-          color: window.colorScheme.area,
+          color: window.colorScheme.area
         },
         {
           label: texts.yagura,
           data: rules.yagura,
-          color: window.colorScheme.yagura,
+          color: window.colorScheme.yagura
         },
         {
           label: texts.hoko,
           data: rules.hoko,
-          color: window.colorScheme.hoko,
+          color: window.colorScheme.hoko
         },
         {
           label: texts.moving20,
           data: list.map(v => [v.index, v.movingWP]),
-          color: window.colorScheme.moving1,
+          color: window.colorScheme.moving1
         },
         {
           label: texts.moving50,
           data: list.map(v => [v.index, v.movingWP50]),
-          color: window.colorScheme.moving2,
-        },
+          color: window.colorScheme.moving2
+        }
       ];
 
       $.plot($graph, data, {
         xaxis: {
           min: limit > 0 ? -limit : null,
           minTickSize: 1,
-          tickFormatter: v => String(Number(v)),
+          tickFormatter: v => String(Number(v))
         },
         yaxis: {
           min: 0,
           max: 100,
           minTickSize: 5,
-          tickFormatter: v => String(v) + '%',
+          tickFormatter: v => String(v) + '%'
         },
         legend: {
-          container: $legends,
-        },
+          container: $legends
+        }
       });
     });
     return $elements;

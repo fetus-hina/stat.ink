@@ -7,7 +7,7 @@
       const json = storage.getItem('work-list');
       const config = json ? JSON.parse(json) : {};
       const defaults = {
-        'hscroll': false,
+        hscroll: false,
         'cell-splatnet': true,
         'cell-map': true,
         'cell-map-short': false,
@@ -25,7 +25,7 @@
         'cell-title': true,
         'cell-title-after': false,
         'cell-datetime': true,
-        'cell-reltime': false,
+        'cell-reltime': false
       };
       for (const i in defaults) {
         if (Object.prototype.hasOwnProperty.call(defaults, i)) {

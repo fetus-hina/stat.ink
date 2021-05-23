@@ -13,7 +13,7 @@
         const total = data.map(v => v.battles).reduce((v1, v2) => v1 + v2, 0);
         return data.map(v => [
           v.times - 0.5,
-          v.battles * 100 / total,
+          v.battles * 100 / total
         ]);
       };
 
@@ -23,41 +23,41 @@
           $this,
           [
             {
-              'data': formatValues($this.attr('data-json')),
-              'color': window.colorScheme.graph1,
-              'bars': {
-                'show': true,
-              },
-            },
+              data: formatValues($this.attr('data-json')),
+              color: window.colorScheme.graph1,
+              bars: {
+                show: true
+              }
+            }
           ],
           {
-            'xaxis': (type => { // {{{
+            xaxis: (type => { // {{{
               switch (type) {
                 case 'inked':
                   return {
-                    'min': 0,
-                    'max': 1500,
-                    'minTickSize': 100,
+                    min: 0,
+                    max: 1500,
+                    minTickSize: 100
                   };
                 default:
                   return {
-                    'min': -0.5,
-                    'max': 20.5,
-                    'minTickSize': 1,
+                    min: -0.5,
+                    max: 20.5,
+                    minTickSize: 1
                   };
               }
             })($this.attr('data-type')), // }}}
-            'yaxis': {
-              'min': 0,
-              'minTickSize': 1,
-              'tickFormatter': value => value.toFixed(1) + '%',
+            yaxis: {
+              min: 0,
+              minTickSize: 1,
+              tickFormatter: value => value.toFixed(1) + '%'
             },
-            'grid': {
-              'hoverable': true,
+            grid: {
+              hoverable: true
             },
-            'legend': {
-              'show': false,
-            },
+            legend: {
+              show: false
+            }
           }
         ); // }}}
       });

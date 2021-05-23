@@ -36,8 +36,8 @@
                   bars: {
                     show: true,
                     align: 'center',
-                    barWidth: 8,
-                  },
+                    barWidth: 8
+                  }
                 },
                 {
                   label: legends.normal_pct,
@@ -51,30 +51,30 @@
                       asymmetric: false,
                       upperCap: '-',
                       lowerCap: '-',
-                      color: colorScheme._gray.darkGray,
-                    },
-                  },
-                },
+                      color: colorScheme._gray.darkGray
+                    }
+                  }
+                }
               ],
               {
                 xaxis: {
                   minTickSize: 10,
-                  tickFormatter: v => String(Number(v)),
+                  tickFormatter: v => String(Number(v))
                 },
                 yaxis: {
                   min: 0,
                   max: 100,
                   minTickSize: 10,
-                  tickFormatter: v => String(Number(v)) + '%',
+                  tickFormatter: v => String(Number(v)) + '%'
                 },
                 y2axis: {
                   min: 0,
                   minTickSize: 100,
-                  tickFormatter: v => String(Number(v)),
+                  tickFormatter: v => String(Number(v))
                 },
                 legend: {
-                  position: 'sw',
-                },
+                  position: 'sw'
+                }
               }
             );
           },

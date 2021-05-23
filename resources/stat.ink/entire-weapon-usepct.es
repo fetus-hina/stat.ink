@@ -1,6 +1,6 @@
 jQuery($ => {
-  function update() {
-    function getIntlLocales() {
+  function update () {
+    function getIntlLocales () {
       const $html = $('html');
       const results = [];
 
@@ -20,10 +20,10 @@ jQuery($ => {
       return results;
     }
 
-    function formatDate(date) {
+    function formatDate (date) {
       const locales = getIntlLocales();
       const options = {
-        timeZone: 'UTC',
+        timeZone: 'UTC'
       };
 
       if (locales[0].indexOf('-ca-japanese') !== -1) {
@@ -34,15 +34,15 @@ jQuery($ => {
       return fmt.format(date);
     }
 
-    function date2unixTime(d) {
+    function date2unixTime (d) {
       return (new Date(d + 'T00:00:00Z')).getTime();
     }
 
-    function percentFormat(value, digit) {
+    function percentFormat (value, digit) {
       const formatter = new Intl.NumberFormat(getIntlLocales(), {
         style: 'percent',
         minimumFractionDigits: digit,
-        maximumFractionDigits: digit,
+        maximumFractionDigits: digit
       });
       return formatter.format(value);
     }
@@ -55,15 +55,15 @@ jQuery($ => {
         padding: '2px',
         backgroundColor: '#fff',
         opacity: 0.9,
-        fontSize: '12px',
+        fontSize: '12px'
       })
       .appendTo('body');
     const json = JSON.parse($('#use-pct-json').text());
     const data = [
       {
         data: json.map(v => [date2unixTime(v.date), v.use_pct]),
-        color: window.colorScheme.graph1,
-      },
+        color: window.colorScheme.graph1
+      }
     ];
     $graphs.height($graphs.width() * 9 / 16);
     $graphs.each(function () {
@@ -75,15 +75,15 @@ jQuery($ => {
             // console.log(new Date(v));
             // return 'a';
             return formatDate(new Date(v));
-          },
+          }
         },
         yaxis: {
           min: 0,
-          tickFormatter: v => percentFormat(v / 100, 2),
+          tickFormatter: v => percentFormat(v / 100, 2)
         },
         series: {
           points: {
-            show: true,
+            show: true
           },
           lines: {
             show: true,
@@ -95,8 +95,8 @@ jQuery($ => {
           hoverable: true
         },
         legend: {
-          show: false,
-        },
+          show: false
+        }
       });
     });
 
@@ -114,7 +114,7 @@ jQuery($ => {
             top: item.pageY - 20,
             left: (item.pageX <= $(window).width() / 2)
               ? (item.pageX + 10)
-              : (item.pageX - ($tooltip.width() + 10)),
+              : (item.pageX - ($tooltip.width() + 10))
           })
           .show();
       } else {

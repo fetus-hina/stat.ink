@@ -13,12 +13,12 @@ const useStyles = createUseStyles({
     marginRight: '-15px',
 
     '@media (max-width: 991px)': {
-      flexWrap: 'wrap',
-    },
-  },
+      flexWrap: 'wrap'
+    }
+  }
 });
 
-function ScheduleContents(props) {
+function ScheduleContents (props) {
   const { data, schedule, selected, translations } = props;
   const classes = useStyles();
 
@@ -29,16 +29,15 @@ function ScheduleContents(props) {
 
   if (!mode) {
     return (
-      <div id="schedule-content" className="tab-content">
-        <div className="tab-pane active" role="tabpanel">
-        </div>
+      <div id='schedule-content' className='tab-content'>
+        <div className='tab-pane active' role='tabpanel' />
       </div>
     );
   }
 
   return (
-    <div id="schedule-content" className="tab-content">
-      <div className="tab-pane active" role="tabpanel">
+    <div id='schedule-content' className='tab-content'>
+      <div className='tab-pane active' role='tabpanel'>
         {(() => {
           const modeData = extractMode(schedule, mode);
           if (!modeData) {
@@ -54,9 +53,9 @@ function ScheduleContents(props) {
                 />
               </div>
               <p
-                className="text-right mb-0"
+                className='text-right mb-0'
                 dangerouslySetInnerHTML={{
-                  __html: getDataSourceHTML(schedule, modeData, translations),
+                  __html: getDataSourceHTML(schedule, modeData, translations)
                 }}
               />
             </>
@@ -71,10 +70,10 @@ ScheduleContents.propTypes = {
   data: PropTypes.array.isRequired,
   schedule: PropTypes.object,
   selected: PropTypes.string.isRequired,
-  translations: PropTypes.object,
+  translations: PropTypes.object
 };
 
-function extractMode(schedule, mode) {
+function extractMode (schedule, mode) {
   if (schedule === null) {
     return null;
   }
@@ -91,7 +90,7 @@ function extractMode(schedule, mode) {
   return current;
 }
 
-function getDataSourceHTML(schedule, mode, translations) {
+function getDataSourceHTML (schedule, mode, translations) {
   if (
     !schedule ||
     !schedule.sources ||
@@ -112,17 +111,17 @@ function getDataSourceHTML(schedule, mode, translations) {
   return esc(template).replace('{source}', sourceHTML);
 }
 
-function mapStateToProps(state) {
+function mapStateToProps (state) {
   return {
     now: Math.floor(state.schedule.currentTime / 1000),
     schedule: state.schedule.data,
     translations: state.schedule.data
       ? state.schedule.data.translations
-      : null,
+      : null
   };
 }
 
-function mapDispatchToProps(/* dispatch */) {
+function mapDispatchToProps (/* dispatch */) {
   return {};
 }
 

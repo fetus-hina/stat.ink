@@ -7,12 +7,12 @@ import scheduleSaga from '../saga/schedule';
 import { all } from 'redux-saga/effects';
 import { applyMiddleware, createStore } from 'redux';
 
-function* rootSaga() {
+function * rootSaga () {
   yield all([
     ...blogSaga,
     ...latestBattlesSaga,
     ...myLatestBattlesSaga,
-    ...scheduleSaga,
+    ...scheduleSaga
   ]);
 }
 

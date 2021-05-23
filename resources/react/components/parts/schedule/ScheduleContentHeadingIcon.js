@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-export default function ScheduleContentHeadingIcon(props) {
+export default function ScheduleContentHeadingIcon (props) {
   const { schedule } = props;
 
   if (!schedule || !schedule.rule || !schedule.rule.icon) {
@@ -9,10 +9,10 @@ export default function ScheduleContentHeadingIcon(props) {
   }
 
   return (
-    <img src={schedule.rule.icon} className="mr-1" />
+    <img src={schedule.rule.icon} className='mr-1' />
   );
 }
 
 ScheduleContentHeadingIcon.propTypes = {
-  schedule: PropTypes.object,
+  schedule: PropTypes.object
 };

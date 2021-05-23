@@ -8,7 +8,7 @@
         '>': '&gt;',
         '&': '&amp;',
         '"': '&quot;',
-        '\'': '&#39;',
+        '\'': '&#39;'
       };
       return table[match];
     });
@@ -21,8 +21,8 @@
         method: 'POST',
         url: '/user/timezone',
         data: {
-          timezone: $this.attr('data-tz'),
-        },
+          timezone: $this.attr('data-tz')
+        }
       };
       $.ajax(ajaxOptions)
         .always(() => {
@@ -35,9 +35,9 @@
     this.on('show.bs.modal', function () {
       const $this = $(this);
       const ajaxOptions = {
-        'method': 'GET',
-        'dataType': 'json',
-        'url': '/api/internal/guess-timezone',
+        method: 'GET',
+        dataType: 'json',
+        url: '/api/internal/guess-timezone'
       };
 
       const $labels = $('.guessed-timezone', $this);

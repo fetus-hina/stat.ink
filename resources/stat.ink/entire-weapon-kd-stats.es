@@ -1,18 +1,18 @@
 jQuery($ => {
-  function percentFormat(value, digit) {
+  function percentFormat (value, digit) {
     const locales = [
       $('html').attr('lang'),
-      'en-US',
+      'en-US'
     ];
     const formatter = new Intl.NumberFormat(locales, {
       style: 'percent',
       minimumFractionDigits: digit,
-      maximumFractionDigits: digit,
+      maximumFractionDigits: digit
     });
     return formatter.format(value);
   }
 
-  function update() {
+  function update () {
     const $graphs = $('.graph.stat-kill-death');
     $graphs.height($graphs.width() * 9 / 16);
     $graphs.each(function () {
@@ -42,31 +42,31 @@ jQuery($ => {
         {
           label: $graph.attr('data-legends-kill'),
           data: kills.map((v, i) => [i - 0.5, v * 100 / total]),
-          color: window.colorScheme.win,
+          color: window.colorScheme.win
         },
         {
           label: $graph.attr('data-legends-death'),
           data: deaths.map((v, i) => [i - 0.5, v * 100 / total]),
-          color: window.colorScheme.lose,
-        },
+          color: window.colorScheme.lose
+        }
       ];
       $.plot($graph, data, {
         xaxis: {
           min: -0.5,
           minTickSize: 1,
-          tickFormatter: v => `${v} K, D`,
+          tickFormatter: v => `${v} K, D`
         },
         yaxis: {
           min: 0,
-          tickFormatter: v => percentFormat(v / 100, 1),
+          tickFormatter: v => percentFormat(v / 100, 1)
         },
         series: {
           lines: {
             show: true,
             fill: true,
-            steps: true,
-          },
-        },
+            steps: true
+          }
+        }
       });
     });
   }

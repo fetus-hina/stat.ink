@@ -3,7 +3,7 @@ import React from 'react';
 import { STATUS_LOADING } from '../../../constants';
 import { connect } from 'react-redux';
 
-function Loading(props) {
+function Loading (props) {
   const { isLoading } = props;
 
   if (!isLoading) {
@@ -11,21 +11,21 @@ function Loading(props) {
   }
 
   return (
-    <span className="fas fa-spinner fa-pulse" />
+    <span className='fas fa-spinner fa-pulse' />
   );
 }
 
 Loading.propTypes = {
-  isLoading: PropTypes.bool.isRequired,
+  isLoading: PropTypes.bool.isRequired
 };
 
-function mapStateToProps(state) {
+function mapStateToProps (state) {
   return {
-    isLoading: state.schedule.status === STATUS_LOADING,
+    isLoading: state.schedule.status === STATUS_LOADING
   };
 }
 
-function mapDispatchToProps(/* dispatch */) {
+function mapDispatchToProps (/* dispatch */) {
   return {};
 }
 

@@ -6,27 +6,27 @@ const data = [
   {
     id: 'regular2',
     ref: 'splatoon2/regular'.split('/'),
-    label: 'Regular',
+    label: 'Regular'
   },
   {
     id: 'gachi2',
     ref: 'splatoon2/gachi'.split('/'),
-    label: 'Ranked',
+    label: 'Ranked'
   },
   {
     id: 'league2',
     ref: 'splatoon2/league'.split('/'),
-    label: 'League',
+    label: 'League'
   },
   {
     id: 'salmon2',
     ref: 'splatoon2/salmon'.split('/'),
-    label: 'Salmon Run',
-  },
+    label: 'Salmon Run'
+  }
 ];
 
-export default function ScheduleDisplay() {
-  const [ selected, setSelected ] = useState('regular2');
+export default function ScheduleDisplay () {
+  const [selected, setSelected] = useState('regular2');
 
   return (
     <>

@@ -17,62 +17,62 @@
           color: colorScheme.graph1,
           lines: {
             show: true,
-            fill: true,
-          },
+            fill: true
+          }
         },
         {
           label: texts.percentile,
           data: (dataValues.length > 1)
             ? [
-              [rawData[0][0], stats.pct5],
-              [0, stats.pct5],
-            ]
+                [rawData[0][0], stats.pct5],
+                [0, stats.pct5]
+              ]
             : [],
           color: colorScheme._gray.darkGray,
           lines: {
-            lineWidth: 1,
-          },
+            lineWidth: 1
+          }
         },
         {
           label: false,
           data: (dataValues.length > 1)
             ? [
-              [rawData[0][0], stats.pct95],
-              [0, stats.pct95],
-            ]
+                [rawData[0][0], stats.pct95],
+                [0, stats.pct95]
+              ]
             : [],
           color: colorScheme._gray.darkGray,
           lines: {
-            lineWidth: 1,
+            lineWidth: 1
           }
         },
         {
           label: texts.average,
           data: (dataValues.length > 1)
             ? [
-              [rawData[0][0], avgInked],
-              [0, avgInked],
-            ]
+                [rawData[0][0], avgInked],
+                [0, avgInked]
+              ]
             : [],
           color: colorScheme.graph2,
           lines: {
-            lineWidth: 1,
-          },
-        },
+            lineWidth: 1
+          }
+        }
       ],
       {
         xaxis: {
           minTickSize: 1,
-          tickFormatter: v => String(Number(v)),
+          tickFormatter: v => String(Number(v))
         },
         yaxis: {
           minTickSize: 100,
           min: 0,
-          tickFormatter: v => String(Number(v)).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1' + thousandSep) + 'p',
+          tickFormatter: v => String(Number(v)).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1' + thousandSep) + 'p'
         },
         legend: {
-          position: 'nw',
-        },
+          position: 'nw'
+        }
       }
     );
   };

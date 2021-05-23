@@ -7,8 +7,8 @@ jQuery($ => {
       method: 'POST',
       url: '/user/language',
       data: {
-        language: $this.attr('data-lang'),
-      },
+        language: $this.attr('data-lang')
+      }
     };
     $.ajax(ajaxParams)
       .always(() => {
@@ -22,8 +22,8 @@ jQuery($ => {
       method: 'POST',
       url: '/user/machine-translation',
       data: {
-        direction: $this.attr('data-direction'),
-      },
+        direction: $this.attr('data-direction')
+      }
     };
     $.ajax(ajaxParams)
       .always(() => {

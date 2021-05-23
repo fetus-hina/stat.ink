@@ -4,7 +4,7 @@
   const colorWinPct = window.colorScheme._accent.green;
   const colorKills = window.colorScheme._accent.red;
   const colorDeaths = window.colorScheme._accent.blue;
-  
+
   $(() => {
     const strings = JSON.parse($('#json-strings').text());
     const data = JSON.parse($('#json-battles').text())
@@ -16,7 +16,7 @@
       const $this = $(el);
       const $graph = $('.stat-inked', $this);
       const stage = $graph.attr('data-filter');
-      const filter = stage ? (value => value.sta === stage) : (() => true);
+      const filter = stage ? value => value.sta === stage : () => true;
       const filteredData = data.filter(filter);
 
       $graph.data('data', filteredData);
@@ -51,12 +51,12 @@
             color: colorInked,
             lines: {
               show: true,
-              fill: true,
+              fill: true
             },
             legend: {
-              show: false,
-            },
-          },
+              show: false
+            }
+          }
         ];
         if ($this.attr('data-filter')) {
           data.push({
@@ -73,7 +73,7 @@
                 }
                 return [
                   i - (arr.length - 1),
-                  battles > 0 ? (wins * 100.0 / battles) : null,
+                  battles > 0 ? (wins * 100.0 / battles) : null
                 ];
               });
             })(rawData),
@@ -81,11 +81,11 @@
             yaxis: 2,
             lines: {
               show: true,
-              fill: false,
+              fill: false
             },
             legend: {
-              show: false,
-            },
+              show: false
+            }
           });
           data.push({
             label: '<span class="fa fa-fw fa-angle-right"></span> ' + strings.stats.avgKill,
@@ -99,7 +99,7 @@
                 }
                 return [
                   i - (arr.length - 1),
-                  battles > 0 ? (total / battles) : null,
+                  battles > 0 ? (total / battles) : null
                 ];
               });
             })(rawData),
@@ -107,11 +107,11 @@
             yaxis: 3,
             lines: {
               show: true,
-              fill: false,
+              fill: false
             },
             legend: {
-              show: false,
-            },
+              show: false
+            }
           });
           data.push({
             label: '<span class="fa fa-fw fa-angle-right"></span> ' + strings.stats.avgDeath,
@@ -125,7 +125,7 @@
                 }
                 return [
                   i - (arr.length - 1),
-                  battles > 0 ? (total / battles) : null,
+                  battles > 0 ? (total / battles) : null
                 ];
               });
             })(rawData),
@@ -133,43 +133,43 @@
             yaxis: 3,
             lines: {
               show: true,
-              fill: false,
+              fill: false
             },
             legend: {
-              show: false,
-            },
+              show: false
+            }
           });
         }
 
         $.plot($this, data, {
           xaxis: {
             minTickSize: 1,
-            tickFormatter: v => parseInt(v, 10),
+            tickFormatter: v => parseInt(v, 10)
           },
           yaxes: [
             {
               min: 0,
               minTickSize: 50,
               position: 'left',
-              tickFormatter: v => (v + 'p'),
+              tickFormatter: v => (v + 'p')
             },
             {
               max: 100,
               min: 0,
               minTickSize: 10,
               position: 'left',
-              tickFormatter: v => (Number(v).toFixed(1) + '%'),
+              tickFormatter: v => (Number(v).toFixed(1) + '%')
             },
             {
               min: 0,
               minTickSize: 1,
               position: 'right',
-              tickFormatter: v => (v + 'x'),
-            },
+              tickFormatter: v => (v + 'x')
+            }
           ],
           legend: {
-            position: 'nw',
-          },
+            position: 'nw'
+          }
         });
       });
 

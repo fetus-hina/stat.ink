@@ -10,7 +10,7 @@ const useStyles = createUseStyles({
     listStyleImage: 'none',
     margin: '0',
     padding: '0',
-    display: 'block',
+    display: 'block'
   },
   li: {
     listStyleType: 'none',
@@ -22,19 +22,19 @@ const useStyles = createUseStyles({
     '&::after': {
       display: 'inline',
       content: '"|"',
-      marginLeft: '1em',
+      marginLeft: '1em'
     },
 
     '&:last-child::after': {
-      display: 'none',
+      display: 'none'
     }
   },
   alertLink: {
-    'fontWeight': 'normal !important',
-  },
+    fontWeight: 'normal !important'
+  }
 });
 
-function BlogEntries(props) {
+function BlogEntries (props) {
   return (
     <aside>
       {renderAlert(props)}
@@ -42,19 +42,19 @@ function BlogEntries(props) {
   );
 }
 
-function renderAlert(props) {
+function renderAlert (props) {
   const { status, data } = props;
   const classes = useStyles();
 
   if (status === STATUS_FAILED && !data.length) {
     return (
-      <div className="alert alert-error" role="alert">
+      <div className='alert alert-error' role='alert'>
         Failed to load blog entries
       </div>
     );
   } else {
     return (
-      <div className="alert alert-success blog-entries" role="alert">
+      <div className='alert alert-success blog-entries' role='alert'>
         <nav>
           <ul className={classes.ul}>
             {renderStatus(props, classes)}
@@ -66,20 +66,20 @@ function renderAlert(props) {
   }
 }
 
-function renderStatus(props, classes) {
+function renderStatus (props, classes) {
   const { status } = props;
 
   switch (status) {
     case STATUS_FAILED:
-      return <li className={classes.li}><span className="fas fa-exclamation-triangle" /></li>;
+      return <li className={classes.li}><span className='fas fa-exclamation-triangle' /></li>;
     case STATUS_LOADING:
-      return <li className={classes.li}><span className="fas fa-spinner fa-pulse" /></li>;
+      return <li className={classes.li}><span className='fas fa-spinner fa-pulse' /></li>;
     default:
       return <></>;
   }
 }
 
-function renderEntries(props, classes) {
+function renderEntries (props, classes) {
   const { data } = props;
   return (
     <>
@@ -88,8 +88,8 @@ function renderEntries(props, classes) {
           <a
             className={['alert-link', classes.alertLink].join(' ')}
             href={entry.url}
-            rel="noreferrer"
-            target="_blank"
+            rel='noreferrer'
+            target='_blank'
           >
             {entry.title} ({renderTime(entry.at)})
           </a>
@@ -99,7 +99,7 @@ function renderEntries(props, classes) {
   );
 }
 
-function renderTime(at) {
+function renderTime (at) {
   return (
     <time title={at.natural} dateTime={at.iso8601}>
       {at.relative}
@@ -109,17 +109,17 @@ function renderTime(at) {
 
 BlogEntries.propTypes = {
   data: PropTypes.array.isRequired,
-  status: PropTypes.string.isRequired,
+  status: PropTypes.string.isRequired
 };
 
-function mapStateToProps(state) {
+function mapStateToProps (state) {
   return {
     data: state.blog.data,
-    status: state.blog.status,
+    status: state.blog.status
   };
 }
 
-function mapDispatchToProps(/* dispatch */) {
+function mapDispatchToProps (/* dispatch */) {
   return {};
 }
 

@@ -3,7 +3,7 @@ import React from 'react';
 import { DateTime } from 'luxon';
 import { connect } from 'react-redux';
 
-function ScheduleContentHeadingTime(props) {
+function ScheduleContentHeadingTime (props) {
   const { isSalmon, schedule } = props;
 
   const dtBegin = makeTimeStamp(props, schedule.time[0] * 1000);
@@ -17,26 +17,26 @@ function ScheduleContentHeadingTime(props) {
 ScheduleContentHeadingTime.propTypes = {
   isSalmon: PropTypes.bool.isRequired,
   locale: PropTypes.object,
-  schedule: PropTypes.object.isRequired,
+  schedule: PropTypes.object.isRequired
 };
 
-function normalFormat(dtBegin, dtEnd) {
+function normalFormat (dtBegin, dtEnd) {
   return (
-    <span className="mr-1">
+    <span className='mr-1'>
       [{timeFormat(dtBegin, DateTime.TIME_SIMPLE)}-{timeFormat(dtEnd, DateTime.TIME_SIMPLE)}]
     </span>
   );
 }
 
-function salmonFormat(dtBegin, dtEnd) {
+function salmonFormat (dtBegin, dtEnd) {
   return (
-    <span className="mr-1">
+    <span className='mr-1'>
       [{timeFormat(dtBegin, DateTime.DATETIME_SHORT)}-{timeFormat(dtEnd, DateTime.DATETIME_SHORT)}]
     </span>
   );
 }
 
-function timeFormat(datetime, format) {
+function timeFormat (datetime, format) {
   return (
     <time dateTime={datetime.toISO()} title={datetime.toLocaleString(DateTime.DATETIME_MED)}>
       {datetime.toLocaleString(format)}
@@ -44,7 +44,7 @@ function timeFormat(datetime, format) {
   );
 }
 
-function makeTimeStamp(props, timestamp) {
+function makeTimeStamp (props, timestamp) {
   const { locale } = props;
   const localeOpts = {};
   if (locale) {
@@ -57,13 +57,13 @@ function makeTimeStamp(props, timestamp) {
   return DateTime.fromMillis(timestamp, localeOpts);
 }
 
-function mapStateToProps(state) {
+function mapStateToProps (state) {
   return {
-    locale: state.schedule.data ? state.schedule.data.locale : null,
+    locale: state.schedule.data ? state.schedule.data.locale : null
   };
 }
 
-function mapDispatchToProps(/* dispatch */) {
+function mapDispatchToProps (/* dispatch */) {
   return {};
 }
 

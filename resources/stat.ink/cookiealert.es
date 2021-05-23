@@ -9,11 +9,11 @@ jQuery(() => {
   const STORAGE_ITEM_VALUE = 'accepted';
 
   const isAccepted = () => {
-    return localStorage.getItem(STORAGE_ITEM_NAME) === STORAGE_ITEM_VALUE;
+    return window.localStorage.getItem(STORAGE_ITEM_NAME) === STORAGE_ITEM_VALUE;
   };
 
   const markAccepted = () => {
-    localStorage.setItem(STORAGE_ITEM_NAME, STORAGE_ITEM_VALUE);
+    window.localStorage.setItem(STORAGE_ITEM_NAME, STORAGE_ITEM_VALUE);
   };
 
   const cookieAlert = document.querySelector('.cookiealert');
@@ -22,6 +22,7 @@ jQuery(() => {
     return;
   }
 
+  // eslint-disable-next-line
   cookieAlert.offsetHeight; // Force browser to trigger reflow (https://stackoverflow.com/a/39451131)
 
   // Show the alert if we cant find the 'acceptCookies' cookie

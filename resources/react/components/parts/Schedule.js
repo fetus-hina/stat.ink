@@ -5,22 +5,22 @@ import { connect } from 'react-redux';
 import { fetchSchedule, scheduleTickTime } from '../../actions/schedule';
 
 class Schedule extends Component {
-  constructor(...args) {
+  constructor (...args) {
     super(...args);
     this.state = {
-      timer: null,
+      timer: null
     };
   }
 
-  componentDidMount() {
+  componentDidMount () {
     this.props.onMount(this);
   }
 
-  componentWillUnmount() {
+  componentWillUnmount () {
     this.props.onUnmount(this);
   }
 
-  render() {
+  render () {
     return <Impl />;
   }
 }
@@ -29,16 +29,16 @@ Schedule.propTypes = {
   expires: PropTypes.number.isRequired,
   onMount: PropTypes.func.isRequired,
   onTickTimer: PropTypes.func.isRequired,
-  onUnmount: PropTypes.func.isRequired,
+  onUnmount: PropTypes.func.isRequired
 };
 
-function mapStateToProps(state) {
+function mapStateToProps (state) {
   return {
-    expires: state.schedule.expires,
+    expires: state.schedule.expires
   };
 }
 
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps (dispatch) {
   return {
     onMount: (self) => {
       const timerFunc = self.props.onTickTimer.bind(self);
@@ -48,7 +48,7 @@ function mapDispatchToProps(dispatch) {
             timerFunc(self);
           },
           1000 // every second
-        ),
+        )
       });
       dispatch(fetchSchedule());
     },
@@ -57,7 +57,7 @@ function mapDispatchToProps(dispatch) {
         window.clearInterval(self.state.timer);
       }
       self.setState({
-        timer: null,
+        timer: null
       });
     },
     onTickTimer: (self) => {
@@ -68,10 +68,10 @@ function mapDispatchToProps(dispatch) {
       if (expires > (new Date()).getTime()) {
         return;
       }
-      
+
       dispatch(fetchSchedule());
-    },
-  }
+    }
+  };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Schedule);

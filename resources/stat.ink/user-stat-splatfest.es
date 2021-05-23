@@ -7,7 +7,7 @@
     const dt = luxon.DateTime.fromSeconds(time, {
       zone: html.dataset.timezone,
       locale: html.dataset.lang,
-      outputCalendar: html.dataset.calendar,
+      outputCalendar: html.dataset.calendar
     });
     return dt.toLocaleString(luxon.DateTime.DATETIME_SHORT);
   };
@@ -26,8 +26,8 @@
         .map(battle => (
           hasExactPower
             ? (typeof battle.my === 'number' && battle.my >= 1)
-              ? battle.my
-              : null
+                ? battle.my
+                : null
             : battle.good
         ))
         .filter(pwr => typeof pwr === 'number');
@@ -44,10 +44,10 @@
           borderColor: color(window.colorScheme.win, 0.8),
           data: dataValues.map(battle => (battle.isWin === true)
             ? hasExactPower
-              ? (typeof battle.my === 'number' && battle.my >= 1)
-                ? battle.my
-                : (averagePower || 2000)
-              : battle.good
+                ? (typeof battle.my === 'number' && battle.my >= 1)
+                    ? battle.my
+                    : (averagePower || 2000)
+                : battle.good
             : null
           ),
           fill: false,
@@ -56,7 +56,7 @@
           lineTension: 0,
           pointRadius: 4,
           pointBorderWidth: 3,
-          pointBackgroundColor: 'rgba(255, 255, 255, 0.8)',
+          pointBackgroundColor: 'rgba(255, 255, 255, 0.8)'
         },
         // Lose
         {
@@ -64,10 +64,10 @@
           borderColor: color(window.colorScheme.lose, 0.8),
           data: dataValues.map(battle => (battle.isWin === false)
             ? hasExactPower
-              ? (typeof battle.my === 'number' && battle.my >= 1)
-                ? battle.my
-                : (averagePower || 2000)
-              : battle.good
+                ? (typeof battle.my === 'number' && battle.my >= 1)
+                    ? battle.my
+                    : (averagePower || 2000)
+                : battle.good
             : null
           ),
           fill: false,
@@ -76,7 +76,7 @@
           showLine: false,
           pointRadius: 4,
           pointBackgroundColor: 'rgba(255, 255, 255, 0.8)',
-          pointBorderWidth: 3,
+          pointBorderWidth: 3
         },
         // Splatfest Power
         {
@@ -86,7 +86,7 @@
           fill: true,
           label: dataLabels.festPower,
           lineTension: 0,
-          pointRadius: 0,
+          pointRadius: 0
         },
         // Estimated Good Guys Power
         {
@@ -97,7 +97,7 @@
           fill: false,
           label: dataLabels.estimateGood,
           lineTension: 0,
-          pointRadius: 0,
+          pointRadius: 0
         },
         // Estimated Bad Guys Power
         {
@@ -108,9 +108,9 @@
           fill: false,
           label: dataLabels.estimateBad,
           lineTension: 0,
-          pointRadius: 0,
-        },
-      ],
+          pointRadius: 0
+        }
+      ]
     };
 
     const chart = new window.Chart(ctx, {
@@ -120,24 +120,24 @@
         aspectRatio: 1.61803398875,
         layout: {
           padding: {
-            right: 5,
-          },
+            right: 5
+          }
         },
         scales: {
           xAxes: [
             {
-              display: false,
-            },
+              display: false
+            }
           ],
           yAxes: [
             {
               ticks: {
-                callback: (value) => powerFmt(value),
-              },
-            },
-          ],
-        },
-      },
+                callback: (value) => powerFmt(value)
+              }
+            }
+          ]
+        }
+      }
     });
 
     canvas.addEventListener('click', (ev) => {

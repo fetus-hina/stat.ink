@@ -4,7 +4,7 @@
     graph1: window.colorScheme._accent.red,
     graph2: window.colorScheme._accent.blue,
     graph3: window.colorScheme._accent.altGreen,
-    graph4: window.colorScheme._accent.orange,
+    graph4: window.colorScheme._accent.orange
   };
   const convertToStatsData = json => {
     // {{{
@@ -23,12 +23,12 @@
               ++battles;
               return [
                 index,
-                total / battles,
+                total / battles
               ];
             });
         })(),
         color: colors.graph1,
-        yaxis: 2,
+        yaxis: 2
       },
       {
         label: strings.stats.avgDeath,
@@ -42,12 +42,12 @@
               ++battles;
               return [
                 index,
-                total / battles,
+                total / battles
               ];
             });
         })(),
         color: colors.graph2,
-        yaxis: 2,
+        yaxis: 2
       },
       {
         label: strings.stats.avgSpecial,
@@ -63,12 +63,12 @@
               }
               return [
                 index,
-                total / battles,
+                total / battles
               ];
             });
         })(),
         color: colors.graph3,
-        yaxis: 2,
+        yaxis: 2
       },
       {
         label: strings.stats.killRatio,
@@ -82,13 +82,13 @@
               totalD += v.d;
               return [
                 index,
-                totalD === null ? null : (totalK / totalD),
+                totalD === null ? null : (totalK / totalD)
               ];
             });
         })(),
         color: colors.graph4,
-        yaxis: 1,
-      },
+        yaxis: 1
+      }
     ];
     // }}}
   };
@@ -99,7 +99,7 @@
       const $graph = $(el);
       const limit = parseInt($graph.attr('data-limit'), 10);
       const data = (() => {
-        if (limit > 0) { 
+        if (limit > 0) {
           if (dataIn[0].data.length <= limit) {
             return false;
           }
@@ -109,7 +109,7 @@
             return arr;
           });
         }
-        
+
         return dataIn;
       })();
 
@@ -121,17 +121,17 @@
       $.plot($graph, data, {
         xaxis: {
           minTickSize: 1,
-          tickFormatter: v => parseInt(v, 10),
+          tickFormatter: v => parseInt(v, 10)
         },
         yaxis: {
           min: 0,
           minTickSize: 0.5,
-          tickFormatter: v => (`${strings.stats.KR} ${v}`),
+          tickFormatter: v => (`${strings.stats.KR} ${v}`)
         },
         y2axis: {
           min: 0,
           minTickSize: 1,
-          tickFormatter: v => (String(v) + 'x'),
+          tickFormatter: v => (String(v) + 'x')
         },
         legend: {
           container: $('#stat-stats-legend')

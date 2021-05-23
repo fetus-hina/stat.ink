@@ -10,7 +10,7 @@
     const formatDate = date => {
       const zeroPad = n => {
         n = String(n);
-        return (n.length == 1) ? `0${n}` : n;
+        return (n.length === 1) ? `0${n}` : n;
       };
       return date.getUTCFullYear() + '-' + zeroPad(date.getUTCMonth() + 1) + '-' + zeroPad(date.getUTCDate());
     };
@@ -20,41 +20,41 @@
       {
         label: $graph.attr('data-label-battle'),
         data: json.map(v => [dateToUnixTime(v.date), v.battle]),
-        bars:{
+        bars: {
           show: true,
           align: 'center',
-          barWidth: 86400 * 1000 * .8,
-          lineWidth: 1,
+          barWidth: 86400 * 1000 * 0.8,
+          lineWidth: 1
         },
-        color:window.colorScheme.graph1,
+        color: window.colorScheme.graph1
       },
       {
         label: $graph.attr('data-label-user'),
         data: json.map(v => [dateToUnixTime(v.date), v.user]),
         yaxis: 2,
-        color: window.colorScheme.graph2,
-      },
+        color: window.colorScheme.graph2
+      }
     ];
     $.plot($graph, data, {
       xaxis: {
         mode: 'time',
         minTickSize: [1, 'day'],
-        tickFormatter: v => formatDate(new Date(v)),
+        tickFormatter: v => formatDate(new Date(v))
       },
       yaxis: {
         min: 0,
         minTickSize: 1,
-        tickFormatter: v => parseInt(String(v), 10),
+        tickFormatter: v => parseInt(String(v), 10)
       },
       y2axis: {
         min: 0,
         minTickSize: 1,
         tickFormatter: v => parseInt(String(v), 10),
-        position: 'right',
+        position: 'right'
       },
       legend: {
-        position: 'nw',
-      },
+        position: 'nw'
+      }
     });
     // }}}
   };

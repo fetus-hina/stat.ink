@@ -8,7 +8,7 @@ const reducers = combineReducers({
   blog,
   latestBattles,
   myLatestBattles,
-  schedule,
+  schedule
 });
 
 export default reducers;
