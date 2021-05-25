@@ -920,6 +920,13 @@ class UserMiniInfo2 extends Widget
                         ]),
                         ['show-v2/user-stat-report', 'screen_name' => $this->user->screen_name]
                     ),
+                    Html::a(
+                        implode('', [
+                            (string)FA::fas('chart-pie')->fw(),
+                            Html::encode(Yii::t('app', 'Monthly Report')),
+                        ]),
+                        ['show-v2/user-stat-monthly-report', 'screen_name' => $this->user->screen_name]
+                    ),
                     '',
                     Html::a(
                         implode('', [

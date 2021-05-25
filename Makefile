@@ -105,6 +105,7 @@ RESOURCE_TARGETS := \
 	resources/.compiled/stat.ink/theme.js \
 	resources/.compiled/stat.ink/timezone-dialog.js \
 	resources/.compiled/stat.ink/user-miniinfo.css \
+	resources/.compiled/stat.ink/user-stat-2-monthly-report-pie-winpct.js \
 	resources/.compiled/stat.ink/user-stat-2-nawabari-inked.js \
 	resources/.compiled/stat.ink/user-stat-2-nawabari-runner.js \
 	resources/.compiled/stat.ink/user-stat-2-nawabari-stats.js \
@@ -315,6 +316,7 @@ resources/.compiled/stat.ink/table-responsive-force.css: resources/stat.ink/tabl
 resources/.compiled/stat.ink/theme.js: resources/stat.ink/theme.es
 resources/.compiled/stat.ink/timezone-dialog.js: resources/stat.ink/timezone-dialog.es node_modules
 resources/.compiled/stat.ink/user-miniinfo.css: resources/stat.ink/user-miniinfo.scss node_modules
+resources/.compiled/stat.ink/user-stat-2-monthly-report-pie-winpct.js: resources/stat.ink/user-stat-2-monthly-report-pie-winpct.es node_modules
 resources/.compiled/stat.ink/user-stat-2-nawabari-inked.js: resources/stat.ink/user-stat-2-nawabari-inked.es node_modules
 resources/.compiled/stat.ink/user-stat-2-nawabari-runner.js: resources/stat.ink/user-stat-2-nawabari-runner.es node_modules
 resources/.compiled/stat.ink/user-stat-2-nawabari-stats.js: resources/stat.ink/user-stat-2-nawabari-stats.es node_modules

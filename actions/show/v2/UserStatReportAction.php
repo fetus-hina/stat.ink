@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2017 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2021 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -15,9 +15,8 @@ use DateTimeZone;
 use Yii;
 use app\components\helpers\Battle as BattleHelper;
 use app\models\Battle2;
+use app\models\Spl2YearMonthForm;
 use app\models\User;
-use yii\base\DynamicModel;
-use yii\base\Model;
 use yii\helpers\Url;
 use yii\web\NotFoundHttpException;
 use yii\web\ViewAction as BaseAction;
@@ -45,30 +44,22 @@ class UserStatReportAction extends BaseAction
     {
         $now = (int)($_SERVER['REQUEST_TIME'] ?? time());
         $request = Yii::$app->request;
-        $form = DynamicModel::validateData(
-            [
-                'year' => $request->get('year'),
-                'month' => $request->get('month'),
-            ],
-            [
-                [['year'], 'required'],
-                [['year'], 'integer', 'min' => 2017, 'max' => date('Y', $now)],
-                [['month'], 'integer', 'min' => 1, 'max' => 12]
-            ]
-        );
-        if ($form->hasErrors()) {
+
+        $form = Yii::createObject(Spl2YearMonthForm::class);
+        $form->attributes = $request->get();
+        if (!$form->validate())  {
+            $now = $form->getCurrentTimestamp();
             return $this->controller->redirect(['show-v2/user-stat-report',
                 'screen_name' => $this->user->screen_name,
-                'year' => date('Y', $now),
-                'month' => date('n', $now),
+                'year' => (string)(int)$now->format('Y'),
+                'month' => (string)(int)$now->format('n'),
             ]);
         }
-        return $form->month
-            ? $this->runMonth($form)
-            : $this->runYear($form);
+
+        return $this->runMonth($form);
     }
 
-    protected function runMonth(Model $form)
+    protected function runMonth(Spl2YearMonthForm $form)
     {
         $tz = new DateTimeZone(Yii::$app->timeZone);
 
@@ -115,11 +106,6 @@ class UserStatReportAction extends BaseAction
                     ], true)
                 : null,
         ]);
-    }
-
-    protected function runYear(Model $form)
-    {
-        throw new NotFoundHttpException(Yii::t('yii', 'Page not found.'));
     }
 
     private function query(DateTimeImmutable $from, DateTimeImmutable $to): array

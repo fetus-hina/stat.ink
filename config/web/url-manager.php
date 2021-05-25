@@ -45,6 +45,7 @@ return [
         '@<screen_name:\w+>/spl2/<battle:\d+>/edit' => 'show-v2/edit-battle',
         // '@<screen_name:\w+>/2/<battle:\d+>.atom' => 'ostatus/battle-atom',
         '@<screen_name:\w+>/spl2/<id_from:\d+>-<id_to:\d+>' => 'show-v2/user',
+        '@<screen_name:\w+>/spl2/stat/monthly-report/<year:\d+>/<month:\d+>' => 'show-v2/user-stat-monthly-report',
         '@<screen_name:\w+>/spl2/stat/report/<year:\d+>/<month:\d+>' => 'show-v2/user-stat-report',
         '@<screen_name:\w+>/spl2/stat/report/<year:\d+>' => 'show-v2/user-stat-report',
         '@<screen_name:\w+>/spl2/stat/<by:[\w-]+>' => 'show-v2/user-stat-<by>',
