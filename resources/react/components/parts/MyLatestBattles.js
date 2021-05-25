@@ -5,22 +5,22 @@ import { connect } from 'react-redux';
 import { fetchMyLatestBattles } from '../../actions/myLatestBattles';
 
 class MyLatestBattles extends Component {
-  constructor(...args) {
+  constructor (...args) {
     super(...args);
     this.state = {
-      timer: null,
+      timer: null
     };
   }
 
-  componentDidMount() {
+  componentDidMount () {
     this.props.onMount(this);
   }
 
-  componentWillUnmount() {
+  componentWillUnmount () {
     this.props.onUnmount(this);
   }
 
-  render() {
+  render () {
     if (!this.props.isAvail) {
       return null;
     }
@@ -34,21 +34,21 @@ MyLatestBattles.propTypes = {
   isAvail: PropTypes.bool.isRequired,
   onMount: PropTypes.func.isRequired,
   onTickTimer: PropTypes.func.isRequired,
-  onUnmount: PropTypes.func.isRequired,
+  onUnmount: PropTypes.func.isRequired
 };
 
-function mapStateToProps(state) {
+function mapStateToProps (state) {
   return {
     expires: state.myLatestBattles.expires,
     isAvail: Boolean(
       state.myLatestBattles.data &&
       state.myLatestBattles.data.user &&
       state.myLatestBattles.data.battles.length > 0
-    ),
+    )
   };
 }
 
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps (dispatch) {
   return {
     onMount: (self) => {
       const timerFunc = self.props.onTickTimer.bind(self);
@@ -58,7 +58,7 @@ function mapDispatchToProps(dispatch) {
             timerFunc(self);
           },
           60 * 1000 // every minute
-        ),
+        )
       });
       dispatch(fetchMyLatestBattles());
     },
@@ -67,7 +67,7 @@ function mapDispatchToProps(dispatch) {
         window.clearInterval(self.state.timer);
       }
       self.setState({
-        timer: null,
+        timer: null
       });
     },
     onTickTimer: (self) => {
@@ -76,10 +76,10 @@ function mapDispatchToProps(dispatch) {
       if (expires > (new Date()).getTime()) {
         return;
       }
-      
+
       dispatch(fetchMyLatestBattles());
-    },
-  }
+    }
+  };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(MyLatestBattles);

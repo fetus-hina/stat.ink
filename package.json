@@ -17,7 +17,6 @@
     "@fortawesome/react-fontawesome": "^0.1.14",
     "autoprefixer": "^10.2.5",
     "axios": "^0.21.1",
-    "babel-eslint": "^10.1.0",
     "babel-loader": "^8.2.2",
     "bootstrap": "^3.4.1",
     "bootstrap-notify": "^3.1.3",
@@ -25,7 +24,7 @@
     "bootswatch": "^3.4.1",
     "bowser": "^2.11.0",
     "cal-heatmap": "^3.6.2",
-    "chart.js": "^3.2.1",
+    "chart.js": "^3.3.0",
     "chartjs-plugin-datalabels": "^2.0.0-rc.1",
     "core-js": "^3.12.1",
     "cssnano": "^5.0.4",
@@ -33,8 +32,6 @@
     "emojify.js": "^1.1.0",
     "eonasdan-bootstrap-datetimepicker": "^4.17.49",
     "escape-html": "^1.0.3",
-    "eslint": "^7.27.0",
-    "eslint-plugin-react": "^7.23.2",
     "flag-icon-css": "^3.5.0",
     "flot": "~0.8.3",
     "inputmask": "^5.0.5",
@@ -63,6 +60,7 @@
     "redux-saga": "^1.1.3",
     "regenerator-runtime": "^0.13.7",
     "sass": "^1.34.0",
+    "semistandard": "^16.0.0",
     "semver": "^7.3.5",
     "stupid-table-plugin": "^1.1.3",
     "stylelint": "^13.13.1",
@@ -79,5 +77,11 @@
   },
   "scripts": {
     "postinstall": "bin/npm-postinstall.sh"
+  },
+  "semistandard": {
+    "globals": [
+      "$",
+      "jQuery"
+    ]
   }
 }

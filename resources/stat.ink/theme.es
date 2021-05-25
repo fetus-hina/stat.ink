@@ -5,15 +5,15 @@
       $.post({
         url: '/api/internal/theme',
         data: {
-          theme: $this.data('theme'),
+          theme: $this.data('theme')
         },
-        dataType: 'json',
+        dataType: 'json'
       })
         .done(() => {
           window.location.reload();
         })
         .fail(() => {
-          alert('Failed to switch theme.\nPlease retry later.');
+          window.alert('Failed to switch theme.\nPlease retry later.');
         });
     });
   });

@@ -1,10 +1,10 @@
 /*! Copyright (C) 2016 AIZAWA Hina | MIT License */
 ($ => {
   $(() => {
-    var urlRegex = /^https?:\/\/[^\/]+.*$/;
-    var $td = $('#link-cell');
-    var $displayGroup = $('#link-cell-display', $td);
-    var $editGroup = $('#link-cell-edit', $td);
+    const urlRegex = /^https?:\/\/[^/]+.*$/;
+    const $td = $('#link-cell');
+    const $displayGroup = $('#link-cell-display', $td);
+    const $editGroup = $('#link-cell-edit', $td);
     if ($td.length && $displayGroup.length && $editGroup.length) {
       $('#link-cell-start-edit')
         .prop('disabled', false)
@@ -15,11 +15,11 @@
         });
 
       (function () {
-        var timerId = null;
+        let timerId = null;
         $('#link-cell-edit-input')
           .change(function () {
-            var $this = $(this);
-            var val = ($this.val() + '').trim();
+            const $this = $(this);
+            const val = ($this.val() + '').trim();
             $('#link-cell-edit-apply')
               .prop('disabled', val !== '' && !val.match(urlRegex));
             if (timerId) {
@@ -28,7 +28,7 @@
             }
           })
           .keydown(function () {
-            var $this = $(this);
+            const $this = $(this);
             if (timerId) {
               window.clearTimeout(timerId);
             }
@@ -40,8 +40,8 @@
 
       $('#link-cell-edit-apply')
         .click(function () {
-          var $this = $(this);
-          var val = ($('#link-cell-edit-input').val() + '').trim();
+          const $this = $(this);
+          const val = ($('#link-cell-edit-input').val() + '').trim();
           if (!val.match(urlRegex) && val !== '') {
             return;
           }
@@ -50,17 +50,17 @@
             method: 'POST',
             data: {
               _method: 'PATCH',
-              link_url: val,
+              link_url: val
             },
             success: function (json) {
-              var url = (json.link_url || '') + '';
+              const url = (json.link_url || '') + '';
               $displayGroup.attr('data-url', url);
-              if (url == '') {
+              if (url === '') {
                 $('a', $displayGroup).remove();
               } else {
-                var $a = $('a', $displayGroup);
+                let $a = $('a', $displayGroup);
                 if (!$a.length) {
-                  $a = $('<a>', {'rel': 'nofollow'});
+                  $a = $('<a>', { rel: 'nofollow' });
                   $displayGroup.prepend($a);
                 }
                 $a.attr('href', url).text(url);
@@ -72,7 +72,7 @@
               window.alert($this.attr('data-error'));
               $this.prop('disabled', false);
               $('#link-cell-edit-input').focus().select();
-            },
+            }
           });
         });
     }

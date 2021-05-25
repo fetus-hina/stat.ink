@@ -7,7 +7,7 @@ import { createUseStyles } from 'react-jss';
 const TYPE_ORDER = [
   'user',
   'battle',
-  'salmon',
+  'salmon'
 ];
 
 const useStyles = createUseStyles({
@@ -15,11 +15,11 @@ const useStyles = createUseStyles({
     fontSize: '16px',
     lineHeight: '1.3',
     margin: '0 0 10px',
-    textAlign: 'right',
-  },
+    textAlign: 'right'
+  }
 });
 
-function Counter(props) {
+function Counter (props) {
   const classes = useStyles();
   const { data } = props;
 
@@ -49,22 +49,22 @@ function Counter(props) {
 }
 
 Counter.propTypes = {
-  data: PropTypes.object.isRequired,
+  data: PropTypes.object.isRequired
 };
 
-function mapStateToProps(state) {
+function mapStateToProps (state) {
   return {
-    data: state.counter.data,
+    data: state.counter.data
   };
 }
 
-function mapDispatchToProps(/* dispatch */) {
+function mapDispatchToProps (/* dispatch */) {
   return {};
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Counter);
 
-function createRows(jsonData) {
+function createRows (jsonData) {
   const results = [];
 
   TYPE_ORDER.map(type => {
@@ -84,9 +84,10 @@ function createRows(jsonData) {
         popup: typeData.length > 1
           ? typeData.map(([, v]) => String(v.count)).join(' + ') // TODO: number format
           : null,
-        count: typeData.map(([, v]) => Number(v.count)).reduce((acc, cur) => acc + cur, 0),
+        count: typeData.map(([, v]) => Number(v.count)).reduce((acc, cur) => acc + cur, 0)
       });
     }
+    return null;
   });
 
   return results;

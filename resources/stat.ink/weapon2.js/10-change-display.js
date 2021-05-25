@@ -5,6 +5,6 @@
       'WEAPON_KEY',
       () => encodeURIComponent($select.val())
     );
-    location.href = url;
+    window.location.href = url;
   });
 })(jQuery);

@@ -18,14 +18,14 @@ jQuery($ => {
     switch (ev.keyCode) {
       case 37:
         if ($prev.length) {
-          location.href = $prev.attr('href');
+          window.location.href = $prev.attr('href');
           return false;
         }
         break;
 
       case 39:
         if ($next.length) {
-          location.href = $next.attr('href');
+          window.location.href = $next.attr('href');
           return false;
         }
         break;

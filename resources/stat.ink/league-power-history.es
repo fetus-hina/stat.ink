@@ -4,12 +4,12 @@
   const decimalFormat = (value, digit) => {
     const locales = [
       $('html').attr('lang'),
-      'en-US',
+      'en-US'
     ];
     const formatter = new Intl.NumberFormat(locales, {
       style: 'decimal',
       minimumFractionDigits: digit,
-      maximumFractionDigits: digit,
+      maximumFractionDigits: digit
     });
     return formatter.format(value);
   };
@@ -28,7 +28,7 @@
         labelFormatter: label => `<span class="mr-2">${label}</span>`,
         noColumns: 4,
         show: true,
-        sorted: 'reverse',
+        sorted: 'reverse'
       },
       xaxis: {
         show: true,
@@ -37,12 +37,12 @@
         max: periodEndTime,
         timeBase: 'milliseconds',
         autoScale: 'none',
-        tickFormatter: value => timeFormat(Number(value)),
+        tickFormatter: value => timeFormat(Number(value))
       },
       yaxis: {
         minTickSize: 10,
-        tickFormatter: value => decimalFormat(Number(value), 1),
-      },
+        tickFormatter: value => decimalFormat(Number(value), 1)
+      }
     };
 
     const makeData = (legend, list, color, lineWidth) => ({
@@ -51,11 +51,11 @@
       data: list,
       lines: {
         show: true,
-        lineWidth: lineWidth,
+        lineWidth: lineWidth
       },
       points: {
-        show: false,
-      },
+        show: false
+      }
     });
 
     const makeWinLose = (legend, list, onlyThisValue, color) => ({
@@ -65,14 +65,14 @@
         value.time,
         value.isWin === onlyThisValue
           ? (value.value || 1500)
-          : null,
+          : null
       ]),
       lines: {
-        show: false,
+        show: false
       },
       points: {
-        show: true,
-      },
+        show: true
+      }
     });
 
     const makePeak = (legend, value, color, lineWidth) => ({
@@ -80,16 +80,16 @@
       color: color,
       data: [
         [periodBeginTime, value[0]],
-        [periodEndTime, value[0]],
+        [periodEndTime, value[0]]
       ],
       lines: {
         show: true,
-        lineWidth: lineWidth,
+        lineWidth: lineWidth
       },
       points: {
-        show: false,
+        show: false
       },
-      shadowSize: 0,
+      shadowSize: 0
     });
 
     $.plot(
@@ -105,7 +105,7 @@
           translations.leaguePower,
           historyData.map(v => [
             v.time,
-            v.value,
+            v.value
           ]),
           window.colorScheme.graph1,
           3
@@ -114,14 +114,14 @@
           translations.lose,
           historyData,
           false,
-          window.colorScheme.lose,
+          window.colorScheme.lose
         ),
         makeWinLose(
           translations.win,
           historyData,
           true,
-          window.colorScheme.win,
-        ),
+          window.colorScheme.win
+        )
       ].filter(v => v !== null),
       options
     );

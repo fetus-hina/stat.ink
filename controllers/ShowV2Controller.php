@@ -21,6 +21,7 @@ use app\actions\show\v2\UserStatByRuleAction;
 use app\actions\show\v2\UserStatByWeaponAction;
 use app\actions\show\v2\UserStatCauseOfDeathAction;
 use app\actions\show\v2\UserStatGachiAction;
+use app\actions\show\v2\UserStatMonthlyReportAction;
 use app\actions\show\v2\UserStatNawabariAction;
 use app\actions\show\v2\UserStatReportAction;
 use app\actions\show\v2\UserStatSplatfestAction;
@@ -78,6 +79,7 @@ class ShowV2Controller extends Controller
             'user-stat-by-weapon' => [ 'class' => UserStatByWeaponAction::class ],
             'user-stat-cause-of-death' => [ 'class' => UserStatCauseOfDeathAction::class ],
             'user-stat-gachi' => [ 'class' => UserStatGachiAction::class ],
+            'user-stat-monthly-report' => [ 'class' => UserStatMonthlyReportAction::class ],
             'user-stat-nawabari' => [ 'class' => UserStatNawabariAction::class ],
             'user-stat-report' => [ 'class' => UserStatReportAction::class ],
             'user-stat-splatfest' => [ 'class' => UserStatSplatfestAction::class ],

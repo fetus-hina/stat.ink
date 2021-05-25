@@ -4,7 +4,7 @@ import ScheduleContentHeadingIcon from './ScheduleContentHeadingIcon';
 import ScheduleContentHeadingText from './ScheduleContentHeadingText';
 import ScheduleContentHeadingTime from './ScheduleContentHeadingTime';
 
-export default function ScheduleContentHeading(props) {
+export default function ScheduleContentHeading (props) {
   const { mode, schedule } = props;
   const isSalmon = (mode === 'salmon');
 
@@ -19,5 +19,5 @@ export default function ScheduleContentHeading(props) {
 
 ScheduleContentHeading.propTypes = {
   mode: PropTypes.string.isRequired,
-  schedule: PropTypes.object.isRequired,
+  schedule: PropTypes.object.isRequired
 };

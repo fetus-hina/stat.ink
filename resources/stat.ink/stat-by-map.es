@@ -3,7 +3,7 @@
 ((window, $) => {
   $(() => {
     const $stat = $('#stat');
-    const make = function (json, screen_name, filter) {
+    const make = function (json, screenName, filter) {
       const battlesUrl = map => {
         const params = [];
         for (const k in filter) {
@@ -12,7 +12,7 @@
           }
         }
         params.push(encodeURIComponent('filter[map]') + '=' + encodeURIComponent(map));
-        return `/@${screen_name}/spl1?${params.join('&')}`;
+        return `/@${screenName}/spl1?${params.join('&')}`;
       };
       const $root = $('<div>').append($('<h2>').text(json.name));
       const maps = [];
@@ -29,7 +29,7 @@
         const $map = $('<div>').addClass('col-xs-12 col-sm-6 col-md-4 col-lg-4')
           .append(
             $('<h3>').append(
-              $('<a>', {'href': battlesUrl(i)}).text(map.name)
+              $('<a>', { href: battlesUrl(i) }).text(map.name)
             )
           )
           .append(
@@ -40,8 +40,8 @@
           );
 
         maps.push({
-          'name': (map.name + ''),
-          'dom': $map,
+          name: (map.name + ''),
+          dom: $map
         });
       }
       maps.sort((a, b) => a.name.localeCompare(b.name));
@@ -63,15 +63,15 @@
               radius: 1,
               label: {
                 show: 'auto',
-                radius: .61803398875,
+                radius: 0.61803398875,
                 formatter: (label, slice) => $('<div>').append(
                   $('<div>').css({
-                    'fontSize': '1em',
-                    'lineHeight': '1.1em',
-                    'textAlign': 'center',
-                    'padding': '2px',
-                    'color': '#fff',
-                    'textShadow': '0px 0px 3px #000',
+                    fontSize: '1em',
+                    lineHeight: '1.1em',
+                    textAlign: 'center',
+                    padding: '2px',
+                    color: '#fff',
+                    textShadow: '0px 0px 3px #000'
                   }).append(
                     slice.data[0][1] + ' / ' +
                       Math.round(slice.data[0][1] / (slice.percent / 100)) // FIXME
@@ -81,20 +81,20 @@
                     slice.percent.toFixed(1) + '%'
                   )
                 )
-                  .html(),
-              },
-            },
+                  .html()
+              }
+            }
           },
           legend: {
-            show: false,
+            show: false
           },
           colors: [
             window.colorScheme.win,
-            window.colorScheme.lose,
+            window.colorScheme.lose
           ],
           grid: {
             clickable: true
-          },
+          }
         });
         $container.bind('plotclick', function () {
           window.location.href = $(this).attr('data-url');

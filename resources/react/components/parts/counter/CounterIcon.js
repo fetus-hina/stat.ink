@@ -5,7 +5,7 @@ import { faFish } from '@fortawesome/free-solid-svg-icons/faFish';
 import { faPaintRoller } from '@fortawesome/free-solid-svg-icons/faPaintRoller';
 import { faUser } from '@fortawesome/free-solid-svg-icons/faUser';
 
-export default function CounterIcon(props) {
+export default function CounterIcon (props) {
   const { icon } = props;
 
   switch (icon) {
@@ -23,5 +23,5 @@ export default function CounterIcon(props) {
 }
 
 CounterIcon.propTypes = {
-  icon: PropTypes.string.isRequired,
+  icon: PropTypes.string.isRequired
 };

@@ -4,13 +4,15 @@ import MyLatestBattles from './parts/MyLatestBattles';
 import React from 'react';
 import Schedule from './parts/Schedule';
 
-export default function App() {
-  return <>
-    <Blog />
-    <Schedule />
-    <MyLatestBattles />
-    <LatestBattles />
-  </>;
+export default function App () {
+  return (
+    <>
+      <Blog />
+      <Schedule />
+      <MyLatestBattles />
+      <LatestBattles />
+    </>
+  );
 }
 
 App.propTypes = {};

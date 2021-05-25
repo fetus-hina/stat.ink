@@ -17,22 +17,22 @@
           const fmt = new Intl.NumberFormat(
             [
               locale,
-              'en-US',
+              'en-US'
             ],
             {
               minimumFractionDigits: (type === 'total') ? 0 : 1,
-              maximumFractionDigits: (type === 'total') ? 0 : 1,
+              maximumFractionDigits: (type === 'total') ? 0 : 1
             }
           );
           const dateFmt = new Intl.DateTimeFormat(
             [
               locale + (calendar ? ('-u-ca-' + calendar) : ''),
               locale,
-              'en-US',
+              'en-US'
             ],
             {
               dateStyle: 'medium',
-              timeZone: timezone,
+              timeZone: timezone
             }
           );
 
@@ -41,31 +41,31 @@
             {
               data: data.map(row => [
                 row.as_of.time * 1000,
-                (!row[attr] || row['work_count'] < 1)
+                (!row[attr] || row.work_count < 1)
                   ? null
-                  : Number(row[attr]) / (type === 'total' ? 1 : Number(row.work_count)),
+                  : Number(row[attr]) / (type === 'total' ? 1 : Number(row.work_count))
               ]),
               color: window.colorScheme.graph1,
               lines: {
                 show: true,
-                fill: false,
+                fill: false
               },
               points: {
-                show: true,
-              },
-            },
+                show: true
+              }
+            }
           ];
           $.plot($graph, flotData, {
             xaxis: {
               mode: 'time',
               minTickSize: [1, 'day'],
-              tickFormatter: v => dateFmt.format(v),
+              tickFormatter: v => dateFmt.format(v)
             },
             yaxis: {
               min: 0,
               minTickSize: type === 'total' ? 1 : 0.1,
-              tickFormatter: v => fmt.format(v),
-            },
+              tickFormatter: v => fmt.format(v)
+            }
           });
         }
       };

@@ -5,11 +5,11 @@
     const base = options.logos;
     const make = key => {
       const $img = $('<img>', {
-        src: `${base}/${key}.png`,
+        src: `${base}/${key}.png`
       });
       return $img.css({
         height: options.size,
-        width: 'auto',
+        width: 'auto'
       });
     };
 

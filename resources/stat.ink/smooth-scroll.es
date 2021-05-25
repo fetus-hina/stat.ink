@@ -4,7 +4,7 @@
     $('a[href^="#"]')
       .not('[data-toggle="tab"]')
       .smoothScroll({
-        offset: -60,
+        offset: -60
       });
   });
 })(jQuery);

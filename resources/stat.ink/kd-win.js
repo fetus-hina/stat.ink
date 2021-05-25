@@ -31,7 +31,7 @@
             $.Color({
               hue: 214,
               saturation: 0.95 * ((ratio - 50) * 2 / 100),
-              lightness: 0.53 + 0.08 * ((ratio - 50) * 2 / 100),
+              lightness: 0.53 + 0.08 * ((ratio - 50) * 2 / 100)
             })
               .alpha(battleCountCoefficient)
               .blend($.Color('#ffffff'))

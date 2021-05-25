@@ -140,8 +140,8 @@ jobs:
             ~/.npm
           key: npm-${{ hashFiles('package-lock.json') }}
 
-      - name: 'Run ESLint'
-        run: 'npx eslint "resources/**/*.es" "resources/**/*.js"'
+      - name: 'Run `semistandard`'
+        run: 'npx semistandard "resources/**/*[ej]s"'
 
   cssStyleCheck:
     name: 'CSS Coding Style'

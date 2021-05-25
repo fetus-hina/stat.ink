@@ -2,21 +2,21 @@
 (function ($, window, document) {
   'use strict';
   $(document).ready(function () {
-    var formats = window.reltimeFormats;
+    const formats = window.reltimeFormats;
     window.setInterval(function () {
-      var now = Math.floor((new Date()) / 1000);
-      var $targets = $('span.active-reltime');
+      const now = Math.floor((new Date()) / 1000);
+      const $targets = $('span.active-reltime');
       if ($targets.length < 1) {
         return;
       }
       $targets.each(function () {
-        var $this = $(this);
-        var time = parseInt($this.attr('data-time'), 10);
-        var mode = $this.attr('data-mode');
+        const $this = $(this);
+        const time = parseInt($this.attr('data-time'), 10);
+        const mode = $this.attr('data-mode');
         if (isNaN(time)) {
           return;
         }
-        var reltime = (function (ago) {
+        const reltime = (function (ago) {
           if (ago >= 31536000) {
             return ['year', Math.floor(ago / 31536000)];
           } else if (ago >= 2592000) {
@@ -34,7 +34,7 @@
           }
         })(now - time);
         $this.text(
-          reltime[1] == 1
+          reltime[1] === 1
             ? formats[mode].one[reltime[0]]
             : formats[mode].many[reltime[0]].replace('42', reltime[1])
         );

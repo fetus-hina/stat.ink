@@ -12,7 +12,7 @@
     'A',
     'A+',
     'S',
-    'S+',
+    'S+'
   ];
 
   $.fn.rankHistory = function ($legends, $chkMovingAvgEnabled, rawData, texts) {
@@ -21,7 +21,7 @@
       const ret = {
         area: [],
         yagura: [],
-        hoko: [],
+        hoko: []
       };
       let prevIndex = null;
       let prevRule = null;
@@ -44,29 +44,29 @@
         {
           label: texts.area,
           data: dataRules.area,
-          color: window.colorScheme.area,
+          color: window.colorScheme.area
         },
         {
           label: texts.yagura,
           data: dataRules.yagura,
-          color: window.colorScheme.yagura,
+          color: window.colorScheme.yagura
         },
         {
           label: texts.hoko,
           data: dataRules.hoko,
-          color: window.colorScheme.hoko,
-        },
+          color: window.colorScheme.hoko
+        }
       ];
       if ($chkMovingAvgEnabled && $chkMovingAvgEnabled.prop('checked')) {
         data.push({
           label: texts.movingAvg10,
           data: rawData.map(v => [v.index, v.movingAvg]),
-          color: window.colorScheme.moving1,
+          color: window.colorScheme.moving1
         });
         data.push({
           label: texts.movingAvg50,
           data: rawData.map(v => [v.index, v.movingAvg50]),
-          color: window.colorScheme.moving2,
+          color: window.colorScheme.moving2
         });
       }
 
@@ -82,7 +82,7 @@
           xaxis: {
             minTickSize: 1,
             min: limit > 0 ? -limit : null,
-            tickFormatter: v => String(Number(v)),
+            tickFormatter: v => String(Number(v))
           },
           yaxis: {
             minTickSize: 10,
@@ -99,8 +99,8 @@
             }
           },
           legend: {
-            container: $legends,
-          },
+            container: $legends
+          }
         });
       });
     };

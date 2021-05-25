@@ -3,7 +3,7 @@
   const colors = {
     graph1: window.colorLock ? window.colorScheme.graph1 : window.colorScheme._accent.orange,
     moving1: window.colorLock ? window.colorScheme.moving1 : 'rgba(64,237,64,.5)',
-    moving2: window.colorLock ? window.colorScheme.moving2 : 'rgba(148,64,237,.5)',
+    moving2: window.colorLock ? window.colorScheme.moving2 : 'rgba(148,64,237,.5)'
   };
   let rankPeak = 10;
   const convertToWPData = (bigJson, isRanked) => {
@@ -22,7 +22,7 @@
               return [index, v.x];
             }),
           color: window.colorScheme._gray.lightGray,
-          yaxis: 3,
+          yaxis: 3
         });
       }
       data.push({
@@ -39,8 +39,8 @@
         color: window.colorScheme._gray.darkGray,
         yaxis: 2,
         lines: {
-          steps: true,
-        },
+          steps: true
+        }
       });
     }
     data.push({
@@ -59,7 +59,7 @@
             return [index, 100.0 * wins / list.length];
           });
       })(),
-      color: colors.moving2,
+      color: colors.moving2
     });
     data.push({
       label: (isRanked ? '<em class="fas fa-fw fa-angle-left"></em> ' : ' ') + strings.wp.last20,
@@ -77,7 +77,7 @@
             return [index, 100.0 * wins / list.length];
           });
       })(),
-      color: colors.moving1,
+      color: colors.moving1
     });
     data.push({
       label: (isRanked ? '<em class="fas fa-fw fa-angle-left"></em> ' : ' ') + strings.wp.entire,
@@ -104,7 +104,7 @@
     // {{{
     // const strings = JSON.parse($('#json-strings').text());
     const ranks = [
-      'C-', 'C', 'C+', 'B-', 'B', 'B+', 'A-', 'A', 'A+', 'S', 'S+',
+      'C-', 'C', 'C+', 'B-', 'B', 'B+', 'A-', 'A', 'A+', 'S', 'S+'
     ];
     $containers.each((i, el) => {
       const $graph = $(el);
@@ -117,14 +117,14 @@
         xaxis: {
           min: limit > 0 ? -limit : null,
           minTickSize: 1,
-          tickFormatter: v => parseInt(v, 10),
+          tickFormatter: v => parseInt(v, 10)
         },
         yaxes: [
           {
             min: 0,
             max: 100,
             minTickSize: 25,
-            tickFormatter: v => (v + '%'),
+            tickFormatter: v => (v + '%')
           },
           {
             min: 0,
@@ -144,23 +144,23 @@
               rankPeak >= 40 ? 45 : null,
               rankPeak >= 45 ? 50 : null,
               rankPeak >= 50 ? 55 : null,
-              rankPeak >= 55 ? 60 : null,
+              rankPeak >= 55 ? 60 : null
             ].filter(v => v !== null),
             tickFormatter: v => {
               if (v < 10) {
                 return ranks[v];
-              } else if (v == 20) {
+              } else if (v === 20) {
                 return 'X';
               } else {
                 return 'S+ ' + (v - 10);
               }
-            },
+            }
           },
           {
             minTickSize: 1,
             position: 'right',
-            tickFormatter: v => Number(v).toFixed(1),
-          },
+            tickFormatter: v => Number(v).toFixed(1)
+          }
         ],
         legend: {
           container: $('#stat-wp-legend')

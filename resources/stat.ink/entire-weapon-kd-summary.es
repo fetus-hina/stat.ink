@@ -1,14 +1,14 @@
 jQuery($ => {
-  function createSummary() {
-    function getAvg(key) {
-      function numberFormat(value, digit) {
+  function createSummary () {
+    function getAvg (key) {
+      function numberFormat (value, digit) {
         const locales = [
           $('html').attr('lang'),
-          'en-US',
+          'en-US'
         ];
         const formatter = new Intl.NumberFormat(locales, {
           minimumFractionDigits: digit,
-          maximumFractionDigits: digit,
+          maximumFractionDigits: digit
         });
         return formatter.format(value);
       }
@@ -22,7 +22,7 @@ jQuery($ => {
 
     return {
       'kill-avg': getAvg('kill'),
-      'death-avg': getAvg('death'),
+      'death-avg': getAvg('death')
     };
   }
 

@@ -3,7 +3,7 @@ import React from 'react';
 import { DateTime } from 'luxon';
 import { connect } from 'react-redux';
 
-function CurrentTime(props) {
+function CurrentTime (props) {
   const { now, translations } = props;
 
   if (!translations) {
@@ -13,14 +13,14 @@ function CurrentTime(props) {
   const time = (
     <time dateTime={now.toISO()}>
       {now.toLocaleString(DateTime.DATETIME_SHORT) + ' '}
-      <a href="#timezone-dialog" data-toggle="modal">
+      <a href='#timezone-dialog' data-toggle='modal'>
         {now.offsetNameShort}
       </a>
     </time>
   );
 
   return (
-    <span className="small ml-2">
+    <span className='small ml-2'>
       [{translations.current_time} {time}]
     </span>
   );
@@ -28,10 +28,10 @@ function CurrentTime(props) {
 
 CurrentTime.propTypes = {
   now: PropTypes.object.isRequired,
-  translations: PropTypes.object,
+  translations: PropTypes.object
 };
 
-function mapStateToProps(state) {
+function mapStateToProps (state) {
   const locale = (state.schedule.data && state.schedule.data.locale)
     ? state.schedule.data.locale
     : null;
@@ -49,11 +49,11 @@ function mapStateToProps(state) {
     now: DateTime.fromMillis(state.schedule.currentTime, localeOpts),
     translations: (state.schedule.data && state.schedule.data.translations)
       ? state.schedule.data.translations
-      : null,
+      : null
   };
 }
 
-function mapDispatchToProps(/* dispatch */) {
+function mapDispatchToProps (/* dispatch */) {
   return {};
 }
 

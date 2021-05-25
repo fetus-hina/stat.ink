@@ -47,14 +47,14 @@ jQuery($ => {
       });
   })(); // }}}
 
-  function drawTimelineGraph() {
+  function drawTimelineGraph () {
     const $graph_ = $graphs.filter('#timeline');
 
     // 塗った面積
     const inkedData = window.isNawabari
       ? window.battleEvents
-        .filter(v => ((v.type === 'score' && v.score) || (v.type === 'point' && v.point)))
-        .map(v => [v.at, v.type === 'score' ? v.score : v.point])
+          .filter(v => ((v.type === 'score' && v.score) || (v.type === 'point' && v.point)))
+          .map(v => [v.at, v.type === 'score' ? v.score : v.point])
       : [];
 
     // ガチエリアのカウント
@@ -125,8 +125,8 @@ jQuery($ => {
     // {{{
     let objectiveData = (window.isGachi && window.ruleKey !== 'area')
       ? window.battleEvents
-        .filter(v => v.type === 'objective')
-        .map(v => [v.at, v.position])
+          .filter(v => v.type === 'objective')
+          .map(v => [v.at, v.position])
       : [];
 
     // スムージングが有効なら objectiveData を差し替える
@@ -140,7 +140,7 @@ jQuery($ => {
             rawData // 前後 0.6 秒の平均値を真の値と見なす
               .filter(near => Math.abs(data[0] - near[0]) <= 0.6)
               .map(near => near[1])
-              .avg(),
+              .avg()
           ]);
         })();
       }
@@ -161,7 +161,7 @@ jQuery($ => {
       objectiveData
         .map(v => ({
           at: v[0],
-          position: v[1] * coeffient,
+          position: v[1] * coeffient
         }))
         .forEach(v => {
           if (v.position > max) {
@@ -180,7 +180,7 @@ jQuery($ => {
         });
 
       // 最後まで描画するために最後のイベントの時間のデータを作る
-      lastEventAt = Math.max.apply(null, window.battleEvents.map(v => v.at))
+      lastEventAt = Math.max.apply(null, window.battleEvents.map(v => v.at));
       ret.push([lastEventAt, coeffient * max]);
 
       return ret;
@@ -202,7 +202,7 @@ jQuery($ => {
     };
 
     const objectPositionColorFromHues = (team1, team2) => {
-      let hue = Math.round((team1 + team2) / 2); + 180;
+      let hue = Math.round((team1 + team2) / 2);
       while (hue < 0) {
         hue += 360;
       }
@@ -260,7 +260,7 @@ jQuery($ => {
               v.at,
               size,
               size,
-              reason,
+              reason
             ];
           })();
         } else if (v.type === 'killed') {
@@ -286,7 +286,7 @@ jQuery($ => {
               v.at,
               size,
               size,
-              messages.length ? messages.join(' / ') : undefined,
+              messages.length ? messages.join(' / ') : undefined
             ];
           })();
         } else if (v.type === 'special_weapon') {
@@ -299,7 +299,7 @@ jQuery($ => {
             ($img) => {
               if (isIdentifiedWhoseSpecial) {
                 $img.css({
-                  opacity: (v.me && v.special_weapon === window.mySpecial) ? 1.0 : 0.4,
+                  opacity: (v.me && v.special_weapon === window.mySpecial) ? 1.0 : 0.4
                 });
               }
             }
@@ -310,7 +310,7 @@ jQuery($ => {
             v.at,
             size,
             size,
-            window.timelineTranslates.spCharged,
+            window.timelineTranslates.spCharged
           ];
         } else if (v.type === 'low_ink') {
           return [
@@ -318,14 +318,14 @@ jQuery($ => {
             v.at,
             size,
             size,
-            window.timelineTranslates.lowInk,
+            window.timelineTranslates.lowInk
           ];
         } else {
           return [
             window.graphIcon[v.type].src,
             v.at,
             size,
-            size,
+            size
           ];
         }
       });
@@ -340,20 +340,20 @@ jQuery($ => {
         return {
           xaxis: {
             from: v.at,
-            to: v.at + respawnTime,
+            to: v.at + respawnTime
           },
-          color: 'rgba(255,200,200,0.6)',
+          color: 'rgba(255,200,200,0.6)'
         };
       });
 
     // キル等した時の縦線
     markings = markings.concat((() => {
       const colors = {
-        'killed': 'rgb(191,191,255)',
-        'dead': 'rgb(255,191,191)',
-        'special_charged': 'rgb(191,255,191)',
-        'low_ink': 'rgb(191,191,191)',
-        'special_weapon': 'rgb(255,191,255)',
+        killed: 'rgb(191,191,255)',
+        dead: 'rgb(255,191,191)',
+        special_charged: 'rgb(191,255,191)',
+        low_ink: 'rgb(191,191,191)',
+        special_weapon: 'rgb(255,191,255)'
       };
       const keys = Object.keys(colors);
       return window.battleEvents
@@ -361,10 +361,10 @@ jQuery($ => {
         .map(v => ({
           xaxis: {
             from: v.at,
-            to: v.at,
+            to: v.at
           },
-          color: colors[v.type],
-        }))
+          color: colors[v.type]
+        }));
     })());
 
     if (inkedData.length > 0) {
@@ -399,7 +399,7 @@ jQuery($ => {
           color: window.myTeamColorHue === null ? null : pointColorFromHue(window.myTeamColorHue),
           lines: {
             show: true,
-            fill: true,
+            fill: true
           },
           shadowSize: 0
         });
@@ -409,7 +409,7 @@ jQuery($ => {
           color: window.hisTeamColorHue === null ? null : pointColorFromHue(window.hisTeamColorHue),
           lines: {
             show: true,
-            fill: true,
+            fill: true
           },
           shadowSize: 0
         });
@@ -471,9 +471,9 @@ jQuery($ => {
               return;
             }
             const dt = {
-              'neutral': [[0, 380]],
-              'we': [],
-              'they': []
+              neutral: [[0, 380]],
+              we: [],
+              they: []
             };
             let prevState = 'neutral';
             rankedEvents.forEach(cur => {
@@ -507,7 +507,7 @@ jQuery($ => {
               yaxis: 2,
               lines: {
                 fill: false,
-                lineWidth:7
+                lineWidth: 7
               },
               shadowSize: 0
             });
@@ -518,7 +518,7 @@ jQuery($ => {
               yaxis: 2,
               lines: {
                 fill: false,
-                lineWidth:7
+                lineWidth: 7
               },
               shadowSize: 0
             });
@@ -529,7 +529,7 @@ jQuery($ => {
               yaxis: 2,
               lines: {
                 fill: false,
-                lineWidth:7
+                lineWidth: 7
               },
               shadowSize: 0
             });
@@ -557,9 +557,9 @@ jQuery($ => {
               return;
             }
             const dt = {
-              'neutral': [[0, 380]],
-              'we': [],
-              'they': []
+              neutral: [[0, 380]],
+              we: [],
+              they: []
             };
             let prevState = 'neutral';
             statusEvents.forEach(cur => {
@@ -585,7 +585,7 @@ jQuery($ => {
             // 最後まで描くために最後のイベントの時間までのデータを作る
             dt[prevState].push([
               window.battleEvents[window.battleEvents.length - 1].at,
-              380 
+              380
             ]);
             data.push({
               label: window.timelineTranslates.neutral,
@@ -594,7 +594,7 @@ jQuery($ => {
               yaxis: 2,
               lines: {
                 fill: false,
-                lineWidth:7
+                lineWidth: 7
               },
               shadowSize: 0
             });
@@ -605,7 +605,7 @@ jQuery($ => {
               yaxis: 2,
               lines: {
                 fill: false,
-                lineWidth:7
+                lineWidth: 7
               },
               shadowSize: 0
             });
@@ -616,7 +616,7 @@ jQuery($ => {
               yaxis: 2,
               lines: {
                 fill: false,
-                lineWidth:7
+                lineWidth: 7
               },
               shadowSize: 0
             });
@@ -669,9 +669,9 @@ jQuery($ => {
               data.push({
                 label: (i % 4 === 0)
                   ? ((i === 0)
-                    ? window.timelineTranslates.goodGuys
-                    : window.timelineTranslates.badGuys
-                  )
+                      ? window.timelineTranslates.goodGuys
+                      : window.timelineTranslates.badGuys
+                    )
                   : null,
                 data: members[i],
                 color: inklingColorFromHue(
@@ -726,13 +726,13 @@ jQuery($ => {
 
         if (ret.length) {
           data.push({
-            label:null,
-            data:ret,
+            label: null,
+            data: ret,
             color: '#1c1',
             yaxis: 2,
             lines: {
               fill: false,
-              lineWidth:5
+              lineWidth: 5
             },
             shadowSize: 0
           });
@@ -761,9 +761,9 @@ jQuery($ => {
             yaxis: 2,
             lines: {
               fill: false,
-              lineWidth: 1,
+              lineWidth: 1
             },
-            shadowSize: 1 
+            shadowSize: 1
           });
         }
       })();
@@ -780,11 +780,11 @@ jQuery($ => {
             if (typeof userData === 'string') {
               value += ' / ' + userData;
             }
-            $this.attr('title', value).tooltip({'container': 'body'});
-          },
+            $this.attr('title', value).tooltip({ container: 'body' });
+          }
         }
       });
-    
+
       $.plot($graph, data, {
         xaxis: {
           min: 0,
@@ -794,30 +794,30 @@ jQuery($ => {
             const m = Math.floor(v / 60);
             const s = Math.floor(v % 60);
             return m + ':' + (s < 10 ? '0' + s : s);
-          },
+          }
         },
         yaxis: {
           minTickSize: window.isNawabari ? 100 : 10,
           min: (window.isNawabari || window.ruleKey === 'area') ? 0 : -100,
           max: window.isNawabari ? null : 100,
-          show: true,
+          show: true
         },
         y2axis: {
           min: 0,
           max: 400,
-          show: false,
+          show: false
         },
         legend: {
-          container: $('#timeline-legend'),
+          container: $('#timeline-legend')
         },
         series: {
           lines: {
             show: true,
-            fill: true,
+            fill: true
           }
         },
         grid: {
-          markings: markings,
+          markings: markings
         }
       });
     });

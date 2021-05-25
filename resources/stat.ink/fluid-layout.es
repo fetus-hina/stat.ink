@@ -1,7 +1,7 @@
 /*! Copyright (C) 2015-2019 AIZAWA Hina | MIT License */
 
 ((win, $) => {
-  const useFluid = () => win.localStorage.getItem('useFluid') == 1;
+  const useFluid = () => win.localStorage.getItem('useFluid') === '1';
   const toggleFluid = () => win.localStorage.setItem('useFluid', useFluid() ? 0 : 1);
 
   $(() => {
@@ -14,7 +14,7 @@
         'nav.navbar>.container-fluid>.container',
         'nav.navbar>.container-fluid>.container-fluid',
         'footer>.container',
-        'footer>.container-fluid',
+        'footer>.container-fluid'
       ].join(','));
 
       if (useFluid()) {

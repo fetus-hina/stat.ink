@@ -8,12 +8,12 @@
         labelFormatter: label => `<span class="mr-2">${label}</span>`,
         noColumns: 4,
         show: true,
-        sorted: 'reverse',
+        sorted: 'reverse'
       },
       xaxis: {
         minTickSize: 1,
         show: false,
-        tickSize: 1,
+        tickSize: 1
       },
       yaxis: {
         minTickSize: 10,
@@ -27,8 +27,8 @@
               ) + numberFormat.decimal + f;
             }
           );
-        },
-      },
+        }
+      }
     };
 
     const makeData = (legend, list, color, lineWidth) => ({ // {{{
@@ -36,15 +36,15 @@
       color: color,
       data: list.map((value, index, list) => ([
         -1 * (list.length - 1) + index,
-        value,
+        value
       ])),
       lines: {
         show: true,
-        lineWidth: lineWidth,
+        lineWidth: lineWidth
       },
       points: {
-        show: false,
-      },
+        show: false
+      }
     }); // }}}
 
     const makeWinLose = (legend, list, xPowers, onlyThisValue, color) => ({ // {{{
@@ -54,14 +54,14 @@
         -1 * (list.length - 1) + index,
         list[index] === onlyThisValue
           ? (xPowers[index] ? xPowers[index] : 2000)
-          : null,
+          : null
       ])),
       lines: {
-        show: false,
+        show: false
       },
       points: {
-        show: true,
-      },
+        show: true
+      }
     }); // }}}
 
     $.plot(
@@ -92,7 +92,7 @@
           xPowers,
           true,
           window.colorScheme.win
-        ),
+        )
       ],
       options
     );

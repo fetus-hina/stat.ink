@@ -6,7 +6,7 @@
       $('.pie-flot-container').each(function () {
         const $container = $(this);
         const data = JSON.parse($container.attr('data-flot'));
-        const click_href = $container.attr('data-click-href') || '';
+        const clickHref = $container.attr('data-click-href') || '';
         if (data) {
           $.plot($container, data, {
             series: {
@@ -15,16 +15,16 @@
                 radius: 1,
                 label: {
                   show: 'auto',
-                  radius: .61803398875,
+                  radius: 0.61803398875,
                   formatter: (label, slice) => $('<div>')
                     .append(
                       $('<div>').css({
-                        'fontSize': '0.8em',
-                        'lineHeight': '1.1em',
-                        'textAlign': 'center',
-                        'padding': '2px',
-                        'color': '#fff',
-                        'textShadow': '0px 0px 3px #000',
+                        fontSize: '0.8em',
+                        lineHeight: '1.1em',
+                        textAlign: 'center',
+                        padding: '2px',
+                        color: '#fff',
+                        textShadow: '0px 0px 3px #000'
                       }).append(
                         slice.data[0][1] + ' / ' +
                         Math.round(slice.data[0][1] / (slice.percent / 100)) // FIXME
@@ -34,24 +34,24 @@
                         slice.percent.toFixed(1) + '%'
                       )
                     )
-                    .html(),
-                },
-              },
+                    .html()
+                }
+              }
             },
             legend: {
-              show: false,
+              show: false
             },
             colors: [
               window.colorScheme.win,
-              window.colorScheme.lose,
+              window.colorScheme.lose
             ],
             grid: {
-              clickable: click_href != '',
-            },
+              clickable: clickHref !== ''
+            }
           });
-          if (click_href != '') {
+          if (clickHref !== '') {
             $container.bind('plotclick', () => {
-              window.location.href = click_href;
+              window.location.href = clickHref;
             });
           }
         }
