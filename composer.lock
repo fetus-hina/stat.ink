@@ -550,16 +550,16 @@
         },
         {
             "name": "jaybizzle/crawler-detect",
-            "version": "v1.2.105",
+            "version": "v1.2.106",
             "source": {
                 "type": "git",
                 "url": "https://github.com/JayBizzle/Crawler-Detect.git",
-                "reference": "719c1ed49224857800c3dc40838b6b761d046105"
+                "reference": "78bf6792cbf9c569dc0bf2465481978fd2ed0de9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/JayBizzle/Crawler-Detect/zipball/719c1ed49224857800c3dc40838b6b761d046105",
-                "reference": "719c1ed49224857800c3dc40838b6b761d046105",
+                "url": "https://api.github.com/repos/JayBizzle/Crawler-Detect/zipball/78bf6792cbf9c569dc0bf2465481978fd2ed0de9",
+                "reference": "78bf6792cbf9c569dc0bf2465481978fd2ed0de9",
                 "shasum": ""
             },
             "require": {
@@ -596,9 +596,9 @@
             ],
             "support": {
                 "issues": "https://github.com/JayBizzle/Crawler-Detect/issues",
-                "source": "https://github.com/JayBizzle/Crawler-Detect/tree/v1.2.105"
+                "source": "https://github.com/JayBizzle/Crawler-Detect/tree/v1.2.106"
             },
-            "time": "2021-03-03T20:55:48+00:00"
+            "time": "2021-05-24T20:30:32+00:00"
         },
         {
             "name": "jp3cki/mb_str_replace",
@@ -2064,16 +2064,16 @@
         },
         {
             "name": "statink/yii2-anonymizer",
-            "version": "v1.0.3",
+            "version": "v1.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/statink/yii2-anonymizer.git",
-                "reference": "8768b75de4cbea38efb7804f2d824e2926754026"
+                "reference": "e7d99b6db0a1400ffa2df81599ed4dc8adf1bb2d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/statink/yii2-anonymizer/zipball/8768b75de4cbea38efb7804f2d824e2926754026",
-                "reference": "8768b75de4cbea38efb7804f2d824e2926754026",
+                "url": "https://api.github.com/repos/statink/yii2-anonymizer/zipball/e7d99b6db0a1400ffa2df81599ed4dc8adf1bb2d",
+                "reference": "e7d99b6db0a1400ffa2df81599ed4dc8adf1bb2d",
                 "shasum": ""
             },
             "require": {
@@ -2098,10 +2098,10 @@
             ],
             "description": "Player name anonymizer for stat.ink",
             "support": {
-                "source": "https://github.com/statink/yii2-anonymizer/tree/v1.0.3",
+                "source": "https://github.com/statink/yii2-anonymizer/tree/v1.0.4",
                 "issues": "https://github.com/statink/yii2-anonymizer/issues"
             },
-            "time": "2019-07-12T07:42:21+00:00"
+            "time": "2021-05-25T04:54:01+00:00"
         },
         {
             "name": "statink/yii2-bukiicons",
@@ -2230,16 +2230,16 @@
         },
         {
             "name": "statink/yii2-ip-badge",
-            "version": "v1.0.3",
+            "version": "v1.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/statink/yii2-ip-badge.git",
-                "reference": "f0f0cd0d48306bd057743b617ae53a64eac87b76"
+                "reference": "d1335022896eb35f8f2306c3eb17699eb261f5b7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/statink/yii2-ip-badge/zipball/f0f0cd0d48306bd057743b617ae53a64eac87b76",
-                "reference": "f0f0cd0d48306bd057743b617ae53a64eac87b76",
+                "url": "https://api.github.com/repos/statink/yii2-ip-badge/zipball/d1335022896eb35f8f2306c3eb17699eb261f5b7",
+                "reference": "d1335022896eb35f8f2306c3eb17699eb261f5b7",
                 "shasum": ""
             },
             "require": {
@@ -2263,10 +2263,10 @@
             ],
             "description": "IP version badge for stat.ink header",
             "support": {
-                "source": "https://github.com/statink/yii2-ip-badge/tree/v1.0.3",
+                "source": "https://github.com/statink/yii2-ip-badge/tree/v1.0.4",
                 "issues": "https://github.com/statink/yii2-ip-badge/issues"
             },
-            "time": "2020-04-01T18:48:30+00:00"
+            "time": "2021-05-25T06:00:38+00:00"
         },
         {
             "name": "statink/yii2-jdenticon",
@@ -2353,16 +2353,16 @@
         },
         {
             "name": "statink/yii2-paintball",
-            "version": "v1.0.3",
+            "version": "v1.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/statink/yii2-paintball.git",
-                "reference": "103c3470a3046ab52f3aeba97a76489a5093f196"
+                "reference": "3100cdb575f5ced6e56fb4e14a531375be592998"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/statink/yii2-paintball/zipball/103c3470a3046ab52f3aeba97a76489a5093f196",
-                "reference": "103c3470a3046ab52f3aeba97a76489a5093f196",
+                "url": "https://api.github.com/repos/statink/yii2-paintball/zipball/3100cdb575f5ced6e56fb4e14a531375be592998",
+                "reference": "3100cdb575f5ced6e56fb4e14a531375be592998",
                 "shasum": ""
             },
             "require": {
@@ -2381,28 +2381,28 @@
             "authors": [
                 {
                     "name": "AIZAWA Hina",
-                    "email": "hina@bouhime.com"
+                    "email": "hina@fetus.jp"
                 }
             ],
             "description": "Paintball asset bundle for stat.ink",
             "support": {
-                "source": "https://github.com/statink/yii2-paintball/tree/v1.0.3",
+                "source": "https://github.com/statink/yii2-paintball/tree/v1.0.4",
                 "issues": "https://github.com/statink/yii2-paintball/issues"
             },
-            "time": "2020-04-01T18:43:09+00:00"
+            "time": "2021-05-25T05:26:58+00:00"
         },
         {
             "name": "statink/yii2-sillyname",
-            "version": "v1.0.2",
+            "version": "v1.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/statink/yii2-sillyname.git",
-                "reference": "8724972453ebaa8ecf7ee121277bec9e70dd896d"
+                "reference": "14c5163c1be03c04d3ac49f5aa099fbdd9a7cb07"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/statink/yii2-sillyname/zipball/8724972453ebaa8ecf7ee121277bec9e70dd896d",
-                "reference": "8724972453ebaa8ecf7ee121277bec9e70dd896d",
+                "url": "https://api.github.com/repos/statink/yii2-sillyname/zipball/14c5163c1be03c04d3ac49f5aa099fbdd9a7cb07",
+                "reference": "14c5163c1be03c04d3ac49f5aa099fbdd9a7cb07",
                 "shasum": ""
             },
             "require": {
@@ -2424,28 +2424,28 @@
                 },
                 {
                     "name": "AIZAWA Hina",
-                    "email": "hina@bouhime.com"
+                    "email": "hina@fetus.jp"
                 }
             ],
             "description": "Sillyname asset bundle for stat.ink",
             "support": {
-                "source": "https://github.com/statink/yii2-sillyname/tree/v1.0.2",
+                "source": "https://github.com/statink/yii2-sillyname/tree/v1.0.3",
                 "issues": "https://github.com/statink/yii2-sillyname/issues"
             },
-            "time": "2019-07-12T07:45:14+00:00"
+            "time": "2021-05-25T05:21:20+00:00"
         },
         {
             "name": "statink/yii2-sortable-table",
-            "version": "v1.0.1",
+            "version": "v1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/statink/yii2-sortable-table.git",
-                "reference": "ebade4d442c34d51cbf605a9438fc82720915d91"
+                "reference": "f36fa067477cbe7015846be583d8723698fce887"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/statink/yii2-sortable-table/zipball/ebade4d442c34d51cbf605a9438fc82720915d91",
-                "reference": "ebade4d442c34d51cbf605a9438fc82720915d91",
+                "url": "https://api.github.com/repos/statink/yii2-sortable-table/zipball/f36fa067477cbe7015846be583d8723698fce887",
+                "reference": "f36fa067477cbe7015846be583d8723698fce887",
                 "shasum": ""
             },
             "require": {
@@ -2465,15 +2465,15 @@
             "authors": [
                 {
                     "name": "AIZAWA Hina",
-                    "email": "hina@bouhime.com"
+                    "email": "hina@fetus.jp"
                 }
             ],
             "description": "sortable-table asset bundle for stat.ink",
             "support": {
-                "source": "https://github.com/statink/yii2-sortable-table/tree/v1.0.1",
+                "source": "https://github.com/statink/yii2-sortable-table/tree/v1.0.2",
                 "issues": "https://github.com/statink/yii2-sortable-table/issues"
             },
-            "time": "2019-07-12T08:07:12+00:00"
+            "time": "2021-05-25T05:02:58+00:00"
         },
         {
             "name": "statink/yii2-spl1-stages",
@@ -2557,16 +2557,16 @@
         },
         {
             "name": "statink/yii2-twitter-webintents",
-            "version": "v1.0.1",
+            "version": "v1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/statink/yii2-twitter-webintents.git",
-                "reference": "c1604220b5c8046f47714f95df6dc652c9e994c7"
+                "reference": "10f3e8026b46590e860fe68252f3d32a979d4abb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/statink/yii2-twitter-webintents/zipball/c1604220b5c8046f47714f95df6dc652c9e994c7",
-                "reference": "c1604220b5c8046f47714f95df6dc652c9e994c7",
+                "url": "https://api.github.com/repos/statink/yii2-twitter-webintents/zipball/10f3e8026b46590e860fe68252f3d32a979d4abb",
+                "reference": "10f3e8026b46590e860fe68252f3d32a979d4abb",
                 "shasum": ""
             },
             "require": {
@@ -2585,15 +2585,15 @@
             "authors": [
                 {
                     "name": "AIZAWA Hina",
-                    "email": "hina@bouhime.com"
+                    "email": "hina@fetus.jp"
                 }
             ],
             "description": "Twitter WebIntents asset bundle for stat.ink",
             "support": {
-                "source": "https://github.com/statink/yii2-twitter-webintents/tree/v1.0.1",
+                "source": "https://github.com/statink/yii2-twitter-webintents/tree/v1.0.2",
                 "issues": "https://github.com/statink/yii2-twitter-webintents/issues"
             },
-            "time": "2019-07-12T07:31:08+00:00"
+            "time": "2021-05-25T05:10:16+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -4382,16 +4382,16 @@
         },
         {
             "name": "codeception/module-yii2",
-            "version": "1.1.2",
+            "version": "1.1.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Codeception/module-yii2.git",
-                "reference": "7e2eaeb414315271d545e17c330b3aaf08911927"
+                "reference": "09853feb15ad5e80e472c6881793a22f273a9921"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/module-yii2/zipball/7e2eaeb414315271d545e17c330b3aaf08911927",
-                "reference": "7e2eaeb414315271d545e17c330b3aaf08911927",
+                "url": "https://api.github.com/repos/Codeception/module-yii2/zipball/09853feb15ad5e80e472c6881793a22f273a9921",
+                "reference": "09853feb15ad5e80e472c6881793a22f273a9921",
                 "shasum": ""
             },
             "require": {
@@ -4428,9 +4428,9 @@
             ],
             "support": {
                 "issues": "https://github.com/Codeception/module-yii2/issues",
-                "source": "https://github.com/Codeception/module-yii2/tree/1.1.2"
+                "source": "https://github.com/Codeception/module-yii2/tree/1.1.3"
             },
-            "time": "2020-12-21T15:21:56+00:00"
+            "time": "2021-05-24T20:05:32+00:00"
         },
         {
             "name": "codeception/phpunit-wrapper",
