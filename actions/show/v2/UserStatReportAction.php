@@ -47,7 +47,7 @@ class UserStatReportAction extends BaseAction
 
         $form = Yii::createObject(Spl2YearMonthForm::class);
         $form->attributes = $request->get();
-        if (!$form->validate())  {
+        if (!$form->validate()) {
             $now = $form->getCurrentTimestamp();
             return $this->controller->redirect(['show-v2/user-stat-report',
                 'screen_name' => $this->user->screen_name,
