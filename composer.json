@@ -72,7 +72,7 @@
         "yiisoft/yii2-debug": "*",
         "yiisoft/yii2-gii": "*",
 
-        "phpunit/phpunit": "9.5.4"
+        "phpunit/phpunit": "9.5.5"
     },
     "replace": {
         "bower-asset/bootstrap": "^3.4.1",
