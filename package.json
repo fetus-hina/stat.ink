@@ -40,7 +40,7 @@
     "jquery-color": "git+https://github.com/jquery/jquery-color.git#2.1.2",
     "jquery-smooth-scroll": "^2.2.0",
     "jss": "^10.6.0",
-    "license-checker-rseidelsohn": "^2.1.1",
+    "license-checker-rseidelsohn": "^1.2.2",
     "luxon": "^1.27.0",
     "moment": "^2.29.1",
     "moment-timezone": "^0.5.33",
