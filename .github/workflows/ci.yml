@@ -187,6 +187,7 @@ jobs:
 
       - name: 'Install composer packages'
         run: |
+          rm -rf vendor
           make composer.phar
           make vendor
 
