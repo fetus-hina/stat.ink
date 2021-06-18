@@ -70,10 +70,10 @@
         -1 * (list.length - 1) + index,
         list[index] === onlyThisValue
           ? festPowers[index]
-              ? festPowers[index]
-              : unknownFestPowerValue || (estimateGoodGuysFestPowers[index]
-                ? estimateGoodGuysFestPowers[index]
-                : 2000)
+            ? festPowers[index]
+            : unknownFestPowerValue || (estimateGoodGuysFestPowers[index]
+              ? estimateGoodGuysFestPowers[index]
+              : 2000)
           : null
       ])),
       lines: {

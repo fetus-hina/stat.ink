@@ -44,10 +44,10 @@
           borderColor: color(window.colorScheme.win, 0.8),
           data: dataValues.map(battle => (battle.isWin === true)
             ? hasExactPower
-                ? (typeof battle.my === 'number' && battle.my >= 1)
-                    ? battle.my
-                    : (averagePower || 2000)
-                : battle.good
+              ? (typeof battle.my === 'number' && battle.my >= 1)
+                  ? battle.my
+                  : (averagePower || 2000)
+              : battle.good
             : null
           ),
           fill: false,
@@ -64,10 +64,10 @@
           borderColor: color(window.colorScheme.lose, 0.8),
           data: dataValues.map(battle => (battle.isWin === false)
             ? hasExactPower
-                ? (typeof battle.my === 'number' && battle.my >= 1)
-                    ? battle.my
-                    : (averagePower || 2000)
-                : battle.good
+              ? (typeof battle.my === 'number' && battle.my >= 1)
+                  ? battle.my
+                  : (averagePower || 2000)
+              : battle.good
             : null
           ),
           fill: false,
