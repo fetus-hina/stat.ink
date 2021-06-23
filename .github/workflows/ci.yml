@@ -14,7 +14,7 @@ jobs:
           echo "CI Running"
 
   phpSyntaxCheck:
-    name: 'PHP Syntax Check'
+    name: 'PHP Syntax Check (PHP ${{ matrix.php.version }})'
     strategy:
       matrix:
         php:
