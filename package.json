@@ -70,7 +70,7 @@
     "uglify-js": "^3.13.10",
     "updates": "^12.1.0",
     "uuidjs": "^4.2.8",
-    "webpack": "^5.41.0",
+    "webpack": "^5.41.1",
     "webpack-cli": "^4.7.2",
     "yii2-pjax": "git+https://github.com/yiisoft/jquery-pjax.git",
     "zxcvbn": "^4.4.2"
