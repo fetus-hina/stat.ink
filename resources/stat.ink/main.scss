@@ -1,22 +1,23 @@
 @charset "UTF-8";
-@use "sass:color";
+@use 'sass:color';
+@use 'sass:math';
 
 /*! Copyright (C) 2015-2021 AIZAWA Hina | MIT License */
 
 // From node_modules/bootstrap/less/variables.less
-$brandPrimary:          color.adjust(#428bca, $lightness: -6.5%);
-$linkColor:             $brandPrimary;
-$linkHoverColor:        color.adjust($linkColor, $lightness: -15%);
-$linkHoverDecoration:   underline;
+$brand-primary: color.adjust(#428bca, $lightness: -6.5%);
+$link-color: $brand-primary;
+$link-hover-color: color.adjust($link-color, $lightness: -15%);
+$link-hover-decoration: underline;
 
-$goldenRatio: 1.61803398875;
-$colorWin:  #3169b3;
-$colorLose: #ec6110;
-$colorKO:   #68c8f2;
-$colorTime: #f5a101;
+$golden-ratio: 1.61803398875;
+$color-win: #3169b3;
+$color-lose: #ec6110;
+$color-ko: #68c8f2;
+$color-time: #f5a101;
 
-@function unit($dimensionlessNumber, $unit) {
-  @return ($dimensionlessNumber * $unit);
+@function unit($dimensionless-number, $unit) {
+  @return ($dimensionless-number * $unit);
 }
 
 .navbar {
@@ -25,14 +26,16 @@ $colorTime: #f5a101;
 
 // フッター
 footer {
-  font-size: unit($goldenRatio - 1, 1em);
-  width: 100%;
   background-color: #f5f5f5;
-  margin: unit($goldenRatio - 1, 1em) 0 0 0;
-  padding: unit($goldenRatio, 1em) 0;
+  font-size: unit($golden-ratio - 1, 1em);
+  margin: unit($golden-ratio - 1, 1em) 0 0 0;
+  padding: unit($golden-ratio, 1em) 0;
+  width: 100%;
 
-  .footer-nav, .footer-notice, .footer-powered {
-    margin-top: unit($goldenRatio - 1, 1em);
+  .footer-nav,
+  .footer-notice,
+  .footer-powered {
+    margin-top: unit($golden-ratio - 1, 1em);
   }
 }
 
@@ -43,9 +46,9 @@ footer {
 
 #stat {
   h3 {
+    overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    overflow: hidden;
   }
 }
 
@@ -56,9 +59,9 @@ footer {
 
 .user-label {
   color: #aaa;
+  overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  overflow: hidden;
 }
 
 .user-number {
@@ -67,8 +70,8 @@ footer {
 
 #user-miniinfo {
   hr {
-    margin-top: 5px;
     margin-bottom: 5px;
+    margin-top: 5px;
   }
 }
 
@@ -77,9 +80,9 @@ footer {
 }
 
 .omit {
+  overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  overflow: hidden;
 }
 
 .text-left-important {
@@ -103,27 +106,31 @@ footer {
 }
 
 .text-link {
-  color: $linkColor;
+  color: $link-color;
   text-decoration: none;
 }
 
-a.text-link, button.text-link {
+a.text-link,
+button.text-link {
   cursor: pointer;
 
-  &.disabled, &[disabled] {
+  &.disabled,
+  &[disabled] {
     cursor: not-allowed;
   }
 
-  &:hover, &:focus {
-    color: $linkHoverColor;
-    text-decoration: $linkHoverDecoration;
+  &:hover,
+  &:focus {
+    color: $link-hover-color;
+    text-decoration: $link-hover-decoration;
   }
 }
 
 .cursor-pointer {
   cursor: pointer;
 
-  &.disabled, &[disabled] {
+  &.disabled,
+  &[disabled] {
     cursor: not-allowed;
   }
 }
@@ -149,22 +156,23 @@ a.text-link, button.text-link {
 }
 
 .label-success {
-  background-color: $colorWin;
+  background-color: $color-win;
 }
 
 .label-danger {
-  background-color: $colorLose;
+  background-color: $color-lose;
 }
 
 .label-info {
-  background-color: $colorKO;
+  background-color: $color-ko;
 }
 
 .label-warning {
-  background-color: $colorTime;
+  background-color: $color-time;
 }
 
-.sns, .adsense {
+.sns,
+.adsense {
   margin-bottom: 15px;
 }
 
@@ -172,6 +180,7 @@ a.text-link, button.text-link {
   &.left {
     margin-right: 1ex;
   }
+
   &.right {
     margin-left: 1ex;
   }
@@ -243,33 +252,33 @@ tr.disconnected {
 .dropdown-submenu {
   position: relative;
 
-  & > .dropdown-menu {
-    top: 0;
-    left: 100%;
-    margin-top: -6px;
-    margin-left: -1px;
+  > .dropdown-menu {
     border-radius: 0 6px 6px 0;
+    left: 100%;
+    margin-left: -1px;
+    margin-top: -6px;
+    top: 0;
   }
 
   &:hover > .dropdown-menu {
     display: block;
   }
 
-  & > a:after {
-    display: block;
-    content: " ";
-    float: right;
-    width: 0;
-    height: 0;
+  > a::after {
     border-color: transparent;
+    border-left-color: #ccc;
     border-style: solid;
     border-width: 5px 0 5px 5px;
-    border-left-color: #ccc;
-    margin-top: 5px;
+    content: ' ';
+    display: block;
+    float: right;
+    height: 0;
     margin-right: -10px;
+    margin-top: 5px;
+    width: 0;
   }
 
-  &:hover > a:after {
+  &:hover > a::after {
     border-left-color: #fff;
   }
 
@@ -278,9 +287,9 @@ tr.disconnected {
   }
 
   &.pull-left > .dropdown-menu {
+    border-radius: 6px 0;
     left: -100%;
     margin-left: 10px;
-    border-radius: 6px 0;
   }
 }
 
@@ -352,11 +361,11 @@ $positions: (
 }
 
 $step: 5;
-@for $index from 0 through (100 / $step) {
+@for $index from 0 through math.div(100, $step) {
   $pct: $index * $step;
 
   .w-#{$pct} {
-    width: unit($pct / 100, 100%) !important;
+    width: unit(math.div($pct, 100), 100%) !important;
   }
 }
 

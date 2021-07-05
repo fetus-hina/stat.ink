@@ -9,24 +9,24 @@ ul.dl-langs {
   padding: 0;
 
   li {
-    list-style-type: none;
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
+    list-style-type: none;
     margin: 0;
     padding: 0;
 
     .lang {
-      width: 9em;
-      overflow: hidden;
       margin-right: 0.5em;
+      overflow: hidden;
+      width: 9em;
     }
 
     .charsets {
       display: flex;
+      flex: 1;
       flex-direction: row;
       flex-wrap: wrap;
-      flex: 1;
 
       .charset {
         margin-right: 2ex;

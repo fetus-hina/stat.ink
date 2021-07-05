@@ -1,6 +1,7 @@
 @charset "UTF-8";
+@use 'sass:math';
 
-$goldenRatio: 1.61803398875;
+$golden-ratio: 1.61803398875;
 
 /*! Copyright (C) 2015-2020 AIZAWA Hina | MIT License */
 
@@ -12,10 +13,14 @@ $goldenRatio: 1.61803398875;
 }
 
 .simple-battle-row {
-  padding: 1em / $goldenRatio;
+  padding: math.div(1em, $golden-ratio);
 
   a {
-    &, &:link, &:visited, &:hover, &:active {
+    &,
+    &:link,
+    &:visited,
+    &:hover,
+    &:active {
       color: #333;
       text-decoration: none;
     }
@@ -23,13 +28,13 @@ $goldenRatio: 1.61803398875;
 }
 
 li.simple-battle-row {
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.1);
   display: block;
   list-style-type: none;
   margin: 1em 0;
-  box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.1);
-  border-radius: 4px;
-  border: 1px solid #ccc;
-  background-color: #f9f9f9;
 }
 
 .simple-battle-row-impl {
@@ -43,18 +48,19 @@ li.simple-battle-row {
   width: 100%;
 }
 
-.simple-battle-result, .simple-battle-data {
+.simple-battle-result,
+.simple-battle-data {
   display: table-cell;
-  vertical-align: middle;
   max-width: 1px;
+  vertical-align: middle;
 }
 
 .simple-battle-result {
   font-size: 1.2em;
   font-weight: bold;
+  max-width: initial;
   text-align: center;
   width: 5em;
-  max-width: initial;
 }
 
 .simple-battle-result-unk {
@@ -81,9 +87,9 @@ li.simple-battle-row {
 }
 
 .simple-battle-at {
-  position: absolute;
   bottom: 0;
-  right: 0;
   color: #888;
   font-size: 0.8em;
+  position: absolute;
+  right: 0;
 }

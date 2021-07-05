@@ -3,17 +3,17 @@
 ul.battles {
   .thumbnail {
     .mode-icons {
-      position: absolute;
-      left: 4px;
-      top: 4px;
-      padding: 1px;
       background-color: hsla(0, 0%, 100%, 0.8);
       border-bottom-right-radius: 3px;
       color: #333;
+      left: 4px;
+      padding: 1px;
+      position: absolute;
+      top: 4px;
 
       img {
-        width: auto;
         height: 24px;
+        width: auto;
       }
     }
   }
