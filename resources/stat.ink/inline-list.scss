@@ -2,13 +2,15 @@
 
 /*! Copyright (C) 2015-2020 AIZAWA Hina | MIT License */
 
-ul, ol {
+ul,
+ol {
   &.inline-list {
     display: block;
 
-    &, li {
-      list-style-type: none;
+    &,
+    li {
       list-style-image: none;
+      list-style-type: none;
       margin: 0;
       padding: 0;
     }
@@ -18,8 +20,8 @@ ul, ol {
       margin-right: 0.75ex;
 
       &::after {
+        content: '|';
         display: inline;
-        content: "|";
         margin-left: 0.75ex;
       }
 

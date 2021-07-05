@@ -6,10 +6,10 @@ Bootstrap: Copyright (c) 2011-2015 Twitter, Inc | MIT License
 */
 
 .table-responsive-force {
-  overflow-x: auto;
   min-height: 0.01%; // Workaround for IE9 bug (see https://github.com/twbs/bootstrap/issues/14837)
-  overflow-y: hidden;
   -ms-overflow-style: -ms-autohiding-scrollbar;
+  overflow-x: auto;
+  overflow-y: hidden;
 
   // Tighten up spacing
   > .table {
@@ -39,6 +39,7 @@ Bootstrap: Copyright (c) 2011-2015 Twitter, Inc | MIT License
         > td:first-child {
           border-left: 0;
         }
+
         > th:last-child,
         > td:last-child {
           border-right: 0;

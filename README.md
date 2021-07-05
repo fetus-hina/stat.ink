@@ -220,7 +220,7 @@ The maintenance process will be started at 23:00 UTC(\*) and will take 1.5 hours
   | PHP         | [PSR-12](https://www.php-fig.org/psr/psr-12/) |
   | PHP (views) | Indent with 2 spaces |
   | JavaScript  | [semistandard](https://github.com/standard/semistandard#rules) |
-  | SCSS / CSS  | See [.stylelintrc](https://github.com/fetus-hina/stat.ink/blob/dev/.stylelintrc.json) |
+  | SCSS / CSS  | [Sass Guidelines](https://sass-guidelin.es/)-based, See [.stylelintrc](https://github.com/fetus-hina/stat.ink/blob/dev/.stylelintrc.json) |
 
 
 ライセンス LICENSE

@@ -1,19 +1,22 @@
 @charset "UTF-8";
+@use 'sass:math';
 
 /*! Copyright (C) 2015-2020 AIZAWA Hina | MIT License */
 
 // From node_modules/bootstrap/less/variables.less
-$fontSizeBase: 14px;
-$fontSizeSmall: ceil(($fontSizeBase * 0.85)); // ~12px
+$font-size-base: 14px;
+$font-size-small: ceil(($font-size-base * 0.85)); // ~12px
 
 .battle-row-group-header {
-  font-size: floor((100% * $fontSizeSmall / $fontSizeBase)); // extends .small
-  color: #ddd;
   background-color: #444;
+  color: #ddd;
+  font-size: math.floor((100% * math.div($font-size-small, $font-size-base))); // extends .small
   font-weight: bold;
 
-  a:link, a:visited {
-    &, &:hover {
+  a:link,
+  a:visited {
+    &,
+    &:hover {
       color: #ddd;
     }
   }
