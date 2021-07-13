@@ -53,8 +53,8 @@ jQuery($ => {
     // 塗った面積
     const inkedData = window.isNawabari
       ? window.battleEvents
-          .filter(v => ((v.type === 'score' && v.score) || (v.type === 'point' && v.point)))
-          .map(v => [v.at, v.type === 'score' ? v.score : v.point])
+        .filter(v => ((v.type === 'score' && v.score) || (v.type === 'point' && v.point)))
+        .map(v => [v.at, v.type === 'score' ? v.score : v.point])
       : [];
 
     // ガチエリアのカウント
@@ -125,8 +125,8 @@ jQuery($ => {
     // {{{
     let objectiveData = (window.isGachi && window.ruleKey !== 'area')
       ? window.battleEvents
-          .filter(v => v.type === 'objective')
-          .map(v => [v.at, v.position])
+        .filter(v => v.type === 'objective')
+        .map(v => [v.at, v.position])
       : [];
 
     // スムージングが有効なら objectiveData を差し替える

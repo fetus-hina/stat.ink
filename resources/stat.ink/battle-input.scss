@@ -1,4 +1,5 @@
 @charset "UTF-8";
+@use 'sass:math';
 
 /*! Copyright (C) 2016-2020 AIZAWA Hina | MIT License */
 
@@ -8,17 +9,17 @@
 
 .next-stages-will-arrive-in,
 .next-stages-will-arrive-in-2 {
+  color: #808080;
   display: inline-block;
+  font-family: 'DSEG7-Classic', fantasy;
   font-size: 18px;
+  font-style: italic;
+  font-weight: normal;
   margin-left: 14px;
   margin-right: 14px;
   position: relative;
-  top: (18px / 4);
-  font-family: "DSEG7-Classic", fantasy;
-  font-weight: normal;
-  font-style: italic;
+  top: math.div(18px, 4);
   white-space: nowrap;
-  color: #808080;
 
   .modal-title & {
     float: right;

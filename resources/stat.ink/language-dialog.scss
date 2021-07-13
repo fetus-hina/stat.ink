@@ -1,39 +1,41 @@
 @charset "UTF-8";
 
-@use "sass:color";
+@use 'sass:color';
 
 /*! Copyright (C) 2015-2020 AIZAWA Hina */
 
 // From node_modules/bootstrap/less/variables.less
-$fontSizeBase:      14px;
-$fontSizeSmall:     ceil(($fontSizeBase * 0.85)); // ~12px
-$grayBase:          #000;
-$grayDark:          color.adjust($grayBase, $lightness: 20%); // #333
-$bodyBg:            #fff;
-$textColor:         $grayDark;
-$btnPrimaryColor:   #fff;
-$btnPrimaryBg:      color.adjust(#428bca, $lightness: -6.5%); // #337ab7
+$font-size-base: 14px;
+$font-size-small: ceil(($font-size-base * 0.85)); // ~12px
+$gray-base: #000;
+$gray-dark: color.adjust($gray-base, $lightness: 20%); // #333
+$body-bg: #fff;
+$text-color: $gray-dark;
+$btn-primary-color: #fff;
+$btn-primary-bg: color.adjust(#428bca, $lightness: -6.5%); // #337ab7
 
-@mixin make($textColor, $bgColor, $primaryTextColor, $primaryBgColor) {
+@mixin make($text-color, $bg-color, $primary-text-color, $primary-bg-color) {
   #language-dialog {
     .list-group-item {
-      background-color: $bgColor;
-      color: $textColor;
+      background-color: $bg-color;
+      color: $text-color;
 
       &.current {
-        background-color: $primaryBgColor;
-        color: $primaryTextColor;
+        background-color: $primary-bg-color;
+        color: $primary-text-color;
       }
 
       &.hint {
-        font-size: $fontSizeSmall;
-        color: $bgColor;
-        background-color: $textColor;
+        background-color: $text-color;
+        color: $bg-color;
+        font-size: $font-size-small;
 
         a {
-          &, &:hover, &.hover {
-            color: $bgColor;
-            background-color: $textColor;
+          &,
+          &:hover,
+          &.hover {
+            background-color: $text-color;
+            color: $bg-color;
             text-decoration: none;
           }
         }
@@ -42,13 +44,13 @@ $btnPrimaryBg:      color.adjust(#428bca, $lightness: -6.5%); // #337ab7
   }
 }
 
-@include make($textColor, $bodyBg, $btnPrimaryColor, $btnPrimaryBg);
+@include make($text-color, $body-bg, $btn-primary-color, $btn-primary-bg);
 
 body.theme-dark {
   /* bootswatch-cyborg */
   @include make(#888, #060606, #fff, #2A9FD6);
 
-  &[data-theme="bootswatch-darkly"] {
+  &[data-theme='bootswatch-darkly'] {
     @include make(
       #fff,
       color.adjust(#303030, $lightness: 13.5%),
@@ -57,7 +59,7 @@ body.theme-dark {
     );
   }
 
-  &[data-theme="bootswatch-slate"] {
+  &[data-theme='bootswatch-slate'] {
     @include make(#C8C8C8, #272B30, #fff, #7A8288);
   }
 }
