@@ -5799,22 +5799,22 @@
         },
         {
             "name": "proget-hq/phpstan-yii2",
-            "version": "0.7.4",
+            "version": "0.7.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/proget-hq/phpstan-yii2.git",
-                "reference": "1334dbf2f36a75c832db11f2c125fbe0da4b3abc"
+                "reference": "41cc2da0293008fcd23954c792e01bbc3ccc0e9f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/proget-hq/phpstan-yii2/zipball/1334dbf2f36a75c832db11f2c125fbe0da4b3abc",
-                "reference": "1334dbf2f36a75c832db11f2c125fbe0da4b3abc",
+                "url": "https://api.github.com/repos/proget-hq/phpstan-yii2/zipball/41cc2da0293008fcd23954c792e01bbc3ccc0e9f",
+                "reference": "41cc2da0293008fcd23954c792e01bbc3ccc0e9f",
                 "shasum": ""
             },
             "require": {
                 "nikic/php-parser": "^4.1.0",
                 "php": "^7.2|^8.0",
-                "phpstan/phpstan": "^0.12"
+                "phpstan/phpstan": "^0.12.91"
             },
             "require-dev": {
                 "friendsofphp/php-cs-fixer": "^2.18",
@@ -5845,9 +5845,9 @@
             "description": "Yii2 extension for PHPStan",
             "support": {
                 "issues": "https://github.com/proget-hq/phpstan-yii2/issues",
-                "source": "https://github.com/proget-hq/phpstan-yii2/tree/0.7.4"
+                "source": "https://github.com/proget-hq/phpstan-yii2/tree/0.7.5"
             },
-            "time": "2021-04-26T18:32:41+00:00"
+            "time": "2021-07-08T07:37:47+00:00"
         },
         {
             "name": "psr/event-dispatcher",
