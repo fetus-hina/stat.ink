@@ -16,7 +16,7 @@
     "@fortawesome/free-solid-svg-icons": "^5.15.4",
     "@fortawesome/react-fontawesome": "^0.1.15",
     "autoprefixer": "^10.3.2",
-    "axios": "^0.21.1",
+    "axios": "^0.21.2",
     "babel-loader": "^8.2.2",
     "bootstrap": "^3.4.1",
     "bootstrap-notify": "^3.1.3",
