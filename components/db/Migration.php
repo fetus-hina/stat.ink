@@ -59,7 +59,11 @@ class Migration extends \yii\db\Migration
     {
         $type = sprintf('TIMESTAMP(%d) %s TIME ZONE', $precision, $withTZ ? 'WITH' : 'WITHOUT');
         $builder = $this->getDb()->getSchema()->createColumnSchemaBuilder($type);
-        $builder->categoryMap[$type] = $builder->categoryMap[Schema::TYPE_TIMESTAMP];
+
+        $catMap = $builder->getCategoryMap();
+        $catMap[$type] = $catMap[Schema::TYPE_TIMESTAMP];
+        $builder->setCategoryMap($catMap);
+
         return $builder;
     }
 
