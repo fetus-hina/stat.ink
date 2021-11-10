@@ -1674,6 +1674,8 @@ class Battle2 extends ActiveRecord
                     $this->rank_after_exp !== null ? $this->rank_after_exp : ''
                 ))
                 : '',
+            $this->x_power,
+            $this->x_power_after,
             $this->estimate_gachi_power,
             $this->league_point,
             $this->level,
