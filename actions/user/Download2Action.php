@@ -4,6 +4,7 @@
  * @copyright Copyright (C) 2015-2017 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
+ * @author li <nvblstr@gmail.com>
  */
 
 namespace app\actions\user;
@@ -69,7 +70,7 @@ class Download2Action extends BaseAction
         $resp = Yii::$app->response;
         $resp->setDownloadHeaders(
             'statink-ikalog-2.csv',
-            'text/cvs; charset=' . $charset[1],
+            'text/csv; charset=' . $charset[1],
             false,
             null
         );
@@ -93,7 +94,7 @@ class Download2Action extends BaseAction
     private function runCsv()
     {
         $resp = Yii::$app->response;
-        $resp->setDownloadHeaders('statink-2.csv', 'text/cvs; charset=UTF-8', false, null);
+        $resp->setDownloadHeaders('statink-2.csv', 'text/csv; charset=UTF-8', false, null);
         $resp->format = 'csv';
         $battles = $this->user->getBattle2s()
             ->with(['lobby', 'mode', 'rule', 'map', 'weapon', 'rank', 'rankAfter'])
@@ -119,6 +120,8 @@ class Download2Action extends BaseAction
                 Yii::t('app', 'k+a'),
                 Yii::t('app', 'Specials'),
                 Yii::t('app', 'Inked'),
+                Yii::t('app', 'X Power'),
+                Yii::t('app', 'X Power (after)'),
             ];
             foreach ($battles->each() as $battle) {
                 yield $battle->toCsvArray();
