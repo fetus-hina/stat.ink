@@ -4,6 +4,7 @@
  * @copyright Copyright (C) 2015-2017 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
+ * @author li <nvblstr@gmail.com>
  */
 
 namespace app\actions\user;
@@ -111,8 +112,6 @@ class Download2Action extends BaseAction
                 Yii::t('app', 'Team ID'),
                 Yii::t('app', 'Rank'),
                 Yii::t('app', 'Rank (After)'),
-                Yii::t('app', 'X Power'),
-                Yii::t('app', 'X Power (after)'),
                 Yii::t('app', 'Power Level'),
                 Yii::t('app', 'League Power'),
                 Yii::t('app', 'Level'),
@@ -121,6 +120,8 @@ class Download2Action extends BaseAction
                 Yii::t('app', 'k+a'),
                 Yii::t('app', 'Specials'),
                 Yii::t('app', 'Inked'),
+                Yii::t('app', 'X Power'),
+                Yii::t('app', 'X Power (after)'),
             ];
             foreach ($battles->each() as $battle) {
                 yield $battle->toCsvArray();
