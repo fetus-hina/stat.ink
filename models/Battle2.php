@@ -5,6 +5,7 @@
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  * @author Yoshiyuki Kawashima <ykawashi7@gmail.com>
+ * @author li <nvblstr@gmail.com>
  */
 
 namespace app\models;
@@ -1682,6 +1683,8 @@ class Battle2 extends ActiveRecord
             $this->kill_or_assist,
             $this->special,
             $this->inked,
+            $this->x_power,
+            $this->x_power_after,
         ];
     }
 
