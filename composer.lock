@@ -1764,16 +1764,16 @@
         },
         {
             "name": "php-curl-class/php-curl-class",
-            "version": "9.4.0",
+            "version": "9.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-curl-class/php-curl-class.git",
-                "reference": "e6de01c8c3755d2b015195d671d22a3c71020d15"
+                "reference": "8340a4c0ca6dcda2f55eae653fe373e8b7854c8e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-curl-class/php-curl-class/zipball/e6de01c8c3755d2b015195d671d22a3c71020d15",
-                "reference": "e6de01c8c3755d2b015195d671d22a3c71020d15",
+                "url": "https://api.github.com/repos/php-curl-class/php-curl-class/zipball/8340a4c0ca6dcda2f55eae653fe373e8b7854c8e",
+                "reference": "8340a4c0ca6dcda2f55eae653fe373e8b7854c8e",
                 "shasum": ""
             },
             "require": {
@@ -1782,6 +1782,7 @@
             },
             "require-dev": {
                 "ext-gd": "*",
+                "phpcompatibility/php-compatibility": "*",
                 "phpunit/phpunit": "*",
                 "squizlabs/php_codesniffer": "*"
             },
@@ -1829,9 +1830,9 @@
             ],
             "support": {
                 "issues": "https://github.com/php-curl-class/php-curl-class/issues",
-                "source": "https://github.com/php-curl-class/php-curl-class/tree/9.4.0"
+                "source": "https://github.com/php-curl-class/php-curl-class/tree/9.5.0"
             },
-            "time": "2021-09-04T18:28:24+00:00"
+            "time": "2021-11-21T19:12:30+00:00"
         },
         {
             "name": "phpseclib/phpseclib",
