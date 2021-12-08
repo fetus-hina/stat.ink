@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f713e0c66819cdde9a9dc2ea5a140d5a",
+    "content-hash": "4f362e75c7eff4e6aea71f8028e604bc",
     "packages": [
         {
             "name": "cebe/markdown",
@@ -4231,22 +4231,22 @@
         },
         {
             "name": "codeception/module-asserts",
-            "version": "1.3.1",
+            "version": "2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Codeception/module-asserts.git",
-                "reference": "59374f2fef0cabb9e8ddb53277e85cdca74328de"
+                "reference": "ef4a27087b09bf3c3b88fa9025e3179848541a79"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/module-asserts/zipball/59374f2fef0cabb9e8ddb53277e85cdca74328de",
-                "reference": "59374f2fef0cabb9e8ddb53277e85cdca74328de",
+                "url": "https://api.github.com/repos/Codeception/module-asserts/zipball/ef4a27087b09bf3c3b88fa9025e3179848541a79",
+                "reference": "ef4a27087b09bf3c3b88fa9025e3179848541a79",
                 "shasum": ""
             },
             "require": {
                 "codeception/codeception": "*@dev",
                 "codeception/lib-asserts": "^1.13.1",
-                "php": ">=5.6.0 <9.0"
+                "php": "^7.4 || ^8.0"
             },
             "conflict": {
                 "codeception/codeception": "<4.0"
@@ -4282,28 +4282,28 @@
             ],
             "support": {
                 "issues": "https://github.com/Codeception/module-asserts/issues",
-                "source": "https://github.com/Codeception/module-asserts/tree/1.3.1"
+                "source": "https://github.com/Codeception/module-asserts/tree/2.0.0"
             },
-            "time": "2020-10-21T16:48:15+00:00"
+            "time": "2021-11-30T00:38:49+00:00"
         },
         {
             "name": "codeception/module-filesystem",
-            "version": "1.0.3",
+            "version": "2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Codeception/module-filesystem.git",
-                "reference": "781be167fb1557bfc9b61e0a4eac60a32c534ec1"
+                "reference": "9236f490785d6f470af1e4f27866e116b78bd502"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/module-filesystem/zipball/781be167fb1557bfc9b61e0a4eac60a32c534ec1",
-                "reference": "781be167fb1557bfc9b61e0a4eac60a32c534ec1",
+                "url": "https://api.github.com/repos/Codeception/module-filesystem/zipball/9236f490785d6f470af1e4f27866e116b78bd502",
+                "reference": "9236f490785d6f470af1e4f27866e116b78bd502",
                 "shasum": ""
             },
             "require": {
-                "codeception/codeception": "^4.0",
-                "php": ">=5.6.0 <9.0",
-                "symfony/finder": ">=2.7 <6.0"
+                "codeception/codeception": "*@dev",
+                "php": "^7.4 || ^8.0",
+                "symfony/finder": ">=3.4 <6.0"
             },
             "conflict": {
                 "codeception/codeception": "<4.0"
@@ -4327,16 +4327,16 @@
                 }
             ],
             "description": "Codeception module for testing local filesystem",
-            "homepage": "http://codeception.com/",
+            "homepage": "https://codeception.com/",
             "keywords": [
                 "codeception",
                 "filesystem"
             ],
             "support": {
                 "issues": "https://github.com/Codeception/module-filesystem/issues",
-                "source": "https://github.com/Codeception/module-filesystem/tree/1.0.3"
+                "source": "https://github.com/Codeception/module-filesystem/tree/2.0.0"
             },
-            "time": "2020-10-24T14:46:40+00:00"
+            "time": "2021-11-30T23:30:06+00:00"
         },
         {
             "name": "codeception/module-yii2",
@@ -4441,22 +4441,22 @@
         },
         {
             "name": "codeception/specify",
-            "version": "1.4.0",
+            "version": "2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Codeception/Specify.git",
-                "reference": "17ae6d4d6cb201ef5461f6587ecfcff8c177f854"
+                "reference": "b718b4b9bb722be4756aa7c9aa7e89b6babc2cf6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/Specify/zipball/17ae6d4d6cb201ef5461f6587ecfcff8c177f854",
-                "reference": "17ae6d4d6cb201ef5461f6587ecfcff8c177f854",
+                "url": "https://api.github.com/repos/Codeception/Specify/zipball/b718b4b9bb722be4756aa7c9aa7e89b6babc2cf6",
+                "reference": "b718b4b9bb722be4756aa7c9aa7e89b6babc2cf6",
                 "shasum": ""
             },
             "require": {
-                "myclabs/deep-copy": "~1.1",
-                "php": ">=7.1.0",
-                "phpunit/phpunit": ">=7.0 <10.0"
+                "myclabs/deep-copy": "^1.10",
+                "php": ">=7.4.0",
+                "phpunit/phpunit": "^8.0|^9.0"
             },
             "type": "library",
             "autoload": {
@@ -4481,9 +4481,9 @@
             "description": "BDD code blocks for PHPUnit and Codeception",
             "support": {
                 "issues": "https://github.com/Codeception/Specify/issues",
-                "source": "https://github.com/Codeception/Specify/tree/1.4.0"
+                "source": "https://github.com/Codeception/Specify/tree/2.0.0"
             },
-            "time": "2020-08-27T20:17:29+00:00"
+            "time": "2021-11-22T00:16:11+00:00"
         },
         {
             "name": "codeception/stub",
