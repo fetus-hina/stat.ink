@@ -31,10 +31,11 @@ class CombinedAgentAction extends BaseAction
             ->createCommand("SET timezone TO 'UTC-6'")
             ->execute();
 
+        $action = $this;
         $form = new DynamicModel(['b32name' => Yii::$app->request->get('b32name')]);
         $form->addRule('b32name', 'required')
             ->addRule('b32name', 'match', ['pattern' => '/^[a-zA-Z2-7]+$/'])
-            ->addRule('b32name', function ($attr, $conf) use ($form) {
+            ->addRule('b32name', function ($attr, $conf) use ($action, $form) {
                 $decoded = Base32::decode($form->$attr);
                 if ($decoded === false || $decoded === '') {
                     $form->addError($attr, 'invalid name');
@@ -49,7 +50,7 @@ class CombinedAgentAction extends BaseAction
                     $form->addError($attr, 'not found');
                     return;
                 }
-                $this->agentGroup = $group;
+                $action->agentGroup = $group;
             });
         if (!$form->validate()) {
             throw new NotFoundHttpException(Yii::t('yii', 'Page not found.'));
