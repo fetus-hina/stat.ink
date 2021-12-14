@@ -1765,16 +1765,16 @@
         },
         {
             "name": "php-curl-class/php-curl-class",
-            "version": "9.5.0",
+            "version": "9.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-curl-class/php-curl-class.git",
-                "reference": "8340a4c0ca6dcda2f55eae653fe373e8b7854c8e"
+                "reference": "a0a3f2b10b086038eec98e92b1563b208daea04a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-curl-class/php-curl-class/zipball/8340a4c0ca6dcda2f55eae653fe373e8b7854c8e",
-                "reference": "8340a4c0ca6dcda2f55eae653fe373e8b7854c8e",
+                "url": "https://api.github.com/repos/php-curl-class/php-curl-class/zipball/a0a3f2b10b086038eec98e92b1563b208daea04a",
+                "reference": "a0a3f2b10b086038eec98e92b1563b208daea04a",
                 "shasum": ""
             },
             "require": {
@@ -1785,7 +1785,8 @@
                 "ext-gd": "*",
                 "phpcompatibility/php-compatibility": "*",
                 "phpunit/phpunit": "*",
-                "squizlabs/php_codesniffer": "*"
+                "squizlabs/php_codesniffer": "*",
+                "vimeo/psalm": "*"
             },
             "suggest": {
                 "ext-mbstring": "*"
@@ -1831,9 +1832,9 @@
             ],
             "support": {
                 "issues": "https://github.com/php-curl-class/php-curl-class/issues",
-                "source": "https://github.com/php-curl-class/php-curl-class/tree/9.5.0"
+                "source": "https://github.com/php-curl-class/php-curl-class/tree/9.5.1"
             },
-            "time": "2021-11-21T19:12:30+00:00"
+            "time": "2021-12-14T16:26:30+00:00"
         },
         {
             "name": "phpseclib/phpseclib",
