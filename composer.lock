@@ -4292,25 +4292,25 @@
         },
         {
             "name": "codeception/module-filesystem",
-            "version": "2.0.0",
+            "version": "2.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Codeception/module-filesystem.git",
-                "reference": "9236f490785d6f470af1e4f27866e116b78bd502"
+                "reference": "ae1fa5f13ba00bdb8a83d4258ef577c5114ddef9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/module-filesystem/zipball/9236f490785d6f470af1e4f27866e116b78bd502",
-                "reference": "9236f490785d6f470af1e4f27866e116b78bd502",
+                "url": "https://api.github.com/repos/Codeception/module-filesystem/zipball/ae1fa5f13ba00bdb8a83d4258ef577c5114ddef9",
+                "reference": "ae1fa5f13ba00bdb8a83d4258ef577c5114ddef9",
                 "shasum": ""
             },
             "require": {
-                "codeception/codeception": "*@dev",
-                "php": "^7.4 || ^8.0",
-                "symfony/finder": ">=3.4 <6.0"
+                "codeception/codeception": "^4.1 | *@dev",
+                "php": "^7.4 | ^8.0",
+                "symfony/finder": "^4.4 | ^5.4 | ^6.0"
             },
             "conflict": {
-                "codeception/codeception": "<4.0"
+                "codeception/codeception": "<4.1"
             },
             "type": "library",
             "autoload": {
@@ -4338,9 +4338,9 @@
             ],
             "support": {
                 "issues": "https://github.com/Codeception/module-filesystem/issues",
-                "source": "https://github.com/Codeception/module-filesystem/tree/2.0.0"
+                "source": "https://github.com/Codeception/module-filesystem/tree/2.0.1"
             },
-            "time": "2021-11-30T23:30:06+00:00"
+            "time": "2021-12-18T14:11:30+00:00"
         },
         {
             "name": "codeception/module-yii2",
