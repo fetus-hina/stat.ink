@@ -4023,16 +4023,16 @@
         },
         {
             "name": "codeception/codeception",
-            "version": "4.1.26",
+            "version": "4.1.27",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Codeception/Codeception.git",
-                "reference": "8ebbb003bb1459e5170bec54b0e0d7fb8fe8fab6"
+                "reference": "2d9a11e6f487e3bcc17e22b7552fb6a10cec5c7c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/8ebbb003bb1459e5170bec54b0e0d7fb8fe8fab6",
-                "reference": "8ebbb003bb1459e5170bec54b0e0d7fb8fe8fab6",
+                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/2d9a11e6f487e3bcc17e22b7552fb6a10cec5c7c",
+                "reference": "2d9a11e6f487e3bcc17e22b7552fb6a10cec5c7c",
                 "shasum": ""
             },
             "require": {
@@ -4109,7 +4109,7 @@
             ],
             "support": {
                 "issues": "https://github.com/Codeception/Codeception/issues",
-                "source": "https://github.com/Codeception/Codeception/tree/4.1.26"
+                "source": "https://github.com/Codeception/Codeception/tree/4.1.27"
             },
             "funding": [
                 {
@@ -4117,7 +4117,7 @@
                     "type": "open_collective"
                 }
             ],
-            "time": "2021-12-21T19:17:40+00:00"
+            "time": "2021-12-22T06:40:46+00:00"
         },
         {
             "name": "codeception/lib-asserts",
