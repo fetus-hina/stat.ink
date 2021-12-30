@@ -3239,16 +3239,16 @@
         },
         {
             "name": "symfony/process",
-            "version": "v5.4.0",
+            "version": "v5.4.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/process.git",
-                "reference": "5be20b3830f726e019162b26223110c8f47cf274"
+                "reference": "2b3ba8722c4aaf3e88011be5e7f48710088fb5e4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/process/zipball/5be20b3830f726e019162b26223110c8f47cf274",
-                "reference": "5be20b3830f726e019162b26223110c8f47cf274",
+                "url": "https://api.github.com/repos/symfony/process/zipball/2b3ba8722c4aaf3e88011be5e7f48710088fb5e4",
+                "reference": "2b3ba8722c4aaf3e88011be5e7f48710088fb5e4",
                 "shasum": ""
             },
             "require": {
@@ -3281,7 +3281,7 @@
             "description": "Executes commands in sub-processes",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/process/tree/v5.4.0"
+                "source": "https://github.com/symfony/process/tree/v5.4.2"
             },
             "funding": [
                 {
@@ -3297,7 +3297,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-11-28T15:25:38+00:00"
+            "time": "2021-12-27T21:01:00+00:00"
         },
         {
             "name": "symfony/yaml",
@@ -3792,16 +3792,16 @@
         },
         {
             "name": "yiisoft/yii2-queue",
-            "version": "2.3.2",
+            "version": "2.3.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-queue.git",
-                "reference": "7446216c87eff371245113b41f5a227d4d9182f7"
+                "reference": "68321f9aad0de980f1883c0f4623c11623f43c3a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-queue/zipball/7446216c87eff371245113b41f5a227d4d9182f7",
-                "reference": "7446216c87eff371245113b41f5a227d4d9182f7",
+                "url": "https://api.github.com/repos/yiisoft/yii2-queue/zipball/68321f9aad0de980f1883c0f4623c11623f43c3a",
+                "reference": "68321f9aad0de980f1883c0f4623c11623f43c3a",
                 "shasum": ""
             },
             "require": {
@@ -3894,7 +3894,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-05-05T22:59:45+00:00"
+            "time": "2021-12-30T08:42:00+00:00"
         },
         {
             "name": "yiisoft/yii2-swiftmailer",
