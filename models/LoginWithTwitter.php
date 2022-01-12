@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2016 AIZAWA Hina
+ * @copyright Copyright (C) 2016-2022 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -20,7 +20,7 @@ use Yii;
  *
  * @property User $user
  */
-class LoginWithTwitter extends \yii\db\ActiveRecord
+final class LoginWithTwitter extends \yii\db\ActiveRecord
 {
     /**
      * @inheritdoc
@@ -92,6 +92,11 @@ class LoginWithTwitter extends \yii\db\ActiveRecord
             UserLoginHistory::login($user, LoginMethod::METHOD_TWITTER);
             User::onLogin($user, LoginMethod::METHOD_TWITTER);
         });
+
+        if (!headers_sent()) {
+            Yii::$app->session->regenerateID(true);
+        }
+
         return $appUser->login($user, 0);
     }
 }

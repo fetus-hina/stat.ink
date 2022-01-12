@@ -45,6 +45,10 @@ return (function (): array {
                 throw new ServerErrorHttpException('Internal error while auto-login process');
             }
 
+            if (!headers_sent()) {
+                Yii::$app->session->regenerateID(true);
+            }
+
             UserLoginHistory::login($identity, LoginMethod::METHOD_COOKIE);
             UserModel::onLogin($identity, LoginMethod::METHOD_COOKIE);
         },
