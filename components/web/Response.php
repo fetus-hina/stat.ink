@@ -12,17 +12,4 @@ use Yii;
 
 class Response extends \yii\web\Response
 {
-    public function init()
-    {
-        parent::init();
-        $this->on(static::EVENT_BEFORE_SEND, function ($event): void {
-            if (headers_sent()) {
-                return;
-            }
-
-            if ($this->getIsSuccessful()) {
-                Yii::$app->session->regenerateID(true);
-            }
-        });
-    }
 }
