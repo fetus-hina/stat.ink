@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2022 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -11,7 +11,7 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 
-class LoginForm extends Model
+final class LoginForm extends Model
 {
     public $screen_name;
     public $password;
@@ -82,6 +82,11 @@ class LoginForm extends Model
             UserLoginHistory::login($user, LoginMethod::METHOD_PASSWORD);
             User::onLogin($user, LoginMethod::METHOD_PASSWORD);
         });
+
+        if (!headers_sent()) {
+            Yii::$app->session->regenerateID(true);
+        }
+
         return $appUser->login(
             $user,
             $this->remember_me
