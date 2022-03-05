@@ -70,6 +70,15 @@
     <exclude name="SlevomatCodingStandard.Classes.EmptyLinesAroundClassBraces.IncorrectEmptyLinesBeforeClosingBrace"/>
   </rule>
   <rule ref="SlevomatCodingStandard.Classes.ModernClassNameReference"/>
+  <rule ref="SlevomatCodingStandard.Classes.TraitUseDeclaration"/>
+  <rule ref="SlevomatCodingStandard.Classes.TraitUseSpacing">
+    <properties>
+      <property name="linesCountAfterLastUse" value="1"/>
+      <property name="linesCountAfterLastUseWhenLastInClass" value="0"/>
+      <property name="linesCountBeforeFirstUse" value="0"/>
+      <property name="linesCountBetweenUses" value="0"/>
+    </properties>
+  </rule>
 
   <rule ref="PSR12">
     <file>*/components/ability/effect/*</file>
