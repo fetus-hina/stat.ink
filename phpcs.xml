@@ -87,6 +87,7 @@
   <rule ref="SlevomatCodingStandard.ControlStructures.NewWithParentheses"/>
   <rule ref="SlevomatCodingStandard.ControlStructures.RequireNullCoalesceOperator"/>
   <rule ref="SlevomatCodingStandard.ControlStructures.UselessIfConditionWithReturn"/>
+  <rule ref="SlevomatCodingStandard.ControlStructures.UselessTernaryOperator"/>
 
   <rule ref="PSR12">
     <file>*/components/ability/effect/*</file>
