@@ -172,13 +172,7 @@ class PlayerName2Widget extends Widget
 
             // 自チームがフレンドと確定していれば表示する
             case User::BLACKOUT_NOT_FRIEND:
-                if ($this->isPrivate) {
-                    return false;
-                }
-                if ($this->isMyTeam) {
-                    return false;
-                }
-                return true;
+                return !$this->isPrivate && !$this->isMyTeam;
 
             case User::BLACKOUT_ALWAYS:
             default:

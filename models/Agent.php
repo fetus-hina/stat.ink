@@ -77,10 +77,7 @@ class Agent extends \yii\db\ActiveRecord
     public function getIsAutomatedByDefault(): bool
     {
         $attr = $this->agentAttribute;
-        if ($attr && $attr->is_automated) {
-            return true;
-        }
-        return false;
+        return $attr && $attr->is_automated;
     }
 
     public function getProductUrl(): ?string

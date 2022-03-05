@@ -211,7 +211,6 @@ class MonthAction extends BaseAction
 
     private static function isValidMonth($year, $month): bool
     {
-        // {{{
         $now = (int)($_SERVER['REQUEST_TIME'] ?? time());
 
         if (
@@ -236,12 +235,7 @@ class MonthAction extends BaseAction
         // データ持ってないかも
         $periodS = BattleHelper::calcPeriod(mktime(0, 0, 0, $month, 1, $year));
         $periodE = BattleHelper::calcPeriod(mktime(0, 0, -1, $month + 1, 1, $year));
-        if (!static::hasStageData($periodS, $periodE)) {
-            return false;
-        }
-
-        return true;
-        // }}}
+        return static::hasStageData($periodS, $periodE);
     }
 
     // 集計のために都合のいいタイムゾーンに一時的に変更する

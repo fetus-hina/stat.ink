@@ -226,19 +226,9 @@ class Player extends Model
                 return false;
             }
 
-            if (!$this->saveSpecialUses($player)) {
-                return false;
-            }
-
-            if (!$this->saveWeapons($player)) {
-                return false;
-            }
-
-            if (!$this->saveBossKills($player)) {
-                return false;
-            }
-
-            return true;
+            return $this->saveSpecialUses($player) &&
+                $this->saveWeapons($player) &&
+                $this->saveBossKills($player);
         });
     }
 

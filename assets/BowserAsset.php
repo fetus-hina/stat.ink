@@ -41,10 +41,6 @@ class BowserAsset extends AssetBundle
             return true;
         }
 
-        if (preg_match('![^/]+\.js$!i', $path)) {
-            return true;
-        }
-
-        return false;
+        return (bool)preg_match('![^/]+\.js$!i', $path);
     }
 }

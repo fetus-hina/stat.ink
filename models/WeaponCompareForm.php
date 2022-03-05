@@ -25,10 +25,7 @@ class WeaponCompareForm extends Model
         if (!preg_match('/^(?:weapon|rule)(\d+)$/', $name, $match)) {
             return false;
         }
-        if ($match[1] < 1 || $match[1] > static::NUMBER) {
-            return false;
-        }
-        return true;
+        return $match[1] >= 1 && $match[1] <= static::NUMBER;
     }
 
     public function getAttribute(string $name)
