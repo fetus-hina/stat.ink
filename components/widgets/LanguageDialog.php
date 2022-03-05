@@ -86,7 +86,7 @@ class LanguageDialog extends Dialog
             ['class' => 'mr-1']
         );
 
-        $label = ($lang->name === $lang->name_en)
+        $label = $lang->name === $lang->name_en
             ? $lang->name
             : sprintf('%s / %s', $lang->name, $lang->name_en);
 

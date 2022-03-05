@@ -38,7 +38,7 @@ class TurfwarWinBonus extends ActiveRecord
                     ->orderBy('[[start_at]] DESC')
                     ->limit(1)
                     ->andWhere(['<=', '[[start_at]]',
-                        ($time instanceof Expression)
+                        $time instanceof Expression
                                 ? $time
                                 : (is_numeric($time)
                                     ? DateTimeFormatter::unixTimeToString($time, new DateTimeZone('Etc/UTC'))

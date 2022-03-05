@@ -75,7 +75,7 @@ class UserStatNawabariAction extends BaseAction
             $result = [];
             foreach ($row as $k => $v) {
                 if ($k !== 'map') {
-                    $result[$k] = ($v === null) ? null : (float)$v;
+                    $result[$k] = $v === null ? null : (float)$v;
                 }
             }
             return $result;

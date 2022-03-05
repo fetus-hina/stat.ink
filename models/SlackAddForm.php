@@ -33,7 +33,7 @@ class SlackAddForm extends Model
         return [
             [['webhook_url', 'language_id'], 'required'],
             [['username', 'icon', 'channel'], 'filter',
-                'filter' => fn ($v) => (trim($v) === '') ? null : trim($v),
+                'filter' => fn ($v) => trim($v) === '' ? null : trim($v),
             ],
             [['webhook_url'], 'url'],
             [['webhook_url'], 'validateWebhookUrl'],

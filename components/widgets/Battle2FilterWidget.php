@@ -275,7 +275,7 @@ class Battle2FilterWidget extends Widget
             $categoryName = Yii::t('app-weapon2', $category->name);
             foreach ($category->weaponTypes as $type) {
                 $typeName = Yii::t('app-weapon2', $type->name);
-                $groupLabel = ($categoryName !== $typeName)
+                $groupLabel = $categoryName !== $typeName
                     ? sprintf('%s » %s', $categoryName, $typeName)
                     : $typeName;
                 $weapons = ArrayHelper::map(
@@ -285,7 +285,7 @@ class Battle2FilterWidget extends Widget
                 );
                 if ($weapons) {
                     uasort($weapons, 'strnatcasecmp');
-                    $ret[$groupLabel] = (count($weapons) > 1)
+                    $ret[$groupLabel] = count($weapons) > 1
                         ? array_merge(
                             ['@' . $type->key => Yii::t('app-weapon2', 'All of {0}', $typeName)],
                             $weapons
@@ -379,7 +379,7 @@ class Battle2FilterWidget extends Widget
             foreach ($group['ranks'] as $i => $rank) {
                 $list[$rank['key']] = sprintf(
                     '%s %s',
-                    (($i !== count($group['ranks']) - 1) ? '├' : '└'),
+                    ($i !== count($group['ranks']) - 1 ? '├' : '└'),
                     Yii::t('app-rank2', $rank['name'])
                 );
             }

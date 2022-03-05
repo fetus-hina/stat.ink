@@ -135,7 +135,7 @@ class WeaponsUseAction extends BaseAction
         foreach (GameMode::find()->with('rules')->orderBy('[[id]] ASC')->all() as $mode) {
             $modeName = Yii::t('app-rule', $mode->name);
 
-            $all = (count($mode->rules) > 1)
+            $all = count($mode->rules) > 1
                     ? ["@{$mode->key}" => Yii::t('app-rule', 'All of {0}', [$modeName])]
                     : [];
 

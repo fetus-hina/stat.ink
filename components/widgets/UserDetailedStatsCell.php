@@ -67,7 +67,7 @@ class UserDetailedStatsCell extends Widget
             Html::tag('span', Html::encode($this->f->asInteger($this->data->win)), [
                 'class' => 'positive',
             ]),
-            ($this->data->win_ko > 0 && $this->data->win_to > 0)
+            $this->data->win_ko > 0 && $this->data->win_to > 0
                 ? vsprintf('%s: %s', [
                     Html::encode(Yii::t('app', 'KO')),
                     Html::encode($this->f->asPercent(
@@ -85,7 +85,7 @@ class UserDetailedStatsCell extends Widget
             Html::tag('span', Html::encode($this->f->asInteger($this->data->lose)), [
                 'class' => 'negative',
             ]),
-            ($this->data->lose_ko > 0 && $this->data->lose_to > 0)
+            $this->data->lose_ko > 0 && $this->data->lose_to > 0
                 ? vsprintf('%s: %s', [
                     Html::encode(Yii::t('app', 'KO')),
                     Html::encode($this->f->asPercent(
@@ -114,7 +114,7 @@ class UserDetailedStatsCell extends Widget
             Html::tag('span', Html::encode($this->f->asInteger($this->data->kill_sum)), [
                 'class' => 'positive',
             ]),
-            ($this->data->battles_kd > 0)
+            $this->data->battles_kd > 0
                 ? vsprintf('(%s: %s)', [
                     Html::encode(Yii::t('app', 'Avg.')),
                     Html::tag(
@@ -136,7 +136,7 @@ class UserDetailedStatsCell extends Widget
             Html::tag('span', Html::encode($this->f->asInteger($this->data->death_sum)), [
                 'class' => 'negative',
             ]),
-            ($this->data->battles_kd > 0)
+            $this->data->battles_kd > 0
                 ? vsprintf('(%s: %s)', [
                     Html::encode(Yii::t('app', 'Avg.')),
                     Html::tag(

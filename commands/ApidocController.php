@@ -263,7 +263,7 @@ class ApidocController extends Controller
                             Html::encode(Yii::t('app-tz', $tz->name, [], 'ja-JP')),
                         ])),
                         Html::tag('td', Html::tag('code', Html::encode($tz->identifier))),
-                        ($offsetJan === $offsetJul)
+                        $offsetJan === $offsetJul
                             ? Html::tag('td', Html::encode($offsetJan), [
                                 'colspan' => 2,
                                 'align' => 'center',

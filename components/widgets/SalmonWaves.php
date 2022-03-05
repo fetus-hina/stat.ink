@@ -108,7 +108,7 @@ class SalmonWaves extends Widget
     protected function renderBody(): string
     {
         $data = array_filter([
-            ($this->work && $this->work->clear_waves !== null)
+            $this->work && $this->work->clear_waves !== null
                 ? [
                     'label' => '',
                     'format' => 'raw',

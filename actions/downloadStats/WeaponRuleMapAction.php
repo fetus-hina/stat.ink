@@ -27,7 +27,7 @@ class WeaponRuleMapAction extends BaseAction
         $resp->setDownloadHeaders('weapon-rule-map.csv', 'text/cvs', false, null);
         $resp->format = 'csv';
         return [
-            'separator' => (($this->config->tsv ?? '0') == '1')
+            'separator' => ($this->config->tsv ?? '0') == '1'
                     ? CsvResponseFormatter::SEPARATOR_TSV
                     : CsvResponseFormatter::SEPARATOR_CSV,
             'inputCharset' => 'UTF-8',

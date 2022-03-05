@@ -389,7 +389,7 @@ class BattleAction extends BaseAction
                 $blackoutList = Blackout::getBlackoutTargetList(
                     $form->lobby,
                     $form->user->blackout,
-                    (($form->result === 'win') ? 0 : 4) + $form->rank_in_team
+                    ($form->result === 'win' ? 0 : 4) + $form->rank_in_team
                 );
             }
 

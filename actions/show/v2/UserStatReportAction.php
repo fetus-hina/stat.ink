@@ -90,7 +90,7 @@ class UserStatReportAction extends BaseAction
         return $this->controller->render('user-stat-report-month', [
             'user' => $this->user,
             'list' => $this->query($from, $to),
-            'next' => ($next <= $upperBound)
+            'next' => $next <= $upperBound
                 ? Url::to(
                     ['show-v2/user-stat-report',
                         'screen_name' => $this->user->screen_name,
@@ -100,7 +100,7 @@ class UserStatReportAction extends BaseAction
                     true
                 )
                 : null,
-            'prev' => ($prev >= $lowerBound)
+            'prev' => $prev >= $lowerBound
                 ? Url::to(
                     ['show-v2/user-stat-report',
                         'screen_name' => $this->user->screen_name,

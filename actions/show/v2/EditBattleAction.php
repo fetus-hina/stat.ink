@@ -118,7 +118,7 @@ class EditBattleAction extends BaseAction
                 ->orderBy(['id' => SORT_ASC])
                 ->all();
             foreach ($types as $type) {
-                $typeName = ($category->name === $type->name)
+                $typeName = $category->name === $type->name
                     ? Yii::t('app-weapon2', $category->name)
                     : sprintf(
                         '%s » %s',

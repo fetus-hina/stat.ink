@@ -72,7 +72,7 @@ class Application extends Base
     public function setLocale(string $locale): self
     {
         $atPos = strpos($locale, '@');
-        $additional = ($atPos === false)
+        $additional = $atPos === false
             ? ''
             : substr($locale, $atPos + 1);
         $this->locale = $locale;
@@ -81,7 +81,7 @@ class Application extends Base
             str_replace('-', '_', Yii::$app->language),
             $additional,
         ]), '@');
-        Yii::$app->formatter->calendar = (strpos($additional, 'calendar=') !== false)
+        Yii::$app->formatter->calendar = strpos($additional, 'calendar=') !== false
             ? IntlDateFormatter::TRADITIONAL
             : IntlDateFormatter::GREGORIAN;
         $sep = $this->getNumericSeparators();
