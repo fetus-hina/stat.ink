@@ -23,9 +23,7 @@ class NotoSansAsset extends AssetBundle
         $this->css[] = vsprintf('https://fonts.googleapis.com/css2?%s', [
             $this->buildQuery([
                 'family' => array_map(
-                    function (string $family): string {
-                        return $family . ':wght@400;700';
-                    },
+                    fn (string $family): string => $family . ':wght@400;700',
                     [
                         'Noto Sans',
                         'Noto Sans JP',
@@ -44,9 +42,7 @@ class NotoSansAsset extends AssetBundle
             function (string $key, $values): string {
                 if (is_array($values)) {
                     return implode('&', array_map(
-                        function (string $value) use ($key): string {
-                            return rawurlencode($key) . '=' . rawurlencode($value);
-                        },
+                        fn (string $value): string => rawurlencode($key) . '=' . rawurlencode($value),
                         $values,
                     ));
                 } else {

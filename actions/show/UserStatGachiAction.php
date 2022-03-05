@@ -171,9 +171,7 @@ class UserStatGachiAction extends BaseAction
             }
 
             $tmp = array_slice($battles, $currentIndex + 1 - $range, $range);
-            $win = count(array_filter($tmp, function (stdClass $a): bool {
-                return (bool)$a->is_win;
-            }));
+            $win = count(array_filter($tmp, fn (stdClass $a): bool => (bool)$a->is_win));
             return $win * 100 / $range;
         };
         $totalWin = 0;
@@ -308,9 +306,7 @@ class UserStatGachiAction extends BaseAction
         $list = ArrayHelper::map(
             Map::find()->all(),
             'key',
-            function (Map $map): string {
-                return Yii::t('app-map', $map->name);
-            }
+            fn (Map $map): string => Yii::t('app-map', $map->name)
         );
         uasort($list, 'strnatcasecmp');
         return $list;

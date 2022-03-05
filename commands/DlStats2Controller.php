@@ -68,19 +68,17 @@ class DlStats2Controller extends Controller
             return false;
         }
         try {
-            $playerColumns = function (string $prefix): array {
-                return [
-                    $prefix . '-weapon',
-                    $prefix . '-kill-assist',
-                    $prefix . '-kill',
-                    $prefix . '-assist',
-                    $prefix . '-death',
-                    $prefix . '-special',
-                    $prefix . '-inked',
-                    $prefix . '-rank',
-                    $prefix . '-level',
-                ];
-            };
+            $playerColumns = fn (string $prefix): array => [
+                $prefix . '-weapon',
+                $prefix . '-kill-assist',
+                $prefix . '-kill',
+                $prefix . '-assist',
+                $prefix . '-death',
+                $prefix . '-special',
+                $prefix . '-inked',
+                $prefix . '-rank',
+                $prefix . '-level',
+            ];
             $playerCsv = function (Battle2 $b, ?BattlePlayer2 $p): array {
                 if (!$p) {
                     return ['', '', '', '', '', '', '', '', ''];

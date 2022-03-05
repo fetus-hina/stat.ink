@@ -51,9 +51,7 @@ class AdWidget extends Widget
         ];
         return preg_replace_callback(
             '/\{(\w+)\}/',
-            function ($match) use ($replace) {
-                return @$replace[$match[1]] ?: $match[0];
-            },
+            fn ($match) => @$replace[$match[1]] ?: $match[0],
             $this->template
         );
     }

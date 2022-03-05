@@ -40,9 +40,7 @@ class ShowController extends Controller
                 ],
                 'ruleConfig' => [
                     'class' => AccessRule::className(),
-                    'matchCallback' => function ($rule, $action) {
-                        return $action->isEditable;
-                    },
+                    'matchCallback' => fn ($rule, $action) => $action->isEditable,
                 ],
             ],
         ];

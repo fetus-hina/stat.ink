@@ -60,6 +60,7 @@
   <rule ref="Generic.VersionControl.GitMergeConflict"/>
   <rule ref="SlevomatCodingStandard.Arrays.TrailingArrayComma"/>
   <rule ref="SlevomatCodingStandard.Arrays.SingleLineArrayWhitespace"/>
+  <rule ref="SlevomatCodingStandard.Functions.RequireArrowFunction"/>
 
   <rule ref="PSR12">
     <file>*/components/ability/effect/*</file>

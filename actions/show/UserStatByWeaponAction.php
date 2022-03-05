@@ -86,9 +86,7 @@ class UserStatByWeaponAction extends BaseAction
             $this->filter($query, $filter);
         }
         $list = $query->all();
-        usort($list, function (array $a, array $b): int {
-            return $b['battles'] <=> $a['battles'];
-        });
+        usort($list, fn (array $a, array $b): int => $b['battles'] <=> $a['battles']);
         return $list;
     }
 }

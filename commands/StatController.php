@@ -76,9 +76,7 @@ class StatController extends Controller
             'INSERT INTO %s (%s) %s',
             $db->quoteTableName(StatWeapon::tableName()),
             implode(', ', array_map(
-                function ($k) use ($db) {
-                    return $db->quoteColumnName($k);
-                },
+                fn ($k) => $db->quoteColumnName($k),
                 array_keys($select->select)
             )),
             $select->createCommand()->rawSql
@@ -91,9 +89,7 @@ class StatController extends Controller
             'INSERT INTO %s (%s) %s',
             $db->quoteTableName(StatWeaponBattleCount::tableName()),
             implode(', ', array_map(
-                function ($k) use ($db) {
-                    return $db->quoteColumnName($k);
-                },
+                fn ($k) => $db->quoteColumnName($k),
                 array_keys($select->select)
             )),
             $select->createCommand()->rawSql
@@ -106,9 +102,7 @@ class StatController extends Controller
             'INSERT INTO %s ( %s) %s',
             $db->quoteTableName(StatWeaponKillDeath::tableName()),
             implode(', ', array_map(
-                function ($k) use ($db) {
-                    return $db->quoteColumnName($k);
-                },
+                fn ($k) => $db->quoteColumnName($k),
                 array_keys($select->select)
             )),
             $select->createCommand()->rawSql
@@ -124,9 +118,7 @@ class StatController extends Controller
 
         $query = BattlePlayer::find()
             ->innerJoinWith([
-                'battle' => function ($q) {
-                    return $q->orderBy(null);
-                },
+                'battle' => fn ($q) => $q->orderBy(null),
                 'battle.lobby',
                 'weapon',
             ])
@@ -312,13 +304,11 @@ class StatController extends Controller
                 StatEntireUser::tableName(),
                 ['date', 'battle_count', 'user_count'],
                 array_map(
-                    function ($row) {
-                        return [
-                            $row['date'],
-                            $row['battle_count'],
-                            $row['user_count'],
-                        ];
-                    },
+                    fn ($row) => [
+                        $row['date'],
+                        $row['battle_count'],
+                        $row['user_count'],
+                    ],
                     (new \yii\db\Query())
                         ->select([
                             'date'          => '{{battle}}.[[at]]::date',
@@ -397,14 +387,12 @@ class StatController extends Controller
             ->add(new \DateInterval('P1D')); // +1 day
 
         $insertList = array_map(
-            function ($row) {
-                return [
-                    $row['agent'],
-                    $row['date'],
-                    $row['battle_count'],
-                    $row['user_count'],
-                ];
-            },
+            fn ($row) => [
+                $row['agent'],
+                $row['date'],
+                $row['battle_count'],
+                $row['user_count'],
+            ],
             (new \yii\db\Query())
                 ->select([
                     'agent'         => '{{agent}}.[[name]]',
@@ -513,14 +501,12 @@ class StatController extends Controller
                 Knockout::tableName(),
                 ['map_id', 'rule_id', 'battles', 'knockouts'],
                 array_map(
-                    function ($row) {
-                        return [
-                            $row['map_id'],
-                            $row['rule_id'],
-                            $row['battles'],
-                            $row['knockouts'],
-                        ];
-                    },
+                    fn ($row) => [
+                        $row['map_id'],
+                        $row['rule_id'],
+                        $row['battles'],
+                        $row['knockouts'],
+                    ],
                     (new \yii\db\Query())
                         ->select([
                             'map_id'        => '{{battle}}.[[map_id]]',
@@ -555,9 +541,7 @@ class StatController extends Controller
     {
         $db = Yii::$app->db;
         $transaction = $db->beginTransaction();
-        $timestamp = function (string $column): string {
-            return sprintf('EXTRACT(EPOCH FROM %s)', $column);
-        };
+        $timestamp = fn (string $column): string => sprintf('EXTRACT(EPOCH FROM %s)', $column);
 
         $select = Battle2::find() // {{{
             ->innerJoinWith([
@@ -621,9 +605,7 @@ class StatController extends Controller
             $select->createCommand()->rawSql . ' ' .
             'ON CONFLICT ( rule_id, map_id, lobby_id, rank_id ) DO UPDATE SET ' .
             implode(', ', array_map(
-                function (string $column): string {
-                    return sprintf('%1$s = EXCLUDED.%1$s', $column);
-                },
+                fn (string $column): string => sprintf('%1$s = EXCLUDED.%1$s', $column),
                 ['battles', 'knockouts', 'avg_game_time', 'avg_knockout_time']
             ));
 
@@ -730,9 +712,7 @@ class StatController extends Controller
             'INSERT INTO {{%s}} ( %s ) %s',
             StatWeaponKDWinRate::tableName(),
             implode(', ', array_map(
-                function ($col) {
-                    return "[[{$col}]]";
-                },
+                fn ($col) => "[[{$col}]]",
                 array_keys($select->select)
             )),
             $select->createCommand()->rawsql
@@ -805,9 +785,7 @@ class StatController extends Controller
             implode(
                 ', ',
                 array_map(
-                    function (string $a): string {
-                        return sprintf('[[%s]]', $a);
-                    },
+                    fn (string $a): string => sprintf('[[%s]]', $a),
                     array_keys($select->select)
                 )
             ),
@@ -895,9 +873,7 @@ class StatController extends Controller
         $insert = sprintf(
             'INSERT INTO {{%s}} ( %s ) %s',
             StatWeaponUseCount::tablename(),
-            implode(', ', array_map(function (string $a): string {
-                return "[[{$a}]]";
-            }, array_keys($select->select))),
+            implode(', ', array_map(fn (string $a): string => "[[{$a}]]", array_keys($select->select))),
             $select->createCommand()->rawSql
         );
 
@@ -950,9 +926,7 @@ class StatController extends Controller
         $upsertWeek = sprintf(
             'INSERT INTO {{%s}} ( %s ) %s ON CONFLICT ON CONSTRAINT [[%s]] DO UPDATE SET %s',
             StatWeaponUseCountPerWeek::tableName(),
-            implode(', ', array_map(function (string $a): string {
-                return "[[{$a}]]";
-            }, array_keys($selectWeek->select))),
+            implode(', ', array_map(fn (string $a): string => "[[{$a}]]", array_keys($selectWeek->select))),
             $selectWeek->createCommand()->rawSql,
             $constraintName,
             implode(', ', [
@@ -1215,23 +1189,17 @@ class StatController extends Controller
         $insert = sprintf(
             'INSERT INTO {{%s}} ( %s ) %s',
             StatWeapon2UseCount::tablename(),
-            implode(', ', array_map(function (string $a): string {
-                return "[[{$a}]]";
-            }, array_keys($select->select))),
+            implode(', ', array_map(fn (string $a): string => "[[{$a}]]", array_keys($select->select))),
             $select->createCommand()->rawSql
         );
         $insert .= sprintf(
             ' ON CONFLICT ( %s ) DO UPDATE SET %s',
             implode(', ', array_map(
-                function ($column) {
-                    return '[[' . $column . ']]';
-                },
+                fn ($column) => '[[' . $column . ']]',
                 ['period', 'rule_id', 'weapon_id', 'map_id']
             )),
             implode(', ', array_map(
-                function ($column) {
-                    return sprintf('[[%1$s]] = {{excluded}}.[[%1$s]]', $column);
-                },
+                fn ($column) => sprintf('[[%1$s]] = {{excluded}}.[[%1$s]]', $column),
                 [
                     'battles',
                     'wins',
@@ -1314,12 +1282,8 @@ class StatController extends Controller
                 ],
                 ArrayHelper::map(
                     $columns,
-                    function (string $colName): string {
-                        return $colName;
-                    },
-                    function (string $colName): string {
-                        return "SUM({{t}}.[[{$colName}]])";
-                    }
+                    fn (string $colName): string => $colName,
+                    fn (string $colName): string => "SUM({{t}}.[[{$colName}]])"
                 )
             ))
             ->from(sprintf('{{%s}} {{t}}', StatWeapon2UseCount::tableName()))
@@ -1340,16 +1304,10 @@ class StatController extends Controller
         $upsertWeek = sprintf(
             'INSERT INTO {{%s}} ( %s ) %s ON CONFLICT ( %s ) DO UPDATE SET %s',
             StatWeapon2UseCountPerWeek::tableName(),
-            implode(', ', array_map(function (string $a): string {
-                return "[[{$a}]]";
-            }, array_keys($selectWeek->select))),
+            implode(', ', array_map(fn (string $a): string => "[[{$a}]]", array_keys($selectWeek->select))),
             $selectWeek->createCommand()->rawSql,
-            implode(', ', array_map(function (string $a): string {
-                return "[[{$a}]]";
-            }, ['isoyear', 'isoweek', 'rule_id', 'weapon_id', 'map_id'])),
-            implode(', ', array_map(function (string $a): string {
-                return sprintf('[[%1$s]] = {{excluded}}.[[%1$s]]', $a);
-            }, ['battles', 'wins']))
+            implode(', ', array_map(fn (string $a): string => "[[{$a}]]", ['isoyear', 'isoweek', 'rule_id', 'weapon_id', 'map_id'])),
+            implode(', ', array_map(fn (string $a): string => sprintf('[[%1$s]] = {{excluded}}.[[%1$s]]', $a), ['battles', 'wins']))
         );
         // }}}
 
@@ -1428,9 +1386,7 @@ class StatController extends Controller
             ]));
         $insertTrend = sprintf(
             'INSERT INTO {{stat_weapon_map_trend}} ( %s ) %s',
-            implode(', ', array_map(function (string $a): string {
-                return "[[{$a}]]";
-            }, array_keys($select->select))),
+            implode(', ', array_map(fn (string $a): string => "[[{$a}]]", array_keys($select->select))),
             $select->createCommand()->rawSql
         );
 
@@ -1622,12 +1578,10 @@ class StatController extends Controller
     {
         $data = $this->getMonthlyPeriodRangeForSplatoon2();
         return sprintf('(CASE %s END)', implode(' ', array_map(
-            function (string $month, array $period): string {
-                return vsprintf('WHEN {{battle2}}.[[period]] >= %d THEN %s', [
-                    $period[0],
-                    Yii::$app->db->quoteValue($month),
-                ]);
-            },
+            fn (string $month, array $period): string => vsprintf('WHEN {{battle2}}.[[period]] >= %d THEN %s', [
+                $period[0],
+                Yii::$app->db->quoteValue($month),
+            ]),
             array_reverse(array_keys($data)),
             array_reverse(array_values($data))
         )));
@@ -1670,9 +1624,7 @@ class StatController extends Controller
                 ->andWhere(['<', '{{splatoon_version2}}.[[released_at]]', new Now()])
                 ->orderBy(['{{splatoon_version2}}.[[released_at]]' => SORT_ASC])
                 ->all(),
-            function (SplatoonVersion2 $version): bool {
-                return !!version_compare($version->tag, '1.0', '>=');
-            }
+            fn (SplatoonVersion2 $version): bool => !!version_compare($version->tag, '1.0', '>=')
         );
         // }}}
     }

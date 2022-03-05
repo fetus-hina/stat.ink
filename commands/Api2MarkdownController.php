@@ -173,18 +173,14 @@ class Api2MarkdownController extends Controller
                         $remarks[] = sprintf(
                             '互換性のため %s も受け付けます',
                             implode(', ', array_map(
-                                function (string $value): string {
-                                    return '`' . $value . '`';
-                                },
+                                fn (string $value): string => '`' . $value . '`',
                                 (array)$compats[$weapon['key']]
                             ))
                         );
                         $remarks[] = sprintf(
                             'Also accepts %s for compatibility',
                             implode(', ', array_map(
-                                function (string $value): string {
-                                    return '`' . $value . '`';
-                                },
+                                fn (string $value): string => '`' . $value . '`',
                                 (array)$compats[$weapon['key']]
                             ))
                         );
@@ -248,18 +244,14 @@ class Api2MarkdownController extends Controller
                 $colRemarks[] = sprintf(
                     '互換性のため %s も受け付けます',
                     implode(', ', array_map(
-                        function (string $value): string {
-                            return '`' . $value . '`';
-                        },
+                        fn (string $value): string => '`' . $value . '`',
                         (array)$compats[$map->key]
                     ))
                 );
                 $colRemarks[] = sprintf(
                     'Also accepts %s for compatibility',
                     implode(', ', array_map(
-                        function (string $value): string {
-                            return '`' . $value . '`';
-                        },
+                        fn (string $value): string => '`' . $value . '`',
                         (array)$compats[$map->key]
                     ))
                 );
@@ -302,18 +294,14 @@ class Api2MarkdownController extends Controller
                 $colRemarks[] = sprintf(
                     '互換性のため %s も受け付けます',
                     implode(', ', array_map(
-                        function (string $value): string {
-                            return '`' . $value . '`';
-                        },
+                        fn (string $value): string => '`' . $value . '`',
                         (array)$compats[$ability->key]
                     ))
                 );
                 $colRemarks[] = sprintf(
                     'Also accepts %s for compatibility',
                     implode(', ', array_map(
-                        function (string $value): string {
-                            return '`' . $value . '`';
-                        },
+                        fn (string $value): string => '`' . $value . '`',
                         (array)$compats[$ability->key]
                     ))
                 );
@@ -397,18 +385,14 @@ class Api2MarkdownController extends Controller
                 $colRemarks[] = sprintf(
                     '互換性のため %s も受け付けます',
                     implode(', ', array_map(
-                        function (string $value): string {
-                            return '`' . $value . '`';
-                        },
+                        fn (string $value): string => '`' . $value . '`',
                         (array)$compats[$title->key]
                     ))
                 );
                 $colRemarks[] = sprintf(
                     'Also accepts %s for compatibility',
                     implode(', ', array_map(
-                        function (string $value): string {
-                            return '`' . $value . '`';
-                        },
+                        fn (string $value): string => '`' . $value . '`',
                         (array)$compats[$title->key]
                     ))
                 );
@@ -451,18 +435,14 @@ class Api2MarkdownController extends Controller
                 $colRemarks[] = sprintf(
                     '互換性のため %s も受け付けます',
                     implode(', ', array_map(
-                        function (string $value): string {
-                            return '`' . $value . '`';
-                        },
+                        fn (string $value): string => '`' . $value . '`',
                         (array)$compats[$title->key]
                     ))
                 );
                 $colRemarks[] = sprintf(
                     'Also accepts %s for compatibility',
                     implode(', ', array_map(
-                        function (string $value): string {
-                            return '`' . $value . '`';
-                        },
+                        fn (string $value): string => '`' . $value . '`',
                         (array)$compats[$title->key]
                     ))
                 );
@@ -512,18 +492,14 @@ class Api2MarkdownController extends Controller
                 $colRemarks[] = sprintf(
                     '互換性のため %s も受け付けます',
                     implode(', ', array_map(
-                        function (string $value): string {
-                            return '`' . $value . '`';
-                        },
+                        fn (string $value): string => '`' . $value . '`',
                         (array)$compats[$row->key]
                     ))
                 );
                 $colRemarks[] = sprintf(
                     'Also accepts %s for compatibility',
                     implode(', ', array_map(
-                        function (string $value): string {
-                            return '`' . $value . '`';
-                        },
+                        fn (string $value): string => '`' . $value . '`',
                         (array)$compats[$row->key]
                     ))
                 );
@@ -566,18 +542,14 @@ class Api2MarkdownController extends Controller
                 $colRemarks[] = sprintf(
                     '互換性のため %s も受け付けます',
                     implode(', ', array_map(
-                        function (string $value): string {
-                            return '`' . $value . '`';
-                        },
+                        fn (string $value): string => '`' . $value . '`',
                         (array)$compats[$row->key]
                     ))
                 );
                 $colRemarks[] = sprintf(
                     'Also accepts %s for compatibility',
                     implode(', ', array_map(
-                        function (string $value): string {
-                            return '`' . $value . '`';
-                        },
+                        fn (string $value): string => '`' . $value . '`',
                         (array)$compats[$row->key]
                     ))
                 );
@@ -623,18 +595,14 @@ class Api2MarkdownController extends Controller
                 $remarks[] = sprintf(
                     '互換性のため %s も受け付けます',
                     implode(', ', array_map(
-                        function (string $value): string {
-                            return '`' . $value . '`';
-                        },
+                        fn (string $value): string => '`' . $value . '`',
                         (array)$compats[$weapon['key']]
                     ))
                 );
                 $remarks[] = sprintf(
                     'Also accepts %s for compatibility',
                     implode(', ', array_map(
-                        function (string $value): string {
-                            return '`' . $value . '`';
-                        },
+                        fn (string $value): string => '`' . $value . '`',
                         (array)$compats[$weapon['key']]
                     ))
                 );
@@ -681,18 +649,14 @@ class Api2MarkdownController extends Controller
                 $remarks[] = sprintf(
                     '互換性のため %s も受け付けます',
                     implode(', ', array_map(
-                        function (string $value): string {
-                            return '`' . $value . '`';
-                        },
+                        fn (string $value): string => '`' . $value . '`',
                         (array)$compats[$weapon['key']]
                     ))
                 );
                 $remarks[] = sprintf(
                     'Also accepts %s for compatibility',
                     implode(', ', array_map(
-                        function (string $value): string {
-                            return '`' . $value . '`';
-                        },
+                        fn (string $value): string => '`' . $value . '`',
                         (array)$compats[$weapon['key']]
                     ))
                 );
@@ -761,14 +725,10 @@ class Api2MarkdownController extends Controller
         $lines = preg_split('/\x0d\x0a|\x0d|\x0a/s', $text);
         return array_reduce(
             array_map(
-                function (string $line): int {
-                    return self::strwidth($line);
-                },
+                fn (string $line): int => self::strwidth($line),
                 $lines
             ),
-            function (int $a, int $b): int {
-                return max($a, $b);
-            },
+            fn (int $a, int $b): int => max($a, $b),
             $minWidth
         );
         // }}}
@@ -784,9 +744,7 @@ class Api2MarkdownController extends Controller
             $result .= static::createTableRow($row, $widths) . "\n";
             if ($i === 0) {
                 $result .= sprintf("|%s|\n", implode('|', array_map(
-                    function (int $cellWidth): string {
-                        return str_repeat('-', $cellWidth);
-                    },
+                    fn (int $cellWidth): string => str_repeat('-', $cellWidth),
                     $widths
                 )));
             }

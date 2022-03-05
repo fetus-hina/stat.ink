@@ -48,9 +48,7 @@ class m200404_192929_central_asia extends Migration
         $data = $this->getData();
 
         $tzIdentifiers = ArrayHelper::toFlatten(array_map(
-            function (array $info): array {
-                return array_keys($info['tz']);
-            },
+            fn (array $info): array => array_keys($info['tz']),
             array_values($data),
         ));
 
@@ -108,9 +106,7 @@ class m200404_192929_central_asia extends Migration
     {
         $data = $this->getData();
         $this->batchInsert('country', ['key', 'name'], array_map(
-            function (string $cctld, array $cInfo): array {
-                return [$cctld, $cInfo['name']];
-            },
+            fn (string $cctld, array $cInfo): array => [$cctld, $cInfo['name']],
             array_keys($data),
             array_values($data),
         ));

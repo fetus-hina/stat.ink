@@ -39,9 +39,7 @@ class SalmonActionColumn extends Column
                 ),
                 //TODO: video link
             ],
-            function (?string $content): bool {
-                return $content !== null && $content !== '';
-            }
+            fn (?string $content): bool => $content !== null && $content !== ''
         ));
     }
 }

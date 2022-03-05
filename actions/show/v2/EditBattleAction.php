@@ -150,9 +150,7 @@ class EditBattleAction extends BaseAction
             ArrayHelper::map(
                 Rank2::find()->orderBy(['[[id]]' => SORT_DESC])->asArray()->all(),
                 'id',
-                function (array $row): string {
-                    return Yii::t('app-rank2', $row['name']);
-                }
+                fn (array $row): string => Yii::t('app-rank2', $row['name'])
             )
         );
     }

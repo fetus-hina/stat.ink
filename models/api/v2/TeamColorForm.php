@@ -22,9 +22,7 @@ class TeamColorForm extends Model
         return [
             [['hue'], 'number', 'min' => 0, 'max' => 360],
             [['hue'], 'filter',
-                'filter' => function ($value) {
-                    return $value % 360;
-                },
+                'filter' => fn ($value) => $value % 360,
             ],
             [['rgb'], 'validateRgb'],
             [['rgb'], 'makeHue'],

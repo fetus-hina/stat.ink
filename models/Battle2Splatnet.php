@@ -43,9 +43,7 @@ class Battle2Splatnet extends ActiveRecord
             'typecast' => [
                 'class' => AttributeTypecastBehavior::class,
                 'attributeTypes' => [
-                    'json' => function ($value): ?object {
-                        return static::convertToObject($value);
-                    },
+                    'json' => fn ($value): ?object => static::convertToObject($value),
                 ],
                 'typecastAfterValidate' => true,
                 'typecastBeforeSave' => false,

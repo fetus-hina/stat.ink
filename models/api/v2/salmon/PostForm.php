@@ -95,10 +95,8 @@ class PostForm extends Model
             [['agent'], 'string', 'max' => 64],
             [['agent_version'], 'string', 'max' => 255],
             [['agent', 'agent_version'], 'required',
-                'when' => function (self $model, string $attrName): bool {
-                    return trim((string)$model->agent) !== '' ||
-                        trim((string)$model->agent_version) !== '';
-                },
+                'when' => fn (self $model, string $attrName): bool => trim((string)$model->agent) !== '' ||
+                        trim((string)$model->agent_version) !== '',
             ],
             [['stage'], 'exist', 'skipOnError' => true,
                 'targetClass' => SalmonMap2::class,

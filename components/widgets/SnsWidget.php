@@ -80,18 +80,10 @@ class SnsWidget extends Widget
     {
         $replace = [
             'id' => $this->id,
-            'tweet' => function (): ?string {
-                return $this->tweetButton->run();
-            },
-            'permalink' => function (): ?string {
-                return $this->procPermaLink();
-            },
-            'feed' => function (): ?string {
-                return $this->procFeed();
-            },
-            'json' => function (): ?string {
-                return $this->procJson();
-            },
+            'tweet' => fn (): ?string => $this->tweetButton->run(),
+            'permalink' => fn (): ?string => $this->procPermaLink(),
+            'feed' => fn (): ?string => $this->procFeed(),
+            'json' => fn (): ?string => $this->procJson(),
         ];
         return preg_replace_callback(
             '/\{(\w+)\}/',

@@ -68,13 +68,11 @@ class UsersAction extends BaseAction
         }
 
         return array_map(
-            function ($a) {
-                return [
-                    'date' => $a->date,
-                    'battle' => $a->battle_count,
-                    'user' => $a->user_count,
-                ];
-            },
+            fn ($a) => [
+                'date' => $a->date,
+                'battle' => $a->battle_count,
+                'user' => $a->user_count,
+            ],
             $stats
         );
     }
@@ -113,13 +111,11 @@ class UsersAction extends BaseAction
         }
 
         return array_map(
-            function ($a) {
-                return [
-                    'date' => $a['date'],
-                    'battle' => $a['battle_count'],
-                    'user' => $a['user_count'],
-                ];
-            },
+            fn ($a) => [
+                'date' => $a['date'],
+                'battle' => $a['battle_count'],
+                'user' => $a['user_count'],
+            ],
             $stats
         );
     }
@@ -136,9 +132,7 @@ class UsersAction extends BaseAction
     {
         $list = $this->queryAgentStats();
         $agents = $this->queryAgentDetails(array_map(
-            function ($a) {
-                return $a['agent_id'];
-            },
+            fn ($a) => $a['agent_id'],
             $list
         ));
         $t = @$_SERVER['REQUEST_TIME'] ?: time();
@@ -202,9 +196,7 @@ class UsersAction extends BaseAction
             ->from(StatAgentUser::tableName())
             ->groupBy('agent');
         $list = array_map(
-            function ($a) {
-                return $a['agent'];
-            },
+            fn ($a) => $a['agent'],
             $query->createCommand()->queryAll()
         );
         usort($list, 'strnatcasecmp');
@@ -214,9 +206,7 @@ class UsersAction extends BaseAction
     public function getCombineds()
     {
         $list = array_map(
-            function ($a) {
-                return $a['name'];
-            },
+            fn ($a) => $a['name'],
             AgentGroup::find()->asArray()->all()
         );
         usort($list, 'strnatcasecmp');
@@ -259,20 +249,18 @@ class UsersAction extends BaseAction
                 'e' => DateTimeFormatter::unixTimeToJsonArray($endAt->getTimestamp() - 1),
             ],
             'agents' => array_map(
-                function (array $row) use ($startAt, $endAt): array {
-                    return [
-                        'name' => (string)$row['name'],
-                        'battles' => (int)$row['battles'],
-                        'users' => (int)$row['users'],
-                        'versions' => $this->getAgentVersion2(
-                            $row['name'],
-                            $startAt,
-                            $endAt,
-                            (int)$row['min_id'],
-                            (int)$row['max_id']
-                        ),
-                    ];
-                },
+                fn (array $row): array => [
+                    'name' => (string)$row['name'],
+                    'battles' => (int)$row['battles'],
+                    'users' => (int)$row['users'],
+                    'versions' => $this->getAgentVersion2(
+                        $row['name'],
+                        $startAt,
+                        $endAt,
+                        (int)$row['min_id'],
+                        (int)$row['max_id']
+                    ),
+                ],
                 $list
             ),
         ];
@@ -301,17 +289,13 @@ class UsersAction extends BaseAction
             ->groupBy(['{{battle2}}.[[agent_id]]'])
             ->asArray()
             ->all();
-        usort($versions, function (array $a, array $b): int {
-            return version_compare($b['version'], $a['version']);
-        });
+        usort($versions, fn (array $a, array $b): int => version_compare($b['version'], $a['version']));
         return array_map(
-            function (array $row): array {
-                return [
-                    'version' => (string)$row['version'],
-                    'battles' => (int)$row['battles'],
-                    'users' => (int)$row['users'],
-                ];
-            },
+            fn (array $row): array => [
+                'version' => (string)$row['version'],
+                'battles' => (int)$row['battles'],
+                'users' => (int)$row['users'],
+            ],
             $versions
         );
     }

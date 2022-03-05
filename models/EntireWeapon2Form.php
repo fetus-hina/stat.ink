@@ -83,9 +83,7 @@ class EntireWeapon2Form extends Model
     {
         $result = [];
         $groups = SplatoonVersionGroup2::find()->with('versions')->asArray()->all();
-        usort($groups, function (array $a, array $b): int {
-            return version_compare($b['tag'], $a['tag']);
-        });
+        usort($groups, fn (array $a, array $b): int => version_compare($b['tag'], $a['tag']));
         foreach ($groups as $group) {
             switch (count($group['versions'])) {
                 case 0:
@@ -102,9 +100,7 @@ class EntireWeapon2Form extends Model
                     $result['~v' . $group['tag']] = Yii::t('app', 'Version {0}', [
                         Yii::t('app-version2', $group['name']),
                     ]);
-                    usort($group['versions'], function (array $a, array $b): int {
-                        return version_compare($b['tag'], $a['tag']);
-                    });
+                    usort($group['versions'], fn (array $a, array $b): int => version_compare($b['tag'], $a['tag']));
                     $n = count($group['versions']);
                     foreach ($group['versions'] as $i => $version) {
                         $result['v' . $version['tag']] = sprintf(

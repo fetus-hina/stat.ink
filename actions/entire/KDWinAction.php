@@ -40,9 +40,7 @@ class KDWinAction extends BaseAction
                     'data' => $this->makeData($rule, $filter),
                 ];
             }
-            usort($tmpData, function (\stdClass $a, \stdClass $b): int {
-                return strcmp($a->name, $b->name);
-            });
+            usort($tmpData, fn (\stdClass $a, \stdClass $b): int => strcmp($a->name, $b->name));
             $data = array_merge($data, $tmpData);
         }
 

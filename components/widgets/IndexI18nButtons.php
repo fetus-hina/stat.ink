@@ -82,9 +82,7 @@ class IndexI18nButtons extends Widget
             (string)FA::far('clock')->fw(),
             $tz
                 ? array_map(
-                    function (Country $country): string {
-                        return (string)FlagIcon::fg($country->key);
-                    },
+                    fn (Country $country): string => (string)FlagIcon::fg($country->key),
                     $tz->countries,
                 )
                 : [],

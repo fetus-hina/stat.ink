@@ -60,9 +60,7 @@ class Map2 extends ActiveRecord
         return ArrayHelper::map(
             static::sort($query->all()),
             'key',
-            function (self $row): string {
-                return Yii::t('app-map2', $row->name);
-            }
+            fn (self $row): string => Yii::t('app-map2', $row->name)
         );
     }
 
@@ -188,9 +186,7 @@ class Map2 extends ActiveRecord
     public static function openapiExample(): array
     {
         return array_map(
-            function (self $model): array {
-                return $model->toJsonArray();
-            },
+            fn (self $model): array => $model->toJsonArray(),
             static::sort(
                 static::find()
                     ->andWhere([

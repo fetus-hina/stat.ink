@@ -74,11 +74,9 @@ class KillRatioColumn extends DataColumn
         };
         if ($this->killRate) {
             $this->format = ['percent', 2];
-            $this->value = function ($model): ?float {
-                return ($model->kill_rate !== null)
+            $this->value = fn ($model): ?float => ($model->kill_rate !== null)
                     ? ($model->kill_rate / 100.0)
                     : null;
-            };
         } else {
             $this->format = ['decimal', 2];
         }

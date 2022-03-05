@@ -231,9 +231,7 @@ class Battle2FilterWidget extends Widget
                 ArrayHelper::map(
                     Map2::sort(Map2::find()->all()),
                     'key',
-                    function (Map2 $map): string {
-                        return Yii::t('app-map2', $map->name);
-                    }
+                    fn (Map2 $map): string => Yii::t('app-map2', $map->name)
                 ),
             ))
             ->label(false);
@@ -258,9 +256,7 @@ class Battle2FilterWidget extends Widget
             return null;
         }
         return array_map(
-            function ($row) {
-                return (int)$row['weapon_id'];
-            },
+            fn ($row) => (int)$row['weapon_id'],
             $user->getUserWeapon2s()->asArray()->all()
         );
     }
@@ -288,9 +284,7 @@ class Battle2FilterWidget extends Widget
                 $weapons = ArrayHelper::map(
                     $type->weapons, // already filtered (see "with" above)
                     'key',
-                    function (Weapon2 $weapon): string {
-                        return Yii::t('app-weapon2', $weapon->name);
-                    }
+                    fn (Weapon2 $weapon): string => Yii::t('app-weapon2', $weapon->name)
                 );
                 if ($weapons) {
                     uasort($weapons, 'strnatcasecmp');
@@ -375,9 +369,7 @@ class Battle2FilterWidget extends Widget
     {
         $groups = RankGroup2::find()
             ->with([
-                'ranks' => function ($q) {
-                    return $q->orderBy('[[id]] DESC');
-                },
+                'ranks' => fn ($q) => $q->orderBy('[[id]] DESC'),
             ])
             ->orderBy('[[id]] DESC')
             ->asArray()
@@ -473,9 +465,7 @@ class Battle2FilterWidget extends Widget
         $versions = (function (): array {
             $result = [];
             $groups = SplatoonVersionGroup2::find()->with('versions')->asArray()->all();
-            usort($groups, function (array $a, array $b): int {
-                return version_compare($b['tag'], $a['tag']);
-            });
+            usort($groups, fn (array $a, array $b): int => version_compare($b['tag'], $a['tag']));
             foreach ($groups as $group) {
                 $n = count($group['versions']);
                 if ($n == 1) {
@@ -491,9 +481,7 @@ class Battle2FilterWidget extends Widget
                         'Version {0}',
                         Yii::t('app-version2', $group['name'])
                     );
-                    usort($group['versions'], function (array $a, array $b): int {
-                        return version_compare($b['tag'], $a['tag']);
-                    });
+                    usort($group['versions'], fn (array $a, array $b): int => version_compare($b['tag'], $a['tag']));
                     foreach ($group['versions'] as $i => $version) {
                         $isLast = ($i === $n - 1);
                         $result['v' . $version['tag']] = sprintf(

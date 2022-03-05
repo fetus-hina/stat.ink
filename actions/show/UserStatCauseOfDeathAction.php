@@ -120,17 +120,13 @@ class UserStatCauseOfDeathAction extends BaseAction
         );
 
         $ret = array_map(
-            function ($row) use ($deathReasons) {
-                return (object)[
-                    'name' => $deathReasons[$row['reason_id']] ?? '?',
-                    'count' => (int)$row['count'],
-                ];
-            },
+            fn ($row) => (object)[
+                'name' => $deathReasons[$row['reason_id']] ?? '?',
+                'count' => (int)$row['count'],
+            ],
             $list
         );
-        usort($ret, function ($a, $b) {
-            return $b->count <=> $a->count ?: strcasecmp($a->name, $b->name);
-        });
+        usort($ret, fn ($a, $b) => $b->count <=> $a->count ?: strcasecmp($a->name, $b->name));
         return $ret;
     }
 
@@ -212,9 +208,7 @@ class UserStatCauseOfDeathAction extends BaseAction
             array_values($retWeapons),
             array_values($retOthers)
         );
-        usort($ret, function ($a, $b) {
-            return $b->count <=> $a->count ?: strcasecmp($a->name, $b->name);
-        });
+        usort($ret, fn ($a, $b) => $b->count <=> $a->count ?: strcasecmp($a->name, $b->name));
         return $ret;
     }
 
@@ -230,17 +224,13 @@ class UserStatCauseOfDeathAction extends BaseAction
             ->groupBy('{{death_reason_type}}.[[id]]');
 
         $ret = array_map(
-            function ($row) {
-                return (object)[
-                    'name' => Yii::t('app-death', ($row['id'] === null) ? 'Unknown' : $row['name']),
-                    'count' => (int)$row['count'],
-                ];
-            },
+            fn ($row) => (object)[
+                'name' => Yii::t('app-death', ($row['id'] === null) ? 'Unknown' : $row['name']),
+                'count' => (int)$row['count'],
+            ],
             $query->createCommand()->queryAll()
         );
-        usort($ret, function ($a, $b) {
-            return $b->count <=> $a->count ?: strcasecmp($a->name, $b->name);
-        });
+        usort($ret, fn ($a, $b) => $b->count <=> $a->count ?: strcasecmp($a->name, $b->name));
         return $ret;
     }
 }

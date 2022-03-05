@@ -232,14 +232,12 @@ class Spl2GearAbilitiesSummaryWidget extends Widget
                     [
                         'label' => Yii::t('app', 'Effects'),
                         'format' => 'ntext',
-                        'value' => function (
+                        'value' => fn (
                             Ability2Info $model,
                             $key,
                             $index,
                             Column $column
-                        ): string {
-                            return (string)$model->coefficient;
-                        },
+                        ): string => (string)$model->coefficient,
                     ],
                 ],
             ]),

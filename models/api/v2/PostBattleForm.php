@@ -281,9 +281,7 @@ class PostBattleForm extends Model
             [['agent'], 'string', 'max' => 64],
             [['agent_version'], 'string', 'max' => 255],
             [['agent', 'agent_version'], 'required',
-                'when' => function ($model, $attr) {
-                    return (string)$this->agent !== '' || (string)$this->agent_version !== '';
-                },
+                'when' => fn ($model, $attr) => (string)$this->agent !== '' || (string)$this->agent_version !== '',
             ],
             [['agent_custom'], 'string'],
             [['uuid'], 'string', 'max' => 64],
@@ -360,19 +358,13 @@ class PostBattleForm extends Model
             [['image_judge', 'image_result', 'image_gear'], 'safe'],
             [['image_judge', 'image_result', 'image_gear'], 'file',
                 'maxSize' => 3 * 1024 * 1024,
-                'when' => function ($model, $attr) {
-                    return !is_string($model->$attr);
-                },
+                'when' => fn ($model, $attr) => !is_string($model->$attr),
             ],
             [['image_judge', 'image_result', 'image_gear'], 'validateImageFile',
-                'when' => function ($model, $attr) {
-                    return !is_string($model->$attr);
-                },
+                'when' => fn ($model, $attr) => !is_string($model->$attr),
             ],
             [['image_judge', 'image_result', 'image_gear'], 'validateImageString',
-                'when' => function ($model, $attr) {
-                    return is_string($model->$attr);
-                },
+                'when' => fn ($model, $attr) => is_string($model->$attr),
             ],
             [['map'], 'safe'],
             [['splatnet_number'], 'integer', 'min' => 1],
@@ -474,12 +466,8 @@ class PostBattleForm extends Model
 
     public function toBattle(): Battle2
     {
-        $intval = function ($string): ?int {
-            return $string === null ? null : intval($string, 10);
-        };
-        $floatval = function ($string): ?float {
-            return $string === null ? null : floatval($string);
-        };
+        $intval = fn ($string): ?int => $string === null ? null : intval($string, 10);
+        $floatval = fn ($string): ?float => $string === null ? null : floatval($string);
         $datetime = function ($value) use ($intval): ?string {
             $value = $intval($value);
             return $value === null ? null : gmdate('Y-m-d\TH:i:sP', $value);
@@ -952,9 +940,7 @@ class PostBattleForm extends Model
             }
             $newValues[] = $value;
         }
-        usort($newValues, function ($a, $b) {
-            return $a->at - $b->at;
-        });
+        usort($newValues, fn ($a, $b) => $a->at - $b->at);
         $this->$attribute = $newValues;
     }
 

@@ -85,14 +85,12 @@ class ColorSchemeDialog extends Dialog
                 ]
             ),
             implode('', array_map(
-                function (string $key, string $name): string {
-                    return $this->renderScheme(
-                        $key,
-                        Yii::t('app', '{theme} Theme', [
-                            'theme' => $name,
-                        ])
-                    );
-                },
+                fn (string $key, string $name): string => $this->renderScheme(
+                    $key,
+                    Yii::t('app', '{theme} Theme', [
+                        'theme' => $name,
+                    ])
+                ),
                 array_keys($this->bootswatch),
                 array_values($this->bootswatch)
             )),

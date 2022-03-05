@@ -91,20 +91,18 @@ abstract class BaseLatestBattlesAction extends ViewAction
                 ['now' => Yii::t('app-reltime', 'now')],
                 ArrayHelper::getColumn(
                     $reltimes,
-                    function (string $format): array {
-                        return [
-                            'one' => preg_replace(
-                                '/\b1\b/',
-                                '{delta}',
-                                Yii::t('app-reltime', $format, ['delta' => 1])
-                            ),
-                            'many' => preg_replace(
-                                '/\b42\b/',
-                                '{delta}',
-                                Yii::t('app-reltime', $format, ['delta' => 42])
-                            ),
-                        ];
-                    }
+                    fn (string $format): array => [
+                        'one' => preg_replace(
+                            '/\b1\b/',
+                            '{delta}',
+                            Yii::t('app-reltime', $format, ['delta' => 1])
+                        ),
+                        'many' => preg_replace(
+                            '/\b42\b/',
+                            '{delta}',
+                            Yii::t('app-reltime', $format, ['delta' => 42])
+                        ),
+                    ]
                 )
             ),
         ];

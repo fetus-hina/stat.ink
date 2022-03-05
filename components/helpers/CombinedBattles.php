@@ -175,9 +175,7 @@ class CombinedBattles
                 }
                 if ($list = $query->all()) {
                     $merged = array_merge($merged, $list);
-                    usort($merged, function ($a, $b): int {
-                        return $b->getCreatedAt() <=> $a->getCreatedAt();
-                    });
+                    usort($merged, fn ($a, $b): int => $b->getCreatedAt() <=> $a->getCreatedAt());
                     if (count($merged) >= $num) {
                         $threshold = (new DateTimeImmutable())
                             ->setTimestamp($merged[$num - 1]->getCreatedAt());

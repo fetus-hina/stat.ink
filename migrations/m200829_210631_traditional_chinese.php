@@ -35,9 +35,7 @@ class m200829_210631_traditional_chinese extends Migration
             'language_charset',
             ['language_id', 'charset_id', 'is_win_acp'],
             array_map(
-                function (array $_) use ($chinese): array {
-                    return [$chinese, $_[0], $_[1]];
-                },
+                fn (array $_): array => [$chinese, $_[0], $_[1]],
                 $this->getCharsetIds(),
             )
         );

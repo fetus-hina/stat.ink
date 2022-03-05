@@ -33,11 +33,9 @@ class IndexFilterForm extends Model
         // {{{
         return [
             [['screen_name'], 'required',
-                'when' => function (self $model): bool {
-                    return ($model->only === 'splatnet_number') ||
+                'when' => fn (self $model): bool => ($model->only === 'splatnet_number') ||
                         ($model->order === 'splatnet_asc') ||
-                        ($model->order === 'splatnet_desc');
-                },
+                        ($model->order === 'splatnet_desc'),
             ],
             [['screen_name'], 'string'],
             [['screen_name'], 'exist', 'skipOnError' => true,
@@ -68,16 +66,12 @@ class IndexFilterForm extends Model
             [['count'], 'integer',
                 'min' => 1,
                 'max' => 50,
-                'when' => function (self $model): bool {
-                    return $model->only !== 'splatnet_number';
-                },
+                'when' => fn (self $model): bool => $model->only !== 'splatnet_number',
             ],
             [['count'], 'integer',
                 'min' => 1,
                 'max' => 1000,
-                'when' => function (self $model): bool {
-                    return $model->only === 'splatnet_number';
-                },
+                'when' => fn (self $model): bool => $model->only === 'splatnet_number',
             ],
         ];
         // }}}

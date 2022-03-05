@@ -46,9 +46,7 @@ class KnockoutAction extends BaseAction
             ];
         }
 
-        uasort($data, function (stdClass $a, stdClass $b): int {
-            return strnatcasecmp($a->map->name, $b->map->name);
-        });
+        uasort($data, fn (stdClass $a, stdClass $b): int => strnatcasecmp($a->map->name, $b->map->name));
 
         return $this->controller->render('knockout', [
             'rules' => $rules,

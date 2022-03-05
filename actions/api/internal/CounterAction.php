@@ -41,14 +41,12 @@ class CounterAction extends ViewAction
     private function make(): array
     {
         return Yii::$app->db->transaction(
-            function (): array {
-                return array_merge(
-                    $this->format('battle1', 'battle', 'Battles', Battle::getRoughCount()),
-                    $this->format('battle2', 'battle', 'Battles', Battle2::getRoughCount()),
-                    $this->format('salmon2', 'salmon', 'Shifts', Salmon2::getRoughCount()),
-                    $this->format('user', 'user', 'Users', User::getRoughCount()),
-                );
-            },
+            fn (): array => array_merge(
+                $this->format('battle1', 'battle', 'Battles', Battle::getRoughCount()),
+                $this->format('battle2', 'battle', 'Battles', Battle2::getRoughCount()),
+                $this->format('salmon2', 'salmon', 'Shifts', Salmon2::getRoughCount()),
+                $this->format('user', 'user', 'Users', User::getRoughCount()),
+            ),
             Transaction::REPEATABLE_READ
         );
     }

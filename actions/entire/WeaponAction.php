@@ -93,14 +93,12 @@ class WeaponAction extends BaseAction
             ->orderBy('kill, death')
             ->asArray()
             ->all();
-        return array_map(function ($a) {
-            return [
-                'kill'   => (int)$a['kill'],
-                'death'  => (int)$a['death'],
-                'battle' => (int)$a['battle'],
-                'win'    => (int)$a['win'],
-            ];
-        }, $tmp);
+        return array_map(fn ($a) => [
+            'kill'   => (int)$a['kill'],
+            'death'  => (int)$a['death'],
+            'battle' => (int)$a['battle'],
+            'win'    => (int)$a['win'],
+        ], $tmp);
     }
 
     public function getWeapons()
@@ -122,17 +120,13 @@ class WeaponAction extends BaseAction
     public function getMaps()
     {
         $ret = array_map(
-            function ($row) {
-                return [
-                    'key' => $row['key'],
-                    'name' => Yii::t('app-map', $row['name']),
-                ];
-            },
+            fn ($row) => [
+                'key' => $row['key'],
+                'name' => Yii::t('app-map', $row['name']),
+            ],
             Map::find()->asArray()->all()
         );
-        usort($ret, function ($a, $b) {
-            return strnatcasecmp($a['name'], $b['name']);
-        });
+        usort($ret, fn ($a, $b) => strnatcasecmp($a['name'], $b['name']));
         return $ret;
     }
 
@@ -191,14 +185,12 @@ class WeaponAction extends BaseAction
             ->having(['>', 'SUM([[battles]])', 0])
             ->orderBy('isoyear, isoweek');
         return array_map(
-            function (array $row): array {
-                return [
-                    'date'      => date('Y-m-d', strtotime(sprintf('%04d-W%02d', $row['isoyear'], $row['isoweek']))),
-                    'battles'   => (int)$row['all_battles'],
-                    'use_pct'   => $row['battles'] / $row['all_battles'] * 100,
-                    'win_pct'   => $row['battles'] > 0 ? $row['wins'] / $row['battles'] * 100 : 0,
-                ];
-            },
+            fn (array $row): array => [
+                'date'      => date('Y-m-d', strtotime(sprintf('%04d-W%02d', $row['isoyear'], $row['isoweek']))),
+                'battles'   => (int)$row['all_battles'],
+                'use_pct'   => $row['battles'] / $row['all_battles'] * 100,
+                'win_pct'   => $row['battles'] > 0 ? $row['wins'] / $row['battles'] * 100 : 0,
+            ],
             $query->createCommand()->queryAll()
         );
     }

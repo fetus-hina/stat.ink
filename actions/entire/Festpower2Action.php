@@ -24,17 +24,15 @@ class Festpower2Action extends ViewAction
     public function run()
     {
         return Yii::$app->db->transaction(
-            function (): string {
-                return $this->controller->render(
-                    'festpower2',
-                    array_merge(
-                        [
-                            'data' => $this->getData(),
-                        ],
-                        $this->getTotalCounts(),
-                    )
-                );
-            },
+            fn (): string => $this->controller->render(
+                'festpower2',
+                array_merge(
+                    [
+                        'data' => $this->getData(),
+                    ],
+                    $this->getTotalCounts(),
+                )
+            ),
             Transaction::REPEATABLE_READ
         );
     }
