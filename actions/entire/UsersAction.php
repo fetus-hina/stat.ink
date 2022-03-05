@@ -150,7 +150,7 @@ class UsersAction extends BaseAction
 
     private function queryAgentStats()
     {
-        $t2 = isset($_SERVER['REQUEST_TIME']) ? $_SERVER['REQUEST_TIME'] : time();
+        $t2 = $_SERVER['REQUEST_TIME'] ?? time();
         $t1 = gmmktime(
             gmdate('H', $t2),
             gmdate('i', $t2),

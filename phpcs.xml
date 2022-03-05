@@ -85,6 +85,7 @@
   <rule ref="SlevomatCodingStandard.ControlStructures.DisallowYodaComparison"/>
   <rule ref="SlevomatCodingStandard.ControlStructures.LanguageConstructWithParentheses"/>
   <rule ref="SlevomatCodingStandard.ControlStructures.NewWithParentheses"/>
+  <rule ref="SlevomatCodingStandard.ControlStructures.RequireNullCoalesceOperator"/>
 
   <rule ref="PSR12">
     <file>*/components/ability/effect/*</file>
