@@ -55,7 +55,7 @@ class ImageS3Job extends BaseObject implements JobInterface
                     @unlink($path);
                     return;
                 }
-            } catch (Exception $e) {
+            } catch (\Throwable $e) {
             }
         }
     }

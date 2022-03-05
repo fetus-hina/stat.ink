@@ -95,7 +95,7 @@ class AssetPublishAction extends Action
                     if ($ref->isInstantiable() && $ref->isSubclassOf(AssetBundle::class)) {
                         $result[] = $fqcn;
                     }
-                } catch (\Exception $e) {
+                } catch (\Throwable $e) {
                 }
             }
         }

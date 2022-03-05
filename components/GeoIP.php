@@ -52,7 +52,7 @@ class GeoIP extends Component
 
         try {
             return new Reader($dbPath, $locales);
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             return null;
         }
     }

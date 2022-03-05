@@ -505,7 +505,7 @@ class PostForm extends Model
                     default:
                         break;
                 }
-            } catch (\Exception $e) {
+            } catch (\Throwable $e) {
             }
 
             return Uuid::v5(static::UUID_NAMESPACE_BY_FREETEXT, $this->uuid);

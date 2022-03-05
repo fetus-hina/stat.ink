@@ -109,7 +109,7 @@ class LocationColumnWidget extends Widget
                 $this->renderLocationText($city),
                 $this->renderLocationIcon($city),
             ]));
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             return null;
         }
     }
@@ -171,7 +171,7 @@ class LocationColumnWidget extends Widget
         if ($this->cityInfo === false) {
             try {
                 $this->cityInfo = $this->geoip->city($this->remoteAddr);
-            } catch (\Exception $e) {
+            } catch (\Throwable $e) {
                 $this->cityInfo = null;
             }
         }

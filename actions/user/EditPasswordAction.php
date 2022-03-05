@@ -38,7 +38,7 @@ class EditPasswordAction extends BaseAction
                         $this->controller->redirect(['user/profile']);
                         return;
                     }
-                } catch (Exception $e) {
+                } catch (\Throwable $e) {
                 }
                 $transaction->rollback();
             }

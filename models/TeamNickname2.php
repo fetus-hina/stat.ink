@@ -52,7 +52,7 @@ class TeamNickname2 extends ActiveRecord
             if ($model->save()) {
                 return $model;
             }
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
         }
 
         return null;

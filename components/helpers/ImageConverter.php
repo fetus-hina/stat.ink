@@ -114,7 +114,7 @@ class ImageConverter
             $tmpName = new Resource(tempnam(sys_get_temp_dir(), 'statink-'), 'unlink');
             imagepng($out->get(), $tmpName->get(), 9, PNG_ALL_FILTERS);
             return $tmpName;
-        } catch (Exception $e) {
+        } catch (\Throwable $e) {
         }
         return false;
     }

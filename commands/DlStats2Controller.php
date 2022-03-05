@@ -213,7 +213,7 @@ class DlStats2Controller extends Controller
             echo "    done!\n";
 
             return true;
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             echo $e->getMessage() . "\n";
             return false;
         } finally {

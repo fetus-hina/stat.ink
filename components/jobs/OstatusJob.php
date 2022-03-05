@@ -65,7 +65,7 @@ class OstatusJob extends BaseObject implements JobInterface
         foreach ($query->each() as $hub) {
             try {
                 $hub->notify($battle);
-            } catch (Exception $e) {
+            } catch (\Throwable $e) {
             }
         }
     }
