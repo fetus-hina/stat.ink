@@ -17,9 +17,9 @@ use yii\helpers\StringHelper;
 /**
  * This is the model class for table "accept_language".
  *
- * @property integer $id
+ * @property int $id
  * @property string $rule
- * @property integer $language_id
+ * @property int $language_id
  *
  * @property Language $language
  */

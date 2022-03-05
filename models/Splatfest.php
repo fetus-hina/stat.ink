@@ -13,12 +13,12 @@ use yii\db\ActiveRecord;
 /**
  * This is the model class for table "splatfest".
  *
- * @property integer $id
- * @property integer $region_id
+ * @property int $id
+ * @property int $region_id
  * @property string $name
  * @property string $start_at
  * @property string $end_at
- * @property integer $order
+ * @property int $order
  *
  * @property Region $region
  * @property SplatfestBattleSummary[] $splatfestBattleSummaries

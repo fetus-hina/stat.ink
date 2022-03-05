@@ -13,10 +13,10 @@ use yii\db\ActiveRecord;
 /**
  * This is the model class for table "knockout".
  *
- * @property integer $map_id
- * @property integer $rule_id
- * @property integer $battles
- * @property integer $knockouts
+ * @property int $map_id
+ * @property int $rule_id
+ * @property int $battles
+ * @property int $knockouts
  *
  * @property Map $map
  * @property Rule $rule

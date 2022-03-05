@@ -13,11 +13,11 @@ use yii\db\ActiveRecord;
 /**
  * This is the model class for table "stat_agent_user2".
  *
- * @property integer $id
+ * @property int $id
  * @property string $agent
  * @property string $date
- * @property integer $battle_count
- * @property integer $user_count
+ * @property int $battle_count
+ * @property int $user_count
  */
 class StatAgentUser2 extends ActiveRecord
 {

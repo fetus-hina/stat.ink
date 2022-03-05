@@ -16,9 +16,9 @@ use yii\db\ActiveRecord;
 /**
  * This is the model class for table "salmon_player_special_use2".
  *
- * @property integer $player_id
- * @property integer $wave
- * @property integer $count
+ * @property int $player_id
+ * @property int $wave
+ * @property int $count
  *
  * @property SalmonPlayer2 $player
  */

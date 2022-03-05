@@ -22,13 +22,13 @@ use const FILTER_VALIDATE_INT;
 /**
  * This is the model class for table "salmon_stats2".
  *
- * @property integer $id
- * @property integer $user_id
- * @property integer $work_count
- * @property integer $total_golden_eggs
- * @property integer $total_eggs
- * @property integer $total_rescued
- * @property integer $total_point
+ * @property int $id
+ * @property int $user_id
+ * @property int $work_count
+ * @property int $total_golden_eggs
+ * @property int $total_eggs
+ * @property int $total_rescued
+ * @property int $total_point
  * @property string $as_of
  * @property string $created_at
  *

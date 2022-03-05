@@ -13,8 +13,8 @@ use yii\db\ActiveRecord;
 /**
  * This is the model class for table "turfwar_win_bonus2".
  *
- * @property integer $id
- * @property integer $bonus
+ * @property int $id
+ * @property int $bonus
  * @property string $start_at
  */
 class TurfwarWinBonus2 extends ActiveRecord

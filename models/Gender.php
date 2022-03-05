@@ -18,7 +18,7 @@ use const SORT_ASC;
 /**
  * This is the model class for table "gender".
  *
- * @property integer $id
+ * @property int $id
  * @property string $name
  *
  * @property Battle[] $battles

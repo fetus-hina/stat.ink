@@ -13,7 +13,7 @@ use yii\db\ActiveRecord;
 /**
  * This is the model class for table "ikalog_requirement".
  *
- * @property integer $id
+ * @property int $id
  * @property string $from
  * @property string $version_date
  */

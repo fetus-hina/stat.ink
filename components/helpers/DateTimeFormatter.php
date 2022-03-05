@@ -13,7 +13,7 @@ use DateTimeZone;
 
 class DateTimeFormatter
 {
-    public static function unixTimeToString($unixtime, DateTimeZone $tz = null)
+    public static function unixTimeToString($unixtime, ?DateTimeZone $tz = null)
     {
         $isFloat = is_float($unixtime);
         $datetime = self::createDateTimeFromFloatedUnixtime((float)$unixtime);
@@ -23,7 +23,7 @@ class DateTimeFormatter
         );
     }
 
-    public static function unixTimeToJsonArray($unixtime, DateTimeZone $tz = null)
+    public static function unixTimeToJsonArray($unixtime, ?DateTimeZone $tz = null)
     {
         return [
             'time' => (int)$unixtime,

@@ -17,13 +17,13 @@ use const SORT_ASC;
 /**
  * This is the model class for table "gear2".
  *
- * @property integer $id
+ * @property int $id
  * @property string $key
- * @property integer $type_id
- * @property integer $brand_id
+ * @property int $type_id
+ * @property int $brand_id
  * @property string $name
- * @property integer $ability_id
- * @property integer $splatnet
+ * @property int $ability_id
+ * @property int $splatnet
  *
  * @property Ability2 $ability
  * @property Brand2 $brand

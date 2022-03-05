@@ -16,8 +16,8 @@ use yii\db\ActiveRecord;
 /**
  * This is the model class for table "splatfest2_region".
  *
- * @property integer $fest_id
- * @property integer $region_id
+ * @property int $fest_id
+ * @property int $region_id
  *
  * @property Splatfest2 $fest
  * @property Region2 $region

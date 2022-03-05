@@ -19,7 +19,7 @@ use const SORT_DESC;
 /**
  * This is the model class for table "splatoon_version_group2".
  *
- * @property integer $id
+ * @property int $id
  * @property string $tag
  * @property string $name
  *

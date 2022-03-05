@@ -16,10 +16,10 @@ use yii\helpers\ArrayHelper;
 /**
  * This is the model class for table "schedule2".
  *
- * @property integer $id
- * @property integer $period
- * @property integer $mode_id
- * @property integer $rule_id
+ * @property int $id
+ * @property int $period
+ * @property int $mode_id
+ * @property int $rule_id
  *
  * @property Rule2 $rule
  * @property ScheduleMode2 $mode

@@ -17,7 +17,7 @@ use const SORT_ASC;
 /**
  * This is the model class for table "fest_title".
  *
- * @property integer $id
+ * @property int $id
  * @property string $key
  * @property string $name
  *
@@ -92,7 +92,7 @@ class FestTitle extends ActiveRecord
             ->viaTable('fest_title_gender', ['title_id' => 'id']);
     }
 
-    public function getName(Gender $gender = null)
+    public function getName(?Gender $gender = null)
     {
         // 性別不明なとき
         if ($gender === null) {
@@ -119,7 +119,7 @@ class FestTitle extends ActiveRecord
         return $cache[$this->id][$gender->id] ?? null;
     }
 
-    public function toJsonArray(Gender $gender = null, string $theme = null)
+    public function toJsonArray(?Gender $gender = null, ?string $theme = null)
     {
         return [
             'key' => $this->key,

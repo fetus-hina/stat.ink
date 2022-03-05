@@ -18,8 +18,8 @@ use const SORT_ASC;
 /**
  * This is the model class for table "death_reason".
  *
- * @property integer $id
- * @property integer $type_id
+ * @property int $id
+ * @property int $type_id
  * @property string $key
  * @property string $name
  * @property string $weapon_id

@@ -20,18 +20,18 @@ use const SORT_DESC;
 /**
  * This is the model class for table "salmon_player2".
  *
- * @property integer $id
- * @property integer $work_id
- * @property boolean $is_me
+ * @property int $id
+ * @property int $work_id
+ * @property bool $is_me
  * @property string $splatnet_id
  * @property string $name
- * @property integer $special_id
- * @property integer $rescue
- * @property integer $death
- * @property integer $golden_egg_delivered
- * @property integer $power_egg_collected
- * @property integer $species_id
- * @property integer $gender_id
+ * @property int $special_id
+ * @property int $rescue
+ * @property int $death
+ * @property int $golden_egg_delivered
+ * @property int $power_egg_collected
+ * @property int $species_id
+ * @property int $gender_id
  *
  * @property SalmonBoss2[] $bosses
  * @property Gender $gender

@@ -15,8 +15,8 @@ use yii\web\User as WebUser;
 /**
  * This is the model class for table "login_with_twitter".
  *
- * @property integer $user_id
- * @property integer $twitter_id
+ * @property int $user_id
+ * @property int $twitter_id
  * @property string $screen_name
  * @property string $name
  *

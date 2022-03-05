@@ -20,10 +20,10 @@ use const SORT_ASC;
 /**
  * This is the model class for table "map".
  *
- * @property integer $id
+ * @property int $id
  * @property string $key
  * @property string $name
- * @property integer $area
+ * @property int $area
  * @property string $release_at
  * @property string $short_name
  *

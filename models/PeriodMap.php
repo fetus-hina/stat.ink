@@ -14,10 +14,10 @@ use yii\db\ActiveRecord;
 /**
  * This is the model class for table "period_map".
  *
- * @property integer $id
- * @property integer $period
- * @property integer $rule_id
- * @property integer $map_id
+ * @property int $id
+ * @property int $period
+ * @property int $rule_id
+ * @property int $map_id
  *
  * @property Map $map
  * @property Rule $rule

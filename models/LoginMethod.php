@@ -16,7 +16,7 @@ use yii\db\ActiveRecord;
 /**
  * This is the model class for table "login_method".
  *
- * @property integer $id
+ * @property int $id
  * @property string $name
  *
  * @property UserLoginHistory[] $userLoginHistories

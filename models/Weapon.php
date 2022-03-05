@@ -19,14 +19,14 @@ use const SORT_ASC;
 /**
  * This is the model class for table "weapon".
  *
- * @property integer $id
- * @property integer $type_id
+ * @property int $id
+ * @property int $type_id
  * @property string $key
  * @property string $name
- * @property integer $subweapon_id
- * @property integer $special_id
- * @property integer $canonical_id
- * @property integer $main_group_id
+ * @property int $subweapon_id
+ * @property int $special_id
+ * @property int $canonical_id
+ * @property int $main_group_id
  *
  * @property Battle[] $battles
  * @property UserWeapon[] $userWeapons

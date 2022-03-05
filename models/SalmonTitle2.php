@@ -20,10 +20,10 @@ use const SORT_ASC;
 /**
  * This is the model class for table "salmon_title2".
  *
- * @property integer $id
+ * @property int $id
  * @property string $key
  * @property string $name
- * @property integer $splatnet
+ * @property int $splatnet
  */
 class SalmonTitle2 extends ActiveRecord
 {

@@ -37,10 +37,9 @@ use function vsprintf;
 class AssetManager extends FWAssetManager
 {
     /**
-     * @param string $path
      * @return string
      */
-    protected function hash($path)
+    protected function hash(string $path)
     {
         if (is_callable($this->hashCallback)) {
             return call_user_func($this->hashCallback, $path);

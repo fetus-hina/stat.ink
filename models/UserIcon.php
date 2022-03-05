@@ -36,7 +36,7 @@ use const PNG_ALL_FILTERS;
 /**
  * This is the model class for table "user_icon".
  *
- * @property integer $user_id
+ * @property int $user_id
  * @property string $filename
  *
  * @property string $url

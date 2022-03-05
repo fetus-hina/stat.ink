@@ -25,45 +25,45 @@ use const SORT_DESC;
 /**
  * This is the model class for table "user_stat2".
  *
- * @property integer $user_id
- * @property integer $battles
- * @property integer $have_win_lose
- * @property integer $win_battles
- * @property integer $have_kill_death
- * @property integer $kill
- * @property integer $death
- * @property integer $have_kill_death_time
- * @property integer $kill_with_time
- * @property integer $death_with_time
- * @property integer $total_seconds
- * @property integer $turf_battles
- * @property integer $turf_have_win_lose
- * @property integer $turf_win_battles
- * @property integer $turf_have_kill_death
- * @property integer $turf_kill
- * @property integer $turf_death
- * @property integer $turf_have_inked
- * @property integer $turf_total_inked
- * @property integer $turf_max_inked
- * @property integer $gachi_battles
- * @property integer $gachi_have_win_lose
- * @property integer $gachi_win_battles
- * @property integer $gachi_have_kill_death
- * @property integer $gachi_kill
- * @property integer $gachi_death
- * @property integer $gachi_kill_death_time
- * @property integer $gachi_kill_with_time
- * @property integer $gachi_death_with_time
- * @property integer $gachi_total_seconds
- * @property integer $area_rank_peak
- * @property integer $yagura_rank_peak
- * @property integer $hoko_rank_peak
+ * @property int $user_id
+ * @property int $battles
+ * @property int $have_win_lose
+ * @property int $win_battles
+ * @property int $have_kill_death
+ * @property int $kill
+ * @property int $death
+ * @property int $have_kill_death_time
+ * @property int $kill_with_time
+ * @property int $death_with_time
+ * @property int $total_seconds
+ * @property int $turf_battles
+ * @property int $turf_have_win_lose
+ * @property int $turf_win_battles
+ * @property int $turf_have_kill_death
+ * @property int $turf_kill
+ * @property int $turf_death
+ * @property int $turf_have_inked
+ * @property int $turf_total_inked
+ * @property int $turf_max_inked
+ * @property int $gachi_battles
+ * @property int $gachi_have_win_lose
+ * @property int $gachi_win_battles
+ * @property int $gachi_have_kill_death
+ * @property int $gachi_kill
+ * @property int $gachi_death
+ * @property int $gachi_kill_death_time
+ * @property int $gachi_kill_with_time
+ * @property int $gachi_death_with_time
+ * @property int $gachi_total_seconds
+ * @property int $area_rank_peak
+ * @property int $yagura_rank_peak
+ * @property int $hoko_rank_peak
  * @property string $updated_at
- * @property integer $asari_rank_peak
- * @property integer $area_current_rank
- * @property integer $yagura_current_rank
- * @property integer $hoko_current_rank
- * @property integer $asari_current_rank
+ * @property int $asari_rank_peak
+ * @property int $area_current_rank
+ * @property int $yagura_current_rank
+ * @property int $hoko_current_rank
+ * @property int $asari_current_rank
  * @property string $area_current_x_power
  * @property string $yagura_current_x_power
  * @property string $hoko_current_x_power

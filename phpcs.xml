@@ -140,6 +140,25 @@
     </properties>
   </rule>
   <!--rule ref="SlevomatCodingStandard.TypeHints.DeclareStrictTypes.DeclareStrictTypesMissing"/-->
+  <rule ref="SlevomatCodingStandard.TypeHints.LongTypeHints"/>
+  <rule ref="SlevomatCodingStandard.TypeHints.NullTypeHintOnLastPosition"/>
+  <rule ref="SlevomatCodingStandard.TypeHints.NullableTypeForNullDefaultValue"/>
+  <rule ref="SlevomatCodingStandard.TypeHints.ParameterTypeHintSpacing"/>
+  <!--
+    <rule ref="SlevomatCodingStandard.TypeHints.ParameterTypeHint">
+      <properties>
+        <property name="enableObjectTypeHint" value="true"/>
+      </properties>
+    </rule>
+  -->
+  <!--
+    <rule ref="SlevomatCodingStandard.TypeHints.ReturnTypeHint">
+      <properties>
+        <property name="enableObjectTypeHint" value="true"/>
+      </properties>
+      <exclude name="SlevomatCodingStandard.TypeHints.ReturnTypeHint.MissingNativeTypeHint"/>
+    </rule>
+  -->
 
   <rule ref="PSR12">
     <file>*/components/ability/effect/*</file>

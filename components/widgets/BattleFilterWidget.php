@@ -187,7 +187,7 @@ class BattleFilterWidget extends Widget
         return $form->field($this->filter, 'weapon')->dropDownList($list)->label(false);
     }
 
-    protected function getUsedWeaponIdList(User $user = null)
+    protected function getUsedWeaponIdList(?User $user = null)
     {
         if (!$user) {
             return null;

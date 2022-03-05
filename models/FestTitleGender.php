@@ -13,8 +13,8 @@ use yii\db\ActiveRecord;
 /**
  * This is the model class for table "fest_title_gender".
  *
- * @property integer $title_id
- * @property integer $gender_id
+ * @property int $title_id
+ * @property int $gender_id
  * @property string $name
  *
  * @property FestTitle $title

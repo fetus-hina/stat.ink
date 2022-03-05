@@ -13,8 +13,8 @@ use yii\db\ActiveRecord;
 /**
  * This is the model class for table "battle_edit_history".
  *
- * @property integer $id
- * @property integer $battle_id
+ * @property int $id
+ * @property int $battle_id
  * @property string $diff
  * @property string $at
  *

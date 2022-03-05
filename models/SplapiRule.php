@@ -13,8 +13,8 @@ use yii\db\ActiveRecord;
 /**
  * This is the model class for table "splapi_rule".
  *
- * @property integer $id
- * @property integer $rule_id
+ * @property int $id
+ * @property int $rule_id
  * @property string $name
  *
  * @property Rule $rule

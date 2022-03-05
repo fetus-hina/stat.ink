@@ -18,27 +18,27 @@ use const SORT_DESC;
 /**
  * This is the model class for table "battle_player2".
  *
- * @property integer $id
- * @property integer $battle_id
- * @property boolean $is_my_team
- * @property boolean $is_me
- * @property integer $weapon_id
- * @property integer $level
- * @property integer $rank_in_team
- * @property integer $kill
- * @property integer $death
- * @property integer $point
- * @property integer $my_kill
- * @property integer $kill_or_assist
- * @property integer $special
- * @property integer $rank_id
+ * @property int $id
+ * @property int $battle_id
+ * @property bool $is_my_team
+ * @property bool $is_me
+ * @property int $weapon_id
+ * @property int $level
+ * @property int $rank_in_team
+ * @property int $kill
+ * @property int $death
+ * @property int $point
+ * @property int $my_kill
+ * @property int $kill_or_assist
+ * @property int $special
+ * @property int $rank_id
  * @property string $name
- * @property integer $gender_id
- * @property integer $fest_title_id
+ * @property int $gender_id
+ * @property int $fest_title_id
  * @property string $splatnet_id
- * @property integer $star_rank
- * @property boolean $top_500
- * @property integer $species_id
+ * @property int $star_rank
+ * @property bool $top_500
+ * @property int $species_id
  *
  * @property Battle2 $battle
  * @property FestTitle $festTitle

@@ -17,7 +17,7 @@ use yii\db\ActiveRecord;
 /**
  * This is the model class for table "http_user_agent".
  *
- * @property integer $id
+ * @property int $id
  * @property string $user_agent
  *
  * @property UserLoginHistory[] $userLoginHistories

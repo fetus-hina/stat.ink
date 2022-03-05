@@ -24,8 +24,8 @@ use yii\db\ActiveRecord;
 /**
  * This is the model class for table "user_auth_key".
  *
- * @property integer $id
- * @property integer $user_id
+ * @property int $id
+ * @property int $user_id
  * @property string $auth_key_hint
  * @property string $auth_key_hash
  * @property string $expires_at

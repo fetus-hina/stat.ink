@@ -17,10 +17,10 @@ use const SORT_DESC;
 /**
  * This is the model class for table "rank".
  *
- * @property integer $id
+ * @property int $id
  * @property string $key
  * @property string $name
- * @property integer $int_base
+ * @property int $int_base
  *
  * @property Battle[] $battles
  * @property RankGroup $group

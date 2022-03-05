@@ -13,13 +13,13 @@ use yii\db\ActiveRecord;
 /**
  * This is the model class for table "stat_weapon_kd_win_rate".
  *
- * @property integer $rule_id
- * @property integer $map_id
- * @property integer $weapon_id
- * @property integer $kill
- * @property integer $death
- * @property integer $battle_count
- * @property integer $win_count
+ * @property int $rule_id
+ * @property int $map_id
+ * @property int $weapon_id
+ * @property int $kill
+ * @property int $death
+ * @property int $battle_count
+ * @property int $win_count
  *
  * @property Map $map
  * @property Rule $rule

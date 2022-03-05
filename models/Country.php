@@ -13,7 +13,7 @@ use yii\db\ActiveRecord;
 /**
  * This is the model class for table "country".
  *
- * @property integer $id
+ * @property int $id
  * @property string $key
  * @property string $name
  *

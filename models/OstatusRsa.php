@@ -16,8 +16,8 @@ use yii\db\ActiveRecord;
 /**
  * This is the model class for table "ostatus_rsa".
  *
- * @property integer $user_id
- * @property integer $bits
+ * @property int $user_id
+ * @property int $bits
  * @property string $privkey
  * @property string $pubkey
  * @property string $modulus

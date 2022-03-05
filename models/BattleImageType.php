@@ -13,7 +13,7 @@ use yii\db\ActiveRecord;
 /**
  * This is the model class for table "battle_image_type".
  *
- * @property integer $id
+ * @property int $id
  * @property string $name
  *
  * @property BattleImage[] $battleImages

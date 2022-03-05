@@ -17,7 +17,7 @@ use yii\db\ActiveRecord;
 /**
  * This is the model class for table "team_nickname2".
  *
- * @property integer $id
+ * @property int $id
  * @property string $name
  *
  * @property Battle2[] $battle2s

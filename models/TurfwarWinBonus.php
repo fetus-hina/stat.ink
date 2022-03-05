@@ -18,8 +18,8 @@ use yii\db\Expression;
 /**
  * This is the model class for table "turfwar_win_bonus".
  *
- * @property integer $id
- * @property integer $bonus
+ * @property int $id
+ * @property int $bonus
  * @property string $start_at
  */
 class TurfwarWinBonus extends ActiveRecord

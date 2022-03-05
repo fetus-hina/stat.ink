@@ -21,11 +21,11 @@ use const SORT_ASC;
 /**
  * This is the model class for table "salmon_main_weapon2".
  *
- * @property integer $id
+ * @property int $id
  * @property string $key
  * @property string $name
- * @property integer $splatnet
- * @property integer $weapon_id
+ * @property int $splatnet
+ * @property int $weapon_id
  *
  * @property Weapon2 $weapon
  */

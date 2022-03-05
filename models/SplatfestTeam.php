@@ -13,10 +13,10 @@ use yii\db\ActiveRecord;
 /**
  * This is the model class for table "splatfest_team".
  *
- * @property integer $fest_id
- * @property integer $team_id
+ * @property int $fest_id
+ * @property int $team_id
  * @property string $name
- * @property integer $color_hue
+ * @property int $color_hue
  *
  * @property Splatfest $fest
  * @property Team $team

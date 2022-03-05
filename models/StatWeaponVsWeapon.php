@@ -14,12 +14,12 @@ use yii\db\ActiveRecord;
 /**
  * This is the model class for table "stat_weapon_vs_weapon".
  *
- * @property integer $version_id
- * @property integer $rule_id
- * @property integer $weapon_id_1
- * @property integer $weapon_id_2
- * @property integer $battle_count
- * @property integer $win_count
+ * @property int $version_id
+ * @property int $rule_id
+ * @property int $weapon_id_1
+ * @property int $weapon_id_2
+ * @property int $battle_count
+ * @property int $win_count
  *
  * @property SplatoonVersion $version
  * @property Rule $rule

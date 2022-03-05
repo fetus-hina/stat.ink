@@ -19,11 +19,11 @@ use const SORT_ASC;
 /**
  * This is the model class for table "maintenance_schedule".
  *
- * @property integer $id
+ * @property int $id
  * @property string $reason
  * @property string $start_at
  * @property string $end_at
- * @property boolean $enabled
+ * @property bool $enabled
  */
 class MaintenanceSchedule extends ActiveRecord
 {

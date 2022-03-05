@@ -13,7 +13,7 @@ use yii\db\ActiveRecord;
 /**
  * This is the model class for table "agent_group_map".
  *
- * @property integer $group_id
+ * @property int $group_id
  * @property string $agent_name
  *
  * @property AgentGroup $group

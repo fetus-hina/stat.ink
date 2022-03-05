@@ -13,12 +13,12 @@ use yii\db\ActiveRecord;
 /**
  * This is the model class for table "stat_weapon_use_count_per_week".
  *
- * @property integer $isoyear
- * @property integer $isoweek
- * @property integer $rule_id
- * @property integer $weapon_id
- * @property integer $battles
- * @property integer $wins
+ * @property int $isoyear
+ * @property int $isoweek
+ * @property int $rule_id
+ * @property int $weapon_id
+ * @property int $battles
+ * @property int $wins
  *
  * @property Rule $rule
  * @property Weapon $weapon

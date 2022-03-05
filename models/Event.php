@@ -13,7 +13,7 @@ use yii\db\ActiveRecord;
 /**
  * This is the model class for table "event".
  *
- * @property integer $id
+ * @property int $id
  * @property string $date
  * @property string $name
  * @property string $icon

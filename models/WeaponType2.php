@@ -18,9 +18,9 @@ use const SORT_ASC;
 /**
  * This is the model class for table "weapon_type2".
  *
- * @property integer $id
+ * @property int $id
  * @property string $key
- * @property integer $category_id
+ * @property int $category_id
  * @property string $name
  *
  * @property Weapon2[] $weapon2s

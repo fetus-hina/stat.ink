@@ -14,8 +14,8 @@ use yii\db\ActiveRecord;
  * This is the model class for table "splatnet2_user_map".
  *
  * @property string $splatnet_id
- * @property integer $user_id
- * @property integer $battles
+ * @property int $user_id
+ * @property int $battles
  *
  * @property User $user
  */

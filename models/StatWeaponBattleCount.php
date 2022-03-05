@@ -13,8 +13,8 @@ use yii\db\ActiveRecord;
 /**
  * This is the model class for table "stat_weapon_battle_count".
  *
- * @property integer $rule_id
- * @property integer $count
+ * @property int $rule_id
+ * @property int $count
  *
  * @property Rule $rule
  */

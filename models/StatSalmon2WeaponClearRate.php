@@ -16,10 +16,10 @@ use yii\db\ActiveRecord;
 /**
  * This is the model class for table "stat_salmon2_weapon_clear_rate".
  *
- * @property integer $stage_id
- * @property integer $weapon_id
- * @property integer $plays
- * @property integer $cleared
+ * @property int $stage_id
+ * @property int $weapon_id
+ * @property int $plays
+ * @property int $cleared
  * @property string $last_data_at
  *
  * @property SalmonMap2 $stage

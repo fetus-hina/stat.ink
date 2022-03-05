@@ -13,9 +13,9 @@ use yii\db\ActiveRecord;
 /**
  * This is the model class for table "weapon_attack".
  *
- * @property integer $id
- * @property integer $main_weapon_id
- * @property integer $version_id
+ * @property int $id
+ * @property int $main_weapon_id
+ * @property int $version_id
  * @property string $damage
  *
  * @property SplatoonVersion $version

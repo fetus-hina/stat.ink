@@ -18,14 +18,14 @@ use yii\helpers\Url;
 /**
  * This is the model class for table "slack".
  *
- * @property integer $id
- * @property integer $user_id
- * @property integer $language_id
+ * @property int $id
+ * @property int $user_id
+ * @property int $language_id
  * @property string $webhook_url
  * @property string $username
  * @property string $icon
  * @property string $channel
- * @property boolean $suspended
+ * @property bool $suspended
  * @property string $created_at
  * @property string $updated_at
  *

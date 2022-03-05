@@ -16,8 +16,8 @@ use yii\db\ActiveRecord;
 /**
  * This is the model class for table "weapon_attack2".
  *
- * @property integer $weapon_id
- * @property integer $version_id
+ * @property int $weapon_id
+ * @property int $version_id
  * @property string $damage
  * @property string $damage2
  * @property string $damage3

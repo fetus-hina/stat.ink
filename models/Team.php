@@ -13,7 +13,7 @@ use yii\db\ActiveRecord;
 /**
  * This is the model class for table "team".
  *
- * @property integer $id
+ * @property int $id
  * @property string $name
  * @property string $leader
  *

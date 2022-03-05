@@ -13,9 +13,9 @@ use yii\db\ActiveRecord;
 /**
  * This is the model class for table "user_weapon".
  *
- * @property integer $user_id
- * @property integer $weapon_id
- * @property integer $count
+ * @property int $user_id
+ * @property int $weapon_id
+ * @property int $count
  *
  * @property User $user
  * @property Weapon $weapon

@@ -30,28 +30,28 @@ use const SORT_DESC;
 /**
  * This is the model class for table "salmon2".
  *
- * @property integer $id
- * @property integer $user_id
+ * @property int $id
+ * @property int $user_id
  * @property string $uuid
- * @property integer $splatnet_number
- * @property integer $stage_id
- * @property integer $clear_waves
- * @property integer $fail_reason_id
- * @property integer $title_before_id
- * @property integer $title_before_exp
- * @property integer $title_after_id
- * @property integer $title_after_exp
+ * @property int $splatnet_number
+ * @property int $stage_id
+ * @property int $clear_waves
+ * @property int $fail_reason_id
+ * @property int $title_before_id
+ * @property int $title_before_exp
+ * @property int $title_after_id
+ * @property int $title_after_exp
  * @property string $danger_rate
- * @property integer $shift_period
+ * @property int $shift_period
  * @property string $start_at
  * @property string $end_at
  * @property string $note
  * @property string $private_note
  * @property string $link_url
- * @property boolean $is_automated
- * @property integer $agent_id
+ * @property bool $is_automated
+ * @property int $agent_id
  * @property string $remote_addr
- * @property integer $remote_port
+ * @property int $remote_port
  * @property string $created_at
  * @property string $updated_at
  *

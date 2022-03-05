@@ -14,11 +14,11 @@ use yii\db\ActiveRecord;
 /**
  * This is the model class for table "splatoon_version2".
  *
- * @property integer $id
+ * @property int $id
  * @property string $tag
  * @property string $name
  * @property string $released_at
- * @property integer $group_id
+ * @property int $group_id
  *
  * @property Battle2[] $battles
  * @property SplatoonVersionGroup2 $group

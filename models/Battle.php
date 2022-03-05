@@ -31,68 +31,68 @@ use const SORT_STRING;
 /**
  * This is the model class for table "battle".
  *
- * @property integer $id
- * @property integer $user_id
- * @property integer $rule_id
- * @property integer $map_id
- * @property integer $weapon_id
- * @property integer $level
- * @property integer $rank_id
- * @property boolean $is_win
- * @property integer $rank_in_team
- * @property integer $kill
- * @property integer $death
+ * @property int $id
+ * @property int $user_id
+ * @property int $rule_id
+ * @property int $map_id
+ * @property int $weapon_id
+ * @property int $level
+ * @property int $rank_id
+ * @property bool $is_win
+ * @property int $rank_in_team
+ * @property int $kill
+ * @property int $death
  * @property string $start_at
  * @property string $end_at
  * @property string $at
- * @property integer $agent_id
- * @property integer $level_after
- * @property integer $rank_after_id
- * @property integer $rank_exp
- * @property integer $rank_exp_after
- * @property integer $cash
- * @property integer $cash_after
- * @property integer $lobby_id
+ * @property int $agent_id
+ * @property int $level_after
+ * @property int $rank_after_id
+ * @property int $rank_exp
+ * @property int $rank_exp_after
+ * @property int $cash
+ * @property int $cash_after
+ * @property int $lobby_id
  * @property string $kill_ratio
- * @property integer $gender_id
- * @property integer $fest_title_id
- * @property integer $fest_title_after_id
- * @property integer $fest_exp
- * @property integer $fest_exp_after
- * @property integer $my_team_color_hue
- * @property integer $his_team_color_hue
+ * @property int $gender_id
+ * @property int $fest_title_id
+ * @property int $fest_title_after_id
+ * @property int $fest_exp
+ * @property int $fest_exp_after
+ * @property int $my_team_color_hue
+ * @property int $his_team_color_hue
  * @property string $my_team_color_rgb
  * @property string $his_team_color_rgb
- * @property integer $my_point
- * @property integer $my_team_final_point
- * @property integer $his_team_final_point
+ * @property int $my_point
+ * @property int $my_team_final_point
+ * @property int $his_team_final_point
  * @property string $my_team_final_percent
  * @property string $his_team_final_percent
- * @property boolean $is_knock_out
- * @property integer $my_team_count
- * @property integer $his_team_count
- * @property integer $period
+ * @property bool $is_knock_out
+ * @property int $my_team_count
+ * @property int $his_team_count
+ * @property int $period
  * @property string $ua_custom
  * @property string $ua_variables
- * @property integer $env_id
- * @property boolean $is_automated
- * @property integer $headgear_id
- * @property integer $clothing_id
- * @property integer $shoes_id
+ * @property int $env_id
+ * @property bool $is_automated
+ * @property int $headgear_id
+ * @property int $clothing_id
+ * @property int $shoes_id
  * @property string $link_url
  * @property string $note
  * @property string $private_note
- * @property integer $my_team_power
- * @property integer $his_team_power
- * @property integer $fest_power
- * @property integer $version_id
+ * @property int $my_team_power
+ * @property int $his_team_power
+ * @property int $fest_power
+ * @property int $version_id
  * @property string $client_uuid
- * @property integer $agent_game_version_id
+ * @property int $agent_game_version_id
  * @property string $agent_game_version_date
- * @property integer $max_kill_combo
- * @property integer $max_kill_streak
- * @property boolean $use_for_entire
- * @property integer $bonus_id
+ * @property int $max_kill_combo
+ * @property int $max_kill_streak
+ * @property bool $use_for_entire
+ * @property int $bonus_id
  *
  * @property Agent $agent
  * @property Environment $env

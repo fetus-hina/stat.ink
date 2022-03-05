@@ -16,7 +16,7 @@ use yii\db\ActiveRecord;
 /**
  * This is the model class for table "image_bucket".
  *
- * @property integer $id
+ * @property int $id
  * @property string $name
  *
  * @property BattleImage2[] $battleImage2s

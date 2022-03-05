@@ -14,10 +14,10 @@ use yii\db\ActiveRecord;
 /**
  * This is the model class for table "stat_weapon_map_trend".
  *
- * @property integer $rule_id
- * @property integer $map_id
- * @property integer $weapon_id
- * @property integer $battles
+ * @property int $rule_id
+ * @property int $map_id
+ * @property int $weapon_id
+ * @property int $battles
  *
  * @property Map $map
  * @property Rule $rule

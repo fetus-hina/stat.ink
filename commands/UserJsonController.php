@@ -35,7 +35,7 @@ class UserJsonController extends Controller
     public $basePath;
 
     /**
-     * @var integer 対象にするユーザのID
+     * @var int 対象にするユーザのID
      */
     public $userId;
 

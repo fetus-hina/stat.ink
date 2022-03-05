@@ -16,7 +16,7 @@ use yii\db\ActiveRecord;
 /**
  * This is the model class for table "freshness2".
  *
- * @property integer $id
+ * @property int $id
  * @property string $name
  * @property string $color
  * @property string $range

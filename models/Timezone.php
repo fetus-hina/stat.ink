@@ -15,12 +15,12 @@ use const SORT_ASC;
 /**
  * This is the model class for table "timezone".
  *
- * @property integer $id
+ * @property int $id
  * @property string $identifier
  * @property string $name
- * @property integer $order
- * @property integer $region_id
- * @property integer $group_id
+ * @property int $order
+ * @property int $region_id
+ * @property int $group_id
  *
  * @property Region $region
  * @property TimezoneGroup $group

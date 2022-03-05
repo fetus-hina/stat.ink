@@ -15,9 +15,9 @@ use const SORT_ASC;
 /**
  * This is the model class for table "gear_configuration_secondary2".
  *
- * @property integer $id
- * @property integer $config_id
- * @property integer $ability_id
+ * @property int $id
+ * @property int $config_id
+ * @property int $ability_id
  *
  * @property GearConfiguration2 $config
  * @property GearConfiguration2 $ability

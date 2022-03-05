@@ -20,7 +20,7 @@ use const SORT_DESC;
 /**
  * This is the model class for table "blog_entry".
  *
- * @property integer $id
+ * @property int $id
  * @property string $uuid
  * @property string $url
  * @property string $title

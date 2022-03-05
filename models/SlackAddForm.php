@@ -77,10 +77,9 @@ class SlackAddForm extends Model
     }
 
     /**
-     * @param string $attr
      * @param mixed $params
      */
-    public function validateWebhookUrl($attr, $params): void
+    public function validateWebhookUrl(string $attr, $params): void
     {
         if ($this->hasErrors($attr)) {
             return;

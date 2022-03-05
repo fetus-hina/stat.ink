@@ -14,7 +14,7 @@ use yii\db\ActiveRecord;
 /**
  * This is the model class for table "splatoon_version".
  *
- * @property integer $id
+ * @property int $id
  * @property string $tag
  * @property string $name
  * @property string $released_at

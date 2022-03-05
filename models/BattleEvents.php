@@ -15,7 +15,7 @@ use const FORCE_GZIP;
 /**
  * This is the model class for table "battle_events".
  *
- * @property integer $id
+ * @property int $id
  * @property string $events
  */
 class BattleEvents extends ActiveRecord

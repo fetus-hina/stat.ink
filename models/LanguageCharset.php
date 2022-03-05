@@ -13,9 +13,9 @@ use yii\db\ActiveRecord;
 /**
  * This is the model class for table "language_charset".
  *
- * @property integer $language_id
- * @property integer $charset_id
- * @property boolean $is_win_acp
+ * @property int $language_id
+ * @property int $charset_id
+ * @property bool $is_win_acp
  *
  * @property Charset $charset
  * @property Language $language

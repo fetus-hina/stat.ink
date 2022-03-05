@@ -18,13 +18,13 @@ use yii\helpers\ArrayHelper;
 /**
  * This is the model class for table "stat_weapon2_tier".
  *
- * @property integer $id
- * @property integer $version_group_id
+ * @property int $id
+ * @property int $version_group_id
  * @property string $month
- * @property integer $rule_id
- * @property integer $weapon_id
- * @property integer $players_count
- * @property integer $win_count
+ * @property int $rule_id
+ * @property int $weapon_id
+ * @property int $players_count
+ * @property int $win_count
  * @property double $win_percent
  * @property double $avg_kill
  * @property double $med_kill

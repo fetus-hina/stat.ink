@@ -14,7 +14,7 @@ use yii\db\ActiveRecord;
 /**
  * This is the model class for table "splatfest2_theme".
  *
- * @property integer $id
+ * @property int $id
  * @property string $name
  *
  * @property Battle2[] $battle2s

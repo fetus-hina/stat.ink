@@ -15,8 +15,8 @@ use const SORT_ASC;
 /**
  * This is the model class for table "timezone_group".
  *
- * @property integer $id
- * @property integer $order
+ * @property int $id
+ * @property int $order
  * @property string $name
  *
  * @property Timezone[] $timezones

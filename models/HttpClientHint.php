@@ -24,7 +24,7 @@ use const SORT_STRING;
 /**
  * This is the model class for table "http_client_hint".
  *
- * @property integer $id
+ * @property int $id
  * @property string $hash
  * @property array $value
  *

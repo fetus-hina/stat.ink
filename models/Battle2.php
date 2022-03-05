@@ -42,100 +42,100 @@ use const SORT_STRING;
 /**
  * This is the model class for table "battle2".
  *
- * @property integer $id
- * @property integer $user_id
- * @property integer $lobby_id
- * @property integer $mode_id
- * @property integer $rule_id
- * @property integer $map_id
- * @property integer $weapon_id
- * @property boolean $is_win
- * @property boolean $is_knockout
- * @property integer $level
- * @property integer $level_after
- * @property integer $rank_id
- * @property integer $rank_exp
- * @property integer $rank_after_id
- * @property integer $rank_after_exp
- * @property integer $rank_in_team
- * @property integer $kill
- * @property integer $death
+ * @property int $id
+ * @property int $user_id
+ * @property int $lobby_id
+ * @property int $mode_id
+ * @property int $rule_id
+ * @property int $map_id
+ * @property int $weapon_id
+ * @property bool $is_win
+ * @property bool $is_knockout
+ * @property int $level
+ * @property int $level_after
+ * @property int $rank_id
+ * @property int $rank_exp
+ * @property int $rank_after_id
+ * @property int $rank_after_exp
+ * @property int $rank_in_team
+ * @property int $kill
+ * @property int $death
  * @property string $kill_ratio
  * @property string $kill_rate
- * @property integer $max_kill_combo
- * @property integer $max_kill_streak
- * @property integer $my_point
- * @property integer $my_team_point
- * @property integer $his_team_point
+ * @property int $max_kill_combo
+ * @property int $max_kill_streak
+ * @property int $my_point
+ * @property int $my_team_point
+ * @property int $his_team_point
  * @property string $my_team_percent
  * @property string $his_team_percent
- * @property integer $my_team_count
- * @property integer $his_team_count
- * @property integer $my_team_color_hue
- * @property integer $his_team_color_hue
+ * @property int $my_team_count
+ * @property int $his_team_count
+ * @property int $my_team_color_hue
+ * @property int $his_team_color_hue
  * @property string $my_team_color_rgb
  * @property string $his_team_color_rgb
- * @property integer $cash
- * @property integer $cash_after
+ * @property int $cash
+ * @property int $cash_after
  * @property string $note
  * @property string $private_note
  * @property string $link_url
- * @property integer $period
- * @property integer $version_id
- * @property integer $bonus_id
- * @property integer $env_id
+ * @property int $period
+ * @property int $version_id
+ * @property int $bonus_id
+ * @property int $env_id
  * @property string $client_uuid
  * @property array $ua_variables
  * @property string $ua_custom
- * @property integer $agent_game_version_id
+ * @property int $agent_game_version_id
  * @property string $agent_game_version_date
- * @property integer $agent_id
- * @property boolean $is_automated
- * @property boolean $use_for_entire
+ * @property int $agent_id
+ * @property bool $is_automated
+ * @property bool $use_for_entire
  * @property string $remote_addr
- * @property integer $remote_port
+ * @property int $remote_port
  * @property string $start_at
  * @property string $end_at
  * @property string $created_at
  * @property string $updated_at
- * @property integer $kill_or_assist
- * @property integer $special
- * @property integer $gender_id
- * @property integer $fest_title_id
- * @property integer $fest_exp
- * @property integer $fest_title_after_id
- * @property integer $fest_exp_after
- * @property integer $splatnet_number
+ * @property int $kill_or_assist
+ * @property int $special
+ * @property int $gender_id
+ * @property int $fest_title_id
+ * @property int $fest_exp
+ * @property int $fest_title_after_id
+ * @property int $fest_exp_after
+ * @property int $splatnet_number
  * @property string $my_team_id
  * @property string $his_team_id
- * @property integer $estimate_gachi_power
+ * @property int $estimate_gachi_power
  * @property string $league_point
- * @property integer $my_team_estimate_league_point
- * @property integer $his_team_estimate_league_point
+ * @property int $my_team_estimate_league_point
+ * @property int $his_team_estimate_league_point
  * @property string $fest_power
- * @property integer $my_team_estimate_fest_power
- * @property integer $his_team_estimate_fest_power
- * @property integer $headgear_id
- * @property integer $clothing_id
- * @property integer $shoes_id
- * @property integer $star_rank
- * @property integer $my_team_fest_theme_id
- * @property integer $his_team_fest_theme_id
+ * @property int $my_team_estimate_fest_power
+ * @property int $his_team_estimate_fest_power
+ * @property int $headgear_id
+ * @property int $clothing_id
+ * @property int $shoes_id
+ * @property int $star_rank
+ * @property int $my_team_fest_theme_id
+ * @property int $his_team_fest_theme_id
  * @property string $x_power
  * @property string $x_power_after
- * @property integer $estimate_x_power
- * @property integer $species_id
- * @property integer $special_battle_id
- * @property integer $my_team_nickname_id
- * @property integer $his_team_nickname_id
- * @property integer $clout
- * @property integer $total_clout
- * @property integer $total_clout_after
+ * @property int $estimate_x_power
+ * @property int $species_id
+ * @property int $special_battle_id
+ * @property int $my_team_nickname_id
+ * @property int $his_team_nickname_id
+ * @property int $clout
+ * @property int $total_clout
+ * @property int $total_clout_after
  * @property string $synergy_bonus
- * @property integer $my_team_win_streak
- * @property integer $his_team_win_streak
+ * @property int $my_team_win_streak
+ * @property int $his_team_win_streak
  * @property string $freshness
- * @property boolean $has_disconnect
+ * @property bool $has_disconnect
  *
  * @property Agent $agent
  * @property SplatoonVersion2 $agentGameVersion
@@ -1028,113 +1028,71 @@ class Battle2 extends ActiveRecord
             ->andWhere(['{{battle_player2}}.[[is_my_team]]' => false]);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getEnv(): ActiveQuery
     {
         return $this->hasOne(Environment::class, ['id' => 'env_id']);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getEvents(): ActiveQuery
     {
         return $this->hasOne(BattleEvents2::class, ['id' => 'id']);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getLobby(): ActiveQuery
     {
         return $this->hasOne(Lobby2::class, ['id' => 'lobby_id']);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getMap(): ActiveQuery
     {
         return $this->hasOne(Map2::class, ['id' => 'map_id']);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getMode(): ActiveQuery
     {
         return $this->hasOne(Mode2::class, ['id' => 'mode_id']);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getRank(): ActiveQuery
     {
         return $this->hasOne(Rank2::class, ['id' => 'rank_id']);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getRankAfter(): ActiveQuery
     {
         return $this->hasOne(Rank2::class, ['id' => 'rank_after_id']);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getRule(): ActiveQuery
     {
         return $this->hasOne(Rule2::class, ['id' => 'rule_id']);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getVersion(): ActiveQuery
     {
         return $this->hasOne(SplatoonVersion2::class, ['id' => 'version_id']);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getAgentGameVersion(): ActiveQuery
     {
         return $this->hasOne(SplatoonVersion2::class, ['id' => 'agent_game_version_id']);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getBonus(): ActiveQuery
     {
         return $this->hasOne(TurfwarWinBonus2::class, ['id' => 'bonus_id']);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getSplatnetJson(): ActiveQuery
     {
         return $this->hasOne(Battle2Splatnet::class, ['id' => 'id']);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getUser(): ActiveQuery
     {
         return $this->hasOne(User::class, ['id' => 'user_id']);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getWeapon(): ActiveQuery
     {
         return $this->hasOne(Weapon2::class, ['id' => 'weapon_id']);

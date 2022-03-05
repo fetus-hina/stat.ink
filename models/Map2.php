@@ -19,13 +19,13 @@ use yii\helpers\ArrayHelper;
 /**
  * This is the model class for table "map2".
  *
- * @property integer $id
+ * @property int $id
  * @property string $key
  * @property string $name
  * @property string $short_name
- * @property integer $area
+ * @property int $area
  * @property string $release_at
- * @property integer $splatnet
+ * @property int $splatnet
  */
 class Map2 extends ActiveRecord
 {

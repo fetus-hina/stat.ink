@@ -16,10 +16,10 @@ use yii\db\ActiveRecord;
 /**
  * This is the model class for table "shifty_map2".
  *
- * @property integer $id
+ * @property int $id
  * @property string $period_range
  * @property string $range_hint
- * @property integer $map_id
+ * @property int $map_id
  *
  * @property Map2 $map
  */

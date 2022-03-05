@@ -18,8 +18,8 @@ use const SORT_ASC;
 /**
  * This is the model class for table "rule".
  *
- * @property integer $id
- * @property integer $mode_id
+ * @property int $id
+ * @property int $mode_id
  * @property string $key
  * @property string $name
  *

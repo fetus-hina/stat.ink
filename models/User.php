@@ -26,7 +26,7 @@ use const SORT_DESC;
 /**
  * This is the model class for table "user".
  *
- * @property integer $id
+ * @property int $id
  * @property string $name
  * @property string $screen_name
  * @property string $password
@@ -35,14 +35,14 @@ use const SORT_DESC;
  * @property string $nnid
  * @property string $sw_friend_code
  * @property string $twitter
- * @property integer $ikanakama
- * @property integer $ikanakama2
- * @property integer $env_id
+ * @property int $ikanakama
+ * @property int $ikanakama2
+ * @property int $env_id
  * @property string $blackout
  * @property string $blackout_list
- * @property integer $default_language_id
- * @property integer $region_id
- * @property integer $link_mode_id
+ * @property int $default_language_id
+ * @property int $region_id
+ * @property int $link_mode_id
  * @property string $email
  *
  * @property Battle[] $battles
@@ -300,9 +300,6 @@ class User extends ActiveRecord implements IdentityInterface
         return $this->hasOne(UserStat::class, ['user_id' => 'id']);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getUserStat2(): ActiveQuery
     {
         return $this->hasOne(UserStat2::class, ['user_id' => 'id']);

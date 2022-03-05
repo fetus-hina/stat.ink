@@ -13,7 +13,7 @@ use yii\db\ActiveRecord;
 /**
  * This is the model class for table "environment".
  *
- * @property integer $id
+ * @property int $id
  * @property string $sha256sum
  * @property string $text
  *

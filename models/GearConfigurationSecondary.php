@@ -13,9 +13,9 @@ use yii\db\ActiveRecord;
 /**
  * This is the model class for table "gear_configuration_secondary".
  *
- * @property integer $id
- * @property integer $config_id
- * @property integer $ability_id
+ * @property int $id
+ * @property int $config_id
+ * @property int $ability_id
  *
  * @property Ability $ability
  * @property GearConfiguration $config

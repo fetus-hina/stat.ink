@@ -18,7 +18,7 @@ use yii\db\ActiveRecord;
 /**
  * This is the model class for table "splatfest2".
  *
- * @property integer $id
+ * @property int $id
  * @property string $name_a
  * @property string $name_b
  * @property string $term

@@ -17,15 +17,15 @@ use yii\helpers\ArrayHelper;
 /**
  * This is the model class for table "stat_weapon2_kd_win_rate".
  *
- * @property integer $rule_id
- * @property integer $weapon_type_id
- * @property integer $map_id
- * @property integer $version_group_id
- * @property integer $rank_group_id
- * @property integer $kill
- * @property integer $death
- * @property integer $battles
- * @property integer $wins
+ * @property int $rule_id
+ * @property int $weapon_type_id
+ * @property int $map_id
+ * @property int $version_group_id
+ * @property int $rank_group_id
+ * @property int $kill
+ * @property int $death
+ * @property int $battles
+ * @property int $wins
  *
  * @property Map2 $map
  * @property RankGroup2 $rankGroup

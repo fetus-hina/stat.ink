@@ -13,10 +13,10 @@ use yii\db\ActiveRecord;
 /**
  * This is the model class for table "gear_configuration".
  *
- * @property integer $id
+ * @property int $id
  * @property string $finger_print
- * @property integer $gear_id
- * @property integer $primary_ability_id
+ * @property int $gear_id
+ * @property int $primary_ability_id
  *
  * @property Ability $primaryAbility
  * @property Gear $gear

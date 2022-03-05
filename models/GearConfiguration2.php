@@ -14,10 +14,10 @@ use yii\helpers\Json;
 /**
  * This is the model class for table "gear_configuration2".
  *
- * @property integer $id
+ * @property int $id
  * @property string $finger_print
- * @property integer $gear_id
- * @property integer $primary_ability_id
+ * @property int $gear_id
+ * @property int $primary_ability_id
  *
  * @property Ability2 $primaryAbility
  * @property Gear2 $gear

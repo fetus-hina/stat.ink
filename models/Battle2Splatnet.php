@@ -21,7 +21,7 @@ use yii\helpers\VarDumper;
 /**
  * This is the model class for table "battle2_splatnet".
  *
- * @property integer $id
+ * @property int $id
  * @property string $json
  *
  * @property Battle2 $battle

@@ -20,7 +20,7 @@ use const SORT_ASC;
 /**
  * This is the model class for table "salmon_fail_reason2".
  *
- * @property integer $id
+ * @property int $id
  * @property string $key
  * @property string $name
  *
