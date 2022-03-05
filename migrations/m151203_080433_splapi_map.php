@@ -16,7 +16,7 @@ class m151203_080433_splapi_map extends Migration
         $map = []; // [ 'arowana' => 42, ... ]
         foreach (Map::find()->all() as $_) {
             $map[$_->key] = $_->id;
-        };
+        }
 
         // 今後表記揺れが発生する可能性があるので map_id を PKEY にはしない
         $this->createTable('splapi_map', [
