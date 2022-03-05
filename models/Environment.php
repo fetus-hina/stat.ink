@@ -39,7 +39,7 @@ class Environment extends \yii\db\ActiveRecord
             [['sha256sum', 'text'], 'required'],
             [['text'], 'string'],
             [['sha256sum'], 'string', 'max' => 43],
-            [['sha256sum'], 'unique']
+            [['sha256sum'], 'unique'],
         ];
     }
 

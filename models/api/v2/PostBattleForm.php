@@ -220,7 +220,7 @@ class PostBattleForm extends Model
                     } catch (Throwable $e) {
                     }
                     return null;
-                }
+                },
             ],
         ];
     }
@@ -362,17 +362,17 @@ class PostBattleForm extends Model
                 'maxSize' => 3 * 1024 * 1024,
                 'when' => function ($model, $attr) {
                     return !is_string($model->$attr);
-                }
+                },
             ],
             [['image_judge', 'image_result', 'image_gear'], 'validateImageFile',
                 'when' => function ($model, $attr) {
                     return !is_string($model->$attr);
-                }
+                },
             ],
             [['image_judge', 'image_result', 'image_gear'], 'validateImageString',
                 'when' => function ($model, $attr) {
                     return is_string($model->$attr);
-                }
+                },
             ],
             [['map'], 'safe'],
             [['splatnet_number'], 'integer', 'min' => 1],

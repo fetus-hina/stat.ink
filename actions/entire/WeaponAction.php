@@ -184,7 +184,7 @@ class WeaponAction extends BaseAction
                     ['and',
                         ['=', 'isoyear', 2015],
                         ['>=', 'isoweek', 46],
-                    ]
+                    ],
                 ],
             ])
             ->groupBy('isoyear, isoweek')

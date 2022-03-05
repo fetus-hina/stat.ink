@@ -44,7 +44,7 @@ final class GameMode extends \yii\db\ActiveRecord
             [['key'], 'string', 'max' => 16],
             [['name'], 'string', 'max' => 32],
             [['key'], 'unique'],
-            [['name'], 'unique']
+            [['name'], 'unique'],
         ];
     }
 

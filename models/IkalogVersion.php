@@ -48,7 +48,7 @@ class IkalogVersion extends \yii\db\ActiveRecord
             [['summary'], 'string'],
             [['at'], 'safe'],
             [['revision'], 'string', 'max' => 40],
-            [['revision'], 'unique']
+            [['revision'], 'unique'],
         ];
     }
 

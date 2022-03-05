@@ -38,7 +38,7 @@ class Team extends \yii\db\ActiveRecord
         return [
             [['id', 'name', 'leader'], 'required'],
             [['id'], 'integer'],
-            [['name', 'leader'], 'string', 'max' => 8]
+            [['name', 'leader'], 'string', 'max' => 8],
         ];
     }
 

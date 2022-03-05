@@ -27,13 +27,13 @@ abstract class BaseGearForm extends Model
         return [
             [['gear'], 'exist',
                 'targetClass' => Gear::class,
-                'targetAttribute' => 'key'
+                'targetAttribute' => 'key',
             ],
             [['gear'], 'validateGearType'],
             [['gear'], 'fixPrimaryAbility'],
             [['primary_ability'], 'exist',
                 'targetClass' => Ability::class,
-                'targetAttribute' => 'key'
+                'targetAttribute' => 'key',
             ],
             [['secondary_abilities'], 'validateSecondaryAbilities'],
         ];

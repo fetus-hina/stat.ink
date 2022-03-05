@@ -15,7 +15,7 @@ class m160131_135635_anchovy_area extends Migration
         $this->update('map', [
             'area' => 2293,
         ], [
-            'key' => 'anchovy'
+            'key' => 'anchovy',
         ]);
     }
 
@@ -24,7 +24,7 @@ class m160131_135635_anchovy_area extends Migration
         $this->update('map', [
             'area' => null,
         ], [
-            'key' => 'anchovy'
+            'key' => 'anchovy',
         ]);
     }
 }

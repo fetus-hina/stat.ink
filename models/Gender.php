@@ -43,7 +43,7 @@ class Gender extends \yii\db\ActiveRecord
             [['id', 'name'], 'required'],
             [['id'], 'integer'],
             [['name'], 'string', 'max' => 16],
-            [['name'], 'unique']
+            [['name'], 'unique'],
         ];
     }
 

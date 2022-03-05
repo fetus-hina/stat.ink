@@ -41,7 +41,7 @@ class Splatnet2UserMap extends ActiveRecord
             [['splatnet_id'], 'string', 'max' => 16],
             [['user_id'], 'exist', 'skipOnError' => true,
                 'targetClass' => User::class,
-                'targetAttribute' => ['user_id' => 'id']
+                'targetAttribute' => ['user_id' => 'id'],
             ],
         ];
     }

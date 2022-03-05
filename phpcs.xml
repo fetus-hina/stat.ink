@@ -57,6 +57,8 @@
     </properties>
   </rule>
   <rule ref="Generic.PHP.DiscourageGoto"/>
+  <rule ref="Generic.VersionControl.GitMergeConflict"/>
+  <rule ref="SlevomatCodingStandard.Arrays.TrailingArrayComma"/>
 
   <rule ref="PSR12">
     <file>*/components/ability/effect/*</file>

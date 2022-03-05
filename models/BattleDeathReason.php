@@ -43,7 +43,7 @@ class BattleDeathReason extends \yii\db\ActiveRecord
     {
         return [
             [['battle_id', 'reason_id', 'count'], 'required'],
-            [['battle_id', 'reason_id', 'count'], 'integer']
+            [['battle_id', 'reason_id', 'count'], 'integer'],
         ];
     }
 

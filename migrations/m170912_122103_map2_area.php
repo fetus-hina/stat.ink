@@ -37,7 +37,7 @@ class m170912_122103_map2_area extends Migration
                 'hokke',
                 'tachiuo',
                 'manta',
-            ]
+            ],
         ]);
     }
 }

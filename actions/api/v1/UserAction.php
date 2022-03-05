@@ -29,8 +29,8 @@ class UserAction extends BaseAction
             } else {
                 return [
                     'error' => [
-                        'screen_name' => ['not found']
-                    ]
+                        'screen_name' => ['not found'],
+                    ],
                 ];
             }
         }

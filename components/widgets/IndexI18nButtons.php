@@ -56,7 +56,7 @@ class IndexI18nButtons extends Widget
             (string)FA::fas('language')->fw(),
             $lang
                 ? [
-                    (string)FlagIcon::fg(strtolower($lang->getCountryCode()))
+                    (string)FlagIcon::fg(strtolower($lang->getCountryCode())),
                 ]
                 : [],
             $lang

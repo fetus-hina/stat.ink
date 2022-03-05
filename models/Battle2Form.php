@@ -53,27 +53,27 @@ class Battle2Form extends Model
             [['note', 'private_note'], 'string'],
             [['lobby_id'], 'exist',
                 'targetClass' => Lobby2::class,
-                'targetAttribute' => 'id'
+                'targetAttribute' => 'id',
             ],
             [['mode_id'], 'exist',
                 'targetClass' => Mode2::class,
-                'targetAttribute' => 'id'
+                'targetAttribute' => 'id',
             ],
             [['rule_id'], 'exist',
                 'targetClass' => Rule2::class,
-                'targetAttribute' => 'id'
+                'targetAttribute' => 'id',
             ],
             [['map_id'], 'exist',
                 'targetClass' => Map2::class,
-                'targetAttribute' => 'id'
+                'targetAttribute' => 'id',
             ],
             [['weapon_id'], 'exist',
                 'targetClass' => Weapon2::class,
-                'targetAttribute' => 'id'
+                'targetAttribute' => 'id',
             ],
             [['rank_id', 'rank_after_id'], 'exist',
                 'targetClass' => Rank2::class,
-                'targetAttribute' => 'id'
+                'targetAttribute' => 'id',
             ],
             [['link_url', 'note', 'private_note'], 'filter',
                 'filter' => function ($value) {

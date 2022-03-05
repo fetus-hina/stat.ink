@@ -28,19 +28,19 @@ class WeaponGetForm extends Model
         return [
             [['weapon'], 'exist',
                 'targetClass' => Weapon::class,
-                'targetAttribute' => 'key'
+                'targetAttribute' => 'key',
             ],
             [['type'], 'exist',
                 'targetClass' => WeaponType::class,
-                'targetAttribute' => 'key'
+                'targetAttribute' => 'key',
             ],
             [['sub'], 'exist',
                 'targetClass' => Subweapon::class,
-                'targetAttribute' => 'key'
+                'targetAttribute' => 'key',
             ],
             [['special'], 'exist',
                 'targetClass' => Special::class,
-                'targetAttribute' => 'key'
+                'targetAttribute' => 'key',
             ],
         ];
     }

@@ -57,11 +57,11 @@ class Slack extends \yii\db\ActiveRecord
             [['channel'], 'string', 'max' => 22],
             [['language_id'], 'exist', 'skipOnError' => true,
                 'targetClass' => Language::class,
-                'targetAttribute' => ['language_id' => 'id']
+                'targetAttribute' => ['language_id' => 'id'],
             ],
             [['user_id'], 'exist', 'skipOnError' => true,
                 'targetClass' => User::class,
-                'targetAttribute' => ['user_id' => 'id']
+                'targetAttribute' => ['user_id' => 'id'],
             ],
         ];
     }
@@ -237,7 +237,7 @@ class Slack extends \yii\db\ActiveRecord
         $url = Url::to(
             ['show-v2/battle',
                 'screen_name' => $battle->user->screen_name,
-                'battle' => $battle->id
+                'battle' => $battle->id,
             ],
             true
         );
@@ -326,7 +326,7 @@ class Slack extends \yii\db\ActiveRecord
                     $_SERVER['REQUEST_TIME'] ?? time(),
                     'long'
                 )
-            )
+            ),
         ], true);
     }
 

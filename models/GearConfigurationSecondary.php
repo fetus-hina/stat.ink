@@ -37,7 +37,7 @@ class GearConfigurationSecondary extends \yii\db\ActiveRecord
     {
         return [
             [['config_id'], 'required'],
-            [['config_id', 'ability_id'], 'integer']
+            [['config_id', 'ability_id'], 'integer'],
         ];
     }
 

@@ -22,7 +22,7 @@ class DeathReasonGetForm extends Model
         return [
             [['type'], 'exist',
                 'targetClass' => DeathReasonType::class,
-                'targetAttribute' => 'key'
+                'targetAttribute' => 'key',
             ],
         ];
     }

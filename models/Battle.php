@@ -227,14 +227,14 @@ class Battle extends ActiveRecord
             [['agent_game_version_id'], 'integer'],
             [['agent_game_version_id'], 'exist', 'skipOnError' => true,
                 'targetClass' => SplatoonVersion::class,
-                'targetAttribute' => ['agent_game_version_id' => 'id']
+                'targetAttribute' => ['agent_game_version_id' => 'id'],
             ],
             [['max_kill_combo', 'max_kill_streak'], 'integer', 'min' => 0],
             [['use_for_entire'], 'boolean'],
             [['bonus_id'], 'integer'],
             [['bonus_id'], 'exist', 'skipOnError' => true,
                 'targetClass' => TurfwarWinBonus::class,
-                'targetAttribute' => ['bonus_id' => 'id']
+                'targetAttribute' => ['bonus_id' => 'id'],
             ],
         ];
     }
@@ -1054,7 +1054,7 @@ class Battle extends ActiveRecord
         $gears = [
             $this->headgear,
             $this->clothing,
-            $this->shoes
+            $this->shoes,
         ];
 
         $init = function ($ability) {

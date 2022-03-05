@@ -36,7 +36,7 @@ class m151217_063309_map_add extends Migration
                     return $a->id;
                 },
                 Map::findAll(['key' => ['shottsuru', 'anchovy']])
-            )
+            ),
         ]);
         $this->delete('map', ['key' => ['shottsuru', 'anchovy']]);
     }

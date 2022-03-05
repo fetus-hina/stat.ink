@@ -19,7 +19,7 @@ class MaxmindMessage extends Widget
 {
     public $options = [
         'tag' => 'div',
-        'class' => 'very-small'
+        'class' => 'very-small',
     ];
 
     public function run()

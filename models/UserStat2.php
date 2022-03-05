@@ -142,7 +142,7 @@ class UserStat2 extends ActiveRecord
                     'gachi_kill_death_time', 'gachi_kill_with_time', 'gachi_death_with_time',
                     'gachi_total_seconds', 'area_rank_peak', 'yagura_rank_peak', 'hoko_rank_peak',
                     'asari_rank_peak', 'area_current_rank', 'yagura_current_rank',
-                    'hoko_current_rank', 'asari_current_rank'
+                    'hoko_current_rank', 'asari_current_rank',
                 ],
                 'default',
                 'value' => null,
@@ -158,7 +158,7 @@ class UserStat2 extends ActiveRecord
                     'gachi_kill_death_time', 'gachi_kill_with_time', 'gachi_death_with_time',
                     'gachi_total_seconds', 'area_rank_peak', 'yagura_rank_peak', 'hoko_rank_peak',
                     'asari_rank_peak', 'area_current_rank', 'yagura_current_rank',
-                    'hoko_current_rank', 'asari_current_rank'
+                    'hoko_current_rank', 'asari_current_rank',
                 ],
                 'integer',
             ],
@@ -169,7 +169,7 @@ class UserStat2 extends ActiveRecord
                     'asari_current_x_power', 'area_x_power_peak', 'yagura_x_power_peak',
                     'hoko_x_power_peak', 'asari_x_power_peak',
                 ],
-                'number'
+                'number',
             ],
             [['user_id'], 'unique'],
             [['user_id'], 'exist',

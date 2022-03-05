@@ -55,7 +55,7 @@ class DeathReason extends \yii\db\ActiveRecord
             [['key'], 'string', 'max' => 32],
             [['name'], 'string', 'max' => 64],
             [['key'], 'unique'],
-            [['name'], 'unique']
+            [['name'], 'unique'],
         ];
     }
 

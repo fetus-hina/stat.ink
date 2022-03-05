@@ -52,34 +52,34 @@ class BattleFilterForm extends Model
         return [
             [['screen_name'], 'exist',
                 'targetClass' => User::class,
-                'targetAttribute' => 'screen_name'
+                'targetAttribute' => 'screen_name',
             ],
             [['lobby'], 'exist',
                 'targetClass' => Lobby::class,
-                'targetAttribute' => 'key'
+                'targetAttribute' => 'key',
             ],
             [['rule'], 'exist',
                 'targetClass' => Rule::class,
                 'targetAttribute' => 'key',
                 'when' => function () {
                     return substr($this->rule, 0, 1) !== '@';
-                }
+                },
             ],
             [['rule'], 'validateGameMode',
                 'when' => function () {
                     return substr($this->rule, 0, 1) === '@';
-                }
+                },
             ],
             [['map'], 'exist',
                 'targetClass' => Map::class,
-                'targetAttribute' => 'key'
+                'targetAttribute' => 'key',
             ],
             [['weapon'], 'exist',
                 'targetClass' => Weapon::class,
                 'targetAttribute' => 'key',
                 'when' => function () {
                     return !in_array(substr($this->weapon, 0, 1), ['@', '+', '*', '~'], true);
-                }
+                },
             ],
             [['weapon'], 'validateWeapon',
                 'params' => [
@@ -87,7 +87,7 @@ class BattleFilterForm extends Model
                 ],
                 'when' => function () {
                     return substr($this->weapon, 0, 1) === '@';
-                }
+                },
             ],
             [['weapon'], 'validateWeapon',
                 'params' => [
@@ -95,7 +95,7 @@ class BattleFilterForm extends Model
                 ],
                 'when' => function () {
                     return substr($this->weapon, 0, 1) === '+';
-                }
+                },
             ],
             [['weapon'], 'validateWeapon',
                 'params' => [
@@ -103,23 +103,23 @@ class BattleFilterForm extends Model
                 ],
                 'when' => function () {
                     return substr($this->weapon, 0, 1) === '*';
-                }
+                },
             ],
             [['weapon'], 'validateRepresentativeWeapon',
                 'when' => function () {
                     return substr($this->weapon, 0, 1) === '~';
-                }
+                },
             ],
             [['rank'], 'exist',
                 'targetClass' => Rank::class, 'targetAttribute' => 'key',
                 'when' => function () {
                     return substr($this->rank, 0, 1) !== '~';
-                }
+                },
             ],
             [['rank'], 'validateRankGroup',
                 'when' => function () {
                     return substr($this->rank, 0, 1) === '~';
-                }
+                },
             ],
             [['result'], 'boolean', 'trueValue' => 'win', 'falseValue' => 'lose'],
             [['term'], 'in',

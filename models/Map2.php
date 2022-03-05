@@ -197,7 +197,7 @@ class Map2 extends ActiveRecord
                         'key' => [
                             'battera',
                             'kombu',
-                        ]
+                        ],
                     ])
                     ->all()
             )

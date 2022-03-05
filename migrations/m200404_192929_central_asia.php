@@ -141,7 +141,7 @@ class m200404_192929_central_asia extends Migration
             'tj' => [
                 'name' => 'Tajikistan',
                 'tz' => [
-                    'Asia/Dushanbe' => 'Tajikistan'
+                    'Asia/Dushanbe' => 'Tajikistan',
                 ],
             ],
             'tm' => [

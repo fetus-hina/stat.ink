@@ -39,7 +39,7 @@ class AgentGroupMap extends \yii\db\ActiveRecord
             [['agent_name'], 'string', 'max' => 64],
             [['group_id'], 'exist', 'skipOnError' => true,
                 'targetClass' => AgentGroup::class,
-                'targetAttribute' => ['group_id' => 'id']
+                'targetAttribute' => ['group_id' => 'id'],
             ],
         ];
     }

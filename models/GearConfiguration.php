@@ -72,7 +72,7 @@ class GearConfiguration extends \yii\db\ActiveRecord
             [['finger_print'], 'required'],
             [['gear_id', 'primary_ability_id'], 'integer'],
             [['finger_print'], 'string', 'max' => 43],
-            [['finger_print'], 'unique']
+            [['finger_print'], 'unique'],
         ];
     }
 

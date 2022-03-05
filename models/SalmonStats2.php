@@ -63,7 +63,7 @@ class SalmonStats2 extends ActiveRecord
                 }
 
                 return $value;
-            }
+            },
             ],
             [['user_id'], 'integer'],
             [['work_count', 'total_golden_eggs', 'total_eggs'], 'integer', 'min' => 0],

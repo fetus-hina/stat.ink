@@ -183,24 +183,24 @@ class CreateAction extends BaseAction
                 $this->logError([
                     'system' => [
                         Yii::t('app', 'Could not convert "{0}" image.', 'judge'),
-                    ]
+                    ],
                 ]);
                 return $this->formatError([
                     'system' => [
                         Yii::t('app', 'Could not convert "{0}" image.', 'judge'),
-                    ]
+                    ],
                 ], 500);
             }
             if (!$image->save()) {
                 $this->logError([
                     'system' => [
                         Yii::t('app', 'Could not save {0}', 'battle_image(judge)'),
-                    ]
+                    ],
                 ]);
                 return $this->formatError([
                     'system' => [
                         Yii::t('app', 'Could not save {0}', 'battle_image(judge)'),
-                    ]
+                    ],
                 ], 500);
             }
         }
@@ -233,24 +233,24 @@ class CreateAction extends BaseAction
                 $this->logError([
                     'system' => [
                         Yii::t('app', 'Could not convert "{0}" image.', 'result'),
-                    ]
+                    ],
                 ]);
                 return $this->formatError([
                     'system' => [
                         Yii::t('app', 'Could not convert "{0}" image.', 'result'),
-                    ]
+                    ],
                 ], 500);
             }
             if (!$image->save()) {
                 $this->logError([
                     'system' => [
                         Yii::t('app', 'Could not save {0}', 'battle_image(result)'),
-                    ]
+                    ],
                 ]);
                 return $this->formatError([
                     'system' => [
                         Yii::t('app', 'Could not save {0}', 'battle_image(result)'),
-                    ]
+                    ],
                 ], 500);
             }
         }
@@ -269,24 +269,24 @@ class CreateAction extends BaseAction
                 $this->logError([
                     'system' => [
                         Yii::t('app', 'Could not convert "{0}" image.', 'gear'),
-                    ]
+                    ],
                 ]);
                 return $this->formatError([
                     'system' => [
                         Yii::t('app', 'Could not convert "{0}" image.', 'gear'),
-                    ]
+                    ],
                 ], 500);
             }
             if (!$image->save()) {
                 $this->logError([
                     'system' => [
                         Yii::t('app', 'Could not save {0}', 'battle_image(gear)'),
-                    ]
+                    ],
                 ]);
                 return $this->formatError([
                     'system' => [
                         Yii::t('app', 'Could not save {0}', 'battle_image(gear)'),
-                    ]
+                    ],
                 ], 500);
             }
         }
@@ -361,7 +361,7 @@ class CreateAction extends BaseAction
         $header->set('Location', Url::to([
             '/show-v2/battle',
             'screen_name' => $battle->user->screen_name,
-            'battle' => $battle->id
+            'battle' => $battle->id,
         ], true));
         $header->set('X-Api-Location', Url::to(['/api-v2-battle/view', 'id' => $battle->id], true));
         $header->set('X-User-Screen-Name', $battle->user->screen_name);

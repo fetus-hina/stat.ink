@@ -37,7 +37,7 @@ class ImageS3Job extends BaseObject implements JobInterface
         $path = implode('/', [
             Yii::getAlias('@app/web/images'),
             substr($file, 0, 2),
-            $file
+            $file,
         ]);
         for ($retry = 0; $retry < 3; ++$retry) {
             if (!@file_exists($path)) {

@@ -63,7 +63,7 @@ class UserStatByWeaponAction extends BaseAction
                 'kd_available'  => sprintf('SUM(CASE %s END)', implode(' ', [
                     'WHEN {{battle}}.[[kill]] IS NULL THEN 0',
                     'WHEN {{battle}}.[[death]] IS NULL THEN 0',
-                    'ELSE 1'
+                    'ELSE 1',
                 ])),
             ])
             ->from('battle')

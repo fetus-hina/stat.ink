@@ -205,7 +205,7 @@ class SplapiController extends Controller
                         return $a->id;
                     },
                     $gameMode->rules
-                )
+                ),
             ])
             ->orderBy('{{period_map}}.[[period]] DESC')
             ->limit(1)

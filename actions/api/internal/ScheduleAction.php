@@ -184,7 +184,7 @@ class ScheduleAction extends ViewAction
                     ->andWhere([
                         '>',
                         '{{salmon_schedule2}}.[[end_at]]',
-                        $this->now->format(DateTime::ATOM)
+                        $this->now->format(DateTime::ATOM),
                     ])
                     ->orderBy([
                         '{{salmon_schedule2}}.[[end_at]]' => SORT_ASC,
@@ -212,7 +212,7 @@ class ScheduleAction extends ViewAction
                                     ),
                                     true
                                 ),
-                            ]
+                            ],
                         ],
                         'weapons' => $this->fillSalmonWeapon(
                             ArrayHelper::getColumn(

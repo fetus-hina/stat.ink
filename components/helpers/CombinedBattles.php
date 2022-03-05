@@ -142,7 +142,7 @@ class CombinedBattles
                                 'map',
                                 'rule',
                                 'user',
-                                'user.userIcon'
+                                'user.userIcon',
                             ])
                             ->limit($num)
                             ->orderBy(['battle.id' => SORT_DESC]),

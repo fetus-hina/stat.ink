@@ -115,7 +115,7 @@ class UserStatCauseOfDeathAction extends BaseAction
                 'id' => array_map(
                     fn ($row) => $row['reason_id'],
                     $list,
-                )
+                ),
             ])
         );
 

@@ -38,7 +38,7 @@ class Knockout extends \yii\db\ActiveRecord
     {
         return [
             [['map_id', 'rule_id', 'battles', 'knockouts'], 'required'],
-            [['map_id', 'rule_id', 'battles', 'knockouts'], 'integer']
+            [['map_id', 'rule_id', 'battles', 'knockouts'], 'integer'],
         ];
     }
 

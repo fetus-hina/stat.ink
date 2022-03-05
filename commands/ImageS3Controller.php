@@ -65,7 +65,7 @@ class ImageS3Controller extends Controller
                 $path,
                 implode('/', [
                     substr(basename($path), 0, 2),
-                    basename($path)
+                    basename($path),
                 ])
             );
             if (!$ret) {

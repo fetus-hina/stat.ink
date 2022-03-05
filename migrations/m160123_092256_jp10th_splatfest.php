@@ -27,7 +27,7 @@ class m160123_092256_jp10th_splatfest extends Migration
     {
         $festId = Splatfest::findOne([
             'region_id' => Region::findOne(['key' => 'jp'])->id,
-            'order' => 10
+            'order' => 10,
         ])->id;
 
         $this->update('splatfest_team', ['color_hue' => null], ['fest_id' => $festId]);

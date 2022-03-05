@@ -16,7 +16,7 @@ class m160101_024720_shottsuru_area extends Migration
             'area' => 3127,
             'release_at' => '2015-12-29T11:00:00+09:00',
         ], [
-            'key' => 'shottsuru'
+            'key' => 'shottsuru',
         ]);
     }
 
@@ -24,9 +24,9 @@ class m160101_024720_shottsuru_area extends Migration
     {
         $this->update('map', [
             'area' => null,
-            'release_at' => null
+            'release_at' => null,
         ], [
-            'key' => 'shottsuru'
+            'key' => 'shottsuru',
         ]);
     }
 }

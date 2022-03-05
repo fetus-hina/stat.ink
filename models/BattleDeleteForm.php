@@ -20,10 +20,10 @@ class BattleDeleteForm extends Model
         $agreeErrorMessage = Yii::t('app', 'You must agree to the above to delete this battle.');
         return [
             [['agree'], 'required',
-                'message' => $agreeErrorMessage
+                'message' => $agreeErrorMessage,
             ],
             [['agree'], 'compare', 'compareValue' => 'yes', 'operator' => '===',
-                'message' => $agreeErrorMessage
+                'message' => $agreeErrorMessage,
             ],
         ];
     }

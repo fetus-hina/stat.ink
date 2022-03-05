@@ -33,19 +33,19 @@ class BattleForm extends Model
             ],
             [['lobby_id'], 'exist',
                 'targetClass' => Lobby::class,
-                'targetAttribute' => 'id'
+                'targetAttribute' => 'id',
             ],
             [['rule_id'], 'exist',
                 'targetClass' => Rule::class,
-                'targetAttribute' => 'id'
+                'targetAttribute' => 'id',
             ],
             [['map_id'], 'exist',
                 'targetClass' => Map::class,
-                'targetAttribute' => 'id'
+                'targetAttribute' => 'id',
             ],
             [['weapon_id'], 'exist',
                 'targetClass' => Weapon::class,
-                'targetAttribute' => 'id'
+                'targetAttribute' => 'id',
             ],
             [['link_url'], 'url', 'enableIDN' => true],
             [['link_url'], IdnToPunycodeFilterValidator::class],

@@ -34,7 +34,7 @@ class PlayerName2Widget extends Widget
                 'align-items' => 'center',
                 'justify-content' => 'space-between',
                 'white-space' => 'nowrap',
-            ])
+            ]),
         ]));
 
         return Html::tag(

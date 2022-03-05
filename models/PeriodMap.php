@@ -116,7 +116,7 @@ class PeriodMap extends \yii\db\ActiveRecord
     {
         return [
             [['period', 'rule_id', 'map_id'], 'required'],
-            [['period', 'rule_id', 'map_id'], 'integer']
+            [['period', 'rule_id', 'map_id'], 'integer'],
         ];
     }
 

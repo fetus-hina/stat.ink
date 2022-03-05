@@ -38,11 +38,11 @@ abstract class BaseAction extends ViewAction
                 [['bom', 'tsv'], 'boolean'],
                 [['lang'], 'exist', 'skipOnError' => true,
                     'targetClass' => Language::class,
-                    'targetAttribute' => 'lang'
+                    'targetAttribute' => 'lang',
                 ],
                 [['charset'], 'exist', 'skipOnError' => true,
                     'targetClass' => Charset::class,
-                    'targetAttribute' => ['charset' => 'php_name']
+                    'targetAttribute' => ['charset' => 'php_name'],
                 ],
             ]
         );

@@ -85,7 +85,7 @@ class m170922_201548_russian_time extends Migration
                 'Asia/Vladivostok',
                 'Asia/Magadan',
                 'Asia/Kamchatka',
-            ]
+            ],
         ]);
         $this->delete('country', ['id' => $russia]);
     }

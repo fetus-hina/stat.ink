@@ -38,7 +38,7 @@ class SplapiMap extends \yii\db\ActiveRecord
             [['map_id', 'name'], 'required'],
             [['map_id'], 'integer'],
             [['name'], 'string', 'max' => 32],
-            [['name'], 'unique']
+            [['name'], 'unique'],
         ];
     }
 

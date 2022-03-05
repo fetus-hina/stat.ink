@@ -255,7 +255,7 @@ class Weapon2 extends ActiveRecord
                         'sshooter',
                         'sshooter_becchu',
                         'sshooter_collabo',
-                    ]
+                    ],
                 ])
                 ->orderBy(['splatnet' => SORT_ASC])
                 ->all()

@@ -193,7 +193,7 @@ class WeaponsUseAction extends BaseAction
             ->andWhere(['between',
                 'date',
                 date('Y-m-d\TH:i:sO', $first),
-                date('Y-m-d\TH:i:sO', $last)
+                date('Y-m-d\TH:i:sO', $last),
             ])
             ->orderBy('[[date]] ASC');
 
@@ -277,7 +277,7 @@ class WeaponsUseAction extends BaseAction
                 ['and',
                     ['=', '{{stat}}.[[isoyear]]', 2015],
                     ['>=', '{{stat}}.[[isoweek]]', 46],
-                ]
+                ],
             ])
             ->groupBy('{{stat}}.[[isoyear]], {{stat}}.[[isoweek]]')
             ->orderBy('{{stat}}.[[isoyear]], {{stat}}.[[isoweek]]');

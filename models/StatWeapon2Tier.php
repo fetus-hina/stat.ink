@@ -53,7 +53,7 @@ class StatWeapon2Tier extends ActiveRecord
                 $this->andWhere(
                     ['>=',
                         '{{stat_weapon2_tier}}.[[players_count]]',
-                        StatWeapon2Tier::PLAYERS_COUNT_THRESHOLD
+                        StatWeapon2Tier::PLAYERS_COUNT_THRESHOLD,
                     ]
                 );
                 return $this;

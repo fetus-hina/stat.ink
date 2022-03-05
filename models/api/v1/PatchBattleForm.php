@@ -36,7 +36,7 @@ class PatchBattleForm extends Model
             [['apikey', 'id'], 'required'],
             [['apikey'], 'exist',
                 'targetClass' => User::class,
-                'targetAttribute' => 'api_key'
+                'targetAttribute' => 'api_key',
             ],
             [['test'], 'in', 'range' => ['validate', 'dry_run']],
             [['id'], 'exist',

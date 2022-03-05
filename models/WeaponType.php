@@ -42,7 +42,7 @@ class WeaponType extends \yii\db\ActiveRecord
             [['key', 'name'], 'required'],
             [['key', 'name'], 'string', 'max' => 16],
             [['key'], 'unique'],
-            [['name'], 'unique']
+            [['name'], 'unique'],
         ];
     }
 
