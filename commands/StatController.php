@@ -880,7 +880,8 @@ class StatController extends Controller
                         ['{{battle}}.[[lobby_id]]' => Lobby::find()
                                                             ->select('id')
                                                             ->where(['like', 'key', 'squad_%', false])
-                                                            ->column()],
+                                                            ->column()
+                        ],
                         ['{{battle_player}}.[[is_my_team]]' => false],
                     ],
                 ],
@@ -1414,7 +1415,8 @@ class StatController extends Controller
                         ['{{battle}}.[[lobby_id]]' => Lobby::find()
                                                             ->select('id')
                                                             ->where(['like', 'key', 'squad_%', false])
-                                                            ->column()],
+                                                            ->column()
+                        ],
                         ['{{battle_player}}.[[is_my_team]]' => false],
                     ],
                 ],
@@ -1583,16 +1585,16 @@ class StatController extends Controller
 
     private function createHighestRankFilter(): array
     {
-        // {{{
         $result = ['or'];
         foreach ($this->getHighestRankMap() as $rankId => $versionIds) {
-            $result[] = ['and', [
-                '{{battle2}}.[[rank_id]]' => $rankId,
-                '{{battle2}}.[[version_id]]' => $versionIds,
-            ]];
+            $result[] = ['and',
+                [
+                    '{{battle2}}.[[rank_id]]' => $rankId,
+                    '{{battle2}}.[[version_id]]' => $versionIds,
+                ],
+            ];
         }
         return $result;
-        // }}}
     }
 
     private function getHighestRankMap(): array

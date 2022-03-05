@@ -27,10 +27,12 @@ class IndexI18nButtons extends Widget
         return Html::tag(
             'div',
             $this->renderButtons(),
-            ['class' => [
-                'd-inline-block',
-                'mb-2',
-            ]]
+            [
+                'class' => [
+                    'd-inline-block',
+                    'mb-2',
+                ],
+            ]
         );
     }
 

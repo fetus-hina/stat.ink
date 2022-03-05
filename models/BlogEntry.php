@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace app\models;
 
+use Throwable;
 use Yii;
 use jp3cki\uuid\Uuid;
 use yii\db\ActiveQuery;
@@ -54,18 +55,20 @@ class BlogEntry extends ActiveRecord
             [['at'], 'safe'],
             [['url', 'title'], 'string', 'max' => 256],
             [['uuid'], 'string'],
-            [['uuid'], function ($attribute, $params) {
-                if ($this->hasErrors($attribute)) {
-                    return;
-                }
-                // error check and normalize
-                try {
-                    $this->$attribute = (new Uuid($this->$attribute))->__toString();
-                } catch (\Exception $e) {
-                    $this->addErrors($attribute, 'invalid uuid given');
-                    return;
-                }
-            }],
+            [['uuid'],
+                function ($attribute, $params) {
+                    if ($this->hasErrors($attribute)) {
+                        return;
+                    }
+                    // error check and normalize
+                    try {
+                        $this->$attribute = (new Uuid($this->$attribute))->__toString();
+                    } catch (Throwable $e) {
+                        $this->addErrors($attribute, 'invalid uuid given');
+                        return;
+                    }
+                },
+            ],
             [['uuid'], 'unique'],
         ];
     }

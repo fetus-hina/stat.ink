@@ -175,7 +175,8 @@ class UsersAction extends BaseAction
             ->innerJoin('agent', '{{battle}}.[[agent_id]] = {{agent}}.[[id]]')
             ->andWhere(['between', '{{battle}}.[[at]]',
                 gmdate('Y-m-d\TH:i:sP', $t1),
-                gmdate('Y-m-d\TH:i:sP', $t2)])
+                gmdate('Y-m-d\TH:i:sP', $t2)
+            ])
             ->groupBy('{{battle}}.[[agent_id]]')
             ->orderBy(implode(', ', [
                 '[[battle]] DESC',

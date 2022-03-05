@@ -153,13 +153,15 @@ class BattleSummaryDialog extends Widget
                 array_keys($data),
                 array_values($data)
             ))),
-            ['class' => [
-                'table',
-                'table-striped',
-                'table-hover',
-                'mx-auto',
-                'my-3',
-            ]]
+            [
+                'class' => [
+                    'table',
+                    'table-striped',
+                    'table-hover',
+                    'mx-auto',
+                    'my-3',
+                ],
+            ]
         );
     }
 
@@ -172,11 +174,13 @@ class BattleSummaryDialog extends Widget
                     Yii::$app->assetManager->getBundle(AppAsset::class),
                     'summary-legends.png'
                 ),
-                ['style' => [
-                    'width' => '100%',
-                    'max-width' => '226px',
-                    'height' => 'auto',
-                ]]
+                [
+                    'style' => [
+                        'width' => '100%',
+                        'max-width' => '226px',
+                        'height' => 'auto',
+                    ],
+                ]
             ),
         ]));
     }

@@ -119,10 +119,12 @@ class SummarizedWeaponVsWeapon extends Model
             [['lhs_weapon_id', 'rhs_weapon_id', 'battle_count', 'win_count'], 'integer'],
             [['lhs_weapon_id'], 'exist', 'skipOnError' => true,
                 'targetClass' => Weapon::class,
-                'targetAttribute' => ['weapon_id_1' => 'id']],
+                'targetAttribute' => ['weapon_id_1' => 'id']
+            ],
             [['rhs_weapon_id'], 'exist', 'skipOnError' => true,
                 'targetClass' => Weapon::class,
-                'targetAttribute' => ['weapon_id_2' => 'id']],
+                'targetAttribute' => ['weapon_id_2' => 'id']
+            ],
         ];
     }
 }

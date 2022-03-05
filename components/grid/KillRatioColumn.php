@@ -46,10 +46,12 @@ class KillRatioColumn extends DataColumn
         ];
         $this->contentOptions = function ($model) use ($cellClass): array {
             if ($model->kill_ratio === null) {
-                return ['class' => [
-                    $cellClass,
-                    'text-right',
-                ]];
+                return [
+                    'class' => [
+                        $cellClass,
+                        'text-right',
+                    ],
+                ];
             }
 
             $view = Yii::$app->getView();

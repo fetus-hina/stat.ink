@@ -48,9 +48,9 @@ class Formatter extends \yii\i18n\Formatter
             'time',
             Html::encode($this->asRelativeTime($timestamp)),
             [
-              'datetime' => gmdate(Datetime::ATOM, $timestamp),
-              'title' => $this->asDatetime($timestamp, 'medium'),
-              'class' => 'auto-tooltip',
+                'datetime' => gmdate(Datetime::ATOM, $timestamp),
+                'title' => $this->asDatetime($timestamp, 'medium'),
+                'class' => 'auto-tooltip',
             ]
         );
     }

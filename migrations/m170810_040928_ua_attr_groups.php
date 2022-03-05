@@ -27,11 +27,13 @@ class m170810_040928_ua_attr_groups extends Migration
 
     public function safeDown()
     {
-        $this->delete('agent_group_map', ['name' => [
-            'IkaRec2',
-            'SquidTracks',
-            'SplatTrack',
-        ]]);
+        $this->delete('agent_group_map', [
+            'name' => [
+                'IkaRec2',
+                'SquidTracks',
+                'SplatTrack',
+            ],
+        ]);
         $this->delete('agent_group', ['name' => 'SquidTracks']);
     }
 

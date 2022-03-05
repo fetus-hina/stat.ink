@@ -72,7 +72,8 @@ class StatWeapon2KdWinRate extends ActiveRecord
                             ->asArray()
                             ->all(),
                         'id'
-                    )]);
+                    )
+                    ]);
                 } else {
                     $model = Map2::findOne(['key' => $key]);
                     if (!$model) {

@@ -103,10 +103,12 @@ class LanguageDialog extends Dialog
         return Html::tag(
             'div',
             $left . $right,
-            ['class' => [
-                'd-flex',
-                'justify-content-between',
-            ]]
+            [
+                'class' => [
+                    'd-flex',
+                    'justify-content-between',
+                ],
+            ]
         );
     }
 
@@ -119,22 +121,43 @@ class LanguageDialog extends Dialog
                 return FA::fas(null)->fw()->__toString();
 
             case SupportLevel::PARTIAL:
-                return FA::fas('exclamation-circle', ['options' => [
-                    'class' => 'auto-tooltip',
-                    'title' => 'Partially supported',
-                ]])->fw()->__toString();
+                return FA::fas(
+                    'exclamation-circle',
+                    [
+                        'options' => [
+                            'class' => 'auto-tooltip',
+                            'title' => 'Partially supported',
+                        ],
+                    ]
+                )
+                ->fw()
+                ->__toString();
 
             case SupportLevel::FEW:
-                return FA::fas('exclamation-triangle', ['options' => [
-                    'class' => 'auto-tooltip',
-                    'title' => 'Proper-noun only',
-                ]])->fw()->__toString();
+                return FA::fas(
+                    'exclamation-triangle',
+                    [
+                        'options' => [
+                            'class' => 'auto-tooltip',
+                            'title' => 'Proper-noun only',
+                        ],
+                    ]
+                )
+                ->fw()
+                ->__toString();
 
             case SupportLevel::MACHINE:
-                return FA::fas('robot', ['options' => [
-                    'class' => 'auto-tooltip',
-                    'title' => 'Machine-translated',
-                ]])->fw()->__toString();
+                return FA::fas(
+                    'robot',
+                    [
+                        'options' => [
+                            'class' => 'auto-tooltip',
+                            'title' => 'Machine-translated',
+                        ],
+                    ]
+                )
+                ->fw()
+                ->__toString();
         }
     }
 
@@ -168,9 +191,9 @@ class LanguageDialog extends Dialog
                     Html::tag(
                         'div',
                         implode('<br>', [
-                          FA::fas('exclamation-circle')->fw() . ' : Partically supported',
-                          FA::fas('exclamation-triangle')->fw() . ' : Proper-noun only',
-                          FA::fas('robot')->fw() . ' : Almost machine-translated',
+                            FA::fas('exclamation-circle')->fw() . ' : Partically supported',
+                            FA::fas('exclamation-triangle')->fw() . ' : Proper-noun only',
+                            FA::fas('robot')->fw() . ' : Almost machine-translated',
                         ]),
                         [
                             'class' => 'ml-auto',

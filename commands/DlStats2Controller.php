@@ -62,7 +62,6 @@ class DlStats2Controller extends Controller
 
     private function createBattleResultsCsv(DateTimeImmutable $date, string $outPath): bool
     {
-        // {{{
         $header = false;
         if (!$fh = tmpfile()) {
             echo "tmpfile() failed\n";
@@ -222,12 +221,10 @@ class DlStats2Controller extends Controller
         } finally {
             fclose($fh);
         }
-        // }}}
     }
 
     private function createBattleResultsCsvZip(): bool
     {
-        // {{{
         if (!$tmpFile = tempnam('/tmp', 'zip-')) {
             return false;
         }
@@ -244,8 +241,8 @@ class DlStats2Controller extends Controller
                     Yii::getAlias(static::BASE_BATTLE_RESULTS_CSV) . '/*/*/*.csv',
                     0,
                     [
-                    'add_path' => basename(Yii::getAlias(static::BASE_BATTLE_RESULTS_CSV)) . '/',
-                    'remove_all_path' => true,
+                        'add_path' => basename(Yii::getAlias(static::BASE_BATTLE_RESULTS_CSV)) . '/',
+                        'remove_all_path' => true,
                     ]
                 )
             ) {
@@ -265,7 +262,6 @@ class DlStats2Controller extends Controller
         } finally {
             unlink($tmpFile);
         }
-        // }}}
     }
 
     private static function startDay(): DateTimeImmutable

@@ -107,17 +107,21 @@ class ApiV2BattleController extends Controller
                 'targetAttribute' => ['screen_name' => 'screen_name'],
             ],
             [['only'], 'string'],
-            [['only'], 'in', 'range' => [
-                'splatnet_number',
-            ]],
+            [['only'], 'in',
+                'range' => [
+                    'splatnet_number',
+                ],
+            ],
             [['newer_than', 'older_than'], 'integer', 'min' => 1],
             [['order'], 'string'],
-            [['order'], 'in', 'range' => [
-                'asc',
-                'desc',
-                'splatnet_asc',
-                'splatnet_desc',
-            ]],
+            [['order'], 'in',
+                'range' => [
+                    'asc',
+                    'desc',
+                    'splatnet_asc',
+                    'splatnet_desc',
+                ],
+            ],
             [['count'], 'integer', 'min' => 1, 'max' => 50,
                 'when' => function ($model): bool {
                     return $model->only !== 'splatnet_number';
@@ -162,17 +166,21 @@ class ApiV2BattleController extends Controller
         ];
         $model = DynamicModel::validateData($params, [
             [['only'], 'string'],
-            [['only'], 'in', 'range' => [
-                'splatnet_number',
-            ]],
+            [['only'], 'in',
+                'range' => [
+                    'splatnet_number',
+                ],
+            ],
             [['newer_than', 'older_than'], 'integer', 'min' => 1],
             [['order'], 'string'],
-            [['order'], 'in', 'range' => [
-                'asc',
-                'desc',
-                'splatnet_asc',
-                'splatnet_desc',
-            ]],
+            [['order'], 'in',
+                'range' => [
+                    'asc',
+                    'desc',
+                    'splatnet_asc',
+                    'splatnet_desc',
+                ],
+            ],
             [['count'], 'integer', 'min' => 1, 'max' => 50,
                 'when' => function ($model): bool {
                     return $model->only !== 'splatnet_number';

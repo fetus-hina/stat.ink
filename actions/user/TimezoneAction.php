@@ -58,7 +58,8 @@ class TimezoneAction extends BaseAction
                 [['timezone'], 'required'],
                 [['timezone'], 'exist',
                     'targetClass' => Timezone::className(),
-                    'targetAttribute' => 'identifier'],
+                    'targetAttribute' => 'identifier'
+                ],
             ]
         );
         return $model;

@@ -86,10 +86,12 @@ abstract class BaseWidget extends Widget
         return Html::tag(
             'div',
             Html::encode(Yii::t('app', $result ? 'Won' : 'Lost')) . $koHtml,
-            ['class' => [
-                'simple-battle-result',
-                $result ? 'simple-battle-result-won' : 'simple-battle-result-lost',
-            ]]
+            [
+                'class' => [
+                    'simple-battle-result',
+                    $result ? 'simple-battle-result-won' : 'simple-battle-result-lost',
+                ],
+            ]
         );
     }
 
@@ -141,9 +143,9 @@ abstract class BaseWidget extends Widget
             'time',
             Html::encode(Yii::$app->formatter->asRelativeTime($datetime)),
             [
-              'datetime' => $datetime->format(DateTime::ATOM),
-              'title' => Yii::$app->formatter->asDatetime($datetime, 'medium'),
-              'class' => 'auto-tooltip',
+                'datetime' => $datetime->format(DateTime::ATOM),
+                'title' => Yii::$app->formatter->asDatetime($datetime, 'medium'),
+                'class' => 'auto-tooltip',
             ]
         );
     }

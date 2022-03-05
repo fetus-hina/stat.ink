@@ -41,9 +41,11 @@ class m200827_205403_chinese extends Migration
             'language_charset',
             ['language_id', 'charset_id', 'is_win_acp'],
             array_map(
-                function (array $_) use ($chinese): array {
-                    return [$chinese, $_[0], $_[1]];
-                },
+                fn (array $tmp) => [
+                    $chinese,
+                    $tmp[0],
+                    $tmp[1],
+                ],
                 $this->getCharsetIds(),
             )
         );
@@ -60,12 +62,14 @@ class m200827_205403_chinese extends Migration
         $this->delete('accept_language', ['language_id' => $chinese]);
         $this->delete('language_charset', ['language_id' => $chinese]);
         $this->delete('language', ['id' => $chinese]);
-        $this->delete('charset', ['id' => array_map(
-            function (array $_): int {
-                return $_[0];
-            },
-            $this->getChineseCharsetIds(),
-        )]);
+        $this->delete('charset', [
+            'id' => array_map(
+                function (array $_): int {
+                    return $_[0];
+                },
+                $this->getChineseCharsetIds(),
+            ),
+        ]);
         $this->delete('support_level', ['id' => 5]);
     }
 

@@ -34,9 +34,9 @@ class UserStatByMapAction extends BaseAction
         }
 
         return $this->controller->render('user-stat-by-map', [
-           'user' => $user,
-           'filter' => $filter,
-           'data' => $this->getData($user, $filter),
+            'user' => $user,
+            'filter' => $filter,
+            'data' => $this->getData($user, $filter),
         ]);
     }
 

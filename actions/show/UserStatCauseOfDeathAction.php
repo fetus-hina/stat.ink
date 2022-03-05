@@ -111,9 +111,12 @@ class UserStatCauseOfDeathAction extends BaseAction
             function ($o) use (&$deathReasons) {
                 $deathReasons[$o->id] = $o->getTranslatedName();
             },
-            DeathReason::findAll(['id' => array_map(function ($row) {
-                return $row['reason_id'];
-            }, $list)])
+            DeathReason::findAll([
+                'id' => array_map(
+                    fn ($row) => $row['reason_id'],
+                    $list,
+                )
+            ])
         );
 
         $ret = array_map(
@@ -160,18 +163,24 @@ class UserStatCauseOfDeathAction extends BaseAction
 
         // 必要な死因名の一覧を作る
         $deathReasons = [];
-        $tmp = DeathReason::findAll(['id' => array_map(function ($row) {
-            return $row['reason_id'];
-        }, $list)]);
+        $tmp = DeathReason::findAll([
+            'id' => array_map(
+                fn ($row) => $row['reason_id'],
+                $list,
+            ),
+        ]);
         foreach ($tmp as $o) {
             $deathReasons[$o->id] = $o->getTranslatedName();
         }
 
         // 必要なブキ名の一覧を作る
         $weapons = [];
-        $tmp = Weapon::findAll(['id' => array_map(function ($row) use ($column) {
-            return $row[$column];
-        }, $list)]);
+        $tmp = Weapon::findAll([
+            'id' => array_map(
+                fn ($row) => $row[$column],
+                $list,
+            ),
+        ]);
         foreach ($tmp as $o) {
             if ($column === 'canonical_id') {
                 $weapons[$o->id] = Yii::t('app-weapon', $o->name);

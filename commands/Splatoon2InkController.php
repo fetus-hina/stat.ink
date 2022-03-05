@@ -132,12 +132,14 @@ class Splatoon2InkController extends Controller
 
         if ($exists == count($stages)) {
             $matches = $schedule->getScheduleMaps()
-                ->andWhere(['in', 'map_id', array_map(
-                    function (stdClass $stage) use ($maps): int {
-                        return $maps[$stage->id] ?? -1;
-                    },
-                    $stages
-                )])
+                ->andWhere(['in', 'map_id',
+                    array_map(
+                        function (stdClass $stage) use ($maps): int {
+                            return $maps[$stage->id] ?? -1;
+                        },
+                        $stages
+                    ),
+                ])
                 ->count();
             if ($exists == $matches) {
                 $this->stderr("Nothing changed. " . Json::encode($schedule) . "\n");

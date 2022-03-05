@@ -50,12 +50,14 @@ class LegendPercentageWidget extends Widget
                     range(0, $this->numCells - 1)
                 ))
             ),
-            ['class' => [
-                'table',
-                'table-bordered',
-                'table-condensed',
-                'rule-table',
-            ]]
+            [
+                'class' => [
+                    'table',
+                    'table-bordered',
+                    'table-condensed',
+                    'rule-table',
+                ],
+            ]
         );
     }
 
@@ -88,10 +90,12 @@ class LegendPercentageWidget extends Widget
                             ])
                             : '⋮'
                     ),
-                    ['class' => [
-                        'text-center',
-                        'kdcell',
-                    ]]
+                    [
+                        'class' => [
+                            'text-center',
+                            'kdcell',
+                        ],
+                    ]
                 ),
             ])
         );

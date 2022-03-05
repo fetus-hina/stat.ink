@@ -73,15 +73,17 @@ class m170611_074525_e3_weapons extends Migration
 
     private function unregisterSubs(): void
     {
-        $this->delete('subweapon2', ['key' => [
-            'jumpbeacon',
-            'pointsensor',
-            'poisonmist',
-            'rocketbomb',
-            'splashshield',
-            'sprinkler',
-            'trap',
-        ]]);
+        $this->delete('subweapon2', [
+            'key' => [
+                'jumpbeacon',
+                'pointsensor',
+                'poisonmist',
+                'rocketbomb',
+                'splashshield',
+                'sprinkler',
+                'trap',
+            ],
+        ]);
     }
 
     private function registerWeapons(array $types, array $subs, array $specials): void
@@ -166,16 +168,18 @@ class m170611_074525_e3_weapons extends Migration
 
     private function unregisterWeapons(): void
     {
-        $this->delete('weapon2', ['key' => [
-            'barrelspinner',
-            'bucketslosher',
-            'dynamo',
-            'hokusai',
-            'hotblaster',
-            'prime',
-            'sharp',
-            'splatscope',
-        ]]);
+        $this->delete('weapon2', [
+            'key' => [
+                'barrelspinner',
+                'bucketslosher',
+                'dynamo',
+                'hokusai',
+                'hotblaster',
+                'prime',
+                'sharp',
+                'splatscope',
+            ],
+        ]);
     }
 
     private function registerTypes(): array

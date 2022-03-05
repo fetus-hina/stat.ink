@@ -63,7 +63,8 @@ class SlackAddForm extends Model
             ],
             [['language_id'], 'exist',
                 'targetClass' => Language::class,
-                'targetAttribute' => 'id'],
+                'targetAttribute' => 'id'
+            ],
         ];
     }
 

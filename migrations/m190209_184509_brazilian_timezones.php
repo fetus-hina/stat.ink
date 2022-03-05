@@ -48,14 +48,16 @@ class m190209_184509_brazilian_timezones extends Migration
     {
         $countryId = $this->queryId('country', ['key' => 'br']);
         $this->delete('timezone_country', ['country_id' => $countryId]);
-        $this->delete('timezone', ['identifier' => [
-            'America/Noronha',
-            'America/Sao_Paulo',
-            'America/Fortaleza',
-            'America/Cuiaba',
-            'America/Manaus',
-            'America/Eirunepe',
-        ]]);
+        $this->delete('timezone', [
+            'identifier' => [
+                'America/Noronha',
+                'America/Sao_Paulo',
+                'America/Fortaleza',
+                'America/Cuiaba',
+                'America/Manaus',
+                'America/Eirunepe',
+            ],
+        ]);
         $this->delete('country', ['id' => $countryId]);
     }
 

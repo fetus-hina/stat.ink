@@ -93,8 +93,8 @@ class Weapon2Action extends ViewAction
                     'battles'   => 'SUM(stat_weapon2_result.battles)',
                 ])
                 ->orderBy([
-                  'map' => SORT_ASC,
-                  'kill' => SORT_ASC,
+                    'map' => SORT_ASC,
+                    'kill' => SORT_ASC,
                 ])
                 ->asArray()
                 ->all(),
@@ -125,8 +125,8 @@ class Weapon2Action extends ViewAction
                     'battles'   => 'SUM(stat_weapon2_result.battles)',
                 ])
                 ->orderBy([
-                  'map' => SORT_ASC,
-                  'death' => SORT_ASC,
+                    'map' => SORT_ASC,
+                    'death' => SORT_ASC,
                 ])
                 ->asArray()
                 ->all(),
@@ -157,8 +157,8 @@ class Weapon2Action extends ViewAction
                     'battles'   => 'SUM(stat_weapon2_result.battles)',
                 ])
                 ->orderBy([
-                  'map' => SORT_ASC,
-                  'special' => SORT_ASC,
+                    'map' => SORT_ASC,
+                    'special' => SORT_ASC,
                 ])
                 ->asArray()
                 ->all(),
@@ -189,8 +189,8 @@ class Weapon2Action extends ViewAction
                     'battles'   => 'SUM(stat_weapon2_result.battles)',
                 ])
                 ->orderBy([
-                  'map' => SORT_ASC,
-                  'assist' => SORT_ASC,
+                    'map' => SORT_ASC,
+                    'assist' => SORT_ASC,
                 ])
                 ->asArray()
                 ->all(),

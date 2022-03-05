@@ -36,9 +36,11 @@ class m160604_103816_corocoro_gear extends Migration
 
     public function safeDown()
     {
-        $this->delete('gear', ['key' => [
-            'corocoro_cap',
-            'corocoro_parka',
-        ]]);
+        $this->delete('gear', [
+            'key' => [
+                'corocoro_cap',
+                'corocoro_parka',
+            ],
+        ]);
     }
 }

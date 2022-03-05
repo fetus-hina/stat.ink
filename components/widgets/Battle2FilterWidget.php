@@ -424,7 +424,7 @@ class Battle2FilterWidget extends Widget
     {
         return (string)$form->field($this->filter, 'filter')
             ->textInput([
-              'placeholder' => Yii::t('app', 'Filter Query'),
+                'placeholder' => Yii::t('app', 'Filter Query'),
             ])
             ->label(false);
     }
@@ -522,16 +522,16 @@ class Battle2FilterWidget extends Widget
         $this->view->registerCss("#{$divId}{margin-left:5%}");
         $this->view->registerJs(implode('', [
             "(function(\$){",
-                "\$('#{$divId} input').datetimepicker({",
-                    "format: 'YYYY-MM-DD HH:mm:ss'",
-                "});",
-                "\$('#filter-term').change(function(){",
-                    "if($(this).val()==='term'){",
-                        "\$('#{$divId}').show();",
-                    "}else{",
-                        "\$('#{$divId}').hide();",
-                    "}",
-                "}).change();",
+            "\$('#{$divId} input').datetimepicker({",
+            "format: 'YYYY-MM-DD HH:mm:ss'",
+            "});",
+            "\$('#filter-term').change(function(){",
+            "if($(this).val()==='term'){",
+            "\$('#{$divId}').show();",
+            "}else{",
+            "\$('#{$divId}').hide();",
+            "}",
+            "}).change();",
             "})(jQuery);",
         ]));
         return Html::tag(

@@ -45,9 +45,11 @@ class PostSalmonStatsForm extends Model
     public function rules()
     {
         return [
-            [['as_of'], 'default', 'value' => function (self $model, string $attribute): int {
-                return $_SERVER['REQUEST_TIME'] ?? time();
-            }],
+            [['as_of'], 'default',
+                'value' => function (self $model, string $attribute): int {
+                    return $_SERVER['REQUEST_TIME'] ?? time();
+                },
+            ],
             [['work_count', 'total_golden_eggs', 'total_eggs'], 'integer', 'min' => 0],
             [['total_rescued', 'total_point'], 'integer', 'min' => 0],
             [['as_of'], 'integer', 'min' => static::SPLATOON2_4_1_RELEASED_AT],

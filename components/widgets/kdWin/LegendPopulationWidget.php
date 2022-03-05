@@ -48,12 +48,14 @@ class LegendPopulationWidget extends Widget
                     range(0, $this->numCells - 1)
                 ))
             ),
-            ['class' => [
-                'table',
-                'table-bordered',
-                'table-condensed',
-                'rule-table',
-            ]]
+            [
+                'class' => [
+                    'table',
+                    'table-bordered',
+                    'table-condensed',
+                    'rule-table',
+                ],
+            ]
         );
     }
 
@@ -88,10 +90,12 @@ class LegendPopulationWidget extends Widget
                 Html::tag(
                     'td',
                     Html::encode($label),
-                    ['class' => [
-                        'text-center',
-                        'kdcell',
-                    ]]
+                    [
+                        'class' => [
+                            'text-center',
+                            'kdcell',
+                        ],
+                    ]
                 ),
             ])
         );

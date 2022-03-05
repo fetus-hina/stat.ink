@@ -193,10 +193,12 @@ class Map2 extends ActiveRecord
             },
             static::sort(
                 static::find()
-                    ->andWhere(['key' => [
-                        'battera',
-                        'kombu',
-                    ]])
+                    ->andWhere([
+                        'key' => [
+                            'battera',
+                            'kombu',
+                        ]
+                    ])
                     ->all()
             )
         );

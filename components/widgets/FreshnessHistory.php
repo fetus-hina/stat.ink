@@ -66,15 +66,16 @@ class FreshnessHistory extends Widget
                     ['class' => 'table-responsive']
                 ),
             ]),
-            ['class' => [
-                'freshness-history-container',
-            ]],
+            [
+                'class' => [
+                    'freshness-history-container',
+                ],
+            ],
         );
     }
 
     public function getHistory(): ?array
     {
-        // {{{
         if (!$ruleTW = Rule2::findOne(['key' => 'nawabari'])) {
             return null;
         }
@@ -105,10 +106,14 @@ class FreshnessHistory extends Widget
                     '{{battle2}}.[[rule_id]]' => $ruleTW->id,
                     '{{battle2}}.[[weapon_id]]' => $this->current->weapon_id,
                 ],
-                ['not', ['{{battle2}}.[[mode_id]]' => [
-                    $modeFest->id,
-                    $modePrivate->id,
-                ]]],
+                ['not',
+                    [
+                        '{{battle2}}.[[mode_id]]' => [
+                            $modeFest->id,
+                            $modePrivate->id,
+                        ],
+                    ],
+                ],
                 ['<=', '{{battle2}}.[[id]]', $this->current->id],
                 ['not', ['{{battle2}}.[[freshness]]' => null]],
             ])
@@ -123,6 +128,5 @@ class FreshnessHistory extends Widget
 
         // old -> new
         return array_reverse($history);
-        // }}}
     }
 }

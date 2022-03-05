@@ -68,7 +68,8 @@ class BattleAction extends BaseAction
                 ],
                 [['screen_name'], 'exist',
                     'targetClass' => User::className(),
-                    'targetAttribute' => 'screen_name' ],
+                    'targetAttribute' => 'screen_name'
+                ],
                 [['newer_than', 'older_than'], 'integer'],
                 [['count'], 'default', 'value' => 10],
                 [['count'], 'integer', 'min' => 1, 'max' => 100],

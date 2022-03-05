@@ -45,12 +45,14 @@ class m171201_164553_gear_v2 extends Migration
         if (!$data = $this->getData()) {
             return false;
         }
-        $this->delete('gear2', ['key' => array_map(
-            function (array $row): string {
-                return $row['key'];
-            },
-            $data
-        )]);
+        $this->delete('gear2', [
+            'key' => array_map(
+                function (array $row): string {
+                    return $row['key'];
+                },
+                $data
+            ),
+        ]);
     }
 
     public function getData(): ?array

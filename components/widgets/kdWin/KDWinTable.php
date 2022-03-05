@@ -58,10 +58,12 @@ class KDWinTable extends Widget
                             $this->formatter->asInteger($k),
                             $k === $this->limit ? '+' : '',
                         ])),
-                        ['class' => [
-                            'text-center',
-                            'kdcell',
-                        ]]
+                        [
+                            'class' => [
+                                'text-center',
+                                'kdcell',
+                            ],
+                        ]
                     );
                 },
                 range(0, $this->limit)
@@ -83,10 +85,12 @@ class KDWinTable extends Widget
                                 $this->formatter->asInteger($d),
                                 $d === $this->limit ? '+' : '',
                             ])),
-                            ['class' => [
-                                'text-center',
-                                'kdcell',
-                            ]]
+                            [
+                                'class' => [
+                                    'text-center',
+                                    'kdcell',
+                                ],
+                            ]
                         ),
                         implode('', array_map(
                             function (int $k) use ($d): string {

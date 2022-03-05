@@ -268,16 +268,20 @@ class TimezoneDialog extends Dialog
                     ),
                     $close,
                 ]),
-                ['class' => [
-                    'd-flex',
-                    'justify-content-between',
-                    'align-items-center', // vertical middle
-                ]]
+                [
+                    'class' => [
+                        'd-flex',
+                        'justify-content-between',
+                        'align-items-center', // vertical middle
+                    ],
+                ]
             ),
-            ['class' => [
-                'modal-footer',
-                'text-left-important',
-            ]],
+            [
+                'class' => [
+                    'modal-footer',
+                    'text-left-important',
+                ],
+            ],
         );
     }
 }

@@ -105,23 +105,29 @@ class PostBattleForm extends Model
             [['apikey'], 'required'],
             [['apikey'], 'exist',
                 'targetClass' => User::class,
-                'targetAttribute' => 'api_key'],
+                'targetAttribute' => 'api_key'
+            ],
             [['test'], 'in', 'range' => ['validate', 'dry_run']],
             [['lobby'], 'exist',
                 'targetClass' => Lobby::class,
-                'targetAttribute' => 'key'],
+                'targetAttribute' => 'key'
+            ],
             [['rule'], 'exist',
                 'targetClass' => Rule::class,
-                'targetAttribute' => 'key'],
+                'targetAttribute' => 'key'
+            ],
             [['map'], 'exist',
                 'targetClass' => Map::class,
-                'targetAttribute' => 'key'],
+                'targetAttribute' => 'key'
+            ],
             [['weapon'], 'exist',
                 'targetClass' =>  Weapon::class,
-                'targetAttribute' => 'key'],
+                'targetAttribute' => 'key'
+            ],
             [['rank', 'rank_after'], 'exist',
                 'targetClass' => Rank::class,
-                'targetAttribute' => 'key'],
+                'targetAttribute' => 'key'
+            ],
             [['rank_exp', 'rank_exp_after'], 'integer', 'min' => 0, 'max' => 99],
             [['level', 'level_after'], 'integer', 'min' => 1, 'max' => 50],
             [['result'], 'boolean', 'trueValue' => 'win', 'falseValue' => 'lose'],
@@ -143,10 +149,12 @@ class PostBattleForm extends Model
                         default:
                             return $a;
                     }
-                }],
+                }
+            ],
             [['fest_title', 'fest_title_after'], 'exist',
                 'targetClass' => FestTitle::class,
-                'targetAttribute' => 'key'],
+                'targetAttribute' => 'key'
+            ],
             [['fest_exp', 'fest_exp_after'], 'integer', 'min' => 0, 'max' => 99],
             [['my_team_power', 'his_team_power', 'fest_power'], 'integer'],
             [['my_team_color', 'his_team_color'], 'validateTeamColor'],
@@ -155,22 +163,26 @@ class PostBattleForm extends Model
                 'maxSize' => 3 * 1024 * 1024,
                 'when' => function ($model, $attr) {
                     return !is_string($model->$attr);
-                }],
+                }
+            ],
             [['image_judge', 'image_result', 'image_gear'], 'validateImageFile',
                 'when' => function ($model, $attr) {
                     return !is_string($model->$attr);
-                }],
+                }
+            ],
             [['image_judge', 'image_result', 'image_gear'], 'validateImageString',
                 'when' => function ($model, $attr) {
                     return is_string($model->$attr);
-                }],
+                }
+            ],
             [['start_at', 'end_at'], 'integer'],
             [['agent'], 'string', 'max' => 64],
             [['agent_version'], 'string', 'max' => 255],
             [['agent', 'agent_version'], 'required',
                 'when' => function ($model, $attr) {
                     return (string)$this->agent !== '' || (string)$this->agent_version !== '';
-                }],
+                }
+            ],
             [['agent_custom'], 'string'],
             [['agent', 'agent_version', 'agent_custom'], 'validateStrictUTF8'],
             [['uuid'], 'string', 'max' => 64],
@@ -179,7 +191,8 @@ class PostBattleForm extends Model
             [['my_point'], 'integer', 'min' => 0],
             [['my_team_final_point', 'his_team_final_point'], 'integer', 'min' => 0],
             [['my_team_final_percent', 'his_team_final_percent'], 'number',
-                'min' => 0.0, 'max' => 100.0],
+                'min' => 0.0, 'max' => 100.0
+            ],
             [['knock_out'], 'boolean', 'trueValue' => 'yes', 'falseValue' => 'no'],
             [['my_team_count', 'his_team_count'], 'integer', 'min' => 0, 'max' => 100],
             [['link_url'], 'url'],
@@ -190,7 +203,8 @@ class PostBattleForm extends Model
                 $value = preg_replace('/(?:\x0d\x0a|\x0d|\x0a){3,}/', "\n\n", $value);
                 $value = trim($value);
                 return $value === '' ? null : $value;
-            }],
+            }
+            ],
             [['players'], 'validatePlayers'],
             [['gears'], 'validateGears'],
             [['events'], 'validateEvents'],

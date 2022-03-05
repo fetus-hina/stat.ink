@@ -59,7 +59,8 @@ class LanguageAction extends BaseAction
                 [['language'], 'required'],
                 [['language'], 'exist',
                     'targetClass' => Language::className(),
-                    'targetAttribute' => 'lang'],
+                    'targetAttribute' => 'lang'
+                ],
             ]
         );
         return $model;

@@ -45,11 +45,13 @@ class m160108_135055_tz extends Migration
 
     public function safeDown()
     {
-        $this->delete('timezone', ['identifier' => [
-            'America/St_Johns',
-            'America/Halifax',
-            'America/Regina',
-        ]]);
+        $this->delete('timezone', [
+            'identifier' => [
+                'America/St_Johns',
+                'America/Halifax',
+                'America/Regina',
+            ],
+        ]);
 
         // order は戻さなくていいよね
     }

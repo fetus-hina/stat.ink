@@ -140,9 +140,11 @@ class LeaguePowerHistory extends Widget
                     'id' => $this->id . '-legends',
                 ]),
             ]),
-            ['class' => [
-                'xpower-history-container',
-            ]],
+            [
+                'class' => [
+                    'xpower-history-container',
+                ],
+            ],
         );
     }
 

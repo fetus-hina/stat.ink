@@ -55,12 +55,12 @@ class m200829_210631_traditional_chinese extends Migration
         $this->delete('accept_language', ['language_id' => $chinese]);
         $this->delete('language_charset', ['language_id' => $chinese]);
         $this->delete('language', ['id' => $chinese]);
-        $this->delete('charset', ['id' => array_map(
-            function (array $_): int {
-                return $_[0];
-            },
-            $this->getChineseCharsetIds(),
-        )]);
+        $this->delete('charset', [
+            'id' => array_map(
+                fn (array $tmp): int => $tmp[0],
+                $this->getChineseCharsetIds(),
+            ),
+        ]);
     }
 
     public function getChineseLanguageId(): int
@@ -84,9 +84,10 @@ class m200829_210631_traditional_chinese extends Migration
     public function getChineseCharsetIds(): array
     {
         return array_map(
-            function (array $row): array {
-                return [(int)$row['id'], $row['php_name'] === 'CP950'];
-            },
+            fn (array $row): array => [
+                (int)$row['id'],
+                $row['php_name'] === 'CP950',
+            ],
             (new Query())
                 ->select('*')
                 ->from('charset')
@@ -99,9 +100,10 @@ class m200829_210631_traditional_chinese extends Migration
     public function getUnicodeCharsetIds(): array
     {
         return array_map(
-            function ($value): array {
-                return [(int)$value, false];
-            },
+            fn ($value): array => [
+                (int)$value,
+                false,
+            ],
             (new Query())
                 ->select('id')
                 ->from('charset')

@@ -98,7 +98,7 @@ class UpdateLoginWithTwitterAction extends BaseAction
             } else {
                 // 認証手続き
                 $token = $twitter->requestRequestToken();
-                $url = $twitter->getAuthorizationUri(array('oauth_token' => $token->getRequestToken()));
+                $url = $twitter->getAuthorizationUri(['oauth_token' => $token->getRequestToken()]);
                 return $response->redirect((string)$url, 303);
             }
         } catch (\Exception $e) {

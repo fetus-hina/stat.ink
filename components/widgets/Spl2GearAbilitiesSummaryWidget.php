@@ -117,9 +117,11 @@ class Spl2GearAbilitiesSummaryWidget extends Widget
                                     implode('', [
                                         Html::img(
                                             $icons->getIconUrl('sp/' . $sp->key),
-                                            ['style' => [
-                                                'height' => '1.333em',
-                                            ]]
+                                            [
+                                                'style' => [
+                                                    'height' => '1.333em',
+                                                ],
+                                            ]
                                         ),
                                         Html::encode(Yii::t('app-special2', $sp->name)),
                                     ]),

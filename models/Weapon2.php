@@ -248,13 +248,15 @@ class Weapon2 extends ActiveRecord
                 return $model->toJsonArray();
             },
             static::find()
-                ->andWhere(['key' => [
-                    'heroshooter_replica',
-                    'octoshooter_replica',
-                    'sshooter',
-                    'sshooter_becchu',
-                    'sshooter_collabo',
-                ]])
+                ->andWhere([
+                    'key' => [
+                        'heroshooter_replica',
+                        'octoshooter_replica',
+                        'sshooter',
+                        'sshooter_becchu',
+                        'sshooter_collabo',
+                    ]
+                ])
                 ->orderBy(['splatnet' => SORT_ASC])
                 ->all()
         );

@@ -24,13 +24,15 @@ class m170810_035817_add_ua_attrs extends Migration
 
     public function safeDown()
     {
-        $this->delete('agent_attribute', ['name' => [
-            'IkaRec-en',
-            'stat.ink web client',
-            'IkaRec2',
-            'splatnet2statink',
-            'SquidTracks',
-            'SplatTrack',
-        ]]);
+        $this->delete('agent_attribute', [
+            'name' => [
+                'IkaRec-en',
+                'stat.ink web client',
+                'IkaRec2',
+                'splatnet2statink',
+                'SquidTracks',
+                'SplatTrack',
+            ],
+        ]);
     }
 }

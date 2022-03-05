@@ -201,17 +201,19 @@ class ScheduleAction extends ViewAction
                             strtotime($sc->start_at),
                             strtotime($sc->end_at),
                         ],
-                        'maps' => [[
-                            'key' => $sc->map->key,
-                            'name' => Yii::t('app-salmon-map2', $sc->map->name),
-                            'image' => Url::to(
-                                $am->getAssetUrl(
-                                    $am->getBundle(Stages2Asset::class, true),
-                                    sprintf('daytime/%s.jpg', $sc->map->key)
+                        'maps' => [
+                            [
+                                'key' => $sc->map->key,
+                                'name' => Yii::t('app-salmon-map2', $sc->map->name),
+                                'image' => Url::to(
+                                    $am->getAssetUrl(
+                                        $am->getBundle(Stages2Asset::class, true),
+                                        sprintf('daytime/%s.jpg', $sc->map->key)
+                                    ),
+                                    true
                                 ),
-                                true
-                            ),
-                        ]],
+                            ]
+                        ],
                         'weapons' => $this->fillSalmonWeapon(
                             ArrayHelper::getColumn(
                                 $sc->weapons,

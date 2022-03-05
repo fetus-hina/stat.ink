@@ -45,11 +45,11 @@ class FestPowerHistory extends Widget
             implode(', ', array_map([Json::class, 'encode'], [
                 sprintf('#%s-legends', $this->id),
                 [
-                   'estimateBad' => Yii::t('app', 'Their team\'s splatfest power'),
-                   'estimateGood' => Yii::t('app', 'My team\'s splatfest power'),
-                   'festPower' => Yii::t('app', 'Splatfest Power'),
-                   'lose' => Yii::t('app', 'Lose'),
-                   'win' => Yii::t('app', 'Win'),
+                    'estimateBad' => Yii::t('app', 'Their team\'s splatfest power'),
+                    'estimateGood' => Yii::t('app', 'My team\'s splatfest power'),
+                    'festPower' => Yii::t('app', 'Splatfest Power'),
+                    'lose' => Yii::t('app', 'Lose'),
+                    'win' => Yii::t('app', 'Win'),
                 ],
                 array_map(
                     function (Battle2 $model): ?float {
@@ -100,9 +100,11 @@ class FestPowerHistory extends Widget
                     'id' => $this->id . '-legends',
                 ]),
             ]),
-            ['class' => [
-                'fest-power-history-container',
-            ]],
+            [
+                'class' => [
+                    'fest-power-history-container',
+                ]
+            ],
         );
     }
 
