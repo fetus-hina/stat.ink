@@ -16,7 +16,7 @@ class WinLoseLegend extends Widget
 {
     public function run()
     {
-        $base = sprintf('legend-%s', hash('crc32b', __CLASS__ . '&' . $this->id));
+        $base = sprintf('legend-%s', hash('crc32b', self::class . '&' . $this->id));
         $mkLegend = function ($text, $color) use ($base) {
             $span = Html::tag('span', '', ['class' => "{$base}-bg", 'data' => ['color' => $color]]);
             return Html::tag(

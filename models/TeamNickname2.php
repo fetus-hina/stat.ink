@@ -36,7 +36,7 @@ class TeamNickname2 extends ActiveRecord
         try {
             $lock = Yii::createObject([
                 'class' => CriticalSection::class,
-                'name' => __CLASS__,
+                'name' => self::class,
                 'timeout' => 0,
                 'mutex' => Yii::$app->pgMutex,
             ])->enter();

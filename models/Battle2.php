@@ -197,7 +197,7 @@ class Battle2 extends ActiveRecord
 
     public static function find()
     {
-        return new class (get_called_class()) extends ActiveQuery {
+        return new class (static::class) extends ActiveQuery {
             public function withFreshness(): self
             {
                 if (!$this->select) {

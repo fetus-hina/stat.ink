@@ -34,7 +34,7 @@ class WeaponCompareForm extends Model
     public function getAttribute(string $name)
     {
         if (!$this->hasAttribute($name)) {
-            throw new InvalidParamException(get_class($this) . ' has no attribute named "' . $name . '".');
+            throw new InvalidParamException(static::class . ' has no attribute named "' . $name . '".');
         }
         return $this->attributes[$name] ?? null;
     }
@@ -42,7 +42,7 @@ class WeaponCompareForm extends Model
     public function setAttribute(string $name, $value): self
     {
         if (!$this->hasAttribute($name)) {
-            throw new InvalidParamException(get_class($this) . ' has no attribute named "' . $name . '".');
+            throw new InvalidParamException(static::class . ' has no attribute named "' . $name . '".');
         }
         $this->attributes[$name] = $value;
         return $this;

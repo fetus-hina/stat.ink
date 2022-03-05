@@ -69,6 +69,7 @@
     </properties>
     <exclude name="SlevomatCodingStandard.Classes.EmptyLinesAroundClassBraces.IncorrectEmptyLinesBeforeClosingBrace"/>
   </rule>
+  <rule ref="SlevomatCodingStandard.Classes.ModernClassNameReference"/>
 
   <rule ref="PSR12">
     <file>*/components/ability/effect/*</file>

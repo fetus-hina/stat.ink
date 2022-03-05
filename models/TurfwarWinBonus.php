@@ -26,7 +26,7 @@ class TurfwarWinBonus extends \yii\db\ActiveRecord
 {
     public static function find()
     {
-        return new class (get_called_class()) extends ActiveQuery {
+        return new class (static::class) extends ActiveQuery {
             public function current(): self
             {
                 return $this->at(new Now());
