@@ -10,7 +10,6 @@ namespace app\models;
 
 use Yii;
 use app\components\validators\WeaponKeyValidator;
-use app\models\Rule;
 use yii\base\InvalidParamException;
 use yii\base\Model;
 

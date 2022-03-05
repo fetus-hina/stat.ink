@@ -10,10 +10,6 @@ declare(strict_types=1);
 
 namespace app\assets;
 
-use app\assets\ChartJsAsset;
-use app\assets\ChartJsDataLabelsAsset;
-use app\assets\ColorSchemeAsset;
-use app\assets\PatternomalyAsset;
 use yii\web\AssetBundle;
 use yii\web\JqueryAsset;
 

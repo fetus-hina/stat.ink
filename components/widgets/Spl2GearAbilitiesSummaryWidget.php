@@ -13,7 +13,6 @@ namespace app\components\widgets;
 use Yii;
 use app\assets\GearAbilityNumberSwitcherAsset;
 use app\assets\Spl2WeaponAsset;
-use app\components\widgets\AbilityIcon;
 use app\models\Ability2Info;
 use yii\base\Widget;
 use yii\bootstrap\ButtonDropdown;

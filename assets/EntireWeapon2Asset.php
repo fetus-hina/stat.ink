@@ -10,8 +10,6 @@ declare(strict_types=1);
 
 namespace app\assets;
 
-use app\assets\StatByMapRuleAsset;
-use app\assets\TableResponsiveForceAsset;
 use jp3cki\yii2\flot\FlotAsset;
 use jp3cki\yii2\flot\FlotErrorbarsAsset;
 use jp3cki\yii2\flot\FlotPieAsset;
