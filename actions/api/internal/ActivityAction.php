@@ -48,7 +48,7 @@ class ActivityAction extends Action
         }
 
         $user = User::findOne(['screen_name' => $form->screen_name]);
-        list($from, $to) = BattleHelper::getActivityDisplayRange();
+        [$from, $to] = BattleHelper::getActivityDisplayRange();
         $this->resp->data = $this->makeData($user, $from, $to, $form->only);
     }
 

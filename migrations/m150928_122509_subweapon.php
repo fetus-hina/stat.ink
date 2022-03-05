@@ -34,7 +34,7 @@ class m150928_122509_subweapon extends Migration
 
         $this->execute('ALTER TABLE {{weapon}} ADD COLUMN [[subweapon_id]] INTEGER');
         foreach ($this->makeUpdate() as $tmp) {
-            list($weaponId, $subWeaponId) = $tmp;
+            [$weaponId, $subWeaponId] = $tmp;
             $this->update(
                 'weapon',
                 ['subweapon_id' => $subWeaponId],
