@@ -9,6 +9,7 @@
 namespace app\models;
 
 use Base32\Base32;
+use Exception;
 use Yii;
 use yii\db\ActiveRecord;
 use yii\db\Connection;
@@ -51,19 +52,19 @@ class UserIcon extends ActiveRecord
 
     protected static function createNewFileName()
     {
-        retry:
-        $filename = \strtolower(\rtrim(Base32::encode(\random_bytes(16)), '='));
-        $filepath = sprintf('%s/%s.png', substr($filename, 0, 2), $filename);
-        if (static::find()->where(['filename' => $filepath])->count() > 0) {
-            goto retry;
+        while (true) {
+            $filename = \strtolower(\rtrim(Base32::encode(\random_bytes(16)), '='));
+            $filepath = sprintf('%s/%s.png', substr($filename, 0, 2), $filename);
+            if (static::find()->where(['filename' => $filepath])->count() < 1) {
+                return $filepath;
+            }
         }
-        return $filepath;
     }
 
     protected static function resizeImage(string $binary)
     {
         if (!$in = @\imagecreatefromstring($binary)) {
-            throw new \Exception();
+            throw new Exception();
         }
         $out = \imagecreatetruecolor(static::ICON_WIDTH, static::ICON_HEIGHT);
         $inSize = \min(\imagesx($in), \imagesy($in));
