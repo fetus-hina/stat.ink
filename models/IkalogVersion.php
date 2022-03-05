@@ -9,6 +9,7 @@
 namespace app\models;
 
 use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "ikalog_version".
@@ -20,7 +21,7 @@ use Yii;
  *
  * @property WinikalogVersion[] $winikalogVersions
  */
-class IkalogVersion extends \yii\db\ActiveRecord
+class IkalogVersion extends ActiveRecord
 {
     public static function findOneByRevision($rev)
     {

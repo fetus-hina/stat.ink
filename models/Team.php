@@ -9,6 +9,7 @@
 namespace app\models;
 
 use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "team".
@@ -20,7 +21,7 @@ use Yii;
  * @property SplatfestTeam[] $splatfestTeams
  * @property Splatfest[] $fests
  */
-class Team extends \yii\db\ActiveRecord
+class Team extends ActiveRecord
 {
     /**
      * @inheritdoc

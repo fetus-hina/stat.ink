@@ -9,6 +9,7 @@
 namespace app\models;
 
 use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "battle_image_type".
@@ -18,7 +19,7 @@ use Yii;
  *
  * @property BattleImage[] $battleImages
  */
-class BattleImageType extends \yii\db\ActiveRecord
+class BattleImageType extends ActiveRecord
 {
     public const ID_JUDGE = 1;
     public const ID_RESULT = 2;

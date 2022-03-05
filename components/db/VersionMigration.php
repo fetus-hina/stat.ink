@@ -8,6 +8,7 @@
 
 namespace app\components\db;
 
+use DateTime;
 use DateTimeInterface;
 use app\components\helpers\Battle as BattleHelper;
 use yii\db\Expression;
@@ -25,7 +26,7 @@ trait VersionMigration
         $this->insert('splatoon_version2', [
             'tag' => $versionTag,
             'name' => $versionName,
-            'released_at' => $releasedAt->format(\DateTime::ATOM),
+            'released_at' => $releasedAt->format(DateTime::ATOM),
             'group_id' => $this->upVersionGroup2($groupTag, $groupName),
         ]);
         $this->update(

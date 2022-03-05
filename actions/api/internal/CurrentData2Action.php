@@ -23,6 +23,8 @@ use yii\helpers\Url;
 use yii\web\BadRequestHttpException;
 use yii\web\ViewAction;
 
+use const SORT_ASC;
+
 class CurrentData2Action extends ViewAction
 {
     public function init()

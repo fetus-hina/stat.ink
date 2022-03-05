@@ -20,6 +20,8 @@ use yii\helpers\ArrayHelper;
 use yii\web\NotFoundHttpException;
 use yii\web\ViewAction as BaseAction;
 
+use const SORT_DESC;
+
 class UserStatGachiAction extends BaseAction
 {
     private $user;

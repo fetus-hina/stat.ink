@@ -18,6 +18,9 @@ use yii\web\Cookie;
 use yii\web\NotFoundHttpException;
 use yii\web\ViewAction as BaseAction;
 
+use const ARRAY_FILTER_USE_KEY;
+use const SORT_DESC;
+
 class UserAction extends BaseAction
 {
     public function run()

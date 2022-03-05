@@ -8,6 +8,7 @@
 
 namespace app\models;
 
+use DateTimeInterface;
 use Yii;
 use yii\db\ActiveRecord;
 
@@ -33,7 +34,7 @@ class SplatoonVersion2 extends ActiveRecord
         }
         if (is_int($at)) {
             $at = gmdate('Y-m-d\TH:i:sP', $at);
-        } elseif ($at instanceof \DateTimeInterface) {
+        } elseif ($at instanceof DateTimeInterface) {
             $at = $at->format('Y-m-d\TH:i:sP');
         }
         return static::find()

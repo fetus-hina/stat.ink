@@ -13,6 +13,8 @@ use app\components\helpers\Resource;
 use yii\base\Component;
 use yii\web\ResponseFormatterInterface;
 
+use const SEEK_SET;
+
 class CsvResponseFormatter extends Component implements ResponseFormatterInterface
 {
     public const SEPARATOR_CSV = ',';

@@ -9,6 +9,7 @@
 use app\models\Region;
 use app\models\Splatfest;
 use yii\db\Migration;
+use yii\db\Query;
 use yii\helpers\ArrayHelper;
 
 class m160722_075551_16th_splatfest extends Migration
@@ -39,7 +40,7 @@ class m160722_075551_16th_splatfest extends Migration
             ],
         ]);
         $ids = ArrayHelper::map(
-            (new \yii\db\Query())
+            (new Query())
                 ->select([
                     'id' => '{{splatfest}}.[[id]]',
                     'region' => '{{region}}.[[key]]',

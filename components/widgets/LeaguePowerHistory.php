@@ -22,6 +22,10 @@ use yii\helpers\Html;
 use yii\helpers\Json;
 use yii\helpers\Url;
 
+use const FILTER_VALIDATE_FLOAT;
+use const SORT_ASC;
+use const SORT_DESC;
+
 class LeaguePowerHistory extends Widget
 {
     public $user;

@@ -99,6 +99,20 @@
   </rule>
   <rule ref="SlevomatCodingStandard.Namespaces.DisallowGroupUse"/>
   <rule ref="SlevomatCodingStandard.Namespaces.MultipleUsesPerLine"/>
+  <rule ref="SlevomatCodingStandard.Namespaces.ReferenceUsedNamesOnly">
+    <properties>
+      <property name="allowFallbackGlobalConstants" value="false"/>
+      <property name="allowFullyQualifiedGlobalConstants" value="false"/>
+      <property name="allowFullyQualifiedGlobalFunctions" value="false"/>
+      <property name="allowFullyQualifiedExceptions" value="true"/>
+      <property name="allowPartialUses" value="true"/>
+      <property name="fullyQualifiedKeywords" type="array">
+        <element value="T_EXTENDS"/>
+        <element value="T_IMPLEMENTS"/>
+        <element value="T_USE"/>
+      </property>
+    </properties>
+  </rule>
 
   <rule ref="PSR12">
     <file>*/components/ability/effect/*</file>

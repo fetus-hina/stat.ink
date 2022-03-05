@@ -17,6 +17,8 @@ use app\models\openapi\Util;
 use yii\base\Model;
 use yii\helpers\ArrayHelper;
 
+use const FILTER_VALIDATE_INT;
+
 class DeleteBattleForm extends Model
 {
     use Util;

@@ -13,6 +13,8 @@ namespace app\components\helpers;
 use Yii;
 use yii\base\Component;
 
+use const FILTER_VALIDATE_INT;
+
 class ApiInputFormatter extends Component
 {
     public function asString($value): ?string

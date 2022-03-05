@@ -19,6 +19,8 @@ use yii\base\Widget;
 use yii\helpers\Html;
 use yii\helpers\Json;
 
+use const SORT_DESC;
+
 class FreshnessHistory extends Widget
 {
     public $user;

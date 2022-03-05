@@ -28,6 +28,8 @@ use function is_dir;
 use function is_readable;
 use function preg_match;
 
+use const STDERR;
+
 class CleanupAction extends Action
 {
     private const ASSET_REVISION_CLEANUP_THRESHOLD = 10; // 10 revisions

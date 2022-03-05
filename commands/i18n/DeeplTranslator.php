@@ -75,6 +75,15 @@ use function usort;
 use function vfprintf;
 use function vsprintf;
 
+use const LC_ALL;
+use const LIBXML_COMPACT;
+use const LIBXML_NOCDATA;
+use const LIBXML_NONET;
+use const SORT_ASC;
+use const STDERR;
+use const XML_ELEMENT_NODE;
+use const XML_TEXT_NODE;
+
 class DeeplTranslator extends Component
 {
     private const BASE_MESSAGE_DIR = '@app/messages';

@@ -18,6 +18,8 @@ use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 
+use const FILTER_VALIDATE_INT;
+
 /**
  * This is the model class for table "salmon_stats2".
  *

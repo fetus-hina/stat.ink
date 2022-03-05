@@ -10,7 +10,10 @@ namespace app\models;
 
 use Yii;
 use app\components\helpers\Translator;
+use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
+
+use const SORT_ASC;
 
 /**
  * This is the model class for table "rule".
@@ -27,7 +30,7 @@ use yii\helpers\ArrayHelper;
  * @property Weapon[] $weapons
  * @property StatWeaponBattleCount $statWeaponBattleCount
  */
-final class Rule extends \yii\db\ActiveRecord
+final class Rule extends ActiveRecord
 {
     use SafeFindOneTrait;
     use openapi\Util;

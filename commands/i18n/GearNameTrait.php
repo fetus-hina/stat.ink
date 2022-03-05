@@ -11,6 +11,9 @@ namespace app\commands\i18n;
 use Yii;
 use app\models\Gear2;
 
+use const ARRAY_FILTER_USE_BOTH;
+use const DIRECTORY_SEPARATOR;
+
 trait GearNameTrait
 {
     public function actionJapaneseGear2(): int

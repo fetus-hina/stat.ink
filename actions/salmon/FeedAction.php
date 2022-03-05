@@ -28,6 +28,8 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\web\NotFoundHttpException;
 
+use const SORT_DESC;
+
 class FeedAction extends Action
 {
     public function init()

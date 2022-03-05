@@ -16,6 +16,7 @@ use app\models\Map;
 use app\models\PeriodMap;
 use app\models\Rule;
 use app\models\StatWeaponMapTrend;
+use stdClass;
 use yii\base\DynamicModel;
 use yii\web\NotFoundHttpException;
 use yii\web\ViewAction as BaseAction;
@@ -78,7 +79,7 @@ class MapDetailAction extends BaseAction
     {
         $endAt = null;
         return array_map(
-            function (PeriodMap $period) use (&$endAt): \stdClass {
+            function (PeriodMap $period) use (&$endAt): stdClass {
                 $times = BattleHelper::periodToRange($period->period);
                 $interval = ($endAt === null) ? null : ($times[0] - $endAt);
                 $endAt = $times[1];

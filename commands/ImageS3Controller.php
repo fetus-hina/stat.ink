@@ -9,12 +9,17 @@
 namespace app\commands;
 
 use FilterIterator;
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
 use Yii;
 use app\components\ImageS3;
 use app\components\jobs\ImageS3Job;
 use yii\console\Controller;
 use yii\helpers\Console;
 use yii\helpers\FileHelper;
+
+use const LOCK_EX;
+use const LOCK_NB;
 
 class ImageS3Controller extends Controller
 {
@@ -100,8 +105,8 @@ class ImageS3Controller extends Controller
             return 1;
         }
 
-        $innerIterator = new \RecursiveIteratorIterator(
-            new \RecursiveDirectoryIterator(Yii::getAlias('@image'))
+        $innerIterator = new RecursiveIteratorIterator(
+            new RecursiveDirectoryIterator(Yii::getAlias('@image'))
         );
         $iterator = new class ($innerIterator) extends FilterIterator {
             public function accept()

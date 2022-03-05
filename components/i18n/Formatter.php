@@ -12,8 +12,9 @@ use DateTime;
 use Yii;
 use app\components\widgets\TimestampColumnWidget;
 use yii\helpers\Html;
+use yii\i18n\Formatter;
 
-class Formatter extends \yii\i18n\Formatter
+class Formatter extends BaseFormatter
 {
     public function asHtmlDatetime($value, $format = null)
     {

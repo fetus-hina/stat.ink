@@ -29,8 +29,11 @@ use jp3cki\yii2\datetimepicker\BootstrapDateTimePickerAsset;
 use yii\base\Widget;
 use yii\bootstrap\ActiveForm;
 use yii\db\ActiveQuery;
+use yii\db\Query;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
+
+use const SORT_ASC;
 
 class Battle2FilterWidget extends Widget
 {
@@ -308,7 +311,7 @@ class Battle2FilterWidget extends Widget
         return [
             Yii::t('app', 'Main Weapon') => (function () use ($weaponIdList): array {
                 $ret = [];
-                $subQuery = (new \yii\db\Query())
+                $subQuery = (new Query())
                     ->select(['id' => '{{weapon2}}.[[main_group_id]]'])
                     ->from('weapon2')
                     ->andWhere(['in', '{{weapon2}}.[[id]]', $weaponIdList]);

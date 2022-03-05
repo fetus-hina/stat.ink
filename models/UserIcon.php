@@ -17,6 +17,23 @@ use yii\helpers\FileHelper;
 use yii\helpers\Url;
 use yii\web\UploadedFile;
 
+use function dirname;
+use function file_exists;
+use function imagealphablending;
+use function imagecopyresampled;
+use function imagecreatefromstring;
+use function imagecreatetruecolor;
+use function imagefill;
+use function imagesavealpha;
+use function imagesx;
+use function imagesy;
+use function min;
+use function random_bytes;
+use function rtrim;
+use function strtolower;
+
+use const PNG_ALL_FILTERS;
+
 /**
  * This is the model class for table "user_icon".
  *
@@ -53,7 +70,7 @@ class UserIcon extends ActiveRecord
     protected static function createNewFileName()
     {
         while (true) {
-            $filename = \strtolower(\rtrim(Base32::encode(\random_bytes(16)), '='));
+            $filename = strtolower(rtrim(Base32::encode(random_bytes(16)), '='));
             $filepath = sprintf('%s/%s.png', substr($filename, 0, 2), $filename);
             if (static::find()->where(['filename' => $filepath])->count() < 1) {
                 return $filepath;
@@ -63,17 +80,17 @@ class UserIcon extends ActiveRecord
 
     protected static function resizeImage(string $binary)
     {
-        if (!$in = @\imagecreatefromstring($binary)) {
+        if (!$in = @imagecreatefromstring($binary)) {
             throw new Exception();
         }
-        $out = \imagecreatetruecolor(static::ICON_WIDTH, static::ICON_HEIGHT);
-        $inSize = \min(\imagesx($in), \imagesy($in));
-        $inX = (int)(\imagesx($in) / 2 - $inSize / 2);
-        $inY = (int)(\imagesy($in) / 2 - $inSize / 2);
-        \imagefill($out, 0, 0, 0xffffff);
-        \imagesavealpha($out, false);
-        \imagealphablending($out, true);
-        \imagecopyresampled(
+        $out = imagecreatetruecolor(static::ICON_WIDTH, static::ICON_HEIGHT);
+        $inSize = min(imagesx($in), imagesy($in));
+        $inX = (int)(imagesx($in) / 2 - $inSize / 2);
+        $inY = (int)(imagesy($in) / 2 - $inSize / 2);
+        imagefill($out, 0, 0, 0xffffff);
+        imagesavealpha($out, false);
+        imagealphablending($out, true);
+        imagecopyresampled(
             $out,
             $in,
             0,
@@ -158,7 +175,7 @@ class UserIcon extends ActiveRecord
             case 'new':
                 if ($this->imageResource) {
                     $realPath = Yii::getAlias('@app/web/profile-images') . '/' . $this->filename;
-                    FileHelper::createDirectory(\dirname($realPath));
+                    FileHelper::createDirectory(dirname($realPath));
                     imagepng($this->imageResource, $realPath, 9, PNG_ALL_FILTERS);
                     imagedestroy($this->imageResource);
                     $this->imageResource = null;
@@ -168,7 +185,7 @@ class UserIcon extends ActiveRecord
             case 'delete':
                 if ($this->filename) {
                     $realPath = Yii::getAlias('@app/web/profile-images') . '/' . $this->filename;
-                    if (\file_exists($realPath)) {
+                    if (file_exists($realPath)) {
                         @unlink($realPath);
                     }
                 }

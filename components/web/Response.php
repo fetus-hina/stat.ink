@@ -9,7 +9,8 @@
 namespace app\components\web;
 
 use Yii;
+use yii\web\Response as BaseResponse;
 
-class Response extends \yii\web\Response
+class Response extends BaseResponse
 {
 }

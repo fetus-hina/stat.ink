@@ -16,6 +16,8 @@ use jp3cki\uuid\Uuid;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
+use const SORT_DESC;
+
 /**
  * This is the model class for table "blog_entry".
  *

@@ -15,6 +15,8 @@ use yii\console\Controller;
 use yii\helpers\Console;
 use yii\helpers\Json;
 
+use const STDERR;
+
 class RerecognizeController extends Controller
 {
     public $defaultAction = 'update';

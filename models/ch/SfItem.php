@@ -15,6 +15,9 @@ use LogicException;
 use Yii;
 use yii\base\Model;
 
+use const PREG_UNMATCHED_AS_NULL;
+use const SORT_STRING;
+
 class SfItem extends Model
 {
     public $value;

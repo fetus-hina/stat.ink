@@ -29,6 +29,8 @@ use yii\helpers\ArrayHelper;
 use yii\helpers\Console;
 use yii\helpers\Json;
 
+use const SORT_ASC;
+
 class Splatoon2InkController extends Controller
 {
     public $defaultAction = 'update';

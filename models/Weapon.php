@@ -11,7 +11,10 @@ namespace app\models;
 use Yii;
 use app\components\helpers\Translator;
 use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
+
+use const SORT_ASC;
 
 /**
  * This is the model class for table "weapon".
@@ -34,7 +37,7 @@ use yii\helpers\ArrayHelper;
  * @property Weapon $canonical
  * @property Weapon $mainReference
  */
-class Weapon extends \yii\db\ActiveRecord
+class Weapon extends ActiveRecord
 {
     use SafeFindOneTrait;
     use openapi\Util;

@@ -13,6 +13,7 @@ namespace app\actions\feed;
 use DateTimeImmutable;
 use DateTimeZone;
 use Laminas\Feed\Writer\Feed as FeedWriter;
+use Laminas\Feed\Writer\Version;
 use Yii;
 use app\models\Battle2;
 use app\models\Language;
@@ -24,6 +25,8 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\web\NotFoundHttpException;
 use yii\web\ViewAction as BaseAction;
+
+use const SORT_DESC;
 
 class User2Action extends BaseAction
 {
@@ -84,7 +87,7 @@ class User2Action extends BaseAction
                 Yii::$app->name,
                 Yii::$app->version,
                 'Laminas-Feed-Writer',
-                \Laminas\Feed\Writer\Version::VERSION
+                Version::VERSION
             ),
             Yii::$app->version,
             Url::home(true)

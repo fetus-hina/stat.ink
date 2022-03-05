@@ -23,6 +23,8 @@ use app\models\StatEntireUser2;
 use yii\db\Query;
 use yii\web\ViewAction as BaseAction;
 
+use const SORT_ASC;
+
 class UsersAction extends BaseAction
 {
     public function run()
@@ -50,7 +52,7 @@ class UsersAction extends BaseAction
             $stats = [];
         }
 
-        $query = (new \yii\db\Query())
+        $query = (new Query())
             ->select([
                 'date'          => '{{battle}}.[[at]]::date',
                 'battle_count'  => 'COUNT({{battle}}.*)',
@@ -93,7 +95,7 @@ class UsersAction extends BaseAction
             $stats = [];
         }
 
-        $query = (new \yii\db\Query())
+        $query = (new Query())
             ->select([
                 'date'          => '{{battle2}}.[[created_at]]::date',
                 'battle_count'  => 'COUNT({{battle2}}.*)',
@@ -159,7 +161,7 @@ class UsersAction extends BaseAction
             gmdate('j', $t2) - 1,
             gmdate('Y', $t2)
         );
-        $query = (new \yii\db\Query())
+        $query = (new Query())
             ->select([
                 'agent_id',
                 'battle' => 'COUNT(*)',
@@ -191,7 +193,7 @@ class UsersAction extends BaseAction
 
     public function getAgentNames()
     {
-        $query = (new \yii\db\Query())
+        $query = (new Query())
             ->select(['agent'])
             ->from(StatAgentUser::tableName())
             ->groupBy('agent');
@@ -278,8 +280,8 @@ class UsersAction extends BaseAction
             ->where(['and',
                 ['{{agent}}.[[name]]' => $name],
                 ['between', '{{battle2}}.[[id]]', $minId, $maxId],
-                ['>=', '{{battle2}}.[[created_at]]', $startAt->format(\DateTime::ATOM)],
-                ['<', '{{battle2}}.[[created_at]]', $endAt->format(\DateTime::ATOM)],
+                ['>=', '{{battle2}}.[[created_at]]', $startAt->format(DateTime::ATOM)],
+                ['<', '{{battle2}}.[[created_at]]', $endAt->format(DateTime::ATOM)],
             ])
             ->select([
                 'version' => 'MAX({{agent}}.[[version]])',

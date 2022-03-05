@@ -21,6 +21,8 @@ use yii\base\Model;
 use yii\db\ActiveQuery;
 use yii\helpers\ArrayHelper;
 
+use const SORT_DESC;
+
 class Salmon2FilterForm extends Model
 {
     public $user;

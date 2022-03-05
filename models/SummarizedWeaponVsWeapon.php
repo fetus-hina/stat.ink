@@ -12,6 +12,8 @@ use Yii;
 use yii\base\Model;
 use yii\db\Query;
 
+use const NAN;
+
 class SummarizedWeaponVsWeapon extends Model
 {
     public $lhs_weapon_id;

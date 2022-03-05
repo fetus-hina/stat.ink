@@ -9,6 +9,7 @@
 namespace app\models;
 
 use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "language_charset".
@@ -20,7 +21,7 @@ use Yii;
  * @property Charset $charset
  * @property Language $language
  */
-class LanguageCharset extends \yii\db\ActiveRecord
+class LanguageCharset extends ActiveRecord
 {
     public static function find()
     {

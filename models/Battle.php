@@ -10,14 +10,23 @@ namespace app\models;
 
 use Throwable;
 use Yii;
+use app\components\ability\Effect;
+use app\components\helpers\Battle as BattleHelper;
 use app\components\helpers\DateTimeFormatter;
 use app\components\helpers\Differ;
+use app\components\helpers\db\Now;
 use app\models\query\BattleQuery;
 use stdClass;
 use yii\db\ActiveRecord;
 use yii\db\Query;
 use yii\helpers\Json;
 use yii\helpers\Url;
+
+use const FILTER_VALIDATE_INT;
+use const JSON_PRETTY_PRINT;
+use const JSON_UNESCAPED_SLASHES;
+use const JSON_UNESCAPED_UNICODE;
+use const SORT_STRING;
 
 /**
  * This is the model class for table "battle".
@@ -627,7 +636,7 @@ class Battle extends ActiveRecord
         if ($time === false) {
             $time = $now;
         }
-        $this->period = \app\components\helpers\Battle::calcPeriod($time);
+        $this->period = BattleHelper::calcPeriod($time);
     }
 
     public function setBonus()
@@ -1099,7 +1108,7 @@ class Battle extends ActiveRecord
         if (!$this->getHasAbilities()) {
             return null;
         }
-        return \app\components\ability\Effect::factory($this);
+        return Effect::factory($this);
     }
 
     public function getExtraData(): array
@@ -1172,7 +1181,7 @@ class Battle extends ActiveRecord
             $edit = new BattleEditHistory();
             $edit->battle_id = $this->id;
             $edit->diff = Differ::diff($jsonBefore, $jsonAfter);
-            $edit->at = new \app\components\helpers\db\Now();
+            $edit->at = new Now();
             if ($edit->diff == '') {
                 return true;
             }

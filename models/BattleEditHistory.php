@@ -9,6 +9,7 @@
 namespace app\models;
 
 use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "battle_edit_history".
@@ -20,7 +21,7 @@ use Yii;
  *
  * @property Battle $battle
  */
-class BattleEditHistory extends \yii\db\ActiveRecord
+class BattleEditHistory extends ActiveRecord
 {
     /**
      * @inheritdoc

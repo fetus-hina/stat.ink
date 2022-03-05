@@ -16,7 +16,11 @@ use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\db\Query;
 use yii\helpers\ArrayHelper;
+use yii\web\Application;
 use yii\web\JsExpression;
+
+use const FILTER_VALIDATE_FLOAT;
+use const SORT_DESC;
 
 /**
  * This is the model class for table "user_stat2".
@@ -86,7 +90,7 @@ class UserStat2 extends ActiveRecord
         Yii::trace(sprintf(
             'Try to get UserStat2 lock for user #%d (%s)',
             $userId,
-            (Yii::$app instanceof \yii\web\Application) ? 'webapp' : 'console'
+            (Yii::$app instanceof Application) ? 'webapp' : 'console'
         ));
         $time = microtime(true);
         do {
@@ -94,7 +98,7 @@ class UserStat2 extends ActiveRecord
                 Yii::trace(sprintf(
                     'Got a UserStat2 lock for user #%d (%s)',
                     $userId,
-                    (Yii::$app instanceof \yii\web\Application) ? 'webapp' : 'console'
+                    (Yii::$app instanceof Application) ? 'webapp' : 'console'
                 ));
                 if ($autoRelease) {
                     return true;
@@ -110,7 +114,7 @@ class UserStat2 extends ActiveRecord
         Yii::trace(sprintf(
             'Failed to get a lock for user #%d (%s)',
             $userId,
-            (Yii::$app instanceof \yii\web\Application) ? 'webapp' : 'console'
+            (Yii::$app instanceof Application) ? 'webapp' : 'console'
         ));
         return false;
         // }}}

@@ -15,6 +15,8 @@ use yii\helpers\Url;
 use yii\web\NotFoundHttpException;
 use yii\web\ViewAction as BaseAction;
 
+use const SORT_DESC;
+
 class ProfileAction extends BaseAction
 {
     public function run()

@@ -20,6 +20,8 @@ use yii\db\ActiveRecord;
 use yii\helpers\Json;
 use yii\web\HeaderCollection;
 
+use const SORT_STRING;
+
 /**
  * This is the model class for table "http_client_hint".
  *

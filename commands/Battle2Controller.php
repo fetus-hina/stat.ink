@@ -20,6 +20,8 @@ use yii\db\Expression as DbExpr;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Console;
 
+use const SORT_ASC;
+
 class Battle2Controller extends Controller
 {
     public function actionUserStat($id)

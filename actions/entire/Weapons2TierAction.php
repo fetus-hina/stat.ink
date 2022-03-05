@@ -18,6 +18,9 @@ use yii\db\Query;
 use yii\helpers\Url;
 use yii\web\ViewAction;
 
+use const SORT_ASC;
+use const SORT_DESC;
+
 class Weapons2TierAction extends ViewAction
 {
     public $input;

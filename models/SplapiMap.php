@@ -9,6 +9,7 @@
 namespace app\models;
 
 use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "splapi_map".
@@ -19,7 +20,7 @@ use Yii;
  *
  * @property Map $map
  */
-class SplapiMap extends \yii\db\ActiveRecord
+class SplapiMap extends ActiveRecord
 {
     /**
      * @inheritdoc

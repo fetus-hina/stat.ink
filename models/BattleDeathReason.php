@@ -10,6 +10,7 @@ namespace app\models;
 
 use Yii;
 use app\components\helpers\Translator;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "battle_death_reason".
@@ -21,7 +22,7 @@ use app\components\helpers\Translator;
  * @property Battle $battle
  * @property DeathReason $reason
  */
-class BattleDeathReason extends \yii\db\ActiveRecord
+class BattleDeathReason extends ActiveRecord
 {
     public static function find()
     {

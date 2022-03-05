@@ -22,6 +22,8 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\DetailView;
 
+use const SORT_ASC;
+
 class UserMiniInfo2 extends Widget
 {
     public $id = 'user-miniinfo';

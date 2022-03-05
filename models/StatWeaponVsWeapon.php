@@ -10,6 +10,7 @@ namespace app\models;
 
 use Yii;
 use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "stat_weapon_vs_weapon".
@@ -26,7 +27,7 @@ use yii\db\ActiveQuery;
  * @property Weapon $weaponId1
  * @property Weapon $weaponId2
  */
-class StatWeaponVsWeapon extends \yii\db\ActiveRecord
+class StatWeaponVsWeapon extends ActiveRecord
 {
     /**
      * @inheritdoc

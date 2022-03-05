@@ -9,6 +9,7 @@
 namespace app\models;
 
 use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "battle_player".
@@ -30,7 +31,7 @@ use Yii;
  * @property Rank $rank
  * @property Weapon $weapon
  */
-class BattlePlayer extends \yii\db\ActiveRecord
+class BattlePlayer extends ActiveRecord
 {
     public static function find()
     {

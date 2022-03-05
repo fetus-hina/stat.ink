@@ -8,6 +8,7 @@
 
 namespace app\commands;
 
+use app\components\db\Connection;
 use yii\console\Controller;
 use yii\helpers\Console;
 
@@ -58,7 +59,7 @@ class SecretController extends Controller
         ];
 
         $options = [
-            'class'     => \app\components\db\Connection::className(),
+            'class'     => Connection::className(),
             'dsn'       => $this->makeDsn('pgsql', $dsnOptions),
             'username'  => 'statink',
             'password'  => $password,

@@ -17,6 +17,8 @@ use app\models\Language;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
+use const LC_COLLATE;
+
 class I18n
 {
     public static function languageLinkTags(): string

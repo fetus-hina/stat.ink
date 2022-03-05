@@ -31,6 +31,8 @@ use function array_merge;
 use function strtotime;
 use function time;
 
+use const SORT_ASC;
+
 class ScheduleAction extends ViewAction
 {
     private DateTimeImmutable $now;

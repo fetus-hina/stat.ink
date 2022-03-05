@@ -25,6 +25,9 @@ use yii\helpers\Json;
 use yii\httpclient\Client as HttpClient;
 use yii\httpclient\CurlTransport;
 
+use const SORT_ASC;
+use const STDERR;
+
 class Splatoon2InkI18nController extends Controller
 {
     public function init()

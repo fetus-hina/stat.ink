@@ -10,6 +10,7 @@ namespace app\models;
 
 use Yii;
 use app\components\helpers\Translator;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "lobby".
@@ -20,7 +21,7 @@ use app\components\helpers\Translator;
  *
  * @property Battle[] $battles
  */
-class Lobby extends \yii\db\ActiveRecord
+class Lobby extends ActiveRecord
 {
     /**
      * @inheritdoc

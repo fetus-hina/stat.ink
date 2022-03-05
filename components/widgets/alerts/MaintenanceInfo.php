@@ -20,6 +20,8 @@ use app\models\MaintenanceSchedule;
 use yii\base\Widget;
 use yii\helpers\Html;
 
+use const FILTER_VALIDATE_INT;
+
 class MaintenanceInfo extends Widget
 {
     public function run()

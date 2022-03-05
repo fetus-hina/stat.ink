@@ -11,6 +11,9 @@ namespace app\components\helpers;
 use Exception;
 use Yii;
 
+use const PNG_ALL_FILTERS;
+use const PNG_NO_FILTER;
+
 class ImageConverter
 {
     public const OUT_WIDTH = 1280;

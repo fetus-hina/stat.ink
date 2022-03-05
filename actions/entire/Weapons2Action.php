@@ -28,6 +28,9 @@ use stdClass;
 use yii\db\Query;
 use yii\web\ViewAction as BaseAction;
 
+use const SORT_ASC;
+use const SORT_DESC;
+
 class Weapons2Action extends BaseAction
 {
     public function run()
@@ -511,7 +514,7 @@ class Weapons2Action extends BaseAction
         return $ret;
     }
 
-    private function convertWeapons2Type(\stdClass $in): array
+    private function convertWeapons2Type(stdClass $in): array
     {
         $weapons = $in->weapons;
         $mergeKeys = [
@@ -555,7 +558,7 @@ class Weapons2Action extends BaseAction
         return $ret;
     }
 
-    private function convertWeapons2Category(\stdClass $in): array
+    private function convertWeapons2Category(stdClass $in): array
     {
         $weapons = $in->weapons;
         $mergeKeys = [

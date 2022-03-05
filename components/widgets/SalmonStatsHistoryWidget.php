@@ -19,6 +19,8 @@ use yii\helpers\Json;
 use yii\helpers\Url;
 use yii\web\ServerErrorHttpException;
 
+use const SEEK_SET;
+
 class SalmonStatsHistoryWidget extends Widget
 {
     public $user;

@@ -13,6 +13,7 @@ use DateTimeImmutable;
 use DateTimeInterface;
 use DateTimeZone;
 use Exception;
+use PDO;
 use Yii;
 use app\components\helpers\Resource;
 use app\models\Battle;
@@ -257,7 +258,7 @@ class HasegawExportController extends Controller
     protected function connectSqlite($path)
     {
         $dsn = 'sqlite:' . $path;
-        return new \PDO($dsn);
+        return new PDO($dsn);
     }
 
     protected function initBattleDb($path)

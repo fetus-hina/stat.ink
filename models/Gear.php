@@ -10,6 +10,7 @@ namespace app\models;
 
 use Yii;
 use app\components\helpers\Translator;
+use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
 
 /**
@@ -26,7 +27,7 @@ use yii\helpers\ArrayHelper;
  * @property Brand $brand
  * @property GearType $type
  */
-class Gear extends \yii\db\ActiveRecord
+class Gear extends ActiveRecord
 {
     use openapi\Util;
 

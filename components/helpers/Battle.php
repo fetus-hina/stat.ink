@@ -19,6 +19,10 @@ use app\models\Battle2 as Battle2Model;
 use app\models\Battle2FilterForm;
 use app\models\BattleFilterForm;
 use app\models\User;
+use yii\db\Query;
+
+use const SORT_ASC;
+use const SORT_DESC;
 
 class Battle
 {
@@ -70,7 +74,7 @@ class Battle
             ->offset(0)
             ->limit($num);
 
-        $query = (new \yii\db\Query())
+        $query = (new Query())
             ->select([
                 'min_id' => 'MIN({{t}}.[[id]])',
                 'max_id' => 'MAX({{t}}.[[id]])',
@@ -100,7 +104,7 @@ class Battle
             ->offset(0)
             ->limit($num);
 
-        $query = (new \yii\db\Query())
+        $query = (new Query())
             ->select([
                 'min_id' => 'MIN({{t}}.[[id]])',
                 'max_id' => 'MAX({{t}}.[[id]])',

@@ -13,6 +13,8 @@ use yii\base\Behavior;
 use yii\base\Model;
 use yii\db\Query;
 
+use const FILTER_VALIDATE_INT;
+
 class SplatnetNumberBehavior extends Behavior
 {
     public $trigger = Model::EVENT_BEFORE_VALIDATE;

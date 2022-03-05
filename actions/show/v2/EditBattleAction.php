@@ -24,6 +24,9 @@ use yii\helpers\ArrayHelper;
 use yii\web\NotFoundHttpException;
 use yii\web\ViewAction as BaseAction;
 
+use const SORT_ASC;
+use const SORT_DESC;
+
 /**
  * @property-read bool $isEditable
  */

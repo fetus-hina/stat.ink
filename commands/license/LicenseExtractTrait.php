@@ -34,6 +34,9 @@ use function trim;
 use function usort;
 use function vsprintf;
 
+use const PATHINFO_FILENAME;
+use const STDERR;
+
 trait LicenseExtractTrait
 {
     use Helper;

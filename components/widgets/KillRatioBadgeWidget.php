@@ -15,6 +15,9 @@ use yii\base\Widget;
 use yii\bootstrap\BootstrapAsset;
 use yii\helpers\Html;
 
+use const FILTER_VALIDATE_FLOAT;
+use const FILTER_VALIDATE_INT;
+
 class KillRatioBadgeWidget extends Widget
 {
     public $killRatio;

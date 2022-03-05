@@ -18,6 +18,10 @@ use app\models\Weapon2;
 use yii\console\Controller;
 use yii\helpers\Console;
 
+use const ARRAY_FILTER_USE_BOTH;
+use const DIRECTORY_SEPARATOR;
+use const SORT_ASC;
+
 trait WeaponShortNameTrait
 {
     public function actionShortWeapon(): int

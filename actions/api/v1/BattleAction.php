@@ -10,6 +10,7 @@ namespace app\actions\api\v1;
 
 use DateTimeZone;
 use Yii;
+use app\components\helpers\Blackout;
 use app\components\helpers\DateTimeFormatter;
 use app\components\helpers\ImageConverter;
 use app\components\jobs\ImageOptimizeJob;
@@ -30,6 +31,9 @@ use yii\helpers\Url;
 use yii\web\MethodNotAllowedHttpException;
 use yii\web\UploadedFile;
 use yii\web\ViewAction as BaseAction;
+
+use const JSON_UNESCAPED_SLASHES;
+use const JSON_UNESCAPED_UNICODE;
 
 class BattleAction extends BaseAction
 {
@@ -388,7 +392,7 @@ class BattleAction extends BaseAction
                     || $form->result === 'lose')
                     && ($form->lobby != '')
             ) {
-                $blackoutList = \app\components\helpers\Blackout::getBlackoutTargetList(
+                $blackoutList = Blackout::getBlackoutTargetList(
                     $form->lobby,
                     $form->user->blackout,
                     (($form->result === 'win') ? 0 : 4) + $form->rank_in_team

@@ -16,6 +16,8 @@ use Yii;
 use yii\console\Controller;
 use yii\helpers\FileHelper;
 
+use const STDERR;
+
 class GeoipController extends Controller
 {
     protected const BASE_DIR = '@app/data/GeoIP';

@@ -12,6 +12,10 @@ use Yii;
 use app\components\behaviors\TrimAttributesBehavior;
 use yii\db\ActiveRecord;
 
+use const INF;
+use const NAN;
+use const SORT_DESC;
+
 /**
  * This is the model class for table "battle_player2".
  *

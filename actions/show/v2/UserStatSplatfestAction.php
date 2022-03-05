@@ -17,6 +17,9 @@ use yii\base\DynamicModel;
 use yii\web\NotFoundHttpException;
 use yii\web\ViewAction;
 
+use const SORT_ASC;
+use const SORT_DESC;
+
 class UserStatSplatfestAction extends ViewAction
 {
     private ?User $user = null;

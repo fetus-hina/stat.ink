@@ -9,6 +9,7 @@
 namespace app\models;
 
 use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "environment".
@@ -20,7 +21,7 @@ use Yii;
  * @property Battle[] $battles
  * @property User[] $users
  */
-class Environment extends \yii\db\ActiveRecord
+class Environment extends ActiveRecord
 {
     /**
      * @inheritdoc

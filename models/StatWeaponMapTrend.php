@@ -9,6 +9,7 @@
 namespace app\models;
 
 use Yii;
+use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
 
 /**
@@ -23,7 +24,7 @@ use yii\helpers\ArrayHelper;
  * @property Rule $rule
  * @property Weapon $weapon
  */
-class StatWeaponMapTrend extends \yii\db\ActiveRecord
+class StatWeaponMapTrend extends ActiveRecord
 {
     use openapi\Util;
 

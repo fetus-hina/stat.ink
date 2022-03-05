@@ -12,6 +12,8 @@ use Yii;
 use app\components\helpers\Password;
 use yii\console\Controller;
 
+use const STDERR;
+
 class PasswordController extends Controller
 {
     public const PASSWORD_LENGTH = 32;

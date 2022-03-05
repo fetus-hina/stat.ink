@@ -11,6 +11,8 @@ namespace app\components\helpers;
 use Yii;
 use yii\base\Component;
 
+use const DIRECTORY_SEPARATOR;
+
 class WeaponShortener extends Component
 {
     public $dictionary;

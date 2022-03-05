@@ -15,6 +15,7 @@ use app\models\StatWeaponKDWinRate;
 use app\models\StatWeaponKillDeath;
 use app\models\Weapon;
 use app\models\WeaponType;
+use yii\db\Query;
 use yii\helpers\Url;
 use yii\web\NotFoundHttpException;
 use yii\web\ViewAction as BaseAction;
@@ -134,7 +135,7 @@ class WeaponAction extends BaseAction
     {
         $table = StatWeaponKDWinRate::tableName();
         $map = Map::tableName();
-        $query = (new \yii\db\Query())
+        $query = (new Query())
             ->select([
                 'map'       => "MAX({{{$map}}}.[[key]])",
                 'battle'    => "SUM({{{$table}}}.[[battle_count]])",
@@ -162,7 +163,7 @@ class WeaponAction extends BaseAction
     public function getUseCount()
     {
         $weaponId = (int)$this->weapon->id;
-        $query = (new \yii\db\Query())
+        $query = (new Query())
             ->select([
                 'isoyear'       => 'isoyear',
                 'isoweek'       => 'isoweek',

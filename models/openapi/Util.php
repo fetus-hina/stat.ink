@@ -15,6 +15,8 @@ use Yii;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 
+use const DIRECTORY_SEPARATOR;
+
 trait Util
 {
     /** @return array<string, string> */

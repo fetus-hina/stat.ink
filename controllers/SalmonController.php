@@ -24,6 +24,8 @@ use yii\filters\VerbFilter;
 use yii\helpers\Url;
 use yii\web\Cookie;
 
+use const SORT_DESC;
+
 class SalmonController extends Controller
 {
     public $layout = "main";

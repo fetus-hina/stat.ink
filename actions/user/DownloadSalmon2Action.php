@@ -16,6 +16,8 @@ use yii\web\BadRequestHttpException;
 use yii\web\ServerErrorHttpException;
 use yii\web\ViewAction;
 
+use const SORT_ASC;
+
 class DownloadSalmon2Action extends ViewAction
 {
     private $user;

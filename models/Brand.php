@@ -10,7 +10,10 @@ namespace app\models;
 
 use Yii;
 use app\components\helpers\Translator;
+use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
+
+use const SORT_ASC;
 
 /**
  * This is the model class for table "brand".
@@ -24,7 +27,7 @@ use yii\helpers\ArrayHelper;
  * @property Ability $strength
  * @property Ability $weakness
  */
-class Brand extends \yii\db\ActiveRecord
+class Brand extends ActiveRecord
 {
     use openapi\Util;
 

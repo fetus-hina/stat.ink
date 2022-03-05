@@ -10,6 +10,7 @@ namespace app\models;
 
 use Yii;
 use app\components\Version;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "agent".
@@ -23,7 +24,7 @@ use app\components\Version;
  * @property Battle[] $battles
  * @property Salmon2[] $salmon2s
  */
-class Agent extends \yii\db\ActiveRecord
+class Agent extends ActiveRecord
 {
     /**
      * @inheritdoc

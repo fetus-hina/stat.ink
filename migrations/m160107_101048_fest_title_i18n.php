@@ -13,7 +13,7 @@ class m160107_101048_fest_title_i18n extends Migration
     public function up()
     {
         $this->execute('ALTER TABLE {{fest_title}} ADD COLUMN [[name]] VARCHAR(32)');
-        $t = \Yii::$app->db->beginTransaction();
+        $t = Yii::$app->db->beginTransaction();
         $this->update('fest_title', ['name' => 'Fanboy/Fangirl'], ['id' => 1]);
         $this->update('fest_title', ['name' => 'Fiend'], ['id' => 2]);
         $this->update('fest_title', ['name' => 'Defender'], ['id' => 3]);

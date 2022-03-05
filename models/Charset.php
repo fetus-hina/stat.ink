@@ -9,6 +9,7 @@
 namespace app\models;
 
 use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "charset".
@@ -23,7 +24,7 @@ use Yii;
  * @property LanguageCharset[] $languageCharsets
  * @property Language[] $languages
  */
-class Charset extends \yii\db\ActiveRecord
+class Charset extends ActiveRecord
 {
     /**
      * @inheritdoc

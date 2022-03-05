@@ -16,6 +16,8 @@ use yii\base\DynamicModel;
 use yii\web\NotFoundHttpException;
 use yii\web\ViewAction as BaseAction;
 
+use const SORT_ASC;
+
 class ViewAction extends BaseAction
 {
     public $fest;

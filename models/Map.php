@@ -12,7 +12,10 @@ use DateTimeZone;
 use Yii;
 use app\components\helpers\DateTimeFormatter;
 use app\components\helpers\Translator;
+use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
+
+use const SORT_ASC;
 
 /**
  * This is the model class for table "map".
@@ -28,7 +31,7 @@ use yii\helpers\ArrayHelper;
  * @property PeriodMap[] $periodMaps
  * @property SplapiMap[] $splapiMaps
  */
-final class Map extends \yii\db\ActiveRecord
+final class Map extends ActiveRecord
 {
     use SafeFindOneTrait;
     use openapi\Util;

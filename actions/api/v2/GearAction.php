@@ -15,6 +15,8 @@ use app\models\api\v2\GearGetForm;
 use yii\db\Query;
 use yii\web\ViewAction as BaseAction;
 
+use const SORT_ASC;
+
 class GearAction extends BaseAction
 {
     public function run()

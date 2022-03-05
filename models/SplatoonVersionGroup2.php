@@ -14,6 +14,9 @@ use DateTimeImmutable;
 use Yii;
 use yii\db\ActiveRecord;
 
+use const SORT_ASC;
+use const SORT_DESC;
+
 /**
  * This is the model class for table "splatoon_version_group2".
  *

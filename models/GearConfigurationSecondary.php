@@ -9,6 +9,7 @@
 namespace app\models;
 
 use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "gear_configuration_secondary".
@@ -20,7 +21,7 @@ use Yii;
  * @property Ability $ability
  * @property GearConfiguration $config
  */
-class GearConfigurationSecondary extends \yii\db\ActiveRecord
+class GearConfigurationSecondary extends ActiveRecord
 {
     /**
      * @inheritdoc

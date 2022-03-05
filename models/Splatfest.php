@@ -9,6 +9,7 @@
 namespace app\models;
 
 use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "splatfest".
@@ -26,7 +27,7 @@ use Yii;
  * @property SplatfestTeam[] $splatfestTeams
  * @property Team[] $teams
  */
-class Splatfest extends \yii\db\ActiveRecord
+class Splatfest extends ActiveRecord
 {
     public static function findCurrentFest()
     {

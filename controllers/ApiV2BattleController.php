@@ -22,6 +22,9 @@ use yii\web\NotFoundHttpException;
 use yii\web\Response;
 use yii\web\UnauthorizedHttpException;
 
+use const SORT_ASC;
+use const SORT_DESC;
+
 class ApiV2BattleController extends Controller
 {
     public $enableCsrfValidation = false;

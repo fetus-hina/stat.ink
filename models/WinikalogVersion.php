@@ -9,6 +9,7 @@
 namespace app\models;
 
 use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "winikalog_version".
@@ -19,7 +20,7 @@ use Yii;
  *
  * @property IkalogVersion $revision
  */
-class WinikalogVersion extends \yii\db\ActiveRecord
+class WinikalogVersion extends ActiveRecord
 {
     /**
      * @inheritdoc

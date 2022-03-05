@@ -294,7 +294,7 @@ class m171103_171937_gear2 extends Migration
         $this->delete('gear2');
     }
 
-    public function getList(string $table): \stdClass
+    public function getList(string $table): stdClass
     {
         return (object)ArrayHelper::map(
             (new Query())->select(['id', 'key'])->from($table)->all(),

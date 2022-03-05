@@ -16,8 +16,12 @@ use yii\helpers\Url;
 use yii\web\BadRequestHttpException;
 use yii\web\NotFoundHttpException;
 use yii\web\UnauthorizedHttpException;
+use yii\web\ViewAction;
 
-class ViewStatsAction extends \yii\web\ViewAction
+use const FILTER_VALIDATE_INT;
+use const SORT_DESC;
+
+class ViewStatsAction extends ViewAction
 {
     public function init()
     {

@@ -26,6 +26,7 @@ use app\models\WeaponType;
 use jp3cki\yii2\datetimepicker\BootstrapDateTimePickerAsset;
 use yii\base\Widget;
 use yii\bootstrap\ActiveForm;
+use yii\db\Query;
 use yii\helpers\Html;
 
 class BattleFilterWidget extends Widget
@@ -237,7 +238,7 @@ class BattleFilterWidget extends Widget
         return [
             Yii::t('app', 'Main Weapon') => (function () use ($weaponIdList) {
                 $ret = [];
-                $subQuery = (new \yii\db\Query())
+                $subQuery = (new Query())
                     ->select(['id' => '{{weapon}}.[[main_group_id]]'])
                     ->from('weapon')
                     ->andWhere(['in', '{{weapon}}.[[id]]', $weaponIdList]);

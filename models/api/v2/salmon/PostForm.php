@@ -33,6 +33,8 @@ use yii\helpers\Html;
 use yii\helpers\UnsetArrayValue;
 use yii\validators\NumberValidator;
 
+use const SORT_ASC;
+
 class PostForm extends Model
 {
     use OpenAPIUtil;
@@ -371,10 +373,10 @@ class PostForm extends Model
                     : BattleHelper::calcPeriod2((int)$this->shift_start_at),
                 'start_at' => ($this->start_at == '')
                     ? null
-                    : gmdate(\DateTime::ATOM, (int)$this->start_at),
+                    : gmdate(DateTime::ATOM, (int)$this->start_at),
                 'end_at' => ($this->end_at == '')
                     ? null
-                    : gmdate(\DateTime::ATOM, (int)$this->end_at),
+                    : gmdate(DateTime::ATOM, (int)$this->end_at),
                 'note' => $this->note,
                 'private_note' => $this->private_note,
                 'link_url' => $this->link_url,

@@ -20,6 +20,8 @@ use yii\base\Widget;
 use yii\helpers\Html;
 use yii\helpers\Json;
 
+use const SORT_DESC;
+
 class XPowerHistory extends Widget
 {
     public $user;

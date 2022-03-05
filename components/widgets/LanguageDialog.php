@@ -17,6 +17,8 @@ use app\models\Language;
 use app\models\SupportLevel;
 use yii\helpers\Html;
 
+use const SORT_ASC;
+
 class LanguageDialog extends Dialog
 {
     public function init()

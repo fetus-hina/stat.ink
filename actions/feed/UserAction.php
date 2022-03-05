@@ -14,6 +14,7 @@ namespace app\actions\feed;
 use DateTimeImmutable;
 use DateTimeZone;
 use Laminas\Feed\Writer\Feed as FeedWriter;
+use Laminas\Feed\Writer\Version;
 use Yii;
 use app\models\Battle;
 use app\models\Language;
@@ -85,7 +86,7 @@ class UserAction extends BaseAction
                 Yii::$app->name,
                 Yii::$app->version,
                 'Laminas-Feed-Writer',
-                \Laminas\Feed\Writer\Version::VERSION
+                Version::VERSION
             ),
             Yii::$app->version,
             Url::home(true)

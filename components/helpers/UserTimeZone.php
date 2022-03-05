@@ -17,6 +17,8 @@ use app\components\GeoIP;
 use app\models\Timezone;
 use yii\helpers\StringHelper;
 
+use const SORT_ASC;
+
 class UserTimeZone
 {
     public const COOKIE_KEY = 'timezone';

@@ -25,6 +25,8 @@ use stdClass;
 use yii\db\Query;
 use yii\web\ViewAction;
 
+use const SORT_ASC;
+
 class WeaponsAction extends ViewAction
 {
     public function run()

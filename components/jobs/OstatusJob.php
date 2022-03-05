@@ -19,6 +19,8 @@ use app\models\User;
 use yii\base\BaseObject;
 use yii\queue\JobInterface;
 
+use const SORT_ASC;
+
 class OstatusJob extends BaseObject implements JobInterface
 {
     use JobPriority;

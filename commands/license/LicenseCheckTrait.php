@@ -17,6 +17,8 @@ use yii\console\Controller;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
 
+use const STDERR;
+
 trait LicenseCheckTrait
 {
     use Helper;

@@ -9,6 +9,8 @@
 namespace app\models;
 
 use Yii;
+use app\components\helpers\Battle;
+use stdClass;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
 
@@ -103,13 +105,13 @@ class Schedule2 extends ActiveRecord
         return $this->hasMany(Map2::class, ['id' => 'map_id'])->viaTable('schedule_map2', ['schedule_id' => 'id']);
     }
 
-    public static function getInfo(): \stdClass
+    public static function getInfo(): stdClass
     {
-        $currentPeriod = \app\components\helpers\Battle::calcPeriod2(
+        $currentPeriod = Battle::calcPeriod2(
             (int)($_SERVER['REQUEST_TIME'] ?? time())
         );
         $formatter = fn (int $period): array => array_merge(
-            ['_t' => \app\components\helpers\Battle::periodToRange2($period)],
+            ['_t' => Battle::periodToRange2($period)],
             ArrayHelper::map(
                 static::find()
                         ->andWhere(['period' => $period])

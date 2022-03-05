@@ -13,9 +13,18 @@ use app\models\Battle;
 use app\models\User;
 use yii\base\InlineAction;
 use yii\console\Controller;
+use yii\db\Query;
 use yii\helpers\Console;
 use yii\helpers\FileHelper;
 use yii\helpers\Json;
+
+use const JSON_UNESCAPED_SLASHES;
+use const JSON_UNESCAPED_UNICODE;
+use const LOCK_EX;
+use const LOCK_NB;
+use const LOCK_UN;
+use const SEEK_END;
+use const SEEK_SET;
 
 class UserJsonController extends Controller
 {
@@ -83,7 +92,7 @@ class UserJsonController extends Controller
         }
         $lastExec = (int)fgets($lock);
 
-        $query = (new \yii\db\Query())
+        $query = (new Query())
             ->select([
                 'user_id',
                 'last_updated' => 'MAX({{battle}}.[[at]])',

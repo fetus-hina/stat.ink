@@ -10,7 +10,10 @@ namespace app\models;
 
 use Yii;
 use app\components\helpers\Translator;
+use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
+
+use const SORT_ASC;
 
 /**
  * This is the model class for table "gender".
@@ -22,7 +25,7 @@ use yii\helpers\ArrayHelper;
  * @property FestTitleGender[] $festTitleGenders
  * @property FestTitle[] $titles
  */
-class Gender extends \yii\db\ActiveRecord
+class Gender extends ActiveRecord
 {
     use openapi\Util;
 

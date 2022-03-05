@@ -17,6 +17,9 @@ use Yii;
 use yii\base\Component;
 use yii\helpers\FileHelper;
 
+use const LC_ALL;
+use const STDERR;
+
 class OpenCCTranslator extends Component
 {
     private const INPUT_DIR = '@app/messages/_deepl/zh';

@@ -19,6 +19,8 @@ use yii\db\Query;
 use yii\web\NotFoundHttpException;
 use yii\web\ViewAction;
 
+use const SORT_DESC;
+
 class UserStatByWeaponAction extends ViewAction
 {
     public function run()

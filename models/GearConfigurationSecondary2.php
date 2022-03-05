@@ -11,6 +11,8 @@ namespace app\models;
 use Yii;
 use yii\db\ActiveRecord;
 
+use const SORT_ASC;
+
 /**
  * This is the model class for table "gear_configuration_secondary2".
  *

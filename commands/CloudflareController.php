@@ -15,6 +15,11 @@ use Yii;
 use yii\console\Controller;
 use yii\helpers\FileHelper;
 
+use const FILTER_FLAG_IPV4;
+use const FILTER_FLAG_IPV6;
+use const FILTER_VALIDATE_IP;
+use const STDERR;
+
 class CloudflareController extends Controller
 {
     public function actionUpdateIpRanges(): int

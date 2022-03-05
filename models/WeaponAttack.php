@@ -9,6 +9,7 @@
 namespace app\models;
 
 use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "weapon_attack".
@@ -21,7 +22,7 @@ use Yii;
  * @property SplatoonVersion $version
  * @property Weapon $mainWeapon
  */
-class WeaponAttack extends \yii\db\ActiveRecord
+class WeaponAttack extends ActiveRecord
 {
     public static function findByWeaponAndVersion(Weapon $weapon, SplatoonVersion $version)
     {

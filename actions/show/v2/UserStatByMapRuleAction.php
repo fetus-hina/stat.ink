@@ -19,6 +19,8 @@ use yii\helpers\ArrayHelper;
 use yii\web\NotFoundHttpException;
 use yii\web\ViewAction as BaseAction;
 
+use const SORT_ASC;
+
 class UserStatByMapRuleAction extends BaseAction
 {
     public function run()

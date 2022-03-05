@@ -9,6 +9,8 @@
 namespace app\models;
 
 use Yii;
+use yii\db\ActiveRecord;
+use yii\db\Query;
 
 /**
  * This is the model class for table "user_stat".
@@ -31,7 +33,7 @@ use Yii;
  *
  * @property User $user
  */
-class UserStat extends \yii\db\ActiveRecord
+class UserStat extends ActiveRecord
 {
     /**
      * @inheritdoc
@@ -404,7 +406,7 @@ class UserStat extends \yii\db\ActiveRecord
             )
         );
 
-        $query = (new \yii\db\Query())
+        $query = (new Query())
             ->select([
                 'battle_count'      => $column_battle_count,
                 'wp'                => $column_wp,

@@ -24,6 +24,9 @@ use yii\bootstrap\ActiveForm;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 
+use const SORT_ASC;
+use const SORT_STRING;
+
 class SalmonFilterWidget extends Widget
 {
     public $user;

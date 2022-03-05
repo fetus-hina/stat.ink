@@ -17,6 +17,8 @@ use app\models\openapi\Util;
 use yii\base\Model;
 use yii\helpers\Html;
 
+use const SORT_DESC;
+
 class PostSalmonStatsForm extends Model
 {
     use Util;

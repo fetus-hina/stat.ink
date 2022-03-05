@@ -21,6 +21,9 @@ use jp3cki\uuid\Uuid;
 use yii\db\Query;
 use yii\helpers\Url;
 
+use const ENT_QUOTES;
+use const PHP_URL_HOST;
+
 class BattleAtom
 {
     public static function createUserFeed(User $user, array $only = []): ?string

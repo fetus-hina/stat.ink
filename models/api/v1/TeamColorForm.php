@@ -11,6 +11,7 @@ namespace app\models\api\v1;
 use Yii;
 use app\components\helpers\Color;
 use yii\base\Model;
+use yii\validators\NumberValidator;
 
 class TeamColorForm extends Model
 {
@@ -50,7 +51,7 @@ class TeamColorForm extends Model
             return;
         }
 
-        $numberValidator = new \yii\validators\NumberValidator();
+        $numberValidator = new NumberValidator();
         $numberValidator->integerOnly = true;
         $numberValidator->min = 0;
         $numberValidator->max = 255;

@@ -10,9 +10,12 @@ namespace app\components\db;
 
 use Yii;
 use yii\db\ColumnSchemaBuilder;
+use yii\db\Migration as BaseMigration;
 use yii\db\Schema;
 
-class Migration extends \yii\db\Migration
+use const PREG_SPLIT_NO_EMPTY;
+
+abstract class Migration extends BaseMigration
 {
     public function up()
     {

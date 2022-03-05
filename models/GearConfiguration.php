@@ -9,6 +9,7 @@
 namespace app\models;
 
 use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "gear_configuration".
@@ -22,7 +23,7 @@ use Yii;
  * @property Gear $gear
  * @property GearConfigurationSecondary[] $secondaries
  */
-class GearConfiguration extends \yii\db\ActiveRecord
+class GearConfiguration extends ActiveRecord
 {
     public static function generateFingerPrint($gearId, $primaryAbilityId, array $secondaryAbitilyIdList)
     {

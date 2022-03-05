@@ -20,6 +20,8 @@ use app\models\User;
 use yii\db\ActiveQuery;
 use yii\db\Query;
 
+use const SORT_DESC;
+
 class CombinedBattles
 {
     public static function getRecentBattles(int $num = 100): array

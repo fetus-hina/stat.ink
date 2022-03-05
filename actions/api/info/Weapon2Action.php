@@ -19,6 +19,8 @@ use app\models\WeaponType2;
 use yii\db\Query;
 use yii\web\ViewAction as BaseAction;
 
+use const SORT_ASC;
+
 class Weapon2Action extends BaseAction
 {
     public function run()

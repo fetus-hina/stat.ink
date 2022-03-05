@@ -22,6 +22,8 @@ use function parse_url;
 use function sprintf;
 use function strtolower;
 
+use const STDERR;
+
 class PublishAction extends Action
 {
     /** @return int */

@@ -9,6 +9,7 @@
 namespace app\models;
 
 use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "stat_weapon".
@@ -25,7 +26,7 @@ use Yii;
  * @property Rule $rule
  * @property Weapon $weapon
  */
-class StatWeapon extends \yii\db\ActiveRecord
+class StatWeapon extends ActiveRecord
 {
     /**
      * @inheritdoc

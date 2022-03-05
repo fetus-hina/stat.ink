@@ -8,6 +8,7 @@
 
 use app\components\db\Migration;
 use app\models\Gear2;
+use yii\db\Expression;
 use yii\helpers\Json;
 
 class m171208_163630_gear2 extends Migration
@@ -15,7 +16,7 @@ class m171208_163630_gear2 extends Migration
     public function safeUp()
     {
         $data = $this->getUpdateData();
-        $updateCase = new \yii\db\Expression(sprintf(
+        $updateCase = new Expression(sprintf(
             '(CASE %s %s END)',
             $this->db->quoteColumnName('key'),
             implode(' ', array_map(

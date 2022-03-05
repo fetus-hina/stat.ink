@@ -24,6 +24,10 @@ use yii\db\Query;
 use yii\helpers\Url;
 use yii\web\IdentityInterface;
 
+use const FILTER_VALIDATE_INT;
+use const SORT_ASC;
+use const SORT_DESC;
+
 /**
  * This is the model class for table "user".
  *
@@ -304,7 +308,7 @@ class User extends ActiveRecord implements IdentityInterface
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getUserStat2(): \yii\db\ActiveQuery
+    public function getUserStat2(): ActiveQuery
     {
         return $this->hasOne(UserStat2::class, ['user_id' => 'id']);
     }
@@ -318,7 +322,7 @@ class User extends ActiveRecord implements IdentityInterface
             ->with(['weapon']);
     }
 
-    public function getUserWeapon2s(): \yii\db\ActiveQuery
+    public function getUserWeapon2s(): ActiveQuery
     {
         return $this->hasMany(UserWeapon2::class, ['user_id' => 'id']);
     }

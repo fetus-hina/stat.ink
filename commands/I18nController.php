@@ -8,10 +8,14 @@
 
 namespace app\commands;
 
+use DirectoryIterator;
+use Iterator;
 use Yii;
 use app\models\Language;
 use yii\console\Controller;
 use yii\helpers\Console;
+
+use const LC_COLLATE;
 
 class I18nController extends Controller
 {
@@ -71,9 +75,9 @@ class I18nController extends Controller
         return $status ? 0 : 1;
     }
 
-    private function findJapaneseFiles(): \Iterator
+    private function findJapaneseFiles(): Iterator
     {
-        $it = new \DirectoryIterator(Yii::getAlias('@messages/ja'));
+        $it = new DirectoryIterator(Yii::getAlias('@messages/ja'));
         foreach ($it as $item) {
             if ($item->isFile() && !$item->isDot() && strtolower($item->getExtension()) === 'php') {
                 // skip weapon-*** files because it includes by weapon.php

@@ -17,6 +17,8 @@ use yii\db\ActiveQuery;
 use yii\helpers\ArrayHelper;
 use yii\web\ViewAction as BaseAction;
 
+use const SORT_ASC;
+
 class WeaponAction extends BaseAction
 {
     public function run()

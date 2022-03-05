@@ -13,8 +13,9 @@ namespace app\components\db;
 use Exception;
 use Throwable;
 use Yii;
+use yii\db\Connection as BaseConnection;
 
-class Connection extends \yii\db\Connection
+class Connection extends BaseConnection
 {
     public function setTimezone(string $timeZone): void
     {

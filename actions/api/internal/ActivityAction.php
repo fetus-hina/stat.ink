@@ -21,6 +21,9 @@ use yii\db\Query;
 use yii\helpers\ArrayHelper;
 use yii\web\Response;
 
+use const SORT_ASC;
+use const SORT_STRING;
+
 class ActivityAction extends Action
 {
     public $resp;

@@ -12,6 +12,7 @@ namespace app\models;
 use Curl\Curl;
 use DateTime;
 use Yii;
+use yii\db\ActiveRecord;
 use yii\helpers\Json;
 use yii\helpers\Url;
 
@@ -32,7 +33,7 @@ use yii\helpers\Url;
  * @property Language $language
  * @property User $user
  */
-class Slack extends \yii\db\ActiveRecord
+class Slack extends ActiveRecord
 {
     /**
      * @inheritdoc

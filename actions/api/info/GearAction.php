@@ -16,6 +16,8 @@ use app\models\Language;
 use yii\web\NotFoundHttpException;
 use yii\web\ViewAction as BaseAction;
 
+use const SORT_ASC;
+
 class GearAction extends BaseAction
 {
     public $type;

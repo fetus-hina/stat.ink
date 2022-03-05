@@ -15,12 +15,18 @@ use Yii;
 use app\components\behaviors\TimestampBehavior;
 use app\components\helpers\Battle as BattleHelper;
 use app\components\helpers\DateTimeFormatter;
+use stdClass;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\db\Query;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Url;
+
+use const DATE_ATOM;
+use const FILTER_VALIDATE_INT;
+use const SORT_ASC;
+use const SORT_DESC;
 
 /**
  * This is the model class for table "salmon2".
@@ -449,7 +455,7 @@ class Salmon2 extends ActiveRecord
         }
 
         return array_map(
-            function (SalmonWave2 $item): ?\stdClass {
+            function (SalmonWave2 $item): ?stdClass {
                 if ($item->golden_egg_delivered === null) {
                     return null;
                 }

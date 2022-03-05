@@ -7,6 +7,7 @@
  */
 
 use yii\db\Migration;
+use yii\db\Query;
 
 class m151208_102647_automated_flag extends Migration
 {
@@ -34,7 +35,7 @@ class m151208_102647_automated_flag extends Migration
             preg_replace(
                 '/^.+ FROM\s/',
                 'FROM ',
-                ((new \yii\db\Query())
+                ((new Query())
                     ->from('agent')
                     ->andWhere('{{battle}}.[[agent_id]] = {{agent}}.[[id]]')
                     ->andWhere(['{{agent}}.[[name]]' => ['IkaLog', 'TakoLog']])

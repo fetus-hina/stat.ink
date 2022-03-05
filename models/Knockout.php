@@ -9,6 +9,7 @@
 namespace app\models;
 
 use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "knockout".
@@ -21,7 +22,7 @@ use Yii;
  * @property Map $map
  * @property Rule $rule
  */
-class Knockout extends \yii\db\ActiveRecord
+class Knockout extends ActiveRecord
 {
     /**
      * @inheritdoc

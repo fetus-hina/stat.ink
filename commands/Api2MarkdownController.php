@@ -27,6 +27,10 @@ use yii\console\Controller;
 use yii\helpers\Console;
 use yii\helpers\StringHelper;
 
+use const GRAPHEME_EXTR_MAXCHARS;
+use const SORT_ASC;
+use const SORT_DESC;
+
 class Api2MarkdownController extends Controller
 {
     public $defaultAction = 'update';

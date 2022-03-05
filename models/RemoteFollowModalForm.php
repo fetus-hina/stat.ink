@@ -12,6 +12,9 @@ use Yii;
 use app\models\User;
 use yii\base\Model;
 
+use const DNS_A;
+use const DNS_AAAA;
+
 class RemoteFollowModalForm extends Model
 {
     public $screen_name;

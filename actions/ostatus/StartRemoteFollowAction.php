@@ -18,6 +18,9 @@ use yii\helpers\Json;
 use yii\web\Response;
 use yii\web\ViewAction as BaseAction;
 
+use const CURLOPT_FOLLOWLOCATION;
+use const CURLOPT_MAXREDIRS;
+
 class StartRemoteFollowAction extends BaseAction
 {
     public function init()
