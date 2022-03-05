@@ -1044,16 +1044,6 @@ class Battle extends ActiveRecord
 
     public function getGearAbilities()
     {
-        $queryGear = function ($attr) {
-            if ($this->{"{$attr}_id"} === null) {
-                return null;
-            }
-            $q = "get{$attr}";
-            return $this->{$q}()
-                ->with(['primaryAbility', 'secondaries.ability'])
-                ->one();
-        };
-
         $gears = [
             $this->headgear,
             $this->clothing,

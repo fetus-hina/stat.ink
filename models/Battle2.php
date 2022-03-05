@@ -359,7 +359,6 @@ class Battle2 extends ActiveRecord
                 }
                 if (count($and) > 1) {
                     $this->andWhere($and);
-                    $and = ['and'];
                 }
                 if ($form->term != '') {
                     $this->filterTerm($form->term, [
@@ -1774,12 +1773,6 @@ class Battle2 extends ActiveRecord
 
     private function getGearAbilitySummaryImpl(): ?array
     {
-        $specials = ArrayHelper::map(
-            Special2::find()->all(),
-            'key',
-            fn (Special2 $model): Special2 => $model
-        );
-
         $results = [];
 
         $addAbility = function (

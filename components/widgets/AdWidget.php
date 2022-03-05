@@ -64,6 +64,10 @@ class AdWidget extends Widget
                 ob_end_clean();
             }
         );
-        return $this->adSense->run() . ob_get_contents();
+        try {
+            return $this->adSense->run() . ob_get_contents();
+        } finally {
+            unset($ob);
+        }
     }
 }

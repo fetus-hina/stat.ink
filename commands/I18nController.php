@@ -100,7 +100,6 @@ class I18nController extends Controller
         $changed = false;
         $inData = include $inPath;
         $current = file_exists($outPath) ? include($outPath) : [];
-        $new = !file_exists($outPath);
         foreach (array_keys($inData) as $enText) {
             if (!isset($current[$enText])) {
                 $current[$enText] = '';
@@ -273,8 +272,6 @@ class I18nController extends Controller
         $result |= $deepl->run() ? 0 : 1;
 
         $opencc = Yii::createObject(['class' => i18n\OpenCCTranslator::class]);
-        $result |= $opencc->run() ? 0 : 1;
-
-        return $result;
+        return $result | $opencc->run() ? 0 : 1;
     }
 }

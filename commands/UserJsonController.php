@@ -127,7 +127,7 @@ class UserJsonController extends Controller
 
     public function actionUpdate()
     {
-        if (!$user = $this->findUser()) {
+        if (!$this->findUser()) {
             $this->stdErr("ユーザが見つかりません (userId か screenName のどちらかは必須です)\n");
             return 1;
         }
@@ -165,7 +165,6 @@ class UserJsonController extends Controller
     {
         if ($this->user === false) {
             $where = ['and'];
-            $query = User::find();
             if ($this->userId) {
                 $where[] = ['{{user}}.[[id]]' => $this->userId];
             }

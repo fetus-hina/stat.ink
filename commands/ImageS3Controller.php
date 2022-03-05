@@ -32,13 +32,12 @@ class ImageS3Controller extends Controller
 
     public function actionUpload(string $path, bool $queue = false): int
     {
-        // {{{
         if (!Yii::$app->imgS3->enabled) {
             $this->stderr(
                 "The component \"imgS3\" is not enabled.\n",
                 Console::FG_RED
             );
-            return false;
+            return 1;
         }
 
         if (!preg_match('/\b([a-z2-9]{26}\.jpg)$/', $path, $match)) {
@@ -94,12 +93,10 @@ class ImageS3Controller extends Controller
             ));
         }
         return 0;
-        // }}}
     }
 
     public function actionAutoUpload(): int
     {
-        // {{{
         if (!$lock = $this->lockAutoUpload()) {
             return 1;
         }
@@ -111,18 +108,19 @@ class ImageS3Controller extends Controller
             public function accept()
             {
                 $entry = $this->getInnerIterator()->current();
-                return
-                    $entry->isFile() &&
+                return $entry->isFile() &&
                     preg_match('/^[a-z2-9]{26}\.jpg$/', $entry->getBasename()) &&
-                    time() - $entry->getMTime() >= ImageS3Controller::AUTOUPLOAD_DELAY
-                ;
+                    time() - $entry->getMTime() >= ImageS3Controller::AUTOUPLOAD_DELAY;
             }
         };
+        $success = true;
         foreach ($iterator as $entry) {
-            $status = $this->actionUpload($entry->getBasename(), true);
+            if ($this->actionUpload($entry->getBasename(), true) !== 0) {
+                $success = false;
+            }
         }
-        //}}}
-        return 0;
+        unset($lock);
+        return $success ? 0 : 1;
     }
 
     private function lockAutoUpload()

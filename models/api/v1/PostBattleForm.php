@@ -791,6 +791,7 @@ class PostBattleForm extends Model
                 }
             }
         }
+        unset($lock);
 
         return $config->id;
     }

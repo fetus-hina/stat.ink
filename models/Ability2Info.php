@@ -775,7 +775,6 @@ class Ability2Info extends Model
                     'inkRadius' => $inkC,
                     'inkRadiusRatio' => $inkC / 3.2,
                 ];
-                $results = $duration(450, 60);
                 if (version_compare($vTag, '1.3.0', '<')) {
                     return array_merge(
                         $duration(480, 120),

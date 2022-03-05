@@ -55,7 +55,6 @@ class ActivityAction extends Action
     private function getInputPseudoForm(): DynamicModel
     {
         $req = Yii::$app->getRequest();
-        $time = time();
         return DynamicModel::validateData(
             [
                 'screen_name' => $req->get('screen_name'),

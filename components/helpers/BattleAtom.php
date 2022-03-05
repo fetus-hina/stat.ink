@@ -29,13 +29,21 @@ class BattleAtom
     public static function createUserFeed(User $user, array $only = []): ?string
     {
         $raii = self::switchLanguage($user->defaultLanguage->lang);
-        return static::renderAtom($user, $only);
+        try {
+            return static::renderAtom($user, $only);
+        } finally {
+            unset($raii);
+        }
     }
 
     public static function createBattleFeed(User $user, Battle $battle): ?string
     {
         $raii = self::switchLanguage($user->defaultLanguage->lang);
-        return static::renderBattleAtom($user, $battle);
+        try {
+            return static::renderBattleAtom($user, $battle);
+        } finally {
+            unset($raii);
+        }
     }
 
     private static function switchLanguage(string $lang) // : object

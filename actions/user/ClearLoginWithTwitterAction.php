@@ -16,7 +16,6 @@ class ClearLoginWithTwitterAction extends BaseAction
 {
     public function run()
     {
-        $request = Yii::$app->request;
         $response = Yii::$app->response;
 
         $user = Yii::$app->user->identity;

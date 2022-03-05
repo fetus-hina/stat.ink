@@ -22,7 +22,7 @@ class RegisterForm extends Model
 
     public function rules()
     {
-        $rules = [
+        return [
             [['screen_name', 'password', 'password_repeat'], 'required'],
             [['screen_name'], 'string', 'max' => 15],
             [['screen_name'], 'match',
@@ -40,7 +40,6 @@ class RegisterForm extends Model
                 'operator' => '===',
             ],
         ];
-        return $rules;
     }
 
     /**

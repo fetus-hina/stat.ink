@@ -279,7 +279,7 @@ class Salmon2 extends ActiveRecord
             return null;
         }
 
-        foreach ($this->players as $player) {
+        foreach ($list as $player) {
             if ($player->is_me) {
                 return $player;
             }
@@ -294,7 +294,10 @@ class Salmon2 extends ActiveRecord
             return null;
         }
 
-        return array_filter($this->players, fn (SalmonPlayer2 $player): bool => !$player->is_me);
+        return array_filter(
+            $list,
+            fn (SalmonPlayer2 $player): bool => !$player->is_me,
+        );
     }
 
     private $sortedPlayersCache = false;

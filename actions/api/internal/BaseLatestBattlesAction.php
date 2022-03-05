@@ -359,7 +359,6 @@ abstract class BaseLatestBattlesAction extends ViewAction
     private function formatBattle1(Battle $battle): array
     {
         $am = Yii::$app->assetManager;
-        $modeAsset = $am->getBundle(GameModeIconsAsset::class, true);
         $stageAsset = $am->getBundle(Spl1StagesAsset::class, true);
 
         return [

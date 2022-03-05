@@ -159,6 +159,7 @@ class BattleQuery extends ActiveQuery
 
     public function filterByTerm(?string $value, array $options = []): self
     {
+        $raii = null;
         $now = (int)($_SERVER['REQUEST_TIME'] ?? time());
         $currentPeriod = BattleHelper::calcPeriod($now);
 
@@ -234,6 +235,7 @@ class BattleQuery extends ActiveQuery
                 }
                 break;
         }
+        unset($raii);
         return $this;
     }
 

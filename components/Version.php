@@ -130,7 +130,7 @@ class Version
         }
 
         $lines = $status = null;
-        $line = exec($cmdline, $lines, $status);
+        exec($cmdline, $lines, $status);
         if ($status !== 0) {
             return false;
         }

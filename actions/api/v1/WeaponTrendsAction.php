@@ -35,37 +35,38 @@ class WeaponTrendsAction extends BaseAction
             ];
         }
 
-        $query = StatWeaponMapTrend::find()
-            ->with(['weapon', 'weapon.subweapon', 'weapon.special'])
-            ->where([
-                'stat_weapon_map_trend.rule_id' => $form->ruleId,
-                'stat_weapon_map_trend.map_id' => $form->mapId,
-            ])
-            ->orderBy(implode(', ', [
-                'stat_weapon_map_trend.battles DESC',
-                'stat_weapon_map_trend.weapon_id',
-            ]));
+        return Yii::$app->db->transaction(function () {
+            $query = StatWeaponMapTrend::find()
+                ->with(['weapon', 'weapon.subweapon', 'weapon.special'])
+                ->where([
+                    'stat_weapon_map_trend.rule_id' => $form->ruleId,
+                    'stat_weapon_map_trend.map_id' => $form->mapId,
+                ])
+                ->orderBy(implode(', ', [
+                    'stat_weapon_map_trend.battles DESC',
+                    'stat_weapon_map_trend.weapon_id',
+                ]));
 
-        $transaction = Yii::$app->db->beginTransaction();
-        $totalCount = (clone $query)->orderBy(null)->sum('stat_weapon_map_trend.battles');
-        $json = [];
-        $rank = 0;
-        $lastCount = null;
-        ini_set('serialize_precision', 3);
-        foreach ($query->all() as $i => $row) {
-            if ($row->battles !== $lastCount) {
-                $rank = $i + 1;
-                $lastCount = $row->battles;
-            }
-            $json[] = [
-                'rank' => $rank,
-                'use_pct' => $totalCount > 0
+            $totalCount = (clone $query)->orderBy(null)->sum('stat_weapon_map_trend.battles');
+            $json = [];
+            $rank = 0;
+            $lastCount = null;
+            ini_set('serialize_precision', 3);
+            foreach ($query->all() as $i => $row) {
+                if ($row->battles !== $lastCount) {
+                    $rank = $i + 1;
+                    $lastCount = $row->battles;
+                }
+                $json[] = [
+                    'rank' => $rank,
+                    'use_pct' => $totalCount > 0
                         ? ($row->battles * 100 / $totalCount)
                         : null,
-                'weapon' => $row->weapon->toJsonArray(),
-            ];
-        }
+                    'weapon' => $row->weapon->toJsonArray(),
+                ];
+            }
 
-        return $json;
+            return $json;
+        });
     }
 }

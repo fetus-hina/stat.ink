@@ -53,7 +53,7 @@ class LanguageAction extends BaseAction
 
     private function makeValidationModel()
     {
-        $model = DynamicModel::validateData(
+        return DynamicModel::validateData(
             ['language' => null],
             [
                 [['language'], 'required'],
@@ -63,6 +63,5 @@ class LanguageAction extends BaseAction
                 ],
             ]
         );
-        return $model;
     }
 }

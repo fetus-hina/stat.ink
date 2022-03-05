@@ -240,7 +240,7 @@ class StatController extends Controller
 
     private function createSelectQueryForUpdateEntireWeaponsKillDeath()
     {
-        $query = (new Query())
+        return (new Query())
             ->select([
                 'weapon_id' => '{{p}}.[[weapon_id]]',
                 'rule_id'   => '{{b}}.[[rule_id]]',
@@ -274,7 +274,6 @@ class StatController extends Controller
                 '{{p}}.[[kill]]',
                 '{{p}}.[[death]]',
             ]);
-        return $query;
         // }}}
     }
 
@@ -820,7 +819,6 @@ class StatController extends Controller
     {
         // {{{
         $db = Yii::$app->db;
-        $maxCreatedPeriod = (int)StatWeaponUseCount::find()->max('period');
         $select = (new Query())
             ->select([
                 'period'    => '{{battle}}.[[period]]',
@@ -1186,7 +1184,6 @@ class StatController extends Controller
                 '{{battle2}}.[[map_id]]',
             ]))
             ->orderBy(null);
-        $sql = $select->createCommand()->rawSql;
 
         $insert = sprintf(
             'INSERT INTO {{%s}} ( %s ) %s',

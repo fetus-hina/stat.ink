@@ -12,7 +12,6 @@ use Yii;
 use app\components\helpers\Battle as BattleHelper;
 use app\models\Map2;
 use app\models\Mode2;
-use app\models\PeriodMap;
 use app\models\WeaponCategory2;
 use statink\yii2\stages\spl2\Spl2Stage;
 use yii\helpers\ArrayHelper;
@@ -46,28 +45,28 @@ class CurrentData2Action extends ViewAction
 
     public function getCurrentInfo()
     {
-        $info = function (array $periodMaps): array {
-            if (!$periodMaps) {
-                return [];
-            }
-            return [
-                'rule' => [
-                    'key' => $periodMaps[0]->rule->key,
-                    'name' => Yii::t('app-rule', $periodMaps[0]->rule->name),
-                ],
-                'maps' => array_map(
-                    fn (PeriodMap $pm): string => $pm->map->key,
-                    $periodMaps
-                ),
-            ];
-        };
-        $info2 = fn (array $keys): array => [
-            'rule' => [
-                'key' => 'nawabari',
-                'name' => Yii::t('app-rule2', 'Turf War'),
-            ],
-            'maps' => $keys,
-        ];
+        // $info = function (array $periodMaps): array {
+        //     if (!$periodMaps) {
+        //         return [];
+        //     }
+        //     return [
+        //         'rule' => [
+        //             'key' => $periodMaps[0]->rule->key,
+        //             'name' => Yii::t('app-rule', $periodMaps[0]->rule->name),
+        //         ],
+        //         'maps' => array_map(
+        //             fn (PeriodMap $pm): string => $pm->map->key,
+        //             $periodMaps
+        //         ),
+        //     ];
+        // };
+        // $info2 = fn (array $keys): array => [
+        //     'rule' => [
+        //         'key' => 'nawabari',
+        //         'name' => Yii::t('app-rule2', 'Turf War'),
+        //     ],
+        //     'maps' => $keys,
+        // ];
         $now = microtime(true);
         $period = BattleHelper::calcPeriod2((int)$now);
         $range = BattleHelper::periodToRange2($period);

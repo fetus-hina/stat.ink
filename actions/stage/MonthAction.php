@@ -77,15 +77,14 @@ class MonthAction extends BaseAction
             'prevUrl' => $this->prevMonthUrl,
             'nextUrl' => $this->nextMonthUrl,
             'month' => (new DateTimeImmutable())
-                            ->setTimezone(new DateTimeZone(Yii::$app->timeZone))
-                            ->setDate($this->year, $this->month, 1)
-                            ->setTime(0, 0, 0),
+                ->setTimezone(new DateTimeZone(Yii::$app->timeZone))
+                ->setDate($this->year, $this->month, 1)
+                ->setTime(0, 0, 0),
         ]);
     }
 
     public function buildData(): array
     {
-        // {{{
         $raiiTimeZone = static::setTimeZoneToFavorable();
 
         $rules = $this->getRules();
@@ -107,16 +106,19 @@ class MonthAction extends BaseAction
                         $maps
                     ),
                 ];
-                usort($ret->maps, fn ($a, $b) => $b->count <=> $a->count
+                usort(
+                    $ret->maps,
+                    fn ($a, $b) => $b->count <=> $a->count
                         ?: strnatcasecmp(
                             Yii::t('app-map', $a->map->name),
                             Yii::t('app-map', $b->map->name)
-                        ));
+                        )
+                );
                 return $ret;
             })();
         }
+        unset($raiiTimeZone);
         return $data;
-        // }}}
     }
 
     public function getMaps(): array

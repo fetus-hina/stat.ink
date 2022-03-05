@@ -164,6 +164,8 @@
   <rule ref="SlevomatCodingStandard.Functions.ArrowFunctionDeclaration"/>
   <rule ref="SlevomatCodingStandard.TypeHints.UselessConstantTypeHint"/>
   <!--rule ref="SlevomatCodingStandard.Variables.DisallowSuperGlobalVariable"/-->
+  <rule ref="SlevomatCodingStandard.Variables.UselessVariable"/>
+  <rule ref="SlevomatCodingStandard.Variables.UnusedVariable"/>
 
   <rule ref="PSR12">
     <file>*/components/ability/effect/*</file>

@@ -336,7 +336,6 @@ class BattleAction extends BaseAction
             }
         }
         $imageOutputDir = Yii::getAlias('@webroot/images');
-        $time = time();
         if ($image = $form->toImageJudge($battle)) {
             $binary = is_string($form->image_judge)
                 ? $form->image_judge
