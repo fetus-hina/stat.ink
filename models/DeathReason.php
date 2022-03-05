@@ -12,7 +12,6 @@ use Yii;
 use app\components\helpers\Translator;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Html;
 
 use const SORT_ASC;
 

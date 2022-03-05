@@ -8,7 +8,6 @@
 
 namespace app\models\api\v1;
 
-use Yii;
 use app\components\helpers\CriticalSection;
 use app\components\helpers\db\Now;
 use app\models\Ability;

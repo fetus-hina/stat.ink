@@ -8,7 +8,6 @@
 
 namespace app\controllers;
 
-use Yii;
 use app\components\web\Controller;
 
 class FeedController extends Controller

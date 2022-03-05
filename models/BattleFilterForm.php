@@ -10,8 +10,6 @@ namespace app\models;
 
 use Yii;
 use app\components\helpers\Battle as BattleHelper;
-use app\components\helpers\db\Now;
-use app\models\Battle;
 use app\models\GameMode;
 use app\models\Lobby;
 use app\models\Map;

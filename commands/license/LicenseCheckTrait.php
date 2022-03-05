@@ -10,10 +10,8 @@ declare(strict_types=1);
 
 namespace app\commands\license;
 
-use Exception;
 use Yii;
 use yii\base\InvalidArgumentException;
-use yii\console\Controller;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
 

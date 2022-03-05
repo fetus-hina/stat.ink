@@ -18,7 +18,6 @@ use app\models\Map;
 use app\models\Rule;
 use app\models\Weapon;
 use app\models\WeaponType;
-use yii\web\NotFoundHttpException;
 use yii\web\ViewAction as BaseAction;
 
 class EditBattleAction extends BaseAction

@@ -10,7 +10,6 @@ declare(strict_types=1);
 
 namespace app\models;
 
-use Yii;
 use yii\base\Model;
 
 class KDWin2FilterForm extends Model

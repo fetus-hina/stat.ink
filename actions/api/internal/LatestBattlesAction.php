@@ -12,9 +12,7 @@ namespace app\actions\api\internal;
 
 use Yii;
 use app\components\helpers\CombinedBattles;
-use app\models\User;
 use yii\db\Transaction;
-use yii\helpers\Url;
 
 class LatestBattlesAction extends BaseLatestBattlesAction
 {

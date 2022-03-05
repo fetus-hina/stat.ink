@@ -10,8 +10,6 @@ declare(strict_types=1);
 
 namespace app\components\behaviors;
 
-use Exception;
-use Yii;
 use app\models\HttpClientHint;
 use yii\behaviors\AttributeBehavior;
 use yii\db\ActiveRecord;

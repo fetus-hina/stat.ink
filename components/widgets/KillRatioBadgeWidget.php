@@ -10,7 +10,6 @@ declare(strict_types=1);
 
 namespace app\components\widgets;
 
-use Yii;
 use yii\base\Widget;
 use yii\bootstrap\BootstrapAsset;
 use yii\helpers\Html;

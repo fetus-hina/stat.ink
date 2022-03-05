@@ -10,14 +10,11 @@ namespace app\actions\stage;
 
 use Yii;
 use app\components\helpers\Battle as BattleHelper;
-use app\models\GameMode;
-use app\models\Lobby;
 use app\models\Map;
 use app\models\PeriodMap;
 use app\models\Rule;
 use app\models\StatWeaponMapTrend;
 use stdClass;
-use yii\base\DynamicModel;
 use yii\web\NotFoundHttpException;
 use yii\web\ViewAction as BaseAction;
 

@@ -17,7 +17,6 @@ use app\components\helpers\Resource;
 use app\models\GameMode;
 use app\models\Map;
 use app\models\PeriodMap;
-use yii\base\DynamicModel;
 use yii\db\Query;
 use yii\helpers\Url;
 use yii\web\NotFoundHttpException;

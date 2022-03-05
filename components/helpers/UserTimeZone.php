@@ -13,7 +13,6 @@ namespace app\components\helpers;
 use DateTimeImmutable;
 use DateTimeZone;
 use Yii;
-use app\components\GeoIP;
 use app\models\Timezone;
 use yii\helpers\StringHelper;
 

@@ -10,7 +10,6 @@ declare(strict_types=1);
 
 namespace app\actions\site;
 
-use DirectoryIterator;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use Yii;

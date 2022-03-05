@@ -12,11 +12,8 @@ namespace app\components\widgets\battle\panelItem;
 
 use DateTime;
 use DateTimeImmutable;
-use DateTimeZone;
 use Yii;
 use app\assets\SimpleBattleListAsset;
-use app\components\widgets\ActiveRelativeTimeWidget;
-use app\models\User;
 use yii\base\Widget;
 use yii\bootstrap\Html;
 

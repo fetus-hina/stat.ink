@@ -9,9 +9,7 @@
 namespace app\actions\show;
 
 use Yii;
-use app\components\helpers\DateTimeFormatter;
 use app\models\Battle;
-use app\models\User;
 use yii\web\NotFoundHttpException;
 use yii\web\ViewAction as BaseAction;
 

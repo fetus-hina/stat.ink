@@ -10,7 +10,6 @@ namespace app\models;
 
 use Yii;
 use yii\db\ActiveQuery;
-use yii\db\Query;
 
 class Salmon2Query extends ActiveQuery
 {

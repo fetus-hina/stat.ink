@@ -10,12 +10,10 @@ declare(strict_types=1);
 
 namespace app\components\jobs;
 
-use Exception;
 use Yii;
 use app\models\Battle;
 use app\models\Battle2;
 use app\models\OstatusPubsubhubbub;
-use app\models\User;
 use yii\base\BaseObject;
 use yii\queue\JobInterface;
 

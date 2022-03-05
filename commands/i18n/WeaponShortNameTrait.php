@@ -15,7 +15,6 @@ use app\models\Language;
 use app\models\SalmonMainWeapon2;
 use app\models\Weapon;
 use app\models\Weapon2;
-use yii\console\Controller;
 use yii\helpers\Console;
 
 use const ARRAY_FILTER_USE_BOTH;

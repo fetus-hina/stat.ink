@@ -8,7 +8,6 @@
 
 namespace app\components\web;
 
-use Yii;
 use yii\base\Component;
 use yii\web\ResponseFormatterInterface;
 

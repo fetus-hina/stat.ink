@@ -11,9 +11,7 @@ declare(strict_types=1);
 namespace app\actions\show\v2;
 
 use Yii;
-use app\components\helpers\DateTimeFormatter;
 use app\models\Battle2;
-use app\models\User;
 use yii\helpers\ArrayHelper;
 use yii\web\NotFoundHttpException;
 use yii\web\ViewAction as BaseAction;

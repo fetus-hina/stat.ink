@@ -6,7 +6,6 @@
  * @author AIZAWA Hina <hina@fetus.jp>
  */
 
-use app\models\User;
 use yii\db\Migration;
 use yii\db\Query;
 

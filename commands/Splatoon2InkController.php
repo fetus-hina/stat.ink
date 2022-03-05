@@ -26,7 +26,6 @@ use app\models\Weapon2;
 use stdClass;
 use yii\console\Controller;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Console;
 use yii\helpers\Json;
 
 use const SORT_ASC;

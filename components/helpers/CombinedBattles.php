@@ -18,7 +18,6 @@ use app\models\Battle2;
 use app\models\Salmon2;
 use app\models\User;
 use yii\db\ActiveQuery;
-use yii\db\Query;
 
 use const SORT_DESC;
 

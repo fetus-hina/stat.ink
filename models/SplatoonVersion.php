@@ -9,7 +9,6 @@
 namespace app\models;
 
 use DateTime;
-use Yii;
 use yii\db\ActiveRecord;
 
 /**

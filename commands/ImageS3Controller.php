@@ -12,7 +12,6 @@ use FilterIterator;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use Yii;
-use app\components\ImageS3;
 use app\components\jobs\ImageS3Job;
 use yii\console\Controller;
 use yii\helpers\Console;

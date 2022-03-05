@@ -8,7 +8,6 @@
 
 namespace app\models\api\v2;
 
-use Yii;
 use app\components\behaviors\SplatnetNumberBehavior;
 use app\models\Ability2;
 use app\models\Gear2;

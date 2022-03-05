@@ -8,7 +8,6 @@
 
 namespace app\controllers;
 
-use Yii;
 use app\components\web\Controller;
 use yii\filters\VerbFilter;
 

@@ -26,7 +26,6 @@ use yii\base\DynamicModel;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Url;
-use yii\web\NotFoundHttpException;
 
 use const SORT_DESC;
 

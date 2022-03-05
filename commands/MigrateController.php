@@ -10,7 +10,6 @@ declare(strict_types=1);
 
 namespace app\commands;
 
-use Yii;
 use yii\base\InvalidConfigException;
 use yii\console\controllers\MigrateController as BaseController;
 

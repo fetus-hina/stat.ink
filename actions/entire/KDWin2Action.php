@@ -15,7 +15,6 @@ use app\models\KDWin2FilterForm;
 use app\models\SplatoonVersion2;
 use app\models\SplatoonVersionGroup2;
 use app\models\StatWeapon2KdWinRate;
-use yii\helpers\ArrayHelper;
 use yii\web\ServerErrorHttpException;
 use yii\web\ViewAction;
 

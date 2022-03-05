@@ -8,7 +8,6 @@
 
 namespace app\models\api\internal;
 
-use Yii;
 use yii\base\Model;
 
 class PatchBattleForm extends Model

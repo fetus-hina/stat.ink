@@ -15,7 +15,6 @@ use yii\db\ActiveRecord;
 use yii\db\Connection;
 use yii\helpers\FileHelper;
 use yii\helpers\Url;
-use yii\web\UploadedFile;
 
 use function dirname;
 use function file_exists;

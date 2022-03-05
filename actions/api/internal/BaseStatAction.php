@@ -8,7 +8,6 @@
 
 namespace app\actions\api\internal;
 
-use DateTimeZone;
 use Yii;
 use app\models\User;
 use yii\web\ViewAction as BaseAction;

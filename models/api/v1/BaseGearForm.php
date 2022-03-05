@@ -8,7 +8,6 @@
 
 namespace app\models\api\v1;
 
-use Yii;
 use app\models\Ability;
 use app\models\Gear;
 use yii\base\Model;

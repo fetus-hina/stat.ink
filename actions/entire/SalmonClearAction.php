@@ -10,7 +10,6 @@ declare(strict_types=1);
 
 namespace app\actions\entire;
 
-use Yii;
 use app\models\StatSalmon2ClearRate;
 use yii\web\ViewAction;
 

@@ -24,7 +24,6 @@ use app\models\SalmonTitle2;
 use app\models\SalmonWaterLevel2;
 use app\models\WeaponCategory2;
 use yii\console\Controller;
-use yii\helpers\Console;
 use yii\helpers\StringHelper;
 
 use const GRAPHEME_EXTR_MAXCHARS;

@@ -10,7 +10,6 @@ declare(strict_types=1);
 
 namespace app\controllers;
 
-use Yii;
 use app\actions\user\ClearLoginWithTwitterAction;
 use app\actions\user\Download2Action;
 use app\actions\user\DownloadAction;

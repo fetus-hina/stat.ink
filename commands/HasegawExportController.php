@@ -19,8 +19,6 @@ use app\components\helpers\Resource;
 use app\models\Battle;
 use app\models\BattlePlayer;
 use yii\console\Controller;
-use yii\db\BatchQueryResult;
-use yii\helpers\Console;
 use yii\helpers\Json;
 
 class HasegawExportController extends Controller

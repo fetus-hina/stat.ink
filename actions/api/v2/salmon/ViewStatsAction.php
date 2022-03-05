@@ -12,7 +12,6 @@ namespace app\actions\api\v2\salmon;
 
 use Yii;
 use app\models\SalmonStats2;
-use yii\helpers\Url;
 use yii\web\BadRequestHttpException;
 use yii\web\NotFoundHttpException;
 use yii\web\UnauthorizedHttpException;

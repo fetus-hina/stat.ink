@@ -55,7 +55,7 @@ class BlogFeedController extends Controller
         }
         $uuid = Uuid::v5(
             (new UriValidator())->isValid($id)
-                ? UuidNs::url()
+                ? UuidNS::url()
                 : 'd0ec81fc-c8e6-11e5-a890-9ca3ba01e1f8',
             $id
         )->__toString();

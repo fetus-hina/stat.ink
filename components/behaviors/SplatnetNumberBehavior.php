@@ -8,7 +8,6 @@
 
 namespace app\components\behaviors;
 
-use Yii;
 use yii\base\Behavior;
 use yii\base\Model;
 use yii\db\Query;

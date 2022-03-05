@@ -14,7 +14,6 @@ use DateTime;
 use DateTimeZone;
 use Yii;
 use app\models\AgentGroup;
-use app\models\AgentGroupMap;
 use app\models\StatAgentUser;
 use yii\base\DynamicModel;
 use yii\db\Query;

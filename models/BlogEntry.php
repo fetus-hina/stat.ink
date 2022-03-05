@@ -11,7 +11,6 @@ declare(strict_types=1);
 namespace app\models;
 
 use Throwable;
-use Yii;
 use jp3cki\uuid\Uuid;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;

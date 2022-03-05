@@ -8,7 +8,6 @@
 
 namespace app\components\web;
 
-use Yii;
 use yii\web\Session as BaseSession;
 
 class Session extends BaseSession

@@ -10,9 +10,6 @@ declare(strict_types=1);
 
 namespace app\components\db;
 
-use DateTimeInterface;
-use app\components\helpers\Battle as BattleHelper;
-use yii\db\Expression;
 use yii\db\Query;
 
 trait GearMigration

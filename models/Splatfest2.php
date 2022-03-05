@@ -12,7 +12,6 @@ namespace app\models;
 
 use DateTimeImmutable;
 use DateTimeZone;
-use Yii;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 

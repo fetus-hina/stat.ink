@@ -11,20 +11,14 @@ declare(strict_types=1);
 namespace app\components\widgets;
 
 use Yii;
-use app\components\helpers\Resource;
-use app\components\helpers\db\Now;
-use app\models\GameMode;
 use app\models\Map2;
-use app\models\Rank2;
 use app\models\RankGroup2;
 use app\models\Special2;
-use app\models\SplatoonVersion2;
 use app\models\SplatoonVersionGroup2;
 use app\models\Subweapon2;
 use app\models\User;
 use app\models\Weapon2;
 use app\models\WeaponCategory2;
-use app\models\WeaponType2;
 use jp3cki\yii2\datetimepicker\BootstrapDateTimePickerAsset;
 use yii\base\Widget;
 use yii\bootstrap\ActiveForm;
@@ -335,7 +329,7 @@ class Battle2FilterWidget extends Widget
         return [
             Yii::t('app', 'Sub Weapon') => (function () use ($weaponIdList): array {
                 $ret = [];
-                $list = SubWeapon2::find()
+                $list = Subweapon2::find()
                     ->innerJoinWith('weapons')
                     ->andWhere(['{{weapon2}}.[[id]]' => $weaponIdList])
                     ->asArray()

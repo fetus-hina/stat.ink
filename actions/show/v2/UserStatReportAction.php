@@ -13,7 +13,6 @@ use DateTime;
 use DateTimeImmutable;
 use DateTimeZone;
 use Yii;
-use app\components\helpers\Battle as BattleHelper;
 use app\models\Battle2;
 use app\models\Spl2YearMonthForm;
 use app\models\User;

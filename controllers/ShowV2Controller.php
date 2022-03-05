@@ -10,7 +10,6 @@ declare(strict_types=1);
 
 namespace app\controllers;
 
-use Yii;
 use app\actions\show\v2\BattleAction;
 use app\actions\show\v2\EditBattleAction;
 use app\actions\show\v2\UserAction;

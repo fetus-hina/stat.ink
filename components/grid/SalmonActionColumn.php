@@ -11,11 +11,8 @@ declare(strict_types=1);
 namespace app\components\grid;
 
 use Yii;
-use app\models\Salmon2;
-use app\models\User;
 use yii\grid\Column;
 use yii\helpers\Html;
-use yii\helpers\Url;
 
 class SalmonActionColumn extends Column
 {

@@ -13,7 +13,6 @@ namespace app\actions\user;
 use Yii;
 use app\models\Salmon2;
 use yii\web\BadRequestHttpException;
-use yii\web\ServerErrorHttpException;
 use yii\web\ViewAction;
 
 use const SORT_ASC;

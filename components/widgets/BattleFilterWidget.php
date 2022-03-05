@@ -14,7 +14,6 @@ use app\components\helpers\db\Now;
 use app\models\GameMode;
 use app\models\Lobby;
 use app\models\Map;
-use app\models\Rank;
 use app\models\RankGroup;
 use app\models\Rule;
 use app\models\Special;
@@ -260,7 +259,7 @@ class BattleFilterWidget extends Widget
         return [
             Yii::t('app', 'Sub Weapon') => (function () use ($weaponIdList) {
                 $ret = [];
-                $list = SubWeapon::find()
+                $list = Subweapon::find()
                     ->innerJoinWith('weapons')
                     ->andWhere(['{{weapon}}.[[id]]' => $weaponIdList])
                     ->asArray()

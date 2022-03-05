@@ -8,7 +8,6 @@
 
 namespace app\models\api\v1;
 
-use Yii;
 use app\models\Rank;
 use app\models\Weapon;
 use yii\base\Model;

@@ -10,7 +10,6 @@ declare(strict_types=1);
 
 namespace app\models\api\v2\salmon;
 
-use Yii;
 use app\models\Salmon2;
 use app\models\SalmonMap2;
 use app\models\User;

@@ -11,7 +11,6 @@ namespace app\actions\entire;
 use Yii;
 use app\models\Knockout2;
 use app\models\Knockout2FilterForm;
-use app\models\RankGroup2;
 use yii\helpers\ArrayHelper;
 use yii\web\ViewAction as BaseAction;
 

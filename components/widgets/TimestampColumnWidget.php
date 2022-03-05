@@ -13,7 +13,6 @@ namespace app\components\widgets;
 use DateTimeImmutable;
 use DateTimeZone;
 use Yii;
-use app\components\i18n\Formatter;
 use yii\base\Widget;
 use yii\helpers\Html;
 

@@ -8,7 +8,6 @@
 
 namespace app\models\api\v1;
 
-use Yii;
 use app\models\Special;
 use app\models\Subweapon;
 use app\models\Weapon;

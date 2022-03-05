@@ -16,7 +16,6 @@ use app\models\StatWeaponKillDeath;
 use app\models\Weapon;
 use app\models\WeaponType;
 use yii\db\Query;
-use yii\helpers\Url;
 use yii\web\NotFoundHttpException;
 use yii\web\ViewAction as BaseAction;
 

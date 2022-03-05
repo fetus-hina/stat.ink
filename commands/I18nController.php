@@ -13,7 +13,6 @@ use Iterator;
 use Yii;
 use app\models\Language;
 use yii\console\Controller;
-use yii\helpers\Console;
 
 use const LC_COLLATE;
 

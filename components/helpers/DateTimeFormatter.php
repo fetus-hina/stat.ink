@@ -10,7 +10,6 @@ namespace app\components\helpers;
 
 use DateTime;
 use DateTimeZone;
-use Yii;
 
 class DateTimeFormatter
 {

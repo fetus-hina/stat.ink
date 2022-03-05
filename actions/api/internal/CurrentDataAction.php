@@ -13,7 +13,6 @@ use app\components\helpers\Battle as BattleHelper;
 use app\models\GameMode;
 use app\models\Map;
 use app\models\PeriodMap;
-use app\models\UserWeapon;
 use app\models\Weapon;
 use app\models\WeaponType;
 use statink\yii2\stages\spl1\Spl1Stage;

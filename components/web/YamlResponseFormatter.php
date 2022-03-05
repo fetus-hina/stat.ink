@@ -11,7 +11,6 @@ declare(strict_types=1);
 namespace app\components\web;
 
 use Symfony\Component\Yaml\Yaml;
-use Yii;
 use yii\base\Component;
 use yii\web\ResponseFormatterInterface;
 

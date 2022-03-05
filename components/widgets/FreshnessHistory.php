@@ -10,7 +10,6 @@ declare(strict_types=1);
 
 namespace app\components\widgets;
 
-use Yii;
 use app\assets\FreshnessHistoryAsset;
 use app\models\Battle2;
 use app\models\Mode2;

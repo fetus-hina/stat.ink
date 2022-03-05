@@ -2,7 +2,6 @@
 
 use app\commands\AssetController;
 use app\commands\MigrateController;
-use yii\caching\FileCache;
 use yii\db\Connection;
 use yii\gii\Module as GiiModule;
 use yii\gii\generators\model\Generator as GiiModelGenerator;

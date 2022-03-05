@@ -10,7 +10,6 @@ declare(strict_types=1);
 
 namespace app\components\widgets;
 
-use Yii;
 use yii\bootstrap\Alert as BaseAlert;
 use yii\bootstrap\BootstrapAsset;
 

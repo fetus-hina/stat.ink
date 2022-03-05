@@ -10,7 +10,6 @@ declare(strict_types=1);
 
 namespace app\assets;
 
-use Yii;
 use app\assets\StatByMapRuleAsset;
 use app\assets\TableResponsiveForceAsset;
 use jp3cki\yii2\flot\FlotAsset;
@@ -18,7 +17,6 @@ use jp3cki\yii2\flot\FlotErrorbarsAsset;
 use jp3cki\yii2\flot\FlotPieAsset;
 use jp3cki\yii2\flot\FlotTimeAsset;
 use statink\yii2\sortableTable\SortableTableAsset;
-use yii\helpers\ArrayHelper;
 use yii\web\AssetBundle;
 use yii\web\JqueryAsset;
 

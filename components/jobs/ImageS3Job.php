@@ -10,7 +10,6 @@ declare(strict_types=1);
 
 namespace app\components\jobs;
 
-use Exception;
 use Yii;
 use yii\base\BaseObject;
 use yii\queue\JobInterface;

@@ -11,7 +11,6 @@ declare(strict_types=1);
 namespace app\models;
 
 use LogicException;
-use Normalizer;
 use Yii;
 use app\models\ch\SfItem;
 use app\models\ch\SfList;
