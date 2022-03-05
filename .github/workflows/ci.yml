@@ -279,7 +279,7 @@ jobs:
           key: composer-${{ hashFiles('composer.lock') }}
 
       - name: 'Run PHPCS'
-        run: 'php phpcs -p'
+        run: 'vendor/bin/phpcs -p'
 
   phpUnit:
     name: 'Build & Test (PHP ${{ matrix.php.version }}, PgSQL ${{ matrix.pgsql.version }})'
