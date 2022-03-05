@@ -18,7 +18,7 @@ class m151010_131258_ikalog_workaround2 extends Migration
 
         $this->update(
             'battle',
-            [ 'lobby_id' => $lobbyFest ],
+            ['lobby_id' => $lobbyFest],
             implode(' AND ', [
                 "lobby_id = {$lobbyStandard}",
                 'gender_id IS NOT NULL',

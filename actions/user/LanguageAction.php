@@ -34,7 +34,7 @@ class LanguageAction extends BaseAction
         $form->language = Yii::$app->getRequest()->post('language');
         if (!$form->validate()) {
             $response->statusCode = 400;
-            return [ 'errors' => $form->getErrors() ];
+            return ['errors' => $form->getErrors()];
         }
 
         $response->cookies->add(

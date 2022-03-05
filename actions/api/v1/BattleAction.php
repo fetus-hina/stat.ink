@@ -623,7 +623,7 @@ class BattleAction extends BaseAction
     private function logError(array $errors)
     {
         $output = json_encode(
-            [ 'error' => $errors ],
+            ['error' => $errors],
             JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE
         );
         $text = sprintf(

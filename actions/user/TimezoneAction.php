@@ -33,7 +33,7 @@ class TimezoneAction extends BaseAction
         $form->timezone = Yii::$app->getRequest()->post('timezone');
         if (!$form->validate()) {
             $response->statusCode = 400;
-            return [ 'errors' => $form->getErrors() ];
+            return ['errors' => $form->getErrors()];
         }
 
         $response->cookies->add(

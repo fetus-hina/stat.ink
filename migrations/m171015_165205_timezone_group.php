@@ -17,7 +17,7 @@ class m171015_165205_timezone_group extends Migration
             'order' => $this->integer()->notNull()->unique(),
             'name'  => $this->string()->notNull(),
         ]);
-        $this->batchInsert('timezone_group', [ 'order', 'name' ], [
+        $this->batchInsert('timezone_group', ['order', 'name'], [
             [ 10, 'East Asia' ],
             [ 20, 'Australia/Oceania' ],
             [ 30, 'Russia' ],

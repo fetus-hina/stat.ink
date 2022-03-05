@@ -51,7 +51,7 @@ class WeaponsUseAction extends BaseAction
     public function getWeapons(): array
     {
         return array_merge(
-            [ '' => '-' ],
+            ['' => '-'],
             $this->getWeaponGroups(),
             [
                 Yii::t('app', 'Main Weapon') => $this->getMainWeapon(),
@@ -67,7 +67,7 @@ class WeaponsUseAction extends BaseAction
         foreach (WeaponType::find()->orderBy('[[id]] ASC')->all() as $type) {
             $typeName = Yii::t('app-weapon', $type->name);
             $ret[$typeName] = array_merge(
-                [ "@{$type->key}" => Yii::t('app-weapon', 'All of {0}', $typeName) ],
+                ["@{$type->key}" => Yii::t('app-weapon', 'All of {0}', $typeName)],
                 (function (WeaponType $type): array {
                     $ret = [];
                     foreach ($type->weapons as $weapon) {

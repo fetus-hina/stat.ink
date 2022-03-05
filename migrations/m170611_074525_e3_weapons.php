@@ -32,7 +32,7 @@ class m170611_074525_e3_weapons extends Migration
 
     private function registerSpecials(): array
     {
-        $this->batchInsert('special2', [ 'key', 'name' ], [
+        $this->batchInsert('special2', ['key', 'name'], [
             [ 'amefurashi', 'Ink Storm' ],
         ]);
         return ArrayHelper::map(
@@ -52,7 +52,7 @@ class m170611_074525_e3_weapons extends Migration
 
     private function registerSubs(): array
     {
-        $this->batchInsert('subweapon2', [ 'key', 'name' ], [
+        $this->batchInsert('subweapon2', ['key', 'name'], [
             [ 'jumpbeacon', 'Squid Beakon' ],
             [ 'pointsensor', 'Point Sensor' ],
             [ 'poisonmist', 'Toxic Mist' ],

@@ -19,7 +19,7 @@ class m150928_122509_subweapon extends Migration
             'key' => $this->string(32)->notNull()->unique(),
             'name' => $this->string(32)->notNull()->unique(),
         ]);
-        $this->batchInsert('subweapon', [ 'key', 'name' ], [
+        $this->batchInsert('subweapon', ['key', 'name'], [
             [ 'chasebomb', 'Seeker' ],
             [ 'jumpbeacon', 'Squid Beakon' ],
             [ 'kyubanbomb', 'Suction Bomb' ],
@@ -37,9 +37,9 @@ class m150928_122509_subweapon extends Migration
             list($weaponId, $subWeaponId) = $tmp;
             $this->update(
                 'weapon',
-                [ 'subweapon_id' => $subWeaponId ],
+                ['subweapon_id' => $subWeaponId],
                 'id = :weapon_id',
-                [ 'weapon_id' => $weaponId ]
+                ['weapon_id' => $weaponId]
             );
         }
         $this->addForeignKey('fk_weapon_1', 'weapon', 'subweapon_id', 'subweapon', 'id', 'RESTRICT');

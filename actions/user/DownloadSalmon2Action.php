@@ -39,7 +39,7 @@ class DownloadSalmon2Action extends ViewAction
             Yii::t(
                 'yii',
                 'Invalid data received for parameter "{param}".',
-                [ 'param' => 'type' ]
+                ['param' => 'type']
             )
         );
     }

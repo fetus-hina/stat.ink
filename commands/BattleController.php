@@ -36,7 +36,7 @@ class BattleController extends Controller
 
         $atom = \app\components\helpers\BattleAtom::createUserFeed(
             $battle->user,
-            [ $battle->id ]
+            [$battle->id]
         );
         echo $atom . "\n";
     }

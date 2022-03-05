@@ -12,7 +12,7 @@ class m160305_102010_splatoon_version_data extends Migration
 {
     public function safeUp()
     {
-        $this->batchInsert('splatoon_version', [ 'tag', 'name', 'released_at' ], [
+        $this->batchInsert('splatoon_version', ['tag', 'name', 'released_at'], [
             [ '1.0.0', '1.0.0', '2015-05-28T00:00:00+09:00' ],
             [ '1.2.0', '1.2.0', '2015-06-02T10:00:00+09:00' ],
             [ '1.3.0', '1.3.0', '2015-07-01T10:00:00+09:00' ],

@@ -15,7 +15,7 @@ class m160511_092026_14th_splatfest extends Migration
 {
     public function safeUp()
     {
-        $this->batchInsert('splatfest', [ 'region_id', 'name', 'start_at', 'end_at', 'order' ], [
+        $this->batchInsert('splatfest', ['region_id', 'name', 'start_at', 'end_at', 'order'], [
             [
                 'region_id' => Region::findOne(['key' => 'jp'])->id,
                 'name'      => 'オシャレなパーティー vs コスプレパーティー',

@@ -31,8 +31,8 @@ class m151223_113054_splatfest_order extends Migration
         foreach ($jpStarts as $i => $startAt) {
             $this->update(
                 'splatfest',
-                [ 'order' => $i + 1 ],
-                [ 'region_id' => $jp, 'start_at' => $startAt ]
+                ['order' => $i + 1],
+                ['region_id' => $jp, 'start_at' => $startAt]
             );
         }
         $transaction->commit();

@@ -44,7 +44,7 @@ class Download2Action extends BaseAction
             Yii::t(
                 'yii',
                 'Invalid data received for parameter "{param}".',
-                [ 'param' => 'type' ]
+                ['param' => 'type']
             )
         );
     }
@@ -65,7 +65,7 @@ class Download2Action extends BaseAction
             'zh-CN' => [ 'CP936', 'gb2312' ],
             'zh-TW' => [ 'BIG-5', 'big5' ],
         ];
-        $charset = $charsets[Yii::$app->language] ?? [ 'UTF-8', 'UTF-8' ];
+        $charset = $charsets[Yii::$app->language] ?? ['UTF-8', 'UTF-8'];
 
         $resp = Yii::$app->response;
         $resp->setDownloadHeaders(

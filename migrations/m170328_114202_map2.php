@@ -20,7 +20,7 @@ class m170328_114202_map2 extends Migration
             'area'  => $this->integer()->null(),
             'release_at' => $this->timestampTZ()->null(),
         ]);
-        $this->batchInsert('map2', [ 'key', 'name', 'short_name', 'area', 'release_at' ], [
+        $this->batchInsert('map2', ['key', 'name', 'short_name', 'area', 'release_at'], [
             [
                 'battera',
                 'The Reef',
