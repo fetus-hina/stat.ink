@@ -82,6 +82,7 @@
   <rule ref="SlevomatCodingStandard.Commenting.EmptyComment"/>
   <rule ref="SlevomatCodingStandard.Commenting.InlineDocCommentDeclaration"/>
   <rule ref="SlevomatCodingStandard.Commenting.UselessInheritDocComment"/>
+  <rule ref="SlevomatCodingStandard.ControlStructures.DisallowYodaComparison"/>
 
   <rule ref="PSR12">
     <file>*/components/ability/effect/*</file>

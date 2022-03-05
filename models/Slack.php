@@ -313,21 +313,25 @@ class Slack extends \yii\db\ActiveRecord
         $formatter->locale = $lang;
         $formatter->timeZone = 'Etc/UTC';
 
-        return null !== $this->doSend([
-            'text' => sprintf(
-                "%s (%s)\nWebhook Test",
-                $i18n->translate(
-                    'app-slack',
-                    'Staaaay Fresh!',
-                    [],
-                    $lang
+        $results = $this->doSend(
+            [
+                'text' => sprintf(
+                    "%s (%s)\nWebhook Test",
+                    $i18n->translate(
+                        'app-slack',
+                        'Staaaay Fresh!',
+                        [],
+                        $lang
+                    ),
+                    $formatter->asDateTime(
+                        $_SERVER['REQUEST_TIME'] ?? time(),
+                        'long'
+                    )
                 ),
-                $formatter->asDateTime(
-                    $_SERVER['REQUEST_TIME'] ?? time(),
-                    'long'
-                )
-            ),
-        ], true);
+            ],
+            true,
+        );
+        return $results !== null;
     }
 
     protected function buildRealQuery(array $params): array
