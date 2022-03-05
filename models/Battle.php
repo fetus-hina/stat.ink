@@ -154,7 +154,7 @@ class Battle extends ActiveRecord
     public static function getTotalRoughCount()
     {
         $list = [
-            [Battle::class, 'getRoughCount'],
+            [self::class, 'getRoughCount'],
             [Battle2::class, 'getRoughCount'],
         ];
         $total = 0;

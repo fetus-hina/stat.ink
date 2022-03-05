@@ -166,6 +166,9 @@
   <!--rule ref="SlevomatCodingStandard.Variables.DisallowSuperGlobalVariable"/-->
   <rule ref="SlevomatCodingStandard.Variables.UselessVariable"/>
   <rule ref="SlevomatCodingStandard.Variables.UnusedVariable"/>
+  <rule ref="Squiz.Arrays.ArrayBracketSpacing"/>
+  <rule ref="Squiz.Classes.ClassFileName"/>
+  <rule ref="Squiz.Classes.SelfMemberReference"/>
 
   <rule ref="PSR12">
     <file>*/components/ability/effect/*</file>

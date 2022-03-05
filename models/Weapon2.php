@@ -134,12 +134,12 @@ class Weapon2 extends ActiveRecord
 
     public function getCanonical(): ActiveQuery
     {
-        return $this->hasOne(Weapon2::class, ['id' => 'canonical_id']);
+        return $this->hasOne(self::class, ['id' => 'canonical_id']);
     }
 
     public function getMainReference(): ActiveQuery
     {
-        return $this->hasOne(Weapon2::class, ['id' => 'main_group_id']);
+        return $this->hasOne(self::class, ['id' => 'main_group_id']);
     }
 
     public function getType(): ActiveQuery
