@@ -9,14 +9,14 @@
 namespace app\actions\show;
 
 use Yii;
+use app\models\Battle;
+use app\models\BattleFilterForm;
+use app\models\User;
 use yii\data\ActiveDataProvider;
 use yii\helpers\Url;
 use yii\web\Cookie;
 use yii\web\NotFoundHttpException;
 use yii\web\ViewAction as BaseAction;
-use app\models\BattleFilterForm;
-use app\models\Battle;
-use app\models\User;
 
 class UserAction extends BaseAction
 {

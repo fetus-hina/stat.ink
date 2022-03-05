@@ -9,10 +9,10 @@
 namespace app\actions\user;
 
 use Yii;
+use app\models\Language;
 use yii\base\DynamicModel;
 use yii\web\Cookie;
 use yii\web\ViewAction as BaseAction;
-use app\models\Language;
 
 class LanguageAction extends BaseAction
 {

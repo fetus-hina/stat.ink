@@ -9,9 +9,9 @@
 namespace app\models\api\v1;
 
 use Yii;
-use yii\base\Model;
 use app\models\Ability;
 use app\models\Gear;
+use yii\base\Model;
 
 abstract class BaseGearForm extends Model
 {

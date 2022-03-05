@@ -9,13 +9,13 @@
 namespace app\commands;
 
 use Yii;
-use app\models\User;
 use app\models\Battle;
+use app\models\User;
 use yii\base\InlineAction;
 use yii\console\Controller;
 use yii\helpers\Console;
-use yii\helpers\Json;
 use yii\helpers\FileHelper;
+use yii\helpers\Json;
 
 class UserJsonController extends Controller
 {

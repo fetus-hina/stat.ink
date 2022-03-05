@@ -13,8 +13,8 @@ namespace app\actions\entire;
 use Yii;
 use app\models\Knockout;
 use app\models\Rule;
-use yii\web\ViewAction as BaseAction;
 use stdClass;
+use yii\web\ViewAction as BaseAction;
 
 class KnockoutAction extends BaseAction
 {

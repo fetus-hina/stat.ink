@@ -9,12 +9,12 @@
 namespace app\actions\api\info;
 
 use Yii;
-use yii\web\NotFoundHttpException;
-use yii\web\ViewAction as BaseAction;
 use app\components\helpers\Translator;
-use app\models\Language;
 use app\models\Gear;
 use app\models\GearType;
+use app\models\Language;
+use yii\web\NotFoundHttpException;
+use yii\web\ViewAction as BaseAction;
 
 class GearAction extends BaseAction
 {

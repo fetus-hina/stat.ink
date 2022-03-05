@@ -9,12 +9,12 @@
 namespace app\actions\show;
 
 use Yii;
-use yii\web\NotFoundHttpException;
-use yii\web\ViewAction as BaseAction;
 use app\models\BattleFilterForm;
 use app\models\Map;
 use app\models\Rule;
 use app\models\User;
+use yii\web\NotFoundHttpException;
+use yii\web\ViewAction as BaseAction;
 
 class UserStatByMapRuleAction extends BaseAction
 {

@@ -9,9 +9,9 @@
 namespace app\actions\user;
 
 use Yii;
-use yii\web\ViewAction as BaseAction;
 use app\models\LoginForm;
 use app\models\User;
+use yii\web\ViewAction as BaseAction;
 
 class LoginAction extends BaseAction
 {

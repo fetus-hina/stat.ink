@@ -7,9 +7,9 @@
  */
 
 use app\components\db\Migration;
-use yii\helpers\Json;
-use yii\helpers\ArrayHelper;
 use yii\db\Query;
+use yii\helpers\ArrayHelper;
+use yii\helpers\Json;
 
 class m171201_164553_gear_v2 extends Migration
 {

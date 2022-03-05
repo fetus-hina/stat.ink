@@ -9,8 +9,8 @@
 namespace app\actions\api\v1;
 
 use Yii;
-use yii\web\ViewAction as BaseAction;
 use app\models\Map;
+use yii\web\ViewAction as BaseAction;
 
 class MapAction extends BaseAction
 {

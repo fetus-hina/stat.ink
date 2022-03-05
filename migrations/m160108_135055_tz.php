@@ -6,8 +6,8 @@
  * @author AIZAWA Hina <hina@fetus.jp>
  */
 
-use yii\db\Migration;
 use app\models\Region;
+use yii\db\Migration;
 
 class m160108_135055_tz extends Migration
 {

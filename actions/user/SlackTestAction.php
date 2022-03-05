@@ -9,11 +9,11 @@
 namespace app\actions\user;
 
 use Yii;
-use yii\base\DynamicModel;
-use yii\web\NotFoundHttpException;
-use yii\web\BadRequestHttpException;
-use yii\web\ViewAction as BaseAction;
 use app\models\Slack;
+use yii\base\DynamicModel;
+use yii\web\BadRequestHttpException;
+use yii\web\NotFoundHttpException;
+use yii\web\ViewAction as BaseAction;
 
 class SlackTestAction extends BaseAction
 {

@@ -10,8 +10,8 @@ namespace app\actions\api\internal;
 
 use DateTimeZone;
 use Yii;
-use yii\web\ViewAction as BaseAction;
 use app\models\User;
+use yii\web\ViewAction as BaseAction;
 
 abstract class BaseStatAction extends BaseAction
 {

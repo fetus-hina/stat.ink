@@ -6,8 +6,8 @@
  * @author AIZAWA Hina <hina@fetus.jp>
  */
 
-use yii\db\Migration;
 use app\models\RankGroup;
+use yii\db\Migration;
 
 class m160814_145853_rank_group_map extends Migration
 {

@@ -9,8 +9,8 @@
 namespace app\actions\api\v2;
 
 use Yii;
-use yii\web\ViewAction as BaseAction;
 use app\models\Mode2;
+use yii\web\ViewAction as BaseAction;
 
 class RuleAction extends BaseAction
 {

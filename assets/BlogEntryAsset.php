@@ -11,8 +11,8 @@ declare(strict_types=1);
 namespace app\assets;
 
 use Yii;
-use yii\web\AssetBundle;
 use yii\bootstrap\BootstrapAsset;
+use yii\web\AssetBundle;
 
 class BlogEntryAsset extends AssetBundle
 {

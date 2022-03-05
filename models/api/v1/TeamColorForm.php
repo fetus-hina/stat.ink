@@ -9,8 +9,8 @@
 namespace app\models\api\v1;
 
 use Yii;
-use yii\base\Model;
 use app\components\helpers\Color;
+use yii\base\Model;
 
 class TeamColorForm extends Model
 {

@@ -10,7 +10,6 @@ declare(strict_types=1);
 
 namespace app\actions\entire;
 
-use stdClass;
 use DateInterval;
 use DateTime;
 use DateTimeImmutable;
@@ -25,6 +24,7 @@ use app\models\SplatoonVersionGroup2;
 use app\models\StatWeapon2UseCount;
 use app\models\Subweapon2;
 use app\models\Weapon2;
+use stdClass;
 use yii\db\Query;
 use yii\web\ViewAction as BaseAction;
 

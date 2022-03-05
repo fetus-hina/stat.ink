@@ -9,8 +9,8 @@
 namespace app\components\widgets\battle;
 
 use Yii;
-use app\models\Battle2;
 use app\models\Battle;
+use app\models\Battle2;
 use app\models\Salmon2;
 use yii\base\Widget;
 use yii\bootstrap\Html;

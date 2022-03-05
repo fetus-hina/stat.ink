@@ -9,8 +9,8 @@
 namespace app\models;
 
 use Yii;
-use yii\base\Model;
 use app\components\validators\IdnToPunycodeFilterValidator;
+use yii\base\Model;
 
 class BattleForm extends Model
 {

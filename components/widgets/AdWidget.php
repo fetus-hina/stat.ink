@@ -9,9 +9,9 @@
 namespace app\components\widgets;
 
 use Yii;
-use yii\base\Widget;
-use jp3cki\yii2\googleadsense\GoogleAdSense;
 use app\components\helpers\Resource;
+use jp3cki\yii2\googleadsense\GoogleAdSense;
+use yii\base\Widget;
 
 class AdWidget extends Widget
 {

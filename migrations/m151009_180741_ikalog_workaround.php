@@ -6,8 +6,8 @@
  * @author AIZAWA Hina <hina@fetus.jp>
  */
 
-use yii\db\Migration;
 use app\models\Lobby;
+use yii\db\Migration;
 
 class m151009_180741_ikalog_workaround extends Migration
 {

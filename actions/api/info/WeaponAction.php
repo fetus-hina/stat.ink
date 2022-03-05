@@ -9,11 +9,11 @@
 namespace app\actions\api\info;
 
 use Yii;
-use yii\web\ViewAction as BaseAction;
 use app\components\helpers\Translator;
 use app\models\Language;
 use app\models\Weapon;
 use app\models\WeaponType;
+use yii\web\ViewAction as BaseAction;
 
 class WeaponAction extends BaseAction
 {

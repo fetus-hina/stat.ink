@@ -9,9 +9,9 @@
 namespace app\actions\api\v1;
 
 use Yii;
-use yii\web\ViewAction as BaseAction;
 use app\models\Gear;
 use app\models\api\v1\GearGetForm;
+use yii\web\ViewAction as BaseAction;
 
 class GearAction extends BaseAction
 {

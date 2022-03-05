@@ -2,8 +2,8 @@
 
 namespace tests\models;
 
-use app\models\User;
 use app\components\helpers\Blackout;
+use app\models\User;
 
 class BlackoutListTest extends \Codeception\Test\Unit
 {

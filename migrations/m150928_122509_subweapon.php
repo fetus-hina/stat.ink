@@ -6,9 +6,9 @@
  * @author AIZAWA Hina <hina@fetus.jp>
  */
 
-use yii\db\Migration;
 use app\models\Subweapon;
 use app\models\Weapon;
+use yii\db\Migration;
 
 class m150928_122509_subweapon extends Migration
 {

@@ -18,8 +18,8 @@ use app\models\Agent;
 use app\models\AgentGroup;
 use app\models\Battle2;
 use app\models\StatAgentUser;
-use app\models\StatEntireUser2;
 use app\models\StatEntireUser;
+use app\models\StatEntireUser2;
 use yii\db\Query;
 use yii\web\ViewAction as BaseAction;
 

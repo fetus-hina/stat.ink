@@ -9,9 +9,9 @@
 namespace app\components\web;
 
 use Yii;
+use app\components\helpers\Resource;
 use yii\base\Component;
 use yii\web\ResponseFormatterInterface;
-use app\components\helpers\Resource;
 
 class CsvResponseFormatter extends Component implements ResponseFormatterInterface
 {

@@ -7,8 +7,8 @@
  */
 
 use app\components\db\Migration;
-use yii\helpers\Json;
 use app\models\Gear2;
+use yii\helpers\Json;
 
 class m171207_171523_gear2 extends Migration
 {
