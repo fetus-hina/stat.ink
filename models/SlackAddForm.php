@@ -85,7 +85,7 @@ class SlackAddForm extends Model
             return;
         }
 
-        $quote = fn(string $regex) => preg_quote($regex, '/');
+        $quote = fn (string $regex) => preg_quote($regex, '/');
         $okUrls = [
             // Slack
             sprintf(

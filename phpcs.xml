@@ -159,6 +159,11 @@
       <exclude name="SlevomatCodingStandard.TypeHints.ReturnTypeHint.MissingNativeTypeHint"/>
     </rule>
   -->
+  <rule ref="SlevomatCodingStandard.Commenting.UselessFunctionDocComment"/>
+  <rule ref="SlevomatCodingStandard.TypeHints.ReturnTypeHintSpacing"/>
+  <rule ref="SlevomatCodingStandard.Functions.ArrowFunctionDeclaration"/>
+  <rule ref="SlevomatCodingStandard.TypeHints.UselessConstantTypeHint"/>
+  <!--rule ref="SlevomatCodingStandard.Variables.DisallowSuperGlobalVariable"/-->
 
   <rule ref="PSR12">
     <file>*/components/ability/effect/*</file>

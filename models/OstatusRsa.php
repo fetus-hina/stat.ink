@@ -32,7 +32,7 @@ class OstatusRsa extends ActiveRecord
     // should call save() after return
     public static function factory(int $user_id, int $bits = 2048): self
     {
-        $b64 = fn($binary) => strtr(base64_encode($binary), '+/', '-_');
+        $b64 = fn ($binary) => strtr(base64_encode($binary), '+/', '-_');
 
         $privateKey = RSA::createKey($bits);
         $publicKey = $privateKey->getPublicKey();
