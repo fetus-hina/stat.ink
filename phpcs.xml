@@ -61,6 +61,7 @@
   <rule ref="SlevomatCodingStandard.Arrays.TrailingArrayComma"/>
   <rule ref="SlevomatCodingStandard.Arrays.SingleLineArrayWhitespace"/>
   <rule ref="SlevomatCodingStandard.Functions.RequireArrowFunction"/>
+  <rule ref="SlevomatCodingStandard.Classes.ClassConstantVisibility"/>
 
   <rule ref="PSR12">
     <file>*/components/ability/effect/*</file>
