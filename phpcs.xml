@@ -79,6 +79,9 @@
       <property name="linesCountBetweenUses" value="0"/>
     </properties>
   </rule>
+  <rule ref="SlevomatCodingStandard.Commenting.EmptyComment"/>
+  <rule ref="SlevomatCodingStandard.Commenting.InlineDocCommentDeclaration"/>
+  <rule ref="SlevomatCodingStandard.Commenting.UselessInheritDocComment"/>
 
   <rule ref="PSR12">
     <file>*/components/ability/effect/*</file>
