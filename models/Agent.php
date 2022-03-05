@@ -194,7 +194,7 @@ class Agent extends \yii\db\ActiveRecord
         }
 
         $diff = $t - strtotime($thisWinIkaLog->build_at);
-        return ($diff >= 21 * 86400);
+        return $diff >= 21 * 86400;
     }
 
     private function getIsOldCliIkalogAsAtTheTime($t)
@@ -229,6 +229,6 @@ class Agent extends \yii\db\ActiveRecord
         }
 
         $diff = $t - strtotime($ikalog->at);
-        return ($diff >= 21 * 86400);
+        return $diff >= 21 * 86400;
     }
 }

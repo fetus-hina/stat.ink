@@ -23,7 +23,7 @@ trait GearNameTrait
         ]);
 
         $this->stderr('[JapaneseGear2] Updating ' . $path . "\n");
-        $data = require($path);
+        $data = require $path;
 
         // remove empty data
         $data = array_filter(

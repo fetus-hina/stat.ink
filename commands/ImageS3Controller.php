@@ -107,11 +107,11 @@ class ImageS3Controller extends Controller
             public function accept()
             {
                 $entry = $this->getInnerIterator()->current();
-                return (
+                return
                     $entry->isFile() &&
                     preg_match('/^[a-z2-9]{26}\.jpg$/', $entry->getBasename()) &&
                     time() - $entry->getMTime() >= ImageS3Controller::AUTOUPLOAD_DELAY
-                );
+                ;
             }
         };
         foreach ($iterator as $entry) {

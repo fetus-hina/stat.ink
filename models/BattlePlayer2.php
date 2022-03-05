@@ -293,7 +293,7 @@ class BattlePlayer2 extends ActiveRecord
         if ((string)$this->point === '') {
             return false;
         }
-        return ($this->point == 0);
+        return $this->point == 0;
     }
 
     public function getAnonymizeSeed(): string

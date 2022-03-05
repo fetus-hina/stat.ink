@@ -67,7 +67,7 @@ class OpenCCTranslator extends Component
         }
 
         $result = true;
-        $inputTexts = include($inputPath);
+        $inputTexts = include $inputPath;
         $outputTexts = [];
         foreach ($inputTexts as $enText => $hansText) {
             fwrite(STDERR, "  {$hansText}\n");
