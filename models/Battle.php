@@ -13,6 +13,7 @@ use Yii;
 use app\components\helpers\DateTimeFormatter;
 use app\components\helpers\Differ;
 use app\models\query\BattleQuery;
+use stdClass;
 use yii\db\ActiveRecord;
 use yii\db\Query;
 use yii\helpers\Json;
@@ -988,8 +989,8 @@ class Battle extends ActiveRecord
                     if ($p->rank_in_team !== null) {
                         $ret['rank_in_team'] = (int)$p->rank_in_team;
                     }
-                    if (empty($ret)) {
-                        return new \stdClass();
+                    if (!$ret) {
+                        return new stdClass();
                     }
                     return $ret;
                 },
@@ -1006,7 +1007,7 @@ class Battle extends ActiveRecord
                 return [];
             }
             $events = Json::decode($this->events, false);
-            if (!is_array($events) || empty($events)) {
+            if (!is_array($events) || !$events) {
                 return [];
             }
 
@@ -1021,7 +1022,7 @@ class Battle extends ActiveRecord
                     $ret[$event->reason] = null;
                 }
             }
-            if (empty($ret)) {
+            if (!$ret) {
                 return [];
             }
 

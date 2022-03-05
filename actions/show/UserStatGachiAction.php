@@ -160,7 +160,7 @@ class UserStatGachiAction extends BaseAction
                 'movingWP50'    => null,
             ];
         }
-        if (empty($battles)) {
+        if (!$battles) {
             return [];
         }
 

@@ -14,12 +14,13 @@ use DateTimeInterface;
 use DateTimeZone;
 use Exception;
 use Yii;
-use yii\console\Controller;
-use yii\db\BatchQueryResult;
-use yii\helpers\Console;
 use app\components\helpers\Resource;
 use app\models\Battle;
 use app\models\BattlePlayer;
+use yii\console\Controller;
+use yii\db\BatchQueryResult;
+use yii\helpers\Console;
+use yii\helpers\Json;
 
 class HasegawExportController extends Controller
 {
@@ -158,7 +159,7 @@ class HasegawExportController extends Controller
                     $quote($row['point']),
                 ]);
             }
-            if (!empty($insert)) {
+            if ($insert) {
                 echo "  player: " . count($insert) . "\n";
                 $a = $exp->exec(
                     $sql = 'INSERT INTO "battle_player" ("' . implode('", "', [
@@ -167,7 +168,7 @@ class HasegawExportController extends Controller
                     ]) . '") VALUES (' . implode('), (', $insert) . ')'
                 );
                 if (!$a) {
-                    var_dump($exp->errorInfo());
+                    echo Json::encode($exp->errorInfo());
                     exit;
                 }
             }

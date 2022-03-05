@@ -147,7 +147,7 @@ class Player extends Model
             return;
         }
 
-        if (empty($this->weapons)) {
+        if (!$this->weapons) {
             $this->weapons = null;
             return;
         }
@@ -189,7 +189,7 @@ class Player extends Model
             return;
         }
 
-        if (empty($this->boss_kills)) {
+        if (!$this->boss_kills) {
             $this->boss_kills = null;
             return;
         }

@@ -90,7 +90,7 @@ class SplapiController extends Controller
             }
         );
 
-        if (empty($json)) {
+        if (!$json) {
             echo "no data updated.\n";
             return;
         }
@@ -153,7 +153,7 @@ class SplapiController extends Controller
             }
         );
 
-        if (empty($json)) {
+        if (!$json) {
             echo "no data updated.\n";
             return;
         }

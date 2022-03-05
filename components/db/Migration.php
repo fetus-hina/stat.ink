@@ -125,7 +125,7 @@ class Migration extends \yii\db\Migration
             }
         }
 
-        if (!empty($alter)) {
+        if ($alter) {
             $sql = 'ALTER TABLE ' . $db->quoteTableName($table) . ' ' . implode(', ', $alter);
             $db->createCommand($sql)->execute();
         }
@@ -134,7 +134,7 @@ class Migration extends \yii\db\Migration
             $db->createCommand($comment)->execute();
         }
 
-        if (!empty($alter) || !empty($comments)) {
+        if ($alter || $comments) {
             $db->getSchema()->refreshTableSchema($table);
         }
 

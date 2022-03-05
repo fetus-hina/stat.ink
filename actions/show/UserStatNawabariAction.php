@@ -121,7 +121,7 @@ class UserStatNawabariAction extends BaseAction
         }
 
         foreach ($maps as $map) {
-            if (!empty($map->battles)) {
+            if ($map->battles) {
                 $sum = array_sum(ArrayHelper::getColumn($map->battles, 'inked', false));
                 $map->avgInked = $sum / count($map->battles);
             }
@@ -162,7 +162,7 @@ class UserStatNawabariAction extends BaseAction
                 'movingWP50' => null,
             ];
         }
-        if (empty($battles)) {
+        if (!$battles) {
             return [];
         }
 

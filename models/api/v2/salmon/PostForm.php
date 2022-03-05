@@ -135,7 +135,7 @@ class PostForm extends Model
             return;
         }
 
-        if (empty($this->boss_appearances)) {
+        if (!$this->boss_appearances) {
             $this->boss_appearances = null;
             return;
         }
@@ -176,7 +176,7 @@ class PostForm extends Model
             return;
         }
 
-        if (empty($this->waves)) {
+        if (!$this->waves) {
             $this->waves = null;
             return;
         }
@@ -234,7 +234,7 @@ class PostForm extends Model
             return;
         }
 
-        if (empty($this->$attribute)) {
+        if (!$this->$attribute) {
             $this->$attribute = null;
             return;
         }

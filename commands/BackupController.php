@@ -88,7 +88,7 @@ class BackupController extends Controller
             $files[] = $entry->getPathname();
         }
         sort($files);
-        if (empty($files)) {
+        if (!$files) {
             $this->stdout("NO FILE EXISTS\n", Console::FG_PURPLE);
             return 0;
         }

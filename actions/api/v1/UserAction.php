@@ -23,6 +23,7 @@ class UserAction extends BaseAction
 
         $user = null;
         if ($screenName != '') {
+            // phpcs:ignore Generic.CodeAnalysis.EmptyStatement.DetectedIf
             if (is_scalar($screenName) && ($user = User::findOne(['screen_name' => $screenName]))) {
                 // ok
             } else {

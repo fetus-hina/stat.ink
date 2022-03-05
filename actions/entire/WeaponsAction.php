@@ -158,7 +158,7 @@ class WeaponsAction extends ViewAction
             usort($tmp, function (stdClass $a, stdClass $b): int {
                 return strnatcasecmp($a->name, $b->name);
             });
-            while (!empty($tmp)) {
+            while ($tmp) {
                 $rules[] = array_shift($tmp);
             }
         }

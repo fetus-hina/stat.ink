@@ -22,49 +22,40 @@
   <!--rule ref="Generic.Commenting.Fixme"/-->
   <!--rule ref="Generic.Commenting.Todo"/-->
 
-  <!-- Constants must be all uppercase. -->
   <rule ref="Generic.NamingConventions.UpperCaseConstantName"/>
-
-  <!-- Disallow 'else if' in favor of 'elseif' (increase PSR12 severity level from warning to error) -->
   <rule ref="PSR2.ControlStructures.ElseIfDeclaration.NotAllowed">
-  <type>error</type>
+    <type>error</type>
   </rule>
-
-  <!-- Forbid comments starting with # -->
   <rule ref="PEAR.Commenting.InlineComment"/>
-
-  <!-- Force array element indentation with one tab stop -->
   <rule ref="Generic.Arrays.ArrayIndent"/>
-
-  <!-- Forbid 'array(...)' -->
   <rule ref="Generic.Arrays.DisallowLongArraySyntax"/>
-
-  <!-- Forbid empty statements -->
   <rule ref="Generic.CodeAnalysis.EmptyStatement">
-  <!-- But allow empty catch -->
-  <exclude name="Generic.CodeAnalysis.EmptyStatement.DetectedCatch"/>
+    <exclude name="Generic.CodeAnalysis.EmptyStatement.DetectedCatch"/>
   </rule>
-
-  <!-- Forbid final methods in final classes -->
   <rule ref="Generic.CodeAnalysis.UnnecessaryFinalModifier"/>
-
-  <!-- Force whitespace after a type cast -->
   <rule ref="Generic.Formatting.NoSpaceAfterCast"/>
-
-  <!-- Forbid PHP 4 constructors -->
   <rule ref="Generic.NamingConventions.ConstructorName"/>
-
-  <!-- Forbid any content before opening tag -->
   <rule ref="Generic.PHP.CharacterBeforePHPOpeningTag"/>
-
-  <!-- Forbid backtick operator -->
   <rule ref="Generic.PHP.BacktickOperator"/>
-
-  <!-- Forbid 'php_sapi_name()' function, use PHP_SAPI -->
   <rule ref="Generic.PHP.SAPIUsage"/>
-
-  <!-- Forbid deprecated functions -->
   <rule ref="Generic.PHP.DeprecatedFunctions"/>
+  <rule ref="Generic.PHP.ForbiddenFunctions">
+    <properties>
+      <property name="forbiddenFunctions" type="array">
+        <element key="d" value="null"/>
+        <element key="dd" value="null"/>
+        <element key="doubleval" value="floatval"/>
+        <element key="dump" value="null"/>
+        <element key="dump_d" value="null"/>
+        <element key="empty" value="null"/>
+        <element key="is_double" value="is_float"/>
+        <element key="is_integer" value="is_int"/>
+        <element key="is_long" value="is_int"/>
+        <element key="is_real" value="is_float"/>
+        <element key="var_dump" value="null"/>
+      </property>
+    </properties>
+  </rule>
 
   <rule ref="PSR12">
     <file>*/components/ability/effect/*</file>

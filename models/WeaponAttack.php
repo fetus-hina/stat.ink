@@ -42,7 +42,7 @@ class WeaponAttack extends \yii\db\ActiveRecord
         });
 
         // 最初の要素が目的の代物
-        return empty($list) ? null : array_shift($list);
+        return !$list ? null : array_shift($list);
     }
 
     /**

@@ -145,7 +145,7 @@ class BattleAction extends BaseAction
 
         $list = $query->all();
         if ($model->id != '') {
-            return empty($list) ? null : $this->runGetImpl(array_shift($list));
+            return !$list ? null : $this->runGetImpl(array_shift($list));
         }
 
         $resp = Yii::$app->getResponse();
@@ -558,7 +558,7 @@ class BattleAction extends BaseAction
             },
             $deathReasons
         );
-        $ret['players'] = is_array($players) && !empty($players)
+        $ret['players'] = is_array($players) && $players
             ? array_map(
                 function ($model): array {
                     return $model->toJsonArray();

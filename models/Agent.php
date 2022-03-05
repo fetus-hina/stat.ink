@@ -174,7 +174,7 @@ class Agent extends \yii\db\ActiveRecord
             return false;
         }
 
-        if (empty($ikalog->winikalogVersions)) {
+        if (!$ikalog->winikalogVersions) {
             // なぜか WinIkaLog のリリースされてないリビジョンっぽい（たぶん新しすぎて認識できてない）
             return $this->getIsOldCliIkalogAsAtTheTimeImpl($ikalog, $t);
         }

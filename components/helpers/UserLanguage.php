@@ -100,7 +100,7 @@ class UserLanguage
             Yii::beginProfile(__FUNCTION__, __METHOD__);
             $request = Yii::$app->request;
             $userLangs = $request->acceptableLanguages;
-            if (empty($userLangs) || static::isUABot((string)trim($request->userAgent))) {
+            if (!$userLangs || static::isUABot((string)trim($request->userAgent))) {
                 return null;
             }
 
