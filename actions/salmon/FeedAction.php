@@ -245,7 +245,7 @@ class FeedAction extends Action
     protected function makeEntryContent(Salmon2 $model, string $lang): string
     {
         $fmt = Yii::createObject([
-            '__class' => Formatter::class,
+            'class' => Formatter::class,
             'language' => $lang,
             'locale' => $lang,
             'nullDisplay' => '?',

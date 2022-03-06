@@ -17,7 +17,6 @@ use app\models\Ability2Info;
 use yii\base\Widget;
 use yii\bootstrap\ButtonDropdown;
 use yii\data\ArrayDataProvider;
-use yii\grid\Column;
 use yii\grid\GridView;
 use yii\helpers\Html;
 use yii\helpers\Json;
@@ -48,7 +47,7 @@ class Spl2GearAbilitiesSummaryWidget extends Widget
             'div',
             GridView::widget([
                 'dataProvider' => Yii::createObject([
-                    '__class' => ArrayDataProvider::class,
+                    'class' => ArrayDataProvider::class,
                     'allModels' => $this->summary,
                     'pagination' => false,
                     'sort' => false,
@@ -229,12 +228,7 @@ class Spl2GearAbilitiesSummaryWidget extends Widget
                     [
                         'label' => Yii::t('app', 'Effects'),
                         'format' => 'ntext',
-                        'value' => fn (
-                            Ability2Info $model,
-                            $key,
-                            $index,
-                            Column $column
-                        ): string => (string)$model->coefficient,
+                        'value' => fn (Ability2Info $model): string => (string)$model->coefficient,
                     ],
                 ],
             ]),

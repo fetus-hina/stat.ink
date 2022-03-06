@@ -1145,7 +1145,7 @@ class UserStat2 extends ActiveRecord
     public static function openapiExample(): array
     {
         $model = Yii::createObject([
-            '__class' => static::class,
+            'class' => static::class,
             'battles' => 9432,
             'have_win_lose' => 9432,
             'win_battles' => 5264,

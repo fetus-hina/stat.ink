@@ -41,7 +41,7 @@ class OstatusRsa extends ActiveRecord
         $osslInfo = openssl_pkey_get_details($osslPrivateKey);
 
         return Yii::createObject([
-            '__class' => static::class,
+            'class' => static::class,
             'user_id' => $user_id,
             'bits' => $bits,
             'privkey' => $privateKey->toString('PKCS1'),
