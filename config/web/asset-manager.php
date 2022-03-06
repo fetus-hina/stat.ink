@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use app\components\web\AssetManager;
+use app\components\helpers\AssetHashHelper;
 use jp3cki\yii2\datetimepicker\BootstrapDateTimePickerAsset;
 use jp3cki\yii2\flot\BasePluginAsset;
 use jp3cki\yii2\flot\ExcanvasAsset;
@@ -42,7 +42,6 @@ use yii\widgets\MaskedInputAsset;
 use yii\widgets\PjaxAsset;
 
 return [
-    'class' => AssetManager::class,
     'appendTimestamp' => true,
     'bundles' => [
         BootstrapDateTimePickerAsset::class => [
@@ -166,4 +165,5 @@ return [
             'sourcePath' => '@node/moment-timezone/builds',
         ],
     ],
+    'hashCallback' => fn (string $path): string => AssetHashHelper::calc($path),
 ];
