@@ -28,14 +28,16 @@ class m170912_122103_map2_area extends Migration
 
     public function safeDown()
     {
-        $this->update('map2', ['area' => null], ['key' => [
-            'gangaze',
-            'kombu',
-            'ama',
-            'chozame',
-            'hokke',
-            'tachiuo',
-            'manta',
-        ]]);
+        $this->update('map2', ['area' => null], [
+            'key' => [
+                'gangaze',
+                'kombu',
+                'ama',
+                'chozame',
+                'hokke',
+                'tachiuo',
+                'manta',
+            ],
+        ]);
     }
 }

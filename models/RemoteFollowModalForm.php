@@ -9,8 +9,10 @@
 namespace app\models;
 
 use Yii;
-use app\models\User;
 use yii\base\Model;
+
+use const DNS_A;
+use const DNS_AAAA;
 
 class RemoteFollowModalForm extends Model
 {
@@ -47,7 +49,7 @@ class RemoteFollowModalForm extends Model
                 },
             ],
             [['host_name'], 'required'],
-            [['host_name'], 'validateHasIpAddr']
+            [['host_name'], 'validateHasIpAddr'],
         ];
     }
 

@@ -10,14 +10,13 @@ declare(strict_types=1);
 
 namespace app\models;
 
-use Yii;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "image_bucket".
  *
- * @property integer $id
+ * @property int $id
  * @property string $name
  *
  * @property BattleImage2[] $battleImage2s

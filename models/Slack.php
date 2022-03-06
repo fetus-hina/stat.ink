@@ -10,29 +10,29 @@
 namespace app\models;
 
 use Curl\Curl;
-use DateTime;
 use Yii;
+use yii\db\ActiveRecord;
 use yii\helpers\Json;
 use yii\helpers\Url;
 
 /**
  * This is the model class for table "slack".
  *
- * @property integer $id
- * @property integer $user_id
- * @property integer $language_id
+ * @property int $id
+ * @property int $user_id
+ * @property int $language_id
  * @property string $webhook_url
  * @property string $username
  * @property string $icon
  * @property string $channel
- * @property boolean $suspended
+ * @property bool $suspended
  * @property string $created_at
  * @property string $updated_at
  *
  * @property Language $language
  * @property User $user
  */
-class Slack extends \yii\db\ActiveRecord
+class Slack extends ActiveRecord
 {
     /**
      * @inheritdoc
@@ -57,10 +57,12 @@ class Slack extends \yii\db\ActiveRecord
             [['channel'], 'string', 'max' => 22],
             [['language_id'], 'exist', 'skipOnError' => true,
                 'targetClass' => Language::class,
-                'targetAttribute' => ['language_id' => 'id']],
+                'targetAttribute' => ['language_id' => 'id'],
+            ],
             [['user_id'], 'exist', 'skipOnError' => true,
                 'targetClass' => User::class,
-                'targetAttribute' => ['user_id' => 'id']],
+                'targetAttribute' => ['user_id' => 'id'],
+            ],
         ];
     }
 
@@ -235,7 +237,7 @@ class Slack extends \yii\db\ActiveRecord
         $url = Url::to(
             ['show-v2/battle',
                 'screen_name' => $battle->user->screen_name,
-                'battle' => $battle->id
+                'battle' => $battle->id,
             ],
             true
         );
@@ -311,21 +313,25 @@ class Slack extends \yii\db\ActiveRecord
         $formatter->locale = $lang;
         $formatter->timeZone = 'Etc/UTC';
 
-        return null !== $this->doSend([
-            'text' => sprintf(
-                "%s (%s)\nWebhook Test",
-                $i18n->translate(
-                    'app-slack',
-                    'Staaaay Fresh!',
-                    [],
-                    $lang
+        $results = $this->doSend(
+            [
+                'text' => sprintf(
+                    "%s (%s)\nWebhook Test",
+                    $i18n->translate(
+                        'app-slack',
+                        'Staaaay Fresh!',
+                        [],
+                        $lang
+                    ),
+                    $formatter->asDateTime(
+                        $_SERVER['REQUEST_TIME'] ?? time(),
+                        'long'
+                    )
                 ),
-                $formatter->asDateTime(
-                    $_SERVER['REQUEST_TIME'] ?? time(),
-                    'long'
-                )
-            )
-        ], true);
+            ],
+            true,
+        );
+        return $results !== null;
     }
 
     protected function buildRealQuery(array $params): array

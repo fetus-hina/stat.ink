@@ -42,10 +42,12 @@ class m180616_111627_missing_octo_gears extends Migration
         $this->update(
             'gear2',
             ['brand_id' => $brand],
-            ['key' => [
-                static::name2key('Octoleet Armor'),
-                static::name2key('Octoleet Boots'),
-            ]]
+            [
+                'key' => [
+                    static::name2key('Octoleet Armor'),
+                    static::name2key('Octoleet Boots'),
+                ],
+            ]
         );
     }
 
@@ -63,10 +65,12 @@ class m180616_111627_missing_octo_gears extends Migration
         $this->update(
             'gear2',
             ['brand_id' => $brand],
-            ['key' => [
-                static::name2key('Octoleet Armor'),
-                static::name2key('Octoleet Boots'),
-            ]]
+            [
+                'key' => [
+                    static::name2key('Octoleet Armor'),
+                    static::name2key('Octoleet Boots'),
+                ],
+            ]
         );
     }
 }

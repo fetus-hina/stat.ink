@@ -8,12 +8,10 @@
 
 namespace app\models\api\v2;
 
-use Yii;
 use app\components\behaviors\FixAttributesBehavior;
 use app\components\behaviors\SplatnetNumberBehavior;
 use app\components\behaviors\TrimAttributesBehavior;
 use app\models\FestTitle;
-use app\models\Gender;
 use app\models\Rank2;
 use app\models\Species2;
 use app\models\Weapon2;

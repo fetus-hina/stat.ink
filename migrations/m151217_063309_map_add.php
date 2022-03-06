@@ -6,21 +6,21 @@
  * @author AIZAWA Hina <hina@fetus.jp>
  */
 
-use yii\db\Migration;
 use app\models\Map;
+use yii\db\Migration;
 
 class m151217_063309_map_add extends Migration
 {
     public function safeUp()
     {
-        $this->batchInsert('map', [ 'key', 'name' ], [
+        $this->batchInsert('map', ['key', 'name'], [
             ['shottsuru', 'Piranha Pit'],
             ['anchovy',   'Ancho-V Games'],
         ]);
 
         $this->batchInsert(
             'splapi_map',
-            [ 'map_id', 'name' ],
+            ['map_id', 'name'],
             [
                 [ Map::findOne(['key' => 'shottsuru'])->id, 'ショッツル鉱山' ],
                 [ Map::findOne(['key' => 'anchovy'])->id,   'アンチョビットゲームズ' ],
@@ -32,11 +32,9 @@ class m151217_063309_map_add extends Migration
     {
         $this->delete('splapi_map', [
             'map_id' => array_map(
-                function ($a) {
-                    return $a->id;
-                },
+                fn ($a) => $a->id,
                 Map::findAll(['key' => ['shottsuru', 'anchovy']])
-            )
+            ),
         ]);
         $this->delete('map', ['key' => ['shottsuru', 'anchovy']]);
     }

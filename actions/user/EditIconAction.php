@@ -9,12 +9,11 @@
 namespace app\actions\user;
 
 use Yii;
-use app\models\User;
 use app\models\UserIcon;
-use yii\web\ServerErrorHttpException;
-use yii\web\ViewAction as BaseAction;
-use yii\web\UploadedFile;
 use yii\base\DynamicModel;
+use yii\web\ServerErrorHttpException;
+use yii\web\UploadedFile;
+use yii\web\ViewAction as BaseAction;
 
 class EditIconAction extends BaseAction
 {
@@ -41,7 +40,6 @@ class EditIconAction extends BaseAction
                             Yii::t('app', 'Your profile icon has been updated.')
                         );
                         return $this->controller->redirect(['user/profile'], 303);
-                        break;
 
                     case 'update':
                         $model = DynamicModel::validateData(
@@ -82,13 +80,13 @@ class EditIconAction extends BaseAction
                                 Yii::t('app', 'Your profile icon has been updated.')
                             );
                             return $this->controller->redirect(['user/profile'], 303);
-                        } catch (\Exception $e) {
+                        } catch (\Throwable $e) {
                             $transaction->rollback();
                             throw $e;
                         }
                         break;
                 }
-            } catch (\Exception $e) {
+            } catch (\Throwable $e) {
             }
             Yii::$app->session->addFlash(
                 'danger',

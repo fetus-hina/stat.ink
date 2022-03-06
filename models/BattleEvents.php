@@ -8,15 +8,17 @@
 
 namespace app\models;
 
-use Yii;
+use yii\db\ActiveRecord;
+
+use const FORCE_GZIP;
 
 /**
  * This is the model class for table "battle_events".
  *
- * @property integer $id
+ * @property int $id
  * @property string $events
  */
-class BattleEvents extends \yii\db\ActiveRecord
+class BattleEvents extends ActiveRecord
 {
     public function init()
     {
@@ -41,7 +43,7 @@ class BattleEvents extends \yii\db\ActiveRecord
         return [
             [['id', 'events'], 'required'],
             [['id'], 'integer'],
-            [['events'], 'string']
+            [['events'], 'string'],
         ];
     }
 

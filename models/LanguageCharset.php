@@ -8,19 +8,19 @@
 
 namespace app\models;
 
-use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "language_charset".
  *
- * @property integer $language_id
- * @property integer $charset_id
- * @property boolean $is_win_acp
+ * @property int $language_id
+ * @property int $charset_id
+ * @property bool $is_win_acp
  *
  * @property Charset $charset
  * @property Language $language
  */
-class LanguageCharset extends \yii\db\ActiveRecord
+class LanguageCharset extends ActiveRecord
 {
     public static function find()
     {
@@ -48,10 +48,12 @@ class LanguageCharset extends \yii\db\ActiveRecord
             [['is_win_acp'], 'boolean'],
             [['charset_id'], 'exist', 'skipOnError' => true,
                 'targetClass' => Charset::class,
-                'targetAttribute' => ['charset_id' => 'id']],
+                'targetAttribute' => ['charset_id' => 'id'],
+            ],
             [['language_id'], 'exist', 'skipOnError' => true,
                 'targetClass' => Language::class,
-                'targetAttribute' => ['language_id' => 'id']],
+                'targetAttribute' => ['language_id' => 'id'],
+            ],
         ];
     }
 

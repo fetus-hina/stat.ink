@@ -10,19 +10,22 @@ namespace app\models;
 
 use Yii;
 use app\components\helpers\Translator;
+use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
+
+use const SORT_ASC;
 
 /**
  * This is the model class for table "ability".
  *
- * @property integer $id
+ * @property int $id
  * @property string $key
  * @property string $name
  *
  * @property Brand[] $strengthBrands
  * @property Brand[] $weaknessBrands
  */
-class Ability extends \yii\db\ActiveRecord
+class Ability extends ActiveRecord
 {
     use openapi\Util;
 
@@ -42,7 +45,7 @@ class Ability extends \yii\db\ActiveRecord
         return [
             [['key', 'name'], 'required'],
             [['key', 'name'], 'string', 'max' => 32],
-            [['key'], 'unique']
+            [['key'], 'unique'],
         ];
     }
 
@@ -118,9 +121,7 @@ class Ability extends \yii\db\ActiveRecord
             ->orderBy(['key' => SORT_ASC])
             ->all();
         return array_map(
-            function ($model) {
-                return $model->toJsonArray();
-            },
+            fn ($model) => $model->toJsonArray(),
             $models
         );
     }

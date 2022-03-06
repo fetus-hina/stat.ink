@@ -9,7 +9,6 @@
 namespace app\models\openapi;
 
 use Yii;
-use app\models\Language;
 use yii\base\Component;
 
 class PermanentID extends Component

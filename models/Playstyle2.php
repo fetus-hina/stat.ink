@@ -8,14 +8,13 @@
 
 namespace app\models;
 
-use Yii;
 use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "playstyle2".
  *
- * @property integer $ns_mode_id
- * @property integer $controller_mode_id
+ * @property int $ns_mode_id
+ * @property int $controller_mode_id
  *
  * @property ControllerMode2 $controllerMode
  * @property NsMode2 $nsMode

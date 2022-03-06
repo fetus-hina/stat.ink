@@ -6,8 +6,8 @@
  * @author AIZAWA Hina <hina@fetus.jp>
  */
 
-use yii\db\Migration;
 use app\models\Region;
+use yii\db\Migration;
 
 class m151219_093250_splatfest extends Migration
 {
@@ -23,7 +23,7 @@ class m151219_093250_splatfest extends Migration
         $this->addForeignKey('fk_splatfest_1', 'splatfest', 'region_id', 'region', 'id');
 
         $jp = Region::findOne(['key' => 'jp'])->id;
-        $this->batchInsert('splatfest', [ 'region_id', 'name', 'start_at', 'end_at' ], [
+        $this->batchInsert('splatfest', ['region_id', 'name', 'start_at', 'end_at'], [
             [ $jp, 'ごはん vs パン',                '2015-06-13 18:00:00+09', '2015-06-14 18:00:00+09' ],
             [ $jp, '赤いきつね vs 緑のたぬき',      '2015-07-03 15:00:00+09', '2015-07-04 15:00:00+09' ],
             [ $jp, 'レモンティー vs ミルクティー',  '2015-07-25 15:00:00+09', '2015-07-26 15:00:00+09' ],

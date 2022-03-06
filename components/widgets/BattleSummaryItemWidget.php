@@ -92,13 +92,13 @@ class BattleSummaryItemWidget extends Widget
                 'class' => 'auto-tooltip',
                 'title' => isset($this->median)
                     ? Yii::t('app', 'max={max} min={min} median={median}', [
-                        'max' => ($this->max === null)
+                        'max' => $this->max === null
                             ? '?'
                             : Yii::$app->formatter->asInteger($this->max),
-                        'min' => ($this->min === null)
+                        'min' => $this->min === null
                             ? '?'
                             : Yii::$app->formatter->asInteger($this->min),
-                        'median' => ($this->median === null)
+                        'median' => $this->median === null
                             ? '?'
                             : Yii::$app->formatter->asDecimal($this->median, 1),
                     ])

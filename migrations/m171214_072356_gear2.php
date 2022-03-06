@@ -7,25 +7,22 @@
  */
 
 use app\components\db\Migration;
-use app\models\Gear2;
-use yii\helpers\Json;
+use yii\db\Expression;
 
 class m171214_072356_gear2 extends Migration
 {
     public function safeUp()
     {
         $data = $this->getUpdateData();
-        $updateCase = new \yii\db\Expression(sprintf(
+        $updateCase = new Expression(sprintf(
             '(CASE %s %s END)',
             $this->db->quoteColumnName('key'),
             implode(' ', array_map(
-                function (string $key, int $value): string {
-                    return sprintf(
-                        'WHEN %s THEN %s',
-                        $this->db->quoteValue($key),
-                        $this->db->quoteValue($value)
-                    );
-                },
+                fn (string $key, int $value): string => sprintf(
+                    'WHEN %s THEN %s',
+                    $this->db->quoteValue($key),
+                    $this->db->quoteValue($value)
+                ),
                 array_keys($data),
                 array_values($data)
             ))

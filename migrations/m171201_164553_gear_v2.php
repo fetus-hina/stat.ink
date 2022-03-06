@@ -7,9 +7,9 @@
  */
 
 use app\components\db\Migration;
-use yii\helpers\Json;
-use yii\helpers\ArrayHelper;
 use yii\db\Query;
+use yii\helpers\ArrayHelper;
+use yii\helpers\Json;
 
 class m171201_164553_gear_v2 extends Migration
 {
@@ -22,15 +22,13 @@ class m171201_164553_gear_v2 extends Migration
         $brands = $this->brands;
         $abilities = $this->abilities;
         $insert = array_map(
-            function (array $row) use ($types, $brands, $abilities): array {
-                return [
-                    $row['key'],
-                    $types[$row['type']],
-                    $brands[$row['brand']],
-                    $row['name'],
-                    $abilities[$row['ability']],
-                ];
-            },
+            fn (array $row): array => [
+                $row['key'],
+                $types[$row['type']],
+                $brands[$row['brand']],
+                $row['name'],
+                $abilities[$row['ability']],
+            ],
             $data
         );
         $this->batchInsert(
@@ -45,12 +43,12 @@ class m171201_164553_gear_v2 extends Migration
         if (!$data = $this->getData()) {
             return false;
         }
-        $this->delete('gear2', ['key' => array_map(
-            function (array $row): string {
-                return $row['key'];
-            },
-            $data
-        )]);
+        $this->delete('gear2', [
+            'key' => array_map(
+                fn (array $row): string => $row['key'],
+                $data
+            ),
+        ]);
     }
 
     public function getData(): ?array

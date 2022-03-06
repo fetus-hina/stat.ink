@@ -8,18 +8,18 @@
 
 namespace app\models;
 
-use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "splapi_rule".
  *
- * @property integer $id
- * @property integer $rule_id
+ * @property int $id
+ * @property int $rule_id
  * @property string $name
  *
  * @property Rule $rule
  */
-class SplapiRule extends \yii\db\ActiveRecord
+class SplapiRule extends ActiveRecord
 {
     /**
      * @inheritdoc
@@ -38,7 +38,7 @@ class SplapiRule extends \yii\db\ActiveRecord
             [['rule_id', 'name'], 'required'],
             [['rule_id'], 'integer'],
             [['name'], 'string', 'max' => 32],
-            [['name'], 'unique']
+            [['name'], 'unique'],
         ];
     }
 

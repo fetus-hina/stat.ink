@@ -8,7 +8,6 @@
 
 namespace app\models\api\v1;
 
-use Yii;
 use app\models\DeathReasonType;
 use yii\base\Model;
 use yii\db\ActiveQuery;
@@ -22,7 +21,8 @@ class DeathReasonGetForm extends Model
         return [
             [['type'], 'exist',
                 'targetClass' => DeathReasonType::class,
-                'targetAttribute' => 'key'],
+                'targetAttribute' => 'key',
+            ],
         ];
     }
 

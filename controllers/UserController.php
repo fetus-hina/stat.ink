@@ -10,7 +10,6 @@ declare(strict_types=1);
 
 namespace app\controllers;
 
-use Yii;
 use app\actions\user\ClearLoginWithTwitterAction;
 use app\actions\user\Download2Action;
 use app\actions\user\DownloadAction;
@@ -42,7 +41,7 @@ use yii\filters\VerbFilter;
 
 class UserController extends Controller
 {
-    public $layout = "main";
+    public $layout = 'main';
 
     public function behaviors()
     {

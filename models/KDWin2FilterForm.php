@@ -10,7 +10,6 @@ declare(strict_types=1);
 
 namespace app\models;
 
-use Yii;
 use yii\base\Model;
 
 class KDWin2FilterForm extends Model
@@ -48,9 +47,7 @@ class KDWin2FilterForm extends Model
                 'skipOnError' => true,
                 'targetClass' => SplatoonVersionGroup2::class,
                 'targetAttribute' => 'tag',
-                'when' => function (): bool {
-                    return $this->version !== '*';
-                },
+                'when' => fn (): bool => $this->version !== '*',
             ],
         ];
     }

@@ -15,8 +15,6 @@ use DateTimeImmutable;
 use DateTimeZone;
 use Yii;
 use app\assets\SimpleBattleListAsset;
-use app\components\widgets\ActiveRelativeTimeWidget;
-use app\models\User;
 use yii\base\Widget;
 use yii\bootstrap\Html;
 
@@ -61,7 +59,7 @@ class SalmonItem2Widget extends Widget
                                 'div',
                                 $this->renderDatetimeHtml(),
                                 ['class' => 'simple-battle-at']
-                            )
+                            ),
                         ]),
                         ['class' => 'simple-battle-row-impl']
                     ),
@@ -194,9 +192,9 @@ class SalmonItem2Widget extends Widget
             'time',
             Html::encode(Yii::$app->formatter->asRelativeTime($dateTime)),
             [
-              'datetime' => $dateTime->format(DateTime::ATOM),
-              'title' => Yii::$app->formatter->asDatetime($dateTime, 'medium'),
-              'class' => 'auto-tooltip',
+                'datetime' => $dateTime->format(DateTime::ATOM),
+                'title' => Yii::$app->formatter->asDatetime($dateTime, 'medium'),
+                'class' => 'auto-tooltip',
             ]
         );
     }

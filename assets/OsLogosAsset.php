@@ -8,7 +8,6 @@
 
 namespace app\assets;
 
-use Yii;
 use yii\web\AssetBundle;
 
 class OsLogosAsset extends AssetBundle

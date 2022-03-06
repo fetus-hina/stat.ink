@@ -19,6 +19,8 @@ use yii\base\Widget;
 use yii\helpers\Html;
 use yii\helpers\Json;
 
+use const SORT_DESC;
+
 class FestPowerHistory extends Widget
 {
     public $user;
@@ -45,38 +47,30 @@ class FestPowerHistory extends Widget
             implode(', ', array_map([Json::class, 'encode'], [
                 sprintf('#%s-legends', $this->id),
                 [
-                   'estimateBad' => Yii::t('app', 'Their team\'s splatfest power'),
-                   'estimateGood' => Yii::t('app', 'My team\'s splatfest power'),
-                   'festPower' => Yii::t('app', 'Splatfest Power'),
-                   'lose' => Yii::t('app', 'Lose'),
-                   'win' => Yii::t('app', 'Win'),
+                    'estimateBad' => Yii::t('app', 'Their team\'s splatfest power'),
+                    'estimateGood' => Yii::t('app', 'My team\'s splatfest power'),
+                    'festPower' => Yii::t('app', 'Splatfest Power'),
+                    'lose' => Yii::t('app', 'Lose'),
+                    'win' => Yii::t('app', 'Win'),
                 ],
                 array_map(
-                    function (Battle2 $model): ?float {
-                        return $model->fest_power < 1 ? null : (float)$model->fest_power;
-                    },
+                    fn (Battle2 $model): ?float => $model->fest_power < 1 ? null : (float)$model->fest_power,
                     $history
                 ),
                 array_map(
-                    function (Battle2 $model): ?float {
-                        return $model->my_team_estimate_fest_power < 1
+                    fn (Battle2 $model): ?float => $model->my_team_estimate_fest_power < 1
                             ? null
-                            : (float)$model->my_team_estimate_fest_power;
-                    },
+                            : (float)$model->my_team_estimate_fest_power,
                     $history
                 ),
                 array_map(
-                    function (Battle2 $model): ?float {
-                        return $model->his_team_estimate_fest_power < 1
+                    fn (Battle2 $model): ?float => $model->his_team_estimate_fest_power < 1
                             ? null
-                            : (float)$model->his_team_estimate_fest_power;
-                    },
+                            : (float)$model->his_team_estimate_fest_power,
                     $history
                 ),
                 array_map(
-                    function (Battle2 $model): ?bool {
-                        return $model->is_win;
-                    },
+                    fn (Battle2 $model): ?bool => $model->is_win,
                     $history
                 ),
             ])),
@@ -92,7 +86,7 @@ class FestPowerHistory extends Widget
                         'class' => [
                             'fest-power-history',
                             'mb-1',
-                        ]
+                        ],
                     ]),
                     ['class' => 'table-responsive']
                 ),
@@ -100,9 +94,11 @@ class FestPowerHistory extends Widget
                     'id' => $this->id . '-legends',
                 ]),
             ]),
-            ['class' => [
-                'fest-power-history-container',
-            ]],
+            [
+                'class' => [
+                    'fest-power-history-container',
+                ],
+            ],
         );
     }
 
@@ -132,12 +128,10 @@ class FestPowerHistory extends Widget
         ) {
             return null;
         }
-        $festPowerFilter = function (string $column): array {
-            return ['and',
-                ['not', ["{{battle2}}.[[{$column}]]" => null]],
-                ['>', "{{battle2}}.[[{$column}]]", 0],
-            ];
-        };
+        $festPowerFilter = fn (string $column): array => ['and',
+            ['not', ["{{battle2}}.[[{$column}]]" => null]],
+            ['>', "{{battle2}}.[[{$column}]]", 0],
+        ];
         $history = Battle2::find()
             ->andWhere(['and',
                 [

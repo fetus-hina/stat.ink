@@ -10,6 +10,9 @@ namespace app\models\api\v2;
 
 use DateInterval;
 use DateTimeImmutable;
+use Exception;
+use RuntimeException;
+use Throwable;
 use Yii;
 use app\components\behaviors\FixAttributesBehavior;
 use app\components\behaviors\SplatnetNumberBehavior;
@@ -30,7 +33,6 @@ use app\models\DeathReason2;
 use app\models\FestTitle;
 use app\models\GearConfiguration2;
 use app\models\GearConfigurationSecondary2;
-use app\models\Gender;
 use app\models\Lobby2;
 use app\models\Map2;
 use app\models\Mode2;
@@ -40,16 +42,21 @@ use app\models\ShiftyMap2;
 use app\models\SpecialBattle2;
 use app\models\Species2;
 use app\models\Splatfest2Theme;
-use app\models\SplatoonVersion2;
 use app\models\TeamNickname2;
-use app\models\User;
 use app\models\Weapon2;
+use stdClass;
 use yii\base\InvalidParamException;
 use yii\base\Model;
 use yii\behaviors\AttributeBehavior;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
 use yii\web\UploadedFile;
+
+use const FILTER_VALIDATE_FLOAT;
+use const FILTER_VALIDATE_INT;
+use const JSON_FORCE_OBJECT;
+use const JSON_UNESCAPED_SLASHES;
+use const JSON_UNESCAPED_UNICODE;
 
 class PostBattleForm extends Model
 {
@@ -213,10 +220,10 @@ class PostBattleForm extends Model
                         if (is_float($value) && (0 <= $value && $value <= 99.9)) {
                             return $value;
                         }
-                    } catch (\Exception $e) {
+                    } catch (Throwable $e) {
                     }
                     return null;
-                }
+                },
             ],
         ];
     }
@@ -277,9 +284,7 @@ class PostBattleForm extends Model
             [['agent'], 'string', 'max' => 64],
             [['agent_version'], 'string', 'max' => 255],
             [['agent', 'agent_version'], 'required',
-                'when' => function ($model, $attr) {
-                    return (string)$this->agent !== '' || (string)$this->agent_version !== '';
-                },
+                'when' => fn ($model, $attr) => (string)$this->agent !== '' || (string)$this->agent_version !== '',
             ],
             [['agent_custom'], 'string'],
             [['uuid'], 'string', 'max' => 64],
@@ -300,10 +305,10 @@ class PostBattleForm extends Model
                                 : $this->splatnet_json;
                             if (is_array($json)) {
                                 return isset($json['battle_number']) ? 'yes' : 'no';
-                            } elseif ($json instanceof \stdClass) {
+                            } elseif ($json instanceof stdClass) {
                                 return isset($json->battle_number) ? 'yes' : 'no';
                             }
-                        } catch (\Exception $e) {
+                        } catch (Throwable $e) {
                         }
                     }
                     return 'no';
@@ -356,17 +361,14 @@ class PostBattleForm extends Model
             [['image_judge', 'image_result', 'image_gear'], 'safe'],
             [['image_judge', 'image_result', 'image_gear'], 'file',
                 'maxSize' => 3 * 1024 * 1024,
-                'when' => function ($model, $attr) {
-                    return !is_string($model->$attr);
-                }],
+                'when' => fn ($model, $attr) => !is_string($model->$attr),
+            ],
             [['image_judge', 'image_result', 'image_gear'], 'validateImageFile',
-                'when' => function ($model, $attr) {
-                    return !is_string($model->$attr);
-                }],
+                'when' => fn ($model, $attr) => !is_string($model->$attr),
+            ],
             [['image_judge', 'image_result', 'image_gear'], 'validateImageString',
-                'when' => function ($model, $attr) {
-                    return is_string($model->$attr);
-                }],
+                'when' => fn ($model, $attr) => is_string($model->$attr),
+            ],
             [['map'], 'safe'],
             [['splatnet_number'], 'integer', 'min' => 1],
             [['my_team_id', 'his_team_id'], 'string', 'max' => 16],
@@ -467,12 +469,8 @@ class PostBattleForm extends Model
 
     public function toBattle(): Battle2
     {
-        $intval = function ($string): ?int {
-            return $string === null ? null : intval($string, 10);
-        };
-        $floatval = function ($string): ?float {
-            return $string === null ? null : floatval($string);
-        };
+        $intval = fn ($string): ?int => $string === null ? null : intval($string, 10);
+        $floatval = fn ($string): ?float => $string === null ? null : floatval($string);
         $datetime = function ($value) use ($intval): ?string {
             $value = $intval($value);
             return $value === null ? null : gmdate('Y-m-d\TH:i:sP', $value);
@@ -641,7 +639,7 @@ class PostBattleForm extends Model
 
     public function toDeathReasons(Battle2 $battle)
     {
-        if (is_array($this->death_reasons) || $this->death_reasons instanceof \stdClass) {
+        if (is_array($this->death_reasons) || $this->death_reasons instanceof stdClass) {
             $unknownCount = 0;
             foreach ($this->death_reasons as $key => $count) {
                 $reason = DeathReason2::findOne(['key' => $key]);
@@ -684,35 +682,36 @@ class PostBattleForm extends Model
 
     public function toPlayers(Battle2 $battle)
     {
-        if (is_array($this->players) && !empty($this->players)) {
+        if (is_array($this->players) && $this->players) {
             foreach ($this->players as $form) {
                 if (!$form instanceof PostBattlePlayerForm) {
-                    throw new \Exception('Logic error: assert: instanceof PostBattlePlayerForm');
+                    throw new Exception('Logic error: assert: instanceof PostBattlePlayerForm');
                 }
 
-                $weapon = ($form->weapon == '')
+                $weapon = $form->weapon == ''
                     ? null
                     : Weapon2::findOne(['key' => $form->weapon]);
 
-                $rank = ($form->rank == '')
+                $rank = $form->rank == ''
                     ? null
                     : Rank2::findOne(['key' => $form->rank]);
 
-                $species = ($form->species == '')
+                $species = $form->species == ''
                     ? null
                     : Species2::findOne(['key' => $form->species]);
 
-                $gender = (function ($v) {
+                $gender = (function ($v): ?int {
                     switch (trim((string)$v)) {
                         case 'boy':
                             return 1;
                         case 'girl':
                             return 2;
-                        return null;
+                        default:
+                            return null;
                     }
                 })($form->gender);
 
-                $festTitle = ($form->fest_title == '')
+                $festTitle = $form->fest_title == ''
                     ? null
                     : FestTitle::findOne(['key' => $form->fest_title]);
 
@@ -847,7 +846,7 @@ class PostBattleForm extends Model
                 'primary_ability_id'    => $primaryAbility ? $primaryAbility->id : null,
             ]);
             if (!$config->save()) {
-                throw new \Exception('Could not save gear_counfiguration2');
+                throw new Exception('Could not save gear_counfiguration2');
             }
 
             foreach ($secondaryAbilityIdList as $aId) {
@@ -857,10 +856,11 @@ class PostBattleForm extends Model
                     'ability_id'    => $aId,
                 ]);
                 if (!$sub->save()) {
-                    throw new \Exception('Could not save gear_configuration_secondary2');
+                    throw new Exception('Could not save gear_configuration_secondary2');
                 }
             }
         }
+        unset($lock);
 
         return (int)$config->id;
     }
@@ -875,17 +875,13 @@ class PostBattleForm extends Model
         if ($startAt === false) {
             return false;
         }
-        if ($startAt < time() - 86400) {
-            return false;
-        }
-
-        return true;
+        return $startAt >= time() - 86400;
     }
 
     public function getCriticalSectionName()
     {
         $values = [
-            'class' => __CLASS__,
+            'class' => self::class,
             'version' => 2,
             'user' => Yii::$app->user->identity->id,
         ];
@@ -907,7 +903,7 @@ class PostBattleForm extends Model
     {
         try {
             return CriticalSection::lock($this->getCriticalSectionName(), $timeout);
-        } catch (\RuntimeException $e) {
+        } catch (RuntimeException $e) {
             return false;
         }
     }
@@ -945,12 +941,9 @@ class PostBattleForm extends Model
             }
             $newValues[] = $value;
         }
-        usort($newValues, function ($a, $b) {
-            return $a->at - $b->at;
-        });
+        usort($newValues, fn ($a, $b) => $a->at - $b->at);
         $this->$attribute = $newValues;
     }
-
 
     public function validateAgentVariables(string $attribute, $params)
     {
@@ -969,8 +962,8 @@ class PostBattleForm extends Model
             }
             $value = (object)$value;
         }
-        if (is_object($value) && ($value instanceof \stdClass)) {
-            $newValue = new \stdClass();
+        if (is_object($value) && ($value instanceof stdClass)) {
+            $newValue = new stdClass();
             foreach ($value as $k => $v) {
                 $k = is_int($k) ? "ARRAY[{$k}]" : (string)$k;
                 if (!mb_check_encoding($k, 'UTF-8')) {
@@ -1061,7 +1054,7 @@ class PostBattleForm extends Model
             $this->$attribute = [];
             return;
         }
-        if (!is_array($value) && !$value instanceof \stdClass) {
+        if (!is_array($value) && !$value instanceof stdClass) {
             $this->addError($attribute, "{$attribute} should be a map.");
             return;
         }
@@ -1149,7 +1142,7 @@ class PostBattleForm extends Model
 
     private function getHasDisconnect(): bool
     {
-        if (is_array($this->players) && !empty($this->players)) {
+        if (is_array($this->players) && $this->players) {
             foreach ($this->players as $form) {
                 if (
                     $form instanceof PostBattlePlayerForm &&

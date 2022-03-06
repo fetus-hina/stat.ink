@@ -19,21 +19,21 @@ class m171002_124420_link_from_others extends Migration
             'name'  => $this->string(64)->notNull(),
             'rank'  => $this->integer()->notNull()->unique(),
         ]);
-        $this->batchInsert('link_mode', [ 'key', 'name', 'rank' ], [
+        $this->batchInsert('link_mode', ['key', 'name', 'rank'], [
             [
                 'anonymize',
                 'Anonymize, don\'t link from other user\'s results',
-                10
+                10,
             ],
             [
                 'in_game',
                 'Don\'t anonymize, display in-game name',
-                20
+                20,
             ],
             [
                 'statink',
                 'Don\'t anonymize, display stat.ink\'s name',
-                30
+                30,
             ],
         ]);
         $inGame = (new Query())

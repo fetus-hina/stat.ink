@@ -8,18 +8,18 @@
 
 namespace app\models;
 
-use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "splapi_map".
  *
- * @property integer $id
- * @property integer $map_id
+ * @property int $id
+ * @property int $map_id
  * @property string $name
  *
  * @property Map $map
  */
-class SplapiMap extends \yii\db\ActiveRecord
+class SplapiMap extends ActiveRecord
 {
     /**
      * @inheritdoc
@@ -38,7 +38,7 @@ class SplapiMap extends \yii\db\ActiveRecord
             [['map_id', 'name'], 'required'],
             [['map_id'], 'integer'],
             [['name'], 'string', 'max' => 32],
-            [['name'], 'unique']
+            [['name'], 'unique'],
         ];
     }
 

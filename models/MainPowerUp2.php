@@ -16,10 +16,12 @@ use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
 
+use const SORT_ASC;
+
 /**
  * This is the model class for table "main_power_up2".
  *
- * @property integer $id
+ * @property int $id
  * @property string $key
  * @property string $name
  *

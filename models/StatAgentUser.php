@@ -8,18 +8,18 @@
 
 namespace app\models;
 
-use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "stat_agent_user".
  *
- * @property integer $id
+ * @property int $id
  * @property string $agent
  * @property string $date
- * @property integer $battle_count
- * @property integer $user_count
+ * @property int $battle_count
+ * @property int $user_count
  */
-class StatAgentUser extends \yii\db\ActiveRecord
+class StatAgentUser extends ActiveRecord
 {
     /**
      * @inheritdoc
@@ -41,7 +41,8 @@ class StatAgentUser extends \yii\db\ActiveRecord
             [['agent'], 'string', 'max' => 64],
             [['agent', 'date'], 'unique',
                 'targetAttribute' => ['agent', 'date'],
-                'message' => 'The combination of Agent and Date has already been taken.']
+                'message' => 'The combination of Agent and Date has already been taken.',
+            ],
         ];
     }
 

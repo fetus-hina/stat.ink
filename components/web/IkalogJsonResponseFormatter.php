@@ -8,9 +8,11 @@
 
 namespace app\components\web;
 
-use Yii;
 use yii\base\Component;
 use yii\web\ResponseFormatterInterface;
+
+use const JSON_UNESCAPED_SLASHES;
+use const SEEK_SET;
 
 class IkalogJsonResponseFormatter extends Component implements ResponseFormatterInterface
 {

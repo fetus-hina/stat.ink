@@ -9,8 +9,6 @@
 namespace app\actions\show\v2;
 
 use Yii;
-use app\models\Battle2;
-use app\models\Map2;
 use app\models\User;
 use yii\web\NotFoundHttpException;
 use yii\web\ViewAction as BaseAction;

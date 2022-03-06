@@ -8,7 +8,6 @@
 
 namespace app\actions\downloadStats;
 
-use Yii;
 use yii\web\ViewAction;
 
 class IndexAction extends ViewAction

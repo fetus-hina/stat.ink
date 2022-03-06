@@ -42,10 +42,12 @@ class m180330_191315_update_map2 extends Migration
                 'area' => null,
                 'splatnet' => null,
             ],
-            ['key' => [
-                'devon',
-                'arowana',
-            ]]
+            [
+                'key' => [
+                    'devon',
+                    'arowana',
+                ],
+            ]
         );
         $this->update('map2', ['area' => null], ['key' => ['hakofugu', 'ajifry']]);
     }

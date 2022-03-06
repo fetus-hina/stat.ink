@@ -17,7 +17,7 @@ class m150923_122013_map extends Migration
             'key'   => $this->string(16)->notNull()->unique(),
             'name'  => $this->string(32)->notNull()->unique(),
         ]);
-        $this->batchInsert('map', [ 'key', 'name' ], [
+        $this->batchInsert('map', ['key', 'name'], [
             [ 'arowana',    'Arowana Mall' ],
             [ 'bbass',      'Blackbelly Skatepark' ],
             [ 'shionome',   'Saltspray Rig' ],

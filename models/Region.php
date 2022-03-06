@@ -8,19 +8,19 @@
 
 namespace app\models;
 
-use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "region".
  *
- * @property integer $id
+ * @property int $id
  * @property string $key
  * @property string $name
  *
  * @property Splatfest[] $splatfests
  * @property Timezone[] $timezones
  */
-class Region extends \yii\db\ActiveRecord
+class Region extends ActiveRecord
 {
     /**
      * @inheritdoc
@@ -39,7 +39,7 @@ class Region extends \yii\db\ActiveRecord
             [['key', 'name'], 'required'],
             [['key'], 'string', 'max' => 2],
             [['name'], 'string', 'max' => 64],
-            [['key'], 'unique']
+            [['key'], 'unique'],
         ];
     }
 

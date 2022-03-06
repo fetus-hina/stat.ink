@@ -13,10 +13,11 @@ use DOMDocument;
 use DOMXpath;
 use Yii;
 use app\models\RemoteFollowModalForm;
-use app\models\User;
 use yii\helpers\Json;
-use yii\web\Response;
 use yii\web\ViewAction as BaseAction;
+
+use const CURLOPT_FOLLOWLOCATION;
+use const CURLOPT_MAXREDIRS;
 
 class StartRemoteFollowAction extends BaseAction
 {
@@ -53,7 +54,7 @@ class StartRemoteFollowAction extends BaseAction
                 return null;
             }
             return $url;
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             return null;
         }
     }
@@ -90,7 +91,7 @@ class StartRemoteFollowAction extends BaseAction
                         }
                     }
                 }
-            } catch (\Exception $e) {
+            } catch (\Throwable $e) {
             }
         }
         return null;
@@ -126,7 +127,7 @@ class StartRemoteFollowAction extends BaseAction
                     }
                 }
             }
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
         }
         //FIXME:XML
         return null;

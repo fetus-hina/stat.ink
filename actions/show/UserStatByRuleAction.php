@@ -9,10 +9,11 @@
 namespace app\actions\show;
 
 use Yii;
+use app\models\BattleFilterForm;
+use app\models\User;
+use yii\db\Query;
 use yii\web\NotFoundHttpException;
 use yii\web\ViewAction as BaseAction;
-use app\models\User;
-use app\models\BattleFilterForm;
 
 class UserStatByRuleAction extends BaseAction
 {
@@ -40,7 +41,7 @@ class UserStatByRuleAction extends BaseAction
 
     private function getData(User $user, BattleFilterForm $filter)
     {
-        $query = (new \yii\db\Query())
+        $query = (new Query())
             ->select([
                 'rule_key'  => 'MAX({{rule}}.[[key]])',
                 'rule_name' => 'MAX({{rule}}.[[name]])',
@@ -61,7 +62,7 @@ class UserStatByRuleAction extends BaseAction
             ->leftJoin('rank', '{{battle}}.[[rank_id]] = {{rank}}.[[id]]')
             ->leftJoin('rank_group', '{{rank}}.[[group_id]] = {{rank_group}}.[[id]]')
             ->andWhere(['{{battle}}.[[user_id]]' => $user->id])
-            ->andWhere(['in', '{{battle}}.[[is_win]]', [ true, false ]])
+            ->andWhere(['in', '{{battle}}.[[is_win]]', [true, false]])
             ->groupBy(['{{battle}}.[[rule_id]]', '{{battle}}.[[is_win]]']);
 
         if ($filter && !$filter->hasErrors()) {

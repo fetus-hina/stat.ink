@@ -6,9 +6,9 @@
  * @author AIZAWA Hina <hina@fetus.jp>
  */
 
-use yii\db\Migration;
 use app\models\Region;
 use app\models\Splatfest;
+use yii\db\Migration;
 
 class m151223_123831_splatfest_team extends Migration
 {
@@ -19,7 +19,7 @@ class m151223_123831_splatfest_team extends Migration
             'name'      => 'VARCHAR(8) NOT NULL',
             'leader'    => 'VARCHAR(8) NOT NULL',
         ]);
-        $this->batchInsert('team', [ 'id', 'name', 'leader' ], [
+        $this->batchInsert('team', ['id', 'name', 'leader'], [
             [ 1, 'Alpha', 'Callie' ],
             [ 2, 'Bravo', 'Marie' ],
         ]);
@@ -37,7 +37,7 @@ class m151223_123831_splatfest_team extends Migration
         $jp = Region::findOne(['key' => 'jp'])->id;
         $this->batchInsert(
             'splatfest_team',
-            [ 'fest_id', 'team_id', 'name', 'color_hue' ],
+            ['fest_id', 'team_id', 'name', 'color_hue'],
             [
                 // 色は実績に基づく
                 [$this->fest($jp, 7), 1, '愛',         332],

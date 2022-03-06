@@ -14,9 +14,12 @@ use Yii;
 use app\models\api\v2\salmon\PostForm;
 use yii\helpers\Json;
 use yii\helpers\Url;
-use yii\web\UnauthorizedHttpException;
+use yii\web\ViewAction;
 
-class PostAction extends \yii\web\ViewAction
+use const JSON_UNESCAPED_SLASHES;
+use const JSON_UNESCAPED_UNICODE;
+
+class PostAction extends ViewAction
 {
     public function init()
     {

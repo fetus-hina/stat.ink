@@ -8,17 +8,16 @@
 
 namespace app\models;
 
-use Yii;
 use yii\db\ActiveRecord;
 use yii\helpers\Json;
 
 /**
  * This is the model class for table "gear_configuration2".
  *
- * @property integer $id
+ * @property int $id
  * @property string $finger_print
- * @property integer $gear_id
- * @property integer $primary_ability_id
+ * @property int $gear_id
+ * @property int $primary_ability_id
  *
  * @property Ability2 $primaryAbility
  * @property Gear2 $gear
@@ -32,12 +31,10 @@ class GearConfiguration2 extends ActiveRecord
         array $secondaryAbitilyIdList
     ): string {
         $data = [
-            'gear'      => ($gearId > 0) ? (int)$gearId : null,
-            'primary'   => ($primaryAbilityId > 0) ? (int)$primaryAbilityId : null,
+            'gear'      => $gearId > 0 ? (int)$gearId : null,
+            'primary'   => $primaryAbilityId > 0 ? (int)$primaryAbilityId : null,
             'secondary' => array_map(
-                function ($id): ?int {
-                    return ($id > 0) ? (int)$id : null;
-                },
+                fn ($id): ?int => $id > 0 ? (int)$id : null,
                 $secondaryAbitilyIdList
             ),
         ];
@@ -127,9 +124,7 @@ class GearConfiguration2 extends ActiveRecord
                 : null,
             'secondary_abilities' => $this->secondaries
                 ? array_map(
-                    function (?GearConfigurationSecondary2 $o) {
-                        return $o ? $o->toJsonArray() : null;
-                    },
+                    fn (?GearConfigurationSecondary2 $o) => $o ? $o->toJsonArray() : null,
                     $this->secondaries
                 )
                 : null,

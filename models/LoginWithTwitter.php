@@ -9,18 +9,20 @@
 namespace app\models;
 
 use Yii;
+use yii\db\ActiveRecord;
+use yii\web\User as WebUser;
 
 /**
  * This is the model class for table "login_with_twitter".
  *
- * @property integer $user_id
- * @property integer $twitter_id
+ * @property int $user_id
+ * @property int $twitter_id
  * @property string $screen_name
  * @property string $name
  *
  * @property User $user
  */
-final class LoginWithTwitter extends \yii\db\ActiveRecord
+final class LoginWithTwitter extends ActiveRecord
 {
     /**
      * @inheritdoc
@@ -40,7 +42,7 @@ final class LoginWithTwitter extends \yii\db\ActiveRecord
             [['name'], 'filter',
                 'filter' => function ($value) {
                     $value = trim(mb_substr($value, 0, 32, 'UTF-8'));
-                    return ($value == '')
+                    return $value == ''
                         ? sprintf('@%s', $this->screen_name)
                         : $value;
                 },
@@ -88,7 +90,7 @@ final class LoginWithTwitter extends \yii\db\ActiveRecord
         }
 
         $appUser = Yii::$app->user;
-        $appUser->on(\yii\web\User::EVENT_AFTER_LOGIN, function ($event) use ($user): void {
+        $appUser->on(WebUser::EVENT_AFTER_LOGIN, function ($event) use ($user): void {
             UserLoginHistory::login($user, LoginMethod::METHOD_TWITTER);
             User::onLogin($user, LoginMethod::METHOD_TWITTER);
         });

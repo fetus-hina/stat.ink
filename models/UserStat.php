@@ -9,29 +9,31 @@
 namespace app\models;
 
 use Yii;
+use yii\db\ActiveRecord;
+use yii\db\Query;
 
 /**
  * This is the model class for table "user_stat".
  *
- * @property integer $user_id
- * @property integer $battle_count
+ * @property int $user_id
+ * @property int $battle_count
  * @property string $wp
  * @property string $wp_short
- * @property integer $total_kill
- * @property integer $total_death
- * @property integer $nawabari_count
+ * @property int $total_kill
+ * @property int $total_death
+ * @property int $nawabari_count
  * @property string $nawabari_wp
- * @property integer $nawabari_kill
- * @property integer $nawabari_death
- * @property integer $gachi_count
+ * @property int $nawabari_kill
+ * @property int $nawabari_death
+ * @property int $gachi_count
  * @property string $gachi_wp
- * @property integer $gachi_kill
- * @property integer $gachi_death
- * @property integer $total_kd_battle_count
+ * @property int $gachi_kill
+ * @property int $gachi_death
+ * @property int $total_kd_battle_count
  *
  * @property User $user
  */
-class UserStat extends \yii\db\ActiveRecord
+class UserStat extends ActiveRecord
 {
     /**
      * @inheritdoc
@@ -153,7 +155,7 @@ class UserStat extends \yii\db\ActiveRecord
             sprintf(
                 '{{battle}}.[[my_point]] - (%s) > 0',
                 'CASE {{battle}}.[[is_win]] WHEN TRUE THEN {{turfwar_win_bonus}}.[[bonus]] ELSE 0 END'
-            )
+            ),
         ]));
 
         $condTimePresent = sprintf('(%s)', implode(' AND ', [
@@ -163,7 +165,7 @@ class UserStat extends \yii\db\ActiveRecord
             "({{battle}}.[[end_at]] - {{battle}}.[[start_at]]) < '10 minutes'::interval",
         ]));
 
-        $column_battle_count = "COUNT(*)";
+        $column_battle_count = 'COUNT(*)';
         $column_wp = sprintf(
             '(%s * 100.0 / NULLIF(%s, 0))',
             sprintf(
@@ -182,7 +184,7 @@ class UserStat extends \yii\db\ActiveRecord
             )
         );
         $column_wp_short = sprintf(
-            "(%s * 100.0 / NULLIF(%s, 0))",
+            '(%s * 100.0 / NULLIF(%s, 0))',
             sprintf(
                 'SUM(CASE WHEN (%s) THEN 1 ELSE 0 END)',
                 implode(' AND ', [
@@ -404,7 +406,7 @@ class UserStat extends \yii\db\ActiveRecord
             )
         );
 
-        $query = (new \yii\db\Query())
+        $query = (new Query())
             ->select([
                 'battle_count'      => $column_battle_count,
                 'wp'                => $column_wp,

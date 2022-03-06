@@ -8,19 +8,20 @@
 
 namespace app\models;
 
-use Yii;
+use DateTime;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "splatoon_version".
  *
- * @property integer $id
+ * @property int $id
  * @property string $tag
  * @property string $name
  * @property string $released_at
  *
  * @property Battle[] $battles
  */
-class SplatoonVersion extends \yii\db\ActiveRecord
+class SplatoonVersion extends ActiveRecord
 {
     public static function findCurrentVersion($at = null)
     {
@@ -29,7 +30,7 @@ class SplatoonVersion extends \yii\db\ActiveRecord
         }
         if (is_int($at)) {
             $at = gmdate('Y-m-d\TH:i:sP', $at);
-        } elseif ($at instanceof \DateTime) {
+        } elseif ($at instanceof DateTime) {
             $at = $at->format('Y-m-d\TH:i:sP');
         }
         return static::find()
@@ -56,7 +57,7 @@ class SplatoonVersion extends \yii\db\ActiveRecord
             [['tag', 'name', 'released_at'], 'required'],
             [['released_at'], 'safe'],
             [['tag', 'name'], 'string', 'max' => 32],
-            [['tag'], 'unique']
+            [['tag'], 'unique'],
         ];
     }
 

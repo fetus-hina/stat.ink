@@ -10,7 +10,6 @@ declare(strict_types=1);
 
 namespace app\actions\user;
 
-use Exception;
 use Yii;
 use app\components\helpers\Password;
 use app\models\PasswordForm;
@@ -38,7 +37,7 @@ class EditPasswordAction extends BaseAction
                         $this->controller->redirect(['user/profile']);
                         return;
                     }
-                } catch (Exception $e) {
+                } catch (\Throwable $e) {
                 }
                 $transaction->rollback();
             }

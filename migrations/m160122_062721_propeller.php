@@ -6,8 +6,8 @@
  * @author AIZAWA Hina <hina@fetus.jp>
  */
 
-use yii\db\Migration;
 use app\models\DeathReasonType;
+use yii\db\Migration;
 
 class m160122_062721_propeller extends Migration
 {

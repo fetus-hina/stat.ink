@@ -14,14 +14,14 @@ use yii\db\ActiveRecord;
 /**
  * This is the model class for table "salmon_wave2".
  *
- * @property integer $salmon_id
- * @property integer $wave
- * @property integer $event_id
- * @property integer $water_id
- * @property integer $golden_egg_quota
- * @property integer $golden_egg_appearances
- * @property integer $golden_egg_delivered
- * @property integer $power_egg_collected
+ * @property int $salmon_id
+ * @property int $wave
+ * @property int $event_id
+ * @property int $water_id
+ * @property int $golden_egg_quota
+ * @property int $golden_egg_appearances
+ * @property int $golden_egg_delivered
+ * @property int $power_egg_collected
  *
  * @property Salmon2 $salmon
  * @property SalmonEvent2 $event

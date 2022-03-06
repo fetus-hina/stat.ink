@@ -30,6 +30,8 @@ use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\validators\NumberValidator;
 
+use const SORT_ASC;
+
 class Player extends Model
 {
     use OpenAPIUtil;
@@ -147,7 +149,7 @@ class Player extends Model
             return;
         }
 
-        if (empty($this->weapons)) {
+        if (!$this->weapons) {
             $this->weapons = null;
             return;
         }
@@ -189,7 +191,7 @@ class Player extends Model
             return;
         }
 
-        if (empty($this->boss_kills)) {
+        if (!$this->boss_kills) {
             $this->boss_kills = null;
             return;
         }
@@ -226,19 +228,9 @@ class Player extends Model
                 return false;
             }
 
-            if (!$this->saveSpecialUses($player)) {
-                return false;
-            }
-
-            if (!$this->saveWeapons($player)) {
-                return false;
-            }
-
-            if (!$this->saveBossKills($player)) {
-                return false;
-            }
-
-            return true;
+            return $this->saveSpecialUses($player) &&
+                $this->saveWeapons($player) &&
+                $this->saveBossKills($player);
         });
     }
 
@@ -471,18 +463,14 @@ class Player extends Model
                             Gender::find()
                                 ->orderBy(['id' => SORT_ASC])
                                 ->all(),
-                            function (Gender $model): string {
-                                return strtolower($model->name);
-                            }
+                            fn (Gender $model): string => strtolower($model->name)
                         ),
                     ]),
                     ArrayHelper::getColumn(
                         Gender::find()
                             ->orderBy(['id' => SORT_ASC])
                             ->all(),
-                        function (Gender $model): string {
-                            return strtolower($model->name);
-                        },
+                        fn (Gender $model): string => strtolower($model->name),
                         false
                     ),
                     true // replace description
@@ -560,20 +548,18 @@ class Player extends Model
                     'properties' => ArrayHelper::map(
                         SalmonBoss2::find()->orderBy(['key' => SORT_ASC])->all(),
                         'key',
-                        function (SalmonBoss2 $boss): array {
-                            return [
-                                'type' => 'integer',
-                                'format' => 'int32',
-                                'minimum' => 0,
-                                'description' => implode("\n", [
-                                    Html::encode(Yii::t(
-                                        'app-apidoc2',
-                                        'Number of times the player kills {boss}',
-                                        ['boss' => Yii::t('app-salmon-boss2', $boss->name)]
-                                    )),
-                                ]),
-                            ];
-                        },
+                        fn (SalmonBoss2 $boss): array => [
+                            'type' => 'integer',
+                            'format' => 'int32',
+                            'minimum' => 0,
+                            'description' => implode("\n", [
+                                Html::encode(Yii::t(
+                                    'app-apidoc2',
+                                    'Number of times the player kills {boss}',
+                                    ['boss' => Yii::t('app-salmon-boss2', $boss->name)]
+                                )),
+                            ]),
+                        ],
                     ),
                 ],
             ],

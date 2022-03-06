@@ -42,7 +42,7 @@ class SlackAddFormTest extends Unit
             ],
             'discord.com' => [
                 true,
-                'https://discord.com/api/webhooks/1234/00aaAA/slack'
+                'https://discord.com/api/webhooks/1234/00aaAA/slack',
             ],
         ];
     }

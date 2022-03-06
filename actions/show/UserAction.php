@@ -9,14 +9,14 @@
 namespace app\actions\show;
 
 use Yii;
+use app\models\Battle;
+use app\models\BattleFilterForm;
+use app\models\User;
 use yii\data\ActiveDataProvider;
 use yii\helpers\Url;
 use yii\web\Cookie;
 use yii\web\NotFoundHttpException;
 use yii\web\ViewAction as BaseAction;
-use app\models\BattleFilterForm;
-use app\models\Battle;
-use app\models\User;
 
 class UserAction extends BaseAction
 {
@@ -78,19 +78,18 @@ class UserAction extends BaseAction
             true
         );
 
-        $isPjax = $request->isPjax;
         $template = $this->getViewMode() === 'simple' ? 'user.simple.php' : 'user.php';
         return $this->controller->render($template, [
-            'user'      => $user,
+            'user' => $user,
             'battleDataProvider' => new ActiveDataProvider([
                 'query' => $battle,
                 'pagination' => [
                     'pageSize' => 100,
                 ],
             ]),
-            'summary'   => $summary,
-            'filter'    => $filter,
-            'permLink'  => $permLink,
+            'summary' => $summary,
+            'filter' => $filter,
+            'permLink' => $permLink,
         ]);
     }
 

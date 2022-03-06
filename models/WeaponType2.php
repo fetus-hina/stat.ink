@@ -13,12 +13,14 @@ use app\components\helpers\Translator;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
 
+use const SORT_ASC;
+
 /**
  * This is the model class for table "weapon_type2".
  *
- * @property integer $id
+ * @property int $id
  * @property string $key
- * @property integer $category_id
+ * @property int $category_id
  * @property string $name
  *
  * @property Weapon2[] $weapon2s
@@ -140,9 +142,7 @@ class WeaponType2 extends ActiveRecord
     public static function openapiExample(): array
     {
         return array_map(
-            function (self $model): array {
-                return $model->toJsonArray();
-            },
+            fn (self $model): array => $model->toJsonArray(),
             static::find()
                 ->orderBy(['id' => SORT_ASC])
                 ->limit(1)

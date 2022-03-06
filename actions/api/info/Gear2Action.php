@@ -9,7 +9,6 @@
 namespace app\actions\api\info;
 
 use Yii;
-use app\components\helpers\Translator;
 use app\models\Gear2;
 use app\models\GearType;
 use app\models\Language;
@@ -31,12 +30,10 @@ class Gear2Action extends BaseAction
             throw new NotFoundHttpException(Yii::t('yii', 'Page not found.'));
         }
         $gears = $type->getGear2s()->with(['brand', 'ability'])->all();
-        usort($gears, function (Gear2 $a, Gear2 $b): int {
-            return strnatcasecmp(
-                $a->translatedName,
-                $b->translatedName
-            );
-        });
+        usort($gears, fn (Gear2 $a, Gear2 $b): int => strnatcasecmp(
+            $a->translatedName,
+            $b->translatedName
+        ));
         $langs = Language::find()->standard()->all();
         $sysLang = Yii::$app->language;
         usort($langs, function (Language $a, Language $b) use ($sysLang): int {

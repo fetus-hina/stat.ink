@@ -10,14 +10,14 @@ declare(strict_types=1);
 
 namespace app\components\jobs;
 
-use Exception;
 use Yii;
-use app\models\Battle2;
 use app\models\Battle;
+use app\models\Battle2;
 use app\models\OstatusPubsubhubbub;
-use app\models\User;
 use yii\base\BaseObject;
 use yii\queue\JobInterface;
+
+use const SORT_ASC;
 
 class OstatusJob extends BaseObject implements JobInterface
 {
@@ -65,7 +65,7 @@ class OstatusJob extends BaseObject implements JobInterface
         foreach ($query->each() as $hub) {
             try {
                 $hub->notify($battle);
-            } catch (Exception $e) {
+            } catch (\Throwable $e) {
             }
         }
     }

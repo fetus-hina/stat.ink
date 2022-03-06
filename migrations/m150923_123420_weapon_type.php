@@ -17,7 +17,7 @@ class m150923_123420_weapon_type extends Migration
             'key'   => $this->string(16)->notNull()->unique(),
             'name'  => $this->string(16)->notNull()->unique(),
         ]);
-        $this->batchInsert('weapon_type', [ 'key', 'name' ], [
+        $this->batchInsert('weapon_type', ['key', 'name'], [
             [ 'shooter',   'Shooters' ],
             [ 'roller',    'Rollers' ],
             [ 'charger',   'Chargers' ],

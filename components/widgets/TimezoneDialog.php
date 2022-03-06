@@ -140,13 +140,11 @@ class TimezoneDialog extends Dialog
                 $ret .= Html::tag(
                     'div',
                     implode('', array_map(
-                        function (Timezone $tz) use ($currentTz): string {
-                            return $this->renderTimezone(
-                                $tz,
-                                $currentTz === $tz->identifier,
-                                false
-                            );
-                        },
+                        fn (Timezone $tz): string => $this->renderTimezone(
+                            $tz,
+                            $currentTz === $tz->identifier,
+                            false
+                        ),
                         $group->timezones
                     )),
                     [
@@ -268,16 +266,20 @@ class TimezoneDialog extends Dialog
                     ),
                     $close,
                 ]),
-                ['class' => [
-                    'd-flex',
-                    'justify-content-between',
-                    'align-items-center', // vertical middle
-                ]]
+                [
+                    'class' => [
+                        'd-flex',
+                        'justify-content-between',
+                        'align-items-center', // vertical middle
+                    ],
+                ]
             ),
-            ['class' => [
-                'modal-footer',
-                'text-left-important',
-            ]],
+            [
+                'class' => [
+                    'modal-footer',
+                    'text-left-important',
+                ],
+            ],
         );
     }
 }

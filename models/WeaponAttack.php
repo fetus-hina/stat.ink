@@ -8,20 +8,20 @@
 
 namespace app\models;
 
-use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "weapon_attack".
  *
- * @property integer $id
- * @property integer $main_weapon_id
- * @property integer $version_id
+ * @property int $id
+ * @property int $main_weapon_id
+ * @property int $version_id
  * @property string $damage
  *
  * @property SplatoonVersion $version
  * @property Weapon $mainWeapon
  */
-class WeaponAttack extends \yii\db\ActiveRecord
+class WeaponAttack extends ActiveRecord
 {
     public static function findByWeaponAndVersion(Weapon $weapon, SplatoonVersion $version)
     {
@@ -32,17 +32,13 @@ class WeaponAttack extends \yii\db\ActiveRecord
             ->all();
 
         // 指定バージョンより先のバージョンは捨てる
-        $list = array_filter($list, function ($target) use ($version) {
-            return $target->version && version_compare($target->version->tag, $version->tag, '<=');
-        });
+        $list = array_filter($list, fn ($target) => $target->version && version_compare($target->version->tag, $version->tag, '<='));
 
         // 新しい順に並び替える
-        usort($list, function ($a, $b) {
-            return version_compare($b->version->tag, $a->version->tag);
-        });
+        usort($list, fn ($a, $b) => version_compare($b->version->tag, $a->version->tag));
 
         // 最初の要素が目的の代物
-        return empty($list) ? null : array_shift($list);
+        return !$list ? null : array_shift($list);
     }
 
     /**
@@ -64,13 +60,16 @@ class WeaponAttack extends \yii\db\ActiveRecord
             [['damage'], 'number'],
             [['main_weapon_id', 'version_id'], 'unique',
                 'targetAttribute' => ['main_weapon_id', 'version_id'],
-                'message' => 'The combination of Main Weapon ID and Version ID has already been taken.'],
+                'message' => 'The combination of Main Weapon ID and Version ID has already been taken.',
+            ],
             [['version_id'], 'exist', 'skipOnError' => true,
                 'targetClass' => SplatoonVersion::class,
-                'targetAttribute' => ['version_id' => 'id']],
+                'targetAttribute' => ['version_id' => 'id'],
+            ],
             [['main_weapon_id'], 'exist', 'skipOnError' => true,
                 'targetClass' => Weapon::class,
-                'targetAttribute' => ['main_weapon_id' => 'id']],
+                'targetAttribute' => ['main_weapon_id' => 'id'],
+            ],
         ];
     }
 

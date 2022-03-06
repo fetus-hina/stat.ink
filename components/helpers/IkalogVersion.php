@@ -58,11 +58,7 @@ class IkalogVersion
             return false;
         }
 
-        if (strtotime($agentRevision->at) < strtotime($minimumRevision->at)) {
-            return true;
-        }
-
-        return false;
+        return strtotime($agentRevision->at) < strtotime($minimumRevision->at);
     }
 
     public static function isIkaLog(Agent $agent): bool

@@ -9,10 +9,10 @@
 namespace app\actions\user;
 
 use Yii;
+use app\models\Language;
 use yii\base\DynamicModel;
 use yii\web\Cookie;
 use yii\web\ViewAction as BaseAction;
-use app\models\Language;
 
 class LanguageAction extends BaseAction
 {
@@ -34,7 +34,7 @@ class LanguageAction extends BaseAction
         $form->language = Yii::$app->getRequest()->post('language');
         if (!$form->validate()) {
             $response->statusCode = 400;
-            return [ 'errors' => $form->getErrors() ];
+            return ['errors' => $form->getErrors()];
         }
 
         $response->cookies->add(
@@ -53,15 +53,15 @@ class LanguageAction extends BaseAction
 
     private function makeValidationModel()
     {
-        $model = DynamicModel::validateData(
+        return DynamicModel::validateData(
             ['language' => null],
             [
                 [['language'], 'required'],
                 [['language'], 'exist',
                     'targetClass' => Language::className(),
-                    'targetAttribute' => 'lang'],
+                    'targetAttribute' => 'lang',
+                ],
             ]
         );
-        return $model;
     }
 }

@@ -8,14 +8,13 @@
 
 namespace app\models;
 
-use Yii;
 use app\components\behaviors\CompressBehavior;
 use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "battle_events2".
  *
- * @property integer $id
+ * @property int $id
  * @property string $events
  *
  * @property Battle2 $battle2

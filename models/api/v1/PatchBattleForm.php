@@ -8,8 +8,6 @@
 
 namespace app\models\api\v1;
 
-use Yii;
-use app\components\helpers\db\Now;
 use app\models\Battle;
 use app\models\User;
 use yii\base\Model;
@@ -36,7 +34,8 @@ class PatchBattleForm extends Model
             [['apikey', 'id'], 'required'],
             [['apikey'], 'exist',
                 'targetClass' => User::class,
-                'targetAttribute' => 'api_key'],
+                'targetAttribute' => 'api_key',
+            ],
             [['test'], 'in', 'range' => ['validate', 'dry_run']],
             [['id'], 'exist',
                 'targetClass' => Battle::class,
@@ -49,23 +48,21 @@ class PatchBattleForm extends Model
             ],
 
             [['link_url'], 'url',
-                'when' => function ($model, $attr) {
-                    return $model->$attr !== static::DELETE_MARK;
-                },
+                'when' => fn ($model, $attr) => $model->$attr !== static::DELETE_MARK,
             ],
             [['link_url'], 'safe',
-                'when' => function ($model, $attr) {
-                    return $model->$attr === static::DELETE_MARK;
-                },
+                'when' => fn ($model, $attr) => $model->$attr === static::DELETE_MARK,
             ],
             [['note', 'private_note'], 'string'],
-            [['note', 'private_note'], 'filter', 'filter' => function ($value) {
-                $value = (string)$value;
-                $value = preg_replace('/\x0d\x0a|\x0d|\x0a/', "\n", $value);
-                $value = preg_replace('/(?:\x0d\x0a|\x0d|\x0a){3,}/', "\n\n", $value);
-                $value = trim($value);
-                return $value === '' ? null : $value;
-            }],
+            [['note', 'private_note'], 'filter',
+                'filter' => function ($value) {
+                    $value = (string)$value;
+                    $value = preg_replace('/\x0d\x0a|\x0d|\x0a/', "\n", $value);
+                    $value = preg_replace('/(?:\x0d\x0a|\x0d|\x0a){3,}/', "\n\n", $value);
+                    $value = trim($value);
+                    return $value === '' ? null : $value;
+                },
+            ],
         ];
     }
 
@@ -94,15 +91,15 @@ class PatchBattleForm extends Model
         }
 
         if ($this->link_url != '') {
-            $battle->link_url = ($this->link_url === static::DELETE_MARK)
+            $battle->link_url = $this->link_url === static::DELETE_MARK
                 ? null
                 : $this->link_url;
         }
 
-        $keys = [ 'note', 'private_note' ];
+        $keys = ['note', 'private_note'];
         foreach ($keys as $key) {
             if ($this->$key != '') {
-                $battle->$key = ($this->$key === static::DELETE_MARK)
+                $battle->$key = $this->$key === static::DELETE_MARK
                     ? null
                     : $this->$key;
             }

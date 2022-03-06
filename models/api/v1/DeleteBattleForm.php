@@ -9,13 +9,13 @@
 namespace app\models\api\v1;
 
 use Yii;
-use app\components\helpers\db\Now;
 use app\models\Battle;
 use app\models\User;
 use app\models\openapi\Apikey;
 use app\models\openapi\Util;
 use yii\base\Model;
-use yii\helpers\ArrayHelper;
+
+use const FILTER_VALIDATE_INT;
 
 class DeleteBattleForm extends Model
 {
@@ -38,7 +38,8 @@ class DeleteBattleForm extends Model
             [['apikey', 'id'], 'required'],
             [['apikey'], 'exist',
                 'targetClass' => User::class,
-                'targetAttribute' => 'api_key'],
+                'targetAttribute' => 'api_key',
+            ],
             [['test'], 'in', 'range' => ['validate', 'dry_run']],
             [['id'], 'validateBattleId'],
         ];
@@ -69,7 +70,7 @@ class DeleteBattleForm extends Model
         }
 
         if (count($this->$attribute) > 100) {
-            $this->addError($attribute, "too many values.");
+            $this->addError($attribute, 'too many values.');
             return;
         }
 
@@ -84,7 +85,7 @@ class DeleteBattleForm extends Model
             }
         }
 
-        if (!empty($valueErrors)) {
+        if ($valueErrors) {
             $this->addError($attribute, vsprintf('%s has non-integer value(s): %s', [
                 $attribute,
                 implode(', ', $valueErrors),
@@ -112,7 +113,7 @@ class DeleteBattleForm extends Model
             if (!$battle) {
                 $this->errorIdList[] = [
                     'id'    => $id,
-                    'error' => 'not found'
+                    'error' => 'not found',
                 ];
                 continue;
             }
@@ -120,7 +121,7 @@ class DeleteBattleForm extends Model
             if ($battle->user_id != $user->id) {
                 $this->errorIdList[] = [
                     'id'    => $id,
-                    'error' => 'user not match'
+                    'error' => 'user not match',
                 ];
                 continue;
             }
@@ -128,7 +129,7 @@ class DeleteBattleForm extends Model
             if ($battle->is_automated) {
                 $this->errorIdList[] = [
                     'id'    => $id,
-                    'error' => 'automated result'
+                    'error' => 'automated result',
                 ];
                 continue;
             }

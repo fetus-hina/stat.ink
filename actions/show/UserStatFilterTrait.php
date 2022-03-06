@@ -8,11 +8,11 @@
 
 namespace app\actions\show;
 
-use yii\db\Query;
 use app\components\helpers\Battle as BattleHelper;
 use app\models\BattleFilterForm;
 use app\models\SplatoonVersion;
 use app\models\Weapon;
+use yii\db\Query;
 
 trait UserStatFilterTrait
 {

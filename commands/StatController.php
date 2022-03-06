@@ -9,29 +9,29 @@
 namespace app\commands;
 
 use DateInterval;
+use DateTime;
 use DateTimeImmutable;
 use DateTimeZone;
+use PDO;
 use Yii;
 use app\components\helpers\Battle as BattleHelper;
 use app\components\helpers\db\Now;
 use app\models\Battle2;
-use app\models\BattlePlayer2;
 use app\models\BattlePlayer;
-use app\models\Knockout2;
 use app\models\Knockout;
-use app\models\Lobby2;
 use app\models\Lobby;
+use app\models\Lobby2;
 use app\models\Mode2;
 use app\models\Rank2;
-use app\models\Rule2;
 use app\models\Rule;
+use app\models\Rule2;
 use app\models\SplatoonVersion2;
-use app\models\StatAgentUser2;
 use app\models\StatAgentUser;
+use app\models\StatAgentUser2;
 use app\models\StatEntireUser;
+use app\models\StatWeapon;
 use app\models\StatWeapon2UseCount;
 use app\models\StatWeapon2UseCountPerWeek;
-use app\models\StatWeapon;
 use app\models\StatWeaponBattleCount;
 use app\models\StatWeaponKDWinRate;
 use app\models\StatWeaponKillDeath;
@@ -42,7 +42,9 @@ use yii\console\Controller;
 use yii\db\Expression;
 use yii\db\Query;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Console;
+
+use const SORT_ASC;
+use const SORT_DESC;
 
 class StatController extends Controller
 {
@@ -76,9 +78,7 @@ class StatController extends Controller
             'INSERT INTO %s (%s) %s',
             $db->quoteTableName(StatWeapon::tableName()),
             implode(', ', array_map(
-                function ($k) use ($db) {
-                    return $db->quoteColumnName($k);
-                },
+                fn ($k) => $db->quoteColumnName($k),
                 array_keys($select->select)
             )),
             $select->createCommand()->rawSql
@@ -91,9 +91,7 @@ class StatController extends Controller
             'INSERT INTO %s (%s) %s',
             $db->quoteTableName(StatWeaponBattleCount::tableName()),
             implode(', ', array_map(
-                function ($k) use ($db) {
-                    return $db->quoteColumnName($k);
-                },
+                fn ($k) => $db->quoteColumnName($k),
                 array_keys($select->select)
             )),
             $select->createCommand()->rawSql
@@ -106,9 +104,7 @@ class StatController extends Controller
             'INSERT INTO %s ( %s) %s',
             $db->quoteTableName(StatWeaponKillDeath::tableName()),
             implode(', ', array_map(
-                function ($k) use ($db) {
-                    return $db->quoteColumnName($k);
-                },
+                fn ($k) => $db->quoteColumnName($k),
                 array_keys($select->select)
             )),
             $select->createCommand()->rawSql
@@ -124,9 +120,7 @@ class StatController extends Controller
 
         $query = BattlePlayer::find()
             ->innerJoinWith([
-                'battle' => function ($q) {
-                    return $q->orderBy(null);
-                },
+                'battle' => fn ($q) => $q->orderBy(null),
                 'battle.lobby',
                 'weapon',
             ])
@@ -166,15 +160,15 @@ class StatController extends Controller
                         // 自分win && 自チーム
                         // 自分lose && 相手チーム
                         // このどちらかなら勝ってるので、結果的に is_win と is_my_team を比較すればいい
-                        ['=', '{{battle}}.[[is_win]]', new \yii\db\Expression('battle_player.is_my_team')],
+                        ['=', '{{battle}}.[[is_win]]', new Expression('battle_player.is_my_team')],
                         ['>', '{{battle_player}}.[[point]]', 300],
                     ],
                     [
                         // 負けたチームは 0p より大きい
                         'and',
-                        ['<>', '{{battle}}.[[is_win]]', new \yii\db\Expression('battle_player.is_my_team')],
+                        ['<>', '{{battle}}.[[is_win]]', new Expression('battle_player.is_my_team')],
                         ['>', '{{battle_player}}.[[point]]', 0],
-                    ]
+                    ],
                 ],
             ],
             // タッグバトルなら味方全部除外（連戦で無意味な重複の可能性が高い）
@@ -187,7 +181,7 @@ class StatController extends Controller
                         ['{{battle_player}}.[[is_my_team]]' => false],
                     ],
                 ],
-            ]
+            ],
         ]);
 
         $query->select([
@@ -201,7 +195,7 @@ class StatController extends Controller
                 implode(' ', [
                     'WHEN {{battle}}.[[is_win]] = TRUE AND {{battle_player}}.[[is_my_team]] = TRUE THEN 1',
                     'WHEN {{battle}}.[[is_win]] = FALSE AND {{battle_player}}.[[is_my_team]] = FALSE THEN 1',
-                    'ELSE 0'
+                    'ELSE 0',
                 ])
             ),
             'total_point' => sprintf(
@@ -246,7 +240,7 @@ class StatController extends Controller
 
     private function createSelectQueryForUpdateEntireWeaponsKillDeath()
     {
-        $query = (new \yii\db\Query())
+        return (new Query())
             ->select([
                 'weapon_id' => '{{p}}.[[weapon_id]]',
                 'rule_id'   => '{{b}}.[[rule_id]]',
@@ -258,7 +252,7 @@ class StatController extends Controller
                     implode(' ', [
                         'WHEN {{b}}.[[is_win]] = TRUE AND {{p}}.[[is_my_team]] = TRUE THEN 1',
                         'WHEN {{b}}.[[is_win]] = FALSE AND {{p}}.[[is_my_team]] = FALSE THEN 1',
-                        'ELSE 0'
+                        'ELSE 0',
                     ])
                 ),
             ])
@@ -280,7 +274,6 @@ class StatController extends Controller
                 '{{p}}.[[kill]]',
                 '{{p}}.[[death]]',
             ]);
-        return $query;
         // }}}
     }
 
@@ -299,8 +292,8 @@ class StatController extends Controller
     {
         // {{{
         // 集計対象期間を計算する
-        $today = (new \DateTime(sprintf('@%d', @$_SERVER['REQUEST_TIME'] ?: time()), null))
-            ->setTimeZone(new \DateTimeZone('Etc/GMT-6'))
+        $today = (new DateTime(sprintf('@%d', @$_SERVER['REQUEST_TIME'] ?: time()), null))
+            ->setTimeZone(new DateTimeZone('Etc/GMT-6'))
             ->setTime(0, 0, 0); // 今日の 00:00:00+06 に設定する
 
         $db = Yii::$app->db;
@@ -310,23 +303,21 @@ class StatController extends Controller
         $db->createCommand()
             ->batchInsert(
                 StatEntireUser::tableName(),
-                [ 'date', 'battle_count', 'user_count' ],
+                ['date', 'battle_count', 'user_count'],
                 array_map(
-                    function ($row) {
-                        return [
-                            $row['date'],
-                            $row['battle_count'],
-                            $row['user_count']
-                        ];
-                    },
-                    (new \yii\db\Query())
+                    fn ($row) => [
+                        $row['date'],
+                        $row['battle_count'],
+                        $row['user_count'],
+                    ],
+                    (new Query())
                         ->select([
                             'date'          => '{{battle}}.[[at]]::date',
                             'battle_count'  => 'COUNT({{battle}}.*)',
                             'user_count'    => 'COUNT(DISTINCT {{battle}}.[[user_id]])',
                         ])
                         ->from('battle')
-                        ->andWhere(['<', '{{battle}}.[[at]]', $today->format(\DateTime::ATOM)])
+                        ->andWhere(['<', '{{battle}}.[[at]]', $today->format(DateTime::ATOM)])
                         ->groupBy('{{battle}}.[[at]]::date')
                         ->createCommand()
                         ->queryAll()
@@ -341,9 +332,9 @@ class StatController extends Controller
     {
         // {{{
         // 集計対象期間を計算する
-        $today = (new \DateTimeImmutable())
+        $today = (new DateTimeImmutable())
             ->setTimestamp($_SERVER['REQUEST_TIME'] ?? time())
-            ->setTimeZone(new \DateTimeZone('Etc/GMT-6'))
+            ->setTimeZone(new DateTimeZone('Etc/GMT-6'))
             ->setTime(0, 0, 0); // 今日の 00:00:00+06 に設定する
 
         $db = Yii::$app->db;
@@ -363,7 +354,7 @@ class StatController extends Controller
                 '[[battle_count]] = {{excluded}}.[[battle_count]], ' .
                 '[[user_count]] = {{excluded}}.[[user_count]]'
             )
-            ->bindValue(':today', $today->format(\DateTime::ATOM), \PDO::PARAM_STR);
+            ->bindValue(':today', $today->format(DateTime::ATOM), PDO::PARAM_STR);
         $cmd->execute();
         // }}}
     }
@@ -381,31 +372,29 @@ class StatController extends Controller
     {
         // {{{
         // 集計対象期間を計算する
-        $today = (new \DateTime(sprintf('@%d', @$_SERVER['REQUEST_TIME'] ?: time()), null))
-            ->setTimeZone(new \DateTimeZone('Etc/GMT-6'))
+        $today = (new DateTime(sprintf('@%d', @$_SERVER['REQUEST_TIME'] ?: time()), null))
+            ->setTimeZone(new DateTimeZone('Etc/GMT-6'))
             ->setTime(0, 0, 0); // 今日の 00:00:00+06 に設定する
         // これで $today より前を抽出すれば前日までのサマリにできる
 
         $db = Yii::$app->db;
         $db->createCommand("SET timezone TO 'UTC-6'")->execute();
         $transaction = $db->beginTransaction();
-        $startDate = (new \DateTime(
+        $startDate = (new DateTime(
             StatAgentUser::find()->max('date') ?? '2015-01-01',
-            new \DateTimeZone('Etc/GMT-6')
+            new DateTimeZone('Etc/GMT-6')
         ))
             ->setTime(0, 0, 0)
-            ->add(new \DateInterval('P1D')); // +1 day
+            ->add(new DateInterval('P1D')); // +1 day
 
         $insertList = array_map(
-            function ($row) {
-                return [
-                    $row['agent'],
-                    $row['date'],
-                    $row['battle_count'],
-                    $row['user_count']
-                ];
-            },
-            (new \yii\db\Query())
+            fn ($row) => [
+                $row['agent'],
+                $row['date'],
+                $row['battle_count'],
+                $row['user_count'],
+            ],
+            (new Query())
                 ->select([
                     'agent'         => '{{agent}}.[[name]]',
                     'date'          => '{{battle}}.[[at]]::date',
@@ -414,8 +403,8 @@ class StatController extends Controller
                 ])
                 ->from('battle')
                 ->innerJoin('agent', '{{battle}}.[[agent_id]] = {{agent}}.[[id]]')
-                ->andWhere(['>=', '{{battle}}.[[at]]', $startDate->format(\DateTime::ATOM)])
-                ->andWhere(['<', '{{battle}}.[[at]]', $today->format(\DateTime::ATOM)])
+                ->andWhere(['>=', '{{battle}}.[[at]]', $startDate->format(DateTime::ATOM)])
+                ->andWhere(['<', '{{battle}}.[[at]]', $today->format(DateTime::ATOM)])
                 ->andWhere(['<>', '{{agent}}.[[name]]', ''])
                 ->groupBy('{{agent}}.[[name]], {{battle}}.[[at]]::date')
                 ->createCommand()
@@ -428,7 +417,7 @@ class StatController extends Controller
         $db->createCommand()
             ->batchInsert(
                 StatAgentUser::tableName(),
-                [ 'agent', 'date', 'battle_count', 'user_count' ],
+                ['agent', 'date', 'battle_count', 'user_count'],
                 $insertList
             )
             ->execute();
@@ -440,8 +429,8 @@ class StatController extends Controller
     {
         // {{{
         // 集計対象期間を計算する
-        $today = (new \DateTimeImmutable())
-            ->setTimeZone(new \DateTimeZone('Etc/GMT-6'))
+        $today = (new DateTimeImmutable())
+            ->setTimeZone(new DateTimeZone('Etc/GMT-6'))
             ->setTimestamp($_SERVER['REQUEST_TIME'] ?? time())
             ->setTime(0, 0, 0); // 今日の 00:00:00+06 に設定する
 
@@ -449,10 +438,10 @@ class StatController extends Controller
         $db->createCommand("SET timezone TO 'UTC-6'")->execute();
         $transaction = $db->beginTransaction();
         $storedMaxDate = StatAgentUser2::find()->max('date') ?? '2017-01-01';
-        $startDate = (new \DateTimeImmutable($storedMaxDate, new \DateTimeZone('Etc/GMT-6')))
+        $startDate = (new DateTimeImmutable($storedMaxDate, new DateTimeZone('Etc/GMT-6')))
             ->setTime(0, 0, 0)
-            ->add(new \DateInterval('P1D')); // +1 day
-        $select = (new \yii\db\Query())
+            ->add(new DateInterval('P1D')); // +1 day
+        $select = (new Query())
             ->select([
                 'agent' => sprintf('(CASE %s END)', implode(' ', [
                     'WHEN {{agent}}.[[name]] IS NULL THEN :unknown_agent',
@@ -464,8 +453,8 @@ class StatController extends Controller
             ])
             ->from('{{battle2}}')
             ->leftJoin('{{agent}}', '{{battle2}}.[[agent_id]] = {{agent}}.[[id]]')
-            ->andWhere(['>=', '{{battle2}}.[[created_at]]', $startDate->format(\DateTime::ATOM)])
-            ->andWhere(['<', '{{battle2}}.[[created_at]]', $today->format(\DateTime::ATOM)])
+            ->andWhere(['>=', '{{battle2}}.[[created_at]]', $startDate->format(DateTime::ATOM)])
+            ->andWhere(['<', '{{battle2}}.[[created_at]]', $today->format(DateTime::ATOM)])
             ->groupBy(implode(', ', [
                 '{{battle2}}.[[created_at]]::date',
                 sprintf('(CASE %s END)', implode(' ', [
@@ -478,7 +467,7 @@ class StatController extends Controller
                 'agent' => SORT_ASC,
             ])
             ->createCommand()
-            ->bindValue(':unknown_agent', '(unknown)', \PDO::PARAM_STR);
+            ->bindValue(':unknown_agent', '(unknown)', PDO::PARAM_STR);
 
         $cmd = Yii::$app->db
             ->createCommand(
@@ -511,17 +500,15 @@ class StatController extends Controller
         $db->createCommand()
             ->batchInsert(
                 Knockout::tableName(),
-                [ 'map_id', 'rule_id', 'battles', 'knockouts' ],
+                ['map_id', 'rule_id', 'battles', 'knockouts'],
                 array_map(
-                    function ($row) {
-                        return [
-                            $row['map_id'],
-                            $row['rule_id'],
-                            $row['battles'],
-                            $row['knockouts'],
-                        ];
-                    },
-                    (new \yii\db\Query())
+                    fn ($row) => [
+                        $row['map_id'],
+                        $row['rule_id'],
+                        $row['battles'],
+                        $row['knockouts'],
+                    ],
+                    (new Query())
                         ->select([
                             'map_id'        => '{{battle}}.[[map_id]]',
                             'rule_id'       => '{{battle}}.[[rule_id]]',
@@ -555,9 +542,7 @@ class StatController extends Controller
     {
         $db = Yii::$app->db;
         $transaction = $db->beginTransaction();
-        $timestamp = function (string $column): string {
-            return sprintf('EXTRACT(EPOCH FROM %s)', $column);
-        };
+        $timestamp = fn (string $column): string => sprintf('EXTRACT(EPOCH FROM %s)', $column);
 
         $select = Battle2::find() // {{{
             ->innerJoinWith([
@@ -568,7 +553,7 @@ class StatController extends Controller
                 'battlePlayers' => function ($query) {
                     $query->orderBy(null);
                 },
-                'battlePlayers.rank'
+                'battlePlayers.rank',
             ])
             ->where(['and',
                 ['not', ['battle2.is_win' => null]],
@@ -621,9 +606,7 @@ class StatController extends Controller
             $select->createCommand()->rawSql . ' ' .
             'ON CONFLICT ( rule_id, map_id, lobby_id, rank_id ) DO UPDATE SET ' .
             implode(', ', array_map(
-                function (string $column): string {
-                    return sprintf('%1$s = EXCLUDED.%1$s', $column);
-                },
+                fn (string $column): string => sprintf('%1$s = EXCLUDED.%1$s', $column),
                 ['battles', 'knockouts', 'avg_game_time', 'avg_knockout_time']
             ));
 
@@ -644,7 +627,7 @@ class StatController extends Controller
 
         StatWeaponKDWinRate::deleteAll();
 
-        $select = (new \yii\db\Query())
+        $select = (new Query())
             ->select([
                 'rule_id'       => '{{b}}.[[rule_id]]',
                 'map_id'        => '{{b}}.[[map_id]]',
@@ -702,15 +685,15 @@ class StatController extends Controller
                         // 自分win && 自チーム
                         // 自分lose && 相手チーム
                         // このどちらかなら勝ってるので、結果的に is_win と is_my_team を比較すればいい
-                        ['=', '{{b}}.[[is_win]]', new \yii\db\Expression('p.is_my_team')],
+                        ['=', '{{b}}.[[is_win]]', new Expression('p.is_my_team')],
                         ['>', '{{p}}.[[point]]', 300],
                     ],
                     [
                         // 負けたチームは 0p より大きい
                         'and',
-                        ['<>', '{{b}}.[[is_win]]', new \yii\db\Expression('p.is_my_team')],
+                        ['<>', '{{b}}.[[is_win]]', new Expression('p.is_my_team')],
                         ['>', '{{p}}.[[point]]', 0],
-                    ]
+                    ],
                 ],
             ],
             // タッグバトルなら味方全部除外（連戦で無意味な重複の可能性が高い）
@@ -723,16 +706,14 @@ class StatController extends Controller
                         ['{{p}}.[[is_my_team]]' => false],
                     ],
                 ],
-            ]
+            ],
         ]);
 
         $sql = sprintf(
             'INSERT INTO {{%s}} ( %s ) %s',
             StatWeaponKDWinRate::tableName(),
             implode(', ', array_map(
-                function ($col) {
-                    return "[[{$col}]]";
-                },
+                fn ($col) => "[[{$col}]]",
                 array_keys($select->select)
             )),
             $select->createCommand()->rawsql
@@ -751,7 +732,7 @@ class StatController extends Controller
     {
         $db = Yii::$app->db;
         $constraintName = (function () use ($db): string {
-            $select = (new \yii\db\Query())
+            $select = (new Query())
                 ->select(['constraint_name'])
                 ->from('{{information_schema}}.{{table_constraints}}')
                 ->andWhere([
@@ -761,7 +742,7 @@ class StatController extends Controller
             return $select->scalar($db);
         })();
 
-        $select = (new \yii\db\Query())
+        $select = (new Query())
             ->select([
                 'version_id'    => '{{battle}}.[[version_id]]',
                 'rule_id'       => '{{battle}}.[[rule_id]]',
@@ -805,9 +786,7 @@ class StatController extends Controller
             implode(
                 ', ',
                 array_map(
-                    function (string $a): string {
-                        return sprintf('[[%s]]', $a);
-                    },
+                    fn (string $a): string => sprintf('[[%s]]', $a),
                     array_keys($select->select)
                 )
             ),
@@ -840,8 +819,7 @@ class StatController extends Controller
     {
         // {{{
         $db = Yii::$app->db;
-        $maxCreatedPeriod = (int)StatWeaponUseCount::find()->max('period');
-        $select = (new \yii\db\Query())
+        $select = (new Query())
             ->select([
                 'period'    => '{{battle}}.[[period]]',
                 'rule_id'   => '{{battle}}.[[rule_id]]',
@@ -880,7 +858,8 @@ class StatController extends Controller
                         ['{{battle}}.[[lobby_id]]' => Lobby::find()
                                                             ->select('id')
                                                             ->where(['like', 'key', 'squad_%', false])
-                                                            ->column()],
+                                                            ->column(),
+                        ],
                         ['{{battle_player}}.[[is_my_team]]' => false],
                     ],
                 ],
@@ -894,9 +873,7 @@ class StatController extends Controller
         $insert = sprintf(
             'INSERT INTO {{%s}} ( %s ) %s',
             StatWeaponUseCount::tablename(),
-            implode(', ', array_map(function (string $a): string {
-                return "[[{$a}]]";
-            }, array_keys($select->select))),
+            implode(', ', array_map(fn (string $a): string => "[[{$a}]]", array_keys($select->select))),
             $select->createCommand()->rawSql
         );
 
@@ -913,7 +890,7 @@ class StatController extends Controller
                 'isoweek' => 1,
             ];
         }
-        $selectWeek = (new \yii\db\Query())
+        $selectWeek = (new Query())
             ->select([
                 'isoyear'   => $isoYear,
                 'isoweek'   => $isoWeek,
@@ -937,7 +914,7 @@ class StatController extends Controller
                 ],
             ]);
         $constraintName = (function () use ($db): string {
-            $select = (new \yii\db\Query())
+            $select = (new Query())
                 ->select(['constraint_name'])
                 ->from('{{information_schema}}.{{table_constraints}}')
                 ->andWhere([
@@ -949,9 +926,7 @@ class StatController extends Controller
         $upsertWeek = sprintf(
             'INSERT INTO {{%s}} ( %s ) %s ON CONFLICT ON CONSTRAINT [[%s]] DO UPDATE SET %s',
             StatWeaponUseCountPerWeek::tableName(),
-            implode(', ', array_map(function (string $a): string {
-                return "[[{$a}]]";
-            }, array_keys($selectWeek->select))),
+            implode(', ', array_map(fn (string $a): string => "[[{$a}]]", array_keys($selectWeek->select))),
             $selectWeek->createCommand()->rawSql,
             $constraintName,
             implode(', ', [
@@ -1084,7 +1059,7 @@ class StatController extends Controller
                         '{{battle2}}.[[is_win]] = {{battle_player2}}.[[is_my_team]]',
                         '({{battle_player2}}.[[point]] - 1000)'
                     ),
-                    'ELSE {{battle_player2}}.[[point]]'
+                    'ELSE {{battle_player2}}.[[point]]',
                 ])),
                 'inked_available' => sprintf('SUM(CASE %s END)', implode(' ', [
                     'WHEN {{battle_player2}}.[[point]] IS NULL THEN 0',
@@ -1101,7 +1076,7 @@ class StatController extends Controller
                         '{{battle2}}.[[is_win]] = {{battle_player2}}.[[is_my_team]]',
                         '({{battle_player2}}.[[point]] - 1000)'
                     ),
-                    'ELSE {{battle_player2}}.[[point]]'
+                    'ELSE {{battle_player2}}.[[point]]',
                 ])),
                 'inked_time_available' => sprintf('SUM(CASE %s END)', implode(' ', [
                     'WHEN {{battle_player2}}.[[point]] IS NULL THEN 0',
@@ -1123,31 +1098,31 @@ class StatController extends Controller
                 ])),
                 'knockout_wins' => sprintf('SUM(CASE %s END)', implode(' ', [
                     "WHEN {{rule2}}.[[key]] = 'nawabari' THEN NULL",
-                    "WHEN {{battle2}}.[[is_knockout]] IS NULL THEN 0",
-                    "WHEN {{battle2}}.[[is_knockout]] = FALSE THEN 0",
-                    "WHEN {{battle2}}.[[is_win]] <> {{battle_player2}}.[[is_my_team]] THEN 0",
-                    "ELSE 1",
+                    'WHEN {{battle2}}.[[is_knockout]] IS NULL THEN 0',
+                    'WHEN {{battle2}}.[[is_knockout]] = FALSE THEN 0',
+                    'WHEN {{battle2}}.[[is_win]] <> {{battle_player2}}.[[is_my_team]] THEN 0',
+                    'ELSE 1',
                 ])),
                 'timeup_wins' => sprintf('SUM(CASE %s END)', implode(' ', [
                     "WHEN {{rule2}}.[[key]] = 'nawabari' THEN NULL",
-                    "WHEN {{battle2}}.[[is_knockout]] IS NULL THEN 0",
-                    "WHEN {{battle2}}.[[is_knockout]] = TRUE THEN 0",
-                    "WHEN {{battle2}}.[[is_win]] <> {{battle_player2}}.[[is_my_team]] THEN 0",
-                    "ELSE 1",
+                    'WHEN {{battle2}}.[[is_knockout]] IS NULL THEN 0',
+                    'WHEN {{battle2}}.[[is_knockout]] = TRUE THEN 0',
+                    'WHEN {{battle2}}.[[is_win]] <> {{battle_player2}}.[[is_my_team]] THEN 0',
+                    'ELSE 1',
                 ])),
                 'knockout_loses' => sprintf('SUM(CASE %s END)', implode(' ', [
                     "WHEN {{rule2}}.[[key]] = 'nawabari' THEN NULL",
-                    "WHEN {{battle2}}.[[is_knockout]] IS NULL THEN 0",
-                    "WHEN {{battle2}}.[[is_knockout]] = FALSE THEN 0",
-                    "WHEN {{battle2}}.[[is_win]] = {{battle_player2}}.[[is_my_team]] THEN 0",
-                    "ELSE 1",
+                    'WHEN {{battle2}}.[[is_knockout]] IS NULL THEN 0',
+                    'WHEN {{battle2}}.[[is_knockout]] = FALSE THEN 0',
+                    'WHEN {{battle2}}.[[is_win]] = {{battle_player2}}.[[is_my_team]] THEN 0',
+                    'ELSE 1',
                 ])),
                 'timeup_loses' => sprintf('SUM(CASE %s END)', implode(' ', [
                     "WHEN {{rule2}}.[[key]] = 'nawabari' THEN NULL",
-                    "WHEN {{battle2}}.[[is_knockout]] IS NULL THEN 0",
-                    "WHEN {{battle2}}.[[is_knockout]] = TRUE THEN 0",
-                    "WHEN {{battle2}}.[[is_win]] = {{battle_player2}}.[[is_my_team]] THEN 0",
-                    "ELSE 1",
+                    'WHEN {{battle2}}.[[is_knockout]] IS NULL THEN 0',
+                    'WHEN {{battle2}}.[[is_knockout]] = TRUE THEN 0',
+                    'WHEN {{battle2}}.[[is_win]] = {{battle_player2}}.[[is_my_team]] THEN 0',
+                    'ELSE 1',
                 ])),
             ])
             ->innerJoinWith([
@@ -1209,28 +1184,21 @@ class StatController extends Controller
                 '{{battle2}}.[[map_id]]',
             ]))
             ->orderBy(null);
-        $sql = $select->createCommand()->rawSql;
 
         $insert = sprintf(
             'INSERT INTO {{%s}} ( %s ) %s',
             StatWeapon2UseCount::tablename(),
-            implode(', ', array_map(function (string $a): string {
-                return "[[{$a}]]";
-            }, array_keys($select->select))),
+            implode(', ', array_map(fn (string $a): string => "[[{$a}]]", array_keys($select->select))),
             $select->createCommand()->rawSql
         );
         $insert .= sprintf(
             ' ON CONFLICT ( %s ) DO UPDATE SET %s',
             implode(', ', array_map(
-                function ($column) {
-                    return '[[' . $column . ']]';
-                },
+                fn ($column) => '[[' . $column . ']]',
                 ['period', 'rule_id', 'weapon_id', 'map_id']
             )),
             implode(', ', array_map(
-                function ($column) {
-                    return sprintf('[[%1$s]] = {{excluded}}.[[%1$s]]', $column);
-                },
+                fn ($column) => sprintf('[[%1$s]] = {{excluded}}.[[%1$s]]', $column),
                 [
                     'battles',
                     'wins',
@@ -1302,7 +1270,7 @@ class StatController extends Controller
             'knockout_loses',
             'timeup_loses',
         ];
-        $selectWeek = (new \yii\db\Query())
+        $selectWeek = (new Query())
             ->select(array_merge(
                 [
                     'isoyear' => $isoYear,
@@ -1313,12 +1281,8 @@ class StatController extends Controller
                 ],
                 ArrayHelper::map(
                     $columns,
-                    function (string $colName): string {
-                        return $colName;
-                    },
-                    function (string $colName): string {
-                        return "SUM({{t}}.[[{$colName}]])";
-                    }
+                    fn (string $colName): string => $colName,
+                    fn (string $colName): string => "SUM({{t}}.[[{$colName}]])"
                 )
             ))
             ->from(sprintf('{{%s}} {{t}}', StatWeapon2UseCount::tableName()))
@@ -1339,16 +1303,10 @@ class StatController extends Controller
         $upsertWeek = sprintf(
             'INSERT INTO {{%s}} ( %s ) %s ON CONFLICT ( %s ) DO UPDATE SET %s',
             StatWeapon2UseCountPerWeek::tableName(),
-            implode(', ', array_map(function (string $a): string {
-                return "[[{$a}]]";
-            }, array_keys($selectWeek->select))),
+            implode(', ', array_map(fn (string $a): string => "[[{$a}]]", array_keys($selectWeek->select))),
             $selectWeek->createCommand()->rawSql,
-            implode(', ', array_map(function (string $a): string {
-                return "[[{$a}]]";
-            }, ['isoyear', 'isoweek', 'rule_id', 'weapon_id', 'map_id'])),
-            implode(', ', array_map(function (string $a): string {
-                return sprintf('[[%1$s]] = {{excluded}}.[[%1$s]]', $a);
-            }, ['battles', 'wins']))
+            implode(', ', array_map(fn (string $a): string => "[[{$a}]]", ['isoyear', 'isoweek', 'rule_id', 'weapon_id', 'map_id'])),
+            implode(', ', array_map(fn (string $a): string => sprintf('[[%1$s]] = {{excluded}}.[[%1$s]]', $a), ['battles', 'wins']))
         );
         // }}}
 
@@ -1380,7 +1338,7 @@ class StatController extends Controller
     public function actionUpdateWeaponUseTrend()
     {
         $db = Yii::$app->db;
-        $select = (new \yii\db\Query())
+        $select = (new Query())
             ->select([
                 'rule_id'   => '{{battle}}.[[rule_id]]',
                 'map_id'    => '{{battle}}.[[map_id]]',
@@ -1414,7 +1372,8 @@ class StatController extends Controller
                         ['{{battle}}.[[lobby_id]]' => Lobby::find()
                                                             ->select('id')
                                                             ->where(['like', 'key', 'squad_%', false])
-                                                            ->column()],
+                                                            ->column(),
+                        ],
                         ['{{battle_player}}.[[is_my_team]]' => false],
                     ],
                 ],
@@ -1426,9 +1385,7 @@ class StatController extends Controller
             ]));
         $insertTrend = sprintf(
             'INSERT INTO {{stat_weapon_map_trend}} ( %s ) %s',
-            implode(', ', array_map(function (string $a): string {
-                return "[[{$a}]]";
-            }, array_keys($select->select))),
+            implode(', ', array_map(fn (string $a): string => "[[{$a}]]", array_keys($select->select))),
             $select->createCommand()->rawSql
         );
 
@@ -1454,15 +1411,15 @@ class StatController extends Controller
         $db = Yii::$app->db;
 
         echo "Updating splatnet2_user_map...\n";
-        $sql = "INSERT INTO {{splatnet2_user_map}} ( [[splatnet_id]], [[user_id]], [[battles]] ) " .
-            "SELECT {{battle_player2}}.[[splatnet_id]], {{battle2}}.[[user_id]], COUNT(*) AS [[battles]] " .
-            "FROM {{battle_player2}} " .
-            "INNER JOIN {{battle2}} ON {{battle_player2}}.[[battle_id]] = {{battle2}}.[[id]] " .
-            "WHERE {{battle_player2}}.[[splatnet_id]] IS NOT NULL " .
-            "AND {{battle_player2}}.[[is_me]] = TRUE " .
-            "GROUP BY {{battle_player2}}.[[splatnet_id]], {{battle2}}.[[user_id]] " .
-            "ON CONFLICT ( [[splatnet_id]], [[user_id]] ) DO UPDATE SET " .
-            "[[battles]] = {{excluded}}.[[battles]] ";
+        $sql = 'INSERT INTO {{splatnet2_user_map}} ( [[splatnet_id]], [[user_id]], [[battles]] ) ' .
+            'SELECT {{battle_player2}}.[[splatnet_id]], {{battle2}}.[[user_id]], COUNT(*) AS [[battles]] ' .
+            'FROM {{battle_player2}} ' .
+            'INNER JOIN {{battle2}} ON {{battle_player2}}.[[battle_id]] = {{battle2}}.[[id]] ' .
+            'WHERE {{battle_player2}}.[[splatnet_id]] IS NOT NULL ' .
+            'AND {{battle_player2}}.[[is_me]] = TRUE ' .
+            'GROUP BY {{battle_player2}}.[[splatnet_id]], {{battle2}}.[[user_id]] ' .
+            'ON CONFLICT ( [[splatnet_id]], [[user_id]] ) DO UPDATE SET ' .
+            '[[battles]] = {{excluded}}.[[battles]] ';
         $db->createCommand($sql)->execute();
         echo "done.\n";
         echo "VACUUM...\n";
@@ -1481,7 +1438,7 @@ class StatController extends Controller
             );
             $month = $this->createPeriodToMonthColumnForSplatoon2();
             $per5min = function (string $column): string {
-                $battleSec = "EXTRACT(EPOCH FROM {{battle2}}.[[end_at]] - {{battle2}}.[[start_at]])";
+                $battleSec = 'EXTRACT(EPOCH FROM {{battle2}}.[[end_at]] - {{battle2}}.[[start_at]])';
                 return vsprintf('(%s::float * 300.0 / %s)', [
                     $column,
                     $battleSec,
@@ -1500,7 +1457,7 @@ class StatController extends Controller
                     ],
                     $this->createHighestRankFilter(),
                     ['BETWEEN',
-                        "{{battle2}}.[[end_at]] - {{battle2}}.[[start_at]]",
+                        '{{battle2}}.[[end_at]] - {{battle2}}.[[start_at]]',
                         new Expression("'30 seconds'::interval"),
                         new Expression("'600 seconds'::interval"),
                     ],
@@ -1583,16 +1540,16 @@ class StatController extends Controller
 
     private function createHighestRankFilter(): array
     {
-        // {{{
         $result = ['or'];
         foreach ($this->getHighestRankMap() as $rankId => $versionIds) {
-            $result[] = ['and', [
-                '{{battle2}}.[[rank_id]]' => $rankId,
-                '{{battle2}}.[[version_id]]' => $versionIds,
-            ]];
+            $result[] = ['and',
+                [
+                    '{{battle2}}.[[rank_id]]' => $rankId,
+                    '{{battle2}}.[[version_id]]' => $versionIds,
+                ],
+            ];
         }
         return $result;
-        // }}}
     }
 
     private function getHighestRankMap(): array
@@ -1620,12 +1577,10 @@ class StatController extends Controller
     {
         $data = $this->getMonthlyPeriodRangeForSplatoon2();
         return sprintf('(CASE %s END)', implode(' ', array_map(
-            function (string $month, array $period): string {
-                return vsprintf('WHEN {{battle2}}.[[period]] >= %d THEN %s', [
-                    $period[0],
-                    Yii::$app->db->quoteValue($month),
-                ]);
-            },
+            fn (string $month, array $period): string => vsprintf('WHEN {{battle2}}.[[period]] >= %d THEN %s', [
+                $period[0],
+                Yii::$app->db->quoteValue($month),
+            ]),
             array_reverse(array_keys($data)),
             array_reverse(array_values($data))
         )));
@@ -1668,9 +1623,7 @@ class StatController extends Controller
                 ->andWhere(['<', '{{splatoon_version2}}.[[released_at]]', new Now()])
                 ->orderBy(['{{splatoon_version2}}.[[released_at]]' => SORT_ASC])
                 ->all(),
-            function (SplatoonVersion2 $version): bool {
-                return !!version_compare($version->tag, '1.0', '>=');
-            }
+            fn (SplatoonVersion2 $version): bool => !!version_compare($version->tag, '1.0', '>=')
         );
         // }}}
     }

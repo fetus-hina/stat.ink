@@ -14,7 +14,7 @@ return array_merge(
         'Clothing'  => 'フク',
         'Shoes'     => 'クツ',
     ],
-    require(__DIR__ . '/gear-headgear.php'),
-    require(__DIR__ . '/gear-clothing.php'),
-    require(__DIR__ . '/gear-shoes.php')
+    require __DIR__ . '/gear-headgear.php',
+    require __DIR__ . '/gear-clothing.php',
+    require __DIR__ . '/gear-shoes.php'
 );

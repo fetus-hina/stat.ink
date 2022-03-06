@@ -9,8 +9,8 @@
 namespace app\actions\api\v2;
 
 use Yii;
-use yii\web\ViewAction as BaseAction;
 use app\models\Mode2;
+use yii\web\ViewAction as BaseAction;
 
 class RuleAction extends BaseAction
 {
@@ -19,9 +19,7 @@ class RuleAction extends BaseAction
         $response = Yii::$app->getResponse();
         $response->format = 'json';
         return array_map(
-            function (Mode2 $mode): array {
-                return $mode->toJsonArray();
-            },
+            fn (Mode2 $mode): array => $mode->toJsonArray(),
             Mode2::find()->with('rules')->all()
         );
     }

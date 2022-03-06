@@ -15,6 +15,9 @@ use LogicException;
 use Yii;
 use yii\base\Model;
 
+use const PREG_UNMATCHED_AS_NULL;
+use const SORT_STRING;
+
 class SfItem extends Model
 {
     public $value;
@@ -25,8 +28,8 @@ class SfItem extends Model
         if (!$_ = static::parseAndCreate($text)) {
             return null;
         }
-        list($obj, $remains) = $_;
-        return ($obj instanceof self && trim((string)$remains) === '')
+        [$obj, $remains] = $_;
+        return $obj instanceof self && trim((string)$remains) === ''
             ? $obj
             : null;
     }
@@ -106,11 +109,9 @@ class SfItem extends Model
         return vsprintf('"%s"', [
             preg_replace_callback(
                 '/([\x22\x5c])/',
-                function (array $match): string {
-                    return '\\' . $match[1];
-                },
+                fn (array $match): string => '\\' . $match[1],
                 $value
-            )
+            ),
         ]);
     }
 
@@ -200,7 +201,7 @@ class SfItem extends Model
                 throw new LogicException('BUG');
             }
 
-            $this->params[$match['name']] = ($match['value'] === null)
+            $this->params[$match['name']] = $match['value'] === null
                 ? null
                 : $parseValue((string)$match['value']);
 

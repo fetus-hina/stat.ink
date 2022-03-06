@@ -16,10 +16,10 @@ use app\components\i18n\Formatter;
 use app\models\SalmonStats2;
 use yii\base\Widget;
 use yii\bootstrap\BootstrapAsset;
-use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
-use yii\web\Event;
 use yii\web\View;
+
+use const SORT_DESC;
 
 class SalmonUserInfo extends Widget
 {
@@ -110,12 +110,10 @@ class SalmonUserInfo extends Widget
             'nullDisplay' => Yii::t('app', 'N/A'),
         ]);
         $stats = $this->getUserStats();
-        $avg = function ($value, int $decimal = 1) use ($fmt, $stats): string {
-            return $fmt->asDecimal(
-                $stats->work_count > 0 ? $value / $stats->work_count : null,
-                $decimal
-            );
-        };
+        $avg = fn ($value, int $decimal = 1): string => $fmt->asDecimal(
+            $stats->work_count > 0 ? $value / $stats->work_count : null,
+            $decimal
+        );
         $data = [
             [
                 'label' => Yii::t('app-salmon2', 'Jobs'),
@@ -192,9 +190,9 @@ class SalmonUserInfo extends Widget
 
             Yii::$app->view->on(
                 View::EVENT_END_BODY,
-                function (\yii\base\Event $event) use ($historyWidgetHtml): void {
+                function () use ($historyWidgetHtml): void {
                     echo $historyWidgetHtml;
-                }
+                },
             );
 
             $datetime = Html::tag(
@@ -227,9 +225,7 @@ class SalmonUserInfo extends Widget
         return Html::tag(
             'div',
             implode('', array_map(
-                function (array $item): string {
-                    return MiniinfoData::widget($item);
-                },
+                fn (array $item): string => MiniinfoData::widget($item),
                 $data
             )) . $datetime,
             ['class' => 'row']

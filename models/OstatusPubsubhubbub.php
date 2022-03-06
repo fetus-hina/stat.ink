@@ -20,8 +20,8 @@ use yii\helpers\Url;
 /**
  * This is the model class for table "ostatus_pubsubhubbub".
  *
- * @property integer $id
- * @property integer $topic
+ * @property int $id
+ * @property int $topic
  * @property string $callback
  * @property string $lease_until
  * @property string $secret
@@ -34,7 +34,7 @@ class OstatusPubsubhubbub extends ActiveRecord
 {
     public static function find()
     {
-        $query = new class (get_called_class()) extends ActiveQuery {
+        $query = new class (static::class) extends ActiveQuery {
             public function active(): ActiveQuery
             {
                 return $this->andWhere(['or',

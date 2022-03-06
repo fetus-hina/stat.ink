@@ -8,18 +8,17 @@
 
 namespace app\models;
 
-use Yii;
 use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "knockout2".
  *
- * @property integer $rule_id
- * @property integer $map_id
- * @property integer $lobby_id
- * @property integer $rank_id
- * @property integer $battles
- * @property integer $knockouts
+ * @property int $rule_id
+ * @property int $map_id
+ * @property int $lobby_id
+ * @property int $rank_id
+ * @property int $battles
+ * @property int $knockouts
  * @property double $avg_game_time
  * @property double $avg_knockout_time
  *

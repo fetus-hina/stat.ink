@@ -8,7 +8,6 @@
 
 namespace app\models\api\v1;
 
-use Yii;
 use app\components\helpers\CriticalSection;
 use app\components\helpers\db\Now;
 use app\models\Ability;
@@ -31,8 +30,15 @@ use app\models\Rule;
 use app\models\SplatoonVersion;
 use app\models\User;
 use app\models\Weapon;
+use stdClass;
 use yii\base\Model;
 use yii\web\UploadedFile;
+
+use const FILTER_VALIDATE_FLOAT;
+use const FILTER_VALIDATE_INT;
+use const JSON_FORCE_OBJECT;
+use const JSON_UNESCAPED_SLASHES;
+use const JSON_UNESCAPED_UNICODE;
 
 class PostBattleForm extends Model
 {
@@ -105,23 +111,29 @@ class PostBattleForm extends Model
             [['apikey'], 'required'],
             [['apikey'], 'exist',
                 'targetClass' => User::class,
-                'targetAttribute' => 'api_key'],
+                'targetAttribute' => 'api_key',
+            ],
             [['test'], 'in', 'range' => ['validate', 'dry_run']],
             [['lobby'], 'exist',
                 'targetClass' => Lobby::class,
-                'targetAttribute' => 'key'],
+                'targetAttribute' => 'key',
+            ],
             [['rule'], 'exist',
                 'targetClass' => Rule::class,
-                'targetAttribute' => 'key'],
+                'targetAttribute' => 'key',
+            ],
             [['map'], 'exist',
                 'targetClass' => Map::class,
-                'targetAttribute' => 'key'],
+                'targetAttribute' => 'key',
+            ],
             [['weapon'], 'exist',
                 'targetClass' =>  Weapon::class,
-                'targetAttribute' => 'key'],
+                'targetAttribute' => 'key',
+            ],
             [['rank', 'rank_after'], 'exist',
                 'targetClass' => Rank::class,
-                'targetAttribute' => 'key'],
+                'targetAttribute' => 'key',
+            ],
             [['rank_exp', 'rank_exp_after'], 'integer', 'min' => 0, 'max' => 99],
             [['level', 'level_after'], 'integer', 'min' => 1, 'max' => 50],
             [['result'], 'boolean', 'trueValue' => 'win', 'falseValue' => 'lose'],
@@ -143,34 +155,32 @@ class PostBattleForm extends Model
                         default:
                             return $a;
                     }
-                }],
+                },
+            ],
             [['fest_title', 'fest_title_after'], 'exist',
                 'targetClass' => FestTitle::class,
-                'targetAttribute' => 'key'],
+                'targetAttribute' => 'key',
+            ],
             [['fest_exp', 'fest_exp_after'], 'integer', 'min' => 0, 'max' => 99],
             [['my_team_power', 'his_team_power', 'fest_power'], 'integer'],
             [['my_team_color', 'his_team_color'], 'validateTeamColor'],
             [['image_judge', 'image_result', 'image_gear'], 'safe'],
             [['image_judge', 'image_result', 'image_gear'], 'file',
                 'maxSize' => 3 * 1024 * 1024,
-                'when' => function ($model, $attr) {
-                    return !is_string($model->$attr);
-                }],
+                'when' => fn ($model, $attr) => !is_string($model->$attr),
+            ],
             [['image_judge', 'image_result', 'image_gear'], 'validateImageFile',
-                'when' => function ($model, $attr) {
-                    return !is_string($model->$attr);
-                }],
+                'when' => fn ($model, $attr) => !is_string($model->$attr),
+            ],
             [['image_judge', 'image_result', 'image_gear'], 'validateImageString',
-                'when' => function ($model, $attr) {
-                    return is_string($model->$attr);
-                }],
+                'when' => fn ($model, $attr) => is_string($model->$attr),
+            ],
             [['start_at', 'end_at'], 'integer'],
             [['agent'], 'string', 'max' => 64],
             [['agent_version'], 'string', 'max' => 255],
             [['agent', 'agent_version'], 'required',
-                'when' => function ($model, $attr) {
-                    return (string)$this->agent !== '' || (string)$this->agent_version !== '';
-                }],
+                'when' => fn ($model, $attr) => (string)$this->agent !== '' || (string)$this->agent_version !== '',
+            ],
             [['agent_custom'], 'string'],
             [['agent', 'agent_version', 'agent_custom'], 'validateStrictUTF8'],
             [['uuid'], 'string', 'max' => 64],
@@ -179,7 +189,8 @@ class PostBattleForm extends Model
             [['my_point'], 'integer', 'min' => 0],
             [['my_team_final_point', 'his_team_final_point'], 'integer', 'min' => 0],
             [['my_team_final_percent', 'his_team_final_percent'], 'number',
-                'min' => 0.0, 'max' => 100.0],
+                'min' => 0.0, 'max' => 100.0,
+            ],
             [['knock_out'], 'boolean', 'trueValue' => 'yes', 'falseValue' => 'no'],
             [['my_team_count', 'his_team_count'], 'integer', 'min' => 0, 'max' => 100],
             [['link_url'], 'url'],
@@ -190,14 +201,15 @@ class PostBattleForm extends Model
                 $value = preg_replace('/(?:\x0d\x0a|\x0d|\x0a){3,}/', "\n\n", $value);
                 $value = trim($value);
                 return $value === '' ? null : $value;
-            }],
+            },
+            ],
             [['players'], 'validatePlayers'],
             [['gears'], 'validateGears'],
             [['events'], 'validateEvents'],
             [['agent_variables'], 'validateAgentVariables'],
             [['agent_game_version'], 'validateAndFixAgentGameVersion'],
             [['agent_game_version_date'], 'validateAndFixAgentGameVersionDate'],
-            [['max_kill_combo', 'max_kill_streak'], 'integer', 'min' => 0]
+            [['max_kill_combo', 'max_kill_streak'], 'integer', 'min' => 0],
         ];
     }
 
@@ -241,7 +253,7 @@ class PostBattleForm extends Model
             $this->$attribute = [];
             return;
         }
-        if (!is_array($value) && !$value instanceof \stdClass) {
+        if (!is_array($value) && !$value instanceof stdClass) {
             $this->addError($attribute, "{$attribute} should be a map.");
             return;
         }
@@ -333,9 +345,7 @@ class PostBattleForm extends Model
             }
             $newValues[] = $value;
         }
-        usort($newValues, function ($a, $b) {
-            return $a->at - $b->at;
-        });
+        usort($newValues, fn ($a, $b) => $a->at - $b->at);
         $this->$attribute = $newValues;
     }
 
@@ -424,8 +434,8 @@ class PostBattleForm extends Model
             }
             $value = (object)$value;
         }
-        if (is_object($value) && ($value instanceof \stdClass)) {
-            $newValue = new \stdClass();
+        if (is_object($value) && ($value instanceof stdClass)) {
+            $newValue = new stdClass();
             foreach ($value as $k => $v) {
                 $k = is_int($k) ? "ARRAY[{$k}]" : (string)$k;
                 if (!mb_check_encoding($k, 'UTF-8')) {
@@ -592,7 +602,7 @@ class PostBattleForm extends Model
         }
 
         if ($this->getIsTest()) {
-            $now = isset($_SERVER['REQUEST_TIME']) ? $_SERVER['REQUEST_TIME'] : time();
+            $now = $_SERVER['REQUEST_TIME'] ?? time();
             $o->id = 0;
             foreach ($o->attributes as $k => $v) {
                 if ($v instanceof Now) {
@@ -617,7 +627,7 @@ class PostBattleForm extends Model
 
     public function toDeathReasons(Battle $battle)
     {
-        if (is_array($this->death_reasons) || $this->death_reasons instanceof \stdClass) {
+        if (is_array($this->death_reasons) || $this->death_reasons instanceof stdClass) {
             $unknownCount = 0;
             foreach ($this->death_reasons as $key => $count) {
                 $reason = DeathReason::findOne(['key' => $key]);
@@ -646,17 +656,17 @@ class PostBattleForm extends Model
 
     public function toPlayers(Battle $battle)
     {
-        if (is_array($this->players) && !empty($this->players)) {
+        if (is_array($this->players) && $this->players) {
             foreach ($this->players as $form) {
                 if (!$form instanceof PostBattlePlayerForm) {
                     throw new \Exception('Logic error: assert: instanceof PostBattlePlayerForm');
                 }
 
-                $weapon = ($form->weapon == '')
+                $weapon = $form->weapon == ''
                     ? null
                     : Weapon::findOne(['key' => $form->weapon]);
 
-                $rank = ($form->rank == '')
+                $rank = $form->rank == ''
                     ? null
                     : Rank::findOne(['key' => $form->rank]);
 
@@ -781,6 +791,7 @@ class PostBattleForm extends Model
                 }
             }
         }
+        unset($lock);
 
         return $config->id;
     }
@@ -798,7 +809,7 @@ class PostBattleForm extends Model
 
         // stat.ink の要求する最小IkaLogバージョンを取得
         $ikalogReq = IkalogRequirement::find()
-            ->andWhere(['<=','[[from]]', new Now()])
+            ->andWhere(['<=', '[[from]]', new Now()])
             ->orderBy('[[from]] DESC')
             ->limit(1)
             ->one();
@@ -820,39 +831,29 @@ class PostBattleForm extends Model
         // 3. 各要素の左側の "0" を取り去って
         // 4. 取り去った結果空文字列になる可能性があるのでそのときに "0" にするために int 経由して（黒魔術）
         // 5. "." で再結合する
-        $fConvertVersionDate = function ($version_date) {
-            return implode(
-                '.',
-                array_map(
-                    function ($a) {
-                        return (string)(int)ltrim($a, '0');
-                    },
-                    explode(
-                        '.',
-                        trim(preg_replace('/[^0-9]+/', '.', trim((string)$version_date)))
-                    )
+        $fConvertVersionDate = fn ($version_date) => implode(
+            '.',
+            array_map(
+                fn ($a) => (string)(int)ltrim($a, '0'),
+                explode(
+                    '.',
+                    trim(preg_replace('/[^0-9]+/', '.', trim((string)$version_date)))
                 )
-            );
-        };
-
-        if (
-            version_compare(
-                $fConvertVersionDate($this->agent_game_version_date),
-                $fConvertVersionDate($ikalogReq->version_date),
-                '>='
             )
-        ) {
-            return true;
-        }
+        );
 
-        return false;
+        return (bool)version_compare(
+            $fConvertVersionDate($this->agent_game_version_date),
+            $fConvertVersionDate($ikalogReq->version_date),
+            '>='
+        );
     }
 
     public function getCriticalSectionName()
     {
         return rtrim(
             base64_encode(
-                hash_hmac('sha256', $this->apikey, __CLASS__, true)
+                hash_hmac('sha256', $this->apikey, self::class, true)
             ),
             '='
         );

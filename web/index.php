@@ -9,6 +9,8 @@
 
 declare(strict_types=1);
 
+use app\components\web\Application;
+
 if (file_exists(__DIR__ . '/../.staging')) {
     defined('YII_DEBUG') or define('YII_DEBUG', false);
     defined('YII_ENV') or define('YII_ENV', 'test');
@@ -29,11 +31,11 @@ if (@file_exists(__DIR__ . '/../.maintenance')) {
     exit(0);
 }
 
-require(__DIR__ . '/../vendor/autoload.php');
-require(__DIR__ . '/../vendor/yiisoft/yii2/Yii.php');
-require(__DIR__ . '/../config/web-bootstrap.php');
+require __DIR__ . '/../vendor/autoload.php';
+require __DIR__ . '/../vendor/yiisoft/yii2/Yii.php';
+require __DIR__ . '/../config/web-bootstrap.php';
 
-$config = require(__DIR__ . '/../config/web.php');
+$config = require __DIR__ . '/../config/web.php';
 
-require(__DIR__ . '/../components/web/Application.php');
-(new \app\components\web\Application($config))->run();
+require __DIR__ . '/../components/web/Application.php';
+(new Application($config))->run();

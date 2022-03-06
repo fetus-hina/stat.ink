@@ -8,8 +8,6 @@
 
 namespace app\actions\stage;
 
-use Yii;
-use yii\web\NotFoundHttpException;
 use yii\web\ViewAction as BaseAction;
 
 class IndexAction extends BaseAction
@@ -20,7 +18,7 @@ class IndexAction extends BaseAction
         $this->controller->redirect([
             'stage/month',
             'year' => 2017,
-            'month' => 9
+            'month' => 9,
         ]);
     }
 }

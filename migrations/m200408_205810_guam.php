@@ -9,7 +9,6 @@
 declare(strict_types=1);
 
 use app\components\db\Migration;
-use yii\db\Expression;
 use yii\db\Query;
 
 class m200408_205810_guam extends Migration

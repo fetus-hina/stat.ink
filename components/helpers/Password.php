@@ -13,6 +13,12 @@ namespace app\components\helpers;
 use Yii;
 use yii\helpers\ArrayHelper;
 
+use const PASSWORD_ARGON2I;
+use const PASSWORD_ARGON2ID;
+use const PASSWORD_BCRYPT;
+use const PASSWORD_DEFAULT;
+use const PHP_VERSION;
+
 class Password
 {
     public static function hash(string $password): string

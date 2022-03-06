@@ -8,21 +8,21 @@
 
 namespace app\models;
 
-use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "gear_configuration".
  *
- * @property integer $id
+ * @property int $id
  * @property string $finger_print
- * @property integer $gear_id
- * @property integer $primary_ability_id
+ * @property int $gear_id
+ * @property int $primary_ability_id
  *
  * @property Ability $primaryAbility
  * @property Gear $gear
  * @property GearConfigurationSecondary[] $secondaries
  */
-class GearConfiguration extends \yii\db\ActiveRecord
+class GearConfiguration extends ActiveRecord
 {
     public static function generateFingerPrint($gearId, $primaryAbilityId, array $secondaryAbitilyIdList)
     {
@@ -72,7 +72,7 @@ class GearConfiguration extends \yii\db\ActiveRecord
             [['finger_print'], 'required'],
             [['gear_id', 'primary_ability_id'], 'integer'],
             [['finger_print'], 'string', 'max' => 43],
-            [['finger_print'], 'unique']
+            [['finger_print'], 'unique'],
         ];
     }
 
@@ -120,13 +120,10 @@ class GearConfiguration extends \yii\db\ActiveRecord
             'primary_ability' => $this->primaryAbility ? $this->primaryAbility->toJsonArray() : null,
             'secondary_abilities' => $this->secondaries
                 ? array_map(
-                    function ($o) {
-                        return $o->toJsonArray();
-                    },
+                    fn ($o) => $o->toJsonArray(),
                     $this->secondaries
                 )
                 : null,
         ];
-        return null;
     }
 }

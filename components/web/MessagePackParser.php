@@ -8,8 +8,8 @@
 
 namespace app\components\web;
 
-use yii\web\RequestParserInterface;
 use yii\web\BadRequestHttpException;
+use yii\web\RequestParserInterface;
 
 class MessagePackParser implements RequestParserInterface
 {

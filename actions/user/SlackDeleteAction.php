@@ -9,10 +9,10 @@
 namespace app\actions\user;
 
 use Yii;
+use app\models\Slack;
 use yii\base\DynamicModel;
 use yii\web\BadRequestHttpException;
 use yii\web\ViewAction as BaseAction;
-use app\models\Slack;
 
 class SlackDeleteAction extends BaseAction
 {

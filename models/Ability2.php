@@ -16,14 +16,16 @@ use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
 
+use const SORT_ASC;
+
 /**
  * This is the model class for table "ability2".
  *
- * @property integer $id
+ * @property int $id
  * @property string $key
  * @property string $name
- * @property integer $splatnet
- * @property boolean $primary_only
+ * @property int $splatnet
+ * @property bool $primary_only
  *
  * @property Brand2[] $strengthBrands
  * @property Brand2[] $weaknessBrands
@@ -71,25 +73,16 @@ class Ability2 extends ActiveRecord
         ];
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getStrengthBrands(): ActiveQuery
     {
         return $this->hasMany(Brand2::class, ['strength_id' => 'id']);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getWeaknessBrands(): ActiveQuery
     {
         return $this->hasMany(Brand2::class, ['weakness_id' => 'id']);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getGears(): ActiveQuery
     {
         return $this->hasMany(Gear2::class, ['ability_id' => 'id']);
@@ -139,9 +132,7 @@ class Ability2 extends ActiveRecord
             ->orderBy(['key' => SORT_ASC])
             ->all();
         return array_map(
-            function ($model) {
-                return $model->toJsonArray();
-            },
+            fn ($model) => $model->toJsonArray(),
             $models
         );
     }

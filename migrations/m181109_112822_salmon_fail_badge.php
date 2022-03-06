@@ -18,9 +18,7 @@ class m181109_112822_salmon_fail_badge extends Migration
             'short_name' => $this->string(32)->null(),
             'color' => $this->string(32)->null(),
         ]);
-        return $this->db->transaction(function (): bool {
-            return $this->safeUp();
-        });
+        return $this->db->transaction(fn (): bool => $this->safeUp());
     }
 
     public function safeUp()
@@ -40,9 +38,7 @@ class m181109_112822_salmon_fail_badge extends Migration
 
     public function down()
     {
-        $status = $this->db->transaction(function (): bool {
-            return $this->safeDown();
-        });
+        $status = $this->db->transaction(fn (): bool => $this->safeDown());
         if (!$status) {
             return $status;
         }

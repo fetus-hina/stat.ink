@@ -18,7 +18,6 @@ use Base32\Base32;
 use Yii;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
-use yii\helpers\Url;
 use yii\web\AssetManager as FWAssetManager;
 
 use function call_user_func;
@@ -38,10 +37,9 @@ use function vsprintf;
 class AssetManager extends FWAssetManager
 {
     /**
-     * @param string $path
      * @return string
      */
-    protected function hash($path)
+    protected function hash(string $path)
     {
         if (is_callable($this->hashCallback)) {
             return call_user_func($this->hashCallback, $path);
@@ -70,7 +68,7 @@ class AssetManager extends FWAssetManager
         Yii::endProfile($profile, __METHOD__);
         Yii::info("Asset path hash = {$hash}", __METHOD__);
 
-        /** @var ?int */
+        /** @var ?int $commitTime */
         $commitTime = ArrayHelper::getValue(Yii::$app->params, 'gitRevision.lastCommittedT');
         if (!is_int($commitTime)) {
             Yii::info('Commit time is unknown. No timestamp used', __METHOD__);
@@ -79,7 +77,7 @@ class AssetManager extends FWAssetManager
 
         $result = vsprintf('%s-%s/%s', [
             gmdate('Ymd', $commitTime),
-            ($options['assetRevision'] >= 0)
+            $options['assetRevision'] >= 0
                 ? (string)$options['assetRevision']
                 : gmdate('His', $commitTime),
             $hash,

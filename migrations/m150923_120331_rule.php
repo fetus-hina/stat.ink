@@ -6,8 +6,8 @@
  * @author AIZAWA Hina <hina@fetus.jp>
  */
 
-use yii\db\Migration;
 use app\models\GameMode;
+use yii\db\Migration;
 
 class m150923_120331_rule extends Migration
 {

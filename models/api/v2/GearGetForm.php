@@ -18,6 +18,8 @@ use yii\db\ActiveQuery;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 
+use const SORT_ASC;
+
 class GearGetForm extends Model
 {
     use OapiUtil;
@@ -32,13 +34,16 @@ class GearGetForm extends Model
             [['type', 'brand', 'ability'], 'string'],
             [['type'], 'exist',
                 'targetClass' => GearType::class,
-                'targetAttribute' => 'key'],
+                'targetAttribute' => 'key',
+            ],
             [['brand'], 'exist',
                 'targetClass' => Brand2::class,
-                'targetAttribute' => 'key'],
+                'targetAttribute' => 'key',
+            ],
             [['ability'], 'exist',
                 'targetClass' => Ability2::class,
-                'targetAttribute' => 'key'],
+                'targetAttribute' => 'key',
+            ],
         ];
     }
 

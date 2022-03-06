@@ -10,7 +10,6 @@ declare(strict_types=1);
 
 namespace app\components\behaviors;
 
-use Yii;
 use app\models\HttpUserAgent;
 use yii\behaviors\AttributeBehavior;
 use yii\db\ActiveRecord;

@@ -29,7 +29,7 @@ class m170329_125456_rank2 extends Migration
             'id'
         );
 
-        $this->batchInsert('rank2', [ 'group_id', 'rank', 'key', 'name', 'int_base' ], [
+        $this->batchInsert('rank2', ['group_id', 'rank', 'key', 'name', 'int_base'], [
             [ $group['c'], 10, 'c-', 'C-',    0 ],
             [ $group['c'], 11, 'c',  'C',   100 ],
             [ $group['c'], 12, 'c+', 'C+',  200 ],

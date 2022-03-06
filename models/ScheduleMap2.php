@@ -8,14 +8,13 @@
 
 namespace app\models;
 
-use Yii;
 use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "schedule_map2".
  *
- * @property integer $schedule_id
- * @property integer $map_id
+ * @property int $schedule_id
+ * @property int $map_id
  *
  * @property Map2 $map
  * @property Schedule2 $schedule
