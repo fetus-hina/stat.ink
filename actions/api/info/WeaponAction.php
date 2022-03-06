@@ -9,36 +9,34 @@
 namespace app\actions\api\info;
 
 use Yii;
-use yii\web\ViewAction as BaseAction;
 use app\components\helpers\Translator;
 use app\models\Language;
 use app\models\Weapon;
 use app\models\WeaponType;
+use yii\web\ViewAction as BaseAction;
+
+use const SORT_ASC;
 
 class WeaponAction extends BaseAction
 {
     public function run()
     {
         $types = array_map(
-            function (array $type): array {
-                return [
-                    'key'   => $type['key'],
-                    'name'  => Yii::t('app-weapon', $type['name']),
-                    'weapons' => array_map(
-                        function (array $weapon): array {
-                            return [
-                                'key' => $weapon['key'],
-                                'names' => Translator::translateToAll('app-weapon', $weapon['name']),
-                            ];
-                        },
-                        Weapon::find()
+            fn (array $type): array => [
+                'key'   => $type['key'],
+                'name'  => Yii::t('app-weapon', $type['name']),
+                'weapons' => array_map(
+                    fn (array $weapon): array => [
+                        'key' => $weapon['key'],
+                        'names' => Translator::translateToAll('app-weapon', $weapon['name']),
+                    ],
+                    Weapon::find()
                             ->andWhere(['type_id' => $type['id']])
                             ->orderBy(['key' => SORT_ASC])
                             ->asArray()
                             ->all()
-                    ),
-                ];
-            },
+                ),
+            ],
             WeaponType::find()->orderBy(['id' => SORT_ASC])->asArray()->all()
         );
 

@@ -17,7 +17,7 @@ class m150923_125000_rank extends Migration
             'key'   => $this->string(16)->notNull()->unique(),
             'name'  => $this->string(16)->notNull()->unique(),
         ]);
-        $this->batchInsert('rank', [ 'key', 'name' ], [
+        $this->batchInsert('rank', ['key', 'name'], [
             [ 'c-', 'C-' ],
             [ 'c',  'C'  ],
             [ 'c+', 'C+' ],

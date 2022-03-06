@@ -8,22 +8,22 @@
 
 namespace app\models;
 
-use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "stat_weapon_use_count_per_week".
  *
- * @property integer $isoyear
- * @property integer $isoweek
- * @property integer $rule_id
- * @property integer $weapon_id
- * @property integer $battles
- * @property integer $wins
+ * @property int $isoyear
+ * @property int $isoweek
+ * @property int $rule_id
+ * @property int $weapon_id
+ * @property int $battles
+ * @property int $wins
  *
  * @property Rule $rule
  * @property Weapon $weapon
  */
-class StatWeaponUseCountPerWeek extends \yii\db\ActiveRecord
+class StatWeaponUseCountPerWeek extends ActiveRecord
 {
     /**
      * @inheritdoc
@@ -43,11 +43,11 @@ class StatWeaponUseCountPerWeek extends \yii\db\ActiveRecord
             [['isoyear', 'isoweek', 'rule_id', 'weapon_id', 'battles', 'wins'], 'integer'],
             [['rule_id'], 'exist', 'skipOnError' => true,
                 'targetClass' => Rule::class,
-                'targetAttribute' => ['rule_id' => 'id']
+                'targetAttribute' => ['rule_id' => 'id'],
             ],
             [['weapon_id'], 'exist', 'skipOnError' => true,
                 'targetClass' => Weapon::class,
-                'targetAttribute' => ['weapon_id' => 'id']
+                'targetAttribute' => ['weapon_id' => 'id'],
             ],
         ];
     }

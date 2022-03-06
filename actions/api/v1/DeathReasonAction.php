@@ -9,9 +9,9 @@
 namespace app\actions\api\v1;
 
 use Yii;
-use yii\web\ViewAction as BaseAction;
 use app\models\DeathReason;
 use app\models\api\v1\DeathReasonGetForm;
+use yii\web\ViewAction as BaseAction;
 
 class DeathReasonAction extends BaseAction
 {
@@ -35,9 +35,7 @@ class DeathReasonAction extends BaseAction
         $form->filterQuery($query);
 
         return array_map(
-            function ($model) {
-                return $model->toJsonArray();
-            },
+            fn ($model) => $model->toJsonArray(),
             $query->all()
         );
     }

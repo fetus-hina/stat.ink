@@ -9,9 +9,9 @@
 namespace app\components\widgets;
 
 use Yii;
-use yii\base\Widget;
-use jp3cki\yii2\googleadsense\GoogleAdSense;
 use app\components\helpers\Resource;
+use jp3cki\yii2\googleadsense\GoogleAdSense;
+use yii\base\Widget;
 
 class AdWidget extends Widget
 {
@@ -51,9 +51,7 @@ class AdWidget extends Widget
         ];
         return preg_replace_callback(
             '/\{(\w+)\}/',
-            function ($match) use ($replace) {
-                return @$replace[$match[1]] ?: $match[0];
-            },
+            fn ($match) => @$replace[$match[1]] ?: $match[0],
             $this->template
         );
     }
@@ -66,6 +64,10 @@ class AdWidget extends Widget
                 ob_end_clean();
             }
         );
-        return $this->adSense->run() . ob_get_contents();
+        try {
+            return $this->adSense->run() . ob_get_contents();
+        } finally {
+            unset($ob);
+        }
     }
 }

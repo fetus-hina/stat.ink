@@ -8,22 +8,22 @@
 
 namespace app\models;
 
-use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "stat_weapon_kill_death".
  *
- * @property integer $weapon_id
- * @property integer $rule_id
- * @property integer $kill
- * @property integer $death
- * @property integer $battle
- * @property integer $win
+ * @property int $weapon_id
+ * @property int $rule_id
+ * @property int $kill
+ * @property int $death
+ * @property int $battle
+ * @property int $win
  *
  * @property Rule $rule
  * @property Weapon $weapon
  */
-class StatWeaponKillDeath extends \yii\db\ActiveRecord
+class StatWeaponKillDeath extends ActiveRecord
 {
     /**
      * @inheritdoc
@@ -40,7 +40,7 @@ class StatWeaponKillDeath extends \yii\db\ActiveRecord
     {
         return [
             [['weapon_id', 'rule_id', 'kill', 'death', 'battle', 'win'], 'required'],
-            [['weapon_id', 'rule_id', 'kill', 'death', 'battle', 'win'], 'integer']
+            [['weapon_id', 'rule_id', 'kill', 'death', 'battle', 'win'], 'integer'],
         ];
     }
 

@@ -10,6 +10,7 @@ namespace app\models;
 
 use Yii;
 use yii\base\Model;
+use yii\web\User as WebUser;
 
 final class LoginForm extends Model
 {
@@ -78,7 +79,7 @@ final class LoginForm extends Model
         }
 
         $appUser = Yii::$app->user;
-        $appUser->on(\yii\web\User::EVENT_AFTER_LOGIN, function ($event) use ($user): void {
+        $appUser->on(WebUser::EVENT_AFTER_LOGIN, function ($event) use ($user): void {
             UserLoginHistory::login($user, LoginMethod::METHOD_PASSWORD);
             User::onLogin($user, LoginMethod::METHOD_PASSWORD);
         });

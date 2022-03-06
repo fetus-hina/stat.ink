@@ -8,17 +8,19 @@
 
 namespace app\models;
 
-use Yii;
 use app\components\helpers\Battle as BattleHelper;
 use app\components\helpers\db\Now;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
+use const SORT_ASC;
+use const SORT_DESC;
+
 /**
  * This is the model class for table "salmon_schedule2".
  *
- * @property integer $id
- * @property integer $map_id
+ * @property int $id
+ * @property int $map_id
  * @property string $start_at
  * @property string $end_at
  *
@@ -104,17 +106,11 @@ class SalmonSchedule2 extends ActiveRecord
         ];
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getMap(): ActiveQuery
     {
         return $this->hasOne(SalmonMap2::class, ['id' => 'map_id']);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getWeapons(): ActiveQuery
     {
         return $this->hasMany(SalmonWeapon2::class, ['schedule_id' => 'id'])

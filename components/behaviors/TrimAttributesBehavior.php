@@ -8,6 +8,7 @@
 
 namespace app\components\behaviors;
 
+use Traversable;
 use yii\base\Behavior;
 use yii\base\Model;
 
@@ -46,7 +47,7 @@ class TrimAttributesBehavior extends Behavior
         if (is_scalar($value)) {
             $value = trim((string)$value);
             return $value === '' ? null : $value;
-        } elseif (is_array($value) || $value instanceof \Traversable) {
+        } elseif (is_array($value) || $value instanceof Traversable) {
             if ($this->recursive) {
                 foreach ($value as $k => $v) {
                     $value[$k] = $this->doTrim($v);

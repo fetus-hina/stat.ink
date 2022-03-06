@@ -9,11 +9,9 @@
 namespace app\actions\user;
 
 use Yii;
-use yii\helpers\ArrayHelper;
-use yii\web\ViewAction as BaseAction;
 use app\models\Language;
-use app\models\Slack;
 use app\models\SlackAddForm;
+use yii\web\ViewAction as BaseAction;
 
 class SlackAddAction extends BaseAction
 {
@@ -32,7 +30,7 @@ class SlackAddAction extends BaseAction
                         $this->controller->redirect(['user/profile']);
                         return;
                     }
-                } catch (\Exception $e) {
+                } catch (\Throwable $e) {
                 }
                 $transaction->rollback();
             }

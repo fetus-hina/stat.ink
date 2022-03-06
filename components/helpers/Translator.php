@@ -13,6 +13,8 @@ namespace app\components\helpers;
 use Yii;
 use app\models\Language;
 
+use const SORT_ASC;
+
 class Translator
 {
     private static $langs = null;

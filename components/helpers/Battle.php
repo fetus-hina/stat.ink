@@ -19,6 +19,10 @@ use app\models\Battle2 as Battle2Model;
 use app\models\Battle2FilterForm;
 use app\models\BattleFilterForm;
 use app\models\User;
+use yii\db\Query;
+
+use const SORT_ASC;
+use const SORT_DESC;
 
 class Battle
 {
@@ -50,7 +54,7 @@ class Battle
 
     public static function periodToRange2DT(int $period, int $offset = 0): array
     {
-        list($from, $to) = static::periodToRange2($period, $offset);
+        [$from, $to] = static::periodToRange2($period, $offset);
         return [
             static::timestamp2datetime($from),
             static::timestamp2datetime($to),
@@ -70,7 +74,7 @@ class Battle
             ->offset(0)
             ->limit($num);
 
-        $query = (new \yii\db\Query())
+        $query = (new Query())
             ->select([
                 'min_id' => 'MIN({{t}}.[[id]])',
                 'max_id' => 'MAX({{t}}.[[id]])',
@@ -100,7 +104,7 @@ class Battle
             ->offset(0)
             ->limit($num);
 
-        $query = (new \yii\db\Query())
+        $query = (new Query())
             ->select([
                 'min_id' => 'MIN({{t}}.[[id]])',
                 'max_id' => 'MAX({{t}}.[[id]])',
@@ -182,7 +186,7 @@ class Battle
                 'between',
                 'battle2.period',
                 $lastBattle->period - 47,
-                $lastBattle->period
+                $lastBattle->period,
             ])
             ->orderBy(['battle2.id' => SORT_ASC])
             ->limit(1)

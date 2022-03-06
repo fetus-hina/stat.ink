@@ -9,7 +9,6 @@
 namespace app\actions\api\info;
 
 use Yii;
-use app\components\helpers\Translator;
 use app\models\Language;
 use app\models\Map2;
 use yii\web\ViewAction as BaseAction;

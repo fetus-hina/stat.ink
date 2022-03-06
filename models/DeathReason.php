@@ -10,14 +10,16 @@ namespace app\models;
 
 use Yii;
 use app\components\helpers\Translator;
+use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Html;
+
+use const SORT_ASC;
 
 /**
  * This is the model class for table "death_reason".
  *
- * @property integer $id
- * @property integer $type_id
+ * @property int $id
+ * @property int $type_id
  * @property string $key
  * @property string $name
  * @property string $weapon_id
@@ -27,7 +29,7 @@ use yii\helpers\Html;
  * @property DeathReasonType $type
  * @property Weapon $weapon
  */
-class DeathReason extends \yii\db\ActiveRecord
+class DeathReason extends ActiveRecord
 {
     use openapi\Util;
 
@@ -55,7 +57,7 @@ class DeathReason extends \yii\db\ActiveRecord
             [['key'], 'string', 'max' => 32],
             [['name'], 'string', 'max' => 64],
             [['key'], 'unique'],
-            [['name'], 'unique']
+            [['name'], 'unique'],
         ];
     }
 

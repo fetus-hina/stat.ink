@@ -14,7 +14,6 @@ use Jaybizzle\CrawlerDetect\CrawlerDetect;
 use Yii;
 use app\models\AcceptLanguage;
 use app\models\Language;
-use yii\helpers\StringHelper;
 
 class UserLanguage
 {
@@ -38,7 +37,7 @@ class UserLanguage
             }
 
             if ($getDefault) {
-                Yii::info("Returns default language, en-US", __METHOD__);
+                Yii::info('Returns default language, en-US', __METHOD__);
                 return Language::findOne(['lang' => 'en-US']);
             }
 
@@ -60,7 +59,7 @@ class UserLanguage
             $lang = Language::findOne(['lang' => (string)$param]);
             if ($lang) {
                 Yii::info(
-                    "Detected language by parameter, " . $lang->lang,
+                    'Detected language by parameter, ' . $lang->lang,
                     __METHOD__
                 );
             }
@@ -83,7 +82,7 @@ class UserLanguage
             $lang = Language::findOne(['lang' => $cookie->value]);
             if ($lang) {
                 Yii::info(
-                    "Detected language by cookie, " . $lang->lang,
+                    'Detected language by cookie, ' . $lang->lang,
                     __METHOD__
                 );
             }
@@ -100,7 +99,7 @@ class UserLanguage
             Yii::beginProfile(__FUNCTION__, __METHOD__);
             $request = Yii::$app->request;
             $userLangs = $request->acceptableLanguages;
-            if (empty($userLangs) || static::isUABot((string)trim($request->userAgent))) {
+            if (!$userLangs || static::isUABot((string)trim($request->userAgent))) {
                 return null;
             }
 

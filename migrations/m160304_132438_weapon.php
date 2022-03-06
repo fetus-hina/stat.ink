@@ -6,13 +6,13 @@
  * @author AIZAWA Hina <hina@fetus.jp>
  */
 
-use yii\db\Migration;
-use yii\db\Expression;
+use app\models\DeathReasonType;
 use app\models\Special;
 use app\models\Subweapon;
 use app\models\Weapon;
 use app\models\WeaponType;
-use app\models\DeathReasonType;
+use yii\db\Expression;
+use yii\db\Migration;
 
 class m160304_132438_weapon extends Migration
 {
@@ -20,7 +20,7 @@ class m160304_132438_weapon extends Migration
     {
         $this->batchInsert(
             'weapon',
-            [ 'id', 'type_id', 'key', 'name', 'subweapon_id', 'special_id', 'canonical_id', 'main_group_id' ],
+            ['id', 'type_id', 'key', 'name', 'subweapon_id', 'special_id', 'canonical_id', 'main_group_id'],
             [
                 [
                     new Expression("nextval('weapon_id_seq'::regclass)"),
@@ -58,7 +58,7 @@ class m160304_132438_weapon extends Migration
         $type = DeathReasonType::findOne(['key' => 'main'])->id;
         $this->batchInsert(
             'death_reason',
-            [ 'type_id', 'key', 'name', 'weapon_id' ],
+            ['type_id', 'key', 'name', 'weapon_id'],
             [
                 [ $type, 'sshooter_wasabi', 'Wasabi Splattershot', Weapon::findOne(['key' => 'sshooter_wasabi'])->id ],
                 [ $type, 'prime_berry', 'Berry Splattershot Pro',Weapon::findOne(['key' => 'prime_berry'])->id ],
@@ -69,7 +69,7 @@ class m160304_132438_weapon extends Migration
 
     public function safeDown()
     {
-        $this->delete('death_reason', ['key' => [ 'sshooter_wasabi', 'prime_berry', 'squiclean_g']]);
-        $this->delete('weapon', ['key' => [ 'sshooter_wasabi', 'prime_berry', 'squiclean_g']]);
+        $this->delete('death_reason', ['key' => ['sshooter_wasabi', 'prime_berry', 'squiclean_g']]);
+        $this->delete('weapon', ['key' => ['sshooter_wasabi', 'prime_berry', 'squiclean_g']]);
     }
 }

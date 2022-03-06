@@ -11,13 +11,15 @@ declare(strict_types=1);
 namespace app\models;
 
 use DateTimeImmutable;
-use Yii;
 use yii\db\ActiveRecord;
+
+use const SORT_ASC;
+use const SORT_DESC;
 
 /**
  * This is the model class for table "splatoon_version_group2".
  *
- * @property integer $id
+ * @property int $id
  * @property string $tag
  * @property string $name
  *

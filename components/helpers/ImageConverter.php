@@ -9,7 +9,11 @@
 namespace app\components\helpers;
 
 use Exception;
+use Throwable;
 use Yii;
+
+use const PNG_ALL_FILTERS;
+use const PNG_NO_FILTER;
 
 class ImageConverter
 {
@@ -17,8 +21,13 @@ class ImageConverter
     public const OUT_HEIGHT = 720;
     public const JPEG_QUALITY = 85;
 
-    public static function convert($binary, $outPathJpeg, $blackoutPosList = false, $outPathArchivePng = null)
-    {
+    /** @param int[]|false $blackoutPosList */
+    public static function convert(
+        string $binary,
+        string $outPathJpeg,
+        $blackoutPosList = false,
+        ?string $outPathArchivePng = null
+    ): bool {
         if (!is_array($blackoutPosList)) {
             $blackoutPosList = [];
         }
@@ -43,12 +52,15 @@ class ImageConverter
                 self::mkdir(dirname($outPathArchivePng));
                 imagepng($in->get(), $outPathArchivePng, 3, PNG_NO_FILTER);
             }
+            unset($in);
         }
         return true;
     }
 
-    protected static function convertImpl($binary, array $blackoutPosList)
+    protected static function convertImpl(string $binary, array $blackoutPosList)
     {
+        $in = null;
+        $out = null;
         try {
             $in = new Resource(@imagecreatefromstring($binary), 'imagedestroy');
             if (!$in->get()) {
@@ -68,8 +80,8 @@ class ImageConverter
                 $canvasH = static::OUT_HEIGHT;
             } else {
                 $scale = 1.0;
-                $cpW = $inW;
-                $cpH = $inH;
+                $cpW = (int)round($inW * $scale);
+                $cpH = (int)round($inH * $scale);
                 $canvasW = max($inW, (int)round($inH * 16 / 9));
                 $canvasH = max($inH, (int)round($inW * 9 / 16));
             }
@@ -114,7 +126,10 @@ class ImageConverter
             $tmpName = new Resource(tempnam(sys_get_temp_dir(), 'statink-'), 'unlink');
             imagepng($out->get(), $tmpName->get(), 9, PNG_ALL_FILTERS);
             return $tmpName;
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
+        } finally {
+            unset($out);
+            unset($in);
         }
         return false;
     }

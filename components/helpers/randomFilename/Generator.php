@@ -63,8 +63,8 @@ class Generator
 
         return vsprintf('%s%s', [
             $base32,
-            ($ext !== '')
-              ? ('.' . $ext)
+            $ext !== ''
+              ? '.' . $ext
               : '',
         ]);
     }

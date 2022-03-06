@@ -12,6 +12,8 @@ use Yii;
 use yii\base\Model;
 use yii\db\Query;
 
+use const NAN;
+
 class SummarizedWeaponVsWeapon extends Model
 {
     public $lhs_weapon_id;
@@ -69,7 +71,7 @@ class SummarizedWeaponVsWeapon extends Model
             },
             $query->all()
         );
-        usort($result, fn($a, $b) => ($b->winPct <=> $a->winPct));
+        usort($result, fn ($a, $b) => ($b->winPct <=> $a->winPct));
         return $result;
     }
 
@@ -119,10 +121,12 @@ class SummarizedWeaponVsWeapon extends Model
             [['lhs_weapon_id', 'rhs_weapon_id', 'battle_count', 'win_count'], 'integer'],
             [['lhs_weapon_id'], 'exist', 'skipOnError' => true,
                 'targetClass' => Weapon::class,
-                'targetAttribute' => ['weapon_id_1' => 'id']],
+                'targetAttribute' => ['weapon_id_1' => 'id'],
+            ],
             [['rhs_weapon_id'], 'exist', 'skipOnError' => true,
                 'targetClass' => Weapon::class,
-                'targetAttribute' => ['weapon_id_2' => 'id']],
+                'targetAttribute' => ['weapon_id_2' => 'id'],
+            ],
         ];
     }
 }

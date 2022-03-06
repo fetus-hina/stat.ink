@@ -8,19 +8,19 @@
 
 namespace app\models;
 
-use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "team".
  *
- * @property integer $id
+ * @property int $id
  * @property string $name
  * @property string $leader
  *
  * @property SplatfestTeam[] $splatfestTeams
  * @property Splatfest[] $fests
  */
-class Team extends \yii\db\ActiveRecord
+class Team extends ActiveRecord
 {
     /**
      * @inheritdoc
@@ -38,7 +38,7 @@ class Team extends \yii\db\ActiveRecord
         return [
             [['id', 'name', 'leader'], 'required'],
             [['id'], 'integer'],
-            [['name', 'leader'], 'string', 'max' => 8]
+            [['name', 'leader'], 'string', 'max' => 8],
         ];
     }
 

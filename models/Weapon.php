@@ -11,19 +11,22 @@ namespace app\models;
 use Yii;
 use app\components\helpers\Translator;
 use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
+
+use const SORT_ASC;
 
 /**
  * This is the model class for table "weapon".
  *
- * @property integer $id
- * @property integer $type_id
+ * @property int $id
+ * @property int $type_id
  * @property string $key
  * @property string $name
- * @property integer $subweapon_id
- * @property integer $special_id
- * @property integer $canonical_id
- * @property integer $main_group_id
+ * @property int $subweapon_id
+ * @property int $special_id
+ * @property int $canonical_id
+ * @property int $main_group_id
  *
  * @property Battle[] $battles
  * @property UserWeapon[] $userWeapons
@@ -34,7 +37,7 @@ use yii\helpers\ArrayHelper;
  * @property Weapon $canonical
  * @property Weapon $mainReference
  */
-class Weapon extends \yii\db\ActiveRecord
+class Weapon extends ActiveRecord
 {
     use SafeFindOneTrait;
     use openapi\Util;
@@ -71,7 +74,7 @@ class Weapon extends \yii\db\ActiveRecord
             [['type_id', 'subweapon_id', 'special_id', 'canonical_id', 'main_group_id'], 'integer'],
             [['key', 'name'], 'string', 'max' => 32],
             [['key'], 'unique'],
-            [['name'], 'unique']
+            [['name'], 'unique'],
         ];
     }
 

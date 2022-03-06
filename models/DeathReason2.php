@@ -15,12 +15,12 @@ use yii\db\ActiveRecord;
 /**
  * This is the model class for table "death_reason2".
  *
- * @property integer $id
+ * @property int $id
  * @property string $key
- * @property integer $type_id
- * @property integer $weapon_id
- * @property integer $subweapon_id
- * @property integer $special_id
+ * @property int $type_id
+ * @property int $weapon_id
+ * @property int $subweapon_id
+ * @property int $special_id
  * @property string $name
  *
  * @property DeathReasonType2 $type

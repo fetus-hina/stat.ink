@@ -16,7 +16,7 @@ class m151009_133316_fest extends Migration
             'id'    => 'INTEGER NOT NULL PRIMARY KEY', // See: ISO 5218
             'name'  => $this->string(16)->notNull()->unique(),
         ]);
-        $this->batchInsert('gender', [ 'id', 'name'], [
+        $this->batchInsert('gender', ['id', 'name'], [
             [ 1, 'Boy'  ], // ISO 5218, "1" is Male
             [ 2, 'Girl' ], // ISO 5218, "2" is Female
         ]);
@@ -25,7 +25,7 @@ class m151009_133316_fest extends Migration
             'id'    => 'INTEGER NOT NULL PRIMARY KEY',
             'key'   => $this->string(16)->notNull()->unique(),
         ]);
-        $this->batchInsert('fest_title', [ 'id', 'key' ], [
+        $this->batchInsert('fest_title', ['id', 'key'], [
             [ 1, 'fanboy' ],
             [ 2, 'friend' ],
             [ 3, 'defender' ],
@@ -41,7 +41,7 @@ class m151009_133316_fest extends Migration
         $this->addPrimaryKey('pk_fest_title_gender', 'fest_title_gender', ['title_id', 'gender_id']);
         $this->addForeignKey('fk_fest_title_gender_1', 'fest_title_gender', 'title_id', 'fest_title', 'id');
         $this->addForeignKey('fk_fest_title_gender_2', 'fest_title_gender', 'gender_id', 'gender', 'id');
-        $this->batchInsert('fest_title_gender', [ 'title_id', 'gender_id', 'name' ], [
+        $this->batchInsert('fest_title_gender', ['title_id', 'gender_id', 'name'], [
             [ 1, 1, '{0} Fanboy' ],
             [ 2, 1, '{0} Friend' ],
             [ 3, 1, '{0} Defender' ],

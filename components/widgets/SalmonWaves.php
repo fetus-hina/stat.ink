@@ -108,7 +108,7 @@ class SalmonWaves extends Widget
     protected function renderBody(): string
     {
         $data = array_filter([
-            ($this->work && $this->work->clear_waves !== null)
+            $this->work && $this->work->clear_waves !== null
                 ? [
                     'label' => '',
                     'format' => 'raw',
@@ -137,9 +137,7 @@ class SalmonWaves extends Widget
                 'label' => Yii::t('app-salmon-event2', 'Event'),
                 'format' => 'text',
                 'total' => null,
-                'value' => function (SalmonWave2 $wave, int $waveNumber, self $widget): ?string {
-                    return Yii::t('app-salmon-event2', $wave->event->name ?? null);
-                },
+                'value' => fn (SalmonWave2 $wave, int $waveNumber, self $widget): ?string => Yii::t('app-salmon-event2', $wave->event->name ?? null),
             ],
             [
                 'label' => Yii::t('app-salmon-tide2', 'Water Level'),
@@ -219,9 +217,7 @@ class SalmonWaves extends Widget
             ],
         ]);
         return Html::tag('tbody', implode('', array_map(
-            function (array $row): string {
-                return $this->renderRow($row);
-            },
+            fn (array $row): string => $this->renderRow($row),
             $data
         )));
     }

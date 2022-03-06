@@ -12,17 +12,15 @@ use Yii;
 use app\models\Battle2;
 use app\models\Battle2DeleteForm;
 use app\models\Battle2Form;
-use app\models\Lobby2;
 use app\models\Map2;
-use app\models\Mode2;
 use app\models\Rank2;
-use app\models\Rule2;
-use app\models\Weapon2;
 use app\models\WeaponCategory2;
 use app\models\WeaponType2;
 use yii\helpers\ArrayHelper;
-use yii\web\NotFoundHttpException;
 use yii\web\ViewAction as BaseAction;
+
+use const SORT_ASC;
+use const SORT_DESC;
 
 /**
  * @property-read bool $isEditable
@@ -120,7 +118,7 @@ class EditBattleAction extends BaseAction
                 ->orderBy(['id' => SORT_ASC])
                 ->all();
             foreach ($types as $type) {
-                $typeName = ($category->name === $type->name)
+                $typeName = $category->name === $type->name
                     ? Yii::t('app-weapon2', $category->name)
                     : sprintf(
                         '%s » %s',
@@ -150,9 +148,7 @@ class EditBattleAction extends BaseAction
             ArrayHelper::map(
                 Rank2::find()->orderBy(['[[id]]' => SORT_DESC])->asArray()->all(),
                 'id',
-                function (array $row): string {
-                    return Yii::t('app-rank2', $row['name']);
-                }
+                fn (array $row): string => Yii::t('app-rank2', $row['name'])
             )
         );
     }

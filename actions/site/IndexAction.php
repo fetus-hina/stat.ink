@@ -9,8 +9,6 @@
 namespace app\actions\site;
 
 use yii\web\ViewAction as BaseAction;
-use app\models\Battle;
-use app\models\BattleImageType;
 
 class IndexAction extends BaseAction
 {

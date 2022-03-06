@@ -54,7 +54,7 @@ class LoginWithTwitterAction extends BaseAction
                 $info = LoginWithTwitter::findOne(['twitter_id' => $user['id_str']]);
                 if ($info && $info->login()) {
                     return $this->controller->goBack(
-                        ['show-user/profile', 'screen_name' => Yii::$app->user->identity->screen_name ]
+                        ['show-user/profile', 'screen_name' => Yii::$app->user->identity->screen_name]
                     );
                 }
 
@@ -66,10 +66,10 @@ class LoginWithTwitterAction extends BaseAction
             } else {
                 // 認証手続き
                 $token = $twitter->requestRequestToken();
-                $url = $twitter->getAuthorizationUri(array('oauth_token' => $token->getRequestToken()));
+                $url = $twitter->getAuthorizationUri(['oauth_token' => $token->getRequestToken()]);
                 return $response->redirect((string)$url, 303);
             }
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
         }
         throw new BadRequestHttpException('Bad request.');
     }

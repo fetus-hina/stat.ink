@@ -75,7 +75,7 @@ class UserStatNawabariAction extends BaseAction
             $result = [];
             foreach ($row as $k => $v) {
                 if ($k !== 'map') {
-                    $result[$k] = ($v === null) ? null : (float)$v;
+                    $result[$k] = $v === null ? null : (float)$v;
                 }
             }
             return $result;
@@ -121,15 +121,13 @@ class UserStatNawabariAction extends BaseAction
         }
 
         foreach ($maps as $map) {
-            if (!empty($map->battles)) {
+            if ($map->battles) {
                 $sum = array_sum(ArrayHelper::getColumn($map->battles, 'inked', false));
                 $map->avgInked = $sum / count($map->battles);
             }
         }
 
-        uasort($maps, function (stdClass $a, stdClass $b): int {
-            return strnatcasecmp($a->name, $b->name);
-        });
+        uasort($maps, fn (stdClass $a, stdClass $b): int => strnatcasecmp($a->name, $b->name));
 
         return $maps;
     }
@@ -162,7 +160,7 @@ class UserStatNawabariAction extends BaseAction
                 'movingWP50' => null,
             ];
         }
-        if (empty($battles)) {
+        if (!$battles) {
             return [];
         }
 
@@ -173,9 +171,7 @@ class UserStatNawabariAction extends BaseAction
             }
 
             $tmp = array_slice($battles, $currentIndex + 1 - $range, $range);
-            $win = count(array_filter($tmp, function ($a): bool {
-                return (bool)$a->is_win;
-            }));
+            $win = count(array_filter($tmp, fn ($a): bool => (bool)$a->is_win));
             return $win * 100 / $range;
         };
         $totalWin = 0;

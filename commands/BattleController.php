@@ -8,6 +8,7 @@
 
 namespace app\commands;
 
+use app\components\helpers\BattleAtom;
 use app\models\Battle;
 use app\models\Slack;
 use yii\console\Controller;
@@ -34,9 +35,9 @@ class BattleController extends Controller
             return 1;
         }
 
-        $atom = \app\components\helpers\BattleAtom::createUserFeed(
+        $atom = BattleAtom::createUserFeed(
             $battle->user,
-            [ $battle->id ]
+            [$battle->id]
         );
         echo $atom . "\n";
     }

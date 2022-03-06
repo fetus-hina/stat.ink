@@ -13,13 +13,13 @@ use DateTimeImmutable;
 use DateTimeInterface;
 use DateTimeZone;
 use Exception;
+use PDO;
 use Yii;
-use yii\console\Controller;
-use yii\db\BatchQueryResult;
-use yii\helpers\Console;
 use app\components\helpers\Resource;
 use app\models\Battle;
 use app\models\BattlePlayer;
+use yii\console\Controller;
+use yii\helpers\Json;
 
 class HasegawExportController extends Controller
 {
@@ -158,8 +158,8 @@ class HasegawExportController extends Controller
                     $quote($row['point']),
                 ]);
             }
-            if (!empty($insert)) {
-                echo "  player: " . count($insert) . "\n";
+            if ($insert) {
+                echo '  player: ' . count($insert) . "\n";
                 $a = $exp->exec(
                     $sql = 'INSERT INTO "battle_player" ("' . implode('", "', [
                         'id', 'battle_id', 'is_me', 'is_my_team', 'rank_in_team',
@@ -167,7 +167,7 @@ class HasegawExportController extends Controller
                     ]) . '") VALUES (' . implode('), (', $insert) . ')'
                 );
                 if (!$a) {
-                    var_dump($exp->errorInfo());
+                    echo Json::encode($exp->errorInfo());
                     exit;
                 }
             }
@@ -246,7 +246,7 @@ class HasegawExportController extends Controller
                 if (!preg_match('/[",\x0d\x0a]/', $cell)) {
                     return $cell;
                 }
-                return '"' . mb_str_replace('"', '""', $cell, 'UTF-8')  . '"';
+                return '"' . mb_str_replace('"', '""', $cell, 'UTF-8') . '"';
             },
             $row
         );
@@ -256,7 +256,7 @@ class HasegawExportController extends Controller
     protected function connectSqlite($path)
     {
         $dsn = 'sqlite:' . $path;
-        return new \PDO($dsn);
+        return new PDO($dsn);
     }
 
     protected function initBattleDb($path)

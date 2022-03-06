@@ -10,7 +10,6 @@ declare(strict_types=1);
 
 namespace app\models;
 
-use Yii;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\helpers\StringHelper;
@@ -18,9 +17,9 @@ use yii\helpers\StringHelper;
 /**
  * This is the model class for table "accept_language".
  *
- * @property integer $id
+ * @property int $id
  * @property string $rule
- * @property integer $language_id
+ * @property int $language_id
  *
  * @property Language $language
  */
@@ -63,10 +62,10 @@ class AcceptLanguage extends ActiveRecord
         $ruleB = $b->rule;
 
         if ($ruleA === '*' || $ruleB === '*') {
-            return ($ruleA === '*') ? 1 : -1;
+            return $ruleA === '*' ? 1 : -1;
         }
 
-        return (strlen($ruleB) - strlen($ruleA))
+        return strlen($ruleB) - strlen($ruleA)
             ?: strcmp(str_replace('*', chr(0), $ruleA), str_replace('*', chr(0), $ruleB));
     }
 

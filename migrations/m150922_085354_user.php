@@ -12,7 +12,7 @@ class m150922_085354_user extends Migration
 {
     public function up()
     {
-        $sha256HashLength = (int)ceil((256 / 8) * (4 / 3));
+        $sha256HashLength = (int)ceil(256 / 8 * 4 / 3);
         $this->createTable('user', [
             'id'            => $this->primaryKey(),
             'name'          => $this->string(15)->notNull(),

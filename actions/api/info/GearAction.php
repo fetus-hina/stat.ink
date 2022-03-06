@@ -9,12 +9,14 @@
 namespace app\actions\api\info;
 
 use Yii;
-use yii\web\NotFoundHttpException;
-use yii\web\ViewAction as BaseAction;
 use app\components\helpers\Translator;
-use app\models\Language;
 use app\models\Gear;
 use app\models\GearType;
+use app\models\Language;
+use yii\web\NotFoundHttpException;
+use yii\web\ViewAction as BaseAction;
+
+use const SORT_ASC;
 
 class GearAction extends BaseAction
 {
@@ -37,24 +39,20 @@ class GearAction extends BaseAction
     {
         $type = $this->getType();
         $gears = array_map(
-            function (array $gear): array {
-                return [
-                    'key'   => $gear['key'],
-                    'name'  => Yii::t('app-gear', $gear['name']),
-                    'names' => Translator::translateToAll('app-gear', $gear['name']),
-                    'brand' => Yii::t('app-brand', $gear['brand']['name'] ?? null),
-                    'ability' => Yii::t('app-ability', $gear['ability']['name'] ?? null),
-                ];
-            },
+            fn (array $gear): array => [
+                'key'   => $gear['key'],
+                'name'  => Yii::t('app-gear', $gear['name']),
+                'names' => Translator::translateToAll('app-gear', $gear['name']),
+                'brand' => Yii::t('app-brand', $gear['brand']['name'] ?? null),
+                'ability' => Yii::t('app-ability', $gear['ability']['name'] ?? null),
+            ],
             Gear::find()
                 ->with(['brand', 'ability'])
                 ->andWhere(['type_id' => $type->id])
                 ->asArray()
                 ->all()
         );
-        usort($gears, function (array $a, array $b): int {
-            return strnatcasecmp($a['name'], $b['name']);
-        });
+        usort($gears, fn (array $a, array $b): int => strnatcasecmp($a['name'], $b['name']));
 
         $langs = Language::find()->standard()->asArray()->all();
         $sysLang = Yii::$app->language;

@@ -21,18 +21,14 @@ class IdnToPunycodeFilterValidator extends FilterValidator
             if (strpos($value, '//') !== false) {
                 return preg_replace_callback(
                     '!(?<=//)([^/:]+)!',
-                    function ($match) {
-                        return strtolower(idn_to_ascii($match[1]));
-                    },
+                    fn ($match) => strtolower(idn_to_ascii($match[1])),
                     $value,
                     1
                 );
             }
             return preg_replace_callback(
                 '!^([^/:]+)!',
-                function ($match) {
-                    return strtolower(idn_to_ascii($match[1]));
-                },
+                fn ($match) => strtolower(idn_to_ascii($match[1])),
                 $value,
                 1
             );

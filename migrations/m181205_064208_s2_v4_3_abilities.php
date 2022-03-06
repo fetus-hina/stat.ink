@@ -20,9 +20,15 @@ class m181205_064208_s2_v4_3_abilities extends Migration
 
     public function safeDown()
     {
-        $this->update('ability2', ['splatnet' => null], ['key' => [
-            'bomb_defense_up_dx',
-            'main_power_up',
-        ]]);
+        $this->update(
+            'ability2',
+            ['splatnet' => null],
+            [
+                'key' => [
+                    'bomb_defense_up_dx',
+                    'main_power_up',
+                ],
+            ]
+        );
     }
 }

@@ -8,19 +8,19 @@
 
 namespace app\models;
 
-use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "country".
  *
- * @property integer $id
+ * @property int $id
  * @property string $key
  * @property string $name
  *
  * @property TimezoneCountry[] $timezoneCountries
  * @property Timezone[] $timezones
  */
-class Country extends \yii\db\ActiveRecord
+class Country extends ActiveRecord
 {
     /**
      * @inheritdoc
@@ -39,7 +39,7 @@ class Country extends \yii\db\ActiveRecord
             [['key', 'name'], 'required'],
             [['key'], 'string', 'max' => 2],
             [['name'], 'string', 'max' => 32],
-            [['key'], 'unique']
+            [['key'], 'unique'],
         ];
     }
 
@@ -84,7 +84,7 @@ class Country extends \yii\db\ActiveRecord
             if ($c < 'A' || $c > 'Z') {
                 return null;
             }
-            $results[] = 0x1f1e6 + (ord($c) - ord('A'));
+            $results[] = 0x1f1e6 + ord($c) - ord('A');
         }
         return $results;
     }

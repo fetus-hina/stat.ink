@@ -8,26 +8,27 @@
 
 namespace app\models;
 
-use Yii;
+use app\components\helpers\Battle;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "period_map".
  *
- * @property integer $id
- * @property integer $period
- * @property integer $rule_id
- * @property integer $map_id
+ * @property int $id
+ * @property int $period
+ * @property int $rule_id
+ * @property int $map_id
  *
  * @property Map $map
  * @property Rule $rule
  */
-class PeriodMap extends \yii\db\ActiveRecord
+class PeriodMap extends ActiveRecord
 {
     public static function findCurrentRegular()
     {
         return static::findByModeAndPeriod(
             'regular',
-            \app\components\helpers\Battle::calcPeriod(
+            Battle::calcPeriod(
                 @$_SERVER['REQUEST_TIME'] ?: time()
             )
         );
@@ -37,7 +38,7 @@ class PeriodMap extends \yii\db\ActiveRecord
     {
         return static::findByModeAndPeriod(
             'gachi',
-            \app\components\helpers\Battle::calcPeriod(
+            Battle::calcPeriod(
                 @$_SERVER['REQUEST_TIME'] ?: time()
             )
         );
@@ -47,7 +48,7 @@ class PeriodMap extends \yii\db\ActiveRecord
     {
         return static::findByModeAndPeriod(
             'regular',
-            \app\components\helpers\Battle::calcPeriod(
+            Battle::calcPeriod(
                 @$_SERVER['REQUEST_TIME'] ?: time()
             )
         );
@@ -57,7 +58,7 @@ class PeriodMap extends \yii\db\ActiveRecord
     {
         return static::findByModeAndPeriod(
             'gachi',
-            \app\components\helpers\Battle::calcPeriod(
+            Battle::calcPeriod(
                 @$_SERVER['REQUEST_TIME'] ?: time()
             )
         );
@@ -75,27 +76,27 @@ class PeriodMap extends \yii\db\ActiveRecord
 
     public static function getSchedule()
     {
-        $currentPeriod = \app\components\helpers\Battle::calcPeriod(
+        $currentPeriod = Battle::calcPeriod(
             @$_SERVER['REQUEST_TIME'] ?: time()
         );
         $ret = (object)[
             'current' => (object)[
-                't' => \app\components\helpers\Battle::periodToRange($currentPeriod),
+                't' => Battle::periodToRange($currentPeriod),
                 'regular' => [],
                 'gachi' => [],
             ],
             'next' => (object)[
-                't' => \app\components\helpers\Battle::periodToRange($currentPeriod + 1),
+                't' => Battle::periodToRange($currentPeriod + 1),
                 'regular' => [],
                 'gachi' => [],
             ],
         ];
         $list = static::findByModeAndPeriod(
-            [ 'regular', 'gachi' ],
-            [ $currentPeriod, $currentPeriod + 1 ]
+            ['regular', 'gachi'],
+            [$currentPeriod, $currentPeriod + 1]
         )->all();
         foreach ($list as $o) {
-            $key = ($o->period == $currentPeriod) ? 'current' : 'next';
+            $key = $o->period == $currentPeriod ? 'current' : 'next';
             $ret->$key->{$o->rule->mode->key}[] = $o;
         }
         return $ret;
@@ -116,7 +117,7 @@ class PeriodMap extends \yii\db\ActiveRecord
     {
         return [
             [['period', 'rule_id', 'map_id'], 'required'],
-            [['period', 'rule_id', 'map_id'], 'integer']
+            [['period', 'rule_id', 'map_id'], 'integer'],
         ];
     }
 

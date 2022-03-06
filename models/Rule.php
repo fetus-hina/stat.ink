@@ -10,13 +10,16 @@ namespace app\models;
 
 use Yii;
 use app\components\helpers\Translator;
+use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
+
+use const SORT_ASC;
 
 /**
  * This is the model class for table "rule".
  *
- * @property integer $id
- * @property integer $mode_id
+ * @property int $id
+ * @property int $mode_id
  * @property string $key
  * @property string $name
  *
@@ -27,7 +30,7 @@ use yii\helpers\ArrayHelper;
  * @property Weapon[] $weapons
  * @property StatWeaponBattleCount $statWeaponBattleCount
  */
-final class Rule extends \yii\db\ActiveRecord
+final class Rule extends ActiveRecord
 {
     use SafeFindOneTrait;
     use openapi\Util;
@@ -51,7 +54,7 @@ final class Rule extends \yii\db\ActiveRecord
             [['key', 'short_name'], 'string', 'max' => 16],
             [['name'], 'string', 'max' => 32],
             [['key'], 'unique'],
-            [['name'], 'unique']
+            [['name'], 'unique'],
         ];
     }
 
@@ -165,9 +168,7 @@ final class Rule extends \yii\db\ActiveRecord
             ->orderBy(['id' => SORT_ASC])
             ->all();
         return array_map(
-            function (self $model): array {
-                return $model->toJsonArray();
-            },
+            fn (self $model): array => $model->toJsonArray(),
             $values
         );
     }

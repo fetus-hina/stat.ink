@@ -79,9 +79,7 @@ class LocationColumnWidget extends Widget
         return Html::tag(
             'div',
             implode('', array_map(
-                function (string $html): string {
-                    return Html::tag('div', $html);
-                },
+                fn (string $html): string => Html::tag('div', $html),
                 array_filter([
                     $this->renderLocation(),
                     $this->renderIpAddress(),
@@ -111,7 +109,7 @@ class LocationColumnWidget extends Widget
                 $this->renderLocationText($city),
                 $this->renderLocationIcon($city),
             ]));
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             return null;
         }
     }
@@ -124,9 +122,7 @@ class LocationColumnWidget extends Widget
             }
 
             $lang = $this->geoip->lang;
-            return isset($obj->names[$lang])
-                ? $obj->names[$lang]
-                : $obj->name;
+            return $obj->names[$lang] ?? $obj->name;
         };
 
         return Html::encode(implode(', ', array_filter([
@@ -175,7 +171,7 @@ class LocationColumnWidget extends Widget
         if ($this->cityInfo === false) {
             try {
                 $this->cityInfo = $this->geoip->city($this->remoteAddr);
-            } catch (\Exception $e) {
+            } catch (\Throwable $e) {
                 $this->cityInfo = null;
             }
         }

@@ -8,14 +8,13 @@
 
 namespace app\models;
 
-use Yii;
 use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "mode_rule2".
  *
- * @property integer $mode_id
- * @property integer $rule_id
+ * @property int $mode_id
+ * @property int $rule_id
  *
  * @property Mode2 $mode
  * @property Rule2 $rule

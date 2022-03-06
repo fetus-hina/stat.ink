@@ -10,8 +10,10 @@ declare(strict_types=1);
 
 namespace app\components\helpers;
 
-use GeoIp2\Model\City as GeoCity;
 use Yii;
+
+use const DNS_A;
+use const DNS_AAAA;
 
 class IPHelper
 {

@@ -20,6 +20,8 @@ use yii\helpers\Url;
 use yii\web\BadRequestHttpException;
 use yii\web\ViewAction as BaseAction;
 
+use function file_get_contents;
+
 class IconTwitterAction extends BaseAction
 {
     public function init()
@@ -58,7 +60,7 @@ class IconTwitterAction extends BaseAction
                         // 利用不可
                         throw new \Exception('Could not get url');
                     }
-                    if (!$binary = \file_get_contents($url)) {
+                    if (!$binary = file_get_contents($url)) {
                         throw new \Exception('Could not get binary');
                     }
                     $transaction = Yii::$app->db->beginTransaction();
@@ -77,7 +79,7 @@ class IconTwitterAction extends BaseAction
                         Yii::t('app', 'Your profile icon has been updated.')
                     );
                     return $response->redirect(Url::to(['user/profile'], true), 303);
-                } catch (\Exception $e) {
+                } catch (\Throwable $e) {
                     Yii::$app->session->addFlash(
                         'danger',
                         Yii::t('app', 'Could not get your twitter icon at this time.')
@@ -87,10 +89,10 @@ class IconTwitterAction extends BaseAction
             } else {
                 // 認証手続き
                 $token = $twitter->requestRequestToken();
-                $url = $twitter->getAuthorizationUri(array('oauth_token' => $token->getRequestToken()));
+                $url = $twitter->getAuthorizationUri(['oauth_token' => $token->getRequestToken()]);
                 return $response->redirect((string)$url, 303);
             }
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
         }
         throw new BadRequestHttpException('Bad request.');
     }

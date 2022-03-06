@@ -1,5 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
+use Codeception\Actor;
+use _generated\UnitTesterActions;
+
 /**
  * Inherited Methods
  * @method void wantToTest($text)
@@ -15,11 +20,7 @@
  *
  * @SuppressWarnings(PHPMD)
 */
-class UnitTester extends \Codeception\Actor
+class UnitTester extends Actor
 {
-    use _generated\UnitTesterActions;
-
-   /**
-    * Define custom actions here
-    */
+    use UnitTesterActions;
 }

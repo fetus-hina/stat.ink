@@ -43,7 +43,7 @@ class m181105_075126_kensa_201811 extends Migration
                 'ultrahanko',
                 'l3reelgun',
                 null,
-                302
+                302,
             ],
         ];
     }

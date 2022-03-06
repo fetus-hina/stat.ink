@@ -30,9 +30,7 @@ class m171219_110233_fest_theme_table extends Migration
     private function createData(): array
     {
         return array_map( // [ [name], [name], [name] ... ] ( for batchInsert )
-            function (string $name): array {
-                return [$name];
-            },
+            fn (string $name): array => [$name],
             array_keys( // [ name, name, name ... ]
                 $this->mergeData( // [ name => first_seen ]
                     $this->queryData('my_team_fes_theme'), // [ name => first_seen ]

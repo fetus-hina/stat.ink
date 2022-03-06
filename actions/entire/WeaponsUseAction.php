@@ -51,7 +51,7 @@ class WeaponsUseAction extends BaseAction
     public function getWeapons(): array
     {
         return array_merge(
-            [ '' => '-' ],
+            ['' => '-'],
             $this->getWeaponGroups(),
             [
                 Yii::t('app', 'Main Weapon') => $this->getMainWeapon(),
@@ -67,7 +67,7 @@ class WeaponsUseAction extends BaseAction
         foreach (WeaponType::find()->orderBy('[[id]] ASC')->all() as $type) {
             $typeName = Yii::t('app-weapon', $type->name);
             $ret[$typeName] = array_merge(
-                [ "@{$type->key}" => Yii::t('app-weapon', 'All of {0}', $typeName) ],
+                ["@{$type->key}" => Yii::t('app-weapon', 'All of {0}', $typeName)],
                 (function (WeaponType $type): array {
                     $ret = [];
                     foreach ($type->weapons as $weapon) {
@@ -135,7 +135,7 @@ class WeaponsUseAction extends BaseAction
         foreach (GameMode::find()->with('rules')->orderBy('[[id]] ASC')->all() as $mode) {
             $modeName = Yii::t('app-rule', $mode->name);
 
-            $all = (count($mode->rules) > 1)
+            $all = count($mode->rules) > 1
                     ? ["@{$mode->key}" => Yii::t('app-rule', 'All of {0}', [$modeName])]
                     : [];
 
@@ -193,17 +193,15 @@ class WeaponsUseAction extends BaseAction
             ->andWhere(['between',
                 'date',
                 date('Y-m-d\TH:i:sO', $first),
-                date('Y-m-d\TH:i:sO', $last)
+                date('Y-m-d\TH:i:sO', $last),
             ])
             ->orderBy('[[date]] ASC');
 
-        return array_map(function (array $row): array {
-            return [
-                date('Y-m-d', strtotime(date('o-\WW', strtotime($row['date'])))),
-                Yii::t('app-event', $row['name']),
-                $row['icon'],
-            ];
-        }, $query->asArray()->all());
+        return array_map(fn (array $row): array => [
+            date('Y-m-d', strtotime(date('o-\WW', strtotime($row['date'])))),
+            Yii::t('app-event', $row['name']),
+            $row['icon'],
+        ], $query->asArray()->all());
     }
 
     protected function makeLegend($weapon, $rule): string
@@ -277,7 +275,7 @@ class WeaponsUseAction extends BaseAction
                 ['and',
                     ['=', '{{stat}}.[[isoyear]]', 2015],
                     ['>=', '{{stat}}.[[isoweek]]', 46],
-                ]
+                ],
             ])
             ->groupBy('{{stat}}.[[isoyear]], {{stat}}.[[isoweek]]')
             ->orderBy('{{stat}}.[[isoyear]], {{stat}}.[[isoweek]]');

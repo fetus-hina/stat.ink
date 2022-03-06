@@ -8,39 +8,38 @@
 
 namespace app\models;
 
-use Yii;
 use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "stat_weapon2_use_count".
  *
- * @property integer $period
- * @property integer $rule_id
- * @property integer $weapon_id
- * @property integer $map_id
- * @property integer $battles
- * @property integer $wins
- * @property integer $kills
- * @property integer $deaths
- * @property integer $kd_available
- * @property integer $kills_with_time
- * @property integer $deaths_with_time
- * @property integer $kd_time_available
- * @property integer $kd_time_seconds
- * @property integer $specials
- * @property integer $specials_available
- * @property integer $specials_with_time
- * @property integer $specials_time_available
- * @property integer $specials_time_seconds
- * @property integer $inked
- * @property integer $inked_available
- * @property integer $inked_with_time
- * @property integer $inked_time_available
- * @property integer $inked_time_seconds
- * @property integer $knockout_wins
- * @property integer $timeup_wins
- * @property integer $knockout_loses
- * @property integer $timeup_loses
+ * @property int $period
+ * @property int $rule_id
+ * @property int $weapon_id
+ * @property int $map_id
+ * @property int $battles
+ * @property int $wins
+ * @property int $kills
+ * @property int $deaths
+ * @property int $kd_available
+ * @property int $kills_with_time
+ * @property int $deaths_with_time
+ * @property int $kd_time_available
+ * @property int $kd_time_seconds
+ * @property int $specials
+ * @property int $specials_available
+ * @property int $specials_with_time
+ * @property int $specials_time_available
+ * @property int $specials_time_seconds
+ * @property int $inked
+ * @property int $inked_available
+ * @property int $inked_with_time
+ * @property int $inked_time_available
+ * @property int $inked_time_seconds
+ * @property int $knockout_wins
+ * @property int $timeup_wins
+ * @property int $knockout_loses
+ * @property int $timeup_loses
  *
  * @property Rule2 $rule
  * @property Weapon2 $weapon

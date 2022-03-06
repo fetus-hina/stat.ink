@@ -11,7 +11,6 @@ declare(strict_types=1);
 namespace app\models;
 
 use LogicException;
-use Normalizer;
 use Yii;
 use app\models\ch\SfItem;
 use app\models\ch\SfList;
@@ -20,10 +19,12 @@ use yii\db\ActiveRecord;
 use yii\helpers\Json;
 use yii\web\HeaderCollection;
 
+use const SORT_STRING;
+
 /**
  * This is the model class for table "http_client_hint".
  *
- * @property integer $id
+ * @property int $id
  * @property string $hash
  * @property array $value
  *
@@ -118,7 +119,7 @@ class HttpClientHint extends ActiveRecord
                 return null;
             }
 
-            if (empty($list->items)) {
+            if (!$list->items) {
                 return null;
             }
 

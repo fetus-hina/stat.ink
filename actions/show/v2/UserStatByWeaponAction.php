@@ -14,10 +14,10 @@ use Yii;
 use app\models\Battle2;
 use app\models\Battle2FilterForm;
 use app\models\User;
-use app\models\Weapon2;
-use yii\db\Query;
 use yii\web\NotFoundHttpException;
 use yii\web\ViewAction;
+
+use const SORT_DESC;
 
 class UserStatByWeaponAction extends ViewAction
 {
@@ -58,20 +58,18 @@ class UserStatByWeaponAction extends ViewAction
             'ELSE {{battle2}}.[[death]]',
         ]));
 
-        $mkColumns = function (string $name, string $param): array {
-            return [
-                "min_{$name}" => "MIN({$param})",
-                "p5_{$name}"  => "PERCENTILE_CONT(0.05) WITHIN GROUP (ORDER BY {$param})",
-                "q1_{$name}"  => "PERCENTILE_CONT(0.25) WITHIN GROUP (ORDER BY {$param})",
-                "med_{$name}" => "PERCENTILE_CONT(0.50) WITHIN GROUP (ORDER BY {$param})",
-                "q3_{$name}"  => "PERCENTILE_CONT(0.75) WITHIN GROUP (ORDER BY {$param})",
-                "p95_{$name}" => "PERCENTILE_CONT(0.95) WITHIN GROUP (ORDER BY {$param})",
-                "max_{$name}" => "MAX({$param})",
-                "avg_{$name}" => "AVG({$param})",
-                "sd_{$name}"  => "STDDEV_POP({$param})",
-                "mod_{$name}" => "mode() WITHIN GROUP (ORDER BY {$param})",
-            ];
-        };
+        $mkColumns = fn (string $name, string $param): array => [
+            "min_{$name}" => "MIN({$param})",
+            "p5_{$name}"  => "PERCENTILE_CONT(0.05) WITHIN GROUP (ORDER BY {$param})",
+            "q1_{$name}"  => "PERCENTILE_CONT(0.25) WITHIN GROUP (ORDER BY {$param})",
+            "med_{$name}" => "PERCENTILE_CONT(0.50) WITHIN GROUP (ORDER BY {$param})",
+            "q3_{$name}"  => "PERCENTILE_CONT(0.75) WITHIN GROUP (ORDER BY {$param})",
+            "p95_{$name}" => "PERCENTILE_CONT(0.95) WITHIN GROUP (ORDER BY {$param})",
+            "max_{$name}" => "MAX({$param})",
+            "avg_{$name}" => "AVG({$param})",
+            "sd_{$name}"  => "STDDEV_POP({$param})",
+            "mod_{$name}" => "mode() WITHIN GROUP (ORDER BY {$param})",
+        ];
 
         $query = Battle2::find() // {{{
             ->innerJoinWith([
@@ -116,7 +114,7 @@ class UserStatByWeaponAction extends ViewAction
             $query->applyFilter($filter);
         }
 
-        $list = array_map(
+        return array_map(
             function (array $row): array {
                 foreach ($row as $key => $value) {
                     if ($value === null) {
@@ -151,7 +149,6 @@ class UserStatByWeaponAction extends ViewAction
             },
             $query->createCommand()->queryAll()
         );
-        return $list;
         // }}}
     }
 }

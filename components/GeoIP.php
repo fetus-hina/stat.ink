@@ -52,7 +52,7 @@ class GeoIP extends Component
 
         try {
             return new Reader($dbPath, $locales);
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             return null;
         }
     }
@@ -72,7 +72,7 @@ class GeoIP extends Component
                 return substr($appLang, 0, 2);
 
             case 'zh':
-                return ($appLang === 'zh-CN')
+                return $appLang === 'zh-CN'
                     ? 'zh-CN'
                     : 'zh-TW';
 

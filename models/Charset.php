@@ -8,22 +8,22 @@
 
 namespace app\models;
 
-use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "charset".
  *
- * @property integer $id
+ * @property int $id
  * @property string $name
  * @property string $php_name
- * @property integer $substitute
- * @property boolean $is_unicode
- * @property integer $order
+ * @property int $substitute
+ * @property bool $is_unicode
+ * @property int $order
  *
  * @property LanguageCharset[] $languageCharsets
  * @property Language[] $languages
  */
-class Charset extends \yii\db\ActiveRecord
+class Charset extends ActiveRecord
 {
     /**
      * @inheritdoc

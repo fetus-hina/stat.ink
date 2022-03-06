@@ -6,17 +6,17 @@
  * @author AIZAWA Hina <hina@fetus.jp>
  */
 
-use yii\db\Migration;
 use app\models\Ability;
 use app\models\Brand;
 use app\models\GearType;
+use yii\db\Migration;
 
 class m160604_103816_corocoro_gear extends Migration
 {
     public function safeUp()
     {
         $zekko = Brand::findOne(['key' => 'zekko'])->id;
-        $this->batchInsert('gear', [ 'key', 'type_id', 'brand_id', 'name', 'ability_id'], [
+        $this->batchInsert('gear', ['key', 'type_id', 'brand_id', 'name', 'ability_id'], [
             [
                 'corocoro_cap',
                 GearType::findOne(['key' => 'headgear'])->id,
@@ -36,9 +36,11 @@ class m160604_103816_corocoro_gear extends Migration
 
     public function safeDown()
     {
-        $this->delete('gear', ['key' => [
-            'corocoro_cap',
-            'corocoro_parka',
-        ]]);
+        $this->delete('gear', [
+            'key' => [
+                'corocoro_cap',
+                'corocoro_parka',
+            ],
+        ]);
     }
 }

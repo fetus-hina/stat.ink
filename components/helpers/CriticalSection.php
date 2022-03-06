@@ -12,6 +12,7 @@ use RuntimeException;
 use Yii;
 use yii\base\Component;
 use yii\base\InvalidConfigException;
+use yii\mutex\Mutex;
 
 class CriticalSection extends Component
 {
@@ -44,7 +45,7 @@ class CriticalSection extends Component
         if ($this->timeout < 0) {
             throw new InvalidConfigException('$mutex->timeout is now negative value.');
         }
-        if (!$this->mutex instanceof \yii\mutex\Mutex) {
+        if (!$this->mutex instanceof Mutex) {
             throw new InvalidConfigException('$mutex->mutex is not instance of \yii\mutex\Mutex class.');
         }
         Yii::trace(__METHOD__ . '(): Entering a critical section that named ' . $this->name);

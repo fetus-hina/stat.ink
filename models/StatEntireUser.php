@@ -8,16 +8,16 @@
 
 namespace app\models;
 
-use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "stat_entire_user".
  *
  * @property string $date
- * @property integer $battle_count
- * @property integer $user_count
+ * @property int $battle_count
+ * @property int $user_count
  */
-class StatEntireUser extends \yii\db\ActiveRecord
+class StatEntireUser extends ActiveRecord
 {
     /**
      * @inheritdoc
@@ -35,7 +35,7 @@ class StatEntireUser extends \yii\db\ActiveRecord
         return [
             [['date', 'battle_count', 'user_count'], 'required'],
             [['date'], 'safe'],
-            [['battle_count', 'user_count'], 'integer']
+            [['battle_count', 'user_count'], 'integer'],
         ];
     }
 

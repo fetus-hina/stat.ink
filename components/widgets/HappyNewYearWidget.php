@@ -68,10 +68,12 @@ class HappyNewYearWidget extends Widget
                 $asset,
                 "eto/{$eto}.png"
             ),
-            ['style' => [
-                'width' => 'auto',
-                'height' => '100px',
-            ]]
+            [
+                'style' => [
+                    'width' => 'auto',
+                    'height' => '100px',
+                ],
+            ]
         );
 
         $lang = Yii::$app->language;

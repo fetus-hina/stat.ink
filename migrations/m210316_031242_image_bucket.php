@@ -20,7 +20,7 @@ class m210316_031242_image_bucket extends Migration
         ]);
         $this->insert('image_bucket', [
             'id' => 1,
-            'name' => 'default'
+            'name' => 'default',
         ]);
 
         $this->addColumn(

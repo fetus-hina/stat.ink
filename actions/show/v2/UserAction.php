@@ -18,6 +18,9 @@ use yii\web\Cookie;
 use yii\web\NotFoundHttpException;
 use yii\web\ViewAction as BaseAction;
 
+use const ARRAY_FILTER_USE_KEY;
+use const SORT_DESC;
+
 class UserAction extends BaseAction
 {
     public function run()
@@ -87,9 +90,7 @@ class UserAction extends BaseAction
             if ($filter->id_from && $filter->id_to) {
                 $tmp = explode(' ', (string)$filter->filter);
                 $tmp = array_filter($tmp);
-                $tmp = array_filter($tmp, function (string $value): bool {
-                    return substr($value, 0, 3) !== 'id:';
-                });
+                $tmp = array_filter($tmp, fn (string $value): bool => substr($value, 0, 3) !== 'id:');
                 $tmp[] = sprintf('id:%d-%d', (int)$filter->id_from, (int)$filter->id_to);
                 $filter->filter = implode(' ', $tmp);
 
@@ -98,9 +99,7 @@ class UserAction extends BaseAction
                     'screen_name' => $user->screen_name,
                     'filter' => array_filter(
                         $filter->attributes,
-                        function (string $key): bool {
-                            return !in_array($key, ['screen_name', 'id_from', 'id_to'], true);
-                        },
+                        fn (string $key): bool => !in_array($key, ['screen_name', 'id_from', 'id_to'], true),
                         ARRAY_FILTER_USE_KEY
                     ),
                 ];
@@ -120,11 +119,10 @@ class UserAction extends BaseAction
 
         $summary = $battle->summary;
 
-        $isPjax = $request->isPjax;
         $template = $this->viewMode === 'simple' ? 'user.simple.php' : 'user';
         return $this->controller->render($template, [
-            'user'      => $user,
-            'filter'    => $filter,
+            'user' => $user,
+            'filter' => $filter,
             'battleDataProvider' => Yii::createObject([
                 'class' => ActiveDataProvider::class,
                 'query' => $battle,
@@ -133,8 +131,8 @@ class UserAction extends BaseAction
                 ],
                 'sort' => false,
             ]),
-            'summary'   => $summary,
-            'permLink'  => $permLink,
+            'summary' => $summary,
+            'permLink' => $permLink,
         ]);
     }
 

@@ -9,8 +9,8 @@
 namespace app\controllers;
 
 use Yii;
-use yii\filters\VerbFilter;
 use app\components\web\Controller;
+use yii\filters\VerbFilter;
 
 class ApiV1Controller extends Controller
 {

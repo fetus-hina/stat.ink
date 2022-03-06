@@ -10,8 +10,9 @@ declare(strict_types=1);
 
 namespace app\components\helpers;
 
-use Yii;
 use yii\base\Component;
+
+use const FILTER_VALIDATE_INT;
 
 class ApiInputFormatter extends Component
 {
@@ -33,7 +34,7 @@ class ApiInputFormatter extends Component
         }
 
         $value = filter_var($value, FILTER_VALIDATE_INT);
-        return ($value === false) ? null : $value;
+        return $value === false ? null : $value;
     }
 
     public function asKeyId(

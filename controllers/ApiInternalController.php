@@ -10,7 +10,6 @@ declare(strict_types=1);
 
 namespace app\controllers;
 
-use Yii;
 use app\actions\api\internal\ActivityAction;
 use app\actions\api\internal\BlogEntryAction;
 use app\actions\api\internal\CounterAction;

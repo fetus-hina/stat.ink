@@ -24,16 +24,16 @@ use yii\db\Expression as DbExpr;
 /**
  * This is the model class for table "user_login_history".
  *
- * @property integer $id
- * @property integer $user_id
- * @property integer $method_id
+ * @property int $id
+ * @property int $user_id
+ * @property int $method_id
  * @property string $remote_addr
- * @property integer $remote_port
+ * @property int $remote_port
  * @property string $remote_host
- * @property integer $user_agent_id
+ * @property int $user_agent_id
  * @property string $created_at
  * @property string $updated_at
- * @property integer $client_hint_id
+ * @property int $client_hint_id
  *
  * @property HttpClientHint $clientHint
  * @property LoginMethod $method

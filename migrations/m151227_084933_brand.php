@@ -6,8 +6,8 @@
  * @author AIZAWA Hina <hina@fetus.jp>
  */
 
-use yii\db\Migration;
 use app\models\Ability;
+use yii\db\Migration;
 
 class m151227_084933_brand extends Migration
 {

@@ -8,22 +8,22 @@
 
 namespace app\models;
 
-use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "splatfest_battle_summary".
  *
- * @property integer $fest_id
+ * @property int $fest_id
  * @property string $timestamp
- * @property integer $alpha_win
- * @property integer $alpha_lose
- * @property integer $bravo_win
- * @property integer $bravo_lose
+ * @property int $alpha_win
+ * @property int $alpha_lose
+ * @property int $bravo_win
+ * @property int $bravo_lose
  * @property string $summarized_at
  *
  * @property Splatfest $fest
  */
-class SplatfestBattleSummary extends \yii\db\ActiveRecord
+class SplatfestBattleSummary extends ActiveRecord
 {
     /**
      * @inheritdoc
@@ -42,7 +42,7 @@ class SplatfestBattleSummary extends \yii\db\ActiveRecord
             [['fest_id', 'timestamp', 'alpha_win', 'alpha_lose', 'bravo_win', 'bravo_lose'], 'required'],
             [['summarized_at'], 'required'],
             [['fest_id', 'alpha_win', 'alpha_lose', 'bravo_win', 'bravo_lose'], 'integer'],
-            [['timestamp', 'summarized_at'], 'safe']
+            [['timestamp', 'summarized_at'], 'safe'],
         ];
     }
 

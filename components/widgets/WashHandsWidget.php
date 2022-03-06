@@ -55,12 +55,16 @@ class WashHandsWidget extends Widget
     {
         $icon = call_user_func([FA::class, $faCategory], $faIcon)->fw();
         $this->view->registerCss(implode('', [
-            Html::renderCss(['#' . $icon->id => [
-                'font-size' => '4em',
-            ]]),
-            sprintf('@media (min-width:768px){%s}', Html::renderCss(['#' . $icon->id => [
-                'font-size' => '5em',
-            ]])),
+            Html::renderCss([
+                '#' . $icon->id => [
+                    'font-size' => '4em',
+                ],
+            ]),
+            sprintf('@media (min-width:768px){%s}', Html::renderCss([
+                '#' . $icon->id => [
+                    'font-size' => '5em',
+                ],
+            ])),
         ]));
         return Html::tag('span', (string)$icon, [
             'class' => [
@@ -75,12 +79,16 @@ class WashHandsWidget extends Widget
     {
         $id = $this->id . '-text';
         $this->view->registerCss(implode('', [
-            Html::renderCss(['#' . $id => [
-                'font-size' => '32px',
-            ]]),
-            sprintf('@media (min-width:768px){%s}', Html::renderCss(['#' . $id => [
-                'font-size' => '40px',
-            ]])),
+            Html::renderCss([
+                '#' . $id => [
+                    'font-size' => '32px',
+                ],
+            ]),
+            sprintf('@media (min-width:768px){%s}', Html::renderCss([
+                '#' . $id => [
+                    'font-size' => '40px',
+                ],
+            ])),
         ]));
 
         return Html::tag(

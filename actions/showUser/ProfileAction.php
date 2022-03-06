@@ -15,6 +15,8 @@ use yii\helpers\Url;
 use yii\web\NotFoundHttpException;
 use yii\web\ViewAction as BaseAction;
 
+use const SORT_DESC;
+
 class ProfileAction extends BaseAction
 {
     public function run()
@@ -57,7 +59,7 @@ class ProfileAction extends BaseAction
             ->all();
 
         $permLink = Url::to(['show-user/profile', 'screen_name' => $user->screen_name], true);
-        list($activityFrom, $activityTo) = BattleHelper::getActivityDisplayRange();
+        [$activityFrom, $activityTo] = BattleHelper::getActivityDisplayRange();
 
         return $this->controller->render('profile', [
             'user' => $user,

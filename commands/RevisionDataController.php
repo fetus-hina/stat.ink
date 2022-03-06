@@ -14,6 +14,8 @@ use app\components\Version;
 use yii\console\Controller;
 use yii\helpers\Json;
 
+use const STDERR;
+
 class RevisionDataController extends Controller
 {
     public function actionIndex(): int

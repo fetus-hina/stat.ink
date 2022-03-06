@@ -16,8 +16,8 @@ use yii\db\ActiveRecord;
 /**
  * This is the model class for table "ostatus_rsa".
  *
- * @property integer $user_id
- * @property integer $bits
+ * @property int $user_id
+ * @property int $bits
  * @property string $privkey
  * @property string $pubkey
  * @property string $modulus
@@ -32,7 +32,7 @@ class OstatusRsa extends ActiveRecord
     // should call save() after return
     public static function factory(int $user_id, int $bits = 2048): self
     {
-        $b64 = fn($binary) => strtr(base64_encode($binary), '+/', '-_');
+        $b64 = fn ($binary) => strtr(base64_encode($binary), '+/', '-_');
 
         $privateKey = RSA::createKey($bits);
         $publicKey = $privateKey->getPublicKey();

@@ -15,6 +15,8 @@ use Yii;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 
+use const DIRECTORY_SEPARATOR;
+
 trait Util
 {
     /** @return array<string, string> */
@@ -118,14 +120,10 @@ trait Util
                 ),
                 ArrayHelper::getColumn(
                     $items,
-                    function ($item) use ($splatnetKeys): array {
-                        return array_map(
-                            function ($key) use ($item): string {
-                                return (string)ArrayHelper::getValue($item, $key);
-                            },
-                            $splatnetKeys
-                        );
-                    }
+                    fn ($item): array => array_map(
+                        fn ($key): string => (string)ArrayHelper::getValue($item, $key),
+                        $splatnetKeys
+                    )
                 )
             ),
         ]));
@@ -161,21 +159,17 @@ trait Util
         array $splatnetValues
     ): string {
         return Html::tag('tbody', implode('', array_map(
-            function (string $key, string $value, array $splatnetValues): string {
-                return Html::tag('tr', implode('', [
-                    Html::tag('td', Html::tag('code', Html::encode($key))),
-                    Html::tag('td', Html::encode($value)),
-                    implode('', array_map(
-                        function (string $value): string {
-                            return Html::tag(
-                                'td',
-                                $value === '' ? '' : Html::tag('code', Html::encode($value))
-                            );
-                        },
-                        $splatnetValues
-                    )),
-                ]));
-            },
+            fn (string $key, string $value, array $splatnetValues): string => Html::tag('tr', implode('', [
+                Html::tag('td', Html::tag('code', Html::encode($key))),
+                Html::tag('td', Html::encode($value)),
+                implode('', array_map(
+                    fn (string $value): string => Html::tag(
+                        'td',
+                        $value === '' ? '' : Html::tag('code', Html::encode($value))
+                    ),
+                    $splatnetValues
+                )),
+            ])),
             $keys,
             $values,
             $splatnetValues

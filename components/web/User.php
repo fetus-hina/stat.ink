@@ -13,8 +13,12 @@ use yii\base\InvalidValueException;
 use yii\helpers\StringHelper;
 use yii\web\Cookie;
 use yii\web\IdentityInterface;
+use yii\web\User as BaseUser;
 
-class User extends \yii\web\User
+use const JSON_ERROR_NONE;
+use const OPENSSL_RAW_DATA;
+
+class User extends BaseUser
 {
     public const CRYPT_KEY_BITS = 256;
     public const CRYPT_METHOD = 'aes-256-gcm';
@@ -49,7 +53,7 @@ class User extends \yii\web\User
                 if (!$identity instanceof IdentityInterface) {
                     throw new InvalidValueException(
                         "$class::findIdentity() must return an object " .
-                        "implementing IdentityInterface."
+                        'implementing IdentityInterface.'
                     );
                 } elseif (!$identity->validateAuthKey($data['authKey'])) {
                     Yii::warning(

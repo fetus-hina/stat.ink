@@ -13,15 +13,12 @@ namespace app\components\widgets;
 use Yii;
 use app\assets\GearAbilityNumberSwitcherAsset;
 use app\assets\Spl2WeaponAsset;
-use app\components\widgets\AbilityIcon;
 use app\models\Ability2Info;
-use app\models\Special2;
 use yii\base\Widget;
 use yii\bootstrap\ButtonDropdown;
 use yii\data\ArrayDataProvider;
 use yii\grid\Column;
 use yii\grid\GridView;
-use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Json;
 
@@ -85,7 +82,7 @@ class Spl2GearAbilitiesSummaryWidget extends Widget
                                             'height' => '1.667em',
                                         ],
                                     ]),
-                                    Html::encode(Yii::t('app-ability2', $model->ability->name))
+                                    Html::encode(Yii::t('app-ability2', $model->ability->name)),
                                 ]),
                                 ['class' => 'visible-lg-block']
                             );
@@ -117,9 +114,11 @@ class Spl2GearAbilitiesSummaryWidget extends Widget
                                     implode('', [
                                         Html::img(
                                             $icons->getIconUrl('sp/' . $sp->key),
-                                            ['style' => [
-                                                'height' => '1.333em',
-                                            ]]
+                                            [
+                                                'style' => [
+                                                    'height' => '1.333em',
+                                                ],
+                                            ]
                                         ),
                                         Html::encode(Yii::t('app-special2', $sp->name)),
                                     ]),
@@ -230,14 +229,12 @@ class Spl2GearAbilitiesSummaryWidget extends Widget
                     [
                         'label' => Yii::t('app', 'Effects'),
                         'format' => 'ntext',
-                        'value' => function (
+                        'value' => fn (
                             Ability2Info $model,
                             $key,
                             $index,
                             Column $column
-                        ): string {
-                            return (string)$model->coefficient;
-                        }
+                        ): string => (string)$model->coefficient,
                     ],
                 ],
             ]),

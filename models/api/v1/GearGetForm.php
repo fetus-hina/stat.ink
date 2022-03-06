@@ -8,12 +8,11 @@
 
 namespace app\models\api\v1;
 
-use Yii;
-use yii\base\Model;
-use yii\db\ActiveQuery;
 use app\models\Ability;
 use app\models\Brand;
 use app\models\GearType;
+use yii\base\Model;
+use yii\db\ActiveQuery;
 
 class GearGetForm extends Model
 {
@@ -26,13 +25,16 @@ class GearGetForm extends Model
         return [
             [['type'], 'exist',
                 'targetClass' => GearType::class,
-                'targetAttribute' => 'key'],
+                'targetAttribute' => 'key',
+            ],
             [['brand'], 'exist',
                 'targetClass' => Brand::class,
-                'targetAttribute' => 'key'],
+                'targetAttribute' => 'key',
+            ],
             [['ability'], 'exist',
                 'targetClass' => Ability::class,
-                'targetAttribute' => 'key'],
+                'targetAttribute' => 'key',
+            ],
         ];
     }
 

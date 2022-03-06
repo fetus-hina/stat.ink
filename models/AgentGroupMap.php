@@ -8,17 +8,17 @@
 
 namespace app\models;
 
-use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "agent_group_map".
  *
- * @property integer $group_id
+ * @property int $group_id
  * @property string $agent_name
  *
  * @property AgentGroup $group
  */
-class AgentGroupMap extends \yii\db\ActiveRecord
+class AgentGroupMap extends ActiveRecord
 {
     /**
      * @inheritdoc
@@ -39,7 +39,8 @@ class AgentGroupMap extends \yii\db\ActiveRecord
             [['agent_name'], 'string', 'max' => 64],
             [['group_id'], 'exist', 'skipOnError' => true,
                 'targetClass' => AgentGroup::class,
-                'targetAttribute' => ['group_id' => 'id']],
+                'targetAttribute' => ['group_id' => 'id'],
+            ],
         ];
     }
 

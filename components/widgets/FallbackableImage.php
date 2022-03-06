@@ -25,18 +25,14 @@ class FallbackableImage extends Widget
     public function run(): string
     {
         $srcs = array_map(
-            function (string $url): string {
-                return Url::to($url, true);
-            },
+            fn (string $url): string => Url::to($url, true),
             array_filter(
                 (array)$this->srcs,
-                function (?string $url): bool {
-                    return $url !== null;
-                }
+                fn (?string $url): bool => $url !== null
             )
         );
 
-        if (empty($this->srcs)) {
+        if (!$this->srcs) {
             return '';
         }
 

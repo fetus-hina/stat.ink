@@ -6,10 +6,10 @@
  * @author AIZAWA Hina <hina@fetus.jp>
  */
 
-use yii\db\Migration;
 use app\models\Ability;
 use app\models\Brand;
 use app\models\GearType;
+use yii\db\Migration;
 
 class m160604_121751_fix_gears extends Migration
 {

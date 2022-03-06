@@ -6,8 +6,8 @@
  * @author AIZAWA Hina <hina@fetus.jp>
  */
 
-use yii\db\Migration;
 use app\models\WeaponType;
+use yii\db\Migration;
 
 class m150923_124509_weapon extends Migration
 {
@@ -27,7 +27,7 @@ class m150923_124509_weapon extends Migration
         $slosher    = $this->getType('slosher');
         $splatling  = $this->getType('splatling');
 
-        $this->batchInsert('weapon', [ 'type_id', 'key', 'name' ], [
+        $this->batchInsert('weapon', ['type_id', 'key', 'name'], [
             [ $shooter, '52gal',                '.52 Gal' ],
             [ $shooter, '52gal_deco',           '.52 Gal Deco' ],
             [ $shooter, '96gal',                '.96 Gal' ],

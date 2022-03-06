@@ -8,9 +8,9 @@
 
 namespace app\components\web;
 
-use Yii;
+use yii\web\Session as BaseSession;
 
-class Session extends \yii\web\Session
+class Session extends BaseSession
 {
     public function open()
     {

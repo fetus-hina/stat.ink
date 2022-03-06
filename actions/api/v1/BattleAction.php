@@ -8,28 +8,26 @@
 
 namespace app\actions\api\v1;
 
-use DateTimeZone;
 use Yii;
-use app\components\helpers\DateTimeFormatter;
+use app\components\helpers\Blackout;
 use app\components\helpers\ImageConverter;
-use app\components\jobs\ImageOptimizeJob;
 use app\components\jobs\ImageS3Job;
 use app\components\jobs\OstatusJob;
 use app\components\jobs\SlackJob;
 use app\components\web\ServiceUnavailableHttpException;
 use app\models\Agent;
 use app\models\Battle;
-use app\models\OstatusPubsubhubbub;
-use app\models\Slack;
 use app\models\User;
 use app\models\api\v1\DeleteBattleForm;
 use app\models\api\v1\PatchBattleForm;
 use app\models\api\v1\PostBattleForm;
 use yii\base\DynamicModel;
-use yii\helpers\Url;
 use yii\web\MethodNotAllowedHttpException;
 use yii\web\UploadedFile;
 use yii\web\ViewAction as BaseAction;
+
+use const JSON_UNESCAPED_SLASHES;
+use const JSON_UNESCAPED_UNICODE;
 
 class BattleAction extends BaseAction
 {
@@ -68,7 +66,8 @@ class BattleAction extends BaseAction
                 ],
                 [['screen_name'], 'exist',
                     'targetClass' => User::className(),
-                    'targetAttribute' => 'screen_name' ],
+                    'targetAttribute' => 'screen_name',
+                ],
                 [['newer_than', 'older_than'], 'integer'],
                 [['count'], 'default', 'value' => 10],
                 [['count'], 'integer', 'min' => 1, 'max' => 100],
@@ -144,15 +143,13 @@ class BattleAction extends BaseAction
 
         $list = $query->all();
         if ($model->id != '') {
-            return empty($list) ? null : $this->runGetImpl(array_shift($list));
+            return !$list ? null : $this->runGetImpl(array_shift($list));
         }
 
         $resp = Yii::$app->getResponse();
         $resp->format = 'json';
         return array_map(
-            function ($model) {
-                return $model->toJsonArray();
-            },
+            fn ($model) => $model->toJsonArray(),
             $list
         );
         // }}}
@@ -236,7 +233,7 @@ class BattleAction extends BaseAction
                 return $battle;
             }
             $transaction->commit();
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             $transaction->rollback();
             $this->logError([
                 'system' => [ $e->getMessage() ],
@@ -339,7 +336,6 @@ class BattleAction extends BaseAction
             }
         }
         $imageOutputDir = Yii::getAlias('@webroot/images');
-        $time = time();
         if ($image = $form->toImageJudge($battle)) {
             $binary = is_string($form->image_judge)
                 ? $form->image_judge
@@ -355,24 +351,24 @@ class BattleAction extends BaseAction
                 $this->logError([
                     'system' => [
                         Yii::t('app', 'Could not convert "{0}" image.', 'judge'),
-                    ]
+                    ],
                 ]);
                 return $this->formatError([
                     'system' => [
                         Yii::t('app', 'Could not convert "{0}" image.', 'judge'),
-                    ]
+                    ],
                 ], 500);
             }
             if (!$image->save()) {
                 $this->logError([
                     'system' => [
                         Yii::t('app', 'Could not save {0}', 'battle_image(judge)'),
-                    ]
+                    ],
                 ]);
                 return $this->formatError([
                     'system' => [
                         Yii::t('app', 'Could not save {0}', 'battle_image(judge)'),
-                    ]
+                    ],
                 ], 500);
             }
         }
@@ -389,10 +385,10 @@ class BattleAction extends BaseAction
                     || $form->result === 'lose')
                     && ($form->lobby != '')
             ) {
-                $blackoutList = \app\components\helpers\Blackout::getBlackoutTargetList(
+                $blackoutList = Blackout::getBlackoutTargetList(
                     $form->lobby,
                     $form->user->blackout,
-                    (($form->result === 'win') ? 0 : 4) + $form->rank_in_team
+                    ($form->result === 'win' ? 0 : 4) + $form->rank_in_team
                 );
             }
 
@@ -407,24 +403,24 @@ class BattleAction extends BaseAction
                 $this->logError([
                     'system' => [
                         Yii::t('app', 'Could not convert "{0}" image.', 'result'),
-                    ]
+                    ],
                 ]);
                 return $this->formatError([
                     'system' => [
                         Yii::t('app', 'Could not convert "{0}" image.', 'result'),
-                    ]
+                    ],
                 ], 500);
             }
             if (!$image->save()) {
                 $this->logError([
                     'system' => [
                         Yii::t('app', 'Could not save {0}', 'battle_image(result)'),
-                    ]
+                    ],
                 ]);
                 return $this->formatError([
                     'system' => [
                         Yii::t('app', 'Could not save {0}', 'battle_image(result)'),
-                    ]
+                    ],
                 ], 500);
             }
         }
@@ -443,24 +439,24 @@ class BattleAction extends BaseAction
                 $this->logError([
                     'system' => [
                         Yii::t('app', 'Could not convert "{0}" image.', 'gear'),
-                    ]
+                    ],
                 ]);
                 return $this->formatError([
                     'system' => [
                         Yii::t('app', 'Could not convert "{0}" image.', 'gear'),
-                    ]
+                    ],
                 ], 500);
             }
             if (!$image->save()) {
                 $this->logError([
                     'system' => [
                         Yii::t('app', 'Could not save {0}', 'battle_image(gear)'),
-                    ]
+                    ],
                 ]);
                 return $this->formatError([
                     'system' => [
                         Yii::t('app', 'Could not save {0}', 'battle_image(gear)'),
-                    ]
+                    ],
                 ], 500);
             }
         }
@@ -552,16 +548,12 @@ class BattleAction extends BaseAction
     ) {
         $ret = $battle->toJsonArray();
         $ret['death_reasons'] = array_map(
-            function ($model): array {
-                return $model->toJsonArray();
-            },
+            fn ($model): array => $model->toJsonArray(),
             $deathReasons
         );
-        $ret['players'] = is_array($players) && !empty($players)
+        $ret['players'] = is_array($players) && $players
             ? array_map(
-                function ($model): array {
-                    return $model->toJsonArray();
-                },
+                fn ($model): array => $model->toJsonArray(),
                 $players
             )
             : null;
@@ -622,7 +614,7 @@ class BattleAction extends BaseAction
     private function logError(array $errors)
     {
         $output = json_encode(
-            [ 'error' => $errors ],
+            ['error' => $errors],
             JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE
         );
         $text = sprintf(

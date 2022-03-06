@@ -17,11 +17,11 @@ use yii\helpers\Url;
 /**
  * This is the model class for table "battle_image".
  *
- * @property integer $id
- * @property integer $battle_id
- * @property integer $type_id
+ * @property int $id
+ * @property int $battle_id
+ * @property int $type_id
  * @property string $filename
- * @property integer $bucket_id
+ * @property int $bucket_id
  *
  * @property Battle $battle
  * @property ImageBucket $bucket
@@ -115,6 +115,7 @@ class BattleImage extends ActiveRecord
     }
 
     private $deleteFilename;
+
     public function beforeDelete()
     {
         if (!parent::beforeDelete()) {

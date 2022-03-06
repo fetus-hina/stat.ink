@@ -19,12 +19,10 @@ class m190403_064045_spring_fest_gear_ids extends Migration
         $case = vsprintf('CASE %s %s END', [
             $this->db->quoteColumnName('key'),
             implode(' ', array_map(
-                function (string $key, int $id): string {
-                    return vsprintf('WHEN %s THEN %d', [
-                        $this->db->quoteValue($key),
-                        $id,
-                    ]);
-                },
+                fn (string $key, int $id): string => vsprintf('WHEN %s THEN %d', [
+                    $this->db->quoteValue($key),
+                    $id,
+                ]),
                 array_keys($data),
                 array_values($data)
             )),

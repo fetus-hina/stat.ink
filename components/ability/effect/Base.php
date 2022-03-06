@@ -8,9 +8,7 @@
 
 namespace app\components\ability\effect;
 
-use Yii;
 use yii\base\Component;
-use app\models\Battle;
 
 abstract class Base extends Component
 {
@@ -24,18 +22,31 @@ abstract class Base extends Component
     abstract public function getCalculatorVersion();
 
     abstract public function getAttackPct();
+
     abstract public function getDefensePct();
+
     abstract public function getInkUsePctMain();
+
     abstract public function getInkUsePctSub();
+
     abstract public function getInkRecoverySec();
+
     abstract public function getRunSpeedPct();
+
     abstract public function getSwimSpeedPct();
+
     abstract public function getSpecialChargePoint();
+
     abstract public function getSpecialDurationSec();
+
     abstract public function getSpecialLossPct();
+
     abstract public function getRespawnSec();
+
     abstract public function getSuperJumpSecs();
+
     abstract public function getBombThrowPct();
+
     abstract public function getMarkingPct();
 
     public function getSpecialDurationCount()
@@ -71,13 +82,13 @@ abstract class Base extends Component
         return $this->calcDamageImpl(
             $baseDamage,
             $this->calcX('damage_up', 100),
-            ((0.99 * $def) - pow((0.09 * $def), 2)) / 100
+            ((0.99 * $def) - pow(0.09 * $def, 2)) / 100
         );
     }
 
     protected function calcDamageImpl($baseDamage, $a, $d)
     {
-        $x = ($a >= $d) ? (1 + ($a - $d)) : (1 + ($a - $d) / 1.8);
+        $x = $a >= $d ? 1 + $a - $d : (1 + ($a - $d) / 1.8);
         return $baseDamage * $x;
     }
 
@@ -94,7 +105,7 @@ abstract class Base extends Component
         $gears = [
             $this->battle->headgear,
             $this->battle->clothing,
-            $this->battle->shoes
+            $this->battle->shoes,
         ];
         $main = 0;
         $sub = 0;
@@ -126,6 +137,6 @@ abstract class Base extends Component
         if ($a === null) {
             return null;
         }
-        return ((0.99 * $a) - pow((0.09 * $a), 2)) / $divBy;
+        return ((0.99 * $a) - pow(0.09 * $a, 2)) / $divBy;
     }
 }

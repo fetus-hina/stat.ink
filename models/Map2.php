@@ -12,20 +12,20 @@ use DateTimeZone;
 use Yii;
 use app\components\helpers\DateTimeFormatter;
 use app\components\helpers\Translator;
-use yii\db\ActiveRecord;
 use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "map2".
  *
- * @property integer $id
+ * @property int $id
  * @property string $key
  * @property string $name
  * @property string $short_name
- * @property integer $area
+ * @property int $area
  * @property string $release_at
- * @property integer $splatnet
+ * @property int $splatnet
  */
 class Map2 extends ActiveRecord
 {
@@ -60,9 +60,7 @@ class Map2 extends ActiveRecord
         return ArrayHelper::map(
             static::sort($query->all()),
             'key',
-            function (self $row): string {
-                return Yii::t('app-map2', $row->name);
-            }
+            fn (self $row): string => Yii::t('app-map2', $row->name)
         );
     }
 
@@ -188,15 +186,15 @@ class Map2 extends ActiveRecord
     public static function openapiExample(): array
     {
         return array_map(
-            function (self $model): array {
-                return $model->toJsonArray();
-            },
+            fn (self $model): array => $model->toJsonArray(),
             static::sort(
                 static::find()
-                    ->andWhere(['key' => [
-                        'battera',
-                        'kombu',
-                    ]])
+                    ->andWhere([
+                        'key' => [
+                            'battera',
+                            'kombu',
+                        ],
+                    ])
                     ->all()
             )
         );

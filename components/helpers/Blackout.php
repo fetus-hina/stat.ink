@@ -38,7 +38,7 @@ class Blackout
                     return [];
                 }
                 if ($lobbyKey === 'squad_3' || $lobbyKey === 'squad_4') {
-                    return ($myPosition <= 4)
+                    return $myPosition <= 4
                         ? static::createList([1, 2, 3, 4])
                         : static::createList([5, 6, 7, 8]);
                 }
@@ -55,9 +55,7 @@ class Blackout
     {
         return array_filter(
             range(1, 8),
-            function ($pos) use ($except) {
-                return !in_array($pos, $except);
-            }
+            fn ($pos) => !in_array($pos, $except)
         );
     }
 }

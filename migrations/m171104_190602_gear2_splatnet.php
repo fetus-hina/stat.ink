@@ -25,7 +25,6 @@ class m171104_190602_gear2_splatnet extends Migration
             $matches,
             PREG_SET_ORDER
         );
-        $update = [];
         foreach ($matches as $match) {
             $cnt = (new Query())
                 ->select(['cnt' => 'COUNT(*)'])

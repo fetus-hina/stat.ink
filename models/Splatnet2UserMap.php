@@ -8,15 +8,14 @@
 
 namespace app\models;
 
-use Yii;
 use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "splatnet2_user_map".
  *
  * @property string $splatnet_id
- * @property integer $user_id
- * @property integer $battles
+ * @property int $user_id
+ * @property int $battles
  *
  * @property User $user
  */
@@ -41,7 +40,7 @@ class Splatnet2UserMap extends ActiveRecord
             [['splatnet_id'], 'string', 'max' => 16],
             [['user_id'], 'exist', 'skipOnError' => true,
                 'targetClass' => User::class,
-                'targetAttribute' => ['user_id' => 'id']
+                'targetAttribute' => ['user_id' => 'id'],
             ],
         ];
     }

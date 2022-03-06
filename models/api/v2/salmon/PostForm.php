@@ -33,6 +33,8 @@ use yii\helpers\Html;
 use yii\helpers\UnsetArrayValue;
 use yii\validators\NumberValidator;
 
+use const SORT_ASC;
+
 class PostForm extends Model
 {
     use OpenAPIUtil;
@@ -95,10 +97,8 @@ class PostForm extends Model
             [['agent'], 'string', 'max' => 64],
             [['agent_version'], 'string', 'max' => 255],
             [['agent', 'agent_version'], 'required',
-                'when' => function (self $model, string $attrName): bool {
-                    return trim((string)$model->agent) !== '' ||
-                        trim((string)$model->agent_version) !== '';
-                },
+                'when' => fn (self $model, string $attrName): bool => trim((string)$model->agent) !== '' ||
+                        trim((string)$model->agent_version) !== '',
             ],
             [['stage'], 'exist', 'skipOnError' => true,
                 'targetClass' => SalmonMap2::class,
@@ -135,7 +135,7 @@ class PostForm extends Model
             return;
         }
 
-        if (empty($this->boss_appearances)) {
+        if (!$this->boss_appearances) {
             $this->boss_appearances = null;
             return;
         }
@@ -176,7 +176,7 @@ class PostForm extends Model
             return;
         }
 
-        if (empty($this->waves)) {
+        if (!$this->waves) {
             $this->waves = null;
             return;
         }
@@ -234,7 +234,7 @@ class PostForm extends Model
             return;
         }
 
-        if (empty($this->$attribute)) {
+        if (!$this->$attribute) {
             $this->$attribute = null;
             return;
         }
@@ -340,7 +340,7 @@ class PostForm extends Model
             ->andWhere(['and',
                 ['user_id' => Yii::$app->user->id],
                 ['uuid' => $this->getUuidFormatted()],
-                ['>=', 'created_at', $findThreshold->format(DateTime::ATOM)]
+                ['>=', 'created_at', $findThreshold->format(DateTime::ATOM)],
             ])
             ->limit(1)
             ->one();
@@ -365,22 +365,22 @@ class PostForm extends Model
                 'title_before_exp' => $this->title_exp,
                 'title_after_id' => static::findRelatedId(SalmonTitle2::class, $this->title_after),
                 'title_after_exp' => $this->title_exp_after,
-                'danger_rate' => ($this->danger_rate == '')
+                'danger_rate' => $this->danger_rate == ''
                     ? null
                     : sprintf('%.1f', (float)$this->danger_rate),
-                'shift_period' => ($this->shift_start_at == '')
+                'shift_period' => $this->shift_start_at == ''
                     ? null
                     : BattleHelper::calcPeriod2((int)$this->shift_start_at),
-                'start_at' => ($this->start_at == '')
+                'start_at' => $this->start_at == ''
                     ? null
-                    : gmdate(\DateTime::ATOM, (int)$this->start_at),
-                'end_at' => ($this->end_at == '')
+                    : gmdate(DateTime::ATOM, (int)$this->start_at),
+                'end_at' => $this->end_at == ''
                     ? null
-                    : gmdate(\DateTime::ATOM, (int)$this->end_at),
+                    : gmdate(DateTime::ATOM, (int)$this->end_at),
                 'note' => $this->note,
                 'private_note' => $this->private_note,
                 'link_url' => $this->link_url,
-                'is_automated' => ($this->automated == '')
+                'is_automated' => $this->automated == ''
                     ? ($agent ? $agent->getIsAutomatedByDefault() : null)
                     : ($this->automated === 'yes'),
                 'agent_id' => $agent->id ?? null,
@@ -507,7 +507,7 @@ class PostForm extends Model
                     default:
                         break;
                 }
-            } catch (\Exception $e) {
+            } catch (\Throwable $e) {
             }
 
             return Uuid::v5(static::UUID_NAMESPACE_BY_FREETEXT, $this->uuid);

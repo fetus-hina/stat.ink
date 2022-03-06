@@ -9,8 +9,9 @@
 namespace app\components\behaviors;
 
 use app\components\helpers\db\Now;
+use yii\behaviors\TimestampBehavior as BaseTimestampBehavior;
 
-class TimestampBehavior extends \yii\behaviors\TimestampBehavior
+class TimestampBehavior extends BaseTimestampBehavior
 {
     public function init()
     {

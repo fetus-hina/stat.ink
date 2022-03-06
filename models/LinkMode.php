@@ -8,16 +8,15 @@
 
 namespace app\models;
 
-use Yii;
 use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "link_mode".
  *
- * @property integer $id
+ * @property int $id
  * @property string $key
  * @property string $name
- * @property integer $rank
+ * @property int $rank
  *
  * @property User[] $users
  */

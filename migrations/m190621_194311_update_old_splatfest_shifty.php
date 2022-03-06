@@ -72,7 +72,7 @@ class m190621_194311_update_old_splatfest_shifty extends Migration
         $lastLayout = null;
         $lastEndAt = null;
         foreach ($this->loadLayoutData() as $_) {
-            list ($startAt, $endAt, $layoutKey) = $_;
+            [$startAt, $endAt, $layoutKey] = $_;
 
             // 異なるレイアウトの期間が重複していないことを保証する
             if ($lastLayout !== null && $lastLayout !== $layoutKey) {

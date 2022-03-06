@@ -8,17 +8,18 @@
 
 namespace app\models;
 
-use Yii;
+use app\components\helpers\Battle;
+use stdClass;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "schedule2".
  *
- * @property integer $id
- * @property integer $period
- * @property integer $mode_id
- * @property integer $rule_id
+ * @property int $id
+ * @property int $period
+ * @property int $mode_id
+ * @property int $rule_id
  *
  * @property Rule2 $rule
  * @property ScheduleMode2 $mode
@@ -103,29 +104,25 @@ class Schedule2 extends ActiveRecord
         return $this->hasMany(Map2::class, ['id' => 'map_id'])->viaTable('schedule_map2', ['schedule_id' => 'id']);
     }
 
-    public static function getInfo(): \stdClass
+    public static function getInfo(): stdClass
     {
-        $currentPeriod = \app\components\helpers\Battle::calcPeriod2(
+        $currentPeriod = Battle::calcPeriod2(
             (int)($_SERVER['REQUEST_TIME'] ?? time())
         );
-        $formatter = function (int $period): array {
-            return array_merge(
-                ['_t' => \app\components\helpers\Battle::periodToRange2($period)],
-                ArrayHelper::map(
-                    static::find()
+        $formatter = fn (int $period): array => array_merge(
+            ['_t' => Battle::periodToRange2($period)],
+            ArrayHelper::map(
+                static::find()
                         ->andWhere(['period' => $period])
                         ->with(['mode', 'rule', 'maps'])
                         ->all(),
-                    'mode.key',
-                    function (self $model) {
-                        return (object)[
-                            'rule' => $model->rule,
-                            'maps' => $model->maps,
-                        ];
-                    }
-                )
-            );
-        };
+                'mode.key',
+                fn (self $model) => (object)[
+                    'rule' => $model->rule,
+                    'maps' => $model->maps,
+                ]
+            )
+        );
         return (object)[
             'current' => (object)$formatter($currentPeriod),
             'next' => (object)$formatter($currentPeriod + 1),

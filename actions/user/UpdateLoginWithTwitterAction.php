@@ -18,7 +18,6 @@ use app\models\LoginWithTwitter;
 use yii\helpers\Json;
 use yii\helpers\Url;
 use yii\web\BadRequestHttpException;
-use yii\web\ServerErrorHttpException;
 use yii\web\ViewAction as BaseAction;
 
 class UpdateLoginWithTwitterAction extends BaseAction
@@ -87,7 +86,7 @@ class UpdateLoginWithTwitterAction extends BaseAction
                     }
                     $transaction->commit();
                     return $response->redirect(Url::to(['user/profile'], true), 303);
-                } catch (\Exception $e) {
+                } catch (\Throwable $e) {
                     $transaction->rollback();
                     Yii::$app->session->addFlash(
                         'warning',
@@ -98,10 +97,10 @@ class UpdateLoginWithTwitterAction extends BaseAction
             } else {
                 // 認証手続き
                 $token = $twitter->requestRequestToken();
-                $url = $twitter->getAuthorizationUri(array('oauth_token' => $token->getRequestToken()));
+                $url = $twitter->getAuthorizationUri(['oauth_token' => $token->getRequestToken()]);
                 return $response->redirect((string)$url, 303);
             }
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
         }
         throw new BadRequestHttpException('Bad request.');
     }

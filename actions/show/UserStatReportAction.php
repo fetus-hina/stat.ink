@@ -62,7 +62,7 @@ class UserStatReportAction extends BaseAction
                 [['month'], 'integer',
                     'min' => 1,
                     'max' => 12,
-                ]
+                ],
             ]
         );
         if ($form->hasErrors()) {
@@ -110,18 +110,24 @@ class UserStatReportAction extends BaseAction
                 '{{battle}}.[[at]]::date'
             ),
             'next' => $next <= $upperBound
-                ? Url::to(['show/user-stat-report',
+                ? Url::to(
+                    ['show/user-stat-report',
                         'screen_name' => $this->user->screen_name,
                         'year' => $next->format('Y'),
                         'month' => $next->format('n'),
-                    ], true)
+                    ],
+                    true
+                )
                 : null,
             'prev' => $prev >= $lowerBound
-                ? Url::to(['show/user-stat-report',
+                ? Url::to(
+                    ['show/user-stat-report',
                         'screen_name' => $this->user->screen_name,
                         'year' => $prev->format('Y'),
                         'month' => $prev->format('n'),
-                    ], true)
+                    ],
+                    true
+                )
                 : null,
         ]);
     }
@@ -180,13 +186,11 @@ class UserStatReportAction extends BaseAction
             },
             $query->createCommand()->queryAll()
         );
-        usort($list, function ($a, $b) {
-            return strcmp($b['date'], $a['date'])
+        usort($list, fn ($a, $b) => strcmp($b['date'], $a['date'])
                 ?: $a['lobby_id'] <=> $b['lobby_id']
                 ?: strcmp($a['rule_name'], $b['rule_name'])
                 ?: strcmp($a['map_name'], $b['map_name'])
-                ?: strcmp($a['weapon_name'], $b['weapon_name']);
-        });
+                ?: strcmp($a['weapon_name'], $b['weapon_name']));
         return $list;
     }
 }

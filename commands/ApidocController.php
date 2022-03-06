@@ -234,7 +234,7 @@ class ApidocController extends Controller
                 ['colspan' => 5]
             )),
             implode('', array_map(
-                function (Timezone $tz): string {
+                function (TimeZone $tz): string {
                     $tz_ = new DateTimeZone($tz->identifier);
                     $offsetJan = (new DateTimeImmutable('2020-01-08T00:00:00', $tz_))
                         ->format('P');
@@ -245,19 +245,15 @@ class ApidocController extends Controller
                         Html::tag(
                             'td',
                             implode('', array_map(
-                                function (Country $country): string {
-                                    return vsprintf('<img src="%s" height="%d" width="%d" alt="%s">', [
-                                        $this->getFlagIconUrl($country->key),
-                                        16,
-                                        round(16 * 4 / 3),
-                                        implode('', array_map(
-                                            function (int $codepoint): string {
-                                                return sprintf('&#x%x;', $codepoint);
-                                            },
-                                            $country->regionalIndicatorSymbols
-                                        )),
-                                    ]);
-                                },
+                                fn (Country $country): string => vsprintf('<img src="%s" height="%d" width="%d" alt="%s">', [
+                                    $this->getFlagIconUrl($country->key),
+                                    16,
+                                    round(16 * 4 / 3),
+                                    implode('', array_map(
+                                        fn (int $codepoint): string => sprintf('&#x%x;', $codepoint),
+                                        $country->regionalIndicatorSymbols
+                                    )),
+                                ]),
                                 $tz->countries
                             )),
                             ['align' => 'center']
@@ -267,7 +263,7 @@ class ApidocController extends Controller
                             Html::encode(Yii::t('app-tz', $tz->name, [], 'ja-JP')),
                         ])),
                         Html::tag('td', Html::tag('code', Html::encode($tz->identifier))),
-                        ($offsetJan === $offsetJul)
+                        $offsetJan === $offsetJul
                             ? Html::tag('td', Html::encode($offsetJan), [
                                 'colspan' => 2,
                                 'align' => 'center',
@@ -276,7 +272,7 @@ class ApidocController extends Controller
                                 Html::tag('td', Html::encode($offsetJan), [
                                     'align' => 'center',
                                 ]),
-                                Html::tag('td', HTml::encode($offsetJul), [
+                                Html::tag('td', Html::encode($offsetJul), [
                                     'align' => 'center',
                                 ]),
                             ]),

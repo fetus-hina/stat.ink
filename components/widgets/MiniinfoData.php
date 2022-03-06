@@ -17,6 +17,7 @@ use yii\base\Widget;
 use yii\bootstrap\BootstrapAsset;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
+use yii\i18n\Formatter as BaseFormatter;
 
 class MiniinfoData extends Widget
 {
@@ -46,7 +47,7 @@ class MiniinfoData extends Widget
         if (is_array($this->formatter) || is_string($this->formatter)) {
             $this->formatter = Yii::createObject($this->formatter);
         }
-        if (!($this->formatter instanceof \yii\i18n\Formatter)) {
+        if (!($this->formatter instanceof BaseFormatter)) {
             $this->formatter = Yii::createObject(Formatter::class);
         }
     }

@@ -13,6 +13,7 @@ namespace app\actions\feed;
 use DateTimeImmutable;
 use DateTimeZone;
 use Laminas\Feed\Writer\Feed as FeedWriter;
+use Laminas\Feed\Writer\Version;
 use Yii;
 use app\models\Battle2;
 use app\models\Language;
@@ -22,8 +23,9 @@ use jp3cki\uuid\Uuid;
 use yii\base\DynamicModel;
 use yii\helpers\Html;
 use yii\helpers\Url;
-use yii\web\NotFoundHttpException;
 use yii\web\ViewAction as BaseAction;
+
+use const SORT_DESC;
 
 class User2Action extends BaseAction
 {
@@ -84,7 +86,7 @@ class User2Action extends BaseAction
                 Yii::$app->name,
                 Yii::$app->version,
                 'Laminas-Feed-Writer',
-                \Laminas\Feed\Writer\Version::VERSION
+                Version::VERSION
             ),
             Yii::$app->version,
             Url::home(true)
@@ -333,14 +335,14 @@ class User2Action extends BaseAction
                         ? sprintf(
                             '%s %s',
                             Yii::t('app-rank2', $battle->rank->name, [], $lang),
-                            $battle->rank_exp !== null ? $battle->rank_exp : ''
+                            $battle->rank_exp ?? ''
                         )
                         : '???',
                     $battle->rankAfter
                         ? sprintf(
                             '%s %s',
                             Yii::t('app-rank2', $battle->rankAfter->name, [], $lang),
-                            $battle->rank_after_exp !== null ? $battle->rank_after_exp : ''
+                            $battle->rank_after_exp ?? ''
                         )
                         : '???'
                 )
@@ -369,9 +371,9 @@ class User2Action extends BaseAction
                     : sprintf('%.2f', $battle->kill_ratio)
             );
         }
-        if (!empty($dl)) {
+        if ($dl) {
             $html .= Html::tag('dl', implode('', $dl));
         }
-        return empty($html) ? '<p>Splatlog</p>' : $html;
+        return !$html ? '<p>Splatlog</p>' : $html;
     }
 }

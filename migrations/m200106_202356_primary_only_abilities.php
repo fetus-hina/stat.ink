@@ -20,20 +20,22 @@ class m200106_202356_primary_only_abilities extends Migration
         $this->update(
             'ability2',
             ['primary_only' => true],
-            ['key' => [
-                'ability_doubler',
-                'comeback',
-                'drop_roller',
-                'haunt',
-                'last_ditch_effort',
-                'ninja_squid',
-                'object_shredder',
-                'opening_gambit',
-                'respawn_punisher',
-                'stealth_jump',
-                'tenacity',
-                'thermal_ink',
-            ]]
+            [
+                'key' => [
+                    'ability_doubler',
+                    'comeback',
+                    'drop_roller',
+                    'haunt',
+                    'last_ditch_effort',
+                    'ninja_squid',
+                    'object_shredder',
+                    'opening_gambit',
+                    'respawn_punisher',
+                    'stealth_jump',
+                    'tenacity',
+                    'thermal_ink',
+                ],
+            ]
         );
     }
 

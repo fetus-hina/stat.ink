@@ -10,23 +10,23 @@ namespace app\models;
 
 use Yii;
 use app\components\helpers\Translator;
-use yii\helpers\ArrayHelper;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "gear".
  *
- * @property integer $id
+ * @property int $id
  * @property string $key
- * @property integer $type_id
- * @property integer $brand_id
+ * @property int $type_id
+ * @property int $brand_id
  * @property string $name
- * @property integer $ability_id
+ * @property int $ability_id
  *
  * @property Ability $ability
  * @property Brand $brand
  * @property GearType $type
  */
-class Gear extends \yii\db\ActiveRecord
+class Gear extends ActiveRecord
 {
     use openapi\Util;
 
@@ -47,7 +47,7 @@ class Gear extends \yii\db\ActiveRecord
             [['key', 'type_id', 'brand_id', 'name', 'ability_id'], 'required'],
             [['type_id', 'brand_id', 'ability_id'], 'integer'],
             [['key', 'name'], 'string', 'max' => 32],
-            [['key'], 'unique']
+            [['key'], 'unique'],
         ];
     }
 

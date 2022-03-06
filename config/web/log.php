@@ -13,9 +13,7 @@ return [
             'levels' => ['error', 'warning'],
             'except' => array_merge(
                 array_map(
-                    function (int $httpStatus): string {
-                        return sprintf('%s:%03d', HttpException::class, $httpStatus);
-                    },
+                    fn (int $httpStatus): string => sprintf('%s:%03d', HttpException::class, $httpStatus),
                     [400, 401, 403, 404, 405, 410, 414]
                 ),
                 [

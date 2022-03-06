@@ -9,9 +9,11 @@
 namespace app\components\web;
 
 use Yii;
+use app\components\helpers\Resource;
 use yii\base\Component;
 use yii\web\ResponseFormatterInterface;
-use app\components\helpers\Resource;
+
+use const SEEK_SET;
 
 class CsvResponseFormatter extends Component implements ResponseFormatterInterface
 {
@@ -52,6 +54,8 @@ class CsvResponseFormatter extends Component implements ResponseFormatterInterfa
         fseek($tmpfile, 0, SEEK_SET);
         $response->content = null;
         $response->stream = $tmpfile;
+
+        unset($substitute);
     }
 
     protected function formatRow(array $row)

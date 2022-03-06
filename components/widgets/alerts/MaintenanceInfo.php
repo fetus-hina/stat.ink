@@ -20,6 +20,8 @@ use app\models\MaintenanceSchedule;
 use yii\base\Widget;
 use yii\helpers\Html;
 
+use const FILTER_VALIDATE_INT;
+
 class MaintenanceInfo extends Widget
 {
     public function run()
@@ -38,7 +40,6 @@ class MaintenanceInfo extends Widget
 
     protected function renderWidget(MaintenanceSchedule $model): string
     {
-        $fmt = Yii::$app->formatter;
         return Alert::widget([
             'options' => [
                 'class' => 'alert-danger',

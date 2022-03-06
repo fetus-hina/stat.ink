@@ -10,14 +10,16 @@ declare(strict_types=1);
 
 namespace app\models;
 
+use Throwable;
 use Yii;
 use app\components\helpers\CriticalSection;
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "team_nickname2".
  *
- * @property integer $id
+ * @property int $id
  * @property string $name
  *
  * @property Battle2[] $battle2s
@@ -36,7 +38,7 @@ class TeamNickname2 extends ActiveRecord
         try {
             $lock = Yii::createObject([
                 'class' => CriticalSection::class,
-                'name' => __CLASS__,
+                'name' => self::class,
                 'timeout' => 0,
                 'mutex' => Yii::$app->pgMutex,
             ])->enter();
@@ -52,7 +54,9 @@ class TeamNickname2 extends ActiveRecord
             if ($model->save()) {
                 return $model;
             }
-        } catch (\Exception $e) {
+        } catch (Throwable $e) {
+        } finally {
+            unset($lock);
         }
 
         return null;
@@ -89,18 +93,12 @@ class TeamNickname2 extends ActiveRecord
         ];
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getBattle2s()
+    public function getBattle2s(): ActiveQuery
     {
         return $this->hasMany(Battle2::class, ['my_team_nickname_id' => 'id']);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getBattle2s0()
+    public function getBattle2s0(): ActiveQuery
     {
         return $this->hasMany(Battle2::class, ['his_team_nickname_id' => 'id']);
     }

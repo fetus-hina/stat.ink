@@ -17,8 +17,9 @@ use app\models\User;
 use app\models\UserStat2;
 use yii\console\Controller;
 use yii\db\Expression as DbExpr;
-use yii\helpers\ArrayHelper;
 use yii\helpers\Console;
+
+use const SORT_ASC;
 
 class Battle2Controller extends Controller
 {
@@ -79,16 +80,18 @@ class Battle2Controller extends Controller
             },
             Agent::find()->andWhere(['name' => 'SquidTracks'])->asArray()->all()
         ));
-        $this->stderr("done. id = [" . implode(", ", $agentIds) . "]\n");
+        $this->stderr('done. id = [' . implode(', ', $agentIds) . "]\n");
 
         $query = Battle2::find()
             ->innerJoinWith('rule', false)
-            ->with(['battlePlayers' => function ($query) {
-                $query->andWhere(['and',
-                    ['not', ['is_my_team' => null]],
-                    ['not', ['point' => null]]
-                ]);
-            }])
+            ->with([
+                'battlePlayers' => function ($query) {
+                    $query->andWhere(['and',
+                        ['not', ['is_my_team' => null]],
+                        ['not', ['point' => null]],
+                    ]);
+                },
+            ])
             ->andWhere(['and',
                 ['battle2.agent_id' => $agentIds],
                 ['not', ['battle2.is_win' => null]],
@@ -97,7 +100,7 @@ class Battle2Controller extends Controller
             ->orderBy(['id' => SORT_ASC]);
 
         $count = $query->count();
-        $this->stderr("Target battles = " . $count . "\n");
+        $this->stderr('Target battles = ' . $count . "\n");
 
         $i = -1;
         foreach ($query->batch(200) as $batch) {

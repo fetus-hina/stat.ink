@@ -9,21 +9,21 @@
 namespace app\models;
 
 use Yii;
-use yii\helpers\ArrayHelper;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "stat_weapon_map_trend".
  *
- * @property integer $rule_id
- * @property integer $map_id
- * @property integer $weapon_id
- * @property integer $battles
+ * @property int $rule_id
+ * @property int $map_id
+ * @property int $weapon_id
+ * @property int $battles
  *
  * @property Map $map
  * @property Rule $rule
  * @property Weapon $weapon
  */
-class StatWeaponMapTrend extends \yii\db\ActiveRecord
+class StatWeaponMapTrend extends ActiveRecord
 {
     use openapi\Util;
 
@@ -45,15 +45,15 @@ class StatWeaponMapTrend extends \yii\db\ActiveRecord
             [['rule_id', 'map_id', 'weapon_id', 'battles'], 'integer'],
             [['map_id'], 'exist', 'skipOnError' => true,
                 'targetClass' => Map::class,
-                'targetAttribute' => ['map_id' => 'id']
+                'targetAttribute' => ['map_id' => 'id'],
             ],
             [['rule_id'], 'exist', 'skipOnError' => true,
                 'targetClass' => Rule::class,
-                'targetAttribute' => ['rule_id' => 'id']
+                'targetAttribute' => ['rule_id' => 'id'],
             ],
             [['weapon_id'], 'exist', 'skipOnError' => true,
                 'targetClass' => Weapon::class,
-                'targetAttribute' => ['weapon_id' => 'id']
+                'targetAttribute' => ['weapon_id' => 'id'],
             ],
         ];
     }

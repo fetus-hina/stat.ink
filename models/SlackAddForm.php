@@ -33,23 +33,17 @@ class SlackAddForm extends Model
         return [
             [['webhook_url', 'language_id'], 'required'],
             [['username', 'icon', 'channel'], 'filter',
-                'filter' => function ($v) {
-                    return (trim($v) === '') ? null : trim($v);
-                },
+                'filter' => fn ($v) => trim($v) === '' ? null : trim($v),
             ],
             [['webhook_url'], 'url'],
             [['webhook_url'], 'validateWebhookUrl'],
             [['username'], 'match', 'pattern' => '/^[a-zA-Z0-9._-]{1,21}$/'],
             [['icon'], 'match', 'pattern' => '/^:[a-zA-Z0-9+._-]+:$/',
-                'when' => function ($model) {
-                    return is_string($model->icon) && strpos($model->icon, '//') === false;
-                },
+                'when' => fn ($model) => is_string($model->icon) && strpos($model->icon, '//') === false,
                 'whenClient' => 'function(){return $("#slackaddform-icon").val().indexOf("//")<0}',
             ],
             [['icon'], 'url',
-                'when' => function ($model) {
-                    return !(is_string($model->icon) && strpos($model->icon, '//') === false);
-                },
+                'when' => fn ($model) => !(is_string($model->icon) && strpos($model->icon, '//') === false),
                 'whenClient' => 'function(){return $("#slackaddform-icon").val().indexOf("//")>=0}',
             ],
             [['channel'], 'match',
@@ -63,7 +57,8 @@ class SlackAddForm extends Model
             ],
             [['language_id'], 'exist',
                 'targetClass' => Language::class,
-                'targetAttribute' => 'id'],
+                'targetAttribute' => 'id',
+            ],
         ];
     }
 
@@ -82,16 +77,15 @@ class SlackAddForm extends Model
     }
 
     /**
-     * @param string $attr
      * @param mixed $params
      */
-    public function validateWebhookUrl($attr, $params): void
+    public function validateWebhookUrl(string $attr, $params): void
     {
         if ($this->hasErrors($attr)) {
             return;
         }
 
-        $quote = fn(string $regex) => preg_quote($regex, '/');
+        $quote = fn (string $regex) => preg_quote($regex, '/');
         $okUrls = [
             // Slack
             sprintf(

@@ -15,19 +15,20 @@ use Yii;
 use app\components\behaviors\TimestampBehavior;
 use app\components\helpers\DateTimeFormatter;
 use yii\db\ActiveRecord;
-use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
+
+use const FILTER_VALIDATE_INT;
 
 /**
  * This is the model class for table "salmon_stats2".
  *
- * @property integer $id
- * @property integer $user_id
- * @property integer $work_count
- * @property integer $total_golden_eggs
- * @property integer $total_eggs
- * @property integer $total_rescued
- * @property integer $total_point
+ * @property int $id
+ * @property int $user_id
+ * @property int $work_count
+ * @property int $total_golden_eggs
+ * @property int $total_eggs
+ * @property int $total_rescued
+ * @property int $total_point
  * @property string $as_of
  * @property string $created_at
  *
@@ -63,7 +64,8 @@ class SalmonStats2 extends ActiveRecord
                 }
 
                 return $value;
-            }],
+            },
+            ],
             [['user_id'], 'integer'],
             [['work_count', 'total_golden_eggs', 'total_eggs'], 'integer', 'min' => 0],
             [['total_rescued', 'total_point'], 'integer', 'min' => 0],
@@ -102,7 +104,7 @@ class SalmonStats2 extends ActiveRecord
                 return null;
             }
             $value = filter_var($value, FILTER_VALIDATE_INT);
-            return ($value === false) ? null : (int)$value;
+            return $value === false ? null : (int)$value;
         };
 
         $timestamp = function ($value): ?array {
@@ -129,32 +131,26 @@ class SalmonStats2 extends ActiveRecord
 
     public static function openApiSchema(): array
     {
-        $nullableBigint = function (
+        $nullableBigint = fn (
             string $descriptionEn,
             ?int $minValue = null,
             ?int $maxValue = null
-        ): array {
-            return array_filter(
-                [
-                    'type' => 'integer',
-                    'format' => 'int64',
-                    'minimum' => $minValue,
-                    'maximum' => $maxValue,
-                    'nullable' => true,
-                    'description' => Html::encode(Yii::t('app-apidoc2', $descriptionEn)),
-                ],
-                function ($value): bool {
-                    return $value !== null;
-                }
-            );
-        };
-
-        $timestamp = function (string $descriptionEn, bool $nullable): array {
-            return array_merge(openapi\DateTime::openApiSchema(), [
-                'nullable' => $nullable,
+        ): array => array_filter(
+            [
+                'type' => 'integer',
+                'format' => 'int64',
+                'minimum' => $minValue,
+                'maximum' => $maxValue,
+                'nullable' => true,
                 'description' => Html::encode(Yii::t('app-apidoc2', $descriptionEn)),
-            ]);
-        };
+            ],
+            fn ($value): bool => $value !== null
+        );
+
+        $timestamp = fn (string $descriptionEn, bool $nullable): array => array_merge(openapi\DateTime::openApiSchema(), [
+            'nullable' => $nullable,
+            'description' => Html::encode(Yii::t('app-apidoc2', $descriptionEn)),
+        ]);
 
         return [
             'type' => 'object',
@@ -180,9 +176,7 @@ class SalmonStats2 extends ActiveRecord
 
     public static function openapiExample(): array
     {
-        $ts = function (string $timestamp): array {
-            return DateTimeFormatter::unixTimeToJsonArray(strtotime($timestamp));
-        };
+        $ts = fn (string $timestamp): array => DateTimeFormatter::unixTimeToJsonArray(strtotime($timestamp));
 
         return [
             'work_count' => 388,

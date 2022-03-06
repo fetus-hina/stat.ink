@@ -8,7 +8,6 @@
 
 namespace app\models\api\v1;
 
-use Yii;
 use yii\base\Model;
 
 class PostGearsForm extends Model

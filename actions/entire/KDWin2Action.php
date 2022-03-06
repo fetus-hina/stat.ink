@@ -15,7 +15,6 @@ use app\models\KDWin2FilterForm;
 use app\models\SplatoonVersion2;
 use app\models\SplatoonVersionGroup2;
 use app\models\StatWeapon2KdWinRate;
-use yii\helpers\ArrayHelper;
 use yii\web\ServerErrorHttpException;
 use yii\web\ViewAction;
 
@@ -35,9 +34,7 @@ class KDWin2Action extends ViewAction
                     ['entire/kd-win2',
                         'filter' => array_filter(
                             $filter->attributes,
-                            function (?string $value): bool {
-                                return trim((string)$value) !== '';
-                            }
+                            fn (?string $value): bool => trim((string)$value) !== ''
                         ),
                     ]
                 );

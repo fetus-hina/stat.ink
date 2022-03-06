@@ -17,6 +17,9 @@ use Yii;
 use yii\base\Component;
 use yii\helpers\FileHelper;
 
+use const LC_ALL;
+use const STDERR;
+
 class OpenCCTranslator extends Component
 {
     private const INPUT_DIR = '@app/messages/_deepl/zh';
@@ -59,15 +62,14 @@ class OpenCCTranslator extends Component
 
     private function translateFile(string $inputPath, string $outputPath): bool
     {
-        fwrite(STDERR, "Processing zh-CN to zh-TW with OpenCC: " . basename($inputPath) . "\n");
+        fwrite(STDERR, 'Processing zh-CN to zh-TW with OpenCC: ' . basename($inputPath) . "\n");
 
         if (!FileHelper::createDirectory(dirname($outputPath))) {
-            fwrite(STDERR, "Could not create directory: " . dirname($outputPath) . "\n");
+            fwrite(STDERR, 'Could not create directory: ' . dirname($outputPath) . "\n");
             return false;
         }
 
-        $result = true;
-        $inputTexts = include($inputPath);
+        $inputTexts = include $inputPath;
         $outputTexts = [];
         foreach ($inputTexts as $enText => $hansText) {
             fwrite(STDERR, "  {$hansText}\n");
@@ -75,9 +77,7 @@ class OpenCCTranslator extends Component
             $outputTexts[$enText] = $hantText;
         }
 
-        $esc = function (string $text): string {
-            return str_replace(["\\", "'"], ["\\\\", "\\'"], $text);
-        };
+        $esc = fn (string $text): string => str_replace(['\\', "'"], ['\\\\', "\\'"], $text);
 
         fwrite(STDERR, "Writing...\n");
         $fh = fopen($outputPath, 'wt');

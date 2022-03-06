@@ -11,6 +11,8 @@ namespace app\components\behaviors;
 use yii\base\Behavior;
 use yii\db\ActiveRecord;
 
+use const FORCE_GZIP;
+
 class CompressBehavior extends Behavior
 {
     public const PREFIX_PLAIN = '[{';

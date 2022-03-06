@@ -10,7 +10,6 @@ declare(strict_types=1);
 
 namespace app\components\widgets;
 
-use Yii;
 use yii\base\Widget;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
@@ -19,7 +18,7 @@ class MaxmindMessage extends Widget
 {
     public $options = [
         'tag' => 'div',
-        'class' => 'very-small'
+        'class' => 'very-small',
     ];
 
     public function run()

@@ -21,6 +21,9 @@ use yii\db\Query;
 use yii\helpers\ArrayHelper;
 use yii\web\Response;
 
+use const SORT_ASC;
+use const SORT_STRING;
+
 class ActivityAction extends Action
 {
     public $resp;
@@ -45,14 +48,13 @@ class ActivityAction extends Action
         }
 
         $user = User::findOne(['screen_name' => $form->screen_name]);
-        list($from, $to) = BattleHelper::getActivityDisplayRange();
+        [$from, $to] = BattleHelper::getActivityDisplayRange();
         $this->resp->data = $this->makeData($user, $from, $to, $form->only);
     }
 
     private function getInputPseudoForm(): DynamicModel
     {
         $req = Yii::$app->getRequest();
-        $time = time();
         return DynamicModel::validateData(
             [
                 'screen_name' => $req->get('screen_name'),
@@ -101,12 +103,10 @@ class ActivityAction extends Action
     private function reformatData(array $inData): array
     {
         return array_map(
-            function (string $date, int $count): array {
-                return [
-                    'date' => $date,
-                    'count' => $count,
-                ];
-            },
+            fn (string $date, int $count): array => [
+                'date' => $date,
+                'count' => $count,
+            ],
             array_keys($inData),
             array_values($inData)
         );
@@ -145,7 +145,7 @@ class ActivityAction extends Action
                 'between',
                 $date,
                 $from->format(DateTime::ATOM),
-                $to->format(DateTime::ATOM)
+                $to->format(DateTime::ATOM),
             ])
             ->groupBy([$date])
             ->orderBy(['date' => SORT_ASC]);
@@ -173,7 +173,7 @@ class ActivityAction extends Action
                 'between',
                 $date,
                 $from->format(DateTime::ATOM),
-                $to->format(DateTime::ATOM)
+                $to->format(DateTime::ATOM),
             ])
             ->groupBy([$date])
             ->orderBy(['date' => SORT_ASC]);
@@ -200,7 +200,7 @@ class ActivityAction extends Action
                 'between',
                 $date,
                 $from->format(DateTime::ATOM),
-                $to->format(DateTime::ATOM)
+                $to->format(DateTime::ATOM),
             ])
             ->groupBy([$date])
             ->orderBy(['date' => SORT_ASC]);

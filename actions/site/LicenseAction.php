@@ -10,7 +10,6 @@ declare(strict_types=1);
 
 namespace app\actions\site;
 
-use DirectoryIterator;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use Yii;
@@ -142,7 +141,7 @@ class LicenseAction extends SimpleAction
             $basename = substr($pathname, strlen($basedir));
             $html = $this->loadPlain(
                 $entry->getPathname(),
-                fn(string $t): bool => (bool)preg_match('/copyright|licen[cs]e/i', $t),
+                fn (string $t): bool => (bool)preg_match('/copyright|licen[cs]e/i', $t),
             );
             if ($html) {
                 $ret[] = (object)[
@@ -179,7 +178,7 @@ class LicenseAction extends SimpleAction
             $basename = substr($pathname, strlen($basedir));
             $html = $this->loadPlain(
                 $entry->getPathname(),
-                fn(string $t): bool => (bool)preg_match('/copyright|licen[cs]e/i', $t),
+                fn (string $t): bool => (bool)preg_match('/copyright|licen[cs]e/i', $t),
             );
             if ($html) {
                 $ret[] = (object)[
@@ -196,7 +195,7 @@ class LicenseAction extends SimpleAction
     private function loadPlain(string $path, ?callable $checker = null): ?string
     {
         $text = $this->loadFile($path, $checker);
-        return ($text !== null)
+        return $text !== null
             ? Html::tag('pre', Html::encode($text))
             : null;
     }
@@ -204,7 +203,7 @@ class LicenseAction extends SimpleAction
     private function loadMarkdown($path, ?callable $checker = null): ?string
     {
         $text = $this->loadFile($path, $checker);
-        return ($text !== null)
+        return $text !== null
             ? $this->mdParser->parse($text)
             : null;
     }

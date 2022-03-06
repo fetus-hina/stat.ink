@@ -12,11 +12,8 @@ namespace app\components\widgets\battle\panelItem;
 
 use DateTime;
 use DateTimeImmutable;
-use DateTimeZone;
 use Yii;
 use app\assets\SimpleBattleListAsset;
-use app\components\widgets\ActiveRelativeTimeWidget;
-use app\models\User;
 use yii\base\Widget;
 use yii\bootstrap\Html;
 
@@ -25,12 +22,19 @@ abstract class BaseWidget extends Widget
     public $model;
 
     abstract public function getBattleEndAt(): ?DateTimeImmutable;
+
     abstract public function getIsKO(): ?bool;
+
     abstract public function getIsWin(): ?bool;
+
     abstract public function getKillDeath(): array;
+
     abstract public function getLinkRoute(): array;
+
     abstract public function getMapName(): string;
+
     abstract public function getRuleName(): string;
+
     abstract public function getWeaponName(): string;
 
     public function run()
@@ -56,7 +60,7 @@ abstract class BaseWidget extends Widget
                                 'div',
                                 $this->renderDatetimeHtml(),
                                 ['class' => 'simple-battle-at']
-                            )
+                            ),
                         ]),
                         ['class' => 'simple-battle-row-impl']
                     ),
@@ -86,10 +90,12 @@ abstract class BaseWidget extends Widget
         return Html::tag(
             'div',
             Html::encode(Yii::t('app', $result ? 'Won' : 'Lost')) . $koHtml,
-            ['class' => [
-                'simple-battle-result',
-                $result ? 'simple-battle-result-won' : 'simple-battle-result-lost',
-            ]]
+            [
+                'class' => [
+                    'simple-battle-result',
+                    $result ? 'simple-battle-result-won' : 'simple-battle-result-lost',
+                ],
+            ]
         );
     }
 
@@ -109,7 +115,7 @@ abstract class BaseWidget extends Widget
 
     protected function renderKillDeathHtml(): string
     {
-        list($kill, $death) = $this->getKillDeath();
+        [$kill, $death] = $this->getKillDeath();
         return implode('', [
             sprintf(
                 '%sK / %sD',
@@ -141,9 +147,9 @@ abstract class BaseWidget extends Widget
             'time',
             Html::encode(Yii::$app->formatter->asRelativeTime($datetime)),
             [
-              'datetime' => $datetime->format(DateTime::ATOM),
-              'title' => Yii::$app->formatter->asDatetime($datetime, 'medium'),
-              'class' => 'auto-tooltip',
+                'datetime' => $datetime->format(DateTime::ATOM),
+                'title' => Yii::$app->formatter->asDatetime($datetime, 'medium'),
+                'class' => 'auto-tooltip',
             ]
         );
     }

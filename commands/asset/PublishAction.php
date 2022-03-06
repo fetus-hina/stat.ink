@@ -10,7 +10,6 @@ declare(strict_types=1);
 
 namespace app\commands\asset;
 
-use Yii;
 use yii\base\Action;
 use yii\helpers\Url;
 
@@ -22,13 +21,15 @@ use function parse_url;
 use function sprintf;
 use function strtolower;
 
+use const STDERR;
+
 class PublishAction extends Action
 {
     /** @return int */
     public function run()
     {
         $url = Url::to(['site/asset-publish'], true);
-        list($host, $port) = $this->getHostAndPortFromURL($url);
+        [$host, $port] = $this->getHostAndPortFromURL($url);
         if (!$host || !$port) {
             fwrite(STDERR, "Unable to detect host name/port\n");
             return 1;
@@ -59,7 +60,7 @@ class PublishAction extends Action
         ) {
             return [
                 strtolower($urlInfo['host']),
-                (isset($urlInfo['port']))
+                isset($urlInfo['port'])
                     ? (int)$urlInfo['port']
                     : ($urlInfo['scheme'] === 'http' ? 80 : 443),
             ];

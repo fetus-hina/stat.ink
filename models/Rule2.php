@@ -13,10 +13,12 @@ use app\components\helpers\Translator;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
 
+use const SORT_ASC;
+
 /**
  * This is the model class for table "rule2".
  *
- * @property integer $id
+ * @property int $id
  * @property string $key
  * @property string $name
  * @property string $short_name
@@ -104,9 +106,7 @@ class Rule2 extends ActiveRecord
         }
 
         if ($valueCallback === null) {
-            $valueCallback = function (self $row): string {
-                return Yii::t('app-rule2', ArrayHelper::getValue($row, 'name'));
-            };
+            $valueCallback = fn (self $row): string => Yii::t('app-rule2', ArrayHelper::getValue($row, 'name'));
         }
 
         return ArrayHelper::map($query->all(), 'key', $valueCallback);
@@ -143,9 +143,7 @@ class Rule2 extends ActiveRecord
     public static function openapiExample(): array
     {
         return array_map(
-            function (self $model): array {
-                return $model->toJsonArray();
-            },
+            fn (self $model): array => $model->toJsonArray(),
             static::find()
                 ->orderBy(['id' => SORT_ASC])
                 ->all()

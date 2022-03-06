@@ -10,7 +10,6 @@ namespace app\actions\ostatus;
 
 use Yii;
 use app\components\helpers\BattleAtom;
-use app\models\Battle;
 use app\models\User;
 use yii\web\Response;
 use yii\web\ViewAction as BaseAction;

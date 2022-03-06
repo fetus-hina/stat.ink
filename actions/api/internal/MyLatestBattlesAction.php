@@ -28,12 +28,10 @@ class MyLatestBattlesAction extends BaseLatestBattlesAction
     protected function fetchBattles(): array
     {
         return Yii::$app->db->transaction(
-            function (): array {
-                return CombinedBattles::getUserRecentBattles(
-                    Yii::$app->user->identity,
-                    static::BATTLE_LIMIT
-                );
-            },
+            fn (): array => CombinedBattles::getUserRecentBattles(
+                Yii::$app->user->identity,
+                static::BATTLE_LIMIT
+            ),
             Transaction::REPEATABLE_READ
         );
     }

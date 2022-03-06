@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace tests\helpers;
 
 use Codeception\Test\Unit;
-use Yii;
 use app\components\helpers\RandomFilename;
 use app\components\helpers\randomFilename\Generator;
 

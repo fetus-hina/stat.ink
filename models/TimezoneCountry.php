@@ -10,15 +10,14 @@ declare(strict_types=1);
 
 namespace app\models;
 
-use Yii;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "timezone_country".
  *
- * @property integer $timezone_id
- * @property integer $country_id
+ * @property int $timezone_id
+ * @property int $country_id
  *
  * @property Country $country
  * @property Timezone $timezone

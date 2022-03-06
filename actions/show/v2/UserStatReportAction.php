@@ -13,7 +13,6 @@ use DateTime;
 use DateTimeImmutable;
 use DateTimeZone;
 use Yii;
-use app\components\helpers\Battle as BattleHelper;
 use app\models\Battle2;
 use app\models\Spl2YearMonthForm;
 use app\models\User;
@@ -91,19 +90,25 @@ class UserStatReportAction extends BaseAction
         return $this->controller->render('user-stat-report-month', [
             'user' => $this->user,
             'list' => $this->query($from, $to),
-            'next' => ($next <= $upperBound)
-                ? Url::to(['show-v2/user-stat-report',
+            'next' => $next <= $upperBound
+                ? Url::to(
+                    ['show-v2/user-stat-report',
                         'screen_name' => $this->user->screen_name,
                         'year' => $next->format('Y'),
                         'month' => $next->format('n'),
-                    ], true)
+                    ],
+                    true
+                )
                 : null,
-            'prev' => ($prev >= $lowerBound)
-                ? Url::to(['show-v2/user-stat-report',
+            'prev' => $prev >= $lowerBound
+                ? Url::to(
+                    ['show-v2/user-stat-report',
                         'screen_name' => $this->user->screen_name,
                         'year' => $prev->format('Y'),
                         'month' => $prev->format('n'),
-                    ], true)
+                    ],
+                    true
+                )
                 : null,
         ]);
     }
@@ -205,15 +210,13 @@ class UserStatReportAction extends BaseAction
             },
             $query->asArray()->all()
         );
-        usort($list, function (array $a, array $b): int {
-            return strcmp($b['date'], $a['date'])
+        usort($list, fn (array $a, array $b): int => strcmp($b['date'], $a['date'])
                 ?: $a['lobby_id'] <=> $b['lobby_id']
                 ?: $a['mode_id'] <=> $b['mode_id']
                 ?: strcmp($a['team_id'], $b['team_id'])
                 ?: $a['rule_id'] <=> $b['rule_id']
                 ?: strcmp($a['map_name'], $b['map_name'])
-                ?: strcmp($a['weapon_name'], $b['weapon_name']);
-        });
+                ?: strcmp($a['weapon_name'], $b['weapon_name']));
         return $list;
     }
 }

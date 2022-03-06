@@ -31,6 +31,8 @@ use function array_merge;
 use function strtotime;
 use function time;
 
+use const SORT_ASC;
+
 class ScheduleAction extends ViewAction
 {
     private DateTimeImmutable $now;
@@ -99,11 +101,10 @@ class ScheduleAction extends ViewAction
         return ArrayHelper::map(
             ScheduleMode2::find()->orderBy(['id' => SORT_ASC])->all(),
             'key',
-            function (ScheduleMode2 $mode) use ($am): array {
-                return [
-                    'key' => $mode->key,
-                    'name' => Yii::t('app-rule2', $mode->name),
-                    'image' => $mode->key === 'regular'
+            fn (ScheduleMode2 $mode): array => [
+                'key' => $mode->key,
+                'name' => Yii::t('app-rule2', $mode->name),
+                'image' => $mode->key === 'regular'
                         ? null
                         : Url::to(
                             $am->getAssetUrl(
@@ -112,9 +113,9 @@ class ScheduleAction extends ViewAction
                             ),
                             true
                         ),
-                    'source' => 's2ink',
-                    'schedules' => ArrayHelper::getColumn(
-                        Schedule2::find()
+                'source' => 's2ink',
+                'schedules' => ArrayHelper::getColumn(
+                    Schedule2::find()
                             ->andWhere(['mode_id' => $mode->id])
                             ->andWhere(['>=', '{{schedule2}}.[[period]]', $this->currentPeriod])
                             ->orderBy([
@@ -126,42 +127,37 @@ class ScheduleAction extends ViewAction
                                 'rule',
                             ])
                             ->all(),
-                        function (Schedule2 $sc) use ($am): array {
-                            return [
-                                'time' => BattleHelper::periodToRange2((int)$sc->period),
-                                'rule' => [
-                                    'key' => $sc->rule->key,
-                                    'name' => Yii::t('app-rule2', $sc->rule->name),
-                                    'short' => Yii::t('app-rule2', $sc->rule->short_name),
-                                    'icon' => Url::to(
-                                        $am->getAssetUrl(
-                                            $am->getBundle(GameModeIconsAsset::class, true),
-                                            sprintf('spl2/%s.png', $sc->rule->key)
-                                        ),
-                                        true
-                                    ),
-                                ],
-                                'maps' => ArrayHelper::getColumn(
-                                    $sc->maps,
-                                    function (Map2 $map) use ($am): array {
-                                        return [
-                                            'key' => $map->key,
-                                            'name' => Yii::t('app-map2', $map->name),
-                                            'image' => Url::to(
-                                                $am->getAssetUrl(
-                                                    $am->getBundle(Stages2Asset::class, true),
-                                                    sprintf('daytime/%s.jpg', $map->key)
-                                                ),
-                                                true
-                                            ),
-                                        ];
-                                    }
+                    fn (Schedule2 $sc): array => [
+                        'time' => BattleHelper::periodToRange2((int)$sc->period),
+                        'rule' => [
+                            'key' => $sc->rule->key,
+                            'name' => Yii::t('app-rule2', $sc->rule->name),
+                            'short' => Yii::t('app-rule2', $sc->rule->short_name),
+                            'icon' => Url::to(
+                                $am->getAssetUrl(
+                                    $am->getBundle(GameModeIconsAsset::class, true),
+                                    sprintf('spl2/%s.png', $sc->rule->key)
                                 ),
-                            ];
-                        }
-                    ),
-                ];
-            }
+                                true
+                            ),
+                        ],
+                        'maps' => ArrayHelper::getColumn(
+                            $sc->maps,
+                            fn (Map2 $map): array => [
+                                'key' => $map->key,
+                                'name' => Yii::t('app-map2', $map->name),
+                                'image' => Url::to(
+                                    $am->getAssetUrl(
+                                        $am->getBundle(Stages2Asset::class, true),
+                                        sprintf('daytime/%s.jpg', $map->key)
+                                    ),
+                                    true
+                                ),
+                            ]
+                        ),
+                    ]
+                ),
+            ]
         );
     }
 
@@ -184,7 +180,7 @@ class ScheduleAction extends ViewAction
                     ->andWhere([
                         '>',
                         '{{salmon_schedule2}}.[[end_at]]',
-                        $this->now->format(DateTime::ATOM)
+                        $this->now->format(DateTime::ATOM),
                     ])
                     ->orderBy([
                         '{{salmon_schedule2}}.[[end_at]]' => SORT_ASC,
@@ -195,13 +191,13 @@ class ScheduleAction extends ViewAction
                         'weapons.weapon',
                     ])
                     ->all(),
-                function (SalmonSchedule2 $sc) use ($am): array {
-                    return [
-                        'time' => [
-                            strtotime($sc->start_at),
-                            strtotime($sc->end_at),
-                        ],
-                        'maps' => [[
+                fn (SalmonSchedule2 $sc): array => [
+                    'time' => [
+                        strtotime($sc->start_at),
+                        strtotime($sc->end_at),
+                    ],
+                    'maps' => [
+                        [
                             'key' => $sc->map->key,
                             'name' => Yii::t('app-salmon-map2', $sc->map->name),
                             'image' => Url::to(
@@ -211,28 +207,28 @@ class ScheduleAction extends ViewAction
                                 ),
                                 true
                             ),
-                        ]],
-                        'weapons' => $this->fillSalmonWeapon(
-                            ArrayHelper::getColumn(
-                                $sc->weapons,
-                                function (SalmonWeapon2 $info) use ($am): array {
-                                    $w = $info->weapon;
-                                    return [
-                                        'key' => $w->key,
-                                        'name' => Yii::t('app-weapon2', $w->name),
-                                        'icon' => Url::to(
-                                            $am->getAssetUrl(
-                                                $am->getBundle(Spl2WeaponAsset::class, true),
-                                                $w->key . '.png'
-                                            ),
-                                            true
+                        ],
+                    ],
+                    'weapons' => $this->fillSalmonWeapon(
+                        ArrayHelper::getColumn(
+                            $sc->weapons,
+                            function (SalmonWeapon2 $info) use ($am): array {
+                                $w = $info->weapon;
+                                return [
+                                    'key' => $w->key,
+                                    'name' => Yii::t('app-weapon2', $w->name),
+                                    'icon' => Url::to(
+                                        $am->getAssetUrl(
+                                            $am->getBundle(Spl2WeaponAsset::class, true),
+                                            $w->key . '.png'
                                         ),
-                                    ];
-                                }
-                            )
-                        ),
-                    ];
-                },
+                                        true
+                                    ),
+                                ];
+                            }
+                        )
+                    ),
+                ],
             ),
         ];
     }

@@ -17,7 +17,7 @@ class m160606_142124_ikalog_requirements extends Migration
             'from'          => 'TIMESTAMP(0) WITH TIME ZONE NOT NULL',
             'version_date'  => 'VARCHAR(64) NOT NULL',
         ]);
-        $this->batchInsert('ikalog_requirement', [ 'from', 'version_date' ], [
+        $this->batchInsert('ikalog_requirement', ['from', 'version_date'], [
             [ '2016-06-08 10:00:00+09:00', '2016-06-08_00' ],
         ]);
     }

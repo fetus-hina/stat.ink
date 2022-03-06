@@ -10,15 +10,17 @@ declare(strict_types=1);
 
 namespace app\models;
 
-use Yii;
+use Throwable;
 use jp3cki\uuid\Uuid;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
+use const SORT_DESC;
+
 /**
  * This is the model class for table "blog_entry".
  *
- * @property integer $id
+ * @property int $id
  * @property string $uuid
  * @property string $url
  * @property string $title
@@ -54,18 +56,20 @@ class BlogEntry extends ActiveRecord
             [['at'], 'safe'],
             [['url', 'title'], 'string', 'max' => 256],
             [['uuid'], 'string'],
-            [['uuid'], function ($attribute, $params) {
-                if ($this->hasErrors($attribute)) {
-                    return;
-                }
-                // error check and normalize
-                try {
-                    $this->$attribute = (new Uuid($this->$attribute))->__toString();
-                } catch (\Exception $e) {
-                    $this->addErrors($attribute, 'invalid uuid given');
-                    return;
-                }
-            }],
+            [['uuid'],
+                function ($attribute, $params) {
+                    if ($this->hasErrors($attribute)) {
+                        return;
+                    }
+                    // error check and normalize
+                    try {
+                        $this->$attribute = (new Uuid($this->$attribute))->__toString();
+                    } catch (Throwable $e) {
+                        $this->addErrors($attribute, 'invalid uuid given');
+                        return;
+                    }
+                },
+            ],
             [['uuid'], 'unique'],
         ];
     }

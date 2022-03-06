@@ -15,6 +15,8 @@ use yii\base\Behavior;
 use yii\base\Model;
 use yii\helpers\StringHelper;
 
+use const PASSWORD_ARGON2I;
+
 class UserAuthKeyBehavior extends Behavior
 {
     public const RAW_KEY_BITS = 256;

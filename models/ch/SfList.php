@@ -10,8 +10,6 @@ declare(strict_types=1);
 
 namespace app\models\ch;
 
-use DomainException;
-use LogicException;
 use Yii;
 use yii\base\Model;
 
@@ -31,9 +29,7 @@ class SfList extends Model
     public function __toString()
     {
         return implode(',', array_map(
-            function (SfItem $item): string {
-                return (string)$item;
-            },
+            fn (SfItem $item): string => (string)$item,
             $this->items
         ));
     }

@@ -16,6 +16,8 @@ use yii\db\Transaction;
 use yii\helpers\ArrayHelper;
 use yii\web\ViewAction;
 
+use const SORT_ASC;
+
 class Festpower2Action extends ViewAction
 {
     public const MISTAKE_BEGIN = '2018-05-19T04:00:00+00:00';
@@ -24,17 +26,15 @@ class Festpower2Action extends ViewAction
     public function run()
     {
         return Yii::$app->db->transaction(
-            function (): string {
-                return $this->controller->render(
-                    'festpower2',
-                    array_merge(
-                        [
-                            'data' => $this->getData(),
-                        ],
-                        $this->getTotalCounts(),
-                    )
-                );
-            },
+            fn (): string => $this->controller->render(
+                'festpower2',
+                array_merge(
+                    [
+                        'data' => $this->getData(),
+                    ],
+                    $this->getTotalCounts(),
+                )
+            ),
             Transaction::REPEATABLE_READ
         );
     }

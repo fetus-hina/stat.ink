@@ -16,14 +16,16 @@ use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
 
+use const SORT_ASC;
+
 /**
  * This is the model class for table "salmon_main_weapon2".
  *
- * @property integer $id
+ * @property int $id
  * @property string $key
  * @property string $name
- * @property integer $splatnet
- * @property integer $weapon_id
+ * @property int $splatnet
+ * @property int $weapon_id
  *
  * @property Weapon2 $weapon
  */
@@ -152,14 +154,14 @@ class SalmonMainWeapon2 extends ActiveRecord
     public static function openapiExample(): array
     {
         return array_map(
-            function (self $model): array {
-                return $model->toJsonArray();
-            },
+            fn (self $model): array => $model->toJsonArray(),
             static::find()
-                ->andWhere(['key' => [
-                    'sshooter',
-                    'splatroller',
-                ]])
+                ->andWhere([
+                    'key' => [
+                        'sshooter',
+                        'splatroller',
+                    ],
+                ])
                 ->sorted()
                 ->orderBy(['splatnet' => SORT_ASC])
                 ->all()

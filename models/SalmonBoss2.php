@@ -15,13 +15,15 @@ use app\components\helpers\Translator;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
 
+use const SORT_ASC;
+
 /**
  * This is the model class for table "salmon_boss2".
  *
- * @property integer $id
+ * @property int $id
  * @property string $key
  * @property string $name
- * @property integer $splatnet
+ * @property int $splatnet
  * @property string $splatnet_str
  */
 class SalmonBoss2 extends ActiveRecord
@@ -117,9 +119,7 @@ class SalmonBoss2 extends ActiveRecord
     public static function openapiExample(): array
     {
         return array_map(
-            function (self $model): array {
-                return $model->toJsonArray();
-            },
+            fn (self $model): array => $model->toJsonArray(),
             static::find()
                 ->orderBy(['key' => SORT_ASC])
                 ->all()

@@ -11,21 +11,17 @@ declare(strict_types=1);
 namespace app\controllers;
 
 use DOMDocument;
-use Laminas\Feed\Writer\Feed as FeedWriter;
 use Yii;
 use app\actions\ostatus\FeedAction;
 use app\actions\ostatus\StartRemoteFollowAction;
 use app\models\OstatusRsa;
 use app\models\User;
 use app\models\api\internal\PubsubhubbubForm;
-use jp3cki\uuid\NS as UuidNs;
-use jp3cki\uuid\Uuid;
 use yii\filters\VerbFilter;
 use yii\helpers\Url;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\web\Response;
 use yii\web\ServerErrorHttpException;
 
 class OstatusController extends Controller

@@ -14,6 +14,8 @@ use DateTimeZone;
 use Yii;
 use yii\base\Component;
 
+use const FILTER_VALIDATE_INT;
+
 class DateTime extends Component
 {
     use Util;
@@ -61,7 +63,7 @@ class DateTime extends Component
 
         return [
             'time' => $value->getTimestamp(),
-            'iso8601' => $value->format(\DateTime::ATOM),
+            'iso8601' => $value->format(DateTimeInterface::ATOM),
         ];
     }
 }

@@ -8,17 +8,17 @@
 
 namespace app\models;
 
-use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "splatfest".
  *
- * @property integer $id
- * @property integer $region_id
+ * @property int $id
+ * @property int $region_id
  * @property string $name
  * @property string $start_at
  * @property string $end_at
- * @property integer $order
+ * @property int $order
  *
  * @property Region $region
  * @property SplatfestBattleSummary[] $splatfestBattleSummaries
@@ -26,7 +26,7 @@ use Yii;
  * @property SplatfestTeam[] $splatfestTeams
  * @property Team[] $teams
  */
-class Splatfest extends \yii\db\ActiveRecord
+class Splatfest extends ActiveRecord
 {
     public static function findCurrentFest()
     {
@@ -58,7 +58,8 @@ class Splatfest extends \yii\db\ActiveRecord
             [['start_at', 'end_at'], 'safe'],
             [['name'], 'string', 'max' => 64],
             [['region_id', 'order'], 'unique', 'targetAttribute' => ['region_id', 'order'],
-                'message' => 'The combination of  and Region ID has already been taken.']
+                'message' => 'The combination of  and Region ID has already been taken.',
+            ],
         ];
     }
 

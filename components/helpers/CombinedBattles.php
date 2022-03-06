@@ -13,12 +13,13 @@ namespace app\components\helpers;
 use DateTime;
 use DateTimeImmutable;
 use Yii;
-use app\models\Battle2;
 use app\models\Battle;
+use app\models\Battle2;
 use app\models\Salmon2;
 use app\models\User;
 use yii\db\ActiveQuery;
-use yii\db\Query;
+
+use const SORT_DESC;
 
 class CombinedBattles
 {
@@ -142,7 +143,7 @@ class CombinedBattles
                                 'map',
                                 'rule',
                                 'user',
-                                'user.userIcon'
+                                'user.userIcon',
                             ])
                             ->limit($num)
                             ->orderBy(['battle.id' => SORT_DESC]),
@@ -175,9 +176,7 @@ class CombinedBattles
                 }
                 if ($list = $query->all()) {
                     $merged = array_merge($merged, $list);
-                    usort($merged, function ($a, $b): int {
-                        return $b->getCreatedAt() <=> $a->getCreatedAt();
-                    });
+                    usort($merged, fn ($a, $b): int => $b->getCreatedAt() <=> $a->getCreatedAt());
                     if (count($merged) >= $num) {
                         $threshold = (new DateTimeImmutable())
                             ->setTimestamp($merged[$num - 1]->getCreatedAt());

@@ -10,19 +10,22 @@ namespace app\models;
 
 use Yii;
 use app\components\helpers\Translator;
+use yii\db\ActiveRecord;
+
+use const SORT_DESC;
 
 /**
  * This is the model class for table "rank".
  *
- * @property integer $id
+ * @property int $id
  * @property string $key
  * @property string $name
- * @property integer $int_base
+ * @property int $int_base
  *
  * @property Battle[] $battles
  * @property RankGroup $group
  */
-final class Rank extends \yii\db\ActiveRecord
+final class Rank extends ActiveRecord
 {
     use SafeFindOneTrait;
 

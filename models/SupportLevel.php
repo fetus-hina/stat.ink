@@ -8,13 +8,12 @@
 
 namespace app\models;
 
-use Yii;
 use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "support_level".
  *
- * @property integer $id
+ * @property int $id
  * @property string $name
  *
  * @property Language[] $languages

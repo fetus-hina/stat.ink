@@ -13,8 +13,11 @@ namespace app\actions\api\v2\salmon;
 use Yii;
 use app\models\Salmon2;
 use yii\web\NotFoundHttpException;
+use yii\web\ViewAction as BaseViewAction;
 
-class ViewAction extends \yii\web\ViewAction
+use const FILTER_VALIDATE_INT;
+
+class ViewAction extends BaseViewAction
 {
     public function init()
     {

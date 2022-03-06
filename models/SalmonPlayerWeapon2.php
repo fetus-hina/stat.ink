@@ -10,16 +10,15 @@ declare(strict_types=1);
 
 namespace app\models;
 
-use Yii;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "salmon_player_weapon2".
  *
- * @property integer $player_id
- * @property integer $wave
- * @property integer $weapon_id
+ * @property int $player_id
+ * @property int $wave
+ * @property int $weapon_id
  *
  * @property SalmonMainWeapon2 $weapon
  * @property SalmonPlayer2 $player

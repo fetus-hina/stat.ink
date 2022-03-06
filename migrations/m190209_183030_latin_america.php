@@ -23,10 +23,12 @@ class m190209_183030_latin_america extends Migration
 
     public function safeDown()
     {
-        $this->delete('timezone_group', ['name' => [
-            'Central America',
-            'South America',
-        ]]);
+        $this->delete('timezone_group', [
+            'name' => [
+                'Central America',
+                'South America',
+            ],
+        ]);
         $this->insert('timezone_group', [
             'order' => 60,
             'name' => 'Latin America',

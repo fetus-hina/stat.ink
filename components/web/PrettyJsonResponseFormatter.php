@@ -11,6 +11,10 @@ namespace app\components\web;
 use yii\helpers\Json;
 use yii\web\JsonResponseFormatter;
 
+use const JSON_PRETTY_PRINT;
+use const JSON_UNESCAPED_SLASHES;
+use const JSON_UNESCAPED_UNICODE;
+
 class PrettyJsonResponseFormatter extends JsonResponseFormatter
 {
     /**

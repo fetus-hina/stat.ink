@@ -6,9 +6,9 @@
  * @author AIZAWA Hina <hina@fetus.jp>
  */
 
-use yii\db\Migration;
 use app\models\Special;
 use app\models\Weapon;
+use yii\db\Migration;
 
 class m150929_064010_special extends Migration
 {
@@ -19,7 +19,7 @@ class m150929_064010_special extends Migration
             'key' => $this->string(32)->notNull()->unique(),
             'name' => $this->string(32)->notNull()->unique(),
         ]);
-        $this->batchInsert('special', [ 'key', 'name' ], [
+        $this->batchInsert('special', ['key', 'name'], [
             [ 'barrier', 'Bubbler' ],
             [ 'bombrush', 'Bomb Rush' ],
             [ 'daioika', 'Kraken' ],
@@ -31,12 +31,12 @@ class m150929_064010_special extends Migration
 
         $this->execute('ALTER TABLE {{weapon}} ADD COLUMN [[special_id]] INTEGER');
         foreach ($this->makeUpdate() as $tmp) {
-            list($weaponId, $specialId) = $tmp;
+            [$weaponId, $specialId] = $tmp;
             $this->update(
                 'weapon',
-                [ 'special_id' => $specialId ],
+                ['special_id' => $specialId],
                 'id = :weapon_id',
-                [ 'weapon_id' => $weaponId ]
+                ['weapon_id' => $weaponId]
             );
         }
         $this->addForeignKey('fk_weapon_2', 'weapon', 'special_id', 'special', 'id', 'RESTRICT');

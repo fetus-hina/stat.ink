@@ -10,21 +10,20 @@ namespace app\components\helpers;
 
 use DateTime;
 use DateTimeZone;
-use Yii;
 
 class DateTimeFormatter
 {
-    public static function unixTimeToString($unixtime, DateTimeZone $tz = null)
+    public static function unixTimeToString($unixtime, ?DateTimeZone $tz = null)
     {
         $isFloat = is_float($unixtime);
         $datetime = self::createDateTimeFromFloatedUnixtime((float)$unixtime);
-        $datetime->setTimeZone($tz === null ? static::getDefaultTimeZone() : $tz);
+        $datetime->setTimeZone($tz ?? static::getDefaultTimeZone());
         return $datetime->format(
             $isFloat ? 'Y-m-d\TH:i:s.uP' : 'Y-m-d\TH:i:sP'
         );
     }
 
-    public static function unixTimeToJsonArray($unixtime, DateTimeZone $tz = null)
+    public static function unixTimeToJsonArray($unixtime, ?DateTimeZone $tz = null)
     {
         return [
             'time' => (int)$unixtime,

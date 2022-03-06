@@ -38,7 +38,7 @@ class MachineTranslateHelper
     {
         static $cache = [];
         if (!isset($cache[$path])) {
-            $cache[$path] = include($path);
+            $cache[$path] = include $path;
         }
 
         return $cache[$path][$message] ?? null;
@@ -59,7 +59,7 @@ class MachineTranslateHelper
     private static function getMessagePathsImpl(string $category, string $language): ?array
     {
         $msgSource = Yii::$app->i18n->getMessageSource($category);
-        $fileName = $msgSource->fileMap[$category] ?? (str_replace('\\', '/', $category) . '.php');
+        $fileName = $msgSource->fileMap[$category] ?? str_replace('\\', '/', $category) . '.php';
         $langCandidates = [
             $language,
             substr($language, 0, 2),

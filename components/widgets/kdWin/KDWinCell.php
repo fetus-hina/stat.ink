@@ -44,7 +44,7 @@ class KDWinCell extends Widget
                     $this->formatter->asInteger((int)$this->battles),
                 )),
                 Html::encode(
-                    ($this->battles > 0)
+                    $this->battles > 0
                         ? $this->formatter->asPercent($this->win / $this->battles, 1)
                         : '-'
                 ),
@@ -57,7 +57,7 @@ class KDWinCell extends Widget
                 ],
                 'data' => [
                     'battle' => (string)(int)$this->battles,
-                    'percent' => ($this->battles > 0)
+                    'percent' => $this->battles > 0
                         ? ($this->win * 100 / $this->battles)
                         : '',
                 ],

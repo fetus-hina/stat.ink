@@ -24,8 +24,11 @@ use app\models\SalmonTitle2;
 use app\models\SalmonWaterLevel2;
 use app\models\WeaponCategory2;
 use yii\console\Controller;
-use yii\helpers\Console;
 use yii\helpers\StringHelper;
+
+use const GRAPHEME_EXTR_MAXCHARS;
+use const SORT_ASC;
+use const SORT_DESC;
 
 class Api2MarkdownController extends Controller
 {
@@ -84,7 +87,7 @@ class Api2MarkdownController extends Controller
                         return $match['start'] . "\n" . rtrim($repl) . "\n" . $match['end'];
 
                     default:
-                        $this->stderr("Unknown kind of replace tag: " . $match['kind'] . "\n");
+                        $this->stderr('Unknown kind of replace tag: ' . $match['kind'] . "\n");
                         exit(1);
                 }
             },
@@ -116,7 +119,7 @@ class Api2MarkdownController extends Controller
             function (array $match) use ($actionMap): string {
                 $kind = $match['kind'];
                 if (!isset($actionMap[$kind])) {
-                    $this->stderr("Unknown kind of replace tag: " . $kind . "\n");
+                    $this->stderr('Unknown kind of replace tag: ' . $kind . "\n");
                     exit(1);
                 }
 
@@ -146,10 +149,10 @@ class Api2MarkdownController extends Controller
         ];
         $data = [
             [
-                "指定文字列<br>Key String",
-                "イカリング<br>SplatNet",
-                "ブキ<br>Weapon Name",
-                "備考<br>Remarks",
+                '指定文字列<br>Key String',
+                'イカリング<br>SplatNet',
+                'ブキ<br>Weapon Name',
+                '備考<br>Remarks',
             ],
         ];
         $categories = WeaponCategory2::find()
@@ -173,18 +176,14 @@ class Api2MarkdownController extends Controller
                         $remarks[] = sprintf(
                             '互換性のため %s も受け付けます',
                             implode(', ', array_map(
-                                function (string $value): string {
-                                    return '`' . $value . '`';
-                                },
+                                fn (string $value): string => '`' . $value . '`',
                                 (array)$compats[$weapon['key']]
                             ))
                         );
                         $remarks[] = sprintf(
                             'Also accepts %s for compatibility',
                             implode(', ', array_map(
-                                function (string $value): string {
-                                    return '`' . $value . '`';
-                                },
+                                fn (string $value): string => '`' . $value . '`',
                                 (array)$compats[$weapon['key']]
                             ))
                         );
@@ -235,10 +234,10 @@ class Api2MarkdownController extends Controller
 
         $data = [
             [
-                "指定文字列<br>Key String",
-                "イカリング<br>SplatNet",
-                "ステージ<br>Stage Name",
-                "備考<br>Remarks",
+                '指定文字列<br>Key String',
+                'イカリング<br>SplatNet',
+                'ステージ<br>Stage Name',
+                '備考<br>Remarks',
             ],
         ];
         foreach ($maps as $map) {
@@ -248,18 +247,14 @@ class Api2MarkdownController extends Controller
                 $colRemarks[] = sprintf(
                     '互換性のため %s も受け付けます',
                     implode(', ', array_map(
-                        function (string $value): string {
-                            return '`' . $value . '`';
-                        },
+                        fn (string $value): string => '`' . $value . '`',
                         (array)$compats[$map->key]
                     ))
                 );
                 $colRemarks[] = sprintf(
                     'Also accepts %s for compatibility',
                     implode(', ', array_map(
-                        function (string $value): string {
-                            return '`' . $value . '`';
-                        },
+                        fn (string $value): string => '`' . $value . '`',
                         (array)$compats[$map->key]
                     ))
                 );
@@ -267,11 +262,11 @@ class Api2MarkdownController extends Controller
             $data[] = [
                 sprintf('`%s`', $map->key),
                 $map->splatnet !== null ? sprintf('`%d`', $map->splatnet) : '',
-                implode("<br>", [
+                implode('<br>', [
                     Yii::t('app-map2', $map->name, [], 'ja-JP'),
                     $map->name,
                 ]),
-                implode("<br>", $colRemarks),
+                implode('<br>', $colRemarks),
             ];
             // }}}
         }
@@ -289,10 +284,10 @@ class Api2MarkdownController extends Controller
 
         $data = [
             [
-                "指定文字列<br>Key String",
-                "イカリング<br>SplatNet",
-                "ギアパワー<br>Ability Name",
-                "備考<br>Remarks",
+                '指定文字列<br>Key String',
+                'イカリング<br>SplatNet',
+                'ギアパワー<br>Ability Name',
+                '備考<br>Remarks',
             ],
         ];
         foreach ($abilities as $ability) {
@@ -302,18 +297,14 @@ class Api2MarkdownController extends Controller
                 $colRemarks[] = sprintf(
                     '互換性のため %s も受け付けます',
                     implode(', ', array_map(
-                        function (string $value): string {
-                            return '`' . $value . '`';
-                        },
+                        fn (string $value): string => '`' . $value . '`',
                         (array)$compats[$ability->key]
                     ))
                 );
                 $colRemarks[] = sprintf(
                     'Also accepts %s for compatibility',
                     implode(', ', array_map(
-                        function (string $value): string {
-                            return '`' . $value . '`';
-                        },
+                        fn (string $value): string => '`' . $value . '`',
                         (array)$compats[$ability->key]
                     ))
                 );
@@ -321,11 +312,11 @@ class Api2MarkdownController extends Controller
             $data[] = [
                 sprintf('`%s`', $ability->key),
                 $ability->splatnet !== null ? sprintf('`%d`', $ability->splatnet) : '',
-                implode("<br>", [
+                implode('<br>', [
                     Yii::t('app-ability2', $ability->name, [], 'ja-JP'),
                     $ability->name,
                 ]),
-                implode("<br>", $colRemarks),
+                implode('<br>', $colRemarks),
             ];
             // }}}
         }
@@ -356,8 +347,8 @@ class Api2MarkdownController extends Controller
 
         $data = [
             [
-                "指定文字列<br>Key String",
-                "死因<br>Death Reason",
+                '指定文字列<br>Key String',
+                '死因<br>Death Reason',
             ],
         ];
         foreach ($reasons as $reason) {
@@ -385,10 +376,10 @@ class Api2MarkdownController extends Controller
 
         $data = [
             [
-                "指定文字列<br>Key String",
-                "イカリング<br>SplatNet",
-                "名前<br>Name",
-                "備考<br>Remarks",
+                '指定文字列<br>Key String',
+                'イカリング<br>SplatNet',
+                '名前<br>Name',
+                '備考<br>Remarks',
             ],
         ];
         foreach ($titles as $title) {
@@ -398,18 +389,14 @@ class Api2MarkdownController extends Controller
                 $colRemarks[] = sprintf(
                     '互換性のため %s も受け付けます',
                     implode(', ', array_map(
-                        function (string $value): string {
-                            return '`' . $value . '`';
-                        },
+                        fn (string $value): string => '`' . $value . '`',
                         (array)$compats[$title->key]
                     ))
                 );
                 $colRemarks[] = sprintf(
                     'Also accepts %s for compatibility',
                     implode(', ', array_map(
-                        function (string $value): string {
-                            return '`' . $value . '`';
-                        },
+                        fn (string $value): string => '`' . $value . '`',
                         (array)$compats[$title->key]
                     ))
                 );
@@ -417,11 +404,11 @@ class Api2MarkdownController extends Controller
             $data[] = [
                 sprintf('`%s`', $title->key),
                 $title->splatnet !== null ? sprintf('`%d`', $title->splatnet) : '',
-                implode("<br>", [
+                implode('<br>', [
                     Yii::t('app-salmon-title2', $title->name, [], 'ja-JP'),
                     $title->name,
                 ]),
-                implode("<br>", $colRemarks),
+                implode('<br>', $colRemarks),
             ];
             // }}}
         }
@@ -439,10 +426,10 @@ class Api2MarkdownController extends Controller
 
         $data = [
             [
-                "指定文字列<br>Key String",
-                "イカリング<br>SplatNet",
-                "名前<br>Name",
-                "備考<br>Remarks",
+                '指定文字列<br>Key String',
+                'イカリング<br>SplatNet',
+                '名前<br>Name',
+                '備考<br>Remarks',
             ],
         ];
         foreach ($titles as $title) {
@@ -452,18 +439,14 @@ class Api2MarkdownController extends Controller
                 $colRemarks[] = sprintf(
                     '互換性のため %s も受け付けます',
                     implode(', ', array_map(
-                        function (string $value): string {
-                            return '`' . $value . '`';
-                        },
+                        fn (string $value): string => '`' . $value . '`',
                         (array)$compats[$title->key]
                     ))
                 );
                 $colRemarks[] = sprintf(
                     'Also accepts %s for compatibility',
                     implode(', ', array_map(
-                        function (string $value): string {
-                            return '`' . $value . '`';
-                        },
+                        fn (string $value): string => '`' . $value . '`',
                         (array)$compats[$title->key]
                     ))
                 );
@@ -478,11 +461,11 @@ class Api2MarkdownController extends Controller
                         ? sprintf('`%s`', $title->splatnet_str)
                         : false,
                 ])),
-                implode("<br>", [
+                implode('<br>', [
                     Yii::t('app-salmon-boss2', $title->name, [], 'ja-JP'),
                     $title->name,
                 ]),
-                implode("<br>", $colRemarks),
+                implode('<br>', $colRemarks),
             ];
             // }}}
         }
@@ -500,10 +483,10 @@ class Api2MarkdownController extends Controller
 
         $data = [
             [
-                "指定文字列<br>Key String",
-                "イカリング<br>SplatNet",
-                "名前<br>Name",
-                "備考<br>Remarks",
+                '指定文字列<br>Key String',
+                'イカリング<br>SplatNet',
+                '名前<br>Name',
+                '備考<br>Remarks',
             ],
         ];
         foreach ($rows as $row) {
@@ -513,18 +496,14 @@ class Api2MarkdownController extends Controller
                 $colRemarks[] = sprintf(
                     '互換性のため %s も受け付けます',
                     implode(', ', array_map(
-                        function (string $value): string {
-                            return '`' . $value . '`';
-                        },
+                        fn (string $value): string => '`' . $value . '`',
                         (array)$compats[$row->key]
                     ))
                 );
                 $colRemarks[] = sprintf(
                     'Also accepts %s for compatibility',
                     implode(', ', array_map(
-                        function (string $value): string {
-                            return '`' . $value . '`';
-                        },
+                        fn (string $value): string => '`' . $value . '`',
                         (array)$compats[$row->key]
                     ))
                 );
@@ -532,11 +511,11 @@ class Api2MarkdownController extends Controller
             $data[] = [
                 sprintf('`%s`', $row->key),
                 sprintf('`%s`', $row->splatnet),
-                implode("<br>", [
+                implode('<br>', [
                     Yii::t('app-salmon-tide2', $row->name, [], 'ja-JP'),
                     $row->name,
                 ]),
-                implode("<br>", $colRemarks),
+                implode('<br>', $colRemarks),
             ];
             // }}}
         }
@@ -554,10 +533,10 @@ class Api2MarkdownController extends Controller
 
         $data = [
             [
-                "指定文字列<br>Key String",
-                "イカリング<br>SplatNet",
-                "名前<br>Name",
-                "備考<br>Remarks",
+                '指定文字列<br>Key String',
+                'イカリング<br>SplatNet',
+                '名前<br>Name',
+                '備考<br>Remarks',
             ],
         ];
         foreach ($rows as $row) {
@@ -567,18 +546,14 @@ class Api2MarkdownController extends Controller
                 $colRemarks[] = sprintf(
                     '互換性のため %s も受け付けます',
                     implode(', ', array_map(
-                        function (string $value): string {
-                            return '`' . $value . '`';
-                        },
+                        fn (string $value): string => '`' . $value . '`',
                         (array)$compats[$row->key]
                     ))
                 );
                 $colRemarks[] = sprintf(
                     'Also accepts %s for compatibility',
                     implode(', ', array_map(
-                        function (string $value): string {
-                            return '`' . $value . '`';
-                        },
+                        fn (string $value): string => '`' . $value . '`',
                         (array)$compats[$row->key]
                     ))
                 );
@@ -586,11 +561,11 @@ class Api2MarkdownController extends Controller
             $data[] = [
                 sprintf('`%s`', $row->key),
                 sprintf('`%s`', $row->splatnet),
-                implode("<br>", [
+                implode('<br>', [
                     Yii::t('app-salmon-event2', $row->name, [], 'ja-JP'),
                     $row->name,
                 ]),
-                implode("<br>", $colRemarks),
+                implode('<br>', $colRemarks),
             ];
             // }}}
         }
@@ -605,10 +580,10 @@ class Api2MarkdownController extends Controller
         $compats = [];
         $data = [
             [
-                "指定文字列<br>Key String",
-                "イカリング<br>SplatNet",
-                "ブキ<br>Weapon Name",
-                "備考<br>Remarks",
+                '指定文字列<br>Key String',
+                'イカリング<br>SplatNet',
+                'ブキ<br>Weapon Name',
+                '備考<br>Remarks',
             ],
         ];
         $weapons = SalmonMainWeapon2::find()
@@ -624,18 +599,14 @@ class Api2MarkdownController extends Controller
                 $remarks[] = sprintf(
                     '互換性のため %s も受け付けます',
                     implode(', ', array_map(
-                        function (string $value): string {
-                            return '`' . $value . '`';
-                        },
+                        fn (string $value): string => '`' . $value . '`',
                         (array)$compats[$weapon['key']]
                     ))
                 );
                 $remarks[] = sprintf(
                     'Also accepts %s for compatibility',
                     implode(', ', array_map(
-                        function (string $value): string {
-                            return '`' . $value . '`';
-                        },
+                        fn (string $value): string => '`' . $value . '`',
                         (array)$compats[$weapon['key']]
                     ))
                 );
@@ -665,10 +636,10 @@ class Api2MarkdownController extends Controller
         $compats = [];
         $data = [
             [
-                "指定文字列<br>Key String",
-                "イカリング<br>SplatNet",
-                "名前<br>Name",
-                "備考<br>Remarks",
+                '指定文字列<br>Key String',
+                'イカリング<br>SplatNet',
+                '名前<br>Name',
+                '備考<br>Remarks',
             ],
         ];
         $weapons = SalmonSpecial2::find()
@@ -682,18 +653,14 @@ class Api2MarkdownController extends Controller
                 $remarks[] = sprintf(
                     '互換性のため %s も受け付けます',
                     implode(', ', array_map(
-                        function (string $value): string {
-                            return '`' . $value . '`';
-                        },
+                        fn (string $value): string => '`' . $value . '`',
                         (array)$compats[$weapon['key']]
                     ))
                 );
                 $remarks[] = sprintf(
                     'Also accepts %s for compatibility',
                     implode(', ', array_map(
-                        function (string $value): string {
-                            return '`' . $value . '`';
-                        },
+                        fn (string $value): string => '`' . $value . '`',
                         (array)$compats[$weapon['key']]
                     ))
                 );
@@ -718,9 +685,9 @@ class Api2MarkdownController extends Controller
         // {{{
         $data = [
             [
-                "指定文字列<br>Key String",
-                "名前<br>Name",
-                "イカリングヒント<br>SplatNet Hint",
+                '指定文字列<br>Key String',
+                '名前<br>Name',
+                'イカリングヒント<br>SplatNet Hint',
             ],
         ];
         $stages = SalmonMap2::find()
@@ -762,14 +729,10 @@ class Api2MarkdownController extends Controller
         $lines = preg_split('/\x0d\x0a|\x0d|\x0a/s', $text);
         return array_reduce(
             array_map(
-                function (string $line): int {
-                    return self::strwidth($line);
-                },
+                fn (string $line): int => self::strwidth($line),
                 $lines
             ),
-            function (int $a, int $b): int {
-                return max($a, $b);
-            },
+            fn (int $a, int $b): int => max($a, $b),
             $minWidth
         );
         // }}}
@@ -785,9 +748,7 @@ class Api2MarkdownController extends Controller
             $result .= static::createTableRow($row, $widths) . "\n";
             if ($i === 0) {
                 $result .= sprintf("|%s|\n", implode('|', array_map(
-                    function (int $cellWidth): string {
-                        return str_repeat('-', $cellWidth);
-                    },
+                    fn (int $cellWidth): string => str_repeat('-', $cellWidth),
                     $widths
                 )));
             }
@@ -828,5 +789,6 @@ class Api2MarkdownController extends Controller
         }
         return $width;
     }
+
     // }}}
 }

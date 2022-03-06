@@ -17,7 +17,7 @@ class m151227_082610_ability extends Migration
             'key'   => 'VARCHAR(32) NOT NULL UNIQUE',
             'name'  => 'VARCHAR(32) NOT NULL',
         ]);
-        $this->batchInsert('ability', [ 'key', 'name' ], [
+        $this->batchInsert('ability', ['key', 'name'], [
             [ 'bomb_range_up',          'Bomb Range Up' ],
             [ 'bomb_sniffer',           'Bomb Sniffer' ],
             [ 'cold_blooded',           'Cold-Blooded' ],

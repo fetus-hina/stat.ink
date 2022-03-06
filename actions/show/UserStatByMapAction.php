@@ -9,10 +9,11 @@
 namespace app\actions\show;
 
 use Yii;
+use app\models\BattleFilterForm;
+use app\models\User;
+use yii\db\Query;
 use yii\web\NotFoundHttpException;
 use yii\web\ViewAction as BaseAction;
-use app\models\User;
-use app\models\BattleFilterForm;
 
 class UserStatByMapAction extends BaseAction
 {
@@ -29,20 +30,18 @@ class UserStatByMapAction extends BaseAction
         $filter = new BattleFilterForm();
         $filter->load($_GET);
         $filter->screen_name = $user->screen_name;
-        if ($filter->validate()) {
-            //$battle->filter($filter);
-        }
+        $filter->validate();
 
         return $this->controller->render('user-stat-by-map', [
-           'user' => $user,
-           'filter' => $filter,
-           'data' => $this->getData($user, $filter),
+            'user' => $user,
+            'filter' => $filter,
+            'data' => $this->getData($user, $filter),
         ]);
     }
 
     private function getData(User $user, BattleFilterForm $filter)
     {
-        $query = (new \yii\db\Query())
+        $query = (new Query())
             ->select([
                 'map_key'  => 'MAX({{map}}.[[key]])',
                 'map_name' => 'MAX({{map}}.[[name]])',
@@ -61,7 +60,7 @@ class UserStatByMapAction extends BaseAction
             ->leftJoin('rank', '{{battle}}.[[rank_id]] = {{rank}}.[[id]]')
             ->leftJoin('rank_group', '{{rank}}.[[group_id]] = {{rank_group}}.[[id]]')
             ->andWhere(['{{battle}}.[[user_id]]' => $user->id])
-            ->andWhere(['in', '{{battle}}.[[is_win]]', [ true, false ]])
+            ->andWhere(['in', '{{battle}}.[[is_win]]', [true, false]])
             ->groupBy(['{{battle}}.[[map_id]]', '{{battle}}.[[is_win]]']);
 
         if ($filter && !$filter->hasErrors()) {

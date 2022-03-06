@@ -19,11 +19,13 @@ use app\models\Map2;
 use app\models\Weapon2;
 use yii\console\Controller;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Console;
 use yii\helpers\FileHelper;
 use yii\helpers\Json;
 use yii\httpclient\Client as HttpClient;
 use yii\httpclient\CurlTransport;
+
+use const SORT_ASC;
+use const STDERR;
 
 class Splatoon2InkI18nController extends Controller
 {
@@ -126,7 +128,7 @@ class Splatoon2InkI18nController extends Controller
         $body = $response->content;
         try {
             Json::decode($body);
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             fwrite(STDERR, "JSON decode failed\n");
             return 1;
         }
@@ -306,7 +308,7 @@ class Splatoon2InkI18nController extends Controller
         fprintf(STDERR, "Checking translations (%s, %s)\n", $fileName, $locale);
 
         $filePath = Yii::getAlias('@app/messages') . "/{$shortLocale}/{$fileName}.php";
-        $currentData = require($filePath);
+        $currentData = require $filePath;
         $splatNetData = ArrayHelper::getValue(
             Json::decode(file_get_contents($cachePath)),
             $jsonKey

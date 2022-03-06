@@ -8,13 +8,12 @@
 
 namespace app\controllers;
 
-use Yii;
-use yii\filters\VerbFilter;
 use app\components\web\Controller;
+use yii\filters\VerbFilter;
 
 class ShowUserController extends Controller
 {
-    public $layout = "main";
+    public $layout = 'main';
 
     public function behaviors()
     {

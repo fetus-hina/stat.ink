@@ -10,9 +10,12 @@ namespace app\components\db;
 
 use Yii;
 use yii\db\ColumnSchemaBuilder;
+use yii\db\Migration as BaseMigration;
 use yii\db\Schema;
 
-class Migration extends \yii\db\Migration
+use const PREG_SPLIT_NO_EMPTY;
+
+abstract class Migration extends BaseMigration
 {
     public function up()
     {
@@ -94,9 +97,7 @@ class Migration extends \yii\db\Migration
         return sprintf(
             'PRIMARY KEY ( %s )',
             implode(', ', array_map(
-                function (string $column): string {
-                    return $this->db->quoteColumnName($column);
-                },
+                fn (string $column): string => $this->db->quoteColumnName($column),
                 (array)$columns
             ))
         );
@@ -125,7 +126,7 @@ class Migration extends \yii\db\Migration
             }
         }
 
-        if (!empty($alter)) {
+        if ($alter) {
             $sql = 'ALTER TABLE ' . $db->quoteTableName($table) . ' ' . implode(', ', $alter);
             $db->createCommand($sql)->execute();
         }
@@ -134,7 +135,7 @@ class Migration extends \yii\db\Migration
             $db->createCommand($comment)->execute();
         }
 
-        if (!empty($alter) || !empty($comments)) {
+        if ($alter || $comments) {
             $db->getSchema()->refreshTableSchema($table);
         }
 
@@ -154,16 +155,14 @@ class Migration extends \yii\db\Migration
     public function dropColumns(string $table, array $columns): void
     {
         $time = $this->beginCommand(sprintf(
-            "drop columns %s from table %s",
+            'drop columns %s from table %s',
             implode(', ', array_keys($columns)),
             $table
         ));
 
         $db = $this->db;
         $sql = 'ALTER TABLE ' . $db->quoteTableName($table) . ' ' . implode(', ', array_map(
-            function (string $column) use ($db): string {
-                return 'DROP COLUMN ' . $db->quoteColumnName($column);
-            },
+            fn (string $column): string => 'DROP COLUMN ' . $db->quoteColumnName($column),
             $columns
         ));
         $db->createCommand($sql)->execute();

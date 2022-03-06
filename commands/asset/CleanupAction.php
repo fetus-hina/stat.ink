@@ -28,6 +28,8 @@ use function is_dir;
 use function is_readable;
 use function preg_match;
 
+use const STDERR;
+
 class CleanupAction extends Action
 {
     private const ASSET_REVISION_CLEANUP_THRESHOLD = 10; // 10 revisions
@@ -64,11 +66,11 @@ class CleanupAction extends Action
                         FilesystemIterator::SKIP_DOTS,
                         FilesystemIterator::UNIX_PATHS,
                     ],
-                    fn(int $carry, int $cur) => ($carry | $cur),
+                    fn (int $carry, int $cur) => ($carry | $cur),
                     0 // init value
                 )
             ),
-            fn(SplFileInfo $f) => $f->isDir()
+            fn (SplFileInfo $f) => $f->isDir()
         );
         foreach ($it as $path => $entry) {
             $baseName = basename($path);

@@ -8,19 +8,19 @@
 
 namespace app\models;
 
-use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "fest_title_gender".
  *
- * @property integer $title_id
- * @property integer $gender_id
+ * @property int $title_id
+ * @property int $gender_id
  * @property string $name
  *
  * @property FestTitle $title
  * @property Gender $gender
  */
-class FestTitleGender extends \yii\db\ActiveRecord
+class FestTitleGender extends ActiveRecord
 {
     /**
      * @inheritdoc
@@ -38,7 +38,7 @@ class FestTitleGender extends \yii\db\ActiveRecord
         return [
             [['title_id', 'gender_id', 'name'], 'required'],
             [['title_id', 'gender_id'], 'integer'],
-            [['name'], 'string', 'max' => 32]
+            [['name'], 'string', 'max' => 32],
         ];
     }
 

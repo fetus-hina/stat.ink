@@ -57,26 +57,36 @@ class Dialog extends Widget
 
     protected function renderBeginModal(): string
     {
-        return Html::beginTag('div', [
-                'id' => $this->id,
-                'class' => [
-                    'modal',
-                    $this->fade ? 'fade' : '',
-                ],
-                'tabindex' => '-1',
-                'role' => 'dialog',
-            ]) .
-            Html::beginTag('div', [
-                'class' => [
-                    'modal-dialog',
-                    $this->verticalCenter ? 'modal-dialog-center' : '',
-                    $this->size,
-                ],
-                'role' => 'document',
-            ]) .
-            Html::beginTag('div', [
-                'class' => 'modal-content',
-            ]);
+        return '' .
+            Html::beginTag(
+                'div',
+                [
+                    'id' => $this->id,
+                    'class' => [
+                        'modal',
+                        $this->fade ? 'fade' : '',
+                    ],
+                    'tabindex' => '-1',
+                    'role' => 'dialog',
+                ]
+            ) .
+            Html::beginTag(
+                'div',
+                [
+                    'class' => [
+                        'modal-dialog',
+                        $this->verticalCenter ? 'modal-dialog-center' : '',
+                        $this->size,
+                    ],
+                    'role' => 'document',
+                ]
+            ) .
+            Html::beginTag(
+                'div',
+                [
+                    'class' => 'modal-content',
+                ]
+            );
     }
 
     protected function renderEndModal(): string

@@ -10,18 +10,17 @@ declare(strict_types=1);
 
 namespace app\models;
 
-use Yii;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "language".
  *
- * @property integer $id
+ * @property int $id
  * @property string $lang
  * @property string $name
  * @property string $name_en
- * @property integer $support_level_id
+ * @property int $support_level_id
  *
  * @property SupportLevel $supportLevel
  * @property LanguageCharset[] $languageCharsets

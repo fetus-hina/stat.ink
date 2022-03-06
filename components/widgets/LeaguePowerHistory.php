@@ -14,13 +14,14 @@ use Yii;
 use app\assets\LeaguePowerHistoryAsset;
 use app\components\helpers\Battle as BattleHelper;
 use app\models\Battle2;
-use app\models\Lobby2;
-use app\models\Mode2;
-use app\models\Rank2;
 use yii\base\Widget;
 use yii\helpers\Html;
 use yii\helpers\Json;
 use yii\helpers\Url;
+
+use const FILTER_VALIDATE_FLOAT;
+use const SORT_ASC;
+use const SORT_DESC;
 
 class LeaguePowerHistory extends Widget
 {
@@ -45,9 +46,7 @@ class LeaguePowerHistory extends Widget
         $max = array_reduce(
             array_filter(
                 $history,
-                function (Battle2 $item): bool {
-                    return filter_var($item->league_point, FILTER_VALIDATE_FLOAT) !== false;
-                }
+                fn (Battle2 $item): bool => filter_var($item->league_point, FILTER_VALIDATE_FLOAT) !== false
             ),
             function (?array $carry, Battle2 $item): ?array {
                 $oldValue = $carry[0] ?? 0.0;
@@ -132,7 +131,7 @@ class LeaguePowerHistory extends Widget
                         'class' => [
                             'league-power-history',
                             'mb-1',
-                        ]
+                        ],
                     ]),
                     ['class' => 'table-responsive']
                 ),
@@ -140,9 +139,11 @@ class LeaguePowerHistory extends Widget
                     'id' => $this->id . '-legends',
                 ]),
             ]),
-            ['class' => [
-                'xpower-history-container',
-            ]],
+            [
+                'class' => [
+                    'xpower-history-container',
+                ],
+            ],
         );
     }
 

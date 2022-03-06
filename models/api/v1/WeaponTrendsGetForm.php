@@ -8,7 +8,6 @@
 
 namespace app\models\api\v1;
 
-use Yii;
 use app\models\Map;
 use app\models\Rule;
 use yii\base\Model;

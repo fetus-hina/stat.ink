@@ -17,6 +17,8 @@ use app\models\Map;
 use app\models\Rule;
 use app\models\StatWeaponKDWinRate;
 use app\models\WeaponType;
+use stdClass;
+use yii\db\Query;
 use yii\web\ViewAction as BaseAction;
 
 class KDWinAction extends BaseAction
@@ -40,9 +42,7 @@ class KDWinAction extends BaseAction
                     'data' => $this->makeData($rule, $filter),
                 ];
             }
-            usort($tmpData, function (\stdClass $a, \stdClass $b): int {
-                return strcmp($a->name, $b->name);
-            });
+            usort($tmpData, fn (stdClass $a, stdClass $b): int => strcmp($a->name, $b->name));
             $data = array_merge($data, $tmpData);
         }
 
@@ -68,7 +68,6 @@ class KDWinAction extends BaseAction
             $ret[] = $tmp;
         }
 
-        $maxBattle = 0;
         foreach ($this->query($rule, $filter) as $row) {
             $i = $row['kill'] > static::KD_LIMIT ? static::KD_LIMIT : (int)$row['kill'];
             $j = $row['death'] > static::KD_LIMIT ? static::KD_LIMIT : (int)$row['death'];
@@ -82,7 +81,7 @@ class KDWinAction extends BaseAction
     private function query(Rule $rule, BattleFilterForm $filter): array
     {
         $t = StatWeaponKDWinRate::tableName();
-        $query = (new \yii\db\Query())
+        $query = (new Query())
             ->select([
                 'kill'  => "{{{$t}}}.[[kill]]",
                 'death' => "{{{$t}}}.[[death]]",

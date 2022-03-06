@@ -8,14 +8,13 @@
 
 namespace app\models;
 
-use Yii;
 use app\components\helpers\Translator;
 use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "lobby2".
  *
- * @property integer $id
+ * @property int $id
  * @property string $key
  * @property string $name
  */

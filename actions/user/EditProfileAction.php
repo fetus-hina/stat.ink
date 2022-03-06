@@ -35,7 +35,7 @@ class EditProfileAction extends BaseAction
                         $this->controller->redirect(['user/profile']);
                         return;
                     }
-                } catch (\Exception $e) {
+                } catch (\Throwable $e) {
                 }
                 $transaction->rollback();
             }
@@ -66,12 +66,10 @@ class EditProfileAction extends BaseAction
             ),
             'regions' => ArrayHelper::map(
                 array_map(
-                    function (array $row): array {
-                        return [
-                            'id' => $row['id'],
-                            'name' => Yii::t('app-region', $row['name']),
-                        ];
-                    },
+                    fn (array $row): array => [
+                        'id' => $row['id'],
+                        'name' => Yii::t('app-region', $row['name']),
+                    ],
                     Region::find()->orderBy('id')->asArray()->all()
                 ),
                 'id',

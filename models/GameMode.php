@@ -10,18 +10,21 @@ namespace app\models;
 
 use Yii;
 use app\components\helpers\Translator;
+use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
+
+use const SORT_ASC;
 
 /**
  * This is the model class for table "game_mode".
  *
- * @property integer $id
+ * @property int $id
  * @property string $key
  * @property string $name
  *
  * @property Rule[] $rules
  */
-final class GameMode extends \yii\db\ActiveRecord
+final class GameMode extends ActiveRecord
 {
     use SafeFindOneTrait;
     use openapi\Util;
@@ -44,7 +47,7 @@ final class GameMode extends \yii\db\ActiveRecord
             [['key'], 'string', 'max' => 16],
             [['name'], 'string', 'max' => 32],
             [['key'], 'unique'],
-            [['name'], 'unique']
+            [['name'], 'unique'],
         ];
     }
 

@@ -14,21 +14,24 @@ use Yii;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
+use const SORT_ASC;
+use const SORT_DESC;
+
 /**
  * This is the model class for table "salmon_player2".
  *
- * @property integer $id
- * @property integer $work_id
- * @property boolean $is_me
+ * @property int $id
+ * @property int $work_id
+ * @property bool $is_me
  * @property string $splatnet_id
  * @property string $name
- * @property integer $special_id
- * @property integer $rescue
- * @property integer $death
- * @property integer $golden_egg_delivered
- * @property integer $power_egg_collected
- * @property integer $species_id
- * @property integer $gender_id
+ * @property int $special_id
+ * @property int $rescue
+ * @property int $death
+ * @property int $golden_egg_delivered
+ * @property int $power_egg_collected
+ * @property int $species_id
+ * @property int $gender_id
  *
  * @property SalmonBoss2[] $bosses
  * @property Gender $gender
@@ -189,7 +192,7 @@ class SalmonPlayer2 extends ActiveRecord
     public function getAnonymizeSeed(): string
     {
         $value = trim($this->splatnet_id);
-        return ($value !== '')
+        return $value !== ''
             ? $value
             : hash_hmac('sha256', (string)$this->id, (string)$this->work_id);
     }
@@ -260,19 +263,19 @@ class SalmonPlayer2 extends ActiveRecord
                 : null,
             'special_uses' => $this->specialUses
                 ? array_map(
-                    fn($model) => (int)$model->count,
+                    fn ($model) => (int)$model->count,
                     $this->specialUses
                 )
                 : null,
             'weapons' => $this->weapons
                 ? array_map(
-                    fn($model) => $model->weapon ? $model->weapon->toJsonArray() : null,
+                    fn ($model) => $model->weapon ? $model->weapon->toJsonArray() : null,
                     $this->weapons
                 )
                 : null,
             'boss_kills' => $this->bossKills
                 ? array_map(
-                    fn($model) => $model->toJsonArray(),
+                    fn ($model) => $model->toJsonArray(),
                     $this->bossKills
                 )
                 : null,

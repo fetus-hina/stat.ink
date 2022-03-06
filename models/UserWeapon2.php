@@ -8,15 +8,17 @@
 
 namespace app\models;
 
-use Yii;
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
+
+use const SORT_DESC;
 
 /**
  * This is the model class for table "user_weapon2".
  *
- * @property integer $user_id
- * @property integer $weapon_id
- * @property integer $battles
+ * @property int $user_id
+ * @property int $weapon_id
+ * @property int $battles
  * @property string $last_used_at
  *
  * @property User $user
@@ -26,7 +28,7 @@ class UserWeapon2 extends ActiveRecord
 {
     public static function find()
     {
-        return new class (static::class) extends \yii\db\ActiveQuery {
+        return new class (static::class) extends ActiveQuery {
             public function favoriteOrder(): self
             {
                 return $this

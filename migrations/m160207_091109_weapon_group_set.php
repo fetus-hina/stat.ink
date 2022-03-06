@@ -6,8 +6,8 @@
  * @author AIZAWA Hina <hina@fetus.jp>
  */
 
-use yii\db\Migration;
 use app\models\Weapon;
+use yii\db\Migration;
 
 class m160207_091109_weapon_group_set extends Migration
 {

@@ -13,14 +13,14 @@ namespace app\components\widgets;
 use Yii;
 use app\assets\GameModeIconsAsset;
 use app\assets\UserMiniinfoAsset;
-use app\models\Rank2;
 use app\models\Rule2;
 use app\models\UserStat2;
 use yii\base\Widget;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
-use yii\helpers\Url;
 use yii\widgets\DetailView;
+
+use const SORT_ASC;
 
 class UserMiniInfo2 extends Widget
 {
@@ -148,20 +148,16 @@ class UserMiniInfo2 extends Widget
                     [
                         'label' => Yii::t('app', 'Battles'),
                         'format' => 'raw',
-                        'value' => function (UserStat2 $model) use ($fmt): string {
-                            return Html::a(
-                                Html::encode($fmt->asInteger($model->battles)),
-                                ['show-v2/user', 'screen_name' => $this->user->screen_name]
-                            );
-                        },
+                        'value' => fn (UserStat2 $model): string => Html::a(
+                            Html::encode($fmt->asInteger($model->battles)),
+                            ['show-v2/user', 'screen_name' => $this->user->screen_name]
+                        ),
                     ],
                     [
                         'label' => Yii::t('app', 'Win %'),
-                        'value' => function (UserStat2 $model) use ($fmt): string {
-                            return ($model->have_win_lose < 1)
+                        'value' => fn (UserStat2 $model): string => $model->have_win_lose < 1
                                 ? Yii::t('app', 'N/A')
-                                : $fmt->asPercent($model->win_battles / $model->have_win_lose, 1);
-                        },
+                                : $fmt->asPercent($model->win_battles / $model->have_win_lose, 1),
                     ],
                     [
                         'label' => $this->zwsp(),
@@ -173,19 +169,15 @@ class UserMiniInfo2 extends Widget
                     // ],
                     [
                         'label' => Yii::t('app', 'Avg Kills'),
-                        'value' => function (UserStat2 $model) use ($fmt): string {
-                            return ($model->have_kill_death < 1)
+                        'value' => fn (UserStat2 $model): string => $model->have_kill_death < 1
                                 ? Yii::t('app', 'N/A')
-                                : $fmt->asDecimal($model->kill / $model->have_kill_death, 2);
-                        },
+                                : $fmt->asDecimal($model->kill / $model->have_kill_death, 2),
                     ],
                     [
                         'label' => Yii::t('app', 'Avg Deaths'),
-                        'value' => function (UserStat2 $model) use ($fmt): string {
-                            return ($model->have_kill_death < 1)
+                        'value' => fn (UserStat2 $model): string => $model->have_kill_death < 1
                                 ? Yii::t('app', 'N/A')
-                                : $fmt->asDecimal($model->death / $model->have_kill_death, 2);
-                        },
+                                : $fmt->asDecimal($model->death / $model->have_kill_death, 2),
                     ],
                     [
                         'label' => Yii::t('app', 'Kill Ratio'),
@@ -206,25 +198,21 @@ class UserMiniInfo2 extends Widget
                     ],
                     [
                         'label' => Yii::t('app', 'Kills/min'),
-                        'value' => function (UserStat2 $model) use ($fmt): string {
-                            return ($model->have_kill_death_time < 1 || $model->total_seconds < 1)
+                        'value' => fn (UserStat2 $model): string => $model->have_kill_death_time < 1 || $model->total_seconds < 1
                                 ? Yii::t('app', 'N/A')
                                 : $fmt->asDecimal(
                                     $model->kill_with_time * 60 / $model->total_seconds,
                                     3
-                                );
-                        },
+                                ),
                     ],
                     [
                         'label' => Yii::t('app', 'Deaths/min'),
-                        'value' => function (UserStat2 $model) use ($fmt): string {
-                            return ($model->have_kill_death_time < 1 || $model->total_seconds < 1)
+                        'value' => fn (UserStat2 $model): string => $model->have_kill_death_time < 1 || $model->total_seconds < 1
                                 ? Yii::t('app', 'N/A')
                                 : $fmt->asDecimal(
                                     $model->death_with_time * 60 / $model->total_seconds,
                                     3
-                                );
-                        },
+                                ),
                     ],
                     [
                         'label' => Yii::t('app', 'Kill Rate'),
@@ -290,14 +278,12 @@ class UserMiniInfo2 extends Widget
                         ],
                         [
                             'label' => Yii::t('app', 'Win %'),
-                            'value' => function (UserStat2 $model) use ($fmt): string {
-                                return ($model->turf_have_win_lose < 1)
+                            'value' => fn (UserStat2 $model): string => $model->turf_have_win_lose < 1
                                     ? Yii::t('app', 'N/A')
                                     : $fmt->asPercent(
                                         $model->turf_win_battles / $model->turf_have_win_lose,
                                         1
-                                    );
-                            },
+                                    ),
                         ],
                         [
                             'label' => $this->zwsp(),
@@ -309,25 +295,21 @@ class UserMiniInfo2 extends Widget
                         // ],
                         [
                             'label' => Yii::t('app', 'Avg Kills'),
-                            'value' => function (UserStat2 $model) use ($fmt): string {
-                                return ($model->turf_have_kill_death < 1)
+                            'value' => fn (UserStat2 $model): string => $model->turf_have_kill_death < 1
                                     ? Yii::t('app', 'N/A')
                                     : $fmt->asDecimal(
                                         $model->turf_kill / $model->turf_have_kill_death,
                                         2
-                                    );
-                            },
+                                    ),
                         ],
                         [
                             'label' => Yii::t('app', 'Avg Deaths'),
-                            'value' => function (UserStat2 $model) use ($fmt): string {
-                                return ($model->turf_have_kill_death < 1)
+                            'value' => fn (UserStat2 $model): string => $model->turf_have_kill_death < 1
                                     ? Yii::t('app', 'N/A')
                                     : $fmt->asDecimal(
                                         $model->turf_death / $model->turf_have_kill_death,
                                         2
-                                    );
-                            },
+                                    ),
                         ],
                         [
                             'label' => Yii::t('app', 'Kill Ratio'),
@@ -367,22 +349,18 @@ class UserMiniInfo2 extends Widget
                         ],
                         [
                             'label' => Yii::t('app', 'Avg Inked'),
-                            'value' => function ($model) use ($fmt): string {
-                                return ($model->turf_have_inked < 1)
+                            'value' => fn ($model): string => $model->turf_have_inked < 1
                                     ? Yii::t('app', 'N/A')
                                     : $fmt->asDecimal(
                                         $model->turf_total_inked / $model->turf_have_inked,
                                         1
-                                    );
-                            },
+                                    ),
                         ],
                         [
                             'label' => Yii::t('app', 'Max Inked'),
-                            'value' => function ($model) use ($fmt): string {
-                                return ($model->turf_have_inked < 1)
+                            'value' => fn ($model): string => $model->turf_have_inked < 1
                                     ? Yii::t('app', 'N/A')
-                                    : $fmt->asInteger($model->turf_max_inked);
-                            },
+                                    : $fmt->asInteger($model->turf_max_inked),
                         ],
                     ],
                 ]),
@@ -453,14 +431,12 @@ class UserMiniInfo2 extends Widget
                         ],
                         [
                             'label' => Yii::t('app', 'Win %'),
-                            'value' => function (UserStat2 $model) use ($fmt): string {
-                                return ($model->gachi_have_win_lose < 1)
+                            'value' => fn (UserStat2 $model): string => $model->gachi_have_win_lose < 1
                                     ? Yii::t('app', 'N/A')
                                     : $fmt->asPercent(
                                         $model->gachi_win_battles / $model->gachi_have_win_lose,
                                         1
-                                    );
-                            },
+                                    ),
                         ],
                         [
                             'label' => $this->zwsp(),
@@ -472,25 +448,21 @@ class UserMiniInfo2 extends Widget
                         // ],
                         [
                             'label' => Yii::t('app', 'Avg Kills'),
-                            'value' => function (UserStat2 $model) use ($fmt): string {
-                                return ($model->gachi_have_kill_death < 1)
+                            'value' => fn (UserStat2 $model): string => $model->gachi_have_kill_death < 1
                                     ? Yii::t('app', 'N/A')
                                     : $fmt->asDecimal(
                                         $model->gachi_kill / $model->gachi_have_kill_death,
                                         2
-                                    );
-                            },
+                                    ),
                         ],
                         [
                             'label' => Yii::t('app', 'Avg Deaths'),
-                            'value' => function (UserStat2 $model) use ($fmt): string {
-                                return ($model->gachi_have_kill_death < 1)
+                            'value' => fn (UserStat2 $model): string => $model->gachi_have_kill_death < 1
                                     ? Yii::t('app', 'N/A')
                                     : $fmt->asDecimal(
                                         $model->gachi_death / $model->gachi_have_kill_death,
                                         2
-                                    );
-                            },
+                                    ),
                         ],
                         [
                             'label' => Yii::t('app', 'Kill Ratio'),
@@ -643,16 +615,15 @@ class UserMiniInfo2 extends Widget
                     // }}}
                 },
                 'attributes' => array_map(
-                    function (array $info): array {
-                        return [
-                            'attribute' => $info['attribute'],
-                            'label' => Html::img($info['icon'], [
-                                'alt' => $info['ruleName'],
-                                'class' => 'auto-tooltip',
-                                'title' => $info['label'],
-                            ]),
-                            'format' => 'raw',
-                            'value' => function (UserStat2 $model) use ($info): string {
+                    fn (array $info): array => [
+                        'attribute' => $info['attribute'],
+                        'label' => Html::img($info['icon'], [
+                            'alt' => $info['ruleName'],
+                            'class' => 'auto-tooltip',
+                            'title' => $info['label'],
+                        ]),
+                        'format' => 'raw',
+                        'value' => function (UserStat2 $model) use ($info): string {
                                 $value = $model->{$info['attribute']};
                                 if ($model->gachi_battles < 1 || $value === null) {
                                     return Html::encode(Yii::t('app', 'N/A'));
@@ -664,30 +635,25 @@ class UserMiniInfo2 extends Widget
                                 }
 
                                 return Html::tag('span', $html, ['class' => 'nobr']);
-                            },
-                        ];
-                    },
+                        },
+                    ],
                     $rules
                 ),
             ]),
         ];
 
-        $xPowerAvailable = count(array_filter($rules, function (array $rule) use ($model): bool {
-            return $model->{$rule['attributeX']} > 0;
-        }));
+        $xPowerAvailable = count(array_filter($rules, fn (array $rule): bool => $model->{$rule['attributeX']} > 0));
         if ($xPowerAvailable > 0) {
             $rows[] = implode('', array_map(
-                function (array $rule) use ($model): string {
-                    return Html::tag(
-                        'div',
-                        ($model->{$rule['attributeX']} > 0)
+                fn (array $rule): string => Html::tag(
+                    'div',
+                    $model->{$rule['attributeX']} > 0
                             ? Html::tag('small', Html::encode(
                                 Yii::$app->formatter->asDecimal($model->{$rule['attributeX']}, 1)
                             ))
                             : '&#8203;',
-                        ['class' => 'col-3 col-xs-3 nobr']
-                    );
-                },
+                    ['class' => 'col-3 col-xs-3 nobr']
+                ),
                 $rules
             ));
         }
@@ -774,16 +740,15 @@ class UserMiniInfo2 extends Widget
                     // }}}
                 },
                 'attributes' => array_map(
-                    function (array $info): array {
-                        return [
-                            'attribute' => $info['attribute'],
-                            'label' => Html::img($info['icon'], [
-                                'alt' => $info['ruleName'],
-                                'class' => 'auto-tooltip',
-                                'title' => $info['label'],
-                            ]),
-                            'format' => 'raw',
-                            'value' => function (UserStat2 $model) use ($info): string {
+                    fn (array $info): array => [
+                        'attribute' => $info['attribute'],
+                        'label' => Html::img($info['icon'], [
+                            'alt' => $info['ruleName'],
+                            'class' => 'auto-tooltip',
+                            'title' => $info['label'],
+                        ]),
+                        'format' => 'raw',
+                        'value' => function (UserStat2 $model) use ($info): string {
                                 $value = $model->{$info['attribute']};
                                 if ($model->gachi_battles < 1 || $value === null) {
                                     return Html::encode(Yii::t('app', 'N/A'));
@@ -795,30 +760,25 @@ class UserMiniInfo2 extends Widget
                                 }
 
                                 return Html::tag('span', $html, ['class' => 'nobr']);
-                            },
-                        ];
-                    },
+                        },
+                    ],
                     $rules
                 ),
             ]),
         ];
 
-        $xPowerAvailable = count(array_filter($rules, function (array $rule) use ($model): bool {
-            return $model->{$rule['attributeX']} > 0;
-        }));
+        $xPowerAvailable = count(array_filter($rules, fn (array $rule): bool => $model->{$rule['attributeX']} > 0));
         if ($xPowerAvailable > 0) {
             $rows[] = implode('', array_map(
-                function (array $rule) use ($model): string {
-                    return Html::tag(
-                        'div',
-                        ($model->{$rule['attributeX']} > 0)
+                fn (array $rule): string => Html::tag(
+                    'div',
+                    $model->{$rule['attributeX']} > 0
                             ? Html::tag('small', Html::encode(
                                 Yii::$app->formatter->asDecimal($model->{$rule['attributeX']}, 1)
                             ))
                             : '&#8203;',
-                        ['class' => 'col-3 col-xs-3 nobr']
-                    );
-                },
+                    ['class' => 'col-3 col-xs-3 nobr']
+                ),
                 $rules
             ));
         }
@@ -872,20 +832,18 @@ class UserMiniInfo2 extends Widget
                     ),
                 ],
                 array_map(
-                    function (Rule2 $rule): string {
-                        return Html::a(
-                            implode('', [
-                                (string)FA::fas('chart-pie')->fw(),
-                                Html::encode(Yii::t('app', 'Stats ({rule})', [
-                                    'rule' => Yii::t('app-rule2', $rule->name),
-                                ])),
-                            ]),
-                            ['show-v2/user-stat-gachi',
-                                'screen_name' => $this->user->screen_name,
-                                'rule' => $rule->key,
-                            ]
-                        );
-                    },
+                    fn (Rule2 $rule): string => Html::a(
+                        implode('', [
+                            (string)FA::fas('chart-pie')->fw(),
+                            Html::encode(Yii::t('app', 'Stats ({rule})', [
+                                'rule' => Yii::t('app-rule2', $rule->name),
+                            ])),
+                        ]),
+                        ['show-v2/user-stat-gachi',
+                            'screen_name' => $this->user->screen_name,
+                            'rule' => $rule->key,
+                        ]
+                    ),
                     Rule2::find()
                         ->where(['not', ['key' => 'nawabari']])
                         ->orderBy(['id' => SORT_ASC])
@@ -968,7 +926,7 @@ class UserMiniInfo2 extends Widget
     private function formatShortNumberJapanese(int $value): string
     {
         return $this->formatShortNumberImpl($value, 4, [
-            '万', '億', '兆', '京', '垓', '𥝱', '穣'
+            '万', '億', '兆', '京', '垓', '𥝱', '穣',
         ]);
     }
 
@@ -980,14 +938,14 @@ class UserMiniInfo2 extends Widget
     private function formatShortNumberChineseS(int $value): string
     {
         return $this->formatShortNumberImpl($value, 4, [
-            '万', '亿', '兆', '京', '垓', '秭', '穰'
+            '万', '亿', '兆', '京', '垓', '秭', '穰',
         ]);
     }
 
     private function formatShortNumberChineseT(int $value): string
     {
         return $this->formatShortNumberImpl($value, 4, [
-            '萬', '億', '兆', '京', '垓', '秭', '穰'
+            '萬', '億', '兆', '京', '垓', '秭', '穰',
         ]);
     }
 

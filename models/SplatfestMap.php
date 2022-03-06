@@ -8,19 +8,19 @@
 
 namespace app\models;
 
-use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "splatfest_map".
  *
- * @property integer $id
- * @property integer $splatfest_id
- * @property integer $map_id
+ * @property int $id
+ * @property int $splatfest_id
+ * @property int $map_id
  *
  * @property Map $map
  * @property Splatfest $splatfest
  */
-class SplatfestMap extends \yii\db\ActiveRecord
+class SplatfestMap extends ActiveRecord
 {
     /**
      * @inheritdoc
@@ -37,7 +37,7 @@ class SplatfestMap extends \yii\db\ActiveRecord
     {
         return [
             [['splatfest_id', 'map_id'], 'required'],
-            [['splatfest_id', 'map_id'], 'integer']
+            [['splatfest_id', 'map_id'], 'integer'],
         ];
     }
 

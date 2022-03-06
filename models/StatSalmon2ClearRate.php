@@ -10,23 +10,22 @@ declare(strict_types=1);
 
 namespace app\models;
 
-use Yii;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "stat_salmon2_clear_rate".
  *
- * @property integer $stage_id
- * @property integer $plays
+ * @property int $stage_id
+ * @property int $plays
  * @property string $avg_clear_waves
  * @property string $sd_clear_waves
- * @property integer $cleared
- * @property integer $fail_wave1
- * @property integer $fail_wave2
- * @property integer $fail_wave3
- * @property integer $fail_wiped
- * @property integer $fail_timed
+ * @property int $cleared
+ * @property int $fail_wave1
+ * @property int $fail_wave2
+ * @property int $fail_wave3
+ * @property int $fail_wiped
+ * @property int $fail_timed
  * @property string $avg_golden_eggs
  * @property string $sd_golden_eggs
  * @property string $avg_power_eggs

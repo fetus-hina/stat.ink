@@ -9,10 +9,10 @@
 namespace app\actions\user;
 
 use Yii;
+use app\models\Timezone;
 use yii\base\DynamicModel;
 use yii\web\Cookie;
 use yii\web\ViewAction as BaseAction;
-use app\models\Timezone;
 
 class TimezoneAction extends BaseAction
 {
@@ -33,7 +33,7 @@ class TimezoneAction extends BaseAction
         $form->timezone = Yii::$app->getRequest()->post('timezone');
         if (!$form->validate()) {
             $response->statusCode = 400;
-            return [ 'errors' => $form->getErrors() ];
+            return ['errors' => $form->getErrors()];
         }
 
         $response->cookies->add(
@@ -52,15 +52,15 @@ class TimezoneAction extends BaseAction
 
     private function makeValidationModel()
     {
-        $model = DynamicModel::validateData(
+        return DynamicModel::validateData(
             ['timezone' => null],
             [
                 [['timezone'], 'required'],
                 [['timezone'], 'exist',
                     'targetClass' => Timezone::className(),
-                    'targetAttribute' => 'identifier'],
+                    'targetAttribute' => 'identifier',
+                ],
             ]
         );
-        return $model;
     }
 }

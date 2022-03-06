@@ -10,12 +10,12 @@ declare(strict_types=1);
 
 namespace app\commands\license;
 
-use Exception;
 use Yii;
 use yii\base\InvalidArgumentException;
-use yii\console\Controller;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
+
+use const STDERR;
 
 trait LicenseCheckTrait
 {
@@ -84,15 +84,13 @@ trait LicenseCheckTrait
                 escapeshellarg('license-checker-rseidelsohn'),
             ]),
             null,
-            function (array $json): array {
-                return array_map(
-                    function (array $values): string {
-                        $tmp = $values['licenses'] ?? null;
-                        return is_string($tmp) ? $tmp : Json::encode($tmp);
-                    },
-                    $json
-                );
-            }
+            fn (array $json): array => array_map(
+                function (array $values): string {
+                    $tmp = $values['licenses'] ?? null;
+                    return is_string($tmp) ? $tmp : Json::encode($tmp);
+                },
+                $json
+            )
         );
     }
 
@@ -124,7 +122,7 @@ trait LicenseCheckTrait
             }
 
             return $this->doCheck($manager, $json);
-        } catch (Exception $e) {
+        } catch (\Throwable $e) {
             return 1;
         }
     }
@@ -134,7 +132,7 @@ trait LicenseCheckTrait
         $list = [];
         foreach ($json as $package => $license) {
             if (!$this->isSafeLicense($license)) {
-                $list[] = vsprintf("%-55s %s", [
+                $list[] = vsprintf('%-55s %s', [
                     vsprintf('%s::%s', [$manager, $package]),
                     $license,
                 ]);
@@ -185,7 +183,7 @@ trait LicenseCheckTrait
                         }
                     }
                 }
-            } catch (Exception $e) {
+            } catch (\Throwable $e) {
             }
         }
 

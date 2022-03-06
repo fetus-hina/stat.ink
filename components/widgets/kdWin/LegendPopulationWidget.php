@@ -42,18 +42,18 @@ class LegendPopulationWidget extends Widget
             Html::tag(
                 'tbody',
                 implode('', array_map(
-                    function (int $i): string {
-                        return $this->renderRow($i);
-                    },
+                    fn (int $i): string => $this->renderRow($i),
                     range(0, $this->numCells - 1)
                 ))
             ),
-            ['class' => [
-                'table',
-                'table-bordered',
-                'table-condensed',
-                'rule-table',
-            ]]
+            [
+                'class' => [
+                    'table',
+                    'table-bordered',
+                    'table-condensed',
+                    'rule-table',
+                ],
+            ]
         );
     }
 
@@ -88,10 +88,12 @@ class LegendPopulationWidget extends Widget
                 Html::tag(
                     'td',
                     Html::encode($label),
-                    ['class' => [
-                        'text-center',
-                        'kdcell',
-                    ]]
+                    [
+                        'class' => [
+                            'text-center',
+                            'kdcell',
+                        ],
+                    ]
                 ),
             ])
         );

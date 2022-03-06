@@ -10,18 +10,17 @@ declare(strict_types=1);
 
 namespace app\models;
 
-use Yii;
 use app\components\helpers\Translator;
 use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "salmon_special2".
  *
- * @property integer $id
+ * @property int $id
  * @property string $key
  * @property string $name
- * @property integer $splatnet
- * @property integer $special_id
+ * @property int $splatnet
+ * @property int $special_id
  *
  * @property Special2 $special
  */

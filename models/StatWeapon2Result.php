@@ -8,27 +8,26 @@
 
 namespace app\models;
 
-use Yii;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "stat_weapon2_result".
  *
- * @property integer $weapon_id
- * @property integer $rule_id
- * @property integer $map_id
- * @property integer $lobby_id
- * @property integer $mode_id
- * @property integer $rank_id
- * @property integer $version_id
- * @property integer $kill
- * @property integer $death
- * @property integer $assist
- * @property integer $special
- * @property integer $points
- * @property integer $battles
- * @property integer $wins
+ * @property int $weapon_id
+ * @property int $rule_id
+ * @property int $map_id
+ * @property int $lobby_id
+ * @property int $mode_id
+ * @property int $rank_id
+ * @property int $version_id
+ * @property int $kill
+ * @property int $death
+ * @property int $assist
+ * @property int $special
+ * @property int $points
+ * @property int $battles
+ * @property int $wins
  *
  * @property Lobby2 $lobby
  * @property Map2 $map

@@ -22,9 +22,7 @@ class m191112_153426_remove_duplicated_salmon_stats extends Migration
                     'MIN([[id]])',
                     '{{salmon_stats2}}',
                     implode(', ', array_map(
-                        function (string $column): string {
-                            return "[[{$column}]]";
-                        },
+                        fn (string $column): string => "[[{$column}]]",
                         [
                             'user_id',
                             'work_count',

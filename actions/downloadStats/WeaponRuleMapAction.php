@@ -11,7 +11,6 @@ namespace app\actions\downloadStats;
 use Yii;
 use app\components\web\CsvResponseFormatter;
 use app\models\Charset;
-use app\models\StatWeaponKDWinRate;
 use yii\db\Query;
 
 class WeaponRuleMapAction extends BaseAction
@@ -28,7 +27,7 @@ class WeaponRuleMapAction extends BaseAction
         $resp->setDownloadHeaders('weapon-rule-map.csv', 'text/cvs', false, null);
         $resp->format = 'csv';
         return [
-            'separator' => (($this->config->tsv ?? '0') == '1')
+            'separator' => ($this->config->tsv ?? '0') == '1'
                     ? CsvResponseFormatter::SEPARATOR_TSV
                     : CsvResponseFormatter::SEPARATOR_CSV,
             'inputCharset' => 'UTF-8',
@@ -43,13 +42,13 @@ class WeaponRuleMapAction extends BaseAction
     {
         $query = (new Query())
             ->select([
-                'weapon'    => "MAX({{weapon}}.[[key]])",
-                'rule'      => "MAX({{rule}}.[[key]])",
-                'map'       => "MAX({{map}}.[[key]])",
-                'battle'    => "SUM({{stat_weapon_kd_win_rate}}.[[battle_count]])",
-                'win'       => "SUM({{stat_weapon_kd_win_rate}}.[[win_count]])",
-                'kill'      => "SUM({{stat_weapon_kd_win_rate}}.[[kill]])",
-                'death'     => "SUM({{stat_weapon_kd_win_rate}}.[[death]])",
+                'weapon'    => 'MAX({{weapon}}.[[key]])',
+                'rule'      => 'MAX({{rule}}.[[key]])',
+                'map'       => 'MAX({{map}}.[[key]])',
+                'battle'    => 'SUM({{stat_weapon_kd_win_rate}}.[[battle_count]])',
+                'win'       => 'SUM({{stat_weapon_kd_win_rate}}.[[win_count]])',
+                'kill'      => 'SUM({{stat_weapon_kd_win_rate}}.[[kill]])',
+                'death'     => 'SUM({{stat_weapon_kd_win_rate}}.[[death]])',
             ])
             ->from('stat_weapon_kd_win_rate')
             ->innerJoin('weapon', '{{stat_weapon_kd_win_rate}}.[[weapon_id]] = {{weapon}}.[[id]]')

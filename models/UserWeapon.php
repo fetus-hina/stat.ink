@@ -8,19 +8,19 @@
 
 namespace app\models;
 
-use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "user_weapon".
  *
- * @property integer $user_id
- * @property integer $weapon_id
- * @property integer $count
+ * @property int $user_id
+ * @property int $weapon_id
+ * @property int $count
  *
  * @property User $user
  * @property Weapon $weapon
  */
-class UserWeapon extends \yii\db\ActiveRecord
+class UserWeapon extends ActiveRecord
 {
     /**
      * @inheritdoc
@@ -37,7 +37,7 @@ class UserWeapon extends \yii\db\ActiveRecord
     {
         return [
             [['user_id', 'weapon_id', 'count'], 'required'],
-            [['user_id', 'weapon_id', 'count'], 'integer']
+            [['user_id', 'weapon_id', 'count'], 'integer'],
         ];
     }
 

@@ -12,16 +12,14 @@ use Yii;
 use app\components\helpers\Battle as BattleHelper;
 use app\models\Map2;
 use app\models\Mode2;
-use app\models\PeriodMap;
-use app\models\UserWeapon;
-use app\models\Weapon2;
 use app\models\WeaponCategory2;
-use app\models\WeaponType2;
 use statink\yii2\stages\spl2\Spl2Stage;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 use yii\web\BadRequestHttpException;
 use yii\web\ViewAction;
+
+use const SORT_ASC;
 
 class CurrentData2Action extends ViewAction
 {
@@ -47,32 +45,28 @@ class CurrentData2Action extends ViewAction
 
     public function getCurrentInfo()
     {
-        $info = function (array $periodMaps): array {
-            if (!$periodMaps) {
-                return [];
-            }
-            return [
-                'rule' => [
-                    'key' => $periodMaps[0]->rule->key,
-                    'name' => Yii::t('app-rule', $periodMaps[0]->rule->name),
-                ],
-                'maps' => array_map(
-                    function (PeriodMap $pm): string {
-                        return $pm->map->key;
-                    },
-                    $periodMaps
-                ),
-            ];
-        };
-        $info2 = function (array $keys): array {
-            return [
-                'rule' => [
-                    'key' => 'nawabari',
-                    'name' => Yii::t('app-rule2', 'Turf War'),
-                ],
-                'maps' => $keys,
-            ];
-        };
+        // $info = function (array $periodMaps): array {
+        //     if (!$periodMaps) {
+        //         return [];
+        //     }
+        //     return [
+        //         'rule' => [
+        //             'key' => $periodMaps[0]->rule->key,
+        //             'name' => Yii::t('app-rule', $periodMaps[0]->rule->name),
+        //         ],
+        //         'maps' => array_map(
+        //             fn (PeriodMap $pm): string => $pm->map->key,
+        //             $periodMaps
+        //         ),
+        //     ];
+        // };
+        // $info2 = fn (array $keys): array => [
+        //     'rule' => [
+        //         'key' => 'nawabari',
+        //         'name' => Yii::t('app-rule2', 'Turf War'),
+        //     ],
+        //     'maps' => $keys,
+        // ];
         $now = microtime(true);
         $period = BattleHelper::calcPeriod2((int)$now);
         $range = BattleHelper::periodToRange2($period);
@@ -99,9 +93,7 @@ class CurrentData2Action extends ViewAction
                         'name' => Yii::t('app-rule2', $rule['name']),
                     ];
                 }
-                uasort($tmp, function ($a, $b) {
-                    return strcasecmp($a['name'], $b['name']);
-                });
+                uasort($tmp, fn ($a, $b) => strcasecmp($a['name'], $b['name']));
                 return $tmp;
             })($mode['rules']);
         }
@@ -118,9 +110,7 @@ class CurrentData2Action extends ViewAction
                 'image' => Url::to(Spl2Stage::url('daytime', $map['key']), true),
             ];
         }
-        uasort($ret, function ($a, $b) {
-            return strcasecmp($a['name'], $b['name']);
-        });
+        uasort($ret, fn ($a, $b) => strcasecmp($a['name'], $b['name']));
         return $ret;
     }
 
@@ -133,7 +123,7 @@ class CurrentData2Action extends ViewAction
                 $weapons = $type->getWeapons()->asArray()->all();
                 if ($weapons) {
                     $ret[] = [
-                        'name' => ($category->name === $type->name)
+                        'name' => $category->name === $type->name
                             ? Yii::t('app-weapon2', $type->name)
                             : sprintf(
                                 '%s » %s',
@@ -144,15 +134,11 @@ class CurrentData2Action extends ViewAction
                             $tmp = ArrayHelper::map(
                                 $weapons,
                                 'key',
-                                function (array $weapon): array {
-                                    return [
-                                        'name' => Yii::t('app-weapon2', $weapon['name']),
-                                    ];
-                                }
+                                fn (array $weapon): array => [
+                                    'name' => Yii::t('app-weapon2', $weapon['name']),
+                                ]
                             );
-                            uasort($tmp, function (array $a, array $b) {
-                                return strcasecmp($a['name'], $b['name']);
-                            });
+                            uasort($tmp, fn (array $a, array $b) => strcasecmp($a['name'], $b['name']));
                             return $tmp;
                         })($type),
                     ];
@@ -169,16 +155,14 @@ class CurrentData2Action extends ViewAction
         }
         $fmt = Yii::$app->formatter;
         return array_map(
-            function (array $row) use ($fmt): array {
-                return [
-                    'key' => $row['weapon']['key'],
-                    'name' => sprintf(
-                        '%s (%s)',
-                        Yii::t('app-weapon2', $row['weapon']['name']),
-                        $fmt->asInteger($row['battles'])
-                    ),
-                ];
-            },
+            fn (array $row): array => [
+                'key' => $row['weapon']['key'],
+                'name' => sprintf(
+                    '%s (%s)',
+                    Yii::t('app-weapon2', $row['weapon']['name']),
+                    $fmt->asInteger($row['battles'])
+                ),
+            ],
             $user->getUserWeapon2s()->favoriteOrder()->limit(10)->with('weapon')->asArray()->all()
         );
     }

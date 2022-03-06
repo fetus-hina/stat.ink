@@ -11,11 +11,8 @@ declare(strict_types=1);
 namespace app\components\grid;
 
 use Yii;
-use app\models\Salmon2;
-use app\models\User;
 use yii\grid\Column;
 use yii\helpers\Html;
-use yii\helpers\Url;
 
 class SalmonActionColumn extends Column
 {
@@ -39,9 +36,7 @@ class SalmonActionColumn extends Column
                 ),
                 //TODO: video link
             ],
-            function (?string $content): bool {
-                return $content !== null && $content !== '';
-            }
+            fn (?string $content): bool => $content !== null && $content !== ''
         ));
     }
 }

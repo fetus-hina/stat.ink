@@ -26,8 +26,9 @@ use app\models\Weapon2;
 use stdClass;
 use yii\console\Controller;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Console;
 use yii\helpers\Json;
+
+use const SORT_ASC;
 
 class Splatoon2InkController extends Controller
 {
@@ -57,7 +58,7 @@ class Splatoon2InkController extends Controller
             }
             $transaction->commit();
             return 0;
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             echo $e->getMessage() . "\n";
             echo $e->getTraceAsString() . "\n";
             $transaction->rollBack();
@@ -68,9 +69,7 @@ class Splatoon2InkController extends Controller
     // スケジュール 実装 {{{
     private function importSchedules(ScheduleMode2 $mode, array $list)
     {
-        usort($list, function (stdClass $a, stdClass $b): int {
-            return $a->start_time <=> $b->start_time;
-        });
+        usort($list, fn (stdClass $a, stdClass $b): int => $a->start_time <=> $b->start_time);
         foreach ($list as $schedule) {
             $this->importSchedule($mode, $schedule);
         }
@@ -117,10 +116,10 @@ class Splatoon2InkController extends Controller
         $schedule->rule_id = $rules[$info->rule->key];
         if ($schedule->isNewRecord || $schedule->dirtyAttributes) {
             if (!$schedule->save()) {
-                $this->stderr("Schedule insert/update error at line " . __LINE__ . "\n");
+                $this->stderr('Schedule insert/update error at line ' . __LINE__ . "\n");
                 throw new \Exception();
             }
-            echo "Created or updated schedule " . Json::encode($schedule) . "\n";
+            echo 'Created or updated schedule ' . Json::encode($schedule) . "\n";
         }
 
         $exists = $schedule->getScheduleMaps()->count();
@@ -132,20 +131,20 @@ class Splatoon2InkController extends Controller
 
         if ($exists == count($stages)) {
             $matches = $schedule->getScheduleMaps()
-                ->andWhere(['in', 'map_id', array_map(
-                    function (stdClass $stage) use ($maps): int {
-                        return $maps[$stage->id] ?? -1;
-                    },
-                    $stages
-                )])
+                ->andWhere(['in', 'map_id',
+                    array_map(
+                        fn (stdClass $stage): int => $maps[$stage->id] ?? -1,
+                        $stages
+                    ),
+                ])
                 ->count();
             if ($exists == $matches) {
-                $this->stderr("Nothing changed. " . Json::encode($schedule) . "\n");
+                $this->stderr('Nothing changed. ' . Json::encode($schedule) . "\n");
                 return;
             }
         }
 
-        $this->stderr("Something changed (or new schedule) " . Json::encode($schedule) . "\n");
+        $this->stderr('Something changed (or new schedule) ' . Json::encode($schedule) . "\n");
         ScheduleMap2::deleteAll(['schedule_id' => $schedule->id]);
         foreach ($stages as $st) {
             if (!isset($maps[$st->id])) {
@@ -166,6 +165,7 @@ class Splatoon2InkController extends Controller
 
         $this->stderr("  => updated\n");
     }
+
     // }}}
 
     public function actionUpdateCoopSchedule(): int
@@ -178,7 +178,7 @@ class Splatoon2InkController extends Controller
                 $transaction->commit();
                 return 0;
             }
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             echo $e->getMessage() . "\n";
             echo $e->getTraceAsString() . "\n";
         }
@@ -189,9 +189,7 @@ class Splatoon2InkController extends Controller
     // スケジュール 実装 {{{
     private function importCoopSchedules(array $list): bool
     {
-        usort($list, function (stdClass $a, stdClass $b): int {
-            return $a->start_time <=> $b->start_time;
-        });
+        usort($list, fn (stdClass $a, stdClass $b): int => $a->start_time <=> $b->start_time);
         $ret = true;
         foreach ($list as $schedule) {
             $ret &= $this->importCoopSchedule($schedule);
@@ -204,7 +202,7 @@ class Splatoon2InkController extends Controller
         $startTime = $this->dateTimeFromTimestamp($json->start_time);
         $endTime = $this->dateTimeFromTimestamp($json->end_time);
 
-        echo "Schedule: " . $startTime->format(DateTime::ATOM) . ' - ' . $endTime->format(DateTime::ATOM) . "\n";
+        echo 'Schedule: ' . $startTime->format(DateTime::ATOM) . ' - ' . $endTime->format(DateTime::ATOM) . "\n";
 
         // 期間の重なるスケジュールを全件取得
         $schedules = SalmonSchedule2::find()
@@ -221,10 +219,10 @@ class Splatoon2InkController extends Controller
                     @strtotime($_['end_at']) === $endTime->getTimestamp()
                 ) {
                     $schedule = $_;
-                    echo "Found same term schedule data, id = " . $_->id . "\n";
+                    echo 'Found same term schedule data, id = ' . $_->id . "\n";
                 } else {
                     // 開始・終了は一致しないが期間が重複しているのはおかしなデータ
-                    echo "Found invalid term schedule data, id = " . $_->id . "\n";
+                    echo 'Found invalid term schedule data, id = ' . $_->id . "\n";
                     if ($_->delete() === false) {
                         echo "Could not delete the data.\n";
                         return false;
@@ -244,7 +242,7 @@ class Splatoon2InkController extends Controller
 
         $map = SalmonMap2::findOne(['name' => $json->stage->name ?? '?']);
         if (!$map) {
-            echo "Unknown stage: " . ($json->stage->name ?? '??') . "\n";
+            echo 'Unknown stage: ' . ($json->stage->name ?? '??') . "\n";
             return false;
         }
 
@@ -260,24 +258,20 @@ class Splatoon2InkController extends Controller
         $jsonWeapons = array_filter(
             array_map(
                 function ($weapon): ?int {
-                    $id = (is_object($weapon) && $weapon instanceof stdClass)
+                    $id = is_object($weapon) && $weapon instanceof stdClass
                         ? ($weapon->id ?? null)
                         : null;
-                    return ($id !== null && preg_match('/^\d+$/', $id))
+                    return $id !== null && preg_match('/^\d+$/', $id)
                         ? (int)$id
                         : null;
                 },
                 $json->weapons
             ),
-            function (?int $id): bool {
-                return $id !== null;
-            }
+            fn (?int $id): bool => $id !== null
         );
 
         $currentWeapons = array_map(
-            function (SalmonWeapon2 $weapon): int {
-                return $weapon->weapon->splatnet;
-            },
+            fn (SalmonWeapon2 $weapon): int => $weapon->weapon->splatnet,
             SalmonWeapon2::find()
                 ->with('weapon')
                 ->andWhere(['schedule_id' => $schedule->id])
@@ -316,6 +310,7 @@ class Splatoon2InkController extends Controller
 
         return true;
     }
+
     // }}}
 
     private function queryJson(string $url, array $data = [])

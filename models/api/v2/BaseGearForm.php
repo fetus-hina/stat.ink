@@ -8,7 +8,6 @@
 
 namespace app\models\api\v2;
 
-use Yii;
 use app\components\behaviors\SplatnetNumberBehavior;
 use app\models\Ability2;
 use app\models\Gear2;
@@ -92,7 +91,7 @@ abstract class BaseGearForm extends Model
             return;
         }
         if (count($values) > 3) {
-            $this->addError($attribute, "{$attribute} must be contain 0-3 values, " . count($values) . " given.");
+            $this->addError($attribute, "{$attribute} must be contain 0-3 values, " . count($values) . ' given.');
             return;
         }
         foreach ($values as $i => $value) {
@@ -108,10 +107,11 @@ abstract class BaseGearForm extends Model
     }
 
     private $gearModel = false;
+
     public function getGearModel()
     {
         if ($this->gearModel === false) {
-            $this->gearModel = ($this->gear == '')
+            $this->gearModel = $this->gear == ''
                 ? null
                 : Gear2::findOne(['key' => (string)$this->gear]);
         }

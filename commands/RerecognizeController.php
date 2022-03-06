@@ -9,11 +9,12 @@
 namespace app\commands;
 
 use Yii;
+use app\models\BattleRerecognizeForm;
 use yii\base\InvalidParamException;
 use yii\console\Controller;
-use yii\helpers\Console;
 use yii\helpers\Json;
-use app\models\BattleRerecognizeForm;
+
+use const STDERR;
 
 class RerecognizeController extends Controller
 {

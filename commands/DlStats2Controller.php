@@ -18,8 +18,10 @@ use app\components\helpers\Battle as BattleHelper;
 use app\models\Battle2;
 use app\models\BattlePlayer2;
 use yii\console\Controller;
-use yii\helpers\Console;
 use yii\helpers\FileHelper;
+
+use const SEEK_SET;
+use const SORT_ASC;
 
 class DlStats2Controller extends Controller
 {
@@ -62,32 +64,29 @@ class DlStats2Controller extends Controller
 
     private function createBattleResultsCsv(DateTimeImmutable $date, string $outPath): bool
     {
-        // {{{
         $header = false;
         if (!$fh = tmpfile()) {
             echo "tmpfile() failed\n";
             return false;
         }
         try {
-            $playerColumns = function (string $prefix): array {
-                return [
-                    $prefix . '-weapon',
-                    $prefix . '-kill-assist',
-                    $prefix . '-kill',
-                    $prefix . '-assist',
-                    $prefix . '-death',
-                    $prefix . '-special',
-                    $prefix . '-inked',
-                    $prefix . '-rank',
-                    $prefix . '-level',
-                ];
-            };
+            $playerColumns = fn (string $prefix): array => [
+                $prefix . '-weapon',
+                $prefix . '-kill-assist',
+                $prefix . '-kill',
+                $prefix . '-assist',
+                $prefix . '-death',
+                $prefix . '-special',
+                $prefix . '-inked',
+                $prefix . '-rank',
+                $prefix . '-level',
+            ];
             $playerCsv = function (Battle2 $b, ?BattlePlayer2 $p): array {
                 if (!$p) {
                     return ['', '', '', '', '', '', '', '', ''];
                 }
 
-                $inked = (function (?int $point) use ($b, $p): ?int {
+                $inked = function (?int $point) use ($b, $p): ?int {
                     if ($point === null) {
                         return null;
                     }
@@ -99,13 +98,13 @@ class DlStats2Controller extends Controller
                     }
 
                     return $point;
-                });
+                };
 
                 return [
                     $p->weapon ? $p->weapon->key : '',
                     (string)$p->kill_or_assist,
                     (string)$p->kill,
-                    ($p->kill_or_assist !== null && $p->kill !== null)
+                    $p->kill_or_assist !== null && $p->kill !== null
                         ? (string)($p->kill_or_assist - $p->kill)
                         : '',
                     (string)$p->death,
@@ -135,7 +134,7 @@ class DlStats2Controller extends Controller
                     [
                         'battle2.is_automated' => true,
                         'battle2.use_for_entire' => true,
-                    ]
+                    ],
                 ])
                 ->orderBy(['battle2.start_at' => SORT_ASC]);
             foreach ($query->each(500) as $battle) {
@@ -216,18 +215,16 @@ class DlStats2Controller extends Controller
             echo "    done!\n";
 
             return true;
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             echo $e->getMessage() . "\n";
             return false;
         } finally {
             fclose($fh);
         }
-        // }}}
     }
 
     private function createBattleResultsCsvZip(): bool
     {
-        // {{{
         if (!$tmpFile = tempnam('/tmp', 'zip-')) {
             return false;
         }
@@ -244,8 +241,8 @@ class DlStats2Controller extends Controller
                     Yii::getAlias(static::BASE_BATTLE_RESULTS_CSV) . '/*/*/*.csv',
                     0,
                     [
-                    'add_path' => basename(Yii::getAlias(static::BASE_BATTLE_RESULTS_CSV)) . '/',
-                    'remove_all_path' => true,
+                        'add_path' => basename(Yii::getAlias(static::BASE_BATTLE_RESULTS_CSV)) . '/',
+                        'remove_all_path' => true,
                     ]
                 )
             ) {
@@ -265,7 +262,6 @@ class DlStats2Controller extends Controller
         } finally {
             unlink($tmpFile);
         }
-        // }}}
     }
 
     private static function startDay(): DateTimeImmutable
