@@ -108,6 +108,11 @@
         },
         "platform": {
             "php": "7.4.13"
+        },
+        "allow-plugins": {
+            "yiisoft/yii2-composer": true,
+            "cweagans/composer-patches": true,
+            "dealerdirect/phpcodesniffer-composer-installer": true
         }
     },
     "extra": {
