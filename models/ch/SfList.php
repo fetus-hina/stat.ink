@@ -19,7 +19,7 @@ class SfList extends Model
 
     public static function create(string $text, bool $sort = true): ?self
     {
-        $obj = Yii::createObject(['__class' => static::class]);
+        $obj = Yii::createObject(['class' => static::class]);
         if (!$obj->parse($text, $sort)) {
             return null;
         }

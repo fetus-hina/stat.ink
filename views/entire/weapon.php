@@ -247,7 +247,7 @@ EOF
   <div class="table-responsive">
     <?= GridView::widget([
       'dataProvider' => Yii::createObject([
-        '__class' => ArrayDataProvider::class,
+        'class' => ArrayDataProvider::class,
         'allModels' => SummarizedWeaponVsWeapon::find($weapon->id, $rule->id),
         'sort' => false,
         'pagination' => false,

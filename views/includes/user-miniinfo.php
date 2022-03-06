@@ -386,7 +386,7 @@ $f = Yii::$app->formatter;
     <div class="miniinfo-databox">
 <?php
 $_remoteFollow = Yii::createObject([
-  '__class' => RemoteFollowDialog::class,
+  'class' => RemoteFollowDialog::class,
   'user' => $user,
 ]);
 $this->on(View::EVENT_END_BODY, function () use ($_remoteFollow): void {

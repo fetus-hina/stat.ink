@@ -36,7 +36,7 @@ class SfItem extends Model
 
     public static function parseAndCreate(string $text): ?array // [?self, string]
     {
-        $obj = Yii::createObject(['__class' => static::class]);
+        $obj = Yii::createObject(['class' => static::class]);
         $remains = $obj->parse($text);
         if ($remains === null) {
             return null;

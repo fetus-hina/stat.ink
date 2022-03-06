@@ -11,6 +11,7 @@ declare(strict_types=1);
 namespace app\commands;
 
 use Normalizer;
+use Throwable;
 use Yii;
 use app\components\helpers\I18n as I18nHelper;
 use app\models\Gear2;
@@ -74,7 +75,6 @@ class Splatoon2InkI18nController extends Controller
 
     public function actionDownloadAll(bool $force = false): int
     {
-        // {{{
         foreach ($this->localeMap as $lang => $s2inkLang) {
             $path = $this->getCacheFilePath($s2inkLang);
             if (!FileHelper::createDirectory(dirname($path))) {
@@ -93,12 +93,10 @@ class Splatoon2InkI18nController extends Controller
         }
 
         return 0;
-        // }}}
     }
 
     public function actionDownload(string $locale, string $outPath): int
     {
-        // {{{
         $locales = $this->localeMap;
         if (!isset($locales[$locale])) {
             fwrite(STDERR, "Unknown locale \"{$locale}\".\n");
@@ -109,7 +107,7 @@ class Splatoon2InkI18nController extends Controller
 
         $url = sprintf('https://splatoon2.ink/data/locale/%s.json', $locales[$locale]);
         $client = Yii::createObject([
-            '__class' => HttpClient::class,
+            'class' => HttpClient::class,
             'transport' => CurlTransport::class,
         ]);
         $request = $client->createRequest()
@@ -128,7 +126,7 @@ class Splatoon2InkI18nController extends Controller
         $body = $response->content;
         try {
             Json::decode($body);
-        } catch (\Throwable $e) {
+        } catch (Throwable $e) {
             fwrite(STDERR, "JSON decode failed\n");
             return 1;
         }
@@ -146,7 +144,6 @@ class Splatoon2InkI18nController extends Controller
         fwrite($fh, $body);
         fclose($fh);
         return 0;
-        // }}}
     }
 
     public function actionUpdateAll(): int
@@ -293,7 +290,6 @@ class Splatoon2InkI18nController extends Controller
         string $jsonKey,    // "weapons"
         array $englishData  // [0 => "Sploosh-o-matic"]
     ): bool {
-        // {{{
         if (!$shortLocale = $this->localeMap[$locale] ?? null) {
             fprintf(STDERR, "Unknown locale %s\n", $locale);
             return false;
@@ -338,7 +334,6 @@ class Splatoon2InkI18nController extends Controller
         fwrite(STDERR, "  => UPDATED.\n");
 
         return true;
-        // }}}
     }
 
     private static function normalize(string $string): string
