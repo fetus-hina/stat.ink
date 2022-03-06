@@ -206,6 +206,12 @@
   <rule ref="Squiz.WhiteSpace.SuperfluousWhitespace.EmptyLines">
     <severity>5</severity>
   </rule>
+  <rule ref="Squiz.Strings.DoubleQuoteUsage.NotRequired"/>
+  <!--
+    <rule ref="Squiz.NamingConventions.ValidVariableName">
+      <exclude name="Squiz.NamingConventions.ValidVariableName.PrivateNoUnderscore" />
+    </rule>
+  -->
 
 
   <rule ref="PSR12">

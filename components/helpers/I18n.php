@@ -108,8 +108,8 @@ class I18n
     private static function addslashes(string $string): string
     {
         return str_replace(
-            ["\\", "'"],
-            ["\\\\", "\\'"],
+            ['\\', "'"],
+            ['\\\\', "\\'"],
             $string
         );
     }

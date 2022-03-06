@@ -159,7 +159,7 @@ class HasegawExportController extends Controller
                 ]);
             }
             if ($insert) {
-                echo "  player: " . count($insert) . "\n";
+                echo '  player: ' . count($insert) . "\n";
                 $a = $exp->exec(
                     $sql = 'INSERT INTO "battle_player" ("' . implode('", "', [
                         'id', 'battle_id', 'is_me', 'is_my_team', 'rank_in_team',

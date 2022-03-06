@@ -120,7 +120,7 @@ class I18nController extends Controller
         setlocale(LC_COLLATE, 'C');
         uksort($current, fn (string $a, string $b): int => strnatcasecmp($a, $b) ?: strcmp($a, $b));
 
-        $esc = fn (string $text): string => str_replace(["\\", "'"], ["\\\\", "\\'"], $text);
+        $esc = fn (string $text): string => str_replace(['\\', "'"], ['\\\\', "\\'"], $text);
 
         $file = [];
         $file[] = '<?php';

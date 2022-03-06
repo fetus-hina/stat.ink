@@ -70,7 +70,7 @@ class DeleteBattleForm extends Model
         }
 
         if (count($this->$attribute) > 100) {
-            $this->addError($attribute, "too many values.");
+            $this->addError($attribute, 'too many values.');
             return;
         }
 

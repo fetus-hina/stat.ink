@@ -132,7 +132,7 @@ trait LicenseCheckTrait
         $list = [];
         foreach ($json as $package => $license) {
             if (!$this->isSafeLicense($license)) {
-                $list[] = vsprintf("%-55s %s", [
+                $list[] = vsprintf('%-55s %s', [
                     vsprintf('%s::%s', [$manager, $package]),
                     $license,
                 ]);

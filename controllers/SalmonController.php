@@ -28,7 +28,7 @@ use const SORT_DESC;
 
 class SalmonController extends Controller
 {
-    public $layout = "main";
+    public $layout = 'main';
 
     public function behaviors()
     {

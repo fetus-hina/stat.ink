@@ -16,7 +16,7 @@ class SecretController extends Controller
 {
     public function actionCookie()
     {
-        $this->stdout("Creating secret key file \"config/cookie-secret.php\"... ", Console::FG_YELLOW);
+        $this->stdout('Creating secret key file "config/cookie-secret.php"... ', Console::FG_YELLOW);
         $length = 32;
         $binLength = (int)ceil($length * 3 / 4);
         $binary = random_bytes($binLength);
@@ -30,7 +30,7 @@ class SecretController extends Controller
 
     public function actionAuthkey()
     {
-        $this->stdout("Creating secret key file \"config/authkey-secret.php\"... ", Console::FG_YELLOW);
+        $this->stdout('Creating secret key file "config/authkey-secret.php"... ', Console::FG_YELLOW);
         $length = 64;
         $binLength = (int)ceil($length * 3 / 4);
         $binary = random_bytes($binLength);
@@ -44,7 +44,7 @@ class SecretController extends Controller
 
     public function actionDb(string $host = 'localhost', ?string $password = null)
     {
-        $this->stdout("Creating \"config/db.php\"... ", Console::FG_YELLOW);
+        $this->stdout('Creating "config/db.php"... ', Console::FG_YELLOW);
         if ($password == '') {
             $passwordBits = 128;
             $length = (int)ceil($passwordBits / 8);
@@ -72,7 +72,7 @@ class SecretController extends Controller
         $file .= "return [\n";
         foreach ($options as $k => $v) {
             if (is_bool($v)) {
-                $file .= "    '{$k}' => " . ($v ? "true" : "false") . ",\n";
+                $file .= "    '{$k}' => " . ($v ? 'true' : 'false') . ",\n";
             } else {
                 $file .= "    '{$k}' => '" . addslashes($v) . "',\n";
             }

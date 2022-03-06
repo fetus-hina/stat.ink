@@ -52,7 +52,7 @@ class BattleSummarizer
             )
         );
         $column_wp_short = sprintf(
-            "(%s * 100.0 / NULLIF(%s, 0))",
+            '(%s * 100.0 / NULLIF(%s, 0))',
             sprintf(
                 'SUM(CASE WHEN (%s) THEN 1 ELSE 0 END)',
                 implode(' AND ', [
@@ -172,7 +172,7 @@ class BattleSummarizer
             )
         );
         $column_wp_short = sprintf(
-            "(%s * 100.0 / NULLIF(%s, 0))",
+            '(%s * 100.0 / NULLIF(%s, 0))',
             sprintf(
                 'SUM(CASE WHEN (%s) THEN 1 ELSE 0 END)',
                 implode(' AND ', [

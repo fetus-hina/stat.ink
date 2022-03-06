@@ -155,7 +155,7 @@ abstract class Migration extends BaseMigration
     public function dropColumns(string $table, array $columns): void
     {
         $time = $this->beginCommand(sprintf(
-            "drop columns %s from table %s",
+            'drop columns %s from table %s',
             implode(', ', array_keys($columns)),
             $table
         ));

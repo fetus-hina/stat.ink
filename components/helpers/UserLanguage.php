@@ -37,7 +37,7 @@ class UserLanguage
             }
 
             if ($getDefault) {
-                Yii::info("Returns default language, en-US", __METHOD__);
+                Yii::info('Returns default language, en-US', __METHOD__);
                 return Language::findOne(['lang' => 'en-US']);
             }
 
@@ -59,7 +59,7 @@ class UserLanguage
             $lang = Language::findOne(['lang' => (string)$param]);
             if ($lang) {
                 Yii::info(
-                    "Detected language by parameter, " . $lang->lang,
+                    'Detected language by parameter, ' . $lang->lang,
                     __METHOD__
                 );
             }
@@ -82,7 +82,7 @@ class UserLanguage
             $lang = Language::findOne(['lang' => $cookie->value]);
             if ($lang) {
                 Yii::info(
-                    "Detected language by cookie, " . $lang->lang,
+                    'Detected language by cookie, ' . $lang->lang,
                     __METHOD__
                 );
             }

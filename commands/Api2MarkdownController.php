@@ -87,7 +87,7 @@ class Api2MarkdownController extends Controller
                         return $match['start'] . "\n" . rtrim($repl) . "\n" . $match['end'];
 
                     default:
-                        $this->stderr("Unknown kind of replace tag: " . $match['kind'] . "\n");
+                        $this->stderr('Unknown kind of replace tag: ' . $match['kind'] . "\n");
                         exit(1);
                 }
             },
@@ -119,7 +119,7 @@ class Api2MarkdownController extends Controller
             function (array $match) use ($actionMap): string {
                 $kind = $match['kind'];
                 if (!isset($actionMap[$kind])) {
-                    $this->stderr("Unknown kind of replace tag: " . $kind . "\n");
+                    $this->stderr('Unknown kind of replace tag: ' . $kind . "\n");
                     exit(1);
                 }
 
@@ -149,10 +149,10 @@ class Api2MarkdownController extends Controller
         ];
         $data = [
             [
-                "指定文字列<br>Key String",
-                "イカリング<br>SplatNet",
-                "ブキ<br>Weapon Name",
-                "備考<br>Remarks",
+                '指定文字列<br>Key String',
+                'イカリング<br>SplatNet',
+                'ブキ<br>Weapon Name',
+                '備考<br>Remarks',
             ],
         ];
         $categories = WeaponCategory2::find()
@@ -234,10 +234,10 @@ class Api2MarkdownController extends Controller
 
         $data = [
             [
-                "指定文字列<br>Key String",
-                "イカリング<br>SplatNet",
-                "ステージ<br>Stage Name",
-                "備考<br>Remarks",
+                '指定文字列<br>Key String',
+                'イカリング<br>SplatNet',
+                'ステージ<br>Stage Name',
+                '備考<br>Remarks',
             ],
         ];
         foreach ($maps as $map) {
@@ -262,11 +262,11 @@ class Api2MarkdownController extends Controller
             $data[] = [
                 sprintf('`%s`', $map->key),
                 $map->splatnet !== null ? sprintf('`%d`', $map->splatnet) : '',
-                implode("<br>", [
+                implode('<br>', [
                     Yii::t('app-map2', $map->name, [], 'ja-JP'),
                     $map->name,
                 ]),
-                implode("<br>", $colRemarks),
+                implode('<br>', $colRemarks),
             ];
             // }}}
         }
@@ -284,10 +284,10 @@ class Api2MarkdownController extends Controller
 
         $data = [
             [
-                "指定文字列<br>Key String",
-                "イカリング<br>SplatNet",
-                "ギアパワー<br>Ability Name",
-                "備考<br>Remarks",
+                '指定文字列<br>Key String',
+                'イカリング<br>SplatNet',
+                'ギアパワー<br>Ability Name',
+                '備考<br>Remarks',
             ],
         ];
         foreach ($abilities as $ability) {
@@ -312,11 +312,11 @@ class Api2MarkdownController extends Controller
             $data[] = [
                 sprintf('`%s`', $ability->key),
                 $ability->splatnet !== null ? sprintf('`%d`', $ability->splatnet) : '',
-                implode("<br>", [
+                implode('<br>', [
                     Yii::t('app-ability2', $ability->name, [], 'ja-JP'),
                     $ability->name,
                 ]),
-                implode("<br>", $colRemarks),
+                implode('<br>', $colRemarks),
             ];
             // }}}
         }
@@ -346,8 +346,8 @@ class Api2MarkdownController extends Controller
 
         $data = [
             [
-                "指定文字列<br>Key String",
-                "死因<br>Death Reason",
+                '指定文字列<br>Key String',
+                '死因<br>Death Reason',
             ],
         ];
         foreach ($reasons as $reason) {
@@ -375,10 +375,10 @@ class Api2MarkdownController extends Controller
 
         $data = [
             [
-                "指定文字列<br>Key String",
-                "イカリング<br>SplatNet",
-                "名前<br>Name",
-                "備考<br>Remarks",
+                '指定文字列<br>Key String',
+                'イカリング<br>SplatNet',
+                '名前<br>Name',
+                '備考<br>Remarks',
             ],
         ];
         foreach ($titles as $title) {
@@ -403,11 +403,11 @@ class Api2MarkdownController extends Controller
             $data[] = [
                 sprintf('`%s`', $title->key),
                 $title->splatnet !== null ? sprintf('`%d`', $title->splatnet) : '',
-                implode("<br>", [
+                implode('<br>', [
                     Yii::t('app-salmon-title2', $title->name, [], 'ja-JP'),
                     $title->name,
                 ]),
-                implode("<br>", $colRemarks),
+                implode('<br>', $colRemarks),
             ];
             // }}}
         }
@@ -425,10 +425,10 @@ class Api2MarkdownController extends Controller
 
         $data = [
             [
-                "指定文字列<br>Key String",
-                "イカリング<br>SplatNet",
-                "名前<br>Name",
-                "備考<br>Remarks",
+                '指定文字列<br>Key String',
+                'イカリング<br>SplatNet',
+                '名前<br>Name',
+                '備考<br>Remarks',
             ],
         ];
         foreach ($titles as $title) {
@@ -460,11 +460,11 @@ class Api2MarkdownController extends Controller
                         ? sprintf('`%s`', $title->splatnet_str)
                         : false,
                 ])),
-                implode("<br>", [
+                implode('<br>', [
                     Yii::t('app-salmon-boss2', $title->name, [], 'ja-JP'),
                     $title->name,
                 ]),
-                implode("<br>", $colRemarks),
+                implode('<br>', $colRemarks),
             ];
             // }}}
         }
@@ -482,10 +482,10 @@ class Api2MarkdownController extends Controller
 
         $data = [
             [
-                "指定文字列<br>Key String",
-                "イカリング<br>SplatNet",
-                "名前<br>Name",
-                "備考<br>Remarks",
+                '指定文字列<br>Key String',
+                'イカリング<br>SplatNet',
+                '名前<br>Name',
+                '備考<br>Remarks',
             ],
         ];
         foreach ($rows as $row) {
@@ -510,11 +510,11 @@ class Api2MarkdownController extends Controller
             $data[] = [
                 sprintf('`%s`', $row->key),
                 sprintf('`%s`', $row->splatnet),
-                implode("<br>", [
+                implode('<br>', [
                     Yii::t('app-salmon-tide2', $row->name, [], 'ja-JP'),
                     $row->name,
                 ]),
-                implode("<br>", $colRemarks),
+                implode('<br>', $colRemarks),
             ];
             // }}}
         }
@@ -532,10 +532,10 @@ class Api2MarkdownController extends Controller
 
         $data = [
             [
-                "指定文字列<br>Key String",
-                "イカリング<br>SplatNet",
-                "名前<br>Name",
-                "備考<br>Remarks",
+                '指定文字列<br>Key String',
+                'イカリング<br>SplatNet',
+                '名前<br>Name',
+                '備考<br>Remarks',
             ],
         ];
         foreach ($rows as $row) {
@@ -560,11 +560,11 @@ class Api2MarkdownController extends Controller
             $data[] = [
                 sprintf('`%s`', $row->key),
                 sprintf('`%s`', $row->splatnet),
-                implode("<br>", [
+                implode('<br>', [
                     Yii::t('app-salmon-event2', $row->name, [], 'ja-JP'),
                     $row->name,
                 ]),
-                implode("<br>", $colRemarks),
+                implode('<br>', $colRemarks),
             ];
             // }}}
         }
@@ -579,10 +579,10 @@ class Api2MarkdownController extends Controller
         $compats = [];
         $data = [
             [
-                "指定文字列<br>Key String",
-                "イカリング<br>SplatNet",
-                "ブキ<br>Weapon Name",
-                "備考<br>Remarks",
+                '指定文字列<br>Key String',
+                'イカリング<br>SplatNet',
+                'ブキ<br>Weapon Name',
+                '備考<br>Remarks',
             ],
         ];
         $weapons = SalmonMainWeapon2::find()
@@ -635,10 +635,10 @@ class Api2MarkdownController extends Controller
         $compats = [];
         $data = [
             [
-                "指定文字列<br>Key String",
-                "イカリング<br>SplatNet",
-                "名前<br>Name",
-                "備考<br>Remarks",
+                '指定文字列<br>Key String',
+                'イカリング<br>SplatNet',
+                '名前<br>Name',
+                '備考<br>Remarks',
             ],
         ];
         $weapons = SalmonSpecial2::find()
@@ -684,9 +684,9 @@ class Api2MarkdownController extends Controller
         // {{{
         $data = [
             [
-                "指定文字列<br>Key String",
-                "名前<br>Name",
-                "イカリングヒント<br>SplatNet Hint",
+                '指定文字列<br>Key String',
+                '名前<br>Name',
+                'イカリングヒント<br>SplatNet Hint',
             ],
         ];
         $stages = SalmonMap2::find()
