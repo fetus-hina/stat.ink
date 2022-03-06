@@ -102,6 +102,7 @@ abstract class BaseGearForm extends Model
     }
 
     private $gearModel = false;
+
     public function getGearModel()
     {
         if ($this->gearModel === false) {

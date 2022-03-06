@@ -182,6 +182,30 @@
       <property name="ignoreNewlines" value="true"/>
     </properties>
   </rule>
+  <rule ref="Squiz.WhiteSpace.FunctionOpeningBraceSpace"/>
+  <rule ref="Squiz.WhiteSpace.FunctionSpacing">
+    <properties>
+      <property name="spacing" value="1" />
+      <property name="spacingBeforeFirst" value="0"/>
+      <property name="spacingAfterLast" value="0"/>
+    </properties>
+  </rule>
+  <rule ref="Squiz.WhiteSpace.LanguageConstructSpacing"/>
+  <rule ref="Squiz.WhiteSpace.LogicalOperatorSpacing"/>
+  <rule ref="Squiz.WhiteSpace.ObjectOperatorSpacing">
+    <properties>
+      <property name="ignoreNewlines" value="true"/>
+    </properties>
+  </rule>
+  <rule ref="Squiz.WhiteSpace.SemicolonSpacing"/>
+  <rule ref="Squiz.WhiteSpace.SuperfluousWhitespace">
+    <properties>
+      <property name="ignoreBlankLines" value="false"/>
+    </properties>
+  </rule>
+  <rule ref="Squiz.WhiteSpace.SuperfluousWhitespace.EmptyLines">
+    <severity>5</severity>
+  </rule>
 
 
   <rule ref="PSR12">

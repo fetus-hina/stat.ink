@@ -22,18 +22,31 @@ abstract class Base extends Component
     abstract public function getCalculatorVersion();
 
     abstract public function getAttackPct();
+
     abstract public function getDefensePct();
+
     abstract public function getInkUsePctMain();
+
     abstract public function getInkUsePctSub();
+
     abstract public function getInkRecoverySec();
+
     abstract public function getRunSpeedPct();
+
     abstract public function getSwimSpeedPct();
+
     abstract public function getSpecialChargePoint();
+
     abstract public function getSpecialDurationSec();
+
     abstract public function getSpecialLossPct();
+
     abstract public function getRespawnSec();
+
     abstract public function getSuperJumpSecs();
+
     abstract public function getBombThrowPct();
+
     abstract public function getMarkingPct();
 
     public function getSpecialDurationCount()

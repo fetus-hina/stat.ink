@@ -142,6 +142,7 @@ class Agent extends ActiveRecord
     }
 
     private static $latestWinIkaLog;
+
     private function getIsOldWinIkalogAsAtTheTime($t)
     {
         if (!preg_match('/^([0-9a-f]{7,})_/', $this->version, $match)) {
@@ -195,6 +196,7 @@ class Agent extends ActiveRecord
     }
 
     private static $latestIkaLog;
+
     private function getIsOldCliIkalogAsAtTheTimeImpl(IkalogVersion $ikalog, $t)
     {
         if (static::$latestIkaLog === null) {

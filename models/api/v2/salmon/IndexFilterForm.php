@@ -197,5 +197,6 @@ class IndexFilterForm extends Model
         $count = (int)$this->count > 0 ? (int)$this->count : 50;
         $query->limit($count);
     }
+
     // }}}
 }
