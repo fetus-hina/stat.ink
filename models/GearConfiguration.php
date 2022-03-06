@@ -125,6 +125,5 @@ class GearConfiguration extends ActiveRecord
                 )
                 : null,
         ];
-        return null;
     }
 }

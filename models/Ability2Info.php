@@ -608,7 +608,6 @@ class Ability2Info extends Model
                     $calcDamage((float)$attack->damage2, 1.15, 2 / 3, 'V'),
                     $calcDamage((float)$attack->damage3, 1.15, 2 / 3, 'Sq'),
                 );
-                return null;
 
             case 'sputtery':
             case 'kelvin525':
