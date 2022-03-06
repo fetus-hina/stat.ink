@@ -10,7 +10,6 @@ declare(strict_types=1);
 
 namespace app\models;
 
-use Yii;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\db\Query;
@@ -19,13 +18,13 @@ use yii\helpers\ArrayHelper;
 /**
  * This is the model class for table "stat_weapon2_tier".
  *
- * @property integer $id
- * @property integer $version_group_id
+ * @property int $id
+ * @property int $version_group_id
  * @property string $month
- * @property integer $rule_id
- * @property integer $weapon_id
- * @property integer $players_count
- * @property integer $win_count
+ * @property int $rule_id
+ * @property int $weapon_id
+ * @property int $players_count
+ * @property int $win_count
  * @property double $win_percent
  * @property double $avg_kill
  * @property double $med_kill
@@ -53,7 +52,7 @@ class StatWeapon2Tier extends ActiveRecord
                 $this->andWhere(
                     ['>=',
                         '{{stat_weapon2_tier}}.[[players_count]]',
-                        StatWeapon2Tier::PLAYERS_COUNT_THRESHOLD
+                        StatWeapon2Tier::PLAYERS_COUNT_THRESHOLD,
                     ]
                 );
                 return $this;
@@ -185,7 +184,7 @@ class StatWeapon2Tier extends ActiveRecord
     public function getErrorPoint(): ?float
     {
         $stdError = $this->calcError();
-        return ($stdError === null)
+        return $stdError === null
             ? null
             : $stdError * 100 * 2;
     }
@@ -201,7 +200,7 @@ class StatWeapon2Tier extends ActiveRecord
 
         // ref. http://lfics81.techblog.jp/archives/2982884.html
         $winRate = $wins / $battles;
-        $s = sqrt(($battles / ($battles - 1.5)) * $winRate * (1.0 - $winRate));
+        $s = sqrt($battles / ($battles - 1.5) * $winRate * (1.0 - $winRate));
         return $s / sqrt($battles);
     }
 
@@ -225,25 +224,19 @@ class StatWeapon2Tier extends ActiveRecord
             ])
             ->andHaving(['>=', 'MAX({{t}}.[[players_count]])', static::PLAYERS_COUNT_THRESHOLD])
             ->all();
-        usort($list, function (array $a, array $b): int {
-            return version_compare($b['vtag'], $a['vtag'])
-                ?: strcmp($b['month'], $a['month']);
-        });
+        usort($list, fn (array $a, array $b): int => version_compare($b['vtag'], $a['vtag'])
+                ?: strcmp($b['month'], $a['month']));
         return ArrayHelper::map(
             $list,
-            function (array $row): string {
-                return vsprintf('v%s@%s', [
-                    $row['vtag'],
-                    substr($row['month'], 0, 7),
-                ]);
-            },
-            function (array $row): array {
-                return [
-                    'month' => substr($row['month'], 0, 7),
-                    'vTag' => $row['vtag'],
-                    'vName' => $row['vname'],
-                ];
-            }
+            fn (array $row): string => vsprintf('v%s@%s', [
+                $row['vtag'],
+                substr($row['month'], 0, 7),
+            ]),
+            fn (array $row): array => [
+                'month' => substr($row['month'], 0, 7),
+                'vTag' => $row['vtag'],
+                'vName' => $row['vname'],
+            ]
         );
     }
 }

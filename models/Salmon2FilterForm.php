@@ -21,6 +21,8 @@ use yii\base\Model;
 use yii\db\ActiveQuery;
 use yii\helpers\ArrayHelper;
 
+use const SORT_DESC;
+
 class Salmon2FilterForm extends Model
 {
     public $user;
@@ -65,7 +67,7 @@ class Salmon2FilterForm extends Model
                     'failed-wave3',
                     'failed-wave2',
                     'failed-wave1',
-                ]
+                ],
             ],
             [['reason'], 'exist', 'skipOnError' => true,
                 'targetClass' => SalmonFailReason2::class,
@@ -75,9 +77,7 @@ class Salmon2FilterForm extends Model
                 'pattern' => sprintf('/^(?:(?:%s))$/', implode(')|(?:', ArrayHelper::toFlatten([
                     '\d{4}-\d{2}', // YYYY-MM
                     array_map(
-                        function (string $fixedPattern): string {
-                            return preg_quote($fixedPattern, '/');
-                        },
+                        fn (string $fixedPattern): string => preg_quote($fixedPattern, '/'),
                         ArrayHelper::toFlatten([
                             ['this-rotation', 'prev-rotation'],
                             array_keys($this->getValidVersions()),
@@ -139,7 +139,7 @@ class Salmon2FilterForm extends Model
                         throw new Exception();
                 }
             }
-        } catch (Exception $e) {
+        } catch (\Throwable $e) {
             $this->addError($attr, Yii::t('yii', '{attribute} is invalid.', [
                 'attribute' => $this->getAttributeLabel($attr),
             ]));
@@ -212,19 +212,19 @@ class Salmon2FilterForm extends Model
             } elseif (substr($this->term, 0, 1) === 'v') {
                 $vID = substr($this->term, 1);
                 if (isset($this->versions[$vID])) {
-                    list ($date1, $date2) = $this->versions[$vID]->getAvailableDateRange();
+                    [$date1, $date2] = $this->versions[$vID]->getAvailableDateRange();
 
                     $query->andWhere([
                         '>=',
                         '{{salmon2}}.[[shift_period]]',
-                        BattleHelper::calcPeriod2($date1->getTimestamp())
+                        BattleHelper::calcPeriod2($date1->getTimestamp()),
                     ]);
 
                     if ($date2) {
                         $query->andWhere([
                             '<',
                             '{{salmon2}}.[[shift_period]]',
-                            BattleHelper::calcPeriod2($date2->getTimestamp())
+                            BattleHelper::calcPeriod2($date2->getTimestamp()),
                         ]);
                     }
                 } else {
@@ -238,7 +238,7 @@ class Salmon2FilterForm extends Model
                 $month = (int)$match[2];
                 if (
                     (
-                        (2018 <= $year && $year < (int)$now->format('Y')) &&
+                        2018 <= $year && $year < (int)$now->format('Y') &&
                         (1 <= $month && $month <= 12)
                     ) || (
                         ($year === (int)$now->format('Y')) &&
@@ -327,14 +327,10 @@ class Salmon2FilterForm extends Model
     {
         return ArrayHelper::map(
             $this->versions,
-            function (SplatoonVersionGroup2 $v): string {
-                return 'v' . $v->tag;
-            },
-            function (SplatoonVersionGroup2 $v): string {
-                return Yii::t('app', 'Version {0}', [
-                    Yii::t('app-version2', $v->name),
-                ]);
-            }
+            fn (SplatoonVersionGroup2 $v): string => 'v' . $v->tag,
+            fn (SplatoonVersionGroup2 $v): string => Yii::t('app', 'Version {0}', [
+                Yii::t('app-version2', $v->name),
+            ])
         );
     }
 
@@ -348,16 +344,11 @@ class Salmon2FilterForm extends Model
                     ])
                     ->asArray()
                     ->all(),
-                function (array $row): ?int {
-                    // サーモンランの記録に対応したのは v4.0.0 以降
-                    return (version_compare('4.0.0', $row['tag'], '<='))
+                fn (array $row): ?int => version_compare('4.0.0', $row['tag'], '<=')
                         ? (int)$row['group_id']
-                        : null;
-                }
+                        : null
             ),
-            function (?int $value): bool {
-                return $value !== null;
-            }
+            fn (?int $value): bool => $value !== null
         );
 
         return ArrayHelper::map(
@@ -366,9 +357,7 @@ class Salmon2FilterForm extends Model
                 ->orderBy(['tag' => SORT_DESC])
                 ->all(),
             'tag',
-            function (SplatoonVersionGroup2 $row): SplatoonVersionGroup2 {
-                return $row;
-            }
+            fn (SplatoonVersionGroup2 $row): SplatoonVersionGroup2 => $row
         );
     }
 }

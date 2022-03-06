@@ -8,10 +8,13 @@
 
 namespace app\commands;
 
+use DirectoryIterator;
+use Iterator;
 use Yii;
 use app\models\Language;
 use yii\console\Controller;
-use yii\helpers\Console;
+
+use const LC_COLLATE;
 
 class I18nController extends Controller
 {
@@ -71,9 +74,9 @@ class I18nController extends Controller
         return $status ? 0 : 1;
     }
 
-    private function findJapaneseFiles(): \Iterator
+    private function findJapaneseFiles(): Iterator
     {
-        $it = new \DirectoryIterator(Yii::getAlias('@messages/ja'));
+        $it = new DirectoryIterator(Yii::getAlias('@messages/ja'));
         foreach ($it as $item) {
             if ($item->isFile() && !$item->isDot() && strtolower($item->getExtension()) === 'php') {
                 // skip weapon-*** files because it includes by weapon.php
@@ -95,9 +98,8 @@ class I18nController extends Controller
         }
 
         $changed = false;
-        $inData = include($inPath);
+        $inData = include $inPath;
         $current = file_exists($outPath) ? include($outPath) : [];
-        $new = !file_exists($outPath);
         foreach (array_keys($inData) as $enText) {
             if (!isset($current[$enText])) {
                 $current[$enText] = '';
@@ -116,13 +118,9 @@ class I18nController extends Controller
         }
 
         setlocale(LC_COLLATE, 'C');
-        uksort($current, function (string $a, string $b): int {
-            return strnatcasecmp($a, $b) ?: strcmp($a, $b);
-        });
+        uksort($current, fn (string $a, string $b): int => strnatcasecmp($a, $b) ?: strcmp($a, $b));
 
-        $esc = function (string $text): string {
-            return str_replace(["\\", "'"], ["\\\\", "\\'"], $text);
-        };
+        $esc = fn (string $text): string => str_replace(['\\', "'"], ['\\\\', "\\'"], $text);
 
         $file = [];
         $file[] = '<?php';
@@ -274,8 +272,6 @@ class I18nController extends Controller
         $result |= $deepl->run() ? 0 : 1;
 
         $opencc = Yii::createObject(['class' => i18n\OpenCCTranslator::class]);
-        $result |= $opencc->run() ? 0 : 1;
-
-        return $result;
+        return $result | $opencc->run() ? 0 : 1;
     }
 }

@@ -9,13 +9,21 @@
 namespace app\commands;
 
 use Yii;
-use app\models\User;
 use app\models\Battle;
+use app\models\User;
 use yii\base\InlineAction;
 use yii\console\Controller;
-use yii\helpers\Console;
-use yii\helpers\Json;
+use yii\db\Query;
 use yii\helpers\FileHelper;
+use yii\helpers\Json;
+
+use const JSON_UNESCAPED_SLASHES;
+use const JSON_UNESCAPED_UNICODE;
+use const LOCK_EX;
+use const LOCK_NB;
+use const LOCK_UN;
+use const SEEK_END;
+use const SEEK_SET;
 
 class UserJsonController extends Controller
 {
@@ -27,7 +35,7 @@ class UserJsonController extends Controller
     public $basePath;
 
     /**
-     * @var integer 対象にするユーザのID
+     * @var int 対象にするユーザのID
      */
     public $userId;
 
@@ -83,7 +91,7 @@ class UserJsonController extends Controller
         }
         $lastExec = (int)fgets($lock);
 
-        $query = (new \yii\db\Query())
+        $query = (new Query())
             ->select([
                 'user_id',
                 'last_updated' => 'MAX({{battle}}.[[at]])',
@@ -119,7 +127,7 @@ class UserJsonController extends Controller
 
     public function actionUpdate()
     {
-        if (!$user = $this->findUser()) {
+        if (!$this->findUser()) {
             $this->stdErr("ユーザが見つかりません (userId か screenName のどちらかは必須です)\n");
             return 1;
         }
@@ -157,7 +165,6 @@ class UserJsonController extends Controller
     {
         if ($this->user === false) {
             $where = ['and'];
-            $query = User::find();
             if ($this->userId) {
                 $where[] = ['{{user}}.[[id]]' => $this->userId];
             }
@@ -300,8 +307,8 @@ class UserJsonController extends Controller
             throw new \Exception('Could not recompress file');
         }
         echo "Recomressed.\n";
-        echo "  Before: " . number_format(filesize($mainPath)) . "\n";
-        echo "  After:  " . number_format(filesize($tmpPath)) . "\n";
+        echo '  Before: ' . number_format(filesize($mainPath)) . "\n";
+        echo '  After:  ' . number_format(filesize($tmpPath)) . "\n";
 
         if (filesize($mainPath) > filesize($tmpPath)) {
             echo "Writing...\n";

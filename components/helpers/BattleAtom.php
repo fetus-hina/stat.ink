@@ -21,18 +21,29 @@ use jp3cki\uuid\Uuid;
 use yii\db\Query;
 use yii\helpers\Url;
 
+use const ENT_QUOTES;
+use const PHP_URL_HOST;
+
 class BattleAtom
 {
     public static function createUserFeed(User $user, array $only = []): ?string
     {
         $raii = self::switchLanguage($user->defaultLanguage->lang);
-        return static::renderAtom($user, $only);
+        try {
+            return static::renderAtom($user, $only);
+        } finally {
+            unset($raii);
+        }
     }
 
     public static function createBattleFeed(User $user, Battle $battle): ?string
     {
         $raii = self::switchLanguage($user->defaultLanguage->lang);
-        return static::renderBattleAtom($user, $battle);
+        try {
+            return static::renderBattleAtom($user, $battle);
+        } finally {
+            unset($raii);
+        }
     }
 
     private static function switchLanguage(string $lang) // : object
@@ -352,7 +363,7 @@ class BattleAtom
                 '<a href="%s">%s</a>',
                 Url::to(['/show/battle', 'screen_name' => $user->screen_name, 'battle' => $battle->id], true),
                 static::getHostName()
-            )
+            ),
         ]));
     }
 
@@ -380,7 +391,7 @@ class BattleAtom
             if ($ret = $query->one()) {
                 return $ret;
             }
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
         }
         return null;
     }

@@ -10,15 +10,13 @@ declare(strict_types=1);
 
 namespace app\models;
 
-use Yii;
 use app\components\helpers\Translator;
-use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "freshness2".
  *
- * @property integer $id
+ * @property int $id
  * @property string $name
  * @property string $color
  * @property string $range

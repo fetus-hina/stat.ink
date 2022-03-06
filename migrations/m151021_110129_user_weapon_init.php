@@ -7,13 +7,13 @@
  */
 
 use yii\db\Migration;
-use app\models\User;
+use yii\db\Query;
 
 class m151021_110129_user_weapon_init extends Migration
 {
     public function safeUp()
     {
-        $select = (new \yii\db\Query())
+        $select = (new Query())
             ->select([
                 'user_id' => '{{battle}}.[[user_id]]',
                 'weapon_id' => '{{battle}}.[[weapon_id]]',

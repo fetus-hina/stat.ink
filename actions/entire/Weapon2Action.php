@@ -18,9 +18,10 @@ use app\models\Weapon2;
 use app\models\Weapon2StageFilterForm;
 use yii\db\ActiveQuery;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Url;
 use yii\web\NotFoundHttpException;
 use yii\web\ViewAction;
+
+use const SORT_ASC;
 
 class Weapon2Action extends ViewAction
 {
@@ -68,12 +69,10 @@ class Weapon2Action extends ViewAction
                 ->asArray()
                 ->all(),
             'map',
-            function (array $row): array {
-                return [
-                    'win' => (int)$row['wins'],
-                    'lose' => (int)$row['battles'] - (int)$row['wins'],
-                ];
-            }
+            fn (array $row): array => [
+                'win' => (int)$row['wins'],
+                'lose' => (int)$row['battles'] - (int)$row['wins'],
+            ]
             // }}}
         );
 
@@ -93,18 +92,16 @@ class Weapon2Action extends ViewAction
                     'battles'   => 'SUM(stat_weapon2_result.battles)',
                 ])
                 ->orderBy([
-                  'map' => SORT_ASC,
-                  'kill' => SORT_ASC,
+                    'map' => SORT_ASC,
+                    'kill' => SORT_ASC,
                 ])
                 ->asArray()
                 ->all(),
             'kill',
-            function ($row) {
-                return [
-                    'times' => (int)$row['kill'],
-                    'battles' => (int)$row['battles'],
-                ];
-            },
+            fn ($row) => [
+                'times' => (int)$row['kill'],
+                'battles' => (int)$row['battles'],
+            ],
             'map'
             // }}}
         );
@@ -125,18 +122,16 @@ class Weapon2Action extends ViewAction
                     'battles'   => 'SUM(stat_weapon2_result.battles)',
                 ])
                 ->orderBy([
-                  'map' => SORT_ASC,
-                  'death' => SORT_ASC,
+                    'map' => SORT_ASC,
+                    'death' => SORT_ASC,
                 ])
                 ->asArray()
                 ->all(),
             'death',
-            function ($row) {
-                return [
-                    'times' => (int)$row['death'],
-                    'battles' => (int)$row['battles'],
-                ];
-            },
+            fn ($row) => [
+                'times' => (int)$row['death'],
+                'battles' => (int)$row['battles'],
+            ],
             'map'
             // }}}
         );
@@ -157,18 +152,16 @@ class Weapon2Action extends ViewAction
                     'battles'   => 'SUM(stat_weapon2_result.battles)',
                 ])
                 ->orderBy([
-                  'map' => SORT_ASC,
-                  'special' => SORT_ASC,
+                    'map' => SORT_ASC,
+                    'special' => SORT_ASC,
                 ])
                 ->asArray()
                 ->all(),
             'special',
-            function ($row) {
-                return [
-                    'times' => (int)$row['special'],
-                    'battles' => (int)$row['battles'],
-                ];
-            },
+            fn ($row) => [
+                'times' => (int)$row['special'],
+                'battles' => (int)$row['battles'],
+            ],
             'map'
             // }}}
         );
@@ -189,18 +182,16 @@ class Weapon2Action extends ViewAction
                     'battles'   => 'SUM(stat_weapon2_result.battles)',
                 ])
                 ->orderBy([
-                  'map' => SORT_ASC,
-                  'assist' => SORT_ASC,
+                    'map' => SORT_ASC,
+                    'assist' => SORT_ASC,
                 ])
                 ->asArray()
                 ->all(),
             'assist',
-            function ($row) {
-                return [
-                    'times' => (int)$row['assist'],
-                    'battles' => (int)$row['battles'],
-                ];
-            },
+            fn ($row) => [
+                'times' => (int)$row['assist'],
+                'battles' => (int)$row['battles'],
+            ],
             'map'
             // }}}
         );

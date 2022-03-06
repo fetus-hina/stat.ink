@@ -118,7 +118,7 @@ class MiniinfoUserLink extends Widget
 
         return Html::tag('div', implode('', [
             $icon,
-            ($link === null)
+            $link === null
                 ? Html::encode($value)
                 : Html::a(
                     Html::encode($value),

@@ -10,8 +10,6 @@ declare(strict_types=1);
 
 namespace yii\helpers;
 
-use Yii;
-
 class ArrayHelper extends BaseArrayHelper
 {
     public static function toFlatten(array $array): array

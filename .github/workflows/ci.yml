@@ -51,30 +51,6 @@ jobs:
         env:
           LANG: 'C'
 
-  phpStyleCheck:
-    name: 'PHP Coding Style'
-
-    runs-on: 'ubuntu-20.04'
-
-    needs:
-      - 'ciDoesNotSkip'
-
-    if: "!contains(github.event.head_commit.message, '[no php]')"
-
-    steps:
-      - uses: 'actions/checkout@v2'
-
-      - name: 'Fetch Latest phpcs.phar'
-        run: 'curl -fsSL -o phpcs "https://squizlabs.github.io/PHP_CodeSniffer/phpcs.phar"'
-
-      - name: 'Set PHP environment (PHP 7.4)'
-        uses: 'shivammathur/setup-php@v2'
-        with:
-          php-version: '7.4'
-
-      - name: 'Run PHPCS'
-        run: 'php phpcs -p'
-
   phpCheckAuthor:
     name: 'Check Author'
 
@@ -292,6 +268,35 @@ jobs:
 
       - name: 'Check licenses'
         run: './yii license'
+
+  phpcs:
+    name: 'PHP Coding Style (PHPCS)'
+
+    runs-on: 'ubuntu-20.04'
+
+    needs:
+      - 'ciDoesNotSkip'
+      - 'setupComposer'
+
+    if: "!contains(github.event.head_commit.message, '[no php]')"
+
+    steps:
+      - uses: 'actions/checkout@v2'
+
+      - name: 'Set PHP environment (PHP 7.4)'
+        uses: 'shivammathur/setup-php@v2'
+        with:
+          php-version: '7.4'
+
+      - uses: 'actions/cache@v2'
+        with:
+          path: |
+            vendor
+            ~/.cache/composer/files
+          key: composer-${{ hashFiles('composer.lock') }}
+
+      - name: 'Run PHPCS'
+        run: 'vendor/bin/phpcs -p'
 
   phpUnit:
     name: 'Build & Test (PHP ${{ matrix.php.version }}, PgSQL ${{ matrix.pgsql.version }})'

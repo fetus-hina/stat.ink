@@ -10,13 +10,11 @@ namespace app\actions\stage;
 
 use Yii;
 use app\components\helpers\Battle as BattleHelper;
-use app\models\GameMode;
-use app\models\Lobby;
 use app\models\Map;
 use app\models\PeriodMap;
 use app\models\Rule;
 use app\models\StatWeaponMapTrend;
-use yii\base\DynamicModel;
+use stdClass;
 use yii\web\NotFoundHttpException;
 use yii\web\ViewAction as BaseAction;
 
@@ -78,9 +76,9 @@ class MapDetailAction extends BaseAction
     {
         $endAt = null;
         return array_map(
-            function (PeriodMap $period) use (&$endAt): \stdClass {
+            function (PeriodMap $period) use (&$endAt): stdClass {
                 $times = BattleHelper::periodToRange($period->period);
-                $interval = ($endAt === null) ? null : ($times[0] - $endAt);
+                $interval = $endAt === null ? null : $times[0] - $endAt;
                 $endAt = $times[1];
                 return (object)[
                     'start' => $times[0],

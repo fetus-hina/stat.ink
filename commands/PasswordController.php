@@ -8,9 +8,10 @@
 
 namespace app\commands;
 
-use Yii;
 use app\components\helpers\Password;
 use yii\console\Controller;
+
+use const STDERR;
 
 class PasswordController extends Controller
 {
@@ -49,28 +50,26 @@ class PasswordController extends Controller
         $passwordCharsCount = strlen($passwordChars);
         $filterRegex = '/[^' . preg_quote($passwordChars, '/') . ']+/';
 
-        retry:
+        while (true) {
+            $password = '';
+            $generateLength = static::PASSWORD_LENGTH;
+            do {
+                $randomLength = (int)ceil($generateLength * 256 / $passwordCharsCount * 1.1);
+                // printf("残り %d 文字、 %d バイト取得\n", $generateLength, $randomLength);
+                $password .= preg_replace($filterRegex, '', random_bytes($randomLength));
+                $generateLength = static::PASSWORD_LENGTH - strlen($password);
+            } while ($generateLength > 0);
 
-        $password = '';
-        $generateLength = static::PASSWORD_LENGTH;
-        do {
-            $randomLength = (int)ceil($generateLength * 256 / $passwordCharsCount * 1.1);
-            // printf("残り %d 文字、 %d バイト取得\n", $generateLength, $randomLength);
-            $password .= preg_replace($filterRegex, '', random_bytes($randomLength));
-            $generateLength = static::PASSWORD_LENGTH - strlen($password);
-        } while ($generateLength > 0);
+            $password = substr($password, 0, static::PASSWORD_LENGTH);
 
-        $password = substr($password, 0, static::PASSWORD_LENGTH);
-
-        if (
-            !preg_match('/[0-9]/', $password) ||
-            !preg_match('/[A-Z]/', $password) ||
-            !preg_match('/[a-z]/', $password) ||
-            !preg_match('/[^0-9A-Za-z]/', $password)
-        ) {
-            goto retry;
+            if (
+                preg_match('/[0-9]/', $password) &&
+                preg_match('/[A-Z]/', $password) &&
+                preg_match('/[a-z]/', $password) &&
+                preg_match('/[^0-9A-Za-z]/', $password)
+            ) {
+                return $password;
+            }
         }
-
-        return $password;
     }
 }

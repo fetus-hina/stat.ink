@@ -16,7 +16,7 @@ class WinLoseLegend extends Widget
 {
     public function run()
     {
-        $base = sprintf('legend-%s', hash('crc32b', __CLASS__ . '&' . $this->id));
+        $base = sprintf('legend-%s', hash('crc32b', self::class . '&' . $this->id));
         $mkLegend = function ($text, $color) use ($base) {
             $span = Html::tag('span', '', ['class' => "{$base}-bg", 'data' => ['color' => $color]]);
             return Html::tag(
@@ -54,11 +54,11 @@ class WinLoseLegend extends Widget
         ]));
 
         $this->view->registerJs(
-            "(function(\$){" .
+            '(function($){' .
                 "\$('.{$base}-bg').each(function(){" .
                     "\$(this).css('background-color', window.colorScheme[\$(this).attr('data-color')]);" .
-                "})" .
-            "})(jQuery);"
+                '})' .
+            '})(jQuery);'
         );
         return $html;
     }

@@ -24,10 +24,12 @@ class PasswordForm extends Model
             [['screen_name', 'password', 'new_password', 'new_password_repeat'], 'required'],
             [['screen_name'], 'exist',
                 'targetClass' => User::class,
-                'targetAttribute' => 'screen_name'],
+                'targetAttribute' => 'screen_name',
+            ],
             [['new_password_repeat'], 'compare',
                 'compareAttribute' => 'new_password',
-                'operator' => '==='],
+                'operator' => '===',
+            ],
             [['password'], 'validateOldPassword'],
         ];
     }

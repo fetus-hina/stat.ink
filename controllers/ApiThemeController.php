@@ -11,8 +11,8 @@ declare(strict_types=1);
 namespace app\controllers;
 
 use Yii;
-use yii\filters\VerbFilter;
 use app\components\web\Controller;
+use yii\filters\VerbFilter;
 
 class ApiThemeController extends Controller
 {

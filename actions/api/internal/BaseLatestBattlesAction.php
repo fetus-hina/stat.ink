@@ -15,13 +15,11 @@ use DateTimeZone;
 use Yii;
 use app\assets\GameModeIconsAsset;
 use app\assets\NoDependedAppAsset;
-use app\components\helpers\CombinedBattles;
-use app\models\Battle2;
 use app\models\Battle;
+use app\models\Battle2;
 use app\models\Salmon2;
 use statink\yii2\stages\spl1\StagesAsset as Spl1StagesAsset;
 use statink\yii2\stages\spl2\StagesAsset as Spl2StagesAsset;
-use yii\db\Transaction;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 use yii\web\ViewAction;
@@ -35,6 +33,7 @@ abstract class BaseLatestBattlesAction extends ViewAction
     private DateTimeImmutable $now;
 
     abstract protected function fetchBattles(): array;
+
     abstract protected function getHeading(): string;
 
     protected function isPrecheckOK(): bool
@@ -91,20 +90,18 @@ abstract class BaseLatestBattlesAction extends ViewAction
                 ['now' => Yii::t('app-reltime', 'now')],
                 ArrayHelper::getColumn(
                     $reltimes,
-                    function (string $format): array {
-                        return [
-                            'one' => preg_replace(
-                                '/\b1\b/',
-                                '{delta}',
-                                Yii::t('app-reltime', $format, ['delta' => 1])
-                            ),
-                            'many' => preg_replace(
-                                '/\b42\b/',
-                                '{delta}',
-                                Yii::t('app-reltime', $format, ['delta' => 42])
-                            ),
-                        ];
-                    }
+                    fn (string $format): array => [
+                        'one' => preg_replace(
+                            '/\b1\b/',
+                            '{delta}',
+                            Yii::t('app-reltime', $format, ['delta' => 1])
+                        ),
+                        'many' => preg_replace(
+                            '/\b42\b/',
+                            '{delta}',
+                            Yii::t('app-reltime', $format, ['delta' => 42])
+                        ),
+                    ]
                 )
             ),
         ];
@@ -363,7 +360,6 @@ abstract class BaseLatestBattlesAction extends ViewAction
     private function formatBattle1(Battle $battle): array
     {
         $am = Yii::$app->assetManager;
-        $modeAsset = $am->getBundle(GameModeIconsAsset::class, true);
         $stageAsset = $am->getBundle(Spl1StagesAsset::class, true);
 
         return [

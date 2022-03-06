@@ -16,9 +16,9 @@ use yii\db\ActiveRecord;
 /**
  * This is the model class for table "salmon_boss_appearance2".
  *
- * @property integer $salmon_id
- * @property integer $boss_id
- * @property integer $count
+ * @property int $salmon_id
+ * @property int $boss_id
+ * @property int $count
  *
  * @property Salmon2 $salmon
  * @property SalmonBoss2 $boss

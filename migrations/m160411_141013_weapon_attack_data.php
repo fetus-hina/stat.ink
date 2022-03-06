@@ -6,9 +6,9 @@
  * @author AIZAWA Hina <hina@fetus.jp>
  */
 
-use yii\db\Migration;
 use app\models\SplatoonVersion;
 use app\models\Weapon;
+use yii\db\Migration;
 
 class m160411_141013_weapon_attack_data extends Migration
 {
@@ -16,7 +16,7 @@ class m160411_141013_weapon_attack_data extends Migration
     {
         $w = $this->getWeapons();
         // 1.0.0
-        $this->batchInsert('weapon_attack', [ 'main_weapon_id', 'damage' ], [
+        $this->batchInsert('weapon_attack', ['main_weapon_id', 'damage'], [
             // shooter
             [ $w['52gal'],           52.0 ],
             [ $w['96gal'],           62.0 ],
@@ -63,14 +63,14 @@ class m160411_141013_weapon_attack_data extends Migration
 
         // 2.2.0
         $version = SplatoonVersion::findOne(['tag' => '2.2.0'])->id;
-        $this->batchInsert('weapon_attack', [ 'version_id', 'main_weapon_id', 'damage' ], [
+        $this->batchInsert('weapon_attack', ['version_id', 'main_weapon_id', 'damage'], [
             [ $version, $w['sharp'],    28.0 ],
             [ $version, $w['sshooter'], 35.0 ],
         ]);
 
         // 2.7.0
         $version = SplatoonVersion::findOne(['tag' => '2.7.0'])->id;
-        $this->batchInsert('weapon_attack', [ 'version_id', 'main_weapon_id', 'damage' ], [
+        $this->batchInsert('weapon_attack', ['version_id', 'main_weapon_id', 'damage'], [
             [ $version, $w['96gal'],    52.0 ],
         ]);
     }

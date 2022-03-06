@@ -11,7 +11,6 @@ declare(strict_types=1);
 namespace app\components\widgets;
 
 use Yii;
-use app\assets\AppAsset;
 use app\assets\LanguageDialogAsset;
 use app\assets\TimezoneDialogAsset;
 use app\models\Country;
@@ -27,10 +26,12 @@ class IndexI18nButtons extends Widget
         return Html::tag(
             'div',
             $this->renderButtons(),
-            ['class' => [
-                'd-inline-block',
-                'mb-2',
-            ]]
+            [
+                'class' => [
+                    'd-inline-block',
+                    'mb-2',
+                ],
+            ]
         );
     }
 
@@ -54,7 +55,7 @@ class IndexI18nButtons extends Widget
             (string)FA::fas('language')->fw(),
             $lang
                 ? [
-                    (string)FlagIcon::fg(strtolower($lang->getCountryCode()))
+                    (string)FlagIcon::fg(strtolower($lang->getCountryCode())),
                 ]
                 : [],
             $lang
@@ -80,9 +81,7 @@ class IndexI18nButtons extends Widget
             (string)FA::far('clock')->fw(),
             $tz
                 ? array_map(
-                    function (Country $country): string {
-                        return (string)FlagIcon::fg($country->key);
-                    },
+                    fn (Country $country): string => (string)FlagIcon::fg($country->key),
                     $tz->countries,
                 )
                 : [],

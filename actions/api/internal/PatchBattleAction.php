@@ -64,7 +64,7 @@ class PatchBattleAction extends ViewAction
         $battle = $this->battle;
         foreach ($form->attributes as $key => $value) {
             if ($value !== null) {
-                $battle->$key = ($value === '') ? null : $value;
+                $battle->$key = $value === '' ? null : $value;
             }
         }
         if (!$battle->save()) {

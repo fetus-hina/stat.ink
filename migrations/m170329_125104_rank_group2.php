@@ -18,7 +18,7 @@ class m170329_125104_rank_group2 extends Migration
             'key'   => $this->apiKey(),
             'name'  => $this->string(32)->notNull()->unique(),
         ]);
-        $this->batchInsert('rank_group2', [ 'rank', 'key', 'name' ], [
+        $this->batchInsert('rank_group2', ['rank', 'key', 'name'], [
             [ 10, 'c', 'C zone' ],
             [ 20, 'b', 'B zone' ],
             [ 30, 'a', 'A zone' ],

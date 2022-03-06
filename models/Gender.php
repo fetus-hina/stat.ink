@@ -10,19 +10,22 @@ namespace app\models;
 
 use Yii;
 use app\components\helpers\Translator;
+use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
+
+use const SORT_ASC;
 
 /**
  * This is the model class for table "gender".
  *
- * @property integer $id
+ * @property int $id
  * @property string $name
  *
  * @property Battle[] $battles
  * @property FestTitleGender[] $festTitleGenders
  * @property FestTitle[] $titles
  */
-class Gender extends \yii\db\ActiveRecord
+class Gender extends ActiveRecord
 {
     use openapi\Util;
 
@@ -43,7 +46,7 @@ class Gender extends \yii\db\ActiveRecord
             [['id', 'name'], 'required'],
             [['id'], 'integer'],
             [['name'], 'string', 'max' => 16],
-            [['name'], 'unique']
+            [['name'], 'unique'],
         ];
     }
 
@@ -108,15 +111,11 @@ class Gender extends \yii\db\ActiveRecord
                         Yii::t('app-apidoc2', 'Gender'),
                         'app',
                         $values,
-                        function (self $model): string {
-                            return strtolower($model->name);
-                        }
+                        fn (self $model): string => strtolower($model->name)
                     ),
                     ArrayHelper::getColumn(
                         $values,
-                        function (self $model): string {
-                            return strtolower($model->name);
-                        },
+                        fn (self $model): string => strtolower($model->name),
                         false
                     )
                 ),
@@ -141,9 +140,7 @@ class Gender extends \yii\db\ActiveRecord
     public static function openApiExample(): array
     {
         return array_map(
-            function (self $model): array {
-                return $model->toJsonArray();
-            },
+            fn (self $model): array => $model->toJsonArray(),
             static::find()
                 ->orderBy(['id' => SORT_ASC])
                 ->all()

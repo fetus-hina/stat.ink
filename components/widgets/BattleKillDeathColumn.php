@@ -145,7 +145,7 @@ class BattleKillDeathColumn extends Widget
                 'class' => 'auto-tooltip',
                 'title' => vsprintf('%s: %s', [
                     Yii::t('app', 'Kill Rate'),
-                    ($this->kill === 0 && $this->death === 0)
+                    $this->kill === 0 && $this->death === 0
                         ? Yii::t('app', 'N/A')
                         : $this->formatter->asPercent(
                             $this->kill / ($this->kill + $this->death),
@@ -163,7 +163,7 @@ class BattleKillDeathColumn extends Widget
         }
 
         if ($this->death === 0) {
-            return ($this->kill === 0)
+            return $this->kill === 0
                 ? 1.00
                 : 99.99;
         }

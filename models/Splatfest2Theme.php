@@ -14,7 +14,7 @@ use yii\db\ActiveRecord;
 /**
  * This is the model class for table "splatfest2_theme".
  *
- * @property integer $id
+ * @property int $id
  * @property string $name
  *
  * @property Battle2[] $battle2s
@@ -54,7 +54,7 @@ class Splatfest2Theme extends ActiveRecord
     {
         $timeout = microtime(true) + 30.0;
         while (microtime(true) <= $timeout) {
-            if (Yii::$app->pgMutex->acquire(__CLASS__)) {
+            if (Yii::$app->pgMutex->acquire(self::class)) {
                 return true;
             }
             usleep(1);
@@ -64,7 +64,7 @@ class Splatfest2Theme extends ActiveRecord
 
     private static function freeForFindOrCreate()
     {
-        Yii::$app->pgMutex->release(__CLASS__);
+        Yii::$app->pgMutex->release(self::class);
     }
 
     /**

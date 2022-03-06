@@ -15,6 +15,8 @@ use app\models\api\v2\GearGetForm;
 use yii\db\Query;
 use yii\web\ViewAction as BaseAction;
 
+use const SORT_ASC;
+
 class GearAction extends BaseAction
 {
     public function run()
@@ -60,9 +62,7 @@ class GearAction extends BaseAction
     protected function formatJson(Query $query): array
     {
         return array_map(
-            function (Gear2 $gear): array {
-                return $gear->toJsonArray();
-            },
+            fn (Gear2 $gear): array => $gear->toJsonArray(),
             $query->all()
         );
     }
@@ -73,9 +73,9 @@ class GearAction extends BaseAction
 
         $type = Yii::$app->request->get('type');
         $resp->setDownloadHeaders(
-            (preg_match('/^[a-z]+$/', (string)$type))
+            preg_match('/^[a-z]+$/', (string)$type)
                 ? "statink-gear2-{$type}.csv"
-                : "statink-gear2.csv",
+                : 'statink-gear2.csv',
             'text/csv; charset=UTF-8'
         );
         return [
@@ -98,9 +98,7 @@ class GearAction extends BaseAction
         yield array_merge(
             ['type', 'brand', 'key', 'splatnet', 'primary_ability'],
             array_map(
-                function (string $lang): string {
-                    return sprintf('[%s]', $lang);
-                },
+                fn (string $lang): string => sprintf('[%s]', $lang),
                 $langs
             )
         );
@@ -115,9 +113,7 @@ class GearAction extends BaseAction
                     $gear->ability->key ?? '',
                 ],
                 array_map(
-                    function (string $lang) use ($gear, $i18n) {
-                        return $i18n->translate('app-gear2', $gear->name, [], $lang);
-                    },
+                    fn (string $lang) => $i18n->translate('app-gear2', $gear->name, [], $lang),
                     $langs
                 )
             );

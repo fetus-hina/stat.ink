@@ -142,7 +142,7 @@ class Ability2Info extends Model
                 ) {
                     $rows[] = Yii::t(
                         'app-ability2',
-                        ($values['damageCap'] < $values['damage'])
+                        $values['damageCap'] < $values['damage']
                             ? 'Damage: {damageCap} = {baseDamage}×{percent} ({damage}, capped)'
                             : 'Damage: {damage} = {baseDamage}×{percent}',
                         [
@@ -172,7 +172,7 @@ class Ability2Info extends Model
                             Yii::t('app-ability2', $textPrefix),
                             Yii::t(
                                 'app-ability2',
-                                ($values['damageCap' . $suffix] < $values['damage' . $suffix])
+                                $values['damageCap' . $suffix] < $values['damage' . $suffix]
                                     ? 'Damage: {damageCap} = {baseDamage}×{percent} ({damage}, capped)'
                                     : 'Damage: {damage} = {baseDamage}×{percent}',
                                 [
@@ -202,7 +202,7 @@ class Ability2Info extends Model
 
                 if (($values['runSpeedRatio'] ?? null) !== null) {
                     $rows[] = Yii::t('app-ability2', 'Normal: {value}', [
-                        'value' => (($values['runSpeedDUPF'] ?? null) !== null)
+                        'value' => ($values['runSpeedDUPF'] ?? null) !== null
                             ? Yii::t('app-ability2', '{pct} ({dupf} DU/f)', [
                                 'pct' => $f->asPercent($values['runSpeedRatio'], 1),
                                 'dupf' => $f->asDecimal($values['runSpeedDUPF'], 3),
@@ -368,19 +368,19 @@ class Ability2Info extends Model
         $runSpeed = (function () use ($gp, $vTag): float {
             // {{{
             if (version_compare($vTag, '4.6.0', '<')) {
-                return (static::calcCoefficient($gp, 0.72, 0.24, 0.5)) / 0.24;
+                return static::calcCoefficient($gp, 0.72, 0.24, 0.5) / 0.24;
             }
 
-            return (static::calcCoefficient($gp, 0.769, 0.24, 0.6)) / 0.24;
+            return static::calcCoefficient($gp, 0.769, 0.24, 0.6) / 0.24;
             // }}}
         })();
         $runSpeedShoot = (function () use ($gp, $vTag): float {
             // {{{
             if (version_compare($vTag, '4.6.0', '<')) {
-                return (static::calcCoefficient($gp, 0.40, 0.12, 0.5)) / 0.12;
+                return static::calcCoefficient($gp, 0.40, 0.12, 0.5) / 0.12;
             }
 
-            return (static::calcCoefficient($gp, 0.42, 0.12, 0.7)) / 0.12;
+            return static::calcCoefficient($gp, 0.42, 0.12, 0.7) / 0.12;
             // }}}
         })();
         $runSpeedCharge = (function () use ($gp): ?float {
@@ -391,17 +391,17 @@ class Ability2Info extends Model
 
             switch ($this->weapon->mainReference->key) {
                 case 'splatspinner':
-                    return (0.7 * static::calcCoefficient($gp, 1, 0.5)) / (0.7 * 0.5);
+                    return 0.7 * static::calcCoefficient($gp, 1, 0.5) / (0.7 * 0.5);
 
                 case 'barrelspinner':
-                    return (0.6 * static::calcCoefficient($gp, 1, 0.5)) / (0.6 * 0.5);
+                    return 0.6 * static::calcCoefficient($gp, 1, 0.5) / (0.6 * 0.5);
 
                 case 'hydra':
                 case 'nautilus47':
-                    return (0.4 * static::calcCoefficient($gp, 1, 0.5)) / (0.4 * 0.5);
+                    return 0.4 * static::calcCoefficient($gp, 1, 0.5) / (0.4 * 0.5);
 
                 case 'kugelschreiber':
-                    return (0.96 * static::calcCoefficient($gp, 1, 0.5)) / (0.96 * 0.5);
+                    return 0.96 * static::calcCoefficient($gp, 1, 0.5) / (0.96 * 0.5);
             }
 
             return null;
@@ -608,7 +608,6 @@ class Ability2Info extends Model
                     $calcDamage((float)$attack->damage2, 1.15, 2 / 3, 'V'),
                     $calcDamage((float)$attack->damage3, 1.15, 2 / 3, 'Sq'),
                 );
-                return null;
 
             case 'sputtery':
             case 'kelvin525':
@@ -775,7 +774,6 @@ class Ability2Info extends Model
                     'inkRadius' => $inkC,
                     'inkRadiusRatio' => $inkC / 3.2,
                 ];
-                $results = $duration(450, 60);
                 if (version_compare($vTag, '1.3.0', '<')) {
                     return array_merge(
                         $duration(480, 120),

@@ -8,19 +8,19 @@
 
 namespace app\models;
 
-use Yii;
 use app\components\helpers\Translator;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "lobby".
  *
- * @property integer $id
+ * @property int $id
  * @property string $key
  * @property string $name
  *
  * @property Battle[] $battles
  */
-class Lobby extends \yii\db\ActiveRecord
+class Lobby extends ActiveRecord
 {
     /**
      * @inheritdoc
@@ -40,7 +40,7 @@ class Lobby extends \yii\db\ActiveRecord
             [['key'], 'string', 'max' => 16],
             [['name'], 'string', 'max' => 32],
             [['key'], 'unique'],
-            [['name'], 'unique']
+            [['name'], 'unique'],
         ];
     }
 

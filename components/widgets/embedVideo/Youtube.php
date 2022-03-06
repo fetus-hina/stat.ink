@@ -8,9 +8,10 @@
 
 namespace app\components\widgets\embedVideo;
 
-use Yii;
 use yii\base\Widget;
 use yii\helpers\Html;
+
+use const FILTER_VALIDATE_INT;
 
 class Youtube extends Widget
 {

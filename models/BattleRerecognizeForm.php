@@ -8,7 +8,6 @@
 
 namespace app\models;
 
-use Yii;
 use yii\base\Model;
 
 class BattleRerecognizeForm extends Model
@@ -49,7 +48,7 @@ class BattleRerecognizeForm extends Model
             return;
         }
 
-        if (empty($this->$attr) || count($this->$attr) > 8) {
+        if (!$this->$attr || count($this->$attr) > 8) {
             $this->addError($attr, "{$attr} size error");
             return;
         }
@@ -105,7 +104,7 @@ class BattleRerecognizeForm extends Model
             'my_point'      => $my->point,
         ];
 
-        if (empty($battle->dirtyAttributes) && !$this->playersChanged) {
+        if (!$battle->dirtyAttributes && !$this->playersChanged) {
             return true;
         }
 
@@ -177,7 +176,7 @@ class BattleRerecognizeForm extends Model
                 'point'         => $form->point,
             ];
 
-            if (empty($model->dirtyAttributes)) {
+            if (!$model->dirtyAttributes) {
                 continue;
             }
 

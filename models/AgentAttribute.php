@@ -10,16 +10,14 @@ declare(strict_types=1);
 
 namespace app\models;
 
-use Yii;
-use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "agent_attribute".
  *
- * @property integer $id
+ * @property int $id
  * @property string $name
- * @property boolean $is_automated
+ * @property bool $is_automated
  * @property string $link_url
  */
 class AgentAttribute extends ActiveRecord

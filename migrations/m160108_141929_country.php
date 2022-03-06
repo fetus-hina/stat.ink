@@ -17,7 +17,7 @@ class m160108_141929_country extends Migration
             'key' => 'CHAR(2) NOT NULL UNIQUE',
             'name' => 'VARCHAR(32) NOT NULL',
         ]);
-        $this->batchInsert('country', [ 'key', 'name' ], [
+        $this->batchInsert('country', ['key', 'name'], [
             [ 'au', 'Australia' ],
             [ 'ca', 'Canada' ],
             [ 'eu', 'Europe' ], // OK, I know, It's not a country.

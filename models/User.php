@@ -8,26 +8,25 @@
 
 namespace app\models;
 
-use DateInterval;
-use DateTime;
-use DateTimeImmutable;
 use DateTimeZone;
 use Throwable;
 use Yii;
-use app\components\behaviors\UserAuthKeyBehavior;
 use app\components\helpers\DateTimeFormatter;
 use app\components\helpers\Password;
-use app\components\helpers\db\Now;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\db\Query;
 use yii\helpers\Url;
 use yii\web\IdentityInterface;
 
+use const FILTER_VALIDATE_INT;
+use const SORT_ASC;
+use const SORT_DESC;
+
 /**
  * This is the model class for table "user".
  *
- * @property integer $id
+ * @property int $id
  * @property string $name
  * @property string $screen_name
  * @property string $password
@@ -36,14 +35,14 @@ use yii\web\IdentityInterface;
  * @property string $nnid
  * @property string $sw_friend_code
  * @property string $twitter
- * @property integer $ikanakama
- * @property integer $ikanakama2
- * @property integer $env_id
+ * @property int $ikanakama
+ * @property int $ikanakama2
+ * @property int $env_id
  * @property string $blackout
  * @property string $blackout_list
- * @property integer $default_language_id
- * @property integer $region_id
- * @property integer $link_mode_id
+ * @property int $default_language_id
+ * @property int $region_id
+ * @property int $link_mode_id
  * @property string $email
  *
  * @property Battle[] $battles
@@ -301,10 +300,7 @@ class User extends ActiveRecord implements IdentityInterface
         return $this->hasOne(UserStat::class, ['user_id' => 'id']);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getUserStat2(): \yii\db\ActiveQuery
+    public function getUserStat2(): ActiveQuery
     {
         return $this->hasOne(UserStat2::class, ['user_id' => 'id']);
     }
@@ -318,7 +314,7 @@ class User extends ActiveRecord implements IdentityInterface
             ->with(['weapon']);
     }
 
-    public function getUserWeapon2s(): \yii\db\ActiveQuery
+    public function getUserWeapon2s(): ActiveQuery
     {
         return $this->hasMany(UserWeapon2::class, ['user_id' => 'id']);
     }

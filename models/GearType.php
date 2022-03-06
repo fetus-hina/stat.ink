@@ -13,10 +13,12 @@ use app\components\helpers\Translator;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
 
+use const SORT_ASC;
+
 /**
  * This is the model class for table "gear_type".
  *
- * @property integer $id
+ * @property int $id
  * @property string $key
  * @property string $name
  *
@@ -120,9 +122,7 @@ class GearType extends ActiveRecord
             ->orderBy(['id' => SORT_ASC])
             ->all();
         return array_map(
-            function ($model) {
-                return $model->toJsonArray();
-            },
+            fn ($model) => $model->toJsonArray(),
             $models
         );
     }

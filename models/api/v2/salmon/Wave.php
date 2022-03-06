@@ -21,6 +21,9 @@ use yii\base\Model;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 
+use const FILTER_VALIDATE_INT;
+use const SORT_ASC;
+
 class Wave extends Model
 {
     use OpenAPIUtil;

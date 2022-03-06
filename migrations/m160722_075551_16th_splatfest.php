@@ -6,16 +6,17 @@
  * @author AIZAWA Hina <hina@fetus.jp>
  */
 
-use yii\db\Migration;
-use yii\helpers\ArrayHelper;
 use app\models\Region;
 use app\models\Splatfest;
+use yii\db\Migration;
+use yii\db\Query;
+use yii\helpers\ArrayHelper;
 
 class m160722_075551_16th_splatfest extends Migration
 {
     public function safeUp()
     {
-        $this->batchInsert('splatfest', [ 'region_id', 'name', 'start_at', 'end_at', 'order' ], [
+        $this->batchInsert('splatfest', ['region_id', 'name', 'start_at', 'end_at', 'order'], [
             [
                 'region_id' => Region::findOne(['key' => 'jp'])->id,
                 'name'      => 'アオリ vs ホタル',
@@ -39,7 +40,7 @@ class m160722_075551_16th_splatfest extends Migration
             ],
         ]);
         $ids = ArrayHelper::map(
-            (new \yii\db\Query())
+            (new Query())
                 ->select([
                     'id' => '{{splatfest}}.[[id]]',
                     'region' => '{{region}}.[[key]]',

@@ -8,15 +8,14 @@
 
 namespace app\models;
 
-use Yii;
 use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "battle_death_reason2".
  *
- * @property integer $battle_id
- * @property integer $reason_id
- * @property integer $count
+ * @property int $battle_id
+ * @property int $reason_id
+ * @property int $count
  *
  * @property Battle2 $battle
  * @property DeathReason2 $reason

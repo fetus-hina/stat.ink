@@ -8,19 +8,18 @@
 
 namespace app\models;
 
-use Yii;
 use app\components\helpers\Translator;
 use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "rank2".
  *
- * @property integer $id
- * @property integer $group_id
- * @property integer $rank
+ * @property int $id
+ * @property int $group_id
+ * @property int $rank
  * @property string $key
  * @property string $name
- * @property integer $int_base
+ * @property int $int_base
  *
  * @property Battle2[] $battles
  * @property RankGroup2 $group
@@ -99,7 +98,7 @@ class Rank2 extends ActiveRecord
     {
         $numberInRank = $rankNumber % 100;
         $rankNumber = $rankNumber - $numberInRank;
-        $model = Rank2::findOne(['int_base' => $rankNumber]);
+        $model = self::findOne(['int_base' => $rankNumber]);
         if (!$model) {
             return null;
         }

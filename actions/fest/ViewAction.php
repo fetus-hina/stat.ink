@@ -9,12 +9,14 @@
 namespace app\actions\fest;
 
 use Yii;
-use yii\base\DynamicModel;
-use yii\web\NotFoundHttpException;
-use yii\web\ViewAction as BaseAction;
 use app\models\Splatfest;
 use app\models\SplatfestBattleSummary;
 use app\models\SplatfestTeam;
+use yii\base\DynamicModel;
+use yii\web\NotFoundHttpException;
+use yii\web\ViewAction as BaseAction;
+
+use const SORT_ASC;
 
 class ViewAction extends BaseAction
 {
@@ -89,13 +91,11 @@ class ViewAction extends BaseAction
             ->orderBy(['{{splatfest_battle_summary}}.[[timestamp]]' => SORT_ASC]);
 
         return array_map(
-            function ($a) {
-                return [
-                    'at' => strtotime($a->timestamp),
-                    'alpha' => $a->alpha_win + $a->bravo_lose,
-                    'bravo' => $a->bravo_win + $a->alpha_lose,
-                ];
-            },
+            fn ($a) => [
+                'at' => strtotime($a->timestamp),
+                'alpha' => $a->alpha_win + $a->bravo_lose,
+                'bravo' => $a->bravo_win + $a->alpha_lose,
+            ],
             $query->all()
         );
     }

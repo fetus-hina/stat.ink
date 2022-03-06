@@ -11,18 +11,19 @@ namespace app\models;
 use Yii;
 use app\components\helpers\Translator;
 use yii\db\ActiveRecord;
-use yii\helpers\ArrayHelper;
+
+use const SORT_ASC;
 
 /**
  * This is the model class for table "gear2".
  *
- * @property integer $id
+ * @property int $id
  * @property string $key
- * @property integer $type_id
- * @property integer $brand_id
+ * @property int $type_id
+ * @property int $brand_id
  * @property string $name
- * @property integer $ability_id
- * @property integer $splatnet
+ * @property int $ability_id
+ * @property int $splatnet
  *
  * @property Ability2 $ability
  * @property Brand2 $brand
@@ -169,9 +170,7 @@ class Gear2 extends ActiveRecord
     public static function openapiExample(): array
     {
         return array_map(
-            function (self $model): array {
-                return $model->toJsonArray();
-            },
+            fn (self $model): array => $model->toJsonArray(),
             static::find()
                 ->orderBy(['key' => SORT_ASC])
                 ->limit(5)

@@ -9,8 +9,10 @@
 namespace app\actions\api\v2;
 
 use Yii;
-use yii\web\ViewAction as BaseAction;
 use app\models\Map2;
+use yii\web\ViewAction as BaseAction;
+
+use const SORT_ASC;
 
 class StageAction extends BaseAction
 {
@@ -19,9 +21,7 @@ class StageAction extends BaseAction
         $response = Yii::$app->getResponse();
         $response->format = 'json';
         return array_map(
-            function (Map2 $map): array {
-                return $map->toJsonArray();
-            },
+            fn (Map2 $map): array => $map->toJsonArray(),
             Map2::find()->orderBy(['id' => SORT_ASC])->all()
         );
     }

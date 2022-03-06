@@ -8,17 +8,17 @@
 
 namespace app\models;
 
-use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "stat_weapon_battle_count".
  *
- * @property integer $rule_id
- * @property integer $count
+ * @property int $rule_id
+ * @property int $count
  *
  * @property Rule $rule
  */
-class StatWeaponBattleCount extends \yii\db\ActiveRecord
+class StatWeaponBattleCount extends ActiveRecord
 {
     /**
      * @inheritdoc
@@ -35,7 +35,7 @@ class StatWeaponBattleCount extends \yii\db\ActiveRecord
     {
         return [
             [['count'], 'required'],
-            [['count'], 'integer']
+            [['count'], 'integer'],
         ];
     }
 

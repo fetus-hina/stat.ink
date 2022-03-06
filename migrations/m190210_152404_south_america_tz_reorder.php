@@ -15,7 +15,7 @@ class m190210_152404_south_america_tz_reorder extends Migration
     public function safeUp()
     {
         foreach ($this->getData() as $ident => $_) {
-            [$order, ] = $_;
+            [$order,] = $_;
             $this->update(
                 'timezone',
                 ['order' => $order + 100000],
@@ -23,7 +23,7 @@ class m190210_152404_south_america_tz_reorder extends Migration
             );
         }
         foreach ($this->getData() as $ident => $_) {
-            [$order, ] = $_;
+            [$order,] = $_;
             $this->update(
                 'timezone',
                 ['order' => $order],

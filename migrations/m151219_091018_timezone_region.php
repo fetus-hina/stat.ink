@@ -6,8 +6,8 @@
  * @author AIZAWA Hina <hina@fetus.jp>
  */
 
-use yii\db\Migration;
 use app\models\Region;
+use yii\db\Migration;
 
 class m151219_091018_timezone_region extends Migration
 {
@@ -27,21 +27,27 @@ class m151219_091018_timezone_region extends Migration
         $this->update(
             'timezone',
             ['region_id' => Region::findOne(['key' => 'eu'])->id],
-            ['or like', 'identifier', [
+            ['or like', 'identifier',
+                [
                     'Etc/UTC',
                     'Europe/%',
                     'Australia/%',
-                ], false]
+                ],
+                false,
+            ]
         );
 
         // North America
         $this->update(
             'timezone',
             ['region_id' => Region::findOne(['key' => 'na'])->id],
-            ['or like', 'identifier', [
+            ['or like', 'identifier',
+                [
                     'America/%',
                     'Pacific/Honolulu',
-                ], false]
+                ],
+                false,
+            ]
         );
 
         $this->execute('ALTER TABLE {{timezone}} ALTER COLUMN [[region_id]] SET NOT NULL');

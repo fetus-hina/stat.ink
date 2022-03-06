@@ -15,10 +15,12 @@ use app\components\helpers\Translator;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
 
+use const SORT_ASC;
+
 /**
  * This is the model class for table "salmon_water_level2".
  *
- * @property integer $id
+ * @property int $id
  * @property string $key
  * @property string $name
  * @property string $splatnet

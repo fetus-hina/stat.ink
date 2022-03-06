@@ -26,7 +26,7 @@ class m170328_140403_playstyle extends Migration
             'key' => $this->apiKey(),
             'name' => $this->string(32)->notNull()->unique(),
         ]);
-        $this->batchInsert('ns_mode2', [ 'key', 'name' ], [
+        $this->batchInsert('ns_mode2', ['key', 'name'], [
             [ 'tv',       'TV Mode' ],
             [ 'tabletop', 'Tabletop Mode' ],
             [ 'handheld', 'Handheld Mode' ],
@@ -40,7 +40,7 @@ class m170328_140403_playstyle extends Migration
             'key' => $this->apiKey(),
             'name' => $this->string(32)->notNull()->unique(),
         ]);
-        $this->batchInsert('controller_mode2', [ 'key', 'name' ], [
+        $this->batchInsert('controller_mode2', ['key', 'name'], [
             [ 'procon',                 'Pro Controller' ],
             [ 'joycon_with_grip',       'Joy-Con with Grip' ],
             [ 'joycon_wo_grip',    'Joy-Con without Grip' ],
@@ -65,7 +65,7 @@ class m170328_140403_playstyle extends Migration
             'controller_mode_id'    => $this->pkRef('controller_mode2'),
             'PRIMARY KEY([[ns_mode_id]], [[controller_mode_id]])',
         ]);
-        $this->batchInsert('playstyle2', [ 'ns_mode_id', 'controller_mode_id'], [
+        $this->batchInsert('playstyle2', ['ns_mode_id', 'controller_mode_id'], [
             [ $ns['tv'],       $ctl['procon'] ],
             [ $ns['tv'],       $ctl['joycon_with_grip'] ],
             [ $ns['tv'],       $ctl['joycon_wo_grip'] ],

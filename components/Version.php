@@ -60,13 +60,9 @@ class Version
             return [];
         }
 
-        $lines = array_filter($lines, function (string $line): bool {
-            return !!preg_match('/^v?\d+\.\d+\.\d+/', $line);
-        });
+        $lines = array_filter($lines, fn (string $line): bool => !!preg_match('/^v?\d+\.\d+\.\d+/', $line));
 
-        usort($lines, function (string $a, string $b): int {
-            return version_compare($b, $a);
-        });
+        usort($lines, fn (string $a, string $b): int => version_compare($b, $a));
 
         return $lines;
     }
@@ -95,7 +91,7 @@ class Version
             self::$lastCommited = (new DateTimeImmutable())
                 ->setTimeZone(new DateTimeZone(Yii::$app->timeZone))
                 ->setTimestamp((int)$revisions[2]);
-        } catch (Exception $e) {
+        } catch (\Throwable $e) {
             self::$revision = false;
             self::$shortRevision = false;
             self::$lastCommited = false;
@@ -134,7 +130,7 @@ class Version
         }
 
         $lines = $status = null;
-        $line = exec($cmdline, $lines, $status);
+        exec($cmdline, $lines, $status);
         if ($status !== 0) {
             return false;
         }

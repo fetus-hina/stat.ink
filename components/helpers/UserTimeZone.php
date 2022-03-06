@@ -13,9 +13,10 @@ namespace app\components\helpers;
 use DateTimeImmutable;
 use DateTimeZone;
 use Yii;
-use app\components\GeoIP;
 use app\models\Timezone;
 use yii\helpers\StringHelper;
+
+use const SORT_ASC;
 
 class UserTimeZone
 {
@@ -38,7 +39,7 @@ class UserTimeZone
             }
 
             if ($getDefault) {
-                Yii::info("Returns default timezone, UTC", __METHOD__);
+                Yii::info('Returns default timezone, UTC', __METHOD__);
                 return Timezone::findOne(['identifier' => 'Etc/UTC']);
             }
 
@@ -60,7 +61,7 @@ class UserTimeZone
             $tz = Timezone::findOne(['identifier' => $cookie->value]);
             if ($tz) {
                 Yii::info(
-                    "Detected timezone by cookie, " . $tz->identifier,
+                    'Detected timezone by cookie, ' . $tz->identifier,
                     __METHOD__
                 );
             }
@@ -104,7 +105,7 @@ class UserTimeZone
                     $tz = Timezone::findOne(['identifier' => $ourTZ]);
                     if ($tz) {
                         Yii::info(
-                            "Detected language by application language, " . $tz->identifier,
+                            'Detected language by application language, ' . $tz->identifier,
                             __METHOD__
                         );
                         return $tz;
@@ -143,7 +144,7 @@ class UserTimeZone
             $tz = Timezone::findOne(['identifier' => $identifier]);
             if ($tz) {
                 Yii::info(
-                    "Detected timezone by geoip, " . $tz->identifier,
+                    'Detected timezone by geoip, ' . $tz->identifier,
                     __METHOD__
                 );
                 return [$tz, $identifier];
@@ -208,7 +209,7 @@ class UserTimeZone
             }
 
             return $tz;
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             Yii::warning(
                 'Catch an exception: ' . $e->getMessage(),
                 __METHOD__
@@ -225,7 +226,7 @@ class UserTimeZone
             Yii::beginProfile(__FUNCTION__, __METHOD__);
             try {
                 $tz = new DateTimeZone($identifier);
-            } catch (\Exception $e) {
+            } catch (\Throwable $e) {
                 return null;
             }
             if ($guessed = static::guessTimezoneByTimezone($tz)) {

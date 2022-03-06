@@ -8,12 +8,12 @@
 
 namespace app\components\i18n;
 
-use DateTime;
+use DateTimeInterface;
 use Yii;
 use app\components\widgets\TimestampColumnWidget;
 use yii\helpers\Html;
 
-class Formatter extends \yii\i18n\Formatter
+class Formatter extends BaseFormatter
 {
     public function asHtmlDatetime($value, $format = null)
     {
@@ -33,7 +33,7 @@ class Formatter extends \yii\i18n\Formatter
                 $this->asDate($timestamp, $formatD),
                 $this->asTime($timestamp, $formatT),
             ])),
-            ['datetime' => gmdate(Datetime::ATOM, $timestamp)]
+            ['datetime' => gmdate(DateTimeInterface::ATOM, $timestamp)]
         );
     }
 
@@ -48,9 +48,9 @@ class Formatter extends \yii\i18n\Formatter
             'time',
             Html::encode($this->asRelativeTime($timestamp)),
             [
-              'datetime' => gmdate(Datetime::ATOM, $timestamp),
-              'title' => $this->asDatetime($timestamp, 'medium'),
-              'class' => 'auto-tooltip',
+                'datetime' => gmdate(DateTimeInterface::ATOM, $timestamp),
+                'title' => $this->asDatetime($timestamp, 'medium'),
+                'class' => 'auto-tooltip',
             ]
         );
     }

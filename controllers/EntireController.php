@@ -10,7 +10,6 @@ declare(strict_types=1);
 
 namespace app\controllers;
 
-use Yii;
 use app\actions\entire\AgentAction;
 use app\actions\entire\CombinedAgentAction;
 use app\actions\entire\Festpower2Action;
@@ -27,12 +26,11 @@ use app\actions\entire\Weapons2TierAction;
 use app\actions\entire\WeaponsAction;
 use app\actions\entire\WeaponsUseAction;
 use app\components\web\Controller;
-use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 
 class EntireController extends Controller
 {
-    public $layout = "main";
+    public $layout = 'main';
 
     public function behaviors()
     {

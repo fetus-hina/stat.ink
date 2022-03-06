@@ -24,8 +24,8 @@ use yii\db\ActiveRecord;
 /**
  * This is the model class for table "user_auth_key".
  *
- * @property integer $id
- * @property integer $user_id
+ * @property int $id
+ * @property int $user_id
  * @property string $auth_key_hint
  * @property string $auth_key_hash
  * @property string $expires_at
@@ -66,12 +66,10 @@ class UserAuthKey extends ActiveRecord
                 'attributes' => [
                     static::EVENT_BEFORE_VALIDATE => 'expires_at',
                 ],
-                'value' => function ($event): string {
-                    return (new DateTimeImmutable())
+                'value' => fn ($event): string => (new DateTimeImmutable())
                         ->setTimezone(new DateTimeZone(Yii::$app->timeZone))
                         ->setTimestamp(time() + static::VALID_PERIOD)
-                        ->format(DateTime::ATOM);
-                },
+                        ->format(DateTime::ATOM),
             ],
         ];
     }

@@ -10,7 +10,6 @@ declare(strict_types=1);
 
 namespace app\assets;
 
-use app\assets\FlotIconAsset;
 use jp3cki\yii2\flot\FlotAsset;
 use jp3cki\yii2\flot\FlotStackAsset;
 use jp3cki\yii2\flot\FlotTimeAsset;

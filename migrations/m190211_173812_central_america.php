@@ -32,9 +32,7 @@ class m190211_173812_central_america extends Migration
             'country',
             ['key', 'name'],
             array_map(
-                function (string $cctld, array $data): array {
-                    return [$cctld, $data['name']];
-                },
+                fn (string $cctld, array $data): array => [$cctld, $data['name']],
                 array_keys($data),
                 array_values($data)
             )
@@ -83,9 +81,7 @@ class m190211_173812_central_america extends Migration
         }
 
         $list = array_map(
-            function (array $data): int {
-                return (int)$data['id'];
-            },
+            fn (array $data): int => (int)$data['id'],
             (new Query())
                 ->select('id')
                 ->from('timezone')

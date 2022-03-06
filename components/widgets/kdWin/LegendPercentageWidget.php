@@ -44,18 +44,18 @@ class LegendPercentageWidget extends Widget
             Html::tag(
                 'tbody',
                 implode('', array_map(
-                    function (int $i): string {
-                        return $this->renderRow($i);
-                    },
+                    fn (int $i): string => $this->renderRow($i),
                     range(0, $this->numCells - 1)
                 ))
             ),
-            ['class' => [
-                'table',
-                'table-bordered',
-                'table-condensed',
-                'rule-table',
-            ]]
+            [
+                'class' => [
+                    'table',
+                    'table-bordered',
+                    'table-condensed',
+                    'rule-table',
+                ],
+            ]
         );
     }
 
@@ -80,18 +80,20 @@ class LegendPercentageWidget extends Widget
                 Html::tag(
                     'td',
                     Html::encode(
-                        ($rowNumber === 0 || $rowNumber === $this->numCells - 1 || $pct % 10 === 0)
+                        $rowNumber === 0 || $rowNumber === $this->numCells - 1 || $pct % 10 === 0
                             ? implode('', [
                                 Yii::$app->formatter->asPercent($pct / 100, 0),
-                                ($rowNumber === 0) ? '+' : '',
-                                ($rowNumber === $this->numCells - 1) ? '-' : '',
+                                $rowNumber === 0 ? '+' : '',
+                                $rowNumber === $this->numCells - 1 ? '-' : '',
                             ])
                             : '⋮'
                     ),
-                    ['class' => [
-                        'text-center',
-                        'kdcell',
-                    ]]
+                    [
+                        'class' => [
+                            'text-center',
+                            'kdcell',
+                        ],
+                    ]
                 ),
             ])
         );

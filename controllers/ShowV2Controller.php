@@ -10,7 +10,6 @@ declare(strict_types=1);
 
 namespace app\controllers;
 
-use Yii;
 use app\actions\show\v2\BattleAction;
 use app\actions\show\v2\EditBattleAction;
 use app\actions\show\v2\UserAction;
@@ -34,7 +33,7 @@ use yii\filters\VerbFilter;
 
 class ShowV2Controller extends Controller
 {
-    public $layout = "main";
+    public $layout = 'main';
 
     public function behaviors()
     {
@@ -58,9 +57,7 @@ class ShowV2Controller extends Controller
                 ],
                 'ruleConfig' => [
                     'class' => AccessRule::class,
-                    'matchCallback' => function (AccessRule $rule, EditBattleAction $action): bool {
-                        return (bool)$action->isEditable;
-                    },
+                    'matchCallback' => fn (AccessRule $rule, EditBattleAction $action): bool => (bool)$action->isEditable,
                 ],
             ],
         ];

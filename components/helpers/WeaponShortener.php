@@ -11,6 +11,8 @@ namespace app\components\helpers;
 use Yii;
 use yii\base\Component;
 
+use const DIRECTORY_SEPARATOR;
+
 class WeaponShortener extends Component
 {
     public $dictionary;
@@ -42,14 +44,12 @@ class WeaponShortener extends Component
 
         // try to load "@app/messages/<lang>/weapon-short.php"
         $paths = array_map(
-            function (string $langCode): string {
-                return implode(DIRECTORY_SEPARATOR, [
-                    Yii::getAlias('@app'),
-                    'messages',
-                    $langCode,
-                    'weapon-short.php',
-                ]);
-            },
+            fn (string $langCode): string => implode(DIRECTORY_SEPARATOR, [
+                Yii::getAlias('@app'),
+                'messages',
+                $langCode,
+                'weapon-short.php',
+            ]),
             [
                 $match[1],
                 Yii::$app->language,
@@ -61,9 +61,7 @@ class WeaponShortener extends Component
             if (file_exists($path)) {
                 $list = array_merge($list, array_filter(
                     include($path),
-                    function (string $value): bool {
-                        return trim((string)$value) !== '';
-                    }
+                    fn (string $value): bool => trim((string)$value) !== ''
                 ));
             }
         }

@@ -12,7 +12,6 @@ namespace app\components\widgets;
 
 use Yii;
 use app\assets\AppAsset;
-use app\components\widgets\FA;
 use yii\base\Widget;
 use yii\helpers\Html;
 
@@ -144,22 +143,22 @@ class BattleSummaryDialog extends Widget
         return Html::tag(
             'table',
             Html::tag('tbody', implode('', array_map(
-                function (string $key, string $label): string {
-                    return Html::tag('tr', implode('', [
-                        Html::tag('td', "{$label} :", ['class' => 'text-right w-50']),
-                        Html::tag('td', '', ['data-key' => $key]),
-                    ]));
-                },
+                fn (string $key, string $label): string => Html::tag('tr', implode('', [
+                    Html::tag('td', "{$label} :", ['class' => 'text-right w-50']),
+                    Html::tag('td', '', ['data-key' => $key]),
+                ])),
                 array_keys($data),
                 array_values($data)
             ))),
-            ['class' => [
-                'table',
-                'table-striped',
-                'table-hover',
-                'mx-auto',
-                'my-3',
-            ]]
+            [
+                'class' => [
+                    'table',
+                    'table-striped',
+                    'table-hover',
+                    'mx-auto',
+                    'my-3',
+                ],
+            ]
         );
     }
 
@@ -172,11 +171,13 @@ class BattleSummaryDialog extends Widget
                     Yii::$app->assetManager->getBundle(AppAsset::class),
                     'summary-legends.png'
                 ),
-                ['style' => [
-                    'width' => '100%',
-                    'max-width' => '226px',
-                    'height' => 'auto',
-                ]]
+                [
+                    'style' => [
+                        'width' => '100%',
+                        'max-width' => '226px',
+                        'height' => 'auto',
+                    ],
+                ]
             ),
         ]));
     }

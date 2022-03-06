@@ -14,8 +14,9 @@ use Yii;
 use app\models\Language;
 use app\models\Weapon2;
 use yii\db\ActiveQuery;
-use yii\helpers\ArrayHelper;
 use yii\web\ViewAction as BaseAction;
+
+use const SORT_ASC;
 
 class WeaponAction extends BaseAction
 {
@@ -51,9 +52,7 @@ class WeaponAction extends BaseAction
     protected function formatJson(ActiveQuery $query): array
     {
         return array_map(
-            function (Weapon2 $weapon): array {
-                return $weapon->toJsonArray();
-            },
+            fn (Weapon2 $weapon): array => $weapon->toJsonArray(),
             $query->all()
         );
     }
@@ -82,9 +81,7 @@ class WeaponAction extends BaseAction
         yield array_merge(
             ['category1', 'category2', 'key', 'subweapon', 'special', 'mainweapon', 'reskin', 'splatnet'],
             array_map(
-                function (string $lang): string {
-                    return sprintf('[%s]', $lang);
-                },
+                fn (string $lang): string => sprintf('[%s]', $lang),
                 $langs
             )
         );
@@ -112,9 +109,7 @@ class WeaponAction extends BaseAction
                     $weapon->splatnet,
                 ],
                 array_map(
-                    function (string $lang) use ($weapon, $i18n) {
-                        return $i18n->translate('app-weapon2', $weapon->name, [], $lang);
-                    },
+                    fn (string $lang) => $i18n->translate('app-weapon2', $weapon->name, [], $lang),
                     $langs
                 )
             );

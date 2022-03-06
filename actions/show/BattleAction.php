@@ -9,11 +9,9 @@
 namespace app\actions\show;
 
 use Yii;
+use app\models\Battle;
 use yii\web\NotFoundHttpException;
 use yii\web\ViewAction as BaseAction;
-use app\models\Battle;
-use app\models\User;
-use app\components\helpers\DateTimeFormatter;
 
 class BattleAction extends BaseAction
 {

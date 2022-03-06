@@ -13,10 +13,13 @@ namespace app\commands\i18n;
 use Yii;
 use app\models\Language;
 use app\models\SalmonMainWeapon2;
-use app\models\Weapon2;
 use app\models\Weapon;
-use yii\console\Controller;
+use app\models\Weapon2;
 use yii\helpers\Console;
+
+use const ARRAY_FILTER_USE_BOTH;
+use const DIRECTORY_SEPARATOR;
+use const SORT_ASC;
 
 trait WeaponShortNameTrait
 {
@@ -45,14 +48,10 @@ trait WeaponShortNameTrait
     {
         return array_reduce(
             array_map(
-                function (Language $locale): bool {
-                    return $this->checkLocaleDirectory($locale);
-                },
+                fn (Language $locale): bool => $this->checkLocaleDirectory($locale),
                 $locales
             ),
-            function (bool $old, bool $new): bool {
-                return $old && $new;
-            },
+            fn (bool $old, bool $new): bool => $old && $new,
             true
         );
     }
@@ -111,14 +110,10 @@ trait WeaponShortNameTrait
     {
         return array_reduce(
             array_map(
-                function (Language $locale): bool {
-                    return $this->createLocale($locale);
-                },
+                fn (Language $locale): bool => $this->createLocale($locale),
                 $locales
             ),
-            function (bool $old, bool $new): bool {
-                return $old && $new;
-            },
+            fn (bool $old, bool $new): bool => $old && $new,
             true
         );
     }
@@ -134,15 +129,13 @@ trait WeaponShortNameTrait
 
         $data = [];
         if (file_exists($path)) {
-            $data = require($path);
+            $data = require $path;
         }
 
         // remove empty data
         $data = array_filter(
             $data,
-            function (string $value, string $key): bool {
-                return $value !== '';
-            },
+            fn (string $value, string $key): bool => $value !== '',
             ARRAY_FILTER_USE_BOTH
         );
 
@@ -172,13 +165,9 @@ trait WeaponShortNameTrait
             }
         }
 
-        uksort($data, function (string $a, string $b): int {
-            return strcasecmp($a, $b) ?: strcmp($a, $b);
-        });
+        uksort($data, fn (string $a, string $b): int => strcasecmp($a, $b) ?: strcmp($a, $b));
 
-        $esc = function (string $text): string {
-            return str_replace(["\\", "'"], ["\\\\", "\\'"], $text);
-        };
+        $esc = fn (string $text): string => str_replace(['\\', "'"], ['\\\\', "\\'"], $text);
 
         $file = [];
         $file[] = '<?php';

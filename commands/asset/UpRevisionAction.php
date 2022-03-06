@@ -19,6 +19,8 @@ use function fprintf;
 use function implode;
 use function sprintf;
 
+use const STDERR;
+
 class UpRevisionAction extends Action
 {
     /**
@@ -34,7 +36,7 @@ class UpRevisionAction extends Action
         $version = 0;
         $path = Yii::getAlias('@app/config/asset-revision.php');
         if (file_exists($path)) {
-            $version = (int)require($path);
+            $version = (int)require $path;
         }
         ++$version;
 

@@ -6,9 +6,9 @@
  * @author AIZAWA Hina <hina@fetus.jp>
  */
 
-use yii\db\Migration;
 use app\models\Country;
 use app\models\Timezone;
+use yii\db\Migration;
 
 class m160108_142541_tz_country extends Migration
 {

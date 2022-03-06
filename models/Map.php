@@ -12,15 +12,18 @@ use DateTimeZone;
 use Yii;
 use app\components\helpers\DateTimeFormatter;
 use app\components\helpers\Translator;
+use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
+
+use const SORT_ASC;
 
 /**
  * This is the model class for table "map".
  *
- * @property integer $id
+ * @property int $id
  * @property string $key
  * @property string $name
- * @property integer $area
+ * @property int $area
  * @property string $release_at
  * @property string $short_name
  *
@@ -28,7 +31,7 @@ use yii\helpers\ArrayHelper;
  * @property PeriodMap[] $periodMaps
  * @property SplapiMap[] $splapiMaps
  */
-final class Map extends \yii\db\ActiveRecord
+final class Map extends ActiveRecord
 {
     use SafeFindOneTrait;
     use openapi\Util;
@@ -53,7 +56,7 @@ final class Map extends \yii\db\ActiveRecord
             [['key', 'short_name'], 'string', 'max' => 16],
             [['name'], 'string', 'max' => 32],
             [['key'], 'unique'],
-            [['name'], 'unique']
+            [['name'], 'unique'],
         ];
     }
 
@@ -158,9 +161,7 @@ final class Map extends \yii\db\ActiveRecord
             ->orderBy(['key' => SORT_ASC])
             ->all();
         return array_map(
-            function (self $model): array {
-                return $model->toJsonArray();
-            },
+            fn (self $model): array => $model->toJsonArray(),
             $values
         );
     }

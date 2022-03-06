@@ -53,7 +53,7 @@ class ApiToken extends Component implements SecurityInterface
                     Html::encode(Yii::t('app-apidoc2', 'Example:')),
                     Html::tag('code', Html::encode(
                         'Authorization: Bearer sD093VHLHW41b9xdaM7zVpyIX2TbIornR0h47RaUNGA'
-                    ))
+                    )),
                 ]),
             ]),
         ];

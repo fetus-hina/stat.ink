@@ -8,45 +8,47 @@
 
 namespace app\models;
 
-use Yii;
 use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "stat_weapon_vs_weapon".
  *
- * @property integer $version_id
- * @property integer $rule_id
- * @property integer $weapon_id_1
- * @property integer $weapon_id_2
- * @property integer $battle_count
- * @property integer $win_count
+ * @property int $version_id
+ * @property int $rule_id
+ * @property int $weapon_id_1
+ * @property int $weapon_id_2
+ * @property int $battle_count
+ * @property int $win_count
  *
  * @property SplatoonVersion $version
  * @property Rule $rule
  * @property Weapon $weaponId1
  * @property Weapon $weaponId2
  */
-class StatWeaponVsWeapon extends \yii\db\ActiveRecord
+class StatWeaponVsWeapon extends ActiveRecord
 {
     /**
      * @inheritdoc
      */
     public static function find()
     {
-        return new class (get_called_class()) extends ActiveQuery {
+        return new class (static::class) extends ActiveQuery {
             public function weapon($weapon): ActiveQuery
             {
                 return $this->weaponImpl(
-                    ($weapon instanceof Weapon) ? $weapon->id : (int)$weapon
+                    $weapon instanceof Weapon ? $weapon->id : (int)$weapon
                 );
             }
 
             private function weaponImpl(int $weaponId): ActiveQuery
             {
-                return $this->andWhere(['or', [
-                    '{{stat_weapon_vs_weapon}}.[[weapon_id_1]]' => $weaponId,
-                    '{{stat_weapon_vs_weapon}}.[[weapon_id_2]]' => $weaponId,
-                ]]);
+                return $this->andWhere(['or',
+                    [
+                        '{{stat_weapon_vs_weapon}}.[[weapon_id_1]]' => $weaponId,
+                        '{{stat_weapon_vs_weapon}}.[[weapon_id_2]]' => $weaponId,
+                    ],
+                ]);
             }
         };
     }
@@ -69,16 +71,20 @@ class StatWeaponVsWeapon extends \yii\db\ActiveRecord
             [['version_id', 'rule_id', 'weapon_id_1', 'weapon_id_2', 'battle_count', 'win_count'], 'integer'],
             [['version_id'], 'exist', 'skipOnError' => true,
                 'targetClass' => SplatoonVersion::class,
-                'targetAttribute' => ['version_id' => 'id']],
+                'targetAttribute' => ['version_id' => 'id'],
+            ],
             [['rule_id'], 'exist', 'skipOnError' => true,
                 'targetClass' => Rule::class,
-                'targetAttribute' => ['version_id' => 'id']],
+                'targetAttribute' => ['version_id' => 'id'],
+            ],
             [['weapon_id_1'], 'exist', 'skipOnError' => true,
                 'targetClass' => Weapon::class,
-                'targetAttribute' => ['weapon_id_1' => 'id']],
+                'targetAttribute' => ['weapon_id_1' => 'id'],
+            ],
             [['weapon_id_2'], 'exist', 'skipOnError' => true,
                 'targetClass' => Weapon::class,
-                'targetAttribute' => ['weapon_id_2' => 'id']],
+                'targetAttribute' => ['weapon_id_2' => 'id'],
+            ],
         ];
     }
 

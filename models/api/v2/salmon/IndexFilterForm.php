@@ -10,13 +10,15 @@ declare(strict_types=1);
 
 namespace app\models\api\v2\salmon;
 
-use Yii;
 use app\models\Salmon2;
 use app\models\SalmonMap2;
 use app\models\User;
 use yii\base\Model;
 use yii\base\NotSupportedException;
 use yii\db\ActiveQuery;
+
+use const SORT_ASC;
+use const SORT_DESC;
 
 class IndexFilterForm extends Model
 {
@@ -33,11 +35,9 @@ class IndexFilterForm extends Model
         // {{{
         return [
             [['screen_name'], 'required',
-                'when' => function (self $model): bool {
-                    return ($model->only === 'splatnet_number') ||
+                'when' => fn (self $model): bool => ($model->only === 'splatnet_number') ||
                         ($model->order === 'splatnet_asc') ||
-                        ($model->order === 'splatnet_desc');
-                },
+                        ($model->order === 'splatnet_desc'),
             ],
             [['screen_name'], 'string'],
             [['screen_name'], 'exist', 'skipOnError' => true,
@@ -68,16 +68,12 @@ class IndexFilterForm extends Model
             [['count'], 'integer',
                 'min' => 1,
                 'max' => 50,
-                'when' => function (self $model): bool {
-                    return $model->only !== 'splatnet_number';
-                },
+                'when' => fn (self $model): bool => $model->only !== 'splatnet_number',
             ],
             [['count'], 'integer',
                 'min' => 1,
                 'max' => 1000,
-                'when' => function (self $model): bool {
-                    return $model->only === 'splatnet_number';
-                },
+                'when' => fn (self $model): bool => $model->only === 'splatnet_number',
             ],
         ];
         // }}}
@@ -201,5 +197,6 @@ class IndexFilterForm extends Model
         $count = (int)$this->count > 0 ? (int)$this->count : 50;
         $query->limit($count);
     }
+
     // }}}
 }

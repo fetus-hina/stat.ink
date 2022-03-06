@@ -11,26 +11,23 @@ declare(strict_types=1);
 namespace app\components\widgets;
 
 use Yii;
-use app\components\helpers\Resource;
-use app\components\helpers\db\Now;
-use app\models\GameMode;
 use app\models\Map2;
-use app\models\Rank2;
 use app\models\RankGroup2;
 use app\models\Special2;
-use app\models\SplatoonVersion2;
 use app\models\SplatoonVersionGroup2;
 use app\models\Subweapon2;
 use app\models\User;
 use app\models\Weapon2;
 use app\models\WeaponCategory2;
-use app\models\WeaponType2;
 use jp3cki\yii2\datetimepicker\BootstrapDateTimePickerAsset;
 use yii\base\Widget;
 use yii\bootstrap\ActiveForm;
 use yii\db\ActiveQuery;
+use yii\db\Query;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
+
+use const SORT_ASC;
 
 class Battle2FilterWidget extends Widget
 {
@@ -231,9 +228,7 @@ class Battle2FilterWidget extends Widget
                 ArrayHelper::map(
                     Map2::sort(Map2::find()->all()),
                     'key',
-                    function (Map2 $map): string {
-                        return Yii::t('app-map2', $map->name);
-                    }
+                    fn (Map2 $map): string => Yii::t('app-map2', $map->name)
                 ),
             ))
             ->label(false);
@@ -252,15 +247,13 @@ class Battle2FilterWidget extends Widget
         return (string)$form->field($this->filter, 'weapon')->dropDownList($list)->label(false);
     }
 
-    protected function getUsedWeaponIdList(User $user = null): ?array
+    protected function getUsedWeaponIdList(?User $user = null): ?array
     {
         if (!$user) {
             return null;
         }
         return array_map(
-            function ($row) {
-                return (int)$row['weapon_id'];
-            },
+            fn ($row) => (int)$row['weapon_id'],
             $user->getUserWeapon2s()->asArray()->all()
         );
     }
@@ -282,19 +275,17 @@ class Battle2FilterWidget extends Widget
             $categoryName = Yii::t('app-weapon2', $category->name);
             foreach ($category->weaponTypes as $type) {
                 $typeName = Yii::t('app-weapon2', $type->name);
-                $groupLabel = ($categoryName !== $typeName)
+                $groupLabel = $categoryName !== $typeName
                     ? sprintf('%s » %s', $categoryName, $typeName)
                     : $typeName;
                 $weapons = ArrayHelper::map(
                     $type->weapons, // already filtered (see "with" above)
                     'key',
-                    function (Weapon2 $weapon): string {
-                        return Yii::t('app-weapon2', $weapon->name);
-                    }
+                    fn (Weapon2 $weapon): string => Yii::t('app-weapon2', $weapon->name)
                 );
                 if ($weapons) {
                     uasort($weapons, 'strnatcasecmp');
-                    $ret[$groupLabel] = (count($weapons) > 1)
+                    $ret[$groupLabel] = count($weapons) > 1
                         ? array_merge(
                             ['@' . $type->key => Yii::t('app-weapon2', 'All of {0}', $typeName)],
                             $weapons
@@ -304,7 +295,7 @@ class Battle2FilterWidget extends Widget
             }
         }
         return array_merge(
-            [ '' => Yii::t('app-weapon2', 'Any Weapon') ],
+            ['' => Yii::t('app-weapon2', 'Any Weapon')],
             $ret
         );
     }
@@ -314,7 +305,7 @@ class Battle2FilterWidget extends Widget
         return [
             Yii::t('app', 'Main Weapon') => (function () use ($weaponIdList): array {
                 $ret = [];
-                $subQuery = (new \yii\db\Query())
+                $subQuery = (new Query())
                     ->select(['id' => '{{weapon2}}.[[main_group_id]]'])
                     ->from('weapon2')
                     ->andWhere(['in', '{{weapon2}}.[[id]]', $weaponIdList]);
@@ -338,7 +329,7 @@ class Battle2FilterWidget extends Widget
         return [
             Yii::t('app', 'Sub Weapon') => (function () use ($weaponIdList): array {
                 $ret = [];
-                $list = SubWeapon2::find()
+                $list = Subweapon2::find()
                     ->innerJoinWith('weapons')
                     ->andWhere(['{{weapon2}}.[[id]]' => $weaponIdList])
                     ->asArray()
@@ -375,9 +366,7 @@ class Battle2FilterWidget extends Widget
     {
         $groups = RankGroup2::find()
             ->with([
-                'ranks' => function ($q) {
-                    return $q->orderBy('[[id]] DESC');
-                },
+                'ranks' => fn ($q) => $q->orderBy('[[id]] DESC'),
             ])
             ->orderBy('[[id]] DESC')
             ->asArray()
@@ -390,7 +379,7 @@ class Battle2FilterWidget extends Widget
             foreach ($group['ranks'] as $i => $rank) {
                 $list[$rank['key']] = sprintf(
                     '%s %s',
-                    (($i !== count($group['ranks']) - 1) ? '├' : '└'),
+                    ($i !== count($group['ranks']) - 1 ? '├' : '└'),
                     Yii::t('app-rank2', $rank['name'])
                 );
             }
@@ -424,7 +413,7 @@ class Battle2FilterWidget extends Widget
     {
         return (string)$form->field($this->filter, 'filter')
             ->textInput([
-              'placeholder' => Yii::t('app', 'Filter Query'),
+                'placeholder' => Yii::t('app', 'Filter Query'),
             ])
             ->label(false);
     }
@@ -473,9 +462,7 @@ class Battle2FilterWidget extends Widget
         $versions = (function (): array {
             $result = [];
             $groups = SplatoonVersionGroup2::find()->with('versions')->asArray()->all();
-            usort($groups, function (array $a, array $b): int {
-                return version_compare($b['tag'], $a['tag']);
-            });
+            usort($groups, fn (array $a, array $b): int => version_compare($b['tag'], $a['tag']));
             foreach ($groups as $group) {
                 $n = count($group['versions']);
                 if ($n == 1) {
@@ -491,9 +478,7 @@ class Battle2FilterWidget extends Widget
                         'Version {0}',
                         Yii::t('app-version2', $group['name'])
                     );
-                    usort($group['versions'], function (array $a, array $b): int {
-                        return version_compare($b['tag'], $a['tag']);
-                    });
+                    usort($group['versions'], fn (array $a, array $b): int => version_compare($b['tag'], $a['tag']));
                     foreach ($group['versions'] as $i => $version) {
                         $isLast = ($i === $n - 1);
                         $result['v' . $version['tag']] = sprintf(
@@ -521,18 +506,18 @@ class Battle2FilterWidget extends Widget
         BootstrapDateTimePickerAsset::register($this->view);
         $this->view->registerCss("#{$divId}{margin-left:5%}");
         $this->view->registerJs(implode('', [
-            "(function(\$){",
-                "\$('#{$divId} input').datetimepicker({",
-                    "format: 'YYYY-MM-DD HH:mm:ss'",
-                "});",
-                "\$('#filter-term').change(function(){",
-                    "if($(this).val()==='term'){",
-                        "\$('#{$divId}').show();",
-                    "}else{",
-                        "\$('#{$divId}').hide();",
-                    "}",
-                "}).change();",
-            "})(jQuery);",
+            '(function($){',
+            "\$('#{$divId} input').datetimepicker({",
+            "format: 'YYYY-MM-DD HH:mm:ss'",
+            '});',
+            "\$('#filter-term').change(function(){",
+            "if($(this).val()==='term'){",
+            "\$('#{$divId}').show();",
+            '}else{',
+            "\$('#{$divId}').hide();",
+            '}',
+            '}).change();',
+            '})(jQuery);',
         ]));
         return Html::tag(
             'div',
@@ -550,7 +535,7 @@ class Battle2FilterWidget extends Widget
                     ),
                 ])->input('text', ['placeholder' => 'YYYY-MM-DD hh:mm:ss'])->label(false),
             ]),
-            [ 'id' => $divId ]
+            ['id' => $divId]
         );
     }
 }

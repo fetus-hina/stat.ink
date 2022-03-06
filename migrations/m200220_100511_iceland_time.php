@@ -90,9 +90,7 @@ class m200220_100511_iceland_time extends Migration
     private function createTimezoneOrderNear(int $refId): int
     {
         $exists = array_map(
-            function ($row): int {
-                return filter_var($row, FILTER_VALIDATE_INT);
-            },
+            fn ($row): int => filter_var($row, FILTER_VALIDATE_INT),
             (new Query())
                 ->select('order')
                 ->from('timezone')

@@ -11,12 +11,11 @@ declare(strict_types=1);
 namespace app\actions\show;
 
 use Yii;
+use app\models\BattleFilterForm;
+use app\models\User;
 use yii\db\Query;
 use yii\web\NotFoundHttpException;
 use yii\web\ViewAction as BaseAction;
-use app\models\BattleFilterForm;
-use app\models\User;
-use app\models\Weapon;
 
 class UserStatByWeaponAction extends BaseAction
 {
@@ -63,7 +62,7 @@ class UserStatByWeaponAction extends BaseAction
                 'kd_available'  => sprintf('SUM(CASE %s END)', implode(' ', [
                     'WHEN {{battle}}.[[kill]] IS NULL THEN 0',
                     'WHEN {{battle}}.[[death]] IS NULL THEN 0',
-                    'ELSE 1'
+                    'ELSE 1',
                 ])),
             ])
             ->from('battle')
@@ -86,9 +85,7 @@ class UserStatByWeaponAction extends BaseAction
             $this->filter($query, $filter);
         }
         $list = $query->all();
-        usort($list, function (array $a, array $b): int {
-            return $b['battles'] <=> $a['battles'];
-        });
+        usort($list, fn (array $a, array $b): int => $b['battles'] <=> $a['battles']);
         return $list;
     }
 }

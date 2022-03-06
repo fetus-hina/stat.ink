@@ -14,8 +14,8 @@ class m151001_100307_fix_timezone extends Migration
     {
         $this->update(
             'timezone',
-            [ 'name' => 'Hawaii Time' ],
-            [ 'identifier' => 'Pacific/Honolulu' ]
+            ['name' => 'Hawaii Time'],
+            ['identifier' => 'Pacific/Honolulu']
         );
     }
 
@@ -23,8 +23,8 @@ class m151001_100307_fix_timezone extends Migration
     {
         $this->update(
             'timezone',
-            [ 'name' => 'Hawaii' ],
-            [ 'identifier' => 'Pacific/Honolulu' ]
+            ['name' => 'Hawaii'],
+            ['identifier' => 'Pacific/Honolulu']
         );
     }
 }

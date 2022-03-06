@@ -8,17 +8,17 @@
 
 namespace app\models;
 
-use Yii;
 use app\components\helpers\Translator;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "rank_group".
  *
- * @property integer $id
+ * @property int $id
  * @property string $key
  * @property string $name
  */
-class RankGroup extends \yii\db\ActiveRecord
+class RankGroup extends ActiveRecord
 {
     /**
      * @inheritdoc

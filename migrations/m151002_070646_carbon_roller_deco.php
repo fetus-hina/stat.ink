@@ -6,10 +6,10 @@
  * @author AIZAWA Hina <hina@fetus.jp>
  */
 
-use yii\db\Migration;
 use app\models\Special;
 use app\models\Subweapon;
 use app\models\WeaponType;
+use yii\db\Migration;
 
 class m151002_070646_carbon_roller_deco extends Migration
 {

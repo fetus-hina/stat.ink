@@ -13,7 +13,7 @@ class m161030_130822_blackout extends Migration
     public function up()
     {
         $this->execute(
-            \Yii::$app->db
+            Yii::$app->db
                 ->createCommand(
                     'CREATE TYPE blackout_type AS ENUM ( :v1, :v2, :v3, :v4 )',
                     [

@@ -8,15 +8,14 @@
 
 namespace app\models;
 
-use Yii;
 use app\components\helpers\Translator;
 use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "rank_group2".
  *
- * @property integer $id
- * @property integer $rank
+ * @property int $id
+ * @property int $rank
  * @property string $key
  * @property string $name
  *

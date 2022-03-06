@@ -12,7 +12,7 @@ class m160416_082708_l10n_es extends Migration
 {
     public function safeUp()
     {
-        $this->batchInsert('language', [ 'lang', 'name', 'name_en' ], [
+        $this->batchInsert('language', ['lang', 'name', 'name_en'], [
             [ 'es-ES', 'Español (EU)', 'Spanish (EU)' ],
             [ 'es-MX', 'Español (LA)', 'Spanish (LA)' ],
         ]);

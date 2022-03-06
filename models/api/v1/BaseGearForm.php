@@ -8,10 +8,9 @@
 
 namespace app\models\api\v1;
 
-use Yii;
-use yii\base\Model;
 use app\models\Ability;
 use app\models\Gear;
+use yii\base\Model;
 
 abstract class BaseGearForm extends Model
 {
@@ -27,12 +26,14 @@ abstract class BaseGearForm extends Model
         return [
             [['gear'], 'exist',
                 'targetClass' => Gear::class,
-                'targetAttribute' => 'key'],
+                'targetAttribute' => 'key',
+            ],
             [['gear'], 'validateGearType'],
             [['gear'], 'fixPrimaryAbility'],
             [['primary_ability'], 'exist',
                 'targetClass' => Ability::class,
-                'targetAttribute' => 'key'],
+                'targetAttribute' => 'key',
+            ],
             [['secondary_abilities'], 'validateSecondaryAbilities'],
         ];
     }
@@ -85,7 +86,7 @@ abstract class BaseGearForm extends Model
             return;
         }
         if (count($values) < 1 || count($values) > 3) {
-            $this->addError($attribute, "{$attribute} must be contain 1-3 values, " . count($values) . " given.");
+            $this->addError($attribute, "{$attribute} must be contain 1-3 values, " . count($values) . ' given.');
             return;
         }
         foreach ($values as $i => $value) {
@@ -101,10 +102,11 @@ abstract class BaseGearForm extends Model
     }
 
     private $gearModel = false;
+
     public function getGearModel()
     {
         if ($this->gearModel === false) {
-            $this->gearModel = ($this->gear == '')
+            $this->gearModel = $this->gear == ''
                 ? null
                 : Gear::findOne(['key' => (string)$this->gear]);
         }

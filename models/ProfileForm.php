@@ -12,6 +12,8 @@ use Yii;
 use yii\base\Model;
 use yii\helpers\ArrayHelper;
 
+use const SORT_ASC;
+
 class ProfileForm extends Model
 {
     public $name;
@@ -103,9 +105,7 @@ class ProfileForm extends Model
         return ArrayHelper::map(
             LinkMode::find()->orderBy(['rank' => SORT_ASC])->asArray()->all(),
             'id',
-            function (array $row): string {
-                return Yii::t('app', $row['name']);
-            }
+            fn (array $row): string => Yii::t('app', $row['name'])
         );
     }
 }

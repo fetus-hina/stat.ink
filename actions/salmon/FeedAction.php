@@ -26,7 +26,8 @@ use yii\base\DynamicModel;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Url;
-use yii\web\NotFoundHttpException;
+
+use const SORT_DESC;
 
 class FeedAction extends Action
 {
@@ -279,8 +280,6 @@ class FeedAction extends Action
             ],
         ];
 
-        return Html::tag('dl', implode('', array_map(function (array $row): string {
-            return Html::tag('dt', Html::encode($row[0])) . Html::tag('dd', Html::encode($row[1]));
-        }, $data)));
+        return Html::tag('dl', implode('', array_map(fn (array $row): string => Html::tag('dt', Html::encode($row[0])) . Html::tag('dd', Html::encode($row[1])), $data)));
     }
 }

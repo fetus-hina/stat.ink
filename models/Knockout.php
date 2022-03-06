@@ -8,20 +8,20 @@
 
 namespace app\models;
 
-use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "knockout".
  *
- * @property integer $map_id
- * @property integer $rule_id
- * @property integer $battles
- * @property integer $knockouts
+ * @property int $map_id
+ * @property int $rule_id
+ * @property int $battles
+ * @property int $knockouts
  *
  * @property Map $map
  * @property Rule $rule
  */
-class Knockout extends \yii\db\ActiveRecord
+class Knockout extends ActiveRecord
 {
     /**
      * @inheritdoc
@@ -38,7 +38,7 @@ class Knockout extends \yii\db\ActiveRecord
     {
         return [
             [['map_id', 'rule_id', 'battles', 'knockouts'], 'required'],
-            [['map_id', 'rule_id', 'battles', 'knockouts'], 'integer']
+            [['map_id', 'rule_id', 'battles', 'knockouts'], 'integer'],
         ];
     }
 

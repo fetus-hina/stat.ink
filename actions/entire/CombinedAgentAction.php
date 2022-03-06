@@ -9,14 +9,18 @@
 namespace app\actions\entire;
 
 use Base32\Base32;
+use DateInterval;
+use DateTime;
+use DateTimeZone;
 use Yii;
 use app\models\AgentGroup;
-use app\models\AgentGroupMap;
 use app\models\StatAgentUser;
 use yii\base\DynamicModel;
 use yii\db\Query;
 use yii\web\NotFoundHttpException;
 use yii\web\ViewAction as BaseAction;
+
+use const SORT_ASC;
 
 class CombinedAgentAction extends BaseAction
 {
@@ -78,9 +82,7 @@ class CombinedAgentAction extends BaseAction
             ->from(sprintf('%s t', StatAgentUser::tableName()))
             ->where([
                 '{{t}}.[[agent]]' => array_map(
-                    function ($a) {
-                        return $a['agent_name'];
-                    },
+                    fn ($a) => $a['agent_name'],
                     $this->agentGroup->getAgentGroupMaps()->asArray()->all()
                 ),
             ])
@@ -100,10 +102,10 @@ class CombinedAgentAction extends BaseAction
         $minDate = $ret ? min(array_keys($ret)) : '1970-01-01';
         $maxDate = $ret ? max(array_keys($ret)) : '1970-01-01';
         if ($minDate !== $maxDate) {
-            $min = new \DateTime($minDate, new \DateTimeZone('Etc/GMT-6'));
-            $max = new \DateTime($maxDate, new \DateTimeZone('Etc/GMT-6'));
+            $min = new DateTime($minDate, new DateTimeZone('Etc/GMT-6'));
+            $max = new DateTime($maxDate, new DateTimeZone('Etc/GMT-6'));
             while ($min->format('U') < $max->format('U')) {
-                $min->add(new \DateInterval('P1D'));
+                $min->add(new DateInterval('P1D'));
                 $d = $min->format('Y-m-d');
                 if (!isset($ret[$d])) {
                     $ret[$d] = [

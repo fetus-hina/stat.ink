@@ -8,29 +8,29 @@
 
 namespace app\models;
 
-use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "battle_player".
  *
- * @property integer $id
- * @property integer $battle_id
- * @property boolean $is_my_team
- * @property boolean $is_me
- * @property integer $weapon_id
- * @property integer $rank_id
- * @property integer $level
- * @property integer $rank_in_team
- * @property integer $kill
- * @property integer $death
- * @property integer $point
- * @property integer $my_kill
+ * @property int $id
+ * @property int $battle_id
+ * @property bool $is_my_team
+ * @property bool $is_me
+ * @property int $weapon_id
+ * @property int $rank_id
+ * @property int $level
+ * @property int $rank_in_team
+ * @property int $kill
+ * @property int $death
+ * @property int $point
+ * @property int $my_kill
  *
  * @property Battle $battle
  * @property Rank $rank
  * @property Weapon $weapon
  */
-class BattlePlayer extends \yii\db\ActiveRecord
+class BattlePlayer extends ActiveRecord
 {
     public static function find()
     {
@@ -55,7 +55,7 @@ class BattlePlayer extends \yii\db\ActiveRecord
             [['battle_id', 'is_my_team', 'is_me'], 'required'],
             [['battle_id', 'weapon_id', 'rank_id', 'level', 'rank_in_team', 'kill', 'death', 'point'], 'integer'],
             [['my_kill'], 'integer'],
-            [['is_my_team', 'is_me'], 'boolean']
+            [['is_my_team', 'is_me'], 'boolean'],
         ];
     }
 
