@@ -246,7 +246,7 @@ class HasegawExportController extends Controller
                 if (!preg_match('/[",\x0d\x0a]/', $cell)) {
                     return $cell;
                 }
-                return '"' . mb_str_replace('"', '""', $cell, 'UTF-8')  . '"';
+                return '"' . mb_str_replace('"', '""', $cell, 'UTF-8') . '"';
             },
             $row
         );
