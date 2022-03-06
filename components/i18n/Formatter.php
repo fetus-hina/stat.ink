@@ -12,6 +12,7 @@ use DateTimeInterface;
 use Yii;
 use app\components\widgets\TimestampColumnWidget;
 use yii\helpers\Html;
+use yii\i18n\Formatter as BaseFormatter;
 
 class Formatter extends BaseFormatter
 {
