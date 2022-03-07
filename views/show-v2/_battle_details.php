@@ -5,6 +5,7 @@ use app\assets\FontAwesomeAsset;
 use app\assets\PhotoSwipeSimplifyAsset;
 use app\assets\Spl2WeaponAsset;
 use app\components\helpers\Battle as BattleHelper;
+use app\components\helpers\Html;
 use app\components\widgets\BattleDeathReasonsTable;
 use app\components\widgets\BattleKillDeathColumn;
 use app\components\widgets\FA;
@@ -17,10 +18,14 @@ use app\components\widgets\XPowerHistory;
 use app\models\Battle2;
 use app\models\BattleDeathReason2;
 use app\models\Rank2;
-use yii\bootstrap\Html;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
+use yii\web\View;
 use yii\widgets\DetailView;
+
+/**
+ * @var View $this
+ */
 
 ?>
 <?= DetailView::widget([

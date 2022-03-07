@@ -7,7 +7,7 @@ use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
 use app\models\Battle2;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Html;
+use app\components\helpers\Html;
 
 $title = Yii::t('app', "{name}'s Monthly Report - {date}", [
   'name' => $user->name,

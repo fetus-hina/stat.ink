@@ -18,9 +18,14 @@ use app\components\widgets\UserMiniInfo2;
 use app\models\Battle2;
 use yii\bootstrap\ActiveForm;
 use yii\grid\GridView;
-use yii\helpers\Html;
+use app\components\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\ListView;
+use yii\web\View;
+
+/**
+ * @var View $this
+ */
 
 BattleListAsset::register($this);
 

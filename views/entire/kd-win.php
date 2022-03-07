@@ -9,7 +9,7 @@ use app\components\widgets\SnsWidget;
 use app\components\widgets\kdWin\KDWinTable;
 use app\components\widgets\kdWin\LegendWidget;
 use yii\bootstrap\ActiveForm;
-use yii\helpers\Html;
+use app\components\helpers\Html;
 
 $this->context->layout ='main';
 

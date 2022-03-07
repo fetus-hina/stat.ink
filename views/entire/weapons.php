@@ -11,7 +11,7 @@ use yii\bootstrap\Nav;
 use yii\bootstrap\Progress;
 use yii\data\ArrayDataProvider;
 use yii\grid\GridView;
-use yii\helpers\Html;
+use app\components\helpers\Html;
 use yii\helpers\Json;
 
 $this->context->layout = 'main';

@@ -8,7 +8,7 @@ use app\components\widgets\FA;
 use app\components\widgets\SnsWidget;
 use yii\data\ArrayDataProvider;
 use yii\grid\GridView;
-use yii\helpers\Html;
+use app\components\helpers\Html;
 
 $title = Yii::t('app', '{name}\'s Battle Report', ['name' => $user->name]);
 

@@ -5,7 +5,7 @@ use app\components\widgets\SnsWidget;
 use jp3cki\yii2\flot\FlotAsset;
 use jp3cki\yii2\flot\FlotTimeAsset;
 use yii\data\ArrayDataProvider;
-use yii\helpers\Html;
+use app\components\helpers\Html;
 use yii\helpers\Json;
 use yii\grid\GridView;
 

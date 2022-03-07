@@ -11,7 +11,7 @@ use app\components\widgets\UserMiniInfo2;
 use app\components\widgets\WinLoseLegend;
 use jp3cki\yii2\flot\FlotPieAsset;
 use statink\yii2\stages\spl2\Spl2Stage;
-use yii\helpers\Html;
+use app\components\helpers\Html;
 use yii\helpers\Json;
 use yii\helpers\Url;
 

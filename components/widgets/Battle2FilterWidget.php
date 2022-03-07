@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2019 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2022 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -11,12 +11,14 @@ declare(strict_types=1);
 namespace app\components\widgets;
 
 use Yii;
+use app\components\helpers\Html;
 use app\models\Map2;
 use app\models\RankGroup2;
 use app\models\Special2;
 use app\models\SplatoonVersionGroup2;
 use app\models\Subweapon2;
 use app\models\User;
+use app\models\UserWeapon2;
 use app\models\Weapon2;
 use app\models\WeaponCategory2;
 use jp3cki\yii2\datetimepicker\BootstrapDateTimePickerAsset;
@@ -25,7 +27,6 @@ use yii\bootstrap\ActiveForm;
 use yii\db\ActiveQuery;
 use yii\db\Query;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Html;
 
 use const SORT_ASC;
 
@@ -242,7 +243,7 @@ class Battle2FilterWidget extends Widget
             $this->createMainWeaponList($weaponIdList),
             $this->createGroupedMainWeaponList($weaponIdList),
             $this->createSubWeaponList($weaponIdList),
-            $this->createSpecialWeaponList($weaponIdList)
+            $this->createSpecialWeaponList($weaponIdList),
         );
         return (string)$form->field($this->filter, 'weapon')->dropDownList($list)->label(false);
     }
@@ -252,9 +253,13 @@ class Battle2FilterWidget extends Widget
         if (!$user) {
             return null;
         }
+
         return array_map(
-            fn ($row) => (int)$row['weapon_id'],
-            $user->getUserWeapon2s()->asArray()->all()
+            fn (array $row): int => (int)$row['weapon_id'],
+            UserWeapon2::find()
+                ->andWhere(['user_id' => $user->id])
+                ->asArray()
+                ->all(),
         );
     }
 

@@ -11,9 +11,9 @@ declare(strict_types=1);
 namespace app\models\openapi\sec;
 
 use Yii;
+use app\components\helpers\Html;
 use app\models\openapi\SecurityInterface;
 use yii\base\Component;
-use yii\helpers\Html;
 
 class ApiToken extends Component implements SecurityInterface
 {

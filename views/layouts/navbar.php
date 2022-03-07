@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use statink\yii2\ipBadge\IpBadgeWidget;
 use statink\yii2\paintball\PaintballAsset;
-use yii\helpers\Html;
+use app\components\helpers\Html;
 use yii\web\View;
 
 /**

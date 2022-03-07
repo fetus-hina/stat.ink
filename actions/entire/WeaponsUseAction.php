@@ -89,8 +89,9 @@ class WeaponsUseAction extends BaseAction
                 $ret,
                 (function (WeaponType $type): array {
                     $ret = [];
-                    $weapons = $type->getWeapons()
+                    $weapons = Weapon::find()
                         ->andWhere('[[id]] = [[main_group_id]]')
+                        ->andWhere(['type_id' => $type->id])
                         ->asArray()
                         ->all();
                     foreach ($weapons as $weapon) {

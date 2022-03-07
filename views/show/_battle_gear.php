@@ -1,5 +1,5 @@
 <?php
-use yii\helpers\Html;
+use app\components\helpers\Html;
 
 $headgear = $battle->headgear;
 $clothing = $battle->clothing;

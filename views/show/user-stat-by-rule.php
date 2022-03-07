@@ -6,7 +6,7 @@ use app\components\widgets\AdWidget;
 use app\components\widgets\BattleFilterWidget;
 use app\components\widgets\SnsWidget;
 use app\components\widgets\WinLoseLegend;
-use yii\helpers\Html;
+use app\components\helpers\Html;
 use yii\helpers\Json;
 
 $title = Yii::t('app', "{name}'s Battle Stats (by Mode)", ['name' => $user->name]);

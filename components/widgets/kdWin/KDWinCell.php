@@ -12,9 +12,9 @@ namespace app\components\widgets\kdWin;
 
 use Yii;
 use app\assets\EntireKDWinAsset;
+use app\components\helpers\Html;
 use yii\base\Widget;
 use yii\bootstrap\BootstrapAsset;
-use yii\helpers\Html;
 
 class KDWinCell extends Widget
 {

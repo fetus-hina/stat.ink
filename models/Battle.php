@@ -595,7 +595,7 @@ class Battle extends ActiveRecord
 
     public function getPreviousBattle()
     {
-        return $this->hasOne(static::class, ['user_id' => 'user_id'])
+        return $this->hasOne(self::class, ['user_id' => 'user_id'])
             ->andWhere(['<', '{{battle}}.[[id]]', $this->id])
             ->orderBy('{{battle}}.[[id]] DESC')
             ->limit(1);
@@ -603,7 +603,7 @@ class Battle extends ActiveRecord
 
     public function getNextBattle()
     {
-        return $this->hasOne(static::class, ['user_id' => 'user_id'])
+        return $this->hasOne(self::class, ['user_id' => 'user_id'])
             ->andWhere(['>', '{{battle}}.[[id]]', $this->id])
             ->orderBy('{{battle}}.[[id]] ASC')
             ->limit(1);

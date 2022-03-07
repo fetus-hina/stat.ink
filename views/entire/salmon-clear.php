@@ -9,7 +9,7 @@ use app\assets\PatternomalyAsset;
 use app\assets\Spl2WeaponAsset;
 use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
-use yii\helpers\Html;
+use app\components\helpers\Html;
 
 $title = Yii::t('app-salmon2', 'Clear rate of Salmon Run');
 $this->title = Yii::$app->name . ' | ' . $title;

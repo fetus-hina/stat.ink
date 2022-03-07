@@ -13,9 +13,9 @@ namespace app\components\widgets;
 use Yii;
 use app\assets\AppLinkAsset;
 use app\assets\FontAwesomeAsset;
+use app\components\helpers\Html;
 use statink\yii2\twitter\webintents\TwitterWebIntentsAsset;
 use yii\base\Widget;
-use yii\helpers\Html;
 
 class MiniinfoUserLink extends Widget
 {

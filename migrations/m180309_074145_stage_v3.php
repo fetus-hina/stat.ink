@@ -21,6 +21,10 @@ class m180309_074145_stage_v3 extends Migration
 
     public function safeDown()
     {
-        $this->batchInsert('map2', ['key' => ['shottsuru', 'mongara', 'sumeshi']]);
+        $this->batchInsert('map2', ['key'], [
+            ['shottsuru'],
+            ['mongara'],
+            ['sumeshi'],
+        ]);
     }
 }

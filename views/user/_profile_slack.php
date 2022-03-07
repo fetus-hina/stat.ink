@@ -7,7 +7,7 @@ use app\assets\SlackAsset;
 use app\models\User;
 use yii\data\ActiveDataProvider;
 use yii\grid\GridView;
-use yii\helpers\Html;
+use app\components\helpers\Html;
 use yii\web\View;
 
 /**

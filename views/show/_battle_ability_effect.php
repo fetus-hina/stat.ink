@@ -1,6 +1,6 @@
 <?php
 use yii\helpers\ArrayHelper;
-use yii\helpers\Html;
+use app\components\helpers\Html;
 use yii\widgets\DetailView;
 
 if (!$effects = $battle->abilityEffects) {

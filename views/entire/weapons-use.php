@@ -7,7 +7,7 @@ use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
 use app\models\WeaponCompareForm;
 use yii\bootstrap\ActiveForm;
-use yii\helpers\Html;
+use app\components\helpers\Html;
 use yii\helpers\Json;
 use yii\helpers\Url;
 

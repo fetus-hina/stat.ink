@@ -12,8 +12,8 @@ namespace app\components\widgets;
 
 use Yii;
 use app\assets\BattleSummaryDialogAsset;
+use app\components\helpers\Html;
 use yii\base\Widget;
-use yii\helpers\Html;
 use yii\helpers\Json;
 
 class BattleSummaryItemWidget extends Widget

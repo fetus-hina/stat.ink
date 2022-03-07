@@ -8,7 +8,7 @@ use app\models\SalmonPlayer2;
 use statink\yii2\sortableTable\SortableTableAsset;
 use yii\data\ActiveDataProvider;
 use yii\grid\GridView;
-use yii\helpers\Html;
+use app\components\helpers\Html;
 
 $formatter = Yii::createObject([
   'class' => Formatter::class,

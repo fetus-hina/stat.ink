@@ -10,9 +10,9 @@ declare(strict_types=1);
 
 namespace app\components\widgets;
 
+use app\components\helpers\Html;
 use yii\base\Widget;
 use yii\bootstrap\BootstrapAsset;
-use yii\helpers\Html;
 
 use const FILTER_VALIDATE_FLOAT;
 use const FILTER_VALIDATE_INT;

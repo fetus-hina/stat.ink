@@ -13,9 +13,9 @@ namespace app\components\widgets;
 
 use Yii;
 use app\assets\PermalinkDialogAsset;
+use app\components\helpers\Html;
 use jp3cki\yii2\twitter\widget\TweetButton;
 use yii\base\Widget;
-use yii\helpers\Html;
 use yii\helpers\Url;
 
 class SnsWidget extends Widget

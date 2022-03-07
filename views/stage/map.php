@@ -7,7 +7,7 @@ use app\components\widgets\SnsWidget;
 use app\models\Map;
 use statink\yii2\bukiicons\Bukiicons;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Html;
+use app\components\helpers\Html;
 use yii\helpers\Url;
 use yii\web\View;
 

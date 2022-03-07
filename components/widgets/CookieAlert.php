@@ -13,8 +13,8 @@ namespace app\components\widgets;
 use Jaybizzle\CrawlerDetect\CrawlerDetect;
 use Yii;
 use app\assets\CookieAlertAsset;
+use app\components\helpers\Html;
 use yii\base\Widget;
-use yii\helpers\Html;
 
 class CookieAlert extends Widget
 {

@@ -7,6 +7,7 @@
  */
 
 use app\components\db\Migration;
+use yii\db\Query;
 
 class m170904_111014_version2_1_3_0 extends Migration
 {

@@ -14,7 +14,6 @@ use DateTimeImmutable;
 use DateTimeZone;
 use Yii;
 use app\models\Language;
-use yii\helpers\Html;
 use yii\helpers\Url;
 
 use const LC_COLLATE;

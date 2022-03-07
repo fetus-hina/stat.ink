@@ -12,11 +12,11 @@ namespace app\components\widgets;
 
 use Yii;
 use app\assets\UserMiniinfoAsset;
+use app\components\helpers\Html;
 use app\components\i18n\Formatter;
 use app\models\SalmonStats2;
 use yii\base\Widget;
 use yii\bootstrap\BootstrapAsset;
-use yii\helpers\Html;
 use yii\web\View;
 
 use const SORT_DESC;

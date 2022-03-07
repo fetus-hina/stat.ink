@@ -17,6 +17,7 @@ use DateTimeZone;
 use Yii;
 use app\components\behaviors\AutoTrimAttributesBehavior;
 use app\components\helpers\Battle as BattleHelper;
+use app\components\helpers\Html;
 use app\models\Agent;
 use app\models\Salmon2;
 use app\models\SalmonBoss2;
@@ -29,7 +30,6 @@ use app\models\openapi\Util as OpenAPIUtil;
 use jp3cki\uuid\Uuid;
 use yii\base\Model;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Html;
 use yii\helpers\UnsetArrayValue;
 use yii\validators\NumberValidator;
 

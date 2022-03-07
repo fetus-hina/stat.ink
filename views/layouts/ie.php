@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 use app\assets\IEWarningAsset;
-use yii\helpers\Html;
+use app\components\helpers\Html;
 use yii\helpers\Json;
 
 IEWarningAsset::register($this);

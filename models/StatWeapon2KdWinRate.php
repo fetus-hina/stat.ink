@@ -10,9 +10,9 @@ declare(strict_types=1);
 
 namespace app\models;
 
+use app\models\query\StatWeapon2KdWinRateQuery;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
-use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "stat_weapon2_kd_win_rate".
@@ -35,105 +35,9 @@ use yii\helpers\ArrayHelper;
  */
 class StatWeapon2KdWinRate extends ActiveRecord
 {
-    public static function find(): ActiveQuery
+    public static function find(): StatWeapon2KdWinRateQuery
     {
-        return new class (static::class) extends ActiveQuery {
-            public function applyFilter(KDWin2FilterForm $form): self
-            {
-                if ($form->hasErrors()) {
-                    return $this->alwaysFalse();
-                }
-
-                $this->filterStage($form->map);
-                $this->filterRank($form->rank);
-                $this->filterWeapon($form->weapon);
-                $this->filterVersion($form->version);
-
-                return $this;
-            }
-
-            public function alwaysFalse(): self
-            {
-                $this->andWhere('0 = 1');
-                return $this;
-            }
-
-            public function filterStage(?string $key): self
-            {
-                if ($key == '') {
-                    return $this;
-                }
-
-                if ($key === 'mystery') {
-                    $this->andWhere(['map_id' => ArrayHelper::getColumn(
-                        Map2::find()
-                            ->andWhere(['like', 'key', 'mystery%', false])
-                            ->asArray()
-                            ->all(),
-                        'id'
-                    ),
-                    ]);
-                } else {
-                    $model = Map2::findOne(['key' => $key]);
-                    if (!$model) {
-                        return $this->alwaysFalse();
-                    }
-                    $this->andWhere(['map_id' => $model->id]);
-                }
-
-                return $this;
-            }
-
-            public function filterRank(?string $key): self
-            {
-                if ($key == '') {
-                    return $this;
-                }
-
-                $model = RankGroup2::findOne(['key' => $key]);
-                if (!$model) {
-                    return $this->alwaysFalse();
-                }
-                $this->andWhere(['rank_group_id' => $model->id]);
-
-                $model = Rule2::findOne(['key' => 'nawabari']);
-                if ($model) {
-                    $this->andWhere(['<>', 'rule_id', $model->id]);
-                }
-
-                return $this;
-            }
-
-            public function filterWeapon(?string $key): self
-            {
-                if ($key == '') {
-                    return $this;
-                }
-
-                $model = WeaponType2::findOne(['key' => $key]);
-                if (!$model) {
-                    return $this->alwaysFalse();
-                }
-                $this->andWhere(['weapon_type_id' => $model->id]);
-
-                return $this;
-            }
-
-            public function filterVersion(?string $vstr): self
-            {
-                if ($vstr == '' || $vstr === '*') {
-                    return $this;
-                }
-
-                $v = SplatoonVersionGroup2::findOne(['tag' => $vstr]);
-                if (!$v) {
-                    return $this->alwaysFalse();
-                }
-
-                $this->andWhere(['version_group_id' => $v->id]);
-                return $this;
-            }
-        };
+        return new StatWeapon2KdWinRateQuery(static::class);
     }
 
     public static function tableName()

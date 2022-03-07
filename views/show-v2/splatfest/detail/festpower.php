@@ -5,7 +5,7 @@ declare(strict_types=1);
 use app\assets\UserStatSplatfestAsset;
 use app\models\Battle2;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Html;
+use app\components\helpers\Html;
 use yii\helpers\Url;
 
 $bool = fn($v) => is_bool($v) ? $v : null;

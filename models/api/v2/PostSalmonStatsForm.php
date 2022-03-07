@@ -12,10 +12,10 @@ namespace app\models\api\v2;
 
 use Yii;
 use app\components\behaviors\TrimAttributesBehavior;
+use app\components\helpers\Html;
 use app\models\SalmonStats2;
 use app\models\openapi\Util;
 use yii\base\Model;
-use yii\helpers\Html;
 
 use const SORT_DESC;
 

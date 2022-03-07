@@ -13,11 +13,11 @@ namespace app\components\widgets;
 use Yii;
 use app\assets\LanguageDialogAsset;
 use app\assets\TimezoneDialogAsset;
+use app\components\helpers\Html;
 use app\models\Country;
 use app\models\Language;
 use app\models\Timezone;
 use yii\base\Widget;
-use yii\helpers\Html;
 
 class IndexI18nButtons extends Widget
 {

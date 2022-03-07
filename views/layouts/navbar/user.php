@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use app\components\widgets\FA;
 use app\components\widgets\UserIcon;
-use yii\helpers\Html;
+use app\components\helpers\Html;
 
 $user = Yii::$app->user->identity ?? null;
 ?>

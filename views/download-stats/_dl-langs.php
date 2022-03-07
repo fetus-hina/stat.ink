@@ -5,7 +5,7 @@ use app\assets\DownloadsPageAsset;
 use app\components\widgets\FA;
 use app\components\widgets\FlagIcon;
 use app\models\Language;
-use yii\helpers\Html;
+use app\components\helpers\Html;
 use yii\helpers\Url;
 
 DownloadsPageAsset::register($this);

@@ -25,7 +25,7 @@ use const SORT_DESC;
 /**
  * @property-read bool $isEditable
  */
-class EditBattleAction extends BaseAction
+final class EditBattleAction extends BaseAction
 {
     private $battle;
 
@@ -114,7 +114,8 @@ class EditBattleAction extends BaseAction
             ->orderBy(['id' => SORT_ASC])
             ->all();
         foreach ($categories as $category) {
-            $types = $category->getWeaponTypes()
+            $types = WeaponType2::find()
+                ->andWhere(['category_id' => $category])
                 ->orderBy(['id' => SORT_ASC])
                 ->all();
             foreach ($types as $type) {

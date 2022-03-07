@@ -6,7 +6,7 @@ use app\assets\EntireKnockoutAsset;
 use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
 use statink\yii2\stages\spl1\Spl1Stage;
-use yii\helpers\Html;
+use app\components\helpers\Html;
 use yii\helpers\Json;
 
 $this->context->layout = 'main';

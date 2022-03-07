@@ -10,8 +10,8 @@ namespace app\components\i18n;
 
 use DateTimeInterface;
 use Yii;
+use app\components\helpers\Html;
 use app\components\widgets\TimestampColumnWidget;
-use yii\helpers\Html;
 use yii\i18n\Formatter as BaseFormatter;
 
 class Formatter extends BaseFormatter

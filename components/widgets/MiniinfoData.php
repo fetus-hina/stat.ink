@@ -12,11 +12,11 @@ namespace app\components\widgets;
 
 use Yii;
 use app\assets\UserMiniinfoAsset;
+use app\components\helpers\Html;
 use app\components\i18n\Formatter;
 use yii\base\Widget;
 use yii\bootstrap\BootstrapAsset;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Html;
 use yii\i18n\Formatter as BaseFormatter;
 
 class MiniinfoData extends Widget

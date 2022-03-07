@@ -105,15 +105,21 @@ class WeaponAction extends BaseAction
     {
         $ret = [];
         foreach (WeaponType::find()->orderBy('id')->all() as $weaponType) {
-            $ret[Yii::t('app-weapon', $weaponType->name)] = (function (array $weapons) {
+            $weapons = Weapon::find()
+                ->andWhere(['type_id' => $weaponType->id])
+                ->asArray()
+                ->all();
+
+            $ret[Yii::t('app-weapon', $weaponType->name)] = (function () use ($weapons): array {
                 $ret = [];
                 foreach ($weapons as $weapon) {
                     $ret[$weapon['key']] = Yii::t('app-weapon', $weapon['name']);
                 }
                 uasort($ret, 'strnatcasecmp');
                 return $ret;
-            })($weaponType->getWeapons()->asArray()->all());
+            })();
         }
+
         return $ret;
     }
 

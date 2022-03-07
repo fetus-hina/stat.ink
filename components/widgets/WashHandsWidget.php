@@ -12,9 +12,9 @@ namespace app\components\widgets;
 
 use Yii;
 use app\assets\FontAwesomeAsset;
+use app\components\helpers\Html;
 use yii\base\Widget;
 use yii\bootstrap\BootstrapAsset;
-use yii\helpers\Html;
 
 class WashHandsWidget extends Widget
 {

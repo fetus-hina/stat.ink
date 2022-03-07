@@ -1,13 +1,16 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2020 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2022 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
 
+declare(strict_types=1);
+
 namespace app\models\query;
 
+use Yii;
 use app\components\helpers\Battle as BattleHelper;
 use app\components\helpers\BattleSummarizer;
 use app\components\helpers\Resource;
@@ -18,16 +21,22 @@ use app\models\Timezone;
 use app\models\Weapon;
 use stdClass;
 use yii\db\ActiveQuery;
+use yii\db\Query;
 
-class BattleQuery extends ActiveQuery
+final class BattleQuery extends ActiveQuery
 {
     public function hasResultImage(): self
     {
-        return $this->innerJoinWith([
-            'battleImages' => function ($query) {
-                $query->onCondition(['{{battle_image}}.[[type_id]]' => BattleImageType::ID_RESULT]);
-            },
-        ], false);
+        return $this->innerJoinWith(
+            [
+                'battleImages' => function (Query $query): void {
+                    $query->onCondition([
+                        '{{battle_image}}.[[type_id]]' => BattleImageType::ID_RESULT,
+                    ]);
+                },
+            ],
+            false,
+        );
     }
 
     public function filter(BattleFilterForm $filter): self

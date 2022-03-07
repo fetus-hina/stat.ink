@@ -11,8 +11,8 @@ declare(strict_types=1);
 namespace app\actions\show\v2;
 
 use Yii;
+use app\components\helpers\ArrayHelper;
 use app\models\Battle2;
-use yii\helpers\ArrayHelper;
 use yii\web\NotFoundHttpException;
 use yii\web\ViewAction as BaseAction;
 

@@ -12,7 +12,7 @@ namespace app\components\widgets;
 
 use Yii;
 use app\assets\ThemeAsset;
-use yii\helpers\Html;
+use app\components\helpers\Html;
 
 class ColorSchemeDialog extends Dialog
 {

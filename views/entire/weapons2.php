@@ -22,8 +22,13 @@ use yii\bootstrap\Nav;
 use yii\data\ArrayDataProvider;
 use yii\grid\GridView;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Html;
+use app\components\helpers\Html;
 use yii\helpers\Json;
+use yii\web\View;
+
+/**
+ * @var View $this
+ */
 
 TableResponsiveForceAsset::register($this);
 

@@ -45,7 +45,7 @@ class IndexAction extends ViewAction
             $form->screen_name = $user->screen_name;
         }
 
-        if (!$query = $form->find()) {
+        if (($list = $form->findAll()) === null) {
             $resp->statusCode = 400; // bad request
             return $form->getErrors();
         }
@@ -58,7 +58,7 @@ class IndexAction extends ViewAction
                     return $model->toJsonArray();
                 }
             },
-            $query->all()
+            $list,
         );
     }
 }

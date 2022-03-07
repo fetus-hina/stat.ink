@@ -16,13 +16,13 @@ use DateTimeZone;
 use Laminas\Feed\Writer\Feed as FeedWriter;
 use Laminas\Feed\Writer\Version;
 use Yii;
+use app\components\helpers\Html;
 use app\models\Battle;
 use app\models\Language;
 use app\models\User;
 use jp3cki\uuid\NS as UuidNS;
 use jp3cki\uuid\Uuid;
 use yii\base\DynamicModel;
-use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\web\ViewAction as BaseAction;
 
@@ -163,18 +163,19 @@ class UserAction extends BaseAction
                 ]
         );
 
-        $battles = $user->getBattles()
-            ->limit(50)
+        $battles = Battle::find()
+            ->andWhere(['user_id' => $user->id])
             ->with([
                 'battleImageJudge',
                 'battleImageResult',
                 'lobby',
                 'map',
-                'rule',
-                'weapon',
                 'rank',
                 'rankAfter',
+                'rule',
+                'weapon',
             ])
+            ->limit(50)
             ->all();
         foreach ($battles as $battle) {
             $entry = $feed->createEntry();
@@ -188,17 +189,22 @@ class UserAction extends BaseAction
             $entry->setId(
                 Uuid::v5(
                     UuidNS::url(),
-                    Url::to(['show/battle', 'screen_name' => $user->screen_name, 'battle' => $battle->id], true)
+                    Url::to(
+                        ['show/battle',
+                            'screen_name' => $user->screen_name,
+                            'battle' => $battle->id,
+                        ],
+                        true,
+                    )
                 )->formatAsUri()
             );
             $entry->setLink(
                 Url::to(
-                    [
-                        'show/battle',
+                    ['show/battle',
                         'screen_name' => $user->screen_name,
                         'battle' => $battle->id,
                     ],
-                    true
+                    true,
                 )
             );
             $entry->setTitle(
@@ -210,7 +216,7 @@ class UserAction extends BaseAction
                         ? Yii::t('app', $battle->is_win ? 'Won' : 'Lost', [], $model->lang)
                         : '???',
                     $user->name,
-                    $battle->id
+                    $battle->id,
                 )
             );
             $entry->setContent($this->makeEntryContent($battle, $model->lang));

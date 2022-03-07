@@ -6,7 +6,7 @@ use app\assets\InlineListAsset;
 use app\assets\UserStatGachiAsset;
 use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
-use yii\helpers\Html;
+use app\components\helpers\Html;
 use yii\helpers\Json;
 
 $this->context->layout = 'main';

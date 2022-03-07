@@ -1,6 +1,6 @@
 <?php
 use app\components\widgets\Label;
-use yii\helpers\Html;
+use app\components\helpers\Html;
 ?>
 <?= Html::tag(
   'li',

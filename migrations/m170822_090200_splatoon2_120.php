@@ -7,6 +7,7 @@
  */
 
 use app\components\db\Migration;
+use yii\db\Query;
 
 class m170822_090200_splatoon2_120 extends Migration
 {

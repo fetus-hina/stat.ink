@@ -12,9 +12,9 @@ namespace app\components\widgets;
 
 use Yii;
 use app\assets\FlagIconCssAsset;
+use app\components\helpers\Html;
 use yii\base\Widget;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Html;
 
 class FlagIcon extends Widget
 {
@@ -88,7 +88,7 @@ class FlagIcon extends Widget
 
     public function run()
     {
-        echo $this->renderIcon();
+        return $this->renderIcon();
     }
 
     protected function renderIcon(): string

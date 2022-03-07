@@ -9,6 +9,7 @@
 namespace app\components\widgets;
 
 use Yii;
+use app\components\helpers\Html;
 use app\components\helpers\Resource;
 use app\components\helpers\db\Now;
 use app\models\GameMode;
@@ -20,13 +21,13 @@ use app\models\Special;
 use app\models\SplatoonVersion;
 use app\models\Subweapon;
 use app\models\User;
+use app\models\UserWeapon;
 use app\models\Weapon;
 use app\models\WeaponType;
 use jp3cki\yii2\datetimepicker\BootstrapDateTimePickerAsset;
 use yii\base\Widget;
 use yii\bootstrap\ActiveForm;
 use yii\db\Query;
-use yii\helpers\Html;
 
 class BattleFilterWidget extends Widget
 {
@@ -193,14 +194,18 @@ class BattleFilterWidget extends Widget
         return $form->field($this->filter, 'weapon')->dropDownList($list)->label(false);
     }
 
-    protected function getUsedWeaponIdList(?User $user = null)
+    protected function getUsedWeaponIdList(?User $user = null): array
     {
         if (!$user) {
             return null;
         }
+
         return array_map(
-            fn ($row) => (int)$row['weapon_id'],
-            $user->getUserWeapons()->asArray()->all()
+            fn (array $row): int => (int)$row['weapon_id'],
+            UserWeapon::find()
+                ->andWhere(['user_id' => $user->id])
+                ->asArray()
+                ->all(),
         );
     }
 

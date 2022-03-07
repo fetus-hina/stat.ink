@@ -9,7 +9,7 @@ use app\components\widgets\FA;
 use app\components\widgets\SnsWidget;
 use app\components\widgets\UserMiniInfo2;
 use yii\bootstrap\ActiveForm;
-use yii\helpers\Html;
+use app\components\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\ListView;
 use yii\widgets\Pjax;

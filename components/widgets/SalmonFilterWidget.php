@@ -15,6 +15,7 @@ use DateTime;
 use DateTimeImmutable;
 use DateTimeZone;
 use Yii;
+use app\components\helpers\Html;
 use app\models\Salmon2;
 use app\models\SalmonFailReason2;
 use app\models\SalmonMap2;
@@ -22,7 +23,6 @@ use app\models\SalmonSpecial2;
 use yii\base\Widget;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Html;
 
 use const SORT_ASC;
 use const SORT_STRING;

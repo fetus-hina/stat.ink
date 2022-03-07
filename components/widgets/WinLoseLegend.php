@@ -9,8 +9,8 @@
 namespace app\components\widgets;
 
 use Yii;
+use app\components\helpers\Html;
 use yii\base\Widget;
-use yii\helpers\Html;
 
 class WinLoseLegend extends Widget
 {

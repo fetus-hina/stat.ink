@@ -9,8 +9,8 @@
 namespace app\assets;
 
 use Yii;
+use app\components\helpers\Html;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Html;
 use yii\web\AssetBundle;
 
 class IrasutoyaAsset extends AssetBundle

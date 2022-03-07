@@ -10,11 +10,9 @@ declare(strict_types=1);
 
 namespace app\models;
 
-use app\components\helpers\db\Now;
+use app\models\query\MaintenanceScheduleQuery;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
-
-use const SORT_ASC;
 
 /**
  * This is the model class for table "maintenance_schedule".
@@ -29,26 +27,7 @@ class MaintenanceSchedule extends ActiveRecord
 {
     public static function find(): ActiveQuery
     {
-        return new class (static::class) extends ActiveQuery {
-            public function enabled(): ActiveQuery
-            {
-                $table = MaintenanceSchedule::tableName();
-                $this->andWhere(['and',
-                    ["{{{$table}}}.[[enabled]]" => true],
-                    ['>', "{{{$table}}}.[[end_at]]", new Now()],
-                ]);
-                return $this;
-            }
-
-            public function recently(): ActiveQuery
-            {
-                $table = MaintenanceSchedule::tableName();
-                $this->orderBy([
-                    "{{{$table}}}.[[start_at]]" => SORT_ASC,
-                ]);
-                return $this;
-            }
-        };
+        return new MaintenanceScheduleQuery(static::class);
     }
 
     public static function tableName()

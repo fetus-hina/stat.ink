@@ -6,7 +6,7 @@ use app\assets\UserStatReportAsset;
 use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
 use app\models\Battle2;
-use yii\helpers\Html;
+use app\components\helpers\Html;
 
 $title = Yii::t('app', "{name}'s Battle Report", ['name' => $user->name]);
 $this->title = Yii::$app->name . ' | ' . $title;

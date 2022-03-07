@@ -12,13 +12,13 @@ namespace app\components\widgets\alerts;
 
 use Yii;
 use app\assets\LanguageDialogAsset;
+use app\components\helpers\Html;
 use app\components\widgets\Alert;
 use app\components\widgets\FA;
 use app\components\widgets\FlagIcon;
 use app\models\Language;
 use app\models\SupportLevel;
 use yii\base\Widget;
-use yii\helpers\Html;
 
 class LanguageSupportLevelWarning extends Widget
 {

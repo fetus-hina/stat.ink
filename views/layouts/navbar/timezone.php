@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 use app\components\widgets\FA;
-use yii\helpers\Html;
+use app\components\helpers\Html;
 
 ?>
 <?= Html::a(

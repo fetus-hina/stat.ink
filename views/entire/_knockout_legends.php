@@ -1,5 +1,5 @@
 <?php
-use yii\helpers\Html;
+use app\components\helpers\Html;
 
 $list = [
   'ko' => Yii::t('app', 'Knockout'),

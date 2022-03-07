@@ -10,7 +10,7 @@ use app\models\RankGroup2;
 use app\models\Rule2;
 use statink\yii2\stages\spl2\Spl2Stage;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Html;
+use app\components\helpers\Html;
 use yii\helpers\Json;
 use yii\widgets\ActiveForm;
 

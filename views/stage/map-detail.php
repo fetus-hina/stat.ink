@@ -6,7 +6,7 @@ use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
 use app\models\Map;
 use app\models\Rule;
-use yii\helpers\Html;
+use app\components\helpers\Html;
 use yii\helpers\Url;
 use yii\web\View;
 

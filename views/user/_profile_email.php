@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use app\components\widgets\FA;
 use app\models\User;
-use yii\helpers\Html;
+use app\components\helpers\Html;
 use yii\web\View;
 
 /**

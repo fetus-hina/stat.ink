@@ -12,9 +12,9 @@ namespace app\components\widgets;
 
 use Yii;
 use app\assets\SalmonStatsHistoryAsset;
+use app\components\helpers\Html;
 use yii\base\Widget;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Html;
 use yii\helpers\Json;
 use yii\helpers\Url;
 use yii\web\ServerErrorHttpException;

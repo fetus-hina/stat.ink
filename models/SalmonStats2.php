@@ -14,8 +14,8 @@ use DateTime;
 use Yii;
 use app\components\behaviors\TimestampBehavior;
 use app\components\helpers\DateTimeFormatter;
+use app\components\helpers\Html;
 use yii\db\ActiveRecord;
-use yii\helpers\Html;
 
 use const FILTER_VALIDATE_INT;
 

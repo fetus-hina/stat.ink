@@ -18,7 +18,7 @@ use yii\bootstrap\ActiveForm;
 use yii\data\ArrayDataProvider;
 use yii\grid\GridView;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Html;
+use app\components\helpers\Html;
 use yii\helpers\Json;
 use yii\helpers\Url;
 
@@ -188,12 +188,14 @@ $this->registerCss(implode('', [
 $sum = function (string $column) use ($weapon): string {
     return sprintf(
         'SUM(CASE %s END)',
-        sprintf(
-            'WHEN [[weapon_id]] = %d THEN [[%s]]',
-            $weapon->id,
-            $column
-        ),
-        'ELSE 0'
+        implode(' ', [
+            sprintf(
+                'WHEN [[weapon_id]] = %d THEN [[%s]]',
+                $weapon->id,
+                $column
+            ),
+            'ELSE 0',
+        ]),
     );
 };
 $q = StatWeapon2UseCountPerWeek::find()

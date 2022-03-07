@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 use app\assets\SalmonWorkListConfigAsset;
-use yii\helpers\Html;
+use app\components\helpers\Html;
 
 SalmonWorkListConfigAsset::register($this);
 ?>

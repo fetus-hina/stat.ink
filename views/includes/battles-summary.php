@@ -2,7 +2,7 @@
 
 use app\assets\AppAsset;
 use app\components\widgets\BattleSummaryItemWidget;
-use yii\helpers\Html;
+use app\components\helpers\Html;
 
 AppAsset::register($this);
 

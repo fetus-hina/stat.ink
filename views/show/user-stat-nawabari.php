@@ -6,7 +6,7 @@ use app\assets\InlineListAsset;
 use app\assets\UserStatNawabariAsset;
 use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
-use yii\helpers\Html;
+use app\components\helpers\Html;
 use yii\helpers\Json;
 
 $title = Yii::t('app', '{name}\'s Battle Stats (Turf War)', ['name' => $user->name]);

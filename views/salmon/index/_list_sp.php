@@ -6,7 +6,7 @@ use app\assets\SimpleBattleListAsset;
 use app\components\i18n\Formatter;
 use app\components\widgets\FA;
 use app\models\Salmon2;
-use yii\helpers\Html;
+use app\components\helpers\Html;
 use yii\widgets\ListView;
 
 SimpleBattleListAsset::register($this);

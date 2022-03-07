@@ -8,7 +8,7 @@ use app\components\widgets\ColorSchemeDialog;
 use app\components\widgets\CookieAlert;
 use app\components\widgets\LanguageDialog;
 use app\components\widgets\TimezoneDialog;
-use yii\helpers\Html;
+use app\components\helpers\Html;
 use yii\helpers\Json;
 
 AppAsset::register($this);

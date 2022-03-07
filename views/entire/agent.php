@@ -5,7 +5,7 @@ use Base32\Base32;
 use app\assets\EntireAgentAsset;
 use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
-use yii\helpers\Html;
+use app\components\helpers\Html;
 use yii\helpers\Json;
 
 $title = sprintf(

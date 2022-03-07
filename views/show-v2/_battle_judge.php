@@ -1,5 +1,5 @@
 <?php
-use yii\helpers\Html;
+use app\components\helpers\Html;
 
 $this->registerCss('.cell-judge .progress{width:100%;min-width:150px;margin-bottom:0}');
 

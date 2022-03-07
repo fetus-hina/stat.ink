@@ -9,7 +9,7 @@ use app\components\widgets\RemoteFollowDialog;
 use app\components\widgets\UserIcon;
 use app\models\Rank;
 use statink\yii2\twitter\webintents\TwitterWebIntentsAsset;
-use yii\helpers\Html;
+use app\components\helpers\Html;
 use yii\helpers\Url;
 use yii\web\View;
 

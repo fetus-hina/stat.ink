@@ -9,6 +9,7 @@
 namespace app\models\api\v2;
 
 use Yii;
+use app\components\helpers\Html;
 use app\models\Ability2;
 use app\models\Brand2;
 use app\models\GearType;
@@ -16,7 +17,6 @@ use app\models\openapi\Util as OapiUtil;
 use yii\base\Model;
 use yii\db\ActiveQuery;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Html;
 
 use const SORT_ASC;
 

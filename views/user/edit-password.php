@@ -6,7 +6,7 @@ use app\components\widgets\AdWidget;
 use app\models\PasswordForm;
 use jp3cki\yii2\zxcvbn\ZxcvbnAsset;
 use yii\bootstrap\ActiveForm;
-use yii\helpers\Html;
+use app\components\helpers\Html;
 use yii\web\View;
 
 /**

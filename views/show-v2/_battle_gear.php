@@ -4,7 +4,12 @@ declare(strict_types=1);
 
 use app\components\widgets\Spl2GearAbilitiesSummaryWidget;
 use app\models\GearConfiguration2;
-use yii\helpers\Html;
+use app\components\helpers\Html;
+use yii\web\View;
+
+/**
+ * @var View $this
+ */
 
 $gears = [
   $battle->headgear,

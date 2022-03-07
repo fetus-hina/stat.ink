@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
-use yii\helpers\Html;
+use app\components\helpers\Html;
 use yii\web\View;
 
 /**

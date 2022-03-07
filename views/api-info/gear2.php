@@ -6,7 +6,7 @@ use app\components\widgets\SnsWidget;
 use app\models\GearType;
 use app\models\Language;
 use statink\yii2\sortableTable\SortableTableAsset;
-use yii\helpers\Html;
+use app\components\helpers\Html;
 
 TableResponsiveForceAsset::register($this);
 

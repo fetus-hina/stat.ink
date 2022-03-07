@@ -5,7 +5,7 @@ use app\components\widgets\BattleFilterWidget;
 use app\components\widgets\SnsWidget;
 use app\models\Language;
 use yii\bootstrap\ActiveForm;
-use yii\helpers\Html;
+use app\components\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\ListView;
 

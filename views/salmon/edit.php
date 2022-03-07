@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 use yii\bootstrap\ActiveForm;
-use yii\helpers\Html;
+use app\components\helpers\Html;
 use yii\helpers\Url;
 
 $title = Yii::t('app-salmon2', 'Edit job #{jobNumber}', [

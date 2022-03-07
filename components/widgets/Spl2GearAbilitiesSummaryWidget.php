@@ -13,12 +13,12 @@ namespace app\components\widgets;
 use Yii;
 use app\assets\GearAbilityNumberSwitcherAsset;
 use app\assets\Spl2WeaponAsset;
+use app\components\helpers\Html;
 use app\models\Ability2Info;
 use yii\base\Widget;
 use yii\bootstrap\ButtonDropdown;
 use yii\data\ArrayDataProvider;
 use yii\grid\GridView;
-use yii\helpers\Html;
 use yii\helpers\Json;
 
 class Spl2GearAbilitiesSummaryWidget extends Widget

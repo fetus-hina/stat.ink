@@ -15,7 +15,7 @@ use app\components\widgets\alerts\LanguageSupportLevelWarning;
 use app\components\widgets\alerts\MaintenanceInfo;
 use app\components\widgets\alerts\PleaseUseLatest;
 use statink\yii2\paintball\PaintballAsset;
-use yii\helpers\Html;
+use app\components\helpers\Html;
 use yii\web\Controller;
 use yii\web\View;
 

@@ -12,9 +12,9 @@ namespace app\components\widgets;
 
 use GeoIp2\Model\City;
 use Yii;
+use app\components\helpers\Html;
 use statink\yii2\jdenticon\Jdenticon;
 use yii\base\Widget;
-use yii\helpers\Html;
 
 class LocationColumnWidget extends Widget
 {

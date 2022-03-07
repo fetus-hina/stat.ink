@@ -8,7 +8,7 @@ use app\models\Battle2;
 use app\models\Map2;
 use app\models\Rule2;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Html;
+use app\components\helpers\Html;
 use yii\helpers\Json;
 
 $title = Yii::t('app', "{name}'s Battle Stats (Turf War)", ['name' => $user->name]);

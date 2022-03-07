@@ -233,23 +233,20 @@ class User extends ActiveRecord implements IdentityInterface
 
     public function getIsSlackIntegrated(): bool
     {
-        $row = $this->getSlacks()
-            ->andWhere(['suspended' => false])
-            ->asArray()
-            ->limit(1)
-            ->one();
-        return !!$row;
+        return Slack::find()
+            ->andWhere([
+                'suspended' => false,
+                'user_id' => $this->id,
+            ])
+            ->exists();
     }
 
     public function getIsOstatusIntegrated(): bool
     {
-        $row = OstatusPubsubhubbub::find()
+        return OstatusPubsubhubbub::find()
             ->active()
             ->andWhere(['topic' => $this->id])
-            ->asArray()
-            ->limit(1)
-            ->one();
-        return !!$row;
+            ->exists();
     }
 
     /**

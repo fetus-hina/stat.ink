@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 use yii\bootstrap\NavBar;
-use yii\helpers\Html;
+use app\components\helpers\Html;
 
 if (YII_ENV === 'prod') {
     return;

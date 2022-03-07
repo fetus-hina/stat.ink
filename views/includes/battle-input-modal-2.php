@@ -5,7 +5,7 @@ use app\components\Version;
 use app\models\Map2;
 use app\models\Rank2;
 use app\models\Rule2;
-use yii\helpers\Html;
+use app\components\helpers\Html;
 
 BattleInputAsset::register($this);
 

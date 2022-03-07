@@ -34,7 +34,7 @@ use app\models\openapi\SplatNet2ID;
 use app\models\openapi\Util as OpenApiUtil;
 use app\models\openapi\sec\ApiToken;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Html;
+use app\components\helpers\Html;
 use yii\helpers\UnsetArrayValue;
 use yii\helpers\Url;
 

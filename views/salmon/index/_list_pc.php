@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 use app\assets\BattleListGroupHeaderAsset;
@@ -6,6 +7,7 @@ use app\assets\SalmonWorkListAsset;
 use app\assets\Spl2WeaponAsset;
 use app\components\grid\SalmonActionColumn;
 use app\components\helpers\Battle as BattleHelper;
+use app\components\helpers\Html;
 use app\components\i18n\Formatter;
 use app\components\widgets\FA;
 use app\components\widgets\Label;
@@ -16,10 +18,15 @@ use app\models\Weapon2;
 use yii\grid\Column;
 use yii\grid\GridView;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Html;
+use yii\web\View;
 use yii\widgets\ListView;
 
+/**
+ * @var View $this
+ */
+
 SalmonWorkListAsset::register($this);
+
 ?>
 <div class="text-center">
   <?= ListView::widget([
@@ -429,8 +436,11 @@ SalmonWorkListAsset::register($this);
         (function () use ($fmt, $from, $shift, $user): string {
           if ($shift) {
             $weapons = ArrayHelper::getColumn(
-              $shift->getWeapons()->with('weapon')->all(),
-              'weapon'
+              SalmonWeapon2::find()
+                ->with(['weapon'])
+                ->andWhere(['schedule_id' => $shift->id])
+                ->all(),
+              'weapon',
             );
             $asset = $weapons ? Spl2WeaponAsset::register(Yii::$app->getView()) : null;
 

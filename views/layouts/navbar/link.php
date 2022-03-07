@@ -5,7 +5,7 @@ declare(strict_types=1);
 use app\assets\AppLinkAsset;
 use app\components\widgets\FA;
 use app\components\widgets\FlagIcon;
-use yii\helpers\Html;
+use app\components\helpers\Html;
 use yii\web\View;
 
 /**

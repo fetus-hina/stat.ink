@@ -13,9 +13,9 @@ namespace app\components\widgets;
 use Yii;
 use app\assets\FlexboxAsset;
 use app\assets\LanguageDialogAsset;
+use app\components\helpers\Html;
 use app\models\Language;
 use app\models\SupportLevel;
-use yii\helpers\Html;
 
 use const SORT_ASC;
 

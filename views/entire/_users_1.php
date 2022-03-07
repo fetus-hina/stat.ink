@@ -1,7 +1,7 @@
 <?php
 use Base32\Base32;
 use yii\data\ArrayDataProvider;
-use yii\helpers\Html;
+use app\components\helpers\Html;
 use yii\grid\GridView;
 ?>
 <?= Html::tag(

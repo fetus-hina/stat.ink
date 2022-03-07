@@ -32,7 +32,6 @@ class IndexFilterForm extends Model
 
     public function rules()
     {
-        // {{{
         return [
             [['screen_name'], 'required',
                 'when' => fn (self $model): bool => ($model->only === 'splatnet_number') ||
@@ -76,10 +75,12 @@ class IndexFilterForm extends Model
                 'when' => fn (self $model): bool => $model->only === 'splatnet_number',
             ],
         ];
-        // }}}
     }
 
-    public function find(): ?ActiveQuery
+    /**
+     * @return Salmon2[]|null
+     */
+    public function findAll(): ?array
     {
         if (!$this->validate()) {
             return null;
@@ -98,8 +99,8 @@ class IndexFilterForm extends Model
                 'user',
                 'waves',
             ]);
-
-        return $this->decorateQuery($query);
+        $this->decorateQuery($query);
+        return $query->all();
     }
 
     protected function decorateQuery(ActiveQuery $query): ActiveQuery

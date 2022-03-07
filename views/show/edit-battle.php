@@ -1,5 +1,5 @@
 <?php
-use yii\helpers\Html;
+use app\components\helpers\Html;
 use yii\bootstrap\ActiveForm;
 
 $title = Yii::t('app', 'Edit Your Battle: #{0}', [

@@ -16,7 +16,7 @@ use app\models\WeaponType2;
 use yii\bootstrap\ActiveForm;
 use yii\db\ActiveQuery;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Html;
+use app\components\helpers\Html;
 
 $title = Yii::t('app', 'Winning Percentage based on K/D');
 $this->title = Yii::$app->name . ' | ' . $title;

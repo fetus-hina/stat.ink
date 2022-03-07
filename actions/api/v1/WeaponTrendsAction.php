@@ -35,7 +35,7 @@ class WeaponTrendsAction extends BaseAction
             ];
         }
 
-        return Yii::$app->db->transaction(function () {
+        return Yii::$app->db->transaction(function () use ($form) {
             $query = StatWeaponMapTrend::find()
                 ->with(['weapon', 'weapon.subweapon', 'weapon.special'])
                 ->where([

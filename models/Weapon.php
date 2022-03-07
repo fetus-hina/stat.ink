@@ -10,7 +10,6 @@ namespace app\models;
 
 use Yii;
 use app\components\helpers\Translator;
-use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
 
@@ -41,19 +40,6 @@ class Weapon extends ActiveRecord
 {
     use SafeFindOneTrait;
     use openapi\Util;
-
-    public static function find()
-    {
-        return new class (static::class) extends ActiveQuery {
-            public function naturalOrder(): ActiveQuery
-            {
-                return $this->orderBy([
-                    'type_id' => SORT_ASC,
-                    'key' => SORT_ASC,
-                ]);
-            }
-        };
-    }
 
     /**
      * @inheritdoc
@@ -145,12 +131,12 @@ class Weapon extends ActiveRecord
 
     public function getCanonical()
     {
-        return $this->hasOne(static::class, ['id' => 'canonical_id']);
+        return $this->hasOne(self::class, ['id' => 'canonical_id']);
     }
 
     public function getMainReference()
     {
-        return $this->hasOne(static::class, ['id' => 'main_group_id']);
+        return $this->hasOne(self::class, ['id' => 'main_group_id']);
     }
 
     public function toJsonArray()
@@ -167,8 +153,12 @@ class Weapon extends ActiveRecord
     public static function openApiSchema(): array
     {
         $values = static::find()
-            ->naturalOrder()
+            ->orderBy([
+                'type_id' => SORT_ASC,
+                'key' => SORT_ASC,
+            ])
             ->all();
+
         return [
             'type' => 'object',
             'description' => Yii::t('app-apidoc1', 'Weapon information'),
@@ -202,7 +192,7 @@ class Weapon extends ActiveRecord
 
     public static function openapiExample(): array
     {
-        $model = static::find()
+        $model = self::find()
             ->where(['key' => 'wakaba'])
             ->limit(1)
             ->one();

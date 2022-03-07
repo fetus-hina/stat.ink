@@ -17,6 +17,7 @@ use app\components\jobs\SlackJob;
 use app\components\web\ServiceUnavailableHttpException;
 use app\models\Agent;
 use app\models\Battle;
+use app\models\BattleDeathReason;
 use app\models\User;
 use app\models\api\v1\DeleteBattleForm;
 use app\models\api\v1\PatchBattleForm;
@@ -61,11 +62,11 @@ class BattleAction extends BaseAction
             ],
             [
                 [['id'], 'exist',
-                    'targetClass' => Battle::className(),
+                    'targetClass' => Battle::class,
                     'targetAttribute' => 'id',
                 ],
                 [['screen_name'], 'exist',
-                    'targetClass' => User::className(),
+                    'targetClass' => User::class,
                     'targetAttribute' => 'screen_name',
                 ],
                 [['newer_than', 'older_than'], 'integer'],
@@ -529,17 +530,18 @@ class BattleAction extends BaseAction
     {
         return $this->runGetImpl2(
             $battle,
-            $battle->getBattleDeathReasons()
-                ->with([
-                    'reason',
-                    'reason.type',
-                ])
+            BattleDeathReason::find()
+                ->with(['reason', 'reason.type'])
+                ->andWhere(['battle_id' => $battle->id])
                 ->all(),
             $battle->battlePlayers,
             $battle->agent
         );
     }
 
+    /**
+     * @param BattleDeathReason[] $deathReasons
+     */
     private function runGetImpl2(
         Battle $battle,
         array $deathReasons,
@@ -548,7 +550,7 @@ class BattleAction extends BaseAction
     ) {
         $ret = $battle->toJsonArray();
         $ret['death_reasons'] = array_map(
-            fn ($model): array => $model->toJsonArray(),
+            fn (BattleDeathReason $model): array => $model->toJsonArray(),
             $deathReasons
         );
         $ret['players'] = is_array($players) && $players

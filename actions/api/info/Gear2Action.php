@@ -29,10 +29,14 @@ class Gear2Action extends BaseAction
         if (!$type = $this->getType()) {
             throw new NotFoundHttpException(Yii::t('yii', 'Page not found.'));
         }
-        $gears = $type->getGear2s()->with(['brand', 'ability'])->all();
+
+        $gears = Gear2::find()
+            ->with(['brand', 'ability'])
+            ->andWhere(['type_id' => $type->id])
+            ->all();
         usort($gears, fn (Gear2 $a, Gear2 $b): int => strnatcasecmp(
             $a->translatedName,
-            $b->translatedName
+            $b->translatedName,
         ));
         $langs = Language::find()->standard()->all();
         $sysLang = Yii::$app->language;
@@ -47,6 +51,7 @@ class Gear2Action extends BaseAction
                 return strnatcasecmp($a->name, $b->name);
             }
         });
+
         return $this->controller->render('gear2', [
             'type'  => $type,
             'langs' => $langs,

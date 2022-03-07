@@ -13,9 +13,9 @@ namespace app\components\widgets;
 use Yii;
 use app\assets\LeaguePowerHistoryAsset;
 use app\components\helpers\Battle as BattleHelper;
+use app\components\helpers\Html;
 use app\models\Battle2;
 use yii\base\Widget;
-use yii\helpers\Html;
 use yii\helpers\Json;
 use yii\helpers\Url;
 

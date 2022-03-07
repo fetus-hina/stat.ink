@@ -12,7 +12,7 @@ use app\models\Rule;
 use app\models\SummarizedWeaponVsWeapon;
 use yii\data\ArrayDataProvider;
 use yii\grid\GridView;
-use yii\helpers\Html;
+use app\components\helpers\Html;
 use yii\helpers\Json;
 use yii\helpers\Url;
 

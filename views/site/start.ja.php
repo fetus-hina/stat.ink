@@ -6,7 +6,7 @@ use app\assets\AboutAsset;
 use app\assets\AppLinkAsset;
 use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
-use yii\helpers\Html;
+use app\components\helpers\Html;
 use yii\web\View;
 
 /**

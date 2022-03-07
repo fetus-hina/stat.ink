@@ -9,7 +9,7 @@ use app\components\widgets\BattleFilterWidget;
 use app\components\widgets\FA;
 use app\components\widgets\SnsWidget;
 use app\components\widgets\WinLoseLegend;
-use yii\helpers\Html;
+use app\components\helpers\Html;
 use yii\helpers\Json;
 use yii\helpers\Url;
 

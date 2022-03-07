@@ -10,7 +10,7 @@ use app\components\widgets\SnsWidget;
 use yii\data\ArrayDataProvider;
 use yii\grid\GridView;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Html;
+use app\components\helpers\Html;
 use yii\helpers\Json;
 use yii\widgets\ActiveForm;
 

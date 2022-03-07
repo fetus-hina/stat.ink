@@ -12,8 +12,8 @@ namespace app\models\openapi;
 
 use Base32\Base32;
 use Yii;
+use app\components\helpers\Html;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Html;
 
 use const DIRECTORY_SEPARATOR;
 

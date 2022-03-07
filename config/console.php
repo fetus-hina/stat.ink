@@ -5,13 +5,10 @@ use app\commands\MigrateController;
 use yii\db\Connection;
 use yii\gii\Module as GiiModule;
 use yii\gii\generators\model\Generator as GiiModelGenerator;
-use yii\helpers\ArrayHelper;
 use yii\log\FileTarget as FileLogTarget;
 use yii\mutex\PgsqlMutex;
 
 Yii::setAlias('@tests', dirname(__DIR__) . '/tests');
-
-Yii::$classMap[ArrayHelper::class] = __DIR__ . '/../components/overwrite/yii/helpers/ArrayHelper.php';
 
 $params = require __DIR__ . '/params.php';
 if (file_exists(__DIR__ . '/deepl.php')) {

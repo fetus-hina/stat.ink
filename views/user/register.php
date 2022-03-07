@@ -7,7 +7,7 @@ use app\components\widgets\FA;
 use app\models\RegisterForm;
 use jp3cki\yii2\zxcvbn\ZxcvbnAsset;
 use yii\bootstrap\ActiveForm;
-use yii\helpers\Html;
+use app\components\helpers\Html;
 use yii\web\View;
 
 /**

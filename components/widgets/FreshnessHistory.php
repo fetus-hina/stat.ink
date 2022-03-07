@@ -11,11 +11,11 @@ declare(strict_types=1);
 namespace app\components\widgets;
 
 use app\assets\FreshnessHistoryAsset;
+use app\components\helpers\Html;
 use app\models\Battle2;
 use app\models\Mode2;
 use app\models\Rule2;
 use yii\base\Widget;
-use yii\helpers\Html;
 use yii\helpers\Json;
 
 use const SORT_DESC;

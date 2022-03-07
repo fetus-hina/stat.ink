@@ -12,6 +12,7 @@ namespace app\models\api\v2\salmon;
 
 use Yii;
 use app\components\behaviors\AutoTrimAttributesBehavior;
+use app\components\helpers\Html;
 use app\models\Salmon2;
 use app\models\SalmonEvent2;
 use app\models\SalmonWaterLevel2;
@@ -19,7 +20,6 @@ use app\models\SalmonWave2;
 use app\models\openapi\Util as OpenAPIUtil;
 use yii\base\Model;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Html;
 
 use const FILTER_VALIDATE_INT;
 use const SORT_ASC;
