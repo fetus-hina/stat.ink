@@ -9,7 +9,7 @@
 use app\models\Ability;
 use yii\db\Migration;
 
-class m151227_084933_brand extends Migration
+final class m151227_084933_brand extends Migration
 {
     public function up()
     {
@@ -23,7 +23,7 @@ class m151227_084933_brand extends Migration
         $this->addForeignKey('fk_brand_1', 'brand', 'strength_id', 'ability', 'id');
         $this->addForeignKey('fk_brand_2', 'brand', 'weakness_id', 'ability', 'id');
 
-        $a = $this->abilities;
+        $a = $this->getAbilities();
         $this->batchInsert('brand', ['key', 'name', 'strength_id', 'weakness_id'], [
             [ 'firefin',    'Firefin',      $a->ink_saver_sub,          $a->ink_recovery_up ],
             [ 'forge',      'Forge',        $a->special_duration_up,    $a->ink_saver_sub ],
@@ -50,7 +50,7 @@ class m151227_084933_brand extends Migration
         $this->dropTable('brand');
     }
 
-    public function getAbilities()
+    public function getAbilities(): stdClass
     {
         $ret = [];
         foreach (Ability::find()->all() as $a) {

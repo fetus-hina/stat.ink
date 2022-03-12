@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2016 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2022 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -21,7 +21,11 @@ use yii\web\ViewAction as BaseAction;
 
 use const SORT_ASC;
 
-class AgentAction extends BaseAction
+/**
+ * @property-read array[] $postStats
+ * @property-read array<string, scalar> $combineds
+ */
+final class AgentAction extends BaseAction
 {
     public $form;
 
@@ -67,7 +71,10 @@ class AgentAction extends BaseAction
         ]);
     }
 
-    public function getPostStats()
+    /**
+     * @return array[]
+     */
+    public function getPostStats(): array
     {
         $list = StatAgentUser::find()
             ->andWhere(['agent' => Base32::decode($this->form->b32name)])
@@ -105,7 +112,8 @@ class AgentAction extends BaseAction
         return array_values($ret);
     }
 
-    public function getCombineds()
+    /** @return array<string, scalar> */
+    public function getCombineds(): array
     {
         return AgentGroup::find()
             ->innerJoinWith([

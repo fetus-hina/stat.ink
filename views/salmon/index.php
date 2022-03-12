@@ -2,12 +2,25 @@
 
 declare(strict_types=1);
 
+use app\components\helpers\Html;
 use app\components\widgets\AdWidget;
 use app\components\widgets\SalmonFilterWidget;
 use app\components\widgets\SalmonUserInfo;
 use app\components\widgets\SnsWidget;
-use app\components\helpers\Html;
+use app\models\Salmon2FilterForm;
+use app\models\User;
+use yii\data\DataProviderInterface;
 use yii\helpers\Url;
+use yii\web\View;
+
+/**
+ * @var DataProviderInterface $dataProvider
+ * @var Salmon2FilterForm $filter
+ * @var User $user
+ * @var View $this
+ * @var bool $spMode
+ * @var string $permLink
+ */
 
 $title = Yii::t('app-salmon2', "{name}'s Salmon Log", ['name' => $user->name]);
 $this->title = sprintf('%s | %s', Yii::$app->name, $title);

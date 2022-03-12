@@ -1,7 +1,15 @@
 <?php
+
 declare(strict_types=1);
 
 use app\components\helpers\Html;
+use app\models\Salmon2;
+use yii\web\View;
+
+/**
+ * @var Salmon2 $model
+ * @var View $this
+ */
 
 if (!$model->isEditable) {
   return;

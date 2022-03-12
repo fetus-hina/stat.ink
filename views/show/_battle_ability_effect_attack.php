@@ -1,5 +1,11 @@
 <?php
+
 use app\components\helpers\Html;
+use app\models\Battle;
+
+/**
+ * @var Battle $battle
+ */
 
 if (!$attack = $battle->weaponAttack) {
   return '';

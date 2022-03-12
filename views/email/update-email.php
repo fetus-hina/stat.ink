@@ -4,6 +4,14 @@ declare(strict_types=1);
 
 use app\components\helpers\IPHelper;
 use app\components\helpers\UserAgentHelper;
+use app\models\User;
+
+/**
+ * @var User $user
+ * @var string $lang
+ * @var string $new
+ * @var string $old
+ */
 
 $req = Yii::$app->request;
 $t = function (

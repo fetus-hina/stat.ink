@@ -1,13 +1,17 @@
 <?php
-/**
- * This view is used by console/controllers/MigrateController.php
- * The following variables are available in this view:
- */
-/* @var $className string the new migration class name without namespace */
-/* @var $namespace string the new migration class namespace */
 
+declare(strict_types=1);
+
+use app\components\db\GearMigration;
 use app\models\Ability2;
 use app\models\Brand2;
+use yii\base\View;
+
+/**
+ * @var View $this
+ * @var string $className
+ * @var string $namespace
+ */
 
 $ability = implode(', ', array_map(
     function (Ability2 $model): string {
@@ -28,7 +32,7 @@ $brand = implode(', ', array_map(
     'namespace' => $namespace,
     'inTransaction' => true,
     'traits' => [
-        'app\components\db\GearMigration',
+        GearMigration::class,
     ],
     'upCode' => implode("\n", [
         "foreach (\$this->getGears() as \$gearData) {",

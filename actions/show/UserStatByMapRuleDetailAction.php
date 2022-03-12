@@ -15,11 +15,11 @@ use app\models\BattleFilterForm;
 use app\models\Map;
 use app\models\Rule;
 use app\models\User;
+use yii\base\Action;
 use yii\db\Query;
 use yii\web\NotFoundHttpException;
-use yii\web\ViewAction as BaseAction;
 
-class UserStatByMapRuleDetailAction extends BaseAction
+final class UserStatByMapRuleDetailAction extends Action
 {
     use UserStatFilterTrait;
 

@@ -74,8 +74,8 @@ class MonthAction extends BaseAction
     {
         return $this->controller->render('month', [
             'rules' => $this->buildData(),
-            'prevUrl' => $this->prevMonthUrl,
-            'nextUrl' => $this->nextMonthUrl,
+            'prevUrl' => $this->getPrevMonthUrl(),
+            'nextUrl' => $this->getNextMonthUrl(),
             'month' => (new DateTimeImmutable())
                 ->setTimezone(new DateTimeZone(Yii::$app->timeZone))
                 ->setDate($this->year, $this->month, 1)

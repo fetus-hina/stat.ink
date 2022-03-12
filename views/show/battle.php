@@ -10,6 +10,7 @@ use app\assets\GearCalcAsset;
 use app\assets\GraphIconAsset;
 use app\assets\PhotoSwipeSimplifyAsset;
 use app\components\helpers\ArrayHelper;
+use app\components\helpers\Html;
 use app\components\helpers\IkalogVersion;
 use app\components\widgets\AdWidget;
 use app\components\widgets\EmbedVideo;
@@ -17,12 +18,20 @@ use app\components\widgets\FA;
 use app\components\widgets\KillRatioBadgeWidget;
 use app\components\widgets\SnsWidget;
 use app\components\widgets\TimestampColumnWidget;
+use app\models\Battle;
+use app\models\BattleDeathReason;
 use app\models\Special;
-use app\components\helpers\Html;
+use app\models\User;
 use yii\helpers\Json;
 use yii\helpers\Url;
 use yii\web\JsExpression;
 use yii\web\View;
+
+/**
+ * @var Battle $battle
+ * @var User $user
+ * @var View $this
+ */
 
 $this->context->layout = 'main';
 
@@ -495,8 +504,9 @@ $specials = Special::find()->asArray()->all();
             <td><?= Html::encode($battle->max_kill_streak) ?></td>
           </tr>
 <?php } ?>
-<?php $deathReasons = $battle->getBattleDeathReasons()
+<?php $deathReasons = BattleDeathReason::find()
   ->with(['reason'])
+  ->andWhere(['battle_id' => $battle->id])
   ->orderBy(['{{battle_death_reason}}.[[count]]' => SORT_DESC])
   ->all() ?>
 <?php if ($deathReasons) { ?>

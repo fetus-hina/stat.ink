@@ -1,9 +1,20 @@
 <?php
+
+use app\components\helpers\Html;
 use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
-use app\components\helpers\Html;
+use app\models\Splatfest;
+use app\models\SplatfestTeam;
 use yii\helpers\Json;
 use yii\web\View;
+
+/**
+ * @var Splatfest $fest
+ * @var SplatfestTeam $alpha
+ * @var SplatfestTeam $bravo
+ * @var View $this
+ * @var array{at: int, alpha: int, bravo: int}[] $results
+ */
 
 $title = "フェス「{$fest->name}」の各チーム勝率";
 $this->title = implode(' | ', [

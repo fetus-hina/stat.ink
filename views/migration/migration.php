@@ -2,19 +2,17 @@
 
 declare(strict_types=1);
 
+use app\components\db\Migration;
 use yii\helpers\StringHelper;
 
 /**
- * This view is used by console/controllers/MigrateController.php
- * The following variables are available in this view:
- *
- * @var $className string the new migration class name without namespace
- * @var $namespace string the new migration class namespace
- * @var $traits string[]
- * @var $inTransaction bool
- * @var $upCode string
- * @var $downCode string
- * @var $extraCode string
+ * @var bool $inTransaction
+ * @var string $className
+ * @var string|null $downCode
+ * @var string|null $extraCode
+ * @var string $namespace
+ * @var string|null $upCode
+ * @var string[]|null $traits
  */
 
 $inTransaction = (isset($inTransaction) && $inTransaction);
@@ -38,15 +36,13 @@ $codeFmt = function (?string $code, int $indent): string {
 };
 
 $uses = [
-    'app\components\db\Migration',
+    Migration::class,
 ];
 if (isset($traits)) {
     $traits = array_unique((array)$traits);
     $uses = array_merge($uses, array_map(
-        function (string $trait): string {
-            return ltrim($trait, '\\');
-        },
-        $traits
+        fn (string $trait): string => ltrim($trait, '\\'),
+        $traits,
     ));
 }
 sort($uses);

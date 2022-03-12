@@ -4,14 +4,20 @@ declare(strict_types=1);
 
 use app\assets\AppLinkAsset;
 use app\assets\UserMiniinfoAsset;
+use app\components\helpers\Html;
 use app\components\widgets\ActivityWidget;
 use app\components\widgets\RemoteFollowDialog;
 use app\components\widgets\UserIcon;
 use app\models\Rank;
+use app\models\User;
 use statink\yii2\twitter\webintents\TwitterWebIntentsAsset;
-use app\components\helpers\Html;
 use yii\helpers\Url;
 use yii\web\View;
+
+/**
+ * @var User $user
+ * @var View $this
+ */
 
 UserMiniinfoAsset::register($this);
 $icons = AppLinkAsset::register($this);

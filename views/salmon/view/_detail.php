@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use app\components\helpers\Battle as BattleHelper;
+use app\components\helpers\Html;
 use app\components\i18n\Formatter;
 use app\components\widgets\FA;
 use app\components\widgets\Label;
@@ -11,15 +12,19 @@ use app\components\widgets\SalmonHazardHistory;
 use app\models\Salmon2;
 use app\models\SalmonSchedule2;
 use app\models\SalmonTitle2;
+use app\models\User;
 use yii\bootstrap\Progress;
 use yii\helpers\ArrayHelper;
-use app\components\helpers\Html;
 use yii\helpers\Url;
+use yii\i18n\Formatter as YiiFormatter;
 use yii\web\View;
 use yii\widgets\DetailView;
 
 /**
+ * @var Salmon2 $model
+ * @var User $user
  * @var View $this
+ * @var YiiFormatter $formatter
  */
 
 $formatter = clone Yii::$app->formatter;

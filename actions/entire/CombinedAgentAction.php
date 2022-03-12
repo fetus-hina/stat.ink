@@ -22,7 +22,10 @@ use yii\web\ViewAction as BaseAction;
 
 use const SORT_ASC;
 
-class CombinedAgentAction extends BaseAction
+/**
+ * @property-read array[] $postStats
+ */
+final class CombinedAgentAction extends BaseAction
 {
     public $form;
     public $agentGroup;
@@ -71,7 +74,8 @@ class CombinedAgentAction extends BaseAction
         ]);
     }
 
-    public function getPostStats()
+    /** @return array[] */
+    public function getPostStats(): array
     {
         $query = (new Query())
             ->select([

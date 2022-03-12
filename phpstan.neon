@@ -2,7 +2,7 @@ includes:
   - vendor/proget-hq/phpstan-yii2/extension.neon
 
 parameters:
-  level: 0
+  level: 1
 
   checkMissingIterableValueType: false
 
@@ -24,7 +24,10 @@ parameters:
   
   scanFiles:
     - vendor/yiisoft/yii2/Yii.php
-  
+
+  typeAliases:
+    URL: 'string|array{0: string}'
+
   yii2:
     config_path: %rootDir%/../../../config/web.php
   

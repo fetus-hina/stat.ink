@@ -33,17 +33,18 @@ use const SORT_DESC;
  * @property string $api_key
  * @property string $join_at
  * @property string $nnid
- * @property string $sw_friend_code
  * @property string $twitter
  * @property int $ikanakama
- * @property int $ikanakama2
  * @property int $env_id
  * @property string $blackout
- * @property string $blackout_list
+ * @property string $sw_friend_code
  * @property int $default_language_id
+ * @property int $ikanakama2
  * @property int $region_id
+ * @property string $blackout_list
  * @property int $link_mode_id
  * @property string $email
+ * @property int $email_lang_id
  *
  * @property Battle[] $battles
  * @property Battle2[] $battle2s
@@ -60,6 +61,12 @@ use const SORT_DESC;
  * @property UserWeapon[] $userWeapons
  * @property UserWeapon2[] $userWeapon2s
  * @property Weapon[] $weapons
+ *
+ * @property-read Region2 guessedSplatfest2Region
+ * @property-read string $iconUrl
+ * @property-read string $identiconHash
+ * @property-read string $jdenticonPngUrl
+ * @property-read string $jdenticonUrl
  */
 class User extends ActiveRecord implements IdentityInterface
 {
@@ -563,7 +570,7 @@ class User extends ActiveRecord implements IdentityInterface
         return filemtime($this->getUserJsonPath());
     }
 
-    public function getIdenticonHash()
+    public function getIdenticonHash(): string
     {
         return substr(
             hash_hmac(

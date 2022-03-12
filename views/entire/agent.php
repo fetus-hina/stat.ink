@@ -1,12 +1,21 @@
 <?php
+
 declare(strict_types=1);
 
 use Base32\Base32;
 use app\assets\EntireAgentAsset;
+use app\components\helpers\Html;
 use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
-use app\components\helpers\Html;
 use yii\helpers\Json;
+use yii\web\View;
+
+/**
+ * @var View $this
+ * @var array<string, scalar> $combineds
+ * @var array[] $posts
+ * @var string $name
+ */
 
 $title = sprintf(
   '%s - %s',

@@ -38,6 +38,11 @@ if ($rules === null) {
   unset($mode);
 }
 
+/**
+ * @var View $this
+ * @var array $data
+ */
+
 ?>
 <div class="row">
 <?php foreach ($rules as $rule) { ?>

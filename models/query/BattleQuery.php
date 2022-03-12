@@ -16,10 +16,10 @@ use app\components\helpers\BattleSummarizer;
 use app\components\helpers\Resource;
 use app\models\BattleFilterForm;
 use app\models\BattleImageType;
+use app\models\BattleSummary;
 use app\models\SplatoonVersion;
 use app\models\Timezone;
 use app\models\Weapon;
-use stdClass;
 use yii\db\ActiveQuery;
 use yii\db\Query;
 
@@ -64,7 +64,12 @@ final class BattleQuery extends ActiveQuery
         if ($value === '') {
             return $this;
         }
-        return $this->innerJoinWith('user')->andWhere(['{{user}}.[[screen_name]]' => $value]);
+
+        return $this
+            ->innerJoinWith('user')
+            ->andWhere([
+                '{{user}}.[[screen_name]]' => $value,
+            ]);
     }
 
     public function filterByLobby(?string $value): self
@@ -73,9 +78,12 @@ final class BattleQuery extends ActiveQuery
         if ($value === '') {
             return $this;
         }
-        $this->innerJoinWith('lobby');
-        $this->andWhere(['{{lobby}}.[[key]]' => $value]);
-        return $this;
+
+        return $this
+            ->innerJoinWith('lobby')
+            ->andWhere([
+                '{{lobby}}.[[key]]' => $value,
+            ]);
     }
 
     public function filterByRule(?string $value): self
@@ -86,8 +94,10 @@ final class BattleQuery extends ActiveQuery
         }
         $this->innerJoinWith('rule');
         if (substr($value, 0, 1) === '@') {
-            $this->innerJoinWith('rule.mode');
-            $this->andWhere(['{{game_mode}}.[[key]]' => substr($value, 1)]);
+            $this->innerJoinWith('rule.mode')
+                ->andWhere([
+                    '{{game_mode}}.[[key]]' => substr($value, 1),
+                ]);
         } else {
             $this->andWhere(['{{rule}}.[[key]]' => $value]);
         }
@@ -100,7 +110,12 @@ final class BattleQuery extends ActiveQuery
         if ($value === '') {
             return $this;
         }
-        return $this->innerJoinWith('map')->andWhere(['{{map}}.[[key]]' => $value]);
+
+        return $this
+            ->innerJoinWith('map')
+            ->andWhere([
+                '{{map}}.[[key]]' => $value,
+            ]);
     }
 
     public function filterByWeapon(?string $value): self
@@ -109,6 +124,7 @@ final class BattleQuery extends ActiveQuery
         if ($value === '') {
             return $this;
         }
+
         $this->innerJoinWith('weapon');
         switch (substr($value, 0, 1)) {
             default:
@@ -143,10 +159,14 @@ final class BattleQuery extends ActiveQuery
 
     public function filterByRank(?string $rank): self
     {
+        if ($rank === null) {
+            return $this;
+        }
+
         if (substr($rank, 0, 1) === '~') {
             $this->innerJoinWith(['rank', 'rank.group']);
             $this->andWhere(['{{rank_group}}.[[key]]' => substr($rank, 1)]);
-        } elseif ($rank != '') {
+        } elseif ($rank !== '') {
             $this->innerJoinWith('rank');
             $this->andWhere(['{{rank}}.[[key]]' => $rank]);
         }
@@ -168,6 +188,10 @@ final class BattleQuery extends ActiveQuery
 
     public function filterByTerm(?string $value, array $options = []): self
     {
+        if ($value === null) {
+            return $this;
+        }
+
         $raii = null;
         $now = (int)($_SERVER['REQUEST_TIME'] ?? time());
         $currentPeriod = BattleHelper::calcPeriod($now);
@@ -250,16 +274,18 @@ final class BattleQuery extends ActiveQuery
 
     public function filterByIdRange(?int $idFrom, ?int $idTo): self
     {
-        if ($idFrom != '' && $idFrom > 0) {
+        if ($idFrom !== null && $idFrom > 0) {
             $this->andWhere(['>=', '{{battle}}.[[id]]', (int)$idFrom]);
         }
-        if ($idTo != '' && $idTo > 0) {
+
+        if ($idTo !== null && $idTo > 0) {
             $this->andWhere(['<=', '{{battle}}.[[id]]', (int)$idTo]);
         }
+
         return $this;
     }
 
-    public function getSummary(): stdClass
+    public function getSummary(): BattleSummary
     {
         return BattleSummarizer::getSummary($this);
     }

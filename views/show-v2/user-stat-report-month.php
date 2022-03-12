@@ -1,12 +1,23 @@
 <?php
+
 declare(strict_types=1);
 
 use app\assets\Spl2WeaponAsset;
 use app\assets\UserStatReportAsset;
+use app\components\helpers\Html;
 use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
 use app\models\Battle2;
-use app\components\helpers\Html;
+use app\models\User;
+use yii\web\View;
+
+/**
+ * @var URL|null $next
+ * @var URL|null $prev
+ * @var User $user
+ * @var View $this
+ * @var array[] $list
+ */
 
 $title = Yii::t('app', "{name}'s Battle Report", ['name' => $user->name]);
 $this->title = Yii::$app->name . ' | ' . $title;

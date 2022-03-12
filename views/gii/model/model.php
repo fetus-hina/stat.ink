@@ -12,15 +12,21 @@
  * @license http://www.yiiframework.com/license/
  */
 
-/* @var $this yii\web\View */
-/* @var $generator yii\gii\generators\model\Generator */
-/* @var $tableName string full table name */
-/* @var $className string class name */
-/* @var $queryClassName string query class name */
-/* @var $tableSchema yii\db\TableSchema */
-/* @var $labels string[] list of attribute labels (name => label) */
-/* @var $rules string[] list of validation rules */
-/* @var $relations array list of relations (name => relation declaration) */
+use yii\db\TableSchema;
+use yii\gii\generators\model\Generator;
+use yii\web\View;
+
+/**
+ * @var Generator $generator
+ * @var TableSchema $tableSchema
+ * @var View $this
+ * @var array<string, array> $relations list of relations (name => relation declaration)
+ * @var array<string, string> $labels list of attribute labels (name => label)
+ * @var string $className class name
+ * @var string $queryClassName query class name
+ * @var string $tableName full table name
+ * @var string[] $rules list of validation rules
+ */
 
 $now = (new \DateTimeImmutable('now', new \DateTimeZone('Asia/Tokyo')))
     ->setTimestamp($_SERVER['REQUEST_TIME'] ?? time());

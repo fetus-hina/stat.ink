@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 use app\actions\entire\KDWin2Action;
 use app\assets\TableResponsiveForceAsset;
+use app\components\helpers\Html;
 use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
 use app\components\widgets\kdWin\KDWinTable;
 use app\components\widgets\kdWin\LegendWidget;
+use app\models\KDWin2FilterForm;
 use app\models\Map2;
 use app\models\RankGroup2;
 use app\models\Rule2;
@@ -16,7 +18,12 @@ use app\models\WeaponType2;
 use yii\bootstrap\ActiveForm;
 use yii\db\ActiveQuery;
 use yii\helpers\ArrayHelper;
-use app\components\helpers\Html;
+use yii\web\View;
+
+/**
+ * @var KDWin2FilterForm $filter
+ * @var View $this
+ */
 
 $title = Yii::t('app', 'Winning Percentage based on K/D');
 $this->title = Yii::$app->name . ' | ' . $title;

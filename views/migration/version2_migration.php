@@ -1,12 +1,14 @@
 <?php
-/**
- * This view is used by console/controllers/MigrateController.php
- * The following variables are available in this view:
- */
-/* @var $className string the new migration class name without namespace */
-/* @var $namespace string the new migration class namespace */
 
+use app\components\db\VersionMigration;
 use app\models\SplatoonVersion2;
+use yii\base\View;
+
+/**
+ * @var View $this
+ * @var string $className string the new migration class name without namespace
+ * @var string $namespace string the new migration class namespace
+ */
 
 $latestVersion = SplatoonVersion2::find()
     ->orderBy(['id' => SORT_DESC])
@@ -18,7 +20,7 @@ $latestVersion = SplatoonVersion2::find()
     'namespace' => $namespace,
     'inTransaction' => true,
     'traits' => [
-        'app\components\db\VersionMigration',
+        VersionMigration::class,
     ],
     'upCode' => implode("\n", [
         '$this->upVersion2(',

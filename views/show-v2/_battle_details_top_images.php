@@ -1,9 +1,17 @@
 <?php
+
 declare(strict_types=1);
 
 use app\assets\PhotoSwipeSimplifyAsset;
+use app\models\BattleImage2;
 use yii\bootstrap\Html;
 use yii\helpers\Url;
+use yii\web\View;
+
+/**
+ * @var View $this
+ * @var (BattleImage2|null)[] $images
+ */
 
 $parts = array_filter(
   array_map(
@@ -16,19 +24,21 @@ $parts = array_filter(
         Html::a(
           Html::img(
             $image->url,
-            ['style' => [
-              'width' => '100%',
-              'height' => 'auto',
-            ]]
+            [
+              'style' => [
+                'width' => '100%',
+                'height' => 'auto',
+              ],
+            ]
           ),
-          $image->url
+          $image->url,
         ),
         ['class' => 'col-xs-12 col-md-6 image-container']
       );
     },
-    $images
+    $images,
   ),
-  function (?string $html) : bool {
+  function (?string $html): bool {
     return $html !== null;
   }
 );

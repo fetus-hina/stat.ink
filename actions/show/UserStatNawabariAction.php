@@ -34,9 +34,9 @@ class UserStatNawabariAction extends BaseAction
         }
 
         return $this->controller->render('user-stat-nawabari', [
+            'inked' => $this->getInkedData(),
             'user' => $this->user,
-            'inked' => $this->inkedData,
-            'wp' => $this->wpData,
+            'wp' => $this->getWpData(),
         ]);
     }
 

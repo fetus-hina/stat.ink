@@ -37,11 +37,11 @@ class UserStatGachiAction extends BaseAction
         }
 
         return $this->controller->render('user-stat-gachi', [
+            'maps' => $this->getMaps(),
+            'recentRank' => $this->getRecentRankData(),
+            'recentWP' => $this->getRecentWPData(),
             'user' => $this->user,
-            'userRankStat' => $this->userRankStat,
-            'recentRank' => $this->recentRankData,
-            'recentWP' => $this->recentWPData,
-            'maps' => $this->maps,
+            'userRankStat' => $this->getUserRankStat(),
         ]);
     }
 

@@ -4,6 +4,11 @@ declare(strict_types=1);
 
 use app\components\helpers\IPHelper;
 use app\components\helpers\UserAgentHelper;
+use app\models\User;
+
+/**
+ * @var User $user
+ */
 
 $req = Yii::$app->request;
 $lang = ($user->emailLang ? $user->emailLang->lang : null) ?? 'en-US';

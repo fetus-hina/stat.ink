@@ -22,8 +22,8 @@ class m160108_142541_tz_country extends Migration
         $this->addForeignKey('fk_timezone_country_1', 'timezone_country', 'timezone_id', 'timezone', 'id');
         $this->addForeignKey('fk_timezone_country_2', 'timezone_country', 'country_id', 'country', 'id');
 
-        $tz = $this->timezones;
-        $cc = $this->countries;
+        $tz = $this->getTimezones();
+        $cc = $this->getCountries();
         $this->batchInsert('timezone_country', ['timezone_id', 'country_id'], [
             [ $tz['Asia/Tokyo'],            $cc['jp'] ],
 

@@ -57,14 +57,14 @@ class WeaponAction extends BaseAction
         }
 
         return $this->controller->render('weapon', [
-            'weapons' => $this->weapons,
+            'weapons' => $this->getWeapons(),
             'weapon' => $this->weapon,
-            'rules' => $this->rules,
+            'rules' => $this->getRules(),
             'rule' => $this->rule,
-            'maps' => $this->maps,
-            'killDeath' => $this->killDeath,
-            'mapWP' => $this->mapWinPercentage,
-            'useCount' => $this->useCount,
+            'maps' => $this->getMaps(),
+            'killDeath' => $this->getKillDeath(),
+            'mapWP' => $this->getMapWinPercentage(),
+            'useCount' => $this->getUseCount(),
         ]);
     }
 

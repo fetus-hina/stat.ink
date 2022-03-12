@@ -3,13 +3,19 @@
 declare(strict_types=1);
 
 use app\assets\AppAsset;
+use app\components\helpers\Html;
 use app\components\helpers\I18n;
 use app\components\widgets\ColorSchemeDialog;
 use app\components\widgets\CookieAlert;
 use app\components\widgets\LanguageDialog;
 use app\components\widgets\TimezoneDialog;
-use app\components\helpers\Html;
 use yii\helpers\Json;
+use yii\web\View;
+
+/**
+ * @var View $this
+ * @var string $content
+ */
 
 AppAsset::register($this);
 Yii::$app->theme->registerAssets($this);

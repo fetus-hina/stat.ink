@@ -139,7 +139,7 @@ class BattleKillDeathColumn extends Widget
             'span',
             $this->formatter->asText(vsprintf('%s: %s', [
                 Yii::t('app', 'Kill Ratio'),
-                $this->formatter->asDecimal($this->killRatio, 2),
+                $this->formatter->asDecimal($this->getKillRatio(), 2),
             ])),
             [
                 'class' => 'auto-tooltip',

@@ -1,5 +1,13 @@
 <?php
+
 use app\components\helpers\Html;
+use app\models\Battle2;
+use yii\web\View;
+
+/**
+ * @var Battle2 $model
+ * @var View $this
+ */
 
 $this->registerCss('.cell-judge .progress{width:100%;min-width:150px;margin-bottom:0}');
 

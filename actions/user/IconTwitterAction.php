@@ -35,7 +35,7 @@ class IconTwitterAction extends BaseAction
     {
         $request = Yii::$app->request;
         $response = Yii::$app->response;
-        $twitter = $this->twitterService;
+        $twitter = $this->getTwitterService();
 
         try {
             if ($request->get('denied')) {
@@ -43,7 +43,7 @@ class IconTwitterAction extends BaseAction
                 return $response->redirect(Url::to(['user/edit-icon'], true), 303);
             } elseif ($request->get('oauth_token')) {
                 // 帰ってきた
-                $token = $this->tokenStorage->retrieveAccessToken('Twitter');
+                $token = $this->getTokenStorage()->retrieveAccessToken('Twitter');
                 $twitter->requestAccessToken(
                     (string)$request->get('oauth_token'),
                     (string)$request->get('oauth_verifier'),
@@ -109,7 +109,7 @@ class IconTwitterAction extends BaseAction
         return $factory->createService(
             'twitter',
             $credential,
-            $this->tokenStorage
+            $this->getTokenStorage(),
         );
     }
 

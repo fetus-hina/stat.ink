@@ -32,9 +32,9 @@ class WeaponsAction extends ViewAction
     public function run()
     {
         return $this->controller->render('weapons', [
-            'uses' => $this->weaponUses,
-            'entire' => $this->entireWeapons,
-            'users' => $this->userWeapons,
+            'entire' => $this->getEntireWeapons(),
+            'users' => $this->getUserWeapons(),
+            'uses' => $this->getWeaponUses(),
         ]);
     }
 

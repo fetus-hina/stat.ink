@@ -1,11 +1,17 @@
 <?php
+
 use app\assets\AppLinkAsset;
 use app\assets\BattleInputAsset;
 use app\components\Version;
+use app\components\helpers\Html;
 use app\models\Map2;
 use app\models\Rank2;
 use app\models\Rule2;
-use app\components\helpers\Html;
+use yii\web\View;
+
+/**
+ * @var View $this
+ */
 
 BattleInputAsset::register($this);
 

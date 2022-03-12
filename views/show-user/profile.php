@@ -6,10 +6,21 @@ use app\assets\AppLinkAsset;
 use app\components\widgets\ActivityWidget;
 use app\components\widgets\UserIcon;
 use app\components\widgets\battle\PanelListWidget;
+use app\models\Battle2;
+use app\models\Battle;
+use app\models\Salmon2;
+use app\models\User;
 use yii\bootstrap\Html;
 use yii\helpers\Json;
 use yii\helpers\Url;
 use yii\web\JsExpression;
+use yii\web\View;
+
+/**
+ * @var User $user
+ * @var View $this
+ * @var string $permLink
+ */
 
 function fa(string $icon, string $category = 'fa') : string
 {
@@ -164,9 +175,10 @@ $this->registerCss(implode('', array_map(
                     'screen_name' => $user->screen_name,
                 ],
                 'titleLinkText' => Yii::t('app', 'List'),
-                'models' => $user->getBattle2s()
+                'models' => Battle2::find()
                     ->with(['user', 'map', 'weapon'])
                     ->innerJoinWith(['mode', 'rule'])
+                    ->andWhere(['battle2.user_id' => $user->id])
                     ->orderBy(['battle2.id' => SORT_DESC])
                     ->limit(5)
                     ->all(),
@@ -180,12 +192,9 @@ $this->registerCss(implode('', array_map(
                     'screen_name' => $user->screen_name,
                 ],
                 'titleLinkText' => Yii::t('app', 'List'),
-                'models' => $user->getSalmonResults()
-                    ->with([
-                        'players',
-                        'stage',
-                        'user',
-                    ])
+                'models' => Salmon2::find()
+                    ->andWhere(['user_id' => $user->id])
+                    ->with(['players', 'stage', 'user'])
                     ->orderBy(['id' => SORT_DESC])
                     ->limit(5)
                     ->all(),
@@ -203,11 +212,12 @@ $this->registerCss(implode('', array_map(
                     ],
                 ],
                 'titleLinkText' => Yii::t('app', 'List'),
-                'models' => $user->getBattle2s()
+                'models' => Battle2::find()
                     ->with(['user', 'map', 'weapon'])
                     ->innerJoinWith(['mode', 'rule'])
-                    ->andWhere(['and',
-                        ['rule2.key' => 'nawabari'],
+                    ->andWhere([
+                        'battle2.user_id' => $user->id,
+                        'rule2.key' => 'nawabari',
                     ])
                     ->orderBy(['battle2.id' => SORT_DESC])
                     ->limit(5)
@@ -225,10 +235,11 @@ $this->registerCss(implode('', array_map(
                     ],
                 ],
                 'titleLinkText' => Yii::t('app', 'List'),
-                'models' => $user->getBattle2s()
+                'models' => Battle2::find()
                     ->with(['user', 'map', 'weapon'])
                     ->innerJoinWith(['mode', 'rule'])
                     ->andWhere(['and',
+                        ['battle2.user_id' => $user->id],
                         ['<>', '{{rule2}}.[[key]]', 'nawabari'],
                     ])
                     ->orderBy(['battle2.id' => SORT_DESC])
@@ -259,11 +270,12 @@ $this->registerCss(implode('', array_map(
                     ],
                 ],
                 'titleLinkText' => Yii::t('app', 'List'),
-                'models' => $user->getBattles()
+                'models' => Battle::find()
                     ->with(['user', 'map', 'weapon'])
                     ->innerJoinWith(['lobby', 'rule'])
-                    ->andWhere(['and',
-                        ['rule.key' => 'nawabari'],
+                    ->andWhere([
+                        'battle.user_id' => $user->id,
+                        'rule.key' => 'nawabari',
                     ])
                     ->orderBy(['battle.id' => SORT_DESC])
                     ->limit(5)
@@ -281,11 +293,12 @@ $this->registerCss(implode('', array_map(
                     ],
                 ],
                 'titleLinkText' => Yii::t('app', 'List'),
-                'models' => $user->getBattles()
+                'models' => Battle::find()
                     ->with(['user', 'map', 'weapon'])
                     ->innerJoinWith(['lobby', 'rule'])
-                    ->andWhere(['and',
-                        ['rule.key' => ['area', 'yagura', 'hoko']],
+                    ->andWhere([
+                        'battle.user_id' => $user->id,
+                        'rule.key' => ['area', 'yagura', 'hoko'],
                     ])
                     ->orderBy(['battle.id' => SORT_DESC])
                     ->limit(5)

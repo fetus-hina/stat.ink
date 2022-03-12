@@ -17,7 +17,11 @@ use app\components\helpers\Html;
 use yii\base\Widget;
 use yii\bootstrap\BootstrapAsset;
 
-class PrivateNote extends Widget
+/**
+ * @property-read string $buttonId
+ * @property-read string $textId
+ */
+final class PrivateNote extends Widget
 {
     public $text;
     public $formatter;

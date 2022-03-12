@@ -82,8 +82,8 @@ class m160604_121751_fix_gears extends Migration
     private function upHeadgear()
     {
         $type = GearType::findOne(['key' => 'headgear'])->id;
-        $a = $this->abilities;
-        $b = $this->brands;
+        $a = $this->getAbilities();
+        $b = $this->getBrands();
         $this->batchInsert('gear', ['type_id', 'key', 'brand_id', 'name', 'ability_id'], [
             [ $type, 'classic_straw_boater', $b->skalop,   'Classic Straw Boater', $a->special_duration_up ],
             [ $type, 'full_moon_glasses',    $b->krak_on,  'Full Moon Glasses',    $a->quick_super_jump ],
@@ -98,8 +98,8 @@ class m160604_121751_fix_gears extends Migration
     private function upClothing()
     {
         $type = GearType::findOne(['key' => 'clothing'])->id;
-        $a = $this->abilities;
-        $b = $this->brands;
+        $a = $this->getAbilities();
+        $b = $this->getBrands();
         $this->batchInsert('gear', ['type_id', 'key', 'brand_id', 'name', 'ability_id'], [
             [ $type, 'black_polo',            $b->zekko,    'Black Polo',            $a->recon ],
             [ $type, 'blue_sailor_suit',      $b->forge,    'Blue Sailor Suit',      $a->bomb_range_up ],
@@ -124,8 +124,8 @@ class m160604_121751_fix_gears extends Migration
     private function upShoes()
     {
         $type = GearType::findOne(['key' => 'shoes'])->id;
-        $a = $this->abilities;
-        $b = $this->brands;
+        $a = $this->getAbilities();
+        $b = $this->getBrands();
         $this->batchInsert('gear', ['type_id', 'key', 'brand_id', 'name', 'ability_id'], [
             [ $type, 'blue_sea_slugs',    $b->tentatek,   'Blue Sea Slugs',    $a->special_charge_up ],
             [ $type, 'bubble_rain_boots', $b->inkline,    'Bubble Rain Boots', $a->damage_up ],

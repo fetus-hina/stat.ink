@@ -1,23 +1,32 @@
 <?php
+
 declare(strict_types=1);
 
 use app\assets\Spl2WeaponAsset;
+use app\components\helpers\Html;
 use app\components\widgets\AdWidget;
 use app\components\widgets\FA;
 use app\components\widgets\GameModeIcon;
 use app\components\widgets\SnsWidget;
+use app\models\Rule2;
+use app\models\SplatoonVersionGroup2;
 use app\models\StatWeapon2Tier;
 use yii\bootstrap\Nav;
 use yii\data\ArrayDataProvider;
 use yii\grid\GridView;
 use yii\helpers\ArrayHelper;
-use app\components\helpers\Html;
 use yii\helpers\Json;
 use yii\helpers\Url;
 use yii\web\View;
 
 /**
+ * @var Rule2 $rule
+ * @var SplatoonVersionGroup2 $versionGroup
+ * @var StatWeapon2Tier[] $data
  * @var View $this
+ * @var array<string, array{month: string, vTag: string, vName: string}> $versions
+ * @var array<string, array{name: string, enabled: bool}>[] $rules
+ * @var string $month
  */
 
 $title = implode(' | ', [

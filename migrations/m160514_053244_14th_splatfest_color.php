@@ -17,12 +17,12 @@ class m160514_053244_14th_splatfest_color extends Migration
         $this->update(
             'splatfest_team',
             ['color_hue' => 169],
-            ['fest_id' => $this->festIdList, 'team_id' => 1]
+            ['fest_id' => $this->getFestIdList(), 'team_id' => 1]
         );
         $this->update(
             'splatfest_team',
             ['color_hue' => 33],
-            ['fest_id' => $this->festIdList, 'team_id' => 2]
+            ['fest_id' => $this->getFestIdList(), 'team_id' => 2]
         );
     }
 
@@ -31,11 +31,12 @@ class m160514_053244_14th_splatfest_color extends Migration
         $this->update(
             'splatfest_team',
             ['color_hue' => null],
-            ['fest_id' => $this->festIdList]
+            ['fest_id' => $this->getFestIdList()]
         );
     }
 
-    public function getFestIdList()
+    /** @return int[] */
+    public function getFestIdList(): array
     {
         return ArrayHelper::getColumn(
             Splatfest::find()

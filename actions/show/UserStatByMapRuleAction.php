@@ -13,17 +13,17 @@ use app\models\BattleFilterForm;
 use app\models\Map;
 use app\models\Rule;
 use app\models\User;
+use yii\base\Action;
 use yii\db\Query;
 use yii\web\NotFoundHttpException;
-use yii\web\ViewAction as BaseAction;
 
-class UserStatByMapRuleAction extends BaseAction
+final class UserStatByMapRuleAction extends Action
 {
     use UserStatFilterTrait;
 
-    public function run()
+    public function run(): string
     {
-        $request = Yii::$app->getRequest();
+        $request = Yii::$app->request;
         $user = User::findOne(['screen_name' => $request->get('screen_name')]);
         if (!$user) {
             throw new NotFoundHttpException(Yii::t('app', 'Could not find user'));

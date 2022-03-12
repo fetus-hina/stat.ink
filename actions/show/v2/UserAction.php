@@ -119,7 +119,7 @@ class UserAction extends BaseAction
 
         $summary = $battle->summary;
 
-        $template = $this->viewMode === 'simple' ? 'user.simple.php' : 'user';
+        $template = $this->getViewMode() === 'simple' ? 'user.simple.php' : 'user';
         return $this->controller->render($template, [
             'user' => $user,
             'filter' => $filter,
@@ -136,7 +136,8 @@ class UserAction extends BaseAction
         ]);
     }
 
-    public function getViewMode()
+    /** @return 'standard'|'simple' */
+    public function getViewMode(): string
     {
         $request = Yii::$app->request;
         $mode = null;

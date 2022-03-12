@@ -4,7 +4,23 @@ declare(strict_types=1);
 
 use app\assets\Spl2WeaponAsset;
 use app\components\widgets\Label;
+use app\models\Battle2;
+use app\models\BattlePlayer2;
 use yii\bootstrap\Html;
+use yii\web\View;
+
+/**
+ * @var 'my'|'his' $teamKey
+ * @var Battle2 $battle
+ * @var BattlePlayer2 $players
+ * @var View $this
+ * @var array<string, int|numeric-string> $historyCount
+ * @var bool $hasKD
+ * @var bool $hasRankedInked
+ * @var bool $hidePoint
+ * @var bool $hideRank
+ * @var int $bonus
+ */
 
 $fmt = Yii::$app->formatter;
 $icons = Spl2WeaponAsset::register($this);

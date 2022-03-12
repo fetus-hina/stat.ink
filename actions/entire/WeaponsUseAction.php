@@ -41,10 +41,10 @@ class WeaponsUseAction extends BaseAction
         }
 
         return $this->controller->render('weapons-use', [
-            'form' => $form,
-            'weapons' => $this->weapons,
-            'rules' => $this->rules,
             'data' => $this->getData($form),
+            'form' => $form,
+            'rules' => $this->getRules(),
+            'weapons' => $this->getWeapons(),
         ]);
     }
 

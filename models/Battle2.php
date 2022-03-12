@@ -168,9 +168,16 @@ use const SORT_STRING;
  * @property SplatoonVersion2 $version
  * @property Weapon2 $weapon
  *
+ * @property-read Battle2Splatnet|null $splatnetJson
+ * @property-read BattleDeathReason2[] $battleDeathReasons
+ * @property-read BattleEvents2|null $events
  * @property-read BattleImage2|null $battleImageGear
  * @property-read BattleImage2|null $battleImageJudge
  * @property-read BattleImage2|null $battleImageResult
+ * @property-read BattlePlayer2[] $battlePlayers
+ * @property-read BattlePlayer2[] $battlePlayersPure
+ * @property-read Freshness2|null $freshnessModel
+ * @property-read int|null $inked
  */
 class Battle2 extends ActiveRecord
 {
@@ -1170,7 +1177,7 @@ class Battle2 extends ActiveRecord
 
         // t_str = t.strftime("%Y,%m,%d,%H,%M")
         // t_str を埋め込むときはそれぞれ別フィールドになるようにする（"" でくくって一つにしたりしない）
-        $t = strtotime($this->end_at ?: $this->at);
+        $t = strtotime($this->end_at ?: $this->created_at);
         return [
             (string)$t,
             date('Y', $t),
@@ -1191,7 +1198,7 @@ class Battle2 extends ActiveRecord
 
     public function toCsvArray(): array
     {
-        $t = strtotime($this->end_at ?: $this->at);
+        $t = strtotime($this->end_at ?: $this->created_at);
         $mode = (function (): string {
             if ($this->lobby && $this->lobby->key === 'private') {
                 return 'Private Battle';

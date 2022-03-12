@@ -42,7 +42,7 @@ class Weapons2Action extends BaseAction
 
         return $this->controller->render('weapons2', [
             'form' => $form,
-            'uses' => $this->weaponUses,
+            'uses' => $this->getWeaponUses(),
             'entire' => $this->getEntireWeapons($form),
         ]);
     }

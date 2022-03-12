@@ -116,10 +116,12 @@ use const SORT_STRING;
  * @property SplatoonVersion $splatoonVersion
  * @property SplatoonVersion $agentGameVersion
  * @property TurfwarWinBonus $bonus
+ * @property ?BattleEvents $battleEvents
  *
  * @property-read BattleImage|null $battleImageGear
  * @property-read BattleImage|null $battleImageJudge
  * @property-read BattleImage|null $battleImageResult
+ * @property-read string|null $events
  */
 class Battle extends ActiveRecord
 {

@@ -1,19 +1,24 @@
 <?php
-/**
- * This view is used by console/controllers/MigrateController.php
- * The following variables are available in this view:
- */
-/* @var $className string the new migration class name without namespace */
-/* @var $namespace string the new migration class namespace */
 
+declare(strict_types=1);
+
+use app\components\db\SalmonWeaponMigration;
 use app\models\Weapon2;
+use yii\base\View;
+
+/**
+ * @var View $this
+ * @var string $className
+ * @var string $namespace
+ */
+
 ?>
 <?= $this->renderFile(__DIR__ . '/migration.php', [
     'className' => $className,
     'namespace' => $namespace,
     'inTransaction' => true,
     'traits' => [
-        'app\components\db\SalmonWeaponMigration',
+        SalmonWeaponMigration::class,
     ],
     'upCode' => implode("\n", [
         '$this->upSalmonWeapons2([',

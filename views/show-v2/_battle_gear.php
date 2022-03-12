@@ -2,12 +2,14 @@
 
 declare(strict_types=1);
 
-use app\components\widgets\Spl2GearAbilitiesSummaryWidget;
-use app\models\GearConfiguration2;
 use app\components\helpers\Html;
+use app\components\widgets\Spl2GearAbilitiesSummaryWidget;
+use app\models\Battle2;
+use app\models\GearConfiguration2;
 use yii\web\View;
 
 /**
+ * @var Battle2 $battle
  * @var View $this
  */
 

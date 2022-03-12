@@ -25,7 +25,7 @@ use yii\web\ViewAction as BaseAction;
 
 use const SORT_ASC;
 
-class UsersAction extends BaseAction
+final class UsersAction extends BaseAction
 {
     public function run()
     {
@@ -34,12 +34,12 @@ class UsersAction extends BaseAction
             ->execute();
 
         return $this->controller->render('users', [
-            'posts' => $this->postStats,
-            'posts2' => $this->postStats2,
-            'agents' => $this->agentStats,
-            'agentNames' => $this->agentNames,
-            'combineds' => $this->combineds,
-            'agents2' => $this->agentStats2,
+            'agentNames' => $this->getAgentNames(),
+            'agents' => $this->getAgentStats(),
+            'agents2' => $this->getAgentStats2(),
+            'combineds' => $this->getCombineds(),
+            'posts' => $this->getPostStats(),
+            'posts2' => $this->getPostStats2(),
         ]);
     }
 
