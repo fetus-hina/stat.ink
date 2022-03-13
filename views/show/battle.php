@@ -518,8 +518,8 @@ $specials = Special::find()->asArray()->all();
 <?php foreach ($deathReasons as $deathReason) { ?>
                   <tr>
                     <td><?= Html::encode(
-                      ($deathReason->reason && $deathReason->reason->translatedName)
-                        ? $deathReason->reason->translatedName
+                      $deathReason->reason
+                        ? $deathReason->reason->getTranslatedName()
                         : '?'
                     ) ?></td>
                     <td style="padding:0 10px">:</td>
@@ -562,7 +562,7 @@ $specials = Special::find()->asArray()->all();
                 : '?',
               $battle->my_team_final_percent === null
                 ? '? %'
-                : Yii::$app->formatter->asPercent($battle->my_team_final_percent / 100, 1),
+                : Yii::$app->formatter->asPercent((float)$battle->my_team_final_percent / 100, 1),
             ])) ?></td>
           </tr>
           <tr>
@@ -573,7 +573,7 @@ $specials = Special::find()->asArray()->all();
                 : '?',
               $battle->his_team_final_percent === null
                 ? '? %'
-                : Yii::$app->formatter->asPercent($battle->his_team_final_percent / 100, 1),
+                : Yii::$app->formatter->asPercent((float)$battle->his_team_final_percent / 100, 1),
             ])) ?></td>
           </tr>
 <?php } ?>
@@ -719,23 +719,23 @@ $specials = Special::find()->asArray()->all();
           <tr>
             <th><?= Html::encode(Yii::t('app', 'User Agent')) ?></th>
             <td><?= vsprintf('%s / %s', [
-              ($battle->agent->productUrl)
+              $battle->agent->getProductUrl()
                 ? Html::a(
                   Html::encode($battle->agent->name),
-                  $battle->agent->productUrl,
+                  $battle->agent->getProductUrl(),
                   [
                     'target' => '_blank',
-                    'rel' => 'nofollow',
+                    'rel' => 'nofollow noopener',
                   ]
                 )
                 : Html::encode($battle->agent->name),
-              ($battle->agent->versionUrl)
+              $battle->agent->getVersionUrl()
                 ? Html::a(
                   Html::encode($battle->agent->version),
-                  $battle->agent->versionUrl,
+                  $battle->agent->getVersionUrl(),
                   [
                     'target' => '_blank',
-                    'rel' => 'nofollow',
+                    'rel' => 'nofollow noopener',
                   ]
                 )
                 : Html::encode($battle->agent->version),

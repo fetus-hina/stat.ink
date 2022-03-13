@@ -123,7 +123,7 @@ $namePartInner = trim(implode(' ', [
                 0,
                 40
               );
-            })($player->anonymizeSeed),
+            })($player->getAnonymizeSeed()),
           ],
         ]
       );

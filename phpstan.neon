@@ -2,7 +2,7 @@ includes:
   - vendor/proget-hq/phpstan-yii2/extension.neon
 
 parameters:
-  level: 1
+  level: 2
 
   checkMissingIterableValueType: false
 
@@ -28,6 +28,9 @@ parameters:
   typeAliases:
     URL: 'string|array{0: string}'
 
+  stubFiles:
+    - data/phpstan/yii/web/View.php
+
   yii2:
     config_path: %rootDir%/../../../config/web.php
   
@@ -39,3 +42,7 @@ parameters:
     - YII_ENV_TEST
   
   tmpDir: runtime/phpstan
+
+  ignoreErrors:
+    - '/Access to an undefined property yii\\base\\ViewContextInterface::\$layout\./'
+    - '/Access to an undefined property yii\\base\\DynamicModel::/'

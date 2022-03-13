@@ -512,9 +512,7 @@ class Player extends Model
                         static::oapiKeyValueTable(
                             Yii::t('app-apidoc2', 'Weapon'),
                             'app-weapon2',
-                            SalmonMainWeapon2::find()
-                                ->sorted()
-                                ->all(),
+                            SalmonMainWeapon2::find()->sorted()->all(), // @phpstan-ignore-line
                             null,
                             null,
                             null,

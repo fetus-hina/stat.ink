@@ -716,7 +716,7 @@ class StatController extends Controller
                 fn ($col) => "[[{$col}]]",
                 array_keys($select->select)
             )),
-            $select->createCommand()->rawsql
+            $select->createCommand()->rawSql,
         );
         $db->createCommand($sql)->execute();
         $transaction->commit();

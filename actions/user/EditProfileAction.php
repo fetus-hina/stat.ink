@@ -8,15 +8,18 @@
 
 namespace app\actions\user;
 
+use Exception;
+use Throwable;
 use Yii;
+use app\components\helpers\T;
 use app\models\Environment;
 use app\models\Language;
 use app\models\ProfileForm;
 use app\models\Region;
+use yii\base\Action;
 use yii\helpers\ArrayHelper;
-use yii\web\ViewAction as BaseAction;
 
-class EditProfileAction extends BaseAction
+final class EditProfileAction extends Action
 {
     public function run()
     {
@@ -29,13 +32,14 @@ class EditProfileAction extends BaseAction
                 $transaction = Yii::$app->db->beginTransaction();
                 try {
                     $ident->attributes = $form->attributes;
-                    $ident->env_id = $this->findOrCreateEnvironmentId($form->env);
+                    $ident->env_id = $this->findOrCreateEnvironmentId((string)$form->env);
                     if ($ident->save()) {
                         $transaction->commit();
-                        $this->controller->redirect(['user/profile']);
+                        T::webController($this->controller)
+                            ->redirect(['user/profile']);
                         return;
                     }
-                } catch (\Throwable $e) {
+                } catch (Throwable $e) {
                 }
                 $transaction->rollback();
             }
@@ -78,7 +82,7 @@ class EditProfileAction extends BaseAction
         ]);
     }
 
-    protected function findOrCreateEnvironmentId($text)
+    protected function findOrCreateEnvironmentId(string $text): int
     {
         $text = preg_replace('/\x0d\x0a|\x0d|\x0a/', "\n", (string)$text);
         $text = trim($text);
@@ -96,7 +100,7 @@ class EditProfileAction extends BaseAction
         $model->sha256sum = $hash;
         $model->text = $text;
         if (!$model->save()) {
-            throw new \Exception();
+            throw new Exception();
         }
         return $model->id;
     }

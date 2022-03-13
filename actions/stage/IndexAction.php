@@ -6,19 +6,23 @@
  * @author AIZAWA Hina <hina@fetus.jp>
  */
 
+declare(strict_types=1);
+
 namespace app\actions\stage;
 
-use yii\web\ViewAction as BaseAction;
+use app\components\helpers\T;
+use yii\base\Action;
+use yii\web\Response;
 
-class IndexAction extends BaseAction
+final class IndexAction extends Action
 {
-    public function run()
+    public function run(): Response
     {
         // イカリング1が2017-09に死んだのでそれを最終としてそこに飛ばす
-        $this->controller->redirect([
-            'stage/month',
-            'year' => 2017,
-            'month' => 9,
-        ]);
+        return T::webController($this->controller)
+            ->redirect(['stage/month',
+                'year' => 2017,
+                'month' => 9,
+            ]);
     }
 }

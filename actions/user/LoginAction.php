@@ -6,13 +6,16 @@
  * @author AIZAWA Hina <hina@fetus.jp>
  */
 
+declare(strict_types=1);
+
 namespace app\actions\user;
 
 use Yii;
+use app\components\helpers\T;
 use app\models\LoginForm;
-use yii\web\ViewAction as BaseAction;
+use yii\base\Action;
 
-class LoginAction extends BaseAction
+final class LoginAction extends Action
 {
     public function run()
     {
@@ -21,9 +24,10 @@ class LoginAction extends BaseAction
         if ($request->isPost) {
             $form->attributes = $request->post('LoginForm');
             if ($form->login()) {
-                return $this->controller->goBack(
-                    ['show-user/profile', 'screen_name' => Yii::$app->user->identity->screen_name]
-                );
+                return T::webController($this->controller)
+                    ->goBack(['show-user/profile',
+                        'screen_name' => Yii::$app->user->identity->screen_name,
+                    ]);
             }
         }
 

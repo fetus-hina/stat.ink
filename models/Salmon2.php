@@ -16,6 +16,7 @@ use app\components\helpers\ArrayHelper;
 use app\components\helpers\Battle as BattleHelper;
 use app\components\helpers\DateTimeFormatter;
 use app\components\helpers\Html;
+use app\models\query\Salmon2Query;
 use stdClass;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
@@ -66,7 +67,9 @@ use const SORT_DESC;
  * @property SalmonPlayer2[] $players
  * @property SalmonWave2[] $salmonWave2s
  *
+ * @property-read SalmonPlayer2|null $myData
  * @property-read SalmonWave2[] $waves
+ * @property-read array{int, int, int}|null $quota
  */
 class Salmon2 extends ActiveRecord
 {

@@ -6,11 +6,13 @@
  * @author AIZAWA Hina <hina@fetus.jp>
  */
 
+declare(strict_types=1);
+
 use app\models\Rule;
 use app\models\TurfwarWinBonus;
 use yii\db\Migration;
 
-class m160819_094109_nawabari_bonus_update extends Migration
+final class m160819_094109_nawabari_bonus_update extends Migration
 {
     public function safeUp()
     {
@@ -22,7 +24,13 @@ class m160819_094109_nawabari_bonus_update extends Migration
         );
         $this->update(
             'battle',
-            ['bonus_id' => TurfwarWinBonus::find()->at('2015-05-28T00:00:01+09:00')->one()->id],
+            [
+                // @phpstan-ignore-next-line
+                'bonus_id' => TurfwarWinBonus::find()
+                    ->at('2015-05-28T00:00:01+09:00')
+                    ->one()
+                    ->id,
+            ],
             ['and',
                 ['rule_id' => $nawabari],
                 ['<', 'at', '2016-07-24T19:03:00+09:00'],
@@ -30,7 +38,13 @@ class m160819_094109_nawabari_bonus_update extends Migration
         );
         $this->update(
             'battle',
-            ['bonus_id' => TurfwarWinBonus::find()->at('2016-07-24T19:03:01+09:00')->one()->id],
+            [
+                // @phpstan-ignore-next-line
+                'bonus_id' => TurfwarWinBonus::find()
+                    ->at('2016-07-24T19:03:01+09:00')
+                    ->one()
+                    ->id,
+            ],
             ['and',
                 ['rule_id' => $nawabari],
                 ['>=', 'at', '2016-07-24T19:03:00+09:00'],

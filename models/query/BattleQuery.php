@@ -21,7 +21,6 @@ use app\models\SplatoonVersion;
 use app\models\Timezone;
 use app\models\Weapon;
 use yii\db\ActiveQuery;
-use yii\db\Query;
 
 final class BattleQuery extends ActiveQuery
 {
@@ -29,7 +28,7 @@ final class BattleQuery extends ActiveQuery
     {
         return $this->innerJoinWith(
             [
-                'battleImages' => function (Query $query): void {
+                'battleImages' => function (ActiveQuery $query): void {
                     $query->onCondition([
                         '{{battle_image}}.[[type_id]]' => BattleImageType::ID_RESULT,
                     ]);

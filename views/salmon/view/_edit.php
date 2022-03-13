@@ -11,7 +11,7 @@ use yii\web\View;
  * @var View $this
  */
 
-if (!$model->isEditable) {
+if (!$model->getIsEditable()) {
   return;
 }
 ?>

@@ -30,6 +30,7 @@ class I18nController extends Controller
     public function actionMessages(bool $strongUpdate = false): int
     {
         $status = 0;
+        // @phpstan-ignore-next-line
         $locales = Language::find()
             ->standard()
             ->andWhere(['not', ['lang' => ['ja-JP', 'en-US']]])

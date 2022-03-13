@@ -6,6 +6,8 @@
  * @author AIZAWA Hina <hina@fetus.jp>
  */
 
+declare(strict_types=1);
+
 namespace app\actions\show\v2;
 
 use DateInterval;
@@ -13,14 +15,16 @@ use DateTime;
 use DateTimeImmutable;
 use DateTimeZone;
 use Yii;
+use app\components\helpers\T;
 use app\models\Battle2;
 use app\models\Spl2YearMonthForm;
 use app\models\User;
+use yii\base\Action;
 use yii\helpers\Url;
 use yii\web\NotFoundHttpException;
-use yii\web\ViewAction as BaseAction;
+use yii\web\Response;
 
-class UserStatReportAction extends BaseAction
+final class UserStatReportAction extends Action
 {
     private $user;
 
@@ -39,6 +43,9 @@ class UserStatReportAction extends BaseAction
         }
     }
 
+    /**
+     * @return Response|string
+     */
     public function run()
     {
         $now = (int)($_SERVER['REQUEST_TIME'] ?? time());
@@ -48,17 +55,18 @@ class UserStatReportAction extends BaseAction
         $form->attributes = $request->get();
         if (!$form->validate()) {
             $now = $form->getCurrentTimestamp();
-            return $this->controller->redirect(['show-v2/user-stat-report',
-                'screen_name' => $this->user->screen_name,
-                'year' => (string)(int)$now->format('Y'),
-                'month' => (string)(int)$now->format('n'),
-            ]);
+            return T::webController($this->controller)
+                ->redirect(['show-v2/user-stat-report',
+                    'screen_name' => $this->user->screen_name,
+                    'year' => (string)(int)$now->format('Y'),
+                    'month' => (string)(int)$now->format('n'),
+                ]);
         }
 
         return $this->runMonth($form);
     }
 
-    protected function runMonth(Spl2YearMonthForm $form)
+    protected function runMonth(Spl2YearMonthForm $form): string
     {
         $tz = new DateTimeZone(Yii::$app->timeZone);
 

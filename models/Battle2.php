@@ -176,10 +176,18 @@ use const SORT_STRING;
  * @property-read BattleImage2|null $battleImageResult
  * @property-read BattlePlayer2[] $battlePlayers
  * @property-read BattlePlayer2[] $battlePlayersPure
+ * @property-read BattlePlayer2[] $hisTeamPlayers
+ * @property-read BattlePlayer2[] $myTeamPlayers
  * @property-read Freshness2|null $freshnessModel
+ * @property-read bool $isGachi
+ * @property-read bool $isMeaningful
+ * @property-read bool $isNawabari
+ * @property-read int|null $elapsedTime
  * @property-read int|null $inked
+ * @property-read self|null $nextBattle
+ * @property-read self|null $previousBattle
  */
-class Battle2 extends ActiveRecord
+final class Battle2 extends ActiveRecord
 {
     protected const CLIENT_UUID_NAMESPACE = '15de9082-1c7b-11e7-8f94-001b21a098c2';
 
@@ -1460,8 +1468,8 @@ class Battle2 extends ActiveRecord
 
         uasort($results, function (Ability2Info $a, Ability2Info $b): int {
             // メインにしかつかないやつは後回し
-            if ($a->isPrimaryOnly !== $b->isPrimaryOnly) {
-                return $a->isPrimaryOnly ? 1 : -1;
+            if ($a->getIsPrimaryOnly() !== $b->getIsPrimaryOnly()) {
+                return $a->getIsPrimaryOnly() ? 1 : -1;
             }
 
             return $b->get57Format() <=> $a->get57Format()

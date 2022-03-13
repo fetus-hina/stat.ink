@@ -104,7 +104,7 @@ class WeaponAttack extends ActiveRecord
 
     public function getHitToKill()
     {
-        return ceil(100 / $this->damage);
+        return ceil(100 / (float)$this->damage);
     }
 
     public function getDamageCap()

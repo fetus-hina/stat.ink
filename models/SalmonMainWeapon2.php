@@ -133,6 +133,7 @@ final class SalmonMainWeapon2 extends ActiveRecord
     {
         return array_map(
             fn (self $model): array => $model->toJsonArray(),
+            // @phpstan-ignore-next-line
             static::find()
                 ->andWhere([
                     'key' => [

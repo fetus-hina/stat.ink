@@ -5,6 +5,7 @@ declare(strict_types=1);
 use app\models\Region2;
 use app\models\Splatfest2;
 use app\models\User;
+use yii\base\Model;
 use yii\db\Query;
 use yii\helpers\ArrayHelper;
 use yii\web\View;

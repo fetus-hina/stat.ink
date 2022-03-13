@@ -54,10 +54,10 @@ class Battle
 
     public static function periodToRange2DT(int $period, int $offset = 0): array
     {
-        [$from, $to] = static::periodToRange2($period, $offset);
+        [$from, $to] = self::periodToRange2($period, $offset);
         return [
-            static::timestamp2datetime($from),
-            static::timestamp2datetime($to),
+            self::timestamp2datetime($from),
+            self::timestamp2datetime($to),
         ];
     }
 
@@ -65,6 +65,7 @@ class Battle
     {
         $filter = clone $filter;
         $filter->term = null;
+        // @phpstan-ignore-next-line
         $subQuery = BattleModel::find()
             ->select([
                 'id' => '{{battle}}.[[id]]',
@@ -92,6 +93,7 @@ class Battle
     {
         $filter = clone $filter;
         $filter->term = null;
+        // @phpstan-ignore-next-line
         $subQuery = Battle2Model::find()
             ->select([
                 'id' => '{{battle2}}.[[id]]',

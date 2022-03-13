@@ -11,12 +11,13 @@ declare(strict_types=1);
 namespace app\actions\user;
 
 use Yii;
+use app\components\helpers\T;
+use yii\base\Action;
 use yii\base\DynamicModel;
-use yii\web\ViewAction as BaseAction;
 
-class MachineTranslationAction extends BaseAction
+final class MachineTranslationAction extends Action
 {
-    public function run()
+    public function run(): array
     {
         $response = Yii::$app->getResponse();
         $response->format = 'json';
@@ -30,7 +31,8 @@ class MachineTranslationAction extends BaseAction
             ];
         }
 
-        Yii::$app->setEnabledMachineTranslation($form->direction === 'enable');
+        T::webApplication(Yii::$app)
+            ->setEnabledMachineTranslation($form->direction === 'enable');
 
         return [
             'enabled' => $form->direction === 'enable',

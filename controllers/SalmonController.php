@@ -67,7 +67,7 @@ class SalmonController extends Controller
                             static::error404();
                             return false;
                         }
-                        return $model->isEditable;
+                        return $model->getIsEditable();
                     },
                 ],
             ],
@@ -214,7 +214,7 @@ class SalmonController extends Controller
             );
             return null;
         }
-        if (!$model->isEditable) {
+        if (!$model->getIsEditable()) {
             static::error403();
             return null;
         }
@@ -243,7 +243,7 @@ class SalmonController extends Controller
             );
             return null;
         }
-        if (!$model->isEditable) {
+        if (!$model->getIsEditable()) {
             static::error403();
             return null;
         }

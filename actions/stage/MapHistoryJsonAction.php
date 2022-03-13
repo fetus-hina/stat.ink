@@ -31,7 +31,7 @@ class MapHistoryJsonAction extends BaseAction
         $this->map = Map::findOne(['key' => $req->get('map')]);
         $this->rule = Rule::findOne(['key' => $req->get('rule')]);
         if (!$this->map || !$this->rule) {
-            static::http404();
+            self::http404();
             return;
         }
     }

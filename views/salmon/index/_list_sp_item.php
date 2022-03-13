@@ -8,7 +8,7 @@ use app\components\widgets\Label;
 use app\models\Salmon2;
 use app\models\User;
 use yii\helpers\Url;
-use yii\wev\View;
+use yii\web\View;
 
 /**
  * @var Formatter $formatter

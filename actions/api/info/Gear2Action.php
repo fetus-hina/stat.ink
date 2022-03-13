@@ -38,6 +38,7 @@ class Gear2Action extends BaseAction
             $a->translatedName,
             $b->translatedName,
         ));
+        // @phpstan-ignore-next-line
         $langs = Language::find()->standard()->all();
         $sysLang = Yii::$app->language;
         usort($langs, function (Language $a, Language $b) use ($sysLang): int {

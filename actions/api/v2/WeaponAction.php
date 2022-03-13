@@ -93,6 +93,7 @@ class WeaponAction extends BaseAction
      */
     protected function formatCsvRows(array $items): Generator
     {
+        // @phpstan-ignore-next-line
         $langs = Language::find()
             ->standard()
             ->orderBy(['lang' => SORT_ASC])

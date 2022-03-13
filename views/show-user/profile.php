@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use app\assets\AppLinkAsset;
+use app\components\helpers\T;
 use app\components\widgets\ActivityWidget;
 use app\components\widgets\UserIcon;
 use app\components\widgets\battle\PanelListWidget;
@@ -10,6 +11,8 @@ use app\models\Battle2;
 use app\models\Battle;
 use app\models\Salmon2;
 use app\models\User;
+use app\models\query\Battle2Query;
+use app\models\query\BattleQuery;
 use yii\bootstrap\Html;
 use yii\helpers\Json;
 use yii\helpers\Url;
@@ -22,14 +25,21 @@ use yii\web\View;
  * @var string $permLink
  */
 
-function fa(string $icon, string $category = 'fa') : string
-{
-    return Html::tag('span', '', ['class' => [$category, 'fa-fw', 'fa-' . $icon]]);
-}
+$this->context->layout = 'main';
+
+$fa = fn (string $icon, string $category = 'fa'): string => Html::tag(
+  'span',
+  '',
+  [
+    'class' => [
+      $category,
+      'fa-fw',
+      'fa-' . $icon,
+    ],
+  ]
+);
 
 $title = Yii::t('app', "{name}'s Splat Log", ['name' => $user->name]);
-
-$this->context->layout = 'main';
 $this->title = sprintf('%s | %s', Yii::$app->name, $title);
 
 $this->registerLinkTag(['rel' => 'canonical', 'href' => $permLink]);
@@ -109,7 +119,7 @@ $this->registerCss(implode('', array_map(
       <ul>
 <?php if ($user->twitter): ?>
         <li>
-          <?= fa('twitter', 'fab') ?><?= Html::a(
+          <?= $fa('twitter', 'fab') ?><?= Html::a(
             '@' . Html::encode($user->twitter),
             sprintf('https://twitter.com/%s', rawurlencode($user->twitter)),
             ['rel' => 'nofollow', 'target' => '_blank']
@@ -119,14 +129,14 @@ $this->registerCss(implode('', array_map(
 <?php if ($user->nnid): ?>
 <?php $asset = AppLinkAsset::register($this) ?>
         <li>
-          <span class="fa fa-fw"><?= $asset->nnid ?></span>
+          <span class="fa fa-fw"><?= $asset->getNnid() ?></span>
           <?= Html::encode($user->nnid) . "\n" ?>
         </li>
 <?php endif; ?>
 <?php if ($user->sw_friend_code): ?>
 <?php $asset = AppLinkAsset::register($this) ?>
         <li>
-          <span class="fa fa-fw"><?= $asset->switch ?></span>
+          <span class="fa fa-fw"><?= $asset->getSwitch() ?></span>
           <?= Html::encode(implode('-', [
             'SW',
             substr($user->sw_friend_code, 0, 4),
@@ -138,7 +148,7 @@ $this->registerCss(implode('', array_map(
 <?php if ($user->ikanakama2): ?>
 <?php $asset = AppLinkAsset::register($this) ?>
         <li>
-          <span class="fa fa-fw"><?= $asset->ikanakama ?></span>
+          <span class="fa fa-fw"><?= $asset->getIkanakama() ?></span>
           <?= Html::a(
             Yii::t('app', 'Ika-Nakama 2'),
             sprintf('https://ikanakama.ink/users/%d', $user->ikanakama2),
@@ -161,7 +171,7 @@ $this->registerCss(implode('', array_map(
           <?= $this->render(
             '@app/views/includes/battles-summary',
             [
-              'summary' => $user->getBattle2s()->getSummary(),
+              'summary' => T::is(Battle2Query::class, $user->getBattle2s())->getSummary(),
               'link' => ['show-v2/user', 'screen_name' => $user->screen_name],
             ]
           ) . "\n" ?>
@@ -254,7 +264,7 @@ $this->registerCss(implode('', array_map(
           <?= $this->render(
             '@app/views/includes/battles-summary',
             [
-              'summary' => $user->getBattles()->getSummary(),
+              'summary' => T::is(BattleQuery::class, $user->getBattles())->getSummary(),
               'link' => ['show/user', 'screen_name' => $user->screen_name],
             ]
           ) . "\n" ?>

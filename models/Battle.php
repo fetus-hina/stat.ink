@@ -11,6 +11,7 @@ namespace app\models;
 use Throwable;
 use Yii;
 use app\components\ability\Effect;
+use app\components\ability\effect\Base as EffectDetails;
 use app\components\helpers\Battle as BattleHelper;
 use app\components\helpers\DateTimeFormatter;
 use app\components\helpers\Differ;
@@ -121,9 +122,21 @@ use const SORT_STRING;
  * @property-read BattleImage|null $battleImageGear
  * @property-read BattleImage|null $battleImageJudge
  * @property-read BattleImage|null $battleImageResult
+ * @property-read BattlePlayer[] $hisTeamPlayers
+ * @property-read BattlePlayer[] $myTeamPlayers
+ * @property-read Battle|null $nextBattle
+ * @property-read Battle|null $previousBattle
+ * @property-read EffectDetails|null $abilityEffects
+ * @property-read WeaponAttack|null $weaponAttack
+ * @property-read array $extraData
+ * @property-read bool $isGachi
+ * @property-read bool $isNawabari
+ * @property-read float|null $kill_rate
+ * @property-read int|null $inked
+ * @property-read stdClass $gearAbilities
  * @property-read string|null $events
  */
-class Battle extends ActiveRecord
+final class Battle extends ActiveRecord
 {
     public $skipSaveHistory = false;
 
@@ -441,7 +454,7 @@ class Battle extends ActiveRecord
         return $this->hasOne(Weapon::class, ['id' => 'weapon_id']);
     }
 
-    public function getWeaponAttack()
+    public function getWeaponAttack(): ?WeaponAttack
     {
         $weapon = $this->weapon;
         $version = $this->splatoonVersion;
@@ -653,7 +666,9 @@ class Battle extends ActiveRecord
         if ($rule->key !== 'nawabari') {
             return;
         }
-        if (!$bonus = TurfwarWinBonus::find()->current()->one()) {
+        // @phpstan-ignore-next-line
+        $bonus = TurfwarWinBonus::find()->current()->one();
+        if (!$bonus) {
             return;
         }
         $this->bonus_id = $bonus->id;
@@ -1044,7 +1059,7 @@ class Battle extends ActiveRecord
         }
     }
 
-    public function getGearAbilities()
+    public function getGearAbilities(): stdClass
     {
         $gears = [
             $this->headgear,
@@ -1095,11 +1110,12 @@ class Battle extends ActiveRecord
         return $this->headgear && $this->clothing && $this->shoes;
     }
 
-    public function getAbilityEffects()
+    public function getAbilityEffects(): ?EffectDetails
     {
         if (!$this->getHasAbilities()) {
             return null;
         }
+
         return Effect::factory($this);
     }
 
@@ -1127,7 +1143,7 @@ class Battle extends ActiveRecord
         })();
     }
 
-    public function getKillRate()
+    public function getKillRate(): ?float
     {
         if ($this->kill + $this->death === 0) {
             return null;

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use app\models\Region2;
 use app\models\User;
-use yii\base\Model;
+use yii\base\DynamicModel;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\ArrayHelper;
 use app\components\helpers\Html;
@@ -13,7 +13,7 @@ use yii\helpers\Url;
 use yii\web\View;
 
 /**
- * @var Model $input
+ * @var DynamicModel $input
  * @var Region2 $region
  * @var Region2[] $regions
  * @var User $user

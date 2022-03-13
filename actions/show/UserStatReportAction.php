@@ -15,14 +15,16 @@ use DateTime;
 use DateTimeImmutable;
 use DateTimeZone;
 use Yii;
+use app\components\helpers\T;
 use app\models\User;
+use yii\base\Action;
 use yii\base\DynamicModel;
 use yii\db\Query;
 use yii\helpers\Url;
 use yii\web\NotFoundHttpException;
-use yii\web\ViewAction as BaseAction;
+use yii\web\Response;
 
-class UserStatReportAction extends BaseAction
+final class UserStatReportAction extends Action
 {
     private $user;
 
@@ -41,6 +43,9 @@ class UserStatReportAction extends BaseAction
         }
     }
 
+    /**
+     * @return Response|string
+     */
     public function run()
     {
         $now = (new DateTimeImmutable())
@@ -66,19 +71,20 @@ class UserStatReportAction extends BaseAction
             ]
         );
         if ($form->hasErrors()) {
-            $this->controller->redirect(['show/user-stat-report',
-                'screen_name' => $this->user->screen_name,
-                'year' => (int)$now->format('Y'),
-                'month' => (int)$now->format('n'),
-            ]);
-            return;
+            return T::webController($this->controller)
+                ->redirect(['show/user-stat-report',
+                    'screen_name' => $this->user->screen_name,
+                    'year' => (int)$now->format('Y'),
+                    'month' => (int)$now->format('n'),
+                ]);
         }
+
         return $form->month
             ? $this->runMonth($form)
             : $this->runYear($form);
     }
 
-    protected function runMonth($form)
+    protected function runMonth($form): string
     {
         $tz = new DateTimeZone(Yii::$app->timeZone);
 
@@ -132,6 +138,9 @@ class UserStatReportAction extends BaseAction
         ]);
     }
 
+    /**
+     * @return never
+     */
     protected function runYear($form)
     {
         throw new NotFoundHttpException(Yii::t('yii', 'Page not found.'));

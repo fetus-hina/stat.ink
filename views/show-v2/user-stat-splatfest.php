@@ -6,9 +6,11 @@ use app\components\helpers\Html;
 use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
 use app\components\widgets\UserMiniInfo2;
+use app\models\Region2;
+use app\models\Splatfest2;
 use app\models\User;
-use yii\web\View;
 use yii\base\Model;
+use yii\web\View;
 
 /**
  * @var Model $input

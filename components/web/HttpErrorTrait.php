@@ -16,6 +16,9 @@ use yii\web\NotFoundHttpException;
 
 trait HttpErrorTrait
 {
+    /**
+     * @return never
+     */
     public static function error403(): void
     {
         throw new ForbiddenHttpException(
@@ -23,6 +26,9 @@ trait HttpErrorTrait
         );
     }
 
+    /**
+     * @return never
+     */
     public static function error404(): void
     {
         throw new NotFoundHttpException(Yii::t('yii', 'Page not found.'));

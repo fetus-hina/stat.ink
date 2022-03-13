@@ -41,7 +41,9 @@ if ($user->twitter != '') {
   $this->registerMetaTag(['name' => 'twitter:creator', 'content' => '@' . $user->twitter]);
 }
 
-foreach (Language::find()->standard()->all() as $lang) {
+// @phpstan-ignore-next-line
+$langs = Language::find()->standard()->all();
+foreach ($langs as $lang) {
   $this->registerLinkTag([
     'rel' => 'alternate',
     'type' => 'application/rss+xml',
@@ -71,10 +73,11 @@ foreach (Language::find()->standard()->all() as $lang) {
     'hreflang'  => $lang->lang,
   ]);
 }
+unset($langs);
 
 $this->registerCss('.simple-battle-list{display:block;list-style-type:none;margin:0;padding:0}');
 
-$battle = $user->latestBattle;
+$battle = $user->getLatestBattle();
 $f = Yii::$app->formatter;
 ?>
 <div class="container">

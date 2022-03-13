@@ -6,6 +6,8 @@
  * @author AIZAWA Hina <hina@fetus.jp>
  */
 
+declare(strict_types=1);
+
 namespace app\models;
 
 use DateTimeZone;
@@ -13,6 +15,8 @@ use Throwable;
 use Yii;
 use app\components\helpers\DateTimeFormatter;
 use app\components\helpers\Password;
+use app\components\helpers\T;
+use app\models\query\OstatusPubsubhubbubQuery;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\db\Query;
@@ -62,7 +66,11 @@ use const SORT_DESC;
  * @property UserWeapon2[] $userWeapon2s
  * @property Weapon[] $weapons
  *
- * @property-read Region2 guessedSplatfest2Region
+ * @property-read Language|null $emailLang
+ * @property-read Region2 $guessedSplatfest2Region
+ * @property-read Weapon|null $mainWeapon
+ * @property-read bool $isOstatusIntegrated
+ * @property-read bool $isSlackIntegrated
  * @property-read string $iconUrl
  * @property-read string $identiconHash
  * @property-read string $jdenticonPngUrl
@@ -250,7 +258,7 @@ class User extends ActiveRecord implements IdentityInterface
 
     public function getIsOstatusIntegrated(): bool
     {
-        return OstatusPubsubhubbub::find()
+        return T::is(OstatusPubsubhubbubQuery::class, OstatusPubsubhubbub::find())
             ->active()
             ->andWhere(['topic' => $this->id])
             ->exists();

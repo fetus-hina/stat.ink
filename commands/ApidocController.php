@@ -297,7 +297,7 @@ class ApidocController extends Controller
             function (array $match) use ($flagIconCssVersion, $cc): string {
                 switch ($match[0]) {
                     case '{cdn}':
-                        return static::FLAGICON_CDN;
+                        return self::FLAGICON_CDN;
 
                     case '{version}':
                         return rawurlencode($flagIconCssVersion);
@@ -309,7 +309,7 @@ class ApidocController extends Controller
                         return $match[0];
                 }
             },
-            static::FLAGICON_URL
+            self::FLAGICON_URL,
         );
     }
 

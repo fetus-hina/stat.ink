@@ -43,10 +43,10 @@ class DlStats2Controller extends Controller
     public function actionCreateBattleResultsCsv()
     {
         $aDay = new DateInterval('P1D');
-        for ($date = static::startDay(), $end = static::today(); $date < $end; $date = $date->add($aDay)) {
+        for ($date = self::startDay(), $end = self::today(); $date < $end; $date = $date->add($aDay)) {
             printf("%s - %s\n", __METHOD__, $date->format('Y-m-d'));
             $file = implode('/', [
-                Yii::getAlias(static::BASE_BATTLE_RESULTS_CSV),
+                Yii::getAlias(self::BASE_BATTLE_RESULTS_CSV),
                 $date->format('Y'),
                 $date->format('m'),
                 $date->format('Y-m-d') . '.csv',
@@ -140,7 +140,7 @@ class DlStats2Controller extends Controller
             foreach ($query->each(500) as $battle) {
                 if (count($battle->myTeamPlayers) && count($battle->hisTeamPlayers)) {
                     if (!$header) {
-                        fwrite($fh, static::csvRow(array_merge(
+                        fwrite($fh, self::csvRow(array_merge(
                             [
                                 '# period',
                                 'game-ver',
@@ -165,7 +165,7 @@ class DlStats2Controller extends Controller
                     }
                     printf("      #%d %s\n", $battle->id, $battle->start_at);
 
-                    $csv = static::csvRow([
+                    $csv = self::csvRow([
                         gmdate(DateTime::ATOM, BattleHelper::periodToRange2($battle->period)[0]),
                         $battle->version->tag ?? '',
                         $battle->mode->key,
@@ -188,11 +188,11 @@ class DlStats2Controller extends Controller
                         }
                     });
                     for ($i = 0; $i < 4; ++$i) {
-                        $csv .= ',' . static::csvRow($playerCsv($battle, $team[$i] ?? null));
+                        $csv .= ',' . self::csvRow($playerCsv($battle, $team[$i] ?? null));
                     }
                     $team = $battle->hisTeamPlayers;
                     for ($i = 0; $i < 4; ++$i) {
-                        $csv .= ',' . static::csvRow($playerCsv($battle, $team[$i] ?? null));
+                        $csv .= ',' . self::csvRow($playerCsv($battle, $team[$i] ?? null));
                     }
                     fwrite($fh, $csv . "\x0d\x0a");
                 }
@@ -233,15 +233,15 @@ class DlStats2Controller extends Controller
             if (!$zip->open($tmpFile, ZipArchive::CREATE)) {
                 return false;
             }
-            if (!$zip->addEmptyDir(basename(Yii::getAlias(static::BASE_BATTLE_RESULTS_CSV)))) {
+            if (!$zip->addEmptyDir(basename(Yii::getAlias(self::BASE_BATTLE_RESULTS_CSV)))) {
                 return false;
             }
             if (
                 !$zip->addGlob(
-                    Yii::getAlias(static::BASE_BATTLE_RESULTS_CSV) . '/*/*/*.csv',
+                    Yii::getAlias(self::BASE_BATTLE_RESULTS_CSV) . '/*/*/*.csv',
                     0,
                     [
-                        'add_path' => basename(Yii::getAlias(static::BASE_BATTLE_RESULTS_CSV)) . '/',
+                        'add_path' => basename(Yii::getAlias(self::BASE_BATTLE_RESULTS_CSV)) . '/',
                         'remove_all_path' => true,
                     ]
                 )
@@ -254,8 +254,8 @@ class DlStats2Controller extends Controller
             copy(
                 $tmpFile,
                 implode('/', [
-                    Yii::getAlias(static::BASE_BATTLE_RESULTS_CSV),
-                    basename(Yii::getAlias(static::BASE_BATTLE_RESULTS_CSV)) . '.zip',
+                    Yii::getAlias(self::BASE_BATTLE_RESULTS_CSV),
+                    basename(Yii::getAlias(self::BASE_BATTLE_RESULTS_CSV)) . '.zip',
                 ])
             );
             return true;

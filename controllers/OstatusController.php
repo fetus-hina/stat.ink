@@ -11,6 +11,7 @@ declare(strict_types=1);
 namespace app\controllers;
 
 use DOMDocument;
+use DOMElement;
 use Yii;
 use app\actions\ostatus\FeedAction;
 use app\actions\ostatus\StartRemoteFollowAction;
@@ -71,6 +72,8 @@ class OstatusController extends Controller
         );
 
         $elem = $root->appendChild($doc->createElement('Link'));
+        assert($elem instanceof DOMElement);
+
         $elem->setAttribute('rel', 'lrdd');
         $elem->setAttribute('type', 'application/jrd+json');
         $elem->setAttribute('template', Url::to(['/ostatus/webfinger'], true) . '?resource={uri}');

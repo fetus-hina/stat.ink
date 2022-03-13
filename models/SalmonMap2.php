@@ -10,6 +10,7 @@ namespace app\models;
 
 use Yii;
 use app\components\helpers\Translator;
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
 
@@ -22,10 +23,11 @@ use const SORT_ASC;
  * @property string $key
  * @property string $name
  * @property string $splatnet_hint
+ * @property string $short_name
  *
  * @property SalmonSchedule2[] $schedules
  */
-class SalmonMap2 extends ActiveRecord
+final class SalmonMap2 extends ActiveRecord
 {
     use openapi\Util;
 
@@ -43,9 +45,9 @@ class SalmonMap2 extends ActiveRecord
     public function rules()
     {
         return [
-            [['key', 'name'], 'required'],
+            [['key', 'name', 'short_name'], 'required'],
             [['key'], 'string', 'max' => 16],
-            [['name'], 'string', 'max' => 32],
+            [['name', 'short_name'], 'string', 'max' => 32],
             [['splatnet_hint'], 'string', 'max' => 255],
             [['key'], 'unique'],
         ];
@@ -61,13 +63,11 @@ class SalmonMap2 extends ActiveRecord
             'key' => 'Key',
             'name' => 'Name',
             'splatnet_hint' => 'Splatnet Hint',
+            'short_name' => 'Short Name',
         ];
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getSchedules()
+    public function getSchedules(): ActiveQuery
     {
         return $this->hasMany(SalmonSchedule2::class, ['map_id' => 'id']);
     }

@@ -355,15 +355,15 @@ class PostForm extends Model
                 'user_id' => Yii::$app->user->id,
                 'uuid' => $this->getUuidFormatted(),
                 'splatnet_number' => $this->splatnet_number,
-                'stage_id' => static::findRelatedId(SalmonMap2::class, $this->stage),
+                'stage_id' => self::findRelatedId(SalmonMap2::class, $this->stage),
                 'clear_waves' => $this->clear_waves,
-                'fail_reason_id' => static::findRelatedId(
+                'fail_reason_id' => self::findRelatedId(
                     SalmonFailReason2::class,
                     $this->fail_reason
                 ),
-                'title_before_id' => static::findRelatedId(SalmonTitle2::class, $this->title),
+                'title_before_id' => self::findRelatedId(SalmonTitle2::class, $this->title),
                 'title_before_exp' => $this->title_exp,
-                'title_after_id' => static::findRelatedId(SalmonTitle2::class, $this->title_after),
+                'title_after_id' => self::findRelatedId(SalmonTitle2::class, $this->title_after),
                 'title_after_exp' => $this->title_exp_after,
                 'danger_rate' => $this->danger_rate == ''
                     ? null
@@ -404,7 +404,7 @@ class PostForm extends Model
 
             foreach ($this->boss_appearances as $key => $value) {
                 if ($value > 0) {
-                    $bossId = static::findRelatedId(SalmonBoss2::class, $key);
+                    $bossId = self::findRelatedId(SalmonBoss2::class, $key);
                     if ($bossId === null) {
                         return false;
                     }

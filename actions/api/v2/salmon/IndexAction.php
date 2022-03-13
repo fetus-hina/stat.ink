@@ -38,7 +38,7 @@ class IndexAction extends ViewAction
         ]);
         $form->attributes = Yii::$app->getRequest()->get();
         if ($this->isAuthMode) {
-            if (!$user = Yii::$app->getUser()->getIdentity()) {
+            if (!$user = Yii::$app->user->identity) {
                 throw new UnauthorizedHttpException('Unauthorized');
             }
 

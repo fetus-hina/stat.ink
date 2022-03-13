@@ -315,6 +315,7 @@ class Salmon2FilterForm extends Model
             return null;
         }
 
+        // @phpstan-ignore-next-line
         return SalmonSchedule2::find()
             ->nowOrPast()
             ->newerFirst()

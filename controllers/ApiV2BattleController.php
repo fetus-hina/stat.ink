@@ -208,9 +208,9 @@ class ApiV2BattleController extends Controller
                 ->andWhere(['not', ['{{battle2}}.[[splatnet_number]]' => null]])
                 ->orderBy(['{{battle2}}.[[splatnet_number]]' => SORT_DESC]);
         } else {
+            // @phpstan-ignore-next-line
             $query->withFreshness()
                 ->with([
-                    // {{{
                     'agent',
                     'agentGameVersion',
                     'battleDeathReasons',
@@ -257,7 +257,6 @@ class ApiV2BattleController extends Controller
                     'weapon.subweapon',
                     'weapon.type',
                     'weapon.type.category',
-                    // }}}
                 ]);
 
             foreach (['headgear', 'clothing', 'shoes'] as $_) {
@@ -321,6 +320,7 @@ class ApiV2BattleController extends Controller
         if (!is_string($id) || !preg_match('/^\d+$/', $id)) {
             throw new NotFoundHttpException(Yii::t('yii', 'Page not found.'));
         }
+        // @phpstan-ignore-next-line
         $model = Battle2::find()
             ->withFreshness()
             ->andWhere(['battle2.id' => $id])

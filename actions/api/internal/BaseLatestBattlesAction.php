@@ -455,7 +455,7 @@ abstract class BaseLatestBattlesAction extends ViewAction
                 }
                 return null;
             })(),
-            'time' => strtotime($battle->end_at ?: $battle->created_at),
+            'time' => strtotime($battle->end_at ?: $battle->at),
             'rule' => $battle->rule
                 ? [
                     'icon' => null,

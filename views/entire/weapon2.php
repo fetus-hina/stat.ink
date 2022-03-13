@@ -536,11 +536,13 @@ $normalizedSeconds = ($rule->key == 'nawabari' ? 3 : 5) * 60;
           'headerOptions' => ['data' => ['sort' => 'float']],
           'contentOptions' => function (array $map) use ($winRate): array {
             $data = $winRate[$map['key']] ?? null;
-            if (!$data || $data['win'] + $data['lose'] < 1) {
+            if (!$data || (int)$data['win'] + (int)$data['lose'] < 1) {
               return ['data' => ['sort-value' => '-1.0']];
             }
             return ['data' => [
-              'sort-value' => sprintf('%f', ($data['win'] * 100.0 / ($data['win'] + $data['lose']))),
+              'sort-value' => vsprintf('%f', [
+                (int)$data['win'] * 100.0 / ((int)$data['win'] + (int)$data['lose']),
+              ]),
             ]];
           },
           // }}}

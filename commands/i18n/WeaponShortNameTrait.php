@@ -25,6 +25,7 @@ trait WeaponShortNameTrait
 {
     public function actionShortWeapon(): int
     {
+        // @phpstan-ignore-next-line
         $locales = Language::find()
             ->standard()
             ->orderBy(['lang' => SORT_ASC])

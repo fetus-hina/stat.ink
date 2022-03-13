@@ -36,8 +36,8 @@ class m190622_180334_shifty_map2 extends Migration
                 fn (array $row): array => [
                     new Expression(vsprintf('%s::int4range', [
                         $db->quoteValue(vsprintf('[%d,%d)', [
-                            static::timestamp2period($row[0]) - 1,
-                            static::timestamp2period($row[1]) + 1,
+                            self::timestamp2period($row[0]) - 1,
+                            self::timestamp2period($row[1]) + 1,
                         ])),
                     ])),
                     new Expression(vsprintf('%s::tstzrange', [

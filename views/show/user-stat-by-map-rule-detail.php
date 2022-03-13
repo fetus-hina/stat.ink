@@ -18,7 +18,7 @@ use yii\web\View;
  * @var User $user
  * @var View $this
  * @var array $data
- * @var array<string, string> $mapNames
+ * @var array<string, stdClass> $mapNames
  * @var array<string, string> $ruleNames
  */
 

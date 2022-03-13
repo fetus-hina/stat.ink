@@ -34,7 +34,7 @@ $this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink']);
 SortableTableAsset::register($this);
 
 $icon = AppLinkAsset::register($this);
-$inkipediaIcon = $icon->inkipedia;
+$inkipediaIcon = $icon->getInkipedia();
 ?>
 <div class="container">
   <h1>

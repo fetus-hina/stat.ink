@@ -75,7 +75,7 @@ JS
       </div>
     </div>
 
-    <?= $_->field($form, 'link_mode_id')->dropDownList($form->linkModes) . "\n" ?>
+    <?= $_->field($form, 'link_mode_id')->dropDownList($form->getLinkModes()) . "\n" ?>
 
     <?= $_->field($form, 'region_id')->dropDownList($regions) . "\n" ?>
 

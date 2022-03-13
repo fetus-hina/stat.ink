@@ -28,6 +28,8 @@ use const SORT_ASC;
  * @property Ability2 $ability
  * @property Brand2 $brand
  * @property GearType $type
+ *
+ * @property-read string $translatedName
  */
 class Gear2 extends ActiveRecord
 {

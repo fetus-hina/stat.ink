@@ -10,6 +10,7 @@ namespace app\models;
 
 use Yii;
 use app\components\helpers\Translator;
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
 
@@ -23,6 +24,7 @@ use const SORT_ASC;
  * @property int $category_id
  * @property string $name
  *
+ * @property Weapon2[] $weapons
  * @property Weapon2[] $weapon2s
  * @property WeaponCategory2 $category
  */
@@ -70,26 +72,17 @@ class WeaponType2 extends ActiveRecord
         ];
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getWeapons()
+    public function getWeapons(): ActiveQuery
     {
         return $this->hasMany(Weapon2::class, ['type_id' => 'id']);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getWeapon2s()
+    public function getWeapon2s(): ActiveQuery
     {
         return $this->getWeapons();
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getCategory()
+    public function getCategory(): ActiveQuery
     {
         return $this->hasOne(WeaponCategory2::class, ['id' => 'category_id']);
     }

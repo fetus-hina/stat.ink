@@ -10,10 +10,8 @@ use app\components\helpers\ArrayHelper;
 use yii\web\View;
 
 /**
- * @var View $this
- * @var array $data
+ * @var array|null $rules
  */
-
 static $rules = null;
 if ($rules === null) {
   if (!$mode = Mode2::findOne(['key' => 'gachi'])) {

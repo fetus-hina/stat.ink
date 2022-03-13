@@ -54,6 +54,7 @@ class GearAction extends BaseAction
         );
         usort($gears, fn (array $a, array $b): int => strnatcasecmp($a['name'], $b['name']));
 
+        // @phpstan-ignore-next-line
         $langs = Language::find()->standard()->asArray()->all();
         $sysLang = Yii::$app->language;
         usort($langs, function (array $a, array $b) use ($sysLang): int {

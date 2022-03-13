@@ -14,6 +14,7 @@ use Yii;
 use app\assets\KillRatioColumnAsset;
 use yii\grid\DataColumn;
 use yii\helpers\Json;
+use yii\web\View;
 
 class KillRatioColumn extends DataColumn
 {
@@ -55,6 +56,7 @@ class KillRatioColumn extends DataColumn
             }
 
             $view = Yii::$app->getView();
+            assert($view instanceof View);
             KillRatioColumnAsset::register($view);
             $id = sprintf('%s%d', static::$idPrefix, ++static::$idCounter);
             $view->registerJs(vsprintf('jQuery(%s).killRatioColumn();', [

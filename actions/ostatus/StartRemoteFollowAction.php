@@ -12,14 +12,15 @@ use Curl\Curl;
 use DOMDocument;
 use DOMXpath;
 use Yii;
+use app\components\helpers\T;
 use app\models\RemoteFollowModalForm;
+use yii\base\Action;
 use yii\helpers\Json;
-use yii\web\ViewAction as BaseAction;
 
 use const CURLOPT_FOLLOWLOCATION;
 use const CURLOPT_MAXREDIRS;
 
-class StartRemoteFollowAction extends BaseAction
+final class StartRemoteFollowAction extends Action
 {
     public function init()
     {
@@ -39,13 +40,16 @@ class StartRemoteFollowAction extends BaseAction
         }
         if ($url = $this->discoverRemote($form->screen_name, $form->account, $form->host_name)) {
             if (preg_match('!^https?://!', $url)) {
-                return $this->controller->redirect($url, 302);
+                return T::webController($this->controller)->redirect($url, 302);
             }
         }
     }
 
-    private function discoverRemote(string $thisName, string $accountName, string $remoteHostName): ?string
-    {
+    private function discoverRemote(
+        string $thisName,
+        string $accountName,
+        string $remoteHostName
+    ): ?string {
         try {
             if (!$webfinger = $this->discoverWebfingerPath($thisName, $accountName, $remoteHostName)) {
                 return null;

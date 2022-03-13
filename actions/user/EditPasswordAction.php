@@ -10,13 +10,15 @@ declare(strict_types=1);
 
 namespace app\actions\user;
 
+use Throwable;
 use Yii;
 use app\components\helpers\Password;
+use app\components\helpers\T;
 use app\models\PasswordForm;
 use app\models\User;
-use yii\web\ViewAction as BaseAction;
+use yii\base\Action;
 
-class EditPasswordAction extends BaseAction
+final class EditPasswordAction extends Action
 {
     public function run()
     {
@@ -34,10 +36,11 @@ class EditPasswordAction extends BaseAction
                     if ($ident->save()) {
                         $transaction->commit();
                         $this->sendEmail($ident);
-                        $this->controller->redirect(['user/profile']);
+                        T::webController($this->controller)
+                            ->redirect(['user/profile']);
                         return;
                     }
-                } catch (\Throwable $e) {
+                } catch (Throwable $e) {
                 }
                 $transaction->rollback();
             }

@@ -15,7 +15,13 @@ use Yii;
 use app\components\helpers\Battle as BattleHelper;
 use yii\base\Model;
 
-class Battle2FilterForm extends Model
+/**
+ * @property-read array|null $filterIdRange
+ * @property-read array|null $filterPeriod
+ * @property-read string|null $filterTeam
+ * @property-read string|null $filterWithPrincipalId
+ */
+final class Battle2FilterForm extends Model
 {
     public $screen_name;
 

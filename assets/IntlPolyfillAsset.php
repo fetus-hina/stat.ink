@@ -11,9 +11,10 @@ declare(strict_types=1);
 namespace app\assets;
 
 use Yii;
+use app\components\web\Application;
 use yii\web\AssetBundle;
 
-class IntlPolyfillAsset extends AssetBundle
+final class IntlPolyfillAsset extends AssetBundle
 {
     public $basePath = '@webroot';
     public $baseUrl = '@web';
@@ -26,7 +27,10 @@ class IntlPolyfillAsset extends AssetBundle
         $features = [];
         $features[] = 'Intl.~locale.en-US';
         $features[] = 'Intl.~locale.en';
-        $features[] = 'Intl.~locale.' . Yii::$app->getLocale();
+
+        if (($app = Yii::$app) instanceof Application) {
+            $features[] = 'Intl.~locale.' . $app->getLocale();
+        }
 
         $this->js[] = 'https://cdn.polyfill.io/v2/polyfill.min.js?' . http_build_query(
             ['features' => implode(',', $features)],

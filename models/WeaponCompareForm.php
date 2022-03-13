@@ -13,7 +13,49 @@ use app\components\validators\WeaponKeyValidator;
 use yii\base\InvalidParamException;
 use yii\base\Model;
 
-class WeaponCompareForm extends Model
+/**
+ * @property string|null $rule1
+ * @property string|null $rule2
+ * @property string|null $rule3
+ * @property string|null $rule4
+ * @property string|null $rule5
+ * @property string|null $rule6
+ * @property string|null $rule7
+ * @property string|null $rule8
+ * @property string|null $rule9
+ * @property string|null $rule10
+ * @property string|null $rule11
+ * @property string|null $rule12
+ * @property string|null $rule13
+ * @property string|null $rule14
+ * @property string|null $rule15
+ * @property string|null $rule16
+ * @property string|null $rule17
+ * @property string|null $rule18
+ * @property string|null $rule19
+ * @property string|null $rule20
+ * @property string|null $weapon1
+ * @property string|null $weapon2
+ * @property string|null $weapon3
+ * @property string|null $weapon4
+ * @property string|null $weapon5
+ * @property string|null $weapon6
+ * @property string|null $weapon7
+ * @property string|null $weapon8
+ * @property string|null $weapon9
+ * @property string|null $weapon10
+ * @property string|null $weapon11
+ * @property string|null $weapon12
+ * @property string|null $weapon13
+ * @property string|null $weapon14
+ * @property string|null $weapon15
+ * @property string|null $weapon16
+ * @property string|null $weapon17
+ * @property string|null $weapon18
+ * @property string|null $weapon19
+ * @property string|null $weapon20
+ */
+final class WeaponCompareForm extends Model
 {
     public const NUMBER = 20;
 

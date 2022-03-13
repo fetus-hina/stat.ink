@@ -6,14 +6,18 @@
  * @author AIZAWA Hina <hina@fetus.jp>
  */
 
+declare(strict_types=1);
+
 namespace app\actions\user;
 
+use Throwable;
 use Yii;
+use app\components\helpers\T;
 use app\models\Language;
 use app\models\SlackAddForm;
-use yii\web\ViewAction as BaseAction;
+use yii\base\Action;
 
-class SlackAddAction extends BaseAction
+final class SlackAddAction extends Action
 {
     public function run()
     {
@@ -27,10 +31,11 @@ class SlackAddAction extends BaseAction
                     $ident = Yii::$app->user->getIdentity();
                     if ($form->save($ident)) {
                         $transaction->commit();
-                        $this->controller->redirect(['user/profile']);
+                        T::webController($this->controller)
+                            ->redirect(['user/profile']);
                         return;
                     }
-                } catch (\Throwable $e) {
+                } catch (Throwable $e) {
                 }
                 $transaction->rollback();
             }

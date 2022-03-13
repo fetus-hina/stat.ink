@@ -102,8 +102,8 @@ trait Util
         $splatnetKeys = $splatnetKeys ? (array)$splatnetKeys : [];
 
         return Html::tag('table', implode('', [
-            static::oapiKeyValueTableThead($keyLabelHtml, $valueLabel, $splatnetKeys),
-            static::oapiKeyValueTableTbody(
+            self::oapiKeyValueTableThead($keyLabelHtml, $valueLabel, $splatnetKeys),
+            self::oapiKeyValueTableTbody(
                 ArrayHelper::getColumn($items, $keyColumn),
                 ArrayHelper::getColumn(
                     $items,

@@ -17,6 +17,7 @@ use yii\web\View;
 
 DownloadsPageAsset::register($this);
 
+// @phpstan-ignore-next-line
 $langs = Language::find()
   ->standard()
   ->with('languageCharsets')

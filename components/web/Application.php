@@ -12,6 +12,7 @@ namespace app\components\web;
 
 use IntlDateFormatter;
 use Yii;
+use app\components\helpers\T;
 use app\components\helpers\UserLanguage;
 use app\components\helpers\UserTimeZone;
 use app\components\i18n\MachineTranslateHelper;
@@ -22,7 +23,11 @@ use yii\web\Cookie;
 
 use const PHP_INT_MAX;
 
-class Application extends Base
+/**
+ * @property-read bool $isEnabledMachineTranslation
+ * @property-read string|null $localeCalendar
+ */
+final class Application extends Base
 {
     public const COOKIE_MACHINE_TRANSLATION = 'language-machine-translation';
 
@@ -126,9 +131,11 @@ class Application extends Base
     {
         $lang = UserLanguage::guess();
         if ($lang) {
-            Yii::$app->language = $lang->getLanguageId();
-            Yii::$app->setLocale($lang->lang);
-            Yii::$app->response->cookies->add(new Cookie([
+            $app = T::webApplication(Yii::$app);
+
+            $app->language = $lang->getLanguageId();
+            $app->setLocale($lang->lang);
+            $app->response->cookies->add(new Cookie([
                 'expire' => time() + 86400 * 366,
                 'httpOnly' => true,
                 'name' => UserLanguage::COOKIE_KEY,

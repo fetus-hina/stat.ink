@@ -28,6 +28,10 @@ use yii\db\ActiveRecord;
  * @property Charset[] $charsets
  * @property Slack[] $slacks
  * @property User[] $users
+ *
+ * @property-read string $countryCode
+ * @property-read string $languageCode
+ * @property-read string $languageId
  */
 class Language extends ActiveRecord
 {

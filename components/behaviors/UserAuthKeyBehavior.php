@@ -38,12 +38,13 @@ class UserAuthKeyBehavior extends Behavior
         // "raw", but Base64'ed
         $raw_key = $this->generateRawKey();
 
-        $this->owner->auth_key_raw = $raw_key;
+        $this->owner->auth_key_raw = $raw_key; // @phpstan-ignore-line
 
         // hint for finding
-        $this->owner->auth_key_hint = static::raw2hint($raw_key);
+        $this->owner->auth_key_hint = static::raw2hint($raw_key); // @phpstan-ignore-line
 
         // hashed token
+        // @phpstan-ignore-next-line
         $this->owner->auth_key_hash = password_hash(
             $raw_key,
             PASSWORD_ARGON2I //TODO: use PASSWORD_ARGON2ID after upgrade to PHP 7.3

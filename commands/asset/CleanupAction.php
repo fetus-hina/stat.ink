@@ -162,17 +162,17 @@ class CleanupAction extends Action
         // リビジョン差が一定よりあるなら消す
         if ($assetRevision !== null && $this->currentRevision !== null) {
             $diff = $this->currentRevision - $assetRevision;
-            return $diff > static::ASSET_REVISION_CLEANUP_THRESHOLD;
+            return $diff > self::ASSET_REVISION_CLEANUP_THRESHOLD;
         }
 
         // コミット日情報が一定より古いなら消す
         if ($commitTime !== null) {
             $diff = $this->now->getTimestamp() - $commitTime->getTimestamp();
-            return $diff > static::COMMIT_TIME_CLEANUP_THRESHOLD;
+            return $diff > self::COMMIT_TIME_CLEANUP_THRESHOLD;
         }
 
         // mtime が一定より古いなら消す
         $diff = $this->now->getTimestamp() - $dir->getMTime();
-        return $diff > static::MTIME_CLEANUP_THRESHOLD;
+        return $diff > self::MTIME_CLEANUP_THRESHOLD;
     }
 }

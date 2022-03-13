@@ -21,6 +21,7 @@ class AutoTrimAttributesBehavior extends TrimAttributesBehavior
 
     public function trim(): void
     {
+        // @phpstan-ignore-next-line
         $targets = array_keys($this->owner->attributes);
         foreach ($targets as $attrName) {
             $this->owner->{$attrName} = $this->doTrim($this->owner->{$attrName});

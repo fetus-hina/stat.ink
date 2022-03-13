@@ -11,8 +11,10 @@ declare(strict_types=1);
 namespace app\components\i18n;
 
 use Yii;
+use app\components\helpers\T;
+use yii\i18n\PhpMessageSource;
 
-class MachineTranslateHelper
+final class MachineTranslateHelper
 {
     private const BASE_DIRECTORY = '@app/messages/_deepl';
 
@@ -21,12 +23,12 @@ class MachineTranslateHelper
         string $message,
         string $language
     ): ?string {
-        if (!$paths = static::getMessagePaths($category, $language)) {
+        if (!$paths = self::getMessagePaths($category, $language)) {
             return null;
         }
 
         foreach ($paths as $path) {
-            if (($text = static::getMessage($path, $message)) !== null) {
+            if (($text = self::getMessage($path, $message)) !== null) {
                 return $text;
             }
         }
@@ -50,7 +52,7 @@ class MachineTranslateHelper
 
         $cacheId = $language . '/' . $category;
         if (!isset($cache[$cacheId])) {
-            $cache[$cacheId] = static::getMessagePathsImpl($category, $language);
+            $cache[$cacheId] = self::getMessagePathsImpl($category, $language);
         }
 
         return $cache[$cacheId];
@@ -58,7 +60,10 @@ class MachineTranslateHelper
 
     private static function getMessagePathsImpl(string $category, string $language): ?array
     {
-        $msgSource = Yii::$app->i18n->getMessageSource($category);
+        $msgSource = T::is(
+            PhpMessageSource::class,
+            Yii::$app->i18n->getMessageSource($category),
+        );
         $fileName = $msgSource->fileMap[$category] ?? str_replace('\\', '/', $category) . '.php';
         $langCandidates = [
             $language,
@@ -67,7 +72,7 @@ class MachineTranslateHelper
         $results = [];
         foreach ($langCandidates as $lang) {
             $path = implode('/', [
-                Yii::getAlias(static::BASE_DIRECTORY),
+                Yii::getAlias(self::BASE_DIRECTORY),
                 $lang,
                 $fileName,
             ]);

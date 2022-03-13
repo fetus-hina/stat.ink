@@ -26,6 +26,7 @@ class MaintenanceInfo extends Widget
 {
     public function run()
     {
+        // @phpstan-ignore-next-line
         $model = MaintenanceSchedule::find()
             ->enabled()
             ->recently()

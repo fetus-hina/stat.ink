@@ -114,7 +114,7 @@ $this->registerCss('.btn-block.text-left{text-align:left}');
           ['download', 'type' => 'ikalog-json'],
           ['class' => 'btn btn-default btn-block text-left']
         ),
-        $user->isUserJsonReady
+        $user->getIsUserJsonReady()
           ? Html::a(
             implode(' ', [
               FA::far('file-code')->fw(),

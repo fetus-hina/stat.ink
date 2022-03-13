@@ -151,7 +151,7 @@ class CurrentData2Action extends ViewAction
                             );
                             uasort($tmp, fn (array $a, array $b) => strcasecmp($a['name'], $b['name']));
                             return $tmp;
-                        })($type),
+                        })(),
                     ];
                 }
             }

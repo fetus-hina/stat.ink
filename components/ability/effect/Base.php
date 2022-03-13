@@ -10,6 +10,25 @@ namespace app\components\ability\effect;
 
 use yii\base\Component;
 
+/**
+ * @phpstan-type JumpSecs array{prepare: float, pullup: float, pulldown: float, rigid: float}
+ *
+ * @property-read JumpSecs|null $superJumpSecs
+ * @property-read float $attackPct
+ * @property-read float $defensePct
+ * @property-read float|null $bombThrowPct
+ * @property-read float|null $inkRecoverySec
+ * @property-read float|null $inkUsePctMain
+ * @property-read float|null $inkUsePctSub
+ * @property-read float|null $markingPct
+ * @property-read float|null $respawnSec
+ * @property-read float|null $runSpeedPct
+ * @property-read float|null $specialChargePoint
+ * @property-read float|null $specialDurationSec
+ * @property-read float|null $specialLossPct
+ * @property-read float|null $swimSpeedPct
+ * @property-read string $calculatorVersion
+ */
 abstract class Base extends Component
 {
     public const SPECIAL_DURATION_40PCT = 75;

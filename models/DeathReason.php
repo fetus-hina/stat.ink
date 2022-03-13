@@ -139,7 +139,7 @@ class DeathReason extends ActiveRecord
         return Translator::translateToAll('app-death', $this->name);
     }
 
-    public function getTranslatedName()
+    public function getTranslatedName(): string
     {
         if ($this->type) {
             switch ($this->type->key) {

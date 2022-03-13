@@ -6,6 +6,8 @@
  * @author AIZAWA Hina <hina@fetus.jp>
  */
 
+declare(strict_types=1);
+
 namespace app\components\web;
 
 use yii\web\Controller as Base;
