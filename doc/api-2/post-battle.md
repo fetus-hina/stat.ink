@@ -681,6 +681,7 @@ Gear Ability
 |`oob`                   |場外<br>Out of Bounds              |
 |`cannon`                |キャノン<br>Cannon                 |
 |`iidabomb`              |イイダボム<br>Hyperbomb            |
+|`korogarium`            |コロガリウム<br>Rolonium           |
 |`piropiro`              |ピロピロ<br>Inkfurler              |
 |`senpaicannon`          |センパイキャノン<br>Princess Cannon|
 |`curlingbomb`           |カーリングボム<br>Curling Bomb     |

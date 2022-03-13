@@ -17,6 +17,7 @@ return [
     'Main Weapon' => 'メインウェポン',
     'Out of Bounds' => '場外',
     'Princess Cannon' => 'センパイキャノン',
+    'Rolonium' => 'コロガリウム',
     'Special Weapon' => 'スペシャルウェポン',
     'Sub Weapon' => 'サブウェポン',
     'Unknown' => '不明',

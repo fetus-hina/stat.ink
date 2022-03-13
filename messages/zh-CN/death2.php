@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2020 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2022 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  * @author Gosin <canling0@gmail.com>
@@ -18,6 +18,7 @@ return [
     'Main Weapon' => '主武器',
     'Out of Bounds' => '越界',
     'Princess Cannon' => '公主炮',
+    'Rolonium' => '',
     'Special Weapon' => '特殊武器',
     'Sub Weapon' => '副武器',
     'Unknown' => '未知',
