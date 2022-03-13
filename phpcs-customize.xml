@@ -1,8 +1,0 @@
-<?xml version="1.0" ?>
-<ruleset name="Customized-PSR2">
-    <description>A custom coding standard</description>
-    <rule ref="PSR12">
-        <!-- 本当は components/ability/effect/* に限定したい -->
-        <exclude name="Squiz.Classes.ValidClassName.NotCamelCaps" />
-    </rule>
-</ruleset>
