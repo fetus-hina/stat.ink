@@ -6,6 +6,8 @@
  * @author AIZAWA Hina <hina@fetus.jp>
  */
 
+declare(strict_types=1);
+
 namespace app\actions\entire;
 
 use Base32\Base32;
@@ -15,17 +17,18 @@ use DateTimeZone;
 use Yii;
 use app\models\AgentGroup;
 use app\models\StatAgentUser;
+use yii\base\Action;
 use yii\base\DynamicModel;
+use yii\db\ActiveQuery;
 use yii\web\NotFoundHttpException;
-use yii\web\ViewAction as BaseAction;
 
 use const SORT_ASC;
 
 /**
+ * @property-read AgentGroup[] $combineds
  * @property-read array[] $postStats
- * @property-read array<string, scalar> $combineds
  */
-final class AgentAction extends BaseAction
+final class AgentAction extends Action
 {
     public $form;
 
@@ -67,7 +70,7 @@ final class AgentAction extends BaseAction
         return $this->controller->render('agent', [
             'name' => $name,
             'posts' => $this->postStats,
-            'combineds' => $this->combineds,
+            'combineds' => $this->getCombineds(),
         ]);
     }
 
@@ -112,12 +115,12 @@ final class AgentAction extends BaseAction
         return array_values($ret);
     }
 
-    /** @return array<string, scalar> */
+    /** @return AgentGroup[] */
     public function getCombineds(): array
     {
         return AgentGroup::find()
             ->innerJoinWith([
-                'agentGroupMaps' => function ($q) {
+                'agentGroupMaps' => function (ActiveQuery $q): void {
                     $q->orderBy(null);
                 },
             ], false)
@@ -125,7 +128,6 @@ final class AgentAction extends BaseAction
                 '{{agent_group_map}}.[[agent_name]]' => Base32::decode($this->form->b32name),
             ])
             ->orderBy(['{{agent_group}}.[[name]]' => SORT_ASC])
-            ->asArray()
             ->all();
     }
 }

@@ -2,7 +2,7 @@ includes:
   - vendor/proget-hq/phpstan-yii2/extension.neon
 
 parameters:
-  level: 2
+  level: 3
 
   checkMissingIterableValueType: false
 
@@ -27,6 +27,7 @@ parameters:
 
   typeAliases:
     URL: 'string|array{0: string}'
+    numeric: 'int|float|numeric-string'
 
   stubFiles:
     - data/phpstan/yii/web/View.php
@@ -44,5 +45,6 @@ parameters:
   tmpDir: runtime/phpstan
 
   ignoreErrors:
-    - '/Access to an undefined property yii\\base\\ViewContextInterface::\$layout\./'
     - '/Access to an undefined property yii\\base\\DynamicModel::/'
+    - '/Access to an undefined property yii\\base\\ViewContextInterface::\$layout\./'
+    - '/Argument of an invalid type stdClass supplied for foreach/'

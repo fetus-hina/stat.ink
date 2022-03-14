@@ -226,8 +226,21 @@ final class UserStatMonthlyReportAction extends Action
                 'wins' => 'SUM(CASE WHEN {{battle2}}.[[is_win]] THEN 1 ELSE 0 END)',
             ]);
 
+        /**
+         * @var array{
+         *   battles: numeric,
+         *   map_key: string,
+         *   map_name: string,
+         *   mode: 'gachi'|'league2'|'league4'|'nawabari'|'private',
+         *   rule_key: string,
+         *   rule_name: string,
+         *   wins: numeric,
+         * }[] $list
+         */
+        $list = $query->asArray()->all();
+
         $results = [];
-        foreach ($query->asArray()->all() as $row) {
+        foreach ($list as $row) {
             $mode = $row['mode'];
             $rule = $row['rule_key'];
             $map = $row['map_key'];

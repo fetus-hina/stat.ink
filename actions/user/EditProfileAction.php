@@ -82,7 +82,7 @@ final class EditProfileAction extends Action
         ]);
     }
 
-    protected function findOrCreateEnvironmentId(string $text): int
+    protected function findOrCreateEnvironmentId(string $text): ?int
     {
         $text = preg_replace('/\x0d\x0a|\x0d|\x0a/', "\n", (string)$text);
         $text = trim($text);

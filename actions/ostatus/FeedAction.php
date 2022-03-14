@@ -33,7 +33,6 @@ final class FeedAction extends BaseAction
             $resp->format = 'raw';
             $resp->getHeaders()->set('Content-Type', 'application/atom+xml; charset=UTF-8');
             $resp->data = BattleAtom::createUserFeed($user);
-            $resp->content = null;
             return $resp;
         } elseif (!$battle = $this->getBattle($user, $battleId)) {
             return $this->http404();
@@ -42,7 +41,6 @@ final class FeedAction extends BaseAction
             $resp->format = 'raw';
             $resp->getHeaders()->set('Content-Type', 'application/atom+xml; charset=UTF-8');
             $resp->data = BattleAtom::createBattleFeed($user, $battle);
-            $resp->content = null;
             return $resp;
         }
     }

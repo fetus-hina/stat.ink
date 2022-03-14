@@ -15,7 +15,7 @@ use Yii;
 use app\components\helpers\db\Now;
 use yii\base\Model;
 
-class SlackAddForm extends Model
+final class SlackAddForm extends Model
 {
     /** @var string */
     public $webhook_url;
@@ -122,15 +122,16 @@ class SlackAddForm extends Model
         );
     }
 
-    /** @return bool */
-    public function save(User $user)
+    public function save(User $user): bool
     {
         $model = new Slack();
         $model->attributes = $this->attributes;
-        $model->user_id = $user->id;
-        $model->suspended = false;
-        $model->created_at = new Now();
-        $model->updated_at = new Now();
+        $model->attributes = [
+            'user_id' => $user->id,
+            'suspended' => false,
+            'created_at' => new Now(),
+            'updated_at' => new Now(),
+        ];
         return $model->save();
     }
 }

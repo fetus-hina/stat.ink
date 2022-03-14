@@ -197,7 +197,7 @@ class BattleFilterWidget extends Widget
     protected function getUsedWeaponIdList(?User $user = null): array
     {
         if (!$user) {
-            return null;
+            return [];
         }
 
         return array_map(

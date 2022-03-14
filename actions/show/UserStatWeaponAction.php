@@ -15,10 +15,11 @@ use app\components\helpers\T;
 use app\models\User;
 use yii\base\Action;
 use yii\web\NotFoundHttpException;
+use yii\web\Response;
 
 final class UserStatWeaponAction extends Action
 {
-    public function run(): string
+    public function run(): Response
     {
         $request = Yii::$app->getRequest();
         $user = User::findOne(['screen_name' => $request->get('screen_name')]);
@@ -28,8 +29,10 @@ final class UserStatWeaponAction extends Action
 
         return T::webController($this->controller)
             ->redirect(
-                ['show/user-stat-by-weapon', 'screen_name' => $user->screen_name],
-                301
+                ['show/user-stat-by-weapon',
+                    'screen_name' => $user->screen_name,
+                ],
+                301,
             );
     }
 }

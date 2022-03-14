@@ -586,10 +586,10 @@ final class PostBattleForm extends Model
             ? (int)$this->his_team_final_point
             : null;
         $o->my_team_final_percent   = (string)$this->my_team_final_percent != ''
-            ? sprintf('%.1f', (float)$this->my_team_final_percent)
+            ? (float)sprintf('%.1f', (float)$this->my_team_final_percent)
             : null;
         $o->his_team_final_percent   = (string)$this->his_team_final_percent != ''
-            ? sprintf('%.1f', (float)$this->his_team_final_percent)
+            ? (float)sprintf('%.1f', (float)$this->his_team_final_percent)
             : null;
         $o->is_knock_out    = $this->knock_out === 'yes' ? true : ($this->knock_out === 'no' ? false : null);
         $o->my_team_count   = (string)$this->my_team_count != '' ? (int)$this->my_team_count : null;

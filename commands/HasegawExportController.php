@@ -50,6 +50,8 @@ class HasegawExportController extends Controller
                 'max' => 'MAX({{battle}}.[[at]])',
             ])
             ->orderBy(null);
+
+        /** @phpstan-var array{min: int, max: int} */
         $info = $query->one();
 
         $from = (new DateTimeImmutable($info['min']))

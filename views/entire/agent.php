@@ -7,12 +7,13 @@ use app\assets\EntireAgentAsset;
 use app\components\helpers\Html;
 use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
+use app\models\AgentGroup;
 use yii\helpers\Json;
 use yii\web\View;
 
 /**
+ * @var AgentGroup[] $combineds
  * @var View $this
- * @var array<string, scalar> $combineds
  * @var array[] $posts
  * @var string $name
  */
@@ -55,26 +56,26 @@ $this->registerCss('#graph{height:300px}');
         ) . "\n" ?>
       </p>
     </div>
-<?php if ($combineds): ?>
+<?php if ($combineds) { ?>
     <div class="col-xs-6">
       <p class="text-right">
-<?php foreach ($combineds as $_combined): ?>
+<?php foreach ($combineds as $agentGroup) { ?>
         <?= Html::a(
           implode('', [
             Html::encode(
-              sprintf('%s %s', $_combined['name'], Yii::t('app', '(combined)'))
+              sprintf('%s %s', $agentGroup->name, Yii::t('app', '(combined)'))
             ),
             Html::tag('span', '', ['class' => 'fas fa-fw fa-angle-double-right']),
           ]),
           ['entire/combined-agent',
-            'b32name' => strtolower(rtrim(Base32::encode($_combined['name']), '=')),
+            'b32name' => strtolower(rtrim(Base32::encode($agentGroup->name), '=')),
           ],
           ['class' => 'btn btn-default']
         ) . "\n" ?>
-<?php endforeach ?>
+<?php } ?>
       </p>
     </div>
-<?php endif ?>
+<?php } ?>
   </div>
 
   <?= Html::tag('div', '', [

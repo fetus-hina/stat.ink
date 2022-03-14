@@ -6,14 +6,21 @@
  * @author AIZAWA Hina <hina@fetus.jp>
  */
 
+declare(strict_types=1);
+
 namespace app\components\filters\auth;
 
 use yii\filters\auth\AuthMethod;
+use yii\web\IdentityInterface;
 
-class RequestBodyAuth extends AuthMethod
+final class RequestBodyAuth extends AuthMethod
 {
     public $tokenParam = 'access-token';
 
+    /**
+     * @inheritdoc
+     * @return IdentityInterface|null
+     */
     public function authenticate($user, $request, $response)
     {
         $accessToken = $request->post($this->tokenParam);

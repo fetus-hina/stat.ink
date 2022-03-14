@@ -266,7 +266,7 @@ class UserStatGachiAction extends BaseAction
         return $exp;
     }
 
-    private function getEntireRankStat(): stdClass
+    private function getEntireRankStat(): ?stdClass
     {
         $subQuery = (new Query())
             ->select(['id' => 'MAX({{battle}}.[[id]])'])
@@ -291,7 +291,7 @@ class UserStatGachiAction extends BaseAction
             $exps[] = $this->calcGraphExp($row['rank_key'], $row['rank_exp']);
         }
         if (count($exps) < 1) {
-            return false;
+            return null;
         }
 
         $avgExp = array_sum($exps) / count($exps);

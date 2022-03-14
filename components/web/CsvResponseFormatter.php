@@ -52,7 +52,6 @@ class CsvResponseFormatter extends Component implements ResponseFormatterInterfa
             fwrite($tmpfile, mb_convert_encoding("\x0d\x0a", $this->outputCharset, 'UTF-8'));
         }
         fseek($tmpfile, 0, SEEK_SET);
-        $response->content = null;
         $response->stream = $tmpfile;
 
         unset($substitute);

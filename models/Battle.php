@@ -34,66 +34,66 @@ use const SORT_STRING;
  *
  * @property int $id
  * @property int $user_id
- * @property int $rule_id
- * @property int $map_id
- * @property int $weapon_id
- * @property int $level
- * @property int $rank_id
- * @property bool $is_win
- * @property int $rank_in_team
- * @property int $kill
- * @property int $death
- * @property string $start_at
- * @property string $end_at
+ * @property int|null $rule_id
+ * @property int|null $map_id
+ * @property int|null $weapon_id
+ * @property int|null $level
+ * @property int|null $rank_id
+ * @property bool|null $is_win
+ * @property int|null $rank_in_team
+ * @property int|null $kill
+ * @property int|null $death
+ * @property string|null $start_at
+ * @property string|null $end_at
  * @property string $at
- * @property int $agent_id
- * @property int $level_after
- * @property int $rank_after_id
- * @property int $rank_exp
- * @property int $rank_exp_after
- * @property int $cash
- * @property int $cash_after
- * @property int $lobby_id
- * @property string $kill_ratio
- * @property int $gender_id
- * @property int $fest_title_id
- * @property int $fest_title_after_id
- * @property int $fest_exp
- * @property int $fest_exp_after
- * @property int $my_team_color_hue
- * @property int $his_team_color_hue
- * @property string $my_team_color_rgb
- * @property string $his_team_color_rgb
- * @property int $my_point
- * @property int $my_team_final_point
- * @property int $his_team_final_point
- * @property string $my_team_final_percent
- * @property string $his_team_final_percent
- * @property bool $is_knock_out
- * @property int $my_team_count
- * @property int $his_team_count
+ * @property int|null $agent_id
+ * @property int|null $level_after
+ * @property int|null $rank_after_id
+ * @property int|null $rank_exp
+ * @property int|null $rank_exp_after
+ * @property int|null $cash
+ * @property int|null $cash_after
+ * @property int|null $lobby_id
+ * @property float|null $kill_ratio
+ * @property int|null $gender_id
+ * @property int|null $fest_title_id
+ * @property int|null $my_team_color_hue
+ * @property int|null $his_team_color_hue
+ * @property string|null $my_team_color_rgb
+ * @property string|null $his_team_color_rgb
+ * @property int|null $my_point
+ * @property int|null $my_team_final_point
+ * @property int|null $his_team_final_point
+ * @property float|null $my_team_final_percent
+ * @property float|null $his_team_final_percent
+ * @property bool|null $is_knock_out
+ * @property int|null $my_team_count
+ * @property int|null $his_team_count
  * @property int $period
- * @property string $ua_custom
- * @property string $ua_variables
- * @property int $env_id
+ * @property string|null $ua_custom
+ * @property int|null $env_id
+ * @property int|null $fest_title_after_id
+ * @property int|null $fest_exp
+ * @property int|null $fest_exp_after
  * @property bool $is_automated
- * @property int $headgear_id
- * @property int $clothing_id
- * @property int $shoes_id
- * @property string $link_url
- * @property string $note
- * @property string $private_note
- * @property int $my_team_power
- * @property int $his_team_power
- * @property int $fest_power
- * @property int $version_id
- * @property string $client_uuid
- * @property int $agent_game_version_id
- * @property string $agent_game_version_date
- * @property int $max_kill_combo
- * @property int $max_kill_streak
+ * @property int|null $headgear_id
+ * @property int|null $clothing_id
+ * @property int|null $shoes_id
+ * @property string|null $link_url
+ * @property string|null $note
+ * @property string|null $private_note
+ * @property int|null $my_team_power
+ * @property int|null $his_team_power
+ * @property int|null $fest_power
+ * @property int|null $version_id
+ * @property string|null $client_uuid
+ * @property string|null $ua_variables
+ * @property int|null $agent_game_version_id
+ * @property string|null $agent_game_version_date
+ * @property int|null $max_kill_combo
+ * @property int|null $max_kill_streak
  * @property bool $use_for_entire
- * @property int $bonus_id
+ * @property int|null $bonus_id
  *
  * @property Agent $agent
  * @property Environment $env
@@ -684,7 +684,7 @@ final class Battle extends ActiveRecord
             $this->kill_ratio = $this->kill == 0 ? 1.00 : 99.99;
             return;
         }
-        $this->kill_ratio = sprintf('%.2f', $this->kill / $this->death);
+        $this->kill_ratio = (float)sprintf('%.2f', $this->kill / $this->death);
     }
 
     public function setSplatoonVersion()

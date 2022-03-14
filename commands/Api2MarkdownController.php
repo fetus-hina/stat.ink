@@ -11,6 +11,7 @@ declare(strict_types=1);
 namespace app\commands;
 
 use IntlChar;
+use RuntimeException;
 use Yii;
 use app\models\Ability2;
 use app\models\DeathReason2;
@@ -46,7 +47,6 @@ class Api2MarkdownController extends Controller
 
     public function actionUpdateBattle(): int
     {
-        // {{{
         $path = Yii::getAlias('@app/doc/api-2/post-battle.md');
         $markdown = preg_replace_callback(
             '/(?<start><!--replace:(?<kind>[\w-]+)-->)(?<oldvalue>.*?)(?<end><!--endreplace-->)/us',
@@ -56,7 +56,7 @@ class Api2MarkdownController extends Controller
                         ob_start();
                         $status = $this->actionWeapon();
                         if ($status !== 0) {
-                            return $status;
+                            throw new RuntimeException("Failed subcommand `weapon` (status={$status})");
                         }
                         $repl = ob_get_clean();
                         return $match['start'] . "\n" . rtrim($repl) . "\n" . $match['end'];
@@ -65,7 +65,7 @@ class Api2MarkdownController extends Controller
                         ob_start();
                         $status = $this->actionStage();
                         if ($status !== 0) {
-                            return $status;
+                            throw new RuntimeException("Failed subcommand `stage` (status={$status})");
                         }
                         $repl = ob_get_clean();
                         return $match['start'] . "\n" . rtrim($repl) . "\n" . $match['end'];
@@ -74,7 +74,7 @@ class Api2MarkdownController extends Controller
                         ob_start();
                         $status = $this->actionAbility();
                         if ($status !== 0) {
-                            return $status;
+                            throw new RuntimeException("Failed subcommand `ability` (status={$status})");
                         }
                         $repl = ob_get_clean();
                         return $match['start'] . "\n" . rtrim($repl) . "\n" . $match['end'];
@@ -83,7 +83,7 @@ class Api2MarkdownController extends Controller
                         ob_start();
                         $status = $this->actionDeathReason();
                         if ($status !== 0) {
-                            return $status;
+                            throw new RuntimeException("Failed subcommand `death-reason` (status={$status})");
                         }
                         $repl = ob_get_clean();
                         return $match['start'] . "\n" . rtrim($repl) . "\n" . $match['end'];
@@ -98,7 +98,6 @@ class Api2MarkdownController extends Controller
         file_put_contents($path, $markdown);
         echo "Updated $path\n";
         return 0;
-        // }}}
     }
 
     public function actionUpdateSalmon(): int

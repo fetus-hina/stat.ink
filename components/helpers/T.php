@@ -39,7 +39,7 @@ final class T
      * @param class-string<U> $class
      * @return U
      */
-    public static function is(string $class, mixed $obj): object
+    public static function is(string $class, $obj): object
     {
         if (!$obj instanceof $class) {
             throw new TypeError();
