@@ -243,6 +243,7 @@ jobs:
     steps:
       - name: 'Install packages'
         run: |
+          sudo apt update -y
           sudo apt install -y jpegoptim libxml2-utils
 
       - uses: 'actions/checkout@v2'
@@ -337,6 +338,7 @@ jobs:
     steps:
       - name: 'Install packages'
         run: |
+          sudo apt update -y
           sudo apt install -y jpegoptim libxml2-utils
 
       - uses: 'actions/checkout@v2'
