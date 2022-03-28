@@ -40,7 +40,7 @@ use const SORT_DESC;
  * @property string|null $twitter
  * @property int|null $ikanakama
  * @property int|null $env_id
- * @property string $blackout
+ * @property 'always'|'no'|'not-friend'|'not-private' $blackout
  * @property string|null $sw_friend_code
  * @property int $default_language_id
  * @property int|null $ikanakama2
@@ -66,6 +66,7 @@ use const SORT_DESC;
  * @property UserWeapon2[] $userWeapon2s
  * @property Weapon[] $weapons
  *
+ * @property-read Battle|null $latestBattle
  * @property-read Language|null $emailLang
  * @property-read Region2 $guessedSplatfest2Region
  * @property-read Weapon|null $mainWeapon
@@ -353,7 +354,7 @@ class User extends ActiveRecord implements IdentityInterface
             ->orderBy(['id' => SORT_DESC]);
     }
 
-    public function getLatestBattle()
+    public function getLatestBattle(): ActiveQuery
     {
         return $this->hasOne(Battle::class, ['user_id' => 'id'])
             ->orderBy('{{battle}}.[[id]] DESC')

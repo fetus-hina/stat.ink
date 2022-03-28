@@ -121,7 +121,7 @@ final class AgentAction extends Action
         return AgentGroup::find()
             ->innerJoinWith([
                 'agentGroupMaps' => function (ActiveQuery $q): void {
-                    $q->orderBy(null);
+                    $q->orderBy([]);
                 },
             ], false)
             ->where([

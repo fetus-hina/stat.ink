@@ -11,7 +11,7 @@ use yii\web\View;
 use app\models\Language;
 
 /**
- * @var Language $langs
+ * @var array[] $langs
  * @var View $this
  * @var array[] $types
  */

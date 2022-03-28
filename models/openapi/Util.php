@@ -151,7 +151,7 @@ trait Util
     /**
      * @param string[] $keys
      * @param string[] $values
-     * @param string[] $splatnetValues
+     * @param string[][] $splatnetValues
      */
     private static function oapiKeyValueTableTbody(
         array $keys,

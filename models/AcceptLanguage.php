@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace app\models;
 
+use TypeError;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\helpers\StringHelper;
@@ -32,10 +33,24 @@ class AcceptLanguage extends ActiveRecord
             {
                 if ($list = parent::all($db)) {
                     if ($list[0] instanceof AcceptLanguage) {
-                        usort($list, [AcceptLanguage::class, 'compare']);
+                        usort(
+                            $list,
+                            fn (ActiveRecord $a, ActiveRecord $b): int => AcceptLanguage::compare(
+                                self::myModel($a),
+                                self::myModel($b),
+                            ),
+                        );
                     }
                 }
                 return $list;
+            }
+
+            private static function myModel(ActiveRecord $model): AcceptLanguage
+            {
+                if ($model instanceof AcceptLanguage) {
+                    return $model;
+                }
+                throw new TypeError();
             }
         };
     }

@@ -118,7 +118,7 @@ $f = Yii::$app->formatter;
       ])
       : ''
   ) ?></td>
-  <td class="cell-level"><?= Html::encode($model->level) ?></td>
+  <td class="cell-level"><?= Html::encode((string)$model->level) ?></td>
   <td class="cell-result"><?= implode('&nbsp;', array_filter([
     $model->is_win === null
       ? Html::encode('?')
@@ -174,7 +174,7 @@ $f = Yii::$app->formatter;
     )) . "\n"
   ?>
   <td class="cell-point"><?= Html::encode($model->my_point ? ($model->inked ?? '?') : '') ?></td> 
-  <td class="cell-rank-in-team"><?= Html::encode($model->rank_in_team) ?></td>
+  <td class="cell-rank-in-team"><?= Html::encode((string)$model->rank_in_team) ?></td>
   <td class="cell-datetime">
 <?php if ($endAt === null) { ?>
     <?= Html::encode(Yii::t('app', 'N/A')) . "\n" ?>

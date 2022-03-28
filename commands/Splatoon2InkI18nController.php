@@ -243,11 +243,11 @@ class Splatoon2InkI18nController extends Controller
         return $this->updateGear($locale, 'shoes', 'gear.shoes');
     }
 
-    private function updateGear(string $locale, string $type, string $jsonKey): int
+    private function updateGear(string $locale, string $typeKey, string $jsonKey): int
     {
-        $type = GearType::findOne(['key' => $type]);
+        $type = GearType::findOne(['key' => $typeKey]);
         if (!$type) {
-            fprintf(STDERR, "Unknown type: %s\n", $type);
+            fprintf(STDERR, "Unknown type: %s\n", $typeKey);
             return 1;
         }
         $status = $this->update($locale, 'gear2', $jsonKey, ArrayHelper::map(

@@ -84,7 +84,7 @@ $this->registerCss('.btn-block.text-left{text-align:left}');
               ['class' => 'btn btn-default text-left-important flex-grow-1']
             ),
             Html::a(
-              FA::fas('info')->fw(),
+              (string)FA::fas('info')->fw(),
               'https://github.com/fetus-hina/stat.ink/blob/master/doc/api-2/export-salmon-csv.md',
               [
                 'class' => 'btn btn-default auto-tooltip',

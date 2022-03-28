@@ -167,12 +167,12 @@ class CurrentData2Action extends ViewAction
 
         $fmt = Yii::$app->formatter;
         return array_map(
-            fn (array $row): array => [
-                'key' => $row['weapon']['key'],
+            fn (UserWeapon2 $row): array => [
+                'key' => $row->weapon->key,
                 'name' => sprintf(
                     '%s (%s)',
-                    Yii::t('app-weapon2', $row['weapon']['name']),
-                    $fmt->asInteger($row['battles'])
+                    Yii::t('app-weapon2', $row->weapon->name),
+                    $fmt->asInteger($row->battles),
                 ),
             ],
             UserWeapon2::find()
@@ -181,7 +181,6 @@ class CurrentData2Action extends ViewAction
                 ->andWhere(['>', 'battles', 0])
                 ->orderBy(['battles' => SORT_DESC])
                 ->limit(10)
-                ->asArray()
                 ->all(),
         );
     }

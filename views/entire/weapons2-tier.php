@@ -136,7 +136,7 @@ $kdCell = function (StatWeapon2Tier $model, string $column): string {
       fn (string $key, array $data): array => [
         'label' => implode(' ', [
           GameModeIcon::spl2($key),
-          Html::encode(Yii::t('app-rule2', $data['name'])),
+          Html::encode(Yii::t('app-rule2', (string)$data['name'])), // @phpstan-ignore-line
         ]),
         'url' => ['entire/weapons2-tier',
           'version' => $versionGroup->tag,

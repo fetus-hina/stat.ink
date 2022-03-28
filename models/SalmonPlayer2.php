@@ -44,7 +44,7 @@ use const SORT_DESC;
  *
  * @property-read ForceBlackout2 $forceBlackout
  * @property-read SalmonPlayerBossKill2[] $bossKills
- * @property-read SalmonPlayerSpecialUse2 $specialUses
+ * @property-read SalmonPlayerSpecialUse2[] $specialUses
  * @property-read SalmonPlayerWeapon2[] $weapons
  * @property-read bool $isForceBlackout
  */
@@ -263,7 +263,7 @@ class SalmonPlayer2 extends ActiveRecord
                 : null,
             'special_uses' => count($this->specialUses)
                 ? array_map(
-                    fn ($model) => (int)$model->count,
+                    fn (SalmonPlayerSpecialUse2 $model): int => (int)$model->count,
                     $this->specialUses,
                 )
                 : null,

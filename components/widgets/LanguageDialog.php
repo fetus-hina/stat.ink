@@ -85,7 +85,7 @@ final class LanguageDialog extends Dialog
     {
         $flag = Html::tag(
             'span',
-            FlagIcon::fg(strtolower($lang->countryCode)),
+            (string)FlagIcon::fg(strtolower($lang->countryCode)),
             ['class' => 'mr-1']
         );
 

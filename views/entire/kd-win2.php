@@ -109,10 +109,13 @@ TableResponsiveForceAsset::register($this);
         )
       )) . "\n"
     ?>
-<?php $versions = SplatoonVersionGroup2::find()->asArray()->all() ?>
-<?php usort($versions, function (array $a, array $b): int {
-  return version_compare($b['tag'], $a['tag']);
-}) ?>
+<?php
+/** @var array[] */
+$versions = SplatoonVersionGroup2::find()
+  ->asArray()
+  ->all();
+usort($versions, fn (array $a, array $b): int => version_compare($b['tag'], $a['tag']));
+?>
     <?= $_form->field($filter, 'version')
       ->label(false)
       ->dropDownList(array_merge(

@@ -109,7 +109,14 @@ class CurrentDataAction extends ViewAction
     public function getWeapons()
     {
         $ret = [];
-        foreach (WeaponType::find()->orderBy('[[id]]')->asArray()->all() as $type) {
+
+        /** @var array[] $types */
+        $types = WeaponType::find()
+            ->orderBy('[[id]]')
+            ->asArray()
+            ->all();
+
+        foreach ($types as $type) {
             $ret[] = [
                 'name' => Yii::t('app-weapon', $type['name']),
                 'list' => (function (array $type): array {

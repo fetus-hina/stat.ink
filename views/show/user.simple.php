@@ -77,17 +77,18 @@ unset($langs);
 
 $this->registerCss('.simple-battle-list{display:block;list-style-type:none;margin:0;padding:0}');
 
-$battle = $user->getLatestBattle();
+$battle = $user->latestBattle;
 $f = Yii::$app->formatter;
 ?>
 <div class="container">
   <h1><?= Html::encode($title) ?></h1>
   
 <?php
-if ($battle &&
-    $battle->agent &&
-    $battle->agent->isIkaLog &&
-    $battle->agent->getIsOldIkalogAsAtTheTime($battle->at)
+if (
+  $battle &&
+  $battle->agent &&
+  $battle->agent->isIkalog &&
+  $battle->agent->getIsOldIkalogAsAtTheTime($battle->at)
 ) {
 ?>
 <?php $this->registerCss('.old-ikalog{font-weight:bold;color:#f00}') ?>

@@ -90,7 +90,7 @@ if ($battle->nextBattle) {
   ]);
 }
 
-$this->registerJsVar('gearAbilities', $battle->gearAbilities);
+$this->registerJsVar('gearAbilities', (array)$battle->gearAbilities);
 
 GearCalcAsset::register($this);
 $this->registerCss(implode('', [
@@ -329,7 +329,7 @@ $specials = Special::find()->asArray()->all();
                 ? [
                   Html::encode(Yii::t('app-rank', $battle->rank->name)),
                   ($battle->rank_exp !== null)
-                    ? Html::encode($battle->rank_exp)
+                    ? Html::encode((string)$battle->rank_exp)
                     : ''
                 ]
                 : '?',
@@ -338,7 +338,7 @@ $specials = Special::find()->asArray()->all();
                 ? [
                   Html::encode(Yii::t('app-rank', $battle->rankAfter->name)),
                   ($battle->rank_exp_after !== null)
-                    ? Html::encode($battle->rank_exp_after)
+                    ? Html::encode((string)$battle->rank_exp_after)
                     : ''
                 ]
                 : '?',
@@ -376,7 +376,7 @@ $specials = Special::find()->asArray()->all();
                       '***',
                     ])),
                     ($battle->fest_exp !== null)
-                      ? Html::encode($battle->fest_exp)
+                      ? Html::encode((string)$battle->fest_exp)
                       : '',
                   ]
                   : '?',
@@ -390,7 +390,7 @@ $specials = Special::find()->asArray()->all();
                       ])
                     ),
                     ($battle->fest_exp_after !== null)
-                      ? Html::encode($battle->fest_exp_after)
+                      ? Html::encode((string)$battle->fest_exp_after)
                       : '',
                   ]
                   : '?',
@@ -401,7 +401,7 @@ $specials = Special::find()->asArray()->all();
 <?php if ($battle->fest_power) { ?>
           <tr>
             <th><?= Html::encode(Yii::t('app', 'Splatfest Power')) ?></th>
-            <td><?= Html::encode($battle->fest_power) ?></td>
+            <td><?= Html::encode((string)$battle->fest_power) ?></td>
           </tr>
 <?php } ?>
 <?php if ($battle->my_team_power || $battle->his_team_power) { ?>
@@ -491,13 +491,13 @@ $specials = Special::find()->asArray()->all();
 <?php if ($battle->max_kill_combo !== null) { ?>
           <tr>
             <th><?= Html::encode(Yii::t('app', 'Max Kill Combo')) ?></th>
-            <td><?= Html::encode($battle->max_kill_combo) ?></td>
+            <td><?= Html::encode((string)$battle->max_kill_combo) ?></td>
           </tr>
 <?php } ?>
 <?php if ($battle->max_kill_streak !== null) { ?>
           <tr>
             <th><?= Html::encode(Yii::t('app', 'Max Kill Streak')) ?></th>
-            <td><?= Html::encode($battle->max_kill_streak) ?></td>
+            <td><?= Html::encode((string)$battle->max_kill_streak) ?></td>
           </tr>
 <?php } ?>
 <?php $deathReasons = BattleDeathReason::find()

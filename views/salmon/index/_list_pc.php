@@ -448,7 +448,10 @@ SalmonWorkListAsset::register($this);
                 ->all(),
               'weapon',
             );
-            $asset = $weapons ? Spl2WeaponAsset::register(Yii::$app->getView()) : null;
+
+            $asset = (($view = Yii::$app->view) instanceof View)
+                ? ($weapons ? Spl2WeaponAsset::register($view) : null)
+                : null;
 
             return vsprintf('%s %s - %s (%s)', [
               Html::a(
@@ -465,7 +468,7 @@ SalmonWorkListAsset::register($this);
               $fmt->asHtmlDatetimeEx($shift->end_at, 'medium', 'short'),
               implode(' ', array_map(
                 function (?Weapon2 $weapon) use ($asset): string {
-                  if (!$weapon) {
+                  if (!$weapon || !$asset) {
                     return Html::tag('span', (string)FA::fas('question')->fw(), [
                       'class' => 'auto-tooltip',
                       'title' => Yii::t('app-salmon2', 'Random'),

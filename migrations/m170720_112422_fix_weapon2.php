@@ -8,7 +8,6 @@
 
 use app\components\db\Migration;
 use yii\db\Query;
-use yii\helpers\ArrayHelper;
 
 class m170720_112422_fix_weapon2 extends Migration
 {
@@ -31,13 +30,15 @@ class m170720_112422_fix_weapon2 extends Migration
         ?string $sub = null,
         ?string $special = null
     ): void {
-        $update = [
-            'subweapon_id' => $this->findId('subweapon2', $sub),
-            'special_id' => $this->findId('special2', $special),
-        ];
-        ArrayHelper::removeValue($update, null);
+        $update = array_filter(
+            [
+                'subweapon_id' => $this->findId('subweapon2', $sub),
+                'special_id' => $this->findId('special2', $special),
+            ],
+            fn ($v): bool => $v !== null,
+        );
         if (!$update) {
-            throw new \Exception('No update field');
+            throw new Exception('No update field');
         }
         $this->update('weapon2', $update, ['key' => $weapon]);
     }
@@ -47,6 +48,7 @@ class m170720_112422_fix_weapon2 extends Migration
         if ($key === null) {
             return null;
         }
+
         $id = (new Query())
             ->select('id')
             ->from($table)
@@ -54,7 +56,7 @@ class m170720_112422_fix_weapon2 extends Migration
             ->limit(1)
             ->scalar();
         if ($id === false) {
-            throw new \Exception('Unknown ' . $table . ' ' . $key);
+            throw new Exception('Unknown ' . $table . ' ' . $key);
         }
         return (int)$id;
     }

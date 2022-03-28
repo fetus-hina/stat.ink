@@ -24,7 +24,6 @@ use Yii;
 use app\components\helpers\Html;
 use app\models\Language;
 use yii\base\Component;
-use yii\helpers\ArrayHelper;
 use yii\helpers\FileHelper;
 use yii\httpclient\Client as HttpClient;
 use yii\httpclient\CurlTransport;
@@ -465,14 +464,14 @@ class DeeplTranslator extends Component
             return null;
         }
 
-        $startTag = Html::beginTag($node->nodeName, array_reduce(
-            ArrayHelper::getColumn(
-                $node->attributes,
-                fn (DOMNode $attr): array => [$attr->nodeName => $attr->nodeValue]
-            ),
-            fn (array $acc, array $cur) => array_merge($acc, $cur),
-            []
-        ));
+        $nodeAttributes = [];
+        if ($node->attributes) {
+            foreach ($node->attributes as $attrNode) {
+                $nodeAttributes[$attrNode->nodeName] = $attrNode->nodeValue;
+            }
+        }
+
+        $startTag = Html::beginTag($node->nodeName, $nodeAttributes);
 
         // process empty element
         if (isset(Html::$voidElements[strtolower($node->nodeName)])) {

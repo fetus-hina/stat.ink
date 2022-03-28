@@ -116,13 +116,25 @@ class Dialog extends Widget
                     $this->hasClose
                         ? Html::tag(
                             'button',
-                            Html::tag('span', FA::fas('times')->fw(), ['aria-hidden' => 'true']),
+                            Html::tag(
+                                'span',
+                                (string)FA::fas('times')->fw(),
+                                [
+                                    'aria' => [
+                                        'hidden' => 'true',
+                                    ],
+                                ],
+                            ),
                             [
-                                'type' => 'button',
+                                'aria' => [
+                                    'label' => Yii::t('app', 'Close'),
+                                ],
                                 'class' => 'close',
-                                'data-dismiss' => 'modal',
-                                'aria-label' => Yii::t('app', 'Close'),
-                            ]
+                                'data' => [
+                                    'dismiss' => 'modal',
+                                ],
+                                'type' => 'button',
+                            ],
                         )
                         : '',
                 ]),

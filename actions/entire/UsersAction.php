@@ -221,6 +221,7 @@ final class UsersAction extends BaseAction
             ->setTimeZone(new DateTimeZone(Yii::$app->timeZone))
             ->setTimestamp($_SERVER['REQUEST_TIME'] ?? time());
         $startAt = $endAt->sub(new DateInterval('PT24H'));
+        /** @var array[] $list */
         $list = Battle2::find()
             ->innerJoinWith(['agent'], false)
             ->where(['and',
@@ -275,6 +276,7 @@ final class UsersAction extends BaseAction
         int $minId,
         int $maxId
     ): array {
+        /** @var array[] $versions */
         $versions = Battle2::find()
             ->innerJoinWith(['agent'], false)
             ->where(['and',
@@ -291,14 +293,17 @@ final class UsersAction extends BaseAction
             ->groupBy(['{{battle2}}.[[agent_id]]'])
             ->asArray()
             ->all();
-        usort($versions, fn (array $a, array $b): int => version_compare($b['version'], $a['version']));
+        usort(
+            $versions,
+            fn (array $a, array $b): int => version_compare($b['version'], $a['version']),
+        );
         return array_map(
             fn (array $row): array => [
                 'version' => (string)$row['version'],
                 'battles' => (int)$row['battles'],
                 'users' => (int)$row['users'],
             ],
-            $versions
+            $versions,
         );
     }
 }

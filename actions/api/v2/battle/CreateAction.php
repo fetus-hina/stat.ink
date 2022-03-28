@@ -100,66 +100,108 @@ class CreateAction extends BaseAction
             $this->logError([
                 'system' => [ Yii::t('app', 'Please send meaningful data.') ],
             ]);
-            return $this->formatError([
-                'system' => [ Yii::t('app', 'Please send meaningful data.') ],
-            ], 400);
+            return $this->formatError(
+                [
+                    'system' => [
+                        Yii::t('app', 'Please send meaningful data.'),
+                    ],
+                ],
+                400,
+            );
         }
+
         if (!$battle->save()) {
             $this->logError([
-                'system' => [ Yii::t('app', 'Could not save to database: {0}', 'battle') ],
+                'system' => [
+                    Yii::t('app', 'Could not save to database: {0}', ['battle']),
+                ],
                 'system_' => $battle->getErrors(),
             ]);
-            return $this->formatError([
-                'system' => [ Yii::t('app', 'Could not save to database: {0}', 'battle') ],
-                'system_' => $battle->getErrors(),
-            ], 500);
+            return $this->formatError(
+                [
+                    'system' => [
+                        Yii::t('app', 'Could not save to database: {0}', ['battle']),
+                    ],
+                    'system_' => $battle->getErrors(),
+                ],
+                500,
+            );
         }
+
         if ($events = $form->toEvents($battle)) {
             if (!$events->save()) {
                 $this->logError([
-                    'system' => [ Yii::t('app', 'Could not save to database: {0}', 'battle_events') ],
+                    'system' => [
+                        Yii::t('app', 'Could not save to database: {0}', ['battle_events']),
+                    ],
                     'system_' => $battle->getErrors(),
                 ]);
-                return $this->formatError([
-                    'system' => [ Yii::t('app', 'Could not save to database: {0}', 'battle_events') ],
-                    'system_' => $battle->getErrors(),
-                ], 500);
+                return $this->formatError(
+                    [
+                        'system' => [
+                            Yii::t('app', 'Could not save to database: {0}', ['battle_events']),
+                        ],
+                        'system_' => $battle->getErrors(),
+                    ],
+                    500,
+                );
             }
         }
         if ($json = $form->toSplatnetJson($battle)) {
             if (!$json->save()) {
                 $this->logError([
-                    'system' => [ Yii::t('app', 'Could not save to database: {0}', 'battle2_splatnet') ],
+                    'system' => [
+                        Yii::t('app', 'Could not save to database: {0}', ['battle2_splatnet']),
+                    ],
                     'system_' => $battle->getErrors(),
                 ]);
-                return $this->formatError([
-                    'system' => [ Yii::t('app', 'Could not save to database: {0}', 'battle2_splatnet') ],
-                    'system_' => $battle->getErrors(),
-                ], 500);
+                return $this->formatError(
+                    [
+                        'system' => [
+                            Yii::t('app', 'Could not save to database: {0}', ['battle2_splatnet']),
+                        ],
+                        'system_' => $battle->getErrors(),
+                    ],
+                    500,
+                );
             }
         }
         foreach ($form->toDeathReasons($battle) as $reason) {
             if ($reason && !$reason->save()) {
                 $this->logError([
-                    'system' => [ Yii::t('app', 'Could not save to database: {0}', 'battle_death_reason') ],
+                    'system' => [
+                        Yii::t('app', 'Could not save to database: {0}', ['battle_death_reason']),
+                    ],
                     'system_' => $reason->getErrors(),
                 ]);
-                return $this->formatError([
-                    'system' => [ Yii::t('app', 'Could not save to database: {0}', 'battle_death_reason') ],
-                    'system_' => $reason->getErrors(),
-                ], 500);
+                return $this->formatError(
+                    [
+                        'system' => [
+                            Yii::t('app', 'Could not save to database: {0}', ['battle_death_reason']),
+                        ],
+                        'system_' => $reason->getErrors(),
+                    ],
+                    500,
+                );
             }
         }
         foreach ($form->toPlayers($battle) as $player) {
             if ($player && !$player->save()) {
                 $this->logError([
-                    'system' => [ 'Could not save to database: battle_player' ],
+                    'system' => [
+                        'Could not save to database: battle_player',
+                    ],
                     'system_' => $player->getErrors(),
                 ]);
-                return $this->formatError([
-                    'system' => [ 'Could not save to database: battle_player' ],
-                    'system_' => $player->getErrors(),
-                ], 500);
+                return $this->formatError(
+                    [
+                        'system' => [
+                            'Could not save to database: battle_player',
+                        ],
+                        'system_' => $player->getErrors(),
+                    ],
+                    500,
+                );
             }
         }
         $imageOutputDir = Yii::getAlias('@webroot/images');
@@ -177,26 +219,32 @@ class CreateAction extends BaseAction
             ) {
                 $this->logError([
                     'system' => [
-                        Yii::t('app', 'Could not convert "{0}" image.', 'judge'),
+                        Yii::t('app', 'Could not convert "{0}" image.', ['judge']),
                     ],
                 ]);
-                return $this->formatError([
-                    'system' => [
-                        Yii::t('app', 'Could not convert "{0}" image.', 'judge'),
+                return $this->formatError(
+                    [
+                        'system' => [
+                            Yii::t('app', 'Could not convert "{0}" image.', ['judge']),
+                        ],
                     ],
-                ], 500);
+                    500,
+                );
             }
             if (!$image->save()) {
                 $this->logError([
                     'system' => [
-                        Yii::t('app', 'Could not save {0}', 'battle_image(judge)'),
+                        Yii::t('app', 'Could not save {0}', ['battle_image(judge)']),
                     ],
                 ]);
-                return $this->formatError([
-                    'system' => [
-                        Yii::t('app', 'Could not save {0}', 'battle_image(judge)'),
+                return $this->formatError(
+                    [
+                        'system' => [
+                            Yii::t('app', 'Could not save {0}', ['battle_image(judge)']),
+                        ],
                     ],
-                ], 500);
+                    500,
+                );
             }
         }
         if ($image = $form->toImageResult($battle)) {
@@ -227,26 +275,32 @@ class CreateAction extends BaseAction
             ) {
                 $this->logError([
                     'system' => [
-                        Yii::t('app', 'Could not convert "{0}" image.', 'result'),
+                        Yii::t('app', 'Could not convert "{0}" image.', ['result']),
                     ],
                 ]);
-                return $this->formatError([
-                    'system' => [
-                        Yii::t('app', 'Could not convert "{0}" image.', 'result'),
+                return $this->formatError(
+                    [
+                        'system' => [
+                            Yii::t('app', 'Could not convert "{0}" image.', ['result']),
+                        ],
                     ],
-                ], 500);
+                    500,
+                );
             }
             if (!$image->save()) {
                 $this->logError([
                     'system' => [
-                        Yii::t('app', 'Could not save {0}', 'battle_image(result)'),
+                        Yii::t('app', 'Could not save {0}', ['battle_image(result)']),
                     ],
                 ]);
-                return $this->formatError([
-                    'system' => [
-                        Yii::t('app', 'Could not save {0}', 'battle_image(result)'),
+                return $this->formatError(
+                    [
+                        'system' => [
+                            Yii::t('app', 'Could not save {0}', ['battle_image(result)']),
+                        ],
                     ],
-                ], 500);
+                    500,
+                );
             }
         }
         if ($image = $form->toImageGear($battle)) {
@@ -263,26 +317,32 @@ class CreateAction extends BaseAction
             ) {
                 $this->logError([
                     'system' => [
-                        Yii::t('app', 'Could not convert "{0}" image.', 'gear'),
+                        Yii::t('app', 'Could not convert "{0}" image.', ['gear']),
                     ],
                 ]);
-                return $this->formatError([
-                    'system' => [
-                        Yii::t('app', 'Could not convert "{0}" image.', 'gear'),
+                return $this->formatError(
+                    [
+                        'system' => [
+                            Yii::t('app', 'Could not convert "{0}" image.', ['gear']),
+                        ],
                     ],
-                ], 500);
+                    500,
+                );
             }
             if (!$image->save()) {
                 $this->logError([
                     'system' => [
-                        Yii::t('app', 'Could not save {0}', 'battle_image(gear)'),
+                        Yii::t('app', 'Could not save {0}', ['battle_image(gear)']),
                     ],
                 ]);
-                return $this->formatError([
-                    'system' => [
-                        Yii::t('app', 'Could not save {0}', 'battle_image(gear)'),
+                return $this->formatError(
+                    [
+                        'system' => [
+                            Yii::t('app', 'Could not save {0}', ['battle_image(gear)']),
+                        ],
                     ],
-                ], 500);
+                    500,
+                );
             }
         }
 
@@ -353,14 +413,27 @@ class CreateAction extends BaseAction
         $resp->statusText = 'Created';
         $resp->format = 'raw';
         $resp->data = '';
-        $header->set('Location', Url::to([
-            '/show-v2/battle',
-            'screen_name' => $battle->user->screen_name,
-            'battle' => $battle->id,
-        ], true));
-        $header->set('X-Api-Location', Url::to(['/api-v2-battle/view', 'id' => $battle->id], true));
+        $header->set(
+            'Location',
+            Url::to(
+                ['/show-v2/battle',
+                    'screen_name' => $battle->user->screen_name,
+                    'battle' => $battle->id,
+                ],
+                true,
+            ),
+        );
+        $header->set(
+            'X-Api-Location',
+            Url::to(
+                ['/api-v2-battle/view',
+                    'id' => $battle->id,
+                ],
+                true,
+            ),
+        );
         $header->set('X-User-Screen-Name', $battle->user->screen_name);
-        $header->set('X-Battle-ID', $battle->id);
+        $header->set('X-Battle-ID', (string)$battle->id);
         if ($found) {
             $resp->statusCode = 302;
             $resp->statusText = 'Found';

@@ -39,7 +39,7 @@ $this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink']);
 
 <?php if ($fest->region->key === 'jp'): ?>
     <p>
-      <a href="https://fest.ink/<?= Html::encode($fest->order) ?>">
+      <a href="https://fest.ink/<?= Html::encode((string)$fest->order) ?>">
         公式サイトから取得したデータを基に推測した勝率はイカフェスレートで確認できます。
       </a>
     </p>

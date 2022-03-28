@@ -17,27 +17,28 @@ use yii\web\ViewAction as BaseAction;
 
 use const SORT_ASC;
 
-class WeaponAction extends BaseAction
+final class WeaponAction extends BaseAction
 {
     public function run()
     {
         $types = array_map(
-            fn (array $type): array => [
-                'key'   => $type['key'],
-                'name'  => Yii::t('app-weapon', $type['name']),
+            fn (WeaponType $type): array => [
+                'key'   => $type->key,
+                'name'  => Yii::t('app-weapon', $type->name),
                 'weapons' => array_map(
-                    fn (array $weapon): array => [
-                        'key' => $weapon['key'],
-                        'names' => Translator::translateToAll('app-weapon', $weapon['name']),
+                    fn (Weapon $weapon): array => [
+                        'key' => $weapon->key,
+                        'names' => Translator::translateToAll('app-weapon', $weapon->name),
                     ],
                     Weapon::find()
-                            ->andWhere(['type_id' => $type['id']])
-                            ->orderBy(['key' => SORT_ASC])
-                            ->asArray()
-                            ->all()
+                        ->andWhere(['type_id' => $type->id])
+                        ->orderBy(['key' => SORT_ASC])
+                        ->all(),
                 ),
             ],
-            WeaponType::find()->orderBy(['id' => SORT_ASC])->asArray()->all()
+            WeaponType::find()
+                ->orderBy(['id' => SORT_ASC])
+                ->all(),
         );
 
         // @phpstan-ignore-next-line

@@ -55,29 +55,28 @@ final class EditProfileAction extends Action
             'form' => $form,
             'languages' => ArrayHelper::map(
                 array_map(
-                    function ($row) {
-                        $row['_name'] = sprintf(
-                            '%s / %s',
-                            $row['name'],
-                            $row['name_en']
-                        );
-                        return $row;
-                    },
-                    Language::find()->orderBy('name')->asArray()->all()
+                    fn (Language $row): array => [
+                        'id' => $row->id,
+                        'name' => vsprintf('%s / %s', [
+                            $row->name,
+                            $row->name_en,
+                        ]),
+                    ],
+                    Language::find()->orderBy('name')->all(),
                 ),
                 'id',
-                '_name'
+                'name',
             ),
             'regions' => ArrayHelper::map(
                 array_map(
-                    fn (array $row): array => [
-                        'id' => $row['id'],
-                        'name' => Yii::t('app-region', $row['name']),
+                    fn (Region $row): array => [
+                        'id' => $row->id,
+                        'name' => Yii::t('app-region', $row->name),
                     ],
-                    Region::find()->orderBy('id')->asArray()->all()
+                    Region::find()->orderBy('id')->all(),
                 ),
                 'id',
-                'name'
+                'name',
             ),
         ]);
     }

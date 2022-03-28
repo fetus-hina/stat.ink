@@ -572,7 +572,7 @@ class StatController extends Controller
                 'battle2.lobby_id',
                 'battle_player2.rank_id',
             ])
-            ->orderBy(null)
+            ->orderBy([])
             ->select([
                 'rule_id' => 'battle2.rule_id',
                 'map_id' => 'battle2.map_id',
@@ -1183,7 +1183,7 @@ class StatController extends Controller
                 '{{battle_player2}}.[[weapon_id]]',
                 '{{battle2}}.[[map_id]]',
             ]))
-            ->orderBy(null);
+            ->orderBy([]);
 
         $insert = sprintf(
             'INSERT INTO {{%s}} ( %s ) %s',

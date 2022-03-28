@@ -927,6 +927,7 @@ final class PostBattleForm extends Model
             return;
         }
 
+        /** @var object[] $newValues */
         $newValues = [];
         foreach ($this->$attribute as $value) {
             if (is_array($value)) {
@@ -941,7 +942,10 @@ final class PostBattleForm extends Model
             }
             $newValues[] = $value;
         }
-        usort($newValues, fn ($a, $b) => $a->at - $b->at);
+        usort(
+            $newValues,
+            fn ($a, $b): int => $a->at <=> $b->at,
+        );
         $this->$attribute = $newValues;
     }
 
@@ -1037,7 +1041,10 @@ final class PostBattleForm extends Model
             $newValue = Yii::createObject(['class' => PostBattlePlayerForm::class]);
             $newValue->attributes = $oldValue;
             if (!$newValue->validate()) {
-                $this->addError("{$attribute}.{$i}", $newValue->getErrors());
+                $this->addError(
+                    "{$attribute}.{$i}",
+                    array_values($newValue->getErrors())[0],
+                );
             }
             $newValues[] = $newValue;
         }

@@ -39,6 +39,7 @@ if ($_flashes) {
               'type' => Html::encode($_key),
             ])
           ),
+          View::POS_READY,
           hash_hmac('md5', $_hashKey, (string)($i++))
         );
       }

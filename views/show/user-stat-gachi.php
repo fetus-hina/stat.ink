@@ -15,7 +15,7 @@ use yii\web\View;
 /**
  * @var User $user
  * @var View $this
- * @var array<string, Map> $maps
+ * @var array<string, string> $maps
  * @var stdClass[] $recentRank
  * @var stdClass[] $recentWP
  * @var stdClass|null $userRankStat

@@ -33,8 +33,8 @@ final class UserStatSplatfestAction extends ViewAction
         $model = $this->processInput();
         $this->initRegion($model);
 
-        assert($this->user);
-        assert($this->region);
+        assert($this->user !== null);
+        assert($this->region !== null);
 
         return $this->controller->render('user-stat-splatfest', [
             'input' => $model,

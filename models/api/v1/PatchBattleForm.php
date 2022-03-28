@@ -83,7 +83,7 @@ class PatchBattleForm extends Model
                 '{{battle}}.[[id]]' => $this->id,
                 '{{user}}.[[api_key]]' => $this->apikey,
             ])
-            ->orderBy(null)
+            ->orderBy([])
             ->limit(1)
             ->one();
         if (!$battle) {

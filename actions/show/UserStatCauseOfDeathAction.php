@@ -181,7 +181,9 @@ class UserStatCauseOfDeathAction extends BaseAction
             if ($column === 'canonical_id') {
                 $weapons[$o->id] = Yii::t('app-weapon', $o->name);
             } else {
-                $weapons[$o->id] = Yii::t('app', '{0} etc.', Yii::t('app-weapon', $o->name));
+                $weapons[$o->id] = Yii::t('app', '{0} etc.', [
+                    Yii::t('app-weapon', $o->name),
+                ]);
             }
         }
 

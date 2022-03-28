@@ -209,22 +209,28 @@ final class UserStatReportAction extends Action
                 'mod_special'       => 'MODE() WITHIN GROUP (ORDER BY {{battle2}}.[[special]])',
             ]);
         // }}}
+
+        /** @var array[] $list */
+        $list = $query->asArray()->all();
         $list = array_map(
             function (array $row): array {
-                $row['rule_name']   = Yii::t('app-rule2', $row['rule_name']);
-                $row['map_name']    = Yii::t('app-map2', $row['map_name']);
+                $row['rule_name'] = Yii::t('app-rule2', $row['rule_name']);
+                $row['map_name'] = Yii::t('app-map2', $row['map_name']);
                 $row['weapon_name'] = Yii::t('app-weapon2', $row['weapon_name']);
                 return $row;
             },
-            $query->asArray()->all()
+            $list,
         );
-        usort($list, fn (array $a, array $b): int => strcmp($b['date'], $a['date'])
+        usort(
+            $list,
+            fn (array $a, array $b): int => strcmp($b['date'], $a['date'])
                 ?: $a['lobby_id'] <=> $b['lobby_id']
                 ?: $a['mode_id'] <=> $b['mode_id']
                 ?: strcmp($a['team_id'], $b['team_id'])
                 ?: $a['rule_id'] <=> $b['rule_id']
                 ?: strcmp($a['map_name'], $b['map_name'])
-                ?: strcmp($a['weapon_name'], $b['weapon_name']));
+                ?: strcmp($a['weapon_name'], $b['weapon_name']),
+        );
         return $list;
     }
 }

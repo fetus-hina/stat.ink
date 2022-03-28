@@ -74,8 +74,8 @@ class Connection extends BaseConnection
         if ($transaction->isActive && $transaction->level === $level) {
             try {
                 $transaction->rollBack();
-            } catch (\Throwable $e) {
-                Yii::error($e, __METHOD__);
+            } catch (Throwable $e) {
+                Yii::error($e->getMessage(), get_class($e));
             }
         }
     }

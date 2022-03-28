@@ -19,12 +19,12 @@ class m171206_113614_gear2id extends Migration
             $this->db->quoteColumnName('key'),
             implode(' ', array_map(
                 fn (string $key, int $value): string => sprintf(
-                    'WHEN %s THEN %s',
+                    'WHEN %s THEN %d',
                     $this->db->quoteValue($key),
-                    $this->db->quoteValue($value)
+                    $value,
                 ),
                 array_keys($data),
-                array_values($data)
+                array_values($data),
             ))
         ));
         $this->update(

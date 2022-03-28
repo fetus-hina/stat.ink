@@ -178,7 +178,7 @@ $f = Yii::$app->formatter;
       'format' => 'raw',
       'value' => function () use ($user): string {
         return Html::a(
-          '#' . Html::encode($user->ikanakama2),
+          '#' . Html::encode((string)$user->ikanakama2),
           sprintf('https://ikanakama.ink/users/%s', rawurlencode((string)$user->ikanakama2))
         );
       },

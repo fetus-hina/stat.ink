@@ -12,4 +12,11 @@ class View
 {
     /** @var Controller */
     public $context;
+
+    /**
+     * @param mixed $value
+     */
+    public function registerJsVar(string $name, $value, int $position = self::POS_HEAD): void
+    {
+    }
 }

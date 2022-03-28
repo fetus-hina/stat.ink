@@ -92,7 +92,7 @@ final class BattleSummarizer
         );
 
         $query = clone $oldQuery;
-        $query->orderBy(null);
+        $query->orderBy([]);
         $query->select([
             'battle_count' => 'COUNT(*)',
             'wp' => $column_wp,
@@ -288,7 +288,7 @@ final class BattleSummarizer
         $column_inked_present = sprintf('SUM(CASE WHEN %s THEN 1 ELSE 0 END)', implode(' AND ', [$condInkedPresent]));
 
         $query = clone $oldQuery;
-        $query->orderBy(null);
+        $query->orderBy([]);
         $query->select([
             'battle_count' => 'COUNT(*)',
             'wp' => $column_wp,

@@ -60,7 +60,7 @@ trait Weapon2Trait
             ])
             ->innerJoinWith([
                 'battlePlayers' => function (Query $q): void {
-                    $q->orderBy(null);
+                    $q->orderBy([]);
                 },
                 'lobby',
                 'mode',
@@ -138,7 +138,7 @@ trait Weapon2Trait
                     0,
                 ],
             ])
-            ->orderBy(null);
+            ->orderBy([]);
         // }}}
         $insert = sprintf(
             // {{{

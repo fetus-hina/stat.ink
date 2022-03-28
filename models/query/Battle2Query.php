@@ -259,7 +259,7 @@ final class Battle2Query extends ActiveQuery
                     ->setTimestamp($now->getTimestamp());
                 $thisMonth = (new DateTimeImmutable())
                     ->setTimezone(new DateTimeZone('Etc/UTC'))
-                    ->setDate($utcNow->format('Y'), $utcNow->format('n'), 1)
+                    ->setDate((int)$utcNow->format('Y'), (int)$utcNow->format('n'), 1)
                     ->setTime(0, 0, 0);
                 $this->andWhere([
                     'between',
@@ -277,7 +277,7 @@ final class Battle2Query extends ActiveQuery
                 $lastMonthPeriod = BattleHelper::calcPeriod2(
                     (new DateTimeImmutable())
                         ->setTimezone(new DateTimeZone('Etc/UTC'))
-                        ->setDate($utcNow->format('Y'), $utcNow->format('n') - 1, 1)
+                        ->setDate((int)$utcNow->format('Y'), (int)$utcNow->format('n') - 1, 1)
                         ->setTime(0, 0, 0)
                         ->getTimestamp()
                 );
@@ -285,7 +285,7 @@ final class Battle2Query extends ActiveQuery
                 $thisMonthPeriod = BattleHelper::calcPeriod2(
                     (new DateTimeImmutable())
                         ->setTimezone(new DateTimeZone('Etc/UTC'))
-                        ->setDate($utcNow->format('Y'), $utcNow->format('n'), 1)
+                        ->setDate((int)$utcNow->format('Y'), (int)$utcNow->format('n'), 1)
                         ->setTime(0, 0, 0)
                         ->getTimestamp()
                 );
@@ -365,7 +365,7 @@ final class Battle2Query extends ActiveQuery
                     ]);
                 } elseif (preg_match('/^~?v\d+/', $term)) {
                     $versions = (function () use ($term) {
-                        $query = SplatoonVersion2::find()->asArray();
+                        $query = SplatoonVersion2::find();
                         if (substr($term, 0, 1) === '~') {
                             $query->innerJoinWith('group', false)
                                 ->andWhere([
@@ -375,8 +375,8 @@ final class Battle2Query extends ActiveQuery
                             $query->andWhere(['tag' => substr($term, 1)]);
                         }
                         return array_map(
-                            fn (array $version): int => $version['id'],
-                            $query->all()
+                            fn (SplatoonVersion2 $version): int => $version->id,
+                            $query->all(),
                         );
                     })();
                     if (!$versions) {
