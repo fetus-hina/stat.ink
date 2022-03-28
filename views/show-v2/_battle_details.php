@@ -5,6 +5,7 @@ use app\assets\FontAwesomeAsset;
 use app\assets\PhotoSwipeSimplifyAsset;
 use app\assets\Spl2WeaponAsset;
 use app\components\helpers\Battle as BattleHelper;
+use app\components\widgets\BattleDeathReasonsTable;
 use app\components\widgets\BattleKillDeathColumn;
 use app\components\widgets\FA;
 use app\components\widgets\FestPowerHistory;
@@ -14,11 +15,13 @@ use app\components\widgets\LeaguePowerHistory;
 use app\components\widgets\TimestampColumnWidget;
 use app\components\widgets\XPowerHistory;
 use app\models\Battle2;
+use app\models\BattleDeathReason2;
 use app\models\Rank2;
 use yii\bootstrap\Html;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 use yii\widgets\DetailView;
+
 ?>
 <?= DetailView::widget([
   'model' => $battle,
@@ -651,17 +654,11 @@ use yii\widgets\DetailView;
     'max_kill_combo:integer',
     'max_kill_streak:integer',
     [
-      'label' => Yii::t('app', 'Cause of Death'), // FIXME {{{
-      'value' => function ($model) {
-        $reasons = $model->getBattleDeathReasons()
-          ->orderBy('{{battle_death_reason2}}.[[count]] DESC')
-          ->all();
-        if (!$reasons) {
-          return null;
-        }
-        return null;
-      },
-      // }}}
+      'label' => Yii::t('app', 'Cause of Death'),
+      'format' => 'raw',
+      'value' => fn (Battle2 $model): ?string => ($reasons = $model->battleDeathReasons)
+        ? BattleDeathReasonsTable::widget(['reasons' => $reasons])
+        : null,
     ],
     [
       'label' => Yii::t('app', 'Turf Inked + Bonus'), // (Nawabari) {{{

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2019 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2022 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -17,6 +17,7 @@ return [
     'Main Weapon' => 'Arma principal',
     'Out of Bounds' => 'Fuera de los Límites',
     'Princess Cannon' => '',
+    'Rolonium' => 'Rolonio',
     'Special Weapon' => 'Arma especial',
     'Sub Weapon' => 'Arma secundaria',
     'Unknown' => 'Desconocido',
