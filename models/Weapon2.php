@@ -31,13 +31,13 @@ use const SORT_ASC;
  * @property int $main_group_id
  * @property int $splatnet
  *
- * @property Special2 $special
- * @property Subweapon2 $subweapon
- * @property Weapon2 $canonical
- * @property Weapon2 $mainReference
- * @property WeaponType2 $type
+ * @property ?Special2 $special
+ * @property ?Subweapon2 $subweapon
+ * @property ?Weapon2 $canonical
+ * @property ?Weapon2 $mainReference
+ * @property ?WeaponType2 $type
  * @property WeaponAttack2[] $weaponAttacks
- * @property MainPowerUp2 $mainPowerUp
+ * @property ?MainPowerUp2 $mainPowerUp
  */
 class Weapon2 extends ActiveRecord
 {

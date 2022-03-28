@@ -2,7 +2,7 @@ includes:
   - vendor/proget-hq/phpstan-yii2/extension.neon
 
 parameters:
-  level: 3
+  level: 4
 
   checkMissingIterableValueType: false
 

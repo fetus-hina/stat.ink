@@ -21,13 +21,13 @@ use const SORT_ASC;
  * @property int $id
  * @property string $key
  * @property string $name
- * @property int $strength_id
- * @property int $weakness_id
+ * @property int|null $strength_id
+ * @property int|null $weakness_id
  *
- * @property Ability2 $strength
- * @property Ability2 $weakness
+ * @property Ability2|null $strength
+ * @property Ability2|null $weakness
  */
-class Brand2 extends ActiveRecord
+final class Brand2 extends ActiveRecord
 {
     use openapi\Util;
 

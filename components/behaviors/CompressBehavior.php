@@ -71,9 +71,6 @@ class CompressBehavior extends Behavior
             return null;
         }
         $compressed = base64_encode($compressed);
-        if ($compressed === false) {
-            return null;
-        }
         return static::PREFIX_GZIP . $compressed;
     }
 

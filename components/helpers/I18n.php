@@ -24,7 +24,7 @@ class I18n
     {
         $controller = Yii::$app->controller;
         $request = Yii::$app->request;
-        if (!$controller || !$request || !$request->isGet) {
+        if (!$request->isGet) {
             return '';
         }
         $params = $request->get();

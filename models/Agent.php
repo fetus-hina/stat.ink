@@ -19,7 +19,7 @@ use yii\db\ActiveRecord;
  * @property string $name
  * @property string $version
  *
- * @property AgentAttribute $agentAttribute
+ * @property AgentAttribute|null $agentAttribute
  * @property Battle2[] $battle2s
  * @property Battle[] $battles
  * @property Salmon2[] $salmon2s

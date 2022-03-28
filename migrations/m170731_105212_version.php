@@ -33,7 +33,7 @@ class m170731_105212_version extends Migration
         $this->delete('splatoon_version2', ['tag' => '1.1.2']);
     }
 
-    private function getid(string $tag): int
+    private function getId(string $tag): int
     {
         return (new Query())
             ->select('id')

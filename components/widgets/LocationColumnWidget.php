@@ -134,7 +134,8 @@ class LocationColumnWidget extends Widget
 
     protected function renderLocationIcon(City $city): ?string
     {
-        if (!$country = $city->country) {
+        $country = $city->country;
+        if ($country->isoCode === null) {
             return null;
         }
 

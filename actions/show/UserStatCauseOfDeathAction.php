@@ -75,7 +75,7 @@ class UserStatCauseOfDeathAction extends BaseAction
             ->leftJoin('rank', '{{battle}}.[[rank_id]] = {{rank}}.[[id]]')
             ->leftJoin('rank_group', '{{rank}}.[[group_id]] = {{rank_group}}.[[id]]')
             ->andWhere(['{{battle}}.[[user_id]]' => $user->id]);
-        if ($filter && !$filter->hasErrors()) {
+        if (!$filter->hasErrors()) {
             $this->filter($query, $filter);
         }
 

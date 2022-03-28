@@ -9,7 +9,7 @@ use app\models\Battle2;
 use yii\web\View;
 
 /**
- * @var Battle2 $battle
+ * @var Battle2|null $battle
  * @var View $this
  */
 

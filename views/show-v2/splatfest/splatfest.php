@@ -12,7 +12,7 @@ use yii\web\View;
  * @var Splatfest2 $fest
  * @var User $user
  * @var View $this
- * @var stdClass $summary
+ * @var stdClass|null $summary
  */
 
 if (!$summary || !$summary->count) {

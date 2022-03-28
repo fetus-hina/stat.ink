@@ -39,7 +39,7 @@ foreach ($data as $key => $value) {
     $lines[] = vsprintf('    %s => %s,', [
         "'" . addslashes($key) . "'",
         is_bool($value)
-            ? ($value ? 'true' : 'false')
+            ? ($value ? 'true' : 'false') // @phpstan-ignore-line
             : ("'" . addslashes($value) . "'"),
     ]);
 }

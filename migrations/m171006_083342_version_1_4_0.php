@@ -28,7 +28,7 @@ class m171006_083342_version_1_4_0 extends Migration
         $this->delete('splatoon_version2', ['tag' => '1.4.0']);
     }
 
-    private function getid(string $tag): int
+    private function getId(string $tag): int
     {
         return (new Query())
             ->select('id')

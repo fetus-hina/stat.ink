@@ -15,12 +15,12 @@ use yii\db\ActiveRecord;
  *
  * @property int $id
  * @property int $config_id
- * @property int $ability_id
+ * @property int|null $ability_id
  *
- * @property Ability $ability
+ * @property Ability|null $ability
  * @property GearConfiguration $config
  */
-class GearConfigurationSecondary extends ActiveRecord
+final class GearConfigurationSecondary extends ActiveRecord
 {
     /**
      * @inheritdoc

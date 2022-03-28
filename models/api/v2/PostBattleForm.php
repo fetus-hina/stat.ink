@@ -463,11 +463,8 @@ final class PostBattleForm extends Model
             ]))
             ->limit(1)
             ->one();
-        if ($mapping && $mapping->map) {
-            return $mapping->map;
-        }
 
-        return $map;
+        return $mapping ? $mapping->map : $map;
     }
 
     public function toBattle(): Battle2
@@ -522,7 +519,7 @@ final class PostBattleForm extends Model
                 case 'lose':
                     return false;
                 default:
-                    null;
+                    return null;
             }
         })($this->result);
         $battle->is_knockout = (function ($value) {
@@ -532,7 +529,7 @@ final class PostBattleForm extends Model
                 case 'no':
                     return false;
                 default:
-                    null;
+                    return null;
             }
         })($this->knock_out);
         $battle->rank_in_team   = $intval($this->rank_in_team);

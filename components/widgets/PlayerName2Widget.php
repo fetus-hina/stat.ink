@@ -12,18 +12,19 @@ namespace app\components\widgets;
 
 use Yii;
 use app\assets\IrasutoyaAsset;
+use app\models\BattlePlayer2;
 use app\models\User;
 use statink\yii2\anonymizer\AnonymizerAsset;
 use yii\base\Widget;
 use yii\bootstrap\Html;
 
-class PlayerName2Widget extends Widget
+final class PlayerName2Widget extends Widget
 {
-    public $player;
-    public $user;
-    public $nameOnly = false;
-    public $isMyTeam = false; // 自チームかつ4人チームマッチ
-    public $isPrivate = false;
+    public ?BattlePlayer2 $player = null;
+    public ?User $user = null;
+    public bool $nameOnly = false;
+    public bool $isMyTeam = false; // 自チームかつ4人チームマッチ
+    public bool $isPrivate = false;
 
     public function run()
     {
@@ -40,7 +41,7 @@ class PlayerName2Widget extends Widget
         return Html::tag(
             'div',
             $this->nameOnly
-                ? $this->renderName($this->player->user ?? null)
+                ? $this->renderName($this->player ? $this->player->user : null)
                 : $this->renderNamePart() . $this->renderSpeciesPart(),
             ['id' => $this->id]
         );
@@ -48,11 +49,14 @@ class PlayerName2Widget extends Widget
 
     private function renderNamePart(): string
     {
-        $playerUser = $this->player->user ?? null;
+        $playerUser = $this->player ? $this->player->user : null;
+
         return $playerUser
             ? Html::a(
                 $this->renderInnerNamePart($playerUser),
-                ['show-user/profile', 'screen_name' => $playerUser->screen_name]
+                ['show-user/profile',
+                    'screen_name' => $playerUser->screen_name,
+                ]
             )
             : Html::tag('span', $this->renderInnerNamePart($playerUser));
     }
@@ -68,7 +72,12 @@ class PlayerName2Widget extends Widget
 
     private function renderIdenticon(?User $user): string
     {
-        if (!$url = $this->player->iconUrl) {
+        if (!$this->player) {
+            return '';
+        }
+
+        $url = $this->player->iconUrl;
+        if (!$url) {
             return '';
         }
 
@@ -88,7 +97,11 @@ class PlayerName2Widget extends Widget
 
     private function renderTopPlayer(?User $user): string
     {
-        if (!$this->player->top_500 ?? null) {
+        if (!$this->player) {
+            return '';
+        }
+
+        if (!$this->player->top_500) {
             return '';
         }
 
@@ -188,7 +201,11 @@ class PlayerName2Widget extends Widget
 
     private function renderSpeciesIcon(): string
     {
-        if (!isset($this->player->species) || !$this->player->species) {
+        if (!$player = $this->player) {
+            return '';
+        }
+
+        if (!$player->species) {
             return '';
         }
 
@@ -198,8 +215,8 @@ class PlayerName2Widget extends Widget
             $asset->img(
                 $this->player->species->key . '.png',
                 [
-                    'alt' => Yii::t('app', $this->player->species->name),
-                    'title' => Yii::t('app', $this->player->species->name),
+                    'alt' => Yii::t('app', $player->species->name),
+                    'title' => Yii::t('app', $player->species->name),
                     'class' => 'auto-tooltip',
                     'style' => [
                         'height' => 'calc(1.2em - 2px)',
@@ -212,7 +229,7 @@ class PlayerName2Widget extends Widget
                     'display' => 'inline-block',
                     'line-height' => '1',
                     'padding' => '1px',
-                    'background' => $this->player->species->key === 'inkling' ? '#333' : '#ddd',
+                    'background' => $player->species->key === 'inkling' ? '#333' : '#ddd',
                     'border-radius' => '4px',
                 ],
             ]

@@ -17,18 +17,18 @@ use yii\db\ActiveRecord;
  *
  * @property int $id
  * @property string $key
- * @property int $type_id
- * @property int $weapon_id
- * @property int $subweapon_id
- * @property int $special_id
+ * @property int|null $type_id
+ * @property int|null $weapon_id
+ * @property int|null $subweapon_id
+ * @property int|null $special_id
  * @property string $name
  *
- * @property DeathReasonType2 $type
- * @property Special2 $special
- * @property Subweapon2 $subweapon
- * @property Weapon2 $weapon
+ * @property DeathReasonType2|null $type
+ * @property Special2|null $special
+ * @property Subweapon2|null $subweapon
+ * @property Weapon2|null $weapon
  */
-class DeathReason2 extends ActiveRecord
+final class DeathReason2 extends ActiveRecord
 {
     /**
      * @inheritdoc

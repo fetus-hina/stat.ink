@@ -23,10 +23,6 @@ final class Blackout
         string $blackoutConfigValue,
         int $myPosition
     ): array {
-        if ($myPosition === false) {
-            return [];
-        }
-
         switch ($blackoutConfigValue) {
             // 誰も黒塗りしない
             case User::BLACKOUT_NOT_BLACKOUT:

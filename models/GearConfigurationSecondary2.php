@@ -17,12 +17,12 @@ use const SORT_ASC;
  *
  * @property int $id
  * @property int $config_id
- * @property int $ability_id
+ * @property int|null $ability_id
  *
+ * @property Ability2|null $ability
  * @property GearConfiguration2 $config
- * @property GearConfiguration2 $ability
  */
-class GearConfigurationSecondary2 extends ActiveRecord
+final class GearConfigurationSecondary2 extends ActiveRecord
 {
     public static function find()
     {

@@ -157,7 +157,7 @@ final class UserStatByMapRuleDetailAction extends Action
             ->where(['{{battle}}.[[user_id]]' => $user->id])
             ->groupBy(['{{battle}}.[[map_id]]', '{{battle}}.[[rule_id]]']);
 
-        if ($filter && !$filter->hasErrors()) {
+        if (!$filter->hasErrors()) {
             $this->filter($query, $filter);
         }
 

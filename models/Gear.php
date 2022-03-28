@@ -95,9 +95,9 @@ class Gear extends ActiveRecord
         return [
             'key' => $this->key,
             'type' => $this->type->toJsonArray(),
-            'brand' => $this->brand ? $this->brand->toJsonArray() : null,
+            'brand' => $this->brand->toJsonArray(),
             'name' => Translator::translateToAll('app-gear', $this->name),
-            'primary_ability' => $this->ability ? $this->ability->toJsonArray() : null,
+            'primary_ability' => $this->ability->toJsonArray(),
         ];
     }
 

@@ -315,12 +315,8 @@ $specials = Special::find()->asArray()->all();
               ),
               Html::encode(Yii::t('app-weapon', $battle->weapon->name)),
               Html::encode(sprintf('(%s)', implode(' / ', [
-                $battle->weapon->subweapon
-                  ? Yii::t('app-subweapon', $battle->weapon->subweapon->name)
-                  : '?',
-                $battle->weapon->special
-                  ? Yii::t('app-special', $battle->weapon->special->name)
-                  : '?',
+                Yii::t('app-subweapon', $battle->weapon->subweapon->name),
+                Yii::t('app-special', $battle->weapon->special->name),
               ]))),
             ]) ?></td>
           </tr>
@@ -517,11 +513,7 @@ $specials = Special::find()->asArray()->all();
                 <tbody>
 <?php foreach ($deathReasons as $deathReason) { ?>
                   <tr>
-                    <td><?= Html::encode(
-                      $deathReason->reason
-                        ? $deathReason->reason->getTranslatedName()
-                        : '?'
-                    ) ?></td>
+                    <td><?= Html::encode($deathReason->reason->getTranslatedName()) ?></td>
                     <td style="padding:0 10px">:</td>
                     <td><?= Html::encode(
                       Yii::t('app', '{nFormatted} {n, plural, =1{time} other{times}}', [

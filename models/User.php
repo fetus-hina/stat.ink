@@ -36,32 +36,32 @@ use const SORT_DESC;
  * @property string $password
  * @property string $api_key
  * @property string $join_at
- * @property string $nnid
- * @property string $twitter
- * @property int $ikanakama
- * @property int $env_id
+ * @property string|null $nnid
+ * @property string|null $twitter
+ * @property int|null $ikanakama
+ * @property int|null $env_id
  * @property string $blackout
- * @property string $sw_friend_code
+ * @property string|null $sw_friend_code
  * @property int $default_language_id
- * @property int $ikanakama2
+ * @property int|null $ikanakama2
  * @property int $region_id
- * @property string $blackout_list
+ * @property string|null $blackout_list
  * @property int $link_mode_id
- * @property string $email
- * @property int $email_lang_id
+ * @property string|null $email
+ * @property int|null $email_lang_id
  *
  * @property Battle[] $battles
  * @property Battle2[] $battle2s
- * @property Language $defaultLanguage
- * @property Environment $env
- * @property LoginWithTwitter $loginWithTwitter
- * @property OstatusRsa $ostatusRsa
- * @property Region $region
- * @property LinkMode $linkMode
+ * @property Language|null $defaultLanguage
+ * @property Environment|null $env
+ * @property LoginWithTwitter|null $loginWithTwitter
+ * @property OstatusRsa|null $ostatusRsa
+ * @property Region|null $region
+ * @property LinkMode|null $linkMode
  * @property Slack[] $slacks
- * @property UserIcon $userIcon
- * @property UserStat $userStat
- * @property UserStat2 $userStat2
+ * @property UserIcon|null $userIcon
+ * @property UserStat|null $userStat
+ * @property UserStat2|null $userStat2
  * @property UserWeapon[] $userWeapons
  * @property UserWeapon2[] $userWeapon2s
  * @property Weapon[] $weapons

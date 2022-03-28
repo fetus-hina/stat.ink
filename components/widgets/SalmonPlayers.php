@@ -173,7 +173,7 @@ class SalmonPlayers extends Widget
         return Html::tag('tr', implode('', [
             $this->renderRowHeader($rowInfo),
             implode('', array_map(
-                fn (SalmonPlayer2 $player): ?string => $this->renderCellData($rowInfo, $player),
+                fn (SalmonPlayer2 $player): string => $this->renderCellData($rowInfo, $player),
                 $this->players
             )),
         ]));

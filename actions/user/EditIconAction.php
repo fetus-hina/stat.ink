@@ -95,7 +95,6 @@ final class EditIconAction extends Action
                             $transaction->rollback();
                             throw $e;
                         }
-                        break;
                 }
             } catch (Throwable $e) {
             }

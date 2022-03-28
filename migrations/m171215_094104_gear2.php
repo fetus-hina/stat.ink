@@ -7,16 +7,12 @@
  */
 
 use app\components\db\Migration;
-use app\models\Gear2;
 use yii\db\Expression;
-use yii\helpers\Json;
 
-class m171215_094104_gear2 extends Migration
+final class m171215_094104_gear2 extends Migration
 {
     public function safeUp()
     {
-        // $this->makeUpdateData();
-        // return false;
         $data = $this->getUpdateData();
         $updateCase = new Expression(sprintf(
             '(CASE %s %s END)',
@@ -46,22 +42,6 @@ class m171215_094104_gear2 extends Migration
             ['splatnet' => null],
             ['key' => array_keys($data)]
         );
-    }
-
-    private function makeUpdateData(): void
-    {
-        $json = Json::decode(
-            file_get_contents(__FILE__, false, null, __COMPILER_HALT_OFFSET__)
-        );
-        foreach ($json as $key => $id) {
-            if ($gear = Gear2::findOne(['key' => $key])) {
-                if ((int)$id !== (int)$gear->splatnet) {
-                    printf("'%s' => %d,\n", $key, $id);
-                }
-            } else {
-                printf("WARNING: gear does not exist. '%s' => %d\n", $key, $id);
-            }
-        }
     }
 
     public function getUpdateData(): array

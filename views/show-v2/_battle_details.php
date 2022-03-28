@@ -95,7 +95,7 @@ use yii\widgets\DetailView;
     [
       'attribute' => 'weapon_id', // {{{
       'format' => 'raw',
-      'value' => function ($model): ?string {
+      'value' => function ($model): string {
         return $this->render('_battle_details_weapon_name', [
           'battle' => $model,
         ]);
@@ -490,7 +490,7 @@ use yii\widgets\DetailView;
     [
       'label' => Yii::t('app', 'Result'), // {{{
       'format' => 'raw',
-      'value' => function ($model) : ?string {
+      'value' => function ($model): string {
         $parts = [];
         if ($model->isGachi && $model->is_knockout !== null) {
           if ($model->is_knockout) {
@@ -715,7 +715,7 @@ use yii\widgets\DetailView;
           [
             Html::encode(Yii::t('app', 'Gear')),
             $battle->battleImageGear
-              ? (function () use ($battle): ?string {
+              ? (function () use ($battle): string {
                 PhotoSwipeSimplifyAsset::register($this);
                 FontAwesomeAsset::register($this);
                 $id = 'img-gear-' . hash('crc32b', __FILE__ . ':' . __LINE__);

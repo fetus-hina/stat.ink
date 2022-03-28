@@ -135,38 +135,38 @@ use const SORT_STRING;
  * @property float|null $freshness
  * @property bool $has_disconnect
  *
- * @property Agent $agent
- * @property SplatoonVersion2 $agentGameVersion
- * @property Battle2Splatnet $battle2Splatnet
+ * @property ?Agent $agent
+ * @property ?SplatoonVersion2 $agentGameVersion
+ * @property ?Battle2Splatnet $battle2Splatnet
  * @property BattleDeathReason2[] $battleDeathReason2s
- * @property BattleEvents2 $battleEvents2
+ * @property ?BattleEvents2 $battleEvents2
  * @property BattleImage2[] $battleImage2s
  * @property BattlePlayer2[] $battlePlayer2s
- * @property TurfwarWinBonus2 $bonus
- * @property GearConfiguration2 $clothing
- * @property Environment $env
- * @property FestTitle $festTitle
- * @property FestTitle $festTitleAfter
- * @property Gender $gender
- * @property GearConfiguration2 $headgear
- * @property Splatfest2Theme $hisTeamFestTheme
- * @property TeamNickname2 $hisTeamNickname
- * @property Lobby2 $lobby
- * @property Map2 $map
- * @property Mode2 $mode
- * @property Splatfest2Theme $myTeamFestTheme
- * @property TeamNickname2 $myTeamNickname
- * @property Rank2 $rank
- * @property Rank2 $rankAfter
+ * @property ?TurfwarWinBonus2 $bonus
+ * @property ?GearConfiguration2 $clothing
+ * @property ?Environment $env
+ * @property ?FestTitle $festTitle
+ * @property ?FestTitle $festTitleAfter
+ * @property ?Gender $gender
+ * @property ?GearConfiguration2 $headgear
+ * @property ?Splatfest2Theme $hisTeamFestTheme
+ * @property ?TeamNickname2 $hisTeamNickname
+ * @property ?Lobby2 $lobby
+ * @property ?Map2 $map
+ * @property ?Mode2 $mode
+ * @property ?Splatfest2Theme $myTeamFestTheme
+ * @property ?TeamNickname2 $myTeamNickname
+ * @property ?Rank2 $rank
+ * @property ?Rank2 $rankAfter
  * @property DeathReason2[] $reasons
- * @property Rule2 $rule
- * @property GearConfiguration2 $shoes
- * @property SpecialBattle2 $specialBattle
- * @property Species2 $species
+ * @property ?Rule2 $rule
+ * @property ?GearConfiguration2 $shoes
+ * @property ?SpecialBattle2 $specialBattle
+ * @property ?Species2 $species
  * @property BattleImageType[] $types
- * @property User $user
- * @property SplatoonVersion2 $version
- * @property Weapon2 $weapon
+ * @property ?User $user
+ * @property ?SplatoonVersion2 $version
+ * @property ?Weapon2 $weapon
  *
  * @property-read Battle2Splatnet|null $splatnetJson
  * @property-read BattleDeathReason2[] $battleDeathReasons
@@ -957,11 +957,7 @@ final class Battle2 extends ActiveRecord
         $events = null;
         if ($this->events && !in_array('events', $skips, true)) {
             if ($tmp = $this->events->events ?? null) {
-                if (is_array($tmp)) {
-                    $events = $tmp;
-                } elseif (is_string($tmp)) {
-                    $events = Json::decode($tmp);
-                }
+                $events = Json::decode($tmp);
             }
 
             if (is_array($events)) {
@@ -974,9 +970,7 @@ final class Battle2 extends ActiveRecord
         $splatnetJson = null;
         if ($this->splatnetJson && !in_array('splatnet_json', $skips, true)) {
             if ($tmp = $this->splatnetJson->json ?? null) {
-                if (is_object($tmp)) {
-                    $splatnetJson = $tmp;
-                } elseif (is_array($tmp) && ArrayHelper::isAssociative($tmp)) {
+                if (is_array($tmp) && ArrayHelper::isAssociative($tmp)) { // @phpstan-ignore-line
                     $splatnetJson = (object)$tmp;
                 } elseif (is_string($tmp)) {
                     $splatnetJson = Json::decode($tmp, false);
@@ -1232,15 +1226,13 @@ final class Battle2 extends ActiveRecord
                     return 'Ranked Battle';
 
                 case 'fest':
-                    if ($this->lobby && $this->lobby === 'squad_4') {
+                    if ($this->lobby && $this->lobby->key === 'squad_4') {
                         return 'Splatfest (Team)';
                     }
                     return 'Splatfest';
-
-                default:
-                    return $this->mode->name;
             }
-            return '';
+
+            return $this->mode->name;
         })();
 
         return [

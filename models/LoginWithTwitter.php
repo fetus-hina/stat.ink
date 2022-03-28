@@ -85,9 +85,6 @@ final class LoginWithTwitter extends ActiveRecord
     public function login()
     {
         $user = $this->user;
-        if (!$user) {
-            return false;
-        }
 
         $appUser = Yii::$app->user;
         $appUser->on(WebUser::EVENT_AFTER_LOGIN, function ($event) use ($user): void {

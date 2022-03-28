@@ -38,10 +38,10 @@ final class EditEmailAction extends Action
                         $user->save();
 
                         AddressUpdatedEmailSender::sendAddressUpdatedEmail(
-                            $oldEmail ? (string)$oldEmail : null,
-                            $form->email ? (string)$form->email : null,
+                            $oldEmail,
+                            $form->email,
                             $user,
-                            $oldEmailLang
+                            $oldEmailLang,
                         );
                     }
                     T::webController($this->controller)

@@ -20,13 +20,14 @@ class RevisionDataController extends Controller
 {
     public function actionIndex(): int
     {
+        $lastCommit = Version::getLastCommited();
         $data = [
             'Version' => Version::getVersion(),
             'Revision' => vsprintf('%s (%s)', [
                 Version::getShortRevision() ?: 'UNKNOWN',
                 Version::getRevision() ?: 'UNKNOWN',
             ]),
-            'Last Committed' => Version::getLastCommited()->format(DateTime::ATOM) ?? 'UNKNOWN',
+            'Last Committed' => $lastCommit ? $lastCommit->format(DateTime::ATOM) : 'UNKNOWN',
             'Version Tags' => Json::encode(Version::getVersionTags()),
         ];
 

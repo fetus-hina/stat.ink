@@ -137,7 +137,7 @@ class SalmonWaves extends Widget
                 'label' => Yii::t('app-salmon-event2', 'Event'),
                 'format' => 'text',
                 'total' => null,
-                'value' => fn (SalmonWave2 $wave, int $waveNumber, self $widget): ?string => Yii::t(
+                'value' => fn (SalmonWave2 $wave, int $waveNumber, self $widget): string => Yii::t(
                     'app-salmon-event2',
                     $wave->event->name ?? null,
                 ),

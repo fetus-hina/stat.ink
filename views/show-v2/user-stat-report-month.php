@@ -145,10 +145,8 @@ $weapons = Spl2WeaponAsset::register($this);
                   }
                 } elseif ($row['rule_key'] === 'nawabari') {
                   return Yii::t('app-rule2', 'Regular Battle');
-                } else {
-                  return Yii::t('app-rule2', 'Ranked Battle');
                 }
-                break;
+                return Yii::t('app-rule2', 'Ranked Battle');
 
               case 'fest_normal':
                 return Yii::t('app-rule2', 'Splatfest (Normal)');
@@ -157,13 +155,10 @@ $weapons = Spl2WeaponAsset::register($this);
                 return Yii::t('app-rule2', 'League Battle (Twin)');
 
               case 'squad_4':
-                if ($row['mode_key'] === 'fest') {
-                  return Yii::t('app-rule2', 'Splatfest (Team)');
-                } else {
-                  return Yii::t('app-rule2', 'League Battle (Quad)');
-                }
-                break;
-              
+                return $row['mode_key'] === 'fest'
+                  ? Yii::t('app-rule2', 'Splatfest (Team)')
+                  : Yii::t('app-rule2', 'League Battle (Quad)');
+
               default:
                 return $row['lobby_key'];
             }

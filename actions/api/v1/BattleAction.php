@@ -519,11 +519,9 @@ class BattleAction extends BaseAction
             ];
         }
 
-        if (!$battle = $form->save()) {
-            return $this->formatError($form->getErrors(), 400);
-        }
-
-        return $this->runGetImpl($battle);
+        return $this->runGetImpl(
+            $form->save(),
+        );
     }
 
     private function runGetImpl(Battle $battle)

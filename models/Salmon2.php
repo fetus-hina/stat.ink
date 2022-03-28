@@ -34,33 +34,33 @@ use const SORT_DESC;
  * @property int $id
  * @property int $user_id
  * @property string $uuid
- * @property int $splatnet_number
- * @property int $stage_id
- * @property int $clear_waves
- * @property int $fail_reason_id
- * @property int $title_before_id
- * @property int $title_before_exp
- * @property int $title_after_id
- * @property int $title_after_exp
- * @property string $danger_rate
- * @property int $shift_period
- * @property string $start_at
- * @property string $end_at
- * @property string $note
- * @property string $private_note
- * @property string $link_url
- * @property bool $is_automated
- * @property int $agent_id
- * @property string $remote_addr
- * @property int $remote_port
+ * @property int|null $splatnet_number
+ * @property int|null $stage_id
+ * @property int|null $clear_waves
+ * @property int|null $fail_reason_id
+ * @property int|null $title_before_id
+ * @property int|null $title_before_exp
+ * @property int|null $title_after_id
+ * @property int|null $title_after_exp
+ * @property float|null $danger_rate
+ * @property int|null $shift_period
+ * @property string|null $start_at
+ * @property string|null $end_at
+ * @property string|null $note
+ * @property string|null $private_note
+ * @property string|null $link_url
+ * @property bool|null $is_automated
+ * @property int|null $agent_id
+ * @property string|null $remote_addr
+ * @property int|null $remote_port
  * @property string $created_at
  * @property string $updated_at
  *
- * @property Agent $agent
- * @property SalmonFailReason2 $failReason
- * @property SalmonMap2 $stage
- * @property SalmonTitle2 $titleBefore
- * @property SalmonTitle2 $titleAfter
+ * @property Agent|null $agent
+ * @property SalmonFailReason2|null $failReason
+ * @property SalmonMap2|null $stage
+ * @property SalmonTitle2|null $titleBefore
+ * @property SalmonTitle2|null $titleAfter
  * @property User $user
  * @property SalmonBossAppearance2[] $bossAppearances
  * @property SalmonBoss2[] $bosses

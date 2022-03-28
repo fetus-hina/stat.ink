@@ -55,8 +55,7 @@ class BlogFeedController extends Controller
 
     private function processEntry(FeedEntry $entry): void
     {
-        $id = $entry->getId() ?? $entry->getLink() ?? false;
-        if (!$id) {
+        if (!$id = $this->getEntryId($entry)) {
             return;
         }
         $uuid = Uuid::v5(
@@ -87,5 +86,18 @@ class BlogFeedController extends Controller
         }
         echo "Registered new blog entry\n";
         printf("  #%d, %s %s\n", $model->id, $model->url, $model->title);
+    }
+
+    private function getEntryId(FeedEntry $entry): ?string
+    {
+        if ($entry->getId()) {
+            return $entry->getId();
+        }
+
+        if ($entry->getLink()) {
+            return $entry->getLink();
+        }
+
+        return null;
     }
 }

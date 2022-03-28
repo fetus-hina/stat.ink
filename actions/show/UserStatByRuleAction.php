@@ -65,7 +65,7 @@ final class UserStatByRuleAction extends Action
             ->andWhere(['in', '{{battle}}.[[is_win]]', [true, false]])
             ->groupBy(['{{battle}}.[[rule_id]]', '{{battle}}.[[is_win]]']);
 
-        if ($filter && !$filter->hasErrors()) {
+        if (!$filter->hasErrors()) {
             $this->filter($query, $filter);
         }
 

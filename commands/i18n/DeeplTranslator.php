@@ -429,7 +429,7 @@ class DeeplTranslator extends Component
         ));
     }
 
-    private static function templateToXmlMayXml(string $textMayXml): ?string
+    private static function templateToXmlMayXml(string $textMayXml): string
     {
         try {
             $wrapped = vsprintf('%s<div id="wrap">%s</div>', [
@@ -526,7 +526,7 @@ class DeeplTranslator extends Component
     // Copyright (C) Copyright (c) 2008 Yii Software LLC
     private static function tokenizePattern($pattern)
     {
-        $charset = Yii::$app ? Yii::$app->charset : 'UTF-8';
+        $charset = Yii::$app->charset ?: 'UTF-8';
         $depth = 1;
         if (($start = $pos = mb_strpos($pattern, '{', 0, $charset)) === false) {
             return [$pattern];

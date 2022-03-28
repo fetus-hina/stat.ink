@@ -31,7 +31,7 @@ use function usort;
 
 class LicenseAction extends SimpleAction
 {
-    private const CATEGORY_APP = 0;
+    // private const CATEGORY_APP = 0;
     private const CATEGORY_COMPOSER = 1;
     private const CATEGORY_MANUAL = 1;
     private const CATEGORY_NPM = 1;

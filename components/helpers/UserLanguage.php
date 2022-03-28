@@ -105,19 +105,18 @@ class UserLanguage
 
             foreach ($userLangs as $userLang) {
                 if ($model = AcceptLanguage::findMatched($userLang)) {
-                    if ($lang = $model->language) {
-                        Yii::info(
-                            sprintf(
-                                'Detected language %s by accept-language with rule #%d %s by %s',
-                                $lang->lang,
-                                $model->id,
-                                $model->rule,
-                                $userLang,
-                            ),
-                            __METHOD__
-                        );
-                        return $lang;
-                    }
+                    $lang = $model->language;
+                    Yii::info(
+                        sprintf(
+                            'Detected language %s by accept-language with rule #%d %s by %s',
+                            $lang->lang,
+                            $model->id,
+                            $model->rule,
+                            $userLang,
+                        ),
+                        __METHOD__
+                    );
+                    return $lang;
                 }
             }
 

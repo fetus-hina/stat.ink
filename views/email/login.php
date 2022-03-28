@@ -8,7 +8,7 @@ use app\models\LoginMethod;
 use app\models\User;
 
 /**
- * @var LoginMethod $method
+ * @var LoginMethod|null $method
  * @var User $user
  */
 

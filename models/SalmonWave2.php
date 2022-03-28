@@ -16,18 +16,18 @@ use yii\db\ActiveRecord;
  *
  * @property int $salmon_id
  * @property int $wave
- * @property int $event_id
- * @property int $water_id
- * @property int $golden_egg_quota
- * @property int $golden_egg_appearances
- * @property int $golden_egg_delivered
- * @property int $power_egg_collected
+ * @property int|null $event_id
+ * @property int|null $water_id
+ * @property int|null $golden_egg_quota
+ * @property int|null $golden_egg_appearances
+ * @property int|null $golden_egg_delivered
+ * @property int|null $power_egg_collected
  *
+ * @property SalmonEvent2|null $event
  * @property Salmon2 $salmon
- * @property SalmonEvent2 $event
- * @property SalmonWaterLevel2 $water
+ * @property SalmonWaterLevel2|null $water
  */
-class SalmonWave2 extends ActiveRecord
+final class SalmonWave2 extends ActiveRecord
 {
     use openapi\Util;
 

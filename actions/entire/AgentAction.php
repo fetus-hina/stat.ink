@@ -45,7 +45,7 @@ final class AgentAction extends Action
             ->addRule('b32name', 'match', ['pattern' => '/^[a-zA-Z2-7]+$/'])
             ->addRule('b32name', function ($attr, $conf) use ($form) {
                 $decoded = Base32::decode($form->$attr);
-                if ($decoded === false || $decoded === '') {
+                if ($decoded === '') {
                     $form->addError($attr, 'invalid name');
                     return;
                 }

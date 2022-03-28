@@ -95,28 +95,28 @@ use const SORT_STRING;
  * @property bool $use_for_entire
  * @property int|null $bonus_id
  *
- * @property Agent $agent
- * @property Environment $env
- * @property FestTitle $festTitle
- * @property FestTitle $festTitleAfter
- * @property GearConfiguration $headgear
- * @property GearConfiguration $clothing
- * @property GearConfiguration $shoes
- * @property Gender $gender
- * @property Lobby $lobby
- * @property Map $map
- * @property Rank $rank
- * @property Rank $rankAfter
- * @property Rule $rule
- * @property User $user
- * @property Weapon $weapon
+ * @property ?Agent $agent
+ * @property ?Environment $env
+ * @property ?FestTitle $festTitle
+ * @property ?FestTitle $festTitleAfter
+ * @property ?GearConfiguration $headgear
+ * @property ?GearConfiguration $clothing
+ * @property ?GearConfiguration $shoes
+ * @property ?Gender $gender
+ * @property ?Lobby $lobby
+ * @property ?Map $map
+ * @property ?Rank $rank
+ * @property ?Rank $rankAfter
+ * @property ?Rule $rule
+ * @property ?User $user
+ * @property ?Weapon $weapon
  * @property BattleDeathReason[] $battleDeathReasons
  * @property DeathReason[] $reasons
  * @property BattleImage[] $battleImages
  * @property BattlePlayer[] $battlePlayers
- * @property SplatoonVersion $splatoonVersion
- * @property SplatoonVersion $agentGameVersion
- * @property TurfwarWinBonus $bonus
+ * @property ?SplatoonVersion $splatoonVersion
+ * @property ?SplatoonVersion $agentGameVersion
+ * @property ?TurfwarWinBonus $bonus
  * @property ?BattleEvents $battleEvents
  *
  * @property-read BattleImage|null $battleImageGear
@@ -555,25 +555,26 @@ final class Battle extends ActiveRecord
         return $this->hasOne(TurfwarWinBonus::class, ['id' => 'bonus_id']);
     }
 
-    public function getIsNawabari()
+    public function getIsNawabari(): bool
     {
         return $this->getIsThisGameMode('regular');
     }
 
-    public function getIsGachi()
+    public function getIsGachi(): bool
     {
         return $this->getIsThisGameMode('gachi');
     }
 
-    private function getIsThisGameMode($key)
+    private function getIsThisGameMode($key): bool
     {
-        if ($this->rule && $this->rule->mode) {
+        if ($this->rule) {
             return $this->rule->mode->key === $key;
         }
+
         return false;
     }
 
-    public function getIsMeaningful()
+    public function getIsMeaningful(): bool
     {
         $props = [
             'rule_id', 'map_id', 'weapon_id', 'is_win', 'rank_in_team', 'kill', 'death',
@@ -1127,7 +1128,7 @@ final class Battle extends ActiveRecord
         }
 
         return (function () use ($json): array {
-            $decoded = is_array($json) ? $json : @json_decode($json, true);
+            $decoded = @json_decode($json, true);
             if (!$decoded) {
                 return [];
             }

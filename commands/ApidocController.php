@@ -52,8 +52,7 @@ class ApidocController extends Controller
     {
         Yii::$app->language = $langCodeLong;
 
-        $successful = true;
-        $successful = $this->createV2($langCodeShort) && $successful;
+        $successful = $this->createV2($langCodeShort);
         $successful = $this->createV1($langCodeShort) && $successful;
         return $successful;
     }
