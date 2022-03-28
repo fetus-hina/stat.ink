@@ -156,7 +156,7 @@ jobs:
           node-version: '14'
 
       - name: 'Install NPM packages'
-        run: 'npm install'
+        run: 'npm clean-install'
 
   jsStyleCheck:
     name: 'JS Coding Style'
