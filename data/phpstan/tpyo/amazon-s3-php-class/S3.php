@@ -34,7 +34,7 @@ class S3
         $metaHeaders = array(),
         $requestHeaders = array(),
         $storageClass = self::STORAGE_CLASS_STANDARD,
-        $serverSideEncryption = self::SSE_NONE,
+        $serverSideEncryption = self::SSE_NONE
     ) {
     }
 }
