@@ -150,10 +150,10 @@ jobs:
           key: npm-2-${{ hashFiles('package-lock.json') }}
           restore-keys: npm-2-
 
-      - name: 'Use node.js 14 LTS'
+      - name: 'Use node.js 16 LTS'
         uses: 'actions/setup-node@v2'
         with:
-          node-version: '14'
+          node-version: '16'
 
       - name: 'Install NPM packages'
         run: 'npm clean-install'
@@ -177,10 +177,10 @@ jobs:
             ~/.npm
           key: npm-2-${{ hashFiles('package-lock.json') }}
 
-      - name: 'Use node.js 14 LTS'
+      - name: 'Use node.js 16 LTS'
         uses: 'actions/setup-node@v2'
         with:
-          node-version: '14'
+          node-version: '16'
 
       - name: 'Run `semistandard`'
         run: 'npx semistandard "resources/**/*[ej]s"'
@@ -204,10 +204,10 @@ jobs:
             ~/.npm
           key: npm-2-${{ hashFiles('package-lock.json') }}
 
-      - name: 'Use node.js 14 LTS'
+      - name: 'Use node.js 16 LTS'
         uses: 'actions/setup-node@v2'
         with:
-          node-version: '14'
+          node-version: '16'
 
       - name: 'Run StyleLint'
         run: 'npx stylelint "resources/**/*.scss" "resources/**/*.css"'
@@ -282,10 +282,10 @@ jobs:
         with:
           php-version: '7.4'
 
-      - name: 'Use node.js 14 LTS'
+      - name: 'Use node.js 16 LTS'
         uses: 'actions/setup-node@v2'
         with:
-          node-version: '14'
+          node-version: '16'
 
       - name: 'Basic setup the app'
         run: 'make init-no-resource'
@@ -378,10 +378,10 @@ jobs:
         with:
           php-version: '${{ matrix.php.version }}'
 
-      - name: 'Use node.js 14 LTS'
+      - name: 'Use node.js 16 LTS'
         uses: 'actions/setup-node@v2'
         with:
-          node-version: '14'
+          node-version: '16'
 
       - name: 'Basic setup the app'
         run: 'make init'
