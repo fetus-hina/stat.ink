@@ -6,7 +6,7 @@ use app\components\web\Application;
 use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
 use app\models\UserAuthKey;
-use yii\helpers\Html;
+use app\components\helpers\Html;
 use yii\helpers\Url;
 use yii\web\Controller;
 use yii\web\View;

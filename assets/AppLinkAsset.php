@@ -9,7 +9,7 @@
 namespace app\assets;
 
 use Yii;
-use yii\helpers\Html;
+use app\components\helpers\Html;
 use yii\web\AssetBundle;
 
 class AppLinkAsset extends AssetBundle

@@ -11,15 +11,15 @@ namespace app\actions\show;
 use Yii;
 use app\models\BattleFilterForm;
 use app\models\User;
+use yii\base\Action;
 use yii\db\Query;
 use yii\web\NotFoundHttpException;
-use yii\web\ViewAction as BaseAction;
 
-class UserStatByMapAction extends BaseAction
+final class UserStatByMapAction extends Action
 {
     use UserStatFilterTrait;
 
-    public function run()
+    public function run(): string
     {
         $request = Yii::$app->getRequest();
         $user = User::findOne(['screen_name' => $request->get('screen_name')]);
@@ -39,7 +39,7 @@ class UserStatByMapAction extends BaseAction
         ]);
     }
 
-    private function getData(User $user, BattleFilterForm $filter)
+    private function getData(User $user, BattleFilterForm $filter): array
     {
         $query = (new Query())
             ->select([
@@ -63,7 +63,7 @@ class UserStatByMapAction extends BaseAction
             ->andWhere(['in', '{{battle}}.[[is_win]]', [true, false]])
             ->groupBy(['{{battle}}.[[map_id]]', '{{battle}}.[[is_win]]']);
 
-        if ($filter && !$filter->hasErrors()) {
+        if (!$filter->hasErrors()) {
             $this->filter($query, $filter);
         }
 

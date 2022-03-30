@@ -2,8 +2,16 @@
 
 declare(strict_types=1);
 
+use app\components\helpers\Html;
 use app\components\widgets\AbilityIcon;
-use yii\helpers\Html;
+use app\models\Ability2;
+use yii\web\View;
+
+/**
+ * @var View $this
+ * @var bool|null $lockedIfNull
+ * @var ?Ability2 $ability
+ */
 
 $this->registerCss('.ability{width:auto;height:3.5em}.sub-ability .ability{height:1.667em}');
 

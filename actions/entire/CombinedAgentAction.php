@@ -22,7 +22,10 @@ use yii\web\ViewAction as BaseAction;
 
 use const SORT_ASC;
 
-class CombinedAgentAction extends BaseAction
+/**
+ * @property-read array[] $postStats
+ */
+final class CombinedAgentAction extends BaseAction
 {
     public $form;
     public $agentGroup;
@@ -41,7 +44,7 @@ class CombinedAgentAction extends BaseAction
             ->addRule('b32name', 'match', ['pattern' => '/^[a-zA-Z2-7]+$/'])
             ->addRule('b32name', function ($attr, $conf) use ($action, $form) {
                 $decoded = Base32::decode($form->$attr);
-                if ($decoded === false || $decoded === '') {
+                if ($decoded === '') {
                     $form->addError($attr, 'invalid name');
                     return;
                 }
@@ -71,7 +74,8 @@ class CombinedAgentAction extends BaseAction
         ]);
     }
 
-    public function getPostStats()
+    /** @return array[] */
+    public function getPostStats(): array
     {
         $query = (new Query())
             ->select([

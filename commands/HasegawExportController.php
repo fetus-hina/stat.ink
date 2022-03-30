@@ -49,13 +49,15 @@ class HasegawExportController extends Controller
                 'min' => 'MIN({{battle}}.[[at]])',
                 'max' => 'MAX({{battle}}.[[at]])',
             ])
-            ->orderBy(null);
+            ->orderBy([]);
+
+        /** @phpstan-var array{min: int, max: int} */
         $info = $query->one();
 
-        $from = (new DateTimeImmutable($info['min']))
+        $from = (new DateTimeImmutable('@' . $info['min']))
             ->setTimeZone(new DateTimeZone(Yii::$app->timeZone))
             ->setTime(0, 0, 0);
-        $to = (new DateTimeImmutable($info['max']))
+        $to = (new DateTimeImmutable('@' . $info['max']))
             ->setTimeZone(new DateTimeZone(Yii::$app->timeZone))
             ->setTime(23, 59, 59);
         for ($date = $from; $date <= $to; $date = $date->add(new DateInterval('P1D'))) {
@@ -182,7 +184,7 @@ class HasegawExportController extends Controller
             $t = (int)($_SERVER['REQUEST_TIME'] ?? time());
             $date = date(
                 'Y-m-d\TH:i:sO',
-                mktime(0, 0, 0, date('n', $t), date('j', $t) - 1, date('Y', $t))
+                mktime(0, 0, 0, (int)date('n', $t), (int)date('j', $t) - 1, (int)date('Y', $t))
             );
         } elseif (preg_match('/^(\d{4})-?(\d{2})-?(\d{2})$/', $date, $match)) {
             $date = date(

@@ -15,7 +15,13 @@ use Yii;
 use app\components\helpers\Battle as BattleHelper;
 use yii\base\Model;
 
-class Battle2FilterForm extends Model
+/**
+ * @property-read array|null $filterIdRange
+ * @property-read array|null $filterPeriod
+ * @property-read string|null $filterTeam
+ * @property-read string|null $filterWithPrincipalId
+ */
+final class Battle2FilterForm extends Model
 {
     public $screen_name;
 
@@ -160,17 +166,13 @@ class Battle2FilterForm extends Model
                         'term',
                     ],
                     array_map(
-                        fn (array $a): string => '~v' . $a['tag'],
-                        SplatoonVersionGroup2::find()
-                            ->asArray()
-                            ->all()
+                        fn (SplatoonVersionGroup2 $a): string => '~v' . $a->tag,
+                        SplatoonVersionGroup2::find()->all(),
                     ),
                     array_map(
-                        fn (array $a): string => 'v' . $a['tag'],
-                        SplatoonVersion2::find()
-                            ->asArray()
-                            ->all()
-                    )
+                        fn (SplatoonVersion2 $a): string => 'v' . $a->tag,
+                        SplatoonVersion2::find()->all(),
+                    ),
                 ),
             ],
             [['term_from', 'term_to'], 'datetime', 'format' => 'php:Y-m-d H:i:s'],
@@ -267,7 +269,10 @@ class Battle2FilterForm extends Model
     {
         $value = $this->$attr;
         if (is_scalar($value) && $value != '') {
-            $exist = Timezone::find()->where(['identifier' => $value])->orderBy(null)->exists();
+            $exist = Timezone::find()
+                ->where(['identifier' => $value])
+                ->orderBy([])
+                ->exists();
             if ($exist) {
                 return;
             }
@@ -434,7 +439,7 @@ class Battle2FilterForm extends Model
                 break;
 
             case 'yesterday':
-                $t = mktime(12, 0, 0, date('n', $now), date('j', $now) - 1, date('Y', $now));
+                $t = mktime(12, 0, 0, (int)date('n', $now), (int)date('j', $now) - 1, (int)date('Y', $now));
                 $push('term', 'term');
                 $push('term_from', date('Y-m-d 00:00:00', $t));
                 $push('term_to', date('Y-m-d 23:59:59', $t));
@@ -447,7 +452,7 @@ class Battle2FilterForm extends Model
                     ->setTimestamp($now);
                 $thisMonth = (new DateTimeImmutable())
                     ->setTimezone(new DateTimeZone('Etc/UTC'))
-                    ->setDate($utcNow->format('Y'), $utcNow->format('n'), 1)
+                    ->setDate((int)$utcNow->format('Y'), (int)$utcNow->format('n'), 1)
                     ->setTime(0, 0, 0);
                 $pushFilter('period', vsprintf('%d-%d', [
                     BattleHelper::calcPeriod2($thisMonth->getTimestamp()),
@@ -471,7 +476,7 @@ class Battle2FilterForm extends Model
                 $thisMonthPeriod = BattleHelper::calcPeriod2(
                     (new DateTimeImmutable())
                         ->setTimezone(new DateTimeZone('Etc/UTC'))
-                        ->setDate($utcNow->format('Y'), $utcNow->format('n'), 1)
+                        ->setDate((int)$utcNow->format('Y'), (int)$utcNow->format('n'), 1)
                         ->setTime(0, 0, 0)
                         ->getTimestamp()
                 );

@@ -12,11 +12,11 @@ namespace app\components\widgets;
 
 use Yii;
 use app\assets\FlexboxAsset;
+use app\components\helpers\Html;
 use yii\base\Widget;
 use yii\bootstrap\BootstrapAsset;
 use yii\bootstrap\BootstrapPluginAsset;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Html;
 
 class Dialog extends Widget
 {
@@ -116,13 +116,25 @@ class Dialog extends Widget
                     $this->hasClose
                         ? Html::tag(
                             'button',
-                            Html::tag('span', FA::fas('times')->fw(), ['aria-hidden' => 'true']),
+                            Html::tag(
+                                'span',
+                                (string)FA::fas('times')->fw(),
+                                [
+                                    'aria' => [
+                                        'hidden' => 'true',
+                                    ],
+                                ],
+                            ),
                             [
-                                'type' => 'button',
+                                'aria' => [
+                                    'label' => Yii::t('app', 'Close'),
+                                ],
                                 'class' => 'close',
-                                'data-dismiss' => 'modal',
-                                'aria-label' => Yii::t('app', 'Close'),
-                            ]
+                                'data' => [
+                                    'dismiss' => 'modal',
+                                ],
+                                'type' => 'button',
+                            ],
                         )
                         : '',
                 ]),

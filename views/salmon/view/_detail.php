@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use app\components\helpers\Battle as BattleHelper;
+use app\components\helpers\Html;
 use app\components\i18n\Formatter;
 use app\components\widgets\FA;
 use app\components\widgets\Label;
@@ -11,11 +12,20 @@ use app\components\widgets\SalmonHazardHistory;
 use app\models\Salmon2;
 use app\models\SalmonSchedule2;
 use app\models\SalmonTitle2;
+use app\models\User;
 use yii\bootstrap\Progress;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Html;
 use yii\helpers\Url;
+use yii\i18n\Formatter as YiiFormatter;
+use yii\web\View;
 use yii\widgets\DetailView;
+
+/**
+ * @var Salmon2 $model
+ * @var User $user
+ * @var View $this
+ * @var YiiFormatter $formatter
+ */
 
 $formatter = clone Yii::$app->formatter;
 $formatter->nullDisplay = '';
@@ -99,7 +109,7 @@ $widget = Yii::createObject([
         }
         $parts = [];
         $parts[] = Progress::widget([
-          'percent' => min(100, $model->danger_rate * 100 / 200),
+          'percent' => min(100, (float)$model->danger_rate * 100 / 200),
           'label' => $model->danger_rate,
           'barOptions' => ['class' => 'progress-bar progress-bar-danger'],
           // options
@@ -144,6 +154,9 @@ $widget = Yii::createObject([
             ->limit(1)
             ->one();
 
+        $fmt = $widget->formatter;
+        assert($fmt instanceof Formatter);
+
         if (!$schedule) {
           // 正規のスケジュールデータが見つからない場合、
           // 持っているデータを元になんとなく表示する
@@ -154,15 +167,15 @@ $widget = Yii::createObject([
 
           list ($periodStart, ) = BattleHelper::periodToRange2($period);
           return Yii::t('app-salmon2', 'From {shiftStart}', [
-            'shiftStart' => $widget->formatter->asTimestampColumn($periodStart, false),
+            'shiftStart' => $fmt->asTimestampColumn($periodStart, false),
           ]);
         }
 
         // 正規のスケジュールデータから表示する
         return implode(' ', [
           Yii::t('app-salmon2', 'From {shiftStart} to {shiftEnd}', [
-            'shiftStart' => $widget->formatter->asTimestampColumn($schedule->start_at, false),
-            'shiftEnd' => $widget->formatter->asTimestampColumn($schedule->end_at, false),
+            'shiftStart' => $fmt->asTimestampColumn($schedule->start_at, false),
+            'shiftEnd' => $fmt->asTimestampColumn($schedule->end_at, false),
           ]),
           Html::a(
             (string)FA::fas('calendar-day')->fw(),
@@ -175,8 +188,8 @@ $widget = Yii::createObject([
             [
               'class' => 'auto-tooltip',
               'title' => Yii::t('app', 'Search {from} - {to}', [
-                'from' => $widget->formatter->asDateTime($schedule->start_at, 'short'),
-                'to' => $widget->formatter->asDateTime($schedule->end_at, 'short'),
+                'from' => $fmt->asDateTime($schedule->start_at, 'short'),
+                'to' => $fmt->asDateTime($schedule->end_at, 'short'),
               ])
             ]
           ),
@@ -203,17 +216,17 @@ $widget = Yii::createObject([
           return null;
         }
         return implode(' / ', [
-          $model->agent->productUrl
+          $model->agent->getProductUrl()
             ? Html::a(
               Html::encode($model->agent->name),
-              $model->agent->productUrl,
+              $model->agent->getProductUrl(),
               ['target' => '_blank', 'rel' => 'nofollow']
             )
             : Html::encode($model->agent->name),
-          $model->agent->versionUrl
+          $model->agent->getVersionUrl()
             ? Html::a(
               Html::encode($model->agent->version),
-              $model->agent->versionUrl,
+              $model->agent->getVersionUrl(),
               ['target' => '_blank', 'rel' => 'nofollow']
             )
             : Html::encode($model->agent->version),

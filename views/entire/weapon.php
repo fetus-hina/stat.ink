@@ -4,17 +4,31 @@ declare(strict_types=1);
 
 use app\assets\EntireWeaponAsset;
 use app\assets\InlineListAsset;
+use app\components\helpers\Html;
 use app\components\widgets\AdWidget;
 use app\components\widgets\FA;
 use app\components\widgets\SnsWidget;
 use app\components\widgets\WinLoseLegend;
 use app\models\Rule;
 use app\models\SummarizedWeaponVsWeapon;
+use app\models\Weapon;
 use yii\data\ArrayDataProvider;
 use yii\grid\GridView;
-use yii\helpers\Html;
 use yii\helpers\Json;
 use yii\helpers\Url;
+use yii\web\View;
+
+/**
+ * @var Rule $rule
+ * @var View $this
+ * @var Weapon $weapon
+ * @var array $killDeath
+ * @var array $mapWP
+ * @var array $maps
+ * @var array $rules
+ * @var array $useCount
+ * @var array $weapons
+ */
 
 $this->context->layout = 'main';
 $title = Yii::t('app', 'Weapon | {weapon} | {rule}', [

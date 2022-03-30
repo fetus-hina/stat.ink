@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2021 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2022 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -11,6 +11,7 @@ declare(strict_types=1);
 namespace app\commands;
 
 use Exception;
+use Laminas\Feed\Reader\Entry\Rss as FeedEntry;
 use Laminas\Feed\Reader\Reader as FeedReader;
 use Laminas\Validator\Uri as UriValidator;
 use Yii;
@@ -18,20 +19,22 @@ use app\models\BlogEntry;
 use jp3cki\uuid\NS as UuidNS;
 use jp3cki\uuid\Uuid;
 use yii\console\Controller;
+use yii\console\ExitCode;
 
 class BlogFeedController extends Controller
 {
-    public function actionCrawl()
+    public function actionCrawl(): int
     {
-        $transaction = Yii::$app->db->beginTransaction();
-        $entries = $this->fetchFeed();
-        foreach ($entries as $entry) {
-            $this->processEntry($entry);
-        }
-        $transaction->commit();
+        return Yii::$app->db->transaction(function (): int {
+            $entries = $this->fetchFeed();
+            foreach ($entries as $entry) {
+                $this->processEntry($entry);
+            }
+            return ExitCode::OK;
+        });
     }
 
-    private function fetchFeed()
+    private function fetchFeed(): array
     {
         echo "Fetching feed...\n";
         $feed = FeedReader::import('https://blog.fetus.jp/category/website/stat-ink/feed');
@@ -43,14 +46,16 @@ class BlogFeedController extends Controller
             }
             $ret[] = $entry;
         }
-        usort($ret, fn ($a, $b) => $a->getDateCreated()->getTimestamp() <=> $b->getDateCreated()->getTimestamp());
+        usort(
+            $ret,
+            fn ($a, $b) => $a->getDateCreated()->getTimestamp() <=> $b->getDateCreated()->getTimestamp(),
+        );
         return $ret;
     }
 
-    private function processEntry($entry)
+    private function processEntry(FeedEntry $entry): void
     {
-        $id = $entry->getId() ?? $entry->getLink() ?? false;
-        if (!$id) {
+        if (!$id = $this->getEntryId($entry)) {
             return;
         }
         $uuid = Uuid::v5(
@@ -64,16 +69,16 @@ class BlogFeedController extends Controller
             return;
         }
 
-        if (BlogEntry::find()->andWhere(['uuid' => $uuid])->count()) {
+        if (BlogEntry::find()->andWhere(['uuid' => $uuid])->exists()) {
             return;
         }
 
         $model = new BlogEntry();
         $model->attributes = [
-            'uuid'  => $uuid,
-            'url'   => $link,
+            'uuid' => $uuid,
+            'url' => $link,
             'title' => $entry->getTitle(),
-            'at'    => $entry->getDateCreated()->format('Y-m-d\TH:i:sP'),
+            'at' => $entry->getDateCreated()->format('Y-m-d\TH:i:sP'),
         ];
         if (!$model->save()) {
             echo "Could not create new blog entry\n";
@@ -81,5 +86,18 @@ class BlogFeedController extends Controller
         }
         echo "Registered new blog entry\n";
         printf("  #%d, %s %s\n", $model->id, $model->url, $model->title);
+    }
+
+    private function getEntryId(FeedEntry $entry): ?string
+    {
+        if ($entry->getId()) {
+            return $entry->getId();
+        }
+
+        if ($entry->getLink()) {
+            return $entry->getLink();
+        }
+
+        return null;
     }
 }

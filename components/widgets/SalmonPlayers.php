@@ -11,13 +11,13 @@ declare(strict_types=1);
 namespace app\components\widgets;
 
 use Yii;
+use app\components\helpers\Html;
 use app\components\i18n\Formatter;
 use app\models\SalmonPlayer2;
 use app\models\SalmonPlayerSpecialUse2;
 use yii\base\Widget;
 use yii\bootstrap\BootstrapAsset;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Html;
 
 class SalmonPlayers extends Widget
 {
@@ -173,7 +173,7 @@ class SalmonPlayers extends Widget
         return Html::tag('tr', implode('', [
             $this->renderRowHeader($rowInfo),
             implode('', array_map(
-                fn (SalmonPlayer2 $player): ?string => $this->renderCellData($rowInfo, $player),
+                fn (SalmonPlayer2 $player): string => $this->renderCellData($rowInfo, $player),
                 $this->players
             )),
         ]));

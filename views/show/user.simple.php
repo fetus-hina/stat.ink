@@ -1,12 +1,27 @@
 <?php
+
+use app\components\helpers\Html;
 use app\components\widgets\AdWidget;
 use app\components\widgets\BattleFilterWidget;
 use app\components\widgets\SnsWidget;
+use app\models\BattleFilterForm;
+use app\models\BattleSummary;
 use app\models\Language;
+use app\models\User;
 use yii\bootstrap\ActiveForm;
-use yii\helpers\Html;
+use yii\data\ActiveDataProvider;
 use yii\helpers\Url;
+use yii\web\View;
 use yii\widgets\ListView;
+
+/**
+ * @var ActiveDataProvider $battleDataProvider
+ * @var BattleFilterForm $filter
+ * @var BattleSummary $summary
+ * @var User $user
+ * @var View $this
+ * @var string $permLink
+ */
 
 $title = Yii::t('app', '{name}\'s Splat Log', ['name' => $user->name]);
 $this->title = implode(' | ', [
@@ -26,7 +41,9 @@ if ($user->twitter != '') {
   $this->registerMetaTag(['name' => 'twitter:creator', 'content' => '@' . $user->twitter]);
 }
 
-foreach (Language::find()->standard()->all() as $lang) {
+// @phpstan-ignore-next-line
+$langs = Language::find()->standard()->all();
+foreach ($langs as $lang) {
   $this->registerLinkTag([
     'rel' => 'alternate',
     'type' => 'application/rss+xml',
@@ -56,6 +73,7 @@ foreach (Language::find()->standard()->all() as $lang) {
     'hreflang'  => $lang->lang,
   ]);
 }
+unset($langs);
 
 $this->registerCss('.simple-battle-list{display:block;list-style-type:none;margin:0;padding:0}');
 
@@ -66,10 +84,11 @@ $f = Yii::$app->formatter;
   <h1><?= Html::encode($title) ?></h1>
   
 <?php
-if ($battle &&
-    $battle->agent &&
-    $battle->agent->isIkaLog &&
-    $battle->agent->getIsOldIkalogAsAtTheTime($battle->at)
+if (
+  $battle &&
+  $battle->agent &&
+  $battle->agent->isIkalog &&
+  $battle->agent->getIsOldIkalogAsAtTheTime($battle->at)
 ) {
 ?>
 <?php $this->registerCss('.old-ikalog{font-weight:bold;color:#f00}') ?>

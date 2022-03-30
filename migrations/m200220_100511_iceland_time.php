@@ -20,11 +20,11 @@ class m200220_100511_iceland_time extends Migration
     {
         $uktz = $this->getUKTimeZone();
         $this->insert('country', [
-            'key' => static::ICELAND_TLD,
+            'key' => self::ICELAND_TLD,
             'name' => 'Iceland',
         ]);
         $this->insert('timezone', [
-            'identifier' => static::ICELAND_TZ,
+            'identifier' => self::ICELAND_TZ,
             'name' => 'Iceland',
             'order' => $this->createTimezoneOrderNear($uktz->order),
             'region_id' => $uktz->region_id,
@@ -55,7 +55,7 @@ class m200220_100511_iceland_time extends Migration
             (new Query())
                 ->select('id')
                 ->from('timezone')
-                ->andWhere(['timezone.identifier' => static::ICELAND_TZ])
+                ->andWhere(['timezone.identifier' => self::ICELAND_TZ])
                 ->limit(1)
                 ->scalar(),
             FILTER_VALIDATE_INT
@@ -68,7 +68,7 @@ class m200220_100511_iceland_time extends Migration
             (new Query())
                 ->select('id')
                 ->from('country')
-                ->andWhere(['country.key' => static::ICELAND_TLD])
+                ->andWhere(['country.key' => self::ICELAND_TLD])
                 ->limit(1)
                 ->scalar(),
             FILTER_VALIDATE_INT
@@ -89,19 +89,23 @@ class m200220_100511_iceland_time extends Migration
 
     private function createTimezoneOrderNear(int $refId): int
     {
+        $list = (new Query())
+            ->select('order')
+            ->from('timezone')
+            ->orderBy(['order' => SORT_ASC])
+            ->column();
+
         $exists = array_map(
             fn ($row): int => filter_var($row, FILTER_VALIDATE_INT),
-            (new Query())
-                ->select('order')
-                ->from('timezone')
-                ->orderBy(['order' => SORT_ASC])
-                ->column()
+            $list,
         );
 
-        for ($v = $refId + 1;; ++$v) {
+        $v = $refId + 1;
+        while (true) {
             if (!in_array($v, $exists, true)) {
                 return $v;
             }
+            ++$v;
         }
     }
 }

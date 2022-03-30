@@ -6,18 +6,19 @@ use app\assets\AboutAsset;
 use app\assets\AppLinkAsset;
 use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
-use yii\helpers\Html;
+use app\components\helpers\Html;
 use yii\web\View;
 
 /**
  * @var View $this
  */
 
+$this->context->layout = 'main';
+
 $title = implode(' | ', [
     Yii::$app->name,
     Yii::t('app', 'Getting Started'),
 ]);
-$this->context->layout = 'main';
 
 $aboutAsset = AboutAsset::register($this);
 $iconAsset = AppLinkAsset::register($this);
@@ -51,7 +52,7 @@ $iconAsset = AppLinkAsset::register($this);
       <h4>
         <?= Html::a(
           implode('', [
-            $iconAsset->squidTracks,
+            $iconAsset->getSquidTracks(),
             Html::encode('SquidTracks'),
           ]),
           'https://github.com/hymm/squid-tracks'

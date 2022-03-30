@@ -10,10 +10,10 @@ declare(strict_types=1);
 
 namespace app\actions\api\v2;
 
+use Generator;
 use Yii;
 use app\models\Language;
 use app\models\Weapon2;
-use yii\db\ActiveQuery;
 use yii\web\ViewAction as BaseAction;
 
 use const SORT_ASC;
@@ -37,41 +37,63 @@ class WeaponAction extends BaseAction
             ])
             ->orderBy('[[id]]');
 
-        //TODO: query filter
-
         switch ((string)Yii::$app->request->get('format')) {
             case 'csv':
                 $response->format = 'csv';
-                return $this->formatCsv($query);
+                return $this->formatCsv(
+                    $query
+                        ->innerJoinWith([
+                            'type',
+                            'type.category',
+                        ])
+                        ->orderBy([
+                            'weapon_category2.id' => SORT_ASC,
+                            'weapon_type2.id' => SORT_ASC,
+                            'weapon2.name' => SORT_ASC,
+                        ])
+                        ->all(),
+                );
 
             default:
-                return $this->formatJson($query);
+                return $this->formatJson(
+                    $query->all(),
+                );
         }
     }
 
-    protected function formatJson(ActiveQuery $query): array
+    /**
+     * @param Weapon2[] $items
+     */
+    protected function formatJson(array $items): array
     {
         return array_map(
             fn (Weapon2 $weapon): array => $weapon->toJsonArray(),
-            $query->all()
+            $items,
         );
     }
 
-    protected function formatCsv(ActiveQuery $query): array
+    /**
+     * @param Weapon2[] $items
+     */
+    protected function formatCsv(array $items): array
     {
         $resp = Yii::$app->response;
         $resp->setDownloadHeaders('statink-weapon2.csv', 'text/csv; charset=UTF-8');
         return [
-            'separator'     => ',',
-            'inputCharset'  => Yii::$app->charset,
+            'separator' => ',',
+            'inputCharset' => Yii::$app->charset,
             'outputCharset' => 'UTF-8',
-            'appendBOM'     => true,
-            'rows'          => $this->formatCsvRows($query),
+            'appendBOM' => true,
+            'rows' => $this->formatCsvRows($items),
         ];
     }
 
-    protected function formatCsvRows(ActiveQuery $query)
+    /**
+     * @param Weapon2[] $items
+     */
+    protected function formatCsvRows(array $items): Generator
     {
+        // @phpstan-ignore-next-line
         $langs = Language::find()
             ->standard()
             ->orderBy(['lang' => SORT_ASC])
@@ -83,20 +105,11 @@ class WeaponAction extends BaseAction
             array_map(
                 fn (string $lang): string => sprintf('[%s]', $lang),
                 $langs
-            )
+            ),
         );
-        $query
-            ->innerJoinWith([
-                'type',
-                'type.category',
-            ])
-            ->orderBy([
-                'weapon_category2.id' => SORT_ASC,
-                'weapon_type2.id' => SORT_ASC,
-                'weapon2.name' => SORT_ASC,
-            ]);
+
         $i18n = Yii::$app->i18n;
-        foreach ($query->all() as $weapon) {
+        foreach ($items as $weapon) {
             yield array_merge(
                 [
                     $weapon->type->category->key,
@@ -110,7 +123,7 @@ class WeaponAction extends BaseAction
                 ],
                 array_map(
                     fn (string $lang) => $i18n->translate('app-weapon2', $weapon->name, [], $lang),
-                    $langs
+                    $langs,
                 )
             );
         }

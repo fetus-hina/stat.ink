@@ -5,7 +5,7 @@ declare(strict_types=1);
 use app\models\User;
 use statink\yii2\jdenticon\Jdenticon;
 use statink\yii2\twitter\webintents\TwitterWebIntentsAsset;
-use yii\helpers\Html;
+use app\components\helpers\Html;
 use yii\widgets\DetailView;
 use yii\web\View;
 
@@ -178,7 +178,7 @@ $f = Yii::$app->formatter;
       'format' => 'raw',
       'value' => function () use ($user): string {
         return Html::a(
-          '#' . Html::encode($user->ikanakama2),
+          '#' . Html::encode((string)$user->ikanakama2),
           sprintf('https://ikanakama.ink/users/%s', rawurlencode((string)$user->ikanakama2))
         );
       },

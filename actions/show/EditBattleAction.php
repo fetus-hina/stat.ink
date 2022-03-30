@@ -6,9 +6,12 @@
  * @author AIZAWA Hina <hina@fetus.jp>
  */
 
+declare(strict_types=1);
+
 namespace app\actions\show;
 
 use Yii;
+use app\components\helpers\T;
 use app\models\Battle;
 use app\models\BattleDeleteForm;
 use app\models\BattleForm;
@@ -18,9 +21,10 @@ use app\models\Map;
 use app\models\Rule;
 use app\models\Weapon;
 use app\models\WeaponType;
-use yii\web\ViewAction as BaseAction;
+use yii\base\Action;
+use yii\web\Response;
 
-class EditBattleAction extends BaseAction
+final class EditBattleAction extends Action
 {
     private $battle;
 
@@ -41,6 +45,9 @@ class EditBattleAction extends BaseAction
         return !!$this->battle;
     }
 
+    /**
+     * @return Response|string
+     */
     public function run()
     {
         $form = new BattleForm();
@@ -54,11 +61,10 @@ class EditBattleAction extends BaseAction
                     $transaction = Yii::$app->db->beginTransaction();
                     if ($this->battle->delete()) {
                         $transaction->commit();
-                        $this->controller->redirect([
-                            'show/user',
-                            'screen_name' => $this->battle->user->screen_name,
-                        ]);
-                        return;
+                        return T::webController($this->controller)
+                            ->redirect(['show/user',
+                                'screen_name' => $this->battle->user->screen_name,
+                            ]);
                     }
                     $transaction->rollback();
                 }
@@ -66,12 +72,11 @@ class EditBattleAction extends BaseAction
                 if ($form->validate()) {
                     $this->battle->attributes = $form->attributes;
                     if ($this->battle->save()) {
-                        $this->controller->redirect([
-                            'show/battle',
-                            'screen_name' => $this->battle->user->screen_name,
-                            'battle' => $this->battle->id,
-                        ]);
-                        return;
+                        return T::webController($this->controller)
+                            ->redirect(['show/battle',
+                                'screen_name' => $this->battle->user->screen_name,
+                                'battle' => $this->battle->id,
+                            ]);
                     }
                 }
             }
@@ -126,7 +131,7 @@ class EditBattleAction extends BaseAction
             $ret[$map->id] = Yii::t('app-map', $map->name);
         }
         asort($ret);
-        return static::arrayMerge(
+        return self::arrayMerge(
             ['' => Yii::t('app', 'Unknown')],
             $ret
         );
@@ -147,7 +152,7 @@ class EditBattleAction extends BaseAction
             asort($tmp);
             $ret[$typeName] = $tmp;
         }
-        return static::arrayMerge(
+        return self::arrayMerge(
             ['' => Yii::t('app', 'Unknown')],
             $ret
         );

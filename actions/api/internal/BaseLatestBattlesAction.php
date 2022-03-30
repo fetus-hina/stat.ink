@@ -10,8 +10,6 @@ declare(strict_types=1);
 
 namespace app\actions\api\internal;
 
-use DateTimeImmutable;
-use DateTimeZone;
 use Yii;
 use app\assets\GameModeIconsAsset;
 use app\assets\NoDependedAppAsset;
@@ -26,12 +24,9 @@ use yii\web\ViewAction;
 
 use function array_filter;
 use function strtotime;
-use function time;
 
 abstract class BaseLatestBattlesAction extends ViewAction
 {
-    private DateTimeImmutable $now;
-
     abstract protected function fetchBattles(): array;
 
     abstract protected function getHeading(): string;
@@ -39,16 +34,6 @@ abstract class BaseLatestBattlesAction extends ViewAction
     protected function isPrecheckOK(): bool
     {
         return true;
-    }
-
-    public function init()
-    {
-        parent::init();
-
-        $t = (int)($_SERVER['REQUEST_TIME'] ?? time());
-        $this->now = (new DateTimeImmutable())
-            ->setTimestamp($t)
-            ->setTimezone(new DateTimeZone('Etc/UTC'));
     }
 
     public function run()
@@ -455,7 +440,7 @@ abstract class BaseLatestBattlesAction extends ViewAction
                 }
                 return null;
             })(),
-            'time' => strtotime($battle->end_at ?: $battle->created_at),
+            'time' => strtotime($battle->end_at ?: $battle->at),
             'rule' => $battle->rule
                 ? [
                     'icon' => null,

@@ -2,13 +2,30 @@
 
 declare(strict_types=1);
 
+use app\models\Region2;
+use app\models\Splatfest2;
+use app\models\User;
+use yii\base\Model;
 use yii\db\Query;
 use yii\helpers\ArrayHelper;
+use yii\web\View;
 
-$percentile = fn($expr, $fraction) => vsprintf('PERCENTILE_CONT(%.2f) WITHIN GROUP (ORDER BY %s)', [
-  $fraction,
-  $expr,
-]);
+/**
+ * @var Model $input
+ * @var Region2 $region
+ * @var Region2[] $regions
+ * @var Splatfest2[] $splatfests
+ * @var User $user
+ * @var View $this
+ */
+
+$percentile = fn ($expr, $fraction) => vsprintf(
+  'PERCENTILE_CONT(%.2f) WITHIN GROUP (ORDER BY %s)',
+  [
+    $fraction,
+    $expr,
+  ],
+);
 
 $inked = sprintf('(CASE %s END)', implode(' ', [
   'WHEN battle2.is_win = TRUE AND battle2.my_point >= 1000 THEN battle2.my_point - 1000',
@@ -100,7 +117,7 @@ $query = (new Query())
 $summaries = ArrayHelper::map(
   $query->all(),
   'fest_id',
-  fn($row) => (object)$row
+  fn(array $row): stdClass => (object)$row,
 );
 
 echo $this->render('//show-v2/splatfest/region-switcher', [

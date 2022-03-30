@@ -11,17 +11,20 @@ declare(strict_types=1);
 namespace app\actions\entire;
 
 use Yii;
+use app\components\helpers\T;
 use app\models\Rule2;
 use app\models\SplatoonVersionGroup2;
 use app\models\StatWeapon2Tier;
-use yii\web\ViewAction;
+use yii\base\Action;
+use yii\web\Response;
 
 use const SORT_ASC;
 use const SORT_DESC;
 
-class Weapons2TierAction extends ViewAction
+final class Weapons2TierAction extends Action
 {
-    public $input;
+    /** @var array<string, string> */
+    public array $input;
 
     public function init()
     {
@@ -35,6 +38,9 @@ class Weapons2TierAction extends ViewAction
         ];
     }
 
+    /**
+     * @return Response|string
+     */
     public function run()
     {
         // redirect to default page if input is empty
@@ -48,6 +54,7 @@ class Weapons2TierAction extends ViewAction
                 }
             }
 
+            // @phpstan-ignore-next-line
             $latest = StatWeapon2Tier::find()
                 ->thresholded()
                 ->andWhere(['rule_id' => $rule->id ?? null])
@@ -55,21 +62,19 @@ class Weapons2TierAction extends ViewAction
                 ->limit(1)
                 ->one();
             if (!$latest) {
-                $this->controller->error404();
-                return;
+                return T::webControllerEx($this->controller)->error404();
             }
 
-            $this->controller->redirect(['entire/weapons2-tier',
-                'version' => $latest->versionGroup->tag,
-                'month' => substr($latest->month, 0, 7), // "YYYY-MM"-DD
-                'rule' => 'area',
-            ]);
-            return;
+            return T::webControllerEx($this->controller)
+                ->redirect(['entire/weapons2-tier',
+                    'version' => $latest->versionGroup->tag,
+                    'month' => substr($latest->month, 0, 7), // "YYYY-MM"-DD
+                    'rule' => 'area',
+                ]);
         }
 
         if (!preg_match('/^\d{4}-\d{2}$/', $this->input['month'])) {
-            $this->controller->error404();
-            return;
+            return T::webControllerEx($this->controller)->error404();
         }
 
         $rule = Rule2::find()
@@ -78,8 +83,7 @@ class Weapons2TierAction extends ViewAction
             ->limit(1)
             ->one();
         if (!$rule) {
-            $this->controller->error404();
-            return;
+            return T::webControllerEx($this->controller)->error404();
         }
 
         $vGroup = SplatoonVersionGroup2::find()
@@ -87,10 +91,10 @@ class Weapons2TierAction extends ViewAction
             ->limit(1)
             ->one();
         if (!$vGroup) {
-            $this->controller->error404();
-            return;
+            return T::webControllerEx($this->controller)->error404();
         }
 
+        // @phpstan-ignore-next-line
         $data = StatWeapon2Tier::find()
             ->thresholded()
             ->andWhere([
@@ -106,8 +110,7 @@ class Weapons2TierAction extends ViewAction
             ])
             ->all();
         if (!$data) {
-            $this->controller->error404();
-            return;
+            return T::webControllerEx($this->controller)->error404();
         }
 
         return $this->controller->render('weapons2-tier', [
@@ -124,15 +127,16 @@ class Weapons2TierAction extends ViewAction
     {
         return Rule2::getSortedAll('gachi', null, fn (Rule2 $rule): array => [
             'name' => $rule->name,
+            // @phpstan-ignore-next-line
             'enabled' => StatWeapon2Tier::find()
-                    ->thresholded()
-                    ->andWhere([
-                        'version_group_id' => $version->id,
-                        'month' => $this->input['month'] . '-01',
-                        'rule_id' => $rule->id,
-                    ])
-                    ->limit(1)
-                    ->exists(),
+                ->thresholded()
+                ->andWhere([
+                    'version_group_id' => $version->id,
+                    'month' => $this->input['month'] . '-01',
+                    'rule_id' => $rule->id,
+                ])
+                ->limit(1)
+                ->exists(),
         ]);
     }
 }

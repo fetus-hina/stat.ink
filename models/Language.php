@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace app\models;
 
+use app\models\query\LanguageQuery;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
@@ -27,19 +28,16 @@ use yii\db\ActiveRecord;
  * @property Charset[] $charsets
  * @property Slack[] $slacks
  * @property User[] $users
+ *
+ * @property-read string $countryCode
+ * @property-read string $languageCode
+ * @property-read string $languageId
  */
 class Language extends ActiveRecord
 {
-    public static function find(): ActiveQuery
+    public static function find(): LanguageQuery
     {
-        return new class (static::class) extends ActiveQuery {
-            public function standard(): self
-            {
-                return $this->andWhere(['and',
-                    ['not', ['like', '{{language}}.[[lang]]', '%@%', false]],
-                ]);
-            }
-        };
+        return new LanguageQuery(static::class);
     }
 
     public static function tableName()

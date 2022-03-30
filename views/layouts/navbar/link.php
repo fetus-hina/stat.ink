@@ -5,7 +5,7 @@ declare(strict_types=1);
 use app\assets\AppLinkAsset;
 use app\components\widgets\FA;
 use app\components\widgets\FlagIcon;
-use yii\helpers\Html;
+use app\components\helpers\Html;
 use yii\web\View;
 
 /**
@@ -151,7 +151,7 @@ $list = [
     // SquidTracks {{{
     'url' => 'https://github.com/hymm/squid-tracks/',
     'name' => implode('', [
-      $icon->squidTracks,
+      $icon->getSquidTracks(),
       Html::encode(Yii::t('app', 'SquidTracks')),
       (string)FA::fab('windows')->fw(),
       (string)FA::fab('apple')->fw(),
@@ -174,7 +174,7 @@ $list = [
   [
     // IkaRec 2 {{{
     'name' => implode('', [
-      $icon->ikarecJa,
+      $icon->getIkarecJa(),
       Html::encode(Yii::t('app', 'IkaRec 2')),
       Html::tag('span', '', ['class' => 'fab fa-fw fa-android']),
     ]),
@@ -191,7 +191,7 @@ $list = [
       [
         // IkaLog {{{
         'name' => implode('', [
-          $icon->ikalog,
+          $icon->getIkalog(),
           Html::encode(Yii::t('app', 'IkaLog')),
           (string)FA::fab('windows')->fw(),
           (string)FA::fab('apple')->fw(),
@@ -228,7 +228,7 @@ $list = [
         // IkaRec {{{
         'url' => 'https://play.google.com/store/apps/details?id=com.syanari.merluza.ikarec',
         'name' => implode('', [
-          $icon->ikarecJa,
+          $icon->getIkarecJa(),
           $jp(),
           Html::encode(Yii::t('app', 'IkaRec')),
           '(' . Html::encode(Yii::t('app', 'for {title}', [
@@ -240,7 +240,7 @@ $list = [
       [
         'url' => 'https://play.google.com/store/apps/details?id=ink.pocketgopher.ikarec',
         'name' => implode('', [
-          $icon->ikarecEn,
+          $icon->getIkarecEn(),
           $us(),
           Html::encode(Yii::t('app', 'IkaRec')),
           '(' . Html::encode(Yii::t('app', 'for {title}', [
@@ -256,21 +256,21 @@ $list = [
   [
     'url' => 'https://ikadenwa.ink/',
     'name' => implode('', [
-      $icon->ikadenwa,
+      $icon->getIkadenwa(),
       Html::encode(Yii::t('app', 'Ika-Denwa')),
     ]),
   ],
   [
     'url' => 'https://ikanakama.ink/',
     'name' => implode('', [
-      $icon->ikanakama,
+      $icon->getIkanakama(),
       Html::encode(Yii::t('app', 'Ika-Nakama 2')),
     ]),
   ],
   [
     'url' => 'https://fest.ink/',
     'name' => implode('', [
-      $icon->festink,
+      $icon->getFestink(),
       Html::encode(Yii::t('app', 'fest.ink')),
     ]),
   ],

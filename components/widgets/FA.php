@@ -12,9 +12,9 @@ namespace app\components\widgets;
 
 use Yii;
 use app\assets\FontAwesomeAsset;
+use app\components\helpers\Html;
 use yii\base\Widget;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Html;
 
 class FA extends Widget
 {
@@ -26,8 +26,6 @@ class FA extends Widget
     public $content = null;
     public $options = [];
     public $contentOptions = [];
-
-    private $asset;
 
     public static function fas(?string $icon, array $options = []): self
     {
@@ -56,17 +54,23 @@ class FA extends Widget
 
     protected static function factory(string $type, ?string $icon, array $options): self
     {
-        return Yii::createObject(ArrayHelper::merge([
-            'class' => static::class,
-            'type' => $type,
-            'icon' => $icon,
-        ], $options));
+        return Yii::createObject(
+            ArrayHelper::merge(
+                [
+                    'class' => static::class,
+                    'type' => $type,
+                    'icon' => $icon,
+                ],
+                $options,
+            )
+        );
     }
 
     public function init()
     {
         parent::init();
-        $this->asset = FontAwesomeAsset::register($this->view);
+
+        FontAwesomeAsset::register($this->view);
     }
 
     public function fw(): self
@@ -100,7 +104,7 @@ class FA extends Widget
 
     public function run()
     {
-        echo $this->renderFA();
+        return $this->renderFA();
     }
 
     protected function renderFA(): string

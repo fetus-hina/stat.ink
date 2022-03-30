@@ -25,6 +25,7 @@ class Translator
         array $params = []
     ): array {
         if (self::$langs === null) {
+            // @phpstan-ignore-next-line
             self::$langs = Language::find()
                 ->standard()
                 ->orderBy(['lang' => SORT_ASC])

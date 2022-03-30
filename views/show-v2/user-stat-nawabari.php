@@ -1,15 +1,22 @@
 <?php
 
 use app\assets\UserStat2NawabariAsset;
+use app\components\helpers\Html;
 use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
 use app\components\widgets\UserMiniInfo2;
 use app\models\Battle2;
 use app\models\Map2;
 use app\models\Rule2;
+use app\models\User;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Html;
 use yii\helpers\Json;
+use yii\web\View;
+
+/**
+ * @var User $user
+ * @var View $this
+ */
 
 $title = Yii::t('app', "{name}'s Battle Stats (Turf War)", ['name' => $user->name]);
 $this->title = implode(' | ', [

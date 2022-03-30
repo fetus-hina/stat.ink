@@ -3,7 +3,13 @@
 declare(strict_types=1);
 
 use app\components\widgets\BattleSummaryItemWidget;
-use yii\helpers\Html;
+use app\components\helpers\Html;
+use yii\web\View;
+
+/**
+ * @var View $this
+ * @var stdClass $summary
+ */
 
 $f = Yii::$app->formatter;
 
@@ -21,8 +27,8 @@ $label = fn($text) => Html::tag(
   </div>
   <div class="col-xs-4 col-md-2 mb-3">
     <?= $label(Yii::t('app', 'Win %')) . "\n" ?>
-    <div class="user-number"><?= ($summary->win + $summary->lose > 0)
-      ? $f->asPercent($summary->win / ($summary->win + $summary->lose), 1)
+    <div class="user-number"><?= ((int)$summary->win + (int)$summary->lose > 0)
+      ? $f->asPercent((int)$summary->win / ((int)$summary->win + (int)$summary->lose), 1)
       : Html::encode(Yii::t('app', 'N/A'))
     ?></div>
   </div>

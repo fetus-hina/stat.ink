@@ -1,11 +1,17 @@
 <?php
+
 use app\assets\AppLinkAsset;
 use app\assets\BattleInputAsset;
 use app\components\Version;
+use app\components\helpers\Html;
 use app\models\Map2;
 use app\models\Rank2;
 use app\models\Rule2;
-use yii\helpers\Html;
+use yii\web\View;
+
+/**
+ * @var View $this
+ */
 
 BattleInputAsset::register($this);
 
@@ -478,9 +484,9 @@ $_maps = Map2::getSortedMap();
 <?php $asset = AppLinkAsset::register($this) ?>
           <?= Html::encode(Yii::t('app', 'Recommended to Android users:')) . "\n" ?>
 <?php if (Yii::$app->language === 'ja-JP'): ?>
-          <?= $asset->ikaRecJa ?><a href="https://play.google.com/store/apps/details?id=com.syanari.merluza.ikarec2" target="_blank">イカレコ 2</a>
+          <?= $asset->getIkaRecJa() ?><a href="https://play.google.com/store/apps/details?id=com.syanari.merluza.ikarec2" target="_blank">イカレコ 2</a>
 <?php else: ?>
-          <?= $asset->ikaRecEn ?><a href="https://play.google.com/store/apps/details?id=com.syanari.merluza.ikarec2" target="_blank">IkaRec 2</a>
+          <?= $asset->getIkaRecEn() ?><a href="https://play.google.com/store/apps/details?id=com.syanari.merluza.ikarec2" target="_blank">IkaRec 2</a>
 <?php endif ?>
         </p>
       </div>

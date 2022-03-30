@@ -8,15 +8,18 @@
 
 namespace app\actions\user;
 
+use Exception;
+use Throwable;
 use Yii;
+use app\components\helpers\T;
 use app\models\Environment;
 use app\models\Language;
 use app\models\ProfileForm;
 use app\models\Region;
+use yii\base\Action;
 use yii\helpers\ArrayHelper;
-use yii\web\ViewAction as BaseAction;
 
-class EditProfileAction extends BaseAction
+final class EditProfileAction extends Action
 {
     public function run()
     {
@@ -29,13 +32,14 @@ class EditProfileAction extends BaseAction
                 $transaction = Yii::$app->db->beginTransaction();
                 try {
                     $ident->attributes = $form->attributes;
-                    $ident->env_id = $this->findOrCreateEnvironmentId($form->env);
+                    $ident->env_id = $this->findOrCreateEnvironmentId((string)$form->env);
                     if ($ident->save()) {
                         $transaction->commit();
-                        $this->controller->redirect(['user/profile']);
+                        T::webController($this->controller)
+                            ->redirect(['user/profile']);
                         return;
                     }
-                } catch (\Throwable $e) {
+                } catch (Throwable $e) {
                 }
                 $transaction->rollback();
             }
@@ -51,34 +55,33 @@ class EditProfileAction extends BaseAction
             'form' => $form,
             'languages' => ArrayHelper::map(
                 array_map(
-                    function ($row) {
-                        $row['_name'] = sprintf(
-                            '%s / %s',
-                            $row['name'],
-                            $row['name_en']
-                        );
-                        return $row;
-                    },
-                    Language::find()->orderBy('name')->asArray()->all()
+                    fn (Language $row): array => [
+                        'id' => $row->id,
+                        'name' => vsprintf('%s / %s', [
+                            $row->name,
+                            $row->name_en,
+                        ]),
+                    ],
+                    Language::find()->orderBy('name')->all(),
                 ),
                 'id',
-                '_name'
+                'name',
             ),
             'regions' => ArrayHelper::map(
                 array_map(
-                    fn (array $row): array => [
-                        'id' => $row['id'],
-                        'name' => Yii::t('app-region', $row['name']),
+                    fn (Region $row): array => [
+                        'id' => $row->id,
+                        'name' => Yii::t('app-region', $row->name),
                     ],
-                    Region::find()->orderBy('id')->asArray()->all()
+                    Region::find()->orderBy('id')->all(),
                 ),
                 'id',
-                'name'
+                'name',
             ),
         ]);
     }
 
-    protected function findOrCreateEnvironmentId($text)
+    protected function findOrCreateEnvironmentId(string $text): ?int
     {
         $text = preg_replace('/\x0d\x0a|\x0d|\x0a/', "\n", (string)$text);
         $text = trim($text);
@@ -96,7 +99,7 @@ class EditProfileAction extends BaseAction
         $model->sha256sum = $hash;
         $model->text = $text;
         if (!$model->save()) {
-            throw new \Exception();
+            throw new Exception();
         }
         return $model->id;
     }

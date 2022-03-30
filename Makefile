@@ -182,8 +182,13 @@ check-syntax:
 
 check-style: check-style-js check-style-css check-style-php
 
-check-style-php: vendor
+check-style-php: check-style-phpcs
+
+check-style-phpcs: vendor
 	php vendor/bin/phpcs -p
+
+check-style-phpstan: vendor
+	php vendor/bin/phpstan analyze --memory-limit=1G
 
 check-style-js: node_modules
 	npx updates --minor bootstrap,bootswatch

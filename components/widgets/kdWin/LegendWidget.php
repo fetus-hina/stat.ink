@@ -11,8 +11,8 @@ declare(strict_types=1);
 namespace app\components\widgets\kdWin;
 
 use Yii;
+use app\components\helpers\Html;
 use yii\base\Widget;
-use yii\helpers\Html;
 
 class LegendWidget extends Widget
 {

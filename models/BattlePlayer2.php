@@ -22,33 +22,35 @@ use const SORT_DESC;
  * @property int $battle_id
  * @property bool $is_my_team
  * @property bool $is_me
- * @property int $weapon_id
- * @property int $level
- * @property int $rank_in_team
- * @property int $kill
- * @property int $death
- * @property int $point
- * @property int $my_kill
- * @property int $kill_or_assist
- * @property int $special
- * @property int $rank_id
- * @property string $name
- * @property int $gender_id
- * @property int $fest_title_id
- * @property string $splatnet_id
- * @property int $star_rank
- * @property bool $top_500
- * @property int $species_id
+ * @property int|null $weapon_id
+ * @property int|null $level
+ * @property int|null $rank_in_team
+ * @property int|null $kill
+ * @property int|null $death
+ * @property int|null $point
+ * @property int|null $my_kill
+ * @property int|null $kill_or_assist
+ * @property int|null $special
+ * @property int|null $rank_id
+ * @property string|null $name
+ * @property int|null $gender_id
+ * @property int|null $fest_title_id
+ * @property string|null $splatnet_id
+ * @property int|null $star_rank
+ * @property bool|null $top_500
+ * @property int|null $species_id
  *
  * @property Battle2 $battle
- * @property FestTitle $festTitle
- * @property Gender $gender
- * @property Rank2 $rank
- * @property Species2 $species
- * @property Weapon2 $weapon
+ * @property FestTitle|null $festTitle
+ * @property Gender|null $gender
+ * @property Rank2|null $rank
+ * @property Species2|null $species
+ * @property Weapon2|null $weapon
  *
  * @property-read ForceBlackout2 $forceBlackout
+ * @property-read User|null $user
  * @property-read bool $isForceBlackouted
+ * @property-read string $anonymizeSeed
  * @property-read string $iconUrl
  */
 class BattlePlayer2 extends ActiveRecord
@@ -304,7 +306,7 @@ class BattlePlayer2 extends ActiveRecord
         $value = trim($this->splatnet_id);
         return $value !== ''
             ? $value
-            : hash_hmac('sha256', $this->id, $this->battle_id);
+            : hash_hmac('sha256', (string)$this->id, (string)$this->battle_id);
     }
 
     public function toJsonArray(?Battle2 $battle = null)

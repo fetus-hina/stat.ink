@@ -11,7 +11,11 @@ use app\models\Brand;
 use app\models\GearType;
 use yii\db\Migration;
 
-class m151227_094526_gear extends Migration
+/**
+ * @property-read stdClass $abilities
+ * @property-read stdClass $brands
+ */
+final class m151227_094526_gear extends Migration
 {
     public function up()
     {

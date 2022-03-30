@@ -14,9 +14,9 @@ use DateTimeImmutable;
 use DateTimeZone;
 use Yii;
 use app\assets\IrasutoyaAsset;
+use app\components\helpers\Html;
 use statink\yii2\paintball\PaintballAsset;
 use yii\base\Widget;
-use yii\helpers\Html;
 
 class HappyNewYearWidget extends Widget
 {

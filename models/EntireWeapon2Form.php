@@ -81,7 +81,11 @@ class EntireWeapon2Form extends Model
     private function getVersionList(): array
     {
         $result = [];
-        $groups = SplatoonVersionGroup2::find()->with('versions')->asArray()->all();
+        /** @var array[] $groups */
+        $groups = SplatoonVersionGroup2::find()
+            ->with('versions')
+            ->asArray()
+            ->all();
         usort($groups, fn (array $a, array $b): int => version_compare($b['tag'], $a['tag']));
         foreach ($groups as $group) {
             switch (count($group['versions'])) {

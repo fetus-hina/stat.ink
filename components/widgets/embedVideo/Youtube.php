@@ -8,8 +8,8 @@
 
 namespace app\components\widgets\embedVideo;
 
+use app\components\helpers\Html;
 use yii\base\Widget;
-use yii\helpers\Html;
 
 use const FILTER_VALIDATE_INT;
 

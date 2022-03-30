@@ -9,8 +9,8 @@
 declare(strict_types=1);
 
 use app\components\db\Migration;
+use app\components\helpers\ArrayHelper;
 use yii\db\Query;
-use yii\helpers\ArrayHelper;
 
 class m200404_192929_central_asia extends Migration
 {

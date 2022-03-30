@@ -20,6 +20,6 @@ class m181115_120729_reindex_battle2_userid extends Migration
 
     public function down()
     {
-        $this->dropIndex('ix_battle2_userid_id');
+        $this->dropIndex('ix_battle2_userid_id', 'battle2');
     }
 }

@@ -81,7 +81,7 @@ class UserStatByWeaponAction extends BaseAction
                 '{{battle}}.[[is_win]]' => [ true, false ],
             ])
             ->groupBy('{{battle}}.[[weapon_id]]');
-        if ($filter && !$filter->hasErrors()) {
+        if (!$filter->hasErrors()) {
             $this->filter($query, $filter);
         }
         $list = $query->all();

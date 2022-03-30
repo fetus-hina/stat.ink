@@ -6,12 +6,15 @@
  * @author AIZAWA Hina <hina@fetus.jp>
  */
 
+declare(strict_types=1);
+
 namespace app\actions\user;
 
 use Yii;
-use yii\web\ViewAction as BaseAction;
+use app\components\helpers\T;
+use yii\base\Action;
 
-final class LogoutAction extends BaseAction
+final class LogoutAction extends Action
 {
     public function run()
     {
@@ -20,6 +23,7 @@ final class LogoutAction extends BaseAction
         }
 
         Yii::$app->user->logout();
-        return $this->controller->redirect(Yii::$app->homeUrl);
+        return T::webController($this->controller)
+            ->redirect(Yii::$app->homeUrl);
     }
 }

@@ -1,11 +1,19 @@
 <?php
+
 declare(strict_types=1);
 
+use app\components\helpers\Html;
 use app\components\widgets\AdWidget;
 use app\components\widgets\SalmonUserInfo;
 use app\components\widgets\SnsWidget;
-use yii\helpers\Html;
+use app\models\Salmon2;
 use yii\helpers\Url;
+use yii\web\View;
+
+/**
+ * @var Salmon2 $model
+ * @var View $this
+ */
 
 $user = $model->user;
 

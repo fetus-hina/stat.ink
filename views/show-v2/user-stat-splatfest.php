@@ -2,10 +2,24 @@
 
 declare(strict_types=1);
 
+use app\components\helpers\Html;
 use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
 use app\components\widgets\UserMiniInfo2;
-use yii\helpers\Html;
+use app\models\Region2;
+use app\models\Splatfest2;
+use app\models\User;
+use yii\base\Model;
+use yii\web\View;
+
+/**
+ * @var Model $input
+ * @var Region2 $region
+ * @var Region2[] $regions
+ * @var Splatfest2[] $splatfests
+ * @var User $user
+ * @var View $this
+ */
 
 $title = Yii::t('app', "{name}'s Battle Stats (Splatfest)", ['name' => $user->name]);
 $this->title = implode(' | ', [

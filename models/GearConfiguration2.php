@@ -16,11 +16,11 @@ use yii\helpers\Json;
  *
  * @property int $id
  * @property string $finger_print
- * @property int $gear_id
- * @property int $primary_ability_id
+ * @property int|null $gear_id
+ * @property int|null $primary_ability_id
  *
- * @property Ability2 $primaryAbility
- * @property Gear2 $gear
+ * @property Ability2|null $primaryAbility
+ * @property Gear2|null $gear
  * @property GearConfigurationSecondary2[] $secondaries
  */
 class GearConfiguration2 extends ActiveRecord

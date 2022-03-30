@@ -37,17 +37,16 @@ class MonthAction extends BaseAction
 
     private function prepare()
     {
-        // {{{
         $req = Yii::$app->request;
 
         $this->year = $req->get('year');
         $this->month = $req->get('month');
         if (
             !is_scalar($this->year) ||
-                !is_scalar($this->month) ||
-                !static::isValidMonth($this->year, $this->month)
+            !is_scalar($this->month) ||
+            !self::isValidMonth($this->year, $this->month)
         ) {
-            static::http404();
+            self::http404();
             return;
         }
 
@@ -67,15 +66,14 @@ class MonthAction extends BaseAction
                 ->sub(new DateInterval('PT1S')) // - 1 second
                 ->getTimestamp()
         );
-        // }}}
     }
 
     public function run()
     {
         return $this->controller->render('month', [
             'rules' => $this->buildData(),
-            'prevUrl' => $this->prevMonthUrl,
-            'nextUrl' => $this->nextMonthUrl,
+            'prevUrl' => $this->getPrevMonthUrl(),
+            'nextUrl' => $this->getNextMonthUrl(),
             'month' => (new DateTimeImmutable())
                 ->setTimezone(new DateTimeZone(Yii::$app->timeZone))
                 ->setDate($this->year, $this->month, 1)
@@ -85,7 +83,7 @@ class MonthAction extends BaseAction
 
     public function buildData(): array
     {
-        $raiiTimeZone = static::setTimeZoneToFavorable();
+        $raiiTimeZone = self::setTimeZoneToFavorable();
 
         $rules = $this->getRules();
         $maps = $this->getMaps();
@@ -97,7 +95,10 @@ class MonthAction extends BaseAction
                     'rule' => $rule,
                     'maps' => array_map(
                         function ($map) use ($rule, $counts) {
-                            $counts_ = array_filter($counts, fn ($_) => $_['rule_id'] == $rule->id && $_['map_id'] == $map->id);
+                            $counts_ = array_filter(
+                                $counts,
+                                fn ($_) => $_['rule_id'] == $rule->id && $_['map_id'] == $map->id,
+                            );
                             return (object)[
                                 'map' => $map,
                                 'count' => $counts_ ? (int)array_shift($counts_)['count'] : 0,
@@ -188,7 +189,7 @@ class MonthAction extends BaseAction
         $t = mktime(0, 0, 0, $this->month + $rel, 1, $this->year);
         $y = (int)date('Y', $t);
         $m = (int)date('n', $t);
-        return static::isValidMonth($y, $m)
+        return self::isValidMonth($y, $m)
             ? Url::to(['stage/month', 'year' => $y, 'month' => $m])
             : null;
         // }}}
@@ -236,7 +237,7 @@ class MonthAction extends BaseAction
         // データ持ってないかも
         $periodS = BattleHelper::calcPeriod(mktime(0, 0, 0, $month, 1, $year));
         $periodE = BattleHelper::calcPeriod(mktime(0, 0, -1, $month + 1, 1, $year));
-        return static::hasStageData($periodS, $periodE);
+        return self::hasStageData($periodS, $periodE);
     }
 
     // 集計のために都合のいいタイムゾーンに一時的に変更する

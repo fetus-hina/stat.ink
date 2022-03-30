@@ -89,6 +89,7 @@ class GearAction extends BaseAction
 
     protected function formatCsvRows(Query $query)
     {
+        // @phpstan-ignore-next-line
         $langs = Language::find()
             ->standard()
             ->orderBy(['lang' => SORT_ASC])

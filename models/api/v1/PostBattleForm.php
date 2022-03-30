@@ -40,7 +40,11 @@ use const JSON_FORCE_OBJECT;
 use const JSON_UNESCAPED_SLASHES;
 use const JSON_UNESCAPED_UNICODE;
 
-class PostBattleForm extends Model
+/**
+ * @property-read User|null $user
+ * @property-read bool $isTest
+ */
+final class PostBattleForm extends Model
 {
     public const SAME_BATTLE_THRESHOLD_TIME = 86400;
 
@@ -290,7 +294,10 @@ class PostBattleForm extends Model
             $newValue = new PostBattlePlayerForm();
             $newValue->attributes = $oldValue;
             if (!$newValue->validate()) {
-                $this->addError("{$attribute}.{$i}", $newValue->getErrors());
+                $this->addError(
+                    "{$attribute}.{$i}",
+                    array_values($newValue->getErrors())[0],
+                );
             }
             $newValues[] = $newValue;
         }
@@ -331,6 +338,7 @@ class PostBattleForm extends Model
             return;
         }
 
+        /** @var object[] $newValues */
         $newValues = [];
         foreach ($this->$attribute as $value) {
             if (is_array($value)) {
@@ -345,7 +353,7 @@ class PostBattleForm extends Model
             }
             $newValues[] = $value;
         }
-        usort($newValues, fn ($a, $b) => $a->at - $b->at);
+        usort($newValues, fn ($a, $b) => $a->at <=> $b->at);
         $this->$attribute = $newValues;
     }
 
@@ -582,10 +590,10 @@ class PostBattleForm extends Model
             ? (int)$this->his_team_final_point
             : null;
         $o->my_team_final_percent   = (string)$this->my_team_final_percent != ''
-            ? sprintf('%.1f', (float)$this->my_team_final_percent)
+            ? (float)sprintf('%.1f', (float)$this->my_team_final_percent)
             : null;
         $o->his_team_final_percent   = (string)$this->his_team_final_percent != ''
-            ? sprintf('%.1f', (float)$this->his_team_final_percent)
+            ? (float)sprintf('%.1f', (float)$this->his_team_final_percent)
             : null;
         $o->is_knock_out    = $this->knock_out === 'yes' ? true : ($this->knock_out === 'no' ? false : null);
         $o->my_team_count   = (string)$this->my_team_count != '' ? (int)$this->my_team_count : null;

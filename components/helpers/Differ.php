@@ -14,8 +14,8 @@ class Differ
 {
     public static function diff($before, $after, $nameBefore = 'old', $nameAfter = 'new')
     {
-        $fBefore = static::createTmpFile($before);
-        $fAfter = static::createTmpFile($after);
+        $fBefore = self::createTmpFile($before);
+        $fAfter = self::createTmpFile($after);
         $cmdline = sprintf(
             '/usr/bin/env %s -u -d -- %s %s',
             escapeshellarg('diff'),

@@ -13,8 +13,8 @@ namespace app\components\widgets;
 use Yii;
 use app\assets\AutoTooltipAsset;
 use app\assets\UserDetailedStatsCellAsset;
+use app\components\helpers\Html;
 use yii\base\Widget;
-use yii\helpers\Html;
 
 class UserDetailedStatsCell extends Widget
 {

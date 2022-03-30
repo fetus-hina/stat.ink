@@ -75,7 +75,7 @@ class Splatoon2InkI18nController extends Controller
 
     public function actionDownloadAll(bool $force = false): int
     {
-        foreach ($this->localeMap as $lang => $s2inkLang) {
+        foreach ($this->getLocaleMap() as $lang => $s2inkLang) {
             $path = $this->getCacheFilePath($s2inkLang);
             if (!FileHelper::createDirectory(dirname($path))) {
                 fprintf(STDERR, "Could not create output directory: %s\n", dirname($path));
@@ -97,7 +97,7 @@ class Splatoon2InkI18nController extends Controller
 
     public function actionDownload(string $locale, string $outPath): int
     {
-        $locales = $this->localeMap;
+        $locales = $this->getLocaleMap();
         if (!isset($locales[$locale])) {
             fwrite(STDERR, "Unknown locale \"{$locale}\".\n");
             return 1;
@@ -243,11 +243,11 @@ class Splatoon2InkI18nController extends Controller
         return $this->updateGear($locale, 'shoes', 'gear.shoes');
     }
 
-    private function updateGear(string $locale, string $type, string $jsonKey): int
+    private function updateGear(string $locale, string $typeKey, string $jsonKey): int
     {
-        $type = GearType::findOne(['key' => $type]);
+        $type = GearType::findOne(['key' => $typeKey]);
         if (!$type) {
-            fprintf(STDERR, "Unknown type: %s\n", $type);
+            fprintf(STDERR, "Unknown type: %s\n", $typeKey);
             return 1;
         }
         $status = $this->update($locale, 'gear2', $jsonKey, ArrayHelper::map(
@@ -290,7 +290,7 @@ class Splatoon2InkI18nController extends Controller
         string $jsonKey,    // "weapons"
         array $englishData  // [0 => "Sploosh-o-matic"]
     ): bool {
-        if (!$shortLocale = $this->localeMap[$locale] ?? null) {
+        if (!$shortLocale = $this->getLocaleMap()[$locale] ?? null) {
             fprintf(STDERR, "Unknown locale %s\n", $locale);
             return false;
         }
@@ -315,7 +315,7 @@ class Splatoon2InkI18nController extends Controller
             if (!$splatNetName) {
                 continue;
             }
-            $splatNetName = static::normalize($splatNetName);
+            $splatNetName = self::normalize($splatNetName);
             $oldName = $currentData[$englishName] ?? null;
             if ($oldName !== $splatNetName) {
                 fprintf(STDERR, "    %s => %s\n", $oldName ?: $englishName, $splatNetName);

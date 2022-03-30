@@ -8,7 +8,7 @@ use app\components\widgets\FA;
 use app\components\widgets\FlagIcon;
 use app\components\widgets\SnsWidget;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Html;
+use app\components\helpers\Html;
 use yii\web\Controller;
 use yii\web\View;
 

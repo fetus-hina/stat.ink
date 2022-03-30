@@ -4,9 +4,20 @@ declare(strict_types=1);
 
 use app\assets\IrasutoyaAsset;
 use app\components\widgets\FA;
+use app\models\Battle2;
+use app\models\BattlePlayer2;
 use app\models\User;
 use statink\yii2\anonymizer\AnonymizerAsset;
 use yii\bootstrap\Html;
+use yii\web\View;
+
+/**
+ * @var Battle2 $battle
+ * @var BattlePlayer2 $player
+ * @var View $this
+ * @var int<0, max> $historyCount
+ * @var string $teamKey
+ */
 
 $namePartInner = trim(implode(' ', [
   // identicon {{{
@@ -112,7 +123,7 @@ $namePartInner = trim(implode(' ', [
                 0,
                 40
               );
-            })($player->anonymizeSeed),
+            })($player->getAnonymizeSeed()),
           ],
         ]
       );

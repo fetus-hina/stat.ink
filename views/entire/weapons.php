@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use app\assets\InlineListAsset;
+use app\components\helpers\Html;
 use app\components\widgets\AdWidget;
 use app\components\widgets\FA;
 use app\components\widgets\SnsWidget;
@@ -11,8 +12,15 @@ use yii\bootstrap\Nav;
 use yii\bootstrap\Progress;
 use yii\data\ArrayDataProvider;
 use yii\grid\GridView;
-use yii\helpers\Html;
 use yii\helpers\Json;
+use yii\web\View;
+
+/**
+ * @var View $this
+ * @var array[] $uses
+ * @var stdClass[] $entire
+ * @var stdClass[] $users
+ */
 
 $this->context->layout = 'main';
 

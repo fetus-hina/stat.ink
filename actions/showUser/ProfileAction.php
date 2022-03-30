@@ -1,58 +1,64 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2017 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2022 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
+
+declare(strict_types=1);
 
 namespace app\actions\showUser;
 
 use Yii;
 use app\components\helpers\Battle as BattleHelper;
+use app\models\Battle;
+use app\models\Battle2;
 use app\models\User;
+use yii\base\Action;
 use yii\helpers\Url;
 use yii\web\NotFoundHttpException;
-use yii\web\ViewAction as BaseAction;
 
 use const SORT_DESC;
 
-class ProfileAction extends BaseAction
+final class ProfileAction extends Action
 {
     public function run()
     {
-        $request = Yii::$app->getRequest();
+        $request = Yii::$app->request;
         if (!$user = User::findOne(['screen_name' => $request->get('screen_name')])) {
             throw new NotFoundHttpException(Yii::t('yii', 'Page not found.'));
         }
 
-        $battles1 = $user->getBattles()
+        $battles1 = Battle::find()
+            ->andWhere(['user_id' => $user->id])
             ->with([
                 'lobby',
-                'rule',
-                'rule.mode',
                 'map',
-                'weapon',
-                'weapon.subweapon',
-                'weapon.special',
                 'rank',
                 'rankAfter',
+                'rule',
+                'rule.mode',
+                'weapon',
+                'weapon.special',
+                'weapon.subweapon',
             ])
             ->orderBy(['battle.id' => SORT_DESC])
             ->limit(5)
             ->all();
 
-        $battles2 = $user->getBattle2s()
+        $battles2 = Battle2::find()
+            ->andWhere(['user_id' => $user->id])
             ->with([
                 'lobby',
-                'rule',
-                'mode',
                 'map',
-                'weapon',
-                'weapon.subweapon',
-                'weapon.special',
+                'mode',
                 'rank',
                 'rankAfter',
+                'rule',
+                'weapon',
+                'weapon.special',
+                'weapon.subweapon',
             ])
             ->orderBy(['battle2.id' => SORT_DESC])
             ->limit(5)

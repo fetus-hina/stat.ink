@@ -11,11 +11,11 @@ declare(strict_types=1);
 namespace app\components\widgets;
 
 use Yii;
+use app\components\helpers\Html;
 use app\models\Salmon2;
 use jp3cki\yii2\flot\FlotAsset;
 use jp3cki\yii2\flot\FlotResizeAsset;
 use yii\base\Widget;
-use yii\helpers\Html;
 use yii\helpers\Json;
 
 use const SORT_DESC;

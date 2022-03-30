@@ -1,10 +1,12 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2016 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2022 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
+
+declare(strict_types=1);
 
 namespace app\actions\api\internal;
 
@@ -12,7 +14,10 @@ use Yii;
 use app\components\helpers\Battle as BattleHelper;
 use app\models\Map2;
 use app\models\Mode2;
+use app\models\UserWeapon2;
+use app\models\Weapon2;
 use app\models\WeaponCategory2;
+use app\models\WeaponType2;
 use statink\yii2\stages\spl2\Spl2Stage;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
@@ -20,6 +25,7 @@ use yii\web\BadRequestHttpException;
 use yii\web\ViewAction;
 
 use const SORT_ASC;
+use const SORT_DESC;
 
 class CurrentData2Action extends ViewAction
 {
@@ -114,13 +120,18 @@ class CurrentData2Action extends ViewAction
         return $ret;
     }
 
-    public function getWeapons()
+    public function getWeapons(): array
     {
         $ret = [];
         foreach (WeaponCategory2::find()->orderBy(['id' => SORT_ASC])->all() as $category) {
-            $q = $category->getWeaponTypes()->orderBy(['id' => SORT_ASC]);
+            $q = WeaponType2::find()
+                ->andWhere(['category_id' => $category->id])
+                ->orderBy(['id' => SORT_ASC]);
             foreach ($q->all() as $type) {
-                $weapons = $type->getWeapons()->asArray()->all();
+                $weapons = Weapon2::find()
+                    ->andWhere(['type_id' => $type->id])
+                    ->asArray()
+                    ->all();
                 if ($weapons) {
                     $ret[] = [
                         'name' => $category->name === $type->name
@@ -140,7 +151,7 @@ class CurrentData2Action extends ViewAction
                             );
                             uasort($tmp, fn (array $a, array $b) => strcasecmp($a['name'], $b['name']));
                             return $tmp;
-                        })($type),
+                        })(),
                     ];
                 }
             }
@@ -148,22 +159,29 @@ class CurrentData2Action extends ViewAction
         return $ret;
     }
 
-    public function getFavoriteWeapons()
+    public function getFavoriteWeapons(): array
     {
         if (!$user = Yii::$app->user->identity) {
             return [];
         }
+
         $fmt = Yii::$app->formatter;
         return array_map(
-            fn (array $row): array => [
-                'key' => $row['weapon']['key'],
+            fn (UserWeapon2 $row): array => [
+                'key' => $row->weapon->key,
                 'name' => sprintf(
                     '%s (%s)',
-                    Yii::t('app-weapon2', $row['weapon']['name']),
-                    $fmt->asInteger($row['battles'])
+                    Yii::t('app-weapon2', $row->weapon->name),
+                    $fmt->asInteger($row->battles),
                 ),
             ],
-            $user->getUserWeapon2s()->favoriteOrder()->limit(10)->with('weapon')->asArray()->all()
+            UserWeapon2::find()
+                ->with('weapon')
+                ->andWhere(['user_id' => $user->id])
+                ->andWhere(['>', 'battles', 0])
+                ->orderBy(['battles' => SORT_DESC])
+                ->limit(10)
+                ->all(),
         );
     }
 }

@@ -34,9 +34,9 @@ class UserStatNawabariAction extends BaseAction
         }
 
         return $this->controller->render('user-stat-nawabari', [
+            'inked' => $this->getInkedData(),
             'user' => $this->user,
-            'inked' => $this->inkedData,
-            'wp' => $this->wpData,
+            'wp' => $this->getWpData(),
         ]);
     }
 
@@ -60,7 +60,7 @@ class UserStatNawabariAction extends BaseAction
                 ['<>', '{{lobby}}.[[key]]', 'private'],
             ])
             ->groupBy(['{{battle}}.[[map_id]]'])
-            ->orderBy(false)
+            ->orderBy([])
             ->select([
                 'map'   => 'MAX({{map}}.[[key]])',
                 'pct5'  => "PERCENTILE_CONT(0.05) WITHIN GROUP (ORDER BY {$inked})",

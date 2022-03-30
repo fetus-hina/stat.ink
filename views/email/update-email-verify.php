@@ -5,6 +5,11 @@ declare(strict_types=1);
 use app\components\helpers\IPHelper;
 use app\components\helpers\UserAgentHelper;
 
+/**
+ * @var string $code
+ * @var string $lang
+ */
+
 $req = Yii::$app->request;
 $t = function (
   string $message,

@@ -5,7 +5,7 @@ declare(strict_types=1);
 use app\components\widgets\AdWidget;
 use app\models\EmailForm;
 use yii\bootstrap\ActiveForm;
-use yii\helpers\Html;
+use app\components\helpers\Html;
 use yii\web\View;
 
 /**

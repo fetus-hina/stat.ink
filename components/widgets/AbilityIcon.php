@@ -12,8 +12,8 @@ namespace app\components\widgets;
 
 use Yii;
 use app\assets\Spl2AbilityAsset;
+use app\components\helpers\Html;
 use yii\base\Widget;
-use yii\helpers\Html;
 
 class AbilityIcon extends Widget
 {

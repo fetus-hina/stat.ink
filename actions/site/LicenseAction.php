@@ -13,9 +13,9 @@ namespace app\actions\site;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use Yii;
+use app\components\helpers\Html;
 use cebe\markdown\GithubMarkdown as Markdown;
 use stdClass;
-use yii\helpers\Html;
 
 use function array_merge;
 use function call_user_func;
@@ -31,7 +31,7 @@ use function usort;
 
 class LicenseAction extends SimpleAction
 {
-    private const CATEGORY_APP = 0;
+    // private const CATEGORY_APP = 0;
     private const CATEGORY_COMPOSER = 1;
     private const CATEGORY_MANUAL = 1;
     private const CATEGORY_NPM = 1;
@@ -103,13 +103,13 @@ class LicenseAction extends SimpleAction
 
             if (strtolower(substr($basename, -3)) === '.md') {
                 $ret[] = (object)[
-                    'category' => static::CATEGORY_MANUAL,
+                    'category' => self::CATEGORY_MANUAL,
                     'name' => substr($basename, 0, strlen($basename) - 3),
                     'html' => $this->loadMarkdown($entry->getPathname()),
                 ];
             } else {
                 $ret[] = (object)[
-                    'category' => static::CATEGORY_MANUAL,
+                    'category' => self::CATEGORY_MANUAL,
                     'name' => $basename,
                     'html' => $this->loadPlain($entry->getPathname()),
                 ];
@@ -145,7 +145,7 @@ class LicenseAction extends SimpleAction
             );
             if ($html) {
                 $ret[] = (object)[
-                    'category' => static::CATEGORY_COMPOSER,
+                    'category' => self::CATEGORY_COMPOSER,
                     'name' => substr($basename, 0, strlen($basename) - 12),
                     'html' => $html,
                 ];
@@ -182,7 +182,7 @@ class LicenseAction extends SimpleAction
             );
             if ($html) {
                 $ret[] = (object)[
-                    'category' => static::CATEGORY_NPM,
+                    'category' => self::CATEGORY_NPM,
                     'name' => substr($basename, 0, strlen($basename) - 12),
                     'html' => $html,
                 ];

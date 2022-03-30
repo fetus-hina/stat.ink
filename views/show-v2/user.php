@@ -7,6 +7,7 @@ use app\assets\BattleListGroupHeaderAsset;
 use app\assets\Spl2WeaponAsset;
 use app\components\grid\KillRatioColumn;
 use app\components\helpers\Battle as BattleHelper;
+use app\components\helpers\Html;
 use app\components\widgets\AdWidget;
 use app\components\widgets\Battle2FilterWidget;
 use app\components\widgets\EmbedVideo;
@@ -16,11 +17,23 @@ use app\components\widgets\Label;
 use app\components\widgets\SnsWidget;
 use app\components\widgets\UserMiniInfo2;
 use app\models\Battle2;
+use app\models\Battle2FilterForm;
+use app\models\User;
 use yii\bootstrap\ActiveForm;
+use yii\data\DataProviderInterface;
 use yii\grid\GridView;
-use yii\helpers\Html;
 use yii\helpers\Url;
+use yii\web\View;
 use yii\widgets\ListView;
+
+/**
+ * @var Battle2FilterForm $filter
+ * @var DataProviderInterface $battleDataProvider
+ * @var User $user
+ * @var View $this
+ * @var stdClass $summary
+ * @var string $permLink
+ */
 
 BattleListAsset::register($this);
 

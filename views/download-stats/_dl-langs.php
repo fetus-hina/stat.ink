@@ -1,15 +1,23 @@
 <?php
+
 declare(strict_types=1);
 
 use app\assets\DownloadsPageAsset;
+use app\components\helpers\Html;
 use app\components\widgets\FA;
 use app\components\widgets\FlagIcon;
 use app\models\Language;
-use yii\helpers\Html;
 use yii\helpers\Url;
+use yii\web\View;
+
+/**
+ * @var View $this
+ * @var string $route
+ */
 
 DownloadsPageAsset::register($this);
 
+// @phpstan-ignore-next-line
 $langs = Language::find()
   ->standard()
   ->with('languageCharsets')

@@ -6,11 +6,13 @@ use app\assets\EntireWeaponsAsset;
 use app\assets\InlineListAsset;
 use app\assets\Spl2WeaponAsset;
 use app\assets\TableResponsiveForceAsset;
+use app\components\helpers\Html;
 use app\components\widgets\AdWidget;
 use app\components\widgets\FA;
 use app\components\widgets\GameModeIcon;
 use app\components\widgets\KillRatioBadgeWidget;
 use app\components\widgets\SnsWidget;
+use app\models\EntireWeapon2Form;
 use app\models\Map2;
 use jp3cki\yii2\flot\FlotAsset;
 use jp3cki\yii2\flot\FlotStackAsset;
@@ -22,8 +24,15 @@ use yii\bootstrap\Nav;
 use yii\data\ArrayDataProvider;
 use yii\grid\GridView;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Html;
 use yii\helpers\Json;
+use yii\web\View;
+
+/**
+ * @var EntireWeapon2Form $form
+ * @var View $this
+ * @var array $entire
+ * @var array $uses
+ */
 
 TableResponsiveForceAsset::register($this);
 

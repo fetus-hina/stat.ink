@@ -9,7 +9,6 @@
 declare(strict_types=1);
 
 use app\components\db\Migration;
-use yii\db\Expression;
 
 class m190729_120625_user_email extends Migration
 {
@@ -17,7 +16,7 @@ class m190729_120625_user_email extends Migration
     {
         $this->addColumns('user', [
             'email' => (string)$this->string(254)
-                ->check(new Expression(vsprintf('%s ~ %s', [
+                ->check(vsprintf('%s ~ %s', [
                     $this->db->quoteColumnName('email'),
                     $this->db->quoteValue(sprintf('^%s$', implode('', [
                         '[a-zA-Z0-9.!#$%&\'*+\/=?^_`{|}~-]+',
@@ -25,7 +24,7 @@ class m190729_120625_user_email extends Migration
                         '[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?',
                         '(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*',
                     ]))),
-                ]))),
+                ])),
             'email_lang_id' => (string)$this->pkRef('language')->null(),
         ]);
     }

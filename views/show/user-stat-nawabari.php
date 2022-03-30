@@ -4,10 +4,19 @@ declare(strict_types=1);
 
 use app\assets\InlineListAsset;
 use app\assets\UserStatNawabariAsset;
+use app\components\helpers\Html;
 use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
-use yii\helpers\Html;
+use app\models\User;
 use yii\helpers\Json;
+use yii\web\View;
+
+/**
+ * @var User $user
+ * @var View $this
+ * @var stdClass[] $inked
+ * @var stdClass[] $wp
+ */
 
 $title = Yii::t('app', '{name}\'s Battle Stats (Turf War)', ['name' => $user->name]);
 $this->title = implode(' | ', [
@@ -45,7 +54,7 @@ UserStatNawabariAsset::register($this);
                 sprintf('#inked-%s', $map->key)
               ));
             },
-            $inked
+            $inked,
           )) ?></ul>
         </nav>
       </aside>

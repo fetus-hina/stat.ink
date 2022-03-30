@@ -4,14 +4,20 @@ declare(strict_types=1);
 
 use app\assets\AppLinkAsset;
 use app\assets\UserMiniinfoAsset;
+use app\components\helpers\Html;
 use app\components\widgets\ActivityWidget;
 use app\components\widgets\RemoteFollowDialog;
 use app\components\widgets\UserIcon;
 use app\models\Rank;
+use app\models\User;
 use statink\yii2\twitter\webintents\TwitterWebIntentsAsset;
-use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\web\View;
+
+/**
+ * @var User $user
+ * @var View $this
+ */
 
 UserMiniinfoAsset::register($this);
 $icons = AppLinkAsset::register($this);
@@ -76,8 +82,18 @@ $f = Yii::$app->formatter;
           ['show/user', 'screen_name' => $user->screen_name]
         )
       ) . "\n" ?>
-      <?= $box('Win %', $stat->wp === null ? $na : $f->asPercent($stat->wp / 100, 1)) . "\n" ?>
-      <?= $box('24H Win %', $stat->wp_short === null ? $na : $f->asPercent($stat->wp_short / 100, 1)) . "\n" ?>
+      <?= $box(
+        'Win %',
+        $stat->wp === null
+          ? $na
+          : $f->asPercent((float)$stat->wp / 100, 1)
+      ) . "\n" ?>
+      <?= $box(
+        '24H Win %',
+        $stat->wp_short === null
+          ? $na
+          : $f->asPercent((float)$stat->wp_short / 100, 1)
+      ) . "\n" ?>
     </div>
     <div class="row">
       <?= $box(
@@ -141,7 +157,12 @@ $f = Yii::$app->formatter;
           ['show/user', 'screen_name' => $user->screen_name, 'filter' => ['rule' => 'nawabari']]
         )
       ) . "\n" ?>
-      <?= $box('Win %', $stat->nawabari_wp === null ? $na : $f->asPercent($stat->nawabari_wp / 100, 1)) . "\n" ?>
+      <?= $box(
+        'Win %',
+        $stat->nawabari_wp === null
+          ? $na
+          : $f->asPercent((float)$stat->nawabari_wp / 100, 1),
+      ) . "\n" ?>
       <?= $box(
         'Kill Ratio',
         ($stat->nawabari_kill == 0 && $stat->nawabari_death == 0)
@@ -203,8 +224,18 @@ $f = Yii::$app->formatter;
           ['show/user', 'screen_name' => $user->screen_name, 'filter' => ['rule' => '@gachi']]
         )
       ) . "\n" ?>
-      <?= $box('Win %', $stat->gachi_wp === null ? $na : $f->asPercent($stat->gachi_wp / 100, 1)) . "\n" ?>
-      <?= $box('Peak', $stat->gachi_rank_peak > 0 ? Rank::integerToString($stat->gachi_rank_peak) : $na) . "\n" ?>
+      <?= $box(
+        'Win %',
+        $stat->gachi_wp === null
+          ? $na
+          : $f->asPercent((float)$stat->gachi_wp / 100, 1)
+      ) . "\n" ?>
+      <?= $box(
+        'Peak',
+        $stat->gachi_rank_peak > 0
+          ? Rank::integerToString($stat->gachi_rank_peak)
+          : $na
+      ) . "\n" ?>
       <?= $box(
         'Avg Kills',
         $stat->gachi_kd_battle < 1
@@ -357,13 +388,13 @@ $f = Yii::$app->formatter;
 <?php endif ?>
 <?php if ($user->nnid): ?>
       <div>
-        <span class="fa fa-fw"><?= $icons->nnid ?></span>
+        <span class="fa fa-fw"><?= $icons->getNnid() ?></span>
         <?= Html::encode($user->nnid) . "\n" ?>
       </div>
 <?php endif ?>
 <?php if ($user->sw_friend_code): ?>
       <div>
-        <span class="fa fa-fw"><?= $icons->switch ?></span>
+        <span class="fa fa-fw"><?= $icons->getSwitch() ?></span>
         <span style="white-space:nowrap"><?= implode('-', [
           'SW',
           substr($user->sw_friend_code, 0, 4),
@@ -374,7 +405,7 @@ $f = Yii::$app->formatter;
 <?php endif ?>
 <?php if ($user->ikanakama2): ?>
       <div>
-        <span class="fa fa-fw"><?= $icons->ikanakama ?></span>
+        <span class="fa fa-fw"><?= $icons->getIkanakama() ?></span>
         <?= Html::a(
           Html::encode(Yii::t('app', 'Ika-Nakama 2')),
           'https://ikanakama.ink/users/' . rawurlencode((string)$user->ikanakama2),

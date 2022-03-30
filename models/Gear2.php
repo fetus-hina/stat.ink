@@ -22,14 +22,16 @@ use const SORT_ASC;
  * @property int $type_id
  * @property int $brand_id
  * @property string $name
- * @property int $ability_id
- * @property int $splatnet
+ * @property int|null $ability_id
+ * @property int|null $splatnet
  *
- * @property Ability2 $ability
+ * @property Ability2|null $ability
  * @property Brand2 $brand
  * @property GearType $type
+ *
+ * @property-read string $translatedName
  */
-class Gear2 extends ActiveRecord
+final class Gear2 extends ActiveRecord
 {
     use openapi\Util;
 
@@ -123,7 +125,7 @@ class Gear2 extends ActiveRecord
         return [
             'key' => $this->key,
             'type' => $this->type->toJsonArray(),
-            'brand' => $this->brand ? $this->brand->toJsonArray() : null,
+            'brand' => $this->brand->toJsonArray(),
             'name' => Translator::translateToAll('app-gear2', $this->name),
             'primary_ability' => $this->ability ? $this->ability->toJsonArray() : null,
             'splatnet' => $this->splatnet,

@@ -11,8 +11,8 @@ declare(strict_types=1);
 namespace app\components\widgets\alerts;
 
 use Yii;
+use app\components\helpers\Html;
 use app\components\widgets\Alert;
-use yii\helpers\Html;
 
 class PleaseUseLatest extends Alert
 {

@@ -58,7 +58,10 @@ use const JSON_FORCE_OBJECT;
 use const JSON_UNESCAPED_SLASHES;
 use const JSON_UNESCAPED_UNICODE;
 
-class PostBattleForm extends Model
+/**
+ * @property-read bool $isTest
+ */
+final class PostBattleForm extends Model
 {
     public const SAME_BATTLE_THRESHOLD_TIME = 86400;
 
@@ -460,11 +463,8 @@ class PostBattleForm extends Model
             ]))
             ->limit(1)
             ->one();
-        if ($mapping && $mapping->map) {
-            return $mapping->map;
-        }
 
-        return $map;
+        return $mapping ? $mapping->map : $map;
     }
 
     public function toBattle(): Battle2
@@ -519,7 +519,7 @@ class PostBattleForm extends Model
                 case 'lose':
                     return false;
                 default:
-                    null;
+                    return null;
             }
         })($this->result);
         $battle->is_knockout = (function ($value) {
@@ -529,7 +529,7 @@ class PostBattleForm extends Model
                 case 'no':
                     return false;
                 default:
-                    null;
+                    return null;
             }
         })($this->knock_out);
         $battle->rank_in_team   = $intval($this->rank_in_team);
@@ -927,6 +927,7 @@ class PostBattleForm extends Model
             return;
         }
 
+        /** @var object[] $newValues */
         $newValues = [];
         foreach ($this->$attribute as $value) {
             if (is_array($value)) {
@@ -941,7 +942,10 @@ class PostBattleForm extends Model
             }
             $newValues[] = $value;
         }
-        usort($newValues, fn ($a, $b) => $a->at - $b->at);
+        usort(
+            $newValues,
+            fn ($a, $b): int => $a->at <=> $b->at,
+        );
         $this->$attribute = $newValues;
     }
 
@@ -1037,7 +1041,10 @@ class PostBattleForm extends Model
             $newValue = Yii::createObject(['class' => PostBattlePlayerForm::class]);
             $newValue->attributes = $oldValue;
             if (!$newValue->validate()) {
-                $this->addError("{$attribute}.{$i}", $newValue->getErrors());
+                $this->addError(
+                    "{$attribute}.{$i}",
+                    array_values($newValue->getErrors())[0],
+                );
             }
             $newValues[] = $newValue;
         }

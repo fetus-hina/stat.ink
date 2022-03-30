@@ -1,5 +1,11 @@
 <?php
-use yii\helpers\Html;
+
+use app\components\helpers\Html;
+use app\models\Battle;
+
+/**
+ * @var Battle $battle
+ */
 
 $headgear = $battle->headgear;
 $clothing = $battle->clothing;

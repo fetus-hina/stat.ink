@@ -11,16 +11,17 @@ use yii\db\Query;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
 
-class m171201_164553_gear_v2 extends Migration
+final class m171201_164553_gear_v2 extends Migration
 {
     public function safeUp()
     {
         if (!$data = $this->getData()) {
             return false;
         }
-        $types = $this->types;
-        $brands = $this->brands;
-        $abilities = $this->abilities;
+
+        $types = $this->getTypes();
+        $brands = $this->getBrands();
+        $abilities = $this->getAbilities();
         $insert = array_map(
             fn (array $row): array => [
                 $row['key'],
@@ -29,13 +30,15 @@ class m171201_164553_gear_v2 extends Migration
                 $row['name'],
                 $abilities[$row['ability']],
             ],
-            $data
+            $data,
         );
         $this->batchInsert(
             'gear2',
             ['key', 'type_id', 'brand_id', 'name', 'ability_id'],
-            $insert
+            $insert,
         );
+
+        return true;
     }
 
     public function safeDown()
@@ -43,12 +46,15 @@ class m171201_164553_gear_v2 extends Migration
         if (!$data = $this->getData()) {
             return false;
         }
+
         $this->delete('gear2', [
             'key' => array_map(
                 fn (array $row): string => $row['key'],
-                $data
+                $data,
             ),
         ]);
+
+        return true;
     }
 
     public function getData(): ?array
@@ -68,30 +74,42 @@ class m171201_164553_gear_v2 extends Migration
         return $result;
     }
 
+    /** @return array<string, int|numeric-string> */
     public function getTypes(): array
     {
         return ArrayHelper::map(
-            (new Query())->select(['id', 'key'])->from('gear_type')->all(),
+            (new Query())
+                ->select(['id', 'key'])
+                ->from('gear_type')
+                ->all(),
             'key',
-            'id'
+            'id',
         );
     }
 
+    /** @return array<string, int|numeric-string> */
     public function getBrands(): array
     {
         return ArrayHelper::map(
-            (new Query())->select(['id', 'key'])->from('brand2')->all(),
+            (new Query())
+                ->select(['id', 'key'])
+                ->from('brand2')
+                ->all(),
             'key',
-            'id'
+            'id',
         );
     }
 
+    /** @return array<string, int|numeric-string> */
     public function getAbilities(): array
     {
         return ArrayHelper::map(
-            (new Query())->select(['id', 'key'])->from('ability2')->all(),
+            (new Query())
+                ->select(['id', 'key'])
+                ->from('ability2')
+                ->all(),
             'key',
-            'id'
+            'id',
         );
     }
 }

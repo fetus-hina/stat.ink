@@ -3,18 +3,28 @@
 declare(strict_types=1);
 
 use app\assets\AppAsset;
+use app\components\helpers\Html;
 use app\components\helpers\I18n;
+use app\components\web\Application;
 use app\components\widgets\ColorSchemeDialog;
 use app\components\widgets\CookieAlert;
 use app\components\widgets\LanguageDialog;
 use app\components\widgets\TimezoneDialog;
-use yii\helpers\Html;
 use yii\helpers\Json;
+use yii\web\View;
+
+/**
+ * @var View $this
+ * @var string $content
+ */
+
+$app = Yii::$app;
+assert($app instanceof Application);
 
 AppAsset::register($this);
-Yii::$app->theme->registerAssets($this);
+$app->theme->registerAssets($this);
 
-$_flashes = Yii::$app->getSession()->getAllFlashes();
+$_flashes = $app->session->getAllFlashes();
 if ($_flashes) {
   $_hashKey = microtime(false);
   foreach ($_flashes as $_key => $_messages) {
@@ -29,6 +39,7 @@ if ($_flashes) {
               'type' => Html::encode($_key),
             ])
           ),
+          View::POS_READY,
           hash_hmac('md5', $_hashKey, (string)($i++))
         );
       }
@@ -53,10 +64,10 @@ if ($_flashes) {
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
 <?= Html::beginTag('html', [
-  'lang' => preg_replace('/@.+$/', '', Yii::$app->language),
+  'lang' => preg_replace('/@.+$/', '', $app->language),
   'data' => [
-    'timezone' => (string)Yii::$app->timeZone,
-    'calendar' => (string)Yii::$app->localeCalendar,
+    'timezone' => (string)$app->timeZone,
+    'calendar' => (string)$app->localeCalendar,
   ],
 ]) . "\n" ?>
   <head>
@@ -68,7 +79,7 @@ if ($_flashes) {
     <?= Html::csrfMetaTags() ?>
     <?= Html::tag(
       'title',
-      Html::encode(trim((string)$this->title) === '' ? Yii::$app->name : $this->title)
+      Html::encode(trim((string)$this->title) === '' ? $app->name : $this->title)
     ) . "\n" ?>
     <?= I18n::languageLinkTags() ?>
     <?php $this->head(); echo "\n" ?>
@@ -77,10 +88,10 @@ if ($_flashes) {
     'itemprop' => true,
     'proptype' => 'http://schema.org/WebPage',
     'data' => [
-      'theme' => Yii::$app->theme->theme,
+      'theme' => $app->theme->theme,
     ],
     'class' => [
-      Yii::$app->theme->isDarkTheme ? 'theme-dark' : 'theme-light',
+      $app->theme->isDarkTheme ? 'theme-dark' : 'theme-light',
     ],
   ]) . "\n" ?>
     <?php $this->beginBody() ?><?= "\n" ?>
@@ -93,7 +104,7 @@ if ($_flashes) {
         <?= $content ?><?= "\n" ?>
       </main>
       <?= $this->render('/layouts/footer') ?><?= "\n" ?>
-<?php if (!Yii::$app->user->isGuest) { ?>
+<?php if (!$app->user->isGuest) { ?>
         <?= $this->render('/includes/battle-input-modal-2') . "\n" ?>
 <?php } ?>
       <span id="event"></span>

@@ -7,8 +7,15 @@ use app\components\widgets\AdWidget;
 use app\components\widgets\EmbedVideo;
 use app\components\widgets\SnsWidget;
 use app\components\widgets\UserMiniInfo2;
+use app\models\Battle2;
 use yii\bootstrap\Html;
 use yii\helpers\Url;
+use yii\web\View;
+
+/**
+ * @var Battle2 $battle
+ * @var View $this
+ */
 
 $user = $battle->user;
 

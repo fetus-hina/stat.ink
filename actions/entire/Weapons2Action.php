@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2019 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2022 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -14,6 +14,8 @@ use DateInterval;
 use DateTime;
 use DateTimeImmutable;
 use DateTimeZone;
+use Exception;
+use Throwable;
 use Yii;
 use app\components\helpers\Battle as BattleHelper;
 use app\models\EntireWeapon2Form;
@@ -40,7 +42,7 @@ class Weapons2Action extends BaseAction
 
         return $this->controller->render('weapons2', [
             'form' => $form,
-            'uses' => $this->weaponUses,
+            'uses' => $this->getWeaponUses(),
             'entire' => $this->getEntireWeapons($form),
         ]);
     }
@@ -240,7 +242,7 @@ class Weapons2Action extends BaseAction
             ->groupBy('{{stat_weapon2_use_count}}.[[weapon_id]]');
         try {
             if ($form->hasErrors()) {
-                throw new \Exception();
+                throw new Exception();
             }
             if ($form->map != '') {
                 $query->innerJoinWith('map');
@@ -266,7 +268,7 @@ class Weapons2Action extends BaseAction
                 ]);
             } elseif (substr($form->term, 0, 1) === 'v') {
                 if (!$v1 = SplatoonVersion2::findOne(['tag' => substr($form->term, 1)])) {
-                    throw new \Exception();
+                    throw new Exception();
                 }
                 $v2 = SplatoonVersion2::find()
                     ->andWhere(['>', 'released_at', $v1->released_at])
@@ -287,11 +289,15 @@ class Weapons2Action extends BaseAction
                 }
             } elseif (substr($form->term, 0, 2) === '~v') {
                 if (!$vg = SplatoonVersionGroup2::findOne(['tag' => substr($form->term, 2)])) {
-                    throw new \Exception();
+                    throw new Exception();
                 }
-                $versions = $vg->getVersions()->orderBy(['released_at' => SORT_ASC])->asArray()->all();
+                $versions = SplatoonVersion2::find()
+                    ->andWhere(['group_id' => $vg->id])
+                    ->orderBy(['released_at' => SORT_ASC])
+                    ->asArray()
+                    ->all();
                 if (!$versions) {
-                    throw new \Exception();
+                    throw new Exception();
                 }
                 $v1 = $versions[0];
                 $v2 = $versions[count($versions) - 1];
@@ -314,9 +320,9 @@ class Weapons2Action extends BaseAction
                     ]);
                 }
             } else {
-                throw new \Exception();
+                throw new Exception();
             }
-        } catch (\Throwable $e) {
+        } catch (Throwable $e) {
             $query->andWhere('0 = 1');
         }
 
@@ -386,7 +392,7 @@ class Weapons2Action extends BaseAction
 
     public function getWeapons(array $weaponIdList)
     {
-        $list = Weapon::find()
+        $list = Weapon2::find()
             ->andWhere(['in', '{{weapon}}.[[id]]', $weaponIdList])
             ->all();
         $ret = [];
@@ -406,17 +412,17 @@ class Weapons2Action extends BaseAction
         $ret = [];
         foreach ($subs as $sub) {
             $ret[$sub->key] = (object)[
-                'name'      => Yii::t('app-subweapon2', $sub->name),
-                'key'       => $sub->key,
-                'count'     => 0,
-                'sum_kill'  => 0,
+                'name' => Yii::t('app-subweapon2', $sub->name),
+                'key' => $sub->key,
+                'count' => 0,
+                'sum_kill' => 0,
                 'sum_death' => 0,
                 'sum_special' => 0,
                 'win_count' => 0,
-                'avg_kill'  => null,
+                'avg_kill' => null,
                 'avg_death' => null,
                 'avg_special' => null,
-                'wp'        => null,
+                'wp' => null,
                 'encounter_3' => null,
                 'encounter_4' => null,
             ];

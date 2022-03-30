@@ -15,13 +15,13 @@ use DateTimeZone;
 use Laminas\Feed\Writer\Feed as FeedWriter;
 use Laminas\Feed\Writer\Version;
 use Yii;
+use app\components\helpers\Html;
 use app\models\Battle2;
 use app\models\Language;
 use app\models\User;
 use jp3cki\uuid\NS as UuidNS;
 use jp3cki\uuid\Uuid;
 use yii\base\DynamicModel;
-use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\web\ViewAction as BaseAction;
 
@@ -164,8 +164,7 @@ class User2Action extends BaseAction
                 ]
         );
 
-        $battles = $user->getBattle2s()
-            ->limit(50)
+        $battles = Battle2::find()
             ->with([
                 'battleImageJudge',
                 'battleImageResult',
@@ -178,7 +177,9 @@ class User2Action extends BaseAction
                 'mode',
                 'version',
             ])
+            ->andWhere(['user_id' => $user->id])
             ->orderBy(['id' => SORT_DESC])
+            ->limit(50)
             ->all();
         foreach ($battles as $battle) {
             $entry = $feed->createEntry();

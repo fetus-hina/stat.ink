@@ -39,21 +39,21 @@ class GearAction extends BaseAction
     {
         $type = $this->getType();
         $gears = array_map(
-            fn (array $gear): array => [
-                'key'   => $gear['key'],
-                'name'  => Yii::t('app-gear', $gear['name']),
-                'names' => Translator::translateToAll('app-gear', $gear['name']),
-                'brand' => Yii::t('app-brand', $gear['brand']['name'] ?? null),
-                'ability' => Yii::t('app-ability', $gear['ability']['name'] ?? null),
+            fn (Gear $gear): array => [
+                'key'   => $gear->key,
+                'name'  => Yii::t('app-gear', $gear->name),
+                'names' => Translator::translateToAll('app-gear', $gear->name),
+                'brand' => Yii::t('app-brand', $gear->brand->name),
+                'ability' => Yii::t('app-ability', $gear->ability->name),
             ],
             Gear::find()
                 ->with(['brand', 'ability'])
                 ->andWhere(['type_id' => $type->id])
-                ->asArray()
-                ->all()
+                ->all(),
         );
         usort($gears, fn (array $a, array $b): int => strnatcasecmp($a['name'], $b['name']));
 
+        // @phpstan-ignore-next-line
         $langs = Language::find()->standard()->asArray()->all();
         $sysLang = Yii::$app->language;
         usort($langs, function (array $a, array $b) use ($sysLang): int {

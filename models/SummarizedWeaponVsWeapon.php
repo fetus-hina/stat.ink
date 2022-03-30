@@ -14,7 +14,12 @@ use yii\db\Query;
 
 use const NAN;
 
-class SummarizedWeaponVsWeapon extends Model
+/**
+ * @property-read Weapon|null $lhsWeapon
+ * @property-read Weapon|null $rhsWeapon
+ * @property-read float $winPct
+ */
+final class SummarizedWeaponVsWeapon extends Model
 {
     public $lhs_weapon_id;
     public $rhs_weapon_id;
@@ -50,7 +55,7 @@ class SummarizedWeaponVsWeapon extends Model
             $query->andWhere(['version_id' => $version_id]);
         }
 
-        $weapons = static::getAllWeapons();
+        $weapons = self::getAllWeapons();
         $result = array_map(
             function ($row) use ($weapon_id, $weapons) {
                 $o = Yii::createObject(['class' => static::class]);

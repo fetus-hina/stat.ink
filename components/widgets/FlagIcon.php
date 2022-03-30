@@ -12,19 +12,17 @@ namespace app\components\widgets;
 
 use Yii;
 use app\assets\FlagIconCssAsset;
+use app\components\helpers\Html;
 use yii\base\Widget;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Html;
 
-class FlagIcon extends Widget
+final class FlagIcon extends Widget
 {
     public $tag = 'span';
     public $isBackground = false;
     public $isSquare = false;
     public $cc = null;
     public $options = [];
-
-    private $asset;
 
     public static function fg(string $cc, array $options = []): self
     {
@@ -48,7 +46,7 @@ class FlagIcon extends Widget
     public function init()
     {
         parent::init();
-        $this->asset = FlagIconCssAsset::register($this->view);
+        FlagIconCssAsset::register($this->view);
     }
 
     public function cc(string $cc): self
@@ -88,7 +86,7 @@ class FlagIcon extends Widget
 
     public function run()
     {
-        echo $this->renderIcon();
+        return $this->renderIcon();
     }
 
     protected function renderIcon(): string

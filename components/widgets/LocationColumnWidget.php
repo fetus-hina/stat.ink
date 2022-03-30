@@ -12,9 +12,9 @@ namespace app\components\widgets;
 
 use GeoIp2\Model\City;
 use Yii;
+use app\components\helpers\Html;
 use statink\yii2\jdenticon\Jdenticon;
 use yii\base\Widget;
-use yii\helpers\Html;
 
 class LocationColumnWidget extends Widget
 {
@@ -134,7 +134,8 @@ class LocationColumnWidget extends Widget
 
     protected function renderLocationIcon(City $city): ?string
     {
-        if (!$country = $city->country) {
+        $country = $city->country;
+        if ($country->isoCode === null) {
             return null;
         }
 

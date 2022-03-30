@@ -1,17 +1,14 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2017 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2022 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
 
 namespace app\models;
 
-use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
-
-use const SORT_DESC;
 
 /**
  * This is the model class for table "user_weapon2".
@@ -24,20 +21,8 @@ use const SORT_DESC;
  * @property User $user
  * @property Weapon2 $weapon
  */
-class UserWeapon2 extends ActiveRecord
+final class UserWeapon2 extends ActiveRecord
 {
-    public static function find()
-    {
-        return new class (static::class) extends ActiveQuery {
-            public function favoriteOrder(): self
-            {
-                return $this
-                    ->andWhere(['>', 'battles', 0])
-                    ->orderBy(['battles' => SORT_DESC]);
-            }
-        };
-    }
-
     /**
      * @inheritdoc
      */

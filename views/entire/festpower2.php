@@ -1,8 +1,10 @@
 <?php
+
 declare(strict_types=1);
 
 use app\assets\EntireFestpower2Asset;
 use app\assets\TableResponsiveForceAsset;
+use app\components\helpers\Html;
 use app\components\widgets\AdWidget;
 use app\components\widgets\Alert;
 use app\components\widgets\FA;
@@ -10,9 +12,31 @@ use app\components\widgets\SnsWidget;
 use yii\data\ArrayDataProvider;
 use yii\grid\GridView;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Html;
 use yii\helpers\Json;
+use yii\web\View;
 use yii\widgets\ActiveForm;
+
+/**
+ * @var View $this
+ * @var array $data
+ * @var float $avgAll
+ * @var float $avgMistake
+ * @var float $avgNormal
+ * @var float $medianAll
+ * @var float $medianMistake
+ * @var float $medianNormal
+ * @var float $q1All
+ * @var float $q1Mistake
+ * @var float $q1Normal
+ * @var float $q3All
+ * @var float $q3Mistake
+ * @var float $q3Normal
+ * @var float $stddevAll
+ * @var float $stddevMistake
+ * @var float $stddevNormal
+ * @var int $totalBattles
+ * @var int $totalMistakeBattles
+ */
 
 EntireFestpower2Asset::register($this);
 TableResponsiveForceAsset::register($this);

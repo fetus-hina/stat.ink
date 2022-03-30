@@ -19,12 +19,17 @@ use yii\db\ActiveRecord;
  * @property string $name
  * @property string $version
  *
- * @property AgentAttribute $agentAttribute
+ * @property AgentAttribute|null $agentAttribute
  * @property Battle2[] $battle2s
  * @property Battle[] $battles
  * @property Salmon2[] $salmon2s
+ *
+ * @property-read bool $isIkaRec
+ * @property-read bool $isIkalog
+ * @property-read bool $isStatinkWeb
+ * @property-read bool $isOldIkalogAsAtTheTime
  */
-class Agent extends ActiveRecord
+final class Agent extends ActiveRecord
 {
     /**
      * @inheritdoc
@@ -117,7 +122,7 @@ class Agent extends ActiveRecord
         return null;
     }
 
-    public function getIsIkaRec()
+    public function getIsIkaRec(): bool
     {
         return in_array($this->name, [
             'IkaRec',
@@ -126,17 +131,17 @@ class Agent extends ActiveRecord
         ]);
     }
 
-    public function getIsIkalog()
+    public function getIsIkalog(): bool
     {
         return $this->name === 'IkaLog' || $this->name === 'TakoLog';
     }
 
-    public function getIsStatinkWeb()
+    public function getIsStatinkWeb(): bool
     {
         return $this->name === 'stat.ink web client';
     }
 
-    public function getIsOldIkalogAsAtTheTime($t = null)
+    public function getIsOldIkalogAsAtTheTime($t = null): bool
     {
         return false;
     }
@@ -162,15 +167,15 @@ class Agent extends ActiveRecord
         }
         $thisWinIkaLog = $ikalog->winikalogVersions[0];
 
-        if (static::$latestWinIkaLog === null) {
-            static::$latestWinIkaLog = WinikalogVersion::find()
+        if (self::$latestWinIkaLog === null) {
+            self::$latestWinIkaLog = WinikalogVersion::find()
                 ->andWhere(['<=', '{{winikalog_version}}.[[build_at]]', date('Y-m-d H:i:sP', $t)])
                 ->orderBy('{{winikalog_version}}.[[build_at]] DESC')
                 ->limit(1)
                 ->one();
         }
 
-        if (static::$latestWinIkaLog->id === $thisWinIkaLog->id) {
+        if (self::$latestWinIkaLog->id === $thisWinIkaLog->id) {
             // これより新しいバージョンは存在しない
             return false;
         }
@@ -199,14 +204,14 @@ class Agent extends ActiveRecord
 
     private function getIsOldCliIkalogAsAtTheTimeImpl(IkalogVersion $ikalog, $t)
     {
-        if (static::$latestIkaLog === null) {
-            static::$latestIkaLog = IkalogVersion::find()
+        if (self::$latestIkaLog === null) {
+            self::$latestIkaLog = IkalogVersion::find()
                 ->andWhere(['<=', '{{ikalog_version}}.[[at]]', date('Y-m-d H:i:sP', $t)])
                 ->orderBy('{{ikalog_version}}.[[at]] DESC')
                 ->limit(1)
                 ->one();
         }
-        if (static::$latestIkaLog->id === $ikalog->id) {
+        if (self::$latestIkaLog->id === $ikalog->id) {
             // これより新しいバージョンは存在しない
             return false;
         }

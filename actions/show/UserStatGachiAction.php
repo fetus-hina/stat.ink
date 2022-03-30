@@ -37,11 +37,11 @@ class UserStatGachiAction extends BaseAction
         }
 
         return $this->controller->render('user-stat-gachi', [
+            'maps' => $this->getMaps(),
+            'recentRank' => $this->getRecentRankData(),
+            'recentWP' => $this->getRecentWPData(),
             'user' => $this->user,
-            'userRankStat' => $this->userRankStat,
-            'recentRank' => $this->recentRankData,
-            'recentWP' => $this->recentWPData,
-            'maps' => $this->maps,
+            'userRankStat' => $this->getUserRankStat(),
         ]);
     }
 
@@ -266,7 +266,7 @@ class UserStatGachiAction extends BaseAction
         return $exp;
     }
 
-    private function getEntireRankStat(): stdClass
+    private function getEntireRankStat(): ?stdClass
     {
         $subQuery = (new Query())
             ->select(['id' => 'MAX({{battle}}.[[id]])'])
@@ -291,7 +291,7 @@ class UserStatGachiAction extends BaseAction
             $exps[] = $this->calcGraphExp($row['rank_key'], $row['rank_exp']);
         }
         if (count($exps) < 1) {
-            return false;
+            return null;
         }
 
         $avgExp = array_sum($exps) / count($exps);

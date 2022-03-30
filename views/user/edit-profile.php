@@ -5,7 +5,7 @@ declare(strict_types=1);
 use app\models\ProfileForm;
 use app\models\User;
 use yii\bootstrap\ActiveForm;
-use yii\helpers\Html;
+use app\components\helpers\Html;
 use yii\web\View;
 
 /**
@@ -75,7 +75,7 @@ JS
       </div>
     </div>
 
-    <?= $_->field($form, 'link_mode_id')->dropDownList($form->linkModes) . "\n" ?>
+    <?= $_->field($form, 'link_mode_id')->dropDownList($form->getLinkModes()) . "\n" ?>
 
     <?= $_->field($form, 'region_id')->dropDownList($regions) . "\n" ?>
 

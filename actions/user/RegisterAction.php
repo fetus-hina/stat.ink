@@ -9,11 +9,12 @@
 namespace app\actions\user;
 
 use Yii;
+use app\components\helpers\T;
 use app\models\LoginForm;
 use app\models\RegisterForm;
-use yii\web\ViewAction as BaseAction;
+use yii\base\Action;
 
-class RegisterAction extends BaseAction
+final class RegisterAction extends Action
 {
     public function run()
     {
@@ -29,7 +30,8 @@ class RegisterAction extends BaseAction
                     $login->screen_name = $form->screen_name;
                     $login->password = $form->password;
                     if ($login->login()) {
-                        return $this->controller->redirect(['user/profile']);
+                        return T::webController($this->controller)
+                            ->redirect(['user/profile']);
                     }
                 }
             }

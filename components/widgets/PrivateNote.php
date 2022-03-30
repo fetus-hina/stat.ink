@@ -13,11 +13,15 @@ namespace app\components\widgets;
 use Yii;
 use app\assets\FontAwesomeAsset;
 use app\assets\PrivateNoteAsset;
+use app\components\helpers\Html;
 use yii\base\Widget;
 use yii\bootstrap\BootstrapAsset;
-use yii\helpers\Html;
 
-class PrivateNote extends Widget
+/**
+ * @property-read string $buttonId
+ * @property-read string $textId
+ */
+final class PrivateNote extends Widget
 {
     public $text;
     public $formatter;

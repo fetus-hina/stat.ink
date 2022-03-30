@@ -1,20 +1,22 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2019 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2022 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
 
+declare(strict_types=1);
+
 namespace app\models;
 
+use Yii;
 use app\components\helpers\Battle as BattleHelper;
-use app\components\helpers\db\Now;
+use app\models\query\SalmonSchedule2Query;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
 use const SORT_ASC;
-use const SORT_DESC;
 
 /**
  * This is the model class for table "salmon_schedule2".
@@ -26,46 +28,14 @@ use const SORT_DESC;
  *
  * @property SalmonMap2 $map
  * @property SalmonWeapon2[] $weapons
+ *
+ * @property-read int $period
  */
 class SalmonSchedule2 extends ActiveRecord
 {
     public static function find(): ActiveQuery
     {
-        return new class (static::class) extends ActiveQuery {
-            public function init()
-            {
-                parent::init();
-                $this->olderFirst();
-            }
-
-            public function nowOrFuture(): self
-            {
-                return $this->andWhere(['and',
-                    ['>=', '{{salmon_schedule2}}.[[end_at]]', new Now()],
-                ]);
-            }
-
-            public function nowOrPast(): self
-            {
-                return $this->andWhere(['and',
-                    ['<=', '{{salmon_schedule2}}.[[start_at]]', new Now()],
-                ]);
-            }
-
-            public function olderFirst(): self
-            {
-                return $this->orderBy([
-                    '{{salmon_schedule2}}.[[start_at]]' => SORT_ASC,
-                ]);
-            }
-
-            public function newerFirst(): self
-            {
-                return $this->orderBy([
-                    '{{salmon_schedule2}}.[[start_at]]' => SORT_DESC,
-                ]);
-            }
-        };
+        return new SalmonSchedule2Query(static::class);
     }
 
     /**
@@ -124,7 +94,7 @@ class SalmonSchedule2 extends ActiveRecord
 
     public function delete()
     {
-        return $this->db->transactionEx(function (): bool {
+        return Yii::$app->db->transactionEx(function (): bool {
             foreach ($this->weapons as $weapon) {
                 if (!$weapon->delete()) {
                     return false;

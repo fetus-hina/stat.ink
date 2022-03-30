@@ -17,23 +17,20 @@ use Yii;
 use app\assets\GameModeIconsAsset;
 use app\assets\Spl2WeaponAsset;
 use app\components\helpers\Battle as BattleHelper;
+use app\components\helpers\T;
 use app\models\Map2;
 use app\models\SalmonSchedule2;
 use app\models\SalmonWeapon2;
 use app\models\Schedule2;
 use app\models\ScheduleMode2;
 use statink\yii2\stages\spl2\StagesAsset as Stages2Asset;
+use yii\base\Action;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
-use yii\web\ViewAction;
-
-use function array_merge;
-use function strtotime;
-use function time;
 
 use const SORT_ASC;
 
-class ScheduleAction extends ViewAction
+final class ScheduleAction extends Action
 {
     private DateTimeImmutable $now;
     private int $currentPeriod;
@@ -54,15 +51,17 @@ class ScheduleAction extends ViewAction
         $response = Yii::$app->getResponse();
         $response->format = 'compact-json';
 
+        $app = T::webApplication(Yii::$app);
+
         return [
-            'time' => $this->now->getTimestamp(),
             'locale' => [
-                'locale' => Yii::$app->language,
-                'timezone' => Yii::$app->timeZone,
-                'calendar' => Yii::$app->localeCalendar,
+                'calendar' => $app->localeCalendar,
+                'locale' => $app->language,
+                'timezone' => $app->timeZone,
             ],
             'sources' => $this->getSources(),
             'splatoon2' => $this->getSplatoon2(),
+            'time' => $this->now->getTimestamp(),
             'translations' => $this->getTranslations(),
         ];
     }

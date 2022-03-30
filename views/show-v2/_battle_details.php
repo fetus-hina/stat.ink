@@ -5,6 +5,7 @@ use app\assets\FontAwesomeAsset;
 use app\assets\PhotoSwipeSimplifyAsset;
 use app\assets\Spl2WeaponAsset;
 use app\components\helpers\Battle as BattleHelper;
+use app\components\helpers\Html;
 use app\components\widgets\BattleDeathReasonsTable;
 use app\components\widgets\BattleKillDeathColumn;
 use app\components\widgets\FA;
@@ -17,10 +18,15 @@ use app\components\widgets\XPowerHistory;
 use app\models\Battle2;
 use app\models\BattleDeathReason2;
 use app\models\Rank2;
-use yii\bootstrap\Html;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
+use yii\web\View;
 use yii\widgets\DetailView;
+
+/**
+ * @var Battle2 $battle
+ * @var View $this
+ */
 
 ?>
 <?= DetailView::widget([
@@ -89,7 +95,7 @@ use yii\widgets\DetailView;
     [
       'attribute' => 'weapon_id', // {{{
       'format' => 'raw',
-      'value' => function ($model): ?string {
+      'value' => function ($model): string {
         return $this->render('_battle_details_weapon_name', [
           'battle' => $model,
         ]);
@@ -223,7 +229,7 @@ use yii\widgets\DetailView;
         }
         $gender = $model->gender;
         $theme = $model->myTeamFestTheme;
-        $format = function ($title, $exp) use ($model, $gender, $theme) : string {
+        $format = function ($title, $exp) use ($gender, $theme) : string {
           if (!$title) {
             return '?';
           }
@@ -484,7 +490,7 @@ use yii\widgets\DetailView;
     [
       'label' => Yii::t('app', 'Result'), // {{{
       'format' => 'raw',
-      'value' => function ($model) : ?string {
+      'value' => function ($model): string {
         $parts = [];
         if ($model->isGachi && $model->is_knockout !== null) {
           if ($model->is_knockout) {
@@ -709,7 +715,7 @@ use yii\widgets\DetailView;
           [
             Html::encode(Yii::t('app', 'Gear')),
             $battle->battleImageGear
-              ? (function () use ($battle): ?string {
+              ? (function () use ($battle): string {
                 PhotoSwipeSimplifyAsset::register($this);
                 FontAwesomeAsset::register($this);
                 $id = 'img-gear-' . hash('crc32b', __FILE__ . ':' . __LINE__);

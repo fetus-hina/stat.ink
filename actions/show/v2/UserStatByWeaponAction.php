@@ -110,7 +110,8 @@ class UserStatByWeaponAction extends ViewAction
             ));
         // }}}
 
-        if ($filter && !$filter->hasErrors()) {
+        if (!$filter->hasErrors()) {
+            // @phpstan-ignore-next-line
             $query->applyFilter($filter);
         }
 

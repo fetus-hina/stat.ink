@@ -12,7 +12,7 @@ namespace app\models;
 
 use Yii;
 use app\components\helpers\Translator;
-use yii\db\ActiveQuery;
+use app\models\query\SalmonMainWeapon2Query;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
 
@@ -29,35 +29,13 @@ use const SORT_ASC;
  *
  * @property Weapon2 $weapon
  */
-class SalmonMainWeapon2 extends ActiveRecord
+final class SalmonMainWeapon2 extends ActiveRecord
 {
     use openapi\Util;
 
-    public static function find()
+    public static function find(): SalmonMainWeapon2Query
     {
-        return new class (static::class) extends ActiveQuery {
-            public function sorted(): self
-            {
-                $kumaFirst = sprintf('(CASE %s END)', implode(' ', [
-                    'WHEN {{salmon_main_weapon2}}.[[weapon_id]] IS NULL THEN 0',
-                    'ELSE 1',
-                ]));
-
-                $this
-                    ->joinWith([
-                        'weapon',
-                        'weapon.type',
-                    ])
-                    ->orderBy([
-                        $kumaFirst => SORT_ASC,
-                        '{{weapon_type2}}.[[category_id]]' => SORT_ASC,
-                        '{{weapon_type2}}.[[rank]]' => SORT_ASC,
-                        '{{salmon_main_weapon2}}.[[key]]' => SORT_ASC,
-                    ]);
-
-                return $this;
-            }
-        };
+        return new SalmonMainWeapon2Query(static::class);
     }
 
     /**
@@ -155,6 +133,7 @@ class SalmonMainWeapon2 extends ActiveRecord
     {
         return array_map(
             fn (self $model): array => $model->toJsonArray(),
+            // @phpstan-ignore-next-line
             static::find()
                 ->andWhere([
                     'key' => [

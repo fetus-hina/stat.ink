@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 use app\assets\BattleListGroupHeaderAsset;
@@ -6,20 +7,32 @@ use app\assets\SalmonWorkListAsset;
 use app\assets\Spl2WeaponAsset;
 use app\components\grid\SalmonActionColumn;
 use app\components\helpers\Battle as BattleHelper;
+use app\components\helpers\Html;
+use app\components\helpers\T;
 use app\components\i18n\Formatter;
 use app\components\widgets\FA;
 use app\components\widgets\Label;
 use app\models\Salmon2;
 use app\models\SalmonSchedule2;
 use app\models\SalmonWeapon2;
+use app\models\User;
 use app\models\Weapon2;
+use app\models\query\Salmon2Query;
+use yii\data\ActiveDataProvider;
 use yii\grid\Column;
 use yii\grid\GridView;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Html;
+use yii\web\View;
 use yii\widgets\ListView;
 
+/**
+ * @var ActiveDataProvider $dataProvider
+ * @var User $user
+ * @var View $this
+ */
+
 SalmonWorkListAsset::register($this);
+
 ?>
 <div class="text-center">
   <?= ListView::widget([
@@ -32,7 +45,7 @@ SalmonWorkListAsset::register($this);
   ]) . "\n" ?>
 </div>
 <?= $this->render('_summary', [
-    'summary' => $dataProvider->query->summary(),
+    'summary' => T::is(Salmon2Query::class, $dataProvider->query)->summary(),
 ]) . "\n" ?>
 <p>
   <?= Html::a(
@@ -429,10 +442,16 @@ SalmonWorkListAsset::register($this);
         (function () use ($fmt, $from, $shift, $user): string {
           if ($shift) {
             $weapons = ArrayHelper::getColumn(
-              $shift->getWeapons()->with('weapon')->all(),
-              'weapon'
+              SalmonWeapon2::find()
+                ->with(['weapon'])
+                ->andWhere(['schedule_id' => $shift->id])
+                ->all(),
+              'weapon',
             );
-            $asset = $weapons ? Spl2WeaponAsset::register(Yii::$app->getView()) : null;
+
+            $asset = (($view = Yii::$app->view) instanceof View)
+                ? ($weapons ? Spl2WeaponAsset::register($view) : null)
+                : null;
 
             return vsprintf('%s %s - %s (%s)', [
               Html::a(
@@ -449,7 +468,7 @@ SalmonWorkListAsset::register($this);
               $fmt->asHtmlDatetimeEx($shift->end_at, 'medium', 'short'),
               implode(' ', array_map(
                 function (?Weapon2 $weapon) use ($asset): string {
-                  if (!$weapon) {
+                  if (!$weapon || !$asset) {
                     return Html::tag('span', (string)FA::fas('question')->fw(), [
                       'class' => 'auto-tooltip',
                       'title' => Yii::t('app-salmon2', 'Random'),

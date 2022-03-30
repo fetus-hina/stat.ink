@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2022 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -10,14 +10,16 @@ namespace app\actions\user;
 
 use Yii;
 use app\models\Language;
+use yii\base\Action;
 use yii\base\DynamicModel;
 use yii\web\Cookie;
-use yii\web\ViewAction as BaseAction;
+use yii\web\Response;
 
-class LanguageAction extends BaseAction
+final class LanguageAction extends Action
 {
-    private $previousLanguage = null;
+    private ?string $previousLanguage = null;
 
+    /** @inheritdoc */
     public function init()
     {
         $this->previousLanguage = Yii::$app->language;
@@ -25,16 +27,24 @@ class LanguageAction extends BaseAction
         parent::init();
     }
 
-    public function run()
+    public function run(): Response
     {
-        $response = Yii::$app->getResponse();
+        $response = Yii::$app->response;
         $response->format = 'json';
+        $this->runImpl($response);
+        return $response;
+    }
 
+    private function runImpl(Response $response): void
+    {
         $form = $this->makeValidationModel();
-        $form->language = Yii::$app->getRequest()->post('language');
+        $form->language = Yii::$app->request->post('language');
         if (!$form->validate()) {
             $response->statusCode = 400;
-            return ['errors' => $form->getErrors()];
+            $response->data = [
+                'errors' => $form->getErrors(),
+            ];
+            return;
         }
 
         $response->cookies->add(
@@ -42,10 +52,10 @@ class LanguageAction extends BaseAction
                 'name' => 'language',
                 'value' => $form->language,
                 'expire' => time() + 86400 * 366,
-            ])
+            ]),
         );
 
-        return [
+        $response->data = [
             'previous' => $this->previousLanguage,
             'next' => $form->language,
         ];
@@ -54,11 +64,13 @@ class LanguageAction extends BaseAction
     private function makeValidationModel()
     {
         return DynamicModel::validateData(
-            ['language' => null],
+            [
+                'language' => null,
+            ],
             [
                 [['language'], 'required'],
                 [['language'], 'exist',
-                    'targetClass' => Language::className(),
+                    'targetClass' => Language::class,
                     'targetAttribute' => 'lang',
                 ],
             ]

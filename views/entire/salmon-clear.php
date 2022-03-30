@@ -7,9 +7,17 @@ use app\assets\ChartJsDataLabelsAsset;
 use app\assets\ColorSchemeAsset;
 use app\assets\PatternomalyAsset;
 use app\assets\Spl2WeaponAsset;
+use app\components\helpers\Html;
 use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
-use yii\helpers\Html;
+use app\models\StatSalmon2ClearRate;
+use app\models\StatSalmon2WeaponClearRate;
+use yii\web\View;
+
+/**
+ * @var StatSalmon2ClearRate[] $models
+ * @var View $this
+ */
 
 $title = Yii::t('app-salmon2', 'Clear rate of Salmon Run');
 $this->title = Yii::$app->name . ' | ' . $title;
@@ -333,8 +341,9 @@ $wLabels = [
         </table>
       </div>
       <div class="wStatsRoot mb-2">
-<?php $wStats = $model->getWeaponStats()
+<?php $wStats = StatSalmon2WeaponClearRate::find()
   ->with(['weapon'])
+  ->andWhere(['stage_id' => $model->stage_id])
   ->orderBy([
     '([[cleared]]::double precision / [[plays]]::double precision)' => SORT_DESC,
     '[[plays]]' => SORT_DESC,

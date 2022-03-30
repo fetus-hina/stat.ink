@@ -4,14 +4,26 @@ declare(strict_types=1);
 
 use app\assets\StatByMapRuleAsset;
 use app\assets\TableResponsiveForceAsset;
+use app\components\helpers\Html;
 use app\components\widgets\AdWidget;
 use app\components\widgets\BattleFilterWidget;
 use app\components\widgets\FA;
 use app\components\widgets\SnsWidget;
 use app\components\widgets\WinLoseLegend;
-use yii\helpers\Html;
+use app\models\BattleFilterForm;
+use app\models\User;
 use yii\helpers\Json;
 use yii\helpers\Url;
+use yii\web\View;
+
+/**
+ * @var BattleFilterForm $filter
+ * @var User $user
+ * @var View $this
+ * @var array $data
+ * @var array<string, string> $mapNames
+ * @var array<string, string> $ruleNames
+ */
 
 $title = Yii::t('app', "{name}'s Battle Stats (by Mode and Stage)", ['name' => $user->name]);
 $this->title = implode(' | ', [Yii::$app->name, $title]);

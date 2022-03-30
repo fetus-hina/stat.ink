@@ -1,8 +1,20 @@
 <?php
+
+declare(strict_types=1);
+
 use Base32\Base32;
+use app\components\helpers\Html;
 use yii\data\ArrayDataProvider;
-use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\web\View;
+
+/**
+ * @var View $this
+ * @var array $agents
+ * @var string[] $agentNames
+ * @var string[] $combineds
+ */
+
 ?>
 <?= Html::tag(
   'div',

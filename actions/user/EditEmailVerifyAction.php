@@ -12,6 +12,7 @@ namespace app\actions\user;
 
 use Yii;
 use app\components\helpers\AddressUpdatedEmailSender;
+use app\components\helpers\T;
 use app\models\EmailVerifyForm;
 use app\models\Language;
 use yii\web\BadRequestHttpException;
@@ -51,7 +52,9 @@ class EditEmailVerifyAction extends ViewAction
                 $oldEmailLang = $user->emailLang;
             }
 
-            $newEmailLang = Language::findOne(['lang' => Yii::$app->getLocale()]);
+            $newEmailLang = Language::findOne([
+                'lang' => T::webApplication(Yii::$app)->getLocale(),
+            ]);
             $user->email = $realEmail;
             $user->email_lang_id = $newEmailLang->id;
             $user->save();
@@ -62,7 +65,8 @@ class EditEmailVerifyAction extends ViewAction
                 $user,
                 $oldEmailLang ?? $newEmailLang
             );
-            $this->controller->redirect(['user/profile']);
+            return T::webController($this->controller)
+                ->redirect(['user/profile']);
         }
 
         return $this->controller->render('edit-email-verify', [

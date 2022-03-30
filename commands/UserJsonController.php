@@ -115,7 +115,7 @@ class UserJsonController extends Controller
             } else {
                 echo "Skip {$row['user_id']}\n";
             }
-            clearstatcache($jsonPath);
+            clearstatcache(true, $jsonPath);
         }
 
         fseek($lock, 0, SEEK_SET);
@@ -154,7 +154,7 @@ class UserJsonController extends Controller
         }
     }
 
-    public function getJsonPath()
+    public function getJsonPath(): string
     {
         return $this->basePath . '/' . $this->findUser()->id . '.json.gz';
     }
@@ -181,7 +181,7 @@ class UserJsonController extends Controller
 
     public function getLastSavedBattleId(): string
     {
-        $jsonPath = $this->jsonPath;
+        $jsonPath = $this->getJsonPath();
         if (!file_exists($jsonPath)) {
             return '0';
         }
@@ -256,7 +256,7 @@ class UserJsonController extends Controller
 
     protected function appendJson($text, $mtime)
     {
-        $path = $this->jsonPath;
+        $path = $this->getJsonPath();
         if (!file_exists($path)) {
             if (!file_exists(dirname($path))) {
                 FileHelper::createDirectory(dirname($path));
@@ -276,7 +276,7 @@ class UserJsonController extends Controller
 
     protected function recompress()
     {
-        $mainPath = $this->jsonPath;
+        $mainPath = $this->getJsonPath();
         $tmpPath = $mainPath . '.tmp';
         if (!file_exists($mainPath)) {
             throw new \Exception('File does not exists : ' . $mainPath);

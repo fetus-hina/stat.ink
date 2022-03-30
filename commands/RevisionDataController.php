@@ -20,13 +20,14 @@ class RevisionDataController extends Controller
 {
     public function actionIndex(): int
     {
+        $lastCommit = Version::getLastCommited();
         $data = [
             'Version' => Version::getVersion(),
             'Revision' => vsprintf('%s (%s)', [
                 Version::getShortRevision() ?: 'UNKNOWN',
                 Version::getRevision() ?: 'UNKNOWN',
             ]),
-            'Last Committed' => Version::getLastCommited()->format(DateTime::ATOM) ?? 'UNKNOWN',
+            'Last Committed' => $lastCommit ? $lastCommit->format(DateTime::ATOM) : 'UNKNOWN',
             'Version Tags' => Json::encode(Version::getVersionTags()),
         ];
 
@@ -87,7 +88,7 @@ class RevisionDataController extends Controller
             '',
             'declare(strict_types=1);',
             '',
-            'return ' . static::format($data) . ';',
+            'return ' . self::format($data) . ';',
             '',
         ]);
 
@@ -109,10 +110,10 @@ class RevisionDataController extends Controller
             $result[] = '[';
             foreach ($data as $key => $value) {
                 if (is_int($key)) {
-                    $result[] = $indent1 . static::format($value, $indentLevel + 1) . ',';
+                    $result[] = $indent1 . self::format($value, $indentLevel + 1) . ',';
                 } else {
-                    $result[] = $indent1 . static::format($key) . ' => ' .
-                        static::format($value, $indentLevel + 1) . ',';
+                    $result[] = $indent1 . self::format($key) . ' => ' .
+                        self::format($value, $indentLevel + 1) . ',';
                 }
             }
             $result[] = $indent . ']';

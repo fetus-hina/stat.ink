@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use app\components\widgets\FA;
 use app\models\User;
-use yii\helpers\Html;
+use app\components\helpers\Html;
 use yii\web\View;
 use yii\widgets\DetailView;
 
@@ -84,7 +84,7 @@ $this->registerCss('.btn-block.text-left{text-align:left}');
               ['class' => 'btn btn-default text-left-important flex-grow-1']
             ),
             Html::a(
-              FA::fas('info')->fw(),
+              (string)FA::fas('info')->fw(),
               'https://github.com/fetus-hina/stat.ink/blob/master/doc/api-2/export-salmon-csv.md',
               [
                 'class' => 'btn btn-default auto-tooltip',
@@ -114,7 +114,7 @@ $this->registerCss('.btn-block.text-left{text-align:left}');
           ['download', 'type' => 'ikalog-json'],
           ['class' => 'btn btn-default btn-block text-left']
         ),
-        $user->isUserJsonReady
+        $user->getIsUserJsonReady()
           ? Html::a(
             implode(' ', [
               FA::far('file-code')->fw(),

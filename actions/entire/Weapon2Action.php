@@ -44,6 +44,7 @@ class Weapon2Action extends ViewAction
     {
         $maps = Map2::getSortedMap(function (ActiveQuery $query): void {
             if ($this->rule->key !== 'nawabari') {
+                // @phpstan-ignore-next-line
                 $query->excludeMystery();
             }
         });
@@ -52,7 +53,7 @@ class Weapon2Action extends ViewAction
         $stageFilter->load($_GET) && $stageFilter->validate();
 
         $winRate = ArrayHelper::map(
-            // {{{
+            // @phpstan-ignore-next-line
             StatWeapon2Result::find()
                 ->innerJoinWith('map', false)
                 ->andWhere([
@@ -73,11 +74,10 @@ class Weapon2Action extends ViewAction
                 'win' => (int)$row['wins'],
                 'lose' => (int)$row['battles'] - (int)$row['wins'],
             ]
-            // }}}
         );
 
         $kills = ArrayHelper::map(
-            // {{{
+            // @phpstan-ignore-next-line
             StatWeapon2Result::find()
                 ->innerJoinWith('map', false)
                 ->andWhere([
@@ -103,11 +103,10 @@ class Weapon2Action extends ViewAction
                 'battles' => (int)$row['battles'],
             ],
             'map'
-            // }}}
         );
 
         $deaths = ArrayHelper::map(
-            // {{{
+            // @phpstan-ignore-next-line
             StatWeapon2Result::find()
                 ->innerJoinWith('map', false)
                 ->andWhere([
@@ -133,11 +132,10 @@ class Weapon2Action extends ViewAction
                 'battles' => (int)$row['battles'],
             ],
             'map'
-            // }}}
         );
 
         $specials = ArrayHelper::map(
-            // {{{
+            // @phpstan-ignore-next-line
             StatWeapon2Result::find()
                 ->innerJoinWith('map', false)
                 ->andWhere([
@@ -163,11 +161,10 @@ class Weapon2Action extends ViewAction
                 'battles' => (int)$row['battles'],
             ],
             'map'
-            // }}}
         );
 
         $assists = ArrayHelper::map(
-            // {{{
+            // @phpstan-ignore-next-line
             StatWeapon2Result::find()
                 ->innerJoinWith('map', false)
                 ->andWhere([
@@ -193,7 +190,6 @@ class Weapon2Action extends ViewAction
                 'battles' => (int)$row['battles'],
             ],
             'map'
-            // }}}
         );
 
         return $this->controller->render('weapon2', [

@@ -12,8 +12,8 @@ namespace app\models\openapi;
 
 use Base32\Base32;
 use Yii;
+use app\components\helpers\Html;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Html;
 
 use const DIRECTORY_SEPARATOR;
 
@@ -102,8 +102,8 @@ trait Util
         $splatnetKeys = $splatnetKeys ? (array)$splatnetKeys : [];
 
         return Html::tag('table', implode('', [
-            static::oapiKeyValueTableThead($keyLabelHtml, $valueLabel, $splatnetKeys),
-            static::oapiKeyValueTableTbody(
+            self::oapiKeyValueTableThead($keyLabelHtml, $valueLabel, $splatnetKeys),
+            self::oapiKeyValueTableTbody(
                 ArrayHelper::getColumn($items, $keyColumn),
                 ArrayHelper::getColumn(
                     $items,
@@ -151,7 +151,7 @@ trait Util
     /**
      * @param string[] $keys
      * @param string[] $values
-     * @param string[] $splatnetValues
+     * @param string[][] $splatnetValues
      */
     private static function oapiKeyValueTableTbody(
         array $keys,

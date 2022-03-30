@@ -1,6 +1,26 @@
 <?php
-use yii\helpers\Html;
+
+declare(strict_types=1);
+
+use app\components\helpers\Html;
+use app\models\Battle;
+use app\models\BattleDeleteForm;
+use app\models\BattleForm;
+use app\models\User;
 use yii\bootstrap\ActiveForm;
+use yii\web\View;
+
+/**
+ * @var Battle $battle
+ * @var BattleDeleteForm $delete
+ * @var BattleForm $form
+ * @var User $user
+ * @var View $this
+ * @var array<string, array<string|int, string>> $rules
+ * @var array<string|int, string> $lobbies
+ * @var array<string|int, string> $maps
+ * @var array<string|int, string> $weapons
+ */
 
 $title = Yii::t('app', 'Edit Your Battle: #{0}', [
   $battle->id,

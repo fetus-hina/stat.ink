@@ -58,6 +58,7 @@ class OstatusJob extends BaseObject implements JobInterface
 
     public function battle1(Battle $battle): void
     {
+        // @phpstan-ignore-next-line
         $query = OstatusPubsubhubbub::find()
             ->active()
             ->andWhere(['topic' => $battle->user_id])

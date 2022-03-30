@@ -15,11 +15,11 @@ use DateTimeImmutable;
 use DateTimeZone;
 use Exception;
 use Yii;
+use app\components\helpers\ArrayHelper;
 use app\components\helpers\Battle as BattleHelper;
 use app\components\helpers\db\Now;
 use yii\base\Model;
 use yii\db\ActiveQuery;
-use yii\helpers\ArrayHelper;
 
 use const SORT_DESC;
 
@@ -315,6 +315,7 @@ class Salmon2FilterForm extends Model
             return null;
         }
 
+        // @phpstan-ignore-next-line
         return SalmonSchedule2::find()
             ->nowOrPast()
             ->newerFirst()

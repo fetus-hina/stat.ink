@@ -1,7 +1,15 @@
 <?php
+
+use app\components\helpers\Html;
+use app\models\Battle;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Html;
+use yii\web\View;
 use yii\widgets\DetailView;
+
+/**
+ * @var Battle $battle
+ * @var View $this
+ */
 
 if (!$effects = $battle->abilityEffects) {
   return '';
@@ -154,7 +162,7 @@ $percent = function ($value, $number = 1) use ($f) : string {
     [
       'label' => Yii::t('app-gearstat', 'Jump'),
       'format' => 'raw',
-      'value' => function ($effects) use ($f, $battle) {
+      'value' => function ($effects) use ($f) {
         $values = $effects->superJumpSecs;
         if ($values === null) {
           return '';

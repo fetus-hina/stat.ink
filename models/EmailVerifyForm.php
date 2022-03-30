@@ -13,7 +13,10 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 
-class EmailVerifyForm extends Model
+/**
+ * @property string|null $realEmail
+ */
+final class EmailVerifyForm extends Model
 {
     public $email;
     public $verifyCode;

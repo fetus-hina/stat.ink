@@ -11,17 +11,22 @@ declare(strict_types=1);
 namespace app\actions\entire;
 
 use Yii;
+use app\components\helpers\T;
 use app\models\KDWin2FilterForm;
 use app\models\SplatoonVersion2;
 use app\models\SplatoonVersionGroup2;
 use app\models\StatWeapon2KdWinRate;
+use yii\base\Action;
+use yii\web\Response;
 use yii\web\ServerErrorHttpException;
-use yii\web\ViewAction;
 
-class KDWin2Action extends ViewAction
+final class KDWin2Action extends Action
 {
     public const KD_LIMIT = 16;
 
+    /**
+     * @return Response|string
+     */
     public function run()
     {
         $filter = Yii::createObject(KDWin2FilterForm::class);
@@ -30,15 +35,13 @@ class KDWin2Action extends ViewAction
             if ($filter->version == '') {
                 $latest = $this->getLatestVersionGroup();
                 $filter->version = $latest->tag;
-                $this->controller->redirect(
-                    ['entire/kd-win2',
+                return T::webController($this->controller)
+                    ->redirect(['entire/kd-win2',
                         'filter' => array_filter(
                             $filter->attributes,
                             fn (?string $value): bool => trim((string)$value) !== ''
                         ),
-                    ]
-                );
-                return;
+                    ]);
             }
         }
 
@@ -51,6 +54,7 @@ class KDWin2Action extends ViewAction
     private function makeData(KDWin2FilterForm $filter): array
     {
         $table = StatWeapon2KdWinRate::tableName();
+        // @phpstan-ignore-next-line
         $query = StatWeapon2KdWinRate::find()
             ->asArray()
             ->innerJoinWith('rule', false)

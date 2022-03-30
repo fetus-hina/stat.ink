@@ -1,6 +1,13 @@
 <?php
+
+use app\components\helpers\Html;
 use app\components\widgets\Label;
-use yii\helpers\Html;
+use app\models\Battle2;
+
+/**
+ * @var Battle2 $model
+ */
+
 ?>
 <?= Html::tag(
   'li',

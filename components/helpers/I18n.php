@@ -14,7 +14,6 @@ use DateTimeImmutable;
 use DateTimeZone;
 use Yii;
 use app\models\Language;
-use yii\helpers\Html;
 use yii\helpers\Url;
 
 use const LC_COLLATE;
@@ -25,7 +24,7 @@ class I18n
     {
         $controller = Yii::$app->controller;
         $request = Yii::$app->request;
-        if (!$controller || !$request || !$request->isGet) {
+        if (!$request->isGet) {
             return '';
         }
         $params = $request->get();
@@ -37,7 +36,8 @@ class I18n
 
 
         $ret = [];
-        foreach (Language::find()->standard()->all() as $lang) {
+        $langs = Language::find()->standard()->all(); // @phpstan-ignore-line
+        foreach ($langs as $lang) {
             $newParams = array_merge(
                 [$route, '_lang_' => $lang->lang],
                 $params
@@ -57,7 +57,7 @@ class I18n
 
     public static function createTranslateTableCode(string $filePath, array $data): string
     {
-        $localeHandler = static::switchSystemLocale(LC_COLLATE, 'C');
+        $localeHandler = self::switchSystemLocale(LC_COLLATE, 'C');
         uksort($data, 'strnatcasecmp');
         unset($localeHandler);
 
@@ -73,7 +73,7 @@ class I18n
             ' * @copyright Copyright (C) 2015-' . $now->format('Y') . ' AIZAWA Hina',
             ' * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT',
         ];
-        foreach (static::getGitContributors($filePath) as $author) {
+        foreach (self::getGitContributors($filePath) as $author) {
             $php[] = ' * @author ' . $author;
         }
         $php[] = ' */';
@@ -84,8 +84,8 @@ class I18n
         foreach ($data as $englishName => $localName) {
             $php[] = sprintf(
                 "    '%s' => '%s',",
-                static::addslashes($englishName),
-                static::addslashes($localName)
+                self::addslashes($englishName),
+                self::addslashes($localName),
             );
         }
         $php[] = '];';

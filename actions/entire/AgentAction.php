@@ -1,10 +1,12 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2016 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2022 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
+
+declare(strict_types=1);
 
 namespace app\actions\entire;
 
@@ -15,13 +17,18 @@ use DateTimeZone;
 use Yii;
 use app\models\AgentGroup;
 use app\models\StatAgentUser;
+use yii\base\Action;
 use yii\base\DynamicModel;
+use yii\db\ActiveQuery;
 use yii\web\NotFoundHttpException;
-use yii\web\ViewAction as BaseAction;
 
 use const SORT_ASC;
 
-class AgentAction extends BaseAction
+/**
+ * @property-read AgentGroup[] $combineds
+ * @property-read array[] $postStats
+ */
+final class AgentAction extends Action
 {
     public $form;
 
@@ -38,7 +45,7 @@ class AgentAction extends BaseAction
             ->addRule('b32name', 'match', ['pattern' => '/^[a-zA-Z2-7]+$/'])
             ->addRule('b32name', function ($attr, $conf) use ($form) {
                 $decoded = Base32::decode($form->$attr);
-                if ($decoded === false || $decoded === '') {
+                if ($decoded === '') {
                     $form->addError($attr, 'invalid name');
                     return;
                 }
@@ -63,11 +70,14 @@ class AgentAction extends BaseAction
         return $this->controller->render('agent', [
             'name' => $name,
             'posts' => $this->postStats,
-            'combineds' => $this->combineds,
+            'combineds' => $this->getCombineds(),
         ]);
     }
 
-    public function getPostStats()
+    /**
+     * @return array[]
+     */
+    public function getPostStats(): array
     {
         $list = StatAgentUser::find()
             ->andWhere(['agent' => Base32::decode($this->form->b32name)])
@@ -105,19 +115,19 @@ class AgentAction extends BaseAction
         return array_values($ret);
     }
 
-    public function getCombineds()
+    /** @return AgentGroup[] */
+    public function getCombineds(): array
     {
         return AgentGroup::find()
             ->innerJoinWith([
-                'agentGroupMaps' => function ($q) {
-                    $q->orderBy(null);
+                'agentGroupMaps' => function (ActiveQuery $q): void {
+                    $q->orderBy([]);
                 },
             ], false)
             ->where([
                 '{{agent_group_map}}.[[agent_name]]' => Base32::decode($this->form->b32name),
             ])
             ->orderBy(['{{agent_group}}.[[name]]' => SORT_ASC])
-            ->asArray()
             ->all();
     }
 }

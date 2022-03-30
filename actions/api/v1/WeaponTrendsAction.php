@@ -35,7 +35,7 @@ class WeaponTrendsAction extends BaseAction
             ];
         }
 
-        return Yii::$app->db->transaction(function () {
+        return Yii::$app->db->transaction(function () use ($form) {
             $query = StatWeaponMapTrend::find()
                 ->with(['weapon', 'weapon.subweapon', 'weapon.special'])
                 ->where([
@@ -47,11 +47,11 @@ class WeaponTrendsAction extends BaseAction
                     'stat_weapon_map_trend.weapon_id',
                 ]));
 
-            $totalCount = (clone $query)->orderBy(null)->sum('stat_weapon_map_trend.battles');
+            $totalCount = (clone $query)->orderBy([])->sum('stat_weapon_map_trend.battles');
             $json = [];
             $rank = 0;
             $lastCount = null;
-            ini_set('serialize_precision', 3);
+            ini_set('serialize_precision', '3');
             foreach ($query->all() as $i => $row) {
                 if ($row->battles !== $lastCount) {
                     $rank = $i + 1;

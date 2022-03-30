@@ -13,11 +13,12 @@ namespace app\components\widgets;
 use Yii;
 use app\assets\LanguageDialogAsset;
 use app\assets\TimezoneDialogAsset;
+use app\components\helpers\Html;
+use app\components\helpers\T;
 use app\models\Country;
 use app\models\Language;
 use app\models\Timezone;
 use yii\base\Widget;
-use yii\helpers\Html;
 
 class IndexI18nButtons extends Widget
 {
@@ -48,7 +49,7 @@ class IndexI18nButtons extends Widget
         LanguageDialogAsset::register($this->view);
 
         $lang = Language::findOne([
-            'lang' => Yii::$app->locale,
+            'lang' => T::webApplication(Yii::$app)->getLocale(),
         ]);
         return $this->renderButton(
             '#language-dialog',

@@ -11,8 +11,8 @@ declare(strict_types=1);
 namespace app\components\widgets;
 
 use Yii;
+use app\components\helpers\Html;
 use yii\base\Widget;
-use yii\helpers\Html;
 use yii\i18n\Formatter;
 
 class BattleKillDeathColumn extends Widget
@@ -139,7 +139,7 @@ class BattleKillDeathColumn extends Widget
             'span',
             $this->formatter->asText(vsprintf('%s: %s', [
                 Yii::t('app', 'Kill Ratio'),
-                $this->formatter->asDecimal($this->killRatio, 2),
+                $this->formatter->asDecimal($this->getKillRatio(), 2),
             ])),
             [
                 'class' => 'auto-tooltip',

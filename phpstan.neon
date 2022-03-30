@@ -2,33 +2,54 @@ includes:
   - vendor/proget-hq/phpstan-yii2/extension.neon
 
 parameters:
-  paths:
-    - actions/
-    - assets/
-    - commands/
-    - components/
-    - controllers/
-    - messages/
-    - models/
-    - views/
+  level: 5
 
-  bootstrapFiles:
-    - vendor/autoload.php
+  checkMissingIterableValueType: false
+
+  paths:
+    - ./
+  
+  excludePaths:
+    - ./bin/
+    - ./data/
+    - ./deploy.php
+    - ./doc/
+    - ./docker/
+    - ./node_modules/
+    - ./requirements.php
+    - ./resources/
+    - ./runtime/
+    - ./tests/
+    - ./vendor/
+  
+  scanFiles:
     - vendor/yiisoft/yii2/Yii.php
-    - config/web-bootstrap.php
+
+  typeAliases:
+    URL: 'string|array{0: string}'
+    numeric: 'int|float|numeric-string'
+
+  stubFiles:
+    - data/phpstan/tpyo/amazon-s3-php-class/S3.php
+    - data/phpstan/yii/db/Migration.php
+    - data/phpstan/yii/helpers/BaseArrayHelper.php
+    - data/phpstan/yii/helpers/BaseHtml.php
+    - data/phpstan/yii/i18n/Formatter.php
+    - data/phpstan/yii/web/View.php
 
   yii2:
     config_path: %rootDir%/../../../config/web.php
+  
+  dynamicConstantNames:
+    - YII_DEBUG
+    - YII_ENV
+    - YII_ENV_DEV
+    - YII_ENV_PROD
+    - YII_ENV_TEST
+  
+  tmpDir: runtime/phpstan
 
   ignoreErrors:
-    - /during method call all at/
-    - /during method call andWhere at/
-    - /during method call asArray at/
-    - /during method call innerJoinWith at/
-    - /during method call join at/
-    - /during method call joinWith at/
-    - /during method call limit at/
-    - /during method call one at/
-    - /during method call orderBy at/
-    - /during method call with at/
-    - /provided to createObject method/
+    - '/Access to an undefined property yii\\base\\DynamicModel::/'
+    - '/Access to an undefined property yii\\base\\ViewContextInterface::\$layout\./'
+    - '/Argument of an invalid type stdClass supplied for foreach/'

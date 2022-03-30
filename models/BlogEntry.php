@@ -12,10 +12,7 @@ namespace app\models;
 
 use Throwable;
 use jp3cki\uuid\Uuid;
-use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
-
-use const SORT_DESC;
 
 /**
  * This is the model class for table "blog_entry".
@@ -26,18 +23,8 @@ use const SORT_DESC;
  * @property string $title
  * @property string $at
  */
-class BlogEntry extends ActiveRecord
+final class BlogEntry extends ActiveRecord
 {
-    public static function find(): ActiveQuery
-    {
-        return new class (static::class) extends ActiveQuery {
-            public function latest(): ActiveQuery
-            {
-                return $this->orderBy(['{{blog_entry}}.[[at]]' => SORT_DESC]);
-            }
-        };
-    }
-
     /**
      * @inheritdoc
      */
@@ -65,7 +52,7 @@ class BlogEntry extends ActiveRecord
                     try {
                         $this->$attribute = (new Uuid($this->$attribute))->__toString();
                     } catch (Throwable $e) {
-                        $this->addErrors($attribute, 'invalid uuid given');
+                        $this->addError($attribute, 'invalid uuid given');
                         return;
                     }
                 },

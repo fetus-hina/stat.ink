@@ -9,12 +9,16 @@
 declare(strict_types=1);
 
 use app\components\db\Migration;
+use yii\db\Connection;
 use yii\db\Query;
 
 class m190211_165543_mx_timezones extends Migration
 {
     public function safeUp()
     {
+        $db = $this->db;
+        assert($db instanceof Connection);
+
         $this->insert('country', [
             'key' => 'mx',
             'name' => 'Mexico',
@@ -32,7 +36,7 @@ class m190211_165543_mx_timezones extends Migration
                 'region_id' => $regionId,
                 'group_id' => $groupId,
             ]);
-            $id = $this->db->lastInsertId;
+            $id = $db->lastInsertID;
             $this->insert('timezone_country', [
                 'timezone_id' => $id,
                 'country_id' => $countryId,

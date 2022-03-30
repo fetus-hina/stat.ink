@@ -1,15 +1,26 @@
 <?php
+
 declare(strict_types=1);
 
 use app\assets\EntireWeaponsUseAsset;
 use app\assets\GraphIconAsset;
+use app\components\helpers\Html;
 use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
 use app\models\WeaponCompareForm;
 use yii\bootstrap\ActiveForm;
-use yii\helpers\Html;
 use yii\helpers\Json;
 use yii\helpers\Url;
+use yii\web\View;
+
+/**
+ * @var View $this
+ * @var WeaponCompareForm $form
+ * @var array $weapons
+ * @var array<string, string> $rules
+ * @var array{data: array, events: array} $data
+ * @var string $canonicalUrl
+ */
 
 $this->context->layout = 'main';
 

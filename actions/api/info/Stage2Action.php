@@ -17,6 +17,7 @@ class Stage2Action extends BaseAction
 {
     public function run()
     {
+        // @phpstan-ignore-next-line
         $langs = Language::find()->standard()->all();
         $stages = Map2::find()->all();
         $sysLang = Yii::$app->language;

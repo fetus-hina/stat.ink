@@ -5,7 +5,7 @@ declare(strict_types=1);
 use app\models\SlackAddForm;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Html;
+use app\components\helpers\Html;
 use yii\web\View;
 
 /**

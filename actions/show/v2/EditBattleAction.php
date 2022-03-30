@@ -9,6 +9,7 @@
 namespace app\actions\show\v2;
 
 use Yii;
+use app\components\helpers\T;
 use app\models\Battle2;
 use app\models\Battle2DeleteForm;
 use app\models\Battle2Form;
@@ -16,8 +17,9 @@ use app\models\Map2;
 use app\models\Rank2;
 use app\models\WeaponCategory2;
 use app\models\WeaponType2;
+use yii\base\Action;
 use yii\helpers\ArrayHelper;
-use yii\web\ViewAction as BaseAction;
+use yii\web\Response;
 
 use const SORT_ASC;
 use const SORT_DESC;
@@ -25,7 +27,7 @@ use const SORT_DESC;
 /**
  * @property-read bool $isEditable
  */
-class EditBattleAction extends BaseAction
+final class EditBattleAction extends Action
 {
     private $battle;
 
@@ -46,6 +48,9 @@ class EditBattleAction extends BaseAction
         return !!$this->battle;
     }
 
+    /**
+     * @return Response|string
+     */
     public function run()
     {
         $del = Yii::createObject(Battle2DeleteForm::class);
@@ -59,10 +64,10 @@ class EditBattleAction extends BaseAction
                     $transaction = Yii::$app->db->beginTransaction();
                     if ($del->delete()) {
                         $transaction->commit();
-                        return $this->controller->redirect([
-                            'show-v2/user',
-                            'screen_name' => $this->battle->user->screen_name,
-                        ]);
+                        return T::webController($this->controller)
+                            ->redirect(['show-v2/user',
+                                'screen_name' => $this->battle->user->screen_name,
+                            ]);
                     }
                     $transaction->rollback();
                 }
@@ -71,12 +76,12 @@ class EditBattleAction extends BaseAction
                     $this->battle->attributes = $form->attributes;
                     $this->battle->is_win = $form->getIsWin();
                     if ($this->battle->save()) {
-                        $this->controller->redirect([
-                            'show-v2/battle',
-                            'screen_name' => $this->battle->user->screen_name,
-                            'battle' => $this->battle->id,
-                        ]);
-                        return;
+                        return T::webController($this->controller)
+                            ->redirect([
+                                'show-v2/battle',
+                                'screen_name' => $this->battle->user->screen_name,
+                                'battle' => $this->battle->id,
+                            ]);
                     }
                 }
             }
@@ -114,7 +119,8 @@ class EditBattleAction extends BaseAction
             ->orderBy(['id' => SORT_ASC])
             ->all();
         foreach ($categories as $category) {
-            $types = $category->getWeaponTypes()
+            $types = WeaponType2::find()
+                ->andWhere(['category_id' => $category->id])
                 ->orderBy(['id' => SORT_ASC])
                 ->all();
             foreach ($types as $type) {

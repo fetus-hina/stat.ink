@@ -2,8 +2,18 @@
 
 declare(strict_types=1);
 
-use yii\helpers\Html;
+use app\components\helpers\Html;
+use app\models\Splatfest2;
+use app\models\User;
 use yii\helpers\Url;
+use yii\web\View;
+
+/**
+ * @var Splatfest2 $fest
+ * @var User $user
+ * @var View $this
+ * @var stdClass|null $summary
+ */
 
 if (!$summary || !$summary->count) {
   return;

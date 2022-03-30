@@ -9,6 +9,8 @@ use app\assets\BattleTimelineAsset;
 use app\assets\GearCalcAsset;
 use app\assets\GraphIconAsset;
 use app\assets\PhotoSwipeSimplifyAsset;
+use app\components\helpers\ArrayHelper;
+use app\components\helpers\Html;
 use app\components\helpers\IkalogVersion;
 use app\components\widgets\AdWidget;
 use app\components\widgets\EmbedVideo;
@@ -16,13 +18,20 @@ use app\components\widgets\FA;
 use app\components\widgets\KillRatioBadgeWidget;
 use app\components\widgets\SnsWidget;
 use app\components\widgets\TimestampColumnWidget;
+use app\models\Battle;
+use app\models\BattleDeathReason;
 use app\models\Special;
-use yii\helpers\ArrayHelper;
-use yii\helpers\Html;
+use app\models\User;
 use yii\helpers\Json;
 use yii\helpers\Url;
 use yii\web\JsExpression;
 use yii\web\View;
+
+/**
+ * @var Battle $battle
+ * @var User $user
+ * @var View $this
+ */
 
 $this->context->layout = 'main';
 
@@ -81,7 +90,7 @@ if ($battle->nextBattle) {
   ]);
 }
 
-$this->registerJsVar('gearAbilities', $battle->gearAbilities);
+$this->registerJsVar('gearAbilities', (array)$battle->gearAbilities);
 
 GearCalcAsset::register($this);
 $this->registerCss(implode('', [
@@ -306,12 +315,8 @@ $specials = Special::find()->asArray()->all();
               ),
               Html::encode(Yii::t('app-weapon', $battle->weapon->name)),
               Html::encode(sprintf('(%s)', implode(' / ', [
-                $battle->weapon->subweapon
-                  ? Yii::t('app-subweapon', $battle->weapon->subweapon->name)
-                  : '?',
-                $battle->weapon->special
-                  ? Yii::t('app-special', $battle->weapon->special->name)
-                  : '?',
+                Yii::t('app-subweapon', $battle->weapon->subweapon->name),
+                Yii::t('app-special', $battle->weapon->special->name),
               ]))),
             ]) ?></td>
           </tr>
@@ -324,7 +329,7 @@ $specials = Special::find()->asArray()->all();
                 ? [
                   Html::encode(Yii::t('app-rank', $battle->rank->name)),
                   ($battle->rank_exp !== null)
-                    ? Html::encode($battle->rank_exp)
+                    ? Html::encode((string)$battle->rank_exp)
                     : ''
                 ]
                 : '?',
@@ -333,7 +338,7 @@ $specials = Special::find()->asArray()->all();
                 ? [
                   Html::encode(Yii::t('app-rank', $battle->rankAfter->name)),
                   ($battle->rank_exp_after !== null)
-                    ? Html::encode($battle->rank_exp_after)
+                    ? Html::encode((string)$battle->rank_exp_after)
                     : ''
                 ]
                 : '?',
@@ -371,7 +376,7 @@ $specials = Special::find()->asArray()->all();
                       '***',
                     ])),
                     ($battle->fest_exp !== null)
-                      ? Html::encode($battle->fest_exp)
+                      ? Html::encode((string)$battle->fest_exp)
                       : '',
                   ]
                   : '?',
@@ -385,7 +390,7 @@ $specials = Special::find()->asArray()->all();
                       ])
                     ),
                     ($battle->fest_exp_after !== null)
-                      ? Html::encode($battle->fest_exp_after)
+                      ? Html::encode((string)$battle->fest_exp_after)
                       : '',
                   ]
                   : '?',
@@ -396,7 +401,7 @@ $specials = Special::find()->asArray()->all();
 <?php if ($battle->fest_power) { ?>
           <tr>
             <th><?= Html::encode(Yii::t('app', 'Splatfest Power')) ?></th>
-            <td><?= Html::encode($battle->fest_power) ?></td>
+            <td><?= Html::encode((string)$battle->fest_power) ?></td>
           </tr>
 <?php } ?>
 <?php if ($battle->my_team_power || $battle->his_team_power) { ?>
@@ -486,17 +491,18 @@ $specials = Special::find()->asArray()->all();
 <?php if ($battle->max_kill_combo !== null) { ?>
           <tr>
             <th><?= Html::encode(Yii::t('app', 'Max Kill Combo')) ?></th>
-            <td><?= Html::encode($battle->max_kill_combo) ?></td>
+            <td><?= Html::encode((string)$battle->max_kill_combo) ?></td>
           </tr>
 <?php } ?>
 <?php if ($battle->max_kill_streak !== null) { ?>
           <tr>
             <th><?= Html::encode(Yii::t('app', 'Max Kill Streak')) ?></th>
-            <td><?= Html::encode($battle->max_kill_streak) ?></td>
+            <td><?= Html::encode((string)$battle->max_kill_streak) ?></td>
           </tr>
 <?php } ?>
-<?php $deathReasons = $battle->getBattleDeathReasons()
+<?php $deathReasons = BattleDeathReason::find()
   ->with(['reason'])
+  ->andWhere(['battle_id' => $battle->id])
   ->orderBy(['{{battle_death_reason}}.[[count]]' => SORT_DESC])
   ->all() ?>
 <?php if ($deathReasons) { ?>
@@ -507,11 +513,7 @@ $specials = Special::find()->asArray()->all();
                 <tbody>
 <?php foreach ($deathReasons as $deathReason) { ?>
                   <tr>
-                    <td><?= Html::encode(
-                      ($deathReason->reason && $deathReason->reason->translatedName)
-                        ? $deathReason->reason->translatedName
-                        : '?'
-                    ) ?></td>
+                    <td><?= Html::encode($deathReason->reason->getTranslatedName()) ?></td>
                     <td style="padding:0 10px">:</td>
                     <td><?= Html::encode(
                       Yii::t('app', '{nFormatted} {n, plural, =1{time} other{times}}', [
@@ -552,7 +554,7 @@ $specials = Special::find()->asArray()->all();
                 : '?',
               $battle->my_team_final_percent === null
                 ? '? %'
-                : Yii::$app->formatter->asPercent($battle->my_team_final_percent / 100, 1),
+                : Yii::$app->formatter->asPercent((float)$battle->my_team_final_percent / 100, 1),
             ])) ?></td>
           </tr>
           <tr>
@@ -563,7 +565,7 @@ $specials = Special::find()->asArray()->all();
                 : '?',
               $battle->his_team_final_percent === null
                 ? '? %'
-                : Yii::$app->formatter->asPercent($battle->his_team_final_percent / 100, 1),
+                : Yii::$app->formatter->asPercent((float)$battle->his_team_final_percent / 100, 1),
             ])) ?></td>
           </tr>
 <?php } ?>
@@ -709,23 +711,23 @@ $specials = Special::find()->asArray()->all();
           <tr>
             <th><?= Html::encode(Yii::t('app', 'User Agent')) ?></th>
             <td><?= vsprintf('%s / %s', [
-              ($battle->agent->productUrl)
+              $battle->agent->getProductUrl()
                 ? Html::a(
                   Html::encode($battle->agent->name),
-                  $battle->agent->productUrl,
+                  $battle->agent->getProductUrl(),
                   [
                     'target' => '_blank',
-                    'rel' => 'nofollow',
+                    'rel' => 'nofollow noopener',
                   ]
                 )
                 : Html::encode($battle->agent->name),
-              ($battle->agent->versionUrl)
+              $battle->agent->getVersionUrl()
                 ? Html::a(
                   Html::encode($battle->agent->version),
-                  $battle->agent->versionUrl,
+                  $battle->agent->getVersionUrl(),
                   [
                     'target' => '_blank',
-                    'rel' => 'nofollow',
+                    'rel' => 'nofollow noopener',
                   ]
                 )
                 : Html::encode($battle->agent->version),

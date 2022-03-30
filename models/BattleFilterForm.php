@@ -215,7 +215,10 @@ class BattleFilterForm extends Model
     {
         $value = $this->$attr;
         if (is_scalar($value) && $value != '') {
-            $c = Timezone::find()->where(['identifier' => $value])->orderBy(null)->count();
+            $c = Timezone::find()
+                ->where(['identifier' => $value])
+                ->orderBy([])
+                ->count();
             if ($c == 1) {
                 return;
             }
@@ -278,7 +281,7 @@ class BattleFilterForm extends Model
                 break;
 
             case 'yesterday':
-                $t = mktime(12, 0, 0, date('n', $now), date('j', $now) - 1, date('Y', $now));
+                $t = mktime(12, 0, 0, (int)date('n', $now), (int)date('j', $now) - 1, (int)date('Y', $now));
                 $push('term', 'term');
                 $push('term_from', date('Y-m-d 00:00:00', $t));
                 $push('term_to', date('Y-m-d 23:59:59', $t));

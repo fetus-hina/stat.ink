@@ -6,23 +6,29 @@
  * @author AIZAWA Hina <hina@fetus.jp>
  */
 
+declare(strict_types=1);
+
 namespace app\actions\user;
 
+use Exception;
 use OAuth\Common\Consumer\Credentials as OAuthCredentials;
-use OAuth\Common\Service\ServiceInterface as OAuthService;
 use OAuth\Common\Storage\Session as OAuthSessionStorage;
 use OAuth\Common\Storage\TokenStorageInterface as OAuthStorage;
+use OAuth\OAuth1\Service\Twitter as TwitterService;
+use OAuth\OAuth1\Token\TokenInterface as OAuthToken;
 use OAuth\ServiceFactory as OAuthFactory;
+use Throwable;
 use Yii;
+use app\components\helpers\T;
 use app\models\UserIcon;
+use yii\base\Action;
 use yii\helpers\Json;
 use yii\helpers\Url;
 use yii\web\BadRequestHttpException;
-use yii\web\ViewAction as BaseAction;
 
 use function file_get_contents;
 
-class IconTwitterAction extends BaseAction
+final class IconTwitterAction extends Action
 {
     public function init()
     {
@@ -35,7 +41,7 @@ class IconTwitterAction extends BaseAction
     {
         $request = Yii::$app->request;
         $response = Yii::$app->response;
-        $twitter = $this->twitterService;
+        $twitter = $this->getTwitterService();
 
         try {
             if ($request->get('denied')) {
@@ -43,7 +49,10 @@ class IconTwitterAction extends BaseAction
                 return $response->redirect(Url::to(['user/edit-icon'], true), 303);
             } elseif ($request->get('oauth_token')) {
                 // 帰ってきた
-                $token = $this->tokenStorage->retrieveAccessToken('Twitter');
+                $token = T::is(
+                    OAuthToken::class,
+                    $this->getTokenStorage()->retrieveAccessToken('Twitter'),
+                );
                 $twitter->requestAccessToken(
                     (string)$request->get('oauth_token'),
                     (string)$request->get('oauth_verifier'),
@@ -58,20 +67,20 @@ class IconTwitterAction extends BaseAction
                 try {
                     if (!$url) {
                         // 利用不可
-                        throw new \Exception('Could not get url');
+                        throw new Exception('Could not get url');
                     }
                     if (!$binary = file_get_contents($url)) {
-                        throw new \Exception('Could not get binary');
+                        throw new Exception('Could not get binary');
                     }
                     $transaction = Yii::$app->db->beginTransaction();
                     if ($icon = UserIcon::findOne(['user_id' => Yii::$app->user->identity->id])) {
                         if (!$icon->delete()) {
-                            throw new \Exception('UserIcon::delete failed');
+                            throw new Exception('UserIcon::delete failed');
                         }
                     }
                     $icon = UserIcon::createNew(Yii::$app->user->identity->id, $binary);
                     if (!$icon->save()) {
-                        throw new \Exception('UserIcon::save failed');
+                        throw new Exception('UserIcon::save failed');
                     }
                     $transaction->commit();
                     Yii::$app->session->addFlash(
@@ -88,16 +97,16 @@ class IconTwitterAction extends BaseAction
                 }
             } else {
                 // 認証手続き
-                $token = $twitter->requestRequestToken();
+                $token = T::is(OAuthToken::class, $twitter->requestRequestToken());
                 $url = $twitter->getAuthorizationUri(['oauth_token' => $token->getRequestToken()]);
                 return $response->redirect((string)$url, 303);
             }
-        } catch (\Throwable $e) {
+        } catch (Throwable $e) {
         }
         throw new BadRequestHttpException('Bad request.');
     }
 
-    public function getTwitterService(): OAuthService
+    public function getTwitterService(): TwitterService
     {
         $credential = new OAuthCredentials(
             Yii::$app->params['twitter']['consumer_key'],
@@ -106,10 +115,13 @@ class IconTwitterAction extends BaseAction
         );
 
         $factory = new OAuthFactory();
-        return $factory->createService(
-            'twitter',
-            $credential,
-            $this->tokenStorage
+        return T::is(
+            TwitterService::class,
+            $factory->createService(
+                'twitter',
+                $credential,
+                $this->getTokenStorage(),
+            ),
         );
     }
 

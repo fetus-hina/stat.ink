@@ -1,10 +1,12 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2022 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
+
+declare(strict_types=1);
 
 namespace app\components\helpers;
 
@@ -13,12 +15,13 @@ use DateTime;
 use DateTimeImmutable;
 use DateTimeZone;
 use Yii;
+use app\models\BattleSummary;
 use app\models\Rule2;
 use yii\db\Query;
 
-class BattleSummarizer
+final class BattleSummarizer
 {
-    public static function getSummary(Query $oldQuery)
+    public static function getSummary(Query $oldQuery): BattleSummary
     {
         $db = Yii::$app->db;
         $now = $_SERVER['REQUEST_TIME'] ?? time();
@@ -89,7 +92,7 @@ class BattleSummarizer
         );
 
         $query = clone $oldQuery;
-        $query->orderBy(null);
+        $query->orderBy([]);
         $query->select([
             'battle_count' => 'COUNT(*)',
             'wp' => $column_wp,
@@ -98,7 +101,10 @@ class BattleSummarizer
             'total_death' => $column_total_death,
             'kd_present' => $column_kd_present,
         ]);
-        return (object)$query->createCommand()->queryOne();
+
+        $obj = Yii::createObject(BattleSummary::class);
+        $obj->attributes = $query->createCommand()->queryOne();
+        return $obj;
     }
 
     public static function getSummary2(Query $oldQuery)
@@ -282,7 +288,7 @@ class BattleSummarizer
         $column_inked_present = sprintf('SUM(CASE WHEN %s THEN 1 ELSE 0 END)', implode(' AND ', [$condInkedPresent]));
 
         $query = clone $oldQuery;
-        $query->orderBy(null);
+        $query->orderBy([]);
         $query->select([
             'battle_count' => 'COUNT(*)',
             'wp' => $column_wp,

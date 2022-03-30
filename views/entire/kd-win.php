@@ -1,15 +1,26 @@
 <?php
+
 declare(strict_types=1);
 
 use app\actions\entire\KDWinAction;
 use app\assets\EntireKDWinAsset;
 use app\assets\TableResponsiveForceAsset;
+use app\components\helpers\Html;
 use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
 use app\components\widgets\kdWin\KDWinTable;
 use app\components\widgets\kdWin\LegendWidget;
+use app\models\BattleFilterForm;
 use yii\bootstrap\ActiveForm;
-use yii\helpers\Html;
+use yii\web\View;
+
+/**
+ * @var BattleFilterForm $filter
+ * @var View $this
+ * @var array<string, string> $maps
+ * @var array<string, string> $weapons
+ * @var stdClass[] $rules
+ */
 
 $this->context->layout ='main';
 

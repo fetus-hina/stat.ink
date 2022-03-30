@@ -1,5 +1,11 @@
 <?php
-use yii\helpers\Html;
+
+use app\components\helpers\Html;
+use yii\web\View;
+
+/**
+ * @var View $this
+ */
 
 $list = [
   'ko' => Yii::t('app', 'Knockout'),
@@ -7,6 +13,7 @@ $list = [
 ];
 
 $this->registerJs('$(".legend-bg").each(function(){$(this).css("background-color", window.colorScheme[$(this).attr("data-color")])});');
+
 ?>
 <?= Html::tag(
   'div',

@@ -11,17 +11,18 @@ declare(strict_types=1);
 namespace app\actions\show\v2;
 
 use Yii;
+use app\models\Battle2;
 use app\models\Battle2FilterForm;
 use app\models\Map2;
 use app\models\Rule2;
 use app\models\User;
+use yii\base\Action;
 use yii\helpers\ArrayHelper;
 use yii\web\NotFoundHttpException;
-use yii\web\ViewAction as BaseAction;
 
 use const SORT_ASC;
 
-class UserStatByMapRuleAction extends BaseAction
+final class UserStatByMapRuleAction extends Action
 {
     public function run()
     {
@@ -49,11 +50,13 @@ class UserStatByMapRuleAction extends BaseAction
 
     private function getData(User $user, Battle2FilterForm $filter)
     {
-        $query = $user->getBattle2s()
+        // @phpstan-ignore-next-line
+        $query = Battle2::find()
             ->orderBy(null)
             ->applyFilter($filter)
             ->innerJoinWith(['map', 'rule', 'lobby'], false)
             ->andWhere([
+                '{{battle2}}.[[user_id]]' => $user->id,
                 '{{battle2}}.[[is_win]]' => [true, false],
                 '{{lobby2}}.[[key]]' => ['standard', 'fest_normal'],
             ])

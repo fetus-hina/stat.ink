@@ -3,12 +3,22 @@
 declare(strict_types=1);
 
 use app\assets\UserStatReportAsset;
+use app\components\helpers\Html;
 use app\components\widgets\AdWidget;
 use app\components\widgets\FA;
 use app\components\widgets\SnsWidget;
+use app\models\User;
 use yii\data\ArrayDataProvider;
 use yii\grid\GridView;
-use yii\helpers\Html;
+use yii\web\View;
+
+/**
+ * @var URL|null $next
+ * @var URL|null $prev
+ * @var User $user
+ * @var View $this
+ * @var array $list
+ */
 
 $title = Yii::t('app', '{name}\'s Battle Report', ['name' => $user->name]);
 

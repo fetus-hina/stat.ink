@@ -30,6 +30,14 @@ use yii\db\Query;
  * @property int $gachi_kill
  * @property int $gachi_death
  * @property int $total_kd_battle_count
+ * @property int $nawabari_inked
+ * @property int $nawabari_inked_max
+ * @property int $nawabari_inked_battle
+ * @property int $gachi_kd_battle
+ * @property int $gachi_kill2
+ * @property int $gachi_death2
+ * @property int $gachi_total_time
+ * @property int $gachi_rank_peak
  *
  * @property User $user
  */

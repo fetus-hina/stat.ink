@@ -22,6 +22,7 @@ use const SORT_ASC;
  * @property int $mode_id
  * @property string $key
  * @property string $name
+ * @property string $short_name
  *
  * @property Battle[] $battles
  * @property GameMode $mode

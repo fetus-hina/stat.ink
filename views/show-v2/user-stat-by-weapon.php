@@ -3,15 +3,25 @@
 declare(strict_types=1);
 
 use app\assets\Spl2WeaponAsset;
+use app\components\helpers\Html;
 use app\components\widgets\AdWidget;
 use app\components\widgets\Battle2FilterWidget;
 use app\components\widgets\BattleSummaryItemWidget;
 use app\components\widgets\SnsWidget;
 use app\components\widgets\UserMiniInfo2;
+use app\models\Battle2FilterForm;
+use app\models\User;
 use statink\yii2\sortableTable\SortableTableAsset;
 use yii\data\ArrayDataProvider;
 use yii\grid\GridView;
-use yii\helpers\Html;
+use yii\web\View;
+
+/**
+ * @var Battle2FilterForm $filter
+ * @var User $user
+ * @var View $this
+ * @var array $list
+ */
 
 $title = Yii::t('app', "{name}'s Battle Stats (by Weapon)", ['name' => $user->name]);
 $this->title = Yii::$app->name . ' | ' . $title;

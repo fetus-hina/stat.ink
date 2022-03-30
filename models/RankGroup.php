@@ -1,14 +1,17 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2016 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2022 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
 
+declare(strict_types=1);
+
 namespace app\models;
 
 use app\components\helpers\Translator;
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
 /**
@@ -17,12 +20,11 @@ use yii\db\ActiveRecord;
  * @property int $id
  * @property string $key
  * @property string $name
+ *
+ * @property Rank[] $ranks
  */
-class RankGroup extends ActiveRecord
+final class RankGroup extends ActiveRecord
 {
-    /**
-     * @inheritdoc
-     */
     public static function tableName()
     {
         return 'rank_group';
@@ -53,7 +55,7 @@ class RankGroup extends ActiveRecord
         ];
     }
 
-    public function toJsonArray()
+    public function toJsonArray(): array
     {
         return [
             'key' => $this->key,
@@ -61,7 +63,7 @@ class RankGroup extends ActiveRecord
         ];
     }
 
-    public function getRanks()
+    public function getRanks(): ActiveQuery
     {
         return $this->hasMany(Rank::class, ['group_id' => 'id']);
     }

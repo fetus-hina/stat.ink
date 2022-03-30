@@ -15,11 +15,11 @@ use yii\db\ActiveRecord;
  *
  * @property int $id
  * @property string $finger_print
- * @property int $gear_id
- * @property int $primary_ability_id
+ * @property int|null $gear_id
+ * @property int|null $primary_ability_id
  *
- * @property Ability $primaryAbility
- * @property Gear $gear
+ * @property Ability|null $primaryAbility
+ * @property Gear|null $gear
  * @property GearConfigurationSecondary[] $secondaries
  */
 class GearConfiguration extends ActiveRecord

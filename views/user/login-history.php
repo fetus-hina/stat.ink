@@ -11,7 +11,7 @@ use app\components\widgets\OsIconWidget;
 use app\models\UserLoginHistory;
 use yii\data\DataProviderInterface;
 use yii\grid\GridView;
-use yii\helpers\Html;
+use app\components\helpers\Html;
 use yii\web\View;
 
 /**

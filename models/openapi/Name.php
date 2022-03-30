@@ -57,6 +57,7 @@ class Name extends Component
     {
         static $cache = null;
         if (!$cache) {
+            // @phpstan-ignore-next-line
             $cache = Language::find()
                 ->standard()
                 ->orderBy(['lang' => SORT_ASC])

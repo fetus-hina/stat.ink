@@ -80,6 +80,7 @@ class Weapon2Action extends BaseAction
                 ->all()
         );
 
+        // @phpstan-ignore-next-line
         $langs = Language::find()->standard()->asArray()->all();
         $sysLang = Yii::$app->language;
         usort($langs, function (array $a, array $b) use ($sysLang): int {

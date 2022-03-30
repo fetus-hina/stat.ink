@@ -8,8 +8,16 @@ use app\components\helpers\WeaponShortener;
 use app\components\widgets\AbilityIcon;
 use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
+use app\models\Language;
 use statink\yii2\sortableTable\SortableTableAsset;
 use yii\bootstrap\Html;
+use yii\web\View;
+
+/**
+ * @var Language[] $langs
+ * @var View $this
+ * @var array[] $categories
+ */
 
 $this->context->layout = 'main';
 $this->title = Yii::t('app', 'API Info: Weapons (Splatoon 2)');

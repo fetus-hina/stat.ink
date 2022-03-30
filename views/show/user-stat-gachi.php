@@ -4,10 +4,22 @@ declare(strict_types=1);
 
 use app\assets\InlineListAsset;
 use app\assets\UserStatGachiAsset;
+use app\components\helpers\Html;
 use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
-use yii\helpers\Html;
+use app\models\Map;
+use app\models\User;
 use yii\helpers\Json;
+use yii\web\View;
+
+/**
+ * @var User $user
+ * @var View $this
+ * @var array<string, string> $maps
+ * @var stdClass[] $recentRank
+ * @var stdClass[] $recentWP
+ * @var stdClass|null $userRankStat
+ */
 
 $this->context->layout = 'main';
 $title = Yii::t('app', '{name}\'s Battle Stats (Ranked Battle)', [

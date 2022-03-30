@@ -11,17 +11,23 @@ declare(strict_types=1);
 namespace app\actions\show\v2;
 
 use Yii;
+use app\components\helpers\ArrayHelper;
+use app\components\helpers\T;
 use app\models\Battle2;
-use yii\helpers\ArrayHelper;
+use yii\base\Action;
 use yii\web\NotFoundHttpException;
-use yii\web\ViewAction as BaseAction;
+use yii\web\Response;
 
-class BattleAction extends BaseAction
+final class BattleAction extends Action
 {
+    /**
+     * @return Response|string
+     */
     public function run()
     {
         $request = Yii::$app->getRequest();
 
+        // @phpstan-ignore-next-line
         $battle = Battle2::find()
             ->withFreshness()
             ->andWhere(['battle2.id' => $request->get('battle')])
@@ -51,11 +57,11 @@ class BattleAction extends BaseAction
         }
 
         if ($battle->user->screen_name !== $request->get('screen_name')) {
-            return $this->controller->redirect([
-                'show-v2/battle',
-                'screen_name' => $battle->user->screen_name,
-                'battle' => $battle->id,
-            ]);
+            return T::webController($this->controller)
+                ->redirect(['show-v2/battle',
+                    'screen_name' => $battle->user->screen_name,
+                    'battle' => $battle->id,
+                ]);
         }
 
         return $this->controller->render('battle', [

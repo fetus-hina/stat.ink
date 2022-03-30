@@ -1,6 +1,6 @@
 <?php
 use app\components\Version;
-use yii\helpers\Html;
+use app\components\helpers\Html;
 
 $params = Yii::$app->params;
 

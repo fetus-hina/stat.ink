@@ -6,13 +6,19 @@
  * @author AIZAWA Hina <hina@fetus.jp>
  */
 
+declare(strict_types=1);
+
 namespace app\models\api\v1;
 
 use app\models\Map;
 use app\models\Rule;
 use yii\base\Model;
 
-class WeaponTrendsGetForm extends Model
+/**
+ * @property-read int|null $ruleId
+ * @property-read int|null $mapId
+ */
+final class WeaponTrendsGetForm extends Model
 {
     public $rule;
     public $map;

@@ -68,17 +68,17 @@ class Battle2Controller extends Controller
         $transaction = Yii::$app->db->beginTransaction();
         $this->stderr("Getting target agents...\n");
         $agentIds = array_filter(array_map(
-            function (array $agent): ?int {
+            function (Agent $agent): ?int {
                 if (
-                    version_compare($agent['version'], '0.1.4', '>') &&
-                    version_compare($agent['version'], '0.2.3', '<=')
+                    version_compare($agent->version, '0.1.4', '>') &&
+                    version_compare($agent->version, '0.2.3', '<=')
                 ) {
-                    $this->stderr(sprintf("  version=%s, id=%d\n", $agent['version'], $agent['id']));
-                    return $agent['id'];
+                    $this->stderr(sprintf("  version=%s, id=%d\n", $agent->version, $agent->id));
+                    return $agent->id;
                 }
                 return null;
             },
-            Agent::find()->andWhere(['name' => 'SquidTracks'])->asArray()->all()
+            Agent::find()->andWhere(['name' => 'SquidTracks'])->all()
         ));
         $this->stderr('done. id = [' . implode(', ', $agentIds) . "]\n");
 

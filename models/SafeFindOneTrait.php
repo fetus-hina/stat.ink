@@ -23,6 +23,6 @@ trait SafeFindOneTrait
     protected static function safeFindOne($key, $value)
     {
         $model = static::findOne([$key => $value]);
-        return $model ? $model : new static();
+        return $model ? $model : new self();
     }
 }

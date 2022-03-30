@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2017 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2022 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -10,11 +10,12 @@ namespace app\actions\ostatus;
 
 use Yii;
 use app\components\helpers\BattleAtom;
+use app\models\Battle;
 use app\models\User;
 use yii\web\Response;
 use yii\web\ViewAction as BaseAction;
 
-class FeedAction extends BaseAction
+final class FeedAction extends BaseAction
 {
     public $screen_name;
 
@@ -23,7 +24,7 @@ class FeedAction extends BaseAction
         Yii::$app->timeZone = 'Etc/UTC';
         Yii::$app->language = 'ja-JP';
 
-        if (!$user = $this->user) {
+        if (!$user = $this->getUser()) {
             return $this->http404();
         }
 
@@ -32,29 +33,43 @@ class FeedAction extends BaseAction
             $resp->format = 'raw';
             $resp->getHeaders()->set('Content-Type', 'application/atom+xml; charset=UTF-8');
             $resp->data = BattleAtom::createUserFeed($user);
-            $resp->content = null;
             return $resp;
-        } elseif (!$battle = $user->getBattles()->andWhere(['id' => $battleId])->one()) {
+        } elseif (!$battle = $this->getBattle($user, $battleId)) {
             return $this->http404();
         } else {
             $resp = Yii::$app->getResponse();
             $resp->format = 'raw';
             $resp->getHeaders()->set('Content-Type', 'application/atom+xml; charset=UTF-8');
             $resp->data = BattleAtom::createBattleFeed($user, $battle);
-            $resp->content = null;
             return $resp;
         }
     }
 
     public function getUser(): ?User
     {
-        $screenName = trim((string)Yii::$app->getRequest()->get('screen_name'));
-        return User::findOne(['screen_name' => $screenName]);
+        $screenName = trim((string)Yii::$app->request->get('screen_name'));
+        return User::find()
+            ->andWhere([
+                'screen_name' => $screenName,
+            ])
+            ->limit(1)
+            ->one();
+    }
+
+    public function getBattle(User $user, int $battleId): ?Battle
+    {
+        return Battle::find()
+            ->andWhere([
+                'user_id' => $user->id,
+                'id' => $battleId,
+            ])
+            ->limit(1)
+            ->one();
     }
 
     public function http404(): Response
     {
-        $resp = Yii::$app->getResponse();
+        $resp = Yii::$app->response;
         $resp->format = 'json';
         $resp->statusCode = 404;
         $resp->statusText = 'Not Found';

@@ -12,6 +12,7 @@ namespace app\models;
 
 use Yii;
 use app\components\helpers\Translator;
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
 
@@ -23,6 +24,8 @@ use const SORT_ASC;
  * @property int $id
  * @property string $key
  * @property string $name
+ * @property string $short_name
+ * @property string $color
  *
  * @property Salmon2[] $salmon2s
  */
@@ -47,6 +50,7 @@ class SalmonFailReason2 extends ActiveRecord
             [['key', 'name'], 'required'],
             [['key'], 'string', 'max' => 16],
             [['name'], 'string', 'max' => 64],
+            [['short_name', 'color'], 'string', 'max' => 32],
             [['key'], 'unique'],
         ];
     }
@@ -60,13 +64,12 @@ class SalmonFailReason2 extends ActiveRecord
             'id' => 'ID',
             'key' => 'Key',
             'name' => 'Name',
+            'short_name' => 'Short Name',
+            'color' => 'Color',
         ];
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getSalmon2s()
+    public function getSalmon2s(): ActiveQuery
     {
         return $this->hasMany(Salmon2::class, ['fail_reason_id' => 'id']);
     }

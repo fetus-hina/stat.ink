@@ -137,7 +137,7 @@ class UserTimeZone
                 return null;
             }
 
-            if (!$identifier = static::consultGeoIPDB($ipAddr)) {
+            if (!$identifier = self::consultGeoIPDB($ipAddr)) {
                 return null;
             }
 
@@ -154,7 +154,7 @@ class UserTimeZone
                 'There was no exact time zone match: ' . $identifier,
                 __METHOD__
             );
-            $tz = static::guessTimezoneByIdentifier($identifier);
+            $tz = self::guessTimezoneByIdentifier($identifier);
             if ($tz) {
                 Yii::info(
                     sprintf(
@@ -229,11 +229,11 @@ class UserTimeZone
             } catch (\Throwable $e) {
                 return null;
             }
-            if ($guessed = static::guessTimezoneByTimezone($tz)) {
+            if ($guessed = self::guessTimezoneByTimezone($tz)) {
                 return $guessed;
             }
 
-            return static::createUTCOffsetTimezone($tz);
+            return self::createUTCOffsetTimezone($tz);
         } finally {
             Yii::endProfile(__FUNCTION__, __METHOD__);
         }

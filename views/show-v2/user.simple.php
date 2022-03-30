@@ -3,16 +3,29 @@
 declare(strict_types=1);
 
 use app\assets\SimpleBattleListAsset;
+use app\components\helpers\Html;
 use app\components\widgets\AdWidget;
 use app\components\widgets\Battle2FilterWidget;
 use app\components\widgets\FA;
 use app\components\widgets\SnsWidget;
 use app\components\widgets\UserMiniInfo2;
+use app\models\Battle2FilterForm;
+use app\models\User;
 use yii\bootstrap\ActiveForm;
-use yii\helpers\Html;
+use yii\data\DataProviderInterface;
 use yii\helpers\Url;
+use yii\web\View;
 use yii\widgets\ListView;
 use yii\widgets\Pjax;
+
+/**
+ * @var Battle2FilterForm $filter
+ * @var DataProviderInterface $battleDataProvider
+ * @var User $user
+ * @var View $this
+ * @var stdClass $summary
+ * @var string $permLink
+ */
 
 $title = Yii::t('app', "{name}'s Splat Log", ['name' => $user->name]);
 $this->title = sprintf('%s | %s', Yii::$app->name, $title);

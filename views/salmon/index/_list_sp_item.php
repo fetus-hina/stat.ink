@@ -1,11 +1,24 @@
 <?php
+
 declare(strict_types=1);
 
+use app\components\helpers\Html;
+use app\components\i18n\Formatter;
 use app\components\widgets\Label;
-use yii\helpers\Html;
+use app\models\Salmon2;
+use app\models\User;
 use yii\helpers\Url;
+use yii\web\View;
+
+/**
+ * @var Formatter $formatter
+ * @var Salmon2 $model
+ * @var User $user
+ * @var View $this
+ */
 
 $myData = $model->myData;
+
 ?>
 <?= Html::beginTag('a', [
   'href' => Url::to(['salmon/view',

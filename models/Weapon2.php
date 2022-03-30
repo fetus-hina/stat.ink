@@ -31,12 +31,13 @@ use const SORT_ASC;
  * @property int $main_group_id
  * @property int $splatnet
  *
- * @property Special2 $special
- * @property Subweapon2 $subweapon
- * @property Weapon2 $canonical
- * @property Weapon2 $mainReference
- * @property WeaponType2 $type
+ * @property ?Special2 $special
+ * @property ?Subweapon2 $subweapon
+ * @property ?Weapon2 $canonical
+ * @property ?Weapon2 $mainReference
+ * @property ?WeaponType2 $type
  * @property WeaponAttack2[] $weaponAttacks
+ * @property ?MainPowerUp2 $mainPowerUp
  */
 class Weapon2 extends ActiveRecord
 {
@@ -159,12 +160,27 @@ class Weapon2 extends ActiveRecord
 
     public function getWeaponAttack(SplatoonVersion2 $version): ?WeaponAttack2
     {
-        $attacks = $this->getWeaponAttacks()->with('version')->all();
-        $attacks = array_filter($attacks, fn (WeaponAttack2 $model): bool => version_compare($model->version->tag, $version->tag, '<='));
+        $attacks = array_filter(
+            WeaponAttack2::find()
+                ->with(['version'])
+                ->andWhere(['weapon_id' => $this->id])
+                ->all(),
+            fn (WeaponAttack2 $model): bool => version_compare(
+                $model->version->tag,
+                $version->tag,
+                '<=',
+            )
+        );
         if (!$attacks) {
             return null;
         }
-        usort($attacks, fn (WeaponAttack2 $a, WeaponAttack2 $b): int => version_compare($b->version->tag, $a->version->tag));
+        usort(
+            $attacks,
+            fn (WeaponAttack2 $a, WeaponAttack2 $b): int => version_compare(
+                $b->version->tag,
+                $a->version->tag,
+            )
+        );
         return array_shift($attacks);
     }
 

@@ -48,8 +48,8 @@ class KDWinAction extends BaseAction
 
         return $this->controller->render('kd-win', [
             'rules' => $data,
-            'maps' => $this->maps,
-            'weapons' => $this->weapons,
+            'maps' => $this->getMaps(),
+            'weapons' => $this->getWeapons(),
             'filter' => $filter,
         ]);
     }

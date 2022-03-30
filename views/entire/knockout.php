@@ -1,13 +1,21 @@
 <?php
+
 declare(strict_types=1);
 
-use app\assets\TableResponsiveForceAsset;
 use app\assets\EntireKnockoutAsset;
+use app\assets\TableResponsiveForceAsset;
+use app\components\helpers\Html;
 use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
 use statink\yii2\stages\spl1\Spl1Stage;
-use yii\helpers\Html;
 use yii\helpers\Json;
+use yii\web\View;
+
+/**
+ * @var View $this
+ * @var array $data
+ * @var array<string, string> $rules
+ */
 
 $this->context->layout = 'main';
 

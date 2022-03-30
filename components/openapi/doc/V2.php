@@ -34,7 +34,7 @@ use app\models\openapi\SplatNet2ID;
 use app\models\openapi\Util as OpenApiUtil;
 use app\models\openapi\sec\ApiToken;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Html;
+use app\components\helpers\Html;
 use yii\helpers\UnsetArrayValue;
 use yii\helpers\Url;
 
@@ -258,6 +258,7 @@ class V2 extends Base
                                                 ['nullable' => true]
                                             ),
                                         ], (function (): array {
+                                            // @phpstan-ignore-next-line
                                             $langs = Language::find()
                                                 ->standard()
                                                 ->orderBy(['lang' => SORT_ASC])
@@ -277,6 +278,7 @@ class V2 extends Base
                                     function (Gear2 $gear): string {
                                         static $langs = null;
                                         if ($langs === null) {
+                                            // @phpstan-ignore-next-line
                                             $langs = Language::find()
                                                 ->standard()
                                                 ->orderBy(['lang' => SORT_ASC])
@@ -654,6 +656,7 @@ class V2 extends Base
                                             ),
                                             'splatnet' => static::oapiRef(SplatNet2ID::class),
                                         ], (function (): array {
+                                            // @phpstan-ignore-next-line
                                             $langs = Language::find()
                                                 ->standard()
                                                 ->orderBy(['lang' => SORT_ASC])
@@ -673,6 +676,7 @@ class V2 extends Base
                                     function (Weapon2 $weapon): string {
                                         static $langs = null;
                                         if ($langs === null) {
+                                            // @phpstan-ignore-next-line
                                             $langs = Language::find()
                                                 ->standard()
                                                 ->orderBy(['lang' => SORT_ASC])

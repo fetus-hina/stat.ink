@@ -25,7 +25,7 @@ use yii\web\ViewAction as BaseAction;
 
 use const SORT_ASC;
 
-class UsersAction extends BaseAction
+final class UsersAction extends BaseAction
 {
     public function run()
     {
@@ -34,12 +34,12 @@ class UsersAction extends BaseAction
             ->execute();
 
         return $this->controller->render('users', [
-            'posts' => $this->postStats,
-            'posts2' => $this->postStats2,
-            'agents' => $this->agentStats,
-            'agentNames' => $this->agentNames,
-            'combineds' => $this->combineds,
-            'agents2' => $this->agentStats2,
+            'agentNames' => $this->getAgentNames(),
+            'agents' => $this->getAgentStats(),
+            'agents2' => $this->getAgentStats2(),
+            'combineds' => $this->getCombineds(),
+            'posts' => $this->getPostStats(),
+            'posts2' => $this->getPostStats2(),
         ]);
     }
 
@@ -154,12 +154,12 @@ class UsersAction extends BaseAction
     {
         $t2 = $_SERVER['REQUEST_TIME'] ?? time();
         $t1 = gmmktime(
-            gmdate('H', $t2),
-            gmdate('i', $t2),
-            gmdate('s', $t2) + 1,
-            gmdate('n', $t2),
-            gmdate('j', $t2) - 1,
-            gmdate('Y', $t2)
+            (int)gmdate('H', $t2),
+            (int)gmdate('i', $t2),
+            (int)gmdate('s', $t2) + 1,
+            (int)gmdate('n', $t2),
+            (int)gmdate('j', $t2) - 1,
+            (int)gmdate('Y', $t2)
         );
         $query = (new Query())
             ->select([
@@ -221,6 +221,7 @@ class UsersAction extends BaseAction
             ->setTimeZone(new DateTimeZone(Yii::$app->timeZone))
             ->setTimestamp($_SERVER['REQUEST_TIME'] ?? time());
         $startAt = $endAt->sub(new DateInterval('PT24H'));
+        /** @var array[] $list */
         $list = Battle2::find()
             ->innerJoinWith(['agent'], false)
             ->where(['and',
@@ -275,6 +276,7 @@ class UsersAction extends BaseAction
         int $minId,
         int $maxId
     ): array {
+        /** @var array[] $versions */
         $versions = Battle2::find()
             ->innerJoinWith(['agent'], false)
             ->where(['and',
@@ -291,14 +293,17 @@ class UsersAction extends BaseAction
             ->groupBy(['{{battle2}}.[[agent_id]]'])
             ->asArray()
             ->all();
-        usort($versions, fn (array $a, array $b): int => version_compare($b['version'], $a['version']));
+        usort(
+            $versions,
+            fn (array $a, array $b): int => version_compare($b['version'], $a['version']),
+        );
         return array_map(
             fn (array $row): array => [
                 'version' => (string)$row['version'],
                 'battles' => (int)$row['battles'],
                 'users' => (int)$row['users'],
             ],
-            $versions
+            $versions,
         );
     }
 }

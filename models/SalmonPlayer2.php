@@ -23,28 +23,28 @@ use const SORT_DESC;
  * @property int $id
  * @property int $work_id
  * @property bool $is_me
- * @property string $splatnet_id
- * @property string $name
- * @property int $special_id
- * @property int $rescue
- * @property int $death
- * @property int $golden_egg_delivered
- * @property int $power_egg_collected
- * @property int $species_id
- * @property int $gender_id
+ * @property string|null $splatnet_id
+ * @property string|null $name
+ * @property int|null $special_id
+ * @property int|null $rescue
+ * @property int|null $death
+ * @property int|null $golden_egg_delivered
+ * @property int|null $power_egg_collected
+ * @property int|null $species_id
+ * @property int|null $gender_id
  *
  * @property SalmonBoss2[] $bosses
- * @property Gender $gender
+ * @property Gender|null $gender
  * @property SalmonPlayerBossKill2[] $salmonPlayerBossKill2s
  * @property SalmonPlayerSpecialUse2[] $salmonPlayerSpecialUse2s
  * @property SalmonPlayerWeapon2[] $salmonPlayerWeapon2s
- * @property SalmonSpecial2 $special
- * @property Species2 $species
+ * @property SalmonSpecial2|null $special
+ * @property Species2|null $species
  * @property Salmon2 $work
  *
  * @property-read ForceBlackout2 $forceBlackout
  * @property-read SalmonPlayerBossKill2[] $bossKills
- * @property-read SalmonPlayerSpecialUse2 $specialUses
+ * @property-read SalmonPlayerSpecialUse2[] $specialUses
  * @property-read SalmonPlayerWeapon2[] $weapons
  * @property-read bool $isForceBlackout
  */
@@ -261,22 +261,22 @@ class SalmonPlayer2 extends ActiveRecord
             'gender' => $this->gender_id
                 ? $this->gender->toJsonArray()
                 : null,
-            'special_uses' => $this->specialUses
+            'special_uses' => count($this->specialUses)
                 ? array_map(
-                    fn ($model) => (int)$model->count,
-                    $this->specialUses
+                    fn (SalmonPlayerSpecialUse2 $model): int => (int)$model->count,
+                    $this->specialUses,
                 )
                 : null,
-            'weapons' => $this->weapons
+            'weapons' => count($this->weapons)
                 ? array_map(
-                    fn ($model) => $model->weapon ? $model->weapon->toJsonArray() : null,
-                    $this->weapons
+                    fn ($model) => $model->weapon->toJsonArray(),
+                    $this->weapons,
                 )
                 : null,
-            'boss_kills' => $this->bossKills
+            'boss_kills' => count($this->bossKills)
                 ? array_map(
                     fn ($model) => $model->toJsonArray(),
-                    $this->bossKills
+                    $this->bossKills,
                 )
                 : null,
         ];

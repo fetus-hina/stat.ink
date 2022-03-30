@@ -3,8 +3,15 @@
 declare(strict_types=1);
 
 use app\assets\Spl2WeaponAsset;
+use app\components\helpers\Html;
 use app\components\widgets\AbilityIcon;
-use yii\helpers\Html;
+use app\models\Battle2;
+use yii\web\View;
+
+/**
+ * @var Battle2|null $battle
+ * @var View $this
+ */
 
 if (!$battle || !$battle->weapon) {
   return;

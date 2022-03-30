@@ -91,8 +91,8 @@ class m190621_194311_update_old_splatfest_shifty extends Migration
                 $result[$layoutKey] = [];
             }
             $result[$layoutKey][] = [
-                static::timestamp2period($startAt),
-                static::timestamp2period($endAt->sub(new DateInterval('PT1S'))),
+                self::timestamp2period($startAt),
+                self::timestamp2period($endAt->sub(new DateInterval('PT1S'))),
             ];
         }
         return $result;

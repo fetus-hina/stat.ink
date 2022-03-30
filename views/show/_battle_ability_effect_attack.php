@@ -1,5 +1,11 @@
 <?php
-use yii\helpers\Html;
+
+use app\components\helpers\Html;
+use app\models\Battle;
+
+/**
+ * @var Battle $battle
+ */
 
 if (!$attack = $battle->weaponAttack) {
   return '';
@@ -16,7 +22,7 @@ $f = Yii::$app->formatter;
 <?= vsprintf('[%s × %s = %s]', [
   Html::encode($f->asDecimal($attack->damage, 1)),
   Html::encode($f->asPercent($attackPct, 1)),
-  Html::tag('strong', Html::encode($f->asDecimal($attack->damage * $attackPct, 1))),
+  Html::tag('strong', Html::encode($f->asDecimal((float)$attack->damage * $attackPct, 1))),
 ]) . "\n" ?>
 <table class="table table-bordered table-condensed hidden-xs">
   <thead>

@@ -8,9 +8,11 @@
 
 namespace app\models;
 
+use TypeError;
 use Yii;
 use app\components\behaviors\TimestampBehavior;
 use phpseclib3\Crypt\RSA;
+use phpseclib3\Crypt\RSA\PrivateKey;
 use yii\db\ActiveRecord;
 
 /**
@@ -29,12 +31,19 @@ use yii\db\ActiveRecord;
  */
 class OstatusRsa extends ActiveRecord
 {
-    // should call save() after return
+    /**
+     * should call save() after return
+     *
+     * @param positive-int $bits
+     */
     public static function factory(int $user_id, int $bits = 2048): self
     {
-        $b64 = fn ($binary) => strtr(base64_encode($binary), '+/', '-_');
+        $b64 = fn (string $binary): string => strtr(base64_encode($binary), '+/', '-_');
 
         $privateKey = RSA::createKey($bits);
+        if (!$privateKey instanceof PrivateKey) {
+            throw new TypeError();
+        }
         $publicKey = $privateKey->getPublicKey();
 
         $osslPrivateKey = openssl_pkey_get_private($privateKey->toString('PKCS1'));

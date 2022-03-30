@@ -11,12 +11,12 @@ declare(strict_types=1);
 namespace app\components\widgets;
 
 use Yii;
+use app\components\helpers\Html;
 use app\components\i18n\Formatter;
 use app\models\SalmonWave2;
 use yii\base\Widget;
 use yii\bootstrap\BootstrapAsset;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Html;
 
 class SalmonWaves extends Widget
 {
@@ -137,7 +137,10 @@ class SalmonWaves extends Widget
                 'label' => Yii::t('app-salmon-event2', 'Event'),
                 'format' => 'text',
                 'total' => null,
-                'value' => fn (SalmonWave2 $wave, int $waveNumber, self $widget): ?string => Yii::t('app-salmon-event2', $wave->event->name ?? null),
+                'value' => fn (SalmonWave2 $wave, int $waveNumber, self $widget): string => Yii::t(
+                    'app-salmon-event2',
+                    $wave->event->name ?? null,
+                ),
             ],
             [
                 'label' => Yii::t('app-salmon-tide2', 'Water Level'),
@@ -292,10 +295,11 @@ class SalmonWaves extends Widget
             case '+':
             case 'add':
                 $total = 0;
-                foreach ($waves as $wave) {
+                foreach ($waves as $i => $wave) {
                     if (!$wave) {
                         continue;
                     }
+                    $waveNumber = $i + 1;
                     $value = ArrayHelper::getValue($rowInfo, 'value');
                     if ($value === null && isset($rowInfo['attribute'])) {
                         $value = ArrayHelper::getValue($wave, $rowInfo['attribute']);

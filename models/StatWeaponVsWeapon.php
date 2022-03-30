@@ -1,14 +1,16 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2016 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2022 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
 
+declare(strict_types=1);
+
 namespace app\models;
 
-use yii\db\ActiveQuery;
+use app\models\query\StatWeaponVsWeaponQuery;
 use yii\db\ActiveRecord;
 
 /**
@@ -26,31 +28,11 @@ use yii\db\ActiveRecord;
  * @property Weapon $weaponId1
  * @property Weapon $weaponId2
  */
-class StatWeaponVsWeapon extends ActiveRecord
+final class StatWeaponVsWeapon extends ActiveRecord
 {
-    /**
-     * @inheritdoc
-     */
-    public static function find()
+    public static function find(): StatWeaponVsWeaponQuery
     {
-        return new class (static::class) extends ActiveQuery {
-            public function weapon($weapon): ActiveQuery
-            {
-                return $this->weaponImpl(
-                    $weapon instanceof Weapon ? $weapon->id : (int)$weapon
-                );
-            }
-
-            private function weaponImpl(int $weaponId): ActiveQuery
-            {
-                return $this->andWhere(['or',
-                    [
-                        '{{stat_weapon_vs_weapon}}.[[weapon_id_1]]' => $weaponId,
-                        '{{stat_weapon_vs_weapon}}.[[weapon_id_2]]' => $weaponId,
-                    ],
-                ]);
-            }
-        };
+        return new StatWeaponVsWeaponQuery(static::class);
     }
 
     /**

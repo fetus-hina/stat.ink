@@ -358,29 +358,29 @@ class Ability2Info extends Model
                     return null;
 
                 case version_compare($vTag, '4.4.0', '<'):
-                    return (int)ceil(static::calcCoefficient($gp, 30, 0, 2 / 3));
+                    return (int)ceil(self::calcCoefficient($gp, 30, 0, 2 / 3));
 
                 default:
-                    return (int)ceil(static::calcCoefficient($gp, 39, 0, 2 / 3));
+                    return (int)ceil(self::calcCoefficient($gp, 39, 0, 2 / 3));
             }
             // }}}
         })();
         $runSpeed = (function () use ($gp, $vTag): float {
             // {{{
             if (version_compare($vTag, '4.6.0', '<')) {
-                return static::calcCoefficient($gp, 0.72, 0.24, 0.5) / 0.24;
+                return self::calcCoefficient($gp, 0.72, 0.24, 0.5) / 0.24;
             }
 
-            return static::calcCoefficient($gp, 0.769, 0.24, 0.6) / 0.24;
+            return self::calcCoefficient($gp, 0.769, 0.24, 0.6) / 0.24;
             // }}}
         })();
         $runSpeedShoot = (function () use ($gp, $vTag): float {
             // {{{
             if (version_compare($vTag, '4.6.0', '<')) {
-                return static::calcCoefficient($gp, 0.40, 0.12, 0.5) / 0.12;
+                return self::calcCoefficient($gp, 0.40, 0.12, 0.5) / 0.12;
             }
 
-            return static::calcCoefficient($gp, 0.42, 0.12, 0.7) / 0.12;
+            return self::calcCoefficient($gp, 0.42, 0.12, 0.7) / 0.12;
             // }}}
         })();
         $runSpeedCharge = (function () use ($gp): ?float {
@@ -391,17 +391,17 @@ class Ability2Info extends Model
 
             switch ($this->weapon->mainReference->key) {
                 case 'splatspinner':
-                    return 0.7 * static::calcCoefficient($gp, 1, 0.5) / (0.7 * 0.5);
+                    return 0.7 * self::calcCoefficient($gp, 1, 0.5) / (0.7 * 0.5);
 
                 case 'barrelspinner':
-                    return 0.6 * static::calcCoefficient($gp, 1, 0.5) / (0.6 * 0.5);
+                    return 0.6 * self::calcCoefficient($gp, 1, 0.5) / (0.6 * 0.5);
 
                 case 'hydra':
                 case 'nautilus47':
-                    return 0.4 * static::calcCoefficient($gp, 1, 0.5) / (0.4 * 0.5);
+                    return 0.4 * self::calcCoefficient($gp, 1, 0.5) / (0.4 * 0.5);
 
                 case 'kugelschreiber':
-                    return 0.96 * static::calcCoefficient($gp, 1, 0.5) / (0.96 * 0.5);
+                    return 0.96 * self::calcCoefficient($gp, 1, 0.5) / (0.96 * 0.5);
             }
 
             return null;
@@ -409,9 +409,9 @@ class Ability2Info extends Model
         })();
 
         return [
-            'slipPerFrame' => $floor(0.3 - static::calcCoefficient($gp, 0.15), 1),
+            'slipPerFrame' => $floor(0.3 - self::calcCoefficient($gp, 0.15), 1),
             'slipIgnoreFrame' => $slipIgnoreFrame,
-            'slipCap' => round(40 - static::calcCoefficient($gp, 20), 1),
+            'slipCap' => round(40 - self::calcCoefficient($gp, 20), 1),
             'runSpeed' => $runSpeed,
             'runSpeedShoot' => $runSpeedShoot,
             'runSpeedCharge' => $runSpeedCharge,
@@ -442,13 +442,13 @@ class Ability2Info extends Model
                     $this->version &&
                     version_compare($this->version->tag, '1.4.0', '<')
                 ) {
-                    return static::calcCoefficient($gp, 0.5, 1, 0.5);
+                    return self::calcCoefficient($gp, 0.5, 1, 0.5);
                 } else {
-                    return static::calcCoefficient($gp, 0.5, 1, 0.6);
+                    return self::calcCoefficient($gp, 0.5, 1, 0.6);
                 }
 
             default:
-                return static::calcCoefficient($gp, 0.55, 1, 0.5);
+                return self::calcCoefficient($gp, 0.55, 1, 0.5);
         }
         // }}}
     }
@@ -477,20 +477,20 @@ class Ability2Info extends Model
 
         switch ($subKey) {
             case 'quickbomb':
-                return static::calcCoefficient($gp, 0.8, 1.0, 0.5);
+                return self::calcCoefficient($gp, 0.8, 1.0, 0.5);
 
             case 'poisonmist':
             case 'robotbomb':
             case 'tansanbomb':
-                return static::calcCoefficient($gp, 0.7, 1.0, 0.5);
+                return self::calcCoefficient($gp, 0.7, 1.0, 0.5);
 
             case 'jumpbeacon':
             case 'sprinkler':
             case 'trap':
-                return static::calcCoefficient($gp, 0.6, 1.0, 0.5);
+                return self::calcCoefficient($gp, 0.6, 1.0, 0.5);
 
             default:
-                return static::calcCoefficient($gp, 0.65, 1.0, 0.5);
+                return self::calcCoefficient($gp, 0.65, 1.0, 0.5);
         }
         // }}}
     }
@@ -547,7 +547,7 @@ class Ability2Info extends Model
             $getMaxDamage
         ): array {
             $maxDamage = $getMaxDamage($baseDamage);
-            $c = static::calcCoefficient($gp, $maxRate, 1.0);
+            $c = self::calcCoefficient($gp, $maxRate, 1.0);
             $damage = floor($baseDamage * $c * 10.0) / 10.0;
             $suffix = ucfirst(trim((string)$suffix));
             return [
@@ -671,22 +671,22 @@ class Ability2Info extends Model
         $key = $this->weapon->mainReference->key;
 
         $calcRunSpeed = function (float $defaultSpeed) use ($gp): array {
-            $c = static::calcCoefficient($gp, 1.44, $defaultSpeed);
+            $c = self::calcCoefficient($gp, 1.44, $defaultSpeed);
             return [
                 'runSpeedDUPF' => $c,
                 'runSpeedRatio' => $c / $defaultSpeed,
             ];
         };
-        switch (static::weaponWeight($key)) {
-            case static::WEIGHT_LIGHT:
+        switch (self::weaponWeight($key)) {
+            case self::WEIGHT_LIGHT:
                 $results = array_merge($results, $calcRunSpeed(1.04));
                 break;
 
-            case static::WEIGHT_MEDIUM:
+            case self::WEIGHT_MEDIUM:
                 $results = array_merge($results, $calcRunSpeed(0.96));
                 break;
 
-            case static::WEIGHT_HEAVY:
+            case self::WEIGHT_HEAVY:
                 $results = array_merge($results, $calcRunSpeed(0.88));
                 break;
         }
@@ -704,7 +704,7 @@ class Ability2Info extends Model
             return null;
         }
 
-        return 1 / static::calcCoefficient($gp, 1.3, 1.0);
+        return 1 / self::calcCoefficient($gp, 1.3, 1.0);
         // }}}
     }
 
@@ -719,7 +719,7 @@ class Ability2Info extends Model
         }
 
         $duration = function (int $baseFrames, int $maxExtends) use ($gp): array {
-            $c = (int)ceil(static::calcCoefficient($gp, $baseFrames + $maxExtends, $baseFrames));
+            $c = (int)ceil(self::calcCoefficient($gp, $baseFrames + $maxExtends, $baseFrames));
             return [
                 'durationFrames' => $c,
                 'durationRate' => $c / $baseFrames,
@@ -731,7 +731,7 @@ class Ability2Info extends Model
             float $maxExtends,
             float $ratio = 0.5
         ) use ($gp): array {
-            $c = static::calcCoefficient($gp, $base + $maxExtends, $base, $ratio);
+            $c = self::calcCoefficient($gp, $base + $maxExtends, $base, $ratio);
             $tag = ucfirst($tag);
             return [
                 "blastArea{$tag}" => $c,
@@ -748,12 +748,12 @@ class Ability2Info extends Model
                 if ($this->version && version_compare($this->version->tag, '1.4.0', '<')) {
                     return [
                         'armorDurationFrames1' => 120,
-                        'armorDurationFrames2' => (int)ceil(static::calcCoefficient($gp, 540, 360)),
+                        'armorDurationFrames2' => (int)ceil(self::calcCoefficient($gp, 540, 360)),
                     ];
                 }
                 return [
-                    'armorDurationFrames1' => (int)ceil(static::calcCoefficient($gp, 60, 120)),
-                    'armorDurationFrames2' => (int)ceil(static::calcCoefficient($gp, 540, 360)),
+                    'armorDurationFrames1' => (int)ceil(self::calcCoefficient($gp, 60, 120)),
+                    'armorDurationFrames2' => (int)ceil(self::calcCoefficient($gp, 540, 360)),
                 ];
 
             case 'bubble':
@@ -769,7 +769,7 @@ class Ability2Info extends Model
 
             case 'jetpack':
                 $vTag = $this->version->tag ?? '9999.999.999';
-                $inkC = static::calcCoefficient($gp, 4.0, 3.2);
+                $inkC = self::calcCoefficient($gp, 4.0, 3.2);
                 $ink = [
                     'inkRadius' => $inkC,
                     'inkRadiusRatio' => $inkC / 3.2,
@@ -854,26 +854,26 @@ class Ability2Info extends Model
             float $mid = 0.5,
             float $afterK = 1.0
         ) use ($gp): array {
-            $c = static::calcCoefficient($gp, $min + $maxDiff, $min, $mid) * $afterK;
+            $c = self::calcCoefficient($gp, $min + $maxDiff, $min, $mid) * $afterK;
             return [
                 'swimSpeedDUPF' => $c,
                 'swimSpeedRatio' => $c / $min,
             ];
         };
 
-        $weight = static::weaponWeight($this->weapon->mainReference->key);
+        $weight = self::weaponWeight($this->weapon->mainReference->key);
         if ($this->version) {
             // イカニンジャをつけていれば 2.3.x までの計算式が特殊になる
             // そうでなければ以降の式と共通
             if ($this->haveNinja && version_compare($this->version->tag, '2.4.0', '<')) {
                 switch ($weight) {
-                    case static::WEIGHT_LIGHT:
+                    case self::WEIGHT_LIGHT:
                         return $calcSpeed(2.016, 0.384, 0.5, 0.9);
 
-                    case static::WEIGHT_MEDIUM:
+                    case self::WEIGHT_MEDIUM:
                         return $calcSpeed(1.92, 0.48, 0.5, 0.9);
 
-                    case static::WEIGHT_HEAVY:
+                    case self::WEIGHT_HEAVY:
                         return $calcSpeed(1.728, 0.672, 0.5, 0.9);
                 }
             }
@@ -881,7 +881,7 @@ class Ability2Info extends Model
             // 4.2.x までで修正する必要があるのは重量級だけ
             if (
                 version_compare($this->version->tag, '4.3.0', '<') &&
-                $weight === static::WEIGHT_HEAVY
+                $weight === self::WEIGHT_HEAVY
             ) {
                 return $this->haveNinja
                     ? $calcSpeed(1.728, 0.5376, 0.5, 0.9)
@@ -890,17 +890,17 @@ class Ability2Info extends Model
         }
 
         switch ($weight) {
-            case static::WEIGHT_LIGHT:
+            case self::WEIGHT_LIGHT:
                 return $this->haveNinja
                     ? $calcSpeed(2.016, 0.3072, 0.5, 0.9)
                     : $calcSpeed(2.016, 0.384, 0.5, 1.0);
 
-            case static::WEIGHT_MEDIUM:
+            case self::WEIGHT_MEDIUM:
                 return $this->haveNinja
                     ? $calcSpeed(1.92, 0.384, 0.5, 0.9)
                     : $calcSpeed(1.92, 0.48, 0.5, 1.0);
 
-            case static::WEIGHT_HEAVY:
+            case self::WEIGHT_HEAVY:
                 return $this->haveNinja
                     ? $calcSpeed(1.728, 0.5376, 0.64285714285, 0.9)
                     : $calcSpeed(1.728, 0.672, 0.64285714285, 1.0);
@@ -940,7 +940,7 @@ class Ability2Info extends Model
             case 'sputtery':
             case 'spygadget':
             case 'wakaba':
-                return static::WEIGHT_LIGHT;
+                return self::WEIGHT_LIGHT;
 
 
             case 'campingshelter':
@@ -948,10 +948,10 @@ class Ability2Info extends Model
             case 'explosher':
             case 'hydra':
             case 'liter4k':
-                return static::WEIGHT_HEAVY;
+                return self::WEIGHT_HEAVY;
 
             default:
-                return static::WEIGHT_MEDIUM;
+                return self::WEIGHT_MEDIUM;
         }
     }
 }

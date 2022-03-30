@@ -19,17 +19,17 @@ use const SORT_ASC;
  * This is the model class for table "death_reason".
  *
  * @property int $id
- * @property int $type_id
+ * @property int|null $type_id
  * @property string $key
  * @property string $name
- * @property string $weapon_id
+ * @property int|null $weapon_id
  *
  * @property BattleDeathReason[] $battleDeathReasons
  * @property Battle[] $battles
- * @property DeathReasonType $type
- * @property Weapon $weapon
+ * @property DeathReasonType|null $type
+ * @property Weapon|null $weapon
  */
-class DeathReason extends ActiveRecord
+final class DeathReason extends ActiveRecord
 {
     use openapi\Util;
 
@@ -139,7 +139,7 @@ class DeathReason extends ActiveRecord
         return Translator::translateToAll('app-death', $this->name);
     }
 
-    public function getTranslatedName()
+    public function getTranslatedName(): string
     {
         if ($this->type) {
             switch ($this->type->key) {

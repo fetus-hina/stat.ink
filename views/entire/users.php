@@ -1,13 +1,27 @@
 <?php
+
+declare(strict_types=1);
+
 use Base32\Base32;
+use app\components\helpers\Html;
 use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
 use jp3cki\yii2\flot\FlotAsset;
 use jp3cki\yii2\flot\FlotTimeAsset;
 use yii\data\ArrayDataProvider;
-use yii\helpers\Html;
-use yii\helpers\Json;
 use yii\grid\GridView;
+use yii\helpers\Json;
+use yii\web\View;
+
+/**
+ * @var View $this
+ * @var array $agents
+ * @var array $agents2
+ * @var array[] $posts
+ * @var array[] $posts2
+ * @var string[] $agentNames
+ * @var string[] $combineds
+ */
 
 $title = Yii::t('app', 'Battles and Users');
 $this->title = sprintf('%s | %s', Yii::$app->name, $title);

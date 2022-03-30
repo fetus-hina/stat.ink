@@ -30,7 +30,7 @@ class BattleAtom
     {
         $raii = self::switchLanguage($user->defaultLanguage->lang);
         try {
-            return static::renderAtom($user, $only);
+            return self::renderAtom($user, $only);
         } finally {
             unset($raii);
         }
@@ -40,7 +40,7 @@ class BattleAtom
     {
         $raii = self::switchLanguage($user->defaultLanguage->lang);
         try {
-            return static::renderBattleAtom($user, $battle);
+            return self::renderBattleAtom($user, $battle);
         } finally {
             unset($raii);
         }
@@ -78,54 +78,55 @@ class BattleAtom
         $root = $doc->appendChild($doc->createElementNS('http://www.w3.org/2005/Atom', 'feed'));
         $root->appendChild($doc->createElement(
             'id',
-            static::text(
+            self::text(
                 $doc,
-                static::urlUuid(Url::to(['/ostatus/feed', 'screen_name' => $user->screen_name], true))
+                self::urlUuid(Url::to(['/ostatus/feed', 'screen_name' => $user->screen_name], true))
             )
         ));
-        $root->appendChild($doc->createElement('title', static::text($doc, $user->screen_name)));
-        $root->appendChild($doc->createElement('subtitle', static::text($doc, sprintf(
+        $root->appendChild($doc->createElement('title', self::text($doc, $user->screen_name)));
+        $root->appendChild($doc->createElement('subtitle', self::text($doc, sprintf(
             '@%s@%s',
             $user->screen_name,
-            static::getHostName()
+            self::getHostName()
         ))));
-        $root->appendChild($doc->createElement('updated', static::text(
+        $root->appendChild($doc->createElement('updated', self::text(
             $doc,
-            static::datetime($_SERVER['REQUEST_TIME'] ?? time())
+            self::datetime($_SERVER['REQUEST_TIME'] ?? time())
         )));
         $root->appendChild($doc->createElement(
             'logo',
-            static::text($doc, $user->userIcon ? $user->userIcon->absUrl : $user->jdenticonPngUrl)
+            self::text($doc, $user->userIcon ? $user->userIcon->absUrl : $user->jdenticonPngUrl)
         ));
-        $root->appendChild(static::createElement($doc, 'link', [
+        $root->appendChild(self::createElement($doc, 'link', [
             'rel' => 'alternate',
             'type' => 'text/html',
             'href' => Url::to(['/show/user', 'screen_name' => $user->screen_name], true),
         ]));
-        $root->appendChild(static::createElement($doc, 'link', [
+        $root->appendChild(self::createElement($doc, 'link', [
             'rel' => 'self',
             'type' => 'application/atom+xml',
             'href' => Url::to(['/ostatus/feed', 'screen_name' => $user->screen_name], true),
         ]));
-        $root->appendChild(static::createElement($doc, 'link', [
+        $root->appendChild(self::createElement($doc, 'link', [
             'rel' => 'hub',
             'href' => Url::to(['/ostatus/pubsubhubbub'], true),
         ]));
-        $root->appendChild(static::createElement($doc, 'link', [
+        $root->appendChild(self::createElement($doc, 'link', [
             'rel' => 'salmon',
             'href' => Url::to(['/ostatus/salmon', 'screen_name' => $user->screen_name], true),
         ]));
-        $root->appendChild(static::createAuthor($doc, $user));
+        $root->appendChild(self::createAuthor($doc, $user));
 
-        $query = $user->getBattles()
+        $query = Battle::find()
             ->with(['rule', 'map'])
+            ->andWhere(['user_id' => $user->id])
             ->orderBy('[[id]] DESC')
             ->limit(10);
         if ($only) {
             $query->andWhere(['id' => $only]);
         }
         foreach ($query->all() as $battle) {
-            $root->appendChild(static::createEntry($doc, $user, $battle, false));
+            $root->appendChild(self::createEntry($doc, $user, $battle, false));
         }
         $doc->formatOutput = !!YII_DEBUG;
         return $doc->saveXML();
@@ -134,7 +135,7 @@ class BattleAtom
     protected static function renderBattleAtom(User $user, Battle $battle): ?string
     {
         $doc = new DOMDocument('1.0', 'UTF-8');
-        $doc->appendChild(static::createEntry($doc, $user, $battle));
+        $doc->appendChild(self::createEntry($doc, $user, $battle));
         $doc->formatOutput = !!YII_DEBUG;
         return $doc->saveXML();
     }
@@ -168,14 +169,14 @@ class BattleAtom
         return $e;
     }
 
-    private function createAuthor(DOMDocument $doc, User $user): DOMElement
+    private static function createAuthor(DOMDocument $doc, User $user): DOMElement
     {
         $root = $doc->createElement('author');
         $root->appendChild($doc->createElement(
             'id',
-            static::text(
+            self::text(
                 $doc,
-                static::urlUuid(Url::to(['/show/user', 'screen_name' => $user->screen_name], true))
+                self::urlUuid(Url::to(['/show/user', 'screen_name' => $user->screen_name], true))
             )
         ));
         $root->appendChild($doc->createElementNS(
@@ -185,25 +186,25 @@ class BattleAtom
         ));
         $root->appendChild($doc->createElement(
             'uri',
-            static::text(
+            self::text(
                 $doc,
                 Url::to(['/show/user', 'screen_name' => $user->screen_name], true)
             )
         ));
-        $root->appendChild($doc->createElement('name', static::text($doc, $user->name)));
-        $root->appendChild($doc->createElement('email', static::text($doc, sprintf(
+        $root->appendChild($doc->createElement('name', self::text($doc, $user->name)));
+        $root->appendChild($doc->createElement('email', self::text($doc, sprintf(
             '%s@%s',
             $user->screen_name,
-            static::getHostName()
+            self::getHostName()
         ))));
         $root->appendChild($doc->createElement('summary', ' '));
-        $root->appendChild(static::createElement($doc, 'link', [
+        $root->appendChild(self::createElement($doc, 'link', [
             'rel' => 'alternate',
             'type' => 'text/html',
             'href' => Url::to(['/show/user', 'screen_name' => $user->screen_name], true),
         ]));
         $root->appendChild((function () use ($doc, $user) {
-            $link = static::createElement($doc, 'link', [
+            $link = self::createElement($doc, 'link', [
                 'rel' => 'avatar',
                 'type' => '',
                 'href' => $user->userIcon ? $user->userIcon->absUrl : $user->jdenticonPngUrl,
@@ -213,7 +214,7 @@ class BattleAtom
             return $link;
         })());
         $root->appendChild((function () use ($doc) {
-            $link = static::createElement($doc, 'link', [
+            $link = self::createElement($doc, 'link', [
                 'rel' => 'header',
                 'type' => '',
                 'href' => '/headers/original/missing.png',
@@ -225,17 +226,17 @@ class BattleAtom
         $root->appendChild($doc->createElementNS(
             'http://portablecontacts.net/spec/1.0',
             'poco:preferredUsername',
-            static::text($doc, $user->screen_name)
+            self::text($doc, $user->screen_name)
         ));
         $root->appendChild($doc->createElementNS(
             'http://portablecontacts.net/spec/1.0',
             'poco:displayName',
-            static::text($doc, $user->name)
+            self::text($doc, $user->name)
         ));
         $root->appendChild($doc->createElementNS(
             'http://mastodon.social/schema/1.0',
             'mastodon:scope',
-            static::text($doc, 'unlisted')
+            self::text($doc, 'unlisted')
         ));
         return $root;
     }
@@ -251,12 +252,12 @@ class BattleAtom
             'id',
             Url::to(['/show/battle', 'screen_name' => $user->screen_name, 'battle' => $battle->id], true)
         ));
-        $root->appendChild(static::createElement($doc, 'link', [
+        $root->appendChild(self::createElement($doc, 'link', [
             'rel' => 'alternate',
             'type' => 'text/html',
             'href' => Url::to(['/show/battle', 'battle' => $battle->id, 'screen_name' => $user->screen_name], true),
         ]));
-        $root->appendChild(static::createElement($doc, 'link', [
+        $root->appendChild(self::createElement($doc, 'link', [
             'rel' => 'self',
             'type' => 'application/atom+xml',
             'href' => Url::to(
@@ -264,14 +265,14 @@ class BattleAtom
                 true
             ),
         ]));
-        $root->appendChild(static::createElement($doc, 'link', [
+        $root->appendChild(self::createElement($doc, 'link', [
             'rel' => 'mentioned',
             'xmlns:ostatus' => 'http://ostatus.org/schema/1.0',
             'ostatus:object-type' => 'http://activitystrea.ms/schema/1.0/collection',
             'href' => 'http://activityschema.org/collection/public',
         ]));
-        $root->appendChild($doc->createElement('published', static::datetime(strtotime($battle->at))));
-        $root->appendChild($doc->createElement('updated', static::datetime(strtotime($battle->at))));
+        $root->appendChild($doc->createElement('published', self::datetime(strtotime($battle->at))));
+        $root->appendChild($doc->createElement('updated', self::datetime(strtotime($battle->at))));
         $root->appendChild($doc->createElement('title', sprintf('New Battle by %s', $user->screen_name)));
         $root->appendChild($doc->createElementNS(
             'http://activitystrea.ms/spec/1.0/',
@@ -285,33 +286,34 @@ class BattleAtom
         ));
         $content = $root->appendChild($doc->createElement(
             'content',
-            static::text($doc, static::createBattleHtml($user, $battle))
+            self::text($doc, self::createBattleHtml($user, $battle))
         ));
+        assert($content instanceof DOMElement);
         $content->setAttribute('type', 'html');
         $content->setAttribute('xml:lang', Yii::$app->language);
         $root->appendChild($doc->createElementNS(
             'http://mastodon.social/schema/1.0',
             'mastodon:scope',
-            static::text($doc, 'unlisted')
+            self::text($doc, 'unlisted')
         ));
         if ($battle->battleImageResult) {
-            $root->appendChild(static::createElement($doc, 'link', [
-                'rel'    => 'enclosure',
-                'type'   => 'image/jpeg',
+            $root->appendChild(self::createElement($doc, 'link', [
+                'rel' => 'enclosure',
+                'type' => 'image/jpeg',
                 'length' => '0',
-                'href'   => $battle->battleImageResult->url,
+                'href' => $battle->battleImageResult->url,
             ]));
         }
         if ($battle->battleImageJudge) {
-            $root->appendChild(static::createElement($doc, 'link', [
-                'rel'    => 'enclosure',
-                'type'   => 'image/jpeg',
+            $root->appendChild(self::createElement($doc, 'link', [
+                'rel' => 'enclosure',
+                'type' => 'image/jpeg',
                 'length' => '0',
-                'href'   => $battle->battleImageJudge->url,
+                'href' => $battle->battleImageJudge->url,
             ]));
         }
         if ($includeUser) {
-            $root->appendChild(static::createAuthor($doc, $user));
+            $root->appendChild(self::createAuthor($doc, $user));
         }
         return $root;
     }
@@ -361,8 +363,14 @@ class BattleAtom
             ),
             sprintf(
                 '<a href="%s">%s</a>',
-                Url::to(['/show/battle', 'screen_name' => $user->screen_name, 'battle' => $battle->id], true),
-                static::getHostName()
+                Url::to(
+                    ['/show/battle',
+                        'screen_name' => $user->screen_name,
+                        'battle' => $battle->id,
+                    ],
+                    true,
+                ),
+                self::getHostName()
             ),
         ]));
     }

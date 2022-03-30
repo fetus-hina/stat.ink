@@ -1,17 +1,21 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2019 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2021 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
 
-namespace yii\helpers;
+declare(strict_types=1);
+
+namespace app\components\helpers;
 
 use Yii;
 use app\models\Rank2;
+use yii\bootstrap\Html as BaseHtml;
+use yii\helpers\Url;
 
-class Html extends BaseHtml
+final class Html extends BaseHtml
 {
     public static $enableServerPush = true;
     private static $pushed = [];
@@ -107,9 +111,12 @@ class Html extends BaseHtml
     public static function renderCss(array $styles): string
     {
         return implode('', array_map(
-            fn (string $selector, array $style): string => sprintf('%s{%s}', $selector, static::cssStyleFromArray($style)),
+            fn (string $selector, array $style): string => vsprintf('%s{%s}', [
+                $selector,
+                static::cssStyleFromArray($style),
+            ]),
             array_keys($styles),
-            array_values($styles)
+            array_values($styles),
         ));
     }
 

@@ -10,13 +10,15 @@ declare(strict_types=1);
 
 namespace app\actions\api\internal;
 
-use DateTime;
 use DateTimeImmutable;
+use DateTimeInterface;
 use DateTimeZone;
 use Yii;
 use app\models\BlogEntry;
 use yii\helpers\ArrayHelper;
 use yii\web\ViewAction;
+
+use const SORT_DESC;
 
 class BlogEntryAction extends ViewAction
 {
@@ -30,9 +32,15 @@ class BlogEntryAction extends ViewAction
         $tz = new DateTimeZone('Etc/UTC');
 
         return ArrayHelper::getColumn(
-            BlogEntry::find()->latest()->limit(3)->all(),
+            BlogEntry::find()
+                ->orderBy([
+                    '{{blog_entry}}.[[at]]' => SORT_DESC,
+                ])
+                ->limit(3)
+                ->all(),
             function (BlogEntry $entry) use ($f, $now, $tz): array {
-                $at = (new DateTimeImmutable($entry->at))->setTimezone($tz);
+                $at = (new DateTimeImmutable($entry->at))
+                    ->setTimezone($tz);
 
                 return [
                     'id' => $entry->uuid,
@@ -40,7 +48,7 @@ class BlogEntryAction extends ViewAction
                     'url' => $entry->url,
                     'at' => [
                         'time' => $at->getTimestamp(),
-                        'iso8601' => $at->format(DateTime::ATOM),
+                        'iso8601' => $at->format(DateTimeInterface::ATOM),
                         'natural' => $f->asDatetime($at, 'medium'),
                         'relative' => $f->asRelativeTime($at, $now),
                     ],

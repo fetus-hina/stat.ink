@@ -12,8 +12,7 @@ use Curl\Curl;
 use Yii;
 use app\components\behaviors\TimestampBehavior;
 use app\components\helpers\BattleAtom;
-use app\components\helpers\db\Now;
-use yii\db\ActiveQuery;
+use app\models\query\OstatusPubsubhubbubQuery;
 use yii\db\ActiveRecord;
 use yii\helpers\Url;
 
@@ -30,21 +29,11 @@ use yii\helpers\Url;
  *
  * @property User $topicUser
  */
-class OstatusPubsubhubbub extends ActiveRecord
+final class OstatusPubsubhubbub extends ActiveRecord
 {
-    public static function find()
+    public static function find(): OstatusPubsubhubbubQuery
     {
-        $query = new class (static::class) extends ActiveQuery {
-            public function active(): ActiveQuery
-            {
-                return $this->andWhere(['or',
-                    ['lease_until' => null],
-                    ['>=', 'lease_until', new Now()],
-                ]);
-            }
-        };
-        $query->init();
-        return $query;
+        return new OstatusPubsubhubbubQuery(static::class);
     }
 
     /**

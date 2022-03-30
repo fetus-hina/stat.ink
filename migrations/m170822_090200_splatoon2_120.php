@@ -7,6 +7,7 @@
  */
 
 use app\components\db\Migration;
+use yii\db\Query;
 
 class m170822_090200_splatoon2_120 extends Migration
 {
@@ -27,7 +28,7 @@ class m170822_090200_splatoon2_120 extends Migration
         $this->delete('splatoon_version2', ['tag' => '1.2.0']);
     }
 
-    private function getid(string $tag): int
+    private function getId(string $tag): int
     {
         return (new Query())
             ->select('id')

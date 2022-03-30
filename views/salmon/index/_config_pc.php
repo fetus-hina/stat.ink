@@ -1,10 +1,17 @@
 <?php
+
 declare(strict_types=1);
 
 use app\assets\SalmonWorkListConfigAsset;
-use yii\helpers\Html;
+use app\components\helpers\Html;
+use yii\web\View;
+
+/**
+ * @var View $this
+ */
 
 SalmonWorkListConfigAsset::register($this);
+
 ?>
 <div class="row">
   <div class="col-xs-12" id="table-config">

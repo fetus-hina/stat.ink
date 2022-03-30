@@ -23,7 +23,6 @@ class IkalogJsonResponseFormatter extends Component implements ResponseFormatter
             fwrite($tmpfile, $this->formatRow($row) . "\x0d\x0a");
         }
         fseek($tmpfile, 0, SEEK_SET);
-        $response->content = null;
         $response->stream = $tmpfile;
     }
 

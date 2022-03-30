@@ -1,9 +1,20 @@
 <?php
+
+declare(strict_types=1);
+
 use app\assets\TableResponsiveForceAsset;
+use app\components\helpers\Html;
 use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
 use statink\yii2\sortableTable\SortableTableAsset;
-use yii\helpers\Html;
+use yii\web\View;
+use app\models\Language;
+
+/**
+ * @var array[] $langs
+ * @var View $this
+ * @var array[] $types
+ */
 
 TableResponsiveForceAsset::register($this);
 

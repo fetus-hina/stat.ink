@@ -44,7 +44,7 @@ class Version
 
     public static function getFullHash(string $shortHash): ?string
     {
-        $lines = static::doGit(sprintf('git rev-parse %s -q', escapeshellarg($shortHash)));
+        $lines = self::doGit(sprintf('git rev-parse %s -q', escapeshellarg($shortHash)));
         return $lines ? array_shift($lines) : null;
     }
 
@@ -56,7 +56,7 @@ class Version
             return [];
         }
 
-        if (!$lines = static::doGit(sprintf('git tag --points-at %s', escapeshellarg($revision)))) {
+        if (!$lines = self::doGit(sprintf('git tag --points-at %s', escapeshellarg($revision)))) {
             return [];
         }
 
@@ -104,7 +104,7 @@ class Version
             'git log -n 1 --format=%s --date=raw',
             escapeshellarg($format)
         );
-        if (!$lines = static::doGit($gitCommand)) {
+        if (!$lines = self::doGit($gitCommand)) {
             return false;
         }
         return trim(array_shift($lines));

@@ -1,8 +1,16 @@
 <?php
+
 declare(strict_types=1);
 
 use app\components\i18n\Formatter;
 use app\components\widgets\SalmonPlayers;
+use app\models\Salmon2;
+use yii\web\View;
+
+/**
+ * @var Salmon2 $model
+ * @var View $this
+ */
 
 $players = $model->players;
 if (!$players) {

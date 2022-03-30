@@ -12,11 +12,12 @@ namespace app\actions\user;
 
 use Yii;
 use app\components\helpers\AddressUpdatedEmailSender;
+use app\components\helpers\T;
 use app\models\EmailForm;
 use app\models\EmailVerifyForm;
-use yii\web\ViewAction;
+use yii\base\Action;
 
-class EditEmailAction extends ViewAction
+final class EditEmailAction extends Action
 {
     public function run()
     {
@@ -37,16 +38,18 @@ class EditEmailAction extends ViewAction
                         $user->save();
 
                         AddressUpdatedEmailSender::sendAddressUpdatedEmail(
-                            $oldEmail ? (string)$oldEmail : null,
-                            $form->email ? (string)$form->email : null,
+                            $oldEmail,
+                            $form->email,
                             $user,
-                            $oldEmailLang
+                            $oldEmailLang,
                         );
                     }
-                    $this->controller->redirect(['user/profile']);
+                    T::webController($this->controller)
+                        ->redirect(['user/profile']);
                     return;
                 } elseif ($form->email === $user->email) {
-                    $this->controller->redirect(['user/profile']);
+                    T::webController($this->controller)
+                        ->redirect(['user/profile']);
                     return;
                 }
 

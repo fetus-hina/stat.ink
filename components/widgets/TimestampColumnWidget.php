@@ -13,8 +13,8 @@ namespace app\components\widgets;
 use DateTimeImmutable;
 use DateTimeZone;
 use Yii;
+use app\components\helpers\Html;
 use yii\base\Widget;
-use yii\helpers\Html;
 
 class TimestampColumnWidget extends Widget
 {

@@ -41,10 +41,10 @@ class WeaponsUseAction extends BaseAction
         }
 
         return $this->controller->render('weapons-use', [
-            'form' => $form,
-            'weapons' => $this->weapons,
-            'rules' => $this->rules,
             'data' => $this->getData($form),
+            'form' => $form,
+            'rules' => $this->getRules(),
+            'weapons' => $this->getWeapons(),
         ]);
     }
 
@@ -67,7 +67,7 @@ class WeaponsUseAction extends BaseAction
         foreach (WeaponType::find()->orderBy('[[id]] ASC')->all() as $type) {
             $typeName = Yii::t('app-weapon', $type->name);
             $ret[$typeName] = array_merge(
-                ["@{$type->key}" => Yii::t('app-weapon', 'All of {0}', $typeName)],
+                ["@{$type->key}" => Yii::t('app-weapon', 'All of {0}', [$typeName])],
                 (function (WeaponType $type): array {
                     $ret = [];
                     foreach ($type->weapons as $weapon) {
@@ -89,8 +89,9 @@ class WeaponsUseAction extends BaseAction
                 $ret,
                 (function (WeaponType $type): array {
                     $ret = [];
-                    $weapons = $type->getWeapons()
+                    $weapons = Weapon::find()
                         ->andWhere('[[id]] = [[main_group_id]]')
+                        ->andWhere(['type_id' => $type->id])
                         ->asArray()
                         ->all();
                     foreach ($weapons as $weapon) {
@@ -197,11 +198,14 @@ class WeaponsUseAction extends BaseAction
             ])
             ->orderBy('[[date]] ASC');
 
-        return array_map(fn (array $row): array => [
-            date('Y-m-d', strtotime(date('o-\WW', strtotime($row['date'])))),
-            Yii::t('app-event', $row['name']),
-            $row['icon'],
-        ], $query->asArray()->all());
+        return array_map(
+            fn (Event $row): array => [
+                date('Y-m-d', strtotime(date('o-\WW', strtotime($row->date)))),
+                Yii::t('app-event', $row->name),
+                $row->icon,
+            ],
+            $query->all(),
+        );
     }
 
     protected function makeLegend($weapon, $rule): string

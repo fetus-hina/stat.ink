@@ -12,12 +12,12 @@ namespace app\components\widgets;
 
 use Yii;
 use app\assets\XPowerHistoryAsset;
+use app\components\helpers\Html;
 use app\models\Battle2;
 use app\models\Lobby2;
 use app\models\Mode2;
 use app\models\Rank2;
 use yii\base\Widget;
-use yii\helpers\Html;
 use yii\helpers\Json;
 
 use const SORT_DESC;

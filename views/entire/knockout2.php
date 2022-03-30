@@ -3,16 +3,24 @@
 declare(strict_types=1);
 
 use app\assets\EntireKnockoutAsset;
+use app\components\helpers\Html;
 use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
+use app\models\Knockout2FilterForm;
 use app\models\Map2;
 use app\models\RankGroup2;
 use app\models\Rule2;
 use statink\yii2\stages\spl2\Spl2Stage;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Html;
 use yii\helpers\Json;
+use yii\web\View;
 use yii\widgets\ActiveForm;
+
+/**
+ * @var Knockout2FilterForm $form
+ * @var View $this
+ * @var array $data
+ */
 
 $title = Yii::t('app', 'Knockout Ratio');
 $this->title = Yii::$app->name . ' | ' . $title;

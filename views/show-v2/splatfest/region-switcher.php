@@ -2,11 +2,23 @@
 
 declare(strict_types=1);
 
+use app\models\Region2;
+use app\models\User;
+use yii\base\DynamicModel;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Html;
+use app\components\helpers\Html;
 use yii\helpers\Json;
 use yii\helpers\Url;
+use yii\web\View;
+
+/**
+ * @var DynamicModel $input
+ * @var Region2 $region
+ * @var Region2[] $regions
+ * @var User $user
+ * @var View $this
+ */
 
 $this->registerJs(sprintf(
   '$(%s).change(function(){location.href=$("option:selected",this).data("url")});',

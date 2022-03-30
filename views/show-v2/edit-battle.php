@@ -1,6 +1,23 @@
 <?php
-use yii\bootstrap\Html;
+
+use app\models\Battle2;
+use app\models\Battle2DeleteForm;
+use app\models\Battle2Form;
+use app\models\User;
 use yii\bootstrap\ActiveForm;
+use yii\bootstrap\Html;
+use yii\web\View;
+
+/**
+ * @var Battle2 $battle
+ * @var Battle2DeleteForm $delete
+ * @var Battle2Form $form
+ * @var User $user
+ * @var View $this
+ * @var array<string, array<string|int, string>> $weapons
+ * @var array<string|int, string> $maps
+ * @var array<string|int, string> $ranks
+ */
 
 $title = Yii::t('app', 'Edit Your Battle: #{0}', [$battle->id]);
 $this->title = sprintf('%s | %s', Yii::$app->name, $title);

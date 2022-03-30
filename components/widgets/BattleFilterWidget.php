@@ -9,6 +9,7 @@
 namespace app\components\widgets;
 
 use Yii;
+use app\components\helpers\Html;
 use app\components\helpers\Resource;
 use app\components\helpers\db\Now;
 use app\models\GameMode;
@@ -20,13 +21,13 @@ use app\models\Special;
 use app\models\SplatoonVersion;
 use app\models\Subweapon;
 use app\models\User;
+use app\models\UserWeapon;
 use app\models\Weapon;
 use app\models\WeaponType;
 use jp3cki\yii2\datetimepicker\BootstrapDateTimePickerAsset;
 use yii\base\Widget;
 use yii\bootstrap\ActiveForm;
 use yii\db\Query;
-use yii\helpers\Html;
 
 class BattleFilterWidget extends Widget
 {
@@ -152,7 +153,7 @@ class BattleFilterWidget extends Widget
                     ->all();
                 $mode = [];
                 if (count($rules) > 1) {
-                    $mode['@' . $gameMode['key']] = Yii::t('app-rule', 'All of {0}', $gameModeText);
+                    $mode['@' . $gameMode['key']] = Yii::t('app-rule', 'All of {0}', [$gameModeText]);
                 }
                 foreach ($rules as $rule) {
                     $mode[$rule['key']] = Yii::t('app-rule', $rule['name']);
@@ -193,14 +194,17 @@ class BattleFilterWidget extends Widget
         return $form->field($this->filter, 'weapon')->dropDownList($list)->label(false);
     }
 
-    protected function getUsedWeaponIdList(?User $user = null)
+    protected function getUsedWeaponIdList(?User $user = null): array
     {
         if (!$user) {
-            return null;
+            return [];
         }
+
         return array_map(
-            fn ($row) => (int)$row['weapon_id'],
-            $user->getUserWeapons()->asArray()->all()
+            fn (UserWeapon $row): int => (int)$row->weapon_id,
+            UserWeapon::find()
+                ->andWhere(['user_id' => $user->id])
+                ->all(),
         );
     }
 
@@ -225,7 +229,7 @@ class BattleFilterWidget extends Widget
             if (count($tmp) > 1) {
                 uasort($tmp, 'strnatcasecmp');
                 $ret[$typeName] = array_merge(
-                    ['@' . $type['key'] => Yii::t('app-weapon', 'All of {0}', $typeName)],
+                    ['@' . $type['key'] => Yii::t('app-weapon', 'All of {0}', [$typeName])],
                     $tmp
                 );
             } elseif (count($tmp) === 1) {
@@ -252,7 +256,9 @@ class BattleFilterWidget extends Widget
                     ->asArray()
                     ->all();
                 foreach ($list as $item) {
-                    $ret['~' . $item['key']] = Yii::t('app', '{0} etc.', Yii::t('app-weapon', $item['name']));
+                    $ret['~' . $item['key']] = Yii::t('app', '{0} etc.', [
+                        Yii::t('app-weapon', $item['name']),
+                    ]);
                 }
                 uasort($ret, 'strnatcasecmp');
                 return $ret;

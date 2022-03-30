@@ -1,10 +1,23 @@
 <?php
+
 declare(strict_types=1);
 
+use app\components\helpers\Html;
 use app\components\widgets\AdWidget;
 use app\components\widgets\BattleFilterWidget;
 use app\components\widgets\SnsWidget;
-use yii\helpers\Html;
+use app\models\BattleFilterForm;
+use app\models\CauseOfDeathGroupForm;
+use app\models\User;
+use yii\web\View;
+
+/**
+ * @var BattleFilterForm $filter
+ * @var CauseOfDeathGroupForm $group
+ * @var User $user
+ * @var View $this
+ * @var stdClass[] $list
+ */
 
 $this->context->layout = 'main';
 
@@ -28,13 +41,14 @@ $total = array_reduce(
     function (stdClass $row): int {
       return (int)$row->count;
     },
-    $list
+    $list,
   ),
   function (int $a, int $b): int {
     return $a + $b;
   },
-  0
+  0,
 );
+
 ?>
 <div class="container">
   <h1><?= Html::encode($title) ?></h1>

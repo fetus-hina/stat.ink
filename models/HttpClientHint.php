@@ -100,9 +100,9 @@ class HttpClientHint extends ActiveRecord
         }
 
         $results = [];
-        foreach (static::getSupportedHeaders() as $key => $type) {
+        foreach (self::getSupportedHeaders() as $key => $type) {
             if ($headers->has($key)) {
-                $value = static::convertHeaderValue((string)$headers->get($key), $type);
+                $value = self::convertHeaderValue((string)$headers->get($key), $type);
                 if ($value !== null) {
                     $results[$key] = $value;
                 }

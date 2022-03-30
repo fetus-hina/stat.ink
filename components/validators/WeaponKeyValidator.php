@@ -35,10 +35,13 @@ class WeaponKeyValidator extends Validator
         }
     }
 
+    /**
+     * @inheritdoc
+     */
     protected function validateValue($value)
     {
         if ($this->validateValueImpl($value)) {
-            return;
+            return null;
         }
         return [$this->message, []];
     }

@@ -6,23 +6,27 @@
  * @author AIZAWA Hina <hina@fetus.jp>
  */
 
+declare(strict_types=1);
+
 namespace app\actions\entire;
 
 use Yii;
+use app\components\helpers\T;
 use app\models\Map;
 use app\models\Rule;
 use app\models\StatWeaponKDWinRate;
 use app\models\StatWeaponKillDeath;
 use app\models\Weapon;
 use app\models\WeaponType;
+use yii\base\Action;
 use yii\db\Query;
 use yii\web\NotFoundHttpException;
-use yii\web\ViewAction as BaseAction;
+use yii\web\Response;
 
-class WeaponAction extends BaseAction
+final class WeaponAction extends Action
 {
-    public $weapon;
-    public $rule;
+    public ?Weapon $weapon = null;
+    public ?Rule $rule = null;
 
     public function init()
     {
@@ -46,25 +50,28 @@ class WeaponAction extends BaseAction
         }
     }
 
+    /**
+     * @return Response|string
+     */
     public function run()
     {
         if (!$this->rule) {
-            $this->controller->redirect(['entire/weapon',
-                'weapon' => $this->weapon->key,
-                'rule' => 'nawabari',
-            ]);
-            return;
+            return T::webController($this->controller)
+                ->redirect(['entire/weapon',
+                    'weapon' => $this->weapon->key,
+                    'rule' => 'nawabari',
+                ]);
         }
 
         return $this->controller->render('weapon', [
-            'weapons' => $this->weapons,
+            'weapons' => $this->getWeapons(),
             'weapon' => $this->weapon,
-            'rules' => $this->rules,
+            'rules' => $this->getRules(),
             'rule' => $this->rule,
-            'maps' => $this->maps,
-            'killDeath' => $this->killDeath,
-            'mapWP' => $this->mapWinPercentage,
-            'useCount' => $this->useCount,
+            'maps' => $this->getMaps(),
+            'killDeath' => $this->getKillDeath(),
+            'mapWP' => $this->getMapWinPercentage(),
+            'useCount' => $this->getUseCount(),
         ]);
     }
 
@@ -105,15 +112,21 @@ class WeaponAction extends BaseAction
     {
         $ret = [];
         foreach (WeaponType::find()->orderBy('id')->all() as $weaponType) {
-            $ret[Yii::t('app-weapon', $weaponType->name)] = (function (array $weapons) {
+            $weapons = Weapon::find()
+                ->andWhere(['type_id' => $weaponType->id])
+                ->asArray()
+                ->all();
+
+            $ret[Yii::t('app-weapon', $weaponType->name)] = (function () use ($weapons): array {
                 $ret = [];
                 foreach ($weapons as $weapon) {
                     $ret[$weapon['key']] = Yii::t('app-weapon', $weapon['name']);
                 }
                 uasort($ret, 'strnatcasecmp');
                 return $ret;
-            })($weaponType->getWeapons()->asArray()->all());
+            })();
         }
+
         return $ret;
     }
 

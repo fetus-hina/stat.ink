@@ -12,15 +12,16 @@ namespace app\components\widgets\alerts;
 
 use Yii;
 use app\assets\LanguageDialogAsset;
+use app\components\helpers\Html;
+use app\components\helpers\T;
 use app\components\widgets\Alert;
 use app\components\widgets\FA;
 use app\components\widgets\FlagIcon;
 use app\models\Language;
 use app\models\SupportLevel;
 use yii\base\Widget;
-use yii\helpers\Html;
 
-class LanguageSupportLevelWarning extends Widget
+final class LanguageSupportLevelWarning extends Widget
 {
     private $language;
 
@@ -120,7 +121,7 @@ class LanguageSupportLevelWarning extends Widget
             return '';
         }
 
-        if (Yii::$app->isEnabledMachineTranslation) {
+        if (T::webApplication(Yii::$app)->isEnabledMachineTranslation) {
             return Html::tag('p', implode(' ', [
                 Html::encode('Currently displayed using machine translation (Powered by DeepL).'),
                 $this->renderMachineTranslateSwitch(false),

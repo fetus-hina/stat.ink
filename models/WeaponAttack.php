@@ -16,10 +16,10 @@ use yii\db\ActiveRecord;
  * @property int $id
  * @property int $main_weapon_id
  * @property int $version_id
- * @property string $damage
+ * @property float $damage
  *
- * @property SplatoonVersion $version
  * @property Weapon $mainWeapon
+ * @property SplatoonVersion $version
  */
 class WeaponAttack extends ActiveRecord
 {
@@ -32,7 +32,10 @@ class WeaponAttack extends ActiveRecord
             ->all();
 
         // 指定バージョンより先のバージョンは捨てる
-        $list = array_filter($list, fn ($target) => $target->version && version_compare($target->version->tag, $version->tag, '<='));
+        $list = array_filter(
+            $list,
+            fn (self $target): bool => version_compare($target->version->tag, $version->tag, '<=')
+        );
 
         // 新しい順に並び替える
         usort($list, fn ($a, $b) => version_compare($b->version->tag, $a->version->tag));
@@ -104,7 +107,7 @@ class WeaponAttack extends ActiveRecord
 
     public function getHitToKill()
     {
-        return ceil(100 / $this->damage);
+        return ceil(100 / (float)$this->damage);
     }
 
     public function getDamageCap()

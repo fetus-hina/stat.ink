@@ -1,13 +1,28 @@
 <?php
+
 use app\assets\BattleListAsset;
+use app\components\helpers\Html;
 use app\components\widgets\AdWidget;
 use app\components\widgets\BattleFilterWidget;
 use app\components\widgets\SnsWidget;
+use app\models\BattleFilterForm;
+use app\models\BattleSummary;
 use app\models\Language;
+use app\models\User;
 use yii\bootstrap\ActiveForm;
-use yii\helpers\Html;
+use yii\data\ActiveDataProvider;
 use yii\helpers\Url;
+use yii\web\View;
 use yii\widgets\ListView;
+
+/**
+ * @var ActiveDataProvider $battleDataProvider
+ * @var BattleFilterForm $filter
+ * @var BattleSummary $summary
+ * @var User $user
+ * @var View $this
+ * @var string $permLink
+ */
 
 BattleListAsset::register($this);
 
@@ -29,7 +44,8 @@ if ($user->twitter != '') {
   $this->registerMetaTag(['name' => 'twitter:creator', 'content' => '@' . $user->twitter]);
 }
 
-foreach (Language::find()->standard()->all() as $lang) {
+$langs = Language::find()->standard()->all(); // @phpstan-ignore-line
+foreach ($langs as $lang) {
   $this->registerLinkTag([
     'rel' => 'alternate',
     'type' => 'application/rss+xml',
@@ -59,6 +75,7 @@ foreach (Language::find()->standard()->all() as $lang) {
     'hreflang'  => $lang->lang,
   ]);
 }
+unset($langs);
 
 $battle = $user->latestBattle;
 $f = Yii::$app->formatter;
@@ -67,10 +84,11 @@ $f = Yii::$app->formatter;
   <h1><?= Html::encode($title) ?></h1>
   
 <?php
-if ($battle &&
-    $battle->agent &&
-    $battle->agent->isIkaLog &&
-    $battle->agent->getIsOldIkalogAsAtTheTime($battle->at)
+if (
+  $battle &&
+  $battle->agent &&
+  $battle->agent->isIkalog &&
+  $battle->agent->getIsOldIkalogAsAtTheTime($battle->at)
 ) { ?>
 <?php $this->registerCss('.old-ikalog{font-weight:bold;color:#f00}') ?>
   <p class="old-ikalog">

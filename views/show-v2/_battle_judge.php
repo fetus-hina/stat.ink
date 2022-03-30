@@ -1,5 +1,13 @@
 <?php
-use yii\helpers\Html;
+
+use app\components\helpers\Html;
+use app\models\Battle2;
+use yii\web\View;
+
+/**
+ * @var Battle2 $model
+ * @var View $this
+ */
 
 $this->registerCss('.cell-judge .progress{width:100%;min-width:150px;margin-bottom:0}');
 
@@ -61,20 +69,20 @@ if ($model->my_team_percent !== null && $model->his_team_percent !== null) {
     } elseif ($model->map && $model->map->area !== null) {
         $myTitle = Yii::t('app', '~{point}p', [
             'point' => Yii::$app->formatter->asInteger(round(
-                $model->my_team_percent * $model->map->area / 100
+                (float)$model->my_team_percent * (float)$model->map->area / 100
             )),
         ]);
         $hisTitle = Yii::t('app', '~{point}p', [
             'point' => Yii::$app->formatter->asInteger(round(
-                $model->his_team_percent * $model->map->area / 100
+                (float)$model->his_team_percent * (float)$model->map->area / 100
             )),
         ]);
     }
     $v = $draw(
         $model->my_team_percent,
         $model->his_team_percent,
-        $fmt->asPercent($model->my_team_percent / 100, 1),
-        $fmt->asPercent($model->his_team_percent / 100, 1),
+        $fmt->asPercent((float)$model->my_team_percent / 100, 1),
+        $fmt->asPercent((float)$model->his_team_percent / 100, 1),
         $myTitle,
         $hisTitle
     );

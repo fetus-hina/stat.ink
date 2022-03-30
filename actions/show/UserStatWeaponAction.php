@@ -6,16 +6,20 @@
  * @author AIZAWA Hina <hina@fetus.jp>
  */
 
+declare(strict_types=1);
+
 namespace app\actions\show;
 
 use Yii;
+use app\components\helpers\T;
 use app\models\User;
+use yii\base\Action;
 use yii\web\NotFoundHttpException;
-use yii\web\ViewAction as BaseAction;
+use yii\web\Response;
 
-class UserStatWeaponAction extends BaseAction
+final class UserStatWeaponAction extends Action
 {
-    public function run()
+    public function run(): Response
     {
         $request = Yii::$app->getRequest();
         $user = User::findOne(['screen_name' => $request->get('screen_name')]);
@@ -23,9 +27,12 @@ class UserStatWeaponAction extends BaseAction
             throw new NotFoundHttpException(Yii::t('app', 'Could not find user'));
         }
 
-        return $this->controller->redirect(
-            ['show/user-stat-by-weapon', 'screen_name' => $user->screen_name],
-            301
-        );
+        return T::webController($this->controller)
+            ->redirect(
+                ['show/user-stat-by-weapon',
+                    'screen_name' => $user->screen_name,
+                ],
+                301,
+            );
     }
 }

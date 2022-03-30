@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2017 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2022 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -78,7 +78,8 @@ class SplatoonVersionGroup2 extends ActiveRecord
 
     public function getReleaseDate(): DateTimeImmutable
     {
-        $model = $this->getVersions()
+        $model = SplatoonVersion2::find()
+            ->andWhere(['group_id' => $this->id])
             ->orderBy(['released_at' => SORT_ASC])
             ->limit(1)
             ->one();
@@ -87,7 +88,8 @@ class SplatoonVersionGroup2 extends ActiveRecord
 
     public function getObsoleteDate(): ?DateTimeImmutable
     {
-        $lastVersionOfThisGroup = $this->getVersions()
+        $lastVersionOfThisGroup = SplatoonVersion2::find()
+            ->andWhere(['group_id' => $this->id])
             ->orderBy(['released_at' => SORT_DESC])
             ->limit(1)
             ->one();

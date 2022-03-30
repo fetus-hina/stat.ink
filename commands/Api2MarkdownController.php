@@ -11,6 +11,7 @@ declare(strict_types=1);
 namespace app\commands;
 
 use IntlChar;
+use RuntimeException;
 use Yii;
 use app\models\Ability2;
 use app\models\DeathReason2;
@@ -22,7 +23,9 @@ use app\models\SalmonMap2;
 use app\models\SalmonSpecial2;
 use app\models\SalmonTitle2;
 use app\models\SalmonWaterLevel2;
+use app\models\Weapon2;
 use app\models\WeaponCategory2;
+use app\models\WeaponType2;
 use yii\console\Controller;
 use yii\helpers\StringHelper;
 
@@ -44,7 +47,6 @@ class Api2MarkdownController extends Controller
 
     public function actionUpdateBattle(): int
     {
-        // {{{
         $path = Yii::getAlias('@app/doc/api-2/post-battle.md');
         $markdown = preg_replace_callback(
             '/(?<start><!--replace:(?<kind>[\w-]+)-->)(?<oldvalue>.*?)(?<end><!--endreplace-->)/us',
@@ -54,7 +56,7 @@ class Api2MarkdownController extends Controller
                         ob_start();
                         $status = $this->actionWeapon();
                         if ($status !== 0) {
-                            return $status;
+                            throw new RuntimeException("Failed subcommand `weapon` (status={$status})");
                         }
                         $repl = ob_get_clean();
                         return $match['start'] . "\n" . rtrim($repl) . "\n" . $match['end'];
@@ -63,7 +65,7 @@ class Api2MarkdownController extends Controller
                         ob_start();
                         $status = $this->actionStage();
                         if ($status !== 0) {
-                            return $status;
+                            throw new RuntimeException("Failed subcommand `stage` (status={$status})");
                         }
                         $repl = ob_get_clean();
                         return $match['start'] . "\n" . rtrim($repl) . "\n" . $match['end'];
@@ -72,7 +74,7 @@ class Api2MarkdownController extends Controller
                         ob_start();
                         $status = $this->actionAbility();
                         if ($status !== 0) {
-                            return $status;
+                            throw new RuntimeException("Failed subcommand `ability` (status={$status})");
                         }
                         $repl = ob_get_clean();
                         return $match['start'] . "\n" . rtrim($repl) . "\n" . $match['end'];
@@ -81,7 +83,7 @@ class Api2MarkdownController extends Controller
                         ob_start();
                         $status = $this->actionDeathReason();
                         if ($status !== 0) {
-                            return $status;
+                            throw new RuntimeException("Failed subcommand `death-reason` (status={$status})");
                         }
                         $repl = ob_get_clean();
                         return $match['start'] . "\n" . rtrim($repl) . "\n" . $match['end'];
@@ -96,7 +98,6 @@ class Api2MarkdownController extends Controller
         file_put_contents($path, $markdown);
         echo "Updated $path\n";
         return 0;
-        // }}}
     }
 
     public function actionUpdateSalmon(): int
@@ -159,14 +160,16 @@ class Api2MarkdownController extends Controller
             ->orderBy(['id' => SORT_ASC])
             ->all();
         foreach ($categories as $category) {
-            $types = $category->getWeaponTypes()
+            $types = WeaponType2::find()
+                ->andWhere(['category_id' => $category->id])
                 ->orderBy([
                     'category_id' => SORT_ASC,
                     'rank' => SORT_ASC,
                 ])
                 ->all();
             foreach ($types as $type) {
-                $weapons = $type->getWeapons()
+                $weapons = Weapon2::find()
+                    ->andWhere(['type_id' => $type->id])
                     ->orderBy(['key' => SORT_ASC])
                     ->asArray()
                     ->all();
@@ -200,7 +203,7 @@ class Api2MarkdownController extends Controller
                 }
             }
         }
-        echo static::createTable($data);
+        echo self::createTable($data);
         return 0;
         // }}}
     }
@@ -210,8 +213,6 @@ class Api2MarkdownController extends Controller
         // {{{
         $compats = [
             'kombu' => 'combu',
-        ];
-        $remarks = [
         ];
         $maps = Map2::find()->all();
         usort($maps, function (Map2 $a, Map2 $b): int {
@@ -242,7 +243,8 @@ class Api2MarkdownController extends Controller
         ];
         foreach ($maps as $map) {
             // {{{
-            $colRemarks = $remarks[$map->key] ?? [];
+            // $colRemarks = $remarks[$map->key] ?? [];
+            $colRemarks = [];
             if (isset($compats[$map->key])) {
                 $colRemarks[] = sprintf(
                     '互換性のため %s も受け付けます',
@@ -270,7 +272,7 @@ class Api2MarkdownController extends Controller
             ];
             // }}}
         }
-        echo static::createTable($data);
+        echo self::createTable($data);
         return 0;
         // }}}
     }
@@ -278,8 +280,8 @@ class Api2MarkdownController extends Controller
     public function actionAbility(): int
     {
         // {{{
-        $compats = [];
-        $remarks = [];
+        // $compats = [];
+        // $remarks = [];
         $abilities = Ability2::find()->orderBy(['key' => SORT_ASC])->all();
 
         $data = [
@@ -292,23 +294,24 @@ class Api2MarkdownController extends Controller
         ];
         foreach ($abilities as $ability) {
             // {{{
-            $colRemarks = $remarks[$ability->key] ?? [];
-            if (isset($compats[$ability->key])) {
-                $colRemarks[] = sprintf(
-                    '互換性のため %s も受け付けます',
-                    implode(', ', array_map(
-                        fn (string $value): string => '`' . $value . '`',
-                        (array)$compats[$ability->key]
-                    ))
-                );
-                $colRemarks[] = sprintf(
-                    'Also accepts %s for compatibility',
-                    implode(', ', array_map(
-                        fn (string $value): string => '`' . $value . '`',
-                        (array)$compats[$ability->key]
-                    ))
-                );
-            }
+            $colRemarks = [];
+            // $colRemarks = $remarks[$ability->key] ?? [];
+            // if (isset($compats[$ability->key])) {
+            //     $colRemarks[] = sprintf(
+            //         '互換性のため %s も受け付けます',
+            //         implode(', ', array_map(
+            //             fn (string $value): string => '`' . $value . '`',
+            //             (array)$compats[$ability->key]
+            //         ))
+            //     );
+            //     $colRemarks[] = sprintf(
+            //         'Also accepts %s for compatibility',
+            //         implode(', ', array_map(
+            //             fn (string $value): string => '`' . $value . '`',
+            //             (array)$compats[$ability->key]
+            //         ))
+            //     );
+            // }
             $data[] = [
                 sprintf('`%s`', $ability->key),
                 $ability->splatnet !== null ? sprintf('`%d`', $ability->splatnet) : '',
@@ -320,7 +323,7 @@ class Api2MarkdownController extends Controller
             ];
             // }}}
         }
-        echo static::createTable($data);
+        echo self::createTable($data);
         return 0;
         // }}}
     }
@@ -362,7 +365,7 @@ class Api2MarkdownController extends Controller
             ];
             // }}}
         }
-        echo static::createTable($data);
+        echo self::createTable($data);
         return 0;
         // }}}
     }
@@ -370,8 +373,8 @@ class Api2MarkdownController extends Controller
     public function actionSalmonTitle(): int
     {
         // {{{
-        $compats = [];
-        $remarks = [];
+        // $compats = [];
+        // $remarks = [];
         $titles = SalmonTitle2::find()->orderBy(['id' => SORT_ASC])->all();
 
         $data = [
@@ -384,23 +387,24 @@ class Api2MarkdownController extends Controller
         ];
         foreach ($titles as $title) {
             // {{{
-            $colRemarks = $remarks[$title->key] ?? [];
-            if (isset($compats[$title->key])) {
-                $colRemarks[] = sprintf(
-                    '互換性のため %s も受け付けます',
-                    implode(', ', array_map(
-                        fn (string $value): string => '`' . $value . '`',
-                        (array)$compats[$title->key]
-                    ))
-                );
-                $colRemarks[] = sprintf(
-                    'Also accepts %s for compatibility',
-                    implode(', ', array_map(
-                        fn (string $value): string => '`' . $value . '`',
-                        (array)$compats[$title->key]
-                    ))
-                );
-            }
+            $colRemarks = [];
+            // $colRemarks = $remarks[$title->key] ?? [];
+            // if (isset($compats[$title->key])) {
+            //     $colRemarks[] = sprintf(
+            //         '互換性のため %s も受け付けます',
+            //         implode(', ', array_map(
+            //             fn (string $value): string => '`' . $value . '`',
+            //             (array)$compats[$title->key]
+            //         ))
+            //     );
+            //     $colRemarks[] = sprintf(
+            //         'Also accepts %s for compatibility',
+            //         implode(', ', array_map(
+            //             fn (string $value): string => '`' . $value . '`',
+            //             (array)$compats[$title->key]
+            //         ))
+            //     );
+            // }
             $data[] = [
                 sprintf('`%s`', $title->key),
                 $title->splatnet !== null ? sprintf('`%d`', $title->splatnet) : '',
@@ -412,7 +416,7 @@ class Api2MarkdownController extends Controller
             ];
             // }}}
         }
-        echo static::createTable($data);
+        echo self::createTable($data);
         return 0;
         // }}}
     }
@@ -420,8 +424,8 @@ class Api2MarkdownController extends Controller
     public function actionSalmonBoss(): int
     {
         // {{{
-        $compats = [];
-        $remarks = [];
+        // $compats = [];
+        // $remarks = [];
         $titles = SalmonBoss2::find()->orderBy(['key' => SORT_ASC])->all();
 
         $data = [
@@ -434,23 +438,24 @@ class Api2MarkdownController extends Controller
         ];
         foreach ($titles as $title) {
             // {{{
-            $colRemarks = $remarks[$title->key] ?? [];
-            if (isset($compats[$title->key])) {
-                $colRemarks[] = sprintf(
-                    '互換性のため %s も受け付けます',
-                    implode(', ', array_map(
-                        fn (string $value): string => '`' . $value . '`',
-                        (array)$compats[$title->key]
-                    ))
-                );
-                $colRemarks[] = sprintf(
-                    'Also accepts %s for compatibility',
-                    implode(', ', array_map(
-                        fn (string $value): string => '`' . $value . '`',
-                        (array)$compats[$title->key]
-                    ))
-                );
-            }
+            $colRemarks = [];
+            // $colRemarks = $remarks[$title->key] ?? [];
+            // if (isset($compats[$title->key])) {
+            //     $colRemarks[] = sprintf(
+            //         '互換性のため %s も受け付けます',
+            //         implode(', ', array_map(
+            //             fn (string $value): string => '`' . $value . '`',
+            //             (array)$compats[$title->key]
+            //         ))
+            //     );
+            //     $colRemarks[] = sprintf(
+            //         'Also accepts %s for compatibility',
+            //         implode(', ', array_map(
+            //             fn (string $value): string => '`' . $value . '`',
+            //             (array)$compats[$title->key]
+            //         ))
+            //     );
+            // }
             $data[] = [
                 sprintf('`%s`', $title->key),
                 implode('<br>', array_filter([
@@ -469,7 +474,7 @@ class Api2MarkdownController extends Controller
             ];
             // }}}
         }
-        echo static::createTable($data);
+        echo self::createTable($data);
         return 0;
         // }}}
     }
@@ -477,8 +482,8 @@ class Api2MarkdownController extends Controller
     public function actionSalmonWaterLevel(): int
     {
         // {{{
-        $compats = [];
-        $remarks = [];
+        // $compats = [];
+        // $remarks = [];
         $rows = SalmonWaterLevel2::find()->orderBy(['id' => SORT_ASC])->all();
 
         $data = [
@@ -491,23 +496,24 @@ class Api2MarkdownController extends Controller
         ];
         foreach ($rows as $row) {
             // {{{
-            $colRemarks = $remarks[$row->key] ?? [];
-            if (isset($compats[$row->key])) {
-                $colRemarks[] = sprintf(
-                    '互換性のため %s も受け付けます',
-                    implode(', ', array_map(
-                        fn (string $value): string => '`' . $value . '`',
-                        (array)$compats[$row->key]
-                    ))
-                );
-                $colRemarks[] = sprintf(
-                    'Also accepts %s for compatibility',
-                    implode(', ', array_map(
-                        fn (string $value): string => '`' . $value . '`',
-                        (array)$compats[$row->key]
-                    ))
-                );
-            }
+            $colRemarks = [];
+            // $colRemarks = $remarks[$row->key] ?? [];
+            // if (isset($compats[$row->key])) {
+            //     $colRemarks[] = sprintf(
+            //         '互換性のため %s も受け付けます',
+            //         implode(', ', array_map(
+            //             fn (string $value): string => '`' . $value . '`',
+            //             (array)$compats[$row->key]
+            //         ))
+            //     );
+            //     $colRemarks[] = sprintf(
+            //         'Also accepts %s for compatibility',
+            //         implode(', ', array_map(
+            //             fn (string $value): string => '`' . $value . '`',
+            //             (array)$compats[$row->key]
+            //         ))
+            //     );
+            // }
             $data[] = [
                 sprintf('`%s`', $row->key),
                 sprintf('`%s`', $row->splatnet),
@@ -519,7 +525,7 @@ class Api2MarkdownController extends Controller
             ];
             // }}}
         }
-        echo static::createTable($data);
+        echo self::createTable($data);
         return 0;
         // }}}
     }
@@ -527,8 +533,8 @@ class Api2MarkdownController extends Controller
     public function actionSalmonEvent(): int
     {
         // {{{
-        $compats = [];
-        $remarks = [];
+        // $compats = [];
+        // $remarks = [];
         $rows = SalmonEvent2::find()->orderBy(['id' => SORT_ASC])->all();
 
         $data = [
@@ -541,23 +547,24 @@ class Api2MarkdownController extends Controller
         ];
         foreach ($rows as $row) {
             // {{{
-            $colRemarks = $remarks[$row->key] ?? [];
-            if (isset($compats[$row->key])) {
-                $colRemarks[] = sprintf(
-                    '互換性のため %s も受け付けます',
-                    implode(', ', array_map(
-                        fn (string $value): string => '`' . $value . '`',
-                        (array)$compats[$row->key]
-                    ))
-                );
-                $colRemarks[] = sprintf(
-                    'Also accepts %s for compatibility',
-                    implode(', ', array_map(
-                        fn (string $value): string => '`' . $value . '`',
-                        (array)$compats[$row->key]
-                    ))
-                );
-            }
+            $colRemarks = [];
+            // $colRemarks = $remarks[$row->key] ?? [];
+            // if (isset($compats[$row->key])) {
+            //     $colRemarks[] = sprintf(
+            //         '互換性のため %s も受け付けます',
+            //         implode(', ', array_map(
+            //             fn (string $value): string => '`' . $value . '`',
+            //             (array)$compats[$row->key]
+            //         ))
+            //     );
+            //     $colRemarks[] = sprintf(
+            //         'Also accepts %s for compatibility',
+            //         implode(', ', array_map(
+            //             fn (string $value): string => '`' . $value . '`',
+            //             (array)$compats[$row->key]
+            //         ))
+            //     );
+            // }
             $data[] = [
                 sprintf('`%s`', $row->key),
                 sprintf('`%s`', $row->splatnet),
@@ -569,7 +576,7 @@ class Api2MarkdownController extends Controller
             ];
             // }}}
         }
-        echo static::createTable($data);
+        echo self::createTable($data);
         return 0;
         // }}}
     }
@@ -577,7 +584,7 @@ class Api2MarkdownController extends Controller
     public function actionSalmonWeapon(): int
     {
         // {{{
-        $compats = [];
+        // $compats = [];
         $data = [
             [
                 '指定文字列<br>Key String',
@@ -595,22 +602,22 @@ class Api2MarkdownController extends Controller
             ->all();
         foreach ($weapons as $weapon) {
             $remarks = [];
-            if (isset($compats[$weapon['key']])) {
-                $remarks[] = sprintf(
-                    '互換性のため %s も受け付けます',
-                    implode(', ', array_map(
-                        fn (string $value): string => '`' . $value . '`',
-                        (array)$compats[$weapon['key']]
-                    ))
-                );
-                $remarks[] = sprintf(
-                    'Also accepts %s for compatibility',
-                    implode(', ', array_map(
-                        fn (string $value): string => '`' . $value . '`',
-                        (array)$compats[$weapon['key']]
-                    ))
-                );
-            }
+            // if (isset($compats[$weapon['key']])) {
+            //     $remarks[] = sprintf(
+            //         '互換性のため %s も受け付けます',
+            //         implode(', ', array_map(
+            //             fn (string $value): string => '`' . $value . '`',
+            //             (array)$compats[$weapon['key']]
+            //         ))
+            //     );
+            //     $remarks[] = sprintf(
+            //         'Also accepts %s for compatibility',
+            //         implode(', ', array_map(
+            //             fn (string $value): string => '`' . $value . '`',
+            //             (array)$compats[$weapon['key']]
+            //         ))
+            //     );
+            // }
             $data[] = [
                 sprintf('`%s`', $weapon['key']),
                 isset($weapon['splatnet']) ? sprintf('`%d`', $weapon['splatnet']) : '',
@@ -625,7 +632,7 @@ class Api2MarkdownController extends Controller
                 implode('<br>', $remarks),
             ];
         }
-        echo static::createTable($data);
+        echo self::createTable($data);
         return 0;
         // }}}
     }
@@ -633,7 +640,7 @@ class Api2MarkdownController extends Controller
     public function actionSalmonSpecial(): int
     {
         // {{{
-        $compats = [];
+        // $compats = [];
         $data = [
             [
                 '指定文字列<br>Key String',
@@ -649,22 +656,22 @@ class Api2MarkdownController extends Controller
             ->all();
         foreach ($weapons as $weapon) {
             $remarks = [];
-            if (isset($compats[$weapon['key']])) {
-                $remarks[] = sprintf(
-                    '互換性のため %s も受け付けます',
-                    implode(', ', array_map(
-                        fn (string $value): string => '`' . $value . '`',
-                        (array)$compats[$weapon['key']]
-                    ))
-                );
-                $remarks[] = sprintf(
-                    'Also accepts %s for compatibility',
-                    implode(', ', array_map(
-                        fn (string $value): string => '`' . $value . '`',
-                        (array)$compats[$weapon['key']]
-                    ))
-                );
-            }
+            // if (isset($compats[$weapon['key']])) {
+            //     $remarks[] = sprintf(
+            //         '互換性のため %s も受け付けます',
+            //         implode(', ', array_map(
+            //             fn (string $value): string => '`' . $value . '`',
+            //             (array)$compats[$weapon['key']]
+            //         ))
+            //     );
+            //     $remarks[] = sprintf(
+            //         'Also accepts %s for compatibility',
+            //         implode(', ', array_map(
+            //             fn (string $value): string => '`' . $value . '`',
+            //             (array)$compats[$weapon['key']]
+            //         ))
+            //     );
+            // }
             $data[] = [
                 sprintf('`%s`', $weapon['key']),
                 isset($weapon['splatnet']) ? sprintf('`%d`', $weapon['splatnet']) : '',
@@ -675,7 +682,7 @@ class Api2MarkdownController extends Controller
                 implode('<br>', $remarks),
             ];
         }
-        echo static::createTable($data);
+        echo self::createTable($data);
         return 0;
         // }}}
     }
@@ -705,7 +712,7 @@ class Api2MarkdownController extends Controller
                 $stage['splatnet_hint'] ? sprintf('`%s`', $stage['splatnet_hint']) : ' ',
             ];
         }
-        echo static::createTable($data);
+        echo self::createTable($data);
         return 0;
         // }}}
     }
@@ -716,7 +723,7 @@ class Api2MarkdownController extends Controller
         $widths = [];
         foreach ($rows as $row) {
             foreach (array_values($row) as $i => $column) {
-                $w = static::calcStringWidth($column);
+                $w = self::calcStringWidth($column);
                 $widths[$i] = max($widths[$i] ?? 0, $w);
             }
         }
@@ -741,11 +748,11 @@ class Api2MarkdownController extends Controller
     private static function createTable(array $rows): string
     {
         // {{{
-        $widths = static::calcWidths($rows);
+        $widths = self::calcWidths($rows);
 
         $result = '';
         foreach (array_values($rows) as $i => $row) {
-            $result .= static::createTableRow($row, $widths) . "\n";
+            $result .= self::createTableRow($row, $widths) . "\n";
             if ($i === 0) {
                 $result .= sprintf("|%s|\n", implode('|', array_map(
                     fn (int $cellWidth): string => str_repeat('-', $cellWidth),

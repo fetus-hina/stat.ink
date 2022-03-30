@@ -272,7 +272,10 @@ class V1 extends Base
                                 Yii::t('app-apidoc1', 'Weapon'),
                                 'app-weapon',
                                 Weapon::find()
-                                    ->naturalOrder()
+                                    ->orderBy([
+                                        'type_id' => SORT_ASC,
+                                        'key' => SORT_ASC,
+                                    ])
                                     ->all()
                             ),
                         ]),
@@ -280,8 +283,11 @@ class V1 extends Base
                             'type' => 'string',
                             'enum' => ArrayHelper::getColumn(
                                 Weapon::find()
-                                    ->naturalOrder()
-                                    ->asarray()
+                                    ->orderBy([
+                                        'type_id' => SORT_ASC,
+                                        'key' => SORT_ASC,
+                                    ])
+                                    ->asArray()
                                     ->all(),
                                 'key'
                             ),

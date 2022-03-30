@@ -1,9 +1,23 @@
 <?php
+
+declare(strict_types=1);
+
 use app\assets\TableResponsiveForceAsset;
+use app\components\helpers\Html;
 use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
+use app\models\GearType;
+use app\models\Language;
 use statink\yii2\sortableTable\SortableTableAsset;
-use yii\helpers\Html;
+use yii\web\View;
+
+/**
+ * @var GearType $type
+ * @var Language[] $langs
+ * @var View $this
+ * @var array[] $gears
+ * @var array[] $types
+ */
 
 TableResponsiveForceAsset::register($this);
 

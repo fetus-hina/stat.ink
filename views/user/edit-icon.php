@@ -7,7 +7,7 @@ use app\models\User;
 use app\models\UserIcon;
 use statink\yii2\jdenticon\Jdenticon;
 use yii\bootstrap\ActiveForm;
-use yii\helpers\Html;
+use app\components\helpers\Html;
 use yii\web\View;
 
 /**

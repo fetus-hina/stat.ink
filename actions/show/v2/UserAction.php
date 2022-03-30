@@ -6,23 +6,30 @@
  * @author AIZAWA Hina <hina@fetus.jp>
  */
 
+declare(strict_types=1);
+
 namespace app\actions\show\v2;
 
 use Yii;
+use app\components\helpers\T;
 use app\models\Battle2;
 use app\models\Battle2FilterForm;
 use app\models\User;
+use yii\base\Action;
 use yii\data\ActiveDataProvider;
 use yii\helpers\Url;
 use yii\web\Cookie;
 use yii\web\NotFoundHttpException;
-use yii\web\ViewAction as BaseAction;
+use yii\web\Response;
 
 use const ARRAY_FILTER_USE_KEY;
 use const SORT_DESC;
 
-class UserAction extends BaseAction
+final class UserAction extends Action
 {
+    /**
+     * @return Response|string
+     */
     public function run()
     {
         $request = Yii::$app->getRequest();
@@ -47,8 +54,8 @@ class UserAction extends BaseAction
             $next = $_GET;
             unset($next['v']);
             $next[0] = 'show-v2/user';
-            $this->controller->redirect(Url::to($next));
-            return;
+            return T::webController($this->controller)
+                ->redirect(Url::to($next));
         }
 
         $permLink = Url::to(
@@ -56,6 +63,7 @@ class UserAction extends BaseAction
             true
         );
 
+        // @phpstan-ignore-next-line
         $battle = Battle2::find()
             ->withFreshness()
             ->with([
@@ -103,8 +111,8 @@ class UserAction extends BaseAction
                         ARRAY_FILTER_USE_KEY
                     ),
                 ];
-                $this->controller->redirect(Url::to($next, true));
-                return;
+                return T::webController($this->controller)
+                    ->redirect(Url::to($next, true));
             }
 
             $battle->applyFilter($filter);
@@ -119,7 +127,7 @@ class UserAction extends BaseAction
 
         $summary = $battle->summary;
 
-        $template = $this->viewMode === 'simple' ? 'user.simple.php' : 'user';
+        $template = $this->getViewMode() === 'simple' ? 'user.simple.php' : 'user';
         return $this->controller->render($template, [
             'user' => $user,
             'filter' => $filter,
@@ -136,7 +144,8 @@ class UserAction extends BaseAction
         ]);
     }
 
-    public function getViewMode()
+    /** @return 'standard'|'simple' */
+    public function getViewMode(): string
     {
         $request = Yii::$app->request;
         $mode = null;

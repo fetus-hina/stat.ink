@@ -4,16 +4,28 @@ declare(strict_types=1);
 
 use app\assets\StatByMapRuleAsset;
 use app\assets\TableResponsiveForceAsset;
+use app\components\helpers\Html;
 use app\components\widgets\AdWidget;
 use app\components\widgets\Battle2FilterWidget;
 use app\components\widgets\SnsWidget;
 use app\components\widgets\UserMiniInfo2;
 use app\components\widgets\WinLoseLegend;
+use app\models\Battle2FilterForm;
+use app\models\User;
 use jp3cki\yii2\flot\FlotPieAsset;
 use statink\yii2\stages\spl2\Spl2Stage;
-use yii\helpers\Html;
 use yii\helpers\Json;
 use yii\helpers\Url;
+use yii\web\View;
+
+/**
+ * @var Battle2FilterForm $filter
+ * @var User $user
+ * @var View $this
+ * @var array $data
+ * @var array<string, string> $mapNames
+ * @var array<string, string> $ruleNames
+ */
 
 TableResponsiveForceAsset::register($this);
 StatByMapRuleAsset::register($this);

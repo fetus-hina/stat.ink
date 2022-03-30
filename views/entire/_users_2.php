@@ -1,8 +1,18 @@
 <?php
-use yii\helpers\Html;
+
+declare(strict_types=1);
+
+use app\components\helpers\Html;
 use yii\helpers\Json;
+use yii\web\View;
+
+/**
+ * @var View $this
+ * @var array $agents
+ */
 
 $fmt = Yii::$app->formatter;
+
 ?>
 <?= Html::tag(
   'div',

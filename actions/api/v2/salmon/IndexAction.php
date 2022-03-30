@@ -38,14 +38,14 @@ class IndexAction extends ViewAction
         ]);
         $form->attributes = Yii::$app->getRequest()->get();
         if ($this->isAuthMode) {
-            if (!$user = Yii::$app->getUser()->getIdentity()) {
+            if (!$user = Yii::$app->user->identity) {
                 throw new UnauthorizedHttpException('Unauthorized');
             }
 
             $form->screen_name = $user->screen_name;
         }
 
-        if (!$query = $form->find()) {
+        if (($list = $form->findAll()) === null) {
             $resp->statusCode = 400; // bad request
             return $form->getErrors();
         }
@@ -58,7 +58,7 @@ class IndexAction extends ViewAction
                     return $model->toJsonArray();
                 }
             },
-            $query->all()
+            $list,
         );
     }
 }

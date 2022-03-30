@@ -3,13 +3,25 @@
 declare(strict_types=1);
 
 use app\assets\SimpleBattleListAsset;
+use app\components\helpers\Html;
+use app\components\helpers\T;
 use app\components\i18n\Formatter;
 use app\components\widgets\FA;
 use app\models\Salmon2;
-use yii\helpers\Html;
+use app\models\User;
+use app\models\query\Salmon2Query;
+use yii\data\ActiveDataProvider;
+use yii\web\View;
 use yii\widgets\ListView;
 
+/**
+ * @var ActiveDataProvider $dataProvider
+ * @var User $user
+ * @var View $this
+ */
+
 SimpleBattleListAsset::register($this);
+
 ?>
 <div class="text-center">
   <?= ListView::widget([
@@ -22,7 +34,7 @@ SimpleBattleListAsset::register($this);
   ]) . "\n" ?>
 </div>
 <?= $this->render('_summary', [
-    'summary' => $dataProvider->query->summary(),
+    'summary' => T::is(Salmon2Query::class, $dataProvider->query)->summary(),
 ]) . "\n" ?>
 <p>
   <?= Html::a(

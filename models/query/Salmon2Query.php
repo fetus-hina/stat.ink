@@ -6,12 +6,16 @@
  * @author AIZAWA Hina <hina@fetus.jp>
  */
 
-namespace app\models;
+declare(strict_types=1);
+
+namespace app\models\query;
 
 use Yii;
+use app\models\Salmon2;
+use app\models\User;
 use yii\db\ActiveQuery;
 
-class Salmon2Query extends ActiveQuery
+final class Salmon2Query extends ActiveQuery
 {
     private $summaryCache = null;
 

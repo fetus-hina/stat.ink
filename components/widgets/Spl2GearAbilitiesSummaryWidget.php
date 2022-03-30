@@ -13,15 +13,15 @@ namespace app\components\widgets;
 use Yii;
 use app\assets\GearAbilityNumberSwitcherAsset;
 use app\assets\Spl2WeaponAsset;
+use app\components\helpers\Html;
 use app\models\Ability2Info;
 use yii\base\Widget;
 use yii\bootstrap\ButtonDropdown;
 use yii\data\ArrayDataProvider;
 use yii\grid\GridView;
-use yii\helpers\Html;
 use yii\helpers\Json;
 
-class Spl2GearAbilitiesSummaryWidget extends Widget
+final class Spl2GearAbilitiesSummaryWidget extends Widget
 {
     private static $serial = 0;
     public $summary;
@@ -193,7 +193,7 @@ class Spl2GearAbilitiesSummaryWidget extends Widget
                                 return '';
                             }
 
-                            $id = sprintf('%s-%d', $this->id, ++static::$serial);
+                            $id = sprintf('%s-%d', $this->id, ++self::$serial);
                             $this->view->registerJs(sprintf(
                                 'jQuery(%s).gearAbilityNumberSwitcher(%s);',
                                 Json::encode(sprintf('.%s-fmt-selector', $this->id)),
@@ -228,7 +228,7 @@ class Spl2GearAbilitiesSummaryWidget extends Widget
                     [
                         'label' => Yii::t('app', 'Effects'),
                         'format' => 'ntext',
-                        'value' => fn (Ability2Info $model): string => (string)$model->coefficient,
+                        'value' => fn (Ability2Info $model): string => (string)$model->getCoefficient(),
                     ],
                 ],
             ]),

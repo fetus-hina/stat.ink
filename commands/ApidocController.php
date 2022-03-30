@@ -13,14 +13,14 @@ namespace app\commands;
 use DateTimeImmutable;
 use DateTimeZone;
 use Yii;
+use app\components\helpers\Html;
 use app\components\openapi\doc\V1 as V1Generator;
 use app\components\openapi\doc\V2 as V2Generator;
 use app\models\Country;
-use app\models\TimeZone;
+use app\models\Timezone;
 use app\models\TimezoneGroup;
 use yii\console\Controller;
 use yii\helpers\FileHelper;
-use yii\helpers\Html;
 
 class ApidocController extends Controller
 {
@@ -52,8 +52,7 @@ class ApidocController extends Controller
     {
         Yii::$app->language = $langCodeLong;
 
-        $successful = true;
-        $successful = $this->createV2($langCodeShort) && $successful;
+        $successful = $this->createV2($langCodeShort);
         $successful = $this->createV1($langCodeShort) && $successful;
         return $successful;
     }
@@ -234,7 +233,7 @@ class ApidocController extends Controller
                 ['colspan' => 5]
             )),
             implode('', array_map(
-                function (TimeZone $tz): string {
+                function (Timezone $tz): string {
                     $tz_ = new DateTimeZone($tz->identifier);
                     $offsetJan = (new DateTimeImmutable('2020-01-08T00:00:00', $tz_))
                         ->format('P');
@@ -297,7 +296,7 @@ class ApidocController extends Controller
             function (array $match) use ($flagIconCssVersion, $cc): string {
                 switch ($match[0]) {
                     case '{cdn}':
-                        return static::FLAGICON_CDN;
+                        return self::FLAGICON_CDN;
 
                     case '{version}':
                         return rawurlencode($flagIconCssVersion);
@@ -309,7 +308,7 @@ class ApidocController extends Controller
                         return $match[0];
                 }
             },
-            static::FLAGICON_URL
+            self::FLAGICON_URL,
         );
     }
 

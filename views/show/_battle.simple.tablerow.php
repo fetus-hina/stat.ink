@@ -1,10 +1,18 @@
 <?php
+
 declare(strict_types=1);
 
 use app\assets\SimpleBattleListAsset;
+use app\components\helpers\Html;
 use app\components\widgets\KillRatioBadgeWidget;
-use yii\helpers\Html;
+use app\models\Battle;
 use yii\helpers\Url;
+use yii\web\View;
+
+/**
+ * @var Battle $model
+ * @var View $this
+ */
 
 SimpleBattleListAsset::register($this);
 

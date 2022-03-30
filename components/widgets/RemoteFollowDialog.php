@@ -11,10 +11,10 @@ declare(strict_types=1);
 namespace app\components\widgets;
 
 use Yii;
+use app\components\helpers\Html;
 use app\models\RemoteFollowModalForm;
 use yii\base\Widget;
 use yii\bootstrap\ActiveForm;
-use yii\helpers\Html;
 
 class RemoteFollowDialog extends Widget
 {

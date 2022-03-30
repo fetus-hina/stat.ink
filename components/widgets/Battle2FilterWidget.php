@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2019 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2022 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -11,12 +11,14 @@ declare(strict_types=1);
 namespace app\components\widgets;
 
 use Yii;
+use app\components\helpers\Html;
 use app\models\Map2;
 use app\models\RankGroup2;
 use app\models\Special2;
 use app\models\SplatoonVersionGroup2;
 use app\models\Subweapon2;
 use app\models\User;
+use app\models\UserWeapon2;
 use app\models\Weapon2;
 use app\models\WeaponCategory2;
 use jp3cki\yii2\datetimepicker\BootstrapDateTimePickerAsset;
@@ -25,7 +27,6 @@ use yii\bootstrap\ActiveForm;
 use yii\db\ActiveQuery;
 use yii\db\Query;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Html;
 
 use const SORT_ASC;
 
@@ -242,7 +243,7 @@ class Battle2FilterWidget extends Widget
             $this->createMainWeaponList($weaponIdList),
             $this->createGroupedMainWeaponList($weaponIdList),
             $this->createSubWeaponList($weaponIdList),
-            $this->createSpecialWeaponList($weaponIdList)
+            $this->createSpecialWeaponList($weaponIdList),
         );
         return (string)$form->field($this->filter, 'weapon')->dropDownList($list)->label(false);
     }
@@ -252,9 +253,12 @@ class Battle2FilterWidget extends Widget
         if (!$user) {
             return null;
         }
+
         return array_map(
-            fn ($row) => (int)$row['weapon_id'],
-            $user->getUserWeapon2s()->asArray()->all()
+            fn (UserWeapon2 $row): int => (int)$row->weapon_id,
+            UserWeapon2::find()
+                ->andWhere(['user_id' => $user->id])
+                ->all(),
         );
     }
 
@@ -287,7 +291,7 @@ class Battle2FilterWidget extends Widget
                     uasort($weapons, 'strnatcasecmp');
                     $ret[$groupLabel] = count($weapons) > 1
                         ? array_merge(
-                            ['@' . $type->key => Yii::t('app-weapon2', 'All of {0}', $typeName)],
+                            ['@' . $type->key => Yii::t('app-weapon2', 'All of {0}', [$typeName])],
                             $weapons
                         )
                         : $weapons;
@@ -461,34 +465,29 @@ class Battle2FilterWidget extends Widget
 
         $versions = (function (): array {
             $result = [];
+            /** @var array[] $groups */
             $groups = SplatoonVersionGroup2::find()->with('versions')->asArray()->all();
             usort($groups, fn (array $a, array $b): int => version_compare($b['tag'], $a['tag']));
             foreach ($groups as $group) {
                 $n = count($group['versions']);
                 if ($n == 1) {
                     $version = $group['versions'][0];
-                    $result['v' . $version['tag']] = Yii::t(
-                        'app',
-                        'Version {0}',
-                        Yii::t('app-version2', $version['name'])
-                    );
+                    $result['v' . $version['tag']] = Yii::t('app', 'Version {0}', [
+                        Yii::t('app-version2', $version['name']),
+                    ]);
                 } elseif ($n > 1) {
-                    $result['~v' . $group['tag']] = Yii::t(
-                        'app',
-                        'Version {0}',
-                        Yii::t('app-version2', $group['name'])
-                    );
+                    $result['~v' . $group['tag']] = Yii::t('app', 'Version {0}', [
+                        Yii::t('app-version2', $group['name']),
+                    ]);
                     usort($group['versions'], fn (array $a, array $b): int => version_compare($b['tag'], $a['tag']));
                     foreach ($group['versions'] as $i => $version) {
                         $isLast = ($i === $n - 1);
                         $result['v' . $version['tag']] = sprintf(
                             '%s %s',
                             $isLast ? '┗' : '┣',
-                            Yii::t(
-                                'app',
-                                'Version {0}',
-                                Yii::t('app-version2', $version['name'])
-                            )
+                            Yii::t('app', 'Version {0}', [
+                                Yii::t('app-version2', $version['name']),
+                            ]),
                         );
                     }
                 }

@@ -1,12 +1,24 @@
 <?php
+
 use app\assets\KillRatioColumnAsset;
+use app\components\helpers\Html;
 use app\components\helpers\WeaponShortener;
 use app\components\widgets\EmbedVideo;
 use app\components\widgets\KillRatioBadgeWidget;
-use yii\helpers\Html;
+use app\models\Battle;
+use yii\web\View;
+
+/**
+ * @var Battle $model
+ * @var View $this
+ */
 
 KillRatioColumnAsset::register($this);
 $this->registerJs('jQuery(".kill-ratio").killRatioColumn();');
+
+$endAt = $model->end_at !== null
+  ? new DateTimeImmutable($model->end_at, new DateTimeZone(Yii::$app->timeZone))
+  : null;
 
 $f = Yii::$app->formatter;
 ?>
@@ -106,7 +118,7 @@ $f = Yii::$app->formatter;
       ])
       : ''
   ) ?></td>
-  <td class="cell-level"><?= Html::encode($model->level) ?></td>
+  <td class="cell-level"><?= Html::encode((string)$model->level) ?></td>
   <td class="cell-result"><?= implode('&nbsp;', array_filter([
     $model->is_win === null
       ? Html::encode('?')
@@ -162,34 +174,33 @@ $f = Yii::$app->formatter;
     )) . "\n"
   ?>
   <td class="cell-point"><?= Html::encode($model->my_point ? ($model->inked ?? '?') : '') ?></td> 
-  <td class="cell-rank-in-team"><?= Html::encode($model->rank_in_team) ?></td>
+  <td class="cell-rank-in-team"><?= Html::encode((string)$model->rank_in_team) ?></td>
   <td class="cell-datetime">
-<?php if ($model->end_at === null): ?>
+<?php if ($endAt === null) { ?>
     <?= Html::encode(Yii::t('app', 'N/A')) . "\n" ?>
-<?php else: ?>
-<?php $t = new DateTimeImmutable($model->end_at, new DateTimeZone(Yii::$app->timeZone)) ?>
+<?php } else { ?>
     <?= Html::tag(
       'time',
-      Html::encode($f->asDateTime($t, 'short')),
+      Html::encode($f->asDateTime($endAt, 'short')),
       [
-        'datetime' => $t->setTimeZone(new DateTimeZone('Etc/UTC'))->format(DateTime::ATOM),
+        'datetime' => $endAt->setTimeZone(new DateTimeZone('Etc/UTC'))->format(DateTime::ATOM),
       ]
     ) . "\n" ?>
-<?php endif ?>
+<?php } ?>
   </td>
   <td class="cell-reltime">
-<?php if ($model->end_at === null): ?>
+<?php if ($endAt === null) { ?>
     <?= Html::encode(Yii::t('app', 'N/A')) . "\n" ?>
-<?php else: ?>
+<?php } else { ?>
     <?= Html::tag(
       'time',
-      Html::encode($f->asRelativeTime($t, $_SERVER['REQUEST_TIME'] ?? time())),
+      Html::encode($f->asRelativeTime($endAt, $_SERVER['REQUEST_TIME'] ?? time())),
       [
         'class' => 'auto-tooltip',
-        'title' => $f->asDateTime($t, 'medium'),
-        'datetime' => $t->setTimeZone(new DateTimeZone('Etc/UTC'))->format(DateTime::ATOM),
+        'title' => $f->asDateTime($endAt, 'medium'),
+        'datetime' => $endAt->setTimeZone(new DateTimeZone('Etc/UTC'))->format(DateTime::ATOM),
       ]
     ) . "\n" ?>
-<?php endif ?>
+<?php } ?>
   </td>
 </tr>

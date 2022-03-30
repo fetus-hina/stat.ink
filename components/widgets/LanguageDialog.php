@@ -13,13 +13,14 @@ namespace app\components\widgets;
 use Yii;
 use app\assets\FlexboxAsset;
 use app\assets\LanguageDialogAsset;
+use app\components\helpers\Html;
+use app\components\helpers\T;
 use app\models\Language;
 use app\models\SupportLevel;
-use yii\helpers\Html;
 
 use const SORT_ASC;
 
-class LanguageDialog extends Dialog
+final class LanguageDialog extends Dialog
 {
     public function init()
     {
@@ -50,9 +51,11 @@ class LanguageDialog extends Dialog
 
     private function createLanguageList(): array
     {
+        $currentLocale = T::webApplication(Yii::$app)->getLocale();
+
         return array_map(
-            function (Language $lang): string {
-                if ($lang->lang === Yii::$app->locale) {
+            function (Language $lang) use ($currentLocale): string {
+                if ($lang->lang === $currentLocale) {
                     return Html::tag('div', $this->renderLanguageItem($lang), [
                         'class' => [
                             'list-group-item',
@@ -82,7 +85,7 @@ class LanguageDialog extends Dialog
     {
         $flag = Html::tag(
             'span',
-            FlagIcon::fg(strtolower($lang->countryCode)),
+            (string)FlagIcon::fg(strtolower($lang->countryCode)),
             ['class' => 'mr-1']
         );
 
@@ -165,7 +168,7 @@ class LanguageDialog extends Dialog
 
     private function createHintList(): array
     {
-        $enabledMachineTranslation = Yii::$app->isEnabledMachineTranslation;
+        $enabledMachineTranslation = T::webApplication(Yii::$app)->isEnabledMachineTranslation;
 
         return [
             Html::tag(

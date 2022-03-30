@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use app\assets\EntireWeapon2Asset;
+use app\components\helpers\Html;
 use app\components\widgets\AdWidget;
 use app\components\widgets\FA;
 use app\components\widgets\SnsWidget;
@@ -12,27 +13,30 @@ use app\models\Rule2;
 use app\models\SplatoonVersion2;
 use app\models\StatWeapon2UseCountPerWeek;
 use app\models\Weapon2;
+use app\models\Weapon2StageFilterForm;
 use app\models\WeaponCategory2;
 use statink\yii2\stages\spl2\Spl2Stage;
 use yii\bootstrap\ActiveForm;
 use yii\data\ArrayDataProvider;
 use yii\grid\GridView;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Html;
 use yii\helpers\Json;
 use yii\helpers\Url;
+use yii\web\View;
 
-function calcError(int $battles, int $wins): ?float
-{
-  if ($battles < 1 || $wins < 0) {
-    return null;
-  }
-
-  // ref. http://lfics81.techblog.jp/archives/2982884.html
-  $winRate = $wins / $battles;
-  $s = sqrt(($battles / ($battles - 1.5)) * $winRate * (1.0 - $winRate));
-  return $s / sqrt($battles) * 100.0;
-}
+/**
+ * @var Rule2 $rule
+ * @var Rule2 $rule
+ * @var View $this
+ * @var Weapon2 $weapon
+ * @var Weapon2StageFilterForm $stageFilter
+ * @var array $assists
+ * @var array $deaths
+ * @var array $kills
+ * @var array $maps
+ * @var array $specials
+ * @var array $winRate
+ */
 
 EntireWeapon2Asset::register($this);
 
@@ -60,6 +64,18 @@ $this->registerCss(implode('', [
   '.graph-container thead tr:nth-child(1) th{width:17%;min-width:100px}',
   '.graph-container thead tr:nth-child(1) th:nth-child(1){width:15%;min-width:80px}',
 ]));
+
+$calcError = function (int $battles, int $wins): ?float {
+  if ($battles < 1 || $wins < 0) {
+    return null;
+  }
+
+  // ref. http://lfics81.techblog.jp/archives/2982884.html
+  $winRate = $wins / $battles;
+  $s = sqrt(($battles / ($battles - 1.5)) * $winRate * (1.0 - $winRate));
+  return $s / sqrt($battles) * 100.0;
+};
+
 ?>
 <div class="container">
   <h1>
@@ -188,12 +204,14 @@ $this->registerCss(implode('', [
 $sum = function (string $column) use ($weapon): string {
     return sprintf(
         'SUM(CASE %s END)',
-        sprintf(
-            'WHEN [[weapon_id]] = %d THEN [[%s]]',
-            $weapon->id,
-            $column
-        ),
-        'ELSE 0'
+        implode(' ', [
+            sprintf(
+                'WHEN [[weapon_id]] = %d THEN [[%s]]',
+                $weapon->id,
+                $column
+            ),
+            'ELSE 0',
+        ]),
     );
 };
 $q = StatWeapon2UseCountPerWeek::find()
@@ -518,11 +536,13 @@ $normalizedSeconds = ($rule->key == 'nawabari' ? 3 : 5) * 60;
           'headerOptions' => ['data' => ['sort' => 'float']],
           'contentOptions' => function (array $map) use ($winRate): array {
             $data = $winRate[$map['key']] ?? null;
-            if (!$data || $data['win'] + $data['lose'] < 1) {
+            if (!$data || (int)$data['win'] + (int)$data['lose'] < 1) {
               return ['data' => ['sort-value' => '-1.0']];
             }
             return ['data' => [
-              'sort-value' => sprintf('%f', ($data['win'] * 100.0 / ($data['win'] + $data['lose']))),
+              'sort-value' => vsprintf('%f', [
+                (int)$data['win'] * 100.0 / ((int)$data['win'] + (int)$data['lose']),
+              ]),
             ]];
           },
           // }}}

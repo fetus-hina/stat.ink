@@ -59,11 +59,11 @@ class SecretController extends Controller
         ];
 
         $options = [
-            'class'     => Connection::className(),
-            'dsn'       => $this->makeDsn('pgsql', $dsnOptions),
-            'username'  => 'statink',
-            'password'  => $password,
-            'charset'   => 'UTF-8',
+            'class' => Connection::class,
+            'dsn' => $this->makeDsn('pgsql', $dsnOptions),
+            'username' => 'statink',
+            'password' => $password,
+            'charset' => 'UTF-8',
             'enableSchemaCache' => true,
             'schemaCache' => 'schemaCache',
         ];

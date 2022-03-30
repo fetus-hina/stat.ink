@@ -11,33 +11,26 @@ declare(strict_types=1);
 namespace app\actions\user;
 
 use DateInterval;
-use DateTime;
 use DateTimeImmutable;
 use DateTimeZone;
 use Yii;
+use yii\base\Action;
 use yii\data\ActiveDataProvider;
-use yii\web\ViewAction;
 
-class LoginHistoryAction extends ViewAction
+final class LoginHistoryAction extends Action
 {
-    public function run()
+    public function run(): string
     {
-        $user = Yii::$app->getUser()->getIdentity();
+        $user = Yii::$app->user->identity;
 
-        $time = (new DateTimeImmutable(
-            'now',
-            new DateTimeZone(Yii::$app->timeZone)
-        ))
+        $time = (new DateTimeImmutable('now', new DateTimeZone(Yii::$app->timeZone)))
             ->sub(new DateInterval('P30D'));
 
         return $this->controller->render('login-history', [
             'dataProvider' => new ActiveDataProvider([
                 'query' => $user->getLoginHistories()
-                    ->with([
-                        'method',
-                        'userAgent',
-                    ])
-                    ->where(['>=', 'created_at', $time->format(DateTime::ATOM)]),
+                    ->with(['method', 'userAgent'])
+                    ->where(['>=', 'created_at', $time->format(DateTimeImmutable::ATOM)]),
                 'pagination' => [
                     'pageSize' => 50,
                 ],

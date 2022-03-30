@@ -35,7 +35,7 @@ class OpenCCTranslator extends Component
             if (
                 !$this->translateFile(
                     $inputPath,
-                    Yii::getAlias(static::OUTPUT_DIR) . '/' . basename($inputPath)
+                    Yii::getAlias(self::OUTPUT_DIR) . '/' . basename($inputPath)
                 )
             ) {
                 $status = false;
@@ -46,7 +46,7 @@ class OpenCCTranslator extends Component
 
     private function getTargetFiles()
     {
-        $it = new DirectoryIterator(Yii::getAlias(static::INPUT_DIR));
+        $it = new DirectoryIterator(Yii::getAlias(self::INPUT_DIR));
         foreach ($it as $entry) {
             if (
                 $entry->isDot() ||
@@ -110,7 +110,7 @@ class OpenCCTranslator extends Component
     {
         $cmdline = vsprintf('/usr/bin/env %s -c %s', [
             escapeshellarg('opencc'),
-            escapeshellarg(static::OPENCC_CONFIG),
+            escapeshellarg(self::OPENCC_CONFIG),
         ]);
 
         $descSpec = [

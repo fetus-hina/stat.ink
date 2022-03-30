@@ -3,11 +3,24 @@
 declare(strict_types=1);
 
 use app\assets\UserStat2MonthlyReportAsset;
+use app\components\helpers\Html;
 use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
 use app\models\Battle2;
+use app\models\User;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Html;
+use yii\web\View;
+
+/**
+ * @var User $user
+ * @var View $this
+ * @var array $rulesAndStages
+ * @var array<string, stdClass> $abstract
+ * @var int $month
+ * @var int $year
+ * @var string|null $next
+ * @var string|null $prev
+ */
 
 $title = Yii::t('app', "{name}'s Monthly Report - {date}", [
   'name' => $user->name,

@@ -13,6 +13,7 @@ namespace app\models\api\v2\salmon;
 use Yii;
 use app\components\behaviors\AutoTrimAttributesBehavior;
 use app\components\helpers\ApiInputFormatter;
+use app\components\helpers\Html;
 use app\models\Gender;
 use app\models\Salmon2;
 use app\models\SalmonBoss2;
@@ -27,7 +28,6 @@ use app\models\openapi\SplatNet2PrincipalID;
 use app\models\openapi\Util as OpenAPIUtil;
 use yii\base\Model;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Html;
 use yii\validators\NumberValidator;
 
 use const SORT_ASC;
@@ -512,9 +512,7 @@ class Player extends Model
                         static::oapiKeyValueTable(
                             Yii::t('app-apidoc2', 'Weapon'),
                             'app-weapon2',
-                            SalmonMainWeapon2::find()
-                                ->sorted()
-                                ->all(),
+                            SalmonMainWeapon2::find()->sorted()->all(), // @phpstan-ignore-line
                             null,
                             null,
                             null,

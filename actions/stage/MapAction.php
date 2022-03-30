@@ -32,7 +32,6 @@ class MapAction extends BaseAction
 
     private function prepare()
     {
-        // {{{
         $req = Yii::$app->request;
 
         $model = DynamicModel::validateData(['map' => $req->get('map')], [
@@ -44,11 +43,10 @@ class MapAction extends BaseAction
         ]);
 
         if ($model->hasErrors()) {
-            static::http404();
+            self::http404();
         }
 
         $this->map = Map::findOne(['key' => $model->map]);
-        // }}}
     }
 
     public function run()
