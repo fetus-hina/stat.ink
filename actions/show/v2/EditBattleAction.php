@@ -120,7 +120,7 @@ final class EditBattleAction extends Action
             ->all();
         foreach ($categories as $category) {
             $types = WeaponType2::find()
-                ->andWhere(['category_id' => $category])
+                ->andWhere(['category_id' => $category->id])
                 ->orderBy(['id' => SORT_ASC])
                 ->all();
             foreach ($types as $type) {

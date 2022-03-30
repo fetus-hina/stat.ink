@@ -223,13 +223,13 @@ final class UserStatReportAction extends Action
         );
         usort(
             $list,
-            fn (array $a, array $b): int => strcmp($b['date'], $a['date'])
+            fn (array $a, array $b): int => strcmp((string)$b['date'], (string)$a['date'])
                 ?: $a['lobby_id'] <=> $b['lobby_id']
                 ?: $a['mode_id'] <=> $b['mode_id']
-                ?: strcmp($a['team_id'], $b['team_id'])
+                ?: strcmp((string)$a['team_id'], (string)$b['team_id'])
                 ?: $a['rule_id'] <=> $b['rule_id']
-                ?: strcmp($a['map_name'], $b['map_name'])
-                ?: strcmp($a['weapon_name'], $b['weapon_name']),
+                ?: strcmp((string)$a['map_name'], (string)$b['map_name'])
+                ?: strcmp((string)$a['weapon_name'], (string)$b['weapon_name']),
         );
         return $list;
     }
