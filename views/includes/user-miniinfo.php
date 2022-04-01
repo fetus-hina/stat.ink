@@ -6,7 +6,6 @@ use app\assets\AppLinkAsset;
 use app\assets\UserMiniinfoAsset;
 use app\components\helpers\Html;
 use app\components\widgets\ActivityWidget;
-use app\components\widgets\RemoteFollowDialog;
 use app\components\widgets\UserIcon;
 use app\models\Rank;
 use app\models\User;
@@ -413,42 +412,6 @@ $f = Yii::$app->formatter;
         ) . "\n" ?>
       </div>
 <?php endif ?>
-    </div>
-    <div class="miniinfo-databox">
-<?php
-$_remoteFollow = Yii::createObject([
-  'class' => RemoteFollowDialog::class,
-  'user' => $user,
-]);
-$this->on(View::EVENT_END_BODY, function () use ($_remoteFollow): void {
-  echo $_remoteFollow->run() . "\n";
-});
-?>
-      OStatus (<?= Html::encode(Yii::t('app', 'GNU Social, Mastodon etc.')) ?>):<br>
-      <?= Html::button(
-        implode('', [
-          Html::tag(
-            'span',
-            Html::img('@web/static-assets/ostatus/ostatus.min.svg', [
-              'style' => [
-                'width' => 'auto',
-                'height' => '1em',
-                'vertical-align' => 'baseline',
-              ],
-            ]),
-            ['class' => 'fa fa-fw']
-          ),
-          Html::encode(Yii::t('app', 'Remote Follow'))
-        ]),
-        [
-          'id' => 'miniinfo-remote-follow',
-          'class' => 'btn btn-default btn-xs',
-          'data' => [
-            'target' => '#' . $_remoteFollow->id,
-            'toggle' => 'modal',
-          ],
-        ]
-      ) . "\n" ?>
     </div>
   </div>
 </div>

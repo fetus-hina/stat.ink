@@ -8,13 +8,8 @@
 
 namespace app\models;
 
-use Curl\Curl;
-use Yii;
 use app\components\behaviors\TimestampBehavior;
-use app\components\helpers\BattleAtom;
-use app\models\query\OstatusPubsubhubbubQuery;
 use yii\db\ActiveRecord;
-use yii\helpers\Url;
 
 /**
  * This is the model class for table "ostatus_pubsubhubbub".
@@ -31,11 +26,6 @@ use yii\helpers\Url;
  */
 final class OstatusPubsubhubbub extends ActiveRecord
 {
-    public static function find(): OstatusPubsubhubbubQuery
-    {
-        return new OstatusPubsubhubbubQuery(static::class);
-    }
-
     /**
      * @inheritdoc
      */
@@ -93,31 +83,11 @@ final class OstatusPubsubhubbub extends ActiveRecord
         return $this->hasOne(User::class, ['id' => 'topic']);
     }
 
-    public function notify(Battle $battle): ?string
+    /**
+     * @return null
+     */
+    public function notify(Battle $battle)
     {
-        $atom = BattleAtom::createUserFeed($battle->user, [$battle->id]);
-        $hash = $this->secret != ''
-            ? hash_hmac('sha1', $atom, $this->secret, false)
-            : null;
-
-        $curl = new Curl();
-        $curl->setHeader('Content-Type', 'application/atom+xml');
-        $curl->setHeader('Link', sprintf(
-            '<%s>; rel=self',
-            Url::to(['/ostatus/feed', 'screen_name' => $battle->user->screen_name], true)
-        ));
-        if ($hash) {
-            $curl->setHeader('X-Hub-Signature', "sha1={$hash}");
-        }
-        $curl->post($this->callback, $atom);
-        if ($curl->error) {
-            Yii::error('app.ostatus', sprintf(
-                '%s(): post failed, %s',
-                __METHOD__,
-                $curl->errorMessage
-            ));
-            return null;
-        }
-        return $atom;
+        return null;
     }
 }

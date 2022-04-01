@@ -8,7 +8,6 @@
 
 namespace app\commands;
 
-use app\components\helpers\BattleAtom;
 use app\models\Battle;
 use app\models\Slack;
 use yii\console\Controller;
@@ -25,21 +24,6 @@ class BattleController extends Controller
         }
 
         $battle->delete();
-    }
-
-    public function actionTestCreateAtom($id)
-    {
-        $battle = Battle::findOne(['id' => (int)(string)$id]);
-        if (!$battle) {
-            $this->stderr("Could not find specified battle \"{$id}\"\n", Console::FG_RED);
-            return 1;
-        }
-
-        $atom = BattleAtom::createUserFeed(
-            $battle->user,
-            [$battle->id]
-        );
-        echo $atom . "\n";
     }
 
     public function actionTestSlack($id)

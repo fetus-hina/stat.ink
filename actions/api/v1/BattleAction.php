@@ -12,7 +12,6 @@ use Yii;
 use app\components\helpers\Blackout;
 use app\components\helpers\ImageConverter;
 use app\components\jobs\ImageS3Job;
-use app\components\jobs\OstatusJob;
 use app\components\jobs\SlackJob;
 use app\components\web\ServiceUnavailableHttpException;
 use app\models\Agent;
@@ -249,7 +248,7 @@ class BattleAction extends BaseAction
         $battle = Battle::findOne(['id' => $battle->id]);
 
         // バックグラウンドジョブの登録
-        // (Slack, Ostatus への push のタスク登録など)
+        // (Slack への push のタスク登録など)
         $this->registerBackgroundJob($battle);
 
         return $this->runGetImpl($battle);
@@ -629,17 +628,6 @@ class BattleAction extends BaseAction
                 'version' => 1,
                 'battle' => $battle->id,
             ]));
-        }
-
-        // Ostatus 投稿
-        if ($user && $user->isOstatusIntegrated) {
-            Yii::$app->queue
-                ->priority(OstatusJob::getJobPriority())
-                ->push(new OstatusJob([
-                    'hostInfo' => Yii::$app->getRequest()->getHostInfo(),
-                    'version' => 1,
-                    'battle' => $battle->id,
-                ]));
         }
 
         // S3 への画像アップロード

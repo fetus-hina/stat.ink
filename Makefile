@@ -122,7 +122,6 @@ RESOURCE_TARGETS := \
 	resources/.compiled/stat.ink/weapons.js \
 	resources/.compiled/stat.ink/xpower-history.css \
 	resources/.compiled/stat.ink/xpower-history.js \
-	web/static-assets/ostatus/ostatus.min.svg \
 	web/static-assets/rect-danger.min.svg
 
 SIMPLE_CONFIG_TARGETS := \

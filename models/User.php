@@ -15,8 +15,6 @@ use Throwable;
 use Yii;
 use app\components\helpers\DateTimeFormatter;
 use app\components\helpers\Password;
-use app\components\helpers\T;
-use app\models\query\OstatusPubsubhubbubQuery;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\db\Query;
@@ -70,7 +68,6 @@ use const SORT_DESC;
  * @property-read Language|null $emailLang
  * @property-read Region2 $guessedSplatfest2Region
  * @property-read Weapon|null $mainWeapon
- * @property-read bool $isOstatusIntegrated
  * @property-read bool $isSlackIntegrated
  * @property-read string $iconUrl
  * @property-read string $identiconHash
@@ -254,14 +251,6 @@ class User extends ActiveRecord implements IdentityInterface
                 'suspended' => false,
                 'user_id' => $this->id,
             ])
-            ->exists();
-    }
-
-    public function getIsOstatusIntegrated(): bool
-    {
-        return T::is(OstatusPubsubhubbubQuery::class, OstatusPubsubhubbub::find())
-            ->active()
-            ->andWhere(['topic' => $this->id])
             ->exists();
     }
 
