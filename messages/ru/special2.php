@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2019 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2022 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -12,6 +12,7 @@ return [
     'Any Special' => '',
     'Autobomb Launcher' => 'Бомбомет (робобомбы)',
     'Baller' => 'Шарокат',
+    'Baller Inksplosion' => '',
     'Bomb Launcher' => 'Бомбомет',
     'Booyah Bomb' => '',
     'Bubble Blower' => 'Пузырятор',
@@ -19,6 +20,7 @@ return [
     'Curling-Bomb Launcher' => 'Бомбомет (керлинг)',
     'Ink Armor' => 'Бронекраска',
     'Inkjet' => 'Красколет',
+    'Inkjet Exhaust' => '',
     'Ink Storm' => 'Туча краски',
     'Splashdown' => 'Мегаплюх',
     'Splat-Bomb Launcher' => 'Бомбомет (брызгающие)',
