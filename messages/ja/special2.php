@@ -12,6 +12,7 @@ return [
     'Any Special' => 'すべてのスペシャル',
 
     'Autobomb Launcher' => 'ロボボムピッチャー',
+    'Baller Inksplosion' => 'イカスフィアの爆発',
     'Baller' => 'イカスフィア',
     'Bomb Launcher' => 'ボムピッチャー',
     'Booyah Bomb' => 'ナイスダマ',
@@ -20,6 +21,7 @@ return [
     'Curling-Bomb Launcher' => 'カーリングボムピッチャー',
     'Ink Armor' => 'インクアーマー',
     'Ink Storm' => 'アメフラシ',
+    'Inkjet Exhaust' => 'ジェットパックのジェット',
     'Inkjet' => 'ジェットパック',
     'Splashdown' => 'スーパーチャクチ',
     'Splat-Bomb Launcher' => 'スプラッシュボムピッチャー',

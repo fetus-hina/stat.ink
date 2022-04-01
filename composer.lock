@@ -1591,16 +1591,16 @@
         },
         {
             "name": "maxmind/web-service-common",
-            "version": "v0.8.1",
+            "version": "v0.9.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/maxmind/web-service-common-php.git",
-                "reference": "32f274051c543fc865e5a84d3a2c703913641ea8"
+                "reference": "4dc5a3e8df38aea4ca3b1096cee3a038094e9b53"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/maxmind/web-service-common-php/zipball/32f274051c543fc865e5a84d3a2c703913641ea8",
-                "reference": "32f274051c543fc865e5a84d3a2c703913641ea8",
+                "url": "https://api.github.com/repos/maxmind/web-service-common-php/zipball/4dc5a3e8df38aea4ca3b1096cee3a038094e9b53",
+                "reference": "4dc5a3e8df38aea4ca3b1096cee3a038094e9b53",
                 "shasum": ""
             },
             "require": {
@@ -1610,7 +1610,8 @@
                 "php": ">=7.2"
             },
             "require-dev": {
-                "friendsofphp/php-cs-fixer": "2.*",
+                "friendsofphp/php-cs-fixer": "3.*",
+                "phpstan/phpstan": "*",
                 "phpunit/phpunit": "^8.0 || ^9.0",
                 "squizlabs/php_codesniffer": "3.*"
             },
@@ -1635,9 +1636,9 @@
             "homepage": "https://github.com/maxmind/web-service-common-php",
             "support": {
                 "issues": "https://github.com/maxmind/web-service-common-php/issues",
-                "source": "https://github.com/maxmind/web-service-common-php/tree/v0.8.1"
+                "source": "https://github.com/maxmind/web-service-common-php/tree/v0.9.0"
             },
-            "time": "2020-11-02T17:00:53+00:00"
+            "time": "2022-03-28T17:43:20+00:00"
         },
         {
             "name": "paragonie/constant_time_encoding",
@@ -3797,16 +3798,16 @@
         },
         {
             "name": "yiisoft/yii2-queue",
-            "version": "2.3.3",
+            "version": "2.3.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-queue.git",
-                "reference": "68321f9aad0de980f1883c0f4623c11623f43c3a"
+                "reference": "ed30b5f46ddadd62587a4963dec35f9b756c408b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-queue/zipball/68321f9aad0de980f1883c0f4623c11623f43c3a",
-                "reference": "68321f9aad0de980f1883c0f4623c11623f43c3a",
+                "url": "https://api.github.com/repos/yiisoft/yii2-queue/zipball/ed30b5f46ddadd62587a4963dec35f9b756c408b",
+                "reference": "ed30b5f46ddadd62587a4963dec35f9b756c408b",
                 "shasum": ""
             },
             "require": {
@@ -3899,7 +3900,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-12-30T08:42:00+00:00"
+            "time": "2022-03-31T07:41:51+00:00"
         },
         {
             "name": "yiisoft/yii2-swiftmailer",
@@ -5202,16 +5203,16 @@
         },
         {
             "name": "phpdocumentor/type-resolver",
-            "version": "1.6.0",
+            "version": "1.6.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpDocumentor/TypeResolver.git",
-                "reference": "93ebd0014cab80c4ea9f5e297ea48672f1b87706"
+                "reference": "77a32518733312af16a44300404e945338981de3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpDocumentor/TypeResolver/zipball/93ebd0014cab80c4ea9f5e297ea48672f1b87706",
-                "reference": "93ebd0014cab80c4ea9f5e297ea48672f1b87706",
+                "url": "https://api.github.com/repos/phpDocumentor/TypeResolver/zipball/77a32518733312af16a44300404e945338981de3",
+                "reference": "77a32518733312af16a44300404e945338981de3",
                 "shasum": ""
             },
             "require": {
@@ -5246,9 +5247,9 @@
             "description": "A PSR-5 based resolver of Class names, Types and Structural Element Names",
             "support": {
                 "issues": "https://github.com/phpDocumentor/TypeResolver/issues",
-                "source": "https://github.com/phpDocumentor/TypeResolver/tree/1.6.0"
+                "source": "https://github.com/phpDocumentor/TypeResolver/tree/1.6.1"
             },
-            "time": "2022-01-04T19:58:01+00:00"
+            "time": "2022-03-15T21:29:03+00:00"
         },
         {
             "name": "phpspec/php-diff",
@@ -5360,16 +5361,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.5.0",
+            "version": "1.5.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "2be8dd6dfa09ab1a21c49956ff591979cd5ab29e"
+                "reference": "39953ac1452a8843702ee41a35b4861d3e8207a7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/2be8dd6dfa09ab1a21c49956ff591979cd5ab29e",
-                "reference": "2be8dd6dfa09ab1a21c49956ff591979cd5ab29e",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/39953ac1452a8843702ee41a35b4861d3e8207a7",
+                "reference": "39953ac1452a8843702ee41a35b4861d3e8207a7",
                 "shasum": ""
             },
             "require": {
@@ -5395,7 +5396,7 @@
             "description": "PHPStan - PHP Static Analysis Tool",
             "support": {
                 "issues": "https://github.com/phpstan/phpstan/issues",
-                "source": "https://github.com/phpstan/phpstan/tree/1.5.0"
+                "source": "https://github.com/phpstan/phpstan/tree/1.5.3"
             },
             "funding": [
                 {
@@ -5415,7 +5416,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-03-24T18:18:00+00:00"
+            "time": "2022-03-30T21:55:08+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -8288,5 +8289,5 @@
     "platform-overrides": {
         "php": "7.4.13"
     },
-    "plugin-api-version": "2.2.0"
+    "plugin-api-version": "2.3.0"
 }

@@ -340,9 +340,10 @@ class Api2MarkdownController extends Controller
         $db = Yii::$app->db;
         $typeOrder = sprintf('(CASE {{death_reason_type2}}.[[key]] %s END)', implode(' ', [
             sprintf('WHEN %s THEN 0', $db->quoteValue('oob')),
-            sprintf('WHEN %s THEN 1', $db->quoteValue('gadget')),
-            sprintf('WHEN %s THEN 2', $db->quoteValue('sub')),
-            sprintf('WHEN %s THEN 3', $db->quoteValue('special')),
+            sprintf('WHEN %s THEN 1', $db->quoteValue('hoko')),
+            sprintf('WHEN %s THEN 2', $db->quoteValue('gadget')),
+            sprintf('WHEN %s THEN 3', $db->quoteValue('sub')),
+            sprintf('WHEN %s THEN 4', $db->quoteValue('special')),
         ]));
         $reasons = DeathReason2::find()
             ->innerJoinWith('type')
