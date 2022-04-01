@@ -6,6 +6,7 @@
  * @author AIZAWA Hina <hina@fetus.jp>
  * @author Koichi Watanabe <wkoichi@gmail.com>
  */
+
 declare(strict_types=1);
 
 return [
