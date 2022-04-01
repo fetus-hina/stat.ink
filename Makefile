@@ -195,7 +195,7 @@ check-syntax:
 check-style: check-style-js check-style-css check-style-php
 
 .PHONY: check-style-php
-check-style-php: check-style-phpcs
+check-style-php: check-style-phpcs check-style-phpstan
 
 .PHONY: check-style-phpcs
 check-style-phpcs: vendor
