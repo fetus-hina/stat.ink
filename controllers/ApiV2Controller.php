@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2019 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2022 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -11,6 +11,7 @@ declare(strict_types=1);
 namespace app\controllers;
 
 use Yii;
+use app\actions\api\v2\CauseOfDeathAction;
 use app\actions\api\v2\GearAction;
 use app\actions\api\v2\RuleAction;
 use app\actions\api\v2\StageAction;
@@ -19,7 +20,7 @@ use app\actions\api\v2\WeaponAction;
 use app\components\web\Controller;
 use yii\filters\VerbFilter;
 
-class ApiV2Controller extends Controller
+final class ApiV2Controller extends Controller
 {
     public $enableCsrfValidation = false;
 
@@ -46,6 +47,7 @@ class ApiV2Controller extends Controller
     public function actions()
     {
         return [
+            'cause-of-death' => CauseOfDeathAction::class,
             'gear' => GearAction::class,
             'rule' => RuleAction::class,
             'stage' => StageAction::class,

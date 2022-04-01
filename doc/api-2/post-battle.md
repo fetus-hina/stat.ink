@@ -654,10 +654,13 @@ Gear Ability
 `death_reasons`
 ---------------
 
+Set the player's causes of death and the number of times.  
 プレーヤーの死因とその回数を集計の上、設定します。
 
+Set up a map with cause of death as key and count as value.  
 死因をキー、回数を値とするマップを設定します。
 
+If the player dies once by falling out of place(`oob`) and twice by Splat Dualies(`manueuver`), the following telegram will be sent.  
 場外転落で1回、スプラマニューバーで2回死んだとき、つぎのような電文になります。
 
 ```js
@@ -671,7 +674,13 @@ Gear Ability
 }
 ```
 
+The "key" of "cause of death" is `weapon`'s one or below.  
 キーとなる死因は、`weapon`のための指定文字列と、次の各値になります。
+
+You can also retrieve them using the following APIs:
+  - https://stat.ink/api/v2/cause-of-death
+  - https://stat.ink/api/v2/cause-of-death?format=reduced
+  - https://stat.ink/api/v2/cause-of-death?format=ikalog
 
 <!--replace:death-->
 |指定文字列<br>Key String|死因<br>Death Reason                      |
