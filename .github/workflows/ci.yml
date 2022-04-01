@@ -35,7 +35,7 @@ jobs:
     if: "!contains(github.event.head_commit.message, '[no php]')"
 
     steps:
-      - uses: 'actions/checkout@v2'
+      - uses: 'actions/checkout@v3'
 
       - name: 'Set PHP environment (PHP ${{ matrix.php.version }})'
         uses: 'shivammathur/setup-php@v2'
@@ -62,7 +62,7 @@ jobs:
     if: "!contains(github.event.head_commit.message, '[no php]') && !contains(github.event.head_commit.message, '[no author]')"
 
     steps:
-      - uses: 'actions/checkout@v2'
+      - uses: 'actions/checkout@v3'
         with:
           fetch-depth: 0
 
@@ -116,7 +116,7 @@ jobs:
       - 'ciDoesNotSkip'
 
     steps:
-      - uses: 'actions/checkout@v2'
+      - uses: 'actions/checkout@v3'
 
       - uses: 'actions/cache@v2'
         with:
@@ -144,7 +144,7 @@ jobs:
       - 'setupNPM'
 
     steps:
-      - uses: 'actions/checkout@v2'
+      - uses: 'actions/checkout@v3'
 
       - uses: 'actions/cache@v2'
         with:
@@ -171,7 +171,7 @@ jobs:
       - 'setupNPM'
 
     steps:
-      - uses: 'actions/checkout@v2'
+      - uses: 'actions/checkout@v3'
 
       - uses: 'actions/cache@v2'
         with:
@@ -200,7 +200,7 @@ jobs:
     if: "!contains(github.event.head_commit.message, '[no php]')"
 
     steps:
-      - uses: 'actions/checkout@v2'
+      - uses: 'actions/checkout@v3'
 
       - uses: 'actions/cache@v2'
         with:
@@ -237,7 +237,7 @@ jobs:
           sudo apt update -y
           sudo apt install -y jpegoptim libxml2-utils
 
-      - uses: 'actions/checkout@v2'
+      - uses: 'actions/checkout@v3'
 
       - uses: 'actions/cache@v2'
         with:
@@ -281,7 +281,7 @@ jobs:
     if: "!contains(github.event.head_commit.message, '[no php]')"
 
     steps:
-      - uses: 'actions/checkout@v2'
+      - uses: 'actions/checkout@v3'
 
       - name: 'Set PHP environment (PHP 7.4)'
         uses: 'shivammathur/setup-php@v2'
@@ -310,7 +310,7 @@ jobs:
     if: "!contains(github.event.head_commit.message, '[no php]')"
 
     steps:
-      - uses: 'actions/checkout@v2'
+      - uses: 'actions/checkout@v3'
 
       - name: 'Set PHP environment (PHP 7.4)'
         uses: 'shivammathur/setup-php@v2'
@@ -323,6 +323,9 @@ jobs:
             vendor
             ~/.cache/composer/files
           key: composer-${{ hashFiles('composer.lock') }}
+
+      - name: 'Prepare config files'
+        run: 'make generate-config'
 
       - name: 'Run PHPStan'
         run: 'vendor/bin/phpstan analyze --memory-limit=1G --level=5'
@@ -391,7 +394,7 @@ jobs:
           sudo apt update -y
           sudo apt install -y jpegoptim libxml2-utils
 
-      - uses: 'actions/checkout@v2'
+      - uses: 'actions/checkout@v3'
 
       - uses: 'actions/cache@v2'
         with:

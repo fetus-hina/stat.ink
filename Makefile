@@ -138,34 +138,45 @@ SIMPLE_CONFIG_TARGETS := \
 
 REACT_SOURCES := $(shell find resources/react -type f)
 
+.PHONY: all
 all: init migrate-db
 
+.PHONY: init
 init: init-no-resource resource geoip
 
-init-no-resource: \
-	composer.phar \
-	composer-update \
-	vendor \
-	node_modules \
-	$(SIMPLE_CONFIG_TARGETS) \
-	config/version.php \
-	config/cookie-secret.php \
-	config/authkey-secret.php \
-	config/db.php \
-	config/cloudflare/ip_ranges.php \
+.PHONY: init-no-resource
+init-no-resource: composer.phar composer-update vendor node_modules generate-config
 
+.PHONY: generate-config
+generate-config: generate-config-simple generate-config-exec
+
+.PHONY: generate-config-simple
+generate-config-simple: $(SIMPLE_CONFIG_TARGETS)
+
+.PHONY: generate-config-exec
+generate-config-exec: generate-config-simple \
+		config/authkey-secret.php \
+		config/cloudflare/ip_ranges.php \
+		config/cookie-secret.php \
+		config/db.php \
+		config/version.php
+
+.PHONY: test
 test: init-no-resource
 	./composer.phar exec codecept run -v
 
+.PHONY: license
 license: init-no-resource
 	./yii license
 
+.PHONY: resource
 resource: $(RESOURCE_TARGETS) react $(ADDITIONAL_LICENSES)
 
 .PHONY: react
 react: node_modules $(REACT_SOURCES)
 	npx webpack-cli
 
+.PHONY: composer-update
 composer-update: composer.phar
 	./composer.phar self-update --2
 
@@ -177,31 +188,40 @@ node_modules: package-lock.json
 	npm install --unsafe-perm
 	@touch $@
 
+.PHONY: check-syntax
 check-syntax:
 	find . \( -type d \( -name '.git' -or -name 'vendor' -or -name 'node_modules' -or -name 'runtime' \) -prune \) -or \( -type f -name '*.php' -print \) | xargs -n 1 php -l
 
+.PHONY: check-style
 check-style: check-style-js check-style-css check-style-php
 
+.PHONY: check-style-php
 check-style-php: check-style-phpcs
 
+.PHONY: check-style-phpcs
 check-style-phpcs: vendor
 	php vendor/bin/phpcs -p
 
-check-style-phpstan: vendor
+.PHONY: check-style-phpstan
+check-style-phpstan: vendor generate-config
 	php vendor/bin/phpstan analyze --memory-limit=1G
 
+.PHONY: check-style-js
 check-style-js: node_modules
 	npx updates --minor bootstrap,bootswatch
 	npx semistandard 'resources/**/*[ej]s'
 
+.PHONY: check-style-css
 check-style-css: node_modules
 	npx stylelint "resources/**/*.scss" "resources/**/*.css"
 
+.PHONY: fix-style
 fix-style: vendor node_modules
 	npx updates -u --minor bootstrap,bootswatch
 	vendor/bin/phpcbf -p
 	npx semistandard --fix 'resources/**/*[ej]s'
 
+.PHONY: clean
 clean: clean-resource
 	rm -rf \
 		composer.phar \
@@ -209,6 +229,7 @@ clean: clean-resource
 		node_modules \
 		vendor
 
+.PHONY: clean-resource
 clean-resource:
 	rm -rf \
 		resources/.compiled/* \
@@ -417,6 +438,7 @@ resources/.compiled/irasutoya/eto/%.png: resources/irasutoya/eto/%.png.tmp
 resources/irasutoya/eto/%.png.tmp: resources/irasutoya/eto/%.png
 	convert $< -trim +repage -resize x100 -gravity center -background none $@
 
+.PHONY: migrate-db
 migrate-db: vendor config/db.php
 	./yii migrate/up --interactive=0
 	./yii migrate/up --interactive=0 --migration-path="" --migration-namespaces=yii\\queue\\db\\migrations
@@ -515,7 +537,6 @@ config/version.php: vendor config/db.php
 config/cloudflare/ip_ranges.php: vendor config/db.php
 	./yii cloudflare/update-ip-ranges
 
+.PHONY: geoip
 geoip: init-no-resource
 	./yii geoip/update || true
-
-.PHONY: FORCE all check-style clean clean-resource composer-update fix-style init init-no-resource migrate-db resource geoip check-syntax check-style-php check-style-js license
