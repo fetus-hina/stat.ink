@@ -674,31 +674,34 @@ Gear Ability
 キーとなる死因は、`weapon`のための指定文字列と、次の各値になります。
 
 <!--replace:death-->
-|指定文字列<br>Key String|死因<br>Death Reason               |
-|------------------------|-----------------------------------|
-|`drown`                 |水死<br>Drowning                   |
-|`fall`                  |転落死<br>Fall                     |
-|`oob`                   |場外<br>Out of Bounds              |
-|`cannon`                |キャノン<br>Cannon                 |
-|`iidabomb`              |イイダボム<br>Hyperbomb            |
-|`korogarium`            |コロガリウム<br>Rolonium           |
-|`piropiro`              |ピロピロ<br>Inkfurler              |
-|`senpaicannon`          |センパイキャノン<br>Princess Cannon|
-|`curlingbomb`           |カーリングボム<br>Curling Bomb     |
-|`kyubanbomb`            |キューバンボム<br>Suction Bomb     |
-|`quickbomb`             |クイックボム<br>Burst Bomb         |
-|`robotbomb`             |ロボットボム<br>Autobomb           |
-|`splashbomb`            |スプラッシュボム<br>Splat Bomb     |
-|`splashshield`          |スプラッシュシールド<br>Splash Wall|
-|`sprinkler`             |スプリンクラー<br>Sprinkler        |
-|`trap`                  |トラップ<br>Ink Mine               |
-|`amefurashi`            |アメフラシ<br>Ink Storm            |
-|`bubble`                |バブルランチャー<br>Bubble Blower  |
-|`chakuchi`              |スーパーチャクチ<br>Splashdown     |
-|`jetpack`               |ジェットパック<br>Inkjet           |
-|`missile`               |マルチミサイル<br>Tenta Missiles   |
-|`presser`               |ハイパープレッサー<br>Sting Ray    |
-|`sphere`                |イカスフィア<br>Baller             |
+|指定文字列<br>Key String|死因<br>Death Reason                 |
+|------------------------|-------------------------------------|
+|`drown`                 |水死<br>Drowning                     |
+|`fall`                  |転落死<br>Fall                       |
+|`oob`                   |場外<br>Out of Bounds                |
+|`hoko_barrier`          |ガチホコバリア<br>Rainmaker Shield   |
+|`hoko_inksplode`        |ガチホコ爆発<br>Rainmaker Inksplosion|
+|`hoko_shot`             |ガチホコショット<br>Rainmaker Shot   |
+|`cannon`                |キャノン<br>Cannon                   |
+|`iidabomb`              |イイダボム<br>Hyperbomb              |
+|`korogarium`            |コロガリウム<br>Rolonium             |
+|`piropiro`              |ピロピロ<br>Inkfurler                |
+|`senpaicannon`          |センパイキャノン<br>Princess Cannon  |
+|`curlingbomb`           |カーリングボム<br>Curling Bomb       |
+|`kyubanbomb`            |キューバンボム<br>Suction Bomb       |
+|`quickbomb`             |クイックボム<br>Burst Bomb           |
+|`robotbomb`             |ロボットボム<br>Autobomb             |
+|`splashbomb`            |スプラッシュボム<br>Splat Bomb       |
+|`splashshield`          |スプラッシュシールド<br>Splash Wall  |
+|`sprinkler`             |スプリンクラー<br>Sprinkler          |
+|`trap`                  |トラップ<br>Ink Mine                 |
+|`amefurashi`            |アメフラシ<br>Ink Storm              |
+|`bubble`                |バブルランチャー<br>Bubble Blower    |
+|`chakuchi`              |スーパーチャクチ<br>Splashdown       |
+|`jetpack`               |ジェットパック<br>Inkjet             |
+|`missile`               |マルチミサイル<br>Tenta Missiles     |
+|`presser`               |ハイパープレッサー<br>Sting Ray      |
+|`sphere`                |イカスフィア<br>Baller               |
 <!--endreplace-->
 
 

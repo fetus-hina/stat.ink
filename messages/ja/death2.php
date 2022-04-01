@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2019 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2022 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -17,6 +17,9 @@ return [
     'Main Weapon' => 'メインウェポン',
     'Out of Bounds' => '場外',
     'Princess Cannon' => 'センパイキャノン',
+    'Rainmaker Inksplosion' => 'ガチホコ爆発',
+    'Rainmaker Shield' => 'ガチホコバリア',
+    'Rainmaker Shot' => 'ガチホコショット',
     'Rolonium' => 'コロガリウム',
     'Special Weapon' => 'スペシャルウェポン',
     'Sub Weapon' => 'サブウェポン',
