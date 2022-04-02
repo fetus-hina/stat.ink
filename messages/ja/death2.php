@@ -13,6 +13,7 @@ return [
     'Drowning' => '水死',
     'Fall' => '転落死',
     'Hyperbomb' => 'イイダボム',
+    'Ink from a propeller' => 'プロペラからのインク',
     'Inkfurler' => 'ピロピロ',
     'Main Weapon' => 'メインウェポン',
     'Out of Bounds' => '場外',

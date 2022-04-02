@@ -13,6 +13,7 @@ return [
     'Drowning' => 'Ahogamiento',
     'Fall' => 'Caída',
     'Hyperbomb' => '',
+    'Ink from a propeller' => 'Tinta de un propulsor',
     'Inkfurler' => '',
     'Main Weapon' => 'Arma principal',
     'Out of Bounds' => 'Fuera de los Límites',

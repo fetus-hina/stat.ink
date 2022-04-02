@@ -14,6 +14,7 @@ return [
     'Drowning' => 'Ertrunken',
     'Fall' => 'Heruntergefallen',
     'Hyperbomb' => '',
+    'Ink from a propeller' => 'Tinte von einem Propeller',
     'Inkfurler' => 'Schnalzbänder',
     'Main Weapon' => 'Primärwaffe',
     'Out of Bounds' => 'Ausserhalb der Karte',

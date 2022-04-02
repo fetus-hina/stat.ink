@@ -18,6 +18,8 @@ use yii\base\Action;
 use yii\db\Connection;
 use yii\web\Response;
 
+use const SORT_ASC;
+
 final class CauseOfDeathAction extends Action
 {
     public const FORMAT_DEFAULT = '';
