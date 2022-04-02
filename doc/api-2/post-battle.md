@@ -683,36 +683,37 @@ You can also retrieve them using the following APIs:
   - https://stat.ink/api/v2/cause-of-death?format=ikalog
 
 <!--replace:death-->
-|指定文字列<br>Key String|死因<br>Death Reason                      |
-|------------------------|------------------------------------------|
-|`drown`                 |水死<br>Drowning                          |
-|`fall`                  |転落死<br>Fall                            |
-|`oob`                   |場外<br>Out of Bounds                     |
-|`hoko_barrier`          |ガチホコバリア<br>Rainmaker Shield        |
-|`hoko_inksplode`        |ガチホコ爆発<br>Rainmaker Inksplosion     |
-|`hoko_shot`             |ガチホコショット<br>Rainmaker Shot        |
-|`cannon`                |キャノン<br>Cannon                        |
-|`iidabomb`              |イイダボム<br>Hyperbomb                   |
-|`korogarium`            |コロガリウム<br>Rolonium                  |
-|`piropiro`              |ピロピロ<br>Inkfurler                     |
-|`senpaicannon`          |センパイキャノン<br>Princess Cannon       |
-|`curlingbomb`           |カーリングボム<br>Curling Bomb            |
-|`kyubanbomb`            |キューバンボム<br>Suction Bomb            |
-|`quickbomb`             |クイックボム<br>Burst Bomb                |
-|`robotbomb`             |ロボットボム<br>Autobomb                  |
-|`splashbomb`            |スプラッシュボム<br>Splat Bomb            |
-|`splashshield`          |スプラッシュシールド<br>Splash Wall       |
-|`sprinkler`             |スプリンクラー<br>Sprinkler               |
-|`trap`                  |トラップ<br>Ink Mine                      |
-|`amefurashi`            |アメフラシ<br>Ink Storm                   |
-|`bubble`                |バブルランチャー<br>Bubble Blower         |
-|`chakuchi`              |スーパーチャクチ<br>Splashdown            |
-|`jetpack`               |ジェットパック<br>Inkjet                  |
-|`jetpack_exhaust`       |ジェットパックのジェット<br>Inkjet Exhaust|
-|`missile`               |マルチミサイル<br>Tenta Missiles          |
-|`presser`               |ハイパープレッサー<br>Sting Ray           |
-|`sphere`                |イカスフィア<br>Baller                    |
-|`sphere_splash`         |イカスフィアの爆発<br>Baller Inksplosion  |
+|指定文字列<br>Key String|死因<br>Death Reason                        |
+|------------------------|--------------------------------------------|
+|`drown`                 |水死<br>Drowning                            |
+|`fall`                  |転落死<br>Fall                              |
+|`oob`                   |場外<br>Out of Bounds                       |
+|`hoko_barrier`          |ガチホコバリア<br>Rainmaker Shield          |
+|`hoko_inksplode`        |ガチホコ爆発<br>Rainmaker Inksplosion       |
+|`hoko_shot`             |ガチホコショット<br>Rainmaker Shot          |
+|`cannon`                |キャノン<br>Cannon                          |
+|`iidabomb`              |イイダボム<br>Hyperbomb                     |
+|`korogarium`            |コロガリウム<br>Rolonium                    |
+|`piropiro`              |ピロピロ<br>Inkfurler                       |
+|`propeller`             |プロペラからのインク<br>Ink from a propeller|
+|`senpaicannon`          |センパイキャノン<br>Princess Cannon         |
+|`curlingbomb`           |カーリングボム<br>Curling Bomb              |
+|`kyubanbomb`            |キューバンボム<br>Suction Bomb              |
+|`quickbomb`             |クイックボム<br>Burst Bomb                  |
+|`robotbomb`             |ロボットボム<br>Autobomb                    |
+|`splashbomb`            |スプラッシュボム<br>Splat Bomb              |
+|`splashshield`          |スプラッシュシールド<br>Splash Wall         |
+|`sprinkler`             |スプリンクラー<br>Sprinkler                 |
+|`trap`                  |トラップ<br>Ink Mine                        |
+|`amefurashi`            |アメフラシ<br>Ink Storm                     |
+|`bubble`                |バブルランチャー<br>Bubble Blower           |
+|`chakuchi`              |スーパーチャクチ<br>Splashdown              |
+|`jetpack`               |ジェットパック<br>Inkjet                    |
+|`jetpack_exhaust`       |ジェットパックのジェット<br>Inkjet Exhaust  |
+|`missile`               |マルチミサイル<br>Tenta Missiles            |
+|`presser`               |ハイパープレッサー<br>Sting Ray             |
+|`sphere`                |イカスフィア<br>Baller                      |
+|`sphere_splash`         |イカスフィアの爆発<br>Baller Inksplosion    |
 <!--endreplace-->
 
 

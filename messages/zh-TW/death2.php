@@ -14,6 +14,7 @@ return [
     'Drowning' => '淹死',
     'Fall' => '摔死',
     'Hyperbomb' => '超能彈',
+    'Ink from a propeller' => '來自扇頁的墨水',
     'Inkfurler' => '墨水卷毯',
     'Main Weapon' => '主武器',
     'Out of Bounds' => '越界',
