@@ -49,9 +49,12 @@ class UserStatByMapRuleAction extends BaseAction
     {
         $query = $user->getBattle2s()
             ->orderBy(null)
-            ->andWhere(['in', '{{battle2}}.{{is_win}}', [true, false]])
             ->applyFilter($filter)
-            ->innerJoinWith(['map', 'rule'], false)
+            ->innerJoinWith(['map', 'rule', 'lobby'], false)
+            ->andWhere([
+                '{{battle2}}.[[is_win]]' => [true, false],
+                '{{lobby2}}.[[key]]' => ['standard', 'fest_normal'],
+            ])
             ->select([
                 'map_key' => 'MAX({{map2}}.[[key]])',
                 'rule_key' => 'MAX({{rule2}}.[[key]])',

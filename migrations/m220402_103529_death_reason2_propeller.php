@@ -13,8 +13,8 @@ use yii\db\Query;
 
 final class m220402_103529_death_reason2_propeller extends Migration
 {
-    const KEY_STRING = 'propeller';
-    const TYPE_GADGET = 'gadget';
+    private const KEY_STRING = 'propeller';
+    private const TYPE_GADGET = 'gadget';
 
     public function safeUp()
     {

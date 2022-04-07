@@ -98,7 +98,7 @@ return [
             'sourcePath' => '@node/flot',
         ],
         JqueryColorAsset::class => [
-            'sourcePath' => '@node/jquery-color',
+            'sourcePath' => '@node/jquery-color/dist',
         ],
         MomentJsAsset::class => [
             'sourcePath' => '@node/moment/min',

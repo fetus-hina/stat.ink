@@ -54,7 +54,7 @@ class UserStatByMapRuleAction extends BaseAction
             ->from('battle')
             ->innerJoin('map', '{{battle}}.[[map_id]] = {{map}}.[[id]]')
             ->innerJoin('rule', '{{battle}}.[[rule_id]] = {{rule}}.[[id]]')
-            ->leftJoin('lobby', '{{battle}}.[[lobby_id]] = {{lobby}}.[[id]]')
+            ->innerJoin('lobby', '{{battle}}.[[lobby_id]] = {{lobby}}.[[id]]')
             ->leftJoin('game_mode', '{{rule}}.[[mode_id]] = {{game_mode}}.[[id]]')
             ->leftJoin('weapon', '{{battle}}.[[weapon_id]] = {{weapon}}.[[id]]')
             ->leftJoin('weapon_type', '{{weapon}}.[[type_id]] = {{weapon_type}}.[[id]]')
@@ -62,8 +62,11 @@ class UserStatByMapRuleAction extends BaseAction
             ->leftJoin('special', '{{weapon}}.[[special_id]] = {{special}}.[[id]]')
             ->leftJoin('rank', '{{battle}}.[[rank_id]] = {{rank}}.[[id]]')
             ->leftJoin('rank_group', '{{rank}}.[[group_id]] = {{rank_group}}.[[id]]')
-            ->andWhere(['{{battle}}.[[user_id]]' => $user->id])
-            ->andWhere(['in', '{{battle}}.[[is_win]]', [ true, false ]])
+            ->andWhere([
+                '{{battle}}.[[user_id]]' => $user->id,
+                '{{battle}}.[[is_win]]' => [true, false],
+                '{{lobby}}.[[key]]' => ['standard', 'fest'],
+            ])
             ->groupBy(['{{battle}}.[[map_id]]', '{{battle}}.[[rule_id]]', '{{battle}}.[[is_win]]']);
 
         if ($filter && !$filter->hasErrors()) {
