@@ -52,7 +52,7 @@ final class UserStatByMapRuleAction extends Action
     {
         // @phpstan-ignore-next-line
         $query = Battle2::find()
-            ->orderBy(null)
+            ->orderBy([])
             ->applyFilter($filter)
             ->innerJoinWith(['map', 'rule', 'lobby'], false)
             ->andWhere([
