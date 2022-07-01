@@ -1212,16 +1212,16 @@
         },
         {
             "name": "laminas/laminas-servicemanager",
-            "version": "3.12.0",
+            "version": "3.13.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-servicemanager.git",
-                "reference": "05ac4b1fb1fe9333313eeafced9b6c7946589487"
+                "reference": "6f96556ee314f9e0d57d83967c0087332836c31d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laminas/laminas-servicemanager/zipball/05ac4b1fb1fe9333313eeafced9b6c7946589487",
-                "reference": "05ac4b1fb1fe9333313eeafced9b6c7946589487",
+                "url": "https://api.github.com/repos/laminas/laminas-servicemanager/zipball/6f96556ee314f9e0d57d83967c0087332836c31d",
+                "reference": "6f96556ee314f9e0d57d83967c0087332836c31d",
                 "shasum": ""
             },
             "require": {
@@ -1251,7 +1251,7 @@
                 "phpbench/phpbench": "^1.1",
                 "phpspec/prophecy-phpunit": "^2.0",
                 "phpunit/phpunit": "^9.5.5",
-                "psalm/plugin-phpunit": "^0.16.1",
+                "psalm/plugin-phpunit": "^0.17.0",
                 "vimeo/psalm": "^4.8"
             },
             "suggest": {
@@ -1299,7 +1299,7 @@
                     "type": "community_bridge"
                 }
             ],
-            "time": "2022-06-13T16:20:56+00:00"
+            "time": "2022-06-29T08:01:37+00:00"
         },
         {
             "name": "laminas/laminas-stdlib",
@@ -1420,16 +1420,16 @@
         },
         {
             "name": "laminas/laminas-validator",
-            "version": "2.20.0",
+            "version": "2.20.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-validator.git",
-                "reference": "ba665f5a52763dda5a747c4ad826d2adf1510486"
+                "reference": "90304417929a51e42999b115907a39f4b658c131"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laminas/laminas-validator/zipball/ba665f5a52763dda5a747c4ad826d2adf1510486",
-                "reference": "ba665f5a52763dda5a747c4ad826d2adf1510486",
+                "url": "https://api.github.com/repos/laminas/laminas-validator/zipball/90304417929a51e42999b115907a39f4b658c131",
+                "reference": "90304417929a51e42999b115907a39f4b658c131",
                 "shasum": ""
             },
             "require": {
@@ -1503,7 +1503,7 @@
                     "type": "community_bridge"
                 }
             ],
-            "time": "2022-06-14T12:31:18+00:00"
+            "time": "2022-07-01T07:39:15+00:00"
         },
         {
             "name": "lusitanian/oauth",
