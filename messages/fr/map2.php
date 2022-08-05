@@ -11,7 +11,7 @@ declare(strict_types=1);
 return [
     'Academy' => 'Institut Calam\'arts',
     'Ancho-V Games' => 'Tentatec Studio',
-    'Any Stage' => '',
+    'Any Stage' => 'Tout Stage',
     'Arena' => 'Stade Bernique',
     'Arowana Mall' => 'Centre Arowana',
     'A Swiftly Tilting Balance' => 'Dangereux penchants',

@@ -11,7 +11,7 @@ declare(strict_types=1);
 return [
     'Ancho-V' => 'Tentatec Studio',
     'Ancho-V Games' => 'Tentatec Studio',
-    'Any Stage' => '',
+    'Any Stage' => 'Tout Stage',
     'Arowana Mall' => 'Centre Arowana',
     'Blackbelly Skatepark' => 'Skatepark Mako',
     'Bluefin Depot' => 'Mine Marine',

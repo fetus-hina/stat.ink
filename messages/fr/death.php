@@ -9,17 +9,17 @@
 declare(strict_types=1);
 
 return [
-    'Drowning' => '',
-    'Fall' => '',
+    'Drowning' => 'Noyade',
+    'Fall' => 'Chute',
     'Gadget' => '',
     'Ink from a propeller' => '',
-    'Main Weapon' => '',
-    'Out of Bounds' => '',
-    'Rainmaker' => '',
-    'Rainmaker Inksplosion' => '',
-    'Rainmaker Shield' => '',
-    'Rainmaker Shot' => '',
-    'Special' => '',
-    'Sub Weapon' => '',
-    'Unknown' => '',
+    'Main Weapon' => 'Arme principale',
+    'Out of Bounds' => 'Hors limites',
+    'Rainmaker' => 'Bazookarpe',
+    'Rainmaker Inksplosion' => 'Explosion de bazookarpe',
+    'Rainmaker Shield' => 'Bouclier de bazookarpe',
+    'Rainmaker Shot' => 'Tir de bazookarpe',
+    'Special' => 'Arme spéciale',
+    'Sub Weapon' => 'Arme secondaire',
+    'Unknown' => 'Inconnu',
 ];
