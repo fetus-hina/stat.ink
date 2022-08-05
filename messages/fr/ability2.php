@@ -63,7 +63,7 @@ return [
     'Special Charge Up' => 'Jauge spéciale +',
     'Special Power Up' => 'Arme spéciale +',
     'Special Saver' => 'Baisse spéciale -',
-    'Speed up brella canopy regeneration' => '',
+    'Speed up brella canopy regeneration' => 'Accélère la régénération de la toile du para-encre',
     'Squish' => '',
     'Stealth Jump' => 'Réception réussie',
     'Sub Power Up' => 'Arme secondaire +',
