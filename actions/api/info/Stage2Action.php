@@ -1,10 +1,12 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2020 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2022 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
+
+declare(strict_types=1);
 
 namespace app\actions\api\info;
 
@@ -12,9 +14,9 @@ use Yii;
 use app\components\helpers\Translator;
 use app\models\Language;
 use app\models\Map2;
-use yii\web\ViewAction as BaseAction;
+use yii\web\ViewAction;
 
-class Stage2Action extends BaseAction
+final class Stage2Action extends ViewAction
 {
     public function run()
     {

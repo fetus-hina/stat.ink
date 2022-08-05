@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2021 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2022 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  * @author Allen Pestaluky <allenwp@live.ca>
@@ -42,6 +42,7 @@ return [
     'Any Time' => 'Cualquier momento',
     'API Info: Gears: {0}' => 'Información de la API: Indumentaria: {0}',
     'API Info: Stages (Splatoon 2)' => '',
+    'API Info: Stages (Splatoon 3)' => '',
     'API Info: Weapons' => 'Información de la API: Armas',
     'API Info: Weapons (Splatoon 2)' => 'Información de la API: Armas (Splatoon 2)',
     'API Token' => 'Token API',

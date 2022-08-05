@@ -56,6 +56,7 @@ class I18nController extends Controller
             'es-ES' => 'es',
             'fr-FR' => 'fr',
             'it-IT' => 'it',
+            'ko-KR' => 'ko',
             'nl-NL' => 'nl',
             'ru-RU' => 'ru',
         ];
