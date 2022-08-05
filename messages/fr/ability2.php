@@ -9,12 +9,12 @@
 declare(strict_types=1);
 
 return [
-    '"DoT": "Damage over time"' => '',
-    '(Locked)' => '',
+    '"DoT": "Damage over time"' => '"DpF" : "Dégats par frames"',
+    '(Locked)' => '(Bloqué)',
     'Ability Doubler' => 'Bonus ×2',
     'Bomb Defense Up' => 'Filtre à explosions',
     'Bomb Defense Up DX' => 'Filtre à explosions II',
-    'Charging: {value}' => '',
+    'Charging: {value}' => 'Chargement : {value}',
     'Cold-Blooded' => 'Furtivité',
     'Comeback' => 'Come-back',
     'Damage: {damageCap} = {baseDamage}×{percent} ({damage}, capped)' => '',

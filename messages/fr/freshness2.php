@@ -9,8 +9,8 @@
 declare(strict_types=1);
 
 return [
-    'Dry' => '',
-    'Fresh' => '',
-    'Raw' => '',
-    'SUPERFRESH!' => '',
+    'Dry' => 'Moyen...',
+    'Fresh' => 'Classe !',
+    'Raw' => 'Pas Mal.',
+    'SUPERFRESH!' => 'Trop classe !',
 ];

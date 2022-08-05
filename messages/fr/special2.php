@@ -9,12 +9,12 @@
 declare(strict_types=1);
 
 return [
-    'Any Special' => '',
+    'Any Special' => 'Tout spécial',
     'Autobomb Launcher' => 'Lance-bombes robots',
     'Baller' => 'Chromo-sphère',
     'Baller Inksplosion' => '',
     'Bomb Launcher' => 'Lanceur de bombes',
-    'Booyah Bomb' => '',
+    'Booyah Bomb' => 'Jolizator',
     'Bubble Blower' => 'Lance-bulles',
     'Burst-Bomb Launcher' => 'Lance-bombes ballons',
     'Curling-Bomb Launcher' => 'Lance-bombes curling',
