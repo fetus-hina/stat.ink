@@ -9,9 +9,9 @@
 declare(strict_types=1);
 
 return [
-    'All of {0}' => '',
-    'Any Lobby' => '',
-    'Any Mode' => '',
+    'All of {0}' => 'Tout les {0}',
+    'Any Lobby' => 'Tout Salon',
+    'Any Mode' => 'Tout mode',
     'Private' => 'Privé',
     'Private Battle' => 'Match privé',
     'Rainmaker' => 'Mission Bazookarpe',

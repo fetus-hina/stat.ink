@@ -10,7 +10,7 @@ declare(strict_types=1);
 
 return [
     'Alley' => 'Banlieue Balibot',
-    'Any Stage' => '',
+    'Any Stage' => 'Tout Stage',
     'Eeltail Alley' => 'Banlieue Balibot',
     'Gorge' => 'Canyon aux colonnes',
     'Metalworks' => 'Casse Rascasse',

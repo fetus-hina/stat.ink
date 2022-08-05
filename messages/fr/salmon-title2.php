@@ -9,15 +9,15 @@
 declare(strict_types=1);
 
 return [
-    'Any Title' => '',
+    'Any Title' => 'Tout Niveau',
     'Apprentice' => 'Débutant/Débutante',
     'Go-Getter' => 'Semi-pro',
     'Hazard Level MAX!!' => 'Danger MAXIMUM !',
     'Intern' => 'Apprenti/Apprentie',
     'Overachiever' => 'Pro',
-    'Part-Timer' => 'Connaisseur/Connoisseuse',
+    'Part-Timer' => 'Connaisseur/Connaisseuse',
     'Profreshional' => 'Prodige',
-    'Profreshional (Avg. {from}-{to})' => 'Prodige (moyenne {from}-{to})',
+    'Profreshional (Avg. {from}-{to})' => 'Prodige (Moy. {from}-{to})',
     '{boy}Apprentice' => 'Débutant',
     '{boy}Go-Getter' => 'Semi-pro',
     '{boy}Intern' => 'Apprenti',
@@ -28,6 +28,6 @@ return [
     '{girl}Go-Getter' => 'Semi-pro',
     '{girl}Intern' => 'Apprentie',
     '{girl}Overachiever' => 'Pro',
-    '{girl}Part-Timer' => 'Connoisseuse',
+    '{girl}Part-Timer' => 'Connaisseuse',
     '{girl}Profreshional' => 'Prodige',
 ];
