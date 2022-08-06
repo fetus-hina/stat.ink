@@ -187,6 +187,10 @@ class I18nController extends Controller
             $lines[] = 'Gosin <canling0@gmail.com>';
         }
 
+        if ($this->isUltrasonicInvolved($path)) {
+            $lines[] = 'ultrasonicytb <ultrasonic2408@gmail.com>';
+        }
+
         $authorMap = [
             'AIZAWA Hina <hina@bouhime.com>' => 'AIZAWA Hina <hina@fetus.jp>',
             'AIZAWA, Hina <hina@bouhime.com>' => 'AIZAWA Hina <hina@fetus.jp>',
@@ -267,6 +271,47 @@ class I18nController extends Controller
         }
         return false;
         // }}}
+    }
+
+    private function isUltrasonicInvolved(string $path): bool
+    {
+        $appPath = Yii::getAlias('@app/');
+        if (substr($path, 0, strlen($appPath)) === $appPath) {
+            $localPath = substr($path, strlen($appPath));
+            if (
+                $localPath === 'messages/fr/ability.php' ||
+                $localPath === 'messages/fr/ability2.php' ||
+                $localPath === 'messages/fr/alert.php' ||
+                $localPath === 'messages/fr/app.php' ||
+                $localPath === 'messages/fr/brand.php' ||
+                $localPath === 'messages/fr/cookie.php' ||
+                $localPath === 'messages/fr/counter.php' ||
+                $localPath === 'messages/fr/death.php' ||
+                $localPath === 'messages/fr/death2.php' ||
+                $localPath === 'messages/fr/email.php' ||
+                $localPath === 'messages/fr/freshness2.php' ||
+                $localPath === 'messages/fr/map.php' ||
+                $localPath === 'messages/fr/map2.php' ||
+                $localPath === 'messages/fr/map3.php' ||
+                $localPath === 'messages/fr/privacy.php' ||
+                $localPath === 'messages/fr/region.php' ||
+                $localPath === 'messages/fr/reltime.php' ||
+                $localPath === 'messages/fr/rule.php' ||
+                $localPath === 'messages/fr/rule2.php' ||
+                $localPath === 'messages/fr/salmon-history2.php' ||
+                $localPath === 'messages/fr/salmon-tide2.php' ||
+                $localPath === 'messages/fr/salmon-title2.php' ||
+                $localPath === 'messages/fr/salmon2.php' ||
+                $localPath === 'messages/fr/special2.php' ||
+                $localPath === 'messages/fr/start.php' ||
+                $localPath === 'messages/fr/version2.php' ||
+                $localPath === 'messages/fr/weapon.php' ||
+                $localPath === 'messages/fr/weapon2.php'
+            ) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public function actionMachineTranslation(): int
