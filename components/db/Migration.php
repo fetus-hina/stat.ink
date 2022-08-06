@@ -50,9 +50,18 @@ class Migration extends \yii\db\Migration
     {
     }
 
-    public function apiKey(int $length = 16)
+    public function apiKey(int $length = 16): ColumnSchemaBuilder
     {
         return $this->string($length)->notNull()->unique();
+    }
+
+    public function apiKey3(string $columnName = 'key', int $length = 32): ColumnSchemaBuilder
+    {
+        return $this->apiKey($length)
+            ->check(vsprintf('%s ~ %s', [
+                $this->getDb()->quoteColumnName($columnName),
+                $this->getDb()->quoteValue('^[0-9a-z_]+$'),
+            ]));
     }
 
     public function timestampTZ(int $precision = 0, bool $withTZ = true)
@@ -70,18 +79,18 @@ class Migration extends \yii\db\Migration
     public function pkRef(string $table, string $column = 'id')
     {
         return $this->integer()->notNull()->append(sprintf(
-            'REFERENCES {{%s}}([[%s]])',
-            $table,
-            $column
+            'REFERENCES %s(%s)',
+            $this->getDb()->quoteTableName($table),
+            $this->getDb()->quoteColumnName($column),
         ));
     }
 
     public function bigPkRef(string $table, string $column = 'id')
     {
         return $this->bigInteger()->notNull()->append(sprintf(
-            'REFERENCES {{%s}}([[%s]])',
-            $table,
-            $column
+            'REFERENCES %s(%s)',
+            $this->getDb()->quoteTableName($table),
+            $this->getDb()->quoteColumnName($column),
         ));
     }
 

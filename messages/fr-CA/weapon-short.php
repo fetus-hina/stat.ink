@@ -4,6 +4,7 @@
  * @copyright Copyright (C) 2015-2022 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
+ * @author ultrasonicytb <ultrasonic2408@gmail.com>
  */
 
 declare(strict_types=1);
@@ -20,6 +21,7 @@ return [
     'Badigeonneur' => '',
     'Badigeonneur chic' => '',
     'Badigeonneur Disco' => '',
+    'Badigeonneur héroïque (réplique)' => '',
     'Badigeonneur stylo' => '',
     'Badigeonneur stylo nuancé' => '',
     'Badigeonneur XP' => '',
@@ -31,6 +33,8 @@ return [
     'Bimbamboum Mk I' => '',
     'Bimbamboum Mk II' => '',
     'Bimbamboum Mk III' => '',
+    'Blaster héroïque (réplique)' => '',
+    'Blaster M. Ours SA' => '',
     'Calibre 2000' => '',
     'Calibre 2000 chic' => '',
     'Calibre 2000 Thony K' => '',
@@ -51,6 +55,7 @@ return [
     'Concentraceur zoom W' => '',
     'Double encreur' => '',
     'Double encreur DUX' => '',
+    'Double encreur héroïque (réplique)' => '',
     'Double encreur Thony K' => '',
     'Double Kelvin 525' => '',
     'Double Kelvin 525 chic' => '',
@@ -76,16 +81,7 @@ return [
     'Exteinteur' => '',
     'Exteinteur modifié' => '',
     'Flexi-rouleau' => '',
-    'Grizzco Blaster' => '',
-    'Grizzco Brella' => '',
-    'Grizzco Charger' => '',
-    'Grizzco Slosher' => '',
-    'Hero Blaster Replica' => '',
-    'Hero Brella Replica' => '',
-    'Hero Dualie Replicas' => '',
-    'Hero Slosher Replica' => '',
-    'Hero Splatling Replica' => '',
-    'Herobrush Replica' => '',
+    'Fusil M. Ours SA' => '',
     'Lignizateur alpha' => '',
     'Lignizateur bêta' => '',
     'Lignizateur gamma' => '',
@@ -122,6 +118,8 @@ return [
     'Para-encre espion' => '',
     'Para-encre espion Sorella' => '',
     'Para-encre espion Thony K' => '',
+    'Para-encre héroïque (réplique)' => '',
+    'Para-encre M. Ours SA' => '',
     'Para-encre Sorella' => '',
     'Para-encre XL camo' => '',
     'Pouche-pouche' => '',
@@ -139,8 +137,10 @@ return [
     'Rouleau héroïque (rép.)' => '',
     'Rouleau Krakeurs' => '',
     'Rouleau Thony K' => '',
+    'Seau M. Ours SA' => '',
     'Seauceur' => '',
     'Seauceur chic' => '',
+    'Seauceur héroïque (réplique)' => '',
     'Seauceur nuancé' => '',
     'Seauceur pétillant' => '',
     'Seauceur trio' => '',
@@ -165,6 +165,7 @@ return [
     'Épinceau' => '',
     'Épinceau brosse' => '',
     'Épinceau brosse nuancé' => '',
+    'Épinceau héroïque (réplique)' => '',
     'Épinceau nuancé' => '',
     'Épinceau permanent' => '',
     'Épinceau Thony K' => '',

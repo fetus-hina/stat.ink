@@ -13,14 +13,15 @@ namespace app\components\helpers;
 use Yii;
 use app\models\Language;
 
-class Translator
+final class Translator
 {
     private static $langs = null;
 
     public static function translateToAll(
         string $category,
         string $message,
-        array $params = []
+        array $params = [],
+        int $version = 2
     ): array {
         if (self::$langs === null) {
             self::$langs = Language::find()
@@ -32,9 +33,48 @@ class Translator
         $i18n = Yii::$app->i18n;
         $ret = [];
         foreach (self::$langs as $lang) {
-            $key = strtr($lang->getLanguageId(), '-', '_');
-            $ret[$key] = $i18n->translate($category, $message, $params, $lang->lang);
+            if (self::isVersionMatch($version, $lang)) {
+                $key = strtr($lang->getLanguageId(), '-', '_');
+                $ret[$key] = $i18n->translate($category, $message, $params, $lang->lang);
+            }
         }
+
         return $ret;
+    }
+
+    private static function isVersionMatch(int $version, Language $lang): bool
+    {
+        $langCode = $lang->lang;
+        if (
+            $langCode === 'de-DE' ||
+            $langCode === 'en-GB' ||
+            $langCode === 'en-US' ||
+            $langCode === 'es-ES' ||
+            $langCode === 'es-MX' ||
+            $langCode === 'fr-CA' ||
+            $langCode === 'fr-FR' ||
+            $langCode === 'it-IT' ||
+            $langCode === 'ja-JP' ||
+            $langCode === 'nl-NL'
+        ) {
+            return true;
+        }
+
+        if (
+            $version >= 2 &&
+            (
+                $langCode === 'ru-RU' ||
+                $langCode === 'zh-CN' || // unofficial
+                $langCode === 'zh-TW'    // unofficial
+            )
+        ) {
+            return true;
+        }
+
+        if ($version >= 3 && $langCode === 'ko-KR') {
+            return true;
+        }
+
+        return false;
     }
 }

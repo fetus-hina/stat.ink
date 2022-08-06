@@ -1,9 +1,10 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2019 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2022 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
+ * @author ultrasonicytb <ultrasonic2408@gmail.com>
  */
 
 declare(strict_types=1);
@@ -16,15 +17,15 @@ return [
     'Aerospray MG' => 'Aérogun',
     'Aerospray PG' => 'Aérogun select',
     'Aerospray RG' => 'Aérogun premium',
-    'All of {0}' => '',
-    'Any Weapon' => '',
+    'All of {0}' => 'Tous les {0}',
+    'Any Weapon' => 'Toutes armes',
     'Bamboozler 14 Mk I' => 'Bimbamboum Mk I',
     'Bamboozler 14 Mk II' => 'Bimbamboum Mk II',
     'Bamboozler 14 Mk III' => 'Bimbamboum Mk III',
     'Bento Splat Charger' => 'Concentraceur Bento',
     'Bento Splatterscope' => 'Concentraceur zoom Bento',
     'Berry Splattershot Pro' => 'Liquidateur pro Framboise',
-    'Blaster' => 'Éclablaster',
+    'Blaster' => 'Éclablaste',
     'Carbon Roller' => 'Rouleau carbone',
     'Carbon Roller Deco' => 'Rouleau carbone chic',
     'Chargers' => 'Fusil',

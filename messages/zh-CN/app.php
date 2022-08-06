@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2021 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2022 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  * @author Gosin <canling0@gmail.com>
@@ -41,6 +41,7 @@ return [
     'Any Time' => '所有时间',
     'API Info: Gears: {0}' => 'API信息：装备：{0}',
     'API Info: Stages (Splatoon 2)' => 'API信息：场地（Splatoon 2）',
+    'API Info: Stages (Splatoon 3)' => 'API信息：场地（Splatoon 3）',
     'API Info: Weapons' => 'API信息：武器',
     'API Info: Weapons (Splatoon 2)' => 'API信息：武器（Splatoon 2）',
     'API Token' => 'API密钥',

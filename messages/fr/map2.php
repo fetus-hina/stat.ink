@@ -1,9 +1,10 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2020 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2022 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
+ * @author ultrasonicytb <ultrasonic2408@gmail.com>
  */
 
 declare(strict_types=1);
@@ -11,7 +12,7 @@ declare(strict_types=1);
 return [
     'Academy' => 'Institut Calam\'arts',
     'Ancho-V Games' => 'Tentatec Studio',
-    'Any Stage' => '',
+    'Any Stage' => 'Tout Stage',
     'Arena' => 'Stade Bernique',
     'Arowana Mall' => 'Centre Arowana',
     'A Swiftly Tilting Balance' => 'Dangereux penchants',

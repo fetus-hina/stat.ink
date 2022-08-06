@@ -1,33 +1,58 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2016 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2022 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
 
+declare(strict_types=1);
+
 namespace app\controllers;
 
-use Yii;
+use app\actions\api\info\Gear2Action;
+use app\actions\api\info\GearAction;
+use app\actions\api\info\Stage2Action;
+use app\actions\api\info\Stage3Action;
+use app\actions\api\info\Weapon2Action;
+use app\actions\api\info\WeaponAction;
 use app\components\web\Controller;
 
-class ApiInfoController extends Controller
+final class ApiInfoController extends Controller
 {
-    public $layout = "main";
+    public $layout = 'main';
 
     public function actions()
     {
-        $prefix = 'app\actions\api\info';
         return [
-            'gear-clothing' => [ 'class' => $prefix . '\GearAction', 'type' => 'clothing'],
-            'gear-headgear' => [ 'class' => $prefix . '\GearAction', 'type' => 'headgear'],
-            'gear-shoes' => [ 'class' => $prefix . '\GearAction', 'type' => 'shoes'],
-            'gear2-clothing' => [ 'class' => $prefix . '\Gear2Action', 'type' => 'clothing'],
-            'gear2-headgear' => [ 'class' => $prefix . '\Gear2Action', 'type' => 'headgear'],
-            'gear2-shoes' => [ 'class' => $prefix . '\Gear2Action', 'type' => 'shoes'],
-            'stage2' => [ 'class' => $prefix . '\Stage2Action' ],
-            'weapon' => [ 'class' => $prefix . '\WeaponAction' ],
-            'weapon2' => [ 'class' => $prefix . '\Weapon2Action' ],
+            'gear-clothing' => [
+                'class' => GearAction::class,
+                'type' => 'clothing',
+            ],
+            'gear-headgear' => [
+                'class' => GearAction::class,
+                'type' => 'headgear',
+            ],
+            'gear-shoes' => [
+                'class' => GearAction::class,
+                'type' => 'shoes',
+            ],
+            'gear2-clothing' => [
+                'class' => Gear2Action::class,
+                'type' => 'clothing',
+            ],
+            'gear2-headgear' => [
+                'class' => Gear2Action::class,
+                'type' => 'headgear',
+            ],
+            'gear2-shoes' => [
+                'class' => Gear2Action::class,
+                'type' => 'shoes',
+            ],
+            'stage2' => Stage2Action::class,
+            'stage3' => Stage3Action::class,
+            'weapon' => WeaponAction::class,
+            'weapon2' => Weapon2Action::class,
         ];
     }
 }
