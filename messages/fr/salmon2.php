@@ -23,7 +23,7 @@ return [
     'Cleared' => 'Réussite',
     'Clear rate of Salmon Run' => 'Pourcentage de réussite au Salmon Run',
     'Deaths' => 'Morts',
-    'Delivers' => 'Livraison',
+    'Delivers' => 'Livraisons',
     'Edit job #{jobNumber}' => 'Modifier le job #{jobNumber}',
     'Failed' => 'Échec',
     'Failed<br><small>in wave {waveNumber}</small>' => 'Échec<br><small>à la vague {waveNumber}</small>',

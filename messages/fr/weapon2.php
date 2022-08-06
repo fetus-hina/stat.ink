@@ -24,7 +24,7 @@ return [
     'Bamboozler 14 Mk I' => 'Bimbamboum Mk I',
     'Bamboozler 14 Mk II' => 'Bimbamboum Mk II',
     'Bamboozler 14 Mk III' => 'Bimbamboum Mk III',
-    'Blaster' => 'Éclablaste',
+    'Blaster' => 'Éclablaster',
     'Blasters' => 'Éclablasters',
     'Bloblobber' => 'Bassineur',
     'Bloblobber Deco' => 'Bassineur chic',
