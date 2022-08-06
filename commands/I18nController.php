@@ -258,6 +258,7 @@ class I18nController extends Controller
                 $localPath === 'messages/zh-TW/ua_vars.php' ||
                 $localPath === 'messages/zh-TW/ua_vars_v.php' ||
                 $localPath === 'messages/zh-TW/version2.php' ||
+                $localPath === 'messages/zh-TW/weapon-short.php' ||
                 $localPath === 'messages/zh-TW/weapon.php' ||
                 $localPath === 'messages/zh-TW/weapon2.php'
             ) {
