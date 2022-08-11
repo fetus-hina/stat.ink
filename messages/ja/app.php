@@ -40,6 +40,7 @@ return [
     'Activity' => 'アクティビティー',
     'Add Slack Integration' => 'Slack連携を追加',
     'Add' => '追加',
+    'Aliases' => 'エイリアス',
     'All Players' => 'すべてのプレーヤー',
     'Always enable horizontal scroll' => '常にテーブルの横スクロールを有効にする',
     'Anonymize, don\'t link from other user\'s results' => '匿名化し、他の利用者のページからはリンクしない',

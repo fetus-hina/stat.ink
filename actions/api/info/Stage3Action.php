@@ -21,7 +21,9 @@ final class Stage3Action extends ViewAction
     public function run()
     {
         $langs = Language::find()->standard()->all();
-        $stages = Map3::find()->all();
+        $stages = Map3::find()
+            ->with('map3Aliases')
+            ->all();
         $sysLang = Yii::$app->language;
 
         usort($langs, function (Language $a, Language $b) use ($sysLang): int {

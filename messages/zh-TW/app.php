@@ -33,6 +33,7 @@ return [
     'Activity' => '活動',
     'Add' => '添加',
     'Add Slack Integration' => '添加到Slack',
+    'Aliases' => '',
     'All Players' => '所有玩家',
     'Always enable horizontal scroll' => '始終啓用水平滾動',
     'Anonymize, don\'t link from other user\'s results' => '匿名化，不鏈接到其他用戶的結果',

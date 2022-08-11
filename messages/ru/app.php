@@ -32,6 +32,7 @@ return [
     'Activity' => '',
     'Add' => '',
     'Add Slack Integration' => '',
+    'Aliases' => '',
     'All Players' => '',
     'Always enable horizontal scroll' => '',
     'Anonymize, don\'t link from other user\'s results' => '',

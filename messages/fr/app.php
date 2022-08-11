@@ -34,6 +34,7 @@ return [
     'Activity' => 'Activité',
     'Add' => 'Ajouter',
     'Add Slack Integration' => 'Ajouter l\'intégration Slack',
+    'Aliases' => '',
     'All Players' => 'Tous les joueurs',
     'Always enable horizontal scroll' => 'Toujours activer le défilement horizontal',
     'Anonymize, don\'t link from other user\'s results' => 'Anonymiser, ne pas lier aux résultats d\'autres joueurs',

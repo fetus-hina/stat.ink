@@ -34,6 +34,7 @@ return [
     'Activity' => 'Actividad',
     'Add' => 'Añadir',
     'Add Slack Integration' => 'Añadir Integración Slack',
+    'Aliases' => '',
     'All Players' => 'Todos los jugadores',
     'Always enable horizontal scroll' => 'Siempre activar desplazamiento horizontal',
     'Anonymize, don\'t link from other user\'s results' => '',
