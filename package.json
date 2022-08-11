@@ -64,7 +64,7 @@
     "semistandard": "^16.0.1",
     "semver": "^7.3.7",
     "stupid-table-plugin": "^1.1.3",
-    "stylelint": "^14.9.1",
+    "stylelint": "^14.10.0",
     "stylelint-config-sass-guidelines": "^9.0.1",
     "svgo": "^2.8.0",
     "uglify-js": "^3.16.3",
